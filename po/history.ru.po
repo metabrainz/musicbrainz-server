@@ -18,8 +18,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-11 20:42+0000\n"
-"Last-Translator: liilliil <liilliil@liilliil.net>\n"
+"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/ru/>\n"
 "Language: ru\n"
@@ -29,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -216,6 +217,8 @@ msgstr "Языки альбома"
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
+"Выпущены языки альбома, улучшения в области угадывания регистра и "
+"исправления форм редактирования."
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -223,6 +226,9 @@ msgid ""
 "recordings, releases and release groups. This allows storing aliases for, "
 "for example, English names of Asian release groups."
 msgstr ""
+"Псевдонимы добавляются к трем типам сущностей, которые до сих пор их не "
+"имели: записям, релизам и группам релизов. Это позволяет хранить псевдонимы, "
+"например, для английских названий азиатских групп релизов."
 
 #: DB:statistics.statistic_event/title:2015-05-19
 msgid "Aliases for recordings, releases and release groups"
@@ -234,10 +240,13 @@ msgid ""
 "wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
+"Amazon запускает в тестовом режиме <a href=\"http://web.archive.org/web/"
+"20210123164029/https://www.wired.com/2008/09/amazon-takes-on/\""
+">SoundUnwound</a> с данными из MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr ""
+msgstr "Amazon выпустила бета-версию SoundUnwound"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"
@@ -334,6 +343,8 @@ msgid ""
 "Collection owners are now able to allow other editors to also add/remove "
 "entities from any of their collections."
 msgstr ""
+"Владельцы коллекций теперь могут разрешить другим редакторам добавлять/"
+"удалять сущности из любой из своих коллекций."
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
@@ -350,6 +361,10 @@ msgid ""
 "create series of artists, and to rate places (the only entity that could be "
 "reviewed on CritiqueBrainz but not rated on MusicBrainz)."
 msgstr ""
+"Коллекции теперь можно объединять, если редактор хочет объединить несколько "
+"своих коллекций в одну. Кроме того, теперь можно создавать серии "
+"исполнителей и оценивать места (единственная сущность, которая может быть "
+"оценена на CritiqueBrainz, но не на MusicBrainz)."
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
@@ -510,6 +525,7 @@ msgstr ""
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
 msgstr ""
+"Выполнен импорт метаданных из каталога CD Baby в нашу коллекцию cтабов CD."
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
@@ -648,7 +664,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
-msgstr ""
+msgstr "Объединяемые коллекции, серии исполнителей и оцениваемые места"
 
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."

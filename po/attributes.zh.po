@@ -16,16 +16,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-19 13:44+0000\n"
+"PO-Revision-Date: 2025-03-22 07:45+0000\n"
 "Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -380,6 +380,9 @@ msgid ""
 "being played. Programs/programmes are most often made available for music "
 "festivals and for stage and classical performances."
 msgstr ""
+"一本提供或出售给活动参与者的小册子，其中包含关于该活动的信息，如日程安排、演"
+"出者资料以及所演奏音乐的详细信息。节目册通常用于音乐节、舞台演出和古典音乐表"
+"演。"
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -1369,20 +1372,13 @@ msgstr ""
 
 #. name:Schedule
 #: DB:event_art_archive.art_type/description:5
-#, fuzzy
-#| msgctxt "event_art_type"
-#| msgid ""
-#| "An image usually showing the order and time for the performances in an "
-#| "event. Can be a standalone image, but also a poster or banner (in which "
-#| "case all applicable types should be set)."
 msgctxt "event_art_type"
 msgid ""
 "An image usually showing the order and time for the performances in an "
 "event. Can be a standalone image, but also a poster, a banner or a page from "
 "a program (in which case all applicable types should be set)."
-msgstr ""
-"通常是一张显示活动中的表演顺序和时间安排的图像。它可以是一个独立的图像，也可"
-"以是海报或横幅的一部分(在这种情况下，所有适用的类型都应被设置)。"
+msgstr "一张通常展示活动中演出顺序和时间的图片。可以是独立图片，也可以是海报、横幅或"
+"节目册中的页面（在这种情况下，应设置所有适用的类型）。"
 
 #. name:Concert
 #: DB:event_type/description:1
@@ -2919,7 +2915,7 @@ msgstr "Digipak"
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr "数字媒介"
+msgstr "数字媒体"
 
 #: DB:work_attribute_type_allowed_value/value:345
 msgctxt "work_attribute_type_allowed_value"
@@ -4535,12 +4531,9 @@ msgstr "萨尔瓦多著作权协会SACIM ID"
 
 #. name:SOKOJ ID
 #: DB:work_attribute_type/description:213
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Norwegian rights society TONO"
 msgctxt "work_attribute_type"
 msgid "ID for the Serbian rights society SOKOJ"
-msgstr "挪威著作权协会TONO ID"
+msgstr "塞尔维亚版权协会 SOKOJ ID"
 
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
@@ -6835,7 +6828,7 @@ msgstr "产品"
 #: DB:event_art_archive.art_type/name:11
 msgctxt "event_art_type"
 msgid "Program"
-msgstr ""
+msgstr "节目单"
 
 #: DB:release_status/name:2
 msgctxt "release_status"
@@ -7421,7 +7414,7 @@ msgstr "SODRAC ID"
 #: DB:work_attribute_type/name:213
 msgctxt "work_attribute_type"
 msgid "SOKOJ ID"
-msgstr ""
+msgstr "SOKOJ ID"
 
 #: DB:work_attribute_type/name:35
 msgctxt "work_attribute_type"
