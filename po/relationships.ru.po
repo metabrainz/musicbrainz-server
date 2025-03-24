@@ -22,9 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-02 14:44+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -32,9 +32,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.10.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -258,7 +258,7 @@ msgstr ""
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr ""
+msgstr "DJ-миксер"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:43
@@ -268,7 +268,7 @@ msgstr ""
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr ""
+msgstr "DJ-миксы"
 
 #. name:mastering engineer position
 #: DB:link_type/description:704
@@ -2890,17 +2890,17 @@ msgstr ""
 #. name:video shot at
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr ""
+msgstr "Указывает на место, где было снято видео."
 
 #. name:video shot at
 #: DB:link_type/description:966
 msgid "This indicates the video was shot at/during this event."
-msgstr ""
+msgstr "Указывает на событие, где или во время которого было снято видео."
 
 #. name:video shot in
 #: DB:link_type/description:964
 msgid "This indicates the video was shot in this area."
-msgstr ""
+msgstr "Указывает на область, где было снято видео."
 
 #. name:dedication
 #: DB:link_type/description:914
@@ -5149,6 +5149,11 @@ msgid ""
 "individually (collections of songs, several sonatas or concertos published "
 "as a set, books of piano pieces, etc.)."
 msgstr ""
+"Используется для указания на то, что родительское произведение не "
+"предназначено для исполнения целиком, а представляет собой лишь группу пьес "
+"или произведений, которые могут исполняться по отдельности (сборники песен, "
+"несколько сонат или концертов, изданных в виде комплекта, книги фортепианных "
+"пьес и т. д.)."
 
 #. name:act
 #: DB:link_attribute_type/description:1030
@@ -9793,7 +9798,7 @@ msgstr ""
 
 #: DB:link_type/name:964
 msgid "video shot in"
-msgstr ""
+msgstr "место снятия видео"
 
 #. name:video appearance
 #: DB:link_type/reverse_link_phrase:858
@@ -10211,7 +10216,7 @@ msgstr ""
 #. name:video shot in
 #: DB:link_type/reverse_link_phrase:964
 msgid "{additional:additionally} shot in"
-msgstr ""
+msgstr "{additional:дополнительно} снято в"
 
 #. name:transferred at
 #: DB:link_type/reverse_link_phrase:1182
@@ -11279,7 +11284,7 @@ msgstr ""
 #. name:video shot in
 #: DB:link_type/long_link_phrase:964
 msgid "{entity1} was {additional:additionally} shot in {entity0}"
-msgstr ""
+msgstr "{entity1} было {additional:дополнительно} снято в {entity0}"
 
 #. name:transferred at
 #: DB:link_type/long_link_phrase:1182

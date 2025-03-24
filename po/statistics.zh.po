@@ -9,20 +9,21 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # thephy <differentphy@outlook.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
+# delamons <lamons.n@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-13 17:32+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
-"Language-Team: Chinese (Simplified Han script) <https://translations."
-"metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
+"PO-Revision-Date: 2025-03-22 07:45+0000\n"
+"Last-Translator: delamons <lamons.n@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -169,16 +170,12 @@ msgid "Most active editors in the past week"
 msgstr "过去一周内最活跃的编辑者"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "过去一周内打开和应用的编辑"
+msgstr "过去一年内已应用的编辑"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "过去一周内最活跃的编辑者"
+msgstr "过去一年中最活跃的编辑者"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -205,16 +202,12 @@ msgid "Most active voters in the past week"
 msgstr "上周最活跃的投票者"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "上周的投票者"
+msgstr "去年的投票"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "上周最活跃的投票者"
+msgstr "去年最活跃的投票者"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -892,8 +885,6 @@ msgid "Area types"
 msgstr "区域类型"
 
 #: ../root/statistics/stats.js:17
-#, fuzzy
-#| msgid "Artist Countries"
 msgid "Artist countries"
 msgstr "艺术家国家"
 
@@ -942,8 +933,6 @@ msgid "Place types"
 msgstr "地点类型"
 
 #: ../root/statistics/stats.js:39
-#, fuzzy
-#| msgid "Ratings and Tags"
 msgctxt "folksonomy"
 msgid "Ratings and tags"
 msgstr "评分及标签"
