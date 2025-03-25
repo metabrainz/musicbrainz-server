@@ -216,10 +216,10 @@ test 'can_merge for the append strategy' => sub {
                    (2, '2a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1),
                    (3, '3a906020-72db-11de-8a39-0800200c9a66', 'Release', 1, 1);
 
-        INSERT INTO medium (id, release, position, track_count)
-            VALUES (1, 1, 1, 1),
-                   (2, 2, 1, 1),
-                   (3, 3, 1, 1);
+        INSERT INTO medium (id, gid, release, position, track_count)
+            VALUES (1, 'c2839cbf-1383-482e-8701-3bf38597a580', 1, 1, 1),
+                   (2, '21ba8a89-3840-44e8-8e86-8a31972c87c5', 2, 1, 1),
+                   (3, 'db7ab5ff-276c-4f01-a30a-1b7d285d5b09', 3, 1, 1);
         SQL
 
     my $can_merge;
@@ -703,8 +703,9 @@ test 'find_by_collection ordering' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+collection');
     MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
-        INSERT INTO medium (id, release, track_count, position)
-            VALUES (1, 1, 0, 1), (3, 3, 0, 1);
+        INSERT INTO medium (id, gid, release, track_count, position)
+            VALUES (1, 'f0b81bcf-b3c6-4428-996b-77266272c60d', 1, 0, 1),
+                   (3, '65bdf86e-336c-476d-8277-8e17bcfa9cf8', 3, 0, 1);
         SQL
 
     for my $order (qw( date title country label artist catno format tracks )) {
