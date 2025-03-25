@@ -30,9 +30,9 @@ INSERT INTO musicbrainz.release_label (id, release, label, catalog_number, last_
     (27903, 249113, 100084, 'WPC6-10044', '2015-03-02 13:42:39.090256+00'),
     (64842, 249113, 100084, 'WPC6-10045', '2015-03-02 13:42:39.090256+00');
 
-INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-    (249113, 249113, 1, 1, '', 0, '2011-05-16 14:57:06.530063+00', 0),
-    (249114, 249113, 2, 1, '', 0, '2011-05-16 14:57:06.530063+00', 0);
+INSERT INTO musicbrainz.medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+    (249113, 'edad6d24-2a0a-4bfc-b4e6-088eb817b5db', 249113, 1, 1, '', 0, '2011-05-16 14:57:06.530063+00', 0),
+    (249114, 'b23ee613-b2d7-40fe-8b2b-60891d52129d', 249113, 2, 1, '', 0, '2011-05-16 14:57:06.530063+00', 0);
 
 INSERT INTO musicbrainz.recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
     (636551, 'f66857fb-bb59-444e-97dc-62c73e5eddae', '○', 39282, 822093, '', 0, NULL, '0'),

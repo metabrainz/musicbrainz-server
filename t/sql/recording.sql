@@ -21,10 +21,10 @@ INSERT INTO release (id, name, release_group, artist_credit, gid)
 INSERT INTO release_unknown_country (release, date_year)
      VALUES (22, 2005);
 
-INSERT INTO medium (id, release, position, format, name)
-       VALUES (22, 22, 1, 1, 'A Sea of Honey'),
-              (23, 23, 1, 1, ''),
-              (24, 24, 1, 1, '');
+INSERT INTO medium (id, gid, release, position, format, name)
+       VALUES (22, '4ac4d138-ba4f-4792-bba2-6530b6574938', 22, 1, 1, 'A Sea of Honey'),
+              (23, '536562ca-12fa-4aff-b3c5-1c35af810148', 23, 1, 1, ''),
+              (24, 'f404ca44-9b23-4dd9-b8a0-a4543959a562', 24, 1, 1, '');
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
        VALUES (62, '98d47750-2da0-497c-94aa-9dedc713ca53', 22, 1, 1, 1, 'King of the Mountain', 1, NULL),

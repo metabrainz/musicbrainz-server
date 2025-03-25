@@ -28,7 +28,8 @@ around run_test => sub {
             VALUES (22, 'エアリアル', 1, 1, '6169f5bc-b5ff-3348-b806-1b0f2a414217');
         INSERT INTO release (id, name, release_group, artist_credit, gid)
             VALUES (22, 'エアリアル', 22, 1, '888695fa-8acf-4ddb-8726-23edf32e48c5');
-        INSERT INTO medium (id, release, position) VALUES (22, 22, 1);
+        INSERT INTO medium (id, gid, release, position)
+            VALUES (22, '27d76b09-1d49-4e6c-8c2b-6e53394adcd3', 22, 1);
         ALTER SEQUENCE artist_id_seq RESTART 2;
         SQL
 
