@@ -43,7 +43,9 @@ test 'Editing a work' => sub {
                 'edit-work.comment' => 'A comment!',
                 'edit-work.type_id' => 26,
                 'edit-work.name' => 'Another name',
-                'edit-work.iswcs.0' => 'T-000.000.002-0',
+                'edit-work.iswcs.0' => 'T-000.000.001-0',
+                'edit-work.iswcs.0.removed' => '1',
+                'edit-work.iswcs.1' => 'T-000.000.002-0',
             },
             'The form returned a 2xx response code',
         );
@@ -422,6 +424,76 @@ test 'Editing (multiple) work languages' => sub {
         qr/Japanese/,
         'The languages section no longer lists Japanese',
     );
+};
+
+test 'Editing a work without submitting the iswcs field' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' },
+    );
+
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/edit',
+        'Fetched the work editing page',
+    );
+    $mech->content_contains('T-000.000.001-0');
+
+    my @edits = capture_edits {
+        $mech->post_ok(
+            $mech->uri,
+            {
+                'edit-work.name' => 'Dancing Queen',
+                'edit-work.comment' => '',
+                'edit-work.type_id' => 1,
+            },
+            'The form returned a 2xx response code',
+        );
+    } $c;
+
+    is(@edits, 0, 'No edits were entered');
+};
+
+test 'Adding/removing the same existing ISWC is a no-op' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get('/login');
+    $mech->submit_form(
+        with_fields => { username => 'new_editor', password => 'password' },
+    );
+
+    $mech->get_ok(
+        '/work/745c079d-374e-4436-9448-da92dedef3ce/edit',
+        'Fetched the work editing page',
+    );
+    $mech->content_contains('T-000.000.001-0');
+
+    my @edits = capture_edits {
+        $mech->post_ok(
+            $mech->uri,
+            {
+                'edit-work.name' => 'Dancing Queen',
+                'edit-work.comment' => '',
+                'edit-work.type_id' => 1,
+                'edit-work.iswcs.0' => 'T-000.000.001-0',
+                # Should be ignored, as the same ISWC is being added.
+                'edit-work.iswcs.1' => 'T-000.000.001-0',
+                'edit-work.iswcs.1.removed' => 'T-000.000.001-0',
+            },
+            'The form returned a 2xx response code',
+        );
+    } $c;
+
+    is(@edits, 0, 'No edits were entered');
 };
 
 1;
