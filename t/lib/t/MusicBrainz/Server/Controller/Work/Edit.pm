@@ -368,7 +368,7 @@ test 'Editing (multiple) work languages' => sub {
         'Fetched the work editing page',
     );
 
-    my @edits = capture_edits {
+    @edits = capture_edits {
         $mech->post_ok(
             $mech->uri,
             {
@@ -382,7 +382,7 @@ test 'Editing (multiple) work languages' => sub {
 
     is(@edits, 1, 'The edit was entered');
 
-    my $edit = shift(@edits);
+    $edit = shift(@edits);
 
     isa_ok($edit, 'MusicBrainz::Server::Edit::Work::Edit');
 
@@ -410,7 +410,7 @@ test 'Editing (multiple) work languages' => sub {
         '/work/745c079d-374e-4436-9448-da92dedef3ce',
         'Fetched the work page again after accepting the new edit',
     );
-    my ($languages) = $mech->scrape_text_by_attr('class', 'lyrics-language');
+    ($languages) = $mech->scrape_text_by_attr('class', 'lyrics-language');
     unlike(
         $languages,
         qr/English/,
