@@ -52,6 +52,8 @@ declare type CatalystStashT = {
     [collectionId: number]: ?1,
   },
   +current_action_requires_auth?: boolean,
+  +current_isrcs?: $ReadOnlyArray<string>,
+  +current_iswcs?: $ReadOnlyArray<string>,
   +current_language: string,
   +current_language_html: string,
   +entity?: RelatableEntityT,
@@ -107,6 +109,8 @@ declare type SanitizedCatalystContextT = {
   },
   +session: SanitizedCatalystSessionT | null,
   +stash: {
+    +current_isrcs?: $ReadOnlyArray<string>,
+    +current_iswcs?: $ReadOnlyArray<string>,
     +current_language: string,
     +genre_map?: {+[genreName: string]: GenreT, ...},
     +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,

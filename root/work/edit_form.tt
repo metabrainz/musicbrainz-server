@@ -14,7 +14,10 @@
       [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
       <div id="work-languages-editor"></div>
       [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
-          repeatable => form_to_json(form.field('iswcs')),
+          initialState => {
+            currentTextValues => current_iswcs,
+            repeatable => form_to_json(form.field('iswcs')),
+          },
           label => add_colon(l('ISWCs')),
           addButtonId => 'add-iswc',
           addButtonLabel => lp('Add ISWC', 'interactive'),
