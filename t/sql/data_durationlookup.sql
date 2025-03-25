@@ -32,11 +32,11 @@ INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'f2
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (1, 2007, null, null);
 INSERT INTO release_unknown_country (release, date_year, date_month, date_day) VALUES (2, 2008, null, null);
 
-INSERT INTO medium (id, release, position, format, name) VALUES (1, 1, 1, 1, 'A Sea of Honey');
-INSERT INTO medium (id, release, position, format, name) VALUES (2, 1, 2, 1, 'A Sky of Honey');
+INSERT INTO medium (id, gid, release, position, format, name) VALUES (1, '71a25dd2-325d-47f1-a636-30e31edf4950', 1, 1, 1, 'A Sea of Honey');
+INSERT INTO medium (id, gid, release, position, format, name) VALUES (2, 'd576648e-6917-480e-bf09-8b6463ee50e4', 1, 2, 1, 'A Sky of Honey');
 
-INSERT INTO medium (id, release, position, format, name) VALUES (3, 2, 1, 1, 'A Sea of Honey');
-INSERT INTO medium (id, release, position, format, name) VALUES (4, 2, 2, 1, 'A Sky of Honey');
+INSERT INTO medium (id, gid, release, position, format, name) VALUES (3, 'e8e95792-68f1-45a3-bb8b-109aac57a1ec', 2, 1, 1, 'A Sea of Honey');
+INSERT INTO medium (id, gid, release, position, format, name) VALUES (4, '7217835f-2cd4-4a29-b35a-1499e9983c18', 2, 2, 1, 'A Sky of Honey');
 
 INSERT INTO medium_index (medium, toc) VALUES (1, '(663400, 258839, 358960, 332613, 296160, 372386)');
 INSERT INTO medium_index (medium, toc) VALUES (2, '(428492, 290053, 454506, 61333, 815305, 472880)');

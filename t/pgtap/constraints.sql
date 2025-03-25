@@ -103,14 +103,14 @@ SELECT lives_ok(
 --------------------------------------------------------------------------------
 
 SELECT throws_ok(
-  'INSERT INTO medium (id, name, release, track_count, position)
-   VALUES (1, ''Disc 1 '', 1, 0, 1)');
+  'INSERT INTO medium (id, gid, name, release, track_count, position)
+   VALUES (1, ''1c36d08d-0434-4e2c-b722-b865329b2181'', ''Disc 1 '', 1, 0, 1)');
 SELECT throws_ok(
-  'INSERT INTO medium (id, name, release, track_count, position)
-   VALUES (1, '' Disc 1'', 1, 0, 1)');
+  'INSERT INTO medium (id, gid, name, release, track_count, position)
+   VALUES (1, ''1c36d08d-0434-4e2c-b722-b865329b2181'', '' Disc 1'', 1, 0, 1)');
 SELECT lives_ok(
-  'INSERT INTO medium (id, name, release, track_count, position)
-   VALUES (1, ''Disc 1'', 1, 0, 1)');
+  'INSERT INTO medium (id, gid, name, release, track_count, position)
+   VALUES (1, ''1c36d08d-0434-4e2c-b722-b865329b2181'', ''Disc 1'', 1, 0, 1)');
 
 --------------------------------------------------------------------------------
 SELECT lives_ok(
