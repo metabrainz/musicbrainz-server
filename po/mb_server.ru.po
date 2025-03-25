@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-11 15:20+0100\n"
-"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"PO-Revision-Date: 2025-03-24 22:44+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -56,7 +56,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:12
 msgid " ({text})"
@@ -2275,10 +2275,8 @@ msgid "Release group search error"
 msgstr "Ошибка при поиске групп релизов"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group secondary type"
-msgstr "Тип группы релиза"
+msgstr "Вторичный тип группы релиза"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -15019,7 +15017,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/FilterForm.js:352
 msgid "Secondary type"
-msgstr ""
+msgstr "Вторичный тип"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:69
 msgid "Error loading AcoustIDs: {error}"
@@ -15059,7 +15057,7 @@ msgstr "Показать меньше ISWC"
 
 #: ../root/static/scripts/common/components/ListMergeButtonsRow.js:32
 msgid "{action_label} (in a new tab)"
-msgstr ""
+msgstr "{action_label} (в новой вкладке)"
 
 #: ../root/static/scripts/common/components/MediumLink.js:17
 msgid "{medium} on {release}"
