@@ -11,7 +11,7 @@ INSERT INTO artist_credit (id, artist_count, name, ref_count, gid) VALUES (388, 
 INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, position) VALUES (388, 388, '', 'Led Zeppelin', 0);
 INSERT INTO release_group (id, gid, name, artist_credit) VALUES (1, 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 'blah', 388);
 INSERT INTO release (id, gid, name, artist_credit, release_group) VALUES (1, 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', 'blah', 388, 1);
-INSERT INTO medium (id, release, position) VALUES (1, 1, 1), (2, 1, 2);
+INSERT INTO medium (id, gid, release, position) VALUES (1, 'db08edad-03aa-4277-81ec-a9a7655e594d', 1, 1), (2, '76aaa06a-e7fe-4154-8d9a-2ecee28b294d', 1, 2);
 
 -- Ensure that medium updates work
 
