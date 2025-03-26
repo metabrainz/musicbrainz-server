@@ -59,6 +59,7 @@ export function createField<T>(
   value: T,
 ): FieldT<T> {
   return {
+    disabled: false,
     errors: [],
     has_errors: false,
     html_name: name,

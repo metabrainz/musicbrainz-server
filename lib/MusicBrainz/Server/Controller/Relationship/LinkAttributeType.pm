@@ -101,6 +101,15 @@ sub create : Path('/relationship-attributes/create') Args(0) RequireAuth(relatio
         $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $attribute_edit->entity_gid ]));
         $c->detach;
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'relationship/linkattributetype/CreateRelationshipAttributeType',
+        component_props => {
+            form => $form->TO_JSON,
+            parentSelectOptions => $form->options_parent_id,
+        },
+    );
 }
 
 sub edit : Chained('load') RequireAuth(relationship_editor)
@@ -153,6 +162,15 @@ sub edit : Chained('load') RequireAuth(relationship_editor)
             $c->response->redirect($c->uri_for_action('relationship/linkattributetype/show', [ $link_attr_type->gid ]));
         }
     }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'relationship/linkattributetype/EditRelationshipAttributeType',
+        component_props => {
+            form => $form->TO_JSON,
+            parentSelectOptions => $form->options_parent_id,
+        },
+    );
 }
 
 sub delete : Chained('load') RequireAuth(relationship_editor) SecureForm

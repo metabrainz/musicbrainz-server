@@ -27,6 +27,7 @@ sub TO_JSON {
     }
 
     if ($self->isa('HTML::FormHandler::Field')) {
+        $json->{disabled} = boolean_to_json($self->disabled);
         # On the form, `errors` is a list.
         $json->{errors} = $self->errors;
         $json->{html_name} = $self->html_name;
