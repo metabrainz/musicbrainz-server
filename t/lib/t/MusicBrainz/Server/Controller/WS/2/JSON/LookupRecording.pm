@@ -326,6 +326,7 @@ test 'lookup recording with official singles (+media)' => sub {
                         {
                             format => 'CD',
                             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                            'id'  => '1f8e4908-a1ae-4681-a945-900d64ee91f8',
                             position => 1,
                             title => '',
                             'track-count' => 3,

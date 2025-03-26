@@ -188,6 +188,7 @@ test 'label lookup with releases, inc=media' => sub {
                         {
                             format => 'CD',
                             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                            'id'  => 'a2262369-c808-447c-babb-e10317f4d6b2',
                             'track-count' => 12,
                             position => 1,
                             title => '',
@@ -222,6 +223,7 @@ test 'label lookup with releases, inc=media' => sub {
                         {
                             format => 'CD',
                             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                            'id'  => 'a9aa3219-fbb8-44de-a312-ad1a58eb8203',
                             'track-count' => 9,
                             position => 1,
                             title => '',
@@ -229,6 +231,7 @@ test 'label lookup with releases, inc=media' => sub {
                         {
                             format => 'CD',
                             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                            'id'  => 'b3702464-93dc-43f4-8337-b081f667ffa0',
                             'track-count' => 9,
                             position => 2,
                             title => 'Chestplate Singles',
