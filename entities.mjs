@@ -146,6 +146,9 @@ const ENTITIES = {
     table: 'artist_alias_type',
   },
   artist_credit: {
+    mbid: {
+      multiple: true,
+    },
     model: 'ArtistCredit',
     table: 'artist_credit',
   },
