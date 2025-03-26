@@ -433,6 +433,9 @@ const ENTITIES = {
     url: 'relationship',
   },
   medium: {
+    mbid: {
+      multiple: true,
+    },
     model: 'Medium',
     table: 'medium',
   },
