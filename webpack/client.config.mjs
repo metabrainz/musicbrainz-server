@@ -310,6 +310,13 @@ export default {
           priority: -30,
           reuseExistingChunk: true,
         },
+        'vendors': {
+          chunks: 'initial',
+          minChunks: 5,
+          name: 'vendors',
+          priority: -20,
+          test: /\/node_modules\//,
+        },
       },
     },
 
