@@ -164,6 +164,7 @@ sub artist_credits {
     artists($c, pluck('artist', $name_rows));
     handle_rows($c, 'artist_credit', $rows);
     handle_rows($c, 'artist_credit_name', $name_rows);
+    gid_redirects($c, 'artist_credit', $ids);
 }
 
 sub collections {
@@ -266,8 +267,8 @@ sub core_entity {
         handle_rows($c, "${entity_type}_meta", 'id', $ids);
     }
 
-    if ($dump_gid_redirects && $entity_properties->{mbid}{multiple}) {
-        handle_rows($c, "${entity_type}_gid_redirect", 'new_id', $ids);
+    if ($entity_properties->{mbid}{multiple}) {
+        gid_redirects($c, $entity_type, $ids);
     }
 
     if ($entity_properties->{ipis}) {
@@ -377,6 +378,14 @@ sub editors {
     handle_rows($c, 'editor', $editor_rows);
 
     handle_rows($c, 'editor_language', 'editor', $ids);
+}
+
+sub gid_redirects {
+    my ($c, $entity_type, $ids) = @_;
+
+    if ($dump_gid_redirects) {
+        handle_rows($c, "${entity_type}_gid_redirect", 'new_id', $ids);
+    }
 }
 
 sub isnis {
