@@ -136,6 +136,8 @@ component Head(
 
       {manifest('whatwg-fetch')}
 
+      {manifest('vendors')}
+
       {manifest('common-chunks')}
 
       {manifest('common/jquery-global')}
