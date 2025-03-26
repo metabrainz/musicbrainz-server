@@ -5,25 +5,30 @@ use namespace::autoclean;
 use MusicBrainz::Server::Data::Release;
 use MusicBrainz::Server::Entity::Medium;
 use MusicBrainz::Server::Data::Utils qw(
+    generate_gid
     load_subobjects
     object_to_ids
     placeholders
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
-with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'medium' };
+with 'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'medium' },
+     'MusicBrainz::Server::Data::Role::GetByGID',
+     'MusicBrainz::Server::Data::Role::GIDRedirect';
 
 use Scalar::Util qw( weaken );
 
-sub _table
-{
-    return 'medium';
-}
+sub _main_table { 'medium' }
+
+sub _type { 'medium' }
+
+sub _table { shift->_main_table }
 
 sub _build_columns
 {
     return join q(, ), (
         'medium.id',
+        'medium.gid',
         'release',
         'position',
         'format',
@@ -51,6 +56,7 @@ sub _column_mapping
 {
     return {
         id                  => 'id',
+        gid                 => 'gid',
         track_count         => 'track_count',
         release_id          => 'release',
         position            => 'position',
@@ -152,6 +158,7 @@ sub insert
     for my $medium_hash (@medium_hashes) {
         my $tracklist = delete $medium_hash->{tracklist};
         my $row = $self->_hash_to_row($medium_hash);
+        $row->{gid} = $medium_hash->{gid} || generate_gid();
 
         my $medium_created = {
             id => $self->sql->insert_row('medium', $row, 'id'),
@@ -209,7 +216,7 @@ sub find_for_cdstub {
     my $query =
         'SELECT ' . join(', ', $self->c->model('Release')->_columns,
                          map { "medium.$_ AS m_$_" } qw(
-                             id name track_count release position format edits_pending
+                             id gid name track_count release position format edits_pending
                          )) . q(
            FROM (
                     SELECT id, ts_rank_cd(mb_simple_tsvector(name), query, 2) AS rank,
