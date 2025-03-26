@@ -387,8 +387,11 @@ export const FLUENCY_NAMES:
   native: N_l('Native'),
 };
 
+export const LANGUAGE_ENG_ID = 120;
 export const LANGUAGE_MUL_ID = 284;
 export const LANGUAGE_ZXX_ID = 486;
+
+export const COUNTRY_JA_AREA_ID = 107;
 
 export const DISPLAY_NONE_STYLE = Object.freeze({display: 'none'});
 

@@ -13,6 +13,8 @@ import 'knockout-arraytransforms';
 
 import {
   BRACKET_PAIRS,
+  COUNTRY_JA_AREA_ID,
+  LANGUAGE_ENG_ID,
 } from '../common/constants.js';
 import mbEntity from '../common/entity.js';
 import {
@@ -49,6 +51,14 @@ const bracketRegex = new RegExp(
   'g',
 );
 
+/*
+ * This matches an intentionally-conservative subset of words from
+ * preBracketSingleWordsList in ../guess-case/utils/wordCheckers.js that
+ * tend to appear at the end of extra title information.
+ */
+const capitalizedETIRegex =
+  /\s+\(.*\b(?:Instrumental|Live|Mix|Remix|Version)\)\s*$/;
+
 releaseEditor.fields = fields;
 
 class Track {
@@ -75,6 +85,9 @@ class Track {
     this.hasFeatInOrigTitle =
       isDatabaseRowId(this.id) &&
       featRegex.test(data.name.replace(bracketRegex, ' '));
+    this.hasCapitalizedETIInOrigTitle =
+      isDatabaseRowId(this.id) &&
+      capitalizedETIRegex.test(data.name);
 
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
@@ -370,6 +383,10 @@ class Track {
     return featRegex.test(this.name().replace(bracketRegex, ' '));
   }
 
+  hasCapitalizedETI() {
+    return capitalizedETIRegex.test(this.name());
+  }
+
   relatedArtists() {
     return this.medium.release.relatedArtists;
   }
@@ -498,11 +515,13 @@ class Medium {
       return self.tracksUnknownToUser() ||
              self.tracks().every(t => t.hasTitle());
     });
+
     this.hasVariousArtistsTracks = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasVariousArtists());
     });
     this.confirmedVariousArtists = ko.observable(false);
+
     this.hasFeatInTrackTitles = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasFeatInTitle());
@@ -514,6 +533,19 @@ class Medium {
              );
     });
     this.confirmedFeatInTrackTitles = ko.observable(false);
+
+    this.hasCapitalizedETI = ko.computed(function () {
+      return !self.tracksUnknownToUser() &&
+             self.tracks().some(t => t.hasCapitalizedETI());
+    });
+    this.hasAddedCapitalizedETI = ko.computed(function () {
+      return self.hasCapitalizedETI() &&
+             self.tracks().some(
+               t => !t.hasCapitalizedETIInOrigTitle && t.hasCapitalizedETI(),
+             );
+    });
+    this.confirmedCapitalizedETI = ko.observable(false);
+
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return Boolean(mediumFormatDate && self.release.earliestYear() &&
@@ -617,6 +649,11 @@ class Medium {
     this.hasUnconfirmedFeatInTrackTitles = ko.computed(function () {
       return (self.hasAddedFeatInTrackTitles() &&
               !self.confirmedFeatInTrackTitles());
+    });
+
+    this.hasUnconfirmedCapitalizedETI = ko.computed(function () {
+      return (self.hasAddedCapitalizedETI() &&
+              !self.confirmedCapitalizedETI());
     });
 
     this.hasVariousArtistsTracks.subscribe(function (value) {
@@ -1183,6 +1220,11 @@ class Release extends mbEntity.Release {
     this.hasUnconfirmedFeatInTrackTitles = errorField(
       this.mediums.any('hasUnconfirmedFeatInTrackTitles'),
     );
+    this.hasUnconfirmedCapitalizedETI = errorField(function () {
+      return releaseEditor.isBeginner &&
+        self.shouldUseEnglishCapitalization() &&
+        self.mediums().some(m => m.hasUnconfirmedCapitalizedETI());
+    });
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());
     });
@@ -1230,6 +1272,18 @@ class Release extends mbEntity.Release {
     return mediums.length === 1 &&
            !mediums[0].hasTracks() &&
            !mediums[0].tracksUnknownToUser();
+  }
+
+  shouldUseEnglishCapitalization() {
+    const langID = this.languageID();
+    if (langID && parseInt(langID, 10) !== LANGUAGE_ENG_ID) {
+      return false;
+    }
+    if (this.events().length === 1 &&
+        parseInt(this.events()[0].countryID(), 10) === COUNTRY_JA_AREA_ID) {
+      return false;
+    }
+    return true;
   }
 
   tracksWithUnsetPreviousRecordings() {

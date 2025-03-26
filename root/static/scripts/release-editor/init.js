@@ -16,10 +16,14 @@ import {
   hasVariousArtists,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
-import {getSourceEntityData} from '../common/utility/catalyst.js';
+import {
+  getCatalystContext,
+  getSourceEntityData,
+} from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
+import {isBeginner} from '../common/utility/privileges.js';
 import request from '../common/utility/request.js';
 import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
@@ -52,6 +56,7 @@ releaseEditor.init = function (options) {
 
   $.extend(this, {
     action: options.action,
+    isBeginner: isBeginner(getCatalystContext().user),
     redirectURI: options.redirectURI,
     returnTo: options.returnTo,
   });
