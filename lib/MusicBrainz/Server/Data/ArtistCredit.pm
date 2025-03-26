@@ -25,8 +25,6 @@ sub _type { 'artist_credit' }
 
 sub _table { shift->_main_table }
 
-sub _gid_redirect_table { shift->_table . '_gid_redirect' }
-
 sub get_by_ids
 {
     my ($self, @ids) = @_;

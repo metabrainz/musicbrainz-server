@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::Role::GIDRedirect;
 use Moose::Role;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 
@@ -34,9 +33,7 @@ sub _delete_and_redirect_gids
 sub _gid_redirect_table {
     my $self = shift;
 
-    return $self->_main_table . '_gid_redirect'
-        if $ENTITIES{$self->_type}{mbid}{multiple};
-    return;
+    return $self->_main_table . '_gid_redirect';
 }
 
 sub add_gid_redirects

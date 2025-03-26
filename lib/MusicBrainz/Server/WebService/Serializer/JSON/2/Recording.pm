@@ -3,7 +3,7 @@ use Moose;
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     boolean
     number
-    serialize_entity
+    serialize_artist_credit
     list_of
 );
 use List::AllUtils qw( sort_by );
@@ -21,7 +21,7 @@ sub serialize
     $body{video} = boolean($entity->video);
 
     if ($entity->artist_credit && ($toplevel || ($inc && $inc->artist_credits))) {
-        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash);
+        serialize_artist_credit(\%body, $entity, $inc, $stash);
     }
 
     $body{releases} = list_of($entity, $inc, $stash, 'releases')
