@@ -11,8 +11,10 @@ import $ from 'jquery';
 
 import '../edit/validation.js';
 
+import {initializeArtistCredit} from '../edit/components/forms.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 
 $(function () {
   initGuessFeatButton('edit-release-group');
+  initializeArtistCredit('edit-release-group');
 });
