@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import '../../../../lib/jquery-ui.js';
+import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../../../common/dialogs.js';
 
 import MB from '../../../common/MB.js';
