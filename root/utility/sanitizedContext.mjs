@@ -34,6 +34,8 @@ export default function sanitizedContext(
       ...(session.tport == null ? null : {tport: session.tport}),
     } : null,
     stash: {
+      artist_credit: stash.artist_credit,
+      artist_credit_field: stash.artist_credit_field,
       current_isrcs: stash.current_isrcs,
       current_iswcs: stash.current_iswcs,
       current_language: stash.current_language,

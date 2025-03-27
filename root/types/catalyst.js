@@ -45,6 +45,8 @@ declare type CatalystSessionT = {
 declare type CatalystStashT = {
   +alert?: string,
   +alert_mtime?: number | null,
+  +artist_credit?: ArtistCreditT,
+  +artist_credit_field?: ArtistCreditFieldT,
   +can_delete?: boolean,
   +collaborative_collections?: $ReadOnlyArray<CollectionT>,
   +commons_image?: CommonsImageT | null,
@@ -109,6 +111,8 @@ declare type SanitizedCatalystContextT = {
   },
   +session: SanitizedCatalystSessionT | null,
   +stash: {
+    +artist_credit?: ArtistCreditT,
+    +artist_credit_field?: ArtistCreditFieldT,
     +current_isrcs?: $ReadOnlyArray<string>,
     +current_iswcs?: $ReadOnlyArray<string>,
     +current_language: string,

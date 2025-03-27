@@ -52,10 +52,7 @@
    </form>
 
     <script type="text/javascript">
-        MB.initializeArtistCredit(
-          [% closing_tag_escape(form.to_encoded_json) %],
-          [% closing_tag_escape(form.field('artist_credit').json) %]
-        );
+        MB.initializeArtistCredit('split-artist');
     </script>
    [% END %]
 [% END %]

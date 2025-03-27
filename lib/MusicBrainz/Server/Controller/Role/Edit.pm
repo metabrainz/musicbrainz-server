@@ -62,7 +62,7 @@ role {
             $c->stash->{template} = 'entity/edit.tt';
         }
 
-        return $self->edit_action($c,
+        $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,
             item        => $edit_entity,
@@ -89,6 +89,10 @@ role {
             },
             $params->edit_arguments->($self, $c, $edit_entity),
         );
+
+        if ($model eq 'Recording') {
+            $c->stash->{form}->field('artist_credit')->stash_field;
+        }
     };
 };
 

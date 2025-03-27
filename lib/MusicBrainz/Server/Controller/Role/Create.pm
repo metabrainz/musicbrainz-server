@@ -119,6 +119,10 @@ role {
             edit_rels   => 1,
             $params->edit_arguments->($self, $c),
         );
+
+        if ($model eq 'Recording') {
+            $c->stash->{form}->field('artist_credit')->stash_field;
+        }
     };
 };
 
