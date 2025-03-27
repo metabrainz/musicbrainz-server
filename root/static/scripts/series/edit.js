@@ -7,6 +7,7 @@ import './components/SeriesRelationshipEditor.js';
 import MB from '../common/MB.js';
 import {getCatalystContext} from '../common/utility/catalyst.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
+import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
@@ -46,6 +47,8 @@ $(function () {
 
   const typeIdField = 'select[name=edit-series\\.type_id]';
   typeBubble(typeIdField);
+
+  installFormUnloadWarning();
 
   initializeValidation();
 });

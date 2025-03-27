@@ -9,12 +9,16 @@
 
 import $ from 'jquery';
 
-import {initializeArtistCredit} from '../edit/components/forms.js';
+import {
+  initializeArtistCredit,
+  installFormUnloadWarning,
+} from '../edit/components/forms.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 import initializeValidation from '../edit/validation.js';
 
 $(function () {
   initGuessFeatButton('edit-release-group');
   initializeArtistCredit('edit-release-group');
+  installFormUnloadWarning();
   initializeValidation();
 });

@@ -35,7 +35,6 @@
 <script type="text/javascript">
   $(function () {
     MB.Control.initializeGuessCase("release_group", "id-edit-release-group");
-    MB.installFormUnloadWarning();
   });
 </script>
 

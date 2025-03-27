@@ -185,7 +185,7 @@ export function initializeArtistCredit(formName) {
  * Registers a beforeunload event listener on the window that prompts
  * the user if any of the page's form inputs have been changed.
  */
-MB.installFormUnloadWarning = function () {
+export function installFormUnloadWarning() {
   let inputsChanged = false;
   let submittingForm = false;
 
@@ -230,6 +230,4 @@ MB.installFormUnloadWarning = function () {
     );
     return event.returnValue;
   });
-};
-
-export const installFormUnloadWarning = MB.installFormUnloadWarning;
+}
