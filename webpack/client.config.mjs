@@ -76,7 +76,6 @@ const entries = [
   'common/ratings',
   'common/sentry',
   'confirm-seed',
-  'edit',
   'edit/components/FormRowTextList',
   'edit/components/HydratedDateRangeFieldset',
   'edit/components/NewNotesAlertCheckbox',

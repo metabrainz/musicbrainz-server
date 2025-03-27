@@ -1,6 +1,4 @@
 [% WRAPPER 'artist/layout.tt' full_width=1 title=l('Split artist') %]
-  [% script_manifest('edit.js') %]
-
    [%~ javascript_required() ~%]
 
    <h2>[% l('Split into separate artists') %]</h2>
