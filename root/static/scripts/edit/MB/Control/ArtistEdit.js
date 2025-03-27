@@ -8,10 +8,11 @@
 
 import $ from 'jquery';
 
-import MB from '../../../common/MB.js';
 import {
   initializeRangeSelect,
 } from '../../../common/MB/Control/SelectAll.js';
+import initializeGuessCase
+  from '../../../guess-case/MB/Control/GuessCase.js';
 
 import initializeArea from './Area.js';
 
@@ -126,7 +127,7 @@ export default function ArtistEdit() {
     '#artist-credit-renamer input[type="checkbox"]',
   );
 
-  MB.Control.initializeGuessCase('artist', 'id-edit-artist');
+  initializeGuessCase('artist', 'id-edit-artist');
 
   initializeArea('#area', '#begin_area', '#end_area');
 

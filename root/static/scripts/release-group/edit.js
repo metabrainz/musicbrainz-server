@@ -15,10 +15,12 @@ import {
 } from '../edit/components/forms.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 import initializeValidation from '../edit/validation.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 $(function () {
   initGuessFeatButton('edit-release-group');
   initializeArtistCredit('edit-release-group');
+  initializeGuessCase('release_group', 'id-edit-release-group');
   installFormUnloadWarning();
   initializeValidation();
 });
