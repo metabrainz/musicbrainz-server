@@ -136,7 +136,7 @@ export const FormRowArtistCredit = ({
   </FormRow>
 );
 
-MB.initializeArtistCredit = function (formName) {
+export function initializeArtistCredit(formName) {
   const {
     artist_credit: initialArtistCredit,
     artist_credit_field: artistCreditField,
@@ -179,9 +179,7 @@ MB.initializeArtistCredit = function (formName) {
       />,
     );
   });
-};
-
-export const initializeArtistCredit = MB.initializeArtistCredit;
+}
 
 /*
  * Registers a beforeunload event listener on the window that prompts

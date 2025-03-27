@@ -34,7 +34,6 @@
 
 <script type="text/javascript">
   $(function () {
-    MB.initializeArtistCredit('edit-release-group');
     MB.Control.initializeGuessCase("release_group", "id-edit-release-group");
     MB.installFormUnloadWarning();
   });

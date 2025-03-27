@@ -49,6 +49,7 @@ const entries = [
   'area/places-map',
   'artist/edit',
   'artist/index',
+  'artist/split',
   'collection/edit',
   'common/artworkViewer',
   'common/banner',
