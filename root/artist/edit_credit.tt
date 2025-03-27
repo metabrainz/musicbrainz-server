@@ -1,6 +1,4 @@
 [% WRAPPER 'artist/layout.tt' full_width=1 title=lp('Edit artist credit', 'header') %]
-  [% script_manifest('edit.js') %]
-
    [%~ javascript_required() ~%]
 
    <h2>[% lp('Edit artist credit', 'header') %]</h2>
