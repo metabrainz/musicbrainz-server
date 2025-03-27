@@ -11,7 +11,6 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
-import MB from '../common/MB.js';
 import {sortByNumber} from '../common/utility/arrays.js';
 import clean from '../common/utility/clean.js';
 import debounce from '../common/utility/debounce.js';
@@ -168,7 +167,7 @@ function markCommentAsNotRequired(input) {
     .remove();
 }
 
-MB.initializeDuplicateChecker = function (type) {
+export default function initializeDuplicateChecker(type) {
   const nameInput = document.getElementById(`id-edit-${type}.name`);
   const commentInput = document.getElementById(`id-edit-${type}.comment`);
   const dupeContainer = document.getElementById('possible-duplicates');
@@ -273,6 +272,4 @@ MB.initializeDuplicateChecker = function (type) {
       }
     });
   }
-};
-
-export default MB.initializeDuplicateChecker;
+}
