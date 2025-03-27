@@ -1,5 +1,4 @@
 [%- USE JSON.Escape %]
-[% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => { href => doc_link('Work'), target => '_blank' }}) -%]</p>
 
@@ -118,9 +117,3 @@
 [%- USE JSON.Escape;
     script_manifest('work/edit.js', {async => 'async', 'data-args' => work_form_json.json})
 -%]
-
-<script type="text/javascript">
-  (function () {
-    MB.installFormUnloadWarning();
-  }());
-</script>

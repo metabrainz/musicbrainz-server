@@ -12,6 +12,7 @@ import L from 'leaflet/dist/leaflet-src.js';
 
 import isBlank from '../common/utility/isBlank.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
+import {installFormUnloadWarning} from '../edit/components/forms.js';
 import initializeArea from '../edit/MB/Control/Area.js';
 import initializeBubble from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
@@ -118,6 +119,8 @@ $(function () {
 
   const typeIdField = 'select[name=edit-place\\.type_id]';
   typeBubble(typeIdField);
+
+  installFormUnloadWarning();
 
   initializeValidation();
 });
