@@ -90,7 +90,6 @@ function buildReleaseStatusTable(
           </td>
           <td>
             <ReleaseEvents events={release.events} />
-            {manifest('common/components/ReleaseEvents', {async: 'async'})}
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />
@@ -203,6 +202,7 @@ component ReleaseGroupIndex(
       )}
       <Relationships source={releaseGroup} />
       {manifest('release-group/index', {async: 'async'})}
+      {manifest('common/components/ReleaseEvents', {async: 'async'})}
       {manifest('common/components/TaggerIcon', {async: 'async'})}
     </ReleaseGroupLayout>
   );
