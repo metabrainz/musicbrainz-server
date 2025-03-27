@@ -8,12 +8,12 @@
 
 import ko from 'knockout';
 
-import MB from '../common/MB.js';
+import {BubbleDoc} from '../edit/MB/Control/Bubble.js';
 
 import releaseEditor from './viewModel.js';
 
 function bubbleDoc(options) {
-  var bubble = new MB.Control.BubbleDoc('Information');
+  var bubble = new BubbleDoc('Information');
   Object.assign(bubble, options);
   return bubble;
 }
@@ -65,7 +65,7 @@ releaseEditor.annotationBubble = bubbleDoc();
 
 releaseEditor.commentBubble = bubbleDoc();
 
-class RecordingBubble extends MB.Control.BubbleDoc {
+class RecordingBubble extends BubbleDoc {
   previousTrack(data, event, stealFocus) {
     event && event.stopPropagation();
 

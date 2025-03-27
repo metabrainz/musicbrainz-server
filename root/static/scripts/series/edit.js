@@ -9,6 +9,7 @@ import {getCatalystContext} from '../common/utility/catalyst.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
+import {BubbleDoc} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
@@ -19,7 +20,7 @@ $(function () {
   const series = MB.getSourceEntityInstance();
   series.orderingTypeID($orderingType.val());
 
-  series.orderingTypeBubble = new MB.Control.BubbleDoc();
+  series.orderingTypeBubble = new BubbleDoc();
 
   const orderingTypesByID = getCatalystContext().stash.series_ordering_types;
   series.orderingTypeDescription = ko.computed(function () {
