@@ -38,6 +38,7 @@ export default function sanitizedContext(
       artist_credit_field: stash.artist_credit_field,
       current_language: stash.current_language,
       seeded_relationships: stash.seeded_relationships,
+      series_ordering_types: stash.series_ordering_types,
       server_languages: stash.server_languages,
       source_entity: stash.source_entity,
     },
