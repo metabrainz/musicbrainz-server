@@ -34,10 +34,7 @@
 
 <script type="text/javascript">
   $(function () {
-    MB.initializeArtistCredit(
-      [% closing_tag_escape(form.to_encoded_json) %],
-      [% closing_tag_escape(form.field('artist_credit').json) %]
-    );
+    MB.initializeArtistCredit('edit-release-group');
     MB.Control.initializeGuessCase("release_group", "id-edit-release-group");
     MB.installFormUnloadWarning();
   });
