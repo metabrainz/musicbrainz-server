@@ -2,7 +2,6 @@
 
 require('./edit/components/forms.js');
 require('./edit/MB/Control/Bubble.js');
-require('./edit/URLCleanup.js');
 require('./edit/MB/edit.js');
 require('./edit/check-duplicates.js');
 
