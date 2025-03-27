@@ -79,6 +79,7 @@ const entries = [
   'edit/components/FormRowTextList',
   'edit/components/HydratedDateRangeFieldset',
   'edit/components/NewNotesAlertCheckbox',
+  'edit/components/ReleaseMergeStrategy',
   'edit/ExampleRelationships',
   'event/components/EventEditForm',
   'event/eventart',
