@@ -1,6 +1,5 @@
 /* eslint-disable import/no-commonjs */
 
-require('./edit/MB/Control/Area.js');
 require('./edit/components/ArtistCreditEditor.js');
 require('./edit/components/ReleaseMergeStrategy.js');
 require('./edit/components/forms.js');
