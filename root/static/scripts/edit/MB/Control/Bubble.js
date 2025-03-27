@@ -330,7 +330,7 @@ $('body')
 
 
 // Helper function for use outside the release editor.
-MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
+export default function initializeBubble(bubble, control, vm, canBeShown) {
   vm ||= {};
 
   var bubbleDoc = new BubbleDoc();
@@ -343,8 +343,4 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
   ko.applyBindingsToNode($(control)[0], {controlsBubble: bubbleDoc}, vm);
 
   return bubbleDoc;
-};
-
-const initializeBubble = MB.Control.initializeBubble;
-
-export default initializeBubble;
+}
