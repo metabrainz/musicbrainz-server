@@ -11,7 +11,7 @@ import ko from 'knockout';
 import mutate from 'mutate-cow';
 import {createRoot} from 'react-dom/client';
 
-import '../../lib/jquery-ui.js';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {
   artistCreditsAreEqual,

@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import test from 'tape';
 
-import '../../../lib/jquery-ui.js';
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../../release-editor/init.js';
 
 import {

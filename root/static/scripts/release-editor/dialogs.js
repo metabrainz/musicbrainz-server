@@ -10,7 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
-import '../../lib/jquery-ui.js';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../common/dialogs.js';
 
 import {reduceArtistCredit} from '../common/immutable-entities.js';

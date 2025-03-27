@@ -8,7 +8,7 @@
 
 import $ from 'jquery';
 
-import '../../lib/jquery-ui.js';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import './dialogs.js';
 
 import debounce from './utility/debounce.js';

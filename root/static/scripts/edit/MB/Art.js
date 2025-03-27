@@ -11,7 +11,7 @@ import {filesize} from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
 
-import '../../../lib/jquery-ui.js';
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import image404Url from '../../../images/image404-125.png';
 import MB from '../../common/MB.js';

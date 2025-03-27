@@ -12,7 +12,7 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
-import '../../../../lib/jquery-ui.js';
+import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import AddEntityDialog, {
   TITLES as ADD_NEW_ENTITY_TITLES,

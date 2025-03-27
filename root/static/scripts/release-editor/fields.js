@@ -10,7 +10,7 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import 'knockout-arraytransforms';
-import '../../lib/jquery-ui.js';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {
   BRACKET_PAIRS,
