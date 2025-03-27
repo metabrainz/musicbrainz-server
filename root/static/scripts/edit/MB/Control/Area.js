@@ -9,10 +9,9 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../../../common/MB.js';
 import EntityAutocomplete from '../../../common/MB/Control/Autocomplete.js';
 
-MB.Control.Area = function (...selectors) {
+export default function initializeArea(...selectors) {
   var bubble = new MB.Control.BubbleDoc();
 
   bubble.canBeShown = function (viewModel) {
@@ -30,8 +29,4 @@ MB.Control.Area = function (...selectors) {
       name, {controlsBubble: bubble}, {area: ac.currentSelection},
     );
   }
-};
-
-const initializeArea = MB.Control.Area;
-
-export default initializeArea;
+}

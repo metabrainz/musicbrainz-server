@@ -10,7 +10,23 @@
 import '../edit/components/FormRowTextList.js';
 import '../edit/validation.js';
 
+import initializeDuplicateChecker from '../edit/check-duplicates.js';
+import {installFormUnloadWarning} from '../edit/components/forms.js';
+import initializeArea from '../edit/MB/Control/Area.js';
+import initializeBubble from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 const typeIdField = 'select[name=edit-label\\.type_id]';
 typeBubble(typeIdField);
+
+initializeGuessCase("label", "id-edit-label");
+
+initializeArea("span.area.autocomplete");
+
+initializeDuplicateChecker('label');
+
+initializeBubble("#ipi-bubble", "input[name=edit-label\\.ipi_codes\\.0]");
+initializeBubble("#isni-bubble", "input[name=edit-label\\.isni_codes\\.0]");
+
+installFormUnloadWarning();
