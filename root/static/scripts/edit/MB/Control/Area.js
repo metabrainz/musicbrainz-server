@@ -11,8 +11,10 @@ import ko from 'knockout';
 
 import EntityAutocomplete from '../../../common/MB/Control/Autocomplete.js';
 
+import {BubbleDoc} from './Bubble.js';
+
 export default function initializeArea(...selectors) {
-  var bubble = new MB.Control.BubbleDoc();
+  var bubble = new BubbleDoc();
 
   bubble.canBeShown = function (viewModel) {
     return viewModel.area().gid;

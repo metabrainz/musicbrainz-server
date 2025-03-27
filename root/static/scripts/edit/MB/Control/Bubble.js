@@ -9,7 +9,6 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../../../common/MB.js';
 import deferFocus from '../../utility/deferFocus.js';
 
 class BubbleBase {
@@ -119,7 +118,7 @@ BubbleBase.prototype.activeBubbles = {};
  * BubbleDoc turns a documentation div into a bubble pointing at an
  * input to the left of it.
  */
-class BubbleDoc extends BubbleBase {
+export class BubbleDoc extends BubbleBase {
   show(control, stealFocus) {
     super.show(control, stealFocus);
 
@@ -138,8 +137,6 @@ class BubbleDoc extends BubbleBase {
       .addClass('left-tail');
   }
 }
-
-MB.Control.BubbleDoc = BubbleDoc;
 
 /*
  * Knockout's visible binding only toggles the display style between "none"
