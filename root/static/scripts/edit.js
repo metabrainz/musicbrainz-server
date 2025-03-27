@@ -1,6 +1,5 @@
 /* eslint-disable import/no-commonjs */
 
-require('./edit/components/ReleaseMergeStrategy.js');
 require('./edit/components/forms.js');
 require('./edit/MB/Control/Bubble.js');
 require('./edit/URLCleanup.js');
