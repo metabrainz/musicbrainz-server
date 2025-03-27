@@ -28,6 +28,7 @@ hydrated it would revert back to English.
 my %checked_files;
 my $checkout_dir = Cwd::realpath(File::Spec->catfile($Bin, '../'));
 my $scripts_dir = File::Spec->catfile($checkout_dir, 'root/static/scripts/');
+my $lib_dir = File::Spec->catfile($checkout_dir, 'root/static/lib/');
 my $quoted_checkout_dir = shell_quote($checkout_dir);
 
 my @hydrated_files = split /\n/,
@@ -74,6 +75,12 @@ sub check_imports {
 
         # skip files that are under root/static/scripts/
         next unless $import_from_scripts_dir =~ m{^\.\./};
+
+        my $import_from_lib_dir =
+            File::Spec->abs2rel($import, $lib_dir);
+
+        # skip files that are under root/static/lib/
+        next unless $import_from_lib_dir =~ m{^\.\./};
 
         # otherwise, check that i18n functions aren't used
         my $quoted_import = shell_quote($import);

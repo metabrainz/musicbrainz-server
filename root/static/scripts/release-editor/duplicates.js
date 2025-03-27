@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import '../../lib/jquery-ui.js';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {compare} from '../common/i18n.js';
 import {isCompleteArtistCredit} from '../common/immutable-entities.js';

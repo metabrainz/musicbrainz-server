@@ -11,7 +11,7 @@ import he from 'he';
 import $ from 'jquery';
 import * as React from 'react';
 
-import '../../../lib/jquery-ui.js';
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import {minimalEntity} from '../../../../utility/hydrate.js';
