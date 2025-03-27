@@ -5,6 +5,7 @@ import '../common/entity.js';
 import './components/SeriesRelationshipEditor.js';
 
 import MB from '../common/MB.js';
+import {getCatalystContext} from '../common/utility/catalyst.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
 import typeBubble from '../edit/typeBubble.js';
@@ -18,9 +19,10 @@ $(function () {
 
   series.orderingTypeBubble = new MB.Control.BubbleDoc();
 
+  const orderingTypesByID = getCatalystContext().stash.series_ordering_types;
   series.orderingTypeDescription = ko.computed(function () {
     return lp_attributes(
-      MB.orderingTypesByID[series.orderingTypeID()].description,
+      orderingTypesByID[series.orderingTypeID()].description,
       'series_ordering_type',
     );
   });
