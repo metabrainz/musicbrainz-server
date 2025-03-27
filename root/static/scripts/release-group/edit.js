@@ -16,9 +16,11 @@ import {
   installFormUnloadWarning,
 } from '../edit/components/forms.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 $(function () {
   initGuessFeatButton('edit-release-group');
   initializeArtistCredit('edit-release-group');
+  initializeGuessCase('release_group', 'id-edit-release-group');
   installFormUnloadWarning();
 });

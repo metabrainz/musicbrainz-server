@@ -12,13 +12,12 @@ import ko from 'knockout';
 import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../../../common/dialogs.js';
 
-import MB from '../../../common/MB.js';
 import getBooleanCookie from '../../../common/utility/getBooleanCookie.js';
 import setCookie from '../../../common/utility/setCookie.js';
 import * as modes from '../../modes.js';
 import gc from '../GuessCase/Main.js';
 
-MB.Control.initializeGuessCase = function (type, formPrefix) {
+export default function initializeGuessCase(type, formPrefix) {
   formPrefix = formPrefix ? (formPrefix + '\\.') : '';
 
   var $name = $('#' + formPrefix + 'name');
@@ -94,7 +93,7 @@ MB.Control.initializeGuessCase = function (type, formPrefix) {
     .on('click', function () {
       setVal($sortname, $name.val());
     });
-};
+}
 
 var guessCaseOptions = {
   modeName: ko.observable(),
@@ -163,7 +162,3 @@ ko.bindingHandlers.guessCase = {
 };
 
 ko.virtualElements.allowedBindings.guessCase = true;
-
-const initializeGuessCase = MB.Control.initializeGuessCase;
-
-export default initializeGuessCase;

@@ -11,6 +11,9 @@ import '../edit/components/FormRowTextList.js';
 import '../edit/validation.js';
 
 import typeBubble from '../edit/typeBubble.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 const typeIdField = 'select[name=edit-area\\.type_id]';
 typeBubble(typeIdField);
+
+initializeGuessCase('area', 'id-edit-area');
