@@ -13,6 +13,8 @@ import {
   initializeRangeSelect,
 } from '../../../common/MB/Control/SelectAll.js';
 
+import initializeArea from './Area.js';
+
 export default function ArtistEdit() {
   var self = {};
 
@@ -126,7 +128,7 @@ export default function ArtistEdit() {
 
   MB.Control.initializeGuessCase('artist', 'id-edit-artist');
 
-  MB.Control.Area('#area', '#begin_area', '#end_area');
+  initializeArea('#area', '#begin_area', '#end_area');
 
   return self;
 }
