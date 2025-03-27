@@ -9,10 +9,28 @@
 import $ from 'jquery';
 
 import './common/MB/Control/EditList.js';
-import './common/MB/Control/EditSummary.js';
-
-import MB from './common/MB.js';
 
 $('.edit-list').each(function () {
-  MB.Control.EditSummary(this);
+  const $container = $(this);
+  const $toggleEditNote = $container.find('.edit-note-toggle');
+  const $editNote = $container.find('.add-edit-note');
+  const $editNoteField = $editNote.find('textarea');
+
+  function addNote() {
+    $toggleEditNote
+      .text(lp('Remove note', 'interactive'))
+      .unbind('click').click(deleteNote);
+    $editNote.show();
+    $editNoteField.focus();
+  }
+
+  function deleteNote() {
+    $toggleEditNote
+      .text(lp('Add note', 'interactive'))
+      .unbind('click').click(addNote);
+    $editNote.hide();
+    $editNoteField.val('');
+  }
+
+  $toggleEditNote.click(addNote);
 });
