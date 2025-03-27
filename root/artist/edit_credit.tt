@@ -24,7 +24,5 @@
      </div>
    </form>
 
-  <script type="text/javascript">
-      MB.initializeArtistCredit('split-artist');
-  </script>
+  [% script_manifest('artist/split.js', {async => 'async'}) %]
 [% END %]

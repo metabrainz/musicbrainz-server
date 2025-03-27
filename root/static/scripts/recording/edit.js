@@ -12,10 +12,12 @@ import $ from 'jquery';
 import './RecordingName.js';
 import '../edit/components/FormRowTextList.js';
 
+import {initializeArtistCredit} from '../edit/components/forms.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 import initializeValidation from '../edit/validation.js';
 
 $(function () {
   initGuessFeatButton('edit-recording');
+  initializeArtistCredit('edit-recording');
   initializeValidation();
 });

@@ -73,7 +73,6 @@
 
 <script type="text/javascript">
   $(function () {
-    MB.initializeArtistCredit('edit-recording');
     MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
     MB.installFormUnloadWarning();
   });
