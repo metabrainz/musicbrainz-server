@@ -43,7 +43,8 @@ sub TO_JSON {
         } else {
             $json->{field} = {};
             $json->{field}{$_->name} = TO_JSON($_) for $self->fields;
-            $json->{type} = 'compound_field';
+            # May already be set to 'form'.
+            $json->{type} //= 'compound_field';
         }
     } else {
         if ($self->isa('HTML::FormHandler::Field::Checkbox')) {
