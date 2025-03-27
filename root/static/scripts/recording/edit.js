@@ -17,10 +17,12 @@ import {
   initializeArtistCredit,
   installFormUnloadWarning,
 } from '../edit/components/forms.js';
+import initializeBubble from '../edit/MB/Control/Bubble.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 
 $(function () {
   initGuessFeatButton('edit-recording');
   initializeArtistCredit('edit-recording');
+  initializeBubble('#isrcs-bubble', 'input[name=edit-recording\\.isrcs\\.0]');
   installFormUnloadWarning();
 });
