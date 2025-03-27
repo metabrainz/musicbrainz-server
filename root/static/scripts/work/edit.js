@@ -26,6 +26,7 @@ import {groupBy} from '../common/utility/arrays.js';
 import getScriptArgs from '../common/utility/getScriptArgs.js';
 import parseIntegerOrNull from '../common/utility/parseIntegerOrNull.js';
 import FormRowSelectList from '../edit/components/FormRowSelectList.js';
+import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {buildOptionsTree} from '../edit/forms.js';
 import initializeBubble from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
@@ -356,3 +357,5 @@ initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
 
 const typeIdField = 'select[name=edit-work\\.type_id]';
 typeBubble(typeIdField);
+
+installFormUnloadWarning();

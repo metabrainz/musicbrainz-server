@@ -13,10 +13,14 @@ import './RecordingName.js';
 import '../edit/components/FormRowTextList.js';
 import '../edit/validation.js';
 
-import {initializeArtistCredit} from '../edit/components/forms.js';
+import {
+  initializeArtistCredit,
+  installFormUnloadWarning,
+} from '../edit/components/forms.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
 
 $(function () {
   initGuessFeatButton('edit-recording');
   initializeArtistCredit('edit-recording');
+  installFormUnloadWarning();
 });
