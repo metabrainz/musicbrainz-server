@@ -82,6 +82,7 @@ const entries = [
   'edit/components/NewNotesAlertCheckbox',
   'edit/components/ReleaseMergeStrategy',
   'edit/ExampleRelationships',
+  'edit/MB/reltypeslist',
   'event/components/EventEditForm',
   'event/eventart',
   'event/index',
