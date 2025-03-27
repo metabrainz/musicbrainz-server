@@ -11,7 +11,6 @@
     </p>
 </div>
 
-[% script_manifest('edit.js') %]
 [% script_manifest('recording/edit.js', {async => 'async'}) %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Recording'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Recording'), target => '_blank' }}) -%]</p>
@@ -70,9 +69,3 @@
     [%- isrc_bubble(link_entity(recording)) -%]
   </div>
 </form>
-
-<script type="text/javascript">
-  $(function () {
-    MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
-  });
-</script>
