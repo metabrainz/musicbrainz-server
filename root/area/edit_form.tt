@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <form action="[% c.req.uri %]" method="post" class="edit-area">
   [%- USE r = FormRenderer(form) -%]
 
@@ -57,9 +55,3 @@
 
 [%- guesscase_options() -%]
 [% script_manifest('area/edit.js', {async => 'async'}) %]
-
-<script type="text/javascript">
-  (function () {
-    MB.Control.initializeGuessCase("area", "id-edit-area");
-  }());
-</script>

@@ -11,6 +11,7 @@ import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 $(function () {
   var $orderingType = $('#id-edit-series\\.ordering_type_id');
@@ -35,7 +36,7 @@ $(function () {
 
   ko.applyBindings(series, $('#ordering-type-bubble')[0]);
 
-  MB.Control.initializeGuessCase('series', 'id-edit-series');
+  initializeGuessCase('series', 'id-edit-series');
 
   $orderingType.on('change', function () {
     series.orderingTypeID(Number(this.value));

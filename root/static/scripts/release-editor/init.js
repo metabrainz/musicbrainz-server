@@ -37,6 +37,7 @@ import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
 import {errorField, errorsExist} from '../edit/validation.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 import EditNoteTab from './components/EditNoteTab.js';
 import fields from './fields.js';
@@ -75,7 +76,7 @@ releaseEditor.init = function (options) {
    */
   utils.withRelease(function () {
     setTimeout(function () {
-      MB.Control.initializeGuessCase('release');
+      initializeGuessCase('release');
     }, 1);
   });
 
