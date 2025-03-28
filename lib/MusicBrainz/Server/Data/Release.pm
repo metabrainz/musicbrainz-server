@@ -1435,6 +1435,15 @@ sub merge
                 $medium_merge->{new_id},
                 @{$medium_merge->{old_ids}},
             );
+            $self->c->sql->do(<<~'SQL', $medium_merge->{new_id}, $medium_merge->{old_ids});
+                INSERT INTO medium_gid_redirect
+                     SELECT gid,
+                            ?::INT AS new_id,
+                            NOW() AS created
+                       FROM medium
+                      WHERE id = any(?)
+                SQL
+
         }
 
         my $delete_these_media = $self->sql->select_single_column_array(
