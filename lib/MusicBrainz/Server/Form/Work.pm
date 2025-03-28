@@ -9,7 +9,7 @@ use MusicBrainz::Server::Form::Utils qw(
     localize_error
     select_options_tree
 );
-use List::AllUtils qw( any uniq );
+use List::AllUtils qw( any );
 
 extends 'MusicBrainz::Server::Form';
 
@@ -49,8 +49,13 @@ has_field 'iswcs' => (
     inflate_default_method => \&inflate_iswcs,
 );
 
-has_field 'iswcs.contains' => (
+has_field 'iswcs.value' => (
     type => '+MusicBrainz::Server::Form::Field::ISWC',
+);
+
+has_field 'iswcs.removed' => (
+    type => 'Boolean',
+    default => 0,
 );
 
 has_field 'attributes' => (
@@ -118,9 +123,6 @@ sub validate_languages {
 
 after 'validate' => sub {
     my ($self) = @_;
-
-    my $iswcs = $self->field('iswcs');
-    $iswcs->value([ uniq sort grep { $_ } @{ $iswcs->value } ]);
 
     my $attributes = $self->field('attributes');
 
@@ -196,7 +198,7 @@ after 'validate' => sub {
 
 sub inflate_iswcs {
     my ($self, $value) = @_;
-    return [ map { $_->iswc } @$value ];
+    return [ map +{ value => $_->iswc }, @$value ];
 }
 
 sub inflate_attributes {

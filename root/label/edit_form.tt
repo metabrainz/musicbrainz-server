@@ -29,14 +29,14 @@
             LC- [% r.text('label_code', size => 5, class => "label-code", pattern => "[0-9]*") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
-        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('ipi_codes')),
            label => add_colon(l('IPI codes')),
            addButtonId => 'add-ipi-code',
            addButtonLabel => lp('Add IPI code', 'interactive'),
            removeButtonLabel => lp('Remove IPI code', 'interactive'),
          }) %]
-        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('isni_codes')),
            label => add_colon(l('ISNI codes')),
            addButtonId => 'add-isni-code',
