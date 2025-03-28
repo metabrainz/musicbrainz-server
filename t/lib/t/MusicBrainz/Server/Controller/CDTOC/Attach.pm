@@ -91,8 +91,11 @@ test 'A matching CD stub searches for possible releases' => sub {
                    (3, '3850dad5-8010-476c-9b19-d3bab89548ab', 'Release stub name', 1, 1),
                    (4, '3850dad5-8010-476c-9b19-d3bab89548ac', 'Release stub name', 1, 1);
 
-        INSERT INTO medium (id, release, track_count, position)
-            VALUES (1, 1, 0, 1), (2, 2, 0, 1), (3, 3, 0, 1), (4, 4, 0, 1);
+        INSERT INTO medium (id, gid, release, track_count, position)
+            VALUES (1, '4b36ed12-1ea0-49fd-9714-c1a1a414d093', 1, 0, 1),
+                   (2, '8380f08f-a293-4d6a-b37a-1e55f14c4a07', 2, 0, 1),
+                   (3, '3ee9b956-947b-4368-9e48-d46a6620d913', 3, 0, 1),
+                   (4, 'ff370b29-21ff-4d7b-832b-1fedb4958222', 4, 0, 1);
 
         INSERT INTO track (id, gid, medium, name, recording, position, number, artist_credit, is_data_track)
             VALUES (1, 'c53c3e26-192e-4a9d-bd46-7682f2154d6b', 1, 'Release track', 1, 1, 1, 1, FALSE),

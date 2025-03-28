@@ -45,9 +45,9 @@ INSERT INTO release (id, gid, name, artist_credit, status, release_group)
            (3405, '5a52075e-f5eb-3de5-8236-aa21cc05cb1a', 'Jeux vénetiens', 3400, 5, 3405),
            (3406, '5a52075e-aaaa-3de5-8236-aa21cc05cb1a', 'Bootlegs vénetiens', 3400, 3, 3406);
 
-INSERT INTO medium (id, release, position)
-    VALUES (3400, 3400, 1),
-           (3406, 3406, 1);
+INSERT INTO medium (id, gid, release, position)
+    VALUES (3400, '5469bd1c-d991-4397-8f32-e6eb95a9b9c2', 3400, 1),
+           (3406, 'b5e881b7-4ff4-4437-94a7-358abc84d13c', 3406, 1);
 
 INSERT INTO label (id, gid, name)
     VALUES (3401, '5a584032-dcef-41bb-9f8b-19540116fb1c', 'Deutsche Grammophon'),

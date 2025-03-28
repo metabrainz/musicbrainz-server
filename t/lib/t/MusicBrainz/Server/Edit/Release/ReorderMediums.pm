@@ -30,12 +30,12 @@ around run_test => sub {
         INSERT INTO release (id, gid, name, artist_credit, release_group)
             VALUES (1, 'f34c079d-374e-4436-9448-da92dedef3ce', 'Arrival', 1, 1);
 
-        INSERT INTO medium (id, release, track_count, position)
-            VALUES (101, 1, 1, 1),
-                   (102, 1, 1, 2),
-                   (103, 1, 1, 3),
-                   (104, 1, 1, 4),
-                   (105, 1, 1, 5);
+        INSERT INTO medium (id, gid, release, track_count, position)
+            VALUES (101, '6882c311-ab3e-4383-9e01-5029cb6300b4', 1, 1, 1),
+                   (102, '1a6e62d6-4648-4f0b-bc19-39dff9f0b8c2', 1, 1, 2),
+                   (103, '09e6a418-57fc-411a-be1d-2f3bd8f808cb', 1, 1, 3),
+                   (104, 'ed251cd5-6325-4ade-a91e-8d641dbe4012', 1, 1, 4),
+                   (105, 'a31ed382-d8ac-4269-8d89-ee037313358b', 1, 1, 5);
         SQL
 
     $test->clear_edit;
@@ -131,8 +131,8 @@ test 'MBS-8580' => sub {
     ok($edit->is_open);
 
     $c->sql->do(<<~'SQL');
-        INSERT INTO medium (id, release, position, format, name)
-            VALUES (106, 1, 6, NULL, '');
+        INSERT INTO medium (id, gid, release, position, format, name)
+            VALUES (106, '3d5ff664-902e-4049-af81-309a502c0f4e', 1, 6, NULL, '');
         SQL
 
     isa_ok exception { $edit->accept },

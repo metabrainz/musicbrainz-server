@@ -264,6 +264,7 @@ ALTER TABLE medium_attribute_type_allowed_value ADD CONSTRAINT medium_attribute_
 ALTER TABLE medium_attribute_type_allowed_value_allowed_format ADD CONSTRAINT medium_attribute_type_allowed_value_allowed_format_pkey PRIMARY KEY (medium_format, medium_attribute_type_allowed_value);
 ALTER TABLE medium_cdtoc ADD CONSTRAINT medium_cdtoc_pkey PRIMARY KEY (id);
 ALTER TABLE medium_format ADD CONSTRAINT medium_format_pkey PRIMARY KEY (id);
+ALTER TABLE medium_gid_redirect ADD CONSTRAINT medium_gid_redirect_pkey PRIMARY KEY (gid);
 ALTER TABLE medium_index ADD CONSTRAINT medium_index_pkey PRIMARY KEY (medium);
 ALTER TABLE mood ADD CONSTRAINT mood_pkey PRIMARY KEY (id);
 ALTER TABLE mood_alias ADD CONSTRAINT mood_alias_pkey PRIMARY KEY (id);

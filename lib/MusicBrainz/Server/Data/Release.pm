@@ -716,6 +716,7 @@ sub load_with_medium_for_recording
           release.quality AS r_quality,
           release.last_updated as r_last_updated,
           medium.id AS m_id,
+          medium.gid AS m_gid,
           medium.format AS m_format,
           medium.position AS m_position,
           medium.name AS m_name,
@@ -1433,6 +1434,15 @@ sub merge
                 $medium_merge->{new_id},
                 @{$medium_merge->{old_ids}},
             );
+            $self->c->sql->do(<<~'SQL', $medium_merge->{new_id}, [@{$medium_merge->{old_ids}}]);
+                INSERT INTO medium_gid_redirect
+                     SELECT gid,
+                            ?::INT AS new_id,
+                            NOW() AS created
+                       FROM medium
+                      WHERE id = any(?)
+                SQL
+
         }
 
         my $delete_these_media = $self->sql->select_single_column_array(
