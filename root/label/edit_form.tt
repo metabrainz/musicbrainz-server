@@ -45,7 +45,11 @@
          }) %]
       </fieldset>
 
-      [% date_range_fieldset(r, 'label', l('This label has ended.')) %]
+      [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
+           initialField => form_to_json(form.field('period')),
+           endedLabel => l('This label has ended.'),
+         }) %]
+      [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 
