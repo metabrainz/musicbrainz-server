@@ -74,6 +74,10 @@ component ArtistEvents(
             : l('This artist is not currently associated with any events.')}
         </p>
       )}
+
+      {manifest('common/components/Filter', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </ArtistLayout>
   );
 }

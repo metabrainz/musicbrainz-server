@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <form action="[% c.req.uri %]" method="post" class="edit-instrument">
   [%- USE r = FormRenderer(form) -%]
 
@@ -41,8 +39,4 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">
-  (function () {
-    MB.Control.initializeGuessCase("instrument", "id-edit-instrument");
-  }());
-</script>
+[% script_manifest('instrument/edit.js', {async => 'async'}) %]

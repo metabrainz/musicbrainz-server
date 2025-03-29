@@ -1,8 +1,8 @@
 /* eslint-disable import/no-commonjs */
 
-require('./edit.js');
+require('./common/MB/Control/Autocomplete.js');
 
-require('./edit/confirmNavigationFallback.js');
+require('./edit/forms.js');
 
 // The order here is important!
 require('./release-editor/viewModel.js');

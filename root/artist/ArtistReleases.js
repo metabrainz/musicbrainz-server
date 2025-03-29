@@ -96,6 +96,9 @@ component ArtistReleases(
           {show_all: `/artist/${artist.gid}/releases?va=1`},
         )
       )}
+
+      {manifest('common/components/Filter', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ArtistLayout>
   );
 }

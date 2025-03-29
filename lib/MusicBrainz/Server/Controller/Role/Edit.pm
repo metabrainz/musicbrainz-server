@@ -4,6 +4,7 @@ use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Form::Utils qw( form_or_field_to_json );
 
 parameter 'form' => (
     isa => 'Str',
@@ -62,7 +63,7 @@ role {
             $c->stash->{template} = 'entity/edit.tt';
         }
 
-        return $self->edit_action($c,
+        $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,
             item        => $edit_entity,
@@ -85,6 +86,14 @@ role {
             },
             $params->edit_arguments->($self, $c, $edit_entity),
         );
+
+        if ($model eq 'Recording') {
+            my $artist_credit_field = $c->stash->{form}->field('artist_credit');
+            $c->stash(
+                artist_credit => $artist_credit_field->to_artist_credit_json,
+                artist_credit_field => form_or_field_to_json($artist_credit_field),
+            );
+        }
     };
 };
 

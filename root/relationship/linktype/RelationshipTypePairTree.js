@@ -165,7 +165,6 @@ component RelationshipTypePairTree(root: LinkTypeT) {
         {type0: formattedType0, type1: formattedType1},
       )}
     >
-      {manifest('edit')}
       <div id="content">
         <RelationshipsHeader />
 
@@ -227,6 +226,7 @@ component RelationshipTypePairTree(root: LinkTypeT) {
           </p>
         )}
       </div>
+      {manifest('edit/MB/reltypeslist', {async: 'async'})}
     </Layout>
   );
 }

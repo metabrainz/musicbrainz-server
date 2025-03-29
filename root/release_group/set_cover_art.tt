@@ -1,5 +1,6 @@
 [%- WRAPPER 'release_group/layout.tt' title=lp('Set cover art', 'singular, header') full_width=1 page='edit' -%]
-[%- script_manifest('edit.js') -%]
+[%- script_manifest('common/loadArtwork.js', {async => 'async'}) -%]
+[%- script_manifest('common/artworkViewer.js', {async => 'async'}) -%]
 
 <h2>[%- lp('Set cover art', 'singular, header') -%]</h2>
 

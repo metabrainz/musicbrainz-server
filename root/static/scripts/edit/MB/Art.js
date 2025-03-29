@@ -11,6 +11,8 @@ import {filesize} from 'filesize';
 import $ from 'jquery';
 import ko from 'knockout';
 
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
+
 import image404Url from '../../../images/image404-125.png';
 import MB from '../../common/MB.js';
 import {getCatalystContext} from '../../common/utility/catalyst.js';

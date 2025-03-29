@@ -3,6 +3,7 @@ use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Form::Utils qw( form_or_field_to_json );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
 parameter 'form' => (
@@ -116,6 +117,14 @@ role {
             edit_rels   => 1,
             $params->edit_arguments->($self, $c),
         );
+
+        if ($model eq 'Recording') {
+            my $artist_credit_field = $c->stash->{form}->field('artist_credit');
+            $c->stash(
+                artist_credit => $artist_credit_field->to_artist_credit_json,
+                artist_credit_field => form_or_field_to_json($artist_credit_field),
+            );
+        }
     };
 };
 

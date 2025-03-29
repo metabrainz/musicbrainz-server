@@ -1,6 +1,6 @@
 /*
  * @flow
- * Copyright (C) 2020 MetaBrainz Foundation
+ * Copyright (C) 2025 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
@@ -9,20 +9,18 @@
 
 import $ from 'jquery';
 
-import './RecordingName.js';
-import '../edit/components/FormRowTextList.js';
 import '../edit/validation.js';
 
 import {
   initializeArtistCredit,
   installFormUnloadWarning,
 } from '../edit/components/forms.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
 import {initGuessFeatButton} from '../edit/utility/guessFeat.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 $(function () {
-  initGuessFeatButton('edit-recording');
-  initializeArtistCredit('edit-recording');
-  initializeBubble('#isrcs-bubble', 'input[name=edit-recording\\.isrcs\\.0]');
+  initGuessFeatButton('edit-release-group');
+  initializeArtistCredit('edit-release-group');
+  initializeGuessCase('release_group', 'id-edit-release-group');
   installFormUnloadWarning();
 });

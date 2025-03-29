@@ -51,6 +51,10 @@ component ReleaseMerge(
             mediums={mediums}
             releases={linkedEntities.release}
           />
+          {manifest(
+            'edit/components/ReleaseMergeStrategy',
+            {async: 'async'},
+          )}
 
           <EnterEditNote field={form.field.edit_note} />
 
@@ -66,8 +70,6 @@ component ReleaseMerge(
           </EnterEdit>
         </form>
       </div>
-
-      {manifest('edit')}
     </Layout>
   );
 }

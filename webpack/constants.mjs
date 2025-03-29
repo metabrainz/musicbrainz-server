@@ -36,3 +36,5 @@ export const GETTEXT_DOMAINS = [
 ];
 
 export const PRODUCTION_MODE = WEBPACK_MODE === 'production';
+
+export const GLOBAL_JS_NAMESPACE = '__MB__';

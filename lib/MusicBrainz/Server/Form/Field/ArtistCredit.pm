@@ -5,7 +5,6 @@ use warnings;
 use HTML::FormHandler::Moose;
 use Storable qw( dclone );
 use Text::Trim qw( );
-use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
 
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
@@ -103,7 +102,7 @@ around 'value' => sub {
     return clean_submitted_artist_credits($ret);
 };
 
-sub json {
+sub to_artist_credit_json {
     my $self = shift;
     my $result = $self->result;
     my $names = [];
@@ -132,7 +131,7 @@ sub json {
         $name->{name} = $artist->name if $artist && !$name->{name};
     }
 
-    return to_json({names => $names});
+    return {names => $names};
 }
 
 sub build_localize_meth {

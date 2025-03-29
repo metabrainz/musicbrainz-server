@@ -19,6 +19,7 @@ import {
   reduceArtistCredit,
 } from '../../common/immutable-entities.js';
 import MB from '../../common/MB.js';
+import {getCatalystContext} from '../../common/utility/catalyst.js';
 
 import {
   incompleteArtistCreditFromState,
@@ -120,7 +121,7 @@ export const KnockoutArtistCreditEditor = ({
 };
 
 export const FormRowArtistCredit = ({
-  form,
+  artistCreditField,
   initialState,
 }) => (
   <FormRow>
@@ -131,11 +132,15 @@ export const FormRowArtistCredit = ({
       initialState={initialState}
       reducer={artistCreditEditorReducer}
     />
-    {form ? <FieldErrors field={form.field.artist_credit} /> : null}
+    {artistCreditField ? <FieldErrors field={artistCreditField} /> : null}
   </FormRow>
 );
 
-MB.initializeArtistCredit = function (form, initialArtistCredit) {
+export function initializeArtistCredit(formName) {
+  const {
+    artist_credit: initialArtistCredit,
+    artist_credit_field: artistCreditField,
+  } = getCatalystContext().stash;
   const source = MB.getSourceEntityInstance() ?? {name: ''};
   source.uniqueID = 'source';
   source.artistCredit = ko.observable({
@@ -160,7 +165,7 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
     activeUser: window[GLOBAL_JS_NAMESPACE].$c.user,
     artistCredit: initialArtistCredit,
     entity: source,
-    formName: form.name,
+    formName,
     id: 'source',
   });
   const container = document.getElementById('artist-credit-editor');
@@ -169,18 +174,18 @@ MB.initializeArtistCredit = function (form, initialArtistCredit) {
   flushSync(() => {
     root.render(
       <FormRowArtistCredit
-        form={form}
+        artistCreditField={artistCreditField}
         initialState={initialState}
       />,
     );
   });
-};
+}
 
 /*
  * Registers a beforeunload event listener on the window that prompts
  * the user if any of the page's form inputs have been changed.
  */
-MB.installFormUnloadWarning = function () {
+export function installFormUnloadWarning() {
   let inputsChanged = false;
   let submittingForm = false;
 
@@ -225,4 +230,4 @@ MB.installFormUnloadWarning = function () {
     );
     return event.returnValue;
   });
-};
+}

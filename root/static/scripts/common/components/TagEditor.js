@@ -8,7 +8,10 @@
  */
 
 import he from 'he';
+import $ from 'jquery';
 import * as React from 'react';
+
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import {minimalEntity} from '../../../../utility/hydrate.js';
@@ -269,7 +272,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     let doRequest;
     if (asap) {
-      const $ = require('jquery');
       doRequest = (
         args: {+url: string},
       ) => $.ajax({...args, dataType: 'json'});
@@ -294,7 +296,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   componentDidMount() {
-    require('../../../lib/jquery-ui.js');
     window.addEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
@@ -381,7 +382,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       }),
     );
 
-    const $ = require('jquery');
     const tagsPath = getTagsPath(this.props.entity);
     $.get(`${tagsPath}/upvote?tags=${encodeURIComponent(tags)}`, data => {
       this.updateTags(JSON.parse(data).updates);
@@ -439,7 +439,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   setTagsInput(input: TagsInputT) {
-    const $ = require('jquery');
     const self = this;
 
     if (!input) {
