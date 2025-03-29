@@ -77,6 +77,7 @@ const entries = [
   'confirm-seed',
   'edit',
   'edit/components/FormRowTextList',
+  'edit/components/HydratedDateRangeFieldset',
   'edit/components/NewNotesAlertCheckbox',
   'edit/ExampleRelationships',
   'event/components/EventEditForm',

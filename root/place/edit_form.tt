@@ -29,7 +29,11 @@
         <ul class="errors coordinates-errors" style="display:none"><li>[% l('These coordinates could not be parsed.') %]</li></ul>
       </fieldset>
 
-      [% date_range_fieldset(r, 'place', l('This place has ended.')) %]
+      [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
+           initialField => form_to_json(form.field('period')),
+           endedLabel => l('This place has ended.'),
+         }) %]
+      [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 
