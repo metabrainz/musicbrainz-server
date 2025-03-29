@@ -45,14 +45,6 @@ sub add_gid_redirects
     $self->sql->do($query, %redirects);
 }
 
-sub delete_returning_gids {
-    my ($self, @ids) = @_;
-    return $self->sql->select_single_column_array('
-        DELETE FROM ' . $self->_main_table . '
-        WHERE id IN (' . placeholders(@ids) . ')
-        RETURNING gid', @ids);
-}
-
 around get_by_gid => sub
 {
     my ($orig, $self) = splice(@_, 0, 2);
@@ -63,11 +55,9 @@ around get_by_gid => sub
     }
     else {
         my $table = $self->_gid_redirect_table;
-        if (defined($table)) {
-            my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
-            if (defined($id)) {
-                return $self->get_by_id($id);
-            }
+        my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
+        if (defined($id)) {
+            return $self->get_by_id($id);
         }
         return undef;
     }
@@ -79,8 +69,6 @@ around get_by_gids => sub
     my (@gids) = @_;
     my %gid_map = %{ $self->$orig(@_) };
     my $table = $self->_gid_redirect_table;
-    return \%gid_map
-        unless defined $table;
     my @missing_gids;
     for my $gid (grep { is_guid($_) } @gids) {
         unless (exists $gid_map{$gid}) {

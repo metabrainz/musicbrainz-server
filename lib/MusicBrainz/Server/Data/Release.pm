@@ -33,6 +33,7 @@ use aliased 'MusicBrainz::Server::Entity::ReleaseArt';
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::Name',
      'MusicBrainz::Server::Data::Role::Annotation' => { type => 'release' },
      'MusicBrainz::Server::Data::Role::GIDEntityCache',

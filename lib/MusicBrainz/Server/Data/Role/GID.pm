@@ -3,7 +3,7 @@ package MusicBrainz::Server::Data::Role::GID;
 use Moose::Role;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Data::Utils qw( generate_gid );
+use MusicBrainz::Server::Data::Utils qw( generate_gid placeholders );
 
 requires '_hash_to_row', '_main_table';
 requires 'sql';
@@ -42,6 +42,14 @@ sub _insert_hook_make_row {
 sub _insert_hook_after_each { }
 
 sub _insert_hook_after { }
+
+sub delete_returning_gids {
+    my ($self, @ids) = @_;
+    return $self->sql->select_single_column_array('
+        DELETE FROM ' . $self->_main_table . '
+        WHERE id IN (' . placeholders(@ids) . ')
+        RETURNING gid', @ids);
+}
 
 no Moose::Role;
 1;
