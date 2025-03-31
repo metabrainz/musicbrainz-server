@@ -22,6 +22,7 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::Name',
      'MusicBrainz::Server::Data::Role::Annotation' => { type => 'area' },
      'MusicBrainz::Server::Data::Role::Alias' => { type => 'area' },

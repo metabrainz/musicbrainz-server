@@ -59,6 +59,15 @@ const bracketRegex = new RegExp(
 const capitalizedETIRegex =
   /\s+\(.*\b(?:Instrumental|Live|Mix|Remix|Version)\)\s*$/;
 
+/*
+ * This matches a subset of words from LOWER_CASE_WORDS in
+ * ../guess-case/modes.js.
+ */
+const miscapitalizedEnglishRegex =
+  /[a-zA-Z0-9,]\s+(?:And|Of|Or|The|To)\s+[a-zA-Z]/;
+
+const debounceTrackTitleDelayMs = 250;
+
 releaseEditor.fields = fields;
 
 class Track {
@@ -88,6 +97,10 @@ class Track {
     this.hasCapitalizedETIInOrigTitle =
       isDatabaseRowId(this.id) &&
       capitalizedETIRegex.test(data.name);
+    this.hasMiscapitalizedOrigTitle =
+      isDatabaseRowId(this.id) &&
+      medium.release.shouldUseEnglishCapitalization() &&
+      miscapitalizedEnglishRegex.test(data.name);
 
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
@@ -184,6 +197,20 @@ class Track {
 
     this.formattedLength.subscribe(this.formattedLengthChanged, this);
     this.hasNewRecording.subscribe(this.hasNewRecordingChanged, this);
+
+    this.hasFeatInTitle = debounceComputed(
+      () => featRegex.test(this.name().replace(bracketRegex, ' ')),
+      debounceTrackTitleDelayMs,
+    );
+    this.hasCapitalizedETI = debounceComputed(
+      () => capitalizedETIRegex.test(this.name()),
+      debounceTrackTitleDelayMs,
+    );
+    this.hasMiscapitalizedTitle = debounceComputed(
+      () => this.medium.release.shouldUseEnglishCapitalization() &&
+            miscapitalizedEnglishRegex.test(this.name()),
+      debounceTrackTitleDelayMs,
+    );
   }
 
   recordingGID() {
@@ -379,14 +406,6 @@ class Track {
     return hasVariousArtists(this.artistCredit());
   }
 
-  hasFeatInTitle() {
-    return featRegex.test(this.name().replace(bracketRegex, ' '));
-  }
-
-  hasCapitalizedETI() {
-    return capitalizedETIRegex.test(this.name());
-  }
-
   relatedArtists() {
     return this.medium.release.relatedArtists;
   }
@@ -546,6 +565,19 @@ class Medium {
     });
     this.confirmedCapitalizedETI = ko.observable(false);
 
+    this.hasMiscapitalizedTitles = ko.computed(function () {
+      return !self.tracksUnknownToUser() &&
+             self.tracks().some(t => t.hasMiscapitalizedTitle());
+    });
+    this.hasAddedMiscapitalizedTitles = ko.computed(function () {
+      return self.hasMiscapitalizedTitles() &&
+             self.tracks().some(
+               t => !t.hasMiscapitalizedOrigTitle &&
+                    t.hasMiscapitalizedTitle(),
+             );
+    });
+    this.confirmedMiscapitalizedTitles = ko.observable(false);
+
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return Boolean(mediumFormatDate && self.release.earliestYear() &&
@@ -654,6 +686,11 @@ class Medium {
     this.hasUnconfirmedCapitalizedETI = ko.computed(function () {
       return (self.hasAddedCapitalizedETI() &&
               !self.confirmedCapitalizedETI());
+    });
+
+    this.hasUnconfirmedMiscapitalizedTitles = ko.computed(function () {
+      return (self.hasAddedMiscapitalizedTitles() &&
+              !self.confirmedMiscapitalizedTitles());
     });
 
     this.hasVariousArtistsTracks.subscribe(function (value) {
@@ -1224,6 +1261,10 @@ class Release extends mbEntity.Release {
       return releaseEditor.isBeginner &&
         self.shouldUseEnglishCapitalization() &&
         self.mediums().some(m => m.hasUnconfirmedCapitalizedETI());
+    });
+    this.hasMiscapitalizedTitles = errorField(function () {
+      return releaseEditor.isBeginner &&
+        self.mediums().some(m => m.hasUnconfirmedMiscapitalizedTitles());
     });
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());

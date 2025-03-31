@@ -127,7 +127,7 @@ dialogTest((
   const medium = release.mediums()[0];
 
   medium.tracks.push(
-    new fields.Track({length: 12345, name: '~fooo~', position: 1}),
+    new fields.Track({length: 12345, name: '~fooo~', position: 1}, medium),
   );
 
   t.ok(medium.hasTracks(), 'medium has tracks');

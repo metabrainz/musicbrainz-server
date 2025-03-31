@@ -9,6 +9,7 @@ use URI;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
      'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
      'MusicBrainz::Server::Data::Role::Merge';

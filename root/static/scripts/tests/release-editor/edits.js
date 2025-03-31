@@ -285,14 +285,14 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
   const newMedium1 = new fields.Medium({
     name: 'foo',
     position: 1,
-  });
+  }, release);
 
   newMedium1.tracks.push(new fields.Track({}, newMedium1));
 
   const newMedium2 = new fields.Medium({
     name: 'bar',
     position: 2,
-  });
+  }, release);
 
   newMedium2.tracks.push(new fields.Track({}, newMedium2));
   mediums.push(newMedium1, newMedium2);
@@ -358,7 +358,7 @@ test((
   releaseEditor.rootField.release(release);
 
   const mediums = release.mediums;
-  const newMedium = new fields.Medium({position: 2});
+  const newMedium = new fields.Medium({position: 2}, release);
 
   newMedium.tracks.push(new fields.Track({}, newMedium));
   mediums.push(newMedium);

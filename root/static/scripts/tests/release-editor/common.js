@@ -30,7 +30,9 @@ export function setupReleaseEdit() {
 }
 
 export function trackParserTest(t, input, expected) {
-  const result = trackParser.parse(input);
+  const release = releaseEditor.rootField.release();
+  const medium = release.mediums()[0];
+  const result = trackParser.parse(input, medium);
 
   function getProps(track) {
     const props = {};
