@@ -33,7 +33,7 @@ with 'MusicBrainz::Server::Controller::Role::EditListing';
 with 'MusicBrainz::Server::Controller::Role::Tag';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
     endpoints => {
-        show => {copy_stash => ['release_artwork', 'top_tags']},
+        show => {copy_stash => ['release_artwork', 'top_tags', 'genre_map']},
         aliases => {copy_stash => ['aliases']},
         cover_art => {copy_stash => ['cover_art']},
     },
