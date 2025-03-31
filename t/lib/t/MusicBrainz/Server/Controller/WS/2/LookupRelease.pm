@@ -362,7 +362,7 @@ ws_test 'release lookup with labels, recordings and tags',
             </label-info>
         </label-info-list>
         <medium-list count="1">
-            <medium>
+            <medium id="09af1de4-a712-4bfb-8331-fb15f6fcd844">
                 <position>1</position>
                 <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <track-list count="3" offset="0">
@@ -556,7 +556,7 @@ ws_test 'release lookup with discids and recordings',
         <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <medium-list count="1">
-            <medium>
+            <medium id="18d49785-59f6-4698-99bc-43aa0043abd9">
                 <position>1</position><format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
@@ -637,7 +637,7 @@ ws_test 'release lookup, no tracks',
             <back>false</back>
         </cover-art-archive>
         <medium-list count="1">
-          <medium>
+          <medium id="596a290f-cf94-4d63-ae82-8dcbacd7db6a">
             <position>1</position>
             <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
             <track-list count="0" />
@@ -854,7 +854,7 @@ ws_test 'release lookup, related artists have no tags',
       <artwork>false</artwork><count>0</count><front>false</front><back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="7a5e9a3b-6587-489a-bf68-83ce04bafaea">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="10" offset="0">
@@ -1411,7 +1411,7 @@ ws_test 'release lookup, track artists have no aliases',
       <artwork>true</artwork><count>1</count><front>true</front><back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="09af1de4-a712-4bfb-8331-fb15f6fcd844">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="3" offset="0">
@@ -1585,7 +1585,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="7a5e9a3b-6587-489a-bf68-83ce04bafaea">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="10" offset="0">
@@ -2034,7 +2034,7 @@ ws_test 'release lookup, pregap track',
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="cc7380e2-f2bc-44b8-a8a2-75d8b85aa590">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <pregap id="1a0ba71b-fb23-3931-a426-cd204a82a90e">
@@ -2132,7 +2132,7 @@ test 'MBS-7914' => sub {
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="74093abc-1b12-447e-9444-87c4b91e236e">
         <position>1</position>
         <track-list count="1" offset="0">
           <track id="8ac89142-1318-490a-bed2-5b0c89b251b2">
@@ -2214,7 +2214,7 @@ test 'MBS-12170' => sub {
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="613fb5fc-7581-409e-9676-9b926aa8ad12">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="1" offset="0">
