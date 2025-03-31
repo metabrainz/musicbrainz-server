@@ -839,6 +839,8 @@ sub TO_JSON {
         collaborative_collections
         commons_image
         containment
+        current_isrcs
+        current_iswcs
         current_language
         current_language_html
         entity

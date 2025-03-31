@@ -69,14 +69,18 @@ role {
             edit_args   => { to_edit => $edit_entity },
             edit_rels   => 1,
             pre_validation => sub {
+                my $form = shift;
                 if ($model eq 'Event') {
-                    my $form = shift;
                     my %event_descriptions = map {
                         $_->id => $_->l_description
                     } $c->model('EventType')->get_all();
 
                     $props{eventTypes} = $form->options_type_id;
                     $props{eventDescriptions} = \%event_descriptions;
+                }
+                if ($self->does('MusicBrainz::Server::Controller::Role::IdentifierSet')) {
+                    $self->munge_compound_text_fields($c, $form);
+                    $self->stash_current_identifier_values($c, $edit_entity->id);
                 }
             },
             redirect    => sub {

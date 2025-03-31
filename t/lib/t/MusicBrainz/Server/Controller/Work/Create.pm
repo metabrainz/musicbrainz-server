@@ -42,6 +42,8 @@ test 'Adding a new work, including ISWCs' => sub {
                 'edit-work.name' => 'Enchanted',
                 'edit-work.iswcs.0' => 'T-000.000.003-0',
                 'edit-work.iswcs.1' => 'T-000.000.004-0',
+                'edit-work.iswcs.2' => 'T-000.000.005-0',
+                'edit-work.iswcs.2.removed' => '1',
                 'edit-work.languages.0' => '120',
                 'edit-work.languages.1' => '134',
             },
