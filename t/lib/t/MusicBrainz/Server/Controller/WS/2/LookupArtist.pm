@@ -204,7 +204,7 @@ ws_test 'artist lookup with releases and discids',
                 </release-event-list>
                 <barcode>600116817020</barcode>
                 <medium-list count="1">
-                    <medium>
+                    <medium id="a2262369-c808-447c-babb-e10317f4d6b2">
                         <position>1</position>
                         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                         <disc-list count="1">
@@ -254,7 +254,7 @@ ws_test 'artist lookup with releases and discids',
                 </release-event-list>
                 <barcode>600116822123</barcode>
                 <medium-list count="2">
-                    <medium>
+                    <medium id="a9aa3219-fbb8-44de-a312-ad1a58eb8203">
                         <position>1</position>
                         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                         <disc-list count="1">
@@ -275,7 +275,7 @@ ws_test 'artist lookup with releases and discids',
                         </disc-list>
                         <track-list count="9" />
                     </medium>
-                    <medium>
+                    <medium id="b3702464-93dc-43f4-8337-b081f667ffa0">
                         <title>Chestplate Singles</title>
                         <position>2</position>
                         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>

@@ -169,7 +169,7 @@ ws_test 'lookup recording with official singles (+media)',
                 </release-event-list>
                 <barcode>4942463511227</barcode>
                 <medium-list count="1">
-                    <medium>
+                    <medium id="1f8e4908-a1ae-4681-a945-900d64ee91f8">
                         <position>1</position>
                         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                         <track-list count="3" offset="0">

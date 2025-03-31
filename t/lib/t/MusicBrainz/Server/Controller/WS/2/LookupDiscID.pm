@@ -64,14 +64,14 @@ ws_test 'direct disc id lookup',
             <back>false</back>
         </cover-art-archive>
         <medium-list count="2">
-          <medium>
+          <medium id="85e53b98-2183-4637-bd19-0adfb30b573c">
             <title>A Sea of Honey</title>
             <position>1</position>
             <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
             <disc-list count="0" />
             <track-list count="7" />
           </medium>
-          <medium>
+          <medium id="d4839595-9c34-4c2d-9dd9-260e433c4638">
             <title>A Sky of Honey</title>
             <position>2</position>
             <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
@@ -122,14 +122,14 @@ ws_test 'lookup via toc',
           <back>false</back>
       </cover-art-archive>
       <medium-list count="2">
-        <medium>
+        <medium id="85e53b98-2183-4637-bd19-0adfb30b573c">
           <title>A Sea of Honey</title>
           <position>1</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
-        <medium>
+        <medium id="d4839595-9c34-4c2d-9dd9-260e433c4638">
           <title>A Sky of Honey</title>
           <position>2</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
@@ -169,14 +169,14 @@ ws_test 'lookup via toc',
           <back>false</back>
       </cover-art-archive>
       <medium-list count="2">
-        <medium>
+        <medium id="cce58ecb-3872-49e2-ac29-44397e265c61">
           <title>A Sea of Honey</title>
           <position>1</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
-        <medium>
+        <medium id="8f9bf81c-cfda-4689-a9a7-55f57fb4b9c2">
           <title>A Sky of Honey</title>
           <position>2</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
@@ -236,14 +236,14 @@ ws_test 'lookup via toc with invalid discid parameter',
           <back>false</back>
       </cover-art-archive>
       <medium-list count="2">
-        <medium>
+        <medium id="85e53b98-2183-4637-bd19-0adfb30b573c">
           <title>A Sea of Honey</title>
           <position>1</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
-        <medium>
+        <medium id="d4839595-9c34-4c2d-9dd9-260e433c4638">
           <title>A Sky of Honey</title>
           <position>2</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
@@ -283,14 +283,14 @@ ws_test 'lookup via toc with invalid discid parameter',
           <back>false</back>
       </cover-art-archive>
       <medium-list count="2">
-        <medium>
+        <medium id="cce58ecb-3872-49e2-ac29-44397e265c61">
           <title>A Sea of Honey</title>
           <position>1</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
           <disc-list count="0" />
           <track-list count="7" />
         </medium>
-        <medium>
+        <medium id="8f9bf81c-cfda-4689-a9a7-55f57fb4b9c2">
           <title>A Sky of Honey</title>
           <position>2</position>
           <format id="52014420-cae8-11de-8a39-0800200c9a26">Format</format>
