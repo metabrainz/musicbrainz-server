@@ -194,6 +194,7 @@ sub delete
     $self->c->model('MediumCDTOC')->delete($_) for @tocs;
     $self->sql->do('DELETE FROM track_gid_redirect WHERE new_id IN (SELECT id FROM track WHERE medium IN (' . placeholders(@ids) . '))', @ids);
     $self->sql->do('DELETE FROM track WHERE medium IN (' . placeholders(@ids) . ')', @ids);
+    $self->sql->do('DELETE FROM medium_gid_redirect WHERE new_id IN (' . placeholders(@ids) . ')', @ids);
     $self->sql->do('DELETE FROM medium WHERE id IN (' . placeholders(@ids) . ')', @ids);
 }
 
