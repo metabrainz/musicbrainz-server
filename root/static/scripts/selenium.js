@@ -1,4 +1,6 @@
 import MB from './common/MB.js';
+import setInputValueForReact
+  from './common/utility/setInputValueForReact.mjs';
 import {errorField, errorFields, errorsExist} from './edit/validation.js';
 
 /*
@@ -17,6 +19,4 @@ MB.validation = {
 };
 
 // Used by our implementation of the Selenium 'type' command.
-import('./common/utility/setInputValueForReact.mjs').then((module) => {
-  MB.setInputValueForReact = module.default;
-});
+MB.setInputValueForReact = setInputValueForReact;
