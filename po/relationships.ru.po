@@ -22,8 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-29 20:26+0000\n"
-"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
+"PO-Revision-Date: 2025-03-30 14:44+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -2048,6 +2049,9 @@ msgid ""
 "overseeing the artistic development of an artist, and acting as liaison "
 "between artists and the labels."
 msgstr ""
+"Обозначает человека или агентство, которое отвечает за поиск талантов, "
+"следит за художественным развитием исполнителя и выступает в качестве "
+"связующего звена между исполнителями и лейблами."
 
 #. name:design/illustration
 #: DB:link_type/description:19
@@ -2056,6 +2060,9 @@ msgid ""
 "release. This relationship is deprecated, please use either “design” or "
 "“illustration” (or both!) instead."
 msgstr ""
+"Указывает на человека или агентство, которые сделали дизайн или иллюстрации "
+"для релиза. Данное отношение является устаревшим, вместо него используйте "
+"«дизайн» или «иллюстрация» (или оба!)."
 
 #. name:design/illustration
 #: DB:link_type/description:130
@@ -2063,6 +2070,8 @@ msgid ""
 "This indicates a person or agency who did design or illustration for the "
 "track."
 msgstr ""
+"Указывает на человека или агентство, которые сделали дизайн или иллюстрации "
+"для трека."
 
 #. name:personal label
 #: DB:link_type/description:723
@@ -2071,6 +2080,8 @@ msgid ""
 "is a small label (usually a subdivision of a larger one) that exclusively "
 "handles releases by that artist."
 msgstr ""
+"Это указывает на личный лейбл исполнителя - небольшой лейбл (обычно "
+"подразделение более крупного), который занимается исключительно его релизами."
 
 #. name:personal publisher
 #: DB:link_type/description:724
@@ -2079,6 +2090,9 @@ msgid ""
 "publishing label is a small label (usually a subdivision of a larger one) "
 "that exclusively handles the rights to works by that artist."
 msgstr ""
+"Указывает на личный издательский лейбл артиста - это небольшой лейбл (обычно "
+"подразделение более крупного), который занимается правами на произведения "
+"исключительно данного артиста."
 
 #. name:field recordist
 #: DB:link_type/description:1011
@@ -2086,6 +2100,8 @@ msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "recording."
 msgstr ""
+"Указывает на инженера звукозаписи, который делал полевые записи для этой "
+"записи."
 
 #. name:field recordist
 #: DB:link_type/description:1012
@@ -2093,6 +2109,8 @@ msgid ""
 "This indicates a recording engineer that recorded field recordings for the "
 "release."
 msgstr ""
+"Указывает на инженера звукозаписи, который делал полевые записи для этого "
+"релиза."
 
 #. name:excerpt from
 #: DB:link_type/description:1240
@@ -2100,11 +2118,13 @@ msgid ""
 "This indicates a release group is an excerpt from another, such as the "
 "highlights of a box set or a long opera."
 msgstr ""
+"Указывает на то, что группа релизов представляет собой отрывок из другой ("
+"например, основные моменты бокс-сета или длинной оперы)."
 
 #. name:art direction
 #: DB:link_type/description:1174
 msgid "This indicates an agency that did the art direction for the release."
-msgstr ""
+msgstr "Указывает на агентство, которое занималось арт-руководством релиза."
 
 #. name:design
 #: DB:link_type/description:1171
@@ -3087,15 +3107,13 @@ msgstr "Указывает на исполнителя, который вдох�
 
 #. name:named after work
 #: DB:link_type/description:1278
-#, fuzzy
-#| msgid "This indicates the work that inspired this artist’s name."
 msgid "This indicates the work that inspired this work's name."
-msgstr "Указывает на работу, которая вдохновила имя этого исполнителя."
+msgstr "Указывает на работу, которая вдохновила имя этой работы."
 
 #. name:podcast feed
 #: DB:link_type/description:915
 msgid "This indicates where a feed for this podcast can be found."
-msgstr ""
+msgstr "Указывает на сайт, где можно найти фид для этого подкаста."
 
 #. name:live performance
 #: DB:link_type/description:17
@@ -3103,6 +3121,8 @@ msgid ""
 "This is used to indicate that a release group is a live performance of a "
 "studio release group."
 msgstr ""
+"Используется для обозначения того, что в группе релизов представлено живое "
+"исполнение студийной группы релизов."
 
 #. name:translated version
 #: DB:link_type/description:1082
@@ -3110,6 +3130,8 @@ msgid ""
 "This is used to indicate that a release group is a translated version of "
 "another."
 msgstr ""
+"Используется для указания на то, что группа релизов является переведенной "
+"версией другой."
 
 #. name:medley
 #: DB:link_type/description:239
@@ -3120,6 +3142,11 @@ msgid ""
 "d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">arranger</a> for crediting the person "
 "who arranges songs into a medley."
 msgstr ""
+"Используется для обозначения того, что произведение представляет собой "
+"попурри из нескольких других песен. Это означает, что оригинальные песни "
+"были переложены, чтобы создать новое произведение в виде попурри. Для "
+"обозначения человека, который аранжирует песни в попурри, см. <a href="
+"\"/relationship/d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">аранжировщик</a>."
 
 #. name:mashes up
 #: DB:link_type/description:232
@@ -3127,6 +3154,8 @@ msgid ""
 "This is used to indicate that the recording is a <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other recordings."
 msgstr ""
+"Используется для указания на то, что запись представляет собой <a href="
+"\"/doc/Mix_Terminology#mash-up\">мэшап</a> двух (или более) других записей."
 
 #. name:mashes up
 #: DB:link_type/description:10
@@ -3134,6 +3163,9 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other release groups."
 msgstr ""
+"Используется для указания на то, что группа релизов представляет собой <a "
+"href=\"/doc/Mix_Terminology#mash-up\">мэшап</a> двух (или более) других "
+"групп."
 
 #. name:DJ-mix
 #: DB:link_type/description:227
@@ -3147,7 +3179,7 @@ msgstr ""
 #. name:allmusic
 #: DB:link_type/description:1093
 msgid "This is used to link a genre to its corresponding page on Allmusic."
-msgstr ""
+msgstr "Используется для ссылки жанра на соответствующую страницу на Allmusic."
 
 #. name:karaoke
 #: DB:link_type/description:226
@@ -3161,11 +3193,19 @@ msgid ""
 "numerous different ways other than \"karaoke\": instrumental (even if "
 "backing vocals are still present), off vocal, backing track, etc."
 msgstr ""
+"Используется для связи караоке-версии песни с оригинальной песней.<br/><br/>"
+"\n"
+"Караоке-версия - это версия песни с удаленным главным вокалом, "
+"предназначенная для использования в караоке. Обычно они создаются на основе "
+"оригинальных записей путем приглушения главного вокала или использования "
+"фильтров постобработки для удаления вокала. Караоке-версии можно встретить с "
+"различными обозначениями, кроме «караоке»: инструментальная (даже если бэк-"
+"вокал все еще присутствует), без вокала, бэк-трек и т. д."
 
 #. name:logo
 #: DB:link_type/description:213
 msgid "This is used to link a label to an image of its logo."
-msgstr ""
+msgstr "Используется для ссылки на изображение логотипа лейбла."
 
 #. name:secondhandsongs
 #: DB:link_type/description:977
@@ -3173,17 +3213,20 @@ msgid ""
 "This is used to link a label to its corresponding page in the "
 "SecondHandSongs database."
 msgstr ""
+"Используется для ссылки на соответствующую страницу лейбла в базе данных "
+"SecondHandSongs."
 
 #. name:music video
 #: DB:link_type/description:857
 msgid ""
 "This is used to link a music video to the corresponding audio recording."
 msgstr ""
+"Используется для связи музыкального видео с соответствующей аудиозаписью."
 
 #. name:discogs
 #: DB:link_type/description:705
 msgid "This is used to link a place to the equivalent entry in Discogs."
-msgstr ""
+msgstr "Используется для ссылки места на аналогичную страницу в Discogs."
 
 #. name:secondhandsongs
 #: DB:link_type/description:976
@@ -3191,11 +3234,13 @@ msgid ""
 "This is used to link a recording to its corresponding page in the "
 "SecondHandSongs database."
 msgstr ""
+"Используется для ссылки на соответствующую страницу записи в базе данных "
+"SecondHandSongs."
 
 #. name:allmusic
 #: DB:link_type/description:285
 msgid "This is used to link a recording to its corresponding page on Allmusic."
-msgstr ""
+msgstr "Используется для ссылки записи на соответствующую страницу на Allmusic."
 
 #. name:DJ-mix
 #: DB:link_type/description:8
@@ -3212,6 +3257,8 @@ msgstr ""
 msgid ""
 "This is used to link a release group to its corresponding page on Allmusic."
 msgstr ""
+"Используется для ссылки группы релизов на соответствующую страницу на "
+"Allmusic."
 
 #. name:secondhandsongs
 #: DB:link_type/description:308
@@ -3219,16 +3266,18 @@ msgid ""
 "This is used to link a release to its corresponding page in the "
 "SecondHandSongs database."
 msgstr ""
+"Используется для ссылки на соответствующую страницу релиза в базе данных "
+"SecondHandSongs."
 
 #. name:allmusic
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
-msgstr ""
+msgstr "Используется для ссылки релиза на соответствующую страницу на Allmusic."
 
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
-msgstr ""
+msgstr "Используется для ссылки серии на аналогичную страницу в Discogs."
 
 #. name:secondhandsongs
 #: DB:link_type/description:280
@@ -3236,11 +3285,14 @@ msgid ""
 "This is used to link a work to its corresponding page in the SecondHandSongs "
 "database."
 msgstr ""
+"Используется для ссылки на соответствующую страницу произведения в базе "
+"данных SecondHandSongs."
 
 #. name:allmusic
 #: DB:link_type/description:286
 msgid "This is used to link a work to its corresponding page on Allmusic."
 msgstr ""
+"Используется для ссылки произведения на соответствующую страницу на Allmusic."
 
 #. name:a cappella
 #: DB:link_type/description:1238
@@ -3250,6 +3302,9 @@ msgid ""
 "An a cappella version is a version of the song with only the vocal tracks "
 "(for example, a hip hop vocal track without the beat)."
 msgstr ""
+"Используется для связи акапельной версии песни с оригиналом.<br/><br/>\n"
+"Акапельная версия - это версия песни, содержащая только вокальные дорожки ("
+"например, вокальная дорожка в стиле хип-хоп без ритма)."
 
 #. name:secondhandsongs
 #: DB:link_type/description:307
@@ -3257,16 +3312,20 @@ msgid ""
 "This is used to link an artist to its corresponding page in the "
 "SecondHandSongs database."
 msgstr ""
+"Используется для ссылки на соответствующую страницу исполнителя в базе "
+"данных SecondHandSongs."
 
 #. name:allmusic
 #: DB:link_type/description:283
 msgid "This is used to link an artist to its corresponding page on Allmusic."
 msgstr ""
+"Используется для ссылки исполнителя на соответствующую страницу на Allmusic."
 
 #. name:primary concert venue
 #: DB:link_type/description:714
 msgid "This is used to link an artist to its primary concert venue."
 msgstr ""
+"Используется для привязки исполнителя к его основной концертной площадке."
 
 #. name:instrumental
 #: DB:link_type/description:1239
@@ -3277,11 +3336,16 @@ msgid ""
 "(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
 "use the karaoke relationship."
 msgstr ""
+"Используется для связи инструментальной версии песни с оригиналом.<br/><br/>"
+"\n"
+"Инструментальная версия - это версия песни с удаленным вокалом (например, "
+"хип-хоп бит без рэп-треков). Для караоке-треков используйте соответствующее "
+"отношение."
 
 #. name:discogs
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
-msgstr ""
+msgstr "Используется как ссылка на страницу Discogs для этого исполнителя."
 
 #. name:discogs
 #: DB:link_type/description:1275
@@ -3365,6 +3429,11 @@ msgid ""
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
 msgstr ""
+"Используется, когда произведение содержит краткую цитату из текста другого "
+"произведения. В большинстве случаев цитата не афишируется, хотя это и не "
+"является обязательным условием. Если произведение включает в себя не только "
+"краткую цитату, но и значительно больше другого произведения, используйте "
+"вместо этого отношение «на основе»."
 
 #. name:musical quotation
 #: DB:link_type/description:1046
@@ -3374,6 +3443,11 @@ msgid ""
 "requirement. For a work that includes significantly more of another than "
 "just a brief quotation, consider using “based on” instead."
 msgstr ""
+"Используется, когда произведение содержит краткую цитату из музыки другого "
+"произведения. В большинстве случаев цитата не афишируется, хотя это и не "
+"является обязательным условием. Если произведение включает в себя не только "
+"краткую цитату, но и значительно больше другого произведения, используйте "
+"вместо этого отношение «на основе»."
 
 #. name:discography entry
 #: DB:link_type/description:1169
@@ -3409,6 +3483,8 @@ msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">DJ-"
 "mix</a> to the artist who mixed it."
 msgstr ""
+"Связывает <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\""
+">диджей-микс</a> с исполнителем, который его микшировал."
 
 #. name:remix
 #: DB:link_type/description:9
@@ -3429,7 +3505,7 @@ msgstr ""
 #. name:amazon asin
 #: DB:link_type/description:77
 msgid "This links a MusicBrainz release to the equivalent entry at Amazon."
-msgstr ""
+msgstr "Связывает релиз с аналогичным артикулом на Amazon."
 
 #. name:tour in support of
 #: DB:link_type/description:888
@@ -3456,6 +3532,8 @@ msgid ""
 "This links a group (often an orchestra) to a composer who has a composer-in-"
 "residence position with the group."
 msgstr ""
+"Связывает группу (часто оркестр) с композитором, который занимает должность "
+"композитора-резидента в группе."
 
 #. name:video channel
 #: DB:link_type/description:304
@@ -3463,6 +3541,8 @@ msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Связывает лейбл с каналом, плейлистом или страницей пользователя на сайте "
+"видеохостинга, содержащей курируемые им видео."
 
 #. name:fanpage
 #: DB:link_type/description:214
@@ -3526,6 +3606,8 @@ msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
 msgstr ""
+"Связывает место (часто концертный зал или учебное заведение) с композитором, "
+"который занимает в нем должность композитора-резидента."
 
 #. name:video channel
 #: DB:link_type/description:495
@@ -3533,11 +3615,13 @@ msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Это связывает место с каналом, плейлистом или страницей пользователя на "
+"сайте видеохостинга, содержащей курируемые им видео."
 
 #. name:fanpage
 #: DB:link_type/description:1191
 msgid "This links a place to a fan-created website."
-msgstr ""
+msgstr "Связывает место с фанатским веб-сайтом."
 
 #. name:patronage
 #: DB:link_type/description:900
@@ -3553,18 +3637,18 @@ msgstr ""
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
+"Это связывает место с сайтом, где можно приобрести билеты на мероприятия в "
+"нем."
 
 #. name:youtube
 #: DB:link_type/description:528
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a place to its channel at YouTube."
-msgstr "Ссылается на канал исполнителя на YouTube Music."
+msgstr "Связывает место с его YouTube-каналом."
 
 #. name:soundcloud
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr ""
+msgstr "Связывает место с его профилем в SoundCloud."
 
 #. name:crowdfunding
 #: DB:link_type/description:909
@@ -3578,7 +3662,7 @@ msgstr ""
 #. name:rescheduled as
 #: DB:link_type/description:836
 msgid "This links a postponed event to the later rescheduled event."
-msgstr ""
+msgstr "Связывает отложенное событие с позднее перенесенным событием."
 
 #. name:license
 #: DB:link_type/description:302
@@ -3599,6 +3683,8 @@ msgid ""
 "This links a recording to another containing official commentary for it "
 "(usually the artist talking about it)."
 msgstr ""
+"Это связывает запись с другой, содержащей официальный комментарий к ней (на "
+"которой, как правило, артист рассказывает о ней)."
 
 #. name:programming
 #: DB:link_type/description:132
@@ -3607,11 +3693,14 @@ msgid ""
 "instruments used on the recording. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
+"Это связывает запись с исполнителем, который программировал электронные "
+"инструменты, использованные в записи. В большинстве случаев «электронным "
+"инструментом» является либо синтезатор, либо драм-машина."
 
 #. name:balance
 #: DB:link_type/description:726
 msgid "This links a recording to the balance engineer who engineered it."
-msgstr ""
+msgstr "Связывает запись с балансировщиком, который занимался ее обработкой."
 
 #. name:remixer
 #: DB:link_type/description:153
@@ -3621,6 +3710,10 @@ msgid ""
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
 msgstr ""
+"Связывает запись с человеком, который сделал на нее ремикс, взяв один или "
+"несколько других треков, существенно изменив их и смешав с другим "
+"материалом. Обратите внимание, что это относится и к артисту, создавшему "
+"мэшап или использовавшему сэмплы."
 
 #. name:crowdfunding
 #: DB:link_type/description:905
@@ -3634,7 +3727,7 @@ msgstr ""
 #. name:fanpage
 #: DB:link_type/description:1190
 msgid "This links a release group to a fan-created website."
-msgstr ""
+msgstr "Это связывает группу релизов с фанатским веб-сайтом."
 
 #. name:tribute
 #: DB:link_type/description:970
@@ -3692,6 +3785,9 @@ msgid ""
 "This links a release group to another containing official commentary for it "
 "(usually the artist talking about each specific track in an album)."
 msgstr ""
+"Это связывает группу релизов с другой, содержащей официальный комментарий к "
+"ней (на которой, как правило, артист рассказывает о каждом конкретном треке "
+"в альбоме)."
 
 #. name:crowdfunding
 #: DB:link_type/description:907
@@ -3709,6 +3805,9 @@ msgid ""
 "defect, but sometimes just to change the artist credits) to a new release "
 "put out to replaced it."
 msgstr ""
+"Связывает релиз, который был отозван (обычно из-за какого-то дефекта, но "
+"иногда просто для того, чтобы изменить данные об исполнителе), с новым "
+"релизом, выпущенным на его замену."
 
 #. name:license
 #: DB:link_type/description:301
@@ -3729,11 +3828,14 @@ msgid ""
 "instruments used on the release. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
+"Это связывает релиз с исполнителем, который программировал электронные "
+"инструменты, использованные в нем. В большинстве случаев «электронным "
+"инструментом» является либо синтезатор, либо драм-машина."
 
 #. name:balance
 #: DB:link_type/description:727
 msgid "This links a release to the balance engineer who engineered it."
-msgstr ""
+msgstr "Связывает релиз с балансировщиком, который занимался его обработкой."
 
 #. name:remixer
 #: DB:link_type/description:47
@@ -3743,6 +3845,10 @@ msgid ""
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
 msgstr ""
+"Связывает релиз с человеком, который сделал на нее ремикс, взяв один или "
+"несколько других треков, существенно изменив их и смешав с другим "
+"материалом. Обратите внимание, что это относится и к артисту, создавшему "
+"мэшап или использовавшему сэмплы."
 
 #. name:crowdfunding
 #: DB:link_type/description:906
@@ -3759,6 +3865,8 @@ msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был аранжирован. Используйте только "
+"в тех случаях, когда место неизвестно!"
 
 #. name:composed in
 #: DB:link_type/description:1269
@@ -3766,6 +3874,8 @@ msgid ""
 "This links a release with the area it was composed in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был скомпозирован. Используйте "
+"только в тех случаях, когда место неизвестно!"
 
 #. name:revised in
 #: DB:link_type/description:1272
@@ -3773,6 +3883,8 @@ msgid ""
 "This links a release with the area it was revised in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был переработан. Используйте только "
+"в тех случаях, когда место неизвестно!"
 
 #. name:translated in
 #: DB:link_type/description:1273
@@ -3780,6 +3892,8 @@ msgid ""
 "This links a release with the area it was translated in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был переведен. Используйте только в "
+"тех случаях, когда место неизвестно!"
 
 #. name:written in
 #: DB:link_type/description:1268
@@ -3787,6 +3901,8 @@ msgid ""
 "This links a release with the area it was written in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой он был написан. Используйте только в "
+"тех случаях, когда место неизвестно!"
 
 #. name:libretto written in
 #: DB:link_type/description:1271
@@ -3794,50 +3910,52 @@ msgid ""
 "This links a release with the area its libretto was written in. Use only "
 "when the place is unknown!"
 msgstr ""
+"Связывает релиз с областью, в которой было написано либретто к нему. "
+"Используйте только в тех случаях, когда место неизвестно!"
 
 #. name:lyrics written in
 #: DB:link_type/description:1270
-#, fuzzy
-#| msgid "This links a work with the place its lyrics were written at."
 msgid ""
 "This links a release with the area its lyrics were written in. Use only when "
 "the place is unknown!"
-msgstr "Связывает работу с местом, где была написана её лирика."
+msgstr ""
+"Связывает релиз с областью, в которой были написаны тексты к нему. "
+"Используйте только в тех случаях, когда место неизвестно!"
 
 #. name:arranged at
 #: DB:link_type/description:865
 msgid "This links a release with the place it was arranged at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором он был аранжирован."
 
 #. name:composed at
 #: DB:link_type/description:1251
 msgid "This links a release with the place it was composed at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором он был скомпозирован."
 
 #. name:revised at
 #: DB:link_type/description:1248
 msgid "This links a release with the place it was revised at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором он был переработан."
 
 #. name:translated at
 #: DB:link_type/description:1247
 msgid "This links a release with the place it was translated at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором он был переведен."
 
 #. name:written at
 #: DB:link_type/description:1246
 msgid "This links a release with the place it was written at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором он был написан."
 
 #. name:libretto written at
 #: DB:link_type/description:1249
 msgid "This links a release with the place its libretto was written at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором было написано либретто к нему."
 
 #. name:lyrics written at
 #: DB:link_type/description:1250
 msgid "This links a release with the place its lyrics were written at."
-msgstr ""
+msgstr "Связывает релиз с местом, в котором были написаны тексты к нему."
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -3845,6 +3963,8 @@ msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
 "festival) to its official page at SoundCloud."
 msgstr ""
+"Это ссылка на серию (чаще всего, но не обязательно всегда, музыкальный "
+"фестиваль) на ее официальную страницу в SoundCloud."
 
 #. name:patronage
 #: DB:link_type/description:901
@@ -3863,11 +3983,13 @@ msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Связывает серию с каналом, плейлистом или страницей пользователя на сайте "
+"видеохостинга, содержащей курируемые им видеоролики."
 
 #. name:fanpage
 #: DB:link_type/description:1189
 msgid "This links a series to a fan-created website."
-msgstr ""
+msgstr "Связывает серию с фанатским веб-сайтом."
 
 #. name:ticketing
 #: DB:link_type/description:1196
@@ -3875,13 +3997,12 @@ msgid ""
 "This links a series to a site where tickets can be purchased for events in "
 "it."
 msgstr ""
+"Связывает серию с сайтом, на котором можно купить билеты на события из нее."
 
 #. name:youtube
 #: DB:link_type/description:792
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links a series to its channel at YouTube."
-msgstr "Ссылается на канал исполнителя на YouTube Music."
+msgstr "Связывает серию с его YouTube-каналом."
 
 #. name:crowdfunding
 #: DB:link_type/description:910

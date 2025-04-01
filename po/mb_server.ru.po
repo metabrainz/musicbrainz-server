@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-11 15:20+0100\n"
-"PO-Revision-Date: 2025-03-24 22:44+0000\n"
+"PO-Revision-Date: 2025-03-30 14:44+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -3890,12 +3890,13 @@ msgid ""
 "to add it again, but please ensure enough data is added to it this time to "
 "avoid another automatic removal."
 msgstr ""
-"Данная сущность была удалена так она не содержала связанных отношений или "
-"(если применимо к данному типу сущности) записей, релизов или групп релизов. "
-"Если вы считаете, что это была правильная сущность, она не является "
-"дубликатом, и ей действительно место в MusicBrainz, смело добавляйте ее "
-"снова, но, пожалуйста, убедитесь, что в этот раз в нее добавлено достаточно "
-"данных, чтобы избежать повторного автоматического удаления."
+"Эта сущность была автоматически удалена, потому что она была пустой: с ней "
+"не было связано ни отношений, ни (если это уместно для данного типа сущности)"
+" записей, ни релизов, ни групп релизов. Если вы считаете, что это была "
+"правильная запись и не являющаяся дубликатом, которой действительно место в "
+"MusicBrainz, не стесняйтесь добавить ее снова, но, пожалуйста, убедитесь, "
+"что в этот раз в нее добавлено достаточно данных, чтобы избежать повторного "
+"автоматического удаления."
 
 #: ../lib/MusicBrainz/Server/Controller.pm:37
 #, perl-brace-format
@@ -4156,6 +4157,8 @@ msgstr ""
 msgid ""
 "“{id}” is not a valid row ID; the entity might have been merged or removed."
 msgstr ""
+"{id} не является действительным идентификатором строки; возможно, сущность "
+"была объединена или удалена."
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
@@ -4204,7 +4207,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
 msgid "This note has already been removed."
-msgstr ""
+msgstr "Этот комментарий уже удален."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:124
 msgid ""
@@ -4944,6 +4947,8 @@ msgid ""
 "The CD TOC the track times were being set from has been removed since this "
 "edit was entered."
 msgstr ""
+"Блок данных CD TOC, с которого устанавливалось время трека, был удален после "
+"внесения этой правки."
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgctxt "edit type"
@@ -8017,7 +8022,7 @@ msgid ""
 "and will be removed automatically in the next few days. If this is not "
 "intended, please add more data to this artist."
 msgstr ""
-"У данного исполнителя нет отношений, записей или (групп) релизов, и будет "
+"У данного исполнителя нет отношений, записей или (групп) релизов, и он будет "
 "удален автоматически через несколько дней. Если это не намеренно, "
 "пожалуйста, добавьте больше данных данному исполнителю."
 
@@ -12520,6 +12525,9 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
+"В этом отчете перечислены исполнители, у которых разотождествление совпадает "
+"с их именем. Эту неточность следует удалить или, если она необходима, "
+"улучшить."
 
 #: ../root/report/ArtistsDisambiguationSameName.js:32
 #: ../root/report/ReportsIndex.js:104
@@ -12620,6 +12628,9 @@ msgid ""
 "format. They might still be correct if they're archive.org cover links, but "
 "in any other case they should probably be fixed or removed."
 msgstr ""
+"Этот отчет показывает релизы с URL-адресами Amazon, которые не соответствуют "
+"ожидаемому формату. Они могут быть корректными, если это ссылки на обложку с "
+"archive.org, но в любом другом случае их следует исправить или удалить."
 
 #: ../root/report/BadAmazonUrls.js:55
 msgid "Bad Amazon URLs"
@@ -13180,6 +13191,8 @@ msgid ""
 "as their name. The disambiguation should be removed or, if it is needed, "
 "improved."
 msgstr ""
+"В этом отчете перечислены лейблы, у которых разотождествление совпадает с их "
+"названием. Эту неточность следует удалить или, если она необходима, улучшить."
 
 #: ../root/report/LabelsDisambiguationSameName.js:32
 #: ../root/report/ReportsIndex.js:187
@@ -13316,6 +13329,12 @@ msgid ""
 "Discogs page belongs at the {release_group|release group level}, not at the "
 "release level, and should be removed from releases too."
 msgstr ""
+"Этот отчет показывает релизы, имеющие более одной ссылки на Discogs. В "
+"большинстве случаев релиз MusicBrainz должен иметь только один эквивалент в "
+"Discogs, поэтому только одна из них будет правильной. Просто проверьте, "
+"какие из них не соответствуют релизу (из-за формата, разного количества "
+"треков и т.д.). Любая страница «мастер-релиза» Discogs принадлежит на уровне "
+"{release_group|группы релизов}, а не релиза, и должна быть также удалена."
 
 #: ../root/report/MultipleDiscogsLinks.js:37
 msgid "Releases with multiple Discogs links"
@@ -13458,6 +13477,11 @@ msgid ""
 "recordings blindly just because the lengths fit, and do not merge recordings "
 "with very different times!"
 msgstr ""
+"Этот отчет показывает записи, которые имеют устаревшее отношение «ранний "
+"выпуск». Их следует объединить, если они действительно являются одной и той "
+"же записью; если это не так, связь следует удалить. Пожалуйста, не "
+"объединяйте записи вслепую только потому, что их длина совпадает, и не "
+"объединяйте записи с очень разными длительностями!"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:35
 #: ../root/report/ReportsIndex.js:490
@@ -13991,6 +14015,12 @@ msgid ""
 "of the CD and contains audio or video. Otherwise, it should just be removed. "
 "See the {data_track_guidelines|data track guidelines}."
 msgstr ""
+"В этом отчете перечислены релизы без идентификаторов дисков, которые, "
+"вероятно, содержат дорожки данных (например, видео) в конце носителя, но не "
+"имеют дорожек, помеченных как дорожки данных. Дорожка данных должна быть "
+"помечена как таковая, если она является последней дорожкой компакт-диска и "
+"содержит аудио или видео. В противном случае ее следует просто удалить. См. "
+"{data_track_guidelines|документацию}."
 
 #: ../root/report/TracksNamedWithSequence.js:25
 msgid ""
@@ -15634,7 +15664,7 @@ msgid ""
 "is misencoded."
 msgstr ""
 "В ссылке есть незакодированный символ \"?\" или \"#\". Проверьте, стоит ли "
-"ее убрать, или это ошибка и ссылка неправильно закодирована."
+"его убрать, или это ошибка и ссылка неправильно закодирована."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6550
 msgid ""
@@ -17798,7 +17828,7 @@ msgstr "Теги убираются, когда редактор удаляет 
 #: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
 msgctxt "folksonomy tags"
 msgid "Removed"
-msgstr "Удаленные"
+msgstr "Удалены"
 
 #: ../root/user/UserProfile.js:821
 #, fuzzy
@@ -17809,12 +17839,12 @@ msgstr "Downvote"
 
 #: ../root/user/UserProfile.js:847
 msgid "Ratings are removed when an editor is deleted."
-msgstr ""
+msgstr "Оценки убираются, когда редактор удаляет свой профиль."
 
 #: ../root/user/UserProfile.js:850
 msgctxt "ratings"
 msgid "Removed"
-msgstr ""
+msgstr "Удалены"
 
 #: ../root/user/UserProfile.js:916
 msgid "Blocked spam account"
