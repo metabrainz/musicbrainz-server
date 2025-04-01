@@ -20,6 +20,7 @@ use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::Utils qw(
+    contains_number
     non_empty
     placeholders
     ref_to_type
@@ -29,7 +30,7 @@ use MusicBrainz::Server::Constants qw(
     :direction
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
-    %PART_OF_SERIES
+    @PART_OF_SERIES_LINK_TYPE_IDS
     @RELATABLE_ENTITIES
 );
 use Scalar::Util qw( weaken );
@@ -831,7 +832,7 @@ sub exists {
     # For part of series, do not count link order as different
     # if everything else is the same in order to avoid duplicate additions
     # (different number attributes still allowed)
-    my $ignore_link_order = grep { $_ eq $values->{link_type_gid} } values %PART_OF_SERIES;
+    my $ignore_link_order = contains_number(\@PART_OF_SERIES_LINK_TYPE_IDS, $values->{link_type_id});
 
     if (non_empty($values->{link_order}) && !$ignore_link_order) {
         push @props, 'link_order';
