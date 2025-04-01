@@ -562,12 +562,12 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: /\/results\?(creatorid=I-\d+-\d|creatoripnnumber=\d+|performerid=\d+)$/.test(url),
+              result: /\/results\?(creatorid=I-\d+-\d|performerid=\d+)$/.test(url),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
-              result: /\/results\?(creatorid=I-\d+-\d|creatoripnnumber=\d+)$/.test(url),
+              result: /\/results\?creatorid=I-\d+-\d$/.test(url),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.release:
