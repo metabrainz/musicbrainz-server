@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"PO-Revision-Date: 2025-03-29 20:26+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -177,16 +177,12 @@ msgid "Most active editors in the past week"
 msgstr "Самые активные редакторы прошлой недели"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "Открытые и принятые правки за прошлую неделю"
+msgstr "Принятые правки за прошлый год"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "Самые активные редакторы прошлой недели"
+msgstr "Самые активные редакторы за год"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -213,16 +209,12 @@ msgid "Most active voters in the past week"
 msgstr "Самые активные голосовавшие прошлой недели"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "Голоса за прошлую неделю"
+msgstr "Голоса за прошлый год"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "Самые активные голосовавшие прошлой недели"
+msgstr "Самые активные голосовавшие за год"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -354,10 +346,8 @@ msgid "By event type"
 msgstr "По типам событий"
 
 #: ../root/statistics/Images.js:487
-#, fuzzy
-#| msgid "Event types"
 msgid "By event art type"
-msgstr "Типы событий"
+msgstr "По типу медиа событий"
 
 #: ../root/statistics/Images.js:524
 msgid "Per event"
@@ -462,11 +452,11 @@ msgstr "без установленного типа:"
 
 #: ../root/statistics/Index.js:269
 msgid "with appearances in artist credits:"
-msgstr ""
+msgstr "с появлением в графе «исполнитель»:"
 
 #: ../root/statistics/Index.js:275
 msgid "with no appearances in artist credits:"
-msgstr ""
+msgstr "без появлений в графе «артист»:"
 
 #: ../root/statistics/Index.js:280
 msgid "Non-group artists:"
@@ -577,22 +567,18 @@ msgid "Primary types"
 msgstr "Основные типы"
 
 #: ../root/statistics/Index.js:632
-#, fuzzy
-#| msgid "None"
 msgctxt "release group primary type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
 msgstr "Вторичные типы"
 
 #: ../root/statistics/Index.js:666
-#, fuzzy
-#| msgid "None"
 msgctxt "release group secondary type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:895
 msgid "Videos"
@@ -615,18 +601,14 @@ msgid "Types"
 msgstr "Типы"
 
 #: ../root/statistics/Index.js:723
-#, fuzzy
-#| msgid "None"
 msgctxt "label type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:751
-#, fuzzy
-#| msgid "None"
 msgctxt "work type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
@@ -637,46 +619,34 @@ msgid "Attributes"
 msgstr "Атрибуты"
 
 #: ../root/statistics/Index.js:785
-#, fuzzy
-#| msgid "None"
 msgctxt "work attribute"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:813
-#, fuzzy
-#| msgid "None"
 msgctxt "area type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:841
-#, fuzzy
-#| msgid "None"
 msgctxt "place type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:895
-#, fuzzy
-#| msgid "None"
 msgctxt "instrument type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:923
-#, fuzzy
-#| msgid "None"
 msgctxt "event type"
 msgid "None"
-msgstr "Нет"
+msgstr "отсутствует"
 
 #: ../root/statistics/Index.js:931 ../root/statistics/stats.js:30
-#, fuzzy
-#| msgid "Event art"
 msgctxt "plural, multiple events, header"
 msgid "Event art"
-msgstr "Типы фотографий событий"
+msgstr "Типы фотографий к событиям"
 
 #: ../root/statistics/Index.js:941
 msgid "With EAA poster art:"
@@ -940,12 +910,9 @@ msgid "Artist types and genders"
 msgstr "Типы и гендеры исполнителей"
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art"
 msgctxt "plural, multiple releases, header"
 msgid "Cover art"
-msgstr "Обложка"
+msgstr "Обложки"
 
 #: ../root/statistics/stats.js:26
 msgctxt "noun"
@@ -1037,7 +1004,7 @@ msgstr "Области без выбранного типа"
 
 #: ../root/statistics/stats.js:76
 msgid "Artists with no appearances in artist credits"
-msgstr ""
+msgstr "Исполнители, не указанные в кредитсах исполнителей"
 
 #: ../root/statistics/stats.js:81
 msgid "Artists with no country set"
@@ -1069,7 +1036,7 @@ msgstr "Исполнители с гендером \"Другой\""
 
 #: ../root/statistics/stats.js:116
 msgid "Artists with at least one artist credit appearance"
-msgstr ""
+msgstr "Исполнители, с как минимум 1 появлением в кредитах исполнителей"
 
 #: ../root/statistics/stats.js:121
 msgid "Characters"
@@ -1575,16 +1542,12 @@ msgid "Abstentions"
 msgstr "Возражения"
 
 #: ../root/statistics/stats.js:911
-#, fuzzy
-#| msgid "Approvals"
 msgid "Admin approvals"
-msgstr "Одобрения"
+msgstr "Одобрения администратором"
 
 #: ../root/statistics/stats.js:916
-#, fuzzy
-#| msgid "Area collections"
 msgid "Admin rejections"
-msgstr "Коллекции областей"
+msgstr "Отклонения администратором"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
@@ -1739,12 +1702,16 @@ msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
+"Отношения типа {first_entity_type_name}-{second_entity_type_name} "
+"\"{relationship_type_name}\""
 
 #: ../root/statistics/stats.js:1266
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
+"Отношения типа {first_entity_type_name}-{second_entity_type_name} "
+"\"{relationship_type_name}\", включая типы дочерних отношений"
 
 #: ../root/statistics/stats.js:1289 ../root/statistics/stats.js:1309
 msgid "{type} release groups"
