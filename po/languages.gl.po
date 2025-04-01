@@ -1,10 +1,11 @@
 #
 # Translators:
+# ninjum <ninjum@gmx.es>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-30 01:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-04-01 17:44+0000\n"
+"Last-Translator: ninjum <ninjum@gmx.es>\n"
 "Language-Team: Galician <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/gl/>\n"
 "Language: gl\n"
@@ -12,42 +13,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr ""
+msgstr "Abkhazo"
 
 #. frequency:1 iso_code_3:ace
 #: DB:language/name:3
 msgid "Achinese"
-msgstr ""
+msgstr "Achinés"
 
 #. frequency:1 iso_code_3:ach
 #: DB:language/name:4
 msgid "Acoli"
-msgstr ""
+msgstr "Acolí"
 
 #. frequency:1 iso_code_3:ada
 #: DB:language/name:5
 msgid "Adangme"
-msgstr ""
+msgstr "Adangme"
 
 #. frequency:1 iso_code_3:ady
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr ""
+msgstr "Adigueo"
 
 #. frequency:1 iso_code_3:aar
 #: DB:language/name:1
 msgid "Afar"
-msgstr ""
+msgstr "Áfar"
 
 #. frequency:1 iso_code_3:afh
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr ""
+msgstr "Afrihili"
 
 #. frequency:1 iso_code_3:afr
 #: DB:language/name:9
@@ -57,12 +58,12 @@ msgstr "Afrikaans"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr ""
+msgstr "Linguas afroasiáticas"
 
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
 msgid "Ainu"
-msgstr ""
+msgstr "Ainu"
 
 #. frequency:1 iso_code_3:aka
 #: DB:language/name:10
@@ -72,17 +73,17 @@ msgstr ""
 #. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr ""
+msgstr "Acadio"
 
 #. frequency:1 iso_code_3:sqi
 #: DB:language/name:12
 msgid "Albanian"
-msgstr ""
+msgstr "Albanés"
 
 #. frequency:1 iso_code_3:ale
 #: DB:language/name:13
 msgid "Aleut"
-msgstr ""
+msgstr "Aleuta"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
