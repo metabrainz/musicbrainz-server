@@ -39,6 +39,8 @@ DROP FUNCTION a_upd_recording();
 DROP FUNCTION a_upd_release();
 DROP FUNCTION a_upd_release_event();
 DROP FUNCTION a_upd_release_group();
+DROP FUNCTION a_upd_release_group_primary_type_mirror();
+DROP FUNCTION a_upd_release_group_secondary_type_mirror();
 DROP FUNCTION a_upd_release_label();
 DROP FUNCTION a_upd_track();
 DROP FUNCTION apply_artist_release_group_pending_updates();
