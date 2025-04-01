@@ -18,13 +18,12 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
-# Libra <recreate_squall363@simplelogin.com>, 2024.
+# Libra <recreate_squall363@simplelogin.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2025-03-29 20:26+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -1607,7 +1606,7 @@ msgstr ""
 #. name:spoken vocals
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr ""
+msgstr "Разговорный вокал (речь)"
 
 #. name:libretto written at
 #: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
@@ -2040,7 +2039,7 @@ msgstr "Описывает инженера, выполняющего функц
 #. name:member of band
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
-msgstr ""
+msgstr "Указывает на то, что человек является членом группы."
 
 #. name:artists and repertoire
 #: DB:link_type/description:135 DB:link_type/description:62
