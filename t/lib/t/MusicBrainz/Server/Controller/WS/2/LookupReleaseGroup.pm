@@ -127,6 +127,15 @@ ws_test 'release group lookup with inc=artists+releases+tags+ratings',
                 <text-representation>
                     <language>eng</language><script>Latn</script>
                 </text-representation>
+                <artist-credit>
+                    <name-credit>
+                        <artist id="22dd2db3-88ea-4428-a7a8-5cd3acf23175" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                            <name>m-flo</name>
+                            <sort-name>m-flo</sort-name>
+                            <rating votes-count="3">3</rating>
+                        </artist>
+                    </name-credit>
+                </artist-credit>
                 <date>2004-03-17</date>
                 <country>JP</country>
                 <release-event-list count="1">

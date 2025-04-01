@@ -1,9 +1,10 @@
 package MusicBrainz::Server::Data::Artist;
+use feature 'state';
 use Moose;
 use namespace::autoclean;
 
 use Carp;
-use List::AllUtils qw( any );
+use List::AllUtils qw( any partition_by );
 use MusicBrainz::Server::Constants qw( $ARTIST_TYPE_GROUP );
 use MusicBrainz::Server::Entity::Artist;
 use MusicBrainz::Server::Entity::PartialDate;
@@ -14,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     conditional_merge_column_query
     contains_string
+    get_area_containment_join
     hash_to_row
     load_subobjects
     merge_table_attributes
@@ -494,6 +496,70 @@ sub load_related_info {
     $c->model('ArtistType')->load(@artists);
     $c->model('Gender')->load(@artists);
     $c->model('Area')->load(@artists);
+}
+
+sub load_country_code {
+    my ($self, @artists) = @_;
+
+    state %country_codes = ( 'none' => undef );
+
+    my %artists_by_area_id = partition_by { $_->area_id // 'none' }
+        grep { !$_->has_loaded_country_code }
+        @artists;
+    my @area_ids = keys %artists_by_area_id;
+    my @area_ids_to_fetch = grep {
+        $_ ne 'none' && !exists $country_codes{$_}
+    } @area_ids;
+
+    if (@area_ids_to_fetch) {
+        my $results = $self->sql->select_list_of_hashes(
+            <<~"SQL",
+            SELECT DISTINCT ON (area)
+                    area,
+                    code AS country_code
+              FROM iso_3166_1
+             WHERE area = any(?)
+             ORDER BY area, code
+            SQL
+            \@area_ids_to_fetch,
+        );
+        for my $row (@$results) {
+            $country_codes{ $row->{area} } = $row->{country_code};
+        }
+
+        @area_ids_to_fetch = grep {
+            !exists $country_codes{$_}
+        } @area_ids_to_fetch;
+
+        if (@area_ids_to_fetch) {
+            my $area_containment_table =
+                get_area_containment_join($self->sql);
+            $results = $self->sql->select_list_of_hashes(
+                <<~"SQL",
+                SELECT DISTINCT ON (ac.descendant)
+                        ac.descendant AS area,
+                        iso_3166_1.code AS country_code
+                    FROM $area_containment_table ac
+                    JOIN area parent_area ON parent_area.id = ac.parent
+                    JOIN iso_3166_1 ON iso_3166_1.area = parent_area.id
+                   WHERE ac.descendant = any(\$1)
+                     AND parent_area.type = 1
+                ORDER BY ac.descendant, ac.depth, iso_3166_1.code
+                SQL
+                \@area_ids_to_fetch,
+            );
+            for my $row (@$results) {
+                $country_codes{ $row->{area} } = $row->{country_code};
+            }
+        }
+    }
+
+    for my $area_id (@area_ids) {
+        my $country_code = $country_codes{$area_id};
+        for my $artist (@{ $artists_by_area_id{$area_id} }) {
+            $artist->country_code($country_code);
+        }
+    }
 }
 
 sub load_meta

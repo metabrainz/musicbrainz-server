@@ -10,8 +10,8 @@ has $_ => (
     isa => 'Int',
     default => 0,
 ) for (qw(
-          aliases discids isrcs media puids various_artists artist_credits
-          artists labels recordings releases release_groups works
+          aliases discids isrcs media puids various_artists
+          artist_credits labels recordings releases release_groups works
           tags genres ratings user_tags user_genres user_ratings collections user_collections
           recording_level_rels release_group_level_rels work_level_rels rels annotation release_events
 ), map { $_ . '_rels' } @RELATABLE_ENTITIES);
@@ -58,6 +58,7 @@ sub BUILD
         $arg = lc($arg);
         $arg =~ tr/-/_/;
         $arg =~ s/mediums/media/;
+        $arg =~ s/^artists$/artist_credits/;
 
         MusicBrainz::Server::WebService::Exceptions::UnknownIncParameter->throw( parameter => $arg )
             if !exists($methods{$arg});
