@@ -296,7 +296,7 @@
 [%- MACRO type_bubble(form, types) BLOCK -%]
     <div class="bubble" id="type-bubble">
       <span id="type-bubble-default" [% IF form.value %] style="display:none" [% END %]>
-        [%- l('Select any type from the list to see its description. If the work
+        [%- l('Select any type from the list to see its description. If the entity
                doesn’t seem to match any type, just leave this blank.') -%]
       </span>
       [% FOREACH id IN form.options %]
