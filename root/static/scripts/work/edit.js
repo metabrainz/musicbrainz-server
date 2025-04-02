@@ -19,7 +19,6 @@ import {legacy_createStore as createStore} from 'redux';
 
 import '../../lib/knockout/knockout-delegatedEvents.js';
 import '../edit/components/FormRowTextList.js';
-import '../edit/validation.js';
 
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 import {groupBy} from '../common/utility/arrays.js';
@@ -32,6 +31,7 @@ import typeBubble from '../edit/typeBubble.js';
 import {createCompoundFieldFromObject} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
 import subfieldErrors from '../edit/utility/subfieldErrors.js';
+import initializeValidation from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 // eslint-disable-next-line ft-flow/no-weak-types
@@ -358,4 +358,6 @@ $(function () {
 
   const typeIdField = 'select[name=edit-work\\.type_id]';
   typeBubble(typeIdField);
+
+  initializeValidation();
 });

@@ -36,7 +36,7 @@ import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
-import * as validation from '../edit/validation.js';
+import {errorField, errorsExist} from '../edit/validation.js';
 
 import EditNoteTab from './components/EditNoteTab.js';
 import fields from './fields.js';
@@ -55,7 +55,7 @@ Object.assign(releaseEditor, {
     );
   },
   externalLinksEditData: ko.observable({}),
-  hasInvalidLinks: validation.errorField(ko.observable(false)),
+  hasInvalidLinks: errorField(ko.observable(false)),
 });
 
 releaseEditor.init = function (options) {
@@ -405,7 +405,7 @@ releaseEditor.init = function (options) {
       <EditNoteTab
         editPreviews={releaseEditor.editPreviews()}
         editsExist={releaseEditor.allEdits().length > 0}
-        errorsExist={validation.errorsExist()}
+        errorsExist={errorsExist()}
         form={releaseEditorForm}
         invalidEditNote={rootField.invalidEditNote()}
         loadingEditPreviews={releaseEditor.loadingEditPreviews()}
@@ -525,7 +525,7 @@ releaseEditor.autoOpenTheAddMediumDialog = function (release) {
 releaseEditor.allowsSubmission = function () {
   return (
     !this.submissionInProgress() &&
-    !validation.errorsExist() &&
+    !errorsExist() &&
     (this.action === 'edit' || !(
       this.rootField.missingEditNote() || this.rootField.invalidEditNote()
     )) &&

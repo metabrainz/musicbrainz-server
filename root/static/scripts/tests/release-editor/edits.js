@@ -10,7 +10,7 @@ import ko from 'knockout';
 import test from 'tape';
 
 import MB from '../../common/MB.js';
-import * as validation from '../../edit/validation.js';
+import {errorField, errorFields} from '../../edit/validation.js';
 import fields from '../../release-editor/fields.js';
 import exportTypeInfo from '../exportTypeInfo.js';
 import {linkAttributeTypes, linkTypes} from '../typeInfo.js';
@@ -57,10 +57,10 @@ test((
 function editReleaseTest(name, callback) {
   test(name, function (t) {
     callback(t, common.setupReleaseEdit());
-    validation.errorFields([]);
+    errorFields([]);
     releaseEditor.externalLinksEditData({});
     releaseEditor.hasInvalidLinks =
-      validation.errorField(ko.observable(false));
+      errorField(ko.observable(false));
   });
 }
 

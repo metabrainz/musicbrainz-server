@@ -22,7 +22,7 @@ import {debounceComputed} from '../common/utility/debounce.js';
 import deepEqual from '../common/utility/deepEqual.js';
 import isBlank from '../common/utility/isBlank.js';
 import isPositiveInteger from '../edit/utility/isPositiveInteger.js';
-import * as validation from '../edit/validation.js';
+import {errorsExist} from '../edit/validation.js';
 
 import utils from './utils.js';
 import releaseEditor from './viewModel.js';
@@ -540,7 +540,7 @@ releaseEditor.getEditPreviews = function () {
   debounceComputed(function () {
     var edits = releaseEditor.allEdits();
 
-    if (validation.errorsExist()) {
+    if (errorsExist()) {
       refreshPreviews([]);
       return;
     }
@@ -568,7 +568,7 @@ releaseEditor.getEditPreviews = function () {
         // Make sure edits haven't changed while request was pending
         if (edits === releaseEditor.allEdits()) {
           // and that errors haven't occurred.
-          if (validation.errorsExist()) {
+          if (errorsExist()) {
             edits = [];
           }
           refreshPreviews(edits);
