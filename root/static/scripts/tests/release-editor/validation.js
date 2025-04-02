@@ -10,7 +10,7 @@ import test from 'tape';
 
 import '../../release-editor/init.js';
 
-import * as validation from '../../edit/validation.js';
+import {errorFields, errorsExist} from '../../edit/validation.js';
 import fields from '../../release-editor/fields.js';
 import releaseEditor from '../../release-editor/viewModel.js';
 
@@ -21,7 +21,7 @@ function validationTest(name, callback) {
 
     callback(t);
 
-    validation.errorFields([]);
+    errorFields([]);
     fields.Release.prototype.loadMedia = loadMedia;
   });
 }
@@ -77,7 +77,7 @@ validationTest((
   t.ok(events[1].isDuplicate());
   t.ok(events[2].isDuplicate());
   t.ok(events[3].isDuplicate());
-  t.ok(validation.errorsExist());
+  t.ok(errorsExist());
 });
 
 validationTest((
@@ -143,7 +143,7 @@ validationTest((
     'No label and no catno does not trigger error',
   );
 
-  t.ok(validation.errorsExist());
+  t.ok(errorsExist());
 });
 
 validationTest((

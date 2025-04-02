@@ -15,7 +15,7 @@ import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import initializeArea from '../edit/MB/Control/Area.js';
 import initializeBubble from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
-import {errorField} from '../edit/validation.js';
+import initializeValidation, {errorField} from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 import {map, marker} from './map.js';
@@ -118,4 +118,6 @@ $(function () {
 
   const typeIdField = 'select[name=edit-place\\.type_id]';
   typeBubble(typeIdField);
+
+  initializeValidation();
 });

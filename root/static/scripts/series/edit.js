@@ -2,13 +2,13 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import '../common/entity.js';
-import '../edit/validation.js';
 import './components/SeriesRelationshipEditor.js';
 
 import MB from '../common/MB.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
 import typeBubble from '../edit/typeBubble.js';
+import initializeValidation from '../edit/validation.js';
 
 $(function () {
   var $orderingType = $('#id-edit-series\\.ordering_type_id');
@@ -44,4 +44,6 @@ $(function () {
 
   const typeIdField = 'select[name=edit-series\\.type_id]';
   typeBubble(typeIdField);
+
+  initializeValidation();
 });

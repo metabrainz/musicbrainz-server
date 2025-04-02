@@ -10,11 +10,13 @@
 import $ from 'jquery';
 
 import '../edit/components/FormRowTextListSimple.js';
-import '../edit/validation.js';
 
 import typeBubble from '../edit/typeBubble.js';
+import initializeValidation from '../edit/validation.js';
 
 $(function () {
   const typeIdField = 'select[name=edit-area\\.type_id]';
   typeBubble(typeIdField);
+
+  initializeValidation();
 });

@@ -7,4 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import '../edit/validation.js';
+import initializeValidation from '../edit/validation.js';
+
+initializeValidation();

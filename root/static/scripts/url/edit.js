@@ -10,11 +10,13 @@
 // $FlowIgnore[untyped-import]
 import $ from 'jquery';
 
-import '../edit/validation.js';
 import './components/UrlRelationshipEditor.js';
 
 import {registerEvents} from '../edit/URLCleanup.js';
+import initializeValidation from '../edit/validation.js';
 
 $(function () {
   registerEvents($('#id-edit-url\\.url'));
+
+  initializeValidation();
 });
