@@ -282,17 +282,6 @@ function byID(
   }
 }
 
-ko.applyBindings(
-  new ViewModel(
-    workAttributeTypeTree,
-    workAttributeValueTree,
-    form.field.attributes.field,
-  ),
-  $('#work-attributes')[0],
-);
-
-initializeGuessCase('work', 'id-edit-work');
-
 function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
 }
@@ -314,43 +303,57 @@ function removeLanguage(i: number) {
 
 const getSelectField = (field: FieldT<?number>) => field;
 
-const workLanguagesNode = document.getElementById('work-languages-editor');
-if (!workLanguagesNode) {
-  throw new Error('Mount point #work-languages-editor does not exist');
-}
-const workLanguagesRoot = ReactDOMClient.createRoot(workLanguagesNode);
+$(function () {
+  ko.applyBindings(
+    new ViewModel(
+      workAttributeTypeTree,
+      workAttributeValueTree,
+      form.field.attributes.field,
+    ),
+    $('#work-attributes')[0],
+  );
 
-function renderWorkLanguages() {
-  const form: WorkForm = store.getState();
-  const selectedLanguageIds =
-    form.field.languages.field.map(lang => String(lang.value));
-  flushSync(() => {
-    workLanguagesRoot.render(
-      <FormRowSelectList
-        addId="add-language"
-        addLabel={lp('Add language', 'interactive')}
-        getSelectField={getSelectField}
-        hideAddButton={
-          selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
-          selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
-        }
-        label={addColonText(l('Lyrics languages'))}
-        onAdd={addLanguage}
-        onEdit={editLanguage}
-        onRemove={removeLanguage}
-        options={workLanguageOptions}
-        removeClassName="remove-language"
-        removeLabel={lp('Remove language', 'interactive')}
-        repeatable={form.field.languages}
-      />,
-    );
-  });
-}
+  initializeGuessCase('work', 'id-edit-work');
 
-store.subscribe(renderWorkLanguages);
-renderWorkLanguages();
+  const workLanguagesNode = document.getElementById('work-languages-editor');
+  if (!workLanguagesNode) {
+    throw new Error('Mount point #work-languages-editor does not exist');
+  }
+  const workLanguagesRoot = ReactDOMClient.createRoot(workLanguagesNode);
 
-initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+  function renderWorkLanguages() {
+    const form: WorkForm = store.getState();
+    const selectedLanguageIds =
+      form.field.languages.field.map(lang => String(lang.value));
+    flushSync(() => {
+      workLanguagesRoot.render(
+        <FormRowSelectList
+          addId="add-language"
+          addLabel={lp('Add language', 'interactive')}
+          getSelectField={getSelectField}
+          hideAddButton={
+            selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
+            selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
+          }
+          label={addColonText(l('Lyrics languages'))}
+          onAdd={addLanguage}
+          onEdit={editLanguage}
+          onRemove={removeLanguage}
+          options={workLanguageOptions}
+          removeClassName="remove-language"
+          removeLabel={lp('Remove language', 'interactive')}
+          repeatable={form.field.languages}
+        />,
+      );
+    });
+  }
 
-const typeIdField = 'select[name=edit-work\\.type_id]';
-typeBubble(typeIdField);
+  store.subscribe(renderWorkLanguages);
+
+  renderWorkLanguages();
+
+  initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+
+  const typeIdField = 'select[name=edit-work\\.type_id]';
+  typeBubble(typeIdField);
+});

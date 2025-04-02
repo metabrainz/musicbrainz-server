@@ -14,4 +14,4 @@
     [% enter_edit() %]
 </form>
 
-[%- script_manifest('url/edit.js') -%]
+[%- script_manifest('url/edit.js', {async => 'async'}) -%]
