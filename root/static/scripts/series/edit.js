@@ -40,7 +40,7 @@ $(function () {
   initializeDuplicateChecker('series');
 
   createExternalLinksEditorForHtmlForm('edit-series');
-});
 
-const typeIdField = 'select[name=edit-series\\.type_id]';
-typeBubble(typeIdField);
+  const typeIdField = 'select[name=edit-series\\.type_id]';
+  typeBubble(typeIdField);
+});

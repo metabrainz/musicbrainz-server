@@ -52,7 +52,7 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('area/edit.js') %]
+[% script_manifest('area/edit.js', {async => 'async'}) %]
 
 <script type="text/javascript">
   (function () {

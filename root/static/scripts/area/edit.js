@@ -7,9 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
+
 import '../edit/components/FormRowTextListSimple.js';
 
 import typeBubble from '../edit/typeBubble.js';
 
-const typeIdField = 'select[name=edit-area\\.type_id]';
-typeBubble(typeIdField);
+$(function () {
+  const typeIdField = 'select[name=edit-area\\.type_id]';
+  typeBubble(typeIdField);
+});

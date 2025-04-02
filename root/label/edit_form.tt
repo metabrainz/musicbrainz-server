@@ -69,7 +69,7 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('label/edit.js') %]
+[% script_manifest('label/edit.js', {async => 'async'}) %]
 
 <script type="text/javascript">
   (function () {

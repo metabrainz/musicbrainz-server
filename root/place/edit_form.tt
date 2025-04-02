@@ -58,7 +58,7 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('place/edit.js') %]
+[% script_manifest('place/edit.js', {async => 'async'}) %]
 
 <script type="text/javascript">
   (function () {

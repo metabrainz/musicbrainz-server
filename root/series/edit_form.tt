@@ -52,4 +52,4 @@ $(function () {
 });
 </script>
 
-[% script_manifest('series/edit.js') %]
+[% script_manifest('series/edit.js', {async => 'async'}) %]
