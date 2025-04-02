@@ -26,6 +26,7 @@ export default function initializeGuessCase(type, formPrefix) {
   if ($options.length && !$options.data('ui-dialog')) {
     $options.dialog({title: l('Guess case options'), autoOpen: false});
     ko.applyBindingsToNode($options[0], {guessCase: () => undefined});
+    $options[0].style.display = 'unset';
   }
 
   var guess = gc.entities[type];

@@ -188,7 +188,7 @@
 [%- END -%]
 
 [%- MACRO guesscase_options BLOCK -%]
-  <table id="guesscase-options">
+  <table id="guesscase-options" style="display: none;">
     <tr>
       <td>
         <select data-bind="value: modeName">
