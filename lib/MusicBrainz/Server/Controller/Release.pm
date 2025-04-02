@@ -494,6 +494,7 @@ sub _merge_load_entities {
     $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_aliases(@releases);
     $c->model('Release')->load_related_info(@releases);
+    $c->model('ReleaseGroup')->load(@releases);
 }
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {
