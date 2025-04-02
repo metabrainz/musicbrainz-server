@@ -243,7 +243,7 @@ test('compareRelationships: Time comparisons', function (t) {
 });
 
 test('compareRelationships: Series comparisons', function (t) {
-  t.plan(4);
+  t.plan(6);
 
   const recording = createRecordingObject({
     id: 1,
@@ -307,7 +307,39 @@ test('compareRelationships: Series comparisons', function (t) {
     'The same non-"part of series" relationship with different order attributes is seen as equal',
   );
 
-  const recordingSeriesPartOfRelOrder1 = {
+  const recordingSeriesPartOfRelWithLinkOrder1 = {
+    ...emptyRelationship,
+    entity0: recording,
+    entity1: series,
+    id: -1,
+    linkOrder: 1,
+    linkTypeID: 740, // Part of series
+  };
+
+  const recordingSeriesPartOfRelWithLinkOrder2 = {
+    ...recordingSeriesPartOfRelWithLinkOrder1,
+    linkOrder: 2,
+  };
+
+  t.ok(
+    compareRelationships(
+      recordingSeriesPartOfRelWithLinkOrder1,
+      recordingSeriesPartOfRelWithLinkOrder1,
+      false,
+    ) === 0,
+    'The exact same "part of series" relationship with the same link order is seen as equal',
+  );
+
+  t.ok(
+    compareRelationships(
+      recordingSeriesPartOfRelWithLinkOrder1,
+      recordingSeriesPartOfRelWithLinkOrder2,
+      false,
+    ) === 0,
+    'The exact same "part of series" relationship with a different link order is still seen as equal',
+  );
+
+  const recordingSeriesPartOfRelWithNumber1 = {
     ...emptyRelationship,
     attributes: attributesWithOrdering1,
     entity0: recording,
@@ -316,26 +348,26 @@ test('compareRelationships: Series comparisons', function (t) {
     linkTypeID: 740, // Part of series
   };
 
-  const recordingSeriesPartOfRelOrder2 = {
-    ...recordingSeriesPartOfRelOrder1,
+  const recordingSeriesPartOfRelWithNumber2 = {
+    ...recordingSeriesPartOfRelWithNumber1,
     attributes: attributesWithOrdering2,
   };
 
   t.ok(
     compareRelationships(
-      recordingSeriesPartOfRelOrder1,
-      recordingSeriesPartOfRelOrder1,
+      recordingSeriesPartOfRelWithNumber1,
+      recordingSeriesPartOfRelWithNumber1,
       false,
     ) === 0,
-    'The exact same "part of series" relationship is seen as equal',
+    'The exact same "part of series" relationship with the same number is seen as equal',
   );
 
   t.ok(
     compareRelationships(
-      recordingSeriesPartOfRelOrder1,
-      recordingSeriesPartOfRelOrder2,
+      recordingSeriesPartOfRelWithNumber1,
+      recordingSeriesPartOfRelWithNumber2,
       false,
     ) === -1,
-    'The same "part of series" relationship with different order attributes is not seen as equal, and smaller order sorts first',
+    'The same "part of series" relationship with a different number attribute is not seen as equal, and smaller order sorts first',
   );
 });
