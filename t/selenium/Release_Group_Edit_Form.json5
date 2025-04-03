@@ -1,0 +1,429 @@
+{
+  title: 'Release Group Edit Form',
+  commands: [
+    {
+      command: 'open',
+      target: '/release-group/create',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-source-single-artist',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'type',
+      target: 'id=ac-source-single-artist',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'select',
+      target: 'id=id-edit-release-group.primary_type_id',
+      value: 'label=Single',
+    },
+    {
+      command: 'click',
+      target: 'css=#relationship-editor button.add-item',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-type',
+      value: 'b41e7530-cde4-459c-b8c5-dfef08fc8295',
+    },
+    {
+      command: 'type',
+      target: 'css=#add-relationship-dialog input.relationship-target',
+      value: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#add-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#external-link-0 input[type=url]',
+      value: 'https://www.discogs.com/master/101',
+    },
+    // The form is disabled because we didn't enter a name.
+    // Manually submit the form so we can check if form data is preserved
+    // after the form reloads due to an error.
+    {
+      command: 'runScript',
+      target: "document.getElementById('id-edit-release-group.name').removeAttribute('required')",
+      value: '',
+    },
+    {
+      command: 'runScript',
+      target: "MB.validation.errorFields([])",
+      value: '',
+    },
+    {
+      command: 'runScriptAndWait',
+      target: "document.querySelector('form.edit-release-group').requestSubmit()",
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '\\/release-group\\/create',
+      value: '',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-release-group.name',
+      value: 'newrg',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-release-group button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 1,
+      value: {
+        type: 20,
+        status: 2,
+        data: {
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          name: 'newrg',
+        },
+        data: {
+          artist_credit: {
+            names: [
+              {
+                artist: {
+                  id: 99,
+                  name: 'Bing Crosby',
+                },
+                join_phrase: '',
+                name: 'Bing Crosby',
+              },
+            ],
+          },
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 1,
+          name: 'newrg',
+          type_id: 2,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 2,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'newrg',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'https://www.discogs.com/master/101',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 90,
+            link_phrase: 'Discogs',
+            long_link_phrase: 'has a Discogs page at',
+            name: 'discogs',
+            reverse_link_phrase: 'Discogs page for',
+          },
+          type0: 'release_group',
+          type1: 'url',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 90,
+        status: 2,
+        data: {
+          edit_version: 2,
+          ended: 0,
+          entity0: {
+            gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+            id: 99,
+            name: 'Bing Crosby',
+          },
+          entity1: {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'newrg',
+          },
+          entity_id: 1,
+          link_type: {
+            id: 868,
+            link_phrase: 'dedications',
+            long_link_phrase: 'has dedication',
+            name: 'dedicated to',
+            reverse_link_phrase: 'dedicated to',
+          },
+          type0: 'artist',
+          type1: 'release_group',
+        },
+      },
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'id=id-edit-release-group.name',
+      value: 'newrg!',
+    },
+    {
+      command: 'click',
+      target: 'xpath=(//tr[contains(@class, "dedicated-to")])[1]//button[contains(@class, "edit-item")]',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#edit-relationship-dialog div.target-entity-credit input.entity-credit',
+      value: 'bc',
+    },
+    {
+      command: 'click',
+      target: 'css=#edit-relationship-dialog button.positive',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#external-link-0 button.edit-item',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=#url-input-popover input.raw-url',
+      value: 'https://www.discogs.com/master/102',
+    },
+    {
+      command: 'sendKeys',
+      target: 'css=#url-input-popover input.raw-url',
+      value: '${KEY_ENTER}',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-release-group button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 21,
+        status: 2,
+        data: {
+          entity : {
+            gid: '$$__IGNORE__$$',
+            id: 1,
+            name: 'newrg',
+          },
+          new : {
+            name : 'newrg!',
+          },
+          old : {
+            name : 'newrg',
+          },
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 91,
+        status: 1,
+        data: {
+          edit_version: 2,
+          entity0_credit: '',
+          entity1_credit: '',
+          link: {
+            attributes: [],
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            ended: 0,
+            entity0: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newrg!',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'https://www.discogs.com/master/101',
+            },
+            link_type: {
+              id: 90,
+              link_phrase: 'Discogs',
+              long_link_phrase: 'has a Discogs page at',
+              name: 'discogs',
+              reverse_link_phrase: 'Discogs page for',
+            },
+          },
+          new: {
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 2,
+              name: 'https://www.discogs.com/master/102',
+            },
+          },
+          old: {
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'https://www.discogs.com/master/101',
+            },
+          },
+          relationship_id: 1,
+          type0: 'release_group',
+          type1: 'url',
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 6,
+      value: {
+        type: 91,
+        status: 2,
+        data: {
+          edit_version: 2,
+          entity0_credit: '',
+          entity1_credit: '',
+          link: {
+            attributes: [],
+            begin_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            end_date: {
+              day: null,
+              month: null,
+              year: null,
+            },
+            ended: 0,
+            entity0: {
+              gid: '2437980f-513a-44fc-80f1-b90d9d7fcf8f',
+              id: 99,
+              name: 'Bing Crosby',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newrg!',
+            },
+            link_type: {
+              id: 868,
+              link_phrase: 'dedications',
+              long_link_phrase: 'has dedication',
+              name: 'dedicated to',
+              reverse_link_phrase: 'dedicated to',
+            },
+          },
+          new: {
+            entity0_credit: 'bc',
+          },
+          old: {
+            entity0_credit: '',
+          },
+          relationship_id: 1,
+          type0: 'artist',
+          type1: 'release_group',
+        },
+      },
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=.tabs a[href$="/edit"]',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#external-link-0 button.remove-item',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-release-group button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 7,
+      value: {
+        type: 92,
+        status: 1,
+        data: {
+          edit_version: 2,
+          relationship: {
+            entity0: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'newrg!',
+            },
+            entity1: {
+              gid: '$$__IGNORE__$$',
+              id: 1,
+              name: 'https://www.discogs.com/master/101',
+            },
+            id: 1,
+            link: {
+              attributes: [],
+              begin_date: {
+                day: null,
+                month: null,
+                year: null,
+              },
+              end_date: {
+                day: null,
+                month: null,
+                year: null,
+              },
+              ended: 0,
+              type: {
+                entity0_type: 'release_group',
+                entity1_type: 'url',
+                id: 90,
+                long_link_phrase: 'has a Discogs page at',
+              },
+            },
+          },
+        },
+      },
+    },
+  ],
+}
