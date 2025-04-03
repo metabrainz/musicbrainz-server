@@ -9,11 +9,13 @@
 
 import Jed from 'jed';
 
+import jedDataTemplate from '../jedDataTemplate.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
-import jedData from '../static/scripts/jed-data.mjs';
 import invariant from '../utility/invariant.js';
 
 import * as poFile from './gettext/poFile.mjs';
+
+const jedData = {...jedDataTemplate};
 
 export const jedInstance: Jed = new Jed(jedData.en);
 jedInstance.locale = 'en';

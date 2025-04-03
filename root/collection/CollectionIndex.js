@@ -23,6 +23,7 @@ import SeriesList from '../components/list/SeriesList.js';
 import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 import {formatPluralEntityTypeName}
   from '../static/scripts/common/utility/formatEntityTypeName.js';
@@ -232,6 +233,7 @@ component CollectionIndex(...props: Props) {
           ) : null}
         </form>
       ) : <p>{l('This collection is empty.')}</p>}
+      {manifest('common/ratings', {async: 'async'})}
     </CollectionLayout>
   );
 }

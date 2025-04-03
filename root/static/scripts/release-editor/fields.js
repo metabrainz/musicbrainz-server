@@ -10,6 +10,7 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import 'knockout-arraytransforms';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {
   BRACKET_PAIRS,
@@ -38,7 +39,7 @@ import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
 import {featRegex} from '../edit/utility/guessFeat.js';
 import isUselessMediumTitle from '../edit/utility/isUselessMediumTitle.js';
-import * as validation from '../edit/validation.js';
+import {errorField} from '../edit/validation.js';
 
 import recordingAssociation from './recordingAssociation.js';
 import utils from './utils.js';
@@ -1056,7 +1057,7 @@ class Barcode {
     this.message = ko.observable('');
     this.existing = ko.observable('');
     this.confirmed = ko.observable(false);
-    this.error = validation.errorField(ko.observable(''));
+    this.error = errorField(ko.observable(''));
 
     this.value = ko.computed({
       read: this.barcode,
@@ -1114,7 +1115,6 @@ class Release extends mbEntity.Release {
     }
 
     var self = this;
-    var errorField = validation.errorField;
     var currentName = data.name;
 
     // used by ko.bindingHandlers.artistCreditEditor

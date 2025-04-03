@@ -75,6 +75,8 @@ component AreaPlaces(
           {l('This area is not currently associated with any places.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/ratings', {async: 'async'})}
     </AreaLayout>
   );
 }

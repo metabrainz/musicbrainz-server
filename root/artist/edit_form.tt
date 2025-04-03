@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Artist'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Artist'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-artist">
@@ -112,21 +110,4 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('artist/edit.js') %]
-
-<script type="text/javascript">
-  (function () {
-    MB.Control.ArtistEdit();
-
-    MB.initializeDuplicateChecker('artist');
-
-    MB.initializeToggleEnded('id-edit-artist');
-    MB.initializeTooShortYearChecks('artist');
-
-    MB.Control.initializeBubble("#sort-name-bubble", "input[name=edit-artist\\.sort_name");
-    MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
-    MB.Control.initializeBubble("#isni-bubble", "input[name=edit-artist\\.isni_codes\\.0]");
-
-    MB.installFormUnloadWarning();
-  }());
-</script>
+[% script_manifest('artist/edit.js', {async => 'async'}) %]

@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2017 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,10 +9,8 @@
 
 import * as Sentry from '@sentry/browser';
 
-import getScriptArgs from './utility/getScriptArgs.js';
+import {maybeGetCatalystContext} from './utility/catalyst.js';
 import * as DBDefs from './DBDefs-client.mjs';
-
-const {user} = getScriptArgs();
 
 Sentry.init({
   dsn: DBDefs.SENTRY_DSN_PUBLIC,
@@ -22,6 +21,7 @@ Sentry.init({
   ],
 });
 
+const user = maybeGetCatalystContext()?.user;
 if (user && user.id) {
   Sentry.setUser({
     id: user.id,

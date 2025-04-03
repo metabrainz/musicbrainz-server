@@ -63,6 +63,7 @@ component InstrumentReleases(
           {l('No releases found.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </InstrumentLayout>
   );
 }

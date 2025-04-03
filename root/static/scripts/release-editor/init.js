@@ -11,11 +11,17 @@ import ko from 'knockout';
 import mutate from 'mutate-cow';
 import {createRoot} from 'react-dom/client';
 
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
+import '../../lib/knockout/knockout-delegatedEvents.js';
+
 import {
   artistCreditsAreEqual,
   hasVariousArtists,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
+import {
+  initializeRangeSelect,
+} from '../common/MB/Control/SelectAll.js';
 import {
   getCatalystContext,
   getSourceEntityData,
@@ -25,11 +31,13 @@ import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
 import {isBeginner} from '../common/utility/privileges.js';
 import request from '../common/utility/request.js';
+import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
 import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
-import * as validation from '../edit/validation.js';
+import {errorField, errorsExist} from '../edit/validation.js';
+import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 import EditNoteTab from './components/EditNoteTab.js';
 import fields from './fields.js';
@@ -48,7 +56,7 @@ Object.assign(releaseEditor, {
     );
   },
   externalLinksEditData: ko.observable({}),
-  hasInvalidLinks: validation.errorField(ko.observable(false)),
+  hasInvalidLinks: errorField(ko.observable(false)),
 });
 
 releaseEditor.init = function (options) {
@@ -68,7 +76,7 @@ releaseEditor.init = function (options) {
    */
   utils.withRelease(function () {
     setTimeout(function () {
-      MB.Control.initializeGuessCase('release');
+      initializeGuessCase('release');
     }, 1);
   });
 
@@ -76,12 +84,12 @@ releaseEditor.init = function (options) {
    * Allow using range-select (shift-click) on the change recording artist
    * and change recording title checkboxes in the Recordings page.
    */
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#track-recording-assignation input.' +
     'update-recording-title[type="checkbox"]',
   );
 
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#track-recording-assignation input.' +
     'update-recording-artist[type="checkbox"]',
   );
@@ -398,7 +406,7 @@ releaseEditor.init = function (options) {
       <EditNoteTab
         editPreviews={releaseEditor.editPreviews()}
         editsExist={releaseEditor.allEdits().length > 0}
-        errorsExist={validation.errorsExist()}
+        errorsExist={errorsExist()}
         form={releaseEditorForm}
         invalidEditNote={rootField.invalidEditNote()}
         loadingEditPreviews={releaseEditor.loadingEditPreviews()}
@@ -518,7 +526,7 @@ releaseEditor.autoOpenTheAddMediumDialog = function (release) {
 releaseEditor.allowsSubmission = function () {
   return (
     !this.submissionInProgress() &&
-    !validation.errorsExist() &&
+    !errorsExist() &&
     (this.action === 'edit' || !(
       this.rootField.missingEditNote() || this.rootField.invalidEditNote()
     )) &&
@@ -528,4 +536,4 @@ releaseEditor.allowsSubmission = function () {
 
 MB._releaseEditor = releaseEditor;
 
-$(MB.confirmNavigationFallback);
+$(confirmNavigationFallback);

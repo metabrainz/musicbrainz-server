@@ -6,6 +6,7 @@ use base 'Catalyst::View::TT';
 use DBDefs;
 use MRO::Compat;
 use MusicBrainz::Server::Data::Utils;
+use MusicBrainz::Server::Form::Utils qw( form_or_field_to_json );
 use MusicBrainz::Server::Translation ();
 use MusicBrainz::Server::View::Base;
 
@@ -47,7 +48,7 @@ sub comma_only_list {
 
 sub form_to_json {
     my ($self, $c, $form_or_field) = @_;
-    MusicBrainz::Server::Form::Role::ToJSON::TO_JSON($form_or_field);
+    form_or_field_to_json($form_or_field);
 }
 
 1;
