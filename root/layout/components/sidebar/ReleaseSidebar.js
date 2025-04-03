@@ -91,6 +91,7 @@ component ReleaseSidebar(release: ReleaseT) {
                 {all: entityHref(release, 'cover-art')},
               ))}
             />
+            {manifest('common/loadArtwork', {async: 'async'})}
             {manifest('common/artworkViewer', {async: 'async'})}
           </>
         ) : isDarkened ? (
