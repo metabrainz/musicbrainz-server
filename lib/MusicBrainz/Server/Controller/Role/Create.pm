@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Create;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
@@ -58,11 +59,11 @@ role {
         }
 
         my $model = $self->config->{model};
+        my $type = model_to_type($model);
         my $entity;
         my %props;
 
         if ($model eq 'Event' || $model eq 'Genre') {
-            my $type = model_to_type($model);
             my $form = $c->form( form => $params->form );
             %props = ( form => $form->TO_JSON );
 
@@ -120,7 +121,7 @@ role {
             $params->edit_arguments->($self, $c),
         );
 
-        if ($model eq 'Recording') {
+        if ($ENTITIES{$type}{artist_credits}) {
             $c->stash->{form}->field('artist_credit')->stash_field;
         }
     };
