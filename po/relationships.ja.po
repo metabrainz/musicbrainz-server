@@ -17,11 +17,12 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # tkusano <tkusano@users.noreply.translations.metabrainz.org>, 2024.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
+# Kori Syusetu <kori@isnowgroup.net>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-15 16:42+0000\n"
-"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-04-03 19:45+0000\n"
+"Last-Translator: Kori Syusetu <kori@isnowgroup.net>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -29,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -9913,7 +9914,7 @@ msgstr "次のレビューページ"
 #. name:review
 #: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
-msgstr ""
+msgstr "レビュー"
 
 #. name:revised by
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
