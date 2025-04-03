@@ -110,13 +110,15 @@ form div.checkbox-block div.row {
 .bubble {
     display: none;
     position: absolute;
-    min-height: 64px;
+    min-height: 54px;
     margin: 0;
     padding: @form-margin;
     background: @very-light-bg;
     border-radius: 12px;
     box-sizing: border-box;
     > svg { color: @very-light-bg; }
+    > p:first-child { margin-top: 0; }
+    > p:last-child { margin-bottom: 0; }
 }
 
 .bubble-tail {
