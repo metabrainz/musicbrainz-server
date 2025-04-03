@@ -3,6 +3,7 @@ import ko from 'knockout';
 
 import {ENTITY_NAMES} from '../common/constants.js';
 import MB from '../common/MB.js';
+import EntityAutocomplete from '../common/MB/Control/Autocomplete.js';
 import request from '../common/utility/request.js';
 
 MB.ExampleRelationshipsEditor = (function (ERE) {
@@ -26,7 +27,7 @@ MB.ExampleRelationshipsEditor = (function (ERE) {
 
     ERE.viewModel = new ViewModel();
 
-    const autocomplete = MB.Control.EntityAutocomplete({
+    const autocomplete = EntityAutocomplete({
       entity: type0,
       inputs: $('span.autocomplete'),
       setEntity: ERE.viewModel.selectedEntityType,

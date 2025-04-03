@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => { href => doc_link('Place'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-place">
@@ -29,7 +27,11 @@
         <ul class="errors coordinates-errors" style="display:none"><li>[% l('These coordinates could not be parsed.') %]</li></ul>
       </fieldset>
 
-      [% date_range_fieldset(r, 'place', l('This place has ended.')) %]
+      [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
+           initialField => form_to_json(form.field('period')),
+           endedLabel => l('This place has ended.'),
+         }) %]
+      [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 
@@ -58,10 +60,4 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('place/edit.js') %]
-
-<script type="text/javascript">
-  (function () {
-    MB.installFormUnloadWarning();
-  }());
-</script>
+[% script_manifest('place/edit.js', {async => 'async'}) %]

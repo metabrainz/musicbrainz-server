@@ -65,7 +65,8 @@ sub recording_toplevel
 
     my $inc = $c->stash->{inc};
     my @recordings = @{$recordings};
-    my @load_acs;
+    my @ac_entities;
+    push @ac_entities, @recordings if $inc->artist_credits;
 
     $self->linked_recordings($c, $stash, $recordings);
 
@@ -95,9 +96,9 @@ sub recording_toplevel
 
             $self->linked_releases($c, $stash, \@releases);
 
-            push @load_acs,
-                map { $_->all_tracks }
-                map { $_->all_mediums } @releases
+            push @ac_entities,
+                @releases,
+                (map { $_->all_tracks } map { $_->all_mediums } @releases)
                 if $inc->artist_credits;
 
             if ($inc->release_groups) {
@@ -107,30 +108,13 @@ sub recording_toplevel
                 $c->model('ReleaseGroup')->load_meta(@release_groups);
                 $c->model('ReleaseGroupType')->load(@release_groups);
 
-                push @load_acs, @release_groups
-                    if $inc->artist_credits;
+                push @ac_entities, @release_groups if $inc->artist_credits;
             }
         }
     }
 
-    if ($inc->artists) {
-        push @load_acs, @recordings;
-    }
-
-    if (@load_acs) {
-        $c->model('ArtistCredit')->load(@load_acs);
-        my @acns = map { $_->artist_credit->all_names } @load_acs;
-        $c->model('Artist')->load(@acns);
-        $c->model('ArtistType')->load(map { $_->artist } @acns);
-
-        if ($inc->artists) {
-            $self->linked_artists(
-                $c, $stash,
-                [ map { $_->artist }
-                  map { $_->artist_credit->all_names } @recordings ],
-            );
-        }
-    }
+    $self->linked_artist_creditable_entities($c, $stash, \@ac_entities)
+        if @ac_entities;
 }
 
 sub recording_browse : Private

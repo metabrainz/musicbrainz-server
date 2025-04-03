@@ -74,8 +74,9 @@ parameter and a parameter hash:
 [%- l('{entity} has no aliases.', {entity => entity_link(entity)}) -%]
 
 [% l('You may proceed to <a href=\"{url}\">your user profile</a>,
-      or maybe you want to {edit_link}', url => c.uri_for('/user/profile
-     '), edit_link => doc_link("How_Editing_Works", l("start editing!"))
+      or maybe you want to {edit_link|start editing}!',
+     url => c.uri_for('/user/profile'),
+     edit_link => doc_link("How_Editing_Works"))
 %]
 
 Plurals are done with an ln()-function:

@@ -865,6 +865,8 @@ sub split : Chained('load') Edit {
                 $c->uri_for_action('/artist/show', [ $artist->gid ]));
         },
     );
+
+    $c->stash->{form}->field('artist_credit')->stash_field;
 }
 
 sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
@@ -890,6 +892,8 @@ sub edit_credit : Chained('credit') PathPart('edit') Edit {
                 $c->uri_for_action('/artist/aliases', [ $artist->gid ]));
         },
     );
+
+    $c->stash->{form}->field('artist_credit')->stash_field;
 }
 
 =head1 COPYRIGHT AND LICENSE

@@ -12,7 +12,7 @@ import ko from 'knockout';
 import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 
-import '../../../../lib/jquery-ui.js';
+import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import AddEntityDialog, {
   TITLES as ADD_NEW_ENTITY_TITLES,
@@ -27,7 +27,6 @@ import mbEntity from '../../entity.js';
 import {commaOnlyListText} from '../../i18n/commaOnlyList.js';
 import localizeLanguageName from '../../i18n/localizeLanguageName.js';
 import {reduceArtistCredit} from '../../immutable-entities.js';
-import MB from '../../MB.js';
 import {compactMap, first, groupBy, last} from '../../utility/arrays.js';
 import {bracketedText} from '../../utility/bracketed.js';
 import clean from '../../utility/clean.js';
@@ -573,9 +572,10 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
     if (item.action) {
       return this._renderAction(ul, item);
     }
-    var formatters = MB.Control.autocomplete_formatters;
-    var entityType = formatters[this.entity] ? this.entity : 'generic';
-    return formatters[entityType](ul, item);
+    var entityType = autocompleteFormatters[this.entity]
+      ? this.entity
+      : 'generic';
+    return autocompleteFormatters[entityType](ul, item);
   },
 
   changeEntity(entity) {
@@ -644,7 +644,7 @@ $.widget('ui.menu', $.ui.menu, {
 });
 
 
-MB.Control.autocomplete_formatters = {
+const autocompleteFormatters = {
   'generic'(ul, item) {
     var a = $('<a>').text(item.name);
 
@@ -1082,7 +1082,7 @@ function renderContainingAreas(area) {
 }
 
 /*
- * MB.Control.EntityAutocomplete is a helper class which simplifies using
+ * EntityAutocomplete is a helper class which simplifies using
  * Autocomplete to look up entities.  It takes care of setting id and gid
  * values on related hidden inputs.
  *
@@ -1098,7 +1098,7 @@ function renderContainingAreas(area) {
  * Do a lookup of the span with jQuery and pass it into EntityAutocomplete
  * as options.inputs, for example, for a release group do this:
  *
- *   MB.Control.EntityAutocomplete(
+ *   EntityAutocomplete(
  *    {inputs: $('span.release-group.autocomplete')},
  *   );
  *
@@ -1107,7 +1107,7 @@ function renderContainingAreas(area) {
  * on the span, as events will bubble up).
  */
 
-MB.Control.EntityAutocomplete = function (options) {
+export default function EntityAutocomplete(options) {
   var $inputs = options.inputs || $();
   var $name = options.input || $inputs.find('input.name');
 
@@ -1149,7 +1149,7 @@ MB.Control.EntityAutocomplete = function (options) {
   });
 
   return autocomplete;
-};
+}
 
 
 ko.bindingHandlers.autocomplete = {

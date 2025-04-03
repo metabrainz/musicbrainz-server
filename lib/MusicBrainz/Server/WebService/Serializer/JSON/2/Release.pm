@@ -4,6 +4,7 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw(
     boolean
     list_of
+    serialize_artist_credit
     serialize_entity
 );
 
@@ -89,7 +90,7 @@ sub serialize
         # any), those of the release group should be serialized (to match the
         # behaviour of the XML serializer). So we override a package variable to
         # force the ratings to be serialized despite not being top-level.
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::force_ratings = 1;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_sublevel_ratings = 1;
         # Used in `JSON::2::Utils::serialize_tags` to hide tags/genres for
         # release group artists which already appear in the release artist
         # credit.
@@ -97,16 +98,8 @@ sub serialize
         $body{'release-group'} = serialize_entity($entity->release_group, $inc, $stash);
     }
 
-    if ($toplevel)
-    {
-        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash, $inc->artists)
-            if $inc->artist_credits || $inc->artists;
-    }
-    else
-    {
-        $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
-            if $inc && $inc->artist_credits;
-    }
+    serialize_artist_credit(\%body, $entity, $inc, $stash)
+        if $inc && $inc->artist_credits;
 
     $body{'label-info'} = [
         map {
@@ -123,7 +116,7 @@ sub serialize
         # any), those of the related entities should be displayed. So we override
         # a package variable to force the ratings to be serialized despite not
         # being top-level.
-        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::force_ratings = 1;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_sublevel_ratings = 1;
         # Used in `JSON::2::Utils::serialize_tags` to hide tags/genres for
         # track/recording artists which already appear in the release artist
         # credit.

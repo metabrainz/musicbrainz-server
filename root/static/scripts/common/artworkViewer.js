@@ -8,6 +8,9 @@
 
 import $ from 'jquery';
 
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
+import './dialogs.js';
+
 import debounce from './utility/debounce.js';
 
 $.widget('mb.artworkViewer', $.ui.dialog, {

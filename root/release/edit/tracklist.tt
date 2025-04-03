@@ -437,6 +437,44 @@
       </div>
     <!-- /ko -->
 
+    <!-- ko if: release.shouldUseEnglishCapitalization() && hasCapitalizedETI() -->
+      <div class="capitalized-eti warning">
+        [%- warning_icon %]
+        <p>
+          <strong>[% l('Warning:') | html_entity %]</strong>
+          [% l('This medium seems to have capitalized {eti|extra title information} in track titles. Descriptive parts of extra title information like “remix” or “version” should be lowercased in most languages.', { eti => { href => doc_link('Style/Titles#Extra_title_information'), target => '_blank' } }) %]
+        </p>
+        <!-- ko if: hasAddedCapitalizedETI() && $root.isBeginner -->
+          <label>
+            <input id="confirm-eti" type="checkbox" data-bind="checked: confirmedCapitalizedETI" />
+            [% l('I confirm that this extra title information is capitalized correctly.') %]
+          </label>
+          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedCapitalizedETI">
+            [%~ l('If you’re sure the extra title information is capitalized correctly, confirm it above. Otherwise, please fix the data (the “Guess case” button might help!).') %]
+          </p>
+        <!-- /ko -->
+      </div>
+    <!-- /ko -->
+
+    <!-- ko if: hasMiscapitalizedTitles() -->
+      <div class="miscapitalized-titles warning">
+        [%- warning_icon %]
+        <p>
+          <strong>[% l('Warning:') | html_entity %]</strong>
+          [% l('This medium may have incorrectly capitalized English track titles. Short articles, conjunctions, and prepositions like “and”, “of”, “or”, “to”, and “the” {guidelines|should typically be lowercased}.', { guidelines => { href => doc_link('Style/Language/English'), target => '_blank' } }) %]
+        </p>
+        <!-- ko if: hasAddedMiscapitalizedTitles() && $root.isBeginner -->
+          <label>
+            <input id="confirm-miscapitalized-titles" type="checkbox" data-bind="checked: confirmedMiscapitalizedTitles" />
+            [% l('I confirm that these titles are capitalized correctly.') %]
+          </label>
+          <p class="error field-error" style="padding-left: 1em" data-bind="showErrorWhenTabIsSwitched: hasUnconfirmedMiscapitalizedTitles">
+            [%~ l('If you’re sure the titles are capitalized correctly, confirm it above. Otherwise, please fix the data (the “Guess case” button might help!).') %]
+          </p>
+        <!-- /ko -->
+      </div>
+    <!-- /ko -->
+
     <div data-bind="visible: loaded() && !collapsed()">
       <!-- ko if: tracks().length === 0 -->
       <p style="margin: 1em">

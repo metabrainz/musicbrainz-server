@@ -17,6 +17,8 @@
         }) ~%]
     </div>
 
+    [% script_manifest('common/MB/edit_search.js', {async => 'async'}) %]
+
     <script type="text/javascript">
       $('.search-refine select').attr('size', '10');
 

@@ -9,6 +9,7 @@ use URI;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
      'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
      'MusicBrainz::Server::Data::Role::Merge';
@@ -21,6 +22,7 @@ my %URL_SPECIALIZATIONS = (
     '7digital'            => qr{^https?://([^/]+\.)?7digital\.com/}i,
     '45cat'               => qr{^https?://(?:www\.)?45cat\.com/}i,
     '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
+    'ACUM'                => qr{^https?://nocs\.acum\.org\.il/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
     'AmazonMusic'         => qr{^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)/}i,
     'Anghami'             => qr{^https?://([^/]+\.)?anghami\.com/}i,
@@ -31,6 +33,7 @@ my %URL_SPECIALIZATIONS = (
     'AppleMusic'          => qr{^https?://music\.apple\.com/}i,
     'ASIN'                => qr{^https?://(?:www\.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'Audiomack'           => qr{^https?://(?:www\.)?audiomack\.com/}i,
+    'AWA'                 => qr{^https?://s\.awa\.fm/}i,
     'BaiduBaike'          => qr{^https?://baike\.baidu\.com/}i,
     'Bandcamp'            => qr{^https?://([^/]+\.)?bandcamp\.com/}i,
     'Bandsintown'         => qr{^https?://(?:www\.)?bandsintown\.com/}i,

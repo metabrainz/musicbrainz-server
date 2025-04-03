@@ -285,13 +285,6 @@ sub redirect_back {
     $c->res->redirect($returnto);
 }
 
-# XXX temporary hack for remove_from_merge in common-macros.tt, and
-# merge-helper.tt.
-use WWW::Form::UrlEncoded qw( build_urlencoded );
-sub returnto_relative_uri {
-    build_urlencoded(returnto => shift->relative_uri);
-}
-
 sub get_relative_uri {
     my ($c, $uri_string) = @_;
 
@@ -842,10 +835,14 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        artist_credit
+        artist_credit_field
         can_delete
         collaborative_collections
         commons_image
         containment
+        current_isrcs
+        current_iswcs
         current_language
         current_language_html
         entity
@@ -864,6 +861,7 @@ sub TO_JSON {
         release_artwork_count
         release_cdtoc_count
         seeded_relationships
+        series_ordering_types
         server_details
         server_languages
         source_entity
@@ -929,6 +927,10 @@ sub TO_JSON {
 
     if (my $event_artwork = delete $stash{event_artwork}) {
         $stash{event_artwork} = to_json_object($event_artwork);
+    }
+
+    if (my $artist_credit = delete $stash{artist_credit}) {
+        $stash{artist_credit} = to_json_object($artist_credit);
     }
 
     my $req = $self->req;

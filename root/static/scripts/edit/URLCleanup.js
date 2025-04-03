@@ -540,6 +540,48 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'acum': {
+    match: [/^(https:\/\/)?nocs\.acum\.org\.il\/acumsitesearchdb\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\//, 'https://')
+        // keep just one query param
+        .replace(/&.*/, '')
+        // prefer works to versions
+        .replace('/version?', '/work?');
+    },
+    validate(url, id) {
+      const isAcumUrl = /^https:\/\/nocs\.acum\.org\.il\/acumsitesearchdb\//i.test(url);
+      if (isAcumUrl) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: /\/work\?workid=[0-9A-Z]+$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: /\/results\?(creatorid=I-\d+-\d|performerid=\d+)$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: /\/results\?creatorid=I-\d+-\d$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: /\/album\?albumid=[0-9A-Z]+$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'allmusic': {
     match: [/^(https?:\/\/)?([^/]+\.)?allmusic\.com/i],
     restrict: [LINK_TYPES.allmusic],
@@ -1046,6 +1088,38 @@ const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'awa': {
+    match: [/^(https?:\/\/)?s\.awa\.fm\/.*(album|artist|track)\//i],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?s\.awa\.fm\/(?:#!\/)?([\w/]+).*$/, 'https://s.awa.fm/$1');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/s\.awa\.fm\/(album|artist|track)\/[0-9a-f-]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            if (prefix === 'artist') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.release:
+            if (prefix === 'album') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+          case LINK_TYPES.streamingpaid.recording:
+            if (prefix === 'track') {
+              return {result: true};
+            }
+            return {result: false, target: ERROR_TARGETS.ENTITY};
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },

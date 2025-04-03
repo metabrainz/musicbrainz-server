@@ -82,14 +82,17 @@ component ReleaseSidebar(release: ReleaseT) {
     <div id="sidebar">
       <div className={'cover-art' + (isPresent ? ' present' : '')}>
         {isPresent && releaseArtwork ? (
-          <Artwork
-            artwork={releaseArtwork}
-            message={ReactDOMServer.renderToStaticMarkup(exp.l(
-              'Image failed to load correctly.' +
-              '<br/>{all|View all images}.',
-              {all: entityHref(release, 'cover-art')},
-            ))}
-          />
+          <>
+            <Artwork
+              artwork={releaseArtwork}
+              message={ReactDOMServer.renderToStaticMarkup(exp.l(
+                'Image failed to load correctly.' +
+                '<br/>{all|View all images}.',
+                {all: entityHref(release, 'cover-art')},
+              ))}
+            />
+            {manifest('common/artworkViewer', {async: 'async'})}
+          </>
         ) : isDarkened ? (
           l(`Images for this item have been hidden
              by the Internet Archive because of a takedown request.`)

@@ -12,7 +12,8 @@ import {compare} from '../i18n.js';
 import {groupBy} from './arrays.js';
 
 /*
- * Unlike MB.forms.buildOptionsTree, this builds from a flat list.
+ * Unlike `buildOptionsTree` in root/static/scripts/edit/forms.js,
+ * this builds from a flat list.
  * TODO: These should probably be combined at some point?
  */
 export default function buildOptionList<T>(

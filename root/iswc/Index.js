@@ -85,6 +85,7 @@ component Index(
           </>
         ) : null}
       </form>
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </Layout>
   );
 }

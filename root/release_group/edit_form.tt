@@ -1,7 +1,5 @@
 [%~ javascript_required() ~%]
 
-[% script_manifest('edit.js') %]
-
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Release_Group'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Release_Group'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post">
@@ -32,14 +30,4 @@
 
 [%- guesscase_options() -%]
 
-<script type="text/javascript">
-  $(function () {
-    MB.initializeArtistCredit(
-      [% closing_tag_escape(form.to_encoded_json) %],
-      [% closing_tag_escape(form.field('artist_credit').json) %]
-    );
-    MB.Control.initializeGuessCase("release_group", "id-edit-release-group");
-    MB.Control.initGuessFeatButton('edit-release-group');
-    MB.installFormUnloadWarning();
-  });
-</script>
+[% script_manifest('release-group/edit.js', {async => 'async'}) %]

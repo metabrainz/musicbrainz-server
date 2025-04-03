@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <p>[%- l('For more information, check the {doc_doc|documentation}.', { doc_doc => { href => doc_link('Label'), target => '_blank' } }) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-label">
@@ -29,14 +27,14 @@
             LC- [% r.text('label_code', size => 5, class => "label-code", pattern => "[0-9]*") -%]
             [%- field_errors(form, 'label_code') -%]
         [% END %]
-        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('ipi_codes')),
            label => add_colon(l('IPI codes')),
            addButtonId => 'add-ipi-code',
            addButtonLabel => lp('Add IPI code', 'interactive'),
            removeButtonLabel => lp('Remove IPI code', 'interactive'),
          }) %]
-        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('isni_codes')),
            label => add_colon(l('ISNI codes')),
            addButtonId => 'add-isni-code',
@@ -45,7 +43,11 @@
          }) %]
       </fieldset>
 
-      [% date_range_fieldset(r, 'label', l('This label has ended.')) %]
+      [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
+           initialField => form_to_json(form.field('period')),
+           endedLabel => l('This label has ended.'),
+         }) %]
+      [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 
@@ -69,19 +71,4 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('label/edit.js') %]
-
-<script type="text/javascript">
-  (function () {
-    MB.Control.initializeGuessCase("label", "id-edit-label");
-
-    MB.Control.Area("span.area.autocomplete");
-
-    MB.initializeDuplicateChecker('label');
-
-    MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-label\\.ipi_codes\\.0]");
-    MB.Control.initializeBubble("#isni-bubble", "input[name=edit-label\\.isni_codes\\.0]");
-
-    MB.installFormUnloadWarning();
-  }());
-</script>
+[% script_manifest('label/edit.js', {async => 'async'}) %]

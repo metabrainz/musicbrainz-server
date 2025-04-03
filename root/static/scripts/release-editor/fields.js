@@ -10,9 +10,12 @@ import ko from 'knockout';
 import * as ReactDOMServer from 'react-dom/server';
 
 import 'knockout-arraytransforms';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {
   BRACKET_PAIRS,
+  COUNTRY_JA_AREA_ID,
+  LANGUAGE_ENG_ID,
 } from '../common/constants.js';
 import mbEntity from '../common/entity.js';
 import {
@@ -36,7 +39,7 @@ import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
 import {featRegex} from '../edit/utility/guessFeat.js';
 import isUselessMediumTitle from '../edit/utility/isUselessMediumTitle.js';
-import * as validation from '../edit/validation.js';
+import {errorField} from '../edit/validation.js';
 
 import recordingAssociation from './recordingAssociation.js';
 import utils from './utils.js';
@@ -48,6 +51,23 @@ const bracketRegex = new RegExp(
   '[' + escapeRegExp(BRACKET_PAIRS.flat().join('')) + ']',
   'g',
 );
+
+/*
+ * This matches an intentionally-conservative subset of words from
+ * preBracketSingleWordsList in ../guess-case/utils/wordCheckers.js that
+ * tend to appear at the end of extra title information.
+ */
+const capitalizedETIRegex =
+  /\s+\(.*\b(?:Instrumental|Live|Mix|Remix|Version)\)\s*$/;
+
+/*
+ * This matches a subset of words from LOWER_CASE_WORDS in
+ * ../guess-case/modes.js.
+ */
+const miscapitalizedEnglishRegex =
+  /[a-zA-Z0-9,]\s+(?:And|Of|Or|The|To)\s+[a-zA-Z]/;
+
+const debounceTrackTitleDelayMs = 250;
 
 releaseEditor.fields = fields;
 
@@ -75,6 +95,13 @@ class Track {
     this.hasFeatInOrigTitle =
       isDatabaseRowId(this.id) &&
       featRegex.test(data.name.replace(bracketRegex, ' '));
+    this.hasCapitalizedETIInOrigTitle =
+      isDatabaseRowId(this.id) &&
+      capitalizedETIRegex.test(data.name);
+    this.hasMiscapitalizedOrigTitle =
+      isDatabaseRowId(this.id) &&
+      medium.release.shouldUseEnglishCapitalization() &&
+      miscapitalizedEnglishRegex.test(data.name);
 
     this.previewName = ko.observable(null);
     this.previewNameDiffers = ko.computed(() => {
@@ -171,6 +198,20 @@ class Track {
 
     this.formattedLength.subscribe(this.formattedLengthChanged, this);
     this.hasNewRecording.subscribe(this.hasNewRecordingChanged, this);
+
+    this.hasFeatInTitle = debounceComputed(
+      () => featRegex.test(this.name().replace(bracketRegex, ' ')),
+      debounceTrackTitleDelayMs,
+    );
+    this.hasCapitalizedETI = debounceComputed(
+      () => capitalizedETIRegex.test(this.name()),
+      debounceTrackTitleDelayMs,
+    );
+    this.hasMiscapitalizedTitle = debounceComputed(
+      () => this.medium.release.shouldUseEnglishCapitalization() &&
+            miscapitalizedEnglishRegex.test(this.name()),
+      debounceTrackTitleDelayMs,
+    );
   }
 
   recordingGID() {
@@ -366,10 +407,6 @@ class Track {
     return hasVariousArtists(this.artistCredit());
   }
 
-  hasFeatInTitle() {
-    return featRegex.test(this.name().replace(bracketRegex, ' '));
-  }
-
   relatedArtists() {
     return this.medium.release.relatedArtists;
   }
@@ -498,11 +535,13 @@ class Medium {
       return self.tracksUnknownToUser() ||
              self.tracks().every(t => t.hasTitle());
     });
+
     this.hasVariousArtistsTracks = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasVariousArtists());
     });
     this.confirmedVariousArtists = ko.observable(false);
+
     this.hasFeatInTrackTitles = ko.computed(function () {
       return !self.tracksUnknownToUser() &&
              self.tracks().some(t => t.hasFeatInTitle());
@@ -514,6 +553,32 @@ class Medium {
              );
     });
     this.confirmedFeatInTrackTitles = ko.observable(false);
+
+    this.hasCapitalizedETI = ko.computed(function () {
+      return !self.tracksUnknownToUser() &&
+             self.tracks().some(t => t.hasCapitalizedETI());
+    });
+    this.hasAddedCapitalizedETI = ko.computed(function () {
+      return self.hasCapitalizedETI() &&
+             self.tracks().some(
+               t => !t.hasCapitalizedETIInOrigTitle && t.hasCapitalizedETI(),
+             );
+    });
+    this.confirmedCapitalizedETI = ko.observable(false);
+
+    this.hasMiscapitalizedTitles = ko.computed(function () {
+      return !self.tracksUnknownToUser() &&
+             self.tracks().some(t => t.hasMiscapitalizedTitle());
+    });
+    this.hasAddedMiscapitalizedTitles = ko.computed(function () {
+      return self.hasMiscapitalizedTitles() &&
+             self.tracks().some(
+               t => !t.hasMiscapitalizedOrigTitle &&
+                    t.hasMiscapitalizedTitle(),
+             );
+    });
+    this.confirmedMiscapitalizedTitles = ko.observable(false);
+
     this.hasTooEarlyFormat = ko.computed(function () {
       const mediumFormatDate = MB.mediumFormatDates[self.formatID()];
       return Boolean(mediumFormatDate && self.release.earliestYear() &&
@@ -617,6 +682,16 @@ class Medium {
     this.hasUnconfirmedFeatInTrackTitles = ko.computed(function () {
       return (self.hasAddedFeatInTrackTitles() &&
               !self.confirmedFeatInTrackTitles());
+    });
+
+    this.hasUnconfirmedCapitalizedETI = ko.computed(function () {
+      return (self.hasAddedCapitalizedETI() &&
+              !self.confirmedCapitalizedETI());
+    });
+
+    this.hasUnconfirmedMiscapitalizedTitles = ko.computed(function () {
+      return (self.hasAddedMiscapitalizedTitles() &&
+              !self.confirmedMiscapitalizedTitles());
     });
 
     this.hasVariousArtistsTracks.subscribe(function (value) {
@@ -982,7 +1057,7 @@ class Barcode {
     this.message = ko.observable('');
     this.existing = ko.observable('');
     this.confirmed = ko.observable(false);
-    this.error = validation.errorField(ko.observable(''));
+    this.error = errorField(ko.observable(''));
 
     this.value = ko.computed({
       read: this.barcode,
@@ -1040,7 +1115,6 @@ class Release extends mbEntity.Release {
     }
 
     var self = this;
-    var errorField = validation.errorField;
     var currentName = data.name;
 
     // used by ko.bindingHandlers.artistCreditEditor
@@ -1183,6 +1257,15 @@ class Release extends mbEntity.Release {
     this.hasUnconfirmedFeatInTrackTitles = errorField(
       this.mediums.any('hasUnconfirmedFeatInTrackTitles'),
     );
+    this.hasUnconfirmedCapitalizedETI = errorField(function () {
+      return releaseEditor.isBeginner &&
+        self.shouldUseEnglishCapitalization() &&
+        self.mediums().some(m => m.hasUnconfirmedCapitalizedETI());
+    });
+    this.hasMiscapitalizedTitles = errorField(function () {
+      return releaseEditor.isBeginner &&
+        self.mediums().some(m => m.hasUnconfirmedMiscapitalizedTitles());
+    });
     this.needsMediums = errorField(function () {
       return !(self.mediums().length || self.hasUnknownTracklist());
     });
@@ -1230,6 +1313,18 @@ class Release extends mbEntity.Release {
     return mediums.length === 1 &&
            !mediums[0].hasTracks() &&
            !mediums[0].tracksUnknownToUser();
+  }
+
+  shouldUseEnglishCapitalization() {
+    const langID = this.languageID();
+    if (langID && parseInt(langID, 10) !== LANGUAGE_ENG_ID) {
+      return false;
+    }
+    if (this.events().length === 1 &&
+        parseInt(this.events()[0].countryID(), 10) === COUNTRY_JA_AREA_ID) {
+      return false;
+    }
+    return true;
   }
 
   tracksWithUnsetPreviousRecordings() {

@@ -362,7 +362,6 @@ sub _art_upload {
     }
 
     my $archive = $art_archive_model->art_archive_name;
-    my $entity_type = $art_archive_model->art_archive_entity;
     my $bucket = 'mbid-' . $gid;
 
     # It's not currently possible for the IA to reserve the mbid-*
@@ -552,10 +551,6 @@ sub _art_upload {
 
     my %s3_policy;
     $s3_policy{mime_type} = $mime_type;
-    $s3_policy{redirect} = $c->uri_for_action(
-        "/$entity_type/${archive}_art_uploaded", [$gid],
-    )->as_string() if $c->request->params->{redirect};
-
     my $expiration = gmtime() + 3600;
     $s3_policy{expiration} = $expiration->datetime . '.000Z';
 

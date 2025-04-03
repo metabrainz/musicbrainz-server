@@ -11,7 +11,6 @@
     </p>
 </div>
 
-[% script_manifest('edit.js') %]
 [% script_manifest('recording/edit.js', {async => 'async'}) %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Recording'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Recording'), target => '_blank' }}) -%]</p>
@@ -43,7 +42,10 @@
       [%- END -%]
       [%- form_row_checkbox(r, 'video', l('Video')) -%]
       [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
-          repeatable => form_to_json(form.field('isrcs')),
+          initialState => {
+            currentTextValues => current_isrcs,
+            repeatable => form_to_json(form.field('isrcs')),
+          },
           label => add_colon(l('ISRCs')),
           addButtonId => 'add-isrc',
           addButtonLabel => lp('Add ISRC', 'interactive'),
@@ -67,15 +69,3 @@
     [%- isrc_bubble(link_entity(recording)) -%]
   </div>
 </form>
-
-<script type="text/javascript">
-  $(function () {
-    MB.initializeArtistCredit(
-      [% closing_tag_escape(form.to_encoded_json) %],
-      [% closing_tag_escape(form.field('artist_credit').json) %]
-    );
-    MB.Control.initGuessFeatButton('edit-recording');
-    MB.Control.initializeBubble("#isrcs-bubble", "input[name=edit-recording\\.isrcs\\.0]");
-    MB.installFormUnloadWarning();
-  });
-</script>

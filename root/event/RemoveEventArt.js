@@ -8,6 +8,7 @@
  */
 
 import {Artwork} from '../components/Artwork.js';
+import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
@@ -38,6 +39,8 @@ component RemoveEventArt(
         <EnterEditNote field={form.field.edit_note} />
         <EnterEdit form={form} />
       </form>
+      {manifest('common/loadArtwork', {async: 'async'})}
+      {manifest('common/artworkViewer', {async: 'async'})}
     </EventLayout>
   );
 }

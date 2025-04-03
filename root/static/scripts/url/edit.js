@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2021 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -13,7 +13,10 @@ import $ from 'jquery';
 import './components/UrlRelationshipEditor.js';
 
 import {registerEvents} from '../edit/URLCleanup.js';
+import initializeValidation from '../edit/validation.js';
 
 $(function () {
   registerEvents($('#id-edit-url\\.url'));
+
+  initializeValidation();
 });

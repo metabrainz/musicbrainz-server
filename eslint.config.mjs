@@ -901,7 +901,7 @@ export default [
     files: [
       'root/static/scripts/common/MB/**/*',
       'root/static/scripts/common/artworkViewer.js',
-      'root/static/scripts/common/coverart.js',
+      'root/static/scripts/common/loadArtwork.js',
       'root/static/scripts/common/utility/request.js',
       'root/static/scripts/edit/MB/**/*',
       'root/static/scripts/edit/forms.js',

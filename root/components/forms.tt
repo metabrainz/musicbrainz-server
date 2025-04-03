@@ -88,28 +88,11 @@
     [% form_row_text(r, field_name, label, { size => 47 }) %]
 [%- END -%]
 
-[%- MACRO form_row_email_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowEmailLong.js
--%]
-    [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.email(field_name, { size => 47 })  %]
-      [% field_errors(r.form, field_name) %]
-    [% END %]
-[%- END -%]
-
 [%- MACRO form_row_url_long(r, field_name, label) BLOCK # Converted to React at root/components/FormRowURLLong.js
 -%]
     [% WRAPPER form_row %]
       [% r.label(field_name, label || r.form.field(field_name).label) %]
       [% r.url(field_name, { size => 47 })  %]
-      [% field_errors(r.form, field_name) %]
-    [% END %]
-[%- END -%]
-
-[%- MACRO form_row_password(r, field_name, label) BLOCK -%]
-    [% WRAPPER form_row %]
-      [% r.label(field_name, label || r.form.field(field_name).label) %]
-      [% r.password(field_name) %]
       [% field_errors(r.form, field_name) %]
     [% END %]
 [%- END -%]
@@ -148,24 +131,6 @@
       [%- l('The year should have four digits. If you want to enter a year earlier than 1000 CE, please pad with zeros, such as “0123”.') -%]
     </div>
   </div>
-[%- END -%]
-
-[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK # Converted to React at root/static/scripts/edit/components/DateRangeFieldset.js -%]
-    <fieldset>
-      <legend>[% l('Date period') %]</legend>
-      <p>
-        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
-      </p>
-      [% form_row_date(r, 'period.begin_date', add_colon(l('Begin date'))) %]
-      [% too_short_year_error('too_short_begin_year') %]
-      [% form_row_date(r, 'period.end_date', add_colon(l('End date'))) %]
-      [% too_short_year_error('too_short_end_year') %]
-      [% form_row_checkbox(r, 'period.ended', ended_label) %]
-    </fieldset>
-    <script type="text/javascript">
-      MB.initializeToggleEnded('id-edit-[% type %]');
-      MB.initializeTooShortYearChecks('[% type %]');
-    </script>
 [%- END -%]
 
 [%- MACRO form_row_name_with_guesscase(r, options) BLOCK # Converted to React at root/static/scripts/edit/components/FormRowNameWithGuessCase.js -%]
@@ -223,7 +188,7 @@
 [%- END -%]
 
 [%- MACRO guesscase_options BLOCK -%]
-  <table id="guesscase-options">
+  <table id="guesscase-options" style="display: none;">
     <tr>
       <td>
         <select data-bind="value: modeName">
@@ -313,7 +278,7 @@
 [%- MACRO type_bubble(form, types) BLOCK -%]
     <div class="bubble" id="type-bubble">
       <span id="type-bubble-default" [% IF form.value %] style="display:none" [% END %]>
-        [%- l('Select any type from the list to see its description. If the work
+        [%- l('Select any type from the list to see its description. If the entity
                doesn’t seem to match any type, just leave this blank.') -%]
       </span>
       [% FOREACH id IN form.options %]

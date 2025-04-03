@@ -56,7 +56,11 @@ sub _build_conn
             my $exception = 'MusicBrainz::Server::Exceptions::DatabaseError';
             $exception .= '::StatementTimedOut'
                 if $state eq '57014';
-            $exception->throw( sqlstate => $state, message => decode_utf8($msg) );
+            # Sometimes we receive a byte string that doesn't have the UTF8
+            # flag set; other times it's already been decoded (MBS-11207).
+            $msg = decode_utf8($msg)
+                unless utf8::is_utf8($msg);
+            $exception->throw( sqlstate => $state, message => $msg );
         },
         RaiseError        => 0,
         PrintError        => 0,
