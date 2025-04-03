@@ -24,7 +24,7 @@ import compareDates, {
 import {areLinkAttrsEqual} from '../../common/utility/groupRelationships.js';
 import {memoizeWithDefault} from '../../common/utility/memoize.js';
 import {fixedWidthInteger} from '../../common/utility/strings.js';
-import {REL_STATUS_ADD} from '../constants.js';
+import {REL_STATUS_ADD, REL_STATUS_EDIT} from '../constants.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
@@ -291,6 +291,9 @@ export default function compareRelationships(
   const targetB = backward ? b.entity0 : b.entity1;
   const targetIdCmp = targetA.id - targetB.id;
   const isAdd = a._status === REL_STATUS_ADD || b._status === REL_STATUS_ADD;
+  const isEdit = a._status === REL_STATUS_EDIT ||
+                 b._status === REL_STATUS_EDIT;
+  const isChangedPartOfSeries = isPartOfSeries && (isAdd || isEdit);
 
   if (__DEV__) {
     invariant(
@@ -365,7 +368,7 @@ export default function compareRelationships(
    * (different number attributes still allowed). Still show the rels
    * separately when not adding so it is possible to edit them as neeeded.
    */
-  if (linkOrderCmp && !(isPartOfSeries && isAdd)) {
+  if (linkOrderCmp && !(isChangedPartOfSeries)) {
     return linkOrderCmp;
   }
 
