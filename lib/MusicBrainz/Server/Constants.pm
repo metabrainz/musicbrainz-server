@@ -75,7 +75,8 @@ our @EXPORT_OK = (
         $LIMIT_FOR_EDIT_LISTING
         $ARTIST_ARTIST_COLLABORATION
         $AMAZON_ASIN_LINK_TYPE_ID
-        %PART_OF_SERIES $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
+        %PART_OF_SERIES @PART_OF_SERIES_LINK_TYPE_IDS
+        $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
         $ARTIST_RENAME_LINK_TYPE
         $LABEL_RENAME_LINK_TYPE
@@ -436,6 +437,15 @@ Readonly our %PART_OF_SERIES => (
     release         => '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
     release_group   => '01018437-91d8-36b9-bf89-3f885d53b5bd',
     work            => 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
+);
+
+Readonly our @PART_OF_SERIES_LINK_TYPE_IDS => (
+    740, # recording
+    741, # release
+    742, # release group
+    743, # work
+    802, # event
+    996, # artist
 );
 
 Readonly our $AMAZON_ASIN_LINK_TYPE_ID => 77;

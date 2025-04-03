@@ -3,6 +3,7 @@ use List::AllUtils qw( any );
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter 'form' => (
@@ -38,11 +39,10 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
+        my $type = model_to_type($model);
         my %props;
 
         if (any { $_ eq $model } @react_models) {
-            my $type = model_to_type($model);
-
             my $form = $c->form(
                 form => $params->form,
                 init_object => $edit_entity,
@@ -90,7 +90,7 @@ role {
             $params->edit_arguments->($self, $c, $edit_entity),
         );
 
-        if ($model eq 'Recording') {
+        if ($ENTITIES{$type}{artist_credits}) {
             $c->stash->{form}->field('artist_credit')->stash_field;
         }
     };

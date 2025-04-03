@@ -304,6 +304,13 @@ const testData = [
           only_valid_entity_types: ['work'],
   },
   {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=A-001228628-0',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=A-001228628-0',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=I-000137240-1',
           input_entity_type: 'label',
           expected_relationship_type: 'otherdatabases',

@@ -8,6 +8,7 @@
  */
 
 import {
+  type RelationshipEditStatusT,
   REL_STATUS_ADD,
   REL_STATUS_EDIT,
   REL_STATUS_NOOP,
@@ -15,10 +16,10 @@ import {
 } from '../constants.js';
 import type {RelationshipStateT} from '../types.js';
 
-export default function getRelationshipStatusName(
-  relationship: RelationshipStateT,
+export function getStatusName(
+  status: RelationshipEditStatusT,
 ): string {
-  switch (relationship._status) {
+  switch (status) {
     case REL_STATUS_ADD:
       return 'add';
     case REL_STATUS_EDIT:
@@ -29,4 +30,10 @@ export default function getRelationshipStatusName(
       return 'remove';
   }
   return '';
+}
+
+export default function getRelationshipStatusName(
+  relationship: RelationshipStateT,
+): string {
+  return getStatusName(relationship._status);
 }
