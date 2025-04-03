@@ -672,6 +672,14 @@ msgstr ""
 msgid "Indicates the official homepage for an event."
 msgstr ""
 
+#. name:adapter
+#: DB:link_type/description:1285
+msgid ""
+"Indicates the person who adapted this work (generally from a different "
+"medium, such as a prose work into an audio drama or a stage musical into a "
+"film musical)."
+msgstr ""
+
 #. name:translator
 #: DB:link_type/description:871
 msgid ""
@@ -681,6 +689,13 @@ msgstr ""
 #. name:translator
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
+msgstr ""
+
+#. name:scriptwriter
+#: DB:link_type/description:1286
+msgid ""
+"Indicates the person who wrote an original script for a dramatized work, "
+"such as an audio drama."
 msgstr ""
 
 #. name:premiere
@@ -3721,6 +3736,14 @@ msgid ""
 "is an orchestration of the other."
 msgstr ""
 
+#. name:adaptation
+#: DB:link_type/description:1284
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
+"work is an adaptation of the other (generally from a different medium, such "
+"as a prose work into an audio drama or a stage musical into a film musical)."
+msgstr ""
+
 #. name:based on
 #: DB:link_type/description:314
 msgid ""
@@ -3989,7 +4012,9 @@ msgid ""
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type."
+"relationship type.\n"
+"\n"
+"It is also used for the writers of literary works."
 msgstr ""
 
 #. name:residency
@@ -4806,6 +4831,24 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
+msgstr ""
+
+#: DB:link_type/name:1284
+msgid "adaptation"
+msgstr ""
+
+#. name:adaptation
+#: DB:link_type/reverse_link_phrase:1284
+msgid "adaptation of"
+msgstr ""
+
+#. name:adaptation
+#: DB:link_type/link_phrase:1284
+msgid "adaptations"
+msgstr ""
+
+#: DB:link_type/name:1285
+msgid "adapter"
 msgstr ""
 
 #: DB:link_attribute_type/name:1
@@ -6312,6 +6355,11 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1195 DB:link_type/long_link_phrase:1196
 #: DB:link_type/long_link_phrase:1197
 msgid "has a ticketing page at"
+msgstr ""
+
+#. name:adaptation
+#: DB:link_type/long_link_phrase:1284
+msgid "has adaptation"
 msgstr ""
 
 #. name:allmusic
@@ -8697,6 +8745,10 @@ msgstr ""
 msgid "school directors"
 msgstr ""
 
+#: DB:link_type/name:1286
+msgid "scriptwriter"
+msgstr ""
+
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
 msgid "secondhandsongs"
@@ -9510,6 +9562,11 @@ msgid ""
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 
+#. name:adapter
+#: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
+msgid "{additional:additionally} adapted"
+msgstr ""
+
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 #: DB:link_type/reverse_link_phrase:866
@@ -9677,6 +9734,11 @@ msgstr ""
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr ""
 
+#. name:scriptwriter
+#: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
+msgid "{additional:additionally} wrote the script for"
+msgstr ""
+
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -9813,6 +9875,11 @@ msgstr ""
 #. name:mastered in
 #: DB:link_type/reverse_link_phrase:756
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
+msgstr ""
+
+#. name:adapter
+#: DB:link_type/reverse_link_phrase:1285
+msgid "{additional} adapter"
 msgstr ""
 
 #. name:animation
@@ -10011,6 +10078,11 @@ msgstr ""
 #. name:samples material
 #: DB:link_type/link_phrase:69
 msgid "{additional} samples from"
+msgstr ""
+
+#. name:scriptwriter
+#: DB:link_type/reverse_link_phrase:1286
+msgid "{additional} scriptwriter"
 msgstr ""
 
 #. name:video shot at, name:video shot in
