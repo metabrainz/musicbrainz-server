@@ -10,7 +10,7 @@
           <table>
             <tr>
               <td colspan="2" style="padding: 0">
-                <input id="name" class="with-guesscase-guessfeat" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input'" />
+                <input id="name" class="with-guesscase-guessfeat" type="text" size="47" required="required" data-bind="value: name, valueUpdate: 'input', controlsBubble: $root.titleBubble"" />
                 <button type="button" class="guesscase-title icon" title="[% l('Guess case') %]"></button>
                 <button type="button" class="guessfeat icon" title="[% l('Guess feat. artists') %]" data-click="guessReleaseFeatArtists"></button>
                 <button type="button" class="guesscase-options icon" title="[% l('Guess case options') %]"></button>
@@ -136,10 +136,10 @@
       [% IF NOT release.gid %]
         <!-- ko with: releaseGroup -->
         [% table_row_select('primary-type', add_colon(l('Primary type')), 2,
-            'value: typeID, disable: !!$data.gid', primary_types) %]
+            'value: typeID, disable: !!$data.gid, controlsBubble: $root.primaryTypeBubble', primary_types) %]
 
         [% table_row_select('secondary-types', add_colon(l('Secondary types')), 2,
-            'selectedOptions: secondaryTypeIDs, disable: !!$data.gid', secondary_types, 1) %]
+            'selectedOptions: secondaryTypeIDs, controlsBubble: $root.secondaryTypesBubble, disable: !!$data.gid', secondary_types, 1) %]
         <!-- /ko -->
       [% ELSE %]
       <tr>
@@ -197,7 +197,7 @@
           </span>
         </td>
         [% table_cells_select('country', add_colon(l('Country')), 1,
-            "value: countryID, withLabel: 'country'", countries) %]
+            "value: countryID, withLabel: 'country', controlsBubble: \$root.countryBubble", countries) %]
         <td>
           <button type="button" class="icon remove-item remove-release-event" title="[% l('Remove release event') %]" data-click="removeReleaseEvent"></button>
         </td>
@@ -236,7 +236,7 @@
         </td>
         <td><label>[% l('Cat. No:') %]</label></td>
         <td>
-          <input type="text" data-bind="withLabel: 'catno', value: catalogNumber, valueUpdate: 'input', controlsBubble: $root.labelBubble" />
+          <input type="text" data-bind="withLabel: 'catno', value: catalogNumber, valueUpdate: 'input', controlsBubble: $root.catalogNumberBubble" />
         </td>
         <td>
           <button type="button" class="remove-item icon remove-release-label" title="[% lp('Remove label', 'interactive') %]" data-click="removeReleaseLabel"></button>
@@ -314,26 +314,163 @@
 </div>
 
 <div class="documentation" data-bind="with: rootField.release">
+  <div class="bubble" data-bind="bubble: $root.titleBubble">
+    <p>
+      [% l('The {doc|title} is the release’s name.',
+           { doc => { href => doc_link('Style/Release#Title'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Titles'), target => '_blank' } }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.artistBubble">
+    <p>
+      [% l('The {doc|artist} field contains the artist or artists as shown on the release.',
+           { doc => { href => doc_link('Style/Release#Artist'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('Please see the artist credits {doc|documentation} and {style|style guidelines} for more information.',
+           { doc => { href => doc_link('Artist_Credits'), target => '_blank' },
+             style => { href => doc_link('Style/Artist_Credits'), target => '_blank' } }) %]
+    </p>
+  </div>
+
   <div class="bubble" data-bind="bubble: $root.releaseGroupBubble">
     <!-- ko with: target() && target().releaseGroup -->
-      <p data-bind="html: $data.selectionMessage()"></p>
-    <!-- /ko -->
-  </div>
-
-  <div class="bubble" data-bind="bubble: $root.dateBubble">
-    <p data-bind="visible: target() && target().hasAmazonDate()">
-      [% l('Warning! "1990-10-25" is the bogus date that Amazon gives to all releases for which they don\'t know the actual date. <strong>Please use this date only if you\'re certain this date is correct!</strong>') %]
-    </p>
-    <p data-bind="visible: target() && target().hasJanuaryFirstDate()">
-      [% l('Note! If you do not know the month or day of release, please leave them empty.  January 1st is not often the actual release date, please double check that you have entered the release date correctly.') %]
-    </p>
-  </div>
-
-  <div class="bubble" data-bind="bubble: $root.labelBubble">
-    <!-- ko with: target() && target().label() -->
       <!-- ko if: $data.gid -->
         <p data-bind="html: $data.selectionMessage()"></p>
       <!-- /ko -->
+      <!-- ko ifnot: $data.gid -->
+        <p>
+          [% l('The {doc|release group} groups related releases into a single logical entity.',
+               { doc => { href => doc_link('Release_Group'), target => '_blank' } }) %]
+        </p>
+        <p>
+          [% l('Examples of releases that should be grouped together include original releases, reissues,
+                different formats such as CD and digital media, and remasters.') %]
+        </p>
+        <p>
+          [% l('Please see the {doc|style guidelines} for more information.',
+               { doc => { href => doc_link('Style/Release_Group'), target => '_blank' } }) %]
+        </p>
+      <!-- /ko -->
+    <!-- /ko -->
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.primaryTypeBubble">
+    <p>
+      [% l('The {doc|primary type} describes how the release group is categorized.',
+           { doc => { href => doc_link('Release_Group/Type'), target => '_blank' } }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.secondaryTypesBubble">
+    <p>
+      [% l('{doc|Secondary types} are additional attributes describing the release group.
+            Leave this blank if none apply.
+            You can select multiple types by using Ctrl + click (or Cmd + click on a Mac).',
+           { doc => { href => doc_link('Release_Group/Type'), target => '_blank' } }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.statusBubble">
+    <p>
+      [% l('The {doc|status} describes how “official” the release is.',
+           { doc => { href => doc_link('Release#Status'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Release#Status'), target => '_blank' } }) %]
+    </p>
+    <!-- ko if: target() && target().statusID() == 4 -->
+      <p>
+        [% l('The pseudo‐release status should be used for unofficial translations
+              and transliterations of tracklists and release titles, and does
+              not denote a separate real release. It should not be used to
+              denote bootlegs, mixtape/street albums, demos, or digital
+              albums. Be sure to link to the corresponding real release with
+              the {url|transl(iter)ation relationship}.',
+             { url => c.uri_for('/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644') }) %]
+      </p>
+    <!-- /ko -->
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.languageBubble">
+    <p>
+      [% l('The {doc|language} attribute should be set to the language used for the release title and track titles.
+            It should not be set to the language the lyrics are written in,
+            nor to the language used for other extra information on the cover.',
+           { doc => { href => doc_link('Release#Language'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Release#Language_and_script'), target => '_blank' } }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.scriptBubble">
+    <p>
+      [% l('The {doc|script} attribute should be set to the script used for the release title and track titles.',
+           { doc => { href => doc_link('Release#Script'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Release#Language_and_script'), target => '_blank' } }) %]
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.dateBubble">
+    <p>
+      [% l('The {doc|date} describes when this particular release was made available.',
+           { doc => { href => doc_link('Release/Date'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Release#Date'), target => '_blank' } }) %]
+    </p>
+    <!-- ko if: target() && target().hasAmazonDate() -->
+      <p class="warning">
+        [%- warning_icon -%]
+        <span>
+          [% l('“1990-10-25” is the bogus date that Amazon gives to all releases for which they don’t know the actual date.
+                <strong>Please use this date only if you’re certain this date is correct.</strong>') %]
+        </span>
+      </p>
+    <!-- /ko -->
+    <!-- ko if: target() && target().hasJanuaryFirstDate() -->
+      <p class="warning">
+        [%- warning_icon -%]
+        <span>
+          [% l('If you do not know the month or day of release, please leave them empty.
+                January 1st is not often the actual release date.
+                <strong>Please double‐check that you have entered the release date correctly.</strong>') %]
+        </span>
+      </p>
+    <!-- /ko -->
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.countryBubble">
+    <p>
+      [% l('The {doc|country} describes where the release was made available.',
+           { doc => { href => doc_link('Release/Country'), target => '_blank' } }) %]
+    </p>
+    <p>
+      If you aren’t sure where it was released, please leave this unset.
+    </p>
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.catalogNumberBubble">
+    <!-- ko ifnot: target() && catNoLooksLikeASIN(target().catalogNumber()) -->
+      <p>
+        [% l('The {doc|catalog number} is assigned by the label and can often be found on the spine or near the barcode on physical media.',
+             { doc => { href => doc_link('Release/Catalog_Number'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('If you can’t find a catalog number, please leave this blank.
+              If you are certain the release does not have a catalog number assigned, enter “[none]”.') %]
+      </p>
     <!-- /ko -->
     <!-- ko if: target() && catNoLooksLikeASIN(target().catalogNumber()) -->
       <p>
@@ -345,79 +482,110 @@
     <!-- /ko -->
   </div>
 
-  <div class="bubble" data-bind="bubble: $root.packagingBubble">
-    <p>
-      [% l('Review the {packaging|list of packaging types} for help.',
-           { packaging => { href => doc_link('Release/Packaging'), target => '_blank' } }) %]
-    </p>
-  </div>
-
-  <div class="bubble" data-bind="bubble: $root.languageBubble">
-    <p>
-      [% l('The language attribute should be set to the language used for the release title and track titles. It should not be set to the language the lyrics are written in, nor to the language used for other extra information on the cover.') %]
-    </p>
-  </div>
-
-  <div class="bubble" data-bind="bubble: $root.scriptBubble">
-    <p>
-      [% l('The script attribute should be set to the script used for the release title and track titles.') %]
-    </p>
+  <div class="bubble" data-bind="bubble: $root.labelBubble">
+    <!-- ko with: target() && target().label() -->
+      <!-- ko if: $data.gid -->
+        <p data-bind="html: $data.selectionMessage()"></p>
+      <!-- /ko -->
+      <!-- ko ifnot: $data.gid -->
+        <p>
+          [% l('The {doc|label} is the imprint associated with the release.
+                Please also see the guidelines about {style|special purpose labels}.',
+               { doc => { href => doc_link('Label'), target => '_blank' },
+                 style => { href => doc_link('Style/Unknown_and_untitled/Special_purpose_label'), target => '_blank' } }) %]
+        </p>
+      <!-- /ko -->
+    <!-- /ko -->
   </div>
 
   <div class="bubble" data-bind="bubble: $root.barcodeBubble">
     <p>
-      [% l('Please enter the barcode of the release you are entering, see <a href="{url}" target="_blank">Barcode</a> for more information.',
-           { url => doc_link('Barcode') }) %]
+      [% l('The {doc|barcode} is the numeric identifier (such as UPC or EAN) associated with the release.',
+           { doc => { href => doc_link('Barcode'), target => '_blank' } }) %]
     </p>
     <p>
-      [% l('If you do not know whether the release has a barcode or not, just leave this blank.') %]
+      [% l('Do not mark digital media releases as having no barcode unless you are familiar with the platform.
+            Most mainstream digital platforms use barcodes, even when they are not shown.') %]
+    </p>
+    <p>
+      [% l('If you don’t know whether the release has a barcode or not, please leave this blank.') %]
     </p>
     <!-- ko with: target() && target().barcode -->
-    <p data-bind="visible: message, text: message"></p>
-    <p data-bind="visible: existing, html: existing"></p>
-    <p class="field-error" data-bind="visible: error() || confirmed()">
-      <label>
-        <strong>
-          <input type="checkbox" data-bind="checked: confirmed" />
-          [% l("I confirm that this is the barcode as it appears on the release.") -%]
-        </strong>
-      </label>
-    </p>
+      <!-- ko if: message -->
+        <p data-bind="text: message"></p>
+      <!-- /ko -->
+      <!-- ko if: existing -->
+        <p data-bind="html: existing"></p>
+      <!-- /ko -->
+      <!-- ko if: error() || confirmed() -->
+        <p class="field-error">
+          <label>
+            <strong>
+              <input type="checkbox" data-bind="checked: confirmed" />
+              [% l("I confirm that this is the barcode as it appears on the release.") -%]
+            </strong>
+          </label>
+        </p>
+      <!-- /ko -->
     <!-- /ko -->
+  </div>
+
+  <div class="bubble" data-bind="bubble: $root.packagingBubble">
+    <p>
+      [% l('The {doc|packaging} attribute describes the outermost packaging of the release.',
+           { doc => { href => doc_link('Release/Packaging'), target => '_blank' } }) %]
+    </p>
+    <p>
+      [% l('For digital media releases, this should usually be “None”.') %]
+    </p>
   </div>
 
   <div class="bubble" data-bind="bubble: $root.annotationBubble">
     <p>
-      [% l('The annotation field functions like a miniature wiki.') %]
+      [% l('The {doc|annotation} field functions like a miniature wiki.
+            It’s fine to leave it empty.',
+      { doc => { href => doc_link('Annotation'), target => '_blank' } }) %]
     </p>
     <p>
-      [% l('The purpose of this field is to add information that usually doesn\'t fit into the strict structural data schema of MusicBrainz (be it due to technical limitations that may be addressed later, or because the information in itself has to be free-text).') %]
+      [% l('The purpose of this field is to add information that usually
+            doesn’t fit into the strict structural data schema of MusicBrainz
+            (be it due to technical limitations that may be addressed later,
+            or because the information in itself has to be free‐form text).') %]
     </p>
     <p>
-      [% l('This annotation will be published under an open license (<a href="{url}" target="_blank">CC BY-NC-SA 3.0</a>) and as such, it should not contain text that you don\'t have the right to release under that license. While you can quote a source to support a point you\'re making, you should never enter promotional texts or other artist or label-owned texts into the annotation.',
-      {url => "https://creativecommons.org/licenses/by-nc-sa/3.0/"}) %]
+      [% l('This annotation will be published under an open license
+            ({url|CC BY-NC-SA 3.0}) and as such, it should not contain text
+            that you don’t have the right to release under that license.
+            While you can quote a source to support a point you’re making,
+            you should never enter promotional text or other artist- or
+            label‐owned text into the annotation.',
+           { url => { href => "https://creativecommons.org/licenses/by-nc-sa/3.0/", target => '_blank' } }) %]
     </p>
   </div>
 
   <div class="bubble" data-bind="bubble: $root.commentBubble">
     <p>
-      [% l('The disambiguation field is used to help users distinguish between identically named releases.') %]
+      [% l('The {doc|disambiguation} field is used to help users distinguish between identically-named releases.
+            It’s fine to leave it empty if other properties like artist, label, or date distinguish this release.',
+           { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
     </p>
     <p>
-      [% l('This field is not a place to store general background information about the release: that kind of information should go in the annotation field.') %]
+      [% l('This field is not a place to store general background information about the release.
+            That kind of information should go in the annotation field.') %]
     </p>
   </div>
 
-  <div class="bubble" data-bind="bubble: $root.statusBubble">
+  <div class="bubble" data-bind="bubble: $root.externalLinkBubble">
     <p>
-      [%- l('This release status should be used for unofficial translations
-             and transliterations of tracklists and release titles, and does
-             not denote a separate real release. It should not be used to
-             denote bootlegs, mixtape/street albums, demos, or digital
-             albums. Be sure to link to the corresponding real release with
-             the {url|transl(iter)ation relationship}.',
-            { url => c.uri_for('/relationship/fc399d47-23a7-4c28-bfcf-0607a562b644') })
-      -%]
+      [% l('External links are URLs associated with this particular release.') %]
+    </p>
+    <p>
+      [% l('Mail‐order links shouldn’t be attached to digital media releases,
+            and download and streaming links shouldn’t be attached to CD or vinyl releases.') %]
+    </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Relationships/URLs'), target => '_blank' } }) %]
     </p>
   </div>
 </div>

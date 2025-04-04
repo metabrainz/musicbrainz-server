@@ -18,52 +18,28 @@ function bubbleDoc(options) {
   return bubble;
 }
 
-releaseEditor.releaseGroupBubble = bubbleDoc({
-  canBeShown(release) {
-    var releaseGroup = release.releaseGroup();
-    return releaseGroup && releaseGroup.gid;
-  },
-});
-
-releaseEditor.statusBubble = bubbleDoc({
-  canBeShown(release) {
-    return release.statusID() == 4;
-  },
-});
-
-releaseEditor.dateBubble = bubbleDoc({
-  canBeShown(event) {
-    return event.hasAmazonDate() || event.hasJanuaryFirstDate();
-  },
-});
-
+releaseEditor.titleBubble = bubbleDoc();
+releaseEditor.artistBubble = bubbleDoc();
+releaseEditor.releaseGroupBubble = bubbleDoc();
+releaseEditor.primaryTypeBubble = bubbleDoc();
+releaseEditor.secondaryTypesBubble = bubbleDoc();
+releaseEditor.statusBubble = bubbleDoc();
 releaseEditor.languageBubble = bubbleDoc();
-
 releaseEditor.scriptBubble = bubbleDoc();
-
-releaseEditor.packagingBubble = bubbleDoc();
-
-releaseEditor.labelBubble = bubbleDoc({
-  canBeShown(releaseLabel) {
-    return (releaseLabel.label().gid ||
-                this.catNoLooksLikeASIN(releaseLabel.catalogNumber()));
-  },
-
+releaseEditor.dateBubble = bubbleDoc();
+releaseEditor.countryBubble = bubbleDoc();
+releaseEditor.labelBubble = bubbleDoc();
+releaseEditor.catalogNumberBubble = bubbleDoc({
   catNoLooksLikeASIN(catNo) {
     // Please keep in sync with CatNoLooksLikeASIN report
     return /^B0(?=.*[A-Z])([0-9A-Z]{8})$/.test(catNo);
   },
 });
-
-releaseEditor.barcodeBubble = bubbleDoc({
-  canBeShown(release) {
-    return !release.barcode.none();
-  },
-});
-
+releaseEditor.barcodeBubble = bubbleDoc();
+releaseEditor.packagingBubble = bubbleDoc();
 releaseEditor.annotationBubble = bubbleDoc();
-
 releaseEditor.commentBubble = bubbleDoc();
+releaseEditor.externalLinkBubble = bubbleDoc();
 
 class RecordingBubble extends BubbleDoc {
   previousTrack(data, event, stealFocus) {

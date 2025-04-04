@@ -202,6 +202,20 @@ releaseEditor.init = function (options) {
     }
   });
 
+  // Display documentation bubbles for external components.
+
+  $(document).on(
+    'focus',
+    '#ac-source-single-artist',
+    (event) => this.artistBubble.show(event.target),
+  );
+
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => this.externalLinkBubble.show(event.target),
+  );
+
   // Change the track artists to match the release artist if it was changed.
 
   utils.withRelease(function (release) {
