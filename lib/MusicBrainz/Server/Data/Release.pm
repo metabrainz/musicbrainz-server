@@ -671,6 +671,24 @@ sub find_for_cdtoc
     $self->query_to_list_limited($query, [$track_count, $artist_id], $limit, $offset);
 }
 
+sub find_gid_for_medium
+{
+    my ($self, $medium_id) = @_;
+
+    # A medium is not a user visible entity, this function is called by
+    # the medium controller to issue a redirect to the release page
+    # on which the medium appears. So only the release MBID is needed.
+
+    my $query = <<~'SQL';
+        SELECT release.gid
+          FROM release
+          JOIN medium ON release.id = medium.release
+         WHERE medium.id = ?
+        SQL
+
+    return $self->sql->select_single_value($query, $medium_id);
+}
+
 sub find_gid_for_track
 {
     my ($self, $track_id) = @_;
