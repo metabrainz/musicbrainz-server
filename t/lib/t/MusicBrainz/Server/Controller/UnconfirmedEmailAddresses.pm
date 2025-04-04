@@ -253,6 +253,8 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Label::wikipedia_extract',
   'Controller::MBID::base',
   'Controller::MBID::show',
+  'Controller::Medium::base',
+  'Controller::Medium::show',
   'Controller::OAuth2::authorize',
   'Controller::OAuth2::oob',
   'Controller::OAuth2::revoke',

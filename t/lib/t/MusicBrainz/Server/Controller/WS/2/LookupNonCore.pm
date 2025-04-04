@@ -77,7 +77,7 @@ ws_test 'discid lookup with artist-credits',
                     <back>false</back>
                 </cover-art-archive>
                 <medium-list count="1">
-                  <medium>
+                  <medium id="c2bf1cb1-9c9a-47ec-a6ab-aed0a634ba4e">
                     <position>1</position>
                     <disc-list count="2">
                       <disc id="T.epJ9O5SoDjPqAJuOJfAI9O8Nk-">

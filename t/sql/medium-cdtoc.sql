@@ -11,7 +11,9 @@ INSERT INTO release_group (id, gid, name, artist_credit) VALUES
 INSERT INTO release (id, gid, name, release_group, artist_credit) VALUES
     (1, '8c2a1f4e-e11a-4261-a0f4-d1039ef94745', 'Aerial', 1, 1),
     (2, '37b58375-019f-4ffb-8360-9c4b11d087b8', 'Aerial', 1, 1);
-INSERT INTO medium (id, release, track_count, position) VALUES (1, 1, 0, 1),  (2, 2, 0, 1);
+INSERT INTO medium (id, gid, release, track_count, position) VALUES
+    (1, '1e85d577-7a6b-495d-9e86-2b5443f98f28', 1, 0, 1),
+    (2, '53cc952d-1afa-4a75-8622-06ac33a2af9b', 2, 0, 1);
 
 INSERT INTO cdtoc (id, discid, freedb_id, track_count, leadout_offset, track_offset) VALUES
     (1, 'tLGBAiCflG8ZI6lFcOt87vXjEcI-', '5908ea07', 7, 171327,

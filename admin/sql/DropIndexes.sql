@@ -407,6 +407,8 @@ DROP INDEX medium_cdtoc_idx_cdtoc;
 DROP INDEX medium_cdtoc_idx_medium;
 DROP INDEX medium_cdtoc_idx_uniq;
 DROP INDEX medium_format_idx_gid;
+DROP INDEX medium_gid_redirect_idx_new_id;
+DROP INDEX medium_idx_gid;
 DROP INDEX medium_idx_track_count;
 DROP INDEX medium_index_idx;
 DROP INDEX mood_alias_idx_mood;
