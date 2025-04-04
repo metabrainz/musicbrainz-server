@@ -76,6 +76,7 @@ export const releaseWithMediumsAndReleaseGroup:
         entityType: 'medium',
         format: null,
         format_id: null,
+        gid: 'c8f65672-e007-453d-8ecc-4a0bd9cb4dc7',
         id: mediumId,
         last_updated: null,
         may_have_discids: true,
