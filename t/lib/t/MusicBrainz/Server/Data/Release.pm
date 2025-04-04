@@ -687,6 +687,16 @@ test 'find_by_disc_id' => sub {
     is(@releases, 2);
 };
 
+test 'find_gid_for_medium' => sub {
+    my $c = shift->c;
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    my $medium = $c->model('Medium')->get_by_gid('e67d7889-d617-478f-acc2-40012aec59f5');
+    my $mbid = $c->model('Release')->find_gid_for_medium($medium->id);
+
+    is($mbid, 'f34c079d-374e-4436-9448-da92dedef3ce');
+};
+
 test 'find_gid_for_track' => sub {
     my $c = shift->c;
     MusicBrainz::Server::Test->prepare_test_database($c);
