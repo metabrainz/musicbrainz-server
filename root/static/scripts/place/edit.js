@@ -23,10 +23,27 @@ import {map, marker} from './map.js';
 
 $(function () {
   initializeGuessCase('place', 'id-edit-place');
-  initializeArea('span.area.autocomplete');
+  initializeArea('span.area.autocomplete', '#area-bubble');
   initializeDuplicateChecker('place');
 
-  const bubble = initializeBubble(
+  initializeBubble('#name-bubble', 'input[name=edit-place\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-place\\.comment]');
+  initializeBubble('#address-bubble', 'input[name=edit-place\\.address]');
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-place\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-place\\.period\\.end_date\\.]',
+  );
+
+  // Display documentation bubbles for external components.
+  const externalLinkBubble = initializeBubble('#external-link-bubble');
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => externalLinkBubble.show(event.target),
+  );
+
+  const coordsBubble = initializeBubble(
     '#coordinates-bubble',
     'input[name=edit-place\\.coordinates]',
   );
@@ -37,18 +54,18 @@ $(function () {
    * This tells it to update its position once it's visible.
    */
   let invalidateSizeRan = false;
-  function afterBubbleShow() {
+  function afterCoordsBubbleShow() {
     if (!invalidateSizeRan) {
       map.invalidateSize();
       invalidateSizeRan = true;
     }
   }
 
-  const bubbleShow = bubble.show;
+  const coordsBubbleShow = coordsBubble.show;
 
-  bubble.show = function (...args) {
-    bubbleShow.apply(this, args);
-    afterBubbleShow();
+  coordsBubble.show = function (...args) {
+    coordsBubbleShow.apply(this, args);
+    afterCoordsBubbleShow();
   };
 
   map.on('click', function (e) {
