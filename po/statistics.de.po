@@ -23,12 +23,13 @@
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # Leonie2 <renkenjakob@gmail.com>, 2024.
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2024.
+# nzure <nzure@leaft.ch>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-26 21:42+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-04-08 17:20+0000\n"
+"Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
 "Language: de\n"
@@ -36,7 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -185,16 +186,12 @@ msgid "Most active editors in the past week"
 msgstr "Aktivste Bearbeiter der letzten Woche"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "Offene und angewandte Bearbeitungen der letzten Woche"
+msgstr "Angewandte Bearbeitungen des letzten Jahres"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "Aktivste Bearbeiter der letzten Woche"
+msgstr "Aktivste Bearbeiter im letzten Jahr"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -221,16 +218,12 @@ msgid "Most active voters in the past week"
 msgstr "Aktivste Abstimmer der letzten Woche"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "Stimmen der letzten Woche"
+msgstr "Stimmen im letzten Jahr"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "Aktivste Abstimmer der letzten Woche"
+msgstr "Aktivste Abstimmer im letzten Jahr"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -362,10 +355,8 @@ msgid "No event art statistics available."
 msgstr "Keine Cover-Art-Statistiken verfügbar."
 
 #: ../root/statistics/Images.js:438
-#, fuzzy
-#| msgid "Event types"
 msgid "By event type"
-msgstr "Veranstaltungstypen"
+msgstr "Nach Veranstaltungstyp"
 
 #: ../root/statistics/Images.js:487
 #, fuzzy
@@ -711,7 +702,7 @@ msgstr "mit Veröffentlichungen"
 
 #: ../root/statistics/Index.js:974 ../root/statistics/Index.js:1007
 msgid "Generic"
-msgstr ""
+msgstr "Generisch"
 
 #: ../root/statistics/Index.js:983
 msgid "Owned music"
@@ -1230,11 +1221,11 @@ msgstr "Bearbeitungen mit Fehlern"
 
 #: ../root/statistics/stats.js:322
 msgid "Edits that have failed dependency checks"
-msgstr ""
+msgstr "Bearbeitungen, deren Abhängigkeits-Checks fehlgeschlagen sind"
 
 #: ../root/statistics/stats.js:327
 msgid "Edits that have failed prerequisite checks"
-msgstr ""
+msgstr "Bearbeitungen, deren Vorbedingungs-Checks fehlgeschlagen sind"
 
 #: ../root/statistics/stats.js:332
 msgid "Edits that have been voted down"

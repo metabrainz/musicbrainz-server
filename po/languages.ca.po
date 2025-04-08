@@ -2,11 +2,12 @@
 # Translators:
 # Aniol, 2014
 # 0x1026 <me@hugovidafe.dev>, 2024.
+# Marc Riera <marc@marcriera.cat>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-01 11:28+0000\n"
-"Last-Translator: 0x1026 <me@hugovidafe.dev>\n"
+"PO-Revision-Date: 2025-04-08 20:43+0000\n"
+"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ca/>\n"
 "Language: ca\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -329,7 +330,7 @@ msgstr "Bilin"
 #. frequency:0 iso_code_3:zbl
 #: DB:language/name:482
 msgid "Blissymbols"
-msgstr "Blissymbols"
+msgstr "Símbols Bliss"
 
 #. frequency:1 iso_code_3:brx
 #: DB:language/name:1394
@@ -359,7 +360,7 @@ msgstr "Buamu"
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
-msgstr "Bugui"
+msgstr "Buginès"
 
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
@@ -1968,10 +1969,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Belarusian"
 msgid "Prussian"
-msgstr "Belarus"
+msgstr "Prussià"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2165,10 +2164,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Croat"
+msgstr "Serbocroat"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2318,7 +2315,7 @@ msgstr ""
 #. frequency:2 iso_code_3:spa
 #: DB:language/name:393
 msgid "Spanish"
-msgstr "Espanyol"
+msgstr "Castellà"
 
 #. frequency:1 iso_code_3:srn
 #: DB:language/name:480
@@ -2783,4 +2780,4 @@ msgstr ""
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Sense contingut lingüístic]"
