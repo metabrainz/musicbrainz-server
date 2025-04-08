@@ -10,11 +10,32 @@
 import isolateText from '../utility/isolateText.js';
 import mediumFormatName from '../utility/mediumFormatName.js';
 
+export component MinimalMediumDescription(medium: MediumT) {
+  const mediumDescription = mediumFormatName(medium);
+  if (medium.name) {
+    return (
+      <>
+        {addColonText(mediumDescription)}
+        {' '}
+        <span className="medium-name">{isolateText(medium.name)}</span>
+      </>
+    );
+  }
+  return mediumDescription;
+}
+
 component MediumDescription(medium: MediumT) {
-  const formatAndPosition = texp.l('{medium_format} {position}', {
-    medium_format: mediumFormatName(medium),
-    position: medium.position,
-  });
+  const formatAndPosition = medium.format ? (
+    texp.l('Medium {position} ({medium_format})', {
+      medium_format: mediumFormatName(medium),
+      position: medium.position,
+    })
+  ) : (
+    texp.l('Medium {position}', {
+      position: medium.position,
+    })
+  );
+
   if (medium.name) {
     return (
       <>

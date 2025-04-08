@@ -18,7 +18,6 @@ import ArtistCreditLink from './components/ArtistCreditLink.js';
 import DescriptiveLink from './components/DescriptiveLink.js';
 import EditorLink from './components/EditorLink.js';
 import EntityLink from './components/EntityLink.js';
-import MediumDescription from './components/MediumDescription.js';
 import {bracketedText} from './utility/bracketed.js';
 import {getSourceEntityData} from './utility/catalyst.js';
 import clean from './utility/clean.js';
@@ -474,10 +473,6 @@ import MB from './MB.js';
       this.tracks = data.tracks
         ? data.tracks.map(x => new Track(x))
         : [];
-
-      this.positionName = ReactDOMServer.renderToString(
-        <MediumDescription medium={this} />,
-      );
     }
   }
 
