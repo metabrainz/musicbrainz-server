@@ -3,6 +3,7 @@
 -- 20240220-mbs-13403.sql
 -- 20240223-mbs-13421.sql
 -- 20240319-mbs-13514-mirror.sql
+-- 20250408-mbs-13322.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -55,5 +56,19 @@ SELECT '20240319-mbs-13514-mirror.sql';
 ALTER TABLE label DROP CONSTRAINT IF EXISTS label_label_code_check;
 
 ALTER TABLE label DROP CONSTRAINT IF EXISTS label_code_length;
+
+--------------------------------------------------------------------------------
+SELECT '20250408-mbs-13322.sql';
+
+
+CREATE OR REPLACE FUNCTION delete_unused_url(ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  DELETE FROM url_gid_redirect WHERE new_id = any(ids);
+  DELETE FROM url WHERE id = any(ids);
+EXCEPTION
+  WHEN foreign_key_violation THEN RETURN;
+END;
+$$ LANGUAGE 'plpgsql';
 
 COMMIT;
