@@ -6,13 +6,14 @@
 # Translators:
 # 0x1026 <me@hugovidafe.dev>, 2024.
 # 0x1026 <0x1026@users.noreply.translations.metabrainz.org>, 2024.
+# Marc Riera <marc@marcriera.cat>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2024-04-17 17:34+0000\n"
-"Last-Translator: 0x1026 <0x1026@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-04-08 20:32+0000\n"
+"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ca/>\n"
 "Language: ca\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1018,7 +1019,7 @@ msgstr ""
 #: ../root/components/forms.tt:170 ../root/components/forms.tt:195
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
 msgid "English"
-msgstr ""
+msgstr "Anglès"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -1175,7 +1176,7 @@ msgstr[1] ""
 #: ../root/components/forms.tt:172 ../root/components/forms.tt:197
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "French"
-msgstr ""
+msgstr "Francès"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
