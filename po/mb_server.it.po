@@ -35,17 +35,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2025-03-22 12:44+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-04-08 01:20+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:11
@@ -1279,32 +1279,32 @@ msgstr "Genere"
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:173
 msgid "Guess case"
-msgstr "Ritocca maiuscolo/minuscolo"
+msgstr "Ritocca maiuscole/minuscole"
 
 #: ../root/components/forms.tt:161
 msgctxt "header"
 msgid "Guess case"
-msgstr "Ritocca maiuscolo/minuscolo"
+msgstr "Ritocca maiuscole/minuscole"
 
 #: ../root/components/forms.tt:166
 msgctxt "interactive"
 msgid "Guess case"
-msgstr "Ritocca maiuscolo/minuscolo"
+msgstr "Ritocca maiuscole/minuscole"
 
 #: ../root/release/edit/tracklist.tt:320
 msgid "Guess case medium title"
-msgstr "Ritocca maiuscolo/minuscolo titolo supporto"
+msgstr "Ritocca maiuscole/minuscole nel titolo del supporto"
 
 #: ../root/components/forms.tt:144 ../root/release/edit/information.tt:16
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:105
 #: ../root/static/scripts/edit/components/GuessCaseOptionsPopover.js:18
 #: ../root/static/scripts/guess-case/MB/Control/GuessCase.js:27
 msgid "Guess case options"
-msgstr "Opzioni ritocco maiuscolo/minuscolo"
+msgstr "Opzioni ritocco maiuscole/minuscole"
 
 #: ../root/release/edit/tracklist.tt:224
 msgid "Guess case track"
-msgstr "Ritocca maiuscolo/minuscolo titoli tracce"
+msgstr "Ritocca maiuscole/minuscole nel titolo della traccia"
 
 #: ../root/components/forms.tt:142 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
@@ -1322,15 +1322,15 @@ msgid "Guess sort name"
 msgstr "Ipotizza nome di ordinamento"
 
 #: ../root/release/edit/tracklist.tt:469
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
 msgstr ""
-"Confermo che questo è il codice a barre che compare sulla pubblicazione."
+"Confermo che questi titoli utilizzano correttamente maiuscole e minuscole."
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
 msgstr ""
+"Confermo che queste informazioni aggiuntive ai titoli utilizzano "
+"correttamente maiuscole e minuscole."
 
 #: ../root/release/edit/information.tt:382
 msgid "I confirm that this is the barcode as it appears on the release."
@@ -1352,7 +1352,7 @@ msgid ""
 "I confirm this is an intentional use of featured artists in track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
-"Confermo che l'utilizzo di artisti con \"feat.\" nei titoli delle tracce è "
+"Confermo che l'utilizzo di artisti con \"feat.\" nei titoli di traccia è "
 "intenzionale, o che non si tratta davvero di artisti con \"feat.\"."
 
 #: ../root/release/edit/tracklist.tt:314
@@ -1506,33 +1506,24 @@ msgstr ""
 "sopra. In caso contrario, correggi i dati."
 
 #: ../root/release/edit/tracklist.tt:453
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists in track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the extra title information is capitalized correctly, confirm "
 "it above. Otherwise, please fix the data (the “Guess case” button might "
 "help!)."
 msgstr ""
-"Se sei sicuro che l'utilizzo di artisti con \"feat.\" nei titoli delle "
-"tracce è corretto, confermalo qui sopra. In caso contrario, correggi i dati "
-"(il pulsante \"Ritocca artisti feat.\" può aiutarti!)."
+"Se sei sicuro che le informazioni aggiuntive ai titoli utilizzano "
+"correttamente maiuscole e minuscole, confermalo qui sopra. In caso "
+"contrario, correggi i dati (il pulsante \"Ritocca maiuscole/minuscole\" può "
+"aiutarti!)."
 
 #: ../root/release/edit/tracklist.tt:472
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists in track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the titles are capitalized correctly, confirm it above. "
 "Otherwise, please fix the data (the “Guess case” button might help!)."
 msgstr ""
-"Se sei sicuro che l'utilizzo di artisti con \"feat.\" nei titoli delle "
-"tracce è corretto, confermalo qui sopra. In caso contrario, correggi i dati "
-"(il pulsante \"Ritocca artisti feat.\" può aiutarti!)."
+"Se sei sicuro che i titoli utilizzano correttamente maiuscole e minuscole, "
+"confermalo qui sopra. In caso contrario, correggi i dati (il pulsante "
+"\"Ritocca maiuscole/minuscole\" può aiutarti!)."
 
 #: ../root/release/edit/tracklist.tt:416
 msgid ""
@@ -1548,9 +1539,9 @@ msgid ""
 "confirm it above. Otherwise, please fix the data (the “Guess feat. artists” "
 "button might help!)."
 msgstr ""
-"Se sei sicuro che l'utilizzo di artisti con \"feat.\" nei titoli delle "
-"tracce è corretto, confermalo qui sopra. In caso contrario, correggi i dati "
-"(il pulsante \"Ritocca artisti feat.\" può aiutarti!)."
+"Se sei sicuro che l'utilizzo di artisti con \"feat.\" nei titoli di traccia "
+"è corretto, confermalo qui sopra. In caso contrario, correggi i dati (il "
+"pulsante \"Ritocca artisti feat.\" può aiutarti!)."
 
 #: ../root/components/common-macros.tt:57 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -2450,16 +2441,12 @@ msgstr ""
 "di immagine di eventi} per una descrizione di questi tipi."
 
 #: ../root/components/forms.tt:281
-#, fuzzy
-#| msgid ""
-#| "Select any type from the list to see its description. If the work doesn’t "
-#| "seem to match any type, just leave this blank."
 msgid ""
 "Select any type from the list to see its description. If the entity doesn’t "
 "seem to match any type, just leave this blank."
 msgstr ""
-"Seleziona un tipo dalla lista per leggerne la descrizione. Se l'opera non ti "
-"sembra corrispondere a nessun tipo, lascia pure il campo vuoto."
+"Seleziona un tipo dalla lista per leggerne la descrizione. Se l'entità non "
+"ti sembra corrispondere a nessun tipo, lascia pure il campo vuoto."
 
 #: ../root/event/add_event_art.tt:31 ../root/release/add_cover_art.tt:31
 msgid "Select images..."
@@ -2919,6 +2906,10 @@ msgid ""
 "articles, conjunctions, and prepositions like “and”, “of”, “or”, “to”, and "
 "“the” {guidelines|should typically be lowercased}."
 msgstr ""
+"Questo supporto potrebbe avere dei titoli di traccia in inglese con uso di "
+"maiuscole e minuscole non corretto. Articoli brevi, congiunzioni e "
+"preposizioni come “and”, “of”, “or”, “to” e “the” {guidelines|solitamente "
+"dovrebbero essere in minuscolo}."
 
 #: ../root/release/edit/tracklist.tt:445
 msgid ""
@@ -2926,13 +2917,17 @@ msgid ""
 "titles. Descriptive parts of extra title information like “remix” or "
 "“version” should be lowercased in most languages."
 msgstr ""
+"Questo supporto sembra avere {eti|informazioni aggiuntive ai titoli} in "
+"maiuscolo nei titoli di traccia. Le parti descrittive delle informazioni "
+"aggiuntive ai titoli, come “remix” o “version”, dovrebbero essere in "
+"minuscolo nella maggior parte delle lingue."
 
 #: ../root/release/edit/tracklist.tt:426
 msgid ""
 "This medium seems to have featured artists in the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
 msgstr ""
-"Questo supporto sembra avere artisti con \"feat.\" nei titoli delle tracce. "
+"Questo supporto sembra avere artisti con \"feat.\" nei titoli di traccia. "
 "Solitamente questi artisti vanno {featured_style|inseriti come parte degli "
 "artisti delle tracce}."
 
@@ -5561,10 +5556,8 @@ msgid "{role} (as {credited_name})"
 msgstr "{role} (come {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at AWA"
-msgstr "Streaming su VK"
+msgstr "Streaming su AWA"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
@@ -13875,7 +13868,7 @@ msgid ""
 msgstr ""
 "Questo rapporto mira a identificare le pubblicazioni che necessitano di "
 "essere convertite in pubblicazioni di artisti multipli (ad es. perché gli "
-"artisti si trovano nei titoli delle tracce). Al momento elenca le "
+"artisti si trovano nei titoli di traccia). Al momento elenca le "
 "pubblicazioni in cui il titolo di ogni traccia contiene \"/\" o \"-\"."
 
 #: ../root/report/ReleasesToConvert.js:33 ../root/report/ReportsIndex.js:252
