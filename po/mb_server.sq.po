@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2025-03-17 11:45+0000\n"
+"PO-Revision-Date: 2025-04-07 12:20+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sq/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1371,10 +1371,8 @@ msgid "Guess sort name"
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:469
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
-msgstr "E ripohoj se ky është kodi me vija siç duket te hedhja në qarkullim."
+msgstr "E ripohoj se këta tituj janë shkruar saktë me shkronjë të madhe."
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
