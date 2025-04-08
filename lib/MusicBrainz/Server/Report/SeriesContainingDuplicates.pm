@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Report::SeriesContainingDuplicates;
 use Moose;
 
+use List::AllUtils qw( partition_by );
 use MusicBrainz::Server::Constants qw( %PART_OF_SERIES );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -12,18 +13,27 @@ around inflate_rows => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $items = $self->$orig(@_);
+    my $report_items = $self->$orig(@_);
+    my %series_types = map {$_->id => $_} $self->c->model('SeriesType')->get_all();
 
-    for my $result (@$items) {
-        my $series = $result->{series};
-        my $series_type = $self->c->model('SeriesType')->get_by_id($series->{typeID});
-        my $entity_type = $series_type->item_entity_type;
-        my $model = $self->c->model(type_to_model($entity_type));
-        my $entity = $model->get_by_id($result->{entity_id});
-        $result->{entity} = to_json_object($entity);
+    my %report_items_by_item_type = partition_by {
+        $series_types{$_->{series}->{typeID}}->item_entity_type
+    } @$report_items;
+
+    my %entities_by_type;
+    for my $item_type (keys %report_items_by_item_type) {
+        my $model = $self->c->model(type_to_model($item_type));
+        my @entity_ids = map { $_->{entity_id} } @{$report_items_by_item_type{$item_type}};
+        $entities_by_type{$item_type} = $model->get_by_ids(@entity_ids);
     }
 
-    return $items;
+    for my $report_item (@$report_items) {
+        my $entity_type = $series_types{$report_item->{series}->{typeID}}->item_entity_type;
+        my $entity = $entities_by_type{$entity_type}{$report_item->{entity_id}};
+        $report_item->{entity} = to_json_object($entity);
+    }
+
+    return $report_items;
 };
 
 sub query {
