@@ -44,9 +44,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2025-03-30 14:44+0000\n"
-"Last-Translator: wileyfoxyx <wileyfoxyx@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-04-07 17:20+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -54,8 +54,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:11
@@ -5494,20 +5494,18 @@ msgstr "[отсутствует]"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:291
 #: ../root/static/scripts/common/utility/privileges.js:161
-#, fuzzy
-#| msgid "Edit notes disabled"
 msgid "Editing disabled"
-msgstr "Комментарии к правке отключены"
+msgstr "Отключена возможность редактирования"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
 #: ../root/static/scripts/common/utility/privileges.js:164
 msgid "Voting disabled"
-msgstr "Голосование отключено"
+msgstr "Отключена возможность голосования"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
-msgstr "Комментарии к правке отключены"
+msgstr "Отключена возможность добавления комментариев к правкам"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:35
 #: ../root/static/scripts/common/utility/displayLinkAttribute.js:40
@@ -5553,10 +5551,8 @@ msgid "{role} (as {credited_name})"
 msgstr "{role} (как {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at AWA"
-msgstr "Слушать в VK Музыке"
+msgstr "Слушать в AWA"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
@@ -5615,10 +5611,8 @@ msgid "Purchase at Spotify"
 msgstr "Купить в Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
-#, fuzzy
-#| msgid "Stream at Spotify"
 msgid "Songwriter info at Spotify"
-msgstr "Слушать в Spotify"
+msgstr "Информация об авторе в Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:20
 msgid "Stream at Spotify"
