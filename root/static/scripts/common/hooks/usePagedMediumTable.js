@@ -191,7 +191,6 @@ export default function usePagedMediumTable(
       <span className="expand-triangle">
         {isExpanded ? '\u25BC' : '\u25B6'}
       </span>
-      {' '}
       <MinimalMediumDescription medium={medium} />
     </a>
   );
