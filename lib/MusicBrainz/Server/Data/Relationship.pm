@@ -544,10 +544,10 @@ sub generate_table_list {
     @end_types = @RELATABLE_ENTITIES unless @end_types;
     foreach my $t (@end_types) {
         if ($type le $t) {
-            push @types, ["l_${type}_${t}", 'entity0', 'entity1'];
+            push @types, ["l_${type}_${t}", 'entity0', 'entity1', $t];
         }
         if ($type ge $t) {
-            push @types, ["l_${t}_${type}", 'entity1', 'entity0'];
+            push @types, ["l_${t}_${type}", 'entity1', 'entity0', $t];
         }
     }
     return @types;

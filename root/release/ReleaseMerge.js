@@ -17,6 +17,8 @@ import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
+import FormRowCheckbox
+  from '../static/scripts/edit/components/FormRowCheckbox.js';
 import ReleaseMergeStrategy
   from '../static/scripts/edit/components/ReleaseMergeStrategy.js';
 
@@ -55,6 +57,12 @@ component ReleaseMerge(
             'edit/components/ReleaseMergeStrategy',
             {async: 'async'},
           )}
+
+          <FormRowCheckbox
+            field={form.field.merge_rgs}
+            label={l('Also merge the associated release groups')}
+            uncontrolled
+          />
 
           <EnterEditNote field={form.field.edit_note} />
 

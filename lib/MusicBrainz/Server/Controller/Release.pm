@@ -4,6 +4,7 @@ use MooseX::MethodAttributes;
 
 use MusicBrainz::Server::Constants qw(
     :edit_type
+    $EDITOR_MODBOT
     $MAX_INITIAL_MEDIUMS
     $MAX_INITIAL_TRACKS
 );
@@ -43,7 +44,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
 };
 
 use List::AllUtils qw( first nsort_by uniq );
-use MusicBrainz::Server::Translation qw( l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Validation qw(
     is_integer
     is_positive_integer
@@ -53,6 +54,7 @@ use POSIX qw( ceil );
 use MusicBrainz::Server::Data::Utils qw(
     artist_credit_to_ref
     boolean_to_json
+    localized_note
     partial_date_to_hash
 );
 
@@ -386,6 +388,61 @@ sub _merge_parameters {
     }
 }
 
+sub _merge_on_creation {
+    my ($self, $c, $edit, $form, $new, $old_ids, $entities_by_id) = @_;
+    if ($form->field('merge_rgs')->value) {
+        my $edit_id = $edit->id;
+
+        my $new_rg_id = $new->release_group->id;
+        # We want to make sure we're merging only different RGs!
+        my @old_entities = map +{ id => $_->id, name => $_->name },
+            grep { $_->id != $new_rg_id }
+            map { $entities_by_id->{$_}->release_group }
+            @$old_ids;
+        if (scalar @old_entities) {
+            my $rg_edit = $self->_insert_edit(
+                $c, $form,
+                edit_type => $EDIT_RELEASEGROUP_MERGE,
+                editor_id => $c->user->id,
+                old_entities => \@old_entities,
+                new_entity => {
+                    id => $new_rg_id,
+                    name => $new->release_group->name,
+                },
+            );
+            my $rg_edit_id = $rg_edit->id;
+            $c->model('EditNote')->add_note(
+                $rg_edit_id,
+                {
+                    text => localized_note(
+                        N_l('These release groups are being merged in connection with a release merge in {edit_link|edit #{edit_id}}.'),
+                        vars => {
+                            edit_id => $edit_id,
+                            edit_link => '' . $c->uri_for_action('/edit/show', [ $edit_id ]),
+                        },
+                    ),
+                    editor_id => $EDITOR_MODBOT,
+                },
+            );
+            $c->model('EditNote')->add_note(
+                $edit_id,
+                {
+                    text => localized_note(
+                        N_l('The associated release groups are being merged in {edit_link|edit #{edit_id}}.'),
+                        vars => {
+                            edit_id => $rg_edit_id,
+                            edit_link => '' . $c->uri_for_action('/edit/show', [ $rg_edit_id ]),
+                        },
+                    ),
+                    editor_id => $EDITOR_MODBOT,
+                },
+            );
+        }
+    } else {
+        return ();
+    }
+}
+
 sub _extra_entity_data {
     my ($self, $c, $form, $release) = @_;
     my @args;
@@ -494,6 +551,7 @@ sub _merge_load_entities {
     $c->model('ArtistCredit')->load(@releases);
     $c->model('Release')->load_aliases(@releases);
     $c->model('Release')->load_related_info(@releases);
+    $c->model('ReleaseGroup')->load(@releases);
 }
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

@@ -312,6 +312,7 @@ export default {
   'report/ReportNotAvailable': (): Promise<mixed> => import('../report/ReportNotAvailable.js'),
   'report/ReportsIndex': (): Promise<mixed> => import('../report/ReportsIndex.js'),
   'report/SeparateDiscs': (): Promise<mixed> => import('../report/SeparateDiscs.js'),
+  'report/SeriesContainingDuplicates': (): Promise<mixed> => import('../report/SeriesContainingDuplicates.js'),
   'report/SetInDifferentRg': (): Promise<mixed> => import('../report/SetInDifferentRg.js'),
   'report/ShouldNotHaveDiscIds': (): Promise<mixed> => import('../report/ShouldNotHaveDiscIds.js'),
   'report/ShowNotesButNotBroadcast': (): Promise<mixed> => import('../report/ShowNotesButNotBroadcast.js'),
