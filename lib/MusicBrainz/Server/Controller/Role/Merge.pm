@@ -194,7 +194,7 @@ role {
 
         my %entity_id = map { $_->id => $_ } @$entities;
 
-        my $new_id = $form->field('target')->value or die 'Coludnt figure out new_id';
+        my $new_id = $form->field('target')->value or die q{Couldn't figure out new_id};
         my $new = $entity_id{$new_id};
         my @old_ids = grep { $_ != $new_id } @{ $form->field('merging')->value };
 
@@ -202,21 +202,28 @@ role {
 
         $c->model('MB')->with_transaction(sub {
             if ($params->edit_type) {
-                $self->_insert_edit(
-                    $c, $form,
-                    edit_type => $params->edit_type,
-                    new_entity => {
-                        id => $new->id,
-                        name => $new->name,
-                        $self->_extra_entity_data($c, $form, $new),
+                $self->edit_action($c,
+                    form        => $params->merge_form,
+                    type        => $params->edit_type,
+                    edit_args   => {
+                        new_entity => {
+                            id => $new->id,
+                            name => $new->name,
+                            $self->_extra_entity_data($c, $form, $new),
+                        },
+                        old_entities => [ map +{
+                            id => $entity_id{$_}->id,
+                            name => $entity_id{$_}->name,
+                            $self->_extra_entity_data($c, $form, $entity_id{$_}),
+                        }, @old_ids ],
+                        (map { $_->name => $_->value } $form->edit_fields),
+                        $self->_merge_parameters($c, $form, $entities),
                     },
-                    old_entities => [ map +{
-                        id => $entity_id{$_}->id,
-                        name => $entity_id{$_}->name,
-                        $self->_extra_entity_data($c, $form, $entity_id{$_}),
-                    }, @old_ids ],
-                    (map { $_->name => $_->value } $form->edit_fields),
-                    $self->_merge_parameters($c, $form, $entities),
+                    on_creation => sub {
+                        my ($edit, $form) = @_;
+
+                        $self->_merge_on_creation($c, $edit, $form, $new, \@old_ids, \%entity_id);
+                    },
                 );
             } elsif ($c->namespace eq 'collection') {
                 $c->model('Collection')->merge(
@@ -232,6 +239,10 @@ role {
         $c->response->redirect(
             $c->uri_for_action($self->action_for('show'), [ $new->gid ]),
         );
+    };
+
+    method _merge_on_creation => sub {
+        return ();
     };
 
     method _merge_parameters => sub {
