@@ -28,7 +28,7 @@
     },
     {
       command: 'assertText',
-      target: 'id=area-bubble',
+      target: 'css=#area-bubble p:last-child',
       value: 'Du hast Frankreich ausgewählt.',
     },
     {

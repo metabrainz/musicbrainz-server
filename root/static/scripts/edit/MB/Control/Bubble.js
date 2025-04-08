@@ -337,7 +337,12 @@ export default function initializeBubble(bubble, control, vm, canBeShown) {
   }
 
   ko.applyBindingsToNode($(bubble)[0], {bubble: bubbleDoc}, vm);
-  ko.applyBindingsToNode($(control)[0], {controlsBubble: bubbleDoc}, vm);
+
+  if (control) {
+    $(control).each((_, el) => {
+      ko.applyBindingsToNode(el, {controlsBubble: bubbleDoc}, vm);
+    });
+  }
 
   return bubbleDoc;
 }
