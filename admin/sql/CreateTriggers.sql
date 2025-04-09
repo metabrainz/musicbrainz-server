@@ -454,6 +454,9 @@ CREATE TRIGGER b_upd_link_type BEFORE UPDATE ON link_type
 CREATE TRIGGER b_upd_link_type_attribute_type BEFORE UPDATE ON link_type_attribute_type
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_upd_medium AFTER UPDATE ON medium
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_medium_mirror();
+
 CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
