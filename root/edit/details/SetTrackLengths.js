@@ -34,21 +34,21 @@ component SetTrackLengths(edit: SetTrackLengthsEditT) {
       {medium ? (
         <tr>
           <th>{addColonText(l('Medium'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <MediumLink medium={medium} />
           </td>
         </tr>
       ) : (
         <tr>
           <th>{addColonText(l('Releases'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <HistoricReleaseListContent releases={display.releases} />
           </td>
         </tr>
       )}
       <tr>
         <th>{addColonText(l('Disc ID'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           {cdtoc ? (
             <CDTocLink cdToc={cdtoc} />
           ) : lp('[removed]', 'CD TOC')}
@@ -68,7 +68,7 @@ component SetTrackLengths(edit: SetTrackLengthsEditT) {
       {areFormattedLengthsEqual ? (
         <tr>
           <th>{addColonText(l('Note'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             {l('This edit makes subsecond changes to track lengths')}
           </td>
         </tr>

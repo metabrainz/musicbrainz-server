@@ -69,72 +69,72 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Core entities')}</th>
+            <th colSpan={4}>{l_statistics('Core entities')}</th>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Artists'))}</th>
-            <td colSpan="3">{fc('artist')}</td>
+            <td colSpan={3}>{fc('artist')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Release groups'))}</th>
-            <td colSpan="3">{fc('releasegroup')}</td>
+            <td colSpan={3}>{fc('releasegroup')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Releases'))}</th>
-            <td colSpan="3">{fc('release')}</td>
+            <td colSpan={3}>{fc('release')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Mediums'))}</th>
-            <td colSpan="3">{fc('medium')}</td>
+            <td colSpan={3}>{fc('medium')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Recordings'))}</th>
-            <td colSpan="3">{fc('recording')}</td>
+            <td colSpan={3}>{fc('recording')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Tracks'))}</th>
-            <td colSpan="3">{fc('track')}</td>
+            <td colSpan={3}>{fc('track')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Labels'))}</th>
-            <td colSpan="3">{fc('label')}</td>
+            <td colSpan={3}>{fc('label')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Works'))}</th>
-            <td colSpan="3">{fc('work')}</td>
+            <td colSpan={3}>{fc('work')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('URLs'))}</th>
-            <td colSpan="3">{fc('url')}</td>
+            <td colSpan={3}>{fc('url')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Areas'))}</th>
-            <td colSpan="3">{fc('area')}</td>
+            <td colSpan={3}>{fc('area')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Places'))}</th>
-            <td colSpan="3">{fc('place')}</td>
+            <td colSpan={3}>{fc('place')}</td>
           </tr>
           <tr>
             <th>{addColonText(lp_mb_server('Series', 'plural'))}</th>
-            <td colSpan="3">{fc('series')}</td>
+            <td colSpan={3}>{fc('series')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Instruments'))}</th>
-            <td colSpan="3">{fc('instrument')}</td>
+            <td colSpan={3}>{fc('instrument')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Events'))}</th>
-            <td colSpan="3">{fc('event')}</td>
+            <td colSpan={3}>{fc('event')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Genres'))}</th>
-            <td colSpan="3">{fc('genre')}</td>
+            <td colSpan={3}>{fc('genre')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Other entities')}</th>
+            <th colSpan={4}>{l_statistics('Other entities')}</th>
           </tr>
           <tr>
             <th>{l_statistics('Editors (valid / deleted):')}</th>
@@ -144,11 +144,11 @@ component Index(
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Relationships'))}</th>
-            <td colSpan="3">{fc('ar.links')}</td>
+            <td colSpan={3}>{fc('ar.links')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Collections'))}</th>
-            <td colSpan="3">{fc('collection')}</td>
+            <td colSpan={3}>{fc('collection')}</td>
           </tr>
           <tr>
             <th>{l_statistics('CD stubs (all time / current):')}</th>
@@ -174,11 +174,11 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Identifiers')}</th>
+            <th colSpan={4}>{l_statistics('Identifiers')}</th>
           </tr>
           <tr>
             <th>{addColonText(l_statistics('MBIDs'))}</th>
-            <td colSpan="3">{fc('mbid')}</td>
+            <td colSpan={3}>{fc('mbid')}</td>
           </tr>
           <tr>
             <th>{l_statistics('ISRCs (all / unique):')}</th>
@@ -194,19 +194,19 @@ component Index(
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Disc IDs'))}</th>
-            <td colSpan="3">{fc('discid')}</td>
+            <td colSpan={3}>{fc('discid')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_statistics('Barcodes'))}</th>
-            <td colSpan="3">{fc('barcode')}</td>
+            <td colSpan={3}>{fc('barcode')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_statistics('IPIs'))}</th>
-            <td colSpan="3">{fc('ipi')}</td>
+            <td colSpan={3}>{fc('ipi')}</td>
           </tr>
           <tr>
             <th>{addColonText(l_statistics('ISNIs'))}</th>
-            <td colSpan="3">{fc('isni')}</td>
+            <td colSpan={3}>{fc('isni')}</td>
           </tr>
         </tbody>
       </table>
@@ -215,10 +215,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_mb_server('Artists')}</th>
+            <th colSpan={4}>{l_mb_server('Artists')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Artists'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Artists'))}</th>
             <td>{fc('artist')}</td>
             <td />
           </tr>
@@ -277,7 +277,7 @@ component Index(
             <td>{fp('artist.0credits', 'artist')}</td>
           </tr>
           <tr>
-            <th colSpan="2">{l_statistics('Non-group artists:')}</th>
+            <th colSpan={2}>{l_statistics('Non-group artists:')}</th>
             <td>{formatCount($c, nonGroupCount)}</td>
             <td />
           </tr>
@@ -354,39 +354,39 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_mb_server('Releases')}</th>
+            <th colSpan={5}>{l_mb_server('Releases')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Releases'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('by various artists:')}</th>
+            <th colSpan={2}>{l_statistics('by various artists:')}</th>
             <td>{fc('release.various')}</td>
             <td>{fp('release.various', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('by a single artist:')}</th>
+            <th colSpan={2}>{l_statistics('by a single artist:')}</th>
             <td>{fc('release.nonvarious')}</td>
             <td>{fp('release.nonvarious', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Release status')}</th>
+            <th colSpan={5}>{l_statistics('Release status')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Releases'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           {statuses.map(status => (
             <tr key={status.gid}>
               <th />
-              <th colSpan="2">
+              <th colSpan={2}>
                 {lp_attributes(status.name, 'release_status')}
               </th>
               <td>{fc('release.status.' + status.id)}</td>
@@ -395,24 +395,24 @@ component Index(
           ))}
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('No status set')}</th>
+            <th colSpan={2}>{l_statistics('No status set')}</th>
             <td>{fc('release.status.null')}</td>
             <td>{fp('release.status.null', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Release packaging')}</th>
+            <th colSpan={5}>{l_statistics('Release packaging')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Releases'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           {packagings.map(packaging => (
             <tr key={packaging.gid}>
               <th />
-              <th colSpan="2">
+              <th colSpan={2}>
                 {lp_attributes(packaging.name, 'release_packaging')}
               </th>
               <td>{fc('release.packaging.' + packaging.id)}</td>
@@ -421,45 +421,45 @@ component Index(
           ))}
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('No packaging set')}</th>
+            <th colSpan={2}>{l_statistics('No packaging set')}</th>
             <td>{fc('release.packaging.null')}</td>
             <td>{fp('release.packaging.null', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_statistics('Cover art sources')}</th>
+            <th colSpan={5}>{l_statistics('Cover art sources')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Releases'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('CAA:')}</th>
+            <th colSpan={2}>{l_statistics('CAA:')}</th>
             <td>{fc('release.coverart.caa')}</td>
             <td>{fp('release.coverart.caa', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('No front cover art:')}</th>
+            <th colSpan={2}>{l_statistics('No front cover art:')}</th>
             <td>{fc('release.coverart.none')}</td>
             <td>{fp('release.coverart.none', 'release')}</td>
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_mb_server('Data quality')}</th>
+            <th colSpan={5}>{l_mb_server('Data quality')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Releases'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_statistics('High data quality'))}
             </th>
             <td>{fc('quality.release.high')}</td>
@@ -467,7 +467,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_statistics('Default data quality'))}
             </th>
             <td>{fc('quality.release.default')}</td>
@@ -491,7 +491,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_statistics('Low data quality'))}
             </th>
             <td>{fc('quality.release.low')}</td>
@@ -500,27 +500,27 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_mb_server('Disc IDs')}</th>
+            <th colSpan={5}>{l_mb_server('Disc IDs')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Disc IDs'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Disc IDs'))}</th>
             <td>{fc('discid')}</td>
             <td />
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Releases'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Releases'))}</th>
             <td>{fc('release')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('Releases with no disc IDs:')}</th>
+            <th colSpan={2}>{l_statistics('Releases with no disc IDs:')}</th>
             <td>{fc('release.0discids')}</td>
             <td>{fp('release.0discids', 'release')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {l_statistics('Releases with at least one disc ID:')}
             </th>
             <td>{fc('release.has_discid')}</td>
@@ -552,19 +552,19 @@ component Index(
             <td>{fp('release.10discids', 'release.has_discid')}</td>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Mediums'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Mediums'))}</th>
             <td>{fc('medium')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('Mediums with no disc IDs:')}</th>
+            <th colSpan={2}>{l_statistics('Mediums with no disc IDs:')}</th>
             <td>{fc('medium.0discids')}</td>
             <td>{fp('medium.0discids', 'medium')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {l_statistics('Mediums with at least one disc ID:')}
             </th>
             <td>{fc('medium.has_discid')}</td>
@@ -600,10 +600,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Primary types')}</th>
+            <th colSpan={4}>{l_statistics('Primary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_mb_server('Release groups'))}
             </th>
             <td>{fc('releasegroup')}</td>
@@ -634,10 +634,10 @@ component Index(
             <td>{fp('releasegroup.primary_type.null', 'releasegroup')}</td>
           </tr>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Secondary types')}</th>
+            <th colSpan={4}>{l_statistics('Secondary types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_mb_server('Release groups'))}
             </th>
             <td>{fc('releasegroup')}</td>
@@ -674,7 +674,7 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="3">{l_mb_server('Recordings')}</th>
+            <th colSpan={3}>{l_mb_server('Recordings')}</th>
           </tr>
           <tr>
             <th>{addColonText(l_mb_server('Recordings'))}</th>
@@ -703,10 +703,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Labels'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Labels'))}</th>
             <td>{fc('label')}</td>
             <td />
           </tr>
@@ -731,10 +731,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Works'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -763,10 +763,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Attributes')}</th>
+            <th colSpan={4}>{l_statistics('Attributes')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Works'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Works'))}</th>
             <td>{fc('work')}</td>
             <td />
           </tr>
@@ -793,10 +793,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Areas'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Areas'))}</th>
             <td>{fc('area')}</td>
             <td />
           </tr>
@@ -821,10 +821,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Places'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Places'))}</th>
             <td>{fc('place')}</td>
             <td />
           </tr>
@@ -849,10 +849,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(lp_mb_server('Series', 'plural'))}
             </th>
             <td>{fc('series')}</td>
@@ -873,10 +873,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Instruments'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Instruments'))}</th>
             <td>{fc('instrument')}</td>
             <td />
           </tr>
@@ -903,10 +903,10 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="4">{l_statistics('Types')}</th>
+            <th colSpan={4}>{l_statistics('Types')}</th>
           </tr>
           <tr>
-            <th colSpan="2">{addColonText(l_mb_server('Events'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
@@ -927,24 +927,24 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="5">
+            <th colSpan={5}>
               {lp_statistics('Event art', 'plural, multiple events, header')}
             </th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Events'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Events'))}</th>
             <td>{fc('event')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('With EAA poster art:')}</th>
+            <th colSpan={2}>{l_statistics('With EAA poster art:')}</th>
             <td>{fc('event.has_eaa_poster')}</td>
             <td>{fp('event.has_eaa_poster', 'event')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{l_statistics('No poster art:')}</th>
+            <th colSpan={2}>{l_statistics('No poster art:')}</th>
             <td>{fc('event.has_no_eaa_poster')}</td>
             <td>{fp('event.has_no_eaa_poster', 'event')}</td>
           </tr>
@@ -955,16 +955,16 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="5">{l_mb_server('Collections')}</th>
+            <th colSpan={5}>{l_mb_server('Collections')}</th>
           </tr>
           <tr>
-            <th colSpan="3">{addColonText(l_mb_server('Collections'))}</th>
+            <th colSpan={3}>{addColonText(l_mb_server('Collections'))}</th>
             <td>{fc('collection')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of releases'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of releases'))}</th>
             <td>{fc('collection.type.release.all')}</td>
             <td>{fp('collection.type.release.all', 'collection')}</td>
           </tr>
@@ -997,7 +997,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of events'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of events'))}</th>
             <td>{fc('collection.type.event.all')}</td>
             <td>{fp('collection.type.event.all', 'collection')}</td>
           </tr>
@@ -1033,25 +1033,25 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of areas'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of areas'))}</th>
             <td>{fc('collection.type.area')}</td>
             <td>{fp('collection.type.area', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of artists'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of artists'))}</th>
             <td>{fc('collection.type.artist')}</td>
             <td>{fp('collection.type.artist', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of genres'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of genres'))}</th>
             <td>{fc('collection.type.genre')}</td>
             <td>{fp('collection.type.genre', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_statistics('Of instruments'))}
             </th>
             <td>{fc('collection.type.instrument')}</td>
@@ -1059,25 +1059,25 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of labels'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of labels'))}</th>
             <td>{fc('collection.type.label')}</td>
             <td>{fp('collection.type.label', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of places'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of places'))}</th>
             <td>{fc('collection.type.place')}</td>
             <td>{fp('collection.type.place', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of recordings'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of recordings'))}</th>
             <td>{fc('collection.type.recording')}</td>
             <td>{fp('collection.type.recording', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_statistics('Of release groups'))}
             </th>
             <td>{fc('collection.type.release_group')}</td>
@@ -1085,31 +1085,31 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of series'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of series'))}</th>
             <td>{fc('collection.type.series')}</td>
             <td>{fp('collection.type.series', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_statistics('Of works'))}</th>
+            <th colSpan={2}>{addColonText(l_statistics('Of works'))}</th>
             <td>{fc('collection.type.work')}</td>
             <td>{fp('collection.type.work', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_mb_server('Public'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Public'))}</th>
             <td>{fc('collection.public')}</td>
             <td>{fp('collection.public', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">{addColonText(l_mb_server('Private'))}</th>
+            <th colSpan={2}>{addColonText(l_mb_server('Private'))}</th>
             <td>{fc('collection.private')}</td>
             <td>{fp('collection.private', 'collection')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {addColonText(l_statistics('With collaborators'))}
             </th>
             <td>{fc('collection.has_collaborators')}</td>
@@ -1122,23 +1122,23 @@ component Index(
       <table className="database-statistics">
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_statistics('Editors')}</th>
+            <th colSpan={6}>{l_statistics('Editors')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{l_statistics('Editors (valid):')}</th>
+            <th colSpan={4}>{l_statistics('Editors (valid):')}</th>
             <td>{fc('editor.valid')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('active ever:')}</th>
+            <th colSpan={3}>{l_statistics('active ever:')}</th>
             <td>{fc('editor.valid.active')}</td>
             <td>{fp('editor.valid.active', 'editor.valid')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {l_statistics('who edited and/or voted in the last 7 days:')}
             </th>
             <td>{fc('editor.activelastweek')}</td>
@@ -1163,28 +1163,28 @@ component Index(
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('who edit:')}</th>
+            <th colSpan={2}>{l_statistics('who edit:')}</th>
             <td>{fc('editor.valid.active.edits')}</td>
             <td>{fp('editor.valid.active.edits', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('who vote:')}</th>
+            <th colSpan={2}>{l_statistics('who vote:')}</th>
             <td>{fc('editor.valid.active.votes')}</td>
             <td>{fp('editor.valid.active.votes', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('who leave edit notes:')}</th>
+            <th colSpan={2}>{l_statistics('who leave edit notes:')}</th>
             <td>{fc('editor.valid.active.notes')}</td>
             <td>{fp('editor.valid.active.notes', 'editor.valid.active')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {lp_statistics('who use tags:', 'folksonomy')}
             </th>
             <td>{fc('editor.valid.active.tags')}</td>
@@ -1193,7 +1193,7 @@ component Index(
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('who use ratings:')}</th>
+            <th colSpan={2}>{l_statistics('who use ratings:')}</th>
             <td>{fc('editor.valid.active.ratings')}</td>
             <td>
               {fp('editor.valid.active.ratings', 'editor.valid.active')}
@@ -1202,7 +1202,7 @@ component Index(
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('who use subscriptions:')}</th>
+            <th colSpan={2}>{l_statistics('who use subscriptions:')}</th>
             <td>{fc('editor.valid.active.subscriptions')}</td>
             <td>
               {fp('editor.valid.active.subscriptions', 'editor.valid.active')}
@@ -1211,7 +1211,7 @@ component Index(
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('who use collections:')}</th>
+            <th colSpan={2}>{l_statistics('who use collections:')}</th>
             <td>{fc('editor.valid.active.collections')}</td>
             <td>
               {fp('editor.valid.active.collections', 'editor.valid.active')}
@@ -1220,7 +1220,7 @@ component Index(
           <tr>
             <th />
             <th />
-            <th colSpan="2">
+            <th colSpan={2}>
               {l_statistics('who have registered applications:')}
             </th>
             <td>{fc('editor.valid.active.applications')}</td>
@@ -1230,34 +1230,34 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('validated email only:')}</th>
+            <th colSpan={3}>{l_statistics('validated email only:')}</th>
             <td>{fc('editor.valid.validated_only')}</td>
             <td>{fp('editor.valid.validated_only', 'editor.valid')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('inactive:')}</th>
+            <th colSpan={3}>{l_statistics('inactive:')}</th>
             <td>{fc('editor.valid.inactive')}</td>
             <td>{fp('editor.valid.inactive', 'editor.valid')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{l_statistics('Editors (deleted):')}</th>
+            <th colSpan={4}>{l_statistics('Editors (deleted):')}</th>
             <td>{fc('editor.deleted')}</td>
             <td />
           </tr>
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_mb_server('Edits')}</th>
+            <th colSpan={6}>{l_mb_server('Edits')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_mb_server('Edits'))}</th>
+            <th colSpan={4}>{addColonText(l_mb_server('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Open', 'adjective, edit status'))}
             </th>
             <td>{fc('edit.open')}</td>
@@ -1265,7 +1265,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Applied', 'edit status'))}
             </th>
             <td>{fc('edit.applied')}</td>
@@ -1273,50 +1273,50 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(l_statistics('Voted down'))}</th>
+            <th colSpan={3}>{addColonText(l_statistics('Voted down'))}</th>
             <td>{fc('edit.failedvote')}</td>
             <td>{fp('edit.failedvote', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('Failed (dependency):')}</th>
+            <th colSpan={3}>{l_statistics('Failed (dependency):')}</th>
             <td>{fc('edit.faileddep')}</td>
             <td>{fp('edit.faileddep', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('Failed (prerequisite):')}</th>
+            <th colSpan={3}>{l_statistics('Failed (prerequisite):')}</th>
             <td>{fc('edit.failedprereq')}</td>
             <td>{fp('edit.failedprereq', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('Failed (internal error):')}</th>
+            <th colSpan={3}>{l_statistics('Failed (internal error):')}</th>
             <td>{fc('edit.error')}</td>
             <td>{fp('edit.error', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Cancelled', 'edit'))}
             </th>
             <td>{fc('edit.deleted')}</td>
             <td>{fp('edit.deleted', 'edit')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_mb_server('Edits'))}</th>
+            <th colSpan={4}>{addColonText(l_mb_server('Edits'))}</th>
             <td>{fc('edit')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('Last 7 days:')}</th>
+            <th colSpan={3}>{l_statistics('Last 7 days:')}</th>
             <td>{fc('edit.perweek')}</td>
             <td>{fp('edit.perweek', 'edit')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="2" />
+            <th colSpan={2} />
             <th>{l_statistics('Yesterday:')}</th>
             <td>{fc('edit.perday')}</td>
             <td>{fp('edit.perday', 'edit.perweek')}</td>
@@ -1324,16 +1324,16 @@ component Index(
         </tbody>
         <tbody>
           <tr className="thead">
-            <th colSpan="6">{l_mb_server('Votes')}</th>
+            <th colSpan={6}>{l_mb_server('Votes')}</th>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_mb_server('Votes'))}</th>
+            <th colSpan={4}>{addColonText(l_mb_server('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Approve', 'vote'))}
             </th>
             <td>{fc('vote.approve')}</td>
@@ -1341,19 +1341,19 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_mb_server('Yes', 'vote'))}</th>
+            <th colSpan={3}>{addColonText(lp_mb_server('Yes', 'vote'))}</th>
             <td>{fc('vote.yes')}</td>
             <td>{fp('vote.yes', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{addColonText(lp_mb_server('No', 'vote'))}</th>
+            <th colSpan={3}>{addColonText(lp_mb_server('No', 'vote'))}</th>
             <td>{fc('vote.no')}</td>
             <td>{fp('vote.no', 'vote')}</td>
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Abstain', 'vote'))}
             </th>
             <td>{fc('vote.abstain')}</td>
@@ -1361,7 +1361,7 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Admin approval', 'vote'))}
             </th>
             <td>{fc('vote.admin_approve')}</td>
@@ -1369,27 +1369,27 @@ component Index(
           </tr>
           <tr>
             <th />
-            <th colSpan="3">
+            <th colSpan={3}>
               {addColonText(lp_mb_server('Admin rejection', 'vote'))}
             </th>
             <td>{fc('vote.admin_reject')}</td>
             <td>{fp('vote.admin_reject', 'vote')}</td>
           </tr>
           <tr>
-            <th colSpan="4">{addColonText(l_mb_server('Votes'))}</th>
+            <th colSpan={4}>{addColonText(l_mb_server('Votes'))}</th>
             <td>{fc('vote')}</td>
             <td />
           </tr>
           <tr>
             <th />
-            <th colSpan="3">{l_statistics('Last 7 days:')}</th>
+            <th colSpan={3}>{l_statistics('Last 7 days:')}</th>
             <td>{fc('vote.perweek')}</td>
             <td>{fp('vote.perweek', 'vote')}</td>
           </tr>
           <tr>
             <th />
             <th />
-            <th colSpan="2">{l_statistics('Yesterday:')}</th>
+            <th colSpan={2}>{l_statistics('Yesterday:')}</th>
             <td>{fc('vote.perday')}</td>
             <td>{fp('vote.perday', 'vote.perweek')}</td>
           </tr>

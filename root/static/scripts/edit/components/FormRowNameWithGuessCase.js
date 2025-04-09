@@ -119,7 +119,7 @@ component FormRowNameWithGuessCase(
   }
 
   function showGuessCasePreview(
-    event: SyntheticMouseEvent<HTMLInputElement>,
+    event: SyntheticMouseEvent<HTMLButtonElement>,
   ) {
     // Don't change the value while the user is dragging to select text.
     if (event.nativeEvent.buttons === 0) {

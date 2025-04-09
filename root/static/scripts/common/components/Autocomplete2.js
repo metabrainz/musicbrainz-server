@@ -818,7 +818,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
           onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
-          tabIndex="-1"
+          tabIndex={-1}
           title={l('Search')}
           type="button"
         />
@@ -836,7 +836,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
             ? 'visible'
             : 'hidden',
         }}
-        tabIndex="-1"
+        tabIndex={-1}
       >
         {disabled ? null : menuItemElements}
       </ul>

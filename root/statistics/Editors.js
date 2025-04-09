@@ -63,7 +63,7 @@ component EditorStatsTable(
             ))
           ) : (
             <tr className="even">
-              <td colSpan="3">
+              <td colSpan={3}>
                 {l_statistics('There is no data to display here.')}
               </td>
             </tr>

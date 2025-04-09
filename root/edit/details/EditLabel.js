@@ -37,7 +37,7 @@ component EditLabel(edit: EditLabelEditT) {
       <tbody>
         <tr>
           <th>{addColonText(l('Label'))}</th>
-          <td colSpan="2"><EntityLink entity={display.label} /></td>
+          <td colSpan={2}><EntityLink entity={display.label} /></td>
         </tr>
 
         {name ? (
