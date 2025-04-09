@@ -113,8 +113,8 @@ SELECT results_eq(
 
 SET CONSTRAINTS ALL DEFERRED;
 
-INSERT INTO medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-    (1, 2, 1, 1, 'A', 0, now(), 1);
+INSERT INTO medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+    (1, '4cab4771-0159-4b62-94d6-a95e11399b6f', 2, 1, 1, 'A', 0, now(), 1);
 
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
 	(1, '939e34d3-0aea-41d9-b296-b095993fbfe8', 'A', 2046742, 300000, '', 0, now(), FALSE);

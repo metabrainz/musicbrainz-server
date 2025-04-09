@@ -20,9 +20,9 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
 VALUES (1, 'f205627f-b70a-409d-adbe-66289b614e80', 'Aerial', 1, 1),
        (2, '9b3d9383-3d2a-417f-bfbb-56f7c15f075b', 'Aerial', 1, 1);
 
-INSERT INTO medium (id, release, position, format, name)
-VALUES (1, 1, 1, NULL, 'A Sea of Honey'),
-       (2, 2, 1, NULL, 'A Sky of Honey');
+INSERT INTO medium (id, gid, release, position, format, name)
+VALUES (1, 'c1bb3453-7f82-43be-8136-60a18e46de18', 1, 1, NULL, 'A Sea of Honey'),
+       (2, '879ddbb8-ff6c-49df-b20b-7210ada23ffb', 2, 1, NULL, 'A Sky of Honey');
 
 INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
 VALUES (1, '66c2ebff-86a8-4e12-a9a2-1650fb97d9d8', 1, 1, '1', 1, 'King of the Mountain', 1, NULL),

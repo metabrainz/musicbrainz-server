@@ -666,28 +666,27 @@ EOF
         INSERT INTO release (id, gid, name, artist_credit, release_group, last_updated)
             VALUES (1, '692c97b4-e9bb-4400-8afe-34d778064f28', 'R', 1, 1, '2021-06-10 20:59:59.571049+00');
 
-        INSERT INTO medium (id, release, position, track_count)
-            VALUES (1, 1, 1, 1),
-                   (2, 1, 2, 1),
-                   (3, 1, 3, 1),
-                   (4, 1, 4, 1),
-                   (5, 1, 5, 1),
-                   (6, 1, 6, 1),
-                   (7, 1, 7, 1),
-                   (8, 1, 8, 1),
-                   (9, 1, 9, 1),
-                   (10, 1, 10, 1),
-                   (11, 1, 11, 1),
-
-                   (12, 1, 13, 1);
+        INSERT INTO medium (id, gid, release, position, track_count)
+            VALUES (1, '9153726c-ff28-4c8f-972e-2fd903b37fb2', 1, 1, 1),
+                   (2, '27a1a221-00d8-4a4b-9113-1bd799a27254', 1, 2, 1),
+                   (3, '5e098342-465e-4e19-8547-f9e3ddd18d16', 1, 3, 1),
+                   (4, '3c5ca3c6-eb39-4270-932f-7475eb1879d2', 1, 4, 1),
+                   (5, '8a737f34-d87b-4540-bfe9-6e2be05d6cda', 1, 5, 1),
+                   (6, '9cea2e0b-d396-4508-b528-87f94389ea67', 1, 6, 1),
+                   (7, '62fceb98-2918-4f2d-a0b1-0309f777e7db', 1, 7, 1),
+                   (8, 'b969e215-eb89-4aa0-a2fb-38d592a8a2a5', 1, 8, 1),
+                   (9, '9665f815-635a-4054-9b86-eb68a48a9152', 1, 9, 1),
+                   (10, 'fe7ec5b1-d2f3-4702-a202-90e58f65c071', 1, 10, 1),
+                   (11, '915b71ce-147c-4789-8055-7ebed97dfd17', 1, 11, 1),
+                   (12, 'b828cdef-914a-41a6-b174-3a6123ec1363', 1, 13, 1);
         SQL
 
     $exec_sql->(<<~'SQL');
         INSERT INTO release (id, gid, name, artist_credit, release_group, last_updated)
             VALUES (2, '996d3d48-0cfa-4d30-9031-ea50d806b88a', 'R2', 1, 1, '2021-06-10 20:59:59.571049+00');
 
-        INSERT INTO medium (id, release, position, track_count)
-            VALUES (13, 2, 1, 102);
+        INSERT INTO medium (id, gid, release, position, track_count)
+            VALUES (13, '8ba93360-1f17-4b4d-b0cc-7ec5e0cd1c21', 2, 1, 102);
         SQL
 
     $build_packet->(5, $dbmirror_pending, $dbmirror_pendingdata);

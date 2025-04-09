@@ -15,8 +15,8 @@ INSERT INTO release_group (artist_credit, comment, edits_pending, gid, id, last_
 INSERT INTO release (artist_credit, barcode, comment, edits_pending, gid, id, language, last_updated, name, packaging, quality, release_group, script, status) VALUES
     (9113, '094637912355', '', 2, '3a1a6bd7-dbe1-4004-813b-11debf0b61e8', 1718385, 120, '2016-01-22 10:53:51.139298+00', 'Bat Out of Hell II: Back Into Hell', NULL, -1, 17814, NULL, 1);
 
-INSERT INTO medium (edits_pending, format, id, last_updated, name, position, release, track_count) VALUES
-    (0, NULL, 1819308, '2016-01-22 10:13:55.59614+00', '', 3, 1718385, 5);
+INSERT INTO medium (edits_pending, format, id, gid, last_updated, name, position, release, track_count) VALUES
+    (0, NULL, 1819308, '6810e497-921e-4abe-995f-ca02a25cace9', '2016-01-22 10:13:55.59614+00', '', 3, 1718385, 5);
 
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name, video) VALUES
     (9113, '', 0, '7cb020c5-c7c4-495e-bbdb-774c0ac438b3', 14428606, '2013-01-10 18:11:06.367649+00', 562000, 'Back Into Hell: Meat Loaf and Jim Steinman Interview', '0'),
