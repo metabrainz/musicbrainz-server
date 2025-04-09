@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-08 20:43+0000\n"
+"PO-Revision-Date: 2025-04-09 01:20+0000\n"
 "Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ca/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
 msgid "Afaka"
-msgstr ""
+msgstr "Afaka"
 
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
@@ -43,17 +43,17 @@ msgstr "Balinès"
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155
 msgid "Bamum"
-msgstr ""
+msgstr "Bamum"
 
 #. frequency:1 iso_code:Bass
 #: DB:script/name:145
 msgid "Bassa Vah"
-msgstr ""
+msgstr "Bassa vah"
 
 #. frequency:1 iso_code:Batk
 #: DB:script/name:74
 msgid "Batak"
-msgstr ""
+msgstr "Batak"
 
 #. frequency:3 iso_code:Beng
 #: DB:script/name:53
@@ -68,22 +68,22 @@ msgstr "Símbols Bliss"
 #. frequency:1 iso_code:Phlv
 #: DB:script/name:123
 msgid "Book Pahlavi"
-msgstr ""
+msgstr "Pahlavi"
 
 #. frequency:3 iso_code:Bopo
 #: DB:script/name:42
 msgid "Bopomofo"
-msgstr ""
+msgstr "Bopomofo"
 
 #. frequency:1 iso_code:Brah
 #: DB:script/name:47
 msgid "Brahmi"
-msgstr ""
+msgstr "Brahmi"
 
 #. frequency:2 iso_code:Brai
 #: DB:script/name:96
 msgid "Braille"
-msgstr ""
+msgstr "Braille"
 
 #. frequency:2 iso_code:Bugi
 #: DB:script/name:75
@@ -93,27 +93,27 @@ msgstr "Buginès"
 #. frequency:2 iso_code:Buhd
 #: DB:script/name:78
 msgid "Buhid"
-msgstr ""
+msgstr "Buhid"
 
 #. frequency:2 iso_code:Cans
 #: DB:script/name:87
 msgid "Canadian Syllabics"
-msgstr ""
+msgstr "Sil·labari aborigen canadenc unificat"
 
 #. frequency:2 iso_code:Cari
 #: DB:script/name:108
 msgid "Carian"
-msgstr ""
+msgstr "Carià"
 
 #. frequency:1 iso_code:Cakm
 #: DB:script/name:115
 msgid "Chakma"
-msgstr ""
+msgstr "Chakma"
 
 #. frequency:2 iso_code:Cham
 #: DB:script/name:71
 msgid "Cham"
-msgstr ""
+msgstr "Cham"
 
 #. frequency:2 iso_code:Cher
 #: DB:script/name:88
@@ -123,27 +123,27 @@ msgstr "Cherokee"
 #. frequency:1 iso_code:Cirt
 #: DB:script/name:45
 msgid "Cirth"
-msgstr ""
+msgstr "Cirth"
 
 #. frequency:1 iso_code:Zinh
 #: DB:script/name:159
 msgid "Code for inherited script"
-msgstr ""
+msgstr "Heretat"
 
 #. frequency:1 iso_code:Zzzz
 #: DB:script/name:130
 msgid "Code for uncoded script"
-msgstr ""
+msgstr "Escriptura desconeguda"
 
 #. frequency:1 iso_code:Zyyy
 #: DB:script/name:129
 msgid "Code for undetermined script"
-msgstr ""
+msgstr "Comú"
 
 #. frequency:1 iso_code:Zxxx
 #: DB:script/name:128
 msgid "Code for unwritten documents"
-msgstr ""
+msgstr "Sense escriptura"
 
 #. frequency:2 iso_code:Copt
 #: DB:script/name:23
@@ -153,207 +153,207 @@ msgstr "Copte"
 #. frequency:2 iso_code:Xsux
 #: DB:script/name:1
 msgid "Cuneiform, Sumero-Akkadian"
-msgstr ""
+msgstr "Cuneïforme sumeri-accadi"
 
 #. frequency:2 iso_code:Cprt
 #: DB:script/name:82
 msgid "Cypriot"
-msgstr ""
+msgstr "Xipriota"
 
 #. frequency:4 iso_code:Cyrl
 #: DB:script/name:31
 msgid "Cyrillic"
-msgstr ""
+msgstr "Ciríl·lic"
 
 #. frequency:1 iso_code:Cyrs
 #: DB:script/name:32
 msgid "Cyrillic (Old Church Slavonic variant)"
-msgstr ""
+msgstr "Ciríl·lic de l'antic eslau eclesiàstic"
 
 #. frequency:2 iso_code:Dsrt
 #: DB:script/name:37
 msgid "Deseret"
-msgstr ""
+msgstr "Deseret"
 
 #. frequency:3 iso_code:Deva
 #: DB:script/name:50
 msgid "Devanagari"
-msgstr ""
+msgstr "Devanagari"
 
 #. frequency:1 iso_code:Dupl
 #: DB:script/name:142
 msgid "Duployan shorthand"
-msgstr ""
+msgstr "Taquigrafia Duployé"
 
 #. frequency:1 iso_code:Egyd
 #: DB:script/name:6
 msgid "Egyptian demotic"
-msgstr ""
+msgstr "Demòtic egipci"
 
 #. frequency:1 iso_code:Egyh
 #: DB:script/name:5
 msgid "Egyptian hieratic"
-msgstr ""
+msgstr "Hieràtic egipci"
 
 #. frequency:2 iso_code:Egyp
 #: DB:script/name:4
 msgid "Egyptian hieroglyphs"
-msgstr ""
+msgstr "Jeroglífic egipci"
 
 #. frequency:1 iso_code:Elba
 #: DB:script/name:143
 msgid "Elbasan"
-msgstr ""
+msgstr "Elbasan"
 
 #. frequency:3 iso_code:Ethi
 #: DB:script/name:86
 msgid "Ethiopic"
-msgstr ""
+msgstr "Etiòpic"
 
 #. frequency:3 iso_code:Geor
 #: DB:script/name:36
 msgid "Georgian"
-msgstr ""
+msgstr "Georgià"
 
 #. frequency:2 iso_code:Glag
 #: DB:script/name:33
 msgid "Glagolitic"
-msgstr ""
+msgstr "Glagolític"
 
 #. frequency:2 iso_code:Goth
 #: DB:script/name:24
 msgid "Gothic"
-msgstr ""
+msgstr "Gòtic"
 
 #. frequency:1 iso_code:Gran
 #: DB:script/name:152
 msgid "Grantha"
-msgstr ""
+msgstr "Grantha"
 
 #. frequency:4 iso_code:Grek
 #: DB:script/name:22
 msgid "Greek"
-msgstr ""
+msgstr "Grec"
 
 #. frequency:3 iso_code:Gujr
 #: DB:script/name:52
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. frequency:3 iso_code:Guru
 #: DB:script/name:49
 msgid "Gurmukhi"
-msgstr ""
+msgstr "Gurmukhi"
 
 #. frequency:4 iso_code:Hani
 #: DB:script/name:92
 msgid "Han (Hanzi, Kanji, Hanja)"
-msgstr ""
+msgstr "Han"
 
 #. frequency:4 iso_code:Hans
 #: DB:script/name:93
 msgid "Han (Simplified variant)"
-msgstr ""
+msgstr "Han simplificat"
 
 #. frequency:4 iso_code:Hant
 #: DB:script/name:94
 msgid "Han (Traditional variant)"
-msgstr ""
+msgstr "Han tradicional"
 
 #. frequency:3 iso_code:Hang
 #: DB:script/name:101
 msgid "Hangul"
-msgstr ""
+msgstr "Hangul"
 
 #. frequency:2 iso_code:Hano
 #: DB:script/name:77
 msgid "Hanunoo"
-msgstr ""
+msgstr "Hanunoo"
 
 #. frequency:4 iso_code:Hebr
 #: DB:script/name:11
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreu"
 
 #. frequency:3 iso_code:Hira
 #: DB:script/name:83
 msgid "Hiragana"
-msgstr ""
+msgstr "Hiragana"
 
 #. frequency:1 iso_code:Armi
 #: DB:script/name:113
 msgid "Imperial Aramaic"
-msgstr ""
+msgstr "Arameu imperial"
 
 #. frequency:1 iso_code:Inds
 #: DB:script/name:97
 msgid "Indus"
-msgstr ""
+msgstr "Escriptura de la vall de l'Indus"
 
 #. frequency:1 iso_code:Phli
 #: DB:script/name:121
 msgid "Inscriptional Pahlavi"
-msgstr ""
+msgstr "Pahlavi inscripcional"
 
 #. frequency:1 iso_code:Prti
 #: DB:script/name:124
 msgid "Inscriptional Parthian"
-msgstr ""
+msgstr "Part inscripcional"
 
 #. frequency:4 iso_code:Jpan
 #: DB:script/name:85
 msgid "Japanese"
-msgstr ""
+msgstr "Japonès"
 
 #. frequency:3 iso_code:Hrkt
 #: DB:script/name:100
 msgid "Japanese syllabaries"
-msgstr ""
+msgstr "Sil·labaris japonesos"
 
 #. frequency:1 iso_code:Java
 #: DB:script/name:73
 msgid "Javanese"
-msgstr ""
+msgstr "Javanès"
 
 #. frequency:1 iso_code:Jurc
 #: DB:script/name:134
 msgid "Jurchen"
-msgstr ""
+msgstr "Jurtxet"
 
 #. frequency:1 iso_code:Kthi
 #: DB:script/name:116
 msgid "Kaithi"
-msgstr ""
+msgstr "Kaithi"
 
 #. frequency:3 iso_code:Knda
 #: DB:script/name:60
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. frequency:4 iso_code:Kana
 #: DB:script/name:84
 msgid "Katakana"
-msgstr ""
+msgstr "Katakana"
 
 #. frequency:2 iso_code:Kali
 #: DB:script/name:70
 msgid "Kayah Li"
-msgstr ""
+msgstr "Kayah li"
 
 #. frequency:2 iso_code:Khar
 #: DB:script/name:48
 msgid "Kharoshthi"
-msgstr ""
+msgstr "Kharosthi"
 
 #. frequency:3 iso_code:Khmr
 #: DB:script/name:68
 msgid "Khmer"
-msgstr ""
+msgstr "Khmer"
 
 #. frequency:1 iso_code:Khoj
 #: DB:script/name:131
 msgid "Khojki"
-msgstr ""
+msgstr "Khoja"
 
 #. frequency:1 iso_code:Sind
 #: DB:script/name:144
@@ -363,449 +363,450 @@ msgstr ""
 #. frequency:2 iso_code:Geok
 #: DB:script/name:102
 msgid "Khutsuri"
-msgstr ""
+msgstr "Georgià hucuri"
 
 #. frequency:4 iso_code:Kore
 #: DB:script/name:43
 msgid "Korean"
-msgstr ""
+msgstr "Coreà"
 
 #. frequency:1 iso_code:Kpel
 #: DB:script/name:146
 msgid "Kpelle"
-msgstr ""
+msgstr "Kpelle"
 
 #. frequency:3 iso_code:Laoo
 #: DB:script/name:69
 msgid "Lao"
-msgstr ""
+msgstr "Lao"
 
 #. frequency:4 iso_code:Latn
 #: DB:script/name:28
 msgid "Latin"
-msgstr ""
+msgstr "Llatí"
 
 #. frequency:1 iso_code:Latf
 #: DB:script/name:30
 msgid "Latin (Fraktur variant)"
-msgstr ""
+msgstr "Llatí fraktur"
 
 #. frequency:1 iso_code:Latg
 #: DB:script/name:29
 msgid "Latin (Gaelic variant)"
-msgstr ""
+msgstr "Llatí gaèlic"
 
 #. frequency:2 iso_code:Lepc
 #: DB:script/name:57
 msgid "Lepcha"
-msgstr ""
+msgstr "Lepcha"
 
 #. frequency:2 iso_code:Limb
 #: DB:script/name:58
 msgid "Limbu"
-msgstr ""
+msgstr "Limbu"
 
 #. frequency:1 iso_code:Lina
 #: DB:script/name:80
 msgid "Linear A"
-msgstr ""
+msgstr "Lineal A"
 
 #. frequency:2 iso_code:Linb
 #: DB:script/name:81
 msgid "Linear B"
-msgstr ""
+msgstr "Lineal B"
 
 #. frequency:1 iso_code:Lisu
 #: DB:script/name:157
 msgid "Lisu (Fraser)"
-msgstr ""
+msgstr "Lisu"
 
 #. frequency:1 iso_code:Loma
 #: DB:script/name:147
 msgid "Loma"
-msgstr ""
+msgstr "Loma"
 
 #. frequency:2 iso_code:Lyci
 #: DB:script/name:109
 msgid "Lycian"
-msgstr ""
+msgstr "Lici"
 
 #. frequency:2 iso_code:Lydi
 #: DB:script/name:110
 msgid "Lydian"
-msgstr ""
+msgstr "Lidi"
 
 #. frequency:3 iso_code:Mlym
 #: DB:script/name:62
 msgid "Malayalam"
-msgstr ""
+msgstr "Malaiàlam"
 
 #. frequency:1 iso_code:Mand
 #: DB:script/name:16
 msgid "Mandaic"
-msgstr ""
+msgstr "Mandaic"
 
 #. frequency:1 iso_code:Mani
 #: DB:script/name:118
 msgid "Manichaean"
-msgstr ""
+msgstr "Maniqueu"
 
 #. frequency:2 iso_code:Zmth
 #: DB:script/name:111
 msgid "Mathematical notation"
-msgstr ""
+msgstr "Notació matemàtica"
 
 #. frequency:1 iso_code:Maya
 #: DB:script/name:7
 msgid "Mayan hieroglyphs"
-msgstr ""
+msgstr "Jeroglífics maies"
 
 #. frequency:1 iso_code:Mtei
 #: DB:script/name:120
 msgid "Meitei Mayek"
-msgstr ""
+msgstr "Manipuri"
 
 #. frequency:1 iso_code:Mend
 #: DB:script/name:148
 msgid "Mende"
-msgstr ""
+msgstr "Mende"
 
 #. frequency:1 iso_code:Merc
 #: DB:script/name:153
 msgid "Meroitic Cursive"
-msgstr ""
+msgstr "Cursiva meroítica"
 
 #. frequency:1 iso_code:Mero
 #: DB:script/name:8
 msgid "Meroitic Hieroglyphs"
-msgstr ""
+msgstr "Meroític"
 
 #. frequency:1 iso_code:Plrd
 #: DB:script/name:41
 msgid "Miao"
-msgstr ""
+msgstr "Pollard miao"
 
 #. frequency:3 iso_code:Mong
 #: DB:script/name:17
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongol"
 
 #. frequency:1 iso_code:Moon
 #: DB:script/name:119
 msgid "Moon"
-msgstr ""
+msgstr "Moon"
 
 #. frequency:1 iso_code:Mroo
 #: DB:script/name:135
 msgid "Mro, Mru"
-msgstr ""
+msgstr "Mro"
 
 #. frequency:3 iso_code:Mymr
 #: DB:script/name:64
+#, fuzzy
 msgid "Myanmar"
-msgstr ""
+msgstr "Myanmar"
 
 #. frequency:2 iso_code:Nkoo
 #: DB:script/name:103
 msgid "N'ko"
-msgstr ""
+msgstr "N'Ko"
 
 #. frequency:1 iso_code:Nbat
 #: DB:script/name:149
 msgid "Nabataean"
-msgstr ""
+msgstr "Nabateu"
 
 #. frequency:1 iso_code:Nkgb
 #: DB:script/name:158
 msgid "Nakhi Geba"
-msgstr ""
+msgstr "Geba"
 
 #. frequency:2 iso_code:Talu
 #: DB:script/name:67
 msgid "New Tai Lue"
-msgstr ""
+msgstr "Nou tai lue"
 
 #. frequency:1 iso_code:Nshu
 #: DB:script/name:136
 msgid "Nüshu"
-msgstr ""
+msgstr "Nü shu"
 
 #. frequency:2 iso_code:Ogam
 #: DB:script/name:27
 msgid "Ogham"
-msgstr ""
+msgstr "Ogham"
 
 #. frequency:2 iso_code:Olck
 #: DB:script/name:104
 msgid "Ol Chiki"
-msgstr ""
+msgstr "Santali"
 
 #. frequency:1 iso_code:Hung
 #: DB:script/name:21
 msgid "Old Hungarian"
-msgstr ""
+msgstr "Hongarès antic"
 
 #. frequency:2 iso_code:Ital
 #: DB:script/name:25
 msgid "Old Italic"
-msgstr ""
+msgstr "Alfabets itàlics antics"
 
 #. frequency:1 iso_code:Narb
 #: DB:script/name:150
 msgid "Old North Arabian"
-msgstr ""
+msgstr "Antic nord-aràbic"
 
 #. frequency:1 iso_code:Perm
 #: DB:script/name:34
 msgid "Old Permic"
-msgstr ""
+msgstr "Antic pèrmic"
 
 #. frequency:2 iso_code:Xpeo
 #: DB:script/name:2
 msgid "Old Persian"
-msgstr ""
+msgstr "Persa antic"
 
 #. frequency:1 iso_code:Sarb
 #: DB:script/name:156
 msgid "Old South Arabian"
-msgstr ""
+msgstr "Sud-aràbic antic"
 
 #. frequency:2 iso_code:Orkh
 #: DB:script/name:20
 msgid "Old Turkic"
-msgstr ""
+msgstr "Orkhon"
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. frequency:2 iso_code:Osma
 #: DB:script/name:38
 msgid "Osmanya"
-msgstr ""
+msgstr "Osmanya"
 
 #. frequency:1 iso_code:Hmng
 #: DB:script/name:89
 msgid "Pahawh Hmong"
-msgstr ""
+msgstr "Pahawh hmong"
 
 #. frequency:1 iso_code:Palm
 #: DB:script/name:151
 msgid "Palmyrene"
-msgstr ""
+msgstr "Palmirè"
 
 #. frequency:2 iso_code:Phag
 #: DB:script/name:56
 msgid "Phags-pa"
-msgstr ""
+msgstr "Phagspa"
 
 #. frequency:2 iso_code:Phnx
 #: DB:script/name:9
 msgid "Phoenician"
-msgstr ""
+msgstr "Fenici"
 
 #. frequency:1 iso_code:Phlp
 #: DB:script/name:122
 msgid "Psalter Pahlavi"
-msgstr ""
+msgstr "Psalter pahlavi"
 
 #. frequency:2 iso_code:Rjng
 #: DB:script/name:105
 msgid "Rejang"
-msgstr ""
+msgstr "Rejang"
 
 #. frequency:1 iso_code:Roro
 #: DB:script/name:98
 msgid "Rongorongo"
-msgstr ""
+msgstr "Rongo-rongo"
 
 #. frequency:2 iso_code:Runr
 #: DB:script/name:26
 msgid "Runic"
-msgstr ""
+msgstr "Rúnic"
 
 #. frequency:1 iso_code:Samr
 #: DB:script/name:125
 msgid "Samaritan"
-msgstr ""
+msgstr "Samarità"
 
 #. frequency:1 iso_code:Sara
 #: DB:script/name:46
 msgid "Sarati"
-msgstr ""
+msgstr "Sarati"
 
 #. frequency:2 iso_code:Saur
 #: DB:script/name:106
 msgid "Saurashtra"
-msgstr ""
+msgstr "Saurashtra"
 
 #. frequency:1 iso_code:Shrd
 #: DB:script/name:138
 msgid "Sharada"
-msgstr ""
+msgstr "Shrada"
 
 #. frequency:2 iso_code:Shaw
 #: DB:script/name:40
 msgid "Shavian"
-msgstr ""
+msgstr "Shavià"
 
 #. frequency:1 iso_code:Sgnw
 #: DB:script/name:126
 msgid "SignWriting"
-msgstr ""
+msgstr "Escriptura de signes"
 
 #. frequency:3 iso_code:Sinh
 #: DB:script/name:63
 msgid "Sinhala"
-msgstr ""
+msgstr "Singalès"
 
 #. frequency:1 iso_code:Sora
 #: DB:script/name:137
 msgid "Sora Sompeng"
-msgstr ""
+msgstr "Sora sompeng"
 
 #. frequency:2 iso_code:Sund
 #: DB:script/name:107
 msgid "Sundanese"
-msgstr ""
+msgstr "Sundanès"
 
 #. frequency:2 iso_code:Sylo
 #: DB:script/name:51
 msgid "Syloti Nagri"
-msgstr ""
+msgstr "Syloti nagri"
 
 #. frequency:3 iso_code:Zsym
 #: DB:script/name:112
 msgid "Symbols"
-msgstr ""
+msgstr "Símbols"
 
 #. frequency:2 iso_code:Syrc
 #: DB:script/name:12
 msgid "Syriac"
-msgstr ""
+msgstr "Siríac"
 
 #. frequency:1 iso_code:Syrn
 #: DB:script/name:13
 msgid "Syriac (Eastern variant)"
-msgstr ""
+msgstr "Siríac oriental"
 
 #. frequency:1 iso_code:Syre
 #: DB:script/name:15
 msgid "Syriac (Estrangelo variant)"
-msgstr ""
+msgstr "Siríac estrangelo"
 
 #. frequency:1 iso_code:Syrj
 #: DB:script/name:14
 msgid "Syriac (Western variant)"
-msgstr ""
+msgstr "Siríac occidental"
 
 #. frequency:2 iso_code:Tglg
 #: DB:script/name:76
 msgid "Tagalog"
-msgstr ""
+msgstr "Tagàlog"
 
 #. frequency:2 iso_code:Tagb
 #: DB:script/name:79
 msgid "Tagbanwa"
-msgstr ""
+msgstr "Tagbanwa"
 
 #. frequency:2 iso_code:Tale
 #: DB:script/name:66
 msgid "Tai Le"
-msgstr ""
+msgstr "Tai le"
 
 #. frequency:1 iso_code:Lana
 #: DB:script/name:117
 msgid "Tai Tham"
-msgstr ""
+msgstr "Lanna"
 
 #. frequency:1 iso_code:Tavt
 #: DB:script/name:127
 msgid "Tai Viet"
-msgstr ""
+msgstr "Tai viet"
 
 #. frequency:1 iso_code:Takr
 #: DB:script/name:139
 msgid "Takri"
-msgstr ""
+msgstr "Takri"
 
 #. frequency:3 iso_code:Taml
 #: DB:script/name:61
 msgid "Tamil"
-msgstr ""
+msgstr "Tàmil"
 
 #. frequency:1 iso_code:Tang
 #: DB:script/name:140
 msgid "Tangut"
-msgstr ""
+msgstr "Tangut"
 
 #. frequency:3 iso_code:Telu
 #: DB:script/name:59
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. frequency:1 iso_code:Teng
 #: DB:script/name:44
 msgid "Tengwar"
-msgstr ""
+msgstr "Tengwar"
 
 #. frequency:2 iso_code:Thaa
 #: DB:script/name:19
 msgid "Thaana"
-msgstr ""
+msgstr "Thaana"
 
 #. frequency:4 iso_code:Thai
 #: DB:script/name:65
 msgid "Thai"
-msgstr ""
+msgstr "Tailandès"
 
 #. frequency:3 iso_code:Tibt
 #: DB:script/name:55
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetà"
 
 #. frequency:3 iso_code:Tfng
 #: DB:script/name:10
 msgid "Tifinagh"
-msgstr ""
+msgstr "Tifinag"
 
 #. frequency:1 iso_code:Tirh
 #: DB:script/name:132
 msgid "Tiruta"
-msgstr ""
+msgstr "Tirhut"
 
 #. frequency:2 iso_code:Ugar
 #: DB:script/name:3
 msgid "Ugaritic"
-msgstr ""
+msgstr "Ugarític"
 
 #. frequency:2 iso_code:Vaii
 #: DB:script/name:91
 msgid "Vai"
-msgstr ""
+msgstr "Vai"
 
 #. frequency:1 iso_code:Visp
 #: DB:script/name:39
 msgid "Visible Speech"
-msgstr ""
+msgstr "Llenguatge visible"
 
 #. frequency:1 iso_code:Wara
 #: DB:script/name:154
 msgid "Warang Citi"
-msgstr ""
+msgstr "Varang kshiti"
 
 #. frequency:1 iso_code:Wole
 #: DB:script/name:141
 msgid "Woleai"
-msgstr ""
+msgstr "Woleai"
 
 #. frequency:2 iso_code:Yiii
 #: DB:script/name:90
 msgid "Yi"
-msgstr ""
+msgstr "Yi"
 
 #. frequency:2 iso_code:Qaaa
 #: DB:script/name:160
 msgid "[Multiple scripts]"
-msgstr ""
+msgstr "[Diversos sistemes d'escriptura]"
