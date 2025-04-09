@@ -3,19 +3,9 @@
 set -x
 shopt -s nullglob
 
-function sv_start_if_down() {
-  while [[ $# -gt 0 ]]
-  do
-    if [[ -e "/etc/service/$1/down" ]]
-    then
-      rm -fv "/etc/service/$1/down"
-      sv start "$1"
-    fi
-    shift
-  done
-}
-
 cd "$MBS_ROOT"
+
+. docker/musicbrainz-tests/sv_start_if_down.sh
 
 # Set the open file limit Solr requests on startup.
 ulimit -n 65000

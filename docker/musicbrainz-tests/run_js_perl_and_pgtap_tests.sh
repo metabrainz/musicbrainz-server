@@ -2,19 +2,9 @@
 
 set -e -o pipefail -x
 
-function sv_start_if_down() {
-  while [[ $# -gt 0 ]]
-  do
-    if [[ -e "/etc/service/$1/down" ]]
-    then
-      rm -fv "/etc/service/$1/down"
-      sv -w 30 start "$1"
-    fi
-    shift
-  done
-}
-
 cd "$MBS_ROOT"
+
+. docker/musicbrainz-tests/sv_start_if_down.sh
 
 sudo -E -H -u musicbrainz make -C po test_source
 
