@@ -544,7 +544,6 @@ export default {
   'static/scripts/edit/components/GuessCaseIcon': (): Promise<mixed> => import('../static/scripts/edit/components/GuessCaseIcon.js'),
   'static/scripts/edit/components/HydratedDateRangeFieldset': (): Promise<mixed> => import('../static/scripts/edit/components/HydratedDateRangeFieldset.js'),
   'static/scripts/edit/components/InformationIcon': (): Promise<mixed> => import('../static/scripts/edit/components/InformationIcon.js'),
-  'static/scripts/recording/RecordingName': (): Promise<mixed> => import('../static/scripts/recording/RecordingName.js'),
   'static/scripts/relationship-editor/components/RelationshipEditorWrapper': (): Promise<mixed> => import('../static/scripts/relationship-editor/components/RelationshipEditorWrapper.js'),
   'static/scripts/release-editor/components/EditNoteTab': (): Promise<mixed> => import('../static/scripts/release-editor/components/EditNoteTab.js'),
   'static/scripts/series/components/SeriesRelationshipEditor': (): Promise<mixed> => import('../static/scripts/series/components/SeriesRelationshipEditor.js'),
