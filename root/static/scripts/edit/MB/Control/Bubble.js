@@ -126,6 +126,7 @@ export class BubbleDoc extends BubbleBase {
     const $parent = $bubble.parent();
 
     $bubble
+      .addClass('left-tail')
       .width($parent.width() - 24)
       .position({
         my: 'left top-30',
@@ -133,8 +134,7 @@ export class BubbleDoc extends BubbleBase {
         of: control,
         collision: 'fit none',
         within: $parent,
-      })
-      .addClass('left-tail');
+      });
   }
 }
 
