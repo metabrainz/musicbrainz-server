@@ -64,7 +64,7 @@ import {
 type ActionT =
   | {+type: 'guess-feat'}
   | {+type: 'show-all-pending-errors'}
-  | {+type: 'toggle-isrc-bubble'}
+  | {+type: 'toggle-bubble', +bubble: string}
   | {+type: 'update-name', +action: NameActionT}
   | {+type: 'update-artist-credit', +action: ArtistCreditActionT};
 /* eslint-enable ft-flow/sort-keys */
@@ -75,7 +75,7 @@ type StateT = {
   +guessCaseOptions: GuessCaseOptionsStateT,
   +isGuessCaseOptionsOpen: boolean,
   +recording: RecordingT,
-  +showIsrcBubble: boolean,
+  +shownBubble: string,
 };
 
 function createInitialState(
@@ -95,7 +95,7 @@ function createInitialState(
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     recording,
-    showIsrcBubble: false,
+    shownBubble: '',
   };
 }
 
@@ -130,8 +130,8 @@ function reducer(state: StateT, action: ActionT): StateT {
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
       break;
     }
-    case 'toggle-isrc-bubble': {
-      newStateCtx.set('showIsrcBubble', true);
+    case 'toggle-bubble': {
+      newStateCtx.set('shownBubble', action.bubble);
       break;
     }
     case 'show-all-pending-errors': {
@@ -197,12 +197,24 @@ component RecordingEditForm(
     dispatch({action, type: 'update-artist-credit'});
   }, [dispatch]);
 
+  function handleCommentFocus() {
+    dispatch({bubble: 'comment', type: 'toggle-bubble'});
+  }
+
   function handleIsrcFocus() {
-    dispatch({type: 'toggle-isrc-bubble'});
+    dispatch({bubble: 'isrc', type: 'toggle-bubble'});
   }
 
   function handleGuessFeat() {
     dispatch({type: 'guess-feat'});
+  }
+
+  function handleLengthFocus() {
+    dispatch({bubble: 'length', type: 'toggle-bubble'});
+  }
+
+  function handleNameFocus() {
+    dispatch({bubble: 'name', type: 'toggle-bubble'});
   }
 
   const hasErrors = hasSubfieldErrors(state.form);
@@ -228,7 +240,12 @@ component RecordingEditForm(
     );
   };
 
+  const nameFieldRef = React.useRef<HTMLDivElement | null>(null);
+  const artistFieldRef = React.useRef<HTMLDivElement | null>(null);
+  const commentFieldRef = React.useRef<HTMLDivElement | null>(null);
+  const lengthFieldRef = React.useRef<HTMLDivElement | null>(null);
   const isrcFieldRef = React.useRef<HTMLDivElement | null>(null);
+  const externalLinksFieldRef = React.useRef<HTMLDivElement | null>(null);
 
   return (
     <form
@@ -256,6 +273,8 @@ component RecordingEditForm(
             handleGuessFeat={handleGuessFeat}
             isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
             label={addColonText(l('Name'))}
+            onFocus={handleNameFocus}
+            rowRef={nameFieldRef}
           />
           <FormRow>
             <label className="required" htmlFor="ac-source-single-artist">
@@ -270,12 +289,16 @@ component RecordingEditForm(
           <FormRowTextLong
             field={state.form.field.comment}
             label={addColonText(l('Disambiguation'))}
+            onFocus={handleCommentFocus}
+            rowRef={commentFieldRef}
             uncontrolled
           />
           {(!usedByTracks || state.form.field.length.has_errors) ? (
             <FormRowTextLong
               field={state.form.field.length}
               label={addColonText(l('Length'))}
+              onFocus={handleLengthFocus}
+              rowRef={lengthFieldRef}
               uncontrolled
             />
           ) : (
@@ -334,35 +357,140 @@ component RecordingEditForm(
       </div>
 
       <div className="documentation">
-        {state.showIsrcBubble ? (
+        {state.shownBubble === 'name' ? (
+          <Bubble
+            controlRef={nameFieldRef}
+            id="name-bubble"
+          >
+            <p>
+              {exp.l(
+                `The {doc|name} is usually the most common title
+                 from track listings on official releases.`,
+                {doc: {href: '/doc/Recording#Title', target: '_blank'}},
+              )}
+            </p>
+            <p>
+              {exp.l(
+                'Please see the {doc|style guidelines} for more information.',
+                {doc: {href: '/doc/Style/Recording#Title', target: '_blank'}},
+              )}
+            </p>
+          </Bubble>
+        ) : null}
+
+        {state.shownBubble === 'artist' ? (
+          <Bubble
+            controlRef={artistFieldRef}
+            id="artist-bubble"
+          >
+            <p>
+              {exp.l(
+                `For popular music, the {doc|artist} should usually match
+                 the track artist on the earliest release
+                 containing the recording.`,
+                {doc: {href: '/doc/Recording#Artist', target: '_blank'}},
+              )}
+            </p>
+            <p>
+              {l(`For classical music, it should contain
+                  the most important performers.`)}
+            </p>
+            <p>
+              {exp.l(
+                `Please see the {doc_style|style guidelines} and the
+                 {doc_classical|classical guidelines} for more information.`,
+                {
+                  doc_classical: {
+                    href: '/doc/Style/Classical/Recording_Artist',
+                    target: '_blank',
+                  },
+                  doc_style: {
+                    href: '/doc/Style/Recording#Artist',
+                    target: '_blank',
+                  },
+                },
+              )}
+            </p>
+          </Bubble>
+        ) : null}
+
+        {state.shownBubble === 'comment' ? (
+          <Bubble
+            controlRef={commentFieldRef}
+            id="comment-bubble"
+          >
+            <p>
+              {exp.l(
+                `The {doc|disambiguation} field helps users distinguish
+                 between similarly-named recordings by the same artist.`,
+                {
+                  doc: {
+                    href: '/doc/Disambiguation_Comment',
+                    target: '_blank',
+                  },
+                },
+              )}
+            </p>
+            <p>
+              {exp.l(
+                `If this is a live recording, please also see
+                 the {doc|live recording} guidelines.`,
+                {
+                  doc: {
+                    href: '/doc/Style/Recording#Live_recordings',
+                    target: '_blank',
+                  },
+                },
+              )}
+            </p>
+            <p>
+              {l(`It’s okay to leave it blank if there are
+                  no other recordings with similar names,
+                  and this isn’t a live recording.`)}
+            </p>
+          </Bubble>
+        ) : null}
+
+        {state.shownBubble === 'length' ? (
+          <Bubble
+            controlRef={lengthFieldRef}
+            id="length-bubble"
+          >
+            <p>
+              {exp.l(
+                `The {doc|length} is the recording’s duration
+                 in MM:SS format.`,
+                {doc: {href: '/doc/Recording#Length', target: '_blank'}},
+              )}
+            </p>
+          </Bubble>
+        ) : null}
+
+        {state.shownBubble === 'isrc' ? (
           <Bubble
             controlRef={isrcFieldRef}
             id="isrcs-bubble"
           >
             <p>
-              {exp.l(`You are about to add an ISRC to this recording.
-                  The ISRC must be entered in standard
-                  <code>CCXXXYYNNNNN</code> format:`)}
+              {exp.l(
+                `The {doc|ISRC} is a 12-character alphanumeric string
+                 identifying this recording.`,
+                {doc: {href: '/doc/ISRC', target: '_blank'}},
+              )}
             </p>
-            <ul>
-              <li>
-                {l(`"CC" is the appropriate for the registrant
-                    two-character country code.`)}
-              </li>
-              <li>
-                {l(`"XXX" is a three character alphanumeric registrant code,
-                    uniquely identifying the organisation
-                    which registered the code.`)}
-              </li>
-              <li>
-                {l(`"YY" is the last two digits
-                    of the year of registration.`)}
-              </li>
-              <li>
-                {l(`"NNNNN" is a unique 5-digit number identifying
-                    the particular sound recording.`)}
-              </li>
-            </ul>
+          </Bubble>
+        ) : null}
+        {/* TODO: Make this show */}
+        {state.shownBubble === 'external-links' ? (
+          <Bubble
+            controlRef={externalLinksFieldRef}
+            id="external-link-bubble"
+          >
+            <p>
+              {l(`External links are URLs associated with the recording,
+                  such as purchase or streaming pages,
+                  or entries in other databases.`)}
+            </p>
           </Bubble>
         ) : null}
       </div>
