@@ -28,7 +28,7 @@
     },
     {
       command: 'click',
-      target: 'css=div.recording-name button.guessfeat',
+      target: 'css=button.guessfeat',
       value: '',
     },
     {
@@ -134,7 +134,7 @@
     },
     {
       command: 'click',
-      target: 'css=div.recording-name button.guessfeat',
+      target: 'css=button.guessfeat',
       value: '',
     },
     {

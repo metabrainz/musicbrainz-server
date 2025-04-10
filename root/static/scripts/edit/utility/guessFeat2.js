@@ -8,14 +8,15 @@
  */
 
 import balanced from 'balanced-match';
+import mutate from 'mutate-cow';
 
+import {expect} from '../../../../utility/invariant.js';
 import {
   BRACKET_PAIRS,
   MIN_NAME_SIMILARITY,
 } from '../../common/constants.js';
 import {last} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
-import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
 
 import {
   fromFullwidthLatin,
@@ -33,7 +34,7 @@ type GuessFeatEntityT = {
 };
 
 type GuessFeatResultT = {
-  artistCreditNames: Array<IncompleteArtistCreditNameT>,
+  artistCreditNames: $ReadOnlyArray<IncompleteArtistCreditNameT>,
   name: string,
 };
 
@@ -277,13 +278,16 @@ export default function guessFeat(
     return null;
   }
 
-  const artistCredit = cloneArrayDeep(entity.artistCredit.names);
-  last(artistCredit).joinPhrase = match.joinPhrase;
-  last(match.artistCredit).joinPhrase = '';
+  const artistCreditNamesCtx = mutate(entity.artistCredit.names);
+  artistCreditNamesCtx.set(
+    entity.artistCredit.names.length - 1,
+    'joinPhrase',
+    match.joinPhrase,
+  );
+  expect(last(match.artistCredit)).joinPhrase = '';
 
-  const guessedArtistCreditNames = [...artistCredit];
   for (const name of match.artistCredit) {
-    guessedArtistCreditNames.push({
+    artistCreditNamesCtx.write().push({
       artist: name.artist,
       joinPhrase: name.joinPhrase,
       name: name.name,
@@ -292,6 +296,6 @@ export default function guessFeat(
 
   return {
     name: match.name,
-    artistCreditNames: guessedArtistCreditNames,
+    artistCreditNames: artistCreditNamesCtx.final(),
   };
 }
