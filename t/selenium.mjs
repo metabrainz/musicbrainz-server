@@ -966,29 +966,26 @@ async function runCommands(stest, commands, t) {
       );
     }
 
-    const nextCommand = i < (commands.length - 1) ? commands[i + 1] : null;
-    if (!nextCommand) {
-      if (argv.coverage) {
-        await writePreviousSeleniumCoverage();
-      }
-
-      // Die if there are any JS errors on the page since the previous command
-      const errors = await getPageErrors();
-
-      if (errors.length) {
-        throw new Error(
-          'Errors were found on the page ' +
-          'since executing the previous command:\n' +
-          errors.join('\n\n'),
-        );
-      }
-
-      // The CATALYST_DEBUG views interfere with our tests. Remove them.
-      await driver.executeScript(`
-        node = document.getElementById('plDebug');
-        if (node) node.remove();
-      `);
+    if (argv.coverage) {
+      await writePreviousSeleniumCoverage();
     }
+
+    // Die if there are any JS errors on the page since the previous command
+    const errors = await getPageErrors();
+
+    if (errors.length) {
+      throw new Error(
+        'Errors were found on the page ' +
+        'since executing the previous command:\n' +
+        errors.join('\n\n'),
+      );
+    }
+
+    // The CATALYST_DEBUG views interfere with our tests. Remove them.
+    await driver.executeScript(`
+      node = document.getElementById('plDebug');
+      if (node) node.remove();
+    `);
   }
 }
 
