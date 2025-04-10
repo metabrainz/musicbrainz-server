@@ -486,8 +486,10 @@ async function checkSirQueues(t) {
     prevIndexCount = indexCount;
     prevDeleteCount = deleteCount;
 
+    const rabbitmqCommand =
+      process.env.RABBITMQCTL_COMMAND || 'sudo -n rabbitmqctl';
     const result = await exec(
-      "sudo -n rabbitmqctl list_queues -p '/sir-test' -q --formatter=json",
+      `${rabbitmqCommand} list_queues -p '/sir-test' -q --formatter=json`,
     );
     const sirQueues = JSON.parse(result.stdout);
     const messageCounts = sirQueues.reduce((map, queue) => {
