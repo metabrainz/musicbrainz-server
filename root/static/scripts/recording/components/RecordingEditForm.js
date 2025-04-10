@@ -48,6 +48,7 @@ import {
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
+import guessFeat from '../../edit/utility/guessFeat2.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -58,6 +59,7 @@ import {
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | {+type: 'guess-feat'}
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-isrc-bubble'}
   | {+type: 'update-name', +action: NameActionT}
@@ -140,6 +142,29 @@ function reducer(state: StateT, action: ActionT): StateT {
       );
       break;
     }
+    case 'guess-feat': {
+      const results = guessFeat({
+        artistCredit: state.artistCredit,
+        name: state.form.field.name.value,
+        relationships: state.recording.relationships,
+      });
+      console.log(results);
+      if (results) {
+        newStateCtx
+          .set('form', 'field', 'name', 'value', results.name);
+        newStateCtx.set(
+          'artistCredit',
+          runArtistCreditReducer(
+            state.artistCredit,
+            {
+              artistCredit: {names: results.artistCreditNames},
+              type: 'set-names-from-artist-credit',
+            },
+          ),
+        );
+      }
+      break;
+    }
     default: {
       /*:: exhaustive(action); */
     }
@@ -170,6 +195,10 @@ component RecordingEditForm(
 
   function handleIsrcFocus() {
     dispatch({type: 'toggle-isrc-bubble'});
+  }
+
+  function handleGuessFeat() {
+    dispatch({type: 'guess-feat'});
   }
 
   const hasErrors = hasSubfieldErrors(state.form);
@@ -219,6 +248,8 @@ component RecordingEditForm(
             entity={state.recording}
             field={state.form.field.name}
             guessCaseOptions={state.guessCaseOptions}
+            guessFeat
+            handleGuessFeat={handleGuessFeat}
             isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
             label={addColonText(l('Name'))}
           />
