@@ -89,6 +89,7 @@ component FormRowNameWithGuessCase(
   field: FieldT<string | null>,
   guessCaseOptions: GuessCaseOptionsStateT,
   guessFeat: boolean = false,
+  handleGuessFeat?: (event: SyntheticEvent<HTMLButtonElement>) => void,
   isGuessCaseOptionsOpen: boolean = false,
   label: React.Node = addColonText(l('Name')),
 ) {
@@ -171,6 +172,7 @@ component FormRowNameWithGuessCase(
       {guessFeat ? (
         <button
           className="guessfeat icon"
+          onClick={handleGuessFeat}
           title={l('Guess feat. artists')}
           type="button"
         />
