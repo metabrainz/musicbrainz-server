@@ -27,6 +27,9 @@ import {
   type ActionT as ArtistCreditActionT,
   type StateT as ArtistCreditStateT,
 } from '../../edit/components/ArtistCreditEditor/types.js';
+import {
+  incompleteArtistCreditFromState,
+} from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
@@ -48,6 +51,7 @@ import {
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
+import guessFeat from '../../edit/utility/guessFeat2.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -58,6 +62,7 @@ import {
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | {+type: 'guess-feat'}
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-isrc-bubble'}
   | {+type: 'update-name', +action: NameActionT}
@@ -140,6 +145,30 @@ function reducer(state: StateT, action: ActionT): StateT {
       );
       break;
     }
+    case 'guess-feat': {
+      const results = guessFeat({
+        artistCredit: incompleteArtistCreditFromState(
+          state.artistCredit.names,
+        ),
+        name: state.form.field.name.value || '',
+        relationships: state.recording.relationships,
+      });
+      if (results) {
+        newStateCtx
+          .set('form', 'field', 'name', 'value', results.name);
+        newStateCtx.set(
+          'artistCredit',
+          runArtistCreditReducer(
+            state.artistCredit,
+            {
+              artistCredit: {names: results.artistCreditNames},
+              type: 'set-names-from-artist-credit',
+            },
+          ),
+        );
+      }
+      break;
+    }
     default: {
       /*:: exhaustive(action); */
     }
@@ -170,6 +199,10 @@ component RecordingEditForm(
 
   function handleIsrcFocus() {
     dispatch({type: 'toggle-isrc-bubble'});
+  }
+
+  function handleGuessFeat() {
+    dispatch({type: 'guess-feat'});
   }
 
   const hasErrors = hasSubfieldErrors(state.form);
@@ -219,6 +252,8 @@ component RecordingEditForm(
             entity={state.recording}
             field={state.form.field.name}
             guessCaseOptions={state.guessCaseOptions}
+            guessFeat
+            handleGuessFeat={handleGuessFeat}
             isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
             label={addColonText(l('Name'))}
           />
