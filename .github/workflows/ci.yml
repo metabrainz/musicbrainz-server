@@ -71,19 +71,8 @@ jobs:
         run: |
           CONTAINER_NAME=mbtest-js-perl-and-pgtap
 
-          docker run \
-            --detach \
-            --user root \
-            --workdir /home/musicbrainz/musicbrainz-server \
-            --volume "$(pwd)":/workspace \
-            --env CI=true \
-            --env GITHUB_ACTIONS=true \
-            --env GITHUB_WORKSPACE=/workspace \
-            --name "$CONTAINER_NAME" \
-            metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
 
-          docker cp mbs_checkout/. "$CONTAINER_NAME":/home/musicbrainz/musicbrainz-server
-          docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
 
@@ -125,19 +114,8 @@ jobs:
         run: |
           CONTAINER_NAME=mbtest-selenium-${{ matrix.partition }}
 
-          docker run \
-            --detach \
-            --user root \
-            --workdir /home/musicbrainz/musicbrainz-server \
-            --volume "$(pwd)":/workspace \
-            --env CI=true \
-            --env GITHUB_ACTIONS=true \
-            --env GITHUB_WORKSPACE=/workspace \
-            --name "$CONTAINER_NAME" \
-            metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
 
-          docker cp mbs_checkout/. "$CONTAINER_NAME":/home/musicbrainz/musicbrainz-server
-          docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
           docker exec \
             --env SELENIUM_JS_OPTIONS='--run-partition ${{ matrix.partition }}/4' \
@@ -192,18 +170,8 @@ jobs:
         run: |
           CONTAINER_NAME=mbtest-generate-reports
 
-          docker run \
-            --detach \
-            --user root \
-            --workdir /home/musicbrainz/musicbrainz-server \
-            --volume "$(pwd)":/workspace \
-            --env CI=true \
-            --env GITHUB_ACTIONS=true \
-            --env GITHUB_WORKSPACE=/workspace \
-            --name "$CONTAINER_NAME" \
-            metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
 
-          docker cp mbs_checkout/. "$CONTAINER_NAME":/home/musicbrainz/musicbrainz-server
           docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
 
       - uses: actions/download-artifact@v4
