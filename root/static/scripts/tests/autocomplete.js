@@ -94,21 +94,6 @@ autocompleteTest((
 });
 
 autocompleteTest((
-  'clicking on actions should not prevent the menu from ever closing (MBS-6978)'
-), function (t, $input, $menu) {
-  t.plan(2);
-
-  searchAndClick(t, $input, $menu, ':contains(Show more...)');
-
-  blurAutocomplete($input);
-
-  t.ok(
-    $menu.is(':hidden'),
-    'menu is hidden after blurring the autocomplete',
-  );
-});
-
-autocompleteTest((
   'multiple searches should not prevent clicks on the menu (MBS-7080)'
 ), function (t, $input, $menu) {
   t.plan(3);

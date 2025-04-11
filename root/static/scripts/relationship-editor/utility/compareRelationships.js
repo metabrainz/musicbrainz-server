@@ -17,7 +17,7 @@ import {
 } from '../../common/constants.js';
 import {compare} from '../../common/i18n.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import {compareStrings} from '../../common/utility/compare.js';
+import {compareStrings} from '../../common/utility/compare.mjs';
 import compareDates, {
   compareDatePeriods,
 } from '../../common/utility/compareDates.js';

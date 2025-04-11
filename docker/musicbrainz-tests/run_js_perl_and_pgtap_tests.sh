@@ -1,38 +1,16 @@
 #!/usr/bin/env bash
 
-set -e -o pipefail
+set -e -o pipefail -x
 
-function sv_start_if_down() {
-  while [[ $# -gt 0 ]]
-  do
-    if [[ -e "/etc/service/$1/down" ]]
-    then
-      rm -fv "/etc/service/$1/down"
-      sv start "$1"
-    fi
-    shift
-  done
-}
+cd "$MBS_ROOT"
 
-sudo -E -H -u musicbrainz mkdir -p junit_output
+. docker/musicbrainz-tests/sv_start_if_down.sh
 
-sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
-
-sv_start_if_down postgresql redis
-
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
-
-sudo -E -H -u musicbrainz make -C po test_source all_quiet deploy
-
-MUSICBRAINZ_RUNNING_TESTS=1 \
-    NODE_ENV=test \
-    WEBPACK_MODE=development \
-    NO_PROGRESS=1 \
-    sudo -E -H -u musicbrainz \
-        carton exec -- ./script/compile_resources.sh client server web-tests
+sudo -E -H -u musicbrainz make -C po test_source
 
 echo Checking JavaScript code’s static types with Flow
 sudo -E -H -u musicbrainz ./node_modules/.bin/flow --quiet
+sudo -E -H -u musicbrainz ./node_modules/.bin/flow stop --quiet
 echo OK
 
 echo Checking JavaScript code’s quality and style with ESLint
@@ -45,9 +23,9 @@ sudo -E -H -u musicbrainz \
     && { exit 1; }
 echo OK
 
-sv_start_if_down chrome
+sv_start_if_down chrome postgresql redis
 
-sudo -E -H -u musicbrainz carton exec -- node \
+sudo -E -H -u musicbrainz carton exec -- ./bin/sucrase-node \
     t/web.js \
     | tee >(./node_modules/.bin/tap-junit > ./junit_output/js_web.xml) \
     | ./node_modules/.bin/tap-difflet
@@ -56,15 +34,12 @@ sv kill chrome
 
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
 
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
-
 sv_start_if_down template-renderer vnu website
 
-export MMD_SCHEMA_ROOT=/home/musicbrainz/mb-solr/mmd-schema
+export MMD_SCHEMA_ROOT=/home/musicbrainz/mmd-schema
 export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
 
+prove_exit_code=0
 sudo -E -H -u musicbrainz carton exec -- prove \
     --pgtap-option dbname=musicbrainz_test \
     --pgtap-option host=localhost \
@@ -86,4 +61,19 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     t/script/UpdateDatabasePrivileges.t \
     t/tests.t \
     --harness=TAP::Harness::JUnit \
-    -v
+    -v || { prove_exit_code=$?; true; }
+
+# Stop the template-renderer so that it dumps coverage.
+sv down template-renderer
+sleep 10
+
+if [ "$GITHUB_ACTIONS" = 'true' ]; then
+  if [[ -d .nyc_output && $(ls -A .nyc_output) ]]; then
+      cp -Ra .nyc_output "$GITHUB_WORKSPACE"/nyc_output
+  fi
+  if [ -d junit_output ]; then
+    cp -Ra junit_output "$GITHUB_WORKSPACE"
+  fi
+fi
+
+exit $prove_exit_code

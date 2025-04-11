@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+exec unbuffer "$MBS_ROOT"/docker/scripts/start_musicbrainz_server.sh

@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
 
-# As noted in docker/musicbrainz-tests/DBDefs.pm, CircleCI
-# sets NO_PROXY=127.0.0.1,localhost in every container, so
-# the Selenium proxy doesn't work unless we make requests
-# against a different hostname alias. We use mbtest, added
-# to /etc/hosts here and in the selenium job below.
-
+# The mbtest hostname is added for the Selenium proxy in t/selenium.mjs:
+#  * Browsers restrict using localhost as a proxy endpoint by default for
+#    security reasons.
+#  * Our tests previously ran in an environment where
+#    `NO_PROXY=127.0.0.1,localhost` was forcefully set inside the container.
+#    (This doesn't seem to be the case on GitHub Actions, but the above
+#    point still holds.)
 echo '127.0.0.1 mbtest' >> /etc/hosts
 
 # For BETA_REDIRECT_HOSTNAME
