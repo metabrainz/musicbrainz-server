@@ -46,6 +46,7 @@ sudo -E -H -u musicbrainz make -C po all_quiet deploy
 NODE_ENV=test \
     WEBPACK_MODE=development \
     MUSICBRAINZ_RUNNING_TESTS=1 \
+    NO_CACHE=1 \
     NO_PROGRESS=1 \
     NO_YARN=1 \
     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
