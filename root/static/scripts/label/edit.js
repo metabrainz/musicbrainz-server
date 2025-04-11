@@ -25,12 +25,30 @@ $(function () {
 
   initializeGuessCase('label', 'id-edit-label');
 
-  initializeArea('span.area.autocomplete');
+  initializeArea('span.area.autocomplete', '#area-bubble');
 
   initializeDuplicateChecker('label');
 
+  initializeBubble('#name-bubble', 'input[name=edit-label\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-label\\.comment]');
+  initializeBubble(
+    '#label-code-bubble', 'input[name=edit-label\\.label_code]',
+  );
   initializeBubble('#ipi-bubble', 'input[name=edit-label\\.ipi_codes\\.0]');
   initializeBubble('#isni-bubble', 'input[name=edit-label\\.isni_codes\\.0]');
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-label\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-label\\.period\\.end_date\\.]',
+  );
+
+  // Display documentation bubbles for external components.
+  const externalLinkBubble = initializeBubble('#external-link-bubble');
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => externalLinkBubble.show(event.target),
+  );
 
   installFormUnloadWarning();
 

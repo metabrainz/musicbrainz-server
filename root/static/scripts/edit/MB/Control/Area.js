@@ -13,22 +13,15 @@ import EntityAutocomplete from '../../../common/MB/Control/Autocomplete.js';
 
 import {BubbleDoc} from './Bubble.js';
 
-export default function initializeArea(...selectors) {
-  var bubble = new BubbleDoc();
+export default function initializeArea(spanSelector, bubbleSelector) {
+  const bubble = new BubbleDoc();
+  ko.applyBindingsToNode($(bubbleSelector)[0], {bubble});
 
-  bubble.canBeShown = function (viewModel) {
-    return viewModel.area().gid;
-  };
-
-  ko.applyBindingsToNode($('#area-bubble')[0], {bubble});
-
-  for (const selector of selectors) {
-    const $span = $(selector);
-    const name = $span.find('input.name')[0];
-    const ac = EntityAutocomplete({inputs: $span});
-
+  $(spanSelector).each(function () {
+    const name = $(this).find('input.name')[0];
+    const ac = EntityAutocomplete({inputs: $(this)});
     ko.applyBindingsToNode(
       name, {controlsBubble: bubble}, {area: ac.currentSelection},
     );
-  }
+  });
 }
