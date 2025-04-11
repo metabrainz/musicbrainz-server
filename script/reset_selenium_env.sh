@@ -79,7 +79,7 @@ if [[ $SIR_DIR ]]; then
     reindex_attempts=0
     while true; do
         echo `date` : Reindexing search data
-        python -m sir reindex > "$SIR_REINDEX_LOG_FILE" 2>&1 &
+        python -m sir --debug reindex > "$SIR_REINDEX_LOG_FILE" 2>&1 &
         SIR_PID=$!
         disown
         let 'reindex_attempts = reindex_attempts + 1'
@@ -103,7 +103,7 @@ if [[ $SIR_DIR ]]; then
     done
 
     echo `date` : Starting sir
-    python -m sir amqp_watch > "$SIR_LOG_FILE" 2>&1 &
+    python -m sir --debug amqp_watch > "$SIR_LOG_FILE" 2>&1 &
     SIR_PID=$!
     disown
     echo "$SIR_PID" > "$SIR_PID_FILE"

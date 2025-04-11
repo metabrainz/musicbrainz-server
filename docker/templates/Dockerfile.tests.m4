@@ -121,6 +121,10 @@ RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://gith
     sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65'
 
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
+COPY docker/musicbrainz-tests/log_solr_data.patch sir/
+
+RUN cd sir && \
+    git apply log_solr_data.patch
 
 FROM build AS artwork_indexer
 
