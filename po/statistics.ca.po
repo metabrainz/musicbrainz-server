@@ -1,22 +1,24 @@
 #
 # Translators:
+# Marc Riera <marc@marcriera.cat>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Catalan (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ca/)\n"
+"PO-Revision-Date: 2025-04-13 16:20+0000\n"
+"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
+"Language-Team: Catalan <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
-msgstr ""
+msgstr "Afegeix/suprimeix línies:"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
@@ -28,21 +30,21 @@ msgstr ""
 
 #: ../root/statistics/timeline.tt:15
 msgid "Controls"
-msgstr ""
+msgstr "Controls"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
-msgstr ""
+msgstr "Països"
 
 #: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
-msgstr ""
+msgstr "Estadístiques de la base de dades"
 
 #: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
-msgstr ""
+msgstr "Estadístiques de la base de dades - {title}"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
@@ -51,11 +53,11 @@ msgstr ""
 #: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
 #: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
-msgstr ""
+msgstr "Editors"
 
 #: ../root/statistics/layout.tt:5
 msgid "Edits"
-msgstr ""
+msgstr "Edicions"
 
 #: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
@@ -63,7 +65,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:33
 msgid "Formats"
-msgstr ""
+msgstr "Formats"
 
 #: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
@@ -71,23 +73,23 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
-msgstr ""
+msgstr "Imatges"
 
 #: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
-msgstr ""
+msgstr "Llengües/sistemes d'escriptura"
 
 #: ../root/statistics/timeline.tt:3
 msgid "Legend"
-msgstr ""
+msgstr "Llegenda"
 
 #: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
-msgstr ""
+msgstr "Esdeveniments de MusicBrainz"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
-msgstr ""
+msgstr "Resum"
 
 #: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
@@ -99,23 +101,23 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5
 msgid "Relationships"
-msgstr ""
+msgstr "Relacions"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Reset:"
-msgstr ""
+msgstr "Reinicialitza:"
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
-msgstr ""
+msgstr "Cronologia"
 
 #: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
-msgstr ""
+msgstr "Gràfic de cronologia"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
-msgstr ""
+msgstr "Zoom:"
 
 #: ../root/statistics/Countries.js:42 ../root/statistics/Editors.js:93
 #: ../root/statistics/Edits.js:32 ../root/statistics/Formats.js:41
@@ -123,7 +125,7 @@ msgstr ""
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "Darrera actualització: {date}"
 
 #: ../root/statistics/Countries.js:48 ../root/statistics/Editors.js:37
 #: ../root/statistics/Formats.js:48 ../root/statistics/LanguagesScripts.js:59
@@ -540,84 +542,84 @@ msgstr ""
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
-msgstr ""
+msgstr "Tipus principals"
 
 #: ../root/statistics/Index.js:632
 msgctxt "release group primary type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
-msgstr ""
+msgstr "Tipus secundaris"
 
 #: ../root/statistics/Index.js:666
 msgctxt "release group secondary type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:895
 msgid "Videos"
-msgstr ""
+msgstr "Vídeos"
 
 #: ../root/statistics/Index.js:690
 msgctxt "recording"
 msgid "Standalone"
-msgstr ""
+msgstr "Independent"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "Amb ISRC"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
 #: ../root/statistics/Index.js:852 ../root/statistics/Index.js:876
 #: ../root/statistics/Index.js:906
 msgid "Types"
-msgstr ""
+msgstr "Tipus"
 
 #: ../root/statistics/Index.js:723
 msgctxt "label type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:751
 msgctxt "work type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "Amb ISWC"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
-msgstr ""
+msgstr "Atributs"
 
 #: ../root/statistics/Index.js:785
 msgctxt "work attribute"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:813
 msgctxt "area type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:841
 msgctxt "place type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:895
 msgctxt "instrument type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:923
 msgctxt "event type"
 msgid "None"
-msgstr ""
+msgstr "Cap"
 
 #: ../root/statistics/Index.js:931 ../root/statistics/stats.js:30
 msgctxt "plural, multiple events, header"
@@ -634,23 +636,23 @@ msgstr ""
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
-msgstr ""
+msgstr "De publicacions"
 
 #: ../root/statistics/Index.js:974 ../root/statistics/Index.js:1007
 msgid "Generic"
-msgstr ""
+msgstr "Genèrica"
 
 #: ../root/statistics/Index.js:983
 msgid "Owned music"
-msgstr ""
+msgstr "Col·lecció personal"
 
 #: ../root/statistics/Index.js:992
 msgid "Wishlist"
-msgstr ""
+msgstr "Llista de desitjos"
 
 #: ../root/statistics/Index.js:1000
 msgid "Of events"
-msgstr ""
+msgstr "D'esdeveniments"
 
 #: ../root/statistics/Index.js:1016
 msgid "Of type Attending"
@@ -662,55 +664,55 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1036
 msgid "Of areas"
-msgstr ""
+msgstr "D'àrees"
 
 #: ../root/statistics/Index.js:1042
 msgid "Of artists"
-msgstr ""
+msgstr "D'artistes"
 
 #: ../root/statistics/Index.js:1048
 msgid "Of genres"
-msgstr ""
+msgstr "De gèneres"
 
 #: ../root/statistics/Index.js:1055
 msgid "Of instruments"
-msgstr ""
+msgstr "D'instruments"
 
 #: ../root/statistics/Index.js:1062
 msgid "Of labels"
-msgstr ""
+msgstr "De segells"
 
 #: ../root/statistics/Index.js:1068
 msgid "Of places"
-msgstr ""
+msgstr "De llocs"
 
 #: ../root/statistics/Index.js:1074
 msgid "Of recordings"
-msgstr ""
+msgstr "D'enregistraments"
 
 #: ../root/statistics/Index.js:1081
 msgid "Of release groups"
-msgstr ""
+msgstr "De grups de publicacions"
 
 #: ../root/statistics/Index.js:1088
 msgid "Of series"
-msgstr ""
+msgstr "De sèries"
 
 #: ../root/statistics/Index.js:1094
 msgid "Of works"
-msgstr ""
+msgstr "D'obres"
 
 #: ../root/statistics/Index.js:1113
 msgid "With collaborators"
-msgstr ""
+msgstr "Amb col·laboradors"
 
 #: ../root/statistics/Index.js:1121
 msgid "Editors, Edits, and Votes"
-msgstr ""
+msgstr "Editors, edicions i vots"
 
 #: ../root/statistics/Index.js:1128
 msgid "Editors (valid):"
-msgstr ""
+msgstr "Editors (vàlids):"
 
 #: ../root/statistics/Index.js:1134
 msgid "active ever:"
@@ -767,11 +769,11 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1239
 msgid "inactive:"
-msgstr ""
+msgstr "inactius:"
 
 #: ../root/statistics/Index.js:1244
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Editors (suprimits):"
 
 #: ../root/statistics/Index.js:1276
 msgid "Voted down"
@@ -799,7 +801,7 @@ msgstr ""
 
 #: ../root/statistics/LanguagesScripts.js:43
 msgid "Languages and scripts"
-msgstr ""
+msgstr "Llengües i sistemes d'escriptura"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
@@ -807,19 +809,19 @@ msgstr ""
 
 #: ../root/statistics/LanguagesScripts.js:55
 msgid "Languages"
-msgstr ""
+msgstr "Llengües"
 
 #: ../root/statistics/LanguagesScripts.js:90
 msgid "Unknown language"
-msgstr ""
+msgstr "Llengua desconeguda"
 
 #: ../root/statistics/LanguagesScripts.js:143
 msgid "Scripts"
-msgstr ""
+msgstr "Sistemes d'escriptura"
 
 #: ../root/statistics/LanguagesScripts.js:166
 msgid "Unknown script"
-msgstr ""
+msgstr "Sistema d'escriptura desconegut"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
@@ -831,7 +833,7 @@ msgstr ""
 
 #: ../root/statistics/MusicBrainzHistory.js:20
 msgid "{date} - {title}"
-msgstr ""
+msgstr "{date} - {title}"
 
 #: ../root/statistics/MusicBrainzHistory.js:36
 msgid "It seems we have no history to show at all!"
@@ -855,34 +857,32 @@ msgstr ""
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "Només d'aquest tipus"
 
 #: ../root/statistics/Relationships.js:106
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "Incloent-hi els subtipus"
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/statistics/Relationships.js:136
 msgid "{type0}-{type1} relationships:"
-msgstr ""
+msgstr "Relacions {type0}-{type1}:"
 
 #: ../root/statistics/stats.js:16
 msgid "Area types"
 msgstr ""
 
 #: ../root/statistics/stats.js:17
-#, fuzzy
-#| msgid "Artists"
 msgid "Artist countries"
-msgstr "Artistes"
+msgstr "Països dels artistes"
 
 #: ../root/statistics/stats.js:18
 msgid "Artist types and genders"
-msgstr ""
+msgstr "Tipus i gèneres dels artistes"
 
 #: ../root/statistics/stats.js:23
 msgctxt "plural, multiple releases, header"
@@ -918,7 +918,7 @@ msgstr ""
 #: ../root/statistics/stats.js:37
 msgctxt "stats category"
 msgid "Other"
-msgstr ""
+msgstr "Altres"
 
 #: ../root/statistics/stats.js:38
 msgid "Place types"
@@ -987,21 +987,19 @@ msgstr ""
 
 #: ../root/statistics/stats.js:86
 msgid "Female artists"
-msgstr ""
+msgstr "Artistes de gènere femení"
 
 #: ../root/statistics/stats.js:91
-#, fuzzy
-#| msgid "Artists"
 msgid "Male artists"
-msgstr "Artistes"
+msgstr "Artistes de gènere masculí"
 
 #: ../root/statistics/stats.js:96
 msgid "Non-binary Artists"
-msgstr ""
+msgstr "Artistes de gènere no binari"
 
 #: ../root/statistics/stats.js:101
 msgid "Gender not applicable"
-msgstr ""
+msgstr "Gènere no aplicable"
 
 #: ../root/statistics/stats.js:106
 msgid "Artists with no gender set (non-group artists)"
