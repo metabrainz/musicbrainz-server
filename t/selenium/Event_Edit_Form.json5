@@ -109,6 +109,11 @@
       target: "xpath=//div[@id='add-relationship-dialog']//li[contains(@class, 'action-item')][contains(., 'Add a new event')]",
       value: '',
     },
+    {
+      command: 'pause',
+      target: '3000',
+      value: '',
+    },
     // Can only access the iframe document through JavaScript.
     {
       command: 'runScript',

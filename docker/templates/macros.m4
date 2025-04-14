@@ -344,4 +344,12 @@ python3.11-venv
 software-properties-common
 ')
 
+m4_define(
+    `setup_test_service',
+    `m4_dnl
+touch /etc/service/$1/down && \
+    mkdir -p /etc/service/$1/log /var/log/service/$1 && \
+    echo -e "#!/bin/sh\nexec svlogd -tt /var/log/service/$1" > /etc/service/$1/log/run && \
+    chmod +x /etc/service/$1/log/run')
+
 m4_divert`'m4_dnl

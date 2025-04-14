@@ -43,7 +43,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
                                           {from => 'identities', to => 'identities'},
                                           {from => 'legal_name', to => 'legal_name'},
                                           {from => 'other_identities', to => 'other_identities'},
-                                          'top_tags']},
+                                          'top_tags', 'genre_map']},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}},

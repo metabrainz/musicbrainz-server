@@ -82,7 +82,7 @@ process below first!), you need to start by updating the translated messages:
    git merge --log=876423 --no-ff translations && \
    git push
    ```
-   Wait until [CircleCI](https://circleci.com/gh/metabrainz/musicbrainz-server) is happy
+   Wait until [GitHub Actions](https://github.com/metabrainz/musicbrainz-server/actions/) is happy
    with this merge as some unmatching translations can break building Docker images.
 
    :bricks: While waiting you can pre-empt [drafting blog post](#draft-blog-post)!
@@ -115,9 +115,8 @@ Last but not least, thank (in order of rarity):
 ### Merge Git branches
 
 1. Merge `beta` to `production` (`git merge --log=876423 --no-ff beta`) and push.
-   Wait until [CircleCI](https://circleci.com/gh/metabrainz/musicbrainz-server) and
-   [Jenkins (Selenium)](https://ci.metabrainz.org/job/musicbrainz-server/) are happy
-   with this merge.
+   Wait until [GitHub Actions](https://github.com/metabrainz/musicbrainz-server/actions/)
+   is happy with this merge.
 
    :bricks: While waiting you can pre-empt [drafting Docker Compose release notes](#release-musicbrainz-docker)!
 

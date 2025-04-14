@@ -1,0 +1,213 @@
+name: CI
+
+on:
+  push:
+    branches-ignore:
+      - translations
+  pull_request:
+    branches-ignore:
+      - translations
+
+env:
+  TESTS_IMAGE_TAG: v-2025-04-11
+
+jobs:
+  build-tests-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check the cache for musicbrainz-tests-image
+        id: tests-image-cache-check
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+          lookup-only: true
+
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: actions/checkout@v4
+
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: docker/setup-buildx-action@v3
+
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        run: make -C docker config
+
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/Dockerfile.tests
+          tags: metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          push: false
+          outputs: type=docker,dest=/tmp/musicbrainz-tests.tar
+
+      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+
+  js-perl-and-pgtap:
+    needs: build-tests-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: mbs_checkout
+
+      - name: Restore musicbrainz-tests image from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+
+      - name: Load musicbrainz-tests image from .tar file
+        run: docker load -i /tmp/musicbrainz-tests.tar
+
+      - name: Run tests container
+        run: |
+          CONTAINER_NAME=mbtest-js-perl-and-pgtap
+
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+
+          docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
+          docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: js_nyc_output
+          path: nyc_output
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: js_perl_and_pgtap_junit_output
+          path: junit_output
+
+  selenium:
+    needs: build-tests-image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        partition: [1, 2, 3, 4]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: mbs_checkout
+
+      - name: Restore musicbrainz-tests image from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+
+      - name: Load musicbrainz-tests image from .tar file
+        run: docker load -i /tmp/musicbrainz-tests.tar
+
+      - name: Run tests container
+        run: |
+          CONTAINER_NAME=mbtest-selenium-${{ matrix.partition }}
+
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+
+          docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
+          docker exec \
+            --env SELENIUM_JS_OPTIONS='--run-partition ${{ matrix.partition }}/4' \
+            "$CONTAINER_NAME" \
+            ./docker/musicbrainz-tests/run_selenium_tests.sh
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_service_logs
+          path: service_logs
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_nyc_output
+          path: nyc_output
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_junit_output
+          path: junit_output
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_screenshots
+          path: screenshots
+          if-no-files-found: ignore
+
+  generate-reports:
+    needs: [js-perl-and-pgtap, selenium]
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: mbs_checkout
+
+      - name: Restore musicbrainz-tests image from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+
+      - name: Load musicbrainz-tests image from .tar file
+        run: docker load -i /tmp/musicbrainz-tests.tar
+
+      - name: Run tests container
+        run: |
+          CONTAINER_NAME=mbtest-generate-reports
+
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+
+          docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: "*_nyc_output"
+        id: nyc_download
+
+      - if: steps.nyc_download.outcome == 'success'
+        run: |
+          if [ -z "$(find "$GITHUB_WORKSPACE" -type f -path '*_nyc_output/*.json')" ]; then
+            echo 'No istanbul artifacts found.'
+            exit 1
+          fi
+          CONTAINER_NAME=mbtest-generate-reports
+          docker exec --user musicbrainz "$CONTAINER_NAME" mkdir -p .nyc_output
+          docker exec "$CONTAINER_NAME" sh -c 'mv /workspace/*_nyc_output/*.json .nyc_output/; chown -R musicbrainz:musicbrainz .nyc_output'
+          docker exec --user musicbrainz "$CONTAINER_NAME" ./node_modules/.bin/nyc report --reporter=html
+          docker exec "$CONTAINER_NAME" mv coverage /workspace
+        id: nyc_merge
+
+      - if: steps.nyc_merge.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage_report
+          path: coverage
+
+      - if: always()
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*_junit_output"
+        id: junit_download
+
+      - if: steps.junit_download.outcome == 'success'
+        uses: mikepenz/action-junit-report@v5
+        with:
+          report_paths: '*_junit_output/*.xml'
+          annotate_only: true
+          fail_on_failure: true
+          require_tests: true
