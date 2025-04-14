@@ -20,6 +20,8 @@ use MusicBrainz::Server::Data::Series;
 use MusicBrainz::Server::Data::URL;
 use MusicBrainz::Server::Data::Work;
 use MusicBrainz::Server::Data::Utils qw(
+    contains_number
+    non_empty
     placeholders
     ref_to_type
     type_to_model
@@ -28,6 +30,7 @@ use MusicBrainz::Server::Constants qw(
     :direction
     %ENTITIES
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
+    @PART_OF_SERIES_LINK_TYPE_IDS
     @RELATABLE_ENTITIES
 );
 use Scalar::Util qw( weaken );
@@ -541,10 +544,10 @@ sub generate_table_list {
     @end_types = @RELATABLE_ENTITIES unless @end_types;
     foreach my $t (@end_types) {
         if ($type le $t) {
-            push @types, ["l_${type}_${t}", 'entity0', 'entity1'];
+            push @types, ["l_${type}_${t}", 'entity0', 'entity1', $t];
         }
         if ($type ge $t) {
-            push @types, ["l_${t}_${type}", 'entity1', 'entity0'];
+            push @types, ["l_${t}_${type}", 'entity1', 'entity0', $t];
         }
     }
     return @types;
@@ -823,8 +826,18 @@ sub exists {
 
     $self->_check_types($type0, $type1);
 
-    my @props = qw(entity0 entity1 link_order link);
-    my @values = @{$values}{qw(entity0_id entity1_id link_order)};
+    my @props = qw(entity0 entity1);
+    my @values = @{$values}{qw(entity0_id entity1_id)};
+
+    # For part of series, do not count link order as different
+    # if everything else is the same in order to avoid duplicate additions
+    # (different number attributes still allowed)
+    my $ignore_link_order = contains_number(\@PART_OF_SERIES_LINK_TYPE_IDS, $values->{link_type_id});
+
+    if (non_empty($values->{link_order}) && !$ignore_link_order) {
+        push @props, 'link_order';
+        push @values, $values->{link_order};
+    }
 
     my $link = $self->c->model('Link')->find({
         link_type_id => $values->{link_type_id},
@@ -835,6 +848,7 @@ sub exists {
     });
 
     return 0 unless $link;
+    push @props, 'link';
     push @values, $link;
 
     return $self->sql->select_single_value(

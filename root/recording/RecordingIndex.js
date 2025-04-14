@@ -176,6 +176,7 @@ component RecordingIndex(
         )}
       </PaginatedResults>
       <Relationships source={recording} />
+      {manifest('recording/index', {async: 'async'})}
     </RecordingLayout>
   );
 }

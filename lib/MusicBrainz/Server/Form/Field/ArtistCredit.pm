@@ -5,13 +5,12 @@ use warnings;
 use HTML::FormHandler::Moose;
 use Storable qw( dclone );
 use Text::Trim qw( );
-use JSON qw( to_json );
 extends 'HTML::FormHandler::Field::Compound';
 
 use MusicBrainz::Server::Edit::Utils qw( clean_submitted_artist_credits );
 use MusicBrainz::Server::Entity::ArtistCredit;
 use MusicBrainz::Server::Entity::ArtistCreditName;
-use MusicBrainz::Server::Form::Utils qw( localize_error );
+use MusicBrainz::Server::Form::Utils qw( localize_error form_or_field_to_json );
 use MusicBrainz::Server::Translation qw( l );
 
 has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
@@ -103,7 +102,7 @@ around 'value' => sub {
     return clean_submitted_artist_credits($ret);
 };
 
-sub json {
+sub to_artist_credit_json {
     my $self = shift;
     my $result = $self->result;
     my $names = [];
@@ -132,11 +131,20 @@ sub json {
         $name->{name} = $artist->name if $artist && !$name->{name};
     }
 
-    return to_json({names => $names});
+    return {names => $names};
 }
 
 sub build_localize_meth {
     return \&localize_error;
+}
+
+sub stash_field {
+    my ($self) = @_;
+
+    $self->form->ctx->stash(
+        artist_credit => $self->to_artist_credit_json,
+        artist_credit_field => form_or_field_to_json($self),
+    );
 }
 
 =head1 COPYRIGHT AND LICENSE

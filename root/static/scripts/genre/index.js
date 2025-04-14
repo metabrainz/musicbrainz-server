@@ -8,3 +8,4 @@
  */
 
 import '../common/components/Annotation.js';
+import '../common/components/WikipediaExtract.js';

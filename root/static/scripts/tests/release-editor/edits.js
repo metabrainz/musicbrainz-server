@@ -10,7 +10,8 @@ import ko from 'knockout';
 import test from 'tape';
 
 import MB from '../../common/MB.js';
-import * as validation from '../../edit/validation.js';
+import MBEdit from '../../edit/MB/edit.js';
+import {errorField, errorFields} from '../../edit/validation.js';
 import fields from '../../release-editor/fields.js';
 import exportTypeInfo from '../exportTypeInfo.js';
 import {linkAttributeTypes, linkTypes} from '../typeInfo.js';
@@ -57,10 +58,10 @@ test((
 function editReleaseTest(name, callback) {
   test(name, function (t) {
     callback(t, common.setupReleaseEdit());
-    validation.errorFields([]);
+    errorFields([]);
     releaseEditor.externalLinksEditData({});
     releaseEditor.hasInvalidLinks =
-      validation.errorField(ko.observable(false));
+      errorField(ko.observable(false));
   });
 }
 
@@ -285,14 +286,14 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
   const newMedium1 = new fields.Medium({
     name: 'foo',
     position: 1,
-  });
+  }, release);
 
   newMedium1.tracks.push(new fields.Track({}, newMedium1));
 
   const newMedium2 = new fields.Medium({
     name: 'bar',
     position: 2,
-  });
+  }, release);
 
   newMedium2.tracks.push(new fields.Track({}, newMedium2));
   mediums.push(newMedium1, newMedium2);
@@ -307,14 +308,14 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
 
   t.deepEqual(mediumCreateEdits, [
     {
-      edit_type: MB.edit.TYPES.EDIT_MEDIUM_CREATE,
+      edit_type: MBEdit.TYPES.EDIT_MEDIUM_CREATE,
       hash: 'aca331e8e3448781852995b146feae853acbaa0e',
       name: 'foo',
       position: 4,
       release: 'f4c552ab-515e-42df-a9ee-a370867d29d1',
     },
     {
-      edit_type: MB.edit.TYPES.EDIT_MEDIUM_CREATE,
+      edit_type: MBEdit.TYPES.EDIT_MEDIUM_CREATE,
       hash: 'd0f3777cede43eef81db632b671ca8da45085760',
       name: 'bar',
       position: 2,
@@ -326,7 +327,7 @@ test('mediumCreate edits are not given conflicting positions', function (t) {
 
   t.deepEqual(releaseEditor.edits.mediumReorder(release), [
     {
-      edit_type: MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+      edit_type: MBEdit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
       hash: '175c1aabc49c94c5edb79fd11cca04a31f0f85ad',
       medium_positions: [
         {
@@ -358,7 +359,7 @@ test((
   releaseEditor.rootField.release(release);
 
   const mediums = release.mediums;
-  const newMedium = new fields.Medium({position: 2});
+  const newMedium = new fields.Medium({position: 2}, release);
 
   newMedium.tracks.push(new fields.Track({}, newMedium));
   mediums.push(newMedium);
@@ -367,7 +368,7 @@ test((
 
   t.deepEqual(releaseEditor.edits.mediumReorder(release), [
     {
-      edit_type: MB.edit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+      edit_type: MBEdit.TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
       hash: '6a2634d88b570aef5d0dd8521c7166b4a40ec042',
       medium_positions: [
         {

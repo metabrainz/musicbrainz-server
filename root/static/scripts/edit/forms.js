@@ -21,7 +21,7 @@ function cmpOptions(a, b) {
     compare(a.text, b.text);
 }
 
-MB.forms = {
+const formUtils = {
 
   buildOptionsTree(root, textAttr, valueAttr) {
     var options = [];
@@ -73,7 +73,7 @@ MB.forms = {
       );
     }
 
-    var options = MB.forms.buildOptionsTree(root, getText, 'id');
+    var options = formUtils.buildOptionsTree(root, getText, 'id');
 
     for (var i = 0, len = options.length, option; i < len; i++) {
       if ((option = options[i]) && !option.data.description) {
@@ -294,6 +294,21 @@ ko.virtualElements.allowedBindings.loop = true;
 
 
 /*
+ * By default, knockout limits the number of items it'll loop through before
+ * giving up finding any moves in an arrayChange sequence, presumably to
+ * limit its polynomial time complexity in the case of really large arrays.
+ * But the loop bindingHandler which we use depends on moves always being
+ * detected, so we must disable this limit by passing a falsy value as the
+ * third argument.
+ */
+ko.utils.__findMovesInArrayComparison = ko.utils.findMovesInArrayComparison;
+
+ko.utils.findMovesInArrayComparison = function (left, right) {
+  ko.utils.__findMovesInArrayComparison(left, right, false);
+};
+
+
+/*
  * Helper binding that matches an input and label (assuming a table layout)
  * together in a foreach loop, by assigning an id composed of a prefix
  * concatenated with the index of the item in the loop.
@@ -333,9 +348,9 @@ ko.bindingHandlers.withLabel = {
   },
 };
 
-export const buildOptionsTree = MB.forms.buildOptionsTree;
-export const linkTypeOptions = MB.forms.linkTypeOptions;
-export const setDisabledOption = MB.forms.setDisabledOption;
+export const buildOptionsTree = formUtils.buildOptionsTree;
+export const linkTypeOptions = formUtils.linkTypeOptions;
+export const setDisabledOption = formUtils.setDisabledOption;
 
 MB.initializeTooShortYearChecks = function (type) {
   function blockTooShortBeginYear() {
@@ -366,3 +381,5 @@ MB.initializeTooShortYearChecks = function (type) {
 
   blockTooShortEndYear();
 };
+
+export const initializeTooShortYearChecks = MB.initializeTooShortYearChecks;

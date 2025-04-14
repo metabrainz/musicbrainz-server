@@ -1,6 +1,6 @@
 package MusicBrainz::Server::WebService::Serializer::JSON::2::ReleaseGroup;
 use Moose;
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( serialize_entity list_of );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( list_of serialize_artist_credit );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -21,11 +21,15 @@ sub serialize
     $body{'first-release-date'} = $entity->first_release_date->format;
     $body{disambiguation} = $entity->comment // '';
 
-    $body{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
-        if $entity->artist_credit && $inc && ($inc->artist_credits || $inc->artists);
+    serialize_artist_credit(\%body, $entity, $inc, $stash)
+        if $entity->artist_credit && $inc && $inc->artist_credits;
 
-    $body{releases} = list_of($entity, $inc, $stash, 'releases')
-        if $inc && $inc->releases;
+    do {
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_artist_credit_aliases = 0;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_artist_credit_tags_and_genres = 0;
+        $body{releases} = list_of($entity, $inc, $stash, 'releases')
+            if $inc && $inc->releases;
+    };
 
     return \%body;
 }

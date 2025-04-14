@@ -41,34 +41,47 @@ import sanitizedContext from '../../utility/sanitizedContext.mjs';
  * "$c"
  *   A sanitized version of $c (Catalyst context) from the server, for React-
  *   hydrated client scripts to use. (See root/utility/hydrate.js.)
+ *
+ * "jedData"
+ *   Stores language-specific strings. This object is assigned to by whatever
+ *   jed-$lang.js bundle is loaded on the page. See webpack/client.config.mjs
+ *   for the code used to generate those.
  */
 
-const renderValue = (value: mixed): string => {
+const renderValue = (value: mixed, wrapper: string = ''): string => {
   let result = escapeClosingTags(JSON.stringify(value) ?? '');
-  if (typeof value === 'object' && value != null) {
-    result = 'Object.freeze(' + result + ')';
+  if (wrapper) {
+    result = wrapper + '(' + result + ')';
   }
   return result;
 };
 
-export const renderKeyAndValue = (
+const renderKeyAndValue = (
   key: string,
   value: mixed,
+  wrapper: string = '',
 ): string => (
-  JSON.stringify(key) + ':' + renderValue(value)
+  JSON.stringify(key) + ':' + renderValue(value, wrapper)
 );
 
-const CLIENT_DBDEFS_CODE = renderKeyAndValue('DBDefs', DBDefs);
+const CLIENT_DBDEFS_CODE =
+  renderKeyAndValue('DBDefs', DBDefs, 'Object.freeze');
 
 export default ((
   <CatalystContext.Consumer>
     {$c => {
+      const locale = $c.stash.current_language;
       const GLOBAL_JS_CODE =
         'Object.defineProperty(window,' +
         JSON.stringify(GLOBAL_JS_NAMESPACE) +
         ',{value:Object.freeze({' +
         CLIENT_DBDEFS_CODE + ',' +
-        renderKeyAndValue('$c', sanitizedContext($c)) +
+        renderKeyAndValue('$c', sanitizedContext($c), 'Object.freeze') + ',' +
+        renderKeyAndValue(
+          'jedData',
+          {[locale]: null, locale},
+          'Object.seal',
+        ) +
         '})})';
       return (
         <script

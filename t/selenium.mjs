@@ -200,6 +200,11 @@ const driver = (x => {
         'no-sandbox',
         'proxy-server=http://localhost:5051',
       );
+      options.setUserPreferences({
+        'credentials_enable_service': false,
+        'profile.password_manager_enabled': false,
+        'profile.password_manager_leak_detection': false,
+      });
       if (argv.browserBinaryPath) {
         options.setChromeBinaryPath(argv.browserBinaryPath);
       }
@@ -770,6 +775,10 @@ const seleniumTests = [
   },
   {
     name: 'Recording_Edit_Form.json5',
+    login: true,
+  },
+  {
+    name: 'Release_Group_Edit_Form.json5',
     login: true,
   },
   {

@@ -21,6 +21,7 @@ use MusicBrainz::Server::Data::Utils::Uniqueness qw( assert_uniqueness_conserved
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::Name',
      'MusicBrainz::Server::Data::Role::Annotation' => { type => 'label' },
      'MusicBrainz::Server::Data::Role::Alias' => { type => 'label' },

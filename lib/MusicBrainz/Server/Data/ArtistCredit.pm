@@ -25,7 +25,22 @@ sub _type { 'artist_credit' }
 
 sub _table { shift->_main_table }
 
-sub _gid_redirect_table { shift->_table . '_gid_redirect' }
+sub _build_columns {
+    return join q(, ), (
+        'artist_credit.id',
+        'artist_credit.gid',
+        'artist_credit.name COLLATE musicbrainz',
+        'artist_credit.artist_count',
+        'artist_credit.edits_pending',
+    );
+}
+
+has '_columns' => (
+    is => 'ro',
+    isa => 'Str',
+    lazy => 1,
+    builder => '_build_columns',
+);
 
 sub get_by_ids
 {

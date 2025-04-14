@@ -62,12 +62,12 @@ fieldTest((
   const mediums = release.mediums;
 
   mediums([
-    new fields.Medium({tracks: []}),
-    new fields.Medium({tracks: [{}]}),
-    new fields.Medium({id: 1, tracks: []}),
-    new fields.Medium({originalID: 1, tracks: []}),
-    new fields.Medium({id: 1, tracks: [{}]}),
-    new fields.Medium({originalID: 1, tracks: [{}]}),
+    new fields.Medium({tracks: []}, release),
+    new fields.Medium({tracks: [{}]}, release),
+    new fields.Medium({id: 1, tracks: []}, release),
+    new fields.Medium({originalID: 1, tracks: []}, release),
+    new fields.Medium({id: 1, tracks: [{}]}, release),
+    new fields.Medium({originalID: 1, tracks: [{}]}, release),
   ]);
 
   t.equal(

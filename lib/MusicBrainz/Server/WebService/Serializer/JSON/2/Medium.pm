@@ -2,7 +2,7 @@ package MusicBrainz::Server::WebService::Serializer::JSON::2::Medium;
 use Moose;
 use JSON;
 use List::AllUtils qw( nsort_by sort_by );
-use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number serialize_entity );
+use MusicBrainz::Server::WebService::Serializer::JSON::2::Utils qw( number serialize_artist_credit serialize_entity );
 
 extends 'MusicBrainz::Server::WebService::Serializer::JSON::2';
 
@@ -70,7 +70,7 @@ sub serialize_track {
         $track_output{recording} = serialize_entity($entity->recording, $inc, $stash);
     }
 
-    $track_output{'artist-credit'} = serialize_entity($entity->artist_credit, $inc, $stash)
+    serialize_artist_credit(\%track_output, $entity, $inc, $stash)
         if $inc->artist_credits;
 
     return \%track_output;

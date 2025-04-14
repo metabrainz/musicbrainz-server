@@ -585,6 +585,10 @@ component ReportsIndex() {
             content={l('Series with annotations')}
             reportName="AnnotationsSeries"
           />
+          <ReportsIndexEntry
+            content={l('Series containing duplicates')}
+            reportName="SeriesContainingDuplicates"
+          />
         </ul>
 
         <h2>{l('Works')}</h2>

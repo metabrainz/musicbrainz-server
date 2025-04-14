@@ -9,7 +9,7 @@
 import $ from 'jquery';
 import test from 'tape';
 
-import '../../../lib/jquery-ui.js';
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../../release-editor/init.js';
 
 import {
@@ -105,8 +105,9 @@ dialogTest((
     'add-medium dialog is closed after switching back to the information tab',
   );
 
-  release.mediums()[0].tracks.push(
-    new fields.Track({length: 12345, name: '~fooo~', position: 1}),
+  const medium = release.mediums()[0];
+  medium.tracks.push(
+    new fields.Track({length: 12345, name: '~fooo~', position: 1}, medium),
   );
 
   releaseEditor.activeTabID('#information');
@@ -126,7 +127,7 @@ dialogTest((
   const medium = release.mediums()[0];
 
   medium.tracks.push(
-    new fields.Track({length: 12345, name: '~fooo~', position: 1}),
+    new fields.Track({length: 12345, name: '~fooo~', position: 1}, medium),
   );
 
   t.ok(medium.hasTracks(), 'medium has tracks');

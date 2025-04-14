@@ -3,7 +3,6 @@ package MusicBrainz::Server::Data::Role::GIDRedirect;
 use Moose::Role;
 use namespace::autoclean;
 
-use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( placeholders object_to_ids );
 use MusicBrainz::Server::Validation qw( is_guid );
 
@@ -34,9 +33,7 @@ sub _delete_and_redirect_gids
 sub _gid_redirect_table {
     my $self = shift;
 
-    return $self->_main_table . '_gid_redirect'
-        if $ENTITIES{$self->_type}{mbid}{multiple};
-    return;
+    return $self->_main_table . '_gid_redirect';
 }
 
 sub add_gid_redirects
@@ -46,14 +43,6 @@ sub add_gid_redirects
     my $query = "INSERT INTO $table (gid, new_id) VALUES " .
                 (join q(, ), ('(?, ?)') x keys %redirects);
     $self->sql->do($query, %redirects);
-}
-
-sub delete_returning_gids {
-    my ($self, @ids) = @_;
-    return $self->sql->select_single_column_array('
-        DELETE FROM ' . $self->_main_table . '
-        WHERE id IN (' . placeholders(@ids) . ')
-        RETURNING gid', @ids);
 }
 
 around get_by_gid => sub
@@ -66,11 +55,9 @@ around get_by_gid => sub
     }
     else {
         my $table = $self->_gid_redirect_table;
-        if (defined($table)) {
-            my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
-            if (defined($id)) {
-                return $self->get_by_id($id);
-            }
+        my $id = $self->sql->select_single_value("SELECT new_id FROM $table WHERE gid=?", $gid);
+        if (defined($id)) {
+            return $self->get_by_id($id);
         }
         return undef;
     }
@@ -82,8 +69,6 @@ around get_by_gids => sub
     my (@gids) = @_;
     my %gid_map = %{ $self->$orig(@_) };
     my $table = $self->_gid_redirect_table;
-    return \%gid_map
-        unless defined $table;
     my @missing_gids;
     for my $gid (grep { is_guid($_) } @gids) {
         unless (exists $gid_map{$gid}) {

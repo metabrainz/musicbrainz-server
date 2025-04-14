@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import {SidebarTagEditor}
@@ -57,13 +58,16 @@ component SidebarTags(entity: TaggableEntityT) {
     $c.action.name === 'tags' ? null : (
       ($c.user?.has_confirmed_email_address &&
         aggregatedTags && userTags) ? (
-          <SidebarTagEditor
-            aggregatedTags={aggregatedTags}
-            entity={entity}
-            genreMap={$c.stash.genre_map}
-            more={more}
-            userTags={userTags}
-          />
+          <>
+            <SidebarTagEditor
+              aggregatedTags={aggregatedTags}
+              entity={entity}
+              genreMap={$c.stash.genre_map}
+              more={more}
+              userTags={userTags}
+            />
+            {manifest('common/components/TagEditor', {async: 'async'})}
+          </>
         ) : (
           <div id="sidebar-tags">
             <h2>{lp('Tags', 'folksonomy')}</h2>

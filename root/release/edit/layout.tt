@@ -72,7 +72,6 @@
 
   [%- guesscase_options() -%]
 
-  [% script_manifest('edit.js') %]
   [% script_manifest('release-editor.js') %]
 
   <script>

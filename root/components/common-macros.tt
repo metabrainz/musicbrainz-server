@@ -1,7 +1,6 @@
 [%- USE u = Utils -%]
 [%- USE JavaScript -%]
 [%- USE React -%]
-[%- PROCESS 'components/rating-macros.tt' -%]
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END # Converted to React with standard String.replace
@@ -15,16 +14,10 @@
 ~%]
 [%- USE UserDate(c.user.preferences, current_language) # Converted to React at root/utility/formatUserDate.js
 -%]
-[%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc', to) %][%- END -%]
+[%~ MACRO doc_link(to) BLOCK -%][% c.uri_for('/doc/' _ to) %][%- END -%]
 [%~ MACRO va_doc_link BLOCK -%]
     [%- doc_link('Style/Unknown_and_untitled/Special_purpose_artist#List_of_official_SPAs') -%]
 [%- END -%]
-
-[%~ MACRO isolate_text(text) BLOCK; # Converted to React at root/static/scripts/common/utility/isolateText.js
-    IF text != ''; INCLUDE _wrap_text options=['isolate', 'escape'] content=text;
-    ELSE; '';
-    END;
-END ~%]
 
 [%- USE Translation('mb_server') -%]
 [%~ MACRO l(text, args) BLOCK; # Converted to React at root/static/scripts/common/i18n.js
@@ -130,30 +123,6 @@ END; -%]
     [%- END -%]
 [%- END -%]
 
-[%~ MACRO expanded_artist_credit_list(ac) IF ac -%] [% # Converted to React at root/static/scripts/common/components/ExpandedArtistCredit.js %]
-  [%- IF ac.name != ac.names.0.artist.name || ac.names.size > 1 || ac.names.0.artist.comment -%]
-    [%- SET artist_list = [];
-        SET show_list = 0;
-        FOR name=ac.names;
-          IF name.artist.name != name.name;
-            artist_list.push(l('{artist} as {name}', { artist => descriptive_link(name.artist), name => html_escape(name.name)}));
-            SET show_list = 1;
-          ELSE;
-            artist_list.push(descriptive_link(name.artist));
-            IF name.artist.comment;
-              SET show_list = 1;
-            END;
-          END;
-        END; -%]
-    [%- IF show_list -%]<span class="expanded-ac-list">[%- comma_only_list(artist_list) -%]</span>[%- END -%]
-  [% END %]
-[%- END -%]
-
-[%~ MACRO expanded_artist_credit(ac) IF ac -%] [% # Converted to React at root/static/scripts/common/components/ExpandedArtistCredit.js %]
-  [%- artist_credit(ac) -%]<br />
-  [%- expanded_artist_credit_list(ac) -%]<br />
-[%- END -%]
-
 [%~ MACRO link_entity(entity, action, text, credited_as, no_escape) BLOCK; # Converted to React at root/static/scripts/common/components/EntityLink.js
     # no_escape is only available for artists and recordings
     show_disambiguation = text == '';
@@ -198,19 +167,6 @@ END -%]
       '<span class="' _ (!allow_new && ('deleted' _ ' ')) _ 'tooltip" title="' _ html_escape(caption) _ '">' _
         '<bdi>' _ text _ '</bdi>' _
       '</span>';
-    END; -%]
-
-[%~ MACRO descriptive_link(entity, credited_as) # Converted to React at root/static/scripts/common/components/DescriptiveLink.js
-    IF entity.artist_credit.defined;
-        l('{entity} by {artist}', { entity => link_entity(entity, 'show', '', credited_as),
-                                    artist => artist_credit(entity.artist_credit) });
-    ELSIF get_entity_type(entity) == 'place' && entity.area.defined;
-        l('{place} in {area}', { place => link_entity(entity, 'show', '', credited_as),
-                                 area => link_area_with_containment(entity.area) });
-    ELSIF get_entity_type(entity) == 'area' && entity.gid;
-        link_area_with_containment(entity, 'show', '', credited_as);
-    ELSE;
-        link_entity(entity, 'show', '', credited_as);
     END; -%]
 
 [%~ MACRO get_entity_type(entity) BLOCK;
@@ -346,20 +302,6 @@ END -%]
     INCLUDE _link_mbid_entity entity=area type='area' action=action content=text default_content=area.l_name;
 END -%]
 
-[%~ MACRO link_area_containment(area) BLOCK;
-    link_areas = [];
-    FOR area=area.containment;
-      link_areas.push(link_area(area));
-    END;
-    comma_only_list(link_areas);
-END -%]
-
-[%~ MACRO link_area_with_containment(area, action, text, credited_as) BLOCK;
-    link_entity(area, action, text, credited_as);
-    containment_link = link_area_containment(area);
-    IF containment_link; ', ' _ containment_link; END;
-END -%]
-
 [%~ MACRO link_place(place, action, text) BLOCK;
     INCLUDE _link_mbid_entity entity=place type='place' action=action content=text;
 END -%]
@@ -396,10 +338,6 @@ END -%]
     INCLUDE _link_other_entity content=text action=action type='cdtoc' default_content=cdtoc.discid;
 END -%]
 
-[%~ MACRO link_cdstub(cdstub, action, text) BLOCK; # Converted to React at root/static/scripts/common/components/CDStubLink.js
-    INCLUDE _link_other_entity content=text action=action type='cdstub' default_content=cdstub.discid;
-END -%]
-
 [%~ MACRO link_editor(editor, action, text, size) BLOCK;
     DEFAULT action = 'profile';
     DEFAULT size = 12;
@@ -412,10 +350,6 @@ END -%]
 
 [%~ MACRO login_url(redirect) BLOCK;
     c.uri_for_action('/user/login', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
-END -%]
-
-[%~ MACRO register_url(redirect) BLOCK;
-    c.uri_for_action('/account/register', { returnto => c.req.query_params.returnto || redirect || c.relative_uri });
 END -%]
 
 [%~ MACRO simple_link(url, text) BLOCK; # url may be a string or a URI object
@@ -454,24 +388,6 @@ END -%]
     comma_only_list(out);
 END -%]
 
-[%~ MACRO edit_status_class(edit) BLOCK # Converted to React as getEditStatusClass at root/utility/edit.js ~%]
-    [%~ IF edit.status == 1 ~%]
-        [%- " open" -%]
-    [%~ ELSIF edit.status == 2 ~%]
-        [%- " applied" -%]
-    [%~ ELSIF edit.status == 3 ~%]
-        [%- " failed" -%]
-    [%~ ELSIF edit.status == 9 ~%]
-        [%- " cancelled" -%]
-    [%~ ELSE ~%]
-        [%- " edit-error" -%]
-    [%~ END ~%]
-[%~ END ~%]
-
-[%~ MACRO css_class_name(name) BLOCK; # React equivalent is kebabCase at root/static/scripts/common/utility/strings.js
-    name | lower | replace('[^a-z]+', '-') | remove('^-|-$');
-    END -%]
-
 [%~ MACRO warning_icon BLOCK # Converted to React at root/static/scripts/common/components/WarningIcon.js
 -%]
    [% React.embed(c, 'static/scripts/common/components/WarningIcon') %]
@@ -504,7 +420,7 @@ END -%]
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
 
 [%~ MACRO medium_format_name(medium) BLOCK # Converted to React at root/static/scripts/common/utility/mediumFormatName.js -%]
-    [% medium.l_format_name or l("Medium") | html %]
+    [%- medium.l_format_name or l("Medium") | html -%]
 [%- END -%]
 
 [%~ MACRO release_countries_list(release_events) BLOCK;
@@ -569,27 +485,4 @@ END -%]
       [%~ l('An entity with that name and disambiguation already exists. You must enter a unique disambiguation comment.') IF duplicate_violation ~%]
     </div>
   [%- END -%]
-[%~ END ~%]
-
-[%- MACRO remove_from_merge_header(to_merge) BLOCK -%] [% # Converted to React at root/utility/tableColumns.js %]
-  [% IF to_merge.size > 2 %]
-      <th aria-label="[% l('Remove from merge') %]" style="width: 1em" />
-  [% END %]
-[%- END -%]
-
-[%- MACRO remove_from_merge(entity_type_url, to_merge) BLOCK -%] [% # Converted to React at root/components/RemoveFromMergeTableCell.js %]
-  [% IF to_merge.size > 2 %]
-      <td>
-          <a href="/[% entity_type_url %]/merge?remove=[% entity.id %]&amp;submit=remove&amp;[% c.returnto_relative_uri %]">
-            <button type="button" class="remove-item icon" title="[% l('Remove from merge') %]"></button>
-          </a>
-      </td>
-  [% END %]
-[%- END -%]
-
-[%~ MACRO form_csrf_token(r) BLOCK -%] [% # Converted to React at root/components/FormCsrfToken.js %]
-    [%- r.hidden('csrf_session_key') -%]
-    [%- field_errors(r.form, 'csrf_session_key') -%]
-    [%- r.hidden('csrf_token') -%]
-    [%- field_errors(r.form, 'csrf_token') -%]
 [%~ END ~%]

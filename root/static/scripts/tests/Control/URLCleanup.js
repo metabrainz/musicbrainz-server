@@ -281,6 +281,49 @@ const testData = [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://fr-ca.7digital.com/artist/83-1/release/récidivistes-12888712',
   },
+  // ACUM
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
+          input_entity_type: 'release',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
+          only_valid_entity_types: ['release'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ&tab=musical',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ',
+          only_valid_entity_types: ['work'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/version?workid=1031256&versionid=1031256001',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=1031256',
+          only_valid_entity_types: ['work'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=A-001228628-0',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=A-001228628-0',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=I-000137240-1',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?creatorid=I-000137240-1',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?performerid=2',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/results?performerid=2',
+          only_valid_entity_types: ['artist'],
+  },
   // AllMusic
   {
                      input_url: 'https://www.allmusic.com/artist/the-beatles-mn0000754032/credits',
@@ -760,6 +803,27 @@ limited_link_type_combinations: [
                      input_url: 'http://avexnet.jp/id/supeg/discography/product/CTCR-11051.html',
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
+  },
+  // AWA
+  {
+                     input_url: 'http://s.awa.fm/artist/98739e4d703ac5805b51',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://s.awa.fm/artist/98739e4d703ac5805b51',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://s.awa.fm/track/6c6902a0267e46056d78',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://s.awa.fm/album/9508728d912dee540379#testy',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://s.awa.fm/album/9508728d912dee540379',
+       only_valid_entity_types: ['release'],
   },
   // Baidu Baike
   {

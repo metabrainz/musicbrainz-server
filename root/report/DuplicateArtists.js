@@ -135,6 +135,7 @@ component DuplicateArtists(...{
           ) : null}
         </PaginatedResults>
       </form>
+      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
     </ReportLayout>
   );
 }
