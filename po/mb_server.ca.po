@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2025-04-08 20:32+0000\n"
+"PO-Revision-Date: 2025-04-11 22:20+0000\n"
 "Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ca/>\n"
@@ -2256,7 +2256,7 @@ msgstr ""
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
 msgid "Secondary types"
-msgstr ""
+msgstr "Tipus secundaris"
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -2867,7 +2867,7 @@ msgstr ""
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
 msgid "Types"
-msgstr ""
+msgstr "Tipus"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
@@ -6400,7 +6400,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Relationships.js:86
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:645
 msgid "Relationships"
-msgstr ""
+msgstr "Relacions"
 
 #: ../root/area/AreaReleases.js:30 ../root/area/AreaReleases.js:33
 #: ../root/artist/ArtistReleases.js:36 ../root/artist/ArtistReleases.js:37
@@ -6809,7 +6809,7 @@ msgstr[1] ""
 #: ../root/collection/CollectionHeader.js:69
 #: ../root/components/EntityTabs.js:80 ../root/tag/TagLayout.js:16
 msgid "Overview"
-msgstr ""
+msgstr "Resum"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:37
 #: ../root/artist_credit/ArtistCreditLayout.js:41
@@ -7491,7 +7491,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:539
 #: ../root/utility/tableColumns.js:673
 msgid "Attributes"
-msgstr ""
+msgstr "Atributs"
 
 #: ../root/components/RelationshipsTable.js:338
 msgid "“{link_phrase}” relationships"
@@ -9962,7 +9962,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:157
 msgid "Timeline graph"
-msgstr ""
+msgstr "Gràfic de cronologia"
 
 #: ../root/layout/components/BottomMenu.js:160
 msgid "MusicBrainz history"
@@ -11294,7 +11294,7 @@ msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:39
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/release/ChangeQuality.js:28
 msgid "Change release data quality"
@@ -13139,7 +13139,7 @@ msgstr ""
 
 #: ../root/search/components/ResultsLayout.js:32
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "Darrera actualització: {date}"
 
 #: ../root/search/components/SearchError.js:20
 msgid "Search error"
@@ -16307,7 +16307,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:414
 msgid "Languages"
-msgstr ""
+msgstr "Llengües"
 
 #: ../root/user/UserProfile.js:485 ../root/user/UserProfile.js:580
 #: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
@@ -16321,7 +16321,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:572
 msgid "Edits"
-msgstr ""
+msgstr "Edicions"
 
 #: ../root/user/UserProfile.js:578
 msgctxt "edit descriptor"
