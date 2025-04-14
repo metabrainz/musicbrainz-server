@@ -447,7 +447,7 @@
     },
     // Google search link detection (MBS-12060)
     {
-      command: 'type',
+      command: 'setValue',
       target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
       value: 'https://www.google.com/search?q=good+music&oq=good+music&aqs=chrome..69i57j46i512j0i512l2j46i512j69i60l3.1930j0j7&sourceid=chrome&ie=UTF-8',
     },
