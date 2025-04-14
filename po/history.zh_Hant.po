@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-12-29 00:42+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
+"PO-Revision-Date: 2025-03-31 11:45+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -23,76 +23,77 @@ msgstr "已放棄\"feat.\"標準化"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
-msgstr "1200像素預覽圖"
+msgstr "1200 像素縮圖"
 
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""
 "1200px thumbnails are added to the Cover Art Archive, providing users with a "
 "very large image with a consistent size that avoids having to use the "
 "original uploads directly."
-msgstr "1200像素預覽圖已加入Cover Art "
-"Archive，為使用者提供了一個尺寸一致的超大圖像，避免直接使用原始上傳的檔案。"
+msgstr "已將 1200 像素縮圖新增至 Cover Art Archive "
+"，為使用者提供一致尺寸的超大圖片，避免直接使用原始上傳的圖像。"
 
 #: DB:statistics.statistic_event/description:2016-03-01
 msgid ""
 "A Discourse forum platform is added to replace both the old-school forums "
 "and the (by now dead) mailing lists and unify community communication in one "
 "place."
-msgstr "加入了一個基於Discourse的新論壇，以替代舊式論壇和(現已不活躍)郵件列表，將社群"
-"交流集中於一處。"
+msgstr "已新增 Discourse "
+"論壇平台，以取代傳統論壇和（現已停用的）郵件清單，統一社群交流於同一平台。"
 
 #: DB:statistics.statistic_event/description:2015-06-29
 msgid ""
 "A change is introduced that allows voting for and against existing "
 "folksonomy tags, rather than only adding your own."
-msgstr "允許投票支援和反對已有的folksonomy標籤，而不僅是自己建立。"
+msgstr "引入了一項變更，允許使用者對現有的民眾分類標籤投票贊成或反對，而不僅限於新增"
+"自己的標籤。"
 
 #: DB:statistics.statistic_event/description:2018-07-19
 msgid ""
 "A major update for the Picard tagger is released, with a huge amount of "
 "bugfixes and improvements."
-msgstr "發布了Picard標籤系統的主要更新，含大量漏洞修復和功能改進。"
+msgstr "Picard 標籤工具推出重大更新，包含大量錯誤修正與改進。"
 
 #: DB:statistics.statistic_event/description:2019-11-12
 msgid ""
 "A new \"Voting suggestions\" page is released, containing predefined edit "
 "searches to help editors find interesting and/or important edits to review "
 "and vote on."
-msgstr "發布了新的\"投票建議\"頁面"
-"，包含可用於輔助編輯者發現感興趣和/或重要的編輯並投票的編輯搜尋預設。"
+msgstr "全新「投票建議」頁面已推出，內含預設的編輯搜尋，幫助編輯者找到有趣或重要的編"
+"輯進行審查與投票。"
 
 #: DB:statistics.statistic_event/description:2013-08-05
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
-msgstr "發布了一個新的基於AJAX的封面上傳器，為發行版添加封面更容易了。"
+msgstr "全新的 AJAX 封面藝術上傳工具已推出，使新增封面藝術至發行品更加便利。"
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
-msgstr "現在當使用者收到了新的編輯注釋時會有一個新的橫幅消息通知。"
+msgstr "新的橫幅訊息功能已上線，當使用者收到新的編輯備註時會收到通知。"
 
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
-msgstr "添加了一個新的、更快的搜尋機制。"
+msgstr "已新增全新的搜尋機制，速度大幅提升。"
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr "MusicBrainz社群的意見分歧導致了一場大爭論。"
+msgstr "MusicBrainz 社群內部出現分歧，導致一場重大爭議。"
 
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
 "A very substantial schema change release adds a new entity type (areas), "
 "support for ISNI codes for artists and labels, and the possibility to have "
 "more than one release event on one release."
-msgstr "一個非常重要的架構改動版本，引入了新的實體類型（區域），"
-"支援創作者和唱片公司的 ISNI 代碼，並允許一個發行擁有多個發行事件/活動。"
+msgstr "一次重大結構變更更新引入了全新實體類型「地區」（Areas），"
+"新增對創作者與廠牌的 ISNI 編碼支援，並允許單一發行品擁有多個發表活動。"
 
 #: DB:statistics.statistic_event/description:2003-11-10
 msgid ""
 "A way to search for edits based on several different criteria is released."
-msgstr "發布了一個基於多種不同條件的編輯搜尋方式。"
+msgstr "全新的編輯搜尋功能已推出，允許根據多種條件篩選編輯記錄。"
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""

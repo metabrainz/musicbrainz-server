@@ -2,11 +2,12 @@
 # Translators:
 # Aniol, 2014
 # 0x1026 <me@hugovidafe.dev>, 2024.
+# Marc Riera <marc@marcriera.cat>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-01 11:28+0000\n"
-"Last-Translator: 0x1026 <me@hugovidafe.dev>\n"
+"PO-Revision-Date: 2025-04-09 01:20+0000\n"
+"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ca/>\n"
 "Language: ca\n"
@@ -14,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -329,7 +330,7 @@ msgstr "Bilin"
 #. frequency:0 iso_code_3:zbl
 #: DB:language/name:482
 msgid "Blissymbols"
-msgstr "Blissymbols"
+msgstr "Símbols Bliss"
 
 #. frequency:1 iso_code_3:brx
 #: DB:language/name:1394
@@ -359,7 +360,7 @@ msgstr "Buamu"
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
-msgstr "Bugui"
+msgstr "Buginès"
 
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
@@ -844,7 +845,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kat
 #: DB:language/name:144
 msgid "Georgian"
-msgstr ""
+msgstr "Georgià"
 
 #. frequency:2 iso_code_3:deu
 #: DB:language/name:145
@@ -894,7 +895,7 @@ msgstr ""
 #. frequency:1 iso_code_3:got
 #: DB:language/name:156
 msgid "Gothic"
-msgstr ""
+msgstr "Gòtic"
 
 #. frequency:1 iso_code_3:grb
 #: DB:language/name:157
@@ -904,7 +905,7 @@ msgstr ""
 #. frequency:2 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
-msgstr ""
+msgstr "Grec"
 
 #. frequency:1 iso_code_3:grc
 #: DB:language/name:158
@@ -934,7 +935,7 @@ msgstr ""
 #. frequency:1 iso_code_3:guj
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. frequency:1 iso_code_3:gnn
 #: DB:language/name:2511
@@ -979,7 +980,7 @@ msgstr ""
 #. frequency:1 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr ""
+msgstr "Hebreu"
 
 #. frequency:1 iso_code_3:her
 #: DB:language/name:168
@@ -1144,12 +1145,12 @@ msgstr ""
 #. frequency:2 iso_code_3:jpn
 #: DB:language/name:198
 msgid "Japanese"
-msgstr ""
+msgstr "Japonès"
 
 #. frequency:1 iso_code_3:jav
 #: DB:language/name:196
 msgid "Javanese"
-msgstr ""
+msgstr "Javanès"
 
 #. frequency:1 iso_code_3:tmr
 #: DB:language/name:6526
@@ -1199,7 +1200,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kan
 #: DB:language/name:206
 msgid "Kannada"
-msgstr ""
+msgstr "Kannada"
 
 #. frequency:1 iso_code_3:kau
 #: DB:language/name:209
@@ -1324,7 +1325,7 @@ msgstr ""
 #. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
-msgstr ""
+msgstr "Coreà"
 
 #. frequency:1 iso_code_3:kos
 #: DB:language/name:225
@@ -1334,7 +1335,7 @@ msgstr ""
 #. frequency:1 iso_code_3:kpe
 #: DB:language/name:226
 msgid "Kpelle"
-msgstr ""
+msgstr "Kpelle"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
@@ -1409,12 +1410,12 @@ msgstr ""
 #. frequency:1 iso_code_3:lao
 #: DB:language/name:237
 msgid "Lao"
-msgstr ""
+msgstr "Lao"
 
 #. frequency:1 iso_code_3:lat
 #: DB:language/name:238
 msgid "Latin"
-msgstr ""
+msgstr "Llatí"
 
 #. frequency:1 iso_code_3:lav
 #: DB:language/name:239
@@ -1544,7 +1545,7 @@ msgstr ""
 #. frequency:1 iso_code_3:mal
 #: DB:language/name:260
 msgid "Malayalam"
-msgstr ""
+msgstr "Malaiàlam"
 
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
@@ -1634,7 +1635,7 @@ msgstr ""
 #. frequency:1 iso_code_3:men
 #: DB:language/name:269
 msgid "Mende"
-msgstr ""
+msgstr "Mende"
 
 #. frequency:1 iso_code_3:mic
 #: DB:language/name:271
@@ -1694,7 +1695,7 @@ msgstr ""
 #. frequency:1 iso_code_3:mon
 #: DB:language/name:282
 msgid "Mongolian"
-msgstr ""
+msgstr "Mongol"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
@@ -1859,7 +1860,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ori
 #: DB:language/name:320
 msgid "Oriya"
-msgstr ""
+msgstr "Oriya"
 
 #. frequency:1 iso_code_3:orm
 #: DB:language/name:321
@@ -1934,7 +1935,7 @@ msgstr ""
 #. frequency:0 iso_code_3:phn
 #: DB:language/name:336
 msgid "Phoenician"
-msgstr ""
+msgstr "Fenici"
 
 #. frequency:1 iso_code_3:pjt
 #: DB:language/name:5402
@@ -1968,10 +1969,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Belarusian"
 msgid "Prussian"
-msgstr "Belarus"
+msgstr "Prussià"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2165,10 +2164,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Croat"
+msgstr "Serbocroat"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2223,7 +2220,7 @@ msgstr ""
 #. frequency:1 iso_code_3:sin
 #: DB:language/name:373
 msgid "Sinhala"
-msgstr ""
+msgstr "Singalès"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:375
@@ -2318,7 +2315,7 @@ msgstr ""
 #. frequency:2 iso_code_3:spa
 #: DB:language/name:393
 msgid "Spanish"
-msgstr "Espanyol"
+msgstr "Castellà"
 
 #. frequency:1 iso_code_3:srn
 #: DB:language/name:480
@@ -2338,7 +2335,7 @@ msgstr ""
 #. frequency:1 iso_code_3:sun
 #: DB:language/name:399
 msgid "Sundanese"
-msgstr ""
+msgstr "Sundanès"
 
 #. frequency:1 iso_code_3:sus
 #: DB:language/name:400
@@ -2368,12 +2365,12 @@ msgstr "Suec"
 #. frequency:1 iso_code_3:syr
 #: DB:language/name:404
 msgid "Syriac"
-msgstr ""
+msgstr "Siríac"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414
 msgid "Tagalog"
-msgstr ""
+msgstr "Tagàlog"
 
 #. frequency:1 iso_code_3:tah
 #: DB:language/name:405
@@ -2398,7 +2395,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tam
 #: DB:language/name:407
 msgid "Tamil"
-msgstr ""
+msgstr "Tàmil"
 
 #. frequency:1 iso_code_3:tat
 #: DB:language/name:408
@@ -2408,7 +2405,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tel
 #: DB:language/name:409
 msgid "Telugu"
-msgstr ""
+msgstr "Telugu"
 
 #. frequency:1 iso_code_3:ter
 #: DB:language/name:411
@@ -2423,12 +2420,12 @@ msgstr ""
 #. frequency:1 iso_code_3:tha
 #: DB:language/name:415
 msgid "Thai"
-msgstr ""
+msgstr "Tailandès"
 
 #. frequency:1 iso_code_3:bod
 #: DB:language/name:416
 msgid "Tibetan"
-msgstr ""
+msgstr "Tibetà"
 
 #. frequency:1 iso_code_3:tig
 #: DB:language/name:417
@@ -2543,7 +2540,7 @@ msgstr ""
 #. frequency:0 iso_code_3:uga
 #: DB:language/name:439
 msgid "Ugaritic"
-msgstr ""
+msgstr "Ugarític"
 
 #. frequency:1 iso_code_3:uig
 #: DB:language/name:440
@@ -2588,7 +2585,7 @@ msgstr ""
 #. frequency:1 iso_code_3:vai
 #: DB:language/name:446
 msgid "Vai"
-msgstr ""
+msgstr "Vai"
 
 #. frequency:1 iso_code_3:ven
 #: DB:language/name:447
@@ -2783,4 +2780,4 @@ msgstr ""
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[Sense contingut lingüístic]"
