@@ -6847,7 +6847,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?yesasia\.com\//, 'https://www.yesasia.com/');
-      url = url.replace(/^(https:\/\/www\.yesasia\.com)\/(?:global\/)?(?:[^/]*\/)?([\w.-]+)(?:en|ja|zh_CN|zh_TW)\/((?:info|list).html)(?:#.*)?$/, '$1/$2en/$3');
+      url = url.replace(/^(https:\/\/www\.yesasia\.com)\/(?:[^/]*\/)*([\w.-]+)(?:en|ja|zh_CN|zh_TW)\/((?:info|list).html)(?:#.*)?$/, '$1/$2en/$3');
       return url;
     },
     validate(url, id) {

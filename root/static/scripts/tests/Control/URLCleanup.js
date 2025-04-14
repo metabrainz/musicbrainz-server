@@ -7191,6 +7191,20 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.yesasia.com/1107024843-0-0-0-en/info.html',
        only_valid_entity_types: ['release'],
   },
+  {
+                     input_url: 'https://www.yesasia.com/us/the-brightest-darkness-2cd/1098658217-0-0-0-zh_TW/info.html',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.yesasia.com/1098658217-0-0-0-en/info.html',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.yesasia.com/us/jupiter/dunno/fr/chu-strike-type-a-single-dvd-%E6%97%A5%E6%9C%AC%E7%89%88/1133454584-0-0-0-zh_TW/info.html',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.yesasia.com/1133454584-0-0-0-en/info.html',
+       only_valid_entity_types: ['release'],
+  },
   // YouTube
   {
                      input_url: 'http://youtube.com/user/officialpsy/videos',
