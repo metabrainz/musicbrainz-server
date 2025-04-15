@@ -230,5 +230,11 @@
       "20240223-mbs-13421-fks.sql",
       "20240319-mbs-13514.sql"
     ]
+  },
+  "30": {
+    "all": [
+      "20250408-mbs-13964-all.sql"
+    ],
+    "master_and_standalone": []
   }
 }
