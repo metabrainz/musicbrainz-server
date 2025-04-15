@@ -21,8 +21,11 @@ VALUES
   (2, '1d57a1dd-7ff0-40c5-81fe-844f8f833efc', 2, 1, 'name'),
   (3, 'a20d2fe3-6309-4b56-b903-5a85e602375c', 2, 1, 'name');
 
-INSERT INTO medium (id, release, position, format, name)
-VALUES (1, 1, 1, 1, ''), (2, 2, 1, 1, ''), (3, 3, 1, 1, '');
+INSERT INTO medium (id, gid, release, position, format, name)
+VALUES
+  (1, 'edb7c9f5-862e-42c3-8689-3b65c75f4265', 1, 1, 1, ''),
+  (2, 'a0c1f2a9-5e12-42ea-8bad-bd92cb37a32f', 2, 1, 1, ''),
+  (3, '59ccd16b-ccde-4e51-ba7b-51943b045205', 3, 1, 1, '');
 
 -- recording 1 is shared by all 3 releases
 INSERT INTO recording (id, gid, name, artist_credit, length)

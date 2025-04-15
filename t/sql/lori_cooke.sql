@@ -36,8 +36,8 @@ INSERT INTO musicbrainz.release_group_tag_raw (release_group, editor, tag, is_up
 	(2069046, 58244, 32086, '1');
 INSERT INTO musicbrainz.release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, edits_pending, quality, last_updated) VALUES
 	(2299278, 'ceb0edd0-550c-4543-8e83-edc92f8ed70c', 'Greatest Hits', 2319047, 2069046, NULL, NULL, NULL, NULL, NULL, '', 0, -1, '2019-02-12 04:14:17.822089+00');
-INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-	(2486082, 2299278, 1, NULL, '', 0, '2019-02-12 04:14:19.822749+00', 1);
+INSERT INTO musicbrainz.medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+	(2486082, '5e7cebc3-6a7a-494d-8d04-d95361c02b76', 2299278, 1, NULL, '', 0, '2019-02-12 04:14:19.822749+00', 1);
 INSERT INTO musicbrainz.artist (id, gid, name, sort_name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, type, area, gender, comment, edits_pending, last_updated, ended, begin_area, end_area) VALUES
 	(1744801, '9084ad69-7e81-44f9-a195-a522a9b7b08b', 'Leslie Rice', 'Rice, Leslie', NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, 3, '', 0, '2019-02-12 04:12:10.971646+00', '0', NULL, NULL);
 INSERT INTO musicbrainz.tag (id, name, ref_count) VALUES

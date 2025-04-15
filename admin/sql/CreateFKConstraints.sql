@@ -3006,6 +3006,11 @@ ALTER TABLE medium_format
    FOREIGN KEY (parent)
    REFERENCES medium_format(id);
 
+ALTER TABLE medium_gid_redirect
+   ADD CONSTRAINT medium_gid_redirect_fk_new_id
+   FOREIGN KEY (new_id)
+   REFERENCES medium(id);
+
 ALTER TABLE medium_index
    ADD CONSTRAINT medium_index_fk_medium
    FOREIGN KEY (medium)

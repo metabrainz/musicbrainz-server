@@ -18,5 +18,8 @@ VALUES
     (1, 'b2d3f2a4-d708-4897-b1cf-e3ae0214b070', 'Release 1', 1, 1),
     (2, '5d3e11d3-2944-4a83-bbe7-e054ea94902f', 'Release 2', 1, 1);
 
-INSERT INTO medium (id, release, position, track_count)
-VALUES (1, 1, 1, 0), (2, 2, 1, 0), (3, 2, 2, 0);
+INSERT INTO medium (id, gid, release, position, track_count)
+VALUES
+    (1, '2db61d47-5f57-451b-affc-258c2ea96ee6', 1, 1, 0),
+    (2, '9a442d88-d27f-4e4c-9763-3fbcb97907bd', 2, 1, 0),
+    (3, '4efbb4a8-edd6-477a-a323-ea8be485caf9', 2, 2, 0);
