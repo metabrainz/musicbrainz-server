@@ -73,6 +73,8 @@ export function generateItems<T: EntityItemT>(
   state: StateT<T>,
 ): $ReadOnlyArray<ItemT<T>> {
   const items: Array<ItemT<T>> = [];
+  console.log('state is:');
+  console.log(state);
 
   if (state.error) {
     switch (state.error) {

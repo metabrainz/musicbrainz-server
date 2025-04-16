@@ -796,7 +796,6 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         />
         <button
           aria-activedescendant={activeDescendant}
-          aria-autocomplete="list"
           aria-controls={menuId}
           aria-haspopup="true"
           aria-label={l('Search')}
