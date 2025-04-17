@@ -129,7 +129,8 @@ export default function ArtistEdit() {
 
   initializeGuessCase('artist', 'id-edit-artist');
 
-  initializeArea('#area', '#begin_area', '#end_area');
+  initializeArea('#area', '#area-bubble');
+  initializeArea('#begin_area, #end_area', '#begin-end-area-bubble');
 
   return self;
 }
