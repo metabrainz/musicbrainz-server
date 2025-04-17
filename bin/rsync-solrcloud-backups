@@ -18,7 +18,7 @@ SOLRCLOUD_COLLECTIONS_API="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_
 RSYNC_SOLRCLOUD_BACKUPS_HOST="$(
     curl -sSL "$SOLRCLOUD_COLLECTIONS_API?action=OVERSEERSTATUS" \
         | jq -r '.leader' \
-        | sed 's/:.*//'
+        | sed 's/:.*//;s/^solrcloud-[0-9]*/mb-&.metabrainz.org/'
 )"
 
 if [ -n "$RSYNC_SOLRCLOUD_BACKUPS_HOST" ]; then
