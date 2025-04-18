@@ -4,14 +4,14 @@
 # Maurits Meulenbelt, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-05 00:42+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-04-18 19:20+0000\n"
+"Last-Translator: mfmeulenbelt "
+"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/nl/>\n"
 "Language: nl\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.11\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1299,12 +1299,12 @@ msgstr "Kirgizisch"
 #. frequency:1 iso_code_3:mkw
 #: DB:language/name:4291
 msgid "Kituba (Congo)"
-msgstr ""
+msgstr "Kituba (Congo)"
 
 #. frequency:1 iso_code_3:ktu
 #: DB:language/name:3568
 msgid "Kituba (Democratic Republic of Congo)"
-msgstr ""
+msgstr "Kituba (Democratische Republiek Congo)"
 
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
@@ -2170,10 +2170,8 @@ msgstr "Servisch"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Kroatisch"
+msgstr "Servo-Kroatisch"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
