@@ -8,21 +8,22 @@
 # Piotr Myśliński <email address hidden>, 2013
 # Tobias Toedter <email address hidden>, 2007
 # Peter69 <echelon01@wp.pl>, 2024, 2025.
+# PS <weblate@wp.pl>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-27 20:44+0000\n"
-"Last-Translator: Peter69 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2025-04-17 01:20+0000\n"
+"Last-Translator: PS <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.11\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -398,10 +399,8 @@ msgstr "Strona IMSLP dla"
 
 #. name:bonus
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
-msgstr "Wskazuje na płytę bonusową"
+msgstr "Oznacza dysk bonusowy."
 
 #. name:misc
 #: DB:link_type/description:162
@@ -1158,13 +1157,12 @@ msgstr ""
 
 #. name:glass mastered at
 #: DB:link_type/description:954
-#, fuzzy
 msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
 msgstr ""
-"Łączy wydanie z miejscem, w którym wykonano szklany master do tłoczenia. Nie "
-"jest to to samo, co mastered!"
+"Łączy wydanie z miejscem, w którym wykonano szklany master do tłoczenia. To "
+"nie jest to samo, co mastered!"
 
 #. name:lacquer cut at
 #: DB:link_type/description:968
@@ -2750,19 +2748,16 @@ msgstr ""
 
 #. name:exported
 #: DB:link_type/description:1280
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this work. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization that exports (or contracts out exports).\n"
 "\n"
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Oznacza wydawcę tego dzieła. To <strong>nie</strong> jest to samo pojęcie co "
-"<a href=\"/doc/Label\" target=\"_blank\">wytwórnia płytowa</a>."
+"Oznacza to organizację, która eksportuje (lub zleca eksportowanie).\n"
+"\n"
+"To <strong>nie</strong> jest to samo pojęcie, co <a href=\"/doc/Label\" "
+"target=\"_blank\">wytwórnia płytowa</a>."
 
 #. name:manufactured
 #: DB:link_type/description:360
@@ -7047,7 +7042,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Points to the BookBrainz page for this release group."
 msgid "inspired the name of release group"
-msgstr "Wskazuje na stronę BookBrainz dla tej grupy wydań."
+msgstr "zainspirowało nazwę grupy wydawniczej"
 
 #. name:named after artist, name:named after release group
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
