@@ -495,7 +495,7 @@ sub _find_by_artist_fast {
             'arg.secondary_type_child_orders NULLS FIRST, ' .
             'arg.secondary_types NULLS FIRST, ' .
             'arg.first_release_date NULLS LAST, ' .
-            'arg.sort_character, ' .
+            'arg.name, ' .
             'arg.release_group ' .
         'LIMIT ? OFFSET ?';
 
