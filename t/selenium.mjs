@@ -476,12 +476,11 @@ async function checkSirQueues(t) {
   let deleteCount = 0;
   let prevIndexCount = 0;
   let prevDeleteCount = 0;
+  let lastProgressTimestamp = Date.now();
 
   while (
-    (prevIndexCount + prevDeleteCount) === 0 ||
-    // Continue if the queues are actually decreasing.
-    (indexCount - prevIndexCount) < 0 ||
-    (deleteCount - prevDeleteCount) < 0
+    // Continue if the queues have decreased at all in the past 30s.
+    (Date.now() - lastProgressTimestamp) < 30000
   ) {
     prevIndexCount = indexCount;
     prevDeleteCount = deleteCount;
@@ -510,11 +509,17 @@ async function checkSirQueues(t) {
     }
 
     if (indexCount || deleteCount) {
+      if (
+        (indexCount - prevIndexCount) < 0 ||
+        (deleteCount - prevDeleteCount) < 0
+      ) {
+        lastProgressTimestamp = Date.now();
+      }
       t.comment(timePrefix(
         'waiting for non-empty sir queues: ' +
         `search.index (${indexCount}), search.delete (${deleteCount})`,
       ));
-      await driver.sleep(5000);
+      await driver.sleep(3000);
     } else {
       return;
     }
