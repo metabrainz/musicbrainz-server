@@ -434,9 +434,10 @@ export function defineNameColumn<T: NonUrlRelatableEntityT | CollectionT>(
   return {
     Cell: ({row: {original}}) => (
       descriptive
-        ? <DescriptiveLink entity={original} />
+        ? <DescriptiveLink className="wrap-anywhere" entity={original} />
         : (
           <EntityLink
+            className="wrap-anywhere"
             entity={original}
             showArtworkPresence={props.showArtworkPresence}
             // Event lists show date in its own column
