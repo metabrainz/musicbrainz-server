@@ -398,9 +398,11 @@ sub find_artists
     for my $work_id (@ids) {
         my @artists = uniq map { $_->{entity}->name } @{ $artists{$work_id} };
         my @authors = uniq map {
-            $_->{entity}->name . (
-                $_->{entity}->primary_alias
-                    ? ' ' . l('({text})', { text => $_->{entity}->primary_alias })
+            my $name = $_->{entity}->name;
+            my $primary_alias = $_->{entity}->primary_alias;
+            $name . (
+                $primary_alias && $primary_alias ne $name
+                    ? ' ' . l('({text})', { text => $primary_alias })
                     : ''
             ),
         } @{ $authors{$work_id} };
