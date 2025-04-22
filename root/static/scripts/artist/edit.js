@@ -33,11 +33,49 @@ $(function () {
   initializeToggleEnded('id-edit-artist');
   initializeTooShortYearChecks('artist');
 
-  initializeBubble('#sort-name-bubble', 'input[name=edit-artist\\.sort_name');
+  initializeBubble('#name-bubble', 'input[name=edit-artist\\.name]');
+  initializeBubble(
+    '#sort-name-bubble',
+    'input[name=edit-artist\\.sort_name]',
+  );
+  initializeBubble('#comment-bubble', 'input[name=edit-artist\\.comment]');
+  initializeBubble('#gender-bubble', 'select[name=edit-artist\\.gender_id]');
   initializeBubble('#ipi-bubble', 'input[name=edit-artist\\.ipi_codes\\.0]');
   initializeBubble(
     '#isni-bubble',
     'input[name=edit-artist\\.isni_codes\\.0]',
+  );
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-artist\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-artist\\.period\\.end_date\\.]',
+  );
+
+  // Update the begin and end documentation bubbles to match the type.
+  const updateBeginEndBubbles = () => {
+    for (const sel of ['#begin-end-date-bubble', '#begin-end-area-bubble']) {
+      $(sel + ' .desc').hide();
+      const value = $(typeIdField)[0].value;
+      const desc = $(sel + ` .desc-${value}`);
+      if (desc.length) {
+        desc.show();
+      } else {
+        $(sel + ' .desc-default').show();
+      }
+    }
+  };
+  $(typeIdField).on('change', () => updateBeginEndBubbles());
+  updateBeginEndBubbles();
+
+  /*
+   * Display documentation bubbles for external components.
+   * Area bubbles are initialized in ArtistEdit().
+   */
+  const externalLinkBubble = initializeBubble('#external-link-bubble');
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => externalLinkBubble.show(event.target),
   );
 
   installFormUnloadWarning();

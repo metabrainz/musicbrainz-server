@@ -62,10 +62,63 @@
   </div>
 
   <div class="documentation">
-    [%- area_bubble() -%]
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is the label’s official name.',
+             { doc => { href => doc_link('Label#Name'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between labels with identical or similar names.
+              Feel free to leave it blank if you aren’t warned about possible duplicates.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('This field is not a place to store general background information.
+              That kind of information should go in an {doc|annotation}.',
+             { doc => { href => doc_link('Annotation'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    [%- type_bubble(form.field('type_id'), label_types) -%]
+
+    <div class="bubble" id="area-bubble">
+      <p>
+        [% l('The {doc|area} indicates the geographical origin of the label.',
+             { doc => { href => doc_link('Label/Country'), target => '_blank' } }) %]
+      </p>
+      [% area_bubble_selection() %]
+    </div>
+
+    <div class="bubble" id="label-code-bubble">
+      <p>
+        [% l('The {doc|label code} is a 4‐ or 5‐digit number uniquely identifying the label.',
+             { doc => { href => doc_link('Label/Label_Code'), target => '_blank' } }) %]
+      </p>
+    </div>
+
     [%- ipi_bubble() -%]
     [%- isni_bubble() -%]
-    [%- type_bubble(form.field('type_id'), label_types) -%]
+
+    <div class="bubble" id="begin-end-date-bubble">
+      <p>
+        [% l('The {doc|begin and end dates} describe the period during which the label existed or was active.',
+             { doc => { href => doc_link('Label#Date_period'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the label.
+              These can include the label’s official homepage and social networking pages, catalogs, order pages,
+              and unofficial pages like Wikipedia entries, histories, and fan sites.') %]
+      </p>
+      <p>
+        [% l('Please don’t add a Wikipedia page if a Wikidata item linking to the same article already exists.') %]
+      </p>
+    </div>
   </div>
 
 </form>
