@@ -4785,6 +4785,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.patreon.com/example',
   },
   {
+                     input_url: 'https://www.patreon.com/c/heyriddleriddle/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'patronage',
+            expected_clean_url: 'https://www.patreon.com/heyriddleriddle',
+  },
+  {
                      input_url: 'https://www.patreon.com/user/posts?u=4212671&month=2017-4',
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
