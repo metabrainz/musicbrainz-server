@@ -126,5 +126,58 @@
       target: 'css=dd.work-attribute.work-attribute-key',
       value: 'E major',
     },
+    // Test seeding (MBS-13987).
+    {
+      command: 'open',
+      target: '/work/create?edit-work.name=LIFE+IS+BEAUTIFUL&edit-work.attributes.0.type_id=3&edit-work.attributes.0.value=115-8449-1&edit-work.iswcs.0=T-101.763.836-5&edit-work.languages.0=486&edit-work.type_id=17',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button.submit.positive',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 41,
+        status: 2,
+        data: {
+          attributes: [
+            {
+              attribute_text: '115-8449-1',
+              attribute_type_id: 3,
+              attribute_value_id: null
+            }
+          ],
+          comment: '',
+          entity_gid: '$$__IGNORE__$$',
+          entity_id: 2,
+          languages: [486],
+          name: 'LIFE IS BEAUTIFUL',
+          type_id: 17,
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 49,
+        status: 2,
+        data: {
+          iswcs: [
+            {
+              iswc: 'T-101.763.836-5',
+              work: {
+                id: 2,
+                name: 'LIFE IS BEAUTIFUL',
+              },
+            },
+          ],
+        },
+      },
+    },
   ],
 }

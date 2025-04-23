@@ -463,6 +463,9 @@
           <strong>[% l('Warning:') | html_entity %]</strong>
           [% l('This medium may have incorrectly capitalized English track titles. Short articles, conjunctions, and prepositions like “and”, “of”, “or”, “to”, and “the” {guidelines|should typically be lowercased}.', { guidelines => { href => doc_link('Style/Language/English'), target => '_blank' } }) %]
         </p>
+        <p>
+          [% l('Common exceptions are {artist_intent_guideline|artist intent} and {japanese_guideline|Japanese releases}.', { artist_intent_guideline => { href => doc_link('Style/Principle/Error_correction_and_artist_intent#Artist_Intent'), target => '_blank' }, japanese_guideline => { href => doc_link('Style/Language/Japanese'), target => '_blank' } }) %]
+        </p>
         <!-- ko if: hasAddedMiscapitalizedTitles() && $root.isBeginner -->
           <label>
             <input id="confirm-miscapitalized-titles" type="checkbox" data-bind="checked: confirmedMiscapitalizedTitles" />

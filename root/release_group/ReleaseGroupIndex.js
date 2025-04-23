@@ -65,6 +65,7 @@ function buildReleaseStatusTable(
             ) : null}
           <td>
             <EntityLink
+              className="wrap-anywhere"
               entity={release}
               showArtworkPresence={showArtworkPresence}
             />
