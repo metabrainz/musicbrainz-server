@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-03 13:54+0200\n"
+"POT-Creation-Date: 2025-04-22 22:01-0500\n"
 "PO-Revision-Date: 2024-04-17 17:35+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
@@ -62,8 +62,8 @@ msgid "\"YY\" is the last two digits of the year of registration."
 msgstr "\"YY\" הן שתי הספרות האחרונות של שנת הרישום."
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
-#: ../root/release/edit/tracklist.tt:508 ../root/cdstub/CDStubInfo.js:19
-#: ../root/cdtoc/AttachCDTocConfirmation.js:57
+#: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:19
+#: ../root/cdtoc/AttachCDTocConfirmation.js:58
 #: ../root/edit/details/AddMedium.js:150 ../root/edit/details/EditMedium.js:277
 #: ../root/edit/details/EditMedium.js:281
 #: ../root/edit/details/EditMedium.js:484
@@ -72,7 +72,7 @@ msgstr "\"YY\" הן שתי הספרות האחרונות של שנת הרישו�
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1555
-#: ../root/utility/tableColumns.js:574
+#: ../root/utility/tableColumns.js:583
 msgid "#"
 msgstr "#"
 
@@ -121,10 +121,10 @@ msgstr "(אין תמונות עטיפה נוספות)"
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
-#: ../root/utility/tableColumns.js:515 ../root/utility/tableColumns.js:523
+#: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
 msgctxt "and"
 msgid "/"
 msgstr "/"
@@ -176,14 +176,14 @@ msgstr "המנעות"
 msgid "Accept"
 msgstr "קבלה"
 
-#: ../root/artist/edit_form.tt:27 ../root/label/edit_form.tt:30
+#: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
 #, fuzzy
 #| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
 msgstr "קוד IPI"
 
-#: ../root/artist/edit_form.tt:34 ../root/label/edit_form.tt:37
+#: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
 #, fuzzy
 #| msgid "ISNI code"
 msgctxt "interactive"
@@ -294,8 +294,8 @@ msgid "Add place"
 msgstr "הוספת מקום"
 
 #: ../root/release/edit/layout.tt:7
-#: ../root/static/scripts/release-editor/init.js:241
-#: ../root/static/scripts/release-editor/init.js:242
+#: ../root/static/scripts/release-editor/init.js:255
+#: ../root/static/scripts/release-editor/init.js:256
 #, fuzzy
 #| msgid "Add release"
 msgctxt "header"
@@ -332,7 +332,7 @@ msgctxt "header"
 msgid "Add standalone recording"
 msgstr "הוספת הקלטה עצמאית"
 
-#: ../root/release/edit/tracklist.tt:590
+#: ../root/release/edit/tracklist.tt:593
 msgid "Add track(s)"
 msgstr "הוספת רצועה(ות)"
 
@@ -351,7 +351,7 @@ msgctxt "interactive"
 msgid "Add work attribute"
 msgstr "הוספת תכונות יצירה"
 
-#: ../root/release/edit/tracklist.tt:589
+#: ../root/release/edit/tracklist.tt:592
 msgid "Add {num} track(s)"
 msgstr "הוספת {num} רצועה(ות)"
 
@@ -359,7 +359,7 @@ msgstr "הוספת {num} רצועה(ות)"
 msgid "Additional information"
 msgstr "מידע נוסף"
 
-#: ../root/place/edit_form.tt:14 ../root/components/list/PlaceList.js:59
+#: ../root/place/edit_form.tt:18 ../root/components/list/PlaceList.js:59
 #: ../root/edit/details/AddPlace.js:51 ../root/edit/details/EditPlace.js:64
 #: ../root/layout/components/sidebar/PlaceSidebar.js:89
 #: ../root/report/PlacesWithoutCoordinates.js:41
@@ -435,8 +435,8 @@ msgctxt "vote"
 msgid "Approve"
 msgstr "אושר"
 
-#: ../root/artist/edit_form.tt:18 ../root/edit/search_macros.tt:473
-#: ../root/label/edit_form.tt:16 ../root/place/edit_form.tt:17
+#: ../root/artist/edit_form.tt:22 ../root/edit/search_macros.tt:473
+#: ../root/label/edit_form.tt:16 ../root/place/edit_form.tt:21
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
 #: ../root/components/list/AreaList.js:38
@@ -471,13 +471,13 @@ msgstr "סוגים עקריים:"
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
 #: ../root/edit/search_macros.tt:473 ../root/release/edit/information.tt:26
 #: ../root/release/edit/tracklist.tt:110 ../root/release/edit/tracklist.tt:163
-#: ../root/release/edit/tracklist.tt:510
+#: ../root/release/edit/tracklist.tt:513
 #: ../root/release_group/set_cover_art.tt:33
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/CDStubInfo.js:21
 #: ../root/cdstub/ImportCDStub.js:39
-#: ../root/cdtoc/AttachCDTocConfirmation.js:59
+#: ../root/cdtoc/AttachCDTocConfirmation.js:60
 #: ../root/cdtoc/SelectArtistForCDToc.js:36
 #: ../root/components/RelationshipsTable.js:323
 #: ../root/components/list/ArtistList.js:56
@@ -505,7 +505,7 @@ msgstr "סוגים עקריים:"
 #: ../root/layout/components/Search.js:24
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:58
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:166
 #: ../root/report/DuplicateArtists.js:67
 #: ../root/report/DuplicateReleaseGroups.js:58
 #: ../root/report/EmptyReleaseGroups.js:59
@@ -540,7 +540,7 @@ msgstr "אמן"
 msgid "Artist area"
 msgstr "אזור אמן"
 
-#: ../root/artist/edit_form.tt:8
+#: ../root/artist/edit_form.tt:12
 #, fuzzy
 #| msgid "Artist Details"
 msgid "Artist details"
@@ -571,7 +571,7 @@ msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "צרוף תוכן עניינים תקליטור"
 
-#: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:535
+#: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
 #, fuzzy
 #| msgid "Attach Disc ID"
 msgid "Attach disc ID"
@@ -602,9 +602,9 @@ msgstr "עורך אוטומטי"
 #: ../root/edit/details/historic/AddRelease.js:121
 #: ../root/edit/details/historic/EditReleaseEvents.js:110
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:129
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:130
 #: ../root/otherlookup/OtherLookupForm.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:171
+#: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
@@ -626,7 +626,7 @@ msgid ""
 "release on an existing release, select it below."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:52 ../root/artist/utils.js:21
+#: ../root/artist/edit_form.tt:56 ../root/artist/utils.js:21
 #: ../root/components/list/ArtistList.js:90
 #: ../root/search/components/ArtistResults.js:58
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:101
@@ -635,7 +635,7 @@ msgstr ""
 msgid "Begin area"
 msgstr "אזור התחלה:"
 
-#: ../root/artist/edit_form.tt:48 ../root/artist/utils.js:36
+#: ../root/artist/edit_form.tt:52 ../root/artist/utils.js:36
 #: ../root/components/Aliases/AliasTable.js:19
 #: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
 #: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:69
@@ -725,7 +725,7 @@ msgstr "ניתן לאישור"
 #: ../root/edit/ModifyNote.js:85 ../root/event/EventMerge.js:47
 #: ../root/label/LabelMerge.js:44 ../root/layout/components/MergeHelper.js:78
 #: ../root/place/PlaceMerge.js:44 ../root/recording/RecordingMerge.js:62
-#: ../root/release/ReleaseMerge.js:68
+#: ../root/release/ReleaseMerge.js:76
 #: ../root/release_group/ReleaseGroupMerge.js:48
 #: ../root/series/SeriesMerge.js:44
 #: ../root/static/scripts/common/components/FilterForm.js:443
@@ -745,10 +745,10 @@ msgstr "מס' קטלוגי:"
 #: ../root/release_group/set_cover_art.tt:57
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
-#: ../root/utility/tableColumns.js:489 ../root/utility/tableColumns.js:494
+#: ../root/utility/tableColumns.js:498 ../root/utility/tableColumns.js:503
 msgid "Catalog#"
 msgstr "קטלוג#"
 
@@ -793,7 +793,13 @@ msgstr "כווץ המדיה"
 msgid "Comment"
 msgstr "הערה"
 
-#: ../root/place/edit_form.tt:26 ../root/edit/details/AddPlace.js:63
+#: ../root/release/edit/tracklist.tt:467
+msgid ""
+"Common exceptions are {artist_intent_guideline|artist intent} and "
+"{japanese_guideline|Japanese releases}."
+msgstr ""
+
+#: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
 #: ../root/layout/components/sidebar/PlaceSidebar.js:104
 msgid "Coordinates"
@@ -829,11 +835,11 @@ msgstr "העתקת כותרת ההוצאה לקבוצת ההוצאה"
 #: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:293
-#: ../root/utility/tableColumns.js:511 ../root/utility/tableColumns.js:523
+#: ../root/utility/tableColumns.js:520 ../root/utility/tableColumns.js:532
 msgid "Country"
 msgstr "מדינה"
 
@@ -859,7 +865,7 @@ msgstr "תוחם מותאם אישית"
 msgid "DD"
 msgstr "DD"
 
-#: ../root/medium/tracklist.tt:37 ../root/release/edit/tracklist.tt:523
+#: ../root/medium/tracklist.tt:16 ../root/release/edit/tracklist.tt:526
 #: ../root/medium/MediumTracklist.js:46
 #: ../root/static/scripts/release/components/MediumTable.js:117
 #, fuzzy
@@ -879,25 +885,25 @@ msgstr "רצועות נתונים"
 #: ../root/elections/ElectionVotes.js:24
 #: ../root/layout/components/sidebar/EventSidebar.js:103
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/EventResults.js:83
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:325
 #: ../root/utility/tableColumns.js:286 ../root/utility/tableColumns.js:291
-#: ../root/utility/tableColumns.js:517 ../root/utility/tableColumns.js:523
+#: ../root/utility/tableColumns.js:526 ../root/utility/tableColumns.js:532
 msgid "Date"
 msgstr "תאריך"
 
-#: ../root/artist/edit_form.tt:44
+#: ../root/artist/edit_form.tt:48
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:177
 #, fuzzy
 #| msgid "Date Period"
 msgid "Date period"
 msgstr "תקופה"
 
-#: ../root/artist/edit_form.tt:46
+#: ../root/artist/edit_form.tt:50
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:179
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
@@ -924,7 +930,7 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:76
 #: ../root/search/components/InstrumentResults.js:55
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:210
-#: ../root/utility/tableColumns.js:683
+#: ../root/utility/tableColumns.js:692
 msgid "Description"
 msgstr "תאור"
 
@@ -934,8 +940,8 @@ msgstr "תאור"
 msgid "Details"
 msgstr "פרטים"
 
-#: ../root/artist/edit_form.tt:12 ../root/label/edit_form.tt:11
-#: ../root/place/edit_form.tt:11 ../root/recording/edit_form.tt:32
+#: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
+#: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
 #: ../root/release/edit/information.tt:301
 #: ../root/release_group/edit_form.tt:13 ../root/series/edit_form.tt:11
 #: ../root/work/edit_form.tt:12 ../root/edit/details/AddArea.js:50
@@ -971,6 +977,13 @@ msgstr "מזהה תקליטור \"<code>{discid}</code>\""
 #: ../root/cdtoc/index.tt:1
 msgid "Disc ID “{discid}”"
 msgstr "מזהה תקליטור “{discid}”"
+
+#: ../root/release/edit/information.tt:507
+msgid ""
+"Do not mark digital media releases as having no barcode unless you are "
+"familiar with the platform. Most mainstream digital platforms use barcodes, "
+"even when they are not shown."
+msgstr ""
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
@@ -1107,7 +1120,7 @@ msgstr "דגל עורך"
 msgid "Enable vinyl track numbers"
 msgstr "אפשור מספרי רצועת ויניל"
 
-#: ../root/artist/edit_form.tt:66 ../root/artist/utils.js:49
+#: ../root/artist/edit_form.tt:70 ../root/artist/utils.js:49
 #: ../root/components/list/ArtistList.js:100
 #: ../root/search/components/ArtistResults.js:60
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:88
@@ -1117,7 +1130,7 @@ msgstr "אפשור מספרי רצועת ויניל"
 msgid "End area"
 msgstr "אזור סיום:"
 
-#: ../root/artist/edit_form.tt:61 ../root/artist/utils.js:67
+#: ../root/artist/edit_form.tt:65 ../root/artist/utils.js:67
 #: ../root/components/Aliases/AliasTable.js:20
 #: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
 #: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
@@ -1143,7 +1156,7 @@ msgstr "אנגלית"
 msgid "Enter a tracklist below:"
 msgstr "הזנת רשימת רצועות מטה:"
 
-#: ../root/place/edit_form.tt:52
+#: ../root/place/edit_form.tt:96
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
@@ -1207,6 +1220,13 @@ msgstr "אירוע"
 msgid "Event type"
 msgstr "סוג ישות"
 
+#: ../root/release/edit/information.tt:351
+msgid ""
+"Examples of releases that should be grouped together include original "
+"releases, reissues, different formats such as CD and digital media, and "
+"remasters."
+msgstr ""
+
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
 msgstr "מדיה קיימת"
@@ -1229,14 +1249,40 @@ msgstr "הרחבת המדיה"
 msgid "Expire action"
 msgstr "פעולה פגה"
 
-#: ../root/artist/edit_form.tt:80 ../root/label/edit_form.tt:55
-#: ../root/place/edit_form.tt:39 ../root/recording/edit_form.tt:59
+#: ../root/artist/edit_form.tt:84 ../root/label/edit_form.tt:55
+#: ../root/place/edit_form.tt:43 ../root/recording/edit_form.tt:59
 #: ../root/release/edit/information.tt:311
 #: ../root/release_group/edit_form.tt:21 ../root/series/edit_form.tt:24
 #: ../root/work/edit_form.tt:98 ../root/layout/components/ExternalLinks.js:173
 #: ../root/static/scripts/event/components/EventEditForm.js:312
 msgid "External links"
 msgstr "קישור חיצוני"
+
+#: ../root/artist/edit_form.tt:206
+msgid ""
+"External links are URLs associated with the artist. These can include the "
+"artist’s official homepage and social networking pages, streaming services, "
+"and unofficial pages like Wikipedia entries, biographies, interviews, and "
+"fan sites."
+msgstr ""
+
+#: ../root/label/edit_form.tt:114
+msgid ""
+"External links are URLs associated with the label. These can include the "
+"label’s official homepage and social networking pages, catalogs, order "
+"pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
+msgstr ""
+
+#: ../root/place/edit_form.tt:110
+msgid ""
+"External links are URLs associated with the place. These can include the "
+"place’s official homepage and social networking pages, ticketing pages, and "
+"unofficial pages like Wikipedia entries, histories, and fan sites."
+msgstr ""
+
+#: ../root/release/edit/information.tt:580
+msgid "External links are URLs associated with this particular release."
+msgstr ""
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1252,15 +1298,20 @@ msgid ""
 "order to edit their recordings."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:1 ../root/recording/edit_form.tt:16
-#: ../root/release_group/edit_form.tt:3 ../root/series/edit_form.tt:1
+#: ../root/release/edit/information.tt:539
+msgid "For digital media releases, this should usually be “None”."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
+#: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
+#: ../root/series/edit_form.tt:1
 msgid ""
 "For more information, check the {doc_doc|documentation} and {doc_styleguide|"
 "style guidelines}."
 msgstr ""
 
-#: ../root/label/edit_form.tt:1 ../root/place/edit_form.tt:1
-#: ../root/work/edit_form.tt:3 ../root/search/components/SearchForm.js:99
+#: ../root/label/edit_form.tt:1 ../root/work/edit_form.tt:3
+#: ../root/search/components/SearchForm.js:99
 #: ../root/static/scripts/event/components/EventEditForm.js:231
 msgid "For more information, check the {doc_doc|documentation}."
 msgstr "למידע נוסף, נא לעיין ב {doc_doc|documentation}."
@@ -1274,8 +1325,8 @@ msgstr "למידע נוסף, נא לעיין ב {doc_doc|documentation}."
 #: ../root/edit/details/MergeReleases.js:228
 #: ../root/edit/details/historic/AddRelease.js:122
 #: ../root/edit/details/historic/EditReleaseEvents.js:111
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:138
-#: ../root/release_group/ReleaseGroupIndex.js:166
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:139
+#: ../root/release_group/ReleaseGroupIndex.js:167
 #: ../root/report/components/CDTocList.js:44
 #: ../root/search/components/ReleaseResults.js:120
 msgid "Format"
@@ -1312,7 +1363,7 @@ msgstr "צרפתית"
 msgid "Full TOC:"
 msgstr "תוכן ענינים מלא:"
 
-#: ../root/artist/edit_form.tt:15 ../root/components/list/ArtistList.js:75
+#: ../root/artist/edit_form.tt:19 ../root/components/list/ArtistList.js:75
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
 #: ../root/layout/components/sidebar/ArtistSidebar.js:100
 #: ../root/search/components/ArtistResults.js:55
@@ -1332,7 +1383,7 @@ msgid "Genre"
 msgstr "סוגה"
 
 #: ../root/components/forms.tt:140 ../root/release/edit/information.tt:14
-#: ../root/release/edit/tracklist.tt:584
+#: ../root/release/edit/tracklist.tt:587
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:173
 msgid "Guess case"
 msgstr "ניחוש רישיות"
@@ -1370,7 +1421,7 @@ msgstr ""
 msgid "Guess feat. artists"
 msgstr "ניחוש אמן אורח"
 
-#: ../root/release/edit/tracklist.tt:585
+#: ../root/release/edit/tracklist.tt:588
 msgid "Guess feat. artists from track titles"
 msgstr "ניחוש אמן אורח משם הרצועה"
 
@@ -1379,7 +1430,7 @@ msgstr "ניחוש אמן אורח משם הרצועה"
 msgid "Guess sort name"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:469
+#: ../root/release/edit/tracklist.tt:472
 msgid "I confirm that these titles are capitalized correctly."
 msgstr ""
 
@@ -1387,7 +1438,7 @@ msgstr ""
 msgid "I confirm that this extra title information is capitalized correctly."
 msgstr ""
 
-#: ../root/release/edit/information.tt:382
+#: ../root/release/edit/information.tt:525
 msgid "I confirm that this is the barcode as it appears on the release."
 msgstr ""
 
@@ -1409,7 +1460,7 @@ msgstr ""
 msgid "I don’t know"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:483
+#: ../root/release/edit/tracklist.tt:486
 msgid "I don’t know the tracklist for this medium."
 msgstr "רשימת הרצועות למדיה זו לא ידוע לי."
 
@@ -1424,38 +1475,26 @@ msgstr ""
 msgid "ID"
 msgstr "מזהה"
 
-#: ../root/artist/edit_form.tt:27 ../root/label/edit_form.tt:30
+#: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
 msgid "IPI codes"
 msgstr "קודי IPI"
 
-#: ../root/components/forms.tt:245
-msgid ""
-"IPI codes are assigned by CISAC to “interested parties” in musical rights "
-"management. Check {ipi_doc|the documentation} for more info."
-msgstr ""
-
-#: ../root/artist/edit_form.tt:34 ../root/label/edit_form.tt:37
+#: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
 #: ../root/edit/details/EditArtist.js:176 ../root/edit/details/EditLabel.js:136
 msgid "ISNI codes"
 msgstr "קודי ISNI"
 
-#: ../root/components/forms.tt:254
-msgid ""
-"ISNI codes are an ISO standard used to uniquely identify persons and "
-"organizations. Check {isni_doc|the documentation} for more info."
-msgstr ""
-
-#: ../root/recording/edit_form.tt:44 ../root/report/ReportsIndex.js:628
+#: ../root/recording/edit_form.tt:44 ../root/report/ReportsIndex.js:632
 #: ../root/search/components/RecordingResults.js:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
 #: ../root/static/scripts/common/components/IsrcList.js:40
-#: ../root/utility/tableColumns.js:696
+#: ../root/utility/tableColumns.js:705
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:637
+#: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:641
 #: ../root/static/scripts/common/components/IswcList.js:40
 msgid "ISWCs"
 msgstr "ISWCs"
@@ -1467,7 +1506,7 @@ msgid ""
 "for this release."
 msgstr ""
 
-#: ../root/release/edit/information.tt:343
+#: ../root/release/edit/information.tt:480
 msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
@@ -1485,14 +1524,30 @@ msgstr ""
 msgid "If you can't find what you're looking for, you can add a new release:"
 msgstr ""
 
-#: ../root/release/edit/information.tt:373
+#: ../root/release/edit/information.tt:471
 msgid ""
-"If you do not know whether the release has a barcode or not, just leave this "
-"blank."
+"If you can’t find a catalog number, please leave this blank. If you are "
+"certain the release does not have a catalog number assigned, enter “[none]”."
 msgstr ""
 
-#: ../root/components/forms.tt:248 ../root/components/forms.tt:257
+#: ../root/release/edit/information.tt:446
+msgid ""
+"If you do not know the month or day of release, please leave them empty. "
+"January 1st is not often the actual release date. <strong>Please double‐"
+"check that you have entered the release date correctly.</strong>"
+msgstr ""
+
+#: ../root/components/forms.tt:247 ../root/components/forms.tt:255
 msgid "If you don’t know the code for this entity, just leave the field blank."
+msgstr "אם קוד ישות זו אינה ידועה, נא להשאיר את השדה ריק."
+
+#: ../root/release/edit/information.tt:511
+#, fuzzy
+#| msgid ""
+#| "If you don’t know the code for this entity, just leave the field blank."
+msgid ""
+"If you don’t know whether the release has a barcode or not, please leave "
+"this blank."
 msgstr "אם קוד ישות זו אינה ידועה, נא להשאיר את השדה ריק."
 
 #: ../root/release/edit/information.tt:97
@@ -1535,7 +1590,7 @@ msgid ""
 "help!)."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:472
+#: ../root/release/edit/tracklist.tt:475
 msgid ""
 "If you’re sure the titles are capitalized correctly, confirm it above. "
 "Otherwise, please fix the data (the “Guess case” button might help!)."
@@ -1606,14 +1661,14 @@ msgid ""
 "new recording instead."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:559
+#: ../root/release/edit/tracklist.tt:562
 msgid ""
 "Keep in mind that unselecting this will remove the track if the medium has a "
 "disc ID! If you unselect it by mistake, please readd the pregap track before "
 "submitting."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:574
+#: ../root/release/edit/tracklist.tt:577
 msgid ""
 "Keep in mind that unselecting this will remove the tracks if the medium has "
 "a disc ID! If you unselect it by mistake, please readd the data tracks "
@@ -1637,7 +1692,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/label/LabelHeader.js:18 ../root/layout/components/Search.js:37
 #: ../root/recording/RecordingIndex.js:51
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/report/ReleaseLabelSameArtist.js:24
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelUrlList.js:30
@@ -1647,8 +1702,8 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:277
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:56 ../root/utility/tableColumns.js:540
-#: ../root/utility/tableColumns.js:545
+#: ../root/user/UserProfile.js:56 ../root/utility/tableColumns.js:549
+#: ../root/utility/tableColumns.js:554
 msgid "Label"
 msgstr "חברת תקליטים"
 
@@ -1680,11 +1735,11 @@ msgstr "אזור חברת תקליטים"
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
 #: ../root/edit/details/EditRelease.js:109
 #: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:62
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:192
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:193
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:377
-#: ../root/utility/tableColumns.js:561
+#: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr "שפה"
 
@@ -1694,8 +1749,8 @@ msgstr "חבילת יישום אחרונה התקבלה ב־{datetime}"
 
 #: ../root/cdstub/cdstub.tt:9 ../root/recording/edit_form.tt:34
 #: ../root/recording/edit_form.tt:37 ../root/release/edit/tracklist.tt:164
-#: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:22
-#: ../root/cdtoc/AttachCDTocConfirmation.js:60 ../root/cdtoc/CDTocInfo.js:49
+#: ../root/release/edit/tracklist.tt:514 ../root/cdstub/CDStubInfo.js:22
+#: ../root/cdtoc/AttachCDTocConfirmation.js:61 ../root/cdtoc/CDTocInfo.js:49
 #: ../root/components/RelationshipsTable.js:324
 #: ../root/components/list/RecordingList.js:99
 #: ../root/edit/details/AddStandaloneRecording.js:54
@@ -1706,7 +1761,7 @@ msgstr "חבילת יישום אחרונה התקבלה ב־{datetime}"
 #: ../root/edit/details/historic/AddRelease.js:87
 #: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:65
 #: ../root/layout/components/sidebar/RecordingSidebar.js:52
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:147
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:148
 #: ../root/recording/RecordingIndex.js:45 ../root/release/DiscIds.js:97
 #: ../root/report/IsrcsWithManyRecordings.js:61
 #: ../root/report/components/CDTocList.js:49
@@ -1753,6 +1808,12 @@ msgstr "איתור תקליטור‮"
 msgid "MM"
 msgstr "MM"
 
+#: ../root/release/edit/information.tt:583
+msgid ""
+"Mail‐order links shouldn’t be attached to digital media releases, and "
+"download and streaming links shouldn’t be attached to CD or vinyl releases."
+msgstr ""
+
 #: ../root/components/forms.tt:14
 #: ../root/static/scripts/edit/components/EnterEdit.js:38
 msgid "Make all edits votable."
@@ -1772,7 +1833,7 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:423
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
-#: ../root/cdtoc/AttachCDTocConfirmation.js:53
+#: ../root/cdtoc/AttachCDTocConfirmation.js:54
 #: ../root/cdtoc/SetTracklistDurations.js:43
 #: ../root/edit/details/AddDiscId.js:22 ../root/edit/details/EditMedium.js:426
 #: ../root/edit/details/RemoveDiscId.js:21
@@ -1902,7 +1963,7 @@ msgctxt "vote"
 msgid "No"
 msgstr "לא"
 
-#: ../root/components/forms.tt:290
+#: ../root/components/forms.tt:292
 #: ../root/static/scripts/event/components/EventEditForm.js:356
 msgid "No description available."
 msgstr "תיאור לא זמין"
@@ -1922,7 +1983,7 @@ msgstr "אין תוצאות"
 msgid "No vote"
 msgstr "אין הצבעות"
 
-#: ../root/release/edit/tracklist.tt:501
+#: ../root/release/edit/tracklist.tt:504
 #: ../root/static/scripts/release-editor/fields.js:295
 msgid ""
 "None of the attached disc IDs can fit a pregap track of the given length."
@@ -1944,13 +2005,6 @@ msgstr ""
 #: ../root/user/ReportUser.js:111
 msgid "Note"
 msgstr "הערה"
-
-#: ../root/release/edit/information.tt:328
-msgid ""
-"Note! If you do not know the month or day of release, please leave them "
-"empty.  January 1st is not often the actual release date, please double "
-"check that you have entered the release date correctly."
-msgstr ""
 
 #: ../root/edit/search_macros.tt:265
 msgid ""
@@ -2005,7 +2059,7 @@ msgstr ""
 #: ../root/release/edit/information.tt:283
 #: ../root/edit/details/AddRelease.js:100
 #: ../root/edit/details/EditRelease.js:133
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:168
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:169
 msgid "Packaging"
 msgstr ""
 
@@ -2028,7 +2082,7 @@ msgstr "נתוח רצועות"
 msgid "Place"
 msgstr "מקום"
 
-#: ../root/place/edit_form.tt:8
+#: ../root/place/edit_form.tt:12
 #, fuzzy
 #| msgid "Place Details"
 msgid "Place details"
@@ -2044,10 +2098,30 @@ msgstr "מקום"
 msgid "Please choose a condition"
 msgstr ""
 
-#: ../root/release/edit/information.tt:369
+#: ../root/artist/edit_form.tt:211 ../root/label/edit_form.tt:119
+#: ../root/place/edit_form.tt:115
 msgid ""
-"Please enter the barcode of the release you are entering, see <a "
-"href=\"{url}\" target=\"_blank\">Barcode</a> for more information."
+"Please don’t add a Wikipedia page if a Wikidata item linking to the same "
+"article already exists."
+msgstr ""
+
+#: ../root/release/edit/information.tt:334
+msgid ""
+"Please see the artist credits {doc|documentation} and {style|style "
+"guidelines} for more information."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
+#: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:178
+#: ../root/artist/edit_form.tt:198 ../root/components/forms.tt:274
+#: ../root/place/edit_form.tt:59 ../root/release/edit/information.tt:323
+#: ../root/release/edit/information.tt:355
+#: ../root/release/edit/information.tt:384
+#: ../root/release/edit/information.tt:408
+#: ../root/release/edit/information.tt:419
+#: ../root/release/edit/information.tt:430
+#: ../root/release/edit/information.tt:587
+msgid "Please see the {doc|style guidelines} for more information."
 msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
@@ -2171,7 +2245,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
 #: ../root/layout/components/Search.js:29
-#: ../root/release_group/ReleaseGroupIndex.js:164
+#: ../root/release_group/ReleaseGroupIndex.js:165
 #: ../root/report/components/CDTocReleaseList.js:45
 #: ../root/report/components/ReleaseList.js:44
 #: ../root/report/components/ReleaseUrlList.js:32
@@ -2272,7 +2346,7 @@ msgid "Release group: {release_group_link}"
 msgstr "‮קבוצת הוצאה על־ידי {artist}"
 
 #: ../root/release/edit/information.tt:3 ../root/release/edit/layout.tt:12
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:122
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:123
 msgid "Release information"
 msgstr ""
 
@@ -2305,14 +2379,14 @@ msgstr "הוצאה “{name}” על־ידי {artist}"
 msgid "Remove"
 msgstr "הסרה"
 
-#: ../root/artist/edit_form.tt:27 ../root/label/edit_form.tt:30
+#: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
 #, fuzzy
 #| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "קוד IPI"
 
-#: ../root/artist/edit_form.tt:34 ../root/label/edit_form.tt:37
+#: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
 #, fuzzy
 #| msgid "ISNI code"
 msgctxt "interactive"
@@ -2377,7 +2451,7 @@ msgstr "תמונת עטיפה של המקליט"
 msgid "Request signature..."
 msgstr "בקשת חתימה..."
 
-#: ../root/release/edit/tracklist.tt:582
+#: ../root/release/edit/tracklist.tt:585
 msgid "Reset track numbers"
 msgstr "איפוס במספרי רצועה"
 
@@ -2387,10 +2461,6 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
-msgstr ""
-
-#: ../root/release/edit/information.tt:350
-msgid "Review the {packaging|list of packaging types} for help."
 msgstr ""
 
 #: ../root/release/edit/layout.tt:27
@@ -2408,7 +2478,7 @@ msgstr ""
 #: ../root/edit/details/AddRelease.js:93
 #: ../root/edit/details/EditRelease.js:121
 #: ../root/edit/details/historic/AddRelease.js:61
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:204
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:205
 msgid "Script"
 msgstr "תַּסְרִיט"
 
@@ -2480,7 +2550,7 @@ msgid ""
 "a description of these types."
 msgstr "לתיעוד תאור סוגים אלו נא ראו  {doc|סוגי תמונת עטיפה}"
 
-#: ../root/components/forms.tt:281
+#: ../root/components/forms.tt:283
 msgid ""
 "Select any type from the list to see its description. If the entity doesn’t "
 "seem to match any type, just leave this blank."
@@ -2542,7 +2612,7 @@ msgstr ""
 msgid "Similar releases"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:556
+#: ../root/release/edit/tracklist.tt:559
 msgid ""
 "Some discs contain a hidden track in the pregap section that precedes track "
 "1. Use this to add (or remove) the special pregap track section."
@@ -2550,7 +2620,7 @@ msgstr ""
 "כמה מהתקליטורים מכילים רצועה מוסתרת בקטע הקדם-רווח לפני רצועה 1. נא להשתמש "
 "בזה כדי להוסיף (או להסיר) את חלק הרצועה המיוחד קדם-הרווח."
 
-#: ../root/release/edit/tracklist.tt:571
+#: ../root/release/edit/tracklist.tt:574
 msgid ""
 "Some discs contain one or more data tracks after all audio tracks. Use this "
 "to add (or remove) the special data tracks section. You should only add data "
@@ -2600,7 +2670,7 @@ msgstr "מצב"
 #: ../root/components/list/ReleaseList.js:151
 #: ../root/edit/details/AddRelease.js:77 ../root/edit/details/EditRelease.js:97
 #: ../root/edit/details/historic/AddRelease.js:52
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:180
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:181
 #: ../root/search/components/ReleaseResults.js:128
 #: ../root/static/scripts/common/components/FilterForm.js:309
 #, fuzzy
@@ -2617,18 +2687,18 @@ msgstr "הפסקת שימוש באתר בטא"
 msgid "Suggested recordings:"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:583
+#: ../root/release/edit/tracklist.tt:586
 msgid "Swap track titles with artist credits"
 msgstr "החלפת כותרת רצוע במזכה אמן"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21 ../root/cdtoc/list.tt:15
 #: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:174
+#: ../root/release_group/ReleaseGroupIndex.js:175
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/search/components/ReleaseResults.js:131
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
-#: ../root/utility/tableColumns.js:784
+#: ../root/utility/tableColumns.js:793
 #, fuzzy
 #| msgid "Tagger"
 msgctxt "audio file metadata"
@@ -2647,11 +2717,28 @@ msgstr ""
 "אתר ארכיב תמונות עטיפה חווה כעת קשיים. ספק אם הוספת תמונות להוצאה זו כעת "
 "תצלח."
 
-#: ../root/release/edit/information.tt:391
-msgid "The annotation field functions like a miniature wiki."
-msgstr "שדה ביאור מתפקד כ wiki מזערי."
+#: ../root/artist/edit_form.tt:185
+msgid "The begin and end areas describe where the artist was born and died."
+msgstr ""
 
-#: ../root/release/edit/information.tt:340
+#: ../root/artist/edit_form.tt:195
+msgid ""
+"The begin and end areas describe where the artist was when it started and "
+"stopped existing."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:188
+msgid ""
+"The begin and end areas describe where the group was formed and dissolved."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:191
+msgid ""
+"The begin area is the real-life area where the character concept was "
+"created. The end area should not be set."
+msgstr ""
+
+#: ../root/release/edit/information.tt:477
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "מספר הקטלוגי שהוזן נראה כמו ASIN של אמזון."
 
@@ -2669,48 +2756,47 @@ msgstr "הנתונים שותפו כוללים את השגיאות הבאות:"
 msgid "The date you've entered is not valid."
 msgstr "התאריך שהוזן אינו תיקין."
 
-#: ../root/release/edit/information.tt:404
-msgid ""
-"The disambiguation field is used to help users distinguish between "
-"identically named releases."
-msgstr ""
-
 #: ../root/edit/search_macros.tt:9
 msgid ""
 "The filters below allow you to find only edits fulfilling specific criteria. "
 "See the {doc_link|documentation} for more info about using the filters."
 msgstr ""
 
-#: ../root/release/edit/information.tt:357
+#: ../root/release/edit/information.tt:389
+#, fuzzy
+#| msgid ""
+#| "This release status should be used for unofficial translations and "
+#| "transliterations of tracklists and release titles, and does not denote a "
+#| "separate real release. It should not be used to denote bootlegs, mixtape/"
+#| "street albums, demos, or digital albums. Be sure to link to the "
+#| "corresponding real release with the {url|transl(iter)ation relationship}."
 msgid ""
-"The language attribute should be set to the language used for the release "
-"title and track titles. It should not be set to the language the lyrics are "
-"written in, nor to the language used for other extra information on the "
-"cover."
+"The pseudo‐release status should be used for unofficial translations and "
+"transliterations of tracklists and release titles, and does not denote a "
+"separate real release. It should not be used to denote bootlegs, mixtape/"
+"street albums, demos, or digital albums. Be sure to link to the "
+"corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
+"קשריש לעשות שימוש במצב הוצאה זה במקרה של תרגום לא רשמי ותרגום של רשימת "
+"רצועות וכותרות הוצאה, שאינו מהווה הוצאה אמיתית נפרדת. מצב זה לא אמור לשמש "
+"כדי לציין בוטלג, mixtape / אלבומי רחוב, הדגמות, או אלבומים דיגיטליים. יש "
+"להקפד לקשר את ההוצאה האמיתית עם ה  {url|transl(iter)ation relationship}."
 
-#: ../root/release/edit/information.tt:394
+#: ../root/release/edit/information.tt:550
 msgid ""
-"The purpose of this field is to add information that usually doesn't fit "
+"The purpose of this field is to add information that usually doesn’t fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
-"information in itself has to be free-text)."
-msgstr ""
-
-#: ../root/release/edit/information.tt:363
-msgid ""
-"The script attribute should be set to the script used for the release title "
-"and track titles."
+"information in itself has to be free‐form text)."
 msgstr ""
 
 #: ../root/layout.tt:64 ../root/layout/index.js:221
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr ""
 
-#: ../root/components/forms.tt:271
+#: ../root/components/forms.tt:268
 msgid ""
-"The sort name is an artist name variant used when sorting alphabetically. "
-"For usage information check the {sort_name_doc|sort name guidelines}."
+"The sort name is an artist name variant used when sorting alphabetically."
 msgstr ""
 
 #: ../root/release/edit/tracklist.tt:124
@@ -2734,6 +2820,194 @@ msgid ""
 "1000 CE, please pad with zeros, such as “0123”."
 msgstr ""
 
+#: ../root/place/edit_form.tt:81
+msgid ""
+"The {doc|address} describes the place’s location using the standard "
+"addressing format for the country where it’s located. It should include the "
+"ZIP/postal code but not the country name."
+msgstr ""
+
+#: ../root/release/edit/information.tt:545
+#, fuzzy
+#| msgid "The annotation field functions like a miniature wiki."
+msgid ""
+"The {doc|annotation} field functions like a miniature wiki. It’s fine to "
+"leave it empty."
+msgstr "שדה ביאור מתפקד כ wiki מזערי."
+
+#: ../root/artist/edit_form.tt:145
+msgid ""
+"The {doc|area} indicates the country the artist is primarily identified "
+"with. If the artist is strongly associated with an area smaller than a "
+"country, select that instead."
+msgstr ""
+
+#: ../root/label/edit_form.tt:89
+msgid "The {doc|area} indicates the geographical origin of the label."
+msgstr ""
+
+#: ../root/place/edit_form.tt:89
+msgid ""
+"The {doc|area} is the location (such as city) where the place is located."
+msgstr ""
+
+#: ../root/release/edit/information.tt:330
+msgid ""
+"The {doc|artist} field contains the artist or artists as shown on the "
+"release."
+msgstr ""
+
+#: ../root/release/edit/information.tt:503
+msgid ""
+"The {doc|barcode} is the numeric identifier (such as UPC or EAN) associated "
+"with the release."
+msgstr ""
+
+#: ../root/label/edit_form.tt:107
+msgid ""
+"The {doc|begin and end dates} describe the period during which the label "
+"existed or was active."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:174
+msgid ""
+"The {doc|begin and end dates} describe when the artist started and stopped "
+"existing."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:161
+msgid ""
+"The {doc|begin and end dates} describe when the artist was born and died."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:165
+msgid ""
+"The {doc|begin and end dates} describe when the group was formed and "
+"dissolved."
+msgstr ""
+
+#: ../root/place/edit_form.tt:103
+msgid ""
+"The {doc|begin and end dates} describe when the place was founded and when "
+"it shut down."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:169
+msgid ""
+"The {doc|begin date} is the real-life date when the character concept was "
+"created. The end date should not be set."
+msgstr ""
+
+#: ../root/release/edit/information.tt:467
+msgid ""
+"The {doc|catalog number} is assigned by the label and can often be found on "
+"the spine or near the barcode on physical media."
+msgstr ""
+
+#: ../root/release/edit/information.tt:456
+msgid "The {doc|country} describes where the release was made available."
+msgstr ""
+
+#: ../root/release/edit/information.tt:426
+msgid ""
+"The {doc|date} describes when this particular release was made available."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:119
+msgid ""
+"The {doc|disambiguation} field helps users distinguish between artists with "
+"identical or similar names. Feel free to leave it blank if it seems unlikely "
+"that there will be other artists with similar names."
+msgstr ""
+
+#: ../root/label/edit_form.tt:74
+msgid ""
+"The {doc|disambiguation} field helps users distinguish between labels with "
+"identical or similar names. Feel free to leave it blank if you aren’t warned "
+"about possible duplicates."
+msgstr ""
+
+#: ../root/place/edit_form.tt:66
+msgid ""
+"The {doc|disambiguation} field helps users distinguish between places with "
+"similar names. Feel to leave it blank if you aren’t warned about possible "
+"duplicates in the same area."
+msgstr ""
+
+#: ../root/release/edit/information.tt:568
+msgid ""
+"The {doc|disambiguation} field helps users distinguish between releases in "
+"the same release group. Please leave it empty if other properties like "
+"artist, format, label, or date distinguish this release."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:134
+msgid ""
+"The {doc|gender} field describes the gender with which a person or character "
+"identifies."
+msgstr ""
+
+#: ../root/label/edit_form.tt:97
+msgid ""
+"The {doc|label code} is a 4‐ or 5‐digit number uniquely identifying the "
+"label."
+msgstr ""
+
+#: ../root/release/edit/information.tt:492
+msgid ""
+"The {doc|label} is the imprint associated with the release. Please also see "
+"the guidelines about {style|special purpose labels}."
+msgstr ""
+
+#: ../root/release/edit/information.tt:402
+msgid ""
+"The {doc|language} attribute should be set to the language used for the "
+"release title and track titles. It should not be set to the language the "
+"lyrics are written in, nor to the language used for other extra information "
+"on the cover."
+msgstr ""
+
+#: ../root/artist/edit_form.tt:106
+msgid "The {doc|name} is the artist’s official name."
+msgstr ""
+
+#: ../root/label/edit_form.tt:67
+msgid "The {doc|name} is the label’s official name."
+msgstr ""
+
+#: ../root/place/edit_form.tt:55
+msgid "The {doc|name} is the place’s official name."
+msgstr ""
+
+#: ../root/release/edit/information.tt:535
+msgid ""
+"The {doc|packaging} attribute describes the outermost packaging of the "
+"release."
+msgstr ""
+
+#: ../root/release/edit/information.tt:364
+msgid "The {doc|primary type} describes how the release group is categorized."
+msgstr ""
+
+#: ../root/release/edit/information.tt:347
+msgid ""
+"The {doc|release group} groups related releases into a single logical entity."
+msgstr ""
+
+#: ../root/release/edit/information.tt:415
+msgid ""
+"The {doc|script} attribute should be set to the script used for the release "
+"title and track titles."
+msgstr ""
+
+#: ../root/release/edit/information.tt:380
+msgid "The {doc|status} describes how “official” the release is."
+msgstr ""
+
+#: ../root/release/edit/information.tt:319
+msgid "The {doc|title} is the release’s name."
+msgstr ""
+
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
 "There are currently no discs in MusicBrainz associated with the information "
@@ -2755,7 +3029,7 @@ msgstr ""
 "כינויים} ולהסיר את כל {rel_uri|קשרי־גומלין} הקיימים במקום, מה שיאפשר ל־ "
 "ModBot להסיר את האמן הזה באופן אוטומטי בימים הקרובים ."
 
-#: ../root/place/edit_form.tt:27
+#: ../root/place/edit_form.tt:31
 #: ../lib/MusicBrainz/Server/Form/Field/Coordinates.pm:58
 msgid "These coordinates could not be parsed."
 msgstr "לא ניתן לנתח נקודות ציון."
@@ -2766,16 +3040,16 @@ msgstr "לא ניתן לנתח נקודות ציון."
 msgid "This CD TOC is already attached to this medium."
 msgstr "תוכן עניינים תקליטור כבר מצורף למדיה זו."
 
-#: ../root/release/edit/information.tt:397
+#: ../root/release/edit/information.tt:556
 msgid ""
-"This annotation will be published under an open license (<a href=\"{url}\" "
-"target=\"_blank\">CC BY-NC-SA 3.0</a>) and as such, it should not contain "
-"text that you don't have the right to release under that license. While you "
-"can quote a source to support a point you're making, you should never enter "
-"promotional texts or other artist or label-owned texts into the annotation."
+"This annotation will be published under an open license ({url|CC BY-NC-SA "
+"3.0}) and as such, it should not contain text that you don’t have the right "
+"to release under that license. While you can quote a source to support a "
+"point you’re making, you should never enter promotional text or other "
+"artist- or label‐owned text into the annotation."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:63
+#: ../root/artist/edit_form.tt:67
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:84
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:98
 msgid "This artist has ended."
@@ -2790,11 +3064,11 @@ msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr "שרת בדיקת בטא זה מאפשר בדיקת תכונות חדשות עם מסד נתונים 'חי'."
 
-#: ../root/release/edit/tracklist.tt:566
+#: ../root/release/edit/tracklist.tt:569
 msgid "This disc contains data tracks at the end"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:551
+#: ../root/release/edit/tracklist.tt:554
 msgid "This disc has a hidden pregap track before track 1"
 msgstr ""
 
@@ -2808,10 +3082,27 @@ msgstr "ישות הוסרה ולא ניתנת להצגה כראוי."
 msgid "This entity will be added by this edit."
 msgstr ""
 
-#: ../root/release/edit/information.tt:407
+#: ../root/release/edit/information.tt:573
+#, fuzzy
+#| msgid ""
+#| "This field is not a place to store general background information about "
+#| "the release: that kind of information should go in the annotation field."
 msgid ""
 "This field is not a place to store general background information about the "
-"release: that kind of information should go in the annotation field."
+"release. That kind of information should go in the annotation field."
+msgstr ""
+"שדה זה לא נועד לאחסון מידע כללי אודות ההוצאה: סוג מידע כזה ראוי שיאוחסן בשדה "
+"הביאור."
+
+#: ../root/artist/edit_form.tt:124 ../root/label/edit_form.tt:79
+#: ../root/place/edit_form.tt:71
+#, fuzzy
+#| msgid ""
+#| "This field is not a place to store general background information about "
+#| "the release: that kind of information should go in the annotation field."
+msgid ""
+"This field is not a place to store general background information. That kind "
+"of information should go in an {doc|annotation}."
 msgstr ""
 "שדה זה לא נועד לאחסון מידע כללי אודות ההוצאה: סוג מידע כזה ראוי שיאוחסן בשדה "
 "הביאור."
@@ -2908,7 +3199,7 @@ msgid ""
 "usually be {featured_style|entered as part of the track artist}."
 msgstr ""
 
-#: ../root/place/edit_form.tt:30
+#: ../root/place/edit_form.tt:34
 msgid "This place has ended."
 msgstr "מקום זה חדל להתקיים"
 
@@ -2931,19 +3222,6 @@ msgstr ""
 msgid "This release does not have a barcode"
 msgstr ""
 
-#: ../root/release/edit/information.tt:413
-msgid ""
-"This release status should be used for unofficial translations and "
-"transliterations of tracklists and release titles, and does not denote a "
-"separate real release. It should not be used to denote bootlegs, mixtape/"
-"street albums, demos, or digital albums. Be sure to link to the "
-"corresponding real release with the {url|transl(iter)ation relationship}."
-msgstr ""
-"קשריש לעשות שימוש במצב הוצאה זה במקרה של תרגום לא רשמי ותרגום של רשימת "
-"רצועות וכותרות הוצאה, שאינו מהווה הוצאה אמיתית נפרדת. מצב זה לא אמור לשמש "
-"כדי לציין בוטלג, mixtape / אלבומי רחוב, הדגמות, או אלבומים דיגיטליים. יש "
-"להקפד לקשר את ההוצאה האמיתית עם ה  {url|transl(iter)ation relationship}."
-
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
@@ -2962,8 +3240,8 @@ msgstr "רצועה זו מוסתרת בקדם-רווח"
 
 #: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:7
 #: ../root/release/edit/information.tt:8 ../root/release/edit/tracklist.tt:162
-#: ../root/release/edit/tracklist.tt:509 ../root/cdstub/BrowseCDStubs.js:29
-#: ../root/cdstub/CDStubInfo.js:20 ../root/cdtoc/AttachCDTocConfirmation.js:58
+#: ../root/release/edit/tracklist.tt:512 ../root/cdstub/BrowseCDStubs.js:29
+#: ../root/cdstub/CDStubInfo.js:20 ../root/cdtoc/AttachCDTocConfirmation.js:59
 #: ../root/components/RelationshipsTable.js:320
 #: ../root/components/list/ReleaseGroupList.js:72
 #: ../root/edit/details/EditMedium.js:278
@@ -2997,7 +3275,7 @@ msgstr "סך כל רצועות:"
 msgid "Track count:"
 msgstr "מספר רצועות:"
 
-#: ../root/release/edit/tracklist.tt:581
+#: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:43
 #, fuzzy
 #| msgid "Track Parser"
@@ -3020,13 +3298,13 @@ msgstr "רשימת רצועות"
 #: ../root/components/list/ReleaseList.js:95
 #: ../root/edit/details/MergeReleases.js:229
 #: ../root/edit/details/historic/AddRelease.js:79 ../root/release/DiscIds.js:96
-#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/search/components/CDStubResults.js:47
 #: ../root/search/components/ReleaseResults.js:121
 msgid "Tracks"
 msgstr "רצועות"
 
-#: ../root/release/edit/tracklist.tt:489
+#: ../root/release/edit/tracklist.tt:492
 msgid ""
 "Tracks are required. If you don’t know them, but do know some info (such as "
 "the format or number of media), tick the “I don’t know the tracklist for "
@@ -3046,8 +3324,8 @@ msgstr "עורכי הפניות מקושרות"
 msgid "Turkish"
 msgstr "תורכית"
 
-#: ../root/artist/edit_form.tt:14 ../root/edit/search_macros.tt:473
-#: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:13
+#: ../root/artist/edit_form.tt:18 ../root/edit/search_macros.tt:473
+#: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:17
 #: ../root/release/edit/information.tt:146 ../root/series/edit_form.tt:14
 #: ../root/work/edit_form.tt:13
 #: ../root/account/applications/ApplicationList.js:148
@@ -3069,7 +3347,7 @@ msgstr "תורכית"
 #: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:61
 #: ../root/layout/components/sidebar/CollectionSidebar.js:54
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:63
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:160
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:161
 #: ../root/layout/components/sidebar/SidebarType.js:32
 #: ../root/report/DuplicateArtists.js:69
 #: ../root/report/DuplicateReleaseGroups.js:60
@@ -3102,7 +3380,7 @@ msgstr "תורכית"
 #: ../root/static/scripts/edit/externalLinks.js:1326
 #: ../root/static/scripts/edit/externalLinks.js:1641
 #: ../root/static/scripts/event/components/EventEditForm.js:255
-#: ../root/utility/tableColumns.js:656 ../root/utility/tableColumns.js:661
+#: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
 msgstr "סוג"
 
@@ -3237,16 +3515,6 @@ msgstr ""
 msgid "Warning"
 msgstr "אזהרה"
 
-#: ../root/release/edit/information.tt:325
-msgid ""
-"Warning! \"1990-10-25\" is the bogus date that Amazon gives to all releases "
-"for which they don't know the actual date. <strong>Please use this date only "
-"if you're certain this date is correct!</strong>"
-msgstr ""
-"אַזהָרָה! \"1990-10-25\" הוא התאריך המזויף שאמזון נותנת לכל המהדורות שעבורן הם "
-"לא יודעים את התאריך האמתי. נא להשתמש בתאריך זה רק אם אתם בטוחים שזהו התאריך "
-"הנכון!"
-
 #: ../root/release/edit/tracklist.tt:425 ../root/release/edit/tracklist.tt:444
 #: ../root/release/edit/tracklist.tt:463
 #, fuzzy
@@ -3327,8 +3595,8 @@ msgid ""
 "You are about to add an ISWC to this work. The ISWC must be entered in "
 "standard <code>T-DDD.DDD.DDD-C</code> format:"
 msgstr ""
-"אתם עומדים להוסיף ISWC ליצירה זו. יש להזין את ה־ ISWC בתבנית <code>T-DDD.DDD."
-"DDD-C</code> רגיל:"
+"אתם עומדים להוסיף ISWC ליצירה זו. יש להזין את ה־ ISWC בתבנית <code>T-"
+"DDD.DDD.DDD-C</code> רגיל:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3360,13 +3628,13 @@ msgstr "נא להתחבר על מנת להשתמש באפשרות זו."
 msgid "You must enter a disambiguation comment for this entity."
 msgstr "נא להזין הערת הבהרה לישות זו."
 
-#: ../root/release/edit/tracklist.tt:493
+#: ../root/release/edit/tracklist.tt:496
 msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:497
+#: ../root/release/edit/tracklist.tt:500
 msgid ""
 "You must select an artist for every track (the background color of every "
 "artist field should be green). If you’ve entered an artist but the "
@@ -3498,7 +3766,7 @@ msgstr "עריכות"
 #: ../root/components/forms.tt:175 ../root/components/forms.tt:200
 #: ../root/edit/search_macros.tt:210 ../root/release/edit/tracklist.tt:3
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
-#: ../root/release/edit/tracklist.tt:552 ../root/release/edit/tracklist.tt:567
+#: ../root/release/edit/tracklist.tt:555 ../root/release/edit/tracklist.tt:570
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:115
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:895
 msgid "help"
@@ -3625,7 +3893,7 @@ msgstr ""
 msgid "is not me"
 msgstr ""
 
-#: ../root/release/edit/tracklist.tt:541
+#: ../root/release/edit/tracklist.tt:544
 msgid "link"
 msgstr ""
 
@@ -3699,6 +3967,25 @@ msgstr[3] ""
 msgid "{doc|Disc ID}:"
 msgstr ""
 
+#: ../root/components/forms.tt:245
+msgid ""
+"{doc|IPI codes} are assigned by CISAC to “interested parties” in musical "
+"rights management."
+msgstr ""
+
+#: ../root/components/forms.tt:253
+msgid ""
+"{doc|ISNI codes} are an ISO standard used to uniquely identify persons and "
+"organizations."
+msgstr ""
+
+#: ../root/release/edit/information.tt:371
+msgid ""
+"{doc|Secondary types} are additional attributes describing the release "
+"group. Leave this blank if none apply. You can select multiple types by "
+"using Ctrl + click (or Cmd + click on a Mac)."
+msgstr ""
+
 #: ../root/layout.tt:75 ../root/layout/index.js:248
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
@@ -3743,7 +4030,22 @@ msgstr ""
 msgid "« Previous"
 msgstr ""
 
-#: ../root/components/forms.tt:274
+#: ../root/release/edit/information.tt:437
+#, fuzzy
+#| msgid ""
+#| "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all "
+#| "releases for which they don't know the actual date. <strong>Please use "
+#| "this date only if you're certain this date is correct!</strong>"
+msgid ""
+"“1990-10-25” is the bogus date that Amazon gives to all releases for which "
+"they don’t know the actual date. <strong>Please use this date only if you’re "
+"certain this date is correct.</strong>"
+msgstr ""
+"אַזהָרָה! \"1990-10-25\" הוא התאריך המזויף שאמזון נותנת לכל המהדורות שעבורן הם "
+"לא יודעים את התאריך האמתי. נא להשתמש בתאריך זה רק אם אתם בטוחים שזהו התאריך "
+"הנכון!"
+
+#: ../root/components/forms.tt:271
 msgid ""
 "“Last Name, First Name” and “Group, The” are common examples of sort names."
 msgstr ""
@@ -4076,7 +4378,21 @@ msgstr ""
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr "'{types}' אינו זוג תקין לסוג קשר־הגומלין."
 
-#: ../lib/MusicBrainz/Server/Controller/Release.pm:481
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:418
+#, perl-brace-format
+msgid ""
+"These release groups are being merged in connection with a release merge in "
+"{edit_link|edit #{edit_id}}."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:431
+#, perl-brace-format
+msgid ""
+"The associated release groups are being merged in {edit_link|edit "
+"#{edit_id}}."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Release.pm:538
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
 msgstr "אסטרטגיית מיזוג זו אינה ישימה על ההוצאה שנבחרה."
@@ -4201,19 +4517,19 @@ msgstr ""
 msgid "Invalid TOC"
 msgstr "תוכן עניינם לא תקין"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:294
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:295
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:307
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:308
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:323
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:324
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
@@ -4221,7 +4537,7 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:342
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:343
 #, perl-brace-format
 msgid ""
 "Event art can’t be uploaded to this event because we don’t own the "
@@ -4229,7 +4545,7 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:464
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:468
 #: ../root/event/EventArtDarkened.js:19 ../root/release/CoverArtDarkened.js:19
 #, fuzzy
 #| msgid ""
@@ -4242,7 +4558,7 @@ msgstr ""
 " התקבלה בעבר בקשת הסרה מארכיב תמונות עטיפה של הוצאה זו, כך שלא נוכל לאפשר "
 "העלאות נוספות."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:509
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:513
 #, perl-brace-format
 msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
@@ -4324,6 +4640,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgid "Total"
 msgstr "סך כל"
+
+#: ../lib/MusicBrainz/Server/Data/Work.pm:405
+#: ../root/static/scripts/common/utility/bracketed.js:22
+#, perl-brace-format
+msgid "({text})"
+msgstr "({text})"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 #, fuzzy
@@ -6077,23 +6399,23 @@ msgstr "[ללא]"
 msgid "Please pick the entity you want the others merged into."
 msgstr "נא לבחור ישות לתוכה ימוזגו האחרים."
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:54
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:58
 #: ../root/edit/details/MergeReleases.js:31
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:32
 msgid "Append mediums to target release"
 msgstr "צרוף מדיה להוצאת היעד"
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:55
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:59
 #: ../root/edit/details/MergeReleases.js:32
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:33
 msgid "Merge mediums and recordings"
 msgstr "מיזוג הקלטה ומדיה"
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:66
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:70
 msgid "Another medium is already in this position"
 msgstr "מדיה אחרת נמצאת כבר בעמדה זו"
 
-#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:69
+#: ../lib/MusicBrainz/Server/Form/Merge/Release.pm:73
 msgid "Positions must be greater than 0"
 msgstr "עמדה חייבת להיות גדולה מ 0"
 
@@ -6972,11 +7294,11 @@ msgstr "מען url; [URL]; [URL|label]; [entity-type:MBID|label]"
 #: ../root/annotation/EditAnnotation.js:129
 msgid ""
 "Because square brackets [] are used to create hyperlinks, you have to use "
-"the encoded html equivalents (<code>&amp;#91;</code> for [) and (<code>&amp;"
-"#93;</code> for ]) if you want them not be converted into hyperlinks. "
-"Example: If you want to use [unknown] in the annotation, you'll have to "
-"write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the way you "
-"intended it to show."
+"the encoded html equivalents (<code>&amp;#91;</code> for [) and "
+"(<code>&amp;#93;</code> for ]) if you want them not be converted into "
+"hyperlinks. Example: If you want to use [unknown] in the annotation, you'll "
+"have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the "
+"way you intended it to show."
 msgstr ""
 
 #: ../root/area/AreaArtists.js:28 ../root/area/AreaArtists.js:29
@@ -7030,7 +7352,7 @@ msgstr ""
 #: ../root/area/AreaLabels.js:28 ../root/area/AreaLabels.js:29
 #: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:168
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:222
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:223
 #: ../root/report/ReportsIndex.js:167
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
@@ -7105,7 +7427,7 @@ msgstr "הוצאות"
 
 #: ../root/area/AreaReleases.js:46 ../root/artist/ArtistReleases.js:55
 #: ../root/instrument/InstrumentReleases.js:52 ../root/label/LabelIndex.js:97
-#: ../root/release_group/ReleaseGroupIndex.js:190
+#: ../root/release_group/ReleaseGroupIndex.js:191
 msgid "Add selected releases for merging"
 msgstr "הוספת הוצאות שנבחרו למיזוג"
 
@@ -7136,7 +7458,7 @@ msgstr "אין כרגע משתמשים באזור זה."
 
 #: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:34
 #: ../root/artist/ArtistWorks.js:35 ../root/components/EntityTabs.js:35
-#: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:590
+#: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:594
 #: ../root/static/scripts/common/components/FilterForm.js:235
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:21
@@ -7321,7 +7643,7 @@ msgstr ""
 
 #: ../root/artist/ArtistReleases.js:70
 #: ../root/instrument/InstrumentReleases.js:63
-#: ../root/release_group/ReleaseGroupIndex.js:201
+#: ../root/release_group/ReleaseGroupIndex.js:202
 msgid "No releases found."
 msgstr ""
 
@@ -7629,27 +7951,31 @@ msgid "Please search for the artist you wish to add a new release for:"
 msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:41
+#, fuzzy
+#| msgid ""
+#| "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
+#| "{format} {pos} of {release} by {artist}?"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
-"{format} {pos} of {release} by {artist}?"
+"medium {pos} ({format}) of {release} by {artist}?"
 msgstr ""
-"האם לצרף מזהה תקליטור <code>{discid}</code> ל {format} {pos} של {release} "
-"על־ידי {artist}?"
+"האם לצרף מזהה תקליטור <code>{discid}</code> ל {format} {pos} של {release} על־"
+"ידי {artist}?"
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:68
+#: ../root/cdtoc/AttachCDTocConfirmation.js:69
 msgid "Track length comparison"
 msgstr ""
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:72
+#: ../root/cdtoc/AttachCDTocConfirmation.js:73
 #: ../root/cdtoc/SetTracklistDurations.js:54
 msgid "This edit would only make subsecond changes to track lengths."
 msgstr ""
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:76
+#: ../root/cdtoc/AttachCDTocConfirmation.js:77
 msgid "CD TOC track lengths"
 msgstr "משכי רצועות תוכן עניינים תקליטור:"
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:78
+#: ../root/cdtoc/AttachCDTocConfirmation.js:79
 msgid "Medium track lengths"
 msgstr "משך רצועות מדיה:"
 
@@ -7745,7 +8071,7 @@ msgstr ""
 #: ../root/cdtoc/CDTocInfo.js:47
 #: ../root/edit/details/historic/RemoveTrack.js:20
 #: ../root/search/components/RecordingResults.js:145
-#: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:796
+#: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:805
 msgid "Track"
 msgstr "רצועה"
 
@@ -8166,7 +8492,7 @@ msgid "Disc IDs ({num})"
 msgstr "מזהי תקליטור  ({num})"
 
 #: ../root/components/EntityTabs.js:105 ../root/release/DiscIds.js:89
-#: ../root/release/DiscIds.js:90 ../root/report/ReportsIndex.js:646
+#: ../root/release/DiscIds.js:90 ../root/report/ReportsIndex.js:650
 msgid "Disc IDs"
 msgstr "מזהי תקליטור"
 
@@ -8200,7 +8526,7 @@ msgstr "תמונת עטיפה ({num})"
 
 #: ../root/components/EntityTabs.js:148
 #: ../root/components/UserAccountTabs.js:66 ../root/entity/Tags.js:32
-#: ../root/layout/components/sidebar/SidebarTags.js:71
+#: ../root/layout/components/sidebar/SidebarTags.js:73
 #: ../root/static/scripts/common/components/TagEditor.js:656
 #: ../root/tag/TagCloud.js:94 ../root/tag/TagCloud.js:96
 #: ../root/user/UserTagList.js:57
@@ -8224,7 +8550,7 @@ msgid "Ratings"
 msgstr "דֵּרוּגים"
 
 #: ../root/components/EntityTabs.js:174
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:284
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:285
 msgid "Edit relationships"
 msgstr "עריכת קשרי־גומלין"
 
@@ -8252,7 +8578,7 @@ msgstr ""
 #: ../root/edit/details/RemoveRelationshipType.js:113
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:38
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:539
-#: ../root/utility/tableColumns.js:673
+#: ../root/utility/tableColumns.js:682
 msgid "Attributes"
 msgstr "תכונות"
 
@@ -8272,7 +8598,7 @@ msgstr ""
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:92
 #: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:63
-#: ../root/release/CoverArt.js:64 ../root/release_group/ReleaseGroupIndex.js:89
+#: ../root/release/CoverArt.js:64 ../root/release_group/ReleaseGroupIndex.js:90
 #: ../root/search/components/ReleaseResults.js:66
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8282,7 +8608,7 @@ msgid "-"
 msgstr "-"
 
 #: ../root/components/RemoveFromMergeTableCell.js:34
-#: ../root/utility/tableColumns.js:729 ../root/utility/tableColumns.js:739
+#: ../root/utility/tableColumns.js:738 ../root/utility/tableColumns.js:748
 msgid "Remove from merge"
 msgstr "הסרה ממיזוג"
 
@@ -8506,7 +8832,7 @@ msgstr ""
 
 #: ../root/components/list/ReleaseList.js:82
 #: ../root/edit/details/MergeReleases.js:49
-#: ../root/release_group/ReleaseGroupIndex.js:84
+#: ../root/release_group/ReleaseGroupIndex.js:85
 #: ../root/search/components/ReleaseResults.js:61
 #: ../root/static/scripts/release-editor/duplicates.js:146
 msgid "[missing media]"
@@ -9396,7 +9722,7 @@ msgstr "‮(קבוצת הוצאה חדשה)"
 #: ../root/edit/details/AddRelease.js:114
 #: ../root/edit/details/EditReleaseLabel.js:88
 #: ../root/edit/details/historic/AddRelease.js:112
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:249
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:250
 #: ../root/static/scripts/common/components/ReleaseEvents.js:85
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:115
 msgid "Release events"
@@ -9435,7 +9761,7 @@ msgstr ""
 #: ../root/report/IswcsWithManyWorks.js:49
 #: ../root/search/components/WorkResults.js:58
 #: ../root/static/scripts/common/components/IswcList.js:26
-#: ../root/utility/tableColumns.js:710
+#: ../root/utility/tableColumns.js:719
 msgid "ISWC"
 msgstr "ISWC"
 
@@ -10663,7 +10989,7 @@ msgstr "לא ניתן להציג תמונת עטיפה"
 
 #: ../root/event/EventArt.js:40
 #: ../root/layout/components/sidebar/EventSidebar.js:66
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:97
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:98
 #: ../root/release/CoverArt.js:41
 msgid ""
 "Images for this item have been hidden by the Internet Archive because of a "
@@ -10882,7 +11208,7 @@ msgstr[3] ""
 
 #: ../root/iswc/Index.js:59 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
-#: ../root/utility/tableColumns.js:804
+#: ../root/utility/tableColumns.js:813
 #, fuzzy
 #| msgid "Recording by {artist}"
 msgid "Recording artists"
@@ -11186,7 +11512,7 @@ msgstr "תיעוד"
 #: ../root/relationship/RelationshipsHeader.js:18
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:103
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
-#: ../root/utility/tableColumns.js:375
+#: ../root/utility/tableColumns.js:383
 #, fuzzy
 #| msgid "Relationship Types"
 msgid "Relationship types"
@@ -11530,12 +11856,12 @@ msgid "No poster available."
 msgstr "תמונות עטיפה לא זמינה."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:75
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:106
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:107
 msgid "View all artwork"
 msgstr "הצגת כל תמונות העטיפה"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:78
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:109
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:110
 #, fuzzy
 #| msgid "No description available."
 msgid "No images available."
@@ -11620,27 +11946,27 @@ msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "הגדרת תמונת עטיפה"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:103
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:104
 msgid "No front cover image available."
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:155
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:156
 msgid "Additional details"
 msgstr "פרטים נוספים"
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:257
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:258
 msgid "Release group rating"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:263
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:264
 msgid "Release group reviews"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:278
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:279
 msgid "Release group external links"
 msgstr ""
 
-#: ../root/layout/components/sidebar/ReleaseSidebar.js:290
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:291
 msgid "Change data quality"
 msgstr ""
 
@@ -11662,7 +11988,7 @@ msgstr "רשיון"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:19
 #: ../root/static/scripts/release/components/MediumTable.js:77
-#: ../root/utility/tableColumns.js:468
+#: ../root/utility/tableColumns.js:477
 msgid "Rating"
 msgstr "דֵּרוּג"
 
@@ -11670,13 +11996,13 @@ msgstr "דֵּרוּג"
 msgid "see all ratings"
 msgstr "הצגת כל הדירוגים"
 
-#: ../root/layout/components/sidebar/SidebarTags.js:43
+#: ../root/layout/components/sidebar/SidebarTags.js:45
 #: ../root/static/scripts/common/components/TagEditor.js:664
 msgctxt "genre"
 msgid "(none)"
 msgstr "(ללא)"
 
-#: ../root/layout/components/sidebar/SidebarTags.js:44
+#: ../root/layout/components/sidebar/SidebarTags.js:46
 #: ../root/static/scripts/common/components/TagEditor.js:673
 #, fuzzy
 #| msgctxt "type"
@@ -11685,7 +12011,7 @@ msgctxt "folksonomy tag"
 msgid "(none)"
 msgstr "(ללא)"
 
-#: ../root/layout/components/sidebar/SidebarTags.js:73
+#: ../root/layout/components/sidebar/SidebarTags.js:75
 #: ../root/static/scripts/common/components/TagEditor.js:524
 #: ../root/static/scripts/common/components/TagEditor.js:658
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:21
@@ -11693,7 +12019,7 @@ msgstr "(ללא)"
 msgid "Genres"
 msgstr "סוגה"
 
-#: ../root/layout/components/sidebar/SidebarTags.js:80
+#: ../root/layout/components/sidebar/SidebarTags.js:82
 #: ../root/static/scripts/common/components/TagEditor.js:534
 #: ../root/static/scripts/common/components/TagEditor.js:667
 #: ../root/user/UserTagList.js:94
@@ -11703,7 +12029,7 @@ msgctxt "folksonomy"
 msgid "Other tags"
 msgstr "תגים אחרים"
 
-#: ../root/layout/components/sidebar/SidebarTags.js:89
+#: ../root/layout/components/sidebar/SidebarTags.js:91
 #, fuzzy
 #| msgid "See all tags"
 msgctxt "folksonomy"
@@ -12613,15 +12939,21 @@ msgstr[3] "הצגת כל הגרסאות להוצאה זו, {count} זמינים
 msgid "Release by {artist}"
 msgstr "‮הוצאה על־ידי {artist}"
 
-#: ../root/release/ReleaseMerge.js:33 ../root/release/ReleaseMerge.js:35
+#: ../root/release/ReleaseMerge.js:35 ../root/release/ReleaseMerge.js:37
 msgid "Merge releases"
 msgstr "מיזוג הוצאות"
 
-#: ../root/release/ReleaseMerge.js:37
+#: ../root/release/ReleaseMerge.js:39
 msgid ""
 "You are about to merge the following releases into a single release. Please "
 "select the release which you would like other releases to be merged into:"
 msgstr ""
+
+#: ../root/release/ReleaseMerge.js:63
+#, fuzzy
+#| msgid "Merge release groups"
+msgid "Also merge the associated release groups"
+msgstr "מיזוג קבוצת הוצאה"
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
@@ -12898,7 +13230,7 @@ msgid ""
 "or with a buggy tool."
 msgstr ""
 
-#: ../root/report/CDTocDubiousLength.js:33 ../root/report/ReportsIndex.js:650
+#: ../root/report/CDTocDubiousLength.js:33 ../root/report/ReportsIndex.js:654
 msgid "Disc IDs with dubious duration"
 msgstr ""
 
@@ -12912,7 +13244,7 @@ msgid ""
 "clashes are clear mistakes."
 msgstr ""
 
-#: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:654
+#: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:658
 msgid "Disc IDs attached but not applied"
 msgstr "מזהי תקליטור צורפו אך לא הוחלו"
 
@@ -13075,7 +13407,7 @@ msgstr ""
 "שיצאו משימוש."
 
 #: ../root/report/DeprecatedRelationshipUrls.js:35
-#: ../root/report/ReportsIndex.js:615
+#: ../root/report/ReportsIndex.js:619
 msgid "URLs with deprecated relationships"
 msgstr "מעני url עם קישרי־גומלין שהוצאו משימוש"
 
@@ -13088,7 +13420,7 @@ msgstr ""
 "משימוש."
 
 #: ../root/report/DeprecatedRelationshipWorks.js:35
-#: ../root/report/ReportsIndex.js:598
+#: ../root/report/ReportsIndex.js:602
 msgid "Works with deprecated relationships"
 msgstr "יצירות עם קישרי־גומלין שהוצאו משימוש"
 
@@ -13201,8 +13533,8 @@ msgid ""
 "This report lists labels which have multiple relationships to the same "
 "entity using the same relationship type."
 msgstr ""
-"הדוח מפרט חברות תקליטים עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג "
-"קשר־גומלין זהה."
+"הדוח מפרט חברות תקליטים עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־"
+"גומלין זהה."
 
 #: ../root/report/DuplicateRelationshipsLabels.js:31
 #: ../root/report/ReportsIndex.js:175
@@ -13227,8 +13559,8 @@ msgid ""
 "This report lists release groups which have multiple relationships to the "
 "same entity using the same relationship type."
 msgstr ""
-"הדוח מפרט קבוצות הוצאה עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג "
-"קשר־גומלין זהה."
+"הדוח מפרט קבוצות הוצאה עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־"
+"גומלין זהה."
 
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:31
 #: ../root/report/ReportsIndex.js:211
@@ -13258,7 +13590,7 @@ msgstr ""
 "זהה. לא כולל יחסי הקלטה-יצירה. ראו גרסת דוח הקלטה עבור אלו."
 
 #: ../root/report/DuplicateRelationshipsWorks.js:33
-#: ../root/report/ReportsIndex.js:594
+#: ../root/report/ReportsIndex.js:598
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -13381,7 +13713,7 @@ msgstr ""
 "קשורות באותה הוצאה, בדרך כלל זה אומר שהייתה שגיאה בקריאת הדיסק."
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
-#: ../root/report/ReportsIndex.js:632
+#: ../root/report/ReportsIndex.js:636
 msgid "ISRCs with multiple recordings"
 msgstr "ISRCs עם ריבוי הקלטות"
 
@@ -13398,7 +13730,7 @@ msgstr ""
 "הדוח מפרט את {iswc|SWC} המצורפים ליותר מיצירה אחת. אם היצירות זהות, זה בדרך "
 "כלל אומר שיש למזג אותן."
 
-#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:641
+#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:645
 msgid "ISWCs with multiple works"
 msgstr "ISWCs עם ריבוי הקלטות"
 
@@ -13454,7 +13786,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/LinksWithMultipleEntities.js:53
-#: ../root/report/ReportsIndex.js:619
+#: ../root/report/ReportsIndex.js:623
 msgid "URLs linked to multiple entities"
 msgstr "מעני url מקושרים להוצאות מרובות ישויות"
 
@@ -14139,20 +14471,27 @@ msgstr "מקום עם באורים"
 msgid "Series with annotations"
 msgstr "סדרות עם באורים"
 
-#: ../root/report/ReportsIndex.js:602
+#: ../root/report/ReportsIndex.js:589
+#: ../root/report/SeriesContainingDuplicates.js:49
+#, fuzzy
+#| msgid "Release Title"
+msgid "Series containing duplicates"
+msgstr "כותרת הוצאה"
+
+#: ../root/report/ReportsIndex.js:606
 msgid "Works with annotations"
 msgstr "יצירות עם באורים"
 
-#: ../root/report/ReportsIndex.js:606 ../root/report/WorkSameTypeAsParent.js:36
+#: ../root/report/ReportsIndex.js:610 ../root/report/WorkSameTypeAsParent.js:36
 msgid "Works with the same type as their parent"
 msgstr "יצירות בעלות סוג זהה להורים"
 
-#: ../root/report/ReportsIndex.js:611
+#: ../root/report/ReportsIndex.js:615
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 msgid "URLs"
 msgstr "מעני url"
 
-#: ../root/report/ReportsIndex.js:623
+#: ../root/report/ReportsIndex.js:627
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
 msgid "Wikidata URLs linked to multiple entities"
 msgstr "מעני url ויקיפדיה מקושרים להוצאות מרובות ישויות"
@@ -14171,6 +14510,30 @@ msgstr ""
 #: ../root/report/SeparateDiscs.js:36
 msgid "Discs as separate releases"
 msgstr "תקליטורים כהוצאות נפרדות"
+
+#: ../root/report/SeriesContainingDuplicates.js:23
+#, fuzzy
+#| msgid "Edited entity"
+msgid "Duplicate entity"
+msgstr "ישות שעברה עריכה"
+
+#: ../root/report/SeriesContainingDuplicates.js:29
+#, fuzzy
+#| msgid "ISO number"
+msgid "Number"
+msgstr "מספר ‮ISO"
+
+#: ../root/report/SeriesContainingDuplicates.js:43
+#, fuzzy
+#| msgid ""
+#| "This report lists recordings which have multiple relationships to the "
+#| "same entity using the same relationship type."
+msgid ""
+"This report lists series which contain the same entity multiple times with "
+"the same number attribute."
+msgstr ""
+"הדוח מפרט הקלטות עם קשרי־גומלין מרובים לאותה הישות המשתמשים בסוג קשר־גומלין "
+"זהה."
 
 #: ../root/report/SetInDifferentRg.js:25
 msgid ""
@@ -14442,7 +14805,7 @@ msgstr "תיעוד"
 #: ../root/search/components/EventResults.js:87
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:224
-#: ../root/utility/tableColumns.js:390
+#: ../root/utility/tableColumns.js:398
 msgctxt "event location"
 msgid "Location"
 msgstr ""
@@ -15137,7 +15500,6 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:45
-#: ../root/static/scripts/common/components/MediumDescription.js:14
 msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
@@ -15316,6 +15678,17 @@ msgstr ""
 #: ../root/static/scripts/common/components/ListMergeButtonsRow.js:32
 msgid "{action_label} (in a new tab)"
 msgstr ""
+
+#: ../root/static/scripts/common/components/MediumDescription.js:29
+#, fuzzy
+#| msgid "Medium {position}: {title}"
+msgid "Medium {position} ({medium_format})"
+msgstr "{position} מדיה: {title}"
+
+#: ../root/static/scripts/common/components/MediumDescription.js:34
+#: ../root/static/scripts/release-editor/fields.js:919
+msgid "Medium {position}"
+msgstr "{position} מדיה"
 
 #: ../root/static/scripts/common/components/MediumLink.js:17
 msgid "{medium} on {release}"
@@ -15561,19 +15934,19 @@ msgstr ""
 msgid "Work artists"
 msgstr "אמני יצירה"
 
-#: ../root/static/scripts/common/entity.js:256
+#: ../root/static/scripts/common/entity.js:255
 msgid "You selected {label}."
 msgstr "בחרת {label}."
 
-#: ../root/static/scripts/common/entity.js:262
+#: ../root/static/scripts/common/entity.js:261
 msgid "Label code: {code}"
 msgstr "קוד חברת תקליטים: {code}"
 
-#: ../root/static/scripts/common/entity.js:289
+#: ../root/static/scripts/common/entity.js:288
 msgid "You selected {area}."
 msgstr "בחרתם {area}."
 
-#: ../root/static/scripts/common/entity.js:382
+#: ../root/static/scripts/common/entity.js:381
 msgid "You selected {releasegroup}."
 msgstr ""
 
@@ -15616,10 +15989,6 @@ msgstr ""
 #: ../root/static/scripts/common/utility/bracketed.js:19
 msgid "[{text}]"
 msgstr "[{text}]"
-
-#: ../root/static/scripts/common/utility/bracketed.js:22
-msgid "({text})"
-msgstr "({text})"
 
 #: ../root/static/scripts/common/utility/formatDatePeriod.js:22
 msgid " – ????"
@@ -15935,8 +16304,8 @@ msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
-"קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את "
-"\"{fragment}\" אם עדיין מתאים. נא לעיין ב־ {url|הנחיות}."
+"קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את \"{fragment}"
+"\" אם עדיין מתאים. נא לעיין ב־ {url|הנחיות}."
 
 #: ../root/static/scripts/edit/URLCleanup.js:6760
 msgid ""
@@ -16307,7 +16676,7 @@ msgstr "ברי זיכוי"
 
 #: ../root/static/scripts/edit/components/forms.js:229
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:42
-#: ../root/static/scripts/release-editor/init.js:321
+#: ../root/static/scripts/release-editor/init.js:335
 msgid "All of your changes will be lost if you leave this page."
 msgstr "כל השינויים יאבדו בעזיבת עמוד זה."
 
@@ -16851,10 +17220,6 @@ msgstr "הוספת מדיה"
 msgid "Medium {position}: {title}"
 msgstr "{position} מדיה: {title}"
 
-#: ../root/static/scripts/release-editor/fields.js:919
-msgid "Medium {position}"
-msgstr "{position} מדיה"
-
 #: ../root/static/scripts/release-editor/fields.js:928
 msgid "I confirm this medium is actually titled “{medium_title}”."
 msgstr ""
@@ -16876,8 +17241,8 @@ msgstr ""
 msgid "Error loading release: {error}"
 msgstr ""
 
-#: ../root/static/scripts/release-editor/init.js:245
-#: ../root/static/scripts/release-editor/init.js:246
+#: ../root/static/scripts/release-editor/init.js:259
+#: ../root/static/scripts/release-editor/init.js:260
 #, fuzzy
 #| msgid "Edit release"
 msgctxt "header"
@@ -18449,25 +18814,25 @@ msgstr ""
 msgid "This edit was cancelled."
 msgstr "עריכה זו בוטלה."
 
-#: ../root/utility/tableColumns.js:752
+#: ../root/utility/tableColumns.js:761
 #, fuzzy
 #| msgid "Relationship Types"
 msgctxt "header"
 msgid "Relationship type"
 msgstr "סוגי קשרי־גומלין"
 
-#: ../root/utility/tableColumns.js:767
+#: ../root/utility/tableColumns.js:776
 #, fuzzy
 #| msgid "Edit Types"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "עריכת סוגים"
 
-#: ../root/utility/tableColumns.js:775
+#: ../root/utility/tableColumns.js:784
 msgid "Subscribed"
 msgstr ""
 
-#: ../root/utility/tableColumns.js:823
+#: ../root/utility/tableColumns.js:832
 #, fuzzy
 #| msgid "Lyrics Languages"
 msgctxt "header"
