@@ -12,12 +12,13 @@
 # Echelon666 <echelon01@wp.pl>, 2024.
 # Peter69 <echelon01@wp.pl>, 2024, 2025.
 # Michal77 <michal_wilk@poczta.fm>, 2025.
+# PS <weblate@wp.pl>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-26 18:44+0000\n"
-"Last-Translator: Michal77 <michal_wilk@poczta.fm>\n"
+"PO-Revision-Date: 2025-04-17 01:20+0000\n"
+"Last-Translator: PS <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/pl/>\n"
 "Language: pl\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
 "n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.10.1\n"
+"X-Generator: Weblate 5.11\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -266,7 +267,7 @@ msgstr "Podstawy"
 #, fuzzy
 #| msgid "Database Statistics"
 msgid "No image statistics available."
-msgstr "Statystyki bazy danych"
+msgstr "Brak dostępnych statystyk obrazu."
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
@@ -363,7 +364,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Database Statistics"
 msgid "No event art statistics available."
-msgstr "Statystyki bazy danych"
+msgstr "Brak dostępnych statystyk dotyczących wydarzeń artystycznych."
 
 #: ../root/statistics/Images.js:438
 #, fuzzy
@@ -726,10 +727,8 @@ msgid "With EAA poster art:"
 msgstr "Z plakatem EAA:"
 
 #: ../root/statistics/Index.js:947
-#, fuzzy
-#| msgid "Cover Art"
 msgid "No poster art:"
-msgstr "Okładka"
+msgstr "Brak plakatu:"
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
@@ -1149,11 +1148,11 @@ msgstr "Artyści bez określonego kraju"
 
 #: ../root/statistics/stats.js:86
 msgid "Female artists"
-msgstr "Artystki:"
+msgstr "Artystki"
 
 #: ../root/statistics/stats.js:91
 msgid "Male artists"
-msgstr "Artyści:"
+msgstr "Artyści"
 
 #: ../root/statistics/stats.js:96
 msgid "Non-binary Artists"
@@ -1432,7 +1431,7 @@ msgstr "Wydarzenia bez określonego typu"
 #, fuzzy
 #| msgid "Releases with no disc IDs:"
 msgid "Events with no type set that have event art"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydarzenia bez ustawionego typu, które mają grafikę wydarzenia"
 
 #: ../root/statistics/stats.js:494
 msgid "Instruments with no type set"
@@ -1486,7 +1485,7 @@ msgstr "Nośniki bez określonego formatu"
 #, fuzzy
 #| msgid "Releases with no disc IDs:"
 msgid "Mediums with disc IDs"
-msgstr "Wydania bez Disc ID:"
+msgstr "Nośniki z identyfikatorami płyt"
 
 #: ../root/statistics/stats.js:589
 msgid "Places with no country set"
@@ -1567,16 +1566,12 @@ msgid "Releases with no country set"
 msgstr "Wydania bez określonego kraju"
 
 #: ../root/statistics/stats.js:719
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with CAA cover art"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydania z okładką CAA"
 
 #: ../root/statistics/stats.js:724
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with no cover art"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydania bez okładki"
 
 #: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set"
@@ -1587,16 +1582,14 @@ msgid "Releases with a medium with no format set that have cover art"
 msgstr "Wydania z nośnikiem bez określonego formatu, które mają okładkę"
 
 #: ../root/statistics/stats.js:741
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with cover art"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydania z okładką"
 
 #: ../root/statistics/stats.js:746
 #, fuzzy
 #| msgid "Releases with no disc IDs:"
 msgid "Releases with disc IDs"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydania z identyfikatorami płyt"
 
 #: ../root/statistics/stats.js:751
 msgid "Releases with no language set"
@@ -1821,7 +1814,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Releases with no disc IDs:"
 msgid "Events of type “{type}” with event art"
-msgstr "Wydania bez Disc ID:"
+msgstr "Wydarzenia typu “{type}” z grafiką wydarzenia"
 
 #: ../root/statistics/stats.js:1143
 msgid "{name} releases"

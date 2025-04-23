@@ -4,19 +4,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # Lukáš Lalinský <email address hidden>, 2012
 # Lukáš Lalinský <email address hidden>, 2012
 # nikki, 2012
 # Pavol Babinčák <email address hidden>, 2012
 # Pavol Babinčák <email address hidden>, 2012
+# Quartyn <quartyn@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2024-04-17 17:39+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-04-15 17:20+0000\n"
+"Last-Translator: Quartyn <quartyn@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Slovak <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sk/>\n"
 "Language: sk\n"
@@ -25,7 +27,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
 ">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1250,7 +1252,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:245
 #: ../root/user/UserProfile.js:272
 msgid "Gender"
-msgstr ""
+msgstr "Pohlavie"
 
 #: ../root/edit/search_macros.tt:473 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
 #: ../root/components/list/GenreList.js:35 ../root/edit/details/AddGenre.js:20
@@ -1260,7 +1262,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:56
 #: ../root/tag/TagIndex.js:22
 msgid "Genre"
-msgstr ""
+msgstr "Žáner"
 
 #: ../root/components/forms.tt:140 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:584
@@ -1634,7 +1636,7 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:138
 #: ../root/static/scripts/release/components/MediumTable.js:78
 msgid "Length"
-msgstr ""
+msgstr "Dĺžka"
 
 #: ../root/release/edit/tracklist.tt:54
 msgid "Lines contain track artists"
@@ -1654,7 +1656,7 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:128
 msgctxt "interactive"
 msgid "Log in"
-msgstr ""
+msgstr "Prihlásiť sa"
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
@@ -1815,7 +1817,7 @@ msgstr ""
 #: ../root/edit/components/Vote.js:79
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Nie"
 
 #: ../root/components/forms.tt:290
 #: ../root/static/scripts/event/components/EventEditForm.js:356
@@ -2015,7 +2017,7 @@ msgstr "Nahrávky"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:32
 msgid "Recording “{name}” by {artist}"
-msgstr ""
+msgstr "Nahrávka \"{name}\" od {artist}"
 
 #: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:20
 #: ../root/artist/ArtistRecordings.js:120
@@ -6918,7 +6920,7 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:220
 msgid "Legal name"
-msgstr ""
+msgstr "Zákonné meno"
 
 #: ../root/artist/ArtistIndex.js:226 ../root/label/LabelIndex.js:58
 msgid "Previously known as"
@@ -10725,7 +10727,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/MergeLink.js:30
 msgctxt "interactive"
 msgid "Merge"
-msgstr ""
+msgstr "Zlúčiť"
 
 #: ../root/layout/components/MergeHelper.js:70
 msgid "Remove selected entities"
@@ -10733,27 +10735,27 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
 msgid "Log out"
-msgstr ""
+msgstr "Odhlásiť sa"
 
 #: ../root/layout/components/TopMenu.js:74
 msgid "My data"
-msgstr ""
+msgstr "Moje údaje"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
 #: ../root/user/UserCollections.js:170
 msgid "My collections"
-msgstr ""
+msgstr "Moje kolekcie"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:215
 msgid "My ratings"
-msgstr ""
+msgstr "Moje hodnotenia"
 
 #: ../root/layout/components/TopMenu.js:88
 msgctxt "folksonomy"
 msgid "My tags"
-msgstr ""
+msgstr "Moje štítky"
 
 #: ../root/layout/components/TopMenu.js:92
 msgid "My open edits"
@@ -10777,13 +10779,13 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: ../root/layout/components/TopMenu.js:204
 #: ../root/static/scripts/account/components/RegisterForm.js:116
 msgctxt "interactive"
 msgid "Create account"
-msgstr ""
+msgstr "Vytvoriť účet"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
@@ -10894,7 +10896,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:39
 msgid "Add to a new collection"
-msgstr ""
+msgstr "Pridať do novej kolekcie"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:41
 #: ../root/user/UserCollections.js:191
@@ -10911,15 +10913,15 @@ msgstr[3] ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:61
 msgid "Other collections"
-msgstr ""
+msgstr "Ostatné kolekcie"
 
 #: ../root/layout/components/sidebar/CollectionList.js:52
 msgid "Remove from {collection}"
-msgstr ""
+msgstr "Odstrániť z {collection}"
 
 #: ../root/layout/components/sidebar/CollectionList.js:57
 msgid "Add to {collection}"
-msgstr ""
+msgstr "Pridať do {collection}"
 
 #: ../root/layout/components/sidebar/CollectionSidebar.js:45
 msgid "Collection information"

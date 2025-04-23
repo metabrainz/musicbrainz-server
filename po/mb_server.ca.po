@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-03 13:54+0200\n"
-"PO-Revision-Date: 2025-04-11 22:20+0000\n"
+"PO-Revision-Date: 2025-04-18 13:20+0000\n"
 "Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ca/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -2411,7 +2411,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:784
 msgctxt "audio file metadata"
 msgid "Tagger"
-msgstr ""
+msgstr "Editor d'etiquetes"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
 msgid ""
@@ -14098,7 +14098,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/TaggerIcon.js:71
 msgctxt "audio file metadata"
 msgid "Open in tagger"
-msgstr ""
+msgstr "Obre a l'editor d'etiquetes"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:69
 msgid "Wikipedia"
