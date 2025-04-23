@@ -2,17 +2,6 @@
 
 BEGIN;
 
-DO $$
-DECLARE
-    -- If the user hasn't generated `artist_release_group`, then we
-    -- shouldn't update or insert to it.
-    artist_release_group_in_use BOOLEAN;
-    release_group_id INTEGER;
-BEGIN
-
-SELECT 1 FROM artist_release_group LIMIT 1
-    INTO artist_release_group_in_use;
-
 DROP TRIGGER IF EXISTS a_upd_release_group_primary_type ON release_group_primary_type;
 DROP TRIGGER IF EXISTS a_upd_release_group_secondary_type ON release_group_secondary_type;
 
@@ -51,7 +40,7 @@ CREATE TABLE artist_release_group_va
 
 CREATE OR REPLACE FUNCTION get_artist_release_group_rows(
     release_group_id INTEGER
-) RETURNS SETOF artist_release_group AS $FUNC$
+) RETURNS SETOF artist_release_group AS $$
 BEGIN
     -- PostgreSQL 12 generates a vastly more efficient plan when only
     -- one release group ID is passed. A condition like
@@ -104,10 +93,10 @@ BEGIN
     $SQL$
     USING release_group_id;
 END;
-$FUNC$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_upd_release_group_primary_type_mirror()
-RETURNS trigger AS $FUNC$
+RETURNS trigger AS $$
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
     -- by a trigger on mirrors.
@@ -120,10 +109,10 @@ BEGIN
     END IF;
     RETURN NULL;
 END;
-$FUNC$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_upd_release_group_secondary_type_mirror()
-RETURNS trigger AS $FUNC$
+RETURNS trigger AS $$
 BEGIN
     -- DO NOT modify any replicated tables in this function; it's used
     -- by a trigger on mirrors.
@@ -137,25 +126,12 @@ BEGIN
     END IF;
     RETURN NULL;
 END;
-$FUNC$ LANGUAGE 'plpgsql';
+$$ LANGUAGE 'plpgsql';
 
 CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
 CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
 
 CREATE UNIQUE INDEX artist_release_group_nonva_idx_uniq ON artist_release_group_nonva (release_group, artist);
 CREATE UNIQUE INDEX artist_release_group_va_idx_uniq ON artist_release_group_va (release_group, artist);
-
--- We regenerate artist_release_group if it was in use before
-IF artist_release_group_in_use THEN
-    FOR release_group_id IN SELECT rg.id FROM release_group rg LOOP
-        -- We handle each release group ID separately because
-        -- the `get_artist_release_group_rows` query can be
-        -- planned much more efficiently that way.
-        INSERT INTO artist_release_group
-        SELECT * FROM get_artist_release_group_rows(release_group_id);
-    END LOOP;
-END IF;
-END $$;
-
 
 COMMIT;
