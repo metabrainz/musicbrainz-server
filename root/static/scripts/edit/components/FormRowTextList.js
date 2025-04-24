@@ -215,7 +215,7 @@ export component NonHydratedFormRowTextList(
   ...props: React.PropsOf<FormRowTextList>
 ) {
   return (
-    <FormRow className="form-row-text-list-container" rowRef={rowRef}>
+    <FormRow rowRef={rowRef}>
       <FormRowTextList {...props} />
     </FormRow>
   );
