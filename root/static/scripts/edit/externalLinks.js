@@ -306,21 +306,37 @@ export class _ExternalLinksEditor
       }
     }
 
-    initialLinks = initialLinks.map(function (link) {
-      /*
-       * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
-       * existing relationship ID.
-       */
-      if (!isPositiveInteger(link.relationship)) {
+    const existingInitialLinks = [];
+    const pendingInitialLinks = [];
+    for (const link of initialLinks) {
+      if (isPositiveInteger(link.relationship)) {
+        existingInitialLinks.push(link);
+      } else {
+        /*
+         * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have
+         * an existing relationship ID.
+         */
         const url = getUnicodeUrl(link.url);
-        return {
+        pendingInitialLinks.push({
           ...link,
           relationship: uniqueId('new-'),
           url: URLCleanup.cleanURL(url) || url,
-        };
+        });
       }
-      return link;
-    });
+    }
+
+    // Filter out seeded URLs that duplicate existing ones (MBS-13993).
+    const existingInitialLinksByTypeAndUrl = groupBy(
+      existingInitialLinks,
+      linkTypeAndUrlString,
+    );
+    initialLinks = existingInitialLinks.concat(
+      pendingInitialLinks.filter(
+        link => !existingInitialLinksByTypeAndUrl.has(
+          linkTypeAndUrlString(link),
+        ),
+      ),
+    );
 
     this.typeOptions = linkTypeOptions(
       {children: linkedEntities.link_type_tree[entityTypes]},
