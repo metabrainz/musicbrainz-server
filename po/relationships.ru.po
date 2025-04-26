@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.10.4\n"
 
 #. name:artist diploma
@@ -44,9 +44,9 @@ msgstr "Программа аспирантуры, обычно рассчита
 #. name:social network
 #: DB:link_type/description:218
 msgid ""
-"A social network page is a label's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the label can post content to. Examples include "
+"A social network page is a label's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Страница в социальной сети — это собственная страница лейбла в <a "
@@ -59,13 +59,13 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:784
 msgid ""
-"A social network page is a page for a series on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the series can post content to. Examples include "
+"A social network page is a page for a series on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Страница в социальной сети — это страница серии в <a href=\"https://ru."
-"wikipedia.org/wiki/"
+"Страница в социальной сети — это страница серии в <a href=\"https://"
+"ru.wikipedia.org/wiki/"
 "%D0%A1%D0%BE%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D1%81%D0%B5%D1%82%D1%8C\">социальной "
 "сети</a>, на которой материалы могут быть опубликованы только людьми, "
 "связанными с серией. Например, страница в Facebook, аккаунты в Twitter, "
@@ -74,9 +74,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:429
 msgid ""
-"A social network page is a place's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the place can post content to. Examples include "
+"A social network page is a place's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Страница в социальной сети — это собственная страница места в <a "
@@ -110,9 +110,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:783
 msgid ""
-"A social network page is an event's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the event can post content to. Examples include "
+"A social network page is an event's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the event can post content to. Examples include "
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
@@ -800,6 +800,14 @@ msgstr "Указывает на официальный сайт исполнит
 msgid "Indicates the official homepage for an event."
 msgstr "Указывает на официальный сайт события."
 
+#. name:adapter
+#: DB:link_type/description:1285
+msgid ""
+"Indicates the person who adapted this work (generally from a different "
+"medium, such as a prose work into an audio drama or a stage musical into a "
+"film musical)."
+msgstr ""
+
 #. name:translator
 #: DB:link_type/description:871
 msgid ""
@@ -811,6 +819,13 @@ msgstr ""
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "Указывает на человека, который перевел текст/либретто этой работы."
+
+#. name:scriptwriter
+#: DB:link_type/description:1286
+msgid ""
+"Indicates the person who wrote an original script for a dramatized work, "
+"such as an audio drama."
+msgstr ""
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -1238,8 +1253,8 @@ msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
 msgstr ""
-"Связывает событие с диджеем, который выступал во вспомогательной роли ("
-"например, диджеил между артистами или закрывал вечер после концерта)."
+"Связывает событие с диджеем, который выступал во вспомогательной роли "
+"(например, диджеил между артистами или закрывал вечер после концерта)."
 
 #. name:guest performer
 #: DB:link_type/description:800
@@ -1880,10 +1895,10 @@ msgstr ""
 "Описывает ситуацию, когда лейбл сменил свое имя (например, чисто для "
 "эстетических причин, или в результате покупки/продажи/выделения). Особенно "
 "следите за случаями, когда проходят объединение/разделение/реструктуризация "
-"компании. Например, не стоит переименовывать лейбл <a href=\"/"
-"label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> в <a href=\"/"
-"label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, так "
-"как Verve продолжила свою работу как самостоятельный импринт."
+"компании. Например, не стоит переименовывать лейбл <a href=\"/label/"
+"99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> в <a href=\"/label/"
+"4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, так как "
+"Verve продолжила свою работу как самостоятельный импринт."
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -1931,9 +1946,9 @@ msgid ""
 "<li>A bootleg label reissues another label's catalog.</li>\n"
 "</ul>"
 msgstr ""
-"Это описывает ситуацию, когда один лейбл переиздает под своим именем весь ("
-"или часть) каталога другого лейбла. Такое может произойти как минимум в трех "
-"случаях:\n"
+"Это описывает ситуацию, когда один лейбл переиздает под своим именем весь "
+"(или часть) каталога другого лейбла. Такое может произойти как минимум в "
+"трех случаях:\n"
 "<ul>\n"
 "<li>Лейбл приобретает право аренды каталога другого лейбла на определенный "
 "период времени в конкретном регионе мира.</li>\n"
@@ -2014,9 +2029,9 @@ msgid ""
 msgstr ""
 "Описывает инженера, ответственного за использование микшерного пульта для "
 "микширования записанного трека в единое музыкальное произведение, пригодное "
-"для выпуска. Для ремиксов см. <a href="
-"\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\""
-">соответствующее отношение</a>."
+"для выпуска. Для ремиксов см. <a href=\"/relationship/"
+"7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">соответствующее "
+"отношение</a>."
 
 #. name:mix
 #: DB:link_type/description:26
@@ -2028,9 +2043,8 @@ msgid ""
 msgstr ""
 "Описывает инженера, ответственного за использование микшерного пульта для "
 "микширования записанного трека в единое музыкальное произведение, пригодное "
-"для выпуска. Для ремиксов см. <a href="
-"\"/relationship/ac6a86db-f757-4815-a07e-744428d2382b\" target=\"_blank\""
-">соответствующее отношение</a>."
+"для выпуска. Для ремиксов см. <a href=\"/relationship/ac6a86db-f757-4815-"
+"a07e-744428d2382b\" target=\"_blank\">соответствующее отношение</a>."
 
 #. name:engineer
 #: DB:link_type/description:28 DB:link_type/description:138
@@ -2118,8 +2132,8 @@ msgid ""
 "This indicates a release group is an excerpt from another, such as the "
 "highlights of a box set or a long opera."
 msgstr ""
-"Указывает на то, что группа релизов представляет собой отрывок из другой ("
-"например, основные моменты бокс-сета или длинной оперы)."
+"Указывает на то, что группа релизов представляет собой отрывок из другой "
+"(например, основные моменты бокс-сета или длинной оперы)."
 
 #. name:art direction
 #: DB:link_type/description:1174
@@ -2951,9 +2965,8 @@ msgstr ""
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-"
-"mixer</a>."
+"more appropriate to credit this person as a <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-mixer</a>."
 msgstr ""
 
 #. name:compiler
@@ -3145,8 +3158,8 @@ msgstr ""
 "Используется для обозначения того, что произведение представляет собой "
 "попурри из нескольких других песен. Это означает, что оригинальные песни "
 "были переложены, чтобы создать новое произведение в виде попурри. Для "
-"обозначения человека, который аранжирует песни в попурри, см. <a href="
-"\"/relationship/d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">аранжировщик</a>."
+"обозначения человека, который аранжирует песни в попурри, см. <a href=\"/"
+"relationship/d3fd781c-5894-47e2-8c12-86cc0e2c8d08\">аранжировщик</a>."
 
 #. name:mashes up
 #: DB:link_type/description:232
@@ -3154,8 +3167,8 @@ msgid ""
 "This is used to indicate that the recording is a <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other recordings."
 msgstr ""
-"Используется для указания на то, что запись представляет собой <a href="
-"\"/doc/Mix_Terminology#mash-up\">мэшап</a> двух (или более) других записей."
+"Используется для указания на то, что запись представляет собой <a href=\"/"
+"doc/Mix_Terminology#mash-up\">мэшап</a> двух (или более) других записей."
 
 #. name:mashes up
 #: DB:link_type/description:10
@@ -3171,9 +3184,9 @@ msgstr ""
 #: DB:link_type/description:227
 msgid ""
 "This is used to link a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> "
-"recording to each of the source recordings. See <a href=\"/"
-"relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"recording to each of the source recordings. See <a href=\"/relationship/"
+"28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 
 #. name:allmusic
@@ -3193,8 +3206,8 @@ msgid ""
 "numerous different ways other than \"karaoke\": instrumental (even if "
 "backing vocals are still present), off vocal, backing track, etc."
 msgstr ""
-"Используется для связи караоке-версии песни с оригинальной песней.<br/><br/>"
-"\n"
+"Используется для связи караоке-версии песни с оригинальной песней.<br/><br/"
+">\n"
 "Караоке-версия - это версия песни с удаленным главным вокалом, "
 "предназначенная для использования в караоке. Обычно они создаются на основе "
 "оригинальных записей путем приглушения главного вокала или использования "
@@ -3240,16 +3253,17 @@ msgstr ""
 #. name:allmusic
 #: DB:link_type/description:285
 msgid "This is used to link a recording to its corresponding page on Allmusic."
-msgstr "Используется для ссылки записи на соответствующую страницу на Allmusic."
+msgstr ""
+"Используется для ссылки записи на соответствующую страницу на Allmusic."
 
 #. name:DJ-mix
 #: DB:link_type/description:8
 msgid ""
 "This is used to link a release group containing a <a href=\"/doc/"
 "Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to the release "
-"group containing the source release. See <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"group containing the source release. See <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 
 #. name:allmusic
@@ -3272,7 +3286,8 @@ msgstr ""
 #. name:allmusic
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
-msgstr "Используется для ссылки релиза на соответствующую страницу на Allmusic."
+msgstr ""
+"Используется для ссылки релиза на соответствующую страницу на Allmusic."
 
 #. name:discogs
 #: DB:link_type/description:747
@@ -3303,8 +3318,8 @@ msgid ""
 "(for example, a hip hop vocal track without the beat)."
 msgstr ""
 "Используется для связи акапельной версии песни с оригиналом.<br/><br/>\n"
-"Акапельная версия - это версия песни, содержащая только вокальные дорожки ("
-"например, вокальная дорожка в стиле хип-хоп без ритма)."
+"Акапельная версия - это версия песни, содержащая только вокальные дорожки "
+"(например, вокальная дорожка в стиле хип-хоп без ритма)."
 
 #. name:secondhandsongs
 #: DB:link_type/description:307
@@ -3336,8 +3351,8 @@ msgid ""
 "(for example, a hip hop beat without the rap tracks). For karaoke tracks, "
 "use the karaoke relationship."
 msgstr ""
-"Используется для связи инструментальной версии песни с оригиналом.<br/><br/>"
-"\n"
+"Используется для связи инструментальной версии песни с оригиналом.<br/><br/"
+">\n"
 "Инструментальная версия - это версия песни с удаленным вокалом (например, "
 "хип-хоп бит без рэп-треков). Для караоке-треков используйте соответствующее "
 "отношение."
@@ -3483,8 +3498,8 @@ msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">DJ-"
 "mix</a> to the artist who mixed it."
 msgstr ""
-"Связывает <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\""
-">диджей-микс</a> с исполнителем, который его микшировал."
+"Связывает <a href=\"/doc/Mix_Terminology#DJ_mix\" target=\"_blank\">диджей-"
+"микс</a> с исполнителем, который его микшировал."
 
 #. name:remix
 #: DB:link_type/description:9
@@ -4402,6 +4417,14 @@ msgid ""
 "is an orchestration of the other."
 msgstr ""
 
+#. name:adaptation
+#: DB:link_type/description:1284
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
+"work is an adaptation of the other (generally from a different medium, such "
+"as a prose work into an audio drama or a stage musical into a film musical)."
+msgstr ""
+
 #. name:based on
 #: DB:link_type/description:314
 msgid ""
@@ -4687,7 +4710,9 @@ msgid ""
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type."
+"relationship type.\n"
+"\n"
+"It is also used for the writers of literary works."
 msgstr ""
 
 #. name:residency
@@ -4770,8 +4795,8 @@ msgstr ""
 #. name:tribute
 #: DB:link_type/description:728
 msgid ""
-"This relationship specifies that an artist is a <a href=\"http://en."
-"wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
+"This relationship specifies that an artist is a <a href=\"http://"
+"en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
 "band; that is, it primarily performs covers of that artist. They may also be "
 "referred to as cover bands. Some tribute artists may name themselves, dress, "
 "and/or act similarly to the artists they pay tribute to."
@@ -4880,9 +4905,9 @@ msgid ""
 "This relationship type is used to indicate that a release group is a re‐"
 "recording of another release group, that is, when an artist performs a new "
 "studio rendition of their own album.<br/>\n"
-"For a live performance of the album, see the <a href=\"/"
-"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
-"relationship type</a>.<br/>\n"
+"For a live performance of the album, see the <a href=\"/relationship/"
+"62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance relationship type</"
+"a>.<br/>\n"
 "For a cover recording of the album by a different artist, see the <a href=\"/"
 "relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
 "a>."
@@ -5152,8 +5177,8 @@ msgstr ""
 #. name:setlistfm
 #: DB:link_type/description:816
 msgid ""
-"This relationship type links an artist to its corresponding page at setlist."
-"fm."
+"This relationship type links an artist to its corresponding page at "
+"setlist.fm."
 msgstr ""
 
 #. name:myspace
@@ -5213,8 +5238,8 @@ msgstr ""
 #. name:setlistfm
 #: DB:link_type/description:811
 msgid ""
-"This relationship type links an event to its corresponding page at setlist."
-"fm."
+"This relationship type links an event to its corresponding page at "
+"setlist.fm."
 msgstr ""
 
 #. name:genre origin
@@ -5293,9 +5318,10 @@ msgstr ""
 #. name:number
 #: DB:link_attribute_type/description:1032
 msgid ""
-"Use this for operas and similar works that are <a href=\"https://en."
-"wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify what "
-"parts are numbers (as opposed to spoken dialog or other non-numbered parts)."
+"Use this for operas and similar works that are <a href=\"https://"
+"en.wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify "
+"what parts are numbers (as opposed to spoken dialog or other non-numbered "
+"parts)."
 msgstr ""
 
 #. name:co
@@ -5558,6 +5584,30 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1030
 msgid "act"
+msgstr ""
+
+#: DB:link_type/name:1284
+#, fuzzy
+#| msgid "improvisation"
+msgid "adaptation"
+msgstr "improvisation"
+
+#. name:adaptation
+#: DB:link_type/reverse_link_phrase:1284
+#, fuzzy
+#| msgid "is a compilation of"
+msgid "adaptation of"
+msgstr "является сборником"
+
+#. name:adaptation
+#: DB:link_type/link_phrase:1284
+#, fuzzy
+#| msgid "dedications"
+msgid "adaptations"
+msgstr "посвящения"
+
+#: DB:link_type/name:1285
+msgid "adapter"
 msgstr ""
 
 #: DB:link_attribute_type/name:1
@@ -7090,6 +7140,13 @@ msgstr "имеет автономный сайт"
 msgid "has a ticketing page at"
 msgstr "имеет страницу с билетами"
 
+#. name:adaptation
+#: DB:link_type/long_link_phrase:1284
+#, fuzzy
+#| msgid "has orchestration"
+msgid "has adaptation"
+msgstr "имеет оркестрацию"
+
 #. name:allmusic
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
@@ -7751,9 +7808,9 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"является {partial:частичной} {instrumental:инструментальной} {karaoke:"
-"караоке} {live:концертной}{acappella:акапелла} {medley:поппури} {demo:демо} "
-"записью {cover:кавера} работы"
+"является {partial:частичной} {instrumental:инструментальной} "
+"{karaoke:караоке} {live:концертной}{acappella:акапелла} {medley:поппури} "
+"{demo:демо} записью {cover:кавера} работы"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
@@ -9518,6 +9575,10 @@ msgstr ""
 msgid "school directors"
 msgstr ""
 
+#: DB:link_type/name:1286
+msgid "scriptwriter"
+msgstr ""
+
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
 msgid "secondhandsongs"
@@ -10329,9 +10390,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} {live:"
-"концертная} {acappella:акапелла} {medley:поппури} {demo:демо} запись {cover:"
-"кавера} работы"
+"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
+"{live:концертная} {acappella:акапелла} {medley:поппури} {demo:демо} запись "
+"{cover:кавера} работы"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
@@ -10343,9 +10404,16 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
-"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} {live:"
-"концертная} {acappella:акапелла} {medley:поппури} запись {cover:кавера} "
-"работы"
+"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
+"{live:концертная} {acappella:акапелла} {medley:поппури} запись "
+"{cover:кавера} работы"
+
+#. name:adapter
+#: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
+#, fuzzy
+#| msgid "{additional:additionally} shot in"
+msgid "{additional:additionally} adapted"
+msgstr "{additional:дополнительно} снято в"
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
@@ -10514,6 +10582,13 @@ msgstr ""
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr ""
 
+#. name:scriptwriter
+#: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
+#, fuzzy
+#| msgid "{additional:additionally} shot in"
+msgid "{additional:additionally} wrote the script for"
+msgstr "{additional:дополнительно} снято в"
+
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -10581,16 +10656,16 @@ msgstr ""
 #: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
 #: DB:link_type/long_link_phrase:138
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }engineered"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }engineered"
 msgstr ""
 
 #. name:producer
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
 #: DB:link_type/long_link_phrase:141 DB:link_type/long_link_phrase:30
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }produced"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }produced"
 msgstr ""
 
 #. name:mastering
@@ -10651,6 +10726,13 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:756
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
+
+#. name:adapter
+#: DB:link_type/reverse_link_phrase:1285
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} adapter"
+msgstr "{additional:дополнительный} автор"
 
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
@@ -10851,6 +10933,13 @@ msgstr ""
 #: DB:link_type/link_phrase:69
 msgid "{additional} samples from"
 msgstr ""
+
+#. name:scriptwriter
+#: DB:link_type/reverse_link_phrase:1286
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} scriptwriter"
+msgstr "{additional:дополнительный} автор"
 
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
