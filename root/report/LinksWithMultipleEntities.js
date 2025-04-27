@@ -82,7 +82,7 @@ component LinksWithMultipleEntities(...{
                     </td>
                   </>
                 ) : (
-                  <td colSpan="3">
+                  <td colSpan={3}>
                     {l('This URL no longer exists.')}
                   </td>
                 )}
