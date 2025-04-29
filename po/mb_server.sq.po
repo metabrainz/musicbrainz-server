@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-22 22:01-0500\n"
-"PO-Revision-Date: 2025-04-07 12:20+0000\n"
+"PO-Revision-Date: 2025-04-28 20:20+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sq/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -111,10 +111,8 @@ msgid "(add a new recording)"
 msgstr "(shtoni incizim të ri)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(S’ka kopertinë tjetër)"
+msgstr "(s’ka figura të tjera)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
@@ -170,32 +168,24 @@ msgid "Accept"
 msgstr "Pranojeni"
 
 #: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "Kod IPI"
+msgstr "Shtoni kod IPI"
 
 #: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "Kod ISNI"
+msgstr "Shtoni kod ISNI"
 
 #: ../root/recording/edit_form.tt:44
-#, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
-msgstr "Shtoni ISRC-ra"
+msgstr "Shtoni ISRC"
 
 #: ../root/work/edit_form.tt:15
-#, fuzzy
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
-msgstr "Shtoni ISWCra"
+msgstr "Shtoni ISWC"
 
 #: ../root/release/edit/tracklist.tt:273
 #, fuzzy
