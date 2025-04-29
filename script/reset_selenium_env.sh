@@ -64,7 +64,7 @@ echo `date` : Inserting Selenium test data
 OUTPUT=`./admin/psql SELENIUM < ./t/sql/selenium.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 if [[ -f $EXTRA_SQL ]]; then
-    OUTPUT=`./admin/psql SELENIUM < "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
+    OUTPUT=`./admin/psql SELENIUM -- --single-transaction -v ON_ERROR_STOP=1 < "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
 fi
 
 if [[ $SIR_DIR ]]; then
