@@ -14,7 +14,9 @@ import '../edit/components/FormRowTextListSimple.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import initializeArea from '../edit/MB/Control/Area.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
@@ -41,14 +43,7 @@ $(function () {
     'input[name^=edit-label\\.period\\.begin_date\\.], ' +
       'input[name^=edit-label\\.period\\.end_date\\.]',
   );
-
-  // Display documentation bubbles for external components.
-  const externalLinkBubble = initializeBubble('#external-link-bubble');
-  $(document).on(
-    'focus',
-    '#external-links-editor-container .external-link-item input.value',
-    (event) => externalLinkBubble.show(event.target),
-  );
+  initializeExternalLinksBubble('#external-link-bubble');
 
   installFormUnloadWarning();
 

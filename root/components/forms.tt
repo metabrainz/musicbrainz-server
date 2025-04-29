@@ -216,30 +216,6 @@
   </table>
 [%- END -%]
 
-[%- MACRO iswc_bubble(work) BLOCK -%]
-    <div class="bubble" id="iswcs-bubble">
-      <p>[% l('You are about to add an ISWC to this work. The ISWC must be entered in
-               standard <code>T-DDD.DDD.DDD-C</code> format:') %]</p>
-      <ul>
-        <li>[% l('"DDD" is a nine digit work identifier.') %]</li>
-        <li>[% l('"C" is a single check digit.') %]</li>
-      </ul>
-    </div>
-[%- END -%]
-
-[%- MACRO isrc_bubble(recording) BLOCK -%]
-    <div class="bubble" id="isrcs-bubble">
-      <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
-               standard <code>CCXXXYYNNNNN</code> format:') %]</p>
-      <ul>
-        <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>
-        <li>[% l('"XXX" is a three character alphanumeric registrant code, uniquely identifying the organisation which registered the code.') %]</li>
-        <li>[% l('"YY" is the last two digits of the year of registration.') %]</li>
-        <li>[% l('"NNNNN" is a unique 5-digit number identifying the particular sound recording.') %]</li>
-      </ul>
-    </div>
-[%- END -%]
-
 [%- MACRO ipi_bubble BLOCK -%]
     <div class="bubble" id="ipi-bubble">
       <p>[% l('{doc|IPI codes} are assigned by CISAC to “interested parties” in musical rights management.',

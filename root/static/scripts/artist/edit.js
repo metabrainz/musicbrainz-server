@@ -17,7 +17,9 @@ import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {initializeTooShortYearChecks} from '../edit/forms.js';
 import ArtistEdit from '../edit/MB/Control/ArtistEdit.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeToggleEnded from '../edit/utility/toggleEnded.js';
 import initializeValidation from '../edit/validation.js';
@@ -45,11 +47,13 @@ $(function () {
     '#isni-bubble',
     'input[name=edit-artist\\.isni_codes\\.0]',
   );
+  // Area bubbles are initialized in ArtistEdit().
   initializeBubble(
     '#begin-end-date-bubble',
     'input[name^=edit-artist\\.period\\.begin_date\\.], ' +
       'input[name^=edit-artist\\.period\\.end_date\\.]',
   );
+  initializeExternalLinksBubble('#external-link-bubble');
 
   // Update the begin and end documentation bubbles to match the type.
   const updateBeginEndBubbles = () => {
@@ -66,17 +70,6 @@ $(function () {
   };
   $(typeIdField).on('change', () => updateBeginEndBubbles());
   updateBeginEndBubbles();
-
-  /*
-   * Display documentation bubbles for external components.
-   * Area bubbles are initialized in ArtistEdit().
-   */
-  const externalLinkBubble = initializeBubble('#external-link-bubble');
-  $(document).on(
-    'focus',
-    '#external-links-editor-container .external-link-item input.value',
-    (event) => externalLinkBubble.show(event.target),
-  );
 
   installFormUnloadWarning();
 
