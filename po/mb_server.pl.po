@@ -32,7 +32,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-22 22:01-0500\n"
-"PO-Revision-Date: 2025-04-17 01:20+0000\n"
+"PO-Revision-Date: 2025-04-29 18:46+0000\n"
 "Last-Translator: PS <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
@@ -40,10 +40,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.11.1\n"
 
 #: ../root/components/common-macros.tt:11
 #, fuzzy
@@ -14440,16 +14440,17 @@ msgid "Duplicate entity"
 msgstr "Edytowany obiekt"
 
 #: ../root/report/SeriesContainingDuplicates.js:29
-#, fuzzy
-#| msgid "ISO number"
 msgid "Number"
-msgstr "Numer ISO"
+msgstr "Numer"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
+#, fuzzy
 msgid ""
 "This report lists series which contain the same entity multiple times with "
 "the same number attribute."
 msgstr ""
+"W raporcie tym wymienione są serie, które zawierają wielokrotnie tę samą "
+"jednostkę z tym samym atrybutem liczbowym."
 
 #: ../root/report/SetInDifferentRg.js:25
 msgid ""
