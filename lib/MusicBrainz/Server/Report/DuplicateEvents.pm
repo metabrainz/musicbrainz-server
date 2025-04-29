@@ -7,10 +7,12 @@ with 'MusicBrainz::Server::Report::EventReport',
 sub query { q{
 WITH duplicates AS (
     SELECT event.begin_date_year AS begin_date_year, event.begin_date_month AS begin_date_month, 
-           event.begin_date_day AS begin_date_day, l_event_place.entity1 AS entity1
+           event.begin_date_day AS begin_date_day, event.end_date_year AS end_date_year,
+           event.end_date_month AS end_date_month, event.end_date_day AS end_date_day,
+           l_event_place.entity1 AS entity1
      FROM event 
      JOIN l_event_place ON event.id = l_event_place.entity0
- GROUP BY l_event_place.entity1, event.begin_date_year, event.begin_date_month, event.begin_date_day
+ GROUP BY l_event_place.entity1, event.begin_date_year, event.begin_date_month, event.begin_date_day, event.end_date_year, event.end_date_month, event.end_date_day
    HAVING count(*) > 1
 ) 
 
@@ -23,6 +25,9 @@ SELECT event.id AS event_id,
        duplicates.begin_date_year = event.begin_date_year 
        AND duplicates.begin_date_month = event.begin_date_month 
        AND duplicates.begin_date_day = event.begin_date_day 
+       AND duplicates.end_date_year = event.end_date_year
+       AND duplicates.end_date_month = event.end_date_month
+       AND duplicates.end_date_day = event.end_date_day
        AND l_event_place.entity1 = duplicates.entity1
   )
   WHERE EXISTS (
@@ -33,6 +38,9 @@ SELECT event.id AS event_id,
     WHERE e2.begin_date_year = event.begin_date_year 
         AND e2.begin_date_month = event.begin_date_month 
         AND e2.begin_date_day = event.begin_date_day 
+        AND e2.end_date_year = event.end_date_year
+        AND e2.end_date_month = event.end_date_month
+        AND e2.end_date_day = event.end_date_day
         AND lep2.entity1 = duplicates.entity1
         AND e2.comment = ''
   )
