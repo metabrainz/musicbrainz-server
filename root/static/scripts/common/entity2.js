@@ -10,6 +10,7 @@
 // This file can be renamed to entity.js once that file is removed.
 
 type CommonPropsT = {
+  +gid?: string,
   +id?: number,
   +name?: string,
 };
