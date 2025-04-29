@@ -14,12 +14,10 @@ import UserAccountLayout, {
 } from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
-import type {PreferencesFormPropsT}
-  from '../static/scripts/account/components/PreferencesForm.js';
 import PreferencesForm
   from '../static/scripts/account/components/PreferencesForm.js';
 
-component Preferences(...props: PreferencesFormPropsT) {
+component Preferences(...props: React.PropsOf<PreferencesForm>) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (!user) {

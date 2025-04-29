@@ -145,6 +145,13 @@ component ReportsIndex() {
             }
             reportName="EventSequenceNotInSeries"
           />
+          <ReportsIndexEntry
+            content={l(
+              `Events in the Event Art Archive
+               where no event art piece has types`,
+            )}
+            reportName="EventsWithEAANoTypes"
+          />
         </ul>
 
         {isRelationshipEditor($c.user) ? (

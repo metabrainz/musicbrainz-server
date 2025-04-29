@@ -4724,7 +4724,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.patronage],
     clean(url) {
       url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=\d+).*$/, '$1$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(?:c\/)?(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
       return url;
     },
     validate(url) {
