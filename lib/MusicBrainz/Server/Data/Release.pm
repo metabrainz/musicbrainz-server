@@ -671,6 +671,24 @@ sub find_for_cdtoc
     $self->query_to_list_limited($query, [$track_count, $artist_id], $limit, $offset);
 }
 
+sub find_gid_for_medium
+{
+    my ($self, $medium_id) = @_;
+
+    # A medium is not a user visible entity, this function is called by
+    # the medium controller to issue a redirect to the release page
+    # on which the medium appears. So only the release MBID is needed.
+
+    my $query = <<~'SQL';
+        SELECT release.gid
+          FROM release
+          JOIN medium ON release.id = medium.release
+         WHERE medium.id = ?
+        SQL
+
+    return $self->sql->select_single_value($query, $medium_id);
+}
+
 sub find_gid_for_track
 {
     my ($self, $track_id) = @_;
@@ -717,6 +735,7 @@ sub load_with_medium_for_recording
           release.quality AS r_quality,
           release.last_updated as r_last_updated,
           medium.id AS m_id,
+          medium.gid AS m_gid,
           medium.format AS m_format,
           medium.position AS m_position,
           medium.name AS m_name,
@@ -1434,6 +1453,15 @@ sub merge
                 $medium_merge->{new_id},
                 @{$medium_merge->{old_ids}},
             );
+            $self->c->sql->do(<<~'SQL', $medium_merge->{new_id}, $medium_merge->{old_ids});
+                INSERT INTO medium_gid_redirect
+                     SELECT gid,
+                            ?::INT AS new_id,
+                            NOW() AS created
+                       FROM medium
+                      WHERE id = any(?)
+                SQL
+
         }
 
         my $delete_these_media = $self->sql->select_single_column_array(
