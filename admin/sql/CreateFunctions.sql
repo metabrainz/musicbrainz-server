@@ -1877,7 +1877,7 @@ BEGIN
                 (CASE r.barcode WHEN '' THEN '0' ELSE r.barcode END),
                 '[^0-9]+', '', 'g'
             ), 18)::BIGINT AS barcode,
-            left(r.name, 1)::CHAR(1) AS sort_character,
+            r.name,
             r.id
         FROM (
             SELECT FALSE AS is_track_artist, racn.artist, r.id AS release
@@ -1976,7 +1976,7 @@ BEGIN
                 rgm.first_release_date_month,
                 rgm.first_release_date_day
             ),
-            left(rg.name, 1)::CHAR(1),
+            rg.name,
             rg.id
         FROM (
             SELECT FALSE AS is_track_artist, rgacn.artist, rg.id AS release_group
