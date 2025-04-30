@@ -320,7 +320,7 @@ sub _find_by_artist_fast {
             'ar.catalog_numbers NULLS LAST, ' .
             'ar.country_code NULLS LAST, ' .
             'ar.barcode NULLS LAST, ' .
-            'ar.sort_character, ' .
+            'ar.name, ' .
             'ar.release ' .
         'LIMIT ? OFFSET ?';
 

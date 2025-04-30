@@ -27,8 +27,7 @@ CREATE TABLE artist_release_group (
     secondary_type_child_orders         SMALLINT[],
     secondary_types                     SMALLINT[],
     first_release_date                  INTEGER,
-    -- See comment for `artist_release.sort_character`.
-    sort_character                      CHAR(1) COLLATE musicbrainz NOT NULL,
+    name                                VARCHAR COLLATE musicbrainz NOT NULL,
     release_group                       INTEGER NOT NULL -- references release_group.id, CASCADE
 ) PARTITION BY LIST (is_track_artist);
 
@@ -67,7 +66,7 @@ BEGIN
                 rgm.first_release_date_month,
                 rgm.first_release_date_day
             ),
-            left(rg.name, 1)::CHAR(1),
+            rg.name,
             rg.id
         FROM (
             SELECT FALSE AS is_track_artist, rgacn.artist, rg.id AS release_group
@@ -128,8 +127,8 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
-CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
-CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
+CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, name, release_group);
+CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, name, release_group);
 
 CREATE UNIQUE INDEX artist_release_group_nonva_idx_uniq ON artist_release_group_nonva (release_group, artist);
 CREATE UNIQUE INDEX artist_release_group_va_idx_uniq ON artist_release_group_va (release_group, artist);
