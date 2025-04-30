@@ -75,7 +75,7 @@ test 'Wiki documentation syntax' => sub {
         like(format_wikitext("[$type:$mbid|alt text]"),
              qr{<a href="/$type/$mbid">alt text</a>}, "[$type:mbid|text] links");
         like(format_wikitext(q{ג'יין בורדו (Jane Bordeaux) הוא הרכב מוזיקלי אינדי, קאנטרי ופולק עברי שהוקם בשנת 2012. חברי הלהקה הם דורון טלמון (הסולנית), מתי גלעד, יואב ארבל, רמי אוסרווסר וסתיו אחאי.}),
-             qr{<bdi>.*?</bdi>}s, 'text is wrapped in <bdi> tags');
+             qr{<p><bdi>.*?</bdi></p>}s, 'text is wrapped in <bdi> tags');
     }
 };
 

@@ -33,7 +33,7 @@ test 'Get ja page from en' => sub {
     like($extract->content, qr{は、中田ヤスタカがプロデュースする広島県出身の3人組テクノポップユニット。}, 'contains japanese text');
 
     # check that content is wrapped in <bdi> tags
-    like($extract->content, qr{<bdi>.*</bdi>}s, 'content is wrapped in <bdi> tags');
+    like($extract->content, qr{<p><bdi>.*</bdi></p>}s, 'content is wrapped in <bdi> tags');
 
     LWP::UserAgent::Mockable->finished;
 };
