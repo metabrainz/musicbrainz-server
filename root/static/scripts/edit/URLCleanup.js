@@ -5678,22 +5678,22 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'threads': {
-    match: [/^(https?:\/\/)?([^/]+\.)?threads\.net\//i],
+    match: [/^(?:https?:\/\/)?(?:[^/]+\.)?threads\.(?:com|net)\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
       url = url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\/([^#?]+).*$/,
-        'https://www.threads.net/$1',
+        /^(?:https?:\/\/)?(?:www\.)?threads\.(?:com|net)(?:\/#!)?\/([^#?]+).*$/,
+        'https://www.threads.com/$1',
       );
       url = url.replace(
-        /^https:\/\/www\.threads\.net\/@[^/]+\/post\/([^/]+)/,
-        'https://www.threads.net/t/$1',
+        /^https:\/\/www\.threads\.(?:com|net)\/@[^/]+\/post\/([^/]+)/,
+        'https://www.threads.com/t/$1',
       );
       return url;
     },
     validate(url, id) {
-      const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);
-      const isAThread = /^https:\/\/www\.threads\.net\/t\/[^/]+$/.test(url);
+      const isAProfile = /^https:\/\/www\.threads\.com\/@[^/]+$/.test(url);
+      const isAThread = /^https:\/\/www\.threads\.com\/t\/[^/]+$/.test(url);
       if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
         return {
           result: isAThread &&
