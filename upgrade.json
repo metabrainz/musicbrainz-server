@@ -236,7 +236,8 @@
       "20241017-mbs-9253-13464.sql",
       "20250425-mbs-13464.sql",
       "20241125-mbs-13832.sql",
-      "20250320-mbs-13768.sql"
+      "20250320-mbs-13768.sql",
+      "20250408-mbs-13964-all.sql"
     ],
     "master_and_standalone": [
       "20241017-mbs-9253-master_and_standalone.sql",

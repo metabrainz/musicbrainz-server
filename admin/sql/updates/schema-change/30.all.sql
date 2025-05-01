@@ -3,6 +3,7 @@
 -- 20250425-mbs-13464.sql
 -- 20241125-mbs-13832.sql
 -- 20250320-mbs-13768.sql
+-- 20250408-mbs-13964-all.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -296,5 +297,38 @@ CREATE TABLE medium_gid_redirect ( -- replicate (verbose)
 ALTER TABLE medium_gid_redirect ADD CONSTRAINT medium_gid_redirect_pkey PRIMARY KEY (gid);
 
 CREATE INDEX medium_gid_redirect_idx_new_id ON medium_gid_redirect (new_id);
+
+--------------------------------------------------------------------------------
+SELECT '20250408-mbs-13964-all.sql';
+
+
+CREATE OR REPLACE FUNCTION set_mediums_recordings_first_release_dates(medium_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  PERFORM set_recordings_first_release_dates((
+    SELECT array_agg(recording)
+      FROM track
+     WHERE track.medium = any(medium_ids)
+  ));
+  RETURN;
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
+
+CREATE OR REPLACE FUNCTION a_upd_medium_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF NEW.release IS DISTINCT FROM OLD.release THEN
+        PERFORM set_mediums_recordings_first_release_dates(ARRAY[OLD.id]);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER a_upd_medium AFTER UPDATE ON medium
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_medium_mirror();
+
+TRUNCATE recording_first_release_date;
 
 COMMIT;

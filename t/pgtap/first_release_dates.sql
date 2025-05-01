@@ -441,5 +441,37 @@ SELECT results_eq(
   'SELECT 1 WHERE false'
 );
 
+-- MBS-13964: Update `recording_first_release_date` via updates to
+-- `medium.release`. This occurs when merging releases via the "append"
+-- strategy.
+
+INSERT INTO release (id, gid, release_group, artist_credit, name)
+VALUES
+  (4, '75538934-f463-4188-ace5-b2d15a2344d5', 1, 1, 'name'),
+  (5, '80abcfbd-df3c-4cea-9823-2d5b21b678f4', 1, 1, 'name');
+
+INSERT INTO medium (id, gid, release, position, format, name)
+VALUES (4, 'f31af646-bad5-4a1c-9ffd-59c65f2e25d1', 4, 1, 1, '');
+
+INSERT INTO release_unknown_country (release, date_year)
+VALUES (5, 1999);
+
+INSERT INTO track (id, gid, medium, position, number, recording, name, artist_credit, length)
+VALUES
+  (4, 'ed303f01-e1ae-4549-acb7-a50452a3b5c2', 4, 1, '1', 1, 'name', 1, 1000);
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'SELECT 1 WHERE false'
+);
+
+UPDATE medium SET release = 5 WHERE id = 4;
+DELETE FROM release WHERE id = 4;
+
+SELECT results_eq(
+  'recording_1_first_release_date',
+  'VALUES (1999::smallint, null::smallint, null::smallint)'
+);
+
 SELECT finish();
 ROLLBACK;
