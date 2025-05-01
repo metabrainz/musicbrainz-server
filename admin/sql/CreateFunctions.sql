@@ -1199,6 +1199,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' STRICT;
 
+CREATE OR REPLACE FUNCTION set_mediums_recordings_first_release_dates(medium_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  PERFORM set_recordings_first_release_dates((
+    SELECT array_agg(recording)
+      FROM track
+     WHERE track.medium = any(medium_ids)
+  ));
+  RETURN;
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
+
 CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
 RETURNS VOID AS $$
 BEGIN
@@ -1211,6 +1223,18 @@ BEGIN
   RETURN;
 END;
 $$ LANGUAGE 'plpgsql' STRICT;
+
+CREATE OR REPLACE FUNCTION a_upd_medium_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF NEW.release IS DISTINCT FROM OLD.release THEN
+        PERFORM set_mediums_recordings_first_release_dates(ARRAY[OLD.id]);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_release_event()
 RETURNS TRIGGER AS $$
