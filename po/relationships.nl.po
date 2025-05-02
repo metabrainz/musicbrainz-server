@@ -1023,15 +1023,6 @@ msgstr ""
 "Dit koppelt de uitgave aan de persoon die de productiecoördinator van de "
 "uitgave was."
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"Dit koppelt de uitgave aan het gebied waarin ze werd gearrangeerd. Gebruik "
-"dit alleen als de plaats onbekend is!"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -4022,7 +4013,7 @@ msgstr ""
 "crowdfundingwebsite zoals Kickstarter of Indiegogo."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
@@ -6102,8 +6093,7 @@ msgstr "gearrangeerd bij"
 msgid "arranged for"
 msgstr "gearrangeerd voor"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "gearrangeerd in"
 
@@ -10801,8 +10791,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "{additional:aanvullend} gearrangeerd bij"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:aanvullend} gearrangeerd in"
 
@@ -11151,10 +11141,9 @@ msgid "{additional} animation"
 msgstr "{additional:aanvullende} animatie"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "hier {additional:aanvullend }geschreven"
 
@@ -11986,8 +11975,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gearrangeerd bij {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} werd {additional:aanvullend} gearrangeerd in {entity0}"
 
@@ -12225,6 +12214,13 @@ msgstr "{vocal:%|vocale} ondersteuning door"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "Dit koppelt de uitgave aan het gebied waarin ze werd gearrangeerd. "
+#~ "Gebruik dit alleen als de plaats onbekend is!"
 
 #~ msgid "{additional} {assistant} {associate} {co:co-}transferred"
 #~ msgstr ""

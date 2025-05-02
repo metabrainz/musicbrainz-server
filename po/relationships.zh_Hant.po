@@ -911,13 +911,6 @@ msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "將發行與作為製作協調員的人相關聯。"
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr "將專輯連結到編曲地區。僅在具體地點未知時使用！"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -3560,7 +3553,7 @@ msgid ""
 msgstr "這將專輯指向Kickstarter或者Indiegogo一類眾籌網站上的眾籌項目。"
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
@@ -5445,8 +5438,7 @@ msgstr "編曲，在"
 msgid "arranged for"
 msgstr "編曲，為"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "編曲，在"
 
@@ -10135,8 +10127,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "{additional:additionally} 編曲於"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:additionally} 編曲於"
 
@@ -10462,10 +10454,9 @@ msgid "{additional} animation"
 msgstr "{additional} 動畫"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "{additional} 編排地點"
 
@@ -11250,8 +11241,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 編排"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 編排"
 
@@ -11482,3 +11473,8 @@ msgstr "{vocal:%|vocals} 支援來自"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocals} 支援於"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr "將專輯連結到編曲地區。僅在具體地點未知時使用！"

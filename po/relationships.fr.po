@@ -1060,15 +1060,6 @@ msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "Relie une parution au lieu où elle a été produite."
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"Relie une parution à la région où elle a été arrangée. À n’utiliser que si "
-"le lieu est inconnu !"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -4083,7 +4074,7 @@ msgstr ""
 "participatif tel que Kickstarter ou Indiegogo."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 #, fuzzy
 #| msgid ""
 #| "Links a release to the area it was arranged in. Use only when the place "
@@ -6255,8 +6246,7 @@ msgstr "arrangé à"
 msgid "arranged for"
 msgstr "arrangé pour"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "arrangé dans"
 
@@ -11007,8 +10997,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "{additional:aussi} arrangé à"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:de plus} arrangé en"
 
@@ -11354,10 +11344,9 @@ msgid "{additional} animation"
 msgstr "animation {additional:supplémentaire}"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "lieu {additional:supplémentaire} d’arrangement de"
 
@@ -12186,8 +12175,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} a été {additional:de plus} arrangé à {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} a été {additional:de plus} arrangé en {entity0}"
 
@@ -12425,6 +12414,13 @@ msgstr "{vocal:%|voix} de soutien par"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|voix} de soutien pour"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "Relie une parution à la région où elle a été arrangée. À n’utiliser que "
+#~ "si le lieu est inconnu !"
 
 #~ msgid "contract"
 #~ msgstr "contrat"
