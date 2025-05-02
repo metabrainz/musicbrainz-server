@@ -16,6 +16,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import loopParity from '../utility/loopParity.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
@@ -56,7 +57,7 @@ component DuplicateArtists(...{
       totalEntries={pager.total_entries}
     >
       <form
-        action="/artist/merge_queue"
+        action={'/artist/merge_queue?' + returnToCurrentPage($c)}
         method="post"
       >
         <PaginatedResults pager={pager}>

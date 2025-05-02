@@ -19,6 +19,7 @@ import {type RecordingFilterT}
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -128,7 +129,7 @@ component ArtistRecordings(
 
       {recordings.length ? (
         <form
-          action="/recording/merge_queue"
+          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
