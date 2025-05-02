@@ -15,6 +15,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
@@ -30,7 +31,7 @@ component AreaArtists(
 
       {artists?.length ? (
         <form
-          action="/artist/merge_queue"
+          action={'/artist/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
