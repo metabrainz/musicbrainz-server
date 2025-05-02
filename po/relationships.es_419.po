@@ -867,13 +867,6 @@ msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr ""
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -3247,7 +3240,7 @@ msgid ""
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
@@ -4911,8 +4904,7 @@ msgstr ""
 msgid "arranged for"
 msgstr ""
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr ""
 
@@ -9575,8 +9567,8 @@ msgid "{additional:additionally} arranged at"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr ""
 
@@ -9889,10 +9881,9 @@ msgid "{additional} animation"
 msgstr ""
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr ""
 
@@ -10672,8 +10663,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 

@@ -1022,15 +1022,6 @@ msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "Enlaza una publicación al lugar en el que fue producida."
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"Enlaza una publicación al área en la que se hiceron los arreglos. ¡Usa esta "
-"opción solo si no sabes el lugar exacto!"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -3824,7 +3815,7 @@ msgstr ""
 "Kickstarter o Indiegogo."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 #, fuzzy
 #| msgid ""
 #| "Links a release to the area it was arranged in. Use only when the place "
@@ -5833,8 +5824,7 @@ msgstr "arreglos hechos en"
 msgid "arranged for"
 msgstr "arreglada para"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "arreglos hechos en"
 
@@ -10530,8 +10520,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "arreglos {additional:adicionales} hechos en"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "arreglos {additional:adicionales} hechos en"
 
@@ -10872,10 +10862,9 @@ msgid "{additional} animation"
 msgstr "animación {additional:adicional}"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "lugar de los arreglos {additional:adicionales} de"
 
@@ -11687,8 +11676,8 @@ msgstr ""
 "Los arreglos {additional:adicionales} de {entity1} fueron hechos en {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 "Los arreglos {additional:adicionales} de {entity1} fueron hechos en {entity0}"
@@ -11922,6 +11911,13 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "Enlaza una publicación al área en la que se hiceron los arreglos. ¡Usa "
+#~ "esta opción solo si no sabes el lugar exacto!"
 
 #~ msgid "contract"
 #~ msgstr "contrato"

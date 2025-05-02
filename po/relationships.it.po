@@ -1024,15 +1024,6 @@ msgstr ""
 "Collega una pubblicazione alla persona accreditata come coordinatore di "
 "produzione per essa."
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"Collega una pubblicazione all'area in cui è stata arrangiata. Da usare solo "
-"quando il luogo è sconosciuto!"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -4054,7 +4045,7 @@ msgstr ""
 "come Kickstarter o Indiegogo."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
@@ -6192,8 +6183,7 @@ msgstr "arrangiata presso"
 msgid "arranged for"
 msgstr "arrangiata per"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "arrangiata a"
 
@@ -10891,8 +10881,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "arrangiata {additional:in aggiunta} presso"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "arrangiata {additional:in aggiunta} a"
 
@@ -11242,10 +11232,9 @@ msgid "{additional} animation"
 msgstr "animazioni {additional:aggiuntive}"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
 
@@ -12071,8 +12060,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} è stata arrangiata {additional:in aggiunta} presso {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} è stata arrangiata {additional:in aggiunta} a {entity0}"
 
@@ -12312,6 +12301,13 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "Collega una pubblicazione all'area in cui è stata arrangiata. Da usare "
+#~ "solo quando il luogo è sconosciuto!"
 
 #~ msgid "{additional} {assistant} {associate} {co:co-}transferred"
 #~ msgstr ""

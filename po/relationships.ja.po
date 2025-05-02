@@ -1014,15 +1014,6 @@ msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "リリースをその演奏が行われた場所と結びつけます。"
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"レコーディングを編曲が行われた地域へリンクします。具体的な場所が不明であると"
-"きのみ使ってください！"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -4024,7 +4015,7 @@ msgstr ""
 "ファンディングプロジェクトに対しリリースをリンクする。"
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 #, fuzzy
 #| msgid ""
 #| "Links a release to the area it was arranged in. Use only when the place "
@@ -6179,8 +6170,7 @@ msgstr "編曲した場所"
 msgid "arranged for"
 msgstr "アレンジする"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "編曲した地域"
 
@@ -10937,8 +10927,8 @@ msgid "{additional:additionally} arranged at"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr ""
 
@@ -11272,10 +11262,9 @@ msgid "{additional} animation"
 msgstr "{additional:補助的な}イラスト"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "ここで{additional:補助的に}編曲された作品"
 
@@ -12092,8 +12081,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
@@ -12323,6 +12312,13 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "レコーディングを編曲が行われた地域へリンクします。具体的な場所が不明である"
+#~ "ときのみ使ってください！"
 
 #~ msgid ""
 #~ "This relationship type can be used to link a place to the equivalent "

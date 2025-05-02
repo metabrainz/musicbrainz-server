@@ -966,13 +966,6 @@ msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "קישור הוצאה למקום בו הופקה."
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr "קישור הוצאה לאזור בו עובדה. נא להשתמש רק כאשר המקום לא ידוע."
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -3791,7 +3784,7 @@ msgid ""
 msgstr "קישור הוצאה לפרופיל שלה באתר גיוס-המונים כגון קיקסטארט או אינדיגוגו."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 #, fuzzy
 #| msgid ""
 #| "Links a release to the area it was arranged in. Use only when the place "
@@ -5861,8 +5854,7 @@ msgstr "עובד ב־"
 msgid "arranged for"
 msgstr "עובד ל־"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "עובד ב־"
 
@@ -10674,8 +10666,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "{additional:additionally} עובד ב־"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:additionally} עובד ב־"
 
@@ -11003,10 +10995,9 @@ msgid "{additional} animation"
 msgstr "{additional} איור"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "{additional} אתר עיבוד ל־"
 
@@ -11813,8 +11804,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 
@@ -12045,6 +12036,11 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr "קישור הוצאה לאזור בו עובדה. נא להשתמש רק כאשר המקום לא ידוע."
 
 #~ msgid "contract"
 #~ msgstr "חוזה"
