@@ -100,7 +100,7 @@ sub foreign_keys
     $ids{$self->model0}->{gid_or_id($entity0)} = [ 'ArtistCredit' ];
     $ids{$self->model1}->{gid_or_id($entity1)} = [ 'ArtistCredit' ];
 
-    $ids{LinkType} = [$self->data->{link}{type}{id}];
+    $ids{LinkType} = [$self->data->{relationship}{link}{type}{id}];
     $ids{LinkAttributeType} = { map { $_->{type}{id} => ['LinkAttributeType'] } @{ $self->data->{relationship}{link}{attributes} // [] } };
 
     return \%ids;

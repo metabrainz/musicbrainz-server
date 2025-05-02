@@ -14,11 +14,12 @@ import {
   displayLinkAttributeCustom,
 } from '../../common/utility/displayLinkAttribute.js';
 import formatDatePeriod from '../../common/utility/formatDatePeriod.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import type {RelationshipStateT} from '../types.js';
 
 import {areLinkAttributesEqual} from './compareRelationships.js';
 import getRelationshipKey from './getRelationshipKey.js';
-import getRelationshipLinkType from './getRelationshipLinkType.js';
 import getRelationshipStatusName from './getRelationshipStatusName.js';
 
 const _displayLinkType = (linkType: LinkTypeT | null): string => {

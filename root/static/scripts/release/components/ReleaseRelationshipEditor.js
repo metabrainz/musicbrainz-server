@@ -54,6 +54,8 @@ import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {createField} from '../../edit/utility/createField.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {
@@ -109,8 +111,6 @@ import getRelationshipEditStatus
   from '../../relationship-editor/utility/getRelationshipEditStatus.js';
 import getRelationshipKey
   from '../../relationship-editor/utility/getRelationshipKey.js';
-import getRelationshipLinkType
-  from '../../relationship-editor/utility/getRelationshipLinkType.js';
 import isRelationshipBackward
   from '../../relationship-editor/utility/isRelationshipBackward.js';
 import prettyPrintRelationshipState

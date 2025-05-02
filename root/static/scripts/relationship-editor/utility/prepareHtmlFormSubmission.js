@@ -15,6 +15,8 @@ import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../../common/utility/storage.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import {
   REL_STATUS_NOOP,
   REL_STATUS_REMOVE,
@@ -31,7 +33,6 @@ import {
   findTargetTypeGroups,
   iterateRelationshipsInTargetTypeGroups,
 } from './findState.js';
-import getRelationshipLinkType from './getRelationshipLinkType.js';
 import isRelationshipBackward from './isRelationshipBackward.js';
 
 function pushRelationshipHiddenInputs(

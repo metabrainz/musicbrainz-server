@@ -12,12 +12,12 @@ import * as tree from 'weight-balanced-tree';
 import {
   isLinkTypeOrderableByUser,
 } from '../../common/utility/isLinkTypeDirectionOrderable.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import {interpolateText} from '../../edit/utility/linkPhrase.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
-
-import getRelationshipLinkType from './getRelationshipLinkType.js';
 
 const linkPhraseCache:
   // The tuple stores [forward, backward] link phrases.

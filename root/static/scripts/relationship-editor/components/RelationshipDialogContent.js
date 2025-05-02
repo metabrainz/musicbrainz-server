@@ -40,6 +40,8 @@ import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {
   isLinkTypeOrderableByUser,
 } from '../../common/utility/isLinkTypeDirectionOrderable.js';
+import getRelationshipLinkType
+  from '../../edit/utility/getRelationshipLinkType.js';
 import {
   RelationshipSourceGroupsContext,
 } from '../constants.js';
@@ -71,7 +73,6 @@ import getOpenEditsLink from '../utility/getOpenEditsLink.js';
 import getRelationshipEditStatus
   from '../utility/getRelationshipEditStatus.js';
 import getRelationshipKey from '../utility/getRelationshipKey.js';
-import getRelationshipLinkType from '../utility/getRelationshipLinkType.js';
 import isRelationshipBackward from '../utility/isRelationshipBackward.js';
 
 import DialogAttributes, {

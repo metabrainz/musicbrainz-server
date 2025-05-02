@@ -9,13 +9,18 @@
 
 import Relationship
   from '../../static/scripts/common/components/Relationship.js';
+import RelationshipDocsTooltip
+  from '../components/RelationshipDocsTooltip.js';
 
 component AddRelationship(edit: AddRelationshipEditT) {
   const relationship = edit.display_data.relationship;
   return (
     <table className="details add-relationship">
       <tr>
-        <th>{addColonText(l('Relationship'))}</th>
+        <th>
+          {addColonText(l('Relationship'))}
+          <RelationshipDocsTooltip relationships={[relationship]} />
+        </th>
         <td>
           <Relationship
             allowNewEntity0={relationship.entity0_id === 0}
