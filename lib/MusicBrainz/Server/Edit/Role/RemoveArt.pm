@@ -5,6 +5,7 @@ use namespace::autoclean;
 use MooseX::Types::Moose qw( Str Int ArrayRef );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
@@ -34,7 +35,7 @@ sub data_fields {
     ];
 }
 
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 
 sub entity_ids { shift->data->{entity}{id} }
 
