@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-22 12:44+0000\n"
+"PO-Revision-Date: 2025-05-01 18:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -806,6 +806,9 @@ msgid ""
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
 msgstr ""
+"Indica la persona che ha adattato quest'opera (in genere da un mezzo "
+"diverso, come per esempio da opera in prosa ad audiodramma, o da musical "
+"teatrale a musical cinematografico)."
 
 #. name:translator
 #: DB:link_type/description:871
@@ -826,6 +829,8 @@ msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
 msgstr ""
+"Indica la persona che ha scritto la sceneggiatura originale per un'opera, "
+"come per esempio un audiodramma."
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -4628,19 +4633,15 @@ msgstr ""
 
 #. name:adaptation
 #: DB:link_type/description:1284
-#, fuzzy
-#| msgid ""
-#| "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
-#| "second work is based on music or text from the first, but isn't directly "
-#| "a revision or an arrangement of it."
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
 "work is an adaptation of the other (generally from a different medium, such "
 "as a prose work into an audio drama or a stage musical into a film musical)."
 msgstr ""
-"Collega due <a href=\"/doc/Work\" title=\"Work\">opere</a> di cui la seconda "
-"si basa su musica o testo della prima, senza però esserne direttamente una "
-"revisione o un arrangiamento."
+"Collega due <a href=\"/doc/Work\" title=\"Work\">opere</a> di cui una è un "
+"adattamento dell'altra (in genere da un mezzo diverso, come per esempio da "
+"opera in prosa ad audiodramma, o da musical teatrale a musical "
+"cinematografico)."
 
 #. name:based on
 #: DB:link_type/description:314
@@ -5015,13 +5016,6 @@ msgstr ""
 
 #. name:writer
 #: DB:link_type/description:167
-#, fuzzy
-#| msgid ""
-#| "This relationship is used to link a work to the artist responsible for "
-#| "writing the music and/or the words (lyrics, libretto, etc.), when no more "
-#| "specific information is available. If possible, the more specific "
-#| "composer, lyricist and/or librettist types should be used, rather than "
-#| "this relationship type."
 msgid ""
 "This relationship is used to link a work to the artist responsible for "
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
@@ -5035,7 +5029,9 @@ msgstr ""
 "la scrittura della musica e/o delle parole (testi, libretto, ecc.), nei casi "
 "in cui informazioni più specifiche non sono disponibili. Se possibile, "
 "dovresti usare i tipi di relazione compositore, paroliere e/o librettista "
-"anziché questo tipo di relazione."
+"anziché questo tipo di relazione.\n"
+"\n"
+"La relazione serve anche per gli autori di opere letterarie."
 
 #. name:residency
 #: DB:link_type/description:994
@@ -6101,28 +6097,22 @@ msgid "act"
 msgstr "atto"
 
 #: DB:link_type/name:1284
-#, fuzzy
-#| msgid "animation"
 msgid "adaptation"
-msgstr "animazioni"
+msgstr "adattamento"
 
 #. name:adaptation
 #: DB:link_type/reverse_link_phrase:1284
-#, fuzzy
-#| msgid "compilation of"
 msgid "adaptation of"
-msgstr "raccolta di"
+msgstr "adattamento di"
 
 #. name:adaptation
 #: DB:link_type/link_phrase:1284
-#, fuzzy
-#| msgid "dedications"
 msgid "adaptations"
-msgstr "dediche"
+msgstr "adattamenti"
 
 #: DB:link_type/name:1285
 msgid "adapter"
-msgstr ""
+msgstr "adattatore"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -7632,10 +7622,8 @@ msgstr "ha una pagina di biglietteria su"
 
 #. name:adaptation
 #: DB:link_type/long_link_phrase:1284
-#, fuzzy
-#| msgid "has orchestration"
 msgid "has adaptation"
-msgstr "ha l'orchestrazione"
+msgstr "ha l'adattamento"
 
 #. name:allmusic
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
@@ -10039,10 +10027,8 @@ msgid "school directors"
 msgstr "dirigenti scolastici"
 
 #: DB:link_type/name:1286
-#, fuzzy
-#| msgid "writer"
 msgid "scriptwriter"
-msgstr "autore"
+msgstr "sceneggiatore"
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
@@ -10869,10 +10855,8 @@ msgstr ""
 
 #. name:adapter
 #: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
-#, fuzzy
-#| msgid "{additional:additionally} translated"
 msgid "{additional:additionally} adapted"
-msgstr "ha tradotto {additional:in aggiunta}"
+msgstr "ha adattato {additional:in aggiunta}"
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
@@ -11043,10 +11027,8 @@ msgstr "ha scritto i testi {additional:in aggiunta} per"
 
 #. name:scriptwriter
 #: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
-#, fuzzy
-#| msgid "{additional:additionally} wrote the lyrics for"
 msgid "{additional:additionally} wrote the script for"
-msgstr "ha scritto i testi {additional:in aggiunta} per"
+msgstr "ha scritto la sceneggiatura {additional:in aggiunta} per"
 
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
@@ -11221,10 +11203,8 @@ msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
 
 #. name:adapter
 #: DB:link_type/reverse_link_phrase:1285
-#, fuzzy
-#| msgid "{additional} writer"
 msgid "{additional} adapter"
-msgstr "autore {additional:aggiunto}"
+msgstr "adattatore {additional:aggiunto}"
 
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
@@ -11427,10 +11407,8 @@ msgstr "campionamenti {additional:aggiuntivi} da"
 
 #. name:scriptwriter
 #: DB:link_type/reverse_link_phrase:1286
-#, fuzzy
-#| msgid "{additional} writer"
 msgid "{additional} scriptwriter"
-msgstr "autore {additional:aggiunto}"
+msgstr "sceneggiatore {additional:aggiunto}"
 
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964

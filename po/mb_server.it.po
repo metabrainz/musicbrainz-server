@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-04-29 20:50+0200\n"
-"PO-Revision-Date: 2025-04-08 01:20+0000\n"
+"PO-Revision-Date: 2025-05-02 18:05+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -726,6 +726,8 @@ msgid ""
 "Common exceptions are {artist_intent_guideline|artist intent} and "
 "{japanese_guideline|Japanese releases}."
 msgstr ""
+"L'{artist_intent_guideline|intento artistico} e le {japanese_guideline|"
+"pubblicazioni giapponesi} sono eccezioni comuni."
 
 #: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -909,6 +911,10 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"Non contrassegnare le pubblicazioni su supporto digitale come senza codice a "
+"barre se non hai familiarità con la piattaforma in questione. La maggior "
+"parte delle piattaforme digitali più comuni utilizzano i codici a barre, "
+"anche quando questi non sono mostrati all'utente."
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
@@ -1136,6 +1142,9 @@ msgid ""
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
 msgstr ""
+"Qualche esempio di pubblicazioni che vanno raggruppate insieme comprende le "
+"pubblicazioni originali, le loro riedizioni, formati diversi come CD e "
+"supporto digitale, e i remaster."
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1173,6 +1182,10 @@ msgid ""
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
 msgstr ""
+"I collegamenti esterni sono URL associati all'artista. Possono comprendere "
+"la pagina ufficiale dell'artista, le sue pagine di social network, servizi "
+"di streaming e pagine non ufficiali come voci di Wikipedia, biografie, "
+"interviste e siti di fan."
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1180,6 +1193,10 @@ msgid ""
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"I collegamenti esterni sono URL associati all'etichetta. Possono comprendere "
+"la pagina ufficiale dell'etichetta, le sue pagine di social network, "
+"cataloghi, pagine di acquisto e pagine non ufficiali come voci di Wikipedia, "
+"pagine di storia e siti di fan."
 
 #: ../root/place/edit_form.tt:110
 msgid ""
@@ -1187,38 +1204,52 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"I collegamenti esterni sono URL associati al luogo. Possono comprendere la "
+"pagina ufficiale del luogo, le sue pagine di social network, pagine di "
+"biglietteria e pagine non ufficiali come voci di Wikipedia, pagine di storia "
+"e siti di fan."
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
 msgstr ""
+"I collegamenti esterni sono URL associati alla registrazione, come per "
+"esempio pagine di acquisto o di streaming, o voci in altri database."
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
 msgstr ""
+"I collegamenti esterni sono URL associati al gruppo di pubblicazioni, come "
+"per esempio pagine ufficiali, articoli di Wikipedia, recensioni e voci in "
+"altri database."
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
 msgstr ""
+"I collegamenti esterni sono URL associati alla serie, come per esempio "
+"pagine ufficiali, pagine di social network e voci in altri database."
 
 #: ../root/work/edit_form.tt:157
 msgid ""
 "External links are URLs associated with the work, such as pages for "
 "purchasing sheet music, lyrics pages, and entries in other databases."
 msgstr ""
+"I collegamenti esterni sono URL associati all'opera, come per esempio pagine "
+"da cui acquistare partiture, pagine di testi e voci in altri database."
 
 #: ../root/release/edit/information.tt:584
 msgid "External links are URLs associated with this particular release."
 msgstr ""
+"I collegamenti esterni sono URL associati a questa specifica pubblicazione."
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
-msgstr ""
+msgstr "Lascialo pure vuoto se è probabile che il nome della serie sia unico."
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1238,11 +1269,13 @@ msgstr ""
 
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
-msgstr ""
+msgstr "Per la musica classica, dovrebbe contenere i principali esecutori."
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
 msgstr ""
+"Per le pubblicazioni su supporto digitale, va solitamente impostata su "
+"“Nessuna”."
 
 #: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
 #: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
@@ -1265,6 +1298,9 @@ msgid ""
 "For popular music, the {doc|artist} should usually match the track artist on "
 "the earliest release containing the recording."
 msgstr ""
+"Per la musica leggera, l'{doc|artista} dovrebbe solitamente corrispondere "
+"all'artista della traccia sulla prima pubblicazione contenente la "
+"registrazione."
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
 #: ../root/release/edit/tracklist.tt:305
@@ -1470,6 +1506,8 @@ msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
 msgstr ""
+"Se questa è una registrazione dal vivo, consulta anche le linee guida sulle "
+"{doc|registrazioni dal vivo}."
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1500,29 +1538,20 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"Attenzione! Se non conosci il mese o il giorno di pubblicazione, lascia "
-"vuoti quei campi.  Il 1º gennaio probabilmente non è la reale data di "
-"pubblicazione, assicurati di aver inserito la data corretta."
+"Se non conosci il mese o il giorno di pubblicazione, lascia vuoti quei "
+"campi. Il 1º gennaio probabilmente non è la reale data di pubblicazione. "
+"<strong>Assicurati di aver inserito la data corretta.</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr "Se non conosci il codice di questa entità, lascia vuoto questo campo."
 
 #: ../root/release/edit/information.tt:515
-#, fuzzy
-#| msgid ""
-#| "If you do not know whether the release has a barcode or not, just leave "
-#| "this blank."
 msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
@@ -2132,28 +2161,20 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:334
-#, fuzzy
-#| msgid ""
-#| "For more information, check the {doc_doc|documentation} and "
-#| "{doc_styleguide|style guidelines}."
 msgid ""
 "Please see the artist credits {doc|documentation} and {style|style "
 "guidelines} for more information."
 msgstr ""
-"Per maggiori informazioni, controlla la {doc_doc|documentazione} e le "
-"{doc_styleguide|linee guida di stile}."
+"Consulta la {doc|documentazione} e le {style|linee guida di stile} sugli "
+"accreditamenti artista per maggiori informazioni."
 
 #: ../root/recording/edit_form.tt:89
-#, fuzzy
-#| msgid ""
-#| "For more information, check the {doc_doc|documentation} and "
-#| "{doc_styleguide|style guidelines}."
 msgid ""
 "Please see the {doc_style|style guidelines} and the {doc_classical|classical "
 "guidelines} for more information."
 msgstr ""
-"Per maggiori informazioni, controlla la {doc_doc|documentazione} e le "
-"{doc_styleguide|linee guida di stile}."
+"Consulta le {doc_style|linee guida di stile} e le {doc_classical|linee guida "
+"di stile sulla musica classica} per maggiori informazioni."
 
 #: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
 #: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:178
@@ -2766,13 +2787,6 @@ msgstr ""
 "per maggiori informazioni sull'uso dei filtri."
 
 #: ../root/release/edit/information.tt:393
-#, fuzzy
-#| msgid ""
-#| "This release status should be used for unofficial translations and "
-#| "transliterations of tracklists and release titles, and does not denote a "
-#| "separate real release. It should not be used to denote bootlegs, mixtape/"
-#| "street albums, demos, or digital albums. Be sure to link to the "
-#| "corresponding real release with the {url|transl(iter)ation relationship}."
 msgid ""
 "The pseudo‐release status should be used for unofficial translations and "
 "transliterations of tracklists and release titles, and does not denote a "
@@ -2780,7 +2794,7 @@ msgid ""
 "street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
-"Questo status della pubblicazione va usato per traduzioni e traslitterazioni "
+"Lo status di pseudo-pubblicazione va usato per traduzioni e traslitterazioni "
 "non ufficiali di elenchi tracce e titoli di pubblicazioni, e non indica una "
 "reale pubblicazione distinta. Non va usato per indicare bootleg, album "
 "mixtape/street, demo o album digitali. Assicurati che la pubblicazione sia "
@@ -2788,12 +2802,6 @@ msgstr ""
 "traduzione/traslitterazione}."
 
 #: ../root/release/edit/information.tt:554
-#, fuzzy
-#| msgid ""
-#| "The purpose of this field is to add information that usually doesn't fit "
-#| "into the strict structural data schema of MusicBrainz (be it due to "
-#| "technical limitations that may be addressed later, or because the "
-#| "information in itself has to be free-text)."
 msgid ""
 "The purpose of this field is to add information that usually doesn’t fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
@@ -2812,16 +2820,11 @@ msgstr ""
 "database."
 
 #: ../root/components/forms.tt:244
-#, fuzzy
-#| msgid ""
-#| "The sort name is an artist name variant used when sorting alphabetically. "
-#| "For usage information check the {sort_name_doc|sort name guidelines}."
 msgid ""
 "The sort name is an artist name variant used when sorting alphabetically."
 msgstr ""
 "Il nome di ordinamento è una variante del nome dell'artista usata per "
-"ordinare alfabeticamente. Per informazioni su come usarlo, controlla le "
-"{sort_name_doc|linee guida sui nomi di ordinamento}."
+"ordinare alfabeticamente."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -2869,12 +2872,12 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:549
-#, fuzzy
-#| msgid "The annotation field functions like a miniature wiki."
 msgid ""
 "The {doc|annotation} field functions like a miniature wiki. It’s fine to "
 "leave it empty."
-msgstr "Il campo annotazione funziona come una piccola wiki."
+msgstr ""
+"Il campo {doc|annotazione} funziona come una piccola wiki. Non c'è problema "
+"se lo si lascia vuoto."
 
 #: ../root/artist/edit_form.tt:145
 msgid ""
@@ -2899,16 +2902,12 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/edit_form.tt:44
-#, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|artist} should usually match the earliest official release in the "
 "release group."
 msgstr ""
-"La vecchia immagine è stata selezionata automaticamente dalla prima "
-"pubblicazione nel gruppo di pubblicazioni."
+"L'{doc|artista} dovrebbe solitamente corrispondere a quello usato sulla "
+"prima pubblicazione ufficiale nel gruppo di pubblicazioni."
 
 #: ../root/release/edit/information.tt:507
 msgid ""
@@ -2995,52 +2994,37 @@ msgid ""
 msgstr ""
 
 #: ../root/recording/edit_form.tt:97
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named recordings by the same artist."
 msgstr ""
-"Il campo disambiguazione serve ad aiutare gli utenti a distinguere tra "
-"pubblicazioni con lo stesso nome."
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere registrazioni "
+"dello stesso artista con nomi simili."
 
 #: ../root/release_group/edit_form.tt:55
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named release groups, such as multiple self-titled albums by the same artist."
 msgstr ""
-"Il campo disambiguazione serve ad aiutare gli utenti a distinguere tra "
-"pubblicazioni con lo stesso nome."
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere gruppi di "
+"pubblicazioni con nomi simili, come per esempio più album auto-intitolati "
+"dello stesso artista."
 
 #: ../root/series/edit_form.tt:43
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named series."
 msgstr ""
-"Il campo disambiguazione serve ad aiutare gli utenti a distinguere tra "
-"pubblicazioni con lo stesso nome."
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere serie con nomi "
+"simili."
 
 #: ../root/work/edit_form.tt:117
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named works."
 msgstr ""
-"Il campo disambiguazione serve ad aiutare gli utenti a distinguere tra "
-"pubblicazioni con lo stesso nome."
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere opere con nomi "
+"simili."
 
 #: ../root/artist/edit_form.tt:134
 msgid ""
@@ -3061,19 +3045,13 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:406
-#, fuzzy
-#| msgid ""
-#| "The language attribute should be set to the language used for the release "
-#| "title and track titles. It should not be set to the language the lyrics "
-#| "are written in, nor to the language used for other extra information on "
-#| "the cover."
 msgid ""
 "The {doc|language} attribute should be set to the language used for the "
 "release title and track titles. It should not be set to the language the "
 "lyrics are written in, nor to the language used for other extra information "
 "on the cover."
 msgstr ""
-"L'attributo lingua va usato per indicare la lingua del titolo della "
+"L'attributo {doc|lingua} va usato per indicare la lingua del titolo della "
 "pubblicazione e dei titoli di traccia. Non va usato per indicare la lingua "
 "in cui sono scritti i testi, né per indicare la lingua usata nelle "
 "informazioni aggiuntive presenti sulle copertine."
@@ -3117,16 +3095,12 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/edit_form.tt:33
-#, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|name} is usually the title from the earliest official release in "
 "the release group."
 msgstr ""
-"La vecchia immagine è stata selezionata automaticamente dalla prima "
-"pubblicazione nel gruppo di pubblicazioni."
+"Il {doc|nome} è solitamente il titolo della prima pubblicazione nel gruppo "
+"di pubblicazioni."
 
 #: ../root/release/edit/information.tt:539
 msgid ""
@@ -3145,15 +3119,11 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:419
-#, fuzzy
-#| msgid ""
-#| "The script attribute should be set to the script used for the release "
-#| "title and track titles."
 msgid ""
 "The {doc|script} attribute should be set to the script used for the release "
 "title and track titles."
 msgstr ""
-"L'attributo sistema di scrittura va usato per indicare il sistema di "
+"L'attributo {doc|sistema di scrittura} va usato per indicare il sistema di "
 "scrittura del titolo della pubblicazione e dei titoli di traccia."
 
 #: ../root/release/edit/information.tt:384
@@ -3201,14 +3171,6 @@ msgid "This CD TOC is already attached to this medium."
 msgstr "Questo TOC (indice) CD è già associato a questo supporto."
 
 #: ../root/release/edit/information.tt:560
-#, fuzzy
-#| msgid ""
-#| "This annotation will be published under an open license (<a href=\"{url}"
-#| "\" target=\"_blank\">CC BY-NC-SA 3.0</a>) and as such, it should not "
-#| "contain text that you don't have the right to release under that license. "
-#| "While you can quote a source to support a point you're making, you should "
-#| "never enter promotional texts or other artist or label-owned texts into "
-#| "the annotation."
 msgid ""
 "This annotation will be published under an open license ({url|CC BY-NC-SA "
 "3.0}) and as such, it should not contain text that you don’t have the right "
@@ -3216,12 +3178,11 @@ msgid ""
 "point you’re making, you should never enter promotional text or other "
 "artist- or label‐owned text into the annotation."
 msgstr ""
-"Questa annotazione sarà pubblicata sotto una licenza aperta (<a href=\"{url}"
-"\" target=\"_blank\">CC BY-NC-SA 3.0</a>) e pertanto non deve contenere "
-"testo che non hai il diritto di rilasciare sotto quella licenza. Mentre puoi "
-"citare una fonte per sostenere le tue affermazioni, non devi inserire testi "
-"promozionali o altri testi di proprietà dell'artista o dell'etichetta "
-"nell'annotazione."
+"Questa annotazione sarà pubblicata sotto una licenza aperta ({url|CC BY-NC-"
+"SA 3.0}) e pertanto non deve contenere testo che non hai il diritto di "
+"rilasciare sotto quella licenza. Mentre puoi citare una fonte per sostenere "
+"le tue affermazioni, non devi inserire testo promozionale o altro testo di "
+"proprietà dell'artista o dell'etichetta nell'annotazione."
 
 #: ../root/artist/edit_form.tt:67
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:84
@@ -3261,29 +3222,21 @@ msgid "This entity will be added by this edit."
 msgstr "L'entità sarà aggiunta con questa modifica."
 
 #: ../root/release/edit/information.tt:577
-#, fuzzy
-#| msgid ""
-#| "This field is not a place to store general background information about "
-#| "the release: that kind of information should go in the annotation field."
 msgid ""
 "This field is not a place to store general background information about the "
 "release. That kind of information should go in the annotation field."
 msgstr ""
-"Questo campo non serve a memorizzare informazioni generali sulla "
-"pubblicazione: quel tipo di informazioni va inserito nel campo annotazione."
+"Questo campo non serve a immagazzinare informazioni generali sulla "
+"pubblicazione. Quel tipo di informazioni va inserito nel campo annotazione."
 
 #: ../root/artist/edit_form.tt:124 ../root/label/edit_form.tt:79
 #: ../root/place/edit_form.tt:71
-#, fuzzy
-#| msgid ""
-#| "This field is not a place to store general background information about "
-#| "the release: that kind of information should go in the annotation field."
 msgid ""
 "This field is not a place to store general background information. That kind "
 "of information should go in an {doc|annotation}."
 msgstr ""
-"Questo campo non serve a memorizzare informazioni generali sulla "
-"pubblicazione: quel tipo di informazioni va inserito nel campo annotazione."
+"Questo campo non serve a immagazzinare informazioni generali. Quel tipo di "
+"informazioni va inserito in un'{doc|annotazione}."
 
 #: ../root/artist/edit_credit.tt:10
 msgid ""
@@ -4207,30 +4160,20 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|ID disco}:"
 
 #: ../root/components/forms.tt:221
-#, fuzzy
-#| msgid ""
-#| "IPI codes are assigned by CISAC to “interested parties” in musical rights "
-#| "management. Check {ipi_doc|the documentation} for more info."
 msgid ""
 "{doc|IPI codes} are assigned by CISAC to “interested parties” in musical "
 "rights management."
 msgstr ""
-"I codici IPI sono assegnati dalla CISAC a \"parti interessate\" nella "
-"gestione dei diritti musicali. Controlla la {ipi_doc|documentazione} per "
-"maggiori informazioni."
+"I {doc|codici IPI} sono assegnati dalla CISAC a “parti interessate” nella "
+"gestione dei diritti musicali."
 
 #: ../root/components/forms.tt:229
-#, fuzzy
-#| msgid ""
-#| "ISNI codes are an ISO standard used to uniquely identify persons and "
-#| "organizations. Check {isni_doc|the documentation} for more info."
 msgid ""
 "{doc|ISNI codes} are an ISO standard used to uniquely identify persons and "
 "organizations."
 msgstr ""
-"I codici ISNI sono una norma tecnica ISO usata per identificare persone e "
-"organizzazioni in modo univoco. Controlla la {isni_doc|documentazione} per "
-"maggiori informazioni."
+"I {doc|codici ISNI} sono una norma tecnica ISO usata per identificare "
+"persone e organizzazioni in modo univoco."
 
 #: ../root/release/edit/information.tt:371
 #: ../root/release_group/edit_form.tt:74
@@ -4291,19 +4234,14 @@ msgid "« Previous"
 msgstr "« Precedente"
 
 #: ../root/release/edit/information.tt:441
-#, fuzzy
-#| msgid ""
-#| "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all "
-#| "releases for which they don't know the actual date. <strong>Please use "
-#| "this date only if you're certain this date is correct!</strong>"
 msgid ""
 "“1990-10-25” is the bogus date that Amazon gives to all releases for which "
 "they don’t know the actual date. <strong>Please use this date only if you’re "
 "certain this date is correct.</strong>"
 msgstr ""
-"Attenzione! \"1990-10-25\" è la data fasulla che Amazon assegna a tutte le "
-"pubblicazioni di cui non conosce la data reale. <strong>Usa questa data solo "
-"se sei sicuro che sia corretta!</strong>"
+"“1990-10-25” è la data fasulla che Amazon assegna a tutte le pubblicazioni "
+"di cui non conosce la data reale. <strong>Usa questa data solo se sei sicuro "
+"che sia corretta.</strong>"
 
 #: ../root/components/forms.tt:247
 msgid ""
@@ -4688,6 +4626,8 @@ msgid ""
 "These release groups are being merged in connection with a release merge in "
 "{edit_link|edit #{edit_id}}."
 msgstr ""
+"Questi gruppi di pubblicazioni stanno venendo uniti in relazione all'unione "
+"di pubblicazioni nell'{edit_link|edit #{edit_id}}."
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:431
 #, perl-brace-format
@@ -4695,6 +4635,8 @@ msgid ""
 "The associated release groups are being merged in {edit_link|edit "
 "#{edit_id}}."
 msgstr ""
+"I gruppi di pubblicazioni associati stanno venendo uniti nell'{edit_link|"
+"edit #{edit_id}}."
 
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:538
 msgid ""
@@ -8040,16 +7982,12 @@ msgid "Please search for the artist you wish to add a new release for:"
 msgstr "Cerca l'artista di cui vuoi aggiungere una nuova pubblicazione:"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:41
-#, fuzzy
-#| msgid ""
-#| "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
-#| "{format} {pos} of {release} by {artist}?"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "medium {pos} ({format}) of {release} by {artist}?"
 msgstr ""
-"Sei sicuro di voler associare l'ID disco <code>{discid}</code> a {format} "
-"{pos} della pubblicazione {release} di {artist}?"
+"Sei sicuro di voler associare l'ID disco <code>{discid}</code> al supporto "
+"{pos} ({format}) della pubblicazione {release} di {artist}?"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:69
 msgid "Track length comparison"
@@ -10114,8 +10052,8 @@ msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
 msgstr ""
-"Questa modifica non memorizza informazioni sulle unioni di registrazioni ed "
-"è chiusa, perciò non è possibile visualizzare tali informazioni."
+"Questa modifica non immagazzina informazioni sulle unioni di registrazioni "
+"ed è chiusa, perciò non è possibile visualizzare tali informazioni."
 
 #: ../root/edit/details/MergeReleases.js:332
 msgid "All recordings for these releases are already merged."
@@ -12912,10 +12850,8 @@ msgstr ""
 "Seleziona la pubblicazione in cui vuoi che vengano unite le altre:"
 
 #: ../root/release/ReleaseMerge.js:63
-#, fuzzy
-#| msgid "Mismatched release groups"
 msgid "Also merge the associated release groups"
-msgstr "Gruppi di pubblicazioni non corrispondenti"
+msgstr "Unisci anche i gruppi di pubblicazioni associati"
 
 #: ../root/release/RemoveCoverArt.js:25
 msgctxt "singular, header"
@@ -13692,28 +13628,20 @@ msgstr ""
 "Eventi che dovrebbero essere parte di una serie o di un evento più grande"
 
 #: ../root/report/EventsWithEaaNoTypes.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases which have cover art in the Cover Art Archive, "
-#| "but where none of it has any types set. This often means a front cover "
-#| "was added, but not marked as such."
 msgid ""
 "This report shows events which have images in the Event Art Archive, but "
 "where none of the images have any types set. This often means a poster, "
 "flyer or banner was added, but not marked as such."
 msgstr ""
-"Questo rapporto mostra le pubblicazioni che hanno copertine nel Cover Art "
-"Archive, ma in cui nessuna di esse ha alcun tipo impostato. Spesso questo "
-"significa che una copertina frontale è stata aggiunta, ma non è stata "
-"contrassegnata come tale."
+"Questo rapporto mostra gli eventi che hanno immagini nell'Event Art Archive, "
+"ma in cui nessuna di esse ha alcun tipo impostato. Spesso questo significa "
+"che un manifesto, un volantino o un banner sono stati aggiunti, ma non sono "
+"stati contrassegnati come tali."
 
 #: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:150
-#, fuzzy
-#| msgid "Releases in the Cover Art Archive where no cover art piece has types"
 msgid "Events in the Event Art Archive where no event art piece has types"
 msgstr ""
-"Pubblicazioni nel Cover Art Archive in cui nessuna immagine di copertina ha "
-"un tipo"
+"Eventi nell'Event Art Archive in cui nessuna immagine dell'evento ha un tipo"
 
 #: ../root/report/FeaturingRecordings.js:25
 msgid ""
@@ -14748,10 +14676,8 @@ msgstr "Serie con annotazioni"
 
 #: ../root/report/ReportsIndex.js:596
 #: ../root/report/SeriesContainingDuplicates.js:49
-#, fuzzy
-#| msgid "Release duplicates"
 msgid "Series containing duplicates"
-msgstr "Doppioni della pubblicazione"
+msgstr "Serie che contengono doppioni"
 
 #: ../root/report/ReportsIndex.js:613
 msgid "Works with annotations"
@@ -14791,28 +14717,20 @@ msgid "Discs as separate releases"
 msgstr "Dischi come pubblicazioni separate"
 
 #: ../root/report/SeriesContainingDuplicates.js:23
-#, fuzzy
-#| msgid "Edited entity"
 msgid "Duplicate entity"
-msgstr "Entità modificata"
+msgstr "Entità doppione"
 
 #: ../root/report/SeriesContainingDuplicates.js:29
-#, fuzzy
-#| msgid "ISO number"
 msgid "Number"
-msgstr "Numero ISO"
+msgstr "Numero"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
-#, fuzzy
-#| msgid ""
-#| "This report lists recordings which have multiple relationships to the "
-#| "same entity using the same relationship type."
 msgid ""
 "This report lists series which contain the same entity multiple times with "
 "the same number attribute."
 msgstr ""
-"Questo rapporto elenca le registrazioni che possiedono più relazioni verso "
-"la stessa entità che utilizzano lo stesso tipo di relazione."
+"Questo rapporto elenca le serie che contengono più volte la stessa entità "
+"con lo stesso numero ordinale."
 
 #: ../root/report/SetInDifferentRg.js:25
 msgid ""
@@ -16032,10 +15950,8 @@ msgid "{action_label} (in a new tab)"
 msgstr "{action_label} (in una nuova scheda)"
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
-#, fuzzy
-#| msgid "Medium {position}: {title}"
 msgid "Medium {position} ({medium_format})"
-msgstr "Supporto {position}: {title}"
+msgstr "Supporto {position} ({medium_format})"
 
 #: ../root/static/scripts/common/components/MediumDescription.js:34
 #: ../root/static/scripts/release-editor/fields.js:919
@@ -17357,8 +17273,8 @@ msgid ""
 "longer a member of a band), you can indicate it with the checkbox above."
 msgstr ""
 "Se non conosci la data finale, ma sai che la relazione si è conclusa ed è "
-"utile memorizzare quest'informazione (per esempio, se qualcuno non è più un "
-"membro di un certo gruppo), puoi indicarlo spuntando la casella qui sopra."
+"utile immagazzinare quest'informazione (per esempio, se qualcuno non è più "
+"un membro di un certo gruppo), puoi indicarlo spuntando la casella qui sopra."
 
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:114
 msgid "Change credits for other {entity} relationships on the page."
