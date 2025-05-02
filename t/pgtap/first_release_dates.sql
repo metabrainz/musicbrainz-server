@@ -473,5 +473,28 @@ SELECT results_eq(
   'VALUES (1999::smallint, null::smallint, null::smallint)'
 );
 
+-- MBS-13966: Update a release group's first release date when it's emptied
+-- via a release move.
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, 1999::smallint, null::smallint, null::smallint),
+      (2::integer, null::smallint, null::smallint, null::smallint)
+  $$
+);
+
+UPDATE release SET release_group = 2 WHERE release_group = 1;
+
+SELECT results_eq(
+  'release_group_first_release_dates',
+  $$
+    VALUES
+      (1::integer, null::smallint, null::smallint, null::smallint),
+      (2::integer, 1999::smallint, null::smallint, null::smallint)
+  $$
+);
+
 SELECT finish();
 ROLLBACK;

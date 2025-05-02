@@ -1150,9 +1150,10 @@ BEGIN
                                   first_release_date_day = first.day
       FROM (
         SELECT rd.year, rd.month, rd.day
-        FROM release
+        FROM release_group
+        LEFT JOIN release ON release.release_group = release_group.id
         LEFT JOIN release_first_release_date rd ON (rd.release = release.id)
-        WHERE release.release_group = release_group_id
+        WHERE release_group.id = release_group_id
         ORDER BY
           rd.year NULLS LAST,
           rd.month NULLS LAST,
