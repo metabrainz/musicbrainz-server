@@ -47,7 +47,9 @@ sub format_wikitext
     return decode(
         'utf-8',
         Text::WikiFormat::format(
-            encode('utf-8' => $text), {}, {
+            encode('utf-8' => $text), {
+                paragraph => [ '<p><bdi>', '</bdi></p>'  ],
+            }, {
                 prefix => '//wiki.musicbrainz.org/',
                 extended => 1,
                 nofollow_extended => 1,
