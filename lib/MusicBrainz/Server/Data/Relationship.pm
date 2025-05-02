@@ -242,6 +242,49 @@ sub _load_related_info {
     $self->load_entities(@rels);
 }
 
+sub get_credits
+{
+    my ($self, $type, $id) = @_;
+    my @types = map { [ sort($type, $_) ] } @RELATABLE_ENTITIES;
+
+    my @query_parts;
+    my @query_params;
+    foreach my $t (@types) {
+        my $type0 = $t->[0];
+        my $type1 = $t->[1];
+
+        my $type0_query = <<~"SQL";
+            SELECT entity0_credit AS credit
+              FROM l_${type0}_${type1}
+             WHERE entity0 = ?
+               AND entity0_credit != ''
+            SQL
+
+        my $type1_query = <<~"SQL";
+            SELECT entity1_credit AS credit
+              FROM l_${type0}_${type1}
+             WHERE entity1 = ?
+               AND entity1_credit != ''
+            SQL
+
+        if ($type eq $type0 && $type eq $type1) {
+            push @query_parts, $type0_query, $type1_query;
+            push @query_params, $id, $id;
+        } elsif ($type eq $type0) {
+            push @query_parts, $type0_query;
+            push @query_params, $id;
+        } elsif ($type eq $type1) {
+            push @query_parts, $type1_query;
+            push @query_params, $id;
+        }
+    }
+
+    my $inner_table = join(' UNION ', @query_parts);
+    my $query = "SELECT credit FROM ($inner_table) ORDER BY credit ASC";
+
+    return $self->sql->select_single_column_array($query, @query_params);
+}
+
 Readonly our $DEFAULT_LOAD_PAGED_LIMIT => 100;
 
 sub load_paged {

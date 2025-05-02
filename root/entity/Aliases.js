@@ -9,12 +9,15 @@
 
 import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 import AliasesComponent from '../components/Aliases/index.js';
+import RelationshipCreditList
+  from '../components/Aliases/RelationshipCreditList.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component Aliases(
   aliases: $ReadOnlyArray<AnyAliasT>,
   artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   entity: EntityWithAliasesT,
+  relationshipCredits?: $ReadOnlyArray<string>,
 ) {
   const entityType = entity.entityType;
   const LayoutComponent = chooseLayoutComponent(entityType);
@@ -30,6 +33,12 @@ component Aliases(
         <ArtistCreditList
           artistCredits={artistCredits}
           entity={entity}
+        />
+      ) : null}
+      {relationshipCredits?.length ? (
+        <RelationshipCreditList
+          entity={entity}
+          relationshipCredits={relationshipCredits}
         />
       ) : null}
     </LayoutComponent>
