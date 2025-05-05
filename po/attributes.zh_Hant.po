@@ -367,9 +367,9 @@ msgid ""
 "being played. Programs/programmes are most often made available for music "
 "festivals and for stage and classical performances."
 msgstr ""
-"一本提供給活動參加者的手冊，可能免費發放或販售，內含活動相關資訊，例如時間表"
-"、表演者資料，以及演奏音樂的詳細內容。節目冊最常見於音樂節、舞台表演及古典音"
-"樂演出。"
+"一本提供給活動參加者的手冊，可能免費發放或販售，內含活動相關資訊，例如時間"
+"表、表演者資料，以及演奏音樂的詳細內容。節目冊最常見於音樂節、舞台表演及古典"
+"音樂演出。"
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -2553,8 +2553,8 @@ msgstr "國家"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr "國家和地區指列於（或曾經列於）ISO 3166-1的區域，如美國。"
 
 #: DB:area_type/name:7

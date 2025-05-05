@@ -1,94 +1,71 @@
 #!/usr/bin/env bash
 
-function sv_start_if_down() {
-  while [[ $# -gt 0 ]]
-  do
-    if [[ -e "/etc/service/$1/down" ]]
-    then
-      rm -fv "/etc/service/$1/down"
-      sv start "$1"
-    fi
-    shift
-  done
-}
+set -x
+shopt -s nullglob
 
-cd /home/musicbrainz/musicbrainz-server
+cd "$MBS_ROOT"
 
-sv_start_if_down postgresql redis
+. docker/musicbrainz-tests/sv_start_if_down.sh
 
-# Wait for the database to start.
-sleep 10
-
-# Copy in DBDefs.pm, which is required before invoking create_test_db.sh.
-sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
-
-# Create the musicbrainz_test and musicbrainz_selenium DBs.
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
-pushd /var/lib/postgresql
-sudo -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres \
-     musicbrainz_selenium
-popd
-
-# Set the open file limit Solr requests on startup, then start Solr.
+# Set the open file limit Solr requests on startup.
 ulimit -n 65000
-sv_start_if_down solr
+
+./docker/musicbrainz-tests/add_mbtest_alias.sh
+
+service rabbitmq-server start
 
 # Setup the rabbitmq user/vhost used by pg_amqp + sir.
-service rabbitmq-server start
 rabbitmqctl add_user sir sir
 rabbitmqctl add_vhost /sir-test
 rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 
-# Install the sir triggers into musicbrainz_selenium.
 export SIR_DIR=/home/musicbrainz/sir
-cd "$SIR_DIR"
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup; python -m sir extension; python -m sir triggers --broker-id=1'
-psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
+pushd "$SIR_DIR"
+# Setup the RabbitMQ channels/queues used by sir.
+sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup'
+popd
 
-# Install the artwork_indexer schema into musicbrainz_selenium.
-cd /home/musicbrainz/artwork-indexer
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python indexer.py --setup-schema'
+sv_start_if_down \
+  artwork-indexer \
+  artwork-redirect \
+  postgresql \
+  redis \
+  solr \
+  ssssss \
+  template-renderer \
+  website
 
-cd /home/musicbrainz/musicbrainz-server
-
-# Start the various CAA-related services.
-sv_start_if_down artwork-indexer artwork-redirect ssssss
-
-# Compile static resources.
-corepack enable
-sudo -E -H -u musicbrainz yarn
-sudo -E -H -u musicbrainz make -C po all_quiet deploy
-NODE_ENV=test \
-     WEBPACK_MODE=development \
-     MUSICBRAINZ_RUNNING_TESTS=1 \
-     NO_PROGRESS=1 \
-     sudo -E -H -u musicbrainz carton exec -- ./script/compile_resources.sh default tests
-
-# Add mbtest host alias to work around NO_PROXY restriction.
-# See add_mbtest_alias.sh for details.
-./docker/musicbrainz-tests/add_mbtest_alias.sh
-
-sv_start_if_down template-renderer website
-
-# Wait for plackup to start.
+# Wait for services to start.
 sleep 10
 
-sudo -E -H -u musicbrainz mkdir -p junit_output
-
+tests_exit_code=0
 sudo -E -H -u musicbrainz carton exec -- \
-     ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome \
+     ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome $SELENIUM_JS_OPTIONS \
      | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
-     | ./node_modules/.bin/tap-difflet
+     | ./node_modules/.bin/tap-difflet || { tests_exit_code=$?; true; }
 
 # Stop the template-renderer so that it dumps coverage.
 sv down template-renderer
 sleep 10
-sudo -E -H -u musicbrainz ./node_modules/.bin/nyc report --reporter=html
 
-sudo -E -H -u musicbrainz mkdir -p svlog
-for service in /var/log/service/*; do
-     cp "$service"/current svlog/"$(basename "$service")".log
-done
-chown musicbrainz:musicbrainz svlog/*.log
+if [ "$GITHUB_ACTIONS" = 'true' ]; then
+  if [[ -d .nyc_output && $(ls -A .nyc_output) ]]; then
+      cp -Ra .nyc_output "$GITHUB_WORKSPACE"/nyc_output
+  fi
+  if [ -d junit_output ]; then
+    cp -Ra junit_output "$GITHUB_WORKSPACE"
+  fi
+  logs="$GITHUB_WORKSPACE"/service_logs
+  mkdir -p "$logs"
+  for service in /var/log/service/*; do
+      cp -a "$service"/current "$logs"/"$(basename "$service")".log
+  done
+  for sir_log in t/selenium/.sir-*.log; do
+      base_fname="$(basename "$sir_log")"
+      cp -a "$sir_log" "$logs"/"${base_fname#.}"
+  done
+  mkdir -p "$GITHUB_WORKSPACE"/screenshots
+  cp -ra t/selenium/.screenshots/. "$GITHUB_WORKSPACE"/screenshots/
+fi
+
+exit $tests_exit_code

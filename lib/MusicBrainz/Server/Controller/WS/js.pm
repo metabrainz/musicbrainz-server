@@ -15,6 +15,7 @@ use Digest::MD5 qw( md5_hex );
 use IO::Compress::Gzip qw( gzip $GzipError );
 use JSON qw( encode_json decode_json );
 use List::AllUtils qw( part uniq_by );
+use LWP::UserAgent;
 use MusicBrainz::Errors qw(
     build_request_and_user_context
     capture_exceptions
@@ -403,9 +404,12 @@ sub _art_upload {
         $s3_request->header('x-archive-meta-mediatype' => 'image');
         $s3_request->header('x-archive-meta-noindex' => 'true');
 
-        $context->lwp->timeout(30);
+        my $lwp = LWP::UserAgent->new;
+        $lwp->env_proxy;
+        $lwp->timeout(30);
+        $lwp->agent(DBDefs->LWP_USER_AGENT);
 
-        my $response = $context->lwp->request($s3_request);
+        my $response = $lwp->request($s3_request);
         if ($response->is_success) {
             # The bucket was created succesfully.
         } elsif ($response->code == HTTP_CONFLICT) {
@@ -426,7 +430,7 @@ sub _art_upload {
             if ($s3_error_code eq 'BucketAlreadyExists') {
                 # Check that we're the owner of the existing bucket.
                 my $ia_metadata_uri = DBDefs->INTERNET_ARCHIVE_IA_METADATA_PREFIX . "/$bucket";
-                $response = $context->lwp->request(HTTP::Request->new(GET => $ia_metadata_uri));
+                $response = $lwp->request(HTTP::Request->new(GET => $ia_metadata_uri));
 
                 my $item_metadata_content = $response->decoded_content;
                 my $item_metadata;

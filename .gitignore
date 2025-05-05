@@ -81,6 +81,8 @@
 /t/selenium/.sir-amqp_watch.log
 /t/selenium/.sir-amqp_watch.pid
 /t/selenium/.sir-reindex.log
+# screenshots taken by t/selenium.mjs
+/t/selenium/.screenshots
 
 # IDE configs
 .idea

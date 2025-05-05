@@ -1,4 +1,8 @@
-<p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => { href => doc_link('Place'), target => '_blank' }}) -%]</p>
+<p>
+  [%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.',
+        { doc_doc => { href => doc_link('Place'), target => '_blank' },
+          doc_styleguide => { href => doc_link('Style/Place'), target => '_blank' } }) -%]
+</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-place">
     [%- USE r = FormRenderer(form) -%]
@@ -46,7 +50,47 @@
   </div>
 
   <div class="documentation">
-    [%- area_bubble() -%]
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is the place’s official name.',
+             { doc => { href => doc_link('Place#Name'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Place#Name'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between places with similar names.
+              Feel to leave it blank if you aren’t warned about possible duplicates in the same area.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('This field is not a place to store general background information.
+              That kind of information should go in an {doc|annotation}.',
+             { doc => { href => doc_link('Annotation'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    [%- type_bubble(form.field('type_id'), place_types) -%]
+
+    <div class="bubble" id="address-bubble">
+      <p>
+        [% l('The {doc|address} describes the place’s location using the standard addressing format for the country where it’s located.
+              It should include the ZIP/postal code but not the country name.',
+             { doc => { href => doc_link('Place#Address'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="area-bubble">
+      <p>
+        [% l('The {doc|area} is the location (such as city) where the place is located.',
+             { doc => { href => doc_link('Place#Area'), target => '_blank' } }) %]
+      </p>
+      [% area_bubble_selection() %]
+    </div>
 
     <div class="bubble" id="coordinates-bubble">
         <p>[% l('Enter coordinates manually or click the map to get coordinates from the marker. If you’re too far out, clicking will zoom instead.') %]</p>
@@ -54,7 +98,23 @@
         [% script_manifest('place/map.js', { 'data-args' => map_data_args }) %]
     </div>
 
-    [%- type_bubble(form.field('type_id'), place_types) -%]
+    <div class="bubble" id="begin-end-date-bubble">
+      <p>
+        [% l('The {doc|begin and end dates} describe when the place was founded and when it shut down.',
+             { doc => { href => doc_link('Place#Begin_and_end_dates'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the place.
+              These can include the place’s official homepage and social networking pages, ticketing pages,
+              and unofficial pages like Wikipedia entries, histories, and fan sites.') %]
+      </p>
+      <p>
+        [% l('Please don’t add a Wikipedia page if a Wikidata item linking to the same article already exists.') %]
+      </p>
+    </div>
   </div>
 
 </form>

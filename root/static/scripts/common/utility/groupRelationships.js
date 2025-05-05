@@ -28,7 +28,7 @@ import {
   sortedFindOrInsert,
   sortedIndexWith,
 } from './arrays.js';
-import {compareStrings} from './compare.js';
+import {compareStrings} from './compare.mjs';
 import {compareDatePeriods} from './compareDates.js';
 import getSortName from './getSortName.js';
 import isLinkTypeDirectionOrderable from './isLinkTypeDirectionOrderable.js';

@@ -17,7 +17,9 @@ import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {initializeTooShortYearChecks} from '../edit/forms.js';
 import ArtistEdit from '../edit/MB/Control/ArtistEdit.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeToggleEnded from '../edit/utility/toggleEnded.js';
 import initializeValidation from '../edit/validation.js';
@@ -33,12 +35,41 @@ $(function () {
   initializeToggleEnded('id-edit-artist');
   initializeTooShortYearChecks('artist');
 
-  initializeBubble('#sort-name-bubble', 'input[name=edit-artist\\.sort_name');
+  initializeBubble('#name-bubble', 'input[name=edit-artist\\.name]');
+  initializeBubble(
+    '#sort-name-bubble',
+    'input[name=edit-artist\\.sort_name]',
+  );
+  initializeBubble('#comment-bubble', 'input[name=edit-artist\\.comment]');
+  initializeBubble('#gender-bubble', 'select[name=edit-artist\\.gender_id]');
   initializeBubble('#ipi-bubble', 'input[name=edit-artist\\.ipi_codes\\.0]');
   initializeBubble(
     '#isni-bubble',
     'input[name=edit-artist\\.isni_codes\\.0]',
   );
+  // Area bubbles are initialized in ArtistEdit().
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-artist\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-artist\\.period\\.end_date\\.]',
+  );
+  initializeExternalLinksBubble('#external-link-bubble');
+
+  // Update the begin and end documentation bubbles to match the type.
+  const updateBeginEndBubbles = () => {
+    for (const sel of ['#begin-end-date-bubble', '#begin-end-area-bubble']) {
+      $(sel + ' .desc').hide();
+      const value = $(typeIdField)[0].value;
+      const desc = $(sel + ` .desc-${value}`);
+      if (desc.length) {
+        desc.show();
+      } else {
+        $(sel + ' .desc-default').show();
+      }
+    }
+  };
+  $(typeIdField).on('change', () => updateBeginEndBubbles());
+  updateBeginEndBubbles();
 
   installFormUnloadWarning();
 

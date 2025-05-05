@@ -19,45 +19,5 @@ you have a Docker service running, run:
 Generating the snapshot will take quite a while. Once it is done, commit it
 and push it.
 
-Generating this new snapshot will often install the latest version of Chrome,
-which will require updating the version of ChromeDriver installed through
-[docker/Dockerfile.tests](docker/Dockerfile.tests). Check the appropriate
-version of ChromeDriver for the new version of Chrome from
-https://chromedriver.chromium.org/downloads and modify the Dockerfile
-accordingly.
-
-Then you will need to create a Docker `musicbrainz-tests` image. This step
-also takes quite a while, so you might want to consider running it inside a
-MetaBrainz server to make it faster. In any case, inside a musicbrainz-server
-checkout running the updated branch, you should run (note the dot at the end):
-
-    $ docker build --tag metabrainz/musicbrainz-tests:v-YYYY-MM --file docker/Dockerfile.tests .
-
-Then log into Docker Hub with `docker login` (the credentials are in the
-syswiki repo) and push the created image to Docker Hub:
-
-    $ docker push metabrainz/musicbrainz-tests:v-YYYY-MM
-
-Finally, you will need to update [.circleci/config.yml](.circleci/config.yml),
-update the listed `musicbrainz-tests` image version and push the changes.
-
-Debugging CircleCI tests with SSH
-=======
-
-Sometimes a test that passes locally might fail in CircleCI. In these cases, it's useful
-to be able to run the test directly from the CircleCI command line to figure out what
-exactly is failing.
-
-CircleCI supports debugging in their containers with SSH for this case. See
-[their documentation](https://circleci.com/docs/2.0/ssh-access-jobs/).
-
-Basically, you'll want to expand the "Rerun" menu and select "Rerun job with SSH".
-Then, under "Enable SSH", you'll be told how to SSH into the container,
-with a command like
-
-    $ ssh -p port ip
-
-Once you are inside the container, you should navigate to the MusicBrainz server folder at
-`/home/musicbrainz/musicbrainz-server/`, and then you can run any test you want to check like this:
-
-    $ sudo -E -H -u musicbrainz carton exec -- prove -lv t/tests.t :: --tests Failing::Test
+To rebuild the tests image, just update `TESTS_IMAGE_TAG` in
+[.github/workflows/ci.yml](.github/workflows/ci.yml).

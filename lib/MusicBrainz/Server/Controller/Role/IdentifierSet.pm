@@ -100,14 +100,16 @@ role
     method munge_compound_text_fields => sub {
         my ($self, $c, $form) = @_;
         my $field_name = $form->field($identifier_plural)->html_name;
-        my %body_params = %{ $c->req->body_params };
-        for my $param (keys %body_params) {
-            if ($param =~ /^$field_name\.([0-9]+)$/) {
-                $body_params{"$field_name.$1.value"} = $body_params{$param};
-                delete $body_params{$param};
+        for my $params_prop (qw( query_params body_params )) {
+            my %params = %{ $c->req->$params_prop };
+            for my $param (keys %params) {
+                if ($param =~ /^$field_name\.([0-9]+)$/) {
+                    $params{"$field_name.$1.value"} = $params{$param};
+                    delete $params{$param};
+                }
             }
+            $c->req->$params_prop(\%params);
         }
-        $c->req->body_params(\%body_params);
     };
 
     method get_current_identifiers => sub {

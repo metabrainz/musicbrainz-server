@@ -25,7 +25,7 @@ import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
 
 export default {
-  cache: cacheConfig,
+  cache: String(process.env.NO_CACHE) === '1' ? false : cacheConfig,
 
   context: MB_SERVER_ROOT,
 

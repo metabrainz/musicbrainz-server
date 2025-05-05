@@ -14,7 +14,9 @@ import isBlank from '../common/utility/isBlank.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import initializeArea from '../edit/MB/Control/Area.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation, {errorField} from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
@@ -23,10 +25,21 @@ import {map, marker} from './map.js';
 
 $(function () {
   initializeGuessCase('place', 'id-edit-place');
-  initializeArea('span.area.autocomplete');
+  initializeArea('span.area.autocomplete', '#area-bubble');
   initializeDuplicateChecker('place');
 
-  const bubble = initializeBubble(
+  initializeBubble('#name-bubble', 'input[name=edit-place\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-place\\.comment]');
+  typeBubble('select[name=edit-place\\.type_id]');
+  initializeBubble('#address-bubble', 'input[name=edit-place\\.address]');
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-place\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-place\\.period\\.end_date\\.]',
+  );
+  initializeExternalLinksBubble('#external-link-bubble');
+
+  const coordsBubble = initializeBubble(
     '#coordinates-bubble',
     'input[name=edit-place\\.coordinates]',
   );
@@ -37,18 +50,18 @@ $(function () {
    * This tells it to update its position once it's visible.
    */
   let invalidateSizeRan = false;
-  function afterBubbleShow() {
+  function afterCoordsBubbleShow() {
     if (!invalidateSizeRan) {
       map.invalidateSize();
       invalidateSizeRan = true;
     }
   }
 
-  const bubbleShow = bubble.show;
+  const coordsBubbleShow = coordsBubble.show;
 
-  bubble.show = function (...args) {
-    bubbleShow.apply(this, args);
-    afterBubbleShow();
+  coordsBubble.show = function (...args) {
+    coordsBubbleShow.apply(this, args);
+    afterCoordsBubbleShow();
   };
 
   map.on('click', function (e) {
@@ -116,9 +129,6 @@ $(function () {
       });
     }
   });
-
-  const typeIdField = 'select[name=edit-place\\.type_id]';
-  typeBubble(typeIdField);
 
   installFormUnloadWarning();
 

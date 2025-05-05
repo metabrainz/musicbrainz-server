@@ -9,6 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
+import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
+
 import deferFocus from '../../utility/deferFocus.js';
 
 class BubbleBase {
@@ -126,6 +128,7 @@ export class BubbleDoc extends BubbleBase {
     const $parent = $bubble.parent();
 
     $bubble
+      .addClass('left-tail')
       .width($parent.width() - 24)
       .position({
         my: 'left top-30',
@@ -133,8 +136,7 @@ export class BubbleDoc extends BubbleBase {
         of: control,
         collision: 'fit none',
         within: $parent,
-      })
-      .addClass('left-tail');
+      });
   }
 }
 
@@ -337,7 +339,22 @@ export default function initializeBubble(bubble, control, vm, canBeShown) {
   }
 
   ko.applyBindingsToNode($(bubble)[0], {bubble: bubbleDoc}, vm);
-  ko.applyBindingsToNode($(control)[0], {controlsBubble: bubbleDoc}, vm);
+
+  if (control) {
+    $(control).each((_, el) => {
+      ko.applyBindingsToNode(el, {controlsBubble: bubbleDoc}, vm);
+    });
+  }
 
   return bubbleDoc;
+}
+
+// Initializes the specified bubble for the external_links_editor() macro.
+export function initializeExternalLinksBubble(bubbleSelector) {
+  const bubble = initializeBubble(bubbleSelector);
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => bubble.show(event.target),
+  );
 }

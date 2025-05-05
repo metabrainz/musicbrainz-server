@@ -31,6 +31,7 @@ import WikipediaExtract
 import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
 import loopParity from '../utility/loopParity.js';
 import releaseGroupType from '../utility/releaseGroupType.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 
@@ -65,6 +66,7 @@ function buildReleaseStatusTable(
             ) : null}
           <td>
             <EntityLink
+              className="wrap-anywhere"
               entity={release}
               showArtworkPresence={showArtworkPresence}
             />
@@ -149,7 +151,7 @@ component ReleaseGroupIndex(
         <>
           <h2>{releaseGroupType(releaseGroup)}</h2>
           <form
-            action="/release/merge_queue"
+            action={'/release/merge_queue?' + returnToCurrentPage($c)}
             method="post"
           >
             <PaginatedResults pager={pager}>

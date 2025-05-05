@@ -373,6 +373,10 @@
             You can select multiple types by using Ctrl + click (or Cmd + click on a Mac).',
            { doc => { href => doc_link('Release_Group/Type'), target => '_blank' } }) %]
     </p>
+    <p>
+      [% l('Please see the {doc|style guidelines} for more information.',
+           { doc => { href => doc_link('Style/Release_Group#Secondary_types'), target => '_blank' } }) %]
+    </p>
   </div>
 
   <div class="bubble" data-bind="bubble: $root.statusBubble">
@@ -565,8 +569,8 @@
 
   <div class="bubble" data-bind="bubble: $root.commentBubble">
     <p>
-      [% l('The {doc|disambiguation} field is used to help users distinguish between identically-named releases.
-            It’s fine to leave it empty if other properties like artist, label, or date distinguish this release.',
+      [% l('The {doc|disambiguation} field helps users distinguish between releases in the same release group.
+            Please leave it empty if other properties like artist, format, label, or date distinguish this release.',
            { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
     </p>
     <p>

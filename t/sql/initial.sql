@@ -985,6 +985,7 @@ INSERT INTO work_attribute_type VALUES (4, 'Rāga (Carnatic)', '', false, NULL, 
 INSERT INTO work_attribute_type VALUES (14, 'Identifiers', '', false, NULL, 1, NULL, '588e1c46-c825-3aea-9068-9907f5c7c736');
 INSERT INTO work_attribute_type VALUES (6, 'ASCAP ID', '', true, 14, 0, NULL, 'd833318c-6c6a-370e-8b16-9cb15873ba76');
 INSERT INTO work_attribute_type VALUES (7, 'BMI ID', '', true, 14, 0, NULL, 'c8ac7e55-fd45-3002-9f89-e8b43911a479');
+INSERT INTO work_attribute_type VALUES (3, 'JASRAC ID', '', true, 14, 0, 'ID for the Japanese rights society JASRAC', '31048fcc-3dbb-3979-8f85-805afb933e0c');
 
 INSERT INTO work_attribute_type_allowed_value VALUES (13, 1, 'E major', NULL, 13, NULL, '5fd130f8-4180-38d8-9a8a-2f49d783792c');
 INSERT INTO work_attribute_type_allowed_value VALUES (28, 1, 'A major', NULL, 28, NULL, '14e86ed3-7440-3d28-a095-405fc01692b7');

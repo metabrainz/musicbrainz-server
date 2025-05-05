@@ -48,7 +48,23 @@ CDP((client) => {
 
       if (/^\s*# ok\s*$/.test(args[0])) {
         done = true;
-        exit(0);
+
+        import('../root/utility/writeCoverage.mjs').then(
+          async ({default: writeCoverage}) => {
+            const {result: {value: coverage}} = await Runtime.evaluate({
+              expression: 'window.__coverage__',
+              returnByValue: true,
+            });
+            if (coverage) {
+              await writeCoverage('web_js', JSON.stringify(coverage));
+            }
+            exit(0);
+          },
+          (error) => {
+            console.error(error);
+            exit(1);
+          },
+        );
       } else {
         timeout = setTimeout(onTimeout, 1000);
       }

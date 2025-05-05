@@ -259,6 +259,7 @@ export default {
   'report/DuplicateReleaseGroups': (): Promise<mixed> => import('../report/DuplicateReleaseGroups.js'),
   'report/EmptyReleaseGroups': (): Promise<mixed> => import('../report/EmptyReleaseGroups.js'),
   'report/EventSequenceNotInSeries': (): Promise<mixed> => import('../report/EventSequenceNotInSeries.js'),
+  'report/EventsWithEaaNoTypes': (): Promise<mixed> => import('../report/EventsWithEaaNoTypes.js'),
   'report/FeaturingRecordings': (): Promise<mixed> => import('../report/FeaturingRecordings.js'),
   'report/FeaturingReleaseGroups': (): Promise<mixed> => import('../report/FeaturingReleaseGroups.js'),
   'report/FeaturingReleases': (): Promise<mixed> => import('../report/FeaturingReleases.js'),

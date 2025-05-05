@@ -14,7 +14,9 @@ import '../edit/components/FormRowTextListSimple.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import initializeArea from '../edit/MB/Control/Area.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
@@ -25,12 +27,23 @@ $(function () {
 
   initializeGuessCase('label', 'id-edit-label');
 
-  initializeArea('span.area.autocomplete');
+  initializeArea('span.area.autocomplete', '#area-bubble');
 
   initializeDuplicateChecker('label');
 
+  initializeBubble('#name-bubble', 'input[name=edit-label\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-label\\.comment]');
+  initializeBubble(
+    '#label-code-bubble', 'input[name=edit-label\\.label_code]',
+  );
   initializeBubble('#ipi-bubble', 'input[name=edit-label\\.ipi_codes\\.0]');
   initializeBubble('#isni-bubble', 'input[name=edit-label\\.isni_codes\\.0]');
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-label\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-label\\.period\\.end_date\\.]',
+  );
+  initializeExternalLinksBubble('#external-link-bubble');
 
   installFormUnloadWarning();
 

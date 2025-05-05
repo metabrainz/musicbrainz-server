@@ -14,12 +14,10 @@ import UserAccountLayout, {
 } from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
-import type {EditProfileFormPropsT}
-  from '../static/scripts/account/components/EditProfileForm.js';
 import EditProfileForm
   from '../static/scripts/account/components/EditProfileForm.js';
 
-component EditProfile(...props: EditProfileFormPropsT) {
+component EditProfile(...props: React.PropsOf<EditProfileForm>) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;
   if (!user) {
