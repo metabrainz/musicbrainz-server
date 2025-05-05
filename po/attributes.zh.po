@@ -1377,7 +1377,8 @@ msgid ""
 "An image usually showing the order and time for the performances in an "
 "event. Can be a standalone image, but also a poster, a banner or a page from "
 "a program (in which case all applicable types should be set)."
-msgstr "一张通常展示活动中演出顺序和时间的图片。可以是独立图片，也可以是海报、横幅或"
+msgstr ""
+"一张通常展示活动中演出顺序和时间的图片。可以是独立图片，也可以是海报、横幅或"
 "节目册中的页面（在这种情况下，应设置所有适用的类型）。"
 
 #. name:Concert
@@ -2544,8 +2545,8 @@ msgstr "国家"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr "国家和地区指列于（或曾经列于）ISO 3166-1的区域，如美国。"
 
 #: DB:area_type/name:7

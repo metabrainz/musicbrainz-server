@@ -74,9 +74,10 @@ test 'Wiki documentation syntax' => sub {
              qr{<a href="/$type/$mbid">$type:$mbid</a>}, "plain [$type:mbid] links");
         like(format_wikitext("[$type:$mbid|alt text]"),
              qr{<a href="/$type/$mbid">alt text</a>}, "[$type:mbid|text] links");
-        like(format_wikitext(q{ג'יין בורדו (Jane Bordeaux) הוא הרכב מוזיקלי אינדי, קאנטרי ופולק עברי שהוקם בשנת 2012. חברי הלהקה הם דורון טלמון (הסולנית), מתי גלעד, יואב ארבל, רמי אוסרווסר וסתיו אחאי.}),
-             qr{<p><bdi>.*?</bdi></p>}s, 'text is wrapped in <bdi> tags');
     }
+
+    like(format_wikitext(q{ג'יין בורדו (Jane Bordeaux) הוא הרכב מוזיקלי אינדי, קאנטרי ופולק עברי שהוקם בשנת 2012.\nחברי הלהקה הם דורון טלמון (הסולנית), מתי גלעד, יואב ארבל, רמי אוסרווסר וסתיו אחאי.}),
+         qr{<p><bdi>.*<br />.*</bdi></p>}s, 'text is wrapped in <bdi> tags without breaking newlines');
 };
 
 1;
