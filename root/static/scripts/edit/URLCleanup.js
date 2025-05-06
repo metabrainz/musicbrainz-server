@@ -5568,7 +5568,9 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.streamingfree.release:
             return {
-              result: prefix === 'album' || prefix === 'prerelease',
+              result: prefix === 'album' ||
+                      prefix === 'episode' ||
+                      prefix === 'prerelease',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
