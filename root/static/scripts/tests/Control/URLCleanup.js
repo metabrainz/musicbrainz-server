@@ -5681,14 +5681,14 @@ limited_link_type_combinations: [
                      input_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
-       only_valid_entity_types: ['recording'],
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://embed.spotify.com/?uri=spotify:episode:5yyMb4t3PWlikJNucu9A6Z',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
-       only_valid_entity_types: ['recording'],
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'http://play.spotify.com/album/3rFPzWNUrtoqMd9yNGaFMr?play=true&utm_source=open.spotify.com&utm_medium=open',
