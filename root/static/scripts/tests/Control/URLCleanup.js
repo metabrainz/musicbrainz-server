@@ -5804,6 +5804,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://artists.spotify.com/songwriter/4wmgHQAAzg3gbnQWSyoMZp',
        only_valid_entity_types: ['artist'],
   },
+  {
+                     input_url: 'https://open.spotify.com/show/21X5WeU1eZTuyYmBbq613H',
+             input_entity_type: 'series',
+    expected_relationship_type: 'podcastfeed',
+            expected_clean_url: 'https://open.spotify.com/show/21X5WeU1eZTuyYmBbq613H',
+       only_valid_entity_types: ['series'],
+  },
   // SteamDB
   {
                      input_url: 'http://www.steamdb.info/app/331230/info/',

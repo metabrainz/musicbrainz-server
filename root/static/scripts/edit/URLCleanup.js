@@ -5528,7 +5528,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [/^(https?:\/\/)?(((?!(?:artists|shop))[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
-    restrict: [LINK_TYPES.streamingfree],
+    restrict: [LINK_TYPES.podcastfeed, LINK_TYPES.streamingfree],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
       url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/(?:intl-[a-z]+\/)?([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
@@ -5556,6 +5556,11 @@ const CLEANUPS: CleanupEntries = {
       if (m) {
         const prefix = m[1];
         switch (id) {
+          case LINK_TYPES.podcastfeed.series:
+            return {
+              result: prefix === 'show',
+              target: ERROR_TARGETS.ENTITY,
+            };
           case LINK_TYPES.streamingfree.artist:
             return {
               result: prefix === 'artist',
