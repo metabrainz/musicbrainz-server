@@ -192,6 +192,9 @@ export const LINK_TYPES: LinkTypeMap = {
     place: 'f14b4e5f-0884-4bb0-b3fa-134cc2734f0e',
     series: '492a4e07-0ea9-4e82-870b-cab942b0576f',
   },
+  podcastfeed: {
+    series: '5ce55509-47a5-4374-a1c6-a68fd377bddf',
+  },
   purevolume: {
     artist: 'b6f02157-a9d3-4f24-9057-0675b2dbc581',
   },
@@ -1000,6 +1003,51 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
         }
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'applepodcasts': {
+    match: [/^(https?:\/\/)?([^/]+\.)?podcasts\.apple\.com\//i],
+    restrict: [
+      LINK_TYPES.podcastfeed,
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+    ],
+    clean(url) {
+      url = url.replace(/^https?:\/\/podcasts\.apple\.com\//, 'https://podcasts.apple.com/');
+      // US page is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/podcasts\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      url = url.replace(/^(https:\/\/podcasts\.apple\.com\/[a-z]{2})\/podcast\/[^?#/]+\/(?:id)?[0-9]+\?i=([0-9]+)$/, '$1/episode/$2');
+      url = url.replace(/^(https:\/\/podcasts\.apple\.com\/[a-z]{2})\/(episode|podcast)\/(?:[^?#/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/id$3');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/podcasts\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/id[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.podcastfeed.series:
+            return {
+              result: prefix === 'podcast',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.streamingpaid.recording:
+          case LINK_TYPES.streamingfree.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'episode',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },

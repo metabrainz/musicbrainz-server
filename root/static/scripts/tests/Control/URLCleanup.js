@@ -737,6 +737,20 @@ limited_link_type_combinations: [
                                 ],
             expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
   },
+  // Apple Podcasts
+  {
+                     input_url: 'https://podcasts.apple.com/dk/podcast/bag-fjendens-linjer/id912730108',
+             input_entity_type: 'series',
+    expected_relationship_type: 'podcastfeed',
+            expected_clean_url: 'https://podcasts.apple.com/dk/podcast/id912730108',
+       only_valid_entity_types: ['series'],
+  },
+  {
+                     input_url: 'https://podcasts.apple.com/us/podcast/birder-language-with-rosemary-mosco/id1403064308?i=1000705676414',
+             input_entity_type: 'release',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://podcasts.apple.com/us/episode/id1000705676414',
+  },
   // (Internet) Archive
   {
                      input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
