@@ -2,8 +2,11 @@
 
 BEGIN;
 
+-- MBS-14014
+DROP VIEW IF EXISTS cover_art_archive.index_listing;
+
 -- CAA view
-CREATE OR REPLACE VIEW cover_art_archive.index_listing AS
+CREATE VIEW cover_art_archive.index_listing AS
 SELECT cover_art.*,
   (edit.close_time IS NOT NULL) AS approved,
   coalesce(cover_art.id = (SELECT id FROM cover_art_archive.cover_art_type
@@ -41,6 +44,5 @@ SELECT event_art.*,
         WHERE event_art_type.id = event_art.id) AS types
 FROM event_art_archive.event_art
 LEFT JOIN musicbrainz.edit ON edit.id = event_art.edit;
-
 
 COMMIT;

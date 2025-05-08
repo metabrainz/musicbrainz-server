@@ -243,8 +243,11 @@ CREATE UNIQUE INDEX artist_release_va_idx_uniq ON artist_release_va (release, ar
 SELECT '20241125-mbs-13832.sql';
 
 
+-- MBS-14014
+DROP VIEW IF EXISTS cover_art_archive.index_listing;
+
 -- CAA view
-CREATE OR REPLACE VIEW cover_art_archive.index_listing AS
+CREATE VIEW cover_art_archive.index_listing AS
 SELECT cover_art.*,
   (edit.close_time IS NOT NULL) AS approved,
   coalesce(cover_art.id = (SELECT id FROM cover_art_archive.cover_art_type
@@ -282,7 +285,6 @@ SELECT event_art.*,
         WHERE event_art_type.id = event_art.id) AS types
 FROM event_art_archive.event_art
 LEFT JOIN musicbrainz.edit ON edit.id = event_art.edit;
-
 
 --------------------------------------------------------------------------------
 SELECT '20250320-mbs-13768.sql';
