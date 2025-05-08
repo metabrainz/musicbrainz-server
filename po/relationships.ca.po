@@ -1,17 +1,19 @@
 #
 # Translators:
+# Marc Riera <marc@marcriera.cat>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:50+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Catalan (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ca/)\n"
+"PO-Revision-Date: 2025-05-03 16:20+0000\n"
+"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
+"Language-Team: Catalan <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/ca/>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -70,14 +72,14 @@ msgstr ""
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
-msgstr ""
+msgstr "ASIN"
 
 #. name:allmusic
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
 #: DB:link_type/link_phrase:1093 DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
-msgstr ""
+msgstr "Allmusic"
 
 #. name:allmusic
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
@@ -89,7 +91,7 @@ msgstr ""
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
