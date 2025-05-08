@@ -3,24 +3,27 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# ozodbekmirzayev <mirzayevozodbek345@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-02 21:48+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-05-08 21:20+0000\n"
+"Last-Translator: ozodbekmirzayev <mirzayevozodbek345@gmail.com>\n"
+"Language-Team: Uzbek <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/uz/>\n"
 "Language: uz\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.3\n"
 "mime-version: 1.0\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
-msgstr ""
+msgstr " ({matn})"
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:19
@@ -11336,7 +11339,7 @@ msgstr ""
 
 #: ../root/otherlookup/OtherLookupForm.js:102
 msgid "MBID"
-msgstr ""
+msgstr "MBIDPAPER size"
 
 #: ../root/otherlookup/OtherLookupIndex.js:17
 #: ../root/otherlookup/OtherLookupIndex.js:19 ../root/search/SearchIndex.js:29
