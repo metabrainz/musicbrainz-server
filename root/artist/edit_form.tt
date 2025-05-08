@@ -44,39 +44,11 @@
          }) %]
       </fieldset>
 
-      <fieldset>
-        <legend>[% l('Date period') %]</legend>
-        <p>
-            [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
-        </p>
-        [% form_row_date(r, 'period.begin_date', add_colon(l('Begin date'))) %]
-        [% too_short_year_error('too_short_begin_year') %]
-        [% WRAPPER form_row %]
-          [% begin_area_field = form.field('begin_area.name') %]
-          <label id="label-id-edit-artist.begin_area.name" for="id-edit-artist.begin_area.name">[% add_colon(l('Begin area')) %]</label>
-          <span id="begin_area" class="area autocomplete">
-            [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
-            [% r.hidden(form.field('begin_area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden('begin_area_id', class => 'id') %]
-            [% r.text(begin_area_field, class => 'name') %]
-          </span>
-          [% field_errors(r.form, 'begin_area.name') %]
-        [% END %]
-        [% form_row_date(r, 'period.end_date', add_colon(l('End date'))) %]
-        [% too_short_year_error('too_short_end_year') %]
-        [% form_row_checkbox(r, 'period.ended', l('This artist has ended.')) %]
-        [% WRAPPER form_row %]
-          [% end_area_field = form.field('end_area.name') %]
-          <label id="label-id-edit-artist.end_area.name" for="id-edit-artist.end_area.name">[% add_colon(l('End area')) %]</label>
-          <span id="end_area" class="area autocomplete">
-            [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
-            [% r.hidden(form.field('end_area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden('end_area_id', class => 'id') %]
-            [% r.text(end_area_field, class => 'name') %]
-          </span>
-          [% field_errors(r.form, 'end_area.name') %]
-        [% END %]
-      </fieldset>
+      [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
+          initialField => form_to_json(form.field('period')),
+          endedLabel => 'This area has ended.',
+        }) %]
+      [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 
