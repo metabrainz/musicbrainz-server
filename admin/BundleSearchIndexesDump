@@ -140,7 +140,7 @@ for my $backup_dir (@backup_dirs)
             next;
         }
         push @extraneous_files, $filename
-            if ! $filename =~ 'backup\.properties|snapshot\.shard1';
+            if $filename !~ 'backup\.properties|snapshot\.shard1';
     }
     closedir $bdh;
     die "$working_dir/$backup_dir has extraneous files: @extraneous_files\n"

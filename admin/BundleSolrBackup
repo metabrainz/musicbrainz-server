@@ -145,7 +145,7 @@ for my $backup_dir (@backup_dirs)
     for my $filename (sort grep { ! /^\.\.?$/ } readdir $bsdh)
     {
         push @extraneous_files, $filename
-            if ! $filename =~ 'backup_0\.properties|index|shard_backup_metadata|zk_backup';
+            if $filename !~ 'backup_0\.properties|index|shard_backup_metadata|zk_backup';
     }
     closedir $bsdh;
     die "$working_dir/$backup_dir/$collection has extraneous files: @extraneous_files\n"
