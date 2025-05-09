@@ -12,16 +12,16 @@ use Pod::Usage qw( pod2usage );
 
 =head1 NAME
 
-BundleSearchIndexesDump - Bundle search indexes dump from SolrCloud backups
+BundleSolrBackup - Bundle solr backup from SolrCloud backups
 
 =head1 SYNOPSIS
 
-BundleSearchIndexesDump [options]
+BundleSolrBackup [options]
 
 Options:
 
     -w, --working-dir DIRECTORY         directory that contains solr backups
-                                        to be turned into search indexes dump
+                                        to be turned into solr backup
     -d, --debug                         print more progress messages
 
     -h, --help                          show this help
@@ -80,7 +80,7 @@ sub _warn { warn '[warning] ', (sprintf shift, @_), "\n"; }
 sub _error { warn '[error] ', (sprintf shift, @_), "\n"; }
 
 my $BACKUP_STAMP = $ENV{BACKUP_STAMP};
-my $COMPRESSION_LEVEL = DBDefs->SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL;
+my $COMPRESSION_LEVEL = DBDefs->SOLR_BACKUP_COMPRESSION_LEVEL;
 my $COMPRESSION_THREADS = DBDefs->DUMP_COMPRESSION_THREADS;
 
 my @backup_dirs;
@@ -135,20 +135,24 @@ for my $backup_dir (@backup_dirs)
     @extraneous_files = ();
     for my $filename (sort grep { ! /^\.\.?$/ } readdir $bdh)
     {
-        if ($filename =~ 'zk_backup') {
-            system 'rm', '-fr', "$working_dir/$backup_dir/$filename";
-            next;
-        }
         push @extraneous_files, $filename
-            if $filename !~ 'backup\.properties|snapshot\.shard1';
+            if $filename ne $collection;
     }
     closedir $bdh;
     die "$working_dir/$backup_dir has extraneous files: @extraneous_files\n"
         if scalar @extraneous_files;
+    opendir(my $bsdh, "$working_dir/$backup_dir/$collection") or die $OS_ERROR;
+    for my $filename (sort grep { ! /^\.\.?$/ } readdir $bsdh)
+    {
+        push @extraneous_files, $filename
+            if $filename !~ 'backup_0\.properties|index|shard_backup_metadata|zk_backup';
+    }
+    closedir $bsdh;
+    die "$working_dir/$backup_dir/$collection has extraneous files: @extraneous_files\n"
+        if scalar @extraneous_files;
 
     my $working_dump_dir = "$working_dir/$dump_dir";
-    move("$working_dir/$backup_dir", $working_dump_dir) or die $OS_ERROR;
-    move("$working_dump_dir/snapshot.shard1", "$working_dump_dir/index") or die $OS_ERROR;
+    move("$working_dir/$backup_dir", "$working_dump_dir") or die $OS_ERROR;
 
     my $license_file = (grep { /^$collection$/ } @public_domain_collections)
         ? "$FindBin::Bin/COPYING-PublicDomain"
@@ -156,10 +160,24 @@ for my $backup_dir (@backup_dirs)
     copy($license_file, "$working_dump_dir/COPYING") or die $OS_ERROR;
 
     my $readme_text = <<EOF;
-The files in the directory 'index' are a snapshot of the search index
-'$collection' from musicbrainz.org, in a format suitable for
-use with an Apache Solr server.  To import them, you need a compatible
-version of the MusicBrainz simple Solr search server schema (mbsssss).
+Backup timestamp: $BACKUP_STAMP
+
+The content of the subdirectory '$collection' is a backup of the search index by
+the same name from musicbrainz.org, in the new Apache Solr (8.9+) backup format.
+See https://solr.apache.org/guide/solr/latest/upgrade-notes/major-changes-in-solr-9.html#solr-8-9
+
+It is intended to be loaded in conjunction with an earlier MusicBrainz
+Postgres (full export) data dumps, preferably of the same day, in order
+to start a mirror with search kept in sync using the live data feed.
+See https://musicbrainz.org/doc/MusicBrainz_Server/Setup
+
+Since it has been created later than the above-mentioned full export,
+this backup has more updates, therefore these are NOT in sync
+and are NOT suitable for a snapshot/out-of-sync mirror.
+
+To load it, it is assumed that you use an up-to-date version of
+the MusicBrainz simple Solr search server schema (mbsssss)
+the MusicBrainz Solr (mb-solr) server in turn depends on.
 EOF
     _write_file($working_dump_dir, 'README', $readme_text);
 
@@ -203,7 +221,7 @@ for my $hash_program ('md5sum', 'sha256sum') {
     gpg_sign("$working_dir/$hash_output_file");
 }
 
-_info 'Successfully bundled SolrCloud backups as search indexes dump.';
+_info 'Successfully bundled Solr backups.';
 exit;
 
 ################################################################################

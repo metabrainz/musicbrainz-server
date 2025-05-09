@@ -1,0 +1,2 @@
+SHELL=/bin/bash
+10 4 * * * $HOME/musicbrainz-server/admin/run admin/cron/daily-solr-backup.sh
