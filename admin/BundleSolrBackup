@@ -203,7 +203,7 @@ EOF
         exit 70; # EX_SOFTWARE
     }
 
-    MusicBrainz::Script::MBDump::gpg_sign("$working_dir/$tar_file");
+    gpg_sign("$working_dir/$tar_file");
 }
 
 for my $hash_program ('md5sum', 'sha256sum') {
@@ -218,7 +218,7 @@ for my $hash_program ('md5sum', 'sha256sum') {
         exit 70; # EX_SOFTWARE
     }
 
-    MusicBrainz::Script::MBDump::gpg_sign("$working_dir/$hash_output_file");
+    gpg_sign("$working_dir/$hash_output_file");
 }
 
 _info 'Successfully bundled Solr backups.';
