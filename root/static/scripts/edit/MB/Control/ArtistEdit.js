@@ -19,25 +19,34 @@ import initializeArea from './Area.js';
 export default function ArtistEdit() {
   var self = {};
 
+  // support replacing text without removing other nodes
+  jQuery.fn.replaceText = function (newText) {
+    return this.contents().filter(function () {
+      return (this.nodeType === Node.TEXT_NODE &&
+        this.nodeValue.trim() !== '');
+    }).replaceWith(newText);
+  };
+
+
   self.$name = $('#id-edit-artist\\.name');
-  self.$begin = $('#label-id-edit-artist\\.period\\.begin_date');
-  self.$ended = $('#label-id-edit-artist\\.period\\.ended');
-  self.$end = $('#label-id-edit-artist\\.period\\.end_date');
-  self.$beginarea = $('#label-id-edit-artist\\.begin_area\\.name');
-  self.$endarea = $('#label-id-edit-artist\\.end_area\\.name');
+  self.$begin = $('label[for="id-edit-artist.period.begin_date.year"]');
+  self.$ended = $('label:has(#id-edit-artist\\.period\\.ended)');
+  self.$end = $('label[for="id-edit-artist.period.end_date.year"]');
+  self.$beginarea = $('label[for="id-edit-artist\\.begin_area\\.name"]');
+  self.$endarea = $('label[for="id-edit-artist\\.end_area\\.name"]');
   self.$type = $('#id-edit-artist\\.type_id');
   self.$gender = $('#id-edit-artist\\.gender_id');
   self.old_gender = self.$gender.val();
 
   self.changeDateText = function (begin, end, ended) {
-    self.$begin.text(begin);
-    self.$end.text(end);
-    self.$ended.text(ended);
+    self.$begin.replaceText(begin);
+    self.$end.replaceText(end);
+    self.$ended.replaceText(ended);
   };
 
   self.changeAreaText = function (begin, end) {
-    self.$beginarea.text(begin);
-    self.$endarea.text(end);
+    self.$beginarea.replaceText(begin);
+    self.$endarea.replaceText(end);
   };
 
   /*

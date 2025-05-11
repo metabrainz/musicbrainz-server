@@ -17,17 +17,11 @@
         [%- disambiguation_error() -%]
         [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
         [%- form_row_select(r, 'gender_id', add_colon(l('Gender'))) -%]
-        [% WRAPPER form_row %]
-          [% area_field = form.field('area.name') %]
-          <label for="id-edit-artist.area.name">[% add_colon(l('Area')) %]</label>
-          <span id="area" class="area autocomplete">
-            [% React.embed(c, 'static/scripts/common/components/SearchIcon') %]
-            [% r.hidden(form.field('area').field('gid'), { class => 'gid' }) %]
-            [% r.hidden('area_id', class => 'id') %]
-            [% r.text(area_field, class => 'name') %]
-          </span>
-          [% field_errors(r.form, 'area.name') %]
-        [% END %]
+        [% React.embed(c, 'static/scripts/edit/components/FormRowArea', {
+          label => add_colon(l('Area')),
+          field => form_to_json(form.field('area')),
+          idField => form_to_json(form.field('area_id')),
+        }) %]
         [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('ipi_codes')),
            label => add_colon(l('IPI codes')),
@@ -46,7 +40,11 @@
 
       [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
           initialField => form_to_json(form.field('period')),
-          endedLabel => 'This area has ended.',
+          endedLabel => 'This artist has ended.',
+          beginAreaField => form_to_json(form.field('begin_area')),
+          beginAreaIdField => form_to_json(form.field('begin_area_id')),
+          endAreaField => form_to_json(form.field('end_area')),
+          endAreaIdField => form_to_json(form.field('end_area_id')),
         }) %]
       [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
