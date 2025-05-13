@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-18 21:02+0000\n"
+"PO-Revision-Date: 2025-05-03 16:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -701,7 +701,7 @@ msgstr "Di etichette"
 
 #: ../root/statistics/Index.js:1068
 msgid "Of places"
-msgstr "Di luoghi"
+msgstr "Di posti"
 
 #: ../root/statistics/Index.js:1074
 msgid "Of recordings"
@@ -944,7 +944,7 @@ msgstr "Altro"
 
 #: ../root/statistics/stats.js:38
 msgid "Place types"
-msgstr "Tipi di luogo"
+msgstr "Tipi di posto"
 
 #: ../root/statistics/stats.js:39
 msgctxt "folksonomy"
@@ -985,7 +985,7 @@ msgstr "Tipi di serie"
 
 #: ../root/statistics/stats.js:49
 msgid "Work attributes"
-msgstr "Attributi delle opere"
+msgstr "Attributi dell'opera"
 
 #: ../root/statistics/stats.js:50
 msgid "Work languages"
@@ -1129,7 +1129,7 @@ msgstr "Collezioni di tipo Musica in mio possesso"
 
 #: ../root/statistics/stats.js:251
 msgid "Place collections"
-msgstr "Collezioni di luoghi"
+msgstr "Collezioni di posti"
 
 #: ../root/statistics/stats.js:256
 msgid "Recording collections"
@@ -1338,11 +1338,11 @@ msgstr "Supporti con ID disco"
 
 #: ../root/statistics/stats.js:589
 msgid "Places with no country set"
-msgstr "Luoghi senza un Paese impostato"
+msgstr "Posti senza un Paese impostato"
 
 #: ../root/statistics/stats.js:594
 msgid "Places with no type set"
-msgstr "Luoghi senza un tipo impostato"
+msgstr "Posti senza un tipo impostato"
 
 #: ../root/statistics/stats.js:599
 msgid "Default (Normal + Unknown) Data Quality"
@@ -1362,7 +1362,7 @@ msgstr "Etichette con valutazioni"
 
 #: ../root/statistics/stats.js:639
 msgid "Places with ratings"
-msgstr "Luoghi con valutazioni"
+msgstr "Posti con valutazioni"
 
 #: ../root/statistics/stats.js:649
 msgid "Artist ratings"
@@ -1374,7 +1374,7 @@ msgstr "Valutazioni di etichette"
 
 #: ../root/statistics/stats.js:659
 msgid "Place ratings"
-msgstr "Valutazioni di luoghi"
+msgstr "Valutazioni di posti"
 
 #: ../root/statistics/stats.js:664
 msgid "Recording ratings"
@@ -1616,7 +1616,7 @@ msgstr[2] "Gruppi di pubblicazioni con {n} pubblicazioni"
 
 #: ../root/statistics/stats.js:1065
 msgid "{type} areas"
-msgstr "Aree {type}"
+msgstr "Aree del tipo {type}"
 
 #: ../root/statistics/stats.js:1077
 msgid "{country} artists"
@@ -1632,7 +1632,7 @@ msgstr "Etichette da: {country}"
 
 #: ../root/statistics/stats.js:1095
 msgid "{country} places"
-msgstr "Luoghi in: {country}"
+msgstr "Posti in: {country}"
 
 #: ../root/statistics/stats.js:1101
 msgid "{country} releases"
@@ -1640,11 +1640,11 @@ msgstr "Pubblicazioni da: {country}"
 
 #: ../root/statistics/stats.js:1112
 msgid "{type} edits"
-msgstr "Modifiche {type}"
+msgstr "Modifiche del tipo {type}"
 
 #: ../root/statistics/stats.js:1123
 msgid "{type} events"
-msgstr "Eventi {type}"
+msgstr "Eventi del tipo {type}"
 
 #: ../root/statistics/stats.js:1130
 msgid "Events of type “{type}” with event art"
@@ -1664,11 +1664,11 @@ msgstr "Pubblicazioni con un supporto in formato “{format}” con copertine"
 
 #: ../root/statistics/stats.js:1169
 msgid "{type} instruments"
-msgstr "Strumenti {type}"
+msgstr "Strumenti del tipo {type}"
 
 #: ../root/statistics/stats.js:1180
 msgid "{type} labels"
-msgstr "Etichette {type}"
+msgstr "Etichette del tipo {type}"
 
 #: ../root/statistics/stats.js:1191
 msgid "{language} releases"
@@ -1684,7 +1684,7 @@ msgstr "Pubblicazioni con confezione “{packaging}”"
 
 #: ../root/statistics/stats.js:1223
 msgid "{type} places"
-msgstr "Luoghi {type}"
+msgstr "Posti del tipo {type}"
 
 #: ../root/statistics/stats.js:1231
 msgid "{first_entity_type}-{second_entity_type} Relationships"
@@ -1708,7 +1708,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1289 ../root/statistics/stats.js:1309
 msgid "{type} release groups"
-msgstr "Gruppi di pubblicazioni {type}"
+msgstr "Gruppi di pubblicazioni del tipo {type}"
 
 #: ../root/statistics/stats.js:1296
 msgid "Releases in groups of type “{type}” with cover art"
@@ -1720,7 +1720,7 @@ msgstr "Pubblicazioni {script}"
 
 #: ../root/statistics/stats.js:1331
 msgid "{type} series"
-msgstr "Serie {type}"
+msgstr "Serie del tipo {type}"
 
 #: ../root/statistics/stats.js:1342
 msgid "{status} releases"
@@ -1736,7 +1736,7 @@ msgstr "Opere con attributo “{attribute}”"
 
 #: ../root/statistics/stats.js:1379
 msgid "{type} works"
-msgstr "Opere {type}"
+msgstr "Opere del tipo {type}"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
