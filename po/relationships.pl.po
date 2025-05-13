@@ -9,21 +9,22 @@
 # Tobias Toedter <email address hidden>, 2007
 # Peter69 <echelon01@wp.pl>, 2024, 2025.
 # PS <weblate@wp.pl>, 2025.
+# Michal77 <michal_wilk@poczta.fm>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-29 18:46+0000\n"
-"Last-Translator: PS <weblate@wp.pl>\n"
+"PO-Revision-Date: 2025-05-13 00:20+0000\n"
+"Last-Translator: Michal77 <michal_wilk@poczta.fm>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.11.1\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2901,10 +2902,8 @@ msgstr ""
 
 #. name:named after release group
 #: DB:link_type/description:1282
-#, fuzzy
-#| msgid "Indicates the librettist for this work."
 msgid "This indicates the release group that inspired this series’ name."
-msgstr "Oznacza librecistę tego dzieła."
+msgstr "Oznacza grupę wydawniczą, która zainspirowała nazwę tej serii."
 
 #. name:rights society
 #: DB:link_type/description:349
@@ -2969,10 +2968,8 @@ msgstr ""
 
 #. name:named after work
 #: DB:link_type/description:1283
-#, fuzzy
-#| msgid "Indicates the librettist for this work."
 msgid "This indicates the work that inspired this release group’s name."
-msgstr "Oznacza librecistę tego dzieła."
+msgstr "Oznacza dzieło, które zainspirowało nazwę tej grupy."
 
 #. name:named after work
 #: DB:link_type/description:1278
