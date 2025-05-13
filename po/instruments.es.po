@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2025-05-07 12:20+0000\n"
-"Last-Translator: onemanue <onemanue@gmail.com>\n"
+"Last-Translator: BenjaBarcos1 <barcosbenjamin@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
@@ -458,7 +458,7 @@ msgstr "Autoarpa"
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
 msgid "baandu"
-msgstr ""
+msgstr "Baandu"
 
 #: DB:instrument/name:236
 msgctxt "Treble bouzouki"
