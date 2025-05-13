@@ -51,23 +51,23 @@
 # 0x1026 <me@hugovidafe.dev>, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # eigenric <ricardoruizfdez@gmail.com>, 2024.
+# Joax <joan_acosta_1994@hotmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-02 21:48+0200\n"
-"PO-Revision-Date: 2024-10-17 17:42+0000\n"
-"Last-Translator: reosarevok "
-"<reosarevok@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-05-12 00:20+0000\n"
+"Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -344,15 +344,13 @@ msgstr "Dirección"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:213
 msgctxt "vote"
 msgid "Admin approval"
-msgstr ""
+msgstr "Aprobación del administrador"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
-#, fuzzy
-#| msgid "Add collection"
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "Añadir colección"
+msgstr "Rechazo del administrador"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -434,10 +432,8 @@ msgid "Area"
 msgstr "Área"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "Tipo principal"
+msgstr "Tipo de área"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -515,10 +511,8 @@ msgid "Artist details"
 msgstr "Detalles del artista"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Área del artista"
+msgstr "Tipo de artista"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -631,7 +625,7 @@ msgstr "Blog"
 
 #: ../root/layout.tt:120 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
-msgstr ""
+msgstr "Blue sky"
 
 #: ../root/edit/search_macros.tt:438
 msgctxt "user type"
@@ -1150,10 +1144,8 @@ msgid "Event"
 msgstr "Evento"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
-msgstr "Tipo de entidad"
+msgstr "Tipo de evento"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1529,19 +1521,14 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
 "¡Aviso! Si no sabes el mes o el día de publicación, deja los campos vacíos. "
-"El 1 de enero no suele ser el verdadero día de publicación, asegúrate de que "
-"la fecha introducida es correcta."
+"El 1 de enero no suele ser el verdadero día de publicación. "
+"<strong>Asegúrate de que la fecha introducida es correcta. </strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -2639,9 +2626,8 @@ msgid "Series details"
 msgstr "Detalles de la serie"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
 msgid "Series type"
-msgstr "Series"
+msgstr "Tipos de series"
 
 #: ../root/release_group/set_cover_art.tt:1
 #: ../root/release_group/set_cover_art.tt:5
@@ -6107,10 +6093,8 @@ msgid "{role} (as {credited_name})"
 msgstr "{role} (como {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at AWA"
-msgstr "Escuchar en VK"
+msgstr "Escuchar en AWA"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
@@ -6418,16 +6402,12 @@ msgid "Non-videos only"
 msgstr "Solo no vídeos"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
-#, fuzzy
-#| msgid "Related works"
 msgid "Related to works"
 msgstr "Obras relacionadas"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
-#, fuzzy
-#| msgid "Related works"
 msgid "Not related to works"
-msgstr "Obras relacionadas"
+msgstr "Obras no relacionadas"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 msgctxt "release country"
@@ -6459,10 +6439,8 @@ msgid "[none]"
 msgstr "[ninguno]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
-#, fuzzy
-#| msgid "Recording artist:"
 msgid "As recording artist"
-msgstr "Artista de la grabación:"
+msgstr "Artista de la grabación"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As author"
@@ -7872,12 +7850,9 @@ msgstr "Fundado en"
 
 #: ../root/artist/utils.js:19
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:87
-#, fuzzy
-#| msgctxt "character artist"
-#| msgid "Created"
 msgctxt "character artist"
 msgid "Created in"
-msgstr "Creado"
+msgstr "Creado en"
 
 #: ../root/artist/utils.js:28
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
@@ -8119,8 +8094,6 @@ msgid "Medium track lengths"
 msgstr "Duración de las pistas en el medio"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
-#, fuzzy
-#| msgid "Move Disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "Mover ID de disco"
@@ -9004,10 +8977,8 @@ msgstr "Número de entidades"
 #: ../root/search/components/WorkResults.js:55
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:558
-#, fuzzy
-#| msgid "Authorization"
 msgid "Authors"
-msgstr "Autorización"
+msgstr "Autores"
 
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
@@ -9591,10 +9562,8 @@ msgid "Everyone’s edits for this collection"
 msgstr "Ediciones pendientes para esta colección"
 
 #: ../root/edit/components/ListHeader.js:104
-#, fuzzy
-#| msgid "Open edits for this collection"
 msgid "Others’ edits for this collection"
-msgstr "Ediciones pendientes para esta colección"
+msgstr "Otras ediciones para esta colección"
 
 #: ../root/edit/components/ListHeader.js:116
 msgid "All edits for your subscribed entities"
@@ -11264,10 +11233,8 @@ msgstr[2] "Asociado a {num} obras"
 #: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
-#, fuzzy
-#| msgid "Recording artist:"
 msgid "Recording artists"
-msgstr "Artista de la grabación:"
+msgstr "Artista de la grabación"
 
 #: ../root/label/LabelIndex.js:111
 msgid "This label does not have any releases."
@@ -12043,16 +12010,12 @@ msgstr ""
 "necesario."
 
 #: ../root/main/ImageEditingUnavailable.js:14
-#, fuzzy
-#| msgid "No description available."
 msgid "Image editing unavailable"
-msgstr "Descripción no disponible."
+msgstr "Edición de imagen no disponible"
 
 #: ../root/main/ImageEditingUnavailable.js:17
-#, fuzzy
-#| msgid "The blog is currently unavailable."
 msgid "Image editing is currently unavailable."
-msgstr "El blog no está disponible en este momento."
+msgstr "La edición de imágenes no está disponible en este momento."
 
 #: ../root/main/error/Error400.js:19
 msgid "Bad request"
@@ -12914,10 +12877,8 @@ msgstr ""
 "que quieres fusionar las demás:"
 
 #: ../root/release/ReleaseMerge.js:63
-#, fuzzy
-#| msgid "Mismatched release groups"
 msgid "Also merge the associated release groups"
-msgstr "Grupos de publicaciones que quizá deban ser fusionados"
+msgstr "También fusionar los grupos de lanzamiento relacionado"
 
 #: ../root/release/RemoveCoverArt.js:25
 msgctxt "singular, header"
@@ -13578,10 +13539,8 @@ msgid ""
 msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:227
-#, fuzzy
-#| msgid "Releases without language"
 msgid "Release groups without any releases"
-msgstr "Publicaciones sin idioma"
+msgstr "Grupos de lanzamiento sin lanzamiento"
 
 #: ../root/report/EventSequenceNotInSeries.js:25
 msgid ""
@@ -14428,10 +14387,8 @@ msgstr ""
 
 #: ../root/report/ReportsIndex.js:596
 #: ../root/report/SeriesContainingDuplicates.js:49
-#, fuzzy
-#| msgid "Release duplicates"
 msgid "Series containing duplicates"
-msgstr "Duplicados de la publicación"
+msgstr "Serie que contiene duplicados"
 
 #: ../root/report/ReportsIndex.js:613
 msgid "Works with annotations"
@@ -14471,16 +14428,12 @@ msgid "Discs as separate releases"
 msgstr ""
 
 #: ../root/report/SeriesContainingDuplicates.js:23
-#, fuzzy
-#| msgid "Edited entity"
 msgid "Duplicate entity"
-msgstr "Entidad editada"
+msgstr "Entidad duplicada"
 
 #: ../root/report/SeriesContainingDuplicates.js:29
-#, fuzzy
-#| msgid "ISO number"
 msgid "Number"
-msgstr "Número ISO"
+msgstr "Número"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
 msgid ""
@@ -15099,10 +15052,8 @@ msgid "Alias name:"
 msgstr "Nombre del alias:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:327
-#, fuzzy
-#| msgid "This is the primary alias for this locale"
 msgid "This is the {alias_doc|primary alias} for this locale"
-msgstr "Este es el alias primario para esta localización"
+msgstr "Este es el {alias_doc|primary alias} para esta localización"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:349
 msgid "This alias is no longer current."
@@ -15467,17 +15418,13 @@ msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:51
-#, fuzzy
-#| msgid "{medium_format} {position}"
 msgid "{medium_format_and_position}: {medium_name}"
-msgstr "{medium_format} {position}"
+msgstr "{medium_format_and_position}: {medium_name}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:65
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:98
-#, fuzzy
-#| msgid "This CD TOC is already attached to this medium."
 msgid "This CDTOC is already attached to this medium."
-msgstr "Esta TOC de CD ya está asociada a este medio."
+msgstr "Este CDTOC ya está asociado a este medio."
 
 #: ../root/static/scripts/common/components/Cardinality.js:16
 msgid "Few relationships"
@@ -15644,10 +15591,8 @@ msgid "{action_label} (in a new tab)"
 msgstr ""
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
-#, fuzzy
-#| msgid "Medium {position}: {title}"
 msgid "Medium {position} ({medium_format})"
-msgstr "Medio {position}: {title}"
+msgstr "Medio {position} ({medium_format})"
 
 #: ../root/static/scripts/common/components/MediumDescription.js:34
 #: ../root/static/scripts/release-editor/fields.js:919
@@ -17427,10 +17372,8 @@ msgid "Display credits at bottom"
 msgstr "Mostrar créditos bajo la publicación"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
-msgstr "Grabación de {artist}"
+msgstr "Alias de Grabación: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
@@ -17809,21 +17752,14 @@ msgstr ""
 "karma!"
 
 #: ../root/taglookup/Nag.js:34
-#, fuzzy
-#| msgid ""
-#| "If you donate <strong>$4</strong> you will not get this nag text for a "
-#| "<strong>month</strong>. We encourage people to donate $12 to make the nag "
-#| "screen disappear for 3 months. Or even better, sign up for a recurring "
-#| "donation every three months to not have to think about or see this nag "
-#| "again."
 msgid ""
 "If you donate <strong>$5</strong> you will not get this nag text for a "
 "<strong>month</strong>. We encourage people to donate $15 to make the nag "
 "screen disappear for 3 months. Or even better, sign up for a recurring "
 "donation every three months to not have to think about or see this nag again."
 msgstr ""
-"Si donas <strong>$4</strong> no te molestaremos más durante <strong>un mes</"
-"strong>. Te animamos a donar $12 para hacer desaparecer este mensaje durante "
+"Si donas <strong>$5</strong> no te molestaremos más durante <strong>un mes</"
+"strong>. Te animamos a donar $15 para hacer desaparecer este mensaje durante "
 "3 meses. O mejor aún, haz una donación automática trimestral para que nunca "
 "te molestemos más con este mensaje."
 
@@ -18234,8 +18170,6 @@ msgid "Internal/Bot"
 msgstr "Interno/Bot"
 
 #: ../root/user/UserProfile.js:89
-#, fuzzy
-#| msgid "Account admin"
 msgctxt "user type"
 msgid "Account admin"
 msgstr "Administrador de cuentas"

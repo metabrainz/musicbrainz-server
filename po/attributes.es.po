@@ -48,11 +48,12 @@
 # eigenric <ricardoruizfdez@gmail.com>, 2025.
 # macaumetal <macaumetal@gmail.com>, 2025.
 # onemanue <onemanue@gmail.com>, 2025.
+# Joax <joan_acosta_1994@hotmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-07 12:20+0000\n"
-"Last-Translator: onemanue <onemanue@gmail.com>\n"
+"PO-Revision-Date: 2025-05-12 00:20+0000\n"
+"Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/es/>\n"
 "Language: es\n"
@@ -4627,12 +4628,9 @@ msgstr "ID de la sociedad de gestión de derechos de India IPRS"
 
 #. name:WAMI ID
 #: DB:work_attribute_type/description:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Indian rights society IPRS"
 msgctxt "work_attribute_type"
 msgid "ID for the Indonesian rights society WAMI"
-msgstr "ID de la sociedad de gestión de derechos de India IPRS"
+msgstr "ID de la sociedad de derechos humanos de Indonesia WAMI"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -4756,12 +4754,9 @@ msgstr "ID de la sociedad de gestión de derechos de El Salvador SACIM"
 
 #. name:SOKOJ ID
 #: DB:work_attribute_type/description:213
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Norwegian rights society TONO"
 msgctxt "work_attribute_type"
 msgid "ID for the Serbian rights society SOKOJ"
-msgstr "ID de la sociedad de gestión de derechos de Noruega TONO"
+msgstr "ID de la sociedad de derechos humanos de Serbia SOKOJ"
 
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
@@ -4843,10 +4838,9 @@ msgstr "ID de la sociedad de gestión de derechos de Estados Unidos SESAC"
 
 #. name:UACRR ID
 #: DB:work_attribute_type/description:209
-#, fuzzy
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "ID de la sociedad de gestión de derechos de Brasil ECAD"
+msgstr "ID de la sociedad Ucraniana derechos humanos UACRR"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -4947,12 +4941,6 @@ msgstr "Territorio/reserva indígena"
 
 #. name:Indigenous territory / reserve
 #: DB:area_type/description:9
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for semi-autonomous territories governed by indigenous peoples, such "
-#| "as Indian reserves/reservations in North America and indigenous "
-#| "territories in Central and South America."
 msgctxt "area_type"
 msgid ""
 "Indigenous territory / reserve is used for semi-autonomous territories "
@@ -5745,12 +5733,9 @@ msgid "MCT ID"
 msgstr "ID de MCT"
 
 #: DB:work_attribute_type/name:212
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "NICAUTOR ID"
 msgctxt "work_attribute_type"
 msgid "MUSICAUTOR ID"
-msgstr "ID de NICAUTOR"
+msgstr "ID EDITORMUSICAL"
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
@@ -5999,11 +5984,6 @@ msgstr "Base militar"
 
 #. name:Military base
 #: DB:area_type/description:8
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for any military bases that are large enough to be considered an "
-#| "area, not just a place."
 msgctxt "area_type"
 msgid ""
 "Military base is used only for any military bases that are large enough to "
@@ -9159,12 +9139,9 @@ msgid "Vīra vasantaṁ"
 msgstr "Vīra vasantaṁ"
 
 #: DB:work_attribute_type/name:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "BMI ID"
 msgctxt "work_attribute_type"
 msgid "WAMI ID"
-msgstr "ID de BMI"
+msgstr "ID de WAMI"
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"

@@ -24,11 +24,12 @@
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # BenjaBarcos1 <barcosbenjamin@gmail.com>, 2025.
 # onemanue <onemanue@gmail.com>, 2025.
+# Joax <joan_acosta_1994@hotmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-07 12:20+0000\n"
-"Last-Translator: BenjaBarcos1 <barcosbenjamin@gmail.com>\n"
+"PO-Revision-Date: 2025-05-12 00:20+0000\n"
+"Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/es/>\n"
 "Language: es\n"
@@ -730,7 +731,7 @@ msgstr "Bin-sitar"
 #: DB:instrument/name:1117
 msgctxt "Small Breton bagpipe"
 msgid "biniou"
-msgstr "biniou"
+msgstr "gaita"
 
 #: DB:instrument/name:884
 #, fuzzy
@@ -821,7 +822,7 @@ msgstr "boomwhacker"
 #: DB:instrument/name:833
 msgctxt "hybrid of bouzouki and guitar"
 msgid "bouzar / gouzouki"
-msgstr "bouzar / gouzouki"
+msgstr "buzuki / bouzouki"
 
 #: DB:instrument/name:71
 msgid "bouzouki"
@@ -905,7 +906,7 @@ msgstr "buzuq"
 #: DB:instrument/name:1012
 msgctxt "Family of ancient Indian stick zither chordophones"
 msgid "bīn"
-msgstr "bīn"
+msgstr "Rudra vina"
 
 #: DB:instrument/name:108
 msgctxt "Modern wood and metal-bead shaker"
