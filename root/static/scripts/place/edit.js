@@ -14,7 +14,9 @@ import isBlank from '../common/utility/isBlank.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import initializeArea from '../edit/MB/Control/Area.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation, {errorField} from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
@@ -28,20 +30,14 @@ $(function () {
 
   initializeBubble('#name-bubble', 'input[name=edit-place\\.name]');
   initializeBubble('#comment-bubble', 'input[name=edit-place\\.comment]');
+  typeBubble('select[name=edit-place\\.type_id]');
   initializeBubble('#address-bubble', 'input[name=edit-place\\.address]');
   initializeBubble(
     '#begin-end-date-bubble',
     'input[name^=edit-place\\.period\\.begin_date\\.], ' +
       'input[name^=edit-place\\.period\\.end_date\\.]',
   );
-
-  // Display documentation bubbles for external components.
-  const externalLinkBubble = initializeBubble('#external-link-bubble');
-  $(document).on(
-    'focus',
-    '#external-links-editor-container .external-link-item input.value',
-    (event) => externalLinkBubble.show(event.target),
-  );
+  initializeExternalLinksBubble('#external-link-bubble');
 
   const coordsBubble = initializeBubble(
     '#coordinates-bubble',
@@ -133,9 +129,6 @@ $(function () {
       });
     }
   });
-
-  const typeIdField = 'select[name=edit-place\\.type_id]';
-  typeBubble(typeIdField);
 
   installFormUnloadWarning();
 

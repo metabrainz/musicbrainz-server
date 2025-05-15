@@ -18,6 +18,7 @@ import {type ReleaseFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -43,7 +44,7 @@ component ArtistReleases(
 
       {releases.length ? (
         <form
-          action="/release/merge_queue"
+          action={'/release/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>

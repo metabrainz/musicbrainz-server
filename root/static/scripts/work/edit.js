@@ -27,7 +27,9 @@ import parseIntegerOrNull from '../common/utility/parseIntegerOrNull.js';
 import FormRowSelectList from '../edit/components/FormRowSelectList.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {buildOptionsTree} from '../edit/forms.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import {createCompoundFieldFromObject} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
@@ -355,10 +357,19 @@ $(function () {
 
   renderWorkLanguages();
 
+  initializeBubble('#name-bubble', 'input[name=edit-work\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-work\\.comment]');
+  typeBubble('select[name=edit-work\\.type_id]');
+  initializeBubble(
+    '#languages-bubble',
+    'select[name^=edit-work\\.languages\\.0]',
+  );
   initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
-
-  const typeIdField = 'select[name=edit-work\\.type_id]';
-  typeBubble(typeIdField);
+  initializeBubble(
+    '#attributes-bubble',
+    'input[name=edit-work\\.attributes\\.0\\.value]',
+  );
+  initializeExternalLinksBubble('#external-link-bubble');
 
   installFormUnloadWarning();
 

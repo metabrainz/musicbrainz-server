@@ -1,0 +1,25 @@
+{
+  title: 'MBS-13993',
+  commands: [
+    {
+      command: 'open',
+      target: '/static/scripts/tests/release-editor/seeds/mbs-13993.html',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('tr.external-link-item a.url')).map(a => a.href).join(',')",
+      value: 'http://thedavidbowieknives.bandcamp.com/album/weapons-of-mass-seduction',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelectorAll('tr.external-link-item .error').length",
+      value: '0',
+    },
+  ],
+}

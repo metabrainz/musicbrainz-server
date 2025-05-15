@@ -40,9 +40,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:218
 msgid ""
-"A social network page is a label's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the label can post content to. Examples include "
+"A social network page is a label's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "ソーシャルネットワークページは、レーベルの関係者のみが投稿可能な、<a "
@@ -54,9 +54,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:784
 msgid ""
-"A social network page is a page for a series on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the series can post content to. Examples include "
+"A social network page is a page for a series on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "ソーシャルネットワークページは、シリーズの関係者のみが投稿可能な、<a "
@@ -68,9 +68,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:429
 msgid ""
-"A social network page is a place's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the place can post content to. Examples include "
+"A social network page is a place's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "ソーシャルネットワークページは、場所の関係者のみが投稿可能な、<a "
@@ -94,9 +94,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:783
 msgid ""
-"A social network page is an event's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the event can post content to. Examples include "
+"A social network page is an event's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the event can post content to. Examples include "
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
@@ -796,6 +796,14 @@ msgstr "アーティストのオフィシャルページを示します。"
 msgid "Indicates the official homepage for an event."
 msgstr "イベントのオフィシャルページを示します。"
 
+#. name:adapter
+#: DB:link_type/description:1285
+msgid ""
+"Indicates the person who adapted this work (generally from a different "
+"medium, such as a prose work into an audio drama or a stage musical into a "
+"film musical)."
+msgstr ""
+
 #. name:translator
 #: DB:link_type/description:871
 msgid ""
@@ -806,6 +814,13 @@ msgstr "このリリースの歌詞/台本を翻訳した人を示します。"
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "この作品の歌詞/台本を翻訳した人を示します。"
+
+#. name:scriptwriter
+#: DB:link_type/description:1286
+msgid ""
+"Indicates the person who wrote an original script for a dramatized work, "
+"such as an audio drama."
+msgstr ""
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -998,15 +1013,6 @@ msgstr "リリースグループとその発売イベントとを結びつけま
 msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "リリースをその演奏が行われた場所と結びつけます。"
-
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"レコーディングを編曲が行われた地域へリンクします。具体的な場所が不明であると"
-"きのみ使ってください！"
 
 #. name:edited in
 #: DB:link_type/description:822
@@ -1910,10 +1916,10 @@ msgstr ""
 "これは、純粋に美的な理由で、または買収/売却/スピンオフの後に、レーベルの名前"
 "が変更された状況を説明している。 複雑なマージ/分割/再構築の財務操作が行われる"
 "場合は、特に注意が必要である。 たとえば、Verveはその後もインプリントとして存"
-"在し続けたため、レーベルの名前を<a href=\"/"
-"label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a>から<a href=\"/"
-"label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve MusicGroup</a>に変更す"
-"ることはお勧めできない。"
+"在し続けたため、レーベルの名前を<a href=\"/label/"
+"99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a>から<a href=\"/label/"
+"4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve MusicGroup</a>に変更すること"
+"はお勧めできない。"
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -2453,9 +2459,9 @@ msgstr ""
 "これは、レコーディングが他のいくつかのレコーディングの編集であることを示す。 "
 "これは、元のレコーディングのオーディオ素材が変更されていない、複数の曲が次々"
 "に含まれる1つの長いレコーディングに適用される。 トラックが互いにピッチングま"
-"たはブレンドされている場合は、<a href=\"/"
-"relationship/451076df-61cf-46ab-9921-555cab2f050d\">DJミックス関係タイプ</a>"
-"の方が適切な場合がある。"
+"たはブレンドされている場合は、<a href=\"/relationship/"
+"451076df-61cf-46ab-9921-555cab2f050d\">DJミックス関係タイプ</a>の方が適切な場"
+"合がある。"
 
 #. name:included in
 #: DB:link_type/description:894
@@ -3106,9 +3112,8 @@ msgstr ""
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-"
-"mixer</a>."
+"more appropriate to credit this person as a <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-mixer</a>."
 msgstr ""
 
 #. name:compiler
@@ -3326,9 +3331,9 @@ msgstr ""
 #: DB:link_type/description:227
 msgid ""
 "This is used to link a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> "
-"recording to each of the source recordings. See <a href=\"/"
-"relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"recording to each of the source recordings. See <a href=\"/relationship/"
+"28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 "これは、<a href=\"/doc/Mix_Terminology#DJ_mix\">DJミックスされた</a>レコー"
 "ディングを各ソースレコーディングにリンクするために使用される。 DJミックスを作"
@@ -3409,9 +3414,9 @@ msgstr ""
 msgid ""
 "This is used to link a release group containing a <a href=\"/doc/"
 "Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to the release "
-"group containing the source release. See <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"group containing the source release. See <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 "これは、リリースの<a href=\"/doc/Mix_Terminology#DJ_mix\">DJミックスされた</"
 "a>バージョンを含むリリースグループを、ソースリリースを含むリリースグループに"
@@ -4010,7 +4015,7 @@ msgstr ""
 "ファンディングプロジェクトに対しリリースをリンクする。"
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 #, fuzzy
 #| msgid ""
 #| "Links a release to the area it was arranged in. Use only when the place "
@@ -4211,8 +4216,9 @@ msgid ""
 "This links a soundtrack release group to the <a href=\"http://www.imdb.com/"
 "\">IMDb</a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
-"サウンドトラックである映画、ショー、またはゲームの<a href=\"http://www.imdb."
-"com/\">IMDb</a>ページに対しサウンドトラックリリースグループをリンクする。"
+"サウンドトラックである映画、ショー、またはゲームの<a href=\"http://"
+"www.imdb.com/\">IMDb</a>ページに対しサウンドトラックリリースグループをリンク"
+"する。"
 
 #. name:vgmdb
 #: DB:link_type/description:992
@@ -4232,8 +4238,8 @@ msgid ""
 "This links a soundtrack work to the <a href=\"http://www.imdb.com/\">IMDb</"
 "a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
-"サウンドトラック作品を、元の映画、ショー、またはゲームの<a href=\"http://www."
-"imdb.com/\">IMDb</a>ページにリンクする。"
+"サウンドトラック作品を、元の映画、ショー、またはゲームの<a href=\"http://"
+"www.imdb.com/\">IMDb</a>ページにリンクする。"
 
 #. name:subgroup
 #: DB:link_type/description:722
@@ -4614,6 +4620,22 @@ msgstr ""
 "一方がもう一方の作品のオーケストレーションである2つの<a href=\"/doc/Work\" "
 "title=\"Work\">作品</a>をリンクする。"
 
+#. name:adaptation
+#: DB:link_type/description:1284
+#, fuzzy
+#| msgid ""
+#| "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
+#| "second work is based on music or text from the first, but isn't directly "
+#| "a revision or an arrangement of it."
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
+"work is an adaptation of the other (generally from a different medium, such "
+"as a prose work into an audio drama or a stage musical into a film musical)."
+msgstr ""
+"2つの<a href=\"/doc/Work\" title=\"Work\">作品</a>をリンクする。2番目の作品は"
+"最初の作品の音楽またはテキストに基づいているが、直接改訂または編曲されたもの"
+"ではない。"
+
 #. name:based on
 #: DB:link_type/description:314
 msgid ""
@@ -4671,9 +4693,9 @@ msgid ""
 msgstr ""
 "これは、このアーティストの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAF"
 "は、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェ"
-"クトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//en."
-"wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</"
-"a>）。"
+"クトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//"
+"en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細"
+"</a>）。"
 
 #. name:VIAF
 #: DB:link_type/description:311
@@ -4693,8 +4715,9 @@ msgid ""
 msgstr ""
 "これは、このレーベルの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAFは、"
 "世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェクト"
-"である。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//en.wikipedia."
-"org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</a>）。"
+"である。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//"
+"en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細"
+"</a>）。"
 
 #. name:VIAF
 #: DB:link_type/description:920
@@ -4735,9 +4758,9 @@ msgid ""
 msgstr ""
 "これは、このアーティストの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAF"
 "は、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェ"
-"クトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//en."
-"wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細</"
-"a>）。"
+"クトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//"
+"en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細"
+"</a>）。"
 
 #. name:VIAF
 #: DB:link_type/description:312
@@ -4942,9 +4965,9 @@ msgstr ""
 "定するには、レコーディングの関係URLを使用します。サンプルを使用しているレコー"
 "ディングがわからない場合は、そのサンプルを注釈で指定してください。\n"
 "<br/><br/>\n"
-"リリースがサウンドトラックであることを表すには、<a href=\"/"
-"relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">リリースグループのIMDb関"
-"係タイプ</a>を使用してください。"
+"リリースがサウンドトラックであることを表すには、<a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">リリースグループのIMDb関係タイプ</a>を"
+"使用してください。"
 
 #. name:publishing
 #: DB:link_type/description:206
@@ -4989,12 +5012,21 @@ msgstr ""
 
 #. name:writer
 #: DB:link_type/description:167
+#, fuzzy
+#| msgid ""
+#| "This relationship is used to link a work to the artist responsible for "
+#| "writing the music and/or the words (lyrics, libretto, etc.), when no more "
+#| "specific information is available. If possible, the more specific "
+#| "composer, lyricist and/or librettist types should be used, rather than "
+#| "this relationship type."
 msgid ""
 "This relationship is used to link a work to the artist responsible for "
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type."
+"relationship type.\n"
+"\n"
+"It is also used for the writers of literary works."
 msgstr ""
 "この関係は、具体的な情報がない場合に、音楽や単語（歌詞、台本など）の作成を担"
 "当するアーティストに作品をリンクするために使用される。 可能であれば、この関係"
@@ -5083,8 +5115,8 @@ msgstr ""
 #. name:tribute
 #: DB:link_type/description:728
 msgid ""
-"This relationship specifies that an artist is a <a href=\"http://en."
-"wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
+"This relationship specifies that an artist is a <a href=\"http://"
+"en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
 "band; that is, it primarily performs covers of that artist. They may also be "
 "referred to as cover bands. Some tribute artists may name themselves, dress, "
 "and/or act similarly to the artists they pay tribute to."
@@ -5227,9 +5259,9 @@ msgid ""
 "This relationship type is used to indicate that a release group is a re‐"
 "recording of another release group, that is, when an artist performs a new "
 "studio rendition of their own album.<br/>\n"
-"For a live performance of the album, see the <a href=\"/"
-"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
-"relationship type</a>.<br/>\n"
+"For a live performance of the album, see the <a href=\"/relationship/"
+"62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance relationship type</"
+"a>.<br/>\n"
 "For a cover recording of the album by a different artist, see the <a href=\"/"
 "relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
 "a>."
@@ -5451,8 +5483,8 @@ msgstr "この関係タイプは、場所を対応するSongkickページへリ�
 #: DB:link_type/description:817
 #, fuzzy
 #| msgid ""
-#| "This relationship type links a place to its corresponding page at setlist."
-#| "fm"
+#| "This relationship type links a place to its corresponding page at "
+#| "setlist.fm"
 msgid ""
 "This relationship type links a place to its corresponding page at setlist.fm."
 msgstr "この関係タイプは、場所を対応するsetlist.fmページへリンクします。"
@@ -5511,8 +5543,8 @@ msgstr ""
 #: DB:link_type/description:840
 #, fuzzy
 #| msgid ""
-#| "This relationship type links an artist to its corresponding page at Last."
-#| "fm"
+#| "This relationship type links an artist to its corresponding page at "
+#| "Last.fm"
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm."
 msgstr "この関係タイプは、アーティストを対応するLast.fmページへリンクします。"
@@ -5530,8 +5562,8 @@ msgstr "この関係タイプは、アーティストを対応するSongkickペ�
 #| "This relationship type links an artist to its corresponding page at "
 #| "setlist.fm"
 msgid ""
-"This relationship type links an artist to its corresponding page at setlist."
-"fm."
+"This relationship type links an artist to its corresponding page at "
+"setlist.fm."
 msgstr ""
 "この関係タイプは、アーティストを対応するsetlist.fmページへリンクします。"
 
@@ -5606,8 +5638,8 @@ msgstr "この関係タイプは、イベントを対応するSongkickページ�
 #| "This relationship type links an event to its corresponding page at "
 #| "setlist.fm"
 msgid ""
-"This relationship type links an event to its corresponding page at setlist."
-"fm."
+"This relationship type links an event to its corresponding page at "
+"setlist.fm."
 msgstr "この関係タイプは、イベントを対応するsetlist.fmページへリンクします。"
 
 #. name:genre origin
@@ -5701,9 +5733,10 @@ msgstr ""
 #. name:number
 #: DB:link_attribute_type/description:1032
 msgid ""
-"Use this for operas and similar works that are <a href=\"https://en."
-"wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify what "
-"parts are numbers (as opposed to spoken dialog or other non-numbered parts)."
+"Use this for operas and similar works that are <a href=\"https://"
+"en.wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify "
+"what parts are numbers (as opposed to spoken dialog or other non-numbered "
+"parts)."
 msgstr ""
 "<a href=\"https://en.wikipedia.org/wiki/Number_opera\">数字で区切られた</a>オ"
 "ペラや同様の作品に使用し、どの部分が数字であるかを指定する（音声ダイアログや"
@@ -6052,6 +6085,30 @@ msgstr ""
 msgid "act"
 msgstr "幕"
 
+#: DB:link_type/name:1284
+#, fuzzy
+#| msgid "improvisation"
+msgid "adaptation"
+msgstr "即興"
+
+#. name:adaptation
+#: DB:link_type/reverse_link_phrase:1284
+#, fuzzy
+#| msgid "compilation of"
+msgid "adaptation of"
+msgstr "コンピレーション元"
+
+#. name:adaptation
+#: DB:link_type/link_phrase:1284
+#, fuzzy
+#| msgid "derivations"
+msgid "adaptations"
+msgstr "派生"
+
+#: DB:link_type/name:1285
+msgid "adapter"
+msgstr ""
+
 #: DB:link_attribute_type/name:1
 msgid "additional"
 msgstr "補助"
@@ -6113,8 +6170,7 @@ msgstr "編曲した場所"
 msgid "arranged for"
 msgstr "アレンジする"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "編曲した地域"
 
@@ -7581,6 +7637,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:1197
 msgid "has a ticketing page at"
 msgstr ""
+
+#. name:adaptation
+#: DB:link_type/long_link_phrase:1284
+#, fuzzy
+#| msgid "has a picture at"
+msgid "has adaptation"
+msgstr "の画像のURLは"
 
 #. name:allmusic
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
@@ -10017,6 +10080,12 @@ msgstr ""
 msgid "school directors"
 msgstr ""
 
+#: DB:link_type/name:1286
+#, fuzzy
+#| msgid "writer"
+msgid "scriptwriter"
+msgstr "作者"
+
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
 msgid "secondhandsongs"
@@ -10844,6 +10913,13 @@ msgid ""
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 
+#. name:adapter
+#: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
+#, fuzzy
+#| msgid "{additional:additionally} translated"
+msgid "{additional:additionally} adapted"
+msgstr "{additional:補助的に}翻訳"
+
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 #: DB:link_type/reverse_link_phrase:866
@@ -10851,8 +10927,8 @@ msgid "{additional:additionally} arranged at"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr ""
 
@@ -11013,6 +11089,13 @@ msgstr "が{additional:補助的に}台本を書いた作品は"
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "が{additional:補助的に}作詞した作品は"
 
+#. name:scriptwriter
+#: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
+#, fuzzy
+#| msgid "{additional:additionally} wrote the lyrics for"
+msgid "{additional:additionally} wrote the script for"
+msgstr "が{additional:補助的に}作詞した作品は"
+
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -11087,8 +11170,8 @@ msgstr ""
 #: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
 #: DB:link_type/long_link_phrase:138
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }engineered"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }engineered"
 msgstr ""
 "が{additional:補助的な} {assistant} {associate} {co:共同}{executive:エグゼク"
 "ティブ}エンジニアとして担当したのは"
@@ -11097,8 +11180,8 @@ msgstr ""
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
 #: DB:link_type/long_link_phrase:141 DB:link_type/long_link_phrase:30
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }produced"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }produced"
 msgstr ""
 "が{additional:補助的に} {assistant:アシスタントとして} {associate:アソシエイ"
 "トとして} {co:共同で}{executive:エグゼクティブとして}プロデュースしているのは"
@@ -11164,6 +11247,13 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#. name:adapter
+#: DB:link_type/reverse_link_phrase:1285
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} adapter"
+msgstr "{additional:補助的な}作者"
+
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
 #, fuzzy
@@ -11172,10 +11262,9 @@ msgid "{additional} animation"
 msgstr "{additional:補助的な}イラスト"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "ここで{additional:補助的に}編曲された作品"
 
@@ -11368,6 +11457,13 @@ msgstr ""
 #: DB:link_type/link_phrase:69
 msgid "{additional} samples from"
 msgstr ""
+
+#. name:scriptwriter
+#: DB:link_type/reverse_link_phrase:1286
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} scriptwriter"
+msgstr "{additional:補助的な}作者"
 
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
@@ -11985,8 +12081,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr ""
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr ""
 
@@ -12216,6 +12312,13 @@ msgstr ""
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr ""
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "レコーディングを編曲が行われた地域へリンクします。具体的な場所が不明である"
+#~ "ときのみ使ってください！"
 
 #~ msgid ""
 #~ "This relationship type can be used to link a place to the equivalent "

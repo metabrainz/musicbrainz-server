@@ -9,7 +9,10 @@ import {getCatalystContext} from '../common/utility/catalyst.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
-import {BubbleDoc} from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  BubbleDoc,
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
@@ -47,8 +50,10 @@ $(function () {
 
   createExternalLinksEditorForHtmlForm('edit-series');
 
-  const typeIdField = 'select[name=edit-series\\.type_id]';
-  typeBubble(typeIdField);
+  initializeBubble('#name-bubble', 'input[name=edit-series\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-series\\.comment]');
+  typeBubble('select[name=edit-series\\.type_id]');
+  initializeExternalLinksBubble('#external-link-bubble');
 
   installFormUnloadWarning();
 

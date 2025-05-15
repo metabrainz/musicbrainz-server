@@ -7,6 +7,7 @@ use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Field::Compound';
 
 has_field 'name' => ( type => 'Text' );
+has_field 'id' => ( type => '+MusicBrainz::Server::Form::Field::ID' );
 has_field 'gid' => ( type => '+MusicBrainz::Server::Form::Field::GID' );
 
 =head1 COPYRIGHT AND LICENSE

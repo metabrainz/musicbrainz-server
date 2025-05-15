@@ -46,11 +46,12 @@
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Arainuki <esetipodealla@gmail.com>, 2024.
 # eigenric <ricardoruizfdez@gmail.com>, 2025.
+# macaumetal <macaumetal@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-08 03:44+0000\n"
-"Last-Translator: eigenric <ricardoruizfdez@gmail.com>\n"
+"PO-Revision-Date: 2025-04-18 04:20+0000\n"
+"Last-Translator: macaumetal <macaumetal@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/es/>\n"
 "Language: es\n"
@@ -59,7 +60,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.11\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -175,12 +176,9 @@ msgid "8cm CD+G"
 msgstr "CD+G de 8cm"
 
 #: DB:medium_format/name:210
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm CD"
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "CD de 8cm"
+msgstr "CD-R de 8cm"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
@@ -1429,9 +1427,9 @@ msgid ""
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
 msgstr ""
-"Un álbum, quizás mejor definido como un lanzamiento de “larga "
-"duración” (LP), generalmente consta de material inédito (a menos que este "
-"tipo se combine con tipos secundarios que indiquen lo contrario, como "
+"Un álbum, quizás mejor definido como un lanzamiento de “larga duración” "
+"(LP), generalmente consta de material inédito (a menos que este tipo se "
+"combine con tipos secundarios que indiquen lo contrario, como "
 "“recopilación”)."
 
 #. name:Pseudo-Release
@@ -2776,8 +2774,8 @@ msgstr "País"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr ""
 "Usamos “país” para áreas incluidas (o previamente incluidas) en la ISO "
 "3166-1, como los Estados Unidos o Puerto Rico."

@@ -242,6 +242,8 @@ export const FAVICON_CLASSES: {
   'thedancegypsy.com': 'thedancegypsy',
   'themoviedb.org': 'tmdb',
   'thesession.org': 'thesession',
+  'threads.com': 'threads',
+  // TODO: Remove once URLs migrated (MBBE-94)
   'threads.net': 'threads',
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',

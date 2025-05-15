@@ -9,6 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
+import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
+
 import deferFocus from '../../utility/deferFocus.js';
 
 class BubbleBase {
@@ -345,4 +347,14 @@ export default function initializeBubble(bubble, control, vm, canBeShown) {
   }
 
   return bubbleDoc;
+}
+
+// Initializes the specified bubble for the external_links_editor() macro.
+export function initializeExternalLinksBubble(bubbleSelector) {
+  const bubble = initializeBubble(bubbleSelector);
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => bubble.show(event.target),
+  );
 }

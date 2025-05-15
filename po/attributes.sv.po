@@ -2474,8 +2474,8 @@ msgstr "Land"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr ""
 
 #: DB:area_type/name:7

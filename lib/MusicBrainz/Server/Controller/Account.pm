@@ -389,7 +389,6 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             website           => $editor->website,
             biography         => $editor->biography,
             gender_id         => $editor->gender_id,
-            area_id           => $editor->area_id,
             area              => $editor->area,
             birth_date        => $editor->birth_date,
             languages         => $editor->languages,

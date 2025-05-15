@@ -26,6 +26,73 @@
     [%- enter_edit() -%]
 
   </div>
+
+  <div class="documentation">
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is usually the title from the earliest official release in the release group.',
+             { doc => { href => doc_link('Release_Group#Title'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Release_Group#Title'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="artist-bubble">
+      <p>
+        [% l('The {doc|artist} should usually match the earliest official release in the release group.',
+             { doc => { href => doc_link('Release_Group#Artist'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Release_Group#Artist'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between similarly-named release groups,
+              such as multiple self-titled albums by the same artist.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please leave it blank if other information such as artist or type (album, single, etc.) already
+              distinguishes between the release groups.') %]
+      </p>
+    </div>
+
+    <div class="bubble" id="primary-type-bubble">
+      <p>
+        [% l('The {doc|primary type} describes how the release group is categorized.',
+             { doc => { href => doc_link('Release_Group/Type'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="secondary-types-bubble">
+      <p>
+        [% l('{doc|Secondary types} are additional attributes describing the release group.
+              Leave this blank if none apply.
+              You can select multiple types by using Ctrl + click (or Cmd + click on a Mac).',
+             { doc => { href => doc_link('Release_Group/Type'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Release_Group#Secondary_types'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the release group, such as official pages, Wikipedia articles, reviews,
+              and entries in other databases.') %]
+      </p>
+      <p>
+        [% l('Please don’t add a Wikipedia page if a Wikidata item linking to the same article already exists.') %]
+      </p>
+    </div>
+  </div>
+
 </form>
 
 [%- guesscase_options() -%]

@@ -78,7 +78,7 @@ test 'Hide biography and website/homepage of beginners/limited users from not-lo
     $mech->get('/user/new_editor');
     html_ok($mech->content);
     my $tx = test_xpath_html($mech->content);
-    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[text()="biography"]',
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p/bdi[text()="biography"]',
         'biography field of beginner/limited user is visible from logged-in user');
     $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/a[@href="http://test.website"]',
         'website field of beginner/limited user is visible from logged-in user');
@@ -100,7 +100,7 @@ test 'Hide biography and website/homepage of beginners/limited users from not-lo
     $mech->get('/user/new_editor');
     html_ok($mech->content);
     $tx = test_xpath_html($mech->content);
-    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p[text()="biography"]',
+    $tx->ok('//tr[@class="biography"]/td[count(*)=1]/p/bdi[text()="biography"]',
         'biography field of (not beginner/limited) user is visible from everyone');
     $tx->ok('//tr/td[preceding-sibling::th[1][normalize-space(text())="Homepage:"]]/a[@href="http://test.website"]',
         'website field of (not beginner/limited) user is visible from everyone');

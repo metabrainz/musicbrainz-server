@@ -24,14 +24,13 @@ export type ApplicationFormT = FormT<{
   +oauth_type: FieldT<string>,
 }>;
 
-type Props = {
-  +action: string,
-  +form: ApplicationFormT,
-  +submitLabel: string,
-};
+/* eslint-disable ft-flow/sort-keys */
+type ActionT =
+  | {+type: 'set-oauth-type', +oauthType: string};
+/* eslint-enable ft-flow/sort-keys */
 
-type State = {
-  form: ApplicationFormT,
+type StateT = {
+  +form: ApplicationFormT,
 };
 
 const oauthTypeOptions = {
@@ -42,88 +41,82 @@ const oauthTypeOptions = {
   ],
 };
 
-class ApplicationForm extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {form: props.form};
-    this.handleOauthRedirectURIChangeBound =
-      (e) => this.handleOauthRedirectURIChange(e);
-    this.handleOauthTypeChangeBound =
-      (e) => this.handleOauthTypeChange(e);
+function reducer(state: StateT, action: ActionT): StateT {
+  const newStateCtx = mutate(state);
+  switch (action.type) {
+    case 'set-oauth-type': {
+      newStateCtx
+        .set('form', 'field', 'oauth_type', 'value', action.oauthType);
+      break;
+    }
+    default: {
+      /*:: exhaustive(action); */
+    }
   }
-
-  handleOauthRedirectURIChangeBound:
-    (e: SyntheticEvent<HTMLInputElement>) => void;
-
-  handleOauthRedirectURIChange(e: SyntheticEvent<HTMLInputElement>) {
-    const selectedOauthRedirectURI = e.currentTarget.value;
-    this.setState(prevState => mutate(prevState)
-      .set(
-        'form',
-        'field',
-        'oauth_redirect_uri',
-        'value',
-        selectedOauthRedirectURI,
-      )
-      .final());
-  }
-
-  handleOauthTypeChangeBound: (e: SyntheticEvent<HTMLSelectElement>) => void;
-
-  handleOauthTypeChange(e: SyntheticEvent<HTMLSelectElement>) {
-    const selectedOauthType = e.currentTarget.value;
-    this.setState(prevState => mutate(prevState)
-      .set('form', 'field', 'oauth_type', 'value', selectedOauthType)
-      .final());
-  }
-
-  render(): React.MixedElement {
-    return (
-      <form method="post">
-        <FormCsrfToken form={this.state.form} />
-
-        <FormRowText
-          field={this.state.form.field.name}
-          label={addColonText(l('Name'))}
-          required
-          uncontrolled
-        />
-        <FormRowSelect
-          field={this.state.form.field.oauth_type}
-          frozen={this.props.action === 'edit'}
-          label={addColonText(l('Type'))}
-          onChange={this.handleOauthTypeChangeBound}
-          options={oauthTypeOptions}
-          required
-        />
-        <FormRowURLLong
-          field={this.state.form.field.oauth_redirect_uri}
-          label={addColonText(l('Callback URI'))}
-          onChange={this.handleOauthRedirectURIChangeBound}
-          required={this.state.form.field.oauth_type.value === 'web'}
-        />
-        {this.state.form.field.oauth_type.value === 'web' ? null : (
-          <FormRow hasNoLabel>
-            <span className="input-note">
-              {exp.l(
-                `Callback URI is optional for installed applications.
-                 If set, its scheme must be a custom reverse-DNS string,
-                 as in <code>org.example.app://auth</code>,
-                 for installed applications.`,
-              )}
-            </span>
-          </FormRow>
-        )}
-        <FormRow hasNoLabel>
-          <FormSubmit label={this.props.submitLabel} />
-        </FormRow>
-      </form>
-    );
-  }
+  return newStateCtx.final();
 }
 
-export type ApplicationFormPropsT = Props;
-export default (hydrate<Props>(
+component ApplicationForm(
+  action: string,
+  form as initialForm: ApplicationFormT,
+  submitLabel: string,
+) {
+  const [state, dispatch] = React.useReducer(
+    reducer,
+    {form: initialForm},
+  );
+
+  const handleOauthTypeChange = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
+    const selectedOauthType = event.currentTarget.value;
+    dispatch({oauthType: selectedOauthType, type: 'set-oauth-type'});
+  }, [dispatch]);
+
+  return (
+    <form method="post">
+      <FormCsrfToken form={state.form} />
+
+      <FormRowText
+        field={state.form.field.name}
+        label={addColonText(l('Name'))}
+        required
+        uncontrolled
+      />
+      <FormRowSelect
+        field={state.form.field.oauth_type}
+        frozen={action === 'edit'}
+        label={addColonText(l('Type'))}
+        onChange={handleOauthTypeChange}
+        options={oauthTypeOptions}
+        required
+      />
+      <FormRowURLLong
+        field={state.form.field.oauth_redirect_uri}
+        label={addColonText(l('Callback URI'))}
+        required={state.form.field.oauth_type.value === 'web'}
+        uncontrolled
+      />
+      {state.form.field.oauth_type.value === 'web' ? null : (
+        <FormRow hasNoLabel>
+          <span className="input-note">
+            {exp.l(
+              `Callback URI is optional for installed applications.
+               If set, its scheme must be a custom reverse-DNS string,
+               as in <code>org.example.app://auth</code>,
+               for installed applications.`,
+            )}
+          </span>
+        </FormRow>
+      )}
+      <FormRow hasNoLabel>
+        <FormSubmit label={submitLabel} />
+      </FormRow>
+    </form>
+  );
+}
+
+export default (hydrate<React.PropsOf<ApplicationForm>>(
   'div.application-form',
   ApplicationForm,
-): component(...Props));
+): component(...React.PropsOf<ApplicationForm>));

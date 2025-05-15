@@ -66,6 +66,64 @@
   </div>
 
   <div class="documentation">
-    [%- isrc_bubble(link_entity(recording)) -%]
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is usually the most common title from track listings on official releases.',
+             { doc => { href => doc_link('Recording#Title'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Recording#Title'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="artist-bubble">
+      <p>
+        [% l('For popular music, the {doc|artist} should usually match the track artist on the earliest release containing the recording.',
+             { doc => { href => doc_link('Recording#Artist'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('For classical music, it should contain the most important performers.') %]
+      </p>
+      <p>
+        [% l('Please see the {doc_style|style guidelines} and the {doc_classical|classical guidelines} for more information.',
+             { doc_style => { href => doc_link('Style/Recording#Artist'), target => '_blank' },
+               doc_classical => { href => doc_link('Style/Classical/Recording_Artist'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between similarly-named recordings by the same artist.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('If this is a live recording, please also see the {doc|live recording} guidelines.',
+             { doc => { href => doc_link('Style/Recording#Live_recordings'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('It’s okay to leave it blank if there are no other recordings with similar names, and this isn’t a live recording.') %]
+      </p>
+    </div>
+
+    <div class="bubble" id="length-bubble">
+      <p>
+        [% l('The {doc|length} is the recording’s duration in MM:SS format.',
+             { doc => { href => doc_link('Recording#Length'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="isrcs-bubble">
+      <p>
+        [% l('The {doc|ISRC} is a 12-character alphanumeric string identifying this recording.',
+             { doc => { href => doc_link('ISRC'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the recording, such as purchase or streaming pages, or entries in other databases.') %]
+      </p>
+    </div>
   </div>
 </form>

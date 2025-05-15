@@ -157,22 +157,24 @@
     [%- isni_bubble() -%]
 
     <div class="bubble" id="begin-end-date-bubble">
-      <p class="desc desc-1">
-        [% l('The {doc|begin and end dates} describe when the artist was born and died.',
-             { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
-      </p>
-      <p class="desc desc-2 desc-5 desc-6">
-        [% l('The {doc|begin and end dates} describe when the group was formed and dissolved.',
-             { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
-      </p>
-      <p class="desc desc-4">
-        [% l('The {doc|begin date} is the real-life date when the character concept was created.
-              The end date should not be set.',
-             { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
-      </p>
-      <p class="desc desc-default">
-        [% l('The {doc|begin and end dates} describe when the artist started and stopped existing.',
-             { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+      <p>
+        <span class="desc desc-1">
+          [% l('The {doc|begin and end dates} describe when the artist was born and died.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+        <span class="desc desc-2 desc-5 desc-6">
+          [% l('The {doc|begin and end dates} describe when the group was formed and dissolved.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+        <span class="desc desc-4">
+          [% l('The {doc|begin date} is the real-life date when the character concept was created.
+                The end date should not be set.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+        <span class="desc desc-default">
+          [% l('The {doc|begin and end dates} describe when the artist started and stopped existing.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
       </p>
       <p>
         [% l('Please see the {doc|style guidelines} for more information.',
@@ -181,18 +183,20 @@
     </div>
 
     <div class="bubble" id="begin-end-area-bubble">
-      <p class="desc desc-1">
-        [% l('The begin and end areas describe where the artist was born and died.') %]
-      </p>
-      <p class="desc desc-2 desc-5 desc-6">
-        [% l('The begin and end areas describe where the group was formed and dissolved.') %]
-      </p>
-      <p class="desc desc-4">
-        [% l('The begin area is the real-life area where the character concept was created.
-              The end area should not be set.') %]
-      </p>
-      <p class="desc desc-default">
-        [% l('The begin and end areas describe where the artist was when it started and stopped existing.') %]
+      <p>
+        <span class="desc desc-1">
+          [% l('The begin and end areas describe where the artist was born and died.') %]
+        </span>
+        <span class="desc desc-2 desc-5 desc-6">
+          [% l('The begin and end areas describe where the group was formed and dissolved.') %]
+        </span>
+        <span class="desc desc-4">
+          [% l('The begin area is the real-life area where the character concept was created.
+                The end area should not be set.') %]
+        </span>
+        <span class="desc desc-default">
+          [% l('The begin and end areas describe where the artist was when it started and stopped existing.') %]
+        </span>
       </p>
       <p>
         [% l('Please see the {doc|style guidelines} for more information.',
