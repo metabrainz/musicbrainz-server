@@ -95,7 +95,7 @@ FROM build AS mb_solr
 
 ARG OPENJDK_VERSION=17.0.11+9 \
     OPENJDK_SRC_SUM=aa7fb6bb342319d227a838af5c363bfa1b4a670c209372f9e6585bd79da6220c \
-    MB_SOLR_TAG=mbtest
+    MB_SOLR_TAG=v4.0.0
 
 RUN curl -sSLO https://github.com/adoptium/temurin17-binaries/releases/download/jdk-${OPENJDK_VERSION/+/%2B}/OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz && \
     echo "$OPENJDK_SRC_SUM *OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz" | sha256sum --strict --check - && \
@@ -169,8 +169,8 @@ COPY --from=mb_solr /usr/local/jdk/ /usr/local/jdk/
 RUN update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 10000 && \
     update-alternatives --set java /usr/local/jdk/bin/java
 
-ARG SOLR_VERSION=9.4.0
-ARG SOLR_SRC_SUM=7147caaec5290049b721f9a4e8b0c09b1775315fc4aa790fa7a88a783a45a61815b3532a938731fd583e91195492c4176f3c87d0438216dab26a07a4da51c1f5
+ARG SOLR_VERSION=9.7.0
+ARG SOLR_SRC_SUM=a80417a79c8371d2049868573927c587b4a5b7b37e938ca6e64e8a8842449f49eddc987968ddad5d6b6b1f4395990c1edc4576a884b3a62c4fbcd97091a659d9
 
 RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
     echo "$SOLR_SRC_SUM *solr-$SOLR_VERSION.tgz" | sha512sum --strict --check - && \
