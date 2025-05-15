@@ -33,6 +33,7 @@ const displayTargets: DisplayTargets = {
     'area',
     'series',
     'instrument',
+    'genre',
   ],
   label: [
     'artist',
@@ -42,6 +43,7 @@ const displayTargets: DisplayTargets = {
     'area',
     'series',
     'instrument',
+    'genre',
   ],
   work: [
     'artist',
@@ -55,6 +57,7 @@ const displayTargets: DisplayTargets = {
     'series',
     'instrument',
     'event',
+    'genre',
   ],
 };
 
