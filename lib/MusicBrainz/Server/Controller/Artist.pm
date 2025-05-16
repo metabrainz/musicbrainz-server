@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         subset => {
             split => ['artist'],
             show => ['artist', 'url'],
-            relationships => [qw( area artist event instrument label place series url )],
+            relationships => [qw( area artist event genre instrument label place series url )],
         },
         default     => ['url'],
         paged_subset => {

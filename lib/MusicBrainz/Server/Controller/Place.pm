@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         cardinal    => ['edit'],
         default     => ['url'],
         subset      => {
-            show => [qw( area artist label place url work series instrument )],
+            show => [qw( area artist genre label place url work series instrument )],
             performances => [qw( url )],
         },
         paged_subset => {
