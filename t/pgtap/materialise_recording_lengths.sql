@@ -16,7 +16,8 @@ VALUES (1, '8c88e3ed-fe61-433f-844f-54a573bf4253', 'Foo', 1);
 
 INSERT INTO release (id, gid, name, artist_credit, release_group)
 VALUES (1, 'a847b5a9-ba88-4cfb-b243-06333cf0d3f9', 'Foo', 1, 1);
-INSERT INTO medium (id, release, position) VALUES (1, 1, 1);
+INSERT INTO medium (id, gid, release, position)
+VALUES (1, '4cab4771-0159-4b62-94d6-a95e11399b6f', 1, 1);
 
 --------------------------------------------------------------------------------
 -- Tests!

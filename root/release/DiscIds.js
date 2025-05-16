@@ -109,9 +109,7 @@ component DiscIds(
                   <tr className="subh">
                     <td colSpan={showEditColumn ? 4 : 3}>
                       <a
-                        href={
-                          `/release/${release.gid}#disc${medium.position}`
-                        }
+                        href={`/medium/${medium.gid}`}
                         id={`disc${medium.position}`}
                       >
                         {mediumFormatName(medium)}

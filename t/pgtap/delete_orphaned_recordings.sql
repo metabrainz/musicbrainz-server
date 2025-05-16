@@ -38,7 +38,8 @@ INSERT INTO release_group (id, gid, name, artist_credit)
     VALUES (1, '25b6fe30-ff5b-11de-8a39-0800200c9a66', 'A Release', 1);
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '25b6fe30-ff5b-11de-8a39-0800200c9a66', 'A Release', 1, 1);
-INSERT INTO medium (id, track_count, release, position) VALUES (1, 5, 1, 1);
+INSERT INTO medium (id, gid, track_count, release, position)
+    VALUES (1, '915388f8-f237-444d-94b3-d8ef8a206396', 5, 1, 1);
 
 INSERT INTO track (id, gid, position, number, artist_credit, name, recording, medium)
   VALUES (1, 'edce7187-c4c3-4718-aa6b-88aadd798c95', 1, '1', 1, 'Orphan', 1, 1),

@@ -52,6 +52,7 @@ declare type MediumT = $ReadOnly<{
   +editsPending: boolean,
   +format: MediumFormatT | null,
   +format_id: number | null,
+  +gid: string,
   +may_have_discids: boolean,
   +name: string,
   +position: number,

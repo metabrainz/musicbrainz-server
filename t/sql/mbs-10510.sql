@@ -40,9 +40,9 @@ INSERT INTO musicbrainz.label (id, gid, name, begin_date_year, begin_date_month,
 	(19791, '58c69b6f-5c5b-4341-8be6-a43c3e69b408', 'Glassnote', 2007, NULL, NULL, NULL, NULL, NULL, NULL, 9, 222, 'logo is a capital G with an eighth note; imprint of Glassnote Entertainment Group LLC', 0, '2016-04-26 07:13:14.300186+00', '0');
 INSERT INTO musicbrainz.release_label (id, release, label, catalog_number, last_updated) VALUES
 	(1571316, 2049596, 19791, NULL, '2017-10-17 22:10:24.561209+00');
-INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-	(2198755, 2047097, 1, 12, '', 0, '2017-10-13 17:53:30.633711+00', 1),
-	(2201664, 2049596, 1, 12, '', 0, '2017-10-17 22:10:26.919104+00', 1);
+INSERT INTO musicbrainz.medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+	(2198755, 'f55a653b-4b34-4de1-b1d0-b1d258e1603f', 2047097, 1, 12, '', 0, '2017-10-13 17:53:30.633711+00', 1),
+	(2201664, '91e3808f-1db9-4f05-a9b6-3a02e07fa705', 2049596, 1, 12, '', 0, '2017-10-17 22:10:26.919104+00', 1);
 INSERT INTO musicbrainz.medium_index (medium, toc) VALUES
 	(2198755, '(210000, 0, 0, 0, 0, 0)'),
 	(2201664, '(210651, 0, 0, 0, 0, 0)');

@@ -179,11 +179,7 @@ export default function usePagedMediumTable(
   const mediumHeaderLink = (
     <a
       className="expand-medium"
-      href={
-        '/release/' + release.gid +
-        '/disc/' + mediumPosition +
-        '#disc' + mediumPosition
-      }
+      href={'/medium/' + medium.gid}
       id={'disc' + mediumPosition}
       onClick={handleMediumToggle}
     >
