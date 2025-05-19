@@ -15,9 +15,9 @@ INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (1, '6a7d1660-792f-11de-8a39-0800200c9a66', 'Release', 1, 1),
            (2, 'e72f4125-2648-471a-a17a-cc78ba095be0', 'Release w/ Pregap', 1, 1);
 
-INSERT INTO medium (id, track_count, release, position, name)
-    VALUES (1, 0, 1, 1, 'Medium Name'),
-           (2, 0, 2, 1, 'Medium w/ Pregap');
+INSERT INTO medium (id, gid, track_count, release, position, name)
+    VALUES (1, 'e9bb4254-3ae6-4eda-bca4-8dd4773a92ac', 0, 1, 1, 'Medium Name'),
+           (2, '69a9af1a-8fc0-489b-ad53-dadd68327dc3', 0, 2, 1, 'Medium w/ Pregap');
 
 INSERT INTO recording (id, gid, name, artist_credit)
     VALUES (1, 'a037f860-792f-11de-8a39-0800200c9a66', 'Track', 1),

@@ -19,7 +19,7 @@ SELECT jsonb_strip_nulls(jsonb_build_object(
     'catalog_numbers', catalog_numbers,
     'country_code', country_code,
     'barcode', barcode,
-    'sort_character', sort_character,
+    'name', name,
     'release', release
 ))
 FROM artist_release
@@ -29,7 +29,7 @@ ORDER BY is_track_artist,
     catalog_numbers NULLS LAST,
     country_code NULLS LAST,
     barcode NULLS LAST,
-    sort_character;
+    name;
 
 PREPARE sorted_artist_release_groups AS
 SELECT jsonb_strip_nulls(jsonb_build_object(
@@ -39,7 +39,7 @@ SELECT jsonb_strip_nulls(jsonb_build_object(
     'primary_type', primary_type,
     'secondary_types', secondary_types,
     'first_release_date', first_release_date,
-    'sort_character', sort_character,
+    'name', name,
     'release_group', release_group
 ))
 FROM artist_release_group
@@ -49,7 +49,7 @@ ORDER BY is_track_artist,
     primary_type NULLS FIRST,
     secondary_types NULLS FIRST,
     first_release_date NULLS LAST,
-    sort_character;
+    name;
 
 SELECT results_eq(
     'sorted_artist_release_groups',
@@ -58,7 +58,7 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -70,7 +70,7 @@ SELECT results_eq(
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 1
     }'::JSONB)
     $$
@@ -81,7 +81,7 @@ SELECT results_eq(
 SET CONSTRAINTS ALL DEFERRED;
 
 INSERT INTO release VALUES
-    (2, '03475f88-adef-4bed-a3e4-01bd5b48f4ea', 'A', 60, 1, NULL, NULL, NULL, NULL, NULL, '', 0, -1, '2021-04-19 16:17:32.986082+00');
+    (2, '03475f88-adef-4bed-a3e4-01bd5b48f4ea', 'AAA', 60, 1, NULL, NULL, NULL, NULL, NULL, '', 0, -1, '2021-04-19 16:17:32.986082+00');
 
 -- Constraints are set to IMMEDIATE in order to apply the changes from
 -- the *_pending_update tables. This would normally happen at the end
@@ -97,13 +97,13 @@ SELECT results_eq(
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -113,8 +113,8 @@ SELECT results_eq(
 
 SET CONSTRAINTS ALL DEFERRED;
 
-INSERT INTO medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-    (1, 2, 1, 1, 'A', 0, now(), 1);
+INSERT INTO medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+    (1, '4cab4771-0159-4b62-94d6-a95e11399b6f', 2, 1, 1, 'A', 0, now(), 1);
 
 INSERT INTO recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
 	(1, '939e34d3-0aea-41d9-b296-b095993fbfe8', 'A', 2046742, 300000, '', 0, now(), FALSE);
@@ -130,19 +130,19 @@ SELECT results_eq(
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -155,14 +155,14 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -173,7 +173,7 @@ SELECT results_eq(
 SET CONSTRAINTS ALL DEFERRED;
 
 INSERT INTO musicbrainz.release_group (id, gid, name, artist_credit, type, comment, edits_pending, last_updated) VALUES
-	(2, '914a7adf-a4c0-4161-919b-21712d38cf1a', 'A', 60, NULL, '', 0, now());
+	(2, '914a7adf-a4c0-4161-919b-21712d38cf1a', 'AAA', 60, NULL, '', 0, now());
 
 SET CONSTRAINTS ALL IMMEDIATE;
 
@@ -184,21 +184,21 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -208,7 +208,7 @@ SELECT results_eq(
 
 SET CONSTRAINTS ALL DEFERRED;
 
-UPDATE release SET name = 'B' WHERE id = 1;
+UPDATE release SET name = 'BBB' WHERE id = 1;
 
 SET CONSTRAINTS ALL IMMEDIATE;
 
@@ -218,19 +218,19 @@ SELECT results_eq(
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -249,19 +249,19 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -280,21 +280,21 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -313,19 +313,19 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -344,19 +344,19 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -377,25 +377,25 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -408,28 +408,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -450,28 +450,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "country_code": "CA",
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "country_code": "CA",
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "country_code": "CA",
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -492,28 +492,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "country_code": "US",
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "country_code": "US",
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "country_code": "US",
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -534,25 +534,25 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -575,28 +575,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["ABC-123", "ABC-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "catalog_numbers": ["ABC-123", "ABC-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "catalog_numbers": ["ABC-123", "ABC-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -618,28 +618,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["ABC-123", "DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "catalog_numbers": ["ABC-123", "DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "catalog_numbers": ["ABC-123", "DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -660,28 +660,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -704,28 +704,28 @@ SELECT results_eq(
         "artist": 60,
         "barcode": 1234567890,
         "first_release_date": 19900101,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -738,7 +738,7 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -746,21 +746,21 @@ SELECT results_eq(
         "artist": 60,
         "first_release_date": 19900101,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -785,28 +785,28 @@ SELECT results_eq(
         "barcode": 1234567890,
         "country_code": "CA",
         "first_release_date": 19890101,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -819,7 +819,7 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -827,21 +827,21 @@ SELECT results_eq(
         "artist": 60,
         "first_release_date": 19890101,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -863,28 +863,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -897,28 +897,28 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 197,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": true,
         "artist": 2107,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -942,14 +942,14 @@ SELECT results_eq(
         "artist": 60,
         "unofficial": false,
         "secondary_types": [1, 2],
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
@@ -957,7 +957,7 @@ SELECT results_eq(
         "artist": 197,
         "unofficial": false,
         "secondary_types": [1, 2],
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -965,7 +965,7 @@ SELECT results_eq(
         "artist": 2107,
         "unofficial": false,
         "secondary_types": [1, 2],
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -988,14 +988,14 @@ SELECT results_eq(
         "artist": 60,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
@@ -1003,7 +1003,7 @@ SELECT results_eq(
         "artist": 197,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -1011,7 +1011,7 @@ SELECT results_eq(
         "artist": 2107,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 1
     }'::JSONB)
     $$
@@ -1021,7 +1021,7 @@ SELECT results_eq(
 
 SET CONSTRAINTS ALL DEFERRED;
 
-UPDATE release_group SET name = 'B' WHERE id = 1;
+UPDATE release_group SET name = 'BBB' WHERE id = 1;
 UPDATE release_group SET type = 1, artist_credit = 2046742 WHERE id = 2;
 
 SET CONSTRAINTS ALL IMMEDIATE;
@@ -1034,7 +1034,7 @@ SELECT results_eq(
         "artist": 60,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "B",
+        "name": "BBB",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -1042,7 +1042,7 @@ SELECT results_eq(
         "artist": 60,
         "primary_type": 1,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
@@ -1050,7 +1050,7 @@ SELECT results_eq(
         "artist": 2107,
         "primary_type": 1,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
@@ -1058,7 +1058,7 @@ SELECT results_eq(
         "artist": 197,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "B",
+        "name": "BBB",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -1066,7 +1066,7 @@ SELECT results_eq(
         "artist": 2107,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "B",
+        "name": "BBB",
         "release_group": 1
     }'::JSONB)
     $$
@@ -1087,14 +1087,14 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB),
     ('{
         "is_track_artist": false,
         "artist": 60,
         "barcode": 1234567890,
-        "sort_character": "B",
+        "name": "BBB",
         "release": 1
     }'::JSONB)
     $$
@@ -1108,7 +1108,7 @@ SELECT results_eq(
         "artist": 60,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "B",
+        "name": "BBB",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -1116,7 +1116,7 @@ SELECT results_eq(
         "artist": 60,
         "primary_type": 1,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
@@ -1124,7 +1124,7 @@ SELECT results_eq(
         "artist": 2107,
         "primary_type": 1,
         "unofficial": true,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB)
     $$
@@ -1145,7 +1145,7 @@ SELECT results_eq(
         "is_track_artist": false,
         "artist": 60,
         "catalog_numbers": ["DEF-456"],
-        "sort_character": "A",
+        "name": "AAA",
         "release": 2
     }'::JSONB)
     $$
@@ -1159,7 +1159,7 @@ SELECT results_eq(
         "artist": 60,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "B",
+        "name": "BBB",
         "release_group": 1
     }'::JSONB),
     ('{
@@ -1167,7 +1167,7 @@ SELECT results_eq(
         "artist": 60,
         "primary_type": 1,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB),
     ('{
@@ -1175,7 +1175,7 @@ SELECT results_eq(
         "artist": 2107,
         "primary_type": 1,
         "unofficial": false,
-        "sort_character": "A",
+        "name": "AAA",
         "release_group": 2
     }'::JSONB)
     $$
@@ -1197,7 +1197,7 @@ SELECT results_eq(
         "artist": 60,
         "unofficial": false,
         "secondary_types": [2],
-        "sort_character": "B",
+        "name": "BBB",
         "release_group": 1
     }'::JSONB)
     $$

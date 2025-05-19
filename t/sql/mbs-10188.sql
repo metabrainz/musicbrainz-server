@@ -86,9 +86,9 @@ INSERT INTO musicbrainz.label (id, gid, name, begin_date_year, begin_date_month,
 	(62793, 'c029628b-6633-439e-bcee-ed02e8a338f7', 'EMI', 1972, NULL, NULL, NULL, NULL, NULL, 542, 4, 221, 'EMI Records, since 1972', 0, '2015-07-05 15:01:16.460867+00', '0');
 INSERT INTO musicbrainz.release_label (id, release, label, catalog_number, last_updated) VALUES
 	(1139774, 1608636, 62793, 'ECSD 2847', '2015-05-20 15:37:09.874727+00');
-INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-	(1077041, 1072194, 1, 31, '', 0, '2011-09-05 18:33:49.686445+00', 10),
-	(1691721, 1608636, 1, 31, '', 0, '2015-05-20 15:37:10.87034+00', 10);
+INSERT INTO musicbrainz.medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+	(1077041, '1aaa1100-5129-4df1-8b85-51188b3a03d5', 1072194, 1, 31, '', 0, '2011-09-05 18:33:49.686445+00', 10),
+	(1691721, '276f3144-c8cf-41fc-aaf3-e8a5cd2f4767', 1608636, 1, 31, '', 0, '2015-05-20 15:37:10.87034+00', 10);
 INSERT INTO musicbrainz.medium_index (medium, toc) VALUES
 	(1077041, '(552000, 467000, 292000, 437000, 526000, 238000)');
 INSERT INTO musicbrainz.artist_credit (id, name, artist_count, ref_count, created, edits_pending, gid) VALUES

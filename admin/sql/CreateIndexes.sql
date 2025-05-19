@@ -69,16 +69,16 @@ CREATE INDEX artist_rating_raw_idx_editor ON artist_rating_raw (editor);
 CREATE INDEX artist_tag_raw_idx_tag ON artist_tag_raw (tag);
 CREATE INDEX artist_tag_raw_idx_editor ON artist_tag_raw (editor);
 
-CREATE INDEX artist_release_nonva_idx_sort ON artist_release_nonva (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, sort_character, release);
-CREATE INDEX artist_release_va_idx_sort ON artist_release_va (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, sort_character, release);
+CREATE INDEX artist_release_nonva_idx_sort ON artist_release_nonva (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, name, release);
+CREATE INDEX artist_release_va_idx_sort ON artist_release_va (artist, first_release_date NULLS LAST, catalog_numbers NULLS LAST, country_code NULLS LAST, barcode NULLS LAST, name, release);
 
 CREATE UNIQUE INDEX artist_release_nonva_idx_uniq ON artist_release_nonva (release, artist);
 CREATE UNIQUE INDEX artist_release_va_idx_uniq ON artist_release_va (release, artist);
 
 CREATE INDEX artist_release_pending_update_idx_release ON artist_release_pending_update USING HASH (release);
 
-CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
-CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, sort_character, release_group);
+CREATE INDEX artist_release_group_nonva_idx_sort ON artist_release_group_nonva (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, name, release_group);
+CREATE INDEX artist_release_group_va_idx_sort ON artist_release_group_va (artist, unofficial, primary_type_child_order NULLS FIRST, primary_type NULLS FIRST, secondary_type_child_orders NULLS FIRST, secondary_types NULLS FIRST, first_release_date NULLS LAST, name, release_group);
 
 CREATE UNIQUE INDEX artist_release_group_nonva_idx_uniq ON artist_release_group_nonva (release_group, artist);
 CREATE UNIQUE INDEX artist_release_group_va_idx_uniq ON artist_release_group_va (release_group, artist);
@@ -507,6 +507,8 @@ CREATE UNIQUE INDEX editor_collection_type_idx_gid ON editor_collection_type (gi
 CREATE UNIQUE INDEX cdtoc_idx_discid ON cdtoc (discid);
 CREATE INDEX cdtoc_idx_freedb_id ON cdtoc (freedb_id);
 
+CREATE UNIQUE INDEX medium_idx_gid ON medium (gid);
+
 CREATE INDEX medium_attribute_idx_medium ON medium_attribute (medium);
 
 CREATE UNIQUE INDEX medium_attribute_type_idx_gid ON medium_attribute_type (gid);
@@ -739,6 +741,7 @@ CREATE INDEX editor_collection_gid_redirect_idx_new_id ON editor_collection_gid_
 CREATE INDEX event_gid_redirect_idx_new_id ON event_gid_redirect (new_id);
 CREATE INDEX instrument_gid_redirect_idx_new_id ON instrument_gid_redirect (new_id);
 CREATE INDEX label_gid_redirect_idx_new_id ON label_gid_redirect (new_id);
+CREATE INDEX medium_gid_redirect_idx_new_id ON medium_gid_redirect (new_id);
 CREATE INDEX place_gid_redirect_idx_new_id ON place_gid_redirect (new_id);
 CREATE INDEX recording_gid_redirect_idx_new_id ON recording_gid_redirect (new_id);
 CREATE INDEX release_gid_redirect_idx_new_id ON release_gid_redirect (new_id);

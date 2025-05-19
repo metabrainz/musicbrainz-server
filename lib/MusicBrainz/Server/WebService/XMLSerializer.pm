@@ -687,6 +687,8 @@ sub _serialize_medium
 
     my $med_node = $parent_node->addNewChild(undef, 'medium');
 
+    $med_node->_setAttribute('id', $medium->gid);
+
     $med_node->appendTextChild('title', $medium->name) if $medium->name;
     $med_node->appendTextChild('position', $medium->position);
 

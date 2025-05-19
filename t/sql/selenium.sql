@@ -158,9 +158,9 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, status, packag
 INSERT INTO release_label (id, release, label, catalog_number, last_updated) VALUES
     (1237936, 1693299, 62565, '', '2016-01-26 21:00:23.940303+00');
 
-INSERT INTO medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-    (1690850, 1693299, 1, 1, '', 0, '2015-05-18 20:20:39.009738+00', 0),
-    (2323086, 2154808, 1, 12, '', 0, '2018-04-11 10:09:58.511979+00', 0);
+INSERT INTO medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+    (1690850, '38d614e3-4680-48fd-b050-7fc8069e4ee0', 1693299, 1, 1, '', 0, '2015-05-18 20:20:39.009738+00', 0),
+    (2323086, 'be4ca142-d148-4be2-83f1-51045a3cded8', 2154808, 1, 12, '', 0, '2018-04-11 10:09:58.511979+00', 0);
 
 INSERT INTO release_gid_redirect (gid, new_id, created) VALUES
     ('190542dd-e12b-3a84-a95b-9640a8de8b9f', 26, '2012-04-09 20:07:05.161415+00');

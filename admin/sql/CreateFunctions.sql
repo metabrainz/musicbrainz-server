@@ -530,6 +530,39 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql';
 
+CREATE OR REPLACE FUNCTION a_upd_release_group_primary_type_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF (NEW.child_order IS DISTINCT FROM OLD.child_order)
+    THEN
+        INSERT INTO artist_release_group_pending_update (
+            SELECT id FROM release_group
+            WHERE release_group.type = OLD.id
+        );
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
+CREATE OR REPLACE FUNCTION a_upd_release_group_secondary_type_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF (NEW.child_order IS DISTINCT FROM OLD.child_order)
+    THEN
+        INSERT INTO artist_release_group_pending_update (
+            SELECT release_group
+            FROM release_group_secondary_type_join
+            WHERE secondary_type = OLD.id
+        );
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
+
 CREATE OR REPLACE FUNCTION a_ins_release_group_secondary_type_join()
 RETURNS trigger AS $$
 BEGIN
@@ -1117,9 +1150,10 @@ BEGIN
                                   first_release_date_day = first.day
       FROM (
         SELECT rd.year, rd.month, rd.day
-        FROM release
+        FROM release_group
+        LEFT JOIN release ON release.release_group = release_group.id
         LEFT JOIN release_first_release_date rd ON (rd.release = release.id)
-        WHERE release.release_group = release_group_id
+        WHERE release_group.id = release_group_id
         ORDER BY
           rd.year NULLS LAST,
           rd.month NULLS LAST,
@@ -1166,6 +1200,18 @@ BEGIN
 END;
 $$ LANGUAGE 'plpgsql' STRICT;
 
+CREATE OR REPLACE FUNCTION set_mediums_recordings_first_release_dates(medium_ids INTEGER[])
+RETURNS VOID AS $$
+BEGIN
+  PERFORM set_recordings_first_release_dates((
+    SELECT array_agg(recording)
+      FROM track
+     WHERE track.medium = any(medium_ids)
+  ));
+  RETURN;
+END;
+$$ LANGUAGE 'plpgsql' STRICT;
+
 CREATE OR REPLACE FUNCTION set_releases_recordings_first_release_dates(release_ids INTEGER[])
 RETURNS VOID AS $$
 BEGIN
@@ -1178,6 +1224,18 @@ BEGIN
   RETURN;
 END;
 $$ LANGUAGE 'plpgsql' STRICT;
+
+CREATE OR REPLACE FUNCTION a_upd_medium_mirror()
+RETURNS trigger AS $$
+BEGIN
+    -- DO NOT modify any replicated tables in this function; it's used
+    -- by a trigger on mirrors.
+    IF NEW.release IS DISTINCT FROM OLD.release THEN
+        PERFORM set_mediums_recordings_first_release_dates(ARRAY[OLD.id]);
+    END IF;
+    RETURN NULL;
+END;
+$$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION a_ins_release_event()
 RETURNS TRIGGER AS $$
@@ -1394,47 +1452,11 @@ $$ LANGUAGE 'plpgsql';
 
 CREATE OR REPLACE FUNCTION delete_unused_url(ids INTEGER[])
 RETURNS VOID AS $$
-DECLARE
-  clear_up INTEGER[];
 BEGIN
-  SELECT ARRAY(
-    SELECT id FROM url url_row WHERE id = any(ids)
-    EXCEPT
-    SELECT url FROM edit_url JOIN edit ON (edit.id = edit_url.edit) WHERE edit.status = 1
-    EXCEPT
-    SELECT entity1 FROM l_area_url
-    EXCEPT
-    SELECT entity1 FROM l_artist_url
-    EXCEPT
-    SELECT entity1 FROM l_event_url
-    EXCEPT
-    SELECT entity1 FROM l_genre_url
-    EXCEPT
-    SELECT entity1 FROM l_instrument_url
-    EXCEPT
-    SELECT entity1 FROM l_label_url
-    EXCEPT
-    SELECT entity1 FROM l_mood_url
-    EXCEPT
-    SELECT entity1 FROM l_place_url
-    EXCEPT
-    SELECT entity1 FROM l_recording_url
-    EXCEPT
-    SELECT entity1 FROM l_release_url
-    EXCEPT
-    SELECT entity1 FROM l_release_group_url
-    EXCEPT
-    SELECT entity1 FROM l_series_url
-    EXCEPT
-    SELECT entity1 FROM l_url_url
-    EXCEPT
-    SELECT entity0 FROM l_url_url
-    EXCEPT
-    SELECT entity0 FROM l_url_work
-  ) INTO clear_up;
-
-  DELETE FROM url_gid_redirect WHERE new_id = any(clear_up);
-  DELETE FROM url WHERE id = any(clear_up);
+  DELETE FROM url_gid_redirect WHERE new_id = any(ids);
+  DELETE FROM url WHERE id = any(ids);
+EXCEPTION
+  WHEN foreign_key_violation THEN RETURN;
 END;
 $$ LANGUAGE 'plpgsql';
 
@@ -1844,7 +1866,7 @@ BEGIN
                 (CASE r.barcode WHEN '' THEN '0' ELSE r.barcode END),
                 '[^0-9]+', '', 'g'
             ), 18)::BIGINT AS barcode,
-            left(r.name, 1)::CHAR(1) AS sort_character,
+            r.name,
             r.id
         FROM (
             SELECT FALSE AS is_track_artist, racn.artist, r.id AS release
@@ -1928,7 +1950,12 @@ BEGIN
             a_rg.artist,
             -- Withdrawn releases were once official by definition
             bool_and(r.status IS NOT NULL AND r.status != 1 AND r.status != 5),
+            rgpt.child_order::SMALLINT,
             rg.type::SMALLINT,
+            array_agg(
+                DISTINCT rgst.child_order ORDER BY rgst.child_order)
+                FILTER (WHERE rgst.child_order IS NOT NULL
+            )::SMALLINT[],
             array_agg(
                 DISTINCT st.secondary_type ORDER BY st.secondary_type)
                 FILTER (WHERE st.secondary_type IS NOT NULL
@@ -1938,7 +1965,7 @@ BEGIN
                 rgm.first_release_date_month,
                 rgm.first_release_date_day
             ),
-            left(rg.name, 1)::CHAR(1),
+            rg.name,
             rg.id
         FROM (
             SELECT FALSE AS is_track_artist, rgacn.artist, rg.id AS release_group
@@ -1954,10 +1981,12 @@ BEGIN
         JOIN release_group rg ON rg.id = a_rg.release_group
         LEFT JOIN release r ON r.release_group = rg.id
         JOIN release_group_meta rgm ON rgm.id = rg.id
+        LEFT JOIN release_group_primary_type rgpt ON rgpt.id = rg.type
         LEFT JOIN release_group_secondary_type_join st ON st.release_group = rg.id
+        LEFT JOIN release_group_secondary_type rgst ON rgst.id = st.secondary_type
     $SQL$ || (CASE WHEN release_group_id IS NULL THEN '' ELSE 'WHERE rg.id = $1' END) ||
     $SQL$
-        GROUP BY a_rg.is_track_artist, a_rg.artist, rgm.id, rg.id
+        GROUP BY a_rg.is_track_artist, a_rg.artist, rgm.id, rg.id, rgpt.child_order
         ORDER BY a_rg.artist, rg.id, a_rg.is_track_artist
     $SQL$
     USING release_group_id;

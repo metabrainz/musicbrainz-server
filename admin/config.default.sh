@@ -22,6 +22,13 @@ SEARCH_INDEXES_DUMP_GROUP=musicbrainz
 SEARCH_INDEXES_DUMP_DIR_MODE=755
 SEARCH_INDEXES_DUMP_FILE_MODE=644
 
+# Same, but for Solr backups.
+SOLR_BACKUP_DIR=/home/musicbrainz/solr-backups
+SOLR_BACKUP_USER=musicbrainz
+SOLR_BACKUP_GROUP=musicbrainz
+SOLR_BACKUP_DIR_MODE=755
+SOLR_BACKUP_FILE_MODE=644
+
 # Where to back things up to, who should own the backup files, and what mode
 # those files should have.
 # The backups include a full database export, and all replication data.

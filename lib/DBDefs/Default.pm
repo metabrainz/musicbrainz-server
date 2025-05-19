@@ -529,11 +529,12 @@ sub USE_SELENIUM_HEADER { 0 }
 # in that case anyway.
 sub DISABLE_LAST_LOGIN_UPDATE { 0 }
 
-# Used to create search indexes dump from SolrCloud.
+# Used to create backup and search indexes dump from SolrCloud.
 sub SOLRCLOUD_COLLECTIONS_API { undef }
 sub SOLRCLOUD_BACKUP_LOCATION { undef }
 sub SOLRCLOUD_RSYNC_BANDWIDTH { undef }
 sub SOLRCLOUD_SSH_CIPHER_SPEC { undef }
+sub SOLR_BACKUP_COMPRESSION_LEVEL { undef }
 sub SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL { undef }
 
 # Controls the number of threads to use when compressing JSON dumps or search

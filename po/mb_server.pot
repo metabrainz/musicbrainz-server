@@ -10,7 +10,7 @@ msgstr ""
 "#-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#\n"
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 21:48+0200\n"
+"POT-Creation-Date: 2025-05-19 10:22-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -6651,11 +6651,11 @@ msgstr ""
 #: ../root/annotation/EditAnnotation.js:129
 msgid ""
 "Because square brackets [] are used to create hyperlinks, you have to use "
-"the encoded html equivalents (<code>&amp;#91;</code> for [) and (<code>&amp;"
-"#93;</code> for ]) if you want them not be converted into hyperlinks. "
-"Example: If you want to use [unknown] in the annotation, you'll have to "
-"write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the way you "
-"intended it to show."
+"the encoded html equivalents (<code>&amp;#91;</code> for [) and "
+"(<code>&amp;#93;</code> for ]) if you want them not be converted into "
+"hyperlinks. Example: If you want to use [unknown] in the annotation, you'll "
+"have to write <code>&amp;#91;unknown&amp;#93;</code> then it will appear the "
+"way you intended it to show."
 msgstr ""
 
 #: ../root/area/AreaArtists.js:29 ../root/area/AreaArtists.js:30
@@ -11688,13 +11688,13 @@ msgctxt "header"
 msgid "Remove release"
 msgstr ""
 
-#: ../root/release/DiscIds.js:140
+#: ../root/release/DiscIds.js:138
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
 
-#: ../root/release/DiscIds.js:147
+#: ../root/release/DiscIds.js:145
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
@@ -14497,13 +14497,13 @@ msgstr ""
 msgid "Failed to load the medium."
 msgstr ""
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:205
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
 msgstr ""
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:222
 msgid "Load all tracks..."
 msgstr ""
 

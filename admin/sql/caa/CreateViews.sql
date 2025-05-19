@@ -11,7 +11,6 @@ SELECT cover_art.*,
                    JOIN cover_art_archive.cover_art ca_front USING (id)
                    WHERE ca_front.release = cover_art.release
                    AND type_id = 1
-                   AND mime_type != 'application/pdf'
                    ORDER BY ca_front.ordering
                    LIMIT 1), FALSE) AS is_front,
   coalesce(cover_art.id = (SELECT id FROM cover_art_archive.cover_art_type
