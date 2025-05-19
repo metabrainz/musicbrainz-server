@@ -56,7 +56,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 21:48+0200\n"
+"POT-Creation-Date: 2025-05-19 10:22-0500\n"
 "PO-Revision-Date: 2025-05-12 00:20+0000\n"
 "Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
@@ -65,8 +65,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.11.3\n"
 
 #: ../root/components/common-macros.tt:11
@@ -12822,7 +12822,7 @@ msgctxt "header"
 msgid "Remove release"
 msgstr "Eliminar publicación"
 
-#: ../root/release/DiscIds.js:140
+#: ../root/release/DiscIds.js:138
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -12830,7 +12830,7 @@ msgstr ""
 "Esta publicación no tiene IDs de disco asociadas. Si quieres más información "
 "sobre cómo añadir una, consulta {doc|Cómo añadir IDs de disco}."
 
-#: ../root/release/DiscIds.js:147
+#: ../root/release/DiscIds.js:145
 msgid "This release has no mediums that can have disc IDs."
 msgstr "Esta publicación no tiene ningún medio que pueda tener IDs de disco."
 
@@ -15830,7 +15830,7 @@ msgstr "Has seleccionado {releasegroup}."
 msgid "Failed to load the medium."
 msgstr "No pudimos cargar el medio."
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:205
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
@@ -15838,7 +15838,7 @@ msgstr ""
 "Este medio tiene demasiadas pistas para cargarlas de una vez. Mostrando "
 "{loaded_track_count} pistas de un total de {total_track_count}."
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:222
 msgid "Load all tracks..."
 msgstr "Cargar todas las pistas."
 

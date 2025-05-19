@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 21:48+0200\n"
+"POT-Creation-Date: 2025-05-19 10:22-0500\n"
 "PO-Revision-Date: 2024-04-17 17:39+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Serbian <https://translations.metabrainz.org/projects/"
@@ -12192,13 +12192,13 @@ msgctxt "header"
 msgid "Remove release"
 msgstr ""
 
-#: ../root/release/DiscIds.js:140
+#: ../root/release/DiscIds.js:138
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
 
-#: ../root/release/DiscIds.js:147
+#: ../root/release/DiscIds.js:145
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 
@@ -15026,13 +15026,13 @@ msgstr ""
 msgid "Failed to load the medium."
 msgstr ""
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:205
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
 msgstr ""
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:222
 msgid "Load all tracks..."
 msgstr ""
 

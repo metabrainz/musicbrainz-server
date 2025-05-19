@@ -915,6 +915,13 @@ msgstr ""
 msgid "Links a competition event to an artist that was a participant in it."
 msgstr "Relie un événement de type compétition à un artiste qui y a participé."
 
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
+
 #. name:arranged in
 #: DB:link_type/description:864
 msgid ""
@@ -7985,7 +7992,7 @@ msgstr "détient les droits d’auteur (©) de"
 msgid "holds phonographic copyright (℗) for"
 msgstr "détient les droits phonographiques (℗) de"
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr "hôte"
 
@@ -7995,7 +8002,14 @@ msgid "host at"
 msgstr "hôte à"
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "affiche pour"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "hôtes"
 
@@ -8364,6 +8378,13 @@ msgstr ""
 "est un {medley:pot-pourri incluant un} enregistrement {karaoke:karaoké} "
 "{partial:partiel} {acappella:a cappella} {instrumental:instrumental} "
 "{live:en public} {cover:et une reprise} de"
+
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was a supporting artist for"
+msgid "is/was a host for"
+msgstr "est/était un artiste de soutien pour"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722

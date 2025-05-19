@@ -875,6 +875,13 @@ msgstr "イベントとその指揮者であったアーティストとを結び
 msgid "Links a competition event to an artist that was a participant in it."
 msgstr "イベントとその指揮者であったアーティストとを結びつけます。"
 
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
+
 #. name:arranged in
 #: DB:link_type/description:864
 msgid ""
@@ -7908,7 +7915,7 @@ msgstr ""
 msgid "holds phonographic copyright (℗) for"
 msgstr ""
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr ""
 
@@ -7918,7 +7925,14 @@ msgid "host at"
 msgstr ""
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "次のポスター"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "ホスト"
 
@@ -8286,6 +8300,13 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
+
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was married to"
+msgid "is/was a host for"
+msgstr "が結婚している/いた相手は"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
