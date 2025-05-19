@@ -1,78 +1,72 @@
-#
-# Translators:
-# Arainuki <esetipodealla@gmail.com>, 2024.
-# Marc Riera <marc@marcriera.cat>, 2025.
+# Languages add-on <noreply-addon-languages@weblate.org>, 2025.
 msgid ""
 msgstr ""
-"Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-03 16:20+0000\n"
-"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
-"Language-Team: Catalan <https://translations.metabrainz.org/projects/"
-"musicbrainz/instruments/ca/>\n"
-"Language: ca\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: uz\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr "guitarra de 12 cordes"
+msgstr ""
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr "koto baix de 17 cordes"
+msgstr ""
 
 #: DB:instrument/name:839
 msgctxt "Historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
-msgstr "concertina anglosaxona"
+msgstr ""
 
 #: DB:instrument/name:66
 msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
-msgstr "dulcimer dels Apalatxes"
+msgstr ""
 
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
 msgid "Baltic psalteries"
-msgstr "saltiris bàltics"
+msgstr ""
 
 #: DB:instrument/name:457
 msgctxt "Double headed hourglass Nigerian drums"
 msgid "Batá drum"
-msgstr "batà"
+msgstr ""
 
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
 msgid "Blaster Beam"
-msgstr "blaster beam"
+msgstr ""
 
 #: DB:instrument/name:794
 msgctxt "electric piano with reeds"
 msgid "Cembalet"
-msgstr "Cembalet"
+msgstr ""
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
-msgstr "chapman stick"
+msgstr ""
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
-msgstr "lira de Creta"
+msgstr ""
 
 #: DB:instrument/name:736
 msgid "Cristal Baschet"
-msgstr "Cristal Baschet"
+msgstr ""
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr "Denis d'or"
+msgstr ""
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr "estilòfon Dubreq"
+msgstr ""
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"
@@ -166,15 +160,15 @@ msgstr ""
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
-msgstr "Vihuela mexicana"
+msgstr ""
 
 #: DB:instrument/name:278
 msgid "Minimoog"
-msgstr "Moog Minimoog"
+msgstr ""
 
 #: DB:instrument/name:277
 msgid "Moog"
-msgstr "Moog"
+msgstr ""
 
 #: DB:instrument/name:358
 msgctxt "Small north east England bagpipes"
@@ -184,7 +178,7 @@ msgstr ""
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr "Otamatone"
+msgstr ""
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
@@ -283,7 +277,7 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr "acordió"
+msgstr ""
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
@@ -3251,7 +3245,8 @@ msgid "rauschpfeife"
 msgstr ""
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr ""
 
 #: DB:instrument/name:239
