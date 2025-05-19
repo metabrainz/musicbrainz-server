@@ -790,6 +790,13 @@ msgstr "將比賽與作為評委的創作者相關聯。"
 msgid "Links a competition event to an artist that was a participant in it."
 msgstr "將活動連結到作為參與者的創作者。"
 
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
+
 #. name:arranged in
 #: DB:link_type/description:864
 msgid ""
@@ -7156,7 +7163,7 @@ msgstr "擁有版權 (©)"
 msgid "holds phonographic copyright (℗) for"
 msgstr "擁有錄音著作權 (℗)"
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr "主辦"
 
@@ -7166,7 +7173,14 @@ msgid "host at"
 msgstr "在主辦"
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "海報"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "主辦者"
 
@@ -7530,6 +7544,13 @@ msgid ""
 msgstr ""
 "是 {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} 的錄音"
+
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was a supporting artist for"
+msgid "is/was a host for"
+msgstr "是/曾是支援創作者於"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722

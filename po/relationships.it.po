@@ -30,8 +30,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.11.3\n"
 
 #. name:artist diploma
@@ -77,10 +77,10 @@ msgid ""
 "only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Una pagina di social network è la pagina di un posto su un <a href="
-"\"https://it.wikipedia.org/wiki/Servizio_di_rete_sociale\">social network</"
-"a>, dove solo persone che sono legate al posto possono postare contenuti. "
-"Alcuni esempi sono pagine Facebook e account su Twitter, Instagram e Flickr."
+"Una pagina di social network è la pagina di un posto su un <a href=\"https://"
+"it.wikipedia.org/wiki/Servizio_di_rete_sociale\">social network</a>, dove "
+"solo persone che sono legate al posto possono postare contenuti. Alcuni "
+"esempi sono pagine Facebook e account su Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:192
@@ -884,6 +884,13 @@ msgstr ""
 #: DB:link_type/description:1256
 msgid "Links a competition event to an artist that was a participant in it."
 msgstr "Collega un evento di tipo concorso a un artista che vi ha partecipato."
+
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -4164,9 +4171,9 @@ msgid ""
 "series) to a site where the organisers/creators can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
-"Collega una serie (solitamente una serie di festival o concerti, ma non solo)"
-" a un sito tramite cui gli organizzatori/creatori possono ricevere donazioni/"
-"patrocini, come Flattr o PayPal.me."
+"Collega una serie (solitamente una serie di festival o concerti, ma non "
+"solo) a un sito tramite cui gli organizzatori/creatori possono ricevere "
+"donazioni/patrocini, come Flattr o PayPal.me."
 
 #. name:video channel
 #: DB:link_type/description:805
@@ -4725,9 +4732,8 @@ msgstr ""
 "Indica la pagina di <a href=\"//viaf.org/\">VIAF</a> su questo posto. VIAF è "
 "un progetto internazionale che mette a disposizione delle biblioteche di "
 "tutto il mondo un database di voci di autorità comuni. Una voce di autorità "
-"è simile a un MBID per biblioteche (<a href="
-"\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">più "
-"informazioni su Wikipedia</a>)."
+"è simile a un MBID per biblioteche (<a href=\"//en.wikipedia.org/wiki/"
+"Virtual_International_Authority_File\">più informazioni su Wikipedia</a>)."
 
 #. name:VIAF
 #: DB:link_type/description:1001
@@ -5177,8 +5183,8 @@ msgid ""
 "This relationship type can be used to link a place (generally a studio or "
 "venue) to the person(s) who founded it."
 msgstr ""
-"Questo tipo di relazione può essere usato per collegare un posto ("
-"solitamente uno studio o un locale) alla persona (o persone) che l'ha "
+"Questo tipo di relazione può essere usato per collegare un posto "
+"(solitamente uno studio o un locale) alla persona (o persone) che l'ha "
 "fondato."
 
 #. name:blog
@@ -7885,7 +7891,7 @@ msgstr "detiene il copyright (©) per il video"
 msgid "holds phonographic copyright (℗) for"
 msgstr "detiene i diritti fonografici (℗) per"
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr "presentatore"
 
@@ -7895,7 +7901,14 @@ msgid "host at"
 msgstr "presentatore di"
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "manifesto per"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "presentatori"
 
@@ -8258,6 +8271,13 @@ msgstr ""
 "è {medley:un medley che comprende} una registrazione {acappella:a cappella} "
 "{live:dal vivo} {partial:parziale} {instrumental:strumentale} {cover} "
 "{karaoke} {demo} di"
+
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was a supporting artist for"
+msgid "is/was a host for"
+msgstr "è/è stato un artista di supporto per"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722

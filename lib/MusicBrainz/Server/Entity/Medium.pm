@@ -8,7 +8,8 @@ use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 
 extends 'MusicBrainz::Server::Entity';
-with 'MusicBrainz::Server::Entity::Role::Name',
+with 'MusicBrainz::Server::Entity::Role::GID',
+     'MusicBrainz::Server::Entity::Role::Name',
      'MusicBrainz::Server::Entity::Role::PendingEdits';
 
 sub entity_type { 'medium' }

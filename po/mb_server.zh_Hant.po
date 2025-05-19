@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 21:48+0200\n"
+"POT-Creation-Date: 2025-05-19 10:22-0500\n"
 "PO-Revision-Date: 2025-01-14 18:44+0000\n"
 "Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
@@ -12178,13 +12178,13 @@ msgctxt "header"
 msgid "Remove release"
 msgstr "刪除專輯"
 
-#: ../root/release/DiscIds.js:140
+#: ../root/release/DiscIds.js:138
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr "此專輯未附加任何碟片ID；要了解如何添加，參見 {doc|如何添加碟片ID}。"
 
-#: ../root/release/DiscIds.js:147
+#: ../root/release/DiscIds.js:145
 msgid "This release has no mediums that can have disc IDs."
 msgstr "此專輯沒有可關聯碟片 ID 的媒體。"
 
@@ -15257,7 +15257,7 @@ msgstr "您已選擇 {releasegroup}。"
 msgid "Failed to load the medium."
 msgstr "載入媒體失敗。"
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:205
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
@@ -15265,7 +15265,7 @@ msgstr ""
 "此媒體的音軌數量過多，無法一次載入；目前顯示 {loaded_track_count} 之 "
 "{total_track_count} 總數。"
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:222
 msgid "Load all tracks..."
 msgstr "載入所有音軌..."
 

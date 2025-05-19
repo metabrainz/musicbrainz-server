@@ -204,6 +204,7 @@ DROP TRIGGER IF EXISTS reptg_medium_attribute_type_allowed_value ON medium_attri
 DROP TRIGGER IF EXISTS reptg_medium_attribute_type_allowed_value_allowed_format ON medium_attribute_type_allowed_value_allowed_format;
 DROP TRIGGER IF EXISTS reptg_medium_cdtoc ON medium_cdtoc;
 DROP TRIGGER IF EXISTS reptg_medium_format ON medium_format;
+DROP TRIGGER IF EXISTS reptg_medium_gid_redirect ON medium_gid_redirect;
 DROP TRIGGER IF EXISTS reptg_medium_index ON medium_index;
 DROP TRIGGER IF EXISTS reptg_mood ON mood;
 DROP TRIGGER IF EXISTS reptg_mood_alias ON mood_alias;

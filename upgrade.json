@@ -230,5 +230,24 @@
       "20240223-mbs-13421-fks.sql",
       "20240319-mbs-13514.sql"
     ]
+  },
+  "30": {
+    "all": [
+      "20241017-mbs-9253-13464.sql",
+      "20250408-mbs-13322.sql",
+      "20250425-mbs-13464.sql",
+      "20241125-mbs-13832.sql",
+      "20250320-mbs-13768.sql",
+      "20250408-mbs-13964-all.sql",
+      "20250425-mbs-13966.sql"
+    ],
+    "master_and_standalone": [
+      "20241017-mbs-9253-master_and_standalone.sql",
+      "20250425-mbs-13464-master_and_standalone.sql",
+      "20250320-mbs-13768-fks.sql"
+    ],
+    "mirror_only": [
+      "20241017-mbs-9253-mirror_only.sql"
+    ]
   }
 }

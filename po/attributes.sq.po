@@ -406,6 +406,14 @@ msgid ""
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
 
+#. name:Slipcase
+#: DB:release_packaging/description:122
+msgctxt "release_packaging"
+msgid ""
+"A four- or five-sided box, usually made of cardboard or plastic, that "
+"surrounds a second inner package such as a jewel case."
+msgstr ""
+
 #. name:Promotion
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -7779,6 +7787,11 @@ msgstr ""
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Këllëf i Hollë"
+
+#: DB:release_packaging/name:122
+msgctxt "release_packaging"
+msgid "Slipcase"
+msgstr ""
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

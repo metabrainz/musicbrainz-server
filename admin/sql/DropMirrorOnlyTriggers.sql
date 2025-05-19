@@ -17,6 +17,8 @@ DROP TRIGGER IF EXISTS a_ins_release_group_mirror ON release_group;
 DROP TRIGGER IF EXISTS a_upd_release_group_mirror ON release_group;
 DROP TRIGGER IF EXISTS a_del_release_group_mirror ON release_group;
 DROP TRIGGER IF EXISTS a_upd_release_group_meta_mirror ON release_group_meta;
+DROP TRIGGER IF EXISTS a_upd_release_group_primary_type_mirror ON release_group_primary_type;
+DROP TRIGGER IF EXISTS a_upd_release_group_secondary_type_mirror ON release_group_secondary_type;
 DROP TRIGGER IF EXISTS a_ins_release_group_secondary_type_join_mirror ON release_group_secondary_type_join;
 DROP TRIGGER IF EXISTS a_del_release_group_secondary_type_join_mirror ON release_group_secondary_type_join;
 DROP TRIGGER IF EXISTS a_ins_release_label_mirror ON release_label;
@@ -31,6 +33,8 @@ DROP TRIGGER IF EXISTS apply_artist_release_pending_updates_mirror ON release_co
 DROP TRIGGER IF EXISTS apply_artist_release_pending_updates_mirror ON release_first_release_date;
 DROP TRIGGER IF EXISTS apply_artist_release_group_pending_updates_mirror ON release_group;
 DROP TRIGGER IF EXISTS apply_artist_release_group_pending_updates_mirror ON release_group_meta;
+DROP TRIGGER IF EXISTS apply_artist_release_group_pending_updates_mirror ON release_group_primary_type;
+DROP TRIGGER IF EXISTS apply_artist_release_group_pending_updates_mirror ON release_group_secondary_type;
 DROP TRIGGER IF EXISTS apply_artist_release_group_pending_updates_mirror ON release_group_secondary_type_join;
 DROP TRIGGER IF EXISTS apply_artist_release_pending_updates_mirror ON release_label;
 DROP TRIGGER IF EXISTS apply_artist_release_group_pending_updates_mirror ON track;

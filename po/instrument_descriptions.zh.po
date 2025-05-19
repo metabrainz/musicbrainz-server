@@ -408,19 +408,6 @@ msgstr ""
 "又称dangubica或kuterevka，类似于碧森尼卡琴 bisernica和整个坦布里卡琴乐器组的"
 "前身。这种长颈弹拨鲁特琴具有两根双弦，用于独奏。"
 
-#. name:gopichant
-#: DB:instrument/description:643
-msgid ""
-"Also known as ektara, it has a body of wood or coconut with a membrane at "
-"the bottom. Attached to the sides is a handle-like neck of split bamboo from "
-"which a single string is suspended and attached to the membrane. <br /> For "
-"the one string lute also called \"ektar\" see <a href=\"/instrument/b0edfd1a-"
-"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
-msgstr ""
-"又叫埃克塔拉，具有椰子制成且底部带有膜的琴身。边缘具有用剖开的制作的琴颈，琴"
-"弦由琴颈延伸并与膜接触。<br />对于同样称为\"埃克塔\"的独弦鲁特琴，参见<a "
-"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">通比琴</a>。"
-
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -1691,6 +1678,18 @@ msgstr ""
 "称为“fliscorno”的乐器，请参见<a href=\"/instrument/fd016966-658e-40db-8fe1-"
 "f2235fe1e9a3\">“弗吕格尔号”（Flugelhorn）</a>。<br /><br />起源于德语系的波尔"
 "卡乐队，如今在Catalan cobla也有使用。"
+
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"For the one stringed lute also called ektar/ektara, see <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> For the "
+"similar looking instrument with only one spoke, see tun tuna.<br /> Not to "
+"be confused with the ekatantri veena, an ancient Indian monochord.<br /> It "
+"has a small, round or trapeze shaped body of wood or coconut with a membrane "
+"at the bottom. Attached to the sides is a neck of split bamboo from which a "
+"single string is suspended and attached to the membrane."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -6917,6 +6916,17 @@ msgstr "越南苗族笛(苗族长笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑶笛，章卢笛的低音版"
+
+#~ msgid ""
+#~ "Also known as ektara, it has a body of wood or coconut with a membrane at "
+#~ "the bottom. Attached to the sides is a handle-like neck of split bamboo "
+#~ "from which a single string is suspended and attached to the membrane. "
+#~ "<br /> For the one string lute also called \"ektar\" see <a href=\"/"
+#~ "instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
+#~ msgstr ""
+#~ "又叫埃克塔拉，具有椰子制成且底部带有膜的琴身。边缘具有用剖开的制作的琴颈，"
+#~ "琴弦由琴颈延伸并与膜接触。<br />对于同样称为\"埃克塔\"的独弦鲁特琴，参见"
+#~ "<a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">通比琴</a>。"
 
 #, fuzzy
 #~| msgid "Crumhorn used in the 14th to 17th centuries in Europe"

@@ -429,15 +429,7 @@ CREATE TABLE artist_release (
     catalog_numbers                     TEXT[],
     country_code                        CHAR(2),
     barcode                             BIGINT,
-    -- Prior to adding these materialized tables, we'd order releases
-    -- by name only if all other attributes where equal. It's not too
-    -- common that an artist will have tons of releases with no dates,
-    -- catalog numbers, countries, or barcodes (though it can be seen
-    -- on some big composers). As a compromise between dropping the
-    -- name sorting and having to store the entire name here (which,
-    -- as a reminder, is duplicated for every artist on the release),
-    -- we only store the first character of the name for sorting.
-    sort_character                      CHAR(1) COLLATE musicbrainz NOT NULL,
+    name                                VARCHAR COLLATE musicbrainz NOT NULL,
     release                             INTEGER NOT NULL -- references release.id, CASCADE
 ) PARTITION BY LIST (is_track_artist);
 
@@ -466,11 +458,12 @@ CREATE TABLE artist_release_group (
     is_track_artist                     BOOLEAN NOT NULL,
     artist                              INTEGER NOT NULL, -- references artist.id, CASCADE
     unofficial                          BOOLEAN NOT NULL,
+    primary_type_child_order            SMALLINT,
     primary_type                        SMALLINT,
+    secondary_type_child_orders         SMALLINT[],
     secondary_types                     SMALLINT[],
     first_release_date                  INTEGER,
-    -- See comment for `artist_release.sort_character`.
-    sort_character                      CHAR(1) COLLATE musicbrainz NOT NULL,
+    name                                VARCHAR COLLATE musicbrainz NOT NULL,
     release_group                       INTEGER NOT NULL -- references release_group.id, CASCADE
 ) PARTITION BY LIST (is_track_artist);
 
@@ -2907,7 +2900,8 @@ CREATE TABLE medium ( -- replicate (verbose)
     name                VARCHAR NOT NULL DEFAULT '',
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     last_updated        TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
-    track_count         INTEGER NOT NULL DEFAULT 0
+    track_count         INTEGER NOT NULL DEFAULT 0,
+    gid                 UUID NOT NULL
 );
 
 CREATE TABLE medium_attribute_type ( -- replicate (verbose)
@@ -2971,6 +2965,12 @@ CREATE TABLE medium_format ( -- replicate
     has_discids         BOOLEAN NOT NULL DEFAULT FALSE,
     description         TEXT,
     gid                 uuid NOT NULL
+);
+
+CREATE TABLE medium_gid_redirect ( -- replicate (verbose)
+    gid                 UUID NOT NULL, -- PK
+    new_id              INTEGER NOT NULL, -- references medium.id
+    created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
 CREATE TABLE mood ( -- replicate (verbose)

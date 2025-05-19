@@ -879,6 +879,13 @@ msgid "Links a competition event to an artist that was a participant in it."
 msgstr ""
 "Dit koppelt een competitie-evenement aan een artiest die daaraan deelnam."
 
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
+
 #. name:arranged in
 #: DB:link_type/description:864
 msgid ""
@@ -7806,7 +7813,7 @@ msgstr "bezit het auteursrecht (©) op de video"
 msgid "holds phonographic copyright (℗) for"
 msgstr "bezit het fonografisch auteursrecht (℗) op"
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr "host"
 
@@ -7816,7 +7823,14 @@ msgid "host at"
 msgstr "host van"
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "affiche van"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "hosts"
 
@@ -8183,6 +8197,13 @@ msgid ""
 msgstr ""
 "is een {live:live-}{medley:medley met een }{partial:gedeeltelijke }"
 "{instrumental:instrumentale }{cover:cover}{karaoke:karaoke}opname van"
+
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was a supporting artist for"
+msgid "is/was a host for"
+msgstr "is/was een ondersteunende artiest voor"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722

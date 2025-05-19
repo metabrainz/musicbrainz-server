@@ -32,9 +32,9 @@ INSERT INTO musicbrainz.artist_credit_name (artist_credit, position, artist, nam
 	(2060761, 0, 197, 'U2', ' and '),
 	(2060761, 1, 2107, 'Leonard Cohen', '');
 INSERT INTO musicbrainz.release_group (id, gid, name, artist_credit, type, comment, edits_pending, last_updated) VALUES
-	(1, 'd78c749c-432d-4fc9-b945-ab9b390ffe15', 'A', 60, NULL, '', 0, '2021-04-19 16:17:32.986082+00');
+	(1, 'd78c749c-432d-4fc9-b945-ab9b390ffe15', 'AAA', 60, NULL, '', 0, '2021-04-19 16:17:32.986082+00');
 INSERT INTO musicbrainz.release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, edits_pending, quality, last_updated) VALUES
-	(1, 'db1eeec5-7ffb-4bcc-8fbd-ea7ec0992a2d', 'A', 60, 1, NULL, NULL, NULL, NULL, NULL, '', 0, -1, '2021-04-19 16:17:32.986082+00');
+	(1, 'db1eeec5-7ffb-4bcc-8fbd-ea7ec0992a2d', 'AAA', 60, 1, NULL, NULL, NULL, NULL, NULL, '', 0, -1, '2021-04-19 16:17:32.986082+00');
 INSERT INTO musicbrainz.label (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, label_code, type, area, comment, edits_pending, last_updated, ended) VALUES
 	(95, '49b58bdb-3d74-40c6-956a-4c4b46115c9c', 'Virgin', 1973, NULL, NULL, NULL, NULL, NULL, 3098, 9, 240, 'worldwide imprint of Virgin Records Ltd. and all its subsidiaries', 0, '2021-02-07 06:00:18.894369+00', '0'),
 	(235, '011d1192-6f65-45bd-85c4-0400dd45693e', 'Columbia', 1887, NULL, NULL, NULL, NULL, NULL, 162, 9, 222, 'imprint owned by CBS between 1938–1990 within US/CA/MX; owned worldwide by Sony Music Entertainment since 1991 except in JP', 0, '2020-10-27 04:00:23.905538+00', '0');

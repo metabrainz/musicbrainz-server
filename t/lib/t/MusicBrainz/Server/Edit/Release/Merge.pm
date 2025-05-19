@@ -244,6 +244,16 @@ test 'Old medium and tracks are removed during merge' => sub {
     my $medium = $c->model('Medium')->get_by_id(3);
     is($medium, undef, 'Old medium no longer exists');
 
+    my %gid_redirects = map {
+        $_->{gid} => $_->{new_id}
+    } @{ $c->sql->select_list_of_hashes('SELECT * FROM medium_gid_redirect') };
+
+    is(
+        $gid_redirects{'253e4677-52f7-4129-8dfe-3dcd91b32d03'},
+        2,
+       'The MBID of the old medium redirects to the merged-into medium',
+    );
+
     my $track_by_mbid = $c->model('Track')->get_by_gid('929e5fb9-cfe7-4764-b3f6-80e056f0c1da');
     isnt($track_by_mbid, undef, 'track by old MBID still fetches something');
     is($track_by_mbid->gid, 'd6de1f70-4a29-4cce-a35b-aa2b56265583', 'Track mbid was redirected');

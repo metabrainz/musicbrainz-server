@@ -454,6 +454,9 @@ CREATE TRIGGER b_upd_link_type BEFORE UPDATE ON link_type
 CREATE TRIGGER b_upd_link_type_attribute_type BEFORE UPDATE ON link_type_attribute_type
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
+CREATE TRIGGER a_upd_medium AFTER UPDATE ON medium
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_medium_mirror();
+
 CREATE TRIGGER b_upd_medium BEFORE UPDATE ON medium
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
 
@@ -579,6 +582,12 @@ CREATE TRIGGER a_del_release_group AFTER DELETE ON release_group
 
 CREATE TRIGGER b_upd_release_group BEFORE UPDATE ON release_group
     FOR EACH ROW EXECUTE PROCEDURE b_upd_last_updated_table();
+
+CREATE TRIGGER a_upd_release_group_primary_type AFTER UPDATE ON release_group_primary_type
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_group_primary_type_mirror();
+
+CREATE TRIGGER a_upd_release_group_secondary_type AFTER UPDATE ON release_group_secondary_type
+    FOR EACH ROW EXECUTE PROCEDURE a_upd_release_group_secondary_type_mirror();
 
 CREATE TRIGGER a_ins_release_group_secondary_type_join AFTER INSERT ON release_group_secondary_type_join
     FOR EACH ROW EXECUTE PROCEDURE a_ins_release_group_secondary_type_join();
@@ -1298,6 +1307,18 @@ CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
 CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
     AFTER UPDATE ON release_group_meta DEFERRABLE INITIALLY DEFERRED
     FOR EACH ROW EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER UPDATE ON release_group_primary_type DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW
+    WHEN (OLD.child_order IS DISTINCT FROM NEW.child_order)
+    EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
+
+CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
+    AFTER UPDATE ON release_group_secondary_type DEFERRABLE INITIALLY DEFERRED
+    FOR EACH ROW
+    WHEN (OLD.child_order IS DISTINCT FROM NEW.child_order)
+    EXECUTE PROCEDURE apply_artist_release_group_pending_updates();
 
 CREATE CONSTRAINT TRIGGER apply_artist_release_group_pending_updates
     AFTER INSERT OR DELETE ON release_group_secondary_type_join DEFERRABLE INITIALLY DEFERRED

@@ -62,8 +62,8 @@ INSERT INTO musicbrainz.release_group (id, gid, name, artist_credit, type, comme
 	(3329712, '6316b4db-0cdb-448d-87b5-46f31ef9fce3', 'Artist Country Test', 2090169, NULL, '', 0, '2025-03-12 05:41:35.594109+00');
 INSERT INTO musicbrainz.release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, edits_pending, quality, last_updated) VALUES
 	(3909966, '2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a', 'Artist Country Test', 3632617, 3329712, NULL, NULL, NULL, NULL, NULL, '', 0, -1, '2025-03-12 05:43:13.979331+00');
-INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-	(4258279, 3909966, 1, 1, '', 0, '2025-03-12 05:41:22.618893+00', 1);
+INSERT INTO musicbrainz.medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+	(4258279, '613fb5fc-7581-409e-9676-9b926aa8ad12', 3909966, 1, 1, '', 0, '2025-03-12 05:41:22.618893+00', 1);
 INSERT INTO musicbrainz.recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
 	(35149182, '831c6058-f19a-4a7a-9723-cd02daf8f3a5', 'A', 3632618, NULL, '', 0, '2025-03-12 05:43:37.632726+00', '0');
 INSERT INTO musicbrainz.track (id, gid, recording, medium, position, number, name, artist_credit, length, edits_pending, last_updated, is_data_track) VALUES
