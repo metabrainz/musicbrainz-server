@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.11.1\n"
 
 #. name:rebab
@@ -469,21 +469,6 @@ msgstr ""
 "Conosciuta anche come dangubica o kuterevka, è simile alla bisernica ed è "
 "l'antenata dell'intera ensemble di tamburitza. Questo liuto a pizzico a "
 "manico lungo ha due corde doppie ed è suonato da solista."
-
-#. name:gopichant
-#: DB:instrument/description:643
-msgid ""
-"Also known as ektara, it has a body of wood or coconut with a membrane at "
-"the bottom. Attached to the sides is a handle-like neck of split bamboo from "
-"which a single string is suspended and attached to the membrane. <br /> For "
-"the one string lute also called \"ektar\" see <a href=\"/instrument/b0edfd1a-"
-"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
-msgstr ""
-"Conosciuto anche come ektara, ha una cassa in legno o in cocco con una "
-"membrana sul fondo. Fissato ai lati della cassa ha un manico in sezione di "
-"bambù, su cui è sospesa una sola corda, attaccata alla membrana. <br /> Per "
-"il liuto a una corda chiamato anche \"ektar\", vedi <a href=\"/instrument/"
-"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -1935,6 +1920,18 @@ msgstr ""
 "fd016966-658e-40db-8fe1-f2235fe1e9a3\">flicorno soprano</a>.<br /><br /> "
 "Ebbe origine nelle bande di polka germaniche e oggi è usato nella cobla "
 "catalana."
+
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"For the one stringed lute also called ektar/ektara, see <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> For the "
+"similar looking instrument with only one spoke, see tun tuna.<br /> Not to "
+"be confused with the ekatantri veena, an ancient Indian monochord.<br /> It "
+"has a small, round or trapeze shaped body of wood or coconut with a membrane "
+"at the bottom. Attached to the sides is a neck of split bamboo from which a "
+"single string is suspended and attached to the membrane."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -7783,6 +7780,19 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid ""
+#~ "Also known as ektara, it has a body of wood or coconut with a membrane at "
+#~ "the bottom. Attached to the sides is a handle-like neck of split bamboo "
+#~ "from which a single string is suspended and attached to the membrane. "
+#~ "<br /> For the one string lute also called \"ektar\" see <a href=\"/"
+#~ "instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
+#~ msgstr ""
+#~ "Conosciuto anche come ektara, ha una cassa in legno o in cocco con una "
+#~ "membrana sul fondo. Fissato ai lati della cassa ha un manico in sezione "
+#~ "di bambù, su cui è sospesa una sola corda, attaccata alla membrana. <br /"
+#~ "> Per il liuto a una corda chiamato anche \"ektar\", vedi <a href=\"/"
+#~ "instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
 
 #~ msgid "Crumhorn used in the 14th to 17th centuries in Europe."
 #~ msgstr "Usato dal XIV al XVII secolo in Europa."

@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-02 21:48+0200\n"
+"POT-Creation-Date: 2025-05-19 10:22-0500\n"
 "PO-Revision-Date: 2025-05-04 15:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
@@ -44,8 +44,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.11.3\n"
 
 #: ../root/components/common-macros.tt:11
@@ -3007,7 +3007,8 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:460
 msgid "The {doc|country} describes where the release was made available."
-msgstr "Il {doc|Paese} descrive dove la pubblicazione è stata resa disponibile."
+msgstr ""
+"Il {doc|Paese} descrive dove la pubblicazione è stata resa disponibile."
 
 #: ../root/release/edit/information.tt:430
 msgid ""
@@ -12879,7 +12880,7 @@ msgctxt "header"
 msgid "Remove release"
 msgstr "Rimuovi pubblicazione"
 
-#: ../root/release/DiscIds.js:140
+#: ../root/release/DiscIds.js:138
 msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
@@ -12888,7 +12889,7 @@ msgstr ""
 "informazioni su come aggiungerne uno, consulta {doc|Come aggiungere ID "
 "disco}."
 
-#: ../root/release/DiscIds.js:147
+#: ../root/release/DiscIds.js:145
 msgid "This release has no mediums that can have disc IDs."
 msgstr ""
 "Questa pubblicazione non ha supporti che possono possedere un ID disco."
@@ -16278,7 +16279,7 @@ msgstr "Hai selezionato {releasegroup}."
 msgid "Failed to load the medium."
 msgstr "Non è stato possibile caricare il supporto."
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:209
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:205
 msgid ""
 "This medium has too many tracks to load at once; currently showing "
 "{loaded_track_count} out of {total_track_count} total."
@@ -16286,7 +16287,7 @@ msgstr ""
 "Questo supporto ha troppe tracce per caricarle tutte insieme; al momento "
 "sono visualizzate {loaded_track_count} tracce su {total_track_count} totali."
 
-#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:226
+#: ../root/static/scripts/common/hooks/usePagedMediumTable.js:222
 msgid "Load all tracks..."
 msgstr "Carica tutte le tracce..."
 
@@ -18387,8 +18388,8 @@ msgstr "Editor di luoghi"
 #: ../root/user/PrivilegedUsers.js:85
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
-"Gli editor di luoghi sono utenti che possono aggiungere o modificare "
-"{uri|aree}."
+"Gli editor di luoghi sono utenti che possono aggiungere o modificare {uri|"
+"aree}."
 
 #: ../root/user/PrivilegedUsers.js:91
 msgid "The following {count} users are location editors:"

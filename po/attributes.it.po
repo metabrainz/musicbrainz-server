@@ -25,8 +25,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.11.3\n"
 
 #. name:Motet
@@ -510,6 +510,14 @@ msgid ""
 msgstr ""
 "Un documento, fisico o digitale, usato in genere per ottenere l'ingresso a "
 "un evento. Da usare anche per le matrici di biglietti e i pass."
+
+#. name:Slipcase
+#: DB:release_packaging/description:122
+msgctxt "release_packaging"
+msgid ""
+"A four- or five-sided box, usually made of cardboard or plastic, that "
+"surrounds a second inner package such as a jewel case."
+msgstr ""
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -7942,6 +7950,11 @@ msgstr "Slidepack"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Slim jewel case"
+
+#: DB:release_packaging/name:122
+msgctxt "release_packaging"
+msgid "Slipcase"
+msgstr ""
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
