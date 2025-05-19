@@ -21,21 +21,21 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # ChurruKa <churruka@hangar18.cc>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# Joax <joan_acosta_1994@hotmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-10-25 18:42+0000\n"
-"Last-Translator: reosarevok "
-"<reosarevok@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-05-12 00:20+0000\n"
+"Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -808,6 +808,9 @@ msgid ""
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
 msgstr ""
+"Indica la persona que adaptó esta obra (generalmente de un medio diferente, "
+"como una obra en prosa a un drama de audio o un musical de teatro a un "
+"musical cinematográfico)."
 
 #. name:translator
 #: DB:link_type/description:871
@@ -828,6 +831,8 @@ msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
 msgstr ""
+"Indica a la persona que escribió un guión original para una obra "
+"dramatizada, como un audiodrama."
 
 #. name:premiere
 #: DB:link_type/description:716

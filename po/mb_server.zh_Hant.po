@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-29 20:50+0200\n"
+"POT-Creation-Date: 2025-05-02 21:48+0200\n"
 "PO-Revision-Date: 2025-01-14 18:44+0000\n"
 "Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
@@ -81,7 +81,7 @@ msgstr "(無其他圖片)"
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
@@ -411,12 +411,12 @@ msgstr "主要類型"
 #: ../root/edit/details/historic/ChangeReleaseArtist.js:22
 #: ../root/edit/details/historic/EditTrack.js:31
 #: ../root/edit/details/historic/MoveRelease.js:27
-#: ../root/edit/details/historic/RemoveRelease.js:22 ../root/isrc/Index.js:64
+#: ../root/edit/details/historic/RemoveRelease.js:22 ../root/isrc/Index.js:65
 #: ../root/layout/components/Search.js:24
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:58
-#: ../root/release_group/ReleaseGroupIndex.js:166
-#: ../root/report/DuplicateArtists.js:67
+#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/report/DuplicateArtists.js:68
 #: ../root/report/DuplicateReleaseGroups.js:58
 #: ../root/report/EmptyReleaseGroups.js:59
 #: ../root/report/IsrcsWithManyRecordings.js:59
@@ -503,7 +503,7 @@ msgstr "自動確認編輯者"
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:130
 #: ../root/otherlookup/OtherLookupForm.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:172
+#: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
@@ -633,7 +633,7 @@ msgstr "Cat. No:"
 #: ../root/release_group/set_cover_art.tt:57
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
-#: ../root/release_group/ReleaseGroupIndex.js:171
+#: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
 #: ../root/utility/tableColumns.js:498 ../root/utility/tableColumns.js:503
@@ -721,7 +721,7 @@ msgstr "將發行名複製到發行組"
 #: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:293
@@ -767,7 +767,7 @@ msgstr "資料音軌"
 #: ../root/elections/ElectionVotes.js:24
 #: ../root/layout/components/sidebar/EventSidebar.js:103
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/EventResults.js:83
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
@@ -1114,7 +1114,7 @@ msgstr "過期操作"
 msgid "External links"
 msgstr "外部連結"
 
-#: ../root/artist/edit_form.tt:206
+#: ../root/artist/edit_form.tt:210
 msgid ""
 "External links are URLs associated with the artist. These can include the "
 "artist’s official homepage and social networking pages, streaming services, "
@@ -1220,7 +1220,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:122
 #: ../root/edit/details/historic/EditReleaseEvents.js:111
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:139
-#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/components/CDTocList.js:44
 #: ../root/search/components/ReleaseResults.js:120
 msgid "Format"
@@ -1639,7 +1639,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/label/LabelHeader.js:18 ../root/layout/components/Search.js:37
 #: ../root/recording/RecordingIndex.js:51
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/report/ReleaseLabelSameArtist.js:24
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelUrlList.js:30
@@ -1677,7 +1677,7 @@ msgstr "廠牌區域"
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
 #: ../root/edit/details/EditRelease.js:109
-#: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:62
+#: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:63
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:193
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
@@ -1702,7 +1702,7 @@ msgstr "上一次收到副本封包是在 {datetime}"
 #: ../root/edit/details/EditRecording.js:57
 #: ../root/edit/details/EditRecording.js:65
 #: ../root/edit/details/historic/AddRelease.js:87
-#: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:65
+#: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:66
 #: ../root/layout/components/sidebar/RecordingSidebar.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:148
 #: ../root/recording/RecordingIndex.js:45 ../root/release/DiscIds.js:97
@@ -2032,7 +2032,7 @@ msgstr "相關類型"
 msgid "Please choose a condition"
 msgstr "請選擇一個條件"
 
-#: ../root/artist/edit_form.tt:211 ../root/label/edit_form.tt:119
+#: ../root/artist/edit_form.tt:215 ../root/label/edit_form.tt:119
 #: ../root/place/edit_form.tt:115 ../root/release_group/edit_form.tt:91
 msgid ""
 "Please don’t add a Wikipedia page if a Wikidata item linking to the same "
@@ -2072,8 +2072,8 @@ msgid ""
 msgstr "如需更多資訊，請查看 {doc_doc|文件} 和 {doc_styleguide|風格指南}。"
 
 #: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
-#: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:178
-#: ../root/artist/edit_form.tt:198 ../root/components/forms.tt:250
+#: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:180
+#: ../root/artist/edit_form.tt:202 ../root/components/forms.tt:250
 #: ../root/place/edit_form.tt:59 ../root/recording/edit_form.tt:75
 #: ../root/release/edit/information.tt:323
 #: ../root/release/edit/information.tt:355
@@ -2148,15 +2148,15 @@ msgid "Recording “{name}” by {artist}"
 msgstr "{artist}的錄音“{name}”"
 
 #: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:20
-#: ../root/artist/ArtistRecordings.js:120
-#: ../root/artist/ArtistRecordings.js:122
+#: ../root/artist/ArtistRecordings.js:121
+#: ../root/artist/ArtistRecordings.js:123
 #: ../root/artist_credit/ArtistCreditIndex.js:145
 #: ../root/artist_credit/ArtistCreditLayout.js:21
 #: ../root/components/EntityTabs.js:32
 #: ../root/components/TagEntitiesList.js:184
 #: ../root/edit/details/EditMedium.js:479
-#: ../root/instrument/InstrumentRecordings.js:32
-#: ../root/instrument/InstrumentRecordings.js:34
+#: ../root/instrument/InstrumentRecordings.js:33
+#: ../root/instrument/InstrumentRecordings.js:35
 #: ../root/report/ReportsIndex.js:493
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:20 ../root/work/WorkIndex.js:47
@@ -2202,7 +2202,7 @@ msgstr "關聯類型"
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
 #: ../root/layout/components/Search.js:29
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:166
 #: ../root/report/components/CDTocReleaseList.js:45
 #: ../root/report/components/ReleaseList.js:44
 #: ../root/report/components/ReleaseUrlList.js:32
@@ -2565,7 +2565,7 @@ msgstr "您輸入的文字過長！請縮短它，必要時可以將完整文字
 #: ../root/edit/details/EditAlias.js:87 ../root/edit/details/EditArea.js:55
 #: ../root/edit/details/EditArtist.js:68 ../root/edit/details/EditLabel.js:53
 #: ../root/layout/components/sidebar/ArtistSidebar.js:89
-#: ../root/report/DuplicateArtists.js:68
+#: ../root/report/DuplicateArtists.js:69
 #: ../root/search/components/ArtistResults.js:53
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:123
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:67
@@ -2611,7 +2611,7 @@ msgstr "交換創作者名單與音軌標題"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21 ../root/cdtoc/list.tt:15
 #: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:175
+#: ../root/release_group/ReleaseGroupIndex.js:176
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/search/components/ReleaseResults.js:131
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
@@ -2627,22 +2627,22 @@ msgid ""
 "is unlikely to work at the moment."
 msgstr "Internet Archive 目前遇到了問題。現在可能無法添加圖片。"
 
-#: ../root/artist/edit_form.tt:185
+#: ../root/artist/edit_form.tt:188
 msgid "The begin and end areas describe where the artist was born and died."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:195
+#: ../root/artist/edit_form.tt:198
 msgid ""
 "The begin and end areas describe where the artist was when it started and "
 "stopped existing."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:188
+#: ../root/artist/edit_form.tt:191
 msgid ""
 "The begin and end areas describe where the group was formed and dissolved."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:191
+#: ../root/artist/edit_form.tt:194
 msgid ""
 "The begin area is the real-life area where the character concept was "
 "created. The end area should not be set."
@@ -2819,18 +2819,18 @@ msgid ""
 "existed or was active."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:174
+#: ../root/artist/edit_form.tt:175
 msgid ""
 "The {doc|begin and end dates} describe when the artist started and stopped "
 "existing."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:161
+#: ../root/artist/edit_form.tt:162
 msgid ""
 "The {doc|begin and end dates} describe when the artist was born and died."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:165
+#: ../root/artist/edit_form.tt:166
 msgid ""
 "The {doc|begin and end dates} describe when the group was formed and "
 "dissolved."
@@ -2842,7 +2842,7 @@ msgid ""
 "it shut down."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:169
+#: ../root/artist/edit_form.tt:170
 msgid ""
 "The {doc|begin date} is the real-life date when the character concept was "
 "created. The end date should not be set."
@@ -3312,8 +3312,8 @@ msgstr "此音軌隱藏在前置間隙中。"
 #: ../root/components/RelationshipsTable.js:320
 #: ../root/components/list/ReleaseGroupList.js:72
 #: ../root/edit/details/EditMedium.js:278
-#: ../root/edit/details/EditMedium.js:282 ../root/isrc/Index.js:63
-#: ../root/iswc/Index.js:57 ../root/recording/RecordingIndex.js:44
+#: ../root/edit/details/EditMedium.js:282 ../root/isrc/Index.js:64
+#: ../root/iswc/Index.js:58 ../root/recording/RecordingIndex.js:44
 #: ../root/static/scripts/release/components/MediumTable.js:73
 msgid "Title"
 msgstr "標題"
@@ -3364,7 +3364,7 @@ msgstr "音軌列表"
 #: ../root/components/list/ReleaseList.js:95
 #: ../root/edit/details/MergeReleases.js:229
 #: ../root/edit/details/historic/AddRelease.js:79 ../root/release/DiscIds.js:96
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/CDStubResults.js:47
 #: ../root/search/components/ReleaseResults.js:121
 msgid "Tracks"
@@ -3411,12 +3411,12 @@ msgstr "土耳其語"
 #: ../root/edit/details/EditLabel.js:69 ../root/edit/details/EditPlace.js:55
 #: ../root/edit/details/EditReleaseGroup.js:55
 #: ../root/edit/details/EditSeries.js:51
-#: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:61
+#: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:62
 #: ../root/layout/components/sidebar/CollectionSidebar.js:54
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:63
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:161
 #: ../root/layout/components/sidebar/SidebarType.js:32
-#: ../root/report/DuplicateArtists.js:69
+#: ../root/report/DuplicateArtists.js:70
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/EmptyReleaseGroups.js:61
 #: ../root/report/IswcsWithManyWorks.js:53
@@ -4374,20 +4374,20 @@ msgstr "“{id}” 不是有效的行 ID；該實體可能已被合併或移除�
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:375
+#: ../root/static/scripts/common/constants.js:377
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:376
-#: ../root/static/scripts/common/constants.js:377
+#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:379
 msgid "Normal"
 msgstr "一般"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:380
 msgid "High"
 msgstr "高"
 
@@ -6206,22 +6206,22 @@ msgid "A fluency level is required."
 msgstr "流利程度為必填項。"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:386
+#: ../root/static/scripts/common/constants.js:388
 msgid "Basic"
 msgstr "基礎"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:387
+#: ../root/static/scripts/common/constants.js:389
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:385
+#: ../root/static/scripts/common/constants.js:387
 msgid "Advanced"
 msgstr "進階"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:388
+#: ../root/static/scripts/common/constants.js:390
 msgid "Native"
 msgstr "母語"
 
@@ -7039,12 +7039,12 @@ msgstr ""
 "例如：如果您想要在注釋內使用 [未知] ，您必須輸入「<code>&amp;#91;未知"
 "&amp;#93;</code>」，這樣才能按照您的意願顯示。"
 
-#: ../root/area/AreaArtists.js:28 ../root/area/AreaArtists.js:29
+#: ../root/area/AreaArtists.js:29 ../root/area/AreaArtists.js:30
 #: ../root/components/EntityTabs.js:25
 #: ../root/components/TagEntitiesList.js:156
 #: ../root/components/list/EventList.js:74
-#: ../root/instrument/InstrumentArtists.js:32
-#: ../root/instrument/InstrumentArtists.js:34 ../root/report/ReportsIndex.js:48
+#: ../root/instrument/InstrumentArtists.js:33
+#: ../root/instrument/InstrumentArtists.js:35 ../root/report/ReportsIndex.js:48
 #: ../root/report/components/EventList.js:62
 #: ../root/search/components/EventResults.js:86
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
@@ -7055,31 +7055,31 @@ msgstr ""
 msgid "Artists"
 msgstr "創作者"
 
-#: ../root/area/AreaArtists.js:47 ../root/instrument/InstrumentArtists.js:53
-#: ../root/report/DuplicateArtists.js:128
+#: ../root/area/AreaArtists.js:48 ../root/instrument/InstrumentArtists.js:54
+#: ../root/report/DuplicateArtists.js:129
 msgid "Add selected artists for merging"
 msgstr "添加選中的創作者至合併操作"
 
-#: ../root/area/AreaArtists.js:58
+#: ../root/area/AreaArtists.js:59
 msgid "This area is not currently associated with any artists."
 msgstr "此地區目前沒有關聯任何創作者。"
 
-#: ../root/area/AreaEvents.js:28 ../root/area/AreaEvents.js:29
-#: ../root/artist/ArtistEvents.js:34 ../root/artist/ArtistEvents.js:35
+#: ../root/area/AreaEvents.js:29 ../root/area/AreaEvents.js:30
+#: ../root/artist/ArtistEvents.js:35 ../root/artist/ArtistEvents.js:36
 #: ../root/components/EntityTabs.js:26
-#: ../root/components/TagEntitiesList.js:160 ../root/place/PlaceEvents.js:28
-#: ../root/place/PlaceEvents.js:29 ../root/report/ReportsIndex.js:131
+#: ../root/components/TagEntitiesList.js:160 ../root/place/PlaceEvents.js:29
+#: ../root/place/PlaceEvents.js:30 ../root/report/ReportsIndex.js:131
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
 #: ../root/tag/TagLayout.js:27
 msgid "Events"
 msgstr "活動"
 
-#: ../root/area/AreaEvents.js:49 ../root/artist/ArtistEvents.js:61
-#: ../root/place/PlaceEvents.js:48
+#: ../root/area/AreaEvents.js:50 ../root/artist/ArtistEvents.js:62
+#: ../root/place/PlaceEvents.js:49
 msgid "Add selected events for merging"
 msgstr "添加選中的事件至合併操作"
 
-#: ../root/area/AreaEvents.js:60
+#: ../root/area/AreaEvents.js:61
 msgid "This area is not currently associated with any events."
 msgstr "此地區目前沒有關聯任何事件。"
 
@@ -7087,7 +7087,7 @@ msgstr "此地區目前沒有關聯任何事件。"
 msgid "{area_type} in {parent_areas}"
 msgstr "{parent_areas} 的 {area_type}"
 
-#: ../root/area/AreaLabels.js:28 ../root/area/AreaLabels.js:29
+#: ../root/area/AreaLabels.js:29 ../root/area/AreaLabels.js:30
 #: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:168
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:223
@@ -7098,15 +7098,15 @@ msgstr "{parent_areas} 的 {area_type}"
 msgid "Labels"
 msgstr "廠牌"
 
-#: ../root/area/AreaLabels.js:46
+#: ../root/area/AreaLabels.js:47
 msgid "Add selected labels for merging"
 msgstr "合併選中的廠牌"
 
-#: ../root/area/AreaLabels.js:57
+#: ../root/area/AreaLabels.js:58
 msgid "This area is not currently associated with any labels."
 msgstr "此區域目前沒有關聯任何廠牌。"
 
-#: ../root/area/AreaPlaces.js:31 ../root/area/AreaPlaces.js:32
+#: ../root/area/AreaPlaces.js:32 ../root/area/AreaPlaces.js:33
 #: ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:172 ../root/report/ReportsIndex.js:571
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
@@ -7114,17 +7114,17 @@ msgstr "此區域目前沒有關聯任何廠牌。"
 msgid "Places"
 msgstr "地點"
 
-#: ../root/area/AreaPlaces.js:44 ../root/place/PlaceMap.js:36
+#: ../root/area/AreaPlaces.js:45 ../root/place/PlaceMap.js:36
 msgid ""
 "A map cannot be shown because no maps service access token has been set for "
 "this server."
 msgstr "無法顯示地圖，因為此伺服器尚未設定地圖服務訪問令牌。"
 
-#: ../root/area/AreaPlaces.js:63
+#: ../root/area/AreaPlaces.js:64
 msgid "Add selected places for merging"
 msgstr "合併選中的地點"
 
-#: ../root/area/AreaPlaces.js:75
+#: ../root/area/AreaPlaces.js:76
 msgid "This area is not currently associated with any places."
 msgstr "此地區目前沒有關聯任何地點。"
 
@@ -7132,7 +7132,7 @@ msgstr "此地區目前沒有關聯任何地點。"
 msgid "This area has no relationships to any recordings."
 msgstr "此地區沒有與任何錄音的關聯。"
 
-#: ../root/area/AreaRecordings.js:26 ../root/area/AreaReleases.js:67
+#: ../root/area/AreaRecordings.js:26 ../root/area/AreaReleases.js:68
 #: ../root/area/AreaWorks.js:26 ../root/artist/ArtistRelationships.js:25
 #: ../root/components/EntityTabs.js:92
 #: ../root/edit/details/historic/AddRelationship.js:17
@@ -7144,8 +7144,8 @@ msgstr "此地區沒有與任何錄音的關聯。"
 msgid "Relationships"
 msgstr "關聯"
 
-#: ../root/area/AreaReleases.js:30 ../root/area/AreaReleases.js:33
-#: ../root/artist/ArtistReleases.js:36 ../root/artist/ArtistReleases.js:37
+#: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:34
+#: ../root/artist/ArtistReleases.js:37 ../root/artist/ArtistReleases.js:38
 #: ../root/artist_credit/ArtistCreditIndex.js:134
 #: ../root/artist_credit/ArtistCreditLayout.js:20
 #: ../root/components/EntityTabs.js:33
@@ -7155,25 +7155,25 @@ msgstr "關聯"
 #: ../root/edit/details/SetTrackLengths.js:43
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:25
 #: ../root/edit/details/historic/RemoveReleases.js:17
-#: ../root/instrument/InstrumentReleases.js:32
-#: ../root/instrument/InstrumentReleases.js:34 ../root/label/LabelIndex.js:75
+#: ../root/instrument/InstrumentReleases.js:33
+#: ../root/instrument/InstrumentReleases.js:35 ../root/label/LabelIndex.js:76
 #: ../root/report/ReportsIndex.js:254
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagLayout.js:19
 msgid "Releases"
 msgstr "專輯"
 
-#: ../root/area/AreaReleases.js:46 ../root/artist/ArtistReleases.js:55
-#: ../root/instrument/InstrumentReleases.js:52 ../root/label/LabelIndex.js:97
-#: ../root/release_group/ReleaseGroupIndex.js:191
+#: ../root/area/AreaReleases.js:47 ../root/artist/ArtistReleases.js:56
+#: ../root/instrument/InstrumentReleases.js:53 ../root/label/LabelIndex.js:98
+#: ../root/release_group/ReleaseGroupIndex.js:192
 msgid "Add selected releases for merging"
 msgstr "合併選中專輯"
 
-#: ../root/area/AreaReleases.js:57
+#: ../root/area/AreaReleases.js:58
 msgid "This area is not currently associated with any releases."
 msgstr "此地區目前沒有關聯任何專輯。"
 
-#: ../root/area/AreaReleases.js:65
+#: ../root/area/AreaReleases.js:66
 msgid "This area has no relationships to any releases."
 msgstr "此地區沒有與任何專輯的關聯。"
 
@@ -7191,8 +7191,8 @@ msgstr[0] "目前在此區域有 {num} 位使用者。"
 msgid "There are currently no users in this area."
 msgstr "此地區目前沒有使用者。"
 
-#: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:34
-#: ../root/artist/ArtistWorks.js:35 ../root/components/EntityTabs.js:35
+#: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:35
+#: ../root/artist/ArtistWorks.js:36 ../root/components/EntityTabs.js:35
 #: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:601
 #: ../root/static/scripts/common/components/FilterForm.js:235
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
@@ -7204,102 +7204,102 @@ msgstr "作品"
 msgid "This area has no relationships to any works."
 msgstr "此地區沒有與任何作品的關聯。"
 
-#: ../root/artist/ArtistEvents.js:73
+#: ../root/artist/ArtistEvents.js:74
 msgid "No events found that match this search."
 msgstr "未找到符合此搜尋條件的活動。"
 
-#: ../root/artist/ArtistEvents.js:74
+#: ../root/artist/ArtistEvents.js:75
 msgid "This artist is not currently associated with any events."
 msgstr "此創作者目前沒有關聯任何事件。"
 
-#: ../root/artist/ArtistIndex.js:60
+#: ../root/artist/ArtistIndex.js:61
 msgid "Show official release groups"
 msgstr "顯示正式專輯組"
 
-#: ../root/artist/ArtistIndex.js:70
+#: ../root/artist/ArtistIndex.js:71
 msgid "Show all release groups"
 msgstr "顯示所有專輯組"
 
-#: ../root/artist/ArtistIndex.js:80
+#: ../root/artist/ArtistIndex.js:81
 msgid "Show official various artist release groups"
 msgstr "顯示正式群星專輯組"
 
-#: ../root/artist/ArtistIndex.js:90
+#: ../root/artist/ArtistIndex.js:91
 msgid "Show all various artist release groups"
 msgstr "顯示所有群星專輯組"
 
-#: ../root/artist/ArtistIndex.js:119
+#: ../root/artist/ArtistIndex.js:120
 msgid "This artist only has unofficial release groups by various artists."
 msgstr "此創作者只有群星的非正式專輯組。"
 
-#: ../root/artist/ArtistIndex.js:125
+#: ../root/artist/ArtistIndex.js:126
 msgid "Showing all release groups for various artists"
 msgstr "顯示所有群星專輯組"
 
-#: ../root/artist/ArtistIndex.js:126
+#: ../root/artist/ArtistIndex.js:127
 msgid "This artist does not have any various artists release groups"
 msgstr "此創作者沒有任何群星專輯組"
 
-#: ../root/artist/ArtistIndex.js:135
+#: ../root/artist/ArtistIndex.js:136
 msgid "This artist only has release groups by various artists."
 msgstr "此創作者只有群星專輯組。"
 
-#: ../root/artist/ArtistIndex.js:139
+#: ../root/artist/ArtistIndex.js:140
 msgid "Showing official release groups for various artists"
 msgstr "顯示群星創作者的正式專輯組"
 
-#: ../root/artist/ArtistIndex.js:147
+#: ../root/artist/ArtistIndex.js:148
 msgid "This artist only has unofficial release groups."
 msgstr "此創作者只有非正式專輯組。"
 
-#: ../root/artist/ArtistIndex.js:151
+#: ../root/artist/ArtistIndex.js:152
 msgid "Showing all release groups by this artist"
 msgstr "顯示此創作者的所有專輯組"
 
-#: ../root/artist/ArtistIndex.js:162
+#: ../root/artist/ArtistIndex.js:163
 msgid "Showing official release groups by this artist"
 msgstr "顯示此創作者的正式專輯組"
 
-#: ../root/artist/ArtistIndex.js:212
+#: ../root/artist/ArtistIndex.js:213
 msgid "Performance name of"
 msgstr "表演名稱為"
 
-#: ../root/artist/ArtistIndex.js:220
+#: ../root/artist/ArtistIndex.js:221
 msgid "Legal name"
 msgstr "合法名稱"
 
-#: ../root/artist/ArtistIndex.js:226 ../root/label/LabelIndex.js:58
+#: ../root/artist/ArtistIndex.js:227 ../root/label/LabelIndex.js:59
 msgid "Previously known as"
 msgstr "先前稱為"
 
-#: ../root/artist/ArtistIndex.js:233 ../root/label/LabelIndex.js:65
+#: ../root/artist/ArtistIndex.js:234 ../root/label/LabelIndex.js:66
 msgid "Renamed to"
 msgstr "更名為"
 
-#: ../root/artist/ArtistIndex.js:241
+#: ../root/artist/ArtistIndex.js:242
 msgid "Also performs as"
 msgstr "也作為表演"
 
-#: ../root/artist/ArtistIndex.js:255
+#: ../root/artist/ArtistIndex.js:256
 msgid "Discography"
 msgstr "目錄"
 
-#: ../root/artist/ArtistIndex.js:279
+#: ../root/artist/ArtistIndex.js:280
 #: ../root/release_group/ReleaseGroupMerge.js:24
 #: ../root/release_group/ReleaseGroupMerge.js:26
 msgid "Merge release groups"
 msgstr "合併專輯組合"
 
-#: ../root/artist/ArtistIndex.js:305 ../root/artist/ArtistRecordings.js:146
-#: ../root/instrument/InstrumentRecordings.js:53 ../root/isrc/Index.js:95
+#: ../root/artist/ArtistIndex.js:306 ../root/artist/ArtistRecordings.js:147
+#: ../root/instrument/InstrumentRecordings.js:54 ../root/isrc/Index.js:96
 msgid "Add selected recordings for merging"
 msgstr "合併選中錄音"
 
-#: ../root/artist/ArtistIndex.js:319
+#: ../root/artist/ArtistIndex.js:320
 msgid "This artist has no release groups, only standalone recordings."
 msgstr "此創作者沒有專輯組，只有獨立錄音。"
 
-#: ../root/artist/ArtistIndex.js:325
+#: ../root/artist/ArtistIndex.js:326
 msgid "No release groups found that match this search."
 msgstr "未找到符合此搜尋條件的發行組。"
 
@@ -7333,36 +7333,36 @@ msgid ""
 "name"
 msgstr "使用目標創作者名稱更新對應的創作者和關聯名單"
 
-#: ../root/artist/ArtistRecordings.js:34
+#: ../root/artist/ArtistRecordings.js:35
 msgid "Show all recordings"
 msgstr "顯示所有錄音"
 
-#: ../root/artist/ArtistRecordings.js:39
+#: ../root/artist/ArtistRecordings.js:40
 msgid "Show only standalone recordings"
 msgstr "只顯示獨立錄音"
 
-#: ../root/artist/ArtistRecordings.js:44
+#: ../root/artist/ArtistRecordings.js:45
 msgid "Show only videos"
 msgstr "只顯示影片"
 
-#: ../root/artist/ArtistRecordings.js:52
+#: ../root/artist/ArtistRecordings.js:53
 msgid "Showing only standalone recordings"
 msgstr "僅顯示獨立錄音"
 
-#: ../root/artist/ArtistRecordings.js:68
+#: ../root/artist/ArtistRecordings.js:69
 msgid "Showing only videos"
 msgstr "只顯示影片"
 
-#: ../root/artist/ArtistRecordings.js:84
+#: ../root/artist/ArtistRecordings.js:85
 msgid "Showing all recordings"
 msgstr "顯示所有錄音"
 
-#: ../root/artist/ArtistRecordings.js:158
+#: ../root/artist/ArtistRecordings.js:159
 msgid "No recordings found that match this search."
 msgstr "未找到符合此搜尋條件的錄音。"
 
-#: ../root/artist/ArtistRecordings.js:159
-#: ../root/instrument/InstrumentRecordings.js:64
+#: ../root/artist/ArtistRecordings.js:160
+#: ../root/instrument/InstrumentRecordings.js:65
 msgid "No recordings found."
 msgstr "沒有找到錄音。"
 
@@ -7371,45 +7371,45 @@ msgstr "沒有找到錄音。"
 msgid "Appearances"
 msgstr "外觀"
 
-#: ../root/artist/ArtistReleases.js:69 ../root/label/LabelIndex.js:109
+#: ../root/artist/ArtistReleases.js:70 ../root/label/LabelIndex.js:110
 msgid "No releases found that match this search."
 msgstr "未找到符合此搜尋條件的專輯。"
 
-#: ../root/artist/ArtistReleases.js:70
-#: ../root/instrument/InstrumentReleases.js:63
-#: ../root/release_group/ReleaseGroupIndex.js:202
+#: ../root/artist/ArtistReleases.js:71
+#: ../root/instrument/InstrumentReleases.js:64
+#: ../root/release_group/ReleaseGroupIndex.js:203
 msgid "No releases found."
 msgstr "沒有找到專輯。"
 
-#: ../root/artist/ArtistReleases.js:76
+#: ../root/artist/ArtistReleases.js:77
 msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
 msgstr "顯示多位創作者的發行品。{show_subset|改為顯示此創作者的發行品}。"
 
-#: ../root/artist/ArtistReleases.js:87
+#: ../root/artist/ArtistReleases.js:88
 msgid "This search only found releases by various artists."
 msgstr "此次搜尋只找到了群星創作者的專輯。"
 
-#: ../root/artist/ArtistReleases.js:89
+#: ../root/artist/ArtistReleases.js:90
 msgid "This artist only has releases by various artists."
 msgstr "此創作者只有群星創作者的專輯。"
 
-#: ../root/artist/ArtistReleases.js:94
+#: ../root/artist/ArtistReleases.js:95
 msgid ""
 "Showing releases by this artist. {show_all|Show Various Artist releases "
 "instead}."
 msgstr "顯示此創作者的發行品。{show_all|改為顯示多位創作者的發行品}。"
 
-#: ../root/artist/ArtistWorks.js:57 ../root/iswc/Index.js:79
+#: ../root/artist/ArtistWorks.js:58 ../root/iswc/Index.js:80
 msgid "Add selected works for merging"
 msgstr "添加選中的作品至合併操作"
 
-#: ../root/artist/ArtistWorks.js:69
+#: ../root/artist/ArtistWorks.js:70
 msgid "No works found that match this search."
 msgstr "未找到符合此搜尋條件的作品。"
 
-#: ../root/artist/ArtistWorks.js:70
+#: ../root/artist/ArtistWorks.js:71
 msgid "This artist is not currently associated with any works."
 msgstr "此創作者目前沒有關聯任何作品。"
 
@@ -8284,7 +8284,7 @@ msgstr "未找到所選類型的關聯關係。"
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:92
 #: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:63
-#: ../root/release/CoverArt.js:64 ../root/release_group/ReleaseGroupIndex.js:90
+#: ../root/release/CoverArt.js:64 ../root/release_group/ReleaseGroupIndex.js:91
 #: ../root/search/components/ReleaseResults.js:66
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8473,7 +8473,7 @@ msgstr "未指定的類型"
 
 #: ../root/components/list/ReleaseList.js:82
 #: ../root/edit/details/MergeReleases.js:49
-#: ../root/release_group/ReleaseGroupIndex.js:85
+#: ../root/release_group/ReleaseGroupIndex.js:86
 #: ../root/search/components/ReleaseResults.js:61
 #: ../root/static/scripts/release-editor/duplicates.js:146
 msgid "[missing media]"
@@ -8486,7 +8486,7 @@ msgstr "[缺失的媒體]"
 msgid "Number of entities"
 msgstr "實體數量"
 
-#: ../root/components/list/WorkList.js:58 ../root/iswc/Index.js:58
+#: ../root/components/list/WorkList.js:58 ../root/iswc/Index.js:59
 #: ../root/report/IswcsWithManyWorks.js:51
 #: ../root/report/components/WorkList.js:48
 #: ../root/search/components/WorkResults.js:55
@@ -8495,7 +8495,7 @@ msgstr "實體數量"
 msgid "Authors"
 msgstr ""
 
-#: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:60
+#: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
 #| msgid "Merge artists"
@@ -10610,7 +10610,7 @@ msgid ""
 "Is a genre missing from the list? Request it by {link|adding a style ticket}."
 msgstr "列表中缺少一種流派嗎?通過{link|添加一個樣式票}請求它。"
 
-#: ../root/instrument/InstrumentArtists.js:64
+#: ../root/instrument/InstrumentArtists.js:65
 msgid "No artists found."
 msgstr "沒有找到創作者。"
 
@@ -10629,25 +10629,25 @@ msgid ""
 "instructions}."
 msgstr "此列表是否缺少某個樂器？請按照 {link|這些指示} 進行請求。"
 
-#: ../root/isrc/Index.js:35 ../root/isrc/Index.js:39
+#: ../root/isrc/Index.js:36 ../root/isrc/Index.js:40
 msgid "ISRC “{isrc}”"
 msgstr "ISRC “{isrc}”"
 
-#: ../root/isrc/Index.js:45
+#: ../root/isrc/Index.js:46
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
 msgstr[0] "與 {num} 個錄音相關聯"
 
-#: ../root/iswc/Index.js:31 ../root/iswc/Index.js:34
+#: ../root/iswc/Index.js:32 ../root/iswc/Index.js:35
 msgid "ISWC “{iswc}”"
 msgstr "ISWC “{iswc}”"
 
-#: ../root/iswc/Index.js:39
+#: ../root/iswc/Index.js:40
 msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
 msgstr[0] "與 {num} 項作品相關聯"
 
-#: ../root/iswc/Index.js:59 ../root/report/IswcsWithManyWorks.js:52
+#: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 #, fuzzy
@@ -10655,7 +10655,7 @@ msgstr[0] "與 {num} 項作品相關聯"
 msgid "Recording artists"
 msgstr "錄音創作者："
 
-#: ../root/label/LabelIndex.js:110
+#: ../root/label/LabelIndex.js:111
 msgid "This label does not have any releases."
 msgstr "此廠牌沒有任何專輯。"
 
@@ -11852,7 +11852,7 @@ msgstr "搜尋結果"
 msgid "No results found."
 msgstr "沒有找到結果。"
 
-#: ../root/place/PlaceEvents.js:59
+#: ../root/place/PlaceEvents.js:60
 msgid "This place is not currently associated with any events."
 msgstr "此地點暫未與任何活動關聯。"
 
@@ -11919,7 +11919,7 @@ msgid "Release group type"
 msgstr "發行組類型"
 
 #: ../root/recording/RecordingIndex.js:71
-#: ../root/release_group/ReleaseGroupIndex.js:51
+#: ../root/release_group/ReleaseGroupIndex.js:52
 msgctxt "release status"
 msgid "(unknown)"
 msgstr "(未知)"
@@ -12592,7 +12592,7 @@ msgstr "合作者"
 
 #: ../root/report/CollaborationRelationships.js:68
 #: ../root/report/CollaborationRelationships.js:79
-#: ../root/report/DuplicateArtists.js:116
+#: ../root/report/DuplicateArtists.js:117
 #: ../root/report/components/ArtistUrlList.js:69
 msgid "This artist no longer exists."
 msgstr "此創作者已不存在。"
@@ -12734,11 +12734,11 @@ msgstr ""
 msgid "Discogs URLs linked to multiple releases"
 msgstr "與多個發行品相關聯的 Discogs 網址"
 
-#: ../root/report/DuplicateArtists.js:38
+#: ../root/report/DuplicateArtists.js:39
 msgid "Total duplicate groups: {count}"
 msgstr "總重複組數： {count}"
 
-#: ../root/report/DuplicateArtists.js:40
+#: ../root/report/DuplicateArtists.js:41
 msgid ""
 "This report aims to identify artists with very similar names. If two artists "
 "are actually the same, please merge them (remember to "
@@ -12752,15 +12752,15 @@ msgstr ""
 "是不同的，添加{disambiguation_comment|消除歧義內容}到他們(一旦一組相似的命名"
 "創作者有消除歧義內容，他們將不再出現在這裡)。"
 
-#: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:64
+#: ../root/report/DuplicateArtists.js:56 ../root/report/ReportsIndex.js:64
 msgid "Possibly duplicate artists"
 msgstr "可能重複的創作者"
 
-#: ../root/report/DuplicateArtists.js:99
+#: ../root/report/DuplicateArtists.js:100
 msgid "alias:"
 msgstr "別名："
 
-#: ../root/report/DuplicateArtists.js:109
+#: ../root/report/DuplicateArtists.js:110
 #: ../root/report/DuplicateReleaseGroups.js:92
 #: ../root/report/EmptyReleaseGroups.js:93
 #: ../root/report/components/ArtistList.js:51

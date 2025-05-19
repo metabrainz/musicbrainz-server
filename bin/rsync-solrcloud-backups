@@ -18,7 +18,7 @@ SOLRCLOUD_COLLECTIONS_API="$(perl -Ilib -e 'use DBDefs; print DBDefs->SOLRCLOUD_
 RSYNC_SOLRCLOUD_BACKUPS_HOST="$(
     curl -sSL "$SOLRCLOUD_COLLECTIONS_API?action=OVERSEERSTATUS" \
         | jq -r '.leader' \
-        | sed 's/:.*//'
+        | sed 's/:.*//;s/^solrcloud-[0-9]*/mb-&.metabrainz.org/'
 )"
 
 if [ -n "$RSYNC_SOLRCLOUD_BACKUPS_HOST" ]; then
@@ -28,7 +28,6 @@ if [ -n "$RSYNC_SOLRCLOUD_BACKUPS_HOST" ]; then
         --archive \
         --bwlimit="$RSYNC_SOLRCLOUD_BACKUPS_BANDWIDTH" \
         --delete \
-        --exclude="zk_backup" \
         --rsh "ssh -i $RSYNC_SOLRCLOUD_BACKUPS_KEY -c $RSYNC_SOLRCLOUD_BACKUPS_CIPHER_SPEC -o Compression=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p $RSYNC_SOLRCLOUD_BACKUPS_PORT" \
         --verbose \
         solr@"$RSYNC_SOLRCLOUD_BACKUPS_HOST":. \

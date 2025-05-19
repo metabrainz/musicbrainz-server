@@ -34,8 +34,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-04-29 20:50+0200\n"
-"PO-Revision-Date: 2025-05-02 18:05+0000\n"
+"POT-Creation-Date: 2025-05-02 21:48+0200\n"
+"PO-Revision-Date: 2025-05-04 15:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -46,7 +46,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.1\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -110,7 +110,7 @@ msgstr "(nessun'altra immagine)"
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
@@ -259,7 +259,7 @@ msgstr "Aggiungi supporto"
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 msgctxt "header"
 msgid "Add place"
-msgstr "Aggiungi luogo"
+msgstr "Aggiungi posto"
 
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:255
@@ -448,12 +448,12 @@ msgstr "Area principale"
 #: ../root/edit/details/historic/ChangeReleaseArtist.js:22
 #: ../root/edit/details/historic/EditTrack.js:31
 #: ../root/edit/details/historic/MoveRelease.js:27
-#: ../root/edit/details/historic/RemoveRelease.js:22 ../root/isrc/Index.js:64
+#: ../root/edit/details/historic/RemoveRelease.js:22 ../root/isrc/Index.js:65
 #: ../root/layout/components/Search.js:24
 #: ../root/layout/components/sidebar/RecordingSidebar.js:45
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:58
-#: ../root/release_group/ReleaseGroupIndex.js:166
-#: ../root/report/DuplicateArtists.js:67
+#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/report/DuplicateArtists.js:68
 #: ../root/report/DuplicateReleaseGroups.js:58
 #: ../root/report/EmptyReleaseGroups.js:59
 #: ../root/report/IsrcsWithManyRecordings.js:59
@@ -487,7 +487,7 @@ msgstr "Area dell'artista"
 
 #: ../root/artist/edit_form.tt:12
 msgid "Artist details"
-msgstr "Dettagli dell'artista"
+msgstr "Dettagli sull'artista"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Artist type"
@@ -538,7 +538,7 @@ msgstr "Auto-editor"
 #: ../root/layout/components/sidebar/CDStubSidebar.js:67
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:130
 #: ../root/otherlookup/OtherLookupForm.js:57
-#: ../root/release_group/ReleaseGroupIndex.js:172
+#: ../root/release_group/ReleaseGroupIndex.js:173
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
@@ -673,7 +673,7 @@ msgstr "Nº di cat.:"
 #: ../root/release_group/set_cover_art.tt:57
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
-#: ../root/release_group/ReleaseGroupIndex.js:171
+#: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
 #: ../root/utility/tableColumns.js:498 ../root/utility/tableColumns.js:503
@@ -768,7 +768,7 @@ msgstr "Copia il titolo della pubblicazione al gruppo di pubblicazioni"
 #: ../root/edit/details/historic/AddRelease.js:118
 #: ../root/edit/details/historic/EditReleaseEvents.js:107
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:293
@@ -814,7 +814,7 @@ msgstr "Tracce dati"
 #: ../root/elections/ElectionVotes.js:24
 #: ../root/layout/components/sidebar/EventSidebar.js:103
 #: ../root/recording/RecordingIndex.js:50
-#: ../root/release_group/ReleaseGroupIndex.js:169
+#: ../root/release_group/ReleaseGroupIndex.js:170
 #: ../root/search/components/EventResults.js:83
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:101
@@ -1175,7 +1175,7 @@ msgstr "Azione alla scadenza"
 msgid "External links"
 msgstr "Collegamenti esterni"
 
-#: ../root/artist/edit_form.tt:206
+#: ../root/artist/edit_form.tt:210
 msgid ""
 "External links are URLs associated with the artist. These can include the "
 "artist’s official homepage and social networking pages, streaming services, "
@@ -1204,8 +1204,8 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
-"I collegamenti esterni sono URL associati al luogo. Possono comprendere la "
-"pagina ufficiale del luogo, le sue pagine di social network, pagine di "
+"I collegamenti esterni sono URL associati al posto. Possono comprendere la "
+"pagina ufficiale del posto, le sue pagine di social network, pagine di "
 "biglietteria e pagine non ufficiali come voci di Wikipedia, pagine di storia "
 "e siti di fan."
 
@@ -1312,7 +1312,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:122
 #: ../root/edit/details/historic/EditReleaseEvents.js:111
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:139
-#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/components/CDTocList.js:44
 #: ../root/search/components/ReleaseResults.js:120
 msgid "Format"
@@ -1536,6 +1536,8 @@ msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
 msgstr ""
+"Se non riesci a trovare il numero di catalogo, lascia il campo vuoto. Se sei "
+"sicuro che la pubblicazione non ha un numero di catalogo, inserisci “[none]”."
 
 #: ../root/release/edit/information.tt:450
 msgid ""
@@ -1674,6 +1676,8 @@ msgid ""
 "It’s okay to leave it blank if there are no other recordings with similar "
 "names, and this isn’t a live recording."
 msgstr ""
+"Lascialo pure vuoto se non ci sono altre registrazioni con nomi simili e se "
+"questa non è una registrazione dal vivo."
 
 #: ../root/components/common-macros.tt:406
 msgid "Javascript is required for this page to work properly."
@@ -1738,7 +1742,7 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:108
 #: ../root/label/LabelHeader.js:18 ../root/layout/components/Search.js:37
 #: ../root/recording/RecordingIndex.js:51
-#: ../root/release_group/ReleaseGroupIndex.js:170
+#: ../root/release_group/ReleaseGroupIndex.js:171
 #: ../root/report/ReleaseLabelSameArtist.js:24
 #: ../root/report/components/LabelList.js:40
 #: ../root/report/components/LabelUrlList.js:30
@@ -1765,7 +1769,7 @@ msgstr "Label code"
 
 #: ../root/label/edit_form.tt:8
 msgid "Label details"
-msgstr "Dettagli dell'etichetta"
+msgstr "Dettagli sull'etichetta"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Label type"
@@ -1774,7 +1778,7 @@ msgstr "Tipo di etichetta"
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
 #: ../root/edit/details/EditRelease.js:109
-#: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:62
+#: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:63
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:193
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
@@ -1799,7 +1803,7 @@ msgstr "Ultimo pacchetto di replica ricevuto il {datetime}"
 #: ../root/edit/details/EditRecording.js:57
 #: ../root/edit/details/EditRecording.js:65
 #: ../root/edit/details/historic/AddRelease.js:87
-#: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:65
+#: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:66
 #: ../root/layout/components/sidebar/RecordingSidebar.js:52
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:148
 #: ../root/recording/RecordingIndex.js:45 ../root/release/DiscIds.js:97
@@ -1821,7 +1825,7 @@ msgstr "Le righe iniziano con il numero della traccia"
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:110
 msgctxt "user type"
 msgid "Location editor"
-msgstr "Editor di posizioni"
+msgstr "Editor di luoghi"
 
 #: ../root/components/common-macros.tt:359
 #: ../root/components/RequestLogin.js:19
@@ -1849,6 +1853,9 @@ msgid ""
 "Mail‐order links shouldn’t be attached to digital media releases, and "
 "download and streaming links shouldn’t be attached to CD or vinyl releases."
 msgstr ""
+"I collegamenti di acquisto per corrispondenza non vanno associati a "
+"pubblicazioni su supporto digitale e, viceversa, i collegamenti di download "
+"e streaming non vanno associati a pubblicazioni su CD o vinile."
 
 #: ../root/components/forms.tt:14
 #: ../root/static/scripts/edit/components/EnterEdit.js:38
@@ -2127,38 +2134,44 @@ msgstr "Analizza tracce"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
 #: ../root/user/UserProfile.js:57
 msgid "Place"
-msgstr "Luogo"
+msgstr "Posto"
 
 #: ../root/place/edit_form.tt:12
 msgid "Place details"
-msgstr "Dettagli del luogo"
+msgstr "Dettagli sul posto"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Place type"
-msgstr "Tipo di luogo"
+msgstr "Tipo di posto"
 
 #: ../root/edit/search_macros.tt:471
 msgid "Please choose a condition"
 msgstr "Scegli una condizione"
 
-#: ../root/artist/edit_form.tt:211 ../root/label/edit_form.tt:119
+#: ../root/artist/edit_form.tt:215 ../root/label/edit_form.tt:119
 #: ../root/place/edit_form.tt:115 ../root/release_group/edit_form.tt:91
 msgid ""
 "Please don’t add a Wikipedia page if a Wikidata item linking to the same "
 "article already exists."
 msgstr ""
+"Non aggiungere una pagina di Wikipedia se è già presente un elemento di "
+"Wikidata collegato allo stesso articolo."
 
 #: ../root/release_group/edit_form.tt:60
 msgid ""
 "Please leave it blank if other information such as artist or type (album, "
 "single, etc.) already distinguishes between the release groups."
 msgstr ""
+"Lascialo vuoto se altre informazioni come l'artista o il tipo (album, "
+"singolo, ecc.) distinguono già i gruppi di pubblicazioni."
 
 #: ../root/work/edit_form.tt:121
 msgid ""
 "Please leave it blank if there are enough other differences between the "
 "works that they are unlikely to be confused."
 msgstr ""
+"Lascialo vuoto se ci sono già abbastanza differenze tra le opere da rendere "
+"improbabile che possano essere confuse."
 
 #: ../root/release/edit/information.tt:334
 msgid ""
@@ -2177,8 +2190,8 @@ msgstr ""
 "di stile sulla musica classica} per maggiori informazioni."
 
 #: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
-#: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:178
-#: ../root/artist/edit_form.tt:198 ../root/components/forms.tt:250
+#: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:180
+#: ../root/artist/edit_form.tt:202 ../root/components/forms.tt:250
 #: ../root/place/edit_form.tt:59 ../root/recording/edit_form.tt:75
 #: ../root/release/edit/information.tt:323
 #: ../root/release/edit/information.tt:355
@@ -2192,7 +2205,7 @@ msgstr ""
 #: ../root/release_group/edit_form.tt:80 ../root/work/edit_form.tt:124
 #: ../root/work/edit_form.tt:137
 msgid "Please see the {doc|style guidelines} for more information."
-msgstr ""
+msgstr "Consulta le {doc|linee guida di stile} per maggiori informazioni."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2246,22 +2259,22 @@ msgstr "Registrazione"
 
 #: ../root/recording/edit_form.tt:23
 msgid "Recording details"
-msgstr "Dettagli della registrazione"
+msgstr "Dettagli sulla registrazione"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:32
 msgid "Recording “{name}” by {artist}"
 msgstr "Registrazione “{name}” di {artist}"
 
 #: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:20
-#: ../root/artist/ArtistRecordings.js:120
-#: ../root/artist/ArtistRecordings.js:122
+#: ../root/artist/ArtistRecordings.js:121
+#: ../root/artist/ArtistRecordings.js:123
 #: ../root/artist_credit/ArtistCreditIndex.js:145
 #: ../root/artist_credit/ArtistCreditLayout.js:21
 #: ../root/components/EntityTabs.js:32
 #: ../root/components/TagEntitiesList.js:184
 #: ../root/edit/details/EditMedium.js:479
-#: ../root/instrument/InstrumentRecordings.js:32
-#: ../root/instrument/InstrumentRecordings.js:34
+#: ../root/instrument/InstrumentRecordings.js:33
+#: ../root/instrument/InstrumentRecordings.js:35
 #: ../root/report/ReportsIndex.js:493
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:20 ../root/work/WorkIndex.js:47
@@ -2307,7 +2320,7 @@ msgstr "Tipo di relazione"
 #: ../root/edit/details/historic/EditReleaseEvents.js:105
 #: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:19
 #: ../root/layout/components/Search.js:29
-#: ../root/release_group/ReleaseGroupIndex.js:165
+#: ../root/release_group/ReleaseGroupIndex.js:166
 #: ../root/report/components/CDTocReleaseList.js:45
 #: ../root/report/components/ReleaseList.js:44
 #: ../root/report/components/ReleaseUrlList.js:32
@@ -2367,7 +2380,7 @@ msgstr "Gruppo di pubblicazioni"
 
 #: ../root/release_group/edit_form.tt:10
 msgid "Release group details"
-msgstr "Dettagli del gruppo di pubblicazioni"
+msgstr "Dettagli sul gruppo di pubblicazioni"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Release group primary type"
@@ -2610,7 +2623,7 @@ msgstr "Serie"
 
 #: ../root/series/edit_form.tt:8
 msgid "Series details"
-msgstr "Dettagli della serie"
+msgstr "Dettagli sulla serie"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Series type"
@@ -2673,7 +2686,7 @@ msgstr ""
 #: ../root/edit/details/EditAlias.js:87 ../root/edit/details/EditArea.js:55
 #: ../root/edit/details/EditArtist.js:68 ../root/edit/details/EditLabel.js:53
 #: ../root/layout/components/sidebar/ArtistSidebar.js:89
-#: ../root/report/DuplicateArtists.js:68
+#: ../root/report/DuplicateArtists.js:69
 #: ../root/search/components/ArtistResults.js:53
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:123
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:67
@@ -2719,7 +2732,7 @@ msgstr "Inverti titoli di traccia e accreditamenti artista"
 
 #: ../root/cdtoc/attach_artist_releases.tt:21 ../root/cdtoc/list.tt:15
 #: ../root/cdtoc/lookup.tt:48 ../root/recording/RecordingIndex.js:55
-#: ../root/release_group/ReleaseGroupIndex.js:175
+#: ../root/release_group/ReleaseGroupIndex.js:176
 #: ../root/search/components/RecordingResults.js:144
 #: ../root/search/components/ReleaseResults.js:131
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
@@ -2737,26 +2750,33 @@ msgstr ""
 "L'Internet Archive ha qualche problema al momento. L'aggiunta di immagini "
 "potrebbe non funzionare."
 
-#: ../root/artist/edit_form.tt:185
+#: ../root/artist/edit_form.tt:188
 msgid "The begin and end areas describe where the artist was born and died."
 msgstr ""
+"Le aree iniziale e finale descrivono dove l'artista è nato e dove è morto."
 
-#: ../root/artist/edit_form.tt:195
+#: ../root/artist/edit_form.tt:198
 msgid ""
 "The begin and end areas describe where the artist was when it started and "
 "stopped existing."
 msgstr ""
+"Le aree iniziale e finale descrivono dove l'artista ha iniziato e smesso di "
+"esistere."
 
-#: ../root/artist/edit_form.tt:188
+#: ../root/artist/edit_form.tt:191
 msgid ""
 "The begin and end areas describe where the group was formed and dissolved."
 msgstr ""
+"Le aree iniziale e finale descrivono dove il gruppo si è formato e dove si è "
+"sciolto."
 
-#: ../root/artist/edit_form.tt:191
+#: ../root/artist/edit_form.tt:194
 msgid ""
 "The begin area is the real-life area where the character concept was "
 "created. The end area should not be set."
 msgstr ""
+"L'area iniziale è l'area del mondo reale in cui il personaggio è stato "
+"concepito. L'area finale non va impostata."
 
 #: ../root/release/edit/information.tt:481
 msgid "The catalog number you have entered looks like an Amazon ASIN."
@@ -2857,12 +2877,16 @@ msgid ""
 "The {doc|ISRC} is a 12-character alphanumeric string identifying this "
 "recording."
 msgstr ""
+"L'{doc|ISRC} è una stringa alfanumerica di 12 caratteri che identifica "
+"questa registrazione."
 
 #: ../root/work/edit_form.tt:144
 msgid ""
 "The {doc|ISWC}, or International Standard Musical Work Code, is a code "
 "assigned to uniquely identify a work."
 msgstr ""
+"L'{doc|ISWC}, dall'acronimo inglese per codice standard internazionale "
+"dell'opera musicale, è un codice che identifica l'opera in modo univoco."
 
 #: ../root/place/edit_form.tt:81
 msgid ""
@@ -2870,6 +2894,9 @@ msgid ""
 "addressing format for the country where it’s located. It should include the "
 "ZIP/postal code but not the country name."
 msgstr ""
+"L'{doc|indirizzo} descrive l'ubicazione del posto usando il formato standard "
+"degli indirizzi per il Paese in cui si trova. Va incluso il codice postale/"
+"ZIP, ma non il nome del Paese."
 
 #: ../root/release/edit/information.tt:549
 msgid ""
@@ -2885,21 +2912,27 @@ msgid ""
 "with. If the artist is strongly associated with an area smaller than a "
 "country, select that instead."
 msgstr ""
+"L'{doc|area} indica il Paese con il quale l'artista è principalmente "
+"associato. Se l'artista è fortemente associato a un'area più piccola di un "
+"Paese, seleziona quella."
 
 #: ../root/label/edit_form.tt:89
 msgid "The {doc|area} indicates the geographical origin of the label."
-msgstr ""
+msgstr "L'{doc|area} indica l'origine geografica dell'etichetta."
 
 #: ../root/place/edit_form.tt:89
 msgid ""
 "The {doc|area} is the location (such as city) where the place is located."
 msgstr ""
+"L'{doc|area} è il luogo (per esempio, la città) in cui si trova il posto."
 
 #: ../root/release/edit/information.tt:330
 msgid ""
 "The {doc|artist} field contains the artist or artists as shown on the "
 "release."
 msgstr ""
+"Il campo {doc|artista} contiene l'artista o gli artisti come mostrati sulla "
+"pubblicazione."
 
 #: ../root/release_group/edit_form.tt:44
 msgid ""
@@ -2914,56 +2947,74 @@ msgid ""
 "The {doc|barcode} is the numeric identifier (such as UPC or EAN) associated "
 "with the release."
 msgstr ""
+"Il {doc|codice a barre} è l'identificatore numerico (come l'UPC o l'EAN) "
+"associato alla pubblicazione."
 
 #: ../root/label/edit_form.tt:107
 msgid ""
 "The {doc|begin and end dates} describe the period during which the label "
 "existed or was active."
 msgstr ""
+"Le {doc|date iniziale e finale} descrivono il periodo in cui l'etichetta è "
+"esistita o è stata attiva."
 
-#: ../root/artist/edit_form.tt:174
+#: ../root/artist/edit_form.tt:175
 msgid ""
 "The {doc|begin and end dates} describe when the artist started and stopped "
 "existing."
 msgstr ""
+"Le {doc|date iniziale e finale} descrivono quando l'artista ha iniziato e "
+"smesso di esistere."
 
-#: ../root/artist/edit_form.tt:161
+#: ../root/artist/edit_form.tt:162
 msgid ""
 "The {doc|begin and end dates} describe when the artist was born and died."
 msgstr ""
+"Le {doc|date iniziale e finale} descrivono quando l'artista è nato e quando "
+"è morto."
 
-#: ../root/artist/edit_form.tt:165
+#: ../root/artist/edit_form.tt:166
 msgid ""
 "The {doc|begin and end dates} describe when the group was formed and "
 "dissolved."
 msgstr ""
+"Le {doc|date iniziale e finale} descrivono quando il gruppo si è formato e "
+"quando si è sciolto."
 
 #: ../root/place/edit_form.tt:103
 msgid ""
 "The {doc|begin and end dates} describe when the place was founded and when "
 "it shut down."
 msgstr ""
+"Le {doc|date iniziale e finale} descrivono quando il posto è stato fondato e "
+"quando è stato chiuso."
 
-#: ../root/artist/edit_form.tt:169
+#: ../root/artist/edit_form.tt:170
 msgid ""
 "The {doc|begin date} is the real-life date when the character concept was "
 "created. The end date should not be set."
 msgstr ""
+"La {doc|data iniziale} è la data nel mondo reale in cui il personaggio è "
+"stato concepito. La data finale non va impostata."
 
 #: ../root/release/edit/information.tt:471
 msgid ""
 "The {doc|catalog number} is assigned by the label and can often be found on "
 "the spine or near the barcode on physical media."
 msgstr ""
+"Il {doc|numero di catalogo} è assegnato dall'etichetta; sui supporti fisici, "
+"lo si trova spesso sul dorso o nei pressi del codice a barre."
 
 #: ../root/release/edit/information.tt:460
 msgid "The {doc|country} describes where the release was made available."
-msgstr ""
+msgstr "Il {doc|Paese} descrive dove la pubblicazione è stata resa disponibile."
 
 #: ../root/release/edit/information.tt:430
 msgid ""
 "The {doc|date} describes when this particular release was made available."
 msgstr ""
+"La {doc|data} descrive quando questa specifica pubblicazione è stata resa "
+"disponibile."
 
 #: ../root/artist/edit_form.tt:119
 msgid ""
@@ -2971,6 +3022,9 @@ msgid ""
 "identical or similar names. Feel free to leave it blank if it seems unlikely "
 "that there will be other artists with similar names."
 msgstr ""
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere artisti con "
+"nomi identici o simili. Lascialo pure vuoto se sembra improbabile che ci "
+"saranno altri artisti con nomi simili."
 
 #: ../root/label/edit_form.tt:74
 msgid ""
@@ -2978,6 +3032,9 @@ msgid ""
 "identical or similar names. Feel free to leave it blank if you aren’t warned "
 "about possible duplicates."
 msgstr ""
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere etichette con "
+"nomi identici o simili. Lascialo pure vuoto se non vieni avvisato di "
+"possibili doppioni."
 
 #: ../root/place/edit_form.tt:66
 msgid ""
@@ -2985,6 +3042,9 @@ msgid ""
 "similar names. Feel to leave it blank if you aren’t warned about possible "
 "duplicates in the same area."
 msgstr ""
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere posti con nomi "
+"simili. Lascialo pure vuoto se non vieni avvisato di possibili doppioni "
+"nella stessa area."
 
 #: ../root/release/edit/information.tt:572
 msgid ""
@@ -2992,6 +3052,10 @@ msgid ""
 "the same release group. Please leave it empty if other properties like "
 "artist, format, label, or date distinguish this release."
 msgstr ""
+"Il campo {doc|disambiguazione} aiuta gli utenti a distinguere le "
+"pubblicazioni nello stesso gruppo di pubblicazioni. Lascialo vuoto se altre "
+"proprietà come l'artista, il formato, l'etichetta o la data distinguono "
+"questa pubblicazione."
 
 #: ../root/recording/edit_form.tt:97
 msgid ""
@@ -3031,18 +3095,24 @@ msgid ""
 "The {doc|gender} field describes the gender with which a person or character "
 "identifies."
 msgstr ""
+"Il campo {doc|genere} descrive il genere con cui una persona o un "
+"personaggio si identifica."
 
 #: ../root/label/edit_form.tt:97
 msgid ""
 "The {doc|label code} is a 4‐ or 5‐digit number uniquely identifying the "
 "label."
 msgstr ""
+"Il {doc|label code} è un numero di 4 o 5 cifre che identifica l'etichetta in "
+"modo univoco."
 
 #: ../root/release/edit/information.tt:496
 msgid ""
 "The {doc|label} is the imprint associated with the release. Please also see "
 "the guidelines about {style|special purpose labels}."
 msgstr ""
+"L'{doc|etichetta} è il marchio discografico associato alla pubblicazione. "
+"Consulta anche le linee guida sulle {style|etichette a uso speciale}."
 
 #: ../root/release/edit/information.tt:406
 msgid ""
@@ -3059,40 +3129,47 @@ msgstr ""
 #: ../root/recording/edit_form.tt:111
 msgid "The {doc|length} is the recording’s duration in MM:SS format."
 msgstr ""
+"Per {doc|durata} si intende la durata della registrazione nel formato MM:SS."
 
 #: ../root/work/edit_form.tt:133
 msgid ""
 "The {doc|lyrics languages} should list any languages used in a significant "
 "portion of the work’s lyrics (or [No lyrics] if it has none)."
 msgstr ""
+"Le {doc|lingue dei testi} devono elencare tutte le lingue utilizzate in una "
+"porzione significativa dei testi dell'opera (o [Nessun testo] se non ne ha)."
 
 #: ../root/artist/edit_form.tt:106
 msgid "The {doc|name} is the artist’s official name."
-msgstr ""
+msgstr "Il {doc|nome} è il nome ufficiale dell'artista."
 
 #: ../root/label/edit_form.tt:67
 msgid "The {doc|name} is the label’s official name."
-msgstr ""
+msgstr "Il {doc|nome} è il nome ufficiale dell'etichetta."
 
 #: ../root/place/edit_form.tt:55
 msgid "The {doc|name} is the place’s official name."
-msgstr ""
+msgstr "Il {doc|nome} è il nome ufficiale del posto."
 
 #: ../root/series/edit_form.tt:36
 msgid "The {doc|name} is the series’ official name."
-msgstr ""
+msgstr "Il {doc|nome} è il nome ufficiale della serie."
 
 #: ../root/work/edit_form.tt:110
 msgid ""
 "The {doc|name} is the work’s canonical title in the language in which it was "
 "originally written."
 msgstr ""
+"Il {doc|nome} è il titolo canonico dell'opera nella lingua in cui è stata "
+"scritta originariamente."
 
 #: ../root/recording/edit_form.tt:71
 msgid ""
 "The {doc|name} is usually the most common title from track listings on "
 "official releases."
 msgstr ""
+"Il {doc|nome} è solitamente il titolo più comune negli elenchi di tracce su "
+"pubblicazioni ufficiali."
 
 #: ../root/release_group/edit_form.tt:33
 msgid ""
@@ -3107,16 +3184,22 @@ msgid ""
 "The {doc|packaging} attribute describes the outermost packaging of the "
 "release."
 msgstr ""
+"L'attributo {doc|confezione} descrive la confezione più esterna della "
+"pubblicazione."
 
 #: ../root/release/edit/information.tt:364
 #: ../root/release_group/edit_form.tt:67
 msgid "The {doc|primary type} describes how the release group is categorized."
 msgstr ""
+"Il {doc|tipo principale} descrive come è categorizzato il gruppo di "
+"pubblicazioni."
 
 #: ../root/release/edit/information.tt:347
 msgid ""
 "The {doc|release group} groups related releases into a single logical entity."
 msgstr ""
+"Il {doc|gruppo di pubblicazioni} raggruppa in una sola entità logica "
+"pubblicazioni collegate."
 
 #: ../root/release/edit/information.tt:419
 msgid ""
@@ -3129,10 +3212,11 @@ msgstr ""
 #: ../root/release/edit/information.tt:384
 msgid "The {doc|status} describes how “official” the release is."
 msgstr ""
+"Lo {doc|status} descrive il livello di “ufficialità” della pubblicazione."
 
 #: ../root/release/edit/information.tt:319
 msgid "The {doc|title} is the release’s name."
-msgstr ""
+msgstr "Il {doc|titolo} è il nome della pubblicazione."
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
@@ -3363,7 +3447,7 @@ msgstr ""
 
 #: ../root/place/edit_form.tt:34
 msgid "This place has ended."
-msgstr "Questo luogo non è più attuale."
+msgstr "Questo posto non esiste più."
 
 #: ../root/release/edit/tracklist.tt:369
 msgid ""
@@ -3414,8 +3498,8 @@ msgstr "Questa traccia è nascosta nel pre-gap."
 #: ../root/components/RelationshipsTable.js:320
 #: ../root/components/list/ReleaseGroupList.js:72
 #: ../root/edit/details/EditMedium.js:278
-#: ../root/edit/details/EditMedium.js:282 ../root/isrc/Index.js:63
-#: ../root/iswc/Index.js:57 ../root/recording/RecordingIndex.js:44
+#: ../root/edit/details/EditMedium.js:282 ../root/isrc/Index.js:64
+#: ../root/iswc/Index.js:58 ../root/recording/RecordingIndex.js:44
 #: ../root/static/scripts/release/components/MediumTable.js:73
 msgid "Title"
 msgstr "Titolo"
@@ -3468,7 +3552,7 @@ msgstr "Elenco tracce"
 #: ../root/components/list/ReleaseList.js:95
 #: ../root/edit/details/MergeReleases.js:229
 #: ../root/edit/details/historic/AddRelease.js:79 ../root/release/DiscIds.js:96
-#: ../root/release_group/ReleaseGroupIndex.js:168
+#: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/CDStubResults.js:47
 #: ../root/search/components/ReleaseResults.js:121
 msgid "Tracks"
@@ -3517,12 +3601,12 @@ msgstr "Turco"
 #: ../root/edit/details/EditLabel.js:69 ../root/edit/details/EditPlace.js:55
 #: ../root/edit/details/EditReleaseGroup.js:55
 #: ../root/edit/details/EditSeries.js:51
-#: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:61
+#: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:62
 #: ../root/layout/components/sidebar/CollectionSidebar.js:54
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:63
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:161
 #: ../root/layout/components/sidebar/SidebarType.js:32
-#: ../root/report/DuplicateArtists.js:69
+#: ../root/report/DuplicateArtists.js:70
 #: ../root/report/DuplicateReleaseGroups.js:60
 #: ../root/report/EmptyReleaseGroups.js:61
 #: ../root/report/IswcsWithManyWorks.js:53
@@ -3737,17 +3821,19 @@ msgstr "Opera"
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr "Attributi delle opere"
+msgstr "Attributi dell'opera"
 
 #: ../root/work/edit_form.tt:151
 msgid ""
 "Work attributes store additional information about this work, such as IDs "
 "assigned by regional rights-management organizations."
 msgstr ""
+"Gli attributi dell'opera immagazzinano informazioni aggiuntive sull'opera, "
+"come gli ID assegnati dalle organizzazioni regionali di gestione dei diritti."
 
 #: ../root/work/edit_form.tt:10
 msgid "Work details"
-msgstr "Dettagli dell'opera"
+msgstr "Dettagli sull'opera"
 
 #: ../root/edit/search_macros.tt:473 ../root/edit/details/EditWork.js:69
 #: ../root/static/scripts/release/components/WorkTypeSelect.js:51
@@ -4182,6 +4268,9 @@ msgid ""
 "group. Leave this blank if none apply. You can select multiple types by "
 "using Ctrl + click (or Cmd + click on a Mac)."
 msgstr ""
+"I {doc|tipi secondari} sono attributi aggiuntivi che descrivono il gruppo di "
+"pubblicazioni. Lascia il campo vuoto se nessuno di essi è rilevante. Puoi "
+"selezionare più tipi utilizzando Ctrl + clic (o Cmd + clic su Mac)."
 
 #: ../root/layout.tt:75 ../root/layout/index.js:248
 msgid ""
@@ -4529,20 +4618,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:375
+#: ../root/static/scripts/common/constants.js:377
 msgid "Low"
 msgstr "Bassa"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:376
-#: ../root/static/scripts/common/constants.js:377
+#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:379
 msgid "Normal"
 msgstr "Normale"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:378
+#: ../root/static/scripts/common/constants.js:380
 msgid "High"
 msgstr "Alta"
 
@@ -5278,7 +5367,7 @@ msgstr "Rimuovi traccia"
 #: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:16
 msgctxt "edit type"
 msgid "Convert release to multiple artists (historic)"
-msgstr "Converti in pubblicazione di artisti multipli (storico)"
+msgstr "Converti in pubblicazione di più artisti (storico)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:23
@@ -5387,42 +5476,42 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 msgctxt "edit type"
 msgid "Add place alias"
-msgstr "Aggiungi alias al luogo"
+msgstr "Aggiungi alias al posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add place annotation"
-msgstr "Aggiungi annotazione al luogo"
+msgstr "Aggiungi annotazione al posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 msgctxt "edit type"
 msgid "Add place"
-msgstr "Aggiungi luogo"
+msgstr "Aggiungi posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
 msgctxt "edit type"
 msgid "Remove place"
-msgstr "Rimuovi luogo"
+msgstr "Rimuovi posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 msgctxt "edit type"
 msgid "Remove place alias"
-msgstr "Rimuovi alias dal luogo"
+msgstr "Rimuovi alias dal posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit place"
-msgstr "Modifica luogo"
+msgstr "Modifica posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit place alias"
-msgstr "Modifica alias del luogo"
+msgstr "Modifica alias del posto"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
 msgctxt "edit type"
 msgid "Merge places"
-msgstr "Unisci luoghi"
+msgstr "Unisci posti"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
 msgctxt "edit type"
@@ -6445,22 +6534,22 @@ msgid "A fluency level is required."
 msgstr "È necessario selezionare un livello di padronanza."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:386
+#: ../root/static/scripts/common/constants.js:388
 msgid "Basic"
 msgstr "Elementare"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:387
+#: ../root/static/scripts/common/constants.js:389
 msgid "Intermediate"
 msgstr "Intermedio"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:385
+#: ../root/static/scripts/common/constants.js:387
 msgid "Advanced"
 msgstr "Avanzato"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:388
+#: ../root/static/scripts/common/constants.js:390
 msgid "Native"
 msgstr "Madrelingua"
 
@@ -7327,12 +7416,12 @@ msgstr ""
 "<code>&amp;#91;sconosciuto&amp;#93;</code> per visualizzarlo nella forma "
 "desiderata."
 
-#: ../root/area/AreaArtists.js:28 ../root/area/AreaArtists.js:29
+#: ../root/area/AreaArtists.js:29 ../root/area/AreaArtists.js:30
 #: ../root/components/EntityTabs.js:25
 #: ../root/components/TagEntitiesList.js:156
 #: ../root/components/list/EventList.js:74
-#: ../root/instrument/InstrumentArtists.js:32
-#: ../root/instrument/InstrumentArtists.js:34 ../root/report/ReportsIndex.js:48
+#: ../root/instrument/InstrumentArtists.js:33
+#: ../root/instrument/InstrumentArtists.js:35 ../root/report/ReportsIndex.js:48
 #: ../root/report/components/EventList.js:62
 #: ../root/search/components/EventResults.js:86
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
@@ -7343,31 +7432,31 @@ msgstr ""
 msgid "Artists"
 msgstr "Artisti"
 
-#: ../root/area/AreaArtists.js:47 ../root/instrument/InstrumentArtists.js:53
-#: ../root/report/DuplicateArtists.js:128
+#: ../root/area/AreaArtists.js:48 ../root/instrument/InstrumentArtists.js:54
+#: ../root/report/DuplicateArtists.js:129
 msgid "Add selected artists for merging"
 msgstr "Aggiungi gli artisti selezionati per unirli"
 
-#: ../root/area/AreaArtists.js:58
+#: ../root/area/AreaArtists.js:59
 msgid "This area is not currently associated with any artists."
 msgstr "Quest'area non è al momento associata a nessun artista."
 
-#: ../root/area/AreaEvents.js:28 ../root/area/AreaEvents.js:29
-#: ../root/artist/ArtistEvents.js:34 ../root/artist/ArtistEvents.js:35
+#: ../root/area/AreaEvents.js:29 ../root/area/AreaEvents.js:30
+#: ../root/artist/ArtistEvents.js:35 ../root/artist/ArtistEvents.js:36
 #: ../root/components/EntityTabs.js:26
-#: ../root/components/TagEntitiesList.js:160 ../root/place/PlaceEvents.js:28
-#: ../root/place/PlaceEvents.js:29 ../root/report/ReportsIndex.js:131
+#: ../root/components/TagEntitiesList.js:160 ../root/place/PlaceEvents.js:29
+#: ../root/place/PlaceEvents.js:30 ../root/report/ReportsIndex.js:131
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
 #: ../root/tag/TagLayout.js:27
 msgid "Events"
 msgstr "Eventi"
 
-#: ../root/area/AreaEvents.js:49 ../root/artist/ArtistEvents.js:61
-#: ../root/place/PlaceEvents.js:48
+#: ../root/area/AreaEvents.js:50 ../root/artist/ArtistEvents.js:62
+#: ../root/place/PlaceEvents.js:49
 msgid "Add selected events for merging"
 msgstr "Aggiungi gli eventi selezionati per unirli"
 
-#: ../root/area/AreaEvents.js:60
+#: ../root/area/AreaEvents.js:61
 msgid "This area is not currently associated with any events."
 msgstr "Quest'area non è al momento associata a nessun evento."
 
@@ -7375,7 +7464,7 @@ msgstr "Quest'area non è al momento associata a nessun evento."
 msgid "{area_type} in {parent_areas}"
 msgstr "{area_type} in {parent_areas}"
 
-#: ../root/area/AreaLabels.js:28 ../root/area/AreaLabels.js:29
+#: ../root/area/AreaLabels.js:29 ../root/area/AreaLabels.js:30
 #: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:168
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:223
@@ -7386,23 +7475,23 @@ msgstr "{area_type} in {parent_areas}"
 msgid "Labels"
 msgstr "Etichette"
 
-#: ../root/area/AreaLabels.js:46
+#: ../root/area/AreaLabels.js:47
 msgid "Add selected labels for merging"
 msgstr "Aggiungi le etichette selezionate per unirle"
 
-#: ../root/area/AreaLabels.js:57
+#: ../root/area/AreaLabels.js:58
 msgid "This area is not currently associated with any labels."
 msgstr "Quest'area non è al momento associata a nessuna etichetta."
 
-#: ../root/area/AreaPlaces.js:31 ../root/area/AreaPlaces.js:32
+#: ../root/area/AreaPlaces.js:32 ../root/area/AreaPlaces.js:33
 #: ../root/components/EntityTabs.js:31
 #: ../root/components/TagEntitiesList.js:172 ../root/report/ReportsIndex.js:571
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:23
 msgid "Places"
-msgstr "Luoghi"
+msgstr "Posti"
 
-#: ../root/area/AreaPlaces.js:44 ../root/place/PlaceMap.js:36
+#: ../root/area/AreaPlaces.js:45 ../root/place/PlaceMap.js:36
 msgid ""
 "A map cannot be shown because no maps service access token has been set for "
 "this server."
@@ -7410,19 +7499,19 @@ msgstr ""
 "Impossibile visualizzare una cartina poiché su questo server non è stato "
 "impostato alcun token di accesso a un servizio mappe."
 
-#: ../root/area/AreaPlaces.js:63
+#: ../root/area/AreaPlaces.js:64
 msgid "Add selected places for merging"
-msgstr "Aggiungi i luoghi selezionati per unirli"
+msgstr "Aggiungi i posti selezionati per unirli"
 
-#: ../root/area/AreaPlaces.js:75
+#: ../root/area/AreaPlaces.js:76
 msgid "This area is not currently associated with any places."
-msgstr "Quest'area non è al momento associata a nessun luogo."
+msgstr "Quest'area non è al momento associata a nessun posto."
 
 #: ../root/area/AreaRecordings.js:24
 msgid "This area has no relationships to any recordings."
 msgstr "Quest'area non ha relazioni con nessuna registrazione."
 
-#: ../root/area/AreaRecordings.js:26 ../root/area/AreaReleases.js:67
+#: ../root/area/AreaRecordings.js:26 ../root/area/AreaReleases.js:68
 #: ../root/area/AreaWorks.js:26 ../root/artist/ArtistRelationships.js:25
 #: ../root/components/EntityTabs.js:92
 #: ../root/edit/details/historic/AddRelationship.js:17
@@ -7434,8 +7523,8 @@ msgstr "Quest'area non ha relazioni con nessuna registrazione."
 msgid "Relationships"
 msgstr "Relazioni"
 
-#: ../root/area/AreaReleases.js:30 ../root/area/AreaReleases.js:33
-#: ../root/artist/ArtistReleases.js:36 ../root/artist/ArtistReleases.js:37
+#: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:34
+#: ../root/artist/ArtistReleases.js:37 ../root/artist/ArtistReleases.js:38
 #: ../root/artist_credit/ArtistCreditIndex.js:134
 #: ../root/artist_credit/ArtistCreditLayout.js:20
 #: ../root/components/EntityTabs.js:33
@@ -7445,25 +7534,25 @@ msgstr "Relazioni"
 #: ../root/edit/details/SetTrackLengths.js:43
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:25
 #: ../root/edit/details/historic/RemoveReleases.js:17
-#: ../root/instrument/InstrumentReleases.js:32
-#: ../root/instrument/InstrumentReleases.js:34 ../root/label/LabelIndex.js:75
+#: ../root/instrument/InstrumentReleases.js:33
+#: ../root/instrument/InstrumentReleases.js:35 ../root/label/LabelIndex.js:76
 #: ../root/report/ReportsIndex.js:254
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagLayout.js:19
 msgid "Releases"
 msgstr "Pubblicazioni"
 
-#: ../root/area/AreaReleases.js:46 ../root/artist/ArtistReleases.js:55
-#: ../root/instrument/InstrumentReleases.js:52 ../root/label/LabelIndex.js:97
-#: ../root/release_group/ReleaseGroupIndex.js:191
+#: ../root/area/AreaReleases.js:47 ../root/artist/ArtistReleases.js:56
+#: ../root/instrument/InstrumentReleases.js:53 ../root/label/LabelIndex.js:98
+#: ../root/release_group/ReleaseGroupIndex.js:192
 msgid "Add selected releases for merging"
 msgstr "Aggiungi le pubblicazioni selezionate per unirle"
 
-#: ../root/area/AreaReleases.js:57
+#: ../root/area/AreaReleases.js:58
 msgid "This area is not currently associated with any releases."
 msgstr "Quest'area non è al momento associata a nessuna pubblicazione."
 
-#: ../root/area/AreaReleases.js:65
+#: ../root/area/AreaReleases.js:66
 msgid "This area has no relationships to any releases."
 msgstr "Quest'area non ha relazioni con nessuna pubblicazione."
 
@@ -7483,8 +7572,8 @@ msgstr[2] "Al momento ci sono {num} utenti in quest'area."
 msgid "There are currently no users in this area."
 msgstr "Al momento non ci sono utenti in quest'area."
 
-#: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:34
-#: ../root/artist/ArtistWorks.js:35 ../root/components/EntityTabs.js:35
+#: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:35
+#: ../root/artist/ArtistWorks.js:36 ../root/components/EntityTabs.js:35
 #: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:601
 #: ../root/static/scripts/common/components/FilterForm.js:235
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
@@ -7496,105 +7585,105 @@ msgstr "Opere"
 msgid "This area has no relationships to any works."
 msgstr "Quest'area non ha relazioni con nessun'opera."
 
-#: ../root/artist/ArtistEvents.js:73
+#: ../root/artist/ArtistEvents.js:74
 msgid "No events found that match this search."
 msgstr "Non è stato trovato nessun evento corrispondente a questa ricerca."
 
-#: ../root/artist/ArtistEvents.js:74
+#: ../root/artist/ArtistEvents.js:75
 msgid "This artist is not currently associated with any events."
 msgstr "Quest'artista non è al momento associato a nessun evento."
 
-#: ../root/artist/ArtistIndex.js:60
+#: ../root/artist/ArtistIndex.js:61
 msgid "Show official release groups"
 msgstr "Mostra gruppi di pubblicazioni ufficiali"
 
-#: ../root/artist/ArtistIndex.js:70
+#: ../root/artist/ArtistIndex.js:71
 msgid "Show all release groups"
 msgstr "Mostra tutti i gruppi di pubblicazioni"
 
-#: ../root/artist/ArtistIndex.js:80
+#: ../root/artist/ArtistIndex.js:81
 msgid "Show official various artist release groups"
 msgstr "Mostra gruppi di pubblicazioni ufficiali di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:90
+#: ../root/artist/ArtistIndex.js:91
 msgid "Show all various artist release groups"
 msgstr "Mostra tutti i gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:119
+#: ../root/artist/ArtistIndex.js:120
 msgid "This artist only has unofficial release groups by various artists."
 msgstr ""
 "Quest'artista ha solo gruppi di pubblicazioni non ufficiali di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:125
+#: ../root/artist/ArtistIndex.js:126
 msgid "Showing all release groups for various artists"
 msgstr "Sono visualizzati tutti i gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:126
+#: ../root/artist/ArtistIndex.js:127
 msgid "This artist does not have any various artists release groups"
 msgstr "Quest'artista non ha gruppi di pubblicazioni di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:135
+#: ../root/artist/ArtistIndex.js:136
 msgid "This artist only has release groups by various artists."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistIndex.js:139
+#: ../root/artist/ArtistIndex.js:140
 msgid "Showing official release groups for various artists"
 msgstr "Sono visualizzati i gruppi di pubblicazioni ufficiali di artisti vari"
 
-#: ../root/artist/ArtistIndex.js:147
+#: ../root/artist/ArtistIndex.js:148
 msgid "This artist only has unofficial release groups."
 msgstr "Quest'artista ha solo gruppi di pubblicazioni non ufficiali."
 
-#: ../root/artist/ArtistIndex.js:151
+#: ../root/artist/ArtistIndex.js:152
 msgid "Showing all release groups by this artist"
 msgstr "Sono visualizzati tutti i gruppi di pubblicazioni di quest'artista"
 
-#: ../root/artist/ArtistIndex.js:162
+#: ../root/artist/ArtistIndex.js:163
 msgid "Showing official release groups by this artist"
 msgstr "Sono visualizzati i gruppi di pubblicazioni ufficiali di quest'artista"
 
-#: ../root/artist/ArtistIndex.js:212
+#: ../root/artist/ArtistIndex.js:213
 msgid "Performance name of"
 msgstr "Nome d'arte di"
 
-#: ../root/artist/ArtistIndex.js:220
+#: ../root/artist/ArtistIndex.js:221
 msgid "Legal name"
 msgstr "Nome all'anagrafe"
 
-#: ../root/artist/ArtistIndex.js:226 ../root/label/LabelIndex.js:58
+#: ../root/artist/ArtistIndex.js:227 ../root/label/LabelIndex.js:59
 msgid "Previously known as"
 msgstr "Conosciuta in precedenza come"
 
-#: ../root/artist/ArtistIndex.js:233 ../root/label/LabelIndex.js:65
+#: ../root/artist/ArtistIndex.js:234 ../root/label/LabelIndex.js:66
 msgid "Renamed to"
 msgstr "Rinominata in"
 
-#: ../root/artist/ArtistIndex.js:241
+#: ../root/artist/ArtistIndex.js:242
 msgid "Also performs as"
 msgstr "Si esibisce anche come"
 
-#: ../root/artist/ArtistIndex.js:255
+#: ../root/artist/ArtistIndex.js:256
 msgid "Discography"
 msgstr "Discografia"
 
-#: ../root/artist/ArtistIndex.js:279
+#: ../root/artist/ArtistIndex.js:280
 #: ../root/release_group/ReleaseGroupMerge.js:24
 #: ../root/release_group/ReleaseGroupMerge.js:26
 msgid "Merge release groups"
 msgstr "Unisci gruppi di pubblicazioni"
 
-#: ../root/artist/ArtistIndex.js:305 ../root/artist/ArtistRecordings.js:146
-#: ../root/instrument/InstrumentRecordings.js:53 ../root/isrc/Index.js:95
+#: ../root/artist/ArtistIndex.js:306 ../root/artist/ArtistRecordings.js:147
+#: ../root/instrument/InstrumentRecordings.js:54 ../root/isrc/Index.js:96
 msgid "Add selected recordings for merging"
 msgstr "Aggiungi le registrazioni selezionate per unirle"
 
-#: ../root/artist/ArtistIndex.js:319
+#: ../root/artist/ArtistIndex.js:320
 msgid "This artist has no release groups, only standalone recordings."
 msgstr ""
 "Quest'artista non ha nessun gruppo di pubblicazioni, ma solo registrazioni a "
 "sé stanti."
 
-#: ../root/artist/ArtistIndex.js:325
+#: ../root/artist/ArtistIndex.js:326
 msgid "No release groups found that match this search."
 msgstr ""
 "Non è stato trovato nessun gruppo di pubblicazioni corrispondente a questa "
@@ -7636,37 +7725,37 @@ msgstr ""
 "Aggiorna accreditamenti artista e relazione corrispondenti usando il nome "
 "dell'artista target"
 
-#: ../root/artist/ArtistRecordings.js:34
+#: ../root/artist/ArtistRecordings.js:35
 msgid "Show all recordings"
 msgstr "Mostra tutte le registrazioni"
 
-#: ../root/artist/ArtistRecordings.js:39
+#: ../root/artist/ArtistRecordings.js:40
 msgid "Show only standalone recordings"
 msgstr "Mostra solo le registrazioni a sé stanti"
 
-#: ../root/artist/ArtistRecordings.js:44
+#: ../root/artist/ArtistRecordings.js:45
 msgid "Show only videos"
 msgstr "Mostra solo i video"
 
-#: ../root/artist/ArtistRecordings.js:52
+#: ../root/artist/ArtistRecordings.js:53
 msgid "Showing only standalone recordings"
 msgstr "Sono visualizzate solo le registrazioni a sé stanti"
 
-#: ../root/artist/ArtistRecordings.js:68
+#: ../root/artist/ArtistRecordings.js:69
 msgid "Showing only videos"
 msgstr "Sono visualizzati solo i video"
 
-#: ../root/artist/ArtistRecordings.js:84
+#: ../root/artist/ArtistRecordings.js:85
 msgid "Showing all recordings"
 msgstr "Sono visualizzate tutte le registrazioni"
 
-#: ../root/artist/ArtistRecordings.js:158
+#: ../root/artist/ArtistRecordings.js:159
 msgid "No recordings found that match this search."
 msgstr ""
 "Non è stata trovata nessuna registrazione corrispondente a questa ricerca."
 
-#: ../root/artist/ArtistRecordings.js:159
-#: ../root/instrument/InstrumentRecordings.js:64
+#: ../root/artist/ArtistRecordings.js:160
+#: ../root/instrument/InstrumentRecordings.js:65
 msgid "No recordings found."
 msgstr "Nessuna registrazione trovata."
 
@@ -7675,18 +7764,18 @@ msgstr "Nessuna registrazione trovata."
 msgid "Appearances"
 msgstr "Partecipazioni"
 
-#: ../root/artist/ArtistReleases.js:69 ../root/label/LabelIndex.js:109
+#: ../root/artist/ArtistReleases.js:70 ../root/label/LabelIndex.js:110
 msgid "No releases found that match this search."
 msgstr ""
 "Non è stata trovata nessuna pubblicazione corrispondente a questa ricerca."
 
-#: ../root/artist/ArtistReleases.js:70
-#: ../root/instrument/InstrumentReleases.js:63
-#: ../root/release_group/ReleaseGroupIndex.js:202
+#: ../root/artist/ArtistReleases.js:71
+#: ../root/instrument/InstrumentReleases.js:64
+#: ../root/release_group/ReleaseGroupIndex.js:203
 msgid "No releases found."
 msgstr "Nessuna pubblicazione trovata."
 
-#: ../root/artist/ArtistReleases.js:76
+#: ../root/artist/ArtistReleases.js:77
 msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
@@ -7694,15 +7783,15 @@ msgstr ""
 "Sono visualizzate le pubblicazioni di artisti vari. {show_subset|Visualizza "
 "le pubblicazioni di quest'artista}."
 
-#: ../root/artist/ArtistReleases.js:87
+#: ../root/artist/ArtistReleases.js:88
 msgid "This search only found releases by various artists."
 msgstr "Questa ricerca ha trovato solo pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistReleases.js:89
+#: ../root/artist/ArtistReleases.js:90
 msgid "This artist only has releases by various artists."
 msgstr "Quest'artista ha solo pubblicazioni di artisti vari."
 
-#: ../root/artist/ArtistReleases.js:94
+#: ../root/artist/ArtistReleases.js:95
 msgid ""
 "Showing releases by this artist. {show_all|Show Various Artist releases "
 "instead}."
@@ -7710,15 +7799,15 @@ msgstr ""
 "Sono visualizzate le pubblicazioni di quest'artista. {show_all|Visualizza le "
 "pubblicazioni di artisti vari}."
 
-#: ../root/artist/ArtistWorks.js:57 ../root/iswc/Index.js:79
+#: ../root/artist/ArtistWorks.js:58 ../root/iswc/Index.js:80
 msgid "Add selected works for merging"
 msgstr "Aggiungi le opere selezionate per unirle"
 
-#: ../root/artist/ArtistWorks.js:69
+#: ../root/artist/ArtistWorks.js:70
 msgid "No works found that match this search."
 msgstr "Non è stata trovata nessun'opera corrispondente a questa ricerca."
 
-#: ../root/artist/ArtistWorks.js:70
+#: ../root/artist/ArtistWorks.js:71
 msgid "This artist is not currently associated with any works."
 msgstr "Quest'artista non è al momento associato a nessuna opera."
 
@@ -8104,7 +8193,7 @@ msgstr "FreeDB:"
 
 #: ../root/cdtoc/CDTocInfo.js:43
 msgid "Track details:"
-msgstr "Dettagli della traccia:"
+msgstr "Dettagli sulla traccia:"
 
 #: ../root/cdtoc/CDTocInfo.js:47
 #: ../root/edit/details/historic/RemoveTrack.js:20
@@ -8476,7 +8565,7 @@ msgid ""
 "This place has no relationships and will be removed automatically in the "
 "next few days. If this is not intended, please add more data to this place."
 msgstr ""
-"Questo luogo non ha relazioni e sarà rimosso automaticamente nei prossimi "
+"Questo posto non ha relazioni e sarà rimosso automaticamente nei prossimi "
 "giorni. Se vuoi evitare che ciò succeda, aggiungi più dati."
 
 #: ../root/components/CleanupBanner.js:33
@@ -8665,7 +8754,7 @@ msgstr "Nessuna relazione del tipo selezionato trovata."
 #: ../root/components/ReleaseLanguageScript.js:26
 #: ../root/components/list/ReleaseList.js:92
 #: ../root/edit/details/MergeReleases.js:54 ../root/event/EventArt.js:63
-#: ../root/release/CoverArt.js:64 ../root/release_group/ReleaseGroupIndex.js:90
+#: ../root/release/CoverArt.js:64 ../root/release_group/ReleaseGroupIndex.js:91
 #: ../root/search/components/ReleaseResults.js:66
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
@@ -8748,9 +8837,9 @@ msgstr[2] "Visualizza tutte le {num} etichette"
 #: ../root/components/TagEntitiesList.js:173
 msgid "See all {num} places"
 msgid_plural "See all {num} places"
-msgstr[0] "Visualizza tutti i {num} luoghi"
-msgstr[1] "Visualizza tutti i {num} di luoghi"
-msgstr[2] "Visualizza tutti i {num} luoghi"
+msgstr[0] "Visualizza tutti i {num} posti"
+msgstr[1] "Visualizza tutti i {num} di posti"
+msgstr[2] "Visualizza tutti i {num} posti"
 
 #: ../root/components/TagEntitiesList.js:188 ../root/report/ReportsIndex.js:588
 #: ../root/report/components/SeriesList.js:40
@@ -8886,7 +8975,7 @@ msgstr "Tipo non specificato"
 
 #: ../root/components/list/ReleaseList.js:82
 #: ../root/edit/details/MergeReleases.js:49
-#: ../root/release_group/ReleaseGroupIndex.js:85
+#: ../root/release_group/ReleaseGroupIndex.js:86
 #: ../root/search/components/ReleaseResults.js:61
 #: ../root/static/scripts/release-editor/duplicates.js:146
 msgid "[missing media]"
@@ -8899,7 +8988,7 @@ msgstr "[supporti mancanti]"
 msgid "Number of entities"
 msgstr "Numero di entità"
 
-#: ../root/components/list/WorkList.js:58 ../root/iswc/Index.js:58
+#: ../root/components/list/WorkList.js:58 ../root/iswc/Index.js:59
 #: ../root/report/IswcsWithManyWorks.js:51
 #: ../root/report/components/WorkList.js:48
 #: ../root/search/components/WorkResults.js:55
@@ -8908,7 +8997,7 @@ msgstr "Numero di entità"
 msgid "Authors"
 msgstr "Autori"
 
-#: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:60
+#: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 msgid "Other artists"
 msgstr "Altri artisti"
@@ -10214,7 +10303,7 @@ msgstr "Numero di traccia"
 
 #: ../root/edit/details/historic/AddTrackOld.js:25
 msgid "Artist name:"
-msgstr "Nome artista:"
+msgstr "Nome dell'artista:"
 
 #: ../root/edit/details/historic/EditRelationship.js:45
 msgid "Old relationships:"
@@ -10718,14 +10807,14 @@ msgstr ""
 #: ../root/entity/NotFound.js:151
 msgctxt "header"
 msgid "Place not found"
-msgstr "Luogo non trovato"
+msgstr "Posto non trovato"
 
 #: ../root/entity/NotFound.js:153
 msgid ""
 "Sorry, we could not find a place with that MusicBrainz ID. You may wish to "
 "try and {search_url|search for it} instead."
 msgstr ""
-"Spiacenti, non è stato possibile trovare un luogo con quell'ID di "
+"Spiacenti, non è stato possibile trovare un posto con quell'ID di "
 "MusicBrainz. Potresti provare a {search_url|usare la ricerca}."
 
 #: ../root/entity/NotFound.js:160
@@ -11145,7 +11234,7 @@ msgstr ""
 "Manca un genere nell'elenco? Richiedilo {link|aggiungendo un ticket di "
 "stile}."
 
-#: ../root/instrument/InstrumentArtists.js:64
+#: ../root/instrument/InstrumentArtists.js:65
 msgid "No artists found."
 msgstr "Nessun artista trovato."
 
@@ -11166,35 +11255,35 @@ msgstr ""
 "Manca uno strumento in questo elenco? Richiedilo seguendo {link|queste "
 "istruzioni}."
 
-#: ../root/isrc/Index.js:35 ../root/isrc/Index.js:39
+#: ../root/isrc/Index.js:36 ../root/isrc/Index.js:40
 msgid "ISRC “{isrc}”"
 msgstr "ISRC “{isrc}”"
 
-#: ../root/isrc/Index.js:45
+#: ../root/isrc/Index.js:46
 msgid "Associated with {num} recording"
 msgid_plural "Associated with {num} recordings"
 msgstr[0] "Associato a {num} registrazione"
 msgstr[1] "Associato a {num} di registrazioni"
 msgstr[2] "Associato a {num} registrazioni"
 
-#: ../root/iswc/Index.js:31 ../root/iswc/Index.js:34
+#: ../root/iswc/Index.js:32 ../root/iswc/Index.js:35
 msgid "ISWC “{iswc}”"
 msgstr "ISWC “{iswc}”"
 
-#: ../root/iswc/Index.js:39
+#: ../root/iswc/Index.js:40
 msgid "Associated with {num} work"
 msgid_plural "Associated with {num} works"
 msgstr[0] "Associato a {num} opera"
 msgstr[1] "Associato a {num} di opere"
 msgstr[2] "Associato a {num} opere"
 
-#: ../root/iswc/Index.js:59 ../root/report/IswcsWithManyWorks.js:52
+#: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 msgid "Recording artists"
 msgstr "Artisti della registrazione"
 
-#: ../root/label/LabelIndex.js:110
+#: ../root/label/LabelIndex.js:111
 msgid "This label does not have any releases."
 msgstr "Quest'etichetta non ha nessuna pubblicazione."
 
@@ -11401,7 +11490,7 @@ msgstr "Aggiungi opera"
 #: ../root/layout/components/BottomMenu.js:273
 msgctxt "interactive"
 msgid "Add place"
-msgstr "Aggiungi luogo"
+msgstr "Aggiungi posto"
 
 #: ../root/layout/components/BottomMenu.js:277
 msgctxt "singular, interactive"
@@ -11659,7 +11748,7 @@ msgstr "Non hai nessuna collezione di etichette!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:25
 msgid "You have no place collections!"
-msgstr "Non hai nessuna collezione di luoghi!"
+msgstr "Non hai nessuna collezione di posti!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:26
 msgid "You have no recording collections!"
@@ -11789,7 +11878,7 @@ msgstr "Ultimo aggiornamento in data sconosciuta"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:60
 msgid "Place information"
-msgstr "Informazioni sul luogo"
+msgstr "Informazioni sul posto"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:71
 msgctxt "place"
@@ -12439,32 +12528,32 @@ msgstr "Risultati della ricerca"
 msgid "No results found."
 msgstr "Nessun risultato trovato."
 
-#: ../root/place/PlaceEvents.js:59
+#: ../root/place/PlaceEvents.js:60
 msgid "This place is not currently associated with any events."
-msgstr "Questo luogo non è al momento associato a nessun evento."
+msgstr "Questo posto non è al momento associato a nessun evento."
 
 #: ../root/place/PlaceMap.js:43
 msgid "A map cannot be shown because this place has no coordinates."
 msgstr ""
-"Impossibile visualizzare una cartina poiché questo luogo non ha coordinate."
+"Impossibile visualizzare una cartina poiché questo posto non ha coordinate."
 
 #: ../root/place/PlaceMerge.js:21 ../root/place/PlaceMerge.js:23
 msgid "Merge places"
-msgstr "Unisci luoghi"
+msgstr "Unisci posti"
 
 #: ../root/place/PlaceMerge.js:25
 msgid ""
 "You are about to merge all these places into a single one. Please select the "
 "place all others should be merged into:"
 msgstr ""
-"Stai per unire tutti questi luoghi in un unico luogo. Seleziona il luogo in "
+"Stai per unire tutti questi posti in un unico posto. Seleziona il posto in "
 "cui unire tutti gli altri:"
 
 #: ../root/place/PlacePerformances.js:27
 msgid "No recordings, releases or release groups are linked to this place."
 msgstr ""
 "Nessuna registrazione, pubblicazione o gruppo di pubblicazioni è collegata a "
-"questo luogo."
+"questo posto."
 
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
@@ -12515,7 +12604,7 @@ msgid "Release group type"
 msgstr "Tipo del gruppo di pubblicazioni"
 
 #: ../root/recording/RecordingIndex.js:71
-#: ../root/release_group/ReleaseGroupIndex.js:51
+#: ../root/release_group/ReleaseGroupIndex.js:52
 msgctxt "release status"
 msgid "(unknown)"
 msgstr "(sconosciuto)"
@@ -12878,7 +12967,7 @@ msgstr "Questo rapporto elenca gli artisti con annotazioni."
 
 #: ../root/report/AnnotationsArtists.js:33
 msgid "Artist annotations"
-msgstr "Annotazioni di artisti"
+msgstr "Annotazioni su artisti"
 
 #: ../root/report/AnnotationsEvents.js:28
 msgid "This report lists events with annotations."
@@ -12886,7 +12975,7 @@ msgstr "Questo rapporto elenca gli eventi con annotazioni."
 
 #: ../root/report/AnnotationsEvents.js:33
 msgid "Event annotations"
-msgstr "Annotazioni di eventi"
+msgstr "Annotazioni su eventi"
 
 #: ../root/report/AnnotationsLabels.js:28
 msgid "This report lists labels with annotations."
@@ -12894,15 +12983,15 @@ msgstr "Questo rapporto elenca le etichette con annotazioni."
 
 #: ../root/report/AnnotationsLabels.js:33
 msgid "Label annotations"
-msgstr "Annotazioni di etichette"
+msgstr "Annotazioni su etichette"
 
 #: ../root/report/AnnotationsPlaces.js:28
 msgid "This report lists places with annotations."
-msgstr "Questo rapporto elenca i luoghi con annotazioni."
+msgstr "Questo rapporto elenca i posti con annotazioni."
 
 #: ../root/report/AnnotationsPlaces.js:33
 msgid "Place annotations"
-msgstr "Annotazioni di luoghi"
+msgstr "Annotazioni su posti"
 
 #: ../root/report/AnnotationsRecordings.js:29
 msgid "This report lists recordings with annotations."
@@ -12910,7 +12999,7 @@ msgstr "Questo rapporto elenca le registrazioni con annotazioni."
 
 #: ../root/report/AnnotationsRecordings.js:34
 msgid "Recording annotations"
-msgstr "Annotazioni di registrazioni"
+msgstr "Annotazioni su registrazioni"
 
 #: ../root/report/AnnotationsReleaseGroups.js:29
 msgid "This report lists release groups with annotations."
@@ -12918,7 +13007,7 @@ msgstr "Questo rapporto elenca i gruppi di pubblicazioni con annotazioni."
 
 #: ../root/report/AnnotationsReleaseGroups.js:34
 msgid "Release group annotations"
-msgstr "Annotazioni di gruppi di pubblicazioni"
+msgstr "Annotazioni su gruppi di pubblicazioni"
 
 #: ../root/report/AnnotationsReleases.js:28
 msgid "This report lists releases with annotations."
@@ -12926,7 +13015,7 @@ msgstr "Questo rapporto elenca le pubblicazioni con annotazioni."
 
 #: ../root/report/AnnotationsReleases.js:33
 msgid "Release annotations"
-msgstr "Annotazioni di pubblicazioni"
+msgstr "Annotazioni su pubblicazioni"
 
 #: ../root/report/AnnotationsSeries.js:28
 msgid "This report lists series with annotations."
@@ -12934,7 +13023,7 @@ msgstr "Questo rapporto elenca le serie con annotazioni."
 
 #: ../root/report/AnnotationsSeries.js:33
 msgid "Series annotations"
-msgstr "Annotazioni di serie"
+msgstr "Annotazioni su serie"
 
 #: ../root/report/AnnotationsWorks.js:28
 msgid "This report lists works with annotations."
@@ -12942,7 +13031,7 @@ msgstr "Questo rapporto elenca le opere con annotazioni."
 
 #: ../root/report/AnnotationsWorks.js:33
 msgid "Work annotations"
-msgstr "Annotazioni di opere"
+msgstr "Annotazioni su opere"
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:25
 msgid ""
@@ -13255,7 +13344,7 @@ msgstr "Collaboratore"
 
 #: ../root/report/CollaborationRelationships.js:68
 #: ../root/report/CollaborationRelationships.js:79
-#: ../root/report/DuplicateArtists.js:116
+#: ../root/report/DuplicateArtists.js:117
 #: ../root/report/components/ArtistUrlList.js:69
 msgid "This artist no longer exists."
 msgstr "Quest'artista non esiste più."
@@ -13291,13 +13380,13 @@ msgid ""
 "This report lists places which have relationships using deprecated and "
 "grouping-only relationship types."
 msgstr ""
-"Questo rapporto elenca i luoghi che utilizzano tipi di relazione obsoleti o "
+"Questo rapporto elenca i posti che utilizzano tipi di relazione obsoleti o "
 "di raggruppamento."
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:35
 #: ../root/report/ReportsIndex.js:575
 msgid "Places with deprecated relationships"
-msgstr "Luoghi con relazioni obsolete"
+msgstr "Posti con relazioni obsolete"
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:29
 msgid ""
@@ -13420,11 +13509,11 @@ msgstr ""
 msgid "Discogs URLs linked to multiple releases"
 msgstr "URL di Discogs collegati a più pubblicazioni"
 
-#: ../root/report/DuplicateArtists.js:38
+#: ../root/report/DuplicateArtists.js:39
 msgid "Total duplicate groups: {count}"
 msgstr "Totale gruppi di doppioni: {count}"
 
-#: ../root/report/DuplicateArtists.js:40
+#: ../root/report/DuplicateArtists.js:41
 msgid ""
 "This report aims to identify artists with very similar names. If two artists "
 "are actually the same, please merge them (remember to "
@@ -13441,15 +13530,15 @@ msgstr ""
 "avranno un commento di disambiguazione, essi non appariranno più in questo "
 "report)."
 
-#: ../root/report/DuplicateArtists.js:55 ../root/report/ReportsIndex.js:64
+#: ../root/report/DuplicateArtists.js:56 ../root/report/ReportsIndex.js:64
 msgid "Possibly duplicate artists"
 msgstr "Artisti che potrebbero essere doppioni"
 
-#: ../root/report/DuplicateArtists.js:99
+#: ../root/report/DuplicateArtists.js:100
 msgid "alias:"
 msgstr "alias:"
 
-#: ../root/report/DuplicateArtists.js:109
+#: ../root/report/DuplicateArtists.js:110
 #: ../root/report/DuplicateReleaseGroups.js:92
 #: ../root/report/EmptyReleaseGroups.js:93
 #: ../root/report/components/ArtistList.js:51
@@ -13465,7 +13554,7 @@ msgid ""
 "there are duplicates (for example, if there are separate events for "
 "headliner and supporting artist) please merge them."
 msgstr ""
-"Questo rapporto elenca gli eventi tenutisi nello stesso luogo e nella stessa "
+"Questo rapporto elenca gli eventi tenutisi nello stesso posto e nella stessa "
 "data. Se si tratta di doppioni (per esempio, se ci sono eventi separati per "
 "l'esibizione principale e per il gruppo spalla) ti chiediamo di unirli."
 
@@ -14052,12 +14141,12 @@ msgstr "Pubblicazioni che hanno relazioni di \"parte di un set\""
 
 #: ../root/report/PlacesWithoutCoordinates.js:29
 msgid "This report lists places without coordinates."
-msgstr "Questo rapporto elenca i luoghi senza coordinate."
+msgstr "Questo rapporto elenca i posti senza coordinate."
 
 #: ../root/report/PlacesWithoutCoordinates.js:33
 #: ../root/report/ReportsIndex.js:583
 msgid "Places without coordinates"
-msgstr "Luoghi senza coordinate"
+msgstr "Posti senza coordinate"
 
 #: ../root/report/PlacesWithoutCoordinates.js:43
 msgid "Search for coordinates"
@@ -14065,7 +14154,7 @@ msgstr "Cerca coordinate"
 
 #: ../root/report/PlacesWithoutCoordinates.js:123
 msgid "This place no longer exists."
-msgstr "Questo luogo non esiste più."
+msgstr "Questo posto non esiste più."
 
 #: ../root/report/PossibleCollaborations.js:25
 msgid ""
@@ -14341,14 +14430,13 @@ msgid ""
 "\" or \"-\"."
 msgstr ""
 "Questo rapporto mira a identificare le pubblicazioni che necessitano di "
-"essere convertite in pubblicazioni di artisti multipli (ad es. perché gli "
-"artisti si trovano nei titoli di traccia). Al momento elenca le "
-"pubblicazioni in cui il titolo di ogni traccia contiene \"/\" o \"-\"."
+"essere convertite in pubblicazioni di più artisti (ad es. perché gli artisti "
+"si trovano nei titoli di traccia). Al momento elenca le pubblicazioni in cui "
+"il titolo di ogni traccia contiene \"/\" o \"-\"."
 
 #: ../root/report/ReleasesToConvert.js:33 ../root/report/ReportsIndex.js:259
 msgid "Releases which might need converting to \"multiple artists\""
-msgstr ""
-"Pubblicazioni che potrebbero dover essere attribuite ad artisti multipli"
+msgstr "Pubblicazioni che potrebbero dover essere attribuite a più artisti"
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:25
 msgid ""
@@ -14668,7 +14756,7 @@ msgstr "Registrazioni non video con relazioni video"
 
 #: ../root/report/ReportsIndex.js:579
 msgid "Places with annotations"
-msgstr "Luoghi con annotazioni"
+msgstr "Posti con annotazioni"
 
 #: ../root/report/ReportsIndex.js:592
 msgid "Series with annotations"
@@ -14995,7 +15083,7 @@ msgstr "Totale etichette trovate: {count}"
 
 #: ../root/report/components/ReportLayout.js:30
 msgid "Total places found: {count}"
-msgstr "Totale luoghi trovati: {count}"
+msgstr "Totale posti trovati: {count}"
 
 #: ../root/report/components/ReportLayout.js:31
 msgid "Total recordings found: {count}"
@@ -15075,7 +15163,7 @@ msgstr "Cerca nella documentazione"
 #: ../root/utility/tableColumns.js:398
 msgctxt "event location"
 msgid "Location"
-msgstr "Posizione"
+msgstr "Luogo"
 
 #: ../root/search/components/EventResults.js:96
 msgid "Alternatively, you may {uri|add a new event}."
@@ -15091,7 +15179,7 @@ msgstr "L'ultima pagina di risultati è la pagina {last_page}."
 
 #: ../root/search/components/PlaceResults.js:77
 msgid "Alternatively, you may {uri|add a new place}."
-msgstr "In alternativa, puoi {uri|aggiungere un nuovo luogo}."
+msgstr "In alternativa, puoi {uri|aggiungere un nuovo posto}."
 
 #: ../root/search/components/RecordingResults.js:117
 msgid "(standalone recording)"
@@ -15246,7 +15334,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:279
 msgctxt "user area"
 msgid "Location"
-msgstr "Posizione"
+msgstr "Luogo"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:196
 msgid ""
@@ -15403,11 +15491,11 @@ msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:294
 msgid "Alias details"
-msgstr "Dettagli dell'alias"
+msgstr "Dettagli sull'alias"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:301
 msgid "Alias name:"
-msgstr "Nome alias:"
+msgstr "Nome dell'alias:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:327
 msgid "This is the {alias_doc|primary alias} for this locale"
@@ -15513,7 +15601,7 @@ msgstr "Mostra di più..."
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:195
 msgid "Collection details"
-msgstr "Dettagli della collezione"
+msgstr "Dettagli sulla collezione"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:215
 msgid "Allow other users to see this collection"
@@ -15706,7 +15794,7 @@ msgstr "Cerca un tipo di relazione"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:120
 msgid "Search for a place"
-msgstr "Cerca un luogo"
+msgstr "Cerca un posto"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:121
 msgid "Search for a recording"
@@ -16713,7 +16801,7 @@ msgstr "Aggiungi una nuova etichetta"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:25
 msgid "Add a new place"
-msgstr "Aggiungi un nuovo luogo"
+msgstr "Aggiungi un nuovo posto"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:28
 msgid "Add a new series"
@@ -17088,7 +17176,7 @@ msgstr "Questo URL non è consentito per le etichette."
 
 #: ../root/static/scripts/edit/externalLinks.js:950
 msgid "This URL is not allowed for places."
-msgstr "Questo URL non è consentito per i luoghi."
+msgstr "Questo URL non è consentito per i posti."
 
 #: ../root/static/scripts/edit/externalLinks.js:953
 msgid "This URL is not allowed for recordings."
@@ -17147,7 +17235,7 @@ msgstr "Aggiungi un'altra relazione"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:238
 msgid "Event details"
-msgstr "Dettagli dell'evento"
+msgstr "Dettagli sull'evento"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:263
 msgid "This event was cancelled."
@@ -17452,7 +17540,7 @@ msgstr "Aggiungi un'altra etichetta"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:39
 msgid "Add another place"
-msgstr "Aggiungi un altro luogo"
+msgstr "Aggiungi un altro posto"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:40
 msgid "Add another recording"
@@ -17860,7 +17948,7 @@ msgstr "Etichette taggate come “{tag}”"
 
 #: ../root/tag/EntityList.js:31
 msgid "Places tagged as “{tag}”"
-msgstr "Luoghi taggati come “{tag}”"
+msgstr "Posti taggati come “{tag}”"
 
 #: ../root/tag/EntityList.js:32
 msgid "Recordings tagged as “{tag}”"
@@ -17905,7 +17993,7 @@ msgstr "Etichette taggate come “{tag}” da {user}"
 
 #: ../root/tag/EntityList.js:45
 msgid "Places {user} tagged as “{tag}”"
-msgstr "Luoghi taggati come “{tag}” da {user}"
+msgstr "Posti taggati come “{tag}” da {user}"
 
 #: ../root/tag/EntityList.js:46
 msgid "Recordings {user} tagged as “{tag}”"
@@ -17950,7 +18038,7 @@ msgstr "Etichette su cui {user} ha votato contro “{tag}”"
 
 #: ../root/tag/EntityList.js:59
 msgid "Places where {user} downvoted “{tag}”"
-msgstr "Luoghi su cui {user} ha votato contro “{tag}”"
+msgstr "Posti su cui {user} ha votato contro “{tag}”"
 
 #: ../root/tag/EntityList.js:60
 msgid "Recordings where {user} downvoted “{tag}”"
@@ -18010,9 +18098,9 @@ msgstr[2] "{num} etichette trovate"
 #: ../root/tag/EntityList.js:75
 msgid "{num} place found"
 msgid_plural "{num} places found"
-msgstr[0] "{num} luogo trovato"
-msgstr[1] "{num} di luoghi trovati"
-msgstr[2] "{num} luoghi trovati"
+msgstr[0] "{num} posto trovato"
+msgstr[1] "{num} di posti trovati"
+msgstr[2] "{num} posti trovati"
 
 #: ../root/tag/EntityList.js:82
 msgid "{num} series found"
@@ -18174,7 +18262,7 @@ msgstr "Informazioni sull'URL"
 
 #: ../root/url/UrlIndex.js:19
 msgid "URL details"
-msgstr "Dettagli dell'URL"
+msgstr "Dettagli sull'URL"
 
 #: ../root/user/ContactUser.js:46
 msgid "Subject:"
@@ -18294,17 +18382,17 @@ msgstr "I {count} utenti seguenti sono editor di transclusione:"
 #: ../root/user/PrivilegedUsers.js:82
 msgctxt "header"
 msgid "Location editors"
-msgstr "Editor di posizioni"
+msgstr "Editor di luoghi"
 
 #: ../root/user/PrivilegedUsers.js:85
 msgid "Location editors are users who can add or modify {uri|areas}."
 msgstr ""
-"Gli editor di posizioni sono utenti che possono aggiungere o modificare {uri|"
-"aree}."
+"Gli editor di luoghi sono utenti che possono aggiungere o modificare "
+"{uri|aree}."
 
 #: ../root/user/PrivilegedUsers.js:91
 msgid "The following {count} users are location editors:"
-msgstr "I {count} utenti seguenti sono editor di posizioni:"
+msgstr "I {count} utenti seguenti sono editor di luoghi:"
 
 #: ../root/user/PrivilegedUsers.js:97
 msgctxt "header"
@@ -18448,7 +18536,7 @@ msgstr "Collezioni di etichette"
 
 #: ../root/user/UserCollections.js:43
 msgid "Place collections"
-msgstr "Collezioni di luoghi"
+msgstr "Collezioni di posti"
 
 #: ../root/user/UserCollections.js:44
 msgid "Recording collections"
@@ -18834,7 +18922,7 @@ msgstr "Valutazioni di etichette"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Place ratings"
-msgstr "Valutazioni di luoghi"
+msgstr "Valutazioni di posti"
 
 #: ../root/user/UserRatingList.js:30
 msgid "Recording ratings"
