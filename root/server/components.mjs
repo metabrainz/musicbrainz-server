@@ -537,6 +537,7 @@ export default {
   'static/scripts/common/components/TaggerIcon': (): Promise<mixed> => import('../static/scripts/common/components/TaggerIcon.js'),
   'static/scripts/common/components/WarningIcon': (): Promise<mixed> => import('../static/scripts/common/components/WarningIcon.js'),
   'static/scripts/edit/components/AddIcon': (): Promise<mixed> => import('../static/scripts/edit/components/AddIcon.js'),
+  'static/scripts/edit/components/FormRowArea': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowArea.js'),
   'static/scripts/edit/components/FormRowNameWithGuessCase': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowNameWithGuessCase.js'),
   'static/scripts/edit/components/FormRowTextList': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowTextList.js'),
   'static/scripts/edit/components/FormRowTextListSimple': (): Promise<mixed> => import('../static/scripts/edit/components/FormRowTextListSimple.js'),
