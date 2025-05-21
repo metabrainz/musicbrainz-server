@@ -10,11 +10,12 @@
 import * as Sentry from '@sentry/browser';
 
 import {maybeGetCatalystContext} from './utility/catalyst.js';
+import escapeRegExp from './utility/escapeRegExp.mjs';
 import * as DBDefs from './DBDefs-client.mjs';
 
 Sentry.init({
   allowUrls: [
-    new RegExp(DBDefs.STATIC_RESOURCES_LOCATION + '/.+\\.js$'),
+    new RegExp(escapeRegExp(DBDefs.STATIC_RESOURCES_LOCATION) + '/.+\\.js$'),
   ],
   dsn: DBDefs.SENTRY_DSN_PUBLIC,
   environment: DBDefs.GIT_BRANCH,
