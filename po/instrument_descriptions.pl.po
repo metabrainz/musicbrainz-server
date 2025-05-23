@@ -464,21 +464,6 @@ msgstr ""
 "przodka całego zespołu tamburica. Ta szarpana lutnia o długiej szyjce ma "
 "dwie podwójne struny i jest grana solo."
 
-#. name:gopichant
-#: DB:instrument/description:643
-msgid ""
-"Also known as ektara, it has a body of wood or coconut with a membrane at "
-"the bottom. Attached to the sides is a handle-like neck of split bamboo from "
-"which a single string is suspended and attached to the membrane. <br /> For "
-"the one string lute also called \"ektar\" see <a href=\"/instrument/b0edfd1a-"
-"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
-msgstr ""
-"Znana również jako ektara, ma korpus z drewna lub kokosa z membraną na dole. "
-"Do boków przymocowana jest szyjka w kształcie uchwytu z rozszczepionego "
-"bambusa, na której zawieszona jest pojedyncza struna i przymocowana do "
-"membrany. <br /> W przypadku lutni jednostrunowej zwanej również „ektar” "
-"patrz <a href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
-
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -1933,6 +1918,18 @@ msgstr ""
 "href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</a>."
 "<br /><br /> Instrument ten ma swoje początki w germańskich zespołach "
 "grających polki, a obecnie jest używany w katalońskim cobla."
+
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"For the one stringed lute also called ektar/ektara, see <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> For the "
+"similar looking instrument with only one spoke, see tun tuna.<br /> Not to "
+"be confused with the ekatantri veena, an ancient Indian monochord.<br /> It "
+"has a small, round or trapeze shaped body of wood or coconut with a membrane "
+"at the bottom. Attached to the sides is a neck of split bamboo from which a "
+"single string is suspended and attached to the membrane."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -7820,3 +7817,17 @@ msgstr "saó ôi (flet Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu basowa forma trắng lu"
+
+#~ msgid ""
+#~ "Also known as ektara, it has a body of wood or coconut with a membrane at "
+#~ "the bottom. Attached to the sides is a handle-like neck of split bamboo "
+#~ "from which a single string is suspended and attached to the membrane. "
+#~ "<br /> For the one string lute also called \"ektar\" see <a href=\"/"
+#~ "instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
+#~ msgstr ""
+#~ "Znana również jako ektara, ma korpus z drewna lub kokosa z membraną na "
+#~ "dole. Do boków przymocowana jest szyjka w kształcie uchwytu z "
+#~ "rozszczepionego bambusa, na której zawieszona jest pojedyncza struna i "
+#~ "przymocowana do membrany. <br /> W przypadku lutni jednostrunowej zwanej "
+#~ "również „ektar” patrz <a href=\"/instrument/b0edfd1a-"
+#~ "e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."

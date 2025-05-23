@@ -467,22 +467,6 @@ msgstr ""
 "bisernica en is een voorloper van alle instrumenten van het tamburica-"
 "orkest. Het is een langhalsluit met twee dubbele snaren en wordt getokkeld."
 
-#. name:gopichant
-#: DB:instrument/description:643
-msgid ""
-"Also known as ektara, it has a body of wood or coconut with a membrane at "
-"the bottom. Attached to the sides is a handle-like neck of split bamboo from "
-"which a single string is suspended and attached to the membrane. <br /> For "
-"the one string lute also called \"ektar\" see <a href=\"/instrument/b0edfd1a-"
-"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
-msgstr ""
-"Een ektara, ook ektar of ektara genoemd, is een snaarinstrument met een "
-"klankkast van hout of kokosnoot met een membraan aan de onderkant. De hals "
-"van gespleten bamboe zit vast aan de zijkant van de kast en er loopt één "
-"snaar van de hals naar het membraan.<br />De luit met één snaar die ook "
-"ektar wordt genoemd, kan je vinden onder <a href=\"/instrument/b0edfd1a-"
-"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
-
 #. name:repeater
 #: DB:instrument/description:882
 msgid ""
@@ -1954,6 +1938,18 @@ msgstr ""
 "href=\"/instrument/\">saxhoorn</a> voor het instrument dat in het Italiaans "
 "flicorno heet.<br /> Zie <a href=\"/instrument/fd016966-658e-40db-8fe1-"
 "f2235fe1e9a3\">bugel</a> voor het instrument dat in Spanje fliscorno heet."
+
+#. name:gopichant
+#: DB:instrument/description:643
+msgid ""
+"For the one stringed lute also called ektar/ektara, see <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> For the "
+"similar looking instrument with only one spoke, see tun tuna.<br /> Not to "
+"be confused with the ekatantri veena, an ancient Indian monochord.<br /> It "
+"has a small, round or trapeze shaped body of wood or coconut with a membrane "
+"at the bottom. Attached to the sides is a neck of split bamboo from which a "
+"single string is suspended and attached to the membrane."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -7883,6 +7879,20 @@ msgstr "Fluit van de Muong uit Vietnam"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "De trắng jâu is de basvariant van de trắng lu."
+
+#~ msgid ""
+#~ "Also known as ektara, it has a body of wood or coconut with a membrane at "
+#~ "the bottom. Attached to the sides is a handle-like neck of split bamboo "
+#~ "from which a single string is suspended and attached to the membrane. "
+#~ "<br /> For the one string lute also called \"ektar\" see <a href=\"/"
+#~ "instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
+#~ msgstr ""
+#~ "Een ektara, ook ektar of ektara genoemd, is een snaarinstrument met een "
+#~ "klankkast van hout of kokosnoot met een membraan aan de onderkant. De "
+#~ "hals van gespleten bamboe zit vast aan de zijkant van de kast en er loopt "
+#~ "één snaar van de hals naar het membraan.<br />De luit met één snaar die "
+#~ "ook ektar wordt genoemd, kan je vinden onder <a href=\"/instrument/"
+#~ "b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>."
 
 #~ msgid "Crumhorn used in the 14th to 17th centuries in Europe."
 #~ msgstr ""
