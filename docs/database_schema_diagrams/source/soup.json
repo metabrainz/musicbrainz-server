@@ -276,6 +276,7 @@
         "musicbrainz.medium_attribute": [],
         "musicbrainz.medium_cdtoc": [],
         "musicbrainz.medium_format": [],
+        "musicbrainz.medium_gid_redirect": [],
         "musicbrainz.mood": [],
         "musicbrainz.mood_alias_type": [],
         "musicbrainz.mood_alias": [],
