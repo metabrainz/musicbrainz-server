@@ -1,5 +1,5 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 29
+// - Database schema sequence: 30
 digraph artist_entity_details {
     tooltip = "Tables for the “artist” entity type properties"
     graph [
@@ -156,7 +156,7 @@ digraph artist_entity_details {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="catalog_numbers"><font point-size="14">catalog_numbers</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="country_code"><font point-size="14">country_code</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="barcode"><font point-size="14">barcode</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="release"><font point-size="14">release</font></td></tr>
             </table>
         >
@@ -168,10 +168,12 @@ digraph artist_entity_details {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="is_track_artist"><font point-size="14">is_track_artist</font></td></tr>
                 <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="unofficial"><font point-size="14">unofficial</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_type_child_order"><font point-size="14">primary_type_child_order</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="primary_type"><font point-size="14">primary_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="secondary_type_child_orders"><font point-size="14">secondary_type_child_orders</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="secondary_types"><font point-size="14">secondary_types</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date"><font point-size="14">first_release_date</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
             </table>
         >
