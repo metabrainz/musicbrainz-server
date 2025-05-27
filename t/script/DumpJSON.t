@@ -48,6 +48,16 @@ test all => sub {
     };
 
     $exec_sql->(<<~"SQL");
+        -- FIXME! Drop deferrable constraints which are incompatible with
+        -- with the `ON CONFLICT` clause. This clause is injected by the
+        -- ProcessReplicationChanges script's `--ignore-conflicts` flag,
+        -- used by the incremental JSON dumps since dae9f88.
+        --
+        -- The JSON dumps database shouldn't even have these constraints
+        -- to begin with, but there's no direct way to initialize the test
+        -- database as RT_MIRROR without PR #3197.
+        ALTER TABLE medium DROP CONSTRAINT IF EXISTS medium_uniq;
+        ALTER TABLE track DROP CONSTRAINT IF EXISTS track_uniq_medium_position;
         INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
             VALUES ($schema_seq, 1, now() - interval '1 hour');
         INSERT INTO artist (id, gid, name, sort_name)
