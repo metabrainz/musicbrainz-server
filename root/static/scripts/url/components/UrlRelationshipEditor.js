@@ -13,7 +13,8 @@ import hydrate from '../../../../utility/hydrate.js';
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
-import {getUnicodeUrl} from '../../edit/externalLinks.js';
+import getUnicodeUrl
+  from '../../external-links-editor/utility/getUnicodeUrl.js';
 import RelationshipEditor, {
   type InitialStateArgsT,
   loadOrCreateInitialState,
