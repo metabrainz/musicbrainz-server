@@ -10,7 +10,7 @@
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import type {
   LinkRelationshipT,
-} from '../../edit/externalLinks.js';
+} from '../../external-links-editor/types.js';
 import type {
   RelationshipStateT,
 } from '../types.js';
