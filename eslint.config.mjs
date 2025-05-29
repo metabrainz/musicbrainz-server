@@ -994,6 +994,7 @@ export default [
       'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
       'root/static/scripts/edit/externalLinks.js',
       'root/static/scripts/event/components/EventEditForm.js',
+      'root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
     ],
     rules: {
