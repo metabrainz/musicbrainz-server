@@ -7,9 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// eslint-disable-next-line import/enforce-node-protocol-usage
-import {toUnicode} from 'punycode';
-
 import $ from 'jquery';
 import ko from 'knockout';
 import * as React from 'react';
@@ -42,6 +39,7 @@ import {
   sessionStorageWrapper,
 } from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
+import getUnicodeUrl from '../external-links-editor/utility/getUnicodeUrl.js';
 import isValidURL from '../external-links-editor/utility/isValidURL.js';
 import {
   appendHiddenRelationshipInputs,
@@ -1832,18 +1830,6 @@ function groupLinksByUrl(
     urlTypePairs.add(urlTypePair);
   });
   return map;
-}
-
-export function getUnicodeUrl(url: string): string {
-  if (!isValidURL(url)) {
-    return url;
-  }
-
-  const urlObject = new URL(url);
-  const unicodeHostname = toUnicode(urlObject.hostname);
-  const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
-
-  return unicodeUrl;
 }
 
 function isGoogleAmp(url: string) {
