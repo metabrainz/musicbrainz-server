@@ -42,6 +42,7 @@ import {
   sessionStorageWrapper,
 } from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
+import isValidURL from '../external-links-editor/utility/isValidURL.js';
 import {
   appendHiddenRelationshipInputs,
 } from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
@@ -1833,9 +1834,6 @@ function groupLinksByUrl(
   return map;
 }
 
-const protocolRegex = /^(https?|ftp):$/;
-const hostnameRegex = /^(([A-z\d]|[A-z\d][A-z\d-]*[A-z\d])\.)*([A-z\d]|[A-z\d][A-z\d-]*[A-z\d])$/;
-
 export function getUnicodeUrl(url: string): string {
   if (!isValidURL(url)) {
     return url;
@@ -1846,38 +1844,6 @@ export function getUnicodeUrl(url: string): string {
   const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
 
   return unicodeUrl;
-}
-
-function isValidURL(url: string) {
-  const a = document.createElement('a');
-  a.href = url;
-
-  const hostname = a.hostname;
-
-  // To compare with the url we need to decode the Punycode if present
-  const unicodeHostname = toUnicode(hostname);
-  if (url.indexOf(hostname) < 0 && url.indexOf(unicodeHostname) < 0) {
-    return false;
-  }
-
-  if (!hostnameRegex.test(hostname)) {
-    return false;
-  }
-
-  if (hostname.indexOf('.') < 0) {
-    return false;
-  }
-
-  /*
-   * Check if protocol string is in URL and is valid
-   * Protocol of URL like "//google.com" is inferred as "https:"
-   * but the URL is invalid
-   */
-  if (!url.startsWith(a.protocol) || !protocolRegex.test(a.protocol)) {
-    return false;
-  }
-
-  return true;
 }
 
 function isGoogleAmp(url: string) {
