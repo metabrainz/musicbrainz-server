@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict-local
  * Copyright (C) 2025 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -18,7 +18,7 @@ component LinkTypeSelect(
 ) {
   const optionAvailable = options.some(option => option.value === type);
   // If the selected type is not available, display it as placeholder
-  const linkType = type ? linkedEntities.link_type[type] : null;
+  const linkType = type == null ? null : linkedEntities.link_type[type];
   const placeholder = (optionAvailable || !linkType)
     ? '\xA0'
     : l_relationships(
@@ -28,10 +28,12 @@ component LinkTypeSelect(
   return (
     <select
       // If the selected type is not available, display an error indicator
-      className={optionAvailable || !type ? 'link-type' : 'link-type error'}
+      className={
+        (optionAvailable || type == null) ? 'link-type' : 'link-type error'
+      }
       onBlur={handleTypeBlur}
       onChange={handleTypeChange}
-      value={type || ''}
+      value={type ?? ''}
     >
       <option value="">{placeholder}</option>
       {options.map(option => (
