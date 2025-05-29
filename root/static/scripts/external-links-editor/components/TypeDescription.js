@@ -1,5 +1,5 @@
 /*
- * @flow
+ * @flow strict
  * Copyright (C) 2025 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -14,7 +14,7 @@ import HelpIcon from '../../edit/components/HelpIcon.js';
 component TypeDescription(
   type: number | null
 ) renders HelpIcon {
-  const linkType = type ? linkedEntities.link_type[type] : null;
+  const linkType = type == null ? null : linkedEntities.link_type[type];
   let typeDescription: Expand2ReactOutput = '';
 
   if (linkType && linkType.description) {
