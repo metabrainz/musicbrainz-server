@@ -18,30 +18,24 @@ import {
   ENTITIES_WITH_RELATIONSHIP_CREDITS,
   FAVICON_CLASSES,
   VIDEO_ATTRIBUTE_GID,
-  VIDEO_ATTRIBUTE_ID,
 } from '../common/constants.js';
 import {compare, l} from '../common/i18n.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
-import {bracketedText} from '../common/utility/bracketed.js';
 import {
   getCatalystContext,
   getSourceEntityData,
 } from '../common/utility/catalyst.js';
 import {compareDatePeriods} from '../common/utility/compareDates.js';
-import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
-import {isDateNonEmpty} from '../common/utility/isDateEmpty.js';
 import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
-import LinkTypeSelect
-  from '../external-links-editor/components/LinkTypeSelect.js';
-import TypeDescription
-  from '../external-links-editor/components/TypeDescription.js';
+import ExternalLinkRelationship
+  from '../external-links-editor/components/ExternalLinkRelationship.js';
 import type {
   CreditableEntityOptionsT,
   ErrorT,
@@ -63,10 +57,6 @@ import {isMalware} from '../url/utility/isGreyedOut.js';
 
 import EntityPendingEditsWarning
   from './components/EntityPendingEditsWarning.js';
-import ExternalLinkAttributeDialog
-  from './components/ExternalLinkAttributeDialog.js';
-import RelationshipPendingEditsWarning
-  from './components/RelationshipPendingEditsWarning.js';
 import RemoveButton from './components/RemoveButton.js';
 import URLInputPopover from './components/URLInputPopover.js';
 import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
@@ -1157,164 +1147,6 @@ export class _ExternalLinksEditor
     );
   }
 }
-
-type ExternalLinkRelationshipPropsT = {
-  +creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
-  +hasUrlError: boolean,
-  +highlight: HighlightT,
-  +isOnlyRelationship: boolean,
-  +link: LinkRelationshipT,
-  +onAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
-  +onLinkRemove: (number) => void,
-  +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
-  +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
-  +onVideoChange: (number, SyntheticEvent<HTMLInputElement>) => void,
-  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
-  +urlMatchesType: boolean,
-};
-
-const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipPropsT): React.MixedElement => {
-    const {
-      creditableEntityProp,
-      link,
-      hasUrlError,
-      highlight,
-      urlMatchesType,
-    } = props;
-    const linkType = link.type ? linkedEntities.link_type[link.type] : null;
-    const backward = linkType && linkType.type1 > 'url';
-    const hasDate = isDateNonEmpty(link.begin_date) ||
-                    isDateNonEmpty(link.end_date) ||
-                    link.ended;
-
-    const showTypeSelection = (link.error || hasUrlError)
-      ? true
-      : !(urlMatchesType || isEmpty(link));
-
-    const creditedName = creditableEntityProp
-      ? link[creditableEntityProp]
-      : null;
-
-    return (
-      <tr className="relationship-item" key={link.relationship}>
-        <td />
-        <td className="link-actions">
-          {!props.isOnlyRelationship && !props.urlMatchesType ? (
-            <RemoveButton
-              onClick={() => props.onLinkRemove(link.index)}
-              title={lp('Remove relationship', 'interactive')}
-            />
-          ) : null}
-          <ExternalLinkAttributeDialog
-            creditableEntityProp={creditableEntityProp}
-            onConfirm={
-              (attributes) => props.onAttributesChange(link.index, attributes)
-            }
-            relationship={link}
-          />
-        </td>
-        <td>
-          <div className={`relationship-content ${highlight}`}>
-            <label>{addColonText(l('Type'))}</label>
-            <label className="relationship-name">
-              {/* If the URL matches its type or is just empty,
-                  display either a favicon
-                  or a prompt for a new link as appropriate. */
-                showTypeSelection
-                  ? (
-                    <LinkTypeSelect
-                      handleTypeBlur={
-                        (event) => props.onTypeBlur(link.index, event)
-                      }
-                      handleTypeChange={
-                        (event) => props.onTypeChange(link.index, event)
-                      }
-                      options={
-                        props.typeOptions.reduce((options, option, index) => {
-                          const nextOption = props.typeOptions[index + 1];
-                          if (!option.disabled ||
-                          /*
-                           * Ignore empty groups by checking
-                           * if the next option is an item in current group,
-                           * if not, then it's an empty group.
-                           */
-                          (nextOption &&
-                            nextOption.data.parent_id === option.value)) {
-                            options.push(option);
-                          }
-                          return options;
-                        }, [])
-                      }
-                      type={link.type}
-                    />
-                  ) : (
-                    linkType ? (
-                      backward ? (
-                        stripAttributes(
-                          linkType,
-                          linkType.l_reverse_link_phrase ?? '',
-                        )
-                      ) : (
-                        stripAttributes(
-                          linkType,
-                          linkType.l_link_phrase ?? '',
-                        )
-                      )
-                    ) : null
-                  )
-              }
-              {link.url && !link.error && !hasUrlError
-                ? <TypeDescription type={link.type} />
-                : null}
-              <RelationshipPendingEditsWarning relationship={link} />
-              {hasDate ? (
-                <span className="date-period">
-                  {' '}
-                  {bracketedText(formatDatePeriod(link))}
-                </span>
-              ) : null}
-              {nonEmpty(creditedName) ? (
-                <span className="entity-credit">
-                  {' '}
-                  {bracketedText(texp.lp(
-                    'credited as “{credit}”',
-                    'relationship credit',
-                    {credit: creditedName},
-                  ))}
-                </span>
-              ) : null}
-            </label>
-          </div>
-          {linkType &&
-            Object.hasOwn(
-              linkType.attributes,
-              String(VIDEO_ATTRIBUTE_ID),
-            ) ? (
-              <div className="attribute-container">
-                <label>
-                  <input
-                    checked={link.video}
-                    onChange={
-                      (event) => props.onVideoChange(link.index, event)
-                    }
-                    style={{verticalAlign: 'text-top'}}
-                    type="checkbox"
-                  />
-                  {' '}
-                  {l('video')}
-                </label>
-              </div>
-            ) : null}
-          {link.error ? (
-            <div className="error field-error" data-visible="1">
-              {link.error.message}
-            </div>
-          ) : null}
-        </td>
-      </tr>
-    );
-  };
 
 type LinkProps = {
   +canMerge: boolean,
