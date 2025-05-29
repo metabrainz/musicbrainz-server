@@ -38,6 +38,8 @@ import {
   sessionStorageWrapper,
 } from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
+import LinkTypeSelect
+  from '../external-links-editor/components/LinkTypeSelect.js';
 import TypeDescription
   from '../external-links-editor/components/TypeDescription.js';
 import type {
@@ -1154,43 +1156,6 @@ export class _ExternalLinksEditor
       </table>
     );
   }
-}
-
-component LinkTypeSelect(
-  handleTypeBlur: (SyntheticFocusEvent<HTMLSelectElement>) => void,
-  handleTypeChange: (SyntheticEvent<HTMLSelectElement>) => void,
-  options: Array<LinkTypeOptionT>,
-  type: number | null,
-) {
-  const optionAvailable = options.some(option => option.value === type);
-  // If the selected type is not available, display it as placeholder
-  const linkType = type ? linkedEntities.link_type[type] : null;
-  const placeholder = (optionAvailable || !linkType)
-    ? '\xA0'
-    : l_relationships(
-      linkType.link_phrase,
-    );
-
-  return (
-    <select
-      // If the selected type is not available, display an error indicator
-      className={optionAvailable || !type ? 'link-type' : 'link-type error'}
-      onBlur={handleTypeBlur}
-      onChange={handleTypeChange}
-      value={type || ''}
-    >
-      <option value="">{placeholder}</option>
-      {options.map(option => (
-        <option
-          disabled={option.disabled}
-          key={option.value}
-          value={option.value}
-        >
-          {option.text}
-        </option>
-      ))}
-    </select>
-  );
 }
 
 type ExternalLinkRelationshipPropsT = {
