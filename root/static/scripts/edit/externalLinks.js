@@ -21,7 +21,6 @@ import {
   VIDEO_ATTRIBUTE_ID,
 } from '../common/constants.js';
 import {compare, l} from '../common/i18n.js';
-import expand2react from '../common/i18n/expand2react.js';
 import linkedEntities from '../common/linkedEntities.mjs';
 import MB from '../common/MB.js';
 import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
@@ -39,6 +38,8 @@ import {
   sessionStorageWrapper,
 } from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
+import TypeDescription
+  from '../external-links-editor/components/TypeDescription.js';
 import type {
   CreditableEntityOptionsT,
   ErrorT,
@@ -62,7 +63,6 @@ import EntityPendingEditsWarning
   from './components/EntityPendingEditsWarning.js';
 import ExternalLinkAttributeDialog
   from './components/ExternalLinkAttributeDialog.js';
-import HelpIcon from './components/HelpIcon.js';
 import RelationshipPendingEditsWarning
   from './components/RelationshipPendingEditsWarning.js';
 import RemoveButton from './components/RemoveButton.js';
@@ -1190,26 +1190,6 @@ component LinkTypeSelect(
         </option>
       ))}
     </select>
-  );
-}
-
-component TypeDescription(type: number | null) renders HelpIcon {
-  const linkType = type ? linkedEntities.link_type[type] : null;
-  let typeDescription: Expand2ReactOutput = '';
-
-  if (linkType && linkType.description) {
-    typeDescription = exp.l('{description} ({url|more documentation})', {
-      description: expand2react(l_relationships(linkType.description)),
-      url: '/relationship/' + linkType.gid,
-    });
-  }
-
-  return (
-    <HelpIcon
-      content={
-        <div style={{textAlign: 'left'}}>{typeDescription}</div>
-      }
-    />
   );
 }
 
