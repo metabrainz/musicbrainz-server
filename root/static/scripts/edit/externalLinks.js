@@ -39,6 +39,18 @@ import {
   sessionStorageWrapper,
 } from '../common/utility/storage.js';
 import {uniqueId} from '../common/utility/strings.js';
+import type {
+  CreditableEntityOptionsT,
+  ErrorT,
+  HighlightT,
+  LinkMapT,
+  LinkRelationshipT,
+  LinksEditorProps,
+  LinksEditorState,
+  LinkStateT,
+  LinkTypeOptionT,
+  SeededUrlShape,
+} from '../external-links-editor/types.js';
 import getUnicodeUrl from '../external-links-editor/utility/getUnicodeUrl.js';
 import isValidURL from '../external-links-editor/utility/isValidURL.js';
 import {
@@ -68,84 +80,11 @@ import type {RelationshipTypeT} from './URLCleanup.js';
 import * as URLCleanup from './URLCleanup.js';
 import * as validation from './validation.js';
 
-type ErrorTarget = $Values<typeof URLCleanup.ERROR_TARGETS>;
-
 const HIGHLIGHTS = {
   ADD: 'rel-add',
   EDIT: 'rel-edit',
   NONE: '',
   REMOVE: 'rel-remove',
-};
-
-type HighlightT = $Values<typeof HIGHLIGHTS>;
-
-export type ErrorT = {
-  blockMerge?: boolean,
-  message: React.Node,
-  target: ErrorTarget,
-};
-
-type LinkTypeOptionT = {
-  data: LinkTypeT,
-  disabled?: boolean,
-  text: string,
-  value: number,
-};
-
-export type LinkStateT = $ReadOnly<{
-  ...DatePeriodRoleT,
-  +deleted: boolean,
-  +editsPending: boolean,
-  +entity0:
-    | RelatableEntityT
-    | {
-        +entityType: RelatableEntityTypeT,
-        +id?: void,
-        +isNewEntity?: true,
-        +name?: string,
-        +orderingTypeID?: number,
-        +relationships?: void,
-      }
-    | null,
-  +entity0_credit: string,
-  +entity1: RelatableEntityT | null,
-  +entity1_credit: string,
-  +pendingTypes: $ReadOnlyArray<number> | null,
-  +rawUrl: string,
-  // New relationships will use a unique string ID like "new-1".
-  +relationship: StrOrNum | null,
-  +submitted: boolean,
-  +type: number | null,
-  +url: string,
-  +video: boolean,
-}>;
-
-type LinkMapT = Map<string, LinkStateT>;
-
-export type LinkRelationshipT = $ReadOnly<{
-  ...LinkStateT,
-  +error: ErrorT | null,
-  +index: number,
-  +urlIndex: number,
-}>;
-
-type LinksEditorProps = {
-  +errorObservable?: (boolean) => void,
-  +isNewEntity: boolean,
-  +sourceData:
-    | RelatableEntityT
-    | {
-        +entityType: RelatableEntityTypeT,
-        +id?: void,
-        +isNewEntity?: true,
-        +name?: string,
-        +orderingTypeID?: number,
-        +relationships?: void,
-      },
-};
-
-type LinksEditorState = {
-  +links: $ReadOnlyArray<LinkStateT>,
 };
 
 function getFaviconClass(
@@ -1432,8 +1371,6 @@ const ExternalLinkRelationship =
     );
   };
 
-type CreditableEntityOptionsT = 'entity0_credit' | 'entity1_credit' | null;
-
 type LinkProps = {
   +canMerge: boolean,
   +cleanupUrl: (string) => string,
@@ -1864,11 +1801,6 @@ type InitialOptionsT = {
         +orderingTypeID?: number,
         +relationships?: void,
       },
-};
-
-type SeededUrlShape = {
-  link_type_id?: string,
-  text?: string,
 };
 
 export function createExternalLinksEditor(

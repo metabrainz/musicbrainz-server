@@ -14,7 +14,7 @@ import ButtonPopover from '../../common/components/ButtonPopover.js';
 import type {
   LinkRelationshipT,
   LinkStateT,
-} from '../externalLinks.js';
+} from '../../external-links-editor/types.js';
 import {copyDatePeriodField} from '../utility/copyFieldData.js';
 import {
   createCompoundFieldFromObject,

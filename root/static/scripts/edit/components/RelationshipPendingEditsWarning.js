@@ -10,13 +10,13 @@
 import openEditsForRelIconUrl
   from '../../../images/icons/open_edits_for_rel.svg';
 import type {
+  LinkRelationshipT,
+} from '../../external-links-editor/types.js';
+import type {
   RelationshipStateT,
 } from '../../relationship-editor/types.js';
 import getOpenEditsLink
   from '../../relationship-editor/utility/getOpenEditsLink.js';
-import type {
-  LinkRelationshipT,
-} from '../externalLinks.js';
 
 import Tooltip from './Tooltip.js';
 

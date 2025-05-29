@@ -14,7 +14,7 @@ import type {
   ErrorT,
   LinkRelationshipT,
   LinkStateT,
-} from '../externalLinks.js';
+} from '../../external-links-editor/types.js';
 import {ERROR_TARGETS} from '../URLCleanup.js';
 
 component URLInputPopover(
