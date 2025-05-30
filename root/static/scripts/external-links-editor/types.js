@@ -17,10 +17,10 @@ export type CreditableEntityOptionsT =
 export type ErrorT = {
   blockMerge?: boolean,
   message: React.Node,
-  target: ErrorTarget,
+  target: ErrorTargetT,
 };
 
-type ErrorTarget = $Values<ERROR_TARGETS>;
+type ErrorTargetT = $Values<ERROR_TARGETS>;
 
 export type HighlightT =
   | 'rel-add'
@@ -28,7 +28,7 @@ export type HighlightT =
   | ''
   | 'rel-remove';
 
-export type LinksEditorProps = {
+export type LinksEditorPropsT = {
   +errorObservable?: (boolean) => void,
   +isNewEntity: boolean,
   +sourceData:
@@ -43,7 +43,7 @@ export type LinksEditorProps = {
       },
 };
 
-export type LinksEditorState = {
+export type LinksEditorStateT = {
   +links: $ReadOnlyArray<LinkStateT>,
 };
 
@@ -91,7 +91,7 @@ export type LinkTypeOptionT = {
   value: number,
 };
 
-export type SeededUrlShape = {
+export type SeededUrlShapeT = {
   link_type_id?: string,
   text?: string,
 };
