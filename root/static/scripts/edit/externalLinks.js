@@ -45,11 +45,11 @@ import type {
   HighlightT,
   LinkMapT,
   LinkRelationshipT,
-  LinksEditorProps,
-  LinksEditorState,
+  LinksEditorPropsT,
+  LinksEditorStateT,
   LinkStateT,
   LinkTypeOptionT,
-  SeededUrlShape,
+  SeededUrlShapeT,
 } from '../external-links-editor/types.js';
 import getUnicodeUrl from '../external-links-editor/utility/getUnicodeUrl.js';
 import isValidURL from '../external-links-editor/utility/isValidURL.js';
@@ -124,7 +124,7 @@ function getFaviconClass(
 }
 
 export class _ExternalLinksEditor
-  extends React.Component<LinksEditorProps, LinksEditorState> {
+  extends React.Component<LinksEditorPropsT, LinksEditorStateT> {
   creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null;
 
   tableRef: {current: HTMLTableElement | null};
@@ -147,7 +147,7 @@ export class _ExternalLinksEditor
     set(links: $ReadOnlyArray<LinkStateT>): void,
   };
 
-  constructor(props: LinksEditorProps) {
+  constructor(props: LinksEditorPropsT) {
     super(props);
 
     const sourceData = props.sourceData;
@@ -221,7 +221,7 @@ export class _ExternalLinksEditor
             '\\.url\\.([0-9]+)\\.(text|link_type_id)=([^&]+)',
           'g',
         );
-        const urls: {[index: string]: SeededUrlShape} = {};
+        const urls: {[index: string]: SeededUrlShapeT} = {};
         let match;
 
         while ((match = seededLinkRegex.exec(window.location.search))) {
@@ -1213,7 +1213,7 @@ component TypeDescription(type: number | null) renders HelpIcon {
   );
 }
 
-type ExternalLinkRelationshipProps = {
+type ExternalLinkRelationshipPropsT = {
   +creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
   +hasUrlError: boolean,
   +highlight: HighlightT,
@@ -1229,7 +1229,7 @@ type ExternalLinkRelationshipProps = {
 };
 
 const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipProps): React.MixedElement => {
+  (props: ExternalLinkRelationshipPropsT): React.MixedElement => {
     const {
       creditableEntityProp,
       link,
@@ -1621,8 +1621,11 @@ export class ExternalLink extends React.Component<LinkProps> {
 }
 
 export const ExternalLinksEditor:
-  component(ref: React.RefSetter<_ExternalLinksEditor>, ...LinksEditorProps) =
-    withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
+  component(
+    ref: React.RefSetter<_ExternalLinksEditor>,
+    ...LinksEditorPropsT
+  ) =
+    withLoadedTypeInfo<LinksEditorPropsT, _ExternalLinksEditor>(
       _ExternalLinksEditor,
       new Set(['link_type', 'link_attribute_type']),
     );
