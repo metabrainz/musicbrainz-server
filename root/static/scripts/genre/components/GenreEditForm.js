@@ -26,11 +26,10 @@ import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../../edit/components/GuessCaseOptions.js';
-import {
+import ExternalLinksEditor, {
   _ExternalLinksEditor,
-  ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
-} from '../../edit/externalLinks.js';
+} from '../../external-links-editor/components/ExternalLinksEditor.js';
 import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';

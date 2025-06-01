@@ -8,13 +8,15 @@ import MB from '../common/MB.js';
 import {getCatalystContext} from '../common/utility/catalyst.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
-import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
 import initializeBubble, {
   BubbleDoc,
   initializeExternalLinksBubble,
 } from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
+import {
+  createExternalLinksEditorForHtmlForm,
+} from '../external-links-editor/components/ExternalLinksEditor.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 $(function () {

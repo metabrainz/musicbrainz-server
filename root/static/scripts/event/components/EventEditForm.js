@@ -34,16 +34,15 @@ import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../../edit/components/GuessCaseOptions.js';
-import {
-  _ExternalLinksEditor,
-  ExternalLinksEditor,
-  prepareExternalLinksHtmlFormSubmission,
-} from '../../edit/externalLinks.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
+import ExternalLinksEditor, {
+  _ExternalLinksEditor,
+  prepareExternalLinksHtmlFormSubmission,
+} from '../../external-links-editor/components/ExternalLinksEditor.js';
 import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';

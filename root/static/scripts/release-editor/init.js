@@ -32,12 +32,13 @@ import {debounceComputed} from '../common/utility/debounce.js';
 import {isBeginner} from '../common/utility/privileges.js';
 import request from '../common/utility/request.js';
 import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
-import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
 import isInvalidEditNote from '../edit/utility/isInvalidEditNote.js';
 import {errorField, errorsExist} from '../edit/validation.js';
+import * as externalLinks
+  from '../external-links-editor/components/ExternalLinksEditor.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 import EditNoteTab from './components/EditNoteTab.js';
