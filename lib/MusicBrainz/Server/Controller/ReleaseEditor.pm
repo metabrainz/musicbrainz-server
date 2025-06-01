@@ -39,6 +39,7 @@ sub _init_release_editor
     my @medium_formats = $c->model('MediumFormat')->get_all;
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];
     my %medium_format_dates = map { $_->id => $_->year } @medium_formats;
+    my $release = $c->stash->{release};
 
     $c->stash(
         template            => 'release/edit/layout.tt',
@@ -48,7 +49,7 @@ sub _init_release_editor
         statuses            => select_options_tree($c, 'ReleaseStatus'),
         languages           => build_grouped_options($c, language_options($c)),
         scripts             => build_grouped_options($c, script_options($c)),
-        source_entity       => to_json_object($c->stash->{release}),
+        source_entity       => to_json_object($release) // {entityType => 'release', isNewEntity => \1},
         packagings          => select_options_tree($c, 'ReleasePackaging'),
         countries           => select_options($c, 'CountryArea'),
         formats             => select_options_tree($c, 'MediumFormat'),

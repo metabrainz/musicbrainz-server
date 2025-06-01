@@ -10,13 +10,12 @@
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
+import {expect} from '../../../../utility/invariant.js';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
-  partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
 } from '../../edit/components/DateRangeFieldset.js';
-import {copyDatePeriodField} from '../../edit/utility/copyFieldData.js';
 import {
   createCompoundFieldFromObject,
   createField,
@@ -26,46 +25,21 @@ import {
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
 import type {
-  LinkRelationshipT,
+  LinkRelationshipStateT,
+  LinksEditorActionT,
+  LinksEditorAttributeDialogActionT as ActionT,
+  LinksEditorAttributeDialogStateT as StateT,
   LinkStateT,
 } from '../types.js';
 
 import UrlRelationshipCreditFieldset
   from './UrlRelationshipCreditFieldset.js';
 
-type StateT = {
-  +credit: FieldT<string | null>,
-  +datePeriodField: DatePeriodFieldT,
-  +initialDatePeriodField: DatePeriodFieldT,
-};
-
-type ActionT =
-  | {
-      +action: DateRangeFieldsetActionT,
-      +type: 'update-date-period',
-    }
-  | {
-      +props: React.PropsOf<ExternalLinkAttributeDialog>,
-      +type: 'update-initial-date-period',
-    }
-  | {+credit: string, +type: 'update-relationship-credit'}
-  | {+type: 'reset'}
-  | {+type: 'show-all-pending-errors'};
-
-const createInitialState = (
-  props: React.PropsOf<ExternalLinkAttributeDialog>,
-): StateT => {
-  const relationship = props.relationship;
-  const beginDate = relationship.begin_date;
-  const endDate = relationship.end_date;
-
-  const credit = createField(
-    'credit',
-    props.creditableEntityProp
-      ? relationship[props.creditableEntityProp]
-      : null,
-  );
-
+export function createInitialState(
+  relationship: LinkRelationshipStateT,
+): StateT {
+  const beginDate = relationship.beginDate;
+  const endDate = relationship.endDate;
   const datePeriodField = {
     errors: [],
     field: {
@@ -92,15 +66,13 @@ const createInitialState = (
     id: 0,
     type: 'compound_field' as const,
   };
-
   return {
-    credit,
+    creditField: createField('credit', relationship.entityCredit),
     datePeriodField,
-    initialDatePeriodField: datePeriodField,
   };
-};
+}
 
-const reducer = (state: StateT, action: ActionT): StateT => {
+export const reducer = (state: StateT, action: ActionT): StateT => {
   const ctx = mutate(state);
 
   match (action) {
@@ -110,46 +82,39 @@ const reducer = (state: StateT, action: ActionT): StateT => {
         action,
       );
     }
-    {type: 'update-initial-date-period', const props} => {
-      copyDatePeriodField(
-        createInitialState(props).initialDatePeriodField,
-        ctx.get('initialDatePeriodField'),
-      );
-    }
-    {type: 'reset'} => {
-      copyDatePeriodField(
-        ctx.get('initialDatePeriodField').read(),
-        ctx.get('datePeriodField'),
-      );
-    }
     {type: 'show-all-pending-errors'} => {
       applyAllPendingErrors(ctx.get('datePeriodField'));
     }
     {type: 'update-relationship-credit', const credit} => {
-      ctx.set('credit', 'value', credit);
+      ctx.set('creditField', 'value', credit);
     }
   }
 
   return ctx.final();
 };
 
-component ExternalLinkAttributeDialog(...props: {
-  creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
-  onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
-  relationship: LinkRelationshipT,
-}) {
-  const [open, setOpen] = React.useState(false);
+component ExternalLinkAttributeDialogContent(
+  closeAndReturnFocus: () => void,
+  creditable: boolean,
+  dispatch as parentDispatch: (LinksEditorActionT) => void,
+  link: LinkStateT,
+  relationship: LinkRelationshipStateT,
+) {
+  const state = expect(relationship.attributeDialogState);
+  const creditField = state.creditField;
+  const datePeriodField = state.datePeriodField;
+  const hasErrors = hasSubfieldErrors(datePeriodField);
 
-  const [state, dispatch] = React.useReducer(
-    reducer,
-    props,
-    createInitialState,
-  );
-  const hasErrors = hasSubfieldErrors(state.datePeriodField);
-
-  React.useEffect(() => {
-    dispatch({props, type: 'update-initial-date-period'});
-  }, [props]);
+  const dispatch = React.useCallback((
+    action: ActionT,
+  ) => {
+    parentDispatch({
+      action,
+      link,
+      relationship,
+      type: 'update-attribute-dialog',
+    });
+  }, [link, parentDispatch, relationship]);
 
   const dateDispatch = React.useCallback((
     action: DateRangeFieldsetActionT,
@@ -157,40 +122,31 @@ component ExternalLinkAttributeDialog(...props: {
     dispatch({action, type: 'update-date-period'});
   }, [dispatch]);
 
-  const onToggle = (open: boolean) => {
-    if (open) {
-      dispatch({type: 'reset'});
-    }
-    setOpen(open);
-  };
-
-  const handleConfirm = (closeAndReturnFocus: () => void) => {
+  const handleConfirm = React.useCallback((
+    closeAndReturnFocus: () => void,
+  ) => {
     if (hasErrors) {
       return;
     }
-    const dateFields = state.datePeriodField.field;
-    const confirmedProps = {
-      begin_date: partialDateFromField(dateFields.begin_date),
-      end_date: partialDateFromField(dateFields.end_date),
-      ended: dateFields.ended.value,
-    };
-    if (props.creditableEntityProp) {
-      // $FlowFixMe[prop-missing]
-      confirmedProps[props.creditableEntityProp] = state.credit.value;
-    }
-    props.onConfirm(confirmedProps);
+    parentDispatch({
+      link,
+      relationship,
+      type: 'accept-attribute-dialog',
+    });
     closeAndReturnFocus();
-  };
+  }, [hasErrors, parentDispatch, link, relationship]);
 
   // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
+  const handleKeyDown = React.useCallback((
+    event: SyntheticKeyboardEvent<HTMLFormElement>,
+  ) => {
     if (event.key === 'Enter' && hasErrors) {
       dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
     }
-  };
+  }, [hasErrors, dispatch]);
 
-  const handleSubmit = (
+  const handleSubmit = React.useCallback((
     event: SyntheticEvent<HTMLFormElement>,
     closeAndReturnFocus: () => void,
   ) => {
@@ -201,51 +157,76 @@ component ExternalLinkAttributeDialog(...props: {
     } else {
       handleConfirm(closeAndReturnFocus);
     }
-  };
+  }, [hasErrors, dispatch, handleConfirm]);
 
-  const buildPopoverChildren =
-    (closeAndReturnFocus: () => void): React.MixedElement => {
-      return (
-        <form
-          className="external-link-attribute-dialog"
-          onKeyDown={handleKeyDown}
-          onSubmit={(event) => handleSubmit(event, closeAndReturnFocus)}
+  return (
+    <form
+      className="external-link-attribute-dialog"
+      onKeyDown={handleKeyDown}
+      onSubmit={(event) => handleSubmit(event, closeAndReturnFocus)}
+    >
+      <DateRangeFieldset
+        dispatch={dateDispatch}
+        endedLabel={l('This relationship has ended.')}
+        field={datePeriodField}
+      />
+      {creditable ? (
+        <UrlRelationshipCreditFieldset
+          dispatch={dispatch}
+          field={creditField}
+        />
+      ) : null}
+      <div
+        className="buttons"
+        style={{display: 'block', marginTop: '1em'}}
+      >
+        <button
+          className="negative"
+          onClick={closeAndReturnFocus}
+          type="button"
         >
-          <DateRangeFieldset
-            dispatch={dateDispatch}
-            endedLabel={l('This relationship has ended.')}
-            field={state.datePeriodField}
-          />
-          {props.creditableEntityProp ? (
-            <UrlRelationshipCreditFieldset
-              dispatch={dispatch}
-              field={state.credit}
-            />
-          ) : null}
-          <div
-            className="buttons"
-            style={{display: 'block', marginTop: '1em'}}
+          {l('Cancel')}
+        </button>
+        <div className="buttons-right">
+          <button
+            className="positive"
+            disabled={hasErrors}
+            type="submit"
           >
-            <button
-              className="negative"
-              onClick={closeAndReturnFocus}
-              type="button"
-            >
-              {l('Cancel')}
-            </button>
-            <div className="buttons-right">
-              <button
-                className="positive"
-                disabled={hasErrors}
-                type="submit"
-              >
-                {l('Done')}
-              </button>
-            </div>
-          </div>
-        </form>
-      );
-    };
+            {l('Done')}
+          </button>
+        </div>
+      </div>
+    </form>
+  );
+}
+
+component _ExternalLinkAttributeDialog(
+  creditable: boolean,
+  dispatch as parentDispatch: (LinksEditorActionT) => void,
+  link: LinkStateT,
+  relationship: LinkRelationshipStateT,
+) {
+  const onToggle = React.useCallback((open: boolean) => {
+    parentDispatch({
+      link,
+      open,
+      relationship,
+      type: 'toggle-attribute-dialog',
+    });
+  }, [link, parentDispatch, relationship]);
+
+  const buildPopoverChildren = React.useCallback((
+    closeAndReturnFocus: () => void,
+  ): React.MixedElement => (
+    <ExternalLinkAttributeDialogContent
+      closeAndReturnFocus={closeAndReturnFocus}
+      creditable={creditable}
+      dispatch={parentDispatch}
+      link={link}
+      relationship={relationship}
+    />
+  ), [creditable, parentDispatch, link, relationship]);
 
   return (
     <ButtonPopover
@@ -256,10 +237,14 @@ component ExternalLinkAttributeDialog(...props: {
         title: lp('Edit attributes', 'interactive'),
       }}
       id="external-link-attribute-dialog"
-      isOpen={open}
+      isOpen={relationship.attributeDialogState !== null}
       toggle={onToggle}
     />
   );
 }
+
+const ExternalLinkAttributeDialog:
+  component(...React.PropsOf<_ExternalLinkAttributeDialog>) =
+    React.memo(_ExternalLinkAttributeDialog);
 
 export default ExternalLinkAttributeDialog;

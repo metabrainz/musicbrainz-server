@@ -9,132 +9,135 @@
 
 import * as React from 'react';
 
+import {expect} from '../../../../utility/invariant.js';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import {ERROR_TARGETS} from '../../edit/URLCleanup.js';
-import type {
-  ErrorT,
-  LinkRelationshipT,
-  LinkStateT,
-} from '../types.js';
+import type {LinksEditorActionT, LinkStateT} from '../types.js';
 
-component URLInputPopover(
-  cleanupUrl: (string) => string,
-  link as passedLink: LinkRelationshipT,
-  onConfirm: (string) => void,
-  validateLink: (LinkRelationshipT | LinkStateT) => ErrorT | null,
+component URLInputPopoverContent(
+  dispatch: (LinksEditorActionT) => void,
+  link: LinkStateT,
 ) {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
-  const [link, setLink] = React.useState<LinkRelationshipT>(passedLink);
+  const pendingLink = expect(link.urlPopoverLinkState);
+  const url = pendingLink.url;
+  const rawUrl = pendingLink.rawUrl;
+  const error = pendingLink.error;
 
-  React.useEffect(() => {
-    setLink(passedLink);
-  }, [passedLink]);
+  const acceptDialog = React.useCallback(() => {
+    dispatch({link, type: 'accept-url-input-popover'});
+  }, [dispatch, link]);
 
-  const toggle = (open: boolean) => {
-    // Will be called by ButtonPopover when closed by losing focus
-    if (!open) {
-      onConfirm(link.rawUrl);
-    }
-    setIsOpen(open);
-  };
+  const cancelDialog = React.useCallback(() => {
+    dispatch({link, type: 'cancel-url-input-popover'});
+  }, [dispatch, link]);
 
-  const handleUrlChange = (event: SyntheticEvent<HTMLInputElement>) => {
-    const rawUrl = event.currentTarget.value;
-    setLink({
-      ...link,
-      rawUrl,
-      url: cleanupUrl(rawUrl),
-    });
-  };
-
-  const handleConfirm = (closeCallback: () => void) => {
-    onConfirm(link.rawUrl);
-    closeCallback();
-  };
-
-  const buildPopoverChildren = (
-    closeAndReturnFocus: () => void,
+  const handleUrlChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
   ) => {
-    const error = validateLink(link);
-    return (
-      <form
-        onSubmit={(event: SyntheticEvent<HTMLFormElement>) => {
-          event.preventDefault();
-          // Prevent the submit event from propagating to the parent form.
-          event.stopPropagation();
-          handleConfirm(closeAndReturnFocus);
-        }}
-      >
-        <table>
-          <tbody>
+    const rawUrl = event.currentTarget.value;
+    dispatch({
+      link,
+      rawUrl,
+      type: 'update-url-input-popover-url',
+    });
+  }, [dispatch, link]);
+
+  return (
+    <form
+      onSubmit={(event: SyntheticEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        // Prevent the submit event from propagating to the parent form.
+        event.stopPropagation();
+        acceptDialog();
+      }}
+    >
+      <table>
+        <tbody>
+          <tr>
+            <td className="section">
+              {addColonText(l('URL'))}
+            </td>
+            <td>
+              <input
+                className="value raw-url"
+                onChange={handleUrlChange}
+                style={{width: '336px'}}
+                value={rawUrl}
+              />
+              {error && error.target === ERROR_TARGETS.URL ? (
+                <div
+                  className="error field-error target-url"
+                  data-visible="1"
+                >
+                  {error.message}
+                </div>
+              ) : null}
+            </td>
+          </tr>
+          {url ? (
             <tr>
-              <td className="section">
-                {addColonText(l('URL'))}
+              <td className="section" style={{whiteSpace: 'nowrap'}}>
+                {addColonText(l('Cleaned up to'))}
               </td>
               <td>
-                <input
-                  className="value raw-url"
-                  onChange={handleUrlChange}
-                  style={{width: '336px'}}
-                  value={link.rawUrl}
-                />
-                {error && error.target === ERROR_TARGETS.URL ? (
-                  <div
-                    className="error field-error target-url"
-                    data-visible="1"
+                {error ? url : (
+                  <a
+                    className="clean-url"
+                    href={url}
+                    rel="noreferrer"
+                    style={{overflowWrap: 'anywhere'}}
+                    target="_blank"
                   >
-                    {error.message}
-                  </div>
-                ) : null}
+                    {url}
+                  </a>)}
               </td>
             </tr>
-            {link.url ? (
-              <tr>
-                <td className="section" style={{whiteSpace: 'nowrap'}}>
-                  {addColonText(l('Cleaned up to'))}
-                </td>
-                <td>
-                  {error ? link.url : (
-                    <a
-                      className="clean-url"
-                      href={link.url}
-                      rel="noreferrer"
-                      style={{overflowWrap: 'anywhere'}}
-                      target="_blank"
-                    >
-                      {link.url}
-                    </a>)}
-                </td>
-              </tr>
-            ) : null}
-          </tbody>
-        </table>
-        <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
+          ) : null}
+        </tbody>
+      </table>
+      <div className="buttons" style={{display: 'block', marginTop: '1em'}}>
+        <button
+          className="negative"
+          onClick={cancelDialog}
+          type="button"
+        >
+          {l('Cancel')}
+        </button>
+        <div className="buttons-right">
           <button
-            className="negative"
-            onClick={() => {
-              // Reset input field value
-              setLink(passedLink);
-              // Avoid calling toggle() otherwise changes will be saved
-              setIsOpen(false);
-            }}
+            className="positive"
+            onClick={acceptDialog}
             type="button"
           >
-            {l('Cancel')}
+            {l('Done')}
           </button>
-          <div className="buttons-right">
-            <button
-              className="positive"
-              onClick={() => handleConfirm(closeAndReturnFocus)}
-              type="button"
-            >
-              {l('Done')}
-            </button>
-          </div>
         </div>
-      </form>
-    );
-  };
+      </div>
+    </form>
+  );
+}
+
+component _URLInputPopover(
+  dispatch: (LinksEditorActionT) => void,
+  link: LinkStateT,
+) {
+  const pendingLink = link.urlPopoverLinkState;
+
+  const toggle = React.useCallback((open: boolean) => {
+    // Will be called by ButtonPopover when closed by losing focus.
+    if (open) {
+      dispatch({link, type: 'open-url-input-popover'});
+    } else {
+      dispatch({link, type: 'accept-url-input-popover'});
+    }
+  }, [dispatch, link]);
+
+  const buildPopoverChildren = React.useCallback(() => (
+    <URLInputPopoverContent
+      dispatch={dispatch}
+      link={link}
+    />
+  ), [dispatch, link]);
 
   return (
     <ButtonPopover
@@ -145,10 +148,15 @@ component URLInputPopover(
         title: lp('Edit URL', 'interactive'),
       }}
       id="url-input-popover"
-      isOpen={isOpen}
+      isDisabled={!link.isSubmitted}
+      isOpen={pendingLink !== null}
       toggle={toggle}
     />
   );
 }
+
+const URLInputPopover:
+  component(...React.PropsOf<_URLInputPopover>) =
+    React.memo(_URLInputPopover);
 
 export default URLInputPopover;
