@@ -8,15 +8,15 @@
  */
 
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
-import type {
-  LinkRelationshipT,
-} from '../../external-links-editor/types.js';
-import type {
-  RelationshipStateT,
-} from '../types.js';
+
+export type RelationshipEntityPropertiesT ={
+  +entity0: RelatableEntityT | null,
+  +entity1: RelatableEntityT | null,
+  ...
+};
 
 export default function getOpenEditsLink(
-  relationship: LinkRelationshipT | RelationshipStateT,
+  relationship: RelationshipEntityPropertiesT,
 ): string | null {
   const entity0 = relationship.entity0;
   const entity1 = relationship.entity1;
