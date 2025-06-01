@@ -8,14 +8,12 @@
  */
 
 component RemoveButton(
-  dataIndex?: number,
-  onClick: (event: SyntheticEvent<HTMLButtonElement>) => void,
+  onClick: (event: SyntheticMouseEvent<HTMLButtonElement>) => void,
   title: string,
 ) {
   return (
     <button
       className="nobutton icon remove-item"
-      data-index={dataIndex}
       onClick={onClick}
       title={title}
       type="button"

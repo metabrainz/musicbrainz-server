@@ -13,7 +13,8 @@ import type {LinkTypeOptionT} from '../types.js';
 component LinkTypeSelect(
   handleTypeBlur: (SyntheticFocusEvent<HTMLSelectElement>) => void,
   handleTypeChange: (SyntheticEvent<HTMLSelectElement>) => void,
-  options: Array<LinkTypeOptionT>,
+  id?: string,
+  options: $ReadOnlyArray<LinkTypeOptionT>,
   type: number | null,
 ) {
   const optionAvailable = options.some(option => option.value === type);
@@ -31,6 +32,7 @@ component LinkTypeSelect(
       className={
         (optionAvailable || type == null) ? 'link-type' : 'link-type error'
       }
+      id={id}
       onBlur={handleTypeBlur}
       onChange={handleTypeChange}
       value={type ?? ''}

@@ -273,5 +273,5 @@
 [%- END -%]
 
 [%- MACRO external_links_editor BLOCK -%]
-  <div id="external-links-editor-container"></div>
+  [%- React.embed(c, 'static/scripts/external-links-editor/components/StandaloneExternalLinksEditor') -%]
 [%- END -%]

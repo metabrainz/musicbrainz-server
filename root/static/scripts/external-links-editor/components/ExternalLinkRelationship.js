@@ -7,157 +7,272 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import {
+  ENTITIES_WITH_RELATIONSHIP_CREDITS,
   VIDEO_ATTRIBUTE_ID,
 } from '../../common/constants.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
 import {bracketedText} from '../../common/utility/bracketed.js';
 import formatDatePeriod from '../../common/utility/formatDatePeriod.js';
+import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {isDateNonEmpty} from '../../common/utility/isDateEmpty.js';
+import isObjectEmpty from '../../common/utility/isObjectEmpty.js';
 import RelationshipPendingEditsWarning
   from '../../edit/components/RelationshipPendingEditsWarning.js';
 import RemoveButton from '../../edit/components/RemoveButton.js';
-import {stripAttributes} from '../../edit/utility/linkPhrase.js';
+import {linkTypeOptions} from '../../edit/forms.js';
+import {
+  RESTRICTED_LINK_TYPES,
+} from '../../edit/URLCleanup.js';
+import getRelationshipLinkType
+  from '../../relationship-editor/utility/getRelationshipLinkType.js';
+import {HIGHLIGHTS} from '../constants.js';
 import type {
-  HighlightT,
-  LinkRelationshipT,
+  LinkRelationshipStateT,
+  LinksEditorActionT,
   LinkStateT,
   LinkTypeOptionT,
 } from '../types.js';
+import canMergeLink from '../utility/canMergeLink.js';
+import doesUrlMatchOnlyOnePossibleType
+  from '../utility/doesUrlMatchOnlyOnePossibleType.js';
+import getLinkChecker from '../utility/getLinkChecker.js';
+import getLinkPhrase from '../utility/getLinkPhrase.js';
+import getLinkRelationshipStatus
+  from '../utility/getLinkRelationshipStatus.js';
+import shouldShowTypeSelection from '../utility/shouldShowTypeSelection.js';
 
-import ExternalLinkAttributeDialog
-  from './ExternalLinkAttributeDialog.js';
+import ExternalLinkRelationshipDialog
+  from './ExternalLinkRelationshipDialog.js';
 import LinkTypeSelect from './LinkTypeSelect.js';
 import TypeDescription from './TypeDescription.js';
 
 type ExternalLinkRelationshipPropsT = {
-  +creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
-  +hasUrlError: boolean,
-  +highlight: HighlightT,
-  +isOnlyRelationship: boolean,
-  +link: LinkRelationshipT,
-  +onAttributesChange: (number, $ReadOnly<Partial<LinkStateT>>) => void,
-  +onLinkRemove: (number) => void,
-  +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
-  +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
-  +onVideoChange: (number, SyntheticEvent<HTMLInputElement>) => void,
-  +typeOptions: $ReadOnlyArray<LinkTypeOptionT>,
-  +urlMatchesType: boolean,
+  +dispatch: (LinksEditorActionT) => void,
+  +link: LinkStateT,
+  +relationship: LinkRelationshipStateT,
+  +source: RelatableEntityT,
 };
 
-function isEmpty(link: LinkRelationshipT) {
-  return !(link.type || link.url);
+const typeOptionsCache:
+  Map<string, $ReadOnlyArray<LinkTypeOptionT>> = new Map();
+
+function getLinkTypeOptions(
+  sourceType: RelatableEntityTypeT,
+  link: LinkStateT,
+): $ReadOnlyArray<LinkTypeOptionT> {
+  let allTypeOptions = typeOptionsCache.get(sourceType);
+
+  if (allTypeOptions == null) {
+    const entityTypes = [sourceType, 'url'].sort().join('-');
+    allTypeOptions = linkTypeOptions(
+      {children: linkedEntities.link_type_tree[entityTypes]},
+      // backward if `sourceType` sorts after 'url'
+      /^url-/.test(entityTypes),
+    );
+    typeOptionsCache.set(sourceType, allTypeOptions);
+  }
+
+  const checker = getLinkChecker(sourceType, link);
+  const possibleTypesGids = new Set(checker.possibleTypes.flat());
+
+  let possibleTypeOptions = allTypeOptions.filter((option) => (
+    !option.data.deprecated && (
+      // Keep disabled options for grouping
+      option.disabled ||
+      (
+        possibleTypesGids.size
+          ? possibleTypesGids.has(option.data.gid)
+          /*
+           * If this URL is not restricted to specific types, show all types
+           * that aren't restricted by URL.
+           */
+          : !RESTRICTED_LINK_TYPES.includes(option.data.gid)
+      )
+    )
+  ));
+
+  /*
+   * For disabled grouping headers, ignore empty groups by checking if the
+   * next option is an item in the current group; if not, then it's an empty
+   * group and we can skip it.
+   */
+  possibleTypeOptions = possibleTypeOptions.filter((option, index) => {
+    const nextOption = possibleTypeOptions[index + 1];
+    return (
+      !option.disabled ||
+      (nextOption && nextOption.data.parent_id === option.value)
+    );
+  });
+
+  return possibleTypeOptions;
 }
 
-component ExternalLinkRelationship(
+component _ExternalLinkRelationship(
   ...props: ExternalLinkRelationshipPropsT
 ) {
   const {
-    creditableEntityProp,
+    dispatch,
     link,
-    hasUrlError,
-    highlight,
-    urlMatchesType,
+    relationship,
+    source,
   } = props;
-  const linkType = link.type ? linkedEntities.link_type[link.type] : null;
-  const backward = linkType && linkType.type1 > 'url';
-  const hasDate = isDateNonEmpty(link.begin_date) ||
-                  isDateNonEmpty(link.end_date) ||
-                  link.ended;
 
-  const showTypeSelection = (link.error || hasUrlError)
-    ? true
-    : !(urlMatchesType || isEmpty(link));
+  const {
+    error: linkError,
+    originalUrlEntity,
+    url,
+  } = link;
 
-  const creditedName = creditableEntityProp
-    ? link[creditableEntityProp]
-    : null;
+  const {
+    editsPending,
+    error: relationshipError,
+    entityCredit,
+    id: relationshipId,
+    linkTypeID,
+    beginDate,
+    endDate,
+    ended,
+  } = relationship;
+
+  const status = getLinkRelationshipStatus(relationship);
+  const highlight = (status.isNew && isDatabaseRowId(source.id))
+    ? HIGHLIGHTS.ADD
+    : (
+      status.removed
+        ? HIGHLIGHTS.REMOVE
+        : (isObjectEmpty(status.changes) ? HIGHLIGHTS.NONE : HIGHLIGHTS.EDIT)
+    );
+
+  const linkType = getRelationshipLinkType(relationship);
+  const hasDate = isDateNonEmpty(beginDate) ||
+                  isDateNonEmpty(endDate) ||
+                  ended;
+
+  const handleVideoChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      link,
+      relationship,
+      type: 'set-video',
+      video: event.currentTarget.checked,
+    });
+  }, [dispatch, link, relationship]);
+
+  const handleRemove = React.useCallback(() => {
+    dispatch({
+      link,
+      relationship,
+      type: 'toggle-remove-relationship',
+    });
+  }, [dispatch, link, relationship]);
+
+  const handleTypeBlur = React.useCallback(() => {
+    if (canMergeLink(link)) {
+      dispatch({link, type: 'merge-link'});
+    } else {
+      dispatch({link, type: 'submit-link'});
+    }
+  }, [dispatch, link]);
+
+  const handleTypeChange = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
+    const value = event.currentTarget.value;
+    dispatch({
+      link,
+      linkTypeID: value === '' ? null : parseInt(value, 10),
+      relationship,
+      type: 'set-type',
+    });
+  }, [dispatch, link, relationship]);
+
+  const typeOptions = React.useMemo(() => {
+    return getLinkTypeOptions(source.entityType, link);
+  }, [source.entityType, link]);
+
+  const datePeriod = React.useMemo(() => ({
+    begin_date: beginDate,
+    end_date: endDate,
+    ended,
+  }), [beginDate, endDate, ended]);
+
+  const pendingEditsProps = React.useMemo(
+    () => ({
+      ...(
+        source.entityType > 'url'
+          ? {entity0: originalUrlEntity, entity1: source}
+          : {entity0: source, entity1: originalUrlEntity}
+      ),
+      editsPending,
+    } as React.PropsOf<RelationshipPendingEditsWarning>['relationship']),
+    [source, originalUrlEntity, editsPending],
+  );
 
   return (
-    <tr className="relationship-item" key={link.relationship}>
+    <tr className="relationship-item" key={relationshipId}>
       <td />
       <td className="link-actions">
-        {!props.isOnlyRelationship && !props.urlMatchesType ? (
+        {(
+          link.relationships.length > 1 &&
+          (
+            relationshipError != null ||
+            !doesUrlMatchOnlyOnePossibleType(source.entityType, link)
+          )
+        ) ? (
           <RemoveButton
-            onClick={() => props.onLinkRemove(link.index)}
+            onClick={handleRemove}
             title={lp('Remove relationship', 'interactive')}
           />
-        ) : null}
-        <ExternalLinkAttributeDialog
-          creditableEntityProp={creditableEntityProp}
-          onConfirm={
-            (attributes) => props.onAttributesChange(link.index, attributes)
-          }
-          relationship={link}
+          ) : null}
+        <ExternalLinkRelationshipDialog
+          creditable={ENTITIES_WITH_RELATIONSHIP_CREDITS[source.entityType]}
+          dispatch={dispatch}
+          link={link}
+          relationship={relationship}
         />
       </td>
       <td>
         <div className={`relationship-content ${highlight}`}>
           <label>{addColonText(l('Type'))}</label>
           <label className="relationship-name">
-            {/* If the URL matches its type or is just empty,
-                display either a favicon
-                or a prompt for a new link as appropriate. */
-              showTypeSelection
+            {/*
+              * If the URL matches its type or is just empty, display either
+              * a favicon or a prompt for a new link as appropriate.
+              */
+              shouldShowTypeSelection(source.entityType, link, relationship)
                 ? (
                   <LinkTypeSelect
-                    handleTypeBlur={
-                      (event) => props.onTypeBlur(link.index, event)
-                    }
-                    handleTypeChange={
-                      (event) => props.onTypeChange(link.index, event)
-                    }
-                    options={
-                      props.typeOptions.reduce((options, option, index) => {
-                        const nextOption = props.typeOptions[index + 1];
-                        if (!option.disabled ||
-                        /*
-                         * Ignore empty groups by checking
-                         * if the next option is an item in current group,
-                         * if not, then it's an empty group.
-                         */
-                        (nextOption &&
-                          nextOption.data.parent_id === option.value)) {
-                          options.push(option);
-                        }
-                        return options;
-                      }, [])
-                    }
-                    type={link.type}
+                    handleTypeBlur={handleTypeBlur}
+                    handleTypeChange={handleTypeChange}
+                    id={'url-link-type-' + relationshipId}
+                    options={typeOptions}
+                    type={linkTypeID}
                   />
-                ) : (
-                  linkType ? (
-                    backward ? (
-                      stripAttributes(
-                        linkType,
-                        linkType.l_reverse_link_phrase ?? '',
-                      )
-                    ) : (
-                      stripAttributes(
-                        linkType,
-                        linkType.l_link_phrase ?? '',
-                      )
-                    )
-                  ) : null
-                )
+                ) : getLinkPhrase(relationship)
             }
-            {link.url && !link.error && !hasUrlError
-              ? <TypeDescription type={link.type} />
+            {(url && linkError === null && relationshipError === null)
+              ? <TypeDescription type={linkTypeID} />
               : null}
-            <RelationshipPendingEditsWarning relationship={link} />
+            <RelationshipPendingEditsWarning
+              relationship={pendingEditsProps}
+            />
             {hasDate ? (
               <span className="date-period">
                 {' '}
-                {bracketedText(formatDatePeriod(link))}
+                {bracketedText(formatDatePeriod(datePeriod))}
               </span>
             ) : null}
-            {nonEmpty(creditedName) ? (
+            {nonEmpty(entityCredit) ? (
               <span className="entity-credit">
                 {' '}
                 {bracketedText(texp.lp(
                   'credited as “{credit}”',
                   'relationship credit',
-                  {credit: creditedName},
+                  {credit: entityCredit},
                 ))}
               </span>
             ) : null}
@@ -171,10 +286,8 @@ component ExternalLinkRelationship(
             <div className="attribute-container">
               <label>
                 <input
-                  checked={link.video}
-                  onChange={
-                    (event) => props.onVideoChange(link.index, event)
-                  }
+                  checked={relationship.video}
+                  onChange={handleVideoChange}
                   style={{verticalAlign: 'text-top'}}
                   type="checkbox"
                 />
@@ -183,14 +296,18 @@ component ExternalLinkRelationship(
               </label>
             </div>
           ) : null}
-        {link.error ? (
+        {relationshipError ? (
           <div className="error field-error" data-visible="1">
-            {link.error.message}
+            {relationshipError.message}
           </div>
         ) : null}
       </td>
     </tr>
   );
 }
+
+const ExternalLinkRelationship:
+  component(...React.PropsOf<_ExternalLinkRelationship>) =
+    React.memo(_ExternalLinkRelationship);
 
 export default ExternalLinkRelationship;

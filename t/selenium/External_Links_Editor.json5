@@ -471,13 +471,13 @@
     // Set credit: Testy
     {
       command: 'sendKeys',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-credit']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-credit']",
       value: 'Testy',
     },
     // Save
     {
       command: 'click',
-      target: "xpath=(//div[@id='external-link-attribute-dialog']//button[contains(@class, 'positive')])[1]",
+      target: "xpath=(//div[@id='external-link-relationship-dialog']//button[contains(@class, 'positive')])[1]",
       value: '',
     },
     // Assert credit is correctly displayed
@@ -853,40 +853,40 @@
     // begin date: ????-01-01
     {
       command: 'sendKeys',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.begin_date.month']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-period.begin_date.month']",
       value: '1',
     },
     {
       command: 'sendKeys',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.begin_date.day']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-period.begin_date.day']",
       value: '1',
     },
     // end date: 2021-01-01
     {
       command: 'sendKeys',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.year']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-period.end_date.year']",
       value: '2021',
     },
     {
       command: 'sendKeys',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.month']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-period.end_date.month']",
       value: '1',
     },
     {
       command: 'sendKeys',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.end_date.day']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-period.end_date.day']",
       value: '1',
     },
     // Mark as ended
     {
       command: 'click',
-      target: "xpath=//div[@id='external-link-attribute-dialog']//input[@id='id-period.ended']",
+      target: "xpath=//div[@id='external-link-relationship-dialog']//input[@id='id-period.ended']",
       value: '',
     },
     // Save
     {
       command: 'click',
-      target: "xpath=(//div[@id='external-link-attribute-dialog']//button[contains(@class, 'positive')])[1]",
+      target: "xpath=(//div[@id='external-link-relationship-dialog']//button[contains(@class, 'positive')])[1]",
       value: '',
     },
     // Assert date period is correctly displayed

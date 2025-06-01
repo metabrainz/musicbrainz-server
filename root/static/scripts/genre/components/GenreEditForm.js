@@ -27,27 +27,46 @@ import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
 } from '../../edit/components/GuessCaseOptions.js';
-import ExternalLinksEditor, {
-  _ExternalLinksEditor,
-  prepareExternalLinksHtmlFormSubmission,
-} from '../../external-links-editor/components/ExternalLinksEditor.js';
+import ExternalLinksEditorFieldset
+  // eslint-disable-next-line @stylistic/max-len
+  from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
+import {
+  createInitialState as createExternalLinksEditorState,
+  reducer as externalLinksEditorReducer,
+} from '../../external-links-editor/state.js';
+import type {
+  LinksEditorActionT,
+  LinksEditorStateT,
+} from '../../external-links-editor/types.js';
+import {
+  hasErrorsOnNewOrChangedLinks,
+} from '../../external-links-editor/validation.js';
 import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | {+type: 'update-external-links-editor', +action: LinksEditorActionT}
   | {+type: 'update-name', +action: NameActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
+  +externalLinksEditor: LinksEditorStateT,
   +form: GenreFormT,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +isGuessCaseOptionsOpen: boolean,
 };
 
-function createInitialState(form: GenreFormT) {
+function createInitialState({
+  $c,
+  form,
+}: {
+  +$c: SanitizedCatalystContextT,
+  +form: GenreFormT,
+}) {
   return {
+    externalLinksEditor: createExternalLinksEditorState($c),
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
@@ -55,7 +74,7 @@ function createInitialState(form: GenreFormT) {
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
-  let newState = state;
+  const newStateCtx = mutate(state);
   match (action) {
     {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
@@ -65,14 +84,19 @@ function reducer(state: StateT, action: ActionT): StateT {
       });
       runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.read();
-      newState = mutate(state)
+      newStateCtx
         .set('form', 'field', 'name', nameState.field)
         .set('guessCaseOptions', nameState.guessCaseOptions)
-        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen)
-        .final();
+        .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
+    }
+    {type: 'update-external-links-editor', const action} => {
+      newStateCtx.set(
+        'externalLinksEditor',
+        externalLinksEditorReducer(state.externalLinksEditor, action),
+      );
     }
   }
-  return newState;
+  return newStateCtx.final();
 }
 
 component GenreEditForm(form as initialForm: GenreFormT) {
@@ -80,7 +104,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    initialForm,
+    {$c, form: initialForm},
     createInitialState,
   );
 
@@ -90,7 +114,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 
   const missingRequired = isBlank(state.form.field.name.value);
 
-  const hasErrors = missingRequired;
+  const hasErrors = missingRequired ||
+    hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
 
   // Ensure errors are shown if the user tries to submit with Enter
   const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
@@ -101,17 +126,10 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
 
-  const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
-
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {
       event.preventDefault();
     }
-    invariant(externalLinksEditorRef.current);
-    prepareExternalLinksHtmlFormSubmission(
-      'edit-genre',
-      externalLinksEditorRef.current,
-    );
   };
 
   return (
@@ -142,15 +160,10 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           formName={state.form.name}
           seededRelationships={$c.stash.seeded_relationships}
         />
-        <fieldset>
-          <legend>{'External links'}</legend>
-          <ExternalLinksEditor
-            isNewEntity={!genre.id}
-            ref={externalLinksEditorRef}
-            sourceData={genre}
-          />
-        </fieldset>
-
+        <ExternalLinksEditorFieldset
+          dispatch={dispatch}
+          state={state.externalLinksEditor}
+        />
         <EnterEditNote field={state.form.field.edit_note} />
         <EnterEdit disabled={hasErrors} form={state.form} />
       </div>

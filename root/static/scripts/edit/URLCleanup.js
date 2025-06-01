@@ -8127,7 +8127,7 @@ export class Checker {
     selectedTypes: $ReadOnlyArray<string>,
     allowedTypes: $ReadOnlyArray<RelationshipTypeT> | null,
   ): ValidationResult {
-    if (!allowedTypes) {
+    if (allowedTypes == null || allowedTypes.length === 0) {
       return {result: true};
     }
     // Only a single type is selected

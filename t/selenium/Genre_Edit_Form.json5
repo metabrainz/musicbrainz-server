@@ -33,7 +33,7 @@
     },
     {
       command: 'type',
-      target: 'css=#external-link-0 input[type=url]',
+      target: 'css=tr.external-link-item:nth-child(1) input[type=url]',
       value: 'https://bandcamp.com/discover/newgenre',
     },
     {
@@ -146,7 +146,7 @@
     },
     {
       command: 'click',
-      target: 'css=#external-link-0 button.edit-item',
+      target: 'css=tr.external-link-item:nth-child(1) button.edit-item',
       value: '',
     },
     {
@@ -306,7 +306,7 @@
     },
     {
       command: 'click',
-      target: 'css=#external-link-0 button.remove-item',
+      target: 'css=tr.external-link-item:nth-child(1) button.remove-item',
       value: '',
     },
     {
