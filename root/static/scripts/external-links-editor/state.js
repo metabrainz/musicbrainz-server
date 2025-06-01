@@ -44,6 +44,10 @@ import {
   decompactEntityJson,
 } from '../edit/utility/compactEntityJson.js';
 
+import {
+  createInitialState as createRelationshipDialogState,
+  reducer as relationshipDialogReducer,
+} from './components/ExternalLinkRelationshipDialog.js';
 import cleanupUrl from './utility/cleanupUrl.js';
 import getLinkChecker from './utility/getLinkChecker.js';
 import getLinkPhrase from './utility/getLinkPhrase.js';
@@ -615,26 +619,30 @@ export function reducer(
       if (!duplicateOf) {
         return state;
       }
-      moveFocusToNextLink(ctx, duplicate);
       ctx.set('links', tree.remove(
         state.links,
         duplicate,
         compareLinksByKey,
       ));
+      let relationshipsToMerge;
       updateLink(ctx, duplicateOf.link, existingLinkCtx => {
         const existingRelationships = existingLinkCtx.read().relationships;
         const existingRelationshipTypeIds =
           new Set(existingRelationships.map(r => r.linkTypeID));
+        relationshipsToMerge = duplicate.relationships.filter(
+          r => r.linkTypeID == null ||
+            !existingRelationshipTypeIds.has(r.linkTypeID),
+        );
         existingLinkCtx.set(
           'relationships',
-          existingRelationships.concat(
-            duplicate.relationships.filter(
-              r => r.linkTypeID == null ||
-                !existingRelationshipTypeIds.has(r.linkTypeID),
-            ),
-          ),
+          existingRelationships.concat(relationshipsToMerge),
         );
       });
+      if (relationshipsToMerge?.length) {
+        ctx.set('focus', `#url-link-type-${relationshipsToMerge[0].id}`);
+      } else {
+        ctx.set('focus', `#external-link-${duplicateOf.link.key}`);
+      }
     }
 
     {type: 'open-url-input-popover', const link} => {
@@ -805,7 +813,6 @@ export function reducer(
       const link,
       const relationship,
       const action
-      /* eslint-disable-next-line no-unused-vars */
     } => {
       updateLinkRelationship(
         ctx,
@@ -816,14 +823,10 @@ export function reducer(
             'relationships',
             index,
             'dialogState',
-            /*
-             * TODO:
-             * relationshipDialogReducer(
-             *   expect(existingRelationship.dialogState),
-             *   action,
-             * ),
-             */
-            existingRelationship.dialogState,
+            relationshipDialogReducer(
+              expect(existingRelationship.dialogState),
+              action,
+            ),
           );
         },
       );
@@ -857,7 +860,6 @@ export function reducer(
       type: 'toggle-link-relationship-dialog',
       const link,
       const relationship,
-      /* eslint-disable-next-line no-unused-vars */
       const open,
     } => {
       updateLinkRelationship(
@@ -869,13 +871,9 @@ export function reducer(
             'relationships',
             index,
             'dialogState',
-            /*
-             * TODO:
-             * open
-             *   ? createRelationshipDialogState(existingRelationship)
-             *   : null,
-             */
-            null,
+            open
+              ? createRelationshipDialogState(existingRelationship)
+              : null,
           );
         },
       );

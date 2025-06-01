@@ -15,6 +15,7 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import {compactMap, sortByNumber} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
 import deepEqual from '../../common/utility/deepEqual.js';
+import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import request from '../../common/utility/request.js';
 
 const edit = {TYPES};
@@ -86,33 +87,29 @@ var fields = edit.fields = {
     return {names};
   },
 
-  externalLinkRelationship(link, source) {
+  externalLinkRelationship(release, urlEntity, relationship) {
+    const relationshipId = number(relationship.id);
     var editData = {
-      id: number(link.relationship),
-      linkTypeID: number(link.type),
-      attributes: [],
+      // A negative `relationshipId` indicates a new relationship.
+      id: isDatabaseRowId(relationshipId) ? relationshipId : null,
+      linkTypeID: number(relationship.linkTypeID),
+      attributes: relationship.video
+        ? [{type: {gid: VIDEO_ATTRIBUTE_GID}}]
+        : [],
       entities: [
-        this.relationshipEntity(source),
-        {entityType: 'url', name: string(link.url)},
+        this.relationshipEntity(release),
+        this.relationshipEntity(urlEntity),
       ],
     };
 
-    if (source.entityType > 'url') {
-      editData.entities.reverse();
-    }
-
-    if (link.video) {
-      editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}}];
-    }
-
-    editData.begin_date = fields.partialDate(link.begin_date);
-    editData.end_date = fields.partialDate(link.end_date);
+    editData.begin_date = fields.partialDate(relationship.beginDate);
+    editData.end_date = fields.partialDate(relationship.endDate);
 
     if (editData.end_date &&
       Object.values(editData.end_date).some(nonEmpty)) {
       editData.ended = true;
     } else {
-      editData.ended = Boolean(value(link.ended));
+      editData.ended = Boolean(value(relationship.ended));
     }
 
     return editData;

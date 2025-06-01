@@ -22,14 +22,13 @@ import {
   hasErrorsOnNewOrChangedLinks,
 } from '../validation.js';
 
-// import ExternalLinksEditor from './ExternalLinksEditor2.js';
+import ExternalLinksEditor from './ExternalLinksEditor2.js';
 
 component _StandaloneExternalLinksEditor(
   /*:: ref: React.RefSetter<void>, */
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
 
-  // eslint-disable-next-line no-unused-vars
   const [state, dispatch] = React.useReducer(
     reducer,
     $c,
@@ -55,8 +54,7 @@ component _StandaloneExternalLinksEditor(
     errorObservable(hasErrorsOnNewOrChangedLinks(state.links));
   }, [state.links, state.source.entityType]);
 
-  // return <ExternalLinksEditor dispatch={dispatch} state={state} />;
-  return null;
+  return <ExternalLinksEditor dispatch={dispatch} state={state} />;
 }
 
 const StandaloneExternalLinksEditor:

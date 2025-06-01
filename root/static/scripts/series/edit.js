@@ -2,6 +2,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import '../common/entity.js';
+import '../external-links-editor/components/StandaloneExternalLinksEditor.js';
 import './components/SeriesRelationshipEditor.js';
 
 import MB from '../common/MB.js';
@@ -14,9 +15,6 @@ import initializeBubble, {
 } from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';
-import {
-  createExternalLinksEditorForHtmlForm,
-} from '../external-links-editor/components/ExternalLinksEditor.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 $(function () {
@@ -49,8 +47,6 @@ $(function () {
   });
 
   initializeDuplicateChecker('series');
-
-  createExternalLinksEditorForHtmlForm('edit-series');
 
   initializeBubble('#name-bubble', 'input[name=edit-series\\.name]');
   initializeBubble('#comment-bubble', 'input[name=edit-series\\.comment]');
