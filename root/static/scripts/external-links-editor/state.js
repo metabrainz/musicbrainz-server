@@ -44,6 +44,10 @@ import {
   decompactEntityJson,
 } from '../edit/utility/compactEntityJson.js';
 
+import {
+  createInitialState as createRelationshipDialogState,
+  reducer as relationshipDialogReducer,
+} from './components/ExternalLinkRelationshipDialog.js';
 import cleanupUrl from './utility/cleanupUrl.js';
 import getLinkChecker from './utility/getLinkChecker.js';
 import getLinkPhrase from './utility/getLinkPhrase.js';
@@ -805,7 +809,6 @@ export function reducer(
       const link,
       const relationship,
       const action
-      /* eslint-disable-next-line no-unused-vars */
     } => {
       updateLinkRelationship(
         ctx,
@@ -816,14 +819,10 @@ export function reducer(
             'relationships',
             index,
             'dialogState',
-            /*
-             * TODO:
-             * relationshipDialogReducer(
-             *   expect(existingRelationship.dialogState),
-             *   action,
-             * ),
-             */
-            existingRelationship.dialogState,
+            relationshipDialogReducer(
+              expect(existingRelationship.dialogState),
+              action,
+            ),
           );
         },
       );
@@ -857,7 +856,6 @@ export function reducer(
       type: 'toggle-link-relationship-dialog',
       const link,
       const relationship,
-      /* eslint-disable-next-line no-unused-vars */
       const open,
     } => {
       updateLinkRelationship(
@@ -869,13 +867,9 @@ export function reducer(
             'relationships',
             index,
             'dialogState',
-            /*
-             * TODO:
-             * open
-             *   ? createRelationshipDialogState(existingRelationship)
-             *   : null,
-             */
-            null,
+            open
+              ? createRelationshipDialogState(existingRelationship)
+              : null,
           );
         },
       );
