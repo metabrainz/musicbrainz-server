@@ -12,29 +12,42 @@ import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
-import invariant from '../../../utility/invariant.js';
+import invariant from '../../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
   ENTITIES_WITH_RELATIONSHIP_CREDITS,
   VIDEO_ATTRIBUTE_GID,
-} from '../common/constants.js';
-import {compare, l} from '../common/i18n.js';
-import linkedEntities from '../common/linkedEntities.mjs';
-import MB from '../common/MB.js';
-import {groupBy, keyBy, uniqBy} from '../common/utility/arrays.js';
+} from '../../common/constants.js';
+import {compare, l} from '../../common/i18n.js';
+import linkedEntities from '../../common/linkedEntities.mjs';
+import MB from '../../common/MB.js';
+import {groupBy, keyBy, uniqBy} from '../../common/utility/arrays.js';
 import {
   getCatalystContext,
   getSourceEntityData,
-} from '../common/utility/catalyst.js';
-import {compareDatePeriods} from '../common/utility/compareDates.js';
-import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
+} from '../../common/utility/catalyst.js';
+import {compareDatePeriods} from '../../common/utility/compareDates.js';
+import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {
   hasSessionStorage,
   sessionStorageWrapper,
-} from '../common/utility/storage.js';
-import {uniqueId} from '../common/utility/strings.js';
-import ExternalLink, {type ExternalLinkPropsT}
-  from '../external-links-editor/components/ExternalLink.js';
+} from '../../common/utility/storage.js';
+import {uniqueId} from '../../common/utility/strings.js';
+import withLoadedTypeInfo from '../../edit/components/withLoadedTypeInfo.js';
+import {linkTypeOptions} from '../../edit/forms.js';
+import type {RelationshipTypeT} from '../../edit/URLCleanup.js';
+import * as URLCleanup from '../../edit/URLCleanup.js';
+import {
+  compactEntityJson,
+  decompactEntityJson,
+} from '../../edit/utility/compactEntityJson.js';
+import isPositiveInteger from '../../edit/utility/isPositiveInteger.js';
+import isShortenedUrl from '../../edit/utility/isShortenedUrl.js';
+import * as validation from '../../edit/validation.js';
+import {
+  appendHiddenRelationshipInputs,
+} from '../../relationship-editor/utility/prepareHtmlFormSubmission.js';
+import {isMalware} from '../../url/utility/isGreyedOut.js';
 import type {
   CreditableEntityOptionsT,
   ErrorT,
@@ -46,31 +59,17 @@ import type {
   LinkStateT,
   LinkTypeOptionT,
   SeededUrlShapeT,
-} from '../external-links-editor/types.js';
-import getUnicodeUrl from '../external-links-editor/utility/getUnicodeUrl.js';
-import isValidURL from '../external-links-editor/utility/isValidURL.js';
-import {
-  appendHiddenRelationshipInputs,
-} from '../relationship-editor/utility/prepareHtmlFormSubmission.js';
-import {isMalware} from '../url/utility/isGreyedOut.js';
+} from '../types.js';
+import getUnicodeUrl from '../utility/getUnicodeUrl.js';
+import isValidURL from '../utility/isValidURL.js';
 
-import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
-import {
-  compactEntityJson,
-  decompactEntityJson,
-} from './utility/compactEntityJson.js';
-import isPositiveInteger from './utility/isPositiveInteger.js';
-import isShortenedUrl from './utility/isShortenedUrl.js';
-import {linkTypeOptions} from './forms.js';
-import type {RelationshipTypeT} from './URLCleanup.js';
-import * as URLCleanup from './URLCleanup.js';
-import * as validation from './validation.js';
+import ExternalLink, {type ExternalLinkPropsT} from './ExternalLink.js';
 
 const HIGHLIGHTS = {
-  ADD: 'rel-add',
-  EDIT: 'rel-edit',
-  NONE: '',
-  REMOVE: 'rel-remove',
+  ADD: 'rel-add' as HighlightT,
+  EDIT: 'rel-edit' as HighlightT,
+  NONE: '' as HighlightT,
+  REMOVE: 'rel-remove' as HighlightT,
 };
 
 export class _ExternalLinksEditor
@@ -1106,7 +1105,7 @@ export class _ExternalLinksEditor
   }
 }
 
-export const ExternalLinksEditor:
+const ExternalLinksEditor:
   component(
     ref: React.RefSetter<_ExternalLinksEditor>,
     ...LinksEditorPropsT
@@ -1115,6 +1114,8 @@ export const ExternalLinksEditor:
       _ExternalLinksEditor,
       new Set(['link_type', 'link_attribute_type']),
     );
+
+export default ExternalLinksEditor;
 
 const defaultLinkState: LinkStateT = {
   begin_date: EMPTY_PARTIAL_DATE,
