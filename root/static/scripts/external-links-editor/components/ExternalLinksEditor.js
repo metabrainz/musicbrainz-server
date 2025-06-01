@@ -605,90 +605,6 @@ export class _ExternalLinksEditor
     };
   }
 
-  getFormData(
-    startingPrefix: string,
-    startingIndex: number,
-    pushInput: (string, string, string) => void,
-  ) {
-    let index = 0;
-    const backward = this.sourceType > 'url';
-    const {oldLinks, newLinks, allLinks} = this.getEditData();
-
-    for (const [relationship, link] of allLinks) {
-      if (!link?.type) {
-        return;
-      }
-
-      const prefix = startingPrefix + '.' + (startingIndex + (index++));
-
-      if (isPositiveInteger(relationship)) {
-        pushInput(prefix, 'relationship_id', String(relationship));
-
-        if (!newLinks.has(relationship)) {
-          pushInput(prefix, 'removed', '1');
-        }
-      }
-
-      pushInput(prefix, 'text', link.url);
-
-      if (link.video) {
-        pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
-      } else if (oldLinks.get(relationship)?.video) {
-        pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
-        pushInput(prefix + '.attributes.0', 'removed', '1');
-      }
-
-      if (backward) {
-        pushInput(prefix, 'backward', '1');
-      }
-
-      pushInput(prefix, 'link_type_id', String(link.type) || '');
-
-      if (this.creditableEntityProp) {
-        pushInput(
-          prefix,
-          this.creditableEntityProp,
-          link[this.creditableEntityProp] || '',
-        );
-      }
-
-      const beginDate = link.begin_date || EMPTY_PARTIAL_DATE;
-      const endDate = link.end_date || EMPTY_PARTIAL_DATE;
-
-      pushInput(
-        prefix,
-        'period.begin_date.year',
-        beginDate.year ? String(beginDate.year) : '',
-      );
-      pushInput(
-        prefix,
-        'period.begin_date.month',
-        beginDate.month ? String(beginDate.month) : '',
-      );
-      pushInput(
-        prefix,
-        'period.begin_date.day',
-        beginDate.day ? String(beginDate.day) : '',
-      );
-      pushInput(
-        prefix,
-        'period.end_date.year',
-        endDate.year ? String(endDate.year) : '',
-      );
-      pushInput(
-        prefix,
-        'period.end_date.month',
-        endDate.month ? String(endDate.month) : '',
-      );
-      pushInput(
-        prefix,
-        'period.end_date.day',
-        endDate.day ? String(endDate.day) : '',
-      );
-      pushInput(prefix, 'period.ended', link.ended ? '1' : '0');
-    }
-  }
-
   validateLink(
     link: LinkRelationshipT | LinkStateT,
     checker?: URLCleanup.Checker,
@@ -1341,6 +1257,99 @@ export function createExternalLinksEditorForHtmlForm(
   });
 }
 
+function getFormData(
+  sourceType: RelatableEntityTypeT,
+  editData: {
+    allLinks: LinkMapT,
+    newLinks: LinkMapT,
+    oldLinks: LinkMapT,
+  },
+  startingPrefix: string,
+  startingIndex: number,
+  pushInput: (string, string, string) => void,
+) {
+  let index = 0;
+  const backward = sourceType > 'url';
+  const {oldLinks, newLinks, allLinks} = editData;
+
+  for (const [relationship, link] of allLinks) {
+    if (!link?.type) {
+      return;
+    }
+
+    const prefix = startingPrefix + '.' + (startingIndex + (index++));
+
+    if (isPositiveInteger(relationship)) {
+      pushInput(prefix, 'relationship_id', String(relationship));
+
+      if (!newLinks.has(relationship)) {
+        pushInput(prefix, 'removed', '1');
+      }
+    }
+
+    pushInput(prefix, 'text', link.url);
+
+    if (link.video) {
+      pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
+    } else if (oldLinks.get(relationship)?.video) {
+      pushInput(prefix + '.attributes.0', 'type.gid', VIDEO_ATTRIBUTE_GID);
+      pushInput(prefix + '.attributes.0', 'removed', '1');
+    }
+
+    if (backward) {
+      pushInput(prefix, 'backward', '1');
+    }
+
+    pushInput(prefix, 'link_type_id', String(link.type) || '');
+
+    if (ENTITIES_WITH_RELATIONSHIP_CREDITS[sourceType]) {
+      const creditableEntityProp = backward
+        ? 'entity1_credit'
+        : 'entity0_credit';
+      pushInput(
+        prefix,
+        creditableEntityProp,
+        link[creditableEntityProp] || '',
+      );
+    }
+
+    const beginDate = link.begin_date || EMPTY_PARTIAL_DATE;
+    const endDate = link.end_date || EMPTY_PARTIAL_DATE;
+
+    pushInput(
+      prefix,
+      'period.begin_date.year',
+      beginDate.year ? String(beginDate.year) : '',
+    );
+    pushInput(
+      prefix,
+      'period.begin_date.month',
+      beginDate.month ? String(beginDate.month) : '',
+    );
+    pushInput(
+      prefix,
+      'period.begin_date.day',
+      beginDate.day ? String(beginDate.day) : '',
+    );
+    pushInput(
+      prefix,
+      'period.end_date.year',
+      endDate.year ? String(endDate.year) : '',
+    );
+    pushInput(
+      prefix,
+      'period.end_date.month',
+      endDate.month ? String(endDate.month) : '',
+    );
+    pushInput(
+      prefix,
+      'period.end_date.day',
+      endDate.day ? String(endDate.day) : '',
+    );
+    pushInput(prefix, 'period.ended', link.ended ? '1' : '0');
+  }
+}
+
 export function prepareExternalLinksHtmlFormSubmission(
   formName: string,
   externalLinksEditor: _ExternalLinksEditor,
@@ -1361,7 +1370,13 @@ export function prepareExternalLinksHtmlFormSubmission(
   appendHiddenRelationshipInputs(
     'external-links-editor-submission',
     function (pushInput) {
-      externalLinksEditor.getFormData(formName + '.url', 0, pushInput);
+      getFormData(
+        externalLinksEditor.sourceType,
+        externalLinksEditor.getEditData(),
+        formName + '.url',
+        0,
+        pushInput,
+      );
 
       const links = externalLinksEditor.state.links;
       if (links.length) {
