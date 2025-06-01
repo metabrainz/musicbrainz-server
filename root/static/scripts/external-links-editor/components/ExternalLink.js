@@ -101,19 +101,27 @@ function isEmpty(link: LinkRelationshipT | ExternalLinkPropsT) {
   return !(link.type || link.url);
 }
 
-class ExternalLink extends React.Component<ExternalLinkPropsT> {
-  handleKeyDown(event: SyntheticKeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter' && this.props.url) {
+component ExternalLink(...props: ExternalLinkPropsT) {
+  const {
+    handleLinkSubmit,
+    relationships,
+    url,
+  } = props;
+
+  const handleKeyDown = React.useCallback((
+    event: SyntheticKeyboardEvent<HTMLInputElement>,
+  ) => {
+    if (event.key === 'Enter' && url) {
       /*
        * If there's a link, prevent default and submit it,
        * otherwise allow submitting the form from empty field.
        */
       event.preventDefault();
-      this.props.handleLinkSubmit(event);
+      handleLinkSubmit(event);
     }
-  }
+  }, [handleLinkSubmit, url]);
 
-  highlightDuplicate(index: number | null) {
+  const highlightDuplicate = React.useCallback((index: number | null) => {
     if (index === null) {
       return;
     }
@@ -129,191 +137,188 @@ class ExternalLink extends React.Component<ExternalLinkPropsT> {
       },
       1000,
     );
-  }
+  }, []);
 
-  render(): React.MixedElement {
-    const props = this.props;
-    const notEmpty = props.relationships.some(link => {
-      return !isEmpty(link);
-    });
-    const firstLink = props.relationships[0];
+  const notEmpty = relationships.some(link => {
+    return !isEmpty(link);
+  });
+  const firstLink = relationships[0];
 
-    const faviconClass = notEmpty
-      ? getFaviconClass(props.relationships, props.url)
-      : null;
+  const faviconClass = notEmpty
+    ? getFaviconClass(relationships, url)
+    : null;
 
-    return (
-      <>
-        <tr
-          className="external-link-item"
-          id={`external-link-${props.index}`}
-        >
-          <td>
-            {faviconClass ? (
-              <span
-                className={'favicon ' + faviconClass + '-favicon'}
-              />
-            ) : null}
-          </td>
-          <td className="link-actions">
-            {notEmpty ? (
-              <RemoveButton
-                dataIndex={props.index}
-                onClick={() => props.onUrlRemove()}
-                title={l('Remove link')}
-              />
-            ) : null}
-            {isEmpty(props) ? null : (
-              <URLInputPopover
-                cleanupUrl={props.cleanupUrl}
-                /*
-                 * Randomly choose a link because relationship errors
-                 * are not displayed, thus link type doesn't matter.
-                 */
-                link={firstLink}
-                onConfirm={props.handleUrlChange}
-                validateLink={props.validateLink}
-              />
-            )}
-          </td>
-          <td>
-            {/* Links that are not submitted will not be grouped,
-              * so it's safe to check the first link only.
-              */}
-            {(!firstLink.submitted || !props.url) ? (
-              <input
-                className="value with-button"
-                data-index={props.index}
-                onBlur={props.handleUrlBlur}
-                onChange={(event) => {
-                  props.handleUrlChange(event.currentTarget.value);
-                }}
-                onKeyDown={(event) => this.handleKeyDown(event)}
-                placeholder={props.isOnlyLink
-                  ? l('Add link')
-                  : (
-                    props.isLastLink
-                      ? l('Add another link')
-                      : ''
-                  )}
-                type="url"
-                // Don't interrupt user input with clean URL
-                value={props.rawUrl}
-              />
-            ) : (
-              <a
-                className={`url ${props.highlight}`}
-                href={props.url}
-                rel="noreferrer"
-                style={{overflowWrap: 'anywhere'}}
-                target="_blank"
-              >
-                {props.url}
-              </a>
-            )}
-            {props.urlEntity ? (
-              <EntityPendingEditsWarning entity={props.urlEntity} />
-            ) : null}
-            {props.url && props.duplicate !== null ? (
-              <div
-                className="error field-error"
-                data-visible="1"
-              >
-                {exp.l(
-                  props.canMerge
-                    ? `Note: This link already exists
-                       at position {position}.
-                       To merge, press enter or select a type.`
-                    : `Note: This link already exists
-                       at position {position}.`,
-                  {
-                    position: (
-                      <a
-                        href={`#external-link-${props.duplicate}`}
-                        onClick={
-                          () => this.highlightDuplicate(props.duplicate)
-                        }
-                      >
-                        {`#${props.duplicate + 1}`}
-                      </a>
-                    ),
-                  },
+  return (
+    <>
+      <tr
+        className="external-link-item"
+        id={`external-link-${props.index}`}
+      >
+        <td>
+          {faviconClass ? (
+            <span
+              className={'favicon ' + faviconClass + '-favicon'}
+            />
+          ) : null}
+        </td>
+        <td className="link-actions">
+          {notEmpty ? (
+            <RemoveButton
+              dataIndex={props.index}
+              onClick={() => props.onUrlRemove()}
+              title={l('Remove link')}
+            />
+          ) : null}
+          {isEmpty(props) ? null : (
+            <URLInputPopover
+              cleanupUrl={props.cleanupUrl}
+              /*
+               * Randomly choose a link because relationship errors
+               * are not displayed, thus link type doesn't matter.
+               */
+              link={firstLink}
+              onConfirm={props.handleUrlChange}
+              validateLink={props.validateLink}
+            />
+          )}
+        </td>
+        <td>
+          {/* Links that are not submitted will not be grouped,
+            * so it's safe to check the first link only.
+            */}
+          {(!firstLink.submitted || !props.url) ? (
+            <input
+              className="value with-button"
+              data-index={props.index}
+              onBlur={props.handleUrlBlur}
+              onChange={(event) => {
+                props.handleUrlChange(event.currentTarget.value);
+              }}
+              onKeyDown={handleKeyDown}
+              placeholder={props.isOnlyLink
+                ? l('Add link')
+                : (
+                  props.isLastLink
+                    ? l('Add another link')
+                    : ''
                 )}
-              </div>
-            ) : null}
-            {props.error ? (
-              <div
-                className={`error field-error target-${props.error.target}`}
-                data-visible="1"
-              >
-                {props.error.message}
-              </div>
-            ) : null}
+              type="url"
+              // Don't interrupt user input with clean URL
+              value={props.rawUrl}
+            />
+          ) : (
+            <a
+              className={`url ${props.highlight}`}
+              href={props.url}
+              rel="noreferrer"
+              style={{overflowWrap: 'anywhere'}}
+              target="_blank"
+            >
+              {props.url}
+            </a>
+          )}
+          {props.urlEntity ? (
+            <EntityPendingEditsWarning entity={props.urlEntity} />
+          ) : null}
+          {props.url && props.duplicate !== null ? (
+            <div
+              className="error field-error"
+              data-visible="1"
+            >
+              {exp.l(
+                props.canMerge
+                  ? `Note: This link already exists
+                      at position {position}.
+                      To merge, press enter or select a type.`
+                  : `Note: This link already exists
+                      at position {position}.`,
+                {
+                  position: (
+                    <a
+                      href={`#external-link-${props.duplicate}`}
+                      onClick={
+                        () => highlightDuplicate(props.duplicate)
+                      }
+                    >
+                      {`#${props.duplicate + 1}`}
+                    </a>
+                  ),
+                },
+              )}
+            </div>
+          ) : null}
+          {props.error ? (
+            <div
+              className={`error field-error target-${props.error.target}`}
+              data-visible="1"
+            >
+              {props.error.message}
+            </div>
+          ) : null}
+        </td>
+      </tr>
+      {notEmpty &&
+        relationships.map((link, index) => (
+          <ExternalLinkRelationship
+            creditableEntityProp={props.creditableEntityProp}
+            hasUrlError={props.error != null}
+            highlight={props.getRelationshipHighlightType(
+              link,
+              props.creditableEntityProp,
+            )}
+            isOnlyRelationship={relationships.length === 1}
+            key={index}
+            link={link}
+            onAttributesChange={props.handleAttributesChange}
+            onLinkRemove={props.handleLinkRemove}
+            onTypeBlur={props.onTypeBlur}
+            onTypeChange={props.onTypeChange}
+            onVideoChange={props.onVideoChange}
+            typeOptions={props.typeOptions}
+            urlMatchesType={props.urlMatchesType}
+          />
+      ))}
+      {firstLink.pendingTypes &&
+        firstLink.pendingTypes.map((type) => {
+          const relType = linkedEntities.link_type[type];
+          return (
+            <tr className="relationship-item" key={type}>
+              <td />
+              <td>
+                <div className="relationship-content">
+                  <label>{addColonText(l('Type'))}</label>
+                  <label className="relationship-name">
+                    {stripAttributes(
+                      relType,
+                      relType.l_link_phrase ?? '',
+                    )}
+                  </label>
+                </div>
+              </td>
+            </tr>
+          );
+        })}
+      {/*
+        * Hide the button when link is not submitted
+        * or link type is auto-selected.
+        */}
+      {notEmpty && firstLink.submitted && !props.urlMatchesType ? (
+        <tr className="add-relationship">
+          <td />
+          <td />
+          <td className="add-item">
+            <button
+              className="add-item with-label"
+              onClick={() => props.onAddRelationship(props.url)}
+              type="button"
+            >
+              {l('Add another relationship')}
+            </button>
           </td>
         </tr>
-        {notEmpty &&
-          props.relationships.map((link, index) => (
-            <ExternalLinkRelationship
-              creditableEntityProp={props.creditableEntityProp}
-              hasUrlError={props.error != null}
-              highlight={props.getRelationshipHighlightType(
-                link,
-                props.creditableEntityProp,
-              )}
-              isOnlyRelationship={props.relationships.length === 1}
-              key={index}
-              link={link}
-              onAttributesChange={props.handleAttributesChange}
-              onLinkRemove={props.handleLinkRemove}
-              onTypeBlur={props.onTypeBlur}
-              onTypeChange={props.onTypeChange}
-              onVideoChange={props.onVideoChange}
-              typeOptions={props.typeOptions}
-              urlMatchesType={props.urlMatchesType}
-            />
-        ))}
-        {firstLink.pendingTypes &&
-          firstLink.pendingTypes.map((type) => {
-            const relType = linkedEntities.link_type[type];
-            return (
-              <tr className="relationship-item" key={type}>
-                <td />
-                <td>
-                  <div className="relationship-content">
-                    <label>{addColonText(l('Type'))}</label>
-                    <label className="relationship-name">
-                      {stripAttributes(
-                        relType,
-                        relType.l_link_phrase ?? '',
-                      )}
-                    </label>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        {/*
-          * Hide the button when link is not submitted
-          * or link type is auto-selected.
-          */}
-        {notEmpty && firstLink.submitted && !props.urlMatchesType ? (
-          <tr className="add-relationship">
-            <td />
-            <td />
-            <td className="add-item">
-              <button
-                className="add-item with-label"
-                onClick={() => props.onAddRelationship(props.url)}
-                type="button"
-              >
-                {l('Add another relationship')}
-              </button>
-            </td>
-          </tr>
-        ) : null}
-      </>
-    );
-  }
+      ) : null}
+    </>
+  );
 }
 
 export default ExternalLink;
