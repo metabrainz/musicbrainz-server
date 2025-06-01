@@ -14,7 +14,9 @@ import './relationship-editor/components/RelationshipEditorWrapper.js';
 import {
   getSourceEntityDataForRelationshipEditor,
 } from './common/utility/catalyst.js';
-import {createExternalLinksEditorForHtmlForm} from './edit/externalLinks.js';
+import {
+  createExternalLinksEditorForHtmlForm,
+} from './external-links-editor/components/ExternalLinksEditor.js';
 
 $(function () {
   const sourceData = getSourceEntityDataForRelationshipEditor();
