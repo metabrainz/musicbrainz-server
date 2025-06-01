@@ -985,7 +985,7 @@ export default [
   {
     files: [
       'root/static/scripts/common/components/TagEditor.js',
-      'root/static/scripts/edit/externalLinks.js',
+      'root/static/scripts/external-links-editor/components/ExternalLinksEditor.js',
     ],
     rules: {
       'react/no-access-state-in-setstate': 'off',
@@ -993,7 +993,7 @@ export default [
   },
   {
     files: [
-      'root/static/scripts/edit/externalLinks.js',
+      'root/static/scripts/external-links-editor/components/ExternalLinksEditor.js',
     ],
     rules: {
       'react/no-multi-comp': 'off',
@@ -1018,10 +1018,10 @@ export default [
       'root/static/scripts/edit/components/ReleaseMergeStrategy.js',
       'root/static/scripts/edit/components/URLInputPopover.js',
       'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
-      'root/static/scripts/edit/externalLinks.js',
       'root/static/scripts/event/components/EventEditForm.js',
       'root/static/scripts/external-links-editor/components/ExternalLink.js',
       'root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js',
+      'root/static/scripts/external-links-editor/components/ExternalLinksEditor.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
     ],
     rules: {
@@ -1036,7 +1036,7 @@ export default [
       'root/static/scripts/common/i18n/expand2.js',
       'root/static/scripts/common/utility/cloneDeep.mjs',
       'root/static/scripts/edit/components/withLoadedTypeInfo.js',
-      'root/static/scripts/edit/externalLinks.js',
+      'root/static/scripts/external-links-editor/components/ExternalLinksEditor.js',
       'root/static/scripts/relationship-editor/components/DialogEntityCredit.js',
       'root/static/scripts/relationship-editor/components/DialogTargetType.js',
       'root/static/scripts/relationship-editor/components/RelationshipEditor.js',
