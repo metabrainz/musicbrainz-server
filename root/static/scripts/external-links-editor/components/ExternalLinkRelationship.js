@@ -49,147 +49,148 @@ function isEmpty(link: LinkRelationshipT) {
   return !(link.type || link.url);
 }
 
-const ExternalLinkRelationship =
-  (props: ExternalLinkRelationshipPropsT): React.MixedElement => {
-    const {
-      creditableEntityProp,
-      link,
-      hasUrlError,
-      highlight,
-      urlMatchesType,
-    } = props;
-    const linkType = link.type ? linkedEntities.link_type[link.type] : null;
-    const backward = linkType && linkType.type1 > 'url';
-    const hasDate = isDateNonEmpty(link.begin_date) ||
-                    isDateNonEmpty(link.end_date) ||
-                    link.ended;
+component ExternalLinkRelationship(
+  ...props: ExternalLinkRelationshipPropsT
+) {
+  const {
+    creditableEntityProp,
+    link,
+    hasUrlError,
+    highlight,
+    urlMatchesType,
+  } = props;
+  const linkType = link.type ? linkedEntities.link_type[link.type] : null;
+  const backward = linkType && linkType.type1 > 'url';
+  const hasDate = isDateNonEmpty(link.begin_date) ||
+                  isDateNonEmpty(link.end_date) ||
+                  link.ended;
 
-    const showTypeSelection = (link.error || hasUrlError)
-      ? true
-      : !(urlMatchesType || isEmpty(link));
+  const showTypeSelection = (link.error || hasUrlError)
+    ? true
+    : !(urlMatchesType || isEmpty(link));
 
-    const creditedName = creditableEntityProp
-      ? link[creditableEntityProp]
-      : null;
+  const creditedName = creditableEntityProp
+    ? link[creditableEntityProp]
+    : null;
 
-    return (
-      <tr className="relationship-item" key={link.relationship}>
-        <td />
-        <td className="link-actions">
-          {!props.isOnlyRelationship && !props.urlMatchesType ? (
-            <RemoveButton
-              onClick={() => props.onLinkRemove(link.index)}
-              title={lp('Remove relationship', 'interactive')}
-            />
-          ) : null}
-          <ExternalLinkAttributeDialog
-            creditableEntityProp={creditableEntityProp}
-            onConfirm={
-              (attributes) => props.onAttributesChange(link.index, attributes)
-            }
-            relationship={link}
+  return (
+    <tr className="relationship-item" key={link.relationship}>
+      <td />
+      <td className="link-actions">
+        {!props.isOnlyRelationship && !props.urlMatchesType ? (
+          <RemoveButton
+            onClick={() => props.onLinkRemove(link.index)}
+            title={lp('Remove relationship', 'interactive')}
           />
-        </td>
-        <td>
-          <div className={`relationship-content ${highlight}`}>
-            <label>{addColonText(l('Type'))}</label>
-            <label className="relationship-name">
-              {/* If the URL matches its type or is just empty,
-                  display either a favicon
-                  or a prompt for a new link as appropriate. */
-                showTypeSelection
-                  ? (
-                    <LinkTypeSelect
-                      handleTypeBlur={
-                        (event) => props.onTypeBlur(link.index, event)
-                      }
-                      handleTypeChange={
-                        (event) => props.onTypeChange(link.index, event)
-                      }
-                      options={
-                        props.typeOptions.reduce((options, option, index) => {
-                          const nextOption = props.typeOptions[index + 1];
-                          if (!option.disabled ||
-                          /*
-                           * Ignore empty groups by checking
-                           * if the next option is an item in current group,
-                           * if not, then it's an empty group.
-                           */
-                          (nextOption &&
-                            nextOption.data.parent_id === option.value)) {
-                            options.push(option);
-                          }
-                          return options;
-                        }, [])
-                      }
-                      type={link.type}
-                    />
-                  ) : (
-                    linkType ? (
-                      backward ? (
-                        stripAttributes(
-                          linkType,
-                          linkType.l_reverse_link_phrase ?? '',
-                        )
-                      ) : (
-                        stripAttributes(
-                          linkType,
-                          linkType.l_link_phrase ?? '',
-                        )
-                      )
-                    ) : null
-                  )
-              }
-              {link.url && !link.error && !hasUrlError
-                ? <TypeDescription type={link.type} />
-                : null}
-              <RelationshipPendingEditsWarning relationship={link} />
-              {hasDate ? (
-                <span className="date-period">
-                  {' '}
-                  {bracketedText(formatDatePeriod(link))}
-                </span>
-              ) : null}
-              {nonEmpty(creditedName) ? (
-                <span className="entity-credit">
-                  {' '}
-                  {bracketedText(texp.lp(
-                    'credited as “{credit}”',
-                    'relationship credit',
-                    {credit: creditedName},
-                  ))}
-                </span>
-              ) : null}
-            </label>
-          </div>
-          {linkType &&
-            Object.hasOwn(
-              linkType.attributes,
-              String(VIDEO_ATTRIBUTE_ID),
-            ) ? (
-              <div className="attribute-container">
-                <label>
-                  <input
-                    checked={link.video}
-                    onChange={
-                      (event) => props.onVideoChange(link.index, event)
+        ) : null}
+        <ExternalLinkAttributeDialog
+          creditableEntityProp={creditableEntityProp}
+          onConfirm={
+            (attributes) => props.onAttributesChange(link.index, attributes)
+          }
+          relationship={link}
+        />
+      </td>
+      <td>
+        <div className={`relationship-content ${highlight}`}>
+          <label>{addColonText(l('Type'))}</label>
+          <label className="relationship-name">
+            {/* If the URL matches its type or is just empty,
+                display either a favicon
+                or a prompt for a new link as appropriate. */
+              showTypeSelection
+                ? (
+                  <LinkTypeSelect
+                    handleTypeBlur={
+                      (event) => props.onTypeBlur(link.index, event)
                     }
-                    style={{verticalAlign: 'text-top'}}
-                    type="checkbox"
+                    handleTypeChange={
+                      (event) => props.onTypeChange(link.index, event)
+                    }
+                    options={
+                      props.typeOptions.reduce((options, option, index) => {
+                        const nextOption = props.typeOptions[index + 1];
+                        if (!option.disabled ||
+                        /*
+                         * Ignore empty groups by checking
+                         * if the next option is an item in current group,
+                         * if not, then it's an empty group.
+                         */
+                        (nextOption &&
+                          nextOption.data.parent_id === option.value)) {
+                          options.push(option);
+                        }
+                        return options;
+                      }, [])
+                    }
+                    type={link.type}
                   />
-                  {' '}
-                  {l('video')}
-                </label>
-              </div>
+                ) : (
+                  linkType ? (
+                    backward ? (
+                      stripAttributes(
+                        linkType,
+                        linkType.l_reverse_link_phrase ?? '',
+                      )
+                    ) : (
+                      stripAttributes(
+                        linkType,
+                        linkType.l_link_phrase ?? '',
+                      )
+                    )
+                  ) : null
+                )
+            }
+            {link.url && !link.error && !hasUrlError
+              ? <TypeDescription type={link.type} />
+              : null}
+            <RelationshipPendingEditsWarning relationship={link} />
+            {hasDate ? (
+              <span className="date-period">
+                {' '}
+                {bracketedText(formatDatePeriod(link))}
+              </span>
             ) : null}
-          {link.error ? (
-            <div className="error field-error" data-visible="1">
-              {link.error.message}
+            {nonEmpty(creditedName) ? (
+              <span className="entity-credit">
+                {' '}
+                {bracketedText(texp.lp(
+                  'credited as “{credit}”',
+                  'relationship credit',
+                  {credit: creditedName},
+                ))}
+              </span>
+            ) : null}
+          </label>
+        </div>
+        {linkType &&
+          Object.hasOwn(
+            linkType.attributes,
+            String(VIDEO_ATTRIBUTE_ID),
+          ) ? (
+            <div className="attribute-container">
+              <label>
+                <input
+                  checked={link.video}
+                  onChange={
+                    (event) => props.onVideoChange(link.index, event)
+                  }
+                  style={{verticalAlign: 'text-top'}}
+                  type="checkbox"
+                />
+                {' '}
+                {l('video')}
+              </label>
             </div>
           ) : null}
-        </td>
-      </tr>
-    );
-  };
+        {link.error ? (
+          <div className="error field-error" data-visible="1">
+            {link.error.message}
+          </div>
+        ) : null}
+      </td>
+    </tr>
+  );
+}
 
 export default ExternalLinkRelationship;
