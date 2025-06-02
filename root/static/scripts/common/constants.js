@@ -165,7 +165,6 @@ export const FAVICON_CLASSES: {
   'livefans.jp': 'livefans',
   'loc.gov': 'loc',
   'loudr.fm': 'loudr',
-  'lyric.evesta.jp': 'evestalyric',
   'mainlynorfolk.info': 'mainlynorfolk',
   'melon.com': 'melon',
   'metacritic.com': 'metacritic',

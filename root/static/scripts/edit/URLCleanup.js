@@ -3813,33 +3813,6 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
-  'lyricevesta': {
-    match: [/^(https?:\/\/)?([^/]+\.)?lyric\.evesta\.jp\//i],
-    restrict: [LINK_TYPES.lyrics],
-    clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?lyric\.evesta\.jp\/([al]\w+\.html).*$/, 'http://lyric.evesta.jp/$1');
-    },
-    validate(url, id) {
-      const m = /^http:\/\/lyric\.evesta\.jp\/([al])\w+\.html$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (id) {
-          case LINK_TYPES.lyrics.artist:
-            return {
-              result: prefix === 'a',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-            return {
-              result: prefix === 'l',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'lyrics': {
     match: [
       /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,

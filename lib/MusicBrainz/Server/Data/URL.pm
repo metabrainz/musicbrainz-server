@@ -122,7 +122,6 @@ my %URL_SPECIALIZATIONS = (
     'LiveNation'          => qr{^https?://(?:[^/]+\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/}i,
     'LoC'                 => qr{^https?://(?:[^/]+\.)?loc\.gov/}i,
     'Loudr'               => qr{^https?://(?:www\.)?loudr\.fm/}i,
-    'LyricEvesta'         => qr{^https?://lyric\.evesta\.jp/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'Melon'               => qr{^https?://www\.melon\.com/}i,
