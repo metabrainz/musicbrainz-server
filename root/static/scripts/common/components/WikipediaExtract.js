@@ -43,12 +43,14 @@ function loadWikipediaExtract(
   fetch(url)
     .then(resp => resp.json())
     .then((reqData) => {
-      callback(reqData.wikipediaExtract);
+      try {
+        callback(reqData.wikipediaExtract);
+      } catch (error) {
+        console.error(error);
+        Sentry.captureException(error);
+      }
     })
-    .catch((error) => {
-      console.error(error);
-      Sentry.captureException(error);
-    });
+    .catch(console.error);
 }
 
 component WikipediaExtract(
