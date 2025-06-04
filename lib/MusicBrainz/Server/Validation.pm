@@ -349,7 +349,7 @@ sub is_date_range_valid {
     return Date::Calc::Delta_Days(@a, @b) >= 0;
 }
 
-# Keep in sync with invalidEditNote in static/scripts/release-editor/init.js
+# Keep in sync with static/scripts/edit/utility/isInvalidEditNote.js
 sub is_valid_edit_note
 {
     my $edit_note = shift;
