@@ -36,6 +36,7 @@ import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
+import isInvalidEditNote from '../edit/utility/isInvalidEditNote.js';
 import {errorField, errorsExist} from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
@@ -346,28 +347,8 @@ releaseEditor.init = function (options) {
     return self.action === 'add' && empty(self.rootField.editNote());
   };
 
-  // Keep in sync with is_valid_edit_note in Server::Validation
   this.rootField.invalidEditNote = function () {
-    const editNote = self.rootField.editNote();
-    if (empty(editNote)) {
-      // This is missing, not invalid
-      return false;
-    }
-
-    /*
-     * We don't want line format characters and other invisible characters
-     * to stop an edit note from being "empty"
-     */
-    const editNoteNoInvisibleChars = editNote.replace(
-      /[\u200b\u00AD\u3164\uFFA0\u115F\u1160\u2800\p{Cc}\p{Cf}\p{Mn}]/ug,
-      '',
-    );
-    return (
-      // If it's empty now but not earlier, it was all invisible characters
-      empty(editNoteNoInvisibleChars) ||
-      /^[\p{White_Space}\p{Punctuation}]+$/u.test(editNoteNoInvisibleChars) ||
-      /^\p{ASCII}$/u.test(editNoteNoInvisibleChars)
-    );
+    return isInvalidEditNote(self.rootField.editNote());
   };
 
   this.seed(options.seed);
