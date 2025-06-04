@@ -522,9 +522,8 @@ releaseEditor.allowsSubmission = function () {
   return (
     !this.submissionInProgress() &&
     !errorsExist() &&
-    (this.action === 'edit' || !(
-      this.rootField.missingEditNote() || this.rootField.invalidEditNote()
-    )) &&
+    !this.rootField.invalidEditNote() &&
+    !(this.action === 'add' && this.rootField.missingEditNote()) &&
     this.allEdits().length > 0
   );
 };
