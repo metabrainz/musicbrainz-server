@@ -15,6 +15,10 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
+use MusicBrainz::Errors qw(
+    build_request_and_user_context
+    send_message_to_sentry
+);
 use MusicBrainz::Server::Log qw( log_debug );
 use MusicBrainz::Server::Translation qw( l lp );
 use Try::Tiny;
@@ -387,6 +391,15 @@ sub contact : Chained('load') RequireAuth HiddenOnMirrors SecureForm
         }
         catch {
             log_debug { "Couldn't send email: $_" } $_;
+            send_message_to_sentry(
+                'Error sending message to editor',
+                build_request_and_user_context($c),
+                extra => {
+                    exception => "$_",
+                    from_user => $c->user->name,
+                    to_user => $editor->name,
+                },
+            );
             $c->flash->{message} = l('Your message could not be sent');
         };
         if ($sent) {
