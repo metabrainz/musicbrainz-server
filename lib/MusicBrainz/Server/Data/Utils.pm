@@ -839,7 +839,7 @@ sub find_best_primary_alias {
     my $short_lang = substr($lang, 0, 2);
     my ($best, $fallback);
     foreach my $alias (@$aliases_ref) {
-        next if !defined $alias->locale || !$alias->primary_for_locale;
+        next if !defined $alias->locale || !$alias->primary_for_locale || $alias->ended;
 
         # If we find an exact match for the user's language, use it.
         return $alias if $alias->locale eq $lang;
