@@ -79,6 +79,7 @@ my @all = qw(
     PartOfSetRelationships
     PlacesWithoutCoordinates
     PossibleCollaborations
+    PseudoReleasesWithCoverArt
     RecordingsWithoutVACredit
     RecordingsWithoutVALink
     RecordingsWithEarliestReleaseRelationships
@@ -187,6 +188,7 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PlacesWithoutCoordinates;
 use MusicBrainz::Server::Report::PossibleCollaborations;
+use MusicBrainz::Server::Report::PseudoReleasesWithCoverArt;
 use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
 use MusicBrainz::Server::Report::RecordingsWithoutVALink;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
