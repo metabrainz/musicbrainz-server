@@ -22,7 +22,7 @@ component PseudoReleasesWithCoverArt(...{
     <ReportLayout
       canBeFiltered={canBeFiltered}
       description={exp.l(
-        `This report shows pseudo-releases that have cover art in the Cover
+        `This report shows pseudo-releases that have images in the Cover
          Art Archive. Pseudo-releases {style|should not have cover art},
          except temporarily until an official release has been added.`,
         {style: '/doc/Style/Specific_types_of_releases/Pseudo-Releases'},
