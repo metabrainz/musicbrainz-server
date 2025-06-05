@@ -715,6 +715,10 @@ sub entities : Chained('root') PathPart('entities') Args(2)
         $c->model('ArtistCredit')->load(@entities);
     }
 
+    if ($ENTITIES{$type_name}{aliases}) {
+        $c->model(type_to_model($type_name))->load_aliases(@entities);
+    }
+
     if ($ENTITIES{$type_name}{type}) {
         $c->model(type_to_model($type_name) . 'Type')->load(@entities);
     }
