@@ -209,7 +209,7 @@ component HeaderAndBanners(
 
       {showAlert ? (
         <div className="banner warning-header">
-          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
+          <p dangerouslySetInnerHTML={{__html: $c.stash.alert || ''}} />
           <DismissBannerButton bannerName="alert" />
         </div>
       ) : null}

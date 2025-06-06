@@ -61,7 +61,7 @@ component CollaborationRelationships(...{
                 >
                   {lastID === item.id1 ? null : (
                     <tr className="even">
-                      <td colSpan="2">
+                      <td colSpan={2}>
                         {item.artist1 ? (
                           <EntityLink entity={item.artist1} />
                         ) : (

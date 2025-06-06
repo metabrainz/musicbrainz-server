@@ -77,6 +77,7 @@ component Modal(
       floatingDiv.querySelector('.dialog-content'),
       '.dialog-content node',
     );
+    /*:: invariant(container instanceof HTMLElement); */
     initialFocusRef.current = findFirstTabbableElement(
       container,
       /* skipAnchors = */ true,
@@ -109,7 +110,7 @@ component Modal(
                * keeps focus inside the dialog, and doesn't return it to
                * the <body>.
                */
-              tabIndex="-1"
+              tabIndex={-1}
             >
               <div className="title-bar">
                 <h1>{title}</h1>

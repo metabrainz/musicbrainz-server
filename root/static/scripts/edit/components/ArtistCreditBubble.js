@@ -87,7 +87,7 @@ const Buttons = React.memo<ButtonsPropsT>(({
 
 const ArtistCreditDocumentation = (React.memo(() => (
   <tr>
-    <td colSpan="3" id="ac-docs">
+    <td colSpan={3} id="ac-docs">
       {exp.l(
         `Use the following fields to enter artist name variations
          and multiple artist collaborations. See the
@@ -119,7 +119,7 @@ const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT>(({
       <ArtistCreditDocumentation />
       {clean(reduceArtistCredit(artistCredit)) ? (
         <tr>
-          <td colSpan="4" id="ac-preview-cell">
+          <td colSpan={4} id="ac-preview-cell">
             {addColonText(lp('Preview', 'header')) + ' '}
             {entity.entityType === 'track'
               ? (
@@ -159,7 +159,7 @@ const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT>(({
 component _AddArtistCreditRow(dispatch: (ActionT) => void) {
   return (
     <tr>
-      <td className="align-right" colSpan="4">
+      <td className="align-right" colSpan={4}>
         <button
           className="add-item with-label"
           onClick={() => dispatch({type: 'add-name'})}

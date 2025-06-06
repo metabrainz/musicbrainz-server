@@ -18,7 +18,7 @@ component ChangeArtistQuality(edit: ChangeArtistQualityHistoricEditT) {
     <table className="details change-artist-quality">
       <tr>
         <th>{addColonText(l('Artist'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <DescriptiveLink entity={edit.display_data.artist} />
         </td>
       </tr>

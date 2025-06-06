@@ -67,7 +67,7 @@ component IswcsWithManyWorks(...{
                         <a href={'/iswc/' + item.iswc}>{item.iswc}</a>
                         {' ' + bracketedText(item.workcount)}
                       </td>
-                      <td colSpan="5" />
+                      <td colSpan={5} />
                     </tr>
                   )}
                   <tr>
@@ -79,7 +79,7 @@ component IswcsWithManyWorks(...{
                     ) : (
                       <>
                         <td />
-                        <td colSpan="5">
+                        <td colSpan={5}>
                           {l('This work no longer exists.')}
                         </td>
                       </>

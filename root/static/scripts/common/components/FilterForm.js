@@ -179,7 +179,7 @@ component FilterForm(
                 <input
                   defaultValue={form.field.name.value}
                   name={form.field.name.html_name}
-                  size="47"
+                  size={47}
                   type="text"
                 />
               </td>
@@ -199,7 +199,7 @@ component FilterForm(
                     <input
                       defaultValue={form.field.setlist.value ?? ''}
                       name={form.field.setlist.html_name}
-                      size="47"
+                      size={47}
                       type="text"
                     />
                     <FieldErrors field={form.field.setlist} />
@@ -328,7 +328,7 @@ component FilterForm(
                     <input
                       defaultValue={form.field.date.value ?? ''}
                       name={form.field.date.html_name}
-                      size="47"
+                      size={47}
                       type="text"
                     />
                     <FieldErrors field={form.field.date} />
@@ -413,7 +413,7 @@ component FilterForm(
                 <input
                   defaultValue={form.field.disambiguation.value}
                   name={form.field.disambiguation.html_name}
-                  size="47"
+                  size={47}
                   type="text"
                 />
               </td>

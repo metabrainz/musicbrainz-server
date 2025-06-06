@@ -36,7 +36,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
       {edit.preview /*:: === true */ ? null : (
         <tr>
           <th>{addColonText(l('Release'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <DescriptiveLink entity={display.release} />
           </td>
         </tr>
@@ -46,7 +46,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
         <tr>
           <th>{addColonText(l('Label'))}</th>
           {label.new === undefined ? (
-            <td colSpan="2">
+            <td colSpan={2}>
               {label.old ? (
                 <EntityLink entity={label.old} />
               ) : null}
@@ -72,7 +72,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
         catNo.new === undefined ? (
           <tr>
             <th>{addColonText(l('Catalog number'))}</th>
-            <td colSpan="2">{catNo.old}</td>
+            <td colSpan={2}>{catNo.old}</td>
           </tr>
         ) : (
           <Diff
@@ -86,7 +86,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
       {hasMultipleEvents ? (
         <tr>
           <th>{addColonText(l('Release events'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <ReleaseEvents events={releaseEvents} />
             {manifest('common/components/ReleaseEvents', {async: true})}
           </td>
@@ -96,7 +96,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
           {firstDate ? (
             <tr>
               <th>{addColonText(l('Date'))}</th>
-              <td colSpan="2">
+              <td colSpan={2}>
                 {formatDate(firstDate)}
               </td>
             </tr>
@@ -104,7 +104,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
           {firstCountry ? (
             <tr>
               <th>{addColonText(l('Country'))}</th>
-              <td colSpan="2">
+              <td colSpan={2}>
                 <EntityLink entity={firstCountry} />
               </td>
             </tr>
@@ -115,14 +115,14 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
       {barcode == null ? null : (
         <tr>
           <th>{addColonText(l('Barcode'))}</th>
-          <td colSpan="2">{formatBarcode(barcode)}</td>
+          <td colSpan={2}>{formatBarcode(barcode)}</td>
         </tr>
       )}
 
       {nonEmpty(display.combined_format) ? (
         <tr>
           <th>{addColonText(l('Format'))}</th>
-          <td colSpan="2">{display.combined_format}</td>
+          <td colSpan={2}>{display.combined_format}</td>
         </tr>
       ) : null}
     </table>

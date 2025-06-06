@@ -30,7 +30,7 @@ function userLink(userName: string, path: string) {
 component AccountMenu(user: UnsanitizedEditorT) {
   const $c = React.useContext(CatalystContext);
   return (
-    <li className="account" tabIndex="-1">
+    <li className="account" tabIndex={-1}>
       <span className="menu-header">
         {user.name}
         {'\xA0\u25BE'}
@@ -69,7 +69,7 @@ component DataMenu(user: UnsanitizedEditorT) {
   const userName = user.name;
 
   return (
-    <li className="data" tabIndex="-1">
+    <li className="data" tabIndex={-1}>
       <span className="menu-header">
         {l('My data')}
         {'\xA0\u25BE'}
@@ -112,7 +112,7 @@ component DataMenu(user: UnsanitizedEditorT) {
 
 component AdminMenu(user: UnsanitizedEditorT) {
   return (
-    <li className="admin" tabIndex="-1">
+    <li className="admin" tabIndex={-1}>
       <span className="menu-header">
         {l('Admin')}
         {'\xA0\u25BE'}
@@ -187,7 +187,7 @@ component AdminMenu(user: UnsanitizedEditorT) {
 component UserMenu() {
   const $c = React.useContext(CatalystContext);
   return (
-    <ul className="menu" tabIndex="-1">
+    <ul className="menu" tabIndex={-1}>
       {$c.user ? (
         <>
           <AccountMenu user={$c.user} />

@@ -31,7 +31,7 @@ component EditInstrument(edit: EditInstrumentEditT) {
     <table className="details edit-event">
       <tr>
         <th>{addColonText(l('Instrument'))}</th>
-        <td colSpan="2"><EntityLink entity={display.instrument} /></td>
+        <td colSpan={2}><EntityLink entity={display.instrument} /></td>
       </tr>
       {name ? (
         <WordDiff
