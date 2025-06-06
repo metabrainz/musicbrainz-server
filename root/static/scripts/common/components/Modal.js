@@ -115,7 +115,7 @@ component Modal(
                 <h1>{title}</h1>
                 <button
                   className="close-dialog icon"
-                  onClick={onEscape}
+                  onClick={(event) => onEscape(event.nativeEvent)}
                   type="button"
                 />
               </div>
