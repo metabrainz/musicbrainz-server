@@ -17,7 +17,7 @@ component MoveReleaseToReleaseGroup(
     <table className="details edit-release">
       <tr>
         <th>{addColonText(l('Release'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <DescriptiveLink entity={edit.display_data.release} />
         </td>
       </tr>

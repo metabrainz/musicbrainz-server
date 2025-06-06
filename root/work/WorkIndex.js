@@ -48,7 +48,7 @@ component WorkIndex(
         pagedLinkTypeGroup={pagedLinkTypeGroup}
         pager={pager}
       />
-      {manifest('work/index', {async: 'async'})}
+      {manifest('work/index', {async: true})}
     </WorkLayout>
   );
 }

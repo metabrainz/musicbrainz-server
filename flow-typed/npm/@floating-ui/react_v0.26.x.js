@@ -254,17 +254,13 @@ declare module '@floating-ui/react' {
   /*
    * useInteractions()
    */
-  declare type UseInteractionsProps = {
-    +[prop: string]: empty,
-  };
-
   declare export type UseInteractionsReturn = {
     +getFloatingProps: (
-      userProps?: UseInteractionsProps,
-    ) => UseInteractionsProps,
+      userProps?: ReactDOM$HTMLElementProps,
+    ) => ReactDOM$HTMLElementProps,
     +getReferenceProps: (
-      userProps?: UseInteractionsProps,
-    ) => UseInteractionsProps,
+      userProps?: ReactDOM$HTMLElementProps,
+    ) => ReactDOM$HTMLElementProps,
     ...
   };
 

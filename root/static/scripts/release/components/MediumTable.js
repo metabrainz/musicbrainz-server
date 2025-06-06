@@ -112,7 +112,7 @@ component _MediumTable(
             {dataTracks.length ? (
               <>
                 <tr className="subh">
-                  <td colSpan="6">
+                  <td colSpan={6}>
                     <DataTrackIcon />
                     {l('Data tracks')}
                   </td>

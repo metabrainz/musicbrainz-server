@@ -11,11 +11,13 @@ import * as React from 'react';
 
 export default function useRangeSelectionHandler(
   className: string,
-): (event: MouseEvent) => void {
+): (event: SyntheticMouseEvent<HTMLElement>) => void {
   const lastClicked = React.useRef<HTMLInputElement | null>(null);
   const ignoreEvents = React.useRef<boolean>(false);
 
-  return React.useCallback(function (event: MouseEvent) {
+  return React.useCallback(function (
+    event: SyntheticMouseEvent<HTMLElement>,
+  ) {
     if (ignoreEvents.current) {
       return;
     }

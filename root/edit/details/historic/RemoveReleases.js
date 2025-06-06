@@ -15,7 +15,7 @@ component RemoveReleases(edit: RemoveReleasesHistoricEditT) {
     <table className="details remove-releases">
       <tr>
         <th>{addColonText(l('Releases'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <ul>
             {edit.display_data.releases.map((release, index) => (
               <li key={index}>

@@ -100,7 +100,7 @@ component FormRowNameWithGuessCase(
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = React.useState<string | null>(null);
 
-  function handleNameChange(event: SyntheticKeyboardEvent<HTMLInputElement>) {
+  function handleNameChange(event: SyntheticInputEvent<HTMLInputElement>) {
     dispatch({
       name: event.currentTarget.value,
       type: 'set-name',
@@ -119,7 +119,7 @@ component FormRowNameWithGuessCase(
   }
 
   function showGuessCasePreview(
-    event: SyntheticMouseEvent<HTMLInputElement>,
+    event: SyntheticMouseEvent<HTMLButtonElement>,
   ) {
     // Don't change the value while the user is dragging to select text.
     if (event.nativeEvent.buttons === 0) {

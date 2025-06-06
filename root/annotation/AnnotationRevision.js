@@ -33,7 +33,7 @@ component AnnotationRevision(
         showChangeLog
         showEmpty
       />
-      {manifest('common/components/Annotation', {async: 'async'})}
+      {manifest('common/components/Annotation', {async: true})}
     </LayoutComponent>
   );
 }

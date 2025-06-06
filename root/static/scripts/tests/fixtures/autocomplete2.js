@@ -14,6 +14,7 @@ import Autocomplete2, {createInitialState as createInitialAutocompleteState}
 import autocompleteReducer from '../../common/components/Autocomplete2/reducer.js';
 import type {
   ActionT as AutocompleteActionT,
+  SearchableTypeT,
   StateT as AutocompleteStateT,
 } from '../../common/components/Autocomplete2/types.js';
 import {keyBy} from '../../common/utility/arrays.js';
@@ -198,7 +199,8 @@ $(function () {
             {' '}
             <select
               onChange={(event) => entityAutocompleteDispatch({
-                entityType: event.target.value,
+                // $FlowIgnore[incompatible-cast]
+                entityType: event.currentTarget.value as SearchableTypeT,
                 type: 'change-entity-type',
               })}
               value={state.entityAutocomplete.entityType}

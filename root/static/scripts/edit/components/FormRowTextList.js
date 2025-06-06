@@ -50,7 +50,7 @@ component TextListRow(
   }, [dispatch, fieldId]);
 
   const updateRow = React.useCallback((
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     const value = event.currentTarget.value;
     dispatch({fieldId, type: 'update-row', value});

@@ -120,7 +120,8 @@ function setScrollPosition(menuId: string) {
   if (!menu) {
     return;
   }
-  const highlightedItem =
+  const highlightedItem: HTMLLIElement | null =
+    // $FlowIssue[incompatible-type]
     menu.querySelector('li[aria-selected=true]') ??
     // If there's no highlighted item, scroll to the top of the list.
     menu.querySelector('li');
@@ -397,7 +398,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
   }
 
   function handleInputChange(
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) {
     const newInputValue = event.currentTarget.value;
 
@@ -794,7 +795,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
           onKeyDown={handleInputKeyDown}
           ref={buttonRef}
           role="button"
-          tabIndex="-1"
+          tabIndex={-1}
           title={l('Search')}
           type="button"
         />
@@ -807,7 +808,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         id={menuId}
         onMouseDown={handleMenuMouseDown}
         role="listbox"
-        tabIndex="-1"
+        tabIndex={-1}
       >
         {disabled ? null : menuItemElements}
       </ul>

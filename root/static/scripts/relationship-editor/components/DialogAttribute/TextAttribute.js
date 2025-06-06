@@ -49,7 +49,7 @@ component _TextAttribute(
       id={inputId}
       onChange={(event) => {
         dispatch(state.key, {
-          textValue: event.target.value,
+          textValue: event.currentTarget.value,
           type: 'set-text-value',
         });
       }}

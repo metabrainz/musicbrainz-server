@@ -23,7 +23,7 @@ component RecordingFingerprints(recording: RecordingWithArtistCreditT) {
       <h2 id="acoustids">{l('Associated AcoustIDs')}</h2>
 
       <FingerprintTable recording={recording} />
-      {manifest('common/components/FingerprintTable', {async: 'async'})}
+      {manifest('common/components/FingerprintTable', {async: true})}
     </RecordingLayout>
   );
 }

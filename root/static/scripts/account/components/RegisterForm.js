@@ -34,7 +34,7 @@ component RegisterForm(captcha?: string, form: RegisterFormT) {
   const [nameField, updateNameField] = React.useState(form.field.username);
 
   function handleUsernameChange(
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) {
     const username = event.currentTarget.value;
     updateNameField({...nameField, value: username});

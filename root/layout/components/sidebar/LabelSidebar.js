@@ -55,7 +55,7 @@ component LabelSidebar(label: LabelT) {
             cachedImage={$c.stash.commons_image}
             entity={label}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

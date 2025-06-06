@@ -79,7 +79,7 @@ component UserRatingList(ratings: UserRatingsT, user: AccountLayoutUserT) {
         </>
       )}
       {viewingOwnProfile ? (
-        manifest('common/ratings', {async: 'async'})
+        manifest('common/ratings', {async: true})
       ) : null}
     </UserAccountLayout>
   );

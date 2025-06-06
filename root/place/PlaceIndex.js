@@ -39,7 +39,7 @@ component PlaceIndex(
         entity={place}
       />
       <Relationships source={place} />
-      {manifest('place/index', {async: 'async'})}
+      {manifest('place/index', {async: true})}
     </PlaceLayout>
   );
 }

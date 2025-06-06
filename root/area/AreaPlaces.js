@@ -23,7 +23,7 @@ import AreaLayout from './AreaLayout.js';
 
 component AreaPlaces(
   area: AreaT,
-  mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
+  mapDataArgs: string,
   pager: PagerT,
   places: ?$ReadOnlyArray<PlaceT>,
 ) {
@@ -65,7 +65,7 @@ component AreaPlaces(
                 />
                 {manifest(
                   'common/components/ListMergeButtonsRow',
-                  {async: 'async'},
+                  {async: true},
                 )}
               </>
             ) : null}
@@ -76,8 +76,8 @@ component AreaPlaces(
           {l('This area is not currently associated with any places.')}
         </p>
       )}
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
-      {manifest('common/ratings', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </AreaLayout>
   );
 }

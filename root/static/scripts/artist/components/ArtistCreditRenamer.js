@@ -137,7 +137,7 @@ const ArtistCreditRow = ({
         checked={isChecked}
         name="edit-artist.rename_artist_credit"
         onChange={(event) => {
-          const checked = event.target.checked;
+          const checked = event.currentTarget.checked;
           setChecked(checked);
           dispatch({
             artistCredit,

@@ -136,8 +136,8 @@ component EventArt(
         )
       ) : null}
 
-      {manifest('common/loadArtwork', {async: 'async'})}
-      {manifest('common/artworkViewer', {async: 'async'})}
+      {manifest('common/loadArtwork', {async: true})}
+      {manifest('common/artworkViewer', {async: true})}
     </EventLayout>
   );
 }

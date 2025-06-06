@@ -21,8 +21,8 @@ component CreateGenre(form: GenreFormT) {
         <h1>{'Add a new genre'}</h1>
         <GenreEditForm form={form} />
       </div>
-      {manifest('genre/components/GenreEditForm', {async: 'async'})}
-      {manifest('relationship-editor', {async: 'async'})}
+      {manifest('genre/components/GenreEditForm', {async: true})}
+      {manifest('relationship-editor', {async: true})}
     </Layout>
   );
 }

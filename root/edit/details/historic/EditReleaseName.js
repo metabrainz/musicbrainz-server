@@ -15,7 +15,7 @@ component EditReleaseName(edit: EditReleaseNameHistoricEditT) {
   return (
     <table className="details edit-release">
       <HistoricReleaseList
-        colSpan="2"
+        colSpan={2}
         releases={edit.display_data.releases}
       />
       <WordDiff

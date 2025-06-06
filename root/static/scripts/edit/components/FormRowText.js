@@ -11,7 +11,7 @@ import FieldErrors from './FieldErrors.js';
 import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 
-type InputOnChange = (SyntheticKeyboardEvent<HTMLInputElement>) => void;
+type InputOnChange = (SyntheticInputEvent<HTMLInputElement>) => void;
 
 type InputProps = {
   +autoComplete?: string,

@@ -43,7 +43,7 @@ component SeriesSidebar(series: SeriesT) {
             cachedImage={$c.stash.commons_image}
             entity={series}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

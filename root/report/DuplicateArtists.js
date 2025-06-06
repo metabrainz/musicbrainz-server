@@ -81,7 +81,7 @@ component DuplicateArtists(...{
                   >
                     {lastKey === item.key ? null : (
                       <tr className="subh">
-                        <td colSpan="4" />
+                        <td colSpan={4} />
                       </tr>
                     )}
                     {artist ? (
@@ -113,7 +113,7 @@ component DuplicateArtists(...{
                     ) : (
                       <tr>
                         <td />
-                        <td colSpan="3">
+                        <td colSpan={3}>
                           {l('This artist no longer exists.')}
                         </td>
                       </tr>
@@ -130,13 +130,13 @@ component DuplicateArtists(...{
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
         </PaginatedResults>
       </form>
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </ReportLayout>
   );
 }

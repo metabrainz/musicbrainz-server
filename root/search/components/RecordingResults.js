@@ -43,7 +43,7 @@ const buildRecordingColumns = (recording: RecordingWithArtistCreditT) => (
     </td>
     <td>
       <IsrcList isrcs={recording.isrcs} />
-      {manifest('common/components/IsrcList', {async: 'async'})}
+      {manifest('common/components/IsrcList', {async: true})}
     </td>
   </>
 );
@@ -76,7 +76,7 @@ function buildResultWithReleases(
       <tr className={loopParity(linenum++)} data-score={score} key={key}>
         {extraIndex === 0
           ? buildRecordingColumns(recording)
-          : <td colSpan="4">{'\u00A0'}</td>}
+          : <td colSpan={4}>{'\u00A0'}</td>}
         <td>
           <EntityLink entity={release} />
         </td>
@@ -116,7 +116,7 @@ function buildResult(
           {buildRecordingColumns(recording)}
           <td>{l('(standalone recording)')}</td>
           {buildTaggerIcon($c, 'recording', recording.gid)}
-          <td colSpan="3">{'\u00A0'}</td>
+          <td colSpan={3}>{'\u00A0'}</td>
         </tr>
       )
   );
@@ -178,7 +178,7 @@ component RecordingResults(...{
           })}
         </p>
       ) : null}
-      {manifest('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('common/components/TaggerIcon', {async: true})}
     </ResultsLayout>
   );
 }

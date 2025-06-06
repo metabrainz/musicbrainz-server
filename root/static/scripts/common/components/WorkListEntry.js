@@ -50,11 +50,11 @@ export component WorkListRow(
       <td><EntityLink entity={work} /></td>
       <td>
         <ArtistRoles relations={work.authors} />
-        {manifest('common/components/ArtistRoles', {async: 'async'})}
+        {manifest('common/components/ArtistRoles', {async: true})}
       </td>
       <td>
         <WorkArtists artists={work.artists} />
-        {manifest('common/components/WorkArtists', {async: 'async'})}
+        {manifest('common/components/WorkArtists', {async: true})}
       </td>
       <td>
         <ArtistRoles relations={work.other_artists} />
@@ -62,7 +62,7 @@ export component WorkListRow(
       {showIswcs ? (
         <td>
           <IswcList iswcs={work.iswcs} />
-          {manifest('common/components/ArtistRoles', {async: 'async'})}
+          {manifest('common/components/ArtistRoles', {async: true})}
         </td>
       ) : null}
       <td>
@@ -87,7 +87,7 @@ export component WorkListRow(
           {work.attributes ? (
             <>
               <AttributeList attributes={work.attributes} />
-              {manifest('common/components/AttributeList', {async: 'async'})}
+              {manifest('common/components/AttributeList', {async: true})}
             </>
           ) : null}
         </td>

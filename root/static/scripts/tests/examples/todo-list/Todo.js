@@ -69,7 +69,7 @@ const Todo: TodoComponentT = React.memo<PropsT>(({
   }, [state.key, dispatch]);
 
   const setDescription = React.useCallback((
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     dispatch(state.key, {
       description: event.currentTarget.value,

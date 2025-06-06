@@ -52,7 +52,7 @@ component UserRatingEntity(
         <p>{l('No ratings.')}</p>
       )}
       {viewingOwnProfile ? (
-        manifest('common/ratings', {async: 'async'})
+        manifest('common/ratings', {async: true})
       ) : null}
     </UserAccountLayout>
   );

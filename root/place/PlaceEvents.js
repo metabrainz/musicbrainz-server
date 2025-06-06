@@ -50,7 +50,7 @@ component PlaceEvents(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -60,8 +60,8 @@ component PlaceEvents(
           {l('This place is not currently associated with any events.')}
         </p>
       )}
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
-      {manifest('common/ratings', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </PlaceLayout>
   );
 }

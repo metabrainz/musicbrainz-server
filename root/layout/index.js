@@ -209,7 +209,7 @@ component HeaderAndBanners(
 
       {showAlert ? (
         <div className="banner warning-header">
-          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
+          <p dangerouslySetInnerHTML={{__html: $c.stash.alert || ''}} />
           <DismissBannerButton bannerName="alert" />
         </div>
       ) : null}
@@ -327,7 +327,7 @@ component Layout(
           ? null
           : <MergeHelperAndFooter $c={$c} />}
 
-        {manifest('common/banner', {async: 'async'})}
+        {manifest('common/banner', {async: true})}
       </body>
     </html>
   );

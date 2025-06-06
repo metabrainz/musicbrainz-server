@@ -53,7 +53,7 @@ component EditRelationships() {
         <ReleaseRelationshipEditor />
       </div>
 
-      {manifest('release/edit-relationships', {async: 'async'})}
+      {manifest('release/edit-relationships', {async: true})}
     </Layout>
   );
 }

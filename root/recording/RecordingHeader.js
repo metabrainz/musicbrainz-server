@@ -28,7 +28,7 @@ component RecordingHeader(
       preHeader={
         <>
           <TaggerIcon entityType="recording" gid={recording.gid} />
-          {manifest('common/components/TaggerIcon', {async: 'async'})}
+          {manifest('common/components/TaggerIcon', {async: true})}
         </>
       }
       subHeading={recording.video

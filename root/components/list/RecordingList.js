@@ -156,8 +156,8 @@ component RecordingList(
   return (
     <>
       {table}
-      {manifest('common/components/AcoustIdCell', {async: 'async'})}
-      {manifest('common/components/IsrcList', {async: 'async'})}
+      {manifest('common/components/AcoustIdCell', {async: true})}
+      {manifest('common/components/IsrcList', {async: true})}
     </>
   );
 }

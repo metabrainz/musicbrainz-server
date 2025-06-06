@@ -62,7 +62,7 @@ component NotesReceived(editNotes: $ReadOnlyArray<EditNoteT>, pager: PagerT) {
           </p>
         )}
       </div>
-      {manifest('edit/components/NewNotesAlertCheckbox', {async: 'async'})}
+      {manifest('edit/components/NewNotesAlertCheckbox', {async: true})}
     </Layout>
   );
 }

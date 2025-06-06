@@ -58,7 +58,7 @@ component _ArtistCreditNameEditor(
   }
 
   function handleNameChange(
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ): void {
     dispatch({
       index,
@@ -106,7 +106,7 @@ component _ArtistCreditNameEditor(
   }
 
   function handleJoinPhraseChange(
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ): void {
     // The join phrase has been changed, it should no longer be automatic.
     dispatch({
@@ -152,7 +152,7 @@ component _ArtistCreditNameEditor(
   return (
     <tr>
       {artistCreditName.removed ? (
-        <td className="removed-ac-name" colSpan="3">
+        <td className="removed-ac-name" colSpan={3}>
           {lp('[removed]', 'artist credit name')}
         </td>
       ) : (

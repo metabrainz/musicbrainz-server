@@ -49,7 +49,7 @@ component AnnotationHistory(
               </div>
             ) : null}
           </PaginatedResults>
-          {manifest('annotation/AnnotationHistoryTable', {async: 'async'})}
+          {manifest('annotation/AnnotationHistoryTable', {async: true})}
         </form>
       ) : (
         <p>

@@ -143,7 +143,7 @@ component EventList(
   return (
     <>
       {table}
-      {manifest('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: true})}
     </>
   );
 }

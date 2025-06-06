@@ -180,7 +180,7 @@ component EventEditForm(
   }, [dispatch]);
 
   const handleSetlistChange = React.useCallback((
-    event: SyntheticKeyboardEvent<HTMLTextAreaElement>,
+    event: SyntheticEvent<HTMLTextAreaElement>,
   ) => {
     dispatch({setlist: event.currentTarget.value, type: 'set-setlist'});
   }, [dispatch]);

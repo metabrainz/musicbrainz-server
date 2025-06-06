@@ -59,8 +59,8 @@ component EventSidebar(event: EventT) {
                   {all: entityHref(event, 'event-art')},
                 ))}
               />
-              {manifest('common/loadArtwork', {async: 'async'})}
-              {manifest('common/artworkViewer', {async: 'async'})}
+              {manifest('common/loadArtwork', {async: true})}
+              {manifest('common/artworkViewer', {async: true})}
             </>
           ) : eventArtPresence === 'darkened' ? (
             l(`Images for this item have been hidden
@@ -85,7 +85,7 @@ component EventSidebar(event: EventT) {
             cachedImage={$c.stash.commons_image}
             entity={event}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

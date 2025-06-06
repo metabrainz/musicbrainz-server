@@ -46,7 +46,7 @@ component GenreIndex(
         numberOfRevisions={numberOfRevisions}
       />
       <Relationships source={genre} />
-      {manifest('genre/index', {async: 'async'})}
+      {manifest('genre/index', {async: true})}
     </GenreLayout>
   );
 }

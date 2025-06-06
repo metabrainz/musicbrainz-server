@@ -69,7 +69,7 @@ component ArtistSidebar(artist: ArtistT) {
             cachedImage={$c.stash.commons_image}
             entity={artist}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

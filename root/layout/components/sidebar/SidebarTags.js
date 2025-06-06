@@ -66,7 +66,7 @@ component SidebarTags(entity: TaggableEntityT) {
               more={more}
               userTags={userTags}
             />
-            {manifest('common/components/TagEditor', {async: 'async'})}
+            {manifest('common/components/TagEditor', {async: true})}
           </>
         ) : (
           <div id="sidebar-tags">

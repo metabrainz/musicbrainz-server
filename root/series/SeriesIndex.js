@@ -134,7 +134,7 @@ component SeriesIndex(
       )}
 
       <Relationships source={series} />
-      {manifest('series/index', {async: 'async'})}
+      {manifest('series/index', {async: true})}
     </SeriesLayout>
   );
 }

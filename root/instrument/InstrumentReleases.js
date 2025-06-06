@@ -54,7 +54,7 @@ component InstrumentReleases(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -64,7 +64,7 @@ component InstrumentReleases(
           {l('No releases found.')}
         </p>
       )}
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </InstrumentLayout>
   );
 }

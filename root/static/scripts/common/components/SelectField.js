@@ -31,28 +31,27 @@ type SharedElementProps = {
   id?: string,
   name?: string,
   onChange?: (event: SyntheticEvent<HTMLSelectElement>) => void,
+  onFocus?: (event: SyntheticEvent<HTMLSelectElement>) => void,
   required?: boolean,
   style?: {maxWidth?: string},
 };
 
 type MultipleSelectElementProps = {
-  defaultValue?: Array<StrOrNum>,
+  defaultValue?: $ReadOnlyArray<string>,
   multiple: boolean,
-  value?: Array<StrOrNum>,
+  value?: $ReadOnlyArray<string>,
   ...SharedElementProps,
-  ...
 };
 
 type SelectElementProps = {
   defaultValue?: StrOrNum,
   value?: StrOrNum,
   ...SharedElementProps,
-  ...
 };
 
 export component MultipleSelectField(
   allowEmpty: boolean = true,
-  field: FieldT<?Array<StrOrNum>>,
+  field: FieldT<?$ReadOnlyArray<string>>,
   options: MaybeGroupedOptionsT,
   uncontrolled: boolean = false,
   ...passedSelectProps: MultipleSelectElementProps

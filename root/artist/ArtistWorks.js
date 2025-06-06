@@ -59,7 +59,7 @@ component ArtistWorks(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -71,9 +71,9 @@ component ArtistWorks(
             : l('This artist is not currently associated with any works.')}
         </p>
       )}
-      {manifest('common/components/Filter', {async: 'async'})}
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
-      {manifest('common/ratings', {async: 'async'})}
+      {manifest('common/components/Filter', {async: true})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </ArtistLayout>
   );
 }

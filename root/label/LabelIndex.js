@@ -99,7 +99,7 @@ component LabelIndex(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -111,7 +111,7 @@ component LabelIndex(
             : l('This label does not have any releases.')}
         </p>
       )}
-      {manifest('label/index', {async: 'async'})}
+      {manifest('label/index', {async: true})}
     </LabelLayout>
   );
 }

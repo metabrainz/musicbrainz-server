@@ -11,7 +11,7 @@ import setCookie from '../../common/utility/setCookie.js';
 
 component NewNotesAlertCheckbox(checked: boolean) {
   const handlePreferenceChange = (
-    event: SyntheticMouseEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     setCookie('alert_new_edit_notes', String(event.currentTarget.checked));
   };

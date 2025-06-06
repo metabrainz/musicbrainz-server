@@ -50,7 +50,7 @@ function getResultBuilder(showArtworkPresence: boolean) {
         </td>
         <td>
           <ArtistRoles relations={event.performers} />
-          {manifest('common/components/ArtistRoles', {async: 'async'})}
+          {manifest('common/components/ArtistRoles', {async: true})}
         </td>
         <td>
           <EventLocations event={event} />

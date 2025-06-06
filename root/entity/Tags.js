@@ -38,7 +38,7 @@ component Tags(
         more={moreTags}
         userTags={userTags}
       />
-      {manifest('common/components/TagEditor', {async: 'async'})}
+      {manifest('common/components/TagEditor', {async: true})}
     </LayoutComponent>
   );
 }

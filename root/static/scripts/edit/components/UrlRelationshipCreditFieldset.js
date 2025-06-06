@@ -19,7 +19,7 @@ component UrlRelationshipCreditFieldset(
   field: FieldT<string | null>,
 ) {
   function handleCreditChange(
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) {
     dispatch({
       credit: event.currentTarget.value,

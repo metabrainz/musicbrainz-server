@@ -36,38 +36,53 @@ declare module 'react-table' {
     ...
   };
 
+  type ThElementProps =
+    Partial<$ReadOnly<{...ReactDOM$thProps, key?: string}>>;
+
+  type TrElementProps =
+    Partial<$ReadOnly<{...ReactDOM$trProps, key?: string}>>;
+
+  type TdElementProps =
+    Partial<$ReadOnly<{...ReactDOM$tdProps, key?: string}>>;
+
+  type TableElementProps =
+    Partial<$ReadOnly<{...ReactDOM$tableProps, key?: string}>>;
+
+  type TbodyElementProps =
+    Partial<$ReadOnly<{...ReactDOM$tbodyProps, key?: string}>>;
+
   declare export type ColumnInstance = {
-    +cellProps?: {[attribute: string]: string},
-    +getCellProps: (props?: {...}) => {+key: string, ...},
-    +getHeaderProps: (props?: {...}) => {+key: string, ...},
+    +cellProps?: TdElementProps,
+    +getCellProps: (props?: TdElementProps) => TdElementProps,
+    +getHeaderProps: (props?: ThElementProps) => ThElementProps,
     // Not actually part of react-table but our own expansion of it
-    +headerProps?: {[attribute: string]: string},
+    +headerProps?: ThElementProps,
     +render: (type: 'Header' | string, props?: {...}) => React.Node,
   };
 
   declare export type HeaderGroup = $ReadOnly<{
     ...$ReadOnly<ColumnInstance>,
-    +getHeaderGroupProps: (props?: {...}) => {+key: string, ...},
+    +getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
     +headers: $ReadOnlyArray<ColumnInstance>,
   }>;
 
   declare export type Cell<+V> = {
     +column: ColumnInstance,
-    +getCellProps: (props?: {...}) => {+key: string, ...},
+    +getCellProps: (props?: TdElementProps) => TdElementProps,
     +render: (type: 'Cell' | string, userProps?: {...}) => React.Node,
     +value: V,
   };
 
   declare export type Row<+D> = {
     +cells: $ReadOnlyArray<Cell<mixed>>,
-    +getRowProps: (props?: {...}) => {+key: string, ...},
+    +getRowProps: (props?: TrElementProps) => TrElementProps,
     +index: number,
     +original: D,
   };
 
   declare export type UseTableInstance<D> = {
-    +getTableBodyProps: (props?: {...}) => {...},
-    +getTableProps: (props?: {...}) => {...},
+    +getTableBodyProps: (props?: TbodyElementProps) => TbodyElementProps,
+    +getTableProps: (props?: TableElementProps) => TableElementProps,
     +headerGroups: $ReadOnlyArray<HeaderGroup>,
     +prepareRow: (row: Row<D>) => void,
     +rows: $ReadOnlyArray<Row<D>>,

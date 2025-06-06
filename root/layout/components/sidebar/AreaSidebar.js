@@ -46,7 +46,7 @@ component AreaSidebar(area: AreaT) {
             cachedImage={$c.stash.commons_image}
             entity={area}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

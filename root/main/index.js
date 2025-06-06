@@ -274,7 +274,7 @@ component Homepage(
         </div>
       </div>
 
-      {manifest('common/loadArtwork', {async: 'async'})}
+      {manifest('common/loadArtwork', {async: true})}
     </Layout>
   );
 }

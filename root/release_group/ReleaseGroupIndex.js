@@ -193,7 +193,7 @@ component ReleaseGroupIndex(
                 />
                 {manifest(
                   'common/components/ListMergeButtonsRow',
-                  {async: 'async'},
+                  {async: true},
                 )}
               </>
             ) : null}
@@ -203,9 +203,9 @@ component ReleaseGroupIndex(
         <p>{l('No releases found.')}</p>
       )}
       <Relationships source={releaseGroup} />
-      {manifest('release-group/index', {async: 'async'})}
-      {manifest('common/components/ReleaseEvents', {async: 'async'})}
-      {manifest('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('release-group/index', {async: true})}
+      {manifest('common/components/ReleaseEvents', {async: true})}
+      {manifest('common/components/TaggerIcon', {async: true})}
     </ReleaseGroupLayout>
   );
 }

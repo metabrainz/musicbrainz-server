@@ -81,7 +81,7 @@ component SetCoverArt(edit: SetCoverArtEditT) {
           ) : l(`We are unable to display this cover art.`)}
         </td>
       </tr>
-      {manifest('common/components/ReleaseEvents', {async: 'async'})}
+      {manifest('common/components/ReleaseEvents', {async: true})}
     </table>
   );
 }

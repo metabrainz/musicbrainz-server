@@ -20,6 +20,7 @@ export default [
   {
     ignores: [
       '.cpanm/**/*',
+      'flow-typed/environments/*.js',
       'flow-typed/npm/@sentry/*.js',
       'flow-typed/npm/he_*.js',
       'flow-typed/npm/react-dom_*.js',
