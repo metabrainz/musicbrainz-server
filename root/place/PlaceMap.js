@@ -13,15 +13,7 @@ import {MAPBOX_ACCESS_TOKEN}
 
 import PlaceLayout from './PlaceLayout.js';
 
-type MapDataArgsT = {
-  +draggable: boolean,
-  +place: {
-    +coordinates: CoordinatesT | null,
-    +name: string,
-  },
-};
-
-component PlaceMap(mapDataArgs: MapDataArgsT, place: PlaceT) {
+component PlaceMap(mapDataArgs: string, place: PlaceT) {
   return (
     <PlaceLayout entity={place} page="map" title={l('Map')}>
       {place.coordinates ? (

@@ -23,7 +23,7 @@ import AreaLayout from './AreaLayout.js';
 
 component AreaPlaces(
   area: AreaT,
-  mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
+  mapDataArgs: string,
   pager: PagerT,
   places: ?$ReadOnlyArray<PlaceT>,
 ) {
