@@ -1432,8 +1432,8 @@ ws_test 'release lookup, track artists have no aliases',
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
                     <alias-list count="5">
-                      <alias sort-name="Beat of Angel" begin-date="1001-01-10" end-date="2002-02-20">Beat of Angel</alias>
-                      <alias sort-name="BoA Kwon">BoA Kwon</alias>
+                      <alias sort-name="Beat of Angel" begin-date="1001-01-10" end-date="2002-02-20" ended="ended">Beat of Angel</alias>
+                      <alias sort-name="BoA Kwon" ended="ended">BoA Kwon</alias>
                       <alias sort-name="Kwon BoA">Kwon BoA</alias>
                       <alias sort-name="ボア" type="Artist name" type-id="894afba6-2816-3c24-8072-eadb66bd04bc">ボア</alias>
                       <alias locale="ko" sort-name="보아" primary="primary">보아</alias>
@@ -1487,8 +1487,8 @@ ws_test 'release lookup, track artists have no aliases',
                   <artist id="a16d1433-ba89-4f72-a47b-a370add0bb55" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>BoA</name><sort-name>BoA</sort-name>
                     <alias-list count="5">
-                      <alias sort-name="Beat of Angel" begin-date="1001-01-10" end-date="2002-02-20">Beat of Angel</alias>
-                      <alias sort-name="BoA Kwon">BoA Kwon</alias>
+                      <alias sort-name="Beat of Angel" begin-date="1001-01-10" end-date="2002-02-20" ended="ended">Beat of Angel</alias>
+                      <alias sort-name="BoA Kwon" ended="ended">BoA Kwon</alias>
                       <alias sort-name="Kwon BoA">Kwon BoA</alias>
                       <alias sort-name="ボア" type="Artist name" type-id="894afba6-2816-3c24-8072-eadb66bd04bc">ボア</alias>
                       <alias locale="ko" sort-name="보아" primary="primary">보아</alias>
