@@ -54,7 +54,7 @@ component WorkSidebar(work: WorkT) {
             cachedImage={$c.stash.commons_image}
             entity={work}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 
@@ -88,7 +88,7 @@ component WorkSidebar(work: WorkT) {
           {iswcs.length ? (
             <>
               <IswcList isSidebar iswcs={iswcs} />
-              {manifest('common/components/IswcList', {async: 'async'})}
+              {manifest('common/components/IswcList', {async: true})}
             </>
           ) : null}
 
@@ -96,7 +96,7 @@ component WorkSidebar(work: WorkT) {
             <>
               <h2 className="work-attributes">{l('Work attributes')}</h2>
               <AttributeList attributes={attributes} isSidebar />
-              {manifest('common/components/AttributeList', {async: 'async'})}
+              {manifest('common/components/AttributeList', {async: true})}
             </>
           ) : null}
         </>

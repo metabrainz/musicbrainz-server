@@ -92,7 +92,7 @@ component EventList<D: {+event: ?EventT, ...}>(
   return (
     <PaginatedResults pager={pager}>
       {table}
-      {manifest('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: true})}
     </PaginatedResults>
   );
 }

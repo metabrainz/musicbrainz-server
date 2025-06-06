@@ -88,7 +88,7 @@ component EditReleaseLabel(edit: EditReleaseLabelEditT) {
           <th>{addColonText(l('Release events'))}</th>
           <td colSpan="2">
             <ReleaseEvents events={releaseEvents} />
-            {manifest('common/components/ReleaseEvents', {async: 'async'})}
+            {manifest('common/components/ReleaseEvents', {async: true})}
           </td>
         </tr>
       ) : firstDate || firstCountry ? (

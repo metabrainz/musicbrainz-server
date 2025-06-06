@@ -233,7 +233,7 @@ component CollectionIndex(...props: Props) {
           ) : null}
         </form>
       ) : <p>{l('This collection is empty.')}</p>}
-      {manifest('common/ratings', {async: 'async'})}
+      {manifest('common/ratings', {async: true})}
     </CollectionLayout>
   );
 }

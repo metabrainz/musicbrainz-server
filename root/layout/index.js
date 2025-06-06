@@ -327,7 +327,7 @@ component Layout(
           ? null
           : <MergeHelperAndFooter $c={$c} />}
 
-        {manifest('common/banner', {async: 'async'})}
+        {manifest('common/banner', {async: true})}
       </body>
     </html>
   );

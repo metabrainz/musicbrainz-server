@@ -43,7 +43,7 @@ const buildRecordingColumns = (recording: RecordingWithArtistCreditT) => (
     </td>
     <td>
       <IsrcList isrcs={recording.isrcs} />
-      {manifest('common/components/IsrcList', {async: 'async'})}
+      {manifest('common/components/IsrcList', {async: true})}
     </td>
   </>
 );
@@ -178,7 +178,7 @@ component RecordingResults(...{
           })}
         </p>
       ) : null}
-      {manifest('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('common/components/TaggerIcon', {async: true})}
     </ResultsLayout>
   );
 }

@@ -44,7 +44,7 @@ component ReleaseIndex(
         noScript={noScript}
         release={release}
       />
-      {manifest('release/index', {async: 'async'})}
+      {manifest('release/index', {async: true})}
     </ReleaseLayout>
   );
 }

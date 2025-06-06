@@ -130,13 +130,13 @@ component DuplicateArtists(...{
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
         </PaginatedResults>
       </form>
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </ReportLayout>
   );
 }

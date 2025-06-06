@@ -55,7 +55,7 @@ function buildReleaseRow(release: ReleaseT, index?: number) {
           </td>
           <td>
             <ReleaseEvents events={release.events} />
-            {manifest('common/components/ReleaseEvents', {async: 'async'})}
+            {manifest('common/components/ReleaseEvents', {async: true})}
           </td>
           <td>
             <ReleaseLabelList labels={release.labels} />

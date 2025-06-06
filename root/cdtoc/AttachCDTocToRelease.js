@@ -108,11 +108,11 @@ component AttachCDTocToRelease(
                   />
                   {manifest(
                     'common/components/CDTocReleaseListTable',
-                    {async: 'async'},
+                    {async: true},
                   )}
                   {manifest(
                     'common/components/ReleaseEvents',
-                    {async: 'async'},
+                    {async: true},
                   )}
                 </PaginatedResults>
               ) : null}

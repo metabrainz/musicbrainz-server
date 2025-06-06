@@ -55,7 +55,7 @@ component ReleaseMerge(
           />
           {manifest(
             'edit/components/ReleaseMergeStrategy',
-            {async: 'async'},
+            {async: true},
           )}
 
           <FormRowCheckbox

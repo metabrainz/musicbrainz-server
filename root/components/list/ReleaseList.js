@@ -199,8 +199,8 @@ component ReleaseList(
   return (
     <>
       {table}
-      {manifest('common/components/ReleaseEvents', {async: 'async'})}
-      {manifest('common/components/TaggerIcon', {async: 'async'})}
+      {manifest('common/components/ReleaseEvents', {async: true})}
+      {manifest('common/components/TaggerIcon', {async: true})}
     </>
   );
 }

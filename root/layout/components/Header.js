@@ -23,7 +23,7 @@ component Header() {
         <TopMenu />
         <BottomMenu />
       </div>
-      {manifest('common/MB/Control/Menu', {async: 'async'})}
+      {manifest('common/MB/Control/Menu', {async: true})}
     </div>
   );
 }

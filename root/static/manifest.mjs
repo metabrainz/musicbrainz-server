@@ -48,7 +48,7 @@ function pathTo(manifest: string) {
 const jsExt = /\.js(?:on)?$/;
 function manifest(
   manifest: string,
-  extraAttrs?: {+'async'?: 'async', +'data-args'?: mixed} | null = null,
+  extraAttrs?: {+'async'?: boolean, +'data-args'?: mixed} | null = null,
 ): React.MixedElement {
   if (jsExt.test(manifest)) {
     throw new Error(
