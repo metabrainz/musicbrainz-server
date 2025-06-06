@@ -1,0 +1,15 @@
+{
+  "env": [
+    "bom",
+    "cssom",
+    "dom",
+    "html",
+    "indexeddb",
+    "intl",
+    "jsx",
+    "node",
+    "serviceworkers",
+    "streams",
+    "webassembly"
+  ]
+}
