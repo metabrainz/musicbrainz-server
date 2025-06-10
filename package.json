@@ -22,7 +22,7 @@
     "@babel/preset-flow": "7.27.1",
     "@babel/register": "7.27.1",
     "@babel/runtime": "7.27.6",
-    "@floating-ui/react": "0.26.22",
+    "@floating-ui/react": "0.27.12",
     "@sentry/browser": "7.119.2",
     "@sentry/node": "7.119.2",
     "babel-loader": "10.0.0",
