@@ -23,7 +23,7 @@ declare module 'react-table' {
      */
     +accessor?: (D) => V,
     +Cell?: component(...CellRenderProps<D, V>),
-    +Header?: React.ComponentType<mixed> | React.Node,
+    +Header?: component() | React.Node,
     +id?: string,
     ...
   };
@@ -31,7 +31,7 @@ declare module 'react-table' {
   declare export type ColumnOptionsNoValue<-D> = {
     +accessor?: (D) => mixed,
     +Cell?: component(...CellRenderProps<D, empty>),
-    +Header?: React.ComponentType<mixed> | React.Node,
+    +Header?: component() | React.Node,
     +id?: string,
     ...
   };
