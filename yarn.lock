@@ -4811,10 +4811,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filesize@npm:10.1.4":
-  version: 10.1.4
-  resolution: "filesize@npm:10.1.4"
-  checksum: 10c0/b02a792da0da66fce5525566691369db6f0fadf5407b3626ca14821998dfaec65cf4a69fc3ca3ae999bf963e4afa19a8a787996f935c508506cccff3cc075faf
+"filesize@npm:10.1.6":
+  version: 10.1.6
+  resolution: "filesize@npm:10.1.6"
+  checksum: 10c0/9a196d64da4e947b8c0d294be09a3dfa7a634434a1fc5fb3465f1c9acc1237ea0363f245ba6e24477ea612754d942bc964d86e0e500905a72e9e0e17ae1bbdbc
   languageName: node
   linkType: hard
 
@@ -7041,7 +7041,7 @@ __metadata:
     eslint-plugin-react-hooks: "npm:5.0.0"
     eslint-plugin-simple-import-sort: "npm:^7.0.0"
     fast-diff: "npm:1.3.0"
-    filesize: "npm:10.1.4"
+    filesize: "npm:10.1.6"
     flow-bin: "npm:0.272.2"
     flow-typed: "npm:4.1.1"
     generic-diff: "npm:1.0.1"
