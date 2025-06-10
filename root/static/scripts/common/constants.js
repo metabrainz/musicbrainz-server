@@ -79,6 +79,7 @@ export const FAVICON_CLASSES: {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
   'abc.net.au/triplejunearthed': 'triplejunearthed',
+  'acum.org.il': 'acum',
   'adp.library.ucsb.edu': 'dahr',
   'allmusic.com': 'allmusic',
   'anghami.com': 'anghami',
