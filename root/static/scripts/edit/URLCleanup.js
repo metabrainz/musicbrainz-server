@@ -7046,6 +7046,37 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
     },
   },
+  'zemereshet': {
+    match: [/^(https?:\/\/)?(www\.)?zemereshet\.co\.il\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\/(www\.)?/, 'https://www.')
+        // keep just the id query param
+        .replace(/(?=\?)(.*?)([?&](id=[^&#]*))?(&.*)?$/, '?$3');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.work:
+          return {
+            result: /\/song.asp\?id=[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /\/artist.asp\?id=[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release:
+          return {
+            result: /\/record.asp\?id=[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+    },
+  },
 };
 /* eslint-enable sort-keys */
 

@@ -234,6 +234,7 @@ my %URL_SPECIALIZATIONS = (
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
     'YouTubeMusic'        => qr{^https?://music\.youtube\.com/}i,
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,
+    'Zemereshet'          => qr{^https?://(?:www\.)?zemereshet\.co\.il/}i,
 
     # License links
     'CCBY'              => qr{^https?://creativecommons\.org/licenses/by/}i,
