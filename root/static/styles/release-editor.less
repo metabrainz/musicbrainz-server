@@ -35,7 +35,7 @@ fieldset {
 }
 
 .warning { border-radius: 6px; }
-.page-error { .error; padding: 1em 0.5em; }
+.page-error { .error(); padding: 1em 0.5em; }
 
 /* __________________________________
 
@@ -240,7 +240,7 @@ div.changes div.warning { margin: 1em auto; }
                 width: 1em;
             }
 
-            &.name, &.length, { padding-top: 1em; }
+            &.name, &.length { padding-top: 1em; }
             &.name span.comment { display: block; }
             &.name.add-new { color: @dark-text; }
 
