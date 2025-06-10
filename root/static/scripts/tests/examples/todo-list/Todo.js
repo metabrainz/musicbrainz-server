@@ -50,9 +50,9 @@ export function reducer(
   }
 }
 
-type TodoComponentT = component(ref: React.RefSetter<mixed>, ...PropsT);
+type TodoComponentT = component(...PropsT);
 
-const Todo: TodoComponentT = React.memo<PropsT>(({
+const Todo: TodoComponentT = React.memo<PropsT, void>(({
   dispatch,
   state,
 }: PropsT) => {
