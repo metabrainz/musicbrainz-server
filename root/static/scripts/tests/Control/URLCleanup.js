@@ -5783,6 +5783,20 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://steamdb.info/app/331230/',
        only_valid_entity_types: ['release'],
   },
+  // StereoVeMono
+  {
+                     input_url: 'https://stereo-ve-mono.com/discography?go=3&artist=%D7%A9%D7%9C%D7%9E%D7%94%20%D7%90%D7%A8%D7%A6%D7%99',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://stereo-ve-mono.com/discography?artist=%D7%A9%D7%9C%D7%9E%D7%94%20%D7%90%D7%A8%D7%A6%D7%99',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://stereo-ve-mono.com/1825',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://stereo-ve-mono.com/1825',
+  },
   // Target
   {
                      input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',
