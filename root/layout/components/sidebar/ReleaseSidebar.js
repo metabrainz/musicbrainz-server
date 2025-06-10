@@ -91,8 +91,8 @@ component ReleaseSidebar(release: ReleaseT) {
                 {all: entityHref(release, 'cover-art')},
               ))}
             />
-            {manifest('common/loadArtwork', {async: 'async'})}
-            {manifest('common/artworkViewer', {async: 'async'})}
+            {manifest('common/loadArtwork', {async: true})}
+            {manifest('common/artworkViewer', {async: true})}
           </>
         ) : isDarkened ? (
           l(`Images for this item have been hidden
@@ -249,7 +249,7 @@ component ReleaseSidebar(release: ReleaseT) {
         <>
           <h2 className="release-events">{l('Release events')}</h2>
           <ReleaseEvents abbreviated={false} events={releaseEvents} />
-          {manifest('common/components/ReleaseEvents', {async: 'async'})}
+          {manifest('common/components/ReleaseEvents', {async: true})}
         </>
       ) : null}
 

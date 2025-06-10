@@ -50,7 +50,7 @@ component EventIndex(
           </p>
         </>
       ) : null}
-      {manifest('event/index', {async: 'async'})}
+      {manifest('event/index', {async: true})}
     </EventLayout>
   );
 }

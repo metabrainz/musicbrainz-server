@@ -36,7 +36,7 @@ component ReleaseGroupUrlList(
         <tbody>
           {items.map((item, index) => {
             if (!item.url) {
-              return <RemovedUrlRow colSpan="3" index={index} key={index} />;
+              return <RemovedUrlRow colSpan={3} index={index} key={index} />;
             }
 
             lastGID = currentGID;
@@ -46,7 +46,7 @@ component ReleaseGroupUrlList(
               <>
                 {lastGID === item.url.gid ? null : (
                   <tr className="even" key={item.url.gid}>
-                    <td colSpan="3">
+                    <td colSpan={3}>
                       <a href={item.url.name}>
                         {item.url.name}
                       </a>
@@ -74,7 +74,7 @@ component ReleaseGroupUrlList(
                 ) : (
                   <tr key={`removed-${item.release_group_id}`}>
                     <td />
-                    <td colSpan="2">
+                    <td colSpan={2}>
                       {l('This release group no longer exists.')}
                     </td>
                   </tr>

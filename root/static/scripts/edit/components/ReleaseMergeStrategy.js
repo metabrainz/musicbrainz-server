@@ -37,7 +37,7 @@ const mergeStrategyOptions = {
 component UselessMediumTitleWarning(name: string) {
   return (
     <tr>
-      <td colSpan="4">
+      <td colSpan={4}>
         <span
           className="error"
           style={{margin: '0 12px 0 6px'}}
@@ -83,7 +83,7 @@ component ReleaseMergeStrategy(
     ));
 
   function updateTitles(
-    event: SyntheticEvent<HTMLSelectElement>,
+    event: SyntheticEvent<HTMLInputElement>,
     index: number,
   ) {
     const mediumTitle = event.currentTarget.value;
@@ -135,13 +135,13 @@ component ReleaseMergeStrategy(
               return (
                 <React.Fragment key={medium.id}>
                   <tr className="subh">
-                    <th colSpan="4">
+                    <th colSpan={4}>
                       <label>{l('New position:')}</label>
                       {' '}
                       <input
                         defaultValue={mediumSubFields.position.value}
                         name={mediumSubFields.position.html_name}
-                        size="2"
+                        size={2}
                         type="text"
                       />
                       {mediumSubFields.position.has_errors ? (

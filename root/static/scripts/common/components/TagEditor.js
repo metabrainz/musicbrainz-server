@@ -625,9 +625,9 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                     <form id="tag-form" onSubmit={this.handleSubmitBound}>
                       <p>
                         <textarea
-                          cols="50"
+                          cols={50}
                           ref={this.setTagsInputBound}
-                          rows="5"
+                          rows={5}
                         />
                       </p>
                       <button className="styled-button" type="submit">

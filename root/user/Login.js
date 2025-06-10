@@ -136,7 +136,7 @@ component Login(
         })}
       </p>
 
-      {manifest('user/login', {async: 'async'})}
+      {manifest('user/login', {async: true})}
     </Layout>
   );
 }

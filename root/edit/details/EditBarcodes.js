@@ -32,7 +32,7 @@ component EditBarcodes(edit: EditBarcodesEditT) {
           <>
             <tr>
               <th>{addColonText(l('Release'))}</th>
-              <td colSpan="2">
+              <td colSpan={2}>
                 <DescriptiveLink entity={submission.release} />
               </td>
             </tr>
@@ -45,7 +45,7 @@ component EditBarcodes(edit: EditBarcodesEditT) {
             ) : (
               <tr>
                 <th>{addColonText(l('Barcode'))}</th>
-                <td colSpan="2">{formatBarcode(submission.new_barcode)}</td>
+                <td colSpan={2}>{formatBarcode(submission.new_barcode)}</td>
               </tr>
             )}
           </>

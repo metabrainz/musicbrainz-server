@@ -210,7 +210,7 @@ component _RelationshipDiff(
   return (
     <>
       <tr>
-        <th rowSpan="2">{addColonText(l('Relationship'))}</th>
+        <th rowSpan={2}>{addColonText(l('Relationship'))}</th>
         <td className="old">
           {oldPhrase}
           {' '}

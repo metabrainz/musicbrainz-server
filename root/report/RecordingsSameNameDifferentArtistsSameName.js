@@ -79,7 +79,7 @@ component RecordingsSameNameDifferentArtistsSameName(...{
                       </td>
                     </>
                   ) : (
-                    <td colSpan="2">
+                    <td colSpan={2}>
                       {l('This recording no longer exists.')}
                     </td>
                   )}

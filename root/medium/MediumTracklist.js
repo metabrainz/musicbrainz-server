@@ -40,7 +40,7 @@ component MediumTracklist(
       dataTracksStarted = true;
       tracklist.push(
         <tr className="subh" key="data-tracks-subheader">
-          <td colSpan="6">
+          <td colSpan={6}>
             <DataTrackIcon />
             {' '}
             {l('Data tracks')}

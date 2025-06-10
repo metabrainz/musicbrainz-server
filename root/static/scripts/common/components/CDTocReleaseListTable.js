@@ -34,7 +34,7 @@ component CDTocReleaseListTable(
     <table className="tbl">
       <thead>
         <tr>
-          <th colSpan="2">{l('Release')}</th>
+          <th colSpan={2}>{l('Release')}</th>
           <th>{l('Artist')}</th>
           <th>{l('Country') + lp('/', 'and') + l('Date')}</th>
           <th>{l('Label')}</th>
@@ -58,7 +58,7 @@ component CDTocReleaseListTable(
             <React.Fragment key={index}>
               {showSubHeader ? (
                 <tr className="subh">
-                  <th colSpan={showTagger ? '9' : '8'}>
+                  <th colSpan={showTagger ? 9 : 8}>
                     {exp.l(
                       'Release group: {release_group_link}',
                       {

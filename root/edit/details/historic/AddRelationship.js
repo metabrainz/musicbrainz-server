@@ -14,7 +14,7 @@ component AddRelationship(edit: AddRelationshipHistoricEditT) {
   return (
     <table className="details add-relationship-historic">
       <tr>
-        <th rowSpan="2">{addColonText(l('Relationships'))}</th>
+        <th rowSpan={2}>{addColonText(l('Relationships'))}</th>
         <td>
           <ul>
             {edit.display_data.relationships.map(relationship => (

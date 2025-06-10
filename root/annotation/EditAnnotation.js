@@ -26,7 +26,7 @@ type EditAnnotationFormT = FormT<{
 component EditAnnotation(
   entity: AnnotatedEntityT,
   form: EditAnnotationFormT,
-  preview?: string,
+  preview: string = '',
   showPreview?: boolean = false,
 ) {
   const entityType = entity.entityType;

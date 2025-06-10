@@ -28,7 +28,7 @@ component ListMergeButtonsRow(
     }, 0);
   };
 
-  const newTabLabel = exp.l(
+  const newTabLabel = texp.l(
     '{action_label} (in a new tab)',
     {action_label: label},
   );

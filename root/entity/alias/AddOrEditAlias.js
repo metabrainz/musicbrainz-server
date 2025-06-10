@@ -45,7 +45,7 @@ component AddOrEditAlias(
         searchHintType={searchHintType}
       />
       <div id="guesscase-options" />
-      {manifest('alias', {async: 'async'})}
+      {manifest('alias', {async: true})}
     </LayoutComponent>
   );
 }

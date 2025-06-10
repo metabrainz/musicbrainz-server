@@ -61,7 +61,7 @@ component Register(
       </p>
 
       <RegisterForm captcha={captcha} form={form} />
-      {manifest('account/components/RegisterForm', {async: 'async'})}
+      {manifest('account/components/RegisterForm', {async: true})}
 
       <p>
         {exp.l(

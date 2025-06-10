@@ -13,7 +13,7 @@ import FormRow from './FormRow.js';
 type ControlledPropsT =
   | $ReadOnly<{
       controlled: true,
-      onChange: (event: SyntheticKeyboardEvent<HTMLTextAreaElement>) => void,
+      onChange: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
     }>
   | $ReadOnly<{controlled?: false}>;
 
@@ -25,7 +25,7 @@ component EnterEditNote(
 ) {
   const textAreaProps: {
     defaultValue?: string,
-    onChange?: (event: SyntheticKeyboardEvent<HTMLTextAreaElement>) => void,
+    onChange?: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
     value?: string,
   } = {};
   if (controlledProps.controlled /*:: === true */) {
@@ -69,10 +69,10 @@ component EnterEditNote(
         <label htmlFor="edit-note-text">{l('Edit note:')}</label>
         <textarea
           className="edit-note"
-          cols="80"
+          cols={80}
           id="edit-note-text"
           name={field.html_name}
-          rows="5"
+          rows={5}
           {...textAreaProps}
         />
         <FieldErrors field={field} />

@@ -33,7 +33,7 @@ component LabelUrlList(
         <tbody>
           {items.map((item, index) => {
             if (!item.url) {
-              return <RemovedUrlRow colSpan="2" index={index} key={index} />;
+              return <RemovedUrlRow colSpan={2} index={index} key={index} />;
             }
 
             lastGID = currentGID;
@@ -43,7 +43,7 @@ component LabelUrlList(
               <>
                 {lastGID === item.url.gid ? null : (
                   <tr className="even" key={item.url.gid}>
-                    <td colSpan="2">
+                    <td colSpan={2}>
                       <a href={item.url.name}>
                         {item.url.name}
                       </a>

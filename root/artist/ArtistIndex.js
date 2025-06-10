@@ -281,7 +281,7 @@ component ArtistIndex(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -307,7 +307,7 @@ component ArtistIndex(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -330,7 +330,7 @@ component ArtistIndex(
         </>
       )}
 
-      {manifest('artist/index', {async: 'async'})}
+      {manifest('artist/index', {async: true})}
     </ArtistLayout>
   );
 }

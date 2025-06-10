@@ -1503,7 +1503,9 @@ component _TrackRelationshipsSection(
   const workRangeSelectionHandler =
     useRangeSelectionHandler('work');
 
-  const rangeSelectionHandler = React.useCallback((event: MouseEvent) => {
+  const rangeSelectionHandler = React.useCallback((
+    event: SyntheticMouseEvent<HTMLElement>,
+  ) => {
     recordingRangeSelectionHandler(event);
     workRangeSelectionHandler(event);
   }, [
