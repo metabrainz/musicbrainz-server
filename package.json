@@ -63,7 +63,7 @@
     "sucrase": "3.35.0",
     "tabbable": "6.2.0",
     "tablesorter": "2.32.0",
-    "terser-webpack-plugin": "5.3.10",
+    "terser-webpack-plugin": "5.3.14",
     "webpack": "5.98.0",
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.6.1",
