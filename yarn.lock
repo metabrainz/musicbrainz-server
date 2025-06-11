@@ -7077,7 +7077,7 @@ __metadata:
     react-table: "npm:7.8.0"
     redux: "npm:4.2.1"
     selenium-webdriver: "npm:4.28.1"
-    shell-quote: "npm:1.8.1"
+    shell-quote: "npm:1.8.3"
     shelljs: "npm:0.8.5"
     sliced: "npm:1.0.1"
     stream-browserify: "npm:3.0.0"
@@ -8787,10 +8787,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"shell-quote@npm:1.8.1":
-  version: 1.8.1
-  resolution: "shell-quote@npm:1.8.1"
-  checksum: 10c0/8cec6fd827bad74d0a49347057d40dfea1e01f12a6123bf82c4649f3ef152fc2bc6d6176e6376bffcd205d9d0ccb4f1f9acae889384d20baff92186f01ea455a
+"shell-quote@npm:1.8.3":
+  version: 1.8.3
+  resolution: "shell-quote@npm:1.8.3"
+  checksum: 10c0/bee87c34e1e986cfb4c30846b8e6327d18874f10b535699866f368ade11ea4ee45433d97bf5eada22c4320c27df79c3a6a7eb1bf3ecfc47f2c997d9e5e2672fd
   languageName: node
   linkType: hard
 
