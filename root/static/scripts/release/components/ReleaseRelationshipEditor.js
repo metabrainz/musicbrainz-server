@@ -689,7 +689,7 @@ function* getAllRelationshipEdits(
             origRelationship.linkTypeID != null,
           );
           yield [[relationship], {
-            edit_type: EDIT_RELATIONSHIP_DELETE,
+            edit_type: EDIT_RELATIONSHIP_DELETE as const,
             id: origRelationship.id,
             linkTypeID: origRelationship.linkTypeID,
           }];
@@ -716,7 +716,7 @@ function* getAllRelationshipEdits(
         }
 
         yield [relationships, {
-          edit_type: EDIT_RELATIONSHIPS_REORDER,
+          edit_type: EDIT_RELATIONSHIPS_REORDER as const,
           linkTypeID: linkTypeId,
           relationship_order: relationshipOrderEditData,
         }];
