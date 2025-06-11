@@ -58,7 +58,7 @@
     "react-table": "7.8.0",
     "redux": "4.2.1",
     "shell-quote": "1.8.3",
-    "shelljs": "0.8.5",
+    "shelljs": "0.10.0",
     "sliced": "1.0.1",
     "sucrase": "3.35.0",
     "tabbable": "6.2.0",
