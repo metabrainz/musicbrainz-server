@@ -2431,9 +2431,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@stylistic/eslint-plugin@npm:3.0.1":
-  version: 3.0.1
-  resolution: "@stylistic/eslint-plugin@npm:3.0.1"
+"@stylistic/eslint-plugin@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@stylistic/eslint-plugin@npm:3.1.0"
   dependencies:
     "@typescript-eslint/utils": "npm:^8.13.0"
     eslint-visitor-keys: "npm:^4.2.0"
@@ -2442,7 +2442,7 @@ __metadata:
     picomatch: "npm:^4.0.2"
   peerDependencies:
     eslint: ">=8.40.0"
-  checksum: 10c0/6eda8f5f463cc1fca30aec9e0311fd69a1ca84904856e0a3f0108bff411448592a35696dc2b5060fffe0d9c85ce67026cb479d6435bcdb083a29c9d9cb9ebb18
+  checksum: 10c0/e593d78103a89e0555c119625c0ba8c80c8d2c7add0e85215f6be9929002207067df53714785c2c75b8b9e6df774d25c7dead211aed89a57cb45b5cec902a19e
   languageName: node
   linkType: hard
 
@@ -7632,7 +7632,7 @@ __metadata:
     "@metabrainz/xgettext-js": "npm:4.0.0"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
-    "@stylistic/eslint-plugin": "npm:3.0.1"
+    "@stylistic/eslint-plugin": "npm:3.1.0"
     babel-loader: "npm:10.0.0"
     babel-plugin-istanbul: "npm:7.0.0"
     babel-plugin-syntax-hermes-parser: "npm:0.28.1"
