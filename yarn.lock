@@ -7075,7 +7075,7 @@ __metadata:
     react-dom: "npm:18.3.1"
     react-is: "npm:18.3.1"
     react-table: "npm:7.8.0"
-    redux: "npm:4.2.0"
+    redux: "npm:4.2.1"
     selenium-webdriver: "npm:4.28.1"
     shell-quote: "npm:1.8.1"
     shelljs: "npm:0.8.5"
@@ -8186,12 +8186,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"redux@npm:4.2.0":
-  version: 4.2.0
-  resolution: "redux@npm:4.2.0"
+"redux@npm:4.2.1":
+  version: 4.2.1
+  resolution: "redux@npm:4.2.1"
   dependencies:
     "@babel/runtime": "npm:^7.9.2"
-  checksum: 10c0/6b8b543499c9b8aa6afa01ef68950f4b2ea68d803381ac65797b1a5a7e39ba88ee3650c2a5a1dd500c78ad022de45cd5ed4a5f41fe7d51db8b07d12fbe84d146
+  checksum: 10c0/136d98b3d5dbed1cd6279c8c18a6a74c416db98b8a432a46836bdd668475de6279a2d4fd9d1363f63904e00f0678a8a3e7fa532c897163340baf1e71bb42c742
   languageName: node
   linkType: hard
 
