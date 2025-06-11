@@ -44,6 +44,7 @@ export function loadDomain(domain: string) {
 
   if (!localeData[domain]) {
     try {
+      // $FlowIssue[unsafe-object-assign]
       Object.assign(
         localeData,
         poFile.load(domain, locale).locale_data,

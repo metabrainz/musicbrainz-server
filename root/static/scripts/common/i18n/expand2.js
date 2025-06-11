@@ -343,6 +343,7 @@ export default function expand<T, V>(
     return source;
   } finally {
     if (savedState) {
+      // $FlowIssue[unsafe-object-assign]
       Object.assign(state, savedState);
     } else {
       state.running = false;
