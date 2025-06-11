@@ -3770,7 +3770,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:^7.0.5":
+"cross-spawn@npm:^7.0.5, cross-spawn@npm:^7.0.6":
   version: 7.0.6
   resolution: "cross-spawn@npm:7.0.6"
   dependencies:
@@ -5003,6 +5003,16 @@ __metadata:
     cross-spawn: "npm:^7.0.0"
     signal-exit: "npm:^4.0.1"
   checksum: 10c0/9700a0285628abaeb37007c9a4d92bd49f67210f09067638774338e146c8e9c825c5c877f072b2f75f41dc6a2d0be8664f79ffc03f6576649f54a84fb9b47de0
+  languageName: node
+  linkType: hard
+
+"foreground-child@npm:^3.3.0":
+  version: 3.3.1
+  resolution: "foreground-child@npm:3.3.1"
+  dependencies:
+    cross-spawn: "npm:^7.0.6"
+    signal-exit: "npm:^4.0.1"
+  checksum: 10c0/8986e4af2430896e65bc2788d6679067294d6aee9545daefc84923a0a4b399ad9c7a3ea7bd8c0b2b80fdf4a92de4c69df3f628233ff3224260e9c1541a9e9ed3
   languageName: node
   linkType: hard
 
@@ -7093,7 +7103,7 @@ __metadata:
     leven: "npm:4.0.0"
     mutate-cow: "npm:5.0.0"
     nodemon: "npm:3.1.10"
-    nyc: "npm:17.0.0"
+    nyc: "npm:17.1.0"
     path-browserify: "npm:1.0.1"
     pg: "npm:8.16.0"
     pg-cursor: "npm:2.11.0"
@@ -7314,9 +7324,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nyc@npm:17.0.0":
-  version: 17.0.0
-  resolution: "nyc@npm:17.0.0"
+"nyc@npm:17.1.0":
+  version: 17.1.0
+  resolution: "nyc@npm:17.1.0"
   dependencies:
     "@istanbuljs/load-nyc-config": "npm:^1.0.0"
     "@istanbuljs/schema": "npm:^0.1.2"
@@ -7325,7 +7335,7 @@ __metadata:
     decamelize: "npm:^1.2.0"
     find-cache-dir: "npm:^3.2.0"
     find-up: "npm:^4.1.0"
-    foreground-child: "npm:^2.0.0"
+    foreground-child: "npm:^3.3.0"
     get-package-type: "npm:^0.1.0"
     glob: "npm:^7.1.6"
     istanbul-lib-coverage: "npm:^3.0.0"
@@ -7347,7 +7357,7 @@ __metadata:
     yargs: "npm:^15.0.2"
   bin:
     nyc: bin/nyc.js
-  checksum: 10c0/d77033c42ce3fa8159ab1fa547332ce374aafcb46f48d1c15fd515f3c1b9b6d29335147229abd3d8251e78fad7961f2c8cfae3530cda32845f652ab0c81f53ad
+  checksum: 10c0/653497bf11c53c70d821c18a2bfb7dba310b297b8bc83e5392e560c3d60d4dc9836b6c44f060065dfa99f7dacfd49147f8f60b160dfbe3f722517d4e7e236db2
   languageName: node
   linkType: hard
 
