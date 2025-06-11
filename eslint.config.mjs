@@ -119,6 +119,7 @@ export default [
     },
     settings: {
       flowtype: {onlyFilesWithFlowAnnotation: true},
+      'import/resolver': 'webpack',
       react: {
         version: 'detect',
         flowVersion: '0.152.0',
