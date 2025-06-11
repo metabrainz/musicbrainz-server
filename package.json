@@ -67,7 +67,7 @@
     "terser-webpack-plugin": "5.3.14",
     "webpack": "5.99.9",
     "webpack-node-externals": "3.0.0",
-    "weight-balanced-tree": "0.6.1",
+    "weight-balanced-tree": "0.7.1",
     "whatwg-fetch": "3.6.20",
     "yargs": "3.10.0"
   },

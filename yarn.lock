@@ -7703,7 +7703,7 @@ __metadata:
     utf8: "npm:3.0.0"
     webpack: "npm:5.99.9"
     webpack-node-externals: "npm:3.0.0"
-    weight-balanced-tree: "npm:0.6.1"
+    weight-balanced-tree: "npm:0.7.1"
     whatwg-fetch: "npm:3.6.20"
     yargs: "npm:3.10.0"
   languageName: unknown
@@ -10923,10 +10923,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"weight-balanced-tree@npm:0.6.1":
-  version: 0.6.1
-  resolution: "weight-balanced-tree@npm:0.6.1"
-  checksum: 10c0/8be441982c45acc7890b1566427e9817f362e416fb1c876eaded3bab0f1d301f69ccab411dc93bd55a4bfdb2b03a17935efdbd4b309608745fb26d02e6edfcf5
+"weight-balanced-tree@npm:0.7.1":
+  version: 0.7.1
+  resolution: "weight-balanced-tree@npm:0.7.1"
+  checksum: 10c0/76e51b0645bbdcec65ceeffa055855cab0ac41735d50eb6edac958838d65e3691ae900a76bd1cee9384611170e3f740e0c3fbaeee18dab22a69f2461de4c44c4
   languageName: node
   linkType: hard
 
