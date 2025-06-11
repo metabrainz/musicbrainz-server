@@ -467,7 +467,11 @@ export default [
         before: false,
         after: true,
       }],
-      '@stylistic/comma-style': ['warn', 'last'],
+      '@stylistic/comma-style': [
+        'warn',
+        'last',
+        {exceptions: {FunctionExpression: true}}
+      ],
       '@stylistic/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],
