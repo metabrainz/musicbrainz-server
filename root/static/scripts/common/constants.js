@@ -244,6 +244,7 @@ export const FAVICON_CLASSES: {
   'threads.com': 'threads',
   // TODO: Remove once URLs migrated (MBBE-94)
   'threads.net': 'threads',
+  'thwiki.cc': 'thbwiki',
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',
   'tipeee.com': 'tipeee',
