@@ -31,7 +31,7 @@ const commonInitialState = {
   title: '',
   user: {
     avatar: '',
-    entityType: 'editor',
+    entityType: 'editor' as const,
     has_confirmed_email_address: true,
     id: 0,
     name: '',
@@ -58,7 +58,7 @@ test('action: set-credit', function (t) {
       type: 'set-credit',
     },
     type: 'update-source-entity',
-  };
+  } as const;
 
   const targetAction = {
     action: {
@@ -69,7 +69,7 @@ test('action: set-credit', function (t) {
       type: 'update-credit',
     },
     type: 'update-target-entity',
-  };
+  } as const;
 
   let newState = reducer(initialState, sourceAction);
 
@@ -127,7 +127,7 @@ test('action: update-target-type', function (t) {
       type: 'update-credit',
     },
     type: 'update-target-entity',
-  };
+  } as const;
 
   let newState = reducer(initialState, {...targetAction, source: recording});
 
@@ -139,8 +139,8 @@ test('action: update-target-type', function (t) {
 
   const targetTypeAction = {
     source: recording,
-    targetType: 'work',
-    type: 'update-target-type',
+    targetType: 'work' as const,
+    type: 'update-target-type' as const,
   };
 
   newState = reducer(newState, targetTypeAction);

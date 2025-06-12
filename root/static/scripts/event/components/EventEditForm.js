@@ -156,7 +156,7 @@ component EventEditForm(
   const $c = React.useContext(SanitizedCatalystContext);
 
   const typeOptions = {
-    grouped: false,
+    grouped: false as const,
     options: eventTypes,
   };
 

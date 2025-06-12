@@ -68,7 +68,7 @@ function buildDateTimeFormatOptions(
 ) {
   const hereAndNow = new Date();
   return {
-    grouped: false,
+    grouped: false as const,
     options: allowedDateTimeFormats.map(a => ({
       label: formatUserDateObject($c, hereAndNow, {format: a, timezone}),
       value: a,
@@ -77,7 +77,7 @@ function buildDateTimeFormatOptions(
 }
 
 const subscriptionsEmailPeriodOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: N_l('Daily'), value: 'daily'},
     {label: N_l('Weekly'), value: 'weekly'},

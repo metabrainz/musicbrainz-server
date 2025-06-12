@@ -47,7 +47,7 @@ export function createInitialState(
     entity: language,
     id: language.id,
     name: localizeLanguageName(language, /* isWork = */ true),
-    type: 'option',
+    type: 'option' as const,
   }));
 
   const newState = {

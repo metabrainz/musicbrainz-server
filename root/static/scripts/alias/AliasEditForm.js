@@ -90,7 +90,7 @@ const blankDatePeriod = {
   has_errors: false,
   html_name: '',
   id: 0,
-  type: 'compound_field',
+  type: 'compound_field' as const,
 };
 
 function createInitialState(form: AliasEditFormT, searchHintType: number) {
@@ -203,12 +203,12 @@ const AliasEditForm = ({
   searchHintType,
 }: Props): React.MixedElement => {
   const localeOptions = {
-    grouped: false,
+    grouped: false as const,
     options: locales,
   };
 
   const typeOptions = {
-    grouped: false,
+    grouped: false as const,
     options: aliasTypes,
   };
 

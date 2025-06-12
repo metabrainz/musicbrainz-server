@@ -27,7 +27,7 @@ import isUselessMediumTitle from '../utility/isUselessMediumTitle.js';
 import FormRowSelect from './FormRowSelect.js';
 
 const mergeStrategyOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: N_l('Append mediums to target release'), value: 1},
     {label: N_l('Merge mediums and recordings'), value: 2},

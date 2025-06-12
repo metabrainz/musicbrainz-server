@@ -410,7 +410,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         const tag = {
           count: t.count,
           tag: {
-            entityType: 'tag',
+            entityType: 'tag' as const,
             genre,
             id: null,
             name: t.tag,
