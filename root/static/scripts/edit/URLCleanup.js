@@ -4513,21 +4513,24 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?openlibrary\.org/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]).*$/, 'https://openlibrary.org/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(?:authors|books|publishers|works)\/(OL[0-9]+A).*$/, 'https://openlibrary.org/authors/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(?:authors|books|publishers|works)\/(OL[0-9]+M).*$/, 'https://openlibrary.org/books/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(?:authors|books|publishers|works)\/(OL[0-9]+W).*$/, 'https://openlibrary.org/works/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/publishers\/([^/?#]+).*$/, 'https://openlibrary.org/publishers/$1');
       return url;
     },
     validate(url, id) {
-      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+[AMW]$/.exec(url);
+      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+([AMW])$/.exec(url);
       if (!m) {
         m = /^https:\/\/openlibrary\.org\/(publishers)\/[^/?#]+$/.exec(url);
       }
       if (m) {
         const prefix = m[1];
+        const suffix = m[2] || '';
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'authors',
+              result: prefix === 'authors' && suffix === 'A',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
@@ -4537,12 +4540,12 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.otherdatabases.release:
             return {
-              result: prefix === 'books',
+              result: prefix === 'books' && suffix === 'M',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
-              result: prefix === 'works',
+              result: prefix === 'works' && suffix === 'W',
               target: ERROR_TARGETS.ENTITY,
             };
         }
