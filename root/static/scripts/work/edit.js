@@ -17,6 +17,7 @@ import {flushSync} from 'react-dom';
 import * as ReactDOMClient from 'react-dom/client';
 import {legacy_createStore as createStore} from 'redux';
 
+import '../../lib/knockout/knockout-delegatedEvents.js';
 import '../edit/components/FormRowTextList.js';
 
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
@@ -24,12 +25,16 @@ import {groupBy} from '../common/utility/arrays.js';
 import getScriptArgs from '../common/utility/getScriptArgs.js';
 import parseIntegerOrNull from '../common/utility/parseIntegerOrNull.js';
 import FormRowSelectList from '../edit/components/FormRowSelectList.js';
+import {installFormUnloadWarning} from '../edit/components/forms.js';
 import {buildOptionsTree} from '../edit/forms.js';
-import initializeBubble from '../edit/MB/Control/Bubble.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
 import {createCompoundFieldFromObject} from '../edit/utility/createField.js';
 import {pushCompoundField, pushField} from '../edit/utility/pushField.js';
 import subfieldErrors from '../edit/utility/subfieldErrors.js';
+import initializeValidation from '../edit/validation.js';
 import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 
 // eslint-disable-next-line ft-flow/no-weak-types
@@ -282,17 +287,6 @@ function byID(
   }
 }
 
-ko.applyBindings(
-  new ViewModel(
-    workAttributeTypeTree,
-    workAttributeValueTree,
-    form.field.attributes.field,
-  ),
-  $('#work-attributes')[0],
-);
-
-initializeGuessCase('work', 'id-edit-work');
-
 function addLanguage() {
   store.dispatch({type: 'ADD_LANGUAGE'});
 }
@@ -314,43 +308,70 @@ function removeLanguage(i: number) {
 
 const getSelectField = (field: FieldT<?number>) => field;
 
-const workLanguagesNode = document.getElementById('work-languages-editor');
-if (!workLanguagesNode) {
-  throw new Error('Mount point #work-languages-editor does not exist');
-}
-const workLanguagesRoot = ReactDOMClient.createRoot(workLanguagesNode);
+$(function () {
+  ko.applyBindings(
+    new ViewModel(
+      workAttributeTypeTree,
+      workAttributeValueTree,
+      form.field.attributes.field,
+    ),
+    $('#work-attributes')[0],
+  );
 
-function renderWorkLanguages() {
-  const form: WorkForm = store.getState();
-  const selectedLanguageIds =
-    form.field.languages.field.map(lang => String(lang.value));
-  flushSync(() => {
-    workLanguagesRoot.render(
-      <FormRowSelectList
-        addId="add-language"
-        addLabel={lp('Add language', 'interactive')}
-        getSelectField={getSelectField}
-        hideAddButton={
-          selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
-          selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
-        }
-        label={addColonText(l('Lyrics languages'))}
-        onAdd={addLanguage}
-        onEdit={editLanguage}
-        onRemove={removeLanguage}
-        options={workLanguageOptions}
-        removeClassName="remove-language"
-        removeLabel={lp('Remove language', 'interactive')}
-        repeatable={form.field.languages}
-      />,
-    );
-  });
-}
+  initializeGuessCase('work', 'id-edit-work');
 
-store.subscribe(renderWorkLanguages);
-renderWorkLanguages();
+  const workLanguagesNode = document.getElementById('work-languages-editor');
+  if (!workLanguagesNode) {
+    throw new Error('Mount point #work-languages-editor does not exist');
+  }
+  const workLanguagesRoot = ReactDOMClient.createRoot(workLanguagesNode);
 
-initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+  function renderWorkLanguages() {
+    const form: WorkForm = store.getState();
+    const selectedLanguageIds =
+      form.field.languages.field.map(lang => String(lang.value));
+    flushSync(() => {
+      workLanguagesRoot.render(
+        <FormRowSelectList
+          addId="add-language"
+          addLabel={lp('Add language', 'interactive')}
+          getSelectField={getSelectField}
+          hideAddButton={
+            selectedLanguageIds.includes(String(LANGUAGE_MUL_ID)) ||
+            selectedLanguageIds.includes(String(LANGUAGE_ZXX_ID))
+          }
+          label={addColonText(l('Lyrics languages'))}
+          onAdd={addLanguage}
+          onEdit={editLanguage}
+          onRemove={removeLanguage}
+          options={workLanguageOptions}
+          removeClassName="remove-language"
+          removeLabel={lp('Remove language', 'interactive')}
+          repeatable={form.field.languages}
+        />,
+      );
+    });
+  }
 
-const typeIdField = 'select[name=edit-work\\.type_id]';
-typeBubble(typeIdField);
+  store.subscribe(renderWorkLanguages);
+
+  renderWorkLanguages();
+
+  initializeBubble('#name-bubble', 'input[name=edit-work\\.name]');
+  initializeBubble('#comment-bubble', 'input[name=edit-work\\.comment]');
+  typeBubble('select[name=edit-work\\.type_id]');
+  initializeBubble(
+    '#languages-bubble',
+    'select[name^=edit-work\\.languages\\.0]',
+  );
+  initializeBubble('#iswcs-bubble', 'input[name=edit-work\\.iswcs\\.0]');
+  initializeBubble(
+    '#attributes-bubble',
+    'input[name=edit-work\\.attributes\\.0\\.value]',
+  );
+  initializeExternalLinksBubble('#external-link-bubble');
+
+  installFormUnloadWarning();
+
+  initializeValidation();
+});

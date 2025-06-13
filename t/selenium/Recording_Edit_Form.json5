@@ -201,5 +201,134 @@
       },
     },
     // End of test for MBS-12694.
+    // Test adding/editing/removing ISRCs.
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=input[name="edit-recording.isrcs.0"]',
+      value: 'USIR19400525',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 3,
+      value: {
+        type: 76,
+        status: 2,
+        data: {
+          client_version: null,
+          isrcs: [
+            {
+              isrc: 'USIR19400525',
+              recording: {
+                id: 164872,
+                name: 'mr self destruct',
+              },
+              source: 0,
+            },
+          ],
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    {
+      command: 'type',
+      target: 'css=input[name="edit-recording.isrcs.0"]',
+      value: 'RISU19400525',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 4,
+      value: {
+        type: 76,
+        status: 2,
+        data: {
+          client_version: null,
+          isrcs: [
+            {
+              isrc: 'RISU19400525',
+              recording: {
+                id: 164872,
+                name: 'mr self destruct',
+              },
+              source: 0,
+            },
+          ],
+        },
+      },
+    },
+    {
+      command: 'assertEditData',
+      target: 5,
+      value: {
+        type: 78,
+        status: 1,
+        data: {
+          isrc: {
+            id: 1,
+            isrc: 'USIR19400525',
+          },
+          recording: {
+            id: 164872,
+            name: 'mr self destruct',
+          },
+        },
+      },
+    },
+    {
+      command: 'open',
+      target: '/test/accept-edit/5',
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/recording/96f64611-49df-4e54-84e7-0f9a30f01766/edit',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'xpath=//button[contains(@title, "Remove ISRC")]',
+      value: 'RISU19400525',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=form.edit-recording button[type=submit]',
+      value: '',
+    },
+    {
+      command: 'assertEditData',
+      target: 6,
+      value: {
+        type: 78,
+        status: 1,
+        data: {
+          isrc: {
+            id: 2,
+            isrc: 'RISU19400525',
+          },
+          recording: {
+            id: 164872,
+            name: 'mr self destruct',
+          },
+        },
+      },
+    },
   ],
 }

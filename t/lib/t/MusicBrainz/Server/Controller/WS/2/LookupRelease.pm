@@ -362,7 +362,7 @@ ws_test 'release lookup with labels, recordings and tags',
             </label-info>
         </label-info-list>
         <medium-list count="1">
-            <medium>
+            <medium id="09af1de4-a712-4bfb-8331-fb15f6fcd844">
                 <position>1</position>
                 <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <track-list count="3" offset="0">
@@ -556,7 +556,7 @@ ws_test 'release lookup with discids and recordings',
         <barcode>4942463511227</barcode>
         <asin>B00005LA6G</asin>
         <medium-list count="1">
-            <medium>
+            <medium id="18d49785-59f6-4698-99bc-43aa0043abd9">
                 <position>1</position><format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                 <disc-list count="1">
                     <disc id="W01Qvrvwkaz2Cm.IQm55_RHoRxs-">
@@ -637,7 +637,7 @@ ws_test 'release lookup, no tracks',
             <back>false</back>
         </cover-art-archive>
         <medium-list count="1">
-          <medium>
+          <medium id="596a290f-cf94-4d63-ae82-8dcbacd7db6a">
             <position>1</position>
             <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
             <track-list count="0" />
@@ -761,6 +761,7 @@ ws_test 'release lookup, relation attributes',
                 <artist id="4d5ec626-2251-4bb1-b62a-f24f471e3f2c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
                     <name>이수만</name>
                     <sort-name>Lee, Soo-Man</sort-name>
+                    <country>KR</country>
                 </artist>
             </relation>
         </relation-list>
@@ -853,14 +854,48 @@ ws_test 'release lookup, related artists have no tags',
       <artwork>false</artwork><count>0</count><front>false</front><back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="7a5e9a3b-6587-489a-bf68-83ce04bafaea">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="10" offset="0">
           <track id="9b9a84b5-0a41-38f6-859f-36cb22ac813c">
-            <position>1</position><number>1</number><length>267560</length>
+            <position>1</position>
+            <number>1</number>
+            <length>267560</length>
             <recording id="44704dda-b877-4551-a2a8-c1f764476e65">
-              <title>On My Bus</title><length>267560</length>
+              <title>On My Bus</title>
+              <length>267560</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -874,9 +909,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="f38b8e31-a10d-3973-8c1f-10923ee61adc">
-            <position>2</position><number>2</number><length>230506</length>
+            <position>2</position>
+            <number>2</number>
+            <length>230506</length>
             <recording id="8920288e-7541-48a7-b23b-f80447c8b1ab">
-              <title>Top &amp; Low Rent</title><length>230506</length>
+              <title>Top &amp; Low Rent</title>
+              <length>230506</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -890,9 +959,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="d17bed32-940a-3fcc-9210-a5d7c516b4bb">
-            <position>3</position><number>3</number><length>237133</length>
+            <position>3</position>
+            <number>3</number>
+            <length>237133</length>
             <recording id="6e89c516-b0b6-4735-a758-38e31855dcb6">
-              <title>Plock</title><length>237133</length>
+              <title>Plock</title>
+              <length>237133</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -906,9 +1009,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="001bc675-ba25-32bc-9914-d5d9e22c3c44">
-            <position>4</position><number>4</number><length>229826</length>
+            <position>4</position>
+            <number>4</number>
+            <length>229826</length>
             <recording id="791d9b27-ae1a-4295-8943-ded4284f2122">
-              <title>Marbles</title><length>229826</length>
+              <title>Marbles</title>
+              <length>229826</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -922,9 +1059,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="c009176f-ff26-3f5f-bd16-46cede30ebe6">
-            <position>5</position><number>5</number><length>217440</length>
+            <position>5</position>
+            <number>5</number>
+            <length>217440</length>
             <recording id="4f392ffb-d3df-4f8a-ba74-fdecbb1be877">
-              <title>Busy Working</title><length>217440</length>
+              <title>Busy Working</title>
+              <length>217440</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -938,9 +1109,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="70454e43-b39b-3ca7-8c50-ae235b5ef358">
-            <position>6</position><number>6</number><length>227293</length>
+            <position>6</position>
+            <number>6</number>
+            <length>227293</length>
             <recording id="dc891eca-bf42-4103-8682-86068fe732a5">
-              <title>The Greek Alphabet</title><length>227293</length>
+              <title>The Greek Alphabet</title>
+              <length>227293</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -954,9 +1159,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="1b5da50c-e20f-3762-839c-5a0eea89d6a5">
-            <position>7</position><number>7</number><length>244506</length>
+            <position>7</position>
+            <number>7</number>
+            <length>244506</length>
             <recording id="25e9ae0f-8b7d-4230-9cde-9a07f7680e4a">
-              <title>Press a Key</title><length>244506</length>
+              <title>Press a Key</title>
+              <length>244506</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -970,9 +1209,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="f1b5bd23-ad01-3c0c-a49a-cf8e99088369">
-            <position>8</position><number>8</number><length>173960</length>
+            <position>8</position>
+            <number>8</number>
+            <length>173960</length>
             <recording id="6f9c8c32-3aae-4dad-b023-56389361cf6b">
-              <title>Bibi Plone</title><length>173960</length>
+              <title>Bibi Plone</title>
+              <length>173960</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -986,9 +1259,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="928f2274-5694-35f9-92da-a1fc565867cf">
-            <position>9</position><number>9</number><length>208706</length>
+            <position>9</position>
+            <number>9</number>
+            <length>208706</length>
             <recording id="7e379a1d-f2bc-47b8-964e-00723df34c8a">
-              <title>Be Rude to Your School</title><length>208706</length>
+              <title>Be Rude to Your School</title>
+              <length>208706</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -1002,9 +1309,43 @@ ws_test 'release lookup, related artists have no tags',
             </recording>
           </track>
           <track id="40727388-237d-34b2-8a3a-288878e5c883">
-            <position>10</position><number>10</number><length>320067</length>
+            <position>10</position>
+            <number>10</number>
+            <length>320067</length>
             <recording id="a8614bda-42dc-43c7-ac5f-4067acb6f1c5">
-              <title>Summer Plays Out</title><length>320067</length>
+              <title>Summer Plays Out</title>
+              <length>320067</length>
+              <artist-credit>
+                <name-credit>
+                  <artist id="3088b672-fba9-4b4b-8ae0-dce13babfbb4" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Plone</name>
+                    <sort-name>Plone</sort-name>
+                    <tag-list>
+                      <tag count="1">
+                        <name>british</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronic</name>
+                      </tag>
+                      <tag count="1">
+                        <name>electronica</name>
+                      </tag>
+                      <tag count="1">
+                        <name>english</name>
+                      </tag>
+                      <tag count="1">
+                        <name>glitch</name>
+                      </tag>
+                      <tag count="1">
+                        <name>uk</name>
+                      </tag>
+                      <tag count="1">
+                        <name>warp</name>
+                      </tag>
+                    </tag-list>
+                  </artist>
+                </name-credit>
+              </artist-credit>
               <relation-list target-type="artist">
                 <relation type-id="5c0ceac3-feb4-41f0-868d-dc06f6e27fc0" type="producer">
                   <target>3088b672-fba9-4b4b-8ae0-dce13babfbb4</target>
@@ -1070,7 +1411,7 @@ ws_test 'release lookup, track artists have no aliases',
       <artwork>true</artwork><count>1</count><front>true</front><back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="09af1de4-a712-4bfb-8331-fb15f6fcd844">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="3" offset="0">
@@ -1244,7 +1585,7 @@ ws_test 'release lookup, tags are not duplicated for artists that are both relea
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="7a5e9a3b-6587-489a-bf68-83ce04bafaea">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <track-list count="10" offset="0">
@@ -1681,6 +2022,7 @@ ws_test 'release lookup, pregap track',
         <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
           <name>Blind Melon</name>
           <sort-name>Blind Melon</sort-name>
+          <country>US</country>
         </artist>
       </name-credit>
     </artist-credit>
@@ -1692,7 +2034,7 @@ ws_test 'release lookup, pregap track',
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="cc7380e2-f2bc-44b8-a8a2-75d8b85aa590">
         <position>1</position>
         <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
         <pregap id="1a0ba71b-fb23-3931-a426-cd204a82a90e">
@@ -1707,6 +2049,7 @@ ws_test 'release lookup, pregap track',
                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                   <name>Blind Melon</name>
                   <sort-name>Blind Melon</sort-name>
+                  <country>US</country>
                 </artist>
               </name-credit>
             </artist-credit>
@@ -1726,6 +2069,7 @@ ws_test 'release lookup, pregap track',
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
                     <sort-name>Blind Melon</sort-name>
+                    <country>US</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -1743,6 +2087,7 @@ ws_test 'release lookup, pregap track',
                   <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                     <name>Blind Melon</name>
                     <sort-name>Blind Melon</sort-name>
+                    <country>US</country>
                   </artist>
                 </name-credit>
               </artist-credit>
@@ -1787,7 +2132,7 @@ test 'MBS-7914' => sub {
       <back>false</back>
     </cover-art-archive>
     <medium-list count="1">
-      <medium>
+      <medium id="74093abc-1b12-447e-9444-87c4b91e236e">
         <position>1</position>
         <track-list count="1" offset="0">
           <track id="8ac89142-1318-490a-bed2-5b0c89b251b2">
@@ -1817,6 +2162,117 @@ test 'MBS-7914' => sub {
                   </artist>
                 </name-credit>
               </artist-credit>
+            </recording>
+          </track>
+        </track-list>
+      </medium>
+    </medium-list>
+  </release>
+</metadata>';
+};
+
+test 'MBS-12170' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-12170');
+
+    ws_test 'All artists include their containing country',
+    '/release/2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a' .
+        '?inc=artist-credits+recordings+artist-rels+work-rels+release-groups+recording-level-rels+work-level-rels' =>
+    '<?xml version="1.0"?>
+<metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+  <release id="2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a">
+    <title>Artist Country Test</title>
+    <quality>normal</quality>
+    <artist-credit>
+      <name-credit>
+        <artist id="607f3b8d-d5cf-4705-98bf-32b3fac80f2c" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+          <name>Jalil Zaland</name>
+          <sort-name>Zaland, Jalil</sort-name>
+          <country>AF</country>
+          <disambiguation>Artist from Kabul</disambiguation>
+        </artist>
+      </name-credit>
+    </artist-credit>
+    <release-group id="6316b4db-0cdb-448d-87b5-46f31ef9fce3">
+      <title>Artist Country Test</title>
+      <artist-credit>
+        <name-credit>
+          <artist id="bc65c311-9886-41ab-bcc2-d8cf11fd9ab6" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+            <name>N.Fushigi</name>
+            <sort-name>N.Fushigi</sort-name>
+            <country>AD</country>
+          </artist>
+        </name-credit>
+      </artist-credit>
+    </release-group>
+    <cover-art-archive>
+      <artwork>false</artwork>
+      <count>0</count>
+      <front>false</front>
+      <back>false</back>
+    </cover-art-archive>
+    <medium-list count="1">
+      <medium id="613fb5fc-7581-409e-9676-9b926aa8ad12">
+        <position>1</position>
+        <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
+        <track-list count="1" offset="0">
+          <track id="5dd38166-bcbc-44b5-9617-4dc669cf76dd">
+            <position>1</position>
+            <number>1</number>
+            <artist-credit>
+              <name-credit>
+                <artist id="751196b3-5599-46be-8c44-ac44fa8158f2" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+                  <name>Sigi Bastri</name>
+                  <sort-name>Bastri, Sigi</sort-name>
+                  <country>AL</country>
+                </artist>
+              </name-credit>
+            </artist-credit>
+            <recording id="831c6058-f19a-4a7a-9723-cd02daf8f3a5">
+              <title>A</title>
+              <artist-credit>
+                <name-credit>
+                  <artist id="831482b2-c956-419d-bf6d-9e558d005902" type="Person" type-id="b6e035f4-3ce9-331c-97df-83397230b0df">
+                    <name>Yumba</name>
+                    <sort-name>Yumba</sort-name>
+                    <country>AO</country>
+                    <disambiguation>Guitarist from Zaire</disambiguation>
+                  </artist>
+                </name-credit>
+              </artist-credit>
+              <relation-list target-type="artist">
+                <relation type="performer" type-id="628a9658-f54c-4142-b0c0-95f031b544da">
+                  <target>6b5236be-0037-4627-af62-e396b1ca906f</target>
+                  <direction>backward</direction>
+                  <artist id="6b5236be-0037-4627-af62-e396b1ca906f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                    <name>Los Hermanos Abalos</name>
+                    <sort-name>Hermanos Abalos, Los</sort-name>
+                    <country>AR</country>
+                  </artist>
+                </relation>
+              </relation-list>
+              <relation-list target-type="work">
+                <relation type="performance" type-id="a3005666-a872-32c3-ad06-98af558e99b0">
+                  <target>b9121cf5-0641-453b-bb99-a88f0bc18751</target>
+                  <direction>forward</direction>
+                  <work id="b9121cf5-0641-453b-bb99-a88f0bc18751">
+                    <title>A</title>
+                    <relation-list target-type="artist">
+                      <relation type="writer" type-id="a255bca1-b157-4518-9108-7b147dc3fc68">
+                        <target>6b5236be-0037-4627-af62-e396b1ca906f</target>
+                        <direction>backward</direction>
+                        <artist id="6b5236be-0037-4627-af62-e396b1ca906f" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
+                          <name>Los Hermanos Abalos</name>
+                          <sort-name>Hermanos Abalos, Los</sort-name>
+                          <country>AR</country>
+                        </artist>
+                      </relation>
+                    </relation-list>
+                  </work>
+                </relation>
+              </relation-list>
             </recording>
           </track>
         </track-list>

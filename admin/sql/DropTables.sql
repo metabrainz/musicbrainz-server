@@ -268,6 +268,7 @@ DROP TABLE medium_attribute_type_allowed_value;
 DROP TABLE medium_attribute_type_allowed_value_allowed_format;
 DROP TABLE medium_cdtoc;
 DROP TABLE medium_format;
+DROP TABLE medium_gid_redirect;
 DROP TABLE medium_index;
 DROP TABLE mood;
 DROP TABLE mood_alias;

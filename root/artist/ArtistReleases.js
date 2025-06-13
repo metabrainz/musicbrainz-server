@@ -18,6 +18,7 @@ import {type ReleaseFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -43,7 +44,7 @@ component ArtistReleases(
 
       {releases.length ? (
         <form
-          action="/release/merge_queue"
+          action={'/release/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -56,7 +57,7 @@ component ArtistReleases(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -96,6 +97,9 @@ component ArtistReleases(
           {show_all: `/artist/${artist.gid}/releases?va=1`},
         )
       )}
+
+      {manifest('common/components/Filter', {async: true})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </ArtistLayout>
   );
 }

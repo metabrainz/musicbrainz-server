@@ -103,10 +103,10 @@ component WorkList(
   return (
     <>
       {table}
-      {manifest('common/components/ArtistRoles', {async: 'async'})}
-      {manifest('common/components/AttributeList', {async: 'async'})}
-      {manifest('common/components/IswcList', {async: 'async'})}
-      {manifest('common/components/WorkArtists', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: true})}
+      {manifest('common/components/AttributeList', {async: true})}
+      {manifest('common/components/IswcList', {async: true})}
+      {manifest('common/components/WorkArtists', {async: true})}
     </>
   );
 }

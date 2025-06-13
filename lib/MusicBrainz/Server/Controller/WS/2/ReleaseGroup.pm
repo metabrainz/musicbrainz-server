@@ -7,7 +7,6 @@ extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
 use aliased 'MusicBrainz::Server::WebService::WebServiceStash';
 use MusicBrainz::Server::Validation qw( is_guid );
-use List::AllUtils qw( uniq );
 use Readonly;
 
 my $ws_defs = Data::OptList::mkopt([
@@ -52,6 +51,8 @@ sub release_group_toplevel {
 
     my $inc = $c->stash->{inc};
     my @rgs = @{$rgs};
+    my @ac_entities;
+    push @ac_entities, @rgs if $inc->artist_credits;
 
     $c->model('ReleaseGroup')->load_meta(@rgs);
 
@@ -61,17 +62,6 @@ sub release_group_toplevel {
         if $inc->annotation;
 
     $self->load_relationships($c, $stash, @rgs);
-
-    if ($inc->artists) {
-        $c->model('ArtistCredit')->load(@rgs);
-
-        my @acns = map { $_->artist_credit->all_names } @rgs;
-        $c->model('Artist')->load(@acns);
-        my @artists = uniq map { $_->artist } @acns;
-        $c->model('ArtistType')->load(@artists);
-
-        $self->linked_artists($c, $stash, \@artists);
-    }
 
     if ($inc->releases) {
         my @releases;
@@ -85,8 +75,12 @@ sub release_group_toplevel {
         if (@releases) {
             $c->model('Release')->load_release_events(@releases);
             $self->linked_releases($c, $stash, \@releases);
+            push @ac_entities, @releases if $inc->artist_credits;
         }
     }
+
+    $self->linked_artist_creditable_entities($c, $stash, \@ac_entities)
+        if @ac_entities;
 }
 
 sub base : Chained('root') PathPart('release-group') CaptureArgs(0) { }

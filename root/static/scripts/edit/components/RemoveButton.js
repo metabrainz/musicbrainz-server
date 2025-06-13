@@ -9,7 +9,7 @@
 
 component RemoveButton(
   dataIndex?: number,
-  onClick: (event: SyntheticEvent<HTMLInputElement>) => void,
+  onClick: (event: SyntheticEvent<HTMLButtonElement>) => void,
   title: string,
 ) {
   return (

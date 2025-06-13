@@ -64,7 +64,7 @@ echo `date` : Inserting Selenium test data
 OUTPUT=`./admin/psql SELENIUM < ./t/sql/selenium.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
 if [[ -f $EXTRA_SQL ]]; then
-    OUTPUT=`./admin/psql SELENIUM < "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
+    OUTPUT=`./admin/psql SELENIUM -- --single-transaction -v ON_ERROR_STOP=1 < "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" && exit 1 )
 fi
 
 if [[ $SIR_DIR ]]; then
@@ -79,7 +79,8 @@ if [[ $SIR_DIR ]]; then
     reindex_attempts=0
     while true; do
         echo `date` : Reindexing search data
-        python -m sir reindex > "$SIR_REINDEX_LOG_FILE" 2>&1 &
+        echo '==========' `date` '==========' >> "$SIR_REINDEX_LOG_FILE"
+        python -m sir --debug reindex >> "$SIR_REINDEX_LOG_FILE" 2>&1 &
         SIR_PID=$!
         disown
         let 'reindex_attempts = reindex_attempts + 1'
@@ -103,7 +104,8 @@ if [[ $SIR_DIR ]]; then
     done
 
     echo `date` : Starting sir
-    python -m sir amqp_watch > "$SIR_LOG_FILE" 2>&1 &
+    echo '==========' `date` '==========' >> "$SIR_LOG_FILE"
+    python -m sir --debug amqp_watch >> "$SIR_LOG_FILE" 2>&1 &
     SIR_PID=$!
     disown
     echo "$SIR_PID" > "$SIR_PID_FILE"

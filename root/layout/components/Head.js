@@ -130,21 +130,23 @@ component Head(
 
       {globalsScript}
 
+      {manifest('public-path')}
+
       {manifest('runtime')}
+
+      {manifest('whatwg-fetch')}
+
+      {manifest('vendors')}
 
       {manifest('common-chunks')}
 
-      {manifest('jed-data')}
+      {manifest('common/jquery-global')}
+
+      {manifest('common/sentry')}
 
       {$c.stash.current_language === 'en'
         ? null
         : manifest('jed-' + $c.stash.current_language)}
-
-      {manifest('common', {
-        'data-args': JSON.stringify({
-          user: $c.user ? {id: $c.user.id, name: $c.user.name} : null,
-        }),
-      })}
 
       {MUSICBRAINZ_RUNNING_TESTS ? manifest('selenium') : null}
 

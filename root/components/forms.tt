@@ -133,24 +133,6 @@
   </div>
 [%- END -%]
 
-[%- MACRO date_range_fieldset(r, type, ended_label) BLOCK # Converted to React at root/static/scripts/edit/components/DateRangeFieldset.js -%]
-    <fieldset>
-      <legend>[% l('Date period') %]</legend>
-      <p>
-        [%- l('Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just YYYY are OK, or you can omit the date entirely.') -%]
-      </p>
-      [% form_row_date(r, 'period.begin_date', add_colon(l('Begin date'))) %]
-      [% too_short_year_error('too_short_begin_year') %]
-      [% form_row_date(r, 'period.end_date', add_colon(l('End date'))) %]
-      [% too_short_year_error('too_short_end_year') %]
-      [% form_row_checkbox(r, 'period.ended', ended_label) %]
-    </fieldset>
-    <script type="text/javascript">
-      MB.initializeToggleEnded('id-edit-[% type %]');
-      MB.initializeTooShortYearChecks('[% type %]');
-    </script>
-[%- END -%]
-
 [%- MACRO form_row_name_with_guesscase(r, options) BLOCK # Converted to React at root/static/scripts/edit/components/FormRowNameWithGuessCase.js -%]
   [% WRAPPER form_row %]
     [% r.label('name', options.label || add_colon(l('Name'))) %]
@@ -206,7 +188,7 @@
 [%- END -%]
 
 [%- MACRO guesscase_options BLOCK -%]
-  <table id="guesscase-options">
+  <table id="guesscase-options" style="display: none;">
     <tr>
       <td>
         <select data-bind="value: modeName">
@@ -234,69 +216,47 @@
   </table>
 [%- END -%]
 
-[%- MACRO iswc_bubble(work) BLOCK -%]
-    <div class="bubble" id="iswcs-bubble">
-      <p>[% l('You are about to add an ISWC to this work. The ISWC must be entered in
-               standard <code>T-DDD.DDD.DDD-C</code> format:') %]</p>
-      <ul>
-        <li>[% l('"DDD" is a nine digit work identifier.') %]</li>
-        <li>[% l('"C" is a single check digit.') %]</li>
-      </ul>
-    </div>
-[%- END -%]
-
-[%- MACRO isrc_bubble(recording) BLOCK -%]
-    <div class="bubble" id="isrcs-bubble">
-      <p>[% l('You are about to add an ISRC to this recording. The ISRC must be entered in
-               standard <code>CCXXXYYNNNNN</code> format:') %]</p>
-      <ul>
-        <li>[% l('"CC" is the appropriate for the registrant two-character country code.') %]</li>
-        <li>[% l('"XXX" is a three character alphanumeric registrant code, uniquely identifying the organisation which registered the code.') %]</li>
-        <li>[% l('"YY" is the last two digits of the year of registration.') %]</li>
-        <li>[% l('"NNNNN" is a unique 5-digit number identifying the particular sound recording.') %]</li>
-      </ul>
-    </div>
-[%- END -%]
-
 [%- MACRO ipi_bubble BLOCK -%]
     <div class="bubble" id="ipi-bubble">
-      <p>[% l('IPI codes are assigned by CISAC to “interested parties” in musical rights management.
-               Check {ipi_doc|the documentation} for more info.',
-            { ipi_doc => doc_link('IPI') }) %]</p>
+      <p>[% l('{doc|IPI codes} are assigned by CISAC to “interested parties” in musical rights management.',
+              { doc => doc_link('IPI') }) %]</p>
       <p>[% l('If you don’t know the code for this entity, just leave the field blank.') %]</p>
     </div>
 [%- END -%]
 
 [%- MACRO isni_bubble BLOCK -%]
     <div class="bubble" id="isni-bubble">
-      <p>[% l('ISNI codes are an ISO standard used to uniquely identify persons and organizations.
-               Check {isni_doc|the documentation} for more info.',
-            { isni_doc => doc_link('ISNI') }) %]</p>
+      <p>[% l('{doc|ISNI codes} are an ISO standard used to uniquely identify persons and organizations.',
+              { doc => doc_link('ISNI') }) %]</p>
       <p>[% l('If you don’t know the code for this entity, just leave the field blank.') %]</p>
     </div>
 [%- END -%]
 
-[%- MACRO area_bubble BLOCK -%]
-    <div class="bubble" id="area-bubble">
-      <!-- ko with: target() && target().area -->
-        <p data-bind="html: $data.selectionMessage()"></p>
-      <!-- /ko -->
-    </div>
+[%- MACRO area_bubble_selection BLOCK -%]
+    <!-- ko if: target() && target().area && target().area().gid -->
+      <p data-bind="html: target().area().selectionMessage()"></p>
+    <!-- /ko -->
 [%- END -%]
 
 [%- MACRO sort_name_bubble BLOCK -%]
     <div class="bubble" id="sort-name-bubble">
-      <p>[% l('The sort name is an artist name variant used when sorting alphabetically.
-               For usage information check the {sort_name_doc|sort name guidelines}.',
-            { sort_name_doc => doc_link('Style/Artist/Sort_Name') }) %]</p>
-      <p>[% l('“Last Name, First Name” and “Group, The” are common examples of sort names.') %]</p>
+      <p>
+        [% l('The sort name is an artist name variant used when sorting alphabetically.') %]
+      </p>
+      <p>
+        [% l('“Last Name, First Name” and “Group, The” are common examples of sort names.') %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Artist/Sort_Name'), target => '_blank' } }) %]
+      </p>
     </div>
 [%- END -%]
 
 [%- MACRO type_bubble(form, types) BLOCK -%]
     <div class="bubble" id="type-bubble">
       <span id="type-bubble-default" [% IF form.value %] style="display:none" [% END %]>
-        [%- l('Select any type from the list to see its description. If the work
+        [%- l('Select any type from the list to see its description. If the entity
                doesn’t seem to match any type, just leave this blank.') -%]
       </span>
       [% FOREACH id IN form.options %]

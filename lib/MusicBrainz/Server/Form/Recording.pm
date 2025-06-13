@@ -39,8 +39,13 @@ has_field 'isrcs' => (
     inflate_default_method => \&inflate_isrcs,
 );
 
-has_field 'isrcs.contains' => (
+has_field 'isrcs.value' => (
     type => '+MusicBrainz::Server::Form::Field::ISRC',
+);
+
+has_field 'isrcs.removed' => (
+    type => 'Boolean',
+    default => 0,
 );
 
 has_field 'video' => (
@@ -73,7 +78,7 @@ after 'validate' => sub {
 
 sub inflate_isrcs {
     my ($self, $value) = @_;
-    return [ map { $_->isrc } @$value ];
+    return [ map +{ value => $_->isrc }, @$value ];
 }
 
 sub edit_field_names

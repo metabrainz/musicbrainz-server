@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Series'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Series'), target => '_blank' }}) -%]</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-series">
@@ -33,23 +31,37 @@
   </div>
 
   <div class="documentation">
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is the series’ official name.',
+             { doc => { href => doc_link('Series#Name'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between similarly-named series.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Feel free to leave it blank if the series’ name is likely to be unique.') %]
+      </p>
+    </div>
+
     [%- type_bubble(form.field('type_id'), series_types) -%]
 
     <div class="bubble" id="ordering-type-bubble" data-bind="bubble: orderingTypeBubble">
       <p data-bind="text: target() ? target().orderingTypeDescription() : ''"></p>
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the series, such as official pages, social networking sites, and entries in other databases.') %]
+      </p>
     </div>
   </div>
 
 </form>
 
 [%- guesscase_options() -%]
-
-<script>
-$(function () {
-  [%- USE JSON.Escape -%]
-  MB.orderingTypesByID = [% series_ordering_types.json %];
-  MB.installFormUnloadWarning();
-});
-</script>
-
-[% script_manifest('series/edit.js') %]
+[% script_manifest('series/edit.js', {async => 'async'}) %]

@@ -15,6 +15,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
@@ -30,7 +31,7 @@ component AreaLabels(
 
       {labels.length > 0 ? (
         <form
-          action="/label/merge_queue"
+          action={'/label/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -47,7 +48,7 @@ component AreaLabels(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -57,6 +58,8 @@ component AreaLabels(
           {l('This area is not currently associated with any labels.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </AreaLayout>
   );
 }

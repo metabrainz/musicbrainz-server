@@ -30,7 +30,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"PO-Revision-Date: 2025-04-14 23:20+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -40,9 +40,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.3\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -410,7 +410,7 @@ msgstr "Ля Миксолидийское"
 #: DB:work_attribute_type_allowed_value/value:1056
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Phrygian"
-msgstr ""
+msgstr "Ля Фригийское"
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -429,6 +429,10 @@ msgid ""
 "being played. Programs/programmes are most often made available for music "
 "festivals and for stage and classical performances."
 msgstr ""
+"Раздаваемый или продаваемый посетителям мероприятия буклет, содержащий "
+"информацию о мероприятии, например, расписание, данные об исполнителях и "
+"сведения об исполняемой музыке. Чаще всего выпускаются для музыкальных "
+"фестивалей, а также для сценических и классических выступлений."
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -515,6 +519,14 @@ msgid ""
 msgstr ""
 "Физический или цифровой документ, использующийся для посещения мероприятия. "
 "Используйте данный тип также для корешков билетов или пропусков."
+
+#. name:Slipcase
+#: DB:release_packaging/description:122
+msgctxt "release_packaging"
+msgid ""
+"A four- or five-sided box, usually made of cardboard or plastic, that "
+"surrounds a second inner package such as a jewel case."
+msgstr ""
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -1227,57 +1239,54 @@ msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
 #: DB:work_attribute_type/name:211
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "LATGA ID"
 msgctxt "work_attribute_type"
 msgid "AUTODIA ID"
-msgstr "LATGA ID"
+msgstr "AUTODIA ID"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
-msgstr ""
+msgstr "Ацем"
 
 #: DB:work_attribute_type_allowed_value/value:305
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Nevruz"
-msgstr ""
+msgstr "Ацем навруз"
 
 #: DB:work_attribute_type_allowed_value/value:306
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Rast"
-msgstr ""
+msgstr "Ацем раст"
 
 #: DB:work_attribute_type_allowed_value/value:300
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Zemzeme"
-msgstr ""
+msgstr "Ацем земземе"
 
 #: DB:work_attribute_type_allowed_value/value:301
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemaşiran"
-msgstr ""
+msgstr "Ачемаширан"
 
 #: DB:work_attribute_type_allowed_value/value:302
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acembuselik"
-msgstr ""
+msgstr "Ачембуселик"
 
 #: DB:work_attribute_type_allowed_value/value:303
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemkürdi"
-msgstr ""
+msgstr "Ачемкурди"
 
 #: DB:work_attribute_type_allowed_value/value:304
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemli Yegah"
-msgstr ""
+msgstr "Ачемли Егах"
 
 #: DB:work_attribute_type_allowed_value/value:307
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
-msgstr ""
+msgstr "Ачемтараб"
 
 #: DB:medium_format/name:203
 msgctxt "medium_format"
@@ -1287,7 +1296,7 @@ msgstr "Ацетат"
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā"
-msgstr ""
+msgstr "Адана"
 
 #: DB:work_attribute_type_allowed_value/value:849
 msgctxt "work_attribute_type_allowed_value"
@@ -2736,8 +2745,8 @@ msgstr "Страна"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr ""
 "Страна используется для областей, включенных (или ранее включенных) в ISO "
 "3166-1, например, Россия."
@@ -7983,6 +7992,11 @@ msgstr ""
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Тонкая коробка для диска"
+
+#: DB:release_packaging/name:122
+msgctxt "release_packaging"
+msgid "Slipcase"
+msgstr ""
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

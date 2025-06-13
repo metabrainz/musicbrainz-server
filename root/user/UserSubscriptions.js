@@ -14,6 +14,7 @@ import UserAccountLayout, {
   type AccountLayoutUserT,
 } from '../components/UserAccountLayout.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
@@ -277,6 +278,8 @@ component UserSubscriptions(
           )}
         </p>
       )}
+
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </UserAccountLayout>
   );
 }

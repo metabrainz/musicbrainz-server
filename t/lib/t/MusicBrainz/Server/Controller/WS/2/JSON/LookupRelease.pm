@@ -330,6 +330,7 @@ test 'release lookup with artists + aliases' => sub {
                         name => 'm-flo',
                         'sort-name' => 'm-flo',
                         disambiguation => '',
+                        country => JSON::null,
                         'type' => 'Group',
                         'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                         aliases => [
@@ -408,6 +409,7 @@ test 'release lookup with recordings, no tracks' => sub {
                 {
                     format => 'CD',
                     'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                    id => '596a290f-cf94-4d63-ae82-8dcbacd7db6a',
                     title => '',
                     position => 1,
                     'track-count' => 0,
@@ -472,6 +474,7 @@ test 'release lookup with labels and recordings' => sub {
                 {
                     format => 'CD',
                     'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                    id => '09af1de4-a712-4bfb-8331-fb15f6fcd844',
                     title => '',
                     position => 1,
                     'track-offset' => 0,
@@ -569,12 +572,13 @@ test 'release lookup with release-groups' => sub {
                 {
                    name => 'm-flo',
                    artist => {
-                      id => '22dd2db3-88ea-4428-a7a8-5cd3acf23175',
-                      name => 'm-flo',
-                      'sort-name' => 'm-flo',
-                      disambiguation => '',
-                    'type' => 'Group',
-                    'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                        id => '22dd2db3-88ea-4428-a7a8-5cd3acf23175',
+                        name => 'm-flo',
+                        'sort-name' => 'm-flo',
+                        disambiguation => '',
+                        country => JSON::null,
+                        'type' => 'Group',
+                        'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                    },
                    joinphrase => '',
                 },
@@ -596,6 +600,7 @@ test 'release lookup with release-groups' => sub {
                           name => 'm-flo',
                           'sort-name' => 'm-flo',
                           disambiguation => '',
+                          country => JSON::null,
                           'type' => 'Group',
                           'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
                        },
@@ -834,6 +839,7 @@ test 'release lookup with discids' => sub {
                 {
                     format => 'CD',
                     'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                    id => '18d49785-59f6-4698-99bc-43aa0043abd9',
                     title => '',
                     position => 1,
                     discs => [
@@ -1039,6 +1045,7 @@ test 'release lookup, relation attributes' => sub {
                 'target-credit' => '',
                 end => JSON::null,
                 artist => {
+                    country => 'KR',
                     id => '4d5ec626-2251-4bb1-b62a-f24f471e3f2c',
                     'sort-name' => 'Lee, Soo-Man',
                     disambiguation => '',
@@ -1104,11 +1111,28 @@ test 'release lookup, related artists have no tags/genres' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database(shift->c, '+webservice');
 
+    my %track_artist_credit = (
+        'artist-credit' => [{
+            artist => {
+                id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
+                name => 'Plone',
+                'sort-name' => 'Plone',
+                'type' => 'Group',
+                'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                disambiguation => '',
+                country => JSON::null,
+            },
+            name => 'Plone',
+            joinphrase => '',
+        }],
+    );
+
     ws2_test_json 'release lookup, related artists have no tags/genres',
     '/release/4f5a6b97-a09b-4893-80d1-eae1f3bfa221?inc=artists+recordings+tags+genres+artist-rels+recording-level-rels'
     => {
         'artist-credit' => [ {
             artist => {
+                country => JSON::null,
                 disambiguation => '',
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
@@ -1149,6 +1173,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
         media => [ {
             format => 'CD',
             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+            id => '7a5e9a3b-6587-489a-bf68-83ce04bafaea',
             title => '',
             'track-count' => 10,
             'track-offset' => 0,
@@ -1167,6 +1192,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         relations => [
                             {
                                 artist => {
+                                    country => JSON::null,
                                     disambiguation => '',
                                     id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                     name => 'Plone',
@@ -1192,8 +1218,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'On My Bus',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'On My Bus',
+                    %track_artist_credit,
                 },
                 {
                     id => 'f38b8e31-a10d-3973-8c1f-10923ee61adc',
@@ -1207,6 +1235,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                                 artist => {
+                                    country => JSON::null,
                                     disambiguation => '',
                                     id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                     name => 'Plone',
@@ -1231,8 +1260,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Top & Low Rent',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Top & Low Rent',
+                    %track_artist_credit,
                 },
                 {
                     id => 'd17bed32-940a-3fcc-9210-a5d7c516b4bb',
@@ -1246,6 +1277,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1270,8 +1302,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Plock',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Plock',
+                    %track_artist_credit,
                 },
                 {
                     id => '001bc675-ba25-32bc-9914-d5d9e22c3c44',
@@ -1285,6 +1319,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1309,8 +1344,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Marbles',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Marbles',
+                    %track_artist_credit,
                 },
                 {
                     id => 'c009176f-ff26-3f5f-bd16-46cede30ebe6',
@@ -1324,6 +1361,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1348,8 +1386,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Busy Working',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Busy Working',
+                    %track_artist_credit,
                 },
                 {
                     id => '70454e43-b39b-3ca7-8c50-ae235b5ef358',
@@ -1363,6 +1403,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1387,8 +1428,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'The Greek Alphabet',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'The Greek Alphabet',
+                    %track_artist_credit,
                 },
                 {
                     id => '1b5da50c-e20f-3762-839c-5a0eea89d6a5',
@@ -1402,6 +1445,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1426,8 +1470,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Press a Key',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Press a Key',
+                    %track_artist_credit,
                 },
                 {
                     id => 'f1b5bd23-ad01-3c0c-a49a-cf8e99088369',
@@ -1441,6 +1487,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1465,8 +1512,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Bibi Plone',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Bibi Plone',
+                    %track_artist_credit,
                 },
                 {
                     id => '928f2274-5694-35f9-92da-a1fc565867cf',
@@ -1480,6 +1529,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1504,8 +1554,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Be Rude to Your School',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Be Rude to Your School',
+                    %track_artist_credit,
                 },
                 {
                     id => '40727388-237d-34b2-8a3a-288878e5c883',
@@ -1519,6 +1571,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         video => JSON::false,
                         relations => [ {
                             artist => {
+                                country => JSON::null,
                                 disambiguation => '',
                                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                                 name => 'Plone',
@@ -1543,8 +1596,10 @@ test 'release lookup, related artists have no tags/genres' => sub {
                         genres => [],
                         title => 'Summer Plays Out',
                         'first-release-date' => '1999-09-13',
+                        %track_artist_credit,
                     },
                     title => 'Summer Plays Out',
+                    %track_artist_credit,
                 },
             ],
         } ],
@@ -1553,6 +1608,7 @@ test 'release lookup, related artists have no tags/genres' => sub {
         quality => 'normal',
         relations => [ {
             artist => {
+                country => JSON::null,
                 disambiguation => '',
                 id => '3088b672-fba9-4b4b-8ae0-dce13babfbb4',
                 name => 'Plone',
@@ -1606,6 +1662,7 @@ test 'release lookup, pregap track' => sub {
             id => '38c5cdab-5d6d-43d1-85b0-dac41bde186e',
             name => 'Blind Melon',
             'sort-name' => 'Blind Melon',
+            country => 'US',
             'type' => 'Group',
             'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
         },
@@ -1631,6 +1688,7 @@ test 'release lookup, pregap track' => sub {
         media => [ {
             format => 'CD',
             'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+            id => 'cc7380e2-f2bc-44b8-a8a2-75d8b85aa590',
             title => '',
             'track-count' => 2,
             'track-offset' => 0,
@@ -1710,6 +1768,7 @@ test 'MBS-7914' => sub {
         aliases => [],
         'artist-credit' => [{
             artist => {
+                country => JSON::null,
                 aliases => [{
                     locale => JSON::null,
                     name => 'グスタフ・マーラー',
@@ -1745,6 +1804,7 @@ test 'MBS-7914' => sub {
         media => [{
             format => JSON::null,
             'format-id' => JSON::null,
+            id => '74093abc-1b12-447e-9444-87c4b91e236e',
             position => 1,
             title => '',
             'track-count' => 1,
@@ -1752,6 +1812,7 @@ test 'MBS-7914' => sub {
             tracks => [{
                 'artist-credit' => [{
                     artist => {
+                        country => JSON::null,
                         aliases => [{
                             locale => JSON::null,
                             name => 'グスタフ・マーラー',
@@ -1781,6 +1842,7 @@ test 'MBS-7914' => sub {
                     aliases => [],
                     'artist-credit' => [{
                         artist => {
+                            country => JSON::null,
                             aliases => [{
                                 locale => JSON::null,
                                 name => 'CSO',
@@ -1837,6 +1899,7 @@ test 'tags and genres on associated entities' => sub {
         'artist-credit' => [
             {
                 artist => {
+                    country => JSON::null,
                     disambiguation => '',
                     genres => [
                         {
@@ -1885,6 +1948,7 @@ test 'tags and genres on associated entities' => sub {
             {
                 format => JSON::null,
                 'format-id' => JSON::null,
+                id => '5e7cebc3-6a7a-494d-8d04-d95361c02b76',
                 position => 1,
                 title => '',
                 'track-count' => 1,
@@ -1894,6 +1958,7 @@ test 'tags and genres on associated entities' => sub {
                         'artist-credit' => [
                             {
                                 artist => {
+                                    country => JSON::null,
                                     disambiguation => '',
                                     id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
                                     name => 'Lori Cooke',
@@ -1906,6 +1971,7 @@ test 'tags and genres on associated entities' => sub {
                             },
                             {
                                 artist => {
+                                    country => JSON::null,
                                     disambiguation => '',
                                     genres => [
                                         {
@@ -1932,6 +1998,7 @@ test 'tags and genres on associated entities' => sub {
                             },
                             {
                                 artist => {
+                                    country => JSON::null,
                                     disambiguation => '',
                                     genres => [
                                         {
@@ -1965,6 +2032,7 @@ test 'tags and genres on associated entities' => sub {
                             'artist-credit' => [
                                 {
                                     artist => {
+                                        country => JSON::null,
                                         disambiguation => '',
                                         id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
                                         name => 'Lori Cooke',
@@ -1977,6 +2045,7 @@ test 'tags and genres on associated entities' => sub {
                                 },
                                 {
                                     artist => {
+                                        country => JSON::null,
                                         disambiguation => '',
                                         id => '561e53a1-9ae6-4d85-95c0-a39b028eabe4',
                                         name => 'Frances Jones',
@@ -1989,6 +2058,7 @@ test 'tags and genres on associated entities' => sub {
                                 },
                                 {
                                     artist => {
+                                        country => JSON::null,
                                         disambiguation => '',
                                         genres => [
                                             {
@@ -2046,6 +2116,7 @@ test 'tags and genres on associated entities' => sub {
             'artist-credit' => [
                 {
                     artist => {
+                        country => JSON::null,
                         disambiguation => '',
                         id => 'c369975a-7381-4afd-9c36-1d8fe5115e28',
                         name => 'Lori Cooke',
@@ -2058,6 +2129,7 @@ test 'tags and genres on associated entities' => sub {
                 },
                 {
                     artist => {
+                        country => JSON::null,
                         disambiguation => '',
                         genres => [
                             {
@@ -2120,6 +2192,213 @@ test 'tags and genres on associated entities' => sub {
         },
         title => 'Greatest Hits',
     };
+};
+
+test 'MBS-12170' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+mbs-12170');
+
+    ws2_test_json
+        'All artists include their containing country',
+        '/release/2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a' .
+            '?inc=artist-credits+recordings+artist-rels+work-rels+release-groups+recording-level-rels+work-level-rels' => {
+            'artist-credit' => [
+                {
+                    artist => {
+                        country => 'AF',
+                        disambiguation => 'Artist from Kabul',
+                        id => '607f3b8d-d5cf-4705-98bf-32b3fac80f2c',
+                        name => 'Jalil Zaland',
+                        'sort-name' => 'Zaland, Jalil',
+                        type => 'Person',
+                        'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+                    },
+                    joinphrase => '',
+                    name => 'Jalil Zaland',
+                },
+            ],
+            asin => JSON::null,
+            barcode => JSON::null,
+            'cover-art-archive' => {
+                artwork => JSON::false,
+                back => JSON::false,
+                count => 0,
+                darkened => JSON::false,
+                front => JSON::false,
+            },
+            disambiguation => '',
+            id => '2b6c3d35-c8ad-44ba-8ea0-35b2cc27e95a',
+            media => [
+                {
+                    format => 'CD',
+                    'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                    id => '613fb5fc-7581-409e-9676-9b926aa8ad12',
+                    position => 1,
+                    title => '',
+                    'track-count' => 1,
+                    'track-offset' => 0,
+                    tracks => [
+                        {
+                            'artist-credit' => [
+                                {
+                                    artist => {
+                                        country => 'AL',
+                                        disambiguation => '',
+                                        id => '751196b3-5599-46be-8c44-ac44fa8158f2',
+                                        name => 'Sigi Bastri',
+                                        'sort-name' => 'Bastri, Sigi',
+                                        type => 'Person',
+                                        'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+                                    },
+                                    joinphrase => '',
+                                    name => 'Sigi Bastri',
+                                },
+                            ],
+                            id => '5dd38166-bcbc-44b5-9617-4dc669cf76dd',
+                            length => JSON::null,
+                            number => '1',
+                            position => 1,
+                            recording => {
+                                'artist-credit' => [
+                                    {
+                                        artist => {
+                                            country => 'AO',
+                                            disambiguation => 'Guitarist from Zaire',
+                                            id => '831482b2-c956-419d-bf6d-9e558d005902',
+                                            name => 'Yumba',
+                                            'sort-name' => 'Yumba',
+                                            type => 'Person',
+                                            'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+                                        },
+                                        joinphrase => '',
+                                        name => 'Yumba',
+                                    },
+                                ],
+                                disambiguation => '',
+                                id => '831c6058-f19a-4a7a-9723-cd02daf8f3a5',
+                                length => JSON::null,
+                                relations => [
+                                    {
+                                        artist => {
+                                            country => 'AR',
+                                            disambiguation => '',
+                                            id => '6b5236be-0037-4627-af62-e396b1ca906f',
+                                            name => 'Los Hermanos Abalos',
+                                            'sort-name' => 'Hermanos Abalos, Los',
+                                            type => 'Group',
+                                            'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                                        },
+                                        'attribute-ids' => {},
+                                        'attribute-values' => {},
+                                        attributes => [],
+                                        begin => JSON::null,
+                                        direction => 'backward',
+                                        end => JSON::null,
+                                        ended => JSON::false,
+                                        'source-credit' => '',
+                                        'target-credit' => '',
+                                        'target-type' => 'artist',
+                                        type => 'performer',
+                                        'type-id' => '628a9658-f54c-4142-b0c0-95f031b544da',
+                                    },
+                                    {
+                                        'attribute-ids' => {},
+                                        'attribute-values' => {},
+                                        attributes => [],
+                                        begin => JSON::null,
+                                        direction => 'forward',
+                                        end => JSON::null,
+                                        ended => JSON::false,
+                                        'source-credit' => '',
+                                        'target-credit' => '',
+                                        'target-type' => 'work',
+                                        type => 'performance',
+                                        'type-id' => 'a3005666-a872-32c3-ad06-98af558e99b0',
+                                        work => {
+                                            attributes => [],
+                                            disambiguation => '',
+                                            id => 'b9121cf5-0641-453b-bb99-a88f0bc18751',
+                                            iswcs => [],
+                                            language => JSON::null,
+                                            languages => [],
+                                            relations => [
+                                                {
+                                                    artist => {
+                                                        country => 'AR',
+                                                        disambiguation => '',
+                                                        id => '6b5236be-0037-4627-af62-e396b1ca906f',
+                                                        name => 'Los Hermanos Abalos',
+                                                        'sort-name' => 'Hermanos Abalos, Los',
+                                                        type => 'Group',
+                                                        'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                                                    },
+                                                    'attribute-ids' => {},
+                                                    'attribute-values' => {},
+                                                    attributes => [],
+                                                    begin => JSON::null,
+                                                    direction => 'backward',
+                                                    end => JSON::null,
+                                                    ended => JSON::false,
+                                                    'source-credit' => '',
+                                                    'target-credit' => '',
+                                                    'target-type' => 'artist',
+                                                    type => 'writer',
+                                                    'type-id' => 'a255bca1-b157-4518-9108-7b147dc3fc68',
+                                                },
+                                            ],
+                                            title => 'A',
+                                            type => JSON::null,
+                                            'type-id' => JSON::null,
+                                        },
+                                    },
+                                ],
+                                title => 'A',
+                                video => JSON::false,
+                            },
+                            title => 'A',
+                        },
+                    ],
+                },
+            ],
+            packaging => JSON::null,
+            'packaging-id' => JSON::null,
+            quality => 'normal',
+            relations => [],
+            'release-group' => {
+                'artist-credit' => [
+                    {
+                        artist => {
+                            country => 'AD',
+                            disambiguation => '',
+                            id => 'bc65c311-9886-41ab-bcc2-d8cf11fd9ab6',
+                            name => 'N.Fushigi',
+                            'sort-name' => 'N.Fushigi',
+                            type => 'Person',
+                            'type-id' => 'b6e035f4-3ce9-331c-97df-83397230b0df',
+                        },
+                        joinphrase => '',
+                        name => 'N.Fushigi',
+                    },
+                ],
+                disambiguation => '',
+                'first-release-date' => '',
+                id => '6316b4db-0cdb-448d-87b5-46f31ef9fce3',
+                'primary-type' => JSON::null,
+                'primary-type-id' => JSON::null,
+                'secondary-type-ids' => [],
+                'secondary-types' => [],
+                title => 'Artist Country Test',
+            },
+            status => JSON::null,
+            'status-id' => JSON::null,
+            'text-representation' => {
+                language => JSON::null,
+                script => JSON::null,
+            },
+            title => 'Artist Country Test',
+        };
 };
 
 1;

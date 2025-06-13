@@ -51,9 +51,9 @@ INSERT INTO release_label (id, release, label, catalog_number, last_updated) VAL
     (1616636, 2095272, 620, '0602567158394', '2018-01-03 13:13:49.095972+00'),
     (1616635, 2095272, 81438, '0602567158394', '2018-01-03 13:13:49.095972+00');
 
-INSERT INTO medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-    (2217508, 2063427, 1, 12, '', 0, '2017-11-09 17:17:36.779181+00', 0),
-    (2254441, 2095272, 1, 1, '', 0, '2018-01-03 13:13:55.205253+00', 0);
+INSERT INTO medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+    (2217508, 'f6fb0ac6-2e76-4edd-a0ec-1aa7b53ebce3', 2063427, 1, 12, '', 0, '2017-11-09 17:17:36.779181+00', 0),
+    (2254441, 'cb940591-d6ed-4fef-87d7-d56fa599e07f', 2095272, 1, 1, '', 0, '2018-01-03 13:13:55.205253+00', 0);
 
 INSERT INTO medium_index (medium, toc) VALUES
     (2217508, '(232000, 0, 0, 0, 0, 0)'),

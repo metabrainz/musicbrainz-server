@@ -458,6 +458,14 @@ msgid ""
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
 
+#. name:Slipcase
+#: DB:release_packaging/description:122
+msgctxt "release_packaging"
+msgid ""
+"A four- or five-sided box, usually made of cardboard or plastic, that "
+"surrounds a second inner package such as a jewel case."
+msgstr ""
+
 #. name:Promotion
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -2554,11 +2562,11 @@ msgstr "Maa"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr ""
-"Maa on nimitys alueelle, joka esiintyy (tai on esiintynyt) ISO 3166-1 -"
-"standardissa, esimerkiksi Yhdysvallat."
+"Maa on nimitys alueelle, joka esiintyy (tai on esiintynyt) ISO 3166-1 "
+"-standardissa, esimerkiksi Yhdysvallat."
 
 #: DB:area_type/name:7
 msgctxt "area_type"
@@ -7763,6 +7771,11 @@ msgstr "Slidepack"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "Ohut Jewel Case"
+
+#: DB:release_packaging/name:122
+msgctxt "release_packaging"
+msgid "Slipcase"
+msgstr ""
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

@@ -145,6 +145,13 @@ component ReportsIndex() {
             }
             reportName="EventSequenceNotInSeries"
           />
+          <ReportsIndexEntry
+            content={l(
+              `Events in the Event Art Archive
+               where no event art piece has types`,
+            )}
+            reportName="EventsWithEAANoTypes"
+          />
         </ul>
 
         {isRelationshipEditor($c.user) ? (
@@ -350,6 +357,12 @@ component ReportsIndex() {
               not linked to an original version`,
             )}
             reportName="UnlinkedPseudoReleases"
+          />
+          <ReportsIndexEntry
+            content={l(
+              `Pseudo-Releases that have cover art`,
+            )}
+            reportName="PseudoReleasesWithCoverArt"
           />
           <ReportsIndexEntry
             content={l(
@@ -584,6 +597,10 @@ component ReportsIndex() {
           <ReportsIndexEntry
             content={l('Series with annotations')}
             reportName="AnnotationsSeries"
+          />
+          <ReportsIndexEntry
+            content={l('Series containing duplicates')}
+            reportName="SeriesContainingDuplicates"
           />
         </ul>
 

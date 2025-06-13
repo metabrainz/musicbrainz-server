@@ -1,5 +1,4 @@
 [%- USE JSON.Escape %]
-[% script_manifest('edit.js') %]
 
 <p>[%- l('For more information, check the {doc_doc|documentation}.', {doc_doc => { href => doc_link('Work'), target => '_blank' }}) -%]</p>
 
@@ -14,7 +13,10 @@
       [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
       <div id="work-languages-editor"></div>
       [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
-          repeatable => form_to_json(form.field('iswcs')),
+          initialState => {
+            currentTextValues => current_iswcs,
+            repeatable => form_to_json(form.field('iswcs')),
+          },
           label => add_colon(l('ISWCs')),
           addButtonId => 'add-iswc',
           addButtonLabel => lp('Add ISWC', 'interactive'),
@@ -103,9 +105,58 @@
   </div>
 
   <div class="documentation">
-    [%- iswc_bubble(link_entity(work)) -%]
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is the work’s canonical title in the language in which it was originally written.',
+             { doc => { href => doc_link('Work#Name'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between similarly-named works.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please leave it blank if there are enough other differences between the works that they are unlikely to be confused.') %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Work#Disambiguation_comment'), target => '_blank' } }) %]
+      </p>
+    </div>
 
     [%- type_bubble(form.field('type_id'), work_types) -%]
+
+    <div class="bubble" id="languages-bubble">
+      <p>
+        [% l('The {doc|lyrics languages} should list any languages used in a significant portion of the work’s lyrics (or [No lyrics] if it has none).',
+             { doc => { href => doc_link('Work#Lyrics_languages'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Work#Lyrics_languages'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="iswcs-bubble">
+      <p>
+        [% l('The {doc|ISWC}, or International Standard Musical Work Code, is a code assigned to uniquely identify a work.',
+             { doc => { href => doc_link('ISWC'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="attributes-bubble">
+      <p>
+        [% l('Work attributes store additional information about this work, such as IDs assigned by regional rights-management organizations.') %]
+      </p>
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the work, such as pages for purchasing sheet music, lyrics pages, and entries in other databases.') %]
+      </p>
+    </div>
   </div>
 
 </form>
@@ -113,11 +164,5 @@
 [%- guesscase_options() -%]
 
 [%- USE JSON.Escape;
-    script_manifest('work/edit.js', {'data-args' => work_form_json.json})
+    script_manifest('work/edit.js', {async => 'async', 'data-args' => work_form_json.json})
 -%]
-
-<script type="text/javascript">
-  (function () {
-    MB.installFormUnloadWarning();
-  }());
-</script>

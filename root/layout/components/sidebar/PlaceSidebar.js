@@ -10,10 +10,14 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import isFutureDate
   from '../../../static/scripts/common/utility/isFutureDate.js';
 import * as age from '../../../utility/age.js';
@@ -42,10 +46,15 @@ component PlaceSidebar(place: PlaceT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={place}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={place}
+          />
+          {manifest('common/components/CommonsImage', {async: true})}
+        </>
+      ) : null}
 
       <h2 className="place-information">
         {l('Place information')}

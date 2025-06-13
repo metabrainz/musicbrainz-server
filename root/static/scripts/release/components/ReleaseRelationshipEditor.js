@@ -689,7 +689,7 @@ function* getAllRelationshipEdits(
             origRelationship.linkTypeID != null,
           );
           yield [[relationship], {
-            edit_type: EDIT_RELATIONSHIP_DELETE,
+            edit_type: EDIT_RELATIONSHIP_DELETE as const,
             id: origRelationship.id,
             linkTypeID: origRelationship.linkTypeID,
           }];
@@ -716,7 +716,7 @@ function* getAllRelationshipEdits(
         }
 
         yield [relationships, {
-          edit_type: EDIT_RELATIONSHIPS_REORDER,
+          edit_type: EDIT_RELATIONSHIPS_REORDER as const,
           linkTypeID: linkTypeId,
           relationship_order: relationshipOrderEditData,
         }];
@@ -1503,7 +1503,9 @@ component _TrackRelationshipsSection(
   const workRangeSelectionHandler =
     useRangeSelectionHandler('work');
 
-  const rangeSelectionHandler = React.useCallback((event: MouseEvent) => {
+  const rangeSelectionHandler = React.useCallback((
+    event: SyntheticMouseEvent<HTMLElement>,
+  ) => {
     recordingRangeSelectionHandler(event);
     workRangeSelectionHandler(event);
   }, [
@@ -1685,7 +1687,14 @@ component _ReleaseGroupRelationshipSection(
 const ReleaseGroupRelationshipSection =
   React.memo(_ReleaseGroupRelationshipSection);
 
-component _ReleaseRelationshipEditor() {
+component _ReleaseRelationshipEditor(
+  /*
+   * Hack required due to withLoadedTypeInfo's use of `forwardRef`.
+   * Remove once we upgrade to React v19.
+   */
+  // eslint-disable-next-line no-unused-vars
+  ref: React.RefSetter<mixed>
+) {
   const [state, dispatch] = React.useReducer(
     reducer,
     null,

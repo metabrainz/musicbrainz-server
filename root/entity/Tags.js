@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {MainTagEditor}
   from '../static/scripts/common/components/TagEditor.js';
 import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
@@ -37,6 +38,7 @@ component Tags(
         more={moreTags}
         userTags={userTags}
       />
+      {manifest('common/components/TagEditor', {async: true})}
     </LayoutComponent>
   );
 }

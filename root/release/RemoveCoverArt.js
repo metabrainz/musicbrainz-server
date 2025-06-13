@@ -8,6 +8,7 @@
  */
 
 import {Artwork} from '../components/Artwork.js';
+import manifest from '../static/manifest.mjs';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
@@ -39,6 +40,8 @@ component RemoveCoverArt(
         <EnterEditNote field={form.field.edit_note} />
         <EnterEdit form={form} />
       </form>
+      {manifest('common/loadArtwork', {async: true})}
+      {manifest('common/artworkViewer', {async: true})}
     </ReleaseLayout>
   );
 }

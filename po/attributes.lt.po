@@ -492,6 +492,14 @@ msgstr ""
 "Dokumentas, kuris paprastai naudojamas norint patekti į renginį – fizinis "
 "arba skaitmeninis. Taip pat naudok bilietų kvitams ir leidimams."
 
+#. name:Slipcase
+#: DB:release_packaging/description:122
+msgctxt "release_packaging"
+msgid ""
+"A four- or five-sided box, usually made of cardboard or plastic, that "
+"surrounds a second inner package such as a jewel case."
+msgstr ""
+
 #. name:Promotion
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -2616,8 +2624,8 @@ msgstr "šalis"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr ""
 "Šalis naudojama teritorijoms, įtrauktoms (arba anksčiau įtrauktoms) į ISO "
 "3166-1, pvz., Jungtinėms Amerikos Valstijoms."
@@ -7872,6 +7880,11 @@ msgstr "pakuotė su slankmačiu (Slidepack)"
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "plonas dėklas"
+
+#: DB:release_packaging/name:122
+msgctxt "release_packaging"
+msgid "Slipcase"
+msgstr ""
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

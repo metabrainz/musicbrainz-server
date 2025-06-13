@@ -51,6 +51,7 @@ sub label_toplevel {
 
     my $inc = $c->stash->{inc};
     my @labels = @{$labels};
+    my @ac_entities;
 
     $self->linked_labels($c, $stash, $labels);
 
@@ -74,7 +75,11 @@ sub label_toplevel {
             push @releases, @{ $opts->{releases}{items} };
         }
         $self->linked_releases($c, $stash, \@releases) if @releases;
+        push @ac_entities, @releases if $inc->artist_credits;
     }
+
+    $self->linked_artist_creditable_entities($c, $stash, \@ac_entities)
+        if @ac_entities;
 }
 
 sub label_browse : Private

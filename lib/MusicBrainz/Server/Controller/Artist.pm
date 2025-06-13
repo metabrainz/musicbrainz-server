@@ -14,7 +14,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         subset => {
             split => ['artist'],
             show => ['artist', 'url'],
-            relationships => [qw( area artist event instrument label place series url )],
+            relationships => [qw( area artist event genre instrument label place series url )],
         },
         default     => ['url'],
         paged_subset => {
@@ -43,7 +43,7 @@ with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
                                           {from => 'identities', to => 'identities'},
                                           {from => 'legal_name', to => 'legal_name'},
                                           {from => 'other_identities', to => 'other_identities'},
-                                          'top_tags']},
+                                          'top_tags', 'genre_map']},
                   recordings => {copy_stash => [{from => 'recordings_jsonld', to => 'recordings'}]},
                   relationships => {},
                   aliases => {copy_stash => ['aliases']}},
@@ -865,6 +865,8 @@ sub split : Chained('load') Edit {
                 $c->uri_for_action('/artist/show', [ $artist->gid ]));
         },
     );
+
+    $c->stash->{form}->field('artist_credit')->stash_field;
 }
 
 sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
@@ -890,6 +892,8 @@ sub edit_credit : Chained('credit') PathPart('edit') Edit {
                 $c->uri_for_action('/artist/aliases', [ $artist->gid ]));
         },
     );
+
+    $c->stash->{form}->field('artist_credit')->stash_field;
 }
 
 =head1 COPYRIGHT AND LICENSE

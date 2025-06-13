@@ -1,7 +1,6 @@
 [%- USE u = Utils -%]
 [%- USE JavaScript -%]
 [%- USE React -%]
-[%- PROCESS 'components/rating-macros.tt' -%]
 [%-# This next could use localization for alternating comma/period use per locale -%]
 [%~ MACRO add_commas(n) GET n.chunk(-3).join(',') -%]
 [%~ MACRO replace(text, search, replace) BLOCK; text | replace(search, replace); END # Converted to React with standard String.replace
@@ -421,7 +420,7 @@ END -%]
 [%~ MACRO format_length(n) BLOCK; n | format_length; END -%]
 
 [%~ MACRO medium_format_name(medium) BLOCK # Converted to React at root/static/scripts/common/utility/mediumFormatName.js -%]
-    [% medium.l_format_name or l("Medium") | html %]
+    [%- medium.l_format_name or l("Medium") | html -%]
 [%- END -%]
 
 [%~ MACRO release_countries_list(release_events) BLOCK;

@@ -16,6 +16,13 @@ declare type ConfirmFormT = FormT<{
   +submit: FieldT<string>,
 }>;
 
+declare type TextListItemFieldT = CompoundFieldT<{
+  +removed: FieldT<boolean>,
+  +value: FieldT<string>,
+}>;
+
+declare type TextListFieldT = RepeatableFieldT<TextListItemFieldT>;
+
 declare type MediumFieldT = CompoundFieldT<{
   +id: FieldT<number>,
   +name: FieldT<string>,
@@ -37,6 +44,7 @@ declare type MergeReleasesFormT = FormT<{
   +medium_positions: CompoundFieldT<{
     +map: CompoundFieldT<$ReadOnlyArray<MediumFieldT | void>>,
   }>,
+  +merge_rgs: FieldT<boolean>,
   +merge_strategy: FieldT<StrOrNum>,
   +merging: RepeatableFieldT<FieldT<StrOrNum>>,
   +rename: FieldT<boolean>,

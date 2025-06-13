@@ -16,10 +16,14 @@ import {
   artistEndLabel,
 } from '../../../artist/utils.js';
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import DescriptiveLink
   from '../../../static/scripts/common/components/DescriptiveLink.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
 import isFutureDate
   from '../../../static/scripts/common/utility/isFutureDate.js';
@@ -59,10 +63,15 @@ component ArtistSidebar(artist: ArtistT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={artist}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={artist}
+          />
+          {manifest('common/components/CommonsImage', {async: true})}
+        </>
+      ) : null}
 
       <PlayOnListenBrainzButton
         entityType="artist"

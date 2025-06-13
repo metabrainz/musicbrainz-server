@@ -15,7 +15,7 @@ component ChangeReleaseGroup(edit: ChangeReleaseGroupHistoricEditT) {
   return (
     <table className="details change-release-group">
       <HistoricReleaseList
-        colSpan="2"
+        colSpan={2}
         releases={edit.display_data.releases}
       />
       <tr>

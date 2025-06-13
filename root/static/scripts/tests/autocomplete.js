@@ -10,7 +10,7 @@ import $ from 'jquery';
 import ko from 'knockout';
 import test from 'tape';
 
-import '../../lib/jquery-ui.js';
+import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../common/MB/Control/Autocomplete.js';
 
 function autocompleteTest(name, callback) {
@@ -91,21 +91,6 @@ autocompleteTest((
   searchAndClick(t, $input, $menu, ':contains(Show more...)');
 
   t.ok($menu.is(':visible'), 'menu is still open after clicking show more');
-});
-
-autocompleteTest((
-  'clicking on actions should not prevent the menu from ever closing (MBS-6978)'
-), function (t, $input, $menu) {
-  t.plan(2);
-
-  searchAndClick(t, $input, $menu, ':contains(Show more...)');
-
-  blurAutocomplete($input);
-
-  t.ok(
-    $menu.is(':hidden'),
-    'menu is hidden after blurring the autocomplete',
-  );
 });
 
 autocompleteTest((

@@ -23,7 +23,7 @@ component RegisterApplication(form: ApplicationFormT) {
         form={form}
         submitLabel={lp('Register application', 'interactive')}
       />
-      {manifest('account/applications/register', {async: 'async'})}
+      {manifest('account/applications/register', {async: true})}
     </Layout>
   );
 }

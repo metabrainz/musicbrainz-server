@@ -32,7 +32,7 @@ component EditNoteTab(
   loadingEditPreviews?: boolean = false,
   missingEditNote?: boolean = true,
   onEditNoteChange?: ((
-    SyntheticKeyboardEvent<HTMLTextAreaElement>,
+    SyntheticEvent<HTMLTextAreaElement>,
   ) => void) | null = null,
   onMakeVotableChange?: ((
     SyntheticEvent<HTMLInputElement>,

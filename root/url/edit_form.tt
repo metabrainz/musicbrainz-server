@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <h2>[% lp('Edit URL', 'header') %]</h2>
 <form action="[% c.req.uri %]" method="post">
     [% USE r = FormRenderer(form) %]
@@ -14,4 +12,4 @@
     [% enter_edit() %]
 </form>
 
-[%- script_manifest('url/edit.js') -%]
+[%- script_manifest('url/edit.js', {async => 'async'}) -%]

@@ -343,6 +343,7 @@ EOF
                 'sort-name' => 'Blues Guy',
                 type => undef,
                 'type-id' => undef,
+                country => JSON::null,
             },
             'attribute-ids' => {},
             'attribute-values' => {},
@@ -385,7 +386,7 @@ EOF
 3\tf\t"id"='1' "gid"='4293ab04-ec12-4c5e-9ffa-98ee6e833bb3' "name"='The Blues' "artist_credit"='1' "length"='238000' "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "video"='f'\x{20}
 4\tf\t"id"='1' "gid"='e0e39108-5a94-4736-83bb-09c1682a2ab5' "name"='Blue Hits' "artist_credit"='1' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00'\x{20}
 5\tf\t"id"='1' "gid"='8ddb6392-a3d2-4c62-8a3f-9289dfc627b0' "name"='Blue Hits' "artist_credit"='1' "release_group"='1' "status"='1' "packaging"= "language"= "script"= "barcode"= "comment"='' "edits_pending"='0' "quality"='-1' "last_updated"='2017-05-22 03:54:37.141481+00'\x{20}
-6\tf\t"id"='1' "release"='1' "position"='1' "format"='1' "name"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "track_count"='0'\x{20}
+6\tf\t"id"='1' "gid"='88499c4a-8570-4430-908f-4a661b1d8e64' "release"='1' "position"='1' "format"='1' "name"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "track_count"='0'\x{20}
 7\tf\t"id"='1' "gid"='a5e1dc36-b61e-4dba-86fa-ec11b4f18d20' "recording"='1' "medium"='1' "position"='1' "number"='1' "name"='The Blues' "artist_credit"='1' "length"= "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "is_data_track"='f'\x{20}
 8\tt\t"id"='1'\x{20}
 8\tf\t"id"='1' "current_replication_sequence"='5'\x{20}
@@ -401,6 +402,7 @@ EOF
                 'sort-name' => 'Blues Guy',
                 type => undef,
                 'type-id' => undef,
+                country => JSON::null,
                 %extra,
             },
             joinphrase => '',
@@ -432,6 +434,7 @@ EOF
                 discs => [],
                 format => 'CD',
                 'format-id' => '9712d52a-4509-3d4b-a1a2-67c88c643e31',
+                id => '88499c4a-8570-4430-908f-4a661b1d8e64',
                 position => 1,
                 title => '',
                 'track-count' => 1,

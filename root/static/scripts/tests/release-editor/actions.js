@@ -38,7 +38,7 @@ test('removing a medium should change the medium positions', function (t) {
 
   release.mediums.push(
     new fields.Medium(common.testMedium, release),
-    new fields.Medium({position: 3, release, tracks: []}),
+    new fields.Medium({position: 3, release, tracks: []}, release),
   );
 
   const mediums = release.mediums();

@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         default => ['url'],
         subset => {
             show => ['artist', 'label', 'url'],
-            relationships => [qw( area artist instrument label place series url )],
+            relationships => [qw( area artist genre instrument label place series url )],
         },
         paged_subset => {
             relationships => [qw( event recording release release_group work )],
@@ -36,7 +36,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}, 'top_tags']},
+    endpoints => {show => {copy_stash => [{from => 'releases_jsonld', to => 'releases'}, 'top_tags', 'genre_map']},
                   aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {

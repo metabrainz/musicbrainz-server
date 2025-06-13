@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import manifest from '../../../static/manifest.mjs';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import RatingStars
@@ -30,6 +31,7 @@ component SidebarRating(entity: RatableT, heading?: string) {
           </>
         ) : null}
       </p>
+      {manifest('common/ratings', {async: true})}
     </>
   );
 }

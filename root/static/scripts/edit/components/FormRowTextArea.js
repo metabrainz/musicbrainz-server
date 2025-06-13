@@ -12,7 +12,7 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 
 type TextAreaOnChange =
-  (SyntheticKeyboardEvent<HTMLTextAreaElement>) => void;
+  (SyntheticEvent<HTMLTextAreaElement>) => void;
 
 type TextAreaProps = {
   +cols: number,

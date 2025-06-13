@@ -378,12 +378,15 @@ sub update_profile
     }
 
     my $row = hash_to_row($update, {
-        area => 'area_id',
         bio => 'biography',
         gender => 'gender_id',
         name => 'username',
         map { $_ => $_ } qw( birth_date website ),
     });
+
+    if (exists $update->{area}) {
+        $row->{area} = $update->{area}{id};
+    }
 
     if (my $date = delete $row->{birth_date}) {
         if (%$date) { # if date is given but all NULL, it will be an empty hash.

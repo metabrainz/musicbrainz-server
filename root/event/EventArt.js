@@ -13,6 +13,7 @@ import ArtLinks from '../components/ArtLinks.js';
 import {Artwork} from '../components/Artwork.js';
 import RequestLogin from '../components/RequestLogin.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
@@ -134,6 +135,9 @@ component EventArt(
           </p>
         )
       ) : null}
+
+      {manifest('common/loadArtwork', {async: true})}
+      {manifest('common/artworkViewer', {async: true})}
     </EventLayout>
   );
 }

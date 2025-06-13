@@ -122,7 +122,7 @@ component RecordingAppearancesTable(
                       <ReleaseEvents events={release.events} />
                       {manifest(
                         'common/components/ReleaseEvents',
-                        {async: 'async'},
+                        {async: true},
                       )}
                     </td>
                     <td>
@@ -176,6 +176,7 @@ component RecordingIndex(
         )}
       </PaginatedResults>
       <Relationships source={recording} />
+      {manifest('recording/index', {async: true})}
     </RecordingLayout>
   );
 }

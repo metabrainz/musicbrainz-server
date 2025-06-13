@@ -1,0 +1,8 @@
+/*
+ * @flow strict
+ * Bogus file for use in .flowconfig.
+ * `.less` files are mapped to here, so we can import them
+ * via Webpack's asset modules without Flow triggering import errors.
+ */
+declare var assetUrl: string;
+export default assetUrl;

@@ -1,11 +1,12 @@
 #
 # Translators:
 # Arainuki <esetipodealla@gmail.com>, 2024.
+# Marc Riera <marc@marcriera.cat>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-25 00:45+0000\n"
-"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"PO-Revision-Date: 2025-05-03 16:20+0000\n"
+"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ca/>\n"
 "Language: ca\n"
@@ -13,65 +14,65 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr ""
+msgstr "guitarra de 12 cordes"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr ""
+msgstr "koto baix de 17 cordes"
 
 #: DB:instrument/name:839
 msgctxt "Historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
-msgstr ""
+msgstr "concertina anglosaxona"
 
 #: DB:instrument/name:66
 msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
-msgstr ""
+msgstr "dulcimer dels Apalatxes"
 
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
 msgid "Baltic psalteries"
-msgstr ""
+msgstr "saltiris bàltics"
 
 #: DB:instrument/name:457
 msgctxt "Double headed hourglass Nigerian drums"
 msgid "Batá drum"
-msgstr ""
+msgstr "batà"
 
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
 msgid "Blaster Beam"
-msgstr ""
+msgstr "blaster beam"
 
 #: DB:instrument/name:794
 msgctxt "electric piano with reeds"
 msgid "Cembalet"
-msgstr ""
+msgstr "Cembalet"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
-msgstr ""
+msgstr "chapman stick"
 
 #: DB:instrument/name:482
 msgid "Cretan lyra"
-msgstr ""
+msgstr "lira de Creta"
 
 #: DB:instrument/name:736
 msgid "Cristal Baschet"
-msgstr ""
+msgstr "Cristal Baschet"
 
 #: DB:instrument/name:118
 msgid "Denis d'or"
-msgstr ""
+msgstr "Denis d'or"
 
 #: DB:instrument/name:119
 msgid "Dubreq Stylophone"
-msgstr ""
+msgstr "estilòfon Dubreq"
 
 #: DB:instrument/name:574
 msgid "E-flat clarinet"

@@ -17,12 +17,13 @@ import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import {MAPBOX_ACCESS_TOKEN}
   from '../static/scripts/common/DBDefs-client.mjs';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
 component AreaPlaces(
   area: AreaT,
-  mapDataArgs: {places: $ReadOnlyArray<PlaceT>},
+  mapDataArgs: string,
   pager: PagerT,
   places: ?$ReadOnlyArray<PlaceT>,
 ) {
@@ -47,7 +48,7 @@ component AreaPlaces(
             </p>
           )}
           <form
-            action="/place/merge_queue"
+            action={'/place/merge_queue?' + returnToCurrentPage($c)}
             method="post"
           >
             <PaginatedResults pager={pager}>
@@ -64,7 +65,7 @@ component AreaPlaces(
                 />
                 {manifest(
                   'common/components/ListMergeButtonsRow',
-                  {async: 'async'},
+                  {async: true},
                 )}
               </>
             ) : null}
@@ -75,6 +76,8 @@ component AreaPlaces(
           {l('This area is not currently associated with any places.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </AreaLayout>
   );
 }

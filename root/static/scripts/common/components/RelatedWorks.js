@@ -22,7 +22,7 @@ const targetEntityTypes = [
   'label',
   'place',
   'work',
-];
+] as const;
 
 component RelatedWorks(workIds: $ReadOnlyArray<number>) {
   const parts: Array<React.Node> = [

@@ -54,6 +54,7 @@ my @all = qw(
     DuplicateReleaseGroups
     EmptyReleaseGroups
     EventSequenceNotInSeries
+    EventsWithEAANoTypes
     FeaturingRecordings
     FeaturingReleaseGroups
     FeaturingReleases
@@ -78,6 +79,7 @@ my @all = qw(
     PartOfSetRelationships
     PlacesWithoutCoordinates
     PossibleCollaborations
+    PseudoReleasesWithCoverArt
     RecordingsWithoutVACredit
     RecordingsWithoutVALink
     RecordingsWithEarliestReleaseRelationships
@@ -104,6 +106,7 @@ my @all = qw(
     ReleasesMissingDiscIDs
     ReleasesConflictingDiscIDs
     SeparateDiscs
+    SeriesContainingDuplicates
     SetInDifferentRG
     ShouldNotHaveDiscIDs
     ShowNotesButNotBroadcast
@@ -160,6 +163,7 @@ use MusicBrainz::Server::Report::DuplicateRelationshipsLabels;
 use MusicBrainz::Server::Report::DuplicateReleaseGroups;
 use MusicBrainz::Server::Report::EmptyReleaseGroups;
 use MusicBrainz::Server::Report::EventSequenceNotInSeries;
+use MusicBrainz::Server::Report::EventsWithEAANoTypes;
 use MusicBrainz::Server::Report::FeaturingRecordings;
 use MusicBrainz::Server::Report::FeaturingReleaseGroups;
 use MusicBrainz::Server::Report::FeaturingReleases;
@@ -184,6 +188,7 @@ use MusicBrainz::Server::Report::NoScript;
 use MusicBrainz::Server::Report::PartOfSetRelationships;
 use MusicBrainz::Server::Report::PlacesWithoutCoordinates;
 use MusicBrainz::Server::Report::PossibleCollaborations;
+use MusicBrainz::Server::Report::PseudoReleasesWithCoverArt;
 use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
 use MusicBrainz::Server::Report::RecordingsWithoutVALink;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
@@ -211,6 +216,7 @@ use MusicBrainz::Server::Report::ReleasesWithUnlikelyLanguageScript;
 use MusicBrainz::Server::Report::ReleasesMissingDiscIDs;
 use MusicBrainz::Server::Report::ReleasesConflictingDiscIDs;
 use MusicBrainz::Server::Report::SeparateDiscs;
+use MusicBrainz::Server::Report::SeriesContainingDuplicates;
 use MusicBrainz::Server::Report::SetInDifferentRG;
 use MusicBrainz::Server::Report::ShouldNotHaveDiscIDs;
 use MusicBrainz::Server::Report::ShowNotesButNotBroadcast;

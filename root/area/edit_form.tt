@@ -1,5 +1,3 @@
-[% script_manifest('edit.js') %]
-
 <form action="[% c.req.uri %]" method="post" class="edit-area">
   [%- USE r = FormRenderer(form) -%]
 
@@ -9,21 +7,21 @@
       [%- form_row_name_with_guesscase(r) -%]
       [%- form_row_text_long(r, 'comment', 'Disambiguation:') -%]
       [%- form_row_select(r, 'type_id', 'Type:') -%]
-      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('iso_3166_1')),
            label => 'ISO 3166-1:',
            addButtonId => 'add-iso-3166-1',
            addButtonLabel => 'Add ISO 3166-1',
            removeButtonLabel => 'Remove ISO 3166-1',
          }) %]
-      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('iso_3166_2')),
            label => 'ISO 3166-2:',
            addButtonId => 'add-iso-3166-2',
            addButtonLabel => 'Add ISO 3166-2',
            removeButtonLabel => 'Remove ISO 3166-2',
          }) %]
-      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+      [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('iso_3166_3')),
            label => 'ISO 3166-3:',
            addButtonId => 'add-iso-3166-3',
@@ -32,7 +30,11 @@
          }) %]
     </fieldset>
 
-    [% date_range_fieldset(r, 'area', 'This area has ended.') %]
+    [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
+         initialField => form_to_json(form.field('period')),
+         endedLabel => 'This area has ended.',
+       }) %]
+    [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
 
     [% PROCESS 'forms/relationship-editor.tt' %]
 
@@ -52,10 +54,4 @@
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('area/edit.js') %]
-
-<script type="text/javascript">
-  (function () {
-    MB.Control.initializeGuessCase("area", "id-edit-area");
-  }());
-</script>
+[% script_manifest('area/edit.js', {async => 'async'}) %]

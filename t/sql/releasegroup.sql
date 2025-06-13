@@ -32,7 +32,8 @@ INSERT INTO release_group (id, gid, name, artist_credit)
 INSERT INTO release (id, gid, name, artist_credit, release_group)
     VALUES (3, '25b6fe30-ff5b-11de-8a39-0800200c9a66', 'Various Release', 2, 3);
 
-INSERT INTO medium (id, track_count, release, position) VALUES (1, 0, 3, 1);
+INSERT INTO medium (id, gid, track_count, release, position)
+    VALUES (1, '2df93a8c-4f81-47c8-865a-d7beccd849de', 0, 3, 1);
 INSERT INTO recording (id, artist_credit, name, gid)
     VALUES (1, 2, 'Track on recording', 'b43eb990-ff5b-11de-8a39-0800200c9a66');
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
@@ -58,8 +59,9 @@ INSERT INTO release (id, gid, name, release_group, artist_credit)
     VALUES (4, '1b13ba2d-c54a-4e7d-bf65-b173d53e37a1', 'Release Name', 4, 3),
            (5, '2d48ca05-a469-422d-8a67-79c7b6f175ea', 'Release Name', 5, 2);
 
-INSERT INTO medium (id, release, track_count, position)
-    VALUES (6, 4, 0, 1), (7, 5, 0, 1);
+INSERT INTO medium (id, gid, release, track_count, position)
+    VALUES (6, '48360515-8d69-4ad3-b4cb-a8c53a63bf4e', 4, 0, 1),
+           (7, '40499474-aa68-4467-8ff0-f4103affb422', 5, 0, 1);
 INSERT INTO track (id, gid, name, artist_credit, medium, position, number, recording)
     VALUES (6, 'c0bc3e2c-a22a-40fd-818d-ca0e470b9c02', 'Track on recording', 3, 6, 1, 1, 1),
            (7, '0db74133-476a-4a60-b749-a92db4959a83', 'Track on recording', 3, 7, 1, 1, 1);

@@ -18,6 +18,7 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::Name',
      'MusicBrainz::Server::Data::Role::Annotation' => {
         type => 'release_group',
@@ -423,19 +424,22 @@ sub _find_by_artist_slow
                     rgm.rating,
                     rg.name COLLATE musicbrainz AS name_collate,
                     array(
-                      SELECT name FROM release_group_secondary_type rgst
+                      SELECT child_order FROM release_group_secondary_type rgst
                       JOIN release_group_secondary_type_join rgstj
                         ON rgstj.secondary_type = rgst.id
                       WHERE rgstj.release_group = rg.id
-                      ORDER BY name ASC
-                    ) secondary_types
+                      ORDER BY child_order ASC
+                    ) secondary_types,
+                    rgpt.child_order
                  FROM ' . $self->_table . '
                     JOIN artist_credit_name acn
                         ON acn.artist_credit = rg.artist_credit
+                    LEFT JOIN release_group_primary_type rgpt
+                        ON rgpt.id = rg.type
                      ' . join(' ', @$extra_joins) . '
                  WHERE ' . join(' AND ', @$conditions) . '
                  ORDER BY
-                    rg.type, secondary_types,
+                    rgpt.child_order, secondary_types,
                     rgm.first_release_date_year,
                     rgm.first_release_date_month,
                     rgm.first_release_date_day,
@@ -486,10 +490,12 @@ sub _find_by_artist_fast {
         # sort operation. Changing the order is a schema change.
         'ORDER BY arg.artist, ' .
             'arg.unofficial, ' .
+            'arg.primary_type_child_order NULLS FIRST, ' .
             'arg.primary_type NULLS FIRST, ' .
+            'arg.secondary_type_child_orders NULLS FIRST, ' .
             'arg.secondary_types NULLS FIRST, ' .
             'arg.first_release_date NULLS LAST, ' .
-            'arg.sort_character, ' .
+            'arg.name, ' .
             'arg.release_group ' .
         'LIMIT ? OFFSET ?';
 

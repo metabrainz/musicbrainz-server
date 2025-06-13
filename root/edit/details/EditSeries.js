@@ -28,7 +28,7 @@ component EditSeries(edit: EditSeriesEditT) {
       <tbody>
         <tr>
           <th>{addColonText(lp('Series', 'singular'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <EntityLink entity={series} />
           </td>
         </tr>

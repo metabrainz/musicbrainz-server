@@ -8,7 +8,10 @@
  */
 
 import he from 'he';
+import $ from 'jquery';
 import * as React from 'react';
+
+import '../../../lib/jquery.ui/ui/jquery-ui.custom.js';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import {minimalEntity} from '../../../../utility/hydrate.js';
@@ -16,7 +19,7 @@ import loopParity from '../../../../utility/loopParity.js';
 import {unwrapNl} from '../i18n.js';
 import {keyBy, sortByNumber} from '../utility/arrays.js';
 import bracketed, {bracketedText} from '../utility/bracketed.js';
-import {compareStrings} from '../utility/compare.js';
+import {compareStrings} from '../utility/compare.mjs';
 import debounce from '../utility/debounce.js';
 import isBlank from '../utility/isBlank.js';
 
@@ -269,7 +272,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
     let doRequest;
     if (asap) {
-      const $ = require('jquery');
       doRequest = (
         args: {+url: string},
       ) => $.ajax({...args, dataType: 'json'});
@@ -294,7 +296,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   componentDidMount() {
-    require('../../../lib/jquery-ui.js');
     window.addEventListener('beforeunload', this.onBeforeUnloadBound);
   }
 
@@ -381,7 +382,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       }),
     );
 
-    const $ = require('jquery');
     const tagsPath = getTagsPath(this.props.entity);
     $.get(`${tagsPath}/upvote?tags=${encodeURIComponent(tags)}`, data => {
       this.updateTags(JSON.parse(data).updates);
@@ -410,7 +410,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         const tag = {
           count: t.count,
           tag: {
-            entityType: 'tag',
+            entityType: 'tag' as const,
             genre,
             id: null,
             name: t.tag,
@@ -439,7 +439,6 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   setTagsInput(input: TagsInputT) {
-    const $ = require('jquery');
     const self = this;
 
     if (!input) {
@@ -626,9 +625,9 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
                     <form id="tag-form" onSubmit={this.handleSubmitBound}>
                       <p>
                         <textarea
-                          cols="50"
+                          cols={50}
                           ref={this.setTagsInputBound}
-                          rows="5"
+                          rows={5}
                         />
                       </p>
                       <button className="styled-button" type="submit">

@@ -175,7 +175,7 @@ sub _extract_by_language_callback
     my (%opts) = @_;
     if ($opts{fetched}{content}) {
         return WikipediaExtract->new( title => $opts{fetched}{title},
-                                      content => $opts{fetched}{content},
+                                      content => $opts{fetched}{content} =~ s{<p>}{<p><bdi>}gr =~ s{</p>}{</bdi></p>}gr,
                                       canonical => $opts{fetched}{canonical},
                                       language => $opts{language},
                                       url => sprintf 'https://%s.wikipedia.org/wiki/%s',

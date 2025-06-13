@@ -12,480 +12,476 @@ import {hex_sha1 as hexSha1} from '../../../lib/sha1/sha1.js';
 import {VIDEO_ATTRIBUTE_GID} from '../../common/constants.js';
 import * as TYPES from '../../common/constants/editTypes.js';
 import linkedEntities from '../../common/linkedEntities.mjs';
-import MB from '../../common/MB.js';
 import {compactMap, sortByNumber} from '../../common/utility/arrays.js';
 import clean from '../../common/utility/clean.js';
 import deepEqual from '../../common/utility/deepEqual.js';
 import request from '../../common/utility/request.js';
 
-(function (edit) {
-  edit.TYPES = TYPES;
+const edit = {TYPES};
+
+function value(arg) {
+  return typeof arg === 'function' ? arg() : arg;
+}
+function string(arg) {
+  return clean(value(arg));
+}
+function number(arg) {
+  var num = parseInt(value(arg), 10);
+  return isNaN(num) ? null : num;
+}
+function array(arg, type) {
+  return value(arg).map(type);
+}
+function nullableString(arg) {
+  return string(arg) || null;
+}
 
 
-  function value(arg) {
-    return typeof arg === 'function' ? arg() : arg;
-  }
-  function string(arg) {
-    return clean(value(arg));
-  }
-  function number(arg) {
-    var num = parseInt(value(arg), 10);
-    return isNaN(num) ? null : num;
-  }
-  function array(arg, type) {
-    return value(arg).map(type);
-  }
-  function nullableString(arg) {
-    return string(arg) || null;
-  }
+var fields = edit.fields = {
 
+  annotation(entity) {
+    return {
+      entity: nullableString(entity.gid),
 
-  var fields = edit.fields = {
+      // We trim the end only to ensure formatting doesn't break
+      text: String(value(entity.annotation) || '').trimEnd(),
+    };
+  },
 
-    annotation(entity) {
-      return {
-        entity: nullableString(entity.gid),
+  artistCredit(ac) {
+    ac = value(ac);
 
-        // We trim the end only to ensure formatting doesn't break
-        text: String(value(entity.annotation) || '').trimEnd(),
-      };
-    },
+    if (!ac) {
+      return {names: []};
+    }
 
-    artistCredit(ac) {
-      ac = value(ac);
+    const names = ac.names.map(function (credit, index) {
+      var artist = value(credit.artist) || {};
+      const artistName = string(artist.name);
+      const creditedName = string(credit.name);
 
-      if (!ac) {
-        return {names: []};
-      }
-
-      const names = ac.names.map(function (credit, index) {
-        var artist = value(credit.artist) || {};
-        const artistName = string(artist.name);
-        const creditedName = string(credit.name);
-
-        var name = {
-          artist: {
-            name: artistName,
-            id: number(artist.id),
-            gid: nullableString(artist.gid),
-          },
-          name: nonEmpty(creditedName) ? creditedName : artistName,
-        };
-
-        var joinPhrase = value(credit.joinPhrase) || '';
-
-        // Collapse whitespace, but don't strip leading/trailing.
-        name.join_phrase = joinPhrase.replace(/\s{2,}/g, ' ');
-
-        // Trim trailing whitespace for the final join phrase only.
-        if (index === ac.names.length - 1) {
-          name.join_phrase = name.join_phrase.trimEnd();
-        }
-
-        name.join_phrase ||= null;
-
-        return name;
-      });
-      return {names};
-    },
-
-    externalLinkRelationship(link, source) {
-      var editData = {
-        id: number(link.relationship),
-        linkTypeID: number(link.type),
-        attributes: [],
-        entities: [
-          this.relationshipEntity(source),
-          {entityType: 'url', name: string(link.url)},
-        ],
+      var name = {
+        artist: {
+          name: artistName,
+          id: number(artist.id),
+          gid: nullableString(artist.gid),
+        },
+        name: nonEmpty(creditedName) ? creditedName : artistName,
       };
 
-      if (source.entityType > 'url') {
-        editData.entities.reverse();
+      var joinPhrase = value(credit.joinPhrase) || '';
+
+      // Collapse whitespace, but don't strip leading/trailing.
+      name.join_phrase = joinPhrase.replace(/\s{2,}/g, ' ');
+
+      // Trim trailing whitespace for the final join phrase only.
+      if (index === ac.names.length - 1) {
+        name.join_phrase = name.join_phrase.trimEnd();
       }
 
-      if (link.video) {
-        editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}}];
+      name.join_phrase ||= null;
+
+      return name;
+    });
+    return {names};
+  },
+
+  externalLinkRelationship(link, source) {
+    var editData = {
+      id: number(link.relationship),
+      linkTypeID: number(link.type),
+      attributes: [],
+      entities: [
+        this.relationshipEntity(source),
+        {entityType: 'url', name: string(link.url)},
+      ],
+    };
+
+    if (source.entityType > 'url') {
+      editData.entities.reverse();
+    }
+
+    if (link.video) {
+      editData.attributes = [{type: {gid: VIDEO_ATTRIBUTE_GID}}];
+    }
+
+    editData.begin_date = fields.partialDate(link.begin_date);
+    editData.end_date = fields.partialDate(link.end_date);
+
+    if (editData.end_date &&
+      Object.values(editData.end_date).some(nonEmpty)) {
+      editData.ended = true;
+    } else {
+      editData.ended = Boolean(value(link.ended));
+    }
+
+    return editData;
+  },
+
+  medium(medium) {
+    return {
+      name:       string(medium.name),
+      format_id:  number(medium.formatID),
+      position:   number(medium.position),
+      tracklist:  array(medium.tracks, fields.track),
+    };
+  },
+
+  partialDate(data) {
+    data ||= {};
+
+    return {
+      year:   number(data.year),
+      month:  number(data.month),
+      day:    number(data.day),
+    };
+  },
+
+  recording(recording) {
+    return {
+      to_edit:        string(recording.gid),
+      name:           string(recording.name),
+      artist_credit:  fields.artistCredit(recording.artistCredit),
+      length:         number(recording.length),
+      comment:        string(recording.comment),
+      video:          Boolean(value(recording.video)),
+    };
+  },
+
+  relationship(relationship) {
+    var data = {
+      id:             number(relationship.id),
+      linkTypeID:     number(relationship.linkTypeID),
+      entities:       array(relationship.entities, this.relationshipEntity),
+      entity0_credit: string(relationship.entity0_credit),
+      entity1_credit: string(relationship.entity1_credit),
+    };
+
+    data.attributes = sortByNumber(
+      ko.unwrap(relationship.attributes).map(x => x.toJS()),
+      a => a.type.id,
+    );
+
+    if (data.linkTypeID) {
+      const linkType = linkedEntities.link_type[data.linkTypeID];
+      if (linkType.orderable_direction !== 0) {
+        data.linkOrder = number(relationship.linkOrder) || 0;
       }
+    }
 
-      editData.begin_date = fields.partialDate(link.begin_date);
-      editData.end_date = fields.partialDate(link.end_date);
+    if (relationship.hasDates()) {
+      data.begin_date = fields.partialDate(relationship.begin_date);
+      data.end_date = fields.partialDate(relationship.end_date);
 
-      if (editData.end_date &&
-        Object.values(editData.end_date).some(nonEmpty)) {
-        editData.ended = true;
+      if (data.end_date && Object.values(data.end_date).some(nonEmpty)) {
+        data.ended = true;
       } else {
-        editData.ended = Boolean(value(link.ended));
+        data.ended = Boolean(value(relationship.ended));
+      }
+    }
+
+    return data;
+  },
+
+  relationshipEntity(entity) {
+    var data = {
+      entityType: entity.entityType,
+      gid:        nullableString(entity.gid),
+      name:       string(entity.name),
+    };
+
+    // We only use URL gids on the edit-url form.
+    if (entity.entityType === 'url' && !data.gid) {
+      delete data.gid;
+    }
+
+    return data;
+  },
+
+  release(release) {
+    var releaseGroupID = (release.releaseGroup() || {}).id;
+
+    var events = compactMap(value(release.events), function (data) {
+      var event = {
+        date:       fields.partialDate(data.date),
+        country_id: number(data.countryID),
+      };
+
+      if (Object.values(event.date).some(nonEmpty) ||
+          event.country_id !== null) {
+        return event;
       }
 
-      return editData;
-    },
+      return null;
+    });
 
-    medium(medium) {
-      return {
-        name:       string(medium.name),
-        format_id:  number(medium.formatID),
-        position:   number(medium.position),
-        tracklist:  array(medium.tracks, fields.track),
-      };
-    },
+    return {
+      name:               string(release.name),
+      artist_credit:      fields.artistCredit(release.artistCredit),
+      release_group_id:   number(releaseGroupID),
+      comment:            string(release.comment),
+      barcode:            value(release.barcode.value),
+      language_id:        number(release.languageID),
+      packaging_id:       number(release.packagingID),
+      script_id:          number(release.scriptID),
+      status_id:          number(release.statusID),
+      events,
+    };
+  },
 
-    partialDate(data) {
-      data ||= {};
+  releaseGroup(rg) {
+    return {
+      gid:                string(rg.gid),
+      primary_type_id:    number(rg.typeID),
+      name:               string(rg.name),
+      artist_credit:      fields.artistCredit(rg.artistCredit),
+      comment:            string(rg.comment),
+      secondary_type_ids: compactMap(value(rg.secondaryTypeIDs), number),
+    };
+  },
 
-      return {
-        year:   number(data.year),
-        month:  number(data.month),
-        day:    number(data.day),
-      };
-    },
+  releaseLabel(releaseLabel) {
+    var label = value(releaseLabel.label) || {};
 
-    recording(recording) {
-      return {
-        to_edit:        string(recording.gid),
-        name:           string(recording.name),
-        artist_credit:  fields.artistCredit(recording.artistCredit),
-        length:         number(recording.length),
-        comment:        string(recording.comment),
-        video:          Boolean(value(recording.video)),
-      };
-    },
+    return {
+      release_label:  number(releaseLabel.id),
+      label:          number(label.id),
+      catalog_number: nullableString(releaseLabel.catalogNumber),
+    };
+  },
 
-    relationship(relationship) {
-      var data = {
-        id:             number(relationship.id),
-        linkTypeID:     number(relationship.linkTypeID),
-        entities:       array(relationship.entities, this.relationshipEntity),
-        entity0_credit: string(relationship.entity0_credit),
-        entity1_credit: string(relationship.entity1_credit),
-      };
+  track(track) {
+    var recording = value(track.recording) || {};
 
-      data.attributes = sortByNumber(
-        ko.unwrap(relationship.attributes).map(x => x.toJS()),
-        a => a.type.id,
-      );
+    return {
+      id:             number(track.id),
+      name:           string(track.name),
+      artist_credit:  fields.artistCredit(track.artistCredit),
+      recording_gid:  nullableString(recording.gid),
+      position:       number(track.position),
+      number:         string(track.number),
+      length:         number(track.length),
+      is_data_track:  Boolean(ko.unwrap(track.isDataTrack)),
+    };
+  },
 
-      if (data.linkTypeID) {
-        const linkType = linkedEntities.link_type[data.linkTypeID];
-        if (linkType.orderable_direction !== 0) {
-          data.linkOrder = number(relationship.linkOrder) || 0;
-        }
-      }
+  work(work) {
+    return {
+      name:           string(work.name),
+      comment:        string(work.comment),
+      type_id:        number(work.typeID),
+      languages:      array(work.languages, number),
+    };
+  },
+};
 
-      if (relationship.hasDates()) {
-        data.begin_date = fields.partialDate(relationship.begin_date);
-        data.end_date = fields.partialDate(relationship.end_date);
 
-        if (data.end_date && Object.values(data.end_date).some(nonEmpty)) {
-          data.ended = true;
-        } else {
-          data.ended = Boolean(value(relationship.ended));
-        }
-      }
+function editHash(edit) {
+  var keys = Object.keys(edit).sort();
 
-      return data;
-    },
+  function keyValue(memo, key) {
+    var value = edit[key];
 
-    relationshipEntity(entity) {
-      var data = {
-        entityType: entity.entityType,
-        gid:        nullableString(entity.gid),
-        name:       string(entity.name),
-      };
+    return memo + key +
+      (value && typeof value === 'object'
+        ? editHash(value)
+        : value);
+  }
+  return hexSha1(keys.reduce(keyValue, ''));
+}
 
-      // We only use URL gids on the edit-url form.
-      if (entity.entityType === 'url' && !data.gid) {
-        delete data.gid;
-      }
 
-      return data;
-    },
+function removeEqual(newData, oldData, required) {
+  if (!oldData) {
+    return;
+  }
+  const oldKeys = new Set(Object.keys(oldData));
 
-    release(release) {
-      var releaseGroupID = (release.releaseGroup() || {}).id;
+  for (const key of Object.keys(newData)) {
+    if (
+      oldKeys.has(key) &&
+      !required.includes(key) &&
+      deepEqual(newData[key], oldData[key])
+    ) {
+      delete newData[key];
+    }
+  }
+}
 
-      var events = compactMap(value(release.events), function (data) {
-        var event = {
-          date:       fields.partialDate(data.date),
-          country_id: number(data.countryID),
-        };
 
-        if (Object.values(event.date).some(nonEmpty) ||
-            event.country_id !== null) {
-          return event;
-        }
+function editConstructor(type, callback) {
+  return function (args, ...rest) {
+    args = {...args, edit_type: type};
 
-        return null;
-      });
+    callback && callback(args, ...rest);
+    args.hash = editHash(args);
 
-      return {
-        name:               string(release.name),
-        artist_credit:      fields.artistCredit(release.artistCredit),
-        release_group_id:   number(releaseGroupID),
-        comment:            string(release.comment),
-        barcode:            value(release.barcode.value),
-        language_id:        number(release.languageID),
-        packaging_id:       number(release.packagingID),
-        script_id:          number(release.scriptID),
-        status_id:          number(release.statusID),
-        events,
-      };
-    },
-
-    releaseGroup(rg) {
-      return {
-        gid:                string(rg.gid),
-        primary_type_id:    number(rg.typeID),
-        name:               string(rg.name),
-        artist_credit:      fields.artistCredit(rg.artistCredit),
-        comment:            string(rg.comment),
-        secondary_type_ids: compactMap(value(rg.secondaryTypeIDs), number),
-      };
-    },
-
-    releaseLabel(releaseLabel) {
-      var label = value(releaseLabel.label) || {};
-
-      return {
-        release_label:  number(releaseLabel.id),
-        label:          number(label.id),
-        catalog_number: nullableString(releaseLabel.catalogNumber),
-      };
-    },
-
-    track(track) {
-      var recording = value(track.recording) || {};
-
-      return {
-        id:             number(track.id),
-        name:           string(track.name),
-        artist_credit:  fields.artistCredit(track.artistCredit),
-        recording_gid:  nullableString(recording.gid),
-        position:       number(track.position),
-        number:         string(track.number),
-        length:         number(track.length),
-        is_data_track:  Boolean(ko.unwrap(track.isDataTrack)),
-      };
-    },
-
-    work(work) {
-      return {
-        name:           string(work.name),
-        comment:        string(work.comment),
-        type_id:        number(work.typeID),
-        languages:      array(work.languages, number),
-      };
-    },
+    return args;
   };
+}
 
 
-  function editHash(edit) {
-    var keys = Object.keys(edit).sort();
+edit.releaseGroupCreate = editConstructor(
+  TYPES.EDIT_RELEASEGROUP_CREATE,
 
-    function keyValue(memo, key) {
-      var value = edit[key];
+  function (args) {
+    delete args.gid;
 
-      return memo + key +
-        (value && typeof value === 'object'
-          ? editHash(value)
-          : value);
+    if (!args.secondary_type_ids.some(Boolean)) {
+      delete args.secondary_type_ids;
     }
-    return hexSha1(keys.reduce(keyValue, ''));
-  }
+  },
+);
 
 
-  function removeEqual(newData, oldData, required) {
-    if (!oldData) {
-      return;
+edit.releaseGroupEdit = editConstructor(
+  TYPES.EDIT_RELEASEGROUP_EDIT,
+  (...args) => removeEqual(...args, ['gid']),
+);
+
+
+edit.releaseCreate = editConstructor(
+  TYPES.EDIT_RELEASE_CREATE,
+
+  function (args) {
+    if (args.events && !args.events.length) {
+      delete args.events;
     }
-    const oldKeys = new Set(Object.keys(oldData));
+  },
+);
 
-    for (const key of Object.keys(newData)) {
-      if (
-        oldKeys.has(key) &&
-        !required.includes(key) &&
-        deepEqual(newData[key], oldData[key])
-      ) {
-        delete newData[key];
-      }
+
+edit.releaseEdit = editConstructor(
+  TYPES.EDIT_RELEASE_EDIT,
+  (...args) => removeEqual(...args, ['to_edit']),
+);
+
+
+edit.releaseAddReleaseLabel = editConstructor(
+  TYPES.EDIT_RELEASE_ADDRELEASELABEL,
+
+  function (args) {
+    delete args.release_label;
+  },
+);
+
+
+edit.releaseAddAnnotation = editConstructor(
+  TYPES.EDIT_RELEASE_ADD_ANNOTATION,
+);
+
+
+edit.releaseDeleteReleaseLabel = editConstructor(
+  TYPES.EDIT_RELEASE_DELETERELEASELABEL,
+);
+
+
+edit.releaseEditReleaseLabel = editConstructor(
+  TYPES.EDIT_RELEASE_EDITRELEASELABEL,
+);
+
+
+edit.workCreate = editConstructor(TYPES.EDIT_WORK_CREATE);
+
+
+edit.mediumCreate = editConstructor(
+  TYPES.EDIT_MEDIUM_CREATE,
+
+  function (args) {
+    if (args.format_id === null) {
+      delete args.format_id;
     }
-  }
+  },
+);
 
 
-  function editConstructor(type, callback) {
-    return function (args, ...rest) {
-      args = {...args, edit_type: type};
-
-      callback && callback(args, ...rest);
-      args.hash = editHash(args);
-
-      return args;
-    };
-  }
+edit.mediumEdit = editConstructor(
+  TYPES.EDIT_MEDIUM_EDIT,
+  (...args) => removeEqual(...args, ['to_edit']),
+);
 
 
-  edit.releaseGroupCreate = editConstructor(
-    TYPES.EDIT_RELEASEGROUP_CREATE,
+edit.mediumDelete = editConstructor(TYPES.EDIT_MEDIUM_DELETE);
 
-    function (args) {
-      delete args.gid;
 
-      if (!args.secondary_type_ids.some(Boolean)) {
-        delete args.secondary_type_ids;
+edit.mediumAddDiscID = editConstructor(TYPES.EDIT_MEDIUM_ADD_DISCID);
+
+
+edit.recordingEdit = editConstructor(
+  TYPES.EDIT_RECORDING_EDIT,
+  (...args) => removeEqual(...args, ['to_edit']),
+);
+
+
+edit.relationshipCreate = editConstructor(
+  TYPES.EDIT_RELATIONSHIP_CREATE,
+  function (args) {
+    delete args.id;
+  },
+);
+
+
+edit.relationshipEdit = editConstructor(
+  TYPES.EDIT_RELATIONSHIP_EDIT,
+  function (args, orig, relationship) {
+    var newAttributes = {};
+    var origAttributes = relationship
+      ? relationship.attributes.original
+      : {};
+    var changedAttributes = [];
+
+    for (const hash of args.attributes) {
+      const gid = hash.type.gid;
+
+      newAttributes[gid] = hash;
+
+      if (!origAttributes[gid] || !deepEqual(origAttributes[gid], hash)) {
+        changedAttributes.push(hash);
       }
-    },
-  );
-
-
-  edit.releaseGroupEdit = editConstructor(
-    TYPES.EDIT_RELEASEGROUP_EDIT,
-    (...args) => removeEqual(...args, ['gid']),
-  );
-
-
-  edit.releaseCreate = editConstructor(
-    TYPES.EDIT_RELEASE_CREATE,
-
-    function (args) {
-      if (args.events && !args.events.length) {
-        delete args.events;
-      }
-    },
-  );
-
-
-  edit.releaseEdit = editConstructor(
-    TYPES.EDIT_RELEASE_EDIT,
-    (...args) => removeEqual(...args, ['to_edit']),
-  );
-
-
-  edit.releaseAddReleaseLabel = editConstructor(
-    TYPES.EDIT_RELEASE_ADDRELEASELABEL,
-
-    function (args) {
-      delete args.release_label;
-    },
-  );
-
-
-  edit.releaseAddAnnotation = editConstructor(
-    TYPES.EDIT_RELEASE_ADD_ANNOTATION,
-  );
-
-
-  edit.releaseDeleteReleaseLabel = editConstructor(
-    TYPES.EDIT_RELEASE_DELETERELEASELABEL,
-  );
-
-
-  edit.releaseEditReleaseLabel = editConstructor(
-    TYPES.EDIT_RELEASE_EDITRELEASELABEL,
-  );
-
-
-  edit.workCreate = editConstructor(TYPES.EDIT_WORK_CREATE);
-
-
-  edit.mediumCreate = editConstructor(
-    TYPES.EDIT_MEDIUM_CREATE,
-
-    function (args) {
-      if (args.format_id === null) {
-        delete args.format_id;
-      }
-    },
-  );
-
-
-  edit.mediumEdit = editConstructor(
-    TYPES.EDIT_MEDIUM_EDIT,
-    (...args) => removeEqual(...args, ['to_edit']),
-  );
-
-
-  edit.mediumDelete = editConstructor(TYPES.EDIT_MEDIUM_DELETE);
-
-
-  edit.mediumAddDiscID = editConstructor(TYPES.EDIT_MEDIUM_ADD_DISCID);
-
-
-  edit.recordingEdit = editConstructor(
-    TYPES.EDIT_RECORDING_EDIT,
-    (...args) => removeEqual(...args, ['to_edit']),
-  );
-
-
-  edit.relationshipCreate = editConstructor(
-    TYPES.EDIT_RELATIONSHIP_CREATE,
-    function (args) {
-      delete args.id;
-    },
-  );
-
-
-  edit.relationshipEdit = editConstructor(
-    TYPES.EDIT_RELATIONSHIP_EDIT,
-    function (args, orig, relationship) {
-      var newAttributes = {};
-      var origAttributes = relationship
-        ? relationship.attributes.original
-        : {};
-      var changedAttributes = [];
-
-      for (const hash of args.attributes) {
-        const gid = hash.type.gid;
-
-        newAttributes[gid] = hash;
-
-        if (!origAttributes[gid] || !deepEqual(origAttributes[gid], hash)) {
-          changedAttributes.push(hash);
-        }
-      }
-
-      for (const gid of Object.keys(origAttributes)) {
-        if (!newAttributes[gid]) {
-          changedAttributes.push({type: {gid}, removed: true});
-        }
-      }
-
-      args.attributes = changedAttributes;
-      removeEqual(args, orig, ['id', 'linkTypeID']);
-    },
-  );
-
-
-  edit.relationshipDelete = editConstructor(
-    TYPES.EDIT_RELATIONSHIP_DELETE,
-  );
-
-
-  edit.releaseReorderMediums = editConstructor(
-    TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
-  );
-
-
-  function editEndpoint(endpoint) {
-    function omitHash(edit) {
-      const editCopy = {...edit};
-      delete editCopy.hash;
-      return editCopy;
     }
 
-    return function (data, context) {
-      data.edits = data.edits.map(omitHash);
+    for (const gid of Object.keys(origAttributes)) {
+      if (!newAttributes[gid]) {
+        changedAttributes.push({type: {gid}, removed: true});
+      }
+    }
 
-      return request({
-        type: 'POST',
-        url: endpoint,
-        data: JSON.stringify(data),
-        contentType: 'application/json; charset=utf-8',
-      }, context || null);
-    };
+    args.attributes = changedAttributes;
+    removeEqual(args, orig, ['id', 'linkTypeID']);
+  },
+);
+
+
+edit.relationshipDelete = editConstructor(
+  TYPES.EDIT_RELATIONSHIP_DELETE,
+);
+
+
+edit.releaseReorderMediums = editConstructor(
+  TYPES.EDIT_RELEASE_REORDER_MEDIUMS,
+);
+
+
+function editEndpoint(endpoint) {
+  function omitHash(edit) {
+    const editCopy = {...edit};
+    delete editCopy.hash;
+    return editCopy;
   }
 
-  edit.preview = editEndpoint('/ws/js/edit/preview');
-  edit.create = editEndpoint('/ws/js/edit/create');
-}(MB.edit = {}));
+  return function (data, context) {
+    data.edits = data.edits.map(omitHash);
 
-export default MB.edit;
+    return request({
+      type: 'POST',
+      url: endpoint,
+      data: JSON.stringify(data),
+      contentType: 'application/json; charset=utf-8',
+    }, context || null);
+  };
+}
+
+edit.preview = editEndpoint('/ws/js/edit/preview');
+edit.create = editEndpoint('/ws/js/edit/create');
+
+export default edit;

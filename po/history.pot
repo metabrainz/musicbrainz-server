@@ -197,8 +197,8 @@ msgstr ""
 #. title:Amazon betas SoundUnwound
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
-"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
-"wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
+"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://"
+"www.wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
 
@@ -529,6 +529,14 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-06-04
+msgid "Harmony importer"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2025-03-21
+msgid "Harmony seeds recording relationships"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-05-26
@@ -1372,6 +1380,20 @@ msgstr ""
 msgid ""
 "Yvanzo joins the development team as a second dedicated MusicBrainz "
 "developer."
+msgstr ""
+
+#. title:Harmony seeds recording relationships
+#: DB:statistics.statistic_event/description:2025-03-21
+msgid ""
+"harmony.pulsewidth.org.uk is updated to allow the aggregating and seeding of "
+"individual track/recording relationships"
+msgstr ""
+
+#. title:Harmony importer
+#: DB:statistics.statistic_event/description:2024-06-04
+msgid ""
+"harmony.pulsewidth.org.uk, a third party open-source metadata aggregator and "
+"MusicBrainz seeder, is released by Kellnerd"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2010-02-08

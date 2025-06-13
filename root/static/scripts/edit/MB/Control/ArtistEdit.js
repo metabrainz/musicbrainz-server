@@ -8,9 +8,15 @@
 
 import $ from 'jquery';
 
-import MB from '../../../common/MB.js';
+import {
+  initializeRangeSelect,
+} from '../../../common/MB/Control/SelectAll.js';
+import initializeGuessCase
+  from '../../../guess-case/MB/Control/GuessCase.js';
 
-MB.Control.ArtistEdit = function () {
+import initializeArea from './Area.js';
+
+export default function ArtistEdit() {
   var self = {};
 
   self.$name = $('#id-edit-artist\\.name');
@@ -117,13 +123,14 @@ MB.Control.ArtistEdit = function () {
   self.typeChanged();
   self.$type.bind('change.mb', self.typeChanged);
 
-  MB.Control.RangeSelect(
+  initializeRangeSelect(
     '#artist-credit-renamer input[type="checkbox"]',
   );
 
-  MB.Control.initializeGuessCase('artist', 'id-edit-artist');
+  initializeGuessCase('artist', 'id-edit-artist');
 
-  MB.Control.Area('#area', '#begin_area', '#end_area');
+  initializeArea('#area', '#area-bubble');
+  initializeArea('#begin_area, #end_area', '#begin-end-area-bubble');
 
   return self;
-};
+}

@@ -1,6 +1,8 @@
-[% script_manifest('edit.js') %]
-
-<p>[%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.', {doc_doc => { href => doc_link('Artist'), target => '_blank' }, doc_styleguide => { href => doc_link('Style/Artist'), target => '_blank' }}) -%]</p>
+<p>
+  [%- l('For more information, check the {doc_doc|documentation} and {doc_styleguide|style guidelines}.',
+        { doc_doc => { href => doc_link('Artist'), target => '_blank' },
+          doc_styleguide => { href => doc_link('Style/Artist'), target => '_blank' } }) -%]
+</p>
 
 <form action="[% c.req.uri %]" method="post" class="edit-artist">
     [%- USE r = FormRenderer(form) -%]
@@ -26,14 +28,14 @@
           </span>
           [% field_errors(r.form, 'area.name') %]
         [% END %]
-        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('ipi_codes')),
            label => add_colon(l('IPI codes')),
            addButtonId => 'add-ipi-code',
            addButtonLabel => lp('Add IPI code', 'interactive'),
            removeButtonLabel => lp('Remove IPI code', 'interactive'),
          }) %]
-        [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+        [% React.embed(c, 'static/scripts/edit/components/FormRowTextListSimple', {
            repeatable => form_to_json(form.field('isni_codes')),
            label => add_colon(l('ISNI codes')),
            addButtonId => 'add-isni-code',
@@ -99,34 +101,122 @@
   </div>
 
   <div class="documentation">
-    [%- area_bubble() -%]
+    <div class="bubble" id="name-bubble">
+      <p>
+        [% l('The {doc|name} is the artist’s official name.',
+             { doc => { href => doc_link('Artist#Name'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Artist#Name'), target => '_blank' } }) %]
+      </p>
+    </div>
 
     [%- sort_name_bubble() -%]
 
+    <div class="bubble" id="comment-bubble">
+      <p>
+        [% l('The {doc|disambiguation} field helps users distinguish between artists with identical or similar names.
+              Feel free to leave it blank if it seems unlikely that there will be other artists with similar names.',
+             { doc => { href => doc_link('Disambiguation_Comment'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('This field is not a place to store general background information.
+              That kind of information should go in an {doc|annotation}.',
+             { doc => { href => doc_link('Annotation'), target => '_blank' } }) %]
+      </p>
+    </div>
+
     [%- type_bubble(form.field('type_id'), artist_types) -%]
+
+    <div class="bubble" id="gender-bubble">
+      <p>
+        [% l('The {doc|gender} field describes the gender with which a person or character identifies.',
+             { doc => { href => doc_link('Artist#Gender'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Artist#Gender'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="area-bubble">
+      <p>
+        [% l('The {doc|area} indicates the country the artist is primarily identified with.
+              If the artist is strongly associated with an area smaller than a country, select that instead.',
+             { doc => { href => doc_link('Artist#Area'), target => '_blank' } }) %]
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Artist#Main_area'), target => '_blank' } }) %]
+      </p>
+      [% area_bubble_selection() %]
+    </div>
 
     [%- ipi_bubble() -%]
     [%- isni_bubble() -%]
-  </div>
 
+    <div class="bubble" id="begin-end-date-bubble">
+      <p>
+        <span class="desc desc-1">
+          [% l('The {doc|begin and end dates} describe when the artist was born and died.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+        <span class="desc desc-2 desc-5 desc-6">
+          [% l('The {doc|begin and end dates} describe when the group was formed and dissolved.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+        <span class="desc desc-4">
+          [% l('The {doc|begin date} is the real-life date when the character concept was created.
+                The end date should not be set.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+        <span class="desc desc-default">
+          [% l('The {doc|begin and end dates} describe when the artist started and stopped existing.',
+               { doc => { href => doc_link('Artist#Begin_and_end_dates'), target => '_blank' } }) %]
+        </span>
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Artist#Begin_and_end_areas/dates'), target => '_blank' } }) %]
+      </p>
+    </div>
+
+    <div class="bubble" id="begin-end-area-bubble">
+      <p>
+        <span class="desc desc-1">
+          [% l('The begin and end areas describe where the artist was born and died.') %]
+        </span>
+        <span class="desc desc-2 desc-5 desc-6">
+          [% l('The begin and end areas describe where the group was formed and dissolved.') %]
+        </span>
+        <span class="desc desc-4">
+          [% l('The begin area is the real-life area where the character concept was created.
+                The end area should not be set.') %]
+        </span>
+        <span class="desc desc-default">
+          [% l('The begin and end areas describe where the artist was when it started and stopped existing.') %]
+        </span>
+      </p>
+      <p>
+        [% l('Please see the {doc|style guidelines} for more information.',
+             { doc => { href => doc_link('Style/Artist#Begin_and_end_areas/dates'), target => '_blank' } }) %]
+      </p>
+      [% area_bubble_selection() %]
+    </div>
+
+    <div class="bubble" id="external-link-bubble">
+      <p>
+        [% l('External links are URLs associated with the artist.
+              These can include the artist’s official homepage and social networking pages, streaming services,
+              and unofficial pages like Wikipedia entries, biographies, interviews, and fan sites.') %]
+      </p>
+      <p>
+        [% l('Please don’t add a Wikipedia page if a Wikidata item linking to the same article already exists.') %]
+      </p>
+    </div>
+  </div>
 </form>
 
 [%- guesscase_options() -%]
-[% script_manifest('artist/edit.js') %]
-
-<script type="text/javascript">
-  (function () {
-    MB.Control.ArtistEdit();
-
-    MB.initializeDuplicateChecker('artist');
-
-    MB.initializeToggleEnded('id-edit-artist');
-    MB.initializeTooShortYearChecks('artist');
-
-    MB.Control.initializeBubble("#sort-name-bubble", "input[name=edit-artist\\.sort_name");
-    MB.Control.initializeBubble("#ipi-bubble", "input[name=edit-artist\\.ipi_codes\\.0]");
-    MB.Control.initializeBubble("#isni-bubble", "input[name=edit-artist\\.isni_codes\\.0]");
-
-    MB.installFormUnloadWarning();
-  }());
-</script>
+[% script_manifest('artist/edit.js', {async => 'async'}) %]

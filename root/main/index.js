@@ -11,6 +11,7 @@ import he from 'he';
 
 import {ArtworkImage} from '../components/Artwork.js';
 import Layout from '../layout/index.js';
+import manifest from '../static/manifest.mjs';
 import {CONTACT_URL} from '../static/scripts/common/constants.js';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
@@ -272,6 +273,8 @@ component Homepage(
           ))}
         </div>
       </div>
+
+      {manifest('common/loadArtwork', {async: true})}
     </Layout>
   );
 }

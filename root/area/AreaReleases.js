@@ -16,6 +16,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
 
@@ -34,7 +35,7 @@ component AreaReleases(
 
           {releases?.length ? (
             <form
-              action="/release/merge_queue"
+              action={'/release/merge_queue?' + returnToCurrentPage($c)}
               method="post"
             >
               <PaginatedResults pager={pager}>
@@ -47,7 +48,7 @@ component AreaReleases(
                   />
                   {manifest(
                     'common/components/ListMergeButtonsRow',
-                    {async: 'async'},
+                    {async: true},
                   )}
                 </>
               ) : null}
@@ -68,6 +69,7 @@ component AreaReleases(
         pagedLinkTypeGroup={pagedLinkTypeGroup}
         pager={pager}
       />
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </AreaLayout>
   );
 }

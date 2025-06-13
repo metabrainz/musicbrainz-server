@@ -504,7 +504,11 @@ sub warn_if_existing_data_differs {
             }
         }
     } else {
-        warn "No row found in $table with keys $key_string.";
+        my $is_non_empty = $applying_change_sql->select_single_value(
+            "SELECT 1 FROM $table",
+        );
+        warn "No row found in $table with keys $key_string."
+            if $is_non_empty;
     }
 }
 

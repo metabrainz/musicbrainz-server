@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-01-04 14:54+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"Last-Translator: reosarevok "
+"<reosarevok@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/he/>\n"
 "Language: he\n"
@@ -26,9 +26,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:218
 msgid ""
-"A social network page is a label's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the label can post content to. Examples include "
+"A social network page is a label's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "עמוד רשת חברתית הוא עמוד אישי של מקום ב־<a href=\"https://en.wikipedia.org/"
@@ -39,9 +39,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:784
 msgid ""
-"A social network page is a page for a series on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the series can post content to. Examples include "
+"A social network page is a page for a series on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "עמוד רשת חברתית של סדרה הוא עמוד ב־<a href=\"https://en.wikipedia.org/wiki/"
@@ -51,9 +51,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:429
 msgid ""
-"A social network page is a place's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the place can post content to. Examples include "
+"A social network page is a place's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "עמוד רשת חברתית הוא עמוד אישי של מקום ב־ <a href=\"https://en.wikipedia.org/"
@@ -76,9 +76,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:783
 msgid ""
-"A social network page is an event's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the event can post content to. Examples include "
+"A social network page is an event's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the event can post content to. Examples include "
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
@@ -759,6 +759,14 @@ msgstr "ציון עמוד הבית הרשמי של אמן."
 msgid "Indicates the official homepage for an event."
 msgstr "ציון עמוד הבית הרשמי של ארוע."
 
+#. name:adapter
+#: DB:link_type/description:1285
+msgid ""
+"Indicates the person who adapted this work (generally from a different "
+"medium, such as a prose work into an audio drama or a stage musical into a "
+"film musical)."
+msgstr ""
+
 #. name:translator
 #: DB:link_type/description:871
 msgid ""
@@ -769,6 +777,13 @@ msgstr "ציון אדם שתרגם את התמליל/ליברטו עבור הה�
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "ציון אדם שתרגם את התמליל/ליברטו עבור היצירה."
+
+#. name:scriptwriter
+#: DB:link_type/description:1286
+msgid ""
+"Indicates the person who wrote an original script for a dramatized work, "
+"such as an audio drama."
+msgstr ""
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -822,6 +837,13 @@ msgstr "קישור ארוע לאמן ששימש בו כמנצח."
 #| msgid "Links an event to an artist that was a conductor in it."
 msgid "Links a competition event to an artist that was a participant in it."
 msgstr "קישור ארוע לאמן ששימש בו כמנצח."
+
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -950,13 +972,6 @@ msgstr "קישור קבוצת הוצאה לארוע ההשקה שלה."
 msgid ""
 "Links a release to a person credited as a production coordinator for it."
 msgstr "קישור הוצאה למקום בו הופקה."
-
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr "קישור הוצאה לאזור בו עובדה. נא להשתמש רק כאשר המקום לא ידוע."
 
 #. name:edited in
 #: DB:link_type/description:822
@@ -2311,8 +2326,8 @@ msgstr ""
 " ציון שההקלטה היא ליקוט של מספר הקלטות אחרות. חל על הקלטה ארוכה שמכילה מספר "
 "שירים אחד אחרי השני, בהו לא נעשה שינוי חומרי השמע מהקלטות המקור. אם הרצועות "
 "נקטעות או משתלבות זו בזו, נכון יותר יהיה לזכות את האדם הזה כ־<a href=\"/"
-"relationship/451076df-61cf-46ab-9921-555cab2f050d\">סוג קשר־גומלין ערבול "
-"די־ג'י</a>."
+"relationship/451076df-61cf-46ab-9921-555cab2f050d\">סוג קשר־גומלין ערבול די־"
+"ג'י</a>."
 
 #. name:included in
 #: DB:link_type/description:894
@@ -2932,9 +2947,8 @@ msgstr ""
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-"
-"mixer</a>."
+"more appropriate to credit this person as a <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-mixer</a>."
 msgstr ""
 
 #. name:compiler
@@ -3146,9 +3160,9 @@ msgstr ""
 #: DB:link_type/description:227
 msgid ""
 "This is used to link a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> "
-"recording to each of the source recordings. See <a href=\"/"
-"relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"recording to each of the source recordings. See <a href=\"/relationship/"
+"28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 "משמש לקישור הקלטת<a href=\"/doc/Mix_Terminology#DJ_mix\">ערבול די־ג'י</a> "
 "להקלטות המקוריות. ראו <a href=\"/relationship/28338ee6-d578-485a-"
@@ -3218,15 +3232,15 @@ msgstr "משמש לקישור הקלטה תקליטים לעמוד המתאים 
 msgid ""
 "This is used to link a release group containing a <a href=\"/doc/"
 "Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to the release "
-"group containing the source release. See <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"group containing the source release. See <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 "משמש לקישור קבוצת הוצאה המכילה גרסת<a href=\"/doc/"
 "Mix_Terminology#DJ_mix\">ערבול די־ג'י</a> של הוצאה לקבוצת ההוצאה המכילה את "
-"הוצאת המקור. ראו <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">ערבול די־ג'י</a>המזכה את "
-"האדם שיצר את ערבול די־ג'י."
+"הוצאת המקור. ראו <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\">ערבול די־ג'י</a>המזכה את האדם שיצר את "
+"ערבול די־ג'י."
 
 #. name:allmusic
 #: DB:link_type/description:284
@@ -3777,7 +3791,7 @@ msgid ""
 msgstr "קישור הוצאה לפרופיל שלה באתר גיוס-המונים כגון קיקסטארט או אינדיגוגו."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 #, fuzzy
 #| msgid ""
 #| "Links a release to the area it was arranged in. Use only when the place "
@@ -4349,6 +4363,21 @@ msgstr ""
 "קישור שתי <a href=\"/doc/Work\" title=\"Work\">יצירות</a> בה יצירה אחת היא "
 "תִזמוּר של האחרת."
 
+#. name:adaptation
+#: DB:link_type/description:1284
+#, fuzzy
+#| msgid ""
+#| "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
+#| "second work is based on music or text from the first, but isn't directly "
+#| "a revision or an arrangement of it."
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
+"work is an adaptation of the other (generally from a different medium, such "
+"as a prose work into an audio drama or a stage musical into a film musical)."
+msgstr ""
+"קישור שתי <a href=\"/doc/Work\" title=\"Work\">יצירות</a> בה היצירה השניה "
+"מבוססת על מוזיקה או מלל של הראשונה, אך אינה עריכה או עיבוד ישיר שלה."
+
 #. name:based on
 #: DB:link_type/description:314
 msgid ""
@@ -4666,13 +4695,12 @@ msgid ""
 "for release groups</a>."
 msgstr ""
 "קשר־הגומלין הזה הוצא משימוש, מכיוון שהשימוש בו כמעט תמיד היה שגוי. כדי לציין "
-"שהקלטה בהוצאה מכילה דגימות שנלקחו מתוך סרט, הצגה או משחק, יש להשתמש "
-"קשר־גומלין מען url הקלטה. אם אינכם יודעים באילו הקלטות משתמשים בדגימות, אנא "
-"ציין זאת בביאור.\n"
+"שהקלטה בהוצאה מכילה דגימות שנלקחו מתוך סרט, הצגה או משחק, יש להשתמש קשר־"
+"גומלין מען url הקלטה. אם אינכם יודעים באילו הקלטות משתמשים בדגימות, אנא ציין "
+"זאת בביאור.\n"
 "<br/><br/>\n"
-"לציון שהוצאה היא רצועת שמע, נא להשתמש ב־<a href=\"/"
-"relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">סוג קשר־גומלין IMDB "
-"לקבוצות הוצאה</a>."
+"לציון שהוצאה היא רצועת שמע, נא להשתמש ב־<a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">סוג קשר־גומלין IMDB לקבוצות הוצאה</a>."
 
 #. name:publishing
 #: DB:link_type/description:206
@@ -4715,12 +4743,21 @@ msgstr ""
 
 #. name:writer
 #: DB:link_type/description:167
+#, fuzzy
+#| msgid ""
+#| "This relationship is used to link a work to the artist responsible for "
+#| "writing the music and/or the words (lyrics, libretto, etc.), when no more "
+#| "specific information is available. If possible, the more specific "
+#| "composer, lyricist and/or librettist types should be used, rather than "
+#| "this relationship type."
 msgid ""
 "This relationship is used to link a work to the artist responsible for "
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type."
+"relationship type.\n"
+"\n"
+"It is also used for the writers of literary works."
 msgstr ""
 "קשר־גומלין זה משמש לקישור יצירה לאמן האחראי לכתיבת המוזיקה ו/או המלל (תַּמְלִיל, "
 "ליברטו וכו'), אם מידע מסויים יותר אינו זמין. במידת האפשר, יש להשתמש בסוגי "
@@ -4808,8 +4845,8 @@ msgstr ""
 #. name:tribute
 #: DB:link_type/description:728
 msgid ""
-"This relationship specifies that an artist is a <a href=\"http://en."
-"wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
+"This relationship specifies that an artist is a <a href=\"http://"
+"en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
 "band; that is, it primarily performs covers of that artist. They may also be "
 "referred to as cover bands. Some tribute artists may name themselves, dress, "
 "and/or act similarly to the artists they pay tribute to."
@@ -4873,9 +4910,8 @@ msgstr ""
 "עמוד IMDB במען url נתון. אם אינכם יודעים באילו הקלטות משתמשים בדגימות, אנא "
 "ציין זאת בביאור.\n"
 "<br/><br/>\n"
-"לציון שהקלטה היא חלק מרצועת שמע, נא להשתמש ב־<a href=\"/"
-"relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">סוג קשר־גומלין IMDB "
-"לקבוצות הוצאה</a>."
+"לציון שהקלטה היא חלק מרצועת שמע, נא להשתמש ב־<a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">סוג קשר־גומלין IMDB לקבוצות הוצאה</a>."
 
 #. name:remaster
 #: DB:link_type/description:236
@@ -4885,8 +4921,8 @@ msgid ""
 "be merged.</a>"
 msgstr ""
 "סוג קשר־גומלין זה <strong>הוצא משימוש</strong>! <a href=\"/doc/Style/"
-"Recording#Recordings_with_Different_Mastering\">נא למזג שיפורי איכות "
-"עותקי-אב שונים</a>."
+"Recording#Recordings_with_Different_Mastering\">נא למזג שיפורי איכות עותקי-"
+"אב שונים</a>."
 
 #. name:first track release
 #: DB:link_type/description:238
@@ -4951,9 +4987,9 @@ msgid ""
 "This relationship type is used to indicate that a release group is a re‐"
 "recording of another release group, that is, when an artist performs a new "
 "studio rendition of their own album.<br/>\n"
-"For a live performance of the album, see the <a href=\"/"
-"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
-"relationship type</a>.<br/>\n"
+"For a live performance of the album, see the <a href=\"/relationship/"
+"62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance relationship type</"
+"a>.<br/>\n"
 "For a cover recording of the album by a different artist, see the <a href=\"/"
 "relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
 "a>."
@@ -5166,8 +5202,8 @@ msgstr "סוג קשר־גומלין זה מקשר מקום לעמוד המתאי
 #: DB:link_type/description:817
 #, fuzzy
 #| msgid ""
-#| "This relationship type links a place to its corresponding page at setlist."
-#| "fm"
+#| "This relationship type links a place to its corresponding page at "
+#| "setlist.fm"
 msgid ""
 "This relationship type links a place to its corresponding page at setlist.fm."
 msgstr "סוג קשר־גומלין זה מקשר מקום לעמוד המתאים ב־ setlist.fm."
@@ -5221,8 +5257,8 @@ msgstr "סוג קשר־גומלין זה מקשר אמן לעמוד המתאים
 #: DB:link_type/description:840
 #, fuzzy
 #| msgid ""
-#| "This relationship type links an artist to its corresponding page at Last."
-#| "fm"
+#| "This relationship type links an artist to its corresponding page at "
+#| "Last.fm"
 msgid ""
 "This relationship type links an artist to its corresponding page at Last.fm."
 msgstr "סוג קשר־גומלין זה מקשר אמן לעמוד המתאים ב־ Last.fm"
@@ -5240,8 +5276,8 @@ msgstr "סוג קשר־גומלין זה מקשר אמן לעמוד המתאים
 #| "This relationship type links an artist to its corresponding page at "
 #| "setlist.fm"
 msgid ""
-"This relationship type links an artist to its corresponding page at setlist."
-"fm."
+"This relationship type links an artist to its corresponding page at "
+"setlist.fm."
 msgstr "סוג קשר־גומלין זה מקשר אמן לעמוד המתאים ב־ setlist.fm."
 
 #. name:myspace
@@ -5313,8 +5349,8 @@ msgstr "סוג קשר־גומלין זה מקשר ארוע לעמוד המתאי
 #| "This relationship type links an event to its corresponding page at "
 #| "setlist.fm"
 msgid ""
-"This relationship type links an event to its corresponding page at setlist."
-"fm."
+"This relationship type links an event to its corresponding page at "
+"setlist.fm."
 msgstr "סוג קשר־גומלין זה מקשר ארוע לעמוד המתאים ב־ setlist.fm."
 
 #. name:genre origin
@@ -5399,13 +5435,14 @@ msgstr "טרבל או סופרן נערי, הוא זמר גבר צעיר בעל 
 #. name:number
 #: DB:link_attribute_type/description:1032
 msgid ""
-"Use this for operas and similar works that are <a href=\"https://en."
-"wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify what "
-"parts are numbers (as opposed to spoken dialog or other non-numbered parts)."
+"Use this for operas and similar works that are <a href=\"https://"
+"en.wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify "
+"what parts are numbers (as opposed to spoken dialog or other non-numbered "
+"parts)."
 msgstr ""
-"נא להשתמש באפשרות זו לאופרות ויצירות דומות ה<a href=\"https://en.wikipedia."
-"org/wiki/Number_opera\">מופרדות במספרים</a>, כדי לציין אילו חלקים הם מספרים "
-"(בניגוד לדו שיח מדובר או לחלקים אחרים שאינם ממוספרים)."
+"נא להשתמש באפשרות זו לאופרות ויצירות דומות ה<a href=\"https://"
+"en.wikipedia.org/wiki/Number_opera\">מופרדות במספרים</a>, כדי לציין אילו "
+"חלקים הם מספרים (בניגוד לדו שיח מדובר או לחלקים אחרים שאינם ממוספרים)."
 
 #. name:co
 #: DB:link_attribute_type/description:424
@@ -5739,6 +5776,30 @@ msgstr ""
 msgid "act"
 msgstr "אקט"
 
+#: DB:link_type/name:1284
+#, fuzzy
+#| msgid "improvisation"
+msgid "adaptation"
+msgstr "אִלתוּר"
+
+#. name:adaptation
+#: DB:link_type/reverse_link_phrase:1284
+#, fuzzy
+#| msgid "compilation of"
+msgid "adaptation of"
+msgstr "ליקוט של"
+
+#. name:adaptation
+#: DB:link_type/link_phrase:1284
+#, fuzzy
+#| msgid "dedications"
+msgid "adaptations"
+msgstr "הקדשות"
+
+#: DB:link_type/name:1285
+msgid "adapter"
+msgstr ""
+
 #: DB:link_attribute_type/name:1
 msgid "additional"
 msgstr "נוסף"
@@ -5800,8 +5861,7 @@ msgstr "עובד ב־"
 msgid "arranged for"
 msgstr "עובד ל־"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "עובד ב־"
 
@@ -7283,6 +7343,13 @@ msgstr "קיים אתר מרשתת עצמאי ב־"
 msgid "has a ticketing page at"
 msgstr ""
 
+#. name:adaptation
+#: DB:link_type/long_link_phrase:1284
+#, fuzzy
+#| msgid "has orchestration"
+msgid "has adaptation"
+msgstr "קיים תזמור"
+
 #. name:allmusic
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
@@ -7548,7 +7615,7 @@ msgstr "בעל זכויות יוצרים (©) של"
 msgid "holds phonographic copyright (℗) for"
 msgstr "בעל זכויות יוצרים (©) פונוגרפיים של"
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr "ארוח"
 
@@ -7558,7 +7625,14 @@ msgid "host at"
 msgstr "ארוח ב־"
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "כְּרָזָה ל־"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "אורחים"
 
@@ -7952,6 +8026,13 @@ msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
+
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was a supporting artist for"
+msgid "is/was a host for"
+msgstr "הוא היא/ היה היתה  אמן(ית)  תמיכה של"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
@@ -9750,6 +9831,12 @@ msgstr ""
 msgid "school directors"
 msgstr ""
 
+#: DB:link_type/name:1286
+#, fuzzy
+#| msgid "writer"
+msgid "scriptwriter"
+msgstr "כותב"
+
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
 msgid "secondhandsongs"
@@ -10586,6 +10673,13 @@ msgid ""
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 
+#. name:adapter
+#: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
+#, fuzzy
+#| msgid "{additional:additionally} translated"
+msgid "{additional:additionally} adapted"
+msgstr "{additional:additionally} תורגם"
+
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
 #: DB:link_type/reverse_link_phrase:866
@@ -10593,8 +10687,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "{additional:additionally} עובד ב־"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "{additional:additionally} עובד ב־"
 
@@ -10755,6 +10849,13 @@ msgstr "{additional:additionally} כתב(ה) ליברטו עבור"
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "{additional:additionally} כתב(ה) תַּמְלִיל עבור"
 
+#. name:scriptwriter
+#: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
+#, fuzzy
+#| msgid "{additional:additionally} wrote the lyrics for"
+msgid "{additional:additionally} wrote the script for"
+msgstr "{additional:additionally} כתב(ה) תַּמְלִיל עבור"
+
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -10825,21 +10926,21 @@ msgstr ""
 #: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
 #: DB:link_type/long_link_phrase:138
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }engineered"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }engineered"
 msgstr ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }הנדוס"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }הנדוס"
 
 #. name:producer
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
 #: DB:link_type/long_link_phrase:141 DB:link_type/long_link_phrase:30
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }produced"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }produced"
 msgstr ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }הופק"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }הופק"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:42
@@ -10900,6 +11001,13 @@ msgstr ""
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr ""
 
+#. name:adapter
+#: DB:link_type/reverse_link_phrase:1285
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} adapter"
+msgstr "{additional} כותב"
+
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
 #, fuzzy
@@ -10908,10 +11016,9 @@ msgid "{additional} animation"
 msgstr "{additional} איור"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "{additional} אתר עיבוד ל־"
 
@@ -11103,6 +11210,13 @@ msgstr "{additional} דוגמאות"
 #: DB:link_type/link_phrase:69
 msgid "{additional} samples from"
 msgstr "{additional} דוגמאות מ־"
+
+#. name:scriptwriter
+#: DB:link_type/reverse_link_phrase:1286
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} scriptwriter"
+msgstr "{additional} כותב"
 
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
@@ -11711,8 +11825,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} {additional:additionally} עובד ב־{entity0}"
 
@@ -11943,6 +12057,11 @@ msgstr "תמיכה על־ידי {vocal:%|vocals}"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr "קישור הוצאה לאזור בו עובדה. נא להשתמש רק כאשר המקום לא ידוע."
 
 #~ msgid "contract"
 #~ msgstr "חוזה"

@@ -450,7 +450,7 @@ before dispatch => sub {
         # The Redis store may be the same instance as the cache in development.
         $ctx->clear_store;
         # CSP script-src directives conflict with `Function` constructor calls
-        # injected by babel-plugin-instanbul (unsafe-eval).
+        # injected by babel-plugin-istanbul (unsafe-eval).
         $self->res->header('Content-Security-Policy', '');
     } else {
         # Use a fresh database connection for every request, and
@@ -835,10 +835,14 @@ sub TO_JSON {
 
     # Whitelist of keys that we use in the templates.
     my @stash_keys = qw(
+        artist_credit
+        artist_credit_field
         can_delete
         collaborative_collections
         commons_image
         containment
+        current_isrcs
+        current_iswcs
         current_language
         current_language_html
         entity
@@ -857,6 +861,7 @@ sub TO_JSON {
         release_artwork_count
         release_cdtoc_count
         seeded_relationships
+        series_ordering_types
         server_details
         server_languages
         source_entity
@@ -922,6 +927,10 @@ sub TO_JSON {
 
     if (my $event_artwork = delete $stash{event_artwork}) {
         $stash{event_artwork} = to_json_object($event_artwork);
+    }
+
+    if (my $artist_credit = delete $stash{artist_credit}) {
+        $stash{artist_credit} = to_json_object($artist_credit);
     }
 
     my $req = $self->req;

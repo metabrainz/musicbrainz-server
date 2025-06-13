@@ -6,9 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import MB from '../common/MB.js';
-
-MB.confirmNavigationFallback = function () {
+export default function confirmNavigationFallback() {
   /*
    * Every major browser supports onbeforeunload expect Opera. (This says
    * Opera 12 supports it, but it doesn't, at least not <= 12.10.)
@@ -58,4 +56,4 @@ MB.confirmNavigationFallback = function () {
 
     return undefined;
   };
-};
+}

@@ -16,6 +16,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import loopParity from '../utility/loopParity.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportArtistT, ReportDataT} from './types.js';
@@ -56,7 +57,7 @@ component DuplicateArtists(...{
       totalEntries={pager.total_entries}
     >
       <form
-        action="/artist/merge_queue"
+        action={'/artist/merge_queue?' + returnToCurrentPage($c)}
         method="post"
       >
         <PaginatedResults pager={pager}>
@@ -80,7 +81,7 @@ component DuplicateArtists(...{
                   >
                     {lastKey === item.key ? null : (
                       <tr className="subh">
-                        <td colSpan="4" />
+                        <td colSpan={4} />
                       </tr>
                     )}
                     {artist ? (
@@ -112,7 +113,7 @@ component DuplicateArtists(...{
                     ) : (
                       <tr>
                         <td />
-                        <td colSpan="3">
+                        <td colSpan={3}>
                           {l('This artist no longer exists.')}
                         </td>
                       </tr>
@@ -129,12 +130,13 @@ component DuplicateArtists(...{
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
         </PaginatedResults>
       </form>
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </ReportLayout>
   );
 }

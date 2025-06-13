@@ -3,6 +3,7 @@ use List::AllUtils qw( any );
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 
 parameter 'form' => (
@@ -38,11 +39,10 @@ role {
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
+        my $type = model_to_type($model);
         my %props;
 
         if (any { $_ eq $model } @react_models) {
-            my $type = model_to_type($model);
-
             my $form = $c->form(
                 form => $params->form,
                 init_object => $edit_entity,
@@ -62,21 +62,25 @@ role {
             $c->stash->{template} = 'entity/edit.tt';
         }
 
-        return $self->edit_action($c,
+        $self->edit_action($c,
             form        => $params->form,
             type        => $params->edit_type,
             item        => $edit_entity,
             edit_args   => { to_edit => $edit_entity },
             edit_rels   => 1,
             pre_validation => sub {
+                my $form = shift;
                 if ($model eq 'Event') {
-                    my $form = shift;
                     my %event_descriptions = map {
                         $_->id => $_->l_description
                     } $c->model('EventType')->get_all();
 
                     $props{eventTypes} = $form->options_type_id;
                     $props{eventDescriptions} = \%event_descriptions;
+                }
+                if ($self->does('MusicBrainz::Server::Controller::Role::IdentifierSet')) {
+                    $self->munge_compound_text_fields($c, $form);
+                    $self->stash_current_identifier_values($c, $edit_entity->id);
                 }
             },
             redirect    => sub {
@@ -85,6 +89,10 @@ role {
             },
             $params->edit_arguments->($self, $c, $edit_entity),
         );
+
+        if ($ENTITIES{$type}{artist_credits}) {
+            $c->stash->{form}->field('artist_credit')->stash_field;
+        }
     };
 };
 

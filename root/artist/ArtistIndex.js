@@ -29,6 +29,7 @@ import WikipediaExtract
 import commaOnlyList, {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
 import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 import uriWith from '../utility/uriWith.js';
 
 import ArtistLayout from './ArtistLayout.js';
@@ -263,7 +264,7 @@ component ArtistIndex(
 
       {existingReleaseGroups ? (
         <form
-          action="/release_group/merge_queue"
+          action={'/release_group/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -280,7 +281,7 @@ component ArtistIndex(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -289,7 +290,7 @@ component ArtistIndex(
 
       {existingRecordings ? (
         <form
-          action="/recording/merge_queue"
+          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -306,7 +307,7 @@ component ArtistIndex(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -329,7 +330,7 @@ component ArtistIndex(
         </>
       )}
 
-      {manifest('artist/index', {async: 'async'})}
+      {manifest('artist/index', {async: true})}
     </ArtistLayout>
   );
 }

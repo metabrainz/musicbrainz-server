@@ -21,6 +21,7 @@ import ListMergeButtonsRow
 import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 import loopParity from '../utility/loopParity.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
   isrcs: $ReadOnlyArray<IsrcT>,
@@ -49,7 +50,7 @@ component Index(
         )}
       </h2>
       <form
-        action="/recording/merge_queue"
+        action={'/recording/merge_queue?' + returnToCurrentPage($c)}
         method="post"
       >
         <table className="tbl mergeable-table">
@@ -96,11 +97,12 @@ component Index(
             />
             {manifest(
               'common/components/ListMergeButtonsRow',
-              {async: 'async'},
+              {async: true},
             )}
           </>
         ) : null}
       </form>
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </Layout>
   );
 }

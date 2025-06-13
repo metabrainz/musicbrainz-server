@@ -9,11 +9,13 @@
 
 import Jed from 'jed';
 
+import jedDataTemplate from '../jedDataTemplate.mjs';
 import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
-import jedData from '../static/scripts/jed-data.mjs';
 import invariant from '../utility/invariant.js';
 
 import * as poFile from './gettext/poFile.mjs';
+
+const jedData = {...jedDataTemplate};
 
 export const jedInstance: Jed = new Jed(jedData.en);
 jedInstance.locale = 'en';
@@ -42,6 +44,7 @@ export function loadDomain(domain: string) {
 
   if (!localeData[domain]) {
     try {
+      // $FlowIssue[unsafe-object-assign]
       Object.assign(
         localeData,
         poFile.load(domain, locale).locale_data,

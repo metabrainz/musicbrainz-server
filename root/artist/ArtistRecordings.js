@@ -19,6 +19,7 @@ import {type RecordingFilterT}
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
 import bracketed from '../static/scripts/common/utility/bracketed.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -128,7 +129,7 @@ component ArtistRecordings(
 
       {recordings.length ? (
         <form
-          action="/recording/merge_queue"
+          action={'/recording/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -147,7 +148,7 @@ component ArtistRecordings(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -161,6 +162,10 @@ component ArtistRecordings(
       )}
 
       <FooterSwitch {...footerSwitchProps} />
+
+      {manifest('common/components/Filter', {async: true})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </ArtistLayout>
   );
 }

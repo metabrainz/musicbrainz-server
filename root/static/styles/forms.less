@@ -110,13 +110,15 @@ form div.checkbox-block div.row {
 .bubble {
     display: none;
     position: absolute;
-    min-height: 64px;
+    min-height: 54px;
     margin: 0;
     padding: @form-margin;
     background: @very-light-bg;
     border-radius: 12px;
     box-sizing: border-box;
     > svg { color: @very-light-bg; }
+    > p:first-child { margin-top: 0; }
+    > p:last-child { margin-bottom: 0; }
 }
 
 .bubble-tail {
@@ -127,7 +129,7 @@ form div.checkbox-block div.row {
 }
 
 .bubble.left-tail:before {
-    .bubble-tail;
+    .bubble-tail();
     right: 100%;
     top: 16px;
     border-top: 12px solid transparent;
@@ -136,7 +138,7 @@ form div.checkbox-block div.row {
 }
 
 .bubble.right-tail:after {
-    .bubble-tail;
+    .bubble-tail();
     left: 100%;
     top: 50%;
     top: calc(~"50% - 12px");
@@ -597,7 +599,7 @@ button.undo {
 */
 
 .open-ac {
-    .styled-button;
+    .styled-button();
     padding: 0 1em;
 }
 

@@ -401,6 +401,14 @@ msgid ""
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
 
+#. name:Slipcase
+#: DB:release_packaging/description:122
+msgctxt "release_packaging"
+msgid ""
+"A four- or five-sided box, usually made of cardboard or plastic, that "
+"surrounds a second inner package such as a jewel case."
+msgstr ""
+
 #. name:Promotion
 #: DB:release_status/description:2
 msgctxt "release_status"
@@ -1435,8 +1443,8 @@ msgid ""
 "Any release officially sanctioned by the artist and/or their record company. "
 "Most releases will fit into this category."
 msgstr ""
-"כל הוצאה שאושרה רשמית על־ידי האמן ו/או חברת התקליטים. רוב ההוצאות יתאימו "
-"לאב־סוג זה."
+"כל הוצאה שאושרה רשמית על־ידי האמן ו/או חברת התקליטים. רוב ההוצאות יתאימו לאב־"
+"סוג זה."
 
 #. name:Other
 #: DB:release_group_primary_type/description:11
@@ -2493,8 +2501,8 @@ msgstr "מדינה"
 #: DB:area_type/description:1
 msgctxt "area_type"
 msgid ""
-"Country is used for areas included (or previously included) in ISO 3166-1, e."
-"g. United States."
+"Country is used for areas included (or previously included) in ISO 3166-1, "
+"e.g. United States."
 msgstr ""
 "מדינה משמשת עבור אזורים שנכללו (או נכללו קודם לכן) ב־ ISO 3166-1, למשל ארצות "
 "הברית."
@@ -7729,6 +7737,11 @@ msgstr ""
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
 msgstr "מארז תקליטור דק"
+
+#: DB:release_packaging/name:122
+msgctxt "release_packaging"
+msgid "Slipcase"
+msgstr ""
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

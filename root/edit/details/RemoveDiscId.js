@@ -19,7 +19,7 @@ component RemoveDiscId(edit: RemoveDiscIdEditT) {
     <table className="details remove-disc-id">
       <tr>
         <th>{addColonText(l('Medium'))}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           <MediumLink medium={medium} />
         </td>
       </tr>

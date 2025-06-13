@@ -9,28 +9,19 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../../../common/MB.js';
+import EntityAutocomplete from '../../../common/MB/Control/Autocomplete.js';
 
-MB.Control.Area = function (...selectors) {
-  var bubble = new MB.Control.BubbleDoc();
+import {BubbleDoc} from './Bubble.js';
 
-  bubble.canBeShown = function (viewModel) {
-    return viewModel.area().gid;
-  };
+export default function initializeArea(spanSelector, bubbleSelector) {
+  const bubble = new BubbleDoc();
+  ko.applyBindingsToNode($(bubbleSelector)[0], {bubble});
 
-  ko.applyBindingsToNode($('#area-bubble')[0], {bubble});
-
-  for (const selector of selectors) {
-    const $span = $(selector);
-    const name = $span.find('input.name')[0];
-    const ac = MB.Control.EntityAutocomplete({inputs: $span});
-
+  $(spanSelector).each(function () {
+    const name = $(this).find('input.name')[0];
+    const ac = EntityAutocomplete({inputs: $(this)});
     ko.applyBindingsToNode(
       name, {controlsBubble: bubble}, {area: ac.currentSelection},
     );
-  }
-};
-
-const initializeArea = MB.Control.Area;
-
-export default initializeArea;
+  });
+}

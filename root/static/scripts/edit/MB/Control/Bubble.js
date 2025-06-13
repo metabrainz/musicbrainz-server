@@ -9,7 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../../../common/MB.js';
+import '../../../../lib/jquery.ui/ui/jquery-ui.custom.js';
+
 import deferFocus from '../../utility/deferFocus.js';
 
 class BubbleBase {
@@ -119,7 +120,7 @@ BubbleBase.prototype.activeBubbles = {};
  * BubbleDoc turns a documentation div into a bubble pointing at an
  * input to the left of it.
  */
-class BubbleDoc extends BubbleBase {
+export class BubbleDoc extends BubbleBase {
   show(control, stealFocus) {
     super.show(control, stealFocus);
 
@@ -127,6 +128,7 @@ class BubbleDoc extends BubbleBase {
     const $parent = $bubble.parent();
 
     $bubble
+      .addClass('left-tail')
       .width($parent.width() - 24)
       .position({
         my: 'left top-30',
@@ -134,12 +136,9 @@ class BubbleDoc extends BubbleBase {
         of: control,
         collision: 'fit none',
         within: $parent,
-      })
-      .addClass('left-tail');
+      });
   }
 }
-
-MB.Control.BubbleDoc = BubbleDoc;
 
 /*
  * Knockout's visible binding only toggles the display style between "none"
@@ -330,7 +329,7 @@ $('body')
 
 
 // Helper function for use outside the release editor.
-MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
+export default function initializeBubble(bubble, control, vm, canBeShown) {
   vm ||= {};
 
   var bubbleDoc = new BubbleDoc();
@@ -340,11 +339,22 @@ MB.Control.initializeBubble = function (bubble, control, vm, canBeShown) {
   }
 
   ko.applyBindingsToNode($(bubble)[0], {bubble: bubbleDoc}, vm);
-  ko.applyBindingsToNode($(control)[0], {controlsBubble: bubbleDoc}, vm);
+
+  if (control) {
+    $(control).each((_, el) => {
+      ko.applyBindingsToNode(el, {controlsBubble: bubbleDoc}, vm);
+    });
+  }
 
   return bubbleDoc;
-};
+}
 
-const initializeBubble = MB.Control.initializeBubble;
-
-export default initializeBubble;
+// Initializes the specified bubble for the external_links_editor() macro.
+export function initializeExternalLinksBubble(bubbleSelector) {
+  const bubble = initializeBubble(bubbleSelector);
+  $(document).on(
+    'focus',
+    '#external-links-editor-container .external-link-item input.value',
+    (event) => bubble.show(event.target),
+  );
+}

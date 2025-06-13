@@ -6,9 +6,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
 import ko from 'knockout';
 
-import MB from '../common/MB.js';
+import clean from '../common/utility/clean.js';
 
 export const errorFields = ko.observableArray([]);
 
@@ -30,18 +31,7 @@ export const errorsExist = ko.computed(function () {
   return false;
 });
 
-// XXX needed by inline scripts
-MB.validation = {
-  errorField,
-  errorFields,
-  errorsExist,
-};
-
-if (typeof document !== 'undefined') {
-  const $ = require('jquery');
-
-  const clean = require('../common/utility/clean.js').default;
-
+export default function initializeValidation() {
   errorsExist.subscribe(function (value) {
     $('#page form button[type=submit]').prop('disabled', value);
   });

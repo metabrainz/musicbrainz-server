@@ -142,5 +142,7 @@
                 [%- END -%]
             </p>
         </div>
+
+        [%- script_manifest('common/banner.js', {async => 'async'}) -%]
     </body>
 </html>

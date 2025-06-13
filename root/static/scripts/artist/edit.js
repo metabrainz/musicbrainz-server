@@ -1,5 +1,5 @@
 /*
- * @flow strict-local
+ * @flow
  * Copyright (C) 2020 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -7,11 +7,71 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import $ from 'jquery';
+
 import './components/ArtistCreditRenamer.js';
-import '../edit/components/FormRowTextList.js';
+import '../edit/components/FormRowTextListSimple.js';
 import '../relationship-editor/components/RelationshipEditorWrapper.js';
 
+import initializeDuplicateChecker from '../edit/check-duplicates.js';
+import {installFormUnloadWarning} from '../edit/components/forms.js';
+import {initializeTooShortYearChecks} from '../edit/forms.js';
+import ArtistEdit from '../edit/MB/Control/ArtistEdit.js';
+import initializeBubble, {
+  initializeExternalLinksBubble,
+} from '../edit/MB/Control/Bubble.js';
 import typeBubble from '../edit/typeBubble.js';
+import initializeToggleEnded from '../edit/utility/toggleEnded.js';
+import initializeValidation from '../edit/validation.js';
 
-const typeIdField = 'select[name=edit-artist\\.type_id]';
-typeBubble(typeIdField);
+$(function () {
+  const typeIdField = 'select[name=edit-artist\\.type_id]';
+  typeBubble(typeIdField);
+
+  ArtistEdit();
+
+  initializeDuplicateChecker('artist');
+
+  initializeToggleEnded('id-edit-artist');
+  initializeTooShortYearChecks('artist');
+
+  initializeBubble('#name-bubble', 'input[name=edit-artist\\.name]');
+  initializeBubble(
+    '#sort-name-bubble',
+    'input[name=edit-artist\\.sort_name]',
+  );
+  initializeBubble('#comment-bubble', 'input[name=edit-artist\\.comment]');
+  initializeBubble('#gender-bubble', 'select[name=edit-artist\\.gender_id]');
+  initializeBubble('#ipi-bubble', 'input[name=edit-artist\\.ipi_codes\\.0]');
+  initializeBubble(
+    '#isni-bubble',
+    'input[name=edit-artist\\.isni_codes\\.0]',
+  );
+  // Area bubbles are initialized in ArtistEdit().
+  initializeBubble(
+    '#begin-end-date-bubble',
+    'input[name^=edit-artist\\.period\\.begin_date\\.], ' +
+      'input[name^=edit-artist\\.period\\.end_date\\.]',
+  );
+  initializeExternalLinksBubble('#external-link-bubble');
+
+  // Update the begin and end documentation bubbles to match the type.
+  const updateBeginEndBubbles = () => {
+    for (const sel of ['#begin-end-date-bubble', '#begin-end-area-bubble']) {
+      $(sel + ' .desc').hide();
+      const value = $(typeIdField)[0].value;
+      const desc = $(sel + ` .desc-${value}`);
+      if (desc.length) {
+        desc.show();
+      } else {
+        $(sel + ' .desc-default').show();
+      }
+    }
+  };
+  $(typeIdField).on('change', () => updateBeginEndBubbles());
+  updateBeginEndBubbles();
+
+  installFormUnloadWarning();
+
+  initializeValidation();
+});

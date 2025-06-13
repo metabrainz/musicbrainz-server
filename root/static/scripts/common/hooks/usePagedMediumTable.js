@@ -15,7 +15,7 @@ import mediumHasMultipleArtists
 import type {
   LazyReleaseActionT,
 } from '../../release/types.js';
-import MediumDescription from '../components/MediumDescription.js';
+import {MinimalMediumDescription} from '../components/MediumDescription.js';
 import {
   type LinkedEntitiesT,
   mergeLinkedEntities,
@@ -179,19 +179,15 @@ export default function usePagedMediumTable(
   const mediumHeaderLink = (
     <a
       className="expand-medium"
-      href={
-        '/release/' + release.gid +
-        '/disc/' + mediumPosition +
-        '#disc' + mediumPosition
-      }
+      href={'/medium/' + medium.gid}
       id={'disc' + mediumPosition}
       onClick={handleMediumToggle}
     >
+      <span>{mediumPosition}</span>
       <span className="expand-triangle">
         {isExpanded ? '\u25BC' : '\u25B6'}
       </span>
-      {' '}
-      <MediumDescription medium={medium} />
+      <MinimalMediumDescription medium={medium} />
     </a>
   );
 

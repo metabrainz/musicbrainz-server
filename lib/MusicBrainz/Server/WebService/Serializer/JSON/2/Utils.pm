@@ -21,9 +21,11 @@ our @EXPORT_OK = qw(
     serializer
 );
 
-our $hide_aliases = 0;
-our $hide_tags_and_genres = 0;
-our $force_ratings = 0;
+our $show_aliases = 1;
+our $show_tags_and_genres = 1;
+our $show_sublevel_ratings = 0;
+our $show_artist_credit_aliases = 1;
+our $show_artist_credit_tags_and_genres = 1;
 
 my %serializers =
     map {
@@ -150,9 +152,7 @@ sub count_of
 sub serialize_aliases {
     my ($into, $entity, $inc, $stash) = @_;
 
-    return if $hide_aliases;
-
-    return unless defined $inc && $inc->aliases;
+    return unless $show_aliases && defined $inc && $inc->aliases;
 
     # We don't show aliases again for recording artists if they're on the release or track AC
     if ($entity->isa('MusicBrainz::Server::Entity::Artist')) {
@@ -263,7 +263,7 @@ sub serialize_rating {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
     return unless
-        (($toplevel || $force_ratings) &&
+        (($toplevel || $show_sublevel_ratings) &&
          (defined $inc && ($inc->ratings || $inc->user_ratings)));
 
     my $opts = $stash->store($entity);
@@ -291,8 +291,8 @@ sub serialize_relationships {
          $inc->has_rels &&
          $entity->has_loaded_relationships);
 
-    local $hide_tags_and_genres = 1;
-    local $hide_aliases = 1;
+    local $show_tags_and_genres = 0;
+    local $show_aliases = 0;
 
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }
@@ -305,9 +305,8 @@ sub serialize_relationships {
 sub serialize_tags {
     my ($into, $entity, $inc, $stash, $toplevel) = @_;
 
-    return if $hide_tags_and_genres;
-
     return unless
+        $show_tags_and_genres &&
         (defined $inc &&
          ($inc->tags || $inc->user_tags || $inc->genres || $inc->user_genres));
 

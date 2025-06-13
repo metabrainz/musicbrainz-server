@@ -10,10 +10,14 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
 import IrombookImage
   from '../../../static/scripts/common/components/IrombookImage.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import {isRelationshipEditor}
   from '../../../static/scripts/common/utility/privileges.js';
 import ExternalLinks from '../ExternalLinks.js';
@@ -34,10 +38,15 @@ component InstrumentSidebar(instrument: InstrumentT) {
 
   return (
     <div id="sidebar">
-      <CommonsImage
-        cachedImage={$c.stash.commons_image}
-        entity={instrument}
-      />
+      {WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={instrument}
+          />
+          {manifest('common/components/CommonsImage', {async: true})}
+        </>
+      ) : null}
 
       <IrombookImage entity={instrument} />
 

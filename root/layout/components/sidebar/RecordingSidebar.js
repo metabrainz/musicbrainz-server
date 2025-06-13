@@ -63,15 +63,14 @@ component RecordingSidebar(recording: RecordingWithArtistCreditT) {
             {firstReleaseYear}
           </SidebarProperty>
         )}
-
-        {recording.isrcs.length ? (
-          <>
-            <IsrcList isSidebar isrcs={recording.isrcs} />
-            {manifest('common/components/IsrcList', {async: 'async'})}
-          </>
-        ) : null}
-
       </SidebarProperties>
+
+      {recording.isrcs.length ? (
+        <>
+          <IsrcList isSidebar isrcs={recording.isrcs} />
+          {manifest('common/components/IsrcList', {async: true})}
+        </>
+      ) : null}
 
       <SidebarRating entity={recording} />
 

@@ -13,6 +13,7 @@ import PaginatedResults from '../components/PaginatedResults.js';
 import UserAccountLayout, {type AccountLayoutUserT}
   from '../components/UserAccountLayout.js';
 import {SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import RatingStars, {StaticRatingStars}
@@ -50,6 +51,9 @@ component UserRatingEntity(
       ) : (
         <p>{l('No ratings.')}</p>
       )}
+      {viewingOwnProfile ? (
+        manifest('common/ratings', {async: true})
+      ) : null}
     </UserAccountLayout>
   );
 }

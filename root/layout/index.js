@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
 import {RT_MIRROR} from '../static/scripts/common/constants.js';
 import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
 import {commaOnlyListText}
@@ -208,7 +209,7 @@ component HeaderAndBanners(
 
       {showAlert ? (
         <div className="banner warning-header">
-          <p dangerouslySetInnerHTML={{__html: $c.stash.alert}} />
+          <p dangerouslySetInnerHTML={{__html: $c.stash.alert || ''}} />
           <DismissBannerButton bannerName="alert" />
         </div>
       ) : null}
@@ -325,6 +326,8 @@ component Layout(
         {$c.stash.within_dialog === true
           ? null
           : <MergeHelperAndFooter $c={$c} />}
+
+        {manifest('common/banner', {async: true})}
       </body>
     </html>
   );

@@ -18,6 +18,7 @@ import {type WorkFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -41,7 +42,7 @@ component ArtistWorks(
 
       {works?.length ? (
         <form
-          action="/work/merge_queue"
+          action={'/work/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -58,7 +59,7 @@ component ArtistWorks(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -70,6 +71,9 @@ component ArtistWorks(
             : l('This artist is not currently associated with any works.')}
         </p>
       )}
+      {manifest('common/components/Filter', {async: true})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </ArtistLayout>
   );
 }

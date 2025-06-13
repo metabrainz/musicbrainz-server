@@ -12,8 +12,12 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import {Artwork} from '../../../components/Artwork.js';
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import CommonsImage
   from '../../../static/scripts/common/components/CommonsImage.js';
+import {
+  WIKIMEDIA_COMMONS_IMAGES_ENABLED,
+} from '../../../static/scripts/common/DBDefs.mjs';
 import areDatesEqual
   from '../../../static/scripts/common/utility/areDatesEqual.js';
 import entityHref from '../../../static/scripts/common/utility/entityHref.js';
@@ -46,14 +50,18 @@ component EventSidebar(event: EventT) {
       {(eventArtPresence === 'present' || !$c.stash.commons_image) ? (
         <div className="event-art">
           {eventArtPresence === 'present' && eventArtwork ? (
-            <Artwork
-              artwork={eventArtwork}
-              message={ReactDOMServer.renderToStaticMarkup(exp.l(
-                'Image failed to load correctly.' +
-                '<br/>{all|View all images}.',
-                {all: entityHref(event, 'event-art')},
-              ))}
-            />
+            <>
+              <Artwork
+                artwork={eventArtwork}
+                message={ReactDOMServer.renderToStaticMarkup(exp.l(
+                  'Image failed to load correctly.' +
+                  '<br/>{all|View all images}.',
+                  {all: entityHref(event, 'event-art')},
+                ))}
+              />
+              {manifest('common/loadArtwork', {async: true})}
+              {manifest('common/artworkViewer', {async: true})}
+            </>
           ) : eventArtPresence === 'darkened' ? (
             l(`Images for this item have been hidden
                by the Internet Archive because of a takedown request.`)
@@ -71,12 +79,15 @@ component EventSidebar(event: EventT) {
             </p>
           )}
         </div>
-      ) : (
-        <CommonsImage
-          cachedImage={$c.stash.commons_image}
-          entity={event}
-        />
-      )}
+      ) : WIKIMEDIA_COMMONS_IMAGES_ENABLED ? (
+        <>
+          <CommonsImage
+            cachedImage={$c.stash.commons_image}
+            entity={event}
+          />
+          {manifest('common/components/CommonsImage', {async: true})}
+        </>
+      ) : null}
 
       <h2 className="event-information">
         {l('Event information')}

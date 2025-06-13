@@ -15,6 +15,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
 
@@ -35,7 +36,7 @@ component InstrumentReleases(
 
       {releases && releases.length > 0 ? (
         <form
-          action="/release/merge_queue"
+          action={'/release/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -53,7 +54,7 @@ component InstrumentReleases(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -63,6 +64,7 @@ component InstrumentReleases(
           {l('No releases found.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </InstrumentLayout>
   );
 }

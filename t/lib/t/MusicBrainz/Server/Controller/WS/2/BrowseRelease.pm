@@ -100,7 +100,7 @@ ws_test 'browse releases via label',
                 <back>false</back>
             </cover-art-archive>
             <medium-list count="1">
-                <medium>
+                <medium id="a2262369-c808-447c-babb-e10317f4d6b2">
                     <position>1</position>
                     <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                     <track-list count="12" />
@@ -138,12 +138,12 @@ ws_test 'browse releases via label',
                 <back>false</back>
             </cover-art-archive>
             <medium-list count="2">
-                <medium>
+                <medium id="a9aa3219-fbb8-44de-a312-ad1a58eb8203">
                     <position>1</position>
                     <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                     <track-list count="9" />
                 </medium>
-                <medium>
+                <medium id="b3702464-93dc-43f4-8337-b081f667ffa0">
                     <title>Chestplate Singles</title><position>2</position>
                     <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                     <track-list count="9" />
@@ -406,7 +406,7 @@ ws_test 'browse releases via recording, with recording and work rels',
                 <back>false</back>
             </cover-art-archive>
             <medium-list count="1">
-                <medium>
+                <medium id="cc7380e2-f2bc-44b8-a8a2-75d8b85aa590">
                     <position>1</position>
                     <format id="9712d52a-4509-3d4b-a1a2-67c88c643e31">CD</format>
                     <pregap id="1a0ba71b-fb23-3931-a426-cd204a82a90e">
@@ -433,6 +433,7 @@ ws_test 'browse releases via recording, with recording and work rels',
                                                 <artist id="38c5cdab-5d6d-43d1-85b0-dac41bde186e" type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b">
                                                     <name>Blind Melon</name>
                                                     <sort-name>Blind Melon</sort-name>
+                                                    <country>US</country>
                                                 </artist>
                                             </relation>
                                         </relation-list>

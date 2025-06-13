@@ -265,7 +265,7 @@ export default function guessFeat(entity) {
 }
 
 // For use outside of the release editor.
-MB.Control.initGuessFeatButton = function (formName) {
+export function initGuessFeatButton(formName) {
   const source = MB.getSourceEntityInstance();
   const augmentedEntity = Object.assign(
     Object.create(source),
@@ -288,4 +288,4 @@ MB.Control.initGuessFeatButton = function (formName) {
   $(document).on('click', 'button.guessfeat.icon', function () {
     guessFeat(augmentedEntity);
   });
-};
+}

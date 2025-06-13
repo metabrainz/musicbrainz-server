@@ -16,6 +16,22 @@
 
 declare type AreaFieldT = CompoundFieldT<{
   +gid: FieldT<string | null>,
+  +id: FieldT<string | null>,
+  +name: FieldT<string>,
+}>;
+
+declare type ArtistFieldT = CompoundFieldT<{
+  +id: FieldT<string | null>,
+  +name: FieldT<string>,
+}>;
+
+declare type ArtistCreditFieldT = CompoundFieldT<{
+  +names: ArtistCreditNameFieldT,
+}>;
+
+declare type ArtistCreditNameFieldT = CompoundFieldT<{
+  +artist: ArtistCreditFieldT,
+  +join_phrase: FieldT<string>,
   +name: FieldT<string>,
 }>;
 
@@ -97,7 +113,7 @@ declare type MaybeGroupedOptionsT =
   | {+grouped: true, +options: GroupedOptionsT}
   | {+grouped: false, +options: SelectOptionsT};
 
-// See MB.forms.buildOptionsTree
+// See `buildOptionsTree` in root/static/scripts/edit/forms.js.
 declare type OptionListT = $ReadOnlyArray<{
   +text: string,
   +value: number,

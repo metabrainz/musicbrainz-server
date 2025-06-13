@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../../context.mjs';
+import manifest from '../../../static/manifest.mjs';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import {SidebarTagEditor}
@@ -22,12 +23,14 @@ component TagList(
   isGenreList: boolean = false,
   tags: ?$ReadOnlyArray<AggregatedTagT>,
 ) {
+  const $c = React.useContext(CatalystContext);
   const upvotedTags = tags ? tags.filter(tag => tag.count > 0) : null;
   const links = upvotedTags ? upvotedTags.reduce((
     accum: Array<React.MixedElement>,
     aggregatedTag,
   ) => {
-    if (Boolean(aggregatedTag.tag.genre) === isGenreList) {
+    const genre = $c.stash.genre_map?.[aggregatedTag.tag.name];
+    if ((genre != null) === isGenreList) {
       accum.push(
         <TagLink
           key={'tag-' + aggregatedTag.tag.name}
@@ -55,13 +58,16 @@ component SidebarTags(entity: TaggableEntityT) {
     $c.action.name === 'tags' ? null : (
       ($c.user?.has_confirmed_email_address &&
         aggregatedTags && userTags) ? (
-          <SidebarTagEditor
-            aggregatedTags={aggregatedTags}
-            entity={entity}
-            genreMap={$c.stash.genre_map}
-            more={more}
-            userTags={userTags}
-          />
+          <>
+            <SidebarTagEditor
+              aggregatedTags={aggregatedTags}
+              entity={entity}
+              genreMap={$c.stash.genre_map}
+              more={more}
+              userTags={userTags}
+            />
+            {manifest('common/components/TagEditor', {async: true})}
+          </>
         ) : (
           <div id="sidebar-tags">
             <h2>{lp('Tags', 'folksonomy')}</h2>

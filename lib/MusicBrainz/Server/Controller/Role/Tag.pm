@@ -23,7 +23,6 @@ after load => sub {
         @user_tags = $tags_model->find_user_tags($c->user->id, $entity->id);
     }
 
-    $c->model('Genre')->load(map { $_->tag } (@tags, @user_tags));
     my %genre_map = map { $_->name => $_->TO_JSON } $c->model('Genre')->get_all;
 
     $c->stash(
@@ -31,7 +30,6 @@ after load => sub {
         top_tags => to_json_array(\@tags),
         more_tags => $count > @tags,
         user_tags => to_json_array(\@user_tags),
-        user_tags_json => $c->json->encode(\@user_tags),
     );
 };
 

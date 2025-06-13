@@ -176,6 +176,40 @@ test q(Don't consider relationships with different link orders to be the same) =
     ok(!$exists, 'relationship with different link order is not the same');
 };
 
+test 'Consider part of series relationships with different link orders to be the same' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
+
+    my $exists = $c->model('Relationship')->exists('artist', 'series', {
+        entity0_id => 3,
+        entity1_id => 1,
+        link_order => 2,
+        link_type_id => 996,
+        attributes => [],
+    });
+
+    ok($exists, 'Part of series relationship with different link order is the same');
+};
+
+test q(Don't consider part of series relationships with different numbers to be the same) => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
+
+    my $exists = $c->model('Relationship')->exists('artist', 'series', {
+        entity0_id => 3,
+        entity1_id => 1,
+        link_order => 2,
+        link_type_id => 996,
+        attributes => [{ type => { id => 788 }, text_value => 'oh look a number' }],
+    });
+
+    ok(!$exists, 'Part of series relationship with different number is not the same');
+};
+
 test 'Entity credits are merged' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -439,7 +473,7 @@ is(scalar($artist1->all_relationships), 1, 'allow all rels');
 
 $rel = $artist1->relationships->[0];
 is($rel->id, 4);
-is($rel->link->id, 5);
+is($rel->link->id, 6);
 is_deeply($rel->link->begin_date, { year => 2008, month => 2, day => 3 });
 is_deeply($rel->link->end_date, { year => 2008, month => 2, day => 8 });
 is($rel->phrase, 'additional <a href="/instrument/63021302-86cd-4aee-80df-2270d54f4978">guitar</a> and ' .
@@ -463,7 +497,7 @@ is(scalar($artist1->all_relationships), 1);
 
 $rel = $artist1->relationships->[0];
 is($rel->id, 4);
-is($rel->link->id, 6);
+is($rel->link->id, 7);
 is_deeply($rel->link->begin_date, { });
 is_deeply($rel->link->end_date, { });
 is($rel->phrase,

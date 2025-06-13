@@ -6,8 +6,7 @@ use namespace::autoclean;
 with 'MusicBrainz::Server::Data::Role::EntityModelClass',
      'MusicBrainz::Server::Data::Role::GetByGID',
      'MusicBrainz::Server::Data::Role::MainTable',
-     'MusicBrainz::Server::Data::Role::GID',
-     'MusicBrainz::Server::Data::Role::GIDRedirect';
+     'MusicBrainz::Server::Data::Role::GID';
 
 no Moose::Role;
 1;

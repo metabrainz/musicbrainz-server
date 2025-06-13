@@ -8,9 +8,11 @@ around serialize => sub {
     my ($orig, $self, $entity, $inc, $stash, $toplevel) = @_;
     my $ret = $self->$orig($entity, $inc, $stash, $toplevel);
 
-    my $tags = $stash->store($entity)->{top_tags};
+    my $store = $stash->store($entity);
+    my $tags = $store->{top_tags};
+    my $genre_map = $store->{genre_map};
     my @genres = map {
-        my $genre = $_->{tag}{genre};
+        my $genre = $genre_map->{ $_->{tag}{name} };
         $genre ? (DBDefs->JSON_LD_ID_BASE_URI . '/genre/' . $genre->{gid}) : ()
     } @$tags;
 

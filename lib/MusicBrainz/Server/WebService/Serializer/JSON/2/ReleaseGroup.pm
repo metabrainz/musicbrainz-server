@@ -22,10 +22,14 @@ sub serialize
     $body{disambiguation} = $entity->comment // '';
 
     serialize_artist_credit(\%body, $entity, $inc, $stash)
-        if $entity->artist_credit && $inc && ($inc->artist_credits || $inc->artists);
+        if $entity->artist_credit && $inc && $inc->artist_credits;
 
-    $body{releases} = list_of($entity, $inc, $stash, 'releases')
-        if $inc && $inc->releases;
+    do {
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_artist_credit_aliases = 0;
+        local $MusicBrainz::Server::WebService::Serializer::JSON::2::Utils::show_artist_credit_tags_and_genres = 0;
+        $body{releases} = list_of($entity, $inc, $stash, 'releases')
+            if $inc && $inc->releases;
+    };
 
     return \%body;
 }

@@ -11,7 +11,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         cardinal    => ['edit'],
         default     => ['url'],
         subset      => {
-            show => [qw( area artist label place url work series instrument )],
+            show => [qw( area artist genre label place url work series instrument )],
             performances => [qw( url )],
         },
         paged_subset => {
@@ -31,7 +31,7 @@ with 'MusicBrainz::Server::Controller::Role::WikipediaExtract';
 with 'MusicBrainz::Server::Controller::Role::CommonsImage';
 with 'MusicBrainz::Server::Controller::Role::EditRelationships';
 with 'MusicBrainz::Server::Controller::Role::JSONLD' => {
-    endpoints => {show => {copy_stash => ['top_tags']}, aliases => {copy_stash => ['aliases']}},
+    endpoints => {show => {copy_stash => ['top_tags', 'genre_map']}, aliases => {copy_stash => ['aliases']}},
 };
 with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'place',

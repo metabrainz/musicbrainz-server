@@ -383,7 +383,7 @@ sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Feature toggle used for pre-schema change release of safe schema change code
-sub ACTIVE_SCHEMA_SEQUENCE { 29 }
+sub ACTIVE_SCHEMA_SEQUENCE { 30 }
 
 # MetaBrainz OAuth endpoint (and associated application) used to introspect
 # "meba_*" tokens issued by metabrainz.org. See MBS-13703 for details.
@@ -529,11 +529,12 @@ sub USE_SELENIUM_HEADER { 0 }
 # in that case anyway.
 sub DISABLE_LAST_LOGIN_UPDATE { 0 }
 
-# Used to create search indexes dump from SolrCloud.
+# Used to create backup and search indexes dump from SolrCloud.
 sub SOLRCLOUD_COLLECTIONS_API { undef }
 sub SOLRCLOUD_BACKUP_LOCATION { undef }
 sub SOLRCLOUD_RSYNC_BANDWIDTH { undef }
 sub SOLRCLOUD_SSH_CIPHER_SPEC { undef }
+sub SOLR_BACKUP_COMPRESSION_LEVEL { undef }
 sub SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL { undef }
 
 # Controls the number of threads to use when compressing JSON dumps or search

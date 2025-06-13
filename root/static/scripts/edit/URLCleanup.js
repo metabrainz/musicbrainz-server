@@ -540,6 +540,48 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'acum': {
+    match: [/^(https:\/\/)?nocs\.acum\.org\.il\/acumsitesearchdb\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\//, 'https://')
+        // keep just one query param
+        .replace(/&.*/, '')
+        // prefer works to versions
+        .replace('/version?', '/work?');
+    },
+    validate(url, id) {
+      const isAcumUrl = /^https:\/\/nocs\.acum\.org\.il\/acumsitesearchdb\//i.test(url);
+      if (isAcumUrl) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: /\/work\?workid=[0-9A-Z]+$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: /\/results\?(creatorid=[A-Z]-\d+-\d|performerid=\d+)$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: /\/results\?creatorid=[A-Z]-\d+-\d$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: /\/album\?albumid=[0-9A-Z]+$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'allmusic': {
     match: [/^(https?:\/\/)?([^/]+\.)?allmusic\.com/i],
     restrict: [LINK_TYPES.allmusic],
@@ -3771,33 +3813,6 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
-  'lyricevesta': {
-    match: [/^(https?:\/\/)?([^/]+\.)?lyric\.evesta\.jp\//i],
-    restrict: [LINK_TYPES.lyrics],
-    clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?lyric\.evesta\.jp\/([al]\w+\.html).*$/, 'http://lyric.evesta.jp/$1');
-    },
-    validate(url, id) {
-      const m = /^http:\/\/lyric\.evesta\.jp\/([al])\w+\.html$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (id) {
-          case LINK_TYPES.lyrics.artist:
-            return {
-              result: prefix === 'a',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-            return {
-              result: prefix === 'l',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'lyrics': {
     match: [
       /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,
@@ -4682,7 +4697,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.patronage],
     clean(url) {
       url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=\d+).*$/, '$1$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(?:c\/)?(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
       return url;
     },
     validate(url) {
@@ -5636,22 +5651,22 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'threads': {
-    match: [/^(https?:\/\/)?([^/]+\.)?threads\.net\//i],
+    match: [/^(?:https?:\/\/)?(?:[^/]+\.)?threads\.(?:com|net)\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
       url = url.replace(
-        /^(?:https?:\/\/)?(?:www\.)?threads\.net(?:\/#!)?\/([^#?]+).*$/,
-        'https://www.threads.net/$1',
+        /^(?:https?:\/\/)?(?:www\.)?threads\.(?:com|net)(?:\/#!)?\/([^#?]+).*$/,
+        'https://www.threads.com/$1',
       );
       url = url.replace(
-        /^https:\/\/www\.threads\.net\/@[^/]+\/post\/([^/]+)/,
-        'https://www.threads.net/t/$1',
+        /^https:\/\/www\.threads\.(?:com|net)\/@[^/]+\/post\/([^/]+)/,
+        'https://www.threads.com/t/$1',
       );
       return url;
     },
     validate(url, id) {
-      const isAProfile = /^https:\/\/www\.threads\.net\/@[^/]+$/.test(url);
-      const isAThread = /^https:\/\/www\.threads\.net\/t\/[^/]+$/.test(url);
+      const isAProfile = /^https:\/\/www\.threads\.com\/@[^/]+$/.test(url);
+      const isAThread = /^https:\/\/www\.threads\.com\/t\/[^/]+$/.test(url);
       if (Object.values(LINK_TYPES.streamingfree).includes(id)) {
         return {
           result: isAThread &&
@@ -6805,7 +6820,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?yesasia\.com\//, 'https://www.yesasia.com/');
-      url = url.replace(/^(https:\/\/www\.yesasia\.com)\/(?:global\/)?(?:[^/]*\/)?([\w.-]+)(?:en|ja|zh_CN|zh_TW)\/((?:info|list).html)(?:#.*)?$/, '$1/$2en/$3');
+      url = url.replace(/^(https:\/\/www\.yesasia\.com)\/(?:[^/]*\/)*([\w.-]+)(?:en|ja|zh_CN|zh_TW)\/((?:info|list).html)(?:#.*)?$/, '$1/$2en/$3');
       return url;
     },
     validate(url, id) {

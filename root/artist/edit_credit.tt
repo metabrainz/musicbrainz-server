@@ -1,6 +1,4 @@
 [% WRAPPER 'artist/layout.tt' full_width=1 title=lp('Edit artist credit', 'header') %]
-  [% script_manifest('edit.js') %]
-
    [%~ javascript_required() ~%]
 
    <h2>[% lp('Edit artist credit', 'header') %]</h2>
@@ -24,10 +22,5 @@
      </div>
    </form>
 
-  <script type="text/javascript">
-      MB.initializeArtistCredit(
-        [% closing_tag_escape(form.to_encoded_json) %],
-        [% closing_tag_escape(form.field('artist_credit').json) %]
-      );
-  </script>
+  [% script_manifest('artist/split.js', {async => 'async'}) %]
 [% END %]

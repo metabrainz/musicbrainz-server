@@ -13,8 +13,8 @@ INSERT INTO musicbrainz.release_group (id, gid, name, artist_credit, type, comme
 	(3262118, 'da38d028-7474-4039-9f79-f31619b8c2df', '【MV】可愛くてごめん // Sorry I''m So Cute!', 2916231, 2, '', 0, '2023-03-28 02:56:21.230707+00');
 INSERT INTO musicbrainz.release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode, comment, edits_pending, quality, last_updated) VALUES
 	(3821712, '26c37f78-4931-4c2d-bb7a-4003807ec7c4', '【MV】可愛くてごめん // Sorry I''m So Cute!', 2916231, 3262118, 1, 7, 120, 28, '', '', 1, -1, '2023-03-28 02:57:49.63927+00');
-INSERT INTO musicbrainz.medium (id, release, position, format, name, edits_pending, last_updated, track_count) VALUES
-	(4162932, 3821712, 1, 12, '', 0, '2023-03-28 02:56:28.474663+00', 0);
+INSERT INTO musicbrainz.medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
+	(4162932, 'e308be53-98bb-445f-a21f-aefbd32c625a', 3821712, 1, 12, '', 0, '2023-03-28 02:56:28.474663+00', 0);
 INSERT INTO musicbrainz.recording (id, gid, name, artist_credit, length, comment, edits_pending, last_updated, video) VALUES
 	(34603043, 'e9f29649-9c3c-4c88-8a66-53383cf7e614', '可愛くてごめん // Sorry I''m So Cute!', 2916231, 220000, '', 0, '2023-03-28 13:20:18.287861+00', '1');
 INSERT INTO musicbrainz.url (id, gid, url, edits_pending, last_updated) VALUES

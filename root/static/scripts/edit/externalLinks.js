@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import punycode from 'punycode';
+import {toUnicode} from 'punycode';
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -306,21 +306,37 @@ export class _ExternalLinksEditor
       }
     }
 
-    initialLinks = initialLinks.map(function (link) {
-      /*
-       * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have an
-       * existing relationship ID.
-       */
-      if (!isPositiveInteger(link.relationship)) {
+    const existingInitialLinks = [];
+    const pendingInitialLinks = [];
+    for (const link of initialLinks) {
+      if (isPositiveInteger(link.relationship)) {
+        existingInitialLinks.push(link);
+      } else {
+        /*
+         * Only run the URL cleanup on seeded URLs, i.e. URLs that don't have
+         * an existing relationship ID.
+         */
         const url = getUnicodeUrl(link.url);
-        return {
+        pendingInitialLinks.push({
           ...link,
           relationship: uniqueId('new-'),
           url: URLCleanup.cleanURL(url) || url,
-        };
+        });
       }
-      return link;
-    });
+    }
+
+    // Filter out seeded URLs that duplicate existing ones (MBS-13993).
+    const existingInitialLinksByTypeAndUrl = groupBy(
+      existingInitialLinks,
+      linkTypeAndUrlString,
+    );
+    initialLinks = existingInitialLinks.concat(
+      pendingInitialLinks.filter(
+        link => !existingInitialLinksByTypeAndUrl.has(
+          linkTypeAndUrlString(link),
+        ),
+      ),
+    );
 
     this.typeOptions = linkTypeOptions(
       {children: linkedEntities.link_type_tree[entityTypes]},
@@ -1832,7 +1848,7 @@ export function getUnicodeUrl(url: string): string {
   }
 
   const urlObject = new URL(url);
-  const unicodeHostname = punycode.toUnicode(urlObject.hostname);
+  const unicodeHostname = toUnicode(urlObject.hostname);
   const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
 
   return unicodeUrl;
@@ -1845,7 +1861,7 @@ function isValidURL(url: string) {
   const hostname = a.hostname;
 
   // To compare with the url we need to decode the Punycode if present
-  const unicodeHostname = punycode.toUnicode(hostname);
+  const unicodeHostname = toUnicode(hostname);
   if (url.indexOf(hostname) < 0 && url.indexOf(unicodeHostname) < 0) {
     return false;
   }

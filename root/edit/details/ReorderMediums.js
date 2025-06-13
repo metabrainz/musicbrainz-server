@@ -19,7 +19,7 @@ component ReorderMediums(edit: ReorderMediumsEditT) {
       {edit.preview /*:: === true */ ? null : (
         <tr>
           <th>{addColonText(l('Release'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <DescriptiveLink entity={display.release} />
           </td>
         </tr>

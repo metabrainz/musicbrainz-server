@@ -18,6 +18,7 @@ import {type EventFilterT}
   from '../static/scripts/common/components/FilterForm.js';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import ArtistLayout from './ArtistLayout.js';
 
@@ -41,7 +42,7 @@ component ArtistEvents(
 
       {events.length > 0 ? (
         <form
-          action="/event/merge_queue"
+          action={'/event/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -62,7 +63,7 @@ component ArtistEvents(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -74,6 +75,10 @@ component ArtistEvents(
             : l('This artist is not currently associated with any events.')}
         </p>
       )}
+
+      {manifest('common/components/Filter', {async: true})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </ArtistLayout>
   );
 }

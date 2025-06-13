@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Role::Create;
 use MooseX::MethodAttributes::Role;
 use MooseX::Role::Parameterized;
 use namespace::autoclean;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
 use aliased 'MusicBrainz::Server::WebService::JSONSerializer';
 
@@ -58,11 +59,11 @@ role {
         }
 
         my $model = $self->config->{model};
+        my $type = model_to_type($model);
         my $entity;
         my %props;
 
         if ($model eq 'Event' || $model eq 'Genre') {
-            my $type = model_to_type($model);
             my $form = $c->form( form => $params->form );
             %props = ( form => $form->TO_JSON );
 
@@ -98,14 +99,17 @@ role {
                 delete $c->flash->{message};
             },
             pre_validation => sub {
+                my $form = shift;
                 if ($model eq 'Event') {
-                    my $form = shift;
                     my %event_descriptions = map {
                         $_->id => $_->l_description
                     } $c->model('EventType')->get_all();
 
                     $props{eventTypes} = $form->options_type_id;
                     $props{eventDescriptions} = \%event_descriptions;
+                }
+                if ($self->does('MusicBrainz::Server::Controller::Role::IdentifierSet')) {
+                    $self->munge_compound_text_fields($c, $form);
                 }
             },
             redirect => sub {
@@ -116,6 +120,10 @@ role {
             edit_rels   => 1,
             $params->edit_arguments->($self, $c),
         );
+
+        if ($ENTITIES{$type}{artist_credits}) {
+            $c->stash->{form}->field('artist_credit')->stash_field;
+        }
     };
 };
 

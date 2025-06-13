@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import manifest from '../../static/manifest.mjs';
+
 import BottomMenu from './BottomMenu.js';
 import HeaderLogo from './HeaderLogo.js';
 import TopMenu from './TopMenu.js';
@@ -21,6 +23,7 @@ component Header() {
         <TopMenu />
         <BottomMenu />
       </div>
+      {manifest('common/MB/Control/Menu', {async: true})}
     </div>
   );
 }

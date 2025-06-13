@@ -115,7 +115,7 @@ sub DATASTORE_REDIS_ARGS {
     };
 }
 
-sub DB_SCHEMA_SEQUENCE { 29 }
+sub DB_SCHEMA_SEQUENCE { 30 }
 
 sub DB_STAGING_TESTING_FEATURES { 1 }
 
@@ -133,7 +133,7 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq en ) }
 
-sub ACTIVE_SCHEMA_SEQUENCE { 29 }
+sub ACTIVE_SCHEMA_SEQUENCE { 30 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
@@ -152,9 +152,7 @@ sub SEARCH_ENGINE { 'SOLR' }
 sub USE_SET_DATABASE_HEADER { 1 }
 sub DISABLE_LAST_LOGIN_UPDATE { 1 }
 
-# CircleCI sets `NO_PROXY=127.0.0.1,localhost` in every container,
-# so the Selenium proxy doesn't work unless we make requests against
-# a different hostname alias.
+# See docker/musicbrainz-tests/add_mbtest_alias.sh
 sub WEB_SERVER { 'mbtest:5000' }
 sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
 sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta:5000' }

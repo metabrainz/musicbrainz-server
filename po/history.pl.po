@@ -13,8 +13,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-01-19 19:44+0000\n"
-"Last-Translator: Peter69 <echelon01@wp.pl>\n"
+"PO-Revision-Date: 2025-05-12 00:20+0000\n"
+"Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/pl/>\n"
 "Language: pl\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
 "n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -245,10 +245,8 @@ msgid "Amazon betas SoundUnwound"
 msgstr "Amazon testuje SoundUnwound"
 
 #: DB:statistics.statistic_event/title:2004-02-24
-#, fuzzy
-#| msgid "Cover Art"
 msgid "Amazon cover art"
-msgstr "Okładka"
+msgstr "Okładka z Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon cover art support released."
@@ -956,8 +954,9 @@ msgid "Release editor"
 msgstr "Edytor wydania"
 
 #: DB:statistics.statistic_event/description:2003-10-19
+#, fuzzy
 msgid "Release editor and Guess Case released."
-msgstr ""
+msgstr "Wprowadzono Edytor wydania i Zgadnij wielkość liter."
 
 #: DB:statistics.statistic_event/description:2009-05-24
 #, fuzzy
@@ -1118,7 +1117,7 @@ msgstr "Archiwum okładek będzie początkowo dostępne."
 #, fuzzy
 #| msgid "CAA official release"
 msgid "The Cover Art Archive is officially released."
-msgstr "Oficjalne wydanie CAA"
+msgstr "Archiwum okładek zostało oficjalnie udostępnione."
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"

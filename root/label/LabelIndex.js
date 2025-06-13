@@ -26,6 +26,7 @@ import ListMergeButtonsRow
 import WikipediaExtract
   from '../static/scripts/common/components/WikipediaExtract.js';
 import commaOnlyList from '../static/scripts/common/i18n/commaOnlyList.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import LabelLayout from './LabelLayout.js';
 
@@ -81,7 +82,7 @@ component LabelIndex(
 
       {releases?.length ? (
         <form
-          action="/release/merge_queue"
+          action={'/release/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -98,7 +99,7 @@ component LabelIndex(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -110,7 +111,7 @@ component LabelIndex(
             : l('This label does not have any releases.')}
         </p>
       )}
-      {manifest('label/index', {async: 'async'})}
+      {manifest('label/index', {async: true})}
     </LabelLayout>
   );
 }

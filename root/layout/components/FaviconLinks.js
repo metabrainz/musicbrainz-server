@@ -69,7 +69,6 @@ component FaviconLinks() {
       />
       <link href="/static/images/favicons/site.webmanifest" rel="manifest" />
       <link
-        color="#bb4890"
         href="/static/images/favicons/safari-pinned-tab.svg"
         rel="mask-icon"
       />

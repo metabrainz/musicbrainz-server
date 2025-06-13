@@ -46,6 +46,8 @@ test 'Editing a recording (inc. replacing ISRC)' => sub {
                 'edit-recording.artist_credit.names.2.artist.name' => 'David Bowie',
                 'edit-recording.artist_credit.names.2.artist.id' => '5',
                 'edit-recording.isrcs.0' => 'USS1Z9900001',
+                'edit-recording.isrcs.1' => 'DEE250800231',
+                'edit-recording.isrcs.1.removed' => '1',
             },
             'The form returned a 2xx response code',
         );
@@ -242,6 +244,62 @@ test 'Editing a recording without submitting the artist credit field' => sub {
         },
         'The edit contains the right data',
     );
+};
+
+test 'Editing a recording without submitting the isrcs field' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit',
+        'Fetched the recording editing page',
+    );
+    $mech->content_contains('DEE250800231');
+
+    my @edits = capture_edits {
+        $mech->post_ok(
+            $mech->uri,
+            {
+                'edit-recording.name' => 'Dancing Queen',
+            },
+            'The form returned a 2xx response code',
+        );
+    } $c;
+
+    is(@edits, 0, 'No edits were entered');
+};
+
+test 'Adding/removing the same existing ISRC is a no-op' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/recording/54b9d183-7dab-42ba-94a3-7388a66604b8/edit',
+        'Fetched the recording editing page',
+    );
+    $mech->content_contains('DEE250800231');
+
+    my @edits = capture_edits {
+        $mech->post_ok(
+            $mech->uri,
+            {
+                'edit-recording.name' => 'Dancing Queen',
+                'edit-recording.isrcs.0' => 'DEE250800231',
+                # Should be ignored, as the same ISRC is being added.
+                'edit-recording.isrcs.2' => 'DEE250800231',
+                'edit-recording.isrcs.2.removed' => 'DEE250800231',
+            },
+            'The form returned a 2xx response code',
+        );
+    } $c;
+
+    is(@edits, 0, 'No edits were entered');
 };
 
 sub prepare_test {

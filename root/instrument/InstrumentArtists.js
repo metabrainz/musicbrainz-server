@@ -15,6 +15,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import InstrumentLayout from './InstrumentLayout.js';
 
@@ -35,7 +36,7 @@ component InstrumentArtists(
 
       {artists && artists.length > 0 ? (
         <form
-          action="/artist/merge_queue"
+          action={'/artist/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -54,7 +55,7 @@ component InstrumentArtists(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -64,6 +65,8 @@ component InstrumentArtists(
           {l('No artists found.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </InstrumentLayout>
   );
 }

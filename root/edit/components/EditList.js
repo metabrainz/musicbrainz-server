@@ -122,6 +122,9 @@ component EditList(
           type="text/javascript"
         />
       ) : null}
+
+      {manifest('common/loadArtwork', {async: true})}
+      {manifest('common/artworkViewer', {async: true})}
     </>
   );
 }

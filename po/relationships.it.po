@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-22 12:44+0000\n"
+"PO-Revision-Date: 2025-05-04 15:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -44,9 +44,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:218
 msgid ""
-"A social network page is a label's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the label can post content to. Examples include "
+"A social network page is a label's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Una pagina di social network è la pagina di un'etichetta su un <a "
@@ -58,9 +58,9 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:784
 msgid ""
-"A social network page is a page for a series on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the series can post content to. Examples include "
+"A social network page is a page for a series on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "Una pagina di social network è la pagina di una serie su un <a "
@@ -72,14 +72,14 @@ msgstr ""
 #. name:social network
 #: DB:link_type/description:429
 msgid ""
-"A social network page is a place's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the place can post content to. Examples include "
+"A social network page is a place's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Una pagina di social network è la pagina di un luogo su un <a href=\"https://"
+"Una pagina di social network è la pagina di un posto su un <a href=\"https://"
 "it.wikipedia.org/wiki/Servizio_di_rete_sociale\">social network</a>, dove "
-"solo persone che sono legate al luogo possono postare contenuti. Alcuni "
+"solo persone che sono legate al posto possono postare contenuti. Alcuni "
 "esempi sono pagine Facebook e account su Twitter, Instagram e Flickr."
 
 #. name:social network
@@ -98,15 +98,15 @@ msgstr ""
 "target=\"_blank\">social network</a>, dove solo l'artista (o i suoi agenti) "
 "può postare contenuti. Altre persone possono creare il proprio profilo e "
 "interagire con l'artista, ad esempio aggiungendoli come amici o commentando "
-"le cose che posta. Alcuni esempi sono pagine e profili Facebook, utenti Last."
-"fm e account su Twitter, Instagram e Flickr."
+"le cose che posta. Alcuni esempi sono pagine e profili Facebook, utenti "
+"Last.fm e account su Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:783
 msgid ""
-"A social network page is an event's own page on a <a href=\"https://en."
-"wikipedia.org/wiki/Social_networking_service\">social network</a> which only "
-"people involved with the event can post content to. Examples include "
+"A social network page is an event's own page on a <a href=\"https://"
+"en.wikipedia.org/wiki/Social_networking_service\">social network</a> which "
+"only people involved with the event can post content to. Examples include "
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
@@ -269,14 +269,14 @@ msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
-"Indica che una persona è stata assunta da un luogo come tecnico di mastering."
+"Indica che una persona è stata assunta da un posto come tecnico di mastering."
 
 #. name:mixing engineer position
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
-"Indica che una persona è stata assunta da un luogo come tecnico di missaggio."
+"Indica che una persona è stata assunta da un posto come tecnico di missaggio."
 
 #. name:recording engineer position
 #: DB:link_type/description:702
@@ -284,13 +284,13 @@ msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
-"Indica che una persona è stata assunta da un luogo come tecnico di "
+"Indica che una persona è stata assunta da un posto come tecnico di "
 "registrazione."
 
 #. name:engineer position
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
-msgstr "Indica che una persona è stata assunta da un luogo come tecnico."
+msgstr "Indica che una persona è stata assunta da un posto come tecnico."
 
 #. name:anthem
 #: DB:link_type/description:357
@@ -459,7 +459,7 @@ msgstr "Indica un rapporto genitore-figlio."
 #. name:image
 #: DB:link_type/description:396
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
-msgstr "Indica un'immagine illustrativa (JPEG, GIF, PNG) di un luogo."
+msgstr "Indica un'immagine illustrativa (JPEG, GIF, PNG) di un posto."
 
 #. name:image
 #: DB:link_type/description:173
@@ -472,8 +472,8 @@ msgid ""
 "Indicates a place that moved from one location to another, while still being "
 "generally considered the same."
 msgstr ""
-"Indica un luogo che si è spostato da una posizione a un'altra, ma è "
-"generalmente considerato come lo stesso."
+"Indica un posto che si è spostato da un'ubicazione a un'altra, ma che è "
+"generalmente considerato come lo stesso posto."
 
 #. name:half
 #: DB:link_attribute_type/description:1019
@@ -756,18 +756,17 @@ msgstr "Indica il librettista per quest'opera."
 #. name:held at
 #: DB:link_type/description:995
 msgid "Indicates the location a run or residency was held at."
-msgstr ""
-"Indica la location presso cui si è tenuta una serie o residency di concerti."
+msgstr "Indica il luogo in cui si è tenuta una serie o residency di concerti."
 
 #. name:lyricist
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr "Indica il compositore dei testi per questa pubblicazione."
+msgstr "Indica il paroliere per questa pubblicazione."
 
 #. name:lyricist
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr "Indica il compositore dei testi per quest'opera."
+msgstr "Indica il paroliere per quest'opera."
 
 #. name:mastering
 #: DB:link_type/description:42
@@ -782,7 +781,7 @@ msgstr "Indica la pagina web ufficiale di un'etichetta discografica."
 #. name:official homepage
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
-msgstr "Indica la pagina web ufficiale di un luogo."
+msgstr "Indica la pagina web ufficiale di un posto."
 
 #. name:official homepage
 #: DB:link_type/description:745
@@ -799,6 +798,17 @@ msgstr "Indica la pagina web ufficiale di un artista."
 msgid "Indicates the official homepage for an event."
 msgstr "Indica la pagina web ufficiale di un evento."
 
+#. name:adapter
+#: DB:link_type/description:1285
+msgid ""
+"Indicates the person who adapted this work (generally from a different "
+"medium, such as a prose work into an audio drama or a stage musical into a "
+"film musical)."
+msgstr ""
+"Indica la persona che ha adattato quest'opera (in genere da un mezzo "
+"diverso, come per esempio da opera in prosa ad audiodramma, o da musical "
+"teatrale a musical cinematografico)."
+
 #. name:translator
 #: DB:link_type/description:871
 msgid ""
@@ -812,10 +822,19 @@ msgstr ""
 msgid "Indicates the person who translated the lyrics/libretto for this work."
 msgstr "Indica la persona che ha tradotto i testi/il libretto di quest'opera."
 
+#. name:scriptwriter
+#: DB:link_type/description:1286
+msgid ""
+"Indicates the person who wrote an original script for a dramatized work, "
+"such as an audio drama."
+msgstr ""
+"Indica la persona che ha scritto la sceneggiatura originale per un'opera, "
+"come per esempio un audiodramma."
+
 #. name:premiere
 #: DB:link_type/description:716
 msgid "Indicates the place where the work had its first performance."
-msgstr "Indica il luogo in cui l'opera è stata eseguita per la prima volta."
+msgstr "Indica il posto in cui l'opera è stata eseguita per la prima volta."
 
 #. name:publishing
 #: DB:link_type/description:32
@@ -866,6 +885,13 @@ msgstr ""
 msgid "Links a competition event to an artist that was a participant in it."
 msgstr "Collega un evento di tipo concorso a un artista che vi ha partecipato."
 
+#. name:host
+#: DB:link_type/description:1287
+msgid ""
+"Links a podcast or broadcast series to an artist who was a host for the "
+"series."
+msgstr ""
+
 #. name:arranged in
 #: DB:link_type/description:864
 msgid ""
@@ -873,7 +899,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui è stata arrangiata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:edited in
 #: DB:link_type/description:821
@@ -882,7 +908,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui ne è stato fatto l'editing. Da "
-"usare solo quando il luogo è sconosciuto!"
+"usare solo quando il posto è sconosciuto!"
 
 #. name:engineered in
 #: DB:link_type/description:814
@@ -891,7 +917,7 @@ msgid ""
 "is unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui è stata lavorata in studio. Da "
-"usare solo quando il luogo è sconosciuto!"
+"usare solo quando il posto è sconosciuto!"
 
 #. name:mixed in
 #: DB:link_type/description:758
@@ -900,7 +926,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui è stata mixata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:produced in
 #: DB:link_type/description:827
@@ -909,7 +935,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui è stata prodotta. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:recorded in
 #: DB:link_type/description:698
@@ -918,7 +944,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui è stata registrata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:remixed in
 #: DB:link_type/description:830
@@ -927,7 +953,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una registrazione all'area in cui è stata remixata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:recorded at
 #: DB:link_type/description:809
@@ -946,37 +972,37 @@ msgstr ""
 #. name:arranged at
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
-msgstr "Collega una registrazione al luogo in cui è stata arrangiata."
+msgstr "Collega una registrazione al posto in cui è stata arrangiata."
 
 #. name:edited at
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
-msgstr "Collega una registrazione al luogo in cui ne è stato fatto l'editing."
+msgstr "Collega una registrazione al posto in cui ne è stato fatto l'editing."
 
 #. name:engineered at
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
-msgstr "Collega una registrazione al luogo in cui è stata lavorata in studio."
+msgstr "Collega una registrazione al posto in cui è stata lavorata in studio."
 
 #. name:mixed at
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr "Collega una registrazione al luogo in cui è stata mixata."
+msgstr "Collega una registrazione al posto in cui è stata mixata."
 
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
-msgstr "Collega una registrazione al luogo in cui è stata prodotta."
+msgstr "Collega una registrazione al posto in cui è stata prodotta."
 
 #. name:recorded at
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
-msgstr "Collega una registrazione al luogo in cui è stata registrata."
+msgstr "Collega una registrazione al posto in cui è stata registrata."
 
 #. name:remixed at
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr "Collega una registrazione al luogo in cui è stata remixata."
+msgstr "Collega una registrazione al posto in cui è stata remixata."
 
 #. name:recorded during
 #: DB:link_type/description:1008
@@ -1009,15 +1035,6 @@ msgstr ""
 "Collega una pubblicazione alla persona accreditata come coordinatore di "
 "produzione per essa."
 
-#. name:arranged in
-#: DB:link_type/description:863
-msgid ""
-"Links a release to the area it was arranged in. Use only when the place is "
-"unknown!"
-msgstr ""
-"Collega una pubblicazione all'area in cui è stata arrangiata. Da usare solo "
-"quando il luogo è sconosciuto!"
-
 #. name:edited in
 #: DB:link_type/description:822
 msgid ""
@@ -1025,7 +1042,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui ne è stato fatto l'editing. Da "
-"usare solo quando il luogo è sconosciuto!"
+"usare solo quando il posto è sconosciuto!"
 
 #. name:engineered in
 #: DB:link_type/description:815
@@ -1034,7 +1051,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata lavorata in studio. Da "
-"usare solo quando il luogo è sconosciuto!"
+"usare solo quando il posto è sconosciuto!"
 
 #. name:manufactured in
 #: DB:link_type/description:835
@@ -1048,7 +1065,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata masterizzata. Da usare "
-"solo quando il luogo è sconosciuto!"
+"solo quando il posto è sconosciuto!"
 
 #. name:mixed in
 #: DB:link_type/description:757
@@ -1057,7 +1074,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata mixata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:printed in
 #: DB:link_type/description:849
@@ -1071,7 +1088,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata prodotta. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:recorded in
 #: DB:link_type/description:699
@@ -1080,7 +1097,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata registrata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:remixed in
 #: DB:link_type/description:831
@@ -1089,7 +1106,7 @@ msgid ""
 "unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata remixata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:transferred in
 #: DB:link_type/description:1181
@@ -1098,7 +1115,7 @@ msgid ""
 "tape to digital). Use only when the place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata trasferita (per esempio da "
-"un vecchio nastro a un formato digitale). Da usare solo quando il luogo è "
+"un vecchio nastro a un formato digitale). Da usare solo quando il posto è "
 "sconosciuto!"
 
 #. name:lacquer cut in
@@ -1108,7 +1125,7 @@ msgid ""
 "when the place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata effettuata l'incisione "
-"della lacca o acetato. Da usare solo quando il luogo è sconosciuto!"
+"della lacca o acetato. Da usare solo quando il posto è sconosciuto!"
 
 #. name:lacquer cut
 #: DB:link_type/description:969
@@ -1124,12 +1141,12 @@ msgstr "Collega una pubblicazione all'evento in cui è stata registrata."
 #. name:edited at
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
-msgstr "Collega una pubblicazione al luogo in cui ne è stato fatto l'editing."
+msgstr "Collega una pubblicazione al posto in cui ne è stato fatto l'editing."
 
 #. name:engineered at
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
-msgstr "Collega una pubblicazione al luogo in cui è stata lavorata in studio."
+msgstr "Collega una pubblicazione al posto in cui è stata lavorata in studio."
 
 #. name:manufactured at
 #: DB:link_type/description:953
@@ -1137,38 +1154,38 @@ msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available."
 msgstr ""
-"Collega una pubblicazione al luogo in cui è stata fabbricata. Se "
+"Collega una pubblicazione al posto in cui è stata fabbricata. Se "
 "disponibile, utilizza un accreditamento più specifico."
 
 #. name:mastered at
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
-msgstr "Collega una pubblicazione al luogo in cui è stata masterizzata."
+msgstr "Collega una pubblicazione al posto in cui è stata masterizzata."
 
 #. name:mixed at
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
-msgstr "Collega una pubblicazione al luogo in cui è stata mixata."
+msgstr "Collega una pubblicazione al posto in cui è stata mixata."
 
 #. name:pressed at
 #: DB:link_type/description:941
 msgid "Links a release to the place it was pressed at."
-msgstr "Collega una pubblicazione al luogo in cui è stata pressata."
+msgstr "Collega una pubblicazione al posto in cui è stata pressata."
 
 #. name:produced at
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
-msgstr "Collega una pubblicazione al luogo in cui è stata prodotta."
+msgstr "Collega una pubblicazione al posto in cui è stata prodotta."
 
 #. name:recorded at
 #: DB:link_type/description:695
 msgid "Links a release to the place it was recorded at."
-msgstr "Collega una pubblicazione al luogo in cui è stata registrata."
+msgstr "Collega una pubblicazione al posto in cui è stata registrata."
 
 #. name:remixed at
 #: DB:link_type/description:828
 msgid "Links a release to the place it was remixed at."
-msgstr "Collega una pubblicazione al luogo in cui è stata remixata."
+msgstr "Collega una pubblicazione al posto in cui è stata remixata."
 
 #. name:transferred at
 #: DB:link_type/description:1182
@@ -1176,7 +1193,7 @@ msgid ""
 "Links a release to the place it was transferred at (for example from an old "
 "tape to digital)."
 msgstr ""
-"Collega una pubblicazione al luogo in cui è stata trasferita (per esempio da "
+"Collega una pubblicazione al posto in cui è stata trasferita (per esempio da "
 "un vecchio nastro a un formato digitale)."
 
 #. name:glass mastered at
@@ -1185,14 +1202,14 @@ msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
 msgstr ""
-"Collega una pubblicazione al luogo in cui è stato creato il master in vetro "
+"Collega una pubblicazione al posto in cui è stato creato il master in vetro "
 "per la pressatura. Non è la stessa cosa della masterizzazione!"
 
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
 msgstr ""
-"Collega una pubblicazione al luogo in cui è stata effettuata l'incisione "
+"Collega una pubblicazione al posto in cui è stata effettuata l'incisione "
 "della lacca o acetato."
 
 #. name:launch event
@@ -1311,13 +1328,13 @@ msgid ""
 "Links an event to the area where it was held. Use only if the exact place is "
 "unknown."
 msgstr ""
-"Collega un evento all'area in cui si è tenuto. Da usare solo se il luogo "
+"Collega un evento all'area in cui si è tenuto. Da usare solo se il posto "
 "esatto è sconosciuto."
 
 #. name:held at
 #: DB:link_type/description:794
 msgid "Links an event to the place where it was held."
-msgstr "Collega un evento al luogo in cui si è tenuto."
+msgstr "Collega un evento al posto in cui si è tenuto."
 
 #. name:time
 #: DB:link_attribute_type/description:830
@@ -1390,12 +1407,12 @@ msgstr "Indica la pagina di Geonames su quest'area."
 #. name:geonames
 #: DB:link_type/description:934
 msgid "Points to the Geonames page for this place."
-msgstr "Indica la pagina di Geonames su questo luogo."
+msgstr "Indica la pagina di Geonames su questo posto."
 
 #. name:IMDb
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
-msgstr "Indica la pagina dell'Internet Movie Database su questo luogo."
+msgstr "Indica la pagina dell'Internet Movie Database su questo posto."
 
 #. name:wikidata
 #: DB:link_type/description:358
@@ -1457,7 +1474,7 @@ msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"Indica la pagina di Wikidata su questo luogo e sarà utilizzata per "
+"Indica la pagina di Wikidata su questo posto e sarà utilizzata per "
 "recuperare riassunti da Wikipedia."
 
 #. name:wikidata
@@ -1520,7 +1537,7 @@ msgstr "Indica la pagina di Wikipedia su quest'etichetta."
 #. name:wikipedia
 #: DB:link_type/description:595
 msgid "Points to the Wikipedia page for this place."
-msgstr "Indica la pagina di Wikipedia su questo luogo."
+msgstr "Indica la pagina di Wikipedia su questo posto."
 
 #. name:wikipedia
 #: DB:link_type/description:744
@@ -1908,11 +1925,10 @@ msgstr ""
 "puramente estetiche o a seguito di un'acquisizione/vendita/scorporo. Presta "
 "particolare attenzione nel caso in cui abbiano avuto luogo operazioni "
 "finanziarie complesse di fusione/scissione/ristrutturazione. Per esempio, "
-"non è una buona idea rinominare l'etichetta <a href=\"/"
-"label/99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> in <a href=\"/"
-"label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, "
-"poiché Verve ha continuato a esistere successivamente come marchio "
-"discografico."
+"non è una buona idea rinominare l'etichetta <a href=\"/label/"
+"99a24d71-54c1-4d3f-88cc-00fbcc4fce83\">Verve</a> in <a href=\"/label/"
+"4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</a>, poiché "
+"Verve ha continuato a esistere successivamente come marchio discografico."
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -2045,9 +2061,8 @@ msgid ""
 msgstr ""
 "Indica un tecnico responsabile per l'utilizzo di una console di missaggio "
 "per mixare una traccia registrata in un unico brano musicale adatto alla "
-"pubblicazione. Per il remissaggio, utilizza <a href=\"/"
-"relationship/7950be4d-13a3-48e7-906b-5af562e39544\" "
-"target=\"_blank\">remixer</a>."
+"pubblicazione. Per il remissaggio, utilizza <a href=\"/relationship/"
+"7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">remixer</a>."
 
 #. name:mix
 #: DB:link_type/description:26
@@ -2447,7 +2462,7 @@ msgstr ""
 #. name:parts
 #: DB:link_type/description:717
 msgid "This indicates that a place is part of another place."
-msgstr "Indica che un luogo è parte di un altro luogo."
+msgstr "Indica che un posto è parte di un altro posto."
 
 #. name:imprint
 #: DB:link_type/description:725
@@ -2696,7 +2711,7 @@ msgid ""
 "This indicates that the place commissioned the work. This is most common for "
 "classical works, but also exists in other genres to a degree."
 msgstr ""
-"Indica che il luogo ha commissionato l'opera. Ciò è più comune per opere di "
+"Indica che il posto ha commissionato l'opera. Ciò è più comune per opere di "
 "musica classica, ma talvolta può avvenire anche in altri generi."
 
 #. name:partial
@@ -2785,7 +2800,7 @@ msgstr "Indica l'artista che ha ispirato il nome di quest'etichetta."
 #. name:named after artist
 #: DB:link_type/description:975
 msgid "This indicates the artist that inspired this place’s name."
-msgstr "Indica l'artista che ha ispirato il nome di questo luogo."
+msgstr "Indica l'artista che ha ispirato il nome di questo posto."
 
 #. name:named after artist
 #: DB:link_type/description:1000
@@ -2865,7 +2880,7 @@ msgid ""
 "This indicates the artist was the owner of this place (often a studio, but "
 "sometimes also a venue)."
 msgstr ""
-"Indica che l'artista è stato il proprietario di questo luogo (spesso uno "
+"Indica che l'artista è stato il proprietario di questo posto (spesso uno "
 "studio, ma talvolta un locale)."
 
 #. name:arranger, name:instrument arranger, name:vocal arranger
@@ -2917,7 +2932,7 @@ msgid ""
 "studio, but sometimes also a venue)."
 msgstr ""
 "Indica che l'etichetta/l'organizzazione è stata la proprietaria di questo "
-"luogo (spesso uno studio, ma talvolta un locale)."
+"posto (spesso uno studio, ma talvolta un locale)."
 
 #. name:named after label
 #: DB:link_type/description:1259
@@ -3090,15 +3105,13 @@ msgstr ""
 msgid ""
 "This indicates the person who selected the tracks and the sequence for a "
 "compilation. If the tracks are pitched or blended into each other, it is "
-"more appropriate to credit this person as a <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-"
-"mixer</a>."
+"more appropriate to credit this person as a <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-mixer</a>."
 msgstr ""
 "Indica la persona che ha selezionato le tracce e la loro sequenza per una "
 "raccolta. Se le tracce sono intonate o mescolate l'una nell'altra, è più "
-"appropriato accreditare questa persona come <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ "
-"mixer</a>."
+"appropriato accreditare questa persona come <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ mixer</a>."
 
 #. name:compiler
 #: DB:link_type/description:147
@@ -3120,12 +3133,12 @@ msgstr ""
 #. name:named after place
 #: DB:link_type/description:1281
 msgid "This indicates the place that inspired this artist’s name."
-msgstr "Indica il luogo che ha ispirato il nome di quest'artista."
+msgstr "Indica il posto che ha ispirato il nome di quest'artista."
 
 #. name:named after place
 #: DB:link_type/description:1263
 msgid "This indicates the place that inspired this genre’s name."
-msgstr "Indica il luogo che ha ispirato il nome di questo genere."
+msgstr "Indica il posto che ha ispirato il nome di questo genere."
 
 #. name:pressed
 #: DB:link_type/description:942
@@ -3180,7 +3193,7 @@ msgstr ""
 #. name:video shot at
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
-msgstr "Indica che il video è stato girato in questo luogo."
+msgstr "Indica che il video è stato girato in questo posto."
 
 #. name:video shot at
 #: DB:link_type/description:966
@@ -3227,7 +3240,7 @@ msgid ""
 "educational institution). This is most common for classical works, but also "
 "exists in other genres to a degree."
 msgstr ""
-"Indica che l'opera è dedicata a un luogo specifico (per es. un istituto di "
+"Indica che l'opera è dedicata a un posto specifico (per es. un istituto di "
 "istruzione). Ciò è più comune per opere di musica classica, ma talvolta può "
 "avvenire anche in altri generi."
 
@@ -3313,9 +3326,9 @@ msgstr ""
 #: DB:link_type/description:227
 msgid ""
 "This is used to link a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> "
-"recording to each of the source recordings. See <a href=\"/"
-"relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"recording to each of the source recordings. See <a href=\"/relationship/"
+"28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 "Serve a collegare una registrazione <a href=\"/doc/"
 "Mix_Terminology#DJ_mix\">mixata da DJ</a> a ciascuna delle registrazioni "
@@ -3375,7 +3388,7 @@ msgstr ""
 #. name:discogs
 #: DB:link_type/description:705
 msgid "This is used to link a place to the equivalent entry in Discogs."
-msgstr "Serve a collegare un luogo alla voce rispettiva su Discogs."
+msgstr "Serve a collegare un posto alla voce rispettiva su Discogs."
 
 #. name:secondhandsongs
 #: DB:link_type/description:976
@@ -3398,9 +3411,9 @@ msgstr ""
 msgid ""
 "This is used to link a release group containing a <a href=\"/doc/"
 "Mix_Terminology#DJ_mix\">DJ-mixed</a> version of a release to the release "
-"group containing the source release. See <a href=\"/"
-"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for "
-"crediting the person who created the DJ-mix."
+"group containing the source release. See <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the person "
+"who created the DJ-mix."
 msgstr ""
 "Serve a collegare un gruppo di pubblicazioni che contiene una versione <a "
 "href=\"/doc/Mix_Terminology#DJ_mix\">mixata da DJ</a> di una pubblicazione "
@@ -3732,7 +3745,7 @@ msgid ""
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
 "Collega un'etichetta a un sito su cui l'etichetta può ricevere donazioni/"
-"patrocinio, come Flattr o PayPal.me."
+"patrocini, come Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1194
@@ -3785,9 +3798,9 @@ msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
 msgstr ""
-"Collega un luogo (spesso una sala concerti o un istituto di istruzione) al "
+"Collega un posto (spesso una sala concerti o un istituto di istruzione) al "
 "compositore che ha una posizione di compositore in residenza presso quel "
-"luogo."
+"posto."
 
 #. name:video channel
 #: DB:link_type/description:495
@@ -3795,13 +3808,13 @@ msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
-"Collega un luogo a un canale, playlist o pagina utente su un sito di "
+"Collega un posto a un canale, playlist o pagina utente su un sito di "
 "condivisione video che contiene video selezionati da esso."
 
 #. name:fanpage
 #: DB:link_type/description:1191
 msgid "This links a place to a fan-created website."
-msgstr "Collega un luogo a un sito web creato da fan."
+msgstr "Collega un posto a un sito web creato da fan."
 
 #. name:patronage
 #: DB:link_type/description:900
@@ -3809,26 +3822,26 @@ msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
-"Collega un luogo a un sito tramite cui il luogo o l'organizzazione che lo "
-"gestisce possono ricevere donazioni/patrocinio, come Flattr o PayPal.me."
+"Collega un posto a un sito tramite cui il posto o l'organizzazione che lo "
+"gestisce possono ricevere donazioni/patrocini, come Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1195
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
-"Collega un luogo a un sito su cui è possibile acquistare biglietti per i "
+"Collega un posto a un sito su cui è possibile acquistare biglietti per i "
 "suoi eventi."
 
 #. name:youtube
 #: DB:link_type/description:528
 msgid "This links a place to its channel at YouTube."
-msgstr "Collega un luogo al suo canale YouTube."
+msgstr "Collega un posto al suo canale YouTube."
 
 #. name:soundcloud
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr "Collega un luogo al suo profilo su SoundCloud."
+msgstr "Collega un posto al suo profilo su SoundCloud."
 
 #. name:crowdfunding
 #: DB:link_type/description:909
@@ -3836,7 +3849,7 @@ msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or "
 "Indiegogo."
 msgstr ""
-"Collega un luogo al suo profilo su un sito di crowdfunding come Kickstarter "
+"Collega un posto al suo profilo su un sito di crowdfunding come Kickstarter "
 "o Indiegogo."
 
 #. name:rescheduled as
@@ -4043,13 +4056,13 @@ msgstr ""
 "come Kickstarter o Indiegogo."
 
 #. name:arranged in
-#: DB:link_type/description:1274
+#: DB:link_type/description:863
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata arrangiata. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:composed in
 #: DB:link_type/description:1269
@@ -4058,7 +4071,7 @@ msgid ""
 "place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata composta. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:revised in
 #: DB:link_type/description:1272
@@ -4067,7 +4080,7 @@ msgid ""
 "place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata rivista. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:translated in
 #: DB:link_type/description:1273
@@ -4076,7 +4089,7 @@ msgid ""
 "place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata tradotta. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:written in
 #: DB:link_type/description:1268
@@ -4085,7 +4098,7 @@ msgid ""
 "place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui è stata scritta. Da usare solo "
-"quando il luogo è sconosciuto!"
+"quando il posto è sconosciuto!"
 
 #. name:libretto written in
 #: DB:link_type/description:1271
@@ -4094,7 +4107,7 @@ msgid ""
 "when the place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui ne è stato scritto il libretto. Da "
-"usare solo quando il luogo è sconosciuto!"
+"usare solo quando il posto è sconosciuto!"
 
 #. name:lyrics written in
 #: DB:link_type/description:1270
@@ -4103,44 +4116,44 @@ msgid ""
 "the place is unknown!"
 msgstr ""
 "Collega una pubblicazione all'area in cui sono stati scritti i suoi testi. "
-"Da usare solo quando il luogo è sconosciuto!"
+"Da usare solo quando il posto è sconosciuto!"
 
 #. name:arranged at
 #: DB:link_type/description:865
 msgid "This links a release with the place it was arranged at."
-msgstr "Collega una pubblicazione al luogo in cui è stata arrangiata."
+msgstr "Collega una pubblicazione al posto in cui è stata arrangiata."
 
 #. name:composed at
 #: DB:link_type/description:1251
 msgid "This links a release with the place it was composed at."
-msgstr "Collega una pubblicazione al luogo in cui è stata composta."
+msgstr "Collega una pubblicazione al posto in cui è stata composta."
 
 #. name:revised at
 #: DB:link_type/description:1248
 msgid "This links a release with the place it was revised at."
-msgstr "Collega una pubblicazione al luogo in cui è stata rivista."
+msgstr "Collega una pubblicazione al posto in cui è stata rivista."
 
 #. name:translated at
 #: DB:link_type/description:1247
 msgid "This links a release with the place it was translated at."
-msgstr "Collega una pubblicazione al luogo in cui è stata tradotta."
+msgstr "Collega una pubblicazione al posto in cui è stata tradotta."
 
 #. name:written at
 #: DB:link_type/description:1246
 msgid "This links a release with the place it was written at."
-msgstr "Collega una pubblicazione al luogo in cui è stata scritta."
+msgstr "Collega una pubblicazione al posto in cui è stata scritta."
 
 #. name:libretto written at
 #: DB:link_type/description:1249
 msgid "This links a release with the place its libretto was written at."
 msgstr ""
-"Collega una pubblicazione al luogo in cui ne è stato scritto il libretto."
+"Collega una pubblicazione al posto in cui ne è stato scritto il libretto."
 
 #. name:lyrics written at
 #: DB:link_type/description:1250
 msgid "This links a release with the place its lyrics were written at."
 msgstr ""
-"Collega una pubblicazione al luogo in cui sono stati scritti i suoi testi."
+"Collega una pubblicazione al posto in cui sono stati scritti i suoi testi."
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -4160,7 +4173,7 @@ msgid ""
 msgstr ""
 "Collega una serie (solitamente una serie di festival o concerti, ma non "
 "solo) a un sito tramite cui gli organizzatori/creatori possono ricevere "
-"donazioni/patrocinio, come Flattr o PayPal.me."
+"donazioni/patrocini, come Flattr o PayPal.me."
 
 #. name:video channel
 #: DB:link_type/description:805
@@ -4230,8 +4243,8 @@ msgid ""
 "This links a soundtrack work to the <a href=\"http://www.imdb.com/\">IMDb</"
 "a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
-"Collega l'opera di una colonna sonora alla pagina <a href=\"http://www.imdb."
-"com/\">IMDb</a> del film, serie o gioco di cui è la colonna sonora."
+"Collega l'opera di una colonna sonora alla pagina <a href=\"http://"
+"www.imdb.com/\">IMDb</a> del film, serie o gioco di cui è la colonna sonora."
 
 #. name:subgroup
 #: DB:link_type/description:722
@@ -4295,37 +4308,37 @@ msgstr "Collega un'opera all'area in cui sono stati scritti i suoi testi."
 #. name:arranged at
 #: DB:link_type/description:886
 msgid "This links a work with the place it was arranged at."
-msgstr "Collega un'opera al luogo in cui è stata arrangiata."
+msgstr "Collega un'opera al posto in cui è stata arrangiata."
 
 #. name:composed at
 #: DB:link_type/description:876
 msgid "This links a work with the place it was composed at."
-msgstr "Collega un'opera al luogo in cui è stata composta."
+msgstr "Collega un'opera al posto in cui è stata composta."
 
 #. name:revised at
 #: DB:link_type/description:882
 msgid "This links a work with the place it was revised at."
-msgstr "Collega un'opera al luogo in cui è stata rivista."
+msgstr "Collega un'opera al posto in cui è stata rivista."
 
 #. name:translated at
 #: DB:link_type/description:883
 msgid "This links a work with the place it was translated at."
-msgstr "Collega un'opera al luogo in cui è stata tradotta."
+msgstr "Collega un'opera al posto in cui è stata tradotta."
 
 #. name:written at
 #: DB:link_type/description:874
 msgid "This links a work with the place it was written at."
-msgstr "Collega un'opera al luogo in cui è stata scritta."
+msgstr "Collega un'opera al posto in cui è stata scritta."
 
 #. name:libretto written at
 #: DB:link_type/description:880
 msgid "This links a work with the place its libretto was written at."
-msgstr "Collega un'opera al luogo in cui ne è stato scritto il libretto."
+msgstr "Collega un'opera al posto in cui ne è stato scritto il libretto."
 
 #. name:lyrics written at
 #: DB:link_type/description:878
 msgid "This links a work with the place its lyrics were written at."
-msgstr "Collega un'opera al luogo in cui sono stati scritti i suoi testi."
+msgstr "Collega un'opera al posto in cui sono stati scritti i suoi testi."
 
 #. name:voice actor
 #: DB:link_type/description:292
@@ -4353,7 +4366,7 @@ msgid ""
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
 "Collega un artista a un sito tramite cui l'artista può ricevere donazioni/"
-"patrocinio, come Flattr o PayPal.me."
+"patrocini, come Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1193
@@ -4538,7 +4551,7 @@ msgid ""
 "donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
 "Collega un evento a un sito tramite cui gli organizzatori dell'evento "
-"possono ricevere donazioni/patrocinio, come Flattr o PayPal.me."
+"possono ricevere donazioni/patrocini, come Flattr o PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1197
@@ -4604,7 +4617,7 @@ msgstr ""
 msgid ""
 "This links to a site describing relevant details about a place's history."
 msgstr ""
-"Serve a collegare un sito che contiene informazioni sulla storia di un luogo."
+"Serve a collegare un sito che contiene informazioni sulla storia di un posto."
 
 #. name:arrangement
 #: DB:link_type/description:350
@@ -4623,6 +4636,18 @@ msgid ""
 msgstr ""
 "Collega due <a href=\"/doc/Work\" title=\"Work\">opere</a> di cui una è "
 "un'orchestrazione dell'altra."
+
+#. name:adaptation
+#: DB:link_type/description:1284
+msgid ""
+"This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
+"work is an adaptation of the other (generally from a different medium, such "
+"as a prose work into an audio drama or a stage musical into a film musical)."
+msgstr ""
+"Collega due <a href=\"/doc/Work\" title=\"Work\">opere</a> di cui una è un "
+"adattamento dell'altra (in genere da un mezzo diverso, come per esempio da "
+"opera in prosa ad audiodramma, o da musical teatrale a musical "
+"cinematografico)."
 
 #. name:based on
 #: DB:link_type/description:314
@@ -4704,7 +4729,7 @@ msgid ""
 "libraries (<a href=\"//en.wikipedia.org/wiki/"
 "Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
-"Indica la pagina di <a href=\"//viaf.org/\">VIAF</a> su questo luogo. VIAF è "
+"Indica la pagina di <a href=\"//viaf.org/\">VIAF</a> su questo posto. VIAF è "
 "un progetto internazionale che mette a disposizione delle biblioteche di "
 "tutto il mondo un database di voci di autorità comuni. Una voce di autorità "
 "è simile a un MBID per biblioteche (<a href=\"//en.wikipedia.org/wiki/"
@@ -4893,10 +4918,10 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this recording, usually indicated with a ℗ symbol."
 msgstr ""
-"Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia."
-"org/wiki/Sound_recording_copyright_symbol\" target=\"_blank\">diritti "
-"fonografici</a> per questa registrazione, di solito indicati con il simbolo "
-"℗."
+"Questa relazione indica che l'etichetta detiene i <a href=\"//"
+"en.wikipedia.org/wiki/Sound_recording_copyright_symbol\" "
+"target=\"_blank\">diritti fonografici</a> per questa registrazione, di "
+"solito indicati con il simbolo ℗."
 
 #. name:phonographic copyright
 #: DB:link_type/description:711
@@ -4905,10 +4930,10 @@ msgid ""
 "wiki/Sound_recording_copyright_symbol\" target=\"_blank\">phonographic "
 "copyright</a> holder for this release, usually indicated with a ℗ symbol."
 msgstr ""
-"Questa relazione indica che l'etichetta detiene i <a href=\"//en.wikipedia."
-"org/wiki/Sound_recording_copyright_symbol\" target=\"_blank\">diritti "
-"fonografici</a> per questa pubblicazione, di solito indicati con il simbolo "
-"℗."
+"Questa relazione indica che l'etichetta detiene i <a href=\"//"
+"en.wikipedia.org/wiki/Sound_recording_copyright_symbol\" "
+"target=\"_blank\">diritti fonografici</a> per questa pubblicazione, di "
+"solito indicati con il simbolo ℗."
 
 #. name:copyright
 #: DB:link_type/description:708
@@ -5002,13 +5027,17 @@ msgid ""
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
 "specific information is available. If possible, the more specific composer, "
 "lyricist and/or librettist types should be used, rather than this "
-"relationship type."
+"relationship type.\n"
+"\n"
+"It is also used for the writers of literary works."
 msgstr ""
 "Questa relazione serve a collegare un'opera con l'artista responsabile per "
 "la scrittura della musica e/o delle parole (testi, libretto, ecc.), nei casi "
 "in cui informazioni più specifiche non sono disponibili. Se possibile, "
 "dovresti usare i tipi di relazione compositore, paroliere e/o librettista "
-"anziché questo tipo di relazione."
+"anziché questo tipo di relazione.\n"
+"\n"
+"La relazione serve anche per gli autori di opere letterarie."
 
 #. name:residency
 #: DB:link_type/description:994
@@ -5027,7 +5056,7 @@ msgid ""
 "This relationship links a carillonneur to the place(s) (most commonly "
 "religious buildings) at which they are the resident carillonneur."
 msgstr ""
-"Questa relazione collega un carillonneur al luogo (o ai luoghi) (più "
+"Questa relazione collega un carillonneur al posto (o ai posti) (più "
 "comunemente edifici religiosi) presso il quale è il carillonneur residente."
 
 #. name:tour
@@ -5094,8 +5123,8 @@ msgid ""
 "This relationship links an organist to the place(s) (most commonly religious "
 "buildings) at which they are the resident organist."
 msgstr ""
-"Questa relazione collega un organista al luogo (o ai luoghi) (più "
-"comunemente edifici religiosi) presso il quale è l'organista residente."
+"Questa relazione collega un organista al posto (o ai posti) (più comunemente "
+"edifici religiosi) presso il quale è l'organista residente."
 
 #. name:show notes
 #: DB:link_type/description:729
@@ -5109,17 +5138,17 @@ msgstr ""
 #. name:tribute
 #: DB:link_type/description:728
 msgid ""
-"This relationship specifies that an artist is a <a href=\"http://en."
-"wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
+"This relationship specifies that an artist is a <a href=\"http://"
+"en.wikipedia.org/wiki/Tribute_act\">tribute</a> to another specific artist/"
 "band; that is, it primarily performs covers of that artist. They may also be "
 "referred to as cover bands. Some tribute artists may name themselves, dress, "
 "and/or act similarly to the artists they pay tribute to."
 msgstr ""
-"Questa relazione indica che un artista è un <a href=\"http://en.wikipedia."
-"org/wiki/Tribute_act\">tributo</a> a un altro artista o band specifica, cioè "
-"che esegue principalmente cover di quell'artista. Questo tipo di artista è "
-"chiamato anche cover band. Alcuni artisti tributo riprendono il nome, "
-"l'abbigliamento e lo stile degli artisti che omaggiano."
+"Questa relazione indica che un artista è un <a href=\"http://"
+"en.wikipedia.org/wiki/Tribute_act\">tributo</a> a un altro artista o band "
+"specifica, cioè che esegue principalmente cover di quell'artista. Questo "
+"tipo di artista è chiamato anche cover band. Alcuni artisti tributo "
+"riprendono il nome, l'abbigliamento e lo stile degli artisti che omaggiano."
 
 #. name:tribute to
 #: DB:link_type/description:936
@@ -5136,7 +5165,7 @@ msgid ""
 "This relationship type can be used to link a MusicBrainz place to the "
 "equivalent entry in Myspace."
 msgstr ""
-"Questo tipo di relazione può essere usato per collegare un luogo di "
+"Questo tipo di relazione può essere usato per collegare un posto di "
 "MusicBrainz alla voce rispettiva su Myspace."
 
 #. name:label founder
@@ -5154,7 +5183,7 @@ msgid ""
 "This relationship type can be used to link a place (generally a studio or "
 "venue) to the person(s) who founded it."
 msgstr ""
-"Questo tipo di relazione può essere usato per collegare un luogo "
+"Questo tipo di relazione può essere usato per collegare un posto "
 "(solitamente uno studio o un locale) alla persona (o persone) che l'ha "
 "fondato."
 
@@ -5162,7 +5191,7 @@ msgstr ""
 #: DB:link_type/description:627
 msgid "This relationship type can be used to link a place to its blog."
 msgstr ""
-"Questo tipo di relazione può essere usato per collegare un luogo al suo blog."
+"Questo tipo di relazione può essere usato per collegare un posto al suo blog."
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -5179,9 +5208,9 @@ msgstr ""
 "all'indirizzo specificato.\n"
 "<br/><br/>\n"
 "Per indicare che la registrazione forma parte di una colonna sonora, "
-"utilizza il <a href=\"/"
-"relationship/85b0a010-3237-47c7-8476-6fcefd4761af\">tipo di relazione IMDB "
-"per gruppi di pubblicazioni</a>."
+"utilizza il <a href=\"/relationship/"
+"85b0a010-3237-47c7-8476-6fcefd4761af\">tipo di relazione IMDB per gruppi di "
+"pubblicazioni</a>."
 
 #. name:remaster
 #: DB:link_type/description:236
@@ -5252,9 +5281,9 @@ msgid ""
 "This relationship type is used to indicate that a release group is a re‐"
 "recording of another release group, that is, when an artist performs a new "
 "studio rendition of their own album.<br/>\n"
-"For a live performance of the album, see the <a href=\"/"
-"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance "
-"relationship type</a>.<br/>\n"
+"For a live performance of the album, see the <a href=\"/relationship/"
+"62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">live performance relationship type</"
+"a>.<br/>\n"
 "For a cover recording of the album by a different artist, see the <a href=\"/"
 "relationship/cf02e524-9d5b-46b7-a88e-329737395818\">cover relationship type</"
 "a>."
@@ -5263,9 +5292,9 @@ msgstr ""
 "una ri-registrazione di un altro gruppo di pubblicazioni, cioè che un "
 "artista ha eseguito una nuova interpretazione in studio di un suo stesso "
 "album.<br/>\n"
-"Per un'esecuzione dal vivo di un album, utilizza il <a href=\"/"
-"relationship/62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">tipo di relazione "
-"esecuzione dal vivo</a>.<br/>\n"
+"Per un'esecuzione dal vivo di un album, utilizza il <a href=\"/relationship/"
+"62beff0a-679c-43f3-8fe6-f6c8ed8581e4\">tipo di relazione esecuzione dal "
+"vivo</a>.<br/>\n"
 "Per una registrazione cover di un album da parte di un artista diverso, "
 "utilizza il <a href=\"/relationship/cf02e524-9d5b-46b7-"
 "a88e-329737395818\">tipo di relazione cover</a>."
@@ -5489,7 +5518,7 @@ msgid ""
 "page at <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb is a community "
 "project dedicated to cataloguing the music of video games and anime."
 msgstr ""
-"Questo tipo di relazione collega un luogo (solitamente uno studio) alla sua "
+"Questo tipo di relazione collega un posto (solitamente uno studio) alla sua "
 "pagina corrispondente su <a href=\"http://vgmdb.net/\">VGMdb</a>. VGMdb è un "
 "progetto di comunità dedito a catalogare la musica di videogiochi e anime."
 
@@ -5499,7 +5528,7 @@ msgid ""
 "This relationship type links a place to its corresponding page at "
 "Bandsintown."
 msgstr ""
-"Questo tipo di relazione collega un luogo alla sua pagina corrispondente su "
+"Questo tipo di relazione collega un posto alla sua pagina corrispondente su "
 "Bandsintown."
 
 #. name:last.fm
@@ -5507,7 +5536,7 @@ msgstr ""
 msgid ""
 "This relationship type links a place to its corresponding page at Last.fm."
 msgstr ""
-"Questo tipo di relazione collega un luogo alla sua pagina corrispondente su "
+"Questo tipo di relazione collega un posto alla sua pagina corrispondente su "
 "Last.fm."
 
 #. name:songkick
@@ -5515,7 +5544,7 @@ msgstr ""
 msgid ""
 "This relationship type links a place to its corresponding page at Songkick."
 msgstr ""
-"Questo tipo di relazione collega un luogo alla sua pagina corrispondente su "
+"Questo tipo di relazione collega un posto alla sua pagina corrispondente su "
 "Songkick."
 
 #. name:setlistfm
@@ -5523,7 +5552,7 @@ msgstr ""
 msgid ""
 "This relationship type links a place to its corresponding page at setlist.fm."
 msgstr ""
-"Questo tipo di relazione collega un luogo alla sua pagina corrispondente su "
+"Questo tipo di relazione collega un posto alla sua pagina corrispondente su "
 "setlist.fm."
 
 #. name:vgmdb
@@ -5594,8 +5623,8 @@ msgstr ""
 #. name:setlistfm
 #: DB:link_type/description:816
 msgid ""
-"This relationship type links an artist to its corresponding page at setlist."
-"fm."
+"This relationship type links an artist to its corresponding page at "
+"setlist.fm."
 msgstr ""
 "Questo tipo di relazione collega un artista alla sua pagina corrispondente "
 "su setlist.fm."
@@ -5669,8 +5698,8 @@ msgstr ""
 #. name:setlistfm
 #: DB:link_type/description:811
 msgid ""
-"This relationship type links an event to its corresponding page at setlist."
-"fm."
+"This relationship type links an event to its corresponding page at "
+"setlist.fm."
 msgstr ""
 "Questo tipo di relazione collega un evento alla sua pagina corrispondente su "
 "setlist.fm."
@@ -5769,14 +5798,15 @@ msgstr ""
 #. name:number
 #: DB:link_attribute_type/description:1032
 msgid ""
-"Use this for operas and similar works that are <a href=\"https://en."
-"wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify what "
-"parts are numbers (as opposed to spoken dialog or other non-numbered parts)."
+"Use this for operas and similar works that are <a href=\"https://"
+"en.wikipedia.org/wiki/Number_opera\">separated in numbers</a>, to specify "
+"what parts are numbers (as opposed to spoken dialog or other non-numbered "
+"parts)."
 msgstr ""
-"Da usare per opere e generi simili che sono <a href=\"https://en.wikipedia."
-"org/wiki/Number_opera\">divisi in parti numerate</a> per specificare quali "
-"parti sono numerate (per contrapposizione ai dialoghi parlati o altre parti "
-"non numerate)."
+"Da usare per opere e generi simili che sono <a href=\"https://"
+"en.wikipedia.org/wiki/Number_opera\">divisi in parti numerate</a> per "
+"specificare quali parti sono numerate (per contrapposizione ai dialoghi "
+"parlati o altre parti non numerate)."
 
 #. name:co
 #: DB:link_attribute_type/description:424
@@ -6072,6 +6102,24 @@ msgstr "accompagnamento"
 msgid "act"
 msgstr "atto"
 
+#: DB:link_type/name:1284
+msgid "adaptation"
+msgstr "adattamento"
+
+#. name:adaptation
+#: DB:link_type/reverse_link_phrase:1284
+msgid "adaptation of"
+msgstr "adattamento di"
+
+#. name:adaptation
+#: DB:link_type/link_phrase:1284
+msgid "adaptations"
+msgstr "adattamenti"
+
+#: DB:link_type/name:1285
+msgid "adapter"
+msgstr "adattatore"
+
 #: DB:link_attribute_type/name:1
 msgid "additional"
 msgstr "aggiunto"
@@ -6131,8 +6179,7 @@ msgstr "arrangiata presso"
 msgid "arranged for"
 msgstr "arrangiata per"
 
-#: DB:link_type/name:1274 DB:link_type/name:863 DB:link_type/name:885
-#: DB:link_type/name:864
+#: DB:link_type/name:885 DB:link_type/name:863 DB:link_type/name:864
 msgid "arranged in"
 msgstr "arrangiata a"
 
@@ -7579,6 +7626,11 @@ msgstr "ha un sito web a sé stante su"
 msgid "has a ticketing page at"
 msgstr "ha una pagina di biglietteria su"
 
+#. name:adaptation
+#: DB:link_type/long_link_phrase:1284
+msgid "has adaptation"
+msgstr "ha l'adattamento"
+
 #. name:allmusic
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
 #: DB:link_type/long_link_phrase:283 DB:link_type/long_link_phrase:285
@@ -7839,7 +7891,7 @@ msgstr "detiene il copyright (©) per il video"
 msgid "holds phonographic copyright (℗) for"
 msgstr "detiene i diritti fonografici (℗) per"
 
-#: DB:link_type/name:801
+#: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
 msgstr "presentatore"
 
@@ -7849,7 +7901,14 @@ msgid "host at"
 msgstr "presentatore di"
 
 #. name:host
-#: DB:link_type/reverse_link_phrase:801
+#: DB:link_type/link_phrase:1287
+#, fuzzy
+#| msgid "poster for"
+msgid "host for"
+msgstr "manifesto per"
+
+#. name:host
+#: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
 msgstr "presentatori"
 
@@ -7941,7 +8000,7 @@ msgstr "ha ispirato il nome dell'etichetta"
 #. name:named after artist
 #: DB:link_type/link_phrase:975
 msgid "inspired the name of place"
-msgstr "ha ispirato il nome del luogo"
+msgstr "ha ispirato il nome del posto"
 
 #. name:named after work
 #: DB:link_type/reverse_link_phrase:1283
@@ -8151,7 +8210,7 @@ msgstr "prende il nome dall'etichetta"
 #. name:named after place
 #: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
 msgid "is named after place"
-msgstr "prende il nome dal luogo"
+msgstr "prende il nome dal posto"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
@@ -8213,6 +8272,13 @@ msgstr ""
 "{live:dal vivo} {partial:parziale} {instrumental:strumentale} {cover} "
 "{karaoke} {demo} di"
 
+#. name:host
+#: DB:link_type/long_link_phrase:1287
+#, fuzzy
+#| msgid "is/was a supporting artist for"
+msgid "is/was a host for"
+msgstr "è/è stato un artista di supporto per"
+
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
 msgid "is/was a subgroup of"
@@ -8257,8 +8323,8 @@ msgstr "è/è stata l'etichetta controllante di"
 #: DB:link_type/long_link_phrase:103
 msgid "is/was {additional:an|a} {additional} {original} {eponymous} member of"
 msgstr ""
-"è/è stato membro {eponymous:eponimo} {original:originario} {additional:"
-"aggiunto} di"
+"è/è stato membro {eponymous:eponimo} {original:originario} "
+"{additional:aggiunto} di"
 
 #. name:conductor position
 #: DB:link_type/long_link_phrase:305
@@ -8474,7 +8540,7 @@ msgstr "esecuzioni dal vivo"
 #. name:held at, name:held in
 #: DB:link_type/link_phrase:995 DB:link_type/link_phrase:1085
 msgid "location for"
-msgstr "location per"
+msgstr "luogo di"
 
 #: DB:link_type/name:213
 msgid "logo"
@@ -8884,7 +8950,7 @@ msgstr "prende il nome dall'etichetta"
 #: DB:link_type/name:1281 DB:link_type/name:1263 DB:link_type/link_phrase:1263
 #: DB:link_type/reverse_link_phrase:1281
 msgid "named after place"
-msgstr "prende il nome dal luogo"
+msgstr "prende il nome dal posto"
 
 #. name:named after release group
 #: DB:link_type/name:1261 DB:link_type/name:974 DB:link_type/name:1282
@@ -9184,8 +9250,8 @@ msgstr "si è esibito come doppiatore di"
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
 msgid "performed {additional} {assistant} chorus master on"
 msgstr ""
-"si è esibito come {assistant:assistente} maestro del coro {additional:"
-"aggiunto} su"
+"si è esibito come {assistant:assistente} maestro del coro "
+"{additional:aggiunto} su"
 
 #. name:instrument
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
@@ -9198,8 +9264,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
 msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
 msgstr ""
-"ha eseguito {vocal:%|la voce} {solo:solista} {guest:ospite} {additional:"
-"aggiuntiva} su"
+"ha eseguito {vocal:%|la voce} {solo:solista} {guest:ospite} "
+"{additional:aggiuntiva} su"
 
 #: DB:link_type/name:51 DB:link_type/name:156
 msgid "performer"
@@ -9552,8 +9618,8 @@ msgstr "ha fornito rappresentanza legale {additional:aggiuntiva} per"
 #: DB:link_type/long_link_phrase:18
 msgid "provided {additional} {assistant} art direction on"
 msgstr ""
-"ha fornito {assistant:assistenza alla} direzione artistica {additional:"
-"aggiuntiva} su"
+"ha fornito {assistant:assistenza alla} direzione artistica "
+"{additional:aggiuntiva} su"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1233 DB:link_type/long_link_phrase:928
@@ -9979,6 +10045,10 @@ msgstr "dirigente scolastico presso"
 #: DB:link_type/reverse_link_phrase:1166
 msgid "school directors"
 msgstr "dirigenti scolastici"
+
+#: DB:link_type/name:1286
+msgid "scriptwriter"
+msgstr "sceneggiatore"
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
@@ -10789,9 +10859,9 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medley including a} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"{medley:medley che comprende una} registrazione {acappella:a cappella} {live:"
-"dal vivo} {partial:parziale} {instrumental:strumentale} {cover} {karaoke} "
-"{demo} di"
+"{medley:medley che comprende una} registrazione {acappella:a cappella} "
+"{live:dal vivo} {partial:parziale} {instrumental:strumentale} {cover} "
+"{karaoke} {demo} di"
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
@@ -10799,9 +10869,14 @@ msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
-"{medley:medley che comprendono} registrazioni {acappella:a cappella} {live:"
-"dal vivo} {partial:parziali} {instrumental:strumentali} {cover} {karaoke} "
-"{demo}"
+"{medley:medley che comprendono} registrazioni {acappella:a cappella} "
+"{live:dal vivo} {partial:parziali} {instrumental:strumentali} {cover} "
+"{karaoke} {demo}"
+
+#. name:adapter
+#: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
+msgid "{additional:additionally} adapted"
+msgstr "ha adattato {additional:in aggiunta}"
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
@@ -10810,8 +10885,8 @@ msgid "{additional:additionally} arranged at"
 msgstr "arrangiata {additional:in aggiunta} presso"
 
 #. name:arranged in
-#: DB:link_type/reverse_link_phrase:1274 DB:link_type/reverse_link_phrase:863
-#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:864
+#: DB:link_type/reverse_link_phrase:885 DB:link_type/reverse_link_phrase:863
+#: DB:link_type/reverse_link_phrase:864
 msgid "{additional:additionally} arranged in"
 msgstr "arrangiata {additional:in aggiunta} a"
 
@@ -10970,6 +11045,11 @@ msgstr "ha scritto {additional:in aggiunta} il libretto di"
 msgid "{additional:additionally} wrote the lyrics for"
 msgstr "ha scritto i testi {additional:in aggiunta} per"
 
+#. name:scriptwriter
+#: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
+msgid "{additional:additionally} wrote the script for"
+msgstr "ha scritto la sceneggiatura {additional:in aggiunta} per"
+
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
 #: DB:link_type/long_link_phrase:46 DB:link_type/long_link_phrase:151
@@ -10998,8 +11078,8 @@ msgstr ""
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}audio engineered"
 msgstr ""
-"è stato un {assistant:assistente} {co:co-}tecnico audio {associate:"
-"associato} {additional:aggiunto} su"
+"è stato un {assistant:assistente} {co:co-}tecnico audio "
+"{associate:associato} {additional:aggiunto} su"
 
 #. name:balance
 #: DB:link_type/link_phrase:727 DB:link_type/link_phrase:726
@@ -11022,16 +11102,16 @@ msgstr ""
 #: DB:link_type/long_link_phrase:136
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgstr ""
-"è stato un {assistant:assistente} {co:co-}tecnico di mastering {associate:"
-"associato} {additional:aggiunto} su"
+"è stato un {assistant:assistente} {co:co-}tecnico di mastering "
+"{associate:associato} {additional:aggiunto} su"
 
 #. name:mix
 #: DB:link_type/link_phrase:26 DB:link_type/link_phrase:143
 #: DB:link_type/long_link_phrase:26 DB:link_type/long_link_phrase:143
 msgid "{additional:additionally} {assistant} {associate} {co:co-}mixed"
 msgstr ""
-"è stato un {assistant:assistente} {co:co-}tecnico di missaggio {associate:"
-"associato} {additional:aggiunto} su"
+"è stato un {assistant:assistente} {co:co-}tecnico di missaggio "
+"{associate:associato} {additional:aggiunto} su"
 
 #. name:sound
 #: DB:link_type/link_phrase:133 DB:link_type/link_phrase:29
@@ -11039,8 +11119,8 @@ msgstr ""
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr ""
-"è stato un {assistant:assistente} {co:co-}tecnico del suono {associate:"
-"associato} {additional:aggiunto} su"
+"è stato un {assistant:assistente} {co:co-}tecnico del suono "
+"{associate:associato} {additional:aggiunto} su"
 
 #. name:transfer
 #: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
@@ -11054,8 +11134,8 @@ msgstr ""
 #: DB:link_type/link_phrase:138 DB:link_type/long_link_phrase:28
 #: DB:link_type/long_link_phrase:138
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }engineered"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }engineered"
 msgstr ""
 "è stato un {assistant:assistente} {co:co-}tecnico {executive:esecutivo} "
 "{associate:associato} {additional:aggiunto} su"
@@ -11064,8 +11144,8 @@ msgstr ""
 #: DB:link_type/link_phrase:141 DB:link_type/link_phrase:30
 #: DB:link_type/long_link_phrase:141 DB:link_type/long_link_phrase:30
 msgid ""
-"{additional:additionally} {assistant} {associate} {co:co-}{executive:"
-"executive }produced"
+"{additional:additionally} {assistant} {associate} {co:co-}"
+"{executive:executive }produced"
 msgstr ""
 "è stato {assistant:assistente} {co:co-}produttore {executive:esecutivo} "
 "{associate:associato} {additional:aggiunto} su"
@@ -11141,16 +11221,20 @@ msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} presso"
 msgid "{additional:additionally} {pre:pre-}{re}mastered in"
 msgstr "{pre:pre-}{re}mastering effettuato {additional:in aggiunta} a"
 
+#. name:adapter
+#: DB:link_type/reverse_link_phrase:1285
+msgid "{additional} adapter"
+msgstr "adattatore {additional:aggiunto}"
+
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
 msgid "{additional} animation"
 msgstr "animazioni {additional:aggiuntive}"
 
 #. name:arranged at, name:arranged in
-#: DB:link_type/link_phrase:1274 DB:link_type/link_phrase:865
-#: DB:link_type/link_phrase:863 DB:link_type/link_phrase:885
-#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:866
-#: DB:link_type/link_phrase:864
+#: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
+#: DB:link_type/link_phrase:886 DB:link_type/link_phrase:863
+#: DB:link_type/link_phrase:866 DB:link_type/link_phrase:864
 msgid "{additional} arranging location for"
 msgstr "luogo {additional:aggiuntivo} di arrangiamento per"
 
@@ -11341,6 +11425,11 @@ msgstr "campionamenti {additional:aggiuntivi}"
 msgid "{additional} samples from"
 msgstr "campionamenti {additional:aggiuntivi} da"
 
+#. name:scriptwriter
+#: DB:link_type/reverse_link_phrase:1286
+msgid "{additional} scriptwriter"
+msgstr "sceneggiatore {additional:aggiunto}"
+
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
 msgid "{additional} shooting location for"
@@ -11413,15 +11502,15 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:727 DB:link_type/reverse_link_phrase:726
 msgid "{additional} {assistant} {associate} {co:co-}balance engineer"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di bilanciamento {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico di bilanciamento "
+"{associate:associato} {additional:aggiunto}"
 
 #. name:editor
 #: DB:link_type/reverse_link_phrase:144 DB:link_type/reverse_link_phrase:38
 msgid "{additional} {assistant} {associate} {co:co-}editor"
 msgstr ""
-"{assistant:assistente} {co:co-}editor {associate:associato} {additional:"
-"aggiunto}"
+"{assistant:assistente} {co:co-}editor {associate:associato} "
+"{additional:aggiunto}"
 
 #. name:mastering
 #: DB:link_type/link_phrase:136 DB:link_type/reverse_link_phrase:136
@@ -11441,15 +11530,15 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di registrazione {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico di registrazione "
+"{associate:associato} {additional:aggiunto}"
 
 #. name:recording
 #: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di registrazione {associate:"
-"associato} {additional:aggiunto} per"
+"{assistant:assistente} {co:co-}tecnico di registrazione "
+"{associate:associato} {additional:aggiunto} per"
 
 #. name:sound
 #: DB:link_type/reverse_link_phrase:133 DB:link_type/reverse_link_phrase:29
@@ -11462,39 +11551,39 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:1179
 msgid "{additional} {assistant} {associate} {co:co-}transferrer"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di trasferimento {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico di trasferimento "
+"{associate:associato} {additional:aggiunto}"
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:28 DB:link_type/reverse_link_phrase:138
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico {executive:esecutivo} {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico {executive:esecutivo} "
+"{associate:associato} {additional:aggiunto}"
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
-"{assistant:assistenti} {co:co-}tecnici {executive:esecutivi} {associate:"
-"associati} {additional:aggiunti}"
+"{assistant:assistenti} {co:co-}tecnici {executive:esecutivi} "
+"{associate:associati} {additional:aggiunti}"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }producer"
 msgstr ""
-"{assistant:assistente} {co:co-}produttore {executive:esecutivo} {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}produttore {executive:esecutivo} "
+"{associate:associato} {additional:aggiunto}"
 
 #. name:mastering
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
 msgid "{additional} {assistant} {associate} {co:co-}{pre:pre-}{re}mastering"
 msgstr ""
-"{assistant:assistente} {co:co-}tecnico di {pre:pre-}{re}mastering {associate:"
-"associato} {additional:aggiunto}"
+"{assistant:assistente} {co:co-}tecnico di {pre:pre-}{re}mastering "
+"{associate:associato} {additional:aggiunto}"
 
 #. name:programming
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
@@ -11523,8 +11612,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:298
 msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
 msgstr ""
-"{co:co-}arrangiatore {vocal:%|voci} {associate:associato} {additional:"
-"aggiunto}"
+"{co:co-}arrangiatore {vocal:%|voci} {associate:associato} "
+"{additional:aggiunto}"
 
 #. name:performer
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
@@ -11634,15 +11723,15 @@ msgstr "{assistant:assistente} regista video per"
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
 msgstr ""
-"{assistant:assistente} {principal:primo} direttore d'orchestra {guest:"
-"ospite} {emeritus:emerito}"
+"{assistant:assistente} {principal:primo} direttore d'orchestra "
+"{guest:ospite} {emeritus:emerito}"
 
 #. name:conductor position
 #: DB:link_type/link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus} for"
 msgstr ""
-"{assistant:assistente} {principal:primo} direttore d'orchestra {guest:"
-"ospite} {emeritus:emerito} per"
+"{assistant:assistente} {principal:primo} direttore d'orchestra "
+"{guest:ospite} {emeritus:emerito} per"
 
 #. name:part of set
 #: DB:link_type/link_phrase:1
@@ -11969,8 +12058,8 @@ msgid "{entity1} was {additional:additionally} arranged at {entity0}"
 msgstr "{entity1} è stata arrangiata {additional:in aggiunta} presso {entity0}"
 
 #. name:arranged in
-#: DB:link_type/long_link_phrase:1274 DB:link_type/long_link_phrase:863
-#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:864
+#: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
+#: DB:link_type/long_link_phrase:864
 msgid "{entity1} was {additional:additionally} arranged in {entity0}"
 msgstr "{entity1} è stata arrangiata {additional:in aggiunta} a {entity0}"
 
@@ -12193,8 +12282,8 @@ msgstr "versione {translated:tradotta} {parody:parodia} di"
 #: DB:link_type/long_link_phrase:24
 msgid "{translator:translated|wrote} {additional} liner notes for"
 msgstr ""
-"{translator:ha tradotto|ha scritto} le note di libretto {additional:"
-"aggiuntive} per"
+"{translator:ha tradotto|ha scritto} le note di libretto "
+"{additional:aggiuntive} per"
 
 #. name:free streaming
 #: DB:link_type/long_link_phrase:268 DB:link_type/long_link_phrase:85
@@ -12210,6 +12299,13 @@ msgstr "supporto {vocal:%|alla voce} da parte di"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "supporto {vocal:%|alla voce} per"
+
+#~ msgid ""
+#~ "Links a release to the area it was arranged in. Use only when the place "
+#~ "is unknown!"
+#~ msgstr ""
+#~ "Collega una pubblicazione all'area in cui è stata arrangiata. Da usare "
+#~ "solo quando il luogo è sconosciuto!"
 
 #~ msgid "{additional} {assistant} {associate} {co:co-}transferred"
 #~ msgstr ""
@@ -12231,8 +12327,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 #~ "user/&lt;username&gt;."
 #~ msgstr ""
 #~ "Questo tipo di relazione può essere usato per collegare un luogo alla "
-#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://www."
-#~ "youtube.com/user/&lt;username&gt;."
+#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://"
+#~ "www.youtube.com/user/&lt;username&gt;."
 
 #~ msgid ""
 #~ "This relationship type can be used to link a series to the equivalent "
@@ -12240,8 +12336,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 #~ "user/&lt;username&gt;."
 #~ msgstr ""
 #~ "Questo tipo di relazione può essere usato per collegare una serie alla "
-#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://www."
-#~ "youtube.com/user/&lt;username&gt;."
+#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://"
+#~ "www.youtube.com/user/&lt;username&gt;."
 
 #~ msgid ""
 #~ "This relationship type can be used to link an event to the equivalent "
@@ -12249,8 +12345,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 #~ "user/&lt;username&gt;."
 #~ msgstr ""
 #~ "Questo tipo di relazione può essere usato per collegare un evento alla "
-#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://www."
-#~ "youtube.com/user/&lt;username&gt;."
+#~ "voce rispettiva su YouTube. Gli URL devono essere nel formato http://"
+#~ "www.youtube.com/user/&lt;username&gt;."
 
 #~ msgid "business association with"
 #~ msgstr "associato professionalmente con"
@@ -12270,8 +12366,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 #~ "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
 #~ "for this recording, usually indicated with a ℗ symbol."
 #~ msgstr ""
-#~ "Questa relazione indica che l'etichetta detiene i <a href=\"//en."
-#~ "wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti "
+#~ "Questa relazione indica che l'etichetta detiene i <a href=\"//"
+#~ "en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti "
 #~ "fonografici</a> per questa registrazione, di solito indicati con il "
 #~ "simbolo ℗."
 
@@ -12280,8 +12376,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 #~ "wiki/Sound_recording_copyright_symbol\">phonographic copyright</a> holder "
 #~ "for this release, usually indicated with a ℗ symbol."
 #~ msgstr ""
-#~ "Questa relazione indica che l'etichetta detiene i <a href=\"//en."
-#~ "wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti "
+#~ "Questa relazione indica che l'etichetta detiene i <a href=\"//"
+#~ "en.wikipedia.org/wiki/Sound_recording_copyright_symbol\">diritti "
 #~ "fonografici</a> per questa pubblicazione, di solito indicati con il "
 #~ "simbolo ℗."
 
@@ -12324,8 +12420,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 #~ "{live} {medley:medley including a} {partial} {instrumental} {cover} "
 #~ "{karaoke} recording of"
 #~ msgstr ""
-#~ "{medley:medley che comprende una} registrazione {live:dal vivo} {partial:"
-#~ "parziale} {instrumental:strumentale} {cover} {karaoke} di"
+#~ "{medley:medley che comprende una} registrazione {live:dal vivo} "
+#~ "{partial:parziale} {instrumental:strumentale} {cover} {karaoke} di"
 
 #~ msgid ""
 #~ "This links a MusicBrainz release to the equivalent entry at Amazon and "
@@ -12684,8 +12780,8 @@ msgstr "supporto {vocal:%|alla voce} per"
 
 #~ msgid "{additional} {assistant} {associate} {co:co-}{re}mastering"
 #~ msgstr ""
-#~ "{assistant:assistente} {co:co-}tecnico di {re}mastering {associate:"
-#~ "associato} {additional:aggiunto}"
+#~ "{assistant:assistente} {co:co-}tecnico di {re}mastering "
+#~ "{associate:associato} {additional:aggiunto}"
 
 #~ msgid "{additional} {re}mastering location for"
 #~ msgstr "luogo {additional:aggiuntivo} di {re}mastering per"

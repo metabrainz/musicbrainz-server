@@ -8,9 +8,7 @@
 
 import $ from 'jquery';
 
-import MB from '../../MB.js';
-
-MB.Control.RangeSelect = function (selector, parent) {
+export function initializeRangeSelect(selector, parent) {
   let lastChecked = null;
   $(parent || 'body').on(
     'click',
@@ -37,9 +35,9 @@ MB.Control.RangeSelect = function (selector, parent) {
       lastChecked = thisChecked;
     },
   );
-};
+}
 
-MB.Control.SelectAll = function (table) {
+export function initializeSelectAll(table) {
   const $table = $(table);
   const $checkboxes = $table.find('td input[type="checkbox"]');
 
@@ -52,11 +50,11 @@ MB.Control.SelectAll = function (table) {
     $checkboxes.prop('checked', $input.prop('checked'));
   });
 
-  MB.Control.RangeSelect('td input[type="checkbox"]', $table);
-};
+  initializeRangeSelect('td input[type="checkbox"]', $table);
+}
 
 $(function () {
   $('table.tbl').each(function () {
-    MB.Control.SelectAll(this);
+    initializeSelectAll(this);
   });
 });

@@ -1,26 +1,5 @@
 [% # Converted to React at root/medium/MediumTracklist.js %]
 
-<style>
-table.tbl td { vertical-align: top }
-
-dl.ars, dl.ars dd, dl.ars dt {
-    padding: 0;
-    margin: 0;
-    font-size: 11px;
-}
-
-dl.ars { margin-left: 2em; line-height: 2.2ex; }
-dl.ars dd { margin: 0.2em 0; }
-
-dl.ars dt {
-    margin-right: 0.5em;
-    clear: left;
-    float: left;
-    color: #555;
-}
-
-</style>
-
 [% MACRO group_dd(group) BLOCK;
      links = [];
      links.push(link_entity(rel.target)) FOR rel=group.value;
@@ -85,9 +64,6 @@ dl.ars dt {
     [%- IF show_artists -%]
         <td>[% artist_credit(track.artist_credit) %]</td>
     [%- END -%]
-    [% UNLESS hide_rating %]
-    <td class="rating c">[% rating_stars(recording) %]</td>
-    [% END %]
     <td class="treleases">[% format_length(track.length) %]</td>
 </tr>
 [%- END -%]

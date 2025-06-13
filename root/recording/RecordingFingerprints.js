@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import manifest from '../static/manifest.mjs';
 import FingerprintTable
   from '../static/scripts/common/components/FingerprintTable.js';
 
@@ -22,6 +23,7 @@ component RecordingFingerprints(recording: RecordingWithArtistCreditT) {
       <h2 id="acoustids">{l('Associated AcoustIDs')}</h2>
 
       <FingerprintTable recording={recording} />
+      {manifest('common/components/FingerprintTable', {async: true})}
     </RecordingLayout>
   );
 }

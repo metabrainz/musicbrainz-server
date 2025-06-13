@@ -22,8 +22,8 @@ INSERT INTO medium_format (id, gid, name, has_discids)
            (1411454, '7aca11a5-1aca-11a5-1aca-11a51aca11a5', 'Format4', TRUE),
            (1411455, '8aca11a5-1aca-11a5-1aca-11a51aca11a5', 'Format5', TRUE);
 
-INSERT INTO medium (id, release, position, format, name, track_count)
-    VALUES (1, 1, 1, 1411451, 'Medium Name', 0);
+INSERT INTO medium (id, gid, release, position, format, name, track_count)
+    VALUES (1, 'bf0472f2-383f-4e35-adb6-46ac0e60ae7b', 1, 1, 1411451, 'Medium Name', 0);
 
 INSERT INTO editor (id, name, password, ha1, email, email_confirm_date)
     VALUES (30171, 'editor1', '{CLEARTEXT}pass', '16a4862191803cb596ee4b16802bb7ee', 'foo@example.com', NOW()),

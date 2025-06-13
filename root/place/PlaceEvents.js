@@ -15,6 +15,7 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import PlaceLayout from './PlaceLayout.js';
 
@@ -30,7 +31,7 @@ component PlaceEvents(
 
       {events.length > 0 ? (
         <form
-          action="/event/merge_queue"
+          action={'/event/merge_queue?' + returnToCurrentPage($c)}
           method="post"
         >
           <PaginatedResults pager={pager}>
@@ -49,7 +50,7 @@ component PlaceEvents(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -59,6 +60,8 @@ component PlaceEvents(
           {l('This place is not currently associated with any events.')}
         </p>
       )}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
+      {manifest('common/ratings', {async: true})}
     </PlaceLayout>
   );
 }

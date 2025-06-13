@@ -75,7 +75,8 @@ our @EXPORT_OK = (
         $LIMIT_FOR_EDIT_LISTING
         $ARTIST_ARTIST_COLLABORATION
         $AMAZON_ASIN_LINK_TYPE_ID
-        %PART_OF_SERIES $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
+        %PART_OF_SERIES @PART_OF_SERIES_LINK_TYPE_IDS
+        $PART_OF_AREA_LINK_TYPE $PART_OF_AREA_LINK_TYPE_ID
         $SERIES_ORDERING_TYPE_AUTOMATIC $SERIES_ORDERING_TYPE_MANUAL
         $ARTIST_RENAME_LINK_TYPE
         $LABEL_RENAME_LINK_TYPE
@@ -438,6 +439,15 @@ Readonly our %PART_OF_SERIES => (
     work            => 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 );
 
+Readonly our @PART_OF_SERIES_LINK_TYPE_IDS => (
+    740, # recording
+    741, # release
+    742, # release group
+    743, # work
+    802, # event
+    996, # artist
+);
+
 Readonly our $AMAZON_ASIN_LINK_TYPE_ID => 77;
 
 Readonly our $PART_OF_AREA_LINK_TYPE => 'de7cc874-8b1b-3a05-8272-f3834c968fb7';
@@ -725,6 +735,7 @@ Readonly our @CORE_TABLE_LIST => qw(
     medium_attribute_type_allowed_value_allowed_format
     medium_cdtoc
     medium_format
+    medium_gid_redirect
     orderable_link_type
     place
     place_alias

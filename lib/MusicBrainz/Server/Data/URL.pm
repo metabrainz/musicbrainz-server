@@ -9,6 +9,7 @@ use URI;
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::PendingEdits' => { table => 'url' },
      'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'url' },
      'MusicBrainz::Server::Data::Role::Merge';
@@ -21,6 +22,7 @@ my %URL_SPECIALIZATIONS = (
     '7digital'            => qr{^https?://([^/]+\.)?7digital\.com/}i,
     '45cat'               => qr{^https?://(?:www\.)?45cat\.com/}i,
     '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
+    'ACUM'                => qr{^https?://nocs\.acum\.org\.il/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
     'AmazonMusic'         => qr{^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)/}i,
     'Anghami'             => qr{^https?://([^/]+\.)?anghami\.com/}i,
@@ -120,7 +122,6 @@ my %URL_SPECIALIZATIONS = (
     'LiveNation'          => qr{^https?://(?:[^/]+\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/}i,
     'LoC'                 => qr{^https?://(?:[^/]+\.)?loc\.gov/}i,
     'Loudr'               => qr{^https?://(?:www\.)?loudr\.fm/}i,
-    'LyricEvesta'         => qr{^https?://lyric\.evesta\.jp/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'Melon'               => qr{^https?://www\.melon\.com/}i,
@@ -193,7 +194,7 @@ my %URL_SPECIALIZATIONS = (
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
     'TheSession'          => qr{^https?://(?:www\.)?thesession\.org/}i,
-    'Threads'             => qr{^https?://(?:www\.)?threads\.net/}i,
+    'Threads'             => qr{^https?://(?:www\.)?threads\.(?:com|net)/}i,
     'Ticketmaster'        => qr{^https?://(?:www\.)?ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/}i,
     'Tidal'               => qr{^https?://(?:[^/]+\.)?tidal\.com/}i,
     'TikTok'              => qr{^https?://(?:www\.)?tiktok\.com/}i,

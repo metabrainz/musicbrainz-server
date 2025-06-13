@@ -117,7 +117,7 @@ export default function formatSetlist(
       // Lines that don't start with a symbol are ignored
     }
 
-    if (entityType) {
+    if (nonEmpty(entityType)) {
       const startingBracketRegExp = /\[/g;
 
       let match;

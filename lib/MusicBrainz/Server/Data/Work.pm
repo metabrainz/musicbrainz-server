@@ -14,9 +14,11 @@ use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 use MusicBrainz::Server::Entity::Work;
 use MusicBrainz::Server::Entity::WorkAttribute;
 use MusicBrainz::Server::Entity::WorkAttributeType;
+use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Data::Entity';
 with 'MusicBrainz::Server::Data::Role::Relatable',
+     'MusicBrainz::Server::Data::Role::GIDRedirect',
      'MusicBrainz::Server::Data::Role::Name',
      'MusicBrainz::Server::Data::Role::Annotation' => { type => 'work' },
      'MusicBrainz::Server::Data::Role::Alias' => { type => 'work' },
@@ -395,7 +397,15 @@ sub find_artists
 
     for my $work_id (@ids) {
         my @artists = uniq map { $_->{entity}->name } @{ $artists{$work_id} };
-        my @authors = uniq map { $_->{entity}->name } @{ $authors{$work_id} };
+        my @authors = uniq map {
+            my $name = $_->{entity}->name;
+            my $primary_alias = $_->{entity}->primary_alias;
+            $name . (
+                $primary_alias && $primary_alias ne $name
+                    ? ' ' . l('({text})', { text => $primary_alias })
+                    : ''
+            ),
+        } @{ $authors{$work_id} };
 
         $map{$work_id} = {
             authors => {
