@@ -48,7 +48,7 @@
     "less-loader": "12.3.0",
     "less-plugin-clean-css": "1.6.0",
     "leven": "4.0.0",
-    "mutate-cow": "5.0.0",
+    "mutate-cow": "6.0.0",
     "nodemon": "3.1.10",
     "pg": "8.16.0",
     "pg-cursor": "2.11.0",
