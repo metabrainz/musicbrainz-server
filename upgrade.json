@@ -224,7 +224,8 @@
       "20231005-edit-data-idx-link-type.sql",
       "20240220-mbs-13403.sql",
       "20240223-mbs-13421.sql",
-      "20240319-mbs-13514-mirror.sql"
+      "20240319-mbs-13514-mirror.sql",
+      "20250408-mbs-13322.sql"
     ],
     "master_and_standalone": [
       "20240223-mbs-13421-fks.sql",
