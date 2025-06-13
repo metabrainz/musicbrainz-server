@@ -15,13 +15,12 @@ import {RT_MIRROR} from '../static/scripts/common/constants.js';
 import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
 import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
-import parseDate from '../static/scripts/common/utility/parseDate.js';
 import {
   getRestrictionsForUser,
   isBeginner,
 } from '../static/scripts/common/utility/privileges.js';
-import {age} from '../utility/age.js';
-import {formatUserDateObject} from '../utility/formatUserDate.js';
+import formatUserDate, {formatUserDateObject}
+  from '../utility/formatUserDate.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
 
 import Footer from './components/Footer.js';
@@ -69,19 +68,26 @@ component AnniversaryBanner() {
     return null;
   }
 
-  const parsedDate = parseDate(registrationDate.slice(0, 10));
-  if (parsedDate == null) {
-    return null;
-  }
+  const registrationDay =
+    Number(formatUserDate($c, registrationDate, {format: '%d'}));
+  const registrationMonth =
+    Number(formatUserDate($c, registrationDate, {format: '%m'}));
+  const registrationYear =
+    Number(formatUserDate($c, registrationDate, {format: '%Y'}));
 
-  const now = parseDate((new Date()).toISOString().slice(0, 10));
-  const editorAge = age({begin_date: parsedDate, end_date: now, ended: true});
-  if (editorAge == null) {
+  const now = new Date();
+  const currentDay = Number(formatUserDateObject($c, now, {format: '%d'}));
+  const currentMonth = Number(formatUserDateObject($c, now, {format: '%m'}));
+  const currentYear = Number(formatUserDateObject($c, now, {format: '%Y'}));
+
+  const editorAge = currentYear - registrationYear;
+  if (editorAge === 0) {
     return null;
   }
 
   const showBanner =
-    editorAge[1] === 0 && editorAge[2] === 0 &&
+    registrationDay === currentDay &&
+    registrationMonth === currentMonth &&
     !getRequestCookie($c.req, 'anniversary_message_dismissed_mtime');
 
   if (showBanner /*:: === true */) {
@@ -95,8 +101,8 @@ component AnniversaryBanner() {
              Happy anniversary, and thanks for contributing to MusicBrainz!`,
             `You’ve been a MusicBrainz editor for {num} years!
              Happy anniversary, and thanks for contributing to MusicBrainz!`,
-            editorAge[0],
-            {num: editorAge[0]},
+            editorAge,
+            {num: editorAge},
           )}
           {' '}
           <BirthdayCakes />
