@@ -34,6 +34,8 @@ test 'Editing alias' => sub {
                 # HTML::Form doesn't understand selected=""
                 # so we need to specifically set this
                 'edit-alias.type_id' => '1',
+                'edit-alias.locale' => 'en_US',
+                'edit-alias.primary_for_locale' => '1',
             });
     } $test->c;
 
@@ -92,6 +94,8 @@ test 'MBS-6896: Removing alias sort name defaults it to name' => sub {
             with_fields => {
                 'edit-alias.name' => 'Edit #2',
                 'edit-alias.sort_name' => '',
+                'edit-alias.locale' => 'en_US',
+                'edit-alias.primary_for_locale' => '1',
             });
     } $test->c;
 
@@ -107,7 +111,7 @@ test 'MBS-6896: Removing alias sort name defaults it to name' => sub {
     );
 };
 
-test 'Changing alias type to search hint overrides sort name' => sub {
+test 'Changing alias type to search hint drops extra data' => sub {
     my $test = shift;
     my $mech = $test->mech;
 
@@ -123,6 +127,8 @@ test 'Changing alias type to search hint overrides sort name' => sub {
                 'edit-alias.name' => 'Edited alias',
                 # Change to search hint
                 'edit-alias.type_id' => '2',
+                'edit-alias.locale' => 'en_US',
+                'edit-alias.primary_for_locale' => '1',
             });
     } $test->c;
 
@@ -140,17 +146,69 @@ test 'Changing alias type to search hint overrides sort name' => sub {
             },
             alias_id  => 1,
             new => {
+                locale => undef,
                 name => 'Edited alias',
+                primary_for_locale => '0',
                 sort_name => 'Edited alias',
                 type_id => '2',
             },
             old => {
+                locale => 'en_US',
                 name => 'Test Series Alias',
+                primary_for_locale => '1',
                 sort_name => 'Test Series Alias',
                 type_id => '1',
             },
         },
-        'The edit contains the right data, including changed sort names',
+        'The edit contains the right data, including changed sort name and dropped locale data',
+    );
+};
+
+test 'Changing alias to be ended drops primary flag' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    prepare_test($test);
+
+    $mech->get_ok(
+        '/series/a8749d0c-4a5a-4403-97c5-f6cd018f8e6d/alias/1/edit',
+        'Fetched the edit alias page',
+    );
+    my @edits = capture_edits {
+        $mech->submit_form(
+            with_fields => {
+                'edit-alias.period.ended' => '1',
+                # HTML::Form doesn't understand selected=""
+                # so we need to specifically set this
+                'edit-alias.type_id' => '1',
+                'edit-alias.locale' => 'en_US',
+                'edit-alias.primary_for_locale' => '1',
+            });
+    } $test->c;
+
+    is(@edits, 1, 'The edit was entered');
+
+    my $edit = shift(@edits);
+
+    isa_ok($edit, 'MusicBrainz::Server::Edit::Series::EditAlias');
+    is_deeply(
+        $edit->data,
+        {
+            entity => {
+                id => 1,
+                name => 'Test Recording Series',
+            },
+            alias_id  => 1,
+            new => {
+                ended => '1',
+                primary_for_locale => '0',
+            },
+            old => {
+                ended => '0',
+                primary_for_locale => '1',
+            },
+        },
+        'The edit contains the right data, including changed sort name and dropped locale data',
     );
 };
 
