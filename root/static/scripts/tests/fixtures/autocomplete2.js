@@ -66,7 +66,7 @@ const attributeTypeOptions = (
     id: type.id,
     level,
     name: type.name,
-    type: 'option',
+    type: 'option' as const,
   };
 });
 

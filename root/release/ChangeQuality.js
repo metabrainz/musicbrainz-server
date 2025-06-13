@@ -27,7 +27,7 @@ type ChangeQualityFormT = FormT<{
 component ChangeQuality(form: ChangeQualityFormT, release: ReleaseT) {
   const title = l('Change release data quality');
   const qualityOptions = {
-    grouped: false,
+    grouped: false as const,
     options: [
       {label: expect(QUALITY_NAMES.get(0)), value: 0},
       {label: expect(QUALITY_NAMES.get(1)), value: 1},

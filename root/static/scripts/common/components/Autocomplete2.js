@@ -587,7 +587,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         entity: (entity: T),
         id: entity.id,
         name: entity.name,
-        type: 'option',
+        type: 'option' as const,
       };
       dispatch({item, type: 'select-item'});
       closeAddEntityDialog();

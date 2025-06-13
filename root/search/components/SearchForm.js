@@ -17,7 +17,7 @@ import FormRowTextLong
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 const limitOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: () => texp.l('Up to {n}', {n: 25}), value: 25},
     {label: () => texp.l('Up to {n}', {n: 50}), value: 50},
@@ -26,7 +26,7 @@ const limitOptions = {
 };
 
 const typeOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: N_l('Artist'), value: 'artist'},
     {label: N_l('Release group'), value: 'release_group'},

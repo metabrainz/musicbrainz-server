@@ -445,7 +445,7 @@ export default function groupRelationships(
     const phraseArgs = [
       linkType,
       linkAttrs,
-      backward ? 'reverse_link_phrase' : 'link_phrase',
+      backward ? 'reverse_link_phrase' as const : 'link_phrase' as const,
       true, /* forGrouping */
     ];
 

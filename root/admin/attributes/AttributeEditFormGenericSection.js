@@ -25,7 +25,7 @@ component AttributeEditFormGenericSection(
   parentSelectOptions: SelectOptionsT,
 ) {
   const parentOptions = {
-    grouped: false,
+    grouped: false as const,
     options: parentSelectOptions,
   };
   return (

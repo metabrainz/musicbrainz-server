@@ -420,7 +420,7 @@ function createInitialNamesState(
           entity: artist,
           id: artist.id,
           name: artistName,
-          type: 'option',
+          type: 'option' as const,
         };
       }
     }
