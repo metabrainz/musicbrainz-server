@@ -60,8 +60,8 @@ test 'Deleting an alias' => sub {
             },
             ended => 0,
             type_id => 1,
-            locale => undef,
-            primary_for_locale => 0,
+            locale => 'en_US',
+            primary_for_locale => 1,
         },
         'The edit contains the right data',
     );
