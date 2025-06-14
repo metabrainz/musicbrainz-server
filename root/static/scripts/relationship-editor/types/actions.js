@@ -213,7 +213,7 @@ export type BatchCreateWorksDialogActionT =
   | WorkTypeSelectActionT;
 
 export type AcceptBatchCreateWorksDialogActionT = {
-  +attributes: tree.ImmutableTree<LinkAttrT> | null,
+  +attributes: tree.ImmutableTree<LinkAttrT>,
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,
   +ended: boolean,
@@ -264,12 +264,12 @@ export type ReleaseRelationshipEditorActionT =
     }
   | {
       +isSelected: boolean,
-      +recordingStates: MediumRecordingStateTreeT | null,
+      +recordingStates: MediumRecordingStateTreeT,
       +type: 'toggle-select-medium-recordings',
     }
   | {
       +isSelected: boolean,
-      +recordingStates: MediumRecordingStateTreeT | null,
+      +recordingStates: MediumRecordingStateTreeT,
       +type: 'toggle-select-medium-works',
     }
     | {

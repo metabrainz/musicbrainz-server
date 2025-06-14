@@ -83,7 +83,7 @@ export function areLinkAttributesEqual(
   a: tree.ImmutableTree<LinkAttrT> | null,
   b: tree.ImmutableTree<LinkAttrT> | null,
 ): boolean {
-  return tree.equals(a, b, areLinkAttrsEqual);
+  return tree.equals(a ?? tree.empty, b ?? tree.empty, areLinkAttrsEqual);
 }
 
 export function compareNullableLinkAttributes(
@@ -104,7 +104,7 @@ function compareAttributeLists(
   a: tree.ImmutableTree<LinkAttrT> | null,
   b: tree.ImmutableTree<LinkAttrT> | null,
 ) {
-  for (const [attrA, attrB] of tree.zip(a, b)) {
+  for (const [attrA, attrB] of tree.zip(a ?? tree.empty, b ?? tree.empty)) {
     const result = compareNullableLinkAttributes(attrA, attrB);
     if (result) {
       return result;
@@ -160,7 +160,9 @@ const getPaddedSeriesNumber = memoizeWithDefault<
   RelationshipStateT,
   string,
 >((relationship: RelationshipStateT) => {
-  for (const attribute of tree.iterate(relationship.attributes)) {
+  for (
+    const attribute of tree.iterate(relationship.attributes ?? tree.empty)
+  ) {
     if (attribute.type.gid === SERIES_ORDERING_ATTRIBUTE) {
       const parts = (attribute.text_value || '').split(intPartRegExp);
 
@@ -180,7 +182,9 @@ const getTimeIfPresent = memoizeWithDefault<
   RelationshipStateT,
   string,
 >((relationship: RelationshipStateT) => {
-  for (const attribute of tree.iterate(relationship.attributes)) {
+  for (
+    const attribute of tree.iterate(relationship.attributes ?? tree.empty)
+  ) {
     if (attribute.type.gid === TIME_ATTRIBUTE) {
       return attribute.text_value || '';
     }

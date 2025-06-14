@@ -48,7 +48,7 @@ export default function updateReleaseRelationships(
     writableRootState.entity.entityType === 'release',
   );
 
-  let updatedRecordings: tree.ImmutableTree<RecordingT> | null = null;
+  let updatedRecordings: tree.ImmutableTree<RecordingT> = tree.empty;
 
   for (const update of updates) {
     const relationship = update.relationship;
@@ -100,7 +100,7 @@ export default function updateReleaseRelationships(
     }
   }
 
-  let selectedWorksToRemove: tree.ImmutableTree<WorkT> | null = null;
+  let selectedWorksToRemove: tree.ImmutableTree<WorkT> = tree.empty;
 
   updateRecordingStates(
     writableRootState,
@@ -148,7 +148,7 @@ export default function updateReleaseRelationships(
           updateWorkState,
           () => updateWorkState({
             isSelected: false,
-            targetTypeGroups: null,
+            targetTypeGroups: tree.empty,
             work,
           }),
         );
@@ -156,7 +156,7 @@ export default function updateReleaseRelationships(
 
       for (const workState of tree.iterate(newRelatedWorks)) {
         if (
-          workState.targetTypeGroups === null ||
+          workState.targetTypeGroups.size === 0 ||
           !recordingWorkIds.has(workState.work.id)
         ) {
           newRelatedWorks = tree.remove(
@@ -193,7 +193,7 @@ export default function updateReleaseRelationships(
     },
   );
 
-  if (selectedWorksToRemove) {
+  if (selectedWorksToRemove.size) {
     writableRootState.selectedWorks = tree.difference(
       writableRootState.selectedWorks,
       selectedWorksToRemove,

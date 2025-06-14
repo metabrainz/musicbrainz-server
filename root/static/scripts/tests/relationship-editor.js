@@ -181,7 +181,7 @@ test('merging duplicate relationships', function (t) {
   t.deepEqual(
     tree.toArray(
       tree.map<LinkAttrT, number>(
-        mergedRelationship?.attributes ?? null,
+        mergedRelationship?.attributes ?? tree.empty,
         attr => attr.typeID,
       ),
     ).sort(),
@@ -360,7 +360,7 @@ test('splitRelationshipByAttributes', function (t) {
     _original: existingRelationship,
     _status: REL_STATUS_EDIT,
     attributes: tree.union(
-      existingRelationship.attributes,
+      existingRelationship.attributes ?? tree.empty,
       tree.fromDistinctAscArray([drums]),
       compareLinkAttributeIds,
       onConflictUseSecondValue,
@@ -399,7 +399,7 @@ test('splitRelationshipByAttributes', function (t) {
     _original: existingRelationship,
     _status: REL_STATUS_EDIT,
     attributes: tree.union(
-      existingRelationship.attributes,
+      existingRelationship.attributes ?? tree.empty,
       tree.fromDistinctAscArray([
         // Add a new credit to the existing lyre attribute.
         {...lyre, credited_as: 'LYRE'},
@@ -425,7 +425,7 @@ test('splitRelationshipByAttributes', function (t) {
         ...modifiedRelationship2,
         _status: REL_STATUS_EDIT,
         attributes: tree.union(
-          existingRelationship.attributes,
+          existingRelationship.attributes ?? tree.empty,
           tree.fromDistinctAscArray([
             {...lyre, credited_as: 'LYRE'},
           ]),
@@ -681,7 +681,7 @@ test('splitRelationshipByAttributes', function (t) {
     _original: existingRelationship,
     _status: REL_STATUS_EDIT,
     attributes: tree.union(
-      existingRelationship.attributes,
+      existingRelationship.attributes ?? tree.empty,
       tree.fromDistinctAscArray([task]),
       compareLinkAttributeIds,
       onConflictUseSecondValue,
@@ -1081,7 +1081,7 @@ function id2attr(id: number): LinkAttrT {
 
 function ids2attrs(
   ids: $ReadOnlyArray<number>,
-): tree.ImmutableTree<LinkAttrT> | null {
+): tree.ImmutableTree<LinkAttrT> {
   return tree.fromDistinctAscArray(
     ids.map(id2attr).sort(compareLinkAttributeIds),
   );

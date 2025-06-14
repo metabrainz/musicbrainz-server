@@ -65,7 +65,7 @@ component _MediumRelationshipEditor(
   hasUnloadedTracks: boolean,
   isExpanded: boolean,
   medium: MediumWithRecordingsT,
-  recordingStates: MediumRecordingStateTreeT | null,
+  recordingStates: MediumRecordingStateTreeT,
   release: ReleaseWithMediumsT,
   releaseHasUnloadedTracks: boolean,
   tracks: $ReadOnlyArray<TrackWithRecordingT> | null,

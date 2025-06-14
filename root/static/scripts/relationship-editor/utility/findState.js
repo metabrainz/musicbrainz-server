@@ -54,28 +54,28 @@ export function compareLinkPhraseWithGroup(
 export function findTargetTypeGroups(
   sourceGroups: RelationshipSourceGroupsT,
   source: RelatableEntityT,
-): RelationshipTargetTypeGroupsT | null {
+): RelationshipTargetTypeGroupsT {
   const sourceGroup = tree.find(
     sourceGroups,
     source,
     compareSourceWithSourceGroup,
     null,
   );
-  return sourceGroup ? sourceGroup[1] : null;
+  return sourceGroup ? sourceGroup[1] : tree.empty;
 }
 
 export function findLinkTypeGroups(
   targetTypeGroups: RelationshipTargetTypeGroupsT,
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
-): RelationshipLinkTypeGroupsT | null {
+): RelationshipLinkTypeGroupsT {
   const targetTypeGroup = tree.find(
     targetTypeGroups,
     targetType,
     compareTargetTypeWithGroup,
     null,
   );
-  return targetTypeGroup ? targetTypeGroup[1] : null;
+  return targetTypeGroup ? targetTypeGroup[1] : tree.empty;
 }
 
 export function findLinkTypeGroup(
@@ -134,7 +134,7 @@ export function findLinkPhraseGroupInTargetTypeGroups(
 }
 
 export function findExistingRelationship(
-  targetTypeGroups: RelationshipTargetTypeGroupsT | null,
+  targetTypeGroups: RelationshipTargetTypeGroupsT,
   relationshipState: RelationshipStateT,
   source: RelatableEntityT,
 ): RelationshipStateT | null {
@@ -181,7 +181,7 @@ export function* iterateRelationshipsInTargetTypeGroups(
 }
 
 export function* iterateTargetEntitiesOfType<T: RelatableEntityT>(
-  targetTypeGroups: RelationshipTargetTypeGroupsT | null,
+  targetTypeGroups: RelationshipTargetTypeGroupsT,
   targetType: T['entityType'],
   targetProperty: 'entity0' | 'entity1',
 ): Generator<T, void, void> {

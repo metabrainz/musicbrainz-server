@@ -46,7 +46,7 @@ const addAnotherEntityLabels = {
 };
 
 function someRelationshipsHaveLinkOrder(
-  relationships: tree.ImmutableTree<RelationshipStateT> | null,
+  relationships: tree.ImmutableTree<RelationshipStateT>,
 ): boolean {
   for (const relationship of tree.iterate(relationships)) {
     if (relationship.linkOrder) {
@@ -68,7 +68,7 @@ component _RelationshipPhraseGroup(
   track: TrackWithRecordingT | null,
 ) {
   const relationships = linkPhraseGroup.relationships;
-  const relationshipCount = relationships?.size || 0;
+  const relationshipCount = relationships.size;
 
   const [isExpanded, setExpanded] = React.useState(relationshipCount <= 10);
 
@@ -81,7 +81,7 @@ component _RelationshipPhraseGroup(
 
   const buildNewRelationshipData = React.useCallback(() => {
     let maxLinkOrder = 0;
-    let newAttributesData: tree.ImmutableTree<LinkAttrT> | null = null;
+    let newAttributesData: tree.ImmutableTree<LinkAttrT> = tree.empty;
 
     for (const relationship of tree.iterate(relationships)) {
       if (canBeOrdered) {
@@ -89,7 +89,7 @@ component _RelationshipPhraseGroup(
       }
       // Drop number attribute for part of series - useless to reuse
       let relationshipAttributesForReuse = tree.removeIfExists(
-        relationship.attributes,
+        relationship.attributes ?? tree.empty,
         {
           type: {gid: 'a59c5830-5ec7-38fe-9a21-c7ea54f6650a'},
           typeID: 788,

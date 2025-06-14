@@ -183,9 +183,9 @@ export function createInitialState(
   const newState: {...RelationshipEditorStateT} = {
     dialogLocation: null,
     entity: source,
-    existingRelationshipsBySource: null,
+    existingRelationshipsBySource: tree.empty,
     reducerError: null,
-    relationshipsBySource: null,
+    relationshipsBySource: tree.empty,
   };
 
   if (source.relationships) {

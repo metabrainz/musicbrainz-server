@@ -41,7 +41,7 @@ export default function getLinkPhrase(
   }
   const textPhrase = interpolateText(
     linkType,
-    tree.toArray(relationship.attributes),
+    tree.toArray(relationship.attributes ?? tree.empty),
     backward ? 'reverse_link_phrase' : 'link_phrase',
     isLinkTypeOrderableByUser(
       linkType.id,
