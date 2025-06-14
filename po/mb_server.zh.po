@@ -20,13 +20,15 @@
 # Aris_8585 <qw23355607@outlook.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # percylee <freedomeng419@gmail.com>, 2025.
+# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-19 10:22-0500\n"
-"PO-Revision-Date: 2025-03-22 07:45+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-05-27 11:20+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -34,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -971,7 +973,7 @@ msgstr "编辑备注："
 #: ../root/layout/components/BottomMenu.js:320
 msgctxt "noun"
 msgid "Edit types"
-msgstr "编辑类型"
+msgstr "修改类型"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Edited entity"
@@ -2217,7 +2219,7 @@ msgstr "发行国或地区"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Release data quality"
-msgstr "专辑数据质量"
+msgstr "发行品数据质量"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -2456,7 +2458,7 @@ msgstr "搜索中..."
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
 msgid "Secondary types"
-msgstr "二级类型"
+msgstr "二级分类"
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -9754,7 +9756,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr "总票数"
+msgstr "总投票次数"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -12067,7 +12069,7 @@ msgstr "未找到 {type0}-{type1} 关联类型。"
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:39
 msgid "{type0}-{type1}"
-msgstr "{type0}-{type1}"
+msgstr "{type0}–{type1}"
 
 #: ../root/release/ChangeQuality.js:28
 msgid "Change release data quality"
@@ -14343,7 +14345,7 @@ msgstr[0] "… 和其他 {place_count} 个"
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr "无类型"
+msgstr "未分类"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -17101,7 +17103,7 @@ msgstr "地区收藏"
 
 #: ../root/user/UserCollections.js:38
 msgid "Artist collections"
-msgstr "艺术家收藏"
+msgstr "创作者收藏"
 
 #: ../root/user/UserCollections.js:39
 msgid "Event collections"
@@ -17132,10 +17134,8 @@ msgid "Release collections"
 msgstr "专辑收藏"
 
 #: ../root/user/UserCollections.js:46
-#, fuzzy
-#| msgid "Release Group Collections"
 msgid "Release group collections"
-msgstr "专辑组收藏"
+msgstr "发行组收藏"
 
 #: ../root/user/UserCollections.js:47
 msgctxt "plural"
@@ -17373,7 +17373,7 @@ msgstr "生效总数"
 
 #: ../root/user/UserProfile.js:618
 msgid "Voted down"
-msgstr "被否决"
+msgstr "遭投票否决"
 
 #: ../root/user/UserProfile.js:628
 msgid "Failed"
@@ -17500,7 +17500,7 @@ msgstr "没有评分。"
 
 #: ../root/user/UserRatingList.js:26
 msgid "Artist ratings"
-msgstr "艺术家评分"
+msgstr "创作者评分"
 
 #: ../root/user/UserRatingList.js:27
 msgid "Event ratings"
@@ -17520,7 +17520,7 @@ msgstr "录音评分"
 
 #: ../root/user/UserRatingList.js:31
 msgid "Release group ratings"
-msgstr "专辑组评分"
+msgstr "发行组评分"
 
 #: ../root/user/UserRatingList.js:32
 msgid "Work ratings"
