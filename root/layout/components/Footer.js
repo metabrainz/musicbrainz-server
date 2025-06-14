@@ -46,6 +46,15 @@ component Footer() {
               : l('Use beta site')}
           </a>
         ) : null}
+
+        {$c.stash.legacy_browser === true ? (
+          <a
+            className="internal"
+            href={'/toggle-legacy-browser?' + returnToCurrentPage($c)}
+          >
+            {l('Disable legacy browser mode')}
+          </a>
+        ) : null}
       </p>
 
       <p className="right">

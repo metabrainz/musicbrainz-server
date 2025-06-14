@@ -25,8 +25,10 @@ import browserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
 import {
   BUILD_DIR,
+  ECMA_VERSION,
   GETTEXT_DOMAINS,
   GLOBAL_JS_NAMESPACE,
+  LEGACY_BROWSER,
   PO_DIR,
   PRODUCTION_MODE,
   SCRIPTS_DIR,
@@ -327,7 +329,8 @@ export default {
       minimizer: [
         new TerserPlugin({
           terserOptions: {
-            safari10: true,
+            ecma: ECMA_VERSION,
+            safari10: LEGACY_BROWSER,
           },
         }),
       ],
@@ -335,10 +338,31 @@ export default {
   },
 
   output: {
+    ...(
+      LEGACY_BROWSER
+        ? {
+          environment: {
+            arrowFunction: false,
+            asyncFunction: false,
+            const: false,
+            destructuring: false,
+            forOf: false,
+            globalThis: false,
+            optionalChaining: false,
+            templateLiteral: false,
+          },
+        }
+        : {}
+    ),
     filename: (
-      PRODUCTION_MODE
-        ? '[name]-[chunkhash:7].js'
-        : '[name].js'
+      '[name]' +
+        /*
+         * We don't distinguish between production and modern browser targets
+         * here because generally only one of those is used locally; whereas
+         * legacy bundles are built alongside production ones in production.
+         */
+        (LEGACY_BROWSER ? '-legacy' : '') +
+        (PRODUCTION_MODE ? '-[chunkhash:7]' : '') + '.js'
     ),
     path: BUILD_DIR,
   },

@@ -49,11 +49,12 @@ test 'Controller error handling' => sub {
     ($res, $ctx) = ctx_request('/die-die-die');
 
     my $stack_trace_pattern = '^Error: die die ' .
-        'at lib/MusicBrainz/Server/Controller/Root\.pm line [0-9]+. ' .
+        'at lib/MusicBrainz/Server/Controller/Root\.pm line [0-9]+\. ' .
         'at lib/MusicBrainz/Server/Controller/Root\.pm line [0-9]+ ' .
         'Class::MOP::Method::Wrapped::__ANON__\(\?\) called at lib/MusicBrainz/Server\.pm line [0-9]+ ' .
         'MusicBrainz::Server::__ANON__ at lib/MusicBrainz/Server\.pm line [0-9]+ ' .
         'MusicBrainz::Server::with_translations\(\?, \?\) called at lib/MusicBrainz/Server\.pm line [0-9]+ ' .
+        'Class::MOP::Method::Wrapped::__ANON__\(\?\) called at lib/MusicBrainz/Server\.pm line [0-9]+ ' .
         'Class::MOP::Method::Wrapped::__ANON__\(\?\) called at lib/MusicBrainz/Server\.pm line [0-9]+ ' .
         'Class::MOP::Method::Wrapped::__ANON__\(\?\) called at lib/MusicBrainz/Server\.pm line [0-9]+$';
 
@@ -78,6 +79,7 @@ test 'Controller error handling' => sub {
         } @{ $sentry_error->{'sentry.interfaces.Stacktrace'}{frames} }],
         [
             ['Server.pm', undef],
+            ['Server.pm', 'Class::MOP::Method::Wrapped::__ANON__'],
             ['Server.pm', 'Class::MOP::Method::Wrapped::__ANON__'],
             ['Server.pm', 'Class::MOP::Method::Wrapped::__ANON__'],
             ['Server.pm', 'MusicBrainz::Server::with_translations'],
