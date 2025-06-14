@@ -11,12 +11,12 @@
 # thephy <differentphy@outlook.com>, 2024.
 # percylee <freedomeng419@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# MoeCaa <qytc233@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-26 23:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-06-14 16:20+0000\n"
+"Last-Translator: MoeCaa <qytc233@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
 "\n"
@@ -731,7 +731,8 @@ msgid ""
 "Indicates the person who adapted this work (generally from a different "
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
-msgstr ""
+msgstr "指改编该作品的人（一般是从不同媒介改编而来，如将散文作品改编为有声剧，或将舞"
+"台音乐剧改编为电影音乐剧）。"
 
 #. name:translator
 #: DB:link_type/description:871
@@ -749,7 +750,7 @@ msgstr "指该作品的歌词/歌剧剧本译者。"
 msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
-msgstr ""
+msgstr "指为音频剧等戏剧化作品撰写原创剧本的人。"
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -807,7 +808,7 @@ msgstr "将活动链接到作为参与者的艺术家。"
 msgid ""
 "Links a podcast or broadcast series to an artist who was a host for the "
 "series."
-msgstr ""
+msgstr "将播客或广播系列与担任系列主持人的艺术家联系起来。"
 
 #. name:arranged in
 #: DB:link_type/description:864
