@@ -5572,6 +5572,36 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
+  'stereo-ve-mono': {
+    match: [/^(https:\/\/)?(www\.)?stereo-ve-mono\.com\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\//, 'https://')
+        // keep just one query param
+        .replace(/&.*/, '');
+    },
+    validate(url, id) {
+      const isStereoVeMonoUrl = /^(https:\/\/)?(www\.)?stereo-ve-mono\.com\//i.test(url);
+      if (isStereoVeMonoUrl) {
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: /\/discography\?artist=[^&#]+$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release_group:
+            return {
+              result: /\/[0-9]+$/.test(url),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'target': {
     match: [/^(https?:\/\/)?((intl|www)\.)?target\.com\/(b|p)/i],
     restrict: [LINK_TYPES.mailorder],
