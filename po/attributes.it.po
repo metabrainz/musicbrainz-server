@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-03 16:20+0000\n"
+"PO-Revision-Date: 2025-06-09 23:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,9 +25,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -518,6 +518,8 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
+"Una scatola a quattro o cinque lati, solitamente in cartone o in plastica, "
+"che circonda una seconda confezione interna, come un jewel case."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -6749,9 +6751,9 @@ msgid ""
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""
-"Dischi in vinile da 3\" (7,6 cm) da riprodurre con lettori costruiti "
-"appositamente; originariamente sviluppati in Giappone, oggi si trovano "
-"principalmente come curiosità nei Record Store Day."
+"Dischi in vinile da 3\" (7,6 cm) a un lato solo, da riprodurre con lettori "
+"costruiti appositamente; originariamente sviluppati in Giappone, oggi si "
+"trovano principalmente come curiosità nei Record Store Day."
 
 #: DB:work_type/name:10
 msgctxt "work_type"
@@ -7954,7 +7956,7 @@ msgstr "Slim jewel case"
 #: DB:release_packaging/name:122
 msgctxt "release_packaging"
 msgid "Slipcase"
-msgstr ""
+msgstr "Slipcase"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-02 18:05+0000\n"
+"PO-Revision-Date: 2025-06-09 23:20+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,9 +27,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.1\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1932,6 +1932,13 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
+"Per il liuto a una sola corda chiamato anche ektar/ektara, vedi <a href="
+"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Per lo "
+"strumento dall'aspetto simile ma con un solo raggio, vedi tun tuna.<br /> Da "
+"non confondere con l'ekatantri veena, antico strumento monocorda indiano.<br "
+"/> Ha una cassa piccola, in legno o cocco, di forma rotonda o trapezoidale, "
+"con una membrana sul fondo. Fissato ai lati ha un manico in bambù diviso in "
+"due, da cui è sospesa e attaccata alla membrana una sola corda."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
