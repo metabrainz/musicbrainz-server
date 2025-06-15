@@ -193,6 +193,7 @@ component _DialogDatePeriod(
           <FormRowCheckbox
             disabled={isDateNonEmpty(endDate)}
             field={field.field.ended}
+            hasNoLabel={false} // Disables the left margin.
             label={l('This relationship has ended.')}
             onChange={hooks.handleEndedChange}
           />
