@@ -7361,6 +7361,28 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                                   target: 'url',
                                 },
   },
+  // Zemereshet
+  {
+          input_url: 'http://www.zemereshet.co.il/m/record.asp?id=1185',
+          input_entity_type: 'release',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zemereshet.co.il/m/record.asp?id=1185',
+          only_valid_entity_types: ['release'],
+  },
+  {
+          input_url: 'https://zemereshet.co.il/m/song.asp?perf_id=17643&id=259',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zemereshet.co.il/m/song.asp?id=259',
+          only_valid_entity_types: ['work'],
+  },
+  {
+          input_url: 'https://www.zemereshet.co.il/m/artist.asp?id=165',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zemereshet.co.il/m/artist.asp?id=165',
+          only_valid_entity_types: ['artist'],
+  },
 ];
 /* eslint-enable sort-keys */
 /* eslint-enable @stylistic/max-len */
