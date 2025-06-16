@@ -26,11 +26,12 @@
 # 和田篤 <email address hidden>, 2018
 # Jaken264 <korosuke0836@gmail.com>, 2023.
 # Lunae_XD <raru0916@gmail.com>, 2024.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-05 16:42+0000\n"
-"Last-Translator: Lunae_XD <raru0916@gmail.com>\n"
+"PO-Revision-Date: 2025-05-31 19:20+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
@@ -38,7 +39,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -9050,7 +9051,7 @@ msgstr ""
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
 msgid "Work name"
-msgstr "ワーク名"
+msgstr "作品名"
 
 #: DB:series_type/name:4
 msgctxt "series_type"
