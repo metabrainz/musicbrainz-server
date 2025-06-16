@@ -31,7 +31,7 @@ component SidebarRating(entity: RatableT, heading?: string) {
           </>
         ) : null}
       </p>
-      {manifest('common/ratings', {async: 'async'})}
+      {manifest('common/ratings', {async: true})}
     </>
   );
 }

@@ -68,7 +68,7 @@ component RecordingSidebar(recording: RecordingWithArtistCreditT) {
       {recording.isrcs.length ? (
         <>
           <IsrcList isSidebar isrcs={recording.isrcs} />
-          {manifest('common/components/IsrcList', {async: 'async'})}
+          {manifest('common/components/IsrcList', {async: true})}
         </>
       ) : null}
 

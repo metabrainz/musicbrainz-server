@@ -192,6 +192,9 @@ export const LINK_TYPES: LinkTypeMap = {
     place: 'f14b4e5f-0884-4bb0-b3fa-134cc2734f0e',
     series: '492a4e07-0ea9-4e82-870b-cab942b0576f',
   },
+  podcastfeed: {
+    series: '5ce55509-47a5-4374-a1c6-a68fd377bddf',
+  },
   purevolume: {
     artist: 'b6f02157-a9d3-4f24-9057-0675b2dbc581',
   },
@@ -1000,6 +1003,51 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.ENTITY,
             };
         }
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'applepodcasts': {
+    match: [/^(https?:\/\/)?([^/]+\.)?podcasts\.apple\.com\//i],
+    restrict: [
+      LINK_TYPES.podcastfeed,
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+    ],
+    clean(url) {
+      url = url.replace(/^https?:\/\/podcasts\.apple\.com\//, 'https://podcasts.apple.com/');
+      // US page is the default, add its country-code to clarify (MBS-10623)
+      url = url.replace(/^(https:\/\/podcasts\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      url = url.replace(/^(https:\/\/podcasts\.apple\.com\/[a-z]{2})\/podcast\/[^?#/]+\/(?:id)?[0-9]+\?i=([0-9]+)$/, '$1/episode/$2');
+      url = url.replace(/^(https:\/\/podcasts\.apple\.com\/[a-z]{2})\/(episode|podcast)\/(?:[^?#/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/id$3');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/podcasts\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/id[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.podcastfeed.series:
+            return {
+              result: prefix === 'podcast',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.streamingpaid.recording:
+          case LINK_TYPES.streamingfree.release:
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'episode',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -3813,33 +3861,6 @@ const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
-  'lyricevesta': {
-    match: [/^(https?:\/\/)?([^/]+\.)?lyric\.evesta\.jp\//i],
-    restrict: [LINK_TYPES.lyrics],
-    clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?lyric\.evesta\.jp\/([al]\w+\.html).*$/, 'http://lyric.evesta.jp/$1');
-    },
-    validate(url, id) {
-      const m = /^http:\/\/lyric\.evesta\.jp\/([al])\w+\.html$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (id) {
-          case LINK_TYPES.lyrics.artist:
-            return {
-              result: prefix === 'a',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-            return {
-              result: prefix === 'l',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'lyrics': {
     match: [
       /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,
@@ -4540,21 +4561,24 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?openlibrary\.org/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(authors|books|works)\/(OL[0-9]+[AMW]).*$/, 'https://openlibrary.org/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(?:authors|books|publishers|works)\/(OL[0-9]+A).*$/, 'https://openlibrary.org/authors/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(?:authors|books|publishers|works)\/(OL[0-9]+M).*$/, 'https://openlibrary.org/books/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/(?:authors|books|publishers|works)\/(OL[0-9]+W).*$/, 'https://openlibrary.org/works/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?openlibrary\.org\/publishers\/([^/?#]+).*$/, 'https://openlibrary.org/publishers/$1');
       return url;
     },
     validate(url, id) {
-      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+[AMW]$/.exec(url);
+      let m = /^https:\/\/openlibrary\.org\/(authors|books|works)\/OL[0-9]+([AMW])$/.exec(url);
       if (!m) {
         m = /^https:\/\/openlibrary\.org\/(publishers)\/[^/?#]+$/.exec(url);
       }
       if (m) {
         const prefix = m[1];
+        const suffix = m[2] || '';
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'authors',
+              result: prefix === 'authors' && suffix === 'A',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
@@ -4564,12 +4588,12 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.otherdatabases.release:
             return {
-              result: prefix === 'books',
+              result: prefix === 'books' && suffix === 'M',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.work:
             return {
-              result: prefix === 'works',
+              result: prefix === 'works' && suffix === 'W',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -5480,7 +5504,7 @@ const CLEANUPS: CleanupEntries = {
   },
   'spotify': {
     match: [/^(https?:\/\/)?(((?!(?:artists|shop))[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
-    restrict: [LINK_TYPES.streamingfree],
+    restrict: [LINK_TYPES.podcastfeed, LINK_TYPES.streamingfree],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?embed\.spotify\.com\/\?uri=spotify:([a-z]+):([a-zA-Z0-9_-]+)$/, 'https://open.spotify.com/$1/$2');
       url = url.replace(/^(?:https?:\/\/)?(?:play|open)\.spotify\.com\/(?:intl-[a-z]+\/)?([a-z]+)\/([a-zA-Z0-9_-]+)(?:[/?#].*)?$/, 'https://open.spotify.com/$1/$2');
@@ -5508,6 +5532,11 @@ const CLEANUPS: CleanupEntries = {
       if (m) {
         const prefix = m[1];
         switch (id) {
+          case LINK_TYPES.podcastfeed.series:
+            return {
+              result: prefix === 'show',
+              target: ERROR_TARGETS.ENTITY,
+            };
           case LINK_TYPES.streamingfree.artist:
             return {
               result: prefix === 'artist',
@@ -5515,7 +5544,9 @@ const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.streamingfree.release:
             return {
-              result: prefix === 'album' || prefix === 'prerelease',
+              result: prefix === 'album' ||
+                      prefix === 'episode' ||
+                      prefix === 'prerelease',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
@@ -5599,6 +5630,32 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
+  'stereo-ve-mono': {
+    match: [/^(https:\/\/)?(www\.)?stereo-ve-mono\.com\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\/(www\.)?/, 'https://')
+        // keep just the artist query param
+        .replace(/\/discography(?:.*?)(?:[?&](artist=[^&#]*))?(?:&.*)?$/, '/discography?$1');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /\/discography\?artist=[^&#]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release_group:
+          return {
+            result: /\/[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+    },
+  },
   'target': {
     match: [/^(https?:\/\/)?((intl|www)\.)?target\.com\/(b|p)/i],
     restrict: [LINK_TYPES.mailorder],
@@ -5632,6 +5689,16 @@ const CLEANUPS: CleanupEntries = {
         return {result: false, target: ERROR_TARGETS.ENTITY};
       }
       return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'thbwiki': {
+    match: [/^(https?:\/\/)?(www\.)?thwiki\.cc/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(https?:\/\/)?(www\.)?thwiki\.cc\/$/, 'https://thwiki.cc/');
+      url = url.replace(/^https:\/\/thwiki\.cc\/([^#]+)(?:[#].*)?$/, 'https://thwiki.cc/$1');
+      url = url.replace(/^https:\/\/thwiki\.cc\/index\.php\?title=([^&]+).*/, 'https://thwiki.cc/$1');
+      return url;
     },
   },
   'thesession': {
@@ -7069,6 +7136,37 @@ const CLEANUPS: CleanupEntries = {
               target: ERROR_TARGETS.URL,
             };
           }
+      }
+      return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+    },
+  },
+  'zemereshet': {
+    match: [/^(https?:\/\/)?(www\.)?zemereshet\.co\.il\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url
+        // Standardise to https
+        .replace(/^https?:\/\/(www\.)?/, 'https://www.')
+        // keep just the id query param
+        .replace(/(?=\?)(?:.*?)(?:[?&](id=[^&#]*))?(?:&.*)?$/, '?$1');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.work:
+          return {
+            result: /\/song.asp\?id=[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.artist:
+          return {
+            result: /\/artist.asp\?id=[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release:
+          return {
+            result: /\/record.asp\?id=[0-9]+$/.test(url),
+            target: ERROR_TARGETS.ENTITY,
+          };
       }
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
     },

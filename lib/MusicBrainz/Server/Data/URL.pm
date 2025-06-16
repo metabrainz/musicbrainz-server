@@ -122,7 +122,6 @@ my %URL_SPECIALIZATIONS = (
     'LiveNation'          => qr{^https?://(?:[^/]+\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/}i,
     'LoC'                 => qr{^https?://(?:[^/]+\.)?loc\.gov/}i,
     'Loudr'               => qr{^https?://(?:www\.)?loudr\.fm/}i,
-    'LyricEvesta'         => qr{^https?://lyric\.evesta\.jp/}i,
     'MainlyNorfolk'       => qr{^https?://(?:www\.)?mainlynorfolk\.info/}i,
     'Maniadb'             => qr{^https?://(?:www\.)?maniadb\.com/}i,
     'Melon'               => qr{^https?://www\.melon\.com/}i,
@@ -191,7 +190,9 @@ my %URL_SPECIALIZATIONS = (
     'SpiritOfRock'        => qr{^https?://(?:www\.)?spirit-of-rock\.com/}i,
     'Stage48'             => qr{^https?://(?:www\.)?stage48\.net/}i,
     'SteamDB'             => qr{^https?://([^/]+\.)?steamdb\.info/}i,
+    'StereoVeMono'        => qr{^https?://(?:www\.)?stereo-ve-mono\.com/}i,
     'Target'              => qr{^https?://(?:(?:intl|www)\.)?target\.com/}i,
+    'THBWiki'             => qr{^https?://(?:www\.)?thwiki\.cc/}i,
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
     'TheSession'          => qr{^https?://(?:www\.)?thesession\.org/}i,
@@ -235,6 +236,7 @@ my %URL_SPECIALIZATIONS = (
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
     'YouTubeMusic'        => qr{^https?://music\.youtube\.com/}i,
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,
+    'Zemereshet'          => qr{^https?://(?:www\.)?zemereshet\.co\.il/}i,
 
     # License links
     'CCBY'              => qr{^https?://creativecommons\.org/licenses/by/}i,

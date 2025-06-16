@@ -9,6 +9,7 @@
 
 import {RecordingResultsInline}
   from '../search/components/RecordingResults.js';
+import manifest from '../static/manifest.mjs';
 
 import TagLookupResults from './Results.js';
 
@@ -23,6 +24,7 @@ component TagLookupRecordingResults(...props: {
         query={props.query}
         results={props.results}
       />
+      {manifest('common/components/TaggerIcon', {async: true})}
     </TagLookupResults>
   );
 }

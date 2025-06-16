@@ -183,7 +183,7 @@ const CollectionEditForm = ({
   form,
 }: Props): React.MixedElement => {
   const typeOptions = {
-    grouped: false,
+    grouped: false as const,
     options: collectionTypes,
   };
 

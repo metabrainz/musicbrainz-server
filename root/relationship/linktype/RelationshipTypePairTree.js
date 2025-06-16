@@ -226,7 +226,7 @@ component RelationshipTypePairTree(root: LinkTypeT) {
           </p>
         )}
       </div>
-      {manifest('edit/MB/reltypeslist', {async: 'async'})}
+      {manifest('edit/MB/reltypeslist', {async: true})}
     </Layout>
   );
 }

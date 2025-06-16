@@ -306,6 +306,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     htmlAttrParsers,
     args,
   );
+  // $FlowIssue[unsafe-object-assign]
   const combinedAttributes = Object.assign(
     ({}: HtmlAttrs),
     ...attributes,

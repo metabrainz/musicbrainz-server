@@ -28,13 +28,6 @@ my %model_to_edit_type = (
     ) },
 );
 
-my %model_to_search_hint_type_id = entities_with('aliases',
-    take => sub {
-        my (undef, $info) = @_;
-        return ($info->{model} => $info->{aliases}{search_hint_type} );
-    },
-);
-
 sub aliases : Chained('load') PathPart('aliases')
 {
     my ($self, $c) = @_;
@@ -92,7 +85,6 @@ sub add_alias : Chained('load') PathPart('add-alias') Edit
         form_args => {
             parent_id => $entity->id,
             alias_model => $alias_model,
-            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} },
         },
         type => $model_to_edit_type{add}->{ $self->{model} },
         edit_args => {
@@ -172,7 +164,6 @@ sub edit_alias : Chained('alias') PathPart('edit') Edit
             parent_id => $entity->id,
             alias_model => $alias_model,
             id => $alias->id,
-            search_hint_type_id => $model_to_search_hint_type_id{ $self->{model} },
         },
         item => $alias,
         type => $model_to_edit_type{edit}->{ $self->{model} },

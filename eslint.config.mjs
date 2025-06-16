@@ -20,6 +20,7 @@ export default [
   {
     ignores: [
       '.cpanm/**/*',
+      'flow-typed/environments/*.js',
       'flow-typed/npm/@sentry/*.js',
       'flow-typed/npm/he_*.js',
       'flow-typed/npm/react-dom_*.js',
@@ -118,6 +119,7 @@ export default [
     },
     settings: {
       flowtype: {onlyFilesWithFlowAnnotation: true},
+      'import/resolver': 'webpack',
       react: {
         version: 'detect',
         flowVersion: '0.152.0',
@@ -465,7 +467,11 @@ export default [
         before: false,
         after: true,
       }],
-      '@stylistic/comma-style': ['warn', 'last'],
+      '@stylistic/comma-style': [
+        'warn',
+        'last',
+        {exceptions: {FunctionExpression: true}}
+      ],
       '@stylistic/computed-property-spacing': ['warn', 'never', {
         enforceForClassMembers: true,
       }],

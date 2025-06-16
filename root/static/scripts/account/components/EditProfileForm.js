@@ -70,7 +70,7 @@ type StateT = {
 };
 
 const genderOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: N_lp_attributes('Male', 'gender'), value: '1'},
     {label: N_lp_attributes('Female', 'gender'), value: '2'},
@@ -80,7 +80,7 @@ const genderOptions = {
 };
 
 const fluencyOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: FLUENCY_NAMES.basic, value: 'basic'},
     {label: FLUENCY_NAMES.intermediate, value: 'intermediate'},

@@ -52,7 +52,7 @@ component PlaceSidebar(place: PlaceT) {
             cachedImage={$c.stash.commons_image}
             entity={place}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

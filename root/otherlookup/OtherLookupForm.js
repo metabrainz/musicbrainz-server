@@ -33,7 +33,7 @@ component OtherLookupFormRow(
           id={'id-' + field.html_name}
           name={field.html_name}
           required={field.has_errors}
-          size="32"
+          size={32}
           type="text"
         />
         <FormSubmit className="inline" label={l('Search')} />

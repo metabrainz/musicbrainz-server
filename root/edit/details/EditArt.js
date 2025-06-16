@@ -43,7 +43,7 @@ component EditArt(
     <table className={'details remove-' + archiveName + '-art'}>
       <tr>
         <th>{addColonText(formattedEntityType)}</th>
-        <td colSpan="2">
+        <td colSpan={2}>
           {/* $FlowIgnore[prop-missing] */}
           <DescriptiveLink entity={display[entityType]} />
         </td>
@@ -52,7 +52,7 @@ component EditArt(
       {nonEmpty(display.artwork.filename) ? (
         <tr>
           <th>{addColonText(l('Filename'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <code>
               {display.artwork.filename}
             </code>

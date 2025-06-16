@@ -24,12 +24,14 @@ function loadCommonsImage(
   fetch(url)
     .then(resp => resp.json())
     .then((reqData) => {
-      callback(reqData.image);
+      try {
+        callback(reqData.image);
+      } catch (error) {
+        console.error(error);
+        Sentry.captureException(error);
+      }
     })
-    .catch((error) => {
-      console.error(error);
-      Sentry.captureException(error);
-    });
+    .catch(console.error);
 }
 
 component CommonsImage(

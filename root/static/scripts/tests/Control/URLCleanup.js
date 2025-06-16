@@ -737,6 +737,20 @@ limited_link_type_combinations: [
                                 ],
             expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
   },
+  // Apple Podcasts
+  {
+                     input_url: 'https://podcasts.apple.com/dk/podcast/bag-fjendens-linjer/id912730108',
+             input_entity_type: 'series',
+    expected_relationship_type: 'podcastfeed',
+            expected_clean_url: 'https://podcasts.apple.com/dk/podcast/id912730108',
+       only_valid_entity_types: ['series'],
+  },
+  {
+                     input_url: 'https://podcasts.apple.com/us/podcast/birder-language-with-rosemary-mosco/id1403064308?i=1000705676414',
+             input_entity_type: 'release',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
+            expected_clean_url: 'https://podcasts.apple.com/us/episode/id1000705676414',
+  },
   // (Internet) Archive
   {
                      input_url: 'http://web.archive.org/web/20100904165354/i265.photobucket.com/albums/ii229/drsaunde/487015.jpg',
@@ -3869,21 +3883,6 @@ limited_link_type_combinations: [
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://loudr.fm/release/dearly-beloved-2014/Vv2cZ',
   },
-  // lyric.evesta.jp
-  {
-                     input_url: 'http://lyric.evesta.jp/a7d0991.html',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'http://lyric.evesta.jp/a7d0991.html',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'www.lyric.evesta.jp/l7a75fa.html#lyrictitle',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'http://lyric.evesta.jp/l7a75fa.html',
-       only_valid_entity_types: ['work'],
-  },
   // Mainly Norfolk
   {
                      input_url: 'https://www.mainlynorfolk.info/watersons/index.html',
@@ -4651,6 +4650,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://openlibrary.org/works/OL23919A/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/authors/OL23919A',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://openlibrary.org/publishers/Penguin_Books,_Limited',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
@@ -4672,7 +4678,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
+                     input_url: 'https://openlibrary.org/works/OL20723256W/Harrow_the_Ninth?edition=key%3A/books/OL28147941M',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://openlibrary.org/works/OL20723256W',
@@ -5667,14 +5673,14 @@ limited_link_type_combinations: [
                      input_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
-       only_valid_entity_types: ['recording'],
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'https://embed.spotify.com/?uri=spotify:episode:5yyMb4t3PWlikJNucu9A6Z',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://open.spotify.com/episode/5yyMb4t3PWlikJNucu9A6Z',
-       only_valid_entity_types: ['recording'],
+       only_valid_entity_types: ['recording', 'release'],
   },
   {
                      input_url: 'http://play.spotify.com/album/3rFPzWNUrtoqMd9yNGaFMr?play=true&utm_source=open.spotify.com&utm_medium=open',
@@ -5790,6 +5796,13 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://artists.spotify.com/songwriter/4wmgHQAAzg3gbnQWSyoMZp',
        only_valid_entity_types: ['artist'],
   },
+  {
+                     input_url: 'https://open.spotify.com/show/21X5WeU1eZTuyYmBbq613H',
+             input_entity_type: 'series',
+    expected_relationship_type: 'podcastfeed',
+            expected_clean_url: 'https://open.spotify.com/show/21X5WeU1eZTuyYmBbq613H',
+       only_valid_entity_types: ['series'],
+  },
   // SteamDB
   {
                      input_url: 'http://www.steamdb.info/app/331230/info/',
@@ -5797,6 +5810,20 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://steamdb.info/app/331230/',
        only_valid_entity_types: ['release'],
+  },
+  // StereoVeMono
+  {
+                     input_url: 'https://stereo-ve-mono.com/discography?go=3&artist=%D7%A9%D7%9C%D7%9E%D7%94%20%D7%90%D7%A8%D7%A6%D7%99',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://stereo-ve-mono.com/discography?artist=%D7%A9%D7%9C%D7%9E%D7%94%20%D7%90%D7%A8%D7%A6%D7%99',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://stereo-ve-mono.com/1825',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://stereo-ve-mono.com/1825',
   },
   // Target
   {
@@ -5825,6 +5852,25 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                      input_url: 'http://tedcrane.com/DanceDB/DisplayIdent.com?key=DONNA_HUNT',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
+  },
+  // THBWiki
+  {
+                     input_url: 'https://thwiki.cc/Register6#%E6%88%90%E5%91%98%E5%90%8D%E5%8D%95',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thwiki.cc/Register6',
+  },
+  {
+                     input_url: 'https://thwiki.cc/index.php?title=%E6%9B%BC%E7%8F%A0%E6%B2%99%E8%8F%AF%EF%BC%88%E5%90%8C%E4%BA%BA%E4%B8%93%E8%BE%91%EF%BC%89&setlang=en',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thwiki.cc/%E6%9B%BC%E7%8F%A0%E6%B2%99%E8%8F%AF%EF%BC%88%E5%90%8C%E4%BA%BA%E4%B8%93%E8%BE%91%EF%BC%89',
+  },
+  {
+                     input_url: 'https://thwiki.cc/%E5%B1%95%E4%BC%9A%E4%BD%9C%E5%93%81%E5%88%97%E8%A1%A8?e=Comic+Market%2379#%E5%90%8C%E4%BA%BA%E5%BF%97',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thwiki.cc/%E5%B1%95%E4%BC%9A%E4%BD%9C%E5%93%81%E5%88%97%E8%A1%A8?e=Comic+Market%2379',
   },
   // The Dance Gypsy
   {
@@ -7375,6 +7421,28 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                                   error: 'a link to a search result',
                                   target: 'url',
                                 },
+  },
+  // Zemereshet
+  {
+          input_url: 'http://www.zemereshet.co.il/m/record.asp?id=1185',
+          input_entity_type: 'release',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zemereshet.co.il/m/record.asp?id=1185',
+          only_valid_entity_types: ['release'],
+  },
+  {
+          input_url: 'https://zemereshet.co.il/m/song.asp?perf_id=17643&id=259',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zemereshet.co.il/m/song.asp?id=259',
+          only_valid_entity_types: ['work'],
+  },
+  {
+          input_url: 'https://www.zemereshet.co.il/m/artist.asp?id=165',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zemereshet.co.il/m/artist.asp?id=165',
+          only_valid_entity_types: ['artist'],
   },
 ];
 /* eslint-enable sort-keys */

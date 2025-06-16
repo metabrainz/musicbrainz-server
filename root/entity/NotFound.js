@@ -138,6 +138,14 @@ const notFoundPages: {[namespace: string]: NotFoundPagesPropsT} = {
     args: defaultSearchArgs,
     footer: null,
   },
+  'medium': {
+    title: N_lp('Medium not found', 'header'),
+    message: N_l(
+      'Sorry, we could not find a medium with that MusicBrainz ID.',
+    ),
+    args: {},
+    footer: null,
+  },
   'otherlookup': {
     title: N_lp('Entity not found', 'header'),
     message: N_l(

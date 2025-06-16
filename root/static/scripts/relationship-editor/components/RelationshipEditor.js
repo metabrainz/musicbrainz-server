@@ -562,8 +562,8 @@ type ErrorMessagePropsT = {
 };
 
 export const ErrorMessage:
-  component(ref: React.RefSetter<mixed>, ...ErrorMessagePropsT) =
-  React.memo<ErrorMessagePropsT>(({
+  component(...ErrorMessagePropsT) =
+  React.memo<ErrorMessagePropsT, void>(({
     error,
   }: ErrorMessagePropsT): React.MixedElement => (
     <div className="error">

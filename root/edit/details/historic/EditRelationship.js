@@ -42,7 +42,7 @@ component EditRelationship(edit: EditRelationshipHistoricEditT) {
       ) : null}
       <table className="details edit-relationship">
         <tr>
-          <th rowSpan="2">{l('Old relationships:')}</th>
+          <th rowSpan={2}>{l('Old relationships:')}</th>
         </tr>
         <tr>
           <td>
@@ -114,7 +114,7 @@ component EditRelationship(edit: EditRelationshipHistoricEditT) {
         </tr>
 
         <tr>
-          <th rowSpan="2">{l('New relationships:')}</th>
+          <th rowSpan={2}>{l('New relationships:')}</th>
         </tr>
         <tr>
           <td>

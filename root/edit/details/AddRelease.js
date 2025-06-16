@@ -119,7 +119,7 @@ component AddRelease(allowNew?: boolean, edit: AddReleaseEditT) {
                 />
                 {manifest(
                   'common/components/ReleaseEvents',
-                  {async: 'async'},
+                  {async: true},
                 )}
               </td>
             </tr>

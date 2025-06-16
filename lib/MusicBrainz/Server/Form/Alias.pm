@@ -60,12 +60,6 @@ has 'alias_model' => (
     required => 1,
 );
 
-has search_hint_type_id => (
-    isa => 'Int',
-    is => 'ro',
-    required => 1,
-);
-
 sub edit_field_names {
     qw( name locale sort_name period.begin_date period.end_date
         period.ended type_id primary_for_locale );
