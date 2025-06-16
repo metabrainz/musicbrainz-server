@@ -236,6 +236,7 @@ export const FAVICON_CLASSES: {
   'spotify.com': 'spotify',
   'stage48.net': 'stage48',
   'steamdb.info': 'steamdb',
+  'stereo-ve-mono.com': 'stereo-ve-mono',
   'target.com': 'target',
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
