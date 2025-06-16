@@ -5580,7 +5580,7 @@ const CLEANUPS: CleanupEntries = {
         // Standardise to https
         .replace(/^https?:\/\/(www\.)?/, 'https://')
         // keep just the artist query param
-        .replace(/\/discography(.*?)([?&](artist=[^&#]*))?(&.*)?$/, '/discography?$3');
+        .replace(/\/discography(?:.*?)(?:[?&](artist=[^&#]*))?(?:&.*)?$/, '/discography?$1');
     },
     validate(url, id) {
       switch (id) {
