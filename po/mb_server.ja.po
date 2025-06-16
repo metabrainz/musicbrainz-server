@@ -38,14 +38,14 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 # julian45 <techieboy45@gmail.com>, 2023.
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
-# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # julian45 <julian45@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-19 10:22-0500\n"
-"PO-Revision-Date: 2024-11-19 18:42+0000\n"
+"PO-Revision-Date: 2025-06-16 19:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -54,7 +54,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -630,7 +630,7 @@ msgstr "ブログ"
 
 #: ../root/layout.tt:120 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 #: ../root/edit/search_macros.tt:438
 msgctxt "user type"
@@ -1011,11 +1011,11 @@ msgstr "メモを編集"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Edit note authors"
-msgstr "編集ノートの作成者"
+msgstr "編集メモの作成者"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Edit note content"
-msgstr "編集ノートの内容"
+msgstr "編集メモの内容"
 
 #: ../root/components/forms.tt:29
 #: ../root/static/scripts/edit/components/EnterEditNote.js:69
@@ -1112,18 +1112,18 @@ msgid ""
 "information, but it can also encourage other users to vote on your edit "
 "&#x2014; thus making your edit get applied faster."
 msgstr ""
-"編集した情報を説明する {note|編集ノート} の入力を強くお勧めします。あなたが編"
-"集した箇所を明確にするだけでなく、編集内容の投票を他のユーザに促す事ができま"
-"す。それにより、編集がより早く適用されるようになります。"
+"編集した情報を説明する {note|編集メモ} "
+"の入力を強くお勧めします。あなたが編集した箇所を明確にするだけでなく、編集内"
+"容の投票を他のユーザに促す事ができます。それにより、編集がより早く適用される"
+"ようになります。"
 
 #: ../root/components/forms.tt:25
 #: ../root/static/scripts/edit/components/EnterEditNote.js:54
 msgid ""
 "Even just providing a URL or two is helpful! For more suggestions, see "
 "{doc_how_to|our guide for writing good edit notes}."
-msgstr ""
-"一つか二つのURLだけでも有用です！！より詳しくは{doc_how_to|優れた編集ノートを"
-"書くための手引き}をご覧ください。"
+msgstr "一つか二つのURLだけでも有用です！より詳しくは{doc_how_to|優れた編集メモを書く"
+"ための手引き}をご覧ください。"
 
 #: ../root/edit/search_macros.tt:473 ../lib/MusicBrainz/Server/Edit/Event.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:52
@@ -1824,7 +1824,7 @@ msgstr "手動で入力"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:34
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
@@ -5421,7 +5421,7 @@ msgstr "リリースグループの別名を編集"
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
 msgctxt "edit type"
 msgid "Merge release groups"
-msgstr "リリースグループのマージ"
+msgstr "リリースグループをマージ"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 msgctxt "singular, edit type"
@@ -5707,7 +5707,7 @@ msgstr "投票は終了しました。"
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
-msgstr "編集ノートは無効化されています"
+msgstr "編集メモは無効化されています"
 
 #: ../lib/MusicBrainz/Server/Entity/LinkAttribute.pm:35
 #: ../root/static/scripts/common/utility/displayLinkAttribute.js:40
@@ -5753,10 +5753,8 @@ msgid "{role} (as {credited_name})"
 msgstr "{role} ({credited_name} として)"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at AWA"
-msgstr "VKでの配信"
+msgstr "AWAでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
@@ -7252,7 +7250,7 @@ msgstr "ディスコグラフィー"
 #: ../root/release_group/ReleaseGroupMerge.js:24
 #: ../root/release_group/ReleaseGroupMerge.js:26
 msgid "Merge release groups"
-msgstr "リリースグループのマージ"
+msgstr "リリースグループをマージ"
 
 #: ../root/artist/ArtistIndex.js:306 ../root/artist/ArtistRecordings.js:147
 #: ../root/instrument/InstrumentRecordings.js:54 ../root/isrc/Index.js:96
@@ -8708,7 +8706,7 @@ msgstr "メモを提出"
 
 #: ../root/edit/EditIndex.js:190
 msgid "You must be logged in to see edit notes."
-msgstr "編集ノートを見るにはログインが必要です。"
+msgstr "編集メモを見るにはログインが必要です。"
 
 #: ../root/edit/ModifyNote.js:31 ../root/edit/ModifyNote.js:32
 #: ../root/edit/components/EditNote.js:140
@@ -8746,7 +8744,7 @@ msgstr "送信"
 msgid ""
 "{edit} has received one or more \"no\" votes, you must leave an edit note "
 "before you can approve it."
-msgstr "{edit}には反対投票があるため、承認するには編集ノートが必要です。"
+msgstr "{edit}には反対投票があるため、承認するには編集メモが必要です。"
 
 #: ../root/edit/NotesReceived.js:28 ../root/edit/NotesReceived.js:30
 msgid "Recent notes left on your edits"
@@ -8867,7 +8865,7 @@ msgstr[0] "{n}件の編集が見つかりました"
 #: ../root/edit/components/EditList.js:93
 #: ../root/edit/components/EditList.js:109
 msgid "Submit votes & edit notes"
-msgstr ""
+msgstr "投票と編集メモを送信"
 
 #: ../root/edit/components/EditNote.js:157
 msgid "[time missing]"
@@ -8914,7 +8912,7 @@ msgstr ""
 
 #: ../root/edit/components/EditNotes.js:49
 msgid "No edit notes have been added."
-msgstr "編集ノートが追加されていません。"
+msgstr "編集メモが追加されていません。"
 
 #: ../root/edit/components/EditNotes.js:64
 msgid "Add an edit note"
@@ -10071,7 +10069,7 @@ msgstr ""
 #: ../root/entity/NotFound.js:73
 msgctxt "header"
 msgid "Edit note not found"
-msgstr "編集者が見つかりません"
+msgstr "編集メモが見つかりません"
 
 #: ../root/entity/NotFound.js:75
 #, fuzzy
@@ -11717,16 +11715,12 @@ msgstr ""
 "MusicBrainzを利用したアプリケーションを作りましょう。"
 
 #: ../root/main/index.js:251
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "リリースの追加方法"
+msgstr "最近追加されたリリース"
 
 #: ../root/main/index.js:266
-#, fuzzy
-#| msgid "Release events"
 msgid "Recently added events"
-msgstr "リリースイベント"
+msgstr "最近追加されたイベント"
 
 #: ../root/main/index.js:323
 #: ../root/static/scripts/common/components/DescriptiveLink.js:62
@@ -16242,7 +16236,7 @@ msgstr "編集プレビューを読込み中…"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:91
 msgid "You must provide an edit note when adding a release."
-msgstr "リリースを追加する時は編集ノートを記述してください。"
+msgstr "リリースを追加する時は編集メモを記述してください。"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1855
