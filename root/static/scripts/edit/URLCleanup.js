@@ -7054,7 +7054,7 @@ const CLEANUPS: CleanupEntries = {
         // Standardise to https
         .replace(/^https?:\/\/(www\.)?/, 'https://www.')
         // keep just the id query param
-        .replace(/(?=\?)(.*?)([?&](id=[^&#]*))?(&.*)?$/, '?$3');
+        .replace(/(?=\?)(?:.*?)(?:[?&](id=[^&#]*))?(?:&.*)?$/, '?$1');
     },
     validate(url, id) {
       switch (id) {
