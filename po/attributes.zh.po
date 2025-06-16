@@ -13,11 +13,12 @@
 # imgradeone <imgradeone@outlook.com>, 2025.
 # Ral Hole <ral-hole@outlook.com>, 2025.
 # delamons <lamons.n@gmail.com>, 2025.
+# Solarenta <2325840950@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-22 07:45+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-06-14 07:20+0000\n"
+"Last-Translator: Solarenta <2325840950@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -465,7 +466,7 @@ msgctxt "release_packaging"
 msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
-msgstr ""
+msgstr "一个四面或五面的盒套，通常由纸板或塑料制成，内封有第二种包装，如珠宝盒。"
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -7733,7 +7734,7 @@ msgstr "薄珍宝盒"
 #: DB:release_packaging/name:122
 msgctxt "release_packaging"
 msgid "Slipcase"
-msgstr ""
+msgstr "外封套"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"
