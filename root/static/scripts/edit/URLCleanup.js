@@ -5636,6 +5636,16 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'thbwiki': {
+    match: [/^(https?:\/\/)?(www\.)?thwiki\.cc/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(https?:\/\/)?(www\.)?thwiki\.cc\/$/, 'https://thwiki.cc/');
+      url = url.replace(/^https:\/\/thwiki\.cc\/([^#]+)(?:[#].*)?$/, 'https://thwiki.cc/$1');
+      url = url.replace(/^https:\/\/thwiki\.cc\/index\.php\?title=([^&]+).*/, 'https://thwiki.cc/$1');
+      return url;
+    },
+  },
   'thesession': {
     match: [/^(https?:\/\/)?(www\.)?thesession\.org/i],
     restrict: [LINK_TYPES.otherdatabases],

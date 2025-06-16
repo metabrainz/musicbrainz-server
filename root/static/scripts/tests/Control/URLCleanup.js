@@ -5832,6 +5832,25 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
   },
+  // THBWiki
+  {
+                     input_url: 'https://thwiki.cc/Register6#%E6%88%90%E5%91%98%E5%90%8D%E5%8D%95',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thwiki.cc/Register6',
+  },
+  {
+                     input_url: 'https://thwiki.cc/index.php?title=%E6%9B%BC%E7%8F%A0%E6%B2%99%E8%8F%AF%EF%BC%88%E5%90%8C%E4%BA%BA%E4%B8%93%E8%BE%91%EF%BC%89&setlang=en',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thwiki.cc/%E6%9B%BC%E7%8F%A0%E6%B2%99%E8%8F%AF%EF%BC%88%E5%90%8C%E4%BA%BA%E4%B8%93%E8%BE%91%EF%BC%89',
+  },
+  {
+                     input_url: 'https://thwiki.cc/%E5%B1%95%E4%BC%9A%E4%BD%9C%E5%93%81%E5%88%97%E8%A1%A8?e=Comic+Market%2379#%E5%90%8C%E4%BA%BA%E5%BF%97',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://thwiki.cc/%E5%B1%95%E4%BC%9A%E4%BD%9C%E5%93%81%E5%88%97%E8%A1%A8?e=Comic+Market%2379',
+  },
   // The Dance Gypsy
   {
                      input_url: 'http://www.thedancegypsy.com/performerList.php?musician=George+Marshall',

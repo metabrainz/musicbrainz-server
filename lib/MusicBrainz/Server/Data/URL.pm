@@ -192,6 +192,7 @@ my %URL_SPECIALIZATIONS = (
     'SteamDB'             => qr{^https?://([^/]+\.)?steamdb\.info/}i,
     'StereoVeMono'        => qr{^https?://(?:www\.)?stereo-ve-mono\.com/}i,
     'Target'              => qr{^https?://(?:(?:intl|www)\.)?target\.com/}i,
+    'THBWiki'             => qr{^https?://(?:www\.)?thwiki\.cc/}i,
     'Theatricalia'        => qr{^https?://(?:www\.)?theatricalia\.com/}i,
     'TheDanceGypsy'       => qr{^https?://(?:www\.)?thedancegypsy\.com/}i,
     'TheSession'          => qr{^https?://(?:www\.)?thesession\.org/}i,
