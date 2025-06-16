@@ -4,6 +4,7 @@ use namespace::autoclean;
 
 use Encode;
 use JSON;
+use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
 use Text::Trim;
 
@@ -43,6 +44,12 @@ sub _load_entities {
 
     if ($c->stash->{inc}->{rels}) {
         $c->model('Relationship')->load_cardinal(@entities);
+    }
+
+    my $entity_properties = $ENTITIES{$self->type};
+
+    if ($entity_properties->{aliases}) {
+        $self->model($c)->load_aliases(@entities);
     }
 }
 
