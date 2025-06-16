@@ -3,21 +3,22 @@
 # Piotr Myśliński <email address hidden>, 2013
 # Echelon666 <echelon01@wp.pl>, 2024.
 # PS123 <adres2015@wp.pl>, 2025.
+# Echelon <weblate@wp.pl>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-11 00:44+0000\n"
-"Last-Translator: PS123 <adres2015@wp.pl>\n"
+"PO-Revision-Date: 2025-05-28 01:20+0000\n"
+"Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1930,6 +1931,14 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
+"W przypadku lutni jednostrunowej, zwanej również ektar/ektara, zobacz <a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> W "
+"przypadku podobnie wyglądającego instrumentu z tylko jednym ramieniem, "
+"zobacz tun tuna.<br /> Nie mylić z ekatantri veena, starożytnym indyjskim "
+"monochordem.<br /> Ma mały, okrągły lub trapezowaty korpus z drewna lub "
+"kokosa z membraną na dole. Do boków przymocowana jest szyjka z "
+"rozszczepionego bambusa, na której zawieszona jest pojedyncza struna i "
+"przymocowana do membrany."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
