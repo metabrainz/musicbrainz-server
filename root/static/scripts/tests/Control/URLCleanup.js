@@ -4636,6 +4636,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://openlibrary.org/works/OL23919A/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://openlibrary.org/authors/OL23919A',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://openlibrary.org/publishers/Penguin_Books,_Limited',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
@@ -4657,7 +4664,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
-                     input_url: 'https://openlibrary.org/works/OL20723256W?edition=',
+                     input_url: 'https://openlibrary.org/works/OL20723256W/Harrow_the_Ninth?edition=key%3A/books/OL28147941M',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://openlibrary.org/works/OL20723256W',
