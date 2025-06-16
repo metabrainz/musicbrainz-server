@@ -15,6 +15,11 @@ sub enforce_dependencies {
         $opts->{primary_for_locale} = 0;
     }
 
+    if ($opts->{ended}) {
+        # Ended alias can't be primary
+        $opts->{primary_for_locale} = 0;
+    }
+
     unless (non_empty($opts->{sort_name})) {
         # Sortname defaults to the name
         $opts->{sort_name} = $opts->{name};

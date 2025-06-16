@@ -68,6 +68,7 @@ type ActionT =
 type StateT = {
   +form: AliasEditFormT,
   +guessCaseOptions: GuessCaseOptionsStateT,
+  +isEnded: boolean,
   +isGuessCaseOptionsOpen: boolean,
   +isTypeSearchHint: boolean,
   +previousForm?: AliasEditFormT | null,
@@ -97,6 +98,7 @@ function createInitialState(form: AliasEditFormT, searchHintType: number) {
   return {
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
+    isEnded: form.field.period.field.ended.value,
     isGuessCaseOptionsOpen: false,
     isTypeSearchHint: form.field.type_id.value === searchHintType,
     searchHintType,
@@ -113,6 +115,13 @@ function reducer(state: StateT, action: ActionT): StateT {
         newStateCtx.get('form', 'field', 'period'),
         action.action,
       );
+      const isEnded = newStateCtx.get(
+        'form', 'field', 'period', 'field', 'ended', 'value',
+      ).read();
+      newStateCtx.set('isEnded', isEnded);
+      if (isEnded) {
+        fieldCtx.set('primary_for_locale', 'value', false);
+      }
       break;
     }
     case 'update-name': {
@@ -320,7 +329,9 @@ const AliasEditForm = ({
             >
               <FormRowCheckbox
                 disabled={
-                  state.isTypeSearchHint || !state.form.field.locale.value
+                  state.isEnded ||
+                  state.isTypeSearchHint ||
+                  !state.form.field.locale.value
                 }
                 field={state.form.field.primary_for_locale}
                 label={exp.l(
