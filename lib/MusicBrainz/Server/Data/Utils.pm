@@ -478,7 +478,7 @@ Readonly my @invisible_characters => (
 Readonly my $invisible_characters => join '', @invisible_characters;
 Readonly my $invisible_characters_class => qr/[$invisible_characters]/;
 
-# Keep in sync with invalidEditNote in static/scripts/release-editor/init.js
+# Keep in sync with static/scripts/edit/utility/isInvalidEditNote.js
 sub remove_invisible_characters {
     my $string = shift;
 

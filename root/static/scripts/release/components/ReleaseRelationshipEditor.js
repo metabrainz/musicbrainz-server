@@ -54,6 +54,7 @@ import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import {createField} from '../../edit/utility/createField.js';
+import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {
@@ -1184,8 +1185,15 @@ export const reducer: ((
       break;
     }
     case 'update-edit-note': {
+      const errors = isInvalidEditNote(action.editNote)
+        ? [l(`Your edit note seems to have no actual content.
+              Please provide a note that will be helpful to
+              your fellow editors!`)]
+        : [];
+
       newState.editNoteField = {
         ...newState.editNoteField,
+        errors,
         value: action.editNote,
       };
       break;
@@ -1854,7 +1862,10 @@ component _ReleaseRelationshipEditor(
         />
         <EnterEdit
           controlled
-          disabled={state.submissionInProgress}
+          disabled={
+            state.submissionInProgress ||
+            state.editNoteField.errors.length > 0
+          }
           form={state.enterEditForm}
           onChange={handleMakeVotableChange}
         />
