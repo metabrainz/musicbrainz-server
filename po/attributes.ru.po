@@ -30,7 +30,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-14 23:20+0000\n"
+"PO-Revision-Date: 2025-06-03 13:20+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -40,9 +40,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -527,6 +527,8 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
+"Четырех- или пятисторонняя коробка, обычно из картона или пластика, которая "
+"окружает вторую внутреннюю упаковку, например, Jewel Case."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -7996,7 +7998,7 @@ msgstr "Тонкая коробка для диска"
 #: DB:release_packaging/name:122
 msgctxt "release_packaging"
 msgid "Slipcase"
-msgstr ""
+msgstr "Слипкейс"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

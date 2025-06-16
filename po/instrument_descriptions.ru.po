@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"PO-Revision-Date: 2025-06-03 13:20+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.3\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1501,6 +1501,13 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
+"Для однострунной лютни, также называемой эктар/эктара, см. <a href="
+"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">тумби</a>.<br />Для "
+"похожего инструмента с одной спицей см. тун-туна.<br />Не путать с экатантри "
+"виной, древнеиндийским монохордом.<br />У него небольшой круглый или "
+"трапециевидный корпус из дерева или кокосового ореха с мембраной в нижней "
+"части. По бокам прикреплена шейка из расщепленного бамбука, к которой "
+"подвешена одна струна, прикрепленная к мембране."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1511,6 +1518,12 @@ msgid ""
 "a50c-0798ee95da8f\">melodica</a>.<br /> Also known as Melodeon, it has 1 to "
 "2 rows of buttons that each produce two tones (bisonoric)."
 msgstr ""
+"Для органа, также известного как мелодеон, см. <a href="
+"\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">тростниковый орган</"
+"a>.<br />Для ротового выдувного клавишного MELODION, см. <a href="
+"\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">мелодика</a>.<br /"
+">Также известный как мелодеон, он имеет от 1 до 2 рядов кнопок, каждая из "
+"которых воспроизводит два тона (бизона)."
 
 #. name:tsampouna
 #: DB:instrument/description:1193
@@ -1519,6 +1532,10 @@ msgid ""
 "7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Made of goatskin, "
 "it has two chanters and no drones. Its name is a reborrowing of the Italian."
 msgstr ""
+"Для аналогично названной итальянской волынки, см. <a href="
+"\"/instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">зампонья</a>.<br /"
+">Изготовленный из козьей кожи, он имеет два шантера и не имеет дронов. Его "
+"название - заимствование из итальянского."
 
 #. name:charumera
 #: DB:instrument/description:1150
