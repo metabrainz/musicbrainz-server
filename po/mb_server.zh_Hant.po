@@ -3,13 +3,15 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
+# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-05-19 10:22-0500\n"
-"PO-Revision-Date: 2025-01-14 18:44+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
+"PO-Revision-Date: 2025-05-27 11:20+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -17,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -958,7 +960,7 @@ msgstr "編輯備註："
 #: ../root/layout/components/BottomMenu.js:320
 msgctxt "noun"
 msgid "Edit types"
-msgstr "編輯類型"
+msgstr "修改類型"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Edited entity"
@@ -2222,7 +2224,7 @@ msgstr "發行國或地區"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Release data quality"
-msgstr "專輯資料質量"
+msgstr "發行品資料品質"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -2449,7 +2451,7 @@ msgstr "搜尋中..."
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
 msgid "Secondary types"
-msgstr "二級類型"
+msgstr "二級分類"
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -9844,7 +9846,7 @@ msgstr "第二附議者"
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr "總票數"
+msgstr "總投票次數"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -12106,7 +12108,7 @@ msgstr "未找到 {type0}-{type1} 關聯類型。"
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:39
 msgid "{type0}-{type1}"
-msgstr "{type0}-{type1}"
+msgstr "{type0}–{type1}"
 
 #: ../root/release/ChangeQuality.js:28
 msgid "Change release data quality"
@@ -14550,7 +14552,7 @@ msgstr[0] "… 和其他 {place_count} 個"
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr "無類型"
+msgstr "未分類"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -17329,7 +17331,7 @@ msgstr "專輯收藏"
 
 #: ../root/user/UserCollections.js:46
 msgid "Release group collections"
-msgstr "專輯組收藏"
+msgstr "發行組收藏"
 
 #: ../root/user/UserCollections.js:47
 msgctxt "plural"
@@ -17563,7 +17565,7 @@ msgstr "生效總數"
 
 #: ../root/user/UserProfile.js:618
 msgid "Voted down"
-msgstr "被否決"
+msgstr "遭投票否决"
 
 #: ../root/user/UserProfile.js:628
 msgid "Failed"
@@ -17696,7 +17698,7 @@ msgstr "廠牌評分"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Place ratings"
-msgstr "地評論分"
+msgstr "地點評分"
 
 #: ../root/user/UserRatingList.js:30
 msgid "Recording ratings"
@@ -17704,7 +17706,7 @@ msgstr "錄音評分"
 
 #: ../root/user/UserRatingList.js:31
 msgid "Release group ratings"
-msgstr "專輯組評分"
+msgstr "發行組評分"
 
 #: ../root/user/UserRatingList.js:32
 msgid "Work ratings"
@@ -17777,7 +17779,7 @@ msgstr "沒有訂閱。"
 
 #: ../root/user/UserSubscriptions.js:246
 msgid "Private collections"
-msgstr "私有收藏"
+msgstr "私人收藏"
 
 #: ../root/user/UserSubscriptions.js:260
 msgid "{editor} is also subscribed to {n} other private collection."
