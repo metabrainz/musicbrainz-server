@@ -25,6 +25,7 @@ test('compact/decompact', function (t) {
     null: null,
     number: number,
     string: string,
+    undefined: void,
   };
   type CyclicObjectTuple = [CyclicObject, CyclicObject];
 
@@ -34,6 +35,8 @@ test('compact/decompact', function (t) {
     null: null,
     number: -9,
     string: 'foo',
+    // eslint-disable-next-line object-shorthand
+    undefined: undefined,
   };
   object.cycle = object;
 
@@ -50,7 +53,8 @@ test('compact/decompact', function (t) {
       strictEqual(b.cycle, b) &&
       strictEqual(a.null, b.null) &&
       strictEqual(a.number, b.number) &&
-      strictEqual(a.string, b.string)
+      strictEqual(a.string, b.string) &&
+      strictEqual(a.undefined, b.undefined)
     );
   }
 
@@ -71,6 +75,7 @@ test('compact/decompact', function (t) {
   runTest('123', 'numbers', strictEqual);
   runTest(true, 'booleans', strictEqual);
   runTest(null, 'nulls', strictEqual);
+  runTest(undefined, 'undefined values', strictEqual);
   runTest(object, 'circular objects', areCyclicObjectsEqual);
   runTest(
     [object, object],
@@ -109,11 +114,6 @@ test('compact/decompact', function (t) {
       error: 'Cannot convert symbol to JSON',
       message: 'cannot serialize symbols',
       value: {value: Symbol()},
-    },
-    {
-      error: 'Cannot convert undefined to JSON',
-      message: 'cannot serialize undefined',
-      value: {value: undefined},
     },
   ];
 
