@@ -14,10 +14,6 @@ import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
-import {
-  compactEntityJson,
-  decompactEntityJson,
-} from '../../../utility/compactEntityJson.js';
 import invariant from '../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
@@ -60,6 +56,10 @@ import RelationshipPendingEditsWarning
 import RemoveButton from './components/RemoveButton.js';
 import URLInputPopover from './components/URLInputPopover.js';
 import withLoadedTypeInfo from './components/withLoadedTypeInfo.js';
+import {
+  compactEntityJson,
+  decompactEntityJson,
+} from './utility/compactEntityJson.js';
 import isPositiveInteger from './utility/isPositiveInteger.js';
 import isShortenedUrl from './utility/isShortenedUrl.js';
 import {stripAttributes} from './utility/linkPhrase.js';

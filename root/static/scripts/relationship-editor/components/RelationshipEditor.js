@@ -18,7 +18,6 @@ import {
   onConflictUseGivenValue,
 } from 'weight-balanced-tree/update';
 
-import {decompactEntityJson} from '../../../../utility/compactEntityJson.js';
 import {INSTRUMENT_ROOT_ID, VOCAL_ROOT_ID} from '../../common/constants.js';
 import MB from '../../common/MB.js';
 import {
@@ -32,6 +31,7 @@ import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../../common/utility/storage.js';
+import {decompactEntityJson} from '../../edit/utility/compactEntityJson.js';
 import reducerWithErrorHandling
   from '../../edit/utility/reducerWithErrorHandling.js';
 import {

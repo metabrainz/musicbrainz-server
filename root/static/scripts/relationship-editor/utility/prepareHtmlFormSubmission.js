@@ -9,12 +9,12 @@
 
 import * as tree from 'weight-balanced-tree';
 
-import {compactEntityJson} from '../../../../utility/compactEntityJson.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../../common/utility/storage.js';
+import {compactEntityJson} from '../../edit/utility/compactEntityJson.js';
 import {
   REL_STATUS_NOOP,
   REL_STATUS_REMOVE,
