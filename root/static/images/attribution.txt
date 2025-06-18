@@ -59,6 +59,7 @@ Images:
     flags/cw.png (https://commons.wikimedia.org/wiki/File:Icons-flag-cw.png)
     flags/gg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-gg.png)
     flags/im.png (https://commons.wikimedia.org/wiki/File:Icons-flag-im.png)
+    flags/iq.png (https://commons.wikimedia.org/wiki/File:Icons-flag-iq-2008.png)
     flags/je.png (https://commons.wikimedia.org/wiki/File:Icons-flag-je.png)
     flags/ss.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ss.png)
     flags/su.png (https://commons.wikimedia.org/wiki/File:Icons-flag-su.png)
