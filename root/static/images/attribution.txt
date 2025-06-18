@@ -67,6 +67,7 @@ Images:
     flags/sx.png (https://commons.wikimedia.org/wiki/File:Icons-flag-sx.png)
     flags/sy.png (https://commons.wikimedia.org/wiki/File:Icons-flag-sy-2024.png)
     flags/xg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ddde.png)
+    flags/tk.png (https://github.com/shoal3/famfamfam-flags-updated)
     flags/tv.png (https://github.com/shoal3/famfamfam-flags-updated)
     flags/xk.png (https://commons.wikimedia.org/wiki/File:Flag_of_Kosovo.svg)
     flags/xw.png (author: pmepepnoute (https://tickets.metabrainz.org/browse/MBS-11292), released as CC0)
