@@ -62,6 +62,7 @@ Images:
     flags/im.png (https://commons.wikimedia.org/wiki/File:Icons-flag-im.png)
     flags/iq.png (https://commons.wikimedia.org/wiki/File:Icons-flag-iq-2008.png)
     flags/je.png (https://commons.wikimedia.org/wiki/File:Icons-flag-je.png)
+    flags/mq.png (converted from https://commons.wikimedia.org/wiki/File:Flag-of-Martinique.svg)
     flags/ss.png (https://commons.wikimedia.org/wiki/File:Icons-flag-ss.png)
     flags/su.png (https://commons.wikimedia.org/wiki/File:Icons-flag-su.png)
     flags/sx.png (https://commons.wikimedia.org/wiki/File:Icons-flag-sx.png)
