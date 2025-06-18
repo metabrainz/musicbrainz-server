@@ -58,6 +58,7 @@ Images:
     flags/aq.png (https://commons.wikimedia.org/wiki/File:Icons-flag-aq.png)
     flags/cw.png (https://commons.wikimedia.org/wiki/File:Icons-flag-cw.png)
     flags/gg.png (https://commons.wikimedia.org/wiki/File:Icons-flag-gg.png)
+    flags/hn.png (https://github.com/shoal3/famfamfam-flags-updated)
     flags/im.png (https://commons.wikimedia.org/wiki/File:Icons-flag-im.png)
     flags/iq.png (https://commons.wikimedia.org/wiki/File:Icons-flag-iq-2008.png)
     flags/je.png (https://commons.wikimedia.org/wiki/File:Icons-flag-je.png)
