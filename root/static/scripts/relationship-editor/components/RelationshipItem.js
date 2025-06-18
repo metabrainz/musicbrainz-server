@@ -138,7 +138,7 @@ component _RelationshipItem(
     return bracketedText(
       displayLinkAttributesText(getPhraseAndExtraAttributesText(
         linkType,
-        tree.toArray(relationship.attributes),
+        tree.toArray(relationship.attributes ?? tree.empty),
         backward ? 'reverse_link_phrase' : 'link_phrase',
         canBeOrdered /* forGrouping */,
       )[1]),

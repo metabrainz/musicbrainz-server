@@ -182,7 +182,9 @@ export function createInitialState(props: PropsT): RelationshipDialogStateT {
   return {
     attributes: createDialogAttributesState(
       linkType,
-      getAttributeRootIdMap(tree.toArray(relationship.attributes)),
+      getAttributeRootIdMap(
+        tree.toArray(relationship.attributes ?? tree.empty),
+      ),
     ),
     backward,
     datePeriod: createDialogDatePeriodState(relationship),

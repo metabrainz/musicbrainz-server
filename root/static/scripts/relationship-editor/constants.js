@@ -8,6 +8,7 @@
  */
 
 import {createContext} from 'react';
+import * as tree from 'weight-balanced-tree';
 
 import type {
   RelationshipSourceGroupsContextT,
@@ -39,6 +40,6 @@ export const EMPTY_DIALOG_DATE_PERIOD = Object.freeze({
 export const RelationshipSourceGroupsContext:
   React.Context<RelationshipSourceGroupsContextT> =
   createContext({
-    existing: null,
-    pending: null,
+    existing: tree.empty,
+    pending: tree.empty,
   });

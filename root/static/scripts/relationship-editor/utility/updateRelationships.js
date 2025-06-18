@@ -129,7 +129,7 @@ const createLinkPhraseGroup = (
   relationshipUpdates: RelationshipUpdatesT,
 ): RelationshipPhraseGroupT => {
   return updateLinkPhraseGroup({
-    relationships: null,
+    relationships: tree.empty,
     textPhrase: relationshipUpdates.textPhrase,
   }, relationshipUpdates);
 };
@@ -139,7 +139,7 @@ const createLinkTypeGroup = (
 ) => {
   return updateLinkTypeGroup({
     backward: phraseGroupUpdates.backward,
-    phraseGroups: null,
+    phraseGroups: tree.empty,
     typeId: phraseGroupUpdates.linkTypeId,
   }, phraseGroupUpdates);
 };
@@ -148,14 +148,14 @@ const createTargetTypeGroup = (
   linkTypeGroupUpdates: LinkTypeGroupUpdatesT,
 ) => updateTargetTypeGroup([
   linkTypeGroupUpdates.targetType,
-  null,
+  tree.empty,
 ], linkTypeGroupUpdates);
 
 const createSourceGroup = (
   targetTypeGroupUpdates: TargetTypeGroupUpdatesT,
 ) => updateSourceGroup([
   targetTypeGroupUpdates.source,
-  null,
+  tree.empty,
 ], targetTypeGroupUpdates);
 
 const updateLinkPhraseGroup = (

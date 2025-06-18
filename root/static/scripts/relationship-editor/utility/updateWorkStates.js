@@ -54,8 +54,8 @@ export default function updateWorkStates(
   updateWorkState: (MediumWorkStateT) => MediumWorkStateT,
 ): void {
   const worksByRecordingId =
-    new Map<number, tree.ImmutableTree<WorkT> | null>();
-  let recordingsToUpdate: tree.ImmutableTree<RecordingT> | null = null;
+    new Map<number, tree.ImmutableTree<WorkT>>();
+  let recordingsToUpdate: tree.ImmutableTree<RecordingT> = tree.empty;
 
   for (const work of works) {
     for (
@@ -73,7 +73,7 @@ export default function updateWorkStates(
       worksByRecordingId.set(
         recording.id,
         tree.insertIfNotExists(
-          worksByRecordingId.get(recording.id) ?? null,
+          worksByRecordingId.get(recording.id) ?? tree.empty,
           work,
           compareWorks,
         ),
