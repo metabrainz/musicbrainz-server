@@ -14,7 +14,7 @@ terminate_pg_backends() {
 SELECT pg_terminate_backend(pid)
   FROM pg_stat_activity
  WHERE usename = 'musicbrainz'
-   AND query NOT LIKE '%pg_terminate_backend%';
+   AND pid <> pg_backend_pid();
 SQL
     )
     OUTPUT=`echo "$CANCEL_QUERY" | ./admin/psql SELENIUM -- -v ON_ERROR_STOP=1 2>&1` || ( echo "$OUTPUT" && exit 1 )
