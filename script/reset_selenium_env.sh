@@ -17,7 +17,7 @@ SELECT pg_terminate_backend(pid)
    AND query NOT LIKE '%pg_terminate_backend%';
 SQL
     )
-    OUTPUT=`echo "$CANCEL_QUERY" | ./admin/psql SELENIUM 2>&1` || ( echo "$OUTPUT" && exit 1 )
+    OUTPUT=`echo "$CANCEL_QUERY" | ./admin/psql SELENIUM -- -v ON_ERROR_STOP=1 2>&1` || ( echo "$OUTPUT" && exit 1 )
 }
 
 if [[ $SIR_DIR ]]; then
