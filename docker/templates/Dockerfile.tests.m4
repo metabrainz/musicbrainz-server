@@ -124,11 +124,13 @@ RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://gith
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 COPY docker/musicbrainz-tests/log_solr_data.patch \
     docker/musicbrainz-tests/sir_nullpool.patch \
+    docker/musicbrainz-tests/sir_retry_ttl.patch \
     sir/
 
 RUN cd sir && \
     git apply log_solr_data.patch && \
-    git apply sir_nullpool.patch
+    git apply sir_nullpool.patch && \
+    git apply sir_retry_ttl.patch
 
 FROM build AS artwork_indexer
 
