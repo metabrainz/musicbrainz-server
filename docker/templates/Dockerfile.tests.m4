@@ -47,6 +47,7 @@ run_with_apt_cache \
     install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
+    python3.13 -m ensurepip --upgrade && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen && \
     # Allow the musicbrainz user execute any command with sudo.
@@ -95,7 +96,7 @@ FROM build AS mb_solr
 
 ARG OPENJDK_VERSION=17.0.11+9 \
     OPENJDK_SRC_SUM=aa7fb6bb342319d227a838af5c363bfa1b4a670c209372f9e6585bd79da6220c \
-    MB_SOLR_TAG=v4.0.0
+    MB_SOLR_TAG=v4.1.0
 
 RUN curl -sSLO https://github.com/adoptium/temurin17-binaries/releases/download/jdk-${OPENJDK_VERSION/+/%2B}/OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz && \
     echo "$OPENJDK_SRC_SUM *OpenJDK17U-jdk_x64_linux_hotspot_${OPENJDK_VERSION/+/_}.tar.gz" | sha256sum --strict --check - && \
@@ -114,11 +115,11 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
 
 FROM build AS sir
 
-ARG SIR_TAG=v3.0.1
+ARG SIR_TAG=v4.0.1
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://github.com/metabrainz/sir.git && \
     cd sir && \
-    sudo -E -H -u musicbrainz sh -c 'virtualenv --python=python2 venv; . venv/bin/activate; pip install --upgrade pip; pip install -r requirements.txt; pip install git+https://github.com/esnme/ultrajson.git@7d0f4fb7e911120fd09075049233b587936b0a65'
+    sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 COPY docker/musicbrainz-tests/log_solr_data.patch sir/
@@ -128,23 +129,22 @@ RUN cd sir && \
 
 FROM build AS artwork_indexer
 
-ARG ARTWORK_INDEXER_COMMIT=776046c
+ARG ARTWORK_INDEXER_COMMIT=209e463
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-indexer.git && \
     cd artwork-indexer && \
-    sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT
 
 COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
 
 FROM build AS artwork_redirect
 
-ARG ARTWORK_REDIRECT_COMMIT=1ab748a
+ARG ARTWORK_REDIRECT_COMMIT=98ac770
 
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3.11 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
@@ -197,10 +197,16 @@ RUN curl -sSLO https://github.com/validator/validator/releases/download/20.6.30/
     unzip -d vnu -j vnu.jar_20.6.30.zip && \
     rm vnu.jar_20.6.30.zip
 
+COPY --from=artwork_indexer --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-indexer/ /home/musicbrainz/artwork-indexer/
+RUN sudo -E -H -u musicbrainz python3.13 -m pip install --user --no-warn-script-location 'pipx==1.7.1' && \
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" pipx install --python python3.13 'poetry==2.1.3' && \
+    cd /home/musicbrainz/artwork-indexer && \
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" poetry install && \
+    cd -
+
 COPY --from=pgdata --chown=postgres:postgres "$PGHOME"/ "$PGHOME"/
 COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/target/ /
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
-COPY --from=artwork_indexer --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-indexer/ /home/musicbrainz/artwork-indexer/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
 COPY --from=node_modules --chown=musicbrainz:musicbrainz MBS_ROOT/node_modules/ MBS_ROOT/node_modules/
 COPY --chmod=0755 docker/musicbrainz-tests/service/ /etc/service/

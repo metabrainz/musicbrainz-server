@@ -327,20 +327,18 @@ lsof
 maven
 openjdk-8-jdk
 openjdk-8-jre
-python2
-python2-dev
-rabbitmq-server
-virtualenv
-')
+python3.13
+python3.13-dev
+python3.13-venv
+rabbitmq-server')
 
 m4_define(
     `selenium_caa_deps',
     `m4_dnl
 imagemagick
-python3.11
-python3.11-dev
-python3.11-distutils
-python3.11-venv
+python3.13
+python3.13-dev
+python3.13-venv
 ')
 
 m4_define(
