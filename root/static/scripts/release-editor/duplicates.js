@@ -61,7 +61,8 @@ releaseEditor.findReleaseDuplicates = function () {
       return;
     }
 
-    var url = `/ws/2/release?release-group=${gid}&inc=labels+media&fmt=json`;
+    const inc = 'artist-credits+labels+media';
+    var url = `/ws/2/release?release-group=${gid}&inc=${inc}&fmt=json`;
 
     loadingFromRG = true;
     toggleLoadingIndicator(true);
