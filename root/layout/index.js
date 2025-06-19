@@ -28,6 +28,7 @@ import Footer from './components/Footer.js';
 import Head from './components/Head.js';
 import Header from './components/Header.js';
 import MergeHelper from './components/MergeHelper.js';
+import SupportedBrowserCheck from './components/SupportedBrowserCheck.js';
 
 component DismissBannerButton(bannerName: string) {
   return (
@@ -185,6 +186,8 @@ component HeaderAndBanners(
   return (
     <>
       <Header />
+
+      <SupportedBrowserCheck />
 
       {restrictions.length > 0 ? (
         <div className="banner editing-disabled">

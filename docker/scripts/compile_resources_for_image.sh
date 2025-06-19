@@ -19,7 +19,10 @@
 
 cp lib/DBDefs.pm.sample lib/DBDefs.pm
 
-carton exec -- ./script/compile_resources.sh
+BROWSER_TARGET=legacy \
+    carton exec -- ./script/compile_resources.sh
+BROWSER_TARGET=production \
+    carton exec -- ./script/compile_resources.sh
 
 rm -f \
     lib/DBDefs.pm \

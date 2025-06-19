@@ -793,10 +793,10 @@ example, you hit a "for ... of" loop or an object or array spread.
 
 In order to improve the debugging experience, you may opt to target only
 modern browsers when compiling static resources by specifying the
-`MODERN_BROWSERS` environment variable:
+`BROWSER_TARGET` environment variable:
 
 ```sh
-env MODERN_BROWSERS=1 ./script/compile_resources.sh
+env BROWSER_TARGET=modern ./script/compile_resources.sh
 ```
 
 Sometimes you may want to test how a certain module or function behaves

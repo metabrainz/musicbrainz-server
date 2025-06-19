@@ -309,6 +309,7 @@ async function wsJsEditSubmission(
     dispatch,
     fetch('/ws/js/edit/create', {
       body: JSON.stringify(submissionData),
+      credentials: 'same-origin',
       headers: {
         'Accept': 'application/json; charset=utf-8',
         'Content-Type': 'application/json; charset=utf-8',

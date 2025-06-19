@@ -31,6 +31,25 @@ has manifest_signatures => (
     default => sub { {} },
 );
 
+has legacy_manifest_mtime => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 },
+);
+
+has legacy_manifest_last_checked => (
+    isa => Int,
+    is => 'rw',
+    default => sub { 0 },
+);
+
+has legacy_manifest_signatures => (
+    isa => Map[Str, Str],
+    is => 'rw',
+    traits => [ 'Hash' ],
+    default => sub { {} },
+);
+
 has file_signatures => (
     isa => Map[Str, Str],
     is => 'ro',
@@ -61,6 +80,29 @@ sub manifest_signature {
     return $self->manifest_signatures->{$manifest};
 }
 
+sub legacy_manifest_signature {
+    my ($self, $manifest) = @_;
+
+    my $instance = $self->instance;
+    my $time = time();
+    my $ttl = DBDefs->STAT_TTL // 0;
+
+    if (($time - $instance->legacy_manifest_last_checked) > $ttl) {
+        $instance->legacy_manifest_last_checked($time);
+
+        my $path = DBDefs->STATIC_FILES_DIR . '/build/rev-manifest-legacy.json';
+        my @stat = stat($path);
+        my $mtime = $stat[9];
+
+        if (defined $mtime && $mtime > $instance->legacy_manifest_mtime) {
+            $instance->legacy_manifest_mtime($mtime);
+            $instance->legacy_manifest_signatures(decode_json(read_file($path)));
+        }
+    }
+
+    return $self->legacy_manifest_signatures->{$manifest};
+}
+
 sub template_signature {
     my ($self, $template) = @_;
     my $instance = $self->instance;
@@ -73,12 +115,14 @@ sub template_signature {
 }
 
 sub path_to {
-    my ($self, $manifest) = @_;
+    my ($self, $manifest, $legacy_browser) = @_;
 
     $manifest =~ s/^\///;
     $manifest =~ s/\.js(on)?$//;
     return DBDefs->STATIC_RESOURCES_LOCATION . '/' .
-        ($self->manifest_signature($manifest) // $manifest);
+        (($legacy_browser
+            ? $self->legacy_manifest_signature($manifest)
+            : $self->manifest_signature($manifest)) // $manifest);
 }
 
 sub _expand {
