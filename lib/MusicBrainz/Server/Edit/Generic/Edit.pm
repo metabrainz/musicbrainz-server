@@ -3,6 +3,7 @@ use Moose;
 
 use Clone qw( clone );
 
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type trim );
@@ -24,7 +25,7 @@ sub _conflicting_entity_path { die 'Unimplemented' }
 sub _edit_model { die 'Unimplemented' }
 sub change_fields { die 'Unimplemented' }
 
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 
 sub entity_id { shift->data->{entity}{id} }
 
