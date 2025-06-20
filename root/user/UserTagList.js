@@ -7,12 +7,16 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import UserAccountLayout, {
   type AccountLayoutUserT,
 } from '../components/UserAccountLayout.js';
+import {CatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import {UserTagLink} from '../static/scripts/common/components/TagLink.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
+import bracketed from '../static/scripts/common/utility/bracketed.js';
 import loopParity from '../utility/loopParity.js';
 
 import UserTagFilters from './components/UserTagFilters.js';
@@ -43,6 +47,46 @@ export function getTagListUrl(
   );
 }
 
+component ManageTagLinks(
+  showDownvoted: boolean,
+  tag: TagT,
+) {
+  return (
+    bracketed(
+      showDownvoted ? (
+        <a
+          href={
+            '/tag/' + encodeURIComponent(tag.name) +
+            '/delete?delete_downvoted=1'
+          }
+        >
+          {lp('delete', 'interactive, folksonomy tag')}
+        </a>
+      ) : (
+        <>
+          <a
+            href={
+              '/tag/' + encodeURIComponent(tag.name) +
+              '/move'
+            }
+          >
+            {lp('change', 'interactive, folksonomy tag')}
+          </a>
+          {' / '}
+          <a
+            href={
+              '/tag/' + encodeURIComponent(tag.name) +
+              '/delete'
+            }
+          >
+            {lp('delete', 'interactive, folksonomy tag')}
+          </a>
+        </>
+      ),
+    )
+  );
+}
+
 component UserTagList(
   genres: $ReadOnlyArray<UserTagT>,
   showDownvoted: boolean = false,
@@ -50,6 +94,10 @@ component UserTagList(
   tags: $ReadOnlyArray<UserTagT>,
   user: AccountLayoutUserT,
 ) {
+  const $c = React.useContext(CatalystContext);
+  const viewingOwnTags = Boolean($c.user && user &&
+                                 $c.user.id === user.id);
+
   return (
     <UserAccountLayout
       entity={user}
@@ -77,11 +125,22 @@ component UserTagList(
                 <ul className="genre-list">
                   {genres.map((tag, index) => (
                     <li className={loopParity(index)} key={tag.tag.id}>
-                      <UserTagLink
-                        showDownvoted={showDownvoted}
-                        tag={tag.tag.name}
-                        username={user.name}
-                      />
+                      <span className="flexgrow">
+                        <UserTagLink
+                          showDownvoted={showDownvoted}
+                          tag={tag.tag.name}
+                          username={user.name}
+                        />
+                        {viewingOwnTags ? (
+                          <>
+                            {' '}
+                            <ManageTagLinks
+                              showDownvoted={showDownvoted}
+                              tag={tag.tag}
+                            />
+                          </>
+                        ) : null}
+                      </span>
                       <span className="tag-vote-buttons">
                         <span className="tag-count">{tag.count}</span>
                       </span>
@@ -98,21 +157,32 @@ component UserTagList(
                 <ul className="tag-list">
                   {tags.map((tag, index) => (
                     <li className={loopParity(index)} key={tag.tag.id}>
-                      <UserTagLink
-                        showDownvoted={showDownvoted}
-                        tag={tag.tag.name}
-                        username={user.name}
-                      />
+                      <span className="flexgrow">
+                        <UserTagLink
+                          showDownvoted={showDownvoted}
+                          tag={tag.tag.name}
+                          username={user.name}
+                        />
+                        {viewingOwnTags ? (
+                          <>
+                            {' '}
+                            <ManageTagLinks
+                              showDownvoted={showDownvoted}
+                              tag={tag.tag}
+                            />
+                          </>
+                        ) : null}
+                      </span>
                       <span className="tag-vote-buttons">
-                        <span className="tag-count">{tag.count}</span>
+                        <span className="tag-count">
+                          {tag.count}
+                        </span>
                       </span>
                     </li>
                   ))}
                 </ul>
               ) : (
-                <p>
-                  {lp('There are no other tags to show.', 'folksonomy')}
-                </p>
+                <p>{lp('There are no other tags to show.', 'folksonomy')}</p>
               )}
             </div>
           </>
