@@ -64,6 +64,7 @@ my @all = qw(
     ISWCsWithManyWorks
     KaraokePlusInstrumentalRecordings
     LabelsDisambiguationSameName
+    LicenseLinks
     LimitedEditors
     LinksWithMultipleEntities
     LonelyPseudoReleases
@@ -173,6 +174,7 @@ use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::KaraokePlusInstrumentalRecordings;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
+use MusicBrainz::Server::Report::LicenseLinks;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
 use MusicBrainz::Server::Report::LonelyPseudoReleases;

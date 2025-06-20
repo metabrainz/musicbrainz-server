@@ -269,6 +269,7 @@ export default {
   'report/IswcsWithManyWorks': (): Promise<mixed> => import('../report/IswcsWithManyWorks.js'),
   'report/KaraokePlusInstrumentalRecordings': (): Promise<mixed> => import('../report/KaraokePlusInstrumentalRecordings.js'),
   'report/LabelsDisambiguationSameName': (): Promise<mixed> => import('../report/LabelsDisambiguationSameName.js'),
+  'report/LicenseLinks': (): Promise<mixed> => import('../report/LicenseLinks.js'),
   'report/LimitedEditors': (): Promise<mixed> => import('../report/LimitedEditors.js'),
   'report/LinksWithMultipleEntities': (): Promise<mixed> => import('../report/LinksWithMultipleEntities.js'),
   'report/LonelyPseudoReleases': (): Promise<mixed> => import('../report/LonelyPseudoReleases.js'),
