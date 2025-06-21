@@ -1425,6 +1425,14 @@ msgstr ""
 "subjekt, zakonisht nuk ekzekutohet në mënyrë teatrale (mungojnë kostumet, "
 "dekoret dhe ndërveprim i fuqishëm mes personazhesh)."
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2565,6 +2573,11 @@ msgstr ""
 "nuk përbëjnë ndarjet kryesore administrative, por as janë bashki dhe komuna, "
 "p.sh. kontetë në ShBA. Këto nuk merren parasysh kur shfaqen zonat mëmë për "
 "një zonë të dhënë."
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -3882,6 +3895,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ID ASCAP"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4344,6 +4365,15 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr ""
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Mexican rights society SACM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "ID për shoqërinë meksikane të të drejtave, SACM"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

@@ -24,8 +24,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.11.4\n"
 
 #. name:rebab
@@ -511,13 +511,6 @@ msgstr ""
 msgid ""
 "An effects device to be clamped on the bridge, it produces “synthesizer-"
 "like” sounds."
-msgstr ""
-
-#. name:electric sitar
-#: DB:instrument/description:246
-msgid ""
-"An electric derivation of the sitar, it often features sympathetic strings "
-"and a more guitar shaped body."
 msgstr ""
 
 #. name:jug
@@ -1235,6 +1228,14 @@ msgid ""
 "instrument."
 msgstr ""
 
+#. name:electric sitar
+#: DB:instrument/description:246
+msgid ""
+"Electric guitar with standard fretboard and tuning but added sympathetic "
+"strings and specialised bridge so the sound will resemble sitar, it became "
+"popular in rock, jazz and fusion music after its invention in the 1960's."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -1490,6 +1491,15 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 
+#. name:tumbi
+#: DB:instrument/description:511
+msgid ""
+"For the one string drum-zither also called ektar/ektara, see <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> Used "
+"in Punjabi folk and devotional music, it has a single string over a long "
+"wooden neck that pierces the tiny parchment covered soundbox."
+msgstr ""
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -1501,13 +1511,24 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
-"Для однострунной лютни, также называемой эктар/эктара, см. <a href="
-"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">тумби</a>.<br />Для "
+"Для однострунной лютни, также называемой эктар/эктара, см. <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">тумби</a>.<br />Для "
 "похожего инструмента с одной спицей см. тун-туна.<br />Не путать с экатантри "
 "виной, древнеиндийским монохордом.<br />У него небольшой круглый или "
 "трапециевидный корпус из дерева или кокосового ореха с мембраной в нижней "
 "части. По бокам прикреплена шейка из расщепленного бамбука, к которой "
 "подвешена одна струна, прикрепленная к мембране."
+
+#. name:tun tuna
+#: DB:instrument/description:1210
+msgid ""
+"For the one stringed two spoke drum-zither, see <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> For the one "
+"stringed panjabi lute, see <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Used by among others the "
+"Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
+"single metal string is strung between the spoke neck and the bottom membrane."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1518,12 +1539,12 @@ msgid ""
 "a50c-0798ee95da8f\">melodica</a>.<br /> Also known as Melodeon, it has 1 to "
 "2 rows of buttons that each produce two tones (bisonoric)."
 msgstr ""
-"Для органа, также известного как мелодеон, см. <a href="
-"\"/instrument/20443ce3-cde1-4968-b7cc-65e45bb9714f\">тростниковый орган</"
-"a>.<br />Для ротового выдувного клавишного MELODION, см. <a href="
-"\"/instrument/8ab40df2-106b-4b9b-a50c-0798ee95da8f\">мелодика</a>.<br /"
-">Также известный как мелодеон, он имеет от 1 до 2 рядов кнопок, каждая из "
-"которых воспроизводит два тона (бизона)."
+"Для органа, также известного как мелодеон, см. <a href=\"/instrument/"
+"20443ce3-cde1-4968-b7cc-65e45bb9714f\">тростниковый орган</a>.<br />Для "
+"ротового выдувного клавишного MELODION, см. <a href=\"/instrument/"
+"8ab40df2-106b-4b9b-a50c-0798ee95da8f\">мелодика</a>.<br />Также известный "
+"как мелодеон, он имеет от 1 до 2 рядов кнопок, каждая из которых "
+"воспроизводит два тона (бизона)."
 
 #. name:tsampouna
 #: DB:instrument/description:1193
@@ -1532,10 +1553,10 @@ msgid ""
 "7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Made of goatskin, "
 "it has two chanters and no drones. Its name is a reborrowing of the Italian."
 msgstr ""
-"Для аналогично названной итальянской волынки, см. <a href="
-"\"/instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">зампонья</a>.<br /"
-">Изготовленный из козьей кожи, он имеет два шантера и не имеет дронов. Его "
-"название - заимствование из итальянского."
+"Для аналогично названной итальянской волынки, см. <a href=\"/instrument/"
+"7186ac40-8154-49d0-8d24-33efd8c2a41e\">зампонья</a>.<br />Изготовленный из "
+"козьей кожи, он имеет два шантера и не имеет дронов. Его название - "
+"заимствование из итальянского."
 
 #. name:charumera
 #: DB:instrument/description:1150
@@ -4931,13 +4952,6 @@ msgstr ""
 msgid ""
 "The tubax is a modified saxophone which is more compact due to the tubing "
 "being folded more times."
-msgstr ""
-
-#. name:tumbi
-#: DB:instrument/description:511
-msgid ""
-"The tumbi is a high pitched, single string plucking instrument associated "
-"with folk music of Punjab."
 msgstr ""
 
 #. name:ukeke

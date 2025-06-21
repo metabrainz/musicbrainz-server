@@ -1474,6 +1474,14 @@ msgstr ""
 "神劇是一種大型(通常為神聖的)音樂作品，包括管弦樂團、合唱團和獨奏家。雖然具有"
 "角色和情節，但通常不以戲劇形式演出(因為缺乏服裝、道具和強烈的角色互動)。"
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2581,6 +2589,11 @@ msgid ""
 msgstr ""
 "縣指一國內更小的不是一級行政區也不是地方自治體的行政區划，如美國的縣。在顯示"
 "某區域的上級區域時不考慮。"
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -3864,6 +3877,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ASCAP ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4326,6 +4347,15 @@ msgstr "哥倫比亞著作權協會SAYCO ID"
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "哥斯大黎加著作權協會ACAM ID"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "古巴著作權協會ACDAM ID"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

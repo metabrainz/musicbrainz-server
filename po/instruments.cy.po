@@ -3249,7 +3249,8 @@ msgid "rauschpfeife"
 msgstr ""
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr ""
 
 #: DB:instrument/name:239
@@ -4216,12 +4217,18 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr ""
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
+msgstr ""
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
 msgstr ""
 
 #: DB:instrument/name:887

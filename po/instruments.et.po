@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2023-12-19 21:28+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"Last-Translator: reosarevok "
+"<reosarevok@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Estonian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/et/>\n"
 "Language: et\n"
@@ -3259,7 +3259,8 @@ msgid "rauschpfeife"
 msgstr ""
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr ""
 
 #: DB:instrument/name:239
@@ -4226,12 +4227,20 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+#, fuzzy
+#| msgid "tumbi"
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "tumbi"
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
+msgstr ""
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
 msgstr ""
 
 #: DB:instrument/name:887

@@ -7,7 +7,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: uz\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #: DB:instrument/name:438
@@ -4213,12 +4213,18 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr ""
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
+msgstr ""
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
 msgstr ""
 
 #: DB:instrument/name:887

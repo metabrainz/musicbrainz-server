@@ -19,16 +19,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-11-23 22:42+0000\n"
-"Last-Translator: \"salo.rock\" <salo.rock@users.noreply.translations."
-"metabrainz.org>\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.8.4\n"
 
 #: DB:instrument/name:438
@@ -3266,7 +3266,10 @@ msgid "rauschpfeife"
 msgstr "rauschpfeife"
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+#, fuzzy
+#| msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr "ravanahatha"
 
 #: DB:instrument/name:239
@@ -4233,6 +4236,9 @@ msgid "tulum"
 msgstr "tulum"
 
 #: DB:instrument/name:511
+#, fuzzy
+#| msgid "tumbi"
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "tumbi"
 
@@ -4240,6 +4246,11 @@ msgstr "tumbi"
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
 msgstr "tumutumu"
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
+msgstr ""
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"

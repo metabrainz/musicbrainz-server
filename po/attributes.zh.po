@@ -466,7 +466,8 @@ msgctxt "release_packaging"
 msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
-msgstr "一个四面或五面的盒套，通常由纸板或塑料制成，内封有第二种包装，如珠宝盒。"
+msgstr ""
+"一个四面或五面的盒套，通常由纸板或塑料制成，内封有第二种包装，如珠宝盒。"
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -1466,6 +1467,14 @@ msgid ""
 msgstr ""
 "清唱剧是一种由管弦乐队，合唱团和独奏家表演的大型（通常为神圣的）的音乐作品。"
 "虽然它有角色和情节，但它通常不是戏剧表演（缺少戏服，道具和强烈的角色互动）。"
+
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
 
 #. name:Rights Society
 #: DB:label_type/description:8
@@ -2574,6 +2583,11 @@ msgid ""
 msgstr ""
 "县指一国内更小的不是一级行政区也不是地方自治体的行政区划，如美国的县。在显示"
 "某区域的上级区域时不考虑。"
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -3857,6 +3871,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ASCAP ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4316,6 +4338,15 @@ msgstr "哥伦比亚著作权协会SAYCO ID"
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "哥斯达黎加著作权协会ACAM ID"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "古巴著作权协会ACDAM ID"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

@@ -1521,6 +1521,14 @@ msgid ""
 "character interaction)."
 msgstr ""
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2643,6 +2651,11 @@ msgid ""
 "not the main administrative divisions but are also not municipalities, e.g. "
 "counties in the USA. These are not considered when displaying the parent "
 "areas for a given area."
+msgstr ""
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
@@ -3949,6 +3962,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr ""
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ASCAP ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4411,6 +4432,15 @@ msgstr "Kolumbijos teisių organizacijos SAYCO identifikatorius."
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "Kosta Rikos teisių organizacijos ACAM identifikatorius."
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "Kubos teisių organizacijos ACDAM identifikatorius."
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

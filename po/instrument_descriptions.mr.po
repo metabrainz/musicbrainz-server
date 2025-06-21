@@ -447,13 +447,6 @@ msgid ""
 "like” sounds."
 msgstr ""
 
-#. name:electric sitar
-#: DB:instrument/description:246
-msgid ""
-"An electric derivation of the sitar, it often features sympathetic strings "
-"and a more guitar shaped body."
-msgstr ""
-
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
@@ -1160,6 +1153,14 @@ msgid ""
 "instrument."
 msgstr ""
 
+#. name:electric sitar
+#: DB:instrument/description:246
+msgid ""
+"Electric guitar with standard fretboard and tuning but added sympathetic "
+"strings and specialised bridge so the sound will resemble sitar, it became "
+"popular in rock, jazz and fusion music after its invention in the 1960's."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -1415,6 +1416,15 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 
+#. name:tumbi
+#: DB:instrument/description:511
+msgid ""
+"For the one string drum-zither also called ektar/ektara, see <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> Used "
+"in Punjabi folk and devotional music, it has a single string over a long "
+"wooden neck that pierces the tiny parchment covered soundbox."
+msgstr ""
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -1425,6 +1435,17 @@ msgid ""
 "has a small, round or trapeze shaped body of wood or coconut with a membrane "
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
+msgstr ""
+
+#. name:tun tuna
+#: DB:instrument/description:1210
+msgid ""
+"For the one stringed two spoke drum-zither, see <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> For the one "
+"stringed panjabi lute, see <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Used by among others the "
+"Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
+"single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
 
 #. name:diatonic button accordion
@@ -4833,13 +4854,6 @@ msgstr ""
 msgid ""
 "The tubax is a modified saxophone which is more compact due to the tubing "
 "being folded more times."
-msgstr ""
-
-#. name:tumbi
-#: DB:instrument/description:511
-msgid ""
-"The tumbi is a high pitched, single string plucking instrument associated "
-"with folk music of Punjab."
 msgstr ""
 
 #. name:ukeke

@@ -1600,6 +1600,14 @@ msgstr ""
 "het meestal niet theatraal opgevoerd, dus zonder kostuums, decor en veel "
 "interactie tussen de personages."
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2724,6 +2732,11 @@ msgstr ""
 "die geen onderafdelingen, maar ook geen gemeentes zijn. Bijvoorbeeld "
 "graafschappen in Engeland of Kreise in Duitsland. Gewesten worden niet "
 "getoond als bovenliggende gebieden van andere gebieden."
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -4018,6 +4031,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "hdcd"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ASCAP-ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4477,6 +4498,15 @@ msgstr "Een ID van de Colombiaanse rechtenorganisatie SAYCO"
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "Een ID van de Costa Ricaanse rechtenorganisatie ACAM"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "Een ID van de Cubaanse rechtenorganisatie ACDAM"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
