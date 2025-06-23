@@ -8149,7 +8149,8 @@ export class Checker {
     if (selectedTypes.length === 1) {
       const type = selectedTypes[0];
       const result = allowedTypes.some(
-        allowedType => allowedType === type,
+        allowedType => typeof allowedType === 'string' &&
+          allowedType === type,
       );
       if (!result) {
         return {
@@ -8162,7 +8163,7 @@ export class Checker {
     }
     // Multiple types are selected
     const result = allowedTypes.some(
-      (allowedType) => typeof allowedType === 'object' &&
+      (allowedType) => Array.isArray(allowedType) &&
         arraysEqual(
           [...selectedTypes].sort(),
           [...allowedType].sort(),
