@@ -144,16 +144,15 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'update-spammer-button', const action} => {
       return {
         ...state,
-        users: tree.update(
-          state.users,
-          action.state,
-          cmpUserState,
-          (existingValue) => spammerButtonReducer(
+        users: tree.update(state.users, {
+          cmp: cmpUserState,
+          key: action.state,
+          onConflict: (existingValue) => spammerButtonReducer(
             existingValue,
             action,
           ),
-          onNotFoundThrowError,
-        ),
+          onNotFound: onNotFoundThrowError,
+        }),
       };
     }
     {type: 'set-users-fetch-error', const error} => {
