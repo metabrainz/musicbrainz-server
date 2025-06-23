@@ -16,13 +16,13 @@
 # julian45 <techieboy45@gmail.com>, 2023.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # tkusano <tkusano@users.noreply.translations.metabrainz.org>, 2024.
-# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # Kori Syusetu <kori@isnowgroup.net>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-03 19:45+0000\n"
-"Last-Translator: Kori Syusetu <kori@isnowgroup.net>\n"
+"PO-Revision-Date: 2025-06-22 19:20+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2823,11 +2823,9 @@ msgstr ""
 
 #. name:choreographer
 #: DB:link_type/description:1230
-#, fuzzy
-#| msgid "This indicates the artist was the director of this music video."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
-msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
+msgstr "これは、アーティストがこのビデオレコーディングの振付師であったことを示す。"
 
 #. name:cinematographer
 #: DB:link_type/description:1245
@@ -6531,10 +6529,8 @@ msgid "choral conducting"
 msgstr ""
 
 #: DB:link_type/name:1230
-#, fuzzy
-#| msgid "discography entry"
 msgid "choreographer"
-msgstr "ディスコグラフィー項目"
+msgstr "振付師"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -10821,7 +10817,7 @@ msgstr ""
 #. name:choreographer
 #: DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
-msgstr ""
+msgstr "が{assistant}振付師を担当した"
 
 #. name:organist
 #: DB:link_type/long_link_phrase:856
@@ -11219,7 +11215,7 @@ msgstr ""
 #: DB:link_type/link_phrase:293 DB:link_type/long_link_phrase:295
 #: DB:link_type/long_link_phrase:297 DB:link_type/long_link_phrase:293
 msgid "{additional:additionally} {associate} {co:co-}arranged"
-msgstr ""
+msgstr "が{additional:補助的に} {associate} {co:共同}編曲したのは"
 
 #. name:instrument arranger
 #: DB:link_type/long_link_phrase:158 DB:link_type/long_link_phrase:41
@@ -11640,7 +11636,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:295 DB:link_type/reverse_link_phrase:297
 #: DB:link_type/reverse_link_phrase:293
 msgid "{additional} {associate} {co:co-}arranger"
-msgstr ""
+msgstr "{additional:補助的な} {associate} {co:共同}編曲者"
 
 #. name:instrument arranger
 #: DB:link_type/reverse_link_phrase:158 DB:link_type/reverse_link_phrase:41
@@ -11728,17 +11724,13 @@ msgstr ""
 
 #. name:choreographer
 #: DB:link_type/reverse_link_phrase:1230
-#, fuzzy
-#| msgid "{assistant} organists"
 msgid "{assistant} choreographer"
-msgstr "{assistant}オルガン奏者"
+msgstr "{assistant}振付師"
 
 #. name:choreographer
 #: DB:link_type/link_phrase:1230
-#, fuzzy
-#| msgid "{assistant} organists"
 msgid "{assistant} choreographer for"
-msgstr "{assistant}オルガン奏者"
+msgstr "が{assistant}振付師を担当したのは"
 
 #. name:organist
 #: DB:link_type/link_phrase:856

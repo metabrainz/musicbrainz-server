@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-28 01:20+0000\n"
+"PO-Revision-Date: 2025-06-23 11:20+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/pl/>\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
 "n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1630,6 +1630,16 @@ msgstr ""
 "wystawiane teatralnie (brakuje kostiumów, rekwizytów i silnej interakcji "
 "postaci)."
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+"Organizacja zapewniająca kierownictwo kreatywne nad elementami wizualnymi "
+"wydawnictw (takimi jak ilustracje, projekty i inne dzieła sztuki)."
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2771,6 +2781,11 @@ msgstr ""
 "które nie są głównymi podziałami administracyjnymi, ale nie są również "
 "gminami, np. hrabstwa w USA. Nie są one brane pod uwagę podczas wyświetlania "
 "obszarów nadrzędnych dla danego obszaru."
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -4087,6 +4102,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "HDS-ZAMP ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4562,6 +4585,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr ""
 "Identyfikator kostarykańskiego stowarzyszenia praw autorskich twórców ACAM"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "Identyfikator chorwackiego stowarzyszenia praw autorskich HDS-ZAMP"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

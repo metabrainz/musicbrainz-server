@@ -1659,6 +1659,14 @@ msgstr ""
 "accesorios, y los personajes no tienen grandes interacciones en el "
 "escenario)."
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2784,6 +2792,11 @@ msgstr ""
 "Un condado es un tipo de división administrativa de un país situada entre la "
 "división principal y el municipio, usado en varios países, por ejemplo en "
 "los EEUU. No los tenemos en cuenta al mostrar las relaciones entre áreas."
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -4076,6 +4089,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ID de ASCAP"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4535,6 +4556,15 @@ msgstr "ID de la sociedad de gestión de derechos de Colombia SAYCO"
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "ID de la sociedad de gestión de derechos de Costa Rica ACAM"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "ID de la sociedad de gestión de derechos de Cuba ACDAM"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

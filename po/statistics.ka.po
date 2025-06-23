@@ -1,16 +1,19 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# NorwayFun <temuri.doghonadze@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-06-23 06:20+0000\n"
+"Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
+"Language-Team: Georgian <https://translations.metabrainz.org/projects/"
+"musicbrainz/statistics/ka/>\n"
 "Language: ka\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "mime-version: 1.0\n"
 
 #: ../root/statistics/timeline.tt:19
@@ -54,7 +57,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5
 msgid "Edits"
-msgstr ""
+msgstr "ჩასწორებები"
 
 #: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
@@ -86,7 +89,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
-msgstr ""
+msgstr "გადახედვა"
 
 #: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
@@ -98,7 +101,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5
 msgid "Relationships"
-msgstr ""
+msgstr "ურთიერთობები"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Reset:"
@@ -133,7 +136,7 @@ msgstr ""
 #: ../root/statistics/Countries.js:74 ../root/statistics/Formats.js:59
 #: ../root/statistics/LanguagesScripts.js:73
 msgid "Total"
-msgstr ""
+msgstr "ჯამში"
 
 #: ../root/statistics/Countries.js:96
 msgid "Unknown country"
@@ -183,7 +186,7 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
-msgstr ""
+msgstr "ამომრჩეველი"
 
 #: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
@@ -573,7 +576,7 @@ msgstr ""
 #: ../root/statistics/Index.js:852 ../root/statistics/Index.js:876
 #: ../root/statistics/Index.js:906
 msgid "Types"
-msgstr ""
+msgstr "ტიპები"
 
 #: ../root/statistics/Index.js:723
 msgctxt "label type"
@@ -591,7 +594,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
-msgstr ""
+msgstr "ატრიბუტები"
 
 #: ../root/statistics/Index.js:785
 msgctxt "work attribute"
@@ -806,7 +809,7 @@ msgstr ""
 
 #: ../root/statistics/LanguagesScripts.js:55
 msgid "Languages"
-msgstr ""
+msgstr "ენები"
 
 #: ../root/statistics/LanguagesScripts.js:90
 msgid "Unknown language"
@@ -863,7 +866,7 @@ msgstr ""
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/statistics/Relationships.js:136
 msgid "{type0}-{type1} relationships:"
@@ -1511,7 +1514,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:906
 msgid "Abstentions"
-msgstr ""
+msgstr "უარი"
 
 #: ../root/statistics/stats.js:911
 msgid "Admin approvals"

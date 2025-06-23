@@ -1,11 +1,12 @@
 #
 # Translators:
 # Arainuki <esetipodealla@gmail.com>, 2024.
+# roinujnosde <contato@roinujnosde.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-25 00:45+0000\n"
-"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"PO-Revision-Date: 2025-06-18 07:20+0000\n"
+"Last-Translator: roinujnosde <contato@roinujnosde.me>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/pt/>\n"
 "Language: pt\n"
@@ -14,11 +15,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr ""
+msgstr "violão de doze cordas"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
@@ -3251,7 +3252,8 @@ msgid "rauschpfeife"
 msgstr ""
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr ""
 
 #: DB:instrument/name:239
@@ -4218,12 +4220,18 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr ""
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
+msgstr ""
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
 msgstr ""
 
 #: DB:instrument/name:887

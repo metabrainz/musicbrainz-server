@@ -1392,6 +1392,14 @@ msgstr ""
 "למרות שקיימות דמויות ועלילה, המופע בדרך כלל לא יהיה תיאטרלי (ללא תלבושות, "
 "אביזרים או אינטראקציה חזקה בין הדמויות)."
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2524,6 +2532,11 @@ msgstr ""
 "מחוז משמש לחלוקה מינהלית קטנה יותר של מדינה, מחוזות אינם ישויות מנהליות "
 "ראשיות אבל הם גם לא עיריות. למשל, מחוזות בארה\"ב. מחוזות אינם נחשבים בעת "
 "הצגת אזורי האב עבור אזור נתון."
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -3838,6 +3851,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "מזהה ASCAP"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4300,6 +4321,15 @@ msgstr "מזהה עבור אגודת הזכויות הקולומביאנית SAY
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "מזהה עבור אגודת הזכויות הקוסטריקנית ACAM"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "מזהה עבור אגודת הזכויות הקובנית ACDAM"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
