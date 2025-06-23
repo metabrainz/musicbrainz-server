@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.11.4\n"
 
 #. name:rebab
@@ -606,15 +606,6 @@ msgid ""
 msgstr ""
 "Dispositivo per effetti da fissare sul ponte, produce suoni simili a un "
 "sintetizzatore."
-
-#. name:electric sitar
-#: DB:instrument/description:246
-msgid ""
-"An electric derivation of the sitar, it often features sympathetic strings "
-"and a more guitar shaped body."
-msgstr ""
-"Derivato elettrico del sitar, spesso ha corde simpatiche e una cassa dalla "
-"forma più simile a quella di una chitarra."
 
 #. name:jug
 #: DB:instrument/description:505
@@ -1555,6 +1546,14 @@ msgstr ""
 "Con effetti si intendono i dispositivi che permettono a un musicista di "
 "modificare il suono di uno strumento."
 
+#. name:electric sitar
+#: DB:instrument/description:246
+msgid ""
+"Electric guitar with standard fretboard and tuning but added sympathetic "
+"strings and specialised bridge so the sound will resemble sitar, it became "
+"popular in rock, jazz and fusion music after its invention in the 1960's."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -1921,6 +1920,15 @@ msgstr ""
 "Ebbe origine nelle bande di polka germaniche e oggi è usato nella cobla "
 "catalana."
 
+#. name:tumbi
+#: DB:instrument/description:511
+msgid ""
+"For the one string drum-zither also called ektar/ektara, see <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> Used "
+"in Punjabi folk and devotional music, it has a single string over a long "
+"wooden neck that pierces the tiny parchment covered soundbox."
+msgstr ""
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -1932,13 +1940,25 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
-"Per il liuto a una sola corda chiamato anche ektar/ektara, vedi <a href="
-"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Per lo "
+"Per il liuto a una sola corda chiamato anche ektar/ektara, vedi <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Per lo "
 "strumento dall'aspetto simile ma con un solo raggio, vedi tun tuna.<br /> Da "
-"non confondere con l'ekatantri veena, antico strumento monocorda indiano.<br "
-"/> Ha una cassa piccola, in legno o cocco, di forma rotonda o trapezoidale, "
-"con una membrana sul fondo. Fissato ai lati ha un manico in bambù diviso in "
-"due, da cui è sospesa e attaccata alla membrana una sola corda."
+"non confondere con l'ekatantri veena, antico strumento monocorda indiano."
+"<br /> Ha una cassa piccola, in legno o cocco, di forma rotonda o "
+"trapezoidale, con una membrana sul fondo. Fissato ai lati ha un manico in "
+"bambù diviso in due, da cui è sospesa e attaccata alla membrana una sola "
+"corda."
+
+#. name:tun tuna
+#: DB:instrument/description:1210
+msgid ""
+"For the one stringed two spoke drum-zither, see <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> For the one "
+"stringed panjabi lute, see <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Used by among others the "
+"Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
+"single metal string is strung between the spoke neck and the bottom membrane."
+msgstr ""
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -6448,15 +6468,6 @@ msgstr ""
 "Sassofono modificato, è più compatto a causa del canneggio ripiegato più "
 "volte su sé stesso."
 
-#. name:tumbi
-#: DB:instrument/description:511
-msgid ""
-"The tumbi is a high pitched, single string plucking instrument associated "
-"with folk music of Punjab."
-msgstr ""
-"Strumento a singola corda pizzicata, dal tono acuto e associato alla musica "
-"tradizionale del Punjab."
-
 #. name:ukeke
 #: DB:instrument/description:631
 msgid ""
@@ -7787,6 +7798,20 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid ""
+#~ "An electric derivation of the sitar, it often features sympathetic "
+#~ "strings and a more guitar shaped body."
+#~ msgstr ""
+#~ "Derivato elettrico del sitar, spesso ha corde simpatiche e una cassa "
+#~ "dalla forma più simile a quella di una chitarra."
+
+#~ msgid ""
+#~ "The tumbi is a high pitched, single string plucking instrument associated "
+#~ "with folk music of Punjab."
+#~ msgstr ""
+#~ "Strumento a singola corda pizzicata, dal tono acuto e associato alla "
+#~ "musica tradizionale del Punjab."
 
 #~ msgid ""
 #~ "Also known as ektara, it has a body of wood or coconut with a membrane at "

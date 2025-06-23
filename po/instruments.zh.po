@@ -3259,7 +3259,10 @@ msgid "rauschpfeife"
 msgstr "欧式木笛"
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+#, fuzzy
+#| msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr "拉瓦纳哈塔琴"
 
 #: DB:instrument/name:239
@@ -4234,6 +4237,9 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+#, fuzzy
+#| msgid "tumbi"
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "通比琴"
 
@@ -4241,6 +4247,11 @@ msgstr "通比琴"
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
 msgstr "图木图木"
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
+msgstr ""
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"

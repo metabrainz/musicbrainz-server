@@ -1476,6 +1476,14 @@ msgstr ""
 "曲のことである。 キャラクターとプロットを持っていますが、通常劇場で上演されな"
 "い（それは衣装、小道具、そして強いキャラクターの相互作用を欠いている）。"
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2612,6 +2620,11 @@ msgstr ""
 "郡は、主要な行政区画ではなく、地方自治体でもない国の小規模な行政区画に使用さ"
 "れる。 例:アメリカの郡。 特定の領域の親領域を表示する場合、これらは考慮されな"
 "い。"
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -3928,6 +3941,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ASCAP ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4390,6 +4411,15 @@ msgstr "コロンビアの権利者団体SAYCOのID"
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "コスタリカの権利者団体ACAMのID"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "キューバの権利者団体ACDAMのID"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47

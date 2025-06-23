@@ -509,13 +509,6 @@ msgid ""
 "like” sounds."
 msgstr "夾在琴馬上的效果器，產生\"類合成器\"的聲音。"
 
-#. name:electric sitar
-#: DB:instrument/description:246
-msgid ""
-"An electric derivation of the sitar, it often features sympathetic strings "
-"and a more guitar shaped body."
-msgstr "西塔爾琴的電子化版本，通常具有共鳴弦，更像是吉他的琴身。"
-
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
@@ -1334,6 +1327,14 @@ msgid ""
 "instrument."
 msgstr "效果器指能讓音樂家改變樂器音色的裝置。"
 
+#. name:electric sitar
+#: DB:instrument/description:246
+msgid ""
+"Electric guitar with standard fretboard and tuning but added sympathetic "
+"strings and specialised bridge so the sound will resemble sitar, it became "
+"popular in rock, jazz and fusion music after its invention in the 1960's."
+msgstr ""
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -1662,6 +1663,15 @@ msgstr ""
 "f2235fe1e9a3\">“弗呂格爾號”（Flugelhorn）</a>。<br /><br />起源於德語系的波爾"
 "卡樂隊，如今在Catalan cobla也有使用。"
 
+#. name:tumbi
+#: DB:instrument/description:511
+msgid ""
+"For the one string drum-zither also called ektar/ektara, see <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> Used "
+"in Punjabi folk and devotional music, it has a single string over a long "
+"wooden neck that pierces the tiny parchment covered soundbox."
+msgstr ""
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -1672,6 +1682,17 @@ msgid ""
 "has a small, round or trapeze shaped body of wood or coconut with a membrane "
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
+msgstr ""
+
+#. name:tun tuna
+#: DB:instrument/description:1210
+msgid ""
+"For the one stringed two spoke drum-zither, see <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> For the one "
+"stringed panjabi lute, see <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Used by among others the "
+"Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
+"single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
 
 #. name:diatonic button accordion
@@ -5568,13 +5589,6 @@ msgid ""
 "being folded more times."
 msgstr "土巴克斯是一種薩克斯變體，由於管彎曲更多，因此更緊湊。"
 
-#. name:tumbi
-#: DB:instrument/description:511
-msgid ""
-"The tumbi is a high pitched, single string plucking instrument associated "
-"with folk music of Punjab."
-msgstr "通比琴是旁遮普民間音樂中使用的高音獨弦彈撥樂器。"
-
 #. name:ukeke
 #: DB:instrument/description:631
 msgid ""
@@ -6724,6 +6738,16 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "An electric derivation of the sitar, it often features sympathetic "
+#~ "strings and a more guitar shaped body."
+#~ msgstr "西塔爾琴的電子化版本，通常具有共鳴弦，更像是吉他的琴身。"
+
+#~ msgid ""
+#~ "The tumbi is a high pitched, single string plucking instrument associated "
+#~ "with folk music of Punjab."
+#~ msgstr "通比琴是旁遮普民間音樂中使用的高音獨弦彈撥樂器。"
 
 #~ msgid ""
 #~ "Also known as ektara, it has a body of wood or coconut with a membrane at "
