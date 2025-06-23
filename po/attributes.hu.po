@@ -1,17 +1,19 @@
 #
 # Translators:
+# KiszolgalMotozas0n <kiszolgal.motozas.0n@icloud.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Hungarian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/hu/)\n"
+"PO-Revision-Date: 2025-06-17 09:20+0000\n"
+"Last-Translator: KiszolgalMotozas0n <kiszolgal.motozas.0n@icloud.com>\n"
+"Language-Team: Hungarian <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/hu/>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -33,57 +35,57 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10\" Acetátlemez"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "10\" Sellak"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr ""
+msgstr "10\" Bakelit"
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12\" Acetátlemez"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "12\" Lézerdiszk"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12\" Sellak"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "12\" Bakelit"
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr ""
+msgstr "3\" Bakelit"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3.5\" Flopilemez"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25\" Flopilemez"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" Acetátlemez"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
@@ -1300,6 +1302,14 @@ msgid ""
 "character interaction)."
 msgstr ""
 
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
+
 #. name:Rights Society
 #: DB:label_type/description:8
 msgctxt "label_type"
@@ -2397,6 +2407,11 @@ msgid ""
 "not the main administrative divisions but are also not municipalities, e.g. "
 "counties in the USA. These are not considered when displaying the parent "
 "areas for a given area."
+msgstr ""
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
 msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
@@ -3679,6 +3694,11 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr ""
 
+#: DB:work_attribute_type/name:214
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr ""
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4137,6 +4157,12 @@ msgstr ""
 #: DB:work_attribute_type/description:44
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
+msgstr ""
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
 msgstr ""
 
 #. name:ACDAM ID

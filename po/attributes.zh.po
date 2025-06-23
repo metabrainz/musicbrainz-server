@@ -13,11 +13,12 @@
 # imgradeone <imgradeone@outlook.com>, 2025.
 # Ral Hole <ral-hole@outlook.com>, 2025.
 # delamons <lamons.n@gmail.com>, 2025.
+# Solarenta <2325840950@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-22 07:45+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-06-14 07:20+0000\n"
+"Last-Translator: Solarenta <2325840950@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -466,6 +467,7 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
+"一个四面或五面的盒套，通常由纸板或塑料制成，内封有第二种包装，如珠宝盒。"
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -1465,6 +1467,14 @@ msgid ""
 msgstr ""
 "清唱剧是一种由管弦乐队，合唱团和独奏家表演的大型（通常为神圣的）的音乐作品。"
 "虽然它有角色和情节，但它通常不是戏剧表演（缺少戏服，道具和强烈的角色互动）。"
+
+#. name:Creative Agency
+#: DB:label_type/description:11
+msgctxt "label_type"
+msgid ""
+"An organization that provides creative direction for visual elements of "
+"releases (such as illustrations, design and other artwork)."
+msgstr ""
 
 #. name:Rights Society
 #: DB:label_type/description:8
@@ -2573,6 +2583,11 @@ msgid ""
 msgstr ""
 "县指一国内更小的不是一级行政区也不是地方自治体的行政区划，如美国的县。在显示"
 "某区域的上级区域时不考虑。"
+
+#: DB:label_type/name:11
+msgctxt "label_type"
+msgid "Creative Agency"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -3856,6 +3871,14 @@ msgctxt "medium_format"
 msgid "HDCD"
 msgstr "HDCD"
 
+#: DB:work_attribute_type/name:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ASCAP ID"
+msgctxt "work_attribute_type"
+msgid "HDS-ZAMP ID"
+msgstr "ASCAP ID"
+
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
 msgid "HFA ID"
@@ -4315,6 +4338,15 @@ msgstr "哥伦比亚著作权协会SAYCO ID"
 msgctxt "work_attribute_type"
 msgid "ID for the Costa Rican rights society ACAM"
 msgstr "哥斯达黎加著作权协会ACAM ID"
+
+#. name:HDS-ZAMP ID
+#: DB:work_attribute_type/description:214
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Cuban rights society ACDAM"
+msgctxt "work_attribute_type"
+msgid "ID for the Croatian rights society HDS-ZAMP"
+msgstr "古巴著作权协会ACDAM ID"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
@@ -7733,7 +7765,7 @@ msgstr "薄珍宝盒"
 #: DB:release_packaging/name:122
 msgctxt "release_packaging"
 msgid "Slipcase"
-msgstr ""
+msgstr "外封套"
 
 #: DB:release_packaging/name:11
 msgctxt "release_packaging"

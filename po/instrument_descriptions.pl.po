@@ -3,21 +3,22 @@
 # Piotr Myśliński <email address hidden>, 2013
 # Echelon666 <echelon01@wp.pl>, 2024.
 # PS123 <adres2015@wp.pl>, 2025.
+# Echelon <weblate@wp.pl>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-11 00:44+0000\n"
-"Last-Translator: PS123 <adres2015@wp.pl>\n"
+"PO-Revision-Date: 2025-06-23 11:20+0000\n"
+"Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -599,15 +600,6 @@ msgid ""
 msgstr ""
 "Urządzenie efektowe mocowane do mostka, które generuje dźwięki "
 "przypominające syntezator."
-
-#. name:electric sitar
-#: DB:instrument/description:246
-msgid ""
-"An electric derivation of the sitar, it often features sympathetic strings "
-"and a more guitar shaped body."
-msgstr ""
-"Elektryczna wersja sitaru, często wyposażona w struny o charakterze "
-"symbiotycznym oraz pudło o kształcie bardziej przypominającym gitarę."
 
 #. name:jug
 #: DB:instrument/description:505
@@ -1555,6 +1547,18 @@ msgid ""
 msgstr ""
 "Efekty to urządzenia pozwalające muzykowi modyfikować brzmienie instrumentu."
 
+#. name:electric sitar
+#: DB:instrument/description:246
+msgid ""
+"Electric guitar with standard fretboard and tuning but added sympathetic "
+"strings and specialised bridge so the sound will resemble sitar, it became "
+"popular in rock, jazz and fusion music after its invention in the 1960's."
+msgstr ""
+"Gitara elektryczna ze standardową podstrunnicą i strojem, lecz z dodanymi "
+"strunami i specjalnym mostkiem, dzięki czemu jej brzmienie przypomina sitar. "
+"Stała się popularna w muzyce rockowej, jazzowej i fusion po jej wynalezieniu "
+"w latach 60. XX wieku."
+
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
@@ -1919,6 +1923,22 @@ msgstr ""
 "<br /><br /> Instrument ten ma swoje początki w germańskich zespołach "
 "grających polki, a obecnie jest używany w katalońskim cobla."
 
+#. name:tumbi
+#: DB:instrument/description:511
+#, fuzzy
+msgid ""
+"For the one string drum-zither also called ektar/ektara, see <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> Used "
+"in Punjabi folk and devotional music, it has a single string over a long "
+"wooden neck that pierces the tiny parchment covered soundbox."
+msgstr ""
+"Informacje na temat jednostrunowego bębna-cytry, zwanego także ektar/ektara, "
+"można znaleźć w artykule <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> "
+"Instrument ten, wykorzystywany w muzyce ludowej i religijnej Pendżabu, ma "
+"pojedynczą strunę na długiej drewnianej szyjce, która przebija maleńkie "
+"pudło rezonansowe pokryte pergaminem."
+
 #. name:gopichant
 #: DB:instrument/description:643
 msgid ""
@@ -1930,6 +1950,33 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
+"W przypadku lutni jednostrunowej, zwanej również ektar/ektara, zobacz <a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> W "
+"przypadku podobnie wyglądającego instrumentu z tylko jednym ramieniem, "
+"zobacz tun tuna.<br /> Nie mylić z ekatantri veena, starożytnym indyjskim "
+"monochordem.<br /> Ma mały, okrągły lub trapezowaty korpus z drewna lub "
+"kokosa z membraną na dole. Do boków przymocowana jest szyjka z "
+"rozszczepionego bambusa, na której zawieszona jest pojedyncza struna i "
+"przymocowana do membrany."
+
+#. name:tun tuna
+#: DB:instrument/description:1210
+#, fuzzy
+msgid ""
+"For the one stringed two spoke drum-zither, see <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> For the one "
+"stringed panjabi lute, see <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Used by among others the "
+"Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
+"single metal string is strung between the spoke neck and the bottom membrane."
+msgstr ""
+"W przypadku jednostrunowej dwuramiennej cytry bębnowej zobacz <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> W "
+"przypadku jednostrunowej lutni panjabi zobacz <a href="
+"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> "
+"Używana między innymi przez plemiona Bhil, Kukna i Worli, posiada "
+"cylindryczny pudło rezonansowe, przez które przewleczona jest pojedyncza "
+"metalowa struna między szyjką szprychową a dolną membraną."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -6469,15 +6516,6 @@ msgstr ""
 "Tubaks jest zmodyfikowaną wersją saksofonu, która jest bardziej kompaktowa, "
 "ponieważ jej rura jest składana częściej."
 
-#. name:tumbi
-#: DB:instrument/description:511
-msgid ""
-"The tumbi is a high pitched, single string plucking instrument associated "
-"with folk music of Punjab."
-msgstr ""
-"Tumbi to wysoki, jednostrunowy instrument szarpany, kojarzony z muzyką "
-"ludową Pendżabu."
-
 #. name:ukeke
 #: DB:instrument/description:631
 msgid ""
@@ -7817,6 +7855,20 @@ msgstr "saó ôi (flet Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu basowa forma trắng lu"
+
+#~ msgid ""
+#~ "An electric derivation of the sitar, it often features sympathetic "
+#~ "strings and a more guitar shaped body."
+#~ msgstr ""
+#~ "Elektryczna wersja sitaru, często wyposażona w struny o charakterze "
+#~ "symbiotycznym oraz pudło o kształcie bardziej przypominającym gitarę."
+
+#~ msgid ""
+#~ "The tumbi is a high pitched, single string plucking instrument associated "
+#~ "with folk music of Punjab."
+#~ msgstr ""
+#~ "Tumbi to wysoki, jednostrunowy instrument szarpany, kojarzony z muzyką "
+#~ "ludową Pendżabu."
 
 #~ msgid ""
 #~ "Also known as ektara, it has a body of wood or coconut with a membrane at "

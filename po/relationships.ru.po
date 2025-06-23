@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-30 14:44+0000\n"
+"PO-Revision-Date: 2025-06-03 13:20+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -884,6 +884,7 @@ msgid ""
 "Links a podcast or broadcast series to an artist who was a host for the "
 "series."
 msgstr ""
+"Связывает серию подкастов или эфиров с исполнителем, который был его ведущим."
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -7409,24 +7410,22 @@ msgstr "держит права на фонограмму (℗) для"
 
 #: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
-msgstr ""
+msgstr "ведущий"
 
 #. name:host
 #: DB:link_type/link_phrase:801 DB:link_type/long_link_phrase:801
 msgid "host at"
-msgstr ""
+msgstr "ведущий на"
 
 #. name:host
 #: DB:link_type/link_phrase:1287
-#, fuzzy
-#| msgid "poster for"
 msgid "host for"
-msgstr "постер для"
+msgstr "ведущий для"
 
 #. name:host
 #: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
-msgstr ""
+msgstr "ведущие"
 
 #. name:headquarters
 #: DB:link_type/link_phrase:1237
@@ -7818,10 +7817,8 @@ msgstr ""
 
 #. name:host
 #: DB:link_type/long_link_phrase:1287
-#, fuzzy
-#| msgid "is/was married to"
 msgid "is/was a host for"
-msgstr "(был/была) женат/замужем на"
+msgstr "был(а) ведущим"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722

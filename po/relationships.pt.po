@@ -3,11 +3,12 @@
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 # tanio <tanioms3@gmail.com>, 2024.
 # joaodtx <joao.buckb@gmail.com>, 2025.
+# senhordaluz <pedro.luz@hotmail.com.br>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-17 05:45+0000\n"
-"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
+"PO-Revision-Date: 2025-06-21 14:20+0000\n"
+"Last-Translator: senhordaluz <pedro.luz@hotmail.com.br>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pt/>\n"
 "Language: pt\n"
@@ -16,12 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
+#, fuzzy
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"Um programa de pós-graduação centrado no desempenho, geralmente com duração "
+"de um a três anos."
 
 #. name:social network
 #: DB:link_type/description:218
@@ -31,6 +35,10 @@ msgid ""
 "only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Uma página de rede social é a página própria de uma gravadora em uma <a href="
+"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na "
+"qual apenas pessoas envolvidas com a gravadora podem postar conteúdo. "
+"Exemplos incluem páginas do Facebook e contas no Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:784
@@ -40,6 +48,10 @@ msgid ""
 "only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Uma página de rede social é uma página de uma série em uma <a href="
+"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a> na "
+"qual apenas pessoas envolvidas com a série podem postar conteúdo. Exemplos "
+"incluem páginas do Facebook e contas no Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:429
@@ -49,6 +61,10 @@ msgid ""
 "only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Uma página de rede social é a página de um lugar em uma <a href="
+"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na "
+"qual apenas pessoas envolvidas com o local podem postar conteúdo. Exemplos "
+"incluem páginas do Facebook e contas no Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:192
@@ -61,6 +77,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Uma página de rede social é o perfil de um artista em uma <a href="
+"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\" target=\"_blank\">rede "
+"social</a>, na qual somente ele (ou seu agente) pode publicar conteúdo. "
+"Outras pessoas podem criar seus próprios perfis e interagir com o artista, "
+"por exemplo, adicionando-o como amigo ou comentando as postagens dele. "
+"Exemplos incluem páginas e perfis do Facebook, usuários do Last.fm e contas "
+"no Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:783
@@ -71,6 +94,11 @@ msgid ""
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
+"Uma página de rede social é a página de um evento em uma <a href="
+"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na "
+"qual apenas pessoas envolvidas no evento podem postar conteúdo. Exemplos "
+"incluem páginas do Facebook e entradas de eventos, além de contas no "
+"Twitter, Instagram e Flickr."
 
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
@@ -98,8 +126,9 @@ msgstr "Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
+#, fuzzy
 msgid "Apple Music page for"
-msgstr ""
+msgstr "Página do Apple Music para"
 
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
@@ -107,8 +136,9 @@ msgid "BBC Music"
 msgstr "BBC Music"
 
 #: DB:link_type/name:190
+#, fuzzy
 msgid "BBC Music page"
-msgstr ""
+msgstr "Página do BBC Music para"
 
 #. name:BBC Music page
 #: DB:link_type/reverse_link_phrase:190
@@ -119,13 +149,13 @@ msgstr ""
 #: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
 #: DB:link_type/link_phrase:719
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #. name:bandcamp
 #: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
 #: DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
-msgstr ""
+msgstr "Página do Bandcamp para"
 
 #. name:bandsintown
 #: DB:link_type/link_phrase:861 DB:link_type/link_phrase:862
@@ -176,8 +206,9 @@ msgid "CPDL page for"
 msgstr ""
 
 #: DB:link_type/name:227 DB:link_type/name:8
+#, fuzzy
 msgid "DJ-mix"
-msgstr ""
+msgstr "Mixagem de DJ"
 
 #. name:DJ-mix
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
@@ -225,12 +256,16 @@ msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
+"Descreve o fato de uma pessoa ter sido contratada por um local como "
+"engenheiro de masterização."
 
 #. name:mixing engineer position
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
+"Descreve o fato de uma pessoa ter sido contratada por um local como "
+"engenheiro de mixagem."
 
 #. name:recording engineer position
 #: DB:link_type/description:702
@@ -238,21 +273,27 @@ msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
+"Descreve o fato de uma pessoa ter sido contratada por um local como "
+"engenheiro de gravação."
 
 #. name:engineer position
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
+"Descreve o fato de uma pessoa ter sido contratada por um local como "
+"engenheiro."
 
 #. name:anthem
 #: DB:link_type/description:357
+#, fuzzy
 msgid "Designates that a work is or was the anthem for an area."
-msgstr ""
+msgstr "Designa que uma obra é ou foi o hino de uma área."
 
 #. name:part of
 #: DB:link_type/description:356
+#, fuzzy
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Designa que uma área é contida por outra."
 
 #. name:discogs
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
@@ -342,7 +383,7 @@ msgstr ""
 #. name:bonus
 #: DB:link_attribute_type/description:516
 msgid "Indicates a bonus disc."
-msgstr ""
+msgstr "Indica um disco bônus."
 
 #. name:misc
 #: DB:link_type/description:162
@@ -350,6 +391,8 @@ msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album."
 msgstr ""
+"Indica um papel de apoio diverso. Isso geralmente é mencionado nas notas de "
+"capa de um álbum."
 
 #. name:instrumental supporting musician
 #: DB:link_type/description:105

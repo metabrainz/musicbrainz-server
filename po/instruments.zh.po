@@ -7,11 +7,12 @@
 # darlingz <yagamidai@gmail.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # Ral Hole <ral-hole@outlook.com>, 2025.
+# MoeCaa <qytc233@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-20 21:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-06-14 16:20+0000\n"
+"Last-Translator: MoeCaa <qytc233@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -2978,9 +2979,10 @@ msgid "pardessus de viole"
 msgstr "最高音维奥尔琴"
 
 #: DB:instrument/name:1207
+#, fuzzy
 msgctxt "Armenian double chanter bagpipe"
 msgid "parkapzuk"
-msgstr ""
+msgstr "亚美尼亚风笛"
 
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"
@@ -3066,9 +3068,10 @@ msgid "piccolo trumpet"
 msgstr "高音小号"
 
 #: DB:instrument/name:1183
+#, fuzzy
 msgctxt "Italian double reed with conical bore"
 msgid "piffero"
-msgstr ""
+msgstr "匹费罗"
 
 #: DB:instrument/name:350
 msgctxt "Pearshaped chinese lute"
@@ -3256,7 +3259,10 @@ msgid "rauschpfeife"
 msgstr "欧式木笛"
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+#, fuzzy
+#| msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr "拉瓦纳哈塔琴"
 
 #: DB:instrument/name:239
@@ -4231,6 +4237,9 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+#, fuzzy
+#| msgid "tumbi"
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "通比琴"
 
@@ -4238,6 +4247,11 @@ msgstr "通比琴"
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
 msgstr "图木图木"
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
+msgstr ""
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"
