@@ -63,7 +63,7 @@
     "tldts": "7.0.10",
     "webpack": "5.103.0",
     "webpack-node-externals": "3.0.0",
-    "weight-balanced-tree": "0.9.0",
+    "weight-balanced-tree": "0.16.0",
     "whatwg-fetch": "3.6.20",
     "yargs": "3.10.0"
   },

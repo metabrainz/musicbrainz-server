@@ -141,17 +141,16 @@ export default function updateReleaseRelationships(
           return workState;
         };
 
-        newRelatedWorks = tree.update(
-          newRelatedWorks,
-          work,
-          compareWorkWithWorkState,
-          updateWorkState,
-          () => updateWorkState({
+        newRelatedWorks = tree.update(newRelatedWorks, {
+          cmp: compareWorkWithWorkState,
+          key: work,
+          onConflict: updateWorkState,
+          onNotFound: () => updateWorkState({
             isSelected: false,
             targetTypeGroups: tree.empty,
             work,
           }),
-        );
+        });
       }
 
       for (const workState of tree.iterate(newRelatedWorks)) {
