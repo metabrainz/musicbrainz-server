@@ -360,6 +360,12 @@ component ReportsIndex() {
           />
           <ReportsIndexEntry
             content={l(
+              `Pseudo-Releases that have cover art`,
+            )}
+            reportName="PseudoReleasesWithCoverArt"
+          />
+          <ReportsIndexEntry
+            content={l(
               `Releases that have Amazon cover art
               but no Cover Art Archive front cover`,
             )}

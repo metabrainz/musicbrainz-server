@@ -57,7 +57,7 @@ component PostParameters(params: PostParametersT) {
                       defaultValue={value}
                       id={id}
                       name={param}
-                      rows="10"
+                      rows={10}
                     />
                   ) : Array.isArray(value) ? (
                     value.map((subValue, index) => (

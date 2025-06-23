@@ -50,7 +50,7 @@ component ReleaseHeader(page?: string, release: ReleaseT) {
       preHeader={
         <>
           <TaggerIcon entityType="release" gid={release.gid} />
-          {manifest('common/components/TaggerIcon', {async: 'async'})}
+          {manifest('common/components/TaggerIcon', {async: true})}
         </>
       }
       subHeading={subHeading}

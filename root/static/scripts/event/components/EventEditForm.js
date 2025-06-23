@@ -156,7 +156,7 @@ component EventEditForm(
   const $c = React.useContext(SanitizedCatalystContext);
 
   const typeOptions = {
-    grouped: false,
+    grouped: false as const,
     options: eventTypes,
   };
 
@@ -180,7 +180,7 @@ component EventEditForm(
   }, [dispatch]);
 
   const handleSetlistChange = React.useCallback((
-    event: SyntheticKeyboardEvent<HTMLTextAreaElement>,
+    event: SyntheticEvent<HTMLTextAreaElement>,
   ) => {
     dispatch({setlist: event.currentTarget.value, type: 'set-setlist'});
   }, [dispatch]);

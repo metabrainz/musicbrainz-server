@@ -309,7 +309,7 @@ function updateDialogStateForTargetTypeChange(
       entity: onlyLinkType,
       id: onlyLinkType.id,
       name: l_relationships(onlyLinkType.name),
-      type: 'option',
+      type: 'option' as const,
     } : null,
     staticItems: newLinkTypeOptions,
   };
@@ -716,7 +716,7 @@ component _RelationshipDialogContent(...props: PropsT) {
 
   const relationshipAlreadyExists = React.useMemo(() => {
     if (newRelationshipState) {
-      for (const contextProp of ['pending', 'existing']) {
+      for (const contextProp of ['pending' as const, 'existing' as const]) {
         const existingRelationship = findExistingRelationship(
           findTargetTypeGroups(
             sourceGroupsContext[contextProp],

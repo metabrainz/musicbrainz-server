@@ -216,6 +216,7 @@ export function mergeLinkedEntities(
             // $FlowIgnore[incompatible-type]
             linkedEntities[type] = entities;
           } else {
+            // $FlowIssue[unsafe-object-assign]
             Object.assign(linkedEntities[type], entities);
           }
         }

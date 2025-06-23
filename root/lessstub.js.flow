@@ -1,7 +1,8 @@
 /*
  * @flow strict
  * Bogus file for use in .flowconfig.
- * Non-JavaScript files are mapped to here, so we can require() them
+ * `.less` files are mapped to here, so we can import them
  * via Webpack's asset modules without Flow triggering import errors.
  */
-export default ({}: mixed);
+declare var assetUrl: string;
+export default assetUrl;

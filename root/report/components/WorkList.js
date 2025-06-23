@@ -75,7 +75,7 @@ component WorkList<D: {+work: ?WorkT, ...}>(
   return (
     <PaginatedResults pager={pager}>
       {table}
-      {manifest('common/components/ArtistRoles', {async: 'async'})}
+      {manifest('common/components/ArtistRoles', {async: true})}
     </PaginatedResults>
   );
 }

@@ -61,13 +61,11 @@ export function exportLinkTypeInfo(
     }
   }
 
-  Object.assign(linkedEntities, {
-    link_type: allLinkTypes.reduce((accum, linkType) => {
-      mapItems<LinkTypeT>(accum, linkType);
-      return accum;
-    }, {}),
-    link_type_tree: linkTypeTree,
-  });
+  linkedEntities.link_type = allLinkTypes.reduce((accum, linkType) => {
+    mapItems<LinkTypeT>(accum, linkType);
+    return accum;
+  }, {});
+  linkedEntities.link_type_tree = linkTypeTree;
 }
 
 export function exportLinkAttributeTypeInfo(
@@ -96,11 +94,9 @@ export function exportLinkAttributeTypeInfo(
     item.l_description = localizeLinkAttributeTypeDescription(item);
   }
 
-  Object.assign(linkedEntities, {
-    link_attribute_type:
-      allLinkAttributeTypes.reduce((accum, linkAttrType) => {
-        mapItems<LinkAttrTypeT>(accum, linkAttrType);
-        return accum;
-      }, {}),
-  });
+  linkedEntities.link_attribute_type =
+    allLinkAttributeTypes.reduce((accum, linkAttrType) => {
+      mapItems<LinkAttrTypeT>(accum, linkAttrType);
+      return accum;
+    }, {});
 }

@@ -50,9 +50,9 @@ export function reducer(
   }
 }
 
-type TodoComponentT = component(ref: React.RefSetter<mixed>, ...PropsT);
+type TodoComponentT = component(...PropsT);
 
-const Todo: TodoComponentT = React.memo<PropsT>(({
+const Todo: TodoComponentT = React.memo<PropsT, void>(({
   dispatch,
   state,
 }: PropsT) => {
@@ -69,7 +69,7 @@ const Todo: TodoComponentT = React.memo<PropsT>(({
   }, [state.key, dispatch]);
 
   const setDescription = React.useCallback((
-    event: SyntheticKeyboardEvent<HTMLInputElement>,
+    event: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     dispatch(state.key, {
       description: event.currentTarget.value,

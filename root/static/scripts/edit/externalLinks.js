@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import punycode from 'punycode';
+import {toUnicode} from 'punycode';
 
 import $ from 'jquery';
 import ko from 'knockout';
@@ -1848,7 +1848,7 @@ export function getUnicodeUrl(url: string): string {
   }
 
   const urlObject = new URL(url);
-  const unicodeHostname = punycode.toUnicode(urlObject.hostname);
+  const unicodeHostname = toUnicode(urlObject.hostname);
   const unicodeUrl = url.replace(urlObject.hostname, unicodeHostname);
 
   return unicodeUrl;
@@ -1861,7 +1861,7 @@ function isValidURL(url: string) {
   const hostname = a.hostname;
 
   // To compare with the url we need to decode the Punycode if present
-  const unicodeHostname = punycode.toUnicode(hostname);
+  const unicodeHostname = toUnicode(hostname);
   if (url.indexOf(hostname) < 0 && url.indexOf(unicodeHostname) < 0) {
     return false;
   }

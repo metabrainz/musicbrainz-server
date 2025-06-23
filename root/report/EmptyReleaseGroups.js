@@ -70,7 +70,7 @@ component EmptyReleaseGroups(...{
                 <>
                   {lastKey === item.key ? null : (
                     <tr className="subh">
-                      <td colSpan="4" />
+                      <td colSpan={4} />
                     </tr>
                   )}
                   <tr
@@ -96,7 +96,7 @@ component EmptyReleaseGroups(...{
                     ) : (
                       <>
                         <td />
-                        <td colSpan="2">
+                        <td colSpan={2}>
                           {l('This release group no longer exists.')}
                         </td>
                       </>

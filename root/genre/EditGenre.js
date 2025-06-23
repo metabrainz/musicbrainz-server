@@ -23,8 +23,8 @@ component EditGenre(entity: GenreT, form: GenreFormT) {
       title="Edit genre"
     >
       <GenreEditForm form={form} />
-      {manifest('genre/components/GenreEditForm', {async: 'async'})}
-      {manifest('relationship-editor', {async: 'async'})}
+      {manifest('genre/components/GenreEditForm', {async: true})}
+      {manifest('relationship-editor', {async: true})}
     </GenreLayout>
   );
 }

@@ -8,6 +8,7 @@
  */
 
 import {ReleaseResultsInline} from '../search/components/ReleaseResults.js';
+import manifest from '../static/manifest.mjs';
 
 import TagLookupResults from './Results.js';
 
@@ -22,6 +23,7 @@ component TagLookupReleaseResults(...props: {
         query={props.query}
         results={props.results}
       />
+      {manifest('common/components/TaggerIcon', {async: true})}
     </TagLookupResults>
   );
 }

@@ -34,7 +34,15 @@ import RelationshipEditor, {
 
 type PropsT = InitialStateArgsT;
 
-component _RelationshipEditorWrapper(...props: PropsT) {
+component _RelationshipEditorWrapper(
+  /*
+   * Hack required due to withLoadedTypeInfo's use of `forwardRef`.
+   * Remove once we upgrade to React v19.
+   */
+  // eslint-disable-next-line no-unused-vars
+  ref: React.RefSetter<mixed>,
+  ...props: PropsT
+) {
   const [state, dispatch] = React.useReducer(
     reducer,
     props,

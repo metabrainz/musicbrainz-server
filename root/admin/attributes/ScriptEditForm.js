@@ -18,7 +18,7 @@ import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 import type {ScriptEditFormT} from './types.js';
 
 const frequencyOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {label: 'Hidden', value: 1},
     {label: 'Other (Uncommon)', value: 2},

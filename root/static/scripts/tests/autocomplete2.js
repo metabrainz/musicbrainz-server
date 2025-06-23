@@ -20,7 +20,7 @@ const makeItem = (id: number, name: string) => ({
     child_order: 0,
     creditable: false,
     description: '',
-    entityType: 'link_attribute_type',
+    entityType: 'link_attribute_type' as const,
     free_text: false,
     gid: '',
     id,
@@ -32,7 +32,7 @@ const makeItem = (id: number, name: string) => ({
   id,
   level: 0,
   name,
-  type: 'option',
+  type: 'option' as const,
 });
 
 test('Autocomplete items are updated on input focus', function (t) {

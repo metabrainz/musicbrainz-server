@@ -1,10 +1,12 @@
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2025.
+# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-02-19 13:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-05-26 23:20+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/"
 ">\n"
@@ -13,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.11.4\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6042,7 +6044,7 @@ msgstr "art"
 #. name:cover art link
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "封面插圖"
+msgstr "封面圖"
 
 #. name:cover art link
 #: DB:link_type/reverse_link_phrase:78
@@ -6280,7 +6282,7 @@ msgstr "早期音樂"
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "修改"
 
 #. name:edit
 #: DB:link_type/link_phrase:309

@@ -279,7 +279,7 @@ component UserSubscriptions(
         </p>
       )}
 
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </UserAccountLayout>
   );
 }

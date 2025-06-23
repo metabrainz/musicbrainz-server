@@ -23,7 +23,7 @@ component ChangeReleaseQuality(edit: ChangeReleaseQualityHistoricEditT) {
           <React.Fragment key={index}>
             <tr>
               <th>{addColonText(l('Releases'))}</th>
-              <td colSpan="2">
+              <td colSpan={2}>
                 <ul>
                   {change.releases.map(release => (
                     <li key={release.id}>

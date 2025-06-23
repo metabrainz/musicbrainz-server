@@ -58,7 +58,7 @@ component ConfirmSeed(
         {postParameters ? <PostParameters params={postParameters} /> : null}
         <ConfirmSeedButtons autoSubmit={autoSubmit} />
       </form>
-      {manifest('confirm-seed', {async: 'async'})}
+      {manifest('confirm-seed', {async: true})}
     </Layout>
   );
 }

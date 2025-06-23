@@ -44,7 +44,7 @@ component InstrumentSidebar(instrument: InstrumentT) {
             cachedImage={$c.stash.commons_image}
             entity={instrument}
           />
-          {manifest('common/components/CommonsImage', {async: 'async'})}
+          {manifest('common/components/CommonsImage', {async: true})}
         </>
       ) : null}
 

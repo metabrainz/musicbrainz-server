@@ -13,7 +13,7 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         default => ['url'],
         subset => {
             show => ['artist', 'label', 'url'],
-            relationships => [qw( area artist instrument label place series url )],
+            relationships => [qw( area artist genre instrument label place series url )],
         },
         paged_subset => {
             relationships => [qw( event recording release release_group work )],

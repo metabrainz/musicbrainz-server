@@ -57,7 +57,7 @@ component ArtistReleases(
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',
-                {async: 'async'},
+                {async: true},
               )}
             </>
           ) : null}
@@ -98,8 +98,8 @@ component ArtistReleases(
         )
       )}
 
-      {manifest('common/components/Filter', {async: 'async'})}
-      {manifest('common/MB/Control/SelectAll', {async: 'async'})}
+      {manifest('common/components/Filter', {async: true})}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
     </ArtistLayout>
   );
 }

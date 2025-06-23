@@ -29,8 +29,8 @@ component CreateEvent(
           form={form}
         />
       </div>
-      {manifest('event/components/EventEditForm', {async: 'async'})}
-      {manifest('relationship-editor', {async: 'async'})}
+      {manifest('event/components/EventEditForm', {async: true})}
+      {manifest('relationship-editor', {async: true})}
     </Layout>
   );
 }

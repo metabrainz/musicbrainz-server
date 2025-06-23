@@ -39,7 +39,7 @@ type ReportUserFormT = FormT<{
 }>;
 
 const reportReasonOptions = {
-  grouped: false,
+  grouped: false as const,
   options: [
     {
       label: N_l('Editor is spamming'),

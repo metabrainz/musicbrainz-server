@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.5.4\n"
 
 #: DB:instrument/name:438
@@ -3254,7 +3254,8 @@ msgid "rauschpfeife"
 msgstr ""
 
 #: DB:instrument/name:754
-msgid "ravanahatha"
+msgctxt "Indian bowed spikefiddle"
+msgid "ravanahatta"
 msgstr ""
 
 #: DB:instrument/name:239
@@ -4221,12 +4222,18 @@ msgid "tulum"
 msgstr ""
 
 #: DB:instrument/name:511
+msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr ""
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck idiophone"
 msgid "tumutumu"
+msgstr ""
+
+#: DB:instrument/name:1210
+msgctxt "West Indian one-spoke monochord"
+msgid "tun tuna"
 msgstr ""
 
 #: DB:instrument/name:887

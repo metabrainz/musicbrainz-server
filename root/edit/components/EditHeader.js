@@ -130,7 +130,7 @@ component EditHeader(
                 </td>
               </tr>
               <tr>
-                <td className="edit-expiration" colSpan="2">
+                <td className="edit-expiration" colSpan={2}>
                   {edit.is_open ? (
                     <>
                       <strong>{addColonText(l('Voting'))}</strong>

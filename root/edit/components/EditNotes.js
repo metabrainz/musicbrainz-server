@@ -62,7 +62,7 @@ component EditNotes(
                 className="edit-note"
                 name={`enter-vote.vote.${index}.edit_note`}
                 placeholder={l('Add an edit note')}
-                rows="5"
+                rows={5}
               />
             </div>
           </div>

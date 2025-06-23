@@ -33,7 +33,7 @@ component EditRecording(edit: EditRecordingEditT) {
       <tbody>
         <tr>
           <th>{addColonText(l('Recording'))}</th>
-          <td colSpan="2">
+          <td colSpan={2}>
             <DescriptiveLink entity={display.recording} />
           </td>
         </tr>
@@ -55,7 +55,7 @@ component EditRecording(edit: EditRecordingEditT) {
           areLengthsAlmostSame ? (
             <tr>
               <th>{addColonText(l('Length'))}</th>
-              <td colSpan="2">
+              <td colSpan={2}>
                 {l(`This edit makes subsecond changes
                     to the recording length`)}
               </td>

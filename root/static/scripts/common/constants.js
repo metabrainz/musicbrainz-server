@@ -79,6 +79,7 @@ export const FAVICON_CLASSES: {
   '45cat.com': 'fortyfivecat',
   '45worlds.com': 'fortyfiveworlds',
   'abc.net.au/triplejunearthed': 'triplejunearthed',
+  'acum.org.il': 'acum',
   'adp.library.ucsb.edu': 'dahr',
   'allmusic.com': 'allmusic',
   'anghami.com': 'anghami',
@@ -165,7 +166,6 @@ export const FAVICON_CLASSES: {
   'livefans.jp': 'livefans',
   'loc.gov': 'loc',
   'loudr.fm': 'loudr',
-  'lyric.evesta.jp': 'evestalyric',
   'mainlynorfolk.info': 'mainlynorfolk',
   'melon.com': 'melon',
   'metacritic.com': 'metacritic',
@@ -236,6 +236,7 @@ export const FAVICON_CLASSES: {
   'spotify.com': 'spotify',
   'stage48.net': 'stage48',
   'steamdb.info': 'steamdb',
+  'stereo-ve-mono.com': 'stereo-ve-mono',
   'target.com': 'target',
   'tedcrane.com/DanceDB': 'dancedb',
   'theatricalia.com': 'theatricalia',
@@ -243,8 +244,7 @@ export const FAVICON_CLASSES: {
   'themoviedb.org': 'tmdb',
   'thesession.org': 'thesession',
   'threads.com': 'threads',
-  // TODO: Remove once URLs migrated (MBBE-94)
-  'threads.net': 'threads',
+  'thwiki.cc': 'thbwiki',
   'tidal.com': 'tidal',
   'tiktok.com': 'tiktok',
   'tipeee.com': 'tipeee',
@@ -282,6 +282,7 @@ export const FAVICON_CLASSES: {
   'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
   'yesasia.com': 'yesasia',
+  'zemereshet.co.il': 'zemereshet',
 };
 
 export const PART_OF_SERIES_LINK_TYPES: {

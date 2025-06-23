@@ -45,7 +45,7 @@ component InstrumentIndex(
         entity={instrument}
       />
       <Relationships source={instrument} />
-      {manifest('instrument/index', {async: 'async'})}
+      {manifest('instrument/index', {async: true})}
     </InstrumentLayout>
   );
 }

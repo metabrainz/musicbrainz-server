@@ -34,7 +34,7 @@ component AreaIndex(
         entity={area}
       />
       <Relationships source={area} />
-      {manifest('area/index', {async: 'async'})}
+      {manifest('area/index', {async: true})}
     </AreaLayout>
   );
 }

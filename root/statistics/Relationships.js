@@ -123,7 +123,7 @@ component Relationships(
               return (
                 <>
                   <tr className="thead">
-                    <th colSpan="4">
+                    <th colSpan={4}>
                       {texp.l_statistics(
                         '{type0}-{type1}',
                         {type0, type1},
@@ -131,7 +131,7 @@ component Relationships(
                     </th>
                   </tr>
                   <tr>
-                    <th colSpan="2">
+                    <th colSpan={2}>
                       {texp.l_statistics(
                         '{type0}-{type1} relationships:',
                         {type0, type1},

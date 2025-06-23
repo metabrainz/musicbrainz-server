@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::LyricEvesta;
+package MusicBrainz::Server::Entity::URL::StereoVeMono;
 
 use Moose;
 use utf8;
@@ -6,7 +6,7 @@ use utf8;
 extends 'MusicBrainz::Server::Entity::URL';
 with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
-sub sidebar_name { 'イベスタ歌詞' }
+sub sidebar_name { 'סטריאו ומונו' }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
@@ -14,7 +14,7 @@ no Moose;
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2019 MetaBrainz Foundation
+Copyright (C) 2025 MetaBrainz Foundation
 
 This file is part of MusicBrainz, the open internet music database,
 and is licensed under the GPL version 2, or (at your option) any

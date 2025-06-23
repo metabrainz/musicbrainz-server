@@ -44,7 +44,7 @@ component AttributeEditFormWithEntityType(...{
   parentSelectOptions,
 }: Props) {
   const entityTypeOptions = {
-    grouped: false,
+    grouped: false as const,
     options: Object.keys(entityTypeSelectOptions).sort().map(type => {
       return {label: ENTITY_NAMES[type], value: type};
     }),

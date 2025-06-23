@@ -90,7 +90,7 @@ const createInitialState = (
     has_errors: false,
     html_name: '',
     id: 0,
-    type: 'compound_field',
+    type: 'compound_field' as const,
   };
 
   return {
