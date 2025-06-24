@@ -8,9 +8,9 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( lp N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship',
-     'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
+with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
+sub edit_category { l('Relationship') }
 sub edit_name { N_lp('Remove relationship type', 'edit type') }
 sub edit_kind { 'remove' }
 sub edit_type { $EDIT_RELATIONSHIP_REMOVE_LINK_TYPE }
