@@ -11,7 +11,7 @@ use MusicBrainz::Server::Entity::ExampleRelationship;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_lp );
+use MusicBrainz::Server::Translation qw( l N_lp );
 use Scalar::Util qw( looks_like_number );
 
 use aliased 'MusicBrainz::Server::Entity::LinkType';

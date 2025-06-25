@@ -5,7 +5,7 @@ use MooseX::Types::Structured qw( Dict  Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_TYPE );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_lp );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert',
