@@ -72,6 +72,7 @@ Images:
     flags/tv.png (https://github.com/shoal3/famfamfam-flags-updated)
     flags/xk.png (https://commons.wikimedia.org/wiki/File:Flag_of_Kosovo.svg)
     flags/xw.png (author: pmepepnoute (https://tickets.metabrainz.org/browse/MBS-11292), released as CC0)
+    flags/yu.png (https://commons.wikimedia.org/wiki/File:Icons-flag-yucs.png)
 
 ----------------------------------------------------------------------------
 
