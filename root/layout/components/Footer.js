@@ -75,6 +75,15 @@ component Footer() {
                 </span>
               ),
             })}
+            {DBDefs.IS_BETA ? (
+              <>
+                {' '}
+                {exp.l(
+                  'See {tickets|all tickets in beta testing}.',
+                  {tickets: 'https://tickets.metabrainz.org/issues/?filter=10715'},
+                )}
+              </>
+            ) : null}
           </>
         ) : null}
 
