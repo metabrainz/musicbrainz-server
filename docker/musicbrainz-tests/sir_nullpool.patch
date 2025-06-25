@@ -1,0 +1,20 @@
+diff --git a/sir/util.py b/sir/util.py
+index 957c4a3..5980e4d 100644
+--- a/sir/util.py
++++ b/sir/util.py
+@@ -19,6 +19,7 @@ from json import loads
+ from sqlalchemy import create_engine
+ from sqlalchemy.engine.url import URL
+ from sqlalchemy.orm import sessionmaker
++from sqlalchemy.pool import NullPool
+ 
+ 
+ logger = logging.getLogger("sir")
+@@ -53,6 +54,7 @@ def engine():
+     cdict["database"] = cget("dbname")
+     return create_engine(
+         URL.create("postgresql", **cdict),
++        poolclass=NullPool,
+         server_side_cursors=False
+     )
+ 

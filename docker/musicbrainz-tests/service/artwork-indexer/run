@@ -4,4 +4,5 @@ cd /home/musicbrainz/artwork-indexer
 
 export HOME=/home/musicbrainz
 exec chpst -u musicbrainz:musicbrainz \
-    bash -c '. venv/bin/activate; exec python3 indexer.py --max-wait=1' 2>&1
+    env PATH="/home/musicbrainz/.local/bin:$PATH" \
+    poetry run python indexer.py --max-wait=1 2>&1
