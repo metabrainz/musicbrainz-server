@@ -10,6 +10,8 @@
     <body>
         [%- React.embed(c, 'layout/components/Header') -%]
 
+        [%- React.embed(c, 'layout/components/SupportedBrowserCheck') -%]
+
         [%- IF c.user.l_restrictions.size -%]
             <div class="banner editing-disabled">
                 <p>
@@ -120,6 +122,11 @@
                 <a href="https://bsky.app/profile/musicbrainz.org" class="internal">[% l('Bluesky') %]</a>
                 [%- IF server_details.beta_redirect %]
                 <a href="[% c.uri_for('/set-beta-preference', {returnto => c.relative_uri}) %]" class="internal">[% server_details.is_beta ? l('Stop using beta site') : l('Use beta site') %]</a>
+                [%- END -%]
+                [%- IF legacy_browser %]
+                    <a href="[% c.uri_for('/toggle-legacy-browser', {returnto => c.relative_uri}) %]" class="internal">
+                        [%- l('Disable legacy browser mode') -%]
+                    </a>
                 [%- END -%]
             </p>
 

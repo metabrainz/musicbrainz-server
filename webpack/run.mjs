@@ -12,7 +12,7 @@ import path from 'path';
 import webpack from 'webpack';
 
 import clientConfig from './client.config.mjs';
-import {BUILD_DIR} from './constants.mjs';
+import {BUILD_DIR, LEGACY_BROWSER} from './constants.mjs';
 import serverConfig from './server.config.mjs';
 import testsConfig from './tests.config.mjs';
 
@@ -65,7 +65,10 @@ function webpackCallback(err, stats) {
       revManifestJson[key] = value;
     }
     fs.writeFileSync(
-      path.resolve(BUILD_DIR, 'rev-manifest.json'),
+      path.resolve(
+        BUILD_DIR,
+        'rev-manifest' + (LEGACY_BROWSER ? '-legacy' : '') + '.json',
+      ),
       JSON.stringify(revManifestJson),
     );
   }

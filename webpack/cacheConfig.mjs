@@ -10,7 +10,7 @@ import path from 'path';
 
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
-import {WEBPACK_MODE} from './constants.mjs';
+import {BROWSER_TARGET, WEBPACK_MODE} from './constants.mjs';
 
 export default {
   buildDependencies: {
@@ -19,8 +19,8 @@ export default {
   type: 'filesystem',
   version: (
     WEBPACK_MODE + '-' +
+    BROWSER_TARGET + '-' +
     String(process.env.NODE_ENV) + '-' +
-    String(process.env.MODERN_BROWSERS === '1') + '-' +
     String(process.env.MUSICBRAINZ_RUNNING_TESTS)
   ),
 };

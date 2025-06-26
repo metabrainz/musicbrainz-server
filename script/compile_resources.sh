@@ -107,6 +107,12 @@ if [[ "$BUILD_TESTS" == "1" ]]; then
     fi
 fi
 
+BROWSER_TARGET="${BROWSER_TARGET:-production}"
+if [[ ! "$BROWSER_TARGET" =~ ^(production|modern|legacy)$ ]]; then
+    echo "Unknown BROWSER_TARGET: $BROWSER_TARGET"
+    exit 1
+fi
+
 "$MB_SERVER_ROOT"/bin/sucrase-node \
     "$MB_SERVER_ROOT"/webpack/run.mjs \
     $RUN_ARGS &

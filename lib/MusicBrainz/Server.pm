@@ -404,6 +404,15 @@ around dispatch => sub {
     }
 };
 
+# Copy the legacy-browser cookie setting into the stash.
+around dispatch => sub {
+    my ($orig, $c, @args) = @_;
+
+    my $cookie = $c->req->cookies->{'legacy-browser'};
+    $c->stash->{legacy_browser} = defined $cookie && $cookie->value eq 'on';
+    $c->$orig(@args);
+};
+
 # All warnings should be logged
 around dispatch => sub {
     my ($orig, $c, @args) = @_;
@@ -874,6 +883,7 @@ sub TO_JSON {
     my @boolean_stash_keys = qw(
         current_action_requires_auth
         hide_merge_helper
+        legacy_browser
         makes_no_changes
         new_edit_notes
         overlong_string
@@ -938,6 +948,10 @@ sub TO_JSON {
     for my $name ($req->headers->header_field_names) {
         $headers{lc($name)} = $req->headers->header($name);
     }
+
+    $stash{has_content_security_policy} = boolean_to_json(
+        non_empty($self->res->header('Content-Security-Policy')),
+    );
 
     my $session = $self->session;
     if ($session) {
