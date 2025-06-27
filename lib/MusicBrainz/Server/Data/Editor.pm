@@ -9,6 +9,7 @@ use Authen::Passphrase;
 use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
+use DateTime::Format::Pg;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
@@ -229,6 +230,59 @@ sub find_by_ip {
 
     my @ids = $self->store->set_members("ipusers:$ip");
     $self->query_to_list_limited($query, [\@ids], $limit, $offset);
+}
+
+sub find_possible_spammers {
+    my ($self, %args) = @_;
+
+    my ($op, $id, $limit) = @args{qw( op id limit )};
+
+    my %ops = (
+        'gt' => '>',
+        'gte' => '>=',
+        'lt' => '<',
+        'lte' => '<=',
+    );
+
+    die 'invalid op' unless defined $op && exists $ops{$op};
+    my $sql_op = $ops{$op};
+    # The order of results is DESC (newest accounts first), but $op
+    # determines which direction we're paginating in.
+    my $reversed = $op =~ /^g/;
+
+    my $query = 'SELECT ' . $self->_columns .
+        ' FROM ' . $self->_table .
+        " WHERE id $sql_op \$1" .
+        ' AND (privs & $2) = $2' .
+        ' AND (privs & $3) = 0' .
+        ' AND COALESCE(website, bio, \'\') != \'\'' .
+        ' ORDER BY id ' . ($reversed ? 'ASC' : 'DESC') .
+        ' LIMIT $4';
+
+    my @editors = $self->query_to_list(
+        $query,
+        [$id, $BEGINNER_FLAG, $SPAMMER_FLAG, $limit],
+    );
+
+    if ($reversed) {
+        # We had to query in ASC order, so resort in DESC order.
+        # We specifically disable the critic rule suggesting `reverse sort`
+        # instead of "$b before $a" to allow an in-place sort.
+        ## no critic 'ProhibitReverseSortBlock'
+        @editors = sort { $b->id <=> $a->id } @editors;
+    }
+
+    my $unused_editors_results = $self->sql->select_list_of_hashes(
+        $self->c->model('Editor')->_build_unused_editor_query() . "\n" .
+            'AND e.id = any(?)',
+        [map { $_->id } @editors],
+    );
+    my %unused_editors = map { $_->{id} => 1 } @$unused_editors_results;
+
+    for my $editor (@editors) {
+        $editor->unused(exists $unused_editors{ $editor->id });
+    }
+    return @editors;
 }
 
 sub search_by_email {
