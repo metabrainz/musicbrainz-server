@@ -15,6 +15,7 @@ use MusicBrainz::Server::Data::Utils qw(
     merge_table_attributes
     merge_string_attributes
     merge_date_period
+    placeholders
 );
 use MusicBrainz::Server::Data::Utils::Cleanup qw( used_in_relationship );
 
@@ -172,6 +173,31 @@ sub _hash_to_row
         if exists $place->{coordinates};
 
     return $row;
+}
+
+=method load_ids
+
+Load internal IDs for area objects that only have GIDs.
+
+=cut
+
+sub load_ids
+{
+    my ($self, @places) = @_;
+
+    my @gids = map { $_->gid } @places;
+    return () unless @gids;
+
+    my $query = '
+        SELECT gid, id FROM place
+        WHERE gid IN (' . placeholders(@gids) . ')
+    ';
+    my %map = map { $_->[0] => $_->[1] }
+        @{ $self->sql->select_list_of_lists($query, @gids) };
+
+    for my $place (@places) {
+        $place->id($map{$place->gid}) if exists $map{$place->gid};
+    }
 }
 
 sub load_meta

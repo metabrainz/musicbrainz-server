@@ -185,6 +185,7 @@ sub direct : Private
     elsif ($type eq 'place') {
         $c->model('PlaceType')->load(@entities);
         $c->model('Area')->load(@entities);
+        $c->model('Area')->load_containment(map { $_->area } @entities);
     }
     elsif ($type eq 'instrument') {
         $c->model('InstrumentType')->load(@entities);
