@@ -88,6 +88,7 @@ sub load
     my ($self, @objs) = @_;
     my @areas = load_subobjects($self, ['area', 'begin_area', 'end_area', 'country'], @objs);
     $self->c->model('Area')->load_aliases(@areas);
+    return @areas;
 }
 
 sub load_containment {
