@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Data::Editor;
+use feature 'state';
 use Moose;
 use namespace::autoclean;
 use LWP;
@@ -440,6 +441,110 @@ sub update_privileges {
             $self->c->model('Editor')->cancel_edits_and_votes($editor);
         }
     }, $self->sql);
+}
+
+sub _build_unused_editor_query {
+    my ($self) = @_;
+
+    state $editor_collection_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('collections'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM editor_collection ec
+                JOIN editor_collection_$_ ece ON ece.collection = ec.id
+                WHERE ec.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_rating_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('ratings'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM ${_}_rating_raw err
+                WHERE err.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_subscription_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('subscriptions'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM editor_subscribe_$_ ese
+                WHERE ese.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_subscription_deleted_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with(['subscriptions', 'deleted']),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM editor_subscribe_${_}_deleted esed
+                WHERE esed.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_tag_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('tags'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM ${_}_tag_raw etr
+                WHERE etr.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    return <<~"SQL";
+            SELECT e.id, e.name
+            FROM editor e
+            WHERE
+        deleted IS false
+    AND privs = 8192
+    AND NOT EXISTS (SELECT 1
+                        FROM application
+                    WHERE application.owner = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM editor_oauth_token
+                    WHERE editor_oauth_token.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM vote
+                    WHERE vote.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM edit
+                    WHERE edit.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM edit_note
+                    WHERE edit_note.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM annotation
+                    WHERE annotation.editor = e.id)
+    AND $editor_subscription_subquery
+    AND $editor_subscription_deleted_subquery
+    AND $editor_tag_subquery
+    AND $editor_rating_subquery
+    AND $editor_collection_subquery
+    AND NOT EXISTS (   SELECT 1
+                        FROM editor_collection ec
+                        JOIN editor_collection_collaborator ecc
+                            ON ecc.collection = ec.id
+                        WHERE ec.editor = e.id)
+    AND NOT EXISTS (   SELECT 1
+                        FROM editor_collection_collaborator ecc
+                        WHERE ecc.editor = e.id)
+    SQL
 }
 
 sub make_autoeditor
