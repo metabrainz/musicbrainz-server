@@ -150,7 +150,6 @@ function buildLinks(
 
   if (
     entityProperties.ratings ||
-    // $FlowIssue[prop-missing]
     entityProperties.reviews
   ) {
     const ratingsTabTitle = entityProperties.reviews
