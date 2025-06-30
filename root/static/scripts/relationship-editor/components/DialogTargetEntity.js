@@ -236,13 +236,12 @@ export function updateTargetAutocomplete(
   );
 }
 
-// eslint-disable-next-line consistent-return
 export function reducer(
   state: DialogTargetEntityStateT,
   action: DialogTargetEntityActionT,
 ): DialogTargetEntityStateT {
-  switch (action.type) {
-    case 'update-autocomplete': {
+  match (action) {
+    {type: 'update-autocomplete', ...} as action => {
       const newState: {...DialogTargetEntityStateT} = {...state};
 
       updateTargetAutocomplete(newState, action);
@@ -269,13 +268,13 @@ export function reducer(
 
       return newState;
     }
-    case 'update-credit': {
+    {type: 'update-credit', const action} => {
       return dialogEntityCreditReducer(
         state,
-        action.action,
+        action,
       );
     }
-    case 'update-url-text': {
+    {type: 'update-url-text', const text} => {
       invariant(state.targetType === 'url');
 
       const newState: {...DialogTargetEntityStateT} = {...state};
@@ -283,15 +282,11 @@ export function reducer(
       invariant(newState.target.entityType === 'url');
 
       const newTarget = {...newState.target};
-      const url = action.text;
+      const url = text;
       newTarget.name = url;
       newState.target = newTarget;
 
       return newState;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
     }
   }
 }

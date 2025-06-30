@@ -36,18 +36,12 @@ export function reducer<T: $ReadOnly<{...DialogEntityCreditStateT, ...}>>(
 ): T {
   const newState: {...T, ...} = {...state};
 
-  switch (action.type) {
-    case 'set-credit': {
-      newState.creditedAs = action.creditedAs;
-      break;
+  match (action) {
+    {type: 'set-credit', const creditedAs} => {
+      newState.creditedAs = creditedAs;
     }
-    case 'set-credits-to-change': {
-      newState.creditsToChange = action.value;
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
+    {type: 'set-credits-to-change', const value} => {
+      newState.creditsToChange = value;
     }
   }
 

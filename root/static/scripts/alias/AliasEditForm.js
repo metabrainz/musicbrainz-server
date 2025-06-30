@@ -109,11 +109,11 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   const fieldCtx = newStateCtx.get('form', 'field');
 
-  switch (action.type) {
-    case 'update-date-range': {
+  match (action) {
+    {type: 'update-date-range', const action} => {
       runDateRangeFieldsetReducer(
         newStateCtx.get('form', 'field', 'period'),
-        action.action,
+        action,
       );
       const isEnded = newStateCtx.get(
         'form', 'field', 'period', 'field', 'ended', 'value',
@@ -122,50 +122,44 @@ function reducer(state: StateT, action: ActionT): StateT {
       if (isEnded) {
         fieldCtx.set('primary_for_locale', 'value', false);
       }
-      break;
     }
-    case 'update-name': {
+    {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
         field: state.form.field.name,
         guessCaseOptions: state.guessCaseOptions,
         isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
       });
-      runNameReducer(nameStateCtx, action.action);
+      runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.read();
       newStateCtx
         .set('form', 'field', 'name', nameState.field)
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-      break;
     }
-    case 'update-sortname': {
+    {type: 'update-sortname', const action} => {
       const sortNameStateCtx = mutate({
         nameField: state.form.field.name,
         sortNameField: state.form.field.sort_name,
       });
-      runSortNameReducer(sortNameStateCtx, action.action);
+      runSortNameReducer(sortNameStateCtx, action);
       const sortNameState = sortNameStateCtx.read();
       fieldCtx
         .set('name', sortNameState.nameField)
         .set('sort_name', sortNameState.sortNameField);
-      break;
     }
-    case 'set-locale': {
-      fieldCtx.set('locale', 'value', action.locale);
-      if (action.locale === '') {
+    {type: 'set-locale', const locale} => {
+      fieldCtx.set('locale', 'value', locale);
+      if (locale === '') {
         fieldCtx.set('primary_for_locale', 'value', false);
       }
-      break;
     }
-    case 'set-primary-for-locale': {
-      const enabled = action.enabled;
+    {type: 'set-primary-for-locale', const enabled} => {
       fieldCtx.set('primary_for_locale', 'value', enabled);
-      break;
     }
-    case 'set-type': {
-      fieldCtx.set('type_id', 'value', action.type_id);
+    {type: 'set-type', const type_id} => {
+      fieldCtx.set('type_id', 'value', type_id);
       const isTypeSearchHint =
-        parseInt(action.type_id, 10) === state.searchHintType;
+        parseInt(type_id, 10) === state.searchHintType;
       newStateCtx.set('isTypeSearchHint', isTypeSearchHint);
       /*
        * Many fields are irrelevant for search hints,
@@ -191,14 +185,9 @@ function reducer(state: StateT, action: ActionT): StateT {
         copyDatePeriodField(previousFormField.period, fieldCtx.get('period'));
         newStateCtx.set('previousForm', null);
       }
-      break;
     }
-    case 'show-all-pending-errors': {
+    {type: 'show-all-pending-errors'} => {
       applyAllPendingErrors(newStateCtx.get('form'));
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
     }
   }
   return newStateCtx.final();

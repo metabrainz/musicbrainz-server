@@ -57,19 +57,12 @@ function showEditTab(
   user: ?UnsanitizedEditorT,
   entity: RelatableEntityT,
 ): boolean {
-  switch (entity.entityType) {
-    case 'area':
-      return isLocationEditor(user);
-    case 'artist':
-      return !isSpecialPurpose(entity);
-    case 'genre':
-    case 'instrument':
-      return isRelationshipEditor(user);
-    case 'label':
-      return !isSpecialPurpose(entity);
-    default:
-      return true;
-  }
+  return match (entity) {
+    {entityType: 'area', ...} => isLocationEditor(user),
+    {entityType: 'artist' | 'label', ...} => !isSpecialPurpose(entity),
+    {entityType: 'genre' | 'instrument', ...} => isRelationshipEditor(user),
+    _ => true
+  };
 }
 
 function buildLinks(
