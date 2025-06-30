@@ -19,51 +19,30 @@ export function createNonUrlRelatableEntityObject(
   type: NonUrlRelatableEntityTypeT,
   props?: CommonPropsT,
 ): NonUrlRelatableEntityT {
-  switch (type) {
-    case 'area':
-      return createAreaObject(props);
-    case 'artist':
-      return createArtistObject(props);
-    case 'event':
-      return createEventObject(props);
-    case 'genre':
-      return createGenreObject(props);
-    case 'instrument':
-      return createInstrumentObject(props);
-    case 'label':
-      return createLabelObject(props);
-    case 'place':
-      return createPlaceObject(props);
-    case 'recording':
-      return createRecordingObject(props);
-    case 'release':
-      return createReleaseObject(props);
-    case 'release_group':
-      return createReleaseGroupObject(props);
-    case 'series':
-      return createSeriesObject(props);
-    case 'work':
-      return createWorkObject(props);
-    default: {
-      /*:: exhaustive(type); */
-
-      throw new Error(
-        JSON.stringify(type) + ' is not a core entity type.',
-      );
-    }
-  }
+  return match (type) {
+    'area' => createAreaObject(props),
+    'artist' => createArtistObject(props),
+    'event' => createEventObject(props),
+    'genre' => createGenreObject(props),
+    'instrument' => createInstrumentObject(props),
+    'label' => createLabelObject(props),
+    'place' => createPlaceObject(props),
+    'recording' => createRecordingObject(props),
+    'release' => createReleaseObject(props),
+    'release_group' => createReleaseGroupObject(props),
+    'series' => createSeriesObject(props),
+    'work' => createWorkObject(props),
+  };
 }
 
 export function createRelatableEntityObject(
   type: RelatableEntityTypeT,
   props?: CommonPropsT,
 ): RelatableEntityT {
-  switch (type) {
-    case 'url':
-      return createUrlObject(props);
-    default:
-      return createNonUrlRelatableEntityObject(type, props);
-  }
+  return match (type) {
+    'url' => createUrlObject(props),
+    _ as type => createNonUrlRelatableEntityObject(type, props),
+  };
 }
 
 export function createAreaObject(

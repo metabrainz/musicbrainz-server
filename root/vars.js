@@ -181,8 +181,5 @@ declare var texp: {
   ) => string,
 };
 
-// https://flow.org/en/docs/tips/switch-statement-exhaustiveness/
-declare var exhaustive: (action: empty) => void;
-
 // root/utility/invariant.js
 declare var invariant: (cond: mixed, msg?: string) => empty;

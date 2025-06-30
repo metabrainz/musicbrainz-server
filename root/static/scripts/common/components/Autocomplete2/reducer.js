@@ -292,12 +292,12 @@ function selectItem<T: EntityItemT>(
   state: {...StateT<T>},
   item: ItemT<T>,
 ) {
-  switch (item.type) {
-    case 'action': {
-      runReducer<T>(state, item.action);
+  match (item) {
+    {type: 'action', const action, ...} => {
+      runReducer<T>(state, action);
       return;
     }
-    case 'option': {
+    {type: 'option', ...} as item => {
       const itemName = unwrapNl<string>(item.name);
 
       state.selectedItem = item;
@@ -319,7 +319,10 @@ function selectItem<T: EntityItemT>(
         item,
         state.recentItemsKey,
       );
-    }
+    },
+    {type: 'header', ...} => {
+      // Do nothing
+    },
   }
 
   state.isOpen = false;
@@ -374,39 +377,36 @@ export function runReducer<T: EntityItemT>(
   let highlightFirstIndex = false;
   let showAvailableItems = false;
 
-  switch (action.type) {
-    case 'change-entity-type': {
+  match (action) {
+    {type: 'change-entity-type', const entityType} => {
       const oldEntityType = state.entityType;
-      state.entityType = action.entityType;
+      state.entityType = entityType;
       state.selectedItem = null;
       state.recentItems = null;
       if (state.recentItemsKey === oldEntityType) {
-        state.recentItemsKey = action.entityType;
+        state.recentItemsKey = entityType;
       }
       state.results = null;
       resetPage<T>(state);
       updateItems = true;
       updateStatusMessage = true;
-      break;
     }
 
-    case 'highlight-index': {
-      state.highlightedIndex = action.index;
+    {type: 'highlight-index', const index} => {
+      state.highlightedIndex = index;
       updateStatusMessage = true;
-      break;
     }
 
-    case 'highlight-next-item': {
+    {type: 'highlight-next-item'} => {
       highlightNextItem<T>(
         state,
         state.highlightedIndex + 1,
         1,
       );
       updateStatusMessage = true;
-      break;
     }
 
-    case 'highlight-previous-item': {
+    {type: 'highlight-previous-item'} => {
       highlightNextItem<T>(
         state,
         state.highlightedIndex >= 0
@@ -415,56 +415,51 @@ export function runReducer<T: EntityItemT>(
         -1,
       );
       updateStatusMessage = true;
-      break;
     }
 
-    case 'toggle-add-entity-dialog': {
-      state.isAddEntityDialogOpen = action.isOpen;
-      break;
+    {type: 'toggle-add-entity-dialog', const isOpen} => {
+      state.isAddEntityDialogOpen = isOpen;
     }
 
-    case 'search-after-timeout':
+    {type: 'search-after-timeout', ...} as action => {
       state.page = 1;
       initSearch<T>(state, action);
-      break;
+    }
 
-    case 'select-item':
-      selectItem<T>(state, action.item);
+    {type: 'select-item', const item} => {
+      selectItem<T>(state, item);
       updateItems = true;
       updateStatusMessage = true;
-      break;
+    }
 
-    case 'set-input-focus': {
-      state.isInputFocused = action.isFocused;
-      if (action.isFocused && state.selectedItem == null) {
+    {type: 'set-input-focus', const isFocused} => {
+      state.isInputFocused = isFocused;
+      if (isFocused && state.selectedItem == null) {
         showAvailableItems = true;
         if (!state.items.length && state.recentItems?.length) {
           updateItems = true;
         }
       }
-      break;
     }
 
-    case 'set-menu-visibility':
-      state.isOpen = action.value && state.items.length > 0;
+    {type: 'set-menu-visibility', const value} => {
+      state.isOpen = value && state.items.length > 0;
       updateStatusMessage = true;
-      break;
+    }
 
-    case 'show-lookup-error': {
+    {type: 'show-lookup-error'} => {
       setError<T>(state, ERROR_LOOKUP);
       updateItems = true;
       updateStatusMessage = true;
-      break;
     }
 
-    case 'show-lookup-type-error': {
+    {type: 'show-lookup-type-error'} => {
       setError<T>(state, ERROR_LOOKUP_TYPE);
       updateItems = true;
       updateStatusMessage = true;
-      break;
     }
 
-    case 'show-ws-results': {
+    {type: 'show-ws-results', ...} as action => {
       const {entities, page, totalPages} = action;
 
       let newResults: Array<ItemT<T>> = entities.map((entity: T) => ({
@@ -498,11 +493,10 @@ export function runReducer<T: EntityItemT>(
 
       updateItems = true;
       updateStatusMessage = true;
-      break;
     }
 
-    case 'set-recent-items': {
-      state.recentItems = action.items;
+    {type: 'set-recent-items', const items} => {
+      state.recentItems = items;
 
       const staticItems = state.staticItems;
       if (staticItems) {
@@ -522,57 +516,51 @@ export function runReducer<T: EntityItemT>(
       ) {
         showAvailableItems = true;
       }
-
-      break;
     }
 
-    case 'clear-recent-items': {
+    {type: 'clear-recent-items'} => {
       clearRecentItems(state.recentItemsKey);
       state.recentItems = [];
       state.highlightedIndex = -1;
       updateItems = true;
-      break;
     }
 
-    case 'show-search-error': {
+    {type: 'show-search-error'} => {
       setError<T>(state, ERROR_SEARCH);
       state.pendingSearch = null;
       updateItems = true;
       updateStatusMessage = true;
-      break;
     }
 
-    case 'show-more-results':
+    {type: 'show-more-results'} => {
       state.page++;
       if (!state.staticItems) {
         initSearch<T>(state, SEARCH_AGAIN);
       }
-      break;
-
-    case 'stop-search':
-      state.pendingSearch = null;
-      break;
-
-    case 'toggle-descriptions': {
-      state.showDescriptions = action.showDescriptions;
-      setCookie('show_autocomplete_descriptions', state.showDescriptions);
-      break;
     }
 
-    case 'toggle-indexed-search':
+    {type: 'stop-search'} => {
+      state.pendingSearch = null;
+    }
+
+    {type: 'toggle-descriptions', const showDescriptions} => {
+      state.showDescriptions = showDescriptions;
+      setCookie('show_autocomplete_descriptions', state.showDescriptions);
+    }
+
+    {type: 'toggle-indexed-search'} => {
       state.indexedSearch = !state.indexedSearch;
       state.page = 1;
       state.isOpen = false;
       initSearch<T>(state, SEARCH_AGAIN);
-      break;
-
-    case 'reset-menu': {
-      resetPage<T>(state);
-      break;
     }
 
-    case 'type-value': {
-      const newInputValue = action.value;
+    {type: 'reset-menu'} => {
+      resetPage<T>(state);
+    }
+
+    {type: 'type-value', const value} => {
+      const newInputValue = value;
       const staticItems = state.staticItems;
 
       if (staticItems) {
@@ -595,12 +583,7 @@ export function runReducer<T: EntityItemT>(
       updateItems = true;
       updateStatusMessage = true;
       showAvailableItems = true;
-      break;
     }
-
-    default:
-      /*:: exhaustive(action); */
-      throw new Error('Unknown action: ' + action.type);
   }
 
   if (updateItems) {
