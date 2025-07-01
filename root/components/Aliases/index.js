@@ -22,15 +22,11 @@ import AliasTable from './AliasTable.js';
 
 function canEdit($c: CatalystContextT, entityType: string) {
   if (isEditingEnabled($c.user)) {
-    switch (entityType) {
-      case 'area':
-        return isLocationEditor($c.user);
-      case 'genre':
-      case 'instrument':
-        return isRelationshipEditor($c.user);
-      default:
-        return true;
-    }
+    return match (entityType) {
+      'area' => isLocationEditor($c.user),
+      'genre' | 'instrument' => isRelationshipEditor($c.user),
+      _ => true,
+    };
   }
   return false;
 }

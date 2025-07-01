@@ -69,28 +69,24 @@ function entityHref(
   const path = entityProps.url;
   let id = '';
 
-  switch (entity.entityType) {
-    case 'isrc':
-      id = entity.isrc;
-      break;
-
-    case 'iswc':
-      id = entity.iswc;
-      break;
-
-    case 'cdstub':
-    case 'cdtoc':
-      id = entity.discid;
-      break;
-
-    case 'editor':
-      id = entity.name;
-      break;
-
-    default:
+  match (entity) {
+    {entityType: 'isrc', const isrc, ...} => {
+      id = isrc;
+    }
+    {entityType: 'iswc', const iswc, ...} => {
+      id = iswc;
+    }
+    {entityType: 'cdstub' | 'cdtoc', const discid, ...} => {
+      id = discid;
+    }
+    {entityType: 'editor', const name, ...} => {
+      id = name;
+    }
+    _ as entity => {
       if (entityProps.mbid && nonEmpty(entity.gid)) {
         id = ko.unwrap(entity.gid);
       }
+    }
   }
 
   return generateHref(path, id, subPath, anchorPath);

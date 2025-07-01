@@ -63,12 +63,14 @@ declare type LinkTypeT = {
   l_reverse_link_phrase?: string,
   +link_phrase: string,
   +long_link_phrase: string,
-  +orderable_direction: number,
+  +orderable_direction: OrderableDirectionT,
   +reverse_link_phrase: string,
   +root_id: number | null,
   +type0: RelatableEntityTypeT,
   +type1: RelatableEntityTypeT,
 };
+
+declare type OrderableDirectionT = 0 | 1 | 2;
 
 declare type PagedLinkTypeGroupT = {
   +backward: boolean,

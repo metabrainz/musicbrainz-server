@@ -20,9 +20,16 @@ import {
 const typeInfoPromises = new Map<string, Promise<void>>();
 const loadedTypeInfo = new Set<string>();
 
+type LoadableEntityTypeT =
+  | 'language'
+  | 'link_attribute_type'
+  | 'link_type'
+  | 'series_type'
+  | 'work_type';
+
 export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
   WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
-  typeInfoToLoad: $ReadOnlySet<string>,
+  typeInfoToLoad: $ReadOnlySet<LoadableEntityTypeT>,
 ): component(ref: React.RefSetter<Instance>, ...Config) {
   const ComponentWrapper = React.forwardRef((
     props: Config,
@@ -38,7 +45,7 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
     const loadingCanceledRef = React.useRef<boolean>(false);
 
     const loadTypeInfo = React.useCallback(async function (
-      typeName: string,
+      typeName: LoadableEntityTypeT,
     ) {
       const fetchUrl = '/ws/js/type-info/' + typeName;
 
@@ -57,32 +64,27 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
       } = await response.json();
       const typeInfo = responseJson[typeName + '_list'];
 
-      switch (typeName) {
-        case 'language': {
+      match (typeName) {
+        'language' => {
           linkedEntities.language = Object.fromEntries(
             keyBy(typeInfo, language => language.id),
           );
-          break;
         }
-        case 'link_attribute_type': {
+        'link_attribute_type' => {
           exportLinkAttributeTypeInfo(typeInfo);
-          break;
         }
-        case 'link_type': {
+        'link_type' => {
           exportLinkTypeInfo(typeInfo);
-          break;
         }
-        case 'series_type': {
+        'series_type' => {
           linkedEntities.series_type = Object.fromEntries(
             keyBy(typeInfo, type => type.id),
           );
-          break;
         }
-        case 'work_type': {
+        'work_type' => {
           linkedEntities.work_type = Object.fromEntries(
             keyBy(typeInfo, type => type.id),
           );
-          break;
         }
       }
 
@@ -156,7 +158,7 @@ export function withLoadedTypeInfoForRelationshipEditor<
   Instance = mixed,
 >(
   WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
-  extraTypeInfoToLoad?: $ReadOnlyArray<string> = [],
+  extraTypeInfoToLoad?: $ReadOnlyArray<LoadableEntityTypeT> = [],
 ): component(ref: React.RefSetter<Instance>, ...Config) {
   return withLoadedTypeInfo(
     WrappedComponent,
