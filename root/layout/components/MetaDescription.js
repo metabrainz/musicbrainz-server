@@ -188,30 +188,17 @@ component MetaDescription(entity: ?RelatableEntityT) {
   if (!entity) {
     return null;
   }
-  let desc;
-  switch (entity.entityType) {
-    case 'artist':
-      desc = artistDescription(entity);
-      break;
-    case 'event':
-      desc = eventDescription(entity);
-      break;
-    case 'instrument':
-      desc = instrumentDescription(entity);
-      break;
-    case 'label':
-      desc = labelDescription(entity);
-      break;
-    case 'place':
-      desc = placeDescription(entity);
-      break;
-    case 'release':
-      desc = releaseDescription(entity);
-      break;
-    case 'work':
-      desc = workDescription(entity);
-      break;
-  }
+  const desc = match (entity) {
+    {entityType: 'artist', ...} as entity => artistDescription(entity),
+    {entityType: 'event', ...} as entity => eventDescription(entity),
+    {entityType: 'instrument', ...} as entity =>
+        instrumentDescription(entity),
+    {entityType: 'label', ...} as entity => labelDescription(entity),
+    {entityType: 'place', ...} as entity => placeDescription(entity),
+    {entityType: 'release', ...} as entity => releaseDescription(entity),
+    {entityType: 'work', ...} as entity => workDescription(entity),
+    _ => undefined,
+  };
   if (desc?.length) {
     return <meta content={desc.join(', ')} name="description" />;
   }

@@ -9,19 +9,12 @@
 
 import {bracketedText} from '../utility/bracketed.js';
 
-component OrderableDirection(direction: number) {
-  let directionName;
-  switch (direction) {
-    case 0:
-      directionName = lp('None', 'relationship order direction');
-      break;
-    case 1:
-      directionName = l('Forward');
-      break;
-    case 2:
-      directionName = l('Backward');
-      break;
-  }
+component OrderableDirection(direction: OrderableDirectionT) {
+  const directionName = match (direction) {
+    0 => lp('None', 'relationship order direction'),
+    1 => l('Forward'),
+    2 => l('Backward'),
+  };
 
   return (
     <>

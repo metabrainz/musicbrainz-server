@@ -237,42 +237,32 @@ function compareSeriesItems(
   target1: RelatableEntityT,
   target2: RelatableEntityT,
 ): number {
-  switch (linkTypeId) {
-    case 802: { // event
+  match (linkTypeId) {
+    802 => { // event
       invariant(target1.entityType === 'event');
       invariant(target2.entityType === 'event');
 
-      const eventsCmp = compareEvents(target1, target2);
-      if (eventsCmp) {
-        return eventsCmp;
-      }
-      break;
+      return compareEvents(target1, target2);
     }
-    case 741: { // release
+    741 => { // release
       invariant(target1.entityType === 'release');
       invariant(target2.entityType === 'release');
 
-      const releasesCmp = compareReleases(target1, target2);
-      if (releasesCmp) {
-        return releasesCmp;
-      }
-      break;
+      return compareReleases(target1, target2);
     }
-    case 742: { // release group
+    742 => { // release group
       invariant(target1.entityType === 'release_group');
       invariant(target2.entityType === 'release_group');
 
-      const firstReleaseDateCmp = compareStrings(
+      return compareStrings(
         target1.firstReleaseDate || '',
         target2.firstReleaseDate || '',
       );
-      if (firstReleaseDateCmp) {
-        return firstReleaseDateCmp;
-      }
-      break;
+    }
+    _ => {
+      return 0;
     }
   }
-  return 0;
 }
 
 /*

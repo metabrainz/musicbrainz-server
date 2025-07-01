@@ -28,19 +28,20 @@ type StateT = {
 };
 
 function reducer(state: StateT, action: ActionT) {
-  switch (action.type) {
-    case 'toggle-modal':
+  match (action) {
+    {type: 'toggle-modal', const open} => {
       return {
         ...state,
-        isModalOpen: action.open,
+        isModalOpen: open,
       };
-    case 'toggle-popover':
+    }
+    {type: 'toggle-popover', const open} => {
       return {
         ...state,
-        isPopoverOpen: action.open,
+        isPopoverOpen: open,
       };
+    }
   }
-  return state;
 }
 
 function createInitialState() {

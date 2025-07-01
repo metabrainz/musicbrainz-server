@@ -14,13 +14,10 @@ type Args = {+type: '()' | '[]'};
 
 function _bracketed(args?: Args) {
   const type = args ? args.type : undefined;
-  switch (type) {
-    case '[]':
-      return l('[{text}]');
-    case '()':
-    default:
-      return l('({text})');
-  }
+  return match (type) {
+    '[]' => l('[{text}]'),
+    '()' | _ => l('({text})'),
+  };
 }
 
 export default function bracketed(

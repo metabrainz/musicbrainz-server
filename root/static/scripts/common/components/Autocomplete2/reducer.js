@@ -195,20 +195,20 @@ export function determineIfUserCanAddEntities<T: EntityItemT>(
   if (!user || !IS_TOP_WINDOW) {
     return false;
   }
-  switch (state.entityType) {
-    case 'area':
-      return isLocationEditor(user);
-    case 'editor':
-    case 'genre':
-    case 'link_type':
-    case 'link_attribute_type':
-    case 'release':
-      return false;
-    case 'instrument':
-      return isRelationshipEditor(user);
-    default:
-      return true;
-  }
+  return match (state) {
+    {entityType: 'area', ...} => isLocationEditor(user),
+    {
+      entityType:
+        | 'editor'
+        | 'genre'
+        | 'link_type'
+        | 'link_attribute_type'
+        | 'release',
+      ...
+    } => false,
+    {entityType: 'instrument', ...} => isRelationshipEditor(user),
+    _ => true,
+  };
 }
 
 function getFirstHighlightableIndex<T: EntityItemT>(

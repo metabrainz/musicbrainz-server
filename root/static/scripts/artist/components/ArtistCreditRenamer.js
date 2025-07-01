@@ -96,16 +96,15 @@ function createInitialState({
 }
 
 function reducer(state: StateT, action: ActionT): StateT {
-  switch (action.type) {
-    case 'set-expanded': {
-      return {...state, expanded: action.expanded};
+  match (action) {
+    {type: 'set-expanded', const expanded} => {
+      return {...state, expanded};
     }
-    case 'set-name': {
-      return {...state, name: action.name};
+    {type: 'set-name', const name} => {
+      return {...state, name};
     }
-    case 'toggle-artist-credit': {
+    {type: 'toggle-artist-credit', const artistCredit, const checked} => {
       const selection = state.selection;
-      const {artistCredit, checked} = action;
       if (checked) {
         const [index] = sortedIndexWith(
           selection,
@@ -122,7 +121,6 @@ function reducer(state: StateT, action: ActionT): StateT {
       };
     }
   }
-  return state;
 }
 
 const ArtistCreditRow = ({
