@@ -525,6 +525,7 @@ export default {
   'layout/components/sidebar/SeriesSidebar': (): Promise<mixed> => import('../layout/components/sidebar/SeriesSidebar.js'),
   'layout/components/sidebar/UrlSidebar': (): Promise<mixed> => import('../layout/components/sidebar/UrlSidebar.js'),
   'layout/components/sidebar/WorkSidebar': (): Promise<mixed> => import('../layout/components/sidebar/WorkSidebar.js'),
+  'layout/components/SupportedBrowserCheck': (): Promise<mixed> => import('../layout/components/SupportedBrowserCheck.js'),
   'place/PlaceHeader': (): Promise<mixed> => import('../place/PlaceHeader.js'),
   'recording/RecordingHeader': (): Promise<mixed> => import('../recording/RecordingHeader.js'),
   'release/CoverArtFields': (): Promise<mixed> => import('../release/CoverArtFields.js'),

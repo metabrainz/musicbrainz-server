@@ -19,24 +19,50 @@
 import fs from 'fs';
 import path from 'path';
 
+import {CatalystContext} from '../context.mjs';
+
 import {
   MB_SERVER_ROOT,
   STATIC_RESOURCES_LOCATION,
 } from './scripts/common/DBDefs.mjs';
 
 let revManifest;
+let legacyRevManifest;
 
-function pathTo(manifest: string) {
-  if (revManifest == null) {
-    revManifest = JSON.parse(fs.readFileSync(
-      path.resolve(MB_SERVER_ROOT, 'root/static/build/rev-manifest.json'),
-    ).toString());
+function pathTo(manifest: string, legacyBrowser: boolean) {
+  let mapping: {+[manifest: string]: string};
+
+  if (legacyBrowser) {
+    if (legacyRevManifest == null) {
+      try {
+        legacyRevManifest = JSON.parse(fs.readFileSync(
+          path.resolve(
+            MB_SERVER_ROOT,
+            'root/static/build/rev-manifest-legacy.json',
+          ),
+        ).toString());
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    mapping = legacyRevManifest;
+  } else {
+    if (revManifest == null) {
+      revManifest = JSON.parse(fs.readFileSync(
+        path.resolve(MB_SERVER_ROOT, 'root/static/build/rev-manifest.json'),
+      ).toString());
+    }
+    mapping = revManifest;
+  }
+
+  if (mapping == null) {
+    return '';
   }
 
   const cleanedManifest = manifest.replace(/^\//, '');
 
   const publicPath = STATIC_RESOURCES_LOCATION + '/' +
-    revManifest[cleanedManifest];
+    mapping[cleanedManifest];
 
   if (!publicPath) {
     return cleanedManifest;
@@ -56,10 +82,14 @@ function manifest(
     );
   }
   return (
-    <script
-      src={pathTo(manifest)}
-      {...extraAttrs}
-    />
+    <CatalystContext.Consumer>
+      {$c => (
+        <script
+          src={pathTo(manifest, $c.stash.legacy_browser ?? false)}
+          {...extraAttrs}
+        />
+      )}
+    </CatalystContext.Consumer>
   );
 }
 
