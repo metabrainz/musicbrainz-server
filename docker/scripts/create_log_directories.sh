@@ -14,7 +14,6 @@ fi
 declare -rA log_directories_by_container_type=(
   ['production-cron']='daily hourly monthly occasionally'
   ['json-dump']='daily-json-dump hourly-json-dump occasionally'
-  ['search-indexes-dump']='daily-search-indexes-dump hourly-search-indexes-dump occasionally'
   ['sitemaps']='daily-sitemaps hourly-sitemaps occasionally'
   ['solr-backup']='daily-solr-backup hourly-solr-backup occasionally'
 )
