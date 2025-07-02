@@ -12,8 +12,13 @@ import type {CellRenderProps} from 'react-table';
 
 import PaginatedResults from '../../components/PaginatedResults.js';
 import useTable from '../../hooks/useTable.js';
+import manifest from '../../static/manifest.mjs';
+import {
+  StandaloneSpammerButton,
+} from '../../static/scripts/admin/components/SpammerButton.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import bracketed from '../../static/scripts/common/utility/bracketed.js';
+import {isSpammer} from '../../static/scripts/common/utility/privileges.js';
 import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
@@ -35,6 +40,17 @@ const nameColumn = {
           >
             {l_admin('delete')}
           </a>,
+        )}
+        {editor == null || isSpammer(editor) ? null : (
+          <>
+            <StandaloneSpammerButton
+              user={{id: editor.id, privileges: editor.privileges}}
+            />
+            {manifest(
+              'admin/components/SpammerButton',
+              {async: true},
+            )}
+          </>
         )}
       </>
     );
