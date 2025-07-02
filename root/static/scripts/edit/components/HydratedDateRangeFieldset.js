@@ -23,12 +23,20 @@ component _HydratedDateRangeFieldset(
   disabled: boolean = false,
   endedLabel?: string,
   initialField: DatePeriodFieldT,
+  beginAreaIdField?: FieldT<string>,
+  beginAreaField?: AreaFieldT,
+  endAreaIdField?: FieldT<string>,
+  endAreaField?: AreaFieldT,
 ) {
   const [field, dispatch] = React.useReducer(reducer, initialField);
   return (
     <DateRangeFieldset
+      beginAreaField={beginAreaField}
+      beginAreaIdField={beginAreaIdField}
       disabled={disabled}
       dispatch={dispatch}
+      endAreaField={endAreaField}
+      endAreaIdField={endAreaIdField}
       endedLabel={endedLabel}
       field={field}
     >
