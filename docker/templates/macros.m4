@@ -341,7 +341,6 @@ python3.11
 python3.11-dev
 python3.11-distutils
 python3.11-venv
-software-properties-common
 ')
 
 m4_define(
