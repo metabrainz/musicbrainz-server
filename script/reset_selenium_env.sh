@@ -14,10 +14,10 @@ terminate_pg_backends() {
 SELECT pg_terminate_backend(pid)
   FROM pg_stat_activity
  WHERE usename = 'musicbrainz'
-   AND query NOT LIKE '%pg_terminate_backend%';
+   AND pid <> pg_backend_pid();
 SQL
     )
-    OUTPUT=`echo "$CANCEL_QUERY" | ./admin/psql SELENIUM 2>&1` || ( echo "$OUTPUT" && exit 1 )
+    echo "$CANCEL_QUERY" | ./admin/psql SELENIUM -- --single-transaction -v ON_ERROR_STOP=1
 }
 
 if [[ $SIR_DIR ]]; then
@@ -41,10 +41,10 @@ if [[ $SIR_DIR ]]; then
     OUTPUT=`./admin/psql SELENIUM <"$SIR_DIR"/sql/DropTriggers.sql 2>&1` || ( echo "$OUTPUT" && exit 1 )
 
     echo `date` : Purging sir queues
-    OUTPUT=`./script/purge_sir_queues.sh /sir-test 2>&1` || ( echo "$OUTPUT" && exit 1 )
+    ./script/purge_sir_queues.sh /sir-test
 
     echo `date` : Purging Solr cores
-    OUTPUT=`./script/purge_solr_cores.sh 2>&1` || ( echo "$OUTPUT" && exit 1 )
+    ./script/purge_solr_cores.sh
 else
     terminate_pg_backends
 fi
@@ -113,4 +113,5 @@ if [[ $SIR_DIR ]]; then
     popd
 fi
 
-OUTPUT=`./admin/PruneCache 2>&1` || ( echo "$OUTPUT" && exit 1 )
+echo `date` : Pruning the cache
+./admin/PruneCache
