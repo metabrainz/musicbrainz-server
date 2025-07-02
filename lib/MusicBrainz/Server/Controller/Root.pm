@@ -264,6 +264,10 @@ sub begin : Private
 {
     my ($self, $c) = @_;
 
+    if ($c->user_exists && $c->user->is_spammer) {
+        $c->detach('/user/logout');
+    }
+
     my $attributes = $c->action->attributes;
 
     ensure_ssl($c) if $attributes->{RequireSSL};
