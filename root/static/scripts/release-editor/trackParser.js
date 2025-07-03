@@ -14,6 +14,7 @@ import {createArtistObject} from '../common/entity2.js';
 import {
   hasVariousArtists,
   isCompleteArtistCredit,
+  nonEmptyArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities.js';
 import {compactMap, sortByNumber} from '../common/utility/arrays.js';
@@ -177,14 +178,16 @@ const trackParser = releaseEditor.trackParser = {
       }
 
       const artistName = data.artist ?? '';
-      data.artistCredit ||= {
-        names: [
-          {
-            artist: createArtistObject({name: artistName}),
-            name: artistName,
-          },
-        ],
-      };
+      data.artistCredit = nonEmptyArtistCredit(data.artistCredit)
+        ? data.artistCredit
+        : {
+          names: [
+            {
+              artist: createArtistObject({name: artistName}),
+              name: artistName,
+            },
+          ],
+        };
 
       /*
        * If the AC has just a single artist, we can re-use the parsed
