@@ -7,18 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import LayoutComponent from '../components/LayoutComponent.js';
 import manifest from '../static/manifest.mjs';
 import Annotation from '../static/scripts/common/components/Annotation.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component AnnotationRevision(
   annotation: AnnotationT | null,
   entity: AnnotatedEntityT,
   numberOfRevisions: number,
 ) {
-  const entityType = entity.entityType;
-  const LayoutComponent = chooseLayoutComponent(entityType);
-
   return (
     <LayoutComponent
       entity={entity}

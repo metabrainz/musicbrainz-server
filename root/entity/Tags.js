@@ -9,11 +9,11 @@
 
 import * as React from 'react';
 
+import LayoutComponent from '../components/LayoutComponent.js';
 import {CatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import {MainTagEditor}
   from '../static/scripts/common/components/TagEditor.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component Tags(
   allTags: $ReadOnlyArray<AggregatedTagT>,
@@ -22,8 +22,6 @@ component Tags(
   userTags: $ReadOnlyArray<UserTagT>,
 ) {
   const $c = React.useContext(CatalystContext);
-  const entityType = entity.entityType;
-  const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
     <LayoutComponent

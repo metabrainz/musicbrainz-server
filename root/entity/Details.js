@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import LayoutComponent from '../components/LayoutComponent.js';
 import {CatalystContext} from '../context.mjs';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import {ENTITIES} from '../static/scripts/common/constants.js';
@@ -16,7 +17,6 @@ import {
   CANONICAL_SERVER,
   WEB_SERVER,
 } from '../static/scripts/common/DBDefs.mjs';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
 type EntityPropertiesT = {
@@ -73,7 +73,6 @@ component Details(entity: NonUrlRelatableEntityT) {
     ? entityProperties.url : entityType;
   const canonicalLink = CANONICAL_SERVER +
     '/' + entityTypeForUrl + '/' + entity.gid;
-  const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
     <LayoutComponent
