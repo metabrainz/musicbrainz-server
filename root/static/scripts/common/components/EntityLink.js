@@ -226,15 +226,16 @@ component EntityLink(
     content = undefined;
   }
 
-  if (entity.entityType === 'area') {
-    content = empty(content) ? localizeAreaName(entity) : content;
-  } else if (entity.entityType === 'instrument') {
-    content = empty(content) ? localizeInstrumentName(entity) : content;
-  } else if (entity.entityType === 'link_type') {
-    content = empty(content) ? l_relationships(entityName) : content;
+  if (empty(content)) {
+    content = match (entity) {
+      {entityType: 'area', ...} as entity => localizeAreaName(entity),
+      {entityType: 'instrument', ...} as entity =>
+          localizeInstrumentName(entity),
+      {entityType: 'link_type', ...} => l_relationships(entityName),
+      _ => entityName,
+    };
   }
 
-  content = empty(content) ? entityName : content;
 
   const primaryAlias = (!isCountryArea &&
                         entity.entityType !== 'instrument' &&
