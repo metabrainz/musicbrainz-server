@@ -13,7 +13,7 @@ import FingerprintTable
 
 import RecordingLayout from './RecordingLayout.js';
 
-component RecordingFingerprints(recording: RecordingWithArtistCreditT) {
+component RecordingFingerprints(recording: RecordingT) {
   return (
     <RecordingLayout
       entity={recording}

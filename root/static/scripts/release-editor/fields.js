@@ -22,6 +22,7 @@ import {
   artistCreditsAreEqual,
   hasVariousArtists,
   isCompleteArtistCredit,
+  nonEmptyArtistCredit,
   reduceArtistCredit,
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
@@ -183,7 +184,7 @@ class Track {
 
     var recordingData = data.recording;
     if (recordingData) {
-      if (!recordingData.artistCredit) {
+      if (!nonEmptyArtistCredit(recordingData.artistCredit)) {
         recordingData.artistCredit = this.artistCredit();
       }
       this.recording(mbEntity(recordingData, 'recording'));

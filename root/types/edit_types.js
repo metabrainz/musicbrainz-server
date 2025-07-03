@@ -1104,8 +1104,8 @@ declare type MergeRecordingsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +large_spread: boolean,
-    +new: RecordingWithArtistCreditT,
-    +old: $ReadOnlyArray<RecordingWithArtistCreditT>,
+    +new: RecordingT,
+    +old: $ReadOnlyArray<RecordingT>,
   },
   +edit_type: EDIT_RECORDING_MERGE_T,
 }>;

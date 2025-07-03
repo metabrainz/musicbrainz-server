@@ -79,7 +79,6 @@ export default component LayoutComponent(
       <PlaceLayout entity={place} {...sharedProps}>{children}</PlaceLayout>
     ),
     {entityType: 'recording', ...} as recording => (
-      // $FlowIgnore[incompatible-type] These better have artist credits
       <RecordingLayout entity={recording} {...sharedProps}>
         {children}
       </RecordingLayout>

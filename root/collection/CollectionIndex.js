@@ -50,7 +50,7 @@ type Props =
   | PropsForEntity<InstrumentT>
   | PropsForEntity<LabelT>
   | PropsForEntity<PlaceT>
-  | PropsForEntity<RecordingWithArtistCreditT>
+  | PropsForEntity<RecordingT>
   | PropsForEntity<ReleaseGroupT>
   | PropsForEntity<ReleaseT>
   | PropsForEntity<SeriesT>

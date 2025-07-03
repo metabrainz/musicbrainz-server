@@ -222,6 +222,9 @@ export function createRecordingObject(
   }>,
 ): RecordingT {
   return {
+    artistCredit: {
+      names: ([]: $ReadOnlyArray<ArtistCreditNameT>),
+    },
     comment: '',
     editsPending: false,
     entityType: 'recording',
