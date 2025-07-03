@@ -7,13 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import LayoutComponent from '../components/LayoutComponent.js';
 import EnterEdit from '../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormRowTextArea
   from '../static/scripts/edit/components/FormRowTextArea.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 type EditAnnotationFormT = FormT<{
   +changelog: FieldT<string>,
@@ -29,9 +29,6 @@ component EditAnnotation(
   preview: string = '',
   showPreview?: boolean = false,
 ) {
-  const entityType = entity.entityType;
-  const LayoutComponent = chooseLayoutComponent(entityType);
-
   return (
     <LayoutComponent
       entity={entity}
