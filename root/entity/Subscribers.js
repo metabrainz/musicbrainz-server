@@ -16,8 +16,13 @@ import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
+type SubscribersLayoutEntityT =
+  | SubscribableEntityWithSidebarT
+  | AccountLayoutUserT
+  | CollectionT;
+
 component Subscribers(
-  entity: SubscribableEntityT,
+  entity: SubscribersLayoutEntityT,
   privateEditors: number,
   publicEditors: $ReadOnlyArray<EditorT>,
   subscribed: boolean,
@@ -37,7 +42,6 @@ component Subscribers(
 
   return (
     <LayoutComponent
-      // $FlowIgnore[incompatible-type] This should expect AccountLayoutUserT
       entity={entity}
       page="subscribers"
       title={l('Subscribers')}
