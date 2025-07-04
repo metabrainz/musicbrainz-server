@@ -211,29 +211,22 @@ sub xml_search
     }
 
     my $url_ext;
-    if (DBDefs->SEARCH_ENGINE eq 'LUCENE' || DBDefs->SEARCH_SERVER eq DBDefs::Default->SEARCH_SERVER) {
-        my $format = ($args->{fmt} // '') eq 'json' ? 'jsonnew' : 'xml';
-        $url_ext = "/ws/2/$resource/?" .
-           "max=$limit&type=$resource&fmt=$format&offset=$offset" .
-           '&query=' . uri_escape_utf8($query) . "&dismax=$dismax";
-    } else {
-        my $format = ($args->{fmt} // '') eq 'json' ? 'mbjson' : 'mbxml';
-        my $endpoint = 'advanced';
-        if ($dismax eq 'true')
-        {
-            # Solr has a bug where the dismax end point behaves differently
-            # from edismax (advanced) when the query size is 1. This is a fix
-            # for that. See https://issues.apache.org/jira/browse/SOLR-12409
-            if (split(/[\P{Word}_]+/, $query, 2) == 1) {
-                $endpoint = 'basic';
-            } else {
-                $endpoint = 'select';
-            }
+    my $format = ($args->{fmt} // '') eq 'json' ? 'mbjson' : 'mbxml';
+    my $endpoint = 'advanced';
+    if ($dismax eq 'true')
+    {
+        # Solr has a bug where the dismax end point behaves differently
+        # from edismax (advanced) when the query size is 1. This is a fix
+        # for that. See https://issues.apache.org/jira/browse/SOLR-12409
+        if (split(/[\P{Word}_]+/, $query, 2) == 1) {
+            $endpoint = 'basic';
+        } else {
+            $endpoint = 'select';
         }
-        $url_ext = "/$resource/$endpoint?" .
-            "rows=$limit&wt=$format&start=$offset" .
-            '&q=' . uri_escape_utf8($query);
     }
+    $url_ext = "/$resource/$endpoint?" .
+        "rows=$limit&wt=$format&start=$offset" .
+        '&q=' . uri_escape_utf8($query);
 
     if (DBDefs->SEARCH_X_ACCEL_REDIRECT) {
         return { redirect_url => '/internal/search/' . DBDefs->SEARCH_SERVER . $url_ext };
