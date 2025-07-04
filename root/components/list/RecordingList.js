@@ -52,7 +52,7 @@ component RecordingList(
   lengthClass?: string,
   mergeForm?: MergeFormT,
   order?: string,
-  recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
+  recordings: $ReadOnlyArray<RecordingT>,
   releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
   seriesItemNumbers?: $ReadOnlyArray<string>,
   showAcoustIds: boolean = false,
@@ -74,14 +74,14 @@ component RecordingList(
       const seriesNumberColumn = seriesItemNumbers
         ? defineSeriesNumberColumn({seriesItemNumbers})
         : null;
-      const nameColumn = defineNameColumn<RecordingWithArtistCreditT>({
+      const nameColumn = defineNameColumn<RecordingT>({
         descriptive: false, // since ACs are in the next column
         order,
         sortable,
         title: l('Name'),
       });
       const artistCreditColumn =
-        defineArtistCreditColumn<RecordingWithArtistCreditT>({
+        defineArtistCreditColumn<RecordingT>({
           columnName: 'artist',
           getArtistCredit: entity => entity.artistCredit,
           order,
@@ -89,7 +89,7 @@ component RecordingList(
           sortable,
           title: l('Artist'),
         });
-      const lengthColumn = defineTextColumn<RecordingWithArtistCreditT>({
+      const lengthColumn = defineTextColumn<RecordingT>({
         cellProps: {className: lengthClass ?? ''},
         columnName: 'length',
         /* Show nothing rather than ?:?? for recordings merged away */
@@ -147,7 +147,7 @@ component RecordingList(
     ],
   );
 
-  const table = useTable<RecordingWithArtistCreditT>({
+  const table = useTable<RecordingT>({
     className,
     columns,
     data: recordings,

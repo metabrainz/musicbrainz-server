@@ -35,54 +35,48 @@ export function createInitialState(
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newState = {...state};
-  switch (action.type) {
-    case 'add-todo': {
+  match (action) {
+    {type: 'add-todo'} => {
       newState.todos = [
         ...newState.todos,
         createTodoState(),
       ];
-      break;
     }
-    case 'update-todo': {
-      const index = newState.todos.findIndex(x => x.key === action.key);
-      const todoAction = action.action;
+    {type: 'update-todo', const action, const key} => {
+      const index = newState.todos.findIndex(x => x.key === key);
+      const todoAction = action;
       let newTodos = newState.todos;
 
-      switch (todoAction.type) {
-        case 'move-up': {
+      match (todoAction) {
+        {type: 'move-up'} => {
           if (index > 0) {
             newTodos = [...newState.todos];
             // $FlowIssue[unsupported-syntax]
             [newTodos[index - 1], newTodos[index]] =
               [newTodos[index], newTodos[index - 1]];
           }
-          break;
         }
-        case 'move-down': {
+        {type: 'move-down'} => {
           if (index < (newState.todos.length - 1)) {
             newTodos = [...newState.todos];
             // $FlowIssue[unsupported-syntax]
             [newTodos[index], newTodos[index + 1]] =
               [newTodos[index + 1], newTodos[index]];
           }
-          break;
         }
-        case 'remove': {
+        {type: 'remove'} => {
           newTodos = [...newState.todos];
           newTodos.splice(index, 1);
           if (newTodos.length === 0) {
             newTodos.push(createTodoState());
           }
-          break;
         }
-        default: {
+        _ => {
           newTodos = [...newState.todos];
           newTodos[index] = todoReducer(newTodos[index], todoAction);
-          break;
         }
       }
       newState.todos = newTodos;
-      break;
     }
   }
   return newState;

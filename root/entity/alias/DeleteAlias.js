@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import LayoutComponent from '../../components/LayoutComponent.js';
 import EnterEdit from '../../static/scripts/edit/components/EnterEdit.js';
 import EnterEditNote
   from '../../static/scripts/edit/components/EnterEditNote.js';
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
 type AliasDeleteFormT = FormT<{
   +edit_note: FieldT<string>,
@@ -21,9 +21,7 @@ component DeleteAlias(
   alias: AnyAliasT,
   entity: EntityWithAliasesT,
   form: AliasDeleteFormT,
-  type: string,
 ) {
-  const LayoutComponent = chooseLayoutComponent(type);
   const header = lp('Remove alias', 'header');
 
   return (

@@ -23,7 +23,7 @@ import ReleaseMergeStrategy
   from '../static/scripts/edit/components/ReleaseMergeStrategy.js';
 
 type BadRecordingMergesT =
-  $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>;
+  $ReadOnlyArray<$ReadOnlyArray<RecordingT>>;
 
 component ReleaseMerge(
   badRecordingMerges?: BadRecordingMergesT,

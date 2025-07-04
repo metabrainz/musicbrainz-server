@@ -73,18 +73,16 @@ function runDateFieldReducer(
     dateField,
     action,
   );
-  switch (action.type) {
-    case 'set-date': {
+  match (action) {
+    {type: 'set-date', ...} => {
       validateDatePeriod(state);
-      break;
     }
-    case 'show-pending-errors': {
+    {type: 'show-pending-errors'} => {
       /*
        * Changing the begin date may produce on an error on the end date
        * field ("The end date cannot precede the begin date.").
        */
       applyAllPendingErrors(state);
-      break;
     }
   }
 }
@@ -94,23 +92,22 @@ export function runReducer(
   action: ActionT,
 ): void {
   const subfields = state.get('field');
-  switch (action.type) {
-    case 'update-begin-date': {
+  match (action) {
+    {type: 'update-begin-date', const action} => {
       runDateFieldReducer(
         subfields.get('begin_date'),
-        action.action,
+        action,
         state,
       );
-      break;
     }
-    case 'update-end-date': {
+    {type: 'update-end-date', const action} => {
       runDateFieldReducer(
         subfields.get('end_date'),
-        action.action,
+        action,
         state,
       );
-      if (action.action.type === 'set-date') {
-        const newDate = action.action.date;
+      if (action.type === 'set-date') {
+        const newDate = action.date;
         if (isDateNonEmpty(newDate)) {
           runReducer(
             state,
@@ -118,14 +115,11 @@ export function runReducer(
           );
         }
       }
-      break;
     }
-    case 'set-ended': {
-      const enabled = action.enabled;
+    {type: 'set-ended', const enabled} => {
       subfields.set('ended', 'value', enabled);
-      break;
     }
-    case 'copy-date': {
+    {type: 'copy-date'} => {
       const beginDateFields = subfields.read().begin_date.field;
       const year = String(beginDateFields.year.value ?? '');
       const month = String(beginDateFields.month.value ?? '');
@@ -147,7 +141,6 @@ export function runReducer(
       }
       validateDatePeriod(state);
       applyAllPendingErrors(state);
-      break;
     }
   }
 }

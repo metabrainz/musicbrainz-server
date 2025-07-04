@@ -118,8 +118,8 @@ function createInitialState(
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
-  switch (action.type) {
-    case 'add-language': {
+  match (action) {
+    {type: 'add-language'} => {
       pushCompoundField<{
         fluency: FluencyT | null,
         language_id: string | null,
@@ -127,24 +127,18 @@ function reducer(state: StateT, action: ActionT): StateT {
         fluency: null,
         language_id: null,
       });
-      break;
     }
-    case 'remove-language': {
+    {type: 'remove-language', const index} => {
       newStateCtx
         .get('form', 'field', 'languages', 'field')
         .write()
-        .splice(action.index, 1);
-      break;
+        .splice(index, 1);
     }
-    case 'update-area': {
+    {type: 'update-area', const action} => {
       newStateCtx.set(
         'area',
-        autocompleteReducer(state.area, action.action),
+        autocompleteReducer(state.area, action),
       );
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
     }
   }
   return newStateCtx.final();

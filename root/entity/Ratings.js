@@ -8,6 +8,7 @@
  */
 
 import CritiqueBrainzLinks from '../components/CritiqueBrainzLinks.js';
+import LayoutComponent from '../components/LayoutComponent.js';
 import manifest from '../static/manifest.mjs';
 import CritiqueBrainzReview
   from '../static/scripts/common/components/CritiqueBrainzReview.js';
@@ -17,7 +18,6 @@ import {
   StaticRatingStars,
 } from '../static/scripts/common/components/RatingStars.js';
 import {ENTITIES} from '../static/scripts/common/constants.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component Ratings(
   entity: RatableT | ReviewableT,
@@ -27,9 +27,7 @@ component Ratings(
   publicRatings: $ReadOnlyArray<RatingT>,
   spammerRatingCount: number,
 ) {
-  const entityType = entity.entityType;
   const entityProperties = ENTITIES[entity.entityType];
-  const LayoutComponent = chooseLayoutComponent(entityType);
   const hasRatings = publicRatings.length ||
                      privateRatingCount > 0 ||
                      spammerRatingCount > 0;

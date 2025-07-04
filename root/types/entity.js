@@ -28,7 +28,7 @@ declare type EntityWithAliasesTypeT = EntityWithAliasesT['entityType'];
 declare type EntityWithSeriesMapT = {
   'artist': ArtistT,
   'event': EventT,
-  'recording': RecordingWithArtistCreditT,
+  'recording': RecordingT,
   'release': ReleaseT,
   'release_group': ReleaseGroupT,
   'work': WorkT,

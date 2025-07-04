@@ -345,38 +345,34 @@ export function reducer(
 ): RelationshipDialogStateT {
   const newState: {...RelationshipDialogStateT} = {...state};
 
-  switch (action.type) {
-    case 'change-direction': {
+  match (action) {
+    {type: 'change-direction'} => {
       newState.backward = !state.backward;
-      break;
     }
 
     /*
      * This action is not used internally, and only implemented for
      * userscripts.
      */
-    case 'set-attributes': {
+    {type: 'set-attributes', const attributes} => {
       newState.attributes = createDialogAttributesState(
         (state.linkType.autocomplete.selectedItem?.entity) ?? null,
-        getAttributeRootIdMap(action.attributes),
+        getAttributeRootIdMap(attributes),
       );
-      break;
     }
 
-    case 'toggle-help': {
+    {type: 'toggle-help'} => {
       newState.isHelpVisible = !state.isHelpVisible;
-      break;
     }
 
-    case 'update-source-entity': {
+    {type: 'update-source-entity', const action} => {
       newState.sourceEntity =
-        dialogSourceEntityReducer(newState.sourceEntity, action.action);
-      break;
+        dialogSourceEntityReducer(newState.sourceEntity, action);
     }
 
-    case 'update-target-entity': {
+    {type: 'update-target-entity', const action, const source} => {
       newState.targetEntity =
-        dialogTargetEntityReducer(newState.targetEntity, action.action);
+        dialogTargetEntityReducer(newState.targetEntity, action);
 
       const oldTargetType = state.targetEntity.targetType;
       const newTargetType = newState.targetEntity.targetType;
@@ -386,7 +382,7 @@ export function reducer(
           newState,
           oldTargetType,
           newTargetType,
-          action.source,
+          source,
         );
       }
 
@@ -398,17 +394,15 @@ export function reducer(
       const oldTargetGid = state.targetEntity.target.gid;
       const newTargetGid = newState.targetEntity.target.gid;
       if (oldTargetGid !== newTargetGid) {
-        inferLinkDirection(newState, action.source);
+        inferLinkDirection(newState, source);
       }
-
-      break;
     }
 
-    case 'update-target-type': {
+    {type: 'update-target-type', const source, const targetType} => {
       const newTargetState = {...newState.targetEntity};
 
       const oldTargetType = newTargetState.targetType;
-      const newTargetType = action.targetType;
+      const newTargetType = targetType;
 
       newTargetState.targetType = newTargetType;
 
@@ -416,7 +410,7 @@ export function reducer(
         newState,
         oldTargetType,
         newTargetType,
-        action.source,
+        source,
       );
 
       if (
@@ -435,7 +429,7 @@ export function reducer(
         newTargetState.target = newPlaceholderTarget;
         newTargetState.error = getTargetError(
           newPlaceholderTarget,
-          action.source,
+          source,
           null,
         );
       } else if (
@@ -452,7 +446,7 @@ export function reducer(
             type: 'change-entity-type',
           },
           linkType: null,
-          source: action.source,
+          source,
           type: 'update-autocomplete',
         });
       }
@@ -460,15 +454,13 @@ export function reducer(
       newTargetState.creditedAs = '';
 
       newState.targetEntity = newTargetState;
-      break;
     }
 
-    case 'update-link-order': {
-      newState.linkOrder = action.newLinkOrder;
-      break;
+    {type: 'update-link-order', const newLinkOrder} => {
+      newState.linkOrder = newLinkOrder;
     }
 
-    case 'update-link-type': {
+    {type: 'update-link-type', ...} as action => {
       const linkTypeChanged = updateDialogLinkTypeState(
         state,
         newState,
@@ -482,29 +474,20 @@ export function reducer(
         };
         inferLinkDirection(newState, action.source);
       }
-
-      break;
     }
 
-    case 'update-attribute': {
+    {type: 'update-attribute', const action} => {
       newState.attributes = dialogAttributesReducer(
         newState.attributes,
-        action.action,
+        action,
       );
-      break;
     }
 
-    case 'update-date-period': {
+    {type: 'update-date-period', const action} => {
       newState.datePeriod = updateDialogDatePeriodState(
         newState.datePeriod,
-        action.action,
+        action,
       );
-      break;
-    }
-
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
     }
   }
 
@@ -1020,15 +1003,13 @@ const RelationshipDialogContent:
   React.memo(_RelationshipDialogContent);
 
 function getBatchSelectionMessage(sourceType: RelatableEntityTypeT) {
-  switch (sourceType) {
-    case 'recording': {
-      return l('This will add a relationship to all checked recordings.');
-    }
-    case 'work': {
-      return l('This will add a relationship to all checked works.');
-    }
-  }
-  return '';
+  return match (sourceType) {
+    'recording' => l(
+      'This will add a relationship to all checked recordings.',
+    ),
+    'work' => l('This will add a relationship to all checked works.'),
+    _ => '',
+  };
 }
 
 export default RelationshipDialogContent;

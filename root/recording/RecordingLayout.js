@@ -18,7 +18,7 @@ import RecordingHeader from './RecordingHeader.js';
 
 component RecordingLayout(
   children: React.Node,
-  entity as recording: RecordingWithArtistCreditT,
+  entity as recording: RecordingT,
   fullWidth: boolean = false,
   page: string,
   title?: string,
