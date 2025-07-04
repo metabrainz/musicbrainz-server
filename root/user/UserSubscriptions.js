@@ -10,9 +10,7 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
-import UserAccountLayout, {
-  type AccountLayoutUserT,
-} from '../components/UserAccountLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';

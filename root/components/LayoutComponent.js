@@ -21,8 +21,7 @@ import ReleaseGroupLayout from '../release_group/ReleaseGroupLayout.js';
 import SeriesLayout from '../series/SeriesLayout.js';
 import WorkLayout from '../work/WorkLayout.js';
 
-import UserAccountLayout, {type AccountLayoutUserT}
-  from './UserAccountLayout.js';
+import UserAccountLayout from './UserAccountLayout.js';
 
 type LayoutEntityT =
   | NonUrlRelatableEntityT
