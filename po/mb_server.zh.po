@@ -21,14 +21,14 @@
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # percylee <freedomeng419@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# imgradeone <imgradeone@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-16 21:19+0200\n"
-"PO-Revision-Date: 2025-05-27 11:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-02 15:20+0000\n"
+"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -878,7 +878,8 @@ msgid ""
 "Do not mark digital media releases as having no barcode unless you are "
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
-msgstr ""
+msgstr "请勿将数字媒体发行品标记为不含条码，除非你熟悉相应平台。绝大多数主流数字平台"
+"使用条码，即便没有被展示。"
 
 #: ../root/release/edit/duplicates.tt:40
 msgid "Do not use any of the above releases as a starting point"
@@ -1133,49 +1134,55 @@ msgid ""
 "artist’s official homepage and social networking pages, streaming services, "
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
-msgstr ""
+msgstr "外部链接是与艺术家存在关联的网址。它可以包括艺术家的官方网站与社交媒体页面、"
+"串流服务，以及非官方页面，包括维基百科条目、传记、采访与粉丝站。"
 
 #: ../root/label/edit_form.tt:114
 msgid ""
 "External links are URLs associated with the label. These can include the "
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
-msgstr ""
+msgstr "外部链接是与厂牌存在关联的网址。它可以包括厂牌的官方网站与社交媒体页面、作品"
+"目录，以及非官方页面，包括维基百科条目、历史与粉丝站。"
 
 #: ../root/place/edit_form.tt:110
 msgid ""
 "External links are URLs associated with the place. These can include the "
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
-msgstr ""
+msgstr "外部链接是与地点存在关联的网址。它可以包括地点的官方网站与社交媒体页面、订票"
+"页面，以及非官方页面，包括维基百科条目、历史与粉丝站。"
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
-msgstr ""
+msgstr "外部链接是与录音存在关联的网址，例如购买或串流链接，以及其他数据库中的条目。"
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
-msgstr ""
+msgstr "外部链接是与发行组存在关联的网址，例如官方网站、维基百科文章、评价和其他数据"
+"库中的条目。"
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
-msgstr ""
+msgstr "外部链接是与系列存在关联的网址，例如官方网站、社交媒体平台，以及其他数据库中"
+"的条目。"
 
 #: ../root/work/edit_form.tt:157
 msgid ""
 "External links are URLs associated with the work, such as pages for "
 "purchasing sheet music, lyrics pages, and entries in other databases."
-msgstr ""
+msgstr "外部链接是与作品存在关联的网址，例如曲谱购买页面、歌词页面，以及其他数据库中"
+"的条目。"
 
 #: ../root/release/edit/information.tt:584
 msgid "External links are URLs associated with this particular release."
-msgstr ""
+msgstr "外部链接是与该特定发行品存在关联的网址。"
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
@@ -1201,7 +1208,7 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
-msgstr ""
+msgstr "对于数字媒体发行品，此处一般应为“无”。"
 
 #: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
 #: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
@@ -1330,10 +1337,8 @@ msgid "Guess sort name"
 msgstr "猜测排序名称"
 
 #: ../root/release/edit/tracklist.tt:472
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
-msgstr "我确认这就是发行版上显示的条形码。"
+msgstr "我确认这些标题使用了正确的大小写。"
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
@@ -1441,32 +1446,23 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"注意！如果您不知道专辑的发行月份或日期，请留空。一月一日通常都不是实际的发行"
-"日期，请再三检查您输入的发行日期是否正确。"
+"如果您不知道专辑的发行月份或日期，请留空。一月一日通常都不是实际的发行日期。<"
+"strong>请再三检查您输入的发行日期是否正确。</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr "如果您不知道此实体的代码，将此栏留空即可。"
 
 #: ../root/release/edit/information.tt:515
-#, fuzzy
-#| msgid ""
-#| "If you do not know whether the release has a barcode or not, just leave "
-#| "this blank."
 msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
-msgstr "如果您不知道此专辑是否有条形码，留空即可。"
+msgstr "如果您不知道此专辑是否有条形码，请留空。"
 
 #: ../root/release/edit/information.tt:97
 msgid ""
@@ -1750,7 +1746,8 @@ msgstr "月"
 msgid ""
 "Mail‐order links shouldn’t be attached to digital media releases, and "
 "download and streaming links shouldn’t be attached to CD or vinyl releases."
-msgstr ""
+msgstr "邮寄链接不应与数字媒体发行品关联，下载与串流链接不应与 CD "
+"或黑胶唱片发行品关联。"
 
 #: ../root/components/forms.tt:14
 #: ../root/static/scripts/edit/components/EnterEdit.js:38
@@ -2020,10 +2017,8 @@ msgid "Place details"
 msgstr "地点详情"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Related type"
 msgid "Place type"
-msgstr "相关类型"
+msgstr "地点类型"
 
 #: ../root/edit/search_macros.tt:471
 msgid "Please choose a condition"
@@ -2034,7 +2029,7 @@ msgstr "请选择一个条件"
 msgid ""
 "Please don’t add a Wikipedia page if a Wikidata item linking to the same "
 "article already exists."
-msgstr ""
+msgstr "如果已经有链接到同一文章的维基数据条目，请勿重复添加维基百科页面。"
 
 #: ../root/release_group/edit_form.tt:60
 msgid ""
@@ -2262,10 +2257,8 @@ msgid "Release group details"
 msgstr "专辑组详情"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group primary type"
-msgstr "专辑组类型"
+msgstr "发行组主分类"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
