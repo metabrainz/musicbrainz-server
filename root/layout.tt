@@ -141,6 +141,10 @@
                          { branch => server_details.git.branch,
                            msg => html_escape(server_details.git.msg),
                            sha => server_details.git.sha }) ~%]
+                    [% IF server_details.is_beta =%]
+                        [%= l('See {tickets|all tickets in beta testing}.',
+                            { tickets => 'https://tickets.metabrainz.org/issues/?filter=10715' }) ~%]
+                    [%~ END %]
                 [%~ END %]
                 [%- IF last_replication_date -%]
                 <br />
