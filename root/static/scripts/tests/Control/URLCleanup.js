@@ -6471,12 +6471,6 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
             expected_clean_url: 'https://touhoudb.com/T/1041',
        only_valid_entity_types: ['genre'],
   },
-  // Utamap
-  {
-                     input_url: 'http://www.utamap.com/showkasi.php?surl=34985',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-  },
   // Uta-Net
   {
                      input_url: 'http://uta-net.com/artist/9208/4/',

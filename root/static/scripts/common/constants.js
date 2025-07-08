@@ -258,7 +258,6 @@ export const FAVICON_CLASSES: {
   'twitter.com': 'twitter',
   'uta-net.com': 'utanet',
   'utaitedb.net': 'utaitedb',
-  'utamap.com': 'utamap',
   'utaten.com': 'utaten',
   'vgmdb.net': 'vgmdb',
   'viaf.org': 'viaf',
