@@ -112,8 +112,8 @@ export default function* updateEntityCredits(
     }
   }
 
-  switch (creditsToChange) {
-    case 'all': {
+  match (creditsToChange) {
+    'all' => {
       for (
         const [/* targetType */, linkTypeGroups] of
         tree.iterate(targetTypeGroups)
@@ -122,16 +122,14 @@ export default function* updateEntityCredits(
           yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
         }
       }
-      break;
     }
-    case 'same-entity-types': {
+    'same-entity-types' => {
       const linkTypeGroups = findLinkTypeGroupsForSameEntityType();
       for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
         yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
       }
-      break;
     }
-    case 'same-relationship-type': {
+    'same-relationship-type' => {
       const linkTypeGroups = findLinkTypeGroupsForSameEntityType();
       const linkTypeGroup = tree.find(
         linkTypeGroups,
@@ -141,7 +139,9 @@ export default function* updateEntityCredits(
       if (linkTypeGroup) {
         yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
       }
-      break;
+    }
+    '' => {
+      // Do nothing
     }
   }
 }

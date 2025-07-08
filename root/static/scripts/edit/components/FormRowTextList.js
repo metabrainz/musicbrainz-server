@@ -95,15 +95,14 @@ function reducer(state: StateT, action: ActionT): StateT {
   const repeatableCtx = newStateCtx.get('repeatable');
   const fieldCtx = repeatableCtx.get('field');
 
-  switch (action.type) {
-    case 'add-row': {
+  match (action) {
+    {type: 'add-row'} => {
       pushCompoundField(repeatableCtx, {removed: false, value: ''});
-      break;
     }
-    case 'remove-row': {
+    {type: 'remove-row', const fieldId} => {
       let removedValue;
       const index = fieldCtx.read().findIndex((subfield) => {
-        if (subfield.id === action.fieldId) {
+        if (subfield.id === fieldId) {
           removedValue = subfield.field.value.value;
           return true;
         }
@@ -122,19 +121,17 @@ function reducer(state: StateT, action: ActionT): StateT {
       if (nonRemovedCount === 0) {
         pushNewListItem(repeatableCtx);
       }
-      break;
     }
-    case 'update-row': {
+    {type: 'update-row', const fieldId, const value} => {
       const index = fieldCtx.read().findIndex(
-        (subfield) => subfield.id === action.fieldId,
+        (subfield) => subfield.id === fieldId,
       );
       const valueCtx = fieldCtx.get(index, 'field', 'value', 'value');
       const oldValue = valueCtx.read();
-      valueCtx.set(action.value);
+      valueCtx.set(value);
       if (state.currentTextValues.includes(oldValue)) {
         pushCompoundField(repeatableCtx, {removed: true, value: oldValue});
       }
-      break;
     }
   }
   return newStateCtx.final();

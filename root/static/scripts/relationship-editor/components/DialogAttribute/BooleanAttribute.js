@@ -23,14 +23,9 @@ export function reducer(
 ): DialogBooleanAttributeStateT {
   const newState: {...DialogBooleanAttributeStateT} = {...state};
 
-  switch (action.type) {
-    case 'toggle': {
-      newState.enabled = action.enabled;
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
+  match (action) {
+    {type: 'toggle', const enabled} => {
+      newState.enabled = enabled;
     }
   }
 

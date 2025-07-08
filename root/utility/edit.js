@@ -57,41 +57,33 @@ export function getEditStatusName(edit: GenericEditWithIdT): string {
 }
 
 export function getEditStatusDescription(edit: GenericEditWithIdT): string {
-  switch (edit.status) {
-    case EDIT_STATUS_OPEN:
-      return l('This edit is open for voting.');
-    case EDIT_STATUS_APPLIED:
-      return l('This edit has been successfully applied.');
-    case EDIT_STATUS_FAILEDVOTE:
-      return l(
-        'This edit failed because there were insufficient "yes" votes.',
-      );
-    case EDIT_STATUS_FAILEDDEP:
-      return l(
-        `This edit failed either because an entity it was modifying no longer 
-         exists, or the entity can not be modified in this manner anymore.`,
-      );
-    case EDIT_STATUS_ERROR:
-      return l(
-        `This edit failed due to an internal error and may need 
-         to be entered again.`,
-      );
-    case EDIT_STATUS_FAILEDPREREQ:
-      return l(
-        `This edit failed because the data it was changing was modified 
-         after this edit was entered. This may happen when the same edit 
-         is entered in twice; one will pass but the other will fail.`,
-      );
-    case EDIT_STATUS_NOVOTES:
-      return l(
-        `This edit failed because it affected high quality data 
-         and did not receive any votes.`,
-      );
-    case EDIT_STATUS_DELETED:
-      return l('This edit was cancelled.');
-    default:
-      return '';
-  }
+  return match (edit) {
+    {status: EDIT_STATUS_OPEN, ...} => l('This edit is open for voting.'),
+    {status: EDIT_STATUS_APPLIED, ...} => l(
+      'This edit has been successfully applied.',
+    ),
+    {status: EDIT_STATUS_FAILEDVOTE, ...} => l(
+      'This edit failed because there were insufficient "yes" votes.',
+    ),
+    {status: EDIT_STATUS_FAILEDDEP, ...} => l(
+      `This edit failed either because an entity it was modifying no longer 
+       exists, or the entity can not be modified in this manner anymore.`,
+    ),
+    {status: EDIT_STATUS_ERROR, ...} => l(
+      `This edit failed due to an internal error and may need 
+       to be entered again.`,
+    ),
+    {status: EDIT_STATUS_FAILEDPREREQ, ...} => l(
+      `This edit failed because the data it was changing was modified 
+       after this edit was entered. This may happen when the same edit 
+       is entered in twice; one will pass but the other will fail.`,
+    ),
+    {status: EDIT_STATUS_NOVOTES, ...} => l(
+      `This edit failed because it affected high quality data 
+       and did not receive any votes.`,
+    ),
+    {status: EDIT_STATUS_DELETED, ...} => l('This edit was cancelled.'),
+  };
 }
 
 export function getEditHeaderClass(edit: GenericEditWithIdT): string {
@@ -102,18 +94,13 @@ export function getEditHeaderClass(edit: GenericEditWithIdT): string {
 }
 
 export function getEditStatusClass(edit: GenericEditWithIdT): string {
-  switch (edit.status) {
-    case EDIT_STATUS_OPEN:
-      return 'open';
-    case EDIT_STATUS_APPLIED:
-      return 'applied';
-    case EDIT_STATUS_FAILEDVOTE:
-      return 'failed';
-    case EDIT_STATUS_DELETED:
-      return 'cancelled';
-    default:
-      return 'edit-error';
-  }
+  return match (edit) {
+    {status: EDIT_STATUS_OPEN, ...} => 'open',
+    {status: EDIT_STATUS_APPLIED, ...} => 'applied',
+    {status: EDIT_STATUS_FAILEDVOTE, ...} => 'failed',
+    {status: EDIT_STATUS_DELETED, ...} => 'cancelled',
+    _ => 'edit-error',
+  };
 }
 
 export function getVotesForEditor(
@@ -148,8 +135,8 @@ export function editorMayApprove(
     return false;
   }
 
-  switch (edit.edit_type) {
-    case EDIT_RELATIONSHIP_DELETE: {
+  match (edit) {
+    {edit_type: EDIT_RELATIONSHIP_DELETE, ...} as edit => {
       const linkType = edit.data.relationship?.link?.type;
 
       if (linkType && typeof linkType === 'object') {
@@ -159,9 +146,9 @@ export function editorMayApprove(
           linkType.entity1_type === 'url'
         );
       }
-      break;
+      return conditions.auto_edit;
     }
-    case EDIT_SERIES_EDIT: {
+    {edit_type: EDIT_SERIES_EDIT, ...} as edit => {
       const oldOrderingType = (edit.data.old?.ordering_type_id) ?? 0;
       const newOrderingType = (edit.data.new?.ordering_type_id) ?? 0;
       // Intentional != since some edit data store numbers as strings
@@ -169,11 +156,12 @@ export function editorMayApprove(
       if (oldOrderingType != newOrderingType) {
         return false;
       }
-      break;
+      return conditions.auto_edit;
+    }
+    _ => {
+      return conditions.auto_edit;
     }
   }
-
-  return conditions.auto_edit;
 }
 
 export function editorMayCancel(

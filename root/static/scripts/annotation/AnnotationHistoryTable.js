@@ -39,17 +39,12 @@ function createInitialState() {
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newState: WritableStateT = {...state};
-  switch (action.type) {
-    case 'update-new': {
-      newState.selectedNew = action.index;
-      break;
+  match (action) {
+    {type: 'update-new', const index} => {
+      newState.selectedNew = index;
     }
-    case 'update-old': {
-      newState.selectedOld = action.index;
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
+    {type: 'update-old', const index} => {
+      newState.selectedOld = index;
     }
   }
   return newState;

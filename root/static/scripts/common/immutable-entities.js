@@ -28,8 +28,14 @@ export const hasVariousArtists =
 export const hasArtist =
   (name: ArtistCreditNameT): boolean => nonEmpty(name.artist?.gid);
 
+// ArtistCredit::TO_JSON generates an empty credit when none exists
+export const nonEmptyArtistCredit =
+  (ac?: ArtistCreditT): implies ac is ArtistCreditT => (
+    ac != null && ac.names.length > 0
+  );
+
 export const isCompleteArtistCredit =
-  (ac: ArtistCreditT): boolean => ac.names.length > 0 &&
+  (ac: ArtistCreditT): boolean => nonEmptyArtistCredit(ac) &&
     ac.names.every(hasArtist);
 
 export const reduceArtistCredit =

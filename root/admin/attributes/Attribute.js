@@ -16,45 +16,39 @@ import loopParity from '../../utility/loopParity.js';
 import {type AttributeT} from './types.js';
 
 const renderAttributesHeaderAccordingToModel = (model: string) => {
-  switch (model) {
-    case 'MediumFormat': {
-      return (
-        <>
-          <th>{'Year'}</th>
-          <th>{'Disc IDs allowed'}</th>
-        </>
-      );
-    }
-    case 'SeriesType':
-    case 'CollectionType': {
-      return <th>{'Entity type'}</th>;
-    }
-    case 'WorkAttributeType': {
-      return <th>{'Free text'}</th>;
-    }
-    default: return null;
-  }
+  return match (model) {
+    'MediumFormat' => (
+      <>
+        <th>{'Year'}</th>
+        <th>{'Disc IDs allowed'}</th>
+      </>
+    ),
+    'CollectionType' | 'SeriesType' => <th>{'Entity type'}</th>,
+    'WorkAttributeType' => <th>{'Free text'}</th>,
+    _ => null,
+  };
 };
 
 const renderAttributes = (attribute: AttributeT) => {
-  switch (attribute.entityType) {
-    case 'medium_format': {
-      return (
-        <>
-          <td>{attribute.year}</td>
-          <td>{yesNo(attribute.has_discids)}</td>
-        </>
-      );
-    }
-    case 'series_type':
-    case 'collection_type': {
-      return <td>{attribute.item_entity_type}</td>;
-    }
-    case 'work_attribute_type': {
-      return <td>{yesNo(attribute.free_text)}</td>;
-    }
-    default: return null;
-  }
+  return match (attribute) {
+    {entityType: 'medium_format', const has_discids, const year, ...} => (
+      <>
+        <td>{year}</td>
+        <td>{yesNo(has_discids)}</td>
+      </>
+    ),
+    {
+      entityType: 'collection_type' | 'series_type',
+      const item_entity_type,
+      ...
+    } => (
+      <td>{item_entity_type}</td>
+    ),
+    {entityType: 'work_attribute_type', const free_text, ...} => (
+      <td>{yesNo(free_text)}</td>
+    ),
+    _ => null,
+  };
 };
 
 component Attribute(

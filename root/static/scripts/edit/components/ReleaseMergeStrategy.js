@@ -60,7 +60,7 @@ component UselessMediumTitleWarning(name: string) {
 
 component ReleaseMergeStrategy(
   badRecordingMerges?:
-    $ReadOnlyArray<$ReadOnlyArray<RecordingWithArtistCreditT>>,
+    $ReadOnlyArray<$ReadOnlyArray<RecordingT>>,
   form: MergeReleasesFormT,
   mediums: $ReadOnlyArray<MediumT>,
   releases: {+[releaseID: number]: ReleaseT},

@@ -307,7 +307,7 @@ declare type AddRelationshipTypeEditT = $ReadOnly<{
     +link_phrase: string,
     +long_link_phrase: string,
     +name: string,
-    +orderable_direction?: number,
+    +orderable_direction?: OrderableDirectionT,
     +relationship_type?: LinkTypeT,
     +reverse_link_phrase: string,
   },
@@ -933,7 +933,7 @@ declare type EditRelationshipTypeEditT = $ReadOnly<{
     +link_phrase?: CompT<string>,
     +long_link_phrase?: CompT<string>,
     +name: CompT<string>,
-    +orderable_direction?: CompT<number>,
+    +orderable_direction?: CompT<OrderableDirectionT>,
     +parent?: CompT<LinkTypeT | null>,
     +relationship_type: LinkTypeT,
     +reverse_link_phrase: CompT<string>,
@@ -1104,8 +1104,8 @@ declare type MergeRecordingsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +large_spread: boolean,
-    +new: RecordingWithArtistCreditT,
-    +old: $ReadOnlyArray<RecordingWithArtistCreditT>,
+    +new: RecordingT,
+    +old: $ReadOnlyArray<RecordingT>,
   },
   +edit_type: EDIT_RECORDING_MERGE_T,
 }>;

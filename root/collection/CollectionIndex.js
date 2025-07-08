@@ -50,7 +50,7 @@ type Props =
   | PropsForEntity<InstrumentT>
   | PropsForEntity<LabelT>
   | PropsForEntity<PlaceT>
-  | PropsForEntity<RecordingWithArtistCreditT>
+  | PropsForEntity<RecordingT>
   | PropsForEntity<ReleaseGroupT>
   | PropsForEntity<ReleaseT>
   | PropsForEntity<SeriesT>
@@ -66,106 +66,92 @@ const listPicker = (
     sortable: true,
   };
 
-  switch (props.collectionEntityType) {
-    case 'area':
-      return (
-        <AreaList
-          areas={props.entities}
-          {...sharedProps}
-        />
-      );
-    case 'artist':
-      return (
-        <ArtistList
-          artists={props.entities}
-          showBeginEnd
-          showRatings
-          {...sharedProps}
-        />
-      );
-    case 'event':
-      return (
-        <EventList
-          events={props.entities}
-          showArtists
-          showLocation
-          showRatings
-          showType
-          {...sharedProps}
-        />
-      );
-    case 'genre':
-      return (
-        <GenreList
-          genres={props.entities}
-          {...sharedProps}
-        />
-      );
-    case 'instrument':
-      return (
-        <InstrumentList
-          instruments={props.entities}
-          {...sharedProps}
-        />
-      );
-    case 'label':
-      return (
-        <LabelList
-          labels={props.entities}
-          showRatings
-          {...sharedProps}
-        />
-      );
-    case 'place':
-      return (
-        <PlaceList
-          places={props.entities}
-          showRatings
-          {...sharedProps}
-        />
-      );
-    case 'recording':
-      return (
-        <RecordingList
-          recordings={props.entities}
-          showRatings
-          {...sharedProps}
-        />
-      );
-    case 'release':
-      return (
-        <ReleaseList
-          releases={props.entities}
-          showRatings
-          {...sharedProps}
-        />
-      );
-    case 'release_group':
-      return (
-        <ReleaseGroupList
-          releaseGroups={props.entities}
-          showRatings
-          {...sharedProps}
-        />
-      );
-    case 'series':
-      return (
-        <SeriesList
-          series={props.entities}
-          {...sharedProps}
-        />
-      );
-    case 'work':
-      return (
-        <WorkList
-          showRatings
-          works={props.entities}
-          {...sharedProps}
-        />
-      );
-    default:
-      throw `Unsupported entity type value: ${props.collectionEntityType}`;
-  }
+  return match (props) {
+    {collectionEntityType: 'area', const entities, ...} => (
+      <AreaList
+        areas={entities}
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'artist', const entities, ...} => (
+      <ArtistList
+        artists={entities}
+        showBeginEnd
+        showRatings
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'event', const entities, ...} => (
+      <EventList
+        events={entities}
+        showArtists
+        showLocation
+        showRatings
+        showType
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'genre', const entities, ...} => (
+      <GenreList
+        genres={entities}
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'instrument', const entities, ...} => (
+      <InstrumentList
+        instruments={entities}
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'label', const entities, ...} => (
+      <LabelList
+        labels={entities}
+        showRatings
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'place', const entities, ...} => (
+      <PlaceList
+        places={entities}
+        showRatings
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'recording', const entities, ...} => (
+      <RecordingList
+        recordings={entities}
+        showRatings
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'release', const entities, ...} => (
+      <ReleaseList
+        releases={entities}
+        showRatings
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'release_group', const entities, ...} => (
+      <ReleaseGroupList
+        releaseGroups={entities}
+        showRatings
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'series', const entities, ...} => (
+      <SeriesList
+        series={entities}
+        {...sharedProps}
+      />
+    ),
+    {collectionEntityType: 'work', const entities, ...} => (
+      <WorkList
+        showRatings
+        works={entities}
+        {...sharedProps}
+      />
+    ),
+  };
 };
 
 component CollectionIndex(...props: Props) {

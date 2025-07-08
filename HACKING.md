@@ -679,13 +679,13 @@ components, it also creates two issues that you need to manage:
       ;
 
     function reducer(state: StateT, action: ActionT): StateT {
-      switch (action.type) {
+      match (action) {
         /*
          * No need to list every child action here, since they're
          * encapsulated by `update-child`.
          */
-        case 'update-child': {
-          const childAction = action.action;
+        {type: 'update-child', const action} => {
+          const childAction = action;
           /*
            * You could even have another switch statement here on
            * childAction.type, in case you need to handle particular actions
@@ -693,7 +693,6 @@ components, it also creates two issues that you need to manage:
            * that the child doesn't know about).
            */
           state.child = childReducer(state.child, childAction);
-          break;
         }
       }
     }

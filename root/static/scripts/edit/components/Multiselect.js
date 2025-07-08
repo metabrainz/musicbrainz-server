@@ -107,40 +107,33 @@ export function runReducer<
   action: MultiselectActionT<V>,
   createMultiselectValue: ({...S, ...}) => $Exact<VS>,
 ): void {
-  switch (action.type) {
-    case 'add-value': {
+  match (action) {
+    {type: 'add-value'} => {
       newState.values = [
         // We can remove "[removed]" rows now that focus has shifted.
         ...newState.values.filter(x => !x.removed),
         createMultiselectValue(newState),
       ];
-      break;
     }
-    case 'remove-value': {
+    {type: 'remove-value', const valueKey} => {
       newState.values = updateValue<V, VS>(
         newState.values,
-        action.valueKey,
+        valueKey,
         (x) => ({...x, removed: true}),
       );
-      break;
     }
-    case 'update-value-autocomplete': {
+    {type: 'update-value-autocomplete', const action, const valueKey} => {
       newState.values = updateValue<V, VS>(
         newState.values,
-        action.valueKey,
+        valueKey,
         (x) => ({
           ...x,
           autocomplete: autocompleteReducer<V>(
             x.autocomplete,
-            action.action,
+            action,
           ),
         }),
       );
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
     }
   }
 }
