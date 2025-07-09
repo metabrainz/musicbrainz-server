@@ -964,6 +964,14 @@ sub external_search
             $self->c->model('Area')->load_containment(@entities);
         }
 
+        if ($type eq 'place')
+        {
+            my @entities = map { $_->entity } @results;
+            my @areas = grep { defined $_ } map { $_->area } @entities;
+            $self->c->model('Area')->load_ids(@areas);
+            $self->c->model('Area')->load_containment(@areas);
+        }
+
         if ($type eq 'release-group')
         {
             my @entities = map { $_->entity } @results;

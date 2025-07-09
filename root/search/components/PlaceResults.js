@@ -10,6 +10,8 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import DescriptiveLink
+  from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import formatEndDate
@@ -38,7 +40,7 @@ function buildResult(result: SearchResultT<PlaceT>, index: number) {
       </td>
       <td>{place.address}</td>
       <td>
-        {place.area ? <EntityLink entity={place.area} /> : null}
+        {place.area ? <DescriptiveLink entity={place.area} /> : null}
       </td>
       <td>{formatDate(place.begin_date)}</td>
       <td>{formatEndDate(place)}</td>
