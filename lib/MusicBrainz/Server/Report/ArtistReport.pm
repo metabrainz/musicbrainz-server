@@ -16,6 +16,7 @@ around inflate_rows => sub {
     );
 
     $self->c->model('ArtistType')->load(values %$artists);
+    $self->c->model('Artist')->load_aliases(values %$artists);
 
     return [
         map +{

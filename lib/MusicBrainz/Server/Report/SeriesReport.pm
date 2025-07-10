@@ -15,6 +15,8 @@ around inflate_rows => sub {
         map { $_->{series_id} } @$items,
     );
 
+    $self->c->model('Series')->load_aliases(values %$series);
+
     return [
         map +{
             %$_,
