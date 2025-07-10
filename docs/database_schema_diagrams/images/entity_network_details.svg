@@ -334,30 +334,30 @@
 <!-- musicbrainz.cdtoc -->
 <g class="node">
 <title>musicbrainz.cdtoc</title>
-<polygon points="694.5 -879.5 694.5 -904.5 800.5 -904.5 800.5 -879.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="694.5 -879.5 694.5 -904.5 800.5 -904.5 800.5 -879.5" fill="none" stroke="#000"/>
-<text x="723" y="-887.9" font-family="Times,serif" font-size="17">cdtoc</text>
-<polygon points="694.5 -858.5 694.5 -879.5 800.5 -879.5 800.5 -858.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="694.5 -858.5 694.5 -879.5 800.5 -879.5 800.5 -858.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-866.3" font-family="Times,serif" font-size="14" text-decoration="underline">id</text>
-<polygon points="694.5 -837.5 694.5 -858.5 800.5 -858.5 800.5 -837.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="694.5 -858.5 694.5 -883.5 800.5 -883.5 800.5 -858.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="694.5 -858.5 694.5 -883.5 800.5 -883.5 800.5 -858.5" fill="none" stroke="#000"/>
+<text x="723" y="-866.9" font-family="Times,serif" font-size="17">cdtoc</text>
+<polygon points="694.5 -837.5 694.5 -858.5 800.5 -858.5 800.5 -837.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
 <polygon points="694.5 -837.5 694.5 -858.5 800.5 -858.5 800.5 -837.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-844.3" font-family="Times,serif" font-size="14">discid</text>
+<text x="697.5" y="-845.3" font-family="Times,serif" font-size="14" text-decoration="underline">id</text>
 <polygon points="694.5 -816.5 694.5 -837.5 800.5 -837.5 800.5 -816.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="694.5 -816.5 694.5 -837.5 800.5 -837.5 800.5 -816.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-823.3" font-family="Times,serif" font-size="14">freedb_id</text>
+<text x="697.5" y="-823.3" font-family="Times,serif" font-size="14">discid</text>
 <polygon points="694.5 -795.5 694.5 -816.5 800.5 -816.5 800.5 -795.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="694.5 -795.5 694.5 -816.5 800.5 -816.5 800.5 -795.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-802.3" font-family="Times,serif" font-size="14">track_count</text>
+<text x="697.5" y="-802.3" font-family="Times,serif" font-size="14">freedb_id</text>
 <polygon points="694.5 -774.5 694.5 -795.5 800.5 -795.5 800.5 -774.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="694.5 -774.5 694.5 -795.5 800.5 -795.5 800.5 -774.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-781.3" font-family="Times,serif" font-size="14">leadout_offset</text>
+<text x="697.5" y="-781.3" font-family="Times,serif" font-size="14">track_count</text>
 <polygon points="694.5 -753.5 694.5 -774.5 800.5 -774.5 800.5 -753.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="694.5 -753.5 694.5 -774.5 800.5 -774.5 800.5 -753.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-760.3" font-family="Times,serif" font-size="14">track_offset</text>
+<text x="697.5" y="-760.3" font-family="Times,serif" font-size="14">leadout_offset</text>
 <polygon points="694.5 -732.5 694.5 -753.5 800.5 -753.5 800.5 -732.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="694.5 -732.5 694.5 -753.5 800.5 -753.5 800.5 -732.5" fill="none" stroke="#000"/>
-<text x="697.5" y="-739.3" font-family="Times,serif" font-size="14">created</text>
+<text x="697.5" y="-739.3" font-family="Times,serif" font-size="14">track_offset</text>
+<polygon points="694.5 -711.5 694.5 -732.5 800.5 -732.5 800.5 -711.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="694.5 -711.5 694.5 -732.5 800.5 -732.5 800.5 -711.5" fill="none" stroke="#000"/>
+<text x="697.5" y="-718.3" font-family="Times,serif" font-size="14">created</text>
 </g>
 <!-- musicbrainz.country_area -->
 <g class="node">
@@ -932,6 +932,9 @@
 <polygon points="694.5 -922.5 694.5 -943.5 800.5 -943.5 800.5 -922.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="694.5 -922.5 694.5 -943.5 800.5 -943.5 800.5 -922.5" fill="none" stroke="#000"/>
 <text x="697.5" y="-929.3" font-family="Times,serif" font-size="14">track_count</text>
+<polygon points="694.5 -901.5 694.5 -922.5 800.5 -922.5 800.5 -901.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="694.5 -901.5 694.5 -922.5 800.5 -922.5 800.5 -901.5" fill="none" stroke="#000"/>
+<text x="697.5" y="-908.3" font-family="Times,serif" font-size="14">gid</text>
 </g>
 <!-- musicbrainz.medium_format -->
 <g class="node">
@@ -1028,35 +1031,35 @@
 <!-- musicbrainz.medium_cdtoc -->
 <g class="node">
 <title>musicbrainz.medium_cdtoc</title>
-<polygon points="463 -1017.5 463 -1042.5 595 -1042.5 595 -1017.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="463 -1017.5 463 -1042.5 595 -1042.5 595 -1017.5" fill="none" stroke="#000"/>
-<text x="466" y="-1025.9" font-family="Times,serif" font-size="17">medium_cdtoc</text>
-<polygon points="463 -996.5 463 -1017.5 595 -1017.5 595 -996.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="463 -996.5 463 -1017.5 595 -1017.5 595 -996.5" fill="none" stroke="#000"/>
-<text x="466" y="-1004.3" font-family="Times,serif" font-size="14" text-decoration="underline">id</text>
-<polygon points="463 -975.5 463 -996.5 595 -996.5 595 -975.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
-<polygon points="463 -975.5 463 -996.5 595 -996.5 595 -975.5" fill="none" stroke="#000"/>
-<text x="466" y="-982.3" font-family="Times,serif" font-size="14">medium</text>
-<polygon points="463 -954.5 463 -975.5 595 -975.5 595 -954.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
-<polygon points="463 -954.5 463 -975.5 595 -975.5 595 -954.5" fill="none" stroke="#000"/>
-<text x="466" y="-961.3" font-family="Times,serif" font-size="14">cdtoc</text>
-<polygon points="463 -933.5 463 -954.5 595 -954.5 595 -933.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="463 -933.5 463 -954.5 595 -954.5 595 -933.5" fill="none" stroke="#000"/>
-<text x="466" y="-940.3" font-family="Times,serif" font-size="14">edits_pending</text>
-<polygon points="463 -912.5 463 -933.5 595 -933.5 595 -912.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="463 -912.5 463 -933.5 595 -933.5 595 -912.5" fill="none" stroke="#000"/>
-<text x="466" y="-919.3" font-family="Times,serif" font-size="14">last_updated</text>
+<polygon points="463 -1006.5 463 -1031.5 595 -1031.5 595 -1006.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="463 -1006.5 463 -1031.5 595 -1031.5 595 -1006.5" fill="none" stroke="#000"/>
+<text x="466" y="-1014.9" font-family="Times,serif" font-size="17">medium_cdtoc</text>
+<polygon points="463 -985.5 463 -1006.5 595 -1006.5 595 -985.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="463 -985.5 463 -1006.5 595 -1006.5 595 -985.5" fill="none" stroke="#000"/>
+<text x="466" y="-993.3" font-family="Times,serif" font-size="14" text-decoration="underline">id</text>
+<polygon points="463 -964.5 463 -985.5 595 -985.5 595 -964.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
+<polygon points="463 -964.5 463 -985.5 595 -985.5 595 -964.5" fill="none" stroke="#000"/>
+<text x="466" y="-971.3" font-family="Times,serif" font-size="14">medium</text>
+<polygon points="463 -943.5 463 -964.5 595 -964.5 595 -943.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
+<polygon points="463 -943.5 463 -964.5 595 -964.5 595 -943.5" fill="none" stroke="#000"/>
+<text x="466" y="-950.3" font-family="Times,serif" font-size="14">cdtoc</text>
+<polygon points="463 -922.5 463 -943.5 595 -943.5 595 -922.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="463 -922.5 463 -943.5 595 -943.5 595 -922.5" fill="none" stroke="#000"/>
+<text x="466" y="-929.3" font-family="Times,serif" font-size="14">edits_pending</text>
+<polygon points="463 -901.5 463 -922.5 595 -922.5 595 -901.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="463 -901.5 463 -922.5 595 -922.5 595 -901.5" fill="none" stroke="#000"/>
+<text x="466" y="-908.3" font-family="Times,serif" font-size="14">last_updated</text>
 </g>
 <!-- musicbrainz.medium_cdtoc&#45;&gt;musicbrainz.cdtoc -->
 <g class="edge">
 <title>musicbrainz.medium_cdtoc:cdtoc-&gt;musicbrainz.cdtoc:id</title>
-<path d="m595-964.5c44.446 0 43.146 94.3 88.35 94.3" fill="none" stroke="#000" sodipodi:nodetypes="cc"/>
-<polygon points="683.76 -873.68 693.5 -869.5 683.28 -866.69" stroke="#000"/>
+<path d="m595-953.5c31.48 0 14.65 37.87 36 61 20.52 22.23 27.12 39.77 52.32 43.33" fill="none" stroke="#000"/>
+<polygon points="683.75 -852.65 693.5 -848.5 683.29 -845.66" stroke="#000"/>
 </g>
 <!-- musicbrainz.medium_cdtoc&#45;&gt;musicbrainz.medium -->
 <g class="edge">
 <title>musicbrainz.medium_cdtoc:medium-&gt;musicbrainz.medium:id</title>
-<path d="m595-986.5c56.85 0 40.41-82.96 88.38-93.01" fill="none" stroke="#000"/>
+<path d="m595-975.5c60.36 0 37.55-93.44 88.49-104.03" fill="none" stroke="#000"/>
 <polygon points="683.21 -1083 693.5 -1080.5 683.89 -1076" stroke="#000"/>
 </g>
 <!-- musicbrainz.place -->

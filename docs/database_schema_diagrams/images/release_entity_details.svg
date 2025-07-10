@@ -161,7 +161,7 @@
 <text x="56" y="-196.8" font-family="Times,serif" font-size="14">barcode</text>
 <polygon points="53 -169 53 -190 211 -190 211 -169" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="53 -169 53 -190 211 -190 211 -169" fill="none" stroke="#000"/>
-<text x="56" y="-175.8" font-family="Times,serif" font-size="14">sort_character</text>
+<text x="56" y="-175.8" font-family="Times,serif" font-size="14">name</text>
 <polygon points="53 -148 53 -169 211 -169 211 -148" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
 <polygon points="53 -148 53 -169 211 -169 211 -148" fill="none" stroke="#000"/>
 <text x="56" y="-154.8" font-family="Times,serif" font-size="14">release</text>
