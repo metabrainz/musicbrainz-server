@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
+use utf8;
 
 use DateTime::Locale;
 use List::AllUtils qw( sort_by );
@@ -73,6 +74,14 @@ sub _locale_name_special_cases {
         return 'Saraiki';
     } elsif ($code eq 'skr_PK') {
         return 'Saraiki Pakistan';
+    } elsif ($code eq 'lld') {
+        return 'Ladin';
+    } elsif ($code eq 'lld_IT') {
+        return 'Ladin Italy';
+    } elsif ($code eq 'mhn') {
+        return 'Mócheno';
+    } elsif ($code eq 'mhn_IT') {
+        return 'Mócheno Italy';
     } else {
         return $locale->name;
     }
