@@ -52,6 +52,49 @@
 <polygon points="218 -30.5 218 -51.5 305 -51.5 305 -30.5" fill="none" stroke="#000"/>
 <text x="221" y="-37.3" font-family="Times,serif" font-size="14">gid</text>
 </g>
+<!-- event_art_archive.event_art -->
+<g class="node">
+<title>event_art_archive.event_art</title>
+<polygon points="185 -451.5 185 -476.5 337 -476.5 337 -451.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="185 -451.5 185 -476.5 337 -476.5 337 -451.5" fill="none" stroke="#000"/>
+<text x="220" y="-459.9" font-family="Times,serif" font-size="17">event_art</text>
+<polygon points="185 -430.5 185 -451.5 337 -451.5 337 -430.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="185 -430.5 185 -451.5 337 -451.5 337 -430.5" fill="none" stroke="#000"/>
+<text x="188" y="-438.3" font-family="Times,serif" font-size="14" text-decoration="underline">id</text>
+<polygon points="185 -409.5 185 -430.5 337 -430.5 337 -409.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
+<polygon points="185 -409.5 185 -430.5 337 -430.5 337 -409.5" fill="none" stroke="#000"/>
+<text x="188" y="-416.3" font-family="Times,serif" font-size="14">event</text>
+<polygon points="185 -388.5 185 -409.5 337 -409.5 337 -388.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -388.5 185 -409.5 337 -409.5 337 -388.5" fill="none" stroke="#000"/>
+<text x="188" y="-395.3" font-family="Times,serif" font-size="14">comment</text>
+<polygon points="185 -367.5 185 -388.5 337 -388.5 337 -367.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
+<polygon points="185 -367.5 185 -388.5 337 -388.5 337 -367.5" fill="none" stroke="#000"/>
+<text x="188" y="-374.3" font-family="Times,serif" font-size="14">edit</text>
+<polygon points="185 -346.5 185 -367.5 337 -367.5 337 -346.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -346.5 185 -367.5 337 -367.5 337 -346.5" fill="none" stroke="#000"/>
+<text x="188" y="-353.3" font-family="Times,serif" font-size="14">ordering</text>
+<polygon points="185 -325.5 185 -346.5 337 -346.5 337 -325.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -325.5 185 -346.5 337 -346.5 337 -325.5" fill="none" stroke="#000"/>
+<text x="188" y="-332.3" font-family="Times,serif" font-size="14">date_uploaded</text>
+<polygon points="185 -304.5 185 -325.5 337 -325.5 337 -304.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -304.5 185 -325.5 337 -325.5 337 -304.5" fill="none" stroke="#000"/>
+<text x="188" y="-311.3" font-family="Times,serif" font-size="14">edits_pending</text>
+<polygon points="185 -283.5 185 -304.5 337 -304.5 337 -283.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -283.5 185 -304.5 337 -304.5 337 -283.5" fill="none" stroke="#000"/>
+<text x="188" y="-290.3" font-family="Times,serif" font-size="14">mime_type</text>
+<polygon points="185 -262.5 185 -283.5 337 -283.5 337 -262.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -262.5 185 -283.5 337 -283.5 337 -262.5" fill="none" stroke="#000"/>
+<text x="188" y="-269.3" font-family="Times,serif" font-size="14">filesize</text>
+<polygon points="185 -241.5 185 -262.5 337 -262.5 337 -241.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -241.5 185 -262.5 337 -262.5 337 -241.5" fill="none" stroke="#000"/>
+<text x="188" y="-248.3" font-family="Times,serif" font-size="14">thumb_250_filesize</text>
+<polygon points="185 -220.5 185 -241.5 337 -241.5 337 -220.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -220.5 185 -241.5 337 -241.5 337 -220.5" fill="none" stroke="#000"/>
+<text x="188" y="-227.3" font-family="Times,serif" font-size="14">thumb_500_filesize</text>
+<polygon points="185 -199.5 185 -220.5 337 -220.5 337 -199.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
+<polygon points="185 -199.5 185 -220.5 337 -220.5 337 -199.5" fill="none" stroke="#000"/>
+<text x="188" y="-206.3" font-family="Times,serif" font-size="14">thumb_1200_filesize</text>
+</g>
 <!-- musicbrainz.edit -->
 <g class="node">
 <title>musicbrainz.edit</title>
@@ -88,6 +131,12 @@
 <polygon points="396.5 0.5 396.5 -20.5 487.5 -20.5 487.5 0.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="396.5 0.5 396.5 -20.5 487.5 -20.5 487.5 0.5" fill="none" stroke="#000"/>
 <text x="399.5" y="-6.3" font-family="Times,serif" font-size="14">quality</text>
+</g>
+<!-- event_art_archive.event_art&#45;&gt;musicbrainz.edit -->
+<g class="edge">
+<title>event_art_archive.event_art:edit-&gt;musicbrainz.edit:id</title>
+<path d="m338-378.5c79.81 0-16.6 163.28 47.37 177.95" fill="none" stroke="#000"/>
+<polygon points="385.91 -204.01 395.5 -199.5 385.19 -197.05" stroke="#000"/>
 </g>
 <!-- musicbrainz.event -->
 <g class="node">
@@ -146,55 +195,6 @@
 <polygon points="373.5 -253.5 373.5 -274.5 510.5 -274.5 510.5 -253.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
 <polygon points="373.5 -253.5 373.5 -274.5 510.5 -274.5 510.5 -253.5" fill="none" stroke="#000"/>
 <text x="376.5" y="-260.3" font-family="Times,serif" font-size="14">ended</text>
-</g>
-<!-- event_art_archive.event_art -->
-<g class="node">
-<title>event_art_archive.event_art</title>
-<polygon points="185 -451.5 185 -476.5 337 -476.5 337 -451.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="185 -451.5 185 -476.5 337 -476.5 337 -451.5" fill="none" stroke="#000"/>
-<text x="220" y="-459.9" font-family="Times,serif" font-size="17">event_art</text>
-<polygon points="185 -430.5 185 -451.5 337 -451.5 337 -430.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="185 -430.5 185 -451.5 337 -451.5 337 -430.5" fill="none" stroke="#000"/>
-<text x="188" y="-438.3" font-family="Times,serif" font-size="14" text-decoration="underline">id</text>
-<polygon points="185 -409.5 185 -430.5 337 -430.5 337 -409.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
-<polygon points="185 -409.5 185 -430.5 337 -430.5 337 -409.5" fill="none" stroke="#000"/>
-<text x="188" y="-416.3" font-family="Times,serif" font-size="14">event</text>
-<polygon points="185 -388.5 185 -409.5 337 -409.5 337 -388.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -388.5 185 -409.5 337 -409.5 337 -388.5" fill="none" stroke="#000"/>
-<text x="188" y="-395.3" font-family="Times,serif" font-size="14">comment</text>
-<polygon points="185 -367.5 185 -388.5 337 -388.5 337 -367.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
-<polygon points="185 -367.5 185 -388.5 337 -388.5 337 -367.5" fill="none" stroke="#000"/>
-<text x="188" y="-374.3" font-family="Times,serif" font-size="14">edit</text>
-<polygon points="185 -346.5 185 -367.5 337 -367.5 337 -346.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -346.5 185 -367.5 337 -367.5 337 -346.5" fill="none" stroke="#000"/>
-<text x="188" y="-353.3" font-family="Times,serif" font-size="14">ordering</text>
-<polygon points="185 -325.5 185 -346.5 337 -346.5 337 -325.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -325.5 185 -346.5 337 -346.5 337 -325.5" fill="none" stroke="#000"/>
-<text x="188" y="-332.3" font-family="Times,serif" font-size="14">date_uploaded</text>
-<polygon points="185 -304.5 185 -325.5 337 -325.5 337 -304.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -304.5 185 -325.5 337 -325.5 337 -304.5" fill="none" stroke="#000"/>
-<text x="188" y="-311.3" font-family="Times,serif" font-size="14">edits_pending</text>
-<polygon points="185 -283.5 185 -304.5 337 -304.5 337 -283.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -283.5 185 -304.5 337 -304.5 337 -283.5" fill="none" stroke="#000"/>
-<text x="188" y="-290.3" font-family="Times,serif" font-size="14">mime_type</text>
-<polygon points="185 -262.5 185 -283.5 337 -283.5 337 -262.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -262.5 185 -283.5 337 -283.5 337 -262.5" fill="none" stroke="#000"/>
-<text x="188" y="-269.3" font-family="Times,serif" font-size="14">filesize</text>
-<polygon points="185 -241.5 185 -262.5 337 -262.5 337 -241.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -241.5 185 -262.5 337 -262.5 337 -241.5" fill="none" stroke="#000"/>
-<text x="188" y="-248.3" font-family="Times,serif" font-size="14">thumb_250_filesize</text>
-<polygon points="185 -220.5 185 -241.5 337 -241.5 337 -220.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -220.5 185 -241.5 337 -241.5 337 -220.5" fill="none" stroke="#000"/>
-<text x="188" y="-227.3" font-family="Times,serif" font-size="14">thumb_500_filesize</text>
-<polygon points="185 -199.5 185 -220.5 337 -220.5 337 -199.5" fill="#bbb" fill-opacity=".2" stroke="transparent"/>
-<polygon points="185 -199.5 185 -220.5 337 -220.5 337 -199.5" fill="none" stroke="#000"/>
-<text x="188" y="-206.3" font-family="Times,serif" font-size="14">thumb_1200_filesize</text>
-</g>
-<!-- event_art_archive.event_art&#45;&gt;musicbrainz.edit -->
-<g class="edge">
-<title>event_art_archive.event_art:edit-&gt;musicbrainz.edit:id</title>
-<path d="m338-378.5c79.81 0-16.6 163.28 47.37 177.95" fill="none" stroke="#000"/>
-<polygon points="385.91 -204.01 395.5 -199.5 385.19 -197.05" stroke="#000"/>
 </g>
 <!-- event_art_archive.event_art&#45;&gt;musicbrainz.event -->
 <g class="edge">

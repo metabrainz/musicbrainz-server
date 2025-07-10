@@ -5156,13 +5156,6 @@ digraph soup {
     ];
 
   // Schemas other than 'musicbrainz'
-    subgraph cluster_event_art_archive {
-        bgcolor = "#35a8b3:#f0976c"
-
-        "event_art_archive.art_type";
-        "event_art_archive.event_art";
-        "event_art_archive.event_art_type";
-    }
     subgraph cluster_cover_art_archive {
         bgcolor = "#35a8b3:#f0976c"
 
@@ -5171,6 +5164,13 @@ digraph soup {
         "cover_art_archive.cover_art_type";
         "cover_art_archive.image_type";
         "cover_art_archive.release_group_cover_art";
+    }
+    subgraph cluster_event_art_archive {
+        bgcolor = "#35a8b3:#f0976c"
+
+        "event_art_archive.art_type";
+        "event_art_archive.event_art";
+        "event_art_archive.event_art_type";
     }
 
     // References

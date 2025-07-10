@@ -219,6 +219,25 @@
 <path d="m194-344.5c66.74 0 13.81-123.83 67.93-136.89" fill="none" stroke="#000"/>
 <polygon points="261.68 -484.88 272 -482.5 262.44 -477.92" stroke="#000"/>
 </g>
+<!-- cover_art_archive.release_group_cover_art -->
+<g class="node">
+<title>cover_art_archive.release_group_cover_art</title>
+<polygon points="16 -113.5 16 -138.5 236 -138.5 236 -113.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="16 -113.5 16 -138.5 236 -138.5 236 -113.5" fill="none" stroke="#000"/>
+<text x="19" y="-121.9" font-family="Times,serif" font-size="17">release_group_cover_art</text>
+<polygon points="16 -92.5 16 -113.5 236 -113.5 236 -92.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
+<polygon points="16 -92.5 16 -113.5 236 -113.5 236 -92.5" fill="none" stroke="#000"/>
+<text x="19" y="-100.3" font-family="Times,serif" font-size="14" text-decoration="underline">release_group</text>
+<polygon points="16 -71.5 16 -92.5 236 -92.5 236 -71.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
+<polygon points="16 -71.5 16 -92.5 236 -92.5 236 -71.5" fill="none" stroke="#000"/>
+<text x="19" y="-78.3" font-family="Times,serif" font-size="14">release</text>
+</g>
+<!-- cover_art_archive.release_group_cover_art&#45;&gt;musicbrainz.release -->
+<g class="edge">
+<title>cover_art_archive.release_group_cover_art:release-&gt;musicbrainz.release:id</title>
+<path d="m236-81.5c54.525 0 133.34 59.971 202.63 24.938 53.728-29.655-34.258-270.56 11.412-296.48" fill="none" stroke="#000" sodipodi:nodetypes="ccc"/>
+<polygon points="449.45 -356.5 460 -355.5 451.13 -349.7" stroke="#000"/>
+</g>
 <!-- musicbrainz.release_group -->
 <g class="node">
 <title>musicbrainz.release_group</title>
@@ -250,36 +269,17 @@
 <polygon points="603 0.5 603 -20.5 733 -20.5 733 0.5" fill="none" stroke="#000"/>
 <text x="606" y="-6.3" font-family="Times,serif" font-size="14">last_updated</text>
 </g>
-<!-- musicbrainz.release&#45;&gt;musicbrainz.release_group -->
-<g class="edge">
-<title>musicbrainz.release:release_group-&gt;musicbrainz.release_group:id</title>
-<path d="m567-271.5c49.19 0-7.38 97.71 26.11 112.21" fill="none" stroke="#000"/>
-<polygon points="593.78 -162.73 603 -157.5 592.54 -155.84" stroke="#000"/>
-</g>
-<!-- cover_art_archive.release_group_cover_art -->
-<g class="node">
-<title>cover_art_archive.release_group_cover_art</title>
-<polygon points="16 -113.5 16 -138.5 236 -138.5 236 -113.5" fill="#bbb" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="16 -113.5 16 -138.5 236 -138.5 236 -113.5" fill="none" stroke="#000"/>
-<text x="19" y="-121.9" font-family="Times,serif" font-size="17">release_group_cover_art</text>
-<polygon points="16 -92.5 16 -113.5 236 -113.5 236 -92.5" fill="#eee" fill-opacity=".46667" stroke="transparent"/>
-<polygon points="16 -92.5 16 -113.5 236 -113.5 236 -92.5" fill="none" stroke="#000"/>
-<text x="19" y="-100.3" font-family="Times,serif" font-size="14" text-decoration="underline">release_group</text>
-<polygon points="16 -71.5 16 -92.5 236 -92.5 236 -71.5" fill="#eee" fill-opacity=".33333" stroke="transparent"/>
-<polygon points="16 -71.5 16 -92.5 236 -92.5 236 -71.5" fill="none" stroke="#000"/>
-<text x="19" y="-78.3" font-family="Times,serif" font-size="14">release</text>
-</g>
-<!-- cover_art_archive.release_group_cover_art&#45;&gt;musicbrainz.release -->
-<g class="edge">
-<title>cover_art_archive.release_group_cover_art:release-&gt;musicbrainz.release:id</title>
-<path d="m236-81.5c54.525 0 133.34 59.971 202.63 24.938 53.728-29.655-34.258-270.56 11.412-296.48" fill="none" stroke="#000" sodipodi:nodetypes="ccc"/>
-<polygon points="449.45 -356.5 460 -355.5 451.13 -349.7" stroke="#000"/>
-</g>
 <!-- cover_art_archive.release_group_cover_art&#45;&gt;musicbrainz.release_group -->
 <g class="edge">
 <title>cover_art_archive.release_group_cover_art:release_group-&gt;musicbrainz.release_group:id</title>
 <path d="m236-102.5c61.959 0 19.434 62.453 42.7 66.35 115.73 19.395 207.38 19.367 288.3-27.35 33.55-23.08-1.21-82.01 26-92.42" fill="none" stroke="#000" sodipodi:nodetypes="cccc"/>
 <polygon points="592.58 -159.39 603 -157.5 593.67 -152.48" stroke="#000"/>
+</g>
+<!-- musicbrainz.release&#45;&gt;musicbrainz.release_group -->
+<g class="edge">
+<title>musicbrainz.release:release_group-&gt;musicbrainz.release_group:id</title>
+<path d="m567-271.5c49.19 0-7.38 97.71 26.11 112.21" fill="none" stroke="#000"/>
+<polygon points="593.78 -162.73 603 -157.5 592.54 -155.84" stroke="#000"/>
 </g>
 </g>
 </svg>
