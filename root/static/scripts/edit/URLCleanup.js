@@ -3865,7 +3865,6 @@ const CLEANUPS: CleanupEntries = {
     match: [
       /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,
       /^(https?:\/\/)?([^/]+\.)?lieder\.net/i,
-      /^(https?:\/\/)?([^/]+\.)?utamap\.com/i,
       /^(https?:\/\/)?([^/]+\.)?j-lyric\.net/i,
       /^(https?:\/\/)?([^/]+\.)?muzikum\.eu/i,
       /^(https?:\/\/)?([^/]+\.)?gutenberg\.org/i,
