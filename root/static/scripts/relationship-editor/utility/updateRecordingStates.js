@@ -63,8 +63,8 @@ export default function updateRecordingStates(
           () => updateRecordingState({
             isSelected: false,
             recording,
-            relatedWorks: null,
-            targetTypeGroups:  null,
+            relatedWorks: tree.empty,
+            targetTypeGroups:  tree.empty,
           }),
         );
       }
@@ -82,7 +82,7 @@ export default function updateRecordingStates(
       medium,
       compareMediumWithMediumStateTuple,
       updateMediumState,
-      () => updateMediumState([medium, null]),
+      () => updateMediumState([medium, tree.empty]),
     );
   }
 }

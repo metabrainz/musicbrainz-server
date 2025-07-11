@@ -1,0 +1,13 @@
+diff --git a/sir/amqp/setup.py b/sir/amqp/setup.py
+index 28f762b..efba1fd 100644
+--- a/sir/amqp/setup.py
++++ b/sir/amqp/setup.py
+@@ -43,7 +43,7 @@ def setup_rabbitmq(args):
+     indq, _, _ = qdecl("search.index")
+     retrq, _, _ = qdecl("search.retry", arguments={
+                         "x-message-ttl":
+-                        4 * 60 * 60 * 1000,
++                        1000,
+                         "x-dead-letter-exchange":
+                         "search"}
+                         )

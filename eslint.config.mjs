@@ -33,6 +33,7 @@ export default [
       'root/static/scripts/common/DBDefs-client.mjs',
       'root/static/scripts/common/DBDefs.js',
       'root/static/scripts/common/DBDefs.mjs',
+      'root/static/scripts/supported-browser-check.js',
       'root/static/scripts/tests/typeInfo.js',
       't/selenium.js',
       'babel.config.cjs',
@@ -1040,6 +1041,7 @@ export default [
       'root/static/scripts/edit/components/ExternalLinkAttributeDialog.js',
       'root/static/scripts/edit/components/Multiselect.js',
       'root/static/scripts/edit/components/withLoadedTypeInfo.js',
+      'root/static/scripts/edit/utility/compactEntityJson.js',
       'root/static/scripts/edit/utility/reducerWithErrorHandling.js',
       'root/static/scripts/edit/utility/subfieldErrors.js',
       'root/static/scripts/guess-case/MB/GuessCase/Main.js',
@@ -1063,7 +1065,6 @@ export default [
       'root/static/scripts/url/edit.js',
       'root/user/UserProfile.js',
       'root/utility/chooseLayoutComponent.js',
-      'root/utility/compactEntityJson.js',
       'root/utility/tableColumns.js',
     ],
     rules: {

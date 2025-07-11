@@ -36,7 +36,8 @@ psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
 cd /home/musicbrainz/artwork-indexer
 
 # Install the artwork_indexer schema into musicbrainz_selenium.
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python indexer.py --setup-schema'
+sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" \
+    poetry run python indexer.py --setup-schema
 
 cd "$MBS_ROOT"
 

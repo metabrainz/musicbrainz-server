@@ -130,8 +130,8 @@ export function mergeRelationshipStates(
 }
 
 export default function mergeRelationship(
-  targetTypeGroups: RelationshipTargetTypeGroupsT | null,
-  existingTargetTypeGroups: RelationshipTargetTypeGroupsT | null,
+  targetTypeGroups: RelationshipTargetTypeGroupsT,
+  existingTargetTypeGroups: RelationshipTargetTypeGroupsT,
   sourceRelationship: RelationshipStateT,
   source: RelatableEntityT,
 ): $ReadOnlyArray<RelationshipUpdateT> | null {

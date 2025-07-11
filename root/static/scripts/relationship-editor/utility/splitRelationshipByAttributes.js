@@ -69,22 +69,22 @@ export default function splitRelationshipByAttributes(
    * if this is an existing relationship in the database.
    */
   let attributesForExistingRelationship:
-    tree.ImmutableTree<LinkAttrT> | null = null;
+    tree.ImmutableTree<LinkAttrT> = tree.empty;
   /*
    * Individual instrument, task and vocal attributes that are to be split
    * into separate relationships.
    */
   let newAttributesToSplit:
-    tree.ImmutableTree<LinkAttrT> | null = null;
+    tree.ImmutableTree<LinkAttrT> = tree.empty;
   // Common attributes that will exist on all split relationships.
   let commonAttributes:
-    tree.ImmutableTree<LinkAttrT> | null = null;
-  let newAttributes = relationship.attributes;
+    tree.ImmutableTree<LinkAttrT> = tree.empty;
+  let newAttributes = relationship.attributes ?? tree.empty;
   let origSplittableAttributes = tree.fromDistinctAscArray(
-    tree.toArray(origRelationship ? origRelationship.attributes : null)
+    tree.toArray(origRelationship?.attributes ?? tree.empty)
       .filter(isSplittableAttribute),
   );
-  const hasOrigSplittableAttributes = origSplittableAttributes != null;
+  const hasOrigSplittableAttributes = origSplittableAttributes.size > 0;
 
   /*
    * If this is an existing relationship, split any newly-added instrument,
@@ -205,7 +205,7 @@ export default function splitRelationshipByAttributes(
      * first new splittable attribute to it (MBS-12787).
      */
     if (
-      newAttributesToSplit != null &&
+      newAttributesToSplit.size &&
       !hasOrigSplittableAttributes
     ) {
       let firstAttributeToSplit;
@@ -252,11 +252,11 @@ export default function splitRelationshipByAttributes(
    */
   if (
     origRelationship == null &&
-    newAttributesToSplit != null &&
+    newAttributesToSplit.size &&
     newAttributesToSplit.size === 1 &&
     areLinkAttributesEqual(newAttributes, newAttributesToSplit)
   ) {
-    newAttributesToSplit = null;
+    newAttributesToSplit = tree.empty;
   }
 
   for (const linkAttribute of tree.iterate(newAttributesToSplit)) {

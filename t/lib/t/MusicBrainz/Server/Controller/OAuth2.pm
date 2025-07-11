@@ -271,34 +271,45 @@ test 'Authorize desktop workflow localhost' => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
 
     my $client_id = 'id-desktop';
-    my $redirect_uri = 'http://localhost:5678/cb';
 
     # Login first and disable redirects
     $test->mech->get_ok('/login');
     $test->mech->submit_form( with_fields => { username => 'editor2', password => 'pass' } );
     $test->mech->max_redirect(0);
 
-    # Authorize first request
-    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx&redirect_uri=$redirect_uri");
-    html_ok($test->mech->content);
-    $test->mech->content_like(qr{Test Desktop is requesting permission});
-    $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
-    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
-    my $code = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'xxx');
-    $test->mech->content_contains($code);
-    oauth_authorization_code_ok($test, $code, 1, 12, 1);
+    my $authorize_test = sub {
+        my ($host, $state) = @_;
 
+        my $url_host = $host =~ /^::/ ? "[$host]" : $host;
+        my $redirect_uri = "http://$url_host:5678/cb";
+
+        $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=$state&redirect_uri=$redirect_uri");
+        html_ok($test->mech->content);
+        $test->mech->content_like(qr{Test Desktop is requesting permission});
+        $test->mech->content_like(qr{View your public account information});
+        $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
+        $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
+        my $code = oauth_redirect_ok($test->mech, $host, '/cb', $state);
+        $test->mech->content_contains($code);
+        oauth_authorization_code_ok($test, $code, 1, 12, 1);
+        return $code;
+    };
+
+    # Authorize first request
+    my $code = $authorize_test->('localhost', 'xxx');
     # Try to authorize one more time, this should ask for manual approval as well
-    $test->mech->get_ok("/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=yyy&redirect_uri=$redirect_uri");
-    html_ok($test->mech->content);
-    $test->mech->content_like(qr{Test Desktop is requesting permission});
-    $test->mech->content_like(qr{View your public account information});
-    $test->mech->content_unlike(qr{Perform the above operations when I'm not using the application});
-    $test->mech->submit_form( form_name => 'confirm', button => 'confirm.submit' );
-    my $code2 = oauth_redirect_ok($test->mech, 'localhost', '/cb', 'yyy');
+    my $code2 = $authorize_test->('localhost', 'yyy');
     isnt($code, $code2);
-    oauth_authorization_code_ok($test, $code2, 1, 12, 1);
+
+    $authorize_test->('127.0.0.1', 'xxx');
+    $authorize_test->('::1', 'xxx');
+
+    $test->mech->get(
+        "/oauth2/authorize?client_id=$client_id&response_type=code&scope=profile&state=xxx" .
+        '&redirect_uri=http://127x0x0x1:5678/cb',
+    );
+    is($test->mech->status, HTTP_BAD_REQUEST, 'Got bad request with non-localhost redirect_uri');
+    $test->mech->content_contains('Mismatched redirect URI');
 };
 
 test 'Exchange authorization code' => sub {

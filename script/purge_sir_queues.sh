@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o errexit
+
 VHOST=${1:-/sir}
 
 RABBITMQCTL_COMMAND="${RABBITMQCTL_COMMAND:-sudo -n rabbitmqctl}"

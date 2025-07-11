@@ -148,6 +148,29 @@ sub set_beta_preference : Path('set-beta-preference') Args(0)
     }
 }
 
+=head2 toggle_legacy_browser
+
+Sets the preference for using legacy JavaScript bundles on older browsers.
+
+=cut
+
+sub toggle_legacy_browser : Path('toggle-legacy-browser') Args(0)
+{
+    my ($self, $c) = @_;
+
+    $c->res->cookies->{'legacy-browser'} = {
+        'value' => $c->stash->{legacy_browser} ? 'off' : 'on',
+        'path' => '/',
+        'expires' => time()+31536000,
+        $c->req->secure ? (
+            'samesite' => 'None',
+            'secure' => '1',
+        ) : (),
+    };
+
+    $c->redirect_back(fallback => '/');
+}
+
 =head2 default
 
 Handle any pages not matched by a specific controller path. In our case,
@@ -263,6 +286,10 @@ sub error_mirror_404 : Private
 sub begin : Private
 {
     my ($self, $c) = @_;
+
+    if ($c->user_exists && $c->user->is_spammer) {
+        $c->detach('/user/logout');
+    }
 
     my $attributes = $c->action->attributes;
 

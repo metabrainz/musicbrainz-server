@@ -169,7 +169,7 @@ test('Label', function (t) {
 });
 
 test('Recording', function (t) {
-  t.plan(2);
+  t.plan(4);
 
   const tests = [
     {
@@ -181,6 +181,16 @@ test('Recording', function (t) {
       input: 'ハイタッチ (w／o maaya)',
       expected: 'ハイタッチ (w／o Maaya)',
       message: 'w／o is not capitalized',
+    },
+    {
+      input: 'It\'S All Over Y\'All, You\'Re Done',
+      expected: 'It\'s All Over Y\'all, You\'re Done',
+      message: 'Common suffix contractions are lowercased after apostrophe',
+    },
+    {
+      input: 'Hit \'em \'til they go \'way \'n stuff!',
+      expected: 'Hit \'Em \'Til They Go \'Way \'n Stuff!',
+      message: 'Standalone contractions are uppercased, except if 1-char',
     },
   ];
 
@@ -773,8 +783,8 @@ test('no "quote blocks" over multiple track titles (MBS-8621)', function (t) {
 
   const tests = [
     {
-      input: 'Boot ’Em Up',
-      expected: 'Boot ’em Up',
+      input: 'Boot ’em Up',
+      expected: 'Boot ’Em Up',
     },
     {
       input: 'Look, no apostrophes!',

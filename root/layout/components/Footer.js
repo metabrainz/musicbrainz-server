@@ -46,6 +46,15 @@ component Footer() {
               : l('Use beta site')}
           </a>
         ) : null}
+
+        {$c.stash.legacy_browser === true ? (
+          <a
+            className="internal"
+            href={'/toggle-legacy-browser?' + returnToCurrentPage($c)}
+          >
+            {l('Disable legacy browser mode')}
+          </a>
+        ) : null}
       </p>
 
       <p className="right">
@@ -75,6 +84,15 @@ component Footer() {
                 </span>
               ),
             })}
+            {DBDefs.IS_BETA ? (
+              <>
+                {' '}
+                {exp.l(
+                  'See {tickets|all tickets in beta testing}.',
+                  {tickets: 'https://tickets.metabrainz.org/issues/?filter=10715'},
+                )}
+              </>
+            ) : null}
           </>
         ) : null}
 

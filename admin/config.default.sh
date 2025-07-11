@@ -15,13 +15,6 @@ JSON_DUMP_GROUP=musicbrainz
 JSON_DUMP_DIR_MODE=755
 JSON_DUMP_FILE_MODE=644
 
-# Same, but for search index dumps.
-SEARCH_INDEXES_DUMP_DIR=/home/musicbrainz/search-index-dumps
-SEARCH_INDEXES_DUMP_USER=musicbrainz
-SEARCH_INDEXES_DUMP_GROUP=musicbrainz
-SEARCH_INDEXES_DUMP_DIR_MODE=755
-SEARCH_INDEXES_DUMP_FILE_MODE=644
-
 # Same, but for Solr backups.
 SOLR_BACKUP_DIR=/home/musicbrainz/solr-backups
 SOLR_BACKUP_USER=musicbrainz

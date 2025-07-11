@@ -70,7 +70,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\\t')).join('\\n')",
-      value: 'Whatever It Takes\tCD\t2\t2017-11-17\tXE\tInterscope RecordsKIDinaKORNER\t06025671583940602567158394\t0602567158394\nWhatever It Takes (Jorgen Odegard remix)\tDigital Media\t1\t2017-11-10\tAU\tInterscope RecordsKIDinaKORNER\t\t',
+      value: 'Whatever It Takes\tImagine Dragons\tCD\t2\t2017-11-17\tXE\tInterscope RecordsKIDinaKORNER\t06025671583940602567158394\t0602567158394\nWhatever It Takes (Jorgen Odegard remix)\tImagine Dragons\tDigital Media\t1\t2017-11-10\tAU\tInterscope RecordsKIDinaKORNER\t\t',
     },
     {
       command: 'click',
@@ -116,7 +116,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\\t')).join('\\n')",
-      value: 'Whatever It Takes\tCD\t2\t2017-11-17\tXE\tInterscope RecordsKIDinaKORNER\t06025671583940602567158394\t0602567158394',
+      value: 'Whatever It Takes\tImagine Dragons\tCD\t2\t2017-11-17\tXE\tInterscope RecordsKIDinaKORNER\t06025671583940602567158394\t0602567158394',
     },
     {
       command: 'check',
@@ -217,7 +217,7 @@
     {
       command: 'assertEval',
       target: "Array.from(document.querySelectorAll('#duplicates-tab table.tbl > tbody > tr')).map(x => Array.from(x.querySelectorAll('td')).slice(1).map(x => x.textContent.trim()).join('\\t')).join('\\n')",
-      value: 'Whatever It Takes (Jorgen Odegard remix)\tDigital Media\t1\t2017-11-10\tAU\tInterscope RecordsKIDinaKORNER\t\t',
+      value: 'Whatever It Takes (Jorgen Odegard remix)\tImagine Dragons\tDigital Media\t1\t2017-11-10\tAU\tInterscope RecordsKIDinaKORNER\t\t',
     },
     {
       command: 'check',

@@ -95,7 +95,7 @@ component _SeriesRelationshipEditor(
         continue;
       }
       for (const phraseGroup of tree.iterate(linkTypeGroup.phraseGroups)) {
-        if (phraseGroup.relationships?.size) {
+        if (phraseGroup.relationships.size) {
           return seriesItemType;
         }
       }

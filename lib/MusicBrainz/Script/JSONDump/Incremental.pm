@@ -173,6 +173,10 @@ sub run_impl {
                    '--database', $self->database,
                    '--limit', '1',
                    '--nodbmirror2',
+                   # XXX There are occasional "duplicate key" conflicts in
+                   # the production `musicbrainz_json_dump` database, for
+                   # unknown reasons.
+                   '--process-arg', '--ignore-conflicts',
                 );
 
                 if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {

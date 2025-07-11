@@ -18,6 +18,22 @@ export const BUILD_DIR = process.env.MBS_STATIC_BUILD_DIR ||
 export const SCRIPTS_DIR = path.resolve(STATIC_DIR, 'scripts');
 export const IMAGES_DIR = path.resolve(STATIC_DIR, 'images');
 
+export const BROWSER_TARGET = process.env.BROWSER_TARGET ?? 'production';
+export const LEGACY_BROWSER = BROWSER_TARGET === 'legacy';
+
+export const ECMA_VERSION = (() => {
+  switch (BROWSER_TARGET) {
+    case 'legacy':
+      return 5;
+    case 'production':
+      return 6;
+    case 'modern':
+      return 2020;
+    default:
+      throw new Error('Unknown BROWSER_TARGET: ' + BROWSER_TARGET);
+  }
+})();
+
 export const WEBPACK_MODE = (typeof process.env.WEBPACK_MODE === 'undefined')
   ? (process.env.NODE_ENV === 'production' ? 'production' : 'development')
   : process.env.WEBPACK_MODE;

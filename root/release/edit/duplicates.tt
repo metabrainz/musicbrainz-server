@@ -8,6 +8,7 @@
       <tr>
         <th></th>
         <th>[% l('Release') %]</th>
+        <th>[% l('Artist') %]</th>
         <th>[% l('Format') %]</th>
         <th>[% l('Tracks') %]</th>
         <th>[% l('Date') %]</th>
@@ -23,6 +24,7 @@
           <input type="radio" name="base-release" data-bind="attr: { value: gid }, checked: $parent.baseRelease" />
         </td>
         <td data-bind="html: html({ target: '_blank' })"></td>
+        <td data-bind="html: renderArtistCredit(artistCredit)"></td>
         <td data-bind="text: formats"></td>
         <td data-bind="text: tracks"></td>
         <td data-bind="html: dates.join('<br />')"></td>

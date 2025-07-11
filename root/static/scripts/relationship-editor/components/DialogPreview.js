@@ -35,7 +35,7 @@ const createRelationshipTFromState = (
   const hasDates = linkType ? linkType.has_dates : true;
 
   return {
-    attributes: tree.toArray(relationship.attributes),
+    attributes: tree.toArray(relationship.attributes ?? tree.empty),
     backward,
     begin_date: hasDates ? relationship.begin_date : null,
     editsPending: relationship.editsPending,
