@@ -7,7 +7,7 @@ msgstr ""
 "Language-Team: none\n"
 "Language: uz\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. frequency:1 iso_code_3:abk
@@ -2145,6 +2145,11 @@ msgstr ""
 msgid "Selkup"
 msgstr ""
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2358,6 +2363,11 @@ msgstr ""
 #. frequency:1 iso_code_3:syr
 #: DB:language/name:404
 msgid "Syriac"
+msgstr ""
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
 msgstr ""
 
 #. frequency:1 iso_code_3:tgl
