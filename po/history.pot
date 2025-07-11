@@ -407,6 +407,10 @@ msgstr ""
 msgid "Editable edit notes"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2025-06-27
+msgid "Editor account cleanup"
+msgstr ""
+
 #. title:Track times set from DiscIDs
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
@@ -962,6 +966,13 @@ msgid ""
 "oppose them have time to see them."
 msgstr ""
 
+#. title:Editor account cleanup
+#: DB:statistics.statistic_event/description:2025-06-27
+msgid ""
+"Removed editors with no confirmed email, no activity and no OAuth tokens/"
+"edits/votes."
+msgstr ""
+
 #. title:Sambhav Kothari and Param Singh replace Roman Tsukanov
 #: DB:statistics.statistic_event/description:2017-09-06
 msgid ""
@@ -1386,14 +1397,14 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2025-03-21
 msgid ""
 "harmony.pulsewidth.org.uk is updated to allow the aggregating and seeding of "
-"individual track/recording relationships"
+"individual track/recording relationships."
 msgstr ""
 
 #. title:Harmony importer
 #: DB:statistics.statistic_event/description:2024-06-04
 msgid ""
 "harmony.pulsewidth.org.uk, a third party open-source metadata aggregator and "
-"MusicBrainz seeder, is released by Kellnerd"
+"MusicBrainz seeder, is released by Kellnerd."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2010-02-08
