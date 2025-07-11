@@ -18,6 +18,7 @@ around inflate_rows => sub {
         map { $_->{label_id} } @$items,
     );
     $self->c->model('LabelType')->load(values %$labels);
+    $self->c->model('Label')->load_aliases(values %$labels);
 
     return [
         map +{

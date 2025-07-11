@@ -10,6 +10,7 @@ sub _load_extra_place_info {
 
     $self->c->model('Area')->load(@places);
     $self->c->model('Area')->load_containment(map { $_->area } @places);
+    $self->c->model('Place')->load_aliases(@places);
 }
 
 around inflate_rows => sub {
