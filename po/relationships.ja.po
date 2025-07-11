@@ -18,11 +18,13 @@
 # tkusano <tkusano@users.noreply.translations.metabrainz.org>, 2024.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # Kori Syusetu <kori@isnowgroup.net>, 2025.
+# ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-22 19:20+0000\n"
-"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-05 13:20+0000\n"
+"Last-Translator: ROManceJP "
+"<poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -35,7 +37,7 @@ msgstr ""
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
-msgstr ""
+msgstr "演奏中心の、通常1年から3年の大学院課程。"
 
 #. name:social network
 #: DB:link_type/description:218
@@ -81,6 +83,7 @@ msgstr ""
 
 #. name:social network
 #: DB:link_type/description:192
+#, fuzzy
 msgid ""
 "A social network page is an artist's own profile page on a <a href=\"https://"
 "en.wikipedia.org/wiki/Social_networking_service\" target=\"_blank\">social "
@@ -90,6 +93,15 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"ソーシャルネットワークページとは、アーティスト本人（またはそのマネージャー）"
+"のみが投稿できる<a href="
+"\"https://ja.wikipedia.org/wiki/ソーシャル・ネットワーキング・サービス\" "
+"target=\"_blank\""
+">SNS</a>上のアカウントのページのこと。一般的に、そのSNSでアカウントを作成すれ"
+"ば、そのアーティストと交流することもできます。例えば、フレンドとして登録した"
+"り、アーティストが投稿したものにレスを返したりすることができます。例えばFaceb"
+"ookのページやプロフィール、Last.fmのユーザー、X（旧ツイッター）、Instagram、F"
+"lickrのアカウントなどです。"
 
 #. name:social network
 #: DB:link_type/description:783
@@ -133,7 +145,7 @@ msgstr "Apple Music"
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "次のApple Musicページ"
 
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
@@ -442,12 +454,13 @@ msgstr ""
 msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
-msgstr ""
+msgstr "対象のリリース (グループ) "
+"をテキスト、オーディオ、またはビデオの形式でレビューするページを示します。"
 
 #. name:schedule
 #: DB:link_type/description:1083
 msgid "Indicates a page with an official schedule for an event series."
-msgstr ""
+msgstr "イベントシリーズの公式スケジュールが記載されたページを示します。"
 
 #. name:parent
 #: DB:link_type/description:109
@@ -705,14 +718,17 @@ msgstr "初めて演奏した作品の演奏者を示す。主にクラシック
 msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr ""
+msgstr "このリリースの作曲者、つまり作曲したアーティストを示す（必ずしも作詞である必"
+"要はない）。"
 
 #. name:composer
 #: DB:link_type/description:168
+#, fuzzy
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr ""
+msgstr "この作品の作曲者、つまり音楽を書いたアーティストを示す（必ずしも歌詞を書いた"
+"とは限らない）。"
 
 #. name:premiere
 #: DB:link_type/description:845
@@ -798,11 +814,13 @@ msgstr "イベントのオフィシャルページを示します。"
 
 #. name:adapter
 #: DB:link_type/description:1285
+#, fuzzy
 msgid ""
 "Indicates the person who adapted this work (generally from a different "
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
-msgstr ""
+msgstr "この作品を翻案した人（一般的には、散文作品をオーディオドラマに、舞台ミュージ"
+"カルを映画ミュージカルになど、異なる媒体から翻案した人）を示す。"
 
 #. name:translator
 #: DB:link_type/description:871
@@ -817,10 +835,11 @@ msgstr "この作品の歌詞/台本を翻訳した人を示します。"
 
 #. name:scriptwriter
 #: DB:link_type/description:1286
+#, fuzzy
 msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
-msgstr ""
+msgstr "オーディオドラマなど、ドラマ化された作品のオリジナル脚本を書いた人を示す。"
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -6778,7 +6797,7 @@ msgstr "カバー"
 #. name:cover art link
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "カバーアート"
+msgstr "アルバムアート"
 
 #. name:cover art link
 #: DB:link_type/reverse_link_phrase:78
