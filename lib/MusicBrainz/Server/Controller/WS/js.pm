@@ -26,7 +26,15 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
 use MusicBrainz::Server::Data::Utils qw( type_to_model );
-use MusicBrainz::Server::Constants qw( entities_with %ENTITIES $CONTACT_URL );
+use MusicBrainz::Server::Constants qw(
+    entities_with
+    %ENTITIES
+    $CONTACT_URL
+    $ADDING_NOTES_DISABLED_FLAG
+    $EDITING_DISABLED_FLAG
+    $SPAMMER_FLAG
+    $VOTING_DISABLED_FLAG
+);
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw(
@@ -40,6 +48,7 @@ use Text::Trim;
 use Time::Piece;
 use URI;
 use XML::XPath;
+use DateTime;
 
 # This defines what options are acceptable for WS calls
 my $ws_defs = Data::OptList::mkopt([
@@ -76,6 +85,12 @@ my $ws_defs = Data::OptList::mkopt([
         method => 'GET',
     },
     'type-info' => {
+        method => 'GET',
+    },
+    'find-possible-spammers' => {
+        method => 'GET',
+    },
+    'mark-spammer' => {
         method => 'GET',
     },
 ]);
@@ -836,6 +851,132 @@ sub type_info : Chained('root') PathPart('type-info') Args(1) {
     $c->res->content_encoding('gzip');
     $c->response->headers->etag($etag);
     $c->res->body($response);
+}
+
+sub find_possible_spammers : Chained('root') PathPart('find-possible-spammers') {
+    my ($self, $c) = @_;
+
+    $self->cookie_login_or_error($c, 'you are not logged in');
+
+    unless ($c->user->is_account_admin) {
+        $self->detach_with_error($c, 'you are not an account admin');
+    }
+
+    my $query_params = $c->req->query_params;
+    my %args = (
+        op => $query_params->{op},
+        id => $query_params->{id},
+        limit => 50,
+    );
+
+    unless (defined $args{op}) {
+        $self->detach_with_error($c, q('op' parameter not specified));
+    }
+    unless (defined $args{id}) {
+        $self->detach_with_error($c, q('id' parameter not specified));
+    }
+    if ($args{op} !~ /^[gl]te?$/) {
+        $self->detach_with_error($c, q(malformed 'op' parameter));
+    }
+    unless (is_database_row_id($args{id})) {
+        $self->detach_with_error($c, q(malformed 'id' parameter));
+    }
+
+    my @users = $c->model('Editor')->find_possible_spammers(%args);
+
+    $c->res->content_type('application/json; charset=utf-8');
+    $c->res->body(encode_json({
+        users => [map { $c->unsanitized_editor_json($_) } @users],
+    }));
+}
+
+sub mark_spammer : Chained('root') PathPart('mark-spammer') Args(1) {
+    my ($self, $c, $user_id) = @_;
+
+    $c->forward('/user/cookie_login');
+
+    $c->res->content_type('text/plain; charset=utf-8');
+
+    unless ($c->user_exists) {
+        $c->res->body('you are not logged in');
+        $c->res->status(400);
+        return;
+    }
+
+    unless ($c->user->is_account_admin) {
+        $c->res->body('you are not an account admin');
+        $c->res->status(400);
+        return;
+    }
+
+    unless (is_database_row_id($user_id)) {
+        $c->res->body('malformed user id');
+        $c->res->status(400);
+        return;
+    }
+
+    my $editor = $c->model('Editor')->get_by_id($user_id);
+
+    unless ($editor) {
+        $c->res->body("editor $user_id does not exist");
+        $c->res->status(400);
+        return;
+    }
+
+    if ($editor->deleted) {
+        $c->res->body("editor $user_id is deleted");
+        $c->res->status(400);
+        return;
+    }
+
+    my %privilege_updates = (spammer => 1);
+
+    my $undo_param = $c->req->query_params->{undo};
+    if (defined $undo_param) {
+        unless (is_positive_integer($undo_param)) {
+            $c->res->body('malformed undo parameter');
+            $c->res->status(400);
+            return;
+        }
+        my $undo = $undo_param & (
+            $ADDING_NOTES_DISABLED_FLAG |
+            $EDITING_DISABLED_FLAG |
+            $SPAMMER_FLAG |
+            $VOTING_DISABLED_FLAG
+        );
+        if ($undo != $undo_param) {
+            $c->res->body('unsupported undo flags');
+            $c->res->status(400);
+            return;
+        }
+        if ($undo & $SPAMMER_FLAG) {
+            $privilege_updates{spammer} = 0;
+        }
+        if ($undo & $EDITING_DISABLED_FLAG) {
+            $privilege_updates{editing_disabled} = 0;
+        }
+        if ($undo & $VOTING_DISABLED_FLAG) {
+            $privilege_updates{voting_disabled} = 0;
+        }
+        if ($undo & $ADDING_NOTES_DISABLED_FLAG) {
+            $privilege_updates{adding_notes_disabled} = 0;
+        }
+    }
+
+    if ($privilege_updates{spammer} && $editor->is_spammer) {
+        $c->res->body("editor $user_id is already marked as spammer");
+        $c->res->status(400);
+        return;
+    }
+
+    $c->model('Editor')->update_privileges($editor, \%privilege_updates);
+
+    if ($privilege_updates{spammer}) {
+        $c->forward('/discourse/log_out', [$editor]);
+    }
+
+    $c->res->body('ok');
+    $c->res->status(200);
 }
 
 sub detach_with_error : Private {

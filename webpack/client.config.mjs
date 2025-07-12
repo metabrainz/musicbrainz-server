@@ -44,6 +44,8 @@ const entries = [
   'account/components/RegisterForm',
   'account/edit',
   'account/preferences',
+  'admin/components/PossibleSpammersList',
+  'admin/components/SpammerButton',
   'annotation/AnnotationHistoryTable',
   'alias',
   'area/edit',

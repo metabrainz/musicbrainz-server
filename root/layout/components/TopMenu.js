@@ -177,6 +177,11 @@ component AdminMenu(user: UnsanitizedEditorT) {
                 {l_admin('Locked username search')}
               </a>
             </li>
+            <li>
+              <a href="/admin/possible-spammers">
+                {l_admin('Possible spammers')}
+              </a>
+            </li>
           </>
         ) : null}
       </ul>
