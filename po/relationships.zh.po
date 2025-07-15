@@ -3026,6 +3026,15 @@ msgstr "用于将一个发行链接到其在 SecondHandSongs 数据库中对应�
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr "用于将一个发行链接到其在 AllMusic 上对应的页面。"
 
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr "这用于将一个唱片厂牌链接到其商标标志的图片。"
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -6831,7 +6840,7 @@ msgid "has a karaoke version"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr ""
 
@@ -7818,17 +7827,17 @@ msgstr ""
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "logo"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "商标，属于"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "标志"
 

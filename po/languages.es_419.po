@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "PO-Revision-Date: 2024-08-31 00:42+0000\n"
-"Last-Translator: Early6431 <Early6431@users.noreply.translations.metabrainz."
-"org>\n"
+"Last-Translator: Early6431 "
+"<Early6431@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/languages/es_419/>\n"
 "Language: es_419\n"
@@ -2150,6 +2150,11 @@ msgstr ""
 msgid "Selkup"
 msgstr ""
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2364,6 +2369,11 @@ msgstr ""
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "Siríaco"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr ""
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414
