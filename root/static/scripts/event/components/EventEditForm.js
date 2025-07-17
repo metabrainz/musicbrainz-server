@@ -14,6 +14,7 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
 import Bubble from '../../common/components/Bubble.js';
 import expand2react from '../../common/i18n/expand2react.js';
+import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
@@ -183,8 +184,7 @@ component EventEditForm(
 
   const hasErrors = hasSubfieldErrors(state.form);
 
-  const event = $c.stash.source_entity;
-  invariant(event && event.entityType === 'event');
+  const eventEntity: EventT = getSourceEntityData($c, 'event');
 
   const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
 
@@ -228,7 +228,7 @@ component EventEditForm(
           <legend>{l('Event details')}</legend>
           <FormRowNameWithGuessCase
             dispatch={nameDispatch}
-            entity={event}
+            entity={eventEntity}
             field={state.form.field.name}
             guessCaseOptions={state.guessCaseOptions}
             isGuessCaseOptionsOpen={state.isGuessCaseOptionsOpen}
@@ -301,9 +301,9 @@ component EventEditForm(
         <fieldset>
           <legend>{l('External links')}</legend>
           <ExternalLinksEditor
-            isNewEntity={!event.id}
+            isNewEntity={!eventEntity.id}
             ref={externalLinksEditorRef}
-            sourceData={event}
+            sourceData={eventEntity}
           />
         </fieldset>
 
