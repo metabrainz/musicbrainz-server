@@ -82,7 +82,7 @@ declare type CatalystStashT = {
   +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
   +series_ordering_types?: {+[id: number]: SeriesOrderingTypeT},
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
-  +source_entity?: ?RelatableEntityT,
+  +source_entity?: ?SourceEntityDataT,
   +subscribed?: boolean,
   +to_merge?: $ReadOnlyArray<MergeableEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
@@ -123,7 +123,7 @@ declare type SanitizedCatalystContextT = {
     +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
     +series_ordering_types?: {+[id: number]: SeriesOrderingTypeT},
     +server_languages?: $ReadOnlyArray<ServerLanguageT>,
-    +source_entity?: ?RelatableEntityT,
+    +source_entity?: ?SourceEntityDataT,
   },
   +user: ActiveEditorT | null,
 };
@@ -134,3 +134,12 @@ declare type ServerLanguageT = {
   +native_language: string,
   +native_territory: string,
 };
+
+declare type SourceEntityDataT =
+  | RelatableEntityT
+  | {
+      +entityType: RelatableEntityTypeT,
+      +isNewEntity: true,
+      +name?: string,
+      +orderingTypeID?: number,
+    };
