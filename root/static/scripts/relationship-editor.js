@@ -12,15 +12,16 @@ import $ from 'jquery';
 import './relationship-editor/components/RelationshipEditorWrapper.js';
 
 import {
-  getSourceEntityDataForRelationshipEditor,
+  getCatalystContext,
+  getSourceEntityData,
 } from './common/utility/catalyst.js';
 import {
   createExternalLinksEditorForHtmlForm,
 } from './external-links-editor/components/ExternalLinksEditor.js';
 
 $(function () {
-  const sourceData = getSourceEntityDataForRelationshipEditor();
-  const entityType = sourceData.entityType;
+  const source = getSourceEntityData(getCatalystContext());
+  const entityType = source.entityType;
   const reactEditors = ['event', 'genre'];
 
   if (
