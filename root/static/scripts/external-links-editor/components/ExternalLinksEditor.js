@@ -1212,8 +1212,8 @@ export function createExternalLinksEditor(
   +externalLinksEditorRef: {current: _ExternalLinksEditor | null},
   +root: {+unmount: () => void, ...},
 } {
-  const sourceData = options?.sourceData ?? getSourceEntityData();
-  invariant(sourceData);
+  const sourceData = options?.sourceData ??
+    getSourceEntityData(getCatalystContext());
 
   const mountPoint = $('#external-links-editor-container')[0];
   let root = $(mountPoint).data('react-root');

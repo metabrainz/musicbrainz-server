@@ -14,6 +14,7 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
+import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
@@ -97,8 +98,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     }
   };
 
-  const genre = $c.stash.source_entity;
-  invariant(genre && genre.entityType === 'genre');
+  const genre: GenreT = getSourceEntityData($c, 'genre');
 
   const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
 
