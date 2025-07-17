@@ -22,7 +22,7 @@ import {INSTRUMENT_ROOT_ID, VOCAL_ROOT_ID} from '../../common/constants.js';
 import MB from '../../common/MB.js';
 import {
   getCatalystContext,
-  getSourceEntityDataForRelationshipEditor,
+  getSourceEntityData,
 } from '../../common/utility/catalyst.js';
 import coerceToError from '../../common/utility/coerceToError.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
@@ -173,7 +173,7 @@ export function createInitialState(
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
-  const source = args.source ?? getSourceEntityDataForRelationshipEditor();
+  const source = args.source ?? getSourceEntityData(getCatalystContext());
 
   invariant(
     source.entityType !== 'release',
@@ -226,7 +226,7 @@ export function loadOrCreateInitialState(
   const $c = getCatalystContext();
   let submittedRelationships;
   if (hasSessionStorage && $c.req.method === 'POST') {
-    const source = args.source ?? getSourceEntityDataForRelationshipEditor();
+    const source = args.source ?? getSourceEntityData($c);
     const sessionStorageKey = getHtmlFormSubmissionSessionStorageKey(source);
     const submittedRelationshipsJson =
       sessionStorageWrapper.get(sessionStorageKey);

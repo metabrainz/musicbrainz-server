@@ -12,7 +12,6 @@ import ko from 'knockout';
 import * as React from 'react';
 import * as ReactDOMClient from 'react-dom/client';
 
-import invariant from '../../../../utility/invariant.js';
 import {
   EMPTY_PARTIAL_DATE,
   ENTITIES_WITH_RELATIONSHIP_CREDITS,
@@ -1215,8 +1214,8 @@ export function createExternalLinksEditor(
   +externalLinksEditorRef: {current: _ExternalLinksEditor | null},
   +root: {+unmount: () => void, ...},
 } {
-  const sourceData = options?.sourceData ?? getSourceEntityData();
-  invariant(sourceData);
+  const sourceData = options?.sourceData ??
+    getSourceEntityData(getCatalystContext());
 
   const mountPoint = $('#external-links-editor-container')[0];
   let root = $(mountPoint).data('react-root');

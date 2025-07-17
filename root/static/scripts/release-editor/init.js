@@ -355,7 +355,7 @@ releaseEditor.init = function (options) {
   this.seed(options.seed);
 
   if (this.action === 'edit') {
-    this.releaseLoaded(getSourceEntityData());
+    this.releaseLoaded(getSourceEntityData(getCatalystContext(), 'release'));
   } else {
     releaseEditor.createExternalLinksEditor(
       {entityType: 'release'},
