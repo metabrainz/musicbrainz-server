@@ -11,25 +11,25 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
-import type {
-  LinkRelationshipT,
-  LinkStateT,
-} from '../../external-links-editor/types.js';
-import {copyDatePeriodField} from '../utility/copyFieldData.js';
-import {
-  createCompoundFieldFromObject,
-  createField,
-} from '../utility/createField.js';
-import {
-  applyAllPendingErrors,
-  hasSubfieldErrors,
-} from '../utility/subfieldErrors.js';
-
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
-} from './DateRangeFieldset.js';
+} from '../../edit/components/DateRangeFieldset.js';
+import {copyDatePeriodField} from '../../edit/utility/copyFieldData.js';
+import {
+  createCompoundFieldFromObject,
+  createField,
+} from '../../edit/utility/createField.js';
+import {
+  applyAllPendingErrors,
+  hasSubfieldErrors,
+} from '../../edit/utility/subfieldErrors.js';
+import type {
+  LinkRelationshipT,
+  LinkStateT,
+} from '../types.js';
+
 import UrlRelationshipCreditFieldset
   from './UrlRelationshipCreditFieldset.js';
 
