@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import FieldErrors from './FieldErrors.js';
-import FormRowText from './FormRowText.js';
+import FieldErrors from '../../edit/components/FieldErrors.js';
+import FormRowText from '../../edit/components/FormRowText.js';
 
 export type ActionT = {+credit: string, +type: 'update-relationship-credit'};
 
