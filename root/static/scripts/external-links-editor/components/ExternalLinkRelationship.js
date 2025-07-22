@@ -14,8 +14,6 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import {bracketedText} from '../../common/utility/bracketed.js';
 import formatDatePeriod from '../../common/utility/formatDatePeriod.js';
 import {isDateNonEmpty} from '../../common/utility/isDateEmpty.js';
-import ExternalLinkAttributeDialog
-  from '../../edit/components/ExternalLinkAttributeDialog.js';
 import RelationshipPendingEditsWarning
   from '../../edit/components/RelationshipPendingEditsWarning.js';
 import RemoveButton from '../../edit/components/RemoveButton.js';
@@ -27,6 +25,8 @@ import type {
   LinkTypeOptionT,
 } from '../types.js';
 
+import ExternalLinkAttributeDialog
+  from './ExternalLinkAttributeDialog.js';
 import LinkTypeSelect from './LinkTypeSelect.js';
 import TypeDescription from './TypeDescription.js';
 
