@@ -10,11 +10,11 @@
 import * as React from 'react';
 
 import ENTITIES from '../../entities.mjs';
+import LayoutComponent from '../components/LayoutComponent.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import DiffSide from '../static/scripts/edit/components/edit/DiffSide.js';
 import {DELETE, INSERT} from '../static/scripts/edit/utility/editDiff.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
 component AnnotationComparison(
@@ -26,7 +26,6 @@ component AnnotationComparison(
   const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;
-  const LayoutComponent = chooseLayoutComponent(entityType);
 
   return (
     <LayoutComponent

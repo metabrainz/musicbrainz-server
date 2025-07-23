@@ -116,7 +116,7 @@ export type ReportIsrcT = {
   +isrc: string,
   +length: number,
   +name: string,
-  +recording: ?RecordingWithArtistCreditT,
+  +recording: ?RecordingT,
   +recording_id: string,
   +recordingcount: number,
   +row_number: number,
@@ -175,7 +175,7 @@ export type ReportPlaceRelationshipT = $ReadOnly<{
 
 export type ReportRecordingAnnotationT = $ReadOnly<{
   ...ReportAnnotationRoleT,
-  +recording: ?RecordingWithArtistCreditT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
 }>;
@@ -184,13 +184,13 @@ export type ReportRecordingRelationshipT = $ReadOnly<{
   ...ReportRelationshipRoleT,
   +begin?: number,
   +end?: number,
-  +recording: ?RecordingWithArtistCreditT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
 }>;
 
 export type ReportRecordingT = {
-  +recording: ?RecordingWithArtistCreditT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
 };

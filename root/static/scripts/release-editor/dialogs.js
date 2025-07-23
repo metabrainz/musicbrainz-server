@@ -13,7 +13,10 @@ import * as ReactDOMServer from 'react-dom/server';
 import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../common/dialogs.js';
 
-import {reduceArtistCredit} from '../common/immutable-entities.js';
+import {
+  nonEmptyArtistCredit,
+  reduceArtistCredit,
+} from '../common/immutable-entities.js';
 import {bracketedText} from '../common/utility/bracketed.js';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import isBlank from '../common/utility/isBlank.js';
@@ -129,7 +132,7 @@ class SearchResult {
     track.number = track.position;
     track.formattedLength = formatTrackLength(track.length);
 
-    if (track.artistCredit) {
+    if (nonEmptyArtistCredit(track.artistCredit)) {
       track.artist = reduceArtistCredit(track.artistCredit);
     } else {
       // If the track artist matches the release artist, reuse the AC

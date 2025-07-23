@@ -8,71 +8,41 @@
  */
 
 export function formatPluralEntityTypeName(typeName: string): string {
-  switch (typeName) {
-    case 'area':
-      return l('Areas');
-    case 'artist':
-      return l('Artists');
-    case 'collection':
-      return l('Collections');
-    case 'event':
-      return l('Events');
-    case 'genre':
-      return l('Genres');
-    case 'instrument':
-      return l('Instruments');
-    case 'label':
-      return l('Labels');
-    case 'place':
-      return l('Places');
-    case 'recording':
-      return l('Recordings');
-    case 'release':
-      return l('Releases');
-    case 'release_group':
-      return l('Release groups');
-    case 'series':
-      return lp('Series', 'plural');
-    case 'url':
-      return l('URLs');
-    case 'work':
-      return l('Works');
-    default:
-      return typeName;
-  }
+  return match (typeName) {
+    'area' => l('Areas'),
+    'artist' => l('Artists'),
+    'collection' => l('Collections'),
+    'event' => l('Events'),
+    'genre' => l('Genres'),
+    'instrument' => l('Instruments'),
+    'label' => l('Labels'),
+    'place' => l('Places'),
+    'recording' => l('Recordings'),
+    'release' => l('Releases'),
+    'release_group' => l('Release groups'),
+    'series' => lp('Series', 'plural'),
+    'url' => l('URLs'),
+    'work' => l('Works'),
+    _ => typeName,
+  };
 }
 
 export default function formatEntityTypeName(typeName: string): string {
-  switch (typeName) {
-    case 'area':
-      return l('Area');
-    case 'artist':
-      return l('Artist');
-    case 'collection':
-      return l('Collection');
-    case 'event':
-      return l('Event');
-    case 'genre':
-      return l('Genre');
-    case 'instrument':
-      return l('Instrument');
-    case 'label':
-      return l('Label');
-    case 'place':
-      return l('Place');
-    case 'recording':
-      return l('Recording');
-    case 'release':
-      return l('Release');
-    case 'release_group':
-      return l('Release group');
-    case 'series':
-      return lp('Series', 'singular');
-    case 'url':
-      return l('URL');
-    case 'work':
-      return l('Work');
-    default:
-      return typeName;
-  }
+  return match (typeName) {
+    'area' => l('Area'),
+    'artist' => l('Artist'),
+    'collection' => l('Collection'),
+    'event' => l('Event'),
+    'genre' => l('Genre'),
+    'instrument' => l('Instrument'),
+    'label' => l('Label'),
+    'place' => l('Place'),
+    'recording' => l('Recording'),
+    'release' => l('Release'),
+    'release_group' => l('Release group'),
+    'series' => lp('Series', 'singular'),
+    'url' => l('URL'),
+    'work' => l('Work'),
+    _ => typeName,
+  };
 }

@@ -44,8 +44,9 @@ export const EDIT_STATUS_FAILEDPREREQ = 6;
 export const EDIT_STATUS_NOVOTES = 7;
 export const EDIT_STATUS_DELETED = 9;
 
-export const EDIT_VOTE_NONE = -2;
-export const EDIT_VOTE_ABSTAIN = -1;
+// FlowIssue Without 'as const' for negatives here Flow sees them as 'number'
+export const EDIT_VOTE_NONE = -2 as const;
+export const EDIT_VOTE_ABSTAIN = -1 as const;
 export const EDIT_VOTE_NO = 0;
 export const EDIT_VOTE_YES = 1;
 export const EDIT_VOTE_APPROVE = 2;

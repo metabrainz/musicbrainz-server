@@ -19,17 +19,12 @@ import type {RelationshipStateT} from '../types.js';
 export function getStatusName(
   status: RelationshipEditStatusT,
 ): string {
-  switch (status) {
-    case REL_STATUS_ADD:
-      return 'add';
-    case REL_STATUS_EDIT:
-      return 'edit';
-    case REL_STATUS_NOOP:
-      return 'noop';
-    case REL_STATUS_REMOVE:
-      return 'remove';
-  }
-  return '';
+  return match (status) {
+    REL_STATUS_ADD => 'add',
+    REL_STATUS_EDIT => 'edit',
+    REL_STATUS_NOOP => 'noop',
+    REL_STATUS_REMOVE => 'remove',
+  };
 }
 
 export default function getRelationshipStatusName(

@@ -7,12 +7,13 @@
  */
 
 import commaOnlyList from '../i18n/commaOnlyList.js';
+import {nonEmptyArtistCredit} from '../immutable-entities.js';
 
 import ArtistCreditLink from './ArtistCreditLink.js';
 import DescriptiveLink from './DescriptiveLink.js';
 
 export component ExpandedArtistCreditList(artistCredit: ArtistCreditT) {
-  if (!artistCredit) {
+  if (!nonEmptyArtistCredit(artistCredit)) {
     return null;
   }
 

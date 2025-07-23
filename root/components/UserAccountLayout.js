@@ -13,20 +13,6 @@ import sanitizedEditor from '../utility/sanitizedEditor.mjs';
 
 import UserAccountTabs from './UserAccountTabs.js';
 
-export type AccountLayoutUserT = {
-  +avatar: string,
-  +deleted: boolean,
-  +entityType: 'editor',
-  +id: number,
-  +name: string,
-  +preferences: {
-    +public_ratings: boolean,
-    +public_subscriptions: boolean,
-    +public_tags: boolean,
-  },
-  +privileges: number,
-};
-
 export function sanitizedAccountLayoutUser(
   editor: UnsanitizedEditorT,
 ): AccountLayoutUserT {

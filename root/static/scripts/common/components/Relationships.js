@@ -9,6 +9,7 @@
 
 import * as React from 'react';
 
+import {nonEmptyArtistCredit} from '../immutable-entities.js';
 import groupRelationships, {
   type RelationshipTargetTypeGroupT,
 } from '../utility/groupRelationships.js';
@@ -82,7 +83,10 @@ component _Relationship(
 
   const hiddenArtistCredit: ?ArtistCreditT = source.entityType === 'artist'
     ? {names: [{artist: source, joinPhrase: '', name: source.name}]}
-    : (source.artistCredit || null);
+    : (nonEmptyArtistCredit(source.artistCredit)
+      ? source.artistCredit
+      : null
+    );
 
   const heading = noRelationshipsHeading
     ? null

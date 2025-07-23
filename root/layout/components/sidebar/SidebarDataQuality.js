@@ -13,18 +13,11 @@ import {SidebarProperty} from './SidebarProperties.js';
 
 component SidebarDataQuality(quality: QualityT) {
   const name = QUALITY_NAMES.get(quality);
-  let qualityClass;
-  switch (quality) {
-    case 2:
-      qualityClass = 'high-data-quality';
-      break;
-    case 0:
-      qualityClass = 'low-data-quality';
-      break;
-    default:
-      qualityClass = '';
-      break;
-  }
+  const qualityClass = match (quality) {
+    2 => 'high-data-quality',
+    0 => 'low-data-quality',
+    _ => '',
+  };
 
   return name ? (
     <SidebarProperty

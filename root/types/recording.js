@@ -18,7 +18,7 @@ declare type RecordingT = $ReadOnly<{
   ...ReviewableRoleT,
   +appearsOn?: AppearancesT<{gid: string, name: string}>,
   +artist?: string,
-  +artistCredit?: ArtistCreditT,
+  +artistCredit: ArtistCreditT,
   +first_release_date?: PartialDateT,
   +isrcs: $ReadOnlyArray<IsrcT>,
   +length: number,
@@ -26,9 +26,6 @@ declare type RecordingT = $ReadOnly<{
   +related_works: $ReadOnlyArray<number>,
   +video: boolean,
 }>;
-
-declare type RecordingWithArtistCreditT =
-  $ReadOnly<{...RecordingT, +artistCredit: ArtistCreditT}>;
 
 declare type ReleaseGroupAppearancesT = {
   +hits: number,
