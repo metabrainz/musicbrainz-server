@@ -56,6 +56,7 @@ export default {
   'admin/IpLookup': (): Promise<mixed> => import('../admin/IpLookup.js'),
   'admin/LockedUsernameSearch': (): Promise<mixed> => import('../admin/LockedUsernameSearch.js'),
   'admin/LockedUsernameUnlock': (): Promise<mixed> => import('../admin/LockedUsernameUnlock.js'),
+  'admin/PossibleSpammers': (): Promise<mixed> => import('../admin/PossibleSpammers.js'),
   'admin/PrivilegeSearch': (): Promise<mixed> => import('../admin/PrivilegeSearch.js'),
   'admin/statistics-events/CreateStatisticsEvent': (): Promise<mixed> => import('../admin/statistics-events/CreateStatisticsEvent.js'),
   'admin/statistics-events/DeleteStatisticsEvent': (): Promise<mixed> => import('../admin/statistics-events/DeleteStatisticsEvent.js'),
