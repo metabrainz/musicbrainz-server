@@ -235,7 +235,7 @@
 <!-- musicbrainz.artist_alias&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_alias:artist-&gt;musicbrainz.artist:id</title>
-<path d="m180.5-1364c74.34 0 8.2 634.87 69.91 691.91" fill="none" stroke="#000"/>
+<path d="m180.5-1364c19.801 0 31.922 38.139 40.494 105.24 20.558 160.92 16.317 456.24 16.922 558.94 0.087 14.78 6.6388 22.314 12.494 27.726" fill="none" stroke="#000" sodipodi:nodetypes="cssc"/>
 <polygon points="252.17 -675.14 260 -668 249.43 -668.7" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_alias_type -->
@@ -291,7 +291,7 @@
 <!-- musicbrainz.artist_annotation&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_annotation:artist-&gt;musicbrainz.artist:id</title>
-<path d="m188.5-1469c22 0 22.77 18.4 30.5 39 13.98 37.29 0.46 677.04 33.92 754.37" fill="none" stroke="#000"/>
+<path d="m188.5-1469c22 0 36.42 0.7067 44.15 21.307 12.962 34.576 9.5696 604.75 10.91 747.92 0.22976 24.542 14.764 33.323 9.36 24.145" fill="none" stroke="#000" sodipodi:nodetypes="ccsc"/>
 <polygon points="255.77 -677.71 260 -668 250.63 -672.95" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_gid_redirect -->
@@ -313,7 +313,7 @@
 <!-- musicbrainz.artist_gid_redirect&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_gid_redirect:new_id-&gt;musicbrainz.artist:id</title>
-<path d="m193.5-414c54.7 0 14-223.24 56.78-251.15" fill="none" stroke="#000"/>
+<path d="m193.5-414c54.698 0 4.761-254.06 56.778-253.61" fill="none" stroke="#000" stroke-width="1.0049" sodipodi:nodetypes="cc"/>
 <polygon points="249.42 -668.54 260 -668 251.39 -661.83" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_ipi -->
@@ -338,7 +338,7 @@
 <!-- musicbrainz.artist_ipi&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_ipi:artist-&gt;musicbrainz.artist:id</title>
-<path d="m163.5-329c31.76 0 39.89-17.35 55.5-45 30.6-54.19-18.75-267.78 30.94-291.8" fill="none" stroke="#000"/>
+<path d="m163.5-329c31.76 0 47.787-14.212 55.5-45.041 18.59-75.815-11.051-282.51 30.94-292.07" fill="none" stroke="#000" stroke-width="1.0005" sodipodi:nodetypes="ccc"/>
 <polygon points="249.48 -669.28 260 -668 250.98 -662.44" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_isni -->
@@ -361,10 +361,10 @@
 <text x="59.5" y="-134.8" font-family="Times,serif" font-size="14">created</text>
 </g>
 <!-- musicbrainz.artist_isni&#45;&gt;musicbrainz.artist -->
-<g class="edge">
+<g class="edge" transform="matrix(1 0 0 .99934 -.0009278 -.13319)">
 <title>musicbrainz.artist_isni:artist-&gt;musicbrainz.artist:id</title>
-<path d="m163.5-202c31.76 0 40.46-17.03 55.5-45 20.73-38.57-2.37-370.68 32.38-415.91" fill="none" stroke="#000"/>
-<polygon points="249.61 -665.93 260 -668 253.17 -659.9" stroke="#000"/>
+<path d="m163.5-202c31.76 0 43.109-15.823 55.5-45.18 28.121-65.932-11.916-415.44 32.38-417.58" fill="none" stroke="#000" stroke-width="1.002" sodipodi:nodetypes="ccc"/>
+<polygon points="260 -668 253.17 -659.9 249.61 -665.93" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_meta -->
 <g class="node">
@@ -385,7 +385,7 @@
 <!-- musicbrainz.artist_meta&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_meta:id-&gt;musicbrainz.artist:id</title>
-<path d="m162.5-1007c37.28 0 40.52 28.32 56.5 62 25.11 52.93-15.87 251.69 31.16 274.8" fill="none" stroke="#000"/>
+<path d="m162.5-1007c37.28 0 56.233 1.9041 59.872 39.005 3.7072 44.099 8.6584 203.14 9.7572 268.39 0.25059 14.881 9.0901 25.007 18.031 29.4" fill="none" stroke="#000" sodipodi:nodetypes="ccsc"/>
 <polygon points="251 -673.59 260 -668 249.48 -666.76" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_release -->
@@ -422,7 +422,7 @@
 <!-- musicbrainz.artist_release&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_release:artist-&gt;musicbrainz.artist:id</title>
-<path d="m189.5-879c95.2 0-19.24 195.63 60.4 210.15" fill="none" stroke="#000"/>
+<path d="m189.5-879c18.64 0 29.212 32.58 30.578 46.125 4.6044 45.648 5.4027 104.94 6.5227 144.22 0.21591 7.5714 14.049 18.118 23.299 19.804" fill="none" stroke="#000" sodipodi:nodetypes="cssc"/>
 <polygon points="250.33 -672.33 260 -668 249.74 -665.35" stroke="#000"/>
 </g>
 <!-- musicbrainz.artist_release_group -->
@@ -490,7 +490,7 @@
 <!-- musicbrainz.artist_tag&#45;&gt;musicbrainz.artist -->
 <g class="edge">
 <title>musicbrainz.artist_tag:artist-&gt;musicbrainz.artist:id</title>
-<path d="m159.5-75c33.16 0 43.63-15.89 59.5-45 27.62-50.68-14.9-495.24 31.94-543.72" fill="none" stroke="#000"/>
+<path d="m159.5-74.999c33.16 0 52.599-12.534 59.5-44.906 34.703-162.9-6.5854-539.99 31.94-542.58" fill="none" stroke="#000" stroke-width=".99896" sodipodi:nodetypes="ccc"/>
 <polygon points="249.46 -666.89 260 -668 252.46 -660.56" stroke="#000"/>
 </g>
 <!-- musicbrainz.tag -->
