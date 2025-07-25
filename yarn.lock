@@ -7814,6 +7814,7 @@ __metadata:
     tap-junit: "npm:5.0.4"
     tape: "npm:4.17.0"
     terser-webpack-plugin: "npm:5.3.14"
+    tldts: "npm:7.0.10"
     utf8: "npm:3.0.0"
     webpack: "npm:5.99.9"
     webpack-node-externals: "npm:3.0.0"
@@ -10443,6 +10444,24 @@ __metadata:
     readable-stream: "npm:>=1.0.33-1 <1.1.0-0"
     xtend: "npm:>=4.0.0 <4.1.0-0"
   checksum: 10c0/3294325d73b120ffbb8cd00e28a649a99e194cef2638bf782b6c2eb0c163b388f7b7bb908003949f58f9f6b8f771defd24b6e4df051eb410fd87931521963b98
+  languageName: node
+  linkType: hard
+
+"tldts-core@npm:^7.0.10":
+  version: 7.0.10
+  resolution: "tldts-core@npm:7.0.10"
+  checksum: 10c0/049f606c18707463366cfcb63d766dc5a4e68c94ba79bd86fce90a2a2187324ab44907a1ce114665f68774a579d10fa7fcc5c44111179f7b19c84fbb3474d9cf
+  languageName: node
+  linkType: hard
+
+"tldts@npm:7.0.10":
+  version: 7.0.10
+  resolution: "tldts@npm:7.0.10"
+  dependencies:
+    tldts-core: "npm:^7.0.10"
+  bin:
+    tldts: bin/cli.js
+  checksum: 10c0/d94610130fdc6eca6d4516fe417fce2be863c8cd7aeaed3f144325244945516e756c82bd1398f9ffb062f55c059f63bbdfb591eca86e1d93afb81bc60dabd0a6
   languageName: node
   linkType: hard
 
