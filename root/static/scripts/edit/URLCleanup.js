@@ -6197,10 +6197,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
-    match: [
-      /^(https?:\/\/)?s\.pixogs\.com\//i,
-      /^(https?:\/\/)?(s|img)\.discogss?\.com\//i,
-    ],
+    match: [/^(https?:\/\/)?i\.discogs\.com\//i],
     restrict: [LINK_TYPES.image],
     validate() {
       return {
