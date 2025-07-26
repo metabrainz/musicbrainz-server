@@ -1680,6 +1680,15 @@ msgstr ""
 "f2235fe1e9a3\">“弗吕格尔号”（Flugelhorn）</a>。<br /><br />起源于德语系的波尔"
 "卡乐队，如今在Catalan cobla也有使用。"
 
+#. name:Radhika's Mohan veena
+#: DB:instrument/description:1211
+msgid ""
+"For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt see "
+"VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika Maitra "
+"in the 1940s, it has a wooden soundbox cover (like sitar), an extra neck "
+"resonator (like veena) and the fretboard from the sarod."
+msgstr ""
+
 #. name:tumbi
 #: DB:instrument/description:511
 msgid ""

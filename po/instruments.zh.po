@@ -211,6 +211,11 @@ msgctxt "Portugese plucked lute"
 msgid "Portuguese guitar"
 msgstr "葡萄牙吉他"
 
+#: DB:instrument/name:1211
+msgctxt "1940s modified sarod"
+msgid "Radhika's Mohan veena"
+msgstr ""
+
 #: DB:instrument/name:576
 msgid "Reactable"
 msgstr "圆桌合成器"
