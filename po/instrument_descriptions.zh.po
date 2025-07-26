@@ -5,11 +5,12 @@
 # weeeeei <weeeeei@duck.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # Ral Hole <ral-hole@outlook.com>, 2025.
+# Beteix <1158817754@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-20 21:44+0000\n"
-"Last-Translator: KenParker_CN <peekabookenny@gmail.com>\n"
+"PO-Revision-Date: 2025-07-26 12:36+0000\n"
+"Last-Translator: Beteix <1158817754@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1351,6 +1352,8 @@ msgid ""
 "strings and specialised bridge so the sound will resemble sitar, it became "
 "popular in rock, jazz and fusion music after its invention in the 1960's."
 msgstr ""
+"电吉他具有标准的指板和调音，但增加了共鸣弦和特殊的琴桥，因此音色类似西塔琴，"
+"在 20 世纪 60 年代发明后，开始在摇滚、爵士和融合音乐中流行。"
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -1688,6 +1691,11 @@ msgid ""
 "in the 1940s, it has a wooden soundbox cover (like sitar), an extra neck "
 "resonator (like veena) and the fretboard from the sarod."
 msgstr ""
+"关于维什瓦-莫汉-巴特（Vishwa Mohan Bhatt）在 20 世纪 90 "
+"年代制作的改良型滑弦吉他，请参阅 VM Bhatt's Mohan veena。<br /> "
+"拉迪卡-梅特拉（Radhika Maitra）在 20 世纪 40 "
+"年代制作的改良型萨罗琴，有一个木制音箱盖（类似西塔琴）、一个额外的颈部共鸣器"
+"（类似维纳琴）以及萨罗琴的指板。"
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1697,6 +1705,8 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
+"单弦鼓筝也称为 ektar/ektara，见 <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>."
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -2238,7 +2248,9 @@ msgid ""
 "Invented and developed by several people in the early 1800's, it has an arm "
 "operated bellows with keys or buttons at one end and bass buttons at the "
 "other."
-msgstr ""
+msgstr "它是由几个人在 19 "
+"世纪早期发明和开发的，有一个手臂操作的风箱，一端有按键或按钮，另一端有低音按"
+"钮。"
 
 #. name:bandoneón
 #: DB:instrument/description:193
@@ -2246,7 +2258,9 @@ msgid ""
 "Invented and used in 1800's Europe, it became popular in Argentina. Unlike "
 "concertinas it is square, but alike its button action is parallel, typically "
 "it has several reeds per button."
-msgstr ""
+msgstr "这种乐器发明于 19 "
+"世纪的欧洲，后来在阿根廷流行起来。与协奏曲不同，它是方形的，但按钮动作是平行"
+"的，通常每个按钮有几个簧片。"
 
 #. name:mandora / gallichon
 #: DB:instrument/description:895
@@ -2322,7 +2336,7 @@ msgstr ""
 #. name:sho
 #: DB:instrument/description:192
 msgid "It is based on the Chinese sheng, but is smaller."
-msgstr ""
+msgstr "它以中国的笙为基础，但比笙小。"
 
 #. name:viola
 #: DB:instrument/description:63
@@ -2355,20 +2369,15 @@ msgstr ""
 
 #. name:djoza
 #: DB:instrument/description:850
-#, fuzzy
-#| msgid ""
-#| "its origins can be sourced almost 5000 years ago, this Iraqi string "
-#| "instrument is the forefather of several instruments around the world. Its "
-#| "name means coconut or acorn, while originally made of walnut, it is today "
-#| "of coconut and fish-skin or heart-membrane."
 msgid ""
 "Its origins can be sourced almost 5000 years ago, this Iraqi string "
 "instrument is the forefather of several instruments around the world. Its "
 "name means coconut or acorn, while originally made of walnut, it is today of "
 "coconut and fish-skin or heart-membrane."
 msgstr ""
-"起源可追溯至5000年前，这种伊拉克弦乐器是世界上多种乐器的前身。名称本意为椰子"
-"或橡子，原本由胡桃制成，现在则使用椰子和鱼皮或心脏膜。"
+"这种伊拉克弦乐器的起源可追溯到近 5000 "
+"年前，是世界上多种乐器的鼻祖。它的名字意为椰子或橡子，最初由胡桃木制成，如今"
+"则由椰子和鱼皮或心膜制成。"
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -2436,7 +2445,9 @@ msgstr ""
 msgid ""
 "Known since 1400, traditionally in military context, today it is the most "
 "widespread and famous of bagpipes."
-msgstr ""
+msgstr "自 1400 "
+"年以来，这种风笛就已闻名遐迩，传统上用于军事场合，如今它已成为最广泛和最著名"
+"的风笛。"
 
 #. name:zill
 #: DB:instrument/description:455
@@ -2542,7 +2553,7 @@ msgstr ""
 msgid ""
 "Larger and deeper than the tin whistle, it was developed by Overton and made "
 "of aluminium."
-msgstr ""
+msgstr "它比锡哨更大、更深，由奥弗顿开发，用铝制成。"
 
 #. name:baandu
 #: DB:instrument/description:880
@@ -2570,7 +2581,8 @@ msgid ""
 "Larger than the gallega, it has been in use since atleast the 13th century, "
 "traditionally with only one chanter and drone, it has very colourfully "
 "decorated fur."
-msgstr ""
+msgstr "它比加列加更大，至少从 13 "
+"世纪起就开始使用，传统上只有一个吟唱器和一个吹奏器，它的毛皮装饰非常艳丽。"
 
 #. name:seni rebab
 #: DB:instrument/description:1014
