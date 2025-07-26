@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2025-06-03 13:20+0000\n"
+"PO-Revision-Date: 2025-07-23 22:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -54,9 +54,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.11.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -355,18 +355,13 @@ msgstr ""
 "новую запись», если подходящей еще нет."
 
 #: ../root/layout.tt:18 ../root/layout/index.js:196
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"Вам запрещено вносить или голосовать за правки, так как администратор "
-"отозвал ваши привилегии. Если вы еще не получили письмо о причинах этому, "
-"пожалуйста, {uri|отправьте нам сообщение}."
+"Администратор наложил следующие ограничения на ваш аккаунт: {list}. Если вы "
+"еще не получили письмо о причинах этому, пожалуйста, {uri|отправьте нам "
+"сообщение}."
 
 #: ../root/components/common-macros.tt:485
 msgid ""
@@ -429,10 +424,8 @@ msgid "Area"
 msgstr "Область"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "Основной тип"
+msgstr "Тип зоны"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -510,10 +503,8 @@ msgid "Artist details"
 msgstr "Детали об исполнителе"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Область исполнителя"
+msgstr "Тип исполнителя"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -624,7 +615,6 @@ msgid "Blog"
 msgstr "Блог"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
-#, fuzzy
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -885,7 +875,7 @@ msgstr "Детали"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Отключить режим устаревшего браузера"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -931,6 +921,9 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"Не отмечайте отсутствие штрих-кода у носителей с цифровым носителем, если вы "
+"не знакомы с платформой. Многие цифровые платформы используют штрих-коды, "
+"даже когда они не показываются."
 
 #: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
@@ -1156,6 +1149,8 @@ msgid ""
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
 msgstr ""
+"К релизам, которые должны группироваться вместе, можно отнести оригинальные "
+"релизы, переиздания, разные форматы (CD и цифровые носители) и ремастеры."
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1193,6 +1188,10 @@ msgid ""
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
 msgstr ""
+"Внешние ссылки – это URL-адреса, связанные с исполнителем. К ним можно "
+"отнести официальный сайт и страницы исполнителя в соцсетях, на стриминговых "
+"площадках, или неофициальные страницы, такие как статьи в Википедии, "
+"биографии, интервью и фан-сайты."
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1200,6 +1199,10 @@ msgid ""
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"Внешние ссылки – это URL-адреса, связанные с лейблом. К ним можно отнести "
+"официальный сайт и страницы лейбла в соцсетях, на стриминговых площадках, "
+"или неофициальные страницы, такие как статьи в Википедии, истории и "
+"фан-сайты."
 
 #: ../root/place/edit_form.tt:110
 msgid ""
@@ -1207,24 +1210,35 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"Внешние ссылки – это URL-адреса, связанные с местом. К ним можно отнести "
+"официальный сайт и страницы исполнителя в соцсетях, страницы по продаже "
+"билетов, или неофициальные страницы, такие как статьи в Википедии, истории и "
+"фан-сайты."
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
 msgstr ""
+"Внешние ссылки – это URL-адреса, связанные с записью, такие как ссылки на "
+"покупку или прослушивание записи, или страницы в других базах данных."
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
 msgstr ""
+"Внешние ссылки – это URL-адреса, связанные с группой релизов, такие как "
+"официальные сайты, статьи в Википедии, обзоры и страницы в других базах "
+"данных."
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
 msgstr ""
+"Внешние ссылки – это URL-адреса, связанные с серией, такие как официальный "
+"сайт и страницы серии в соцсетях и в других базах данных."
 
 #: ../root/work/edit_form.tt:157
 msgid ""
@@ -1234,11 +1248,13 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:584
 msgid "External links are URLs associated with this particular release."
-msgstr ""
+msgstr "Внешние ссылки – это URL-адреса, связанные с этим конкретным релизом."
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
 msgstr ""
+"Если название серии может быть уникальным, допускается оставить это поле "
+"пустым."
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1408,11 +1424,12 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
 msgstr ""
+"Я подтверждаю, что эта дополнительная информация в названии приведена в "
+"правильном написании."
 
 #: ../root/release/edit/information.tt:529
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr ""
-"Я подтверждаю, что это тот же самый штрихкод, который указан в издании."
+msgstr "Я подтверждаю, что это тот же самый штрихкод, который указан в релизе."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -1427,10 +1444,6 @@ msgstr ""
 "оправдана."
 
 #: ../root/release/edit/tracklist.tt:431
-#, fuzzy
-#| msgid ""
-#| "I confirm this is an intentional use of featured artists on track titles, "
-#| "or that these aren’t actually featured artists."
 msgid ""
 "I confirm this is an intentional use of featured artists in track titles, or "
 "that these aren’t actually featured artists."
@@ -1522,31 +1535,25 @@ msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
 msgstr ""
+"Если вы не можете найти каталожный номер, оставьте это поле пустым. Если вы "
+"уверены, что у релиза нет назначенного каталожного номера, введите \"[none]\""
+"."
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"Внимание! Если вы не знаете день или месяц выхода релиза, просто оставьте "
-"поля пустыми.  Чаще всего 1 января не является настоящей датой релиза, "
-"поэтому, пожалуйста, проверьте, что вы ввели дату релиза верно."
+"Если вы не знаете день или месяц выхода релиза, просто оставьте поля "
+"пустыми. Чаще всего 1 января не является настоящей датой релиза, поэтому, "
+"<strong>пожалуйста, проверьте, что вы ввели дату релиза верно.</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr "Если вы не знаете кода к этой сущности, просто оставьте поле пустым."
 
 #: ../root/release/edit/information.tt:515
-#, fuzzy
-#| msgid ""
-#| "If you do not know whether the release has a barcode or not, just leave "
-#| "this blank."
 msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
@@ -1559,7 +1566,7 @@ msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
 msgstr ""
-"Если вы не выберите существующую группу релизов, будет создана новая с "
+"Если вы не выберете существующую группу релизов, будет создана новая с "
 "выбранными ниже типами."
 
 #: ../root/release/edit/tracklist.tt:5
@@ -1878,7 +1885,7 @@ msgstr "Ручной ввод"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
@@ -3253,14 +3260,6 @@ msgid "This CD TOC is already attached to this medium."
 msgstr "Таблица содержимого CD уже прикреплена к носителю."
 
 #: ../root/release/edit/information.tt:560
-#, fuzzy
-#| msgid ""
-#| "This annotation will be published under an open license (<a href=\"{url}"
-#| "\" target=\"_blank\">CC BY-NC-SA 3.0</a>) and as such, it should not "
-#| "contain text that you don't have the right to release under that license. "
-#| "While you can quote a source to support a point you're making, you should "
-#| "never enter promotional texts or other artist or label-owned texts into "
-#| "the annotation."
 msgid ""
 "This annotation will be published under an open license ({url|CC BY-NC-SA "
 "3.0}) and as such, it should not contain text that you don’t have the right "
@@ -3268,12 +3267,11 @@ msgid ""
 "point you’re making, you should never enter promotional text or other "
 "artist- or label‐owned text into the annotation."
 msgstr ""
-"Эта аннотация будет опубликована под открытой лицензией (<a href=\"{url}\" "
-"target=\"_blank\">CC BY-NC-SA 3.0</a>), и поэтому она не должна содержать "
-"текст, который вы не имеете права выпускать под этой лицензией. Вы можете "
-"процитировать источник, чтобы поддержать свою точку зрения, но в аннотации "
-"не должно быть рекламных текстов или других текстов, принадлежащих "
-"исполнителю или лейблу."
+"Эта аннотация будет опубликована под открытой лицензией ({url|CC BY-NC-SA "
+"3.0}), и поэтому она не должна содержать текст, который вы не имеете права "
+"выпускать под этой лицензией. Вы можете процитировать источник, чтобы "
+"поддержать свою точку зрения, но в аннотации не должно быть рекламных "
+"текстов или других текстов, принадлежащих исполнителю или лейблу."
 
 #: ../root/artist/edit_form.tt:67
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:84
@@ -3470,7 +3468,7 @@ msgstr "Эта запись является видео"
 
 #: ../root/release/edit/information.tt:278
 msgid "This release does not have a barcode"
-msgstr "Этот релиз не имеет баркода"
+msgstr "Этот релиз не имеет штрихкода"
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
@@ -4788,10 +4786,12 @@ msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
 msgstr ""
+"Похоже, что нас сервер Redis недоступен; некоторые функции могут работать "
+"некорректно."
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:169
 msgid "Series that have different entity types cannot be merged."
-msgstr ""
+msgstr "Серии с разными типами сущностей не могут быть объединены."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:309
 #: ../lib/MusicBrainz/Server/Controller/User.pm:335
@@ -4806,6 +4806,8 @@ msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr ""
+"Отправка писем другим пользователям доступна после {url|подтверждения вашей "
+"электронной почты}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:337
 msgid "You are not allowed to send messages to editors."
@@ -4831,6 +4833,8 @@ msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr ""
+"Письмо успешно отправлено! Нажмите {link|здесь}, чтобы вернуться в профиль "
+"пользователя {user}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:403
 msgid "Your message could not be sent"
@@ -4847,7 +4851,7 @@ msgstr "Возникла ошибка при попытке отправить �
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:843
 msgid "Your report has been sent."
-msgstr ""
+msgstr "Жалоба отправлена."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/2/DiscID.pm:104
 msgid "Invalid TOC"
@@ -4929,7 +4933,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:246
 #, perl-brace-format
 msgid "{t0}-{t1} relationships"
-msgstr "{t0}-{t1} связь"
+msgstr "Отношения типа {t0}-{t1}"
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:54
 #, perl-brace-format
@@ -5075,6 +5079,9 @@ msgid ""
 "because it conflicted with the gender setting of one of the artists here. "
 "Group artists cannot have a gender."
 msgstr ""
+"Тип \"{artist_type}\" не был добавлен к исполнителю, так как он конфликтует "
+"с указанным полом одного из исполнителей ниже. Исполнители-группы не могут "
+"иметь пола."
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:97
 #, perl-brace-format
@@ -5083,6 +5090,9 @@ msgid ""
 "it conflicted with the group type of one of the artists here. Group artists "
 "cannot have a gender."
 msgstr ""
+"Пол \"{gender}\" не был добавлен к исполнителю, так как он конфликтует с "
+"указанным типом группы одного из исполнителей ниже. Исполнители-группы не "
+"могут иметь пола."
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgctxt "edit type"
@@ -5724,9 +5734,17 @@ msgid_plural ""
 "The IPI {ipi} is already in use on {artist_count} artists. Please check "
 "{artist_search|all uses of this IPI}."
 msgstr[0] ""
+"IPI-код {ipi} уже используется в {artist_count} исполнителе. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного IPI}."
 msgstr[1] ""
+"IPI-код {ipi} уже используется в {artist_count} исполнителях. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного IPI}."
 msgstr[2] ""
+"IPI-код {ipi} уже используется в {artist_count} исполнителях. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного IPI}."
 msgstr[3] ""
+"IPI-код {ipi} уже используется в исполнителях: {artist_count}. Пожалуйста, "
+"проверьте {artist_search|все случаи использования данного IPI}."
 
 #: ../lib/MusicBrainz/Server/Edit/Role/IPI.pm:46
 #, perl-brace-format
@@ -5980,17 +5998,17 @@ msgstr "Отменены {date}"
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:100
 msgctxt "autoeditor election status (short)"
 msgid "Awaiting 1st seconder"
-msgstr ""
+msgstr "Ожидаем первого секунданта"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:101
 msgctxt "autoeditor election status (short)"
 msgid "Awaiting 2nd seconder"
-msgstr ""
+msgstr "Ожидаем второго секунданта"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:102
 msgctxt "autoeditor election status (short)"
 msgid "Voting open"
-msgstr ""
+msgstr "Голосование открыто"
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:103
 msgctxt "autoeditor election status (short)"
@@ -6294,7 +6312,7 @@ msgstr "Этот код IPI не является допустимым."
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:19
 msgid "This is not a valid ISNI."
-msgstr ""
+msgstr "Этот код ISNI не является допустимым."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_1.pm:15
 msgid "This is not a valid ISO 3166-1 code"
@@ -6335,7 +6353,7 @@ msgstr "недопустимая дата"
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:276
 msgid ""
 "You must select a relationship type and target entity for every relationship."
-msgstr ""
+msgstr "Выберите тип отношения и целевую сущность к каждому отношению."
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
 #: ../root/static/scripts/event/components/EventEditForm.js:129
@@ -6376,16 +6394,12 @@ msgid "Non-videos only"
 msgstr "Только не-видео"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
-#, fuzzy
-#| msgid "Related works"
 msgid "Related to works"
-msgstr "Связанные работы"
+msgstr "Связанные с работами"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
-#, fuzzy
-#| msgid "Related works"
 msgid "Not related to works"
-msgstr "Связанные работы"
+msgstr "Не связанные с работами"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 msgctxt "release country"
@@ -6417,28 +6431,21 @@ msgid "[none]"
 msgstr "[отсутствует]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add recording alias"
 msgid "As recording artist"
-msgstr "Добавление псевдонима записи"
+msgstr "Как исполнитель записи"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As author"
-msgstr ""
+msgstr "Как автор"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
-#, fuzzy
-#| msgid "Use track artists"
 msgid "As other artist"
-msgstr "Использовать исполнителей треков"
+msgstr "Как другой исполнитель"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:48
-#, fuzzy
-#| msgid "Cannot edit"
 msgctxt "language"
 msgid "[not set]"
-msgstr "Невозможно редактировать"
+msgstr "[не указан]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:52
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:105
@@ -6641,7 +6648,7 @@ msgstr "Спам"
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:36
 #: ../root/user/ReportUser.js:49
 msgid "Editor is unresponsive to edit notes"
-msgstr "Редактор не отвечает на комментарии к правкам"
+msgstr "Не отвечает на комментарии к правкам"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:37
 #: ../root/user/ReportUser.js:53
@@ -10797,10 +10804,8 @@ msgid "Medium not found"
 msgstr "Правка не найдена"
 
 #: ../root/entity/NotFound.js:144
-#, fuzzy
-#| msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgid "Sorry, we could not find a medium with that MusicBrainz ID."
-msgstr "Извините, но мы не можем найти ссылку с данным MusicBrainz ID."
+msgstr "Извините, но мы не можем найти носитель с данным MusicBrainz ID."
 
 #: ../root/entity/NotFound.js:150
 msgctxt "header"
@@ -11648,6 +11653,10 @@ msgid ""
 "Firefox, Safari, Edge, or any Chrome-based browser. If that’s not possible, "
 "you can try enabling {url|legacy browser mode}."
 msgstr ""
+"Используемый вами браузер не поддерживается, и сайт может работать "
+"некорректно. Рекомендуем обновиться до последней версии браузеров Firefox, "
+"Safari, Edge, или любого браузера, основанного на базе Chrome. Если это "
+"невозможно, вы можете попробовать включить {url|режим устаревшего браузера}."
 
 #: ../root/layout/components/TopMenu.js:60
 msgid "Log out"
@@ -17232,10 +17241,10 @@ msgstr "Добавить отношение"
 #: ../root/static/scripts/relationship-editor/utility/getBatchSelectionMessage.js:19
 msgid "{n} recording selected"
 msgid_plural "{n} recordings selected"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "выбрана {n} запись"
+msgstr[1] "выбрано {n} записи"
+msgstr[2] "выбрано {n} записей"
+msgstr[3] "выбрано записей: {n}"
 
 #: ../root/static/scripts/relationship-editor/utility/getBatchSelectionMessage.js:27
 msgid "{n} work selected"

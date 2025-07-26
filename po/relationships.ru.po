@@ -22,8 +22,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-15 23:36+0000\n"
-"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
+"PO-Revision-Date: 2025-07-20 23:36+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -3306,12 +3307,12 @@ msgstr ""
 
 #. name:logo
 #: DB:link_type/description:1288
-#, fuzzy
-#| msgid "This is used to link a label to an image of its logo."
 msgid ""
 "This is used to link a series (a podcast, a festival...) to an image of its "
 "logo."
-msgstr "Используется для ссылки на изображение логотипа лейбла."
+msgstr ""
+"Используется для ссылки на изображение логотипа серии (подкаста, фестиваля и "
+"т.д.)."
 
 #. name:discogs
 #: DB:link_type/description:747
@@ -3384,7 +3385,7 @@ msgstr ""
 #. name:discogs
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
-msgstr "Используется как ссылка на страницу Discogs для этого исполнителя."
+msgstr "Указывает на страницу в Discogs для данного исполнителя."
 
 #. name:discogs
 #: DB:link_type/description:1275
@@ -7768,39 +7769,29 @@ msgstr "is licensed under"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:973
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after artist"
-msgstr "назван в честь"
+msgstr "назван в честь исполнителя"
 
 #. name:named after label
 #: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after label"
-msgstr "назван в честь"
+msgstr "назван в честь лейбла"
 
 #. name:named after place
 #: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after place"
-msgstr "назван в честь"
+msgstr "назван в честь места"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after release group"
-msgstr "назван в честь"
+msgstr "назван в честь группы релизов"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
 #: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after work"
-msgstr "назван в честь"
+msgstr "назван в честь работы"
 
 #: DB:link_type/name:108
 msgid "is person"
@@ -11172,6 +11163,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {original} {eponymous} members"
 msgstr ""
+"{additional:дополнительные} {original:оригинальные} {eponymous:одноименные} "
+"участники"
 
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
