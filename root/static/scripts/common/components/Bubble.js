@@ -54,7 +54,7 @@ component Bubble(
 
   React.useEffect(() => {
     refs.setReference(controlRef.current);
-  }, [controlRef]);
+  }, [controlRef, refs]);
 
   return (
     <div

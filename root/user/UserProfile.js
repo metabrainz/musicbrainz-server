@@ -13,6 +13,10 @@ import UserAccountLayout, {
   sanitizedAccountLayoutUser,
 } from '../components/UserAccountLayout.js';
 import {CatalystContext, SanitizedCatalystContext} from '../context.mjs';
+import manifest from '../static/manifest.mjs';
+import {
+  StandaloneSpammerButton,
+} from '../static/scripts/admin/components/SpammerButton.js';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';
 import Warning from '../static/scripts/common/components/Warning.js';
@@ -881,6 +885,7 @@ component UserProfile(
   const $c = React.useContext(SanitizedCatalystContext);
   const viewingOwnProfile = $c.user != null && $c.user.id === user.id;
   const adminViewing = $c.user != null && isAccountAdmin($c.user);
+  const userIsSpammer = isSpammer(user);
   const encodedName = encodeURIComponent(user.name);
   const restrictions = getRestrictionsForUser(user);
   // We specifically never show "untrusted" to non-admin users
@@ -911,7 +916,7 @@ component UserProfile(
       entity={sanitizedAccountLayoutUser(user)}
       page="index"
     >
-      {isSpammer(user) && !adminViewing ? (
+      {userIsSpammer && !adminViewing ? (
         <>
           <h2>{l('Blocked spam account')}</h2>
           <p>
@@ -923,7 +928,7 @@ component UserProfile(
         </>
       ) : (
         <>
-          {isSpammer(user) && adminViewing ? (
+          {userIsSpammer && adminViewing ? (
             <Warning
               message={
                 l_admin(`This user is marked as a spammer and is blocked
@@ -968,6 +973,14 @@ component UserProfile(
 
           {$c.user && !user.deleted ? (
             <div className="buttons clear-both" style={{display: 'block'}}>
+              {(adminViewing && !userIsSpammer) ? (
+                <>
+                  <StandaloneSpammerButton
+                    user={{id: user.id, privileges: user.privileges}}
+                  />
+                  {manifest('admin/components/SpammerButton', {async: true})}
+                </>
+              ) : null}
               {viewingOwnProfile ? null : (
                 <a
                   className="styled-button negative"

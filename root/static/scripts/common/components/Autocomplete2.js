@@ -635,6 +635,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     dispatch,
     entityType,
     state.recentItemsKey,
+    state.recentItems,
   ]);
 
   React.useEffect(() => {

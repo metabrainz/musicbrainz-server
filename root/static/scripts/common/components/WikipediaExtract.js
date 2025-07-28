@@ -64,7 +64,7 @@ component WikipediaExtract(
     if (cachedWikipediaExtract == null) {
       loadWikipediaExtract(entity, setWikipediaExtract);
     }
-  }, [entity]);
+  }, [entity, cachedWikipediaExtract]);
 
   return wikipediaExtract ? (
     <>

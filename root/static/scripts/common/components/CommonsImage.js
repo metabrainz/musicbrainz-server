@@ -44,7 +44,7 @@ component CommonsImage(
     if (cachedImage == null) {
       loadCommonsImage(entity, setCommonsImage);
     }
-  }, [entity]);
+  }, [entity, cachedImage]);
 
   return commonsImage ? (
     <div className="picture">
