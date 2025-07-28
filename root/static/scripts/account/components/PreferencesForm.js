@@ -141,7 +141,7 @@ component PreferencesForm(
 
   const handleTimezoneGuess = React.useCallback(() => {
     dispatch({options: timezone_options.options, type: 'guess-timezone'});
-  }, [dispatch]);
+  }, [dispatch, timezone_options.options]);
 
   const handleDateTimeFormatChange = React.useCallback((
     event: SyntheticEvent<HTMLSelectElement>,
