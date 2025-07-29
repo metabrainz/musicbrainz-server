@@ -1877,21 +1877,21 @@ const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?brahms\.ircam\.fr\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/(?:(?:en|fr)\/)?((works\/work)(?:\/)([0-9]+)|(?!works)[^?/#]+).*$/, 'http://brahms.ircam.fr/$1');
+      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/(?:(?:en|fr)\/)?((works\/work)(?:\/)([0-9]+)|work\/[\w\d-]+|(?!work)[^?/#]+).*$/, 'http://brahms.ircam.fr/$1');
     },
     validate(url, id) {
-      const m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work|(?!works)[^?/#]+).*$/.exec(url);
+      const m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work\/|work\/|(?!works?)[^?/#]+).*$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.work:
             return {
-              result: prefix === 'works/work',
+              result: prefix === 'work/' || prefix === 'works/work/',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix !== 'works/work',
+              result: prefix !== 'work/' && prefix !== 'works/work/',
               target: ERROR_TARGETS.ENTITY,
             };
         }
