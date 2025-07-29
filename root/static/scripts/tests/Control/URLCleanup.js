@@ -1657,6 +1657,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['work'],
   },
   {
+                     input_url: 'https://brahms.ircam.fr/fr/work/luci#type',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://brahms.ircam.fr/work/luci',
+       only_valid_entity_types: ['work'],
+  },
+  {
                      input_url: 'http://brahms.ircam.fr/works/genre/328/?test/',
              input_entity_type: 'work',
     expected_relationship_type: undefined,
