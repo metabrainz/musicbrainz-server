@@ -3091,10 +3091,17 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label', 'place'],
   },
   {
+                     input_url: 'https://www.imdb.com/title/tt27334988/?ref_=fn_all_ttl_1',
+             input_entity_type: 'series',
+    expected_relationship_type: 'imdb',
+            expected_clean_url: 'https://www.imdb.com/title/tt27334988/',
+       only_valid_entity_types: ['recording', 'release', 'release_group', 'series', 'work'],
+  },
+  {
                      input_url: 'https://www.imdb.com/title/tt0421082/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'imdb',
-       only_valid_entity_types: ['recording', 'release', 'release_group', 'work'],
+       only_valid_entity_types: ['recording', 'release', 'release_group', 'series', 'work'],
   },
   // IMSLP (International Music Score Library Project)
   {
