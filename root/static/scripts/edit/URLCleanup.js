@@ -134,6 +134,7 @@ export const LINK_TYPES: LinkTypeMap = {
     recording: 'dad34b86-5a1a-4628-acf5-a48ccb0785f2',
     release: '7387c5a2-9abe-4515-b667-9eb5ed4dd4ce',
     release_group: '85b0a010-3237-47c7-8476-6fcefd4761af',
+    series: 'ed4083be-a0b3-4040-b5b4-7513a67e9dc8',
     work: 'e5c75559-4dda-452e-a900-ae375935164c',
   },
   imslp: {
@@ -3109,6 +3110,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.imdb.recording:
           case LINK_TYPES.imdb.release:
           case LINK_TYPES.imdb.release_group:
+          case LINK_TYPES.imdb.series:
           case LINK_TYPES.imdb.work:
             return {
               result: prefix === 'title/tt',
