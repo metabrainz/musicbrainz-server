@@ -5665,12 +5665,12 @@ const CLEANUPS: CleanupEntries = {
       );
       url = url.replace(
         /^(https:\/\/www\.target\.com)\/(b|p)\/(?:.*\/)?([AN]-[^/?#]+).*$/,
-        '$1/$2/$3',
+        '$1/$2/-/$3',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.target\.com\/(b|p)\/[AN]-\w+$/.exec(url);
+      const m = /^https:\/\/www\.target\.com\/(b|p)\/-\/[AN]-\w+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
