@@ -226,9 +226,13 @@ sub cookie_login : Private
 
     return if $c->user_exists;
 
-    if (my $user_name = $self->_consume_remember_me_cookie($c)) {
-        $self->_renew_login_cookie($c, $user_name);
-        $c->set_authenticated($c->find_user({ username => $user_name }));
+    my $user_name = $self->_consume_remember_me_cookie($c);
+    if (defined $user_name) {
+        my $user = $c->find_user({ username => $user_name });
+        if (defined $user) {
+            $self->_renew_login_cookie($c, $user_name);
+            $c->set_authenticated($user);
+        }
     }
 }
 
