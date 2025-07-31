@@ -9,7 +9,7 @@ use namespace::autoclean;
 use Carp qw( confess );
 use DBDefs;
 use JSON::XS;
-use List::AllUtils qw( all any part partition_by rev_sort_by );
+use List::AllUtils qw( all any part partition_by rev_sort_by uniq_by );
 use MusicBrainz::Server::Constants qw(
     :quality
     $AMAZON_ASIN_LINK_TYPE_ID
@@ -1224,15 +1224,20 @@ sub determine_recording_merges {
         # what we should merge into.
 
         if (ref $target eq 'ARRAY') {
-            my $source = $old_recordings_by_id{$old_id};
+            my @target_recordings = uniq_by { $_->{id} } @$target;
 
-            return (0, {
-                message => $RELEASE_MERGE_ERRORS{ambiguous_recording_merge},
-                vars => {
-                    source_recording => _link_recording($source),
-                    target_recordings => comma_list(map { _link_recording($_) } @{$target}),
-                },
-            });
+            # Do nothing if all the target recordings are the same
+            if (@target_recordings > 1) {
+                my $source = $old_recordings_by_id{$old_id};
+
+                return (0, {
+                    message => $RELEASE_MERGE_ERRORS{ambiguous_recording_merge},
+                    vars => {
+                        source_recording => _link_recording($source),
+                        target_recordings => comma_list(map { _link_recording($_) } @target_recordings),
+                    },
+                });
+            }
         }
     }
 
