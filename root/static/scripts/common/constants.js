@@ -281,6 +281,7 @@ export const FAVICON_CLASSES: {
   'www.youtube.com': 'youtube',
   'www5.atwiki.jp/hmiku/': 'hmikuwiki',
   'yesasia.com': 'yesasia',
+  'zamp.hr': 'zamp',
   'zemereshet.co.il': 'zemereshet',
 };
 

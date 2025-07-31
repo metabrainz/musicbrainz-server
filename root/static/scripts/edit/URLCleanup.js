@@ -7139,6 +7139,35 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
     },
   },
+  'zamp': {
+    match: [/^(https?:\/\/)?(www\.)?zamp\.hr/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?zamp\.hr\/baza-autora\/(autor|djelo)\/pregled\/([0-9]+)(?:[^0-9].*)?$/, 'https://www.zamp.hr/baza-autora/$1/pregled/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/www\.zamp\.hr\/baza-autora\/(autor|djelo)\/pregled\/[0-9]*$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'autor',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: prefix === 'djelo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'zemereshet': {
     match: [/^(https?:\/\/)?(www\.)?zemereshet\.co\.il\//i],
     restrict: [LINK_TYPES.otherdatabases],
