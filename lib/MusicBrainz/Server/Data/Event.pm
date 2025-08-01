@@ -230,7 +230,7 @@ sub _find_by_area_table {
 }
 
 sub _find_by_area_order {
-    return 'begin_date_year, begin_date_month, begin_date_day, time, name, id';
+    return 'begin_date_year DESC NULLS LAST, begin_date_month DESC NULLS LAST, begin_date_day DESC NULLS LAST, time DESC NULLS LAST, name, id';
 }
 
 sub find_by_artist
@@ -277,7 +277,7 @@ sub find_by_artist
                      WHERE entity0 = ?
                 ) s, ' . $self->_table .'
           WHERE ' . join(' AND ', @where_query) . '
-        ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
+        ORDER BY event.begin_date_year DESC NULLS LAST, event.begin_date_month DESC NULLS LAST, event.begin_date_day DESC NULLS LAST, event.time DESC NULLS LAST, event.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, \@where_args, $limit, $offset);
 }
@@ -315,7 +315,7 @@ sub find_by_place
                      WHERE entity1 = ?
                 ) s, ' . $self->_table .'
           WHERE event.id = s.event
-       ORDER BY event.begin_date_year, event.begin_date_month, event.begin_date_day, event.time, event.name COLLATE musicbrainz';
+       ORDER BY event.begin_date_year DESC NULLS LAST, event.begin_date_month DESC NULLS LAST, event.begin_date_day DESC NULLS LAST, event.time DESC NULLS LAST, event.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [$place_id], $limit, $offset);
 }
