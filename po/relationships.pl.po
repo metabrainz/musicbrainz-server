@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-28 01:20+0000\n"
+"PO-Revision-Date: 2025-07-14 16:36+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
@@ -22,10 +22,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3126,6 +3126,8 @@ msgid ""
 "This is used to link a series (a podcast, a festival...) to an image of its "
 "logo."
 msgstr ""
+"Służy do łączenia serii (podcastu, festiwalu...) z obrazem przedstawiającym "
+"ich logo."
 
 #. name:discogs
 #: DB:link_type/description:747
