@@ -8,11 +8,12 @@
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # Ral Hole <ral-hole@outlook.com>, 2025.
 # MoeCaa <qytc233@gmail.com>, 2025.
+# sut <xepinchan@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-14 16:20+0000\n"
-"Last-Translator: MoeCaa <qytc233@gmail.com>\n"
+"PO-Revision-Date: 2025-07-23 11:36+0000\n"
+"Last-Translator: sut <xepinchan@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -212,9 +213,10 @@ msgid "Portuguese guitar"
 msgstr "葡萄牙吉他"
 
 #: DB:instrument/name:1211
+#, fuzzy
 msgctxt "1940s modified sarod"
 msgid "Radhika's Mohan veena"
-msgstr ""
+msgstr "Radhika's Mohan veena"
 
 #: DB:instrument/name:576
 msgid "Reactable"

@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-02-09 17:44+0000\n"
-"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
+"PO-Revision-Date: 2025-07-23 11:36+0000\n"
+"Last-Translator: sut <xepinchan@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr "亚马逊推出了SoundUnwound的测试版。"
+msgstr "亚马逊推出了 SoundUnwound 的测试版。"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"
