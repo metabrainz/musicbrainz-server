@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-05 23:20+0000\n"
+"PO-Revision-Date: 2025-07-26 01:36+0000\n"
 "Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/de/>\n"
@@ -2391,7 +2391,7 @@ msgstr "Syrisch"
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
-msgstr ""
+msgstr "Taschelhit"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

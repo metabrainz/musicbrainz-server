@@ -76,7 +76,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2025-03-13 00:44+0000\n"
+"PO-Revision-Date: 2025-07-26 01:36+0000\n"
 "Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
@@ -85,7 +85,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -143,10 +143,8 @@ msgid "(add a new recording)"
 msgstr "(eine neue Aufnahme hinzufügen)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
-#, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
-msgstr "(kein weiteres Cover-Art)"
+msgstr "(keine weiteren Bilder)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
@@ -366,11 +364,9 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
-#, fuzzy
-#| msgid "Auto-editor elections"
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "Autobearbeiter-Wahlen"
+msgstr "Administrator-Zurückweisung"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -383,19 +379,13 @@ msgstr ""
 "Aufnahme hinzufügen“, wenn keine passende Aufnahme vorhanden ist."
 
 #: ../root/layout.tt:18 ../root/layout/index.js:196
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"Du bist momentan nicht berechtigt, Bearbeitungen vorzunehmen oder "
-"abzustimmen, weil ein Administrator dir deine Rechte entzogen hat. Wenn du "
-"über die Gründe nicht schon informiert wurdest, {uri|melde dich bitte bei "
-"uns}."
+"Ein Administrator hat folgende Einschränkungen auf deinen Account eingeführt:"
+" {list}. Wenn du über die Gründe nicht schon informiert wurdest, {uri|melde "
+"dich bitte bei uns}."
 
 #: ../root/components/common-macros.tt:485
 msgid ""
@@ -458,10 +448,8 @@ msgid "Area"
 msgstr "Gebiet"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "Primärtyp"
+msgstr "Gebietstyp"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -539,10 +527,8 @@ msgid "Artist details"
 msgstr "Künstlerdetails"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Künstlergebiet"
+msgstr "Künstlertyp"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -1184,10 +1170,8 @@ msgid "Event"
 msgstr "Veranstaltung"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
-msgstr "Objekttyp"
+msgstr "Eventtyp"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1201,11 +1185,8 @@ msgid "Existing medium"
 msgstr "Vorhandenes Medium"
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Edit release group alias"
 msgid "Existing release groups with similar names"
-msgstr "Veröffentlichungsgruppenalias bearbeiten"
+msgstr "Existierende Veröffentlichungsgruppen mit ähnlichen Namen"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
@@ -1437,11 +1418,8 @@ msgid "Guess sort name"
 msgstr "Sortiername erraten"
 
 #: ../root/release/edit/tracklist.tt:472
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
-msgstr ""
-"Ich bestätige, dass der Strichcode genau so auf der Veröffentlichung steht."
+msgstr "Ich bestätige, dass die Titel korrekt groß- und kleingeschrieben sind."
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
@@ -1563,19 +1541,15 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"Achtung! Wenn du den Monat oder den Tag der Veröffentlichung nicht weißt, "
-"lass sie einfach frei. Der 1. Januar ist selten das tatsächliche VÖ-Datum; "
-"bitte überprüfe nochmal genau, ob du das VÖ-Datum korrekt eingegeben hast."
+"Wenn du den Monat oder den Tag der Veröffentlichung nicht weißt, lass sie "
+"einfach frei. Der 1. Januar ist selten das tatsächliche "
+"Veröffentlichungsdatum; <strong>bitte überprüfe nochmal genau, ob du das "
+"Veröffentlichungsdatum korrekt eingegeben hast.</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1678,10 +1652,8 @@ msgid "Instrument"
 msgstr "Instrument"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Instrument list"
 msgid "Instrument type"
-msgstr "Instrumentenliste"
+msgstr "Instrumenttyp"
 
 #: ../root/recording/edit_form.tt:105
 msgid ""
@@ -1769,10 +1741,8 @@ msgid "Label details"
 msgstr "Labeldetails"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Label area"
 msgid "Label type"
-msgstr "Labelgebiet"
+msgstr "Labeltyp"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -2129,10 +2099,8 @@ msgid "Place details"
 msgstr "Örtlichkeitsdetails"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Place"
 msgid "Place type"
-msgstr "Örtlichkeit"
+msgstr "Örtlichkeitstyp"
 
 #: ../root/edit/search_macros.tt:471
 msgid "Please choose a condition"
