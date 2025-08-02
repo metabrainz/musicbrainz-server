@@ -14,11 +14,12 @@
 # "joysriram.sarkar.56" <joysriram.sarkar.56@gmail.com>, 2023.
 # julian45 <techieboy45@gmail.com>, 2023.
 # Lunae_XD <raru0916@gmail.com>, 2024.
+# TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-07-05 16:42+0000\n"
-"Last-Translator: Lunae_XD <raru0916@gmail.com>\n"
+"PO-Revision-Date: 2025-07-29 13:36+0000\n"
+"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ja/>\n"
 "Language: ja\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -131,7 +132,7 @@ msgstr "アパッチ語族"
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "アラビア語"
+msgstr "アラビア文字"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
@@ -221,7 +222,7 @@ msgstr "アゼルバイジャン語"
 #. frequency:1 iso_code_3:bvd
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr "ペグ"
+msgstr "バエグ語"
 
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
@@ -991,7 +992,7 @@ msgstr "ハワイ語"
 #. frequency:1 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
-msgstr "ヘブライ語"
+msgstr "ヘブライ文字"
 
 #. frequency:1 iso_code_3:her
 #: DB:language/name:168
@@ -1306,12 +1307,12 @@ msgstr "キルギス語"
 #. frequency:1 iso_code_3:mkw
 #: DB:language/name:4291
 msgid "Kituba (Congo)"
-msgstr ""
+msgstr "キトゥバ語（コンゴ共和国）"
 
 #. frequency:1 iso_code_3:ktu
 #: DB:language/name:3568
 msgid "Kituba (Democratic Republic of Congo)"
-msgstr ""
+msgstr "キトゥバ語（コンゴ民主共和国）"
 
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
@@ -1336,7 +1337,7 @@ msgstr "コンカニー語"
 #. frequency:2 iso_code_3:kor
 #: DB:language/name:224
 msgid "Korean"
-msgstr "韓国語"
+msgstr "朝鮮文字"
 
 #. frequency:1 iso_code_3:kos
 #: DB:language/name:225
@@ -1421,7 +1422,7 @@ msgstr "ダヤク語"
 #. frequency:1 iso_code_3:lao
 #: DB:language/name:237
 msgid "Lao"
-msgstr "ラーオ語"
+msgstr "ラーオ文字"
 
 #. frequency:1 iso_code_3:lat
 #: DB:language/name:238
@@ -2166,7 +2167,7 @@ msgstr "セルカップ語"
 #. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
-msgstr ""
+msgstr "セマイ語"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
@@ -2180,10 +2181,8 @@ msgstr "セルビア語"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "クロアチア語"
+msgstr "セルビア・クロアチア語"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2383,17 +2382,17 @@ msgstr "スウェーデン語"
 #. frequency:1 iso_code_3:syr
 #: DB:language/name:404
 msgid "Syriac"
-msgstr "シリア語"
+msgstr "シリア文字"
 
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
-msgstr ""
+msgstr "タチェルヒト語"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414
 msgid "Tagalog"
-msgstr "タガログ語"
+msgstr "タガログ文字"
 
 #. frequency:1 iso_code_3:tah
 #: DB:language/name:405
