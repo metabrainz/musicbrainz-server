@@ -2154,6 +2154,11 @@ msgstr ""
 msgid "Selkup"
 msgstr "Selkup"
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2370,6 +2375,11 @@ msgstr "Švedski"
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "Sirjački"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr ""
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414
