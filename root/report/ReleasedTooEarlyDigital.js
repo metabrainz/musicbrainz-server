@@ -11,7 +11,7 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-component ReleasedTooEarly(...{
+component ReleasedTooEarlyDigital(...{
   canBeFiltered,
   filtered,
   generated,
@@ -21,19 +21,20 @@ component ReleasedTooEarly(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
-        `This report shows releases which have disc IDs even though they
-         were released too early to have disc IDs, where one of the medium
-         formats didn't exist at the time the release was released or
-         where a disc ID is attached to a medium whose format does not
-         have disc IDs. Fully digital releases are excluded; for those, see
-         {digital_report|our digital-only report}.`,
-        {digital_report: '/report/ReleasedTooEarlyDigital'},
+      description={l(
+        `This report shows releases with at least one medium set to format
+         “Digital Media” which were released before 1999, the launch date
+         for the first digital music store supported by a major label.
+         While digital releases did exist before this, and not everything
+         older is automatically incorrect, a lot of releases that end up
+         here are likely to be digital reissues of older content that have
+         been incorrectly assigned the release date for the original,
+         physical release.`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases released too early')}
+      title={l('Suspiciously early digital releases')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />
@@ -41,4 +42,4 @@ component ReleasedTooEarly(...{
   );
 }
 
-export default ReleasedTooEarly;
+export default ReleasedTooEarlyDigital;

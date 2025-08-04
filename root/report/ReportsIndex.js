@@ -317,6 +317,10 @@ component ReportsIndex() {
             reportName="ReleasedTooEarly"
           />
           <ReportsIndexEntry
+            content={l('Suspiciously early digital releases')}
+            reportName="ReleasedTooEarlyDigital"
+          />
+          <ReportsIndexEntry
             content={l(
               `Releases where some (but not all) mediums
               have no format set`,
