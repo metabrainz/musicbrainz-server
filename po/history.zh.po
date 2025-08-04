@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-23 11:36+0000\n"
-"Last-Translator: sut <xepinchan@qq.com>\n"
+"PO-Revision-Date: 2025-08-02 12:36+0000\n"
+"Last-Translator: 奶油糖派 <3310056144@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
 "Language: zh\n"
@@ -203,7 +203,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr "亚马逊推出了 SoundUnwound 的测试版。"
+msgstr "亚马逊推出了 SoundUnwound 的测试版"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"
@@ -272,7 +272,7 @@ msgstr "BBC 与 MetaBrainz 合作"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr "BookBrainz 成为MetaBrainz 官方项目。"
+msgstr "BookBrainz 成为MetaBrainz 官方项目"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
@@ -447,7 +447,7 @@ msgstr "Freso 成为第一位 MetaBrainz "
 
 #: DB:statistics.statistic_event/title:2018-11-02
 msgid "Genre added as a new entity"
-msgstr "流派被添加作为新的实体。"
+msgstr "流派被添加作为新的实体"
 
 #: DB:statistics.statistic_event/description:2018-11-02
 msgid ""
@@ -553,7 +553,7 @@ msgstr "乐器和系列"
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
-msgstr "发布了意大利文翻译，IPI和ISNI为自动编辑。"
+msgstr "发布了意大利文翻译，IPI和ISNI为自动编辑"
 
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
