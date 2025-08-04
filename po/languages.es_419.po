@@ -1,11 +1,10 @@
-# Early6431 <h9i1o36x@anonaddy.me>, 2023.
+# Early6431 <h9i1o36x@anonaddy.me>, 2023, 2025.
 # Early6431 <Early6431@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-08-31 00:42+0000\n"
-"Last-Translator: Early6431 "
-"<Early6431@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-08-04 21:36+0000\n"
+"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/languages/es_419/>\n"
 "Language: es_419\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -88,7 +87,7 @@ msgstr "Aleutiano"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr "Algonquino"
+msgstr "Idiomas algonquinos"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
@@ -113,7 +112,7 @@ msgstr "Angika"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr "Apache"
+msgstr "Idiomas apache"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
@@ -163,7 +162,7 @@ msgstr "Asturiano"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr "Idiomas atasbacanas"
+msgstr "Idiomas atabascanos"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
@@ -268,7 +267,7 @@ msgstr "Idiomas batak"
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "Bávaro"
 
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44

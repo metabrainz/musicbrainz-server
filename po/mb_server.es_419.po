@@ -5,13 +5,14 @@
 # danBLOO <danielplinplon@gmail.com>, 2024.
 # danBLOO <danBLOO@users.noreply.translations.metabrainz.org>, 2024.
 # Arainuki <esetipodealla@gmail.com>, 2024.
+# Early6431 <h9i1o36x@anonaddy.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2024-09-24 06:42+0000\n"
-"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"PO-Revision-Date: 2025-08-04 21:36+0000\n"
+"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/server/es_419/>\n"
 "Language: es_419\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -945,7 +946,7 @@ msgstr ""
 #: ../root/layout/components/BottomMenu.js:320
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Tipos de edición"
+msgstr "Tipos de ediciones"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Edited entity"
@@ -2138,7 +2139,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:473
 msgid "Release data quality"
-msgstr "Calidad de datos de la publicación"
+msgstr "Calidad de los datos de los lanzamientos"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -3409,7 +3410,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr "Atributos de obra"
+msgstr "Atributos de la obra"
 
 #: ../root/work/edit_form.tt:151
 msgid ""
@@ -10329,7 +10330,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:157
 msgid "Timeline graph"
-msgstr "Gráfica cronológico"
+msgstr "Gráfica de la cronología"
 
 #: ../root/layout/components/BottomMenu.js:160
 msgid "MusicBrainz history"
@@ -16496,11 +16497,11 @@ msgstr "Colecciones de instrumentos"
 
 #: ../root/user/UserCollections.js:42
 msgid "Label collections"
-msgstr "Colecciones de discográficas"
+msgstr "Colecciones de sellos"
 
 #: ../root/user/UserCollections.js:43
 msgid "Place collections"
-msgstr "Colecciones de lugares"
+msgstr "Colecciones de espacios"
 
 #: ../root/user/UserCollections.js:44
 msgid "Recording collections"
@@ -16512,7 +16513,7 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:46
 msgid "Release group collections"
-msgstr "Colecciones de grupos de publicaciones"
+msgstr "Colecciones de grupos de lanzamientos"
 
 #: ../root/user/UserCollections.js:47
 msgctxt "plural"
@@ -16864,7 +16865,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:26
 msgid "Artist ratings"
-msgstr "Calificaciones de artistas"
+msgstr "Valoraciones de los artistas"
 
 #: ../root/user/UserRatingList.js:27
 msgid "Event ratings"
@@ -16872,23 +16873,23 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:28
 msgid "Label ratings"
-msgstr "Calificaciones de discográficas"
+msgstr "Valoraciones de los sellos"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Place ratings"
-msgstr "Calificaciones de lugares"
+msgstr "Valoraciones de los espacios"
 
 #: ../root/user/UserRatingList.js:30
 msgid "Recording ratings"
-msgstr "Calificaciones de grabaciones"
+msgstr "Valoraciones de las grabaciones"
 
 #: ../root/user/UserRatingList.js:31
 msgid "Release group ratings"
-msgstr "Calificaciones de grupos de publicaciones"
+msgstr "Valoraciones de los grupos de lanzamientos"
 
 #: ../root/user/UserRatingList.js:32
 msgid "Work ratings"
-msgstr "Calificaciones de obras"
+msgstr "Valoraciones de las obras"
 
 #: ../root/user/UserRatingList.js:67
 msgid "View all ratings"
