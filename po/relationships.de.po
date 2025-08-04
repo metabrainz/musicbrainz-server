@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-13 00:44+0000\n"
+"PO-Revision-Date: 2025-07-26 01:36+0000\n"
 "Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6087,7 +6087,7 @@ msgstr "cover"
 #. name:cover art link
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "Cover-Art"
+msgstr "Cover Art"
 
 #. name:cover art link
 #: DB:link_type/reverse_link_phrase:78
