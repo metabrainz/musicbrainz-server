@@ -22,13 +22,14 @@
 # percylee <freedomeng419@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # imgradeone <imgradeone@outlook.com>, 2025.
+# sut <xepinchan@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2025-07-02 15:20+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"PO-Revision-Date: 2025-07-23 11:36+0000\n"
+"Last-Translator: sut <xepinchan@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -698,7 +699,8 @@ msgstr "注释"
 msgid ""
 "Common exceptions are {artist_intent_guideline|artist intent} and "
 "{japanese_guideline|Japanese releases}."
-msgstr ""
+msgstr "常见的例外情况是 {artist_intent_guideline|艺术家意图} 和 "
+"{japanese_guideline|日本发行版本}。"
 
 #: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -837,7 +839,7 @@ msgstr "详细信息"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "禁用传统浏览器模式"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -1240,7 +1242,7 @@ msgstr "如需更多信息，请查看 {doc_doc|文档}。"
 msgid ""
 "For popular music, the {doc|artist} should usually match the track artist on "
 "the earliest release containing the recording."
-msgstr ""
+msgstr "对于流行音乐，{doc|artist} 通常应与最早发行版本中的曲目艺术家相匹配。"
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:12
 #: ../root/release/edit/tracklist.tt:305
@@ -1354,7 +1356,7 @@ msgstr "我确认这些标题使用了正确的大小写。"
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
-msgstr ""
+msgstr "我确认此额外标题信息的大小写正确。"
 
 #: ../root/release/edit/information.tt:529
 msgid "I confirm that this is the barcode as it appears on the release."
