@@ -10,12 +10,13 @@
 # th1rtyf0ur, 2013
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
+# TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-13 17:42+0000\n"
-"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-29 13:36+0000\n"
+"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ja/>\n"
 "Language: ja\n"
@@ -23,19 +24,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
-msgstr ""
+msgstr "行の追加/削除:"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
-msgstr ""
+msgstr "上記のチェックボックスを選択"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
-msgstr ""
+msgstr "クリックして選択解除"
 
 #: ../root/statistics/timeline.tt:15
 msgid "Controls"
@@ -48,20 +49,16 @@ msgstr "国"
 #: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
-#, fuzzy
-#| msgid "Database Statistics"
 msgid "Database statistics"
 msgstr "データベース統計"
 
 #: ../root/statistics/layout.tt:16
-#, fuzzy
-#| msgid "Database Statistics - {title}"
 msgid "Database statistics - {title}"
 msgstr "データベース統計 - {title}"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "どちらかのグラフに長方形を描いてください"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
 #: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
@@ -73,8 +70,6 @@ msgid "Edits"
 msgstr "編集"
 
 #: ../root/statistics/timeline.tt:30
-#, fuzzy
-#| msgid "Exact Values (items vs. day)"
 msgid "Exact values (items vs. day)"
 msgstr "正確な値(items vs. day)"
 
@@ -84,11 +79,11 @@ msgstr "フォーマット"
 
 #: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
-msgstr ""
+msgstr "垂直線にカーソルを合わせ、クリックしてください"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
-msgstr ""
+msgstr "画像"
 
 #: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
@@ -99,8 +94,6 @@ msgid "Legend"
 msgstr "凡例"
 
 #: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
-#, fuzzy
-#| msgid "MusicBrainz Events"
 msgid "MusicBrainz events"
 msgstr "MusicBrainzイベント"
 
@@ -116,7 +109,7 @@ msgstr "正確な値(items vs. day)"
 
 #: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
-msgstr ""
+msgstr "変化率グラフ"
 
 #: ../root/statistics/layout.tt:5
 msgid "Relationships"
@@ -158,8 +151,6 @@ msgid "Total"
 msgstr "合計"
 
 #: ../root/statistics/Countries.js:96
-#, fuzzy
-#| msgid "Unknown Country"
 msgid "Unknown country"
 msgstr "不明な国"
 
@@ -184,16 +175,12 @@ msgid "Most active editors in the past week"
 msgstr "過去1週間で最もアクティブな編集者"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "過去1週間の適用・未確定の編集"
+msgstr "過去1年間に適応された編集"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "過去1週間で最もアクティブな編集者"
+msgstr "過去1年間で最もアクティブな編集者"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -220,16 +207,12 @@ msgid "Most active voters in the past week"
 msgstr "過去1週間で最もアクティブな投票者"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "過去1週間の投票"
+msgstr "過去1年間の投票"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "過去1週間で最もアクティブな投票者"
+msgstr "過去1年間で最もアクティブな投票者"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -241,7 +224,7 @@ msgstr "上位の投票者"
 
 #: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
-msgstr ""
+msgstr "編集統計情報は利用できません。"
 
 #: ../root/statistics/Formats.js:38 ../root/statistics/Formats.js:44
 msgid "Release/Medium Formats"
@@ -256,30 +239,26 @@ msgid "% of total mediums"
 msgstr ""
 
 #: ../root/statistics/Formats.js:87
-#, fuzzy
-#| msgid "Unknown Format"
 msgid "Unknown format"
 msgstr "不明なフォーマット"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
-msgstr ""
+msgstr "基本"
 
 #: ../root/statistics/Images.js:78
-#, fuzzy
-#| msgid "No status set"
 msgid "No image statistics available."
-msgstr "未指定"
+msgstr "画像の統計データが利用できません。"
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
 #: ../root/statistics/Images.js:362
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "カバーアート付きのリリース:"
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:327
 msgid "Pieces of cover art:"
-msgstr ""
+msgstr "カバーアートの一部:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:442
 #: ../root/statistics/Images.js:528
@@ -291,46 +270,40 @@ msgstr "ディスクIDのないリリース:"
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
 #: ../root/statistics/Images.js:491 ../root/statistics/stats.js:479
 msgid "Pieces of event art"
-msgstr ""
+msgstr "イベントアートの一部"
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:318
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "カバーアートに関する統計データは利用できません。"
 
 #: ../root/statistics/Images.js:145
-#, fuzzy
-#| msgid "Release groups"
 msgid "By release group type"
 msgstr "リリースグループ"
 
 #: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
 #: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
 msgid "No type"
-msgstr ""
+msgstr "タイプなし"
 
 #: ../root/statistics/Images.js:182
-#, fuzzy
-#| msgid "Release Status"
 msgid "By release status"
 msgstr "リリースステータス"
 
 #: ../root/statistics/Images.js:201
 msgid "No status"
-msgstr ""
+msgstr "ステータスなし"
 
 #: ../root/statistics/Images.js:220
-#, fuzzy
-#| msgid "Release/Medium Formats"
 msgid "By release format"
-msgstr "リリース/メディアフォーマット"
+msgstr "リリースフォーマット"
 
 #: ../root/statistics/Images.js:239
 msgid "No format"
-msgstr ""
+msgstr "フォーマットなし"
 
 #: ../root/statistics/Images.js:264
 msgid "Release groups with cover art:"
-msgstr ""
+msgstr "カバーアート付きのリリースグループ:"
 
 #: ../root/statistics/Images.js:275
 msgid "manually selected:"
@@ -346,11 +319,11 @@ msgstr ""
 
 #: ../root/statistics/Images.js:324
 msgid "By cover art type"
-msgstr ""
+msgstr "カバーアートタイプ"
 
 #: ../root/statistics/Images.js:359
 msgid "Per release"
-msgstr ""
+msgstr "リリース別"
 
 #: ../root/statistics/Images.js:375
 msgid "with {num} piece of cover art:"
@@ -359,13 +332,11 @@ msgstr[0] ""
 
 #: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
-msgstr ""
+msgstr "30点以上のカバーアートを含む:"
 
 #: ../root/statistics/Images.js:432 ../root/statistics/Images.js:481
-#, fuzzy
-#| msgid "No status set"
 msgid "No event art statistics available."
-msgstr "未指定"
+msgstr "イベントアートの統計データは利用できません。"
 
 #: ../root/statistics/Images.js:438
 #, fuzzy
@@ -374,14 +345,12 @@ msgid "By event type"
 msgstr "イベント"
 
 #: ../root/statistics/Images.js:487
-#, fuzzy
-#| msgid "Events"
 msgid "By event art type"
-msgstr "イベント"
+msgstr "イベントアート"
 
 #: ../root/statistics/Images.js:524
 msgid "Per event"
-msgstr ""
+msgstr "イベント別"
 
 #: ../root/statistics/Images.js:542
 #, fuzzy
@@ -402,14 +371,10 @@ msgid "Basic metadata"
 msgstr "基本メタデータ"
 
 #: ../root/statistics/Index.js:72 ../root/statistics/stats.js:20
-#, fuzzy
-#| msgid "Core Entities"
 msgid "Core entities"
 msgstr "主要な項目"
 
 #: ../root/statistics/Index.js:137
-#, fuzzy
-#| msgid "Other Entities"
 msgid "Other entities"
 msgstr "その他の項目"
 
@@ -418,8 +383,6 @@ msgid "Editors (valid / deleted):"
 msgstr "編集者数（有効 / 削除済）:"
 
 #: ../root/statistics/Index.js:154
-#, fuzzy
-#| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (all time / current):"
 msgstr "CDスタブ数（全期間 / 現在）:"
 
@@ -438,7 +401,7 @@ msgstr "識別子"
 
 #: ../root/statistics/Index.js:180 ../root/statistics/stats.js:564
 msgid "MBIDs"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
@@ -454,39 +417,39 @@ msgstr "バーコード"
 
 #: ../root/statistics/Index.js:204 ../root/statistics/stats.js:499
 msgid "IPIs"
-msgstr ""
+msgstr "IPI"
 
 #: ../root/statistics/Index.js:208 ../root/statistics/stats.js:514
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI"
 
 #: ../root/statistics/Index.js:227
 msgid "of type Person:"
-msgstr "個人"
+msgstr "個人:"
 
 #: ../root/statistics/Index.js:233
 msgid "of type Group:"
-msgstr "グループ"
+msgstr "グループ:"
 
 #: ../root/statistics/Index.js:239
 msgid "of type Orchestra:"
-msgstr "オーケストラ"
+msgstr "オーケストラ:"
 
 #: ../root/statistics/Index.js:245
 msgid "of type Choir:"
-msgstr "合唱団"
+msgstr "合唱団:"
 
 #: ../root/statistics/Index.js:251
 msgid "of type Character:"
-msgstr "キャラクター"
+msgstr "キャラクター:"
 
 #: ../root/statistics/Index.js:257
 msgid "of type Other:"
-msgstr "その他"
+msgstr "その他:"
 
 #: ../root/statistics/Index.js:263
 msgid "with no type set:"
-msgstr "未指定"
+msgstr "未指定:"
 
 #: ../root/statistics/Index.js:269
 msgid "with appearances in artist credits:"
@@ -498,19 +461,19 @@ msgstr ""
 
 #: ../root/statistics/Index.js:280
 msgid "Non-group artists:"
-msgstr "非グループアーティスト"
+msgstr "非グループアーティスト:"
 
 #: ../root/statistics/Index.js:319
 msgid "Other gender:"
-msgstr "その他の性"
+msgstr "その他の性別:"
 
 #: ../root/statistics/Index.js:330
 msgid "Gender not applicable:"
-msgstr "該当なし"
+msgstr "該当なし:"
 
 #: ../root/statistics/Index.js:341
 msgid "with no gender set:"
-msgstr "未指定"
+msgstr "未指定:"
 
 #: ../root/statistics/Index.js:353
 msgid "Releases, Data Quality, and Disc IDs"
@@ -525,8 +488,6 @@ msgid "by a single artist:"
 msgstr "シングルアーティスト:"
 
 #: ../root/statistics/Index.js:379
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release status"
 msgstr "リリースステータス"
 
@@ -535,8 +496,6 @@ msgid "No status set"
 msgstr "未指定"
 
 #: ../root/statistics/Index.js:405
-#, fuzzy
-#| msgid "Release Packaging"
 msgid "Release packaging"
 msgstr "リリースパッケージング"
 
@@ -545,8 +504,6 @@ msgid "No packaging set"
 msgstr "未指定"
 
 #: ../root/statistics/Index.js:431
-#, fuzzy
-#| msgid "Cover Art Sources"
 msgid "Cover art sources"
 msgstr "カバーアートのソース"
 
@@ -559,32 +516,22 @@ msgid "No front cover art:"
 msgstr "カバーアートがない:"
 
 #: ../root/statistics/Index.js:463 ../root/statistics/stats.js:604
-#, fuzzy
-#| msgid "High Data Quality"
 msgid "High data quality"
 msgstr "高いデータ品質"
 
 #: ../root/statistics/Index.js:471
-#, fuzzy
-#| msgid "Default Data Quality:"
 msgid "Default data quality"
 msgstr "デフォルトのデータ品質:"
 
 #: ../root/statistics/Index.js:479 ../root/statistics/stats.js:614
-#, fuzzy
-#| msgid "Normal Data Quality"
 msgid "Normal data quality"
 msgstr "標準のデータ品質"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:619
-#, fuzzy
-#| msgid "Unknown Data Quality"
 msgid "Unknown data quality"
 msgstr "データ品質が不明"
 
 #: ../root/statistics/Index.js:495 ../root/statistics/stats.js:609
-#, fuzzy
-#| msgid "Low Data Quality"
 msgid "Low data quality"
 msgstr "低いデータ品質"
 
@@ -614,8 +561,6 @@ msgid "Mediums with at least one disc ID:"
 msgstr "ディスクIDが少なくとも1つあるメディア:"
 
 #: ../root/statistics/Index.js:603
-#, fuzzy
-#| msgid "Primary Types"
 msgid "Primary types"
 msgstr "一次タイプ"
 
@@ -639,7 +584,7 @@ msgstr "なし"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:895
 msgid "Videos"
-msgstr ""
+msgstr "動画"
 
 #: ../root/statistics/Index.js:690
 msgctxt "recording"
@@ -648,7 +593,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "ISRC付き"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -673,53 +618,41 @@ msgstr "なし"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "ISWC付き"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
 msgstr "属性"
 
 #: ../root/statistics/Index.js:785
-#, fuzzy
-#| msgid "None"
 msgctxt "work attribute"
 msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:813
-#, fuzzy
-#| msgid "None"
 msgctxt "area type"
 msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:841
-#, fuzzy
-#| msgid "None"
 msgctxt "place type"
 msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:895
-#, fuzzy
-#| msgid "None"
 msgctxt "instrument type"
 msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:923
-#, fuzzy
-#| msgid "None"
 msgctxt "event type"
 msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:931 ../root/statistics/stats.js:30
-#, fuzzy
-#| msgid "Events"
 msgctxt "plural, multiple events, header"
 msgid "Event art"
-msgstr "イベント"
+msgstr "イベントアート"
 
 #: ../root/statistics/Index.js:941
 msgid "With EAA poster art:"
@@ -733,11 +666,11 @@ msgstr "カバーアートがない:"
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
-msgstr ""
+msgstr "リリース"
 
 #: ../root/statistics/Index.js:974 ../root/statistics/Index.js:1007
 msgid "Generic"
-msgstr ""
+msgstr "一般"
 
 #: ../root/statistics/Index.js:983
 msgid "Owned music"
@@ -749,7 +682,7 @@ msgstr "ほしい物リスト"
 
 #: ../root/statistics/Index.js:1000
 msgid "Of events"
-msgstr ""
+msgstr "イベント"
 
 #: ../root/statistics/Index.js:1016
 msgid "Of type Attending"
@@ -761,49 +694,47 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1036
 msgid "Of areas"
-msgstr ""
+msgstr "エリア"
 
 #: ../root/statistics/Index.js:1042
 msgid "Of artists"
-msgstr ""
+msgstr "アーティスト"
 
 #: ../root/statistics/Index.js:1048
-#, fuzzy
-#| msgid "Genres"
 msgid "Of genres"
-msgstr "ジャンル数"
+msgstr "ジャンル"
 
 #: ../root/statistics/Index.js:1055
 msgid "Of instruments"
-msgstr ""
+msgstr "楽器"
 
 #: ../root/statistics/Index.js:1062
 msgid "Of labels"
-msgstr ""
+msgstr "ラベル"
 
 #: ../root/statistics/Index.js:1068
 msgid "Of places"
-msgstr ""
+msgstr "場所"
 
 #: ../root/statistics/Index.js:1074
 msgid "Of recordings"
-msgstr ""
+msgstr "レコーディング"
 
 #: ../root/statistics/Index.js:1081
 msgid "Of release groups"
-msgstr ""
+msgstr "リリースグループ"
 
 #: ../root/statistics/Index.js:1088
 msgid "Of series"
-msgstr ""
+msgstr "シリーズ"
 
 #: ../root/statistics/Index.js:1094
 msgid "Of works"
-msgstr ""
+msgstr "作品"
 
 #: ../root/statistics/Index.js:1113
 msgid "With collaborators"
-msgstr ""
+msgstr "共同編集者"
 
 #: ../root/statistics/Index.js:1121
 msgid "Editors, Edits, and Votes"
@@ -815,7 +746,7 @@ msgstr "編集者 (有効):"
 
 #: ../root/statistics/Index.js:1134
 msgid "active ever:"
-msgstr ""
+msgstr "常にアクティブ:"
 
 #: ../root/statistics/Index.js:1142
 msgid "who edited and/or voted in the last 7 days:"
@@ -831,38 +762,36 @@ msgstr "最近7日間に投票した人:"
 
 #: ../root/statistics/Index.js:1166
 msgid "who edit:"
-msgstr "編集者："
+msgstr "編集した人:"
 
 #: ../root/statistics/Index.js:1173
 msgid "who vote:"
-msgstr "投票者："
+msgstr "投票した人:"
 
 #: ../root/statistics/Index.js:1180
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "編集メモを残した人:"
 
 #: ../root/statistics/Index.js:1188
-#, fuzzy
-#| msgid "who edit:"
 msgctxt "folksonomy"
 msgid "who use tags:"
-msgstr "編集者："
+msgstr "タグを使用した人:"
 
 #: ../root/statistics/Index.js:1196
 msgid "who use ratings:"
-msgstr ""
+msgstr "評価を使用した人:"
 
 #: ../root/statistics/Index.js:1205
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "購読を使用した人:"
 
 #: ../root/statistics/Index.js:1214
 msgid "who use collections:"
-msgstr ""
+msgstr "コレクションを使用した人:"
 
 #: ../root/statistics/Index.js:1224
 msgid "who have registered applications:"
-msgstr ""
+msgstr "登録申請を行った人:"
 
 #: ../root/statistics/Index.js:1233
 msgid "validated email only:"
@@ -878,37 +807,35 @@ msgstr "編集者(削除済):"
 
 #: ../root/statistics/Index.js:1276
 msgid "Voted down"
-msgstr ""
+msgstr "拒否されました"
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (dependency):"
-msgstr ""
+msgstr "失敗（依存関係）:"
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (prerequisite):"
-msgstr ""
+msgstr "失敗（前提条件）:"
 
 #: ../root/statistics/Index.js:1294
 msgid "Failed (internal error):"
-msgstr ""
+msgstr "失敗（内部エラー）:"
 
 #: ../root/statistics/Index.js:1313 ../root/statistics/Index.js:1385
 msgid "Last 7 days:"
-msgstr "最近7日間"
+msgstr "過去7日間:"
 
 #: ../root/statistics/Index.js:1320 ../root/statistics/Index.js:1392
 msgid "Yesterday:"
-msgstr "昨日："
+msgstr "昨日:"
 
 #: ../root/statistics/LanguagesScripts.js:43
-#, fuzzy
-#| msgid "Languages and Scripts"
 msgid "Languages and scripts"
 msgstr "言語と文字"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr ""
+msgstr "その他の利用可能な言語と文字セットには、リリースや作品が一切ありません。"
 
 #: ../root/statistics/LanguagesScripts.js:55
 msgid "Languages"
@@ -928,25 +855,23 @@ msgstr "不明な文字"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
-msgstr ""
+msgstr "活動"
 
 #: ../root/statistics/MusicBrainzHistory.js:16
 msgid "Our glorious history"
-msgstr ""
+msgstr "私たちの輝かしい活動"
 
 #: ../root/statistics/MusicBrainzHistory.js:20
 msgid "{date} - {title}"
-msgstr ""
+msgstr "{date} - {title}"
 
 #: ../root/statistics/MusicBrainzHistory.js:36
 msgid "It seems we have no history to show at all!"
-msgstr ""
+msgstr "どうやら、私たちには示すべき活動がもうないようです！"
 
 #: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:19
-#, fuzzy
-#| msgid "No status set"
 msgid "No statistics"
-msgstr "未指定"
+msgstr "統計データなし"
 
 #: ../root/statistics/NoStatistics.js:22
 msgid ""
@@ -957,7 +882,7 @@ msgstr ""
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
-msgstr ""
+msgstr "関係統計データは利用できません。"
 
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
@@ -978,35 +903,26 @@ msgid "{type0}-{type1} relationships:"
 msgstr "{type0}・{type1}の関連："
 
 #: ../root/statistics/stats.js:16
-#, fuzzy
-#| msgid "Areas"
 msgid "Area types"
 msgstr "地域"
 
 #: ../root/statistics/stats.js:17
-#, fuzzy
-#| msgid "Artist Credits"
 msgid "Artist countries"
 msgstr "アーティストクレジット"
 
 #: ../root/statistics/stats.js:18
 msgid "Artist types and genders"
-msgstr ""
+msgstr "アーティストの種類と性別"
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art"
 msgctxt "plural, multiple releases, header"
 msgid "Cover art"
 msgstr "カバーアート"
 
 #: ../root/statistics/stats.js:26
-#, fuzzy
-#| msgid "Edit Information"
 msgctxt "noun"
 msgid "Edit information"
-msgstr "編集情報"
+msgstr "情報を編集"
 
 #: ../root/statistics/stats.js:27
 msgctxt "noun"
@@ -1014,26 +930,18 @@ msgid "Edit types"
 msgstr "タイプを編集"
 
 #: ../root/statistics/stats.js:32
-#, fuzzy
-#| msgid "Events"
 msgid "Event types"
 msgstr "イベント"
 
 #: ../root/statistics/stats.js:34
-#, fuzzy
-#| msgid "Instruments"
 msgid "Instrument types"
 msgstr "楽器"
 
 #: ../root/statistics/stats.js:35
-#, fuzzy
-#| msgid "Countries"
 msgid "Label countries"
 msgstr "国"
 
 #: ../root/statistics/stats.js:36
-#, fuzzy
-#| msgid "Labels"
 msgid "Label types"
 msgstr "レーベル"
 
@@ -1043,104 +951,75 @@ msgid "Other"
 msgstr "その他"
 
 #: ../root/statistics/stats.js:38
-#, fuzzy
-#| msgid "Places"
 msgid "Place types"
 msgstr "場所"
 
 #: ../root/statistics/stats.js:39
-#, fuzzy
-#| msgid "Ratings and Tags"
 msgctxt "folksonomy"
 msgid "Ratings and tags"
 msgstr "評価とタグ"
 
 #: ../root/statistics/stats.js:41
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release countries"
-msgstr "リリースグループ"
+msgstr "リリース国"
 
 #: ../root/statistics/stats.js:42
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group types"
 msgstr "リリースグループ"
 
 #: ../root/statistics/stats.js:43
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release languages"
-msgstr "リリースグループ"
+msgstr "リリース言語"
 
 #: ../root/statistics/stats.js:44
-#, fuzzy
-#| msgid "Release Packaging"
 msgid "Release packagings"
 msgstr "リリースパッケージング"
 
 #: ../root/statistics/stats.js:45
-#, fuzzy
-#| msgid "Labels/data quality"
 msgid "Release data quality"
-msgstr "レーベル/データ品質"
+msgstr "リリースデータの品質"
 
 #: ../root/statistics/stats.js:46
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release scripts"
-msgstr "リリースグループ"
+msgstr "リリーススクリプト"
 
 #: ../root/statistics/stats.js:47
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release statuses"
 msgstr "リリースステータス"
 
 #: ../root/statistics/stats.js:48
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Series"
 msgid "Series types"
 msgstr "シリーズ"
 
 #: ../root/statistics/stats.js:49
 msgid "Work attributes"
-msgstr ""
+msgstr "作品属性"
 
 #: ../root/statistics/stats.js:50
-#, fuzzy
-#| msgid "Languages"
 msgid "Work languages"
 msgstr "言語"
 
 #: ../root/statistics/stats.js:51
-#, fuzzy
-#| msgid "Works"
 msgid "Work types"
 msgstr "作品"
 
 #: ../root/statistics/stats.js:66
 msgid "Areas with no type set"
-msgstr ""
+msgstr "タイプが設定されていない地域"
 
 #: ../root/statistics/stats.js:76
 msgid "Artists with no appearances in artist credits"
-msgstr ""
+msgstr "アーティストクレジットに記載されていないアーティスト"
 
 #: ../root/statistics/stats.js:81
 msgid "Artists with no country set"
-msgstr ""
+msgstr "国を設定していないアーティスト"
 
 #: ../root/statistics/stats.js:86
-#, fuzzy
-#| msgid "Female Artists"
 msgid "Female artists"
 msgstr "女性アーティスト"
 
 #: ../root/statistics/stats.js:91
-#, fuzzy
-#| msgid "Male Artists"
 msgid "Male artists"
 msgstr "男性アーティスト"
 
@@ -1149,22 +1028,20 @@ msgid "Non-binary Artists"
 msgstr ""
 
 #: ../root/statistics/stats.js:101
-#, fuzzy
-#| msgid "Gender not applicable:"
 msgid "Gender not applicable"
 msgstr "該当なし"
 
 #: ../root/statistics/stats.js:106
 msgid "Artists with no gender set (non-group artists)"
-msgstr ""
+msgstr "性別が設定されていないアーティスト（グループに属さないアーティスト）"
 
 #: ../root/statistics/stats.js:111
 msgid "Artists with gender set to Other"
-msgstr ""
+msgstr "性別が「その他」に設定されているアーティスト"
 
 #: ../root/statistics/stats.js:116
 msgid "Artists with at least one artist credit appearance"
-msgstr ""
+msgstr "1件以上のクレジット記載があるアーティスト"
 
 #: ../root/statistics/stats.js:121
 msgid "Characters"
@@ -1172,7 +1049,7 @@ msgstr "キャラクター"
 
 #: ../root/statistics/stats.js:126
 msgid "Choirs"
-msgstr ""
+msgstr "合唱団"
 
 #: ../root/statistics/stats.js:131
 msgid "Groups"
@@ -1180,7 +1057,7 @@ msgstr "グループ"
 
 #: ../root/statistics/stats.js:136
 msgid "Artists with no type set"
-msgstr ""
+msgstr "設定されていないアーティスト"
 
 #: ../root/statistics/stats.js:141
 msgid "Orchestras"
@@ -1188,37 +1065,35 @@ msgstr "オーケストラ"
 
 #: ../root/statistics/stats.js:146
 msgid "Artists with type set to Other"
-msgstr ""
+msgstr "「その他」に設定されているアーティスト"
 
 #: ../root/statistics/stats.js:151
 msgid "Persons"
-msgstr ""
+msgstr "人"
 
 #: ../root/statistics/stats.js:166
-#, fuzzy
-#| msgid "CD Stubs (all time / current):"
 msgid "CD stubs (current)"
-msgstr "CDスタブ数（全期間 / 現在）:"
+msgstr "CDスタブ数（現在）:"
 
 #: ../root/statistics/stats.js:171
 msgid "CD stubs (ever submitted)"
-msgstr ""
+msgstr "CDスタブ（過去）"
 
 #: ../root/statistics/stats.js:176
 msgid "CD stub tracks"
-msgstr ""
+msgstr "CDスタブトラック"
 
 #: ../root/statistics/stats.js:186
 msgid "Collections with collaborators"
-msgstr ""
+msgstr "コレクション（共同編集者あり）"
 
 #: ../root/statistics/stats.js:191
 msgid "Private collections"
-msgstr ""
+msgstr "プライベートコレクション"
 
 #: ../root/statistics/stats.js:196
 msgid "Public collections"
-msgstr ""
+msgstr "公開済みコレクション"
 
 #: ../root/statistics/stats.js:201
 msgid "Area collections"
@@ -1238,7 +1113,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:221
 msgid "Event collections (all types)"
-msgstr ""
+msgstr "イベントのコレクション（全て）"
 
 #: ../root/statistics/stats.js:226
 msgid "Genre collections"
@@ -1274,7 +1149,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:266
 msgid "Release collections (all types)"
-msgstr ""
+msgstr "リリースコレクション（全て）"
 
 #: ../root/statistics/stats.js:271
 msgid "Release group collections"
@@ -1282,11 +1157,11 @@ msgstr "リリースグループのコレクション"
 
 #: ../root/statistics/stats.js:276
 msgid "Series collections"
-msgstr ""
+msgstr "シリーズのコレクション"
 
 #: ../root/statistics/stats.js:281
 msgid "Collections of type Wishlist"
-msgstr ""
+msgstr "ウィッシュリストのコレクション"
 
 #: ../root/statistics/stats.js:286
 msgid "Work collections"
@@ -1294,35 +1169,35 @@ msgstr "作品のコレクション"
 
 #: ../root/statistics/stats.js:307
 msgid "Applied edits"
-msgstr ""
+msgstr "適用された編集"
 
 #: ../root/statistics/stats.js:312
 msgid "Cancelled edits"
-msgstr ""
+msgstr "キャンセルされた編集"
 
 #: ../root/statistics/stats.js:317
 msgid "Error edits"
-msgstr ""
+msgstr "エラーのある編集"
 
 #: ../root/statistics/stats.js:322
 msgid "Edits that have failed dependency checks"
-msgstr ""
+msgstr "依存関係チェックに失敗した編集"
 
 #: ../root/statistics/stats.js:327
 msgid "Edits that have failed prerequisite checks"
-msgstr ""
+msgstr "前提条件チェックに失敗した編集"
 
 #: ../root/statistics/stats.js:332
 msgid "Edits that have been voted down"
-msgstr ""
+msgstr "拒否された編集"
 
 #: ../root/statistics/stats.js:343
 msgid "Edits per day"
-msgstr ""
+msgstr "1日あたりの編集回数"
 
 #: ../root/statistics/stats.js:348
 msgid "Edits per week"
-msgstr ""
+msgstr "一週間あたりの編集回数"
 
 #: ../root/statistics/stats.js:354
 msgid "Editors (all)"
@@ -1330,7 +1205,7 @@ msgstr "編集者(すべて)"
 
 #: ../root/statistics/stats.js:359
 msgid "Editors who edited or voted in the last week"
-msgstr ""
+msgstr "過去1週間以内に編集または投票を行った編集者"
 
 #: ../root/statistics/stats.js:365
 msgid "Editors (deleted)"
@@ -1338,110 +1213,104 @@ msgstr "編集者(削除済)"
 
 #: ../root/statistics/stats.js:370
 msgid "Editors who submitted edits in the last week"
-msgstr ""
+msgstr "過去1週間以内に編集を投稿した編集者"
 
 #: ../root/statistics/stats.js:376
 msgid "Editors (current)"
-msgstr ""
+msgstr "編集者（最近）"
 
 #: ../root/statistics/stats.js:382
 msgid "Editors (current) who have ever been active"
-msgstr ""
+msgstr "現在活動中の編集者（過去に活動したことがある者）"
 
 #: ../root/statistics/stats.js:387
 msgid "Editors who have registered applications"
-msgstr ""
+msgstr "申請を登録した編集者"
 
 #: ../root/statistics/stats.js:392
 msgid "Editors who use collections"
-msgstr ""
+msgstr "コレクションを利用する編集者"
 
 #: ../root/statistics/stats.js:397
 msgid "Editors who have made edits"
-msgstr ""
+msgstr "編集を行ったことのある編集者"
 
 #: ../root/statistics/stats.js:402
 msgid "Editors who have written edit notes"
-msgstr ""
+msgstr "編集メモを書いたことのある編集者"
 
 #: ../root/statistics/stats.js:407
 msgid "Editors who have added ratings"
-msgstr ""
+msgstr "評価を追加した編集者"
 
 #: ../root/statistics/stats.js:412
 msgid "Editors who use subscriptions"
-msgstr ""
+msgstr "購読サービスを利用する編集者"
 
 #: ../root/statistics/stats.js:417
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
-msgstr ""
+msgstr "タグを追加した編集者"
 
 #: ../root/statistics/stats.js:422
 msgid "Editors who have voted on edits"
-msgstr ""
+msgstr "編集に投票した編集者"
 
 #: ../root/statistics/stats.js:427
 msgid "Editors who have not been active at all"
-msgstr ""
+msgstr "全く活動していない編集者"
 
 #: ../root/statistics/stats.js:432
 msgid "Editors who have only validated their email"
-msgstr ""
+msgstr "メールアドレスのみを認証した編集者"
 
 #: ../root/statistics/stats.js:437
 msgid "Editors who voted in the last week"
-msgstr ""
+msgstr "先週投票した編集者"
 
 #: ../root/statistics/stats.js:447
 msgid "Events with no country set"
-msgstr ""
+msgstr "国が設定されていないイベント"
 
 #: ../root/statistics/stats.js:452
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events with EAA event art"
-msgstr "ディスクIDのないリリース:"
+msgstr "EAAイベントアートのあるイベント"
 
 #: ../root/statistics/stats.js:457
 msgid "Events with an EAA poster"
-msgstr ""
+msgstr "EAAポスターのあるイベント"
 
 #: ../root/statistics/stats.js:462
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events without an EAA poster"
-msgstr "ディスクIDのないリリース:"
+msgstr "EAAポスターのないイベント"
 
 #: ../root/statistics/stats.js:467
 msgid "Events with no type set"
-msgstr ""
+msgstr "タイプが設定されていないイベント"
 
 #: ../root/statistics/stats.js:473
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events with no type set that have event art"
-msgstr "ディスクIDのないリリース:"
+msgstr "タイプが設定されていないイベントで、イベントアートが設定されているもの"
 
 #: ../root/statistics/stats.js:494
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "タイプが設定されていない楽器"
 
 #: ../root/statistics/stats.js:504
 msgid "Artist IPIs"
-msgstr ""
+msgstr "アーティストIPI"
 
 #: ../root/statistics/stats.js:509
 msgid "Label IPIs"
-msgstr ""
+msgstr "ラベルIPI"
 
 #: ../root/statistics/stats.js:519
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "アーティストISNI"
 
 #: ../root/statistics/stats.js:524
 msgid "Label ISNIs"
-msgstr ""
+msgstr "ラベルISNI"
 
 #: ../root/statistics/stats.js:529
 msgid "ISRCs (unique)"

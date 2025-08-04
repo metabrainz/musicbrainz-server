@@ -40,13 +40,14 @@
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # julian45 <julian45@users.noreply.translations.metabrainz.org>, 2024.
+# TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2025-06-16 19:11+0000\n"
-"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-29 13:36+0000\n"
+"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -54,7 +55,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.1\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -133,17 +134,18 @@ msgid ""
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
 msgstr ""
+"<strong>注意:</strong> "
+"クラシック音楽では、{csg_recording_artist|レコーディングアーティスト}はほぼ必"
+"ず{csg_track_artist|トラックアーティスト}と異なるため、クラシック作品の編集時"
+"に「アーティストクレジットをコピー」オプションを使用しないようにしてください"
+"。特に、それが適切な判断であるかどうか確信がない場合は絶対に使用しないでくだ"
+"さい！"
 
 #: ../root/components/common-macros.tt:400 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>警告</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
-#, fuzzy
-#| msgid ""
-#| "A CD Stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
@@ -176,31 +178,21 @@ msgid "Accept"
 msgstr "承認"
 
 #: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
-msgstr "IPI コード"
+msgstr "IPIコードを追加"
 
 #: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
-msgstr "ISNIコード"
+msgstr "ISNIコードを追加"
 
 #: ../root/recording/edit_form.tt:44
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "ISRCを追加"
 
 #: ../root/work/edit_form.tt:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "ISWCを追加"
@@ -340,15 +332,13 @@ msgstr "住所"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:213
 msgctxt "vote"
 msgid "Admin approval"
-msgstr ""
+msgstr "管理者の承認"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
-#, fuzzy
-#| msgid "Auto-editor elections"
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "自動編集者選挙"
+msgstr "管理者の拒否"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -361,18 +351,12 @@ msgstr ""
 "い場合は、「新しくレコーディングを追加」を選択してください。"
 
 #: ../root/layout.tt:18 ../root/layout/index.js:196
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit, vote or leave edit notes because an "
-#| "admin has revoked your privileges. If you haven’t already been contacted "
-#| "about why, please {uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"あなたは管理者があなたの権限を剥奪したため、編集、投票、編集ノートの投稿を許"
-"可されていません。もしあなたがまだ理由について問い合わせていない場合、{uri|私"
-"達にメッセージを送ってください}。"
+"管理者があなたのアカウントに以下の制限を設定しました：{list}。理由についてま"
+"だ連絡を受けていない場合は、{uri|メッセージを送信してください}。"
 
 #: ../root/components/common-macros.tt:485
 msgid ""
@@ -732,7 +716,7 @@ msgstr "終了"
 
 #: ../root/artist/split.tt:34
 msgid "Collaborators on this artist"
-msgstr ""
+msgstr "このアーティストのコラボレーター"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
@@ -753,6 +737,8 @@ msgid ""
 "Common exceptions are {artist_intent_guideline|artist intent} and "
 "{japanese_guideline|Japanese releases}."
 msgstr ""
+"一般的な例外には、{artist_intent_guideline|アーティストの意図}と{japanese_gui"
+"deline|日本のリリース}があります。"
 
 #: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -891,7 +877,7 @@ msgstr "詳細"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "レガシーブラウザモードを無効にする"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -937,6 +923,10 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"プラットフォームに精通していない限り、"
+"デジタルメディアのリリースに\"バーコードなし\"とマークしないでください"
+"。ほとんどの主要なデジタルプラットフォームでは、表示されていなくてもバーコー"
+"ドが使用されています。"
 
 #: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
@@ -1091,7 +1081,8 @@ msgstr "以下でトラックリストをご入力ください:"
 msgid ""
 "Enter coordinates manually or click the map to get coordinates from the "
 "marker. If you’re too far out, clicking will zoom instead."
-msgstr ""
+msgstr "座標を手動で入力するか、地図をクリックしてマーカーから座標を取得します。位置"
+"が遠すぎる場合、クリックするとズームインします。"
 
 #: ../root/components/forms.tt:39 ../root/event/add_event_art.tt:170
 #: ../root/release/add_cover_art.tt:181 ../root/release/edit/layout.tt:58
@@ -1103,11 +1094,12 @@ msgstr "編集を送信"
 msgid ""
 "Enter the delimiter that separates the track name from the artist name "
 "(valid {url|regular expressions} are accepted)."
-msgstr ""
+msgstr "トラック名とアーティスト名を区切る区切り文字を入力してください（区切り文字に"
+"は、 {url|正規表現}を使用できます）。"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Entered"
-msgstr ""
+msgstr "入力されました"
 
 #: ../root/components/forms.tt:23
 msgid ""
@@ -1157,6 +1149,8 @@ msgid ""
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
 msgstr ""
+"グループ化すべきリリースの一例には、オリジナルリリース、再発盤、CDやデジタル"
+"メディアなどの異なるフォーマット、およびリマスター版が含まれます。"
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1194,6 +1188,10 @@ msgid ""
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
 msgstr ""
+"外部リンクは、アーティストに関連するURLです。これには、アーティストの公式ホー"
+"ムページやソーシャルメディアのプロフィールページ、ストリーミングサービス、お"
+"よびウィキペディアの記事、伝記、インタビュー、ファンサイトなどの非公式ページ"
+"が含まれます。"
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1201,6 +1199,9 @@ msgid ""
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"外部リンクは、ラベルに関連付けられたURLです。これには、ラベルの公式ホームペー"
+"ジやソーシャルメディアページ、カタログ、注文ページ、およびウィキペディアの記"
+"事、歴史、ファンサイトなどの非公式ページが含まれます。"
 
 #: ../root/place/edit_form.tt:110
 msgid ""
@@ -1208,38 +1209,48 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"外部リンクは、その場所に関連するURLです。これには、その場所の公式ホームページ"
+"やソーシャルメディアページ、チケット販売ページ、およびウィキペディアの記事、"
+"歴史、ファンサイトなどの非公式ページが含まれます。"
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
-msgstr ""
+msgstr "外部リンクは、録音物に関連するURLであり、購入ページやストリーミングページ、ま"
+"たは他のデータベースのエントリーなどです。"
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
 msgstr ""
+"外部リンクは、リリースグループに関連するURLであり、公式ページ、ウィキペディア"
+"の記事、レビュー、および他のデータベースのエントリーなどが含まれます。"
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
 msgstr ""
+"外部リンクは、シリーズに関連するURLであり、公式ページ、ソーシャルネットワーキ"
+"ングサイト、および他のデータベースのエントリーなどが含まれます。"
 
 #: ../root/work/edit_form.tt:157
 msgid ""
 "External links are URLs associated with the work, such as pages for "
 "purchasing sheet music, lyrics pages, and entries in other databases."
-msgstr ""
+msgstr "外部リンクは、作品に関連するURLであり、楽譜の購入ページ、歌詞ページ、他のデー"
+"タベースのエントリーなどです。"
 
 #: ../root/release/edit/information.tt:584
 msgid "External links are URLs associated with this particular release."
-msgstr ""
+msgstr "外部リンクは、この特定のリリースに関連するURLです。"
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
-msgstr ""
+msgstr "シリーズ名が唯一無二である可能性が高い場合は、空欄のままにしておいて構いませ"
+"ん。"
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1259,11 +1270,11 @@ msgstr ""
 
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
-msgstr ""
+msgstr "クラシック音楽の場合、最も重要な演奏家を含める必要があります。"
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
-msgstr ""
+msgstr "デジタルメディアリリースに関しては、通常は「なし」を選択してください。"
 
 #: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
 #: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
@@ -1285,7 +1296,8 @@ msgstr "より詳細な情報は、{doc_doc|ドキュメント}を参照して�
 msgid ""
 "For popular music, the {doc|artist} should usually match the track artist on "
 "the earliest release containing the recording."
-msgstr ""
+msgstr "ポピュラー音楽の場合、{doc|アーティスト}は通常、その録音を含む最も古いリリー"
+"スにおけるトラックアーティストと一致させるべきです。"
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:12
 #: ../root/release/edit/tracklist.tt:305
@@ -1401,7 +1413,7 @@ msgstr "これがリリースに表示されるバーコードであることを
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
-msgstr ""
+msgstr "この追加のタイトル情報が正しく大文字で表記されていることを確認します。"
 
 #: ../root/release/edit/information.tt:529
 msgid "I confirm that this is the barcode as it appears on the release."
@@ -1413,13 +1425,17 @@ msgstr "これは正しいメディアフォーマットとパッケージング
 
 #: ../root/release/edit/tracklist.tt:413
 msgid "I confirm this is an intentional use of Various Artists for tracks."
-msgstr ""
+msgstr "このトラックにおいて「Various "
+"Artists」の使用は意図的なものであることを確認します。"
 
 #: ../root/release/edit/tracklist.tt:431
 msgid ""
 "I confirm this is an intentional use of featured artists in track titles, or "
 "that these aren’t actually featured artists."
 msgstr ""
+"これは、トラックタイトルにおけるフィーチャードアーティストの意図的な使用であ"
+"るか、またはこれらのアーティストが実際にはフィーチャードアーティストではない"
+"ことを確認します。"
 
 #: ../root/release/edit/tracklist.tt:314
 msgid "I don’t know"
@@ -1470,12 +1486,16 @@ msgid ""
 "you can check the boxes below to replace them with the track titles/artists "
 "for this release."
 msgstr ""
+"上記にリストされている{recording_doc|レコーディングタイトル/アーティスト}が正"
+"しくない場合、以下のチェックボックスにチェックを入れることで、このリリースに"
+"おけるトラックタイトル/アーティストに置き換えることができます。"
 
 #: ../root/recording/edit_form.tt:101
 msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
-msgstr ""
+msgstr "これがライブレコーディングの場合、{doc|ライブレコーディング}のガイドラインも"
+"ご確認ください。"
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1504,6 +1524,9 @@ msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
 msgstr ""
+"カタログ番号が見つからない場合は、この欄を空白のままにしてください。リリース"
+"にカタログ番号が割り当てられていないことが確実な場合は、「[none]"
+"」と入力してください。"
 
 #: ../root/release/edit/information.tt:450
 #, fuzzy
@@ -1541,7 +1564,8 @@ msgstr ""
 msgid ""
 "If you don’t select an existing release group, a new one will be added with "
 "the types selected below."
-msgstr ""
+msgstr "既存のリリースグループを選択しない場合、以下の選択したタイプで新しいリリース"
+"グループが追加されます。"
 
 #: ../root/release/edit/tracklist.tt:5
 msgid "If you have a tracklist you can copy and paste, you can input it here."
@@ -1551,18 +1575,20 @@ msgstr "コピー&ペーストでトラックリストの入力が可能です�
 msgid ""
 "If you select “{enable_vinyl_numbers}”, the parser will also accept strings "
 "such as “A1” as track numbers."
-msgstr ""
+msgstr "「{enable_vinyl_numbers}」を選択すると、パーサーは「A1」のような文字列もトラ"
+"ック番号として認識します。"
 
 #: ../root/edit/search_macros.tt:10
 msgid ""
 "If you want to save an edit search for future use, you can just bookmark it!"
-msgstr ""
+msgstr "編集検索を今後の使用のために保存したい場合は、ブックマークするだけです！"
 
 #: ../root/release/edit/tracklist.tt:393
 msgid ""
 "If you’re sure the combination of “Digital Media” and the selected packaging "
 "is correct, confirm it above. Otherwise, please fix the data."
-msgstr ""
+msgstr "「デジタルメディア」と選択したパッケージの組み合わせが正しいことを確認してく"
+"ださい。そうでない場合は、データを修正してください。"
 
 #: ../root/release/edit/tracklist.tt:353
 msgid ""
@@ -1601,7 +1627,9 @@ msgstr ""
 msgid ""
 "If you’re sure the use of Various Artists is correct, confirm it above. "
 "Otherwise, please fix the data."
-msgstr ""
+msgstr "「Various "
+"Artists」の使用が正しいと確信している場合は、上記で確認してください。そうでな"
+"い場合は、データを修正してください。"
 
 #: ../root/release/edit/tracklist.tt:434
 #, fuzzy
@@ -1651,7 +1679,8 @@ msgstr "楽器リスト"
 msgid ""
 "It’s okay to leave it blank if there are no other recordings with similar "
 "names, and this isn’t a live recording."
-msgstr ""
+msgstr "類似した名前の他の録音がない場合、またはこれがライブ録音でない場合は、空白の"
+"ままにしておいても構いません。"
 
 #: ../root/components/common-macros.tt:406
 msgid "Javascript is required for this page to work properly."
@@ -2286,10 +2315,8 @@ msgid "Release country"
 msgstr "リリース国"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Release Quality"
 msgid "Release data quality"
-msgstr "リリースの品質"
+msgstr "リリースデータの品質"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
@@ -3623,7 +3650,7 @@ msgstr "作品"
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr ""
+msgstr "作品属性"
 
 #: ../root/work/edit_form.tt:151
 msgid ""
@@ -11684,7 +11711,7 @@ msgstr "MetaBrainzブログ"
 
 #: ../root/main/index.js:119
 msgid "Latest posts:"
-msgstr "最新投稿:"
+msgstr "最近の投稿:"
 
 #: ../root/main/index.js:131
 msgid "Read more »"
@@ -11705,7 +11732,7 @@ msgstr "クイックスタート"
 
 #: ../root/main/index.js:178
 msgid "Editing introduction"
-msgstr "編集のはじめに"
+msgstr "編集を始める"
 
 #: ../root/main/index.js:189
 msgid "How to add artists"
@@ -14373,7 +14400,7 @@ msgstr[0] ""
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr ""
+msgstr "タイプなし"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -17337,7 +17364,7 @@ msgstr "合計適用"
 
 #: ../root/user/UserProfile.js:618
 msgid "Voted down"
-msgstr "否決"
+msgstr "拒否されました"
 
 #: ../root/user/UserProfile.js:628
 msgid "Failed"
@@ -17424,7 +17451,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:850
 msgctxt "ratings"
 msgid "Removed"
-msgstr ""
+msgstr "削除しました"
 
 #: ../root/user/UserProfile.js:916
 msgid "Blocked spam account"
@@ -17550,7 +17577,7 @@ msgstr "購読はありません。"
 
 #: ../root/user/UserSubscriptions.js:246
 msgid "Private collections"
-msgstr ""
+msgstr "プライベートコレクション"
 
 #: ../root/user/UserSubscriptions.js:260
 msgid "{editor} is also subscribed to {n} other private collection."

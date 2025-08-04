@@ -8,12 +8,12 @@
 # Osamu Takahashi, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
 # ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
+# TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-06 04:20+0000\n"
-"Last-Translator: ROManceJP "
-"<poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>\n"
+"PO-Revision-Date: 2025-07-27 19:36+0000\n"
+"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ja/>\n"
 "Language: ja\n"
@@ -136,21 +136,15 @@ msgstr "チャンバーオルガンは小型のパイプオルガンです。"
 
 #. name:cuatro
 #: DB:instrument/description:439
-#, fuzzy
-#| msgid "A class of South-American guitars"
 msgid "A class of South-American guitars."
-msgstr "南アメリカのギターの一種"
+msgstr "南アメリカのギターの一種。"
 
 #. name:saduk
 #: DB:instrument/description:804
-#, fuzzy
-#| msgid ""
-#| "A cross between a saxophone and a duduk invented and played by Alexander "
-#| "Berne"
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
-msgstr "アレクサンダー・バーンが発明し演奏したサックスとドゥドゥクの中間物"
+msgstr "アレクサンダー・バーンが発明し演奏したサックスとドゥドゥクの中間物。"
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
@@ -231,7 +225,7 @@ msgstr ""
 msgid ""
 "A latter-day construction in the form of a four-stringed, square-bodied bass "
 "guitar."
-msgstr ""
+msgstr "現代的なデザインの4弦式四角形ボディのベースギター。"
 
 #. name:pōrutu
 #: DB:instrument/description:787
@@ -314,7 +308,8 @@ msgstr ""
 msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
-msgstr ""
+msgstr "トークボックスは、ミュージシャンが楽器の音色を加工するためのエフェクト装置で"
+"す。"
 
 #. name:tar
 #: DB:instrument/description:607
@@ -340,7 +335,7 @@ msgstr ""
 #. name:Marxophone
 #: DB:instrument/description:442
 msgid "A type of fretless zither."
-msgstr ""
+msgstr "フレットのない琴の一種。"
 
 #. name:tràm plè
 #: DB:instrument/description:308
@@ -358,28 +353,26 @@ msgstr ""
 
 #. name:tube zither
 #: DB:instrument/description:944
-#, fuzzy
-#| msgid "zither with a hollow or vaulted body, it can have several resonators"
 msgid "A zither with a hollow or vaulted body, it can have several resonators."
-msgstr ""
-"中空またはアーチ型のボディを持つツィター、複数の共振器を持つことがあるもの"
+msgstr "中空またはアーチ型のボディを持つツィター、複数の共振器を持つことがあるもの。"
 
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315
 msgid "A “slide whistle”-like type of Hmông flute."
-msgstr ""
+msgstr "「スライドホイッスル」のようなタイプのモン族の笛。"
 
 #. name:acoustic fretless guitar
 #: DB:instrument/description:539
 msgid "Acoustic guitar without frets."
-msgstr ""
+msgstr "フレットのないアコースティックギター。"
 
 #. name:säckpipa
 #: DB:instrument/description:691
 msgid ""
 "Almost completely disappeared by the 20th century, modern revivals based on "
 "museum examples are now used by Swedish folk musicians."
-msgstr ""
+msgstr "20世紀までにほぼ完全に消滅したこの楽器は、現在、博物館の展示品を基にした現代"
+"的な復元版がスウェーデンの民謡音楽家によって使用されています。"
 
 #. name:steel-string acoustic guitar
 #: DB:instrument/description:653
