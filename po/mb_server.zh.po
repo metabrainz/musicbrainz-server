@@ -23,13 +23,14 @@
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # imgradeone <imgradeone@outlook.com>, 2025.
 # sut <xepinchan@qq.com>, 2025.
+# Beteix <1158817754@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2025-07-23 11:36+0000\n"
-"Last-Translator: sut <xepinchan@qq.com>\n"
+"PO-Revision-Date: 2025-07-26 12:36+0000\n"
+"Last-Translator: Beteix <1158817754@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -1104,7 +1105,8 @@ msgid ""
 "Examples of releases that should be grouped together include original "
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
-msgstr ""
+msgstr "应归类在一起的发行品包括原版发行品、再版发行品、不同格式（如 CD "
+"和数字媒体）的发行品以及翻版发行品。"
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1200,7 +1202,7 @@ msgstr "外部链接是与该特定发行品存在关联的网址。"
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
-msgstr ""
+msgstr "如果系列名称可能是独一无二的，可以留空。"
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1218,7 +1220,7 @@ msgstr "首先输入所有音轨信息，包括标题和艺术家名单，以便
 
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
-msgstr ""
+msgstr "对于古典音乐而言，应包含最重要的表演者。"
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
@@ -1433,7 +1435,7 @@ msgstr ""
 msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
-msgstr ""
+msgstr "如果是现场录音，请同时参阅 {doc|live recording} 指南。"
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1457,7 +1459,8 @@ msgstr "如果没有找到所需的结果，您可以添加一张新专辑："
 msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
-msgstr ""
+msgstr "如果找不到目录编号，请留空。如果您确定该版本没有指定目录编号，请输入“[none]"
+"”。"
 
 #: ../root/release/edit/information.tt:450
 msgid ""
@@ -1516,18 +1519,12 @@ msgid ""
 msgstr "如果你确定输入的媒介标题是正确的，请在上面确认。否则，请修改数据。"
 
 #: ../root/release/edit/tracklist.tt:453
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists in track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the extra title information is capitalized correctly, confirm "
 "it above. Otherwise, please fix the data (the “Guess case” button might "
 "help!)."
-msgstr ""
-"如果您确定使用特邀艺术家是正确的，请在上方确认。否则，请修正数据（使用“猜测 "
-"feat. 艺术家”按钮可能有所帮助）。"
+msgstr "如果您确定额外的标题信息大写正确，请在上面确认。否则请修正数据（“猜大小写 "
+"”按钮可能会有帮助！）。"
 
 #: ../root/release/edit/tracklist.tt:475
 #, fuzzy
@@ -1590,7 +1587,7 @@ msgstr "乐器类型"
 msgid ""
 "It’s okay to leave it blank if there are no other recordings with similar "
 "names, and this isn’t a live recording."
-msgstr ""
+msgstr "如果没有其他名称相似的录音，也不是现场录音，则留空也无妨。"
 
 #: ../root/components/common-macros.tt:406
 msgid "Javascript is required for this page to work properly."
@@ -1956,7 +1953,8 @@ msgid ""
 "Note: only searches edits that: add or edit relationships, entered after "
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
-msgstr ""
+msgstr "注意：只搜索以下编辑：2011-05-16 之后输入的添加或编辑关系；2013-07-08 "
+"之后输入的删除关系；重新排列关系。"
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2050,23 +2048,19 @@ msgstr "如果已经有链接到同一文章的维基数据条目，请勿重复
 msgid ""
 "Please leave it blank if other information such as artist or type (album, "
 "single, etc.) already distinguishes between the release groups."
-msgstr ""
+msgstr "如果艺术家或类型（专辑、单曲等）等其他信息已能区分发行组别，请留空。"
 
 #: ../root/work/edit_form.tt:121
 msgid ""
 "Please leave it blank if there are enough other differences between the "
 "works that they are unlikely to be confused."
-msgstr ""
+msgstr "如果作品之间有足够的其他差异，不太可能混淆，请留空。"
 
 #: ../root/release/edit/information.tt:334
-#, fuzzy
-#| msgid ""
-#| "For more information, check the {doc_doc|documentation} and "
-#| "{doc_styleguide|style guidelines}."
 msgid ""
 "Please see the artist credits {doc|documentation} and {style|style "
 "guidelines} for more information."
-msgstr "如需更多信息，请查看 {doc_doc|文档} 和 {doc_styleguide|风格指南}。"
+msgstr "更多信息，请参阅{doc|文档}和{style|风格指南}。"
 
 #: ../root/recording/edit_form.tt:89
 #, fuzzy
