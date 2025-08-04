@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-03 13:20+0000\n"
+"PO-Revision-Date: 2025-07-23 22:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.11.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -375,6 +375,8 @@ msgid ""
 "Almost completely disappeared by the 20th century, modern revivals based on "
 "museum examples are now used by Swedish folk musicians."
 msgstr ""
+"Почти полностью исчезнувшие к XX веку, сейчас используются шведскими "
+"фолк-исполнителями."
 
 #. name:steel-string acoustic guitar
 #: DB:instrument/description:653
@@ -591,6 +593,7 @@ msgstr ""
 #: DB:instrument/description:100
 msgid "Any kind of instrument with membranes, usually variously sized drums."
 msgstr ""
+"Любой тип инструмента с мембранами; чаще всего - барабаны разных размеров."
 
 #. name:flumpet
 #: DB:instrument/description:742
@@ -640,6 +643,10 @@ msgid ""
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
 msgstr ""
+"Распространенное, но общее название для более чем одного инструмента, чаще "
+"всего – бас-гитары или двойного баса (контрабаса, акустической бас-гитары и "
+"т.д.). Если вы знаете, какой инструмент должен быть указан, пожалуйста, "
+"используйте его."
 
 #. name:daruan
 #: DB:instrument/description:546
