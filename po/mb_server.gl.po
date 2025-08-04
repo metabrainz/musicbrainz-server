@@ -4,13 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
+# ninjum <ninjum@gmx.es>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2024-04-17 17:35+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-08-01 13:36+0000\n"
+"Last-Translator: ninjum <ninjum@gmx.es>\n"
 "Language-Team: Galician <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/gl/>\n"
 "Language: gl\n"
@@ -18,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -73,11 +74,11 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:63
 msgid "(add a new recording)"
-msgstr ""
+msgstr "(engadir unha nova gravación)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
 msgid "(no other images)"
-msgstr ""
+msgstr "(sen outras imaxes)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
@@ -88,7 +89,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -100,7 +101,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:400 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
-msgstr ""
+msgstr "<strong>Aviso</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
 msgid ""
@@ -108,27 +109,32 @@ msgid ""
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
 msgstr ""
+"Atopouse un fragmento de CD que coincide co ID do disco que proporcionaches. "
+"Se a lista de cancións que aparece a continuación parece correcta, podes "
+"usala como punto de partida para unha nova publicación de MusicBrainz."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox "
 "next to the format dropdown."
 msgstr ""
+"É necesario un formato. Se non o sabes, marca a caixa de verificación "
+"\"Non o sei\" xunto ao menú despregable de formato."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
-msgstr ""
+msgstr "É necesario un título de publicación."
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:209
 #: ../root/edit/components/Vote.js:86
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "Absterse"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
-msgstr ""
+msgstr "Aceptar"
 
 #: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
 msgctxt "interactive"
@@ -159,7 +165,7 @@ msgstr ""
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:26
 msgid "Add a new recording"
-msgstr ""
+msgstr "Engadir unha nova gravación"
 
 #: ../root/cdtoc/attach_artist_releases.tt:54
 #: ../root/cdtoc/AttachCDTocToRelease.js:161
@@ -167,29 +173,27 @@ msgstr ""
 #: ../root/cdtoc/SelectArtistForCDToc.js:103
 #: ../root/cdtoc/SelectArtistForCDToc.js:123
 msgid "Add a new release"
-msgstr ""
+msgstr "Engadir unha nova versión"
 
 #: ../root/release/edit/information.tt:91
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:27
 msgid "Add a new release group"
-msgstr ""
+msgstr "Engadir un novo grupo de lanzamentos"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 msgctxt "header"
 msgid "Add area"
-msgstr ""
+msgstr "Engadir área"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
-#, fuzzy
-#| msgid "Artist:"
 msgctxt "header"
 msgid "Add artist"
-msgstr "Artista:"
+msgstr "Engadir artista"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 msgctxt "plural, header"
 msgid "Add cover art"
-msgstr ""
+msgstr "Engadir portada"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
@@ -201,24 +205,24 @@ msgstr "Artista:"
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
 msgid "Add instrument"
-msgstr ""
+msgstr "Engadir instrumento"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgctxt "header"
 msgid "Add label"
-msgstr ""
+msgstr "Engadir etiqueta"
 
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
 msgctxt "interactive"
 msgid "Add label"
-msgstr ""
+msgstr "Engadir etiqueta"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
 msgctxt "interactive"
 msgid "Add medium"
-msgstr ""
+msgstr "Engadir medio"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 msgctxt "header"
@@ -228,11 +232,9 @@ msgstr ""
 #: ../root/release/edit/layout.tt:7
 #: ../root/static/scripts/release-editor/init.js:256
 #: ../root/static/scripts/release-editor/init.js:257
-#, fuzzy
-#| msgid "Release"
 msgctxt "header"
 msgid "Add release"
-msgstr "Lanzamento"
+msgstr "Engadir lanzamento"
 
 #: ../root/release/edit/information.tt:214
 #: ../root/release/edit/information.tt:215
