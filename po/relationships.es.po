@@ -22,20 +22,21 @@
 # ChurruKa <churruka@hangar18.cc>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Joax <joan_acosta_1994@hotmail.com>, 2025.
+# Othon19 <othon19@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-12 00:20+0000\n"
-"Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
+"PO-Revision-Date: 2025-07-14 16:36+0000\n"
+"Last-Translator: Othon19 <othon19@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3276,6 +3277,8 @@ msgid ""
 "This is used to link a series (a podcast, a festival...) to an image of its "
 "logo."
 msgstr ""
+"Se utiliza para vincular una serie (un podcast, un festival...) a una imagen "
+"de su logotipo."
 
 #. name:discogs
 #: DB:link_type/description:747
