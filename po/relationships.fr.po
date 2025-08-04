@@ -3464,6 +3464,15 @@ msgstr ""
 "Ceci est utilisé pour relier une parution à sa page correspondante sur "
 "Allmusic."
 
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr "Ceci est utilisé pour relier un label à une image de son logo."
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -7657,7 +7666,7 @@ msgid "has a karaoke version"
 msgstr "a une version karaoké"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "a un logo à"
 
@@ -8649,17 +8658,17 @@ msgstr "interprétations en public"
 msgid "location for"
 msgstr "lieu de"
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "logo"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "logo de"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "logos"
 

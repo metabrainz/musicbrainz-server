@@ -3288,6 +3288,15 @@ msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr ""
 "Используется для ссылки релиза на соответствующую страницу на Allmusic."
 
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr "Используется для ссылки на изображение логотипа лейбла."
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -7071,7 +7080,7 @@ msgid "has a karaoke version"
 msgstr "имеет караоке-версию"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "имеет логотип"
 
@@ -8079,17 +8088,17 @@ msgstr "живые выступления"
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "логотип"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "логотип"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "логотипы"
 

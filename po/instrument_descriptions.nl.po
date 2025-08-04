@@ -1938,6 +1938,15 @@ msgstr ""
 "flicorno heet.<br /> Zie <a href=\"/instrument/fd016966-658e-40db-8fe1-"
 "f2235fe1e9a3\">bugel</a> voor het instrument dat in Spanje fliscorno heet."
 
+#. name:Radhika's Mohan veena
+#: DB:instrument/description:1211
+msgid ""
+"For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt see "
+"VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika Maitra "
+"in the 1940s, it has a wooden soundbox cover (like sitar), an extra neck "
+"resonator (like veena) and the fretboard from the sarod."
+msgstr ""
+
 #. name:tumbi
 #: DB:instrument/description:511
 msgid ""

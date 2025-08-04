@@ -3270,6 +3270,13 @@ msgstr ""
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr "Indica la página en Allmusic para esta publicación."
 
+#. name:logo
+#: DB:link_type/description:1288
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr ""
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -7219,7 +7226,7 @@ msgid "has a karaoke version"
 msgstr "tiene la versión para karaoke"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "tiene un logo en"
 
@@ -8202,17 +8209,17 @@ msgstr "interpretaciones en vivo"
 msgid "location for"
 msgstr "emplazamiento de"
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "logo de"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "logos"
 
