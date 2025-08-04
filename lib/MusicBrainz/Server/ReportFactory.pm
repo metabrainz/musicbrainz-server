@@ -87,6 +87,7 @@ my @all = qw(
     RecordingTrackDifferentName
     RecordingsWithFutureDates
     ReleasedTooEarly
+    ReleasedTooEarlyDigital
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
     ReleaseLabelSameArtist
@@ -197,6 +198,7 @@ use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::RecordingTrackDifferentName;
 use MusicBrainz::Server::Report::RecordingsWithFutureDates;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
+use MusicBrainz::Server::Report::ReleasedTooEarlyDigital;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;
