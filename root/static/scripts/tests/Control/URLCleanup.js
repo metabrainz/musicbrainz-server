@@ -7430,6 +7430,27 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                                   target: 'url',
                                 },
   },
+  // Zamp
+  {
+          input_url: 'https://www.zamp.hr/baza-autora/autor/pregled/133005720',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'https://zamp.hr/baza-autora/autor/pregled/133078414',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zamp.hr/baza-autora/autor/pregled/133078414',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'http://www.zamp.hr/baza-autora/djelo/pregled/153812412',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zamp.hr/baza-autora/djelo/pregled/153812412',
+          only_valid_entity_types: ['work'],
+  },
   // Zemereshet
   {
           input_url: 'http://www.zemereshet.co.il/m/record.asp?id=1185',
