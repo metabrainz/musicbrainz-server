@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-07-11 12:51+0200\n"
-"PO-Revision-Date: 2025-06-23 11:20+0000\n"
+"PO-Revision-Date: 2025-07-14 16:36+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
@@ -41,8 +41,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && ("
+"n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.12.2\n"
 
@@ -931,7 +931,7 @@ msgstr "Szczegóły"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Wyłącz tryb starszej przeglądarki"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -980,6 +980,9 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"Nie oznaczaj cyfrowych komunikatów prasowych jako bez kodu kreskowego, chyba "
+"że znasz daną platformę. Większość popularnych platform cyfrowych korzysta z "
+"kodów kreskowych, nawet jeśli nie są one wyświetlane."
 
 #: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
@@ -1230,6 +1233,9 @@ msgid ""
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
 msgstr ""
+"Przykładami wydań, które należy grupować razem, są wydania oryginalne, "
+"reedycje, różne formaty, takie jak płyty CD i nośniki cyfrowe, oraz "
+"zremasterowane."
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1269,6 +1275,10 @@ msgid ""
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z artystą. Mogą to być oficjalna "
+"strona artysty, strony w mediach społecznościowych, serwisy streamingowe "
+"oraz strony nieoficjalne, takie jak wpisy w Wikipedii, biografie, wywiady i "
+"strony fanowskie."
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1276,6 +1286,10 @@ msgid ""
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z wytwórnią. Mogą to być oficjalna "
+"strona główna wytwórni, strony w mediach społecznościowych, katalogi, strony "
+"zamówień oraz strony nieoficjalne, takie jak wpisy w Wikipedii, historie i "
+"strony fanów."
 
 #: ../root/place/edit_form.tt:110
 msgid ""
@@ -1283,38 +1297,52 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z danym miejscem. Mogą to być "
+"oficjalna strona internetowa i strony w mediach społecznościowych, strony z "
+"biletami, a także strony nieoficjalne, takie jak wpisy w Wikipedii, historie "
+"i strony fanów."
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z nagraniem, takie jak strony "
+"zakupu lub transmisji strumieniowej, albo wpisy w innych bazach danych."
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z grupą wydającą wydanie, takie jak "
+"strony oficjalne, artykuły w Wikipedii, recenzje i wpisy w innych bazach "
+"danych."
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z serią, takie jak strony "
+"oficjalne, serwisy społecznościowe i wpisy w innych bazach danych."
 
 #: ../root/work/edit_form.tt:157
 msgid ""
 "External links are URLs associated with the work, such as pages for "
 "purchasing sheet music, lyrics pages, and entries in other databases."
 msgstr ""
+"Linki zewnętrzne to adresy URL powiązane z daną pracą, takie jak strony "
+"umożliwiające zakup nut, strony z tekstami utworów i wpisy w innych bazach "
+"danych."
 
 #: ../root/release/edit/information.tt:584
 msgid "External links are URLs associated with this particular release."
-msgstr ""
+msgstr "Linki zewnętrzne to adresy URL powiązane z daną wersją."
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
-msgstr ""
+msgstr "Jeśli nazwa serii ma być unikatowa, możesz pozostawić to pole puste."
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1335,10 +1363,14 @@ msgstr ""
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
 msgstr ""
+"W przypadku muzyki klasycznej powinny być na niej wymienieni najważniejsi "
+"wykonawcy."
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
 msgstr ""
+"W przypadku cyfrowych wydań medialnych wartość ta powinna zazwyczaj wynosić "
+"„Brak”."
 
 #: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
 #: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
@@ -1363,6 +1395,9 @@ msgid ""
 "For popular music, the {doc|artist} should usually match the track artist on "
 "the earliest release containing the recording."
 msgstr ""
+"W przypadku muzyki popularnej parametr {doc|artist} powinien zazwyczaj "
+"odpowiadać wykonawcy utworu na najwcześniejszym wydaniu zawierającym "
+"nagranie."
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:12
 #: ../root/release/edit/tracklist.tt:305
@@ -1439,9 +1474,10 @@ msgid "Guess case"
 msgstr "Zgadnij wielkość liter"
 
 #: ../root/components/forms.tt:161
+#, fuzzy
 msgctxt "header"
 msgid "Guess case"
-msgstr ""
+msgstr "Ustaw wielkość pierwszej litery w słowie"
 
 #: ../root/components/forms.tt:166
 msgctxt "interactive"
@@ -1482,7 +1518,7 @@ msgstr ""
 #, fuzzy
 #| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
-msgstr "Potwierdzam, że jest to kod kreskowy widoczny na wydaniu."
+msgstr "Potwierdzam, że kapitalizacja tytułów jest prawidłowa."
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
@@ -1515,22 +1551,23 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:314
 #, fuzzy
 msgid "I don’t know"
-msgstr "Nie znam"
+msgstr "Nie wiem"
 
 #: ../root/release/edit/tracklist.tt:486
 msgid "I don’t know the tracklist for this medium."
-msgstr "Nie znam listy utworów dla tego nośnika."
+msgstr "Nie znam listy utworów na tym nośniku."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
-msgstr ""
+msgstr "Nie mam informacji na temat nośnika ani listy utworów tego wydawnictwa."
 
 #: ../root/edit/search_macros.tt:473 ../root/futureColumnLabels.js:22
 #: ../root/futureColumnLabels.js:38
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:152
+#, fuzzy
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
@@ -1567,10 +1604,13 @@ msgstr ""
 "tytułami utworów/wykonawcami z tego wydania."
 
 #: ../root/recording/edit_form.tt:101
+#, fuzzy
 msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
 msgstr ""
+"Jeśli jest to nagranie na żywo, zapoznaj się także z wytycznymi {doc|live "
+"recording}."
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1598,6 +1638,9 @@ msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
 msgstr ""
+"Jeśli nie możesz znaleźć numeru katalogowego, pozostaw to pole puste. Jeśli "
+"masz pewność, że dane wydanie nie ma przypisanego numeru katalogowego, wpisz "
+"„[brak]”."
 
 #: ../root/release/edit/information.tt:450
 #, fuzzy
@@ -1762,6 +1805,8 @@ msgid ""
 "It’s okay to leave it blank if there are no other recordings with similar "
 "names, and this isn’t a live recording."
 msgstr ""
+"Jeśli nie ma innych nagrań o podobnych nazwach i nie jest to nagranie na "
+"żywo, możesz zostawić to pole puste."
 
 #: ../root/components/common-macros.tt:406
 msgid "Javascript is required for this page to work properly."
@@ -1850,19 +1895,15 @@ msgstr "Rejon wytwórni"
 #: ../root/edit/details/EditLabel.js:81
 #: ../root/layout/components/sidebar/LabelSidebar.js:88
 msgid "Label code"
-msgstr ""
+msgstr "Kod wytwórni"
 
 #: ../root/label/edit_form.tt:8
-#, fuzzy
-#| msgid "View details"
 msgid "Label details"
-msgstr "Pokaż szczegóły"
+msgstr "Szczegóły wytwórni"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Label Area"
 msgid "Label type"
-msgstr "Rejon wytwórni"
+msgstr "Typ wytwórni"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -1946,6 +1987,9 @@ msgid ""
 "Mail‐order links shouldn’t be attached to digital media releases, and "
 "download and streaming links shouldn’t be attached to CD or vinyl releases."
 msgstr ""
+"Linki do sprzedaży wysyłkowej nie powinny być dołączane do wydań cyfrowych, "
+"a linki do pobierania i przesyłania strumieniowego nie powinny być dołączane "
+"do wydań na płytach CD lub winylowych."
 
 #: ../root/components/forms.tt:14
 #: ../root/static/scripts/edit/components/EnterEdit.js:38
@@ -2201,7 +2245,7 @@ msgstr "Opcje"
 #: ../root/edit/details/EditSeries.js:62
 #: ../root/layout/components/sidebar/SeriesSidebar.js:59
 msgid "Ordering type"
-msgstr ""
+msgstr "Rodzaj zamówienia"
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:70
 msgid "PDF file"
@@ -2253,18 +2297,24 @@ msgid ""
 "Please don’t add a Wikipedia page if a Wikidata item linking to the same "
 "article already exists."
 msgstr ""
+"Proszę nie dodawać strony Wikipedii, jeśli element Wikidata linkujący do "
+"tego samego artykułu już istnieje."
 
 #: ../root/release_group/edit_form.tt:60
 msgid ""
 "Please leave it blank if other information such as artist or type (album, "
 "single, etc.) already distinguishes between the release groups."
 msgstr ""
+"Jeśli inne informacje, takie jak artysta lub rodzaj (album, singiel itp.) "
+"już rozróżniają grupy wydawnicze, pozostaw to pole puste."
 
 #: ../root/work/edit_form.tt:121
 msgid ""
 "Please leave it blank if there are enough other differences between the "
 "works that they are unlikely to be confused."
 msgstr ""
+"Jeśli między dziełami jest na tyle dużo różnic, że mało prawdopodobne jest "
+"ich pomylenie, pozostaw to pole puste."
 
 #: ../root/release/edit/information.tt:334
 #, fuzzy
@@ -2299,8 +2349,9 @@ msgstr ""
 #: ../root/release_group/edit_form.tt:37 ../root/release_group/edit_form.tt:48
 #: ../root/release_group/edit_form.tt:80 ../root/work/edit_form.tt:124
 #: ../root/work/edit_form.tt:137
+#, fuzzy
 msgid "Please see the {doc|style guidelines} for more information."
-msgstr ""
+msgstr "Więcej informacji znajdziesz w {doc|style guidelines}."
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2907,24 +2958,29 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:188
 msgid "The begin and end areas describe where the artist was born and died."
-msgstr ""
+msgstr "Obszary początku i końca opisują miejsce urodzenia i śmierci artysty."
 
 #: ../root/artist/edit_form.tt:198
 msgid ""
 "The begin and end areas describe where the artist was when it started and "
 "stopped existing."
 msgstr ""
+"Obszary początku i końca opisują miejsce, w którym znajdował się artysta, "
+"kiedy zaczynał i kiedy przestał istnieć."
 
 #: ../root/artist/edit_form.tt:191
 msgid ""
 "The begin and end areas describe where the group was formed and dissolved."
 msgstr ""
+"Obszary początku i końca opisują, gdzie grupa powstała i została rozwiązana."
 
 #: ../root/artist/edit_form.tt:194
 msgid ""
 "The begin area is the real-life area where the character concept was "
 "created. The end area should not be set."
 msgstr ""
+"Obszar początkowy to obszar rzeczywisty, w którym powstał koncept postaci. "
+"Obszar końcowy nie powinien być ustalony."
 
 #: ../root/release/edit/information.tt:481
 msgid "The catalog number you have entered looks like an Amazon ASIN."
@@ -2954,6 +3010,7 @@ msgstr ""
 "korzystaniu z filtrów."
 
 #: ../root/release/edit/information.tt:393
+#, fuzzy
 msgid ""
 "The pseudo‐release status should be used for unofficial translations and "
 "transliterations of tracklists and release titles, and does not denote a "
@@ -2961,6 +3018,12 @@ msgid ""
 "street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
+"Status pseudo-wydania należy stosować w przypadku nieoficjalnych tłumaczeń i "
+"transliteracji list utworów oraz tytułów wydawnictw i nie oznacza on "
+"osobnego, prawdziwego wydania. Nie należy go używać do oznaczania bootlegów, "
+"albumów mixtape/ulicznych, dem ani albumów cyfrowych. Należy pamiętać o "
+"linkowaniu do odpowiedniego prawdziwego wydania za pomocą relacji "
+"{url|transl(iter)ation relationship}."
 
 #: ../root/release/edit/information.tt:554
 #, fuzzy
@@ -3403,7 +3466,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:569
 msgid "This disc contains data tracks at the end"
-msgstr ""
+msgstr "Na końcu tej płyty znajdują się ścieżki danych"
 
 #: ../root/release/edit/tracklist.tt:554
 msgid "This disc has a hidden pregap track before track 1"
@@ -3416,14 +3479,17 @@ msgstr "Ten podmiot został usunięty i nie może być wyświetlony prawidłowo.
 
 #: ../root/components/common-macros.tt:159
 #: ../root/static/scripts/common/components/EntityLink.js:37
+#, fuzzy
 msgid "This entity will be added by this edit."
-msgstr ""
+msgstr "Ten obiekt zostanie dodany poprzez tę edycję."
 
 #: ../root/release/edit/information.tt:577
 msgid ""
 "This field is not a place to store general background information about the "
 "release. That kind of information should go in the annotation field."
 msgstr ""
+"To pole nie służy do przechowywania ogólnych informacji o wydaniu. Tego typu "
+"informacje powinny znaleźć się w polu adnotacji."
 
 #: ../root/artist/edit_form.tt:124 ../root/label/edit_form.tt:79
 #: ../root/place/edit_form.tt:71
@@ -3431,6 +3497,8 @@ msgid ""
 "This field is not a place to store general background information. That kind "
 "of information should go in an {doc|annotation}."
 msgstr ""
+"To pole nie służy do przechowywania ogólnych informacji kontekstowych. Tego "
+"typu informacje powinny znaleźć się w {doc|annotation}."
 
 #: ../root/artist/edit_credit.tt:10
 msgid ""
@@ -3445,6 +3513,9 @@ msgid ""
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed"
 msgstr ""
+"Ten formularz pozwala podzielić {artist} na osobnych artystów. Po "
+"zaakceptowaniu edycji istniejące informacje o artystach zostaną "
+"zaktualizowane, a relacje współpracy zostaną usunięte"
 
 #: ../root/layout.tt:33 ../root/layout/index.js:131
 msgid "This is a MusicBrainz development server."
@@ -3464,11 +3535,15 @@ msgstr ""
 "To jest plik PDF. Miniatura może nie pokazać całej zawartości dokumentu."
 
 #: ../root/release/edit/tracklist.tt:386
+#, fuzzy
 msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
 msgstr ""
+"To prawie zawsze jest niepoprawne. Upewnij się, czy rzeczywiście chcesz użyć "
+"innego formatu (np. „dysk flash USB” lub „karta do pobrania”) lub innego "
+"rodzaju opakowania."
 
 #: ../root/release_group/set_cover_art.tt:77
 msgid "This is the current release group image"
@@ -3480,18 +3555,21 @@ msgstr "Ta wytwórnia zakończyła swoją działalność."
 
 #: ../root/release/edit/information.tt:252
 msgid "This label/catalog number pair already exists."
-msgstr ""
+msgstr "Ta para wytwórnia/numer katalogowy już istnieje."
 
 #: ../root/cdtoc/attach_list.tt:56
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:71
 msgid "This medium format cannot have a disc ID attached."
-msgstr ""
+msgstr "Do tego formatu nośnika nie można dołączyć identyfikatora dysku."
 
 #: ../root/release/edit/tracklist.tt:383
+#, fuzzy
 msgid ""
 "This medium format is set to “Digital Media”, but the packaging type for "
 "this release is not “None”."
 msgstr ""
+"Ten format nośnika ustawiony jest na „Media cyfrowe”, ale typ opakowania dla "
+"tego wydania nie jest „Brak”."
 
 #: ../root/release/edit/tracklist.tt:334
 msgid ""
@@ -3504,6 +3582,8 @@ msgid ""
 "This medium is set to a format that did not exist on the selected release "
 "date."
 msgstr ""
+"To medium jest ustawione na format, który nie istniał w wybranym dniu "
+"wydania."
 
 #: ../root/release/edit/tracklist.tt:464
 msgid ""
@@ -3511,6 +3591,9 @@ msgid ""
 "articles, conjunctions, and prepositions like “and”, “of”, “or”, “to”, and "
 "“the” {guidelines|should typically be lowercased}."
 msgstr ""
+"W tym medium tytuły utworów w języku angielskim mogą być błędnie pisane "
+"wielką literą. Krótkie przedimki, spójniki i przyimki, takie jak „and”, „of”"
+", „or”, „to” i „the” {guidelines|should typically be lowercased}."
 
 #: ../root/release/edit/tracklist.tt:445
 msgid ""
@@ -3518,6 +3601,10 @@ msgid ""
 "titles. Descriptive parts of extra title information like “remix” or "
 "“version” should be lowercased in most languages."
 msgstr ""
+"Wygląda na to, że w tytułach utworów w tym medium {eti|extra title "
+"information} są pisane wielką literą. Opisowe części dodatkowych informacji "
+"o tytule, takie jak „remiks” lub „wersja”, powinny być pisane małymi "
+"literami w większości języków."
 
 #: ../root/release/edit/tracklist.tt:426
 msgid ""
@@ -3536,6 +3623,9 @@ msgid ""
 "trying to find out what the real format should be or if the release should "
 "be split!"
 msgstr ""
+"Ten problem istniał już przed otwarciem edytora wydania, więc nie musisz nic "
+"z tym robić. Ale jeśli masz trochę czasu, spróbuj dowiedzieć się, jaki "
+"powinien być rzeczywisty format, a może wydanie powinno zostać podzielone!"
 
 #: ../root/components/common-macros.tt:189
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
@@ -3546,13 +3636,16 @@ msgstr "To nagranie jest materiałem wideo"
 
 #: ../root/release/edit/information.tt:278
 msgid "This release does not have a barcode"
-msgstr ""
+msgstr "To wydanie nie ma kodu kreskowego"
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
+"To nigdy nie powinno być prawdą. Upewnij się, że na przykład wydanie na "
+"płycie CD nie jest przeznaczone na winyl, albo że płyta winylowa nie jest w "
+"rzeczywistości płytą szelakową."
 
 #: ../root/components/common-macros.tt:467
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
@@ -3590,16 +3683,16 @@ msgstr ""
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:47
 #: ../root/cdtoc/CDTocInfo.js:39
 msgid "Total length:"
-msgstr ""
+msgstr "Długość całkowita:"
 
 #: ../root/cdstub/index.tt:17 ../root/cdstub/CDStubIndex.js:43
 #: ../root/cdtoc/CDTocInfo.js:35
 msgid "Total tracks:"
-msgstr ""
+msgstr "Łączna liczba utworów:"
 
 #: ../root/release/edit/tracklist.tt:114
 msgid "Track count:"
-msgstr ""
+msgstr "Liczba utworów:"
 
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:43
@@ -3637,6 +3730,10 @@ msgid ""
 "this medium” checkbox above and enter the available info. If you have no "
 "information about this release’s media, remove all media."
 msgstr ""
+"Utwory są wymagane. Jeśli ich nie znasz, ale znasz pewne informacje (takie "
+"jak format lub numer nośnika), zaznacz pole wyboru „Nie znam listy utworów "
+"dla tego nośnika” powyżej i wprowadź dostępne informacje. Jeśli nie masz "
+"informacji o nośniku tego wydania, usuń wszystkie nośniki."
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:103
 #, fuzzy
@@ -3777,7 +3874,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:256
 msgid "Use the following fields to search for an existing medium."
-msgstr ""
+msgstr "Aby wyszukać istniejące medium, użyj następujących pól."
 
 #: ../root/release/edit/tracklist.tt:60
 msgid "Use track artists"
@@ -3837,12 +3934,12 @@ msgstr ""
 #: ../root/static/scripts/common/components/Warning.js:22
 #: ../root/static/scripts/common/components/WarningIcon.js:15
 msgid "Warning"
-msgstr ""
+msgstr "Ostrzeżenie"
 
 #: ../root/release/edit/tracklist.tt:425 ../root/release/edit/tracklist.tt:444
 #: ../root/release/edit/tracklist.tt:463
 msgid "Warning:"
-msgstr ""
+msgstr "Ostrzeżenie:"
 
 #: ../root/cdtoc/lookup.tt:7
 msgid ""
@@ -3851,6 +3948,11 @@ msgid ""
 "below in order to attach this disc to another MusicBrainz release, or to add "
 "a new one if the search shows it is missing from the database."
 msgstr ""
+"Znaleźliśmy płyty odpowiadające podanym przez Ciebie informacjom, które "
+"znajdziesz poniżej. Jeśli żadna z nich nie odpowiada Twojemu wydawnictwu, "
+"możesz skorzystać z poniższego formularza, aby dołączyć tę płytę do innego "
+"wydania MusicBrainz lub dodać nową, jeśli wyszukiwanie wykaże, że brakuje "
+"jej w bazie danych."
 
 #: ../root/cdtoc/lookup.tt:12
 msgid "We used disc ID <code>{discid}</code> to look up this information."
@@ -3885,6 +3987,9 @@ msgid ""
 "Work attributes store additional information about this work, such as IDs "
 "assigned by regional rights-management organizations."
 msgstr ""
+"Atrybuty dzieła przechowują dodatkowe informacje o tym dziele, takie jak "
+"identyfikatory przypisane przez regionalne organizacje zarządzające prawami "
+"autorskimi."
 
 #: ../root/work/edit_form.tt:10
 #, fuzzy
@@ -3934,17 +4039,19 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:464
 msgid "You must be logged in to use this option."
-msgstr ""
+msgstr "Aby skorzystać z tej opcji, musisz się zalogować."
 
 #: ../root/components/common-macros.tt:484
 msgid "You must enter a disambiguation comment for this entity."
-msgstr ""
+msgstr "Musisz wprowadzić komentarz ujednoznaczniający dla tej jednostki."
 
 #: ../root/release/edit/tracklist.tt:496
 msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
 msgstr ""
+"Musisz wprowadzić tytuł dla każdego utworu (jeśli utwór nie ma tytułu, wpisz "
+"„{untitled_track}”)."
 
 #: ../root/release/edit/tracklist.tt:500
 msgid ""
@@ -3955,6 +4062,11 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Musisz wybrać wykonawcę dla każdego utworu (tło każdego pola wykonawcy "
+"powinno być zielone). Jeśli podałeś wykonawcę, ale tło pozostaje bezbarwne, "
+"kliknij lupę, aby dopasować nazwę do wykonawcy w MusicBrainz. Jeśli artysta "
+"jeszcze nie istnieje, możesz go dodać, wybierając opcję „{add_a_new_artist}” "
+"u dołu listy rozwijanej wyników wyszukiwania."
 
 #: ../root/release/edit/information.tt:30
 msgid ""
@@ -3965,16 +4077,23 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"Musisz wybrać artystę dla wydania (tło pola artysty powinno być zielone). "
+"Jeśli podałeś artystę, ale tło pozostaje bezbarwne, kliknij lupę, aby "
+"dopasować nazwę do artysty w MusicBrainz. Jeśli artysta jeszcze nie "
+"istnieje, możesz go dodać, wybierając opcję „{add_a_new_artist}” na dole "
+"listy rozwijanej wyników wyszukiwania."
 
 #: ../root/release/edit/information.tt:99
 msgid "You must select an existing release group."
-msgstr ""
+msgstr "Musisz wybrać istniejącą grupę wydań."
 
 #: ../root/edit/search.tt:7
 msgid ""
 "Your search took too long and was cancelled. It may help to be more "
 "specific, or to try again."
 msgstr ""
+"Twoje wyszukiwanie trwało zbyt długo i zostało anulowane. Możesz spróbować "
+"bardziej precyzyjnie lub spróbować ponownie."
 
 #: ../root/release/edit/tracklist.tt:289
 msgid ""
@@ -11778,22 +11897,24 @@ msgid ""
 "Firefox, Safari, Edge, or any Chrome-based browser. If that’s not possible, "
 "you can try enabling {url|legacy browser mode}."
 msgstr ""
+"Przeglądarka, której używasz, nie jest obsługiwana i strona może nie działać "
+"poprawnie. Zalecamy aktualizację do najnowszej wersji przeglądarki Firefox, "
+"Safari, Edge lub dowolnej przeglądarki opartej na Chrome. Jeśli to "
+"niemożliwe, spróbuj włączyć {url|tryb starszej przeglądarki}."
 
 #: ../root/layout/components/TopMenu.js:60
-#, fuzzy
-#| msgid "Log Out"
 msgid "Log out"
-msgstr "Wyloguj"
+msgstr "Wyloguj się"
 
 #: ../root/layout/components/TopMenu.js:74
 msgid "My data"
-msgstr ""
+msgstr "Moje dane"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
 #: ../root/user/UserCollections.js:170
 msgid "My collections"
-msgstr ""
+msgstr "Moje kolekcje"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:206
@@ -11805,7 +11926,7 @@ msgstr "Moje oceny"
 #: ../root/layout/components/TopMenu.js:88
 msgctxt "folksonomy"
 msgid "My tags"
-msgstr ""
+msgstr "Moje tagi"
 
 #: ../root/layout/components/TopMenu.js:92
 #, fuzzy
@@ -11867,7 +11988,7 @@ msgstr "Dodaj notatkę"
 #: ../root/layout/components/sidebar/AnnotationLinks.js:38
 #: ../root/static/scripts/common/components/Annotation.js:79
 msgid "View annotation history"
-msgstr ""
+msgstr "Wyświetl historię adnotacji"
 
 #: ../root/layout/components/sidebar/AreaSidebar.js:54
 msgid "Area information"
@@ -11908,51 +12029,52 @@ msgstr "Dodaj Disc ID do istniejącego wydania"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:93
 msgid "Search the database for this CD"
-msgstr ""
+msgstr "Wyszukaj w bazie danych tę płytę CD"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:19
+#, fuzzy
 msgid "You have no area collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji obszarowych!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:20
 msgid "You have no artist collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji artystów!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:21
 msgid "You have no event collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji wydarzeń!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
 msgid "You have no genre collections!"
-msgstr "Nie masz żadnych kolekcji!"
+msgstr "Nie masz żadnych kolekcji gatunków!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:23
 msgid "You have no instrument collections!"
-msgstr ""
+msgstr "Nie masz żadnej kolekcji instrumentów!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:24
 msgid "You have no label collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji wytwórni!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:25
 msgid "You have no place collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji miejsc!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:26
 msgid "You have no recording collections!"
-msgstr ""
+msgstr "Nie masz żadnej kolekcji nagrań!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:27
 msgid "You have no release collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji wydań!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:28
 msgid "You have no release group collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji grup wydań!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:29
 msgid "You have no series collections!"
-msgstr ""
+msgstr "Nie masz żadnych kolekcji serii!"
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:30
 msgid "You have no work collections!"
