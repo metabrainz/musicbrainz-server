@@ -15,14 +15,13 @@ import {RT_MIRROR} from '../static/scripts/common/constants.js';
 import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
 import {commaOnlyListText}
   from '../static/scripts/common/i18n/commaOnlyList.js';
-import parseDate from '../static/scripts/common/utility/parseDate.js';
 import {
   getRestrictionsForUser,
   isBeginner,
 } from '../static/scripts/common/utility/privileges.js';
-import {age} from '../utility/age.js';
 import {formatUserDateObject} from '../utility/formatUserDate.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
+import isLeapYear from '../utility/isLeapYear.js';
 
 import Footer from './components/Footer.js';
 import Head from './components/Head.js';
@@ -65,24 +64,39 @@ function showBirthdayBanner($c: CatalystContextT) {
 
 component AnniversaryBanner() {
   const $c = React.useContext(CatalystContext);
-  const registrationDate = $c.user ? $c.user.registration_date : null;
-  if (registrationDate == null) {
+  const registrationDateString = $c.user ? $c.user.registration_date : null;
+  if (registrationDateString == null) {
     return null;
   }
 
-  const parsedDate = parseDate(registrationDate.slice(0, 10));
-  if (parsedDate == null) {
+  const oneDay = 24 * 60 * 60 * 1000;
+
+  const now = new Date();
+  const currentYear = now.getUTCFullYear();
+  const registrationDate = new Date(registrationDateString);
+  const registrationYear = registrationDate.getUTCFullYear();
+  const comparisonDate = new Date(registrationDate);
+  comparisonDate.setUTCFullYear(currentYear);
+  // If before anniversary, check based on previous year
+  if (now.getTime() < comparisonDate.getTime()) {
+    comparisonDate.setUTCFullYear(comparisonDate.getUTCFullYear() - 1);
+  }
+  // Congratulate people who joined Feb 29 every year
+  if (comparisonDate.getUTCDate() === 29 &&
+      comparisonDate.getUTCMonth() === 1 &&
+      !isLeapYear(currentYear)) {
+    comparisonDate.setUTCDate(28);
+  }
+  const difference = now.getTime() - comparisonDate.getTime();
+  const isAnniversary = difference > 0 && difference < oneDay;
+
+
+  const editorAge = currentYear - registrationYear;
+  if (editorAge === 0) {
     return null;
   }
 
-  const now = parseDate((new Date()).toISOString().slice(0, 10));
-  const editorAge = age({begin_date: parsedDate, end_date: now, ended: true});
-  if (editorAge == null) {
-    return null;
-  }
-
-  const showBanner =
-    editorAge[1] === 0 && editorAge[2] === 0 &&
+  const showBanner = isAnniversary &&
     !getRequestCookie($c.req, 'anniversary_message_dismissed_mtime');
 
   if (showBanner /*:: === true */) {
@@ -96,8 +110,8 @@ component AnniversaryBanner() {
              Happy anniversary, and thanks for contributing to MusicBrainz!`,
             `You’ve been a MusicBrainz editor for {num} years!
              Happy anniversary, and thanks for contributing to MusicBrainz!`,
-            editorAge[0],
-            {num: editorAge[0]},
+            editorAge,
+            {num: editorAge},
           )}
           {' '}
           <BirthdayCakes />
