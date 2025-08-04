@@ -2,11 +2,12 @@
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2021
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# לוכסן <lochsan.wikiped@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-07-28 22:36+0000\n"
+"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/he/>\n"
 "Language: he\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -45,7 +46,7 @@ msgstr "אדיגאית"
 #. frequency:1 iso_code_3:aar
 #: DB:language/name:1
 msgid "Afar"
-msgstr "אפארית"
+msgstr "עפרית"
 
 #. frequency:1 iso_code_3:afh
 #: DB:language/name:8
@@ -65,7 +66,7 @@ msgstr "שפות אפרו־אסיאתיות"
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
 msgid "Ainu"
-msgstr "אינו"
+msgstr "איינו"
 
 #. frequency:1 iso_code_3:aka
 #: DB:language/name:10
@@ -75,7 +76,7 @@ msgstr "אקאנית"
 #. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr "אקאדית"
+msgstr "אכדית"
 
 #. frequency:1 iso_code_3:sqi
 #: DB:language/name:12
@@ -85,7 +86,7 @@ msgstr "אלבנית"
 #. frequency:1 iso_code_3:ale
 #: DB:language/name:13
 msgid "Aleut"
-msgstr "אלאוט"
+msgstr "אלאוטית"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
@@ -185,17 +186,17 @@ msgstr "שפות אוסטרונזיות"
 #. frequency:1 iso_code_3:ava
 #: DB:language/name:30
 msgid "Avaric"
-msgstr "אברית"
+msgstr "אווארית"
 
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
 msgid "Avestan"
-msgstr "אבסטית"
+msgstr "אווסטית"
 
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
 msgid "Awadhi"
-msgstr "אווהדית"
+msgstr "אוודית"
 
 #. frequency:1 iso_code_3:aym
 #: DB:language/name:33
@@ -225,7 +226,7 @@ msgstr "שפות בלטיות"
 #. frequency:1 iso_code_3:bal
 #: DB:language/name:38
 msgid "Baluchi"
-msgstr "באלוצית"
+msgstr "בלוצ׳ית"
 
 #. frequency:1 iso_code_3:bam
 #: DB:language/name:39
@@ -300,7 +301,7 @@ msgstr "שפות ברבריות"
 #. frequency:1 iso_code_3:bho
 #: DB:language/name:49
 msgid "Bhojpuri"
-msgstr "באהג'פורית"
+msgstr "בוג'פורית"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:50
@@ -370,7 +371,7 @@ msgstr "בולגרית"
 #. frequency:1 iso_code_3:bua
 #: DB:language/name:60
 msgid "Buriat"
-msgstr "בוריאת"
+msgstr "בוריאטית"
 
 #. frequency:1 iso_code_3:mya
 #: DB:language/name:63
@@ -380,7 +381,7 @@ msgstr "בורמזית"
 #. frequency:1 iso_code_3:bsk
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "בורושסקי"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
@@ -395,7 +396,7 @@ msgstr "צרפתית קייז'ונית"
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
 msgid "Catalan"
-msgstr "קטלנית"
+msgstr "קטלאנית"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:69
@@ -405,7 +406,7 @@ msgstr "שפות קאוקאזיות"
 #. frequency:1 iso_code_3:ceb
 #: DB:language/name:70
 msgid "Cebuano"
-msgstr "צבואנו"
+msgstr "סבואנו"
 
 #. frequency:1 iso_code_3:xce
 #: DB:language/name:7217
@@ -505,7 +506,7 @@ msgstr "צ'וקסה"
 #. frequency:1 iso_code_3:chv
 #: DB:language/name:84
 msgid "Chuvash"
-msgstr "צ'ובאש"
+msgstr "צ'ובשית"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -530,7 +531,7 @@ msgstr "קורנית"
 #. frequency:1 iso_code_3:cos
 #: DB:language/name:89
 msgid "Corsican"
-msgstr "קורסית"
+msgstr "קורסיקאית"
 
 #. frequency:1 iso_code_3:cre
 #: DB:language/name:93
@@ -565,7 +566,7 @@ msgstr "קריאולית ופדג'ינית מבוססות פורטוגזית"
 #. frequency:1 iso_code_3:crh
 #: DB:language/name:94
 msgid "Crimean Tatar"
-msgstr "טטרית כרימית"
+msgstr "טטרית של קרים"
 
 #. frequency:1 iso_code_3:hrv
 #: DB:language/name:366
@@ -580,7 +581,7 @@ msgstr "לווית קונאית"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
 msgid "Cushitic languages"
-msgstr "שפות קושתיקיות"
+msgstr "שפות כושיות"
 
 #. frequency:1 iso_code_3:ces
 #: DB:language/name:98
@@ -630,7 +631,7 @@ msgstr "דוגריבית"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:109
 msgid "Dravidian languages"
-msgstr "שפות דראוידיאניות"
+msgstr "שפות דראווידיות"
 
 #. frequency:1 iso_code_3:dua
 #: DB:language/name:111
@@ -680,7 +681,7 @@ msgstr "אקאז'וקית"
 #. frequency:1 iso_code_3:elx
 #: DB:language/name:119
 msgid "Elamite"
-msgstr "אלאמיט"
+msgstr "עילמית"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -815,7 +816,7 @@ msgstr "גאליבי קאריב"
 #. frequency:1 iso_code_3:glg
 #: DB:language/name:150
 msgid "Galician"
-msgstr "גליציאנית"
+msgstr "גליסית"
 
 #. frequency:1 iso_code_3:lug
 #: DB:language/name:249
@@ -840,7 +841,7 @@ msgstr "גבאיה"
 #. frequency:1 iso_code_3:gez
 #: DB:language/name:146
 msgid "Geez"
-msgstr "גיז"
+msgstr "געז"
 
 #. frequency:1 iso_code_3:kat
 #: DB:language/name:144
@@ -905,7 +906,7 @@ msgstr "גרבו"
 #. frequency:2 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
-msgstr "יונית"
+msgstr "יוונית"
 
 #. frequency:1 iso_code_3:grc
 #: DB:language/name:158
@@ -935,7 +936,7 @@ msgstr "גואראנית"
 #. frequency:1 iso_code_3:guj
 #: DB:language/name:161
 msgid "Gujarati"
-msgstr "גויארטית"
+msgstr "גוג'ראטית"
 
 #. frequency:1 iso_code_3:gnn
 #: DB:language/name:2511
@@ -1000,7 +1001,7 @@ msgstr "שפות הימאצ'ליות"
 #. frequency:2 iso_code_3:hin
 #: DB:language/name:171
 msgid "Hindi"
-msgstr "הודית"
+msgstr "הינדית"
 
 #. frequency:1 iso_code_3:hmo
 #: DB:language/name:174
@@ -1060,12 +1061,12 @@ msgstr "אילוקו"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:188
 msgid "Indic languages"
-msgstr "שפות אינדיקיות"
+msgstr "שפות הודיות"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:190
 msgid "Indo-European languages"
-msgstr "שפות אינדו־ארופאיות"
+msgstr "שפות הודו־אירופיות"
 
 #. frequency:1 iso_code_3:ind
 #: DB:language/name:189
@@ -1100,7 +1101,7 @@ msgstr "אינטרלינגו"
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
-msgstr "אינוקטיטו"
+msgstr "אינוקטיטוט"
 
 #. frequency:1 iso_code_3:ipk
 #: DB:language/name:192
@@ -1110,7 +1111,7 @@ msgstr "אינופיאק"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:193
 msgid "Iranian languages"
-msgstr "שפות אירניות"
+msgstr "שפות איראניות"
 
 #. frequency:1 iso_code_3:gle
 #: DB:language/name:149
@@ -1120,17 +1121,17 @@ msgstr "אירית"
 #. frequency:0 iso_code_3:mga
 #: DB:language/name:270
 msgid "Irish, Middle (900-1200)"
-msgstr "אירית, ביניים (900-1200)"
+msgstr "אירית אמצעית (900-1200)"
 
 #. frequency:0 iso_code_3:sga
 #: DB:language/name:369
 msgid "Irish, Old (to 900)"
-msgstr "אירית, עתיקה (עד 900)"
+msgstr "אירית עתיקה (עד 900)"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:194
 msgid "Iroquoian languages"
-msgstr "שפות עירקיות"
+msgstr "שפות אירוקויות"
 
 #. frequency:2 iso_code_3:ita
 #: DB:language/name:195
@@ -1165,7 +1166,7 @@ msgstr "ערבית -יהודית"
 #. frequency:1 iso_code_3:jpr
 #: DB:language/name:199
 msgid "Judeo-Persian"
-msgstr "פרסית - יהודית"
+msgstr "פרסית-יהודית"
 
 #. frequency:1 iso_code_3:kbd
 #: DB:language/name:212
@@ -1180,7 +1181,7 @@ msgstr "קבואברדואנית"
 #. frequency:1 iso_code_3:kab
 #: DB:language/name:202
 msgid "Kabyle"
-msgstr "קאבילה"
+msgstr "קבילית"
 
 #. frequency:1 iso_code_3:kac
 #: DB:language/name:203
@@ -1199,6 +1200,7 @@ msgstr "קאמבה"
 
 #. frequency:1 iso_code_3:kan
 #: DB:language/name:206
+#, fuzzy
 msgid "Kannada"
 msgstr "קנאדית"
 
@@ -1230,7 +1232,7 @@ msgstr "שפות קרניות"
 #. frequency:1 iso_code_3:kas
 #: DB:language/name:208
 msgid "Kashmiri"
-msgstr "קאשמירית"
+msgstr "קשמירית"
 
 #. frequency:1 iso_code_3:csb
 #: DB:language/name:96
@@ -1245,7 +1247,7 @@ msgstr "קאווי"
 #. frequency:1 iso_code_3:kaz
 #: DB:language/name:211
 msgid "Kazakh"
-msgstr "קזאחית"
+msgstr "קזחית"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1260,7 +1262,7 @@ msgstr "קאשי"
 #. frequency:1 iso_code_3:khm
 #: DB:language/name:215
 msgid "Khmer, Central"
-msgstr "קאמר, מרכז"
+msgstr "קמרית מרכזית"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:214
@@ -1305,7 +1307,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tlh
 #: DB:language/name:421
 msgid "Klingon"
-msgstr "קלינגון"
+msgstr "קלינגונית"
 
 #. frequency:1 iso_code_3:kom
 #: DB:language/name:222
@@ -1380,7 +1382,7 @@ msgstr "קולסץ'"
 #. frequency:1 iso_code_3:lld
 #: DB:language/name:3885
 msgid "Ladin"
-msgstr "לדינו"
+msgstr "לדינית"
 
 #. frequency:1 iso_code_3:lad
 #: DB:language/name:234
@@ -1389,13 +1391,14 @@ msgstr "לדינו"
 
 #. frequency:1 iso_code_3:lah
 #: DB:language/name:235
+#, fuzzy
 msgid "Lahnda"
 msgstr "לאהנדה"
 
 #. frequency:1 iso_code_3:lkt
 #: DB:language/name:3880
 msgid "Lakota"
-msgstr "לאקאטו"
+msgstr "לקוטה"
 
 #. frequency:1 iso_code_3:lam
 #: DB:language/name:236
@@ -1410,7 +1413,7 @@ msgstr "שפות לאנד דאייאק"
 #. frequency:1 iso_code_3:lao
 #: DB:language/name:237
 msgid "Lao"
-msgstr "לאו"
+msgstr "לאית"
 
 #. frequency:1 iso_code_3:lat
 #: DB:language/name:238
@@ -1445,7 +1448,7 @@ msgstr "לינגלה"
 #. frequency:1 iso_code_3:lit
 #: DB:language/name:243
 msgid "Lithuanian"
-msgstr "ליטואנית"
+msgstr "ליטאית"
 
 #. frequency:1 iso_code_3:liv
 #: DB:language/name:3858
@@ -1515,7 +1518,7 @@ msgstr "מקדונית"
 #. frequency:1 iso_code_3:mad
 #: DB:language/name:255
 msgid "Madurese"
-msgstr "מאדורס"
+msgstr "מדוראית"
 
 #. frequency:1 iso_code_3:mag
 #: DB:language/name:256
@@ -1540,7 +1543,7 @@ msgstr "מלאגאית"
 #. frequency:1 iso_code_3:msa
 #: DB:language/name:266
 msgid "Malay"
-msgstr "מאלאית"
+msgstr "מלאית"
 
 #. frequency:1 iso_code_3:mal
 #: DB:language/name:260
@@ -1969,10 +1972,8 @@ msgstr "פרובינציאלית, עתיקה (עד 1500)"
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "רוסית"
+msgstr "פרוסית"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2171,10 +2172,8 @@ msgstr "סרבית"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "קרואטית"
+msgstr "סרבו־קרואטית"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2479,7 +2478,7 @@ msgstr "טוקלאו"
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
 msgid "Toki Pona"
-msgstr ""
+msgstr "טוקי פונה"
 
 #. frequency:1 iso_code_3:tog
 #: DB:language/name:424
@@ -2794,7 +2793,7 @@ msgstr "[שפות מרובות]"
 #. frequency:1 iso_code_3:zxx
 #: DB:language/name:486
 msgid "[No linguistic content]"
-msgstr ""
+msgstr "[אין בזה תוכן לשוני כלשהו]"
 
 #~ msgid "No linguistic content"
 #~ msgstr "ללא תוכן לשוני"
