@@ -284,6 +284,15 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
     );
 }
 
+sub possible_spammers : Path('/admin/possible-spammers') Args(0) RequireAuth(account_admin) {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/PossibleSpammers',
+    );
+}
+
 sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(account_admin) HiddenOnMirrors {
     my ($self, $c) = @_;
 
