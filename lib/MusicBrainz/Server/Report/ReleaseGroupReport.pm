@@ -10,6 +10,7 @@ sub _load_extra_release_group_info {
 
     $self->c->model('ArtistCredit')->load(@release_groups);
     $self->c->model('ReleaseGroupType')->load(@release_groups);
+    $self->c->model('ReleaseGroup')->load_aliases(@release_groups);
 }
 
 around inflate_rows => sub {
