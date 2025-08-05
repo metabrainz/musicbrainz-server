@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-24 22:44+0000\n"
+"PO-Revision-Date: 2025-07-27 13:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -265,6 +265,8 @@ msgid ""
 "An update is released that allows specifying a credit for artists in a "
 "relationship, if not the same as the artist name."
 msgstr ""
+"Выпущено обновление, позволяющее указать как конкретно исполнитель указан в "
+"отношении, если отличается от имени исполнителя."
 
 #: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
@@ -301,19 +303,21 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
-msgstr ""
+msgstr "Динамические страницы исполнителей на Би-би-си"
 
 #: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
 msgstr ""
+"Би-би-си запускает динамические страницы исполнителей, основанные на данных "
+"MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
-msgstr ""
+msgstr "Би-би-си начинает сотрудничество с MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr ""
+msgstr "BookBrainz становится официальным проектом MetaBrainz"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
@@ -325,7 +329,7 @@ msgstr "Официальный релиз CAA"
 
 #: DB:statistics.statistic_event/title:2016-06-20
 msgid "CatQuest becomes Instrument Inserter"
-msgstr ""
+msgstr "CatQuest становится ответственным за добавление инструментов"
 
 #: DB:statistics.statistic_event/description:2016-06-20
 msgid ""
@@ -376,11 +380,11 @@ msgstr "Выделенный сервер базы данных"
 
 #: DB:statistics.statistic_event/title:2016-03-01
 msgid "Discourse unifies community communication"
-msgstr ""
+msgstr "Объединение взаимодействия с сообществом в Discourse"
 
 #: DB:statistics.statistic_event/title:2003-07-25
 msgid "Easier edit note adding"
-msgstr ""
+msgstr "Легкое добавление комментариев к правкам"
 
 #: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
@@ -390,7 +394,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
-msgstr ""
+msgstr "Возможность просматривать историю правок без регистрации"
 
 #: DB:statistics.statistic_event/title:2015-12-28
 msgid "Edit note notifications"
@@ -401,6 +405,8 @@ msgid ""
 "Edit notes can now be added when creating an edit, making it much easier for "
 "editors to explain their changes."
 msgstr ""
+"Комментарии к правкам теперь можно добавлять при создании правки, благодаря "
+"чему редакторы могут легче объяснить свои изменения."
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
@@ -411,6 +417,8 @@ msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
 msgstr ""
+"Редактор ojnkpjg создал скрипт для установки длительности треков из значений "
+"ID диска, вызвав резкий скачок в количестве правок."
 
 #: DB:statistics.statistic_event/description:2015-11-30
 msgid ""
@@ -423,7 +431,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
-msgstr ""
+msgstr "Подтверждение аккаунта по электронной почте"
 
 #: DB:statistics.statistic_event/description:2012-06-25
 msgid ""
@@ -462,20 +470,25 @@ msgstr ""
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
 msgstr ""
+"Бывший студент Google Summer of Code Роман Цуканов начал работать в "
+"MetaBrainz в формате частичной занятости."
 
 #: DB:statistics.statistic_event/title:2015-08-06
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
 msgstr ""
+"Фредерик \"Freso\" С. Олесен становится \"менеджером сообщества\" MetaBrainz"
 
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
+"Отключена функция автоимпорта релизов из FreeDB, запущены выборы "
+"авторедакторов."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
-msgstr ""
+msgstr "Отключение FreeDB, авторедакторы"
 
 #: DB:statistics.statistic_event/description:2015-08-06
 msgid ""
@@ -492,10 +505,12 @@ msgid ""
 "Genres are added as a new entity, although still tightly tied to folksonomy "
 "tags."
 msgstr ""
+"В качестве новой сущности добавлены жанры, хотя они все ещё сильно привязаны "
+"к тэгам фолксономии."
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
-msgstr ""
+msgstr "Великий спор"
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
@@ -503,11 +518,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-05-26
 msgid "IRC channels move to Libera.Chat"
-msgstr ""
+msgstr "Переезд IRC-каналов на Libera.Chat"
 
 #: DB:statistics.statistic_event/title:2012-09-01
 msgid "Ian McEwen hired"
-msgstr ""
+msgstr "Наем Иана МакИвена"
 
 #: DB:statistics.statistic_event/title:2015-07-17
 msgid "Ian McEwen leaves MetaBrainz"
@@ -624,7 +639,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
-msgstr ""
+msgstr "Лоран \"zas\" Монен становится сисадмином"
 
 #: DB:statistics.statistic_event/description:2015-09-28
 msgid ""

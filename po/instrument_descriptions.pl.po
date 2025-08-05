@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-23 11:20+0000\n"
+"PO-Revision-Date: 2025-07-14 16:36+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
@@ -1923,6 +1923,20 @@ msgstr ""
 "<br /><br /> Instrument ten ma swoje początki w germańskich zespołach "
 "grających polki, a obecnie jest używany w katalońskim cobla."
 
+#. name:Radhika's Mohan veena
+#: DB:instrument/description:1211
+msgid ""
+"For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt see "
+"VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika Maitra "
+"in the 1940s, it has a wooden soundbox cover (like sitar), an extra neck "
+"resonator (like veena) and the fretboard from the sarod."
+msgstr ""
+"Zmodyfikowaną gitarę typu slide, stworzoną w latach 90. przez Vishwę Mohana "
+"Bhatta, można obejrzeć na stronie Mohan veena autorstwa VM Bhatta.<br /> "
+"Stworzona jako zmodyfikowany sarod przez Radhikę Maitrę w latach 40. XX "
+"wieku, ma drewnianą pokrywę pudła rezonansowego (jak sitar), dodatkowy "
+"rezonator szyjki (jak veena) i podstrunnicę z sarodu."
+
 #. name:tumbi
 #: DB:instrument/description:511
 #, fuzzy
@@ -1933,11 +1947,11 @@ msgid ""
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
 "Informacje na temat jednostrunowego bębna-cytry, zwanego także ektar/ektara, "
-"można znaleźć w artykule <a href="
-"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> "
-"Instrument ten, wykorzystywany w muzyce ludowej i religijnej Pendżabu, ma "
-"pojedynczą strunę na długiej drewnianej szyjce, która przebija maleńkie "
-"pudło rezonansowe pokryte pergaminem."
+"można znaleźć w artykule <a href=\"/instrument/ba30c0de-373c-44e4-"
+"ac28-594c4f316ab0\">gopichant</a>.<br /> Instrument ten, wykorzystywany w "
+"muzyce ludowej i religijnej Pendżabu, ma pojedynczą strunę na długiej "
+"drewnianej szyjce, która przebija maleńkie pudło rezonansowe pokryte "
+"pergaminem."
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -1970,13 +1984,13 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
-"W przypadku jednostrunowej dwuramiennej cytry bębnowej zobacz <a href="
-"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> W "
-"przypadku jednostrunowej lutni panjabi zobacz <a href="
-"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> "
-"Używana między innymi przez plemiona Bhil, Kukna i Worli, posiada "
-"cylindryczny pudło rezonansowe, przez które przewleczona jest pojedyncza "
-"metalowa struna między szyjką szprychową a dolną membraną."
+"W przypadku jednostrunowej dwuramiennej cytry bębnowej zobacz <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>.<br /> W "
+"przypadku jednostrunowej lutni panjabi zobacz <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Używana między innymi przez "
+"plemiona Bhil, Kukna i Worli, posiada cylindryczny pudło rezonansowe, przez "
+"które przewleczona jest pojedyncza metalowa struna między szyjką szprychową "
+"a dolną membraną."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361

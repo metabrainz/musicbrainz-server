@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-03 13:20+0000\n"
+"PO-Revision-Date: 2025-07-29 18:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -32,9 +32,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.11.4\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2142,12 +2142,12 @@ msgstr "Указывает на агентство, которое занима�
 #. name:design
 #: DB:link_type/description:1171
 msgid "This indicates an agency who did design for the release."
-msgstr ""
+msgstr "Указывает на агенство, которое занималось дизайном релиза."
 
 #. name:illustration
 #: DB:link_type/description:1173
 msgid "This indicates an agency who did illustration for the release."
-msgstr ""
+msgstr "Указывает на агенство, которое занималось иллюстрацией к релизу."
 
 #. name:graphic design
 #: DB:link_type/description:1172
@@ -2350,6 +2350,8 @@ msgid ""
 "This indicates that a genre originated as a hybrid of two or more other "
 "genres."
 msgstr ""
+"Указывает на то, что жанр по происхождению является гибридом двух и более "
+"жанров."
 
 #. name:conductor position
 #: DB:link_type/description:305
@@ -2438,6 +2440,8 @@ msgid ""
 "This indicates that a work is made up of multiple parts (such as an "
 "orchestral suite broken into movements)."
 msgstr ""
+"Указывает, что работа состоит из множества частей (как, например, разбитая "
+"на несколько частей оркестровая сюита)."
 
 #. name:video appearance
 #: DB:link_type/description:858
@@ -2510,6 +2514,8 @@ msgid ""
 "This indicates that an instrument (often an ensemble or family) consists of "
 "two or more other instruments."
 msgstr ""
+"Указывает на то, что инструмент (чаще всего это ансамбль или группа "
+"инструментов) включает в себя два и более инструмента."
 
 #. name:hybrid of
 #: DB:link_type/description:916
@@ -2517,6 +2523,7 @@ msgid ""
 "This indicates that an instrument is a hybrid of two or more other "
 "instruments."
 msgstr ""
+"Указывает на то, что инструмент является гибридом двух и более инструментов."
 
 #. name:transl-tracklisting
 #: DB:link_type/description:2
@@ -2525,6 +2532,9 @@ msgid ""
 "the release title and track titles have been either translated (into another "
 "language) or transliterated (into another script)."
 msgstr ""
+"Указывает на то, что один релиз во всём идентичен второму, за исключением "
+"того, что его название и имена треков были переведены на другой язык или "
+"транслитерированы в другую письменность."
 
 #. name:commissioned
 #: DB:link_type/description:1279
@@ -2575,6 +2585,8 @@ msgid ""
 "This indicates that the label performed a role not covered by other "
 "relationship types."
 msgstr ""
+"Указывает на то, что лейбл сыграл роль, которая не покрыта другими видами "
+"отношений."
 
 #. name:commissioned
 #: DB:link_type/description:890
@@ -2607,7 +2619,7 @@ msgstr "Указывает, что запись является частью с
 #. name:live
 #: DB:link_attribute_type/description:578
 msgid "This indicates that the recording is of a live performance."
-msgstr ""
+msgstr "Указывает на то, что запись является записью живого исполнения."
 
 #. name:medley
 #: DB:link_attribute_type/description:750
@@ -2632,12 +2644,15 @@ msgid ""
 "This indicates that two instruments are related in a way not covered by "
 "other, more specific relationships."
 msgstr ""
+"Указывает на то, что два инструмента связаны между собой, но так, что их не "
+"покрывают другие, более конкретные отношения."
 
 #. name:headquarters
 #: DB:link_type/description:1237
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
 msgstr ""
+"Указывает на зону (обычно город), в которой расположен головной офис лейбла."
 
 #. name:named after area
 #: DB:link_type/description:1262
@@ -2713,11 +2728,9 @@ msgstr ""
 
 #. name:choreographer
 #: DB:link_type/description:1230
-#, fuzzy
-#| msgid "Indicates an artist that performed on this recording."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
-msgstr "Указывает исполнителя, выступавшего на этой записи."
+msgstr "Указывает исполнителя, который выступал хореографом этого видео."
 
 #. name:cinematographer
 #: DB:link_type/description:1245
@@ -2736,7 +2749,7 @@ msgstr ""
 #. name:owner
 #: DB:link_type/description:991
 msgid "This indicates the artist was the owner of this label."
-msgstr ""
+msgstr "Указывает на то, что исполнитель являлся владельцем лейбла."
 
 #. name:owner
 #: DB:link_type/description:988
@@ -2744,6 +2757,8 @@ msgid ""
 "This indicates the artist was the owner of this place (often a studio, but "
 "sometimes also a venue)."
 msgstr ""
+"Указывает на то, что исполнитель являлся владельцем этого места (чаще "
+"студии, реже местом проведенения)."
 
 #. name:arranger, name:instrument arranger, name:vocal arranger
 #: DB:link_type/description:295 DB:link_type/description:294
@@ -2910,18 +2925,13 @@ msgstr ""
 
 #. name:published
 #: DB:link_type/description:362
-#, fuzzy
-#| msgid ""
-#| "Indicates the publisher of this release. This is <strong>not</strong> the "
-#| "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record "
-#| "label</a>."
 msgid ""
 "This indicates the organization which releases a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Указывает на издателя релиза. Не путать с <a href=\"/doc/Label\" "
-"target=\"_blank\">лейблом</a>."
+"Указывает на организацию, выпустившую релиз. Не путать с <a href="
+"\"/doc/Label\" target=\"_blank\">лейблом</a>."
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -3288,6 +3298,15 @@ msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr ""
 "Используется для ссылки релиза на соответствующую страницу на Allmusic."
 
+#. name:logo
+#: DB:link_type/description:1288
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr ""
+"Используется для ссылки на изображение логотипа серии (подкаста, фестиваля и "
+"т.д.)."
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -3359,7 +3378,7 @@ msgstr ""
 #. name:discogs
 #: DB:link_type/description:180
 msgid "This is used to link the Discogs page for this artist."
-msgstr "Используется как ссылка на страницу Discogs для этого исполнителя."
+msgstr "Указывает на страницу в Discogs для данного исполнителя."
 
 #. name:discogs
 #: DB:link_type/description:1275
@@ -4060,7 +4079,7 @@ msgstr ""
 #. name:fanpage
 #: DB:link_type/description:1188
 msgid "This links a work to a fan-created website."
-msgstr ""
+msgstr "Связывает работу с фанатским веб-сайтом."
 
 #. name:license
 #: DB:link_type/description:939
@@ -4084,7 +4103,7 @@ msgstr ""
 #. name:composed in
 #: DB:link_type/description:875
 msgid "This links a work with the area it was composed in."
-msgstr ""
+msgstr "Связывает работу с зоной, в которой она была скомпозирована."
 
 #. name:revised in
 #: DB:link_type/description:881
@@ -4094,12 +4113,12 @@ msgstr ""
 #. name:translated in
 #: DB:link_type/description:884
 msgid "This links a work with the area it was translated in."
-msgstr ""
+msgstr "Связывает работу с зоной, в которой она была переведена."
 
 #. name:written in
 #: DB:link_type/description:873
 msgid "This links a work with the area it was written in."
-msgstr ""
+msgstr "Связывает работу с зоной, в которой она была написана."
 
 #. name:libretto written in
 #: DB:link_type/description:879
@@ -4109,7 +4128,7 @@ msgstr ""
 #. name:lyrics written in
 #: DB:link_type/description:877
 msgid "This links a work with the area its lyrics were written in."
-msgstr ""
+msgstr "Связывает работу с зоной, в которой написали её лирику."
 
 #. name:arranged at
 #: DB:link_type/description:886
@@ -4177,6 +4196,8 @@ msgid ""
 "This links an artist to a site where tickets can be purchased for their "
 "events."
 msgstr ""
+"Связывает исполнителя с сайтом, на котором можно приобрести билеты на его "
+"события."
 
 #. name:interview
 #: DB:link_type/description:707
@@ -4264,7 +4285,7 @@ msgstr ""
 #. name:purevolume
 #: DB:link_type/description:174
 msgid "This links an artist to the equivalent entry at PureVolume."
-msgstr ""
+msgstr "Связывает исполнителя с эквивалетной записью на PureVolume."
 
 #. name:youtube
 #: DB:link_type/description:193
@@ -4514,6 +4535,9 @@ msgid ""
 "Only sites on the <a href=\"/doc/Style/Relationships/URLs/"
 "Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
+"Это отношение описывает URL, по которому можно найти тексты песен этого "
+"исполнителя. Разрешены только сайты из <a href="
+"\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">белого списка</a>."
 
 #. name:lyrics
 #: DB:link_type/description:982
@@ -4561,6 +4585,7 @@ msgstr ""
 msgid ""
 "This relationship indicates that a person was another's teacher/student."
 msgstr ""
+"Это отношение указывает на то, что человек был чьим-либо учителем/учеником."
 
 #. name:phonographic copyright
 #: DB:link_type/description:869
@@ -4701,6 +4726,11 @@ msgid ""
 "lyricist and/or librettist types should be used, rather than this "
 "relationship type."
 msgstr ""
+"Это отношение используется для связи релиза с исполнителем, ответственным за "
+"написание музыки и/или слов (лирика, либретто и т. д.), когда недоступна "
+"более конкретная информация. Всегда, когда это возможно, используйте более "
+"конкретные отношения, такие как \"композитор\", \"автор текста\", "
+"\"автор либретто\"."
 
 #. name:writer
 #: DB:link_type/description:167
@@ -6024,10 +6054,8 @@ msgid "choral conducting"
 msgstr ""
 
 #: DB:link_type/name:1230
-#, fuzzy
-#| msgid "photography"
 msgid "choreographer"
-msgstr "фото"
+msgstr "хореограф"
 
 #: DB:link_type/name:152 DB:link_type/name:53
 msgid "chorus master"
@@ -7071,7 +7099,7 @@ msgid "has a karaoke version"
 msgstr "имеет караоке-версию"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "имеет логотип"
 
@@ -7728,43 +7756,33 @@ msgstr "включён в"
 #. name:license
 #: DB:link_type/long_link_phrase:302 DB:link_type/long_link_phrase:301
 msgid "is licensed under"
-msgstr "is licensed under"
+msgstr "выпущен по лицензии"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:973
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after artist"
-msgstr "назван в честь"
+msgstr "назван в честь исполнителя"
 
 #. name:named after label
 #: DB:link_type/long_link_phrase:1259 DB:link_type/long_link_phrase:1264
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after label"
-msgstr "назван в честь"
+msgstr "назван в честь лейбла"
 
 #. name:named after place
 #: DB:link_type/long_link_phrase:1281 DB:link_type/long_link_phrase:1263
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after place"
-msgstr "назван в честь"
+msgstr "назван в честь места"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1261 DB:link_type/long_link_phrase:974
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after release group"
-msgstr "назван в честь"
+msgstr "назван в честь группы релизов"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
 #: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
-#, fuzzy
-#| msgid "is named after"
 msgid "is named after work"
-msgstr "назван в честь"
+msgstr "назван в честь работы"
 
 #: DB:link_type/name:108
 msgid "is person"
@@ -8079,17 +8097,17 @@ msgstr "живые выступления"
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "логотип"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "логотип"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "логотипы"
 
@@ -8592,17 +8610,17 @@ msgstr "оркестры"
 
 #: DB:link_attribute_type/name:1418 DB:link_type/name:316
 msgid "orchestration"
-msgstr "orchestration"
+msgstr "оркестрация"
 
 #. name:orchestration
 #: DB:link_type/reverse_link_phrase:316
 msgid "orchestration of"
-msgstr "orchestration of"
+msgstr "орекстрация работы"
 
 #. name:orchestration
 #: DB:link_type/link_phrase:316
 msgid "orchestrations"
-msgstr "orchestrations"
+msgstr "оркестрации"
 
 #: DB:link_type/name:164 DB:link_type/name:300 DB:link_type/name:40
 msgid "orchestrator"
@@ -8869,7 +8887,7 @@ msgstr "фотография для"
 #. name:podcast feed
 #: DB:link_type/name:915 DB:link_type/link_phrase:915
 msgid "podcast feed"
-msgstr "podcast feed"
+msgstr "фид подкаста"
 
 #. name:podcast feed
 #: DB:link_type/reverse_link_phrase:915
@@ -9087,7 +9105,7 @@ msgstr ""
 #. name:promoted
 #: DB:link_type/reverse_link_phrase:359
 msgid "promoted by"
-msgstr "promoted by"
+msgstr "продвигался лейблом"
 
 #. name:artists and repertoire
 #: DB:link_type/long_link_phrase:135 DB:link_type/long_link_phrase:62
@@ -9379,7 +9397,7 @@ msgstr ""
 #. name:remaster
 #: DB:link_type/reverse_link_phrase:6
 msgid "remastered versions"
-msgstr "remastered versions"
+msgstr "ремастеры"
 
 #. name:remaster
 #: DB:link_type/reverse_link_phrase:236
@@ -10089,34 +10107,30 @@ msgid "video channel for"
 msgstr "видео-канал для"
 
 #: DB:link_type/name:1277 DB:link_type/name:1276
-#, fuzzy
-#| msgid "copyright"
 msgid "video copyright"
-msgstr "авторское право"
+msgstr "авторское право на видео"
 
 #. name:video copyright
 #: DB:link_type/reverse_link_phrase:1277 DB:link_type/reverse_link_phrase:1276
-#, fuzzy
-#| msgid "copyrighted (©) by"
 msgid "video copyrighted (©) by"
-msgstr "владелец авторских прав (©)"
+msgstr "владелец авторских прав (©) на видео"
 
 #: DB:link_type/name:962 DB:link_type/name:1185
 msgid "video director"
-msgstr ""
+msgstr "режиссер видео"
 
 #: DB:link_type/name:963 DB:link_type/name:966
 msgid "video shot at"
-msgstr ""
+msgstr "место съемки видео"
 
 #: DB:link_type/name:964
 msgid "video shot in"
-msgstr "место снятия видео"
+msgstr "место съемки видео"
 
 #. name:video appearance
 #: DB:link_type/reverse_link_phrase:858
 msgid "visual appearances"
-msgstr "visual appearances"
+msgstr "визуальные появления"
 
 #: DB:link_attribute_type/name:3 DB:link_type/name:60 DB:link_type/name:149
 msgid "vocal"
@@ -10157,7 +10171,7 @@ msgstr ""
 #. name:conductor
 #: DB:link_type/long_link_phrase:806
 msgid "was a conductor at"
-msgstr "was a conductor at"
+msgstr "был(а) кондуктором"
 
 #. name:jury member
 #: DB:link_type/long_link_phrase:1255
@@ -10260,10 +10274,8 @@ msgstr ""
 
 #. name:production coordinator
 #: DB:link_type/long_link_phrase:1267
-#, fuzzy
-#| msgid "was the {guest} concertmaster for"
 msgid "was the production coordinator for"
-msgstr "был {guest:приглашенным} концертмейстером для"
+msgstr "был координатором производства для"
 
 #. name:concertmaster
 #: DB:link_type/long_link_phrase:760 DB:link_type/long_link_phrase:759
@@ -10404,17 +10416,12 @@ msgstr ""
 
 #. name:performance
 #: DB:link_type/reverse_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "{acappella:a cappella} {live} {medley:medley including a} {partial} "
-#| "{instrumental} {cover} {karaoke} recording of"
 msgid ""
 "{acappella:a cappella} {live} {medley:medleys including} {partial} "
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
-"{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
-"{live:концертная} {acappella:акапелла} {medley:поппури} запись "
-"{cover:кавера} работы"
+"{partial:частичные} {instrumental:инструментальные} {karaoke:караоке} "
+"{live:концертные} {acappella:акапелла} {medley:поппури} записи {cover:кавера}"
 
 #. name:adapter
 #: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
@@ -11136,6 +11143,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:103
 msgid "{additional} {original} {eponymous} members"
 msgstr ""
+"{additional:дополнительные} {original:оригинальные} {eponymous:одноименные} "
+"участники"
 
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697

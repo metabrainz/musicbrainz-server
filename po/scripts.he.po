@@ -2,11 +2,12 @@
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2020
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# לוכסן <lochsan.wikiped@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-07-28 22:36+0000\n"
+"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/he/>\n"
 "Language: he\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -35,7 +36,7 @@ msgstr "ארמנית"
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
-msgstr "אבסטית"
+msgstr "אווסטית"
 
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
@@ -235,12 +236,12 @@ msgstr "גארנטה"
 #. frequency:4 iso_code:Grek
 #: DB:script/name:22
 msgid "Greek"
-msgstr "ייונית"
+msgstr "יוונית"
 
 #. frequency:3 iso_code:Gujr
 #: DB:script/name:52
 msgid "Gujarati"
-msgstr "גויארטית"
+msgstr "גוג'ראטית"
 
 #. frequency:3 iso_code:Guru
 #: DB:script/name:49
@@ -329,6 +330,7 @@ msgstr "קאיטי"
 
 #. frequency:3 iso_code:Knda
 #: DB:script/name:60
+#, fuzzy
 msgid "Kannada"
 msgstr "קנאדית"
 
@@ -380,7 +382,7 @@ msgstr "קפלה"
 #. frequency:3 iso_code:Laoo
 #: DB:script/name:69
 msgid "Lao"
-msgstr "לאו"
+msgstr "לאית"
 
 #. frequency:4 iso_code:Latn
 #: DB:script/name:28

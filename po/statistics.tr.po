@@ -4,12 +4,13 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # portik <email address hidden>, 2013
 # brtc <boratici@gmail.com>, 2024.
+# hocu <hocu@hocu.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-03-18 23:28+0000\n"
-"Last-Translator: brtc <boratici@gmail.com>\n"
+"PO-Revision-Date: 2025-07-13 22:36+0000\n"
+"Last-Translator: hocu <hocu@hocu.org>\n"
 "Language-Team: Turkish <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/tr/>\n"
 "Language: tr\n"
@@ -17,19 +18,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
-msgstr ""
+msgstr "Çizgi ekle/kaldır:"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
-msgstr ""
+msgstr "Yukarıdaki kutuları işaretleyin"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
-msgstr ""
+msgstr "Seçimi kaldırmak için tıklayın"
 
 #: ../root/statistics/timeline.tt:15
 msgid "Controls"
@@ -37,21 +38,21 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
-msgstr ""
+msgstr "Ülkeler"
 
 #: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
-msgstr ""
+msgstr "Veritabanı istatistikleri"
 
 #: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
-msgstr ""
+msgstr "Veritabanı istatistikleri - {title}"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "Herhangi bir grafik üzerinde bir dikdörtgen çizin"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
 #: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125

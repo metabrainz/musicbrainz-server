@@ -2170,6 +2170,11 @@ msgstr "海岛克里奥尔英语"
 msgid "Selkup"
 msgstr "塞尔库普语"
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2384,6 +2389,11 @@ msgstr "瑞典语"
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "叙利亚文"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr ""
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

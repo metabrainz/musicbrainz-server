@@ -19,12 +19,12 @@
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # Kori Syusetu <kori@isnowgroup.net>, 2025.
 # ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
+# TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-05 13:20+0000\n"
-"Last-Translator: ROManceJP "
-"<poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>\n"
+"PO-Revision-Date: 2025-07-27 19:36+0000\n"
+"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -94,14 +94,12 @@ msgid ""
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
 "ソーシャルネットワークページとは、アーティスト本人（またはそのマネージャー）"
-"のみが投稿できる<a href="
-"\"https://ja.wikipedia.org/wiki/ソーシャル・ネットワーキング・サービス\" "
-"target=\"_blank\""
-">SNS</a>上のアカウントのページのこと。一般的に、そのSNSでアカウントを作成すれ"
-"ば、そのアーティストと交流することもできます。例えば、フレンドとして登録した"
-"り、アーティストが投稿したものにレスを返したりすることができます。例えばFaceb"
-"ookのページやプロフィール、Last.fmのユーザー、X（旧ツイッター）、Instagram、F"
-"lickrのアカウントなどです。"
+"のみが投稿できる<a href=\"https://ja.wikipedia.org/wiki/ソーシャル・ネット"
+"ワーキング・サービス\" target=\"_blank\">SNS</a>上のアカウントのページのこ"
+"と。一般的に、そのSNSでアカウントを作成すれば、そのアーティストと交流すること"
+"もできます。例えば、フレンドとして登録したり、アーティストが投稿したものにレ"
+"スを返したりすることができます。例えばFacebookのページやプロフィール、Last.fm"
+"のユーザー、X（旧ツイッター）、Instagram、Flickrのアカウントなどです。"
 
 #. name:social network
 #: DB:link_type/description:783
@@ -298,8 +296,6 @@ msgstr "ある人がエンジニアとしてある場所で仕事する契約を
 
 #. name:anthem
 #: DB:link_type/description:357
-#, fuzzy
-#| msgid "Designates that a work is or was the anthem for an area"
 msgid "Designates that a work is or was the anthem for an area."
 msgstr "ある作品がある地域の歌（国歌、都道府県歌など）であることを表します。"
 
@@ -328,15 +324,10 @@ msgstr "次のDiscogsページ"
 
 #. name:step
 #: DB:link_attribute_type/description:1020
-#, fuzzy
-#| msgid ""
-#| "For indicating the step-spouse of the artist's parent, or the sibling "
-#| "relationship with the children of such a spouse"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
-msgstr ""
-"アーティストの親の継配偶者、またはそのような配偶者の子供との兄弟関係を示す"
+msgstr "アーティストの親の継配偶者、またはそのような配偶者の子供との兄弟関係を示す。"
 
 #. name:instrumental
 #: DB:link_attribute_type/description:580
@@ -411,8 +402,6 @@ msgstr "次のIMSLPページ"
 
 #. name:bonus
 #: DB:link_attribute_type/description:516
-#, fuzzy
-#| msgid "Indicates a bonus disc"
 msgid "Indicates a bonus disc."
 msgstr "ボーナスディスクを示します。"
 
@@ -454,8 +443,9 @@ msgstr ""
 msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
-msgstr "対象のリリース (グループ) "
-"をテキスト、オーディオ、またはビデオの形式でレビューするページを示します。"
+msgstr ""
+"対象のリリース (グループ) をテキスト、オーディオ、またはビデオの形式でレ"
+"ビューするページを示します。"
 
 #. name:schedule
 #: DB:link_type/description:1083
@@ -718,7 +708,8 @@ msgstr "初めて演奏した作品の演奏者を示す。主にクラシック
 msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr "このリリースの作曲者、つまり作曲したアーティストを示す（必ずしも作詞である必"
+msgstr ""
+"このリリースの作曲者、つまり作曲したアーティストを示す（必ずしも作詞である必"
 "要はない）。"
 
 #. name:composer
@@ -727,7 +718,8 @@ msgstr "このリリースの作曲者、つまり作曲したアーティスト
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
-msgstr "この作品の作曲者、つまり音楽を書いたアーティストを示す（必ずしも歌詞を書いた"
+msgstr ""
+"この作品の作曲者、つまり音楽を書いたアーティストを示す（必ずしも歌詞を書いた"
 "とは限らない）。"
 
 #. name:premiere
@@ -819,7 +811,8 @@ msgid ""
 "Indicates the person who adapted this work (generally from a different "
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
-msgstr "この作品を翻案した人（一般的には、散文作品をオーディオドラマに、舞台ミュージ"
+msgstr ""
+"この作品を翻案した人（一般的には、散文作品をオーディオドラマに、舞台ミュージ"
 "カルを映画ミュージカルになど、異なる媒体から翻案した人）を示す。"
 
 #. name:translator
@@ -839,7 +832,8 @@ msgstr "この作品の歌詞/台本を翻訳した人を示します。"
 msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
-msgstr "オーディオドラマなど、ドラマ化された作品のオリジナル脚本を書いた人を示す。"
+msgstr ""
+"オーディオドラマなど、ドラマ化された作品のオリジナル脚本を書いた人を示す。"
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -2844,7 +2838,8 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
-msgstr "これは、アーティストがこのビデオレコーディングの振付師であったことを示す。"
+msgstr ""
+"これは、アーティストがこのビデオレコーディングの振付師であったことを示す。"
 
 #. name:cinematographer
 #: DB:link_type/description:1245
@@ -3470,6 +3465,15 @@ msgstr ""
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr ""
 "これは、リリースをAllmusic上の対応するページにリンクするために使われます。"
+
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr "これは、ラベルをそのロゴの画像にリンクするために使用される。"
 
 #. name:discogs
 #: DB:link_type/description:747
@@ -7593,7 +7597,7 @@ msgid "has a karaoke version"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr ""
 
@@ -8582,17 +8586,17 @@ msgstr "ライブ演奏"
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "ロゴ"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "次のロゴ"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr ""
 
@@ -9994,12 +9998,12 @@ msgstr ""
 
 #: DB:link_type/name:994
 msgid "residency"
-msgstr ""
+msgstr "駐在コンサート"
 
 #. name:residency
 #: DB:link_type/reverse_link_phrase:994
 msgid "residency by"
-msgstr ""
+msgstr "駐在コンサート"
 
 #: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"

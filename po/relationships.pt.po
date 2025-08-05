@@ -35,9 +35,9 @@ msgid ""
 "only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Uma página de rede social é a página própria de uma gravadora em uma <a href="
-"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na "
-"qual apenas pessoas envolvidas com a gravadora podem postar conteúdo. "
+"Uma página de rede social é a página própria de uma gravadora em uma <a "
+"href=\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, "
+"na qual apenas pessoas envolvidas com a gravadora podem postar conteúdo. "
 "Exemplos incluem páginas do Facebook e contas no Twitter, Instagram e Flickr."
 
 #. name:social network
@@ -48,10 +48,10 @@ msgid ""
 "only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Uma página de rede social é uma página de uma série em uma <a href="
-"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a> na "
-"qual apenas pessoas envolvidas com a série podem postar conteúdo. Exemplos "
-"incluem páginas do Facebook e contas no Twitter, Instagram e Flickr."
+"Uma página de rede social é uma página de uma série em uma <a href=\"https://"
+"pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a> na qual apenas "
+"pessoas envolvidas com a série podem postar conteúdo. Exemplos incluem "
+"páginas do Facebook e contas no Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:429
@@ -61,10 +61,10 @@ msgid ""
 "only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Uma página de rede social é a página de um lugar em uma <a href="
-"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na "
-"qual apenas pessoas envolvidas com o local podem postar conteúdo. Exemplos "
-"incluem páginas do Facebook e contas no Twitter, Instagram e Flickr."
+"Uma página de rede social é a página de um lugar em uma <a href=\"https://"
+"pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na qual apenas "
+"pessoas envolvidas com o local podem postar conteúdo. Exemplos incluem "
+"páginas do Facebook e contas no Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:192
@@ -77,13 +77,13 @@ msgid ""
 "post. Examples include Facebook pages and profiles, Last.fm users and "
 "accounts on Twitter, Instagram and Flickr."
 msgstr ""
-"Uma página de rede social é o perfil de um artista em uma <a href="
-"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\" target=\"_blank\">rede "
-"social</a>, na qual somente ele (ou seu agente) pode publicar conteúdo. "
-"Outras pessoas podem criar seus próprios perfis e interagir com o artista, "
-"por exemplo, adicionando-o como amigo ou comentando as postagens dele. "
-"Exemplos incluem páginas e perfis do Facebook, usuários do Last.fm e contas "
-"no Twitter, Instagram e Flickr."
+"Uma página de rede social é o perfil de um artista em uma <a href=\"https://"
+"pt.wikipedia.org/wiki/Rede_social_virtual\" target=\"_blank\">rede social</"
+"a>, na qual somente ele (ou seu agente) pode publicar conteúdo. Outras "
+"pessoas podem criar seus próprios perfis e interagir com o artista, por "
+"exemplo, adicionando-o como amigo ou comentando as postagens dele. Exemplos "
+"incluem páginas e perfis do Facebook, usuários do Last.fm e contas no "
+"Twitter, Instagram e Flickr."
 
 #. name:social network
 #: DB:link_type/description:783
@@ -94,11 +94,11 @@ msgid ""
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
-"Uma página de rede social é a página de um evento em uma <a href="
-"\"https://pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na "
-"qual apenas pessoas envolvidas no evento podem postar conteúdo. Exemplos "
-"incluem páginas do Facebook e entradas de eventos, além de contas no "
-"Twitter, Instagram e Flickr."
+"Uma página de rede social é a página de um evento em uma <a href=\"https://"
+"pt.wikipedia.org/wiki/Rede_social_virtual\">rede social</a>, na qual apenas "
+"pessoas envolvidas no evento podem postar conteúdo. Exemplos incluem páginas "
+"do Facebook e entradas de eventos, além de contas no Twitter, Instagram e "
+"Flickr."
 
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
@@ -2817,6 +2817,13 @@ msgstr ""
 #. name:allmusic
 #: DB:link_type/description:755
 msgid "This is used to link a release to its corresponding page on Allmusic."
+msgstr ""
+
+#. name:logo
+#: DB:link_type/description:1288
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
 msgstr ""
 
 #. name:discogs
@@ -6342,7 +6349,7 @@ msgid "has a karaoke version"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr ""
 
@@ -7313,17 +7320,17 @@ msgstr ""
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr ""
 
