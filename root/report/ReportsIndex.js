@@ -104,6 +104,10 @@ component ReportsIndex() {
             content={l('Artists with disambiguation the same as the name')}
             reportName="ArtistsDisambiguationSameName"
           />
+          <ReportsIndexEntry
+            content={l('Artists with mismatched primary aliases')}
+            reportName="ArtistsWithMismatchedPrimaryAliases"
+          />
         </ul>
 
         <h2>{l('Artist credits')}</h2>
@@ -193,6 +197,10 @@ component ReportsIndex() {
           <ReportsIndexEntry
             content={l('Labels with disambiguation the same as the name')}
             reportName="LabelsDisambiguationSameName"
+          />
+          <ReportsIndexEntry
+            content={l('Labels with mismatched primary aliases')}
+            reportName="LabelsWithMismatchedPrimaryAliases"
           />
         </ul>
 
@@ -315,6 +323,10 @@ component ReportsIndex() {
           <ReportsIndexEntry
             content={l('Releases released too early')}
             reportName="ReleasedTooEarly"
+          />
+          <ReportsIndexEntry
+            content={l('Suspiciously early digital releases')}
+            reportName="ReleasedTooEarlyDigital"
           />
           <ReportsIndexEntry
             content={l(

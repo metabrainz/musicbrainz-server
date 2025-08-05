@@ -12,6 +12,7 @@ import test from 'tape';
 import {arraysEqual} from '../../common/utility/arrays.js';
 import {
   Checker,
+  CLEANUPS,
   cleanURL,
   LINK_TYPES,
 } from '../../edit/URLCleanup.js';
@@ -1657,6 +1658,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['work'],
   },
   {
+                     input_url: 'https://brahms.ircam.fr/fr/work/luci#type',
+             input_entity_type: 'work',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'http://brahms.ircam.fr/work/luci',
+       only_valid_entity_types: ['work'],
+  },
+  {
                      input_url: 'http://brahms.ircam.fr/works/genre/328/?test/',
              input_entity_type: 'work',
     expected_relationship_type: undefined,
@@ -3091,10 +3099,17 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'label', 'place'],
   },
   {
+                     input_url: 'https://www.imdb.com/title/tt27334988/?ref_=fn_all_ttl_1',
+             input_entity_type: 'series',
+    expected_relationship_type: 'imdb',
+            expected_clean_url: 'https://www.imdb.com/title/tt27334988/',
+       only_valid_entity_types: ['recording', 'release', 'release_group', 'series', 'work'],
+  },
+  {
                      input_url: 'https://www.imdb.com/title/tt0421082/',
              input_entity_type: 'release_group',
     expected_relationship_type: 'imdb',
-       only_valid_entity_types: ['recording', 'release', 'release_group', 'work'],
+       only_valid_entity_types: ['recording', 'release', 'release_group', 'series', 'work'],
   },
   // IMSLP (International Music Score Library Project)
   {
@@ -5830,21 +5845,21 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                      input_url: 'https://www.target.com/b/universal-music-group/-/N-l4bvw',
              input_entity_type: 'label',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'https://www.target.com/b/N-l4bvw',
+            expected_clean_url: 'https://www.target.com/b/-/N-l4bvw',
        only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://target.com/p/olivia-rodrigo-sour-target-exclusive-vinyl/-/A-82813217#lnk=sametab',
              input_entity_type: 'release',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'https://www.target.com/p/A-82813217',
+            expected_clean_url: 'https://www.target.com/p/-/A-82813217',
        only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://intl.target.com/p/-/A-79228621',
              input_entity_type: 'release',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'https://www.target.com/p/A-79228621',
+            expected_clean_url: 'https://www.target.com/p/-/A-79228621',
        only_valid_entity_types: ['release'],
   },
   // Ted Crane
@@ -7416,6 +7431,27 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                                   target: 'url',
                                 },
   },
+  // Zamp
+  {
+          input_url: 'https://www.zamp.hr/baza-autora/autor/pregled/133005720',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'https://zamp.hr/baza-autora/autor/pregled/133078414',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zamp.hr/baza-autora/autor/pregled/133078414',
+          only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+          input_url: 'http://www.zamp.hr/baza-autora/djelo/pregled/153812412',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://www.zamp.hr/baza-autora/djelo/pregled/153812412',
+          only_valid_entity_types: ['work'],
+  },
   // Zemereshet
   {
           input_url: 'http://www.zemereshet.co.il/m/record.asp?id=1185',
@@ -7775,4 +7811,53 @@ testData.forEach(function (subtest, i) {
     }
     st.end();
   });
+});
+
+test('Hostnames', (t) => {
+  const matchRegExpMatchingHostname = new Set();
+
+  const checkHostnameWithMatchRegExp = (h, m) => {
+    if (
+      m.test(h + '/') ||
+      m.source.replaceAll('\\', '').includes(h)
+    ) {
+      matchRegExpMatchingHostname.add(m);
+      return true;
+    }
+    return false;
+  };
+
+  for (const key in CLEANUPS) {
+    const {hostname, match: matchRegExps} = CLEANUPS[key];
+    const hostnames = Array.isArray(hostname) ? hostname : [hostname];
+    for (let h of hostnames) {
+      let foundMatch = false;
+      h = h.replace('*', '');
+      for (const m of matchRegExps) {
+        foundMatch = checkHostnameWithMatchRegExp(h, m);
+        if (foundMatch) {
+          break;
+        }
+      }
+      t.ok(foundMatch, `Hostname ${h} appears in a cleanup match RegExp`);
+    }
+    for (const m of matchRegExps) {
+      let foundMatch = matchRegExpMatchingHostname.has(m);
+      if (foundMatch) {
+        continue;
+      }
+      for (let h of hostnames) {
+        h = h.replace('*', '');
+        foundMatch = checkHostnameWithMatchRegExp(h, m);
+        if (foundMatch) {
+          break;
+        }
+      }
+      t.ok(
+        foundMatch,
+        `Match RegExp ${m.source} is covered by a hostname entry`,
+      );
+    }
+  }
+  t.end();
 });

@@ -865,3 +865,22 @@ button.copy-date {
     background-image: data-uri('../images/icons/down.png');
     margin-left: 4px;
 }
+
+/* root/static/scripts/admin/components/PossibleSpammersList.js */
+
+div.possible-spammers {
+    table {
+        width: 100%;
+        table-layout: fixed;
+
+        th, td {
+            overflow-wrap: break-word;
+        }
+
+        tr.spammer { opacity: 0.5; }
+
+        tr:hover > td {
+            background-color: @positive-hover-background !important;
+        }
+    }
+}

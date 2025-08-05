@@ -218,6 +218,70 @@ cmp_deeply($edit->data, {
 
 };
 
+test 'Merging recording into one other recording twice is not ambiguous' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
+
+    $mech->get_ok('/release/merge_queue?add-to-merge=112');
+    $mech->get_ok('/release/merge_queue?add-to-merge=113');
+
+    $mech->get_ok('/release/merge');
+    $mech->submit_form_ok({
+        with_fields => {
+            'merge.target' => '113',
+            'merge.medium_positions.map.0.position' => '1',
+            'merge.medium_positions.map.1.position' => '2',
+            'merge.merge_rgs' => '0',
+            'merge.merge_strategy' => '2', # Merge mediums and recordings
+            'merge.edit_note' => 'This is an edit note',
+        },
+    });
+
+    my $release_edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    note('If the latest edit is a release merge, no RG merge was entered');
+    isa_ok($release_edit, 'MusicBrainz::Server::Edit::Release::Merge');
+};
+
+test 'Merging recording into two different recordings is ambiguous' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+    # Use different recording on medium 2 of release 113 to create ambiguity
+    $c->sql->do('UPDATE track SET recording = 4 WHERE id = 95');
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
+
+    $mech->get_ok('/release/merge_queue?add-to-merge=112');
+    $mech->get_ok('/release/merge_queue?add-to-merge=113');
+
+    $mech->get_ok('/release/merge');
+    $mech->submit_form_ok({
+        with_fields => {
+            'merge.target' => '113',
+            'merge.medium_positions.map.0.position' => '1',
+            'merge.medium_positions.map.1.position' => '2',
+            'merge.merge_rgs' => '0',
+            'merge.merge_strategy' => '2', # Merge mediums and recordings
+            'merge.edit_note' => 'This is an edit note',
+        },
+    });
+    $mech->content_contains(
+        'There are multiple valid options',
+        'The ambiguous recording error is shown',
+    );
+    my $release_edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    is($release_edit, undef, 'No edit was entered');
+};
+
 test 'Can merge release groups with releases' => sub {
     my $test = shift;
     my $mech = $test->mech;

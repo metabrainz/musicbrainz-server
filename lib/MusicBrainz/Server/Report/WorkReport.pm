@@ -10,6 +10,7 @@ sub _load_extra_work_info {
 
     $self->c->model('Work')->load_authors(@works);
     $self->c->model('WorkType')->load(@works);
+    $self->c->model('Work')->load_aliases(@works);
 }
 
 around inflate_rows => sub {

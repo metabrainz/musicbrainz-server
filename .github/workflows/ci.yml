@@ -9,7 +9,7 @@ on:
       - translations
 
 env:
-  TESTS_IMAGE_TAG: v-2025-06-18
+  TESTS_IMAGE_TAG: v-2025-08-04
 
 jobs:
   build-tests-image:

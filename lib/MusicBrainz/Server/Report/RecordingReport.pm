@@ -9,6 +9,7 @@ sub _load_extra_recording_info {
     my ($self, @recordings) = @_;
 
     $self->c->model('ArtistCredit')->load(@recordings);
+    $self->c->model('Recording')->load_aliases(@recordings);
 }
 
 around inflate_rows => sub {

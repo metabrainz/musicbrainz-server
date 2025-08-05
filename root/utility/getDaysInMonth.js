@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import isLeapYear from './isLeapYear.js';
+
 const daysInMonth = [
   // non-leap year
   [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
@@ -15,6 +17,5 @@ const daysInMonth = [
 ];
 
 export default function getDaysInMonth(year: number, month: number): number {
-  const isLeapYear = year % 400 ? (year % 100 ? !(year % 4) : false) : true;
-  return daysInMonth[isLeapYear ? 1 : 0][month - 1];
+  return daysInMonth[isLeapYear(year) ? 1 : 0][month - 1];
 }
