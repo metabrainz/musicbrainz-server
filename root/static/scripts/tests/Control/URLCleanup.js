@@ -12,6 +12,7 @@ import test from 'tape';
 import {arraysEqual} from '../../common/utility/arrays.js';
 import {
   Checker,
+  CLEANUPS,
   cleanURL,
   LINK_TYPES,
 } from '../../edit/URLCleanup.js';
@@ -7810,4 +7811,53 @@ testData.forEach(function (subtest, i) {
     }
     st.end();
   });
+});
+
+test('Hostnames', (t) => {
+  const matchRegExpMatchingHostname = new Set();
+
+  const checkHostnameWithMatchRegExp = (h, m) => {
+    if (
+      m.test(h + '/') ||
+      m.source.replaceAll('\\', '').includes(h)
+    ) {
+      matchRegExpMatchingHostname.add(m);
+      return true;
+    }
+    return false;
+  };
+
+  for (const key in CLEANUPS) {
+    const {hostname, match: matchRegExps} = CLEANUPS[key];
+    const hostnames = Array.isArray(hostname) ? hostname : [hostname];
+    for (let h of hostnames) {
+      let foundMatch = false;
+      h = h.replace('*', '');
+      for (const m of matchRegExps) {
+        foundMatch = checkHostnameWithMatchRegExp(h, m);
+        if (foundMatch) {
+          break;
+        }
+      }
+      t.ok(foundMatch, `Hostname ${h} appears in a cleanup match RegExp`);
+    }
+    for (const m of matchRegExps) {
+      let foundMatch = matchRegExpMatchingHostname.has(m);
+      if (foundMatch) {
+        continue;
+      }
+      for (let h of hostnames) {
+        h = h.replace('*', '');
+        foundMatch = checkHostnameWithMatchRegExp(h, m);
+        if (foundMatch) {
+          break;
+        }
+      }
+      t.ok(
+        foundMatch,
+        `Match RegExp ${m.source} is covered by a hostname entry`,
+      );
+    }
+  }
+  t.end();
 });
