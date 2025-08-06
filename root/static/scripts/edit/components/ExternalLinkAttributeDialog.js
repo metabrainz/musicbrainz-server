@@ -30,6 +30,7 @@ import DateRangeFieldset, {
   partialDateFromField,
   runReducer as runDateRangeFieldsetReducer,
 } from './DateRangeFieldset.js';
+import {formatParserDate} from './PartialDateInput.js';
 import UrlRelationshipCreditFieldset
   from './UrlRelationshipCreditFieldset.js';
 
@@ -66,25 +67,35 @@ const createInitialState = (
       : null,
   );
 
+  const beginDateField = createCompoundFieldFromObject(
+    'period.begin_date',
+    {
+      day: beginDate?.day ?? null,
+      month: beginDate?.month ?? null,
+      year: beginDate?.year ?? null,
+    },
+  );
+
+  const endDateField = createCompoundFieldFromObject(
+    'period.end_date',
+    {
+      day: endDate?.day ?? null,
+      month: endDate?.month ?? null,
+      year: endDate?.year ?? null,
+    },
+  );
+
   const datePeriodField = {
     errors: [],
     field: {
-      begin_date: createCompoundFieldFromObject(
-        'period.begin_date',
-        {
-          day: beginDate?.day ?? null,
-          month: beginDate?.month ?? null,
-          year: beginDate?.year ?? null,
-        },
-      ),
-      end_date: createCompoundFieldFromObject(
-        'period.end_date',
-        {
-          day: endDate?.day ?? null,
-          month: endDate?.month ?? null,
-          year: endDate?.year ?? null,
-        },
-      ),
+      begin_date: {
+        ...beginDateField,
+        formattedDate: formatParserDate(beginDateField),
+      },
+      end_date: {
+        ...endDateField,
+        formattedDate: formatParserDate(endDateField),
+      },
       ended: createField('period.ended', relationship.ended),
     },
     has_errors: false,

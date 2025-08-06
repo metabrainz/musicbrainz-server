@@ -17,6 +17,7 @@ import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
+  setInitialStateOnForm as setInitialDateRangeFieldsetStateOnForm,
 } from '../edit/components/DateRangeFieldset.js';
 import EnterEdit from '../edit/components/EnterEdit.js';
 import EnterEditNote from '../edit/components/EnterEditNote.js';
@@ -96,7 +97,7 @@ const blankDatePeriod = {
 
 function createInitialState(form: AliasEditFormT, searchHintType: number) {
   return {
-    form,
+    form: setInitialDateRangeFieldsetStateOnForm(form),
     guessCaseOptions: createGuessCaseOptionsState(),
     isEnded: form.field.period.field.ended.value,
     isGuessCaseOptionsOpen: false,

@@ -9,7 +9,8 @@
 
 import * as React from 'react';
 
-import DateRangeFieldset, {reducer} from './DateRangeFieldset.js';
+import DateRangeFieldset, {createInitialState, reducer}
+  from './DateRangeFieldset.js';
 
 type PropsT = {
   +children?: React.Node,
@@ -24,7 +25,11 @@ component _HydratedDateRangeFieldset(
   endedLabel?: string,
   initialField: DatePeriodFieldT,
 ) {
-  const [field, dispatch] = React.useReducer(reducer, initialField);
+  const [field, dispatch] = React.useReducer(
+    reducer,
+    initialField,
+    createInitialState,
+  );
   return (
     <DateRangeFieldset
       disabled={disabled}
