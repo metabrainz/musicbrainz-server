@@ -316,8 +316,9 @@ msgid "IMDB samples"
 msgstr ""
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -329,9 +330,9 @@ msgid "IMDb entry sampled in"
 msgstr ""
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "IMDb sida för"
 
@@ -3442,6 +3443,19 @@ msgstr ""
 msgid "This links a release with the place its lyrics were written at."
 msgstr ""
 
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"Detta länkar en artist till sin sida i  <a href=\"http://www.imdb.com/"
+"\">IMDb</a>."
+
 #. name:soundcloud
 #: DB:link_type/description:870
 msgid ""
@@ -6502,8 +6516,9 @@ msgid "has an Allmusic page at"
 msgstr ""
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr ""
 

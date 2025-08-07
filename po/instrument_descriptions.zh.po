@@ -1683,19 +1683,34 @@ msgstr ""
 "f2235fe1e9a3\">“弗吕格尔号”（Flugelhorn）</a>。<br /><br />起源于德语系的波尔"
 "卡乐队，如今在Catalan cobla也有使用。"
 
+#. name:VM Bhatt's Mohan veena
+#: DB:instrument/description:1212
+msgid ""
+"For the modified sarod created in the 1940's by Radhika Mohan Maitra see <a "
+"href=\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">Radhika's Mohan "
+"veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
+"19 to 21 strings and a gourd added to the neck."
+msgstr ""
+
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
+#, fuzzy
+#| msgid ""
+#| "For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt "
+#| "see VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika "
+#| "Maitra in the 1940s, it has a wooden soundbox cover (like sitar), an "
+#| "extra neck resonator (like veena) and the fretboard from the sarod."
 msgid ""
-"For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt see "
-"VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika Maitra "
-"in the 1940s, it has a wooden soundbox cover (like sitar), an extra neck "
-"resonator (like veena) and the fretboard from the sarod."
+"For the modified slide-guitar created in the 1990's by Vishwa Mohan Bhatt "
+"see <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt's "
+"Mohan veena</a>.<br /> Created as a modified sarod by Radhika Maitra in the "
+"1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
+"(like veena) and the fretboard from the sarod."
 msgstr ""
-"关于维什瓦-莫汉-巴特（Vishwa Mohan Bhatt）在 20 世纪 90 "
-"年代制作的改良型滑弦吉他，请参阅 VM Bhatt's Mohan veena。<br /> "
-"拉迪卡-梅特拉（Radhika Maitra）在 20 世纪 40 "
-"年代制作的改良型萨罗琴，有一个木制音箱盖（类似西塔琴）、一个额外的颈部共鸣器"
-"（类似维纳琴）以及萨罗琴的指板。"
+"关于维什瓦-莫汉-巴特（Vishwa Mohan Bhatt）在 20 世纪 90 年代制作的改良型滑弦"
+"吉他，请参阅 VM Bhatt's Mohan veena。<br /> 拉迪卡-梅特拉（Radhika Maitra）"
+"在 20 世纪 40 年代制作的改良型萨罗琴，有一个木制音箱盖（类似西塔琴）、一个额"
+"外的颈部共鸣器（类似维纳琴）以及萨罗琴的指板。"
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1705,8 +1720,8 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
-"单弦鼓筝也称为 ektar/ektara，见 <a href="
-"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>."
+"单弦鼓筝也称为 ektar/ektara，见 <a href=\"/instrument/ba30c0de-373c-44e4-"
+"ac28-594c4f316ab0\">gopichant</a>."
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -2248,9 +2263,9 @@ msgid ""
 "Invented and developed by several people in the early 1800's, it has an arm "
 "operated bellows with keys or buttons at one end and bass buttons at the "
 "other."
-msgstr "它是由几个人在 19 "
-"世纪早期发明和开发的，有一个手臂操作的风箱，一端有按键或按钮，另一端有低音按"
-"钮。"
+msgstr ""
+"它是由几个人在 19 世纪早期发明和开发的，有一个手臂操作的风箱，一端有按键或按"
+"钮，另一端有低音按钮。"
 
 #. name:bandoneón
 #: DB:instrument/description:193
@@ -2258,9 +2273,9 @@ msgid ""
 "Invented and used in 1800's Europe, it became popular in Argentina. Unlike "
 "concertinas it is square, but alike its button action is parallel, typically "
 "it has several reeds per button."
-msgstr "这种乐器发明于 19 "
-"世纪的欧洲，后来在阿根廷流行起来。与协奏曲不同，它是方形的，但按钮动作是平行"
-"的，通常每个按钮有几个簧片。"
+msgstr ""
+"这种乐器发明于 19 世纪的欧洲，后来在阿根廷流行起来。与协奏曲不同，它是方形"
+"的，但按钮动作是平行的，通常每个按钮有几个簧片。"
 
 #. name:mandora / gallichon
 #: DB:instrument/description:895
@@ -2375,9 +2390,8 @@ msgid ""
 "name means coconut or acorn, while originally made of walnut, it is today of "
 "coconut and fish-skin or heart-membrane."
 msgstr ""
-"这种伊拉克弦乐器的起源可追溯到近 5000 "
-"年前，是世界上多种乐器的鼻祖。它的名字意为椰子或橡子，最初由胡桃木制成，如今"
-"则由椰子和鱼皮或心膜制成。"
+"这种伊拉克弦乐器的起源可追溯到近 5000 年前，是世界上多种乐器的鼻祖。它的名字"
+"意为椰子或橡子，最初由胡桃木制成，如今则由椰子和鱼皮或心膜制成。"
 
 #. name:taiko
 #: DB:instrument/description:378
@@ -2445,9 +2459,9 @@ msgstr ""
 msgid ""
 "Known since 1400, traditionally in military context, today it is the most "
 "widespread and famous of bagpipes."
-msgstr "自 1400 "
-"年以来，这种风笛就已闻名遐迩，传统上用于军事场合，如今它已成为最广泛和最著名"
-"的风笛。"
+msgstr ""
+"自 1400 年以来，这种风笛就已闻名遐迩，传统上用于军事场合，如今它已成为最广泛"
+"和最著名的风笛。"
 
 #. name:zill
 #: DB:instrument/description:455
@@ -2581,8 +2595,9 @@ msgid ""
 "Larger than the gallega, it has been in use since atleast the 13th century, "
 "traditionally with only one chanter and drone, it has very colourfully "
 "decorated fur."
-msgstr "它比加列加更大，至少从 13 "
-"世纪起就开始使用，传统上只有一个吟唱器和一个吹奏器，它的毛皮装饰非常艳丽。"
+msgstr ""
+"它比加列加更大，至少从 13 世纪起就开始使用，传统上只有一个吟唱器和一个吹奏"
+"器，它的毛皮装饰非常艳丽。"
 
 #. name:seni rebab
 #: DB:instrument/description:1014

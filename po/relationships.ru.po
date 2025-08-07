@@ -32,8 +32,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
@@ -371,8 +371,9 @@ msgid "IMDB samples"
 msgstr "сэмплы из IMDB"
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -384,9 +385,9 @@ msgid "IMDb entry sampled in"
 msgstr "сущность из IMDB была сэмплирована в"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "Страница на IMDb"
 
@@ -2930,8 +2931,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Указывает на организацию, выпустившую релиз. Не путать с <a href="
-"\"/doc/Label\" target=\"_blank\">лейблом</a>."
+"Указывает на организацию, выпустившую релиз. Не путать с <a href=\"/doc/"
+"Label\" target=\"_blank\">лейблом</a>."
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -3990,6 +3991,19 @@ msgstr "Связывает релиз с местом, в котором был�
 msgid "This links a release with the place its lyrics were written at."
 msgstr "Связывает релиз с местом, в котором были написаны тексты к нему."
 
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"Связывает исполнителя с его страницей на <a href=\"http://www.imdb.com/"
+"\">IMDb</a>."
+
 #. name:soundcloud
 #: DB:link_type/description:870
 msgid ""
@@ -4536,8 +4550,8 @@ msgid ""
 "Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
 "Это отношение описывает URL, по которому можно найти тексты песен этого "
-"исполнителя. Разрешены только сайты из <a href="
-"\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">белого списка</a>."
+"исполнителя. Разрешены только сайты из <a href=\"/doc/Style/Relationships/"
+"URLs/Lyrics_whitelist\">белого списка</a>."
 
 #. name:lyrics
 #: DB:link_type/description:982
@@ -4729,8 +4743,8 @@ msgstr ""
 "Это отношение используется для связи релиза с исполнителем, ответственным за "
 "написание музыки и/или слов (лирика, либретто и т. д.), когда недоступна "
 "более конкретная информация. Всегда, когда это возможно, используйте более "
-"конкретные отношения, такие как \"композитор\", \"автор текста\", "
-"\"автор либретто\"."
+"конкретные отношения, такие как \"композитор\", \"автор текста\", \"автор "
+"либретто\"."
 
 #. name:writer
 #: DB:link_type/description:167
@@ -7181,8 +7195,9 @@ msgid "has an Allmusic page at"
 msgstr "имеет страницу на Allmusic"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "имеет страницу на IMDb"
 
