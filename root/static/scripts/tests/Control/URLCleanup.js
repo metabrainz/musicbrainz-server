@@ -3678,6 +3678,17 @@ limited_link_type_combinations: [
                      input_url: 'http://www.last.fm/it/label/Shyrec#shoutbox',
             expected_clean_url: 'https://www.last.fm/label/Shyrec',
   },
+  {
+                     input_url: 'https://www.last.fm/music/Nine+Inch+Nails/With+Teeth+(Instrumental)',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is currently blocked',
+                                  target: 'url',
+                                },
+  },
   // Library of Congress Linked Data Service
   {
                      input_url: 'http://id.loc.gov/authorities/names/n79018119.html#tab1',
