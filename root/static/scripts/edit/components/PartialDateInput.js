@@ -230,6 +230,7 @@ component PartialDateInput(
         <>
           {' '}
           <input
+            autoComplete="on"
             className="partial-date-parser"
             disabled={disabled}
             id={'id-' + field.html_name + '.partial-date-parser'}
