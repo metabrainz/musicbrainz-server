@@ -84,5 +84,6 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +preferences: UnsanitizedEditorPreferencesT,
   +privileges: number,
   +registration_date: string,
+  +unused?: boolean,
   +website: string | null,
 }>;

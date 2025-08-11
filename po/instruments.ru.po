@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-21 00:44+0000\n"
+"PO-Revision-Date: 2025-07-29 18:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -182,7 +182,7 @@ msgstr "Марксофон"
 
 #: DB:instrument/name:92
 msgid "Mexican vihuela"
-msgstr ""
+msgstr "мексиканская виуэла"
 
 #: DB:instrument/name:278
 msgid "Minimoog"
@@ -200,16 +200,16 @@ msgstr ""
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
 msgid "Otamatone"
-msgstr ""
+msgstr "отаматон"
 
 #: DB:instrument/name:664
 msgid "Paraguayan harp"
-msgstr ""
+msgstr "парагвайская арфа"
 
 #: DB:instrument/name:793
 msgctxt "electromechanical piano"
 msgid "Pianet"
-msgstr ""
+msgstr "пианет"
 
 #: DB:instrument/name:1023
 msgctxt "ensemble flute, clarinet, violin, cello and piano"
@@ -220,6 +220,11 @@ msgstr ""
 msgctxt "Portugese plucked lute"
 msgid "Portuguese guitar"
 msgstr "Португальская гитара"
+
+#: DB:instrument/name:1211
+msgctxt "1940s modified sarod"
+msgid "Radhika's Mohan veena"
+msgstr ""
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -242,7 +247,7 @@ msgstr ""
 #: DB:instrument/name:427
 msgctxt "Small Scottish bagpipe"
 msgid "Scottish smallpipes"
-msgstr ""
+msgstr "малая шотландская волынка"
 
 #: DB:instrument/name:910
 msgid "Serbo-Croatian tamburica orchestra"
@@ -267,9 +272,14 @@ msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr ""
 
+#: DB:instrument/name:1212
+msgctxt "Indian modified lap slide-guitar"
+msgid "VM Bhatt's Mohan veena"
+msgstr ""
+
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
-msgstr ""
+msgstr "вьетнамская гитара"
 
 #: DB:instrument/name:152
 msgid "Wagner tuba"
@@ -1119,9 +1129,6 @@ msgid "clavinet"
 msgstr ""
 
 #: DB:instrument/name:780
-#, fuzzy
-#| msgctxt "free reed aerophone with pitching pipes."
-#| msgid "claviola"
 msgctxt "free reed aerophone with pitching pipes"
 msgid "claviola"
 msgstr "клавиола"
@@ -1201,9 +1208,6 @@ msgid "cor anglais"
 msgstr ""
 
 #: DB:instrument/name:510
-#, fuzzy
-#| msgctxt "19th century brass trumpet-like"
-#| msgid "cornet"
 msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
 msgstr "рожок"
@@ -1238,11 +1242,9 @@ msgid "crotales"
 msgstr ""
 
 #: DB:instrument/name:348
-#, fuzzy
-#| msgid "horn"
 msgctxt "Curved capped double reed"
 msgid "crumhorn"
-msgstr "горн"
+msgstr "крумгорн"
 
 #: DB:instrument/name:74
 msgid "crwth"
@@ -1631,12 +1633,9 @@ msgid "flumpet"
 msgstr ""
 
 #: DB:instrument/name:13
-#, fuzzy
-#| msgctxt "Collection of end-blown pipes"
-#| msgid "pan flute"
 msgctxt "reedless aerophone"
 msgid "flute"
-msgstr "панфлейта"
+msgstr "флейта"
 
 #: DB:instrument/name:1074
 msgid "flutina"
@@ -4439,12 +4438,9 @@ msgid "violino piccolo"
 msgstr "малая скрипка"
 
 #: DB:instrument/name:834
-#, fuzzy
-#| msgctxt "Alto of modern violin family"
-#| msgid "viola"
 msgctxt "Cretan lyra / violin hybrid"
 msgid "viololyra"
-msgstr "альт"
+msgstr "виололира"
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""

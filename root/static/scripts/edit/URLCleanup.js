@@ -8,6 +8,7 @@
  */
 
 import $ from 'jquery';
+import {parse as tldtsParse} from 'tldts';
 
 import {arraysEqual} from '../common/utility/arrays.js';
 
@@ -134,6 +135,7 @@ export const LINK_TYPES: LinkTypeMap = {
     recording: 'dad34b86-5a1a-4628-acf5-a48ccb0785f2',
     release: '7387c5a2-9abe-4515-b667-9eb5ed4dd4ce',
     release_group: '85b0a010-3237-47c7-8476-6fcefd4761af',
+    series: 'ed4083be-a0b3-4040-b5b4-7513a67e9dc8',
     work: 'e5c75559-4dda-452e-a900-ae375935164c',
   },
   imslp: {
@@ -442,6 +444,7 @@ type ValidationResult = {
 
 type CleanupEntry = {
   +clean?: (url: string) => string,
+  +hostname: string | $ReadOnlyArray<string>,
   +match: $ReadOnlyArray<RegExp>,
   +restrict?: $ReadOnlyArray<EntityTypesMap>,
   +select?:
@@ -456,8 +459,9 @@ type CleanupEntries = {
 };
 
 /* eslint-disable sort-keys */
-const CLEANUPS: CleanupEntries = {
+export const CLEANUPS: CleanupEntries = {
   '7digital': {
+    hostname: ['7digital.com', 'zdigital.com.au'],
     match: [/^(https?:\/\/)?([^/]+\.)?(7digital\.com|zdigital\.com\.au)/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -470,6 +474,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   '45cat': {
+    hostname: '45cat.com',
     match: [/^(https?:\/\/)?(www\.)?45cat\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -502,6 +507,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   '45worlds': {
+    hostname: '45worlds.com',
     match: [/^(https?:\/\/)?(www\.)?45worlds\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -544,6 +550,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'acum': {
+    hostname: 'nocs.acum.org.il',
     match: [/^(https:\/\/)?nocs\.acum\.org\.il\/acumsitesearchdb\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -586,6 +593,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'allmusic': {
+    hostname: 'allmusic.com',
     match: [/^(https?:\/\/)?([^/]+\.)?allmusic\.com/i],
     restrict: [LINK_TYPES.allmusic],
     clean(url) {
@@ -656,6 +664,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'amazon': {
+    hostname: ['amazon.*', 'amzn.com', 'amzn.to'],
     match: [
       /^(https?:\/\/)?(((?!music)[^/])+\.)?(amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)|amzn\.com)/i,
       /^(https?:\/\/)?([^/]+\.)?amzn\.to/i,
@@ -728,6 +737,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'amazonmusic': {
+    hostname: 'music.amazon.*',
     match: [/^(https?:\/\/)?music\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)\/(albums|artists|tracks)/i],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
@@ -783,6 +793,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'anghami': {
+    hostname: 'anghami.com',
     match: [/^(?:https?:\/\/)?(?:(?:play|www)\.)?anghami\.com\//i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -816,6 +827,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'anidb': {
+    hostname: 'anidb.net',
     match: [/^(?:https?:\/\/)?(?:www\.)?anidb\.net\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -848,6 +860,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'animenewsnetwork': {
+    hostname: 'animenewsnetwork.com',
     match: [/^(https?:\/\/)?(www\.)?animenewsnetwork\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -856,6 +869,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'anisongeneration': {
+    hostname: 'anison.info',
     match: [/^(?:https?:\/\/)?anison\.info\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -888,6 +902,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'applebooks': {
+    hostname: 'books.apple.com',
     match: [/^(https?:\/\/)?([^/]+\.)?books\.apple\.com\//i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -932,6 +947,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'applemusic': {
+    hostname: ['apple.com', 'apple.co'],
     match: [
       /^(https?:\/\/)?([^/]+\.)?music\.apple\.com\//i,
       /^(https?:\/\/)?([^/]+\.)?apple\.co\//i,
@@ -1008,6 +1024,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'applepodcasts': {
+    hostname: ['podcasts.apple.com'],
     match: [/^(https?:\/\/)?([^/]+\.)?podcasts\.apple\.com\//i],
     restrict: [
       LINK_TYPES.podcastfeed,
@@ -1053,6 +1070,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'archive': {
+    hostname: 'archive.org',
     match: [/^(https?:\/\/)?([^/]+\.)?archive\.org\//i],
     clean(url) {
       url = url.replace(/^https?:\/\/(www.)?archive.org\//, 'https://archive.org/');
@@ -1064,6 +1082,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'artstation': {
+    hostname: 'artstation.com',
     match: [/^(https?:\/\/)?(www\.)?artstation\.com/i],
     restrict: [LINK_TYPES.artgallery],
     clean(url) {
@@ -1105,6 +1124,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'audiomack': {
+    hostname: 'audiomack.com',
     match: [/^(https?:\/\/)?([^/]+\.)?audiomack\.com\//i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -1141,6 +1161,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'awa': {
+    hostname: 's.awa.fm',
     match: [/^(https?:\/\/)?s\.awa\.fm\/.*(album|artist|track)\//i],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
@@ -1173,6 +1194,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'baidubaike': {
+    hostname: 'baike.baidu.com',
     match: [/^(https?:\/\/)?baike\.baidu\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -1200,6 +1222,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bandcamp': {
+    hostname: 'bandcamp.com',
     match: [/^(https?:\/\/)?(((?!daily\.)[^/])+\.)?bandcamp\.com(?!\/(?:campaign|merch)\/)/i],
     restrict: [
       LINK_TYPES.bandcamp,
@@ -1357,6 +1380,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bandcampcampaign': {
+    hostname: 'bandcamp.com',
     match: [/^(https?:\/\/)?([^/]+)\.bandcamp\.com\/campaign/i],
     restrict: [LINK_TYPES.crowdfunding],
     clean(url) {
@@ -1371,6 +1395,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bandcampdaily': {
+    hostname: 'daily.bandcamp.com',
     match: [/^(https?:\/\/)?daily\.bandcamp\.com/i],
     restrict: [{
       ...LINK_TYPES.interview,
@@ -1396,6 +1421,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bandcampmerch': {
+    hostname: 'bandcamp.com',
     match: [/^(https?:\/\/)?([^/]+)\.bandcamp\.com\/merch/i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -1410,6 +1436,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bandsintown': {
+    hostname: 'bandsintown.com',
     match: [/^(https?:\/\/)?((m|www)\.)?bandsintown\.com/i],
     restrict: [LINK_TYPES.bandsintown],
     clean(url) {
@@ -1457,6 +1484,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bbcevents': {
+    hostname: 'bbc.co.uk',
     match: [/^(https?:\/\/)?(www\.)?bbc\.co\.uk\/events\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -1475,6 +1503,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bbcmusic': {
+    hostname: 'bbc.co.uk',
     match: [/^(https?:\/\/)?(www\.)?bbc\.co\.uk\/music\/artists\//i],
     restrict: [LINK_TYPES.bbcmusic],
     clean(url) {
@@ -1489,10 +1518,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bbcreview': {
+    hostname: 'bbc.co.uk',
     match: [/^(https?:\/\/)?(www\.)?bbc\.co\.uk\/music\/reviews\//i],
     restrict: [LINK_TYPES.review],
   },
   'beatport': {
+    hostname: 'beatport.com',
     match: [/^(https?:\/\/)?([^/]+\.)?beatport\.com/i],
     restrict: [
       LINK_TYPES.downloadpurchase,
@@ -1596,6 +1627,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'behance': {
+    hostname: 'behance.net',
     match: [/^(https?:\/\/)?(www\.)?behance\.net/i],
     restrict: [LINK_TYPES.artgallery],
     clean(url) {
@@ -1634,6 +1666,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bigcartel': {
+    hostname: 'bigcartel.com',
     match: [/^(https?:\/\/)?[^/]+\.bigcartel\.com/i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -1682,6 +1715,13 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'blog': {
+    hostname: [
+      'ameblo.jp',
+      'blog.livedoor.jp',
+      'jugem.jp',
+      'exblog.jp',
+      'tumblr.com',
+    ],
     match: [
       /^(https?:\/\/)?([^/]+\.)?ameblo\.jp/i,
       /^(https?:\/\/)?([^/]+\.)?blog\.livedoor\.jp/i,
@@ -1696,12 +1736,14 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'blogspot': {
+    hostname: 'blogspot.*',
     match: [/^(https?:\/\/)?(www\.)?[^./]+\.blogspot\.([a-z]{2,3}\.)?[a-z]{2,3}\/?/i],
     clean(url) {
       return url.replace(/(?:www\.)?([^./]+)\.blogspot\.(?:[a-z]{2,3}\.)?[a-z]{2,3}(?:\/)?/, '$1.blogspot.com/');
     },
   },
   'bluesky': {
+    hostname: 'bsky.app',
     match: [/^(https?:\/\/)?([^/]+\.)?bsky\.app\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -1723,6 +1765,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bnfcatalogue': {
+    hostname: ['bnf.fr', 'n2t.net'],
     match: [
       /^(https?:\/\/)?(catalogue|data)\.bnf\.fr\//i,
       /^(https?:\/\/)?ark\.bnf\.fr\/ark:\/12148\/cb/i,
@@ -1776,6 +1819,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bookbrainz': {
+    hostname: 'bookbrainz.org',
     match: [/^(https?:\/\/)?([^/]+\.)?bookbrainz\.org/i],
     restrict: [LINK_TYPES.bookbrainz],
     clean(url) {
@@ -1789,6 +1833,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'boomkat': {
+    hostname: 'boomkat.com',
     match: [/^(https?:\/\/)?(www\.)?boomkat\.com/i],
     restrict: [
       {
@@ -1838,6 +1883,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'boomplay': {
+    hostname: 'boomplay.com',
     match: [/^(https?:\/\/)?([^/]+\.)?boomplay\.com\//i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -1874,24 +1920,25 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'brahms': {
+    hostname: 'brahms.ircam.fr',
     match: [/^(https?:\/\/)?brahms\.ircam\.fr\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/(?:(?:en|fr)\/)?((works\/work)(?:\/)([0-9]+)|(?!works)[^?/#]+).*$/, 'http://brahms.ircam.fr/$1');
+      return url.replace(/^(?:https?:\/\/)?brahms\.ircam\.fr\/(?:(?:en|fr)\/)?((works\/work)(?:\/)([0-9]+)|work\/[\w\d-]+|(?!work)[^?/#]+).*$/, 'http://brahms.ircam.fr/$1');
     },
     validate(url, id) {
-      const m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work|(?!works)[^?/#]+).*$/.exec(url);
+      const m = /^(?:https?:\/\/)?brahms\.ircam\.fr\/(works\/work\/|work\/|(?!works?)[^?/#]+).*$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.otherdatabases.work:
             return {
-              result: prefix === 'works/work',
+              result: prefix === 'work/' || prefix === 'works/work/',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix !== 'works/work',
+              result: prefix !== 'work/' && prefix !== 'works/work/',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -1901,6 +1948,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'bugs': {
+    hostname: ['music.bugs.co.kr', 'm.bugs.co.kr'],
     match: [
       /^(https?:\/\/)?(music|m)\.bugs\.co\.kr\//i,
     ],
@@ -1996,6 +2044,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'buymeacoffee': {
+    hostname: 'buymeacoffee.com',
     match: [/^(https?:\/\/)?(www\.)?buymeacoffee\.com\/[^/?#]/i],
     restrict: [LINK_TYPES.patronage],
     clean(url) {
@@ -2003,6 +2052,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'cancionerosmewiki': {
+    hostname: 'cancioneros.si',
     match: [/^(https?:\/\/)?(www\.)?cancioneros\.si\/mediawiki\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2021,6 +2071,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'cbfiddlerx': {
+    hostname: 'cbfiddle.com',
     match: [/^(https?:\/\/)?(www\.)?cbfiddle\.com\/rx\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2048,6 +2099,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ccmixter': {
+    hostname: 'ccmixter.org',
     match: [/^(https?:\/\/)?(www\.)?ccmixter\.org\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2076,10 +2128,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'cdbaby_artist': {
+    hostname: 'cdbaby.*',
     match: [/^(https?:\/\/)?((store|www)\.)?cdbaby\.(com|name)\/Artist\//i],
     restrict: [LINK_TYPES.cdbaby],
   },
   'cdjapan': {
+    hostname: 'cdjapan.co.jp',
     match: [/^(https?:\/\/)?(www\.)?cdjapan\.co\.jp\/(detailview|product|person)/i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -2090,6 +2144,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'changetip': {
+    hostname: ['changetip.com', 'tip.me'],
     match: [
       /^(https?:\/\/)?(www\.)?changetip\.com\/tipme\/[^/?#]/i,
       /^(https?:\/\/)?[^/?#]+\.tip.me([/?#].*)?$/i,
@@ -2102,6 +2157,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'classicalarchives': {
+    hostname: 'classicalarchives.com',
     match: [
       /^(https?:\/\/)?(www\.)?classicalarchives\.com\/(album|artist|composer|ensemble|work)\//i,
       /^(https?:\/\/)?(www\.)?classicalarchives\.com\/newca\/#!\/(Album|Composer|Performer|Work)\//i,
@@ -2153,6 +2209,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'cpdl': {
+    hostname: 'cpdl.org',
     match: [/^(https?:\/\/)?(www[0-9]?\.)?cpdl\.org/i],
     restrict: [{...LINK_TYPES.score, ...LINK_TYPES.cpdl}],
     clean(url) {
@@ -2160,6 +2217,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'crewunited': {
+    hostname: 'crew-united.com',
     match: [/^(https?:\/\/)?(www\.)?crew-united\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2178,6 +2236,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dahr': {
+    hostname: 'adp.library.ucsb.edu',
     match: [
       /^(https?:\/\/)?adp\.library\.ucsb\.edu\/index\.php\/(mastertalent|matrix|objects|talent)/i,
       /^(https?:\/\/)?adp\.library\.ucsb\.edu\/names\//i,
@@ -2222,6 +2281,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dailymotion': {
+    hostname: 'dailymotion.com',
     match: [/^(https?:\/\/)?([^/]+\.)?(dailymotion\.com\/)/i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean(url) {
@@ -2275,6 +2335,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'deezer': {
+    hostname: 'deezer.com',
     match: [/^(https?:\/\/)?([^/]+\.)?(deezer\.com)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -2308,6 +2369,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'deviantart': {
+    hostname: 'deviantart.com',
     match: [/^(https?:\/\/)?(www\.)?deviantart\.com/i],
     restrict: [LINK_TYPES.artgallery],
     clean(url) {
@@ -2347,6 +2409,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dhhu': {
+    hostname: 'dhhu.dk',
     match: [/^(https?:\/\/)?(www\.)?dhhu\.dk/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2355,6 +2418,15 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'discographyentry': {
+    hostname: [
+      'naxos.com',
+      'bis.se',
+      'universal-music.co.jp',
+      'jvcmusic.co.jp',
+      'wmg.jp',
+      'avexnet.jp',
+      'kingrecords.co.jp',
+    ],
     match: [
       /^(https?:\/\/)?(www\.)?naxos\.com\/catalogue\/item\.asp/i,
       /^(https?:\/\/)?(www\.)?bis\.se\/index\.php\?op=album/i,
@@ -2367,6 +2439,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.discographyentry],
   },
   'discogs': {
+    hostname: 'discogs.com',
     match: [/^(https?:\/\/)?([^/]+\.)?discogs\.com/i],
     restrict: [LINK_TYPES.discogs],
     clean(url) {
@@ -2444,6 +2517,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dnb': {
+    hostname: ['d-nb.info', 'dnb.de'],
     match: [
       /^(https?:\/\/)?([^/]+\.)?d-nb\.info/i,
       /^(https?:\/\/)?([^/]+\.)?dnb\.de/i,
@@ -2480,6 +2554,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dogmazic': {
+    hostname: 'dogmazic.net',
     match: [/^(https?:\/\/)?([^/]+\.)?(dogmazic\.net)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -2557,6 +2632,11 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'downloadpurchase': {
+    hostname: [
+      'audiojelly.com',
+      'hd-music.info',
+      'musa24.fi',
+    ],
     match: [
       /^(https?:\/\/)?([^/]+\.)?audiojelly\.com/i,
       /^(https?:\/\/)?([^/]+\.)?hd-music\.info/i,
@@ -2565,6 +2645,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.downloadpurchase],
   },
   'dram': {
+    hostname: 'dramonline.org',
     match: [/^(https?:\/\/)?([^/]+\.)?dramonline\.org\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2602,6 +2683,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dribbble': {
+    hostname: 'dribbble.com',
     match: [/^(https?:\/\/)?(www\.)?dribbble\.com/i],
     restrict: [LINK_TYPES.artgallery],
     clean(url) {
@@ -2646,6 +2728,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'drip': {
+    hostname: ['d.rip', 'drip.kickstarter.com'],
     match: [
       /^(https?:\/\/)?(www\.)?d\.rip\/[^/?#]/i,
       /^(https?:\/\/)?(www\.)?drip\.kickstarter.com\/[^/?#]/i,
@@ -2658,6 +2741,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'dynamicrangedb': {
+    hostname: 'dr.loudness-war.info',
     match: [/^(https?:\/\/)?dr\.loudness-war\.info/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2671,6 +2755,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'eonkyo': {
+    hostname: 'e-onkyo.com',
     match: [/^(https?:\/\/)?([^/]+\.)?e-onkyo\.com/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -2706,6 +2791,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ester': {
+    hostname: 'ester.ee',
     match: [/^(https?:\/\/)?(www\.)?ester\.ee\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2714,6 +2800,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'facebook': {
+    hostname: ['facebook.com', 'fb.com'],
     match: [/^(https?:\/\/)?([\w.-]*\.)?(facebook|fb)\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -2763,6 +2850,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'flattr': {
+    hostname: 'flattr.com',
     match: [/^(https?:\/\/)?(www\.)?flattr\.com\/profile\/[^/?#]/i],
     restrict: [LINK_TYPES.patronage],
     clean(url) {
@@ -2771,6 +2859,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'foursquare': {
+    hostname: 'foursquare.com',
     match: [/^(https?:\/\/)?([^/]+\.)?foursquare\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -2778,6 +2867,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'gakki': {
+    hostname: 'saisaibatake.ame-zaiku.com',
     match: [/^(https?:\/\/)?(www\.)?saisaibatake\.ame-zaiku\.com\/(gakki|gakki_illustration|musical|musical_instrument)\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2794,6 +2884,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'generasia': {
+    hostname: 'generasia.com',
     match: [/^(https?:\/\/)?(www\.)?generasia\.com\/wiki\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2810,6 +2901,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'genie': {
+    hostname: 'genie.co.kr',
     match: [
       /^(https?:\/\/)?((www|mw)\.)?genie\.co\.kr\//i,
     ],
@@ -2906,6 +2998,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'genius': {
+    hostname: 'genius.com',
     match: [/^(https?:\/\/)?([^/]+\.)?genius\.com/i],
     restrict: [{
       ...LINK_TYPES.lyrics,
@@ -2940,6 +3033,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'geonames': {
+    hostname: 'geonames.org',
     match: [/^https?:\/\/([a-z]+\.)?geonames\.org\/([0-9]+)\/.*$/i],
     restrict: [LINK_TYPES.geonames],
     clean(url) {
@@ -2947,6 +3041,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'goodreads': {
+    hostname: 'goodreads.com',
     match: [/^(https?:\/\/)?(www\.)?goodreads\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -2979,12 +3074,14 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'googleplay': {
+    hostname: 'play.google.com',
     match: [/^(https?:\/\/)?play\.google\.com\/store\/music\//i],
     clean(url) {
       return url.replace(/^https?:\/\/play\.google\.com\/store\/music\/(artist|album)(?:\/[^?]*)?\?id=([^&#]+)(?:[&#].*)?$/, 'https://play.google.com/store/music/$1?id=$2');
     },
   },
   'googleplus': {
+    hostname: 'plus.google.com',
     match: [/^(https?:\/\/)?([^/]+\.)?plus\.google\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -2992,6 +3089,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'hmikuwiki': {
+    hostname: 'atwiki.jp',
     match: [/^(https?:\/\/)?(?:www5\.|w\.)?atwiki\.jp\/hmiku\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3010,6 +3108,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'hoick': {
+    hostname: 'hoick.jp',
     match: [/^(https?:\/\/)?([^/]+\.)?hoick\.jp\//i],
     restrict: [{...LINK_TYPES.mailorder, ...LINK_TYPES.lyrics}],
     clean(url) {
@@ -3050,6 +3149,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ibdb': {
+    hostname: 'ibdb.com',
     match: [/^(https?:\/\/)?(www\.)?ibdb\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3058,6 +3158,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'idref': {
+    hostname: 'idref.fr',
     match: [/^(https?:\/\/)?(www\.)?idref\.fr\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3083,6 +3184,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'imdb': {
+    hostname: 'imdb.*',
     match: [/^(https?:\/\/)?([^/]+\.)?imdb\./i],
     restrict: [LINK_TYPES.imdb],
     clean(url) {
@@ -3109,6 +3211,7 @@ const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.imdb.recording:
           case LINK_TYPES.imdb.release:
           case LINK_TYPES.imdb.release_group:
+          case LINK_TYPES.imdb.series:
           case LINK_TYPES.imdb.work:
             return {
               result: prefix === 'title/tt',
@@ -3121,6 +3224,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'imslp': {
+    hostname: 'imslp.org',
     match: [/^(https?:\/\/)?(www\.)?imslp\.org\//i],
     restrict: [{...LINK_TYPES.score, ...LINK_TYPES.imslp}],
     clean(url) {
@@ -3170,6 +3274,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'indiegogo': {
+    hostname: 'indiegogo.com',
     match: [/^(https?:\/\/)?(www\.)?indiegogo\.com\/(individuals|projects)\//i],
     restrict: [LINK_TYPES.crowdfunding],
     clean(url) {
@@ -3179,6 +3284,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'instagram': {
+    hostname: 'instagram.com',
     match: [/^(https?:\/\/)?([^/]+\.)?instagram\.com\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
@@ -3266,6 +3372,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'irishtune': {
+    hostname: 'irishtune.info',
     match: [/^(https?:\/\/)?(www\.)?irishtune\.info/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3293,6 +3400,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'irombook': {
+    hostname: 'static.metabrainz.org',
     match: [/^https:\/\/static\.metabrainz\.org\/irombook\//],
     restrict: [LINK_TYPES.image],
     validate(url, id) {
@@ -3303,6 +3411,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'itunes': {
+    hostname: 'itunes.apple.com',
     match: [/^(https?:\/\/)?([^/]+\.)?itunes\.apple\.com\//i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -3343,6 +3452,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'jamendo': {
+    hostname: 'jamendo.com',
     match: [/^(https?:\/\/)?([^/]+\.)?jamendo\.com/i],
     restrict: [multiple(LINK_TYPES.downloadfree, LINK_TYPES.streamingfree)],
     clean(url) {
@@ -3353,6 +3463,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'jaxsta': {
+    hostname: ['jaxsta.com', 'jaxsta.io'],
     match: [/^(https?:\/\/)?(www\.)?jaxsta\.(com|io)/i],
     restrict: [
       LINK_TYPES.otherdatabases,
@@ -3416,6 +3527,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'jazzmusicarchives': {
+    hostname: 'jazzmusicarchives.com',
     match: [/^(https?:\/\/)?(www\.)?jazzmusicarchives\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3450,6 +3562,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'joysound': {
+    hostname: 'joysound.com',
     match: [/^(https?:\/\/)?([^/]+\.)?joysound\.com\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -3477,6 +3590,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'junodownload': {
+    hostname: 'junodownload.com',
     match: [/^(?:https?:\/\/)?(?:www\.)?junodownload\.com/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -3519,6 +3633,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'kashinavi': {
+    hostname: 'kashinavi.com',
     match: [/^(https?:\/\/)?([^/]+\.)?kashinavi\.com\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -3553,6 +3668,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'kbr': {
+    hostname: 'opac.kbr.be',
     match: [/^(https?:\/\/)?opac\.kbr\.be\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3582,6 +3698,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'kickstarter': {
+    hostname: 'kickstarter.com',
     match: [/^(https?:\/\/)?(www\.)?kickstarter\.com\/(profile|projects)\//i],
     restrict: [LINK_TYPES.crowdfunding],
     clean(url) {
@@ -3591,6 +3708,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'kofi': {
+    hostname: 'ko-fi.com',
     match: [/^(https?:\/\/)?(www\.)?ko-fi\.com\/(?!s\/)/i],
     restrict: [LINK_TYPES.patronage],
     clean(url) {
@@ -3599,6 +3717,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'laboiteauxparoles': {
+    hostname: 'laboiteauxparoles.com',
     match: [/^(https?:\/\/)?([^/]+\.)?laboiteauxparoles\.com/i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -3631,6 +3750,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'lantis': {
+    hostname: 'lantis.jp',
     match: [
       /^(https?:\/\/)?(www\.)?lantis\.jp\/release-item2\.php\?id=[0-9a-f]{32}$/i,
       /^(https?:\/\/)?(www\.)?lantis\.jp\/release-item\/[A-Z]+-\d+(\.html)?$/i,
@@ -3643,6 +3763,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'lastfm': {
+    hostname: ['last.fm', 'lastfm.*'],
     match: [/^(https?:\/\/)?([^/]+\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))\/([a-z]{2}\/)?(music|label|venue|event|festival)\//i],
     restrict: [LINK_TYPES.lastfm],
     clean(url) {
@@ -3652,6 +3773,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'lastfm_user': {
+    hostname: ['last.fm', 'lastfm.*'],
     match: [/^(https?:\/\/)?([^/]+\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))\/user\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -3659,6 +3781,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'libraryofcongress': {
+    hostname: 'id.loc.gov',
     match: [/^(https?:\/\/)?id\.loc\.gov\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3679,6 +3802,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'librarything': {
+    hostname: 'librarything.com',
     match: [/^(https?:\/\/)?(www\.)?librarything\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3713,6 +3837,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'librivox': {
+    hostname: 'librivox.org',
     match: [/^(https?:\/\/)?(www\.)?librivox\.org/i],
     restrict: [LINK_TYPES.downloadfree],
     clean(url) {
@@ -3748,6 +3873,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'license': {
+    hostname: ['artlibre.org', 'creativecommons.org'],
     match: [
       /^(https?:\/\/)?([^/]+\.)?artlibre\.org\/licence/i,
       /^(https?:\/\/)?([^/]+\.)?creativecommons\.org\/(licenses|publicdomain)\//i,
@@ -3767,6 +3893,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'linkedin': {
+    hostname: 'linkedin.com',
     match: [/^(https?:\/\/)?([^/]+\.)?linkedin\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -3774,6 +3901,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'livefans': {
+    hostname: 'livefans.jp',
     match: [/^(https?:\/\/)?(www\.)?livefans\.jp/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3813,6 +3941,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'livenation': {
+    hostname: 'livenation.*',
     match: [/^(https?:\/\/)?(?:(?:concerts|www)\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\//i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
@@ -3854,6 +3983,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'loudr': {
+    hostname: 'loudr.fm',
     match: [/^(https?:\/\/)?loudr\.fm\//i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -3862,10 +3992,16 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'lyrics': {
+    hostname: [
+      'directlyrics.com',
+      'lieder.net',
+      'j-lyric.net',
+      'muzikum.eu',
+      'gutenberg.org',
+    ],
     match: [
       /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,
       /^(https?:\/\/)?([^/]+\.)?lieder\.net/i,
-      /^(https?:\/\/)?([^/]+\.)?utamap\.com/i,
       /^(https?:\/\/)?([^/]+\.)?j-lyric\.net/i,
       /^(https?:\/\/)?([^/]+\.)?muzikum\.eu/i,
       /^(https?:\/\/)?([^/]+\.)?gutenberg\.org/i,
@@ -3873,6 +4009,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.lyrics],
   },
   'mainlynorfolk': {
+    hostname: 'mainlynorfolk.info',
     match: [/^(https?:\/\/)?(www\.)?mainlynorfolk\.info/i],
     restrict: [
       LINK_TYPES.otherdatabases,
@@ -3926,6 +4063,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'maniadb': {
+    hostname: 'maniadb.com',
     match: [/^(https?:\/\/)?(www\.)?maniadb\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -3953,6 +4091,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'melon': {
+    hostname: 'melon.com',
     match: [/^(https?:\/\/)?((www|m2)\.)?melon\.com\//i],
     restrict: [
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
@@ -4049,6 +4188,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'metacritic': {
+    hostname: 'metacritic.com',
     match: [/^(https?:\/\/)?(www\.)?metacritic\.com/i],
     restrict: [LINK_TYPES.review],
     clean(url) {
@@ -4066,6 +4206,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'metalarchives': {
+    hostname: 'metal-archives.com',
     match: [/^(https?:\/\/)?(www\.)?metal-archives\.com\//i],
     restrict: [{...LINK_TYPES.otherdatabases, ...LINK_TYPES.review}],
     clean(url) {
@@ -4106,6 +4247,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'metalmusicarchives': {
+    hostname: 'metalmusicarchives.com',
     match: [/^(https?:\/\/)?(www\.)?metalmusicarchives\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4140,6 +4282,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'migumusic': {
+    hostname: 'migu.cn',
     match: [/^(https?:\/\/)?[^/]*music\.migu\.cn/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -4177,6 +4320,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'mixcloud': {
+    hostname: 'mixcloud.com',
     match: [/^(https?:\/\/)?([^/]+\.)?mixcloud\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -4184,6 +4328,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'mobygames': {
+    hostname: 'mobygames.com',
     match: [/^(https?:\/\/)?(www\.)?mobygames\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4211,6 +4356,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'mora': {
+    hostname: 'mora.jp',
     match: [/^(https?:\/\/)?([^/]+\.)?mora\.jp/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -4218,6 +4364,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'musicapopularcl': {
+    hostname: 'musicapopular.cl',
     match: [/^(https?:\/\/)?(www\.)?musicapopular\.cl/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4245,6 +4392,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'musiksammler': {
+    hostname: 'musik-sammler.de',
     match: [/^(https?:\/\/)?(www\.)?musik-sammler\.de\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4280,6 +4428,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'musixmatch': {
+    hostname: 'musixmatch.com',
     match: [/^(https?:\/\/)?([^/]+\.)?musixmatch\.com\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -4328,6 +4477,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'musopen': {
+    hostname: 'musopen.org',
     match: [/^(https?:\/\/)?([^/]+\.)?musopen\.org\//i],
     restrict: [LINK_TYPES.score],
     clean(url) {
@@ -4341,6 +4491,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'muziekweb': {
+    hostname: 'muziekweb.*',
     match: [/^(https?:\/\/)?www\.muziekweb\.(com|eu|nl)\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4378,6 +4529,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'myspace': {
+    hostname: ['myspace.com', 'myspace.de', 'myspace.fr'],
     match: [/^(https?:\/\/)?([^/]+\.)?myspace\.(com|de|fr)/i],
     restrict: [LINK_TYPES.myspace],
     clean(url) {
@@ -4388,6 +4540,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'napster': {
+    hostname: 'napster.com',
     match: [/^(https?:\/\/)?((app|www|[a-z]{2})\.)?napster\.com/i],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
@@ -4436,6 +4589,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ndlauth': {
+    hostname: 'id.ndl.go.jp',
     match: [/^(https?:\/\/)?id\.ndl\.go\.jp\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4452,10 +4606,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'neyzen': {
+    hostname: 'neyzen.com',
     match: [/^(https?:\/\/)?(www\.)?neyzen\.com/i],
     restrict: [LINK_TYPES.score],
   },
   'niconicovideo': {
+    hostname: 'nicovideo.jp',
     match: [/^(https?:\/\/)?((?!commons)[^/]+\.)?(nicovideo\.jp\/)/i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean(url) {
@@ -4498,6 +4654,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ocremix': {
+    hostname: 'ocremix.org',
     match: [/^(https?:\/\/)?(www\.)?ocremix\.org\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4507,6 +4664,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'offiziellecharts': {
+    hostname: 'offiziellecharts.de',
     match: [/^(https?:\/\/)?([^/]+\.)?offiziellecharts\.de\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4534,6 +4692,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'onlinebijbel': {
+    hostname: 'online-bijbel.nl',
     match: [/^(https?:\/\/)?([^/]+\.)?online-bijbel\.nl\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -4550,6 +4709,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'onlinecommunity': {
+    hostname: ['last.fm', 'lastfm.*'],
     match: [/^(https?:\/\/)?([^/]+\.)?(last\.fm|lastfm\.(com\.br|com\.tr|at|com|de|es|fr|it|jp|pl|pt|ru|se))\/([a-z]{2}\/)?group\//i],
     restrict: [LINK_TYPES.onlinecommunity],
     clean(url) {
@@ -4558,6 +4718,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'openlibrary': {
+    hostname: 'openlibrary.org',
     match: [/^(https?:\/\/)?(www\.)?openlibrary\.org/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4603,6 +4764,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'operabase': {
+    hostname: 'operabase.com',
     match: [/^(https?:\/\/)?(www\.)?operabase\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4639,6 +4801,40 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'otherdatabases': {
+    hostname: [
+      'musicmoz.org',
+      'discografia.dds.it',
+      'encyclopedisque.fr',
+      'discosdobrasil.com.br',
+      'isrc.ncl.edu.tw',
+      'rolldabeats.com',
+      'psydb.net',
+      'spirit-of-metal.com',
+      'lortel.org',
+      'theatricalia.com',
+      'imvdb.com',
+      'vkdb.jp',
+      'ci.nii.ac.jp',
+      'iss.ndl.go.jp',
+      'finnmusic.net',
+      'fono.fi',
+      'pomus.net',
+      'stage48.net',
+      'big.or.jp',
+      'japanesemetal.gooside.com',
+      'tedcrane.com',
+      'thedancegypsy.com',
+      'bibliotekapiosenki.pl',
+      'finna.fi',
+      'castalbums.org',
+      'folkwiki.se',
+      'mvdbase.com',
+      'smdb.kb.se',
+      'operadis-opera-discography.org.uk',
+      'spirit-of-rock.com',
+      'tunearch.org',
+      'videogam.in',
+    ],
     match: [
       /^(https?:\/\/)?(www\.)?musicmoz\.org\//i,
       /^(https?:\/\/)?(www\.)?discografia\.dds\.it\//i,
@@ -4676,6 +4872,7 @@ const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
   },
   'ototoy': {
+    hostname: 'ototoy.jp',
     match: [/^(https?:\/\/)?([^/]+\.)?ototoy\.jp/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -4708,6 +4905,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'overture': {
+    hostname: 'overture.doremus.org',
     match: [/^(https?:\/\/)?overture\.doremus\.org\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4740,10 +4938,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ozonru': {
+    hostname: 'ozon.ru',
     match: [/^(https?:\/\/)?(www\.)?ozon\.ru\/context\/detail\/id\//i],
     restrict: [LINK_TYPES.mailorder],
   },
   'patreon': {
+    hostname: 'patreon.com',
     match: [/^(https?:\/\/)?(www\.)?patreon\.com\/[^/?#]/i],
     restrict: [LINK_TYPES.patronage],
     clean(url) {
@@ -4759,6 +4959,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'paypal': {
+    hostname: 'paypal.me',
     match: [/^(https?:\/\/)?(www\.)?paypal\.me\/[^/?#]/i],
     restrict: [LINK_TYPES.patronage],
     clean(url) {
@@ -4767,6 +4968,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'petitlyrics': {
+    hostname: 'petitlyrics.com',
     match: [/^(https?:\/\/)?([^/]+\.)?petitlyrics\.com\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -4799,6 +5001,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'pinterest': {
+    hostname: 'pinterest.com',
     match: [/^(https?:\/\/)?([^/]+\.)?pinterest\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -4807,6 +5010,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'pixiv': {
+    hostname: 'pixiv.net',
     match: [/^(https?:\/\/)?(www\.)?pixiv\.net/i],
     restrict: [LINK_TYPES.artgallery],
     clean(url) {
@@ -4821,6 +5025,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'progarchives': {
+    hostname: 'progarchives.com',
     match: [/^(https?:\/\/)?(www\.)?progarchives\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4855,10 +5060,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'purevolume': {
+    hostname: 'purevolume.com',
     match: [/^(https?:\/\/)?([^/]+\.)?purevolume\.com/i],
     restrict: [LINK_TYPES.purevolume],
   },
   'qobuz': {
+    hostname: 'qobuz.com',
     match: [/^(https?:\/\/)?(www\.)?qobuz\.com\//i],
     restrict: [
       LINK_TYPES.downloadpurchase,
@@ -4898,6 +5105,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'quebecinfomusique': {
+    hostname: ['qim.com', 'quebecinfomusique.com'],
     match: [/^(https?:\/\/)?(www\.)?(qim|quebecinfomusique)\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -4944,6 +5152,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rateyourmusic': {
+    hostname: 'rateyourmusic.com',
     match: [/^(https?:\/\/)?([^/]+\.)?rateyourmusic\.com\/(?!feature)/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5018,6 +5227,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rateyourmusicfeature': {
+    hostname: 'rateyourmusic.com',
     match: [/^(https?:\/\/)?(www\.)?rateyourmusic\.com\/feature/i],
     restrict: [LINK_TYPES.interview],
     clean(url) {
@@ -5025,6 +5235,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'recochoku': {
+    hostname: 'recochoku.jp',
     match: [/^(https?:\/\/)?([^/]+\.)?recochoku\.jp/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -5032,6 +5243,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'residentadvisor': {
+    hostname: ['ra.co', 'residentadvisor.net'],
     match: [
       /^(https?:\/\/)?([^/]+\.)?ra\.co\/(?!exchange)/i,
       /^(https?:\/\/)?(www\.)?residentadvisor\.net\//i,
@@ -5112,6 +5324,7 @@ const CLEANUPS: CleanupEntries = {
   },
   // TODO: Merge with residentadvisor after MBS-9902 is implemented
   'residentadvisorexchange': {
+    hostname: 'ra.co',
     match: [/^(https?:\/\/)?(www\.)?ra\.co\/exchange/i],
     restrict: [LINK_TYPES.shownotes],
     clean(url) {
@@ -5119,6 +5332,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'reverbnation': {
+    hostname: 'reverbnation.com',
     match: [/^(https?:\/\/)?([^/]+\.)?reverbnation\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -5131,6 +5345,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rism': {
+    hostname: 'rism.online',
     match: [/^(https?:\/\/)?(www\.)?rism\.online/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5153,6 +5368,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rockcomar': {
+    hostname: 'rock.com.ar',
     match: [/^(https?:\/\/)?(www\.)?rock\.com\.ar/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5210,6 +5426,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rockensdanmarkskort': {
+    hostname: 'rockensdanmarkskort.dk',
     match: [/^(https?:\/\/)?(www\.)?rockensdanmarkskort\.dk/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5218,6 +5435,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rockinchina': {
+    hostname: 'rockinchina.com',
     match: [/^(https?:\/\/)?((www|wiki)\.)?rockinchina\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5226,6 +5444,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rockipedia': {
+    hostname: 'rockipedia.no',
     match: [/^(https?:\/\/)?(www\.)?rockipedia\.no/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5234,6 +5453,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rockit': {
+    hostname: 'rockit.it',
     match: [/^(https?:\/\/)?(www\.)?rockit\.it\/(?!recensione)/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5268,6 +5488,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'rockitreview': {
+    hostname: 'rockit.it',
     match: [/^(https?:\/\/)?(www\.)?rockit\.it\/recensione/i],
     restrict: [LINK_TYPES.review],
     clean(url) {
@@ -5275,6 +5496,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'runeberg': {
+    hostname: 'runeberg.org',
     match: [/^(https?:\/\/)?([^/]+\.)?runeberg\.org\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -5291,6 +5513,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'secondhandsongs': {
+    hostname: 'secondhandsongs.com',
     match: [/^(https?:\/\/)?([^/]+\.)?secondhandsongs\.com\//i],
     restrict: [LINK_TYPES.secondhandsongs],
     clean(url) {
@@ -5335,6 +5558,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'setlistfm': {
+    hostname: 'setlist.fm',
     match: [/^(https?:\/\/)?([^/]+\.)?setlist\.fm/i],
     restrict: [LINK_TYPES.setlistfm],
     clean(url) {
@@ -5372,6 +5596,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'snac': {
+    hostname: ['snaccooperative.org', 'n2t.net'],
     match: [
       /^(https?:\/\/)?([^/]+\.)?snaccooperative\.org\//i,
       /^(https?:\/\/)?([^/]+\.)?n2t\.net\/ark:\/99166\//i,
@@ -5397,10 +5622,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'songfacts': {
+    hostname: 'songfacts.com',
     match: [/^(https?:\/\/)?([^/]+\.)?songfacts\.com\//i],
     restrict: [LINK_TYPES.songfacts],
   },
   'songkick': {
+    hostname: 'songkick.com',
     match: [/^(https?:\/\/)?([^/]+\.)?songkick\.com/i],
     restrict: [LINK_TYPES.songkick],
     clean(url) {
@@ -5438,6 +5665,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'soundcloud': {
+    hostname: 'soundcloud.com',
     match: [/^(https?:\/\/)?([^/]+\.)?soundcloud\.com/i],
     restrict: [
       LINK_TYPES.soundcloud,
@@ -5473,6 +5701,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'soundtrackcollector': {
+    hostname: 'soundtrackcollector.com',
     match: [/^(https?:\/\/)?(www\.)?soundtrackcollector\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5503,6 +5732,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotify': {
+    hostname: ['spotify.com', 'spotify.link'],
     match: [/^(https?:\/\/)?(((?!(?:artists|shop))[^/])+\.)?(spotify\.(?:com|link))\/(?!(?:intl-[a-z]+\/)?user)/i],
     restrict: [LINK_TYPES.podcastfeed, LINK_TYPES.streamingfree],
     clean(url) {
@@ -5561,6 +5791,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotifyshop': {
+    hostname: 'shop.spotify.com',
     match: [/^(https?:\/\/)?shop\.spotify\.com\//i],
     restrict: [LINK_TYPES.downloadpurchase, LINK_TYPES.mailorder],
     clean(url) {
@@ -5582,6 +5813,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotifysongwriter': {
+    hostname: 'artists.spotify.com',
     match: [/^(https?:\/\/)?artists\.spotify\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5600,6 +5832,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'spotifyuseraccount': {
+    hostname: 'spotify.com',
     match: [/^(https?:\/\/)?([^/]+\.)?(spotify\.com)\/(?:intl-[a-z]+\/)?user/i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -5614,6 +5847,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'steamdb': {
+    hostname: 'steamdb.info',
     match: [/^(https?:\/\/)?(www\.)?steamdb\.info\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5631,6 +5865,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'stereo-ve-mono': {
+    hostname: 'stereo-ve-mono.com',
     match: [/^(https:\/\/)?(www\.)?stereo-ve-mono\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5657,6 +5892,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'target': {
+    hostname: 'target.com',
     match: [/^(https?:\/\/)?((intl|www)\.)?target\.com\/(b|p)/i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -5666,12 +5902,12 @@ const CLEANUPS: CleanupEntries = {
       );
       url = url.replace(
         /^(https:\/\/www\.target\.com)\/(b|p)\/(?:.*\/)?([AN]-[^/?#]+).*$/,
-        '$1/$2/$3',
+        '$1/$2/-/$3',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.target\.com\/(b|p)\/[AN]-\w+$/.exec(url);
+      const m = /^https:\/\/www\.target\.com\/(b|p)\/-\/[AN]-\w+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -5692,6 +5928,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'thbwiki': {
+    hostname: 'thwiki.cc',
     match: [/^(https?:\/\/)?(www\.)?thwiki\.cc/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5702,6 +5939,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'thesession': {
+    hostname: 'thesession.org',
     match: [/^(https?:\/\/)?(www\.)?thesession\.org/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5745,6 +5983,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'threads': {
+    hostname: ['threads.com', 'threads.net'],
     match: [/^(?:https?:\/\/)?(?:[^/]+\.)?threads\.(?:com|net)\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
@@ -5778,6 +6017,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'ticketmaster': {
+    hostname: 'ticketmaster.*',
     match: [/^(https?:\/\/)?(www\.)?ticketmaster\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
@@ -5812,6 +6052,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tidal': {
+    hostname: 'tidal.com',
     match: [/^(https?:\/\/)?(([^/]+\.)*(desktop|listen|stage|www)\.)?tidal\.com\/.*(album|artist|track|video)\//i],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
@@ -5846,6 +6087,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tidalstore': {
+    hostname: 'store.tidal.com',
     match: [/^(https?:\/\/)?store\.tidal\.com\/(?:[a-z]{2}\/)?(album|artist)\//i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -5873,6 +6115,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tiktok': {
+    hostname: 'tiktok.com',
     match: [/^(https?:\/\/)?(www\.)?tiktok\.com/i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
@@ -5911,6 +6154,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tipeee': {
+    hostname: 'tipeee.com',
     match: [/^(https?:\/\/)?(?:[^/]+\.)?tipeee\.com\/[^/?#]/i],
     restrict: [LINK_TYPES.patronage],
     clean(url) {
@@ -5919,6 +6163,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tmdb': {
+    hostname: 'themoviedb.org',
     match: [/^(https?:\/\/)?(www\.)?themoviedb\.org/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -5938,6 +6183,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tobarandualchais': {
+    hostname: 'tobarandualchais.co.uk',
     match: [/^(https?:\/\/)?([^/]+\.)?tobarandualchais\.co\.uk/i],
     restrict: [
       {artist: LINK_TYPES.otherdatabases.artist},
@@ -5975,6 +6221,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tower': {
+    hostname: 'tower.jp',
     match: [/^(https?:\/\/)?(www\.)?tower\.jp/i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -6005,6 +6252,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'traxsource': {
+    hostname: 'traxsource.com',
     match: [/^(https?:\/\/)?(www\.)?traxsource\.com/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
@@ -6043,6 +6291,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'triplejunearthed': {
+    hostname: ['abc.net.au', 'triplejunearthed.com'],
     match: [
       /^(https?:\/\/)?(www\.)?abc\.net\.au\/triplejunearthed/i,
       /^(https?:\/\/)?(www\.)?triplejunearthed\.com/i,
@@ -6055,6 +6304,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'trove': {
+    hostname: 'nla.gov.au',
     match: [/^(https?:\/\/)?(www\.)?(trove\.)?nla\.gov\.au\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -6065,6 +6315,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'tsutaya': {
+    hostname: 'shop.tsutaya.co.jp',
     match: [/^(https?:\/\/)?shop\.tsutaya\.co\.jp\//i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -6094,6 +6345,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'twitch': {
+    hostname: ['twitch.tv', 'twitch.com'],
     match: [/^(https?:\/\/)?([^/]+\.)?twitch\.(?:com|tv)\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean(url) {
@@ -6127,6 +6379,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'twitter': {
+    hostname: ['twitter.com', 'x.com'],
     match: [/^(https?:\/\/)?([^/]+\.)?(twitter|x)\.com\//i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.socialnetwork}],
     clean(url) {
@@ -6196,10 +6449,8 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
-    match: [
-      /^(https?:\/\/)?s\.pixogs\.com\//i,
-      /^(https?:\/\/)?(s|img)\.discogss?\.com\//i,
-    ],
+    hostname: 'i.discogs.com',
+    match: [/^(https?:\/\/)?i\.discogs\.com\//i],
     restrict: [LINK_TYPES.image],
     validate() {
       return {
@@ -6210,6 +6461,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'utaitedbvocadbtouhoudb': {
+    hostname: ['utaitedb.net', 'vocadb.net', 'touhoudb.com'],
     match: [/^(https?:\/\/)?(www\.)?((utaite|voca)db\.net|touhoudb\.com)/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -6264,6 +6516,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'utanet': {
+    hostname: 'uta-net.com',
     match: [/^(https?:\/\/)?([^/]+\.)?uta-net\.com\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -6291,6 +6544,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'utaten': {
+    hostname: 'utaten.com',
     match: [/^(https?:\/\/)?([^/]+\.)?utaten\.com\//i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -6318,6 +6572,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vgmdb': {
+    hostname: ['vgmdb.net', 'vgmdb.com'],
     match: [/^(https?:\/\/)?vgmdb\.(net|com)\//i],
     restrict: [LINK_TYPES.vgmdb],
     clean(url) {
@@ -6365,6 +6620,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'viaf': {
+    hostname: 'viaf.org',
     match: [/^(https?:\/\/)?([^/]+\.)?viaf\.org/i],
     restrict: [LINK_TYPES.viaf],
     clean(url) {
@@ -6380,6 +6636,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vibe': {
+    hostname: ['vibe.naver.com', 'music.naver.com'],
     match: [
       /^(https?:\/\/)?vibe\.naver\.com\//i,
       /^(https?:\/\/)?music\.naver\.com\//i, // legacy URL
@@ -6472,6 +6729,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vimeo': {
+    hostname: 'vimeo.com',
     match: [/^(https?:\/\/)?([^/]+\.)?vimeo\.com\/(?!(?:ondemand|store\/ondemand))/i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.videochannel}],
     clean(url) {
@@ -6482,6 +6740,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vimeoondemand': {
+    hostname: 'vimeo.com',
     match: [/^(https?:\/\/)?([^/]+\.)?vimeo\.com\/(?:ondemand|store\/ondemand)/i],
     restrict: [
       LINK_TYPES.downloadpurchase,
@@ -6526,10 +6785,12 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vine': {
+    hostname: 'vine.co',
     match: [/^(https?:\/\/)?([^/]+\.)?vine\.co\//i],
     restrict: [LINK_TYPES.socialnetwork],
   },
   'vk': {
+    hostname: 'vk.com',
     match: [/^(https?:\/\/)?([^/]+\.)?vk\.com\/(?!(?:artist|audio|music|video))/i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -6537,6 +6798,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vkgy': {
+    hostname: 'vk.gy',
     match: [/^(https?:\/\/)?(www\.)?vk\.gy/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -6584,6 +6846,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vkmusic': {
+    hostname: 'vk.com',
     match: [/^(https?:\/\/)?([^/]+\.)?vk\.com\/(?:artist|audio|music|video)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -6625,6 +6888,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'vndb': {
+    hostname: 'vndb.org',
     match: [/^(https?:\/\/)?(www\.)?vndb\.org\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -6652,6 +6916,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'weibo': {
+    hostname: 'weibo.com',
     match: [/^(https?:\/\/)?([^/]+\.)?weibo\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
@@ -6659,6 +6924,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'whosampled': {
+    hostname: 'whosampled.com',
     match: [/^(https?:\/\/)?(www\.)?whosampled\.com/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -6753,6 +7019,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'wikidata': {
+    hostname: 'wikidata.org',
     match: [/^(https?:\/\/)?([^/]+\.)?wikidata\.org/i],
     restrict: [LINK_TYPES.wikidata],
     clean(url) {
@@ -6766,6 +7033,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'wikimediacommons': {
+    hostname: 'wikimedia.org',
     match: [/^(https?:\/\/)?(commons\.(?:m\.)?wikimedia\.org|upload\.wikimedia\.org\/wikipedia\/commons\/)/i],
     restrict: [{...LINK_TYPES.score, ...LINK_TYPES.image}],
     clean(url) {
@@ -6784,6 +7052,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'wikipedia': {
+    hostname: ['wikipedia.*', 'secure.wikimedia.*'],
     match: [/^(https?:\/\/)?(([^/]+\.)?wikipedia|secure\.wikimedia)\./i],
     restrict: [LINK_TYPES.wikipedia],
     clean(url) {
@@ -6838,6 +7107,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'wikisource': {
+    hostname: 'wikisource.org',
     match: [/^(https?:\/\/)?([^/]+\.)?wikisource\.org/i],
     restrict: [LINK_TYPES.lyrics],
     clean(url) {
@@ -6853,6 +7123,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'worldcat': {
+    hostname: ['oclc.org', 'worldcat.org'],
     match: [
       /^(https?:\/\/)?(?:entities|id)\.oclc\.org\/worldcat\//i,
       /^(https?:\/\/)?(www\.)?worldcat\.org\//i,
@@ -6868,6 +7139,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'yandex': {
+    hostname: 'music.yandex.*',
     match: [/^(https?:\/\/)?music\.yandex\.(?:com|by|kz|ru|uz)\/(?!video)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
@@ -6910,6 +7182,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'yesasia': {
+    hostname: 'yesasia.com',
     match: [/^(https?:\/\/)?(www\.)?yesasia\.com\//i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
@@ -6939,6 +7212,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'youtube': {
+    hostname: ['youtube.com', 'youtu.be'],
     match: [/^(https?:\/\/)?(((?!music)[^/])+\.)?(youtube\.com\/|youtu\.be\/)/i],
     restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.youtube}],
     clean(url) {
@@ -7030,6 +7304,7 @@ const CLEANUPS: CleanupEntries = {
     },
   },
   'youtubemusic': {
+    hostname: 'music.youtube.com',
     match: [/^(https?:\/\/)?music\.youtube\.com\//i],
     restrict: [
       LINK_TYPES.youtubemusic,
@@ -7140,7 +7415,38 @@ const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
     },
   },
+  'zamp': {
+    hostname: 'zamp.hr',
+    match: [/^(https?:\/\/)?(www\.)?zamp\.hr/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?zamp\.hr\/baza-autora\/(autor|djelo)\/pregled\/([0-9]+)(?:[^0-9].*)?$/, 'https://www.zamp.hr/baza-autora/$1/pregled/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/www\.zamp\.hr\/baza-autora\/(autor|djelo)\/pregled\/[0-9]*$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'autor',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: prefix === 'djelo',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'zemereshet': {
+    hostname: 'zemereshet.co.il',
     match: [/^(https?:\/\/)?(www\.)?zemereshet\.co\.il\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
@@ -7174,17 +7480,82 @@ const CLEANUPS: CleanupEntries = {
 };
 /* eslint-enable sort-keys */
 
-function testAll(tests: $ReadOnlyArray<RegExp>, text: string) {
-  for (let i = 0; i < tests.length; i++) {
-    if (tests[i].test(text)) {
-      return true;
+function findCleanupEntryByHostname(
+  hostname: string,
+  sourceUrl: string,
+): CleanupEntry | null {
+  const entries = CLEANUP_ENTRIES_BY_HOSTNAME[hostname];
+  if (entries) {
+    for (let i = 0; i < entries.length; i++) {
+      const entry = entries[i];
+      const matchRegExps = entry.match;
+      for (let i = 0; i < matchRegExps.length; i++) {
+        if (matchRegExps[i].test(sourceUrl)) {
+          return entry;
+        }
+      }
     }
   }
-
-  return false;
+  return null;
 }
 
-const CLEANUP_ENTRIES: Array<CleanupEntry> = Object.values(CLEANUPS);
+const httpRegExp = /^https?:\/\//;
+function findCleanupEntry(inputUrl: string): CleanupEntry | null {
+  const url = httpRegExp.test(inputUrl) ? inputUrl : ('http://' + inputUrl);
+  const {
+    domain,
+    domainWithoutSuffix,
+    hostname,
+    subdomain,
+  } = tldtsParse(url);
+  if (!domain) {
+    return null;
+  }
+  let entry = (
+    findCleanupEntryByHostname(domain, url) ||
+    findCleanupEntryByHostname(hostname, url) ||
+    findCleanupEntryByHostname(domainWithoutSuffix + '.*', url)
+  );
+  if (entry) {
+    return entry;
+  }
+  if (subdomain) {
+    const subdomainLabels = subdomain.split('.');
+    let subdomainPart = '';
+    for (let i = subdomainLabels.length - 1; i >= 0; i--) {
+      subdomainPart = subdomainLabels[i] + '.' + subdomainPart;
+      entry = (
+        findCleanupEntryByHostname(subdomainPart + domain, url) ||
+        findCleanupEntryByHostname(
+          subdomainPart + domainWithoutSuffix + '.*',
+          url,
+        )
+      );
+      if (entry) {
+        return entry;
+      }
+    }
+  }
+  return null;
+}
+
+export const CLEANUP_ENTRIES_BY_HOSTNAME:
+  {+[hostname: string]: $ReadOnlyArray<CleanupEntry>} =
+  Object.values(CLEANUPS).reduce((accum, entry) => {
+    const hostnames = Array.isArray(entry.hostname)
+      ? entry.hostname
+      : [entry.hostname];
+    hostnames.forEach((hostname) => {
+      let entries = accum[hostname];
+      if (!entries) {
+        entries = [];
+        accum[hostname] = entries;
+      }
+      entries.push(entry);
+    });
+    return accum;
+  // $FlowIgnore[incompatible-cast]
+  }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
 
 const entitySpecificRules: {
   [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
@@ -7307,9 +7678,7 @@ export class Checker {
   constructor(url: string, entityType: RelatableEntityTypeT) {
     this.url = url;
     this.entityType = entityType;
-    this.cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
-      return testAll(cleanup.match, url);
-    });
+    this.cleanup = findCleanupEntry(url);
   }
 
   /*
@@ -7460,10 +7829,7 @@ export class Checker {
 export function cleanURL(dirtyURL: string): string {
   dirtyURL = dirtyURL.trim().replace(/(%E2%80%8E|\u200E)$/, '');
 
-  const cleanup = CLEANUP_ENTRIES.find(function (cleanup) {
-    return cleanup.clean && testAll(cleanup.match, dirtyURL);
-  });
-
+  const cleanup = findCleanupEntry(dirtyURL);
   return (cleanup && cleanup.clean) ? cleanup.clean(dirtyURL) : dirtyURL;
 }
 

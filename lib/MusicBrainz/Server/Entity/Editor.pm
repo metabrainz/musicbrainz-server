@@ -282,6 +282,12 @@ has deleted => (
     is => 'rw',
 );
 
+has unused => (
+    isa => 'Bool',
+    is => 'rw',
+    predicate => 'is_unused_set',
+);
+
 sub l_restrictions {
     my $self = shift;
 
@@ -344,6 +350,10 @@ sub _unsanitized_json {
         registration_date           => datetime_to_iso8601($self->registration_date),
         website                     => $self->website,
     };
+
+    if ($self->is_unused_set) {
+        $json->{unused} = boolean_to_json($self->unused);
+    }
 
     for my $restricted_key (qw( birth_date email )) {
         die "Use \$c->unsanitized_editor_json to access $restricted_key"

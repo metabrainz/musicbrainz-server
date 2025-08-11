@@ -12,7 +12,7 @@ import webpack from 'webpack';
 
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
-import {SCRIPTS_DIR} from './constants.mjs';
+import {ECMA_VERSION, SCRIPTS_DIR} from './constants.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
 
 export default {
@@ -57,5 +57,5 @@ export default {
     },
   },
 
-  target: ['web', 'es5'],
+  target: ['web', 'es' + String(ECMA_VERSION)],
 };

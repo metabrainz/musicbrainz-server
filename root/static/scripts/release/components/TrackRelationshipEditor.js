@@ -335,7 +335,7 @@ component _RelatedWorksRelationshipEditor(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   recording: RecordingT,
-  relatedWorks: MediumWorkStateTreeT | null,
+  relatedWorks: MediumWorkStateTreeT,
   releaseHasUnloadedTracks: boolean,
   track: TrackWithRecordingT,
 ) {

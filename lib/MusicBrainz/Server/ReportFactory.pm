@@ -23,6 +23,7 @@ my @all = qw(
     ArtistsThatMayBeGroups
     ArtistsThatMayBePersons
     ArtistsWithNoSubscribers
+    ArtistsWithMismatchedPrimaryAliases
     BadAmazonURLs
     BootlegsOnNonBootlegLabels
     CatNoLooksLikeASIN
@@ -64,6 +65,7 @@ my @all = qw(
     ISWCsWithManyWorks
     KaraokePlusInstrumentalRecordings
     LabelsDisambiguationSameName
+    LabelsWithMismatchedPrimaryAliases
     LimitedEditors
     LinksWithMultipleEntities
     LonelyPseudoReleases
@@ -87,6 +89,7 @@ my @all = qw(
     RecordingTrackDifferentName
     RecordingsWithFutureDates
     ReleasedTooEarly
+    ReleasedTooEarlyDigital
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
     ReleaseLabelSameArtist
@@ -132,6 +135,7 @@ use MusicBrainz::Server::Report::ArtistsThatMayBeGroups;
 use MusicBrainz::Server::Report::ArtistsThatMayBePersons;
 use MusicBrainz::Server::Report::ArtistsWithMultipleOccurrencesInArtistCredits;
 use MusicBrainz::Server::Report::ArtistsWithNoSubscribers;
+use MusicBrainz::Server::Report::ArtistsWithMismatchedPrimaryAliases;
 use MusicBrainz::Server::Report::BadAmazonURLs;
 use MusicBrainz::Server::Report::BootlegsOnNonBootlegLabels;
 use MusicBrainz::Server::Report::CatNoLooksLikeASIN;
@@ -173,6 +177,7 @@ use MusicBrainz::Server::Report::ISRCsWithManyRecordings;
 use MusicBrainz::Server::Report::ISWCsWithManyWorks;
 use MusicBrainz::Server::Report::KaraokePlusInstrumentalRecordings;
 use MusicBrainz::Server::Report::LabelsDisambiguationSameName;
+use MusicBrainz::Server::Report::LabelsWithMismatchedPrimaryAliases;
 use MusicBrainz::Server::Report::LimitedEditors;
 use MusicBrainz::Server::Report::LinksWithMultipleEntities;
 use MusicBrainz::Server::Report::LonelyPseudoReleases;
@@ -197,6 +202,7 @@ use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 use MusicBrainz::Server::Report::RecordingTrackDifferentName;
 use MusicBrainz::Server::Report::RecordingsWithFutureDates;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
+use MusicBrainz::Server::Report::ReleasedTooEarlyDigital;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;

@@ -165,9 +165,9 @@ export function createInitialState(
 
 function getLinkAttributesFromState(
   attributesList: DialogAttributesT,
-): tree.ImmutableTree<LinkAttrT> | null {
+): tree.ImmutableTree<LinkAttrT> {
   return attributesList.reduce((
-    accum: tree.ImmutableTree<LinkAttrT> | null,
+    accum: tree.ImmutableTree<LinkAttrT>,
     attributeState,
   ) => {
     switch (attributeState.control) {
@@ -235,7 +235,7 @@ function getLinkAttributesFromState(
       }
     }
     return accum;
-  }, null);
+  }, tree.empty);
 }
 
 export function reducer(

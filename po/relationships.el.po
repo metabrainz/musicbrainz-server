@@ -324,8 +324,9 @@ msgid "IMDB samples"
 msgstr ""
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -337,9 +338,9 @@ msgid "IMDb entry sampled in"
 msgstr "χρησιμοποιήθηκε sample από την καταχώριση του IMDb στο"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "Σελίδα του IMDb για"
 
@@ -2851,6 +2852,13 @@ msgstr ""
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr ""
 
+#. name:logo
+#: DB:link_type/description:1288
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr ""
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -3443,6 +3451,13 @@ msgstr "Συνδέει μία κυκλοφορία με την άδεια υπό
 #| msgid "This links a release to a license under which it is available."
 msgid "This links a release with the place its lyrics were written at."
 msgstr "Συνδέει μία κυκλοφορία με την άδεια υπό την οποία είναι διαθέσιμη"
+
+#. name:IMDb
+#: DB:link_type/description:1289
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -6460,7 +6475,7 @@ msgid "has a karaoke version"
 msgstr "έχει έκδοση καραόκε"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "έχει λογότυπο στο"
 
@@ -6542,8 +6557,9 @@ msgid "has an Allmusic page at"
 msgstr "έχει σελίδα Allmusic στο"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "έχει σελίδα IMDb στο"
 
@@ -7449,17 +7465,17 @@ msgstr "ζωντανές εκτελέσεις"
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "λογότυπο από"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "λογότυπα"
 

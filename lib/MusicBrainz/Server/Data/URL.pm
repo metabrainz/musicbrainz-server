@@ -213,7 +213,6 @@ my %URL_SPECIALIZATIONS = (
     'Twitch'              => qr{^https?://(?:www\.)?twitch\.tv/}i,
     'Twitter'             => qr{^https?://(?:www\.)?twitter\.com/}i,
     'UtaiteDB'            => qr{^https?://(?:www\.)?utaitedb\.net/}i,
-    'Utamap'              => qr{^https?://(?:www\.)?utamap\.com/}i,
     'UtaNet'              => qr{^https?://(?:www\.)?uta-net\.com/}i,
     'Utaten'              => qr{^https?://(?:www\.)?utaten\.com/}i,
     'VGMdb'               => qr{^https?://(?:www\.)?vgmdb\.net/}i,
@@ -236,6 +235,7 @@ my %URL_SPECIALIZATIONS = (
     'YouTube'             => qr{^https?://(?:www\.)?youtube\.com/}i,
     'YouTubeMusic'        => qr{^https?://music\.youtube\.com/}i,
     'Yunisan'             => qr{^https?://(?:www22\.)?big\.or\.jp/}i,
+    'Zamp'                => qr{^https?://(?:www\.)?zamp\.hr/}i,
     'Zemereshet'          => qr{^https?://(?:www\.)?zemereshet\.co\.il/}i,
 
     # License links

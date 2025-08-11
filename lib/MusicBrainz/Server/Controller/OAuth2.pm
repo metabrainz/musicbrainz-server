@@ -455,7 +455,7 @@ sub _check_redirect_uri
 
     if (!$application->is_server) {
         return 1 if $redirect_uri eq 'urn:ietf:wg:oauth:2.0:oob';
-        return 1 if $redirect_uri =~ /^http:\/\/localhost(:\d+)?(\/.*?)?$/;
+        return 1 if $redirect_uri =~ /^http:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?(\/.*?)?$/;
     }
     return 0;
 }

@@ -1,5 +1,5 @@
 // Automatically generated, do not edit.
-// - Database schema sequence: 29
+// - Database schema sequence: 30
 digraph soup {
     tooltip = "All tables for MusicBrainz and the Cover Art Archive"
     graph [
@@ -569,7 +569,7 @@ digraph soup {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="catalog_numbers"><font point-size="14">catalog_numbers</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="country_code"><font point-size="14">country_code</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="barcode"><font point-size="14">barcode</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
                 <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
             </table>
         >
@@ -581,10 +581,12 @@ digraph soup {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="is_track_artist"><font point-size="14">is_track_artist</font></td></tr>
                 <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="unofficial"><font point-size="14">unofficial</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="primary_type_child_order"><font point-size="14">primary_type_child_order</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="primary_type"><font point-size="14">primary_type</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="secondary_type_child_orders"><font point-size="14">secondary_type_child_orders</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="secondary_types"><font point-size="14">secondary_types</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="first_release_date"><font point-size="14">first_release_date</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="sort_character"><font point-size="14">sort_character</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="name"><font point-size="14">name</font></td></tr>
                 <tr><td bgcolor="#eeeeee55" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
             </table>
         >
@@ -3742,6 +3744,7 @@ digraph soup {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="edits_pending"><font point-size="14">edits_pending</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="last_updated"><font point-size="14">last_updated</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="track_count"><font point-size="14">track_count</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
             </table>
         >
     ];
@@ -3828,6 +3831,16 @@ digraph soup {
                 <tr><td bgcolor="#bbbbbb33" align="left" port="has_discids"><font point-size="14">has_discids</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="description"><font point-size="14">description</font></td></tr>
                 <tr><td bgcolor="#bbbbbb33" align="left" port="gid"><font point-size="14">gid</font></td></tr>
+            </table>
+        >
+    ];
+    "musicbrainz.medium_gid_redirect" [
+        label = <
+            <table border="0" cellspacing="0" cellborder="1">
+                <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium_gid_redirect</font></td></tr>
+                <tr><td bgcolor="#eeeeee77" align="left" port="gid"><font point-size="14"><u>gid</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee55" align="left" port="new_id"><font point-size="14">new_id</font></td></tr>
+                <tr><td bgcolor="#bbbbbb33" align="left" port="created"><font point-size="14">created</font></td></tr>
             </table>
         >
     ];
@@ -5753,6 +5766,7 @@ digraph soup {
     "musicbrainz.medium_attribute_type_allowed_value_allowed_format":"medium_attribute_type_allowed_value" -> "musicbrainz.medium_attribute_type_allowed_value":"id"
     "musicbrainz.medium_cdtoc":"medium" -> "musicbrainz.medium":"id"
     "musicbrainz.medium_cdtoc":"cdtoc" -> "musicbrainz.cdtoc":"id"
+    "musicbrainz.medium_gid_redirect":"new_id" -> "musicbrainz.medium":"id"
     "musicbrainz.medium_index":"medium" -> "musicbrainz.medium":"id"
     "musicbrainz.mood_alias":"mood" -> "musicbrainz.mood":"id"
     "musicbrainz.mood_alias":"type" -> "musicbrainz.mood_alias_type":"id"

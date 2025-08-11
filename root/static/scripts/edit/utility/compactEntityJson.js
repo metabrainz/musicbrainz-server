@@ -24,6 +24,8 @@ const functionToString: () => string =
   Function.prototype.toString;
 const objectCtorString: string = functionToString.call(Object);
 
+const UNDEFINED_INDEX = -1;
+
 function _indexValue(
   value: mixed,
   indexCache: Map<mixed, number>,
@@ -96,9 +98,12 @@ function _indexValue(
     }
     case 'bigint':
     case 'function':
-    case 'symbol':
-    case 'undefined': {
+    case 'symbol': {
       throw new Error(`Cannot convert ${typeof value} to JSON`);
+    }
+    case 'undefined': {
+      // Handled via `UNDEFINED_INDEX`.
+      throw new Error('Unreachable');
     }
   }
 
@@ -110,7 +115,9 @@ export function compactEntityJson(
   value: mixed,
 ): $ReadOnlyArray<mixed> {
   const result: Array<mixed> = [];
-  _indexValue(value, new Map(), result);
+  const indexCache = new Map<mixed, number>();
+  indexCache.set(undefined, UNDEFINED_INDEX);
+  _indexValue(value, indexCache, result);
   return result;
 }
 
@@ -125,6 +132,9 @@ export function decompactEntityJson(
   function _decompactIndex(
     index: number,
   ): mixed {
+    if (index === UNDEFINED_INDEX) {
+      return undefined;
+    }
     const value = compactedArray[index];
     if (typeof value === 'object' && value !== null) {
       const resolvedValue = resolved[index];

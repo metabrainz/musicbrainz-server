@@ -7,6 +7,7 @@ require('./common/immutable-entities.js');
 require('./Control/URLCleanup.js');
 require('./Art.js');
 require('./edit.js');
+require('./edit/utility/compactEntityJson.js');
 require('./edit/utility/getUpdatedTrackArtists.js');
 require('./edit/utility/isUselessMediumTitle.js');
 require('./edit/utility/linkPhrase.js');

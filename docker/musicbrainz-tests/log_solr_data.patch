@@ -1,12 +1,12 @@
 diff --git a/sir/indexing.py b/sir/indexing.py
-index 8c7d64b..ac626b2 100644
+index e38e61b..efea1cd 100644
 --- a/sir/indexing.py
 +++ b/sir/indexing.py
-@@ -327,6 +327,7 @@ def send_data_to_solr(solr_connection, data):
-     with sentry_sdk.push_scope() as scope:
+@@ -335,6 +335,7 @@ def send_data_to_solr(solr_connection, data):
+     with sentry_sdk.new_scope() as scope:
          scope.set_extra("data", data)
          try:
 +            logger.debug("Sending data to Solr: %s", data)
              solr_connection.add(data)
              logger.debug("Done sending data to Solr")
-         except SolrError as e:
+         except Exception as e:

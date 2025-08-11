@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2024-05-02 16:46+0000\n"
-"Last-Translator: hashflu <hashflu@users.noreply.translations.metabrainz."
-"org>\n"
+"Last-Translator: hashflu "
+"<hashflu@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ko/>\n"
 "Language: ko\n"
@@ -2155,6 +2155,11 @@ msgstr ""
 msgid "Selkup"
 msgstr ""
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2370,6 +2375,11 @@ msgstr "스웨덴어"
 #. frequency:1 iso_code_3:syr
 #: DB:language/name:404
 msgid "Syriac"
+msgstr ""
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
 msgstr ""
 
 #. frequency:1 iso_code_3:tgl

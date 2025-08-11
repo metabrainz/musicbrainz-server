@@ -9,12 +9,12 @@
 
 import * as tree from 'weight-balanced-tree';
 
-import {compactEntityJson} from '../../../../utility/compactEntityJson.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../../common/utility/storage.js';
+import {compactEntityJson} from '../../edit/utility/compactEntityJson.js';
 import {
   REL_STATUS_NOOP,
   REL_STATUS_REMOVE,
@@ -81,7 +81,7 @@ function pushRelationshipHiddenInputs(
 
   const newAttributes = relationship.attributes;
   let attributeIndex = 0;
-  for (const attribute of tree.iterate(newAttributes)) {
+  for (const attribute of tree.iterate(newAttributes ?? tree.empty)) {
     pushAttributeInputs(attributeIndex, attribute);
     attributeIndex++;
   }
@@ -90,9 +90,9 @@ function pushRelationshipHiddenInputs(
   if (origRelationship) {
     const origAttributes = origRelationship.attributes;
 
-    for (const attribute of tree.iterate(origAttributes)) {
+    for (const attribute of tree.iterate(origAttributes ?? tree.empty)) {
       const newAttribute = tree.find(
-        newAttributes,
+        newAttributes ?? tree.empty,
         attribute,
         compareLinkAttributeIds,
       );

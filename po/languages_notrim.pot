@@ -30268,7 +30268,7 @@ msgstr ""
 msgid "Seluwasan"
 msgstr ""
 
-#. frequency:0 iso_code_3:sea
+#. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
 msgstr ""
@@ -32638,7 +32638,7 @@ msgstr ""
 msgid "Tachawit"
 msgstr ""
 
-#. frequency:0 iso_code_3:shi
+#. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
 msgstr ""

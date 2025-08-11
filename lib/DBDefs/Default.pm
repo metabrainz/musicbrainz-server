@@ -535,7 +535,6 @@ sub SOLRCLOUD_BACKUP_LOCATION { undef }
 sub SOLRCLOUD_RSYNC_BANDWIDTH { undef }
 sub SOLRCLOUD_SSH_CIPHER_SPEC { undef }
 sub SOLR_BACKUP_COMPRESSION_LEVEL { undef }
-sub SEARCH_INDEXES_DUMP_COMPRESSION_LEVEL { undef }
 
 # Controls the number of threads to use when compressing JSON dumps or search
 # index dumps. Passed as `-T` or `--threads` to xz and zstd.

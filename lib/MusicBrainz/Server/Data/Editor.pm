@@ -1,4 +1,5 @@
 package MusicBrainz::Server::Data::Editor;
+use feature 'state';
 use Moose;
 use namespace::autoclean;
 use LWP;
@@ -8,6 +9,7 @@ use Authen::Passphrase;
 use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
+use DateTime::Format::Pg;
 use Digest::MD5 qw( md5_hex );
 use Encode;
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
@@ -230,6 +232,59 @@ sub find_by_ip {
     $self->query_to_list_limited($query, [\@ids], $limit, $offset);
 }
 
+sub find_possible_spammers {
+    my ($self, %args) = @_;
+
+    my ($op, $id, $limit) = @args{qw( op id limit )};
+
+    my %ops = (
+        'gt' => '>',
+        'gte' => '>=',
+        'lt' => '<',
+        'lte' => '<=',
+    );
+
+    die 'invalid op' unless defined $op && exists $ops{$op};
+    my $sql_op = $ops{$op};
+    # The order of results is DESC (newest accounts first), but $op
+    # determines which direction we're paginating in.
+    my $reversed = $op =~ /^g/;
+
+    my $query = 'SELECT ' . $self->_columns .
+        ' FROM ' . $self->_table .
+        " WHERE id $sql_op \$1" .
+        ' AND (privs & $2) = $2' .
+        ' AND (privs & $3) = 0' .
+        ' AND COALESCE(website, bio, \'\') != \'\'' .
+        ' ORDER BY id ' . ($reversed ? 'ASC' : 'DESC') .
+        ' LIMIT $4';
+
+    my @editors = $self->query_to_list(
+        $query,
+        [$id, $BEGINNER_FLAG, $SPAMMER_FLAG, $limit],
+    );
+
+    if ($reversed) {
+        # We had to query in ASC order, so resort in DESC order.
+        # We specifically disable the critic rule suggesting `reverse sort`
+        # instead of "$b before $a" to allow an in-place sort.
+        ## no critic 'ProhibitReverseSortBlock'
+        @editors = sort { $b->id <=> $a->id } @editors;
+    }
+
+    my $unused_editors_results = $self->sql->select_list_of_hashes(
+        $self->c->model('Editor')->_build_unused_editor_query() . "\n" .
+            'AND e.id = any(?)',
+        [map { $_->id } @editors],
+    );
+    my %unused_editors = map { $_->{id} => 1 } @$unused_editors_results;
+
+    for my $editor (@editors) {
+        $editor->unused(exists $unused_editors{ $editor->id });
+    }
+    return @editors;
+}
+
 sub search_by_email {
     my ($self, $email_regexp, $limit, $offset) = @_;
 
@@ -440,6 +495,110 @@ sub update_privileges {
             $self->c->model('Editor')->cancel_edits_and_votes($editor);
         }
     }, $self->sql);
+}
+
+sub _build_unused_editor_query {
+    my ($self) = @_;
+
+    state $editor_collection_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('collections'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM editor_collection ec
+                JOIN editor_collection_$_ ece ON ece.collection = ec.id
+                WHERE ec.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_rating_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('ratings'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM ${_}_rating_raw err
+                WHERE err.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_subscription_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('subscriptions'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM editor_subscribe_$_ ese
+                WHERE ese.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_subscription_deleted_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with(['subscriptions', 'deleted']),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM editor_subscribe_${_}_deleted esed
+                WHERE esed.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    state $editor_tag_subquery = join(
+        ' AND ',
+        map {<<~"SQL"} entities_with('tags'),
+            NOT EXISTS (
+                SELECT TRUE
+                FROM ${_}_tag_raw etr
+                WHERE etr.editor = e.id
+                LIMIT 1
+            )
+            SQL
+    );
+
+    return <<~"SQL";
+            SELECT e.id, e.name
+            FROM editor e
+            WHERE
+        deleted IS false
+    AND privs = 8192
+    AND NOT EXISTS (SELECT 1
+                        FROM application
+                    WHERE application.owner = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM editor_oauth_token
+                    WHERE editor_oauth_token.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM vote
+                    WHERE vote.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM edit
+                    WHERE edit.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM edit_note
+                    WHERE edit_note.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                        FROM annotation
+                    WHERE annotation.editor = e.id)
+    AND $editor_subscription_subquery
+    AND $editor_subscription_deleted_subquery
+    AND $editor_tag_subquery
+    AND $editor_rating_subquery
+    AND $editor_collection_subquery
+    AND NOT EXISTS (   SELECT 1
+                        FROM editor_collection ec
+                        JOIN editor_collection_collaborator ecc
+                            ON ecc.collection = ec.id
+                        WHERE ec.editor = e.id)
+    AND NOT EXISTS (   SELECT 1
+                        FROM editor_collection_collaborator ecc
+                        WHERE ecc.editor = e.id)
+    SQL
 }
 
 sub make_autoeditor

@@ -476,6 +476,7 @@ async function checkSirQueues(t) {
   let deleteCount = 0;
   let prevIndexCount = 0;
   let prevDeleteCount = 0;
+  let prevRetryCount = 0;
   let lastProgressTimestamp = Date.now();
 
   while (
@@ -484,6 +485,7 @@ async function checkSirQueues(t) {
   ) {
     prevIndexCount = indexCount;
     prevDeleteCount = deleteCount;
+    prevRetryCount = retryCount;
 
     const rabbitmqCommand =
       process.env.RABBITMQCTL_COMMAND || 'sudo -n rabbitmqctl';
@@ -501,23 +503,26 @@ async function checkSirQueues(t) {
     indexCount = messageCounts.get('search.index') || 0;
     deleteCount = messageCounts.get('search.delete') || 0;
 
-    if (failedCount || retryCount) {
+    if (failedCount) {
       throw new Error(
         'non-empty sir queues: ' +
-        `search.failed (${failedCount}), search.retry (${retryCount})`,
+        `search.failed (${failedCount})`,
       );
     }
 
-    if (indexCount || deleteCount) {
+    if (indexCount || deleteCount || retryCount) {
       if (
         (indexCount - prevIndexCount) < 0 ||
-        (deleteCount - prevDeleteCount) < 0
+        (deleteCount - prevDeleteCount) < 0 ||
+        (retryCount - prevRetryCount) < 0
       ) {
         lastProgressTimestamp = Date.now();
       }
       t.comment(timePrefix(
         'waiting for non-empty sir queues: ' +
-        `search.index (${indexCount}), search.delete (${deleteCount})`,
+        `search.index (${indexCount}), ` +
+        `search.delete (${deleteCount}), ` +
+        `search.retry (${retryCount})`,
       ));
       await driver.sleep(3000);
     } else {

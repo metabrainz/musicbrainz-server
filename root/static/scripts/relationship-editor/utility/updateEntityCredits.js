@@ -44,7 +44,7 @@ export default function* updateEntityCredits(
     sourceGroups,
     creditedEntity,
   );
-  if (!targetTypeGroups) {
+  if (!targetTypeGroups.size) {
     return;
   }
 
@@ -63,7 +63,7 @@ export default function* updateEntityCredits(
     if (targetTypeGroup) {
       return targetTypeGroup[1];
     }
-    return null;
+    return tree.empty;
   };
 
   function* getCreditUpdatesForRelationship(
@@ -126,10 +126,8 @@ export default function* updateEntityCredits(
     }
     case 'same-entity-types': {
       const linkTypeGroups = findLinkTypeGroupsForSameEntityType();
-      if (linkTypeGroups) {
-        for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
-          yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
-        }
+      for (const linkTypeGroup of tree.iterate(linkTypeGroups)) {
+        yield* getCreditUpdatesForLinkTypeGroup(linkTypeGroup);
       }
       break;
     }

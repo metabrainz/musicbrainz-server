@@ -30,6 +30,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         $c->detach('/user/not_found');
     }
     $c->stash->{viewing_own_profile} = $c->user_exists && $c->user->id == $user->id;
+    my $is_spammer = $user->is_spammer;
 
     my $form = $c->form(
         form => 'Admin::EditUser',
@@ -48,7 +49,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             editing_disabled        => $user->is_editing_disabled,
             adding_notes_disabled   => $user->is_adding_notes_disabled,
             voting_disabled         => $user->is_voting_disabled,
-            spammer                 => $user->is_spammer,
+            spammer                 => $is_spammer,
             # user profile
             username                => $user->name,
             email                   => $user->email,
@@ -94,6 +95,10 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
                 $user->email('editor-' . $user->id . '@musicbrainz.invalid');
                 $c->forward('/discourse/sync_sso', [$user]);
             }
+        }
+
+        if (!$is_spammer && $form_values->{spammer}) {
+            $c->forward('/discourse/log_out', [$user]);
         }
 
         $c->flash->{message} = 'User successfully edited.';
@@ -276,6 +281,15 @@ sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) Requ
             @results ? (results => \@results) : (),
             showResults => boolean_to_json($show_results),
         },
+    );
+}
+
+sub possible_spammers : Path('/admin/possible-spammers') Args(0) RequireAuth(account_admin) {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/PossibleSpammers',
     );
 }
 

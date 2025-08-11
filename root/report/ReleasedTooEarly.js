@@ -21,12 +21,14 @@ component ReleasedTooEarly(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={exp.l(
         `This report shows releases which have disc IDs even though they
          were released too early to have disc IDs, where one of the medium
          formats didn't exist at the time the release was released or
          where a disc ID is attached to a medium whose format does not
-         have disc IDs.`,
+         have disc IDs. Fully digital releases are excluded; for those, see
+         {digital_report|our digital-only report}.`,
+        {digital_report: '/report/ReleasedTooEarlyDigital'},
       )}
       entityType="release"
       filtered={filtered}

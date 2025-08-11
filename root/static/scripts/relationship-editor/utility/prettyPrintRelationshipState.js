@@ -34,9 +34,9 @@ const _displayAttribute = (attribute: LinkAttrT): StrOrNum => {
 };
 
 const _displayAttributes = (
-  attributes: tree.ImmutableTree<LinkAttrT> | null,
+  attributes: tree.ImmutableTree<LinkAttrT>,
 ): string => {
-  if (attributes == null) {
+  if (!attributes.size) {
     return 'none';
   }
   return tree.toArray(attributes).map(_displayAttribute).join(', ');
@@ -100,10 +100,11 @@ export default function prettyPrintRelationshipState(
   }
   result += '\n';
 
-  result += 'attributes: ' + _displayAttributes(state.attributes);
+  result += 'attributes: ' +
+    _displayAttributes(state.attributes ?? tree.empty);
   if (original) {
     if (!areLinkAttributesEqual(state.attributes, original.attributes)) {
-      result += old(_displayAttributes(original.attributes));
+      result += old(_displayAttributes(original.attributes ?? tree.empty));
     }
   }
   result += '\n';

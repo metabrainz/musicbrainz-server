@@ -208,13 +208,13 @@ export function createInitialState(
       type: 'form',
     },
     entity: release,
-    existingRelationshipsBySource: null,
-    mediums: null,
+    existingRelationshipsBySource: tree.empty,
+    mediums: tree.empty,
     mediumsByRecordingId: new Map(),
     reducerError: null,
-    relationshipsBySource: null,
-    selectedRecordings: null,
-    selectedWorks: null,
+    relationshipsBySource: tree.empty,
+    selectedRecordings: tree.empty,
+    selectedWorks: tree.empty,
     submissionError: null,
     submissionInProgress: false,
   };
@@ -223,7 +223,7 @@ export function createInitialState(
     for (const medium of release.mediums) {
       newState.mediums = tree.insertOrThrowIfExists(
         newState.mediums,
-        [medium, null],
+        [medium, tree.empty],
         compareMediumStateTuples,
       );
 
@@ -309,6 +309,7 @@ async function wsJsEditSubmission(
     dispatch,
     fetch('/ws/js/edit/create', {
       body: JSON.stringify(submissionData),
+      credentials: 'same-origin',
       headers: {
         'Accept': 'application/json; charset=utf-8',
         'Content-Type': 'application/json; charset=utf-8',
@@ -525,9 +526,9 @@ function* getAllRelationshipEdits(
       switch (relationship._status) {
         case REL_STATUS_ADD: {
           const editData: {...WsJsEditRelationshipCreateT} = {
-            attributes: tree.toArray(relationship.attributes).map(
-              (attr) => linkAttributeEditData(attr, false),
-            ),
+            attributes: tree.toArray(
+              relationship.attributes ?? tree.empty,
+            ).map((attr) => linkAttributeEditData(attr, false)),
             edit_type: EDIT_RELATIONSHIP_CREATE,
             entities: [
               entityEditData(entity0),
@@ -587,11 +588,13 @@ function* getAllRelationshipEdits(
           }
 
           const changedAttributes = [];
-          for (const attr of tree.iterate(relationship.attributes)) {
+          for (
+            const attr of tree.iterate(relationship.attributes ?? tree.empty)
+          ) {
             const attrData = linkAttributeEditData(attr, false);
 
             const origAttr = tree.find(
-              origRelationship.attributes,
+              origRelationship.attributes ?? tree.empty,
               attr,
               compareLinkAttributeIds,
               null,
@@ -613,8 +616,8 @@ function* getAllRelationshipEdits(
           changedAttributes.push(
             ...tree.toArray(
               tree.difference(
-                origRelationship.attributes,
-                relationship.attributes,
+                origRelationship.attributes ?? tree.empty,
+                relationship.attributes ?? tree.empty,
                 compareLinkAttributeIds,
               ),
             ).map((attr) => linkAttributeEditData(attr, true)),
@@ -923,7 +926,9 @@ export const reducer: ((
       if (batchSelectionCount == null) {
         runRelationshipEditorReducer(newState, action);
       } else {
-        let selection = null;
+        let selection:
+          | tree.ImmutableTree<RecordingT>
+          | tree.ImmutableTree<WorkT> = tree.empty;
         switch (sourceEntity.entityType) {
           case 'recording': {
             selection = state.selectedRecordings;
@@ -989,7 +994,7 @@ export const reducer: ((
               ))[1],
               recording.id,
               compareRecordingIdWithRecordingState,
-            )).relatedWorks != null
+            )).relatedWorks.size !== 0
           ) {
             continue;
           }
@@ -1083,7 +1088,7 @@ export const reducer: ((
       break;
     }
     case 'toggle-select-all-recordings': {
-      let allRecordings: tree.ImmutableTree<RecordingT> | null = null;
+      let allRecordings: tree.ImmutableTree<RecordingT> = tree.empty;
       for (
         const [/* mediumPosition */, recordingStateTree] of
         tree.iterate(newState.mediums)
@@ -1096,7 +1101,7 @@ export const reducer: ((
           );
         }
       }
-      if (allRecordings) {
+      if (allRecordings.size) {
         setRecordingsAsSelected(
           newState,
           allRecordings,
@@ -1106,7 +1111,7 @@ export const reducer: ((
       break;
     }
     case 'toggle-select-all-works': {
-      let allWorks: tree.ImmutableTree<WorkT> | null = null;
+      let allWorks: tree.ImmutableTree<WorkT> = tree.empty;
       for (
         const [/* mediumPosition */, recordingStateTree] of
         tree.iterate(newState.mediums)
@@ -1121,7 +1126,7 @@ export const reducer: ((
           }
         }
       }
-      if (allWorks) {
+      if (allWorks.size) {
         setWorksAsSelected(
           newState,
           allWorks,
@@ -1147,7 +1152,7 @@ export const reducer: ((
       break;
     }
     case 'toggle-select-medium-recordings': {
-      let mediumRecordings: tree.ImmutableTree<RecordingT> | null = null;
+      let mediumRecordings: tree.ImmutableTree<RecordingT> = tree.empty;
       for (const recordingState of tree.iterate(action.recordingStates)) {
         mediumRecordings = tree.insertIfNotExists(
           mediumRecordings,
@@ -1155,7 +1160,7 @@ export const reducer: ((
           compareRecordings,
         );
       }
-      if (mediumRecordings) {
+      if (mediumRecordings.size) {
         setRecordingsAsSelected(
           newState,
           mediumRecordings,
@@ -1165,7 +1170,7 @@ export const reducer: ((
       break;
     }
     case 'toggle-select-medium-works': {
-      let mediumWorks: tree.ImmutableTree<WorkT> | null = null;
+      let mediumWorks: tree.ImmutableTree<WorkT> = tree.empty;
       for (const recordingState of tree.iterate(action.recordingStates)) {
         for (const workState of tree.iterate(recordingState.relatedWorks)) {
           mediumWorks = tree.insertIfNotExists(
@@ -1175,7 +1180,7 @@ export const reducer: ((
           );
         }
       }
-      if (mediumWorks) {
+      if (mediumWorks.size) {
         setWorksAsSelected(
           newState,
           mediumWorks,
@@ -1375,7 +1380,6 @@ export const reducer: ((
                 newState.relationshipsBySource,
                 oldWork,
               );
-              invariant(targetTypeGroups);
               for (
                 const workRelationship of
                 iterateRelationshipsInTargetTypeGroups(targetTypeGroups)
@@ -1482,11 +1486,11 @@ component _TrackRelationshipsSection(
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
   releaseHasUnloadedTracks: boolean,
-  selectedRecordings: tree.ImmutableTree<RecordingT> | null,
-  selectedWorks: tree.ImmutableTree<WorkT> | null,
+  selectedRecordings: tree.ImmutableTree<RecordingT>,
+  selectedWorks: tree.ImmutableTree<WorkT>,
 ) {
-  const recordingCount = selectedRecordings ? selectedRecordings.size : 0;
-  const workCount = selectedWorks ? selectedWorks.size : 0;
+  const recordingCount = selectedRecordings.size;
+  const workCount = selectedWorks.size;
 
   const selectAllRecordings = React.useCallback((
     event: SyntheticEvent<HTMLInputElement>,
@@ -1524,7 +1528,7 @@ component _TrackRelationshipsSection(
   return (
     <>
       <h2>{l('Track relationships')}</h2>
-      {mediums?.size ? (
+      {mediums.size ? (
         <>
           <RelationshipEditorBatchTools
             dialogLocation={

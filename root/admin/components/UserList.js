@@ -10,6 +10,10 @@
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
+import manifest from '../../static/manifest.mjs';
+import {
+  StandaloneSpammerButton,
+} from '../../static/scripts/admin/components/SpammerButton.js';
 import EditorLink from '../../static/scripts/common/components/EditorLink.js';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
@@ -39,6 +43,7 @@ component UserList(users: $ReadOnlyArray<UnsanitizedEditorT>) {
           <th>{'Verified on'}</th>
           <th>{'Last login'}</th>
           <th>{'Bio'}</th>
+          <th>{'Action'}</th>
         </tr>
       </thead>
       <tbody>
@@ -98,6 +103,19 @@ component UserList(users: $ReadOnlyArray<UnsanitizedEditorT>) {
               </td>
               <td>
                 {nonEmpty(user.biography) ? user.biography : null}
+              </td>
+              <td>
+                {isSpammer(user) ? null : (
+                  <>
+                    <StandaloneSpammerButton
+                      user={{id: user.id, privileges: user.privileges}}
+                    />
+                    {manifest(
+                      'admin/components/SpammerButton',
+                      {async: true},
+                    )}
+                  </>
+                )}
               </td>
             </tr>
           );

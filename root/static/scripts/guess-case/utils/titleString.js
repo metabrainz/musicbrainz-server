@@ -69,22 +69,17 @@ function titleString(
              isApostrophe(input.getPreviousWord())) {
     outputString = lowercase;
     /*
-     * we got an 's (It is = It's), lowercase
      * we got an 'all (Y'all = You all), lowercase
-     * we got an 'em (Them = 'em), lowercase.
      * we got an 've (They have = They've), lowercase.
-     * we got an 'd (He had = He'd), lowercase.
+     * we got an 'll (You'll = You will), lowercase.
      * we got an 'cha (What you = What'cha), lowercase.
      * we got an 're (You are = You're), lowercase.
-     * we got an 'til (Until = 'til), lowercase.
-     * we got an 'way (Away = 'way), lowercase.
-     * we got an 'round (Around = 'round), lowercase
      * we got a 'mon (Come on = C'mon), lowercase
      */
   } else if (
     guessCaseMode.name === 'English' &&
     isApostrophe(input.getPreviousWord()) &&
-    lowercase.match(/^(?:s|round|em|ve|ll|d|cha|re|til|way|all|mon)$/i)
+    lowercase.match(/^(?:all|ve|ll|cha|re|mon)$/i)
   ) {
     outputString = lowercase;
     /*
