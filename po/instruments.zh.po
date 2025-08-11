@@ -264,6 +264,14 @@ msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr "竖笛"
 
+#: DB:instrument/name:1212
+#, fuzzy
+#| msgctxt "1940s modified sarod"
+#| msgid "Radhika's Mohan veena"
+msgctxt "Indian modified lap slide-guitar"
+msgid "VM Bhatt's Mohan veena"
+msgstr "拉迪卡的莫汉维纳琴"
+
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
 msgstr "越南吉他"

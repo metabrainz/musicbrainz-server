@@ -308,7 +308,8 @@ msgstr ""
 msgid ""
 "A talkbox is an effects device which enables a musician to modify the sound "
 "of an instrument."
-msgstr "トークボックスは、ミュージシャンが楽器の音色を加工するためのエフェクト装置で"
+msgstr ""
+"トークボックスは、ミュージシャンが楽器の音色を加工するためのエフェクト装置で"
 "す。"
 
 #. name:tar
@@ -354,7 +355,8 @@ msgstr ""
 #. name:tube zither
 #: DB:instrument/description:944
 msgid "A zither with a hollow or vaulted body, it can have several resonators."
-msgstr "中空またはアーチ型のボディを持つツィター、複数の共振器を持つことがあるもの。"
+msgstr ""
+"中空またはアーチ型のボディを持つツィター、複数の共振器を持つことがあるもの。"
 
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315
@@ -371,7 +373,8 @@ msgstr "フレットのないアコースティックギター。"
 msgid ""
 "Almost completely disappeared by the 20th century, modern revivals based on "
 "museum examples are now used by Swedish folk musicians."
-msgstr "20世紀までにほぼ完全に消滅したこの楽器は、現在、博物館の展示品を基にした現代"
+msgstr ""
+"20世紀までにほぼ完全に消滅したこの楽器は、現在、博物館の展示品を基にした現代"
 "的な復元版がスウェーデンの民謡音楽家によって使用されています。"
 
 #. name:steel-string acoustic guitar
@@ -1480,13 +1483,23 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 
+#. name:VM Bhatt's Mohan veena
+#: DB:instrument/description:1212
+msgid ""
+"For the modified sarod created in the 1940's by Radhika Mohan Maitra see <a "
+"href=\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">Radhika's Mohan "
+"veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
+"19 to 21 strings and a gourd added to the neck."
+msgstr ""
+
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
 msgid ""
-"For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt see "
-"VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika Maitra "
-"in the 1940s, it has a wooden soundbox cover (like sitar), an extra neck "
-"resonator (like veena) and the fretboard from the sarod."
+"For the modified slide-guitar created in the 1990's by Vishwa Mohan Bhatt "
+"see <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt's "
+"Mohan veena</a>.<br /> Created as a modified sarod by Radhika Maitra in the "
+"1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
+"(like veena) and the fretboard from the sarod."
 msgstr ""
 
 #. name:tumbi

@@ -270,6 +270,11 @@ msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr "トネット"
 
+#: DB:instrument/name:1212
+msgctxt "Indian modified lap slide-guitar"
+msgid "VM Bhatt's Mohan veena"
+msgstr ""
+
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
 msgstr "ベトナム・ギター"

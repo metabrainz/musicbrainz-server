@@ -327,7 +327,8 @@ msgstr "次のDiscogsページ"
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
-msgstr "アーティストの親の継配偶者、またはそのような配偶者の子供との兄弟関係を示す。"
+msgstr ""
+"アーティストの親の継配偶者、またはそのような配偶者の子供との兄弟関係を示す。"
 
 #. name:instrumental
 #: DB:link_attribute_type/description:580
@@ -371,8 +372,9 @@ msgid "IMDB samples"
 msgstr "IMDbサンプル"
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -384,9 +386,9 @@ msgid "IMDb entry sampled in"
 msgstr "IMDb登録サンプル"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "次のIMDbページ"
 
@@ -4182,6 +4184,18 @@ msgstr "作品を台本が書かれた場所へリンクします。"
 msgid "This links a release with the place its lyrics were written at."
 msgstr "作品を作詞が行われた場所へリンクします。"
 
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"アーティストを<a href=\"http://www.imdb.com/\">IMDb</a>ページへリンクします。"
+
 #. name:soundcloud
 #: DB:link_type/description:870
 msgid ""
@@ -7679,8 +7693,9 @@ msgid "has an Allmusic page at"
 msgstr "のAllmusicページのURLは"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "のIMDbページのURLは"
 
