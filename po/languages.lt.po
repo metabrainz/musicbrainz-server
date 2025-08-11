@@ -16,8 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.9.2\n"
 
 #. frequency:1 iso_code_3:abk
@@ -2155,6 +2155,11 @@ msgstr ""
 msgid "Selkup"
 msgstr ""
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2371,6 +2376,11 @@ msgstr "Švedų"
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "sirų"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr ""
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

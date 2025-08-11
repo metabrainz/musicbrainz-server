@@ -11,13 +11,13 @@
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # delamons <lamons.n@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# imgradeone <imgradeone@outlook.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-27 11:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-02 15:20+0000\n"
+"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -900,10 +900,9 @@ msgid "Cover art"
 msgstr "封面图"
 
 #: ../root/statistics/stats.js:26
-#, fuzzy
 msgctxt "noun"
 msgid "Edit information"
-msgstr "编辑通知"
+msgstr "编辑信息"
 
 #: ../root/statistics/stats.js:27
 msgctxt "noun"

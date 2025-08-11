@@ -1426,6 +1426,25 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 
+#. name:VM Bhatt's Mohan veena
+#: DB:instrument/description:1212
+msgid ""
+"For the modified sarod created in the 1940's by Radhika Mohan Maitra see <a "
+"href=\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">Radhika's Mohan "
+"veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
+"19 to 21 strings and a gourd added to the neck."
+msgstr ""
+
+#. name:Radhika's Mohan veena
+#: DB:instrument/description:1211
+msgid ""
+"For the modified slide-guitar created in the 1990's by Vishwa Mohan Bhatt "
+"see <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt's "
+"Mohan veena</a>.<br /> Created as a modified sarod by Radhika Maitra in the "
+"1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
+"(like veena) and the fretboard from the sarod."
+msgstr ""
+
 #. name:tumbi
 #: DB:instrument/description:511
 msgid ""

@@ -330,8 +330,9 @@ msgid "IMDB samples"
 msgstr "IMDB 採樣"
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -343,9 +344,9 @@ msgid "IMDb entry sampled in"
 msgstr "採樣的IMDb條目，在"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "IMDb 頁面，關於"
 
@@ -3018,6 +3019,15 @@ msgstr "用於將一個發行連結到其在 SecondHandSongs 資料庫中對應�
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr "用於將一個發行連結到其在 AllMusic 上對應的頁面。"
 
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr "這用於將一個唱片廠牌連結到其商標標誌的圖片。"
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -3644,6 +3654,19 @@ msgstr "這將作品連結到歌劇劇本的撰寫地點。"
 #: DB:link_type/description:1250
 msgid "This links a release with the place its lyrics were written at."
 msgstr "這將作品連結到歌劇劇本的撰寫地點。"
+
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"這個關聯將一位創作者與其在 <a href=\"http://www.imdb.com/\">IMDb</a> 的頁面連"
+"結起來。"
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -6830,7 +6853,7 @@ msgid "has a karaoke version"
 msgstr "有卡拉OK版本"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "有標誌於"
 
@@ -6912,8 +6935,9 @@ msgid "has an Allmusic page at"
 msgstr "在 Allmusic 的頁面為"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "在 IMDb 的頁面為"
 
@@ -7814,17 +7838,17 @@ msgstr "現場表演們"
 msgid "location for"
 msgstr "地點"
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "logo"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "商標，屬於"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "標誌"
 

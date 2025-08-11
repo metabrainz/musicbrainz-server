@@ -12,15 +12,14 @@
 # AO <email address hidden>, 2013-2015
 # yvanz, 2016,2019-2021,2023
 # yvanz, 2016
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-23 12:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-03 12:20+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/fr/>\n"
 "Language: fr\n"
@@ -29,7 +28,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -178,16 +177,12 @@ msgid "Most active editors in the past week"
 msgstr "Éditeurs les plus actifs durant la semaine dernière"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "Modifications ouvertes et acceptées durant la semaine dernière"
+msgstr "Modifications appliquées durant l’année passée"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "Éditeurs les plus actifs durant la semaine dernière"
+msgstr "Éditeurs les plus actifs durant l’année passée"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -214,16 +209,12 @@ msgid "Most active voters in the past week"
 msgstr "Voteurs les plus actifs durant la semaine dernière"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "Votes durant la semaine dernière"
+msgstr "Votes durant l’année passée"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "Voteurs les plus actifs durant la semaine dernière"
+msgstr "Voteurs les plus actifs durant l’année passée"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -573,8 +564,6 @@ msgid "Primary types"
 msgstr "Types principaux"
 
 #: ../root/statistics/Index.js:632
-#, fuzzy
-#| msgid "None"
 msgctxt "release group primary type"
 msgid "None"
 msgstr "Aucun"
@@ -584,8 +573,6 @@ msgid "Secondary types"
 msgstr "Types secondaires"
 
 #: ../root/statistics/Index.js:666
-#, fuzzy
-#| msgid "None"
 msgctxt "release group secondary type"
 msgid "None"
 msgstr "Aucun"
@@ -611,15 +598,11 @@ msgid "Types"
 msgstr "Types"
 
 #: ../root/statistics/Index.js:723
-#, fuzzy
-#| msgid "None"
 msgctxt "label type"
 msgid "None"
 msgstr "Aucun"
 
 #: ../root/statistics/Index.js:751
-#, fuzzy
-#| msgid "None"
 msgctxt "work type"
 msgid "None"
 msgstr "Aucun"
@@ -633,36 +616,26 @@ msgid "Attributes"
 msgstr "Attributs"
 
 #: ../root/statistics/Index.js:785
-#, fuzzy
-#| msgid "None"
 msgctxt "work attribute"
 msgid "None"
 msgstr "Aucun"
 
 #: ../root/statistics/Index.js:813
-#, fuzzy
-#| msgid "None"
 msgctxt "area type"
 msgid "None"
 msgstr "Aucun"
 
 #: ../root/statistics/Index.js:841
-#, fuzzy
-#| msgid "None"
 msgctxt "place type"
 msgid "None"
 msgstr "Aucun"
 
 #: ../root/statistics/Index.js:895
-#, fuzzy
-#| msgid "None"
 msgctxt "instrument type"
 msgid "None"
 msgstr "Aucun"
 
 #: ../root/statistics/Index.js:923
-#, fuzzy
-#| msgid "None"
 msgctxt "event type"
 msgid "None"
 msgstr "Aucun"
@@ -1578,16 +1551,12 @@ msgid "Abstentions"
 msgstr "Abstentions"
 
 #: ../root/statistics/stats.js:911
-#, fuzzy
-#| msgid "Approvals"
 msgid "Admin approvals"
-msgstr "Approbations"
+msgstr "Approbations par administrateur"
 
 #: ../root/statistics/stats.js:916
-#, fuzzy
-#| msgid "Area collections"
 msgid "Admin rejections"
-msgstr "Collections de régions"
+msgstr "Rejets par administrateur"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
