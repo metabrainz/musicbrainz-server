@@ -430,6 +430,51 @@ test 'Cannot merge RGs if all releases are in the same RG' => sub {
     }, 'The release merge edit was still entered and contains the expected data');
 };
 
+test 'Release groups are entered for merge just once each (MBS-14124)' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+release');
+
+    $mech->get_ok('/login');
+    $mech->submit_form( with_fields => { username => 'editor', password => 'pass' } );
+
+    $mech->get_ok('/release/merge_queue?add-to-merge=6');
+    $mech->get_ok('/release/merge_queue?add-to-merge=7');
+    $mech->get_ok('/release/merge_queue?add-to-merge=100');
+
+    $mech->get_ok('/release/merge');
+    $mech->submit_form_ok({
+        with_fields => {
+            'merge.target' => '100',
+            'merge.medium_positions.map.0.position' => '1',
+            'merge.medium_positions.map.1.position' => '2',
+            'merge.medium_positions.map.2.position' => '3',
+            'merge.merge_rgs' => '1',
+            'merge.merge_strategy' => '1',
+            'merge.edit_note' => 'This is an edit note',
+        },
+    });
+
+    my $rg_edit = MusicBrainz::Server::Test->get_latest_edit($c);
+    isa_ok($rg_edit, 'MusicBrainz::Server::Edit::ReleaseGroup::Merge');
+
+    cmp_deeply($rg_edit->data, {
+        new_entity => {
+            id => 100,
+            name => 'Pregap?',
+        },
+        old_entities => [{
+            id => 1,
+            name => 'Arrival',
+        }],
+    });
+
+    my $release_edit = $test->c->model('Edit')->get_by_id($rg_edit->id - 1);
+    isa_ok($release_edit, 'MusicBrainz::Server::Edit::Release::Merge');
+};
+
 test 'Edit note is required' => sub {
     my $test = shift;
     my $mech = $test->mech;
