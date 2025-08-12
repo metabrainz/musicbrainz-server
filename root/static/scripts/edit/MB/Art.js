@@ -214,9 +214,9 @@ MB.Art.file_data_uri = function (file) {
   var deferred = $.Deferred();
   var reader = new window.FileReader();
   reader.addEventListener('loadend', function () {
-    deferred.resolve(reader.result);
+    deferred.resolve(URL.createObjectURL(new Blob([reader.result])));
   });
-  reader.readAsDataURL(file);
+  reader.readAsArrayBuffer(file);
 
   return deferred.promise();
 };
