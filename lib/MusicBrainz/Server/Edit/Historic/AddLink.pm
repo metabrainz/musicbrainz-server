@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Historic::AddLink;
 use Moose;
 use namespace::autoclean;
 
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Historic::Utils qw( upgrade_date );
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_LINK );
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -9,7 +10,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 extends 'MusicBrainz::Server::Edit::Historic::Relationship';
 
 sub edit_name     { N_lp('Add relationship', 'edit type') }
-sub edit_kind     { 'add' }
+sub edit_kind     { $EDIT_KIND_LABELS{'add'} }
 sub historic_type { 33 }
 sub edit_type     { $EDIT_HISTORIC_ADD_LINK }
 sub edit_template { 'historic/AddRelationship' }

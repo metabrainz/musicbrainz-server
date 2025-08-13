@@ -6,6 +6,7 @@ use MooseX::Types::Moose qw( ArrayRef Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_SET_TRACK_LENGTHS );
 use MusicBrainz::Server::Data::Utils qw( localized_note );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_l N_lp );
@@ -22,7 +23,7 @@ with 'MusicBrainz::Server::Edit::Release::RelatedEntities',
 
 sub edit_name { N_lp('Set track lengths', 'edit type') }
 sub edit_type { $EDIT_SET_TRACK_LENGTHS }
-sub edit_kind { 'other' }
+sub edit_kind { $EDIT_KIND_LABELS{'other'} }
 sub edit_template { 'SetTrackLengths' }
 
 has '+data' => (

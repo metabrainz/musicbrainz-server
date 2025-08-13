@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Str Int );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_MEDIUM_DELETE );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Medium::Util ':all';
 use MusicBrainz::Server::Entity::Types;
@@ -21,7 +22,7 @@ use aliased 'MusicBrainz::Server::Entity::Medium';
 
 sub edit_type { $EDIT_MEDIUM_DELETE }
 sub edit_name { N_lp('Remove medium', 'edit type') }
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 sub medium_id { shift->data->{medium_id} }
 sub edit_template { 'RemoveMedium' }
 
