@@ -311,8 +311,7 @@ sub _check_for_confirmed_email {
             component_path  => 'user/UserMessage',
             component_props => {
                 title    => lp('Send email', 'header'),
-                message  => l('You cannot contact other users because you have not {url|verified your email address}.',
-                            {url => $c->uri_for_action('/account/resend_verification')}),
+                message  => l('You cannot contact other users because you do not have a verified email address.'),
             },
             current_view    => 'Node',
         );
