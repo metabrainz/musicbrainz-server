@@ -78,10 +78,6 @@ INSERT INTO musicbrainz.country_area (area) VALUES
 INSERT INTO musicbrainz.release_country (release, country, date_year, date_month, date_day) VALUES
 	(1072194, 99, 1973, NULL, NULL),
 	(1608636, 99, 1980, NULL, NULL);
-INSERT INTO musicbrainz.area (id, gid, name, type, edits_pending, last_updated, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, ended, comment) VALUES
-	(221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1, 0, '2013-05-16 11:06:19.67235+00', NULL, NULL, NULL, NULL, NULL, NULL, '0', '');
-INSERT INTO musicbrainz.iso_3166_1 (area, code) VALUES
-	(221, 'GB');
 INSERT INTO musicbrainz.label (id, gid, name, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, label_code, type, area, comment, edits_pending, last_updated, ended) VALUES
 	(62793, 'c029628b-6633-439e-bcee-ed02e8a338f7', 'EMI', 1972, NULL, NULL, NULL, NULL, NULL, 542, 4, 221, 'EMI Records, since 1972', 0, '2015-07-05 15:01:16.460867+00', '0');
 INSERT INTO musicbrainz.release_label (id, release, label, catalog_number, last_updated) VALUES
