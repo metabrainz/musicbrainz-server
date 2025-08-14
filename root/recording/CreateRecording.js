@@ -23,6 +23,7 @@ component CreateRecording(form: RecordingFormT, usedByTracks: boolean) {
       </div>
       {manifest('recording/components/RecordingEditForm', {async: true})}
       {manifest('relationship-editor', {async: true})}
+      {manifest('recording/edit', {async: true})}
     </Layout>
   );
 }
