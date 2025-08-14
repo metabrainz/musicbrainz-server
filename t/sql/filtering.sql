@@ -65,9 +65,11 @@ INSERT INTO release_label (release, label, catalog_number)
 
 INSERT INTO area (id, gid, name, type)
     VALUES (221, '8a754a16-0027-3a29-b6d7-2b40ea0481ed', 'United Kingdom', 1),
-           (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1);
+           (222, '489ce91b-6658-3307-9877-795b68554c98', 'United States', 1)
+    ON CONFLICT DO NOTHING;
 
-INSERT INTO country_area (area) VALUES (221), (222);
+INSERT INTO country_area (area) VALUES (221), (222)
+    ON CONFLICT DO NOTHING;
 
 INSERT INTO release_country (release, country, date_year, date_month, date_day)
     VALUES (3400, 221, 1993, NULL, NULL),
