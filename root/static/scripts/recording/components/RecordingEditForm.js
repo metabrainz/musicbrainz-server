@@ -42,6 +42,7 @@ import FormRowNameWithGuessCase, {
 import {NonHydratedFormRowTextList as FormRowTextList}
   from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
+import {installFormUnloadWarning} from '../../edit/components/forms.js';
 import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
@@ -56,6 +57,7 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
+import initializeValidation from '../../edit/validation.js';
 import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';
@@ -179,6 +181,11 @@ component RecordingEditForm(
   usedByTracks: boolean,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
+
+  React.useEffect(() => {
+    installFormUnloadWarning();
+    initializeValidation();
+  }, []);
 
   const [state, dispatch] = React.useReducer(
     reducer,
