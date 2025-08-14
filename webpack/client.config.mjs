@@ -100,7 +100,6 @@ const entries = [
   'place/map',
   'public-path',
   'recording/components/RecordingEditForm',
-  'recording/edit',
   'recording/index',
   'relationship-editor',
   'release/coverart',
