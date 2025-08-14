@@ -13,6 +13,7 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {RecordingFormT} from '../../../../recording/types.js';
 import Bubble from '../../common/components/Bubble.js';
+import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
@@ -42,7 +43,6 @@ import FormRowNameWithGuessCase, {
 import {NonHydratedFormRowTextList as FormRowTextList}
   from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
-import {installFormUnloadWarning} from '../../edit/components/forms.js';
 import {
   type StateT as GuessCaseOptionsStateT,
   createInitialState as createGuessCaseOptionsState,
@@ -182,8 +182,9 @@ component RecordingEditForm(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
 
+  useFormUnloadWarning();
+
   React.useEffect(() => {
-    installFormUnloadWarning();
     initializeValidation();
   }, []);
 
