@@ -99,6 +99,7 @@ const entries = [
   'place/index',
   'place/map',
   'public-path',
+  'recording/components/RecordingEditForm',
   'recording/edit',
   'recording/index',
   'relationship-editor',
