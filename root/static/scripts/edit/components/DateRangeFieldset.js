@@ -17,7 +17,6 @@ import {isDatePeriodValid} from '../utility/dates.js';
 import {applyAllPendingErrors} from '../utility/subfieldErrors.js';
 
 import FieldErrors from './FieldErrors.js';
-import FormRowArea from './FormRowArea.js';
 import FormRowCheckbox from './FormRowCheckbox.js';
 import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
@@ -168,10 +167,8 @@ component _DateRangeFieldset(
   dispatch: (ActionT) => void,
   endedLabel?: string,
   field: DatePeriodFieldT,
-  beginAreaField?: AreaFieldT,
-  beginAreaIdField?: FieldT<string>,
-  endAreaField?: AreaFieldT,
-  endAreaIdField?: FieldT<string>,
+  beginArea?: React.Node,
+  endArea?: React.Node,
 ) {
   const subfields = field.field;
 
@@ -200,16 +197,7 @@ component _DateRangeFieldset(
           type="button"
         />
       </FormRowPartialDate>
-      {beginAreaField && beginAreaIdField
-        ? (
-          <FormRowArea
-            disabled={disabled}
-            field={beginAreaField}
-            idField={beginAreaIdField}
-            label={addColonText(l('Begin area'))}
-          />
-        )
-        : null}
+      {beginArea}
       <FormRowPartialDate
         disabled={disabled}
         dispatch={hooks.endDateDispatch}
@@ -217,16 +205,7 @@ component _DateRangeFieldset(
         label={addColonText(l('End date'))}
         yearInputRef={hooks.endYearInputRef}
       />
-      {endAreaField && endAreaIdField
-        ? (
-          <FormRowArea
-            disabled={disabled}
-            field={endAreaField}
-            idField={endAreaIdField}
-            label={addColonText(l('End area'))}
-          />
-        )
-        : null}
+      {endArea}
       <FieldErrors
         field={field}
         includeSubFields={false}

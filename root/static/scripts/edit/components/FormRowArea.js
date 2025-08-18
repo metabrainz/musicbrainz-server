@@ -16,7 +16,6 @@ import FormRow from './FormRow.js';
 
 component FormRowArea(
   children ?: React.Node,
-  disabled: boolean = false,
   field: AreaFieldT,
   idField: FieldT<string>,
   label: React.Node,
@@ -33,7 +32,6 @@ component FormRowArea(
       />
       <span
         className="area autocomplete"
-        disabled={disabled}
         id={last(field.html_name.split('.'))}
       >
         <SearchIcon />
