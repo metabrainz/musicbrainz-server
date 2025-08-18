@@ -15,7 +15,9 @@ INSERT INTO musicbrainz.event (id, gid, name, begin_date_year, begin_date_month,
     (59357, 'ca1d24c1-1999-46fd-8a95-3d4108df5cb2', 'BBC Open Music Prom', 2022, 9, 1, 2022, 9, 1, '19:30:00', 1, '0', '', '2022, Prom 60', 0, '2022-05-08 22:43:07.147531+00', '1'),
     (72229, '183ba1ec-a87b-4c0e-85dd-496b7cea4399', 'Wacken Open Air 2024', 2024, 7, 31, 2024, 8, 3, NULL, 2, '0', '', '', 0, '2024-07-26 11:00:22.044929+00', '1'),
     (79579, '3495abf6-4692-45cd-af62-7d964558676a', 'Wacken Open Air 2024, Day 2', 2024, 7, 29, 2024, 7, 29, NULL, 2, '0', '', '', 0, '2024-07-20 17:00:38.747867+00', '1'),
-    (79580, '6b67008c-55a1-44a4-98be-ecfdebc18987', 'Wacken Open Air 2024, Day 3', 2024, 7, 30, 2024, 7, 30, NULL, 2, '0', '', '', 0, '2024-07-20 17:00:38.699779+00', '1');
+    (79580, '6b67008c-55a1-44a4-98be-ecfdebc18987', 'Wacken Open Air 2024, Day 3', 2024, 7, 30, 2024, 7, 30, NULL, 2, '0', '', '', 0, '2024-07-20 17:00:38.699779+00', '1'),
+    (86430, 'f0ecc038-d229-4b3e-aa98-d5f4de693272', 'Wacken Open Air 2024, Day 2: Welcome to the Jungle', 2024, 7, 29, 2024, 7, 29, NULL, 2, '0', '', '', 0, '2024-07-21 12:00:04.328426+00', '1'),
+    (86433, 'eddb272f-1f10-4ece-875d-52cd0d3a2bb1', 'Wacken Open Air 2024, Day 3: LGH Clubstage', 2024, 7, 30, 2024, 7, 30, NULL, 2, '0', '', '', 0, '2024-07-21 12:00:26.447302+00', '1');
 
 INSERT INTO artist (id, gid, name, sort_name, begin_date_year, begin_date_month, type, area, gender) VALUES
     (1294951, 'f72a5b32-449f-4090-9a2a-ebbdd8d3c2e5', 'Kwamé Ryan', 'Ryan, Kwamé', 1970, NULL, 1, 38, 1),
@@ -36,4 +38,6 @@ INSERT INTO l_artist_event (id, link, entity0, entity1) VALUES (160762, 199854, 
 
 INSERT INTO musicbrainz.l_event_event (id, link, entity0, entity1, edits_pending, last_updated, link_order, entity0_credit, entity1_credit) VALUES
     (16709, 201443, 72229, 79579, 0, '2024-02-27 20:58:13.519546+00', 0, '', ''),
-    (16710, 201443, 72229, 79580, 0, '2024-02-27 20:58:31.842580+00', 0, '', '');
+    (16710, 201443, 72229, 79580, 0, '2024-02-27 20:58:31.842580+00', 0, '', ''),
+    (18460, 201443, 79579, 86430, 0, '2024-07-21 12:00:04.328426+00', 0, '', ''),
+    (18463, 201443, 79580, 86433, 0, '2024-07-21 12:00:26.447302+00', 0, '', '');

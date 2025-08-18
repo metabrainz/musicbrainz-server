@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::WS::2::Event;
 use Moose;
 use MooseX::MethodAttributes;
 use namespace::autoclean;
+use Readonly;
 
 extends 'MusicBrainz::Server::ControllerBase::WS::2';
 
@@ -40,6 +41,8 @@ with 'MusicBrainz::Server::Controller::WS::2::Role::Lookup' => {
 
 with 'MusicBrainz::Server::Controller::WS::2::Role::BrowseByCollection';
 
+Readonly our $MAX_EVENT_BROWSE_PARAMS => 25;
+
 sub base : Chained('root') PathPart('event') CaptureArgs(0) { }
 
 sub event_toplevel {
@@ -73,7 +76,18 @@ sub event_browse : Private {
     my ($resource, $id) = @{ $c->stash->{linked} };
     my ($limit, $offset) = $self->_limit_and_offset($c);
 
-    if (!is_guid($id)) {
+    if (ref($id) eq 'ARRAY') {
+        if ($resource ne 'event') {
+            $c->stash->{error} = "The '$resource' resource only supports one mbid.";
+            $c->detach('bad_req');
+        }
+        for my $id (@$id) {
+            if (!is_guid($id)) {
+                $c->stash->{error} = "Invalid mbid '$id'.";
+                $c->detach('bad_req');
+            }
+        }
+    } elsif (!is_guid($id)) {
         $c->stash->{error} = 'Invalid mbid.';
         $c->detach('bad_req');
     }
@@ -95,10 +109,23 @@ sub event_browse : Private {
     } elsif ($resource eq 'collection') {
         $events = $self->browse_by_collection($c, 'event', $id, $limit, $offset);
     } elsif ($resource eq 'event') {
-        my $event = $c->model('Event')->get_by_gid($id);
-        $c->detach('not_found') unless $event;
+        if (ref($id) ne 'ARRAY') {
+            $id = [$id];
+        }
+        if (@$id > $MAX_EVENT_BROWSE_PARAMS) {
+            $c->stash->{error} = 'You can only browse up to ' .
+                $MAX_EVENT_BROWSE_PARAMS .
+                ' events at a time.';
+            $c->detach('bad_req');
+        }
+        my @source_events = values %{ $c->model('Event')->get_by_gids(@$id) };
+        $c->detach('not_found') unless @source_events;
 
-        my @tmp = $c->model('Event')->find_by_events([$event->id], $limit, $offset);
+        my @tmp = $c->model('Event')->find_by_events(
+            [map { $_->id } @source_events],
+            $limit,
+            $offset,
+        );
         $events = $self->make_list(@tmp, $offset);
     } elsif ($resource eq 'place') {
         my $place = $c->model('Place')->get_by_gid($id);
