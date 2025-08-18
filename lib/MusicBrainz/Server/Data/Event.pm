@@ -301,6 +301,29 @@ sub _order_by {
     return $order_by;
 }
 
+sub find_by_events {
+    my ($self, $event_ids, $limit, $offset) = @_;
+
+    my $columns = $self->_columns;
+    my $order_by = $self->_order_by('date');
+    $self->query_to_list_limited(
+        <<~"SQL",
+        SELECT $columns
+        FROM event
+        WHERE event.id IN (
+            SELECT entity0 FROM l_event_event WHERE entity1 = any(\$1)
+            UNION
+            SELECT entity1 FROM l_event_event WHERE entity0 = any(\$1)
+        )
+        ORDER BY $order_by, event.id
+        SQL
+        [$event_ids],
+        $limit, $offset,
+        undef,
+        dollar_placeholders => 1,
+    );
+}
+
 sub find_by_place
 {
     my ($self, $place_id, $limit, $offset) = @_;
