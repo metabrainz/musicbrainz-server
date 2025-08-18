@@ -38,15 +38,15 @@
          }) %]
       </fieldset>
 
-      [% React.embed(c, 'static/scripts/edit/components/HydratedDateRangeFieldset', {
-          initialField => form_to_json(form.field('period')),
+      [% React.embed(c, 'static/scripts/edit/components/HydratedArtistDateRangeFieldset', {
+          initialDate => form_to_json(form.field('period')),
           endedLabel => 'This artist has ended.',
-          beginAreaField => form_to_json(form.field('begin_area')),
-          beginAreaIdField => form_to_json(form.field('begin_area_id')),
-          endAreaField => form_to_json(form.field('end_area')),
-          endAreaIdField => form_to_json(form.field('end_area_id')),
+          beginArea => form_to_json(form.field('begin_area')),
+          beginAreaId => form_to_json(form.field('begin_area_id')),
+          endArea => form_to_json(form.field('end_area')),
+          endAreaId => form_to_json(form.field('end_area_id')),
         }) %]
-      [% script_manifest('edit/components/HydratedDateRangeFieldset', {async => 'async'}) %]
+      [% script_manifest('edit/components/HydratedArtistDateRangeFieldset', {async => 'async'}) %]
 
       [% PROCESS 'forms/relationship-editor.tt' %]
 

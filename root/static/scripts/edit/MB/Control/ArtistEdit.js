@@ -19,7 +19,10 @@ import initializeArea from './Area.js';
 export default function ArtistEdit() {
   var self = {};
 
-  // support replacing text without removing other nodes
+  /*
+   * some of the labels below (like ended) might have other child nodes
+   * this method supports replacing text without removing child nodes
+   */
   jQuery.fn.replaceText = function (newText) {
     return this.contents().filter(function () {
       return (this.nodeType === Node.TEXT_NODE &&
@@ -32,8 +35,8 @@ export default function ArtistEdit() {
   self.$begin = $('label[for="id-edit-artist.period.begin_date.year"]');
   self.$ended = $('label:has(#id-edit-artist\\.period\\.ended)');
   self.$end = $('label[for="id-edit-artist.period.end_date.year"]');
-  self.$beginarea = $('label[for="id-edit-artist\\.begin_area\\.name"]');
-  self.$endarea = $('label[for="id-edit-artist\\.end_area\\.name"]');
+  self.$beginarea = $('label[for="id-edit-artist.begin_area"]');
+  self.$endarea = $('label[for="id-edit-artist.end_area"]');
   self.$type = $('#id-edit-artist\\.type_id');
   self.$gender = $('#id-edit-artist\\.gender_id');
   self.old_gender = self.$gender.val();
