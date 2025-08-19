@@ -5,7 +5,6 @@ use warnings;
 
 use HTTP::Status qw( :constants );
 use Test::Routine;
-use Test::More;
 
 use MusicBrainz::Server::Test::WS qw( ws_test ws2_test_xml );
 

@@ -307,7 +307,7 @@ sub find_by_events {
     my $columns = $self->_columns;
     my $order_by = $self->_order_by('date');
     $self->query_to_list_limited(
-        <<~SQL,
+        <<~"SQL",
         SELECT $columns
         FROM event
         WHERE event.id IN (
