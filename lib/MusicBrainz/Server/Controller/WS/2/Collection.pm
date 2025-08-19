@@ -111,9 +111,13 @@ for my $entity_type (entities_with('collections')) {
         my @results = $c->model($entity_properties->{model})->find_by_collection($collection->id, $limit, $offset);
 
         $opts->{$plural} = $self->make_list(@results);
+        my $entities = $opts->{$plural}->{items};
+
+        $self->linked_artist_creditable_entities($c, $stash, $entities)
+            if $entity_properties->{artist_credits} && $c->stash->{inc}->artist_credits;
 
         my $linked = "linked_$plural";
-        $self->$linked($c, $stash, $opts->{$plural}->{items});
+        $self->$linked($c, $stash, $entities);
 
         $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
         $c->res->body($c->stash->{serializer}->serialize('collection', $collection, $c->stash->{inc}, $stash));
