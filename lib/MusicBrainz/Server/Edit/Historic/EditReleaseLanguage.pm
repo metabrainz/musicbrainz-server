@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
@@ -12,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Release';
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_lp('Edit release', 'edit type') }
-sub edit_kind     { 'edit' }
+sub edit_kind     { $EDIT_KIND_LABELS{'edit'} }
 sub historic_type { 44 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE }
 sub edit_template { 'historic/EditReleaseLanguage' }
