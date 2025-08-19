@@ -132,6 +132,55 @@ sub get_cloud
     return $data;
 }
 
+sub rename_for_user {
+    my ($self, $tag_id, $editor_id, $new_tags) = @_;
+    my @new_tag_ids;
+
+    for my $new_tag (@$new_tags) {
+        my $tag_entity = $self->get_by_name($new_tag);
+        if ($tag_entity) {
+            push @new_tag_ids, $tag_entity->id;
+        } else {
+            my $new_tag_id = $self->sql->select_single_value(<<~'SQL', $new_tag);
+                INSERT INTO tag (name)
+                     VALUES (?)
+                  RETURNING id
+                SQL
+            push @new_tag_ids, $new_tag_id;
+        }
+    }
+
+    for my $entity_type (entities_with('tags')) {
+        my $entity_ids = $self->sql->select_single_column_array(<<~"SQL", $editor_id, $tag_id);
+            DELETE FROM ${entity_type}_tag_raw
+                  WHERE editor = ? AND tag = ? AND is_upvote = TRUE
+              RETURNING $entity_type
+            SQL
+
+        for my $new_tag_id (@new_tag_ids) {
+            for my $entity_id (@$entity_ids) {
+                $self->sql->do(<<~"SQL", $entity_id, $editor_id, $new_tag_id);
+                    INSERT INTO ${entity_type}_tag_raw
+                                ($entity_type, editor, tag, is_upvote)
+                         VALUES (?, ?, ?, TRUE)
+                    ON CONFLICT ($entity_type, editor, tag) DO UPDATE
+                            SET is_upvote = TRUE
+                    SQL
+            }
+        }
+    }
+}
+
+sub delete_for_user {
+    my ($self, $tag_id, $editor_id, $delete_downvotes) = @_;
+
+    for my $entity_type (entities_with('tags')) {
+        $self->sql->do("DELETE FROM ${entity_type}_tag_raw
+                        WHERE editor = ? AND tag = ? AND is_upvote = ?",
+                       $editor_id, $tag_id, $delete_downvotes ? 'FALSE' : 'TRUE');
+    }
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
