@@ -297,6 +297,7 @@ export default {
   'report/RecordingTrackDifferentName': (): Promise<mixed> => import('../report/RecordingTrackDifferentName.js'),
   'report/ReleasedTooEarly': (): Promise<mixed> => import('../report/ReleasedTooEarly.js'),
   'report/ReleasedTooEarlyDigital': (): Promise<mixed> => import('../report/ReleasedTooEarlyDigital.js'),
+  'report/ReleasedTooEarlyForLabel': (): Promise<mixed> => import('../report/ReleasedTooEarlyForLabel.js'),
   'report/ReleaseGroupsWithoutVaCredit': (): Promise<mixed> => import('../report/ReleaseGroupsWithoutVaCredit.js'),
   'report/ReleaseGroupsWithoutVaLink': (): Promise<mixed> => import('../report/ReleaseGroupsWithoutVaLink.js'),
   'report/ReleaseLabelSameArtist': (): Promise<mixed> => import('../report/ReleaseLabelSameArtist.js'),
