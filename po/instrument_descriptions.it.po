@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-09 23:20+0000\n"
+"PO-Revision-Date: 2025-08-19 09:56+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,9 +27,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1553,6 +1553,10 @@ msgid ""
 "strings and specialised bridge so the sound will resemble sitar, it became "
 "popular in rock, jazz and fusion music after its invention in the 1960's."
 msgstr ""
+"Chitarra elettrica con tastiera e accordatura standard, ma con aggiunte "
+"corde simpatiche e un ponte specializzato, così da renderne il suono simile "
+"a quello di un sitar; diventò popolare nella musica rock, jazz e fusion dopo "
+"la sua invenzione negli anni 1960."
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -1928,6 +1932,11 @@ msgid ""
 "veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
+"Per il sarod modificato creato negli anni 1940 da Radhika Mohan Maitra, vedi "
+"<a href=\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">vina di Mohan "
+"(Radhika)</a>.<br /> Creata come una chitarra hawaiiana o lap steel "
+"modificata, ha dalle 19 alle 21 corde e una zucca a fiasco aggiunta al "
+"manico."
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1938,6 +1947,12 @@ msgid ""
 "1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
 "(like veena) and the fretboard from the sarod."
 msgstr ""
+"Per la chitarra slide modificata creata negli anni 1990 da Vishwa Mohan "
+"Bhatt, vedi <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\""
+">vina di Mohan (VM Bhatt)</a>.<br /> Creata come un sarod modificato da "
+"Radhika Maitra negli anni 1940, ha una cassa di risonanza ricoperta in legno "
+"(come il sitar), un risuonatore aggiuntivo sul manico (come la vina) e la "
+"tastiera del sarod."
 
 #. name:tumbi
 #: DB:instrument/description:511

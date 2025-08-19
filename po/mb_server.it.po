@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-05 11:59+0200\n"
-"PO-Revision-Date: 2025-05-04 15:20+0000\n"
+"PO-Revision-Date: 2025-08-18 20:36+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -869,7 +869,7 @@ msgstr "Dettagli"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Disabilità modalità browser datato"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -2574,7 +2574,7 @@ msgstr "Tipi secondari"
 
 #: ../root/layout.tt:145 ../root/layout/components/Footer.js:91
 msgid "See {tickets|all tickets in beta testing}."
-msgstr ""
+msgstr "Visualizza {tickets|tutti i ticket in beta testing}."
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -10802,19 +10802,15 @@ msgstr ""
 "MusicBrainz. Potresti provare a {search_url|usare la ricerca}."
 
 #: ../root/entity/NotFound.js:142
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit not found"
 msgctxt "header"
 msgid "Medium not found"
-msgstr "Modifica non trovata"
+msgstr "Supporto non trovato"
 
 #: ../root/entity/NotFound.js:144
-#, fuzzy
-#| msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgid "Sorry, we could not find a medium with that MusicBrainz ID."
 msgstr ""
-"Spiacenti, non è stato possibile trovare un URL con quell'ID di MusicBrainz."
+"Spiacenti, non è stato possibile trovare un supporto con quell'ID di "
+"MusicBrainz."
 
 #: ../root/entity/NotFound.js:150
 msgctxt "header"
@@ -11649,6 +11645,10 @@ msgid ""
 "Firefox, Safari, Edge, or any Chrome-based browser. If that’s not possible, "
 "you can try enabling {url|legacy browser mode}."
 msgstr ""
+"Il browser che stai usando non è supportato, perciò il sito potrebbe non "
+"funzionare correttamente. Ti raccomandiamo di passare a una versione recente "
+"di Firefox, Safari, Edge o di qualsiasi browser basato su Chrome. Se ciò non "
+"ti è possibile, puoi provare ad abilitare la {url|modalità browser datato}."
 
 #: ../root/layout/components/TopMenu.js:60
 msgid "Log out"
@@ -13167,13 +13167,16 @@ msgid ""
 "main name for an artist should always be its primary alias in the language "
 "of the name."
 msgstr ""
+"Questo rapporto elenca gli artisti che hanno almeno un alias contrassegnato "
+"come principale per un ambiente linguistico, ma che non hanno alias "
+"principali che corrispondono al loro nome. In generale, il nome principale "
+"di un artista dovrebbe sempre essere il suo alias principale nella lingua di "
+"quel nome."
 
 #: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:108
-#, fuzzy
-#| msgid "Artists with deprecated relationships"
 msgid "Artists with mismatched primary aliases"
-msgstr "Artisti con relazioni obsolete"
+msgstr "Artisti con alias principali abbinati male"
 
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:25
 msgid ""
@@ -13956,11 +13959,16 @@ msgid ""
 "main name for a label should always be its primary alias in the language of "
 "the name."
 msgstr ""
+"Questo rapporto elenca le etichette che hanno almeno un alias contrassegnato "
+"come principale per un ambiente linguistico, ma che non hanno alias "
+"principali che corrispondono al loro nome. In generale, il nome principale "
+"di un'etichetta dovrebbe sempre essere il suo alias principale nella lingua "
+"di quel nome."
 
 #: ../root/report/LabelsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:202
 msgid "Labels with mismatched primary aliases"
-msgstr ""
+msgstr "Etichette con alias principali abbinati male"
 
 #: ../root/report/LinksWithMultipleEntities.js:40
 msgid ""
@@ -14249,11 +14257,15 @@ msgid ""
 "Pseudo-releases {style|should not have cover art}, except temporarily until "
 "an official release has been added."
 msgstr ""
+"Questo rapporto mostra le pseudo-pubblicazioni che hanno immagini nel Cover "
+"Art Archive. Le pseudo-pubblicazioni {style|non dovrebbero avere copertine}, "
+"eccetto in casi temporanei finché una pubblicazione ufficiale non viene "
+"aggiunta."
 
 #: ../root/report/PseudoReleasesWithCoverArt.js:33
 #: ../root/report/ReportsIndex.js:375
 msgid "Pseudo-Releases that have cover art"
-msgstr ""
+msgstr "Pseudo-pubblicazioni con copertine"
 
 #: ../root/report/RecordingTrackDifferentName.js:37
 msgid ""
@@ -14425,12 +14437,6 @@ msgstr ""
 "Pubblicazioni con un nome diverso da quello del loro gruppo di pubblicazioni"
 
 #: ../root/report/ReleasedTooEarly.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases which have disc IDs even though they were "
-#| "released too early to have disc IDs, where one of the medium formats "
-#| "didn't exist at the time the release was released or where a disc ID is "
-#| "attached to a medium whose format does not have disc IDs."
 msgid ""
 "This report shows releases which have disc IDs even though they were "
 "released too early to have disc IDs, where one of the medium formats didn't "
@@ -14440,8 +14446,10 @@ msgid ""
 msgstr ""
 "Questo rapporto mostra le pubblicazioni che hanno ID disco nonostante siano "
 "state pubblicate troppo presto per averli, in cui uno dei formati dei "
-"supporti non esisteva all'epoca della pubblicazione o in cui un ID disco è "
-"associato a un supporto il cui formato non lo permette."
+"supporti non esisteva all'epoca della pubblicazione, oppure in cui un ID "
+"disco è associato a un supporto il cui formato non lo permette. Le "
+"pubblicazioni interamente digitali sono escluse; per quelle, consulta il "
+"{digital_report|rapporto dedicato}."
 
 #: ../root/report/ReleasedTooEarly.js:36 ../root/report/ReportsIndex.js:324
 msgid "Releases released too early"
@@ -14457,11 +14465,19 @@ msgid ""
 "content that have been incorrectly assigned the release date for the "
 "original, physical release."
 msgstr ""
+"Questo rapporto mostra le pubblicazioni con almeno un supporto impostato sul "
+"formato “Supporto digitale” pubblicate prima del 1999, cioè la data di "
+"lancio del primo negozio di musica digitale sostenuto da una grande "
+"etichetta. Anche se le pubblicazioni digitali esistevano prima di allora e "
+"non tutto ciò che è antecedente è automaticamente errato, molte "
+"pubblicazioni che finiscono qui sono probabilmente riedizioni digitali di "
+"contenuti più vecchi a cui è stata assegnata in modo errato la data di "
+"pubblicazione della rispettiva pubblicazione fisica originale."
 
 #: ../root/report/ReleasedTooEarlyDigital.js:37
 #: ../root/report/ReportsIndex.js:328
 msgid "Suspiciously early digital releases"
-msgstr ""
+msgstr "Pubblicazioni digitali pubblicate sospettosamente presto"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
 msgid ""

@@ -13,12 +13,12 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-23 22:42+0000\n"
+"PO-Revision-Date: 2025-08-18 20:36+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,9 +27,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -223,7 +223,7 @@ msgstr "chitarra portoghese"
 #: DB:instrument/name:1211
 msgctxt "1940s modified sarod"
 msgid "Radhika's Mohan veena"
-msgstr ""
+msgstr "vina di Mohan (Radhika)"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -274,7 +274,7 @@ msgstr "tonette"
 #: DB:instrument/name:1212
 msgctxt "Indian modified lap slide-guitar"
 msgid "VM Bhatt's Mohan veena"
-msgstr ""
+msgstr "vina di Mohan (VM Bhatt)"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
@@ -3276,11 +3276,9 @@ msgid "rauschpfeife"
 msgstr "rauschpfeife"
 
 #: DB:instrument/name:754
-#, fuzzy
-#| msgid "ravanahatha"
 msgctxt "Indian bowed spikefiddle"
 msgid "ravanahatta"
-msgstr "ravanahatha"
+msgstr "ravanahatta"
 
 #: DB:instrument/name:239
 msgctxt "Generic rebab catch-all"
@@ -4246,8 +4244,6 @@ msgid "tulum"
 msgstr "tulum"
 
 #: DB:instrument/name:511
-#, fuzzy
-#| msgid "tumbi"
 msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "tumbi"
@@ -4260,7 +4256,7 @@ msgstr "tumutumu"
 #: DB:instrument/name:1210
 msgctxt "West Indian one-spoke monochord"
 msgid "tun tuna"
-msgstr ""
+msgstr "tuṇtuṇe"
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"

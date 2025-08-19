@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-09 23:20+0000\n"
+"PO-Revision-Date: 2025-08-18 20:36+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,9 +30,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3450,12 +3450,12 @@ msgstr ""
 
 #. name:logo
 #: DB:link_type/description:1288
-#, fuzzy
-#| msgid "This is used to link a label to an image of its logo."
 msgid ""
 "This is used to link a series (a podcast, a festival...) to an image of its "
 "logo."
-msgstr "Serve a collegare un'etichetta a un'immagine del suo logo."
+msgstr ""
+"Serve a collegare una serie (un podcast, un festival...) a un'immagine del "
+"suo logo."
 
 #. name:discogs
 #: DB:link_type/description:747
@@ -4169,16 +4169,12 @@ msgstr ""
 
 #. name:IMDb
 #: DB:link_type/description:1289
-#, fuzzy
-#| msgid ""
-#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
-#| "\">IMDb</a>."
 msgid ""
 "This links a series (generally a podcast) to its page in <a href=\"http://"
 "www.imdb.com/\">IMDb</a>."
 msgstr ""
-"Collega un artista alla sua pagina di <a href=\"http://www.imdb.com/\">IMDb</"
-"a>."
+"Collega una serie (di solito un podcast) alla sua pagina di <a href="
+"\"http://www.imdb.com/\">IMDb</a>."
 
 #. name:soundcloud
 #: DB:link_type/description:870
