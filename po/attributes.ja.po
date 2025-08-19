@@ -31,7 +31,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-30 05:36+0000\n"
+"PO-Revision-Date: 2025-08-11 22:36+0000\n"
 "Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
@@ -386,7 +386,7 @@ msgstr "ミクソリディアンスケール"
 #: DB:work_attribute_type_allowed_value/value:1056
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Phrygian"
-msgstr "<i>A Phrygian</i>"
+msgstr "A Phrygian"
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -1141,47 +1141,47 @@ msgstr "KODA ID"
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
-msgstr "<i>Acem</i>"
+msgstr "アセム"
 
 #: DB:work_attribute_type_allowed_value/value:305
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Nevruz"
-msgstr "<i>Acem Nevruz</i>"
+msgstr "アセム・ネヴルズ"
 
 #: DB:work_attribute_type_allowed_value/value:306
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Rast"
-msgstr "<i>Acem Rast</i>"
+msgstr "アセム・ラスト"
 
 #: DB:work_attribute_type_allowed_value/value:300
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Zemzeme"
-msgstr "<i>Acem Zemzeme</i>"
+msgstr "Acem Zemzeme"
 
 #: DB:work_attribute_type_allowed_value/value:301
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemaşiran"
-msgstr "<i>Acemaşiran</i>"
+msgstr "アセマシラン"
 
 #: DB:work_attribute_type_allowed_value/value:302
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acembuselik"
-msgstr "<i>Acembuselik</i>"
+msgstr "Acembuselik"
 
 #: DB:work_attribute_type_allowed_value/value:303
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemkürdi"
-msgstr "<i>Acemkürdi</i>"
+msgstr "Acemkürdi"
 
 #: DB:work_attribute_type_allowed_value/value:304
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemli Yegah"
-msgstr "<i>Acemli Yegah</i>"
+msgstr "Acemli Yegah"
 
 #: DB:work_attribute_type_allowed_value/value:307
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
-msgstr "<i>Acemtarab</i>"
+msgstr "Acemtarab"
 
 #: DB:medium_format/name:203
 msgctxt "medium_format"
@@ -1191,57 +1191,58 @@ msgstr "アセテート"
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā"
-msgstr "<i>Adānā</i>"
+msgstr "アダナ"
 
 #: DB:work_attribute_type_allowed_value/value:849
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā malhār"
-msgstr "<i>Adānā malhār</i>"
+msgstr "アダナ・マルハール"
 
 #: DB:work_attribute_type_allowed_value/value:308
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aheng-i Tarab"
-msgstr "<i>Aheng-i Tarab</i>"
+msgstr "Aheng-i Tarab"
 
 #: DB:work_attribute_type_allowed_value/value:850
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahir lalit"
-msgstr "<i>Ahir lalit</i>"
+msgstr "Ahir lalit"
 
 #: DB:work_attribute_type_allowed_value/value:851
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahira bhairav"
-msgstr "<i>Ahira bhairav</i>"
+msgstr "Ahira bhairav"
 
 #: DB:work_attribute_type_allowed_value/value:852
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahiri tōḍī"
-msgstr "<i>Ahiri tōḍī</i>"
+msgstr "Ahiri tōḍī"
 
 #: DB:work_attribute_type_allowed_value/value:309
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ak Dügah"
-msgstr "<i>Ak Dügah</i>"
+msgstr "Ak Dügah"
 
 #: DB:work_attribute_type_allowed_value/value:690
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksak"
-msgstr "<i>Aksak</i>"
+msgstr "Aksak"
 
 #: DB:work_attribute_type_allowed_value/value:691
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksaksemai"
-msgstr "<i>Aksaksemai</i>"
+msgstr "Aksaksemai"
 
 #: DB:work_attribute_type_allowed_value/value:692
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksaksemai Evferi"
-msgstr "<i>Aksaksemai Evferi</i>"
+msgstr "Aksaksemai Evferi"
 
 #: DB:work_attribute_type_allowed_value/value:853
 msgctxt "work_attribute_type_allowed_value"
 msgid "Alahaiyā bilāval"
-msgstr "<i>Alahaiyā bilāval</i>"
+msgstr "アルハイヤ・ビラバル"
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
@@ -1257,17 +1258,17 @@ msgstr "シリーズの各要素の配置を手動で設定できます。"
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ambikā"
-msgstr "<i>Ambikā</i>"
+msgstr "アンビカ"
 
 #: DB:place_type/name:43
 msgctxt "place_type"
 msgid "Amphitheatre"
-msgstr "<i>Amphitheatre</i>"
+msgstr "Amphitheatre"
 
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amr̥t varṣiṇi"
-msgstr "<i>Amr̥t varṣiṇi</i>"
+msgstr "Amr̥t varṣiṇi"
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
