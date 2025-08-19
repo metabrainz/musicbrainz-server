@@ -210,16 +210,10 @@ component UserProfileInformation(
                   {noEmailWarning}
                 </>
               )}
-              {' '}
-              {viewingOwnProfile ? (
-                bracketed(
-                  <a href="/account/resend-verification">
-                    {l('resend verification email')}
-                  </a>,
-                )
-              ) : (
+              {viewingOwnProfile ? null : (
                 $c.user && !isAddingNotesDisabled($c.user) ? (
                   <>
+                    {' '}
                     {bracketed(
                       <a href={`/user/${encodedName}/contact`}>
                         {l('send email')}

@@ -727,23 +727,6 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
     );
 }
 
-=head2 resend_verification
-
-Send out an email allowing users to verify their email address, from the web
-
-=cut
-
-sub resend_verification : Path('/account/resend-verification') ForbiddenOnMirrors RequireAuth
-{
-    my ($self, $c) = @_;
-    my $editor = $c->model('Editor')->get_by_id($c->user->id);
-    if ($editor->has_email_address) {
-        $self->_send_confirmation_email($c, $editor, $editor->email);
-    }
-    $c->response->redirect($c->uri_for_action('/user/profile', [ $editor->name ]));
-    $c->detach;
-}
-
 =head2 _send_confirmation_email
 
 Send out an email allowing users to verify their email address
