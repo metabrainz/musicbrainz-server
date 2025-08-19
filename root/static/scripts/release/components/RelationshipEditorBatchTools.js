@@ -24,6 +24,8 @@ import type {
 
 import {BatchCreateWorksButtonPopover} from './BatchCreateWorksDialog.js';
 
+type BatchRelatableEntityTypeT = 'recording' | 'work';
+
 component BatchAddRelationshipButtonPopover(
   batchSelectionCount: number,
   buttonClassName: string,
@@ -33,7 +35,7 @@ component BatchAddRelationshipButtonPopover(
   isOpen: boolean,
   popoverId: string,
   releaseHasUnloadedTracks: boolean,
-  sourceType: RelatableEntityTypeT,
+  sourceType: BatchRelatableEntityTypeT,
 ) {
   const sourcePlaceholder = createRelatableEntityObject(sourceType, {
     name: entityPlaceholder,
@@ -66,20 +68,18 @@ component BatchAddRelationshipButtonPopover(
 
   let tooltipMessage = null;
   if (isDisabled) {
-    switch (sourceType) {
-      case 'recording': {
+    match (sourceType) {
+      'recording' => {
         tooltipMessage = l(
           `To use this tool, select some recordings
            using the checkboxes below.`,
         );
-        break;
       }
-      case 'work': {
+      'work' => {
         tooltipMessage = l(
           `To use this tool, select some works
            using the checkboxes below.`,
         );
-        break;
       }
     }
   }

@@ -81,35 +81,31 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   const fieldCtx = newStateCtx.get('field');
 
-  switch (action.type) {
-    case 'add-row': {
+  match (action) {
+    {type: 'add-row'} => {
       newStateCtx.update((fieldCtx) => {
         pushField(fieldCtx, '');
       });
-      break;
     }
-    case 'remove-row': {
+    {type: 'remove-row', const fieldId} => {
       const index = fieldCtx.read().findIndex(
-        (subfield) => subfield.id === action.fieldId,
+        (subfield) => subfield.id === fieldId,
       );
 
       if (fieldCtx.read().length === 1) {
         newStateCtx.set('field', index, 'value', '');
-        break;
+      } else {
+        newStateCtx.update('field', (fieldCtx) => {
+          fieldCtx.write().splice(index, 1);
+        });
       }
-
-      newStateCtx.update('field', (fieldCtx) => {
-        fieldCtx.write().splice(index, 1);
-      });
-      break;
     }
-    case 'update-row': {
+    {type: 'update-row', const fieldId, const value} => {
       const index = fieldCtx.read().findIndex(
-        (subfield) => subfield.id === action.fieldId,
+        (subfield) => subfield.id === fieldId,
       );
 
-      newStateCtx.set('field', index, 'value', action.value);
-      break;
+      newStateCtx.set('field', index, 'value', value);
     }
   }
   return newStateCtx.final();

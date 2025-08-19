@@ -329,28 +329,26 @@ export function runReducer(
     | {...ReleaseRelationshipEditorStateT},
   action: RelationshipEditorActionT,
 ): void {
-  switch (action.type) {
-    case 'move-relationship-down': {
+  match (action) {
+    {type: 'move-relationship-down', const relationship, const source} => {
       moveRelationship(
         writableState,
-        action.relationship,
-        action.source,
+        relationship,
+        source,
         true,
       );
-      break;
     }
 
-    case 'move-relationship-up': {
+    {type: 'move-relationship-up', const relationship, const source} => {
       moveRelationship(
         writableState,
-        action.relationship,
-        action.source,
+        relationship,
+        source,
         false,
       );
-      break;
     }
 
-    case 'remove-relationship': {
+    {type: 'remove-relationship', ...} as action => {
       const {relationship} = action;
 
       const updates: Array<RelationshipUpdateT> = [
@@ -381,15 +379,14 @@ export function runReducer(
       }
 
       updateRelationships(writableState, updates);
-      break;
     }
 
-    case 'toggle-ordering': {
-      const {
-        hasOrdering,
-        linkPhraseGroup,
-      } = action;
-
+    {
+      type: 'toggle-ordering',
+      const hasOrdering,
+      const linkPhraseGroup,
+      ...
+    } => {
       const updates: Array<RelationshipUpdateT> = [];
       let nextLogicalLinkOrder = 1;
 
@@ -424,36 +421,33 @@ export function runReducer(
       }
 
       updateRelationships(writableState, updates);
-      break;
     }
 
-    case 'update-dialog-location': {
-      writableState.dialogLocation = action.location;
-      break;
+    {type: 'update-dialog-location', const location} => {
+      writableState.dialogLocation = location;
     }
 
-    case 'update-entity': {
+    {type: 'update-entity', const changes, const entityType} => {
       invariant(
-        writableState.entity.entityType === action.entityType,
+        writableState.entity.entityType === entityType,
         'Cannot change the relationship editor entity type',
       );
       // $FlowIgnore[cannot-spread-indexer]
       writableState.entity = {
         ...writableState.entity,
-        ...action.changes,
+        ...changes,
       };
-      break;
     }
 
-    case 'update-relationship-state': {
-      const {
-        creditsToChangeForSource,
-        creditsToChangeForTarget,
-        newRelationshipState,
-        oldRelationshipState,
-        sourceEntity,
-      } = action;
-
+    {
+      type: 'update-relationship-state',
+      const creditsToChangeForSource,
+      const creditsToChangeForTarget,
+      const newRelationshipState,
+      const oldRelationshipState,
+      const sourceEntity,
+      ...
+    } => {
       const relationshipStateChanged = (
         oldRelationshipState != null &&
         !relationshipsAreIdentical(
@@ -547,12 +541,6 @@ export function runReducer(
           }
         }
       }
-
-      break;
-    }
-
-    default: {
-      /*:: exhaustive(action); */
     }
   }
 }

@@ -184,7 +184,7 @@ component ArtistIndex(
   numberOfRevisions: number,
   otherIdentities: $ReadOnlyArray<ArtistT>,
   pager: PagerT,
-  recordings: ?$ReadOnlyArray<RecordingWithArtistCreditT>,
+  recordings: ?$ReadOnlyArray<RecordingT>,
   releaseGroups: ?$ReadOnlyArray<ReleaseGroupT>,
   renamedFrom: $ReadOnlyArray<ArtistT>,
   renamedInto: $ReadOnlyArray<ArtistT>,

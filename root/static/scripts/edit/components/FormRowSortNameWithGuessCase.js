@@ -37,24 +37,21 @@ export function runReducer(
   newState: CowContext<StateT>,
   action: ActionT,
 ) {
-  switch (action.type) {
-    case 'set-sortname': {
-      newState.set('sortNameField', 'value', action.sortName);
-      break;
+  match (action) {
+    {type: 'set-sortname', const sortName} => {
+      newState.set('sortNameField', 'value', sortName);
     }
-    case 'guess-case-sortname': {
+    {type: 'guess-case-sortname', const entity} => {
       newState.set(
         'sortNameField',
         'value',
-        guessSortName(newState.read().nameField.value ?? '', action.entity),
+        guessSortName(newState.read().nameField.value ?? '', entity),
       );
-      break;
     }
-    case 'copy-sortname': {
+    {type: 'copy-sortname'} => {
       newState.set(
         'sortNameField', 'value', newState.read().nameField.value ?? '',
       );
-      break;
     }
   }
 }

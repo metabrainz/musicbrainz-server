@@ -8,12 +8,12 @@
  */
 
 import ENTITIES from '../../entities.mjs';
+import LayoutComponent from '../components/LayoutComponent.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import manifest from '../static/manifest.mjs';
 import AnnotationHistoryTable
   from '../static/scripts/annotation/AnnotationHistoryTable.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component AnnotationHistory(
   annotations: $ReadOnlyArray<AnnotationT>,
@@ -23,7 +23,6 @@ component AnnotationHistory(
   const entityType = entity.entityType;
   const entityUrlFragment = ENTITIES[entityType].url;
   const baseUrl = `/${entityUrlFragment}/${entity.gid}`;
-  const LayoutComponent = chooseLayoutComponent(entityType);
   const canCompare = annotations.length > 1;
 
   return (

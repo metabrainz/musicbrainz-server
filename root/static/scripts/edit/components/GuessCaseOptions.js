@@ -46,26 +46,20 @@ export function runReducer(
   state: CowContext<StateT>,
   action: ActionT,
 ): void {
-  switch (action.type) {
-    case 'set-mode': {
-      const modeName = action.modeName;
+  match (action) {
+    {type: 'set-mode', const modeName} => {
       gc.modeName = modeName;
       setCookie('guesscase_mode', modeName);
       state.set('modeName', modeName);
-      break;
     }
-    case 'set-keep-upper-case': {
-      const enabled = action.enabled;
+    {type: 'set-keep-upper-case', const enabled} => {
       gc.CFG_KEEP_UPPERCASED = enabled;
       setCookie('guesscase_keepuppercase', enabled);
       state.set('keepUpperCase', enabled);
-      break;
     }
-    case 'set-upper-case-roman': {
-      const enabled = action.enabled;
+    {type: 'set-upper-case-roman', const enabled} => {
       setCookie('guesscase_roman', enabled);
       state.set('upperCaseRoman', enabled);
-      break;
     }
   }
 }

@@ -10,18 +10,11 @@
 import {bracketedText} from '../utility/bracketed.js';
 
 component Cardinality(cardinality: number) {
-  let cardinalityName;
-  switch (cardinality) {
-    case 0:
-      cardinalityName = l('Few relationships');
-      break;
-    case 1:
-      cardinalityName = l('Many relationships');
-      break;
-    default:
-      cardinalityName = lp('Unknown', 'cardinality');
-      break;
-  }
+  const cardinalityName = match (cardinality) {
+    0 => l('Few relationships'),
+    1 => l('Many relationships'),
+    _ => lp('Unknown', 'cardinality'),
+  };
 
   return (
     <>

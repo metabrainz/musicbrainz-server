@@ -146,21 +146,16 @@ function reducer(
 ): DialogLinkTypeStateT {
   const newState: {...DialogLinkTypeStateT} = {...state};
 
-  switch (action.type) {
-    case 'update-autocomplete': {
+  match (action) {
+    {type: 'update-autocomplete', const action, const source} => {
       newState.autocomplete = autocompleteReducer(
         state.autocomplete,
-        action.action,
+        action,
       );
 
       const linkType = newState.autocomplete.selectedItem?.entity;
 
-      newState.error = getLinkTypeError(linkType, action.source);
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
+      newState.error = getLinkTypeError(linkType, source);
     }
   }
 
@@ -225,9 +220,9 @@ function accumulateDialogAttributeByRootId(
     result.set(rootId, children);
   }
 
-  switch (dialogAttribute.control) {
-    case 'multiselect': {
-      for (const valueAttribute of dialogAttribute.values) {
+  match (dialogAttribute) {
+    {control: 'multiselect', const values, ...} => {
+      for (const valueAttribute of values) {
         if (valueAttribute.removed) {
           continue;
         }
@@ -236,24 +231,19 @@ function accumulateDialogAttributeByRootId(
           type: (valueAttribute.autocomplete.selectedItem?.entity) ?? null,
         });
       }
-      break;
     }
-    case 'checkbox': {
-      if (dialogAttribute.enabled) {
+    {control: 'checkbox', const enabled, const type, ...} => {
+      if (enabled) {
+        children.push({type});
+      }
+    }
+    {control: 'text', const textValue, const type, ...} => {
+      if (!isBlank(textValue)) {
         children.push({
-          type: dialogAttribute.type,
+          text_value: textValue,
+          type,
         });
       }
-      break;
-    }
-    case 'text': {
-      if (!isBlank(dialogAttribute.textValue)) {
-        children.push({
-          text_value: dialogAttribute.textValue,
-          type: dialogAttribute.type,
-        });
-      }
-      break;
     }
   }
 

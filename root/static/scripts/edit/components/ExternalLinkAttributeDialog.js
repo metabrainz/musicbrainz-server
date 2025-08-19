@@ -103,33 +103,31 @@ const createInitialState = (
 const reducer = (state: StateT, action: ActionT): StateT => {
   const ctx = mutate(state);
 
-  switch (action.type) {
-    case 'update-date-period':
+  match (action) {
+    {type: 'update-date-period', const action} => {
       runDateRangeFieldsetReducer(
         ctx.get('datePeriodField'),
-        action.action,
+        action,
       );
-      break;
-    case 'update-initial-date-period':
+    }
+    {type: 'update-initial-date-period', const props} => {
       copyDatePeriodField(
-        createInitialState(action.props).initialDatePeriodField,
+        createInitialState(props).initialDatePeriodField,
         ctx.get('initialDatePeriodField'),
       );
-      break;
-    case 'reset':
+    }
+    {type: 'reset'} => {
       copyDatePeriodField(
         ctx.get('initialDatePeriodField').read(),
         ctx.get('datePeriodField'),
       );
-      break;
-    case 'show-all-pending-errors':
+    }
+    {type: 'show-all-pending-errors'} => {
       applyAllPendingErrors(ctx.get('datePeriodField'));
-      break;
-    case 'update-relationship-credit':
-      ctx.set('credit', 'value', action.credit);
-      break;
-    default:
-      throw new Error('Unknown action: ' + action.type);
+    }
+    {type: 'update-relationship-credit', const credit} => {
+      ctx.set('credit', 'value', credit);
+    }
   }
 
   return ctx.final();

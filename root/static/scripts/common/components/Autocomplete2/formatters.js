@@ -571,70 +571,42 @@ export default function formatItem<T: EntityItemT>(
   item: ItemT<T>,
   options?: ?FormatOptionsT,
 ): Expand2ReactOutput {
-  switch (item.type) {
-    case 'action':
-    case 'header': {
-      return unwrapNl<string>(item.name);
+  match (item) {
+    {type: 'action' | 'header', const name, ...} => {
+      return unwrapNl<string>(name);
     }
-    case 'option': {
-      const entity = item.entity;
-
-      switch (entity.entityType) {
-        case 'area':
-          return formatArea(entity);
-
-        case 'artist':
-          return formatArtist(entity);
-
-        case 'event':
-          return formatEvent(entity);
-
-        case 'genre':
-          return formatGeneric(entity);
-
-        case 'instrument':
-          return formatInstrument(
-            entity,
-            options?.showDescriptions,
-          );
-
-        case 'label':
-          return formatLabel(entity);
-
-        case 'link_attribute_type':
-          return formatLinkAttributeType(
-            entity,
-            options?.showDescriptions,
-          );
-
-        case 'link_type':
-          return formatLinkType(
-            entity,
-            options?.showDescriptions,
-          );
-
-        case 'place':
-          return formatPlace(entity);
-
-        case 'recording':
-          return formatRecording(entity);
-
-        case 'release':
-          return formatRelease(entity);
-
-        case 'release_group':
-          return formatReleaseGroup(entity);
-
-        case 'series':
-          return formatSeries(entity);
-
-        case 'work':
-          return formatWork(entity);
-
-        default:
-          return unwrapNl<string>(item.name);
-      }
+    {type: 'option', const entity, ...} => {
+      return match (entity) {
+        {entityType: 'area', ...} as entity => formatArea(entity),
+        {entityType: 'artist', ...} as entity => formatArtist(entity),
+        {entityType: 'event', ...} as entity => formatEvent(entity),
+        {entityType: 'genre', ...} as entity => formatGeneric(entity),
+        {entityType: 'instrument', ...} as entity => formatInstrument(
+          entity,
+          options?.showDescriptions,
+        ),
+        {entityType: 'label', ...} as entity => formatLabel(entity),
+        {
+          entityType: 'link_attribute_type',
+          ...
+        } as entity => formatLinkAttributeType(
+          entity,
+          options?.showDescriptions,
+        ),
+        {entityType: 'link_type', ...} as entity => formatLinkType(
+          entity,
+          options?.showDescriptions,
+        ),
+        {entityType: 'place', ...} as entity => formatPlace(entity),
+        {entityType: 'recording', ...} as entity => formatRecording(entity),
+        {entityType: 'release', ...} as entity => formatRelease(entity),
+        {entityType: 'release_group', ...} as entity => formatReleaseGroup(
+          entity,
+        ),
+        {entityType: 'series', ...} as entity => formatSeries(entity),
+        {entityType: 'work', ...} as entity => formatWork(entity),
+        _ => unwrapNl<string>(item.name),
+      };
     }
   }
-  return '';
 }
