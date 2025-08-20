@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
@@ -28,6 +29,7 @@ import {
 } from '../../edit/components/ArtistCreditEditor/types.js';
 import {
   incompleteArtistCreditFromState,
+  isArtistCreditStateComplete,
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
@@ -53,7 +55,6 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
-import initializeValidation from '../../edit/validation.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -103,12 +104,32 @@ type CreateInitialStatePropsT = {
   readonly form: RecordingFormT,
 };
 
+function updateNameFieldErrors(
+  nameFieldCtx: CowContext<FieldT<string | null>>,
+) {
+  if (isBlank(nameFieldCtx.get('value').read())) {
+    nameFieldCtx.set('has_errors', true);
+    nameFieldCtx.set('pendingErrors', [
+      l('Required field.'),
+    ]);
+  } else {
+    nameFieldCtx.set('has_errors', false);
+    nameFieldCtx.set('pendingErrors', []);
+    nameFieldCtx.set('errors', []);
+  }
+}
+
 function createInitialState({
   $c,
   form,
 }: CreateInitialStatePropsT): StateT {
   const recording = getSourceEntityData($c);
   invariant(recording && recording.entityType === 'recording');
+
+  const formCtx = mutate(form);
+  // $FlowExpectedError[incompatible-call]
+  const nameFieldCtx = formCtx.get('field', 'name');
+  updateNameFieldErrors(nameFieldCtx);
 
   return {
     artistCredit: createArtistCreditState({
@@ -117,7 +138,7 @@ function createInitialState({
       id: 'source',
     }),
     externalLinksEditor: createExternalLinksEditorState($c),
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     recording,
@@ -141,16 +162,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
-          if (isBlank(nameState.field.value)) {
-            nameFieldCtx.set('has_errors', true);
-            nameFieldCtx.set('pendingErrors', [
-              l('Required field.'),
-            ]);
-          } else {
-            nameFieldCtx.set('has_errors', false);
-            nameFieldCtx.set('pendingErrors', []);
-            nameFieldCtx.set('errors', []);
-          }
+          updateNameFieldErrors(nameFieldCtx);
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
@@ -209,10 +221,6 @@ component RecordingEditForm(
 
   useFormUnloadWarning();
 
-  React.useEffect(() => {
-    initializeValidation();
-  }, []);
-
   const [state, dispatch] = React.useReducer(
     reducer,
     {$c, form: initialForm},
@@ -250,6 +258,7 @@ component RecordingEditForm(
   }
 
   const hasErrors = hasSubfieldErrors(state.form) ||
+    !isArtistCreditStateComplete(state.artistCredit.names) ||
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
 
   // Ensure errors are shown if the user tries to submit with Enter
