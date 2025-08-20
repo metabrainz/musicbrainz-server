@@ -285,10 +285,10 @@ const testData = [
   // ACUM
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
-          input_entity_type: 'release',
+          input_entity_type: 'release_group',
           expected_relationship_type: 'otherdatabases',
           expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
-          only_valid_entity_types: ['release'],
+          only_valid_entity_types: ['release_group'],
   },
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ&tab=musical',

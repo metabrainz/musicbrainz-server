@@ -581,7 +581,7 @@ export const CLEANUPS: CleanupEntries = {
               result: /\/results\?creatorid=[A-Z]-\d+-\d$/.test(url),
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return {
               result: /\/album\?albumid=[0-9A-Z]+$/.test(url),
               target: ERROR_TARGETS.ENTITY,
