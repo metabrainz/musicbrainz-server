@@ -142,6 +142,8 @@ component Head(
 
       {manifest('common/jquery-global')}
 
+      {manifest('common/bootstrap')}
+
       {manifest('common/sentry')}
 
       {$c.stash.current_language === 'en'
