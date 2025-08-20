@@ -289,6 +289,7 @@ export default {
   'report/PossibleCollaborations': (): Promise<mixed> => import('../report/PossibleCollaborations.js'),
   'report/PseudoReleasesWithCoverArt': (): Promise<mixed> => import('../report/PseudoReleasesWithCoverArt.js'),
   'report/RecordingsSameNameDifferentArtistsSameName': (): Promise<mixed> => import('../report/RecordingsSameNameDifferentArtistsSameName.js'),
+  'report/RecordingsWithDuplicateWorks': (): Promise<mixed> => import('../report/RecordingsWithDuplicateWorks.js'),
   'report/RecordingsWithEarliestReleaseRelationships': (): Promise<mixed> => import('../report/RecordingsWithEarliestReleaseRelationships.js'),
   'report/RecordingsWithFutureDates': (): Promise<mixed> => import('../report/RecordingsWithFutureDates.js'),
   'report/RecordingsWithoutVaCredit': (): Promise<mixed> => import('../report/RecordingsWithoutVaCredit.js'),
