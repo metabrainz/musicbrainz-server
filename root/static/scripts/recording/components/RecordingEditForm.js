@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
 import mutate from 'mutate-cow';
 import * as React from 'react';
 
@@ -30,6 +31,7 @@ import {
 } from '../../edit/components/ArtistCreditEditor/types.js';
 import {
   incompleteArtistCreditFromState,
+  isArtistCreditStateComplete,
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
@@ -57,7 +59,6 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../../edit/utility/subfieldErrors.js';
-import initializeValidation from '../../edit/validation.js';
 import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';
@@ -85,6 +86,21 @@ type CreateInitialStatePropsT = {
   +form: RecordingFormT,
 };
 
+function updateNameFieldErrors(
+  nameFieldCtx: CowContext<FieldT<string | null>>,
+) {
+  if (isBlank(nameFieldCtx.get('value').read())) {
+    nameFieldCtx.set('has_errors', true);
+    nameFieldCtx.set('pendingErrors', [
+      l('Required field.'),
+    ]);
+  } else {
+    nameFieldCtx.set('has_errors', false);
+    nameFieldCtx.set('pendingErrors', []);
+    nameFieldCtx.set('errors', []);
+  }
+}
+
 function createInitialState({
   $c,
   form,
@@ -92,13 +108,18 @@ function createInitialState({
   const recording = getSourceEntityDataForRelationshipEditor($c);
   invariant(recording && recording.entityType === 'recording');
 
+  const formCtx = mutate(form);
+  // $FlowExpectedError[incompatible-call]
+  const nameFieldCtx = formCtx.get('field', 'name');
+  updateNameFieldErrors(nameFieldCtx);
+
   return {
     artistCredit: createArtistCreditState({
       entity: recording,
       formName: form.name,
       id: 'source',
     }),
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     recording,
@@ -122,16 +143,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
-          if (isBlank(nameState.field.value)) {
-            nameFieldCtx.set('has_errors', true);
-            nameFieldCtx.set('pendingErrors', [
-              l('Required field.'),
-            ]);
-          } else {
-            nameFieldCtx.set('has_errors', false);
-            nameFieldCtx.set('pendingErrors', []);
-            nameFieldCtx.set('errors', []);
-          }
+          updateNameFieldErrors(nameFieldCtx);
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
@@ -184,10 +196,6 @@ component RecordingEditForm(
 
   useFormUnloadWarning();
 
-  React.useEffect(() => {
-    initializeValidation();
-  }, []);
-
   const [state, dispatch] = React.useReducer(
     reducer,
     {$c, form: initialForm},
@@ -224,7 +232,8 @@ component RecordingEditForm(
     dispatch({bubble: 'name', type: 'toggle-bubble'});
   }
 
-  const hasErrors = hasSubfieldErrors(state.form);
+  const hasErrors = hasSubfieldErrors(state.form) ||
+                    !isArtistCreditStateComplete(state.artistCredit.names);
 
   const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
 
