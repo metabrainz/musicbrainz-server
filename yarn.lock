@@ -1848,6 +1848,41 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/fontawesome-common-types@npm:7.1.0"
+  checksum: 10c0/8d10a6bfaa33f66fd042fe9f8159926a3e9b12d5cbf31698a88980b0e9b84ebc8c6b4b25e5c865c1d8542a67ed4fa1fadfaabfec250b991f018f2b45aa3b005d
+  languageName: node
+  linkType: hard
+
+"@fortawesome/fontawesome-svg-core@npm:7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/fontawesome-svg-core@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/6c32b78f1a7c269d4c14c457ed0f3d09269f700861524330e54b838693727827be810ded3322099995266d490235321a8f356a6f270dc5bd9ce651fc3c94be26
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-solid-svg-icons@npm:7.1.0":
+  version: 7.1.0
+  resolution: "@fortawesome/free-solid-svg-icons@npm:7.1.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.1.0"
+  checksum: 10c0/0e3129fa9c972be9a897a17329958d7fe0a322fef794ace3589941fa97c41761222a071b50e47e1f3f81a0c398dfca7c5a1d9ed93576f76b91c514e372f6da30
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:3.1.1":
+  version: 3.1.1
+  resolution: "@fortawesome/react-fontawesome@npm:3.1.1"
+  peerDependencies:
+    "@fortawesome/fontawesome-svg-core": ~6 || ~7
+    react: ^18.0.0 || ^19.0.0
+  checksum: 10c0/cda7a307bad6a01eec2b12896ea94b7757dc516de2f781ac482804457c240bdc507ea6ec14270f5252934c74f8939fdd127e173c1bc621b9dc4351a4e6fff9c0
+  languageName: node
+  linkType: hard
+
 "@humanfs/core@npm:^0.19.1":
   version: 0.19.1
   resolution: "@humanfs/core@npm:0.19.1"
@@ -3251,6 +3286,15 @@ __metadata:
   version: 2.3.0
   resolution: "binary-extensions@npm:2.3.0"
   checksum: 10c0/75a59cafc10fb12a11d510e77110c6c7ae3f4ca22463d52487709ca7f18f69d886aa387557cc9864fbdb10153d0bdb4caacabf11541f55e89ed6e18d12ece2b5
+  languageName: node
+  linkType: hard
+
+"bootstrap@npm:5.3.8":
+  version: 5.3.8
+  resolution: "bootstrap@npm:5.3.8"
+  peerDependencies:
+    "@popperjs/core": ^2.11.8
+  checksum: 10c0/0039a9df2c3e7bfa04f1abca199c299ff3b75869d578c0cb1721c6f1f203c91531788a5631ecbee01513481979314d0e4ba0d90c2011e6ce18fc2e0bc93e18d9
   languageName: node
   linkType: hard
 
@@ -7490,6 +7534,9 @@ __metadata:
     "@babel/register": "npm:7.28.3"
     "@babel/runtime": "npm:7.28.4"
     "@floating-ui/react": "npm:0.27.15"
+    "@fortawesome/fontawesome-svg-core": "npm:7.1.0"
+    "@fortawesome/free-solid-svg-icons": "npm:7.1.0"
+    "@fortawesome/react-fontawesome": "npm:3.1.1"
     "@metabrainz/xgettext-js": "npm:5.0.0"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
@@ -7498,6 +7545,7 @@ __metadata:
     babel-plugin-istanbul: "npm:7.0.0"
     babel-plugin-syntax-hermes-parser: "npm:0.32.1"
     balanced-match: "npm:3.0.1"
+    bootstrap: "npm:5.3.8"
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
     chrome-remote-interface: "npm:0.33.3"
