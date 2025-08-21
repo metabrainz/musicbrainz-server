@@ -443,6 +443,7 @@ function createInitialNamesState(
 
 export function createInitialState(
   initialState: {
+    +artistCredit?: ArtistCreditT,
     +entity: ArtistCreditableT,
     +formName?: string,
     /*
@@ -455,12 +456,14 @@ export function createInitialState(
   },
 ): StateT {
   const {
+    artistCredit: passedArtistCredit,
     entity,
     id,
     isOpen = false,
     ...otherState
   } = initialState;
-  const artistCredit: ?ArtistCreditT = ko.unwrap(entity.artistCredit);
+  const artistCredit: ?ArtistCreditT =
+    passedArtistCredit || ko.unwrap(entity.artistCredit);
 
   invariant(artistCredit);
 
