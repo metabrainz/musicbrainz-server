@@ -115,6 +115,7 @@ function createInitialState({
 
   return {
     artistCredit: createArtistCreditState({
+      artistCredit: $c.stash.artist_credit,
       entity: recording,
       formName: form.name,
       id: 'source',
