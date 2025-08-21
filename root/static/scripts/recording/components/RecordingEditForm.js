@@ -55,6 +55,7 @@ import {
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
 import guessFeat from '../../edit/utility/guessFeat2.js';
+import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -68,11 +69,13 @@ type ActionT =
   | {+type: 'guess-feat'}
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-bubble', +bubble: string}
+  | {+type: 'update-edit-note', +editNote: string}
   | {+type: 'update-name', +action: NameActionT}
   | {+type: 'update-artist-credit', +action: ArtistCreditActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
+  +actionName: string,
   +artistCredit: ArtistCreditStateT,
   +form: RecordingFormT,
   +guessCaseOptions: GuessCaseOptionsStateT,
@@ -109,6 +112,7 @@ function createInitialState(
   updateNameFieldErrors(nameFieldCtx);
 
   return {
+    actionName: $c.action.name,
     artistCredit: createArtistCreditState({
       artistCredit: $c.stash.artist_credit,
       entity: recording,
@@ -127,6 +131,22 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
 
   match (action) {
+    {type: 'update-edit-note', const editNote} => {
+      const errors = isInvalidEditNote(editNote)
+        ? [l(`Your edit note seems to have no actual content.
+              Please provide a note that will be helpful to
+              your fellow editors!`)]
+        : state.actionName === 'create' && empty(editNote)
+          ? [l(`You must provide an edit note when adding
+                a standalone recording`)]
+          : [];
+
+      newStateCtx.set('form', 'field', 'edit_note', {
+        ...newStateCtx.get('form', 'field', 'edit_note').read(),
+        errors,
+        value: editNote,
+      });
+    }
     {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
         field: state.form.field.name,
@@ -204,6 +224,15 @@ component RecordingEditForm(
     action: ArtistCreditActionT,
   ) => {
     dispatch({action, type: 'update-artist-credit'});
+  }, [dispatch]);
+
+  const handleEditNoteChange = React.useCallback((
+    event: SyntheticEvent<HTMLTextAreaElement>,
+  ) => {
+    dispatch({
+      editNote: event.currentTarget.value,
+      type: 'update-edit-note',
+    });
   }, [dispatch]);
 
   function handleCommentFocus() {
@@ -362,7 +391,11 @@ component RecordingEditForm(
           />
         </fieldset>
 
-        <EnterEditNote field={state.form.field.edit_note} />
+        <EnterEditNote
+          controlled
+          field={state.form.field.edit_note}
+          onChange={handleEditNoteChange}
+        />
         <EnterEdit disabled={hasErrors} form={state.form} />
       </div>
 
