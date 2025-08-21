@@ -11,13 +11,7 @@ sub query {<<~'SQL'}
     FROM
         ( SELECT r.*
             FROM release r
-            LEFT JOIN (
-                SELECT release, date_year, date_month, date_day
-                  FROM release_country
-                UNION ALL
-                SELECT release, date_year, date_month, date_day
-                  FROM release_unknown_country
-            ) events ON (events.release = r.id)
+            LEFT JOIN release_event events ON events.release = r.id
             JOIN release_label rl ON rl.release = r.id
             JOIN label l ON rl.label = l.id
            WHERE events.date_year < l.begin_date_year
