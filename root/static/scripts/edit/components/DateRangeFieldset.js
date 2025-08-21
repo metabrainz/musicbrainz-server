@@ -167,6 +167,8 @@ component _DateRangeFieldset(
   dispatch: (ActionT) => void,
   endedLabel?: string,
   field: DatePeriodFieldT,
+  beginArea?: React.Node,
+  endArea?: React.Node,
 ) {
   const subfields = field.field;
 
@@ -195,6 +197,7 @@ component _DateRangeFieldset(
           type="button"
         />
       </FormRowPartialDate>
+      {beginArea}
       <FormRowPartialDate
         disabled={disabled}
         dispatch={hooks.endDateDispatch}
@@ -202,6 +205,7 @@ component _DateRangeFieldset(
         label={addColonText(l('End date'))}
         yearInputRef={hooks.endYearInputRef}
       />
+      {endArea}
       <FieldErrors
         field={field}
         includeSubFields={false}
