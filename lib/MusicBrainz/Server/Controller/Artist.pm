@@ -292,7 +292,10 @@ sub show : PathPart('') Chained('load')
                        grep { $_->direction == $DIRECTION_BACKWARD }
                        grep { $_->link->type->gid eq 'dd9886f2-1dfe-4270-97db-283f6839a666' } @{ $artist->relationships };
     if (defined $base_name) {
-        $c->model('Relationship')->load_subset(['artist'], $base_name);
+        $c->model('Relationship')->load_subset(
+            target_types => ['artist'],
+            source_objs => [$base_name],
+        );
         $c->stash( legal_name => $base_name );
         my @aliases = uniq map { $_->name }
                       sort_by { $coll->getSortKey($_->name) }
@@ -328,8 +331,8 @@ sub show : PathPart('') Chained('load')
 
     if (@renamed_from || @renamed_into) {
         $c->model('Relationship')->load_subset(
-            ['artist'],
-            @renamed_from, @renamed_into,
+            target_types => ['artist'],
+            source_objs => [@renamed_from, @renamed_into],
         );
     }
 

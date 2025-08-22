@@ -19,7 +19,10 @@ around '_build_related_entities' => sub
 
     my ($releases, undef) = $self->c->model('Release')->find_by_recording(\@recording_ids);
 
-    $self->c->model('Relationship')->load_subset([ 'artist' ], @works);
+    $self->c->model('Relationship')->load_subset(
+        target_types => [ 'artist' ],
+        source_objs => \@works,
+    );
 
     return {
         artist => [

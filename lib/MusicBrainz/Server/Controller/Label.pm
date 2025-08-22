@@ -162,8 +162,8 @@ sub show : PathPart('') Chained('load')
 
     if (@renamed_from || @renamed_into) {
         $c->model('Relationship')->load_subset(
-            ['label'],
-            @renamed_from, @renamed_into,
+            target_types => ['label'],
+            source_objs => [@renamed_from, @renamed_into],
         );
     }
 
