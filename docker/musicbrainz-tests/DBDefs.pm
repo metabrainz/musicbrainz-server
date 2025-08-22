@@ -131,7 +131,7 @@ sub GIT_SHA { return }
 
 sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
-sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq en ) }
+sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq ru en ) }
 
 sub ACTIVE_SCHEMA_SEQUENCE { 30 }
 
