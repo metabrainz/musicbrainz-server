@@ -770,7 +770,7 @@ export class _ExternalLinksEditor
   }
 
   filterTypeOptions(
-    possibleTypes: $ReadOnlyArray<RelationshipTypeT> | false,
+    possibleTypes: $ReadOnlyArray<RelationshipTypeT> | null,
   ): $ReadOnlyArray<LinkTypeOptionT> {
     if (!possibleTypes) {
       return this.generalLinkTypes;
@@ -942,7 +942,8 @@ export class _ExternalLinksEditor
                * Now that selected types are valid, if there's only one
                * possible type, then it's a match.
                */
-              urlMatchesType = possibleTypes && possibleTypes.length === 1;
+              urlMatchesType = possibleTypes != null &&
+                possibleTypes.length === 1;
             } else if (shouldValidateTypeCombination &&
               links[0].submitted &&
               selectedTypes.length > 0 &&
