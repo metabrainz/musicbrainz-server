@@ -72,6 +72,7 @@ sub index : Path Args(0)
         component_path => 'main/index',
         component_props => {
             blogEntries => $c->model('Blog')->get_latest_entries,
+            communityPosts => $c->model('Community')->get_latest_posts,
             newestEvents => to_json_array(\@newest_events),
             newestReleases => to_json_array(\@newest_releases),
         },

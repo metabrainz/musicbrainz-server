@@ -91,6 +91,8 @@ const entries = [
   'event/index',
   'genre/components/GenreEditForm',
   'genre/index',
+  'homepage/banner-carousel',
+  'homepage/search',
   'instrument/edit',
   'instrument/index',
   'label/edit',
