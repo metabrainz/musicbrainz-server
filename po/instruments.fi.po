@@ -1550,6 +1550,13 @@ msgstr "sähköiset soittimet"
 msgid "electronic organ"
 msgstr "sähköurut"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic drum set"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "sähkörummut"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2375,6 +2382,11 @@ msgstr "vaskipuhaltimet läppäkoneistolla"
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
+
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
 
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
@@ -3838,6 +3850,11 @@ msgstr ""
 #: DB:instrument/name:816
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
+msgstr ""
+
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
 msgstr ""
 
 #: DB:instrument/name:716
