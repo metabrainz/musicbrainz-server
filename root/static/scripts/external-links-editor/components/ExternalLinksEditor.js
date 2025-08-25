@@ -309,7 +309,7 @@ export class _ExternalLinksEditor
         const newLink = {...newLinks[index], rawUrl, url};
         const checker = new URLCleanup.Checker(url, this.sourceType);
         const guessedType = checker.guessType();
-        const possibleTypes = checker.getPossibleTypes();
+        const possibleTypes = checker.possibleTypes;
         const typeOptions = this.filterTypeOptions(possibleTypes);
         // Clear selection if current type is not allowed
         if (link.type &&
@@ -885,7 +885,7 @@ export class _ExternalLinksEditor
             const checker = new URLCleanup.Checker(
               url, this.sourceType,
             );
-            const possibleTypes = checker.getPossibleTypes();
+            const possibleTypes = checker.possibleTypes;
             const selectedTypes: Array<string> = [];
             const typeOptions = this.filterTypeOptions(possibleTypes);
             links.forEach(link => {
