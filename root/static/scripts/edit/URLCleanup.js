@@ -43,6 +43,10 @@ export const LINK_TYPES: LinkTypeMap = {
   amazon: {
     release: '4f2e710d-166c-480c-a293-2e2c8d658d87',
   },
+  applemusic: {
+    artist: '64785d6c-2eeb-4f86-9418-b6c2d6c53c13',
+    label: 'debf36e1-b0fa-4e6c-987e-4248bf050fd8',
+  },
   artgallery: {
     artist: '8203341a-27be-40bb-b755-08d8ca9d7a9c',
   },
@@ -953,9 +957,21 @@ export const CLEANUPS: CleanupEntries = {
       /^(https?:\/\/)?([^/]+\.)?apple\.co\//i,
     ],
     restrict: [
-      LINK_TYPES.downloadpurchase,
-      LINK_TYPES.streamingpaid,
-      multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
+      LINK_TYPES.applemusic,
+      ...anyCombinationOf(
+        'recording',
+        [
+          LINK_TYPES.downloadpurchase.recording,
+          LINK_TYPES.streamingpaid.recording,
+        ],
+      ),
+      ...anyCombinationOf(
+        'release',
+        [
+          LINK_TYPES.downloadpurchase.release,
+          LINK_TYPES.streamingpaid.release,
+        ],
+      ),
     ],
     clean(url) {
       url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\//, 'https://music.apple.com/');
@@ -988,8 +1004,7 @@ export const CLEANUPS: CleanupEntries = {
       if (m) {
         const prefix = m[1];
         switch (id) {
-          case LINK_TYPES.downloadpurchase.artist:
-          case LINK_TYPES.streamingpaid.artist:
+          case LINK_TYPES.applemusic.artist:
             if (prefix === 'artist') {
               return {result: true};
             }
@@ -997,8 +1012,7 @@ export const CLEANUPS: CleanupEntries = {
               result: false,
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.downloadpurchase.label:
-          case LINK_TYPES.streamingpaid.label:
+          case LINK_TYPES.applemusic.label:
             if (prefix === 'label') {
               return {result: true};
             }
