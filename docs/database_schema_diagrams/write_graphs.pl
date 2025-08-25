@@ -84,18 +84,18 @@ Readonly my $DB_SCHEMA_SEQUENCE => 30;
 Readonly my $TABLE_FONT_SIZE => '17';
 Readonly my $COLUMN_FONT_SIZE => '14';
 
-# Pastel background colors 25% lighter than official colors
+# Pastel background colors way lighter than official colors
 # Avoid using alpha layer to avoid darkening by overlay
-Readonly my $CAA_COLOR => '#35a8b3';
-Readonly my $MEB_COLOR => '#f0976c';
-Readonly my $MB_COLOR => '#cb75ab';
+Readonly my $CAA_COLOR => '#b5ccce';
+Readonly my $MEB_COLOR => '#f8d1be';
+Readonly my $MB_COLOR => '#e8c2da';
 
-Readonly my $HI_TABLE_COLOR => '#eeeeeebb';
-Readonly my $TABLE_COLOR => '#bbbbbb77';
+Readonly my $HI_TABLE_COLOR => '#eb743b';
+Readonly my $TABLE_COLOR => '#eeeeee';
 
-Readonly my $PK_COLUMN_COLOR => '#eeeeee77';
-Readonly my $FK_COLUMN_COLOR => '#eeeeee55';
-Readonly my $COLUMN_COLOR => '#bbbbbb33';
+Readonly my $PK_COLUMN_COLOR => '#f0976c';
+Readonly my $FK_COLUMN_COLOR => '#f8d1be';
+Readonly my $COLUMN_COLOR => '#eeeeee';
 
 Readonly my %SCHEMA_COLOR => (
   'cover_art_archive' => $CAA_COLOR,
