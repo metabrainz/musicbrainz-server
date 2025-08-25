@@ -340,7 +340,7 @@ component Layout(
           {children}
         </div>
 
-        {$c.stash.within_dialog === true
+        {$c.stash.within_dialog === true || headProps.isHomepage /*:: === true */
           ? null
           : <MergeHelperAndFooter $c={$c} />}
 

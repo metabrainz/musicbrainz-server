@@ -1990,6 +1990,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/free-brands-svg-icons@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fortawesome/free-brands-svg-icons@npm:7.0.0"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:7.0.0"
+  checksum: 10c0/ebb201a083d12d068c1ae0e81d1ff91677b989d304975ce4cad8b3db19d205f2cd7a199167ae5f91b03e9ff47545772be4d2dea70501d7272a43cd4eab39d1bd
+  languageName: node
+  linkType: hard
+
 "@fortawesome/free-solid-svg-icons@npm:^7.0.0":
   version: 7.0.0
   resolution: "@fortawesome/free-solid-svg-icons@npm:7.0.0"
@@ -3428,6 +3437,15 @@ __metadata:
   version: 2.3.0
   resolution: "binary-extensions@npm:2.3.0"
   checksum: 10c0/75a59cafc10fb12a11d510e77110c6c7ae3f4ca22463d52487709ca7f18f69d886aa387557cc9864fbdb10153d0bdb4caacabf11541f55e89ed6e18d12ece2b5
+  languageName: node
+  linkType: hard
+
+"blobs@npm:^2.3.0-beta.2":
+  version: 2.3.0-beta.2
+  resolution: "blobs@npm:2.3.0-beta.2"
+  dependencies:
+    simplex-noise: "npm:^4.0.1"
+  checksum: 10c0/aacc8177be9161521d2e584e67663890985b100a54eb011d409cd6e7123c0e175edeae2dff71f79dcf1e4d5f22531c65284504a11d3638a937452f8b7c02c4ac
   languageName: node
   linkType: hard
 
@@ -7790,6 +7808,7 @@ __metadata:
     "@babel/runtime": "npm:7.27.6"
     "@floating-ui/react": "npm:0.27.12"
     "@fortawesome/fontawesome-svg-core": "npm:^7.0.0"
+    "@fortawesome/free-brands-svg-icons": "npm:^7.0.0"
     "@fortawesome/free-solid-svg-icons": "npm:^7.0.0"
     "@fortawesome/react-fontawesome": "npm:^0.2.3"
     "@metabrainz/xgettext-js": "npm:4.0.0"
@@ -7800,6 +7819,7 @@ __metadata:
     babel-plugin-istanbul: "npm:7.0.0"
     babel-plugin-syntax-hermes-parser: "npm:0.28.1"
     balanced-match: "npm:3.0.1"
+    blobs: "npm:^2.3.0-beta.2"
     bootstrap: "npm:^5.3.7"
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
@@ -7838,6 +7858,7 @@ __metadata:
     less-loader: "npm:12.3.0"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.0.0"
+    lodash: "npm:^4.17.21"
     mutate-cow: "npm:6.0.0"
     nodemon: "npm:3.1.10"
     nyc: "npm:17.1.0"
@@ -9789,6 +9810,13 @@ __metadata:
   dependencies:
     semver: "npm:^7.5.3"
   checksum: 10c0/2a00bd03bfbcbf8a737c47ab230d7920f8bfb92d1159d421bdd194479f6d01ebc995d13fbe13d45dace23066a78a3dc6642999b4e3b38b847e6664191575b20c
+  languageName: node
+  linkType: hard
+
+"simplex-noise@npm:^4.0.1":
+  version: 4.0.3
+  resolution: "simplex-noise@npm:4.0.3"
+  checksum: 10c0/117b7f85abd90f3dc63817ed790705ff0fb50cb0bf396a8fc8fa1443265e4b2529429bb34992e43e7b27d6cacb9059f37fa52a37e59c52f51698ad0d3038d0f3
   languageName: node
   linkType: hard
 
