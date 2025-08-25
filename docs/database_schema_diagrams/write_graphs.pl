@@ -100,7 +100,7 @@ Readonly my $COLUMN_COLOR => '#bbbbbb33';
 Readonly my %SCHEMA_COLOR => (
   'cover_art_archive' => $CAA_COLOR,
   'event_art_archive' => $CAA_COLOR,
-  'musicbrainz' => $MEB_COLOR
+  'musicbrainz' => $MB_COLOR
 );
 
 ################################################################################
