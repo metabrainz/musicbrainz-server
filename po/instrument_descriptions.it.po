@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-19 10:23+0000\n"
+"PO-Revision-Date: 2025-08-19 21:36+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
 "X-Generator: Weblate 5.13\n"
 
 #. name:rebab
@@ -3725,6 +3725,12 @@ msgid ""
 "synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
 "using recording samples."
 msgstr ""
+"Da non confondere con l'analogo <a href="
+"\"/instrument/e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> azionato "
+"a mantice o con lo strumento a corda chiamato <a href="
+"\"/instrument/a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> "
+"Sintetizzatore elettronico inventato da G. Raj Narayan nel 1979. Negli anni "
+"1990 furono introdotti modelli che utilizzano campionamenti di registrazioni."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -6323,6 +6329,10 @@ msgid ""
 "horn-plectrum. Used in southern India since ancient times, it is essentially "
 "a bass rabab."
 msgstr ""
+"Ha una profonda cassa di risonanza in legno, ricoperta in pelle, un manico "
+"intagliato che termina in forma di pappagallo e un ponte in budello con tre "
+"ordini di corde doppie in seta, pizzicate con un plettro in corno. Usato sin "
+"dall'antichità nell'India meridionale, è in sostanza un rabab basso."
 
 #. name:kendang lanang
 #: DB:instrument/description:994
@@ -7290,6 +7300,11 @@ msgid ""
 "arm, attached to the membrane is a single string which is plucked with a "
 "pick. It is known by many names."
 msgstr ""
+"Usato nella musica tradizionale del Bengala, dell'Odisha e dell'India "
+"nordorientale, ha una cassa di risonanza in legno di forma cilindrica, "
+"simile a un tamburo, con una membrana a un'estremità che viene tenuta sotto "
+"un braccio; attaccata alla membrana vi è una sola corda, che viene pizzicata "
+"con un plettro. È conosciuto con molti nomi."
 
 #. name:krap khū
 #: DB:instrument/description:950
