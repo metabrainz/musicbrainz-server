@@ -11,7 +11,7 @@ import ReleaseList from './components/ReleaseList.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseT} from './types.js';
 
-component ReleasedTooEarlyDigital(...{
+component ReleasedTooEarlyForLabel(...{
   canBeFiltered,
   filtered,
   generated,
@@ -22,19 +22,15 @@ component ReleasedTooEarlyDigital(...{
     <ReportLayout
       canBeFiltered={canBeFiltered}
       description={l(
-        `This report shows releases with at least one medium set to format
-         “Digital Media” which were released before 1999, the launch date
-         for the first digital music store supported by a major label.
-         While digital releases did exist before this, and not everything
-         older is automatically incorrect, a lot of releases that end up
-         here are likely to be digital reissues of older content that have
-         been incorrectly assigned the release date for the original,
-         physical release.`,
+        `This report shows releases where the earliest release date
+         predates the begin date of at least one of the marked release labels.
+         This means either one of the two dates is incorrect,
+         or the label has been incorrectly selected.`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Suspiciously early digital releases')}
+      title={l('Releases older than their release label')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />
@@ -42,4 +38,4 @@ component ReleasedTooEarlyDigital(...{
   );
 }
 
-export default ReleasedTooEarlyDigital;
+export default ReleasedTooEarlyForLabel;

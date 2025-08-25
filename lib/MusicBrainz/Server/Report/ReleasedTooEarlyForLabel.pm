@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Report::ReleasedTooEarlyDigital;
+package MusicBrainz::Server::Report::ReleasedTooEarlyForLabel;
 use Moose;
 
 with 'MusicBrainz::Server::Report::ReleaseReport',
@@ -10,11 +10,11 @@ sub query {<<~'SQL'}
         row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
     FROM
         ( SELECT r.*
-        FROM release r
-        LEFT JOIN release_event events ON events.release = r.id
-        JOIN medium m ON m.release = r.id
-        WHERE m.format = 12 -- there is one digital medium
-          AND date_year < 1999 -- first major label digital store
+            FROM release r
+            LEFT JOIN release_event events ON events.release = r.id
+            JOIN release_label rl ON rl.release = r.id
+            JOIN label l ON rl.label = l.id
+           WHERE events.date_year < l.begin_date_year
         ) r
     JOIN artist_credit ac ON r.artist_credit = ac.id
     SQL
