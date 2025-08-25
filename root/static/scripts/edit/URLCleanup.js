@@ -8054,13 +8054,13 @@ export class Checker {
    * Guess a relationship type or a type combination,
    * return false if it can't be determined.
    */
-  guessType(): RelationshipTypeT | false {
+  guessType(): RelationshipTypeT | null {
     const cleanup = this.cleanup;
     const sourceType = this.entityType;
     const types = this.filterApplicableTypes();
     // If not applicable to current entity
     if (types.length === 0) {
-      return false;
+      return null;
     }
     // If there is a `select` function, use its return value directly
     if (cleanup && cleanup.select) {
@@ -8073,7 +8073,7 @@ export class Checker {
     if (types.length === 1) {
       return types[0];
     }
-    return false;
+    return null;
   }
 
   /*
@@ -8081,11 +8081,11 @@ export class Checker {
    *
    * Returns possible relationship types of given URL with given entity.
    */
-  getPossibleTypes(): Array<RelationshipTypeT> | false {
+  getPossibleTypes(): Array<RelationshipTypeT> | null {
     const types = this.filterApplicableTypes();
     // If not applicable to current entity
     if (types.length === 0) {
-      return false;
+      return null;
     }
     return types;
   }
@@ -8140,7 +8140,7 @@ export class Checker {
    */
   checkRelationships(
     selectedTypes: $ReadOnlyArray<string>,
-    allowedTypes: $ReadOnlyArray<RelationshipTypeT> | false,
+    allowedTypes: $ReadOnlyArray<RelationshipTypeT> | null,
   ): ValidationResult {
     if (!allowedTypes) {
       return {result: true};
