@@ -10,8 +10,6 @@
 import $ from 'jquery';
 import {parse as tldtsParse} from 'tldts';
 
-import {arraysEqual} from '../common/utility/arrays.js';
-
 type EntityTypesMap = {
   +[entityType: RelatableEntityTypeT]: RelationshipTypeT,
 };
@@ -8151,10 +8149,8 @@ export class Checker {
     // Multiple types are selected
     const result = allowedTypes.some(
       (allowedType) => Array.isArray(allowedType) &&
-        arraysEqual(
-          [...selectedTypes].sort(),
-          [...allowedType].sort(),
-        ),
+        selectedTypes.length === allowedType.length &&
+        (new Set(selectedTypes)).isSubsetOf(new Set(allowedType)),
     );
     if (!result) {
       return {
