@@ -7835,7 +7835,7 @@ export class Checker {
       if (type[sourceType]) {
         result.push(type[sourceType]);
       }
-      return result.sort();
+      return result;
     }, []);
   }
 }
