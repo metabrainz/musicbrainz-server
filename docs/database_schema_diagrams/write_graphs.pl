@@ -255,9 +255,8 @@ sub write_dot_files
         digraph $diagram_id {
             tooltip = "$diagram_tooltip"
             graph [
-                bgcolor = "$MB_COLOR:$MEB_COLOR"
+                bgcolor = "$MB_COLOR"
                 concentrate = true
-                gradientangle = 330
                 pack = true
                 rankdir = "LR"
             ];
@@ -325,7 +324,7 @@ sub write_dot_files
             my $current_schema_color = $SCHEMA_COLOR{$schema};
             print $graph_fh <<~"EOF";
                     subgraph cluster_$schema {
-                        bgcolor = "$current_schema_color:$MEB_COLOR"
+                        bgcolor = "$current_schema_color"
 
                 EOF
             foreach my $table (@{ $diagram_schemas{$schema} }) {
