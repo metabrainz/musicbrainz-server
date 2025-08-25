@@ -12,10 +12,8 @@ import {parse as tldtsParse} from 'tldts';
 
 import {arraysEqual} from '../common/utility/arrays.js';
 
-type EntityTypes = string | $ReadOnlyArray<string>;
-
 type EntityTypesMap = {
-  +[entityType: RelatableEntityTypeT]: EntityTypes,
+  +[entityType: RelatableEntityTypeT]: RelationshipTypeT,
 };
 
 type EntityTypeMap = {
