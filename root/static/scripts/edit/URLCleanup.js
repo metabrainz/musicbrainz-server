@@ -7686,10 +7686,13 @@ export class Checker {
 
   cleanup: ?CleanupEntry;
 
+  +possibleTypes: $ReadOnlyArray<RelationshipTypeT>;
+
   constructor(url: string, entityType: RelatableEntityTypeT) {
     this.url = url;
     this.entityType = entityType;
     this.cleanup = findCleanupEntry(url);
+    this.possibleTypes = this.filterApplicableTypes();
   }
 
   /*
@@ -7718,20 +7721,6 @@ export class Checker {
       return types[0];
     }
     return null;
-  }
-
-  /*
-   * Relationship type restriction.
-   *
-   * Returns possible relationship types of given URL with given entity.
-   */
-  getPossibleTypes(): Array<RelationshipTypeT> | null {
-    const types = this.filterApplicableTypes();
-    // If not applicable to current entity
-    if (types.length === 0) {
-      return null;
-    }
-    return types;
   }
 
   /*
@@ -7823,6 +7812,11 @@ export class Checker {
     return {result: true};
   }
 
+  /*
+   * Relationship type restriction.
+   *
+   * Returns possible relationship types of given URL with given entity.
+   */
   filterApplicableTypes(
     sourceType: RelatableEntityTypeT = this.entityType,
   ): Array<RelationshipTypeT> {
