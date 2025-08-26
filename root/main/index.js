@@ -29,6 +29,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
 import {faBluesky, faMastodon, faDiscord, faReddit} from '@fortawesome/free-brands-svg-icons';
 import Search from '../static/scripts/homepage/search.js';
+import Stats from '../static/scripts/homepage/stats.js';
 
 type BlogEntryT = {
   +title: string,
@@ -428,6 +429,10 @@ component Homepage(
               </div>
             </div>
           </div>
+
+          <div className="">
+            <Stats />
+          </div>
         </div>
 
         <div className="timeline-container" id="events-container">
@@ -667,6 +672,7 @@ component Homepage(
 
       {manifest('homepage/search', {async: true})}
       {manifest('homepage/banner-carousel', {async: true})}
+      {manifest('homepage/stats', {async: true})}
 
       {manifest('common/loadArtwork', {async: true})}
     </Layout>
