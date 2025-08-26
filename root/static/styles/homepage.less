@@ -1,5 +1,7 @@
 .new-homepage {
 	@import (less) "../../../node_modules/bootstrap/dist/css/bootstrap.css";
+	@import (less) "../../../node_modules/swiper/swiper.css";
+	@import (less) "../../../node_modules/swiper/modules/navigation.css";
 
 	position: relative;
 	overflow: hidden;
@@ -181,10 +183,6 @@
 				}
 			}
 		}
-
-		#banner-carousel {
-			height: 520px;
-		}
 	}
 
 
@@ -248,6 +246,10 @@
 
 		&#about {
 			background-color: #F5F5F5;
+			display: flex;
+			flex-direction: column;
+			gap: 50px;
+
 			#about-musicbrainz-container {
 				li {
 					margin-top: 20px;
@@ -336,11 +338,68 @@
 		background-color: #E2E2E2;
 
 	}
+
+	.stats-container {
+		margin: 0 auto;
+		max-width: 1200px;
+	
+		.swiper-slide {
+			width: unset !important;
+			padding: 0 50px;
+		}
+	
+		h2 {
+			font-size: 45px;
+			background: linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%);
+			color: transparent;
+			background-clip: text;
+		}
+
+		p {
+			font-size: 24px;
+			font-weight: 700px;
+			color: #46433A;
+			font-family: Roboto;
+		}
+
+		img {
+			height: 20px;
+		}
+
+		// Add gradient to the left and right of the swiper
+		.swiper {
+			position: relative;
+		}
+		.swiper::before,
+		.swiper::after {
+			background: linear-gradient(to right, #F5F5F5 0%, #F5F5F500 100%);
+			content: "";
+			height: 150px;
+			position: absolute;
+			width: 300px;
+			z-index: 2;
+		}
+		.swiper::after {
+			right: 0;
+			top: 0;
+			transform: rotateZ(180deg);
+		}
+		.swiper::before {
+			left: 0;
+			top: 0;
+		}
+
+		.swiper-button-prev,
+		.swiper-button-next {
+			color: #464547;
+			font-size: 2.5rem;
+			width: 33px;
+		}
+	}
 }
 
 .carousel-container {
 	position: relative;
-	width: 100%;
 	height: 520px;
 	overflow: hidden;
 	
@@ -384,6 +443,21 @@
 		position: relative;
 		overflow: hidden;
 
+		&.carousel-slide-1 {
+			background: linear-gradient(270deg, #BA478F -8.99%, #EB743B 87.81%);
+
+			img {
+				height: 300px;
+			}
+		}
+		&.carousel-slide-2 {
+			background: linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%);
+
+			.listenbrainz-image {
+				margin-top: 80px;
+			}
+		}
+		
 		.slide-vector-1{
 			position: absolute;
 			z-index: 2;
@@ -420,10 +494,67 @@
 		.carousel-slide-content {
 			text-align: center;
 			color: white;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 20px;
+
+			.carousel-pill {
+				background-color: #292929;
+				color: white;
+				border-radius: 33px;
+				padding: 10px 20px;
+				margin-right: auto;
+
+				.picard-logo,
+				.listenbrainz-logo {
+					height: 25px;
+				}
+
+				a {
+					color: white;
+					font-size: 20px;
+					font-weight: 900;
+					text-decoration: none;
+
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+
+			h2 {
+				font-size: 45px;
+			}
+
+			a {
+				color: #292929;
+				font-size: 16px;
+				font-weight: 700;
+				text-decoration: none;
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
 		}
 	}
-	
-	
+
+	.swiper {
+		width: 100%;
+		height: 100%;
+
+		.swiper-slide {
+			width: 100% !important;
+	  }
+
+		.swiper-button-prev,
+		.swiper-button-next {
+			color: #464547;
+			font-size: 2.5rem;
+			width: 33px;
+		}
+	}
 }
 
 .homepage {

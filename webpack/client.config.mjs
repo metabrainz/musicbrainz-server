@@ -93,6 +93,7 @@ const entries = [
   'genre/index',
   'homepage/banner-carousel',
   'homepage/search',
+  'homepage/stats',
   'instrument/edit',
   'instrument/index',
   'label/edit',

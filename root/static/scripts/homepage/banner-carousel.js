@@ -9,95 +9,80 @@
 
 import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
-// import picard from '../../../static/images/homepage/picard.png';
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+// $FlowFixMe[untyped-import]
+import { Swiper, SwiperSlide } from 'swiper/react';
+// $FlowFixMe[untyped-import]
+import { Navigation } from 'swiper/modules';
+
+import picardImage from "../../../static/images/homepage/picard.png"
+import picardLogo from "../../../static/images/meb-logos/Picard_logo_icon.svg"
+import listenBrainzImage from "../../../static/images/homepage/LB-Headphone.svg"
+import listenBrainzLogo from "../../../static/images/meb-logos/Listenbrainz_logo_icon.svg"
 import Blob from './blob.js';
 
-const SlideOne = () => (
-  <div
-    className="carousel-slide"
-    style={{
-      background: "linear-gradient(270deg, #BA478F -8.99%, #EB743B 87.81%)",
-    }}
-  >
-    <div className="carousel-slide-content">
-      <h2>Slide 1</h2>
-    </div>
-    <Blob width={300} height={300} randomness={2} className="slide-vector-1" />
-    <Blob width={100} height={100} randomness={2} className="slide-vector-2" />
-  </div>
-);
-
-const SlideTwo = () => (
-  <div
-    className="carousel-slide"
-    style={{
-      background: "linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%)",
-    }}
-  >
-    <div className="carousel-slide-content">
-      <h2>Slide 2</h2>
-    </div>
-    <Blob width={100} height={100} randomness={2} className="slide-vector-3" />
-    <Blob width={300} height={300} randomness={2} className="slide-vector-4" />
-  </div>
-);
-
 component BannerCarousel() {
-  const slides = [  
-    <SlideOne key="slide-one" />,
-    <SlideTwo key="slide-two" />,
-  ]
-  const extendedSlides = [
-    slides[slides.length - 1],
-    ...slides,
-    slides[0],
-  ];
-
-  const [activeIndex, setActiveIndex] = React.useState(1);
-  const [isTransitioning, setIsTransitioning] = React.useState(true);
-
-  const handleTransitionEnd = () => {
-    if (activeIndex === 0) {
-      setIsTransitioning(false);
-      setActiveIndex(slides.length);
-    } else if (activeIndex === slides.length + 1) {
-      setIsTransitioning(false);
-      setActiveIndex(1);
-    }
-  };
-
-  React.useEffect(() => {
-    if (!isTransitioning) {
-      requestAnimationFrame(() => setIsTransitioning(true));
-    }
-  }, [isTransitioning]);
-
   return (
-    <div className="carousel-container banner-carousel" id="banner-carousel">
-      <div
-        className="carousel-track"
-        style={{
-          transform: `translateX(-${activeIndex * 100}%)`,
-          transition: isTransitioning ? "transform 0.5s ease" : "none",
-        }}
-        onTransitionEnd={handleTransitionEnd}
+    <div className="carousel-container" id="banner-carousel">
+      <Swiper
+        navigation={true}
+        loop={true}
+        modules={[Navigation]}
       >
-        {extendedSlides}
-      </div>
-
-      <button
-        className="carousel-btn prev"
-        onClick={() => setActiveIndex((prev) => (prev - 1 + slides.length) % slides.length)}
-      >
-        <FontAwesomeIcon icon={faChevronLeft} />
-      </button>
-      <button
-        className="carousel-btn next"
-        onClick={() => setActiveIndex((prev) => (prev + 1) % slides.length)}
-      >
-        <FontAwesomeIcon icon={faChevronRight} />
-      </button>
+        <SwiperSlide>
+          <div className="carousel-slide carousel-slide-1">
+            <div className="carousel-slide-content">
+              <img src={picardImage} alt="Tag your music" />
+              <div className="d-flex flex-column gap-3">
+                <h2>Tag your music</h2>
+                <div className="carousel-pill d-flex gap-2">
+                  <img src={picardLogo} alt="Picard" className="picard-logo" />
+                  <a href="https://picard.musicbrainz.org/" target="_blank" rel="noopener noreferrer">
+                    MusicBrainz Picard
+                  </a>
+                </div>
+                <div className="d-flex gap-3">
+                  <a href="https://musicbrainz.org/doc/AudioRanger" target="_blank" rel="noopener noreferrer">
+                    AudioRanger
+                  </a>
+                  <a href="https://musicbrainz.org/doc/Mp3tag" target="_blank" rel="noopener noreferrer">
+                    Mp3tag
+                  </a>
+                  <a href="https://musicbrainz.org/doc/Yate_Music_Tagger" target="_blank" rel="noopener noreferrer">
+                    Yate
+                  </a>
+                </div>
+              </div>
+            </div>
+            <Blob width={300} height={300} randomness={2} className="slide-vector-1" />
+            <Blob width={100} height={100} randomness={2} className="slide-vector-2" />
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="carousel-slide carousel-slide-2">
+          <div className="carousel-slide-content">
+              <img src={listenBrainzImage} alt="Listen together" className="listenbrainz-image" />
+              <div className="d-flex flex-column gap-3">
+                <h2>Listen together</h2>
+                <div className="carousel-pill d-flex gap-2">
+                  <img src={listenBrainzLogo} alt="ListenBrainz" className="listenbrainz-logo" />
+                  <a href="https://listenbrainz.org/" target="_blank" rel="noopener noreferrer">
+                    with ListenBrainz
+                  </a>
+                </div>
+                <div className="d-flex gap-3 align-items-center">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" color='#1E1E1E' /> 
+                  <a href="https://listenbrainz.org/" target="_blank" rel="noopener noreferrer">
+                    Explore the music you listen to.
+                  </a>
+                </div>
+              </div>
+            </div>
+            <Blob width={100} height={100} randomness={2} className="slide-vector-3" />
+            <Blob width={300} height={300} randomness={2} className="slide-vector-4" />
+          </div>
+        </SwiperSlide>
+      </Swiper>
     </div>
   );
 };
