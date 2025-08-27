@@ -200,6 +200,14 @@ our $data_processors = {
 
     $EDIT_RELATIONSHIP_EDIT => \&process_relationship,
 
+    $EDIT_RELATIONSHIP_DELETE => sub {
+        my ($c, $loader, $data) = @_;
+
+        if (defined $data->{enteredFrom}) {
+            $data->{entered_from} = delete $data->{enteredFrom};
+        }
+    },
+
     $EDIT_RELATIONSHIPS_REORDER => sub {
         my ($c, $loader, $data) = @_;
 
@@ -215,6 +223,10 @@ our $data_processors = {
             }
             $ordering->{new_order} = $new_order;
             $ordering->{old_order} = $relationship->link_order;
+        }
+
+        if (defined $data->{enteredFrom}) {
+            $data->{entered_from} = delete $data->{enteredFrom};
         }
     },
 
@@ -458,6 +470,10 @@ sub process_relationship {
             $data->{attributes},
             [$data->{relationship} ? $data->{relationship}->link->all_attributes : ()],
         );
+    }
+
+    if (defined $data->{enteredFrom}) {
+        $data->{entered_from} = delete $data->{enteredFrom};
     }
 
     delete $data->{id};
