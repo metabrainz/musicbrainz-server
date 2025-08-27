@@ -153,7 +153,8 @@ component EventEditForm(
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm),
+    initialForm,
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {
