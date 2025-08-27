@@ -4,6 +4,11 @@
     padding: 5px 10px 10px 10px;
 }
 
+.entered-from {
+    padding: 5px 10px 5px 10px;
+    background-color: @very-light-grey;
+}
+
 .overall-vote {
     float: right;
     margin-bottom: 1em;
@@ -230,8 +235,11 @@ table.vote-tally {
     margin: 20px 0;
     background-color: @effectively-white-bg;
 
-    .edit-header {
+    .edit-header, .entered-from {
         border-right: 10px solid transparent;
+    }
+
+    .edit-header {
         padding-top: 0;
 
         > h2 {
