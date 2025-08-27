@@ -14,7 +14,6 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import EntityPendingEditsWarning
   from '../../edit/components/EntityPendingEditsWarning.js';
 import RemoveButton from '../../edit/components/RemoveButton.js';
-import URLInputPopover from '../../edit/components/URLInputPopover.js';
 import {stripAttributes} from '../../edit/utility/linkPhrase.js';
 import type {
   CreditableEntityOptionsT,
@@ -26,6 +25,7 @@ import type {
 } from '../types.js';
 
 import ExternalLinkRelationship from './ExternalLinkRelationship.js';
+import URLInputPopover from './URLInputPopover.js';
 
 export type ExternalLinkPropsT = {
   +canMerge: boolean,
