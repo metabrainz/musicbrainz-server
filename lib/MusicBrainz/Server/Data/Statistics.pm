@@ -2298,4 +2298,69 @@ sub recalculate_all
     }
 }
 
+sub get_weekly_stats_for_homepage {
+    my $self = shift;
+
+    my @stats_order = (
+        'count.edit',
+        'count.vote', 
+        'count.artist',
+        'count.release',
+        'count.recording',
+        'count.work',
+        'count.label',
+        'count.track',
+        'count.event',
+    );
+
+    my $stats_map = {
+        'count.edit' => 'edits',
+        'count.vote' => 'votes',
+        'count.artist' => 'artists',
+        'count.release' => 'releases',
+        'count.recording' => 'recordings',
+        'count.work' => 'works',
+        'count.label' => 'labels',
+        'count.track' => 'tracks',
+        'count.event' => 'events',
+    };
+
+    my $case_expr = join " ", map {
+        "WHEN '$_' THEN '$stats_map->{$_}'"
+    } @stats_order;
+
+    my $query = '
+        SELECT s.name AS stat,
+            CASE s.name ' . $case_expr . ' END AS name,
+            latest.value - week_ago.value AS count,
+            latest.value AS total
+        FROM (VALUES
+            ' . join(', ', map { "('$_')" } keys %$stats_map) . q{
+        ) AS s(name)
+        CROSS JOIN LATERAL (
+            SELECT value
+            FROM statistics.statistic st
+            WHERE st.name = s.name
+            ORDER BY date_collected DESC
+            LIMIT 1
+        ) latest
+        CROSS JOIN LATERAL (
+            SELECT value
+            FROM statistics.statistic st
+            WHERE st.name = s.name
+            AND date_collected <= CURRENT_DATE - INTERVAL '7 days'
+            ORDER BY date_collected DESC
+            LIMIT 1
+        ) week_ago
+    };
+
+    my $data = $self->sql->select_list_of_hashes($query);
+
+    # Sort the results to match the defined order
+    my %order_map = map { $stats_order[$_] => $_ } 0..$#stats_order;
+    my @sorted_data = sort { $order_map{$a->{stat}} <=> $order_map{$b->{stat}} } @$data;
+
+    return \@sorted_data;
+}
+
 1;
