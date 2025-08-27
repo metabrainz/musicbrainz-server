@@ -301,7 +301,14 @@ async function wsJsEditSubmission(
   }
   const submissionData = {
     editNote: state.editNoteField.value,
-    edits: edits.map(([/* relationships */, wsJsEdit]) => wsJsEdit),
+    edits: edits.map(([/* relationships */, wsJsEdit]) => {
+      const enteredFrom = {
+        entity_type: state.entity.entityType,
+        gid: state.entity.gid,
+      };
+      const amendedWsJsEdit = {...wsJsEdit, enteredFrom};
+      return amendedWsJsEdit;
+    }),
     makeVotable: state.enterEditForm.field.make_votable.value,
   };
   await sleep(500);
