@@ -16,7 +16,13 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Types qw(
+    EnteredFromEntity
+    LinkAttributesArray
+    PartialDateHash
+    Nullable
+    NullableOnPreview
+);
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     partial_date_to_hash
@@ -34,6 +40,7 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
@@ -101,6 +108,7 @@ has '+data' => (
         entity0_credit => Optional[Str],
         entity1_credit => Optional[Str],
         link => find_type_constraint('LinkHash'),
+        entered_from => EnteredFromEntity,
         new => find_type_constraint('RelationshipHash'),
         old => find_type_constraint('RelationshipHash'),
         edit_version => Optional[Int],
@@ -366,6 +374,8 @@ sub initialize
     my ($self, %opts) = @_;
 
     my $relationship = delete $opts{relationship};
+    my $entered_from = delete $opts{entered_from};
+
     my $link = $relationship->link;
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
@@ -461,6 +471,7 @@ sub initialize
         entity0_credit => $relationship->entity0_credit,
         entity1_credit => $relationship->entity1_credit,
         edit_version => 2,
+        defined $entered_from ? (entered_from => $entered_from) : (),
         $self->_change_data($relationship, %opts),
     });
 }
