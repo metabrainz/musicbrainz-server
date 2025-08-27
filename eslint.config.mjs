@@ -990,12 +990,12 @@ export default [
       'root/static/scripts/edit/components/FormRowNameWithGuessCase.js',
       'root/static/scripts/edit/components/FormRowSelectList.js',
       'root/static/scripts/edit/components/ReleaseMergeStrategy.js',
-      'root/static/scripts/edit/components/URLInputPopover.js',
       'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
       'root/static/scripts/event/components/EventEditForm.js',
       'root/static/scripts/external-links-editor/components/ExternalLink.js',
       'root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js',
       'root/static/scripts/external-links-editor/components/ExternalLinksEditor.js',
+      'root/static/scripts/external-links-editor/components/URLInputPopover.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
     ],
     rules: {
