@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 import ButtonPopover from '../../common/components/ButtonPopover.js';
+import {ERROR_TARGETS} from '../../edit/URLCleanup.js';
 import type {
   ErrorT,
   LinkRelationshipT,
   LinkStateT,
-} from '../../external-links-editor/types.js';
-import {ERROR_TARGETS} from '../URLCleanup.js';
+} from '../types.js';
 
 component URLInputPopover(
   cleanupUrl: (string) => string,
