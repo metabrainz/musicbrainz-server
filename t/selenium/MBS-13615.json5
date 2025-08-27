@@ -55,6 +55,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '1bda2f85-0576-4077-b3fa-0fc939079b61',
+            name: 'Weapons of Mass Seduction',
+          },
           entity0: {
             gid: 'b7eaa6da-50f1-463a-845f-2a3d9a47b881',
             id: 22521483,
