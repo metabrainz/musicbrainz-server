@@ -20,7 +20,7 @@ component NewFooter() {
     <section className="footer">
       <div className="container-fluid px-4">
         <div className="row align-items-baseline">
-          <div className="col-12 col-sm-6 col-lg-4">
+          <div className="col-12 col-lg-4">
             <h3>
               <img
                 src={musicbrainzLogo}
@@ -61,7 +61,7 @@ component NewFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-sm-6 col-lg-3">
+          <div className="col-12 col-lg-3">
             <h3 className="text-brand text-body">Useful Links</h3>
             <ul className="list-unstyled">
               <li>
@@ -146,7 +146,7 @@ component NewFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-sm-6 col-lg-3">
+          <div className="col-12 col-lg-3">
             <h3 className="text-brand text-body">Fellow Projects</h3>
             <ul className="list-unstyled">
               <li>
@@ -211,7 +211,7 @@ component NewFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-sm-6 col-lg-2">
+          <div className="col-12 col-lg-2">
             <h3 className="text-brand text-body">Join Us</h3>
             <ul className="list-unstyled">
               <li>
@@ -258,7 +258,7 @@ component NewFooter() {
           </div>
         </div>
         <div className="row center-p">
-          <div className="col-lg-3 d-none d-md-block">
+          <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
               OSS Geek?{" "}
               <a
@@ -270,7 +270,7 @@ component NewFooter() {
               </a>
             </p>
           </div>
-          <div className="col-lg-6">
+          <div className="col-12 col-lg-6">
             <p className="border-light border-top pt-3 text-center">
               Brought to you by{" "}
               <img
@@ -282,7 +282,7 @@ component NewFooter() {
               <span className="color-a"> MetaBrainz Foundation </span>
             </p>
           </div>
-          <div className="col-lg-3 d-none d-md-block">
+          <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
               Found an Issue?{" "}
               <a

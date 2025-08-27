@@ -14,47 +14,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 
+export type WeeklyStatsT = {
+  +name: string,
+  +stat: string,
+  +count: number,
+  +total: number,
+};
 
-const statsData = [
-  {
-    entity: "artists",
-    count: 9284928,
-    total: 10000000,
-    url: "https://musicbrainz.org/statistics/timeline/count.edit#r"
-  },
-  {
-    entity: "releases",
-    count: 74834,
-    total: 10000000,
-    url: "https://musicbrainz.org/statistics/timeline/count.edit#r"
-  },
-  {
-    entity: "tracks",
-    count: 1833452,
-    total: 10000000,
-    url: "https://musicbrainz.org/statistics/timeline/count.edit#r"
-  },
-  {
-    entity: "recordings",
-    count: 453534,
-    total: 10000000,
-    url: "https://musicbrainz.org/statistics/timeline/count.edit#r"
-  },
-  {
-    entity: "works",
-    count: 12345,
-    total: 10000000,
-    url: "https://musicbrainz.org/statistics/timeline/count.edit#r"
-  },
-  {
-    entity: "labels",
-    count: 34535,
-    total: 10000000,
-    url: "https://musicbrainz.org/statistics/timeline/count.edit#r"
-  }
-]
-
-component Stats() {
+component Stats(
+  weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
+) {
   return (
     <div className="stats-container" id="stats-container">
       <Swiper
@@ -64,13 +33,18 @@ component Stats() {
         centeredSlides
         modules={[Navigation]}
       >
-        {statsData.map((stat, index) => (
+        {weeklyStats.map((stat, index) => (
           <SwiperSlide key={index}>
             <div className="stat-card">
-              <h2>+ {stat.count.toLocaleString()} {stat.entity} last week</h2>
+              <h2>+ {stat.count.toLocaleString()} {stat.name} last week</h2>
               <p className="d-flex align-items-center gap-2">
                 {stat.total.toLocaleString()} total
-                <a href={stat.url} target="_blank" rel="noopener noreferrer" title="View detailed statistics">
+                <a
+                  href={`/statistics/timeline/${stat.stat}#r`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="View detailed statistics"
+                >
                   <img src={magnifyingGlass} alt="Magnifying glass" />
                 </a>
               </p>

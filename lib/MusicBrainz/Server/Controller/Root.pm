@@ -66,6 +66,7 @@ sub index : Path Args(0)
     my @newest_events = $c->model('Event')->newest_events_with_artwork;
     my @newest_releases = $c->model('Release')->newest_releases_with_artwork;
     $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases);
+    my $weekly_stats = $c->model('Statistics')->get_weekly_stats_for_homepage;
 
     $c->stash(
         current_view => 'Node',
@@ -75,6 +76,7 @@ sub index : Path Args(0)
             communityPosts => $c->model('Community')->get_latest_posts,
             newestEvents => to_json_array(\@newest_events),
             newestReleases => to_json_array(\@newest_releases),
+            weeklyStats => $weekly_stats,
         },
     );
 }
