@@ -14,7 +14,6 @@ import {isAccountAdmin} from '../static/scripts/common/utility/privileges.js';
 import buildTab from '../utility/buildTab.js';
 
 import Tabs from './Tabs.js';
-import type {AccountLayoutUserT} from './UserAccountLayout.js';
 
 function buildTabs(
   $c: CatalystContextT,

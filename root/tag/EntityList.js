@@ -10,7 +10,6 @@
 import * as React from 'react';
 
 import PaginatedResults from '../components/PaginatedResults.js';
-import type {AccountLayoutUserT} from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
 import DescriptiveLink
   from '../static/scripts/common/components/DescriptiveLink.js';

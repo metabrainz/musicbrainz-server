@@ -197,17 +197,14 @@ function getEntityName(
   entity: EntityItemT,
   isLanguageForWorks?: boolean,
 ): string {
-  switch (entity.entityType) {
-    case 'language': {
-      return localizeLanguageName(entity, isLanguageForWorks);
-    }
-    case 'link_type': {
-      return formatLinkTypePhrases(entity);
-    }
-    default: {
-      return entity.name;
-    }
-  }
+  return match (entity) {
+    {entityType: 'language', ...} as entity => localizeLanguageName(
+      entity,
+      isLanguageForWorks,
+    ),
+    {entityType: 'link_type', ...} as entity => formatLinkTypePhrases(entity),
+    _ => entity.name,
+  };
 }
 
 const _recentItemsRequests =

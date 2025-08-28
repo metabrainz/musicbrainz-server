@@ -62,27 +62,22 @@ function reducer(
 ): EditWorkDialogStateT {
   const newState = {...state};
 
-  switch (action.type) {
-    case 'update-name': {
-      newState.name = action.name;
-      break;
+  match (action) {
+    {type: 'update-name', const name} => {
+      newState.name = name;
     }
-
-    case 'update-languages': {
+    {type: 'update-languages', const action} => {
       const newLanguages = {...newState.languages};
 
       runWorkLanguageMultiselectReducer(
         newLanguages,
-        action.action,
+        action,
       );
 
       newState.languages = newLanguages;
-      break;
     }
-
-    case 'update-work-type': {
-      newState.workType = action.workType;
-      break;
+    {type: 'update-work-type', const workType} => {
+      newState.workType = workType;
     }
   }
 

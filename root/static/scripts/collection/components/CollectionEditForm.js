@@ -126,14 +126,13 @@ function createInitialState(form: CollectionEditFormT): StateT {
 
 function reducer(state: StateT, action: ActionT): StateT {
   let collaborators = state.collaborators;
-  switch (action.type) {
-    case 'add-collaborator': {
+  match (action) {
+    {type: 'add-collaborator'} => {
       collaborators = addCollaborator(collaborators);
-      break;
     }
-    case 'remove-collaborator': {
+    {type: 'remove-collaborator', const fieldId} => {
       const index = collaborators.field.findIndex(
-        (collaborator) => collaborator.id === action.fieldId,
+        (collaborator) => collaborator.id === fieldId,
       );
       invariant(index >= 0);
       collaborators = mutate(collaborators)
@@ -141,18 +140,17 @@ function reducer(state: StateT, action: ActionT): StateT {
           fieldCtx.write().splice(index, 1);
         })
         .final();
-      break;
     }
-    case 'update-collaborator': {
+    {type: 'update-collaborator', const action, const fieldId} => {
       const index = state.collaborators.field.findIndex(
-        (collaborator) => collaborator.id === action.fieldId,
+        (collaborator) => collaborator.id === fieldId,
       );
       invariant(index >= 0);
       const oldAutocompleteState = collaborators.field[index].autocomplete;
       const oldEditor = oldAutocompleteState.selectedItem?.entity;
       const newAutocompleteState = autocompleteReducer(
         oldAutocompleteState,
-        action.action,
+        action,
       );
       const newEditor = newAutocompleteState.selectedItem?.entity;
       collaborators = mutate(collaborators)
@@ -172,7 +170,6 @@ function reducer(state: StateT, action: ActionT): StateT {
           }
         })
         .final();
-      break;
     }
   }
   return {collaborators};

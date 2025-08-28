@@ -67,7 +67,6 @@ component _SeriesRelationshipEditor(
     dispatch,
   );
 
-  // $FlowIgnore[sketchy-null-string]
   const seriesType = React.useMemo(() => {
     return getSeriesType(series.typeID);
   }, [series.typeID]);

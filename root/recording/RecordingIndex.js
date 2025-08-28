@@ -153,7 +153,7 @@ component RecordingAppearancesTable(
 component RecordingIndex(
   numberOfRevisions: number,
   pager: PagerT,
-  recording: RecordingWithArtistCreditT,
+  recording: RecordingT,
   tracks: $ReadOnlyArray<$ReadOnlyArray<{...TrackT, +medium: MediumT}>>,
 ) {
   return (

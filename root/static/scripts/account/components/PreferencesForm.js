@@ -87,8 +87,8 @@ const subscriptionsEmailPeriodOptions = {
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
-  switch (action.type) {
-    case 'guess-timezone': {
+  match (action) {
+    {type: 'guess-timezone', const options} => {
       let maybeGuess;
       try {
         maybeGuess = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -97,7 +97,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       }
       const guess = maybeGuess;
       if (nonEmpty(guess)) {
-        for (const option of action.options) {
+        for (const option of options) {
           if (option.value === guess) {
             newStateCtx
               .set('form', 'field', 'timezone', 'value', guess);
@@ -105,19 +105,13 @@ function reducer(state: StateT, action: ActionT): StateT {
           }
         }
       }
-      break;
     }
-    case 'set-time-format': {
+    {type: 'set-time-format', const timeFormat} => {
       newStateCtx
-        .set('form', 'field', 'datetime_format', 'value', action.timeFormat);
-      break;
+        .set('form', 'field', 'datetime_format', 'value', timeFormat);
     }
-    case 'set-timezone': {
-      newStateCtx.set('form', 'field', 'timezone', 'value', action.timezone);
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
+    {type: 'set-timezone', const timezone} => {
+      newStateCtx.set('form', 'field', 'timezone', 'value', timezone);
     }
   }
   return newStateCtx.final();

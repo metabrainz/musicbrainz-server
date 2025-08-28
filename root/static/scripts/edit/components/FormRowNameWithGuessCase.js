@@ -57,33 +57,28 @@ export function runReducer(
   newState: CowContext<StateT>,
   action: ActionT,
 ): void {
-  switch (action.type) {
-    case 'guess-case': {
+  match (action) {
+    {type: 'guess-case', const entity} => {
       newState.set(
-        'field', 'value', GuessCase.entities[action.entity.entityType].guess(
+        'field', 'value', GuessCase.entities[entity.entityType].guess(
           newState.read().field.value ?? '',
         ),
       );
-      break;
     }
-    case 'open-guess-case-options': {
+    {type: 'open-guess-case-options'} => {
       newState.set('isGuessCaseOptionsOpen', true);
-      break;
     }
-    case 'close-guess-case-options': {
+    {type: 'close-guess-case-options'} => {
       newState.set('isGuessCaseOptionsOpen', false);
-      break;
     }
-    case 'update-guess-case-options': {
+    {type: 'update-guess-case-options', const action} => {
       runGuessCaseOptionsReducer(
         newState.get('guessCaseOptions'),
-        action.action,
+        action,
       );
-      break;
     }
-    case 'set-name': {
-      newState.set('field', 'value', action.name);
-      break;
+    {type: 'set-name', const name} => {
+      newState.set('field', 'value', name);
     }
   }
 }

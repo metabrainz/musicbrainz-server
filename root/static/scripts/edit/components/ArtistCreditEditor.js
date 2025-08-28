@@ -176,42 +176,33 @@ export function reducer(
   const stateCtx = mutate(state);
   const names = state.names;
 
-  switch (action.type) {
-    case 'copy': {
+  match (action) {
+    {type: 'copy'} => {
       const artistCredit = incompleteArtistCreditFromState(names);
       localStorage('copiedArtistCredit', JSON.stringify(artistCredit));
-      break;
     }
-
-    case 'open-dialog':
+    {type: 'open-dialog', ...} as action => {
       stateCtx
         .set('isOpen', true)
         .set('changeMatchingTrackArtists', false)
         .set('initialArtistCreditString',
              artistCreditStateToString(names))
         .set('initialBubbleFocus', action.initialFocus);
-      break;
-
-    case 'close-dialog': {
+    }
+    {type: 'close-dialog'} => {
       closeDialog(stateCtx);
-      break;
     }
-
-    case 'add-name': {
+    {type: 'add-name'} => {
       addEmptyCredit(stateCtx);
-      break;
     }
-
-    case 'update-single-artist-autocomplete': {
+    {type: 'update-single-artist-autocomplete', const action} => {
       stateCtx.set('singleArtistAutocomplete', autocompleteReducer<ArtistT>(
         state.singleArtistAutocomplete,
-        action.action,
+        action,
       ));
-      break;
     }
-
-    case 'edit-artist': {
-      const {index, action: origAction} = action;
+    {type: 'edit-artist', const action, const index} => {
+      const origAction = action;
 
       stateCtx.update('names', index, (nameCtx) => {
         const name = nameCtx.read();
@@ -228,11 +219,8 @@ export function reducer(
           nameCtx.set('name', artistAutocomplete.inputValue);
         }
       });
-
-      break;
     }
-
-    case 'edit-name': {
+    {type: 'edit-name', ...} as action => {
       // eslint-disable-next-line no-unused-vars
       const {index, type, ...editData} = action;
 
@@ -257,44 +245,33 @@ export function reducer(
           }));
         }
       });
-
-      break;
     }
-
-    case 'move-name-down': {
-      if (action.index < names.length - 1) {
-        swapCredits(stateCtx, action.index, action.index + 1);
+    {type: 'move-name-down', const index} => {
+      if (index < names.length - 1) {
+        swapCredits(stateCtx, index, index + 1);
       }
-      break;
     }
-
-    case 'move-name-up': {
-      if (action.index > 0) {
-        swapCredits(stateCtx, action.index, action.index - 1);
+    {type: 'move-name-up', const index} => {
+      if (index > 0) {
+        swapCredits(stateCtx, index, index - 1);
       }
-      break;
     }
-
-    case 'remove-name': {
+    {type: 'remove-name', const index} => {
       const nonRemovedCount = state.names.reduce((accum, name) => {
         return accum + (name.removed ? 0 : 1);
       }, 0);
       const namesCtx = stateCtx.get('names');
       if (nonRemovedCount > 1) {
-        namesCtx.set(action.index, 'removed', true);
+        namesCtx.set(index, 'removed', true);
         setAutoJoinPhrases(namesCtx);
       }
-      break;
     }
-
-    case 'undo-remove-name': {
+    {type: 'undo-remove-name', const index} => {
       const namesCtx = stateCtx.get('names');
-      namesCtx.set(action.index, 'removed', false);
+      namesCtx.set(index, 'removed', false);
       setAutoJoinPhrases(namesCtx);
-      break;
     }
-
-    case 'paste': {
+    {type: 'paste'} => {
       try {
         const copiedArtistCreditString = localStorage('copiedArtistCredit');
         if (copiedArtistCreditString != null) {
@@ -314,14 +291,12 @@ export function reducer(
       } catch (e) {
         console.error(e);
       }
-      break;
     }
-
-    case 'set-names-from-artist-credit': {
-      let artistCredit = action.artistCredit;
-      const artistCreditCtx = mutate(artistCredit);
-      for (let i = 0; i < artistCredit.names.length; i++) {
-        const name = artistCredit.names[i];
+    {type: 'set-names-from-artist-credit', const artistCredit} => {
+      let writableArtistCredit = artistCredit;
+      const artistCreditCtx = mutate(writableArtistCredit);
+      for (let i = 0; i < writableArtistCredit.names.length; i++) {
+        const name = writableArtistCredit.names[i];
         if (!name.artist) {
           artistCreditCtx.set(
             'names', i, 'artist', createArtistObject({name: name.name}),
@@ -329,15 +304,14 @@ export function reducer(
         }
       }
       // $FlowIgnore[incompatible-cast] - null artists were filled in
-      artistCredit = (artistCreditCtx.final(): ArtistCreditT);
+      writableArtistCredit = (artistCreditCtx.final(): ArtistCreditT);
       stateCtx.set('names',
-                   createInitialNamesState(artistCredit, state.id));
-      break;
+                   createInitialNamesState(writableArtistCredit, state.id));
     }
-
-    case 'next-track':
-    case 'previous-track':
-    case 'set-change-matching-artists': {
+    {
+      type: 'next-track' | 'previous-track' | 'set-change-matching-artists',
+      ...
+    } => {
       invariant(false);
     }
   }

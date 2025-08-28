@@ -1064,7 +1064,6 @@ export default [
       'root/static/scripts/tests/relationship-editor.js',
       'root/static/scripts/url/edit.js',
       'root/user/UserProfile.js',
-      'root/utility/chooseLayoutComponent.js',
       'root/utility/tableColumns.js',
     ],
     rules: {

@@ -523,8 +523,8 @@ function* getAllRelationshipEdits(
       const entity0Credit = clean(relationship.entity0_credit);
       const entity1Credit = clean(relationship.entity1_credit);
 
-      switch (relationship._status) {
-        case REL_STATUS_ADD: {
+      match (relationship) {
+        {_status: REL_STATUS_ADD, ...} as relationship => {
           const editData: {...WsJsEditRelationshipCreateT} = {
             attributes: tree.toArray(
               relationship.attributes ?? tree.empty,
@@ -556,9 +556,8 @@ function* getAllRelationshipEdits(
             [relationship],
             (editData: WsJsEditRelationshipCreateT),
           ];
-          break;
         }
-        case REL_STATUS_EDIT: {
+        {_status: REL_STATUS_EDIT, ...} as relationship => {
           const origRelationship = relationship._original;
 
           invariant(origRelationship);
@@ -684,9 +683,8 @@ function* getAllRelationshipEdits(
             [relationship],
             (editData: WsJsEditRelationshipEditT),
           ];
-          break;
         }
-        case REL_STATUS_REMOVE: {
+        {_status: REL_STATUS_REMOVE, ...} as relationship => {
           const origRelationship = relationship._original;
           invariant(
             origRelationship &&
@@ -697,7 +695,9 @@ function* getAllRelationshipEdits(
             id: origRelationship.id,
             linkTypeID: origRelationship.linkTypeID,
           }];
-          break;
+        }
+        {_status: REL_STATUS_NOOP, ...} => {
+          // Do nothing
         }
       }
     }
@@ -863,41 +863,38 @@ export const reducer: ((
 ): ReleaseRelationshipEditorStateT {
   const newState = cloneReleaseRelationshipEditorState(state);
 
-  switch (action.type) {
-    case 'move-relationship-down':
-    case 'move-relationship-up':
-    case 'remove-relationship':
-    case 'toggle-ordering':
-    case 'update-dialog-location':
-    case 'update-entity':
+  match (action) {
     {
+      type:
+        | 'move-relationship-down'
+        | 'move-relationship-up'
+        | 'remove-relationship'
+        | 'toggle-ordering'
+        | 'update-dialog-location'
+        | 'update-entity',
+      ...
+    } as action => {
       runRelationshipEditorReducer(newState, action);
-      break;
     }
-    case 'load-tracks': {
-      const tracks = action.tracks;
-      if (tracks) {
-        addTracksToState(newState, tracks, action.medium);
+    {type: 'load-tracks', ...} as action => {
+      if (action.tracks) {
+        addTracksToState(newState, action.tracks, action.medium);
       }
-      // falls through to runLazyReleaseReducer
-    }
-    case 'toggle-all-mediums':
-    case 'toggle-medium': {
       runLazyReleaseReducer(newState, action);
-      break;
     }
-    case 'load-work-relationships': {
+    {type: 'toggle-all-mediums' | 'toggle-medium', ...} as action => {
+      runLazyReleaseReducer(newState, action);
+    }
+    {type: 'load-work-relationships', const relationships, const work} => {
       updateRelationships(
         newState,
         getInitialRelationshipUpdates(
-          action.relationships,
-          action.work,
+          relationships,
+          work,
         ),
       );
-      break;
     }
-    case 'remove-work': {
-      const {recording, workState} = action;
+    {type: 'remove-work', const recording, const workState} => {
       for (
         const relationship of
         iterateRelationshipsInTargetTypeGroups(
@@ -914,31 +911,28 @@ export const reducer: ((
           );
         }
       }
-      break;
     }
-    case 'update-relationship-state': {
-      const {
-        batchSelectionCount,
-        newRelationshipState,
-        sourceEntity,
-      } = action;
-
+    {
+      type: 'update-relationship-state',
+      const batchSelectionCount,
+      const newRelationshipState,
+      const sourceEntity,
+      ...
+    } as action => {
       if (batchSelectionCount == null) {
         runRelationshipEditorReducer(newState, action);
       } else {
         let selection:
           | tree.ImmutableTree<RecordingT>
           | tree.ImmutableTree<WorkT> = tree.empty;
-        switch (sourceEntity.entityType) {
-          case 'recording': {
+        match (sourceEntity) {
+          {entityType: 'recording', ...} => {
             selection = state.selectedRecordings;
-            break;
           }
-          case 'work': {
+          {entityType: 'work', ...} => {
             selection = state.selectedWorks;
-            break;
           }
-          default: {
+          _ as sourceEntity => {
             throw new Error(
               'Invalid source entity type from batch relationship dialog:' +
               sourceEntity.entityType,
@@ -977,9 +971,8 @@ export const reducer: ((
         }
         updateRelationships(newState, getBatchUpdates());
       }
-      break;
     }
-    case 'accept-batch-create-works-dialog': {
+    {type: 'accept-batch-create-works-dialog', ...} as action => {
       function* getBatchUpdates() {
         for (const recording of tree.iterate(state.selectedRecordings)) {
           const mediums =
@@ -1035,9 +1028,8 @@ export const reducer: ((
         }
       }
       updateRelationships(newState, getBatchUpdates());
-      break;
     }
-    case 'accept-edit-work-dialog': {
+    {type: 'accept-edit-work-dialog', ...} as action => {
       const oldWork = action.work;
       const newWork = createWorkObject({
         _fromBatchCreateWorksDialog: true,
@@ -1085,9 +1077,8 @@ export const reducer: ((
         );
       }
       updateRelationships(newState, updates);
-      break;
     }
-    case 'toggle-select-all-recordings': {
+    {type: 'toggle-select-all-recordings', const isSelected} => {
       let allRecordings: tree.ImmutableTree<RecordingT> = tree.empty;
       for (
         const [/* mediumPosition */, recordingStateTree] of
@@ -1105,12 +1096,11 @@ export const reducer: ((
         setRecordingsAsSelected(
           newState,
           allRecordings,
-          action.isSelected,
+          isSelected,
         );
       }
-      break;
     }
-    case 'toggle-select-all-works': {
+    {type: 'toggle-select-all-works', const isSelected} => {
       let allWorks: tree.ImmutableTree<WorkT> = tree.empty;
       for (
         const [/* mediumPosition */, recordingStateTree] of
@@ -1130,30 +1120,31 @@ export const reducer: ((
         setWorksAsSelected(
           newState,
           allWorks,
-          action.isSelected,
+          isSelected,
         );
       }
-      break;
     }
-    case 'toggle-select-recording': {
+    {type: 'toggle-select-recording', const isSelected, const recording} => {
       setRecordingsAsSelected(
         newState,
-        tree.create(action.recording),
-        action.isSelected,
+        tree.create(recording),
+        isSelected,
       );
-      break;
     }
-    case 'toggle-select-work': {
+    {type: 'toggle-select-work', const isSelected, const work} => {
       setWorksAsSelected(
         newState,
-        tree.create(action.work),
-        action.isSelected,
+        tree.create(work),
+        isSelected,
       );
-      break;
     }
-    case 'toggle-select-medium-recordings': {
+    {
+      type: 'toggle-select-medium-recordings',
+      const isSelected,
+      const recordingStates,
+    } => {
       let mediumRecordings: tree.ImmutableTree<RecordingT> = tree.empty;
-      for (const recordingState of tree.iterate(action.recordingStates)) {
+      for (const recordingState of tree.iterate(recordingStates)) {
         mediumRecordings = tree.insertIfNotExists(
           mediumRecordings,
           recordingState.recording,
@@ -1164,14 +1155,17 @@ export const reducer: ((
         setRecordingsAsSelected(
           newState,
           mediumRecordings,
-          action.isSelected,
+          isSelected,
         );
       }
-      break;
     }
-    case 'toggle-select-medium-works': {
+    {
+      type: 'toggle-select-medium-works',
+      const isSelected,
+      const recordingStates,
+    } => {
       let mediumWorks: tree.ImmutableTree<WorkT> = tree.empty;
-      for (const recordingState of tree.iterate(action.recordingStates)) {
+      for (const recordingState of tree.iterate(recordingStates)) {
         for (const workState of tree.iterate(recordingState.relatedWorks)) {
           mediumWorks = tree.insertIfNotExists(
             mediumWorks,
@@ -1184,13 +1178,12 @@ export const reducer: ((
         setWorksAsSelected(
           newState,
           mediumWorks,
-          action.isSelected,
+          isSelected,
         );
       }
-      break;
     }
-    case 'update-edit-note': {
-      const errors = isInvalidEditNote(action.editNote)
+    {type: 'update-edit-note', const editNote} => {
+      const errors = isInvalidEditNote(editNote)
         ? [l(`Your edit note seems to have no actual content.
               Please provide a note that will be helpful to
               your fellow editors!`)]
@@ -1199,11 +1192,10 @@ export const reducer: ((
       newState.editNoteField = {
         ...newState.editNoteField,
         errors,
-        value: action.editNote,
+        value: editNote,
       };
-      break;
     }
-    case 'update-make-votable': {
+    {type: 'update-make-votable', const checked} => {
       const field = newState.enterEditForm.field;
       newState.enterEditForm = {
         ...newState.enterEditForm,
@@ -1211,28 +1203,25 @@ export const reducer: ((
           ...field,
           make_votable: {
             ...field.make_votable,
-            value: action.checked,
+            value: checked,
           },
         },
       };
-      break;
     }
-    case 'start-submission': {
+    {type: 'start-submission'} => {
       newState.submissionInProgress = true;
       newState.submissionError = null;
-      break;
     }
-    case 'stop-submission': {
+    // FlowIssue: using const error fails to be detected as exhaustive
+    {type: 'stop-submission', ...} as action => {
       newState.submissionInProgress = false;
       newState.submissionError = action.error;
-      break;
     }
-    case 'update-submitted-relationships': {
-      const {
-        edits,
-        responseData,
-      } = action;
-
+    {
+      type: 'update-submitted-relationships',
+      const edits,
+      const responseData,
+    } => {
       if (__DEV__) {
         invariant(
           edits.length === responseData.edits.length,
@@ -1279,8 +1268,8 @@ export const reducer: ((
         const [relationships, wsJsEdit] = edits[i];
         const response = responseData.edits[i];
 
-        switch (wsJsEdit.edit_type) {
-          case EDIT_RELATIONSHIP_CREATE: {
+        match (wsJsEdit) {
+          {edit_type: EDIT_RELATIONSHIP_CREATE, ...} => {
             if (
               response.response === WS_EDIT_RESPONSE_OK &&
               response.relationship_id !== null
@@ -1299,9 +1288,8 @@ export const reducer: ((
                 },
               );
             }
-            break;
           }
-          case EDIT_RELATIONSHIP_EDIT: {
+          {edit_type: EDIT_RELATIONSHIP_EDIT, ...} => {
             if (response.response === WS_EDIT_RESPONSE_OK) {
               invariant(
                 response.edit_type === EDIT_RELATIONSHIP_EDIT &&
@@ -1327,9 +1315,8 @@ export const reducer: ((
                 },
               );
             }
-            break;
           }
-          case EDIT_RELATIONSHIPS_REORDER: {
+          {edit_type: EDIT_RELATIONSHIPS_REORDER, ...} => {
             if (response.response === WS_EDIT_RESPONSE_OK) {
               invariant(
                 response.edit_type === EDIT_RELATIONSHIPS_REORDER,
@@ -1355,9 +1342,8 @@ export const reducer: ((
                 );
               }
             }
-            break;
           }
-          case EDIT_WORK_CREATE: {
+          {edit_type: EDIT_WORK_CREATE, ...} => {
             if (response.response === WS_EDIT_RESPONSE_OK) {
               invariant(
                 response.edit_type === EDIT_WORK_CREATE &&
@@ -1415,18 +1401,13 @@ export const reducer: ((
                 );
               }
             }
-            break;
           }
-          default: {
+          _ => {
             invariant(response.edit_type === EDIT_RELATIONSHIP_DELETE);
           }
         }
       }
       updateRelationships(newState, updates);
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
     }
   }
 

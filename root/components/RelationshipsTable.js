@@ -37,19 +37,12 @@ const generalTypesList = ['recording', 'release', 'release_group', 'work'];
 const recordingOnlyTypesList = ['recording'];
 
 const pickAppearancesTypes = (entityType: RelatableEntityTypeT) => {
-  switch (entityType) {
-    case 'area':
-    case 'artist':
-    case 'place': {
-      return generalTypesList;
-    }
-    case 'label':
-      return [...generalTypesList, 'event'];
-    case 'work': {
-      return recordingOnlyTypesList;
-    }
-    default: return [];
-  }
+  return match (entityType) {
+    'area' | 'artist' | 'place' => generalTypesList,
+    'label' => [...generalTypesList, 'event'],
+    'work' => recordingOnlyTypesList,
+    _ => []
+  };
 };
 
 const getLinkPhraseForGroup = (linkTypeGroup: PagedLinkTypeGroupT) => (

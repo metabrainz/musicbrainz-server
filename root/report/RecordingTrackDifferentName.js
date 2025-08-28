@@ -16,7 +16,7 @@ import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT} from './types.js';
 
 export type ReportRecordingTrackT = {
-  +recording: ?RecordingWithArtistCreditT,
+  +recording: ?RecordingT,
   +recording_id: number,
   +row_number: number,
   +track: TrackT,

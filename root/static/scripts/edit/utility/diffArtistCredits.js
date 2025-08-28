@@ -66,16 +66,15 @@ export default function diffArtistCredits(
     const diff = diffs[i];
     const {oldItems, newItems} = diff;
 
-    switch (diff.type) {
-      case EQUAL:
+    match (diff) {
+      {type: EQUAL, ...} => {
         oldItems.forEach(function (credit, index) {
           const link = <ArtistLink credit={credit} key={'equal-' + index} />;
           oldNames.push(link, credit.joinPhrase);
           newNames.push(link, credit.joinPhrase);
         });
-        break;
-
-      case CHANGE: {
+      }
+      {type: CHANGE, ...} => {
         const itemCount = Math.max(oldItems.length, newItems.length);
 
         for (let i = 0; i < itemCount; i++) {
@@ -140,27 +139,23 @@ export default function diffArtistCredits(
             newJoin,
           );
         }
-
-        break;
       }
-
-      case DELETE:
+      {type: DELETE, ...} => {
         oldNames.push(...oldItems.map((credit, index) => (
           <span className={CLASS_MAP[DELETE]} key={'old-' + index}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
           </span>
         )));
-        break;
-
-      case INSERT:
+      }
+      {type: INSERT, ...} => {
         newNames.push(...newItems.map((credit, index) => (
           <span className={CLASS_MAP[INSERT]} key={'new-' + index}>
             <ArtistLink credit={credit} />
             {credit.joinPhrase}
           </span>
         )));
-        break;
+      }
     }
   }
 

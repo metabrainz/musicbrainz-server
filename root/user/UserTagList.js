@@ -7,9 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import UserAccountLayout, {
-  type AccountLayoutUserT,
-} from '../components/UserAccountLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import {UserTagLink} from '../static/scripts/common/components/TagLink.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
