@@ -5,19 +5,18 @@ with 'MusicBrainz::Server::Report::RecordingReport',
      'MusicBrainz::Server::Report::FilterForEditor::RecordingID';
 
 sub query {<<~'SQL'}
-    SELECT
+    SELECT DISTINCT ON (r.id)
         r.id AS recording_id,
         row_number() OVER (ORDER BY ac.name COLLATE musicbrainz, r.name COLLATE musicbrainz)
     FROM recording r
     JOIN artist_credit ac ON ac.id = r.artist_credit
-    WHERE EXISTS (
-        SELECT work.name
-        FROM l_recording_work lrw
-        JOIN work ON lrw.entity1 = work.id
-        WHERE lrw.entity0 = r.id
-        GROUP BY work.name HAVING COUNT(*) > 1
-    )
-SQL
+    JOIN l_recording_work lrw1 ON lrw1.entity0 = r.id
+    JOIN l_recording_work lrw2 ON lrw2.entity0 = r.id
+    JOIN work w1 ON w1.id = lrw1.entity1
+    JOIN work w2 ON w2.id = lrw2.entity1
+    WHERE lrw2.id > lrw1.id
+    AND w1.name = w2.name
+    SQL
 
 __PACKAGE__->meta->make_immutable;
 no Moose;
