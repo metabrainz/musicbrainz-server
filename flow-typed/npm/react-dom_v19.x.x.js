@@ -1,5 +1,4 @@
-// flow-typed signature: bd8a9984746306d26194a489f3aeff35
-// flow-typed version: 388e9edcf0/react-dom_v18.x.x/flow_>=v0.127.x
+// @flow strict
 
 declare module 'react-dom_shared-types' {
   /**
@@ -105,32 +104,12 @@ declare module 'react-dom_shared-types' {
 }
 
 declare module 'react-dom' {
-  import * as React from 'react';
-
   declare var version: string;
-
-  declare function findDOMNode(
-    componentOrElement: Element | ?React.Component<any, any>
-  ): null | Element | Text;
-
-  declare function render<ElementType: React.ElementType>(
-    element: React.MixedElement,
-    container: Element,
-    callback?: () => void
-  ): React.ElementRef<ElementType>;
-
-  declare function hydrate<ElementType: React.ElementType>(
-    element: React.MixedElement,
-    container: Element,
-    callback?: () => void
-  ): React.ElementRef<ElementType>;
 
   declare function createPortal(
     node: React.Node,
     container: Element
   ): React$Portal;
-
-  declare function unmountComponentAtNode(container: any): boolean;
 
   declare function flushSync(callback: () => mixed): void;
 
@@ -142,15 +121,6 @@ declare module 'react-dom' {
     d: D,
     e: E
   ): void;
-
-  declare function unstable_renderSubtreeIntoContainer<
-    ElementType: React.ElementType
-  >(
-    parentComponent: React.Component<any, any>,
-    nextElement: React.MixedElement,
-    container: any,
-    callback?: () => void
-  ): React.ElementRef<ElementType>;
 }
 
 declare module 'react-dom/client' {
@@ -215,84 +185,4 @@ declare module 'react-dom/server' {
   declare function renderToStaticNodeStream(
     element: React.Node
   ): stream$Readable;
-}
-
-declare module 'react-dom/test-utils' {
-  import * as React from 'react';
-
-  declare interface Thenable {
-    then(resolve: () => mixed, reject?: () => mixed): mixed,
-  }
-
-  declare var Simulate: {
-    [eventName: string]: (
-      element: Element,
-      eventData?: { [key: string]: mixed, ... }
-    ) => void,
-    ...
-  };
-
-  declare function renderIntoDocument(
-    instance: React.MixedElement
-  ): React.Component<any, any>;
-
-  declare function mockComponent(
-    componentClass: React.ElementType,
-    mockTagName?: string
-  ): { [key: string]: mixed, ... };
-
-  declare function isElement(element: React.MixedElement): boolean;
-
-  declare function isElementOfType(
-    element: React.MixedElement,
-    componentClass: React.ElementType
-  ): boolean;
-
-  declare function isDOMComponent(instance: any): boolean;
-
-  declare function isCompositeComponent(
-    instance: React.Component<any, any>
-  ): boolean;
-
-  declare function isCompositeComponentWithType(
-    instance: React.Component<any, any>,
-    componentClass: React.ElementType
-  ): boolean;
-
-  declare function findAllInRenderedTree(
-    tree: React.Component<any, any>,
-    test: (child: React.Component<any, any>) => boolean
-  ): Array<React.Component<any, any>>;
-
-  declare function scryRenderedDOMComponentsWithClass(
-    tree: React.Component<any, any>,
-    className: string
-  ): Array<Element>;
-
-  declare function findRenderedDOMComponentWithClass(
-    tree: React.Component<any, any>,
-    className: string
-  ): ?Element;
-
-  declare function scryRenderedDOMComponentsWithTag(
-    tree: React.Component<any, any>,
-    tagName: string
-  ): Array<Element>;
-
-  declare function findRenderedDOMComponentWithTag(
-    tree: React.Component<any, any>,
-    tagName: string
-  ): ?Element;
-
-  declare function scryRenderedComponentsWithType(
-    tree: React.Component<any, any>,
-    componentClass: React.ElementType
-  ): Array<React.Component<any, any>>;
-
-  declare function findRenderedComponentWithType(
-    tree: React.Component<any, any>,
-    componentClass: React.ElementType
-  ): ?React.Component<any, any>;
-
-  declare function act(callback: () => void | Thenable): Thenable;
 }
