@@ -199,11 +199,12 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
-    install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
     # Clean build dependencies up
-    apt_purge(`mbs_build_deps')')
+    apt_purge(`mbs_build_deps')
+
+install_ts')
 
 m4_define(
     `install_perl_modules',
@@ -226,9 +227,7 @@ m4_define(
     `install_ts',
     `m4_dnl
 # Install ts (needed to run admin background task scripts locally)
-    curl -sSL https://git.joeyh.name/index.cgi/moreutils.git/plain/ts?h=0.69 -o /usr/local/bin/ts && \
-    echo "01b67f3d81e6205f01cc0ada87039293ebc56596955225300dd69ec1257124f5 */usr/local/bin/ts" | sha256sum --strict --check - && \
-    chmod +x /usr/local/bin/ts')
+COPY --chmod=755 bin/ts /usr/local/bin/ts')
 
 m4_define(
     `chown_mb',
