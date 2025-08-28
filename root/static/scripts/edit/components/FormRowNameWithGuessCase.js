@@ -94,8 +94,11 @@ component FormRowNameWithGuessCase(
   field: FieldT<string | null>,
   guessCaseOptions: GuessCaseOptionsStateT,
   guessFeat: boolean = false,
+  handleGuessFeat?: (event: SyntheticEvent<HTMLButtonElement>) => void,
   isGuessCaseOptionsOpen: boolean = false,
   label: React.Node = addColonText(l('Name')),
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
+  rowRef?: {-current: HTMLDivElement | null},
 ) {
   const inputRef = React.useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = React.useState<string | null>(null);
@@ -162,8 +165,10 @@ component FormRowNameWithGuessCase(
       inputRef={inputRef}
       label={label}
       onChange={handleNameChange}
+      onFocus={onFocus}
       preview={preview}
       required
+      rowRef={rowRef}
     >
       <button
         className="guesscase-title icon"
@@ -176,6 +181,7 @@ component FormRowNameWithGuessCase(
       {guessFeat ? (
         <button
           className="guessfeat icon"
+          onClick={handleGuessFeat}
           title={l('Guess feat. artists')}
           type="button"
         />
