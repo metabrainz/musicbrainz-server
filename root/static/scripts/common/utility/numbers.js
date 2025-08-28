@@ -19,6 +19,17 @@ export function incrementCounter<K>(
 
 let NEXT_UNIQUE_ID = 1;
 
+/*
+ * Advances `NEXT_UNIQUE_ID` so that it exceeds `lastId`. This is useful
+ * when restoring form data from `sessionStorage` to ensure that subsequent
+ * IDs do not overlap with any in the restored state.
+ */
+export function advanceUniqueId(lastId: number): void {
+  if (lastId >= NEXT_UNIQUE_ID) {
+    NEXT_UNIQUE_ID = lastId + 1;
+  }
+}
+
 export function uniqueId(): number {
   return NEXT_UNIQUE_ID++;
 }
