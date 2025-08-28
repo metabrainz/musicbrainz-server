@@ -34,6 +34,7 @@ declare type WsJsRelationshipCommonT = {
   +begin_date?: PartialDateT,
   +end_date?: PartialDateT,
   +ended?: boolean,
+  +enteredFrom?: WsJsRelationshipEntityT,
   +entities: [WsJsRelationshipEntityT, WsJsRelationshipEntityT],
   +entity0_credit: string,
   +entity1_credit: string,
@@ -55,6 +56,7 @@ declare type WsJsEditRelationshipEditT = $ReadOnly<{
 
 declare type WsJsEditRelationshipDeleteT = $ReadOnly<{
   +edit_type: EDIT_RELATIONSHIP_DELETE_T,
+  +enteredFrom?: WsJsRelationshipEntityT,
   +id: number,
   +linkTypeID: number,
 }>;
@@ -67,6 +69,7 @@ declare type WsJsEditRelationshipT =
 
 declare type WsJsEditRelationshipsReorderT = {
   +edit_type: EDIT_RELATIONSHIPS_REORDER_T,
+  +enteredFrom?: WsJsRelationshipEntityT,
   +linkTypeID: number,
   +relationship_order: $ReadOnlyArray<{
     +link_order: number,
