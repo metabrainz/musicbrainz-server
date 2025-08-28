@@ -263,8 +263,12 @@
 			#about-news-container {
 				ul {
 					a {
-						font-size: 12px;
+						font-size: 14px;
 						font-weight: 700;
+						white-space: nowrap;
+						overflow: hidden;
+						display: block;
+						text-overflow: ellipsis;
 					}
 				}
 			}
@@ -377,7 +381,7 @@
 		.swiper::after {
 			background: linear-gradient(to right, #F5F5F5 0%, #F5F5F500 100%);
 			content: "";
-			height: 150px;
+			height: 127px;
 			position: absolute;
 			width: 300px;
 			z-index: 2;
@@ -504,7 +508,6 @@
 			text-align: center;
 			color: white;
 			display: flex;
-			flex-wrap: wrap;
 			align-items: center;
 			justify-content: center;
 			gap: 20px;

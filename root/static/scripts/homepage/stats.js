@@ -25,34 +25,32 @@ component Stats(
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
   return (
-    <div className="stats-container" id="stats-container">
-      <Swiper
-        navigation={true}
-        slidesPerView="auto"
-        spaceBetween={30}
-        centeredSlides
-        modules={[Navigation]}
-      >
-        {weeklyStats.map((stat, index) => (
-          <SwiperSlide key={index}>
-            <div className="stat-card">
-              <h2>+ {stat.count.toLocaleString()} {stat.name} last week</h2>
-              <p className="d-flex align-items-center gap-2">
-                {stat.total.toLocaleString()} total
-                <a
-                  href={`/statistics/timeline/${stat.stat}#r`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  title="View detailed statistics"
-                >
-                  <img src={magnifyingGlass} alt="Magnifying glass" />
-                </a>
-              </p>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+    <Swiper
+      navigation={true}
+      slidesPerView="auto"
+      spaceBetween={30}
+      centeredSlides
+      modules={[Navigation]}
+    >
+      {weeklyStats.map((stat, index) => (
+        <SwiperSlide key={index}>
+          <div className="stat-card">
+            <h2>+{stat.count.toLocaleString()} {stat.name} last week</h2>
+            <p className="d-flex align-items-center gap-2">
+              {stat.total.toLocaleString()} total
+              <a
+                href={`/statistics/timeline/${stat.stat}#r`}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="View detailed statistics"
+              >
+                <img src={magnifyingGlass} alt="Magnifying glass" />
+              </a>
+            </p>
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   )
 }
 
