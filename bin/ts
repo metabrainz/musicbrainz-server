@@ -1,5 +1,7 @@
 #!/usr/bin/perl
 
+## no critic
+
 =head1 NAME
 
 ts - timestamp input
