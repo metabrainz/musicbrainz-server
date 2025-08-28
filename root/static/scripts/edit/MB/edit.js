@@ -423,30 +423,7 @@ edit.relationshipCreate = editConstructor(
 
 edit.relationshipEdit = editConstructor(
   TYPES.EDIT_RELATIONSHIP_EDIT,
-  function (args, orig, relationship) {
-    var newAttributes = {};
-    var origAttributes = relationship
-      ? relationship.attributes.original
-      : {};
-    var changedAttributes = [];
-
-    for (const hash of args.attributes) {
-      const gid = hash.type.gid;
-
-      newAttributes[gid] = hash;
-
-      if (!origAttributes[gid] || !deepEqual(origAttributes[gid], hash)) {
-        changedAttributes.push(hash);
-      }
-    }
-
-    for (const gid of Object.keys(origAttributes)) {
-      if (!newAttributes[gid]) {
-        changedAttributes.push({type: {gid}, removed: true});
-      }
-    }
-
-    args.attributes = changedAttributes;
+  function (args, orig) {
     removeEqual(args, orig, ['id', 'linkTypeID']);
   },
 );
