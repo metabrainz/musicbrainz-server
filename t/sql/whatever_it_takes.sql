@@ -21,6 +21,9 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
     (2064806, 0, 870909, 'Imagine Dragons', ' & '),
     (2064806, 1, 679159, 'K.Flay', '');
 
+INSERT INTO artist_gid_redirect (gid, new_id, created) VALUES
+    ('b3668303-75e1-4ec3-9b32-008598675340', 679159, '2017-07-13 06:00:22.322448+00');
+
 INSERT INTO release_group (id, gid, name, artist_credit, type, comment, edits_pending, last_updated) VALUES
     (1803671, '69ed06a7-7a05-406a-92a2-f3216d1c1561', 'Whatever It Takes', 950778, 2, '', 0, '2017-05-09 04:59:12.01423+00'),
     (1882825, '251e0b53-9b79-48b9-9e0e-e4b9795825b9', 'Whatever It Takes (Jorgen Odegard remix)', 950778, 2, '', 0, '2017-11-09 17:17:25.768881+00');
