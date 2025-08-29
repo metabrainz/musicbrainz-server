@@ -435,7 +435,7 @@ releaseEditor.loadRelease = function (gid, callback) {
   };
 
   return request(args, this)
-    .done(callback || this.releaseLoaded)
+    .done(callback)
     .fail(function (jqXHR, status, error) {
       error = jqXHR.status + ' (' + error + ')';
 
