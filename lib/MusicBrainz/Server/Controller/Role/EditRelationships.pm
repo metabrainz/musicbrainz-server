@@ -405,12 +405,12 @@ role {
             my $key = $_->target_type . '-' . $_->id;
             ($key => $_)
         } $c->model('Relationship')->load_subset(
-            \%rel_ids_by_target_type,
-            $source->meta->clone_object(
+            target_types => \%rel_ids_by_target_type,
+            source_objs => [$source->meta->clone_object(
                 $source,
                 relationships => [],
                 has_loaded_relationships => 0,
-            ),
+            )],
         );
 
         for my $field (@field_values) {

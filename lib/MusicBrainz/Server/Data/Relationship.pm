@@ -136,6 +136,7 @@ sub _load
     my @source_objs = @{ $args{source_objs} };
     my $source_type = $args{source_type};
     my @target_types = uniq @{ $args{target_types} };
+    my @link_types = @{ $args{link_types} // [] };
     my @types = map { [ sort($source_type, $_) ] } @target_types;
     my $use_cardinality = $args{use_cardinality};
     my $rel_ids_by_target_type = $args{rel_ids_by_target_type};
@@ -182,6 +183,12 @@ sub _load
         # If the source and target types are the same, two possible conditions
         # will have been added above, so join them with an OR.
         @cond = join(' OR ', @cond);
+
+        # If specific link types have been passed, limit to links of those types
+        if (scalar @link_types > 0) {
+            push @cond, 'lt.gid = any(?)';
+            push @params, [@link_types];
+        }
 
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id
@@ -466,6 +473,7 @@ sub _load_subset {
     my ($self, %args) = @_;
 
     my $target_types = $args{target_types};
+    my $link_types = $args{link_types};
     my $use_cardinality = $args{use_cardinality};
     my @source_objs = @{ $args{source_objs} };
 
@@ -490,6 +498,7 @@ sub _load_subset {
         push @rels, $self->_load(
             source_type => $source_type,
             target_types => $target_types,
+            link_types => $link_types,
             use_cardinality => $use_cardinality,
             source_objs => $source_objs_by_type{$source_type},
             rel_ids_by_target_type => $rel_ids_by_target_type,
@@ -502,11 +511,12 @@ sub _load_subset {
 }
 
 sub load_subset {
-    my ($self, $target_types, @source_objs) = @_;
+    my ($self, %args) = @_;
     return $self->_load_subset(
-        target_types => $target_types,
+        target_types => $args{target_types},
+        link_types => $args{link_types},
         use_cardinality => 0,
-        source_objs => \@source_objs,
+        source_objs => $args{source_objs},
     );
 }
 
@@ -529,11 +539,12 @@ sub load_cardinal {
 }
 
 sub load_subset_cardinal {
-    my ($self, $target_types, @source_objs) = @_;
+    my ($self, %args) = @_;
     return $self->_load_subset(
-        target_types => $target_types,
+        target_types => $args{target_types},
+        link_types => $args{link_types},
         use_cardinality => 1,
-        source_objs => \@source_objs,
+        source_objs => $args{source_objs},
     );
 }
 
