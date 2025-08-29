@@ -7593,7 +7593,7 @@ __metadata:
     path-browserify: "npm:1.0.1"
     pg: "npm:8.16.0"
     pg-cursor: "npm:2.11.0"
-    po2json: "https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b"
+    po2json: "https://github.com/metabrainz/po2json.git#ba28b657a4af3a3b3753e874bfc233379011c94b"
     process: "npm:0.11.10"
     punycode: "npm:2.3.1"
     react: "npm:18.3.1"
@@ -8407,9 +8407,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"po2json@https://github.com/metabrainz/po2json.git#905dd32b286c80b973ca3c7c27f31d0ef1f4e65b":
+"po2json@https://github.com/metabrainz/po2json.git#ba28b657a4af3a3b3753e874bfc233379011c94b":
   version: 1.0.0-beta-4
-  resolution: "po2json@https://github.com/metabrainz/po2json.git#commit=905dd32b286c80b973ca3c7c27f31d0ef1f4e65b"
+  resolution: "po2json@https://github.com/metabrainz/po2json.git#commit=ba28b657a4af3a3b3753e874bfc233379011c94b"
   dependencies:
     commander: "npm:^6.0.0"
     gettext-parser: "npm:4.2.0"
@@ -8420,7 +8420,7 @@ __metadata:
     gettext-to-messageformat: 0.3.1
   bin:
     po2json: bin/po2json
-  checksum: 10c0/12e4b0e9a785dc1184a4ec1c187f0f6d154933350c6c9ad407394cd125883a62ccbd4e5c38868a2740f6b4261c43a434d5527ddba88821455ee5c8b748aff3d1
+  checksum: 10c0/61c38140ccd36014c4a966a620cc078b24e29180d4d240c2b361145c45f1f64b28498e309ca77629be940c7188c69a20dae43460135f363b69d6edd495ec0812
   languageName: node
   linkType: hard
 
