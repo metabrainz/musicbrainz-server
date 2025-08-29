@@ -1935,14 +1935,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metabrainz/xgettext-js@npm:4.0.0":
-  version: 4.0.0
-  resolution: "@metabrainz/xgettext-js@npm:4.0.0"
+"@metabrainz/xgettext-js@npm:5.0.0":
+  version: 5.0.0
+  resolution: "@metabrainz/xgettext-js@npm:5.0.0"
   dependencies:
-    estree-walker: "npm:^0.6.1"
-    hermes-parser: "npm:0.26.0"
-    lodash: "npm:^4.17.15"
-  checksum: 10c0/bad982ec2a3ca4956c36f9b9f8dbef7ec1597a8eed9e83b928c6630ea57cd6e50f1da0e1ae93b0a2cbc368b736cd1c23410e0d2c429c0d0330685fdc9f5631dc
+    estree-walker: "npm:3.0.3"
+    hermes-parser: "npm:0.32.0"
+    lodash: "npm:4.17.21"
+  checksum: 10c0/077e647d282411f96c728ee421ca5340aef1ea4eee4cf6938ce47077f0ec0d2d3045dc701612551d3edd43116b735f838aaa76af1ec2d73d7552d743679bdc6a
   languageName: node
   linkType: hard
 
@@ -2364,6 +2364,13 @@ __metadata:
   version: 1.0.6
   resolution: "@types/estree@npm:1.0.6"
   checksum: 10c0/cdfd751f6f9065442cd40957c07fd80361c962869aa853c1c2fd03e101af8b9389d8ff4955a43a6fcfa223dd387a089937f95be0f3eec21ca527039fd2d9859a
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:^1.0.0":
+  version: 1.0.8
+  resolution: "@types/estree@npm:1.0.8"
+  checksum: 10c0/39d34d1afaa338ab9763f37ad6066e3f349444f9052b9676a7cc0252ef9485a41c6d81c9c4e0d26e9077993354edf25efc853f3224dd4b447175ef62bdcc86a5
   languageName: node
   linkType: hard
 
@@ -4895,10 +4902,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estree-walker@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "estree-walker@npm:0.6.1"
-  checksum: 10c0/6dabc855faa04a1ffb17b6a9121b6008ba75ab5a163ad9dc3d7fca05cfda374c5f5e91418d783496620ca75e99a73c40874d8b75f23b4117508cc8bde78e7b41
+"estree-walker@npm:3.0.3":
+  version: 3.0.3
+  resolution: "estree-walker@npm:3.0.3"
+  dependencies:
+    "@types/estree": "npm:^1.0.0"
+  checksum: 10c0/c12e3c2b2642d2bcae7d5aa495c60fa2f299160946535763969a1c83fc74518ffa9c2cd3a8b69ac56aea547df6a8aac25f729a342992ef0bbac5f1c73e78995d
   languageName: node
   linkType: hard
 
@@ -5767,26 +5776,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.26.0":
-  version: 0.26.0
-  resolution: "hermes-estree@npm:0.26.0"
-  checksum: 10c0/4bf734b0ae484f654724f114939d349b39afe81af0f255b2e15d0fecfe2fd122f36f0b65893e936336e1a4cc77e4124ca962d054a17519f33036e20706a5386d
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.32.0":
   version: 0.32.0
   resolution: "hermes-estree@npm:0.32.0"
   checksum: 10c0/3b67d1fe44336240ef7f9c40ecbf363279ba263d51efe120570c3862cc109e652fc09aebddfe6b73d0f0246610bee130e4064c359f1f4cbf002bdb1d99717ef2
-  languageName: node
-  linkType: hard
-
-"hermes-parser@npm:0.26.0":
-  version: 0.26.0
-  resolution: "hermes-parser@npm:0.26.0"
-  dependencies:
-    hermes-estree: "npm:0.26.0"
-  checksum: 10c0/8c6340a52a10ac59ff7ab6c48a9cf09a3752d1707f8dc8962f8309da5edddf6e1dd1f403f01c85103908c74232368a8db9e076615adec925f781a0e918ec85f4
   languageName: node
   linkType: hard
 
@@ -7119,7 +7112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:4.17.21, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -7521,7 +7514,7 @@ __metadata:
     "@babel/register": "npm:7.27.1"
     "@babel/runtime": "npm:7.27.6"
     "@floating-ui/react": "npm:0.27.12"
-    "@metabrainz/xgettext-js": "npm:4.0.0"
+    "@metabrainz/xgettext-js": "npm:5.0.0"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
     "@stylistic/eslint-plugin": "npm:4.4.1"

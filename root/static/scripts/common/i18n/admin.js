@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import cleanMsgid from './cleanMsgid.js';
+import cleanMsgid from './cleanMsgid.mjs';
 
 export const l_admin: (string) => string =
   cleanMsgid;
