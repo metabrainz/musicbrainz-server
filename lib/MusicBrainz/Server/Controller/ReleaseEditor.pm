@@ -102,6 +102,9 @@ sub add : Path('/release/add') Edit RequireAuth
     $self->_init_release_editor($c, return_to => $return_to);
 }
 
+# NOTE-SEEDED-DATA-TYPES-1: The types of the final seeded data format
+# are to be kept in sync with root/types/releaseeditor.js.
+
 sub _seeded_data
 {
     my ($self, $c) = @_;
