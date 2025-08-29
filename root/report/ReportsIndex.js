@@ -528,6 +528,10 @@ component ReportsIndex() {
             reportName="DuplicateRelationshipsRecordings"
           />
           <ReportsIndexEntry
+            content={l('Recordings with possible duplicate works')}
+            reportName="RecordingsWithDuplicateWorks"
+          />
+          <ReportsIndexEntry
             content={l('Recordings with varying track times')}
             reportName="RecordingsWithVaryingTrackLengths"
           />

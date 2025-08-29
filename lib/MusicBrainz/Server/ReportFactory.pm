@@ -84,6 +84,7 @@ my @all = qw(
     PseudoReleasesWithCoverArt
     RecordingsWithoutVACredit
     RecordingsWithoutVALink
+    RecordingsWithDuplicateWorks
     RecordingsWithEarliestReleaseRelationships
     RecordingsWithVaryingTrackLengths
     RecordingTrackDifferentName
@@ -197,6 +198,7 @@ use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::PseudoReleasesWithCoverArt;
 use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
 use MusicBrainz::Server::Report::RecordingsWithoutVALink;
+use MusicBrainz::Server::Report::RecordingsWithDuplicateWorks;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 #use MusicBrainz::Server::Report::RecordingsSameNameDifferentArtistsSameName;
