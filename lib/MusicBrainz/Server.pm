@@ -871,6 +871,7 @@ sub TO_JSON {
         release_artwork_count
         release_cdtoc_count
         seeded_relationships
+        seeded_release_data
         series_ordering_types
         server_details
         server_languages

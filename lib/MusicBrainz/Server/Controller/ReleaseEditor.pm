@@ -34,7 +34,7 @@ sub _init_release_editor
         $c->req->body_params->{redirect_uri}
     );
 
-    $options{seeded_data} = $c->json->encode($self->_seeded_data($c) // {});
+    $options{seeded_release_data} = $self->_seeded_data($c);
 
     my @medium_formats = $c->model('MediumFormat')->get_all;
     my $discid_formats = [ grep { $_ } map { $_->has_discids ? ($_->id) : () } @medium_formats ];

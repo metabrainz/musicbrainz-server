@@ -87,7 +87,6 @@
     [%- END %]
       returnTo: "[% return_to | js %]",
       redirectURI: "[% redirect_uri | js %]",
-      seed: [% closing_tag_escape(seeded_data) OR 'null' %]
     });
   </script>
 [%- END -%]

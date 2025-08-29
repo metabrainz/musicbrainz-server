@@ -64,9 +64,11 @@ Object.assign(releaseEditor, {
 releaseEditor.init = function (options) {
   var self = this;
 
+  const $c = getCatalystContext();
+
   $.extend(this, {
     action: options.action,
-    isBeginner: isBeginner(getCatalystContext().user),
+    isBeginner: isBeginner($c.user),
     redirectURI: options.redirectURI,
     returnTo: options.returnTo,
   });
@@ -352,10 +354,10 @@ releaseEditor.init = function (options) {
     return isInvalidEditNote(self.rootField.editNote());
   };
 
-  this.seed(options.seed);
+  this.seed($c.stash.seeded_release_data);
 
   if (this.action === 'edit') {
-    this.releaseLoaded(getSourceEntityData(getCatalystContext(), 'release'));
+    this.releaseLoaded(getSourceEntityData($c, 'release'));
   } else {
     releaseEditor.createExternalLinksEditor(
       {entityType: 'release'},
@@ -449,8 +451,6 @@ releaseEditor.loadRelease = function (gid, callback) {
 releaseEditor.releaseLoaded = function (data) {
   this.loadError('');
 
-  var seed = this.seededReleaseData;
-
   // Setup the external links editor
   setTimeout(function () {
     releaseEditor.createExternalLinksEditor(
@@ -461,6 +461,7 @@ releaseEditor.releaseLoaded = function (data) {
 
   var release = new fields.Release(data);
 
+  const seed = getCatalystContext().stash.seeded_release_data?.seed;
   if (seed) {
     this.seedRelease(release, seed);
   }
@@ -478,9 +479,7 @@ releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
     return null;
   }
 
-  var seed = this.seededReleaseData;
-  delete this.seededReleaseData;
-
+  const seed = getCatalystContext().stash.seeded_release_data?.seed;
   if (seed && seed.relationships) {
     data.relationships = (data.relationships || [])
       .concat(seed.relationships);
