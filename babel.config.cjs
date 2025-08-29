@@ -62,10 +62,6 @@ module.exports = function (api) {
       regenerator: true,
       useESModules: false,
     }],
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-syntax-dynamic-import',
-    '@babel/plugin-proposal-optional-chaining',
-    '@babel/plugin-proposal-nullish-coalescing-operator',
   ];
 
   if (process.env.NODE_ENV === 'test') {
