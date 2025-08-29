@@ -13,7 +13,7 @@ import isUselessMediumTitle
   from '../../../edit/utility/isUselessMediumTitle.js';
 
 test('isUselessMediumTitle', function (t) {
-  t.plan(3);
+  t.plan(5);
 
   t.ok(
     !isUselessMediumTitle('The Happy Disc'),
@@ -28,5 +28,15 @@ test('isUselessMediumTitle', function (t) {
   t.ok(
     isUselessMediumTitle('Disk1'),
     'A "format plus number" title is still useless if not space-separated',
+  );
+
+  t.ok(
+    isUselessMediumTitle('CD One'),
+    'A "format plus number" title is useless for an English "One"',
+  );
+
+  t.ok(
+    isUselessMediumTitle('disc two'),
+    'A "format plus number" title is still useless when lowercase',
   );
 });
