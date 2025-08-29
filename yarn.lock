@@ -3350,12 +3350,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-syntax-hermes-parser@npm:0.29.1":
-  version: 0.29.1
-  resolution: "babel-plugin-syntax-hermes-parser@npm:0.29.1"
+"babel-plugin-syntax-hermes-parser@npm:0.32.0":
+  version: 0.32.0
+  resolution: "babel-plugin-syntax-hermes-parser@npm:0.32.0"
   dependencies:
-    hermes-parser: "npm:0.29.1"
-  checksum: 10c0/a6d95e4a7079976e477636d18509272a7a185930e143c61d0421a36096e85905563630ac4f0f317518b6db37f50daaefc1828d575b3d5fb090a55e9d39d2534c
+    hermes-parser: "npm:0.32.0"
+  checksum: 10c0/2e5aad897d4abd643d33329814ed7adb301047890a8a4325ef140da86e377a1127f1ce6af4064526e5cb603c16d3d3e15784998df4095f1385e7f4e8ca53f03e
   languageName: node
   linkType: hard
 
@@ -5960,14 +5960,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-eslint@npm:0.29.1":
-  version: 0.29.1
-  resolution: "hermes-eslint@npm:0.29.1"
+"hermes-eslint@npm:0.32.0":
+  version: 0.32.0
+  resolution: "hermes-eslint@npm:0.32.0"
   dependencies:
     esrecurse: "npm:^4.3.0"
-    hermes-estree: "npm:0.29.1"
-    hermes-parser: "npm:0.29.1"
-  checksum: 10c0/32cb455c8663286df22e6c6015ff85a441708dac4889500f8758614014be1a8e4bb06ca25b8e411aa9177fae02036c134ac4e5ed12de63c8f9d3545ba79679d5
+    hermes-estree: "npm:0.32.0"
+    hermes-parser: "npm:0.32.0"
+  checksum: 10c0/3ef4c1e0191b05f1a23aca04ad20b364b69ca7b751f8113eea0f3f6cbc3ef0e394ad93e8e88ddc4f1b098fc84e7d0c81dcad045e857c9fea79b2b2b1f5e67087
   languageName: node
   linkType: hard
 
@@ -5985,10 +5985,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.29.1":
-  version: 0.29.1
-  resolution: "hermes-estree@npm:0.29.1"
-  checksum: 10c0/e6b01f79ba708697d61a74b871d5ebae5f863c6d782657d8e2d2256eb838f1eb86ff9c34773a81d9cc69e54be3a5059c686e0ab54a4afba903b40dde92dd0ccb
+"hermes-estree@npm:0.32.0":
+  version: 0.32.0
+  resolution: "hermes-estree@npm:0.32.0"
+  checksum: 10c0/3b67d1fe44336240ef7f9c40ecbf363279ba263d51efe120570c3862cc109e652fc09aebddfe6b73d0f0246610bee130e4064c359f1f4cbf002bdb1d99717ef2
   languageName: node
   linkType: hard
 
@@ -6001,12 +6001,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-parser@npm:0.29.1":
-  version: 0.29.1
-  resolution: "hermes-parser@npm:0.29.1"
+"hermes-parser@npm:0.32.0":
+  version: 0.32.0
+  resolution: "hermes-parser@npm:0.32.0"
   dependencies:
-    hermes-estree: "npm:0.29.1"
-  checksum: 10c0/7f40d9bdfb5acaa700f333a24c644b17f5f8d0e823b1e7a9fb6dcf253a54d54716ae63c74effa023688ee4f09013c80188c40d601570fee256a44954e04c2926
+    hermes-estree: "npm:0.32.0"
+  checksum: 10c0/5902d2c5d347c0629fba07a47eaad5569590ac69bc8bfb2e454e08d2dfbe1ebd989d88518dca2cba64061689b5eac5960ae6bd15a4a66600bbf377498a3234b7
   languageName: node
   linkType: hard
 
@@ -7749,7 +7749,7 @@ __metadata:
     "@stylistic/eslint-plugin": "npm:4.4.1"
     babel-loader: "npm:10.0.0"
     babel-plugin-istanbul: "npm:7.0.0"
-    babel-plugin-syntax-hermes-parser: "npm:0.29.1"
+    babel-plugin-syntax-hermes-parser: "npm:0.32.0"
     balanced-match: "npm:3.0.1"
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
@@ -7774,7 +7774,7 @@ __metadata:
     gettext-parser: "npm:4.2.0"
     globals: "npm:15.9.0"
     he: "npm:1.2.0"
-    hermes-eslint: "npm:0.29.1"
+    hermes-eslint: "npm:0.32.0"
     http-proxy: "npm:1.18.1"
     imports-loader: "npm:5.0.0"
     jed: "https://github.com/metabrainz/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"
