@@ -55,6 +55,16 @@
 			border-color: #F5F5F5;
 		}
 	}
+	.entity-pill {
+		background-color: #292929;
+		border-color: #292929;
+
+		&.selected {
+			background-color: #F5F5F5;
+			color: #292929 !important;
+			border-color: #F5F5F5;
+		}
+	}
 
 	.social-buttons {
 		display: flex;
@@ -117,6 +127,7 @@
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
+			z-index: 5;
 
 			.search-info-text {
 				font-size: 45px;
@@ -149,7 +160,8 @@
 			justify-content: space-between;
 
 			height: 57px;
-			width: 757px;
+			max-width: 757px;
+			width: 100%;
 
 			padding: 0 15px;
 
@@ -175,7 +187,7 @@
 				.advanced-search-text {
 					margin: 5px;
 					text-decoration: none;
-					color: #464547 !important;
+					color: #292929 !important;
 
 					&:hover {
 						text-decoration: underline;
@@ -190,8 +202,16 @@
 		overflow-x: auto;
 		overflow-y: hidden;
 		white-space: nowrap;
-		width: 100vw;
 		-webkit-overflow-scrolling: touch;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 1.5rem;
+		padding: 3rem 1.5rem;
+
+		a {
+			flex-shrink: 0;
+		}
 	
 		img {
 			height: 25px;
@@ -253,6 +273,7 @@
 			display: flex;
 			flex-direction: column;
 			gap: 50px;
+			padding: 75px 1.5rem 30px 1.5rem;
 
 			#about-musicbrainz-container {
 				li {
@@ -265,7 +286,6 @@
 					a {
 						font-size: 14px;
 						font-weight: 700;
-						white-space: nowrap;
 						overflow: hidden;
 						display: block;
 						text-overflow: ellipsis;
@@ -346,13 +366,23 @@
 
 	}
 
+	.stats-container-wrapper {
+		background-color: #F5F5F5;
+	}
+
 	.stats-container {
+		padding-bottom: 75px;
 		margin: 0 auto;
-		max-width: 1200px;
+		max-width: min(1200px, 100vw);
 	
 		.swiper-slide {
 			width: unset !important;
-			padding: 0 50px;
+			padding: 0 25px;
+			max-width: 100vw;
+
+			@media (max-width: 768px) {
+				padding: 0 50px;
+			}
 		}
 	
 		h2 {
@@ -360,6 +390,25 @@
 			background: linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%);
 			color: transparent;
 			background-clip: text;
+			position: relative;
+
+			&::after {
+				bottom: -5px;
+				content: "";
+				left: 0px;
+				position: absolute;
+				width: 30%;
+				border-bottom: 1px solid #8D8D8D;
+			}
+
+			@media (max-width: 768px) {
+				font-size: 30px;
+				margin-bottom: 25px;
+
+				&::after {
+					bottom: -10px;
+				}
+			}
 		}
 
 		p {
@@ -367,6 +416,11 @@
 			font-weight: 700px;
 			color: #46433A;
 			font-family: Roboto;
+			margin-top: 10px;
+
+			@media (max-width: 768px) {
+				font-size: 20px;
+			}
 		}
 
 		img {
@@ -377,6 +431,7 @@
 		.swiper {
 			position: relative;
 		}
+
 		.swiper::before,
 		.swiper::after {
 			background: linear-gradient(to right, #F5F5F5 0%, #F5F5F500 100%);
@@ -385,6 +440,14 @@
 			position: absolute;
 			width: 300px;
 			z-index: 2;
+
+			@media (max-width: 1200px) {
+				width: 150px;
+			}
+
+			@media (max-width: 768px) {
+				width: 50px;
+			}
 		}
 		.swiper::after {
 			right: 0;
@@ -395,13 +458,12 @@
 			left: 0;
 			top: 0;
 		}
+	}
 
-		.swiper-button-prev,
-		.swiper-button-next {
-			color: #464547;
-			font-size: 2.5rem;
-			width: 33px;
-		}
+	.swiper-button-prev,
+	.swiper-button-next {
+		color: #464547;
+		width: 33px;
 	}
 }
 
@@ -511,8 +573,13 @@
 			align-items: center;
 			justify-content: center;
 			gap: 20px;
+			z-index: 5;
 
 			@media (max-width: 768px) {
+				.carousel-slide-content-text {
+					align-items: center;
+				}
+
 				flex-direction: column;
 			}
 
@@ -521,7 +588,7 @@
 				color: white;
 				border-radius: 33px;
 				padding: 10px 20px;
-				margin-right: auto;
+				width: fit-content;
 
 				.picard-logo,
 				.listenbrainz-logo {
@@ -574,8 +641,14 @@
 	}
 }
 
-.homepage {
-	padding: 0 !important;
+#page.homepage {
+	margin-top: 0;
+	padding: 0;
+	display: block;
+}
+
+.header {
+	display: none;
 }
 
 .body-homepage {

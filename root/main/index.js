@@ -188,7 +188,9 @@ component Homepage(
               </div>
             </div>
           </div>
+        </div>
 
+        <div className="stats-container-wrapper">
           <Stats weeklyStats={weeklyStats} />
         </div>
 
@@ -384,7 +386,7 @@ component Homepage(
         </div>
 
         {/* Logo container */}
-        <div className="d-flex py-5 px-4 justify-content-between align-items-center gap-4 logo-container">
+        <div className="logo-container">
           <a
             href="https://metabrainz.org"
             target="_blank"
