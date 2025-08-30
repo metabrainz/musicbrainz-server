@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e -u
+set -e -o pipefail -u
 
 SCRIPT_NAME=$(basename "$0")
 
@@ -79,7 +79,7 @@ done
 
 for file in ${admin_js_files[@]}
 do
-  pot=`../script/xgettext.js $file | sed '1,12d'`
+  pot=`../bin/babel-node ../script/xgettext.mjs $file | sed '1,12d'`
   if [ -n "$pot" ]
   then
     printf "$pot" | grep '^#:'

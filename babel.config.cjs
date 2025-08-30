@@ -42,7 +42,10 @@ module.exports = function (api) {
 
   const presets = [
     ['@babel/preset-env', {
-      corejs: 3.38,
+      corejs: 3.45,
+      modules: api.caller(caller => caller && caller.name === 'babel-node-loader')
+        ? false
+        : 'auto',
       targets: api.caller(caller => caller && caller.target === 'node')
         ? NODE_TARGETS
         : BROWSER_TARGETS[browserTarget],
@@ -62,10 +65,6 @@ module.exports = function (api) {
       regenerator: true,
       useESModules: false,
     }],
-    '@babel/plugin-proposal-class-properties',
-    '@babel/plugin-syntax-dynamic-import',
-    '@babel/plugin-proposal-optional-chaining',
-    '@babel/plugin-proposal-nullish-coalescing-operator',
   ];
 
   if (process.env.NODE_ENV === 'test') {
