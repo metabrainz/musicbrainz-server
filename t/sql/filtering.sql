@@ -24,7 +24,7 @@ INSERT INTO artist_credit_name (artist_credit, position, artist, name, join_phra
 
 INSERT INTO release_group (id, gid, name, artist_credit, type)
     VALUES (3400, 'bee95816-da7d-3902-9038-3e8f9b3ebe9f', 'Concerto for Orchestra / Symphony no. 3', 3400, 1),
-           (3401, '6dfcff0b-9434-48b9-bf14-ed674dd626f5', 'Piano Concerto / Symphony no. 2', 3401, 1),
+           (3401, '6dfcff0b-9434-48b9-bf14-ed674dd626f5', 'ピアノ協奏曲／交響曲第2番', 3401, 1),
            (3402, '98b72608-a824-40c5-b5df-81cf981faf7e', 'Symphonies / Concertos / Choral and Vocal Works', 3400, 1),
            (3403, '33d71de2-d3c6-4906-908e-df59d70b283d', 'Lutosławski', 3400, 1),
            (3404, 'fc9b775a-6c06-3828-b6a4-220b65cfef60', 'String Quartet', 3400, NULL),
@@ -38,7 +38,7 @@ INSERT INTO release_group_secondary_type_join (release_group, secondary_type)
 
 INSERT INTO release (id, gid, name, artist_credit, status, release_group)
     VALUES (3400, 'bee95816-da7d-3902-9038-3e8f9b3ebe9a', 'Concerto for Orchestra / Symphony no. 3', 3400, 1, 3400),
-           (3401, '6dfcff0b-9434-48b9-bf14-ed674dd626fa', 'Piano Concerto / Symphony no. 2', 3401, 1, 3401),
+           (3401, '6dfcff0b-9434-48b9-bf14-ed674dd626fa', 'ピアノ協奏曲／交響曲第2番', 3401, 1, 3401),
            (3402, '98b72608-a824-40c5-b5df-81cf981faf7a', 'Symphonies / Concertos / Choral and Vocal Works', 3400, 1, 3402),
            (3403, '33d71de2-d3c6-4906-908e-df59d70b283a', 'Lutosławski', 3400, 1, 3403),
            (3404, 'fc9b775a-6c06-3828-b6a4-220b65cfef6a', 'String Quartet', 3400, NULL, 3404),

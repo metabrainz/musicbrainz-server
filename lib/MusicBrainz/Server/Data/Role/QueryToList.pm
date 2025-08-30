@@ -3,6 +3,7 @@ package MusicBrainz::Server::Data::Role::QueryToList;
 use strict;
 use warnings;
 
+use Encode qw ( encode_utf8 );
 use Digest::MD5 qw( md5 );
 use Moose::Role;
 use Readonly;
@@ -40,7 +41,7 @@ sub query_to_list_limited {
             'query_to_list_limited:' .
             md5(join "\0",
                 $query,
-                map { ref($_) eq 'ARRAY' ? (@$_) : $_ } @args);
+                map { encode_utf8($_) } map { ref($_) eq 'ARRAY' ? (@$_) : $_ } @args);
         $hits = $self->c->cache->get($hits_cache_key);
     }
 

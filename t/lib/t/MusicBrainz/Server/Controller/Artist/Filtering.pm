@@ -35,20 +35,20 @@ test 'Overview (release group) filtering' => sub {
     );
 
     $mech->get_ok(
-        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435?filter.name=Symphony',
-        'Fetched artist overview page with name filter "Symphony"',
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435?filter.name=ピアノ協奏曲／交響曲第2番',
+        'Fetched artist overview page with name filter "ピアノ協奏曲／交響曲第2番"',
     );
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[contains(@class, "tbl")]/tbody/tr)',
-        '2',
-        'There are two entries in the release group tables after filtering by name',
+        '1',
+        'There is one entry in the release group tables after filtering by name',
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
-        'Concerto for Orchestra / Symphony no. 3',
-        'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -64,8 +64,8 @@ test 'Overview (release group) filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[2]',
-        'Piano Concerto / Symphony no. 2',
-        'The entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -179,20 +179,20 @@ test 'Release page filtering' => sub {
     );
 
     $mech->get_ok(
-        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.name=Symphony',
-        'Fetched artist releases page with name filter "Symphony"',
+        '/artist/af4c43d3-c0e0-421e-ac64-000329af0435/releases?filter.name=ピアノ協奏曲／交響曲第2番',
+        'Fetched artist releases page with name filter "ピアノ協奏曲／交響曲第2番"',
     );
 
     $tx = test_xpath_html($mech->content);
     $tx->is(
         'count(//table[contains(@class, "tbl")]/tbody/tr)',
-        '2',
-        'There are two entries in the release table after filtering by name',
+        '1',
+        'There is one entry in the release table after filtering by name',
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Concerto for Orchestra / Symphony no. 3',
-        'The first entry is named "Concerto for Orchestra / Symphony no. 3"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -208,8 +208,8 @@ test 'Release page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Piano Concerto / Symphony no. 2',
-        'The entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -259,8 +259,8 @@ test 'Release page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Piano Concerto / Symphony no. 2',
-        'The first entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The first entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -361,8 +361,8 @@ test 'Release page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Piano Concerto / Symphony no. 2',
-        'The entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 };
 
