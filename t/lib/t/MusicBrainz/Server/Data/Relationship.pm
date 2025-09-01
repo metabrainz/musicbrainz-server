@@ -460,11 +460,11 @@ $sql->commit;
 is($rel->id, 4);
 
 $artist1->clear_relationships;
-$rel_data->load_subset([ 'artist' ], $artist1);
+$rel_data->load_subset(target_types => [ 'artist' ], source_objs => [$artist1]);
 is(scalar($artist1->all_relationships), 0, 'filter to just artist rels');
 
 $artist1->clear_relationships;
-$rel_data->load_subset([ 'recording' ], $artist1);
+$rel_data->load_subset(target_types => [ 'recording' ], source_objs => [$artist1]);
 is(scalar($artist1->all_relationships), 1, 'filter to just recording rels');
 
 $artist1->clear_relationships;
