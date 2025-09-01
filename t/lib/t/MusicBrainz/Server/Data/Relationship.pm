@@ -361,15 +361,17 @@ test 'Only appropriate rels are loaded with load_subset' => sub {
     my $c = $test->c;
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
-    # Insert extra link to different entity (series)
+    # Insert extra link of different type (remix) and to different entity (series)
     MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+        INSERT INTO link (id, link_type, attribute_count) VALUES (6, 153, 0);
+        INSERT INTO l_artist_recording (id, link, entity0, entity1) VALUES (4, 6, 1, 2);
         INSERT INTO l_artist_series (id, link, entity0, entity1, link_order) VALUES (2, 5, 1, 1, 1);
         EOSQL
 
     my $artist = $c->model('Artist')->get_by_id(1);
 
     $test->c->model('Relationship')->load($artist);
-    is(scalar($artist->all_relationships), 3, 'There are 3 rels');
+    is(scalar($artist->all_relationships), 4, 'There are 4 rels');
 
     $artist->clear_relationships;
 
@@ -377,8 +379,30 @@ test 'Only appropriate rels are loaded with load_subset' => sub {
         target_types => [ 'recording' ],
         source_objs => [ $artist ],
     );
-    is(scalar($artist->all_relationships), 2, 'There are 2 artist rels');
+    is(scalar($artist->all_relationships), 3, 'There are 3 artist rels');
 
+    $artist->clear_relationships;
+
+    $test->c->model('Relationship')->load_subset_cardinal(
+        target_types => [ 'recording' ],
+        source_objs => [ $artist ],
+    );
+    is(scalar($artist->all_relationships), 0, 'There are no artist rels with cardinality 0');
+
+    $artist->clear_relationships;
+
+    note('We change the cardinality of artist in remix to 0');
+    $c->sql->do(<<~'SQL');
+        UPDATE link_type
+           SET entity0_cardinality = 0
+         WHERE id = 153;
+        SQL
+
+    $test->c->model('Relationship')->load_subset_cardinal(
+        target_types => [ 'recording' ],
+        source_objs => [ $artist ],
+    );
+    is(scalar($artist->all_relationships), 1, 'There is now 1 artist rel with cardinality 0');
 };
 
 test all => sub {

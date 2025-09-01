@@ -146,6 +146,14 @@ role
                 $loaded = 1;
             }
 
+            my $cardinal_types = $relationships->{subset_cardinal}{$action};
+            if ($cardinal_types) {
+                $c->model('Relationship')->load_subset_cardinal(
+                    target_types => $cardinal_types,
+                    source_objs => [$entity],
+                );
+            }
+
             if (defined $c->stash->{paged_link_type_group}) {
                 # Still load URL rels since we want them for the sidebar
                 $c->model('Relationship')->load_subset(
@@ -163,7 +171,6 @@ role
                         source_objs => [$entity],
                     );
                 }
-
             }
         }
 
