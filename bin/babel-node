@@ -3,6 +3,5 @@
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 
 exec node \
-    --experimental-loader "$MB_SERVER_ROOT"/root/utility/sucraseLoader.mjs \
-    --no-warnings \
+    --import "$MB_SERVER_ROOT"/root/utility/babel-node/register.mjs \
     "$@"

@@ -113,7 +113,7 @@ if [[ ! "$BROWSER_TARGET" =~ ^(production|modern|legacy)$ ]]; then
     exit 1
 fi
 
-"$MB_SERVER_ROOT"/bin/sucrase-node \
+"$MB_SERVER_ROOT"/bin/babel-node \
     "$MB_SERVER_ROOT"/webpack/run.mjs \
     $RUN_ARGS &
 
