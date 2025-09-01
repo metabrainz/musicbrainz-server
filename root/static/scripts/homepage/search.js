@@ -15,25 +15,7 @@ import ethicalSourceImage from '../../images/homepage/ethical-forever.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Blob from './blob.js';
-
-const entities = [
-  { name: "Artist", value: "artist" },
-  { name: "Event", value: "event" },
-  { name: "Release", value: "release" },
-  { name: "Release Group", value: "release-group" },
-  { name: "Recording", value: "recording" },
-  { name: "Series", value: "series" }, 
-  { name: "Work", value: "work" },
-  { name: "Area", value: "area" },
-  { name: "Instrument", value: "instrument" },
-  { name: "Label", value: "label" },
-  { name: "Place", value: "place" },
-  { name: "Annotation", value: "annotation" },
-  { name: "Tag", value: "tag" },
-  { name: "CD Stub", value: "cdstub" },
-  { name: "Editor", value: "editor" },
-  { name: "Stub", value: "stub" },
-]
+import { entities } from './utils';
 
 component Search () {
   const [searchQuery, setSearchQuery] = React.useState('');

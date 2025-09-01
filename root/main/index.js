@@ -29,6 +29,7 @@ import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
 import {faBluesky, faMastodon, faDiscord, faReddit} from '@fortawesome/free-brands-svg-icons';
 import Search from '../static/scripts/homepage/search.js';
 import Stats, { type WeeklyStatsT } from '../static/scripts/homepage/stats.js';
+import Navbar from '../static/scripts/homepage/navbar.js';
 
 type BlogEntryT = {
   +title: string,
@@ -54,6 +55,7 @@ component Homepage(
       isHomepage
       title={l('MusicBrainz - the open music encyclopedia')}
     >
+      <Navbar />
       <div className="new-homepage">
         <Search />
 
@@ -431,7 +433,7 @@ component Homepage(
       {manifest('homepage/search', {async: true})}
       {manifest('homepage/banner-carousel', {async: true})}
       {manifest('homepage/stats', {async: true})}
-
+      {manifest('homepage/navbar', {async: true})}
       {manifest('common/loadArtwork', {async: true})}
     </Layout>
   );
