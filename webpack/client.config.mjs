@@ -92,6 +92,7 @@ const entries = [
   'genre/components/GenreEditForm',
   'genre/index',
   'homepage/banner-carousel',
+  'homepage/navbar',
   'homepage/search',
   'homepage/stats',
   'instrument/edit',

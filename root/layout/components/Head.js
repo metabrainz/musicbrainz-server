@@ -95,6 +95,14 @@ component Head(
         />
       )}
 
+      {isHomepage && (
+        <link
+          href="/static/build/bootstrap.css"
+          rel="stylesheet"
+          type="text/css"
+        />
+      )}
+
       <link
         href="/static/search_plugins/opensearch/musicbrainz_artist.xml"
         rel="search"
