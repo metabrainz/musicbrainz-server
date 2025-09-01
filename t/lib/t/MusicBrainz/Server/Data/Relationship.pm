@@ -356,6 +356,31 @@ test 'Relationship credits are added to save old name if not renaming' => sub {
     is($relationship2->entity0_credit, '', 'no duplicate credit was added');
 };
 
+test 'Only appropriate rels are loaded with load_subset' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationships');
+    # Insert extra link to different entity (series)
+    MusicBrainz::Server::Test->prepare_test_database($c, <<~'EOSQL');
+        INSERT INTO l_artist_series (id, link, entity0, entity1, link_order) VALUES (2, 5, 1, 1, 1);
+        EOSQL
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+
+    $test->c->model('Relationship')->load($artist);
+    is(scalar($artist->all_relationships), 3, 'There are 3 rels');
+
+    $artist->clear_relationships;
+
+    $test->c->model('Relationship')->load_subset(
+        target_types => [ 'recording' ],
+        source_objs => [ $artist ],
+    );
+    is(scalar($artist->all_relationships), 2, 'There are 2 artist rels');
+
+};
+
 test all => sub {
 
 my $test = shift;
