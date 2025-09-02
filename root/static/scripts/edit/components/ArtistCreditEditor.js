@@ -26,6 +26,7 @@ import {createArtistObject} from '../../common/entity2.js';
 import {
   reduceArtistCreditNames,
 } from '../../common/immutable-entities.js';
+import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueId} from '../../common/utility/numbers.js';
 import {localStorage} from '../../common/utility/storage.js';
 
@@ -389,7 +390,7 @@ function createInitialNamesState(
     let selectedItem = null;
     if (artist != null) {
       artistName = artist.name;
-      if (artist.id) {
+      if (isDatabaseRowId(artist.id)) {
         selectedItem = {
           entity: artist,
           id: artist.id,
