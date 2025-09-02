@@ -271,6 +271,7 @@ declare type AddPlaceEditT = $ReadOnly<{
 declare type AddRelationshipEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
+    +entered_from?: NonUrlRelatableEntityT,
     +relationship: RelationshipT,
     +unknown_attributes: boolean,
   },
@@ -883,6 +884,7 @@ declare type EditRecordingEditT =
 declare type EditRelationshipEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
+    +entered_from?: NonUrlRelatableEntityT,
     +new: RelationshipT,
     +old: RelationshipT,
     +unknown_attributes: boolean,
@@ -1421,6 +1423,7 @@ declare type RemoveRelationshipEditT = $ReadOnly<{
     },
   },
   +display_data: {
+    +entered_from?: NonUrlRelatableEntityT,
     +relationship: RelationshipT,
   },
   +edit_type: EDIT_RELATIONSHIP_DELETE_T,
@@ -1499,6 +1502,7 @@ declare type ReorderMediumsEditT = $ReadOnly<{
 declare type ReorderRelationshipsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
+    +entered_from?: NonUrlRelatableEntityT,
     +relationships: $ReadOnlyArray<{
       +new_order: number,
       +old_order: number,
