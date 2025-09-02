@@ -11,7 +11,13 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 
 component EditEnteredFrom(
-  edit: $ReadOnly<{...EditT, +id: number}>,
+  edit: {
+    +display_data?: {
+      +entered_from?: NonUrlRelatableEntityT,
+      ...
+    },
+    ...
+  },
 ) {
   const enteredFrom = edit.display_data?.entered_from;
   return enteredFrom ? (
