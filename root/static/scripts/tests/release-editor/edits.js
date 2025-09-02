@@ -8,6 +8,7 @@
 
 import ko from 'knockout';
 import test from 'tape';
+import * as tree from 'weight-balanced-tree';
 
 import MB from '../../common/MB.js';
 import MBEdit from '../../edit/MB/edit.js';
@@ -59,7 +60,7 @@ function editReleaseTest(name, callback) {
   test(name, function (t) {
     callback(t, common.setupReleaseEdit());
     errorFields([]);
-    releaseEditor.externalLinksEditData({});
+    releaseEditor.externalLinksData(tree.empty);
     releaseEditor.hasInvalidLinks =
       errorField(ko.observable(false));
   });

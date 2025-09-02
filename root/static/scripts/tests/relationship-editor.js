@@ -9,9 +9,6 @@
 
 import test from 'tape';
 import * as tree from 'weight-balanced-tree';
-import {
-  onConflictUseSecondValue,
-} from 'weight-balanced-tree/union';
 
 import searchItems, {
   indexItems,
@@ -100,6 +97,8 @@ const initialState = createInitialState({
 const initialReleaseState = createInitialReleaseState(
   releaseWithMediumsAndReleaseGroup,
 );
+
+const onConflictUseSecondValue = <T>(v1: T, v2: T): T => v2;
 
 test('merging duplicate relationships', function (t) {
   const nonEndedRelationshipWithBeginDate = {
