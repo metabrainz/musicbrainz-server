@@ -81,6 +81,7 @@ const entries = [
   'common/sentry',
   'confirm-seed',
   'edit/components/FormRowTextList',
+  'edit/components/HydratedArtistDateRangeFieldset',
   'edit/components/HydratedDateRangeFieldset',
   'edit/components/NewNotesAlertCheckbox',
   'edit/components/ReleaseMergeStrategy',
