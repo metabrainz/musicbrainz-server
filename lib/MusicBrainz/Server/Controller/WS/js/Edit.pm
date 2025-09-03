@@ -284,6 +284,10 @@ sub process_entity {
         $data->{comment} = substr($data->{comment}, 0, 255);
     }
 
+    if (defined $data->{enteredFrom}) {
+        $data->{entered_from} = delete $data->{enteredFrom};
+    }
+
     process_artist_credit($c, $loader, $data);
 }
 
