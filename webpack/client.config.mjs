@@ -95,6 +95,7 @@ const entries = [
   'homepage/navbar',
   'homepage/search',
   'homepage/stats',
+  'homepage/user-menu',
   'instrument/edit',
   'instrument/index',
   'label/edit',
