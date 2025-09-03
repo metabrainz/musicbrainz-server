@@ -108,7 +108,7 @@ component Homepage(
                   rel="noopener noreferrer"
                   style={{backgroundColor: '#46433A', color: 'white !important'}}
                 >
-                  Read More
+                  {l('Read More')}
                 </a>
                 <a
                   className="social-pill"
@@ -117,7 +117,7 @@ component Homepage(
                   rel="noopener noreferrer"
                   style={{backgroundColor: '#46433A', color: 'white !important'}}
                 >
-                  Beginner editor's guide
+                  {l('Beginner editor\'s guide')}
                 </a>
               </div>
             </div>
@@ -190,7 +190,7 @@ component Homepage(
                     rel="noopener noreferrer"
                     style={{color: 'white !important'}}
                   >
-                    Forums
+                    {l('Forums')}
                   </a>
                 </div>
               </div>
@@ -221,7 +221,7 @@ component Homepage(
 
                 <p className="info-text">
                   {l('Access all our datasets and the MusicBrainz Live Data Feed by')} {" "}
-                  <a href="https://metabrainz.org/supporters/account-type" target="_blank" rel="noopener noreferrer">creating an account</a>, whether for personal or non-commercial use.
+                  <a href="https://metabrainz.org/supporters/account-type" target="_blank" rel="noopener noreferrer">{l('creating an account')} </a>, {l('whether for personal or non-commercial use')}.
                 </p>
 
                 <span className="d-flex align-items-center fw-bold">
@@ -348,7 +348,7 @@ component Homepage(
 
                 <span className="d-flex align-items-center">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="https://github.com/orgs/metabrainz" target="_blank" rel="noopener noreferrer">GitHub repositories</a>
+                  <a href="https://github.com/orgs/metabrainz" target="_blank" rel="noopener noreferrer">{l('GitHub repositories')}</a>
                 </span>
               </div>
             </div>
@@ -358,7 +358,7 @@ component Homepage(
                 <h2>{l('Data provider')}</h2>
                 <p>
                   {l('The MetaBrainz core mission is to curate and maintain public datasets that anyone can download and use. Some of the world\'s biggest platforms, such as Google and Amazon, use our data, as well as small-scale developers and curious individuals.')}{" "}
-                  {l('We ask')} <a href='https://metabrainz.org/supporters' target="_blank" rel="noopener noreferrer">commercial users</a> {l('to support us. Personal use of our datasets will always be free.')}
+                  {l('We ask')} <a href='https://metabrainz.org/supporters' target="_blank" rel="noopener noreferrer">{l('commercial users')}</a> {l('to support us. Personal use of our datasets will always be free.')}
                 </p>
                 <p>
                   {l('Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our datasets are AI Ready, perfect for training large language models for music-based tasks.')}
