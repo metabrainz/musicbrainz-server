@@ -11,6 +11,9 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
         subset      => {
             show => [qw( area artist genre label place series instrument release_group url )],
         },
+        subset_cardinal => {
+            show => [qw( work )],
+        },
         paged_subset => {
             recordings => ['recording'],
             releases => ['release'],
