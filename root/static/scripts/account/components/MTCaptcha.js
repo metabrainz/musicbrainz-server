@@ -24,7 +24,10 @@ component MTCaptcha() {
     s.nonce = $c.stash.mtcaptcha_script_nonce;
     const quotedPublicKey =
       escapeClosingTags(JSON.stringify(MTCAPTCHA_PUBLIC_KEY));
-    s.innerHTML = `var mtcaptchaConfig = {"sitekey": ${quotedPublicKey}};`;
+    s.innerHTML = `var mtcaptchaConfig = {
+                     "sitekey": ${quotedPublicKey},
+                     "loadAnimation": "false"
+                   };`;
     document.body?.appendChild(s);
 
     const mtService = document.createElement('script');

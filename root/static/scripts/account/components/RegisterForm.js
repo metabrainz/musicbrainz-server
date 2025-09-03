@@ -103,8 +103,7 @@ component RegisterForm(form: RegisterFormT) {
         </span>
       </div>
       {nonEmpty(MTCAPTCHA_PUBLIC_KEY) ? (
-        <div className="row">
-          <label className="required">{addColonText(l('Captcha'))}</label>
+        <div className="row no-label">
           <MTCaptcha />
         </div>
       ) : null}
