@@ -24,9 +24,28 @@ component MTCaptcha() {
     s.nonce = $c.stash.mtcaptcha_script_nonce;
     const quotedPublicKey =
       escapeClosingTags(JSON.stringify(MTCAPTCHA_PUBLIC_KEY));
-    s.innerHTML = `var mtcaptchaConfig = {
+    s.innerHTML = `function handleVerifiedMTCaptcha(state) {
+                     console.log("MTCaptcha has verified the user.");
+                     console.log("state => ", state);
+                   }
+
+                   function handleJSLoadedMTCaptcha() {
+                     console.log("MTCaptcha library has loaded.");
+                   }
+
+                   function handleMTCaptchaError(state) {
+                     console.log("MTCaptcha error has occurred, " +
+                                 "such as bad sitekey, " +
+                                 "or internet connection lost.");
+                     console.log("state => ", state);
+                   }
+
+                   var mtcaptchaConfig = {
                      "sitekey": ${quotedPublicKey},
-                     "loadAnimation": "false"
+                     "loadAnimation": "false",
+                     "verified-callback": "handleVerifiedMTCaptcha",
+                     "jsloaded-callback": "handleJSLoadedMTCaptcha",
+                     "error-callback": "handleMTCaptchaError"
                    };`;
     document.body?.appendChild(s);
 
