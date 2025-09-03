@@ -36,8 +36,8 @@ component Search () {
   return (
     <div className="universal-search">
       <Blob width={250} height={250} randomness={1.5} className="search-vector-1" />
-      <Blob width={300} height={300} randomness={2} className="search-vector-2" />
-      <Blob width={300} height={300} randomness={2} className="search-vector-3" />
+      <Blob width={350} height={350} randomness={2} className="search-vector-2" />
+      <Blob width={400} height={400} randomness={2} className="search-vector-3" />
 
       <div className="search-logo-info" role="button" onClick={scrollToElement}>
         <img

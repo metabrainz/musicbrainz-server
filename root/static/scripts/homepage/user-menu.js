@@ -22,7 +22,7 @@ component UserMenu(
   const user = $c.user;
 
   return (
-    <>
+    <div className="user-menu-container">
       {user && (
         <>
           <div>
@@ -66,7 +66,7 @@ component UserMenu(
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }
 
