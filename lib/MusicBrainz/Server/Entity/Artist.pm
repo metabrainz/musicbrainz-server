@@ -1,7 +1,11 @@
 package MusicBrainz::Server::Entity::Artist;
 
 use Moose;
-use MusicBrainz::Server::Constants qw( $DARTIST_ID $VARTIST_ID $VARTIST_GID );
+use MusicBrainz::Server::Constants qw(
+    @SPECIAL_ARTIST_IDS
+    @SPECIAL_ARTIST_GIDS
+);
+use MusicBrainz::Server::Data::Utils qw( contains_number contains_string );
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -78,9 +82,8 @@ has 'country_code' => (
 
 sub is_special_purpose {
     my $self = shift;
-    return ($self->id && ($self->id == $DARTIST_ID ||
-                          $self->id == $VARTIST_ID))
-        || ($self->gid && $self->gid eq $VARTIST_GID);
+    return ($self->id && contains_number(\@SPECIAL_ARTIST_IDS, $self->id))
+        || ($self->gid && contains_string(\@SPECIAL_ARTIST_GIDS, $self->gid));
 }
 
 around TO_JSON => sub {
