@@ -23,6 +23,7 @@ component MTCaptcha() {
     // $FlowExpectedError[prop-missing]
     s.nonce = $c.stash.mtcaptcha_script_nonce;
     const mtcaptchaConfig = {
+      loadAnimation: 'false',
       sitekey: MTCAPTCHA_PUBLIC_KEY,
     };
     s.innerHTML = 'var mtcaptchaConfig = ' +
