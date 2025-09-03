@@ -9,7 +9,7 @@ around build_display_data => sub {
     my $data = $self->$orig(@args);
 
     my $entered_from_data = $self->data->{entered_from};
-    
+
     if ($entered_from_data) {
         my $entity_properties = $ENTITIES{ $entered_from_data->{entity_type} };
         my $model = $entity_properties->{model};

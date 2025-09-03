@@ -15,7 +15,6 @@ use MusicBrainz::Server::Edit::Types qw(
     EnteredFromEntity
     PartialDateHash
     LinkAttributesArray
-    NullableOnPreview
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw ( N_lp );
