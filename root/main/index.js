@@ -31,6 +31,8 @@ import {faBluesky, faMastodon, faDiscord, faReddit} from '@fortawesome/free-bran
 import Search from '../static/scripts/homepage/search.js';
 import Stats, { type WeeklyStatsT } from '../static/scripts/homepage/stats.js';
 import Navbar from '../static/scripts/homepage/navbar.js';
+import UserMenu from '../static/scripts/homepage/user-menu.js';
+import {CatalystContext} from '../context.mjs';
 
 type BlogEntryT = {
   +title: string,
@@ -49,7 +51,11 @@ component Homepage(
   communityPosts: $ReadOnlyArray<CommunityPostT> | null,
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
+  const $c = React.useContext(CatalystContext);
+  const user = $c.user;
+  
   const openSourceContainerRef = React.useRef<HTMLDivElement | null>(null);
+
   return (
     <Layout
       fullWidth
@@ -58,6 +64,7 @@ component Homepage(
     >
       <Navbar />
       <div className="new-homepage">
+        {user ? <UserMenu latestBlogPost={blogEntries && blogEntries.length > 0 ? blogEntries[0] : null} /> : null}
         <Search />
 
         <div className="timeline-container" id="releases-container">
@@ -431,6 +438,7 @@ component Homepage(
         <NewFooter />
       </div>
 
+      {manifest('homepage/user-menu', {async: true})}
       {manifest('homepage/search', {async: true})}
       {manifest('homepage/banner-carousel', {async: true})}
       {manifest('homepage/stats', {async: true})}

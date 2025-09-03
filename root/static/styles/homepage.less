@@ -242,6 +242,91 @@
 		}
 	}
 
+	.user-menu {
+		background-color: #F5F5F5;
+		display: flex;
+		align-items: center;
+		gap: 30px;
+		padding: 20px 40px;
+
+		@media (max-width: 992px) {
+			flex-direction: column;
+			gap: 0;
+			align-items: flex-start;
+			padding: 20px;
+		}
+
+		.user-menu-columns {
+			display: flex;
+			align-items: stretch;
+			gap: 30px;
+			flex-grow: 1;
+
+			@media (max-width: 992px) {
+				flex-direction: column;
+				gap: 0;
+			}
+
+			.user-menu-column {
+				display: flex;
+				flex-direction: column;
+				gap: 5px;
+				position: relative;
+				font-size: 14px;
+
+				@media (max-width: 992px) {
+					gap: 0;
+					&::before {
+						display: none;
+					}
+					&:last-child {
+						padding-top: 10px;
+					}
+				}
+
+				&::before {
+					position: absolute;
+					content: "";
+					border-left: 1px solid #8D8D8D;
+					height: 100%;
+					left: -15px;
+					top: 0;
+				}
+
+				a {
+					color: #1E1E1E;
+					text-decoration: none;
+
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+
+				span {
+					color: #8D8D8D;
+				}
+
+				&:last-child {
+					flex-grow: 1;
+				}
+			}
+		}
+
+		.username-link {
+			text-decoration: none;
+		}
+
+		h2 {
+			font-size: 32px;
+
+			&.username {
+				background: linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%);
+				color: transparent;
+    		background-clip: text;
+			}
+		}
+	}
+
 	.entity-pill,
 	.social-pill {
 		border: 1px solid #464547;
@@ -873,6 +958,10 @@
 	min-width: 0;
 
 	.header {
+		display: none;
+	}
+
+	.banner {
 		display: none;
 	}
 }

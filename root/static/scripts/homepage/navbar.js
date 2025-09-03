@@ -286,7 +286,7 @@ component Navbar() {
                       onClick={() => toggleMobileSidebar(section)}
                     >
                       {l(section)}
-                      <FontAwesomeIcon icon={faChevronRight} size="md" className={isActive ? 'active' : ''} />
+                      <FontAwesomeIcon icon={faChevronRight} className={isActive ? 'active' : ''} />
                     </button>
                   </li>
                 );
