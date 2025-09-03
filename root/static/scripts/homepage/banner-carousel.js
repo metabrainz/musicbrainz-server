@@ -28,8 +28,8 @@ component BannerCarousel() {
       loop={true}
       modules={[Navigation]}
     >
-      <SwiperSlide>
-        <div className="carousel-slide carousel-slide-1">
+      <SwiperSlide className="carousel-slide-1">
+        <div className="carousel-slide">
           <div className="carousel-slide-content">
             <img src={picardImage} alt="Tag your music" />
             <div className="d-flex flex-column gap-3 carousel-slide-content-text">
@@ -57,9 +57,9 @@ component BannerCarousel() {
           <Blob width={100} height={100} randomness={2} className="slide-vector-2" />
         </div>
       </SwiperSlide>
-      <SwiperSlide>
-        <div className="carousel-slide carousel-slide-2">
-        <div className="carousel-slide-content">
+      <SwiperSlide className="carousel-slide-2">
+        <div className="carousel-slide">
+          <div className="carousel-slide-content">
             <img src={listenBrainzImage} alt="Listen together" className="listenbrainz-image" />
             <div className="d-flex flex-column gap-3 carousel-slide-content-text">
               <h2>Listen together</h2>
