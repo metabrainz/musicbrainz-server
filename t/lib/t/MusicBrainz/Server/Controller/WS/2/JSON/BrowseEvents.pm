@@ -18,7 +18,7 @@ test 'browse events via events' => sub {
     ws_test_json 'browse events via event',
         '/event?event=183ba1ec-a87b-4c0e-85dd-496b7cea4399' =>
         {
-            'event-count' => 2,
+            'event-count' => 4,
             'event-offset' => 0,
             events => [
                 {
@@ -46,6 +46,36 @@ test 'browse events via events' => sub {
                         ended => JSON::true,
                     },
                     name => 'Wacken Open Air 2024, Day 3',
+                    setlist => '',
+                    time => '',
+                    type => 'Festival',
+                    'type-id' => 'b6ded574-b592-3f0e-b56e-5b5f06aa0678',
+                },
+                {
+                    cancelled => JSON::false,
+                    disambiguation => '',
+                    id => 'eddb272f-1f10-4ece-875d-52cd0d3a2bb1',
+                    'life-span' => {
+                        begin => '2024-07-30',
+                        end => '2024-07-30',
+                        ended => JSON::true,
+                    },
+                    name => 'Wacken Open Air 2024, Day 3: LGH Clubstage',
+                    setlist => '',
+                    time => '',
+                    type => 'Festival',
+                    'type-id' => 'b6ded574-b592-3f0e-b56e-5b5f06aa0678',
+                },
+                {
+                    cancelled => JSON::false,
+                    disambiguation => '',
+                    id => 'f0ecc038-d229-4b3e-aa98-d5f4de693272',
+                    'life-span' => {
+                        begin => '2024-07-29',
+                        end => '2024-07-29',
+                        ended => JSON::true,
+                    },
+                    name => 'Wacken Open Air 2024, Day 2: Welcome to the Jungle',
                     setlist => '',
                     time => '',
                     type => 'Festival',
