@@ -65,6 +65,11 @@
         status: 2,
         data: {
           comment: '',
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity_gid: '$$__IGNORE__$$',
           entity_id: 1,
           languages: [],
@@ -81,6 +86,11 @@
         status: 2,
         data: {
           comment: '',
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity_gid: '$$__IGNORE__$$',
           entity_id: 2,
           languages: [],
@@ -98,6 +108,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: 'f66857fb-bb59-444e-97dc-62c73e5eddae',
             id: 636551,
@@ -130,6 +145,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 2,
@@ -162,6 +182,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '6c97b1d7-aa12-480e-8376-fa435235f164',
             id: 636552,
