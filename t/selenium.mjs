@@ -782,6 +782,13 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       await setChecked(findElement(target), false);
       break;
 
+    case 'waitUntilElementIsVisible':
+      await driver.wait(
+        until.elementIsVisible(findElement(target)),
+        30000,
+      );
+      break;
+
     case 'waitUntilUrlIs':
       await driver.wait(until.urlIs(
         'http://' + DBDefs.WEB_SERVER + target,
