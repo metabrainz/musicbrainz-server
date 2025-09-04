@@ -661,6 +661,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
 
     return () => {
       clearTimeout(inputTimeout.current);
+      inputTimeout.current = null;
     };
   });
 
