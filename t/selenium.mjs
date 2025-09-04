@@ -1149,6 +1149,13 @@ async function runCommands(stest, commands, t) {
 
           const inspector = await logInspector(driver);
           await inspector.onConsoleEntry(function (log) {
+            if (
+              log.type === 'console' &&
+              log.level === 'info' &&
+              /React DevTools/.test(log.text)
+            ) {
+              return;
+            }
             t.comment(`[${log.type}] [${log.level}] ${log.text}`);
           });
 
