@@ -1,4 +1,5 @@
 @homepage-max-width: 1440px;
+@musicbrainz-orange: #EB743B;
 
 .homepage {
 	@import (less) "../../../node_modules/swiper/swiper.css";
@@ -72,6 +73,9 @@
 		.search-button.btn {
 			background-color: #EB743B;
 			color: #FFFFFF;
+		}
+		.advanced-search-button {
+			border-radius: 0;
 		}
 
 		.form-select,
@@ -245,6 +249,199 @@
 		}
 	}
 
+	.editor-tools {
+		background-color: #464547;
+
+		.editor-tools-container {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 40px;
+			max-width: @homepage-max-width;
+			position: relative;
+			margin: auto;
+
+			.editor-tools-button {
+				background-color: #464547;
+				color: #FFFFFF;
+
+				position: absolute;
+				height: 50px;
+				bottom: -49px;
+				right: 40px;
+
+				padding: 10px;
+
+				border-bottom-left-radius: 20px;
+				border-bottom-right-radius: 20px;
+				border: none;
+
+				cursor: pointer;
+				font-size: 16px;
+				font-weight: 700;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+
+				&::after {
+					display: none;
+				}
+
+				&[aria-expanded="true"] {
+					svg {
+						transform: rotate(180deg);
+					}
+				}
+
+				svg {
+					width: 20px;
+					height: 20px;
+					padding: 5px;
+					border-radius: 999px;
+					background-color: @musicbrainz-orange;
+					transition: transform 0.3s ease;
+				}
+			}
+
+			#editorToolsCollapse {
+				width: 100%;
+			}
+
+			.editor-tools-content {
+				color: #FFFFFF;
+				font-size: 14px;
+				display: grid;
+				grid-template-columns: repeat(12, 1fr);
+
+				.editor-tools-cell {
+					border: 1px solid #585858;
+					padding: 10px;
+					display: flex;
+					justify-content: space-between;
+					gap: 10px;
+
+					a {
+						color: #F5F5F5;
+					}
+
+					@media (max-width: 576px) {
+						grid-column-start: 1 !important;
+  					grid-column-end: 13 !important;
+						border-left: none !important;
+						border-right: none !important;
+						flex-direction: column;
+
+						padding: 20px 0;
+
+						a {
+							font-size: 18px;
+						}
+					}
+
+					.editor-tools-cell-sub {
+						display: flex;
+						gap: 10px;
+					}
+
+					&#editor-tools-cell-1 {
+						grid-column-start: 1;
+  					grid-column-end: 5;
+						border-left: none;
+
+						@media (max-width: 992px) {
+							grid-column-start: 1;
+  						grid-column-end: 8;
+						}
+					}
+
+					&#editor-tools-cell-2 {
+						grid-column-start: 5;
+  					grid-column-end: 8;
+
+						@media (max-width: 992px) {
+							grid-column-start: 8;
+  						grid-column-end: 13;
+							border-right: none;
+						}
+					}
+
+					&#editor-tools-cell-3 {
+						grid-column-start: 8;
+  					grid-column-end: 13;
+						border-right: none;
+
+						@media (max-width: 992px) {
+							grid-column-start: 1;
+  						grid-column-end: 13;
+							border-left: none;
+						}
+					}
+
+					&#editor-tools-cell-4 {
+						grid-column-start: 1;
+  					grid-column-end: 3;
+						border-left: none;
+
+						@media (max-width: 992px) {
+							grid-column-start: 1;
+  						grid-column-end: 4;
+						}
+					}
+
+					&#editor-tools-cell-5 {
+						grid-column-start: 3;
+  					grid-column-end: 5;
+
+						@media (max-width: 992px) {
+							grid-column-start: 4;
+  						grid-column-end: 8;
+						}
+					}
+
+					&#editor-tools-cell-6 {
+						grid-column-start: 5;
+  					grid-column-end: 13;
+						border-right: none;
+
+						@media (max-width: 992px) {
+							grid-column-start: 8;
+  						grid-column-end: 13;
+						}
+					}
+				}
+
+				
+				.dropdown {
+					.editor-tools-dropdown-toggle {
+						display: flex;
+						align-items: center;
+						gap: 10px;
+					}
+					.dropdown-menu {
+						background-color: #464547;
+					}
+
+					.dropdown-item {
+						color: #FFFFFF;
+
+						&:hover {
+							background-color: #585858;
+						}
+
+						a {
+							text-decoration: none;
+							font-size: 14px;
+
+							@media (max-width: 992px) {
+								font-size: 18px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	.user-menu {
 		background-color: #F5F5F5;
 		.user-menu-container {
@@ -310,10 +507,6 @@
 
 					span {
 						color: #8D8D8D;
-					}
-
-					&:last-child {
-						flex-grow: 1;
 					}
 				}
 			}

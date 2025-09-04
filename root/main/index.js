@@ -31,6 +31,7 @@ import Search from '../static/scripts/homepage/search.js';
 import Stats, { type WeeklyStatsT } from '../static/scripts/homepage/stats.js';
 import Navbar from '../static/scripts/homepage/navbar.js';
 import UserMenu from '../static/scripts/homepage/user-menu.js';
+import EditorTools from '../static/scripts/homepage/editor-tools.js';
 import {CatalystContext} from '../context.mjs';
 
 type BlogEntryT = {
@@ -63,6 +64,7 @@ component Homepage(
     >
       <Navbar />
       <div className="new-homepage">
+        {user ? <EditorTools /> : null}
         {user ? <UserMenu latestBlogPost={blogEntries && blogEntries.length > 0 ? blogEntries[0] : null} /> : null}
         <Search />
 
@@ -437,6 +439,7 @@ component Homepage(
         <NewFooter />
       </div>
 
+      {manifest('homepage/editor-tools', {async: true})}
       {manifest('homepage/user-menu', {async: true})}
       {manifest('homepage/search', {async: true})}
       {manifest('homepage/banner-carousel', {async: true})}
