@@ -326,16 +326,20 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     ? (items[highlightedIndex] ?? null)
     : null;
 
+  function clearInputTimeout() {
+    if (inputTimeout.current) {
+      clearTimeout(inputTimeout.current);
+      inputTimeout.current = null;
+    }
+  }
+
   const stopRequests = React.useCallback(() => {
     if (xhr.current) {
       xhr.current.abort();
       xhr.current = null;
     }
 
-    if (inputTimeout.current) {
-      clearTimeout(inputTimeout.current);
-      inputTimeout.current = null;
-    }
+    clearInputTimeout();
 
     if (nonEmpty(pendingSearch)) {
       dispatch(STOP_SEARCH);
@@ -659,10 +663,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       }, 300);
     }
 
-    return () => {
-      clearTimeout(inputTimeout.current);
-      inputTimeout.current = null;
-    };
+    return clearInputTimeout;
   });
 
   React.useEffect(() => {
