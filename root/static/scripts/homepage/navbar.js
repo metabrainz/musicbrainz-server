@@ -16,6 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 import magnifyingGlassTheme from '../../images/icons/magnifying-glass-theme.svg';
+import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
 
 const aboutGroups = [
   [
@@ -274,6 +275,13 @@ component Navbar() {
                 </button>
               </div>
             </form>
+
+            <a 
+              className="btn search-button advanced-search-button d-none d-lg-block"
+              href="/search"
+            >
+              <img src={advancedSearchIcon} alt="Advanced Search" width={20} height={20} />
+            </a>
 
             {/* Mobile Menu */}
             <ul className="d-lg-none navbar-nav flex-grow-1 gap-3 align-items-end" id="offcanvasNavbarMenuMobile">
