@@ -16,10 +16,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Blob from './blob.js';
 import { entities } from './utils';
+import { type WeeklyStatsT } from './stats';
 
-component Search () {
+component Search (
+  weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
+) {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [selectedEntity, setSelectedEntity] = React.useState(entities[0]);
+
+  const entitiesWithStats = entities.map((entity) => {
+    let statKey = `count.${entity.value}`;
+    if (entity.value === "release_group") {
+      statKey = "count.releasegroup";
+    }
+
+    const stat = weeklyStats.find((s) => s.stat === statKey);
+    return { ...entity, stat };
+  });
+
+  const [selectedEntity, setSelectedEntity] = React.useState(entitiesWithStats[0]);
+
+  const placeholder = selectedEntity.stat && selectedEntity.stat.total > 0
+  ? `Search ${selectedEntity.stat.total.toLocaleString()} ${selectedEntity.stat?.name || selectedEntity.name}...`
+  : `Search ${selectedEntity.name.toLowerCase()}...`;
 
   const handleSearch = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,7 +83,7 @@ component Search () {
         <form onSubmit={handleSearch}>
           <div className="search-input-container">
             <div className="search-entity-selector">
-              {entities.map((entity) => {
+              {entitiesWithStats.map((entity) => {
                 return (
                   <div className={`entity-pill ${selectedEntity.value === entity.value ? 'selected' : ''}`} key={entity.value} onClick={() => setSelectedEntity(entity)}>
                     <span className="entity-pill-text">{entity.name}</span>
@@ -80,7 +98,7 @@ component Search () {
                 type="text"
                 className="form-control form-control-lg"
                 name="search_term"
-                placeholder="Search 2,664,960 Artists..."
+                placeholder={placeholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.currentTarget.value)}
                 required
