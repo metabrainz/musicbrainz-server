@@ -11,7 +11,7 @@ const entities = [
   { name: "Artist", value: "artist" },
   { name: "Event", value: "event" },
   { name: "Release", value: "release" },
-  { name: "Release Group", value: "release-group" },
+  { name: "Release Group", value: "release_group" },
   { name: "Recording", value: "recording" },
   { name: "Series", value: "series" }, 
   { name: "Work", value: "work" },
@@ -23,7 +23,6 @@ const entities = [
   { name: "Tag", value: "tag" },
   { name: "CD Stub", value: "cdstub" },
   { name: "Editor", value: "editor" },
-  { name: "Stub", value: "stub" },
 ]
 
 export { entities };

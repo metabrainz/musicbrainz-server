@@ -2311,6 +2311,14 @@ sub get_weekly_stats_for_homepage {
         'count.label',
         'count.track',
         'count.event',
+        'count.editor',
+        'count.area',
+        'count.instrument',
+        'count.place',
+        'count.series',
+        'count.tag',
+        'count.cdstub',
+        'count.releasegroup',
     );
 
     my $stats_map = {
@@ -2323,6 +2331,14 @@ sub get_weekly_stats_for_homepage {
         'count.label' => 'labels',
         'count.track' => 'tracks',
         'count.event' => 'events',
+        'count.editor' => 'editors',
+        'count.area' => 'areas',
+        'count.instrument' => 'instruments',
+        'count.place' => 'places',
+        'count.series' => 'series',
+        'count.tag' => 'tags',
+        'count.cdstub' => 'cd stubs',
+        'count.releasegroup' => 'release groups',
     };
 
     my $case_expr = join " ", map {

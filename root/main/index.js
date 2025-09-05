@@ -67,7 +67,7 @@ component Homepage(
       <div className="new-homepage">
         {user ? <EditorTools /> : null}
         {user ? <UserMenu latestBlogPost={blogEntries && blogEntries.length > 0 ? blogEntries[0] : null} /> : null}
-        <Search />
+        <Search weeklyStats={weeklyStats} />
 
         <div className="timeline-container" id="releases-container">
           <div className="timeline-container-inner">
