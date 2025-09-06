@@ -8,7 +8,7 @@
  */
 
 import * as React from "react";
-import musicbrainzLogo from '../../images/meb-logos/musicbrainz.svg';
+import musicbrainzLogo from '../../images/meb-logos/MusicBrainz_logo_mini.svg';
 import musicbrainzLogoIcon from '../../images/meb-logos/MusicBrainz_logo_icon.svg';
 import { l, lp } from '../common/i18n.js';
 import { entities } from './utils';
@@ -17,6 +17,7 @@ import { faMagnifyingGlass, faChevronLeft, faChevronRight } from '@fortawesome/f
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 import magnifyingGlassTheme from '../../images/icons/magnifying-glass-theme.svg';
 import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
+import MobileSearchPopup from './mobile-search-popup.js';
 
 const aboutGroups = [
   [
@@ -216,7 +217,7 @@ component Navbar() {
   }, []);
 
   return (
-    <nav className="navbar navbar-expand-lg fixed-top shadow-sm" aria-label="Offcanvas navbar large">
+    <nav className="navbar navbar-expand-lg shadow-sm" aria-label="Offcanvas navbar large">
       <div className="container-fluid position-relative">
         <button
           className="navbar-toggler position-absolute"
@@ -229,12 +230,18 @@ component Navbar() {
         </button>
 
         <a className="navbar-brand mx-auto" href="#">
-          <img src={musicbrainzLogo} alt="MusicBrainz" height={40} />
+          <img src={musicbrainzLogo} alt="MusicBrainz" width={200} height={40} />
         </a>
 
-        <a className="d-lg-none position-absolute end-0 pe-2" href="/search">
+        <button
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#mobileSearchOffcanvas"
+          aria-controls="mobileSearchOffcanvas"
+          className="d-lg-none position-absolute end-0 pe-2 border-0 bg-transparent"
+        >
           <img src={magnifyingGlassTheme} alt="Search" className="search-button-mobile" />
-        </a>
+        </button>
 
         <div className="offcanvas offcanvas-start gap-3" id="offcanvasNavbar" data-bs-scroll="true">
           <div className="offcanvas-header">
@@ -301,9 +308,15 @@ component Navbar() {
               })}
             </ul>
 
-            <a className="d-lg-none" href="/search">
+            <button
+              type="button"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#mobileSearchOffcanvas"
+              aria-controls="mobileSearchOffcanvas"
+              className="d-lg-none border-0 bg-transparent text-end"
+            >
               <img src={magnifyingGlass} alt="Search" width={40} height={40} className="search-button" />
-            </a>
+            </button>
           </div>
         </div>
       </div>
@@ -314,11 +327,14 @@ component Navbar() {
         onClose={closeMobileSidebar}
         section={mobileSidebar.section}
       />
+
+      {/* Mobile Search Popup */}
+      <MobileSearchPopup />
     </nav>
   );
 };
 
 export default (hydrate < React.PropsOf < Navbar >> (
-  'div.new-navbar',
+  'div.new-navbar.fixed-top',
   Navbar,
 ): component(...React.PropsOf < Navbar >));

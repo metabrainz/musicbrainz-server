@@ -57,7 +57,7 @@ component Search (
       <Blob width={350} height={350} randomness={2} className="search-vector-2" />
       <Blob width={400} height={400} randomness={2} className="search-vector-3" />
 
-      <div className="search-logo-info" role="button" onClick={scrollToElement}>
+      <div className="search-logo-info d-none d-md-flex" role="button" onClick={scrollToElement}>
         <img
           className="search-logo-info-image"
           src={openSourceImage}
