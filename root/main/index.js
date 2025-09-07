@@ -33,6 +33,7 @@ import Navbar from '../static/scripts/homepage/navbar.js';
 import UserMenu from '../static/scripts/homepage/user-menu.js';
 import EditorTools from '../static/scripts/homepage/editor-tools.js';
 import {CatalystContext} from '../context.mjs';
+import AuthButtons from './AuthButtons.js';
 
 type BlogEntryT = {
   +title: string,
@@ -64,6 +65,7 @@ component Homepage(
     >
       <Navbar />
       <div className="new-homepage">
+        {user ? null : <AuthButtons />}
         {user ? <EditorTools /> : null}
         {user ? <UserMenu latestBlogPost={blogEntries && blogEntries.length > 0 ? blogEntries[0] : null} /> : null}
         <Search weeklyStats={weeklyStats} />
