@@ -319,6 +319,47 @@
 		}
 	}
 
+	.auth-buttons {
+		position: relative;
+		max-width: @homepage-max-width;
+		margin: auto;
+		z-index: 10;
+
+		a {
+			background-color: #464547;
+			color: #FFFFFF;
+			text-decoration: none;
+
+			position: absolute;
+			height: 50px;
+			bottom: -49px;
+			right: 40px;
+			padding: 10px 25px;
+
+			border-bottom-left-radius: 20px;
+			border-bottom-right-radius: 20px;
+			border: none;
+
+			font-size: 16px;
+			font-weight: 700;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+
+			&#create-account {
+				right: 150px;
+			}
+
+			svg {
+				width: 20px;
+				height: 20px;
+				padding: 5px;
+				border-radius: 999px;
+				background-color: @musicbrainz-orange;
+			}
+		}
+	}
+
 	.editor-tools {
 		background-color: #464547;
 
