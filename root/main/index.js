@@ -13,28 +13,31 @@ import * as React from 'react';
 import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
 import {ArtworkImage} from '../static/scripts/common/components/Artwork.js';
-import {CONTACT_URL} from '../static/scripts/common/constants.js';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
-import NewFooter from '../layout/components/NewFooter.js';
+
+import Navbar from '../static/scripts/homepage/navbar.js';
+import AuthButtons from './AuthButtons.js';
+import EditorTools from '../static/scripts/homepage/editor-tools.js';
+import UserMenu from '../static/scripts/homepage/user-menu.js';
+import Search from '../static/scripts/homepage/search.js';
 import Blob from '../static/scripts/homepage/blob.js';
+import Stats, { type WeeklyStatsT } from '../static/scripts/homepage/stats.js';
 import BannerCarousel from '../static/scripts/homepage/banner-carousel.js';
+import NewFooter from '../layout/components/NewFooter.js';
+
 import MusicBrainzLogo from '../static/images/meb-logos/MusicBrainz_logo_mini.svg';
 import MetaBrainzLogo from '../static/images/meb-logos/MetaBrainz_logo_mini.svg';
 import BookBrainzLogo from '../static/images/meb-logos/BookBrainz_logo_mini.svg';
 import PicardLogo from '../static/images/meb-logos/Picard_logo_mini.svg';
 import ListenBrainzLogo from '../static/images/meb-logos/ListenBrainz_logo_mini.svg';
+
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
 import {faBluesky, faMastodon, faDiscord, faReddit} from '@fortawesome/free-brands-svg-icons';
-import Search from '../static/scripts/homepage/search.js';
-import Stats, { type WeeklyStatsT } from '../static/scripts/homepage/stats.js';
-import Navbar from '../static/scripts/homepage/navbar.js';
-import UserMenu from '../static/scripts/homepage/user-menu.js';
-import EditorTools from '../static/scripts/homepage/editor-tools.js';
+
 import {CatalystContext} from '../context.mjs';
-import AuthButtons from './AuthButtons.js';
 
 type BlogEntryT = {
   +title: string,
@@ -442,12 +445,12 @@ component Homepage(
         <NewFooter />
       </div>
 
+      {manifest('homepage/navbar', {async: true})}
       {manifest('homepage/editor-tools', {async: true})}
       {manifest('homepage/user-menu', {async: true})}
       {manifest('homepage/search', {async: true})}
       {manifest('homepage/banner-carousel', {async: true})}
       {manifest('homepage/stats', {async: true})}
-      {manifest('homepage/navbar', {async: true})}
       {manifest('common/loadArtwork', {async: true})}
     </Layout>
   );
