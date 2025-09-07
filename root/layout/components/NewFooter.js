@@ -36,7 +36,7 @@ component NewFooter() {
               <li className="color-a">
                 <span>Development IRC: </span>{" "}
                 <a
-                  href="https://musicbrainz.org/doc/Communication/ChatBrainz"
+                  href="/doc/Communication/ChatBrainz"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -46,7 +46,7 @@ component NewFooter() {
               <li className="color-a">
                 <span>Discussion IRC: </span>{" "}
                 <a
-                  href="https://musicbrainz.org/doc/Communication/ChatBrainz"
+                  href="/doc/Communication/ChatBrainz"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -279,7 +279,13 @@ component NewFooter() {
                 height="30"
                 alt="MetaBrainz"
               />{" "}
-              <span className="color-a"> MetaBrainz Foundation </span>
+              <a
+                href="https://metabrainz.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                MetaBrainz Foundation
+              </a>
             </p>
           </div>
           <div className="col-12 col-lg-3">

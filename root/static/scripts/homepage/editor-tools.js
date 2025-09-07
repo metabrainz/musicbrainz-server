@@ -80,10 +80,17 @@ component EditorTools() {
   const user = $c.user;
 
   const isMobile = useMediaQuery('(max-width: 992px)');
+  const [isHydrated, setIsHydrated] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   if (!user) {
     return null;
   }
+
+  const isExpanded = isHydrated ? !isMobile : false;
 
   return (
     <div className="editor-tools-container">
@@ -92,14 +99,14 @@ component EditorTools() {
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#editorToolsCollapse"
-        aria-expanded={isMobile ? "false" : "true"}
+        aria-expanded={isExpanded ? "true" : "false"}
         aria-controls="editorToolsCollapse"
       >
         <FontAwesomeIcon icon={faChevronDown} />
         Editor Tools
       </button>
 
-      <div className={`collapse ${isMobile ? "" : "show"}`} id="editorToolsCollapse">
+      <div className={`collapse ${isExpanded ? "show" : ""}`} id="editorToolsCollapse">
         <div className="editor-tools-content">
           <div className="editor-tools-cell" id="editor-tools-cell-1">
             <div className="editor-tools-cell-sub">

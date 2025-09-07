@@ -179,6 +179,10 @@
 					gap: 20px;
 				}
 
+				.offcanvas-header {
+					padding: 12px 24px;
+				}
+
 				.search-button {
 					filter: brightness(0) saturate(100%);
 				}
@@ -723,12 +727,11 @@
 			}
 
 			.search-logo-info {
-				display: flex;
 				position: absolute;
 				right: 40px;
 				top: 20px;
 				z-index: 3;
-				height: 8vh;
+				height: 80px;
 				gap: 3vh;
 
 				@media (max-width: 576px) {
@@ -817,7 +820,7 @@
 		max-width: 757px;
 		width: 100%;
 
-		padding: 0 15px;
+		padding: 0 10px;
 
 		button {
 			border: none;
@@ -1137,6 +1140,7 @@
 
 				@media (max-width: 768px) {
 					height: 200px;
+					align-self: flex-start;
 				}
 			}
 		}
@@ -1144,11 +1148,24 @@
 	.carousel-slide-2 {
 		background: linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%);
 		.carousel-slide {
+			.carousel-slide-content {
+				gap: 0;
+			}
+
 			.listenbrainz-image {
-				margin-top: 80px;
+				margin-top: 70px;
 
 				@media (max-width: 768px) {
 					margin-top: 0;
+					position: absolute;
+					top: 50px;
+				}
+			}
+
+			#listenbrainz-content {
+				@media (max-width: 768px) {
+					position: absolute;
+					bottom: 50px;
 				}
 			}
 		}
@@ -1212,6 +1229,7 @@
 				}
 
 				flex-direction: column;
+				gap: 0;
 			}
 
 			.carousel-pill {
