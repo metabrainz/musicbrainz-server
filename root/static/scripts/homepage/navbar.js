@@ -218,7 +218,7 @@ component Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg shadow-sm" aria-label="Offcanvas navbar large">
-      <div className="container-fluid gap-4 position-relative">
+      <div className="container-fluid gap-4 position-relative layout-width">
         <button
           className="navbar-toggler position-absolute"
           type="button"

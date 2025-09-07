@@ -399,7 +399,7 @@ component Homepage(
         </div>
 
         {/* Logo container */}
-        <div className="logo-container">
+        <div className="logo-container layout-width">
           <a
             href="https://metabrainz.org"
             target="_blank"

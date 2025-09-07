@@ -53,7 +53,7 @@ component Search (
   }
 
   return (
-    <div className="universal-search">
+    <div className="universal-search layout-width">
       <Blob width={250} height={250} randomness={1.5} className="search-vector-1" />
       <Blob width={350} height={350} randomness={2} className="search-vector-2" />
       <Blob width={400} height={400} randomness={2} className="search-vector-3" />
