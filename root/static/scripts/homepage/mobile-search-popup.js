@@ -11,6 +11,7 @@ import * as React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { entities } from './utils';
+import searchIcon from '../../images/homepage/search-bar-icon.svg';
 
 component MobileSearchPopup() {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -63,7 +64,7 @@ component MobileSearchPopup() {
               required
             />
             <button type="submit">
-              <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />
+              <img src={searchIcon} alt="Search" width={30} height={30} />
             </button>
           </div>
         </form>

@@ -17,6 +17,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Blob from './blob.js';
 import { entities } from './utils';
 import { type WeeklyStatsT } from './stats';
+import searchIcon from '../../images/homepage/search-bar-icon.svg';
 
 component Search (
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
@@ -104,7 +105,7 @@ component Search (
                 required
               />
               <button type="submit">
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />
+                <img src={searchIcon} alt="Search" width={30} height={30} />
               </button>
             </div>
           </div>

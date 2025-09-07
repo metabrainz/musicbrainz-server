@@ -41,13 +41,13 @@ component BannerCarousel() {
                 </a>
               </div>
               <div className="d-flex gap-3">
-                <a href="https://musicbrainz.org/doc/AudioRanger" target="_blank" rel="noopener noreferrer">
+                <a href="/doc/AudioRanger" target="_blank" rel="noopener noreferrer">
                   AudioRanger
                 </a>
-                <a href="https://musicbrainz.org/doc/Mp3tag" target="_blank" rel="noopener noreferrer">
+                <a href="/doc/Mp3tag" target="_blank" rel="noopener noreferrer">
                   Mp3tag
                 </a>
-                <a href="https://musicbrainz.org/doc/Yate_Music_Tagger" target="_blank" rel="noopener noreferrer">
+                <a href="/doc/Yate_Music_Tagger" target="_blank" rel="noopener noreferrer">
                   Yate
                 </a>
               </div>
@@ -61,7 +61,7 @@ component BannerCarousel() {
         <div className="carousel-slide">
           <div className="carousel-slide-content">
             <img src={listenBrainzImage} alt="Listen together" className="listenbrainz-image" />
-            <div className="d-flex flex-column gap-3 carousel-slide-content-text">
+            <div className="d-flex flex-column gap-3 carousel-slide-content-text" id="listenbrainz-content">
               <h2>Listen together</h2>
               <div className="carousel-pill d-flex gap-2">
                 <img src={listenBrainzLogo} alt="ListenBrainz" className="listenbrainz-logo" />

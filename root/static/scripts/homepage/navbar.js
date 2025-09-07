@@ -218,7 +218,7 @@ component Navbar() {
 
   return (
     <nav className="navbar navbar-expand-lg shadow-sm" aria-label="Offcanvas navbar large">
-      <div className="container-fluid position-relative">
+      <div className="container-fluid gap-4 position-relative">
         <button
           className="navbar-toggler position-absolute"
           type="button"
@@ -314,6 +314,7 @@ component Navbar() {
               data-bs-target="#mobileSearchOffcanvas"
               aria-controls="mobileSearchOffcanvas"
               className="d-lg-none border-0 bg-transparent text-end"
+              onClick={() => closeMobileSidebar()}
             >
               <img src={magnifyingGlass} alt="Search" width={40} height={40} className="search-button" />
             </button>
