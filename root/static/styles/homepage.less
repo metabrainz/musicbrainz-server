@@ -13,6 +13,11 @@
 		margin-top: @navbar-height;
 	}
 
+	.layout-width {
+		max-width: @homepage-max-width;
+		margin: auto;
+	}
+
 	@keyframes bobble {
 		0%,
 		100% {
@@ -51,7 +56,6 @@
 			@media (min-width: 992px) {
 				padding: 0 40px;
 			}
-			max-width: @homepage-max-width;
 			background-color: #FFFFFF;
 			height: @navbar-height;
 
@@ -325,8 +329,6 @@
 
 	.auth-buttons {
 		position: relative;
-		max-width: @homepage-max-width;
-		margin: auto;
 		z-index: 10;
 
 		a {
@@ -372,9 +374,7 @@
 			align-items: center;
 			justify-content: space-between;
 			padding: 0 40px;
-			max-width: @homepage-max-width;
 			position: relative;
-			margin: auto;
 
 			.editor-tools-button {
 				background-color: #464547;
@@ -697,8 +697,6 @@
 		.universal-search {
 			position: relative;
 			height: 100%;
-			max-width: @homepage-max-width;
-			margin: auto;
 
 			.search-vector-1{
 				position: absolute;
@@ -838,8 +836,6 @@
 		align-items: center;
 		gap: 1.5rem;
 		padding: 3rem 1.5rem;
-		max-width: @homepage-max-width;
-		margin: auto;
 
 		a {
 			flex-shrink: 0;
@@ -852,8 +848,6 @@
 
 	.footer {
 		padding-top: 2rem;
-		max-width: @homepage-max-width;
-		margin: auto;
 
 		ul {
 			line-height: 2;

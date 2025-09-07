@@ -13,7 +13,7 @@ import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 component AuthButtons() {
   return (
-    <div className="auth-buttons">
+    <div className="auth-buttons layout-width">
       <a href="/register?returnto=%2F" id="create-account">
         <FontAwesomeIcon icon={faUser} />
         Create Account

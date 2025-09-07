@@ -17,7 +17,7 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 component NewFooter() {
   return (
-    <section className="footer">
+    <section className="footer layout-width">
       <div className="container-fluid px-4">
         <div className="row align-items-baseline">
           <div className="col-12 col-lg-4">

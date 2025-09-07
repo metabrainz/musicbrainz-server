@@ -93,7 +93,7 @@ component EditorTools() {
   const isExpanded = isHydrated ? !isMobile : false;
 
   return (
-    <div className="editor-tools-container">
+    <div className="editor-tools-container layout-width">
       <button
         className="editor-tools-button"
         type="button"
