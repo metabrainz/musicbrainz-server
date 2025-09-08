@@ -3,11 +3,12 @@
 # Nozomu KURASAWA <email address hidden>, 2012
 # "joysriram.sarkar.56" <joysriram.sarkar.56@gmail.com>, 2023.
 # julian45 <techieboy45@gmail.com>, 2023.
+# TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-10-27 01:27+0000\n"
-"Last-Translator: julian45 <techieboy45@gmail.com>\n"
+"PO-Revision-Date: 2025-07-29 13:36+0000\n"
+"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ja/>\n"
 "Language: ja\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.1\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -30,7 +31,7 @@ msgstr "アラビア文字"
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
-msgstr "アルメニア文字"
+msgstr "アルメニア語"
 
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
@@ -40,7 +41,7 @@ msgstr "アベスタ語"
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
-msgstr "バリ文字"
+msgstr "バリ語"
 
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155
@@ -60,7 +61,7 @@ msgstr "バタク文字"
 #. frequency:3 iso_code:Beng
 #: DB:script/name:53
 msgid "Bengali"
-msgstr "ベンガル文字"
+msgstr "ベンガル語"
 
 #. frequency:1 iso_code:Blis
 #: DB:script/name:95
@@ -275,7 +276,7 @@ msgstr "ハヌノオ文字"
 #. frequency:4 iso_code:Hebr
 #: DB:script/name:11
 msgid "Hebrew"
-msgstr "ヘブライ語"
+msgstr "ヘブライ文字"
 
 #. frequency:3 iso_code:Hira
 #: DB:script/name:83
@@ -370,7 +371,7 @@ msgstr "グルジア文字"
 #. frequency:4 iso_code:Kore
 #: DB:script/name:43
 msgid "Korean"
-msgstr "朝鮮語"
+msgstr "朝鮮文字"
 
 #. frequency:1 iso_code:Kpel
 #: DB:script/name:146
@@ -380,7 +381,7 @@ msgstr "クペレ文字"
 #. frequency:3 iso_code:Laoo
 #: DB:script/name:69
 msgid "Lao"
-msgstr "ラーオ語"
+msgstr "ラーオ文字"
 
 #. frequency:4 iso_code:Latn
 #: DB:script/name:28
@@ -575,12 +576,12 @@ msgstr "南アラビア文字"
 #. frequency:2 iso_code:Orkh
 #: DB:script/name:20
 msgid "Old Turkic"
-msgstr "古チュルク語"
+msgstr "古チュルク文字"
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54
 msgid "Oriya"
-msgstr "オリヤー文字"
+msgstr "オリヤー語"
 
 #. frequency:2 iso_code:Osma
 #: DB:script/name:38
@@ -620,7 +621,7 @@ msgstr "ルジャン文字"
 #. frequency:1 iso_code:Roro
 #: DB:script/name:98
 msgid "Rongorongo"
-msgstr "ロンゴロンゴ"
+msgstr "ロンゴロンゴ文字"
 
 #. frequency:2 iso_code:Runr
 #: DB:script/name:26
@@ -635,7 +636,7 @@ msgstr "サマリア文字"
 #. frequency:1 iso_code:Sara
 #: DB:script/name:46
 msgid "Sarati"
-msgstr "サラティ"
+msgstr "サラティ文字"
 
 #. frequency:2 iso_code:Saur
 #: DB:script/name:106
@@ -685,7 +686,7 @@ msgstr "シンボル"
 #. frequency:2 iso_code:Syrc
 #: DB:script/name:12
 msgid "Syriac"
-msgstr "シリア語"
+msgstr "シリア文字"
 
 #. frequency:1 iso_code:Syrn
 #: DB:script/name:13
@@ -705,7 +706,7 @@ msgstr "シリア文字（セルトー体。西方書体とも）"
 #. frequency:2 iso_code:Tglg
 #: DB:script/name:76
 msgid "Tagalog"
-msgstr "タガログ語"
+msgstr "タガログ文字"
 
 #. frequency:2 iso_code:Tagb
 #: DB:script/name:79
@@ -750,7 +751,7 @@ msgstr "テルグ文字"
 #. frequency:1 iso_code:Teng
 #: DB:script/name:44
 msgid "Tengwar"
-msgstr "テングワール"
+msgstr "テングワール文字"
 
 #. frequency:2 iso_code:Thaa
 #: DB:script/name:19

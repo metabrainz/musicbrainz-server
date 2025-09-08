@@ -27,28 +27,24 @@ let formName;
 
 MB.Art.initialize_context = function () {
   const action = getCatalystContext().action.name;
-  switch (action) {
-    case 'add_cover_art': {
+  match (action) {
+    'add_cover_art' => {
       entityType = 'release';
       archiveName = 'cover';
-      break;
     }
-    case 'reorder_cover_art': {
+    'reorder_cover_art' => {
       entityType = 'release';
       archiveName = 'cover';
-      break;
     }
-    case 'add_event_art': {
+    'add_event_art' => {
       entityType = 'event';
       archiveName = 'event';
-      break;
     }
-    case 'reorder_event_art': {
+    'reorder_event_art' => {
       entityType = 'event';
       archiveName = 'event';
-      break;
     }
-    default: {
+    _ => {
       throw new Error(
         'Unknown action: ' + JSON.stringify(action),
       );
@@ -214,9 +210,9 @@ MB.Art.file_data_uri = function (file) {
   var deferred = $.Deferred();
   var reader = new window.FileReader();
   reader.addEventListener('loadend', function () {
-    deferred.resolve(reader.result);
+    deferred.resolve(URL.createObjectURL(new Blob([reader.result])));
   });
-  reader.readAsDataURL(file);
+  reader.readAsArrayBuffer(file);
 
   return deferred.promise();
 };

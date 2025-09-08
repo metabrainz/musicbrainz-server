@@ -1,11 +1,10 @@
-# Early6431 <h9i1o36x@anonaddy.me>, 2023.
+# Early6431 <h9i1o36x@anonaddy.me>, 2023, 2025.
 # Early6431 <Early6431@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-08-31 00:42+0000\n"
-"Last-Translator: Early6431 <Early6431@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2025-08-04 21:36+0000\n"
+"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/scripts/es_419/>\n"
 "Language: es_419\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -128,7 +127,7 @@ msgstr "Cirth"
 #. frequency:1 iso_code:Zinh
 #: DB:script/name:159
 msgid "Code for inherited script"
-msgstr "Código para el alfabeto heredado"
+msgstr "Código para alfabeto heredado"
 
 #. frequency:1 iso_code:Zzzz
 #: DB:script/name:130
@@ -138,7 +137,7 @@ msgstr "Código para alfabeto no codificado"
 #. frequency:1 iso_code:Zyyy
 #: DB:script/name:129
 msgid "Code for undetermined script"
-msgstr "Código para el alfabeto indeterminado"
+msgstr "Código para alfabeto indeterminado"
 
 #. frequency:1 iso_code:Zxxx
 #: DB:script/name:128
@@ -788,7 +787,7 @@ msgstr "Vai"
 #. frequency:1 iso_code:Visp
 #: DB:script/name:39
 msgid "Visible Speech"
-msgstr "Discurso Visible"
+msgstr "Discurso visible"
 
 #. frequency:1 iso_code:Wara
 #: DB:script/name:154

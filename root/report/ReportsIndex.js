@@ -329,6 +329,10 @@ component ReportsIndex() {
             reportName="ReleasedTooEarlyDigital"
           />
           <ReportsIndexEntry
+            content={l('Releases older than their release label')}
+            reportName="ReleasedTooEarlyForLabel"
+          />
+          <ReportsIndexEntry
             content={l(
               `Releases where some (but not all) mediums
               have no format set`,
@@ -522,6 +526,10 @@ component ReportsIndex() {
           <ReportsIndexEntry
             content={l('Recordings with possible duplicate relationships')}
             reportName="DuplicateRelationshipsRecordings"
+          />
+          <ReportsIndexEntry
+            content={l('Recordings with possible duplicate works')}
+            reportName="RecordingsWithDuplicateWorks"
           />
           <ReportsIndexEntry
             content={l('Recordings with varying track times')}

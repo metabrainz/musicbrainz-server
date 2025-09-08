@@ -2,4 +2,4 @@
 
 MB_SERVER_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)
 
-exec bin/sucrase-node webpack/exec.mjs "$@"
+exec bin/babel-node webpack/exec.mjs "$@"

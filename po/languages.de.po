@@ -18,11 +18,12 @@
 # Tobias Quathamer <email address hidden>, 2007
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # chaban <chaban@users.noreply.translations.metabrainz.org>, 2024.
+# nzure <nzure@leaft.ch>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-12-26 21:42+0000\n"
-"Last-Translator: chaban <chaban@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-07-26 01:36+0000\n"
+"Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/de/>\n"
 "Language: de\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -2167,6 +2168,11 @@ msgstr "Gullah"
 msgid "Selkup"
 msgstr "Selkupisch"
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2179,10 +2185,8 @@ msgstr "Serbisch"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Kroatisch"
+msgstr "Serbokroatisch"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2383,6 +2387,11 @@ msgstr "Schwedisch"
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "Syrisch"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr "Taschelhit"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

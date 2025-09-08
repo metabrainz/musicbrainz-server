@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-04-08 17:20+0000\n"
+"PO-Revision-Date: 2025-07-05 23:20+0000\n"
 "Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/de/>\n"
@@ -37,7 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -273,10 +273,8 @@ msgstr "Cover-Art-Bilder:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:442
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Releases with cover art"
 msgid "Events with event art"
-msgstr "Veröffentlichungen mit Cover-Art"
+msgstr "Events mit Event-Art"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
 #: ../root/statistics/Images.js:491 ../root/statistics/stats.js:479

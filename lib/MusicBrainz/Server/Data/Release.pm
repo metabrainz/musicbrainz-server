@@ -1734,7 +1734,10 @@ sub update_amazon_asin {
 
     my $release = $self->get_by_id($release_id);
 
-    $self->c->model('Relationship')->load_subset(['url'], $release);
+    $self->c->model('Relationship')->load_subset(
+        target_types => ['url'],
+        source_objs => [$release],
+    );
 
     my @ordered_relationships =
         rev_sort_by { $_->last_updated } $release->all_relationships;

@@ -202,6 +202,11 @@ msgctxt "Portugese plucked lute"
 msgid "Portuguese guitar"
 msgstr "Guitarra portuguesa"
 
+#: DB:instrument/name:1211
+msgctxt "1940s modified sarod"
+msgid "Radhika's Mohan veena"
+msgstr ""
+
 #: DB:instrument/name:576
 msgid "Reactable"
 msgstr ""
@@ -247,6 +252,11 @@ msgstr ""
 msgctxt "plastic fipple flute"
 msgid "Tonette"
 msgstr "Tonette"
+
+#: DB:instrument/name:1212
+msgctxt "Indian modified lap slide-guitar"
+msgid "VM Bhatt's Mohan veena"
+msgstr ""
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"

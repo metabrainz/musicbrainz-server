@@ -285,10 +285,10 @@ const testData = [
   // ACUM
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
-          input_entity_type: 'release',
+          input_entity_type: 'release_group',
           expected_relationship_type: 'otherdatabases',
           expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
-          only_valid_entity_types: ['release'],
+          only_valid_entity_types: ['release_group'],
   },
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ&tab=musical',
@@ -3677,6 +3677,17 @@ limited_link_type_combinations: [
   {
                      input_url: 'http://www.last.fm/it/label/Shyrec#shoutbox',
             expected_clean_url: 'https://www.last.fm/label/Shyrec',
+  },
+  {
+                     input_url: 'https://www.last.fm/music/Nine+Inch+Nails/With+Teeth+(Instrumental)',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is currently blocked',
+                                  target: 'url',
+                                },
   },
   // Library of Congress Linked Data Service
   {

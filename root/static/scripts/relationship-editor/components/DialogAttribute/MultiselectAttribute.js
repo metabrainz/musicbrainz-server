@@ -35,14 +35,11 @@ import type {
 } from '../../types/actions.js';
 
 function addAttributeLabel(attributeTypeId: ?number): string {
-  switch (attributeTypeId) {
-    case INSTRUMENT_ROOT_ID:
-      return lp('Add instrument', 'interactive');
-    case VOCAL_ROOT_ID:
-      return l('Add vocal');
-    default:
-      return lp('Add another', 'relationship attribute');
-  }
+  return match (attributeTypeId) {
+    INSTRUMENT_ROOT_ID => lp('Add instrument', 'interactive'),
+    VOCAL_ROOT_ID => l('Add vocal'),
+    _ => lp('Add another', 'relationship attribute'),
+  };
 }
 
 export function _createLinkAttributeTypeOptions(
@@ -130,19 +127,18 @@ export function reducer(
 ): DialogMultiselectAttributeStateT {
   const newState = {...state};
 
-  switch (action.type) {
-    case 'set-value-credit': {
+  match (action) {
+    {type: 'set-value-credit', const creditedAs, const valueKey} => {
       newState.values = updateMultiselectValue<
         LinkAttrTypeT,
         DialogMultiselectAttributeValueStateT,
       >(
         newState.values,
-        action.valueKey,
-        (x) => ({...x, creditedAs: action.creditedAs}),
+        valueKey,
+        (x) => ({...x, creditedAs}),
       );
-      break;
     }
-    default: {
+    _ as action => {
       runMultiselectReducer<
         LinkAttrTypeT,
         DialogMultiselectAttributeValueStateT,

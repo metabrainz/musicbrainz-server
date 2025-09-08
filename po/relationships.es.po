@@ -22,11 +22,12 @@
 # ChurruKa <churruka@hangar18.cc>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Joax <joan_acosta_1994@hotmail.com>, 2025.
+# Othon19 <othon19@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-05-12 00:20+0000\n"
-"Last-Translator: Joax <joan_acosta_1994@hotmail.com>\n"
+"PO-Revision-Date: 2025-07-14 16:36+0000\n"
+"Last-Translator: Othon19 <othon19@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/es/>\n"
 "Language: es\n"
@@ -35,7 +36,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.3\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -376,8 +377,9 @@ msgid "IMDB samples"
 msgstr "sampleo (IMDB)"
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -389,9 +391,9 @@ msgid "IMDb entry sampled in"
 msgstr "entrada de IMDb sampleada en"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "página de IMDb para"
 
@@ -3270,6 +3272,15 @@ msgstr ""
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr "Indica la página en Allmusic para esta publicación."
 
+#. name:logo
+#: DB:link_type/description:1288
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr ""
+"Se utiliza para vincular una serie (un podcast, un festival...) a una imagen "
+"de su logotipo."
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -3952,6 +3963,19 @@ msgstr "Enlaza una publicación con el lugar en el que fue escrito su libreto."
 msgid "This links a release with the place its lyrics were written at."
 msgstr ""
 "Enlaza una publicación con el lugar en el que fueron escritas sus letras."
+
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"Indica la página en <a href=\"http://www.imdb.com/\">IMDb</a> para este "
+"artista."
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -7219,7 +7243,7 @@ msgid "has a karaoke version"
 msgstr "tiene la versión para karaoke"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "tiene un logo en"
 
@@ -7301,8 +7325,9 @@ msgid "has an Allmusic page at"
 msgstr "tiene una página en Allmusic en"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "tiene una página en IMDb en"
 
@@ -8202,17 +8227,17 @@ msgstr "interpretaciones en vivo"
 msgid "location for"
 msgstr "emplazamiento de"
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr ""
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "logo de"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "logos"
 

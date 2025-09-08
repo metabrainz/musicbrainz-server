@@ -711,12 +711,13 @@ span.blank-icon {
 }
 
 span.video {
-    background-image: data-uri('../images/icons/video.png');
+    /* based on entity icon styles in entity-icons.less */
+    padding-left: 14px;
+    margin-right: 4px;
+    background-position: center; /* this allows it to be used in places with varying font sizes */
     background-repeat: no-repeat;
-    display: inline-block;
-    height: 14px;
-    vertical-align: middle;
-    width: 18px;
+    background-size: 14px;
+    background-image: data-uri('../images/icons/video.svg');
 }
 
 /* Don't try to add the video icon on the recording overview tab */

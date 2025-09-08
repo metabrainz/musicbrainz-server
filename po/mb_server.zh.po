@@ -21,14 +21,17 @@
 # KenParker_CN <peekabookenny@gmail.com>, 2024, 2025.
 # percylee <freedomeng419@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# imgradeone <imgradeone@outlook.com>, 2025.
+# sut <xepinchan@qq.com>, 2025.
+# Beteix <1158817754@qq.com>, 2025.
+# 奶油糖派 <3310056144@qq.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-16 21:19+0200\n"
-"PO-Revision-Date: 2025-05-27 11:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"POT-Creation-Date: 2025-08-05 11:59+0200\n"
+"PO-Revision-Date: 2025-08-02 12:36+0000\n"
+"Last-Translator: 奶油糖派 <3310056144@qq.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -36,7 +39,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -52,7 +55,7 @@ msgstr " ({text})"
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1565
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1569
 #: ../root/utility/tableColumns.js:583
 msgid "#"
 msgstr "#"
@@ -299,7 +302,7 @@ msgstr "附加信息"
 #: ../root/edit/details/AddPlace.js:51 ../root/edit/details/EditPlace.js:64
 #: ../root/layout/components/sidebar/PlaceSidebar.js:89
 #: ../root/report/PlacesWithoutCoordinates.js:41
-#: ../root/search/components/PlaceResults.js:65
+#: ../root/search/components/PlaceResults.js:67
 msgid "Address"
 msgstr "地址"
 
@@ -324,7 +327,7 @@ msgstr ""
 "所有音轨都要求关联一个专辑。点击“编辑”为每条音轨选择一个转机。如果没有合适的"
 "专辑则选择“添加一新专辑”。"
 
-#: ../root/layout.tt:16 ../root/layout/index.js:193
+#: ../root/layout.tt:18 ../root/layout/index.js:210
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
@@ -382,11 +385,11 @@ msgstr "通过"
 #: ../root/report/PlacesWithoutCoordinates.js:42
 #: ../root/search/components/ArtistResults.js:56
 #: ../root/search/components/LabelResults.js:69
-#: ../root/search/components/PlaceResults.js:66
+#: ../root/search/components/PlaceResults.js:68
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
-#: ../root/user/UserProfile.js:50
+#: ../root/user/UserProfile.js:54
 msgid "Area"
 msgstr "区域"
 
@@ -396,9 +399,9 @@ msgstr "区域类型"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
-#: ../root/edit/search_macros.tt:473 ../root/release/edit/information.tt:26
-#: ../root/release/edit/tracklist.tt:110 ../root/release/edit/tracklist.tt:163
-#: ../root/release/edit/tracklist.tt:513
+#: ../root/edit/search_macros.tt:473 ../root/release/edit/duplicates.tt:11
+#: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
+#: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:513
 #: ../root/release_group/set_cover_art.tt:33
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
@@ -457,7 +460,7 @@ msgstr "区域类型"
 #: ../root/static/scripts/common/utility/formatSetlist.js:67
 #: ../root/static/scripts/edit/components/forms.js:129
 #: ../root/static/scripts/release/components/MediumTable.js:75
-#: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:51
+#: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
 msgid "Artist"
 msgstr "艺术家"
 
@@ -497,13 +500,13 @@ msgstr "附上唱片 ID"
 msgid "Attached to releases"
 msgstr "附上发行日期"
 
-#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:75
+#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:79
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "自动确认编辑者"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19 ../root/cdtoc/list.tt:13
-#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:17
+#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:18
 #: ../root/release/edit/information.tt:265
 #: ../root/release_group/set_cover_art.tt:63
 #: ../root/components/list/ReleaseList.js:126
@@ -572,12 +575,12 @@ msgstr ""
 "以下是错误信息。如果您想提交一份缺陷报告，您可以前往 {bugs|我们的缺陷追踪"
 "器}。请务必在报告中包含以下的信息！"
 
-#: ../root/layout.tt:118 ../root/layout/components/ExternalLinks.js:118
+#: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "博客"
 
-#: ../root/layout.tt:120 ../root/layout/components/Footer.js:35
+#: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -586,14 +589,14 @@ msgctxt "user type"
 msgid "Bot"
 msgstr "机器人"
 
-#: ../root/layout.tt:127 ../root/layout/components/Footer.js:53
+#: ../root/layout.tt:134 ../root/layout/components/Footer.js:62
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
 "由 {MeB|MetaBrainz 基金会} 和我们的 {spon|赞助商} 和 {supp|支持者} 为您呈现。"
 
-#: ../root/layout.tt:117 ../root/layout/components/Footer.js:32
+#: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
 msgid "Bug tracker"
 msgstr "错误追踪器"
@@ -644,7 +647,7 @@ msgid "Cat. No:"
 msgstr "Cat. No:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18 ../root/cdtoc/list.tt:12
-#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:16
+#: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:17
 #: ../root/release_group/set_cover_art.tt:57
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
@@ -655,7 +658,7 @@ msgstr "Cat. No:"
 msgid "Catalog#"
 msgstr "目录#"
 
-#: ../root/layout.tt:116 ../root/layout/components/Footer.js:30
+#: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
 msgid "Chat"
 msgstr "聊天"
 
@@ -699,6 +702,8 @@ msgid ""
 "Common exceptions are {artist_intent_guideline|artist intent} and "
 "{japanese_guideline|Japanese releases}."
 msgstr ""
+"常见的例外情况是 {artist_intent_guideline|艺术家意图} 和 {japanese_guideline|"
+"日本发行版本}。"
 
 #: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -728,7 +733,7 @@ msgid "Copy the release title to the release group"
 msgstr "将发行名复制到发行组"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
+#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:199
 #: ../root/release_group/set_cover_art.tt:42
 #: ../root/edit/details/EditReleaseLabel.js:106
@@ -745,7 +750,7 @@ msgid "Country"
 msgstr "地区"
 
 #: ../root/release_group/set_cover_art.tt:68
-#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:52
+#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:56
 msgctxt "singular"
 msgid "Cover art"
 msgstr "封面"
@@ -771,7 +776,7 @@ msgid "Data tracks"
 msgstr "数据音轨"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
-#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:13
+#: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
 #: ../root/release/edit/information.tt:173
 #: ../root/release_group/set_cover_art.tt:38
 #: ../root/components/RelationshipsTable.js:319
@@ -835,6 +840,10 @@ msgstr "描述"
 msgid "Details"
 msgstr "详细信息"
 
+#: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
+msgid "Disable legacy browser mode"
+msgstr "禁用传统浏览器模式"
+
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
 #: ../root/release/edit/information.tt:301
@@ -879,12 +888,14 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"请勿将数字媒体发行品标记为不含条码，除非你熟悉相应平台。绝大多数主流数字平台"
+"使用条码，即便没有被展示。"
 
-#: ../root/release/edit/duplicates.tt:40
+#: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
 msgstr "请勿使用上述任何版本作为起点"
 
-#: ../root/layout.tt:113 ../root/layout/components/Footer.js:26
+#: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
 msgid "Donate"
 msgstr "捐助"
 
@@ -1083,7 +1094,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:54
-#: ../root/user/UserProfile.js:53
+#: ../root/user/UserProfile.js:57
 msgid "Event"
 msgstr "事件"
 
@@ -1097,6 +1108,8 @@ msgid ""
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
 msgstr ""
+"应归类在一起的发行品包括原版发行品、再版发行品、不同格式（如 CD 和数字媒体）"
+"的发行品以及翻版发行品。"
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1134,6 +1147,8 @@ msgid ""
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
 msgstr ""
+"外部链接是与艺术家存在关联的网址。它可以包括艺术家的官方网站与社交媒体页面、"
+"串流服务，以及非官方页面，包括维基百科条目、传记、采访与粉丝站。"
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1141,6 +1156,8 @@ msgid ""
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"外部链接是与厂牌存在关联的网址。它可以包括厂牌的官方网站与社交媒体页面、作品"
+"目录，以及非官方页面，包括维基百科条目、历史与粉丝站。"
 
 #: ../root/place/edit_form.tt:110
 msgid ""
@@ -1148,38 +1165,47 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"外部链接是与地点存在关联的网址。它可以包括地点的官方网站与社交媒体页面、订票"
+"页面，以及非官方页面，包括维基百科条目、历史与粉丝站。"
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
 msgstr ""
+"外部链接是与录音存在关联的网址，例如购买或串流链接，以及其他数据库中的条目。"
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
 msgstr ""
+"外部链接是与发行组存在关联的网址，例如官方网站、维基百科文章、评价和其他数据"
+"库中的条目。"
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
 msgstr ""
+"外部链接是与系列存在关联的网址，例如官方网站、社交媒体平台，以及其他数据库中"
+"的条目。"
 
 #: ../root/work/edit_form.tt:157
 msgid ""
 "External links are URLs associated with the work, such as pages for "
 "purchasing sheet music, lyrics pages, and entries in other databases."
 msgstr ""
+"外部链接是与作品存在关联的网址，例如曲谱购买页面、歌词页面，以及其他数据库中"
+"的条目。"
 
 #: ../root/release/edit/information.tt:584
 msgid "External links are URLs associated with this particular release."
-msgstr ""
+msgstr "外部链接是与该特定发行品存在关联的网址。"
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
-msgstr ""
+msgstr "如果系列名称可能是独一无二的，可以留空。"
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1197,11 +1223,11 @@ msgstr "首先输入所有音轨信息，包括标题和艺术家名单，以便
 
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
-msgstr ""
+msgstr "对于古典音乐而言，应包含最重要的表演者。"
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
-msgstr ""
+msgstr "对于数字媒体发行品，此处一般应为“无”。"
 
 #: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
 #: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
@@ -1221,9 +1247,9 @@ msgstr "如需更多信息，请查看 {doc_doc|文档}。"
 msgid ""
 "For popular music, the {doc|artist} should usually match the track artist on "
 "the earliest release containing the recording."
-msgstr ""
+msgstr "对于流行音乐，{doc|artist} 通常应与最早发行版本中的曲目艺术家相匹配。"
 
-#: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:11
+#: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:12
 #: ../root/release/edit/tracklist.tt:305
 #: ../root/release_group/set_cover_art.tt:47
 #: ../root/components/list/ReleaseList.js:85
@@ -1239,7 +1265,7 @@ msgstr ""
 msgid "Format"
 msgstr "格式"
 
-#: ../root/layout.tt:115 ../root/layout/components/Footer.js:28
+#: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:214
 msgid "Forums"
 msgstr "论坛"
@@ -1269,7 +1295,7 @@ msgstr "完整目录："
 #: ../root/layout/components/sidebar/ArtistSidebar.js:100
 #: ../root/search/components/ArtistResults.js:55
 #: ../root/static/scripts/account/components/EditProfileForm.js:223
-#: ../root/user/UserProfile.js:272
+#: ../root/user/UserProfile.js:276
 msgid "Gender"
 msgstr "性别"
 
@@ -1330,14 +1356,12 @@ msgid "Guess sort name"
 msgstr "猜测排序名称"
 
 #: ../root/release/edit/tracklist.tt:472
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
-msgstr "我确认这就是发行版上显示的条形码。"
+msgstr "我确认这些标题使用了正确的大小写。"
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
-msgstr ""
+msgstr "我确认此额外标题信息的大小写正确。"
 
 #: ../root/release/edit/information.tt:529
 msgid "I confirm that this is the barcode as it appears on the release."
@@ -1387,7 +1411,7 @@ msgstr "IPI 代码"
 msgid "ISNI codes"
 msgstr "ISNI 代码"
 
-#: ../root/recording/edit_form.tt:44 ../root/report/ReportsIndex.js:645
+#: ../root/recording/edit_form.tt:44 ../root/report/ReportsIndex.js:657
 #: ../root/search/components/RecordingResults.js:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
@@ -1396,7 +1420,7 @@ msgstr "ISNI 代码"
 msgid "ISRCs"
 msgstr "ISRC"
 
-#: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:654
+#: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:666
 #: ../root/static/scripts/common/components/IswcList.js:40
 msgid "ISWCs"
 msgstr "ISWC"
@@ -1414,7 +1438,7 @@ msgstr ""
 msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
-msgstr ""
+msgstr "如果是现场录音，请同时参阅 {doc|live recording} 指南。"
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1439,34 +1463,27 @@ msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
 msgstr ""
+"如果找不到目录编号，请留空。如果您确定该版本没有指定目录编号，请输"
+"入“[none]”。"
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"注意！如果您不知道专辑的发行月份或日期，请留空。一月一日通常都不是实际的发行"
-"日期，请再三检查您输入的发行日期是否正确。"
+"如果您不知道专辑的发行月份或日期，请留空。一月一日通常都不是实际的发行日期。"
+"<strong>请再三检查您输入的发行日期是否正确。</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
 msgstr "如果您不知道此实体的代码，将此栏留空即可。"
 
 #: ../root/release/edit/information.tt:515
-#, fuzzy
-#| msgid ""
-#| "If you do not know whether the release has a barcode or not, just leave "
-#| "this blank."
 msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
-msgstr "如果您不知道此专辑是否有条形码，留空即可。"
+msgstr "如果您不知道此专辑是否有条形码，请留空。"
 
 #: ../root/release/edit/information.tt:97
 msgid ""
@@ -1506,18 +1523,13 @@ msgid ""
 msgstr "如果你确定输入的媒介标题是正确的，请在上面确认。否则，请修改数据。"
 
 #: ../root/release/edit/tracklist.tt:453
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists in track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the extra title information is capitalized correctly, confirm "
 "it above. Otherwise, please fix the data (the “Guess case” button might "
 "help!)."
 msgstr ""
-"如果您确定使用特邀艺术家是正确的，请在上方确认。否则，请修正数据（使用“猜测 "
-"feat. 艺术家”按钮可能有所帮助）。"
+"如果您确定额外的标题信息大写正确，请在上面确认。否则请修正数据（“猜大小写 ”按"
+"钮可能会有帮助！）。"
 
 #: ../root/release/edit/tracklist.tt:475
 #, fuzzy
@@ -1568,7 +1580,7 @@ msgstr "导入 CD 存根"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:58
-#: ../root/user/UserProfile.js:55
+#: ../root/user/UserProfile.js:59
 msgid "Instrument"
 msgstr "乐器"
 
@@ -1580,7 +1592,7 @@ msgstr "乐器类型"
 msgid ""
 "It’s okay to leave it blank if there are no other recordings with similar "
 "names, and this isn’t a live recording."
-msgstr ""
+msgstr "如果没有其他名称相似的录音，也不是现场录音，则留空也无妨。"
 
 #: ../root/components/common-macros.tt:406
 msgid "Javascript is required for this page to work properly."
@@ -1625,7 +1637,7 @@ msgstr ""
 
 #: ../root/cdtoc/attach_artist_releases.tt:17 ../root/cdtoc/list.tt:11
 #: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:473
-#: ../root/release/edit/duplicates.tt:15
+#: ../root/release/edit/duplicates.tt:16
 #: ../root/release/edit/information.tt:222
 #: ../root/release_group/set_cover_art.tt:53
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
@@ -1650,7 +1662,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:277
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
-#: ../root/user/UserProfile.js:56 ../root/utility/tableColumns.js:549
+#: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
 #: ../root/utility/tableColumns.js:554
 msgid "Label"
 msgstr "唱片公司"
@@ -1685,7 +1697,7 @@ msgstr "厂牌类型"
 msgid "Language"
 msgstr "语言"
 
-#: ../root/layout.tt:140 ../root/layout/components/Footer.js:84
+#: ../root/layout.tt:151 ../root/layout/components/Footer.js:102
 msgid "Last replication packet received at {datetime}"
 msgstr "上一次收到副本数据包是在 {datetime}"
 
@@ -1720,14 +1732,14 @@ msgstr "每行包含音轨艺术家"
 msgid "Lines start with a track number"
 msgstr "每行以音轨编号开头"
 
-#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:110
+#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:114
 msgctxt "user type"
 msgid "Location editor"
 msgstr "位置编辑者"
 
 #: ../root/components/common-macros.tt:359
 #: ../root/components/RequestLogin.js:19
-#: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:128
+#: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 msgctxt "interactive"
 msgid "Log in"
 msgstr "登录"
@@ -1751,6 +1763,8 @@ msgid ""
 "Mail‐order links shouldn’t be attached to digital media releases, and "
 "download and streaming links shouldn’t be attached to CD or vinyl releases."
 msgstr ""
+"邮寄链接不应与数字媒体发行品关联，下载与串流链接不应与 CD 或黑胶唱片发行品关"
+"联。"
 
 #: ../root/components/forms.tt:14
 #: ../root/static/scripts/edit/components/EnterEdit.js:38
@@ -1761,7 +1775,7 @@ msgstr "使所有编辑都可投票。"
 msgid "Manual entry"
 msgstr "手动输入"
 
-#: ../root/layout.tt:119 ../root/layout/components/Footer.js:34
+#: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
 msgid "Mastodon"
 msgstr "Mastodon"
 
@@ -1856,7 +1870,7 @@ msgstr "上移音轨"
 #: ../root/search/components/EventResults.js:82
 #: ../root/search/components/InstrumentResults.js:53
 #: ../root/search/components/LabelResults.js:66
-#: ../root/search/components/PlaceResults.js:63
+#: ../root/search/components/PlaceResults.js:65
 #: ../root/search/components/RecordingResults.js:137
 #: ../root/search/components/ReleaseResults.js:118
 #: ../root/search/components/SeriesResults.js:60
@@ -1945,6 +1959,8 @@ msgid ""
 "2011-05-16; or which remove relationships, entered after 2013-07-08; or "
 "which reorder relationships."
 msgstr ""
+"注意：只搜索以下编辑：2011-05-16 之后输入的添加或编辑关系；2013-07-08 之后输"
+"入的删除关系；重新排列关系。"
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
@@ -2011,7 +2027,7 @@ msgstr "解析音轨"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
-#: ../root/user/UserProfile.js:57
+#: ../root/user/UserProfile.js:61
 msgid "Place"
 msgstr "地点"
 
@@ -2020,10 +2036,8 @@ msgid "Place details"
 msgstr "地点详情"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Related type"
 msgid "Place type"
-msgstr "相关类型"
+msgstr "地点类型"
 
 #: ../root/edit/search_macros.tt:471
 msgid "Please choose a condition"
@@ -2034,39 +2048,31 @@ msgstr "请选择一个条件"
 msgid ""
 "Please don’t add a Wikipedia page if a Wikidata item linking to the same "
 "article already exists."
-msgstr ""
+msgstr "如果已经有链接到同一文章的维基数据条目，请勿重复添加维基百科页面。"
 
 #: ../root/release_group/edit_form.tt:60
 msgid ""
 "Please leave it blank if other information such as artist or type (album, "
 "single, etc.) already distinguishes between the release groups."
-msgstr ""
+msgstr "如果艺术家或类型（专辑、单曲等）等其他信息已能区分发行组别，请留空。"
 
 #: ../root/work/edit_form.tt:121
 msgid ""
 "Please leave it blank if there are enough other differences between the "
 "works that they are unlikely to be confused."
-msgstr ""
+msgstr "如果作品之间有足够的其他差异，不太可能混淆，请留空。"
 
 #: ../root/release/edit/information.tt:334
-#, fuzzy
-#| msgid ""
-#| "For more information, check the {doc_doc|documentation} and "
-#| "{doc_styleguide|style guidelines}."
 msgid ""
 "Please see the artist credits {doc|documentation} and {style|style "
 "guidelines} for more information."
-msgstr "如需更多信息，请查看 {doc_doc|文档} 和 {doc_styleguide|风格指南}。"
+msgstr "更多信息，请参阅{doc|文档}和{style|风格指南}。"
 
 #: ../root/recording/edit_form.tt:89
-#, fuzzy
-#| msgid ""
-#| "For more information, check the {doc_doc|documentation} and "
-#| "{doc_styleguide|style guidelines}."
 msgid ""
 "Please see the {doc_style|style guidelines} and the {doc_classical|classical "
 "guidelines} for more information."
-msgstr "如需更多信息，请查看 {doc_doc|文档} 和 {doc_styleguide|风格指南}。"
+msgstr "如需更多信息，请查看 {文档} 和 {风格指南}。"
 
 #: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
 #: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:180
@@ -2131,8 +2137,8 @@ msgstr "主要类型"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1575
-#: ../root/user/UserProfile.js:58
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1579
+#: ../root/user/UserProfile.js:62
 msgid "Recording"
 msgstr "录音"
 
@@ -2154,7 +2160,7 @@ msgstr "{artist}的录音“{name}”"
 #: ../root/edit/details/EditMedium.js:479
 #: ../root/instrument/InstrumentRecordings.js:33
 #: ../root/instrument/InstrumentRecordings.js:35
-#: ../root/report/ReportsIndex.js:499
+#: ../root/report/ReportsIndex.js:511
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
 #: ../root/tag/TagLayout.js:20 ../root/work/WorkIndex.js:47
 msgid "Recordings"
@@ -2164,7 +2170,7 @@ msgstr "录音"
 msgid "Reject"
 msgstr "驳回"
 
-#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:96
+#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:100
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "关联编辑者"
@@ -2209,7 +2215,7 @@ msgstr "关联类型"
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:66
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:397
-#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:59
+#: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:63
 msgid "Release"
 msgstr "专辑"
 
@@ -2253,7 +2259,7 @@ msgstr "发行事件"
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:404
-#: ../root/user/UserProfile.js:60
+#: ../root/user/UserProfile.js:64
 msgid "Release group"
 msgstr "发行团"
 
@@ -2262,10 +2268,8 @@ msgid "Release group details"
 msgstr "专辑组详情"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group primary type"
-msgstr "专辑组类型"
+msgstr "发行组主分类"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
@@ -2405,7 +2409,7 @@ msgid ""
 "data is formatted correctly."
 msgstr "查看关于专辑编辑器制种的{url|文档}，确保您的数据格式正确。"
 
-#: ../root/layout.tt:133
+#: ../root/layout.tt:140
 msgid ""
 "Running: <span class=\"tooltip\" title=\"{msg}\">{branch} ({sha})</span>"
 msgstr ""
@@ -2429,8 +2433,8 @@ msgstr "文字"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:779
-#: ../root/static/scripts/common/components/Autocomplete2.js:799
+#: ../root/static/scripts/common/components/Autocomplete2.js:780
+#: ../root/static/scripts/common/components/Autocomplete2.js:800
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -2459,6 +2463,10 @@ msgstr "搜索中..."
 #: ../root/edit/details/EditReleaseGroup.js:76
 msgid "Secondary types"
 msgstr "二级分类"
+
+#: ../root/layout.tt:145 ../root/layout/components/Footer.js:91
+msgid "See {tickets|all tickets in beta testing}."
+msgstr ""
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -2506,7 +2514,7 @@ msgstr "语句"
 #: ../root/search/components/SearchForm.js:44
 #: ../root/static/scripts/common/constants.js:45
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:70
-#: ../root/user/UserProfile.js:61
+#: ../root/user/UserProfile.js:65
 msgctxt "singular"
 msgid "Series"
 msgstr "系列"
@@ -2560,7 +2568,7 @@ msgstr ""
 "一些碟片在所有音轨后含有一或多个数据轨。使用此宣讲添加(或移除)特设的数据轨部"
 "分。您应该之添加含有音视频信息的数据轨({info|更多信息})"
 
-#: ../root/layout.tt:90 ../root/layout/index.js:272
+#: ../root/layout.tt:92 ../root/layout/index.js:289
 msgid ""
 "Some text you entered is overlong! Please shorten it, and if necessary enter "
 "the full text in the annotation for reference."
@@ -2605,7 +2613,7 @@ msgctxt "release"
 msgid "Status"
 msgstr "状态"
 
-#: ../root/layout.tt:122 ../root/layout/components/Footer.js:45
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:45
 msgid "Stop using beta site"
 msgstr "停止使用测试版网站"
 
@@ -2662,7 +2670,7 @@ msgstr ""
 msgid "The catalog number you have entered looks like an Amazon ASIN."
 msgstr "您输入的目录编号看起来像是一个 Amazon ASIN。"
 
-#: ../root/layout.tt:84 ../root/layout/index.js:261
+#: ../root/layout.tt:86 ../root/layout/index.js:278
 msgid ""
 "The data you have submitted does not make any changes to the data already "
 "present."
@@ -2709,7 +2717,7 @@ msgstr ""
 "此栏用于添加不符合 MusicBrainz 严格数据结构的信息(由于可能会在后面叙述的技术"
 "闲置或者信息本身是自由文本)。"
 
-#: ../root/layout.tt:64 ../root/layout/index.js:221
+#: ../root/layout.tt:66 ../root/layout/index.js:238
 msgid "The server is temporarily in read-only mode for database maintenance."
 msgstr "出于数据库维护的需要，此服务器临时处于只读模式。"
 
@@ -3092,7 +3100,7 @@ msgstr "这位艺术家已经逝世。"
 msgid "This attribute type is only used for grouping, please select a subtype"
 msgstr "此属性类型只用于分组，请选择一个子类型"
 
-#: ../root/layout.tt:31 ../root/layout/index.js:126
+#: ../root/layout.tt:33 ../root/layout/index.js:141
 msgid ""
 "This beta test server allows testing of new features with the live database."
 msgstr "这台内测服务器可用于在实时数据库上测试新功能。"
@@ -3154,11 +3162,11 @@ msgstr ""
 "此表格允许你将{artist}拆分为多个艺术家。在此编辑被接受后，现存的艺术家名单会"
 "更新，而合作品关联则会被移除。"
 
-#: ../root/layout.tt:31 ../root/layout/index.js:130
+#: ../root/layout.tt:33 ../root/layout/index.js:145
 msgid "This is a MusicBrainz development server."
 msgstr "这是一台 MusicBrainz 开发服务器。"
 
-#: ../root/layout.tt:47 ../root/layout/index.js:155
+#: ../root/layout.tt:49 ../root/layout/index.js:170
 msgid ""
 "This is a MusicBrainz mirror server. To edit or make changes to the data, "
 "please {uri|return to musicbrainz.org}."
@@ -3326,7 +3334,7 @@ msgstr "音轨解析器"
 msgid "Tracklist"
 msgstr "音轨列表"
 
-#: ../root/release/edit/duplicates.tt:12
+#: ../root/release/edit/duplicates.tt:13
 #: ../root/release_group/set_cover_art.tt:48
 #: ../root/artist_credit/ArtistCreditIndex.js:156
 #: ../root/artist_credit/ArtistCreditLayout.js:22
@@ -3347,7 +3355,7 @@ msgid ""
 "information about this release’s media, remove all media."
 msgstr ""
 
-#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:103
+#: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:107
 #, fuzzy
 #| msgid "Location editor"
 msgctxt "user type"
@@ -3399,7 +3407,7 @@ msgstr "土耳其语"
 #: ../root/search/components/EventResults.js:85
 #: ../root/search/components/InstrumentResults.js:54
 #: ../root/search/components/LabelResults.js:67
-#: ../root/search/components/PlaceResults.js:64
+#: ../root/search/components/PlaceResults.js:66
 #: ../root/search/components/RecordingResults.js:147
 #: ../root/search/components/ReleaseGroupResults.js:76
 #: ../root/search/components/ReleaseResults.js:127
@@ -3472,7 +3480,7 @@ msgstr "正在上传图片..."
 msgid "Uppercase Roman numerals"
 msgstr "大写罗马数字"
 
-#: ../root/layout.tt:122 ../root/layout/components/Footer.js:46
+#: ../root/layout.tt:124 ../root/layout/components/Footer.js:46
 msgid "Use beta site"
 msgstr "使用测试版网站"
 
@@ -3529,7 +3537,7 @@ msgid "Voter"
 msgstr "投票者"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:66
-#: ../root/user/UserProfile.js:689
+#: ../root/user/UserProfile.js:693
 msgid "Votes"
 msgstr "投票"
 
@@ -3568,7 +3576,7 @@ msgstr ""
 msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr "我们使用唱片 ID <code>{discid}</code> 来查找此信息。"
 
-#: ../root/layout.tt:114 ../root/layout/components/Footer.js:27
+#: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3582,7 +3590,7 @@ msgstr "Wiki"
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
-#: ../root/user/UserProfile.js:62 ../root/work/WorkLayout.js:25
+#: ../root/user/UserProfile.js:66 ../root/work/WorkLayout.js:25
 msgid "Work"
 msgstr "作品"
 
@@ -3795,7 +3803,7 @@ msgstr "编辑"
 #: ../root/release/edit/tracklist.tt:83 ../root/release/edit/tracklist.tt:316
 #: ../root/release/edit/tracklist.tt:555 ../root/release/edit/tracklist.tt:570
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:115
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:895
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:897
 msgid "help"
 msgstr "帮助"
 
@@ -4025,7 +4033,7 @@ msgid ""
 "using Ctrl + click (or Cmd + click on a Mac)."
 msgstr ""
 
-#: ../root/layout.tt:75 ../root/layout/index.js:248
+#: ../root/layout.tt:77 ../root/layout/index.js:265
 msgid ""
 "{link|New notes} have been left on some of your edits. Please make sure to "
 "read them and respond if necessary."
@@ -4049,7 +4057,7 @@ msgstr "{type} “{instrument}”"
 msgid "{type} “{work}”"
 msgstr "{type} “{work}”"
 
-#: ../root/layout.tt:39 ../root/layout/index.js:139
+#: ../root/layout.tt:41 ../root/layout/index.js:154
 msgid "{uri|Return to musicbrainz.org}."
 msgstr "{uri|返回 musicbrainz.org}。"
 
@@ -4386,7 +4394,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:781
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:784
 msgid "You haven’t made any changes!"
 msgstr "您还没有进行任何更改！"
 
@@ -4472,7 +4480,7 @@ msgid ""
 "it}!"
 msgstr "如果你发现翻译中有任何问题，请{url|帮助我们改进它}！"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:328
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -4482,57 +4490,57 @@ msgstr "我们的 Redis 服务器似乎宕机了；一些功能可能无法正�
 msgid "Series that have different entity types cannot be merged."
 msgstr "包含不同实体类型的系列无法被合并。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:309
-#: ../lib/MusicBrainz/Server/Controller/User.pm:335
-#: ../lib/MusicBrainz/Server/Controller/User.pm:350
+#: ../lib/MusicBrainz/Server/Controller/User.pm:313
+#: ../lib/MusicBrainz/Server/Controller/User.pm:339
+#: ../lib/MusicBrainz/Server/Controller/User.pm:354
 #: ../root/user/ContactUser.js:37 ../root/user/ContactUser.js:39
 msgctxt "header"
 msgid "Send email"
 msgstr "发送电子邮件"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:310
+#: ../lib/MusicBrainz/Server/Controller/User.pm:314
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr "您无法联系其他用户，因为您还没有 {url|验证您的电子邮件地址}。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:337
+#: ../lib/MusicBrainz/Server/Controller/User.pm:341
 msgid "You are not allowed to send messages to editors."
 msgstr "你被禁止向编辑者发送信息。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:351
+#: ../lib/MusicBrainz/Server/Controller/User.pm:355
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "编辑者{name}没有在账户中添加电子邮箱地址。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:365
+#: ../lib/MusicBrainz/Server/Controller/User.pm:369
 #: ../root/account/LostPasswordSent.js:16
 #: ../root/account/LostUsernameSent.js:16
 msgctxt "header"
 msgid "Email sent"
 msgstr "电子邮件已发送"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:366
+#: ../lib/MusicBrainz/Server/Controller/User.pm:370
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "成功发送电子邮件！点击 {link|此处} 前往 {user} 的资料页面。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:403
+#: ../lib/MusicBrainz/Server/Controller/User.pm:407
 msgid "Your message could not be sent"
 msgstr "您的信息无法被送达"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:569
+#: ../lib/MusicBrainz/Server/Controller/User.pm:573
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "‘{type}’ 不是可评分的实体类型。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:839
+#: ../lib/MusicBrainz/Server/Controller/User.pm:843
 msgid "An error occurred while trying to send your report."
 msgstr "尝试发送您的报告时发生了错误。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:843
+#: ../lib/MusicBrainz/Server/Controller/User.pm:847
 msgid "Your report has been sent."
 msgstr "您的报告已发送。"
 
@@ -4540,19 +4548,19 @@ msgstr "您的报告已发送。"
 msgid "Invalid TOC"
 msgstr "目录无效"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:295
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:310
 msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr "连接 Internet Archive 服务器时发生了错误。请等待几分钟后再试。"
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:308
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:323
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:324
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:339
 #, perl-brace-format
 msgid ""
 "Cover art can’t be uploaded to this release because we don’t own the "
@@ -4560,7 +4568,7 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:343
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:358
 #, perl-brace-format
 msgid ""
 "Event art can’t be uploaded to this event because we don’t own the "
@@ -4568,14 +4576,14 @@ msgid ""
 "so we can resolve this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:468
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:483
 #: ../root/event/EventArtDarkened.js:19 ../root/release/CoverArtDarkened.js:19
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:513
+#: ../lib/MusicBrainz/Server/Controller/WS/js.pm:528
 #, perl-brace-format
 msgid ""
 "Images can’t be uploaded here because we don’t own the associated item at "
@@ -4593,7 +4601,7 @@ msgstr "您必须登录才能提交编辑。请先 {url|登录}，然后再次�
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1189
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1194
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -5206,7 +5214,7 @@ msgstr "移除 ISRC"
 #: ../root/edit/details/ReorderRelationships.js:17
 #: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:128
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:950
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:952
 msgid "Relationship"
 msgstr "关系"
 
@@ -5316,7 +5324,7 @@ msgstr "编辑专辑厂牌"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:185
-#: ../root/static/scripts/release-editor/duplicates.js:196
+#: ../root/static/scripts/release-editor/duplicates.js:197
 msgctxt "medium format"
 msgid "(unknown)"
 msgstr "(未知)"
@@ -5644,21 +5652,21 @@ msgctxt "barcode"
 msgid "[none]"
 msgstr "[无]"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:291
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
 #| msgid "Editing/voting disabled"
 msgid "Editing disabled"
 msgstr "编辑/投票已禁用"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:294
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
 #: ../root/static/scripts/common/utility/privileges.js:164
 #, fuzzy
 #| msgid "Voting is closed."
 msgid "Voting disabled"
 msgstr "投票已关闭。"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:303
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
 msgstr "已禁用编辑备注"
@@ -5806,11 +5814,11 @@ msgstr "在 Yandex 串流"
 msgid "Stream at YouTube Music"
 msgstr "YouTube Music 在线播放"
 
-#: ../lib/MusicBrainz/Server/Form/Alias.pm:106
+#: ../lib/MusicBrainz/Server/Form/Alias.pm:115
 msgid "This alias can only be a primary alias if a locale is selected"
 msgstr "设为主要别名时需要先选择语言"
 
-#: ../lib/MusicBrainz/Server/Form/Alias.pm:118
+#: ../lib/MusicBrainz/Server/Form/Alias.pm:127
 msgid "This alias already exists."
 msgstr "此别名已存在。"
 
@@ -6544,7 +6552,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:204
 #: ../root/static/scripts/account/components/PreferencesForm.js:211
 #: ../root/static/scripts/account/components/RegisterForm.js:92
-#: ../root/user/UserProfile.js:193
+#: ../root/user/UserProfile.js:197
 msgid "Email"
 msgstr "电子邮件"
 
@@ -6702,7 +6710,7 @@ msgid "Applications"
 msgstr "应用"
 
 #: ../root/account/applications/ApplicationList.js:90
-#: ../root/user/UserProfile.js:306
+#: ../root/user/UserProfile.js:310
 msgid "Authorized applications"
 msgstr "已授权的应用程序"
 
@@ -6743,7 +6751,7 @@ msgid "You have not authorized any applications."
 msgstr "您没有授权任何应用程序。"
 
 #: ../root/account/applications/ApplicationList.js:125
-#: ../root/user/UserProfile.js:320
+#: ../root/user/UserProfile.js:324
 msgid "Developer applications"
 msgstr "开发者应用程序"
 
@@ -6996,7 +7004,7 @@ msgstr "此地区目前没有关联任何艺术家。"
 #: ../root/artist/ArtistEvents.js:35 ../root/artist/ArtistEvents.js:36
 #: ../root/components/EntityTabs.js:26
 #: ../root/components/TagEntitiesList.js:160 ../root/place/PlaceEvents.js:29
-#: ../root/place/PlaceEvents.js:30 ../root/report/ReportsIndex.js:131
+#: ../root/place/PlaceEvents.js:30 ../root/report/ReportsIndex.js:135
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
 #: ../root/tag/TagLayout.js:27
 msgid "Events"
@@ -7019,7 +7027,7 @@ msgstr "{parent_areas} 的 {area_type}"
 #: ../root/components/EntityTabs.js:28
 #: ../root/components/TagEntitiesList.js:168
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:223
-#: ../root/report/ReportsIndex.js:174
+#: ../root/report/ReportsIndex.js:178
 #: ../root/static/scripts/account/components/PreferencesForm.js:254
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:22
@@ -7036,7 +7044,7 @@ msgstr "此区域目前没有关联任何厂牌。"
 
 #: ../root/area/AreaPlaces.js:32 ../root/area/AreaPlaces.js:33
 #: ../root/components/EntityTabs.js:31
-#: ../root/components/TagEntitiesList.js:172 ../root/report/ReportsIndex.js:577
+#: ../root/components/TagEntitiesList.js:172 ../root/report/ReportsIndex.js:589
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
 #: ../root/tag/TagLayout.js:23
 msgid "Places"
@@ -7085,7 +7093,7 @@ msgstr "关联"
 #: ../root/edit/details/historic/RemoveReleases.js:17
 #: ../root/instrument/InstrumentReleases.js:33
 #: ../root/instrument/InstrumentReleases.js:35 ../root/label/LabelIndex.js:76
-#: ../root/report/ReportsIndex.js:254
+#: ../root/report/ReportsIndex.js:262
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
 #: ../root/tag/TagLayout.js:19
 msgid "Releases"
@@ -7121,7 +7129,7 @@ msgstr "此地区目前没有用户。"
 
 #: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:35
 #: ../root/artist/ArtistWorks.js:36 ../root/components/EntityTabs.js:35
-#: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:607
+#: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:619
 #: ../root/static/scripts/common/components/FilterForm.js:235
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
 #: ../root/tag/TagLayout.js:21
@@ -7450,7 +7458,7 @@ msgstr "使用"
 #: ../root/artist_credit/ArtistCreditLayout.js:19
 #: ../root/components/TagEntitiesList.js:176
 #: ../root/components/list/RecordingList.js:44
-#: ../root/report/ReportsIndex.js:199
+#: ../root/report/ReportsIndex.js:207
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
 #: ../root/tag/TagLayout.js:18
 msgid "Release groups"
@@ -7711,7 +7719,7 @@ msgstr "开始"
 #: ../root/cdtoc/CDTocInfo.js:50 ../root/search/components/AreaResults.js:67
 #: ../root/search/components/ArtistResults.js:59
 #: ../root/search/components/LabelResults.js:71
-#: ../root/search/components/PlaceResults.js:68
+#: ../root/search/components/PlaceResults.js:70
 #: ../root/utility/tableColumns.js:306 ../root/utility/tableColumns.js:311
 msgid "End"
 msgstr "过世"
@@ -7812,8 +7820,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "修改"
 
-#: ../root/collection/CollectionIndex.js:205 ../root/user/UserProfile.js:343
-#: ../root/user/UserProfile.js:404
+#: ../root/collection/CollectionIndex.js:205 ../root/user/UserProfile.js:347
+#: ../root/user/UserProfile.js:408
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -7945,7 +7953,7 @@ msgstr "主要"
 
 #: ../root/components/Aliases/ArtistCreditList.js:28
 #: ../root/edit/details/AddMedium.js:145 ../root/edit/details/EditMedium.js:537
-#: ../root/report/ReportsIndex.js:109
+#: ../root/report/ReportsIndex.js:113
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:230
 msgid "Artist credits"
 msgstr "艺术家名单"
@@ -8107,7 +8115,7 @@ msgid "Disc IDs ({num})"
 msgstr "唱片 ID ({num})"
 
 #: ../root/components/EntityTabs.js:105 ../root/release/DiscIds.js:89
-#: ../root/release/DiscIds.js:90 ../root/report/ReportsIndex.js:663
+#: ../root/release/DiscIds.js:90 ../root/report/ReportsIndex.js:675
 msgid "Disc IDs"
 msgstr "唱片IDs"
 
@@ -8151,7 +8159,7 @@ msgstr "评论"
 
 #: ../root/components/EntityTabs.js:158
 #: ../root/components/UserAccountTabs.js:71 ../root/entity/Ratings.js:45
-#: ../root/user/UserProfile.js:843 ../root/user/UserRatingList.js:43
+#: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:43
 #: ../root/user/UserRatingList.js:77
 msgid "Ratings"
 msgstr "评分"
@@ -8184,7 +8192,7 @@ msgstr "署名为"
 #: ../root/edit/details/EditRelationshipType.js:289
 #: ../root/edit/details/RemoveRelationshipType.js:113
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:38
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:539
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:541
 #: ../root/utility/tableColumns.js:682
 msgid "Attributes"
 msgstr "属性"
@@ -8209,7 +8217,7 @@ msgstr "未找到所选类型的关联关系。"
 #: ../root/search/components/ReleaseResults.js:66
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
-#: ../root/static/scripts/release-editor/duplicates.js:148
+#: ../root/static/scripts/release-editor/duplicates.js:149
 msgctxt "missing data"
 msgid "-"
 msgstr "-"
@@ -8278,7 +8286,7 @@ msgid "See all {num} places"
 msgid_plural "See all {num} places"
 msgstr[0] "查看所有 {num} 个地点"
 
-#: ../root/components/TagEntitiesList.js:188 ../root/report/ReportsIndex.js:594
+#: ../root/components/TagEntitiesList.js:188 ../root/report/ReportsIndex.js:606
 #: ../root/report/components/SeriesList.js:40
 #: ../root/static/scripts/account/components/PreferencesForm.js:259
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
@@ -8318,7 +8326,7 @@ msgstr "订阅"
 #: ../root/entity/Subscribers.js:45
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:353
+#: ../root/user/UserProfile.js:357
 msgid "Subscribers"
 msgstr "订阅者"
 
@@ -8395,7 +8403,7 @@ msgstr "未指定的类型"
 #: ../root/edit/details/MergeReleases.js:49
 #: ../root/release_group/ReleaseGroupIndex.js:86
 #: ../root/search/components/ReleaseResults.js:61
-#: ../root/static/scripts/release-editor/duplicates.js:146
+#: ../root/static/scripts/release-editor/duplicates.js:147
 msgid "[missing media]"
 msgstr "[缺失的媒介]"
 
@@ -8731,7 +8739,7 @@ msgid ""
 "subscribed to."
 msgstr ""
 
-#: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:54
+#: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 msgctxt "singular"
 msgid "Event art"
 msgstr "活动图片"
@@ -8914,7 +8922,7 @@ msgctxt "interactive"
 msgid "Add note"
 msgstr "添加备注"
 
-#: ../root/edit/components/EditorTypeInfo.js:25 ../root/user/UserProfile.js:120
+#: ../root/edit/components/EditorTypeInfo.js:25 ../root/user/UserProfile.js:124
 msgid "This user is new to MusicBrainz."
 msgstr "此用户刚加入 MusicBrainz 不久。"
 
@@ -10674,7 +10682,7 @@ msgstr "数据移除政策"
 msgid "Privileged user accounts"
 msgstr "特权用户账号"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:566
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
 msgid "Statistics"
 msgstr "统计"
 
@@ -10863,7 +10871,7 @@ msgstr ""
 msgid "View all relationships"
 msgstr "浏览所有关联"
 
-#: ../root/layout/components/Footer.js:65
+#: ../root/layout/components/Footer.js:74
 msgid "Running: {git_details}"
 msgstr "正在运行：{git_details}"
 
@@ -10919,6 +10927,14 @@ msgstr "合并"
 #: ../root/layout/components/MergeHelper.js:70
 msgid "Remove selected entities"
 msgstr "移除选中实体"
+
+#: ../root/layout/components/SupportedBrowserCheck.js:32
+msgid ""
+"The browser you’re using is unsupported, and the website may not work "
+"correctly for you. It’s recommended that you upgrade to a recent version of "
+"Firefox, Safari, Edge, or any Chrome-based browser. If that’s not possible, "
+"you can try enabling {url|legacy browser mode}."
+msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
 msgid "Log out"
@@ -10978,7 +10994,7 @@ msgstr "我的编辑收到的备注"
 msgid "Admin"
 msgstr "管理员"
 
-#: ../root/layout/components/TopMenu.js:204
+#: ../root/layout/components/TopMenu.js:209
 #: ../root/static/scripts/account/components/RegisterForm.js:116
 msgctxt "interactive"
 msgid "Create account"
@@ -11338,7 +11354,7 @@ msgstr "作品信息"
 msgid "Birthday cakes"
 msgstr "生日蛋糕"
 
-#: ../root/layout/index.js:94
+#: ../root/layout/index.js:109
 msgid ""
 "You’ve been a MusicBrainz editor for {num} year! Happy anniversary, and "
 "thanks for contributing to MusicBrainz!"
@@ -11349,7 +11365,7 @@ msgstr[0] ""
 "您成为 MusicBrainz 编辑者已经 {num} 年了！周年快乐，感谢您对 MusicBrainz 的贡"
 "献！"
 
-#: ../root/layout/index.js:233
+#: ../root/layout/index.js:250
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr "生日快乐，感谢您对 MusicBrainz 的贡献！"
 
@@ -12321,7 +12337,7 @@ msgstr ""
 "者“feat.”。"
 
 #: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:32
-#: ../root/report/ReportsIndex.js:113
+#: ../root/report/ReportsIndex.js:117
 msgid "Artist credits with dubious trailing join phrases"
 msgstr "具有可疑的连接短语后缀的艺术家名单"
 
@@ -12385,6 +12401,21 @@ msgstr ""
 msgid "Artists that may be persons"
 msgstr "可能为个人的艺术家"
 
+#: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:25
+msgid ""
+"This report lists artists that have at least one alias marked as primary for "
+"a locale, but have no primary aliases that match their name. In general, the "
+"main name for an artist should always be its primary alias in the language "
+"of the name."
+msgstr ""
+
+#: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
+#: ../root/report/ReportsIndex.js:108
+#, fuzzy
+#| msgid "Artists with deprecated relationships"
+msgid "Artists with mismatched primary aliases"
+msgstr "有已弃用关联的艺术家"
+
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:25
 msgid ""
 "This report lists artists that appear more than once in different positions "
@@ -12420,7 +12451,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/AsinsWithMultipleReleases.js:39
-#: ../root/report/ReportsIndex.js:284
+#: ../root/report/ReportsIndex.js:292
 msgid "Amazon URLs linked to multiple releases"
 msgstr ""
 
@@ -12452,7 +12483,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/BootlegsOnNonBootlegLabels.js:34
-#: ../root/report/ReportsIndex.js:483
+#: ../root/report/ReportsIndex.js:495
 msgid "Releases on non-bootleg labels set to bootleg"
 msgstr ""
 
@@ -12464,7 +12495,7 @@ msgid ""
 "or with a buggy tool."
 msgstr ""
 
-#: ../root/report/CDTocDubiousLength.js:33 ../root/report/ReportsIndex.js:667
+#: ../root/report/CDTocDubiousLength.js:33 ../root/report/ReportsIndex.js:679
 msgid "Disc IDs with dubious duration"
 msgstr ""
 
@@ -12478,7 +12509,7 @@ msgid ""
 "clashes are clear mistakes."
 msgstr ""
 
-#: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:671
+#: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:683
 msgid "Disc IDs attached but not applied"
 msgstr "唱片ID已附加但未应用"
 
@@ -12490,7 +12521,7 @@ msgid ""
 "instead."
 msgstr ""
 
-#: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:327
+#: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:339
 msgid "Releases with catalog numbers that look like ASINs"
 msgstr ""
 
@@ -12508,7 +12539,7 @@ msgstr ""
 "配给录音的代码，应该与适当的录音联系起来。也就是说，一定要确保这不是一个碰巧"
 "看起来像ISRC的合法目录编号!"
 
-#: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:331
+#: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:343
 msgid "Releases with catalog numbers that look like ISRCs"
 msgstr ""
 
@@ -12522,7 +12553,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
-#: ../root/report/ReportsIndex.js:336
+#: ../root/report/ReportsIndex.js:348
 #, fuzzy
 #| msgid "Releases with track number issues"
 msgid "Releases with catalog numbers that look like label codes"
@@ -12573,7 +12604,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipLabels.js:35
-#: ../root/report/ReportsIndex.js:186
+#: ../root/report/ReportsIndex.js:190
 msgid "Labels with deprecated relationships"
 msgstr "有已弃用关联的厂牌"
 
@@ -12584,7 +12615,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipPlaces.js:35
-#: ../root/report/ReportsIndex.js:581
+#: ../root/report/ReportsIndex.js:593
 msgid "Places with deprecated relationships"
 msgstr "有已弃用关联的地点"
 
@@ -12595,7 +12626,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipRecordings.js:35
-#: ../root/report/ReportsIndex.js:519
+#: ../root/report/ReportsIndex.js:531
 msgid "Recordings with deprecated relationships"
 msgstr "有已弃用关联的录音"
 
@@ -12606,7 +12637,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleaseGroups.js:35
-#: ../root/report/ReportsIndex.js:223
+#: ../root/report/ReportsIndex.js:231
 msgid "Release groups with deprecated relationships"
 msgstr "有已弃用关联的专辑组"
 
@@ -12617,7 +12648,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipReleases.js:35
-#: ../root/report/ReportsIndex.js:418
+#: ../root/report/ReportsIndex.js:430
 msgid "Releases with deprecated relationships"
 msgstr "有已弃用关联的专辑"
 
@@ -12628,7 +12659,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipUrls.js:35
-#: ../root/report/ReportsIndex.js:632
+#: ../root/report/ReportsIndex.js:644
 msgid "URLs with deprecated relationships"
 msgstr "有已弃用关联的 URL"
 
@@ -12639,7 +12670,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DeprecatedRelationshipWorks.js:35
-#: ../root/report/ReportsIndex.js:615
+#: ../root/report/ReportsIndex.js:627
 msgid "Works with deprecated relationships"
 msgstr "有已弃用关联的作品"
 
@@ -12657,7 +12688,7 @@ msgid "This report shows Discogs URLs which are linked to multiple labels."
 msgstr ""
 
 #: ../root/report/DiscogsLinksWithMultipleLabels.js:30
-#: ../root/report/ReportsIndex.js:178
+#: ../root/report/ReportsIndex.js:182
 msgid "Discogs URLs linked to multiple labels"
 msgstr ""
 
@@ -12667,7 +12698,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:31
-#: ../root/report/ReportsIndex.js:213
+#: ../root/report/ReportsIndex.js:221
 msgid "Discogs URLs linked to multiple release groups"
 msgstr ""
 
@@ -12683,7 +12714,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DiscogsLinksWithMultipleReleases.js:37
-#: ../root/report/ReportsIndex.js:288
+#: ../root/report/ReportsIndex.js:296
 msgid "Discogs URLs linked to multiple releases"
 msgstr ""
 
@@ -12730,7 +12761,7 @@ msgid ""
 "headliner and supporting artist) please merge them."
 msgstr ""
 
-#: ../root/report/DuplicateEvents.js:33 ../root/report/ReportsIndex.js:139
+#: ../root/report/DuplicateEvents.js:33 ../root/report/ReportsIndex.js:143
 msgid "Possibly duplicate events"
 msgstr "可能重复的事件"
 
@@ -12754,7 +12785,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsLabels.js:31
-#: ../root/report/ReportsIndex.js:182
+#: ../root/report/ReportsIndex.js:186
 msgid "Labels with possible duplicate relationships"
 msgstr ""
 
@@ -12765,7 +12796,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsRecordings.js:31
-#: ../root/report/ReportsIndex.js:511
+#: ../root/report/ReportsIndex.js:523
 msgid "Recordings with possible duplicate relationships"
 msgstr ""
 
@@ -12776,7 +12807,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsReleaseGroups.js:31
-#: ../root/report/ReportsIndex.js:218
+#: ../root/report/ReportsIndex.js:226
 msgid "Release groups with possible duplicate relationships"
 msgstr ""
 
@@ -12787,7 +12818,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsReleases.js:31
-#: ../root/report/ReportsIndex.js:402
+#: ../root/report/ReportsIndex.js:414
 msgid "Releases with possible duplicate relationships"
 msgstr ""
 
@@ -12799,7 +12830,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateRelationshipsWorks.js:33
-#: ../root/report/ReportsIndex.js:611
+#: ../root/report/ReportsIndex.js:623
 msgid "Works with possible duplicate relationships"
 msgstr ""
 
@@ -12814,7 +12845,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/DuplicateReleaseGroups.js:51
-#: ../root/report/ReportsIndex.js:231
+#: ../root/report/ReportsIndex.js:239
 msgid "Possible duplicate release groups"
 msgstr "可能重复的专辑组"
 
@@ -12836,7 +12867,7 @@ msgid ""
 "this might not be possible for underdocumented or not yet released music."
 msgstr ""
 
-#: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:227
+#: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
 #| msgid "Release groups with annotations"
 msgid "Release groups without any releases"
@@ -12849,7 +12880,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/EventSequenceNotInSeries.js:31
-#: ../root/report/ReportsIndex.js:144
+#: ../root/report/ReportsIndex.js:148
 msgid "Events which should be part of series or larger event"
 msgstr ""
 
@@ -12860,7 +12891,7 @@ msgid ""
 "flyer or banner was added, but not marked as such."
 msgstr ""
 
-#: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:150
+#: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:154
 msgid "Events in the Event Art Archive where no event art piece has types"
 msgstr ""
 
@@ -12874,7 +12905,7 @@ msgid ""
 "to know more."
 msgstr ""
 
-#: ../root/report/FeaturingRecordings.js:40 ../root/report/ReportsIndex.js:507
+#: ../root/report/FeaturingRecordings.js:40 ../root/report/ReportsIndex.js:519
 msgid "Recordings with titles containing featuring artists"
 msgstr ""
 
@@ -12888,7 +12919,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/FeaturingReleaseGroups.js:39
-#: ../root/report/ReportsIndex.js:208
+#: ../root/report/ReportsIndex.js:216
 msgid "Release groups with titles containing featuring artists"
 msgstr ""
 
@@ -12903,7 +12934,7 @@ msgid ""
 "them too while you edit the release!"
 msgstr ""
 
-#: ../root/report/FeaturingReleases.js:42 ../root/report/ReportsIndex.js:312
+#: ../root/report/FeaturingReleases.js:42 ../root/report/ReportsIndex.js:320
 msgid "Releases with titles containing featuring artists"
 msgstr ""
 
@@ -12927,7 +12958,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/IsrcsWithManyRecordings.js:51
-#: ../root/report/ReportsIndex.js:649
+#: ../root/report/ReportsIndex.js:661
 msgid "ISRCs with multiple recordings"
 msgstr "对应复数录音的 ISRC"
 
@@ -12942,7 +12973,7 @@ msgid ""
 "the works are the same, this usually means they should be merged."
 msgstr ""
 
-#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:658
+#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:670
 msgid "ISWCs with multiple works"
 msgstr "对应复数作品的 ISWC"
 
@@ -12970,7 +13001,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/KaraokePlusInstrumentalRecordings.js:55
-#: ../root/report/ReportsIndex.js:572
+#: ../root/report/ReportsIndex.js:584
 msgid "Recordings marked as both karaoke and instrumental"
 msgstr ""
 
@@ -12984,9 +13015,22 @@ msgstr ""
 "需要的话，加以改进。"
 
 #: ../root/report/LabelsDisambiguationSameName.js:32
-#: ../root/report/ReportsIndex.js:194
+#: ../root/report/ReportsIndex.js:198
 msgid "Labels with disambiguation the same as the name"
 msgstr "消除歧义的标签与名称相同"
+
+#: ../root/report/LabelsWithMismatchedPrimaryAliases.js:25
+msgid ""
+"This report lists labels that have at least one alias marked as primary for "
+"a locale, but have no primary aliases that match their name. In general, the "
+"main name for a label should always be its primary alias in the language of "
+"the name."
+msgstr ""
+
+#: ../root/report/LabelsWithMismatchedPrimaryAliases.js:33
+#: ../root/report/ReportsIndex.js:202
+msgid "Labels with mismatched primary aliases"
+msgstr ""
 
 #: ../root/report/LinksWithMultipleEntities.js:40
 msgid ""
@@ -13004,7 +13048,7 @@ msgstr ""
 "乐章的链接比只包含主要母作品的链接要好。"
 
 #: ../root/report/LinksWithMultipleEntities.js:53
-#: ../root/report/ReportsIndex.js:636
+#: ../root/report/ReportsIndex.js:648
 msgid "URLs linked to multiple entities"
 msgstr ""
 
@@ -13028,7 +13072,7 @@ msgid ""
 "needs to be added."
 msgstr ""
 
-#: ../root/report/LonelyPseudoReleases.js:35 ../root/report/ReportsIndex.js:342
+#: ../root/report/LonelyPseudoReleases.js:35 ../root/report/ReportsIndex.js:354
 msgid "Pseudo-releases in release groups that contain only pseudo-releases"
 msgstr ""
 
@@ -13043,7 +13087,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/LowDataQualityReleases.js:37
-#: ../root/report/ReportsIndex.js:494
+#: ../root/report/ReportsIndex.js:506
 msgid "Releases marked as having low data quality"
 msgstr ""
 
@@ -13056,7 +13100,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/MediumsWithOrderInTitle.js:34
-#: ../root/report/ReportsIndex.js:386
+#: ../root/report/ReportsIndex.js:398
 msgid "Releases with mediums named after their position"
 msgstr ""
 
@@ -13117,7 +13161,7 @@ msgid ""
 "guess: not everything written in Cyrillic is Russian, for example."
 msgstr ""
 
-#: ../root/report/NoLanguage.js:36 ../root/report/ReportsIndex.js:264
+#: ../root/report/NoLanguage.js:36 ../root/report/ReportsIndex.js:272
 msgid "Releases without language"
 msgstr "没有设定语言的专辑"
 
@@ -13128,7 +13172,7 @@ msgid ""
 "other European languages) is Latin."
 msgstr ""
 
-#: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:268
+#: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:276
 msgid "Releases without script"
 msgstr "没有设定文字的专辑"
 
@@ -13141,7 +13185,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/NonBootlegsOnBootlegLabels.js:34
-#: ../root/report/ReportsIndex.js:477
+#: ../root/report/ReportsIndex.js:489
 msgid "Releases on bootleg labels not set to bootleg"
 msgstr ""
 
@@ -13164,7 +13208,7 @@ msgid "This report lists places without coordinates."
 msgstr ""
 
 #: ../root/report/PlacesWithoutCoordinates.js:33
-#: ../root/report/ReportsIndex.js:589
+#: ../root/report/ReportsIndex.js:601
 msgid "Places without coordinates"
 msgstr "无坐标的地点"
 
@@ -13200,7 +13244,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/PseudoReleasesWithCoverArt.js:33
-#: ../root/report/ReportsIndex.js:363
+#: ../root/report/ReportsIndex.js:375
 msgid "Pseudo-Releases that have cover art"
 msgstr ""
 
@@ -13212,7 +13256,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingTrackDifferentName.js:44
-#: ../root/report/ReportsIndex.js:555
+#: ../root/report/ReportsIndex.js:567
 msgid "Recordings with a different name than their only track"
 msgstr ""
 
@@ -13242,7 +13286,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:35
-#: ../root/report/ReportsIndex.js:503
+#: ../root/report/ReportsIndex.js:515
 msgid "Recordings with earliest release relationships"
 msgstr ""
 
@@ -13263,7 +13307,7 @@ msgid ""
 msgstr "此报告显示的音轨中，链接的音轨时间相差超过30秒。"
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:31
-#: ../root/report/ReportsIndex.js:515
+#: ../root/report/ReportsIndex.js:527
 msgid "Recordings with varying track times"
 msgstr "各音轨音轨时长不同"
 
@@ -13274,7 +13318,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithoutVaCredit.js:31
-#: ../root/report/ReportsIndex.js:528
+#: ../root/report/ReportsIndex.js:540
 msgid "Recordings not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -13285,7 +13329,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/RecordingsWithoutVaLink.js:31
-#: ../root/report/ReportsIndex.js:535
+#: ../root/report/ReportsIndex.js:547
 msgid "Recordings credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -13296,7 +13340,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseGroupsWithoutVaCredit.js:32
-#: ../root/report/ReportsIndex.js:240
+#: ../root/report/ReportsIndex.js:248
 msgid "Release groups not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -13307,7 +13351,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseGroupsWithoutVaLink.js:32
-#: ../root/report/ReportsIndex.js:247
+#: ../root/report/ReportsIndex.js:255
 msgid "Release groups credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -13319,7 +13363,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseLabelSameArtist.js:50
-#: ../root/report/ReportsIndex.js:459
+#: ../root/report/ReportsIndex.js:471
 msgid "Releases where artist name and label name are the same"
 msgstr ""
 
@@ -13331,22 +13375,45 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleaseRgDifferentName.js:43
-#: ../root/report/ReportsIndex.js:465
+#: ../root/report/ReportsIndex.js:477
 msgid "Releases with a different name than their release group"
 msgstr ""
 
 #: ../root/report/ReleasedTooEarly.js:25
+#, fuzzy
+#| msgid ""
+#| "This report shows releases which have disc IDs even though they were "
+#| "released too early to have disc IDs, where one of the medium formats "
+#| "didn't exist at the time the release was released or where a disc ID is "
+#| "attached to a medium whose format does not have disc IDs."
 msgid ""
 "This report shows releases which have disc IDs even though they were "
 "released too early to have disc IDs, where one of the medium formats didn't "
 "exist at the time the release was released or where a disc ID is attached to "
-"a medium whose format does not have disc IDs."
+"a medium whose format does not have disc IDs. Fully digital releases are "
+"excluded; for those, see {digital_report|our digital-only report}."
 msgstr ""
 "此报告显示发行时间太早而不应有碟片ID但是实际上有碟片ID，使用了发行时不存在媒"
 "介格式或者媒介格式没有碟片ID但是附加了碟片ID的专辑。"
 
-#: ../root/report/ReleasedTooEarly.js:34 ../root/report/ReportsIndex.js:316
+#: ../root/report/ReleasedTooEarly.js:36 ../root/report/ReportsIndex.js:324
 msgid "Releases released too early"
+msgstr ""
+
+#: ../root/report/ReleasedTooEarlyDigital.js:25
+msgid ""
+"This report shows releases with at least one medium set to format “Digital "
+"Media” which were released before 1999, the launch date for the first "
+"digital music store supported by a major label. While digital releases did "
+"exist before this, and not everything older is automatically incorrect, a "
+"lot of releases that end up here are likely to be digital reissues of older "
+"content that have been incorrectly assigned the release date for the "
+"original, physical release."
+msgstr ""
+
+#: ../root/report/ReleasedTooEarlyDigital.js:37
+#: ../root/report/ReportsIndex.js:328
+msgid "Suspiciously early digital releases"
 msgstr ""
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
@@ -13357,7 +13424,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesConflictingDiscIds.js:33
-#: ../root/report/ReportsIndex.js:450
+#: ../root/report/ReportsIndex.js:462
 msgid "Releases with conflicting disc IDs"
 msgstr ""
 
@@ -13373,7 +13440,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesMissingDiscIds.js:37
-#: ../root/report/ReportsIndex.js:446
+#: ../root/report/ReportsIndex.js:458
 msgid "Releases missing disc IDs"
 msgstr ""
 
@@ -13385,7 +13452,7 @@ msgid ""
 "merged."
 msgstr ""
 
-#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:471
+#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:483
 msgid "Releases with the same barcode in different release groups"
 msgstr ""
 
@@ -13397,7 +13464,7 @@ msgid ""
 "\" or \"-\"."
 msgstr ""
 
-#: ../root/report/ReleasesToConvert.js:33 ../root/report/ReportsIndex.js:259
+#: ../root/report/ReleasesToConvert.js:33 ../root/report/ReportsIndex.js:267
 msgid "Releases which might need converting to \"multiple artists\""
 msgstr ""
 
@@ -13413,7 +13480,7 @@ msgstr ""
 "之前都没有封面。"
 
 #: ../root/report/ReleasesWithAmazonCoverArt.js:34
-#: ../root/report/ReportsIndex.js:369
+#: ../root/report/ReportsIndex.js:381
 msgid ""
 "Releases that have Amazon cover art but no Cover Art Archive front cover"
 msgstr ""
@@ -13426,7 +13493,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithCaaNoTypes.js:32
-#: ../root/report/ReportsIndex.js:376
+#: ../root/report/ReportsIndex.js:388
 msgid "Releases in the Cover Art Archive where no cover art piece has types"
 msgstr ""
 
@@ -13439,7 +13506,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithDownloadRelationships.js:35
-#: ../root/report/ReportsIndex.js:410
+#: ../root/report/ReportsIndex.js:422
 msgid "Non-digital releases with digital relationships"
 msgstr ""
 
@@ -13450,7 +13517,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithEmptyMediums.js:32
-#: ../root/report/ReportsIndex.js:430
+#: ../root/report/ReportsIndex.js:442
 msgid "Releases with empty mediums"
 msgstr "含有空媒介的专辑"
 
@@ -13463,7 +13530,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithMailOrderRelationships.js:34
-#: ../root/report/ReportsIndex.js:414
+#: ../root/report/ReportsIndex.js:426
 msgid "Digital releases with mail order relationships"
 msgstr ""
 
@@ -13472,7 +13539,7 @@ msgid "This report shows releases without any mediums (no tracklist)."
 msgstr "此报告显示了不含任何媒介的专辑（无音轨列表）。"
 
 #: ../root/report/ReleasesWithNoMediums.js:30
-#: ../root/report/ReportsIndex.js:426
+#: ../root/report/ReportsIndex.js:438
 msgid "Releases with no mediums"
 msgstr "没有媒介的专辑"
 
@@ -13483,7 +13550,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
-#: ../root/report/ReportsIndex.js:394
+#: ../root/report/ReportsIndex.js:406
 msgid "Releases with unlikely language/script pairs"
 msgstr "语言和文字配对怪异的专辑"
 
@@ -13504,7 +13571,7 @@ msgid ""
 "subscriptions only for a more manageable list of results."
 msgstr ""
 
-#: ../root/report/ReleasesWithoutCaa.js:43 ../root/report/ReportsIndex.js:382
+#: ../root/report/ReleasesWithoutCaa.js:43 ../root/report/ReportsIndex.js:394
 #, fuzzy
 #| msgid ""
 #| "Only releases with a front cover on the {caa|Cover Art Archive} can be "
@@ -13519,7 +13586,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithoutVaCredit.js:31
-#: ../root/report/ReportsIndex.js:435
+#: ../root/report/ReportsIndex.js:447
 msgid "Releases not credited to \"Various Artists\" but linked to VA"
 msgstr ""
 
@@ -13530,7 +13597,7 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithoutVaLink.js:31
-#: ../root/report/ReportsIndex.js:441
+#: ../root/report/ReportsIndex.js:453
 msgid "Releases credited to \"Various Artists\" but not linked to VA"
 msgstr ""
 
@@ -13559,144 +13626,144 @@ msgstr ""
 msgid "Artists with annotations"
 msgstr "有注释的艺术家"
 
-#: ../root/report/ReportsIndex.js:135
+#: ../root/report/ReportsIndex.js:139
 msgid "Events with annotations"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:190
+#: ../root/report/ReportsIndex.js:194
 msgid "Labels with annotations"
 msgstr "有注释的厂牌"
 
-#: ../root/report/ReportsIndex.js:203 ../root/report/SetInDifferentRg.js:37
+#: ../root/report/ReportsIndex.js:211 ../root/report/SetInDifferentRg.js:37
 msgid "Release groups that might need to be merged"
 msgstr "可能需要合并的专辑组"
 
-#: ../root/report/ReportsIndex.js:235
+#: ../root/report/ReportsIndex.js:243
 msgid "Release groups with annotations"
 msgstr "有注释的专辑组"
 
-#: ../root/report/ReportsIndex.js:272
+#: ../root/report/ReportsIndex.js:280
 msgid "Releases which have unexpected Amazon URLs"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:276
+#: ../root/report/ReportsIndex.js:284
 msgid "Releases which have multiple ASINs"
 msgstr "有多个 ASIN 的专辑"
 
-#: ../root/report/ReportsIndex.js:280
+#: ../root/report/ReportsIndex.js:288
 msgid "Releases which have multiple Discogs links"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:292
+#: ../root/report/ReportsIndex.js:300
 msgid "Releases which have part of set relationships"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:296
+#: ../root/report/ReportsIndex.js:304
 msgid "Discs entered as separate releases"
 msgstr "作为独立专辑的唱片"
 
-#: ../root/report/ReportsIndex.js:300
+#: ../root/report/ReportsIndex.js:308
 msgid "Tracks whose names include their sequence numbers"
 msgstr "名称包含其序号的音轨"
 
-#: ../root/report/ReportsIndex.js:304
+#: ../root/report/ReportsIndex.js:312
 msgid "Releases with non-sequential track numbers"
 msgstr "音轨编号乱序的专辑"
 
-#: ../root/report/ReportsIndex.js:308
+#: ../root/report/ReportsIndex.js:316
 #: ../root/report/SuperfluousDataTracks.js:40
 msgid "Releases with superfluous data tracks"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:321
+#: ../root/report/ReportsIndex.js:333
 msgid "Releases where some (but not all) mediums have no format set"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:349
+#: ../root/report/ReportsIndex.js:361
 msgid ""
 "Translated/Transliterated Pseudo-Releases marked as the original version"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:356
+#: ../root/report/ReportsIndex.js:368
 msgid ""
 "Translated/Transliterated Pseudo-Releases not linked to an original version"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:390
+#: ../root/report/ReportsIndex.js:402
 msgid "Releases with non-sequential mediums"
 msgstr "媒介乱序的专辑"
 
-#: ../root/report/ReportsIndex.js:398 ../root/report/TracksWithoutTimes.js:31
+#: ../root/report/ReportsIndex.js:410 ../root/report/TracksWithoutTimes.js:31
 msgid "Releases with unknown track times"
 msgstr "各音轨发行时间未知"
 
-#: ../root/report/ReportsIndex.js:406
+#: ../root/report/ReportsIndex.js:418
 #: ../root/report/SingleMediumReleasesWithMediumTitles.js:32
 msgid "Releases with a single medium that has a name"
 msgstr "有名称的单媒介专辑"
 
-#: ../root/report/ReportsIndex.js:422
+#: ../root/report/ReportsIndex.js:434
 msgid "Releases with annotations"
 msgstr "有注释的专辑"
 
-#: ../root/report/ReportsIndex.js:454 ../root/report/ShouldNotHaveDiscIds.js:33
+#: ../root/report/ReportsIndex.js:466 ../root/report/ShouldNotHaveDiscIds.js:33
 msgid "Releases that have disc IDs, but shouldn’t"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:489
+#: ../root/report/ReportsIndex.js:501
 #: ../root/report/ShowNotesButNotBroadcast.js:38
 msgid "Non-broadcast releases with linked show notes"
 msgstr ""
 
-#: ../root/report/ReportsIndex.js:523
+#: ../root/report/ReportsIndex.js:535
 msgid "Recordings with annotations"
 msgstr "有注释的录音"
 
-#: ../root/report/ReportsIndex.js:560
+#: ../root/report/ReportsIndex.js:572
 msgid "Recordings with dates in the future"
 msgstr "有未来日期的录音"
 
-#: ../root/report/ReportsIndex.js:564
+#: ../root/report/ReportsIndex.js:576
 #: ../root/report/VideosInNonVideoMediums.js:41
 msgid "Video recordings in non-video mediums"
 msgstr "非视频媒介的视频记录"
 
-#: ../root/report/ReportsIndex.js:568
+#: ../root/report/ReportsIndex.js:580
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
 #, fuzzy
 #| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
 msgstr "有已弃用关联的录音"
 
-#: ../root/report/ReportsIndex.js:585
+#: ../root/report/ReportsIndex.js:597
 msgid "Places with annotations"
 msgstr "有注释的地点"
 
-#: ../root/report/ReportsIndex.js:598
+#: ../root/report/ReportsIndex.js:610
 msgid "Series with annotations"
 msgstr "有注释的系列"
 
-#: ../root/report/ReportsIndex.js:602
+#: ../root/report/ReportsIndex.js:614
 #: ../root/report/SeriesContainingDuplicates.js:49
 #, fuzzy
 #| msgid "Release duplicates"
 msgid "Series containing duplicates"
 msgstr "重复专辑"
 
-#: ../root/report/ReportsIndex.js:619
+#: ../root/report/ReportsIndex.js:631
 msgid "Works with annotations"
 msgstr "有注释的作品"
 
-#: ../root/report/ReportsIndex.js:623 ../root/report/WorkSameTypeAsParent.js:36
+#: ../root/report/ReportsIndex.js:635 ../root/report/WorkSameTypeAsParent.js:36
 msgid "Works with the same type as their parent"
 msgstr "与母作品类型相同的作品"
 
-#: ../root/report/ReportsIndex.js:628
+#: ../root/report/ReportsIndex.js:640
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 msgid "URLs"
 msgstr "URL"
 
-#: ../root/report/ReportsIndex.js:640
+#: ../root/report/ReportsIndex.js:652
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
 msgid "Wikidata URLs linked to multiple entities"
 msgstr ""
@@ -14003,7 +14070,7 @@ msgstr "标签查询"
 #: ../root/search/components/AreaResults.js:66
 #: ../root/search/components/ArtistResults.js:57
 #: ../root/search/components/LabelResults.js:70
-#: ../root/search/components/PlaceResults.js:67
+#: ../root/search/components/PlaceResults.js:69
 #: ../root/utility/tableColumns.js:164 ../root/utility/tableColumns.js:169
 msgid "Begin"
 msgstr "生日"
@@ -14037,7 +14104,7 @@ msgstr "或者，您可以 {uri|添加新厂牌}。"
 msgid "The last page of results is page {last_page}."
 msgstr ""
 
-#: ../root/search/components/PlaceResults.js:77
+#: ../root/search/components/PlaceResults.js:79
 msgid "Alternatively, you may {uri|add a new place}."
 msgstr "或者，您可以 {uri|添加新地点}。"
 
@@ -14167,7 +14234,7 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:106
-#: ../root/user/UserProfile.js:279
+#: ../root/user/UserProfile.js:283
 msgctxt "user area"
 msgid "Location"
 msgstr "位置"
@@ -14205,7 +14272,7 @@ msgid ""
 msgstr "我们会使用您的出生日期在您的个人资料页面显示年龄。"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:258
-#: ../root/user/UserProfile.js:397
+#: ../root/user/UserProfile.js:401
 msgid "Bio"
 msgstr "简介"
 
@@ -14464,7 +14531,7 @@ msgid "Try with indexed search instead."
 msgstr "尝试搜索索引。"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:125
-#: ../root/static/scripts/common/components/Autocomplete2.js:769
+#: ../root/static/scripts/common/components/Autocomplete2.js:770
 msgid "Type to search, or paste an MBID"
 msgstr "输入关键词来搜索，或粘贴 MBID"
 
@@ -14887,7 +14954,7 @@ msgid "Related series"
 msgstr "相关系列"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1588
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1592
 msgid "Related works"
 msgstr "相关作品"
 
@@ -15215,26 +15282,26 @@ msgstr ""
 msgid "Began:"
 msgstr "开始于："
 
-#: ../root/static/scripts/edit/URLCleanup.js:390
+#: ../root/static/scripts/edit/URLCleanup.js:392
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
 "请链接到某个频道，而不是某个特定的视频。视频应该链接到适当的录音或专辑。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:396
+#: ../root/static/scripts/edit/URLCleanup.js:398
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:401
+#: ../root/static/scripts/edit/URLCleanup.js:403
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:406
+#: ../root/static/scripts/edit/URLCleanup.js:408
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
@@ -15243,7 +15310,7 @@ msgstr ""
 "这是一个歌词网站。因此，网站的链接应该在专辑组级别添加“歌词”关系，而不是直接"
 "添加到任何特定的专辑。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:618
+#: ../root/static/scripts/edit/URLCleanup.js:626
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
@@ -15252,47 +15319,47 @@ msgstr ""
 "所有音乐的“{album_url_pattern}”链接都应该添加到专辑组中。要找到这个专辑的适当"
 "发行链接，请从{album_url|您的链接}检查专辑选项卡。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:697
-#: ../root/static/scripts/edit/URLCleanup.js:956
-#: ../root/static/scripts/edit/URLCleanup.js:4404
-#: ../root/static/scripts/edit/URLCleanup.js:5517
-#: ../root/static/scripts/edit/URLCleanup.js:6154
+#: ../root/static/scripts/edit/URLCleanup.js:706
+#: ../root/static/scripts/edit/URLCleanup.js:972
+#: ../root/static/scripts/edit/URLCleanup.js:4557
+#: ../root/static/scripts/edit/URLCleanup.js:5747
+#: ../root/static/scripts/edit/URLCleanup.js:6407
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:715
+#: ../root/static/scripts/edit/URLCleanup.js:724
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr "这是一个用户视频的链接，不应该添加。如果相关，请添加产品链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:916
+#: ../root/static/scripts/edit/URLCleanup.js:931
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1241
+#: ../root/static/scripts/edit/URLCleanup.js:1264
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1261
+#: ../root/static/scripts/edit/URLCleanup.js:1284
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "请链接到此艺术家的主页，而非特定专辑或音轨。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1281
+#: ../root/static/scripts/edit/URLCleanup.js:1304
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "请链接到此厂牌的主页，而非特定专辑或音轨。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1303
+#: ../root/static/scripts/edit/URLCleanup.js:1326
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15301,7 +15368,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1331
+#: ../root/static/scripts/edit/URLCleanup.js:1354
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15310,39 +15377,39 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1665
+#: ../root/static/scripts/edit/URLCleanup.js:1698
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1667
+#: ../root/static/scripts/edit/URLCleanup.js:1700
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2418
+#: ../root/static/scripts/edit/URLCleanup.js:2491
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3138
+#: ../root/static/scripts/edit/URLCleanup.js:3242
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3156
+#: ../root/static/scripts/edit/URLCleanup.js:3260
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3198
+#: ../root/static/scripts/edit/URLCleanup.js:3304
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3226
+#: ../root/static/scripts/edit/URLCleanup.js:3332
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -15351,57 +15418,57 @@ msgstr ""
 "请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
 "{url|添加一个独立的录音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3251
+#: ../root/static/scripts/edit/URLCleanup.js:3357
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4304
+#: ../root/static/scripts/edit/URLCleanup.js:4453
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4988
+#: ../root/static/scripts/edit/URLCleanup.js:5197
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音乐视频可以链接到录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5053
+#: ../root/static/scripts/edit/URLCleanup.js:5265
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5772
+#: ../root/static/scripts/edit/URLCleanup.js:6011
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5896
+#: ../root/static/scripts/edit/URLCleanup.js:6139
 #, fuzzy
 #| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6174
+#: ../root/static/scripts/edit/URLCleanup.js:6427
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "这不是个人资料页，而是一个 Twitter 文档页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6188
+#: ../root/static/scripts/edit/URLCleanup.js:6441
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6206
+#: ../root/static/scripts/edit/URLCleanup.js:6457
 msgid "This site does not allow direct links to their images."
 msgstr "此网站不允许图片直链。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6500
+#: ../root/static/scripts/edit/URLCleanup.js:6759
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6671
+#: ../root/static/scripts/edit/URLCleanup.js:6937
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15410,25 +15477,25 @@ msgstr ""
 "此 URL 中有未编码的 “?” 或 “#” 字符。请检查它们是否是无用的，并且应该被移除，"
 "或是 URL 被错误编码。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6691
+#: ../root/static/scripts/edit/URLCleanup.js:6957
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6712
+#: ../root/static/scripts/edit/URLCleanup.js:6978
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "请将 WhoSampled “{album_url_pattern}” 页面链接至专辑组。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6730
+#: ../root/static/scripts/edit/URLCleanup.js:6996
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "请将 WhoSampled 艺术家页面链接至艺术家。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6742
+#: ../root/static/scripts/edit/URLCleanup.js:7008
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "请将 WhoSampled 音轨页面链接至录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6802
+#: ../root/static/scripts/edit/URLCleanup.js:7071
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15436,13 +15503,13 @@ msgstr ""
 "不允许链接至维基百科文字的特定部分。如果合适，请移除 “{fragment}”。详见 {url|"
 "指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6827
+#: ../root/static/scripts/edit/URLCleanup.js:7096
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6983
+#: ../root/static/scripts/edit/URLCleanup.js:7257
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15451,17 +15518,17 @@ msgstr ""
 "这是一个播放列表链接，不是视频频道，也不能保证得到官方批准。如果该实体存在，"
 "请链接到该实体的官方频道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7023
+#: ../root/static/scripts/edit/URLCleanup.js:7297
 msgid "Only video and playlist links are allowed on releases."
 msgstr "专辑只能有视频或播放列表链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7068
+#: ../root/static/scripts/edit/URLCleanup.js:7343
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7104
+#: ../root/static/scripts/edit/URLCleanup.js:7379
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -15471,7 +15538,7 @@ msgid ""
 "to the relevant recordings instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7114
+#: ../root/static/scripts/edit/URLCleanup.js:7389
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -15481,7 +15548,7 @@ msgid ""
 "relevant artists instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7124
+#: ../root/static/scripts/edit/URLCleanup.js:7399
 #, fuzzy
 #| msgid ""
 #| "This is a redirect link. Please follow {redirect_url|your link} and add "
@@ -15492,25 +15559,25 @@ msgid ""
 msgstr ""
 "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7198
+#: ../root/static/scripts/edit/URLCleanup.js:7569
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7210
+#: ../root/static/scripts/edit/URLCleanup.js:7581
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7420
+#: ../root/static/scripts/edit/URLCleanup.js:7789
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7437
+#: ../root/static/scripts/edit/URLCleanup.js:7806
 #: ../root/static/scripts/edit/externalLinks.js:1157
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -15861,7 +15928,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr "请为您输入的 URL 选择一个链接类型。"
 
 #: ../root/static/scripts/edit/externalLinks.js:912
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:999
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1001
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:544
 msgid "This relationship already exists."
 msgstr "此关联已存在。"
@@ -16170,17 +16237,17 @@ msgstr "一个关联关系中的实体不能相同。"
 msgid "Related type"
 msgstr "相关类型"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:911
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:913
 msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1023
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1025
 msgid "This will add a relationship to all checked recordings."
 msgstr "这将为所有选中的录音添加一个关联。"
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1026
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1028
 msgid "This will add a relationship to all checked works."
 msgstr "这将为所有选中的作品添加一个关联。"
 
@@ -16322,7 +16389,7 @@ msgid "You must provide an edit note when adding a release."
 msgstr "添加专辑时必须提供编辑备注。"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1875
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1879
 msgid "Submitting edits..."
 msgstr "正在提交编辑..."
 
@@ -16539,26 +16606,26 @@ msgstr "[已选择的作品]"
 msgid "An error occurred:"
 msgstr "发生错误:"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1526
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1530
 msgid "Track relationships"
 msgstr "音轨关联"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1545
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1549
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1612
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1616
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:374
 msgid "We have no information about this release’s media and tracklist."
 msgstr "没有关于此专辑的媒介和音轨列表的信息。"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1643
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1647
 msgid "Release relationships"
 msgstr "专辑关联"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1680
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1684
 #, fuzzy
 #| msgid "Release Group Relationships"
 msgid "Release group relationships"
@@ -17238,268 +17305,268 @@ msgstr "{name} 已生效的编辑"
 msgid "Edits by {name}"
 msgstr "{name}的编辑"
 
-#: ../root/user/UserProfile.js:70
+#: ../root/user/UserProfile.js:74
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "已删除的用户"
 
-#: ../root/user/UserProfile.js:82
+#: ../root/user/UserProfile.js:86
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr "内部使用/机器人"
 
-#: ../root/user/UserProfile.js:89
+#: ../root/user/UserProfile.js:93
 #, fuzzy
 #| msgid "Account admin"
 msgctxt "user type"
 msgid "Account admin"
 msgstr "账号管理员"
 
-#: ../root/user/UserProfile.js:122
+#: ../root/user/UserProfile.js:126
 msgctxt "user type"
 msgid "Beginner"
 msgstr "新手"
 
-#: ../root/user/UserProfile.js:128
+#: ../root/user/UserProfile.js:132
 msgctxt "user type"
 msgid "Normal user"
 msgstr "普通用户"
 
-#: ../root/user/UserProfile.js:161
+#: ../root/user/UserProfile.js:165
 msgid "The dawn of the project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:163
+#: ../root/user/UserProfile.js:167
 msgid "The early days of the project"
 msgstr ""
 
-#: ../root/user/UserProfile.js:171
+#: ../root/user/UserProfile.js:175
 msgid ""
 "Your homepage and biography will not show until you have completed the email "
 "verification process."
 msgstr "在您完成验证电子邮件之前，您的主页和简介将不会显示。"
 
-#: ../root/user/UserProfile.js:190
+#: ../root/user/UserProfile.js:194
 msgid "General information"
 msgstr "一般信息"
 
-#: ../root/user/UserProfile.js:196
+#: ../root/user/UserProfile.js:200
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(隐藏)"
 
-#: ../root/user/UserProfile.js:199
+#: ../root/user/UserProfile.js:203
 #, fuzzy
 #| msgid "(verified at {date})"
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(验证时间：{date})"
 
-#: ../root/user/UserProfile.js:204
+#: ../root/user/UserProfile.js:208
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "（<strong>未验证！</strong>）"
 
-#: ../root/user/UserProfile.js:213
+#: ../root/user/UserProfile.js:217
 msgid "resend verification email"
 msgstr "重新发送验证电子邮件"
 
-#: ../root/user/UserProfile.js:221
+#: ../root/user/UserProfile.js:225
 msgid "send email"
 msgstr "发送电子邮件"
 
-#: ../root/user/UserProfile.js:246
+#: ../root/user/UserProfile.js:250
 msgctxt "email address"
 msgid "(none)"
 msgstr "(无)"
 
-#: ../root/user/UserProfile.js:253
+#: ../root/user/UserProfile.js:257
 msgid "User type:"
 msgstr "用户类型："
 
-#: ../root/user/UserProfile.js:259
+#: ../root/user/UserProfile.js:263
 msgid "nominate for auto-editor"
 msgstr "提名为自动确认编辑者"
 
-#: ../root/user/UserProfile.js:266
+#: ../root/user/UserProfile.js:270
 msgid "Age:"
 msgstr "年龄:"
 
-#: ../root/user/UserProfile.js:285
+#: ../root/user/UserProfile.js:289
 msgid "Member since"
 msgstr "注册于"
 
-#: ../root/user/UserProfile.js:291
+#: ../root/user/UserProfile.js:295
 msgid "Restrictions"
 msgstr "限制"
 
-#: ../root/user/UserProfile.js:298
+#: ../root/user/UserProfile.js:302
 msgid "Last login"
 msgstr "上一次登录"
 
-#: ../root/user/UserProfile.js:301
+#: ../root/user/UserProfile.js:305
 msgid "Hasn't logged in yet"
 msgstr "尚未登录"
 
-#: ../root/user/UserProfile.js:309 ../root/user/UserProfile.js:323
-#: ../root/user/UserProfile.js:356
+#: ../root/user/UserProfile.js:313 ../root/user/UserProfile.js:327
+#: ../root/user/UserProfile.js:360
 msgid "{count} ({url|view list})"
 msgstr "{count}（{url|浏览列表}）"
 
-#: ../root/user/UserProfile.js:335
+#: ../root/user/UserProfile.js:339
 msgid "Homepage:"
 msgstr "主页："
 
-#: ../root/user/UserProfile.js:363
+#: ../root/user/UserProfile.js:367
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:376
+#: ../root/user/UserProfile.js:380
 msgid "unsubscribe"
 msgstr "取消订阅"
 
-#: ../root/user/UserProfile.js:385
+#: ../root/user/UserProfile.js:389
 msgid "subscribe"
 msgstr "订阅"
 
-#: ../root/user/UserProfile.js:414
+#: ../root/user/UserProfile.js:418
 msgid "Languages"
 msgstr "语言"
 
-#: ../root/user/UserProfile.js:485 ../root/user/UserProfile.js:580
-#: ../root/user/UserProfile.js:590 ../root/user/UserProfile.js:600
-#: ../root/user/UserProfile.js:610 ../root/user/UserProfile.js:620
-#: ../root/user/UserProfile.js:630 ../root/user/UserProfile.js:640
-#: ../root/user/UserProfile.js:650 ../root/user/UserProfile.js:659
-#: ../root/user/UserProfile.js:812 ../root/user/UserProfile.js:833
-#: ../root/user/UserProfile.js:854
+#: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:584
+#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
+#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
+#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:644
+#: ../root/user/UserProfile.js:654 ../root/user/UserProfile.js:663
+#: ../root/user/UserProfile.js:816 ../root/user/UserProfile.js:837
+#: ../root/user/UserProfile.js:858
 msgid "{count} ({view_url|view})"
 msgstr "{count}（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:572
+#: ../root/user/UserProfile.js:576
 msgid "Edits"
 msgstr "修改"
 
-#: ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:582
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "总计"
 
-#: ../root/user/UserProfile.js:588
+#: ../root/user/UserProfile.js:592
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "已接受"
 
-#: ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:602
 msgid "Auto-edits"
 msgstr "自动确认编辑"
 
-#: ../root/user/UserProfile.js:608
+#: ../root/user/UserProfile.js:612
 msgid "Total applied"
 msgstr "生效总数"
 
-#: ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:622
 msgid "Voted down"
 msgstr "遭投票否决"
 
-#: ../root/user/UserProfile.js:628
+#: ../root/user/UserProfile.js:632
 msgid "Failed"
 msgstr "失败"
 
-#: ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:642
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "取消的"
 
-#: ../root/user/UserProfile.js:648
+#: ../root/user/UserProfile.js:652
 msgid "Open"
 msgstr "已开启"
 
-#: ../root/user/UserProfile.js:658
+#: ../root/user/UserProfile.js:662
 msgid "Last 24 hours"
 msgstr "过去 24 小时"
 
-#: ../root/user/UserProfile.js:682
+#: ../root/user/UserProfile.js:686
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "此表格显示了此编辑者投票的概要信息。"
 
-#: ../root/user/UserProfile.js:687
+#: ../root/user/UserProfile.js:691
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:695
+#: ../root/user/UserProfile.js:699
 msgid "Last 28 days"
 msgstr "过去 28 天"
 
-#: ../root/user/UserProfile.js:698
+#: ../root/user/UserProfile.js:702
 msgid "Overall"
 msgstr "合计"
 
-#: ../root/user/UserProfile.js:746
+#: ../root/user/UserProfile.js:750
 msgid "This table shows a summary of entities added by this editor."
 msgstr "此表格显示了此编辑者添加的实体的概要信息。"
 
-#: ../root/user/UserProfile.js:752
+#: ../root/user/UserProfile.js:756
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "新生效的编辑可能需要 24 个小时才会显示"
 
-#: ../root/user/UserProfile.js:755
+#: ../root/user/UserProfile.js:759
 msgid "Added entities"
 msgstr "添加的实体"
 
-#: ../root/user/UserProfile.js:778
+#: ../root/user/UserProfile.js:782
 msgid "This user has not added any entities."
 msgstr "此用户尚未添加任何实体。"
 
-#: ../root/user/UserProfile.js:788
+#: ../root/user/UserProfile.js:792
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr "此表格显示了该编辑者添加的次要数据的摘要。"
 
-#: ../root/user/UserProfile.js:794
+#: ../root/user/UserProfile.js:798
 #, fuzzy
 #| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "标签和评分"
 
-#: ../root/user/UserProfile.js:801
+#: ../root/user/UserProfile.js:805
 #, fuzzy
 #| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "已赞成的标签"
 
-#: ../root/user/UserProfile.js:805 ../root/user/UserProfile.js:826
+#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "编辑者被删除时，标签会被移除。"
 
-#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "已移除"
 
-#: ../root/user/UserProfile.js:821
+#: ../root/user/UserProfile.js:825
 #, fuzzy
 #| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "已否决的标签"
 
-#: ../root/user/UserProfile.js:847
+#: ../root/user/UserProfile.js:851
 msgid "Ratings are removed when an editor is deleted."
 msgstr "编辑者被删除后，其评分也会被移除。"
 
-#: ../root/user/UserProfile.js:850
+#: ../root/user/UserProfile.js:854
 msgctxt "ratings"
 msgid "Removed"
 msgstr "移除"
 
-#: ../root/user/UserProfile.js:916
+#: ../root/user/UserProfile.js:921
 msgid "Blocked spam account"
 msgstr "被封禁的垃圾信息账号"
 
-#: ../root/user/UserProfile.js:918
+#: ../root/user/UserProfile.js:923
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -17509,15 +17576,15 @@ msgstr ""
 "MusicBrainz 中看到垃圾邮件，请通过在其用户页面上举报垃圾邮件发送者的方式告知"
 "我们。"
 
-#: ../root/user/UserProfile.js:976
+#: ../root/user/UserProfile.js:989
 msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 
-#: ../root/user/UserProfile.js:981
+#: ../root/user/UserProfile.js:994
 msgid "View other users’ notes on your edits"
 msgstr "您的编辑内容收到的他人回复"
 
-#: ../root/user/UserProfile.js:982
+#: ../root/user/UserProfile.js:995
 msgid "View your notes on this user’s edits"
 msgstr "查看你对这个用户的编辑的回复"
 

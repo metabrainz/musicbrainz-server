@@ -25,7 +25,7 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
   isrcs: $ReadOnlyArray<IsrcT>,
-  recordings: $ReadOnlyArray<RecordingWithArtistCreditT>,
+  recordings: $ReadOnlyArray<RecordingT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = $c.user != null;

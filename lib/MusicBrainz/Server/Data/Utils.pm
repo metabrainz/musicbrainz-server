@@ -17,8 +17,7 @@ use MIME::Base64 qw( encode_base64url );
 use JSON::XS;
 use List::AllUtils qw( any natatime sort_by );
 use MusicBrainz::Server::Constants qw(
-    $DARTIST_ID
-    $VARTIST_ID
+    @SPECIAL_ARTIST_IDS
     $NOLABEL_ID
     $DLABEL_ID
     $INSTRUMENT_ROOT_ID
@@ -723,7 +722,7 @@ sub merge_date_period {
 
 sub is_special_artist {
     my $artist_id = shift;
-    return $artist_id == $VARTIST_ID || $artist_id == $DARTIST_ID;
+    return contains_number(\@SPECIAL_ARTIST_IDS, $artist_id);
 }
 
 sub is_special_label {

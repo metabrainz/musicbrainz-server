@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-13 00:44+0000\n"
+"PO-Revision-Date: 2025-07-26 01:36+0000\n"
 "Last-Translator: nzure <nzure@leaft.ch>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/de/>\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -350,8 +350,9 @@ msgid "IMDB samples"
 msgstr "IMDB Beispiele"
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -363,9 +364,9 @@ msgid "IMDb entry sampled in"
 msgstr "IMDb-Eintrag gesampled in"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "IMDb-Seite für"
 
@@ -3129,6 +3130,16 @@ msgstr ""
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr ""
 
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr ""
+"Dies wird verwendet, um ein Label mit einem Bild seines Logos zu verbinden."
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -3766,6 +3777,19 @@ msgstr ""
 msgid "This links a release with the place its lyrics were written at."
 msgstr ""
 "Dies verbindet ein Werk mit dem Ort, an dem sein Liedtext geschrieben wurde."
+
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"Dies verbindet einen Künstler mit seiner Seite bei <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -6077,7 +6101,7 @@ msgstr "cover"
 #. name:cover art link
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "Cover-Art"
+msgstr "Cover Art"
 
 #. name:cover art link
 #: DB:link_type/reverse_link_phrase:78
@@ -6879,7 +6903,7 @@ msgid "has a karaoke version"
 msgstr "hat eine Karaokeversion"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "hat ein Logo unter"
 
@@ -6961,8 +6985,9 @@ msgid "has an Allmusic page at"
 msgstr "hat eine Allmusic-Seite unter"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "hat eine IMDb-Seite unter"
 
@@ -7901,17 +7926,17 @@ msgstr "Liveaufführungen"
 msgid "location for"
 msgstr ""
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "Logo"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "Logo von"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "Logos"
 

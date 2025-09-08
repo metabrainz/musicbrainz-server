@@ -10,11 +10,11 @@
 # AO <email address hidden>, 2015
 # AO <email address hidden>, 2014-2015
 # yvanz, 2016-2023
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-23 18:42+0000\n"
+"PO-Revision-Date: 2025-07-03 12:20+0000\n"
 "Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/fr/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -2161,6 +2161,11 @@ msgstr "Gullah"
 msgid "Selkup"
 msgstr "Selkoupe"
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2173,10 +2178,8 @@ msgstr "Serbe"
 
 #. frequency:1 iso_code_3:hbs
 #: DB:language/name:2670
-#, fuzzy
-#| msgid "Croatian"
 msgid "Serbo-Croatian"
-msgstr "Croate"
+msgstr "Serbo-croate"
 
 #. frequency:1 iso_code_3:srr
 #: DB:language/name:395
@@ -2377,6 +2380,11 @@ msgstr "Suédois"
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "Syriaque"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr ""
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

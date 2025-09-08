@@ -15,7 +15,7 @@ import TaggerIcon from '../static/scripts/common/components/TaggerIcon.js';
 
 component RecordingHeader(
   page: string,
-  recording: RecordingWithArtistCreditT,
+  recording: RecordingT,
 ) {
   const lArgs = {
     artist: <ArtistCreditLink artistCredit={recording.artistCredit} />,

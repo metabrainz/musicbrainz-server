@@ -114,12 +114,11 @@ function createInitialState(): StateT {
   };
 }
 
-// eslint-disable-next-line consistent-return
 function reducer(state: StateT, action: ActionT): StateT {
-  switch (action.type) {
-    case 'set-users': {
+  match (action) {
+    {type: 'set-users', const users} => {
       let newUsers: tree.ImmutableTree<UserStateT> = tree.empty;
-      for (const user of action.users) {
+      for (const user of users) {
         newUsers = tree.insertIfNotExists(
           newUsers,
           createSpammerButtonState(user),
@@ -132,49 +131,48 @@ function reducer(state: StateT, action: ActionT): StateT {
         usersFetchError: '',
       };
     }
-    case 'remove-user': {
+    {type: 'remove-user', const userState} => {
       return {
         ...state,
         users: tree.removeOrThrowIfNotExists(
           state.users,
-          action.userState,
+          userState,
           cmpUserState,
         ),
       };
     }
-    case 'update-spammer-button': {
+    {type: 'update-spammer-button', const action} => {
       return {
         ...state,
         users: tree.update(
           state.users,
-          action.action.state,
+          action.state,
           cmpUserState,
           (existingValue) => spammerButtonReducer(
             existingValue,
-            action.action,
+            action,
           ),
           onNotFoundThrowError,
         ),
       };
     }
-    case 'set-users-fetch-error': {
+    {type: 'set-users-fetch-error', const error} => {
       return {
         ...state,
-        usersFetchError: action.error,
+        usersFetchError: error,
       };
     }
-    case 'most-recent-page': {
+    {type: 'most-recent-page'} => {
       return {
         ...state,
         page: {id: MAX_POSTGRES_INT, op: 'lte'},
       };
     }
-    case 'previous-page': {
+    {type: 'previous-page'} => {
       const page = state.page;
       let newPage;
-      switch (page.op) {
-        case 'gt':
-        case 'gte': {
+      match (page) {
+        {op: 'gt' | 'gte', ...} => {
           if (!state.users.size) {
             return state;
           }
@@ -182,18 +180,12 @@ function reducer(state: StateT, action: ActionT): StateT {
             id: tree.minValue(state.users).user.id,
             op: 'gt' as const,
           };
-          break;
         }
-        case 'lt': {
-          newPage = {id: page.id, op: 'gte' as const};
-          break;
+        {op: 'lt', const id} => {
+          newPage = {id, op: 'gte' as const};
         }
-        case 'lte': {
-          newPage = {id: page.id, op: 'gt' as const};
-          break;
-        }
-        default: {
-          invariant(false);
+        {op: 'lte', const id} => {
+          newPage = {id, op: 'gt' as const};
         }
       }
       return {
@@ -201,20 +193,17 @@ function reducer(state: StateT, action: ActionT): StateT {
         page: newPage,
       };
     }
-    case 'next-page': {
+    {type: 'next-page'} => {
       const page = state.page;
       let newPage;
-      switch (page.op) {
-        case 'gt': {
-          newPage = {id: page.id, op: 'lte' as const};
-          break;
+      match (page) {
+        {op: 'gt', const id} => {
+          newPage = {id, op: 'lte' as const};
         }
-        case 'gte': {
-          newPage = {id: page.id, op: 'lt' as const};
-          break;
+        {op: 'gte', const id} => {
+          newPage = {id, op: 'lt' as const};
         }
-        case 'lt':
-        case 'lte': {
+        {op: 'lt' | 'lte', ...} => {
           if (!state.users.size) {
             return state;
           }
@@ -222,19 +211,12 @@ function reducer(state: StateT, action: ActionT): StateT {
             id: tree.maxValue(state.users).user.id,
             op: 'lt' as const,
           };
-          break;
-        }
-        default: {
-          invariant(false);
         }
       }
       return {
         ...state,
         page: newPage,
       };
-    }
-    default: {
-      invariant(false, `unknown action: ${action.type}`);
     }
   }
 }

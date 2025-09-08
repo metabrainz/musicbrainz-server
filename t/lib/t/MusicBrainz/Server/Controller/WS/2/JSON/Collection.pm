@@ -254,8 +254,8 @@ test 'collection lookup' => sub {
             ],
         }, { username => 'the-anti-kuno', password => 'notreally' };
 
-    ws2_test_json 'collection releases lookup',
-        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/' =>
+    ws2_test_json 'collection releases lookup, inc=artist-credits',
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases?inc=releases+artist-credits' =>
             {
                 id => '1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5',
                 name => 'private release collection',
@@ -277,6 +277,19 @@ test 'collection lookup' => sub {
                         },
                         date => '2001-07-04',
                         country => 'JP',
+                        'artist-credit' => [{
+                            artist => {
+                                id => '802673f0-9b88-4e8a-bb5c-dd01d68b086f',
+                                name => '7人祭',
+                                'sort-name' => '7nin Matsuri',
+                                type => 'Group',
+                                'type-id' => 'e431f5f6-b5d2-343d-8b36-72607fffb74b',
+                                disambiguation => '',
+                                country => JSON::null,
+                            },
+                            name => '7人祭',
+                            joinphrase => '',
+                        }],
                         'release-events' => [{
                             date => '2001-07-04',
                             'area' => {

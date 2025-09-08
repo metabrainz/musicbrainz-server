@@ -109,7 +109,7 @@ sub _perform_login {
     }
 }
 
-# Corresponds to AccountLayoutUserT in root/components/UserAccountLayout.js
+# Corresponds to AccountLayoutUserT in root/types/editor.js
 sub serialize_user {
     my ($self, $user) = @_;
 

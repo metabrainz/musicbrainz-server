@@ -22,14 +22,9 @@ export function reducer(
 ): DialogTextAttributeStateT {
   const newState: {...DialogTextAttributeStateT} = {...state};
 
-  switch (action.type) {
-    case 'set-text-value': {
-      newState.textValue = action.textValue;
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
+  match (action) {
+    {type: 'set-text-value', const textValue} => {
+      newState.textValue = textValue;
     }
   }
 

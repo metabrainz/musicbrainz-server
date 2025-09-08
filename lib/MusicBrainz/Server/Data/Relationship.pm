@@ -502,11 +502,11 @@ sub _load_subset {
 }
 
 sub load_subset {
-    my ($self, $target_types, @source_objs) = @_;
+    my ($self, %args) = @_;
     return $self->_load_subset(
-        target_types => $target_types,
+        target_types => $args{target_types},
         use_cardinality => 0,
-        source_objs => \@source_objs,
+        source_objs => $args{source_objs},
     );
 }
 
@@ -529,11 +529,11 @@ sub load_cardinal {
 }
 
 sub load_subset_cardinal {
-    my ($self, $target_types, @source_objs) = @_;
+    my ($self, %args) = @_;
     return $self->_load_subset(
-        target_types => $target_types,
+        target_types => $args{target_types},
         use_cardinality => 1,
-        source_objs => \@source_objs,
+        source_objs => $args{source_objs},
     );
 }
 

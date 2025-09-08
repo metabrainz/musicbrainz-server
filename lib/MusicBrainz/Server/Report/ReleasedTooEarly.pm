@@ -12,13 +12,7 @@ sub query {
         FROM
           ( SELECT r.*
             FROM release r
-            LEFT JOIN (
-                SELECT release, date_year, date_month, date_day
-                FROM release_country
-                UNION ALL
-                SELECT release, date_year, date_month, date_day
-                FROM release_unknown_country
-            ) events ON (events.release = r.id)
+            LEFT JOIN release_event events ON events.release = r.id
             JOIN medium m ON m.release = r.id
             LEFT JOIN medium_format mf ON mf.id = m.format
             LEFT JOIN medium_cdtoc mcd ON mcd.medium = m.id

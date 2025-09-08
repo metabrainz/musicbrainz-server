@@ -98,26 +98,21 @@ $(function () {
   document.body?.insertBefore(container, document.getElementById('page'));
 
   function reducer(state: StateT, action: ActionT) {
-    switch (action.type) {
-      case 'update-autocomplete':
-        state = {...state};
-        switch (action.prop) {
-          case 'entityAutocomplete':
-            state.entityAutocomplete =
-              autocompleteReducer<NonUrlRelatableEntityT | EditorT>(
-                state.entityAutocomplete,
-                action.action,
-              );
-            break;
-          case 'attributeTypeAutocomplete':
-            state.attributeTypeAutocomplete =
-              autocompleteReducer<LinkAttrTypeT>(
-                state.attributeTypeAutocomplete,
-                action.action,
-              );
-            break;
-        }
-        break;
+    state = {...state};
+    match (action) {
+      {prop: 'entityAutocomplete', type: 'update-autocomplete', const action} => {
+        state.entityAutocomplete =
+          autocompleteReducer<NonUrlRelatableEntityT | EditorT>(
+            state.entityAutocomplete,
+            action,
+          );
+      }
+      {prop: 'attributeTypeAutocomplete', type: 'update-autocomplete', const action} => {
+        state.attributeTypeAutocomplete = autocompleteReducer<LinkAttrTypeT>(
+          state.attributeTypeAutocomplete,
+          action,
+        );
+      }
     }
     return state;
   }

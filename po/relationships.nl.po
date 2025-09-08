@@ -360,8 +360,9 @@ msgid "IMDB samples"
 msgstr "IMDB-samples"
 
 #. name:IMDb
-#: DB:link_type/name:843 DB:link_type/name:313 DB:link_type/name:178
-#: DB:link_type/name:97 DB:link_type/name:706 DB:link_type/link_phrase:313
+#: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
+#: DB:link_type/name:178 DB:link_type/name:97 DB:link_type/name:706
+#: DB:link_type/link_phrase:1289 DB:link_type/link_phrase:313
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
@@ -373,9 +374,9 @@ msgid "IMDb entry sampled in"
 msgstr "IMDb-lemma gesampeld in"
 
 #. name:IMDb
-#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:313
-#: DB:link_type/reverse_link_phrase:178 DB:link_type/reverse_link_phrase:97
-#: DB:link_type/reverse_link_phrase:706
+#: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
+#: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
+#: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
 msgstr "IMDb-pagina over"
 
@@ -3421,6 +3422,15 @@ msgstr "Dit koppelt een uitgave aan haar SecondHandSongs-pagina."
 msgid "This is used to link a release to its corresponding page on Allmusic."
 msgstr "Dit koppelt een uitgave aan haar Allmusic-pagina."
 
+#. name:logo
+#: DB:link_type/description:1288
+#, fuzzy
+#| msgid "This is used to link a label to an image of its logo."
+msgid ""
+"This is used to link a series (a podcast, a festival...) to an image of its "
+"logo."
+msgstr "Dit koppelt een platenmaatschappij aan een afbeelding van haar logo."
+
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
@@ -4117,6 +4127,19 @@ msgstr ""
 #: DB:link_type/description:1250
 msgid "This links a release with the place its lyrics were written at."
 msgstr "Dit koppelt een uitgave aan de plaats waar de tekst werd geschreven."
+
+#. name:IMDb
+#: DB:link_type/description:1289
+#, fuzzy
+#| msgid ""
+#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
+#| "\">IMDb</a>."
+msgid ""
+"This links a series (generally a podcast) to its page in <a href=\"http://"
+"www.imdb.com/\">IMDb</a>."
+msgstr ""
+"Dit koppelt een artiest aan zijn <a href=\"http://www.imdb.com/\">IMDb</a>-"
+"pagina."
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -7480,7 +7503,7 @@ msgid "has a karaoke version"
 msgstr "heeft een karaokeversie"
 
 #. name:logo
-#: DB:link_type/long_link_phrase:213
+#: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
 msgstr "heeft een logo op"
 
@@ -7562,8 +7585,9 @@ msgid "has an Allmusic page at"
 msgstr "heeft een Allmusic-pagina op"
 
 #. name:IMDb
-#: DB:link_type/long_link_phrase:313 DB:link_type/long_link_phrase:178
-#: DB:link_type/long_link_phrase:97 DB:link_type/long_link_phrase:706
+#: DB:link_type/long_link_phrase:1289 DB:link_type/long_link_phrase:313
+#: DB:link_type/long_link_phrase:178 DB:link_type/long_link_phrase:97
+#: DB:link_type/long_link_phrase:706
 msgid "has an IMDb page at"
 msgstr "heeft een IMDB-pagina op"
 
@@ -8468,17 +8492,17 @@ msgstr "live-uitvoering"
 msgid "location for"
 msgstr "locatie van"
 
-#: DB:link_type/name:213
+#: DB:link_type/name:1288 DB:link_type/name:213
 msgid "logo"
 msgstr "logo"
 
 #. name:logo
-#: DB:link_type/reverse_link_phrase:213
+#: DB:link_type/reverse_link_phrase:1288 DB:link_type/reverse_link_phrase:213
 msgid "logo of"
 msgstr "logo van"
 
 #. name:logo
-#: DB:link_type/link_phrase:213
+#: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
 msgstr "logo’s"
 

@@ -7,8 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import UserAccountLayout, {type AccountLayoutUserT}
-  from '../components/UserAccountLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
 import {
   formatPluralEntityTypeName,
 } from '../static/scripts/common/utility/formatEntityTypeName.js';

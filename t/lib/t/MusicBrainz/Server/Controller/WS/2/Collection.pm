@@ -160,8 +160,8 @@ test 'collection lookup' => sub {
   </collection>
 </metadata>', { username => 'the-anti-kuno', password => 'notreally' };
 
-    ws2_test_xml 'private collection releases lookup',
-        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases/' =>
+    ws2_test_xml 'private collection releases lookup, inc=artist-credits',
+        '/collection/1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5/releases?inc=releases+artist-credits' =>
         '<?xml version="1.0" encoding="UTF-8"?>
 <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
   <collection entity-type="release" type="Release" id="1d1e41eb-20a2-4545-b4a7-d76e53d6f2f5">
@@ -176,6 +176,13 @@ test 'collection lookup' => sub {
           <language>jpn</language>
           <script>Latn</script>
         </text-representation>
+        <artist-credit>
+          <name-credit>
+            <artist type="Group" type-id="e431f5f6-b5d2-343d-8b36-72607fffb74b" id="802673f0-9b88-4e8a-bb5c-dd01d68b086f">
+              <name>7人祭</name><sort-name>7nin Matsuri</sort-name>
+            </artist>
+          </name-credit>
+        </artist-credit>
         <date>2001-07-04</date>
         <country>JP</country>
         <release-event-list count="1">

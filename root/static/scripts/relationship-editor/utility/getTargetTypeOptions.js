@@ -27,17 +27,12 @@ function editorMayEditTypes(
   user: ActiveEditorT,
   typeString: string,
 ) {
-  switch (typeString) {
-    case 'area-area':
-    case 'area-url':
-      return isLocationEditor(user);
-    case 'area-instrument':
-    case 'instrument-instrument':
-    case 'instrument-url':
-      return isRelationshipEditor(user);
-    default:
-      return true;
-  }
+  return match (typeString) {
+    'area-area' | 'area-url' => isLocationEditor(user),
+    'area-instrument' | 'instrument-instrument' | 'instrument-url' =>
+        isRelationshipEditor(user),
+    _ => true,
+  };
 }
 
 const allowedRelations =

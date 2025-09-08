@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -x
+set -o pipefail -x
 shopt -s nullglob
 
 cd "$MBS_ROOT"

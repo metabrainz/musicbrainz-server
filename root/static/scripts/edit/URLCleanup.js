@@ -581,7 +581,7 @@ export const CLEANUPS: CleanupEntries = {
               result: /\/results\?creatorid=[A-Z]-\d+-\d$/.test(url),
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return {
               result: /\/album\?albumid=[0-9A-Z]+$/.test(url),
               target: ERROR_TARGETS.ENTITY,
@@ -7573,6 +7573,17 @@ entitySpecificRules.release = function (url) {
       ),
       result: false,
       target: ERROR_TARGETS.ENTITY,
+    };
+  }
+  if (/^(https?:\/\/)?([^./]+\.)?last\.fm\//.test(url)) {
+    return {
+      error: l(
+        `Last.fm release pages are very often generated from MusicBrainz
+         data to begin with, and usually a bad match for specific MusicBrainz
+         releases, so adding Last.fm links to releases is currently blocked.`,
+      ),
+      result: false,
+      target: ERROR_TARGETS.URL,
     };
   }
   if (/^(https?:\/\/)?([^./]+\.)?wikidata\.org\//.test(url)) {

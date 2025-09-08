@@ -94,43 +94,34 @@ export function reducer(
 ): BatchCreateWorksDialogStateT {
   const newState = {...state};
 
-  switch (action.type) {
-    case 'update-attribute': {
+  match (action) {
+    {type: 'update-attribute', const action} => {
       newState.attributes = dialogAttributesReducer(
         newState.attributes,
-        action.action,
+        action,
       );
-      break;
     }
-
-    case 'update-date-period': {
+    {type: 'update-date-period', const action} => {
       newState.datePeriod = updateDialogDatePeriodState(
         newState.datePeriod,
-        action.action,
+        action,
       );
-      break;
     }
-
-    case 'update-languages': {
+    {type: 'update-languages', const action} => {
       const newLanguages = {...newState.languages};
 
       runWorkLanguageMultiselectReducer(
         newLanguages,
-        action.action,
+        action,
       );
 
       newState.languages = newLanguages;
-      break;
     }
-
-    case 'update-link-type': {
+    {type: 'update-link-type', ...} as action => {
       updateDialogLinkTypeState(state, newState, action);
-      break;
     }
-
-    case 'update-work-type': {
-      newState.workType = action.workType;
-      break;
+    {type: 'update-work-type', const workType} => {
+      newState.workType = workType;
     }
   }
 

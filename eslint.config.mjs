@@ -35,6 +35,7 @@ export default [
       'root/static/scripts/common/DBDefs.mjs',
       'root/static/scripts/supported-browser-check.js',
       'root/static/scripts/tests/typeInfo.js',
+      'root/utility/babel-node/register.mjs',
       't/selenium.js',
       'babel.config.cjs',
       'eslint.config.mjs',
@@ -1064,7 +1065,6 @@ export default [
       'root/static/scripts/tests/relationship-editor.js',
       'root/static/scripts/url/edit.js',
       'root/user/UserProfile.js',
-      'root/utility/chooseLayoutComponent.js',
       'root/utility/tableColumns.js',
     ],
     rules: {

@@ -34,13 +34,13 @@ export function reducer(
   state: StateT,
   action: ActionT,
 ): StateT {
-  switch (action.type) {
-    case 'set-description': {
+  match (action) {
+    {type: 'set-description', const description} => {
       const newState = {...state};
-      newState.description = action.description;
+      newState.description = description;
       return newState;
     }
-    default: {
+    _ => {
       /*
        * The other actions are handled by the parent
        * reducer.

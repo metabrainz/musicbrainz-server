@@ -1,11 +1,10 @@
-# Early6431 <h9i1o36x@anonaddy.me>, 2023.
+# Early6431 <h9i1o36x@anonaddy.me>, 2023, 2025.
 # Early6431 <Early6431@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-08-31 00:42+0000\n"
-"Last-Translator: Early6431 <Early6431@users.noreply.translations.metabrainz."
-"org>\n"
+"PO-Revision-Date: 2025-08-06 07:36+0000\n"
+"Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/languages/es_419/>\n"
 "Language: es_419\n"
@@ -13,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.12.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -88,7 +87,7 @@ msgstr "Aleutiano"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr "Algonquino"
+msgstr "Idiomas algonquinos"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
@@ -113,7 +112,7 @@ msgstr "Angika"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr "Apache"
+msgstr "Idiomas apache"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
@@ -163,7 +162,7 @@ msgstr "Asturiano"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr "Idiomas atasbacanas"
+msgstr "Idiomas atabascanos"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
@@ -268,22 +267,22 @@ msgstr "Idiomas batak"
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
 msgid "Bavarian"
-msgstr ""
+msgstr "Bávaro"
 
 #. frequency:1 iso_code_3:bej
 #: DB:language/name:44
 msgid "Beja"
-msgstr ""
+msgstr "Beya"
 
 #. frequency:1 iso_code_3:bel
 #: DB:language/name:45
 msgid "Belarusian"
-msgstr ""
+msgstr "Bielorruso"
 
 #. frequency:1 iso_code_3:bem
 #: DB:language/name:46
 msgid "Bemba"
-msgstr ""
+msgstr "Bemba"
 
 #. frequency:1 iso_code_3:ben
 #: DB:language/name:47
@@ -293,37 +292,37 @@ msgstr "Bengalí"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:48
 msgid "Berber languages"
-msgstr ""
+msgstr "Idiomas bereberes"
 
 #. frequency:1 iso_code_3:bho
 #: DB:language/name:49
 msgid "Bhojpuri"
-msgstr ""
+msgstr "Bhoshpuri"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:50
 msgid "Bihari languages"
-msgstr ""
+msgstr "Idiomas bihari"
 
 #. frequency:1 iso_code_3:bik
 #: DB:language/name:51
 msgid "Bikol"
-msgstr ""
+msgstr "Idiomas bicolanos"
 
 #. frequency:1 iso_code_3:bin
 #: DB:language/name:52
 msgid "Bini"
-msgstr ""
+msgstr "Edo"
 
 #. frequency:1 iso_code_3:bis
 #: DB:language/name:53
 msgid "Bislama"
-msgstr ""
+msgstr "Bislama"
 
 #. frequency:1 iso_code_3:byn
 #: DB:language/name:64
 msgid "Blin"
-msgstr ""
+msgstr "Bilén"
 
 #. frequency:0 iso_code_3:zbl
 #: DB:language/name:482
@@ -333,27 +332,27 @@ msgstr "Símbolos Bliss"
 #. frequency:1 iso_code_3:brx
 #: DB:language/name:1394
 msgid "Bodo (India)"
-msgstr ""
+msgstr "Bodo"
 
 #. frequency:1 iso_code_3:bos
 #: DB:language/name:56
 msgid "Bosnian"
-msgstr ""
+msgstr "Bosnio"
 
 #. frequency:1 iso_code_3:bra
 #: DB:language/name:57
 msgid "Braj"
-msgstr ""
+msgstr "Braj Bhasha"
 
 #. frequency:1 iso_code_3:bre
 #: DB:language/name:58
 msgid "Breton"
-msgstr ""
+msgstr "Bretón"
 
 #. frequency:1 iso_code_3:box
 #: DB:language/name:1322
 msgid "Buamu"
-msgstr ""
+msgstr "Buamu"
 
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
@@ -2150,6 +2149,11 @@ msgstr ""
 msgid "Selkup"
 msgstr ""
 
+#. frequency:1 iso_code_3:sea
+#: DB:language/name:5888
+msgid "Semai"
+msgstr ""
+
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
 msgid "Semitic languages"
@@ -2364,6 +2368,11 @@ msgstr ""
 #: DB:language/name:404
 msgid "Syriac"
 msgstr "Siríaco"
+
+#. frequency:1 iso_code_3:shi
+#: DB:language/name:5943
+msgid "Tachelhit"
+msgstr ""
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

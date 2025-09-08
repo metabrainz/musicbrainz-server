@@ -442,16 +442,8 @@ sub _serialize_release
 
     $self->_serialize_text_representation($release_node, $release, $inc, $stash);
 
-    if ($toplevel)
-    {
-        $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
-    }
-    else
-    {
-        $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash)
-            if $inc->artist_credits;
-    }
+    $self->_serialize_artist_credit($release_node, $release->artist_credit, $inc, $stash)
+        if $inc->artist_credits;
 
     $self->_serialize_alias_list($release_node, $opts->{aliases}, $inc, $opts)
         if ($inc->aliases && $opts->{aliases});

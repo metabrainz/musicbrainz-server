@@ -13,7 +13,7 @@ sub query {
     FROM release
     JOIN artist_credit ac ON release.artist_credit = ac.id
     JOIN medium ON medium.release = release.id
-    WHERE medium.name ~* concat('^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*', medium.position)
+    WHERE medium.name ~* '^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*(\d+|One|Two|Three|Four)'
     SQL
 }
 

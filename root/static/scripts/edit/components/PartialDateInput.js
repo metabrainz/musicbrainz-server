@@ -92,26 +92,23 @@ export function runReducer(
   state: CowContext<StateT>,
   action: ActionT,
 ): void {
-  switch (action.type) {
-    case 'show-pending-errors': {
+  match (action) {
+    {type: 'show-pending-errors'} => {
       applyPendingErrors(state);
-      break;
     }
-    case 'set-parsed-date': {
-      const date = parseNaturalDate(action.date);
+    {type: 'set-parsed-date', const date} => {
+      const parsedDate = parseNaturalDate(date);
+      updateDate(state, parsedDate);
+      state.set('formattedDate', date);
+    }
+    {type: 'set-date', const date} => {
       updateDate(state, date);
-      state.set('formattedDate', action.date);
-      break;
-    }
-    case 'set-date': {
-      updateDate(state, action.date);
       const formattedDate = formatParserDate(state.read());
       if (nonEmpty(formattedDate)) {
         state.set('formattedDate', formatParserDate(state.read()));
       } else {
         state.set('formattedDate', formatParserDate(state.read()));
       }
-      break;
     }
   }
 }

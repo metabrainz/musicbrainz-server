@@ -67,6 +67,7 @@ INSERT INTO country_area (area) VALUES
     (73),
     (107),
     (176),
+    (221),
     (222),
     (241);
 

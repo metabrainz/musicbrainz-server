@@ -44,7 +44,6 @@ run_with_apt_cache \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
     systemctl disable rabbitmq-server && \
-    install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
     python3.13 -m ensurepip --upgrade && \
@@ -54,6 +53,8 @@ run_with_apt_cache \
     # Primarily needed to run rabbitmqctl.
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
+
+install_ts
 
 ENV JAVA_HOME=/usr/local/jdk \
     PATH=/usr/local/jdk/bin:$PATH \
