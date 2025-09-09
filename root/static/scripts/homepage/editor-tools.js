@@ -10,7 +10,7 @@
 import * as React from "react";
 import {SanitizedCatalystContext} from '../../../context.mjs';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import useMediaQuery from '../common/hooks/useMediaQuery';
 import {VARTIST_GID} from '../common/constants';
 
@@ -159,6 +159,16 @@ component EditorTools() {
               </ul>
             </span>
           </div>
+          <button
+            className="close-editor-tools-button d-md-none"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#editorToolsCollapse"
+            aria-expanded={isExpanded ? "true" : "false"}
+            aria-controls="editorToolsCollapse"
+          >
+            <FontAwesomeIcon icon={faChevronUp} color="white" size="xl" />
+          </button>
         </div>
       </div>
     </div>

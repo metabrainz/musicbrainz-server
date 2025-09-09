@@ -30,7 +30,7 @@ component MobileSearchPopup() {
       aria-labelledby="mobileSearchOffcanvasLabel"
     > 
       <div className="offcanvas-body p-0">
-        <form onSubmit={handleSearch} className="d-flex flex-column gap-3 p-4">
+        <form onSubmit={handleSearch} className="d-flex flex-column gap-3 p-4 align-items-center">
           <div className="d-grid align-items-center search-container">
             <p>
               Search

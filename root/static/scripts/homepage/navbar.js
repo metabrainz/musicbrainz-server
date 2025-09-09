@@ -174,7 +174,7 @@ component MobileSidebar(
           onClick={onClose}
           aria-label="Close"
         >
-          <FontAwesomeIcon icon={faChevronLeft} size="xl" />
+          <FontAwesomeIcon icon={faChevronLeft} size="xl" color="white" />
         </button>
       </div>
     </>
