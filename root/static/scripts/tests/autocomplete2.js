@@ -13,8 +13,9 @@ import {
   createInitialState,
 } from '../common/components/Autocomplete2.js';
 import reducer from '../common/components/Autocomplete2/reducer.js';
+import type {OptionItemT} from '../common/components/Autocomplete2/types.js';
 
-const makeItem = (id: number, name: string) => ({
+const makeItem = (id: number, name: string): OptionItemT<LinkAttrTypeT> => ({
   disabled: true,
   entity: {
     child_order: 0,

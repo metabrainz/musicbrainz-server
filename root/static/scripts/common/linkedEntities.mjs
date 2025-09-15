@@ -153,7 +153,7 @@ export type LinkedEntitiesT = {
   },
 };
 
-const linkedEntities: LinkedEntitiesT = Object.seal({
+const linkedEntities: LinkedEntitiesT = {
   area:                           {},
   area_alias_type:                {},
   area_type:                      {},
@@ -201,7 +201,9 @@ const linkedEntities: LinkedEntitiesT = Object.seal({
   work_alias_type:                {},
   work_attribute_type:            {},
   work_type:                      {},
-});
+};
+
+Object.seal(linkedEntities);
 
 export default linkedEntities;
 

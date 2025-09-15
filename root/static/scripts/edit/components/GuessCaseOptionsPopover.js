@@ -13,7 +13,7 @@ import ButtonPopover from '../../common/components/ButtonPopover.js';
 
 import GuessCaseOptions from './GuessCaseOptions.js';
 
-const buttonProps = {
+const buttonProps: React.PropsOf<ButtonPopover>['buttonProps'] = {
   className: 'guesscase-options icon',
   title: N_l('Guess case options'),
 };

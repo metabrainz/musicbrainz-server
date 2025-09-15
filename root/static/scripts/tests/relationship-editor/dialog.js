@@ -10,6 +10,7 @@
 import test from 'tape';
 
 import {
+  type PropsT,
   createInitialState,
   reducer,
 } from '../../relationship-editor/components/RelationshipDialogContent.js';
@@ -20,11 +21,13 @@ import {
   recording,
 } from './constants.js';
 
-const commonInitialState = {
+const commonInitialState: PropsT = {
   closeDialog: () => undefined,
   hasPreselectedTargetType: true,
   initialFocusRef: {current: null},
+  initialRelationship: newArtistRecordingRelationship,
   releaseHasUnloadedTracks: false,
+  source: recording,
   sourceDispatch: () => undefined,
   targetTypeOptions: null,
   targetTypeRef: null,
@@ -46,11 +49,7 @@ const commonInitialState = {
 test('action: set-credit', function (t) {
   t.plan(4);
 
-  let initialState = createInitialState({
-    ...commonInitialState,
-    initialRelationship: newArtistRecordingRelationship,
-    source: recording,
-  });
+  let initialState = createInitialState(commonInitialState);
 
   const sourceAction = {
     action: {
@@ -89,7 +88,6 @@ test('action: set-credit', function (t) {
 
   initialState = createInitialState({
     ...commonInitialState,
-    initialRelationship: newArtistRecordingRelationship,
     source: artist,
   });
 
@@ -112,11 +110,7 @@ test('action: set-credit', function (t) {
 test('action: update-target-type', function (t) {
   t.plan(2);
 
-  const initialState = createInitialState({
-    ...commonInitialState,
-    initialRelationship: newArtistRecordingRelationship,
-    source: recording,
-  });
+  const initialState = createInitialState(commonInitialState);
 
   const targetAction = {
     action: {
