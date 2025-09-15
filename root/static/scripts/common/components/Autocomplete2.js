@@ -583,7 +583,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         'Wrong type of entity received',
       );
       const item = {
-        // $FlowIgnore[incompatible-cast]
+        // $FlowIgnore[incompatible-type]
         entity: (entity: T),
         id: entity.id,
         name: entity.name,

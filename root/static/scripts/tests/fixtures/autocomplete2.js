@@ -194,7 +194,7 @@ $(function () {
             {' '}
             <select
               onChange={(event) => entityAutocompleteDispatch({
-                // $FlowIgnore[incompatible-cast]
+                // $FlowIgnore[incompatible-type]
                 entityType: event.currentTarget.value as SearchableTypeT,
                 type: 'change-entity-type',
               })}

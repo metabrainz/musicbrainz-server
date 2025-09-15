@@ -44,7 +44,7 @@ function calculateAllowedRelations(user: ActiveEditorT) {
   for (let i = 0; i < entityTypePairs.length; i++) {
     const typeString = entityTypePairs[i];
     const [type0, type1] =
-      // $FlowIgnore[incompatible-cast]
+      // $FlowIgnore[incompatible-type]
       (typeString.split('-'): $ReadOnlyArray<RelatableEntityTypeT>);
 
     if (editorMayEditTypes(user, typeString)) {

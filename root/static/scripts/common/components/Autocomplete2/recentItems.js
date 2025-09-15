@@ -189,7 +189,7 @@ export function getRecentItems<T: EntityItemT>(
     cachedList = [];
     _recentItemsCache.set(key, cachedList);
   }
-  // $FlowIgnore[incompatible-return]
+  // $FlowIgnore[incompatible-type]
   return cachedList;
 }
 

@@ -788,7 +788,7 @@ component _RelationshipDialogContent(...props: PropsT) {
         batchSelectionCount,
         creditsToChangeForSource: sourceEntityState.creditsToChange,
         creditsToChangeForTarget: targetEntityState.creditsToChange,
-        // $FlowIgnore[incompatible-call] -- we know it exists on use
+        // $FlowIgnore[incompatible-type] -- we know it exists on use
         newRelationshipState,
         oldRelationshipState: initialRelationship,
         sourceEntity: source,

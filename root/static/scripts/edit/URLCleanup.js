@@ -7554,7 +7554,7 @@ export const CLEANUP_ENTRIES_BY_HOSTNAME:
       entries.push(entry);
     });
     return accum;
-  // $FlowIgnore[incompatible-cast]
+  // $FlowIgnore[incompatible-type]
   }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
 
 const entitySpecificRules: {
