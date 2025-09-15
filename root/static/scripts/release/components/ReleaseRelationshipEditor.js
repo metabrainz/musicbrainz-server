@@ -555,7 +555,7 @@ function* getAllRelationshipEdits(
           yield [
             [relationship],
             (editData: WsJsEditRelationshipCreateT),
-          ];
+          ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_EDIT, ...} as relationship => {
           const origRelationship = relationship._original;
@@ -682,7 +682,7 @@ function* getAllRelationshipEdits(
           yield [
             [relationship],
             (editData: WsJsEditRelationshipEditT),
-          ];
+          ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_REMOVE, ...} as relationship => {
           const origRelationship = relationship._original;
@@ -694,7 +694,7 @@ function* getAllRelationshipEdits(
             edit_type: EDIT_RELATIONSHIP_DELETE as const,
             id: origRelationship.id,
             linkTypeID: origRelationship.linkTypeID,
-          }];
+          }] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_NOOP, ...} => {
           // Do nothing
@@ -723,7 +723,7 @@ function* getAllRelationshipEdits(
           edit_type: EDIT_RELATIONSHIPS_REORDER as const,
           linkTypeID: linkTypeId,
           relationship_order: relationshipOrderEditData,
-        }];
+        }] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
       }
     }
   }
