@@ -346,7 +346,7 @@ test('splitRelationshipByAttributes', function (t) {
   };
   Object.freeze(existingRelationship);
 
-  const drums = {
+  const drums: LinkAttrT = {
     type: {
       gid: '3bccb7eb-cbca-42cd-b0ac-a5e959df7221',
     },
@@ -402,7 +402,7 @@ test('splitRelationshipByAttributes', function (t) {
       existingRelationship.attributes ?? tree.empty,
       tree.fromDistinctAscArray([
         // Add a new credit to the existing lyre attribute.
-        {...lyre, credited_as: 'LYRE'},
+        {...lyre, credited_as: 'LYRE'} as LinkAttrT,
         drums,
       ].sort(compareLinkAttributeIds)),
       compareLinkAttributeIds,

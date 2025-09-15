@@ -21,6 +21,9 @@ import {
 import {
   indexItems,
 } from '../../common/components/Autocomplete2/searchItems.js';
+import type {
+  StateT as AutocompleteStateT,
+} from '../../common/components/Autocomplete2/types.js';
 import {
   ARTIST_GROUP_TYPES,
   ARTIST_TYPE_PERSON,
@@ -295,7 +298,7 @@ function updateDialogStateForTargetTypeChange(
     : null;
 
   const oldLinkTypeAutocompleteState = newState.linkType.autocomplete;
-  const newLinkTypeAutocompleteState = {
+  const newLinkTypeAutocompleteState: {...AutocompleteStateT<LinkTypeT>} = {
     ...oldLinkTypeAutocompleteState,
     inputValue: onlyLinkType
       ? formatLinkTypePhrases(onlyLinkType)

@@ -79,14 +79,15 @@ type State = {
   source: string,
 };
 
-export const state: State = Object.seal({
+export const state: State = {
   match: '',
   position: 0,
   remainder: '',
   replacement: NO_MATCH_VALUE,
   running: false,
   source: '',
-});
+};
+Object.seal(state);
 
 export function getString(x: mixed): string {
   if (typeof x === 'string') {
