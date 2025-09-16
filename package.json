@@ -82,7 +82,7 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "6.1.0-canary-4db4b21c-20250626",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "flow-bin": "0.281.0",
+    "flow-bin": "0.282.0",
     "flow-typed": "4.1.1",
     "gettext-parser": "4.2.0",
     "globals": "15.9.0",
