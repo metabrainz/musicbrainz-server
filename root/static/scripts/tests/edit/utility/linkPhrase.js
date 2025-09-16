@@ -119,7 +119,7 @@ test('required attributes are left with forGrouping', function (t) {
 test('non-required attributes are stripped with forGrouping', function (t) {
   t.plan(2);
 
-  const instrumentalAttribute = {
+  const instrumentalAttribute: LinkAttrT = {
     type: {
       gid: 'c031ed4f-c9bb-4394-8cf5-e8ce4db512ae',
     },
@@ -194,7 +194,7 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
     },
   });
 
-  const leadVocalsAttribute = {
+  const leadVocalsAttribute: LinkAttrT = {
     type: {
       gid: '8e2a3255-87c2-4809-a174-98cb3704f1a5',
     },
@@ -230,7 +230,7 @@ test('MBS-13925: Attribute is erroneously cached in link phrase', function (t) {
 
   const supportingInstrumentLinkType =
     linkedEntities.link_type['ed6a7891-ce70-4e08-9839-1f2f62270497'];
-  const hornAttribute = {
+  const hornAttribute: LinkAttrT = {
     type: {
       gid: 'e798a2bd-a578-4c28-8eea-6eca2d8b2c5d',
     },

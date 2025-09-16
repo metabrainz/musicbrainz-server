@@ -59,7 +59,7 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
       }
 
       const responseJson: {
-        // $FlowIgnore[unclear-type]
+        // $FlowFixMe[unclear-type]
         +[listName: string]: Array<any>,
       } = await response.json();
       const typeInfo = responseJson[typeName + '_list'];

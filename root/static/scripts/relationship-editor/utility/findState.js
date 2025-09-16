@@ -199,7 +199,7 @@ export function* iterateTargetEntitiesOfType<T: RelatableEntityT>(
   ) {
     const target = relationship[targetProperty];
     invariant(target.entityType === targetType);
-    // $FlowIgnore[unclear-type]
+    // $FlowFixMe[unclear-type]
     yield (target: any);
   }
 }

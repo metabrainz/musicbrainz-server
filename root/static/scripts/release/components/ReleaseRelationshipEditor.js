@@ -192,7 +192,7 @@ export function createInitialState(
 ): ReleaseRelationshipEditorStateT {
   const release: ReleaseWithMediumsAndReleaseGroupT =
     source ??
-    // $FlowIgnore[unclear-type]
+    // $FlowFixMe[unclear-type]
     (getSourceEntityDataForRelationshipEditor(): any);
 
   const newState: {...ReleaseRelationshipEditorStateT} = {
@@ -336,7 +336,7 @@ async function wsJsEditSubmission(
     handleSubmissionError(dispatch, error);
     return null;
   }
-  // $FlowIgnore[unclear-type]
+  // $FlowFixMe[unclear-type]
   const editResponseData: WsJsEditResponseT = (respJson: any);
   dispatch({
     edits,
@@ -1727,15 +1727,15 @@ component _ReleaseRelationshipEditor(
 
     // Expose internal state for userscripts.
 
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.dispatch = dispatch;
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.state = state;
 
     return () => {
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.dispatch = null;
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.state = null;
     };
   }, [dispatch, state]);

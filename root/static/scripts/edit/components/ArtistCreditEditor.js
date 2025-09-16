@@ -303,7 +303,7 @@ export function reducer(
           );
         }
       }
-      // $FlowIgnore[incompatible-type] - null artists were filled in
+      // $FlowFixMe[incompatible-type] - null artists were filled in
       writableArtistCredit = (artistCreditCtx.final(): ArtistCreditT);
       stateCtx.set('names',
                    createInitialNamesState(writableArtistCredit, state.id));

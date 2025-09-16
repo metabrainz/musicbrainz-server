@@ -56,7 +56,7 @@ export function artistCreditFromState(
   names: $ReadOnlyArray<ArtistCreditNameStateT>,
 ): ArtistCreditT {
   return {
-    // $FlowIgnore[incompatible-type]
+    // $FlowFixMe[incompatible-type]
     names: incompleteArtistCreditNamesFromState(names).filter((
       x: IncompleteArtistCreditNameT,
     ) => x.artist != null),

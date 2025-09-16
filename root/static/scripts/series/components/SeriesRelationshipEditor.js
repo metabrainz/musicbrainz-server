@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// $FlowIgnore[untyped-import]
+// $FlowFixMe[untyped-import]
 import $ from 'jquery';
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';

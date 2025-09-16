@@ -54,14 +54,14 @@ function _getStoredMap(): RecentEntitiesT {
 
 function _getGidOrId(object: {...}): string | null {
   if (Object.hasOwn(object, 'gid')) {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     const gid = object.gid;
     if (typeof gid === 'string') {
       return gid;
     }
   }
   if (Object.hasOwn(object, 'id')) {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     const id = object.id;
     /*
      * This shouldn't check `isDatabaseRowId`, because we want pending
@@ -189,7 +189,7 @@ export function getRecentItems<T: EntityItemT>(
     cachedList = [];
     _recentItemsCache.set(key, cachedList);
   }
-  // $FlowIgnore[incompatible-type]
+  // $FlowFixMe[incompatible-type]
   return cachedList;
 }
 
@@ -208,7 +208,7 @@ function getEntityName(
 }
 
 const _recentItemsRequests =
-  // $FlowIgnore[unclear-type]
+  // $FlowFixMe[unclear-type]
   new Map<string, Promise<$ReadOnlyArray<OptionItemT<any>>>>();
 
 export function getOrFetchRecentItems<T: EntityItemT>(
@@ -240,7 +240,7 @@ export function getOrFetchRecentItems<T: EntityItemT>(
 
     // Convert ids to an array since we delete in the loop.
     for (const id of Array.from(ids)) {
-      // $FlowIgnore[incompatible-type]
+      // $FlowFixMe[incompatible-type]
       const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
         pushItem({

@@ -774,7 +774,7 @@ export default [
       'ft-flow/no-duplicate-type-union-intersection-members': 'warn',
       'ft-flow/no-existential-type': 'warn',
       'ft-flow/no-flow-suppressions-in-strict-files': ['warn', {
-        "$FlowIssue": false,
+        "$FlowExpectedError": false,
       }],
       'ft-flow/no-internal-flow-type': 'warn',
       'ft-flow/no-mixed': 'off',

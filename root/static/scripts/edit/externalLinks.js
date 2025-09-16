@@ -372,7 +372,7 @@ export class _ExternalLinksEditor
        * `externalLinksEditData` is an observable hooked into the release
        * editor's edit generation code.
        */
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       releaseEditor.externalLinksEditData(this.getEditData());
     }
   }
@@ -470,7 +470,7 @@ export class _ExternalLinksEditor
       link.submitted = true;
       if (isDuplicate) {
         /*
-         * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+         * $FlowExpectedError[incompatible-type]: relatedTarget is EventTarget
          * Don't merge when user clicks on delete icon,
          * otherwise UI change will prevent the deletion.
          */
@@ -595,7 +595,7 @@ export class _ExternalLinksEditor
       return;
     }
     /*
-     * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+     * $FlowExpectedError[incompatible-type]: relatedTarget is EventTarget
      * Don't merge when user clicks on delete icon,
      * otherwise UI change will prevent the deletion.
      */
@@ -1106,7 +1106,7 @@ export class _ExternalLinksEditor
                   /*
                    * FIXME: This should be read-only! See question above.
                    */
-                  // $FlowIgnore[cannot-write]
+                  // $FlowFixMe[cannot-write]
                   link.error = error;
                 } else {
                   canMerge = false;

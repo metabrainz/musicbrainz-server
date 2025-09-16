@@ -573,15 +573,15 @@ component _RelationshipDialogContent(...props: PropsT) {
 
   // Expose internal state for userscripts.
   React.useEffect(() => {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.relationshipDialogDispatch = dispatch;
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.relationshipDialogState = state;
 
     return () => {
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.relationshipDialogDispatch = null;
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.relationshipDialogState = null;
     };
   }, [dispatch, state]);
@@ -737,9 +737,9 @@ component _RelationshipDialogContent(...props: PropsT) {
     if (formDiv) {
       const event =
         new Event('mb-close-relationship-dialog', {bubbles: true});
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       event.closeEventType = eventType;
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       event.dialogState = state;
       formDiv.dispatchEvent(event);
     }
@@ -788,7 +788,7 @@ component _RelationshipDialogContent(...props: PropsT) {
         batchSelectionCount,
         creditsToChangeForSource: sourceEntityState.creditsToChange,
         creditsToChangeForTarget: targetEntityState.creditsToChange,
-        // $FlowIgnore[incompatible-type] -- we know it exists on use
+        // $FlowFixMe[incompatible-type] -- we know it exists on use
         newRelationshipState,
         oldRelationshipState: initialRelationship,
         sourceEntity: source,

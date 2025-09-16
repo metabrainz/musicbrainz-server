@@ -121,7 +121,7 @@ function setScrollPosition(menuId: string) {
     return;
   }
   const highlightedItem: HTMLLIElement | null =
-    // $FlowIssue[incompatible-type]
+    // $FlowExpectedError[incompatible-type]
     menu.querySelector('li[aria-selected=true]') ??
     // If there's no highlighted item, scroll to the top of the list.
     menu.querySelector('li');
@@ -583,7 +583,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         'Wrong type of entity received',
       );
       const item = {
-        // $FlowIgnore[incompatible-type]
+        // $FlowFixMe[incompatible-type]
         entity: (entity: T),
         id: entity.id,
         name: entity.name,
@@ -695,7 +695,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
         isSelected={selectedItem != null &&
           item.type === 'option' &&
           item.entity.id === selectedItem.id}
-        // $FlowIssue[incompatible-type] until Flow supports https://github.com/facebook/flow/issues/7672
+        // $FlowExpectedError[incompatible-type] until Flow supports https://github.com/facebook/flow/issues/7672
         item={item}
         key={item.id}
         selectItem={selectItem}
@@ -880,7 +880,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
 }
 
 const Autocomplete2: typeof _Autocomplete2 =
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   React.memo(_Autocomplete2);
 
 export default Autocomplete2;

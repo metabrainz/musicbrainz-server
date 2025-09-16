@@ -21,7 +21,7 @@ component AttributeEditForm(...props: CreateOrEditAttributePropsT) {
     {type: 'Language', const form, ...} => <LanguageEditForm form={form} />,
     {type: 'Script', const form, ...} => <ScriptEditForm form={form} />,
     {type: 'CollectionType' | 'SeriesType', ...} as props => (
-      // $FlowIssue[incompatible-type] series vs collection confuses Flow
+      // $FlowExpectedError[incompatible-type] series/collection confuses Flow
       <AttributeEditFormWithEntityType
         action={props.action}
         entityTypeSelectOptions={props.entityTypeSelectOptions}

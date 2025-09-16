@@ -51,7 +51,7 @@ function reducer(state: StateT, action: ActionT): StateT {
         {type: 'move-up'} => {
           if (index > 0) {
             newTodos = [...newState.todos];
-            // $FlowIssue[unsupported-syntax]
+            // $FlowExpectedError[unsupported-syntax]
             [newTodos[index - 1], newTodos[index]] =
               [newTodos[index], newTodos[index - 1]];
           }
@@ -59,7 +59,7 @@ function reducer(state: StateT, action: ActionT): StateT {
         {type: 'move-down'} => {
           if (index < (newState.todos.length - 1)) {
             newTodos = [...newState.todos];
-            // $FlowIssue[unsupported-syntax]
+            // $FlowExpectedError[unsupported-syntax]
             [newTodos[index], newTodos[index + 1]] =
               [newTodos[index + 1], newTodos[index]];
           }

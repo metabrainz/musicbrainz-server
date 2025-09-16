@@ -215,10 +215,10 @@ export function mergeLinkedEntities(
       if (Object.hasOwn(linkedEntities, type)) {
         if (entities != null) {
           if (isObjectEmpty(linkedEntities[type])) {
-            // $FlowIgnore[incompatible-type]
+            // $FlowFixMe[incompatible-type]
             linkedEntities[type] = entities;
           } else {
-            // $FlowIssue[unsafe-object-assign]
+            // $FlowExpectedError[unsafe-object-assign]
             Object.assign(linkedEntities[type], entities);
           }
         }
