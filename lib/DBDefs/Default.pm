@@ -357,6 +357,7 @@ sub AWS_PUBLIC { '' }
 # 2. replace undef with your MTCaptcha keys:
 sub MTCAPTCHA_PUBLIC_KEY { return undef }
 sub MTCAPTCHA_PRIVATE_KEY { return undef }
+sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
 
 # A list of email domains which are blocked for the purposes of
 # new account registration.

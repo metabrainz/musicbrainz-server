@@ -11,7 +11,10 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import escapeClosingTags from '../../../../utility/escapeClosingTags.js';
-import {MTCAPTCHA_PUBLIC_KEY} from '../../common/DBDefs-client.mjs';
+import {
+  MTCAPTCHA_PRIVATE_TEST_KEY,
+  MTCAPTCHA_PUBLIC_KEY,
+} from '../../common/DBDefs-client.mjs';
 
 component MTCaptcha() {
   const $c = React.useContext(SanitizedCatalystContext);
@@ -26,6 +29,10 @@ component MTCaptcha() {
       loadAnimation: 'false',
       sitekey: MTCAPTCHA_PUBLIC_KEY,
     };
+    if (MUSICBRAINZ_RUNNING_TESTS) {
+      // $FlowExpectedError[prop-missing]
+      mtcaptchaConfig.enableTestMode = MTCAPTCHA_PRIVATE_TEST_KEY;
+    }
     s.innerHTML = 'var mtcaptchaConfig = ' +
       escapeClosingTags(JSON.stringify(mtcaptchaConfig)) + ';';
     document.body?.appendChild(s);

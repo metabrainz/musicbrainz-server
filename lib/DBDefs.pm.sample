@@ -366,6 +366,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # 2. replace undef with your MTCaptcha keys:
 # sub MTCAPTCHA_PUBLIC_KEY { return undef }
 # sub MTCAPTCHA_PRIVATE_KEY { return undef }
+# sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
 
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).

@@ -32,6 +32,26 @@
       value: 'new_editor@example.com',
     },
     {
+      command: 'switchFrame',
+      target: 'id=mtcaptcha-iframe-1',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=mtcap-inputtext-1',
+      value: '1111',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'switchFrame',
+      target: 'default',
+      value: '',
+    },
+    {
       command: 'clickAndWait',
       target: 'css=span.buttons > button[type="submit"]',
       value: '',
