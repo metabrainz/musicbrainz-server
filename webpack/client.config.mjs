@@ -97,6 +97,7 @@ const entries = [
   'homepage/stats',
   'homepage/user-menu',
   'homepage/editor-tools',
+  'homepage/timeline-carousel',
   'instrument/edit',
   'instrument/index',
   'label/edit',

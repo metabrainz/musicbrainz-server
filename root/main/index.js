@@ -25,6 +25,7 @@ import Blob from '../static/scripts/homepage/blob.js';
 import Stats, { type WeeklyStatsT } from '../static/scripts/homepage/stats.js';
 import BannerCarousel from '../static/scripts/homepage/banner-carousel.js';
 import NewFooter from '../layout/components/NewFooter.js';
+import TimelineCarousel from '../static/scripts/homepage/timeline-carousel.js'
 
 import MusicBrainzLogo from '../static/images/meb-logos/MusicBrainz_logo_mini.svg';
 import MetaBrainzLogo from '../static/images/meb-logos/MetaBrainz_logo_mini.svg';
@@ -74,8 +75,8 @@ component Homepage(
         <Search weeklyStats={weeklyStats} />
 
         <div className="timeline-container" id="releases-container">
-          <div className="timeline-container-inner">
-            
+          <div className="timeline-container-inner layout-width">
+            <TimelineCarousel />
           </div>
         </div>
 
@@ -210,7 +211,9 @@ component Homepage(
         </div>
 
         <div className="timeline-container" id="events-container">
-
+          <div className="timeline-container-inner layout-width">
+            <TimelineCarousel />
+          </div>
         </div>
 
         {/* Contribute */}
@@ -451,6 +454,7 @@ component Homepage(
       {manifest('homepage/banner-carousel', {async: true})}
       {manifest('homepage/stats', {async: true})}
       {manifest('common/loadArtwork', {async: true})}
+      {manifest('homepage/timeline-carousel', {async : true})}
     </Layout>
   );
 }
