@@ -274,8 +274,8 @@ sub initialize
             },
         },
         edit_version => 2,
+        defined $opts{entered_from} ? (entered_from => $opts{entered_from}) : (),
     });
-    $self->data->{entered_from} = $opts{entered_from} if $opts{entered_from};
 }
 
 sub accept {
