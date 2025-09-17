@@ -5,7 +5,9 @@ use warnings;
 use HTML::FormHandler::Moose;
 use DateTime;
 use DateTime::TimeZone;
+use Try::Tiny;
 
+use MusicBrainz::Server::Log qw( log_error );
 use MusicBrainz::Server::Translation qw( l );
 
 extends 'MusicBrainz::Server::Form';
@@ -16,6 +18,10 @@ has_field 'public_ratings' => ( type => 'Boolean' );
 has_field 'public_subscriptions' => ( type => 'Boolean' );
 has_field 'public_tags' => ( type => 'Boolean' );
 
+has_field 'email_language' => (
+    type => 'Select',
+    required => 1,
+);
 has_field 'email_on_abstain' => ( type => 'Boolean' );
 has_field 'email_on_no_vote' => ( type => 'Boolean' );
 has_field 'email_on_notes' => ( type => 'Boolean' );
@@ -87,6 +93,27 @@ sub options_subscriptions_email_period
         'never'     => l('Never'),
     ];
     return $options;
+}
+
+sub options_email_language {
+    my $self = shift;
+    my $c = $self->ctx;
+    my $available_locales = try {
+        $c->model('Email')->get_available_locales;
+    } catch {
+        my $error = $_;
+        log_error { $error };
+        ['en'];
+    };
+    my %languages_by_code = $c->model('Language')->find_by_codes(@$available_locales);
+    my @options;
+    while (my ($code, $language) = each %languages_by_code) {
+        push @options, {
+            value => $code,
+            label => $language->l_name,
+        };
+    }
+    return \@options;
 }
 
 1;

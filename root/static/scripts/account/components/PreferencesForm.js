@@ -21,6 +21,7 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,
   +datetime_format: FieldT<string>,
+  +email_language: FieldT<string>,
   +email_on_abstain: FieldT<boolean>,
   +email_on_no_vote: FieldT<boolean>,
   +email_on_notes: FieldT<boolean>,
@@ -120,6 +121,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 component PreferencesForm(
   form as initialForm: PreferencesFormT,
   timezone_options: MaybeGroupedOptionsT,
+  email_language_options: MaybeGroupedOptionsT,
 ) {
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -203,6 +205,12 @@ component PreferencesForm(
       </fieldset>
       <fieldset>
         <legend>{l('Email')}</legend>
+        <FormRowSelect
+          field={field.email_language}
+          label={addColonText(l('Language to receive emails in'))}
+          options={email_language_options}
+          uncontrolled
+        />
         {addColonText(l('Email me about'))}
         <FormRowCheckbox
           field={field.email_on_no_vote}
