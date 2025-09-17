@@ -589,6 +589,10 @@ sub preferences : Path('/account/preferences') RequireAuth DenyWhenReadonly Secu
                         label => $_,
                       } } uniq values @{ $form->options_timezone } ],
                 },
+                email_language_options => {
+                    grouped => JSON::false,
+                    options => $form->options_email_language,
+                },
             },
         );
         $c->detach;

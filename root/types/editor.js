@@ -64,6 +64,7 @@ declare type FluencyT =
 
 declare type UnsanitizedEditorPreferencesT = {
   +datetime_format: string,
+  +email_language: string,
   +email_on_abstain: boolean,
   +email_on_no_vote: boolean,
   +email_on_notes: boolean,
