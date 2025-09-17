@@ -9,6 +9,8 @@ on:
       - translations
 
 env:
+  MTCAPTCHA_PUBLIC_KEY: ${{ secrets.MTCAPTCHA_PUBLIC_KEY }}
+  MTCAPTCHA_PRIVATEQA_KEY: ${{ secrets.MTCAPTCHA_PRIVATEQA_KEY }}
   TESTS_IMAGE_TAG: v-2025-08-29.1
 
 jobs:
