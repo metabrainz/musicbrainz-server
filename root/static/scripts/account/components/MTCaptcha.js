@@ -11,7 +11,10 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import escapeClosingTags from '../../../../utility/escapeClosingTags.js';
-import {MTCAPTCHA_PUBLIC_KEY} from '../../common/DBDefs-client.mjs';
+import {
+  MTCAPTCHA_PRIVATE_KEY,
+  MTCAPTCHA_PUBLIC_KEY,
+} from '../../common/DBDefs-client.mjs';
 
 component MTCaptcha() {
   const $c = React.useContext(SanitizedCatalystContext);
@@ -24,6 +27,8 @@ component MTCaptcha() {
     s.nonce = $c.stash.mtcaptcha_script_nonce;
     const quotedPublicKey =
       escapeClosingTags(JSON.stringify(MTCAPTCHA_PUBLIC_KEY));
+    const quotedPrivateKey =
+      escapeClosingTags(JSON.stringify(MTCAPTCHA_PRIVATE_KEY));
     s.innerHTML = `function handleVerifiedMTCaptcha(state) {
                      console.log("MTCaptcha has verified the user.");
                      console.log("state => ", state);
@@ -41,12 +46,17 @@ component MTCaptcha() {
                    }
 
                    var mtcaptchaConfig = {
-                     "sitekey": ${quotedPublicKey},
-                     "loadAnimation": "false",
-                     "verified-callback": "handleVerifiedMTCaptcha",
-                     "jsloaded-callback": "handleJSLoadedMTCaptcha",
-                     "error-callback": "handleMTCaptchaError"
-                   };`;
+                     "sitekey": ${quotedPublicKey},`;
+    if (MUSICBRAINZ_RUNNING_TESTS) {
+      s.innerHTML += `
+                      "enableTestMode": ${quotedPrivateKey},`;
+    }
+    s.innerHTML += `
+                      "loadAnimation": "false",
+                      "verified-callback": "handleVerifiedMTCaptcha",
+                      "jsloaded-callback": "handleJSLoadedMTCaptcha",
+                      "error-callback": "handleMTCaptchaError"
+                    };`;
     document.body?.appendChild(s);
 
     const mtService = document.createElement('script');
