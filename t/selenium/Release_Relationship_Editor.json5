@@ -1829,8 +1829,8 @@
       value: 'Demons',
     },
     {
-      command: 'pause',
-      target: '1500',
+      command: 'waitUntilElementIsVisible',
+      target: 'xpath=//div[contains(@class, "relationship-target")]/ul/li[contains(descendant::text(), "Demons")]',
       value: '',
     },
     {
