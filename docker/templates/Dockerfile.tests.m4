@@ -47,6 +47,8 @@ run_with_apt_cache \
     install_perl && \
     install_cpanm_and_carton && \
     python3.13 -m ensurepip --upgrade && \
+    # aiosmtpd needed for the smtp service.
+    python3.13 -m pip install --break-system-packages aiosmtpd && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen && \
     # Allow the musicbrainz user execute any command with sudo.
@@ -154,6 +156,18 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
+FROM build AS mb_mail_service
+
+ARG MB_MAIL_SERVICE_TAG=v0.4.9
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none && \
+    sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/mb-mail-service.git && \
+    cd mb-mail-service && \
+    sudo -E -H -u musicbrainz git reset --hard $MB_MAIL_SERVICE_TAG && \
+    cargo build --release
+
 FROM build AS node_modules
 
 COPY --chown=musicbrainz:musicbrainz .yarnrc.yml package.json yarn.lock MBS_ROOT/
@@ -214,6 +228,7 @@ COPY --from=pgdata --chown=postgres:postgres "$PGHOME"/ "$PGHOME"/
 COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/target/ /
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
+COPY --from=mb_mail_service --chown=musicbrainz:musicbrainz /home/musicbrainz/mb-mail-service/target/release/mb-mail-service /usr/local/bin/
 COPY --from=node_modules --chown=musicbrainz:musicbrainz MBS_ROOT/node_modules/ MBS_ROOT/node_modules/
 COPY --chmod=0755 docker/musicbrainz-tests/service/ /etc/service/
 
@@ -224,8 +239,10 @@ COPY --chmod=0755 \
 RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`artwork-redirect') && \
     setup_test_service(`chrome') && \
+    setup_test_service(`mb-mail-service') && \
     setup_test_service(`postgresql') && \
     setup_test_service(`redis') && \
+    setup_test_service(`smtp') && \
     setup_test_service(`solr') && \
     setup_test_service(`ssssss') && \
     setup_test_service(`template-renderer') && \
