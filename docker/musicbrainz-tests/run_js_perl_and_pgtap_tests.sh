@@ -34,7 +34,8 @@ sv kill chrome
 
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
 
-sv_start_if_down template-renderer vnu website
+sv_start_if_down smtp
+sv_start_if_down mb-mail-service template-renderer vnu website
 
 export MMD_SCHEMA_ROOT=/home/musicbrainz/mmd-schema
 export JUNIT_OUTPUT_FILE=junit_output/perl_and_pgtap.xml
