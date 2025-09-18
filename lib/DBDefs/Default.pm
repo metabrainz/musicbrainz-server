@@ -115,7 +115,8 @@ sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
 sub SMTP_SERVER { 'localhost' }
 
 # An instance of https://github.com/metabrainz/mb-mail-service.
-sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+sub MAIL_SERVICE_BASE_URL { '' }
+# sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
 
 # An instance of https://mailpit.axllent.org to run email-related tests in
 # development. See HACKING.md.

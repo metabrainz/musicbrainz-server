@@ -139,6 +139,19 @@ to execute:
 
     It's a single binary that you can start with just: `mailpit`.
 
+ 3. [mb-mail-service](https://github.com/metabrainz/mb-mail-service/blob/main/docs/OPERATING.md),
+    configured via `MAIL_SERVICE_BASE_URL` in DBDefs.pm:
+
+    ```Perl
+    sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+    ```
+
+    Once again, it's a single binary, but make sure to point it to Mailpit:
+
+    ```sh
+    APP_SMTP_PORT=1025 ./target/release/mb-mail-service
+    ```
+
 ### Database tests (pgTAP)
 
 For unit testing database functions we use pgtap, on a recent Ubuntu

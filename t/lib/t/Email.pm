@@ -16,7 +16,12 @@ sub _get_email {
     my $response = $self->c->lwp->get(DBDefs->MAILPIT_API . '/message/' . $id . '/raw');
     my $parsed = Email::MIME->new($response->content);
     my %headers = $parsed->header_str_pairs;
-    my $body = $parsed->body_str;
+    my $body = '';
+    $parsed->walk_parts(sub {
+        my ($part) = @_;
+        return if $part->subparts || $part->content_type !~ /^text\/plain;/;
+        $body .= $part->body_str;
+    });
     return {
         headers => \%headers,
         body => $body,
@@ -27,10 +32,21 @@ sub _mailpit_configured {
     return non_empty(DBDefs->MAILPIT_API);
 }
 
+sub _mb_mail_service_configured {
+    return non_empty(DBDefs->MAIL_SERVICE_BASE_URL);
+}
+
 sub skip_unless_mailpit_configured {
     my ($self) = @_;
     unless ($self->_mailpit_configured) {
         plan skip_all => '`MAILPIT_API` is not configured. This test will be skipped.';
+    }
+}
+
+sub skip_unless_mb_mail_service_configured {
+    my ($self) = @_;
+    unless ($self->_mb_mail_service_configured) {
+        plan skip_all => '`MAIL_SERVICE_BASE_URL` is not configured. This test will be skipped.';
     }
 }
 
