@@ -136,7 +136,7 @@ component _SpammerButton<T: InexactUserT>(
 }
 
 const SpammerButton: typeof _SpammerButton =
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   React.memo(_SpammerButton);
 
 export default SpammerButton;

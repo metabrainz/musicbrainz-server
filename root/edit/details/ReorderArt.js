@@ -22,7 +22,7 @@ component ReorderArt(
   formattedEntityType: string,
 ) {
   const display = edit.display_data;
-  // $FlowIgnore[prop-missing]
+  // $FlowFixMe[prop-missing]
   const entity = display[entityType];
   const oldArt = display.old;
   const newArt = display.new;
@@ -40,7 +40,7 @@ component ReorderArt(
       <tr>
         <th>{addColonText(formattedEntityType)}</th>
         <td>
-          {/* $FlowIgnore[prop-missing] */}
+          {/* $FlowFixMe[prop-missing] */}
           <DescriptiveLink entity={entity} />
         </td>
       </tr>

@@ -128,7 +128,7 @@ component ButtonPopover(
           style={floatingStyles}
         >
           <ErrorBoundary>
-            {/* $FlowIgnore[react-rule-unsafe-ref] */}
+            {/* $FlowFixMe[react-rule-unsafe-ref] */}
             {buildChildren(close, initialFocusRef)}
           </ErrorBoundary>
           <FloatingArrow

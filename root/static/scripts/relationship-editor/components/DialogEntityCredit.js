@@ -82,7 +82,7 @@ component _DialogEntityCredit(
   ) {
     dispatch({
       type: 'set-credits-to-change',
-      // $FlowIgnore[unclear-type]
+      // $FlowFixMe[unclear-type]
       value: (event.currentTarget.value: any),
     });
   }

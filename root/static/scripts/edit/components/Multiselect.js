@@ -191,7 +191,7 @@ component _MultiselectValue<
 }
 
 export const MultiselectValue: typeof _MultiselectValue =
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   React.memo(_MultiselectValue);
 
 component _Multiselect<
@@ -236,7 +236,7 @@ component _Multiselect<
 }
 
 const Multiselect: typeof _Multiselect =
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   React.memo(_Multiselect);
 
 export default Multiselect;

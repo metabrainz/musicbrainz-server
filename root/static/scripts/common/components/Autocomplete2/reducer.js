@@ -217,7 +217,7 @@ function getFirstHighlightableIndex<T: EntityItemT>(
   const items = state.items;
   let index = 0;
   for (const item of items) {
-    // $FlowIgnore[sketchy-null-bool]
+    // $FlowFixMe[sketchy-null-bool]
     if (!item.disabled) {
       return index;
     }
@@ -353,7 +353,7 @@ function highlightNextItem<T: EntityItemT>(
       index = 0;
     }
     const item = items[index];
-    // $FlowIgnore[sketchy-null-bool]
+    // $FlowFixMe[sketchy-null-bool]
     if (!item.disabled) {
       state.highlightedIndex = index;
       break;

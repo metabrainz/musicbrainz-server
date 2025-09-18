@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// $FlowIgnore[untyped-import]
+// $FlowFixMe[untyped-import]
 import {captureException} from '@sentry/browser';
 import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
@@ -85,7 +85,7 @@ import RelationshipTargetTypeGroups from './RelationshipTargetTypeGroups.js';
 
 // Export modules that userscripts may need access to.
 
-// $FlowIgnore[prop-missing]
+// $FlowFixMe[prop-missing]
 MB.relationshipEditor.getRelationshipStateId = getRelationshipStateId;
 MB.tree = tree;
 
@@ -148,7 +148,7 @@ export function* getInitialRelationshipUpdates(
        * Writing here is sound because the object was just created.
        * (This is needed to create a self-reference.)
        */
-      // $FlowIgnore[cannot-write]
+      // $FlowFixMe[cannot-write]
       relationshipState._original = relationshipState;
     }
 
@@ -234,7 +234,7 @@ export function loadOrCreateInitialState(
       try {
         submittedRelationships = ((decompactEntityJson(
           JSON.parse(submittedRelationshipsJson),
-        // $FlowIgnore[unclear-type]
+        // $FlowFixMe[unclear-type]
         ): any): $ReadOnlyArray<RelationshipStateT>);
       } catch (e) {
         captureException(e);
@@ -432,7 +432,7 @@ export function runReducer(
         writableState.entity.entityType === entityType,
         'Cannot change the relationship editor entity type',
       );
-      // $FlowIgnore[cannot-spread-indexer]
+      // $FlowFixMe[cannot-spread-indexer]
       writableState.entity = {
         ...writableState.entity,
         ...changes,
@@ -606,15 +606,15 @@ component RelationshipEditor(
 
   // Expose internal state for userscripts.
   React.useEffect(() => {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.dispatch = dispatch;
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.state = state;
 
     return () => {
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.dispatch = null;
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.state = null;
     };
   }, [dispatch, state]);

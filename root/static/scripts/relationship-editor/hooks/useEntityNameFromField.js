@@ -26,7 +26,7 @@ export default function useEntityNameFromField(
     const nameField = document.getElementById(nameFieldId);
 
     function handleNameChange(event: InputEvent) {
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       let name: string = event.target.value;
       if (mapName) {
         name = mapName(name);

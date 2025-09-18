@@ -175,7 +175,7 @@ component ExternalLinkAttributeDialog(...props: {
       ended: dateFields.ended.value,
     };
     if (props.creditableEntityProp) {
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       confirmedProps[props.creditableEntityProp] = state.credit.value;
     }
     props.onConfirm(confirmedProps);

@@ -189,10 +189,10 @@ component EntityLink(
   }
 ) {
   const hasCustomContent = nonEmpty(passedContent);
-  // $FlowIgnore[sketchy-null-mixed]
+  // $FlowFixMe[sketchy-null-mixed]
   const hasEditsPending = entity.editsPending || false;
   const hasSubPath = nonEmpty(subPath);
-  // $FlowIgnore[prop-missing]
+  // $FlowFixMe[prop-missing]
   const comment = nonEmpty(entity.comment) ? ko.unwrap(entity.comment) : '';
   const entityName = ko.unwrap(entity.name);
   const isCountryArea = entity.entityType === 'area' &&

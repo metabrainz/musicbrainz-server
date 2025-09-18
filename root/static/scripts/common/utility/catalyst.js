@@ -26,7 +26,7 @@ export function getCatalystContext(): SanitizedCatalystContextT {
 }
 
 export function maybeGetCatalystContext(): ?SanitizedCatalystContextT {
-  // $FlowIgnore[prop-missing]
+  // $FlowFixMe[prop-missing]
   return globalThis[GLOBAL_JS_NAMESPACE]?.$c;
 }
 

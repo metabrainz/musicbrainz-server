@@ -392,7 +392,7 @@ export default function updateRelationships(
     allUpdates?.length
   ) {
     updateReleaseRelationships(
-      // $FlowIgnore[unclear-type]
+      // $FlowFixMe[unclear-type]
       (writableRootState: any),
       allUpdates,
     );

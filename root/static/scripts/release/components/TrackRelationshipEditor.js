@@ -223,7 +223,7 @@ component _RelatedWorkRelationshipEditor(
         }
         return resp.json();
       })
-      // $FlowIgnore[unclear-type]
+      // $FlowFixMe[unclear-type]
       .then((data: any) => {
         if (data.relationships?.length) {
           dispatch({

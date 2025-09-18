@@ -465,7 +465,7 @@ component UserEditsProperty(
           TYPES.EDIT_RELEASE_CREATE,
           TYPES.EDIT_HISTORIC_ADD_RELEASE,
         ].join(',')
-      // $FlowIgnore[invalid-computed-prop]
+      // $FlowFixMe[invalid-computed-prop]
       ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
   const searchEditsURL = ((createEditTypes: string) => (
     '/search/edits' +

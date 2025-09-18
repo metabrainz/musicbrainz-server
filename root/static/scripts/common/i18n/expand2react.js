@@ -171,7 +171,7 @@ function pushChild<T>(
   if (lastIndex >= 0 &&
       typeof match === 'string' &&
       typeof children[lastIndex] === 'string') {
-    // $FlowIssue[incompatible-type]
+    // $FlowExpectedError[incompatible-type]
     children[lastIndex] += match;
   } else {
     children.push(match);
@@ -306,7 +306,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
     htmlAttrParsers,
     args,
   );
-  // $FlowIssue[unsafe-object-assign]
+  // $FlowExpectedError[unsafe-object-assign]
   const combinedAttributes = Object.assign(
     ({}: HtmlAttrs),
     ...attributes,

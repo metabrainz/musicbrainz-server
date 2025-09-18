@@ -105,7 +105,7 @@ component PartialDateInput(
       fieldName: 'year' | 'month' | 'day',
     ) => {
       controlledProps.dispatch({
-        // $FlowIssue[incompatible-indexer]
+        // $FlowExpectedError[incompatible-indexer]
         date: {[fieldName]: event.currentTarget.value},
         type: 'set-date',
       });
