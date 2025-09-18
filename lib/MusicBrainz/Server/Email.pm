@@ -10,8 +10,8 @@ use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
-use HTTP::Request::Common qw( POST );
-use JSON::XS qw( encode_json );
+use HTTP::Request::Common qw( GET POST );
+use JSON::XS qw( decode_json encode_json );
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
@@ -396,6 +396,8 @@ sub send_message_to_editor
     my $message = $opts{message} or die q(Missing 'message' argument);
 
     my @correspondents = sort_by { $_->name } ($from, $to);
+    $self->c->model('Editor')->load_preferences(@correspondents);
+
     my $contact_url = $url_prefix .
         sprintf '/user/%s/contact', uri_escape_utf8($from->name);
     my $body = {
@@ -403,9 +405,7 @@ sub send_message_to_editor
         to          => _user_address($to),
         from        => _user_address($from, 1),
         sender      => $EMAIL_NOREPLY_ADDRESS,
-        # TODO: send the user's language preference here. (This preference is not yet stored on the server)
-        # Which language should we use, as this email is going to a different user?
-        # 'lang'
+        lang        => $to->preferences->email_language,
         message_id  => _message_id('correspondence-%s-%s-%s', $correspondents[0]->id, $correspondents[1]->id, generate_gid()),
         references  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
         in_reply_to => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
@@ -429,8 +429,8 @@ sub send_message_to_editor
 
     if ($opts{send_to_self}) {
         $body->{to} = _user_address($from);
+        $body->{lang} = $from->preferences->email_language;
         $body->{params}{is_self_copy} = \1;
-        # TODO: Should we set language here to the initiator's language?
 
         if ($opts{reveal_address}) {
             $body->{reply_to} = _user_address($from);
@@ -700,6 +700,21 @@ sub _mb_mail_service_send_single {
         die "Failed to send mail ($status):\n" . Dumper($res->content);
     }
     return;
+}
+
+sub get_available_locales {
+    my ($self) = @_;
+
+    my $res = $self->c->lwp->request(
+        GET "$mail_service_base_url/available_locales",
+        Accept => 'application/json',
+    );
+    unless ($res->is_success) {
+        my $status = $res->code;
+        die "Failed to get available email locales ($status):\n" .
+            Dumper($res->content);
+    }
+    return decode_json($res->content);
 }
 
 __PACKAGE__->meta->make_immutable;
