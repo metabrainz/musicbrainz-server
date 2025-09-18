@@ -10,8 +10,8 @@ use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
-use HTTP::Request::Common qw( POST );
-use JSON::XS qw( encode_json );
+use HTTP::Request::Common qw( GET POST );
+use JSON::XS qw( decode_json encode_json );
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
@@ -700,6 +700,21 @@ sub _mb_mail_service_send_single {
         die "Failed to send mail ($status):\n" . Dumper($res->content);
     }
     return;
+}
+
+sub get_available_locales {
+    my ($self) = @_;
+
+    my $res = $self->c->lwp->request(
+        GET "$mail_service_base_url/available_locales",
+        Accept => 'application/json',
+    );
+    unless ($res->is_success) {
+        my $status = $res->code;
+        die "Failed to get available email locales ($status):\n" .
+            Dumper($res->content);
+    }
+    return decode_json($res->content);
 }
 
 __PACKAGE__->meta->make_immutable;
