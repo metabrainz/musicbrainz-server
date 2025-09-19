@@ -18,6 +18,7 @@ export type StateT<T: EntityItemT> = {
   +highlightedIndex: number,
   +htmlName?: string,
   +id: string,
+  +idHtmlName?: string,
   +indexedSearch: boolean,
   +inputChangeHook?: (
     inputValue: string,
