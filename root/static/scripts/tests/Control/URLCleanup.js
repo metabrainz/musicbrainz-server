@@ -2940,6 +2940,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://sws.geonames.org/6698548/',
        only_valid_entity_types: ['area', 'place'],
   },
+  {
+                     input_url: 'http://www.geonames.org/2749689',
+             input_entity_type: 'area',
+    expected_relationship_type: 'geonames',
+            expected_clean_url: 'http://sws.geonames.org/2749689/',
+       only_valid_entity_types: ['area', 'place'],
+  },
   // Goodreads
   {
                      input_url: 'http://goodreads.com/author/list/22650322.Joe_Hill',
