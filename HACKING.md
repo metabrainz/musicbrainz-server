@@ -129,6 +129,16 @@ to execute:
     Although the tests will use the service hosted at validator.w3.org by
     default, it's *significantly* faster to query your own.
 
+ 2. [Mailpit](https://mailpit.axllent.org/docs/install/), configured via
+    `SMTP_SERVER` and `MAILPIT_API` in DBDefs.pm:
+
+    ```Perl
+    sub SMTP_SERVER { 'localhost:1025' }
+    sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+    ```
+
+    It's a single binary that you can start with just: `mailpit`.
+
 ### Database tests (pgTAP)
 
 For unit testing database functions we use pgtap, on a recent Ubuntu

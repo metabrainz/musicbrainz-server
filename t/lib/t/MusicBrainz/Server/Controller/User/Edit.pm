@@ -9,12 +9,14 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 use HTTP::Status qw( :constants );
 
-with 't::Mechanize', 't::Context';
+with 't::Mechanize', 't::Context', 't::Email';
 
 test all => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
+
+    $test->skip_unless_mailpit_configured;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
@@ -45,12 +47,12 @@ test all => sub {
     $mech->content_contains('Your profile has been updated');
     $mech->content_contains('We have sent you a verification email');
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('To'), 'new_email@example.com', 'Verification email sent to correct address');
-    is($email->get_header('Subject'), 'Please verify your email address', 'Verification email has correct subject');
+    my @emails = $test->get_emails;
+    my $email = shift @emails;
+    is($email->{headers}{To}, 'new_email@example.com', 'Verification email sent to correct address');
+    is($email->{headers}{Subject}, 'Please verify your email address', 'Verification email has correct subject');
 
-    my $email_body = $email->object->body_str;
+    my $email_body = $email->{body};
     like($email_body, qr{http://localhost/verify-email.*}, 'Verification email contains verification link');
     like($email_body, qr{\[127\.0\.0\.1\]}, 'Verification email contains request IP');
 

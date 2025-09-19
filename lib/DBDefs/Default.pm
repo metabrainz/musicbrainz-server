@@ -117,6 +117,11 @@ sub SMTP_SERVER { 'localhost' }
 # An instance of https://github.com/metabrainz/mb-mail-service.
 sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
 
+# An instance of https://mailpit.axllent.org to run email-related tests in
+# development. See HACKING.md.
+sub MAILPIT_API { '' }
+# sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
 # passwords.  However you MUST change it from the default

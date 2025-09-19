@@ -6,12 +6,14 @@ use Test::Routine;
 use Test::More;
 use MusicBrainz::Server::Test qw( html_ok );
 
-with 't::Mechanize', 't::Context';
+with 't::Mechanize', 't::Context', 't::Email';
 
 test all => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
+
+    $test->skip_unless_mailpit_configured;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
@@ -23,11 +25,11 @@ test all => sub {
     } );
     $mech->content_contains('We&#x27;ve sent you instructions on how to reset your password.');
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Password reset request');
+    my @emails = $test->get_emails;
+    my $email = shift @emails;
+    is($email->{headers}{Subject}, 'Password reset request');
 
-    my $email_body = $email->object->body_str;
+    my $email_body = $email->{body};
     like($email_body, qr{http://localhost/reset-password.*});
 
     $email_body =~ qr{http://localhost(/reset-password.*)};

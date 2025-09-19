@@ -636,20 +636,9 @@ has 'transport' => (
     builder => '_build_transport',
 );
 
-sub get_test_transport
-{
-    require MusicBrainz::Server::Test;
-    MusicBrainz::Server::Email->import;
-    return MusicBrainz::Server::Test->get_test_transport;
-}
-
 sub _build_transport
 {
     my ($self) = @_;
-
-    if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) { # XXX shouldn't be here
-        return $self->get_test_transport;
-    }
 
     my ($host, $port) = split /:/, DBDefs->SMTP_SERVER;
     return Email::Sender::Transport::SMTP->new({

@@ -18,7 +18,7 @@ use MusicBrainz::Server::Constants qw(
 );
 use Types::Serialiser;
 
-with 't::Context';
+with 't::Context', 't::Email';
 
 sub compare_body
 {
@@ -30,8 +30,9 @@ sub compare_body
 }
 
 test all => sub {
-
     my $test = shift;
+
+    $test->skip_unless_mailpit_configured;
 
     my $email = MusicBrainz::Server::Email->new( c => $test->c );
 
@@ -43,17 +44,17 @@ test all => sub {
 
     my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
 
-    my @mail_service_reqs;
-
-    local *LWP::UserAgent::request = sub {
-        my ($lwp, $req) = @_;
-        push @mail_service_reqs, $req;
-        my $res = HTTP::Response->new;
-        $res->code(HTTP_OK);
-        return $res;
-    };
-
     subtest 'send_message_to_editor' => sub {
+        my @mail_service_reqs;
+
+        local *LWP::UserAgent::request = sub {
+            my ($lwp, $req) = @_;
+            push @mail_service_reqs, $req;
+            my $res = HTTP::Response->new;
+            $res->code(HTTP_OK);
+            return $res;
+        };
+
         $email->send_message_to_editor(
             from => $user1,
             to => $user2,
@@ -89,6 +90,16 @@ test all => sub {
     };
 
     subtest 'send_message_to_editor & send_to_self' => sub {
+        my @mail_service_reqs;
+
+        local *LWP::UserAgent::request = sub {
+            my ($lwp, $req) = @_;
+            push @mail_service_reqs, $req;
+            my $res = HTTP::Response->new;
+            $res->code(HTTP_OK);
+            return $res;
+        };
+
         $email->send_message_to_editor(
             from => $user1,
             to => $user2,
@@ -163,16 +174,14 @@ test all => sub {
             editor => $user1,
         );
 
-        is($email->transport->delivery_count, 1);
-        my $delivery = $email->transport->shift_deliveries;
-        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
-        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-        is($e->get_header('To'), 'user@example.com', 'To is user@example.com');
-        is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
-        like($e->get_header('Message-Id'), qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-        compare_body($e->object->body_str,
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1, 'One email sent');
+        my $email = shift @emails;
+        is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($email->{headers}{To}, 'user@example.com', 'To is user@example.com');
+        is($email->{headers}{Subject}, 'Please verify your email address', 'Subject is Please verify your email address');
+        like($email->{headers}{'Message-Id'}, qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
+        compare_body($email->{body},
                      "Hello Editor 1,\n".
                      "\n".
                      "This is a verification email for your MusicBrainz account. Please click\n".
@@ -194,16 +203,14 @@ test all => sub {
             user => $user1,
         );
 
-        is($email->transport->delivery_count, 1);
-        my $delivery = $email->transport->shift_deliveries;
-        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
-        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-        is($e->get_header('Subject'), 'Lost username', 'Subject is Lost username');
-        like($e->get_header('Message-Id'), qr{<lost-username-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-        compare_body($e->object->body_str,
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1);
+        my $email = shift @emails;
+        is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($email->{headers}{To}, '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($email->{headers}{Subject}, 'Lost username', 'Subject is Lost username');
+        like($email->{headers}{'Message-Id'}, qr{<lost-username-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
+        compare_body($email->{body},
                      "Someone, probably you, asked to look up the username of the\n".
                      "MusicBrainz account associated with this email address.\n".
                      "\n".
@@ -225,16 +232,14 @@ test all => sub {
             reset_password_link => "$server/reset-password",
         );
 
-        is($email->transport->delivery_count, 1);
-        my $delivery = $email->transport->shift_deliveries;
-        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
-        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-        is($e->get_header('Subject'), 'Password reset request', 'Subject is Password reset request');
-        like($e->get_header('Message-Id'), qr{<password-reset-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-        compare_body($e->object->body_str,
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1, 'One email sent');
+        my $email = shift @emails;
+        is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($email->{headers}{To}, '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($email->{headers}{Subject}, 'Password reset request', 'Subject is Password reset request');
+        like($email->{headers}{'Message-Id'}, qr{<password-reset-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
+        compare_body($email->{body},
                      "Someone, probably you, asked that your MusicBrainz password be reset.\n".
                      "\n".
                      "To reset your password, click the link below:\n".
@@ -261,18 +266,15 @@ test all => sub {
             edit_id => 1234,
         );
 
-        is($email->transport->delivery_count, 1);
-        my $delivery = $email->transport->shift_deliveries;
-        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
-        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-        is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>', 'Reply-To is support@...');
-        is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
-        like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , '
-         has right format');
-        is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1, 'One email sent');
+        my $email = shift @emails;
+        is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($email->{headers}{To}, '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($email->{headers}{'Reply-To'}, 'MusicBrainz <support@musicbrainz.org>', 'Reply-To is support@...');
+        is($email->{headers}{References}, sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+        like($email->{headers}{'Message-Id'}, qr{<edit-1234-8888-no-vote-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , ' has right format');
+        is($email->{headers}{Subject}, 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
         my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
         $close_time = $close_time->strftime('%F %H:%M %Z');
 
@@ -299,7 +301,7 @@ test all => sub {
 
             -- The MusicBrainz Team
             EOS
-        compare_body($e->object->body_str, $body);
+        compare_body($email->{body}, $body);
     };
 
     subtest 'send_edit_note' => sub {
@@ -310,18 +312,16 @@ test all => sub {
             note_text => 'Please remember to use guess case!',
         );
 
-        is($email->transport->delivery_count, 1);
-        my $delivery = $email->transport->shift_deliveries;
-        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
-        is($e->get_header('From'), '"Editor 2" <noreply@musicbrainz.org>', 'Header from is "Editor 2" <noreply@musicbrainz.org>');
-        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-        is($e->get_header('Subject'), 'Note added to edit #1234', 'Subject is Note added to edit #1234');
-        is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
-        like($e->get_header('Message-Id'), qr{<edit-1234-8888-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
-        is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
-        compare_body($e->object->body_str,
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1, 'One email sent');
+        my $email = shift @emails;
+        is($email->{headers}{From}, '"Editor 2" <noreply@musicbrainz.org>', 'Header from is "Editor 2" <noreply@musicbrainz.org>');
+        is($email->{headers}{To}, '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($email->{headers}{Subject}, 'Note added to edit #1234', 'Subject is Note added to edit #1234');
+        is($email->{headers}{References}, sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+        like($email->{headers}{'Message-Id'}, qr{<edit-1234-8888-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
+        is($email->{headers}{Sender}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'Sender is noreply@...');
+        compare_body($email->{body},
                      "'Editor 2' has added the following note to edit #1234:\n".
                      "------------------------------------------------------------------------\n".
                      "Please remember to use guess case!\n".
@@ -345,12 +345,12 @@ test all => sub {
             note_text => 'localize:{"message":"Hello {name}","args":{"name":"World"}}',
         );
 
-        my $delivery = $email->transport->shift_deliveries;
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1, 'One email sent');
+        my $email = shift @emails;
 
         compare_body(
-            $e->object->body_str,
+            $email->{body},
             "'ModBot' has added the following note to edit #1234:\n" .
             "------------------------------------------------------------------------\n" .
             "Hello World\n" .
@@ -371,17 +371,15 @@ test all => sub {
             own_edit => 1,
         );
 
-        is($email->transport->delivery_count, 1);
-        my $delivery = $email->transport->shift_deliveries;
-        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-        my $e = $delivery->{email};
-        $email->transport->clear_deliveries;
-        is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
-        is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-        is($e->get_header('Subject'), 'Note added to your edit #9000', 'Subject is Note added to your edit #9000');
-        like($e->get_header('Message-Id'), qr{<edit-9000-4444-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
-        is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
-        compare_body($e->object->body_str,
+        my @emails = $test->get_emails;
+        is(scalar @emails, 1, 'One email sent');
+        my $email = shift @emails;
+        is($email->{headers}{From}, '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
+        is($email->{headers}{To}, '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
+        is($email->{headers}{Subject}, 'Note added to your edit #9000', 'Subject is Note added to your edit #9000');
+        like($email->{headers}{'Message-Id'}, qr{<edit-9000-4444-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
+        is($email->{headers}{Sender}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'Sender is noreply@...');
+        compare_body($email->{body},
                      "'Editor 1' has added the following note to your edit #9000:\n".
                      "------------------------------------------------------------------------\n".
                      "This edit is totally wrong!\n".

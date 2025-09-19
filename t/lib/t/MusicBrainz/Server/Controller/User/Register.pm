@@ -6,7 +6,7 @@ use warnings;
 use Test::Routine;
 use Test::More;
 
-with 't::Mechanize', 't::Context';
+with 't::Mechanize', 't::Context', 't::Email';
 
 test 'Registering without verifying an email address' => sub {
     my $test = shift;
@@ -32,6 +32,8 @@ test 'Registering and verifying an email address' => sub {
     my $mech = $test->mech;
     my $c    = $test->c;
 
+    $test->skip_unless_mailpit_configured;
+
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
     $mech->get_ok('/register', 'Fetch registration page');
@@ -44,10 +46,10 @@ test 'Registering and verifying an email address' => sub {
 
     like($mech->uri, qr{/user/email_editor}, 'should redirect to profile page after registering');
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Please verify your email address');
-    my $email_body = $email->object->body_str;
+    my @emails = $test->get_emails;
+    my $email = shift @emails;
+    is($email->{headers}{Subject}, 'Please verify your email address');
+    my $email_body = $email->{body};
     like($email_body, qr{/verify-email}, 'has a link to verify email address');
 
     my ($verify_link) = $email_body =~ qr{http://localhost(/verify-email.*)};

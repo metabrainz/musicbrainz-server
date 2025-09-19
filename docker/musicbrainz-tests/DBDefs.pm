@@ -162,4 +162,7 @@ sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta.local:5000' }
 
 sub REPLICATION_USE_DBMIRROR2 { 1 }
 
+sub SMTP_SERVER { 'localhost:1025' }
+sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+
 1;
