@@ -9,7 +9,7 @@ on:
       - translations
 
 env:
-  TESTS_IMAGE_TAG: v-2025-09-27.0
+  TESTS_IMAGE_TAG: v-2025-09-22.mtcaptcha
 
 jobs:
   build-tests-image:

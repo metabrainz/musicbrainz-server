@@ -153,9 +153,9 @@ sub USE_SET_DATABASE_HEADER { 1 }
 sub DISABLE_LAST_LOGIN_UPDATE { 1 }
 
 # See docker/musicbrainz-tests/add_mbtest_alias.sh
-sub WEB_SERVER { 'mbtest:5000' }
-sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
-sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta:5000' }
+sub WEB_SERVER { 'mbtest.local:5000' }
+sub STATIC_RESOURCES_LOCATION { '//mbtest.local:5000/static/build' }
+sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta.local:5000' }
 
 sub REPLICATION_USE_DBMIRROR2 { 1 }
 
