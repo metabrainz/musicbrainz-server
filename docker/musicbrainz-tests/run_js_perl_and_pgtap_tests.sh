@@ -23,6 +23,30 @@ sudo -E -H -u musicbrainz \
     && { exit 1; }
 echo OK
 
+set +x
+
+if [[ -z "$MTCAPTCHA_PUBLIC_KEY" ]];
+then
+  echo "MTCAPTCHA_PUBLIC_KEY is empty"
+elif [[ "$MTCAPTCHA_PUBLIC_KEY" =~ ^MTPublic- ]]
+then
+  echo "MTCAPTCHA_PUBLIC_KEY looks good"
+else
+  echo "MTCAPTCHA_PUBLIC_KEY does NOT look good"
+fi
+
+if [[ -z "$MTCAPTCHA_PRIVATE_KEY" ]];
+then
+  echo "MTCAPTCHA_PRIVATE_KEY is empty"
+elif [[ "$MTCAPTCHA_PRIVATE_KEY" =~ ^MTPrivat- ]]
+then
+  echo "MTCAPTCHA_PRIVATE_KEY looks good"
+else
+  echo "MTCAPTCHA_PRIVATE_KEY does NOT look good"
+fi
+
+set -x
+
 sv_start_if_down chrome postgresql redis
 
 sudo -E -H -u musicbrainz carton exec -- ./bin/babel-node \
