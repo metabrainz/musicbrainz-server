@@ -9,13 +9,14 @@
 # Nicolás Tamargo <email address hidden>, 2021
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# לוכסן <lochsan.wikiped@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2024-04-17 17:35+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-09-03 23:39+0000\n"
+"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/he/>\n"
 "Language: he\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -5116,11 +5117,9 @@ msgstr "עריכת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:26
-#, fuzzy
-#| msgid "Change release data quality"
 msgctxt "edit type"
 msgid "Change release data quality"
-msgstr "שינוי איכות נתוני הוצאה"
+msgstr "שינוי באיכות נתונים של הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
@@ -9089,7 +9088,7 @@ msgstr "ביטול עריכה"
 
 #: ../root/edit/CannotApproveEdit.js:20
 msgid "The edit has been cancelled."
-msgstr ""
+msgstr "עריכה זו בוטלה."
 
 #: ../root/edit/CannotApproveEdit.js:22 ../root/edit/CannotCancelEdit.js:28
 msgid "The edit has already been closed."
@@ -9895,10 +9894,8 @@ msgstr "ISWC"
 #: ../root/search/components/WorkResults.js:60
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:119
 #: ../root/static/scripts/work/edit.js:343
-#, fuzzy
-#| msgid "Lyrics Languages"
 msgid "Lyrics languages"
-msgstr "שפת תמליל"
+msgstr "שפות המילים"
 
 #: ../root/edit/details/BetaOnlyEdit.js:33
 msgid "This edit can currently only be viewed on the {beta|beta server}."
@@ -9909,8 +9906,6 @@ msgstr ""
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:37
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:32
 #: ../root/release/ChangeQuality.js:58
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "איכות נתונים"
 
@@ -10326,11 +10321,11 @@ msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:24
 msgid "Language: {language}, script: {script}"
-msgstr ""
+msgstr "שפה: {language}, כתב: {script}"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:45
 msgid "New language:"
-msgstr ""
+msgstr "שפה חדשה:"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:54
 msgid "New script:"
@@ -12114,7 +12109,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:291
 msgid "Change data quality"
-msgstr ""
+msgstr "שינוי איכות נתונים"
 
 #: ../root/layout/components/sidebar/SeriesSidebar.js:51
 msgid "Series information"
@@ -12406,7 +12401,7 @@ msgstr ""
 
 #: ../root/main/error/components/ErrorEnvironment.js:34
 msgid "Interface language:"
-msgstr ""
+msgstr "שפת ממשק:"
 
 #: ../root/main/error/components/ErrorEnvironment.js:47
 msgid "Request data:"
@@ -14023,7 +14018,7 @@ msgstr ""
 #: ../root/report/LowDataQualityReleases.js:37
 #: ../root/report/ReportsIndex.js:506
 msgid "Releases marked as having low data quality"
-msgstr ""
+msgstr "הוצאות שסומנו כבעלות איכות ירודה"
 
 #: ../root/report/MediumsWithOrderInTitle.js:25
 msgid ""
@@ -15245,8 +15240,6 @@ msgstr "שפה:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:299
 #: ../root/static/scripts/work/edit.js:337
-#, fuzzy
-#| msgid "Add a language"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "הוספת שפה"
@@ -17060,7 +17053,7 @@ msgstr "פרטי אירוע"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:263
 msgid "This event was cancelled."
-msgstr ""
+msgstr "אירוע זה בוטל."
 
 #: ../root/static/scripts/event/components/EventEditForm.js:276
 msgid ""
@@ -17695,7 +17688,7 @@ msgstr "רשימת המזכים מטה עשויה להיות חלקית, מאח�
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:80
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:123
 msgid "Add lyrics language"
-msgstr ""
+msgstr "הוספת שפת מילים"
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
@@ -19056,11 +19049,9 @@ msgid "Subscribed"
 msgstr ""
 
 #: ../root/utility/tableColumns.js:832
-#, fuzzy
-#| msgid "Lyrics Languages"
 msgctxt "header"
 msgid "Lyrics languages"
-msgstr "שפת תמליל"
+msgstr "שפת מילים"
 
 #: ../root/vote/VotingIndex.js:88
 msgid "…related to artists in my subscriptions"

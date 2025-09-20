@@ -2,11 +2,12 @@
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2022
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# לוכסן <lochsan.wikiped@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-09-03 23:39+0000\n"
+"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/he/>\n"
 "Language: he\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -95,7 +96,7 @@ msgstr ""
 
 #: DB:instrument/name:30
 msgid "French horn"
-msgstr "קרן צרפתית"
+msgstr "קרן יער"
 
 #: DB:instrument/name:838
 msgctxt "Bisonoric concertina"
@@ -358,7 +359,7 @@ msgstr "חליל צד אלט"
 #: DB:instrument/name:21
 msgctxt "Middle member of the saxophone family"
 msgid "alto saxophone"
-msgstr "סקספון אלטו"
+msgstr "סקספון אלט"
 
 #: DB:instrument/name:923
 msgctxt "Alto member of the viol family"
@@ -368,7 +369,7 @@ msgstr "ויולה אלט"
 #: DB:instrument/name:174
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "alto violin"
-msgstr "כנור אלט"
+msgstr "כינור אלט"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -593,7 +594,7 @@ msgstr "מפוחית בס"
 
 #: DB:instrument/name:732
 msgid "bass oboe"
-msgstr "אובואה בס"
+msgstr "אבוב בס"
 
 #: DB:instrument/name:400
 msgid "bass pedals"
@@ -628,7 +629,7 @@ msgstr "ויולה בס"
 #: DB:instrument/name:900
 msgctxt "Sixteenth century precursor of the (violon)cello"
 msgid "bass violin"
-msgstr "כנור בס"
+msgstr "כינור בס"
 
 #: DB:instrument/name:404
 msgid "basset clarinet"
@@ -841,11 +842,11 @@ msgstr "פסלטרי קשת"
 
 #: DB:instrument/name:205
 msgid "bowed string instruments"
-msgstr " כלי נגינה קשת"
+msgstr "כלי קשת"
 
 #: DB:instrument/name:24
 msgid "brass"
-msgstr "פליז"
+msgstr "כלי נשיפה ממתכת"
 
 #: DB:instrument/name:825
 #, fuzzy
@@ -1408,7 +1409,7 @@ msgstr "דושפולור"
 #: DB:instrument/name:48
 msgctxt "Contrabass of modern violin family"
 msgid "double bass"
-msgstr "בס כפול"
+msgstr "קונטרבס"
 
 #: DB:instrument/name:3
 msgid "double reed"
@@ -2911,7 +2912,7 @@ msgstr "ניקאל־הארפה"
 
 #: DB:instrument/name:8
 msgid "oboe"
-msgstr "אובואה"
+msgstr "אבוב"
 
 #: DB:instrument/name:473
 msgid "oboe d'amore"
@@ -3761,7 +3762,7 @@ msgstr "סקסופון סופרנו"
 
 #: DB:instrument/name:210
 msgid "soprano violin"
-msgstr "כנור סופרן"
+msgstr "כינור סופרן"
 
 #: DB:instrument/name:1191
 msgctxt "Complex Neapolitan bagpipe"
@@ -3819,7 +3820,7 @@ msgstr "רביעיית מיתרים"
 #: DB:instrument/name:1033
 msgctxt "ensemble of 2 violins, viola, cello and a fifth string instrument"
 msgid "string quintet"
-msgstr "חמישית מיתרים"
+msgstr "חמישיית מיתרים"
 
 #: DB:instrument/name:1034
 msgctxt "60-80's electronic string-ensemble emulator"
@@ -3829,7 +3830,7 @@ msgstr "סַנְתָז מיתרים"
 #: DB:instrument/name:915
 msgctxt "ensemble of violin, viola and cello"
 msgid "string trio"
-msgstr "שלשיית מיתרים"
+msgstr "שלישיית מיתרים"
 
 #: DB:instrument/name:46
 msgid "strings"
@@ -4092,7 +4093,7 @@ msgstr "ויולה טנור"
 
 #: DB:instrument/name:615
 msgid "tenor violin"
-msgstr "כנור טנור"
+msgstr "כינור טנור"
 
 #: DB:instrument/name:869
 msgctxt "Catalonian double reed descendant of shawm"
