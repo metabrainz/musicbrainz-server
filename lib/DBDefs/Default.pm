@@ -351,10 +351,7 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
-# To enable use of MTCaptcha:
-# TODO update or delete the next line
-# 1. make sure $ENV{'REMOTE_ADDR'} is the ip address of the visitor.
-# 2. replace undef with your MTCaptcha keys:
+# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
 sub MTCAPTCHA_PUBLIC_KEY { return undef }
 sub MTCAPTCHA_PRIVATE_KEY { return undef }
 sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
