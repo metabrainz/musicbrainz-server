@@ -175,6 +175,8 @@ export const FAVICON_CLASSES: {
   'mobygames.com': 'mobygames',
   'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
+  // eslint-disable-next-line sort-keys
+  'classical.music.apple.com': 'appleclassical',
   'music.apple.com': 'applemusic',
   'music.bugs.co.kr': 'bugs',
   'music.migu.cn': 'migumusic',

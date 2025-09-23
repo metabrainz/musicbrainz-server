@@ -738,6 +738,27 @@ limited_link_type_combinations: [
                                 ],
             expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
   },
+  // Apple Music Classical
+  {
+                     input_url: 'https://classical.music.apple.com/ca/artist/11862',
+             input_entity_type: 'artist',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://classical.music.apple.com/ca/artist/11862',
+  },
+  {
+                     input_url: 'https://classical.music.apple.com/be/album/john-rutter-reflections/1825163927',
+             input_entity_type: 'release',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://classical.music.apple.com/be/album/1825163927',
+  },
   // Apple Podcasts
   {
                      input_url: 'https://podcasts.apple.com/dk/podcast/bag-fjendens-linjer/id912730108',
