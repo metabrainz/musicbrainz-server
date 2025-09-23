@@ -453,7 +453,10 @@
 
 [% MACRO predicate_url(field, field_contents) WRAPPER wfield predicate="url" %]
   [% operators([ [ '=', l('is') ]
-                 [ '!=', l('is not') ] ], field_contents) %]
+                 [ '!=', l('is not') ]
+                 [ '~', l('contains')]
+                 [ '!~', l('does not contain')]
+               ], field_contents) %]
 
   <span class="arg">
     <input type="text" size="75" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
