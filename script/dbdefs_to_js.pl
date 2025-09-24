@@ -39,6 +39,8 @@ Readonly our @STRING_DEFS => qw(
     MAPBOX_ACCESS_TOKEN
     MAPBOX_MAP_ID
     MB_SERVER_ROOT
+    MTCAPTCHA_PUBLIC_KEY
+    MTCAPTCHA_PRIVATE_TEST_KEY
     RENDERER_SOCKET
     SENTRY_DSN
     SENTRY_DSN_PUBLIC
@@ -61,6 +63,8 @@ Readonly our %CLIENT_DEFS => (
     MAPBOX_ACCESS_TOKEN => 1,
     MAPBOX_MAP_ID => 1,
     MB_LANGUAGES => 1,
+    MTCAPTCHA_PUBLIC_KEY => 1,
+    MTCAPTCHA_PRIVATE_TEST_KEY => 1,
     SENTRY_DSN_PUBLIC => 1,
     STATIC_RESOURCES_LOCATION => 1,
     WEB_SERVER => 1,
@@ -125,6 +129,14 @@ sub get_value {
 
     if ($def eq 'DATABASES') {
         return \%MusicBrainz::Server::DatabaseConnectionFactory::databases;
+    } elsif ($def eq 'MTCAPTCHA_PRIVATE_TEST_KEY') {
+        # Don't leak the private key to the client unless we're running
+        # tests, where it's required for `enableTestMode`.
+        return (
+            $ENV{MUSICBRAINZ_RUNNING_TESTS}
+                ? DBDefs->MTCAPTCHA_PRIVATE_TEST_KEY
+                : '[redacted]'
+        );
     }
 
     # Values can be overridden via the environment.
