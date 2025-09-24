@@ -405,6 +405,11 @@
         status: 2,
         data: {
           comment: '',
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity_gid: '$$__IGNORE__$$',
           entity_id: 1,
           languages: [171, 455],
@@ -421,6 +426,11 @@
         status: 2,
         data: {
           comment: '',
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity_gid: '$$__IGNORE__$$',
           entity_id: 2,
           languages: [171, 455],
@@ -437,6 +447,11 @@
         status: 2,
         data: {
           comment: '',
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity_gid: '$$__IGNORE__$$',
           entity_id: 3,
           languages: [171, 455],
@@ -478,6 +493,11 @@
             year: 1998,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -521,6 +541,11 @@
             year: 1999,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
             id: 100084,
@@ -579,6 +604,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '19506825-c404-43eb-9b09-86fc152c6780',
             id: 1040491,
@@ -626,6 +656,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 1,
@@ -682,6 +717,11 @@
             year: 1998,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -725,6 +765,11 @@
             year: 1999,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
             id: 100084,
@@ -783,6 +828,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '821f9cce-be76-4278-ab5c-63169792deb1',
             id: 1040492,
@@ -830,6 +880,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 1,
@@ -886,6 +941,11 @@
             year: 1998,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -929,6 +989,11 @@
             year: 1999,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
             id: 100084,
@@ -987,6 +1052,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '65d62fc9-a9d5-4470-aef1-1b5bff4b9424',
             id: 1040493,
@@ -1034,6 +1104,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '$$__IGNORE__$$',
             id: 1,
@@ -1066,6 +1141,11 @@
         data: {
           edit_version: 2,
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '30bcaa92-9870-4798-be1a-4e0036755316',
             id: 7282,
@@ -1099,6 +1179,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '30bcaa92-9870-4798-be1a-4e0036755316',
             id: 7282,
@@ -1131,6 +1216,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -1264,6 +1354,11 @@
         status: 2,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0_credit: 'brdms',
           entity1_credit: '',
           link: {
@@ -1330,6 +1425,11 @@
         status: 1,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           relationship: {
             entity0: {
               gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
@@ -1374,6 +1474,11 @@
         status: 2,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0_credit: 'brdms',
           entity1_credit: '',
           link: {
@@ -1440,6 +1545,11 @@
         status: 1,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           relationship: {
             entity0: {
               gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
@@ -1484,6 +1594,11 @@
         status: 2,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0_credit: 'brdms',
           entity1_credit: '',
           link: {
@@ -1550,6 +1665,11 @@
         status: 1,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           relationship: {
             entity0: {
               gid: '5faa3d4f-6db9-4b93-a4c3-8efcea9b678f',
@@ -1594,6 +1714,11 @@
         status: 2,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0_credit: 'oh',
           entity1_credit: '',
           link: {
@@ -1671,6 +1796,11 @@
         status: 1,
         data: {
           edit_version: 2,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           relationship: {
             entity0: {
               gid: '0798d15b-64e2-499f-9969-70167b1d8617',
@@ -1783,6 +1913,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '471c46a7-afc5-31c4-923c-d0444f5053a4',
             id: 194,
@@ -1862,6 +1997,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
             id: 249113,
@@ -1967,6 +2107,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -2013,6 +2158,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -2100,6 +2250,11 @@
           ],
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,
@@ -2297,6 +2452,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '30bcaa92-9870-4798-be1a-4e0036755316',
             id: 7282,
@@ -2329,6 +2489,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '30bcaa92-9870-4798-be1a-4e0036755316',
             id: 7282,
@@ -2373,6 +2538,11 @@
             year: 1991,
           },
           ended: 1,
+          entered_from: {
+            entity_type: 'release',
+            gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+            name: 'Vision Creation Newsun',
+          },
           entity0: {
             gid: '0798d15b-64e2-499f-9969-70167b1d8617',
             id: 39282,

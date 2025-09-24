@@ -78,6 +78,11 @@
         data: {
           edit_version: 2,
           ended: 0,
+          entered_from: {
+            entity_type: 'release',
+            gid: '24d4159a-99d9-425d-a7b8-1b9ec0261a33',
+            name: '★',
+          },
           entity0: {
             gid: '0f42ab32-22cd-4dcf-927b-a8d9a183d68b',
             id: 20937085,
