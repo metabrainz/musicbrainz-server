@@ -25,7 +25,7 @@ export default function isSpecialPurpose(
 ): boolean {
   if (entity.entityType === 'artist') {
     return SPECIAL_ARTIST_IDS.includes(entity.id) ||
-      SPECIAL_ARTIST_GIDS.includes(entity.gid);
+      (nonEmpty(entity.gid) && SPECIAL_ARTIST_GIDS.includes(entity.gid));
   } else if (entity.entityType === 'label') {
     return entity.id === DLABEL_ID ||
       entity.id === NOLABEL_ID ||

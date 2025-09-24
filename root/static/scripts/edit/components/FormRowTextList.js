@@ -108,7 +108,8 @@ function reducer(state: StateT, action: ActionT): StateT {
         }
         return false;
       });
-      if (state.currentTextValues.includes(removedValue)) {
+      if (nonEmpty(removedValue) &&
+          state.currentTextValues.includes(removedValue)) {
         fieldCtx.set(index, 'field', 'removed', 'value', true);
       } else {
         const newField = fieldCtx.read().slice(0);

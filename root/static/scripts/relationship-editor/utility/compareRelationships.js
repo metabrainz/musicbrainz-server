@@ -279,7 +279,8 @@ export default function compareRelationships(
   }
 
   const linkTypeId = a.linkTypeID;
-  const isPartOfSeries = PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId);
+  const isPartOfSeries = linkTypeId != null &&
+    PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId);
   const source = backward ? a.entity1 : a.entity0;
   const targetA = backward ? a.entity0 : a.entity1;
   const targetB = backward ? b.entity0 : b.entity1;
