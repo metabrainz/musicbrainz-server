@@ -47,8 +47,8 @@
       value: 'Starman',
     },
     {
-      command: 'pause',
-      target: '1000',
+      command: 'waitUntilElementIsVisible',
+      target: 'xpath=//div[contains(@class, "relationship-target")]/ul/li[contains(descendant::text(), "Starman")]',
       value: '',
     },
     {
