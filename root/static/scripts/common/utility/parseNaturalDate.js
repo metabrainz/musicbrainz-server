@@ -8,8 +8,8 @@
  */
 
 
-const ymdRegex = /^\W*([0-9]{4})(?:\W+(0?[1-9]|1[0-2])(?:\W+(0?[1-9]|[12][0-9]|3[01]))?)?\W*$/;
-const cjkRegex = /^\W*([0-9]{2}|[0-9]{4})(?:(?:\u5E74|\uB144\W?)(0?[1-9]|1[0-2])(?:(?:\u6708|\uC6D4\W?)(0?[1-9]|[12][0-9]|3[01])(?:\u65E5|\uC77C)?)?)?\W*$/;
+const ymdRegex = /^[^\w?]*([0-9]{4}|\?{4})(?:[^\w?]+(0?[1-9]|1[0-2]|\?{2})(?:[^\w?]+(0?[1-9]|[12][0-9]|3[01]|\?{2}))?)?[^\w?]*$/;
+const cjkRegex = /^[^\w?]*([0-9]{2}|[0-9]{4})(?:(?:\u5E74|\uB144[^\w?]?)(0?[1-9]|1[0-2])(?:(?:\u6708|\uC6D4[^\w?]*?)(0?[1-9]|[12][0-9]|3[01])(?:\u65E5|\uC77C)?)?)?[^\w?]*$/;
 
 function cleanDateString(
   str: string,
@@ -69,11 +69,14 @@ export default function parseNaturalDate(
                 cleanedString.match(ymdRegex) ||
                 [];
 
+  const year = match[1] === '????' ? '' : match[1];
+  const month = match[2] === '??' ? '' : match[2];
+  const day = match[3] === '??' ? '' : match[3];
   return {
     /* eslint-disable sort-keys */
-    year: match[1] || '',
-    month: match[2] || '',
-    day: match[3] || '',
+    year: year || '',
+    month: month || '',
+    day: day || '',
     /* eslint-enable sort-keys */
   };
 }
