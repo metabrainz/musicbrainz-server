@@ -67,3 +67,4 @@ require('./utility/relationshipDateText.js');
 require('./utility/sanitizedEditor.js');
 require('./utility/sortByEntityName.js');
 require('./utility/strings.js');
+require('./utility/unformatTrackLength.js');
