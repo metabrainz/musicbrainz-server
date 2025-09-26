@@ -12,12 +12,13 @@
 # delamons <lamons.n@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # imgradeone <imgradeone@outlook.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-02 15:20+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"PO-Revision-Date: 2025-09-25 16:55+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -245,7 +246,7 @@ msgstr "概览"
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
-msgstr "未能提供任何图像统计信息。"
+msgstr "无可用的图像统计信息。"
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
