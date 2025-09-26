@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-07-29 13:36+0000\n"
+"PO-Revision-Date: 2025-08-20 21:36+0000\n"
 "Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ja/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -113,7 +113,7 @@ msgstr "変化率グラフ"
 
 #: ../root/statistics/layout.tt:5
 msgid "Relationships"
-msgstr "関連"
+msgstr "関連情報"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Reset:"
