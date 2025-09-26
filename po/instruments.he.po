@@ -3,11 +3,12 @@
 # Avi Markovitz <email address hidden>, 2018-2022
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # לוכסן <lochsan.wikiped@gmail.com>, 2025.
+# tuba56 <tuvalbenami@proton.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-03 23:39+0000\n"
-"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
+"PO-Revision-Date: 2025-09-13 01:54+0000\n"
+"Last-Translator: tuba56 <tuvalbenami@proton.me>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/he/>\n"
 "Language: he\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1857,7 +1858,7 @@ msgstr "גאיצ'אק"
 #: DB:instrument/name:932
 msgctxt "Uyghur spike fiddle"
 msgid "ghijak"
-msgstr "גאיג'אק"
+msgstr "ריג׳אק"
 
 #: DB:instrument/name:802
 msgctxt "Medieval lute-like guitar forerunner"
