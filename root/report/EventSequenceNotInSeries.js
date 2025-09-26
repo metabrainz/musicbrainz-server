@@ -21,14 +21,16 @@ component EventSequenceNotInSeries(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists events where the event name indicates that it
          may have to be part of a series or a larger event.`,
       )}
       entityType="event"
       filtered={filtered}
       generated={generated}
-      title={l('Events which should be part of series or larger event')}
+      title={l_reports(
+        'Events which should be part of series or larger event',
+      )}
       totalEntries={pager.total_entries}
     >
       <EventList items={items} pager={pager} />

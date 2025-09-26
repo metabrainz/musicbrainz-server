@@ -30,7 +30,7 @@ component IswcsWithManyWorks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists {iswc|ISWCs} that are attached to more than
          one work. If the works are the same, this usually means
          they should be merged.`,
@@ -39,19 +39,19 @@ component IswcsWithManyWorks(...{
       entityType="iswc"
       filtered={filtered}
       generated={generated}
-      title={l('ISWCs with multiple works')}
+      title={l_reports('ISWCs with multiple works')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
             <tr>
-              <th>{l('ISWC')}</th>
-              <th>{l('Work')}</th>
-              <th>{l('Authors')}</th>
-              <th>{l('Recording artists')}</th>
-              <th>{l('Type')}</th>
-              <th>{l('Language')}</th>
+              <th>{l_mb_server('ISWC')}</th>
+              <th>{l_mb_server('Work')}</th>
+              <th>{l_mb_server('Authors')}</th>
+              <th>{l_mb_server('Recording artists')}</th>
+              <th>{l_mb_server('Type')}</th>
+              <th>{l_mb_server('Language')}</th>
             </tr>
           </thead>
           <tbody>
@@ -80,7 +80,7 @@ component IswcsWithManyWorks(...{
                       <>
                         <td />
                         <td colSpan={5}>
-                          {l('This work no longer exists.')}
+                          {l_reports('This work no longer exists.')}
                         </td>
                       </>
                     )}

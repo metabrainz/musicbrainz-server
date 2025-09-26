@@ -41,13 +41,13 @@ component ReleaseList<D: {+release: ?ReleaseT, ...}>(
         descriptive: false,
         getEntity: result => result.release ?? null,
         subPath,
-        title: l('Release'),
+        title: l_mb_server('Release'),
       });
       const artistCreditColumn =
         defineArtistCreditColumn<D>({
           columnName: 'artist',
           getArtistCredit: result => result.release?.artistCredit ?? null,
-          title: l('Artist'),
+          title: l_mb_server('Artist'),
         });
 
       return [

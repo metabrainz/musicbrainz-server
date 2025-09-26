@@ -37,7 +37,7 @@ component PlaceList<D: {+place: ?PlaceT, ...}>(
       const nameColumn = defineEntityColumn<D>({
         columnName: 'place',
         getEntity: result => result.place ?? null,
-        title: l('Place'),
+        title: l_mb_server('Place'),
       });
 
       return [

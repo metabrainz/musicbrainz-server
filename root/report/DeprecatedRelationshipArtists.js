@@ -25,14 +25,14 @@ component DeprecatedRelationshipArtists(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists which have relationships using
          deprecated and grouping-only relationship types.`,
       )}
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists with deprecated relationships')}
+      title={l_reports('Artists with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <ArtistList

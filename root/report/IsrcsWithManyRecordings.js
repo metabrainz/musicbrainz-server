@@ -33,7 +33,7 @@ component IsrcsWithManyRecordings(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists {isrc|ISRCs} that are attached to more than
          one recording. If the recordings are the same, this usually
          means they should be merged (ISRCs can be wrongly assigned
@@ -48,17 +48,17 @@ component IsrcsWithManyRecordings(...{
       entityType="isrc"
       filtered={filtered}
       generated={generated}
-      title={l('ISRCs with multiple recordings')}
+      title={l_reports('ISRCs with multiple recordings')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
             <tr>
-              <th>{l('ISRC')}</th>
-              <th>{l('Artist')}</th>
-              <th>{l('Recording')}</th>
-              <th>{l('Length')}</th>
+              <th>{l_mb_server('ISRC')}</th>
+              <th>{l_mb_server('Artist')}</th>
+              <th>{l_mb_server('Recording')}</th>
+              <th>{l_mb_server('Length')}</th>
             </tr>
           </thead>
           <tbody>
@@ -95,7 +95,7 @@ component IsrcsWithManyRecordings(...{
                       <>
                         <td />
                         <td colSpan={3}>
-                          {l('This recording no longer exists.')}
+                          {l_reports('This recording no longer exists.')}
                         </td>
                       </>
                     )}

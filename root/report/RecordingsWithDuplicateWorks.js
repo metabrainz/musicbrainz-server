@@ -21,7 +21,7 @@ component RecordingsWithDuplicateWorks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists recordings which are linked several times
          to the same work or to works of the same name. While this can
          be correct, in most cases either the relationships or the works
@@ -30,7 +30,7 @@ component RecordingsWithDuplicateWorks(...{
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with possible duplicate works')}
+      title={l_reports('Recordings with possible duplicate works')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

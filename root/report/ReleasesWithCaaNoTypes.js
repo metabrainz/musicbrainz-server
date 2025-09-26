@@ -21,7 +21,7 @@ component ReleasesWithCaaNoTypes(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases which have cover art in the Cover Art
          Archive, but where none of it has any types set. This often means
          a front cover was added, but not marked as such.`,
@@ -29,7 +29,7 @@ component ReleasesWithCaaNoTypes(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l(`Releases in the Cover Art Archive
+      title={l_reports(`Releases in the Cover Art Archive
                 where no cover art piece has types`)}
       totalEntries={pager.total_entries}
     >

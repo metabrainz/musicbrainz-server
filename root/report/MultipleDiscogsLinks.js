@@ -21,7 +21,7 @@ component MultipleDiscogsLinks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases that have more than one link to Discogs.
          In most cases a MusicBrainz release should have only one equivalent
          in Discogs, so only one of them will be correct. Just check which
@@ -34,7 +34,7 @@ component MultipleDiscogsLinks(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with multiple Discogs links')}
+      title={l_reports('Releases with multiple Discogs links')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

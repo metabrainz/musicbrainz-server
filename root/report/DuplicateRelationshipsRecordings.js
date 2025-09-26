@@ -21,14 +21,14 @@ component DuplicateRelationshipsRecordings(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists recordings which have multiple relationships
          to the same entity using the same relationship type.`,
       )}
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with possible duplicate relationships')}
+      title={l_reports('Recordings with possible duplicate relationships')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

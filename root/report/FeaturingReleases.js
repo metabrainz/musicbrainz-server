@@ -21,7 +21,7 @@ component FeaturingReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases with “(feat. Artist)”
          (or similar) in the title. For classical releases, 
          consult the {CSG|classical style guidelines}. For 
@@ -39,7 +39,7 @@ component FeaturingReleases(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with titles containing featuring artists')}
+      title={l_reports('Releases with titles containing featuring artists')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

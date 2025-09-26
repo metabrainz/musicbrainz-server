@@ -36,8 +36,8 @@ component DuplicateArtists(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      countText={l('Total duplicate groups: {count}')}
-      description={exp.l(
+      countText={l_reports('Total duplicate groups: {count}')}
+      description={exp.l_reports(
         `This report aims to identify artists with very similar names.
          If two artists are actually the same, please merge them
          (remember to {how_to_write_edit_notes|write an edit note}
@@ -53,7 +53,7 @@ component DuplicateArtists(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Possibly duplicate artists')}
+      title={l_reports('Possibly duplicate artists')}
       totalEntries={pager.total_entries}
     >
       <form
@@ -65,9 +65,9 @@ component DuplicateArtists(...{
             <thead>
               <tr>
                 <th className="check" />
-                <th>{l('Artist')}</th>
-                <th>{l('Sort name')}</th>
-                <th className="atype">{l('Type')}</th>
+                <th>{l_mb_server('Artist')}</th>
+                <th>{l_mb_server('Sort name')}</th>
+                <th className="atype">{l_mb_server('Type')}</th>
               </tr>
             </thead>
             <tbody>
@@ -97,7 +97,7 @@ component DuplicateArtists(...{
                           <EntityLink entity={artist} />
                           {nonEmpty(alias) ? (
                             <span>
-                              {' (' + l('alias:') + ' ' + alias + ')'}
+                              {' (' + l_reports('alias:') + ' ' + alias + ')'}
                             </span>
                           ) : null}
                         </td>
@@ -107,14 +107,14 @@ component DuplicateArtists(...{
                             ? lp_attributes(
                               artist.typeName, 'artist_type',
                             )
-                            : lp('Unknown', 'type')}
+                            : lp_mb_server('Unknown', 'type')}
                         </td>
                       </tr>
                     ) : (
                       <tr>
                         <td />
                         <td colSpan={3}>
-                          {l('This artist no longer exists.')}
+                          {l_reports('This artist no longer exists.')}
                         </td>
                       </tr>
                     )}
@@ -126,7 +126,7 @@ component DuplicateArtists(...{
           {$c.user ? (
             <>
               <ListMergeButtonsRow
-                label={l('Add selected artists for merging')}
+                label={l_reports('Add selected artists for merging')}
               />
               {manifest(
                 'common/components/ListMergeButtonsRow',

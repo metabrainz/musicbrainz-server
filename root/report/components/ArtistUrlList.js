@@ -26,8 +26,8 @@ component ArtistUrlList(
       <table className="tbl">
         <thead>
           <tr>
-            <th>{l('URL')}</th>
-            <th>{l('Artist')}</th>
+            <th>{l_mb_server('URL')}</th>
+            <th>{l_mb_server('Artist')}</th>
           </tr>
         </thead>
         <tbody>
@@ -66,7 +66,7 @@ component ArtistUrlList(
                   <tr key={`removed-${item.artist_id}`}>
                     <td />
                     <td>
-                      {l('This artist no longer exists.')}
+                      {l_reports('This artist no longer exists.')}
                     </td>
                   </tr>
                 )}

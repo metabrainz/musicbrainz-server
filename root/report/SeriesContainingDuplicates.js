@@ -20,13 +20,13 @@ const entityColumn = defineEntityColumn<ReportSeriesDuplicatesT>({
   columnName: 'duplicate',
   getEntity: result => result.entity ?? null,
   showIcon: true,
-  title: l('Duplicate entity'),
+  title: l_reports('Duplicate entity'),
 });
 
 const numberColumn = defineTextColumn<ReportSeriesDuplicatesT>({
   columnName: 'number',
   getText: result => result.order_number ?? '',
-  title: l('Number'),
+  title: l_reports('Number'),
 });
 
 component SeriesContainingDuplicates(...{
@@ -39,14 +39,14 @@ component SeriesContainingDuplicates(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists series which contain the same entity multiple
          times with the same number attribute.`,
       )}
       entityType="series"
       filtered={filtered}
       generated={generated}
-      title={l('Series containing duplicates')}
+      title={l_reports('Series containing duplicates')}
       totalEntries={pager.total_entries}
     >
       <SeriesList

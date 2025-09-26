@@ -21,7 +21,7 @@ component ReleasesToConvert(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report aims to identify releases which need converting to
          multiple artists (because the track artists are on the title
          field, for example). Currently it does this by looking for
@@ -30,7 +30,9 @@ component ReleasesToConvert(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases which might need converting to "multiple artists"')}
+      title={l_reports(
+        'Releases which might need converting to "multiple artists"',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

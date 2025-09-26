@@ -22,7 +22,7 @@ component ArtistCreditList(
       <table className="tbl">
         <thead>
           <tr>
-            <th>{l('Artist credit')}</th>
+            <th>{l_mb_server('Artist credit')}</th>
           </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@ component ArtistCreditList(
                 </td>
               ) : (
                 <td>
-                  {l('This artist credit no longer exists.')}
+                  {l_reports('This artist credit no longer exists.')}
                 </td>
               )}
             </tr>

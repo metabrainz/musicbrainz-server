@@ -25,13 +25,13 @@ function useAnnotationColumns<
         defineTextHtmlColumn<D>({
           columnName: 'annotation',
           getText: result => result.text,
-          title: l('Annotation'),
+          title: l_mb_server('Annotation'),
         });
       const editedColumn = defineTextColumn<D>({
         columnName: 'created',
         getText: result => result.created,
         headerProps: {className: 'last-edited-heading'},
-        title: l('Last edited'),
+        title: l_mb_server('Last edited'),
       });
 
       return [

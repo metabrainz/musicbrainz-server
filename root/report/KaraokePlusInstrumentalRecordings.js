@@ -23,7 +23,7 @@ component KaraokePlusInstrumentalRecordings(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows recordings which have a
          {doc_karaoke_rel|“karaoke” relationship} to another recording,
          but are linked to a work with the
@@ -41,7 +41,7 @@ component KaraokePlusInstrumentalRecordings(...{
         },
       )}
       entityType="relationship"
-      extraInfo={l(
+      extraInfo={l_reports(
         `Keep in mind that “instrumental” in MusicBrainz implies the lyrics
          are not relevant to the recording. Since lyrics are by definition
          relevant to karaoke recordings, “instrumental” should not be used
@@ -52,7 +52,7 @@ component KaraokePlusInstrumentalRecordings(...{
       )}
       filtered={filtered}
       generated={generated}
-      title={l('Recordings marked as both karaoke and instrumental')}
+      title={l_reports('Recordings marked as both karaoke and instrumental')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

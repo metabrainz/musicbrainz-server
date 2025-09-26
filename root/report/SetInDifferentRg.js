@@ -21,7 +21,7 @@ component SetInDifferentRg(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows release groups with releases that are linked to
          releases in different release groups by part-of-set or
          transliteration relationships. If a pair of release groups are
@@ -34,7 +34,7 @@ component SetInDifferentRg(...{
       entityType="release_group"
       filtered={filtered}
       generated={generated}
-      title={l('Release groups that might need to be merged')}
+      title={l_reports('Release groups that might need to be merged')}
       totalEntries={pager.total_entries}
     >
       <ReleaseGroupList items={items} pager={pager} />

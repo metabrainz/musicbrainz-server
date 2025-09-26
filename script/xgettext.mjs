@@ -210,6 +210,7 @@ let keywords = {
 
 keywords = {
   ...keywords,
+  l_reports: keywords.l,
   l_statistics: keywords.l,
   ln_statistics: keywords.ln,
   lp_statistics: keywords.lp,

@@ -1,0 +1,2500 @@
+# #-#-#-#-#  mb_server.pot (PACKAGE VERSION)  #-#-#-#-#
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
+# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-05 11:59+0200\n"
+"PO-Revision-Date: 2025-05-27 11:20+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Chinese (Traditional Han script) <https://"
+"translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
+"Language: zh_Hant\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11.4\n"
+
+#: ../root/place/edit_form.tt:18 ../root/components/list/PlaceList.js:59
+#: ../root/edit/details/AddPlace.js:51 ../root/edit/details/EditPlace.js:64
+#: ../root/layout/components/sidebar/PlaceSidebar.js:89
+#: ../root/report/PlacesWithoutCoordinates.js:41
+#: ../root/search/components/PlaceResults.js:67
+msgid "Address"
+msgstr "地址"
+
+#: ../root/artist/edit_form.tt:22 ../root/edit/search_macros.tt:473
+#: ../root/label/edit_form.tt:16 ../root/place/edit_form.tt:21
+#: ../lib/MusicBrainz/Server/Edit/Area.pm:7
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
+#: ../root/components/list/AreaList.js:38
+#: ../root/components/list/ArtistList.js:80
+#: ../root/components/list/LabelList.js:68
+#: ../root/components/list/PlaceList.js:64 ../root/edit/details/AddArea.js:26
+#: ../root/edit/details/AddArtist.js:79 ../root/edit/details/AddLabel.js:75
+#: ../root/edit/details/AddPlace.js:57 ../root/edit/details/EditArea.js:39
+#: ../root/edit/details/EditArtist.js:108 ../root/edit/details/EditLabel.js:115
+#: ../root/edit/details/EditPlace.js:71 ../root/layout/components/Search.js:35
+#: ../root/layout/components/sidebar/ArtistSidebar.js:137
+#: ../root/layout/components/sidebar/LabelSidebar.js:95
+#: ../root/layout/components/sidebar/PlaceSidebar.js:96
+#: ../root/report/PlacesWithoutCoordinates.js:42
+#: ../root/search/components/ArtistResults.js:56
+#: ../root/search/components/LabelResults.js:69
+#: ../root/search/components/PlaceResults.js:68
+#: ../root/search/components/SearchForm.js:37
+#: ../root/static/scripts/common/constants.js:35
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:48
+#: ../root/user/UserProfile.js:54
+msgid "Area"
+msgstr "區域"
+
+#: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
+#: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
+#: ../root/edit/search_macros.tt:473 ../root/release/edit/duplicates.tt:11
+#: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
+#: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:513
+#: ../root/release_group/set_cover_art.tt:33
+#: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
+#: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/CDStubInfo.js:21
+#: ../root/cdstub/ImportCDStub.js:39
+#: ../root/cdtoc/AttachCDTocConfirmation.js:60
+#: ../root/cdtoc/SelectArtistForCDToc.js:36
+#: ../root/components/RelationshipsTable.js:323
+#: ../root/components/list/ArtistList.js:56
+#: ../root/components/list/RecordingList.js:90
+#: ../root/components/list/ReleaseGroupList.js:79
+#: ../root/components/list/ReleaseList.js:75
+#: ../root/edit/details/AddArtist.js:36 ../root/edit/details/AddMedium.js:151
+#: ../root/edit/details/AddRelease.js:51
+#: ../root/edit/details/AddReleaseGroup.js:42
+#: ../root/edit/details/AddStandaloneRecording.js:41
+#: ../root/edit/details/EditArtist.js:52 ../root/edit/details/EditMedium.js:279
+#: ../root/edit/details/EditMedium.js:283
+#: ../root/edit/details/EditRecording.js:80
+#: ../root/edit/details/EditRelease.js:61
+#: ../root/edit/details/EditReleaseGroup.js:84
+#: ../root/edit/details/MergeReleases.js:227
+#: ../root/edit/details/historic/AddRelease.js:34
+#: ../root/edit/details/historic/AddRelease.js:86
+#: ../root/edit/details/historic/AddTrackKV.js:37
+#: ../root/edit/details/historic/ChangeArtistQuality.js:20
+#: ../root/edit/details/historic/ChangeReleaseArtist.js:22
+#: ../root/edit/details/historic/EditTrack.js:31
+#: ../root/edit/details/historic/MoveRelease.js:27
+#: ../root/edit/details/historic/RemoveRelease.js:22 ../root/isrc/Index.js:65
+#: ../root/layout/components/Search.js:24
+#: ../root/layout/components/sidebar/RecordingSidebar.js:45
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:58
+#: ../root/release_group/ReleaseGroupIndex.js:167
+#: ../root/report/DuplicateArtists.js:68
+#: ../root/report/DuplicateReleaseGroups.js:58
+#: ../root/report/EmptyReleaseGroups.js:59
+#: ../root/report/IsrcsWithManyRecordings.js:59
+#: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:54
+#: ../root/report/components/ArtistList.js:43
+#: ../root/report/components/ArtistUrlList.js:30
+#: ../root/report/components/CDTocReleaseList.js:51
+#: ../root/report/components/RecordingList.js:48
+#: ../root/report/components/ReleaseGroupList.js:50
+#: ../root/report/components/ReleaseGroupUrlList.js:33
+#: ../root/report/components/ReleaseList.js:50
+#: ../root/report/components/ReleaseUrlList.js:33
+#: ../root/search/components/CDStubResults.js:46
+#: ../root/search/components/RecordingResults.js:139
+#: ../root/search/components/ReleaseGroupResults.js:75
+#: ../root/search/components/ReleaseResults.js:119
+#: ../root/search/components/SearchForm.js:31
+#: ../root/static/scripts/common/components/CDTocReleaseListTable.js:38
+#: ../root/static/scripts/common/constants.js:36
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:50
+#: ../root/static/scripts/common/utility/formatSetlist.js:67
+#: ../root/static/scripts/edit/components/forms.js:129
+#: ../root/static/scripts/release/components/MediumTable.js:75
+#: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
+msgid "Artist"
+msgstr "創作者"
+
+#: ../root/cdtoc/attach_artist_releases.tt:19 ../root/cdtoc/list.tt:13
+#: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:18
+#: ../root/release/edit/information.tt:265
+#: ../root/release_group/set_cover_art.tt:63
+#: ../root/components/list/ReleaseList.js:126
+#: ../root/edit/details/AddRelease.js:107
+#: ../root/edit/details/EditBarcodes.js:41
+#: ../root/edit/details/EditBarcodes.js:47
+#: ../root/edit/details/EditRelease.js:145
+#: ../root/edit/details/EditReleaseLabel.js:117
+#: ../root/edit/details/MergeReleases.js:233
+#: ../root/edit/details/historic/AddRelease.js:121
+#: ../root/edit/details/historic/EditReleaseEvents.js:110
+#: ../root/layout/components/sidebar/CDStubSidebar.js:67
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:130
+#: ../root/otherlookup/OtherLookupForm.js:57
+#: ../root/release_group/ReleaseGroupIndex.js:173
+#: ../root/report/ReleasesSameBarcode.js:40
+#: ../root/search/components/ReleaseResults.js:125
+#: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
+msgid "Barcode"
+msgstr "條碼"
+
+#: ../root/artist/edit_form.tt:52 ../root/artist/utils.js:36
+#: ../root/components/Aliases/AliasTable.js:19
+#: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
+#: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:69
+#: ../root/edit/details/AddRemoveAlias.js:86
+#: ../root/edit/details/EditAlias.js:111 ../root/edit/details/EditArea.js:101
+#: ../root/edit/details/EditEvent.js:68 ../root/edit/details/EditLabel.js:89
+#: ../root/edit/details/EditPlace.js:89
+#: ../root/layout/components/sidebar/AreaSidebar.js:63
+#: ../root/report/RecordingsWithFutureDates.js:33
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:187
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:161
+msgid "Begin date"
+msgstr "開始日期"
+
+#: ../root/artist/edit_form.tt:65 ../root/artist/utils.js:67
+#: ../root/components/Aliases/AliasTable.js:20
+#: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
+#: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
+#: ../root/edit/details/AddRemoveAlias.js:93
+#: ../root/edit/details/EditAlias.js:118 ../root/edit/details/EditArea.js:109
+#: ../root/edit/details/EditEvent.js:76 ../root/edit/details/EditLabel.js:98
+#: ../root/edit/details/EditPlace.js:97
+#: ../root/elections/ElectionTable/index.js:20
+#: ../root/layout/components/sidebar/AreaSidebar.js:69
+#: ../root/layout/components/sidebar/EventSidebar.js:113
+#: ../root/report/RecordingsWithFutureDates.js:38
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:202
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
+msgid "End date"
+msgstr "結束日期"
+
+#: ../root/recording/edit_form.tt:44 ../root/report/ReportsIndex.js:657
+#: ../root/search/components/RecordingResults.js:140
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
+#: ../root/static/scripts/common/components/IsrcList.js:40
+#: ../root/utility/tableColumns.js:705
+msgid "ISRCs"
+msgstr "ISRC"
+
+#: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:666
+#: ../root/static/scripts/common/components/IswcList.js:40
+msgid "ISWCs"
+msgstr "ISWC"
+
+#: ../root/cdtoc/attach_artist_releases.tt:17 ../root/cdtoc/list.tt:11
+#: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:473
+#: ../root/release/edit/duplicates.tt:16
+#: ../root/release/edit/information.tt:222
+#: ../root/release_group/set_cover_art.tt:53
+#: ../lib/MusicBrainz/Server/Edit/Label.pm:7
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
+#: ../root/components/list/LabelList.js:47 ../root/edit/details/AddLabel.js:26
+#: ../root/edit/details/AddReleaseLabel.js:31
+#: ../root/edit/details/EditLabel.js:39
+#: ../root/edit/details/EditReleaseLabel.js:47
+#: ../root/edit/details/MergeReleases.js:231
+#: ../root/edit/details/RemoveReleaseLabel.js:27
+#: ../root/edit/details/historic/AddRelease.js:119
+#: ../root/edit/details/historic/EditReleaseEvents.js:108
+#: ../root/label/LabelHeader.js:18 ../root/layout/components/Search.js:37
+#: ../root/recording/RecordingIndex.js:51
+#: ../root/release_group/ReleaseGroupIndex.js:171
+#: ../root/report/ReleaseLabelSameArtist.js:24
+#: ../root/report/components/LabelList.js:40
+#: ../root/report/components/LabelUrlList.js:30
+#: ../root/search/components/ReleaseResults.js:123
+#: ../root/search/components/SearchForm.js:36
+#: ../root/static/scripts/common/components/CDTocReleaseListTable.js:40
+#: ../root/static/scripts/common/components/FilterForm.js:277
+#: ../root/static/scripts/common/constants.js:40
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:60
+#: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
+#: ../root/utility/tableColumns.js:554
+msgid "Label"
+msgstr "廠牌"
+
+#: ../root/release/edit/information.tt:157
+#: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
+#: ../root/edit/details/EditRelease.js:109
+#: ../root/edit/details/historic/AddRelease.js:70 ../root/iswc/Index.js:63
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:193
+#: ../root/report/IswcsWithManyWorks.js:54
+#: ../root/search/components/ReleaseResults.js:126
+#: ../root/static/scripts/common/components/FilterForm.js:377
+#: ../root/utility/tableColumns.js:570
+msgid "Language"
+msgstr "語言"
+
+#: ../root/cdstub/cdstub.tt:9 ../root/recording/edit_form.tt:34
+#: ../root/recording/edit_form.tt:37 ../root/release/edit/tracklist.tt:164
+#: ../root/release/edit/tracklist.tt:514 ../root/cdstub/CDStubInfo.js:22
+#: ../root/cdtoc/AttachCDTocConfirmation.js:61 ../root/cdtoc/CDTocInfo.js:49
+#: ../root/components/RelationshipsTable.js:324
+#: ../root/components/list/RecordingList.js:99
+#: ../root/edit/details/AddStandaloneRecording.js:54
+#: ../root/edit/details/EditMedium.js:280
+#: ../root/edit/details/EditMedium.js:284
+#: ../root/edit/details/EditRecording.js:57
+#: ../root/edit/details/EditRecording.js:65
+#: ../root/edit/details/historic/AddRelease.js:87
+#: ../root/edit/details/historic/AddTrackKV.js:50 ../root/isrc/Index.js:66
+#: ../root/layout/components/sidebar/RecordingSidebar.js:52
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:148
+#: ../root/recording/RecordingIndex.js:45 ../root/release/DiscIds.js:97
+#: ../root/report/IsrcsWithManyRecordings.js:61
+#: ../root/report/components/CDTocList.js:49
+#: ../root/search/components/RecordingResults.js:138
+#: ../root/static/scripts/release/components/MediumTable.js:78
+msgid "Length"
+msgstr "長度"
+
+#: ../root/edit/search_macros.tt:473 ../lib/MusicBrainz/Server/Edit/Place.pm:8
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
+#: ../root/components/list/PlaceList.js:47 ../root/edit/details/AddPlace.js:26
+#: ../root/edit/details/EditPlace.js:36 ../root/layout/components/Search.js:38
+#: ../root/report/PlacesWithoutCoordinates.js:40
+#: ../root/report/components/PlaceList.js:40
+#: ../root/search/components/SearchForm.js:38
+#: ../root/static/scripts/common/constants.js:41
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:62
+#: ../root/user/UserProfile.js:61
+msgid "Place"
+msgstr "地點"
+
+#: ../root/edit/search_macros.tt:473
+#: ../lib/MusicBrainz/Server/Edit/Recording.pm:7
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:41
+#: ../root/edit/details/AddStandaloneRecording.js:27
+#: ../root/edit/details/EditRecording.js:35
+#: ../root/edit/details/MergeReleases.js:302
+#: ../root/edit/details/RemoveIsrc.js:27
+#: ../root/edit/details/historic/EditTrack.js:23
+#: ../root/layout/components/Search.js:28
+#: ../root/report/IsrcsWithManyRecordings.js:60
+#: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:55
+#: ../root/report/components/RecordingList.js:42
+#: ../root/search/components/SearchForm.js:34
+#: ../root/static/scripts/common/constants.js:42
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:64
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1579
+#: ../root/user/UserProfile.js:62
+msgid "Recording"
+msgstr "錄音"
+
+#: ../root/release/edit/layout.tt:17 ../root/area/AreaRecordings.js:20
+#: ../root/artist/ArtistRecordings.js:121
+#: ../root/artist/ArtistRecordings.js:123
+#: ../root/artist_credit/ArtistCreditIndex.js:145
+#: ../root/artist_credit/ArtistCreditLayout.js:21
+#: ../root/components/EntityTabs.js:32
+#: ../root/components/TagEntitiesList.js:184
+#: ../root/edit/details/EditMedium.js:479
+#: ../root/instrument/InstrumentRecordings.js:33
+#: ../root/instrument/InstrumentRecordings.js:35
+#: ../root/report/ReportsIndex.js:511
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:29
+#: ../root/tag/TagLayout.js:20 ../root/work/WorkIndex.js:47
+msgid "Recordings"
+msgstr "錄音"
+
+#: ../root/edit/search_macros.tt:473 ../root/release/edit/information.tt:37
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup.pm:7
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:39
+#: ../root/edit/details/AddRelease.js:60
+#: ../root/edit/details/AddReleaseGroup.js:24
+#: ../root/edit/details/EditRelease.js:77
+#: ../root/edit/details/EditReleaseGroup.js:32
+#: ../root/edit/details/SetCoverArt.js:26
+#: ../root/edit/details/historic/ChangeReleaseGroup.js:22
+#: ../root/edit/details/historic/MoveReleaseToReleaseGroup.js:25
+#: ../root/layout/components/Search.js:30
+#: ../root/report/DuplicateReleaseGroups.js:59
+#: ../root/report/EmptyReleaseGroups.js:60
+#: ../root/report/ReleaseRgDifferentName.js:29
+#: ../root/report/ReleasesSameBarcode.js:46
+#: ../root/report/components/ReleaseGroupList.js:43
+#: ../root/report/components/ReleaseGroupUrlList.js:32
+#: ../root/search/components/ReleaseGroupResults.js:74
+#: ../root/search/components/SearchForm.js:32
+#: ../root/static/scripts/common/constants.js:44
+#: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:36
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:68
+#: ../root/static/scripts/release/components/TracklistAndCredits.js:404
+#: ../root/user/UserProfile.js:64
+msgid "Release group"
+msgstr "發行團"
+
+#: ../root/components/forms.tt:151 ../root/components/Aliases/AliasTable.js:18
+#: ../root/components/list/ArtistList.js:61 ../root/edit/details/AddArea.js:43
+#: ../root/edit/details/AddArtist.js:52 ../root/edit/details/AddLabel.js:42
+#: ../root/edit/details/AddRemoveAlias.js:59
+#: ../root/edit/details/EditAlias.js:87 ../root/edit/details/EditArea.js:55
+#: ../root/edit/details/EditArtist.js:68 ../root/edit/details/EditLabel.js:53
+#: ../root/layout/components/sidebar/ArtistSidebar.js:89
+#: ../root/report/DuplicateArtists.js:69
+#: ../root/search/components/ArtistResults.js:53
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:123
+#: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:67
+msgid "Sort name"
+msgstr "排序名稱"
+
+#: ../root/artist/edit_form.tt:18 ../root/edit/search_macros.tt:473
+#: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:17
+#: ../root/release/edit/information.tt:146 ../root/series/edit_form.tt:14
+#: ../root/work/edit_form.tt:13
+#: ../root/account/applications/ApplicationList.js:148
+#: ../root/components/Aliases/AliasTable.js:21
+#: ../root/components/list/ReleaseGroupList.js:86
+#: ../root/components/list/ReleaseList.js:142
+#: ../root/edit/details/AddArea.js:57 ../root/edit/details/AddArtist.js:65
+#: ../root/edit/details/AddEvent.js:52 ../root/edit/details/AddInstrument.js:53
+#: ../root/edit/details/AddLabel.js:82 ../root/edit/details/AddPlace.js:45
+#: ../root/edit/details/AddReleaseGroup.js:61
+#: ../root/edit/details/AddRemoveAlias.js:79
+#: ../root/edit/details/AddSeries.js:40 ../root/edit/details/AddWork.js:51
+#: ../root/edit/details/EditAlias.js:105 ../root/edit/details/EditArea.js:69
+#: ../root/edit/details/EditArtist.js:82 ../root/edit/details/EditEvent.js:57
+#: ../root/edit/details/EditInstrument.js:54
+#: ../root/edit/details/EditLabel.js:69 ../root/edit/details/EditPlace.js:55
+#: ../root/edit/details/EditReleaseGroup.js:55
+#: ../root/edit/details/EditSeries.js:51
+#: ../root/edit/details/historic/AddRelease.js:41 ../root/iswc/Index.js:62
+#: ../root/layout/components/sidebar/CollectionSidebar.js:54
+#: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:63
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:161
+#: ../root/layout/components/sidebar/SidebarType.js:32
+#: ../root/report/DuplicateArtists.js:70
+#: ../root/report/DuplicateReleaseGroups.js:60
+#: ../root/report/EmptyReleaseGroups.js:61
+#: ../root/report/IswcsWithManyWorks.js:53
+#: ../root/report/components/ArtistList.js:54
+#: ../root/report/components/EventList.js:57
+#: ../root/report/components/InstrumentList.js:53
+#: ../root/report/components/ReleaseGroupList.js:58
+#: ../root/report/components/WorkList.js:59
+#: ../root/search/components/AnnotationResults.js:55
+#: ../root/search/components/AreaResults.js:64
+#: ../root/search/components/ArtistResults.js:54
+#: ../root/search/components/EventResults.js:85
+#: ../root/search/components/InstrumentResults.js:54
+#: ../root/search/components/LabelResults.js:67
+#: ../root/search/components/PlaceResults.js:66
+#: ../root/search/components/RecordingResults.js:147
+#: ../root/search/components/ReleaseGroupResults.js:76
+#: ../root/search/components/ReleaseResults.js:127
+#: ../root/search/components/SearchForm.js:77
+#: ../root/search/components/SeriesResults.js:61
+#: ../root/search/components/WorkResults.js:59
+#: ../root/static/scripts/account/components/ApplicationForm.js:89
+#: ../root/static/scripts/alias/AliasEditForm.js:352
+#: ../root/static/scripts/collection/components/CollectionEditForm.js:204
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
+#: ../root/static/scripts/common/components/FilterForm.js:149
+#: ../root/static/scripts/edit/externalLinks.js:1342
+#: ../root/static/scripts/edit/externalLinks.js:1657
+#: ../root/static/scripts/event/components/EventEditForm.js:255
+#: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
+msgid "Type"
+msgstr "類型"
+
+#: ../root/edit/search_macros.tt:473 ../root/url/edit_form.tt:4
+#: ../lib/MusicBrainz/Server/Edit/URL.pm:7 ../root/edit/details/EditUrl.js:28
+#: ../root/edit/details/EditUrl.js:33
+#: ../root/main/error/components/ErrorEnvironment.js:41
+#: ../root/otherlookup/OtherLookupForm.js:62 ../root/report/BadAmazonUrls.js:32
+#: ../root/report/LinksWithMultipleEntities.js:60
+#: ../root/report/WikidataLinksWithMultipleEntities.js:55
+#: ../root/report/components/ArtistUrlList.js:29
+#: ../root/report/components/LabelUrlList.js:29
+#: ../root/report/components/ReleaseGroupUrlList.js:31
+#: ../root/report/components/ReleaseUrlList.js:31
+#: ../root/report/components/UrlList.js:39
+#: ../root/static/scripts/common/constants.js:46
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:72
+#: ../root/static/scripts/edit/components/URLInputPopover.js:72
+#: ../root/url/UrlHeader.js:22 ../root/url/UrlIndex.js:22
+msgid "URL"
+msgstr "URL"
+
+#: ../root/edit/search_macros.tt:473 ../lib/MusicBrainz/Server/Edit/Work.pm:9
+#: ../lib/MusicBrainz/Server/Form/Search/Search.pm:42
+#: ../root/components/list/WorkList.js:53 ../root/edit/details/AddWork.js:28
+#: ../root/edit/details/EditWork.js:41 ../root/edit/details/RemoveIswc.js:27
+#: ../root/layout/components/Search.js:32
+#: ../root/report/IswcsWithManyWorks.js:50
+#: ../root/report/components/WorkList.js:43
+#: ../root/search/components/SearchForm.js:35
+#: ../root/static/scripts/common/constants.js:47
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:74
+#: ../root/user/UserProfile.js:66 ../root/work/WorkLayout.js:25
+msgid "Work"
+msgstr "作品"
+
+#: ../root/area/AreaArtists.js:29 ../root/area/AreaArtists.js:30
+#: ../root/components/EntityTabs.js:25
+#: ../root/components/TagEntitiesList.js:156
+#: ../root/components/list/EventList.js:74
+#: ../root/instrument/InstrumentArtists.js:33
+#: ../root/instrument/InstrumentArtists.js:35 ../root/report/ReportsIndex.js:48
+#: ../root/report/components/EventList.js:62
+#: ../root/search/components/EventResults.js:86
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:559
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
+#: ../root/tag/TagLayout.js:17
+msgid "Artists"
+msgstr "創作者"
+
+#: ../root/area/AreaArtists.js:48 ../root/instrument/InstrumentArtists.js:54
+#: ../root/report/DuplicateArtists.js:129
+msgid "Add selected artists for merging"
+msgstr "添加選中的創作者至合併操作"
+
+#: ../root/area/AreaEvents.js:29 ../root/area/AreaEvents.js:30
+#: ../root/artist/ArtistEvents.js:35 ../root/artist/ArtistEvents.js:36
+#: ../root/components/EntityTabs.js:26
+#: ../root/components/TagEntitiesList.js:160 ../root/place/PlaceEvents.js:29
+#: ../root/place/PlaceEvents.js:30 ../root/report/ReportsIndex.js:135
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
+#: ../root/tag/TagLayout.js:27
+msgid "Events"
+msgstr "活動"
+
+#: ../root/area/AreaLabels.js:29 ../root/area/AreaLabels.js:30
+#: ../root/components/EntityTabs.js:28
+#: ../root/components/TagEntitiesList.js:168
+#: ../root/layout/components/sidebar/ReleaseSidebar.js:223
+#: ../root/report/ReportsIndex.js:178
+#: ../root/static/scripts/account/components/PreferencesForm.js:254
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
+#: ../root/tag/TagLayout.js:22
+msgid "Labels"
+msgstr "廠牌"
+
+#: ../root/area/AreaPlaces.js:32 ../root/area/AreaPlaces.js:33
+#: ../root/components/EntityTabs.js:31
+#: ../root/components/TagEntitiesList.js:172 ../root/report/ReportsIndex.js:589
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:27
+#: ../root/tag/TagLayout.js:23
+msgid "Places"
+msgstr "地點"
+
+#: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:34
+#: ../root/artist/ArtistReleases.js:37 ../root/artist/ArtistReleases.js:38
+#: ../root/artist_credit/ArtistCreditIndex.js:134
+#: ../root/artist_credit/ArtistCreditLayout.js:20
+#: ../root/components/EntityTabs.js:33
+#: ../root/components/TagEntitiesList.js:180
+#: ../root/components/list/ReleaseGroupList.js:91
+#: ../root/edit/components/HistoricReleaseList.js:42
+#: ../root/edit/details/SetTrackLengths.js:43
+#: ../root/edit/details/historic/ChangeReleaseQuality.js:25
+#: ../root/edit/details/historic/RemoveReleases.js:17
+#: ../root/instrument/InstrumentReleases.js:33
+#: ../root/instrument/InstrumentReleases.js:35 ../root/label/LabelIndex.js:76
+#: ../root/report/ReportsIndex.js:262
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:31
+#: ../root/tag/TagLayout.js:19
+msgid "Releases"
+msgstr "專輯"
+
+#: ../root/area/AreaWorks.js:20 ../root/artist/ArtistWorks.js:35
+#: ../root/artist/ArtistWorks.js:36 ../root/components/EntityTabs.js:35
+#: ../root/components/TagEntitiesList.js:192 ../root/report/ReportsIndex.js:619
+#: ../root/static/scripts/common/components/FilterForm.js:235
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
+#: ../root/tag/TagLayout.js:21
+msgid "Works"
+msgstr "作品"
+
+#: ../root/artist_credit/ArtistCreditIndex.js:123
+#: ../root/artist_credit/ArtistCreditLayout.js:19
+#: ../root/components/TagEntitiesList.js:176
+#: ../root/components/list/RecordingList.js:44
+#: ../root/report/ReportsIndex.js:207
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
+#: ../root/tag/TagLayout.js:18
+msgid "Release groups"
+msgstr "專輯組"
+
+#: ../root/components/Aliases/ArtistCreditList.js:28
+#: ../root/edit/details/AddMedium.js:145 ../root/edit/details/EditMedium.js:537
+#: ../root/report/ReportsIndex.js:113
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:230
+msgid "Artist credits"
+msgstr "創作者名單"
+
+#: ../root/components/EntityTabs.js:105 ../root/release/DiscIds.js:89
+#: ../root/release/DiscIds.js:90 ../root/report/ReportsIndex.js:675
+msgid "Disc IDs"
+msgstr "碟片IDs"
+
+#: ../root/components/TagEntitiesList.js:188 ../root/report/ReportsIndex.js:606
+#: ../root/report/components/SeriesList.js:40
+#: ../root/static/scripts/account/components/PreferencesForm.js:259
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
+#: ../root/tag/TagLayout.js:26
+msgctxt "plural"
+msgid "Series"
+msgstr "系列"
+
+#: ../root/components/list/WorkList.js:58 ../root/iswc/Index.js:59
+#: ../root/report/IswcsWithManyWorks.js:51
+#: ../root/report/components/WorkList.js:48
+#: ../root/search/components/WorkResults.js:55
+#: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
+#: ../root/static/scripts/common/components/Autocomplete2/formatters.js:558
+msgid "Authors"
+msgstr ""
+
+#: ../root/edit/details/AddWork.js:45 ../root/edit/details/EditWork.js:62
+#: ../root/edit/details/RemoveIswc.js:23
+#: ../root/otherlookup/OtherLookupForm.js:72
+#: ../root/report/IswcsWithManyWorks.js:49
+#: ../root/search/components/WorkResults.js:58
+#: ../root/static/scripts/common/components/IswcList.js:26
+#: ../root/utility/tableColumns.js:719
+msgid "ISWC"
+msgstr "國際標準音樂作品編碼ISWC"
+
+#: ../root/edit/details/RemoveIsrc.js:23
+#: ../root/otherlookup/OtherLookupForm.js:67
+#: ../root/report/IsrcsWithManyRecordings.js:58
+#: ../root/static/scripts/common/components/IsrcList.js:26
+msgid "ISRC"
+msgstr "ISRC"
+
+#: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
+#: ../root/search/components/WorkResults.js:56
+#: ../root/utility/tableColumns.js:813
+#, fuzzy
+#| msgid "Recording artist:"
+msgid "Recording artists"
+msgstr "錄音創作者："
+
+#: ../root/layout/components/BottomMenu.js:287
+#: ../root/report/ReportsIndex.js:32 ../root/report/ReportsIndex.js:34
+msgid "Reports"
+msgstr "報告"
+
+#: ../root/main/error/Error401.js:23 ../root/report/LimitedEditors.js:43
+msgid "Sorry, you are not authorized to view this page."
+msgstr "抱歉，您無權瀏覽此頁面。"
+
+#: ../root/main/error/components/ErrorInfo.js:18
+#: ../root/report/ReportNotAvailable.js:14
+#: ../root/report/ReportNotAvailable.js:16
+msgid "Error"
+msgstr "錯誤"
+
+#: ../root/report/AnnotationsArtists.js:28
+msgid "This report lists artists with annotations."
+msgstr "本報告列出附有注釋的創作者。"
+
+#: ../root/report/AnnotationsArtists.js:33
+msgid "Artist annotations"
+msgstr "創作者注釋"
+
+#: ../root/report/AnnotationsEvents.js:28
+msgid "This report lists events with annotations."
+msgstr "此報告列出帶有註解的事件。"
+
+#: ../root/report/AnnotationsEvents.js:33
+msgid "Event annotations"
+msgstr "事件註解"
+
+#: ../root/report/AnnotationsLabels.js:28
+msgid "This report lists labels with annotations."
+msgstr "本報告列出附有注釋的廠牌。"
+
+#: ../root/report/AnnotationsLabels.js:33
+msgid "Label annotations"
+msgstr "廠牌注釋"
+
+#: ../root/report/AnnotationsPlaces.js:28
+msgid "This report lists places with annotations."
+msgstr "本報告列出附有注釋的地點。"
+
+#: ../root/report/AnnotationsPlaces.js:33
+msgid "Place annotations"
+msgstr "地點注釋"
+
+#: ../root/report/AnnotationsRecordings.js:29
+msgid "This report lists recordings with annotations."
+msgstr "本報告列出附有注釋的錄音。"
+
+#: ../root/report/AnnotationsRecordings.js:34
+msgid "Recording annotations"
+msgstr "錄音注釋"
+
+#: ../root/report/AnnotationsReleaseGroups.js:29
+msgid "This report lists release groups with annotations."
+msgstr "本報告列出附有注釋的專輯組。"
+
+#: ../root/report/AnnotationsReleaseGroups.js:34
+msgid "Release group annotations"
+msgstr "專輯組注釋"
+
+#: ../root/report/AnnotationsReleases.js:28
+msgid "This report lists releases with annotations."
+msgstr "本報告列出附有注釋的專輯。"
+
+#: ../root/report/AnnotationsReleases.js:33
+msgid "Release annotations"
+msgstr "專輯注釋"
+
+#: ../root/report/AnnotationsSeries.js:28
+msgid "This report lists series with annotations."
+msgstr "本報告列出附有注釋的系列。"
+
+#: ../root/report/AnnotationsSeries.js:33
+msgid "Series annotations"
+msgstr "系列注釋"
+
+#: ../root/report/AnnotationsWorks.js:28
+msgid "This report lists works with annotations."
+msgstr "本報告列出附有注釋的作品。"
+
+#: ../root/report/AnnotationsWorks.js:33
+msgid "Work annotations"
+msgstr "作品注釋"
+
+#: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:25
+msgid ""
+"This report lists artist credits that have a trailing join phrase that looks "
+"like it might have been left behind in error, such as a trailing comma or "
+"“feat.”."
+msgstr ""
+"此報告列出了可能由於錯誤而殘留有連接短語後綴的創作者名單，例如後綴的逗號或"
+"者“feat.”。"
+
+#: ../root/report/ArtistCreditsWithDubiousTrailingPhrases.js:32
+#: ../root/report/ReportsIndex.js:117
+msgid "Artist credits with dubious trailing join phrases"
+msgstr "具有可疑的連接短語後綴的創作者名單"
+
+#: ../root/report/ArtistsContainingDisambiguationComments.js:25
+msgid ""
+"This report lists artists that may have disambiguation comments in their "
+"name, rather than the actual disambiguation comment field."
+msgstr ""
+"此報告列出了在其名稱中可能有消除歧義注釋的歌手，而不是實際的消除歧義注釋欄"
+"位。"
+
+#: ../root/report/ArtistsContainingDisambiguationComments.js:31
+#: ../root/report/ReportsIndex.js:77
+msgid "Artists containing disambiguation comments in their name"
+msgstr "在消除歧義的評論中包含有歌手的名字"
+
+#: ../root/report/ArtistsDisambiguationSameName.js:25
+msgid ""
+"This report lists artists that have their disambiguation set to be the same "
+"as their name. The disambiguation should be removed or, if it is needed, "
+"improved."
+msgstr ""
+"此報告列出了將消除歧義設定為與其姓名相同的歌手。消除歧義應該被刪除，或者如果"
+"需要的話，加以改進。"
+
+#: ../root/report/ArtistsDisambiguationSameName.js:32
+#: ../root/report/ReportsIndex.js:104
+msgid "Artists with disambiguation the same as the name"
+msgstr "歌手的名字與消除歧義相同"
+
+#: ../root/report/ArtistsThatMayBeGroups.js:25
+msgid ""
+"This report lists artists that have their type set to other than Group (or a "
+"subtype of Group) but may be a group, because they have other artists listed "
+"as members or use other relationships that are generally meant for groups "
+"only (either in both directions, such as “subgroup” and “renamed”, or in "
+"one, such as “artistic director”, “conductor” and “composer-in-residence”). "
+"If you find that an artist here is indeed a group, change its type. If it is "
+"not, please make sure that the “member of” relationships are in the right "
+"direction and are correct, whether “renamed into” needs to be turned into "
+"“performs as” relationships, and so on."
+msgstr ""
+"此報告列出其類型設定為非團體（或團體子類型）的創作者，但可能是一個團體，因為"
+"他們列出了其他創作者作為成員或使用了通常僅針對團體的其他關聯（不論是雙向，如"
+"“子團體”和“改名”，或單向，如“藝術總監”、“指揮”和“駐場作曲家”）。如果您發現這"
+"裡的某位創作者確實是一個團體，請更改其類型。如果不是，請確保“成員於”關聯的方"
+"向正確且有效，並檢查“改名為”是否需要轉換為“以…表演”的關聯，等等。"
+
+#: ../root/report/ArtistsThatMayBeGroups.js:39
+#: ../root/report/ReportsIndex.js:52
+msgid "Artists that may be groups"
+msgstr "可能為團體的創作者"
+
+#: ../root/report/ArtistsThatMayBePersons.js:25
+msgid ""
+"This report lists artists that have their type set to other than Person or "
+"Character, but may be a person, based on their relationships. For example, "
+"an artist will appear here if it is listed as a member of another. If you "
+"find that an artist here is indeed a person (or a character), change its "
+"type. If it is not, please make sure that all the relationships are correct "
+"and make sense."
+msgstr ""
+"此報告列出其類型設定為非人或角色的創作者，但根據他們的關聯可能是一個人。例"
+"如，如果一位創作者被列為另一位創作者的成員，他將出現在此處。如果您發現這裡的"
+"某位創作者確實是一個人（或角色），請更改其類型。如果不是，請確保所有關聯都是"
+"正確且合理的。"
+
+#: ../root/report/ArtistsThatMayBePersons.js:36
+#: ../root/report/ReportsIndex.js:56
+msgid "Artists that may be persons"
+msgstr "可能為個人的創作者"
+
+#: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:25
+msgid ""
+"This report lists artists that have at least one alias marked as primary for "
+"a locale, but have no primary aliases that match their name. In general, the "
+"main name for an artist should always be its primary alias in the language "
+"of the name."
+msgstr ""
+
+#: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
+#: ../root/report/ReportsIndex.js:108
+#, fuzzy
+#| msgid "Artists with deprecated relationships"
+msgid "Artists with mismatched primary aliases"
+msgstr "有已棄用關聯的創作者"
+
+#: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:25
+msgid ""
+"This report lists artists that appear more than once in different positions "
+"within the same artist credit."
+msgstr "此報告列出在同一創作者署名中多次出現的創作者。"
+
+#: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:31
+#: ../root/report/ReportsIndex.js:91
+msgid "Artists occurring multiple times in the same artist credit"
+msgstr "在同一創作者署名中出現多次的創作者"
+
+#: ../root/report/ArtistsWithNoSubscribers.js:25
+msgid ""
+"This report lists artists that have no editors subscribed to them, and whose "
+"changes may therefore be under-reviewed. Artists with more release groups "
+"and more open edits are listed first."
+msgstr ""
+"此報告列出未有編輯者訂閱的創作者，因此他們的變更可能會被低估。擁有更多發行組"
+"和開放編輯的創作者將優先列出。"
+
+#: ../root/report/ArtistsWithNoSubscribers.js:32
+#: ../root/report/ReportsIndex.js:60
+msgid "Artists with no subscribers"
+msgstr "無訂閱者的創作者"
+
+#: ../root/report/AsinsWithMultipleReleases.js:25
+msgid ""
+"This report shows Amazon URLs which are linked to multiple releases. In most "
+"cases Amazon ASINs should map to MusicBrainz releases 1:1, so only one of "
+"the links will be correct. Just check which MusicBrainz release fits the "
+"release in Amazon (look at the format, tracklist, etc). If the release has a "
+"barcode, you can also search Amazon for it and see which ASIN matches. You "
+"might also find some ASINs linked to several discs of a multi-disc release: "
+"just merge those (see {how_to_merge_releases|How to Merge Releases})."
+msgstr ""
+"此報告顯示與多個發行品相關聯的 Amazon 網址。在大多數情況下，Amazon ASIN 應該"
+"對應於 MusicBrainz 發行品 1:1，因此只有一個連結會是正確的。請檢查哪個 "
+"MusicBrainz 發行品符合 Amazon 中的發行品（查看格式、音軌列表等）。如果發行品"
+"有條碼，您也可以在 Amazon 上搜尋它，以查看哪個 ASIN 匹配。您可能還會發現一些 "
+"ASIN 與多碟發行的幾個碟片相關聯：只需將這些合併（請參見 "
+"{how_to_merge_releases|如何合併發行品}）。"
+
+#: ../root/report/AsinsWithMultipleReleases.js:39
+#: ../root/report/ReportsIndex.js:292
+msgid "Amazon URLs linked to multiple releases"
+msgstr "與多個發行品相關聯的 Amazon 網址"
+
+#: ../root/report/BadAmazonUrls.js:28
+#: ../root/report/LinksWithMultipleEntities.js:86
+#: ../root/report/WikidataLinksWithMultipleEntities.js:81
+#: ../root/report/components/RemovedUrlRow.js:14
+msgid "This URL no longer exists."
+msgstr "此 URL 已不存在。"
+
+#: ../root/report/BadAmazonUrls.js:47
+msgid ""
+"This report shows releases with Amazon URLs which don't follow the expected "
+"format. They might still be correct if they're archive.org cover links, but "
+"in any other case they should probably be fixed or removed."
+msgstr ""
+"此報告顯示與 Amazon 網址不符合預期格式的發行品。如果它們是 archive.org 的封面"
+"連結，則可能仍然正確，但在其他情況下，這些應該被修正或移除。"
+
+#: ../root/report/BadAmazonUrls.js:55
+msgid "Bad Amazon URLs"
+msgstr "損壞的 Amazon 網址"
+
+#: ../root/report/BootlegsOnNonBootlegLabels.js:25
+msgid ""
+"This report shows releases that are set to status “Bootleg”, but have at "
+"least one label in their labels list which is not “[no label]” nor has the "
+"type “Bootleg Production”. Other types of labels pretty much never release "
+"bootleg releases, so chances are that either the label or the status is "
+"wrong."
+msgstr ""
+"此報告顯示狀態為“盜版”的發行品，但其標籤列表中至少有一個標籤不是“[無標籤]”或"
+"類型為“盜版製作”。其他類型的標籤幾乎不會發行盜版發行品，因此可能標籤或狀態是"
+"錯誤的。"
+
+#: ../root/report/BootlegsOnNonBootlegLabels.js:34
+#: ../root/report/ReportsIndex.js:495
+msgid "Releases on non-bootleg labels set to bootleg"
+msgstr "在非盜版標籤上的盜版發行品"
+
+#: ../root/report/CDTocDubiousLength.js:25
+msgid ""
+"This report shows disc IDs indicating a total duration much longer than what "
+"a standard CD allows (at least 88 minutes for a CD, or 30 minutes for a mini-"
+"CD). This usually means a disc ID was generated for the wrong format (SACD) "
+"or with a buggy tool."
+msgstr ""
+"此報告顯示總持續時間遠長於標準 CD 允許的時間的碟片 ID（至少 88 分鐘的 CD，或 "
+"30 分鐘的迷你 CD）。這通常意味著碟片 ID 是為錯誤格式（SACD）生成的或使用了有"
+"故障的工具。"
+
+#: ../root/report/CDTocDubiousLength.js:33 ../root/report/ReportsIndex.js:679
+msgid "Disc IDs with dubious duration"
+msgstr "懷疑持續時間的碟片 ID"
+
+#: ../root/report/CDTocNotApplied.js:25
+msgid ""
+"This report shows disc IDs attached to a release but obviously not applied "
+"because at least one track length is unknown on the release. The report is "
+"also restricted to mediums where only one disc ID is attached, so it is "
+"highly likely that the disc ID can be applied without any worries. Do make "
+"sure though that no existing lengths clash with the disc ID, or that any "
+"clashes are clear mistakes."
+msgstr ""
+"此報告顯示與發行品相關聯的碟片 ID，但顯然未應用，因為該發行品上至少有一個音軌"
+"長度未知。該報告也限於僅附加一個碟片 ID 的媒體，因此該碟片 ID 很可能可以無憂"
+"應用。請確保沒有現有的長度與碟片 ID 衝突，或任何衝突都是明顯的錯誤。"
+
+#: ../root/report/CDTocNotApplied.js:35 ../root/report/ReportsIndex.js:683
+msgid "Disc IDs attached but not applied"
+msgstr "碟片ID已附加但未應用"
+
+#: ../root/report/CatNoLooksLikeAsin.js:28
+msgid ""
+"This report shows releases which have catalog numbers that look like ASINs. "
+"This is almost always wrong: ASINs are just Amazon's entries for the "
+"releases and should be linked to the release with an Amazon URL relationship "
+"instead."
+msgstr ""
+"此報告顯示目錄號看起來像 ASIN 的發行品。這幾乎總是錯誤的：ASIN 只是 Amazon 對"
+"發行品的條目，應該透過 Amazon 網址關聯來連結到發行品。"
+
+#: ../root/report/CatNoLooksLikeAsin.js:36 ../root/report/ReportsIndex.js:339
+msgid "Releases with catalog numbers that look like ASINs"
+msgstr "目錄號看起來像 ASIN 的發行品"
+
+#: ../root/report/CatNoLooksLikeIsrc.js:28
+msgid ""
+"This report shows releases which have catalog numbers that look like "
+"{doc_link|ISRCs}. Assigning ISRCs to releases is almost always wrong, but "
+"still happens sometimes, especially for releases added to MusicBrainz by an "
+"artist/label. But ISRCs are codes assigned to recordings, and should be "
+"linked to the appropriate recording instead. That said, do make sure this is "
+"not a legitimate catalog number that just happens to look like an ISRC!"
+msgstr ""
+"該報告顯示的版本目錄編號類似於{doc_link|ISRCs}。為發行版分配isrc幾乎總是錯誤"
+"的，但有時仍然會發生，特別是歌手/廠商添加到MusicBrainz的發行版。但是ISRCs是分"
+"配給錄音的代碼，應該與適當的錄音聯繫起來。也就是說，一定要確保這不是一個碰巧"
+"看起來像ISRC的合法目錄編號!"
+
+#: ../root/report/CatNoLooksLikeIsrc.js:40 ../root/report/ReportsIndex.js:343
+msgid "Releases with catalog numbers that look like ISRCs"
+msgstr "目錄號看起來像 ISRC 的發行品"
+
+#: ../root/report/CatNoLooksLikeLabelCode.js:28
+msgid ""
+"This report shows releases which have catalog numbers that look like "
+"{doc_link|Label Codes}. This is often wrong, since the two are often "
+"confused: label codes apply to the label, not to a specific release. If you "
+"confirm this is a label code (check the label page to see if they match, for "
+"example), remove it or, even better, try to find the actual catalog number."
+msgstr ""
+"此報告顯示目錄號看起來像 {doc_link|標籤程式碼} 的發行品。這通常是錯誤的，因為"
+"兩者經常混淆：標籤程式碼適用於標籤，而不是特定的發行品。如果您確認這是一個標"
+"籤程式碼（例如，檢查分頁以查看是否匹配），請將其移除，或者更好的是，嘗試找到"
+"實際的目錄號。"
+
+#: ../root/report/CatNoLooksLikeLabelCode.js:39
+#: ../root/report/ReportsIndex.js:348
+msgid "Releases with catalog numbers that look like label codes"
+msgstr "發行專輯的發布音軌編號"
+
+#: ../root/report/CollaborationRelationships.js:32
+msgid ""
+"This report lists artists which have collaboration relationships but no URL "
+"relationships. If the collaboration has its own independent name, do "
+"nothing. If it is in a format like \"X with Y\" or \"X & Y\", you should "
+"probably split it. See {how_to_split_artists|How to Split Artists}."
+msgstr ""
+"此報告列出具有合作關聯但沒有網址關聯的創作者。如果合作有自己的獨立名稱，則不"
+"需更改。如果格式為“X 與 Y”或“X & Y”，則應該將其分割。請參見 "
+"{how_to_split_artists|如何分割創作者}。"
+
+#: ../root/report/CollaborationRelationships.js:42
+msgid "Artists with collaboration relationships"
+msgstr "具有合作關聯的創作者"
+
+#: ../root/report/CollaborationRelationships.js:49
+msgid "Collaboration"
+msgstr "合作"
+
+#: ../root/report/CollaborationRelationships.js:50
+msgid "Collaborator"
+msgstr "合作者"
+
+#: ../root/report/CollaborationRelationships.js:68
+#: ../root/report/CollaborationRelationships.js:79
+#: ../root/report/DuplicateArtists.js:117
+#: ../root/report/components/ArtistUrlList.js:69
+msgid "This artist no longer exists."
+msgstr "此創作者已不存在。"
+
+#: ../root/report/DeprecatedRelationshipArtists.js:29
+msgid ""
+"This report lists artists which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的創作者。"
+
+#: ../root/report/DeprecatedRelationshipArtists.js:35
+#: ../root/report/ReportsIndex.js:96
+msgid "Artists with deprecated relationships"
+msgstr "有已棄用關聯的創作者"
+
+#: ../root/report/DeprecatedRelationshipLabels.js:29
+msgid ""
+"This report lists labels which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的廠牌。"
+
+#: ../root/report/DeprecatedRelationshipLabels.js:35
+#: ../root/report/ReportsIndex.js:190
+msgid "Labels with deprecated relationships"
+msgstr "有已棄用關聯的廠牌"
+
+#: ../root/report/DeprecatedRelationshipPlaces.js:29
+msgid ""
+"This report lists places which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的地點。"
+
+#: ../root/report/DeprecatedRelationshipPlaces.js:35
+#: ../root/report/ReportsIndex.js:593
+msgid "Places with deprecated relationships"
+msgstr "有已棄用關聯的地點"
+
+#: ../root/report/DeprecatedRelationshipRecordings.js:29
+msgid ""
+"This report lists recordings which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的錄音。"
+
+#: ../root/report/DeprecatedRelationshipRecordings.js:35
+#: ../root/report/ReportsIndex.js:531
+msgid "Recordings with deprecated relationships"
+msgstr "有已棄用關聯的錄音"
+
+#: ../root/report/DeprecatedRelationshipReleaseGroups.js:29
+msgid ""
+"This report lists release groups which have relationships using deprecated "
+"and grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的發行組。"
+
+#: ../root/report/DeprecatedRelationshipReleaseGroups.js:35
+#: ../root/report/ReportsIndex.js:231
+msgid "Release groups with deprecated relationships"
+msgstr "有已棄用關聯的專輯組"
+
+#: ../root/report/DeprecatedRelationshipReleases.js:29
+msgid ""
+"This report lists releases which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的發行品。"
+
+#: ../root/report/DeprecatedRelationshipReleases.js:35
+#: ../root/report/ReportsIndex.js:430
+msgid "Releases with deprecated relationships"
+msgstr "有已棄用關聯的專輯"
+
+#: ../root/report/DeprecatedRelationshipUrls.js:29
+msgid ""
+"This report lists URLs which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的網址。"
+
+#: ../root/report/DeprecatedRelationshipUrls.js:35
+#: ../root/report/ReportsIndex.js:644
+msgid "URLs with deprecated relationships"
+msgstr "有已棄用關聯的 URL"
+
+#: ../root/report/DeprecatedRelationshipWorks.js:29
+msgid ""
+"This report lists works which have relationships using deprecated and "
+"grouping-only relationship types."
+msgstr "此報告列出使用已棄用和僅分組的關聯類型的作品。"
+
+#: ../root/report/DeprecatedRelationshipWorks.js:35
+#: ../root/report/ReportsIndex.js:627
+msgid "Works with deprecated relationships"
+msgstr "有已棄用關聯的作品"
+
+#: ../root/report/DiscogsLinksWithMultipleArtists.js:25
+msgid "This report shows Discogs URLs which are linked to multiple artists."
+msgstr "此報告顯示與多位創作者相關聯的 Discogs 網址。"
+
+#: ../root/report/DiscogsLinksWithMultipleArtists.js:31
+#: ../root/report/ReportsIndex.js:82
+msgid "Discogs URLs linked to multiple artists"
+msgstr "連結到多個創作者的 Discogs URL"
+
+#: ../root/report/DiscogsLinksWithMultipleLabels.js:25
+msgid "This report shows Discogs URLs which are linked to multiple labels."
+msgstr "此報告顯示與多個廠牌相關聯的 Discogs 網址。"
+
+#: ../root/report/DiscogsLinksWithMultipleLabels.js:30
+#: ../root/report/ReportsIndex.js:182
+msgid "Discogs URLs linked to multiple labels"
+msgstr "與多個廠牌相關聯的 Discogs 網址"
+
+#: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:25
+msgid ""
+"This report shows Discogs URLs which are linked to multiple release groups."
+msgstr "此報告顯示與多個發行組相關聯的 Discogs 網址。"
+
+#: ../root/report/DiscogsLinksWithMultipleReleaseGroups.js:31
+#: ../root/report/ReportsIndex.js:221
+msgid "Discogs URLs linked to multiple release groups"
+msgstr "與多個發行組相關聯的 Discogs 網址"
+
+#: ../root/report/DiscogsLinksWithMultipleReleases.js:25
+msgid ""
+"This report shows Discogs URLs which are linked to multiple releases. In "
+"most cases Discogs releases should map to MusicBrainz releases 1:1, so only "
+"one of the links will be correct. Just check which MusicBrainz release fits "
+"the release in Discogs (look at the format, tracklist, release country, "
+"etc.). You might also find some Discogs URLs linked to several discs of a "
+"multi-disc release: just merge those (see {how_to_merge_releases|How to "
+"Merge Releases})."
+msgstr ""
+"此報告顯示與多個發行品相關聯的 Discogs 網址。在大多數情況下，Discogs 發行品應"
+"該與 MusicBrainz 發行品 1:1 對應，因此只有一個連結會是正確的。請檢查哪個 "
+"MusicBrainz 發行品符合 Discogs 中的發行品（查看格式、音軌列表、發行國家等）。"
+"您可能還會發現一些 Discogs 網址與多碟發行的幾個碟片相關聯：只需將這些合併（請"
+"參見 {how_to_merge_releases|如何合併發行品}）。"
+
+#: ../root/report/DiscogsLinksWithMultipleReleases.js:37
+#: ../root/report/ReportsIndex.js:296
+msgid "Discogs URLs linked to multiple releases"
+msgstr "與多個發行品相關聯的 Discogs 網址"
+
+#: ../root/report/DuplicateArtists.js:39
+msgid "Total duplicate groups: {count}"
+msgstr "總重複組數： {count}"
+
+#: ../root/report/DuplicateArtists.js:41
+msgid ""
+"This report aims to identify artists with very similar names. If two artists "
+"are actually the same, please merge them (remember to "
+"{how_to_write_edit_notes|write an edit note} and give your proof). If "
+"they're different, add {disambiguation_comment|disambiguation comments} to "
+"them (and once a group of similarly named artists have disambiguation "
+"comments, they will stop appearing here)."
+msgstr ""
+"這份報告的目的是找出名字非常相似的創作者。如果兩個創作者實際上是相同的，請合"
+"併他們(記住{how_to_write_edit_notes|寫一個編輯筆記}並給出你的證明)。如果他們"
+"是不同的，添加{disambiguation_comment|消除歧義內容}到他們(一旦一組相似的命名"
+"創作者有消除歧義內容，他們將不再出現在這裡)。"
+
+#: ../root/report/DuplicateArtists.js:56 ../root/report/ReportsIndex.js:64
+msgid "Possibly duplicate artists"
+msgstr "可能重複的創作者"
+
+#: ../root/report/DuplicateArtists.js:100
+msgid "alias:"
+msgstr "別名："
+
+#: ../root/report/DuplicateArtists.js:110
+#: ../root/report/DuplicateReleaseGroups.js:92
+#: ../root/report/EmptyReleaseGroups.js:93
+#: ../root/report/components/ArtistList.js:51
+#: ../root/report/components/ReleaseGroupList.js:56
+#: ../root/report/components/WorkList.js:56
+msgctxt "type"
+msgid "Unknown"
+msgstr "未知"
+
+#: ../root/report/DuplicateEvents.js:25
+msgid ""
+"This report lists events happening at the same place on the same date. If "
+"there are duplicates (for example, if there are separate events for "
+"headliner and supporting artist) please merge them."
+msgstr ""
+"此報告列出在同一地點同一日期發生的事件。如果有重複的事件（例如，若主打藝人和"
+"開場藝人有單獨事件），請合併它們。"
+
+#: ../root/report/DuplicateEvents.js:33 ../root/report/ReportsIndex.js:143
+msgid "Possibly duplicate events"
+msgstr "可能重複的事件"
+
+#: ../root/report/DuplicateRelationshipsArtists.js:25
+msgid ""
+"This report lists artists which have multiple relatonships to the same "
+"artist, label or URL using the same relationship type. For multiple "
+"relationships to release groups, recordings or works, see the reports for "
+"those entities."
+msgstr ""
+"此報告列出對同一創作者、廠牌或網址具有多重關聯的創作者，使用相同的關聯類型。"
+"對於多重關聯到發行組、錄音或作品的情況，請參見這些實體的報告。"
+
+#: ../root/report/DuplicateRelationshipsArtists.js:33
+#: ../root/report/ReportsIndex.js:86
+msgid "Artists with possible duplicate relationships"
+msgstr "具有可能重複關聯的創作者"
+
+#: ../root/report/DuplicateRelationshipsLabels.js:25
+msgid ""
+"This report lists labels which have multiple relationships to the same "
+"entity using the same relationship type."
+msgstr "此報告列出對同一實體具有多重關聯的廠牌，使用相同的關聯類型。"
+
+#: ../root/report/DuplicateRelationshipsLabels.js:31
+#: ../root/report/ReportsIndex.js:186
+msgid "Labels with possible duplicate relationships"
+msgstr "具有可能重複關聯的廠牌"
+
+#: ../root/report/DuplicateRelationshipsRecordings.js:25
+msgid ""
+"This report lists recordings which have multiple relationships to the same "
+"entity using the same relationship type."
+msgstr "此報告列出對同一實體具有多重關聯的錄音，使用相同的關聯類型。"
+
+#: ../root/report/DuplicateRelationshipsRecordings.js:31
+#: ../root/report/ReportsIndex.js:523
+msgid "Recordings with possible duplicate relationships"
+msgstr "具有可能重複關聯的錄音"
+
+#: ../root/report/DuplicateRelationshipsReleaseGroups.js:25
+msgid ""
+"This report lists release groups which have multiple relationships to the "
+"same entity using the same relationship type."
+msgstr "此報告列出對同一實體具有多重關聯的發行組，使用相同的關聯類型。"
+
+#: ../root/report/DuplicateRelationshipsReleaseGroups.js:31
+#: ../root/report/ReportsIndex.js:226
+msgid "Release groups with possible duplicate relationships"
+msgstr "具有可能重複關聯的發行組"
+
+#: ../root/report/DuplicateRelationshipsReleases.js:25
+msgid ""
+"This report lists releases which have multiple relationships to the same "
+"entity using the same relationship type."
+msgstr "此報告列出對同一實體具有多重關聯的發行品，使用相同的關聯類型。"
+
+#: ../root/report/DuplicateRelationshipsReleases.js:31
+#: ../root/report/ReportsIndex.js:414
+msgid "Releases with possible duplicate relationships"
+msgstr "具有可能重複關聯的發行品"
+
+#: ../root/report/DuplicateRelationshipsWorks.js:25
+msgid ""
+"This report lists works which have multiple relationships to the same entity "
+"using the same relationship type. This excludes recording-work "
+"relationships. See the recording version of this report for those."
+msgstr ""
+"此報告列出對同一實體具有多重關聯的作品。這不包括錄音-作品關聯。請參見錄音版本"
+"的報告以獲取那些。"
+
+#: ../root/report/DuplicateRelationshipsWorks.js:33
+#: ../root/report/ReportsIndex.js:623
+msgid "Works with possible duplicate relationships"
+msgstr "具有可能重複關聯的作品"
+
+#: ../root/report/DuplicateReleaseGroups.js:38
+msgid ""
+"This report lists release groups with very similar names and artists. If the "
+"releases in the release groups should be grouped together (see the {url|"
+"guidelines}), they can be merged. If they shouldn't be grouped together but "
+"they can be distinguished by the release group types, such as when an artist "
+"has an album and single with the same name, then there is usually no need to "
+"change anything. In other cases, a disambiguation comment may be helpful."
+msgstr ""
+"此報告列出名稱和創作者非常相似的發行組。如果發行組中的發行品應該被分組在一起"
+"（請參見 {url|指南}），則可以合併。如果不應該分組在一起，但可以根據發行組類型"
+"進行區分，例如當一位創作者有同名的專輯和單曲時，則通常不需要更改任何內容。在"
+"其他情況下，消歧義註解可能會有所幫助。"
+
+#: ../root/report/DuplicateReleaseGroups.js:51
+#: ../root/report/ReportsIndex.js:239
+msgid "Possible duplicate release groups"
+msgstr "可能重複的專輯組"
+
+#: ../root/report/DuplicateReleaseGroups.js:99
+#: ../root/report/EmptyReleaseGroups.js:100
+#: ../root/report/components/ReleaseGroupUrlList.js:78
+msgid "This release group no longer exists."
+msgstr "此專輯組已不存在。"
+
+#: ../root/report/EmptyReleaseGroups.js:38
+msgid ""
+"This report lists release groups which do not contain any releases. There "
+"are two main reasons that could lead to this, both of which usually mean the "
+"data can be improved. One is that the release group used to have releases, "
+"but they were moved or merged without merging the group itself (in which "
+"case the group should be merged). The other is that the release group was "
+"added to hold links (such as reviews) but a release was not added at the "
+"time; in most cases, a release can be added with some research, although "
+"this might not be possible for underdocumented or not yet released music."
+msgstr ""
+"此報告列出不包含任何發行品的發行組。導致這種情況的主要原因有兩個，這兩個原因"
+"通常意味著資料可以改進。一個是發行組曾經有發行品，但在沒有合併該組本身的情況"
+"下被移動或合併（在這種情況下，應合併該組）。另一個是該發行組被新增以儲存連結"
+"（例如，評論），但當時未新增發行品；在大多數情況下，可以進行一些研究來新增發"
+"行品，儘管對於文件不足或尚未發行的音樂，這可能不會實現。"
+
+#: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
+msgid "Release groups without any releases"
+msgstr "有注釋的專輯組"
+
+#: ../root/report/EventSequenceNotInSeries.js:25
+msgid ""
+"This report lists events where the event name indicates that it may have to "
+"be part of a series or a larger event."
+msgstr "此報告列出事件名稱指示可能需要成為系列或更大事件的一部分的事件。"
+
+#: ../root/report/EventSequenceNotInSeries.js:31
+#: ../root/report/ReportsIndex.js:148
+msgid "Events which should be part of series or larger event"
+msgstr "應該成為系列或更大事件的一部分的事件"
+
+#: ../root/report/EventsWithEaaNoTypes.js:25
+#, fuzzy
+#| msgid ""
+#| "This report shows releases which have cover art in the Cover Art Archive, "
+#| "but where none of it has any types set. This often means a front cover "
+#| "was added, but not marked as such."
+msgid ""
+"This report shows events which have images in the Event Art Archive, but "
+"where none of the images have any types set. This often means a poster, "
+"flyer or banner was added, but not marked as such."
+msgstr ""
+"此報告顯示在Cover Art Archive中具有封面藝術的發行品，但其中沒有任何標記類型。"
+"這通常意味著新增了正面封面，但未標記為正面封面。"
+
+#: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:154
+#, fuzzy
+#| msgid "Releases in the Cover Art Archive where no cover art piece has types"
+msgid "Events in the Event Art Archive where no event art piece has types"
+msgstr "在Cover Art Archive中沒有任何封面藝術作品有類型的發行品"
+
+#: ../root/report/FeaturingRecordings.js:25
+msgid ""
+"This report shows recordings with “(feat. Artist)” (or similar) in the "
+"title. For classical recordings, consult the {CSG|classical style "
+"guidelines}. For non-classical recordings, this is usually inherited from an "
+"older version of MusicBrainz and should be fixed (both on the recordings and "
+"on the tracks!). Consult the {featured_artists|page about featured artists} "
+"to know more."
+msgstr ""
+"此報告顯示標題中包含“（feat. 藝人）”或類似內容的錄音。對於古典錄音，請參考 "
+"{CSG|古典風格指南}。對於非古典錄音，這通常是從較舊版本的 MusicBrainz 繼承的，"
+"應該進行修正（無論是錄音還是音軌！）。請參閱 {featured_artists|有關特邀創作者"
+"的頁面} 獲取更多資訊。"
+
+#: ../root/report/FeaturingRecordings.js:40 ../root/report/ReportsIndex.js:519
+msgid "Recordings with titles containing featuring artists"
+msgstr "標題中包含特邀創作者的錄音"
+
+#: ../root/report/FeaturingReleaseGroups.js:25
+msgid ""
+"This report shows release groups with “(feat. Artist)” (or similar) in the "
+"title. For classical release groups, consult the {CSG|classical style "
+"guidelines}. For non-classical release groups, this is usually inherited "
+"from an older version of MusicBrainz and should be fixed. Consult the "
+"{featured_artists|page about featured artists} to know more."
+msgstr ""
+"此報告顯示標題中包含“（feat. 藝人）”或類似內容的發行組。對於古典發行組，請參"
+"考 {CSG|古典風格指南}。對於非古典發行組，這通常是從較舊版本的 MusicBrainz 繼"
+"承的，應該進行修正。請參閱 {featured_artists|有關特邀創作者的頁面} 獲取更多資"
+"訊。"
+
+#: ../root/report/FeaturingReleaseGroups.js:39
+#: ../root/report/ReportsIndex.js:216
+msgid "Release groups with titles containing featuring artists"
+msgstr "標題中包含特邀創作者的發行組"
+
+#: ../root/report/FeaturingReleases.js:25
+msgid ""
+"This report shows releases with “(feat. Artist)” (or similar) in the title. "
+"For classical releases, consult the {CSG|classical style guidelines}. For "
+"non-classical releases, this is usually inherited from an older version of "
+"MusicBrainz and should be fixed. Consult the {featured_artists|page about "
+"featured artists} to know more. Don’t forget that the same generally applies "
+"to tracks, so if the track titles also include featuring credits you can fix "
+"them too while you edit the release!"
+msgstr ""
+"此報告顯示標題中包含“（feat. 藝人）”或類似內容的發行品。對於古典發行品，請參"
+"考 {CSG|古典風格指南}。對於非古典發行品，這通常是從較舊版本的 MusicBrainz 繼"
+"承的，應該進行修正。請參閱 {featured_artists|有關特邀創作者的頁面} 獲取更多資"
+"訊。不要忘記，這通常也適用於音軌，因此如果音軌標題也包含特邀署名，您在編輯發"
+"行品時也可以進行修正！"
+
+#: ../root/report/FeaturingReleases.js:42 ../root/report/ReportsIndex.js:320
+msgid "Releases with titles containing featuring artists"
+msgstr "標題中包含特邀創作者的發行品"
+
+#: ../root/report/FilterLink.js:23
+msgid "Show all results."
+msgstr "顯示所有結果。"
+
+#: ../root/report/FilterLink.js:27
+msgid "Show only results that are in my subscribed entities."
+msgstr "僅顯示我訂閱的實體中的結果。"
+
+#: ../root/report/IsrcsWithManyRecordings.js:37
+msgid ""
+"This report lists {isrc|ISRCs} that are attached to more than one recording. "
+"If the recordings are the same, this usually means they should be merged "
+"(ISRCs can be wrongly assigned so care should still be taken to make sure "
+"they really are the same). If the recordings are parts of a larger "
+"recording, the ISRCs are probably correct and should be left alone. If the "
+"same ISRC appears on two unrelated recordings on the same release, this is "
+"usually means there was an error when reading the disc."
+msgstr ""
+"此報告列出附加到多個錄音的 {isrc|ISRCs}。如果錄音相同，這通常意味著它們應該被"
+"合併（ISRC 可能被錯誤分配，因此仍需小心以確保它們確實相同）。如果錄音是較大錄"
+"音的一部分，則 ISRC 可能正確，應該保留。如果相同的 ISRC 出現在同一發行品上的"
+"兩個無關錄音中，這通常意味著在讀取光碟時出現了錯誤。"
+
+#: ../root/report/IsrcsWithManyRecordings.js:51
+#: ../root/report/ReportsIndex.js:661
+msgid "ISRCs with multiple recordings"
+msgstr "對應複數錄音的 ISRC"
+
+#: ../root/report/IsrcsWithManyRecordings.js:98
+#: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:83
+msgid "This recording no longer exists."
+msgstr "此錄音已不存在。"
+
+#: ../root/report/IswcsWithManyWorks.js:34
+msgid ""
+"This report lists {iswc|ISWCs} that are attached to more than one work. If "
+"the works are the same, this usually means they should be merged."
+msgstr ""
+"此報告列出附加到多個作品的 {iswc|ISWCs}。如果作品相同，這通常意味著它們應該被"
+"合併。"
+
+#: ../root/report/IswcsWithManyWorks.js:42 ../root/report/ReportsIndex.js:670
+msgid "ISWCs with multiple works"
+msgstr "對應複數作品的 ISWC"
+
+#: ../root/report/IswcsWithManyWorks.js:83
+msgid "This work no longer exists."
+msgstr "此作品已不存在。"
+
+#: ../root/report/KaraokePlusInstrumentalRecordings.js:27
+msgid ""
+"This report shows recordings which have a {doc_karaoke_rel|“karaoke” "
+"relationship} to another recording, but are linked to a work with the "
+"{doc_instrumental_attr|“instrumental” attribute}, or the other way around, "
+"with an {doc_instrumental_rel|“instrumental” relationship} and the "
+"{doc_karaoke_attr|“karaoke” attribute}."
+msgstr ""
+
+#: ../root/report/KaraokePlusInstrumentalRecordings.js:45
+msgid ""
+"Keep in mind that “instrumental” in MusicBrainz implies the lyrics are not "
+"relevant to the recording. Since lyrics are by definition relevant to "
+"karaoke recordings, “instrumental” should not be used on them (use “karaoke” "
+"instead). Alternatively, if this is not a karaoke recording, but just a "
+"standard instrumental recording, it shouldn’t be linked to another recording "
+"with a “karaoke” relationship, but with an “instrumental” one."
+msgstr ""
+
+#: ../root/report/KaraokePlusInstrumentalRecordings.js:55
+#: ../root/report/ReportsIndex.js:584
+msgid "Recordings marked as both karaoke and instrumental"
+msgstr ""
+
+#: ../root/report/LabelsDisambiguationSameName.js:25
+msgid ""
+"This report lists labels that have their disambiguation set to be the same "
+"as their name. The disambiguation should be removed or, if it is needed, "
+"improved."
+msgstr ""
+"此報告列出了將消除歧義設定為與其名稱相同的標籤。消除歧義應該被刪除，或者如果"
+"需要的話，加以改進。"
+
+#: ../root/report/LabelsDisambiguationSameName.js:32
+#: ../root/report/ReportsIndex.js:198
+msgid "Labels with disambiguation the same as the name"
+msgstr "消除歧義的標籤與名稱相同"
+
+#: ../root/report/LabelsWithMismatchedPrimaryAliases.js:25
+msgid ""
+"This report lists labels that have at least one alias marked as primary for "
+"a locale, but have no primary aliases that match their name. In general, the "
+"main name for a label should always be its primary alias in the language of "
+"the name."
+msgstr ""
+
+#: ../root/report/LabelsWithMismatchedPrimaryAliases.js:33
+#: ../root/report/ReportsIndex.js:202
+msgid "Labels with mismatched primary aliases"
+msgstr ""
+
+#: ../root/report/LinksWithMultipleEntities.js:40
+msgid ""
+"This report shows URLs that are linked to multiple entities. It excludes "
+"license relationships (where reuse is expected) and Amazon (for releases), "
+"Discogs and Wikidata, which have their own reports. The links here should be "
+"reviewed to see whether they are really a good match: for example, a generic "
+"link to a store page could be replaced with specific per-release store "
+"links, and a link attached to all movements of a classical work might be a "
+"better fit for the main parent work only."
+msgstr ""
+"此報告顯示URL連結到了多個實體。這不包括許可關聯(允許重複使用)和亞馬遜(關於專"
+"輯)，Discogs以及維基資料(具有自己的報告)。這些連結需要審閱以確認它們是不是較"
+"好的匹配；例如，可以用特定的預售連結替代一般的商店頁連結，而針對古典作品所有"
+"樂章的連結比只包含主要母作品的連結要好。"
+
+#: ../root/report/LinksWithMultipleEntities.js:53
+#: ../root/report/ReportsIndex.js:648
+msgid "URLs linked to multiple entities"
+msgstr "與多個實體相關聯的網址"
+
+#: ../root/report/LinksWithMultipleEntities.js:61
+#: ../root/report/WikidataLinksWithMultipleEntities.js:56
+#: ../root/report/components/UrlList.js:45
+msgid "URL entity"
+msgstr "URL 實體"
+
+#: ../root/report/LinksWithMultipleEntities.js:62
+#: ../root/report/WikidataLinksWithMultipleEntities.js:57
+msgid "Usage count"
+msgstr "使用次數"
+
+#: ../root/report/LonelyPseudoReleases.js:25
+#, fuzzy
+#| msgid ""
+#| "This report shows releases with status Pseudo-Release that are marked as "
+#| "the original version of a translation/transliteration relationship. The "
+#| "pseudo-release should be the one marked as a translated/transliterated "
+#| "version instead. If both releases are pseudo-releases, consider linking "
+#| "both to an official release rather than to each other."
+msgid ""
+"This report shows releases with status “Pseudo-Release” that are in release "
+"groups that contain only pseudo-releases. This should never be fully "
+"correct; either the release is not really a pseudo-release (being, for "
+"example, a badly indicated bootleg), or the official release is missing and "
+"needs to be added."
+msgstr ""
+"此報告顯示狀態為偽發行的發行品，這些發行品被標記為翻譯/音譯關係的原始版本。偽"
+"發行應標記為翻譯/音譯版本。如果兩個發行品都是偽發行，請考慮將它們都連結到官方"
+"發行品，而不是彼此連結。"
+
+#: ../root/report/LonelyPseudoReleases.js:35 ../root/report/ReportsIndex.js:354
+msgid "Pseudo-releases in release groups that contain only pseudo-releases"
+msgstr ""
+
+#: ../root/report/LowDataQualityReleases.js:25
+msgid ""
+"This report shows releases that have been marked as having low data quality. "
+"If you have some time, you can review them and try to improve the data as "
+"much as possible before changing their data quality back to Normal (or even "
+"to High, if you add all the possible data!). If a release has already been "
+"improved but the data quality wasn’t changed accordingly, just enter a data "
+"quality change to remove it from this report."
+msgstr ""
+"此報告顯示標記為具有低資料品質的發行品。如果您有時間，可以審查它們，並嘗試在"
+"將資料品質更改回正常（或甚至高，若您新增了所有可能的資料！）之前改善資料。如"
+"果發行品已經改善但資料品質未隨之更改，則只需輸入資料品質更改以將其從此報告中"
+"移除。"
+
+#: ../root/report/LowDataQualityReleases.js:37
+#: ../root/report/ReportsIndex.js:506
+msgid "Releases marked as having low data quality"
+msgstr "標記為具有低資料品質的發行品"
+
+#: ../root/report/MediumsWithOrderInTitle.js:25
+msgid ""
+"This report lists releases where at least one medium has a title that seems "
+"to just be indicating its position (such a first medium with the title “Disc "
+"1”). These should usually be removed, as per {release_style|the release "
+"guidelines}."
+msgstr ""
+"此報告列出至少有一個媒體的標題似乎僅表示其位置（例如，第一媒體標題為“碟片 "
+"1”）。根據 {release_style|發行指南}，這些通常應被移除。"
+
+#: ../root/report/MediumsWithOrderInTitle.js:34
+#: ../root/report/ReportsIndex.js:398
+msgid "Releases with mediums named after their position"
+msgstr "以其位置命名的媒體的發行品"
+
+#: ../root/report/MediumsWithSequenceIssues.js:25
+msgid ""
+"This report lists all releases with gaps in the medium numbers (for example, "
+"there is a medium 1 and 3 but no medium 2)."
+msgstr ""
+"此報告列出所有媒體編號中有間隙的發行品（例如，有媒體1和3，但沒有媒體2）。"
+
+#: ../root/report/MediumsWithSequenceIssues.js:31
+msgid "Releases with medium number issues"
+msgstr "媒體編號問題的發行品"
+
+#: ../root/report/MislinkedPseudoReleases.js:25
+msgid ""
+"This report shows releases with status Pseudo-Release that are marked as the "
+"original version of a translation/transliteration relationship. The pseudo-"
+"release should be the one marked as a translated/transliterated version "
+"instead. If both releases are pseudo-releases, consider linking both to an "
+"official release rather than to each other."
+msgstr ""
+"此報告顯示狀態為偽發行的發行品，這些發行品被標記為翻譯/音譯關係的原始版本。偽"
+"發行應標記為翻譯/音譯版本。如果兩個發行品都是偽發行，請考慮將它們都連結到官方"
+"發行品，而不是彼此連結。"
+
+#: ../root/report/MislinkedPseudoReleases.js:35
+msgid "Translated/transliterated pseudo-releases marked as original"
+msgstr "標記為原始的翻譯/音譯偽發行"
+
+#: ../root/report/MultipleAsins.js:25
+msgid ""
+"This report shows releases that have more than one Amazon ASIN. In most "
+"cases ASINs should map to MusicBrainz releases 1:1, so only one of them will "
+"be correct. Just check which ones do not fit the release (because of format, "
+"different number of tracks, etc). If the release has a barcode, you can "
+"search Amazon for it and see which ASIN matches."
+msgstr ""
+"此報告顯示有多個亞馬遜ASIN的發行品。在大多數情況下，ASIN應該與MusicBrainz發行"
+"品一對一對應，因此只有其中一個是正確的。只需檢查哪些不符合該發行品（因為格"
+"式、音軌數量不同等）。如果發行品有條碼，您可以在亞馬遜上搜尋它，看看哪個ASIN"
+"匹配。"
+
+#: ../root/report/MultipleAsins.js:35
+msgid "Releases with multiple ASINs"
+msgstr "有多個 ASIN 的專輯"
+
+#: ../root/report/MultipleDiscogsLinks.js:25
+msgid ""
+"This report shows releases that have more than one link to Discogs. In most "
+"cases a MusicBrainz release should have only one equivalent in Discogs, so "
+"only one of them will be correct. Just check which ones do not fit the "
+"release (because of format, different number of tracks, etc). Any \"master\" "
+"Discogs page belongs at the {release_group|release group level}, not at the "
+"release level, and should be removed from releases too."
+msgstr ""
+"此報告顯示有多個Discogs連結的發行品。在大多數情況下，MusicBrainz發行品應該在"
+"Discogs中只有一個等效項，因此只有其中一個是正確的。只需檢查哪些不符合該發行品"
+"（因為格式、音軌數量不同等）。任何“母版”Discogs頁面應該放在{release_group|發"
+"行組層級}，而不是發行層級，並且也應該從發行品中移除。"
+
+#: ../root/report/MultipleDiscogsLinks.js:37
+msgid "Releases with multiple Discogs links"
+msgstr "有多個 Discogs 連結的專輯"
+
+#: ../root/report/NoLanguage.js:28
+msgid ""
+"This report shows releases that have no language set. If you recognize the "
+"language, please set it! Do it only if you are pretty sure, don't just "
+"guess: not everything written in Cyrillic is Russian, for example."
+msgstr ""
+"此報告顯示沒有設定語言的發行品。如果您認識語言，請設定它！請僅在您非常確定的"
+"情況下進行，不要隨便猜測：並非所有用西里爾字母書寫的內容都是俄語，例如。"
+
+#: ../root/report/NoLanguage.js:36 ../root/report/ReportsIndex.js:272
+msgid "Releases without language"
+msgstr "沒有設定語言的專輯"
+
+#: ../root/report/NoScript.js:28
+msgid ""
+"This report shows releases that have no script set. If you recognize the "
+"script, just add it! Remember that the script used for English (and most "
+"other European languages) is Latin."
+msgstr ""
+"此報告顯示沒有設定文字系統的發行品。如果您認識文字系統，請直接新增！請記住，"
+"英語（以及大多數其他歐洲語言）使用的文字系統是拉丁文字。"
+
+#: ../root/report/NoScript.js:35 ../root/report/ReportsIndex.js:276
+msgid "Releases without script"
+msgstr "沒有設定文字的專輯"
+
+#: ../root/report/NonBootlegsOnBootlegLabels.js:25
+msgid ""
+"This report shows releases that have at least one “Bootleg Production” label "
+"in their labels list, but are not set to status “Bootleg”. These labels "
+"pretty much never release non-bootleg releases, so chances are that either "
+"the label or the status is wrong."
+msgstr ""
+"此報告顯示在其標籤列表中至少有一個“盜版製作”標籤，但狀態未設定為“盜版”的發行"
+"品。這些標籤幾乎從不發行非盜版的發行品，因此有可能標籤或狀態是錯誤的。"
+
+#: ../root/report/NonBootlegsOnBootlegLabels.js:34
+#: ../root/report/ReportsIndex.js:489
+msgid "Releases on bootleg labels not set to bootleg"
+msgstr "未設定為盜版的盜版標籤的發行品"
+
+#: ../root/report/PartOfSetRelationships.js:25
+msgid ""
+"This report shows releases that still have the deprecated \"part of set\" "
+"relationship and should probably be merged. For instructions on how to fix "
+"them, please see the documentation about {how_to_merge_releases|how to merge "
+"releases}. If the releases are not really part of a set (for example, if "
+"they are independently-released volumes in a series) just remove the "
+"relationship."
+msgstr ""
+"此報告顯示仍有已棄用的“組合集”關係的發行品，並且可能應該合併。關於如何修復它"
+"們的指示，請參見有關{how_to_merge_releases|如何合併發行品}的說明檔案。如果發"
+"行品實際上並不是某個組合集的一部分（例如，獨立發行的系列卷），請直接移除該關"
+"係。"
+
+#: ../root/report/PartOfSetRelationships.js:37
+msgid "Releases with “part of set” relationships"
+msgstr "具有“組合集”關係的發行品"
+
+#: ../root/report/PlacesWithoutCoordinates.js:29
+msgid "This report lists places without coordinates."
+msgstr "此報告列出沒有坐標的地點。"
+
+#: ../root/report/PlacesWithoutCoordinates.js:33
+#: ../root/report/ReportsIndex.js:601
+msgid "Places without coordinates"
+msgstr "無坐標的地點"
+
+#: ../root/report/PlacesWithoutCoordinates.js:43
+msgid "Search for coordinates"
+msgstr "搜尋坐標"
+
+#: ../root/report/PlacesWithoutCoordinates.js:123
+msgid "This place no longer exists."
+msgstr "此地點已不存在。"
+
+#: ../root/report/PossibleCollaborations.js:25
+msgid ""
+"This report lists artists which have “&” in their names but no membership-"
+"related relationships (none of member, collaborator, conductor, founder nor "
+"subgroup). If the artist is usually seen as an actual group, member "
+"relationships should be added. If it’s a short term collaboration, it should "
+"be split if possible (see {how_to_split_artists|How to Split Artists}). If "
+"it is a collaboration with its own name and can’t be split, collaboration "
+"relationships should be added to it. For some special cases, such as “Person "
+"& His Orchestra”, conductor and/or founder might be the best choice."
+msgstr ""
+"此報告列出在名稱中有“&”但沒有與會員相關關係（如成員、合作者、指揮、創始人或子"
+"組）的創作者。如果創作者通常被視為真正的團體，則應新增成員關係。如果這是一個"
+"短期的合作，則應在可能的情況下將其分開（參見{how_to_split_artists|如何分割創"
+"作者}）。如果它是具有自己名稱的合作且無法分割，則應向其新增合作關係。對於某些"
+"特殊情況，例如“某人及其管弦樂團”，指揮和/或創始人可能是最佳選擇。"
+
+#: ../root/report/PossibleCollaborations.js:40
+msgid "Artists that may be collaborations"
+msgstr "可能是合作的創作者"
+
+#: ../root/report/PseudoReleasesWithCoverArt.js:25
+msgid ""
+"This report shows pseudo-releases that have images in the Cover Art Archive. "
+"Pseudo-releases {style|should not have cover art}, except temporarily until "
+"an official release has been added."
+msgstr ""
+
+#: ../root/report/PseudoReleasesWithCoverArt.js:33
+#: ../root/report/ReportsIndex.js:375
+msgid "Pseudo-Releases that have cover art"
+msgstr ""
+
+#: ../root/report/RecordingTrackDifferentName.js:37
+msgid ""
+"This report shows recordings that are linked to only one track, yet have a "
+"different name than the track. This might mean one of the two needs to be "
+"renamed to match the other."
+msgstr ""
+"此報告顯示僅連結到一個音軌的錄音，但名稱與該音軌不同。這可能意味著其中一個需"
+"要重新命名以匹配另一個。"
+
+#: ../root/report/RecordingTrackDifferentName.js:44
+#: ../root/report/ReportsIndex.js:567
+msgid "Recordings with a different name than their only track"
+msgstr "名稱與唯一音軌不同的錄音"
+
+#: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:31
+msgid ""
+"This report shows all recordings with the same name that have different "
+"artists (having different MBIDs) with the same name. These are most likely "
+"cases where the {ac|artist credit} is incorrect for at least one of the "
+"recordings."
+msgstr ""
+"此報告顯示名稱相同但創作者不同（具有不同MBID）的錄音。這些最有可能是{ac|創作"
+"者署名}在至少一個錄音中不正確的情況。"
+
+#: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:39
+msgid "Currently, this report only works with recordings that have one artist."
+msgstr "目前，此報告僅適用於具有一位創作者的錄音。"
+
+#: ../root/report/RecordingsSameNameDifferentArtistsSameName.js:45
+msgid "Recordings with the same name by different artists with the same name"
+msgstr "由不同創作者以相同名稱創作的錄音"
+
+#: ../root/report/RecordingsWithEarliestReleaseRelationships.js:25
+msgid ""
+"This report shows recordings that have the deprecated \"earliest release\" "
+"relationship. They should be merged if they are truly the same recording; if "
+"they're not, the relationship should be removed. Please, do not merge "
+"recordings blindly just because the lengths fit, and do not merge recordings "
+"with very different times!"
+msgstr ""
+"此報告顯示具有已棄用的“最早發行”關係的錄音。如果它們確實是相同的錄音，則應合"
+"併；如果不是，則應移除該關係。請勿因為長度匹配而盲目合併錄音，也請勿合併時間"
+"差異很大的錄音！"
+
+#: ../root/report/RecordingsWithEarliestReleaseRelationships.js:35
+#: ../root/report/ReportsIndex.js:515
+msgid "Recordings with earliest release relationships"
+msgstr "具有最早發行關係的錄音"
+
+#: ../root/report/RecordingsWithFutureDates.js:54
+msgid ""
+"This report shows recordings with relationships using dates in the future. "
+"Those are probably typos (such as 2109 instead of 2019)."
+msgstr ""
+"此報告顯示與關係使用未來日期的錄音。這些可能是打字錯誤（例如2109而不是"
+"2019）。"
+
+#: ../root/report/RecordingsWithFutureDates.js:60
+msgid "Recordings with relationships having dates in the future"
+msgstr "此報告顯示連結到多位創作者實體但未以“多位創作者”為署名名稱的錄音"
+
+#: ../root/report/RecordingsWithVaryingTrackLengths.js:25
+msgid ""
+"This report shows recordings where the linked tracks have times that vary by "
+"more than 30 seconds."
+msgstr "此報告顯示的音軌中，連結的音軌時間相差超過30秒。"
+
+#: ../root/report/RecordingsWithVaryingTrackLengths.js:31
+#: ../root/report/ReportsIndex.js:527
+msgid "Recordings with varying track times"
+msgstr "各音軌音軌時長不同"
+
+#: ../root/report/RecordingsWithoutVaCredit.js:25
+msgid ""
+"This report shows recordings linked to the Various Artists entity without "
+"\"Various Artists\" as the credited name."
+msgstr "此報告顯示與多位創作者實體連結的錄音，但未將“多位創作者”作為署名名稱。"
+
+#: ../root/report/RecordingsWithoutVaCredit.js:31
+#: ../root/report/ReportsIndex.js:540
+msgid "Recordings not credited to \"Various Artists\" but linked to VA"
+msgstr "未以“多位創作者”為署名但連結到VA的錄音"
+
+#: ../root/report/RecordingsWithoutVaLink.js:25
+msgid ""
+"This report shows recordings with \"Various Artists\" as the credited name "
+"but not linked to the Various Artists entity."
+msgstr "此報告顯示以“多位創作者”為署名名稱但未連結到多位創作者實體的錄音。"
+
+#: ../root/report/RecordingsWithoutVaLink.js:31
+#: ../root/report/ReportsIndex.js:547
+msgid "Recordings credited to \"Various Artists\" but not linked to VA"
+msgstr "以“多位創作者”為署名但未連結到VA的錄音"
+
+#: ../root/report/ReleaseGroupsWithoutVaCredit.js:25
+msgid ""
+"This report shows release groups linked to the Various Artists entity "
+"without \"Various Artists\" as the credited name."
+msgstr "此報告顯示連結到多位創作者實體但未以“多位創作者”為署名名稱的發行組。"
+
+#: ../root/report/ReleaseGroupsWithoutVaCredit.js:32
+#: ../root/report/ReportsIndex.js:248
+msgid "Release groups not credited to \"Various Artists\" but linked to VA"
+msgstr "未以“多位創作者”為署名但連結到VA的發行組"
+
+#: ../root/report/ReleaseGroupsWithoutVaLink.js:25
+msgid ""
+"This report shows release groups with \"Various Artists\" as the credited "
+"name but not linked to the Various Artists entity."
+msgstr "此報告顯示以“多位創作者”為署名名稱但未連結到多位創作者實體的發行組。"
+
+#: ../root/report/ReleaseGroupsWithoutVaLink.js:32
+#: ../root/report/ReportsIndex.js:255
+msgid "Release groups credited to \"Various Artists\" but not linked to VA"
+msgstr "以“多位創作者”為署名但未連結到VA的發行組"
+
+#: ../root/report/ReleaseLabelSameArtist.js:39
+msgid ""
+"This report lists releases where the label name is the same as the artist "
+"name. Often this means the release is self-released, and the label "
+"{SpecialPurposeLabel|should be \"[no label]\" instead}."
+msgstr ""
+"此報告列出標籤名稱與創作者名稱相同的發行品。通常這意味著該發行品是自我發行"
+"的，標籤{SpecialPurposeLabel|應該是“[無標籤]”}。"
+
+#: ../root/report/ReleaseLabelSameArtist.js:50
+#: ../root/report/ReportsIndex.js:471
+msgid "Releases where artist name and label name are the same"
+msgstr "創作者名稱與標籤名稱相同的發行品"
+
+#: ../root/report/ReleaseRgDifferentName.js:36
+msgid ""
+"This report shows releases which are the only ones in their release group, "
+"yet have a different name than the group. This might mean one of the two "
+"needs to be renamed to match the other."
+msgstr ""
+"此報告顯示在其發行組中唯一的發行品，但名稱與該組不同。這可能意味著其中一個需"
+"要重新命名以匹配另一個。"
+
+#: ../root/report/ReleaseRgDifferentName.js:43
+#: ../root/report/ReportsIndex.js:477
+msgid "Releases with a different name than their release group"
+msgstr "名稱與其發行組不同的發行品"
+
+#: ../root/report/ReleasedTooEarly.js:25
+#, fuzzy
+#| msgid ""
+#| "This report shows releases which have disc IDs even though they were "
+#| "released too early to have disc IDs, where one of the medium formats "
+#| "didn't exist at the time the release was released or where a disc ID is "
+#| "attached to a medium whose format does not have disc IDs."
+msgid ""
+"This report shows releases which have disc IDs even though they were "
+"released too early to have disc IDs, where one of the medium formats didn't "
+"exist at the time the release was released or where a disc ID is attached to "
+"a medium whose format does not have disc IDs. Fully digital releases are "
+"excluded; for those, see {digital_report|our digital-only report}."
+msgstr ""
+"此報告顯示發行時間太早而不應有碟片ID但是實際上有碟片ID，使用了發行時不存在媒"
+"體格式或者媒體格式沒有碟片ID但是附加了碟片ID的專輯。"
+
+#: ../root/report/ReleasedTooEarly.js:36 ../root/report/ReportsIndex.js:324
+msgid "Releases released too early"
+msgstr "發行品發行過早"
+
+#: ../root/report/ReleasedTooEarlyDigital.js:25
+msgid ""
+"This report shows releases with at least one medium set to format “Digital "
+"Media” which were released before 1999, the launch date for the first "
+"digital music store supported by a major label. While digital releases did "
+"exist before this, and not everything older is automatically incorrect, a "
+"lot of releases that end up here are likely to be digital reissues of older "
+"content that have been incorrectly assigned the release date for the "
+"original, physical release."
+msgstr ""
+
+#: ../root/report/ReleasedTooEarlyDigital.js:37
+#: ../root/report/ReportsIndex.js:328
+msgid "Suspiciously early digital releases"
+msgstr ""
+
+#: ../root/report/ReleasesConflictingDiscIds.js:25
+msgid ""
+"This report shows releases that have conflicting disc IDs on the same medium "
+"with significant differences in duration. This usually means a disc ID was "
+"applied to the wrong medium or the wrong release."
+msgstr ""
+"此報告顯示在同一媒體上具有衝突的碟片ID且持續時間存在顯著差異的發行品。這通常"
+"意味著碟片ID應用於錯誤的媒體或錯誤的發行品。"
+
+#: ../root/report/ReleasesConflictingDiscIds.js:33
+#: ../root/report/ReportsIndex.js:462
+msgid "Releases with conflicting disc IDs"
+msgstr "具有衝突碟片ID的發行品"
+
+#: ../root/report/ReleasesMissingDiscIds.js:25
+msgid ""
+"This report shows releases (official and promotional only) that have at "
+"least one medium with a format that supports disc IDs, but is missing one."
+msgstr ""
+"此報告顯示（官方和促銷）發行品至少有一個媒體具有支援碟片ID的格式，但缺少一"
+"個。"
+
+#: ../root/report/ReleasesMissingDiscIds.js:31
+msgid ""
+"For instructions on how to add one, see the {add_discids|documentation page}."
+msgstr "有關如何新增碟片ID的指示，請參見{add_discids|文件頁面}。"
+
+#: ../root/report/ReleasesMissingDiscIds.js:37
+#: ../root/report/ReportsIndex.js:458
+msgid "Releases missing disc IDs"
+msgstr "缺少碟片ID的發行品"
+
+#: ../root/report/ReleasesSameBarcode.js:53
+msgid ""
+"This report shows non-bootleg releases which have the same barcode, yet are "
+"placed in different release groups. Chances are that the releases are "
+"duplicates or parts of a set, or at least that the release groups should be "
+"merged."
+msgstr ""
+"此報告顯示非盜版發行品具有相同條碼，但被放置在不同的發行組中。這可能意味著這"
+"些發行品是重複的或是某個組合集的一部分，或者至少這些發行組應該合併。"
+
+#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:483
+msgid "Releases with the same barcode in different release groups"
+msgstr "在不同發行組中具有相同條碼的發行品"
+
+#: ../root/report/ReleasesToConvert.js:25
+msgid ""
+"This report aims to identify releases which need converting to multiple "
+"artists (because the track artists are on the title field, for example). "
+"Currently it does this by looking for releases where every track contains \"/"
+"\" or \"-\"."
+msgstr ""
+"此報告旨在識別需要轉換為多位創作者的發行品（因為音軌創作者在標題欄位中，例"
+"如）。目前，它透過尋找每個音軌都包含“/”或“-”的發行品來實現此目的。"
+
+#: ../root/report/ReleasesToConvert.js:33 ../root/report/ReportsIndex.js:267
+msgid "Releases which might need converting to \"multiple artists\""
+msgstr "可能需要轉換為“多位創作者”的發行品"
+
+#: ../root/report/ReleasesWithAmazonCoverArt.js:25
+msgid ""
+"This report shows releases which have cover art on Amazon, but have no front "
+"cover in the Cover Art Archive. The use of Amazon art has been discontinued "
+"since the 16th of May 2022, so these releases have no front cover anymore "
+"until one is added to the Cover Art Archive."
+msgstr ""
+"這份報告顯示了亞馬遜上有封面藝術的作品，但在封面藝術檔案中沒有封面。自2022年5"
+"月16日起，亞馬遜的藝術作品就不再使用了，所以這些作品在封面藝術檔案中添加封面"
+"之前都沒有封面。"
+
+#: ../root/report/ReleasesWithAmazonCoverArt.js:34
+#: ../root/report/ReportsIndex.js:381
+msgid ""
+"Releases that have Amazon cover art but no Cover Art Archive front cover"
+msgstr "具有亞馬遜封面藝術但沒有Cover Art Archive正面封面的發行品"
+
+#: ../root/report/ReleasesWithCaaNoTypes.js:25
+msgid ""
+"This report shows releases which have cover art in the Cover Art Archive, "
+"but where none of it has any types set. This often means a front cover was "
+"added, but not marked as such."
+msgstr ""
+"此報告顯示在Cover Art Archive中具有封面藝術的發行品，但其中沒有任何標記類型。"
+"這通常意味著新增了正面封面，但未標記為正面封面。"
+
+#: ../root/report/ReleasesWithCaaNoTypes.js:32
+#: ../root/report/ReportsIndex.js:388
+msgid "Releases in the Cover Art Archive where no cover art piece has types"
+msgstr "在Cover Art Archive中沒有任何封面藝術作品有類型的發行品"
+
+#: ../root/report/ReleasesWithDownloadRelationships.js:25
+msgid ""
+"This report shows releases that have relationships that only apply to "
+"digital media releases (download/streaming), but have media whose format is "
+"not “Digital Media”. Generally, these should be moved to the appropriate "
+"digital media release. If one doesn’t exist yet, feel free to add it."
+msgstr ""
+"此報告顯示具有僅適用於數位媒體發行（下載/串流）的關聯，但其媒體格式不是「數位"
+"媒體」的發行品。一般來說，這些應該移至適當的數位媒體發行。如果尚不存在，請隨"
+"意添加。"
+
+#: ../root/report/ReleasesWithDownloadRelationships.js:35
+#: ../root/report/ReportsIndex.js:422
+msgid "Non-digital releases with digital relationships"
+msgstr "非數位發行的數位關聯"
+
+#: ../root/report/ReleasesWithEmptyMediums.js:25
+msgid ""
+"This report shows releases with at least one medium that is missing a "
+"tracklist. If you can find the tracklist, please help complete the data!"
+msgstr ""
+"此報告顯示至少有一個媒體缺少音軌列表的發行品。如果您能找到音軌列表，請協助補"
+"全資料！"
+
+#: ../root/report/ReleasesWithEmptyMediums.js:32
+#: ../root/report/ReportsIndex.js:442
+msgid "Releases with empty mediums"
+msgstr "含有空媒體的專輯"
+
+#: ../root/report/ReleasesWithMailOrderRelationships.js:25
+msgid ""
+"This report shows releases that have mail order relationships (which by "
+"definition only apply to physical media releases), but only have media whose "
+"format is “Digital Media”. Generally, these should be moved to the "
+"appropriate physical release. If one doesn’t exist yet, feel free to add it."
+msgstr ""
+"此報告顯示具有郵購關聯（這按定義僅適用於實體媒體發行），但其媒體格式僅為「數"
+"位媒體」的發行品。一般來說，這些應該移至適當的實體發行。如果尚不存在，請隨意"
+"添加。"
+
+#: ../root/report/ReleasesWithMailOrderRelationships.js:34
+#: ../root/report/ReportsIndex.js:426
+msgid "Digital releases with mail order relationships"
+msgstr "具有郵購關聯的數位發行"
+
+#: ../root/report/ReleasesWithNoMediums.js:25
+msgid "This report shows releases without any mediums (no tracklist)."
+msgstr "此報告顯示了不含任何媒體的專輯（無音軌列表）。"
+
+#: ../root/report/ReleasesWithNoMediums.js:30
+#: ../root/report/ReportsIndex.js:438
+msgid "Releases with no mediums"
+msgstr "沒有媒體的專輯"
+
+#: ../root/report/ReleasesWithUnlikelyLanguageScript.js:28
+msgid ""
+"This report shows releases that have an unlikely combination of language and "
+"script properties, such as German and Ethiopic."
+msgstr ""
+"此報告顯示具有不太可能的語言和文字屬性組合的發行品，例如德語和衣索比亞文字。"
+
+#: ../root/report/ReleasesWithUnlikelyLanguageScript.js:34
+#: ../root/report/ReportsIndex.js:406
+msgid "Releases with unlikely language/script pairs"
+msgstr "語言和文字配對怪異的專輯"
+
+#: ../root/report/ReleasesWithoutCaa.js:25
+msgid ""
+"This report shows releases that have no cover art in the Cover Art Archive. "
+"Given that most releases have some form of cover art, the vast majority of "
+"releases in this report should have artwork {caa_how_to|uploaded to the "
+"Cover Art Archive}. Note that the cover art uploaded for a release must "
+"always exactly match the actual art for that specific release (for example, "
+"they should have the same barcode, format, etc.). This report skips pseudo-"
+"releases, since they should generally not have cover art."
+msgstr ""
+"此報告顯示在Cover Art Archive中沒有封面藝術的發行品。考慮到大多數發行品都有某"
+"種形式的封面藝術，這份報告中的絕大多數發行品應該有藝術作品 {caa_how_to|上傳到"
+"Cover Art Archive}。請注意，為發行品上傳的封面藝術必須始終與該特定發行品的實"
+"際藝術完全匹配（例如，它們應具有相同的條碼、格式等）。此報告跳過偽發行版，因"
+"為它們通常不應有封面藝術。"
+
+#: ../root/report/ReleasesWithoutCaa.js:38
+msgid ""
+"We strongly suggest restricting this report to entities in your "
+"subscriptions only for a more manageable list of results."
+msgstr ""
+"我們強烈建議將此報告限制為僅顯示您訂閱中的實體，以便獲得更易管理的結果列表。"
+
+#: ../root/report/ReleasesWithoutCaa.js:43 ../root/report/ReportsIndex.js:394
+msgid "Releases without any art in the Cover Art Archive"
+msgstr "Cover Art Archive 中沒有任何此發行品的圖片"
+
+#: ../root/report/ReleasesWithoutVaCredit.js:25
+msgid ""
+"This report shows releases linked to the Various Artists entity without "
+"\"Various Artists\" as the credited name."
+msgstr ""
+"此報告顯示與「多位創作者」實體相關聯，但未以「多位創作者」作為署名名稱的發行"
+"品。"
+
+#: ../root/report/ReleasesWithoutVaCredit.js:31
+#: ../root/report/ReportsIndex.js:447
+msgid "Releases not credited to \"Various Artists\" but linked to VA"
+msgstr "未以「多位創作者」署名但與VA相關聯的發行品"
+
+#: ../root/report/ReleasesWithoutVaLink.js:25
+msgid ""
+"This report shows releases with \"Various Artists\" as the credited name but "
+"not linked to the Various Artists entity."
+msgstr ""
+"此報告顯示以「多位創作者」作為署名名稱，但未與「多位創作者」實體相關聯的發行"
+"品。"
+
+#: ../root/report/ReleasesWithoutVaLink.js:31
+#: ../root/report/ReportsIndex.js:453
+msgid "Releases credited to \"Various Artists\" but not linked to VA"
+msgstr "以「多位創作者」署名但未與VA相關聯的發行品"
+
+#: ../root/report/ReportNotAvailable.js:19
+msgid "We are sorry, but data for this report is not available right now."
+msgstr "抱歉，此報告的資料現在不可用。"
+
+#: ../root/report/ReportsIndex.js:38
+msgid ""
+"If you'd like to participate in the editing process, but do not know where "
+"to start, the following reports should be useful. These reports scour the "
+"database looking for data that might require fixing, either to comply with "
+"the {style|style guidelines}, or in other cases where administrative \"clean "
+"up\" tasks are required."
+msgstr ""
+"如果您想參與編輯過程，但不知道從何開始，以下報告應該會對您有幫助。這些報告會"
+"在資料庫中搜尋可能需要修正的資料，以符合 {style|風格指南}，或在其他需要進行管"
+"理「清理」任務的情況下。"
+
+#: ../root/report/ReportsIndex.js:68
+msgid "Artists which have collaboration relationships"
+msgstr "有合作關聯的創作者"
+
+#: ../root/report/ReportsIndex.js:72
+msgid "Artists which look like collaborations"
+msgstr "看起來像是合作的創作者"
+
+#: ../root/report/ReportsIndex.js:100
+msgid "Artists with annotations"
+msgstr "有注釋的創作者"
+
+#: ../root/report/ReportsIndex.js:139
+msgid "Events with annotations"
+msgstr "有註解的活動"
+
+#: ../root/report/ReportsIndex.js:194
+msgid "Labels with annotations"
+msgstr "有注釋的廠牌"
+
+#: ../root/report/ReportsIndex.js:211 ../root/report/SetInDifferentRg.js:37
+msgid "Release groups that might need to be merged"
+msgstr "可能需要合併的專輯組"
+
+#: ../root/report/ReportsIndex.js:243
+msgid "Release groups with annotations"
+msgstr "有注釋的專輯組"
+
+#: ../root/report/ReportsIndex.js:280
+msgid "Releases which have unexpected Amazon URLs"
+msgstr "有意外的Amazon網址的發行品"
+
+#: ../root/report/ReportsIndex.js:284
+msgid "Releases which have multiple ASINs"
+msgstr "有多個 ASIN 的專輯"
+
+#: ../root/report/ReportsIndex.js:288
+msgid "Releases which have multiple Discogs links"
+msgstr "有多個Discogs連結的發行品"
+
+#: ../root/report/ReportsIndex.js:300
+msgid "Releases which have part of set relationships"
+msgstr "具有部分集合關聯的發行品"
+
+#: ../root/report/ReportsIndex.js:304
+msgid "Discs entered as separate releases"
+msgstr "作為獨立專輯的碟片"
+
+#: ../root/report/ReportsIndex.js:308
+msgid "Tracks whose names include their sequence numbers"
+msgstr "名稱包含其序號的音軌"
+
+#: ../root/report/ReportsIndex.js:312
+msgid "Releases with non-sequential track numbers"
+msgstr "音軌編號亂序的專輯"
+
+#: ../root/report/ReportsIndex.js:316
+#: ../root/report/SuperfluousDataTracks.js:40
+msgid "Releases with superfluous data tracks"
+msgstr "多餘的資料軌的發行品"
+
+#: ../root/report/ReportsIndex.js:333
+msgid "Releases where some (but not all) mediums have no format set"
+msgstr "某些（但不是全部）媒體未設定格式的發行品"
+
+#: ../root/report/ReportsIndex.js:361
+msgid ""
+"Translated/Transliterated Pseudo-Releases marked as the original version"
+msgstr "標記為原始版本的翻譯/音譯偽發行版"
+
+#: ../root/report/ReportsIndex.js:368
+msgid ""
+"Translated/Transliterated Pseudo-Releases not linked to an original version"
+msgstr "未連結到原始版本的翻譯/音譯偽發行版"
+
+#: ../root/report/ReportsIndex.js:402
+msgid "Releases with non-sequential mediums"
+msgstr "媒體亂序的專輯"
+
+#: ../root/report/ReportsIndex.js:410 ../root/report/TracksWithoutTimes.js:31
+msgid "Releases with unknown track times"
+msgstr "各音軌發行時間未知"
+
+#: ../root/report/ReportsIndex.js:418
+#: ../root/report/SingleMediumReleasesWithMediumTitles.js:32
+msgid "Releases with a single medium that has a name"
+msgstr "有名稱的單媒體專輯"
+
+#: ../root/report/ReportsIndex.js:434
+msgid "Releases with annotations"
+msgstr "有注釋的專輯"
+
+#: ../root/report/ReportsIndex.js:466 ../root/report/ShouldNotHaveDiscIds.js:33
+msgid "Releases that have disc IDs, but shouldn’t"
+msgstr "具有碟片ID但不應該有的發行品"
+
+#: ../root/report/ReportsIndex.js:501
+#: ../root/report/ShowNotesButNotBroadcast.js:38
+msgid "Non-broadcast releases with linked show notes"
+msgstr "與連結的節目註解的非廣播發行品"
+
+#: ../root/report/ReportsIndex.js:535
+msgid "Recordings with annotations"
+msgstr "有注釋的錄音"
+
+#: ../root/report/ReportsIndex.js:572
+msgid "Recordings with dates in the future"
+msgstr "有未來日期的錄音"
+
+#: ../root/report/ReportsIndex.js:576
+#: ../root/report/VideosInNonVideoMediums.js:41
+msgid "Video recordings in non-video mediums"
+msgstr "非影片媒體的影片記錄"
+
+#: ../root/report/ReportsIndex.js:580
+#: ../root/report/VideoRelationshipsOnNonVideos.js:52
+msgid "Non-video recordings with video relationships"
+msgstr "有已棄用關聯的錄音"
+
+#: ../root/report/ReportsIndex.js:597
+msgid "Places with annotations"
+msgstr "有注釋的地點"
+
+#: ../root/report/ReportsIndex.js:610
+msgid "Series with annotations"
+msgstr "有注釋的系列"
+
+#: ../root/report/ReportsIndex.js:614
+#: ../root/report/SeriesContainingDuplicates.js:49
+#, fuzzy
+#| msgid "Release duplicates"
+msgid "Series containing duplicates"
+msgstr "重複專輯"
+
+#: ../root/report/ReportsIndex.js:631
+msgid "Works with annotations"
+msgstr "有注釋的作品"
+
+#: ../root/report/ReportsIndex.js:635 ../root/report/WorkSameTypeAsParent.js:36
+msgid "Works with the same type as their parent"
+msgstr "與母作品類型相同的作品"
+
+#: ../root/report/ReportsIndex.js:640
+#: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
+msgid "URLs"
+msgstr "URL"
+
+#: ../root/report/ReportsIndex.js:652
+#: ../root/report/WikidataLinksWithMultipleEntities.js:48
+msgid "Wikidata URLs linked to multiple entities"
+msgstr "連結到多個實體的Wikidata網址"
+
+#: ../root/report/SeparateDiscs.js:25
+msgid ""
+"This report shows releases which have (disc n) or (bonus disc) in the title."
+msgstr "此報告顯示標題中有（碟片n）或（額外碟片）的發行品。"
+
+#: ../root/report/SeparateDiscs.js:30
+msgid ""
+"For instructions on how to fix them, please see the documentation about "
+"{howto|how to merge releases}."
+msgstr "有關如何修正它們的指示，請參見有關 {howto|如何合併發行品} 的說明檔案。"
+
+#: ../root/report/SeparateDiscs.js:36
+msgid "Discs as separate releases"
+msgstr "作為獨立專輯的碟片"
+
+#: ../root/report/SeriesContainingDuplicates.js:23
+#, fuzzy
+#| msgid "Edited entity"
+msgid "Duplicate entity"
+msgstr "已編輯的內容"
+
+#: ../root/report/SeriesContainingDuplicates.js:29
+#, fuzzy
+#| msgid "ISO number"
+msgid "Number"
+msgstr "國際標準化組織編號"
+
+#: ../root/report/SeriesContainingDuplicates.js:43
+#, fuzzy
+#| msgid ""
+#| "This report lists recordings which have multiple relationships to the "
+#| "same entity using the same relationship type."
+msgid ""
+"This report lists series which contain the same entity multiple times with "
+"the same number attribute."
+msgstr "此報告列出對同一實體具有多重關聯的錄音，使用相同的關聯類型。"
+
+#: ../root/report/SetInDifferentRg.js:25
+msgid ""
+"This report shows release groups with releases that are linked to releases "
+"in different release groups by part-of-set or transliteration relationships. "
+"If a pair of release groups are listed here, you should probably merge them. "
+"If the releases are discs linked with \"part of set\" relationships, you "
+"might want to merge them too into one multi-disc release (see "
+"{how_to_merge_releases|How to Merge Releases})."
+msgstr ""
+"此報告顯示發行組中具有與不同發行組的發行品相關聯的發行品，透過部分集合或音譯"
+"關聯。如果這裡列出了一對發行組，您可能應該合併它們。如果這些發行品是透過「部"
+"分集合」關聯連結的碟片，您也可能想將它們合併為一個多碟發行（請參見 "
+"{how_to_merge_releases|如何合併發行品}）。"
+
+#: ../root/report/ShouldNotHaveDiscIds.js:25
+msgid ""
+"This report shows releases that have at least one medium with a format that "
+"does not support disc IDs, yet have disc IDs attached. Usually this means "
+"the disc IDs ended up here because of a bug and should be moved or removed."
+msgstr ""
+"此報告顯示了至少一個媒體格式上不支援碟片ID，但仍附加了碟片ID的專輯。這通常表"
+"明某個程式缺陷附加了碟片ID，應移動或移除。"
+
+#: ../root/report/ShowNotesButNotBroadcast.js:25
+msgid ""
+"This report shows releases that have a {doc|show notes relationship}, but "
+"are not in a release group of type Broadcast. Show notes are meant for "
+"podcasts and similar shows, and should not be used to link to some random "
+"notes about any sort of release, yet the relationship often gets used in "
+"that way. If that is the case, the relationship should be either switched to "
+"a better type or removed if nothing is a good fit. If the release is indeed "
+"a podcast, the release group type should be set to Broadcast."
+msgstr ""
+"此報告顯示具有 {doc|節目註解關係} 的發行品，但不在廣播類型的發行組中。節目註"
+"解是為播客和類似節目設計的，不應用於連結與任何類型的發行品相關的隨機註解，但"
+"該關係經常被用於這種方式。如果是這種情況，則該關係應該轉換為更合適的類型或如"
+"果沒有合適的選項則應移除。如果該發行品確實是播客，則發行組類型應設定為廣播。"
+
+#: ../root/report/SingleMediumReleasesWithMediumTitles.js:25
+msgid ""
+"This report shows releases that have a single medium, where this medium also "
+"has a specific name. Usually, this is not necessary and is duplicate "
+"information which can be removed."
+msgstr ""
+"此報告顯示了含有一個媒體，且此媒體也有特定名稱的專輯。通常這是不必要的，是可"
+"移除的重複資訊。"
+
+#: ../root/report/SomeFormatsUnset.js:25
+msgid ""
+"This report shows releases where some of the medium formats are set, but "
+"others are unset. In most cases, it should be easy to find out which the "
+"correct formats are (don't just assume that they're all CDs because one is "
+"though!)."
+msgstr ""
+"此報告顯示某些媒體格式已設定，但其他格式未設置的發行品。在大多數情況下，應該"
+"容易找出正確的格式（不要僅僅因為其中一個是CD就假設它們都是CD！）。"
+
+#: ../root/report/SomeFormatsUnset.js:33
+msgid "Releases with some formats unset"
+msgstr "某些格式未設置的發行品"
+
+#: ../root/report/SuperfluousDataTracks.js:25
+msgid ""
+"This report lists releases without any disc IDs that probably contain data "
+"tracks (like videos) at the end of a medium, but have no tracks marked as "
+"data tracks. A data track should be marked as such if it is the last track "
+"of the CD and contains audio or video. Otherwise, it should just be removed. "
+"See the {data_track_guidelines|data track guidelines}."
+msgstr ""
+"該報告列出了沒有任何磁碟id的發行版本，這些版本可能在媒體的末尾包含資料音軌(如"
+"影片)，但沒有標記為資料音軌。如果資料軌道是CD的最後一個軌道並且包含音訊或影"
+"片，則應這樣標記。否則，它應該被刪除。參見{data_track_guidelines|資料跟蹤指"
+"南}。"
+
+#: ../root/report/TracksNamedWithSequence.js:25
+msgid ""
+"This report aims to identify releases where track names include their own "
+"track number, such as \"1) Some Name\" (instead of just \"Some Name\"). "
+"Notice that sometimes this is justified and correct, don't automatically "
+"assume it is a mistake! If you confirm it is a mistake, please correct it."
+msgstr ""
+"此報告旨在識別音軌名稱中包含其自身音軌編號的發行品，例如「1) 某些名稱」（而不"
+"僅僅是「某些名稱」）。請注意，有時這是正當且正確的，請不要自動假設這是錯誤！"
+"如果您確認這是錯誤的，請進行修正。"
+
+#: ../root/report/TracksNamedWithSequence.js:34
+msgid "Releases where track names start with their track number"
+msgstr "音軌名稱以編號開頭的專輯"
+
+#: ../root/report/TracksWithSequenceIssues.js:25
+msgid ""
+"This report lists all releases where the track numbers are not continuous "
+"(for example, there is no \"track 2\"), or with duplicated track numbers "
+"(for example, there are two \"track 4\"s)."
+msgstr ""
+"此報告列出所有音軌編號不連續（例如，沒有「音軌2」）或重複音軌編號（例如，有兩"
+"個「音軌4」）的發行品。"
+
+#: ../root/report/TracksWithSequenceIssues.js:32
+msgid "Releases with track number issues"
+msgstr "發行專輯的發布音軌編號"
+
+#: ../root/report/TracksWithoutTimes.js:25
+msgid ""
+"This report lists all releases where some or all tracks have unknown track "
+"lengths."
+msgstr "此報告列出了所有部分或全部音軌長度未知的專輯。"
+
+#: ../root/report/UnlinkedPseudoReleases.js:25
+msgid ""
+"This report shows releases with status Pseudo-Release that aren’t linked via "
+"the translation/transliteration relationship to an original version. This "
+"could be because the original version is missing, or just because the "
+"release status is wrongly set."
+msgstr ""
+"此報告顯示狀態為偽發行版的發行品，但未透過翻譯/音譯關聯連結到原始版本。這可能"
+"是因為原始版本缺失，或只是因為發行狀態設定錯誤。"
+
+#: ../root/report/UnlinkedPseudoReleases.js:33
+msgid "Unlinked pseudo-releases"
+msgstr "未連結的偽發行版"
+
+#: ../root/report/VideoRelationshipsOnNonVideos.js:39
+msgid ""
+"This report shows recordings not marked as video, but that use relationships "
+"meant only for video recordings ({relationship_list}). Either they should be "
+"marked as video, or the relationships should be moved to a related video "
+"recording."
+msgstr ""
+"此報告顯示未標記為影片的錄音，但使用僅適用於影片錄音的關聯"
+"（{relationship_list}）。它們應該標記為影片，或將關聯移至相關的影片錄音。"
+
+#: ../root/report/VideosInNonVideoMediums.js:25
+msgid ""
+"This report shows recordings marked as video, but that appear in at least "
+"one medium that does not support videos."
+msgstr "此報告顯示標記為影片的錄音，但出現在至少一種不支援影片的媒體中。"
+
+#: ../root/report/VideosInNonVideoMediums.js:30
+msgid ""
+"There are two main possibilities here: either the recording being marked as "
+"a video is correct, but the format is not (a CD should be a VCD, for "
+"example), or the recording is being used for both a video and audio-only "
+"recording, in which case the two should be split since video recordings "
+"should always be separate. If you split the recordings, consider whether it "
+"makes sense to link them with a {doc_link|music video relationship}."
+msgstr ""
+"這裡主要有兩種可能:一種是標記為影片的錄音正確，但格式不對(例如，CD應該是"
+"VCD)，另一種是同時用於影片和只用於音訊的錄音，在這種情況下，兩者應該分開，因"
+"為影片錄音總是分開的。如果你拆分錄音，考慮是否有意義的連結它們與{doc_link|音"
+"樂影片關係}。"
+
+#: ../root/report/WikidataLinksWithMultipleEntities.js:40
+msgid ""
+"This report shows Wikidata URLs that are linked to multiple entities. In "
+"general, Wikidata entities should match 1 to 1 with MusicBrainz entities, so "
+"most of these should indicate either an error in MusicBrainz or a too-wide "
+"Wikidata page."
+msgstr ""
+"此報告顯示連結到多個實體的Wikidata網址。一般來說，Wikidata實體應該與"
+"MusicBrainz實體一對一匹配，因此大多數這些應該表示MusicBrainz中的錯誤或"
+"Wikidata頁面過於寬泛。"
+
+#: ../root/report/WorkSameTypeAsParent.js:25
+msgid ""
+"This report shows works with at least one parent work that has the same work "
+"type as them (such as a work marked as a sonata which is part of another "
+"sonata). In most cases, that means these works should have a different type "
+"or (most likely) no type at all, as per {work_style_doc|the work "
+"guidelines}. Sometimes the parent work type might be the one that needs to "
+"be changed."
+msgstr ""
+"此報告顯示了作品類型與至少一個母作品相同的作品（例如一個標記為奏鳴曲的作品是"
+"另一首奏鳴曲的一部分）。在大多數情況下，根據 {work_style_doc|作品風格指南}，"
+"這意味著這些作品應該是不同的類型或（很可能）根本沒有類型。有時，可能需要更改"
+"的是母作品的類型。"
+
+#: ../root/report/constants.js:12
+msgid ""
+"If you see something in these annotations that can be represented with a "
+"relationship instead, please add a relationship and remove that part of the "
+"annotation. If something is marked as “sub-optimal”, consider checking if a "
+"better way to store that data has been added in the meantime."
+msgstr ""
+"如果您在這些註解中看到可以用關聯表示的內容，請新增關聯並移除該部分註解。如果"
+"某些內容被標記為「次優」，請考慮檢查是否有更好的方法來儲存該資料。"

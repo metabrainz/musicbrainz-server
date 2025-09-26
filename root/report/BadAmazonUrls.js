@@ -25,11 +25,11 @@ const urlColumn = {
           entity={url}
         />
       ) : (
-        l('This URL no longer exists.')
+        l_reports('This URL no longer exists.')
       )
     );
   },
-  Header: l('URL'),
+  Header: l_reports('URL'),
   id: 'url',
 };
 
@@ -43,7 +43,7 @@ component BadAmazonUrls(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with Amazon URLs which don't follow
          the expected format. They might still be correct if they're
          archive.org cover links, but in any other case they should
@@ -52,7 +52,7 @@ component BadAmazonUrls(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Bad Amazon URLs')}
+      title={l_reports('Bad Amazon URLs')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

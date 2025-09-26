@@ -8,7 +8,7 @@
  */
 
 /* eslint-disable-next-line import/prefer-default-export */
-export const ANNOTATION_REPORT_TEXT: (() => string) = N_l(
+export const ANNOTATION_REPORT_TEXT: (() => string) = N_l_reports(
   `If you see something in these annotations that can be represented with a 
    relationship instead, please add a relationship and remove that part of
    the annotation. If something is marked as “sub-optimal”, consider checking 

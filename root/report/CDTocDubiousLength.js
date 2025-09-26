@@ -21,7 +21,7 @@ component CDTocDubiousLength(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows disc IDs indicating a total duration much longer
          than what a standard CD allows (at least 88 minutes for a CD, or 30
          minutes for a mini-CD). This usually means a disc ID was generated
@@ -30,7 +30,7 @@ component CDTocDubiousLength(...{
       entityType="discId"
       filtered={filtered}
       generated={generated}
-      title={l('Disc IDs with dubious duration')}
+      title={l_reports('Disc IDs with dubious duration')}
       totalEntries={pager.total_entries}
     >
       <CDTocList items={items} pager={pager} />
