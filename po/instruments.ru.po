@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-25 16:54+0000\n"
+"PO-Revision-Date: 2025-09-25 21:54+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -1171,7 +1171,7 @@ msgstr "раковина"
 
 #: DB:instrument/name:958
 msgid "concussion idiophone"
-msgstr ""
+msgstr "идиофон со струной"
 
 #: DB:instrument/name:102
 msgid "congas"
@@ -1179,7 +1179,7 @@ msgstr "конга"
 
 #: DB:instrument/name:390
 msgid "continuum"
-msgstr ""
+msgstr "континуум"
 
 #: DB:instrument/name:12
 msgid "contrabass clarinet"
@@ -1187,7 +1187,7 @@ msgstr "контрабасовый кларнет"
 
 #: DB:instrument/name:820
 msgid "contrabass flute"
-msgstr ""
+msgstr "флейта-контрабас"
 
 #: DB:instrument/name:295
 msgid "contrabass recorder"

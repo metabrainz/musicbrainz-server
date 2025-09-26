@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-08-26 19:36+0000\n"
+"PO-Revision-Date: 2025-09-25 21:54+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -56,7 +56,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1169,7 +1169,7 @@ msgstr "Раскрыть носитель"
 
 #: ../root/doc/edit_type.tt:38
 msgid "Expire action"
-msgstr ""
+msgstr "Действие в случае истечения"
 
 #: ../root/artist/edit_form.tt:84 ../root/label/edit_form.tt:55
 #: ../root/place/edit_form.tt:43 ../root/recording/edit_form.tt:59
@@ -1654,11 +1654,9 @@ msgid "Image not available, please try again later."
 msgstr "Изображение недоступно, пожалуйста, попробуйте еще раз позднее."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
-#, fuzzy
-#| msgid "Import CD stub"
 msgctxt "interactive"
 msgid "Import CD stub"
-msgstr "Импорт CD-заглушки"
+msgstr "Импортировать CD-заглушку"
 
 #: ../root/edit/search_macros.tt:473
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
@@ -3412,6 +3410,10 @@ msgid ""
 "titles. Descriptive parts of extra title information like “remix” or "
 "“version” should be lowercased in most languages."
 msgstr ""
+"Похоже, что у этого носителя в названиях треков используются заглавные буквы "
+"для описания {eti|дополнительной информация о названии треков}. Ее "
+"описательные части, такие как «ремикс» или «версия», в большинстве языков "
+"должны писаться строчными буквами."
 
 #: ../root/release/edit/tracklist.tt:426
 msgid ""
@@ -4152,7 +4154,7 @@ msgstr "по сначала новым"
 
 #: ../root/edit/search_macros.tt:20
 msgid "non-auto-edits"
-msgstr ""
+msgstr "не-автоправки"
 
 #: ../root/edit/search_macros.tt:25
 msgid "oldest first"
@@ -4172,7 +4174,7 @@ msgstr "по сначала недавно закрытым"
 
 #: ../root/release/edit/recordings.tt:38
 msgid "recording"
-msgstr ""
+msgstr "запись"
 
 #: ../root/cdtoc/attach_list.tt:18 ../root/cdtoc/attach_list.tt:92
 #: ../root/cdtoc/list.tt:82
@@ -4530,11 +4532,11 @@ msgstr "'{id}' не является допустимым ID выборов"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:80
 msgid "Please provide a CD TOC ID."
-msgstr ""
+msgstr "Предоставьте ID таблицы содержимого CD."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:84
 msgid "The provided CD TOC ID is not valid."
-msgstr ""
+msgstr "Приведенная таблица содержимого CD не является корректной."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:90
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:155
@@ -4558,6 +4560,8 @@ msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr ""
+"Введенная таблица содержимого CD не существует или не связана с "
+"предоставленным носителем."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:160
 msgid "Could not find medium"
@@ -4570,6 +4574,10 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
+"Приведенная таблица содержимого CD не является корректной. Возможно возникла "
+"проблема с программой, которая использовалась для ее генерации. Попробуйте "
+"еще раз, и, если ошибка повторится, сообщите об ошибке разработчику "
+"программы, включив техническую информацию, указанную ниже."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:236
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:470
@@ -4582,7 +4590,7 @@ msgstr "Введённый ID исполнителя некорректен"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:443
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr ""
+msgstr "Приведенная таблица содержимого CD не существует."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:78
 #, perl-brace-format
@@ -4673,7 +4681,7 @@ msgstr "Нельзя объединить лейбл особого назнач
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:280
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "Нельзя объединять лейблы с удаленными."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
