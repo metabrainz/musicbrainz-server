@@ -26,13 +26,14 @@
 # Beteix <1158817754@qq.com>, 2025.
 # 奶油糖派 <3310056144@qq.com>, 2025.
 # Ljcbaby <i@ljcbaby.top>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-09-04 12:02+0000\n"
-"Last-Translator: Ljcbaby <i@ljcbaby.top>\n"
+"PO-Revision-Date: 2025-09-25 16:54+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -40,7 +41,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -2091,7 +2092,7 @@ msgstr "如需更多信息，请查看 {文档} 和 {风格指南}。"
 #: ../root/release_group/edit_form.tt:80 ../root/work/edit_form.tt:124
 #: ../root/work/edit_form.tt:137
 msgid "Please see the {doc|style guidelines} for more information."
-msgstr ""
+msgstr "请查看 {doc|style guidelines} 获取更多信息。"
 
 #: ../root/cdtoc/attach_artist_releases.tt:7
 msgid "Please select the medium you wish to attach this CD TOC to."
@@ -2398,7 +2399,7 @@ msgstr "重置音轨编号"
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "重试"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
@@ -2467,7 +2468,7 @@ msgstr "二级分类"
 
 #: ../root/layout.tt:145 ../root/layout/components/Footer.js:91
 msgid "See {tickets|all tickets in beta testing}."
-msgstr ""
+msgstr "查看 {tickets|all tickets in beta testing}."
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -2648,24 +2649,24 @@ msgstr "Internet Archive 目前遇到了问题。现在可能无法添加图片�
 
 #: ../root/artist/edit_form.tt:188
 msgid "The begin and end areas describe where the artist was born and died."
-msgstr ""
+msgstr "开始区域和结束区域指的是艺术家的出生地和离世地。"
 
 #: ../root/artist/edit_form.tt:198
 msgid ""
 "The begin and end areas describe where the artist was when it started and "
 "stopped existing."
-msgstr ""
+msgstr "开始区域和结束区域指的是艺术家在开始与结束时所处的位置。"
 
 #: ../root/artist/edit_form.tt:191
 msgid ""
 "The begin and end areas describe where the group was formed and dissolved."
-msgstr ""
+msgstr "开始区域和结束区域指的是该团体的成立地和解散地。"
 
 #: ../root/artist/edit_form.tt:194
 msgid ""
 "The begin area is the real-life area where the character concept was "
 "created. The end area should not be set."
-msgstr ""
+msgstr "开始区域指的是此角色概念诞生的现实地点。结束区域无需设置。"
 
 #: ../root/release/edit/information.tt:481
 msgid "The catalog number you have entered looks like an Amazon ASIN."
@@ -2701,6 +2702,9 @@ msgid ""
 "street albums, demos, or digital albums. Be sure to link to the "
 "corresponding real release with the {url|transl(iter)ation relationship}."
 msgstr ""
+"伪发行状态应用于非官方的曲目列表或发行名称的翻译与音译，并不表示一个真实存在"
+"的独立发行。它不应用于指代盗版、混音带/街头专辑、Demo 或数字专辑。请务必通过 "
+"{url|音译版本关联} 将其关联到对应的实际发行。"
 
 #: ../root/release/edit/information.tt:554
 #, fuzzy
@@ -2725,7 +2729,7 @@ msgstr "出于数据库维护的需要，此服务器临时处于只读模式。
 #: ../root/components/forms.tt:244
 msgid ""
 "The sort name is an artist name variant used when sorting alphabetically."
-msgstr ""
+msgstr "排序名是用于按字母顺序排序的艺人名称变体。"
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -2755,20 +2759,22 @@ msgstr ""
 msgid ""
 "The {doc|ISRC} is a 12-character alphanumeric string identifying this "
 "recording."
-msgstr ""
+msgstr "{doc|ISRC} 是一个 12 位字母数字组合，用于标识这条录音。"
 
 #: ../root/work/edit_form.tt:144
 msgid ""
 "The {doc|ISWC}, or International Standard Musical Work Code, is a code "
 "assigned to uniquely identify a work."
-msgstr ""
+msgstr "{doc|ISWC}（国际标准音乐作品代码）是一种用于唯一标识某个作品的编码。"
 
 #: ../root/place/edit_form.tt:81
 msgid ""
 "The {doc|address} describes the place’s location using the standard "
 "addressing format for the country where it’s located. It should include the "
 "ZIP/postal code but not the country name."
-msgstr ""
+msgstr "{doc|address} "
+"描述了该地点的位置，使用其所在国家的标准地址格式。应包括邮政编码，但不应包含"
+"国家名称。"
 
 #: ../root/release/edit/information.tt:549
 #, fuzzy
@@ -2783,22 +2789,24 @@ msgid ""
 "The {doc|area} indicates the country the artist is primarily identified "
 "with. If the artist is strongly associated with an area smaller than a "
 "country, select that instead."
-msgstr ""
+msgstr "{doc|area} "
+"表示艺术家主要所属的国家。如果艺术家更紧密地与比国家更小的地区相关联，应选择"
+"该地区。"
 
 #: ../root/label/edit_form.tt:89
 msgid "The {doc|area} indicates the geographical origin of the label."
-msgstr ""
+msgstr "{doc|area} 表示该厂牌的地理来源。"
 
 #: ../root/place/edit_form.tt:89
 msgid ""
 "The {doc|area} is the location (such as city) where the place is located."
-msgstr ""
+msgstr "{doc|area} 是指该地点所在的位置（例如城市）。"
 
 #: ../root/release/edit/information.tt:330
 msgid ""
 "The {doc|artist} field contains the artist or artists as shown on the "
 "release."
-msgstr ""
+msgstr "{doc|artist} 字段包含发布作品上显示的艺术家或艺术家名单。"
 
 #: ../root/release_group/edit_form.tt:44
 #, fuzzy
@@ -2814,85 +2822,92 @@ msgstr "旧图像是从专辑组中最早的专辑版本中自动选择的。"
 msgid ""
 "The {doc|barcode} is the numeric identifier (such as UPC or EAN) associated "
 "with the release."
-msgstr ""
+msgstr "{doc|barcode} 是与该发行版本相关联的数字标识符（例如 UPC 或 EAN）。"
 
 #: ../root/label/edit_form.tt:107
 msgid ""
 "The {doc|begin and end dates} describe the period during which the label "
 "existed or was active."
-msgstr ""
+msgstr "{doc|begin and end dates} 描述了该厂牌存在或活跃的时间段。"
 
 #: ../root/artist/edit_form.tt:175
 msgid ""
 "The {doc|begin and end dates} describe when the artist started and stopped "
 "existing."
-msgstr ""
+msgstr "{doc|begin and end dates} 描述了艺术家开始和结束活动的时间。"
 
 #: ../root/artist/edit_form.tt:162
 msgid ""
 "The {doc|begin and end dates} describe when the artist was born and died."
-msgstr ""
+msgstr "{doc|begin and end dates} 描述了艺术家的出生和去世时间。"
 
 #: ../root/artist/edit_form.tt:166
 msgid ""
 "The {doc|begin and end dates} describe when the group was formed and "
 "dissolved."
-msgstr ""
+msgstr "{doc|begin and end dates} 描述了该团体的成立和解散时间。"
 
 #: ../root/place/edit_form.tt:103
 msgid ""
 "The {doc|begin and end dates} describe when the place was founded and when "
 "it shut down."
-msgstr ""
+msgstr "{doc|begin and end dates} 描述了该地点的建立时间及关闭时间。"
 
 #: ../root/artist/edit_form.tt:170
 msgid ""
 "The {doc|begin date} is the real-life date when the character concept was "
 "created. The end date should not be set."
-msgstr ""
+msgstr "{doc|begin date} 是角色概念在现实中被创作的日期。结束日期不应设置。"
 
 #: ../root/release/edit/information.tt:471
 msgid ""
 "The {doc|catalog number} is assigned by the label and can often be found on "
 "the spine or near the barcode on physical media."
-msgstr ""
+msgstr "{doc|catalog number} 由厂牌分配，通常可以在实体介质的侧面或条形码附近找到。"
 
 #: ../root/release/edit/information.tt:460
 msgid "The {doc|country} describes where the release was made available."
-msgstr ""
+msgstr "{doc|country} 描述了该发行版本的发售地区。"
 
 #: ../root/release/edit/information.tt:430
 msgid ""
 "The {doc|date} describes when this particular release was made available."
-msgstr ""
+msgstr "{doc|date} 描述了该发行版本具体的发售日期。"
 
 #: ../root/artist/edit_form.tt:119
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between artists with "
 "identical or similar names. Feel free to leave it blank if it seems unlikely "
 "that there will be other artists with similar names."
-msgstr ""
+msgstr "{doc|disambiguation} "
+"字段帮助用户区分同名或相似名字的艺术家。如果看起来不太可能存在其他同名或相似"
+"名字的艺术家，可以留空。"
 
 #: ../root/label/edit_form.tt:74
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between labels with "
 "identical or similar names. Feel free to leave it blank if you aren’t warned "
 "about possible duplicates."
-msgstr ""
+msgstr "{doc|disambiguation} "
+"字段帮助用户区分同名或相似名字的厂牌。如果没有提示可能存在重复，可以留空。"
 
 #: ../root/place/edit_form.tt:66
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between places with "
 "similar names. Feel to leave it blank if you aren’t warned about possible "
 "duplicates in the same area."
-msgstr ""
+msgstr "{doc|disambiguation} "
+"字段帮助用户区分名称相似的地点。如果在同一地区没有提示可能存在重复，可以留空"
+"。"
 
 #: ../root/release/edit/information.tt:572
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between releases in "
 "the same release group. Please leave it empty if other properties like "
 "artist, format, label, or date distinguish this release."
-msgstr ""
+msgstr "{doc|消歧义} "
+"字段帮助用户区分同一发行组内的不同版本。如果艺术家、格式、厂牌或日期等其他属"
+"性已能区分该发行版本，请留空。"
 
 #: ../root/recording/edit_form.tt:97
 #, fuzzy
@@ -2938,19 +2953,20 @@ msgstr "消歧义栏用于帮助用户区分同名专辑。"
 msgid ""
 "The {doc|gender} field describes the gender with which a person or character "
 "identifies."
-msgstr ""
+msgstr "{doc|性别} 字段描述某人或角色认同的性别。"
 
 #: ../root/label/edit_form.tt:97
 msgid ""
 "The {doc|label code} is a 4‐ or 5‐digit number uniquely identifying the "
 "label."
-msgstr ""
+msgstr "{doc|label code} 是一个 4 位或 5 位数字，用于唯一标识该厂牌。"
 
 #: ../root/release/edit/information.tt:496
 msgid ""
 "The {doc|label} is the imprint associated with the release. Please also see "
 "the guidelines about {style|special purpose labels}."
-msgstr ""
+msgstr "{doc|label} 是与该发行版本相关联的厂牌。另请参阅关于 {style|special purpose "
+"labels} 的指南。"
 
 #: ../root/release/edit/information.tt:406
 msgid ""
@@ -2959,44 +2975,48 @@ msgid ""
 "lyrics are written in, nor to the language used for other extra information "
 "on the cover."
 msgstr ""
+"{doc|language} "
+"属性应设置为发行版本标题及曲目标题所使用的语言。不应设置为歌词所用的语言，也"
+"不应设置为封面上其他附加信息所用的语言。"
 
 #: ../root/recording/edit_form.tt:111
 msgid "The {doc|length} is the recording’s duration in MM:SS format."
-msgstr ""
+msgstr "{doc|length} 是录音的时长，格式为 MM:SS。"
 
 #: ../root/work/edit_form.tt:133
 msgid ""
 "The {doc|lyrics languages} should list any languages used in a significant "
 "portion of the work’s lyrics (or [No lyrics] if it has none)."
-msgstr ""
+msgstr "{doc|lyrics languages} 应列出作品歌词中占比显著的所有语言（如果没有歌词，"
+"则填写 [No lyrics]）。"
 
 #: ../root/artist/edit_form.tt:106
 msgid "The {doc|name} is the artist’s official name."
-msgstr ""
+msgstr "{doc|name} 是艺术家的官方名称。"
 
 #: ../root/label/edit_form.tt:67
 msgid "The {doc|name} is the label’s official name."
-msgstr ""
+msgstr "{doc|name} 是厂牌的官方名称。"
 
 #: ../root/place/edit_form.tt:55
 msgid "The {doc|name} is the place’s official name."
-msgstr ""
+msgstr "{doc|name} 是地点的官方名称。"
 
 #: ../root/series/edit_form.tt:36
 msgid "The {doc|name} is the series’ official name."
-msgstr ""
+msgstr "{doc|name} 是系列的官方名称。"
 
 #: ../root/work/edit_form.tt:110
 msgid ""
 "The {doc|name} is the work’s canonical title in the language in which it was "
 "originally written."
-msgstr ""
+msgstr "{doc|name} 是作品在其原始创作语言中的正式标题。"
 
 #: ../root/recording/edit_form.tt:71
 msgid ""
 "The {doc|name} is usually the most common title from track listings on "
 "official releases."
-msgstr ""
+msgstr "{doc|name} 通常是官方发行版本曲目列表中最常用的标题。"
 
 #: ../root/release_group/edit_form.tt:33
 #, fuzzy
@@ -3012,31 +3032,31 @@ msgstr "旧图像是从专辑组中最早的专辑版本中自动选择的。"
 msgid ""
 "The {doc|packaging} attribute describes the outermost packaging of the "
 "release."
-msgstr ""
+msgstr "{doc|packaging} 属性描述该发行版本的最外层包装形式。"
 
 #: ../root/release/edit/information.tt:364
 #: ../root/release_group/edit_form.tt:67
 msgid "The {doc|primary type} describes how the release group is categorized."
-msgstr ""
+msgstr "{doc|primary type} 描述了发行组的分类类型。"
 
 #: ../root/release/edit/information.tt:347
 msgid ""
 "The {doc|release group} groups related releases into a single logical entity."
-msgstr ""
+msgstr "{doc|发行组} 将相关的发行版本归为一个逻辑单元。"
 
 #: ../root/release/edit/information.tt:419
 msgid ""
 "The {doc|script} attribute should be set to the script used for the release "
 "title and track titles."
-msgstr ""
+msgstr "{doc|script} 属性应设置为发行版本标题及曲目标题所使用的书写系统。"
 
 #: ../root/release/edit/information.tt:384
 msgid "The {doc|status} describes how “official” the release is."
-msgstr ""
+msgstr "{doc|status} 描述该发行版本的“官方”程度。"
 
 #: ../root/release/edit/information.tt:319
 msgid "The {doc|title} is the release’s name."
-msgstr ""
+msgstr "{doc|title} 是该发行版本的名称。"
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
@@ -3186,7 +3206,8 @@ msgid ""
 "This is almost always incorrect. Please make sure whether you actually "
 "wanted a different format (such as “USB Flash Drive” or “Download Card”) or "
 "packaging type."
-msgstr ""
+msgstr "这几乎总是错误的。请确认你是否实际上想填写其他格式（例如“USB "
+"闪存盘”或“下载卡”）或包装类型。"
 
 #: ../root/release_group/set_cover_art.tt:77
 msgid "This is the current release group image"
@@ -3215,13 +3236,14 @@ msgstr "此媒介的格式为“数字媒介”，但此专辑的包装类型不
 msgid ""
 "This medium has a disc ID, pregap track, or data track, so you can only "
 "change the format to one that can have disc IDs."
-msgstr ""
+msgstr "该介质具有光盘 ID、前导空白曲目或数据轨，因此你只能将格式更改为可以包含光盘 "
+"ID 的类型。"
 
 #: ../root/release/edit/tracklist.tt:363 ../root/release/edit/tracklist.tt:373
 msgid ""
 "This medium is set to a format that did not exist on the selected release "
 "date."
-msgstr ""
+msgstr "该介质被设置为在所选发行日期尚不存在的格式。"
 
 #: ../root/release/edit/tracklist.tt:464
 msgid ""
@@ -3229,6 +3251,8 @@ msgid ""
 "articles, conjunctions, and prepositions like “and”, “of”, “or”, “to”, and "
 "“the” {guidelines|should typically be lowercased}."
 msgstr ""
+"该介质的英文曲目标题可能存在大小写错误。像 “and”、“of”、“or”、“to” 和 “the” "
+"这样的短词、连词和介词 {guidelines|通常应使用小写}。"
 
 #: ../root/release/edit/tracklist.tt:445
 msgid ""
@@ -3236,6 +3260,9 @@ msgid ""
 "titles. Descriptive parts of extra title information like “remix” or "
 "“version” should be lowercased in most languages."
 msgstr ""
+"该介质的曲目标题似乎将 {eti|额外标题信息} "
+"错误大写。额外标题信息中描述性的部分，如 “remix” 或 "
+"“version”，在大多数语言中应使用小写。"
 
 #: ../root/release/edit/tracklist.tt:426
 msgid ""
@@ -3254,8 +3281,8 @@ msgid ""
 "trying to find out what the real format should be or if the release should "
 "be split!"
 msgstr ""
-"这问题在你打开发布编辑器之前就已经存在了，所以你无需做任何处理。但如果你有时"
-"间，可以考虑查明实际的格式应该是什么，或者看看这个发布是否需要拆分！"
+"此问题在你打开发布编辑器之前就已经存在了，所以你无需做任何处理。但如果你有时"
+"间，可以考虑找出实际的格式应该是什么，或者看看这个发布是否需要拆分！"
 
 #: ../root/components/common-macros.tt:189
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
