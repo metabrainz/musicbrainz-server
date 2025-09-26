@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.13\n"
 
 #: DB:instrument/name:438
@@ -1545,6 +1545,13 @@ msgstr "strumenti elettronici"
 msgid "electronic organ"
 msgstr "organo elettrico"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic drum set"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "batteria elettronica"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2367,6 +2374,11 @@ msgstr "ottoni a chiavi"
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
+
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
 
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
@@ -3827,6 +3839,13 @@ msgstr "surdo"
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
+
+#: DB:instrument/name:1214
+#, fuzzy
+#| msgid "taragot"
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "taragot"
 
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
