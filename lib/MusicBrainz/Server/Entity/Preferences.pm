@@ -37,6 +37,12 @@ has 'timezone' => (
     lazy => 1,
 );
 
+has 'email_language' => (
+    isa => 'Str',
+    default => 'en',
+    is => 'rw',
+);
+
 has [qw(email_on_no_vote email_on_notes email_on_vote)] => (
     isa => 'Bool',
     default => 1,
@@ -74,6 +80,7 @@ sub TO_JSON {
         datetime_format => $self->datetime_format,
         subscriptions_email_period => $self->subscriptions_email_period,
         timezone => $self->timezone,
+        email_language => $self->email_language,
         email_on_abstain => boolean_to_json($self->email_on_abstain),
         email_on_no_vote => boolean_to_json($self->email_on_no_vote),
         email_on_notes => boolean_to_json($self->email_on_notes),
