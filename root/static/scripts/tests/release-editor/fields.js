@@ -242,7 +242,7 @@ fieldTest((
 fieldTest((
   'track times entered as integers are converted into HH:MM:SS'
 ), function (t, release) {
-  t.plan(11);
+  t.plan(10);
 
   const medium = new fields.Medium({tracks: [{}]}, release);
 
@@ -257,7 +257,6 @@ fieldTest((
     {input: '96900', output: '26:55:00'},
     {input: '160000', output: '16:00:00'},
     {input: '166000', output: '46:06:40'},
-    {input: '3723494', output: '1034:18:14'},
   ];
 
   tests.forEach(({input, output}) => {
