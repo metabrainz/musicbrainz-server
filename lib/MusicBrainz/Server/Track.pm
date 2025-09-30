@@ -45,25 +45,40 @@ sub FormatTrackLength
         sprintf($print_formats->{ms}, $minutes, $seconds);
 }
 
+# Keep in sync with static/scripts/common/utility/unformatTrackLength.js
 sub UnformatTrackLength
 {
     my $length = shift;
 
-    if ($length =~ /^\s*(\d{1,3}):(\d{1,2}):(\d{1,2})\s*$/ && $2 < 60 && $3 < 60)
+    # ?:?? or just space are allowed to indicate unknown/empty
+    if ($length =~ /^\s*\?:\?\?\s*$/ || $length =~ /^\s*$/)
+    {
+        return undef;
+    }
+    # Check for HH:MM:SS
+    elsif ($length =~ /^\s*(\d{1,3}):(\d{1,2}):(\d{1,2})\s*$/ && $2 < 60 && $3 < 60)
     {
         return ($1 * 3600 + $2 * 60 + $3) * 1000;
     }
+    # Check for MM:SS
     elsif ($length =~ /^\s*(\d+):(\d{1,2})\s*$/ && $2 < 60)
     {
         return ($1 * 60 + $2) * 1000;
     }
+    # Check for :SS
+    elsif ($length =~ /^\s*:(\d{1,2})\s*$/ && $1 < 60)
+    {
+        return ($1) * 1000;
+    }
+    # Check for XX ms
     elsif ($length =~ /^\s*(\d+(\.\d+)?)?\s+ms\s*$/)
     {
         return int($1);
     }
-    elsif ($length =~ /^\s*\?:\?\?\s*$/ || $length =~ /^\s*$/)
+    # Check for just a number of seconds
+    elsif ($length =~ /^\s*(\d+)\s*$/)
     {
-        return undef;
+        return ($1) * 1000;
     }
     else {
         confess("$length is not a valid track length");
