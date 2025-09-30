@@ -357,7 +357,7 @@
     {
       command: 'assertEval',
       target: "document.getElementById('seed-errors').textContent.trim()",
-      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid mediums.0.track.0.length: “4:195:0”.\n        \n          Invalid mediums.0.track.1.length: “:10”.\n        \n          Invalid mediums.0.track.2.length: “4:60”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
+      value: 'The data you’ve seeded contained the following errors:\n        \n          Invalid mediums.0.track.0.length: “4:195:0”.\n        \n          Invalid mediums.0.track.1.length: “:75”.\n        \n          Invalid mediums.0.track.2.length: “4:60”.\n        \n        Review the documentation on release editor seeding and make sure your data is formatted correctly.',
     },
     // seeding a pregap track
     {
