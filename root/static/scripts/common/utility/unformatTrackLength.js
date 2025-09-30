@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+// Keep in sync with Server::Track::UnformatTrackLength
 export default function unformatTrackLength(
   duration: string,
 ): number | null {
@@ -14,18 +15,55 @@ export default function unformatTrackLength(
     return null;
   }
 
-  if (duration.slice(-2) === 'ms') {
-    return parseInt(duration, 10);
-  }
-
-  const parts = duration.replace(/[:.]/, ':').split(':');
-  if (parts[0] === '?' || parts[0] === '??' || duration === '') {
+  // ?:?? or just space are allowed to indicate unknown/empty
+  if (duration.match(/^\s*\?:\?\?\s*$/) || duration.match(/^\s*$/)) {
     return null;
   }
 
-  const seconds = parseInt(parts.pop(), 10);
-  const minutes = parseInt(parts.pop() || 0, 10) * 60;
-  const hours = parseInt(parts.pop() || 0, 10) * 3600;
+  // Check for HH:MM:SS
+  let match = duration.match(/^\s*(\d{1,3}):(\d{1,2}):(\d{1,2})\s*$/);
+  if (match) {
+    const seconds = parseInt(match[3], 10);
+    const minutes = parseInt(match[2] || 0, 10);
+    const hours = parseInt(match[1] || 0, 10);
+    if (minutes < 60 && seconds < 60) {
+      return ((hours * 3600) + (minutes * 60) + seconds) * 1000;
+    }
+    return NaN;
+  }
 
-  return (hours + minutes + seconds) * 1000;
+  // Check for MM:SS
+  match = duration.match(/^\s*(\d+):(\d{1,2})\s*$/);
+  if (match) {
+    const seconds = parseInt(match[2], 10);
+    const minutes = parseInt(match[1] || 0, 10);
+    if (seconds < 60) {
+      return ((minutes * 60) + seconds) * 1000;
+    }
+    return NaN;
+  }
+
+  // Check for :SS
+  match = duration.match(/^\s*:(\d{1,2})\s*$/);
+  if (match) {
+    const seconds = parseInt(match[1], 10);
+    if (seconds < 60) {
+      return seconds * 1000;
+    }
+    return NaN;
+  }
+
+  // Check for XX ms
+  match = duration.match(/^\s*(\d+(\.\d+)?)?\s+ms\s*$/);
+  if (match) {
+    return parseInt(match[1], 10);
+  }
+
+  // Check for just a number of seconds
+  match = duration.match(/^\s*(\d+)\s*$/);
+  if (match) {
+    return parseInt(match[1], 10) * 1000;
+  }
+
+  return NaN;
 }

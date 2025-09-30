@@ -346,7 +346,9 @@ const trackParser = releaseEditor.trackParser = {
     if (match !== null) {
       if (options.useTrackLengths && match[1] !== '?:??') {
         data.formattedLength = fromFullwidthLatin(match[1]);
-        data.length = unformatTrackLength(data.formattedLength);
+        const unformattedLength = unformatTrackLength(data.formattedLength);
+        data.length =
+          Number.isNaN(unformattedLength) ? '' : unformattedLength;
       }
       // Remove the track time from the line.
       line = line.slice(0, -match[0].length);
