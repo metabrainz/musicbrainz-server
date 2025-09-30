@@ -258,11 +258,11 @@ class Track {
     var newLength = unformatTrackLength(length);
 
     /*
-     * The result of `unformatTrackLength` is NaN when the length entered
+     * The result of `unformatTrackLength` is false when the length entered
      * by the user can't be parsed. If they've *cleared* the length, it's
      * null.
      */
-    if (Number.isNaN(newLength)) {
+    if (newLength === false) {
       this.formattedLength('');
       return;
     }
