@@ -42,8 +42,10 @@ import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
   runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
-import {NonHydratedFormRowTextList as FormRowTextList}
-  from '../../edit/components/FormRowTextList.js';
+import FormRowTextList, {
+  type ActionT as IsrcActionT,
+  runReducer as runIsrcReducer,
+} from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
   type StateT as GuessCaseOptionsStateT,
@@ -56,6 +58,8 @@ import {
 } from '../../edit/externalLinks.js';
 import guessFeat from '../../edit/utility/guessFeat2.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
+import isInvalidLength from '../../edit/utility/isInvalidLength.js';
+import isValidIsrc from '../../edit/utility/isValidIsrc.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -70,7 +74,13 @@ type ActionT =
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-bubble', +bubble: string}
   | {+type: 'update-edit-note', +editNote: string}
+  | {+type: 'update-length', +length: string}
   | {+type: 'update-name', +action: NameActionT}
+  | {
+    +type: 'update-isrcs',
+    +action: IsrcActionT,
+    +currentIsrcs: $ReadOnlyArray<string>,
+  }
   | {+type: 'update-artist-credit', +action: ArtistCreditActionT};
 /* eslint-enable ft-flow/sort-keys */
 
@@ -83,6 +93,28 @@ type StateT = {
   +recording: RecordingT,
   +shownBubble: string,
 };
+
+function updateIsrcFieldErrors(
+  fieldCtx: CowContext<TextListFieldT>,
+) {
+  const innerFieldCtx = fieldCtx.get('field');
+  const innerFieldLength = innerFieldCtx.read().length;
+  for (let i = 0; i < innerFieldLength; i++) {
+    const subFieldCtx = innerFieldCtx.get(i);
+    const value = subFieldCtx.get('field', 'value', 'value').read();
+
+    if (empty(value) || isValidIsrc(value)) {
+      subFieldCtx.set('has_errors', false);
+      subFieldCtx.set('pendingErrors', []);
+      subFieldCtx.set('errors', []);
+    } else {
+      subFieldCtx.set('has_errors', true);
+      subFieldCtx.set('errors', [
+        l('Invalid value.'),
+      ]);
+    }
+  }
+}
 
 function updateNameFieldErrors(
   nameFieldCtx: CowContext<FieldT<string | null>>,
@@ -110,6 +142,8 @@ function createInitialState(
   // $FlowExpectedError[incompatible-call]
   const nameFieldCtx = formCtx.get('field', 'name');
   updateNameFieldErrors(nameFieldCtx);
+  const isrcField = formCtx.get('field', 'isrcs');
+  updateIsrcFieldErrors(isrcField);
 
   return {
     actionName: $c.action.name,
@@ -147,6 +181,17 @@ function reducer(state: StateT, action: ActionT): StateT {
         value: editNote,
       });
     }
+    {type: 'update-length', const length} => {
+      const errors = isInvalidLength(length)
+        ? [l('Not a valid time. Must be in the format MM:SS')]
+        : [];
+
+      newStateCtx.set('form', 'field', 'length', {
+        ...newStateCtx.get('form', 'field', 'length').read(),
+        errors,
+        value: length,
+      });
+    }
     {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
         field: state.form.field.name,
@@ -163,6 +208,20 @@ function reducer(state: StateT, action: ActionT): StateT {
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
+    }
+    {type: 'update-isrcs', const action, const currentIsrcs} => {
+      const isrcStateCtx = mutate({
+        currentTextValues: currentIsrcs,
+        repeatable: state.form.field.isrcs,
+      });
+      runIsrcReducer(isrcStateCtx, action);
+
+      const isrcState = isrcStateCtx.read();
+      newStateCtx
+        .update('form', 'field', 'isrcs', (isrcFieldCtx) => {
+          isrcFieldCtx.set(isrcState.repeatable);
+          updateIsrcFieldErrors(isrcFieldCtx);
+        });
     }
     {type: 'toggle-bubble', const bubble} => {
       newStateCtx.set('shownBubble', bubble);
@@ -209,6 +268,10 @@ component RecordingEditForm(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
 
+  const currentIsrcs = React.useMemo(() => (
+    $c.stash.current_isrcs || []
+  ), [$c]);
+
   useFormUnloadWarning();
 
   const [state, dispatch] = React.useReducer(
@@ -225,6 +288,10 @@ component RecordingEditForm(
   ) => {
     dispatch({action, type: 'update-artist-credit'});
   }, [dispatch]);
+
+  const isrcDispatch = React.useCallback((action: IsrcActionT) => {
+    dispatch({action, currentIsrcs, type: 'update-isrcs'});
+  }, [dispatch, currentIsrcs]);
 
   const handleEditNoteChange = React.useCallback((
     event: SyntheticEvent<HTMLTextAreaElement>,
@@ -246,6 +313,15 @@ component RecordingEditForm(
   function handleGuessFeat() {
     dispatch({type: 'guess-feat'});
   }
+
+  const handleLengthChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      length: event.currentTarget.value,
+      type: 'update-length',
+    });
+  }, [dispatch]);
 
   function handleLengthFocus() {
     dispatch({bubble: 'length', type: 'toggle-bubble'});
@@ -336,9 +412,9 @@ component RecordingEditForm(
             <FormRowTextLong
               field={state.form.field.length}
               label={addColonText(l('Length'))}
+              onChange={handleLengthChange}
               onFocus={handleLengthFocus}
               rowRef={lengthFieldRef}
-              uncontrolled
             />
           ) : (
             <FormRow>
@@ -366,14 +442,15 @@ component RecordingEditForm(
           <FormRowTextList
             addButtonId="add-isrc"
             addButtonLabel={lp('Add ISRC', 'interactive')}
-            initialState={{
-              currentTextValues: $c.stash.current_isrcs,
-              repeatable: state.form.field.isrcs,
-            }}
+            dispatch={isrcDispatch}
             label={addColonText(l('ISRCs'))}
             onFocus={handleIsrcFocus}
             removeButtonLabel={lp('Remove ISRC', 'interactive')}
             rowRef={isrcFieldRef}
+            state={{
+              currentTextValues: currentIsrcs,
+              repeatable: state.form.field.isrcs,
+            }}
           />
         </fieldset>
 

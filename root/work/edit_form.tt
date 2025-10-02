@@ -12,7 +12,7 @@
       [%- form_row_text_long(r, 'comment', add_colon(l('Disambiguation'))) -%]
       [%- form_row_select(r, 'type_id', add_colon(l('Type'))) -%]
       <div id="work-languages-editor"></div>
-      [% React.embed(c, 'static/scripts/edit/components/FormRowTextList', {
+      [% React.embed(c, 'static/scripts/edit/components/StandaloneFormRowTextList', {
           initialState => {
             currentTextValues => current_iswcs,
             repeatable => form_to_json(form.field('iswcs')),
