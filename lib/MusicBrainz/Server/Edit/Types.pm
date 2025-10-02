@@ -5,6 +5,7 @@ use warnings;
 use MooseX::Types -declare => [qw(
     ArtistCreditDefinition
     CoordinateHash
+    EnteredFromEntity
     LinkAttributesArray
     PartialDateHash
     RecordingMergesArray
@@ -15,6 +16,7 @@ use Sub::Exporter -setup => { exports => [qw(
     ArtistCreditDefinition
     Changeset
     CoordinateHash
+    EnteredFromEntity
     LinkAttributesArray
     Nullable
     NullableOnPreview
@@ -65,6 +67,13 @@ subtype ArtistCreditDefinition,
             ]],
         preview => Optional[Str],
     ];
+
+subtype EnteredFromEntity,
+    as Optional[Dict[
+            entity_type => Str,
+            gid         => NullableOnPreview[Str],
+            name        => Str,
+        ]];
 
 subtype LinkAttributesArray,
     as ArrayRef[Dict[

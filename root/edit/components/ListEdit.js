@@ -13,6 +13,7 @@ import {SanitizedCatalystContext} from '../../context.mjs';
 import {getEditStatusClass} from '../../utility/edit.js';
 import getEditDetailsElement from '../utility/getEditDetailsElement.js';
 
+import EditEnteredFrom from './EditEnteredFrom.js';
 import EditHeader from './EditHeader.js';
 import EditNotes from './EditNotes.js';
 import EditSummary from './EditSummary.js';
@@ -29,6 +30,7 @@ component ListEdit(
   return (
     <div className="edit-list">
       <EditHeader edit={edit} isSummary voter={voter} />
+      <EditEnteredFrom edit={edit} />
 
       <input
         name={`enter-vote.vote.${index}.edit_id`}
