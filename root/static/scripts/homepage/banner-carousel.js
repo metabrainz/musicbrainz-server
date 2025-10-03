@@ -13,7 +13,7 @@ import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 // $FlowFixMe[untyped-import]
 import { Swiper, SwiperSlide } from 'swiper/react';
 // $FlowFixMe[untyped-import]
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 
 import picardImage from "../../../static/images/homepage/picard.png"
 import picardLogo from "../../../static/images/meb-logos/Picard_logo_icon.svg"
@@ -26,7 +26,11 @@ component BannerCarousel() {
     <Swiper
       navigation={true}
       loop={true}
-      modules={[Navigation]}
+      modules={[Navigation, Autoplay]}
+      autoplay={{
+        delay: 5000,
+        pauseOnMouseEnter: true,
+      }}
     >
       <SwiperSlide className="carousel-slide-1">
         <div className="carousel-slide">

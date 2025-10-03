@@ -11,7 +11,7 @@ import * as React from "react";
 // $FlowFixMe[untyped-import]
 import { Swiper, SwiperSlide } from 'swiper/react';
 // $FlowFixMe[untyped-import]
-import { Navigation } from 'swiper/modules';
+import { Navigation, Autoplay } from 'swiper/modules';
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 
 export type WeeklyStatsT = {
@@ -30,7 +30,11 @@ component Stats(
       slidesPerView="auto"
       spaceBetween={30}
       centeredSlides
-      modules={[Navigation]}
+      autoplay={{
+        delay: 2500,
+        pauseOnMouseEnter: true,
+      }}
+      modules={[Navigation, Autoplay]}
     >
       {weeklyStats.map((stat, index) => (
         <SwiperSlide key={index}>
