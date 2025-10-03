@@ -61,7 +61,7 @@ component NewFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-lg-3">
+          <div className="col-12 col-md-4 col-lg-3">
             <h3 className="text-brand text-body">Useful Links</h3>
             <ul className="list-unstyled">
               <li>
@@ -146,7 +146,7 @@ component NewFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-lg-3">
+          <div className="col-12 col-md-4 col-lg-3">
             <h3 className="text-brand text-body">Fellow Projects</h3>
             <ul className="list-unstyled">
               <li>
@@ -211,7 +211,7 @@ component NewFooter() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-lg-2">
+          <div className="col-12 col-md-4 col-lg-2">
             <h3 className="text-brand text-body">Join Us</h3>
             <ul className="list-unstyled">
               <li>
