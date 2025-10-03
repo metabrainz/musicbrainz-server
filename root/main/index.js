@@ -74,6 +74,11 @@ component Homepage(
         {user ? <UserMenu latestBlogPost={blogEntries && blogEntries.length > 0 ? blogEntries[0] : null} /> : null}
         <Search weeklyStats={weeklyStats} />
 
+        <div className="stats-container-wrapper">
+          <Stats weeklyStats={weeklyStats} />
+        </div>
+
+
         <div className="timeline-container" id="releases-container">
           <div className="timeline-container-inner layout-width">
             <TimelineCarousel />
@@ -204,10 +209,6 @@ component Homepage(
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="stats-container-wrapper">
-          <Stats weeklyStats={weeklyStats} />
         </div>
 
         <div className="timeline-container" id="events-container">
