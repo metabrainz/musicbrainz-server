@@ -29,7 +29,6 @@ export type ArtistCreditNameStateT = {
 };
 
 export type StateT = {
-  +activeUser: ActiveEditorT | null,
   +artistCreditString: string,
   +changeMatchingTrackArtists?: boolean,
   +editsPending?: boolean,

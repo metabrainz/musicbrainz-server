@@ -164,7 +164,7 @@ export component NonHydratedFormRowTextListSimple(
   ...props: React.PropsOf<FormRowTextListSimple>
 ) {
   return (
-    <FormRow className="form-row-text-list-container">
+    <FormRow>
       <FormRowTextListSimple {...props} />
     </FormRow>
   );
