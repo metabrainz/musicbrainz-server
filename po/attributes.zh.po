@@ -15,11 +15,12 @@
 # delamons <lamons.n@gmail.com>, 2025.
 # Solarenta <2325840950@qq.com>, 2025.
 # Beteix <1158817754@qq.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-26 12:36+0000\n"
-"Last-Translator: Beteix <1158817754@qq.com>\n"
+"PO-Revision-Date: 2025-09-25 16:54+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -193,14 +194,14 @@ msgid ""
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
 "<p>出于MusicBrainz数据库原因，合辑包括以下类型的专辑：</p>\n"
-"\n"
+" \n"
 "<ul>\n"
 "<li>从不同的旧来源（不一定是已发行的专辑）组合在一起的录音的合辑。例如\"Best "
 "of\"（精选合集）类型的专辑、回顾性的专辑，或者稀有的专辑。</li>\n"
 "<li>一个不同艺术家的歌曲合辑，通常基于一个普遍的主题（例如\"Songs for "
-"Lovers\"致爱人的歌），一个特定的时期(例如\"Hits of 1998\"1998年度金曲），或一"
-"些其他类型的分组（例如\"Songs From the Movies\"电影歌曲合集，或者\"the 'Café "
-"del Mar'系列\"合集等）。</li>\n"
+"Lovers\"致爱人的歌），一个特定的时期(例如\"Hits of 1998\"1998年度金曲"
+"），或一些其他类型的分组（例如\"Songs From the Movies\"电影歌曲合集，"
+"或者\"the 'Café del Mar'系列\"合集等）。</li>\n"
 "</ul>\n"
 "\n"
 "<p>MusicBrainz项目一般不认为以下内容是合辑:</p>\n"
@@ -208,8 +209,8 @@ msgstr ""
 "<ul>\n"
 "<li>重新发行的专辑，即使它包含额外的曲目。</li>\n"
 "<li>包含另一位艺术家的音乐翻唱的致敬专辑。</li>\n"
-"<li>古典音乐唱片：包含古典艺术家作品新录音的古典音乐唱片</li>\n"
-"<li>包含几位艺术家的新音乐的分版发行</li>\n"
+"<li>古典乐唱片：包含古典艺术家作品新录音的古典音乐唱片</li>\n"
+"<li>包含多位艺术家的新音乐的分版发行</li>\n"
 "</ul>\n"
 "\n"
 "<p>合辑应该是对其他类型的补充，而不是替代。<li>例如，使用预发行音乐的各种艺术"
@@ -2588,7 +2589,7 @@ msgstr ""
 #: DB:label_type/name:11
 msgctxt "label_type"
 msgid "Creative Agency"
-msgstr ""
+msgstr "创意机构"
 
 #: DB:work_attribute_type_allowed_value/value:608
 msgctxt "work_attribute_type_allowed_value"
@@ -2719,7 +2720,7 @@ msgstr "DVD 音频"
 #: DB:medium_format/name:92
 msgctxt "medium_format"
 msgid "DVD-R Video"
-msgstr "DVD-R Video"
+msgstr "DVD-R 影像"
 
 #: DB:medium_format/name:19
 msgctxt "medium_format"
@@ -2930,7 +2931,7 @@ msgstr "Digibook"
 #: DB:release_packaging/name:89
 msgctxt "release_packaging"
 msgid "Digifile"
-msgstr "Digifile"
+msgstr "纸质折叠盒"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -3873,12 +3874,9 @@ msgid "HDCD"
 msgstr "HDCD"
 
 #: DB:work_attribute_type/name:214
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ASCAP ID"
 msgctxt "work_attribute_type"
 msgid "HDS-ZAMP ID"
-msgstr "ASCAP ID"
+msgstr "HDS-ZAMP ID"
 
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
@@ -4342,12 +4340,9 @@ msgstr "哥斯达黎加著作权协会ACAM ID"
 
 #. name:HDS-ZAMP ID
 #: DB:work_attribute_type/description:214
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Cuban rights society ACDAM"
 msgctxt "work_attribute_type"
 msgid "ID for the Croatian rights society HDS-ZAMP"
-msgstr "古巴著作权协会ACDAM ID"
+msgstr "克罗地亚权协 HDS-ZAMP 的 ID"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
