@@ -903,7 +903,7 @@ msgstr "고트어"
 msgid "Grebo"
 msgstr "게르보어"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "그리스어"
@@ -978,7 +978,7 @@ msgstr "하우사어"
 msgid "Hawaiian"
 msgstr "하와이어"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "히브리어"

@@ -2887,6 +2887,17 @@ msgid ""
 "renaissance, it is made of maple wood with a folded bore and conical bell."
 msgstr ""
 
+#. name:electronic shruti box
+#: DB:instrument/description:1213
+msgid ""
+"Not to be confused with the analogue bellow powered <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> or the string "
+"instrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
+"synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
+"using recording samples."
+msgstr ""
+
 #. name:shawm
 #: DB:instrument/description:408
 msgid ""
@@ -5191,6 +5202,15 @@ msgstr ""
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr "Le shudraga est un luth mongol sans frette à trois cordes."
 
+#. name:swaragat
+#: DB:instrument/description:1214
+msgid ""
+"The skin covered deep wooden soundbox, has a neck that is carved like parrot "
+"and a gut bridge with three courses of double silk strings, plucked with a "
+"horn-plectrum. Used in southern India since ancient times, it is essentially "
+"a bass rabab."
+msgstr ""
+
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -6025,6 +6045,15 @@ msgid ""
 "Used in folk music and educationally in Korean schools, it is a notched, "
 "vertically end-blown bamboo flute which, like its bigger cousin the Tungso, "
 "was derived from the Chinese xiao in the 19th century."
+msgstr ""
+
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Used in folk music of the Bengal, Odisha and north-east India, the soundbox "
+"is a drum-like wooden cylinder with a membrane at one end held underneath an "
+"arm, attached to the membrane is a single string which is plucked with a "
+"pick. It is known by many names."
 msgstr ""
 
 #. name:krap khū

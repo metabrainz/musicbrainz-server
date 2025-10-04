@@ -902,7 +902,7 @@ msgstr "Gòtic"
 msgid "Grebo"
 msgstr ""
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "Grec"
@@ -977,7 +977,7 @@ msgstr ""
 msgid "Hawaiian"
 msgstr ""
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "Hebreu"

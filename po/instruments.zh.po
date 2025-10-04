@@ -1541,6 +1541,13 @@ msgstr "电子乐器"
 msgid "electronic organ"
 msgstr "电子管风琴"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic drum set"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "电爵士鼓"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2363,6 +2370,11 @@ msgstr "开孔铜管乐器"
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "键盘吉他"
+
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
 
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
@@ -3829,6 +3841,13 @@ msgstr "巴西桶鼓"
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "舒拉辛格琴"
+
+#: DB:instrument/name:1214
+#, fuzzy
+#| msgid "taragot"
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "塔拉戈管"
 
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
