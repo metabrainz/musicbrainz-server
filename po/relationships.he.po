@@ -3,11 +3,12 @@
 # Avi Markovitz <email address hidden>, 2018-2022
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # לוכסן <lochsan.wikiped@gmail.com>, 2025.
+# tuba56 <tuvalbenami@proton.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-02 09:39+0000\n"
-"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
+"PO-Revision-Date: 2025-09-13 01:54+0000\n"
+"Last-Translator: tuba56 <tuvalbenami@proton.me>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/he/>\n"
 "Language: he\n"
@@ -16,12 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"תוכנית לימודים של לרוב בין שנה לשלוש שנים לאחר תואר ראשון המתרכזת בהופעה או "
+"ביצוע."
 
 #. name:social network
 #: DB:link_type/description:218
@@ -108,13 +111,14 @@ msgstr "עמוד Allmusic עבור"
 
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
+#, fuzzy
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "דף Apple Music עבור"
 
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
@@ -416,6 +420,7 @@ msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
 msgstr ""
+"מציין עמוד שמבקר את (קבוצת) ההוצאה המדוברת, בין אם בצורת טקסט, שמע או וידאו."
 
 #. name:schedule
 #: DB:link_type/description:1083
@@ -672,6 +677,7 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"ציון המלחין של ההוצאה הזאת, כלומר האמן שכתב את המוזיקה (לא בהכרח את המילים)."
 
 #. name:composer
 #: DB:link_type/description:168
@@ -679,6 +685,7 @@ msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"ציון המלחין של היצירה הזאת, כלומר האמן שכתב את המוזיקה (לא בהכרח את המילים)."
 
 #. name:premiere
 #: DB:link_type/description:845
@@ -767,6 +774,8 @@ msgid ""
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
 msgstr ""
+"ציון האדם שעיבד את היצירה הזאת (בדרך כלל ממדיום שונה, כגון יצירת פרוזה לדרמת "
+"אודיו או מחזמר בימתי לסרט מחזמר)."
 
 #. name:translator
 #: DB:link_type/description:871
@@ -784,7 +793,7 @@ msgstr "ציון אדם שתרגם את התמליל/ליברטו עבור הי�
 msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
-msgstr ""
+msgstr "ציון האדם שכתב תסריט מקורי ליצירה דרמטית, כגון דרמת אודיו."
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -800,6 +809,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
+"ציון המו״ל של הוצאה זו. זה <strong>לא</strong> אותו דבר כמו <a href="
+"\"/doc/Label\" target=\"_blank\">חברת התקליטים</a>."
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -807,6 +818,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"ציון המו״ל של יצירה זו. זה <strong>לא</strong> אותו דבר כמו <a href="
+"\"/doc/Label\" target=\"_blank\">חברת התקליטים</a>."
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -844,7 +857,7 @@ msgstr "קישור ארוע לאמן ששימש בו כמנצח."
 msgid ""
 "Links a podcast or broadcast series to an artist who was a host for the "
 "series."
-msgstr ""
+msgstr "קישור הסכת או סדרת שידורים לאמן ששימש כמנחה של הסדרה."
 
 #. name:arranged in
 #: DB:link_type/description:864
