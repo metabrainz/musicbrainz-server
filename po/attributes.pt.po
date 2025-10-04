@@ -3,11 +3,12 @@
 # Водка665 <edmondpayne@protonmail.com>, 2023.
 # yurirhsilva <yurirhsilva@gmail.com>, 2023.
 # tanio <tanioms3@gmail.com>, 2024.
+# Manuela Silva <transserv.ptg@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-08-23 19:42+0000\n"
-"Last-Translator: tanio <tanioms3@gmail.com>\n"
+"PO-Revision-Date: 2025-09-10 09:18+0000\n"
+"Last-Translator: Manuela Silva <transserv.ptg@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/pt/>\n"
 "Language: pt\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -26,8 +27,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"«Motete» é um termo que se aplica a diferentes tipos de obras corais "
-"(geralmente sem acompanhamento). O que é exatamente um motete depende "
+"\"Motete\" é um termo que se aplica a diferentes tipos de obras corais ("
+"geralmente sem acompanhamento). O que é exatamente um moteto depende "
 "bastante do período."
 
 #. name:Sonata
