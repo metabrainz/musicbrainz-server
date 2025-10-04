@@ -46,8 +46,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-08-20 21:36+0000\n"
-"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
+"PO-Revision-Date: 2025-10-03 19:54+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3833,11 +3833,9 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:104
 #: ../root/static/scripts/common/components/EntityLink.js:111
-#, fuzzy
-#| msgid "cancelled"
 msgctxt "event"
 msgid "cancelled"
-msgstr "中止された"
+msgstr "キャンセル"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not exist (edit has no notes)"
@@ -16588,10 +16586,8 @@ msgid "Display credits at bottom"
 msgstr "クレジットを最下部で表示"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
-msgstr "{artist}のレコーディング"
+msgstr "レコーディングの別名: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
