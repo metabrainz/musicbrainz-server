@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Data::Language;
 
+use feature 'state';
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Entity::Language;
@@ -76,10 +77,43 @@ sub load_for_works {
     return;
 }
 
-sub find_by_code
+sub find_by_codes
 {
+    my ($self, @codes) = @_;
+    my $columns = $self->_columns;
+    my $table = $self->_table;
+    state $code_columns = join q(, ), qw(
+        iso_code_1
+        iso_code_2b
+        iso_code_2t
+        iso_code_3
+    );
+    return map {
+        my $matching_codes = delete $_->{matching_codes};
+        my $language = $self->_new_from_row($_);
+        (map { $_ => $language } @$matching_codes)
+    } @{ $self->sql->select_list_of_hashes(
+        <<~"SQL",
+        SELECT $columns,
+               (ARRAY (
+                    SELECT UNNEST(\$1::TEXT[])
+                    INTERSECT
+                    SELECT UNNEST(ARRAY[$code_columns]::TEXT[])
+                )) AS matching_codes
+          FROM $table
+         WHERE \$1 && ARRAY[$code_columns]
+        SQL
+        [[map { lc } @codes]],
+    ) };
+}
+
+sub find_by_code {
     my ($self, $code) = @_;
-    return $self->_get_by_key('iso_code_3' => $code, transform => 'lower');
+    my %rows = $self->find_by_codes($code);
+    if (%rows) {
+        return $rows{$code};
+    }
+    return;
 }
 
 sub in_use {
