@@ -7,12 +7,12 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-02 09:39+0000\n"
-"Last-Translator: mfmeulenbelt "
-"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-08 06:35+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/nl/>\n"
 "Language: nl\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1823,6 +1823,7 @@ msgstr ""
 
 #. name:siku
 #: DB:instrument/description:569
+#, fuzzy
 msgid ""
 "For the Italian bagpipe, see <a href=\"/instrument/"
 "7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Also known as "
@@ -1930,6 +1931,7 @@ msgstr ""
 
 #. name:fiscorn
 #: DB:instrument/description:1184
+#, fuzzy
 msgid ""
 "For the instrument known in Italy as flicorno see saxhorn.<br /> For the "
 "instrument known in Spain as fliscorno see <a href=\"/instrument/"
@@ -2087,6 +2089,7 @@ msgstr ""
 
 #. name:xeremies
 #: DB:instrument/description:1186
+#, fuzzy
 msgid ""
 "For the two tube bagless used on Ibiza, see <a href=\"/instrument/1464f316-"
 "aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br /> For the Latin "
@@ -2345,6 +2348,7 @@ msgstr ""
 
 #. name:ghaychak
 #: DB:instrument/description:931
+#, fuzzy
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
@@ -3772,6 +3776,7 @@ msgstr ""
 
 #. name:shawm
 #: DB:instrument/description:408
+#, fuzzy
 msgid ""
 "Not to be confused with zummara or other double clarinets with similar names."
 "<br /> For the multiple bore free reed created in 1880, see Martinshorn.<br /"
