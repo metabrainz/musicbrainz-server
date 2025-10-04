@@ -1,20 +1,23 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-04 02:02+0000\n"
+"Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
+"Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
+"musicbrainz/countries/tok/>\n"
 "Language: tok\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. iso.code:AF
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
 msgid "Afghanistan"
-msgstr ""
+msgstr "ma Akanisan"
 
 #. iso.code:AL
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:2
