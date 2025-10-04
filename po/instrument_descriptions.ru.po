@@ -15,8 +15,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-08 06:35+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-09-25 21:55+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13.1\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -2030,6 +2031,9 @@ msgid ""
 "primero and the bass, segunda, each is made of hollowed out wood with "
 "membranes of pig, sheep or deer."
 msgstr ""
+"Важный элемент культуры гарифуна. Состоит из двух барабанов: тенора (primero)"
+" и баса (segunda), каждый из которых изготовлен из выдолбленного дерева с "
+"мембранами из свиной, овечьей или оленьей кожи."
 
 #. name:morin khuur
 #: DB:instrument/description:224
@@ -2038,6 +2042,9 @@ msgid ""
 "horsehair, now often nylon, strings fastened by wooden pegs at the end which "
 "is carved like a horse head."
 msgstr ""
+"Важный для монголов инструмент; имеет форму трапеции с двумя традиционно "
+"конскими, а ныне – часто нейлоновыми струнами, закрепленными деревянными "
+"колышками на конце, который вырезан в форме головы лошади."
 
 #. name:suona
 #: DB:instrument/description:548
@@ -2045,6 +2052,8 @@ msgid ""
 "Important to the folk music in northern China, it has a conical wooden body "
 "and seven finger holes."
 msgstr ""
+"Важный инструмент народной музыки северного Китая. Имеет конический "
+"деревянный корпус и семь отверстий для пальцев."
 
 #. name:baroque rackett
 #: DB:instrument/description:897
@@ -2053,6 +2062,9 @@ msgid ""
 "snake\" bore now is conical, in addition it is played through a removable "
 "metal curled mouth piece."
 msgstr ""
+"Усовершенствованный Иоганном Кристофом Деннером примерно в 1730 году, его "
+"ствол в форме «свернувшейся змеи» теперь имеет коническую форму, кроме того, "
+"на нем играют через съемный металлический изогнутый мундштук."
 
 #. name:sursingar
 #: DB:instrument/description:816
@@ -2061,6 +2073,9 @@ msgid ""
 "covered with iron and all strings are steel or bronze.<br /> Less common "
 "today, it was used for Dhrupad style music."
 msgstr ""
+"Усовершенствованный Джаффаром Ханом, он имел деревянную деку, гриф, покрытый "
+"железом, и все струны из стали или бронзы.<br /> Сегодня он используется "
+"реже, но раньше применялся для исполнения музыки в стиле дхрупад."
 
 #. name:elektronium
 #: DB:instrument/description:848
@@ -2069,11 +2084,16 @@ msgid ""
 "sound, bellows control only volume. Sold by Hohner since 1952, it has gone "
 "through many modernisations through the years."
 msgstr ""
+"В форме фортепианного аккордеона клавиши управляют выходом, высотой и "
+"звуком, а мехи контролируют только громкость. Продается компанией Hohner с "
+"1952 года, за эти годы претерпел множество модернизаций."
 
 #. name:morsing
 #: DB:instrument/description:533
 msgid "Indian mouth harp, played in Carnatic and Rajastani folk music."
 msgstr ""
+"Индийская губная гармоника, используемая в народной музыке Карнатаки и "
+"Раджастана."
 
 #. name:mukkuri
 #: DB:instrument/description:710
@@ -2081,6 +2101,8 @@ msgid ""
 "Ingenious to the Ainu, it is made of bamboo with a string that vibrated "
 "creates sound."
 msgstr ""
+"Изобретенный народом айну, он изготовлен из бамбука с веревкой, которая при "
+"вибрации создает звук."
 
 #. name:autoharp
 #: DB:instrument/description:409
@@ -2089,6 +2111,10 @@ msgid ""
 "Zimmerman in America and became popular in the 1910 and onward. Wooden box "
 "zither has spring mounted bars used to mute strings for chords."
 msgstr ""
+"Первоначально разработанная в 1880-х годах Гюттером, она производилась и "
+"продавалась Zimmerman в Америке и стала популярной в 1910 году и позднее. "
+"Деревянная коробчатая цитра имеет пружинные планки, используемые для "
+"приглушения струн при игре аккордов."
 
 #. name:viololyra
 #: DB:instrument/description:834
@@ -2096,6 +2122,8 @@ msgid ""
 "Inspired by the violin in 1920, Hellenic luthiers combined parts of the old "
 "Cretan lyra with the violin."
 msgstr ""
+"Вдохновленные скрипкой в 1920 году, греческие мастера-лютнисты объединили "
+"части старинной критской лиры со скрипкой."
 
 #. name:kacapi siter
 #: DB:instrument/description:1000
@@ -2103,6 +2131,8 @@ msgid ""
 "Inspired by western zithers, it has 20 strings and is flatter than the other "
 "kacapis."
 msgstr ""
+"Вдохновленный западными цитрами, он имеет 20 струн и более плоский, чем "
+"другие какапи."
 
 #. name:Stroh violin
 #: DB:instrument/description:451
@@ -2110,11 +2140,14 @@ msgid ""
 "Instead of a wooden body, it is amplified by a metal horn resonator; its "
 "louder and more directional sound made it useful in loud areas."
 msgstr ""
+"Вместо деревянного корпуса он усиливается металлическим резонатором в форме "
+"рога; его более громкий и направленный звук делает его полезным в шумных "
+"местах."
 
 #. name:traditional basque ensemble
 #: DB:instrument/description:909
 msgid "Instruments used in the traditional music of the Basque people."
-msgstr ""
+msgstr "Инструменты, используемые в традиционной музыке басков."
 
 #. name:Indonesian rebab
 #: DB:instrument/description:1011
@@ -2124,6 +2157,10 @@ msgid ""
 "pegs and is made of hide-covered wood or coconut shell. It is the melody "
 "leader in gamelan and is also used in healing rituals."
 msgstr ""
+"Появившийся в Индонезии в XV веке, этот вариант скрипки-ребаб имеет две "
+"металлические струны с характерными длинными колки и изготовлен из дерева, "
+"обтянутого кожей, или скорлупы кокосового ореха. Он является мелодическим "
+"лидером в гамелане, а также используется в ритуалах исцеления."
 
 #. name:tubulum
 #: DB:instrument/description:873
@@ -2132,6 +2169,9 @@ msgid ""
 "alternating length PVC pipes and hit with sticks or flaps. It is popular "
 "with street musicians."
 msgstr ""
+"Изобретен (или, по крайней мере, популяризован) группой Blue Man. Состоит из "
+"ПВХ-труб разной длины, по которым ударяют палками или лопастями. Популярен "
+"среди уличных музыкантов."
 
 #. name:accordion
 #: DB:instrument/description:41
@@ -2140,6 +2180,9 @@ msgid ""
 "operated bellows with keys or buttons at one end and bass buttons at the "
 "other."
 msgstr ""
+"Изобретенный и разработанный несколькими людьми в начале 1800-х годов, он "
+"имеет ручной мех с клавишами или кнопками на одном конце и басовыми кнопками "
+"на другом."
 
 #. name:bandoneón
 #: DB:instrument/description:193
@@ -2159,6 +2202,9 @@ msgid ""
 "6 to 7 single or double courses of gut strings and a long neck with either "
 "sharp or shallow angled pegbox."
 msgstr ""
+"Изобретенный европейскими гитарными мастерами в первой половине XVIII века, "
+"он имел от 6 до 7 одинарных или двойных рядов кишечных струн и длинный гриф "
+"с острым или полого наклонным колковым механизмом."
 
 #. name:orpharion
 #: DB:instrument/description:519
@@ -2166,6 +2212,8 @@ msgid ""
 "Invented in 16th century England, it had low-tension metal strings and "
 "sloping frets."
 msgstr ""
+"Изобретенный в Англии в XVI веке, он имел металлические струны с низким "
+"натяжением и наклонные лады."
 
 #. name:arpeggione
 #: DB:instrument/description:823
@@ -2173,6 +2221,8 @@ msgid ""
 "Invented in 1823, it had a body like a medieval fiddle, but had frets and "
 "tuning like the guitar."
 msgstr ""
+"Изобретенный в 1823 году, он имел корпус, похожий на средневековую скрипку, "
+"но с ладами и настройкой, как у гитары."
 
 #. name:guitorgan
 #: DB:instrument/description:835
