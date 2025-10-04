@@ -2,13 +2,13 @@
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2021
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
+# לוכסן <lochsan.wikiped@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-04 11:06+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-03 23:39+0000\n"
+"Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/he/>\n"
 "Language: he\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -569,8 +569,6 @@ msgid "No front cover art:"
 msgstr "אין תמונות עטיפה - חזית:"
 
 #: ../root/statistics/Index.js:463 ../root/statistics/stats.js:604
-#, fuzzy
-#| msgid "High Data Quality"
 msgid "High data quality"
 msgstr "איכות נתונים גבוהה"
 
@@ -581,22 +579,16 @@ msgid "Default data quality"
 msgstr "איכות נתונים ברירת מחדל:"
 
 #: ../root/statistics/Index.js:479 ../root/statistics/stats.js:614
-#, fuzzy
-#| msgid "Normal Data Quality"
 msgid "Normal data quality"
-msgstr "איכות נתונים תקנית"
+msgstr "איכות נתונים רגילה"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:619
-#, fuzzy
-#| msgid "Unknown Data Quality"
 msgid "Unknown data quality"
 msgstr "איכות נתונים לא ידועה"
 
 #: ../root/statistics/Index.js:495 ../root/statistics/stats.js:609
-#, fuzzy
-#| msgid "Low Data Quality"
 msgid "Low data quality"
-msgstr "איכות נתונים נמוכה"
+msgstr "איכות נתונים ירודה"
 
 #: ../root/statistics/Index.js:517
 msgid "Releases with no disc IDs:"
