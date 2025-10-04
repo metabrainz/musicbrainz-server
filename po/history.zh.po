@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-08-02 12:36+0000\n"
-"Last-Translator: 奶油糖派 <3310056144@qq.com>\n"
+"PO-Revision-Date: 2025-10-04 14:02+0000\n"
+"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hans/>\n"
 "Language: zh\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -30,37 +30,35 @@ msgstr "已放弃\"feat.\"标准化"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
-msgstr "1200像素预览图"
+msgstr "1200 像素预览图"
 
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""
 "1200px thumbnails are added to the Cover Art Archive, providing users with a "
 "very large image with a consistent size that avoids having to use the "
 "original uploads directly."
-msgstr ""
-"1200像素预览图已加入Cover Art Archive，向用户提供尺寸恒定的超大图，无需直接上"
-"传。"
+msgstr "1200 像素预览图已加入 Cover Art "
+"Archive，向用户提供尺寸恒定的超大图，无需直接上传。"
 
 #: DB:statistics.statistic_event/description:2016-03-01
 msgid ""
 "A Discourse forum platform is added to replace both the old-school forums "
 "and the (by now dead) mailing lists and unify community communication in one "
 "place."
-msgstr ""
-"加入了一个基于Discourse 的新论坛，以替代老式论坛和(现已不活跃)邮件列表，将社"
-"区交流集中于一处。"
+msgstr "加入了一个基于 Discourse "
+"的新论坛，以替代老式论坛和(现已不活跃)邮件列表，将社区交流集中于一处。"
 
 #: DB:statistics.statistic_event/description:2015-06-29
 msgid ""
 "A change is introduced that allows voting for and against existing "
 "folksonomy tags, rather than only adding your own."
-msgstr "允许投票支持和反对已有的folksonomy标签，而不仅是自己建立。"
+msgstr "允许投票支持和反对已有的 folksonomy 标签，而不仅是自己建立。"
 
 #: DB:statistics.statistic_event/description:2018-07-19
 msgid ""
 "A major update for the Picard tagger is released, with a huge amount of "
 "bugfixes and improvements."
-msgstr "发布了Picard标签系统的主要更新，含大量漏洞修复和功能改进。"
+msgstr "发布了 Picard 标签系统的主要更新，含大量漏洞修复和功能改进。"
 
 #: DB:statistics.statistic_event/description:2019-11-12
 msgid ""
@@ -75,7 +73,7 @@ msgstr ""
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
-msgstr "发布了一个新的基于AJAX的封面上传器，为发行版添加封面更容易了。"
+msgstr "发布了一个新的基于 AJAX 的封面上传器，为发行版添加封面更容易了。"
 
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
@@ -89,7 +87,7 @@ msgstr "添加了一个新的、更快的搜索机制。"
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr "MusicBrainz社区的意见分歧导致了一场大争论。"
+msgstr "MusicBrainz 社区的意见分歧导致了一场大争论。"
 
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
@@ -123,8 +121,8 @@ msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
-msgstr "允许用户连接基本数据实体的高级关系被重新建立，未使用的TRM从数据库中删除。默认"
-"情况下，内联编辑处于关闭状态，导致投票下降。"
+msgstr "允许用户连接基本数据实体的高级关系被重新建立，未使用的 TRM "
+"从数据库中删除。默认情况下，内联编辑处于关闭状态，导致投票下降。"
 
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
@@ -134,9 +132,10 @@ msgid ""
 "avoid further issues until Wikimedia makes changes that make image reuse "
 "more safe."
 msgstr ""
-"在经历了千辛万苦之后，MetaBrainz赢得了一场与版权流氓之间的法律斗争，他因使用"
-"维基共享资源图像而试图起诉。为了避免进一步的问题，在维基媒体做出改变，使引用"
-"图片更加安全之前，共享图像会保持从MusicBrainz网站上删除。"
+"在经历了千辛万苦之后，MetaBrainz "
+"赢得了一场与版权流氓之间的法律斗争，他因使用维基共享资源图像而试图起诉。为了"
+"避免进一步的问题，在维基媒体做出改变，使引用图片更加安全之前，"
+"共享图像会保持从 MusicBrainz 网站上删除。"
 
 #: DB:statistics.statistic_event/description:2011-11-23
 msgid ""
@@ -147,7 +146,7 @@ msgstr "经过多次辩论，关系数据开始显示在发布页面上，使其
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
-msgstr "在成功完成Summer of Code编程后，Ian McEwen 加入了 MusicBrainz 团队。"
+msgstr "在成功完成 Summer of Code 编程后，Ian McEwen 加入了 MusicBrainz 团队。"
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
@@ -177,7 +176,7 @@ msgstr "专辑语言"
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
-msgstr "发布了专辑语言和改良的编辑表格，优化了Guess Case。"
+msgstr "发布了专辑语言和改良的编辑表格，优化了 Guess Case。"
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -237,17 +236,17 @@ msgstr "地区、ISNI 代码和每个发行的多个发行事件"
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr "订阅艺术家"
+msgstr "艺术家订阅"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
-msgstr "艺术家关注公开化和多种较小用户体验改进发布。"
+msgstr "公开艺术家订阅信息，并发布各种以用户为中心的小改进。"
 
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr "订阅的艺术家。"
+msgstr "艺术家订阅。"
 
 #: DB:statistics.statistic_event/description:2017-04-11
 msgid ""
@@ -272,7 +271,7 @@ msgstr "BBC 与 MetaBrainz 合作"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
-msgstr "BookBrainz 成为MetaBrainz 官方项目"
+msgstr "BookBrainz 成为 MetaBrainz 官方项目"
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
@@ -307,11 +306,11 @@ msgstr "收藏夹所有者现在可以允许其他编辑者添加或删除他们
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr "收藏夹、评分、CD存根"
+msgstr "收藏夹、评分、CD 存根"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr "发布了收藏，评分，CDStubs和LastUpdate功能。"
+msgstr "发布了收藏，评分，CDStubs 和 LastUpdate 功能。"
 
 #: DB:statistics.statistic_event/description:2021-05-18
 msgid ""
@@ -344,7 +343,7 @@ msgstr "更简便的编辑备注添加"
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
-msgstr "优化了编辑显示，关闭了RDF转储，发布了新的安装脚本。"
+msgstr "优化了编辑显示，关闭了 RDF 转储，发布了新的安装脚本。"
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
@@ -376,8 +375,9 @@ msgstr ""
 msgid ""
 "Edits made by editors to their own release additions within 1 hour of adding "
 "them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
-msgstr "编辑者在添加自己的发行后1小时内对其所做的编辑现在自动成为自动编辑，同样适用于"
-"‘添加录音’和‘移除别名’的编辑。"
+msgstr "编辑者在添加自己的发行后 1 "
+"小时内对其所做的编辑现在自动成为自动编辑，同样适用于‘添加录音’和‘移除别名’的"
+"编辑。"
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
@@ -387,8 +387,8 @@ msgstr "电子邮件验证"
 msgid ""
 "Empty labels, release groups and works are now auto-removed after 24 hours "
 "of being unused, in the same way artists already were before."
-msgstr "没有相关实体的厂牌、发行组和作品在未使用24小时后将自动删除，与之前的艺术家处"
-"理方式相同。"
+msgstr "没有相关实体的厂牌、发行组和作品在未使用 24 "
+"小时后将自动删除，与之前的艺术家处理方式相同。"
 
 #: DB:statistics.statistic_event/title:2012-06-25
 msgid "Empty labels, release groups and works start being auto-removed"
@@ -413,9 +413,8 @@ msgstr "活动支持，数据轨道"
 msgid ""
 "Folksonomy tagging and editor subscriptions are released. Additionally, it's "
 "now possible to batch-add relationships to multiple tracks on a release."
-msgstr ""
-"发布了Folksonomy标签和编辑器订阅功能。此外，现在可以批量添加同一专辑中多个不"
-"同音轨的关联。"
+msgstr "发布了 Folksonomy "
+"标签和编辑器订阅功能。此外，现在可以批量添加同一专辑中多个不同音轨的关联。"
 
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
@@ -430,9 +429,8 @@ msgstr "Frederik \"Freso\" S. Olesen 成为 MetaBrainz 社区经理"
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
-msgstr ""
-"关闭了FreeDB自动导入功能，发布了自动编辑推选功能。未使用的TRM已从数据库中精"
-"简。"
+msgstr "关闭了 FreeDB 自动导入功能，发布了自动编辑推选功能。未使用的 TRM "
+"已从数据库中精简。"
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
@@ -461,7 +459,7 @@ msgstr "大冲突"
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
-msgstr "猜测feat. 按钮"
+msgstr "猜测 feat. 按钮"
 
 #: DB:statistics.statistic_event/title:2021-05-26
 msgid "IRC channels move to Libera.Chat"
@@ -525,11 +523,11 @@ msgstr "准备 NGS 中，建议编辑者们在发布前避免不必要的编辑�
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
-msgstr "索引搜索/XML Web服务"
+msgstr "索引搜索/XML Web 服务"
 
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
-msgstr "发布了索引搜索以及新的基于XML的网页端服务。"
+msgstr "发布了索引搜索以及新的基于 XML 的网页端服务。"
 
 #: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
@@ -553,7 +551,7 @@ msgstr "乐器和系列"
 
 #: DB:statistics.statistic_event/title:2021-02-01
 msgid "Italian translation released, IPI and ISNI become autoedits"
-msgstr "发布了意大利文翻译，IPI和ISNI为自动编辑"
+msgstr "发布了意大利文翻译，IPI 和 ISNI 为自动编辑"
 
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
@@ -604,7 +602,7 @@ msgstr "Laurent Monin，更广为人知的昵称为 Zas，加入团队担任专�
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
-msgstr "发布了链接到MusicBrainz功能，专辑事件以及编辑提示。"
+msgstr "发布了链接到 MusicBrainz 功能，专辑事件以及编辑提示。"
 
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
@@ -694,7 +692,7 @@ msgstr "MusicBrainz 服务器源代码从 Subversion 迁移到 Git。"
 
 #: DB:statistics.statistic_event/title:2012-01-12
 msgid "MusicBrainz adds AcoustID support"
-msgstr "MusicBrainz添加对AcoustID的支持"
+msgstr "MusicBrainz 添加对 AcoustID 的支持"
 
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
@@ -708,7 +706,7 @@ msgstr "MusicBrainz 本身采用了全新设计，与 *Brainz 系列的其他产
 
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
-msgstr "MusicBrainz 已经搬迁到了位于San Luis Obispo的 Digital West Networks。"
+msgstr "MusicBrainz 已经搬迁到了位于 San Luis Obispo 的 Digital West Networks。"
 
 #: DB:statistics.statistic_event/description:2006-03-12
 msgid ""
@@ -716,8 +714,8 @@ msgid ""
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
 msgstr ""
-"MusicBrainz 与 MusicIP 合作，并开始使用 MusicDNS 的 PUID 声学指纹。 Picard 成"
-"为有着 PUID 支持的官方 MusicBrainz 跟踪器，这可以减少编辑活动。"
+"MusicBrainz 与 MusicIP 合作，并开始使用 MusicDNS 的 PUID 声学指纹。Picard "
+"成为有着 PUID 支持的官方 MusicBrainz 跟踪器，这可以减少编辑活动。"
 
 #: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
@@ -737,7 +735,7 @@ msgstr "NGS 版本发布"
 
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
-msgstr "发布了NGS，MusicBrainz的大规模重构！"
+msgstr "发布了 NGS，MusicBrainz 的大规模重构！"
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
@@ -745,7 +743,7 @@ msgstr "全新 MusicBrainz 设计"
 
 #: DB:statistics.statistic_event/title:2017-10-31
 msgid "New entity auto-editing period extended to 24 hours"
-msgstr "新实体的自动编辑时间延长至24小时"
+msgstr "新实体的自动编辑时间延长至 24 小时"
 
 #: DB:statistics.statistic_event/description:2012-02-17
 msgid ""
@@ -798,19 +796,19 @@ msgstr "有时由于超时而无法完全加载用户标签和实体关系的列
 
 #: DB:statistics.statistic_event/title:2012-06-02
 msgid "Picard 1.0 released"
-msgstr "发布了Picard 1.0"
+msgstr "发布了 Picard 1.0"
 
 #: DB:statistics.statistic_event/title:2018-07-19
 msgid "Picard 2.0 released"
-msgstr "发布了Picard 2.0"
+msgstr "发布了 Picard 2.0"
 
 #: DB:statistics.statistic_event/description:2017-10-31
 msgid ""
 "Rather than having to notice any errors during a fairly brief 1 hour period, "
 "editors now have 24 hours to correct errors in the data they have added "
 "without needing a vote."
-msgstr "编辑们现在有24小时的时间来修正他们添加的数据中的错误，而无需进行投票，而不是"
-"必须在相当短的1小时内注意到任何错误。"
+msgstr "编辑们现在有 24 小时的时间来修正他们添加的数据中的错误，而无需进行投票，"
+"而不是必须在相当短的 1 小时内注意到任何错误。"
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
@@ -830,7 +828,7 @@ msgstr "发行“stubs”，针对破坏性编辑的最短投票期限"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr "搜索发行组, ISRC, CD存根"
+msgstr "搜索发行组，ISRC, CD 存根"
 
 #: DB:statistics.statistic_event/title:2006-07-12
 #: DB:statistics.statistic_event/title:2003-10-19
@@ -839,7 +837,7 @@ msgstr "发布了编辑器"
 
 #: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
-msgstr "发布了专辑编辑器以及Guess Case。"
+msgstr "发布了专辑编辑器以及 Guess Case。"
 
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
@@ -938,7 +936,7 @@ msgstr "引入了 <样式准则 5> 的解决方案，并从数据库中删除了
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
-msgstr "样式流程再次更新，reosarevok“升级”为样式BDFL"
+msgstr "样式流程再次更新，reosarevok“升级”为样式 BDFL"
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
@@ -971,11 +969,11 @@ msgstr "BBC 成为 MetaBrainz 客户并开始使用 MusicBrainz 数据。"
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available."
-msgstr "Cover Art Archive现已初步开放。"
+msgstr "Cover Art Archive 现已初步开放。"
 
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released."
-msgstr "Cover Art Archive已正式发布。"
+msgstr "Cover Art Archive 已正式发布。"
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
@@ -1019,8 +1017,9 @@ msgid ""
 "The diminishing quality of the PUID fingerprinting service and the continued "
 "availability of an open source alternative in AcoustID leads to the decision "
 "of dropping PUIDs from MusicBrainz and supporting only AcoustID."
-msgstr "PUID 指纹服务质量的下降和 声学ID 中开源替代方案的持续可用性导致决定从 "
-"MusicBrainz 中删除 PUID 并仅支持 声学ID。"
+msgstr ""
+"PUID 指纹服务质量的下降和 声学 ID 中开源替代方案的持续可用性导致决定从 "
+"MusicBrainz 中删除 PUID 并仅支持 声学 ID。"
 
 #: DB:statistics.statistic_event/description:2020-02-18
 msgid ""
@@ -1051,9 +1050,9 @@ msgid ""
 "is dropped - avoiding duplicate data becomes a task for relationship "
 "designers, not users entering the data."
 msgstr ""
-"越来越有争议的‘禁止聚类’指导方针被废除，该指导方针曾禁止类似将每个Jackson兄弟"
-"姐妹相互关联的关系聚类——避免重复数据的任务将由关系设计者负责，而不是由输入数"
-"据的用户负责。"
+"越来越有争议的‘禁止聚类’指导方针被废除，该指导方针曾禁止类似将每个 Jackson "
+"兄弟姐妹相互关联的关系聚类——避免重复数据的任务将由关系设计者负责，而不是由输"
+"入数据的用户负责。"
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
@@ -1146,7 +1145,7 @@ msgstr "有争议编辑的投票期限延长"
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr "投票期缩短至7天"
+msgstr "投票期缩短至 7 天"
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
