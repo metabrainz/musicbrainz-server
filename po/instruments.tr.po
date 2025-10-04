@@ -5,11 +5,12 @@
 # portik <email address hidden>, 2014
 # brtc <boratici@gmail.com>, 2024.
 # Arainuki <esetipodealla@gmail.com>, 2024.
+# matecik <mehmetakiftecik@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-09-25 00:45+0000\n"
-"Last-Translator: Arainuki <esetipodealla@gmail.com>\n"
+"PO-Revision-Date: 2025-08-28 00:36+0000\n"
+"Last-Translator: matecik <mehmetakiftecik@gmail.com>\n"
 "Language-Team: Turkish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/tr/>\n"
 "Language: tr\n"
@@ -17,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.7.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -657,11 +658,11 @@ msgstr ""
 #: DB:instrument/name:235
 msgctxt "Turkish long-necked bowl lute"
 msgid "bağlama"
-msgstr ""
+msgstr "bağlama"
 
 #: DB:instrument/name:426
 msgid "bağlama (saz) family"
-msgstr ""
+msgstr "bağlama (saz) ailesi"
 
 #: DB:instrument/name:968
 msgctxt "Very large suspended Javanese barrel drum"
