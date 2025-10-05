@@ -83,8 +83,8 @@ sub RunSQLScript
         $ENV{'PGOPTIONS'} .= ' -c client_min_messages=WARNING';
     }
 
-    print "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |\n" if $fVerbose;
-    open(PIPE, "$psql $quiet $echo -f $path/$file $opts 2>&1 $stdout |")
+    print "$psql $quiet $echo -f \"$path/$file\" $opts 2>&1 $stdout |\n" if $fVerbose;
+    open(PIPE, "$psql $quiet $echo -f \"$path/$file\" $opts 2>&1 $stdout |")
         or die "exec '$psql': $OS_ERROR";
     while (<PIPE>)
     {
