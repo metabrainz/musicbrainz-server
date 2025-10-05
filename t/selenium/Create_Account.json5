@@ -31,6 +31,80 @@
       target: 'id=id-register.email',
       value: 'new_editor@example.com',
     },
+    // Attempt to submit the form without filling in the captcha.
+    {
+      command: 'clickAndWait',
+      target: 'css=span.buttons > button[type="submit"]',
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '/register$',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'xpath=//div[contains(@class, "warning")]//p[contains(., "Captcha incorrect.")]',
+      value: '',
+    },
+    // The password fields will have been reset.
+    {
+      command: 'type',
+      target: 'id=id-register.password',
+      value: 'password',
+    },
+    {
+      command: 'type',
+      target: 'id=id-register.confirm_password',
+      value: 'password',
+    },
+    // Attempt to submit the form with an incorrect captcha.
+    {
+      command: 'switchFrame',
+      target: 'id=mtcaptcha-iframe-1',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: 'id=mtcap-inputtext-1',
+      value: '2222',
+    },
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    {
+      command: 'switchFrame',
+      target: 'default',
+      value: '',
+    },
+    {
+      command: 'clickAndWait',
+      target: 'css=span.buttons > button[type="submit"]',
+      value: '',
+    },
+    {
+      command: 'assertLocationMatches',
+      target: '/register$',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'xpath=//div[contains(@class, "warning")]//p[contains(., "Captcha incorrect.")]',
+      value: '',
+    },
+    // Finally, submit the form with the correct captcha value.
+    {
+      command: 'type',
+      target: 'id=id-register.password',
+      value: 'password',
+    },
+    {
+      command: 'type',
+      target: 'id=id-register.confirm_password',
+      value: 'password',
+    },
     {
       command: 'switchFrame',
       target: 'id=mtcaptcha-iframe-1',
