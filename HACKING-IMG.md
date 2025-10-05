@@ -47,26 +47,36 @@ Download and setup the artwork-indexer.
 
 Follow the [installation instructions in the README](https://github.com/metabrainz/artwork-indexer?tab=readme-ov-file#installation).
 
-Configure where indexes should be uploaded to by changing `url` under the
-`[s3]` section:
+Edit config.ini with values suitable for your setup. Here's a very standard
+example:
 
-    [s3]
-    url=http://localhost:5050/{bucket}?file={file}
+```ini
+[musicbrainz]
+# Set to the host:port plackup is listening on.
+url=http://localhost:5000
+database=READWRITE
 
-Also ensure that the configured values for `caa_access`, `caa_secret`,
-`eaa_access`, and `eaa_secret` under the `[s3]` section match the
-corresponding values in your DBDefs.pm:
+[database]
+host=localhost
+port=5432
+user=musicbrainz
+dbname=musicbrainz_db
 
-    sub COVER_ART_ARCHIVE_ACCESS_KEY { }
-    sub COVER_ART_ARCHIVE_SECRET_KEY { }
-    sub EVENT_ART_ARCHIVE_ACCESS_KEY { }
-    sub EVENT_ART_ARCHIVE_SECRET_KEY { }
+[s3]
+# Set to the host:port ssssss.psgi is listening on.
+url=http://localhost:5050/{bucket}?file={file}
+caa_access=caa_user
+caa_secret=caa_pass
+eaa_access=eaa_user
+eaa_secret=eaa_pass
 
-It's fine to leave them blank in both config files.
+[sentry]
+dsn=
+```
 
 Finally, start the indexer:
 
-    (.venv) $ python indexer.py
+    $ poetry run python indexer.py
 
 
 artwork-redirect
@@ -78,15 +88,29 @@ Download and setup the artwork-redirect service:
 
 Follow the [installation instructions in the README](https://github.com/metabrainz/artwork-redirect?tab=readme-ov-file#option-2-manual).
 
-Configure where indexes and images are redirected to by changing
-`download_prefix` under the `[ia]` section:
+Edit config.ini based on the following example:
 
-    [ia]
-    download_prefix=http://localhost:5050/
+```ini
+[database]
+host=localhost
+port=5432
+user=musicbrainz
+database=musicbrainz_db
 
-This should be the location where ssssss.psgi is storing uploaded images.
+[listen]
+address=localhost
+port=8080
 
-And start the server:
+[ia]
+# Set to the host:port ssssss.psgi is listening on. Image/index requests
+# will be redirect here.
+download_prefix=http://localhost:5050
+
+[sentry]
+dsn=
+```
+
+And start the server (with your virtualenv active):
 
     (.venv) $ python artwork_redirect_server.py
 
@@ -98,6 +122,23 @@ Now that all of that is configured, you can point MusicBrainz Server to
 the upload and download URLs for your local image archive. Change
 the following values in lib/DBDefs.pm:
 
-    sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//localhost:5050/%s", shift) }
-    sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" }
-    sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" }
+```Perl
+# Set to the host:port ssssss.psgi is listening on.
+sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf("//localhost:5050/%s", shift) }
+
+# Set to the host:port artwork-redirect is listening on.
+sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" }
+sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { "http://localhost:8080" }
+
+sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
+# Set to the host:port ssssss.psgi is listening on.
+sub INTERNET_ARCHIVE_IA_METADATA_PREFIX { 'http://localhost:5050/metadata' }
+
+# Must match the configured values for `caa_access`, `caa_secret`,
+# `eaa_access`, and `eaa_secret` under the `[s3]` section of your
+# artwork-indexer config.ini.
+sub COVER_ART_ARCHIVE_ACCESS_KEY { 'caa_user' }
+sub COVER_ART_ARCHIVE_SECRET_KEY { 'caa_pass' }
+sub EVENT_ART_ARCHIVE_ACCESS_KEY { 'eaa_user' }
+sub EVENT_ART_ARCHIVE_SECRET_KEY { 'eaa_pass' }
+```
