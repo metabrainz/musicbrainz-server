@@ -4,7 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( ArrayRef Int Maybe Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_WORK_CREATE );
-use MusicBrainz::Server::Edit::Types qw( Nullable );
+use MusicBrainz::Server::Edit::Types qw( EnteredFromEntity Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -12,6 +12,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
      'MusicBrainz::Server::Edit::Work',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
         get_string => sub { shift->{name} },
      };
@@ -28,6 +29,7 @@ has '+data' => (
     isa => Dict[
         name          => Str,
         comment       => Nullable[Str],
+        entered_from  => EnteredFromEntity,
         type_id       => Nullable[Int],
         language_id   => Nullable[Int],
         languages     => Optional[ArrayRef[Int]],
