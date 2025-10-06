@@ -1,15 +1,18 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-06 22:02+0000\n"
+"Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
+"Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
+"musicbrainz/scripts/tok/>\n"
 "Language: tok\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -19,7 +22,7 @@ msgstr ""
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
 msgid "Arabic"
-msgstr ""
+msgstr "toki Alapi"
 
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
@@ -54,7 +57,7 @@ msgstr ""
 #. frequency:3 iso_code:Beng
 #: DB:script/name:53
 msgid "Bengali"
-msgstr ""
+msgstr "toki Panla"
 
 #. frequency:1 iso_code:Blis
 #: DB:script/name:95
@@ -229,7 +232,7 @@ msgstr ""
 #. frequency:4 iso_code:Grek
 #: DB:script/name:22
 msgid "Greek"
-msgstr ""
+msgstr "toki Elena"
 
 #. frequency:3 iso_code:Gujr
 #: DB:script/name:52
@@ -269,7 +272,7 @@ msgstr ""
 #. frequency:4 iso_code:Hebr
 #: DB:script/name:11
 msgid "Hebrew"
-msgstr ""
+msgstr "toki Iwisi"
 
 #. frequency:3 iso_code:Hira
 #: DB:script/name:83
@@ -299,7 +302,7 @@ msgstr ""
 #. frequency:4 iso_code:Jpan
 #: DB:script/name:85
 msgid "Japanese"
-msgstr ""
+msgstr "toki Nijon"
 
 #. frequency:3 iso_code:Hrkt
 #: DB:script/name:100
@@ -379,7 +382,7 @@ msgstr ""
 #. frequency:4 iso_code:Latn
 #: DB:script/name:28
 msgid "Latin"
-msgstr ""
+msgstr "toki Lasina"
 
 #. frequency:1 iso_code:Latf
 #: DB:script/name:30
@@ -499,7 +502,7 @@ msgstr ""
 #. frequency:3 iso_code:Mymr
 #: DB:script/name:64
 msgid "Myanmar"
-msgstr ""
+msgstr "ma Mijama"
 
 #. frequency:2 iso_code:Nkoo
 #: DB:script/name:103

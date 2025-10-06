@@ -3,19 +3,22 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-06 22:02+0000\n"
+"Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
+"Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
+"musicbrainz/server/tok/>\n"
 "Language: tok\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.3\n"
 "mime-version: 1.0\n"
 
 #: ../root/components/common-macros.tt:11
@@ -988,7 +991,7 @@ msgstr ""
 #: ../root/components/forms.tt:170 ../root/components/forms.tt:195
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:107
 msgid "English"
-msgstr ""
+msgstr "toki Inli"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -1219,7 +1222,7 @@ msgstr[1] ""
 #: ../root/components/forms.tt:172 ../root/components/forms.tt:197
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
 msgid "French"
-msgstr ""
+msgstr "toki Kanse"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
@@ -11362,7 +11365,7 @@ msgstr ""
 
 #: ../root/otherlookup/OtherLookupForm.js:102
 msgid "MBID"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/otherlookup/OtherLookupIndex.js:17
 #: ../root/otherlookup/OtherLookupIndex.js:19 ../root/search/SearchIndex.js:29
