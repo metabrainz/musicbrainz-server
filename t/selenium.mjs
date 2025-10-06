@@ -757,6 +757,15 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       await element.sendKeys(...value);
       break;
 
+    case 'switchFrame':
+      if (target === 'default') {
+        await driver.switchTo().defaultContent();
+      } else {
+        element = await findElement(target);
+        await driver.switchTo().frame(element);
+      }
+      break;
+
     case 'type':
       element = await findElement(target);
       /*
