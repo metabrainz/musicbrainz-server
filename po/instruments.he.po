@@ -1565,6 +1565,13 @@ msgstr "כלי נגינה חשמליים"
 msgid "electronic organ"
 msgstr "אורגן חשמלי"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic drum set"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "מערכת תופים חשמליים"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2396,6 +2403,11 @@ msgstr "כלי פליז עם לחצנים"
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "קיטאר"
+
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
 
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
@@ -3866,6 +3878,13 @@ msgstr "סורדו"
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "סורשינגר"
+
+#: DB:instrument/name:1214
+#, fuzzy
+#| msgid "taragot"
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "טארגוט"
 
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"

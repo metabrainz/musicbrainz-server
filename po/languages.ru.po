@@ -923,7 +923,7 @@ msgstr "готический"
 msgid "Grebo"
 msgstr "гребо"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "греческий"
@@ -998,7 +998,7 @@ msgstr "хауса"
 msgid "Hawaiian"
 msgstr "гавайский"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "иврит"

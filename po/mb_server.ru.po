@@ -43,7 +43,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-05 11:59+0200\n"
+"POT-Creation-Date: 2025-08-19 12:16+0200\n"
 "PO-Revision-Date: 2025-08-16 21:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
@@ -54,8 +54,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.12.2\n"
 
 #: ../root/components/common-macros.tt:11
@@ -1425,7 +1425,8 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:529
 msgid "I confirm that this is the barcode as it appears on the release."
-msgstr "Я подтверждаю, что это тот же самый штрих-код, который указан в релизе."
+msgstr ""
+"Я подтверждаю, что это тот же самый штрих-код, который указан в релизе."
 
 #: ../root/release/edit/tracklist.tt:390
 msgid "I confirm this is a correct medium format/packaging combination."
@@ -1645,8 +1646,8 @@ msgid ""
 "button might help!)."
 msgstr ""
 "Если вы уверены, что использование соисполнителей верно, подтвердите это "
-"выше. В ином случае, пожалуйста, исправьте данные (кнопка "
-"\"Угадать соисполнителей (feat.)\" может помочь!)."
+"выше. В ином случае, пожалуйста, исправьте данные (кнопка \"Угадать "
+"соисполнителей (feat.)\" может помочь!)."
 
 #: ../root/components/common-macros.tt:57 ../root/components/Artwork.js:43
 msgid "Image not available, please try again later."
@@ -4215,8 +4216,8 @@ msgid ""
 msgstr ""
 "\"1990-10-25\" — это фиктивная дата, которую Amazon присваивает всем "
 "релизам, для которых они не знают реальной даты. <strong>Пожалуйста, "
-"используйте эту дату только в том случае, если вы уверены, что она "
-"верна!</strong>"
+"используйте эту дату только в том случае, если вы уверены, что она верна!</"
+"strong>"
 
 #: ../root/components/forms.tt:247
 msgid ""
