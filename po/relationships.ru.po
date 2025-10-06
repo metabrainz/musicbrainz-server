@@ -22,9 +22,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-16 21:36+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-08-24 19:36+0000\n"
+"Last-Translator: Libra <recreate_squall363@simplelogin.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -34,7 +33,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -4500,6 +4499,9 @@ msgid ""
 "a publisher) can be found. Only sites on the <a href=\"/doc/Style/"
 "Relationships/URLs/Lyrics_whitelist\">whitelist</a> are permitted."
 msgstr ""
+"Это отношение описывает URL, по которому можно найти тексты песен "
+"конкретного лейбла. Разрешены только сайты из <a href="
+"\"/doc/Style/Relationships/URLs/Lyrics_whitelist\">белого списка</a>."
 
 #. name:lyrics
 #: DB:link_type/description:93
