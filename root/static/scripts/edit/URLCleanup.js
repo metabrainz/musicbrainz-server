@@ -3034,10 +3034,10 @@ export const CLEANUPS: CleanupEntries = {
   },
   'geonames': {
     hostname: 'geonames.org',
-    match: [/^https?:\/\/([a-z]+\.)?geonames\.org\/([0-9]+)\/.*$/i],
+    match: [/^https?:\/\/([a-z]+\.)?geonames\.org\/([0-9]+).*$/i],
     restrict: [LINK_TYPES.geonames],
     clean(url) {
-      return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$1/');
+      return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+).*$/, 'http://sws.geonames.org/$1/');
     },
   },
   'goodreads': {
