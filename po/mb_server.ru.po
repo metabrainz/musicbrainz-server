@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-08-26 19:36+0000\n"
+"PO-Revision-Date: 2025-10-06 22:02+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -56,7 +56,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1169,7 +1169,7 @@ msgstr "Раскрыть носитель"
 
 #: ../root/doc/edit_type.tt:38
 msgid "Expire action"
-msgstr ""
+msgstr "Действие в случае истечения"
 
 #: ../root/artist/edit_form.tt:84 ../root/label/edit_form.tt:55
 #: ../root/place/edit_form.tt:43 ../root/recording/edit_form.tt:59
@@ -1654,11 +1654,9 @@ msgid "Image not available, please try again later."
 msgstr "Изображение недоступно, пожалуйста, попробуйте еще раз позднее."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
-#, fuzzy
-#| msgid "Import CD stub"
 msgctxt "interactive"
 msgid "Import CD stub"
-msgstr "Импорт CD-заглушки"
+msgstr "Импортировать CD-заглушку"
 
 #: ../root/edit/search_macros.tt:473
 #: ../lib/MusicBrainz/Server/Edit/Instrument.pm:7
@@ -3412,6 +3410,10 @@ msgid ""
 "titles. Descriptive parts of extra title information like “remix” or "
 "“version” should be lowercased in most languages."
 msgstr ""
+"Похоже, что у этого носителя в названиях треков используются заглавные буквы "
+"для описания {eti|дополнительной информация о названии треков}. Ее "
+"описательные части, такие как «ремикс» или «версия», в большинстве языков "
+"должны писаться строчными буквами."
 
 #: ../root/release/edit/tracklist.tt:426
 msgid ""
@@ -4152,7 +4154,7 @@ msgstr "по сначала новым"
 
 #: ../root/edit/search_macros.tt:20
 msgid "non-auto-edits"
-msgstr ""
+msgstr "не-автоправки"
 
 #: ../root/edit/search_macros.tt:25
 msgid "oldest first"
@@ -4172,7 +4174,7 @@ msgstr "по сначала недавно закрытым"
 
 #: ../root/release/edit/recordings.tt:38
 msgid "recording"
-msgstr ""
+msgstr "запись"
 
 #: ../root/cdtoc/attach_list.tt:18 ../root/cdtoc/attach_list.tt:92
 #: ../root/cdtoc/list.tt:82
@@ -4530,11 +4532,11 @@ msgstr "'{id}' не является допустимым ID выборов"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:80
 msgid "Please provide a CD TOC ID."
-msgstr ""
+msgstr "Предоставьте ID таблицы содержимого CD."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:84
 msgid "The provided CD TOC ID is not valid."
-msgstr ""
+msgstr "Приведенная таблица содержимого CD не является корректной."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:90
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:155
@@ -4558,6 +4560,8 @@ msgid ""
 "The provided CD TOC ID doesn’t exist or is not connected to the provided "
 "medium."
 msgstr ""
+"Введенная таблица содержимого CD не существует или не связана с "
+"предоставленным носителем."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:160
 msgid "Could not find medium"
@@ -4570,6 +4574,10 @@ msgid ""
 "your software maker if it persists, including the technical information "
 "below."
 msgstr ""
+"Приведенная таблица содержимого CD не является корректной. Возможно возникла "
+"проблема с программой, которая использовалась для ее генерации. Попробуйте "
+"еще раз, и, если ошибка повторится, сообщите об ошибке разработчику "
+"программы, включив техническую информацию, указанную ниже."
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:236
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:470
@@ -4582,7 +4590,7 @@ msgstr "Введённый ID исполнителя некорректен"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:443
 msgid "The provided CD TOC ID doesn’t exist."
-msgstr ""
+msgstr "Приведенная таблица содержимого CD не существует."
 
 #: ../lib/MusicBrainz/Server/Controller/Collection.pm:78
 #, perl-brace-format
@@ -4673,7 +4681,7 @@ msgstr "Нельзя объединить лейбл особого назнач
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:280
 msgid "You cannot merge into Deleted Label."
-msgstr ""
+msgstr "Нельзя объединять лейблы с удаленными."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4707,7 +4715,7 @@ msgstr "Эта стратегия объединения не применима
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
-msgstr ""
+msgstr "ID ревизии аннотации должен быть положительным целым числом"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
@@ -4728,7 +4736,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/Art.pm:129
 #, perl-brace-format
 msgid "Found no artwork with ID “{id}”."
-msgstr ""
+msgstr "Не удалось найти фото с ID \"{id}\"."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:226
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
@@ -4739,7 +4747,7 @@ msgstr "[неизвестно]"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Load.pm:96
 msgid "The provided relationship type ID is not valid."
-msgstr ""
+msgstr "Предоставленный ID типа отношений не является верным."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:99
 #, perl-brace-format
@@ -4819,7 +4827,7 @@ msgstr "Ваше сообщение не может быть отправлен�
 #: ../lib/MusicBrainz/Server/Controller/User.pm:573
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
-msgstr ""
+msgstr "У сущностей типа '{type}' не может быть оценок."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:843
 msgid "An error occurred while trying to send your report."
@@ -4959,6 +4967,8 @@ msgid ""
 "Mediums with a pregap track can only be merged with other mediums with a "
 "pregap track."
 msgstr ""
+"Носители с прегап-треком могут быть объединены с другими носителями с "
+"прегап-треком."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:60
 #, perl-brace-format
@@ -4967,6 +4977,10 @@ msgid ""
 "each want to merge into the other. This is likely because the tracks or "
 "recordings are in an inconsistent order on the releases."
 msgstr ""
+"Существует цикл объединений, в котором две записи (\"{recording1}\" и "
+"\"{recording2}\") хотят объединиться друг в друга. Вероятно, это связано с "
+"тем, что треки или записи на релизах расположены в непоследовательном "
+"порядке."
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgid "Total"
@@ -7121,7 +7135,7 @@ msgstr "Доступ"
 
 #: ../root/account/applications/ApplicationList.js:110
 msgid "Last granted token"
-msgstr ""
+msgstr "Последний выданный токен"
 
 #: ../root/account/applications/ApplicationList.js:111
 #: ../root/account/applications/ApplicationList.js:151
@@ -7414,7 +7428,7 @@ msgstr "Добавить выбранные события для объедин
 
 #: ../root/area/AreaEvents.js:61
 msgid "This area is not currently associated with any events."
-msgstr ""
+msgstr "Данная область на данный момент не связана с какими-либо событиями."
 
 #: ../root/area/AreaHeader.js:21
 msgid "{area_type} in {parent_areas}"
@@ -7437,7 +7451,7 @@ msgstr "Добавить выбранные лейблы для объедине
 
 #: ../root/area/AreaLabels.js:58
 msgid "This area is not currently associated with any labels."
-msgstr ""
+msgstr "Данная область на данный момент не связана с какими-либо лейблами."
 
 #: ../root/area/AreaPlaces.js:32 ../root/area/AreaPlaces.js:33
 #: ../root/components/EntityTabs.js:31
@@ -7457,15 +7471,15 @@ msgstr ""
 
 #: ../root/area/AreaPlaces.js:64
 msgid "Add selected places for merging"
-msgstr ""
+msgstr "Добавить выбранные места для объединения"
 
 #: ../root/area/AreaPlaces.js:76
 msgid "This area is not currently associated with any places."
-msgstr ""
+msgstr "Данная область на данный момент не связана с какими-либо местами."
 
 #: ../root/area/AreaRecordings.js:24
 msgid "This area has no relationships to any recordings."
-msgstr ""
+msgstr "Данная область не имеет отношений с какими-либо записями."
 
 #: ../root/area/AreaRecordings.js:26 ../root/area/AreaReleases.js:68
 #: ../root/area/AreaWorks.js:26 ../root/artist/ArtistRelationships.js:25
@@ -7506,7 +7520,7 @@ msgstr "Добавить выбранные релизы для объедине
 
 #: ../root/area/AreaReleases.js:58
 msgid "This area is not currently associated with any releases."
-msgstr ""
+msgstr "Данная область на данный момент не связана с какими-либо релизами."
 
 #: ../root/area/AreaReleases.js:66
 msgid "This area has no relationships to any releases."
