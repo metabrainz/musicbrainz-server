@@ -13,7 +13,11 @@ use List::AllUtils qw( uniq );
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json contains_string );
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    contains_string
+    non_empty
+);
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Errors qw(
     build_request_and_user_context
@@ -622,8 +626,8 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
     my $form = $c->form(register_form => 'User::Register');
 
-    my $use_captcha = (defined DBDefs->MTCAPTCHA_PUBLIC_KEY &&
-                       defined DBDefs->MTCAPTCHA_PRIVATE_KEY);
+    my $use_captcha = (non_empty(DBDefs->MTCAPTCHA_PUBLIC_KEY) &&
+                       non_empty(DBDefs->MTCAPTCHA_PRIVATE_KEY));
 
     if ($c->form_posted_and_valid($form)) {
         my $valid = 0;

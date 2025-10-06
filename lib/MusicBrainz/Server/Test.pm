@@ -56,7 +56,7 @@ BEGIN {
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { 'localhost' };
     # MTCaptcha requires JavaScript to work properly, so it must be disabled
     # for the WWW::Mechanize-based tests. It's tested separately with
-    # Selenium in t/selenium/Create_Account.json5.
+    # Selenium in t/selenium/Create_Account_With_Captcha.json5.
     *DBDefs::MTCAPTCHA_PUBLIC_KEY = sub { undef };
     *DBDefs::MTCAPTCHA_PRIVATE_KEY = sub { undef };
     *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
