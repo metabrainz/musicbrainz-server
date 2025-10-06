@@ -2,11 +2,11 @@
 # Translators:
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-02 10:42+0000\n"
+"PO-Revision-Date: 2025-09-17 13:54+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/lt/>\n"
@@ -15,22 +15,22 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr "12 stygų gitara"
+msgstr "12-stygė gitara"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr "17 stygų bosinė koto"
+msgstr "17-stygė bosinė koto"
 
 #: DB:instrument/name:839
 msgctxt "Historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
-msgstr "Anglų koncertina"
+msgstr "Anglo koncertina"
 
 #: DB:instrument/name:66
 msgctxt "Folk drone zither from N. America"
