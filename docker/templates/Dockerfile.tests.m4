@@ -178,7 +178,7 @@ RUN update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 100
 ARG SOLR_VERSION=9.7.0
 ARG SOLR_SRC_SUM=a80417a79c8371d2049868573927c587b4a5b7b37e938ca6e64e8a8842449f49eddc987968ddad5d6b6b1f4395990c1edc4576a884b3a62c4fbcd97091a659d9
 
-RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+RUN curl -sSLO https://data.metabrainz.org/pub/musicbrainz/solr/solr-$SOLR_VERSION.tgz && \
     echo "$SOLR_SRC_SUM *solr-$SOLR_VERSION.tgz" | sha512sum --strict --check - && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
