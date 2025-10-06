@@ -6,26 +6,25 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-04 11:06+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-25 07:54+0000\n"
+"Last-Translator: nitzanakrai <nitzanakrai@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
-"musicbrainz/statistics/he/>\n"
+"musicbrainz/history/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr ""
+msgstr "הנחיית \"לא לאגד\" בוטלה"
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr ""
+msgstr "תקנון/אחידות של \"feat.\" בוטל"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
