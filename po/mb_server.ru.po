@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-08-16 21:36+0000\n"
+"PO-Revision-Date: 2025-08-24 19:36+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -54,9 +54,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -735,6 +735,8 @@ msgid ""
 "Common exceptions are {artist_intent_guideline|artist intent} and "
 "{japanese_guideline|Japanese releases}."
 msgstr ""
+"Распространенные исключения — {artist_intent_guideline|намерение исполнителя}"
+" и {japanese_guideline|японские релизы}."
 
 #: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -1411,11 +1413,10 @@ msgid "Guess sort name"
 msgstr "Угадать имя сортировки"
 
 #: ../root/release/edit/tracklist.tt:472
-#, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
 msgstr ""
-"Я подтверждаю, что это тот же самый штрихкод, который указан в издании."
+"Я подтверждаю, что эти названия написаны с правильным использованием "
+"заглавных букв."
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
@@ -1504,6 +1505,8 @@ msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
 msgstr ""
+"Если это запись живого выступления, ознакомьтесь также с рекомендациями {doc|"
+"для записей живых выступлений}."
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1603,33 +1606,23 @@ msgstr ""
 "случае, пожалуйста, исправьте данные."
 
 #: ../root/release/edit/tracklist.tt:453
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists on track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the extra title information is capitalized correctly, confirm "
 "it above. Otherwise, please fix the data (the “Guess case” button might "
 "help!)."
 msgstr ""
-"Если вы уверены, что использование соисполнителей верно, подтвердите это "
-"выше. В ином случае, пожалуйста, исправьте данные (кнопка \"Угадать "
-"соисполнителей (feat.)\" может помочь!)."
+"Если вы уверены, что дополнительная информация о названии написана с "
+"правильным использованием заглавных букв, подтвердите это выше. В противном "
+"случае исправьте данные (кнопка «Угадать регистр» может вам в этом помочь!)."
 
 #: ../root/release/edit/tracklist.tt:475
-#, fuzzy
-#| msgid ""
-#| "If you’re sure the use of featured artists on track titles is correct, "
-#| "confirm it above. Otherwise, please fix the data (the “Guess feat. "
-#| "artists” button might help!)."
 msgid ""
 "If you’re sure the titles are capitalized correctly, confirm it above. "
 "Otherwise, please fix the data (the “Guess case” button might help!)."
 msgstr ""
-"Если вы уверены, что использование соисполнителей верно, подтвердите это "
-"выше. В ином случае, пожалуйста, исправьте данные (кнопка \"Угадать "
-"соисполнителей (feat.)\" может помочь!)."
+"Если вы уверены, что названия написаны с правильным использованием заглавных "
+"букв, подтвердите это выше. В противном случае исправьте данные (кнопка «"
+"Угадать регистр» может вам в этом помочь!)."
 
 #: ../root/release/edit/tracklist.tt:416
 msgid ""
@@ -2178,8 +2171,8 @@ msgid ""
 "Please see the {doc_style|style guidelines} and the {doc_classical|classical "
 "guidelines} for more information."
 msgstr ""
-"Для дополнительной информации прочтите {doc|документацию} и {style|"
-"рекомендации по стилю для классической музыки}."
+"Для дополнительной информации прочтите {doc_style|документацию} и "
+"{doc_classical|рекомендации по стилю для классической музыки}."
 
 #: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
 #: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:180
@@ -2903,16 +2896,12 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/edit_form.tt:44
-#, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|artist} should usually match the earliest official release in the "
 "release group."
 msgstr ""
-"Старое изображение было выбрано автоматически из самого раннего релиза из "
-"этой группы."
+"{doc|Исполнитель} обычно должен соответствовать самому раннему официальному "
+"релизу в группе релизов."
 
 #: ../root/release/edit/information.tt:507
 msgid ""
@@ -3101,16 +3090,12 @@ msgid ""
 msgstr ""
 
 #: ../root/release_group/edit_form.tt:33
-#, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|name} is usually the title from the earliest official release in "
 "the release group."
 msgstr ""
-"Старое изображение было выбрано автоматически из самого раннего релиза из "
-"этой группы."
+"{doc|Название} обычно является названием самого раннего официального релиза "
+"в группе релизов."
 
 #: ../root/release/edit/information.tt:539
 msgid ""
@@ -11136,10 +11121,8 @@ msgstr[3] "Связан с {num} работами"
 #: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording artists"
-msgstr "Композиция исполнителя {artist}"
+msgstr "Исполнители записи"
 
 #: ../root/label/LabelIndex.js:111
 msgid "This label does not have any releases."
@@ -17351,10 +17334,8 @@ msgid "Display credits at bottom"
 msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
-msgstr "Композиция исполнителя {artist}"
+msgstr "Псевдоним записи: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
