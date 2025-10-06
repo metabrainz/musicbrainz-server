@@ -25,13 +25,14 @@
 # sut <xepinchan@qq.com>, 2025.
 # Beteix <1158817754@qq.com>, 2025.
 # 奶油糖派 <3310056144@qq.com>, 2025.
+# Ljcbaby <i@ljcbaby.top>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-08-02 12:36+0000\n"
-"Last-Translator: 奶油糖派 <3310056144@qq.com>\n"
+"PO-Revision-Date: 2025-09-04 12:02+0000\n"
+"Last-Translator: Ljcbaby <i@ljcbaby.top>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -39,7 +40,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -5832,16 +5833,12 @@ msgid ""
 msgstr "网页应用程序的重定向 URL 协议必须为“http”或“https”。"
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
-#, fuzzy, perl-brace-format
-#| msgid ""
-#| "Redirect URL scheme must be a reverse-DNS string, as in "
-#| "<code>org.example.app://auth</code>, for installed applications."
+#, perl-brace-format
 msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
-msgstr ""
-"对于已安装的应用程序，重定向 URL Scheme 必须是一个反向 DNS 字符串，例如 "
-"<code>org.example.app://auth</code>。"
+msgstr "对于已安装的应用程序，重定向 URL Scheme 必须是一个反向 DNS 字符串，例如 "
+"{example_url}。"
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
