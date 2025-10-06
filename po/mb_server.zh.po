@@ -27,13 +27,14 @@
 # 奶油糖派 <3310056144@qq.com>, 2025.
 # Ljcbaby <i@ljcbaby.top>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025.
+# Poesty Li <poesty7450@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-08-19 12:16+0200\n"
-"PO-Revision-Date: 2025-09-25 16:54+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2025-10-04 14:02+0000\n"
+"Last-Translator: Poesty Li <poesty7450@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -17654,7 +17655,7 @@ msgstr "{user} 没有任何评分。"
 
 #: ../root/user/UserSubscriptions.js:25
 msgid "Artist subscriptions"
-msgstr "订阅的艺术家"
+msgstr "艺术家订阅"
 
 #: ../root/user/UserSubscriptions.js:26
 msgid "Collection subscriptions"
