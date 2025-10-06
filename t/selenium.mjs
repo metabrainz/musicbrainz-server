@@ -782,6 +782,13 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       await setChecked(findElement(target), false);
       break;
 
+    case 'waitUntilElementIsVisible':
+      await driver.wait(
+        until.elementIsVisible(findElement(target)),
+        30000,
+      );
+      break;
+
     case 'waitUntilUrlIs':
       await driver.wait(until.urlIs(
         'http://' + DBDefs.WEB_SERVER + target,
@@ -1142,6 +1149,13 @@ async function runCommands(stest, commands, t) {
 
           const inspector = await logInspector(driver);
           await inspector.onConsoleEntry(function (log) {
+            if (
+              log.type === 'console' &&
+              log.level === 'info' &&
+              /React DevTools/.test(log.text)
+            ) {
+              return;
+            }
             t.comment(`[${log.type}] [${log.level}] ${log.text}`);
           });
 
