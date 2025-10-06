@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-24 19:36+0000\n"
+"PO-Revision-Date: 2025-09-25 16:54+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
 "n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -1095,7 +1095,7 @@ msgstr ""
 #: DB:instrument/name:904
 msgctxt "Egyptian ancient clappers"
 msgid "clapper"
-msgstr ""
+msgstr "хлопушка"
 
 #: DB:instrument/name:955
 msgctxt "Ancient Aboriginal rhythm stick"
@@ -1113,11 +1113,11 @@ msgstr "классическая гитара"
 
 #: DB:instrument/name:542
 msgid "classical kemençe"
-msgstr ""
+msgstr "классическая кеманча"
 
 #: DB:instrument/name:110
 msgid "claves"
-msgstr ""
+msgstr "клаве"
 
 #: DB:instrument/name:130
 msgid "clavichord"
@@ -1126,7 +1126,7 @@ msgstr "клавикорд"
 #: DB:instrument/name:175
 msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
-msgstr ""
+msgstr "клавинет"
 
 #: DB:instrument/name:780
 msgctxt "free reed aerophone with pitching pipes"
@@ -1141,17 +1141,17 @@ msgstr "клавиолина"
 #: DB:instrument/name:912
 msgctxt "Fifteenth century organ harpsichord hybrid"
 msgid "claviorganum"
-msgstr ""
+msgstr "клавиорган"
 
 #: DB:instrument/name:1185
 msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
-msgstr ""
+msgstr "кобла"
 
 #: DB:instrument/name:1189
 msgctxt "Catalonian ancient cobla ensemble"
 msgid "cobla de tres quartans"
-msgstr ""
+msgstr "кобра из трех четвертей"
 
 #: DB:instrument/name:414
 msgid "concert flute"
@@ -1159,7 +1159,7 @@ msgstr "поперечная флейта"
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr ""
+msgstr "концертная арфа"
 
 #: DB:instrument/name:42
 msgid "concertina"
@@ -1167,7 +1167,7 @@ msgstr "концертина"
 
 #: DB:instrument/name:156
 msgid "conch"
-msgstr ""
+msgstr "раковина"
 
 #: DB:instrument/name:958
 msgid "concussion idiophone"
