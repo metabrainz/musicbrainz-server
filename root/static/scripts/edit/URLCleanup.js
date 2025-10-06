@@ -958,11 +958,11 @@ export const CLEANUPS: CleanupEntries = {
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
     ],
     clean(url) {
-      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\//, 'https://music.apple.com/');
+      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?(classical\.)?music\.apple\.com\//, 'https://$1music.apple.com/');
       // US page is the default, add its country-code to clarify (MBS-10623)
-      url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
-      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/album\/[^?#/]+\/[0-9]+\?i=([0-9]+)$/, '$1/song/$2');
-      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/(artist|album|author|label|music-video|song)\/(?:[^?#/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/$3');
+      url = url.replace(/^(https:\/\/(?:classical\.)?music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      url = url.replace(/^(https:\/\/(?:classical\.)?music\.apple\.com\/[a-z]{2})\/album\/[^?#/]+\/[0-9]+\?i=([0-9]+)$/, '$1/song/$2');
+      url = url.replace(/^(https:\/\/(?:classical\.)?music\.apple\.com\/[a-z]{2})\/(artist|album|author|label|music-video|song)\/(?:[^?#/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/$3');
       return url;
     },
     validate(url, id) {
@@ -984,7 +984,7 @@ export const CLEANUPS: CleanupEntries = {
         };
       }
 
-      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
+      const m = /^https:\/\/(?:classical\.)?music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
