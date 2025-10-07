@@ -21,8 +21,9 @@ Internet Archive storage.
 We provide a simple Plack script which emulates just enough of the
 Internet Archive S3 protocol to use it with MusicBrainz Server.
 
-Figure out where you want to store uploaded images, and set the
-`SSSSSS_STORAGE` environment variable to that location:
+Figure out where you want to store uploaded images, creating the
+directory if it does not exist, and set the `SSSSSS_STORAGE` environment
+variable to that location:
 
     $ SSSSSS_STORAGE=./ssssss plackup --port 5050 -r contrib/ssssss.psgi
 
