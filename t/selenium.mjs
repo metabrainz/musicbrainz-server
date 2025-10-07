@@ -813,7 +813,14 @@ async function handleCommand(stest, {command, index, target, value}, t) {
 
 /* eslint-disable sort-keys */
 const seleniumTests = [
-  {name: 'Create_Account.json5'},
+  {
+    name: (
+      DBDefs.MTCAPTCHA_PUBLIC_KEY &&
+      DBDefs.MTCAPTCHA_PRIVATE_TEST_KEY
+    )
+      ? 'Create_Account_With_Captcha.json5'
+      : 'Create_Account.json5',
+  },
   {name: 'MBS-2604.json5', login: true},
   {name: 'MBS-5387.json5', login: true},
   {name: 'MBS-7456.json5', login: true},
