@@ -2,7 +2,13 @@ package MusicBrainz::Server::Edit::Relationship::Create;
 use Moose;
 
 use List::AllUtils qw( any );
-use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Types qw(
+    EnteredFromEntity
+    LinkAttributesArray
+    PartialDateHash
+    Nullable
+    NullableOnPreview
+);
 use MusicBrainz::Server::Translation qw( N_lp );
 
 extends 'MusicBrainz::Server::Edit::Generic::Create';
@@ -54,6 +60,7 @@ has '+data' => (
             reverse_link_phrase => Str,
             long_link_phrase => Str,
         ],
+        entered_from => EnteredFromEntity,
         attributes   => Nullable[LinkAttributesArray],
         begin_date   => Nullable[PartialDateHash],
         end_date     => Nullable[PartialDateHash],

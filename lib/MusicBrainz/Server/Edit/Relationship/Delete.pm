@@ -14,7 +14,11 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
-use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw(
+    EnteredFromEntity
+    LinkAttributesArray
+    PartialDateHash
+);
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MooseX::Types::Moose qw( Int Str Bool );
@@ -68,6 +72,7 @@ has '+data' => (
                 ],
             ],
         ],
+        entered_from => EnteredFromEntity,
         edit_version => Optional[Int],
     ],
 );
