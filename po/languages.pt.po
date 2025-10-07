@@ -3,11 +3,12 @@
 # goliv <goliv04053@tutanota.com>, 2023.
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 # joaodtx <joao.buckb@gmail.com>, 2025.
+# Manuela Silva <transserv.ptg@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-17 01:26+0000\n"
-"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
+"PO-Revision-Date: 2025-09-10 09:18+0000\n"
+"Last-Translator: Manuela Silva <transserv.ptg@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/pt/>\n"
 "Language: pt\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -903,7 +904,7 @@ msgstr ""
 msgid "Grebo"
 msgstr ""
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "Grego"
@@ -978,7 +979,7 @@ msgstr ""
 msgid "Hawaiian"
 msgstr ""
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "Hebraico"
@@ -1806,7 +1807,7 @@ msgstr ""
 #. frequency:2 iso_code_3:nor
 #: DB:language/name:309
 msgid "Norwegian"
-msgstr ""
+msgstr "Norueguês"
 
 #. frequency:1 iso_code_3:nob
 #: DB:language/name:306
@@ -1816,7 +1817,7 @@ msgstr "Norueguês Bokmal"
 #. frequency:1 iso_code_3:nno
 #: DB:language/name:305
 msgid "Norwegian Nynorsk"
-msgstr ""
+msgstr "Norueguês Nynorsk"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:311
@@ -1951,7 +1952,7 @@ msgstr ""
 #. frequency:2 iso_code_3:pol
 #: DB:language/name:338
 msgid "Polish"
-msgstr ""
+msgstr "Polaco"
 
 #. frequency:2 iso_code_3:por
 #: DB:language/name:340
@@ -1970,10 +1971,8 @@ msgstr ""
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "Russo"
+msgstr "Prussiano"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2028,7 +2027,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ron
 #: DB:language/name:351
 msgid "Romanian"
-msgstr ""
+msgstr "Romeno"
 
 #. frequency:1 iso_code_3:roh
 #: DB:language/name:349

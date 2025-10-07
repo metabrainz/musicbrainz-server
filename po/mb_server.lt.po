@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-05 11:59+0200\n"
-"PO-Revision-Date: 2025-06-22 03:20+0000\n"
+"POT-Creation-Date: 2025-08-19 12:16+0200\n"
+"PO-Revision-Date: 2025-09-23 23:54+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
+" n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -323,18 +323,12 @@ msgstr ""
 "pasirink Pridėti naują įrašą."
 
 #: ../root/layout.tt:18 ../root/layout/index.js:210
-#, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
 msgstr ""
-"Šiuo metu negali redaguoti ar balsuoti, nes administratorius (-ė) panaikino "
-"tavo teises. Jei su mumis dar nesusisiekei dėl šios priežasties, {uri|"
-"parašyk mums žinutę}."
+"Administratorius nustatė šiuos apribojimus jūsų paskyrai: {list}. Jei dar "
+"nesusisiekėte su mumis dėl priežasties, {uri|atsiųskite mums laišką}."
 
 #: ../root/components/common-macros.tt:485
 msgid ""
@@ -397,10 +391,8 @@ msgid "Area"
 msgstr "Teritorija"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "Pirminis tipas"
+msgstr "Teritorijos tipas"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -475,13 +467,11 @@ msgstr "Atlikėjo teritoriją"
 
 #: ../root/artist/edit_form.tt:12
 msgid "Artist details"
-msgstr "Išsami informacija apie atlikėją"
+msgstr "Atlikėjo išsami informacija"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Atlikėjo teritoriją"
+msgstr "Atlikėjo tipas"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -510,7 +500,7 @@ msgstr "Pridėta prie leidinių"
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:79
 msgctxt "user type"
 msgid "Auto-editor"
-msgstr "Autoredaktorius (-ė)"
+msgstr "Autoredaktorius"
 
 #: ../root/cdtoc/attach_artist_releases.tt:19 ../root/cdtoc/list.tt:13
 #: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:18
@@ -605,8 +595,8 @@ msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
 msgstr ""
-"Pristato {MeB|MetaBrainz fondas} ir mūsų {spon|rėmėjai} bei {supp|"
-"palaikytojai}."
+"Pristato {MeB|„MetaBrainz“ fondas} ir mūsų {spon|rėmėjai} bei "
+"{supp|palaikytojai}."
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
 #: ../root/main/index.js:211
@@ -1115,10 +1105,8 @@ msgid "Event"
 msgstr "Renginys"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
-msgstr "Subjekto tipas"
+msgstr "Renginio tipas"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1243,8 +1231,8 @@ msgid ""
 "For more information, check the {doc_doc|documentation} and {doc_styleguide|"
 "style guidelines}."
 msgstr ""
-"Daugiau informacijos rasi {doc_doc|dokumentuose} ir {doc_styleguide|stiliaus "
-"gairėse}."
+"Dėl daugiau informacijos patikrinkite {doc_doc|dokumentaciją} ir "
+"{doc_styleguide|stiliaus gaires}."
 
 #: ../root/label/edit_form.tt:1 ../root/work/edit_form.tt:3
 #: ../root/search/components/SearchForm.js:99
@@ -1368,7 +1356,7 @@ msgstr "Atspėti feat. (su) atlikėjus iš takelių pavadinimų"
 #: ../root/components/forms.tt:153
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:131
 msgid "Guess sort name"
-msgstr "Atspėti rūšiavimo vardą"
+msgstr "Atspėti rikiavimo pavadinimą"
 
 #: ../root/release/edit/tracklist.tt:472
 #, fuzzy
@@ -1634,10 +1622,8 @@ msgid "Instrument"
 msgstr "Instrumentas"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Instrument"
 msgid "Instrument type"
-msgstr "Instrumentas"
+msgstr "Instrumento tipas"
 
 #: ../root/recording/edit_form.tt:105
 msgid ""
@@ -1723,7 +1709,7 @@ msgstr "Įrašų kompanija"
 
 #: ../root/edit/search_macros.tt:473
 msgid "Label area"
-msgstr "Įrašų kompanijos teritorija"
+msgstr "Leidyklos teritorija"
 
 #: ../root/label/edit_form.tt:26 ../root/edit/details/AddLabel.js:89
 #: ../root/edit/details/EditLabel.js:81
@@ -1736,10 +1722,8 @@ msgid "Label details"
 msgstr "Išsami informacija apie įrašų kompaniją"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Label area"
 msgid "Label type"
-msgstr "Įrašų kompanijos teritorija"
+msgstr "Leidyklos tipas"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -2675,7 +2659,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:123
 #: ../root/static/scripts/edit/components/FormRowSortNameWithGuessCase.js:67
 msgid "Sort name"
-msgstr "Rūšiavimo vardas"
+msgstr "Rikiavimo pavadinimas"
 
 #: ../root/artist/split.tt:1
 msgid "Split artist"
@@ -2736,24 +2720,30 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:188
 msgid "The begin and end areas describe where the artist was born and died."
-msgstr ""
+msgstr "Pradžios ir pabaigos teritorijos apibūdina, kur atlikėjas gimė ir mirė."
 
 #: ../root/artist/edit_form.tt:198
 msgid ""
 "The begin and end areas describe where the artist was when it started and "
 "stopped existing."
 msgstr ""
+"Pradžios ir pabaigos teritorijos apibūdina, kur atlikėjas buvo, kai "
+"prasidėjo ir baigėsi jo egzistavimas."
 
 #: ../root/artist/edit_form.tt:191
 msgid ""
 "The begin and end areas describe where the group was formed and dissolved."
 msgstr ""
+"Pradžios ir pabaigos teritorijos apibūdina, kur grupė buvo suformuota ir "
+"išformuota."
 
 #: ../root/artist/edit_form.tt:194
 msgid ""
 "The begin area is the real-life area where the character concept was "
 "created. The end area should not be set."
 msgstr ""
+"Pradžios teritorija – tai reali teritorija, kurioje buvo sukurta veikėjo "
+"koncepcija. Pabaigos teritorija neturėtų būti nustatyta."
 
 #: ../root/release/edit/information.tt:481
 msgid "The catalog number you have entered looks like an Amazon ASIN."
@@ -2821,16 +2811,11 @@ msgstr ""
 "Dėl duomenų bazės priežiūros serveris laikinai veikia tik skaitymo režimu."
 
 #: ../root/components/forms.tt:244
-#, fuzzy
-#| msgid ""
-#| "The sort name is an artist name variant used when sorting alphabetically. "
-#| "For usage information check the {sort_name_doc|sort name guidelines}."
 msgid ""
 "The sort name is an artist name variant used when sorting alphabetically."
 msgstr ""
-"Rūšiavimo vardas – atlikėjo vardo variantas, naudojamas rūšiuojant pagal "
-"abėcėlę. Naudojimo informacijos žiūrėk {sort_name_doc|rūšiavimo vardo "
-"gairės}."
+"Rikiavimo pavadinimas – tai atlikėjo pavadinimo variantas, naudojamas "
+"rikiuojant abėcėlės tvarka."
 
 #: ../root/release/edit/tracklist.tt:124
 msgid ""
@@ -4442,9 +4427,9 @@ msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
 msgstr ""
-"Nepavyko išsiųsti prisijungimo informacijos į tavo el. pašto adresą. "
-"Pabandyk dar kartą, o jei tai vis tiek nepadeda, {contact_url|susisiek su "
-"mumis}."
+"Nepavyko išsiųsti prisijungimo informacijos į jūsų el. pašto adresą. "
+"Bandykite dar kartą, o jei tai vis tiek neveikia, {contact_url|susisiekite "
+"su mumis}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:209
 msgid "There is no user with this username"
@@ -4500,9 +4485,9 @@ msgid ""
 "re-enter your address in your {settings|account settings}. If that still "
 "doesn’t work, {contact_url|contact us}."
 msgstr ""
-"<strong>Mums nepavyko išsiųsti tau patikrinimo el. laiško.</strong><br/>Iš "
-"naujo įvesk savo adresą {settings|paskyros nustatymuose}. Jei tai vis tiek "
-"nepadeda, {contact_url|susisiek su mumis}."
+"<strong>Mums nepavyko išsiųsti jums patvirtinimo el. laiško.</strong><br/>Iš "
+"naujo įveskite savo adresą {settings|paskyros nustatymuose}. Jei tai vis "
+"tiek neveikia, {contact_url|susisiekite su mumis}."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:868
 msgid "There is no OAuth token with these parameters."
@@ -6732,7 +6717,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:40
 #: ../root/user/ReportUser.js:66
 msgid "Editor has violated some other part of our Code of Conduct"
-msgstr "Redaktorius (-ė) pažeidė kitą mūsų Elgesio kodekso dalį"
+msgstr "Redaktorius pažeidė kitą mūsų Elgesio kodekso dalį"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:117
 msgctxt "language optgroup"
@@ -7392,7 +7377,7 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:121
 msgid "URL; [URL]; [URL|label]; [entity-type:MBID|label]"
-msgstr ""
+msgstr "URL; [URL]; [URL|žyma]; [esybės-tipas:MBID|žyma]"
 
 #: ../root/annotation/EditAnnotation.js:129
 msgid ""
@@ -9015,6 +9000,8 @@ msgid ""
 "This page has not been reviewed by our documentation team ({more_info|more "
 "info})."
 msgstr ""
+"Šis puslapis nebuvo peržiūrėtas mūsų dokumentacijos komandos ({more_info|"
+"daugiau informacijos})."
 
 #: ../root/doc/DocPage.js:85
 msgid "This page is {doc|transcluded} from revision {version} of {title}."
@@ -10234,11 +10221,11 @@ msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:38
 msgid "Type: {type}, status: {status}"
-msgstr ""
+msgstr "Tipas: {type}, būsena: {status}"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:57
 msgid "New type:"
-msgstr ""
+msgstr "Naujas tipas:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:64
 msgid "New status:"
@@ -11262,7 +11249,7 @@ msgstr "Apie mus"
 
 #: ../root/layout/components/BottomMenu.js:110
 msgid "About MusicBrainz"
-msgstr "Apie MusicBrainz"
+msgstr "Apie „MusicBrainz“"
 
 #: ../root/layout/components/BottomMenu.js:113
 msgid "Sponsors"
@@ -12196,34 +12183,34 @@ msgstr "Klaida"
 
 #: ../root/main/error/components/ErrorInfo.js:30
 msgid "(No details about this error are available)"
-msgstr "(Išsamios informacijos apie šią klaidą nėra)"
+msgstr "(Išsamios informacijos apie šią klaidą nepasiekiama)"
 
 #: ../root/main/index.js:34
 msgid "MusicBrainz - the open music encyclopedia"
-msgstr "MusicBrainz – atviroji muzikos enciklopedija"
+msgstr "„MusicBrainz“ – atviroji muzikos enciklopedija"
 
 #: ../root/main/index.js:38
 msgid "Welcome to MusicBrainz!"
-msgstr "Sveiki atvykę į MusicBrainz!"
+msgstr "Sveiki atvykę į „MusicBrainz“!"
 
 #: ../root/main/index.js:42
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
 msgstr ""
-"MusicBrainz – atvira muzikos enciklopedija, kurioje kaupiami muzikos "
+"„MusicBrainz“ – atvira muzikos enciklopedija, kurioje renkami muzikos "
 "metaduomenys ir jie pateikiami viešai."
 
 #: ../root/main/index.js:48
 msgid "MusicBrainz aims to be:"
-msgstr "MusicBrainz siekia būti:"
+msgstr "„MusicBrainz“ siekia būti:"
 
 #: ../root/main/index.js:54
 msgid ""
 "<strong>The ultimate source of music information</strong> by allowing anyone "
 "to contribute and releasing the {doc|data} under {doc2|open licenses}."
 msgstr ""
-"<strong>Galutinis muzikos informacijos šaltinis</strong>, leidžiantis bet "
+"<strong>galutinis muzikos informacijos šaltinis</strong>, leidžiantis bet "
 "kam prisidėti ir išleidžiantis {doc|duomenis} pagal {doc2|atvirąsias "
 "licencijas}."
 
@@ -12233,9 +12220,9 @@ msgid ""
 "reliable and unambiguous form of {doc|music identification}, enabling both "
 "people and machines to have meaningful conversations about music."
 msgstr ""
-"<strong>Universalioji muzikos lingva franka</strong>, suteikianti patikimą "
-"ir nedviprasmišką {doc|muzikos identifikavimo formą}, leidžiančią ir "
-"žmonėms, ir kompiuteriams prasmingai kalbėtis apie muziką."
+"<strong>universalioji muzikos lingva franka</strong>, suteikianti patikimą "
+"ir nedviprasmišką {doc|muzikos identifikavimo} formą, leidžianti ir žmonėms, "
+"ir kompiuteriams prasmingai kalbėtis apie muziką."
 
 #: ../root/main/index.js:78
 msgid ""
@@ -12243,14 +12230,15 @@ msgid ""
 "we want everyone &#x2014; including you &#x2014; to {doc|participate and "
 "contribute}."
 msgstr ""
-"Kaip ir Vikipediją, MusicBrainz prižiūri pasaulinė naudotojų bendruomenė, "
-"todėl norime, kad visi, įskaitant ir tave, {doc|dalyvautų ir prisidėtų}."
+"Kaip ir Vikipediją, „MusicBrainz“ prižiūri pasaulinė naudotojų bendruomenė, "
+"todėl norime, kad visi, įskaitant ir jus, {doc|dalyvautų ir prisidėtų}."
 
 #: ../root/main/index.js:89
 msgid ""
 "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
 msgstr ""
-"{apie|Daugiau informacijos} – {faq|DUK} – {kontaktas|Susisiekti su mumis}"
+"{apie|Daugiau informacijos} &#x2014; {faq|DUK} &#x2014; {kontaktas|"
+"Susisiekti su mumis}"
 
 #: ../root/main/index.js:101
 msgid ""
@@ -12258,13 +12246,13 @@ msgid ""
 "based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
 "MusicBrainz {free|free and open source}."
 msgstr ""
-"MusicBrainz valdo {uri|MetaBrainz fondas}, Kalifornijoje įsikūrusi 501(c)(3) "
-"nuo mokesčių atleista ne pelno siekianti organizacija, besirūpinanti, kad "
-"MusicBrainz išliktų {free|laisvas ir atvirojo kodo}."
+"„MusicBrainz“ valdo {uri|„MetaBrainz“ fondas} – Kalifornijoje įsikūrusi nuo "
+"mokesčių atleista ne pelno siekianti korporacija (501(c)(3), besirūpinanti, "
+"kad „MusicBrainz“ išliktų {free|laisva ir atvirojo kodo}."
 
 #: ../root/main/index.js:114
 msgid "MetaBrainz blog"
-msgstr "MetaBrainz tinklaraštis"
+msgstr "„MetaBrainz“ tinklaraštis"
 
 #: ../root/main/index.js:119
 msgid "Latest posts:"
@@ -12276,12 +12264,12 @@ msgstr "Skaityti daugiau »"
 
 #: ../root/main/index.js:138
 msgid "The blog is currently unavailable."
-msgstr "Šiuo metu tinklaraštis neprieinamas."
+msgstr "Šiuo metu tinklaraštis nepasiekiamas."
 
 #: ../root/main/index.js:148
 msgctxt "audio file metadata"
 msgid "Tag your music"
-msgstr "Žymėk savo muziką"
+msgstr "Žymėkite savo muziką"
 
 #: ../root/main/index.js:171
 msgid "Quick start"
@@ -12289,7 +12277,7 @@ msgstr "Greita pradžia"
 
 #: ../root/main/index.js:178
 msgid "Editing introduction"
-msgstr "Kaip redaguoti įvadas"
+msgstr "„Kaip redaguoti?“ įvadas"
 
 #: ../root/main/index.js:189
 msgid "How to add artists"
@@ -12313,8 +12301,8 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
-"Dauguma <strong>MusicBrainz duomenų bazės</strong> duomenų yra išleidžiami "
-"kaip <strong>Public Domain</strong> (liet. Viešo naudojimo), todėl juos "
+"Dauguma <strong>„MusicBrainz“ duomenų bazės</strong> duomenų išleidžiami "
+"kaip <strong>„Public Domain“</strong> (liet. Viešo naudojimo), todėl juos "
 "galima atsisiųsti ir naudoti <strong>nemokamai</strong>."
 
 #: ../root/main/index.js:234
@@ -12326,30 +12314,27 @@ msgid ""
 "Use our <strong>XML web service</strong> or <strong>development libraries</"
 "strong> to create your own MusicBrainz-enabled applications."
 msgstr ""
-"Naudok mūsų <strong>XML žiniatinklio paslaugą</strong> arba <strong>kūrimo "
-"bibliotekas</strong>, kad sukurtum savo MusicBrainz pritaikytas programas."
+"Naudokite mūsų <strong>XML saityno paslaugą</strong> arba <strong>kūrimo "
+"bibliotekas</strong>, kad sukurtumėte savo „MusicBrainz“ pritaikytas "
+"programas."
 
 #: ../root/main/index.js:251
-#, fuzzy
-#| msgid "How to add releases"
 msgid "Recently added releases"
-msgstr "Kaip pridėti leidinius"
+msgstr "Naujausi pridėti leidiniai"
 
 #: ../root/main/index.js:266
-#, fuzzy
-#| msgid "Recent additions"
 msgid "Recently added events"
-msgstr "Naujausi papildymai"
+msgstr "Naujausi pridėti renginiai"
 
 #: ../root/main/index.js:323
 #: ../root/static/scripts/common/components/DescriptiveLink.js:62
 #: ../root/static/scripts/release-editor/dialogs.js:155
 msgid "{entity} by {artist}"
-msgstr "{entity}, {artist}"
+msgstr "{entity} – {artist}"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
-msgstr "MBID nerastas."
+msgstr "MBID nerastas"
 
 #: ../root/mbid/NotFound.js:15
 msgid "Invalid MBID"
@@ -12362,10 +12347,9 @@ msgid ""
 "it is an ID for something else than an entity (for example, a "
 "{rel_type_table|relationship type})."
 msgstr ""
-"Jokie MusicBrainz {entity_doc|subjektai} neatitinka {mbid_doc|MBID} {mbid}. "
-"Arba jis neteisingas, arba jis buvo skirtas subjektui, kuris vėliau buvo "
-"pašalintas, arba tai yra ne subjekto ID (pavyzdžiui, {rel_type_table|"
-"santykio tipas})."
+"Jokios „MusicBrainz“ {entity_doc|esybės} neatitinka {mbid_doc|MBID} {mbid}. "
+"Arba ji neteisinga, arba ji buvo skirtas esybei, kuri vėliau buvo pašalinta, "
+"arba tai yra ne esybės ID (pavyzdžiui, {rel_type_table|santykio tipas})."
 
 #: ../root/mbid/NotFound.js:33
 msgid "{mbid} is not a valid {mbid_doc|MBID}."
@@ -12378,15 +12362,15 @@ msgstr "{mbid_doc|MBID} nepasirinktas."
 #: ../root/oauth2/OAuth2Authorize.js:22 ../root/oauth2/OAuth2Authorize.js:23
 #: ../root/oauth2/OAuth2Oob.js:14
 msgid "OAuth authorization"
-msgstr "OAuth leidimas"
+msgstr "„OAuth“ leidimas"
 
 #: ../root/oauth2/OAuth2Authorize.js:27
 msgid "{app} is requesting permission to:"
-msgstr "{app} prašo leidimo:"
+msgstr "„{app}“ prašo leidimo:"
 
 #: ../root/oauth2/OAuth2Authorize.js:38
 msgid "Perform the above operations when I'm not using the application"
-msgstr "Atlikti pirmiau nurodytas veiksmus, kai nenaudoju programos"
+msgstr "atlikti aukščiau nurodytas veiksmus, kai nenaudoju programos."
 
 #: ../root/oauth2/OAuth2Authorize.js:53
 msgid "No thanks"
@@ -12398,11 +12382,11 @@ msgstr "Leisti prieigą"
 
 #: ../root/oauth2/OAuth2Error.js:14
 msgid "OAuth authorization error"
-msgstr "OAuth leidimo klaida"
+msgstr "„OAuth“ leidimo klaida"
 
 #: ../root/oauth2/OAuth2Error.js:15
 msgid "Error: {error}"
-msgstr "Klaida: {error}"
+msgstr "Klaida: {error}."
 
 #: ../root/oauth2/OAuth2Error.js:17
 msgid "{doc|Learn more}"
@@ -12410,11 +12394,11 @@ msgstr "{doc|Sužinoti daugiau}"
 
 #: ../root/oauth2/OAuth2FormPost.js:15
 msgid "Redirecting to {application}"
-msgstr "Nukreipima į {application}"
+msgstr "Nukreipima į „{application}“"
 
 #: ../root/oauth2/OAuth2FormPost.js:27
 msgid "If this page doesn’t redirect automatically, press “Submit” below."
-msgstr "Jei šis puslapis nenukreipia automatiškai, toliau spausk Pateikti."
+msgstr "Jei šis puslapis nenukreipia automatiškai, žemiau spauskite Pateikti."
 
 #: ../root/oauth2/OAuth2Oob.js:15
 msgid "Success!"
@@ -12425,8 +12409,8 @@ msgid ""
 "You have granted access to {app}. Next, return to {app} and copy this token "
 "to complete the authorization process:"
 msgstr ""
-"Tu suteikei prieigą prie {app}. Toliau grįžk į {app} ir nukopijuok šį "
-"prieigos raktą, kad užbaigtum leidimo procesą:"
+"Suteikote prieigą prie „{app}“. Toliau grįžkite į „{app}“ ir nukopijuokite "
+"šį prieigos raktą, kad užbaigtumėte leidimo eigą:"
 
 #: ../root/otherlookup/OtherLookupForm.js:77
 msgid "Artist IPI:"
@@ -12438,15 +12422,15 @@ msgstr "Atlikėjo ISNI:"
 
 #: ../root/otherlookup/OtherLookupForm.js:87
 msgid "Label IPI:"
-msgstr "Įrašų kompanijos IPI:"
+msgstr "Leidyklos IPI:"
 
 #: ../root/otherlookup/OtherLookupForm.js:92
 msgid "Label ISNI:"
-msgstr "Įrašų kompanijos ISNI:"
+msgstr "Leidyklos ISNI:"
 
 #: ../root/otherlookup/OtherLookupForm.js:97
 msgid "FreeDB ID:"
-msgstr "FreeDB ID:"
+msgstr "„FreeDB“ ID:"
 
 #: ../root/otherlookup/OtherLookupForm.js:102
 msgid "MBID"
@@ -15806,7 +15790,7 @@ msgstr "Įrašų kompanijos kodas: {code}"
 
 #: ../root/static/scripts/common/entity.js:288
 msgid "You selected {area}."
-msgstr "Pasirinkai {area}."
+msgstr "Pasirinkote {area}."
 
 #: ../root/static/scripts/common/entity.js:381
 msgid "You selected {releasegroup}."
@@ -17415,7 +17399,7 @@ msgstr ""
 
 #: ../root/tag/EntityList.js:54
 msgid "Areas where {user} downvoted “{tag}”"
-msgstr "Teritorijos, kuriose {user} pažemino „{tag}“"
+msgstr "Teritorijos, kuriose {user} pažemino žymę „{tag}“"
 
 #: ../root/tag/EntityList.js:55
 msgid "Artists where {user} downvoted “{tag}”"
@@ -17871,8 +17855,6 @@ msgid "Send"
 msgstr ""
 
 #: ../root/user/UserCollections.js:37
-#, fuzzy
-#| msgid "Area Collections"
 msgid "Area collections"
 msgstr "Teritorijos kolekcijos"
 
@@ -18087,7 +18069,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:257
 msgid "User type:"
-msgstr ""
+msgstr "Naudotojo tipas:"
 
 #: ../root/user/UserProfile.js:263
 msgid "nominate for auto-editor"

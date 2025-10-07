@@ -37,9 +37,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-05 11:59+0200\n"
-"PO-Revision-Date: 2025-08-04 21:36+0000\n"
-"Last-Translator: invalidCards <musicbrainz@invalid.cards>\n"
+"POT-Creation-Date: 2025-08-19 12:16+0200\n"
+"PO-Revision-Date: 2025-09-30 15:54+0000\n"
+"Last-Translator: mfmeulenbelt "
+"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -47,7 +48,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -866,7 +867,7 @@ msgstr "Details"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Modus voor verouderde browsers uitschakelen"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -973,7 +974,7 @@ msgstr "URL bewerken"
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 msgctxt "header"
 msgid "Edit artist credit"
-msgstr "Vermelding van artiest bewerken"
+msgstr "Vermelding van de artiest bewerken"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
 msgctxt "singular, header"
@@ -1826,7 +1827,7 @@ msgstr "Aanmelden"
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
-msgstr "Aan het zoeken naar voorgestelde opnamen …"
+msgstr "Voorgestelde opnamen worden gezocht"
 
 #: ../root/cdtoc/lookup.tt:3 ../root/cdtoc/lookup.tt:4
 msgid "Lookup CD"
@@ -2052,11 +2053,11 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:120
 msgid "Now loading recording associations..."
-msgstr "Gekoppelde opnamen worden geladen …"
+msgstr "Gekoppelde opnamen worden geladen"
 
 #: ../root/release/edit/tracklist.tt:180 ../root/release/edit/tracklist.tt:400
 msgid "Now loading tracklist..."
-msgstr "Nummerlijst wordt geladen …"
+msgstr "De nummerlijst wordt geladen"
 
 #: ../root/release_group/set_cover_art.tt:14
 msgid ""
@@ -2558,7 +2559,7 @@ msgstr "Secundaire types"
 
 #: ../root/layout.tt:145 ../root/layout/components/Footer.js:91
 msgid "See {tickets|all tickets in beta testing}."
-msgstr ""
+msgstr "Bekijk {tickets|alle tickets in de bètatest}."
 
 #: ../root/release/edit/tracklist.tt:123
 msgid ""
@@ -3670,7 +3671,7 @@ msgstr "Kopieer de titel van het nummer naar de titel van de opname."
 
 #: ../root/event/add_event_art.tt:84 ../root/release/add_cover_art.tt:84
 msgid "Uploading image..."
-msgstr "Afbeelding aan het uploaden"
+msgstr "Afbeelding wordt geüpload"
 
 #: ../root/components/forms.tt:184 ../root/components/forms.tt:209
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:136
@@ -3968,7 +3969,7 @@ msgstr "staat op"
 
 #: ../root/edit/search_macros.tt:20
 msgid "auto-edits"
-msgstr "Automatische bewerkingen"
+msgstr "automatische bewerkingen"
 
 #: ../root/edit/search_macros.tt:194
 msgid "before"
@@ -4051,7 +4052,7 @@ msgstr "historisch, {begin} – {end}"
 
 #: ../root/edit/search_macros.tt:25
 msgid "in an unspecified order (possibly faster)"
-msgstr "Ongesorteerd (mogelijk sneller)"
+msgstr "ongesorteerd (mogelijk sneller)"
 
 #: ../root/edit/search_macros.tt:389
 msgid "include"
@@ -4164,7 +4165,7 @@ msgstr "nieuwste eerst"
 
 #: ../root/edit/search_macros.tt:20
 msgid "non-auto-edits"
-msgstr "Niet-automatische bewerkingen"
+msgstr "niet-automatische bewerkingen"
 
 #: ../root/edit/search_macros.tt:25
 msgid "oldest first"
@@ -8463,7 +8464,7 @@ msgstr "1200 px"
 
 #: ../root/components/ArtLinks.js:33
 msgid "original"
-msgstr "Origineel"
+msgstr "origineel"
 
 #: ../root/components/CleanupBanner.js:12
 msgid ""
@@ -10693,18 +10694,13 @@ msgstr ""
 "kan ook proberen om {search_url|ernaar te zoeken}."
 
 #: ../root/entity/NotFound.js:142
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit not found"
 msgctxt "header"
 msgid "Medium not found"
-msgstr "Bewerking niet gevonden"
+msgstr "Medium niet gevonden"
 
 #: ../root/entity/NotFound.js:144
-#, fuzzy
-#| msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgid "Sorry, we could not find a medium with that MusicBrainz ID."
-msgstr "We konden helaas geen URL met die MusicBrainz-ID vinden."
+msgstr "We konden helaas geen medium met die MusicBrainz-ID vinden."
 
 #: ../root/entity/NotFound.js:150
 msgctxt "header"
@@ -11347,7 +11343,7 @@ msgstr "Geavanceerd zoeken"
 
 #: ../root/layout/components/BottomMenu.js:224
 msgid "Edit search"
-msgstr "Zoeken naar bewerkingen"
+msgstr "Bewerkingen zoeken"
 
 #: ../root/layout/components/BottomMenu.js:227
 msgctxt "folksonomy"
@@ -11476,19 +11472,19 @@ msgstr "Pagina {n}"
 
 #: ../root/layout/components/Head.js:101
 msgid "MusicBrainz: Artist"
-msgstr "MusicBrainz: Artiest"
+msgstr "MusicBrainz: artiest"
 
 #: ../root/layout/components/Head.js:107
 msgid "MusicBrainz: Label"
-msgstr "MusicBrainz: Platenmaatschappij"
+msgstr "MusicBrainz: platenmaatschappij"
 
 #: ../root/layout/components/Head.js:113
 msgid "MusicBrainz: Release"
-msgstr "MusicBrainz: Uitgave"
+msgstr "MusicBrainz: uitgave"
 
 #: ../root/layout/components/Head.js:119
 msgid "MusicBrainz: Track"
-msgstr "MusicBrainz: Nummer"
+msgstr "MusicBrainz: nummer"
 
 #: ../root/layout/components/MergeHelper.js:26
 msgid "Merge process"
@@ -11534,6 +11530,10 @@ msgid ""
 "Firefox, Safari, Edge, or any Chrome-based browser. If that’s not possible, "
 "you can try enabling {url|legacy browser mode}."
 msgstr ""
+"De browser die je gebruikt, wordt niet ondersteund. De website werkt voor "
+"jou mogelijk niet goed. We raden aan om een recente versie van Firefox, "
+"Safari, Edge of een browser op basis van Chrome te installeren. Als dat niet "
+"mogelijk is, kan je de {url|modus voor verouderde browsers} proberen."
 
 #: ../root/layout/components/TopMenu.js:60
 msgid "Log out"
@@ -12840,7 +12840,7 @@ msgstr ""
 
 #: ../root/release/ReleaseMerge.js:63
 msgid "Also merge the associated release groups"
-msgstr ""
+msgstr "Ook de bijbehorende uitgavegroepen samenvoegen"
 
 #: ../root/release/RemoveCoverArt.js:25
 msgctxt "singular, header"
@@ -13030,13 +13030,15 @@ msgid ""
 "main name for an artist should always be its primary alias in the language "
 "of the name."
 msgstr ""
+"In dit rapport staan artiesten waarbij meer dan één alias voor een "
+"lokalisatie als primair is aangemerkt, maar die geen primaire aliassen "
+"hebben die overeenkomen met hun naam. Over het algemeen moet de naam van een "
+"artiest altijd het primaire alias in de taal van de naam zijn."
 
 #: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:108
-#, fuzzy
-#| msgid "Artists with deprecated relationships"
 msgid "Artists with mismatched primary aliases"
-msgstr "Artiesten met verouderde relaties"
+msgstr "Artiesten met niet overeenkomende primaire aliassen"
 
 #: ../root/report/ArtistsWithMultipleOccurrencesInArtistCredits.js:25
 msgid ""
@@ -13818,11 +13820,15 @@ msgid ""
 "main name for a label should always be its primary alias in the language of "
 "the name."
 msgstr ""
+"In dit rapport staan platenmaatschappijen waarbij meer dan één alias voor "
+"een lokalisatie als primair is aangemerkt, maar die geen primaire aliassen "
+"hebben die overeenkomen met hun naam. Over het algemeen moet de naam van een "
+"platenmaatschappij altijd het primaire alias in de taal van de naam zijn."
 
 #: ../root/report/LabelsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:202
 msgid "Labels with mismatched primary aliases"
-msgstr ""
+msgstr "Platenmaatschappijen met niet overeenkomende primaire aliassen"
 
 #: ../root/report/LinksWithMultipleEntities.js:40
 msgid ""
@@ -14100,11 +14106,14 @@ msgid ""
 "Pseudo-releases {style|should not have cover art}, except temporarily until "
 "an official release has been added."
 msgstr ""
+"In dit rapport staan pseudo-uitgaven met afbeeldingen in het Cover Art "
+"Archive. Pseudo-uitgaven ({style|mogen geen afbeeldingen hebben}, hooguit "
+"tijdelijk, tot er een officiële uitgave is toegevoegd."
 
 #: ../root/report/PseudoReleasesWithCoverArt.js:33
 #: ../root/report/ReportsIndex.js:375
 msgid "Pseudo-Releases that have cover art"
-msgstr ""
+msgstr "Pseudo-uitgaven met afbeeldingen"
 
 #: ../root/report/RecordingTrackDifferentName.js:37
 msgid ""
@@ -14281,12 +14290,6 @@ msgid "Releases with a different name than their release group"
 msgstr "Uitgaven met een andere titel dan hun uitgavegroep"
 
 #: ../root/report/ReleasedTooEarly.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases which have disc IDs even though they were "
-#| "released too early to have disc IDs, where one of the medium formats "
-#| "didn't exist at the time the release was released or where a disc ID is "
-#| "attached to a medium whose format does not have disc IDs."
 msgid ""
 "This report shows releases which have disc IDs even though they were "
 "released too early to have disc IDs, where one of the medium formats didn't "
@@ -14297,7 +14300,9 @@ msgstr ""
 "In dit rapport staan uitgaven die disc-ID’s hebben terwijl ze te vroeg zijn "
 "uitgebracht om disc-ID’s te kunnen hebben, waar één van de media van een "
 "type is dat nog niet bestond toen de uitgave werd uitgebracht of waar er "
-"disc-ID’s zijn gekoppeld aan types media waarvoor geen disc-ID bestaat."
+"disc-ID’s zijn gekoppeld aan types media waarvoor geen disc-ID bestaat. In "
+"dit rapport staan geen volledig digitale uitgaven, zie daarvoor ons "
+"{digital_report|rapport met alleen digitale uitgaven}."
 
 #: ../root/report/ReleasedTooEarly.js:36 ../root/report/ReportsIndex.js:324
 msgid "Releases released too early"
@@ -14313,11 +14318,18 @@ msgid ""
 "content that have been incorrectly assigned the release date for the "
 "original, physical release."
 msgstr ""
+"In dit rapport staan uitgaven met minimaal één medium dat is ingesteld op "
+"het type “Digitale media”, terwijl de uitgave zou zijn uitgegeven vóór 1999, "
+"het jaar dat de eerste digitale muziekwinkel van een grote "
+"platenmaatschappij werd opgericht. Hoewel er voor deze datum al digitale "
+"uitgaven bestonden en niet elke oudere uitgave automatisch fouten bevat, "
+"staan er waarschijnlijk veel digitale heruitgaven tussen. Soms krijgen deze "
+"heruitgaven foutief de uitgavedatum van de originele fysieke uitgave."
 
 #: ../root/report/ReleasedTooEarlyDigital.js:37
 #: ../root/report/ReportsIndex.js:328
 msgid "Suspiciously early digital releases"
-msgstr ""
+msgstr "Verdacht vroege digitale uitgaven"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
 msgid ""
@@ -15436,7 +15448,7 @@ msgstr "Alias:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:338
 msgid "This is the {alias_doc|primary alias} for this locale"
-msgstr "Dit is de {alias_doc|primaire alias} voor deze locatie"
+msgstr "Dit is de {alias_doc|primaire alias} voor deze taal en regio"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:360
 msgid "This alias is no longer current."

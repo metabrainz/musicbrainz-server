@@ -23,8 +23,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-27 19:36+0000\n"
-"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
+"PO-Revision-Date: 2025-09-21 19:54+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6506,7 +6506,7 @@ msgstr "の曲を配信しているURLは"
 
 #: DB:link_attribute_type/name:921
 msgid "cancelled"
-msgstr "中止された"
+msgstr "キャンセル"
 
 #: DB:link_type/name:1165
 msgid "carillonneur"
@@ -11661,7 +11661,8 @@ msgstr ""
 #. name:mastering
 #: DB:link_type/link_phrase:42 DB:link_type/reverse_link_phrase:42
 msgid "{additional} {assistant} {associate} {co:co-}{pre:pre-}{re}mastering"
-msgstr ""
+msgstr "{additional:補助的な} {assistant} {associate} "
+"{co:共同}{pre:プリ}{re:リ}マスタリング"
 
 #. name:programming
 #: DB:link_type/link_phrase:37 DB:link_type/link_phrase:132
@@ -12293,7 +12294,7 @@ msgstr ""
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"
-msgstr ""
+msgstr "{half:half-}{step}兄弟姉妹"
 
 #. name:instrument technician
 #: DB:link_type/reverse_link_phrase:986 DB:link_type/reverse_link_phrase:987

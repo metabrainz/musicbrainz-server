@@ -21,11 +21,12 @@
 # xiaole_0714223 <374721531@qq.com>, 2024.
 # "3035134331@qq.com" <3035134331@qq.com>, 2024.
 # Ral Hole <ral-hole@outlook.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-02-09 17:44+0000\n"
-"Last-Translator: Ral Hole <ral-hole@outlook.com>\n"
+"PO-Revision-Date: 2025-09-25 16:55+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/languages/zh_Hans/>\n"
 "Language: zh\n"
@@ -33,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -920,7 +921,7 @@ msgstr "哥特文"
 msgid "Grebo"
 msgstr "格列博语"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "希腊文"
@@ -995,7 +996,7 @@ msgstr "豪萨语"
 msgid "Hawaiian"
 msgstr "夏威夷语"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "希伯来文"
@@ -2173,7 +2174,7 @@ msgstr "塞尔库普语"
 #. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
-msgstr ""
+msgstr "Semai"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
@@ -2393,7 +2394,7 @@ msgstr "叙利亚文"
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
-msgstr ""
+msgstr "Tachelhit"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

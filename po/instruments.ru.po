@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-29 18:36+0000\n"
+"PO-Revision-Date: 2025-09-25 21:54+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -28,9 +28,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -195,7 +195,7 @@ msgstr "Moog"
 #: DB:instrument/name:358
 msgctxt "Small north east England bagpipes"
 msgid "Northumbrian pipes"
-msgstr ""
+msgstr "Нортумбрийская волынка"
 
 #: DB:instrument/name:890
 msgctxt "Toy synthesizer"
@@ -214,7 +214,7 @@ msgstr "пианет"
 #: DB:instrument/name:1023
 msgctxt "ensemble flute, clarinet, violin, cello and piano"
 msgid "Pierrot ensemble"
-msgstr ""
+msgstr "Ансамбль Пьеро"
 
 #: DB:instrument/name:647
 msgctxt "Portugese plucked lute"
@@ -242,7 +242,7 @@ msgstr ""
 
 #: DB:instrument/name:679
 msgid "Schwyzerörgeli"
-msgstr ""
+msgstr "Швицерёргели"
 
 #: DB:instrument/name:427
 msgctxt "Small Scottish bagpipe"
@@ -251,7 +251,7 @@ msgstr "малая шотландская волынка"
 
 #: DB:instrument/name:910
 msgid "Serbo-Croatian tamburica orchestra"
-msgstr ""
+msgstr "Сербо-хорватский оркестр тамбурика"
 
 #: DB:instrument/name:451
 msgctxt "Horn-amplified violin"
@@ -265,7 +265,7 @@ msgstr ""
 
 #: DB:instrument/name:279
 msgid "Tibetan water drum"
-msgstr ""
+msgstr "тибетский водяной барабан"
 
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
@@ -287,24 +287,24 @@ msgstr "Вагнеровская туба"
 
 #: DB:instrument/name:253
 msgid "Warr guitar"
-msgstr ""
+msgstr "гитара Уорра"
 
 #: DB:instrument/name:562
 msgid "Wiener Horn"
-msgstr ""
+msgstr "венский рожок"
 
 #: DB:instrument/name:468
 msgid "Wurlitzer electric piano"
-msgstr ""
+msgstr "электропианино Wurlitzer"
 
 #: DB:instrument/name:563
 msgid "Xaphoon"
-msgstr ""
+msgstr "ксафон"
 
 #: DB:instrument/name:778
 msgctxt "harmonica/accordion hybrid"
 msgid "accordina"
-msgstr ""
+msgstr "аккордина"
 
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
@@ -334,7 +334,7 @@ msgstr ""
 
 #: DB:instrument/name:487
 msgid "agogô"
-msgstr ""
+msgstr "агого"
 
 #: DB:instrument/name:642
 msgid "ajaeng"
@@ -343,7 +343,7 @@ msgstr ""
 #: DB:instrument/name:747
 msgctxt "set of Nyabinghi drums"
 msgid "akete"
-msgstr ""
+msgstr "акете"
 
 #: DB:instrument/name:1029
 msgctxt "German keyed box zither"
@@ -392,7 +392,7 @@ msgstr ""
 #: DB:instrument/name:809
 msgctxt "Mongolian mouth harp"
 msgid "aman khuur"
-msgstr ""
+msgstr "аман хуур"
 
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
@@ -411,12 +411,12 @@ msgstr ""
 #: DB:instrument/name:1068
 msgctxt "Andean single row panpipe"
 msgid "antara"
-msgstr ""
+msgstr "антара"
 
 #: DB:instrument/name:720
 msgctxt "Tuned metal shape."
 msgid "anvil"
-msgstr ""
+msgstr "анвил"
 
 #: DB:instrument/name:507
 msgid "archlute"
@@ -424,11 +424,11 @@ msgstr ""
 
 #: DB:instrument/name:654
 msgid "archtop guitar"
-msgstr ""
+msgstr "арктоп-гитара"
 
 #: DB:instrument/name:634
 msgid "arghul"
-msgstr ""
+msgstr "аргул"
 
 #: DB:instrument/name:823
 msgctxt "bass viol with guitar frets and tuning"
@@ -443,7 +443,7 @@ msgstr ""
 #: DB:instrument/name:812
 msgctxt "cone shaped west african frame-drum"
 msgid "ashiko"
-msgstr ""
+msgstr "ашико"
 
 #: DB:instrument/name:719
 msgid "atabaque"
@@ -456,7 +456,7 @@ msgstr ""
 #: DB:instrument/name:409
 msgctxt "Damper bar box zither"
 msgid "autoharp"
-msgstr ""
+msgstr "автоарфа"
 
 #: DB:instrument/name:880
 msgctxt "Nyabinghi bass drum"
@@ -490,7 +490,7 @@ msgstr ""
 
 #: DB:instrument/name:488
 msgid "bandora"
-msgstr ""
+msgstr "бандора"
 
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"
@@ -504,7 +504,7 @@ msgstr ""
 #: DB:instrument/name:581
 msgctxt "Traditional Chinese frame drum"
 msgid "bangu"
-msgstr ""
+msgstr "бангу"
 
 #: DB:instrument/name:221
 msgctxt "northern coconut huqin"
@@ -540,7 +540,7 @@ msgstr ""
 
 #: DB:instrument/name:301
 msgid "baritone guitar"
-msgstr ""
+msgstr "баритон-гитара"
 
 #: DB:instrument/name:28
 msgid "baritone horn"
@@ -577,7 +577,7 @@ msgstr ""
 #: DB:instrument/name:605
 msgctxt "Bowed with pluckable strings"
 msgid "baryton"
-msgstr ""
+msgstr "баритон"
 
 #: DB:instrument/name:47
 msgid "bass"
@@ -609,7 +609,7 @@ msgstr "бас-гобой"
 
 #: DB:instrument/name:400
 msgid "bass pedals"
-msgstr ""
+msgstr "басовые педали"
 
 #: DB:instrument/name:293
 msgid "bass recorder"
@@ -618,7 +618,7 @@ msgstr ""
 #: DB:instrument/name:444
 msgctxt "Second lowest member of the saxophone family"
 msgid "bass saxophone"
-msgstr ""
+msgstr "басс-саксофон"
 
 #: DB:instrument/name:456
 msgid "bass synthesizer"
@@ -862,7 +862,7 @@ msgstr ""
 
 #: DB:instrument/name:320
 msgid "brushes"
-msgstr ""
+msgstr "кисти"
 
 #: DB:instrument/name:826
 msgctxt "kontra, Serbo-Croatian plucked string instrument"
@@ -875,11 +875,11 @@ msgstr ""
 
 #: DB:instrument/name:762
 msgid "buisine"
-msgstr ""
+msgstr "бузине"
 
 #: DB:instrument/name:577
 msgid "buk"
-msgstr ""
+msgstr "бук"
 
 #: DB:instrument/name:528
 msgctxt "Indian keyed box zither"
@@ -888,67 +888,67 @@ msgstr ""
 
 #: DB:instrument/name:153
 msgid "bullroarer"
-msgstr ""
+msgstr "вихревой аэрофон"
 
 #: DB:instrument/name:360
 msgid "button accordion"
-msgstr ""
+msgstr "кнопочный аккордеон"
 
 #: DB:instrument/name:655
 msgid "buzuq"
-msgstr ""
+msgstr "бузук"
 
 #: DB:instrument/name:1012
 msgctxt "Family of ancient Indian stick zither chordophones"
 msgid "bīn"
-msgstr ""
+msgstr "бин"
 
 #: DB:instrument/name:108
 msgctxt "Modern wood and metal-bead shaker"
 msgid "cabasa"
-msgstr ""
+msgstr "кабаса"
 
 #: DB:instrument/name:1195
 msgctxt "Auvergnat bagpipe"
 msgid "cabrette"
-msgstr ""
+msgstr "карбет"
 
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
 msgid "caixa"
-msgstr ""
+msgstr "кайша"
 
 #: DB:instrument/name:336
 msgid "cajón"
-msgstr ""
+msgstr "кахон"
 
 #: DB:instrument/name:777
 msgid "calabash"
-msgstr ""
+msgstr "калабаш"
 
 #: DB:instrument/name:127
 msgid "calliope"
-msgstr ""
+msgstr "каллиопа"
 
 #: DB:instrument/name:974
 msgctxt "Bamboo xylophone used in Sundanese gamelan"
 msgid "calung"
-msgstr ""
+msgstr "калунг"
 
 #: DB:instrument/name:128
 msgctxt "belfry tower bell set"
 msgid "carillon"
-msgstr ""
+msgstr "карильон"
 
 #: DB:instrument/name:109
 msgctxt "Pair of concave shells"
 msgid "castanets"
-msgstr ""
+msgstr "кастаньеты"
 
 #: DB:instrument/name:524
 msgctxt "Small four-stringed Portugesian lute"
 msgid "cavaquinho"
-msgstr ""
+msgstr "кавакинью"
 
 #: DB:instrument/name:489
 msgid "caxixi"
@@ -966,7 +966,7 @@ msgstr "виолончель"
 
 #: DB:instrument/name:335
 msgid "chacha"
-msgstr ""
+msgstr "чача"
 
 #: DB:instrument/name:627
 msgid "chakhe"
@@ -975,16 +975,16 @@ msgstr ""
 #: DB:instrument/name:436
 msgctxt "Baroque/classical predecessor of the clarinet"
 msgid "chalumeau"
-msgstr ""
+msgstr "шалюмо"
 
 #: DB:instrument/name:471
 msgid "chamber organ"
-msgstr ""
+msgstr "камерный орган"
 
 #: DB:instrument/name:260
 msgctxt "electromechanical piano"
 msgid "chamberlin"
-msgstr ""
+msgstr "шамберлин"
 
 #: DB:instrument/name:536
 msgid "chande"
@@ -992,25 +992,25 @@ msgstr ""
 
 #: DB:instrument/name:713
 msgid "chanzy"
-msgstr ""
+msgstr "чанза"
 
 #: DB:instrument/name:619
 msgid "chap"
-msgstr ""
+msgstr "чап"
 
 #: DB:instrument/name:466
 msgctxt "Small Andean lute"
 msgid "charango"
-msgstr ""
+msgstr "чаранго"
 
 #: DB:instrument/name:1150
 msgctxt "Japanese double-reed"
 msgid "charumera"
-msgstr ""
+msgstr "чарумера"
 
 #: DB:instrument/name:640
 msgid "chau gong"
-msgstr ""
+msgstr "чау гонг"
 
 #: DB:instrument/name:578
 msgid "chikuzen biwa"
@@ -1095,7 +1095,7 @@ msgstr ""
 #: DB:instrument/name:904
 msgctxt "Egyptian ancient clappers"
 msgid "clapper"
-msgstr ""
+msgstr "хлопушка"
 
 #: DB:instrument/name:955
 msgctxt "Ancient Aboriginal rhythm stick"
@@ -1113,11 +1113,11 @@ msgstr "классическая гитара"
 
 #: DB:instrument/name:542
 msgid "classical kemençe"
-msgstr ""
+msgstr "классическая кеманча"
 
 #: DB:instrument/name:110
 msgid "claves"
-msgstr ""
+msgstr "клаве"
 
 #: DB:instrument/name:130
 msgid "clavichord"
@@ -1126,7 +1126,7 @@ msgstr "клавикорд"
 #: DB:instrument/name:175
 msgctxt "Electro-mechanical amplified clavichord"
 msgid "clavinet"
-msgstr ""
+msgstr "клавинет"
 
 #: DB:instrument/name:780
 msgctxt "free reed aerophone with pitching pipes"
@@ -1141,17 +1141,17 @@ msgstr "клавиолина"
 #: DB:instrument/name:912
 msgctxt "Fifteenth century organ harpsichord hybrid"
 msgid "claviorganum"
-msgstr ""
+msgstr "клавиорган"
 
 #: DB:instrument/name:1185
 msgctxt "Folk/classical Catalonian music ensemble"
 msgid "cobla"
-msgstr ""
+msgstr "кобла"
 
 #: DB:instrument/name:1189
 msgctxt "Catalonian ancient cobla ensemble"
 msgid "cobla de tres quartans"
-msgstr ""
+msgstr "кобра из трех четвертей"
 
 #: DB:instrument/name:414
 msgid "concert flute"
@@ -1159,7 +1159,7 @@ msgstr "поперечная флейта"
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr ""
+msgstr "концертная арфа"
 
 #: DB:instrument/name:42
 msgid "concertina"
@@ -1167,11 +1167,11 @@ msgstr "концертина"
 
 #: DB:instrument/name:156
 msgid "conch"
-msgstr ""
+msgstr "раковина"
 
 #: DB:instrument/name:958
 msgid "concussion idiophone"
-msgstr ""
+msgstr "идиофон со струной"
 
 #: DB:instrument/name:102
 msgid "congas"
@@ -1179,7 +1179,7 @@ msgstr "конга"
 
 #: DB:instrument/name:390
 msgid "continuum"
-msgstr ""
+msgstr "континуум"
 
 #: DB:instrument/name:12
 msgid "contrabass clarinet"
@@ -1187,7 +1187,7 @@ msgstr "контрабасовый кларнет"
 
 #: DB:instrument/name:820
 msgid "contrabass flute"
-msgstr ""
+msgstr "флейта-контрабас"
 
 #: DB:instrument/name:295
 msgid "contrabass recorder"
@@ -1210,7 +1210,7 @@ msgstr ""
 #: DB:instrument/name:510
 msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
-msgstr "рожок"
+msgstr "корнемюз"
 
 #: DB:instrument/name:1190
 msgctxt "French two-drone bagpipes"
@@ -1220,7 +1220,7 @@ msgstr ""
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
 msgid "cornet"
-msgstr "рожок"
+msgstr "корнет"
 
 #: DB:instrument/name:203
 msgctxt "Wooden medieval wind instrument"
@@ -1546,6 +1546,13 @@ msgstr "электронные инструменты"
 msgid "electronic organ"
 msgstr "электронный орган"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic instruments"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "электронные инструменты"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -1593,12 +1600,9 @@ msgid "fipple flute"
 msgstr ""
 
 #: DB:instrument/name:1184
-#, fuzzy
-#| msgctxt "19th century brass trumpet-like"
-#| msgid "cornet"
 msgctxt "bass flugelhorn used in cobla"
 msgid "fiscorn"
-msgstr "рожок"
+msgstr "фискорн"
 
 #: DB:instrument/name:523
 msgid "five-string banjo"
@@ -2371,6 +2375,11 @@ msgstr ""
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
+
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr "хамак"
 
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
@@ -3830,6 +3839,11 @@ msgstr ""
 #: DB:instrument/name:816
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
+msgstr ""
+
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
 msgstr ""
 
 #: DB:instrument/name:716

@@ -1,19 +1,21 @@
 #
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2019,2021
+# tuba56 <tuvalbenami@proton.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: Avi Markovitz <avi.markovitz@gmail.com>, 2018-2019,2021\n"
-"Language-Team: Hebrew (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/he/)\n"
+"PO-Revision-Date: 2025-09-13 18:54+0000\n"
+"Last-Translator: tuba56 <tuvalbenami@proton.me>\n"
+"Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % "
-"1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
+"n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -39,6 +41,25 @@ msgid ""
 "<br /> For the medieval European pear-shaped fiddle see <a href=\"/"
 "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
+"״רבּאבּ״ (כולל איותים נוספים) הוא בעיקר שמן של שלושת הסוגים הבאים של משפחות "
+"כלי מיתר: <br /> <ul> <li>סוג ה״סרינדה״ הגדול, בעל הצוואר הקצר ואשר צורתו "
+"כשל סירה, נקרא כאן רבאב קאבולי.</li> <li>סוג ה״חוּצ׳ין״ הקטן בעל הצוואר "
+"הארוך, והמסווג ככינור־יתד [Spike Fiddle], נקרא כאן רבאב אינדונזי.</li> "
+"<li>סוג ״לירת כרתים״ בעל גוף אגסי והבא במגוון גדלים ואורכי צוואר, נקרא כאן "
+"לאוטת קשת.</li> </ul> <br /> <br /> עקב חפיפת השמות יש נטייה לבלבל ביניהם "
+"ברוב המקורות. באופן מסקרן, הבלבול הזה נוטה לחרוג אף לכלים דומים אך בעלי שמות "
+"שונים, כגון <a href=\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ריג׳"
+"ק [Ghijak]</a> (כינור־יתד אויגורי) ו<a href="
+"\"/instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">קיצ׳ק [Ghaychak]</a> ("
+"בעל צורת סירה).<br /> אם כן, לא ידוע כעת איך, אם בכלל שלושת תת־הסוגים הללו "
+"קשורים זה לזה.<br /> <br /> עבור כינור־היתד בו משתמשים בגאמלאן, ראו <a href="
+"\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">רבאב אינדונזי</a>.<br /"
+"> עבור כלי הפריטה האפגני בעל הגוף דמוי סירה הידוע גם כרבאב קאבולי, ראו <a "
+"href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">רובאב</a>.<br /> "
+"עבור לאוטת הפריטה ההודית מימי הביניים ראו <a href="
+"\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">רבאב סֵני</a>.<br />עבור "
+"הכינור האירופאי בעל הגוף האגסי מימי הביניים ראו <a href="
+"\"/instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">רֶבֶּק</a>."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -52,13 +73,20 @@ msgid ""
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
+"לאוטת סלייד נטולת סריגים מדרום הודו מן המאה ה־13 או מוקדם יותר בה משתמשים "
+"במוזיקה קרנטית. גוף חלול העשוי מג׳קפרוט (לחמן שונה עלים) עם תיבת תהודה משנית "
+"העשויה מפרי דלוע חלול, יש לה 6 מיתרים ראשיים, 3 מיתרי ליווי ו־11 מיתרים "
+"הרמוניים/סימפתטיים עם בלוק של עץ קשה שמחליקים על מנת לשנות גובה צליל. ממש "
+"כמו שה<a href=\"/instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">ויצ׳יטרה "
+"וינה</a> הצפון הודית היא ל<a href="
+"\"/instrument/aea9661c-cbda-4bf3-a61d-d78697472f29\">רודרה וינה</a>, כך גם "
+"הצ׳יטרה וינה ל<a href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\""
+">סראסווטי וינה</a>."
 
 #. name:kös
 #: DB:instrument/description:739
-#, fuzzy
-#| msgid "A Turkish drum used in the traditional Ottoman military bands"
 msgid "A Turkish drum used in the traditional Ottoman military bands."
-msgstr "תוף טורקי ששמיש את התזמורות המסורתיות של הצבא העות'מאני "
+msgstr "תוף טורקי ששימש את התזמורות המסורתיות של הצבא העות'מאני."
 
 #. name:tef
 #: DB:instrument/description:531
@@ -88,6 +116,7 @@ msgid ""
 "A bell tree is a percussion instrument, consisting of vertically nested "
 "inverted metal bowls."
 msgstr ""
+"עץ פעמונים הוא כלי הקשה, המורכב מסדרת קערות מתכת המושהות אנכית זו על זו."
 
 #. name:chamber organ
 #: DB:instrument/description:471
@@ -96,17 +125,15 @@ msgstr "עוגב קאמרי הוא אורגן צינורות קטן."
 
 #. name:cuatro
 #: DB:instrument/description:439
-#, fuzzy
-#| msgid "A class of South-American guitars"
 msgid "A class of South-American guitars."
-msgstr "סוג של גיטרות דרום-אמריקניות"
+msgstr "סוג של גיטרות דרום-אמריקניות."
 
 #. name:saduk
 #: DB:instrument/description:804
 msgid ""
 "A cross between a saxophone and a duduk invented and played by Alexander "
 "Berne."
-msgstr ""
+msgstr "שילוב של סקסופון ודודוק שהומצא ןמנוגן על ידי אלכסנדר ברן."
 
 #. name:cylindrical drum
 #: DB:instrument/description:658
@@ -1769,13 +1796,6 @@ msgstr ""
 
 #. name:ghaychak
 #: DB:instrument/description:931
-#, fuzzy
-#| msgid ""
-#| "Having 4 metal strings, it is carved from a single piece of wood into a "
-#| "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
-#| "side of the short neck and one under the bridge which is membrane-covered."
-#| "<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
-#| "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
@@ -1785,8 +1805,9 @@ msgid ""
 msgstr ""
 "בעלת 4 מיתרי מתכת, מגולפת מפיסת עץ יחידה לצורה מסוימת הדומה לסרינדה, יש לה 3 "
 "חללי קול, שניים מכל צד של הצוואר הקצר ואחד מתחת לגשר המכוסה קרום (ממברנה). "
-"<br />נא לא לבלבל עם ה־<a href=\"/instrument//0d766870-3021-47ce-"
-"bd51-78d2d2484e1b\">ג'יאק</a>,  הכינור האויגוהרי."
+"<br />נא לא לבלבל עם ה־<a href="
+"\"/instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ריג׳אק</a>, הכינור "
+"האויגוהרי."
 
 #. name:hümmelchen
 #: DB:instrument/description:1205
@@ -2809,6 +2830,17 @@ msgid ""
 "Not to be confused with the Spanish double-reed <a href=\"/instrument/"
 "bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a>.<br /> Used in the "
 "renaissance, it is made of maple wood with a folded bore and conical bell."
+msgstr ""
+
+#. name:electronic shruti box
+#: DB:instrument/description:1213
+msgid ""
+"Not to be confused with the analogue bellow powered <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> or the string "
+"instrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
+"synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
+"using recording samples."
 msgstr ""
 
 #. name:shawm
@@ -4867,6 +4899,15 @@ msgstr ""
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr ""
 
+#. name:swaragat
+#: DB:instrument/description:1214
+msgid ""
+"The skin covered deep wooden soundbox, has a neck that is carved like parrot "
+"and a gut bridge with three courses of double silk strings, plucked with a "
+"horn-plectrum. Used in southern India since ancient times, it is essentially "
+"a bass rabab."
+msgstr ""
+
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -5611,6 +5652,15 @@ msgid ""
 "Used in folk music and educationally in Korean schools, it is a notched, "
 "vertically end-blown bamboo flute which, like its bigger cousin the Tungso, "
 "was derived from the Chinese xiao in the 19th century."
+msgstr ""
+
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Used in folk music of the Bengal, Odisha and north-east India, the soundbox "
+"is a drum-like wooden cylinder with a membrane at one end held underneath an "
+"arm, attached to the membrane is a single string which is plucked with a "
+"pick. It is known by many names."
 msgstr ""
 
 #. name:krap khū

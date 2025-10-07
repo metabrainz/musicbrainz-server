@@ -8,13 +8,14 @@
 # Felipe Silva <musicbrainz@felipeqq2.rocks>, 2024.
 # tanio <tanioms3@gmail.com>, 2024.
 # joaodtx <joao.buckb@gmail.com>, 2025.
+# Manuela Silva <transserv.ptg@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-05 11:59+0200\n"
-"PO-Revision-Date: 2025-03-17 05:45+0000\n"
-"Last-Translator: joaodtx <joao.buckb@gmail.com>\n"
+"POT-Creation-Date: 2025-08-19 12:16+0200\n"
+"PO-Revision-Date: 2025-09-10 09:18+0000\n"
+"Last-Translator: Manuela Silva <transserv.ptg@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pt/>\n"
 "Language: pt\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.10.3\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -1489,19 +1490,14 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"Note! Se você não sabe o mês ou dia da publicação, por favor deixe-os em "
-"branco.  01 de janeiro muitas vezes não é a data de publicação real, "
-"verifique que você inseriu a data corretamente."
+"Se não sabe o mês ou dia do lançamento, por favor, deixe-os em branco. O dia "
+"1 de janeiro muitas vezes não é a data de lançamento real. <strong>Por "
+"favor, reverifique se inseriu a data de lançamento correta.</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1759,7 +1755,7 @@ msgstr "Etiqueta"
 #: ../root/static/scripts/common/components/FilterForm.js:377
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
-msgstr "Linguagem"
+msgstr "Idioma"
 
 #: ../root/layout.tt:151 ../root/layout/components/Footer.js:102
 msgid "Last replication packet received at {datetime}"
@@ -1804,15 +1800,13 @@ msgstr "Editor de localização"
 #: ../root/components/common-macros.tt:359
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
-#, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in"
-msgstr "Entrar"
+msgstr "Iniciar sessão"
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
-msgstr "Procurando por gravações sugeridas…"
+msgstr "A procurar por gravações sugeridas…"
 
 #: ../root/cdtoc/lookup.tt:3 ../root/cdtoc/lookup.tt:4
 msgid "Lookup CD"
@@ -1870,11 +1864,11 @@ msgstr "Mover"
 
 #: ../root/event/add_event_art.tt:44 ../root/release/add_cover_art.tt:44
 msgid "Move file down"
-msgstr "Mover arquivo para baixo"
+msgstr "Mover ficheiro para baixo"
 
 #: ../root/event/add_event_art.tt:42 ../root/release/add_cover_art.tt:42
 msgid "Move file up"
-msgstr "Mover arquivo para cima"
+msgstr "Mover ficheiro para cima"
 
 #: ../root/release/edit/tracklist.tt:328
 msgid "Move medium down"
@@ -1964,11 +1958,11 @@ msgstr "Nova imagem irá aqui"
 #: ../root/static/scripts/common/artworkViewer.js:45
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:71
 msgid "Next"
-msgstr "Próximo"
+msgstr "Seguinte"
 
 #: ../root/release/edit/layout.tt:62
 msgid "Next »"
-msgstr "Próximo »"
+msgstr "Seguinte »"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:210
@@ -2034,12 +2028,13 @@ msgstr ""
 "reordenam relações."
 
 #: ../root/release/edit/recordings.tt:120
+#, fuzzy
 msgid "Now loading recording associations..."
-msgstr "Carregando gravações associadas…"
+msgstr "A carregar as gravações associadas…"
 
 #: ../root/release/edit/tracklist.tt:180 ../root/release/edit/tracklist.tt:400
 msgid "Now loading tracklist..."
-msgstr "Carregando lista de faixas…"
+msgstr "A carregar a lista de faixas…"
 
 #: ../root/release_group/set_cover_art.tt:14
 msgid ""
@@ -2067,6 +2062,8 @@ msgid ""
 "Oops! It seems your search parameters are not correct, please double check "
 "your input!"
 msgstr ""
+"Ups! Parece que os seus parâmteros de procura não estão corretos, por favor, "
+"reverifique-os!"
 
 #: ../root/release/edit/recordings.tt:139 ../root/release/edit/tracklist.tt:24
 msgid "Options"
@@ -2080,7 +2077,7 @@ msgstr "Tipo de ordenamento"
 
 #: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:70
 msgid "PDF file"
-msgstr "Arquivo PDF"
+msgstr "Ficheiro PDF"
 
 #: ../root/release/edit/information.tt:283
 #: ../root/edit/details/AddRelease.js:100
@@ -2111,10 +2108,8 @@ msgid "Place details"
 msgstr "Detalhes do lugar"
 
 #: ../root/edit/search_macros.tt:473
-#, fuzzy
-#| msgid "Place"
 msgid "Place type"
-msgstr "Lugar"
+msgstr "Tipo de lugar"
 
 #: ../root/edit/search_macros.tt:471
 msgid "Please choose a condition"
@@ -2152,16 +2147,12 @@ msgstr ""
 "guia de estilo}."
 
 #: ../root/recording/edit_form.tt:89
-#, fuzzy
-#| msgid ""
-#| "For more information, check the {doc_doc|documentation} and "
-#| "{doc_styleguide|style guidelines}."
 msgid ""
 "Please see the {doc_style|style guidelines} and the {doc_classical|classical "
 "guidelines} for more information."
 msgstr ""
-"Para mais informações, confira a {doc_doc|documentação} e {doc_styleguide|"
-"guia de estilo}."
+"Para mais informação, por favor, consulte as {doc_style|linhas diretrizes} e "
+"as {doc_classical|linhas diretrizes clássicas}."
 
 #: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
 #: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:180
@@ -16167,14 +16158,11 @@ msgstr[1] ""
 msgstr[2] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Add release"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "Adicionar publicação"
-msgstr[1] "Adicionar publicação"
-msgstr[2] "Adicionar publicação"
+msgstr[0] "{num} lançamento"
+msgstr[1] "{num} lançamentos"
+msgstr[2] "{num} lançamentos"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""

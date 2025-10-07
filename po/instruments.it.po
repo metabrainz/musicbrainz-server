@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-18 20:36+0000\n"
+"PO-Revision-Date: 2025-08-19 15:36+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -1545,6 +1545,11 @@ msgstr "strumenti elettronici"
 msgid "electronic organ"
 msgstr "organo elettrico"
 
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "shruti box elettronico"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2367,6 +2372,11 @@ msgstr "ottoni a chiavi"
 msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
+
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr "khamak"
 
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
@@ -3827,6 +3837,11 @@ msgstr "surdo"
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
+
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "swaragat"
 
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"

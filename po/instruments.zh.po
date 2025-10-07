@@ -10,11 +10,12 @@
 # MoeCaa <qytc233@gmail.com>, 2025.
 # sut <xepinchan@qq.com>, 2025.
 # Beteix <1158817754@qq.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-26 12:36+0000\n"
-"Last-Translator: Beteix <1158817754@qq.com>\n"
+"PO-Revision-Date: 2025-09-25 16:55+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -216,7 +217,7 @@ msgstr "葡萄牙吉他"
 #: DB:instrument/name:1211
 msgctxt "1940s modified sarod"
 msgid "Radhika's Mohan veena"
-msgstr "拉迪卡的莫汉维纳琴"
+msgstr "Radhika's Mohan veena"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -265,12 +266,9 @@ msgid "Tonette"
 msgstr "竖笛"
 
 #: DB:instrument/name:1212
-#, fuzzy
-#| msgctxt "1940s modified sarod"
-#| msgid "Radhika's Mohan veena"
 msgctxt "Indian modified lap slide-guitar"
 msgid "VM Bhatt's Mohan veena"
-msgstr "拉迪卡的莫汉维纳琴"
+msgstr "VM Bhatt的莫汉维纳琴"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
@@ -485,7 +483,7 @@ msgstr "班顿里昂"
 
 #: DB:instrument/name:488
 msgid "bandora"
-msgstr "bandora"
+msgstr "班多拉琴"
 
 #: DB:instrument/name:394
 msgctxt "Ukraininan lute-zither"
@@ -1541,6 +1539,11 @@ msgstr "电子乐器"
 msgid "electronic organ"
 msgstr "电子管风琴"
 
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "电子舒鲁提盒"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2364,6 +2367,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "键盘吉他"
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr "克哈马克弦鼓"
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2994,7 +3002,6 @@ msgid "pardessus de viole"
 msgstr "最高音维奥尔琴"
 
 #: DB:instrument/name:1207
-#, fuzzy
 msgctxt "Armenian double chanter bagpipe"
 msgid "parkapzuk"
 msgstr "亚美尼亚风笛"
@@ -3083,7 +3090,6 @@ msgid "piccolo trumpet"
 msgstr "高音小号"
 
 #: DB:instrument/name:1183
-#, fuzzy
 msgctxt "Italian double reed with conical bore"
 msgid "piffero"
 msgstr "匹费罗"
@@ -3109,7 +3115,7 @@ msgstr "朝鲜筚篥"
 #: DB:instrument/name:1197
 msgctxt "Northern Italian bagpipe"
 msgid "piva"
-msgstr ""
+msgstr "皮瓦笛"
 
 #: DB:instrument/name:700
 msgid "pkhachich"
@@ -3274,8 +3280,6 @@ msgid "rauschpfeife"
 msgstr "欧式木笛"
 
 #: DB:instrument/name:754
-#, fuzzy
-#| msgid "ravanahatha"
 msgctxt "Indian bowed spikefiddle"
 msgid "ravanahatta"
 msgstr "拉瓦纳哈塔琴"
@@ -3291,11 +3295,9 @@ msgid "rebec"
 msgstr "雷贝克琴"
 
 #: DB:instrument/name:1187
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Ibizan double woodwind"
 msgid "reclam de xeremies"
-msgstr "特雷门琴"
+msgstr "巴利阿里风笛起奏"
 
 #: DB:instrument/name:721
 msgctxt "Brazilian metal scraper"
@@ -3402,7 +3404,7 @@ msgstr "沙巴鼓"
 #: DB:instrument/name:1188
 msgctxt "Catalonian bagpipe"
 msgid "sac de gemecs"
-msgstr ""
+msgstr "加泰罗尼亚风吟笛"
 
 #: DB:instrument/name:149
 msgid "sackbut"
@@ -3639,7 +3641,7 @@ msgstr "锡塔琴"
 #: DB:instrument/name:107
 msgctxt "Hinged percussion"
 msgid "slapstick"
-msgstr ""
+msgstr "啪板"
 
 #: DB:instrument/name:962
 msgctxt "Deepest pitch single octave metallophone used in Javanese gamelan"
@@ -3675,7 +3677,7 @@ msgstr "小军鼓"
 #: DB:instrument/name:1198
 msgctxt "Latvian bagpipe"
 msgid "somu dūdas"
-msgstr ""
+msgstr "拉脱维亚索穆笛"
 
 #: DB:instrument/name:284
 msgid "song loan"
@@ -3717,7 +3719,7 @@ msgstr "高音小提琴"
 #: DB:instrument/name:1191
 msgctxt "Complex Neapolitan bagpipe"
 msgid "sordellina"
-msgstr ""
+msgstr "索尔德利纳风笛"
 
 #: DB:instrument/name:151
 msgid "sousaphone"
@@ -3829,6 +3831,11 @@ msgstr "巴西桶鼓"
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "舒拉辛格琴"
+
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "斯瓦拉戈管"
 
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
@@ -3997,12 +4004,9 @@ msgid "temple blocks"
 msgstr "木鱼群"
 
 #: DB:instrument/name:810
-#, fuzzy
-#| msgctxt "steel mongolian jew's harp"
-#| msgid "temür khuur"
 msgctxt "steel Mongolian jew's harp"
 msgid "temür khuur"
-msgstr "铁口弦"
+msgstr "铁弦马头琴"
 
 #: DB:instrument/name:657
 msgctxt "4 string tenor banjo"
@@ -4122,7 +4126,7 @@ msgstr "托布秀尔"
 #: DB:instrument/name:1115
 msgctxt "Estonian folk bagpipe"
 msgid "torupill"
-msgstr ""
+msgstr "托鲁皮尔风笛"
 
 #: DB:instrument/name:258
 msgid "toy piano"
@@ -4214,7 +4218,7 @@ msgstr "越南花鼓"
 #: DB:instrument/name:1193
 msgctxt "Greek double chanter droneless bagpipe"
 msgid "tsampouna"
-msgstr ""
+msgstr "查姆普纳风笛"
 
 #: DB:instrument/name:34
 msgid "tuba"
@@ -4229,12 +4233,9 @@ msgid "tube zither"
 msgstr "筒状齐特琴"
 
 #: DB:instrument/name:775
-#, fuzzy
-#| msgctxt "analogue electronic monophonic Organ"
-#| msgid "tubon"
 msgctxt "analogue electronic monophonic organ"
 msgid "tubon"
-msgstr "圆柱状电风琴"
+msgstr "模拟单音电子风琴"
 
 #: DB:instrument/name:168
 msgctxt "Orchestral chimes"
@@ -4249,14 +4250,12 @@ msgstr "乐音水管"
 #: DB:instrument/name:1116
 msgctxt "Droneless Turkish bagpipe"
 msgid "tulum"
-msgstr ""
+msgstr "图卢姆笛"
 
 #: DB:instrument/name:511
-#, fuzzy
-#| msgid "tumbi"
 msgctxt "Punjabi one string lute"
 msgid "tumbi"
-msgstr "通比琴"
+msgstr "图姆比琴"
 
 #: DB:instrument/name:863
 msgctxt "Māori taonga pūoro ancient struck idiophone"
@@ -4266,7 +4265,7 @@ msgstr "图木图木"
 #: DB:instrument/name:1210
 msgctxt "West Indian one-spoke monochord"
 msgid "tun tuna"
-msgstr ""
+msgstr "西印度单弦独杆琴"
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"
@@ -4360,7 +4359,7 @@ msgstr "腔体笛"
 #: DB:instrument/name:1196
 msgctxt "Breton bagpipe"
 msgid "veuze"
-msgstr ""
+msgstr "维厄兹笛"
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"
@@ -4416,12 +4415,9 @@ msgid "viola d'amore"
 msgstr "柔音中提琴"
 
 #: DB:instrument/name:93
-#, fuzzy
-#| msgctxt "Generic member of the viol family, Use for \"Viol\" Credits"
-#| msgid "viola da gamba"
 msgctxt "generic member of the viol family, use for \"viol\" credits"
 msgid "viola da gamba"
-msgstr "古大提琴"
+msgstr "腿上提琴"
 
 #: DB:instrument/name:227
 msgid "viola organista"
@@ -4447,12 +4443,9 @@ msgid "violino piccolo"
 msgstr "超小提琴"
 
 #: DB:instrument/name:834
-#, fuzzy
-#| msgctxt "cretan lyra / violin hybrid"
-#| msgid "viololyra"
 msgctxt "Cretan lyra / violin hybrid"
 msgid "viololyra"
-msgstr "提琴里拉"
+msgstr "维奥洛利拉"
 
 #: DB:instrument/name:693
 msgctxt "for violoncello use \"cello\""
@@ -4488,7 +4481,7 @@ msgstr "呜呜祖拉"
 #: DB:instrument/name:1069
 msgctxt "Smallest member of charango family"
 msgid "walaycho"
-msgstr ""
+msgstr "安第斯迷你查朗戈"
 
 #: DB:instrument/name:159
 msgctxt "American scraped idiophone"
@@ -4558,11 +4551,9 @@ msgid "xalam"
 msgstr "哈兰琴"
 
 #: DB:instrument/name:1186
-#, fuzzy
-#| msgid "theremin"
 msgctxt "Mallorcan bagpipe"
 msgid "xeremies"
-msgstr "特雷门琴"
+msgstr "谢瑞米风笛"
 
 #: DB:instrument/name:484
 msgctxt "Chinese end-blown flute"
@@ -4633,7 +4624,7 @@ msgstr "巴西军鼓"
 #: DB:instrument/name:1192
 msgctxt "Large Italian bagpipe"
 msgid "zampogna"
-msgstr ""
+msgstr "赞波尼亚风笛"
 
 #: DB:instrument/name:328
 msgid "zarb"
@@ -4681,9 +4672,6 @@ msgid "ütőgardon"
 msgstr "击弦提琴"
 
 #: DB:instrument/name:827
-#, fuzzy
-#| msgctxt "čelović or csello, counter serbo-croatian plucked stringinstrument"
-#| msgid "čelo"
 msgctxt "čelović or csello, counter Serbo-Croatian plucked string instrument"
 msgid "čelo"
 msgstr "切洛琴"

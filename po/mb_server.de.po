@@ -71,13 +71,14 @@
 # aerozol <aerozol@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # nzure <nzure@leaft.ch>, 2025.
+# aboettger <andreas.boettger@gmx.de>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-05 11:59+0200\n"
-"PO-Revision-Date: 2025-07-26 01:36+0000\n"
-"Last-Translator: nzure <nzure@leaft.ch>\n"
+"POT-Creation-Date: 2025-08-19 12:16+0200\n"
+"PO-Revision-Date: 2025-09-09 03:05+0000\n"
+"Last-Translator: aboettger <andreas.boettger@gmx.de>\n"
 "Language-Team: German <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/de/>\n"
 "Language: de\n"
@@ -85,7 +86,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -7600,7 +7601,7 @@ msgstr ""
 
 #: ../root/artist/ArtistRecordings.js:40
 msgid "Show only standalone recordings"
-msgstr ""
+msgstr "Nur eigenständige Aufnahmen anzeigen"
 
 #: ../root/artist/ArtistRecordings.js:45
 msgid "Show only videos"

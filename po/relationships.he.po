@@ -2,12 +2,13 @@
 # Translators:
 # Avi Markovitz <email address hidden>, 2018-2022
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
+# לוכסן <lochsan.wikiped@gmail.com>, 2025.
+# tuba56 <tuvalbenami@proton.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-04 14:54+0000\n"
-"Last-Translator: reosarevok "
-"<reosarevok@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-13 01:54+0000\n"
+"Last-Translator: tuba56 <tuvalbenami@proton.me>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/he/>\n"
 "Language: he\n"
@@ -16,12 +17,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && "
 "n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"תוכנית לימודים של לרוב בין שנה לשלוש שנים לאחר תואר ראשון המתרכזת בהופעה או "
+"ביצוע."
 
 #. name:social network
 #: DB:link_type/description:218
@@ -108,13 +111,14 @@ msgstr "עמוד Allmusic עבור"
 
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
+#, fuzzy
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
 msgid "Apple Music page for"
-msgstr ""
+msgstr "דף Apple Music עבור"
 
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
@@ -416,6 +420,7 @@ msgid ""
 "Indicates a page that reviews the release (group) in question, whether it be "
 "in text, audio or video form."
 msgstr ""
+"מציין עמוד שמבקר את (קבוצת) ההוצאה המדוברת, בין אם בצורת טקסט, שמע או וידאו."
 
 #. name:schedule
 #: DB:link_type/description:1083
@@ -672,6 +677,7 @@ msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"ציון המלחין של ההוצאה הזאת, כלומר האמן שכתב את המוזיקה (לא בהכרח את המילים)."
 
 #. name:composer
 #: DB:link_type/description:168
@@ -679,6 +685,7 @@ msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"ציון המלחין של היצירה הזאת, כלומר האמן שכתב את המוזיקה (לא בהכרח את המילים)."
 
 #. name:premiere
 #: DB:link_type/description:845
@@ -767,6 +774,8 @@ msgid ""
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
 msgstr ""
+"ציון האדם שעיבד את היצירה הזאת (בדרך כלל ממדיום שונה, כגון יצירת פרוזה לדרמת "
+"אודיו או מחזמר בימתי לסרט מחזמר)."
 
 #. name:translator
 #: DB:link_type/description:871
@@ -784,7 +793,7 @@ msgstr "ציון אדם שתרגם את התמליל/ליברטו עבור הי�
 msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
-msgstr ""
+msgstr "ציון האדם שכתב תסריט מקורי ליצירה דרמטית, כגון דרמת אודיו."
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -800,6 +809,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
+"ציון המו״ל של הוצאה זו. זה <strong>לא</strong> אותו דבר כמו <a href="
+"\"/doc/Label\" target=\"_blank\">חברת התקליטים</a>."
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -807,6 +818,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"ציון המו״ל של יצירה זו. זה <strong>לא</strong> אותו דבר כמו <a href="
+"\"/doc/Label\" target=\"_blank\">חברת התקליטים</a>."
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -844,7 +857,7 @@ msgstr "קישור ארוע לאמן ששימש בו כמנצח."
 msgid ""
 "Links a podcast or broadcast series to an artist who was a host for the "
 "series."
-msgstr ""
+msgstr "קישור הסכת או סדרת שידורים לאמן ששימש כמנחה של הסדרה."
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -1315,114 +1328,76 @@ msgstr "הפניה לעמוד מרשתת מוביי דטהבייס של מקום
 
 #. name:wikidata
 #: DB:link_type/description:358
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this area, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של אזור זה, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לפריט ויקינתונים לאזור זה שישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:352
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this artist, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של אמן זה, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לפריט ויקינתונים לאמן זה, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:790
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this event, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של ארוע זה, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לפריט ויקינתונים לאירוע זה, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:1087
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this series, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של סדרה זו, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לעמוד ויקינתונים לסוגה זו, וישמש לשאיבת תקצירים מיויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:733
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this instrument, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של כלי נגינה זה, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לעמוד ויקינתונים לכלי נגינה זה, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:354
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this label, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של חברת תקליטים זו, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr ""
+"הפניה לפריט ויקינתונים של חברת תקליטים זו, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this place, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של מקום זה, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לפריט ויקינתונים למקום זה, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:353
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries."
 msgstr ""
-"הפניה לעמוד ויקידטה של קבוצת הוצאה זו, וישמש למשיכת תקצירים ותמונות מויקיפדיה"
+"הפניה לעמוד ויקינתונים לקבוצת הוצאה זו, וישמש לשאיבת תקצירים ותמונות "
+"מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:749
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this series, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של סדרה זו, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לפריט ויקינתונים לסדרה זו, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikidata
 #: DB:link_type/description:351
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this work, and will be used to fetch "
-#| "Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "הפניה לעמוד ויקידטה של יצירה זו, וישמש למשיכת תקצירים מויקיפדיה"
+msgstr "הפניה לפריט ויקינתונים ליצירה זו, וישמש לשאיבת תקצירים מוויקיפדיה"
 
 #. name:wikipedia
 #: DB:link_type/description:89
@@ -5714,7 +5689,7 @@ msgstr "שריקה (בפה, לא במשרוקית)"
 #: DB:link_type/link_phrase:749 DB:link_type/link_phrase:733
 #: DB:link_type/link_phrase:358 DB:link_type/reverse_link_phrase:351
 msgid "Wikidata"
-msgstr "ויקידטה"
+msgstr "ויקינתונים"
 
 #. name:wikidata
 #: DB:link_type/link_phrase:351 DB:link_type/reverse_link_phrase:1087
@@ -10603,7 +10578,7 @@ msgstr "שריקה"
 #: DB:link_type/name:594 DB:link_type/name:749 DB:link_type/name:733
 #: DB:link_type/name:358
 msgid "wikidata"
-msgstr "ויקידטה"
+msgstr "ויקינתונים"
 
 #: DB:link_type/name:179 DB:link_type/name:595 DB:link_type/name:355
 #: DB:link_type/name:744 DB:link_type/name:279 DB:link_type/name:731
@@ -11573,7 +11548,7 @@ msgstr "ל־{entity1} עמוד VGMdb ב־{entity0}"
 #. name:wikidata
 #: DB:link_type/long_link_phrase:351
 msgid "{entity1} has a Wikidata page at {entity0}"
-msgstr "ל־{entity1} עמוד ויקידטה ב־{entity0}"
+msgstr "ל־{entity1} עמוד ויקינתונים ב־{entity0}"
 
 #. name:wikipedia
 #: DB:link_type/long_link_phrase:279

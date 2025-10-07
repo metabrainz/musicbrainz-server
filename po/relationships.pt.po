@@ -4,11 +4,12 @@
 # tanio <tanioms3@gmail.com>, 2024.
 # joaodtx <joao.buckb@gmail.com>, 2025.
 # senhordaluz <pedro.luz@hotmail.com.br>, 2025.
+# Manuela Silva <transserv.ptg@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-21 14:20+0000\n"
-"Last-Translator: senhordaluz <pedro.luz@hotmail.com.br>\n"
+"PO-Revision-Date: 2025-09-10 09:18+0000\n"
+"Last-Translator: Manuela Silva <transserv.ptg@gmail.com>\n"
 "Language-Team: Portuguese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pt/>\n"
 "Language: pt\n"
@@ -17,11 +18,10 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
-#, fuzzy
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
 "Um programa de pós-graduação centrado no desempenho, geralmente com duração "
