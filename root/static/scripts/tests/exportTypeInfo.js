@@ -37,21 +37,20 @@ export default function exportTypeInfo(typeInfo, attrInfo) {
     if (item.gid) {
       result[item.gid] = item;
     }
-    switch (item.entityType) {
-      case 'link_attribute_type': {
+    match (item) {
+      {entityType: 'link_attribute_type'} => {
         const children = attrChildren.get(String(item.id));
         if (children) {
           item.children = children;
         }
-        break;
       }
-      case 'link_type':
+      {entityType: 'link_type'} => {
         if (item.children) {
           item.children.forEach((child) => {
             mapItems(result, child);
           });
         }
-        break;
+      }
     }
     return result;
   }

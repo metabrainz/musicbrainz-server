@@ -21,6 +21,7 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 type PreferencesFormT = FormT<{
   +csrf_token: FieldT<string>,
   +datetime_format: FieldT<string>,
+  +email_language: FieldT<string>,
   +email_on_abstain: FieldT<boolean>,
   +email_on_no_vote: FieldT<boolean>,
   +email_on_notes: FieldT<boolean>,
@@ -87,8 +88,8 @@ const subscriptionsEmailPeriodOptions = {
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
-  switch (action.type) {
-    case 'guess-timezone': {
+  match (action) {
+    {type: 'guess-timezone', const options} => {
       let maybeGuess;
       try {
         maybeGuess = Intl.DateTimeFormat().resolvedOptions().timeZone;
@@ -97,7 +98,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       }
       const guess = maybeGuess;
       if (nonEmpty(guess)) {
-        for (const option of action.options) {
+        for (const option of options) {
           if (option.value === guess) {
             newStateCtx
               .set('form', 'field', 'timezone', 'value', guess);
@@ -105,19 +106,13 @@ function reducer(state: StateT, action: ActionT): StateT {
           }
         }
       }
-      break;
     }
-    case 'set-time-format': {
+    {type: 'set-time-format', const timeFormat} => {
       newStateCtx
-        .set('form', 'field', 'datetime_format', 'value', action.timeFormat);
-      break;
+        .set('form', 'field', 'datetime_format', 'value', timeFormat);
     }
-    case 'set-timezone': {
-      newStateCtx.set('form', 'field', 'timezone', 'value', action.timezone);
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
+    {type: 'set-timezone', const timezone} => {
+      newStateCtx.set('form', 'field', 'timezone', 'value', timezone);
     }
   }
   return newStateCtx.final();
@@ -126,6 +121,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 component PreferencesForm(
   form as initialForm: PreferencesFormT,
   timezone_options: MaybeGroupedOptionsT,
+  email_language_options: MaybeGroupedOptionsT,
 ) {
   const [state, dispatch] = React.useReducer(
     reducer,
@@ -209,6 +205,12 @@ component PreferencesForm(
       </fieldset>
       <fieldset>
         <legend>{l('Email')}</legend>
+        <FormRowSelect
+          field={field.email_language}
+          label={addColonText(l('Language to receive emails in'))}
+          options={email_language_options}
+          uncontrolled
+        />
         {addColonText(l('Email me about'))}
         <FormRowCheckbox
           field={field.email_on_no_vote}

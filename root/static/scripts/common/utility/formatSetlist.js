@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import {incrementCounter} from './numbers.js';
 
+type SetlistEntityTypeT = 'artist' | 'work';
+
 const linkRegExp =
   /^\[([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})(?:\|([^\]]+))?\]/i;
 
@@ -39,7 +41,7 @@ export default function formatSetlist(
   const keys = new Map<string, number>();
 
   function setlistLink(
-    entityType: string,
+    entityType: SetlistEntityTypeT,
     entityGid: string,
     content: string,
   ) {
@@ -89,21 +91,21 @@ export default function formatSetlist(
 
     const symbol = rawLine.substring(0, 2);
     const line = rawLine.substring(2);
-    let entityType;
+    let entityType: ?SetlistEntityTypeT;
 
-    switch (symbol) {
+    match (symbol) {
       // Lines starting with @ are artists
-      case '@ ':
+      '@ ' => {
         entityType = 'artist';
-        break;
+      }
 
       // Lines starting with * are works
-      case '* ':
+      '* ' => {
         entityType = 'work';
-        break;
+      }
 
       // Lines starting with # are comments
-      case '# ':
+      '# ' => {
         elements.push(
           <span
             className="comment"
@@ -112,9 +114,11 @@ export default function formatSetlist(
             {decodeSomeHTMLEntities(line)}
           </span>,
         );
-        break;
+      }
 
-      // Lines that don't start with a symbol are ignored
+      _ => {
+        // Lines that don't start with an accepted symbol are ignored
+      }
     }
 
     if (nonEmpty(entityType)) {
@@ -135,19 +139,19 @@ export default function formatSetlist(
 
         if (linkMatch) {
           const [linkMatchText, entityGid, content] = linkMatch;
-          switch (entityType) {
-            case 'artist':
+          match (entityType) {
+            'artist' => {
               elements.push(formatSetlistArtist(
                 decodeSomeHTMLEntities(content),
                 entityGid,
               ));
-              break;
-            case 'work':
+            }
+            'work' => {
               elements.push(formatSetlistWork(
                 decodeSomeHTMLEntities(content),
                 entityGid,
               ));
-              break;
+            }
           }
           lastIndex += linkMatchText.length;
         }
@@ -156,13 +160,13 @@ export default function formatSetlist(
       if (didMatchStartingBracket) {
         elements.push(decodeSomeHTMLEntities(line.substring(lastIndex)));
       } else {
-        switch (entityType) {
-          case 'artist':
+        match (entityType) {
+          'artist' => {
             elements.push(formatSetlistArtist(decodeSomeHTMLEntities(line)));
-            break;
-          case 'work':
+          }
+          'work' => {
             elements.push(formatSetlistWork(decodeSomeHTMLEntities(line)));
-            break;
+          }
         }
       }
     }

@@ -70,7 +70,7 @@ mb_server.pot: $(POTFILES) $(JSFILES) $(TT) $(wildcard extract_pot_templates)
 	@$(GIT_LS_TT) | ./extract_pot_templates | msguniq -w $(MSGWRAP) -s | ./format_extracted_comments > mb_server.pot;
 	@echo "- Update code .pot"
 	@$(GIT_LS_PERL) | xargs xgettext --from-code utf-8 --keyword=__ --keyword=l --keyword=lp:1,2c --keyword=N_lp:1,2c --keyword=N_l --keyword=ln:1,2 --keyword=N_ln:1,2 --keyword=__x --keyword=__nx:1,2 --keyword=__n:1,2 -Lperl -o mb_server.pot --add-comments=translators -j
-	@$(GIT_LS_JS) | xargs ../script/xgettext.js > javascript.pot
+	@$(GIT_LS_JS) | xargs ../bin/babel-node ../script/xgettext.mjs > javascript.pot
 	@msgcat -w $(MSGWRAP) -o mb_server.pot mb_server.pot javascript.pot
 	@rm javascript.pot
 
@@ -78,7 +78,7 @@ statistics.pot: $(STATTT) $(STATJS) $(wildcard extract_pot_db) $(wildcard extrac
 	@echo "Rebuilding the statistics.pot file";
 	@echo "- Update templates .pot";
 	@$(GIT_LS_STATTT) | ./extract_pot_templates | msguniq -w $(MSGWRAP) -s | ./format_extracted_comments > statistics_tmpl.pot;
-	@$(GIT_LS_STATJS) | xargs ../script/xgettext.js > statistics_js.pot
+	@$(GIT_LS_STATJS) | xargs ../bin/babel-node ../script/xgettext.mjs > statistics_js.pot
 	@echo "- Update database .pot";
 	@./extract_pot_db statistics | msguniq -w $(MSGWRAP) -s | ./format_extracted_comments > statistics_db.pot
 	@echo "- Merge";

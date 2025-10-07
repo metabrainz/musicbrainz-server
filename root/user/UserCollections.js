@@ -10,8 +10,7 @@
 import * as React from 'react';
 import type {ColumnOptions} from 'react-table';
 
-import UserAccountLayout, {type AccountLayoutUserT}
-  from '../components/UserAccountLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import useTable from '../hooks/useTable.js';
 import {formatPluralEntityTypeName}

@@ -32,7 +32,7 @@ import ResultsLayout from './ResultsLayout.js';
 
 let linenum = 0;
 
-const buildRecordingColumns = (recording: RecordingWithArtistCreditT) => (
+const buildRecordingColumns = (recording: RecordingT) => (
   <>
     <td>
       <EntityLink entity={recording} />
@@ -62,7 +62,7 @@ const buildTaggerIcon = (
 
 function buildResultWithReleases(
   $c: CatalystContextT,
-  result: SearchResultT<RecordingWithArtistCreditT>,
+  result: SearchResultT<RecordingT>,
 ) {
   const recording = result.entity;
   const score = result.score;
@@ -99,7 +99,7 @@ function buildResultWithReleases(
 
 function buildResult(
   $c: CatalystContextT,
-  result: SearchResultT<RecordingWithArtistCreditT>,
+  result: SearchResultT<RecordingT>,
 ) {
   const recording = result.entity;
   const score = result.score;
@@ -126,7 +126,7 @@ export component RecordingResultsInline(...{
   pager,
   query,
   results,
-}: InlineResultsPropsT<RecordingWithArtistCreditT>) {
+}: InlineResultsPropsT<RecordingT>) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -160,7 +160,7 @@ component RecordingResults(...{
   pager,
   query,
   results,
-}: ResultsPropsT<RecordingWithArtistCreditT>) {
+}: ResultsPropsT<RecordingT>) {
   const $c = React.useContext(CatalystContext);
   linenum = 0;
   return (

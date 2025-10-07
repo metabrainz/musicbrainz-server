@@ -14,7 +14,11 @@ use MusicBrainz::Server::Data::Utils qw(
     type_to_model
 );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
-use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash );
+use MusicBrainz::Server::Edit::Types qw(
+    EnteredFromEntity
+    LinkAttributesArray
+    PartialDateHash
+);
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MooseX::Types::Moose qw( Int Str Bool );
@@ -30,6 +34,7 @@ use MusicBrainz::Server::Translation qw( N_l N_lp );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
@@ -68,6 +73,7 @@ has '+data' => (
                 ],
             ],
         ],
+        entered_from => EnteredFromEntity,
         edit_version => Optional[Int],
     ],
 );
@@ -268,6 +274,7 @@ sub initialize
             },
         },
         edit_version => 2,
+        defined $opts{entered_from} ? (entered_from => $opts{entered_from}) : (),
     });
 }
 

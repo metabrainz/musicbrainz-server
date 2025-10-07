@@ -46,7 +46,7 @@ test('MBS-13588: Phrase groups are highlighted for pending edits regardless of r
     typeID: null,
   };
 
-  const attributes = [
+  const attributes: $ReadOnlyArray<LinkAttrT> = [
     {
       type: {
         gid: '63021302-86cd-4aee-80df-2270d54f4978',

@@ -99,20 +99,14 @@ export type FilterFormT =
   | ReleaseGroupFilterT
   | WorkFilterT;
 
-function getSubmitText(type: string) {
-  switch (type) {
-    case 'event':
-      return l('Filter events');
-    case 'recording':
-      return l('Filter recordings');
-    case 'release':
-      return l('Filter releases');
-    case 'release_group':
-      return l('Filter release groups');
-    case 'work':
-      return l('Filter works');
-  }
-  return '';
+function getSubmitText(form: FilterFormT) {
+  return match (form.entity_type) {
+    'event' => l('Filter events'),
+    'recording' => l('Filter recordings'),
+    'release' => l('Filter releases'),
+    'release_group' => l('Filter release groups'),
+    'work' => l('Filter works'),
+  };
 }
 
 component ArtistCreditField(
@@ -432,7 +426,7 @@ component FilterForm(
               <td>
                 <span className="buttons">
                   <button className="submit positive" type="submit">
-                    {getSubmitText(form.entity_type)}
+                    {getSubmitText(form)}
                   </button>
                   <button
                     className="submit negative"

@@ -22,18 +22,18 @@ import type {
 
 const itemIndexes:
   WeakMap<
-    // $FlowIgnore[unclear-type]
+    // $FlowFixMe[unclear-type]
     $ReadOnlyArray<ItemT<any>>,
     Map<
       string, // gram
-      // $FlowIgnore[unclear-type]
+      // $FlowFixMe[unclear-type]
       Set<OptionItemT<any>>, // items containing `gram`
     >,
   > = new WeakMap();
 
 // The search terms for an item are cached for use in `weightEntry` below.
 const itemSearchTerms:
-  // $FlowIgnore[unclear-type]
+  // $FlowFixMe[unclear-type]
   WeakMap<OptionItemT<any>, $ReadOnlyArray<string>> = new WeakMap();
 
 function normalize(input: string): string {

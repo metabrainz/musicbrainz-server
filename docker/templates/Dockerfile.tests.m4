@@ -44,7 +44,6 @@ run_with_apt_cache \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
     systemctl disable rabbitmq-server && \
-    install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
     python3.13 -m ensurepip --upgrade && \
@@ -54,6 +53,8 @@ run_with_apt_cache \
     # Primarily needed to run rabbitmqctl.
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
+
+install_ts
 
 ENV JAVA_HOME=/usr/local/jdk \
     PATH=/usr/local/jdk/bin:$PATH \
@@ -177,7 +178,7 @@ RUN update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 100
 ARG SOLR_VERSION=9.7.0
 ARG SOLR_SRC_SUM=a80417a79c8371d2049868573927c587b4a5b7b37e938ca6e64e8a8842449f49eddc987968ddad5d6b6b1f4395990c1edc4576a884b3a62c4fbcd97091a659d9
 
-RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+RUN curl -sSLO https://data.metabrainz.org/pub/musicbrainz/solr/solr-$SOLR_VERSION.tgz && \
     echo "$SOLR_SRC_SUM *solr-$SOLR_VERSION.tgz" | sha512sum --strict --check - && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \

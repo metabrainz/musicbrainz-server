@@ -26,7 +26,7 @@ component _DialogTargetType(
   function handleTargetTypeChange(event: SyntheticEvent<HTMLSelectElement>) {
     dispatch({
       source,
-      // $FlowIgnore[unclear-type]
+      // $FlowFixMe[unclear-type]
       targetType: (event.currentTarget.value: any),
       type: 'update-target-type',
     });

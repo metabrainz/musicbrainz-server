@@ -146,7 +146,6 @@ Download:    http://findicons.com/icon/80718/monitor (original, cropped in Music
 
 Images:
 
-    icons/video.png
     icons/magnet.png
     icons/timeline.png (original: ai-line-chart, colorized/edited by CatQuest/reosarevok)
     icons/picture.png (original: /androidicons-1.0/assets/holo_light/hdpi/ic_action_picture.png)
@@ -230,4 +229,14 @@ Images:
 
     icons/new_tab.svg (original: https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid)
     
+----------------------------------------------------------------------------
+
+Source:      Piper McCorkle (piperswe)
+License:     CC0
+Authors:     Piper McCorkle (piperswe)
+
+Images:
+
+    icons/video.svg
+
 ----------------------------------------------------------------------------

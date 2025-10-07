@@ -35,8 +35,8 @@ test 'Release page filtering' => sub {
     );
 
     $mech->get_ok(
-        '/label/5a584032-dcef-41bb-9f8b-19540116fb1c?filter.name=Symphony',
-        'Fetched label releases page with name filter "Symphony"',
+        '/label/5a584032-dcef-41bb-9f8b-19540116fb1c?filter.name=ピアノ協奏曲／交響曲第2番',
+        'Fetched label releases page with name filter "ピアノ協奏曲／交響曲第2番"',
     );
 
     $tx = test_xpath_html($mech->content);
@@ -47,8 +47,8 @@ test 'Release page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Piano Concerto / Symphony no. 2',
-        'The entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -115,8 +115,8 @@ test 'Release page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Piano Concerto / Symphony no. 2',
-        'The first entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The first entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(
@@ -149,8 +149,8 @@ test 'Release page filtering' => sub {
     );
     $tx->is(
         '//table[contains(@class, "tbl")]/tbody/tr[1]/td[1]',
-        'Piano Concerto / Symphony no. 2',
-        'The entry is named "Piano Concerto / Symphony no. 2"',
+        'ピアノ協奏曲／交響曲第2番',
+        'The entry is named "ピアノ協奏曲／交響曲第2番"',
     );
 
     $mech->get_ok(

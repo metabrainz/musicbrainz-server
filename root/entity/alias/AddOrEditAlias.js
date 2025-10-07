@@ -8,10 +8,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import LayoutComponent from '../../components/LayoutComponent.js';
 import manifest from '../../static/manifest.mjs';
 import AliasEditForm from '../../static/scripts/alias/AliasEditForm.js';
 import {ENTITIES} from '../../static/scripts/common/constants.js';
-import chooseLayoutComponent from '../../utility/chooseLayoutComponent.js';
 
 import type {AliasEditFormT} from './types.js';
 
@@ -23,7 +23,6 @@ component AddOrEditAlias(
   locales: SelectOptionsT,
   type: EntityWithAliasesTypeT,
 ) {
-  const LayoutComponent = chooseLayoutComponent(type);
   const header = formType === 'add'
     ? lp('Add alias', 'header')
     : lp('Edit alias', 'header');

@@ -26,7 +26,7 @@ export function getCatalystContext(): SanitizedCatalystContextT {
 }
 
 export function maybeGetCatalystContext(): ?SanitizedCatalystContextT {
-  // $FlowIgnore[prop-missing]
+  // $FlowFixMe[prop-missing]
   return globalThis[GLOBAL_JS_NAMESPACE]?.$c;
 }
 
@@ -50,22 +50,20 @@ export function getSourceEntityDataForRelationshipEditor(): RelatableEntityT {
     'Source entity data not found in global Catalyst stash',
   );
   if (source.isNewEntity) {
-    switch (source.entityType) {
-      case 'series': {
+    match (source) {
+      {entityType: 'series', ...} => {
         source = createSeriesObject({
           orderingTypeID: parseInt(
             source.orderingTypeID,
             10,
           ) || 1,
         });
-        break;
       }
-      default: {
+      _ => {
         source = createRelatableEntityObject(
           source.entityType,
           {name: source.name ?? ''},
         );
-        break;
       }
     }
   }

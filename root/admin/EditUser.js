@@ -9,9 +9,7 @@
 
 import * as React from 'react';
 
-import UserAccountLayout, {
-  type AccountLayoutUserT,
-} from '../components/UserAccountLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';

@@ -84,12 +84,14 @@ my @all = qw(
     PseudoReleasesWithCoverArt
     RecordingsWithoutVACredit
     RecordingsWithoutVALink
+    RecordingsWithDuplicateWorks
     RecordingsWithEarliestReleaseRelationships
     RecordingsWithVaryingTrackLengths
     RecordingTrackDifferentName
     RecordingsWithFutureDates
     ReleasedTooEarly
     ReleasedTooEarlyDigital
+    ReleasedTooEarlyForLabel
     ReleaseGroupsWithoutVACredit
     ReleaseGroupsWithoutVALink
     ReleaseLabelSameArtist
@@ -196,6 +198,7 @@ use MusicBrainz::Server::Report::PossibleCollaborations;
 use MusicBrainz::Server::Report::PseudoReleasesWithCoverArt;
 use MusicBrainz::Server::Report::RecordingsWithoutVACredit;
 use MusicBrainz::Server::Report::RecordingsWithoutVALink;
+use MusicBrainz::Server::Report::RecordingsWithDuplicateWorks;
 use MusicBrainz::Server::Report::RecordingsWithEarliestReleaseRelationships;
 use MusicBrainz::Server::Report::RecordingsWithVaryingTrackLengths;
 #use MusicBrainz::Server::Report::RecordingsSameNameDifferentArtistsSameName;
@@ -203,6 +206,7 @@ use MusicBrainz::Server::Report::RecordingTrackDifferentName;
 use MusicBrainz::Server::Report::RecordingsWithFutureDates;
 use MusicBrainz::Server::Report::ReleasedTooEarly;
 use MusicBrainz::Server::Report::ReleasedTooEarlyDigital;
+use MusicBrainz::Server::Report::ReleasedTooEarlyForLabel;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVACredit;
 use MusicBrainz::Server::Report::ReleaseGroupsWithoutVALink;
 use MusicBrainz::Server::Report::ReleaseLabelSameArtist;

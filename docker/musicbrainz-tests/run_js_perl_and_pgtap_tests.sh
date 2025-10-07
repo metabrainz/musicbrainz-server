@@ -25,7 +25,7 @@ echo OK
 
 sv_start_if_down chrome postgresql redis
 
-sudo -E -H -u musicbrainz carton exec -- ./bin/sucrase-node \
+sudo -E -H -u musicbrainz carton exec -- ./bin/babel-node \
     t/web.js \
     | tee >(./node_modules/.bin/tap-junit > ./junit_output/js_web.xml) \
     | ./node_modules/.bin/tap-difflet

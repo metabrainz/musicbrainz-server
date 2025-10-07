@@ -20,22 +20,13 @@ import {
 export default function getVoteName(
   vote: VoteOptionT,
 ): string {
-  switch (vote) {
-    case EDIT_VOTE_ABSTAIN:
-      return 'Abstain';
-    case EDIT_VOTE_ADMIN_APPROVE:
-      return 'Admin approval';
-    case EDIT_VOTE_ADMIN_REJECT:
-      return 'Admin rejection';
-    case EDIT_VOTE_APPROVE:
-      return 'Approve';
-    case EDIT_VOTE_YES:
-      return 'Yes';
-    case EDIT_VOTE_NO:
-      return 'No';
-    case EDIT_VOTE_NONE:
-      return 'None';
-    default:
-      throw new Error('Unknown vote type: ' + String(vote));
-  }
+  return match (vote) {
+    EDIT_VOTE_ABSTAIN => 'Abstain',
+    EDIT_VOTE_ADMIN_APPROVE => 'Admin approval',
+    EDIT_VOTE_ADMIN_REJECT => 'Admin rejection',
+    EDIT_VOTE_APPROVE => 'Approve',
+    EDIT_VOTE_YES => 'Yes',
+    EDIT_VOTE_NO => 'No',
+    EDIT_VOTE_NONE => 'None',
+  };
 }

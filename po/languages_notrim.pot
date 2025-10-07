@@ -16778,7 +16778,7 @@ msgstr ""
 msgid "Kuanhua"
 msgstr ""
 
-#. frequency:0 iso_code_3:ksd
+#. frequency:1 iso_code_3:ksd
 #: DB:language/name:3525
 msgid "Kuanua"
 msgstr ""

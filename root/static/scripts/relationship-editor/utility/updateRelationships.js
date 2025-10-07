@@ -169,8 +169,8 @@ const updateLinkPhraseGroup = (
   );
 
   for (const update of relationshipUpdates.updates) {
-    switch (update.type) {
-      case ADD_RELATIONSHIP: {
+    match (update) {
+      {type: ADD_RELATIONSHIP, ...} as update => {
         newRelationships = tree.update(
           newRelationships,
           update.relationship,
@@ -178,9 +178,8 @@ const updateLinkPhraseGroup = (
           update.onConflict ?? onConflictThrowError,
           onNotFoundUseGivenValue,
         );
-        break;
       }
-      case REMOVE_RELATIONSHIP: {
+      {type: REMOVE_RELATIONSHIP, ...} as update => {
         const {
           relationship: relationshipState,
           throwIfNotExists,
@@ -193,7 +192,6 @@ const updateLinkPhraseGroup = (
           relationshipState,
           cmpRelationships,
         );
-        break;
       }
     }
   }
@@ -394,7 +392,7 @@ export default function updateRelationships(
     allUpdates?.length
   ) {
     updateReleaseRelationships(
-      // $FlowIgnore[unclear-type]
+      // $FlowFixMe[unclear-type]
       (writableRootState: any),
       allUpdates,
     );

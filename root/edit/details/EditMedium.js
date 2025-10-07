@@ -21,7 +21,7 @@ import MediumLink
   from '../../static/scripts/common/components/MediumLink.js';
 import PregapTrackIcon
   from '../../static/scripts/common/components/PregapTrackIcon.js';
-import {artistCreditsAreEqual}
+import {artistCreditsAreEqual, nonEmptyArtistCredit}
   from '../../static/scripts/common/immutable-entities.js';
 import formatTrackLength
   from '../../static/scripts/common/utility/formatTrackLength.js';
@@ -489,11 +489,15 @@ component EditMedium(edit: EditMediumEditT) {
               <tbody>
                 {recordingChanges.map((change, index) => {
                   const oldTrack = change.old_track;
-                  const oldArtistCredit = oldTrack?.recording?.artistCredit ??
-                    oldTrack?.artistCredit;
+                  const oldArtistCredit = [
+                    oldTrack?.recording?.artistCredit,
+                    oldTrack?.artistCredit,
+                  ].find(nonEmptyArtistCredit);
                   const newTrack = change.new_track;
-                  const newArtistCredit = newTrack.recording.artistCredit ??
-                    newTrack.artistCredit;
+                  const newArtistCredit = [
+                    newTrack?.recording?.artistCredit,
+                    newTrack?.artistCredit,
+                  ].find(nonEmptyArtistCredit);
                   const allowNew = newTrack && !newTrack.recording.id;
 
                   return (

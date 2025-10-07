@@ -306,7 +306,7 @@ test('merging duplicate relationships', function (t) {
 test('splitRelationshipByAttributes', function (t) {
   t.plan(19);
 
-  const lyre = {
+  const lyre: LinkAttrT = {
     type: {
       gid: '21bd4d63-a75a-4022-abd3-52ba7487c2de',
     },
@@ -314,7 +314,7 @@ test('splitRelationshipByAttributes', function (t) {
     typeName: 'lyre',
   };
 
-  const zither = {
+  const zither: LinkAttrT = {
     type: {
       gid: 'c6a133d5-c1e0-47d6-bc30-30d102a78893',
     },
@@ -346,7 +346,7 @@ test('splitRelationshipByAttributes', function (t) {
   };
   Object.freeze(existingRelationship);
 
-  const drums = {
+  const drums: LinkAttrT = {
     type: {
       gid: '3bccb7eb-cbca-42cd-b0ac-a5e959df7221',
     },
@@ -402,7 +402,7 @@ test('splitRelationshipByAttributes', function (t) {
       existingRelationship.attributes ?? tree.empty,
       tree.fromDistinctAscArray([
         // Add a new credit to the existing lyre attribute.
-        {...lyre, credited_as: 'LYRE'},
+        {...lyre, credited_as: 'LYRE'} as LinkAttrT,
         drums,
       ].sort(compareLinkAttributeIds)),
       compareLinkAttributeIds,
@@ -481,7 +481,7 @@ test('splitRelationshipByAttributes', function (t) {
     linkOrder: 0,
     linkTypeID: 798,
   }: RelationshipStateT);
-  // $FlowIgnore[cannot-write]
+  // $FlowExpectedError[cannot-write]
   existingRelationship2._original = existingRelationship2;
   Object.freeze(existingRelationship2);
 
@@ -616,7 +616,7 @@ test('splitRelationshipByAttributes', function (t) {
   };
   Object.freeze(existingRelationship4);
 
-  const leadVocals = {
+  const leadVocals: LinkAttrT = {
     type: {
       gid: '8e2a3255-87c2-4809-a174-98cb3704f1a5',
     },
@@ -667,7 +667,7 @@ test('splitRelationshipByAttributes', function (t) {
 
   // This test ensures tasks are treated the same as instruments and vocals.
 
-  const task = {
+  const task: LinkAttrT = {
     text_value: 'dancer',
     type: {
       gid: '39867b3b-0f1e-40d5-b602-4f3936b7f486',

@@ -8,8 +8,7 @@
  */
 
 import TagEntitiesList from '../components/TagEntitiesList.js';
-import UserAccountLayout, {type AccountLayoutUserT}
-  from '../components/UserAccountLayout.js';
+import UserAccountLayout from '../components/UserAccountLayout.js';
 
 import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 

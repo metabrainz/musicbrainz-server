@@ -15,11 +15,14 @@ const EQUAL: 2 = 2;
 const DELETE: 3 = 3;
 const CHANGE: 4 = 4;
 
-export type EditType =
-  | typeof CHANGE
+export type NonChangeEditType =
   | typeof DELETE
   | typeof EQUAL
   | typeof INSERT;
+
+export type EditType =
+  | NonChangeEditType
+  | typeof CHANGE;
 
 const CLASS_MAP: {+[editType: EditType]: string} = {
   [CHANGE]: '',
@@ -28,7 +31,7 @@ const CLASS_MAP: {+[editType: EditType]: string} = {
   [INSERT]: 'diff-only-b',
 };
 
-const FAST_DIFF_CHANGE_TYPE_MAP = new Map<number, EditType>([
+const FAST_DIFF_CHANGE_TYPE_MAP = new Map<number, NonChangeEditType>([
   [fastDiff.INSERT, INSERT],
   [fastDiff.EQUAL, EQUAL],
   [fastDiff.DELETE, DELETE],
@@ -48,7 +51,7 @@ export type StringEditDiff = {
   +type: EditType,
 };
 
-function getChangeType<T>(diff: GenericEditDiff<T>): EditType {
+function getChangeType<T>(diff: GenericEditDiff<T>): NonChangeEditType {
   if (!diff.added && !diff.removed) {
     return EQUAL;
   }
@@ -71,7 +74,7 @@ export default function editDiff<T>(
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
 
-    let changeType: EditType = getChangeType<T>(diff);
+    const changeType = getChangeType<T>(diff);
 
     let nextDiff;
     if ((i + 1) < diffs.length) {
@@ -81,28 +84,27 @@ export default function editDiff<T>(
     let oldItems: $ReadOnlyArray<T> = [];
     let newItems: $ReadOnlyArray<T> = [];
 
-    switch (changeType) {
-      case INSERT:
+    let normalizedChangeType: EditType = changeType;
+    match (changeType) {
+      INSERT => {
         newItems = diff.items;
-        break;
-
-      case EQUAL:
+      }
+      EQUAL => {
         oldItems = diff.items;
         newItems = diff.items;
-        break;
-
-      case DELETE:
+      }
+      DELETE => {
         oldItems = diff.items;
 
         if (nextDiff && getChangeType(nextDiff) === INSERT) {
           i++; // skip next
-          changeType = CHANGE;
+          normalizedChangeType = CHANGE;
           newItems = nextDiff.items;
         }
-        break;
+      }
     }
 
-    normalized.push({newItems, oldItems, type: changeType});
+    normalized.push({newItems, oldItems, type: normalizedChangeType});
   }
 
   return normalized;
@@ -119,7 +121,8 @@ export function stringEditDiff(
   for (let i = 0; i < diffs.length; i++) {
     const diff = diffs[i];
 
-    let changeType: ?EditType = FAST_DIFF_CHANGE_TYPE_MAP.get(diff[0]);
+    const changeType: ?NonChangeEditType =
+      FAST_DIFF_CHANGE_TYPE_MAP.get(diff[0]);
     invariant(
       changeType != null,
       'fast-diff change type is null or undefined',
@@ -133,31 +136,30 @@ export function stringEditDiff(
     let newText = '';
     let oldText = '';
 
-    switch (changeType) {
-      case INSERT:
+    let normalizedChangeType: EditType = changeType;
+    match (changeType) {
+      INSERT => {
         newText = diff[1];
-        break;
-
-      case EQUAL:
+      }
+      EQUAL => {
         newText = diff[1];
         oldText = diff[1];
-        break;
-
-      case DELETE:
+      }
+      DELETE => {
         oldText = diff[1];
 
         if (nextDiff) {
           const nextChangeType = FAST_DIFF_CHANGE_TYPE_MAP.get(nextDiff[0]);
           if (nextChangeType === INSERT) {
             i++; // skip next
-            changeType = CHANGE;
+            normalizedChangeType = CHANGE;
             newText = nextDiff[1];
           }
         }
-        break;
+      }
     }
 
-    normalized.push({oldText, newText, type: changeType});
+    normalized.push({oldText, newText, type: normalizedChangeType});
   }
 
   return normalized;

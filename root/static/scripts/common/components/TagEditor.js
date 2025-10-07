@@ -455,11 +455,11 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
       },
 
       select(this: HTMLInputElement, event, ui) {
-        // $FlowIgnore[object-this-reference]
+        // $FlowFixMe[object-this-reference]
         const terms = splitTags(this.value);
         terms.pop();
         terms.push(ui.item.value, '');
-        // $FlowIgnore[object-this-reference]
+        // $FlowFixMe[object-this-reference]
         this.value = terms.join(', ');
         return false;
       },

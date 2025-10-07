@@ -56,24 +56,20 @@ function createInitialState(form: GenreFormT) {
 
 function reducer(state: StateT, action: ActionT): StateT {
   let newState = state;
-  switch (action.type) {
-    case 'update-name': {
+  match (action) {
+    {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
         field: state.form.field.name,
         guessCaseOptions: state.guessCaseOptions,
         isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
       });
-      runNameReducer(nameStateCtx, action.action);
+      runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.read();
       newState = mutate(state)
         .set('form', 'field', 'name', nameState.field)
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen)
         .final();
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
     }
   }
   return newState;

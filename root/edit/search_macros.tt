@@ -453,10 +453,17 @@
 
 [% MACRO predicate_url(field, field_contents) WRAPPER wfield predicate="url" %]
   [% operators([ [ '=', l('is') ]
-                 [ '!=', l('is not') ] ], field_contents) %]
+                 [ '!=', l('is not') ]
+                 [ '~', l('matches')]
+                 [ '!~', l('does not match')]
+               ], field_contents) %]
 
   <span class="arg">
     <input type="text" size="75" class="name" name="args.0" value="[% html_escape(field_contents.argument(0)) %]" />
+  </span>
+
+  <span>
+    (<a href="[% c.uri_for('/doc/How_to_Use_the_Edit_Search#URL') %]" target="_blank">[% l('help') %]</a>)
   </span>
 [% END %]
 

@@ -56,15 +56,14 @@ export function runReducer(
   state: CowContext<StateT>,
   action: ActionT,
 ): void {
-  switch (action.type) {
-    case 'show-pending-errors': {
+  match (action) {
+    {type: 'show-pending-errors'} => {
       applyPendingErrors(state);
-      break;
     }
-    case 'set-date': {
-      const newYear = action.date.year;
-      const newMonth = action.date.month;
-      const newDay = action.date.day;
+    {type: 'set-date', const date} => {
+      const newYear = date.year;
+      const newMonth = date.month;
+      const newDay = date.day;
       if (newYear != null) {
         state.set('field', 'year', 'value', newYear);
       }
@@ -75,7 +74,6 @@ export function runReducer(
         state.set('field', 'day', 'value', newDay);
       }
       validateDate(state);
-      break;
     }
   }
 }
@@ -107,7 +105,7 @@ component PartialDateInput(
       fieldName: 'year' | 'month' | 'day',
     ) => {
       controlledProps.dispatch({
-        // $FlowIssue[incompatible-indexer]
+        // $FlowExpectedError[incompatible-indexer]
         date: {[fieldName]: event.currentTarget.value},
         type: 'set-date',
       });

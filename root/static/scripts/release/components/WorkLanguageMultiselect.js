@@ -93,7 +93,7 @@ export function createSelectedLanguageValue(
 }
 
 export function createEmptyLanguageValue(
-  newState: {...MultiselectLanguageStateT, ...},
+  newState: $ReadOnly<{...MultiselectLanguageStateT, ...}>,
 ): MultiselectLanguageValueStateT {
   return createSelectedLanguageValue(newState.staticItems, null);
 }
@@ -130,7 +130,7 @@ component _WorkLanguageMultiselect(
 }
 
 const WorkLanguageMultiselect: typeof _WorkLanguageMultiselect =
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   React.memo(_WorkLanguageMultiselect);
 
 export default WorkLanguageMultiselect;

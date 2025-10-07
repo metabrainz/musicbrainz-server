@@ -43,7 +43,7 @@ with 'MusicBrainz::Server::Controller::Role::Collection' => {
     entity_type => 'release',
 };
 
-use List::AllUtils qw( first nsort_by uniq );
+use List::AllUtils qw( first nsort_by uniq uniq_by );
 use MusicBrainz::Server::Translation qw( l N_l );
 use MusicBrainz::Server::Validation qw(
     is_integer
@@ -395,7 +395,8 @@ sub _merge_on_creation {
 
         my $new_rg_id = $new->release_group->id;
         # We want to make sure we're merging only different RGs!
-        my @old_entities = map +{ id => $_->id, name => $_->name },
+        my @old_entities = uniq_by { $_->{id} }
+            map +{ id => $_->id, name => $_->name },
             grep { $_->id != $new_rg_id }
             map { $entities_by_id->{$_}->release_group }
             @$old_ids;

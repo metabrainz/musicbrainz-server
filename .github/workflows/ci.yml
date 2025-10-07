@@ -9,7 +9,10 @@ on:
       - translations
 
 env:
-  TESTS_IMAGE_TAG: v-2025-08-04
+  MTCAPTCHA_PUBLIC_KEY: ${{ secrets.MTCAPTCHA_PUBLIC_KEY }}
+  MTCAPTCHA_PRIVATE_KEY: ${{ secrets.MTCAPTCHA_PRIVATE_KEY }}
+  MTCAPTCHA_PRIVATE_TEST_KEY: ${{ secrets.MTCAPTCHA_PRIVATE_TEST_KEY }}
+  TESTS_IMAGE_TAG: v-2025-10-06.1
 
 jobs:
   build-tests-image:

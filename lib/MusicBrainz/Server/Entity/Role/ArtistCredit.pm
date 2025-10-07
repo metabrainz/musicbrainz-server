@@ -18,7 +18,7 @@ around TO_JSON => sub {
     my ($orig, $self) = @_;
 
     my $json = $self->$orig;
-    my $artist_credit = $self->artist_credit;
+    my $artist_credit = $self->artist_credit // MusicBrainz::Server::Entity::ArtistCredit->new;
 
     if ($artist_credit) {
         $json->{artist} = $artist_credit->name;

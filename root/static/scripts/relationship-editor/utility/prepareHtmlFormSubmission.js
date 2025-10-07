@@ -168,7 +168,7 @@ export function appendHiddenRelationshipInputs(
   invariant(page);
 
   const submitButton: HTMLButtonElement | null =
-    // $FlowIgnore[incompatible-type]
+    // $FlowFixMe[incompatible-type]
     page.querySelector('button[type=submit');
   if (submitButton) {
     submitButton.disabled = true;

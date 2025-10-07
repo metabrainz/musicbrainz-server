@@ -54,14 +54,14 @@ function _getStoredMap(): RecentEntitiesT {
 
 function _getGidOrId(object: {...}): string | null {
   if (Object.hasOwn(object, 'gid')) {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     const gid = object.gid;
     if (typeof gid === 'string') {
       return gid;
     }
   }
   if (Object.hasOwn(object, 'id')) {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     const id = object.id;
     /*
      * This shouldn't check `isDatabaseRowId`, because we want pending
@@ -78,9 +78,9 @@ function _getGidOrId(object: {...}): string | null {
 
 function _getRecentEntityIds(
   key: string,
+  storedMap?: RecentEntitiesT = _getStoredMap(),
 ): Set<string> {
   const ids: Set<string> = new Set();
-  const storedMap = _getStoredMap();
   const storedValueList = storedMap[key];
 
   if (storedValueList != null && Array.isArray(storedValueList)) {
@@ -133,12 +133,37 @@ function _filterFakeIds(
   return validIds;
 }
 
+function _replaceRecentEntityIds(
+  key: string,
+  replacements: Map<string, ?string>,
+): void {
+  _setRecentEntityIds(
+    key,
+    storedMap => new Set(
+      Array.from(_getRecentEntityIds(key, storedMap))
+        .reduce<Array<string>>((accum, existingId) => {
+          if (replacements.has(existingId)) {
+            const newId = replacements.get(existingId);
+            if (nonEmpty(newId)) {
+              accum.push(newId);
+            }
+          } else {
+            accum.push(existingId);
+          }
+          return accum;
+        }, []),
+    ),
+  );
+}
+
 function _setRecentEntityIds(
   key: string,
-  ids: Set<string> | null,
+  ids: Set<string> | ((RecentEntitiesT) => Set<string>),
 ): void {
   const storedMap = _getStoredMap();
-  storedMap[key] = ids ? _filterFakeIds(ids) : [];
+  storedMap[key] = _filterFakeIds(
+    typeof ids === 'function' ? ids(storedMap) : ids,
+  );
 
   localStorage(
     'recentAutocompleteEntities',
@@ -149,7 +174,7 @@ function _setRecentEntityIds(
 export function clearRecentItems(
   key: string,
 ): void {
-  _setRecentEntityIds(key, null);
+  _setRecentEntityIds(key, new Set());
   _recentItemsCache.set(key, []);
 }
 
@@ -164,7 +189,7 @@ export function getRecentItems<T: EntityItemT>(
     cachedList = [];
     _recentItemsCache.set(key, cachedList);
   }
-  // $FlowIgnore[incompatible-return]
+  // $FlowFixMe[incompatible-type]
   return cachedList;
 }
 
@@ -172,21 +197,18 @@ function getEntityName(
   entity: EntityItemT,
   isLanguageForWorks?: boolean,
 ): string {
-  switch (entity.entityType) {
-    case 'language': {
-      return localizeLanguageName(entity, isLanguageForWorks);
-    }
-    case 'link_type': {
-      return formatLinkTypePhrases(entity);
-    }
-    default: {
-      return entity.name;
-    }
-  }
+  return match (entity) {
+    {entityType: 'language', ...} as entity => localizeLanguageName(
+      entity,
+      isLanguageForWorks,
+    ),
+    {entityType: 'link_type', ...} as entity => formatLinkTypePhrases(entity),
+    _ => entity.name,
+  };
 }
 
 const _recentItemsRequests =
-  // $FlowIgnore[unclear-type]
+  // $FlowFixMe[unclear-type]
   new Map<string, Promise<$ReadOnlyArray<OptionItemT<any>>>>();
 
 export function getOrFetchRecentItems<T: EntityItemT>(
@@ -218,7 +240,7 @@ export function getOrFetchRecentItems<T: EntityItemT>(
 
     // Convert ids to an array since we delete in the loop.
     for (const id of Array.from(ids)) {
-      // $FlowIgnore[incompatible-type]
+      // $FlowFixMe[incompatible-type]
       const entity: ?T = linkedEntities[entityType]?.[id];
       if (entity) {
         pushItem({
@@ -234,6 +256,7 @@ export function getOrFetchRecentItems<T: EntityItemT>(
 
   if (ids.size) {
     const rowIds = _filterFakeIds(ids);
+    const idReplacements = new Map<string, ?string>();
     if (rowIds.length) {
       let fetchPromise = _recentItemsRequests.get(key);
       if (fetchPromise) {
@@ -262,16 +285,34 @@ export function getOrFetchRecentItems<T: EntityItemT>(
           }
 
           const results = data.results;
+          const seenIds = new Set<number>();
 
           for (const id of ids) {
             const entity = results[id];
             if (entity && entity.entityType === entityType) {
-              pushItem({
-                entity,
-                id: String(entity.id) + '-recent',
-                name: getEntityName(entity),
-                type: 'option',
-              });
+              if (isGuid(id) && id !== entity.gid) {
+                // The MBID was redirected due to a merge.
+                idReplacements.set(id, entity.gid);
+              }
+              /*
+               * In the unlikely event that we're storing two MBIDs that
+               * resolve to the same entity, ensure it's only displayed once.
+               */
+              if (!seenIds.has(entity.id)) {
+                pushItem({
+                  entity,
+                  id: String(entity.id) + '-recent',
+                  name: getEntityName(entity),
+                  type: 'option',
+                });
+                seenIds.add(entity.id);
+              }
+            } else {
+              /*
+               * No entity was found for this ID, or the entity type doesn't
+               * match, so we should remove it.
+               */
+              idReplacements.set(id, null);
             }
           }
 
@@ -279,6 +320,9 @@ export function getOrFetchRecentItems<T: EntityItemT>(
         })
         .finally(() => {
           _recentItemsRequests.delete(key);
+          if (idReplacements.size) {
+            _replaceRecentEntityIds(key, idReplacements);
+          }
         });
 
       _recentItemsRequests.set(key, fetchPromise);

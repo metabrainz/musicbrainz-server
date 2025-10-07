@@ -559,7 +559,10 @@ sub load_relationships {
     if ($inc->has_rels)
     {
         my $types = $inc->get_rel_types();
-        my @rels = $c->model('Relationship')->load_subset($types, @for);
+        my @rels = $c->model('Relationship')->load_subset(
+            target_types => $types,
+            source_objs => \@for,
+        );
 
         my @entities_with_rels = @for;
 
@@ -573,7 +576,10 @@ sub load_relationships {
         {
             push(@entities_with_rels, @works);
             # Avoid returning recording-work relationships for other recordings
-            $c->model('Relationship')->load_subset_cardinal($types, @works);
+            $c->model('Relationship')->load_subset_cardinal(
+                target_types => $types,
+                source_objs => \@works,
+            );
         }
         $self->linked_works($c, $stash, \@works);
 
