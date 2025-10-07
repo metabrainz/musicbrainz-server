@@ -30,10 +30,10 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type PropsT = {
-  +beginArea: AreaFieldT,
+  +beginAreaField: AreaFieldT,
   +children?: React.Node,
   +disabled: boolean,
-  +endArea: AreaFieldT,
+  +endAreaField: AreaFieldT,
   +endedLabel?: string,
   +initialDate: DatePeriodFieldT,
 };
@@ -80,20 +80,20 @@ function createAreaState(
 }
 
 type CreateInitialStatePropsT = {
-  +beginArea: AreaFieldT,
-  +endArea: AreaFieldT,
+  +beginAreaField: AreaFieldT,
+  +endAreaField: AreaFieldT,
   +initialDate: DatePeriodFieldT,
 };
 
 function createInitialState({
-  beginArea,
-  endArea,
+  beginAreaField,
+  endAreaField,
   initialDate,
 }: CreateInitialStatePropsT): StateT {
   return {
-    beginArea: createAreaState(l('Begin area'), beginArea),
+    beginArea: createAreaState(l('Begin area'), beginAreaField),
     date: initialDate,
-    endArea: createAreaState(l('End area'), endArea),
+    endArea: createAreaState(l('End area'), endAreaField),
   };
 }
 
@@ -127,18 +127,23 @@ component _HydratedArtistDateRangeFieldset(
   disabled: boolean = false,
   endedLabel?: string,
   initialDate: DatePeriodFieldT,
-  beginArea: AreaFieldT,
-  endArea: AreaFieldT,
+  beginAreaField: AreaFieldT,
+  endAreaField: AreaFieldT,
 ) {
   const [state, dispatch] = React.useReducer(
     reducer,
     {
-      beginArea,
-      endArea,
+      beginAreaField,
+      endAreaField,
       initialDate,
     },
     createInitialState,
   );
+
+  const {
+    beginArea,
+    endArea,
+  } = state;
 
   const beginAreaDispatch = React.useCallback((
     action: AutocompleteActionT<AreaT>,
@@ -164,16 +169,16 @@ component _HydratedArtistDateRangeFieldset(
         <FormRow>
           <Autocomplete2
             dispatch={beginAreaDispatch}
-            state={state.beginArea}
+            state={beginArea}
           />
           <input
-            name={`${beginArea.html_name}_id`}
+            name={`${beginAreaField.html_name}_id`}
             type="hidden"
-            value={state.beginArea.selectedItem
-              ? String(state.beginArea.selectedItem.entity.id)
+            value={beginArea.selectedItem
+              ? String(beginArea.selectedItem.entity.id)
               : ''}
           />
-          <FieldErrors field={beginArea} />
+          <FieldErrors field={beginAreaField} />
         </FormRow>
       }
       disabled={disabled}
@@ -182,16 +187,16 @@ component _HydratedArtistDateRangeFieldset(
         <FormRow>
           <Autocomplete2
             dispatch={endAreaDispatch}
-            state={state.endArea}
+            state={endArea}
           />
           <input
-            name={`${endArea.html_name}_id`}
+            name={`${endAreaField.html_name}_id`}
             type="hidden"
-            value={state.endArea.selectedItem
-              ? String(state.endArea.selectedItem.entity.id)
+            value={endArea.selectedItem
+              ? String(endArea.selectedItem.entity.id)
               : ''}
           />
-          <FieldErrors field={endArea} />
+          <FieldErrors field={endAreaField} />
         </FormRow>
       }
       endedLabel={endedLabel}
