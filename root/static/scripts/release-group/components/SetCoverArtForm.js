@@ -24,14 +24,39 @@ import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import HiddenField from '../../edit/components/HiddenField.js';
 
-component SetCoverArtForm(
-  allReleases: $ReadOnlyArray<ReleaseT>,
+component _SetCoverArtFormImage(
   artwork: {[releaseId: number]: ArtworkT},
-  form: SetCoverArtFormT,
+  isSelected: boolean,
+  originallySelected: string,
+  release: ReleaseT,
+  setSelectedRelease: (string) => void,
 ) {
-  const originallySelected = form.field.release.value;
-  const [selectedRelease, setSelectedRelease] =
-    React.useState(originallySelected);
+  const image = artwork[release.id];
+  const hasReleaseCatnos =
+    release.labels != null && release.labels.some(
+      x => nonEmpty(x.catalogNumber),
+    );
+  const releaseCatnos = hasReleaseCatnos
+    ? <ReleaseCatnoList labels={release.labels} />
+    : null;
+  const hasReleaseCountries =
+    release.events != null && release.events.some(x => x.country);
+  const releaseCountries = hasReleaseCountries
+    ? <ReleaseCountryList events={release.events} />
+    : null;
+  const hasReleaseDates =
+    release.events != null && release.events.some(
+      x => nonEmpty(formatDate(x.date)),
+    );
+  const releaseDates = hasReleaseDates
+    ? <ReleaseDateList events={release.events} />
+    : null;
+  const hasReleaseLabels =
+    release.labels != null && release.labels.some(x => x.label);
+  const releaseLabels = hasReleaseLabels
+    ? <ReleaseLabelList labels={release.labels} />
+    : null;
+  const releaseStatus = release.status;
 
   const selectCover = (event: SyntheticMouseEvent<HTMLDivElement>) => {
     const clickedElement = event.target;
@@ -55,6 +80,138 @@ component SetCoverArtForm(
   };
 
   return (
+    <div
+      className={'editimage' + (isSelected ? ' selected' : '')}
+      data-gid={release.gid}
+      data-selectable={image ? 'true' : 'false'}
+      onClick={selectCover}
+    >
+      <div className="cover-image">
+        {image ? (
+          <Artwork artwork={image} />
+        ) : (
+          <img
+            src="/static/images/no-cover-art.png"
+            title={l('No cover art available.')}
+          />
+        )}
+      </div>
+      <div className="release-description">
+        <p>
+          <EntityLink entity={release} />
+          <br />
+          {addColonText(l('Artist'))}
+          {' '}
+          <ArtistCreditLink artistCredit={release.artistCredit} />
+        </p>
+        {releaseCountries || releaseDates ? (
+          <p>
+            {releaseDates ? (
+              <>
+                {addColonText(l('Date'))}
+                {' '}
+                {releaseDates}
+                <br />
+              </>
+            ) : null}
+            {releaseCountries ? (
+              <>
+                {addColonText(l('Country'))}
+                {' '}
+                {releaseCountries}
+              </>
+            ) : null}
+          </p>
+        ) : null}
+        <p>
+          {addColonText(l('Format'))}
+          {' '}
+          {release.combined_format_name}
+          <br />
+          {addColonText(l('Tracks'))}
+          {' '}
+          {release.combined_track_count}
+        </p>
+        {releaseStatus ? (
+          <p>
+            {addColonText(lp('Status', 'release'))}
+            {' '}
+            {lp_attributes(releaseStatus.name, 'release_status')}
+          </p>
+        ) : null}
+        {releaseLabels || releaseCatnos ? (
+          <p>
+            {releaseLabels ? (
+              <>
+                {addColonText(l('Label'))}
+                {' '}
+                {releaseLabels}
+                <br />
+              </>
+            ) : null}
+            {releaseCatnos ? (
+              <>
+                {addColonText(l('Catalog#'))}
+                {' '}
+                {releaseCatnos}
+              </>
+            ) : null}
+          </p>
+        ) : null}
+        {nonEmpty(release.barcode) ? (
+          <p>
+            {addColonText(l('Barcode'))}
+            {' '}
+            {release.barcode}
+          </p>
+        ) : null}
+        {image ? (
+          <div>
+            {addColonText(lp('Cover art', 'singular'))}
+            <ul>
+              <li>
+                {addColonText(lp('Types', 'cover art'))}
+                {' '}
+                {image.types.length
+                  ? commaListText(image.types.map(
+                    type => lp_attributes(type, 'cover_art_type'),
+                  ))
+                  : lp('-', 'missing data')}
+              </li>
+              {nonEmpty(image.comment) ? (
+                <li>
+                  {addColonText(l('Comment'))}
+                  {' '}
+                  {image.comment}
+                </li>
+              ) : null}
+            </ul>
+            {release.gid === originallySelected ? (
+              <strong>
+                {l('This is the current release group image')}
+              </strong>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    </div>
+  );
+}
+
+const SetCoverArtFormImage:
+  component(...React.PropsOf<_SetCoverArtFormImage>) =
+  React.memo(_SetCoverArtFormImage);
+
+component SetCoverArtForm(
+  allReleases: $ReadOnlyArray<ReleaseT>,
+  artwork: {[releaseId: number]: ArtworkT},
+  form: SetCoverArtFormT,
+) {
+  const originallySelected = form.field.release.value;
+  const [selectedRelease, setSelectedRelease] =
+    React.useState(originallySelected);
+
+  return (
     <form className="set-cover-art" id="set-cover-art" method="post">
       <HiddenField field={form.field.release} value={selectedRelease} />
 
@@ -69,154 +226,16 @@ component SetCoverArtForm(
         <FieldErrors field={form.field.release} />
         <div id="set-cover-art-images">
           {allReleases.map((release, index) => {
-            const image = artwork[release.id];
-            const hasReleaseCatnos =
-              release.labels != null && release.labels.some(
-                x => nonEmpty(x.catalogNumber),
-              );
-            const releaseCatnos = hasReleaseCatnos
-              ? <ReleaseCatnoList labels={release.labels} />
-              : null;
-            const hasReleaseCountries =
-              release.events != null && release.events.some(x => x.country);
-            const releaseCountries = hasReleaseCountries
-              ? <ReleaseCountryList events={release.events} />
-              : null;
-            const hasReleaseDates =
-              release.events != null && release.events.some(
-                x => nonEmpty(formatDate(x.date)),
-              );
-            const releaseDates = hasReleaseDates
-              ? <ReleaseDateList events={release.events} />
-              : null;
-            const hasReleaseLabels =
-              release.labels != null && release.labels.some(x => x.label);
-            const releaseLabels = hasReleaseLabels
-              ? <ReleaseLabelList labels={release.labels} />
-              : null;
-            const releaseStatus = release.status;
-
+            const isSelected = release.gid === selectedRelease;
             return (
-              <div
-                className={
-                  'editimage' + (
-                    release.gid === selectedRelease ? ' selected' : ''
-                  )
-                }
-                data-gid={release.gid}
-                data-selectable={image ? 'true' : 'false'}
+              <SetCoverArtFormImage
+                artwork={artwork}
+                isSelected={isSelected}
                 key={index}
-                onClick={selectCover}
-              >
-                <div className="cover-image">
-                  {image ? (
-                    <Artwork artwork={image} />
-                  ) : (
-                    <img
-                      src="/static/images/no-cover-art.png"
-                      title={l('No cover art available.')}
-                    />
-                  )}
-                </div>
-                <div className="release-description">
-                  <p>
-                    <EntityLink entity={release} />
-                    <br />
-                    {addColonText(l('Artist'))}
-                    {' '}
-                    <ArtistCreditLink artistCredit={release.artistCredit} />
-                  </p>
-                  {releaseCountries || releaseDates ? (
-                    <p>
-                      {releaseDates ? (
-                        <>
-                          {addColonText(l('Date'))}
-                          {' '}
-                          {releaseDates}
-                          <br />
-                        </>
-                      ) : null}
-                      {releaseCountries ? (
-                        <>
-                          {addColonText(l('Country'))}
-                          {' '}
-                          {releaseCountries}
-                        </>
-                      ) : null}
-                    </p>
-                  ) : null}
-                  <p>
-                    {addColonText(l('Format'))}
-                    {' '}
-                    {release.combined_format_name}
-                    <br />
-                    {addColonText(l('Tracks'))}
-                    {' '}
-                    {release.combined_track_count}
-                  </p>
-                  {releaseStatus ? (
-                    <p>
-                      {addColonText(lp('Status', 'release'))}
-                      {' '}
-                      {lp_attributes(releaseStatus.name, 'release_status')}
-                    </p>
-                  ) : null}
-                  {releaseLabels || releaseCatnos ? (
-                    <p>
-                      {releaseLabels ? (
-                        <>
-                          {addColonText(l('Label'))}
-                          {' '}
-                          {releaseLabels}
-                          <br />
-                        </>
-                      ) : null}
-                      {releaseCatnos ? (
-                        <>
-                          {addColonText(l('Catalog#'))}
-                          {' '}
-                          {releaseCatnos}
-                        </>
-                      ) : null}
-                    </p>
-                  ) : null}
-                  {nonEmpty(release.barcode) ? (
-                    <p>
-                      {addColonText(l('Barcode'))}
-                      {' '}
-                      {release.barcode}
-                    </p>
-                  ) : null}
-                  {image ? (
-                    <div>
-                      {addColonText(lp('Cover art', 'singular'))}
-                      <ul>
-                        <li>
-                          {addColonText(lp('Types', 'cover art'))}
-                          {' '}
-                          {image.types.length
-                            ? commaListText(image.types.map(
-                              type => lp_attributes(type, 'cover_art_type'),
-                            ))
-                            : lp('-', 'missing data')}
-                        </li>
-                        {nonEmpty(image.comment) ? (
-                          <li>
-                            {addColonText(l('Comment'))}
-                            {' '}
-                            {image.comment}
-                          </li>
-                        ) : null}
-                      </ul>
-                      {release.gid === originallySelected ? (
-                        <strong>
-                          {l('This is the current release group image')}
-                        </strong>
-                      ) : null}
-                    </div>
-                  ) : null}
-                </div>
-              </div>
+                originallySelected={originallySelected}
+                release={release}
+                setSelectedRelease={setSelectedRelease}
+              />
             );
           })}
         </div>
