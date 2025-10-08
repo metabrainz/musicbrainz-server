@@ -62,7 +62,6 @@ function createAreaState(
     entityType: 'area',
     htmlName: field.html_name,
     id: 'id-' + field.html_name,
-    idHtmlName: `${field.html_name}_id`,
     inputClass: 'with-button',
     inputValue: name,
     label,
@@ -167,6 +166,13 @@ component _HydratedArtistDateRangeFieldset(
             dispatch={beginAreaDispatch}
             state={state.beginArea}
           />
+          <input
+            name={`${beginArea.html_name}_id`}
+            type="hidden"
+            value={state.beginArea.selectedItem
+              ? String(state.beginArea.selectedItem.entity.id)
+              : ''}
+          />
           <FieldErrors field={beginArea} />
         </FormRow>
       }
@@ -177,6 +183,13 @@ component _HydratedArtistDateRangeFieldset(
           <Autocomplete2
             dispatch={endAreaDispatch}
             state={state.endArea}
+          />
+          <input
+            name={`${endArea.html_name}_id`}
+            type="hidden"
+            value={state.endArea.selectedItem
+              ? String(state.endArea.selectedItem.entity.id)
+              : ''}
           />
           <FieldErrors field={endArea} />
         </FormRow>

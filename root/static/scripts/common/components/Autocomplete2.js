@@ -148,7 +148,6 @@ type InitialStateT<T: EntityItemT> = {
   +extractSearchTerms?: (OptionItemT<T>) => Array<string>,
   +htmlName?: string,
   +id: string,
-  +idHtmlName?: string,
   +inputChangeHook?: (
     inputValue: string,
     state: StateT<T>,
@@ -302,7 +301,6 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
     highlightedIndex,
     htmlName,
     id: inputId,
-    idHtmlName,
     inputChangeHook,
     inputRef: externalInputRef,
     inputValue,
@@ -830,7 +828,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       {nonEmpty(htmlName) ? (
         <>
           <input
-            name={idHtmlName !== null ? idHtmlName : htmlName + '.id'}
+            name={htmlName + '.id'}
             type="hidden"
             value={selectedItem ? selectedItem.entity.id : ''}
           />
