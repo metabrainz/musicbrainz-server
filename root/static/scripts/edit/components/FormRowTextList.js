@@ -18,60 +18,59 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 import RemoveButton from './RemoveButton.js';
 
-type StateT = {
-  // The current text values as stored in the database.
-  +currentTextValues: $ReadOnlyArray<string>,
-  /*
-   * The current form values, as either initialized from the database or
-   * submitted by the user.
-   */
-  +repeatable: TextListFieldT,
-};
+export type StateT = TextListFieldT;
 
-type InitialStateT = {
-  +currentTextValues: ?$ReadOnlyArray<string>,
-  +repeatable: TextListFieldT,
-};
-
-type ActionT =
+export type ActionT =
   | {+type: 'add-row'}
-  | {+fieldId: number, +type: 'remove-row'}
-  | {+fieldId: number, +type: 'update-row', +value: string};
+  | {
+    +currentTextValues: $ReadOnlyArray<string>,
+    +fieldId: number,
+    +type: 'remove-row',
+  }
+  | {
+    +currentTextValues: $ReadOnlyArray<string>,
+    +fieldId: number,
+    +type: 'update-row',
+    +value: string,
+  };
 
 component TextListRow(
+  currentTextValues: $ReadOnlyArray<string>,
   dispatch: (ActionT) => void,
-  fieldId: number,
-  name: string,
+  field: TextListItemFieldT,
   onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   removeButtonLabel: string,
-  value: string,
 ) {
+  const fieldId = field.id;
   const removeRow = React.useCallback((): void => {
-    dispatch({fieldId, type: 'remove-row'});
-  }, [dispatch, fieldId]);
+    dispatch({currentTextValues, fieldId, type: 'remove-row'});
+  }, [currentTextValues, dispatch, fieldId]);
 
   const updateRow = React.useCallback((
     event: SyntheticInputEvent<HTMLInputElement>,
   ) => {
     const value = event.currentTarget.value;
-    dispatch({fieldId, type: 'update-row', value});
-  }, [dispatch, fieldId]);
+    dispatch({currentTextValues, fieldId, type: 'update-row', value});
+  }, [currentTextValues, dispatch, fieldId]);
 
   return (
-    <div className="text-list-row">
-      <input
-        className="value with-button"
-        name={name}
-        onChange={updateRow}
-        onFocus={onFocus}
-        type="text"
-        value={value}
-      />
-      <RemoveButton
-        onClick={removeRow}
-        title={removeButtonLabel}
-      />
-    </div>
+    <>
+      <div className="text-list-row">
+        <input
+          className="value with-button"
+          name={field.html_name}
+          onChange={updateRow}
+          onFocus={onFocus}
+          type="text"
+          value={field.field.value.value}
+        />
+        <RemoveButton
+          onClick={removeRow}
+          title={removeButtonLabel}
+        />
+      </div>
+      <FieldErrors field={field} />
+    </>
   );
 }
 
@@ -79,29 +78,27 @@ function pushNewListItem(fieldCtx: CowContext<TextListFieldT>) {
   pushCompoundField(fieldCtx, {removed: false, value: ''});
 }
 
-const createInitialState = (state: InitialStateT): StateT => {
-  let newRepeatableField = {...state.repeatable};
+export function createInitialState(state: StateT): StateT {
+  let newRepeatableField = {...state};
   if (newRepeatableField.last_index === -1) {
     newRepeatableField = mutate(newRepeatableField).update((fieldCtx) => {
       pushNewListItem(fieldCtx);
     }).final();
   }
-  return {
-    currentTextValues: state.currentTextValues ?? [],
-    repeatable: newRepeatableField,
-  };
-};
+  return newRepeatableField;
+}
 
-function reducer(state: StateT, action: ActionT): StateT {
-  const newStateCtx = mutate(state);
-  const repeatableCtx = newStateCtx.get('repeatable');
-  const fieldCtx = repeatableCtx.get('field');
+export function runReducer(
+  newStateCtx: CowContext<StateT>,
+  action: ActionT,
+): void {
+  const fieldCtx = newStateCtx.get('field');
 
   match (action) {
     {type: 'add-row'} => {
-      pushCompoundField(repeatableCtx, {removed: false, value: ''});
+      pushCompoundField(newStateCtx, {removed: false, value: ''});
     }
-    {type: 'remove-row', const fieldId} => {
+    {type: 'remove-row', const currentTextValues, const fieldId} => {
       let removedValue;
       const index = fieldCtx.read().findIndex((subfield) => {
         if (subfield.id === fieldId) {
@@ -111,7 +108,7 @@ function reducer(state: StateT, action: ActionT): StateT {
         return false;
       });
       if (nonEmpty(removedValue) &&
-          state.currentTextValues.includes(removedValue)) {
+        currentTextValues.includes(removedValue)) {
         fieldCtx.set(index, 'field', 'removed', 'value', true);
       } else {
         const newField = fieldCtx.read().slice(0);
@@ -122,40 +119,48 @@ function reducer(state: StateT, action: ActionT): StateT {
         return field.field.removed.value ? count : (count + 1);
       }, 0);
       if (nonRemovedCount === 0) {
-        pushNewListItem(repeatableCtx);
+        pushNewListItem(newStateCtx);
       }
     }
-    {type: 'update-row', const fieldId, const value} => {
+    {
+      type: 'update-row',
+      const currentTextValues,
+      const fieldId,
+      const value,
+    } => {
       const index = fieldCtx.read().findIndex(
         (subfield) => subfield.id === fieldId,
       );
-      const valueCtx = fieldCtx.get(index, 'field', 'value', 'value');
+      const subFieldCtx = fieldCtx.get(index);
+      const valueCtx = subFieldCtx.get('field', 'value', 'value');
       const oldValue = valueCtx.read();
       valueCtx.set(value);
-      if (state.currentTextValues.includes(oldValue)) {
-        pushCompoundField(repeatableCtx, {removed: true, value: oldValue});
+      if (currentTextValues.includes(oldValue)) {
+        pushCompoundField(newStateCtx, {removed: true, value: oldValue});
       }
     }
   }
+}
+
+export function reducer(state: StateT, action: ActionT): StateT {
+  const newStateCtx = mutate(state);
+
+  runReducer(newStateCtx, action);
+
   return newStateCtx.final();
 }
 
-component FormRowTextList(
-  addButtonLabel: string,
+export component InnerFormRowTextList(
   addButtonId: string,
-  initialState: InitialStateT,
+  addButtonLabel: string,
+  currentTextValues: $ReadOnlyArray<string>,
+  dispatch: (ActionT) => void,
   label: string,
   onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   removeButtonLabel: string,
   required: boolean = false,
+  state: StateT,
 ) {
-  const [state, dispatch] =
-    React.useReducer<StateT, ActionT, InitialStateT>(
-      reducer,
-      initialState,
-      createInitialState,
-    );
-
   const addRow = React.useCallback(() => {
     dispatch({type: 'add-row'});
   }, [dispatch]);
@@ -165,7 +170,7 @@ component FormRowTextList(
       <FormLabel label={label} required={required} />
 
       <div className="form-row-text-list">
-        {state.repeatable.field.map((field) => (
+        {state.field.map((field) => (
           field.field.removed.value
             ? (
               <React.Fragment key={field.id}>
@@ -183,13 +188,12 @@ component FormRowTextList(
             )
             : (
               <TextListRow
+                currentTextValues={currentTextValues}
                 dispatch={dispatch}
-                fieldId={field.id}
+                field={field}
                 key={field.id}
-                name={field.html_name}
                 onFocus={onFocus}
                 removeButtonLabel={removeButtonLabel}
-                value={field.field.value.value}
               />
             )
         ))}
@@ -203,27 +207,20 @@ component FormRowTextList(
         </div>
       </div>
 
-      <FieldErrors field={state.repeatable} />
+      <FieldErrors field={state} includeSubFields={false} />
     </>
   );
 }
 
-export component NonHydratedFormRowTextList(
+component FormRowTextList(
   rowRef?: {-current: HTMLDivElement | null},
-  ...props: React.PropsOf<FormRowTextList>
+  ...props: React.PropsOf<InnerFormRowTextList>
 ) {
   return (
     <FormRow rowRef={rowRef}>
-      <FormRowTextList {...props} />
+      <InnerFormRowTextList {...props} />
     </FormRow>
   );
 }
 
-/*
- * Hydration must be moved higher up in the component hierarchy once
- * more of the page is converted to React.
- */
-export default (hydrate<React.PropsOf<FormRowTextList>>(
-  'div.row.form-row-text-list-container',
-  FormRowTextList,
-): component(...React.PropsOf<FormRowTextList>));
+export default FormRowTextList;
