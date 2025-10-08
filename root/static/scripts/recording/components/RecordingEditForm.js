@@ -42,8 +42,11 @@ import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
   runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
-import {NonHydratedFormRowTextList as FormRowTextList}
-  from '../../edit/components/FormRowTextList.js';
+import FormRowTextList, {
+  type ActionT as IsrcActionT,
+  createInitialState as createIsrcState,
+  runReducer as runIsrcReducer,
+} from '../../edit/components/FormRowTextList.js';
 import FormRowTextLong from '../../edit/components/FormRowTextLong.js';
 import {
   type StateT as GuessCaseOptionsStateT,
@@ -57,6 +60,7 @@ import {
 import guessFeat from '../../edit/utility/guessFeat2.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
+import isValidIsrc from '../../edit/utility/isValidIsrc.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -73,6 +77,7 @@ type ActionT =
   | {+type: 'update-edit-note', +editNote: string}
   | {+type: 'update-length', +length: string}
   | {+type: 'update-name', +action: NameActionT}
+  | {+type: 'update-isrcs', +action: IsrcActionT}
   | {+type: 'update-artist-credit', +action: ArtistCreditActionT};
 /* eslint-enable ft-flow/sort-keys */
 
@@ -85,6 +90,28 @@ type StateT = {
   +recording: RecordingT,
   +shownBubble: string,
 };
+
+function updateIsrcFieldErrors(
+  fieldCtx: CowContext<TextListFieldT>,
+) {
+  const innerFieldCtx = fieldCtx.get('field');
+  const innerFieldLength = innerFieldCtx.read().length;
+  for (let i = 0; i < innerFieldLength; i++) {
+    const subFieldCtx = innerFieldCtx.get(i);
+    const value = subFieldCtx.get('field', 'value', 'value').read();
+
+    if (empty(value) || isValidIsrc(value)) {
+      subFieldCtx.set('has_errors', false);
+      subFieldCtx.set('pendingErrors', []);
+      subFieldCtx.set('errors', []);
+    } else {
+      subFieldCtx.set('has_errors', true);
+      subFieldCtx.set('errors', [
+        l('Invalid value.'),
+      ]);
+    }
+  }
+}
 
 function updateNameFieldErrors(
   nameFieldCtx: CowContext<FieldT<string | null>>,
@@ -112,6 +139,11 @@ function createInitialState(
   // $FlowExpectedError[incompatible-call]
   const nameFieldCtx = formCtx.get('field', 'name');
   updateNameFieldErrors(nameFieldCtx);
+  formCtx
+    .update('field', 'isrcs', (isrcCtx) => {
+      isrcCtx.set(createIsrcState(isrcCtx.read()));
+      updateIsrcFieldErrors(isrcCtx);
+    });
 
   return {
     actionName: $c.action.name,
@@ -177,6 +209,17 @@ function reducer(state: StateT, action: ActionT): StateT {
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
     }
+    {type: 'update-isrcs', const action} => {
+      const isrcStateCtx = mutate(state.form.field.isrcs);
+      runIsrcReducer(isrcStateCtx, action);
+
+      const isrcState = isrcStateCtx.read();
+      newStateCtx
+        .update('form', 'field', 'isrcs', (isrcFieldCtx) => {
+          isrcFieldCtx.set(isrcState);
+          updateIsrcFieldErrors(isrcFieldCtx);
+        });
+    }
     {type: 'toggle-bubble', const bubble} => {
       newStateCtx.set('shownBubble', bubble);
     }
@@ -222,6 +265,10 @@ component RecordingEditForm(
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
 
+  const currentIsrcs = React.useMemo(() => (
+    $c.stash.current_isrcs || []
+  ), [$c]);
+
   useFormUnloadWarning();
 
   const [state, dispatch] = React.useReducer(
@@ -237,6 +284,10 @@ component RecordingEditForm(
     action: ArtistCreditActionT,
   ) => {
     dispatch({action, type: 'update-artist-credit'});
+  }, [dispatch]);
+
+  const isrcDispatch = React.useCallback((action: IsrcActionT) => {
+    dispatch({action, type: 'update-isrcs'});
   }, [dispatch]);
 
   const handleEditNoteChange = React.useCallback((
@@ -388,14 +439,13 @@ component RecordingEditForm(
           <FormRowTextList
             addButtonId="add-isrc"
             addButtonLabel={lp('Add ISRC', 'interactive')}
-            initialState={{
-              currentTextValues: $c.stash.current_isrcs,
-              repeatable: state.form.field.isrcs,
-            }}
+            currentTextValues={currentIsrcs}
+            dispatch={isrcDispatch}
             label={addColonText(l('ISRCs'))}
             onFocus={handleIsrcFocus}
             removeButtonLabel={lp('Remove ISRC', 'interactive')}
             rowRef={isrcFieldRef}
+            state={state.form.field.isrcs}
           />
         </fieldset>
 
