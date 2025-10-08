@@ -103,24 +103,21 @@ function reducer(
   action: ActionT,
 ): StateT {
   const ctx = mutate(state);
-  switch (action.type) {
-    case 'update-begin-area':
+  match (action) {
+    {type: 'update-begin-area', const action} => {
       ctx.set(
         'beginArea',
-        autocompleteReducer(state.beginArea, action.action),
+        autocompleteReducer(state.beginArea, action),
       );
-      break;
-    case 'update-end-area':
+    }
+    {type: 'update-end-area', const action} => {
       ctx.set(
         'endArea',
-        autocompleteReducer(state.endArea, action.action),
+        autocompleteReducer(state.endArea, action),
       );
-      break;
-    case 'update-date-period':
-      runDateRangeFieldsetReducer(ctx.get('date'), action.action);
-      break;
-    default: {
-      /*:: exhaustive(action); */
+    }
+    {type: 'update-date-period', const action} => {
+      runDateRangeFieldsetReducer(ctx.get('date'), action);
     }
   }
   return ctx.final();
