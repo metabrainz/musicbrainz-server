@@ -167,9 +167,7 @@ component _HydratedArtistDateRangeFieldset(
             dispatch={beginAreaDispatch}
             state={state.beginArea}
           />
-          <FieldErrors field={beginArea.field.gid} />
-          <FieldErrors field={beginArea.field.id} />
-          <FieldErrors field={beginArea.field.name} />
+          <FieldErrors field={beginArea} />
         </FormRow>
       }
       disabled={disabled}
@@ -180,9 +178,7 @@ component _HydratedArtistDateRangeFieldset(
             dispatch={endAreaDispatch}
             state={state.endArea}
           />
-          <FieldErrors field={endArea.field.gid} />
-          <FieldErrors field={endArea.field.id} />
-          <FieldErrors field={endArea.field.name} />
+          <FieldErrors field={endArea} />
         </FormRow>
       }
       endedLabel={endedLabel}
