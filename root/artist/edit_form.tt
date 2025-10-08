@@ -40,7 +40,7 @@
 
       [% React.embed(c, 'static/scripts/edit/components/HydratedArtistDateRangeFieldset', {
           initialDate => form_to_json(form.field('period')),
-          endedLabel => 'This artist has ended.',
+          endedLabel => l('This artist has ended.'),
           beginArea => form_to_json(form.field('begin_area')),
           endArea => form_to_json(form.field('end_area')),
         }) %]
