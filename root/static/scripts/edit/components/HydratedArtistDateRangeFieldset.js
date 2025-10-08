@@ -65,7 +65,7 @@ function createAreaState(
     idHtmlName: `${field.html_name}_id`,
     inputClass: 'with-button',
     inputValue: name,
-    label: l(label),
+    label,
     selectedItem: id ? {
       entity: createAreaObject({
         gid: field.field.gid.value ?? '',
@@ -92,9 +92,9 @@ function createInitialState({
   initialDate,
 }: CreateInitialStatePropsT): StateT {
   return {
-    beginArea: createAreaState('Begin area', beginArea),
+    beginArea: createAreaState(l('Begin area'), beginArea),
     date: initialDate,
-    endArea: createAreaState('End area', endArea),
+    endArea: createAreaState(l('End area'), endArea),
   };
 }
 
