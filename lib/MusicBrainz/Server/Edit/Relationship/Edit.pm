@@ -16,7 +16,13 @@ use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::LinkAttribute;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Edit::Types qw( LinkAttributesArray PartialDateHash Nullable NullableOnPreview );
+use MusicBrainz::Server::Edit::Types qw(
+    EnteredFromEntity
+    LinkAttributesArray
+    PartialDateHash
+    Nullable
+    NullableOnPreview
+);
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     partial_date_to_hash
@@ -101,6 +107,7 @@ has '+data' => (
         entity0_credit => Optional[Str],
         entity1_credit => Optional[Str],
         link => find_type_constraint('LinkHash'),
+        entered_from => EnteredFromEntity,
         new => find_type_constraint('RelationshipHash'),
         old => find_type_constraint('RelationshipHash'),
         edit_version => Optional[Int],
