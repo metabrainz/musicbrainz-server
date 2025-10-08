@@ -15,7 +15,7 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 
 component FormRowArea(
-  children ?: React.Node,
+  children?: React.Node,
   field: AreaFieldT,
   idField: FieldT<string>,
   label: React.Node,

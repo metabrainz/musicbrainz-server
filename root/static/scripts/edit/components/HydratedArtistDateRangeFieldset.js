@@ -31,10 +31,10 @@ import FormRow from './FormRow.js';
 
 type PropsT = {
   +beginArea: AreaFieldT,
-  +children ?: React.Node,
+  +children?: React.Node,
   +disabled: boolean,
   +endArea: AreaFieldT,
-  +endedLabel ?: string,
+  +endedLabel?: string,
   +initialDate: DatePeriodFieldT,
 };
 
@@ -127,9 +127,9 @@ function reducer(
 }
 
 component _HydratedArtistDateRangeFieldset(
-  children ?: React.Node,
+  children?: React.Node,
   disabled: boolean = false,
-  endedLabel ?: string,
+  endedLabel?: string,
   initialDate: DatePeriodFieldT,
   beginArea: AreaFieldT,
   endArea: AreaFieldT,
