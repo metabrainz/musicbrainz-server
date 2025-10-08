@@ -56,6 +56,7 @@ import {
 } from '../../edit/externalLinks.js';
 import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
+import isInvalidLength from '../../edit/utility/isInvalidLength.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -70,6 +71,7 @@ type ActionT =
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-bubble', +bubble: string}
   | {+type: 'update-edit-note', +editNote: string}
+  | {+type: 'update-length', +length: string}
   | {+type: 'update-name', +action: NameActionT}
   | {+type: 'update-artist-credit', +action: ArtistCreditActionT};
 /* eslint-enable ft-flow/sort-keys */
@@ -150,6 +152,17 @@ function reducer(state: StateT, action: ActionT): StateT {
         ...newStateCtx.get('form', 'field', 'edit_note').read(),
         errors,
         value: editNote,
+      });
+    }
+    {type: 'update-length', const length} => {
+      const errors = isInvalidLength(length)
+        ? [l('Not a valid time. Must be in the format MM:SS')]
+        : [];
+
+      newStateCtx.set('form', 'field', 'length', {
+        ...newStateCtx.get('form', 'field', 'length').read(),
+        errors,
+        value: length,
       });
     }
     {type: 'update-name', const action} => {
@@ -254,6 +267,15 @@ component RecordingEditForm(
     dispatch({type: 'guess-feat'});
   }
 
+  const handleLengthChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      length: event.currentTarget.value,
+      type: 'update-length',
+    });
+  }, [dispatch]);
+
   function handleLengthFocus() {
     dispatch({bubble: 'length', type: 'toggle-bubble'});
   }
@@ -343,9 +365,9 @@ component RecordingEditForm(
             <FormRowTextLong
               field={state.form.field.length}
               label={addColonText(l('Length'))}
+              onChange={handleLengthChange}
               onFocus={handleLengthFocus}
               rowRef={lengthFieldRef}
-              uncontrolled
             />
           ) : (
             <FormRow>
