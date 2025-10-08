@@ -81,9 +81,10 @@ declare type CatalystStashT = {
   +release_artwork_count?: number,
   +release_cdtoc_count?: number,
   +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
+  +seeded_release_data?: ReleaseEditorSeedT,
   +series_ordering_types?: {+[id: number]: SeriesOrderingTypeT},
   +server_languages?: $ReadOnlyArray<ServerLanguageT>,
-  +source_entity?: ?RelatableEntityT,
+  +source_entity?: ?SourceEntityDataT,
   +subscribed?: boolean,
   +to_merge?: $ReadOnlyArray<MergeableEntityT>,
   +top_tags?: $ReadOnlyArray<AggregatedTagT>,
@@ -123,9 +124,10 @@ declare type SanitizedCatalystContextT = {
     +genre_map?: {+[genreName: string]: GenreT, ...},
     +mtcaptcha_script_nonce?: string,
     +seeded_relationships?: ?$ReadOnlyArray<SeededRelationshipT>,
+    +seeded_release_data?: ReleaseEditorSeedT,
     +series_ordering_types?: {+[id: number]: SeriesOrderingTypeT},
     +server_languages?: $ReadOnlyArray<ServerLanguageT>,
-    +source_entity?: ?RelatableEntityT,
+    +source_entity?: ?SourceEntityDataT,
   },
   +user: ActiveEditorT | null,
 };
@@ -136,3 +138,12 @@ declare type ServerLanguageT = {
   +native_language: string,
   +native_territory: string,
 };
+
+declare type SourceEntityDataT =
+  | RelatableEntityT
+  | {
+      +entityType: RelatableEntityTypeT,
+      +isNewEntity: true,
+      +name?: string,
+      +orderingTypeID?: number,
+    };
