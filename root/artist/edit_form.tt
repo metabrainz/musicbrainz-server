@@ -42,9 +42,7 @@
           initialDate => form_to_json(form.field('period')),
           endedLabel => 'This artist has ended.',
           beginArea => form_to_json(form.field('begin_area')),
-          beginAreaId => form_to_json(form.field('begin_area_id')),
           endArea => form_to_json(form.field('end_area')),
-          endAreaId => form_to_json(form.field('end_area_id')),
         }) %]
       [% script_manifest('edit/components/HydratedArtistDateRangeFieldset', {async => 'async'}) %]
 
