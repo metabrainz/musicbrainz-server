@@ -10,6 +10,7 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
+use String::ShellQuote qw( shell_quote );
 use MusicBrainz::Script::Utils qw( find_mbdump_file );
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
@@ -117,8 +118,9 @@ for my $arg (@ARGV)
     my $dir = tempdir('MBImport-XXXXXXXX', DIR => $tmpdir, CLEANUP => 1)
         or die $OS_ERROR;
 
-    validate_tar($arg, $dir, $decompress);
-    push @tar_to_extract, [ $arg, $dir, $decompress ];
+    my $quoted_arg = shell_quote($arg);
+    validate_tar($quoted_arg, $dir, $decompress);
+    push @tar_to_extract, [ $quoted_arg, $dir, $decompress ];
 
     $arg = $dir;
 }
