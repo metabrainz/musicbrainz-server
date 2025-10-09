@@ -10,6 +10,7 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
+use MusicBrainz::Script::Utils qw( find_mbdump_file );
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
@@ -328,7 +329,7 @@ sub empty
 sub ImportAllTables
 {
     for my $table (@$import_tables) {
-        my $file = (find_file($table))[0];
+        my $file = find_mbdump_file($table, @ARGV);
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
 
@@ -365,27 +366,11 @@ sub ImportAllTables
     return 1;
 }
 
-sub find_file
-{
-    my $table = shift;
-    my @r;
-
-    for my $arg (@ARGV)
-    {
-        use File::Basename;
-        push(@r, $arg), next if -f $arg and basename($arg) eq $table;
-        push(@r, "$arg/$table"), next if -f "$arg/$table";
-        push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
-    }
-
-    @r;
-}
-
 sub read_all_and_check
 {
     my $file = shift;
 
-    my @files = find_file($file);
+    my @files = find_mbdump_file($file, @ARGV);
     my %contents;
     my %uniq;
 

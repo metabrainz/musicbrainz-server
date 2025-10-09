@@ -141,7 +141,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-in
     cd artwork-indexer && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT
 
-COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
+COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.selenium.ini
 
 FROM build AS artwork_redirect
 

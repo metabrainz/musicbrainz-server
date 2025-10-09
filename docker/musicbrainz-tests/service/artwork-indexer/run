@@ -5,4 +5,4 @@ cd /home/musicbrainz/artwork-indexer
 export HOME=/home/musicbrainz
 exec chpst -u musicbrainz:musicbrainz \
     env PATH="/home/musicbrainz/.local/bin:$PATH" \
-    poetry run python indexer.py --max-wait=1 2>&1
+    poetry run python indexer.py --config=config.selenium.ini --max-wait=1 2>&1
