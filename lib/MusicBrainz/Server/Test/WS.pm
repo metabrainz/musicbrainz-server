@@ -11,7 +11,6 @@ use MusicBrainz::Server::Test ws_test_json => { version => 2 };
 use MusicBrainz::Server::Test ws_test_txt => { version => 2 };
 
 our @EXPORT_OK = qw(
-    ws_test
     ws_test_json
     ws2_test_json
     ws2_test_json_forbidden
