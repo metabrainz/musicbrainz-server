@@ -1,15 +1,16 @@
 /*
  * @flow strict
- * Copyright (C) 2018 MetaBrainz Foundation
+ * Copyright (C) 2025 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {commaOnlyListText}
-  from '../static/scripts/common/i18n/commaOnlyList.js';
-import {bracketedText} from '../static/scripts/common/utility/bracketed.js';
+import * as React from 'react';
+
+import {commaOnlyListText} from '../i18n/commaOnlyList.js';
+import {bracketedText} from '../utility/bracketed.js';
 
 const lType = (x: string) => lp_attributes(x, 'cover_art_type');
 
@@ -24,40 +25,29 @@ function artworkHover(artwork: ArtworkT) {
   return result;
 }
 
-export component ArtworkImage(
+component Artwork(
   artwork: ArtworkT,
   hover?: string,
   message?: string,
 ) {
-  return (
-    <>
-      <noscript>
-        <img src={artwork.small_ia_thumbnail} />
-      </noscript>
-      <span
-        className="artwork-image"
-        data-huge-thumbnail={artwork.huge_ia_thumbnail}
-        data-large-thumbnail={artwork.large_ia_thumbnail}
-        data-message={nonEmpty(message)
-          ? message
-          : l('Image not available, please try again later.')}
-        data-small-thumbnail={artwork.small_ia_thumbnail}
-        data-title={nonEmpty(hover) ? hover : artworkHover(artwork)}
-      />
-    </>
-  );
-}
+  const [hasErrors, setHasErrors] = React.useState<boolean>(false);
 
-export component Artwork(...props: React.PropsOf<ArtworkImage>) {
-  const artwork = props.artwork;
+  const title = nonEmpty(hover) ? hover : artworkHover(artwork);
+  const failureMessage = nonEmpty(message)
+    ? message
+    : l('Image not available, please try again later.');
 
-  return (
+  return hasErrors ? (
+    <em className="cover-art-error">
+      {failureMessage}
+    </em>
+  ) : (
     <a
       className={artwork.mime_type === 'application/pdf'
         ? 'artwork-pdf'
         : 'artwork-image'}
       href={artwork.image}
-      title={nonEmpty(props.hover) ? props.hover : artworkHover(artwork)}
+      title={title}
     >
       {artwork.mime_type === 'application/pdf' ? (
         <div
@@ -70,7 +60,18 @@ export component Artwork(...props: React.PropsOf<ArtworkImage>) {
           {l('PDF file')}
         </div>
       ) : null}
-      <ArtworkImage {...props} />
+      <img
+        loading="lazy"
+        onError={() => setHasErrors(true)}
+        src={artwork.small_ia_thumbnail}
+        srcSet={
+          artwork.small_ia_thumbnail + ' 1x, ' +
+          artwork.large_ia_thumbnail + ' 1.5x'
+        }
+        title={title}
+      />
     </a>
   );
 }
+
+export default Artwork;

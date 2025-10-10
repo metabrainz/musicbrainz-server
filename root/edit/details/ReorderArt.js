@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {Artwork} from '../../components/Artwork.js';
+import {Artwork} from '../../static/scripts/common/components/Artwork.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import expand2html from '../../static/scripts/common/i18n/expand2html.js';
