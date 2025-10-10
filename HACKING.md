@@ -116,6 +116,19 @@ While to run all Data:: tests you can do the following:
 
     $ prove -l t/tests.t :: --tests 'Data::'
 
+Some of the Perl tests run via `prove` require additional services in order
+to execute:
+
+ 1. [An HTML5 validator](https://validator.github.io/validator/), configured
+    via `HTML_VALIDATOR` in DBDefs.pm:
+
+    ```Perl
+    sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
+    ```
+
+    Although the tests will use the service hosted at validator.w3.org by
+    default, it's *significantly* faster to query your own.
+
 ### Database tests (pgTAP)
 
 For unit testing database functions we use pgtap, on a recent Ubuntu

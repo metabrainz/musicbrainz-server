@@ -423,7 +423,7 @@ sub SENTRY_DSN_PUBLIC { undef }
 
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
-# http://about.validator.nu/#src for instructions.
+# HACKING.md for instructions.
 sub HTML_VALIDATOR { 'https://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
