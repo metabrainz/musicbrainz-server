@@ -10,6 +10,7 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
+use String::ShellQuote qw( shell_quote );
 use MusicBrainz::Script::Utils qw( find_mbdump_file );
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
@@ -106,28 +107,26 @@ for my $arg (@ARGV)
     next if -d _;
     -f _ or die "'$arg' is neither a regular file nor a directory";
 
-    next unless $arg =~ /\.tar(?:\.(gz|bz2|xz))?$/;
-
-    my $decompress = '';
-    $decompress = '--gzip' if $1 and $1 eq 'gz';
-    $decompress = '--bzip2' if $1 and $1 eq 'bz2';
-    $decompress = '--xz' if $1 and $1 eq 'xz';
+    my $quoted_arg = shell_quote($arg);
+    my $mime_type = qx{ file --brief --mime-type $quoted_arg };
+    chomp $mime_type;
+    next unless $mime_type =~ /^application\/(?:gzip|x-bzip2|x-tar|x-xz)$/;
 
     use File::Temp qw( tempdir );
     my $dir = tempdir('MBImport-XXXXXXXX', DIR => $tmpdir, CLEANUP => 1)
         or die $OS_ERROR;
 
-    validate_tar($arg, $dir, $decompress);
-    push @tar_to_extract, [ $arg, $dir, $decompress ];
+    validate_tar($quoted_arg, $dir, $mime_type);
+    push @tar_to_extract, [ $quoted_arg, $dir ];
 
     $arg = $dir;
 }
 
 for (@tar_to_extract)
 {
-    my ($tar, $dir, $decompress) = @$_;
-    print localtime() . " : tar -C $dir $decompress --no-same-owner -xvf $tar\n";
-    system "tar -C $dir $decompress --no-same-owner -xvf $tar";
+    my ($tar, $dir) = @$_;
+    print localtime() . " : tar -C $dir --no-same-owner -xvf $tar\n";
+    system "tar -C $dir --no-same-owner -xvf $tar";
     exit($CHILD_ERROR >> 8) if $CHILD_ERROR;
 }
 
@@ -398,7 +397,7 @@ sub read_all_and_check
 
 sub validate_tar
 {
-    my ($tar, $dir, $decompress) = @_;
+    my ($tar, $dir, $mime_type) = @_;
 
     # One of the more annoying things that can go wrong with imports is
     # schema sequence mismatches.  It's annoying because this script has to
@@ -410,10 +409,10 @@ sub validate_tar
     # contain all the relevant SCHEMA_SEQUENCE, TIMESTAMP files etc.
 
     my $cat_cmd = (
-        not($decompress) ? 'cat'
-        : $decompress eq '--gzip' ? 'gunzip'
-        : $decompress eq '--bzip2' ? 'bunzip2'
-        : $decompress eq '--xz' ? 'xz -d'
+        $mime_type eq 'application/x-tar' ? 'cat'
+        : $mime_type eq 'application/gzip' ? 'gunzip'
+        : $mime_type eq 'application/x-bzip2' ? 'bunzip2'
+        : $mime_type eq 'application/x-xz' ? 'xz -d'
         : die
     );
 

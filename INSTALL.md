@@ -121,10 +121,11 @@ Prerequisites
 
 8.  Script dependencies
 
-    In order to run one-off scripts, you’ll need the `ts` command which is provided
+    In order to run the script importing dumps, you’ll need the `file` command.
+    And to run one-off scripts, you’ll need the `ts` command which is provided
     by the `moreutils` package. If needed, you can install it with the command:
 
-        sudo apt-get install moreutils
+        sudo apt-get install file moreutils
 
 Server configuration
 --------------------
