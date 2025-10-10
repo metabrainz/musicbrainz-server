@@ -610,11 +610,6 @@ sub schema_fixup
                     name => $packaging,
                     gid => $packaging_id,
                 );
-            } else {
-                # MB Lucene search server
-                $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
-                    name => $packaging,
-                );
             }
         }
     }
@@ -661,9 +656,9 @@ sub schema_fixup
 
     if ($type eq 'recording' && defined $data->{'isrcs'}) {
         $data->{isrcs} = [
-            map { MusicBrainz::Server::Entity::ISRC->new(
-                isrc => (DBDefs->SEARCH_ENGINE eq 'LUCENE') ? $_->{id} : $_,
-            ) } @{ $data->{'isrcs'} },
+            map {
+                MusicBrainz::Server::Entity::ISRC->new( isrc => $_ )
+            } @{ $data->{'isrcs'} },
         ];
     }
 
@@ -838,24 +833,19 @@ sub external_search
     $type =~ s/release_group/release-group/;
 
     my $search_url_string = DBDefs->SEARCH_SCHEME;
-    if (DBDefs->SEARCH_ENGINE eq 'LUCENE' || DBDefs->SEARCH_SERVER eq DBDefs::Default->SEARCH_SERVER) {
-        my $dismax = $adv ? 'false' : 'true';
-        $search_url_string .= "://%s/ws/2/%s/?query=%s&offset=%s&max=%s&fmt=jsonnew&dismax=$dismax&web=1";
-    } else {
-        my $endpoint = 'advanced';
-        if (!$adv)
-        {
-            # Solr has a bug where the dismax end point behaves differently
-            # from edismax (advanced) when the query size is 1. This is a fix
-            # for that. See https://issues.apache.org/jira/browse/SOLR-12409
-            if (split(/[\P{Word}_]+/, $query, 2) == 1) {
-                $endpoint = 'basic';
-            } else {
-                $endpoint = 'select';
-            }
+    my $endpoint = 'advanced';
+    if (!$adv)
+    {
+        # Solr has a bug where the dismax end point behaves differently
+        # from edismax (advanced) when the query size is 1. This is a fix
+        # for that. See https://issues.apache.org/jira/browse/SOLR-12409
+        if (split(/[\P{Word}_]+/, $query, 2) == 1) {
+            $endpoint = 'basic';
+        } else {
+            $endpoint = 'select';
         }
-        $search_url_string .= "://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
-     }
+    }
+    $search_url_string .= "://%s/%s/$endpoint?q=%s&start=%s&rows=%s&wt=mbjson";
 
     my $search_url = sprintf($search_url_string,
                                  DBDefs->SEARCH_SERVER,

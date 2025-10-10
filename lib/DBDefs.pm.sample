@@ -149,9 +149,8 @@ sub DB_SCHEMA_SEQUENCE { 30 }
 sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # Relevant only if SSL redirects are enabled
 # sub WEB_SERVER_SSL            { 'localhost' }
-# sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+# sub SEARCH_SERVER             { '' }
 # sub SEARCH_SCHEME             { 'http' }
-# sub SEARCH_ENGINE             { 'SOLR' }
 # Used, for example, to have emails sent from the beta server list the
 # main server
 # sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
