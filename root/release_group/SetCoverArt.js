@@ -46,7 +46,6 @@ component SetCoverArt(
         'release-group/components/SetCoverArtForm',
         {async: true},
       )}
-      {manifest('common/loadArtwork', {async: true})}
       {manifest('common/artworkViewer', {async: true})}
     </ReleaseGroupLayout>
   );
