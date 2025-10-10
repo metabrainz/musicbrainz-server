@@ -225,7 +225,21 @@ export function getOrFetchRecentItems<T: EntityItemT>(
       _recentItemsCache.set(key, newList);
     }
     /*:: invariant(newList != null); */
-    newList.push(item);
+    if (
+      /*
+       * There are two reasons why an item might already be in the list:
+       *  * Two autocompletes having the same entity type/recent-items key
+       *    exist simultaneously.
+       *  * `localStorage` contains two MBIDs that resolve to the same
+       *    entity.
+       */
+      !newList.some(otherItem => (
+        String(otherItem.entity.id) === String(item.entity.id)
+      ))
+    ) {
+      /*:: invariant(newList != null); */
+      newList.push(item);
+    }
   };
 
   for (const item of cachedList) {
@@ -285,7 +299,6 @@ export function getOrFetchRecentItems<T: EntityItemT>(
           }
 
           const results = data.results;
-          const seenIds = new Set<number>();
 
           for (const id of ids) {
             const entity = results[id];
@@ -294,19 +307,12 @@ export function getOrFetchRecentItems<T: EntityItemT>(
                 // The MBID was redirected due to a merge.
                 idReplacements.set(id, entity.gid);
               }
-              /*
-               * In the unlikely event that we're storing two MBIDs that
-               * resolve to the same entity, ensure it's only displayed once.
-               */
-              if (!seenIds.has(entity.id)) {
-                pushItem({
-                  entity,
-                  id: String(entity.id) + '-recent',
-                  name: getEntityName(entity),
-                  type: 'option',
-                });
-                seenIds.add(entity.id);
-              }
+              pushItem({
+                entity,
+                id: String(entity.id) + '-recent',
+                name: getEntityName(entity),
+                type: 'option',
+              });
             } else {
               /*
                * No entity was found for this ID, or the entity type doesn't
