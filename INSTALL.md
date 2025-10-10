@@ -396,21 +396,28 @@ If you'd like a more permanent setup,
 [the plackup documentation](https://metacpan.org/pod/plackup) may prove useful
 in setting up a server such as nginx, using FastCGI.
 
-
 Rate limiting
 -------------
 
 The server by itself doesn't rate limit any request it handles. If you're
-receiving 503s, then you're likely performing
-[search queries](https://musicbrainz.org/doc/Search_Server) without having set
-up a local instance of the
+interested in implementing rate limiting for your local server, you will
+need to set it up yourself. Our recommendation would be to use the
+rate limiting features of your reverse proxy, which we do in production for
+[our own rate limiting](https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting).
+
+Searches
+--------
+
+The server by itself doesn't support indexed searches, just direct
+database searches.
+If you want to perform indexed
+[search queries](https://musicbrainz.org/doc/Search_Server) you will need
+to set up your own instance of the
 [search server](https://github.com/metabrainz/mb-solr) along with the
-[search index rebuilder](https://github.com/metabrainz/sir). By default,
-search queries are sent to search.musicbrainz.org and are rate limited.
+[search index rebuilder](https://github.com/metabrainz/sir).
 
 Once you set up your own instance, change `SEARCH_SERVER` in lib/DBDefs.pm to
 point to it.
-
 
 Translations
 ------------
