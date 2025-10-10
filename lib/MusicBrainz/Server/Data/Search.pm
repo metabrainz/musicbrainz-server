@@ -605,7 +605,7 @@ sub schema_fixup
                     defined $packaging->{id} ? (gid => $packaging->{id}) : (),
                 );
             } elsif ($packaging_id) {
-                # MB Solr search server v3.2? (SOLR-121)
+                # MB Solr search server v3.3
                 $data->{packaging} = MusicBrainz::Server::Entity::ReleasePackaging->new(
                     name => $packaging,
                     gid => $packaging_id,
