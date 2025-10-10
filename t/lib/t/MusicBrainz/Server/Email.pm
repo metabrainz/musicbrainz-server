@@ -156,190 +156,181 @@ test all => sub {
     };
 
     subtest 'send_email_verification' => sub {
+        $email->send_email_verification(
+            email => 'user@example.com',
+            verification_link => "$server/verify-email",
+            ip => '127.0.0.1',
+            editor => $user1,
+        );
 
-    $email->send_email_verification(
-        email => 'user@example.com',
-        verification_link => "$server/verify-email",
-        ip => '127.0.0.1',
-        editor => $user1,
-    );
-
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-    is($e->get_header('To'), 'user@example.com', 'To is user@example.com');
-    is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
-    like($e->get_header('Message-Id'), qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-    compare_body($e->object->body_str,
-                 "Hello Editor 1,\n".
-                 "\n".
-                 "This is a verification email for your MusicBrainz account. Please click\n".
-                 "on the link below to verify your email address:\n".
-                 "\n".
-                 "$server/verify-email\n".
-                 "\n".
-                 "If clicking the link above doesn't work, please copy and paste the URL in a\n".
-                 "new browser window instead.\n".
-                 "This email was triggered by a request from the IP address [127.0.0.1].\n".
-                 "\n".
-                 "Thanks for using MusicBrainz!\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
+        is($email->transport->delivery_count, 1);
+        my $delivery = $email->transport->shift_deliveries;
+        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', "Envelope from is noreply@...");
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($e->get_header('To'), 'user@example.com', 'To is user@example.com');
+        is($e->get_header('Subject'), 'Please verify your email address', 'Subject is Please verify your email address');
+        like($e->get_header('Message-Id'), qr{<verify-email-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
+        compare_body($e->object->body_str,
+                     "Hello Editor 1,\n".
+                     "\n".
+                     "This is a verification email for your MusicBrainz account. Please click\n".
+                     "on the link below to verify your email address:\n".
+                     "\n".
+                     "$server/verify-email\n".
+                     "\n".
+                     "If clicking the link above doesn't work, please copy and paste the URL in a\n".
+                     "new browser window instead.\n".
+                     "This email was triggered by a request from the IP address [127.0.0.1].\n".
+                     "\n".
+                     "Thanks for using MusicBrainz!\n".
+                     "\n".
+                     "-- The MusicBrainz Team\n");
     };
 
     subtest 'send_lost_username' => sub {
-
-    $email->send_lost_username(
-        user => $user1,
+        $email->send_lost_username(
+            user => $user1,
         );
 
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-    is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-    is($e->get_header('Subject'), 'Lost username', 'Subject is Lost username');
-    like($e->get_header('Message-Id'), qr{<lost-username-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-    compare_body($e->object->body_str,
-                 "Someone, probably you, asked to look up the username of the\n".
-                 "MusicBrainz account associated with this email address.\n".
-                 "\n".
-                 "Your MusicBrainz username is: Editor 1\n".
-                 "\n".
-                 "If you have also forgotten your password, use this username and your email address\n".
-                 "to reset your password here - $server/lost-password\n".
-                 "\n".
-                 "If you didn't initiate this request and feel that you've received this email in\n".
-                 "error, don't worry, you don't need to take any further action and can safely\n".
-                 "disregard this email.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
+        is($email->transport->delivery_count, 1);
+        my $delivery = $email->transport->shift_deliveries;
+        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($e->get_header('Subject'), 'Lost username', 'Subject is Lost username');
+        like($e->get_header('Message-Id'), qr{<lost-username-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
+        compare_body($e->object->body_str,
+                     "Someone, probably you, asked to look up the username of the\n".
+                     "MusicBrainz account associated with this email address.\n".
+                     "\n".
+                     "Your MusicBrainz username is: Editor 1\n".
+                     "\n".
+                     "If you have also forgotten your password, use this username and your email address\n".
+                     "to reset your password here - $server/lost-password\n".
+                     "\n".
+                     "If you didn't initiate this request and feel that you've received this email in\n".
+                     "error, don't worry, you don't need to take any further action and can safely\n".
+                     "disregard this email.\n".
+                     "\n".
+                     "-- The MusicBrainz Team\n");
     };
 
     subtest 'send_password_reset_request' => sub {
-
-    $email->send_password_reset_request(
-        user => $user1,
-        reset_password_link => "$server/reset-password",
+        $email->send_password_reset_request(
+            user => $user1,
+            reset_password_link => "$server/reset-password",
         );
 
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-    is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-    is($e->get_header('Subject'), 'Password reset request', 'Subject is Password reset request');
-    like($e->get_header('Message-Id'), qr{<password-reset-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-    compare_body($e->object->body_str,
-                 "Someone, probably you, asked that your MusicBrainz password be reset.\n".
-                 "\n".
-                 "To reset your password, click the link below:\n".
-                 "\n".
-                 "$server/reset-password\n".
-                 "\n".
-                 "If clicking the link above doesn't work, please copy and paste the URL in a\n".
-                 "new browser window instead.\n".
-                 "\n".
-                 "If you didn't initiate this request and feel that you've received this email in\n".
-                 "error, don't worry, you don't need to take any further action and can safely\n".
-                 "disregard this email.\n".
-                 "\n".
-                 "If you still have problems logging in, please drop us a line - see\n".
-                 "https://metabrainz.org/contact for details.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
+        is($email->transport->delivery_count, 1);
+        my $delivery = $email->transport->shift_deliveries;
+        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($e->get_header('Subject'), 'Password reset request', 'Subject is Password reset request');
+        like($e->get_header('Message-Id'), qr{<password-reset-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
+        compare_body($e->object->body_str,
+                     "Someone, probably you, asked that your MusicBrainz password be reset.\n".
+                     "\n".
+                     "To reset your password, click the link below:\n".
+                     "\n".
+                     "$server/reset-password\n".
+                     "\n".
+                     "If clicking the link above doesn't work, please copy and paste the URL in a\n".
+                     "new browser window instead.\n".
+                     "\n".
+                     "If you didn't initiate this request and feel that you've received this email in\n".
+                     "error, don't worry, you don't need to take any further action and can safely\n".
+                     "disregard this email.\n".
+                     "\n".
+                     "If you still have problems logging in, please drop us a line - see\n".
+                     "https://metabrainz.org/contact for details.\n".
+                     "\n".
+                     "-- The MusicBrainz Team\n");
     };
 
     subtest 'send_first_no_vote' => sub {
-
-    $email->send_first_no_vote(
-        editor => $user1,
-        voter => $user2,
-        edit_id => 1234,
+        $email->send_first_no_vote(
+            editor => $user1,
+            voter => $user2,
+            edit_id => 1234,
         );
 
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
-    is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-    is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>', 'Reply-To is support@...');
-    is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
-    like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , '
-     has right format');
-    is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
-    my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
-    $close_time = $close_time->strftime('%F %H:%M %Z');
+        is($email->transport->delivery_count, 1);
+        my $delivery = $email->transport->shift_deliveries;
+        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+        is($e->get_header('From'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'From is noreply@...');
+        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($e->get_header('Reply-To'), 'MusicBrainz <support@musicbrainz.org>', 'Reply-To is support@...');
+        is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+        like($e->get_header('Message-Id'), qr{<edit-1234-8888-no-vote-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , '
+         has right format');
+        is($e->get_header('Subject'), 'Someone has voted against your edit #1234', 'Subject is Someone has voted against...');
+        my $close_time = DateTime->now()->add_duration($MINIMUM_RESPONSE_PERIOD)->truncate( to => 'hour' )->add( hours => 1 );
+        $close_time = $close_time->strftime('%F %H:%M %Z');
 
-    my $body = <<"EOS";
-'Editor 2' has voted against your edit #1234.
--------------------------------------------------------------------------
-To respond, please add your note at:
+        my $body = <<~"EOS";
+            'Editor 2' has voted against your edit #1234.
+            -------------------------------------------------------------------------
+            To respond, please add your note at:
 
-    $server/edit/1234
+                $server/edit/1234
 
-Please do not respond to this email.
+            Please do not respond to this email.
 
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
+            If clicking the link above doesn't work, please copy and paste the URL in a
+            new browser window instead.
 
-Please note that this email will not be sent for every vote against an edit.
+            Please note that this email will not be sent for every vote against an edit.
 
-You can disable this notification by changing your preferences at
-$server/account/preferences.
+            You can disable this notification by changing your preferences at
+            $server/account/preferences.
 
-To ensure time for you and other editors to respond, the soonest this edit will
-be rejected, if applicable, is $close_time, 72 hours from the time of
-this email.
+            To ensure time for you and other editors to respond, the soonest this edit will
+            be rejected, if applicable, is $close_time, 72 hours from the time of
+            this email.
 
--- The MusicBrainz Team
-EOS
-    compare_body($e->object->body_str, $body);
+            -- The MusicBrainz Team
+            EOS
+        compare_body($e->object->body_str, $body);
     };
 
     subtest 'send_edit_note' => sub {
-
-    $email->send_edit_note(
-        editor => $user1,
-        from_editor => $user2,
-        edit_id => 1234,
-        note_text => 'Please remember to use guess case!',
+        $email->send_edit_note(
+            editor => $user1,
+            from_editor => $user2,
+            edit_id => 1234,
+            note_text => 'Please remember to use guess case!',
         );
 
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 2" <noreply@musicbrainz.org>', 'Header from is "Editor 2" <noreply@musicbrainz.org>');
-    is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-    is($e->get_header('Subject'), 'Note added to edit #1234', 'Subject is Note added to edit #1234');
-    is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
-    like($e->get_header('Message-Id'), qr{<edit-1234-8888-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
-    is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
-    compare_body($e->object->body_str,
-                 "'Editor 2' has added the following note to edit #1234:\n".
-                 "------------------------------------------------------------------------\n".
-                 "Please remember to use guess case!\n".
-                 "------------------------------------------------------------------------\n".
-                 "If you would like to reply to this note, please add your note at:\n".
-                 "$server/edit/1234\n".
-                 "Please do not respond to this email.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
-
+        is($email->transport->delivery_count, 1);
+        my $delivery = $email->transport->shift_deliveries;
+        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+        is($e->get_header('From'), '"Editor 2" <noreply@musicbrainz.org>', 'Header from is "Editor 2" <noreply@musicbrainz.org>');
+        is($e->get_header('To'), '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
+        is($e->get_header('Subject'), 'Note added to edit #1234', 'Subject is Note added to edit #1234');
+        is($e->get_header('References'), sprintf('<edit-1234@%s>', DBDefs->WEB_SERVER_USED_IN_EMAIL) , 'References edit-1234');
+        like($e->get_header('Message-Id'), qr{<edit-1234-8888-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
+        is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
+        compare_body($e->object->body_str,
+                     "'Editor 2' has added the following note to edit #1234:\n".
+                     "------------------------------------------------------------------------\n".
+                     "Please remember to use guess case!\n".
+                     "------------------------------------------------------------------------\n".
+                     "If you would like to reply to this note, please add your note at:\n".
+                     "$server/edit/1234\n".
+                     "Please do not respond to this email.\n".
+                     "\n".
+                     "-- The MusicBrainz Team\n");
     };
 
     subtest 'localized send_edit_note' => sub {
@@ -377,7 +368,7 @@ EOS
         edit_id => 9000,
         note_text => 'This edit is totally wrong!',
         own_edit => 1,
-        );
+    );
 
     is($email->transport->delivery_count, 1);
     my $delivery = $email->transport->shift_deliveries;
