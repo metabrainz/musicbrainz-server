@@ -133,11 +133,37 @@ function updateNameFieldErrors(
   }
 }
 
+function updateNoteFieldErrors(
+  actionName: string,
+  editNoteFieldCtx: CowContext<FieldT<string>>,
+) {
+  const editNote = editNoteFieldCtx.get('value').read();
+  if (isInvalidEditNote(editNote)) {
+    editNoteFieldCtx.set('has_errors', true);
+    editNoteFieldCtx.set('errors', [
+      l(`Your edit note seems to have no actual content.
+         Please provide a note that will be helpful to
+         your fellow editors!`),
+    ]);
+  } else if (actionName === 'create' && empty(editNote)) {
+    editNoteFieldCtx.set('has_errors', true);
+    editNoteFieldCtx.set('errors', [
+      l(`You must provide an edit note when adding
+         a standalone recording`),
+    ]);
+  } else {
+    editNoteFieldCtx.set('has_errors', false);
+    editNoteFieldCtx.set('pendingErrors', []);
+    editNoteFieldCtx.set('errors', []);
+  }
+}
+
 function createInitialState({
   $c,
   form,
 }: CreateInitialStatePropsT): StateT {
   const recording = getSourceEntityDataForRelationshipEditor($c);
+  const actionName = $c.action.name;
   invariant(recording && recording.entityType === 'recording');
 
   const formCtx = mutate(form);
@@ -149,9 +175,11 @@ function createInitialState({
       isrcCtx.set(createIsrcState(isrcCtx.read()));
       updateIsrcFieldErrors(isrcCtx);
     });
+  const editNoteFieldCtx = formCtx.get('field', 'edit_note');
+  updateNoteFieldErrors(actionName, editNoteFieldCtx);
 
   return {
-    actionName: $c.action.name,
+    actionName,
     artistCredit: createArtistCreditState({
       artistCredit: $c.stash.artist_credit,
       entity: recording,
@@ -171,20 +199,11 @@ function reducer(state: StateT, action: ActionT): StateT {
 
   match (action) {
     {type: 'update-edit-note', const editNote} => {
-      const errors = isInvalidEditNote(editNote)
-        ? [l(`Your edit note seems to have no actual content.
-              Please provide a note that will be helpful to
-              your fellow editors!`)]
-        : state.actionName === 'create' && empty(editNote)
-          ? [l(`You must provide an edit note when adding
-                a standalone recording`)]
-          : [];
-
-      newStateCtx.set('form', 'field', 'edit_note', {
-        ...newStateCtx.get('form', 'field', 'edit_note').read(),
-        errors,
-        value: editNote,
-      });
+      newStateCtx
+        .update('form', 'field', 'edit_note', (editNoteFieldCtx) => {
+          editNoteFieldCtx.set('value', editNote);
+          updateNoteFieldErrors(state.actionName, editNoteFieldCtx);
+        });
     }
     {type: 'update-length', const length} => {
       const errors = isInvalidLength(length)
