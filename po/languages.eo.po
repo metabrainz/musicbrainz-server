@@ -1342,6 +1342,11 @@ msgstr "Kpela"
 msgid "Kru languages"
 msgstr "Kruaj lingvoj"
 
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+msgid "Kuanua"
+msgstr ""
+
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
 msgid "Kuanyama"

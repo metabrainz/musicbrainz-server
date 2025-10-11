@@ -25,8 +25,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #. name:rebab
@@ -725,10 +725,10 @@ msgid ""
 "d0b001b1f978\">acoustic bass guitar</a>."
 msgstr ""
 "Басовый инструмент из семейства гитар. Для электрического варианта "
-"используйте <a href=\"/instrument/0b9d87fa-93fa-4956-8b6a-a419566cc915\""
-">электробас-гитару</a>, для акустического — <a href="
-"\"/instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">акустическую "
-"бас-гитару</a>."
+"используйте <a href=\"/instrument/0b9d87fa-93fa-4956-8b6a-"
+"a419566cc915\">электробас-гитару</a>, для акустического — <a href=\"/"
+"instrument/15861569-249d-4b24-8ce4-d0b001b1f978\">акустическую бас-гитару</"
+"a>."
 
 #. name:bicycle bell
 #: DB:instrument/description:743
@@ -2031,9 +2031,9 @@ msgid ""
 "primero and the bass, segunda, each is made of hollowed out wood with "
 "membranes of pig, sheep or deer."
 msgstr ""
-"Важный элемент культуры гарифуна. Состоит из двух барабанов: тенора (primero)"
-" и баса (segunda), каждый из которых изготовлен из выдолбленного дерева с "
-"мембранами из свиной, овечьей или оленьей кожи."
+"Важный элемент культуры гарифуна. Состоит из двух барабанов: тенора "
+"(primero) и баса (segunda), каждый из которых изготовлен из выдолбленного "
+"дерева с мембранами из свиной, овечьей или оленьей кожи."
 
 #. name:morin khuur
 #: DB:instrument/description:224
@@ -3017,6 +3017,19 @@ msgid ""
 "a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
 "synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
 "using recording samples."
+msgstr ""
+
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
 msgstr ""
 
 #. name:shawm
@@ -5525,7 +5538,7 @@ msgstr ""
 msgid "Tuned metal bar, bent into triangle shape."
 msgstr ""
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -5764,15 +5777,6 @@ msgid ""
 "was derived from the Chinese xiao in the 19th century."
 msgstr ""
 
-#. name:khamak
-#: DB:instrument/description:1215
-msgid ""
-"Used in folk music of the Bengal, Odisha and north-east India, the soundbox "
-"is a drum-like wooden cylinder with a membrane at one end held underneath an "
-"arm, attached to the membrane is a single string which is plucked with a "
-"pick. It is known by many names."
-msgstr ""
-
 #. name:krap khū
 #: DB:instrument/description:950
 msgid ""
@@ -5934,6 +5938,13 @@ msgid ""
 "northern Belarus and east-south Lithuania one drone one chanter both having "
 "bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
 "3 drones in one hole instead of one."
+msgstr ""
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
 msgstr ""
 
 #. name:somu dūdas

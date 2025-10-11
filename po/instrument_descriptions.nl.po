@@ -1815,11 +1815,10 @@ msgid ""
 msgstr ""
 "De cornamuse is een instrument uit de Renaissance dat verwant is aan de "
 "kromhoorn. Omdat het instrument alleen door Praetorius in één paragraaf "
-"wordt genoemd, zijn alle reconstructies benaderingen.<br />Zie <a href="
-"\"/instrument/fc4a9a4d-3901-4c67-bfe5-5acbcdaef535\">cornemuse du Centre</a> "
-"voor de Franse doedelzak.<br />Zie <a href="
-"\"/instrument/1d865ced-d86a-4277-8914-009740e37887\">doedelzak</a> voor de "
-"Italiaanse cornamusa."
+"wordt genoemd, zijn alle reconstructies benaderingen.<br />Zie <a href=\"/"
+"instrument/fc4a9a4d-3901-4c67-bfe5-5acbcdaef535\">cornemuse du Centre</a> "
+"voor de Franse doedelzak.<br />Zie <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
 
 #. name:siku
 #: DB:instrument/description:569
@@ -1832,9 +1831,9 @@ msgid ""
 msgstr ""
 "De siku, ook bekend als zampoña, is een traditionele panfluit uit de Andes "
 "die bestaat uit twee rijen pijpen die met kleurrijke linten aan elkaar zijn "
-"gebonden.<br />Zie <a href="
-"\"/instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a> voor de "
-"Italiaanse doedelzak."
+"gebonden.<br />Zie <a href=\"/instrument/"
+"7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a> voor de Italiaanse "
+"doedelzak."
 
 #. name:chalumeau
 #: DB:instrument/description:436
@@ -1884,12 +1883,11 @@ msgid ""
 "into."
 msgstr ""
 "De zampogna is een grote Italiaanse doedelzak van schapen- of geitenhuid. "
-"Alle melodie- en bourdonpijpen zijn op dezelfde plek aan de zak "
-"bevestigd.<br />Zie <a href="
-"\"/instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</a> voor de Zuid-"
-"Amerikaanse panfluit.<br />Zie <a href="
-"\"/instrument/86cf0eb3-b12d-40eb-bc32-928a1aebe3b1\">tsampouna</a> voor de "
-"Griekse doedelzak."
+"Alle melodie- en bourdonpijpen zijn op dezelfde plek aan de zak bevestigd."
+"<br />Zie <a href=\"/instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</"
+"a> voor de Zuid-Amerikaanse panfluit.<br />Zie <a href=\"/instrument/"
+"86cf0eb3-b12d-40eb-bc32-928a1aebe3b1\">tsampouna</a> voor de Griekse "
+"doedelzak."
 
 #. name:reed organ
 #: DB:instrument/description:204
@@ -1954,10 +1952,9 @@ msgid ""
 msgstr ""
 "Vishwa Mohan Bhatt ontwikkelde zijn vina op basis van een Hawaïaanse of "
 "lapsteelgitaar. Het instrument heeft 19 tot 21 snaren en op de hals zit een "
-"kalebas.<br />Zie <a href="
-"\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">Radhika’s Mohan-vina</"
-"a> voor het instrument dat Radhika Mohan Maitra in de jaren 1940 uit de "
-"sarod ontwikkelde."
+"kalebas.<br />Zie <a href=\"/instrument/198ecbd1-48fa-43cc-"
+"bda9-370206689074\">Radhika’s Mohan-vina</a> voor het instrument dat Radhika "
+"Mohan Maitra in de jaren 1940 uit de sarod ontwikkelde."
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1970,10 +1967,10 @@ msgid ""
 msgstr ""
 "Radhika’s Mohan-vina is in de jaren 1940 door Radhika Mohan Maitra uit de "
 "sarod ontwikkeld. Het heeft een houten klankkast (zoals een sitar), een "
-"extra resonator op de hals (zoals de vina) en het frettenbord van de "
-"sarod.<br />Zie <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\""
-">Bhatt’s Mohan-vina</a> voor de aangepaste slidegitaar die Vishwa Mohan "
-"Bhatt in de jaren 1990 ontwikkelde."
+"extra resonator op de hals (zoals de vina) en het frettenbord van de sarod."
+"<br />Zie <a href=\"/instrument/9a2b6ae1-a5fb-42ab-"
+"b18c-9985e8b606c4\">Bhatt’s Mohan-vina</a> voor de aangepaste slidegitaar "
+"die Vishwa Mohan Bhatt in de jaren 1990 ontwikkelde."
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -2002,11 +1999,11 @@ msgstr ""
 "De ektara heeft een kleine, ronde of trapezevormige klankkast van hout of "
 "kokosnoot en aan de onderkant een membraan. Aan de zijkant is een stok van "
 "gespleten bamboe bevestigd, met daaraan een snaar die ook aan het membraan "
-"vastzit.<br />Zie <a href="
-"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">thumbi</a> voor de luit "
-"met één snaar die ook ektar of ektara wordt genoemd. Zie tunatune voor het "
-"hierop lijkende instrument met één staaf.<br />Niet te verwarren met de "
-"ekatantri-vina, een antiek Indiaas instrument met één snaar."
+"vastzit.<br />Zie <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">thumbi</a> voor de luit met één snaar die ook "
+"ektar of ektara wordt genoemd. Zie tunatune voor het hierop lijkende "
+"instrument met één staaf.<br />Niet te verwarren met de ekatantri-vina, een "
+"antiek Indiaas instrument met één snaar."
 
 #. name:tun tuna
 #: DB:instrument/description:1210
@@ -2020,11 +2017,11 @@ msgid ""
 msgstr ""
 "De tunatune is een snaarinstrument met een cilindrische klankkast waaraan "
 "een lange staaf is bevestigd. Tussen het uiteinde van de stok en een "
-"membraan in de klankkast is één metalen snaar gespannen.<br />Zie <a href="
-"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">ektara</a> voor de "
-"trommelciter met twee staven en één snaar.<br />Zie <a href="
-"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">thumbi</a> voor de "
-"eensnarige luit uit Punjab."
+"membraan in de klankkast is één metalen snaar gespannen.<br />Zie <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">ektara</a> voor de "
+"trommelciter met twee staven en één snaar.<br />Zie <a href=\"/instrument/"
+"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">thumbi</a> voor de eensnarige luit "
+"uit Punjab."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -2051,8 +2048,8 @@ msgid ""
 "it has two chanters and no drones. Its name is a reborrowing of the Italian."
 msgstr ""
 "De tsampouna is een Griekse doedelzak met twee melodiepijpen en geen "
-"bourdonpijp. De naam is afgeleid van de zampogna.<br />Zie <a href="
-"\"/instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a> voor de "
+"bourdonpijp. De naam is afgeleid van de zampogna.<br />Zie <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a> voor de "
 "Italiaanse doedelzak."
 
 #. name:charumera
@@ -2106,13 +2103,12 @@ msgstr ""
 "van huid en de doedelzak heeft meestal een melodiebuis en drie "
 "bourdonbuizen, hoewel er daarvan meestal twee decoratief zijn.<br /> Zie <a "
 "href=\"/instrument/1464f316-aca0-4690-9115-28805720f846\">reclam de "
-"xeremies</a> voor de dubbele fluit van Ibiza.<br /> Zie <a href="
-"\"/instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a> voor de "
-"Latijns-Amerikaanse hobo.<br /> Zie <a href="
-"\"/instrument/b4f112c3-d666-47f2-bb85-bae28572ca13\">schalmei</a> voor het "
-"middeleeuwse blaasinstrument.<br />Zie <a href="
-"\"/instrument/ad0ddf4c-05ca-4d9b-a159-8caed25e6bf4\">gralla</a> voor het "
-"Catalaanse dubbelrietinstrument dat ook xirimita wordt genoemd."
+"xeremies</a> voor de dubbele fluit van Ibiza.<br /> Zie <a href=\"/"
+"instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a> voor de "
+"Latijns-Amerikaanse hobo.<br /> Zie <a href=\"/instrument/b4f112c3-d666-47f2-"
+"bb85-bae28572ca13\">schalmei</a> voor het middeleeuwse blaasinstrument.<br /"
+">Zie <a href=\"/instrument/ad0ddf4c-05ca-4d9b-a159-8caed25e6bf4\">gralla</a> "
+"voor het Catalaanse dubbelrietinstrument dat ook xirimita wordt genoemd."
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -2360,8 +2356,8 @@ msgstr ""
 "één stuk hout gesneden in een vorm die lijkt op die van de sarinda. Het "
 "instrument heeft drie klankgaten: twee aan weerszijden van de korte hals en "
 "een onder de brug, afgedekt door een membraan.<br />Het instrument moet niet "
-"worden verward met het Oeigoerse spijkerluit <a href="
-"\"/instrument/0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a>."
+"worden verward met het Oeigoerse spijkerluit <a href=\"/instrument/"
+"0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a>."
 
 #. name:hümmelchen
 #: DB:instrument/description:1205
@@ -3712,10 +3708,10 @@ msgstr ""
 "De mezwed is een kleine doedelzak van schapen- of geitenhuid met twee "
 "melodiepijpen die uitlopen in bekers van koeienhoorn.<br />Niet te verwarren "
 "met de Lybische schalmei die ook bekend staat als zoekra.<br />Niet te "
-"verwarren met de <a href=\"/instrument/826a3a61-75ce-4620-9890-241f118d99e9\""
-">midjwiz</a> of de zummara.<br />Ook niet te verwarren met mizmar, een "
-"algemene Arabische term voor verschillende rietinstrumenten, de bespelers "
-"daarvan en een soort dans."
+"verwarren met de <a href=\"/instrument/"
+"826a3a61-75ce-4620-9890-241f118d99e9\">midjwiz</a> of de zummara.<br />Ook "
+"niet te verwarren met mizmar, een algemene Arabische term voor verschillende "
+"rietinstrumenten, de bespelers daarvan en een soort dans."
 
 #. name:ghijak
 #: DB:instrument/description:932
@@ -3739,11 +3735,10 @@ msgid ""
 msgstr ""
 "De cornemuse du Centre is een doedelzak uit Centraal-Frankrijk. Het "
 "instrument heeft twee telescopische bourdonpijpen en een melodiepijp met "
-"dubbel riet.<br />Niet te verwarren met de <a href="
-"\"/instrument/28527011-9cf4-4dcd-a70c-22042a92a52c\">cornamuse</a> met "
-"dubbel riet uit de Renaissance.<br />Zie <a href="
-"\"/instrument/1d865ced-d86a-4277-8914-009740e37887\">doedelzak</a> voor de "
-"Italiaanse cornamusa."
+"dubbel riet.<br />Niet te verwarren met de <a href=\"/instrument/"
+"28527011-9cf4-4dcd-a70c-22042a92a52c\">cornamuse</a> met dubbel riet uit de "
+"Renaissance.<br />Zie <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
 
 #. name:dulcian
 #: DB:instrument/description:496
@@ -3769,10 +3764,33 @@ msgid ""
 msgstr ""
 "De elektronische shrutidoos is een elektronische synthesizer die in 1979 "
 "door G. Raj Narayan is ontwikkeld. Sinds de jaren 1990 worden opgenomen "
-"samples gebruikt.<br />Niet te verwarren met de <a href="
-"\"/instrument/e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">analoge variant</a> of "
-"het snaarinstrument <a href="
-"\"/instrument/a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>."
+"samples gebruikt.<br />Niet te verwarren met de <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">analoge variant</a> of het "
+"snaarinstrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>."
+
+#. name:khamak
+#: DB:instrument/description:1215
+#, fuzzy
+#| msgid ""
+#| "Used in folk music of the Bengal, Odisha and north-east India, the "
+#| "soundbox is a drum-like wooden cylinder with a membrane at one end held "
+#| "underneath an arm, attached to the membrane is a single string which is "
+#| "plucked with a pick. It is known by many names."
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
+msgstr ""
+"De khamak is een snaarinstrument dat lijkt op een trommel. Aan het membraan "
+"zit één snaar die met een plectrum wordt bespeeld. Het instrument wordt "
+"gebruikt voor volksmuziek in Bengalen, Odisha en het noordoosten van India. "
+"Het instrument is onder veel namen bekend."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -3797,18 +3815,17 @@ msgstr ""
 "conische boring en een belvormig uiteinde. Er zijn veel instrumenten van "
 "afgeleid, en er zijn veel instrumenten met namen die lijken op schalmei (in "
 "verschillende talen).<br /> Zie Martinstrompet voor het door Max Martin "
-"ontwikkelde blaasinstrument dat in Duitsland ook wel schalmei wordt "
-"genoemd.<br /> Zie <a href="
-"\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a> voor het "
-"enkelrietinstrument dat een voorloper van de klarinet is.<br /> Zie <a href="
-"\"/instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a> voor de "
-"Japanse fluit.<br /> Zie <a href="
-"\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\">tible</a> (ook wel "
-"discantschalmei genoemd) voor de Catalaanse variant.<br /> Zie <a href="
-"\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a> voor het "
-"Italiaanse instrument dat ook wel ciaramella wordt genoemd.<br />Zie <a href="
-"\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\">xeremies</a> voor de "
-"doedelzak."
+"ontwikkelde blaasinstrument dat in Duitsland ook wel schalmei wordt genoemd."
+"<br /> Zie <a href=\"/instrument/e3511ed1-3d73-4340-880f-"
+"c8ccc8eda11c\">chalumeau</a> voor het enkelrietinstrument dat een voorloper "
+"van de klarinet is.<br /> Zie <a href=\"/instrument/07b91470-"
+"b63e-41e4-88e6-11c4acac064f\">charumera</a> voor de Japanse fluit.<br /> Zie "
+"<a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\">tible</a> (ook "
+"wel discantschalmei genoemd) voor de Catalaanse variant.<br /> Zie <a "
+"href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a> voor "
+"het Italiaanse instrument dat ook wel ciaramella wordt genoemd.<br />Zie <a "
+"href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\">xeremies</a> voor "
+"de doedelzak."
 
 #. name:oboe
 #: DB:instrument/description:8
@@ -7117,7 +7134,7 @@ msgstr ""
 "Een triangel bestaat uit een gestemde metalen buis die in een driehoek is "
 "gebogen."
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -7446,19 +7463,6 @@ msgstr ""
 "op school als lesinstrument wordt bespeeld. Hij werd, net als zijn grotere "
 "broer de tongso, in de 19e eeuw uit de Chinese xiao ontwikkeld."
 
-#. name:khamak
-#: DB:instrument/description:1215
-msgid ""
-"Used in folk music of the Bengal, Odisha and north-east India, the soundbox "
-"is a drum-like wooden cylinder with a membrane at one end held underneath an "
-"arm, attached to the membrane is a single string which is plucked with a "
-"pick. It is known by many names."
-msgstr ""
-"De khamak is een snaarinstrument dat lijkt op een trommel. Aan het membraan "
-"zit één snaar die met een plectrum wordt bespeeld. Het instrument wordt "
-"gebruikt voor volksmuziek in Bengalen, Odisha en het noordoosten van India. "
-"Het instrument is onder veel namen bekend."
-
 #. name:krap khū
 #: DB:instrument/description:950
 msgid ""
@@ -7681,6 +7685,13 @@ msgstr ""
 "met trechtervormige uiteinden. Er zijn twee varianten: uit het noorden van "
 "Wit-Rusland en uit het zuid-oosten van Litouwen.<br />Gerelateerd aan dit "
 "instrument is de moetsjanka doeda met drie bourdonpijpen in plaats van één."
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
+msgstr ""
 
 #. name:somu dūdas
 #: DB:instrument/description:1198

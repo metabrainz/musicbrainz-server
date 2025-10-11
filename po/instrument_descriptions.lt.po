@@ -2717,6 +2717,19 @@ msgid ""
 "using recording samples."
 msgstr ""
 
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
+msgstr ""
+
 #. name:shawm
 #: DB:instrument/description:408
 msgid ""
@@ -5223,7 +5236,7 @@ msgstr ""
 msgid "Tuned metal bar, bent into triangle shape."
 msgstr ""
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -5462,15 +5475,6 @@ msgid ""
 "was derived from the Chinese xiao in the 19th century."
 msgstr ""
 
-#. name:khamak
-#: DB:instrument/description:1215
-msgid ""
-"Used in folk music of the Bengal, Odisha and north-east India, the soundbox "
-"is a drum-like wooden cylinder with a membrane at one end held underneath an "
-"arm, attached to the membrane is a single string which is plucked with a "
-"pick. It is known by many names."
-msgstr ""
-
 #. name:krap khū
 #: DB:instrument/description:950
 msgid ""
@@ -5632,6 +5636,13 @@ msgid ""
 "northern Belarus and east-south Lithuania one drone one chanter both having "
 "bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
 "3 drones in one hole instead of one."
+msgstr ""
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
 msgstr ""
 
 #. name:somu dūdas

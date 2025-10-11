@@ -199,9 +199,9 @@ msgstr ""
 "<li>从不同的旧来源（不一定是已发行的专辑）组合在一起的录音的合辑。例如\"Best "
 "of\"（精选合集）类型的专辑、回顾性的专辑，或者稀有的专辑。</li>\n"
 "<li>一个不同艺术家的歌曲合辑，通常基于一个普遍的主题（例如\"Songs for "
-"Lovers\"致爱人的歌），一个特定的时期(例如\"Hits of 1998\"1998年度金曲"
-"），或一些其他类型的分组（例如\"Songs From the Movies\"电影歌曲合集，"
-"或者\"the 'Café del Mar'系列\"合集等）。</li>\n"
+"Lovers\"致爱人的歌），一个特定的时期(例如\"Hits of 1998\"1998年度金曲），或一"
+"些其他类型的分组（例如\"Songs From the Movies\"电影歌曲合集，或者\"the 'Café "
+"del Mar'系列\"合集等）。</li>\n"
 "</ul>\n"
 "\n"
 "<p>MusicBrainz项目一般不认为以下内容是合辑:</p>\n"
@@ -3230,6 +3230,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "E-sharp minor"
 msgstr "升E小调"
 
+#: DB:work_attribute_type/name:215
+msgctxt "work_attribute_type"
+msgid "EAÜ ID"
+msgstr ""
+
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
 msgid "ECAD ID"
@@ -3259,6 +3264,14 @@ msgstr "电子乐器"
 msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr "增强CD"
+
+#. name:Ultra HD Blu-ray
+#: DB:medium_format/description:211
+msgctxt "medium_format"
+msgid ""
+"Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
+"compatible with all Blu-ray players."
+msgstr ""
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4379,6 +4392,15 @@ msgstr "荷兰著作权协会BUMA/STEMRA ID"
 msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
 msgstr "厄瓜多尔著作权协会SAYCE ID"
+
+#. name:EAÜ ID
+#: DB:work_attribute_type/description:215
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Estonian rights society EAÜ"
+msgstr "奥地利著作权协会AKM ID"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -8605,6 +8627,14 @@ msgstr "USB 闪存盘"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Udaya ravicandrika"
 msgstr "Udaya ravicandrika"
+
+#: DB:medium_format/name:211
+#, fuzzy
+#| msgctxt "medium_format"
+#| msgid "Blu-ray"
+msgctxt "medium_format"
+msgid "Ultra HD Blu-ray"
+msgstr "Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13

@@ -9,7 +9,7 @@ msgstr ""
 "musicbrainz/languages/tok/>\n"
 "Language: tok\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 5.13.3\n"
@@ -1337,6 +1337,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
 msgid "Kru languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+msgid "Kuanua"
 msgstr ""
 
 #. frequency:1 iso_code_3:kua
