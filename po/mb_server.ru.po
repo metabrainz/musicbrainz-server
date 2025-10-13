@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-10-06 22:02+0000\n"
+"PO-Revision-Date: 2025-10-07 20:02+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -54,8 +54,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
+"n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
@@ -15195,7 +15195,7 @@ msgstr "Мои теги и жанры"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:210
 msgid "Language to receive emails in"
-msgstr ""
+msgstr "На каком языке получать письма"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 msgid "Email me about"
@@ -18675,23 +18675,23 @@ msgstr "Оценки лейблов"
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"
-msgstr "Рейтинги к местам"
+msgstr "Оценки мест"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Recording ratings"
-msgstr "Рейтинги к записям"
+msgstr "Оценки записей"
 
 #: ../root/user/UserRatingList.js:30
 msgid "Release group ratings"
-msgstr "Рейтинги к группам релизов"
+msgstr "Оценки групп релизов"
 
 #: ../root/user/UserRatingList.js:31
 msgid "Work ratings"
-msgstr "Рейтинги к работам"
+msgstr "Оценки работ"
 
 #: ../root/user/UserRatingList.js:66
 msgid "View all ratings"
-msgstr "Посмотреть все рейтинги"
+msgstr "Посмотреть все оценки"
 
 #: ../root/user/UserRatingList.js:77
 msgid "{user} has not rated anything."
