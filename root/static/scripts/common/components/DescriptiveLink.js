@@ -10,6 +10,7 @@
 import ko from 'knockout';
 
 import type {ReleaseEditorTrackT} from '../../release-editor/types.js';
+import {nonEmptyArtistCredit} from '../immutable-entities.js';
 
 import AreaWithContainmentLink from './AreaWithContainmentLink.js';
 import ArtistCreditLink from './ArtistCreditLink.js';
@@ -50,7 +51,9 @@ component DescriptiveLink(
     ...sharedProps,
   };
 
-  const artistCredit = customArtistCredit || entity.artistCredit;
+  const artistCredit = ko.unwrap(
+    customArtistCredit || entity.artistCredit,
+  );
 
   if (entity.entityType === 'area' && entity.gid) {
     return <AreaWithContainmentLink area={entity} {...props} />;
@@ -58,11 +61,11 @@ component DescriptiveLink(
 
   const link = <EntityLink entity={entity} {...props} />;
 
-  if (artistCredit) {
+  if (nonEmptyArtistCredit(artistCredit)) {
     return exp.l('{entity} by {artist}', {
       artist: (
         <ArtistCreditLink
-          artistCredit={ko.unwrap(artistCredit)}
+          artistCredit={artistCredit}
           showDeleted={showDeletedArtists}
           {...sharedProps}
         />

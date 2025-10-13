@@ -12,6 +12,7 @@ extends 'MusicBrainz::Server::Edit::Generic::Create';
 with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
      'MusicBrainz::Server::Edit::Work',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
         get_string => sub { shift->{name} },
      };

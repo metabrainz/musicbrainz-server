@@ -285,10 +285,10 @@ const testData = [
   // ACUM
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
-          input_entity_type: 'release',
+          input_entity_type: 'release_group',
           expected_relationship_type: 'otherdatabases',
           expected_clean_url: 'https://nocs.acum.org.il/acumsitesearchdb/album?albumid=000608',
-          only_valid_entity_types: ['release'],
+          only_valid_entity_types: ['release_group'],
   },
   {
           input_url: 'https://nocs.acum.org.il/acumsitesearchdb/work?workid=29AJOVQ&tab=musical',
@@ -737,6 +737,27 @@ limited_link_type_combinations: [
                                   ['downloadpurchase', 'streamingpaid'],
                                 ],
             expected_clean_url: 'https://music.apple.com/jp/album/1263790414',
+  },
+  // Apple Music Classical
+  {
+                     input_url: 'https://classical.music.apple.com/ca/artist/11862',
+             input_entity_type: 'artist',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://classical.music.apple.com/ca/artist/11862',
+  },
+  {
+                     input_url: 'https://classical.music.apple.com/be/album/john-rutter-reflections/1825163927',
+             input_entity_type: 'release',
+limited_link_type_combinations: [
+                                  'downloadpurchase',
+                                  'streamingpaid',
+                                  ['downloadpurchase', 'streamingpaid'],
+                                ],
+            expected_clean_url: 'https://classical.music.apple.com/be/album/1825163927',
   },
   // Apple Podcasts
   {
@@ -2940,6 +2961,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://sws.geonames.org/6698548/',
        only_valid_entity_types: ['area', 'place'],
   },
+  {
+                     input_url: 'http://www.geonames.org/2749689',
+             input_entity_type: 'area',
+    expected_relationship_type: 'geonames',
+            expected_clean_url: 'http://sws.geonames.org/2749689/',
+       only_valid_entity_types: ['area', 'place'],
+  },
   // Goodreads
   {
                      input_url: 'http://goodreads.com/author/list/22650322.Joe_Hill',
@@ -3677,6 +3705,17 @@ limited_link_type_combinations: [
   {
                      input_url: 'http://www.last.fm/it/label/Shyrec#shoutbox',
             expected_clean_url: 'https://www.last.fm/label/Shyrec',
+  },
+  {
+                     input_url: 'https://www.last.fm/music/Nine+Inch+Nails/With+Teeth+(Instrumental)',
+             input_entity_type: 'release',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'discographyentry',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is currently blocked',
+                                  target: 'url',
+                                },
   },
   // Library of Congress Linked Data Service
   {

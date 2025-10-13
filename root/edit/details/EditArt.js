@@ -44,7 +44,7 @@ component EditArt(
       <tr>
         <th>{addColonText(formattedEntityType)}</th>
         <td colSpan={2}>
-          {/* $FlowIgnore[prop-missing] */}
+          {/* $FlowFixMe[prop-missing] */}
           <DescriptiveLink entity={display[entityType]} />
         </td>
       </tr>
@@ -80,7 +80,7 @@ component EditArt(
       <EditArtwork
         artwork={display.artwork}
         colSpan={2}
-        // $FlowIgnore[prop-missing]
+        // $FlowFixMe[prop-missing]
         entity={display[entityType]}
       />
     </table>

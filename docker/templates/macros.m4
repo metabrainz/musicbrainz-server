@@ -69,7 +69,7 @@ install_javascript
 
 copy_mb(``docker/scripts/compile_resources_for_image.sh docker/scripts/'')
 copy_mb(``root/ root/'')
-copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/xgettext.js script/'')
+copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/xgettext.mjs script/'')
 copy_mb(``webpack/ webpack/'')
 
 ENV NODE_ENV production
@@ -268,6 +268,7 @@ language-pack-et
 language-pack-fi
 language-pack-he
 language-pack-ja
+language-pack-ru
 language-pack-sq')
 m4_ifelse(with_test_translations, 1, `m4_dnl
 language-pack-da
@@ -276,7 +277,6 @@ language-pack-hr
 language-pack-nb
 language-pack-oc
 language-pack-pl
-language-pack-ru
 language-pack-sv
 language-pack-tr
 language-pack-zh-hans

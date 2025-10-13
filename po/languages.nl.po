@@ -9,7 +9,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-18 19:20+0000\n"
+"PO-Revision-Date: 2025-09-01 18:39+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.13\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -906,7 +906,7 @@ msgstr "Gothisch"
 msgid "Grebo"
 msgstr "Grebo"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "Grieks"
@@ -981,7 +981,7 @@ msgstr "Hausa"
 msgid "Hawaiian"
 msgstr "Hawaïaans"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "Hebreeuws"
@@ -1345,6 +1345,13 @@ msgstr "Kpelle"
 #: DB:language/name:228
 msgid "Kru languages"
 msgstr "Kru-talen"
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+#, fuzzy
+#| msgid "Kuanyama"
+msgid "Kuanua"
+msgstr "Kwanyama (Oshikwanyama)"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
@@ -2161,7 +2168,7 @@ msgstr "Selkoeps (Ostjaks-Samojeeds)"
 #. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
-msgstr ""
+msgstr "Semai"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
@@ -2381,7 +2388,7 @@ msgstr "Syrisch"
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
-msgstr ""
+msgstr "Tashelhiyt"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

@@ -3184,6 +3184,30 @@ msgstr ""
 "f0f34e8d6eb0\">dulzaina</a>混淆。<br /> 在文藝復興時期使用，由楓木製成，具有"
 "摺疊的內徑和圓錐形的鈴口。"
 
+#. name:electronic shruti box
+#: DB:instrument/description:1213
+msgid ""
+"Not to be confused with the analogue bellow powered <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> or the string "
+"instrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
+"synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
+"using recording samples."
+msgstr ""
+
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
+msgstr ""
+
 #. name:shawm
 #: DB:instrument/description:408
 msgid ""
@@ -5425,6 +5449,15 @@ msgstr "施魯蒂盒類似於類似於小風琴，用於提供持續音伴奏。
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr "蒙古三弦是一種蒙古無品魯特琴，有三根弦。"
 
+#. name:swaragat
+#: DB:instrument/description:1214
+msgid ""
+"The skin covered deep wooden soundbox, has a neck that is carved like parrot "
+"and a gut bridge with three courses of double silk strings, plucked with a "
+"horn-plectrum. Used in southern India since ancient times, it is essentially "
+"a bass rabab."
+msgstr ""
+
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -5982,7 +6015,7 @@ msgstr ""
 msgid "Tuned metal bar, bent into triangle shape."
 msgstr "調整過的金屬棒，被塑造成三角形。"
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -6446,6 +6479,13 @@ msgstr ""
 "自古以來使用，它是一種較小的半圓形樂器，吹管在一端，風箱在另一端，有兩種類"
 "型；來自白俄羅斯北部和立陶宛東南部的樂器有一個風箱和一個吹管，兩者的末端都有"
 "彎曲的角。<br /> 其次，無角的macianka duda在一個孔中有3個風箱，而不是一個。"
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
+msgstr ""
 
 #. name:somu dūdas
 #: DB:instrument/description:1198

@@ -43,14 +43,10 @@ const oauthTypeOptions = {
 
 function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
-  switch (action.type) {
-    case 'set-oauth-type': {
+  match (action) {
+    {type: 'set-oauth-type', const oauthType} => {
       newStateCtx
-        .set('form', 'field', 'oauth_type', 'value', action.oauthType);
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
+        .set('form', 'field', 'oauth_type', 'value', oauthType);
     }
   }
   return newStateCtx.final();

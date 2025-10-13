@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-18 19:20+0000\n"
+"PO-Revision-Date: 2025-09-01 18:39+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11\n"
+"X-Generator: Weblate 5.13\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -130,7 +130,7 @@ msgstr "AllMusic"
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
 #: DB:link_type/reverse_link_phrase:285 DB:link_type/reverse_link_phrase:1093
 msgid "Allmusic page for"
-msgstr "Allmusicpagina over"
+msgstr "Allmusic-pagina over"
 
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
@@ -166,7 +166,7 @@ msgstr "Bandcamp"
 #: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
 #: DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
-msgstr "Bandcamppagina van"
+msgstr "Bandcamp-pagina van"
 
 #. name:bandsintown
 #: DB:link_type/link_phrase:861 DB:link_type/link_phrase:862
@@ -313,7 +313,7 @@ msgstr "Discogs"
 #: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
 #: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
-msgstr "Discogspagina over"
+msgstr "Discogs-pagina over"
 
 #. name:step
 #: DB:link_attribute_type/description:1020
@@ -353,7 +353,7 @@ msgstr "Geonames"
 #. name:geonames
 #: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
-msgstr "Geonamespagina over"
+msgstr "Geonames-pagina over"
 
 #: DB:link_type/name:83 DB:link_type/name:258
 msgid "IMDB samples"
@@ -520,7 +520,7 @@ msgstr ""
 "Dit geeft een artiest aan die voor langere tijd instrumentale en vocale "
 "ondersteuning voor een andere artiest op albums en/of bij concerten biedt of "
 "bood. Dit is een relatie tussen personen en artiesten en wordt meestal "
-"gebruikt voor bekende soloartiesten, maar soms ook voor groepen."
+"gebruikt voor bekende solo-artiesten, maar soms ook voor groepen."
 
 #. name:performer
 #: DB:link_type/description:156
@@ -767,6 +767,20 @@ msgid "Indicates the lyricist for this work."
 msgstr "Dit geeft de tekstschrijver van deze compositie aan."
 
 #. name:mastering
+#: DB:link_type/description:1293
+#, fuzzy
+#| msgid ""
+#| "Indicates the instrument technician for this release. Use also for "
+#| "\"piano tuner\" credits and other similar ones."
+msgid ""
+"Indicates the mastering company for this release, when a company is credited "
+"instead of a specific engineer."
+msgstr ""
+"Dit geeft aan wie voor dit op de uitgave gebruikte instrument technisch "
+"verantwoordelijk was. Dit is ook bedoeld voor pianostemmers en soortgelijke "
+"functies."
+
+#. name:mastering
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this release."
 msgstr "Dit geeft de masteringtechnicus van deze uitgave aan."
@@ -803,6 +817,9 @@ msgid ""
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
 msgstr ""
+"Dit geeft aan wie de compositie heeft bewerkt (meestal voor een ander "
+"medium, zoals proza naar een hoorspel of een musical voor toneel naar een "
+"filmmusical)."
 
 #. name:translator
 #: DB:link_type/description:871
@@ -823,6 +840,8 @@ msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
 msgstr ""
+"Dit geeft aan wie het oorspronkelijke script van een bewerkt werk schreef, "
+"zoals waarop een hoorspel is gebaseerd."
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -886,6 +905,8 @@ msgid ""
 "Links a podcast or broadcast series to an artist who was a host for the "
 "series."
 msgstr ""
+"Dit koppelt een podcast- of radioserie aan een artiest die de serie "
+"presenteerde."
 
 #. name:arranged in
 #: DB:link_type/description:864
@@ -1310,8 +1331,8 @@ msgid ""
 "Links an event to its host/MC. Event hosts usually do introductions to the "
 "show or each song."
 msgstr ""
-"Dit koppelt het evenement aan zijn host/MC. MC’s introduceren vaak het "
-"evenement of elk nummer."
+"Dit koppelt het evenement aan zijn presentator/MC. MC’s introduceren vaak "
+"het evenement of elk nummer."
 
 #. name:held in
 #: DB:link_type/description:793
@@ -2060,6 +2081,24 @@ msgstr ""
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "Dit beschrijft een technicus die een algemene technische rol vervulde."
+
+#. name:mix
+#: DB:link_type/description:1294 DB:link_type/description:1295
+#, fuzzy
+#| msgid ""
+#| "This describes an engineer responsible for using a mixing console to mix "
+#| "a recorded track into a single piece of music suitable for release. For "
+#| "remixing, see <a href=\"/relationship/"
+#| "7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">remixer</a>."
+msgid ""
+"This describes the company responsible for using a mixing console to mix a "
+"recorded track into a single piece of music suitable for release, when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+"Dit geeft de technicus aan die verantwoordelijk was voor het gebruik van het "
+"mengpaneel om een opgenomen nummer te mixen tot een stuk muziek dat geschikt "
+"is om uit te geven. Zie voor remixen <a href=\"/relationship/"
+"7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">remixer</a>."
 
 #. name:member of band
 #: DB:link_type/description:103
@@ -3150,6 +3189,19 @@ msgstr ""
 "specifieke regio te publiceren of uit te geven. Gebruik dit alleen als dit "
 "specifiek op de uitgave is vermeld, ga dit niet gokken."
 
+#. name:dedication
+#: DB:link_type/description:1290
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the recording is dedicated to a specific artist. This is for "
+"dedications such as \"This track is dedicated to the memory of Artist\"."
+msgstr ""
+"Dit geeft aan dat de compositie aan een specifiek gebied is opgedragen. Dit "
+"komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
+
 #. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
@@ -3203,6 +3255,19 @@ msgstr ""
 "komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
 
 #. name:dedication
+#: DB:link_type/description:846
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work is dedicated to a specific artist. This is most "
+"common for classical works, but also exists in other genres to a degree."
+msgstr ""
+"Dit geeft aan dat de compositie aan een specifiek gebied is opgedragen. Dit "
+"komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
+
+#. name:dedication
 #: DB:link_type/description:922
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
@@ -3211,15 +3276,6 @@ msgstr ""
 "Dit geeft aan dat een compositie aan een specifieke organisatie is "
 "opgedragen. Dit komt vaak voor bij klassieke muziek, maar soms ook bij "
 "andere genres."
-
-#. name:dedication
-#: DB:link_type/description:846
-msgid ""
-"This indicates the work is dedicated to a specific person. This is most "
-"common for classical works, but also exists in other genres to a degree."
-msgstr ""
-"Dit geeft aan dat de compositie aan een specifieke persoon is opgedragen. "
-"Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
 
 #. name:dedication
 #: DB:link_type/description:983
@@ -3424,12 +3480,12 @@ msgstr "Dit koppelt een uitgave aan haar Allmusic-pagina."
 
 #. name:logo
 #: DB:link_type/description:1288
-#, fuzzy
-#| msgid "This is used to link a label to an image of its logo."
 msgid ""
 "This is used to link a series (a podcast, a festival...) to an image of its "
 "logo."
-msgstr "Dit koppelt een platenmaatschappij aan een afbeelding van haar logo."
+msgstr ""
+"Dit koppelt een serie (podcasts, festivals enz.) aan een afbeelding van haar "
+"logo."
 
 #. name:discogs
 #: DB:link_type/description:747
@@ -3700,6 +3756,19 @@ msgstr ""
 "Dit koppelt een groep (vaak een orkest) aan de officiële huiscomponist van "
 "de groep."
 
+#. name:artist-in-residence
+#: DB:link_type/description:1296
+#, fuzzy
+#| msgid ""
+#| "This links a group (often an orchestra) to a composer who has a composer-"
+#| "in-residence position with the group."
+msgid ""
+"This links a group to an artist who has an artist-in-residence position with "
+"the group."
+msgstr ""
+"Dit koppelt een groep (vaak een orkest) aan de officiële huiscomponist van "
+"de groep."
+
 #. name:video channel
 #: DB:link_type/description:304
 msgid ""
@@ -3773,6 +3842,19 @@ msgstr ""
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
+msgstr ""
+"Dit koppelt een plaats (vaak een concertzaal of een onderwijsinstituut) aan "
+"de officiële huiscomponist van de plaats."
+
+#. name:artist-in-residence
+#: DB:link_type/description:1164
+#, fuzzy
+#| msgid ""
+#| "This links a place (often a concert hall or educational institution) to a "
+#| "composer who has a composer-in-residence position with it."
+msgid ""
+"This links a place (often a concert hall or educational institution) to an "
+"artist who has an artist-in-residence position with it."
 msgstr ""
 "Dit koppelt een plaats (vaak een concertzaal of een onderwijsinstituut) aan "
 "de officiële huiscomponist van de plaats."
@@ -4130,16 +4212,12 @@ msgstr "Dit koppelt een uitgave aan de plaats waar de tekst werd geschreven."
 
 #. name:IMDb
 #: DB:link_type/description:1289
-#, fuzzy
-#| msgid ""
-#| "This links an artist to its page in <a href=\"http://www.imdb.com/"
-#| "\">IMDb</a>."
 msgid ""
 "This links a series (generally a podcast) to its page in <a href=\"http://"
 "www.imdb.com/\">IMDb</a>."
 msgstr ""
-"Dit koppelt een artiest aan zijn <a href=\"http://www.imdb.com/\">IMDb</a>-"
-"pagina."
+"Dit koppelt een serie (meestal van podcasts) aan haar <a href=\"http://"
+"www.imdb.com/\">IMDb</a>-pagina."
 
 #. name:soundcloud
 #: DB:link_type/description:870
@@ -4635,19 +4713,15 @@ msgstr ""
 
 #. name:adaptation
 #: DB:link_type/description:1284
-#, fuzzy
-#| msgid ""
-#| "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where the "
-#| "second work is based on music or text from the first, but isn't directly "
-#| "a revision or an arrangement of it."
 msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a>, where one "
 "work is an adaptation of the other (generally from a different medium, such "
 "as a prose work into an audio drama or a stage musical into a film musical)."
 msgstr ""
-"Dit koppelt een <a href=\"/doc/Work\" title=\"Work\">compositie</a> aan een "
-"compositie die is gebaseerd op de muziek of tekst van de eerste compositie, "
-"zonder een directe revisie of arrangement te zijn."
+"Dit koppelt twee <a href=\"/doc/Work\" title=\"Work\">composities</a>, "
+"waarbij de ene een bewerking is van de andere (meestal voor een ander "
+"medium, zoals proza naar een hoorspel of een musical voor toneel naar een "
+"filmmusical)."
 
 #. name:based on
 #: DB:link_type/description:314
@@ -5018,13 +5092,6 @@ msgstr ""
 
 #. name:writer
 #: DB:link_type/description:167
-#, fuzzy
-#| msgid ""
-#| "This relationship is used to link a work to the artist responsible for "
-#| "writing the music and/or the words (lyrics, libretto, etc.), when no more "
-#| "specific information is available. If possible, the more specific "
-#| "composer, lyricist and/or librettist types should be used, rather than "
-#| "this relationship type."
 msgid ""
 "This relationship is used to link a work to the artist responsible for "
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
@@ -5037,7 +5104,10 @@ msgstr ""
 "Dit wordt gebruikt om een compositie te koppelen aan de artiest die "
 "verantwoordelijk is voor het schrijven van de muziek en/of de teksten, als "
 "de precieze rol niet bekend is. Als dit wel bekend is, moet je de "
-"specifiekere relaties voor componist, tekstschrijver of librettist gebruiken."
+"specifiekere relaties voor componist, tekstschrijver of librettist "
+"gebruiken.\n"
+"\n"
+"Dit wordt ook gebruikt voor schrijvers van literatuur."
 
 #. name:residency
 #: DB:link_type/description:994
@@ -6041,28 +6111,22 @@ msgid "act"
 msgstr "bedrijf"
 
 #: DB:link_type/name:1284
-#, fuzzy
-#| msgid "animation"
 msgid "adaptation"
-msgstr "animatie"
+msgstr "bewerking"
 
 #. name:adaptation
 #: DB:link_type/reverse_link_phrase:1284
-#, fuzzy
-#| msgid "compilation of"
 msgid "adaptation of"
-msgstr "compilatie van"
+msgstr "bewerking van"
 
 #. name:adaptation
 #: DB:link_type/link_phrase:1284
-#, fuzzy
-#| msgid "dedications"
 msgid "adaptations"
-msgstr "toewijdingen"
+msgstr "bewerkingen"
 
 #: DB:link_type/name:1285
 msgid "adapter"
-msgstr ""
+msgstr "bewerker"
 
 #: DB:link_attribute_type/name:1
 msgid "additional"
@@ -6181,6 +6245,19 @@ msgstr "artiestendiploma"
 msgid "artist rename"
 msgstr "artiest hernoemd"
 
+#: DB:link_type/name:1164 DB:link_type/name:1296
+#, fuzzy
+#| msgid "composers-in-residence"
+msgid "artist-in-residence"
+msgstr "huiscomponisten"
+
+#. name:artist-in-residence
+#: DB:link_type/link_phrase:1164 DB:link_type/link_phrase:1296
+#, fuzzy
+#| msgid "composer-in-residence at"
+msgid "artist-in-residence at"
+msgstr "huiscomponist van"
+
 #. name:artistic director
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
@@ -6208,6 +6285,13 @@ msgstr "artiesten en repertoire (A&amp;R)"
 #: DB:link_type/name:1081
 msgid "artists and repertoire position at"
 msgstr "werkte als A&amp;R (artiesten en repertoire) bij"
+
+#. name:artist-in-residence
+#: DB:link_type/reverse_link_phrase:1164 DB:link_type/reverse_link_phrase:1296
+#, fuzzy
+#| msgid "composers-in-residence"
+msgid "artists-in-residence"
+msgstr "huiscomponisten"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
 #: DB:link_type/name:993
@@ -6789,10 +6873,18 @@ msgstr "crowdfundingpagina voor"
 msgid "cut the lacquer for"
 msgstr "sneed de lakplaat voor"
 
+#. name:dedication
+#: DB:link_type/link_phrase:1290
+#, fuzzy
+#| msgid "field recordings"
+msgid "dedicated recordings"
+msgstr "buitenopnamen"
+
 #. name:dedicated to, name:dedication
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:983
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
-#: DB:link_type/reverse_link_phrase:914 DB:link_type/reverse_link_phrase:868
+#: DB:link_type/reverse_link_phrase:1290 DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:868
 msgid "dedicated to"
 msgstr "toegewijdt aan"
 
@@ -6803,7 +6895,7 @@ msgid "dedicated works"
 msgstr "toegewijdde composities"
 
 #: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
-#: DB:link_type/name:914
+#: DB:link_type/name:1290 DB:link_type/name:914
 msgid "dedication"
 msgstr "toewijding"
 
@@ -6990,7 +7082,7 @@ msgstr "editor"
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr "edits"
+msgstr "bewerkingen"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925
@@ -7572,10 +7664,8 @@ msgstr "heeft een kaartverkooppagina op"
 
 #. name:adaptation
 #: DB:link_type/long_link_phrase:1284
-#, fuzzy
-#| msgid "has orchestration"
 msgid "has adaptation"
-msgstr "heeft orkestratie"
+msgstr "heeft bewerking"
 
 #. name:allmusic
 #: DB:link_type/long_link_phrase:755 DB:link_type/long_link_phrase:284
@@ -7839,24 +7929,22 @@ msgstr "bezit het fonografisch auteursrecht (℗) op"
 
 #: DB:link_type/name:801 DB:link_type/name:1287
 msgid "host"
-msgstr "host"
+msgstr "presentator"
 
 #. name:host
 #: DB:link_type/link_phrase:801 DB:link_type/long_link_phrase:801
 msgid "host at"
-msgstr "host van"
+msgstr "presentator op"
 
 #. name:host
 #: DB:link_type/link_phrase:1287
-#, fuzzy
-#| msgid "poster for"
 msgid "host for"
-msgstr "affiche van"
+msgstr "presentator van"
 
 #. name:host
 #: DB:link_type/reverse_link_phrase:801 DB:link_type/reverse_link_phrase:1287
 msgid "hosts"
-msgstr "hosts"
+msgstr "presentatoren"
 
 #. name:headquarters
 #: DB:link_type/link_phrase:1237
@@ -8211,23 +8299,18 @@ msgstr "is de {step:stief}ouder van"
 
 #. name:performance
 #: DB:link_type/long_link_phrase:278
-#, fuzzy
-#| msgid ""
-#| "is a {live} {medley:medley including a} {partial} {instrumental} {cover} "
-#| "{karaoke} recording of"
 msgid ""
 "is {acappella:an|a} {acappella:a cappella} {live} {medley:medley including "
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
-"is een {live:live-}{medley:medley met een }{partial:gedeeltelijke }"
-"{instrumental:instrumentale }{cover:cover}{karaoke:karaoke}opname van"
+"is een {acappella:a-capella}{live:live-}{medley:medley met een }"
+"{partial:gedeeltelijke }{instrumental:instrumentale }{cover:cover-}"
+"{karaoke:karaoke-}{demo:demo-}opname van"
 
 #. name:host
 #: DB:link_type/long_link_phrase:1287
-#, fuzzy
-#| msgid "is/was a supporting artist for"
 msgid "is/was a host for"
-msgstr "is/was een ondersteunende artiest voor"
+msgstr "is/was presentator van"
 
 #. name:subgroup
 #: DB:link_type/long_link_phrase:722
@@ -8644,7 +8727,7 @@ msgstr "gemasterd voor"
 msgid "mastered in"
 msgstr "gemasterd in"
 
-#: DB:link_type/name:136 DB:link_type/name:42
+#: DB:link_type/name:136 DB:link_type/name:1293 DB:link_type/name:42
 msgid "mastering"
 msgstr "mastering"
 
@@ -8751,7 +8834,8 @@ msgstr "diverse rollen"
 msgid "miscellaneous support"
 msgstr "diverse ondersteuning"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:1294 DB:link_type/name:26 DB:link_type/name:1295
+#: DB:link_type/name:143
 msgid "mix"
 msgstr "mix"
 
@@ -9025,7 +9109,7 @@ msgstr "organist"
 
 #: DB:link_attribute_type/name:525
 msgid "original"
-msgstr "oorspronkelijk"
+msgstr "origineel"
 
 #. name:rescheduled as
 #: DB:link_type/reverse_link_phrase:836
@@ -9343,7 +9427,7 @@ msgstr "premières"
 #. name:premiere
 #: DB:link_type/link_phrase:715 DB:link_type/link_phrase:716
 msgid "premieres hosted"
-msgstr "was gastheer van de première van"
+msgstr "was de premièrelocatie van"
 
 #. name:presented
 #: DB:link_type/name:1168 DB:link_type/reverse_link_phrase:1168
@@ -9463,13 +9547,16 @@ msgstr "producenten"
 
 #. name:production
 #: DB:link_type/name:256 DB:link_type/name:160 DB:link_type/name:59
-#: DB:link_type/name:72 DB:link_type/link_phrase:256
-#: DB:link_type/link_phrase:160 DB:link_type/link_phrase:59
-#: DB:link_type/link_phrase:72 DB:link_type/reverse_link_phrase:256
-#: DB:link_type/reverse_link_phrase:160 DB:link_type/reverse_link_phrase:59
-#: DB:link_type/reverse_link_phrase:72 DB:link_type/long_link_phrase:256
-#: DB:link_type/long_link_phrase:160 DB:link_type/long_link_phrase:59
-#: DB:link_type/long_link_phrase:72
+#: DB:link_type/name:1291 DB:link_type/name:1292 DB:link_type/name:72
+#: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
+#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:1291
+#: DB:link_type/link_phrase:1292 DB:link_type/link_phrase:72
+#: DB:link_type/reverse_link_phrase:256 DB:link_type/reverse_link_phrase:160
+#: DB:link_type/reverse_link_phrase:59 DB:link_type/reverse_link_phrase:1291
+#: DB:link_type/reverse_link_phrase:1292 DB:link_type/reverse_link_phrase:72
+#: DB:link_type/long_link_phrase:256 DB:link_type/long_link_phrase:160
+#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:1291
+#: DB:link_type/long_link_phrase:1292 DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "productie"
 
@@ -9864,12 +9951,6 @@ msgstr "vervangen door"
 msgid "rescheduled as"
 msgstr "opnieuw gepland als"
 
-#. name:residence position
-#: DB:link_type/name:1164 DB:link_type/link_phrase:1164
-#: DB:link_type/reverse_link_phrase:1164 DB:link_type/long_link_phrase:1164
-msgid "residence position"
-msgstr "residentie"
-
 #. name:residency
 #: DB:link_type/link_phrase:994
 msgid "residencies"
@@ -9994,10 +10075,8 @@ msgid "school directors"
 msgstr "schooldirecteuren"
 
 #: DB:link_type/name:1286
-#, fuzzy
-#| msgid "writer"
 msgid "scriptwriter"
-msgstr "schrijver"
+msgstr "scriptschrijver"
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
@@ -10607,6 +10686,13 @@ msgstr "was een ondersteunende artiest op"
 msgid "was a supporting DJ at"
 msgstr "was ondersteunende dj op"
 
+#. name:artist-in-residence
+#: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
+#, fuzzy
+#| msgid "was a composer-in-residence at"
+msgid "was an artist-in-residence at"
+msgstr "was huiscomponist van"
+
 #. name:orchestra
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
@@ -10824,10 +10910,8 @@ msgstr ""
 
 #. name:adapter
 #: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
-#, fuzzy
-#| msgid "{additional:additionally} translated"
 msgid "{additional:additionally} adapted"
-msgstr "{additional:aanvullend} vertaalde"
+msgstr "was de {additional:aanvullende} bewerker van"
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
@@ -10876,6 +10960,14 @@ msgstr "{additional:aanvullende} techniek verzorgd bij"
 #: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
 msgid "{additional:additionally} engineered in"
 msgstr "{additional:aanvullende} techniek verzorgd in"
+
+#. name:mix
+#: DB:link_type/link_phrase:1294 DB:link_type/link_phrase:1295
+#: DB:link_type/long_link_phrase:1294 DB:link_type/long_link_phrase:1295
+#, fuzzy
+#| msgid "{additional:additionally} remixed"
+msgid "{additional:additionally} mixed"
+msgstr "remixte {additional:aanvullend}"
 
 #. name:mixed at
 #: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
@@ -10998,10 +11090,8 @@ msgstr "schreef {additional:aanvullingen aan} de tekst van"
 
 #. name:scriptwriter
 #: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
-#, fuzzy
-#| msgid "{additional:additionally} wrote the lyrics for"
 msgid "{additional:additionally} wrote the script for"
-msgstr "schreef {additional:aanvullingen aan} de tekst van"
+msgstr "schreef {additional:aanvullingen aan} het script van"
 
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
@@ -11163,6 +11253,13 @@ msgstr ""
 msgid "{additional:additionally} {guest} {solo} performed"
 msgstr "voerde {guest:als gast} {additional:aanvullend} {solo:solo} uit"
 
+#. name:mastering
+#: DB:link_type/long_link_phrase:1293
+#, fuzzy
+#| msgid "{additional:additionally} {pre:pre-}{re}mastered at"
+msgid "{additional:additionally} {pre:pre-}{re}mastered"
+msgstr "{additional:aanvullend} ge{pre:pre}{re}masterd bij"
+
 #. name:mastered at
 #: DB:link_type/reverse_link_phrase:697
 msgid "{additional:additionally} {pre:pre-}{re}mastered at"
@@ -11175,10 +11272,8 @@ msgstr "{additional:aanvullend} ge{pre:pre}{re}masterd in"
 
 #. name:adapter
 #: DB:link_type/reverse_link_phrase:1285
-#, fuzzy
-#| msgid "{additional} writer"
 msgid "{additional} adapter"
-msgstr "{additional:aanvullend} schrijver"
+msgstr "{additional:aanvullend} bewerker"
 
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
@@ -11325,6 +11420,13 @@ msgstr "{additional:aanvullende} tekst geschreven bij"
 msgid "{additional} lyrics written in"
 msgstr "{additional:aanvullende} tekst geschreven in"
 
+#. name:mix
+#: DB:link_type/reverse_link_phrase:1294 DB:link_type/reverse_link_phrase:1295
+#, fuzzy
+#| msgid "{additional} remixer"
+msgid "{additional} mixer"
+msgstr "{additional:aanvullende} remixer"
+
 #. name:mixed at, name:mixed in
 #: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
 #: DB:link_type/link_phrase:694 DB:link_type/link_phrase:696
@@ -11380,10 +11482,8 @@ msgstr "{additional:aanvullende} samples van"
 
 #. name:scriptwriter
 #: DB:link_type/reverse_link_phrase:1286
-#, fuzzy
-#| msgid "{additional} writer"
 msgid "{additional} scriptwriter"
-msgstr "{additional:aanvullend} schrijver"
+msgstr "{additional:aanvullend} scriptschrijver"
 
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
@@ -11617,6 +11717,13 @@ msgid "{additional} {original} {eponymous} members"
 msgstr ""
 "{additional:aanvullende} {original:oorspronkelijke} {eponymous:naamgevende} "
 "leden"
+
+#. name:mastering
+#: DB:link_type/link_phrase:1293 DB:link_type/reverse_link_phrase:1293
+#, fuzzy
+#| msgid "{additional} {pre:pre-}{re}mastering location for"
+msgid "{additional} {pre:pre-}{re}mastering"
+msgstr "{additional:aanvullende} {pre:pre}{re}masteringlocatie van"
 
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
@@ -11861,8 +11968,8 @@ msgstr "{entity1} wordt vaak gebruikt voor {entity0}"
 
 #. name:dedicated to, name:dedication
 #: DB:link_type/long_link_phrase:983 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
-#: DB:link_type/long_link_phrase:868
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:1290
+#: DB:link_type/long_link_phrase:914 DB:link_type/long_link_phrase:868
 msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} is opgedragen aan {entity0}"
 
@@ -12261,6 +12368,16 @@ msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocale} ondersteuning voor"
 
 #~ msgid ""
+#~ "This indicates the work is dedicated to a specific person. This is most "
+#~ "common for classical works, but also exists in other genres to a degree."
+#~ msgstr ""
+#~ "Dit geeft aan dat de compositie aan een specifieke persoon is opgedragen. "
+#~ "Dit komt vaak voor bij klassieke muziek, maar soms ook bij andere genres."
+
+#~ msgid "residence position"
+#~ msgstr "residentie"
+
+#~ msgid ""
 #~ "Links a release to the area it was arranged in. Use only when the place "
 #~ "is unknown!"
 #~ msgstr ""
@@ -12600,12 +12717,6 @@ msgstr "{vocal:%|vocale} ondersteuning voor"
 
 #~ msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
 #~ msgstr "{additional:aanvullend} {co:co-}arrangeur {vocal:%|vocals}"
-
-#~ msgid "{additional:additionally} remixed"
-#~ msgstr "remixte {additional:aanvullend}"
-
-#~ msgid "{additional} remixer"
-#~ msgstr "{additional:aanvullende} remixer"
 
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "

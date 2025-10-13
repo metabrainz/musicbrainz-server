@@ -9,16 +9,13 @@
 
 import ArtistCreditList from '../components/Aliases/ArtistCreditList.js';
 import AliasesComponent from '../components/Aliases/index.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
+import LayoutComponent from '../components/LayoutComponent.js';
 
 component Aliases(
   aliases: $ReadOnlyArray<AnyAliasT>,
   artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
   entity: EntityWithAliasesT,
 ) {
-  const entityType = entity.entityType;
-  const LayoutComponent = chooseLayoutComponent(entityType);
-
   return (
     <LayoutComponent
       entity={entity}

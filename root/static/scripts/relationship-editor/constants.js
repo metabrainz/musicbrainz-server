@@ -14,12 +14,23 @@ import type {
   RelationshipSourceGroupsContextT,
 } from './types.js';
 
-export opaque type RelationshipEditStatusT = number;
+type REL_STATUS_NOOP_T = 0;
+export const REL_STATUS_NOOP: REL_STATUS_NOOP_T = 0;
 
-export const REL_STATUS_NOOP: RelationshipEditStatusT = 0;
-export const REL_STATUS_ADD: RelationshipEditStatusT = 1;
-export const REL_STATUS_EDIT: RelationshipEditStatusT = 2;
-export const REL_STATUS_REMOVE: RelationshipEditStatusT = 3;
+type REL_STATUS_ADD_T = 1;
+export const REL_STATUS_ADD: REL_STATUS_ADD_T = 1;
+
+type REL_STATUS_EDIT_T = 2;
+export const REL_STATUS_EDIT: REL_STATUS_EDIT_T = 2;
+
+type REL_STATUS_REMOVE_T = 3;
+export const REL_STATUS_REMOVE: REL_STATUS_REMOVE_T = 3;
+
+export type RelationshipEditStatusT =
+  | REL_STATUS_NOOP_T
+  | REL_STATUS_ADD_T
+  | REL_STATUS_EDIT_T
+  | REL_STATUS_REMOVE_T;
 
 export const EMPTY_DIALOG_PARTIAL_DATE = Object.freeze({
   day: '',

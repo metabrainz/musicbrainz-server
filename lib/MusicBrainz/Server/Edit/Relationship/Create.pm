@@ -16,6 +16,7 @@ with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::DatePeriod',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 use MooseX::Types::Moose qw( Bool Int Str );

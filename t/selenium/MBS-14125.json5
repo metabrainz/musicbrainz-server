@@ -1,0 +1,45 @@
+{
+  title: 'MBS-14125: Handle redirected MBIDs in the autocomplete\'s recent items',
+  commands: [
+    // Inject three MBIDs into recentAutocompleteEntities.artist:
+    //  1. A redirected MBID.
+    //  2. A primary MBID that points to the same entity as #1.
+    //  3. A bogus MBID that doesn't resolve to anything.
+    {
+      command: 'runScript',
+      target: "localStorage.setItem('recentAutocompleteEntities', JSON.stringify({artist: ['b3668303-75e1-4ec3-9b32-008598675340', 'd1fc999f-6184-41a6-bcb1-7c59bf74a6e1', '7ccae9ad-0959-4cb0-8945-2ce95c6f9726']}));",
+      value: '',
+    },
+    {
+      command: 'open',
+      target: '/recording/create',
+      value: '',
+    },
+    {
+      command: 'click',
+      target: 'css=#artist-credit-editor button.open-ac',
+      value: '',
+    },
+    // Wait for the recent entities list to load and appear.
+    // (The first artist input should be automatically focused to trigger this.)
+    {
+      command: 'pause',
+      target: '1000',
+      value: '',
+    },
+    // The redirected MBID should not trigger any recursion that causes
+    // infinite K.Flays to appear in the list.
+    {
+      command: 'assertEval',
+      target: "Array.from(document.querySelectorAll('#ac-source-artist-0-menu li.option-item')).map(x => x.childNodes[0].textContent).join(', ')",
+      value: 'K.Flay',
+    },
+    // The artist MBIDs in localStorage should have been filtered to contain
+    // only the single primary MBID.
+    {
+      command: 'assertEval',
+      target: "JSON.stringify(JSON.parse(localStorage.getItem('recentAutocompleteEntities')).artist)",
+      value: '["d1fc999f-6184-41a6-bcb1-7c59bf74a6e1"]',
+    },
+  ],
+}

@@ -581,7 +581,7 @@ export const CLEANUPS: CleanupEntries = {
               result: /\/results\?creatorid=[A-Z]-\d+-\d$/.test(url),
               target: ERROR_TARGETS.ENTITY,
             };
-          case LINK_TYPES.otherdatabases.release:
+          case LINK_TYPES.otherdatabases.release_group:
             return {
               result: /\/album\?albumid=[0-9A-Z]+$/.test(url),
               target: ERROR_TARGETS.ENTITY,
@@ -958,11 +958,11 @@ export const CLEANUPS: CleanupEntries = {
       multiple(LINK_TYPES.downloadpurchase, LINK_TYPES.streamingpaid),
     ],
     clean(url) {
-      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?music\.apple\.com\//, 'https://music.apple.com/');
+      url = url.replace(/^https?:\/\/(?:(?:beta|geo)\.)?(classical\.)?music\.apple\.com\//, 'https://$1music.apple.com/');
       // US page is the default, add its country-code to clarify (MBS-10623)
-      url = url.replace(/^(https:\/\/music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
-      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/album\/[^?#/]+\/[0-9]+\?i=([0-9]+)$/, '$1/song/$2');
-      url = url.replace(/^(https:\/\/music\.apple\.com\/[a-z]{2})\/(artist|album|author|label|music-video|song)\/(?:[^?#/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/$3');
+      url = url.replace(/^(https:\/\/(?:classical\.)?music\.apple\.com)\/([a-z-]{3,})\//, '$1/us/$2/');
+      url = url.replace(/^(https:\/\/(?:classical\.)?music\.apple\.com\/[a-z]{2})\/album\/[^?#/]+\/[0-9]+\?i=([0-9]+)$/, '$1/song/$2');
+      url = url.replace(/^(https:\/\/(?:classical\.)?music\.apple\.com\/[a-z]{2})\/(artist|album|author|label|music-video|song)\/(?:[^?#/]+\/)?(?:id)?([0-9]+)(?:\?.*)?$/, '$1/$2/$3');
       return url;
     },
     validate(url, id) {
@@ -984,7 +984,7 @@ export const CLEANUPS: CleanupEntries = {
         };
       }
 
-      const m = /^https:\/\/music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
+      const m = /^https:\/\/(?:classical\.)?music\.apple\.com\/[a-z]{2}\/([a-z-]{3,})\/[0-9]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -3034,10 +3034,10 @@ export const CLEANUPS: CleanupEntries = {
   },
   'geonames': {
     hostname: 'geonames.org',
-    match: [/^https?:\/\/([a-z]+\.)?geonames\.org\/([0-9]+)\/.*$/i],
+    match: [/^https?:\/\/([a-z]+\.)?geonames\.org\/([0-9]+).*$/i],
     restrict: [LINK_TYPES.geonames],
     clean(url) {
-      return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+)\/.*$/, 'http://sws.geonames.org/$1/');
+      return url.replace(/^https?:\/\/(?:[a-z]+\.)?geonames.org\/([0-9]+).*$/, 'http://sws.geonames.org/$1/');
     },
   },
   'goodreads': {
@@ -7554,7 +7554,7 @@ export const CLEANUP_ENTRIES_BY_HOSTNAME:
       entries.push(entry);
     });
     return accum;
-  // $FlowIgnore[incompatible-cast]
+  // $FlowFixMe[incompatible-type]
   }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
 
 const entitySpecificRules: {
@@ -7573,6 +7573,17 @@ entitySpecificRules.release = function (url) {
       ),
       result: false,
       target: ERROR_TARGETS.ENTITY,
+    };
+  }
+  if (/^(https?:\/\/)?([^./]+\.)?last\.fm\//.test(url)) {
+    return {
+      error: l(
+        `Last.fm release pages are very often generated from MusicBrainz
+         data to begin with, and usually a bad match for specific MusicBrainz
+         releases, so adding Last.fm links to releases is currently blocked.`,
+      ),
+      result: false,
+      target: ERROR_TARGETS.URL,
     };
   }
   if (/^(https?:\/\/)?([^./]+\.)?wikidata\.org\//.test(url)) {

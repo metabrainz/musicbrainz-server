@@ -42,35 +42,26 @@ export function runLazyReleaseReducer(
   newState: {...LazyReleaseStateT, ...},
   action: LazyReleaseActionT,
 ): void {
-  switch (action.type) {
-    case 'toggle-medium': {
-      const medium = action.medium;
+  match (action) {
+    {type: 'toggle-medium', const medium} => {
       const newExpandedMediums = new Map(newState.expandedMediums);
       newExpandedMediums.set(
         medium.position,
         !isMediumExpanded(newExpandedMediums, medium),
       );
       newState.expandedMediums = newExpandedMediums;
-      break;
     }
-    case 'toggle-all-mediums': {
+    {type: 'toggle-all-mediums', const expanded, const mediums} => {
       const newExpandedMediums = new Map(newState.expandedMediums);
-      for (const medium of action.mediums) {
-        newExpandedMediums.set(medium.position, action.expanded);
+      for (const medium of mediums) {
+        newExpandedMediums.set(medium.position, expanded);
       }
       newState.expandedMediums = newExpandedMediums;
-      break;
     }
-    case 'load-tracks': {
-      const medium = action.medium;
+    {type: 'load-tracks', const medium, const tracks} => {
       const newLoadedTracks = new Map(newState.loadedTracks);
-      newLoadedTracks.set(medium.position, action.tracks);
+      newLoadedTracks.set(medium.position, tracks);
       newState.loadedTracks = newLoadedTracks;
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      throw new Error('Unknown action: ' + action.type);
     }
   }
 }
@@ -81,8 +72,8 @@ function reducer(
 ): StateT {
   const newState: {...StateT} = {...state};
 
-  switch (action.type) {
-    case 'toggle-credits-mode': {
+  match (action) {
+    {type: 'toggle-credits-mode'} => {
       if (state.creditsMode === 'bottom') {
         setCookie('bottom-credits', 0);
         newState.creditsMode = 'inline';
@@ -90,9 +81,8 @@ function reducer(
         setCookie('bottom-credits', 1);
         newState.creditsMode = 'bottom';
       }
-      break;
     }
-    default: {
+    _ as action => {
       runLazyReleaseReducer(newState, action);
     }
   }

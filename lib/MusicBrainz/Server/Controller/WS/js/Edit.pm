@@ -200,6 +200,12 @@ our $data_processors = {
 
     $EDIT_RELATIONSHIP_EDIT => \&process_relationship,
 
+    $EDIT_RELATIONSHIP_DELETE => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_entered_from($c, $loader, $data);
+    },
+
     $EDIT_RELATIONSHIPS_REORDER => sub {
         my ($c, $loader, $data) = @_;
 
@@ -216,6 +222,8 @@ our $data_processors = {
             $ordering->{new_order} = $new_order;
             $ordering->{old_order} = $relationship->link_order;
         }
+
+        process_entered_from($c, $loader, $data);
     },
 
     $EDIT_RELEASE_REORDER_MEDIUMS => sub {
@@ -271,6 +279,8 @@ sub process_entity {
         # MBS-7963
         $data->{comment} = substr($data->{comment}, 0, 255);
     }
+
+    process_entered_from($c, $loader, $data);
 
     process_artist_credit($c, $loader, $data);
 }
@@ -349,6 +359,25 @@ sub process_artist_credit {
 
     process_artist_credits($c, $loader, $data->{artist_credit})
         if defined $data->{artist_credit};
+}
+
+sub process_entered_from {
+    my ($c, $loader, $data) = @_;
+
+    if (defined $data->{enteredFrom}) {
+        my $entered_from = delete $data->{enteredFrom};
+        my $entity_type = $entered_from->{entity_type};
+        my $gid = $entered_from->{gid};
+        my $entity_model = type_to_model($entity_type);
+        my $entity = $c->model($entity_model)->get_by_gid($gid);
+        if ($entity) {
+            $data->{entered_from} = {
+                entity_type => $entity_type,
+                gid => $gid,
+                name => $entity->name,
+            };
+        }
+    }
 }
 
 sub process_medium {
@@ -459,6 +488,8 @@ sub process_relationship {
             [$data->{relationship} ? $data->{relationship}->link->all_attributes : ()],
         );
     }
+
+    process_entered_from($c, $loader, $data);
 
     delete $data->{id};
     delete $data->{linkTypeID};

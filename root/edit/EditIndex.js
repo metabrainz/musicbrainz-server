@@ -26,6 +26,7 @@ import {editorMayAddNote, editorMayVoteOnEdit}
   from '../utility/edit.js';
 import formatUserDate from '../utility/formatUserDate.js';
 
+import EditEnteredFrom from './components/EditEnteredFrom.js';
 import EditHeader from './components/EditHeader.js';
 import EditNotes from './components/EditNotes.js';
 import EditorTypeInfo from './components/EditorTypeInfo.js';
@@ -50,6 +51,8 @@ component EditIndex(
     <Layout fullWidth={fullWidth} title={texp.l('Edit #{id}', {id: edit.id})}>
       <div id="content">
         <EditHeader edit={edit} />
+        <EditEnteredFrom edit={edit} />
+
 
         <h2>{l('Changes')}</h2>
         {edit.data ? detailsElement : (

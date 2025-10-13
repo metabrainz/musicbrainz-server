@@ -11,13 +11,7 @@ sub query {<<~'SQL'}
     FROM
         ( SELECT r.*
         FROM release r
-        LEFT JOIN (
-            SELECT release, date_year, date_month, date_day
-            FROM release_country
-            UNION ALL
-            SELECT release, date_year, date_month, date_day
-            FROM release_unknown_country
-        ) events ON (events.release = r.id)
+        LEFT JOIN release_event events ON events.release = r.id
         JOIN medium m ON m.release = r.id
         WHERE m.format = 12 -- there is one digital medium
           AND date_year < 1999 -- first major label digital store

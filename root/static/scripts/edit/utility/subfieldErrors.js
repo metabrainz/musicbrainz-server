@@ -40,24 +40,24 @@ function* iterContextSubfields(
   const formOrField = formOrFieldCtx.read();
   switch (formOrField.type) {
     case 'compound_field':
-      // $FlowIgnore[incompatible-type-arg]
+      // $FlowFixMe[incompatible-type]
       yield formOrFieldCtx;
       // falls through
     case 'form':
       for (const fieldName of Object.keys(formOrField.field)) {
-        // $FlowIgnore[incompatible-call]
+        // $FlowFixMe[incompatible-type]
         yield* iterContextSubfields(formOrFieldCtx.get('field', fieldName));
       }
       break;
     case 'field':
-      // $FlowIgnore[incompatible-type-arg]
+      // $FlowFixMe[incompatible-type]
       yield formOrFieldCtx;
       break;
     case 'repeatable_field': {
-      // $FlowIgnore[incompatible-type-arg]
+      // $FlowFixMe[incompatible-type]
       yield formOrFieldCtx;
       for (let i = 0; i < formOrField.field.length; i++) {
-        // $FlowIgnore[incompatible-call]
+        // $FlowFixMe[incompatible-type]
         yield* iterContextSubfields(formOrFieldCtx.get('field', i));
       }
       break;

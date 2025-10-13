@@ -25,6 +25,7 @@ use aliased 'MusicBrainz::Server::Entity::Relationship';
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit',
      'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities';
 

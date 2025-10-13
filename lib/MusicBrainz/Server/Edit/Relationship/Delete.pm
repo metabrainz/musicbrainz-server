@@ -34,6 +34,7 @@ use MusicBrainz::Server::Translation qw( N_l N_lp );
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELATIONSHIP_DELETE }
@@ -273,6 +274,7 @@ sub initialize
             },
         },
         edit_version => 2,
+        defined $opts{entered_from} ? (entered_from => $opts{entered_from}) : (),
     });
 }
 

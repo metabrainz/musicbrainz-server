@@ -99,6 +99,10 @@ sub COVER_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_caa' }
 sub EVENT_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public_eaa' }
 sub EVENT_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_eaa' }
 
+sub MTCAPTCHA_PUBLIC_KEY { $ENV{MTCAPTCHA_PUBLIC_KEY} }
+sub MTCAPTCHA_PRIVATE_KEY { $ENV{MTCAPTCHA_PRIVATE_KEY} }
+sub MTCAPTCHA_PRIVATE_TEST_KEY { $ENV{MTCAPTCHA_PRIVATE_TEST_KEY} }
+
 sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) }
 sub INTERNET_ARCHIVE_METADATA_PREFIX { 'http://localhost:5050/metadata' }
 sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
@@ -131,7 +135,7 @@ sub GIT_SHA { return }
 
 sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
-sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq en ) }
+sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq ru en ) }
 
 sub ACTIVE_SCHEMA_SEQUENCE { 30 }
 
@@ -153,9 +157,9 @@ sub USE_SET_DATABASE_HEADER { 1 }
 sub DISABLE_LAST_LOGIN_UPDATE { 1 }
 
 # See docker/musicbrainz-tests/add_mbtest_alias.sh
-sub WEB_SERVER { 'mbtest:5000' }
-sub STATIC_RESOURCES_LOCATION { '//mbtest:5000/static/build' }
-sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta:5000' }
+sub WEB_SERVER { 'mbtest.local:5000' }
+sub STATIC_RESOURCES_LOCATION { '//mbtest.local:5000/static/build' }
+sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta.local:5000' }
 
 sub REPLICATION_USE_DBMIRROR2 { 1 }
 

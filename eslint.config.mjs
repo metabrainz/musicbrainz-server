@@ -35,6 +35,7 @@ export default [
       'root/static/scripts/common/DBDefs.mjs',
       'root/static/scripts/supported-browser-check.js',
       'root/static/scripts/tests/typeInfo.js',
+      'root/utility/babel-node/register.mjs',
       't/selenium.js',
       'babel.config.cjs',
       'eslint.config.mjs',
@@ -772,9 +773,8 @@ export default [
       'ft-flow/no-internal-flow-type': 'warn',
       'ft-flow/no-duplicate-type-union-intersection-members': 'warn',
       'ft-flow/no-existential-type': 'warn',
-      'ft-flow/no-flow-fix-me-comments': 'error',
       'ft-flow/no-flow-suppressions-in-strict-files': ['warn', {
-        "$FlowIssue": false,
+        "$FlowExpectedError": false,
       }],
       'ft-flow/no-internal-flow-type': 'warn',
       'ft-flow/no-mixed': 'off',
@@ -1064,7 +1064,6 @@ export default [
       'root/static/scripts/tests/relationship-editor.js',
       'root/static/scripts/url/edit.js',
       'root/user/UserProfile.js',
-      'root/utility/chooseLayoutComponent.js',
       'root/utility/tableColumns.js',
     ],
     rules: {

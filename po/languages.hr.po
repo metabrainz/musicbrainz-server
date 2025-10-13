@@ -902,7 +902,7 @@ msgstr "Gotski"
 msgid "Grebo"
 msgstr "Grebo"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "Grčki"
@@ -977,7 +977,7 @@ msgstr "Hausa jezik"
 msgid "Hawaiian"
 msgstr "Havajski jezik"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "Hebrejski jezik"
@@ -1341,6 +1341,13 @@ msgstr "Kpelle"
 #: DB:language/name:228
 msgid "Kru languages"
 msgstr "Kru jezici"
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+#, fuzzy
+#| msgid "Kuanyama"
+msgid "Kuanua"
+msgstr "Kuanyama"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230

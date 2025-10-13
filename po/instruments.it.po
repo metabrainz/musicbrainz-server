@@ -13,12 +13,12 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-23 22:42+0000\n"
+"PO-Revision-Date: 2025-08-19 15:36+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.4\n"
+"X-Generator: Weblate 5.13\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -223,7 +223,7 @@ msgstr "chitarra portoghese"
 #: DB:instrument/name:1211
 msgctxt "1940s modified sarod"
 msgid "Radhika's Mohan veena"
-msgstr ""
+msgstr "vina di Mohan (Radhika)"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -274,7 +274,7 @@ msgstr "tonette"
 #: DB:instrument/name:1212
 msgctxt "Indian modified lap slide-guitar"
 msgid "VM Bhatt's Mohan veena"
-msgstr ""
+msgstr "vina di Mohan (VM Bhatt)"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
@@ -378,11 +378,6 @@ msgstr "sassofono contralto"
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr "viola da gamba contralto"
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "violino contralto"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -1545,6 +1540,11 @@ msgstr "strumenti elettronici"
 msgid "electronic organ"
 msgstr "organo elettrico"
 
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "shruti box elettronico"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2368,6 +2368,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr "khamak"
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2407,6 +2412,11 @@ msgstr "khèn Mèo"
 #: DB:instrument/name:307
 msgid "ki pah"
 msgstr "ki pah"
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
 
 #: DB:instrument/name:247
 msgid "kinnor"
@@ -3276,11 +3286,9 @@ msgid "rauschpfeife"
 msgstr "rauschpfeife"
 
 #: DB:instrument/name:754
-#, fuzzy
-#| msgid "ravanahatha"
 msgctxt "Indian bowed spikefiddle"
 msgid "ravanahatta"
-msgstr "ravanahatha"
+msgstr "ravanahatta"
 
 #: DB:instrument/name:239
 msgctxt "Generic rebab catch-all"
@@ -3830,6 +3838,11 @@ msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
 
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "swaragat"
+
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
@@ -4246,8 +4259,6 @@ msgid "tulum"
 msgstr "tulum"
 
 #: DB:instrument/name:511
-#, fuzzy
-#| msgid "tumbi"
 msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "tumbi"
@@ -4260,7 +4271,7 @@ msgstr "tumutumu"
 #: DB:instrument/name:1210
 msgctxt "West Indian one-spoke monochord"
 msgid "tun tuna"
-msgstr ""
+msgstr "tuṇtuṇe"
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"
@@ -4346,6 +4357,13 @@ msgstr "vina"
 msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr "venu"
+
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "viola elettrica"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4742,6 +4760,10 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "violino contralto"
 
 #~ msgid "rauschpfeife"
 #~ msgstr "rauschpfeife"

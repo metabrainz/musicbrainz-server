@@ -175,6 +175,8 @@ export const FAVICON_CLASSES: {
   'mobygames.com': 'mobygames',
   'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',
+  // eslint-disable-next-line sort-keys
+  'classical.music.apple.com': 'appleclassical',
   'music.apple.com': 'applemusic',
   'music.bugs.co.kr': 'bugs',
   'music.migu.cn': 'migumusic',
@@ -343,6 +345,45 @@ export const VARTIST_GID = '89ad4ac3-39f7-470e-963a-56509c546377';
 export const VARTIST_ID = 1;
 
 export const VARTIST_NAME = 'Various Artists';
+
+export const ANON_ARTIST_GID = 'f731ccc4-e22a-43af-a747-64213329e088';
+export const ANON_ARTIST_ID = 15071;
+
+export const DATA_ARTIST_GID = '33cf029c-63b0-41a0-9855-be2a3665fb3b';
+export const DATA_ARTIST_ID = 41744;
+
+export const DIALOGUE_ARTIST_GID = '314e1c25-dde7-4e4d-b2f4-0a7b9f7c56dc';
+export const DIALOGUE_ARTIST_ID = 92121;
+
+export const NO_ARTIST_GID = 'eec63d3c-3b81-4ad4-b1e4-7c147d4d2b61';
+export const NO_ARTIST_ID = 105725;
+
+export const TRAD_ARTIST_GID = '9be7f096-97ec-4615-8957-8d40b5dcbc41';
+export const TRAD_ARTIST_ID = 762646;
+
+export const UNKNOWN_ARTIST_GID = '125ec42a-7229-4250-afc5-e057484327fe';
+export const UNKNOWN_ARTIST_ID = 97546;
+
+export const SPECIAL_ARTIST_GIDS: $ReadOnlyArray<string> = [
+  VARTIST_GID,
+  ANON_ARTIST_GID,
+  DATA_ARTIST_GID,
+  DIALOGUE_ARTIST_GID,
+  NO_ARTIST_GID,
+  TRAD_ARTIST_GID,
+  UNKNOWN_ARTIST_GID,
+];
+
+export const SPECIAL_ARTIST_IDS: $ReadOnlyArray<number> = [
+  DARTIST_ID,
+  VARTIST_ID,
+  ANON_ARTIST_ID,
+  DATA_ARTIST_ID,
+  DIALOGUE_ARTIST_ID,
+  NO_ARTIST_ID,
+  TRAD_ARTIST_ID,
+  UNKNOWN_ARTIST_ID,
+];
 
 export const NOLABEL_GID = '157afde4-4bf5-4039-8ad2-5a15acc85176';
 

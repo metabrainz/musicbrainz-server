@@ -13,23 +13,19 @@ export default function getBatchSelectionMessage(
   sourceType: RelatableEntityTypeT,
   batchSelectionCount: number,
 ): string {
-  switch (sourceType) {
-    case 'recording': {
-      return bracketedText(texp.ln(
-        '{n} recording selected',
-        '{n} recordings selected',
-        batchSelectionCount,
-        {n: batchSelectionCount},
-      ));
-    }
-    case 'work': {
-      return bracketedText(texp.ln(
-        '{n} work selected',
-        '{n} works selected',
-        batchSelectionCount,
-        {n: batchSelectionCount},
-      ));
-    }
-  }
-  return '';
+  return match (sourceType) {
+    'recording' => bracketedText(texp.ln(
+      '{n} recording selected',
+      '{n} recordings selected',
+      batchSelectionCount,
+      {n: batchSelectionCount},
+    )),
+    'work' => bracketedText(texp.ln(
+      '{n} work selected',
+      '{n} works selected',
+      batchSelectionCount,
+      {n: batchSelectionCount},
+    )),
+    _ => '',
+  };
 }

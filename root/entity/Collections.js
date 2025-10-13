@@ -7,17 +7,15 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import LayoutComponent from '../components/LayoutComponent.js';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 
 component Details(
   entity: CollectableEntityT,
   privateCollectionCount: number,
   publicCollections: $ReadOnlyArray<CollectionT>,
 ) {
-  const entityType = entity.entityType;
-  const LayoutComponent = chooseLayoutComponent(entityType);
   const publicCollectionCount = publicCollections.length;
   const totalCollections = publicCollectionCount + privateCollectionCount;
   return (

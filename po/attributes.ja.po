@@ -31,8 +31,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-30 05:36+0000\n"
-"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
+"PO-Revision-Date: 2025-10-11 18:02+0000\n"
+"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
@@ -40,7 +40,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -386,7 +386,7 @@ msgstr "ミクソリディアンスケール"
 #: DB:work_attribute_type_allowed_value/value:1056
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Phrygian"
-msgstr "<i>A Phrygian</i>"
+msgstr "A Phrygian"
 
 #. name:Ballet
 #: DB:work_type/description:2
@@ -1141,47 +1141,47 @@ msgstr "KODA ID"
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem"
-msgstr "<i>Acem</i>"
+msgstr "アセム"
 
 #: DB:work_attribute_type_allowed_value/value:305
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Nevruz"
-msgstr "<i>Acem Nevruz</i>"
+msgstr "アセム・ネヴルズ"
 
 #: DB:work_attribute_type_allowed_value/value:306
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Rast"
-msgstr "<i>Acem Rast</i>"
+msgstr "アセム・ラスト"
 
 #: DB:work_attribute_type_allowed_value/value:300
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acem Zemzeme"
-msgstr "<i>Acem Zemzeme</i>"
+msgstr "Acem Zemzeme"
 
 #: DB:work_attribute_type_allowed_value/value:301
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemaşiran"
-msgstr "<i>Acemaşiran</i>"
+msgstr "アセマシラン"
 
 #: DB:work_attribute_type_allowed_value/value:302
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acembuselik"
-msgstr "<i>Acembuselik</i>"
+msgstr "Acembuselik"
 
 #: DB:work_attribute_type_allowed_value/value:303
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemkürdi"
-msgstr "<i>Acemkürdi</i>"
+msgstr "Acemkürdi"
 
 #: DB:work_attribute_type_allowed_value/value:304
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemli Yegah"
-msgstr "<i>Acemli Yegah</i>"
+msgstr "Acemli Yegah"
 
 #: DB:work_attribute_type_allowed_value/value:307
 msgctxt "work_attribute_type_allowed_value"
 msgid "Acemtarab"
-msgstr "<i>Acemtarab</i>"
+msgstr "Acemtarab"
 
 #: DB:medium_format/name:203
 msgctxt "medium_format"
@@ -1191,57 +1191,58 @@ msgstr "アセテート"
 #: DB:work_attribute_type_allowed_value/value:848
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā"
-msgstr "<i>Adānā</i>"
+msgstr "アダナ"
 
 #: DB:work_attribute_type_allowed_value/value:849
 msgctxt "work_attribute_type_allowed_value"
 msgid "Adānā malhār"
-msgstr "<i>Adānā malhār</i>"
+msgstr "アダナ・マルハール"
 
 #: DB:work_attribute_type_allowed_value/value:308
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aheng-i Tarab"
-msgstr "<i>Aheng-i Tarab</i>"
+msgstr "Aheng-i Tarab"
 
 #: DB:work_attribute_type_allowed_value/value:850
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahir lalit"
-msgstr "<i>Ahir lalit</i>"
+msgstr "Ahir lalit"
 
 #: DB:work_attribute_type_allowed_value/value:851
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahira bhairav"
-msgstr "<i>Ahira bhairav</i>"
+msgstr "Ahira bhairav"
 
 #: DB:work_attribute_type_allowed_value/value:852
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ahiri tōḍī"
-msgstr "<i>Ahiri tōḍī</i>"
+msgstr "Ahiri tōḍī"
 
 #: DB:work_attribute_type_allowed_value/value:309
+#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ak Dügah"
-msgstr "<i>Ak Dügah</i>"
+msgstr "Ak Dügah"
 
 #: DB:work_attribute_type_allowed_value/value:690
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksak"
-msgstr "<i>Aksak</i>"
+msgstr "Aksak"
 
 #: DB:work_attribute_type_allowed_value/value:691
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksaksemai"
-msgstr "<i>Aksaksemai</i>"
+msgstr "Aksaksemai"
 
 #: DB:work_attribute_type_allowed_value/value:692
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aksaksemai Evferi"
-msgstr "<i>Aksaksemai Evferi</i>"
+msgstr "Aksaksemai Evferi"
 
 #: DB:work_attribute_type_allowed_value/value:853
 msgctxt "work_attribute_type_allowed_value"
 msgid "Alahaiyā bilāval"
-msgstr "<i>Alahaiyā bilāval</i>"
+msgstr "アルハイヤ・ビラバル"
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
@@ -1257,17 +1258,17 @@ msgstr "シリーズの各要素の配置を手動で設定できます。"
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ambikā"
-msgstr "<i>Ambikā</i>"
+msgstr "アンビカ"
 
 #: DB:place_type/name:43
 msgctxt "place_type"
 msgid "Amphitheatre"
-msgstr "<i>Amphitheatre</i>"
+msgstr "Amphitheatre"
 
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amr̥t varṣiṇi"
-msgstr "<i>Amr̥t varṣiṇi</i>"
+msgstr "Amr̥t varṣiṇi"
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
@@ -2975,7 +2976,7 @@ msgstr "デジブック"
 #: DB:release_packaging/name:89
 msgctxt "release_packaging"
 msgid "Digifile"
-msgstr "<i>Digifile</i>"
+msgstr "デジファイル"
 
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
@@ -3280,6 +3281,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "E-sharp minor"
 msgstr "嬰ホ短調"
 
+#: DB:work_attribute_type/name:215
+msgctxt "work_attribute_type"
+msgid "EAÜ ID"
+msgstr ""
+
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
 msgid "ECAD ID"
@@ -3309,6 +3315,14 @@ msgstr "電子楽器"
 msgctxt "medium_format"
 msgid "Enhanced CD"
 msgstr "CD-EXTRA"
+
+#. name:Ultra HD Blu-ray
+#: DB:medium_format/description:211
+msgctxt "medium_format"
+msgid ""
+"Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
+"compatible with all Blu-ray players."
+msgstr ""
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4459,6 +4473,15 @@ msgstr "オランダの権利者団体BUMA/STEMRAのID"
 msgctxt "work_attribute_type"
 msgid "ID for the Ecuadorian rights society SAYCE"
 msgstr "エクアドルの権利者団体SAYCEのID"
+
+#. name:EAÜ ID
+#: DB:work_attribute_type/description:215
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Austrian rights society AKM"
+msgctxt "work_attribute_type"
+msgid "ID for the Estonian rights society EAÜ"
+msgstr " オーストリアの権利者団体AKMのID"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -5631,7 +5654,7 @@ msgstr "<i>Longa</i>"
 #: DB:release_packaging/name:55
 msgctxt "release_packaging"
 msgid "Longbox"
-msgstr "<i>Longbox</i>"
+msgstr "ロングボックス"
 
 #: DB:work_attribute_type/name:49
 msgctxt "work_attribute_type"
@@ -5880,7 +5903,7 @@ msgstr "<i>Mersiye</i>"
 #: DB:release_packaging/name:54
 msgctxt "release_packaging"
 msgid "Metal Tin"
-msgstr "<i>Metal Tin</i>"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:745
 msgctxt "work_attribute_type_allowed_value"
@@ -7384,7 +7407,7 @@ msgstr "ラーガ（カルナータカ音楽）"
 #: DB:work_attribute_type/name:32
 msgctxt "work_attribute_type"
 msgid "Rāga (Hindustani)"
-msgstr "<i>Rāga (Hindustani)</i>"
+msgstr "ラーガ (ヒンドゥスターニー)"
 
 #: DB:work_attribute_type_allowed_value/value:1003
 msgctxt "work_attribute_type_allowed_value"
@@ -8732,12 +8755,12 @@ msgstr "<i>Tüvanger</i>"
 #: DB:work_attribute_type/name:5
 msgctxt "work_attribute_type"
 msgid "Tāla (Carnatic)"
-msgstr "<i>Tāla (Carnatic)</i>"
+msgstr "Tāla (カルナティック)"
 
 #: DB:work_attribute_type/name:31
 msgctxt "work_attribute_type"
 msgid "Tāla (Hindustani)"
-msgstr "<i>Tāla (Hindustani)</i>"
+msgstr "Tāla (ヒンドゥスターニー)"
 
 #: DB:work_attribute_type_allowed_value/value:846
 msgctxt "work_attribute_type_allowed_value"
@@ -8762,7 +8785,7 @@ msgstr "<i>Tōḍī</i>"
 #: DB:work_attribute_type/name:209
 msgctxt "work_attribute_type"
 msgid "UACRR ID"
-msgstr "<i>UACRR ID</i>"
+msgstr "UACRR ID"
 
 #: DB:medium_format/name:28
 msgctxt "medium_format"
@@ -8778,6 +8801,11 @@ msgstr "USBフラッシュドライブ"
 msgctxt "work_attribute_type_allowed_value"
 msgid "Udaya ravicandrika"
 msgstr "<i>Udaya ravicandrika</i>"
+
+#: DB:medium_format/name:211
+msgctxt "medium_format"
+msgid "Ultra HD Blu-ray"
+msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
@@ -9176,7 +9204,7 @@ msgstr "<i>Zafer</i>"
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr "<i>Zarzuela</i>(サルスエラ)"
+msgstr "サルスエラ"
 
 #: DB:work_attribute_type_allowed_value/value:591
 msgctxt "work_attribute_type_allowed_value"
@@ -9313,7 +9341,7 @@ msgstr "<i>Çocuk şarkısı</i>"
 #: DB:work_type/name:20
 msgctxt "work_type"
 msgid "Étude"
-msgstr "<i>Étude</i>(エチュード)"
+msgstr "エチュード"
 
 #: DB:work_attribute_type_allowed_value/value:653
 msgctxt "work_attribute_type_allowed_value"

@@ -40,6 +40,7 @@ extends 'MusicBrainz::Server::Edit::WithDifferences';
 with 'MusicBrainz::Server::Edit::Relationship',
      'MusicBrainz::Server::Edit::Relationship::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::Preview',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::DatePeriod';
 
 sub edit_type { $EDIT_RELATIONSHIP_EDIT }
@@ -373,6 +374,8 @@ sub initialize
     my ($self, %opts) = @_;
 
     my $relationship = delete $opts{relationship};
+    my $entered_from = delete $opts{entered_from};
+
     my $link = $relationship->link;
     my $type0 = $link->type->entity0_type;
     my $type1 = $link->type->entity1_type;
@@ -468,6 +471,7 @@ sub initialize
         entity0_credit => $relationship->entity0_credit,
         entity1_credit => $relationship->entity1_credit,
         edit_version => 2,
+        defined $entered_from ? (entered_from => $entered_from) : (),
         $self->_change_data($relationship, %opts),
     });
 }

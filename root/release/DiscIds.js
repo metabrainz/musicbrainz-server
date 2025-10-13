@@ -101,7 +101,7 @@ component DiscIds(
             </tr>
           </thead>
           <tbody>
-            {/* $FlowIgnore[incompatible-use] has cdtocs so has mediums */}
+            {/* $FlowFixMe[incompatible-use] has cdtocs so has mediums */}
             {release.mediums.map(medium => {
               const mediumCDTocs = groupedMediumCDTocs.get(medium.id) ?? [];
               return (

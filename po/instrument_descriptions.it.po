@@ -15,12 +15,12 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-09 23:20+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-08 06:35+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1553,6 +1553,10 @@ msgid ""
 "strings and specialised bridge so the sound will resemble sitar, it became "
 "popular in rock, jazz and fusion music after its invention in the 1960's."
 msgstr ""
+"Chitarra elettrica con tastiera e accordatura standard, ma con aggiunte "
+"corde simpatiche e un ponte specializzato, così da renderne il suono simile "
+"a quello di un sitar; diventò popolare nella musica rock, jazz e fusion dopo "
+"la sua invenzione negli anni 1960."
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -1928,6 +1932,11 @@ msgid ""
 "veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
+"Per il sarod modificato creato negli anni 1940 da Radhika Mohan Maitra, vedi "
+"<a href=\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">vina di Mohan "
+"(Radhika)</a>.<br /> Creata come una chitarra hawaiiana o lap steel "
+"modificata, ha dalle 19 alle 21 corde e una zucca a fiasco aggiunta al "
+"manico."
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1938,6 +1947,12 @@ msgid ""
 "1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
 "(like veena) and the fretboard from the sarod."
 msgstr ""
+"Per la chitarra slide modificata creata negli anni 1990 da Vishwa Mohan "
+"Bhatt, vedi <a href=\"/instrument/9a2b6ae1-a5fb-42ab-"
+"b18c-9985e8b606c4\">vina di Mohan (VM Bhatt)</a>.<br /> Creata come un sarod "
+"modificato da Radhika Maitra negli anni 1940, ha una cassa di risonanza "
+"ricoperta in legno (come il sitar), un risuonatore aggiuntivo sul manico "
+"(come la vina) e la tastiera del sarod."
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1947,6 +1962,11 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
+"Per l'idiocordo (drum zither) a una corda sola chiamato anche ektar/ektara, "
+"vedi <a href=\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichand</"
+"a>.<br /> Usato nella musica tradizionale e religiosa del Punjab, ha una "
+"sola corda su un lungo manico in legno che perfora una piccola cassa di "
+"risonanza ricoperta di pergamena."
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -1961,7 +1981,7 @@ msgid ""
 msgstr ""
 "Per il liuto a una sola corda chiamato anche ektar/ektara, vedi <a href=\"/"
 "instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Per lo "
-"strumento dall'aspetto simile ma con un solo raggio, vedi tun tuna.<br /> Da "
+"strumento dall'aspetto simile ma con un solo raggio, vedi tuṇtuṇe.<br /> Da "
 "non confondere con l'ekatantri veena, antico strumento monocorda indiano."
 "<br /> Ha una cassa piccola, in legno o cocco, di forma rotonda o "
 "trapezoidale, con una membrana sul fondo. Fissato ai lati ha un manico in "
@@ -1978,6 +1998,13 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
+"Per l'idiocordo (drum-zither) a una corda sola e a due raggi, vedi <a "
+"href=\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichand</a>.<br /"
+"> Per il liuto del Punjab a una corda sola, vedi <a href=\"/instrument/"
+"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>.<br /> Usato tra gli altri "
+"dalle tribù bhil, kukna e worli, ha una cassa di risonanza cilindrica, "
+"attraverso la quale la sola corda in metallo è incordata tra il manico a "
+"raggio e la membrana sul fondo."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -3687,6 +3714,47 @@ msgstr ""
 "f0f34e8d6eb0\">dolzaina</a> spagnola ad ancia doppia.<br /> Usato nel "
 "Rinascimento, è realizzato in legno d'acero con una sezione ripiegata e un "
 "padiglione a campana conico."
+
+#. name:electronic shruti box
+#: DB:instrument/description:1213
+msgid ""
+"Not to be confused with the analogue bellow powered <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> or the string "
+"instrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
+"synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
+"using recording samples."
+msgstr ""
+"Da non confondere con l'analogo <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> azionato a mantice o "
+"con lo strumento a corda chiamato <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Sintetizzatore "
+"elettronico inventato da G. Raj Narayan nel 1979. Negli anni 1990 furono "
+"introdotti modelli che utilizzano campionamenti di registrazioni."
+
+#. name:khamak
+#: DB:instrument/description:1215
+#, fuzzy
+#| msgid ""
+#| "Used in folk music of the Bengal, Odisha and north-east India, the "
+#| "soundbox is a drum-like wooden cylinder with a membrane at one end held "
+#| "underneath an arm, attached to the membrane is a single string which is "
+#| "plucked with a pick. It is known by many names."
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
+msgstr ""
+"Usato nella musica tradizionale del Bengala, dell'Odisha e dell'India "
+"nordorientale, ha una cassa di risonanza in legno di forma cilindrica, "
+"simile a un tamburo, con una membrana a un'estremità che viene tenuta sotto "
+"un braccio; attaccata alla membrana vi è una sola corda, che viene pizzicata "
+"con un plettro. È conosciuto con molti nomi."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -6277,6 +6345,19 @@ msgstr "Simile a un armonium, è usato come accompagnamento di bordone."
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr "Liuto mongolo a tre corde e senza tasti."
 
+#. name:swaragat
+#: DB:instrument/description:1214
+msgid ""
+"The skin covered deep wooden soundbox, has a neck that is carved like parrot "
+"and a gut bridge with three courses of double silk strings, plucked with a "
+"horn-plectrum. Used in southern India since ancient times, it is essentially "
+"a bass rabab."
+msgstr ""
+"Ha una profonda cassa di risonanza in legno, ricoperta in pelle, un manico "
+"intagliato che termina in forma di pappagallo e un ponte in budello con tre "
+"ordini di corde doppie in seta, pizzicate con un plettro in corno. Usato sin "
+"dall'antichità nell'India meridionale, è in sostanza un rabab basso."
+
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -6912,7 +6993,7 @@ msgstr ""
 msgid "Tuned metal bar, bent into triangle shape."
 msgstr "Barretta di metallo intonata, piegata a forma di triangolo."
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -7455,6 +7536,13 @@ msgstr ""
 "entrambe con corni ricurvi all'estremità; <br /> il secondo è la macianka "
 "duda, senza corni e con tre canne di bordone che terminano nello stesso foro "
 "anziché una."
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
+msgstr ""
 
 #. name:somu dūdas
 #: DB:instrument/description:1198

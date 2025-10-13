@@ -79,14 +79,15 @@ type State = {
   source: string,
 };
 
-export const state: State = Object.seal({
+export const state: State = {
   match: '',
   position: 0,
   remainder: '',
   replacement: NO_MATCH_VALUE,
   running: false,
   source: '',
-});
+};
+Object.seal(state);
 
 export function getString(x: mixed): string {
   if (typeof x === 'string') {
@@ -105,7 +106,7 @@ function mapVarSubstArgToScalar(
   if (React.isValidElement(x)) {
     return (
       <React.Fragment key={key}>
-        {/* $FlowIgnore[unclear-type] We know this is a valid element */}
+        {/* $FlowFixMe[unclear-type] We know this is a valid element */}
         {((x: any): React.MixedElement)}
       </React.Fragment>
     );
@@ -343,7 +344,7 @@ export default function expand<T, V>(
     return source;
   } finally {
     if (savedState) {
-      // $FlowIssue[unsafe-object-assign]
+      // $FlowExpectedError[unsafe-object-assign]
       Object.assign(state, savedState);
     } else {
       state.running = false;

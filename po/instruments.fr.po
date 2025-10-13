@@ -385,11 +385,6 @@ msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr "viole alto"
 
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "alto"
-
 #: DB:instrument/name:363
 msgid "amadinda"
 msgstr "amadinda"
@@ -1555,6 +1550,13 @@ msgstr "instruments électroniques"
 msgid "electronic organ"
 msgstr "orgue électronique"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic drum set"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "batterie électronique"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2379,6 +2381,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2418,6 +2425,11 @@ msgstr "khèn Mèo"
 #: DB:instrument/name:307
 msgid "ki pah"
 msgstr "ki pah"
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
 
 #: DB:instrument/name:247
 msgid "kinnor"
@@ -3841,6 +3853,13 @@ msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
 
+#: DB:instrument/name:1214
+#, fuzzy
+#| msgid "taragot"
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "tárogató"
+
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
@@ -4358,6 +4377,13 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
 
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "alto électrique"
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "flûte globulaire"
@@ -4753,6 +4779,10 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "alto"
 
 #~ msgid "rauschpfeife"
 #~ msgstr "rauschpfeife"

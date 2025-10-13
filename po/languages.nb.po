@@ -2,11 +2,12 @@
 # Translators:
 # CatQuest, The Endeavouring Cat, 2015
 # Kurt-Håkon Eilertsen <email address hidden>, 2014
+# Metafono <rainer@nilsen.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-30 01:27+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2025-10-05 05:02+0000\n"
+"Last-Translator: Metafono <rainer@nilsen.com>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
 "projects/musicbrainz/languages/nb_NO/>\n"
 "Language: nb\n"
@@ -14,67 +15,67 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr ""
+msgstr "Kaukasisk Abkhasiadialekt"
 
 #. frequency:1 iso_code_3:ace
 #: DB:language/name:3
 msgid "Achinese"
-msgstr ""
+msgstr "Sumatrisk Achinesedialekt"
 
 #. frequency:1 iso_code_3:ach
 #: DB:language/name:4
 msgid "Acoli"
-msgstr ""
+msgstr "Nilotisk Acolidialekt"
 
 #. frequency:1 iso_code_3:ada
 #: DB:language/name:5
 msgid "Adangme"
-msgstr ""
+msgstr "Dangmesisk"
 
 #. frequency:1 iso_code_3:ady
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr ""
+msgstr "Kaukasisk Adygiadialekt"
 
 #. frequency:1 iso_code_3:aar
 #: DB:language/name:1
 msgid "Afar"
-msgstr "Afar"
+msgstr "Kusjittisk Afardialekt"
 
 #. frequency:1 iso_code_3:afh
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr ""
+msgstr "Universalslpråket Afrihili (1970)"
 
 #. frequency:1 iso_code_3:afr
 #: DB:language/name:9
 msgid "Afrikaans"
-msgstr "Afrikansk"
+msgstr "Nederlandsk Afrikaansdialekt"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr ""
+msgstr "Afro-Asiatiske språk"
 
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
 msgid "Ainu"
-msgstr ""
+msgstr "Japansk Ainodialekt"
 
 #. frequency:1 iso_code_3:aka
 #: DB:language/name:10
 msgid "Akan"
-msgstr "Akan"
+msgstr "Ghanesisk"
 
 #. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr ""
+msgstr "Akkadisk skriftspråk (2500 f.Kr. til 300 e.Kr.)"
 
 #. frequency:1 iso_code_3:sqi
 #: DB:language/name:12
@@ -84,22 +85,22 @@ msgstr "Albansk"
 #. frequency:1 iso_code_3:ale
 #: DB:language/name:13
 msgid "Aleut"
-msgstr ""
+msgstr "Eskimoisk-Aleutisk"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr ""
+msgstr "Algonkinske språk"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "Algonkinsk"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr ""
+msgstr "Altaiske språk"
 
 #. frequency:1 iso_code_3:amh
 #: DB:language/name:15
@@ -109,12 +110,12 @@ msgstr "Amharisk"
 #. frequency:1 iso_code_3:anp
 #: DB:language/name:475
 msgid "Angika"
-msgstr ""
+msgstr "Indo-Arisk"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr ""
+msgstr "Apachedialekt"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
@@ -124,22 +125,22 @@ msgstr "Arabisk"
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
 msgid "Aragonese"
-msgstr ""
+msgstr "Aragonesisk Latin"
 
 #. frequency:1 iso_code_3:arp
 #: DB:language/name:23
 msgid "Arapaho"
-msgstr ""
+msgstr "Arapahodialekt"
 
 #. frequency:1 iso_code_3:arw
 #: DB:language/name:25
 msgid "Arawak"
-msgstr ""
+msgstr "Karibisk Arawak"
 
 #. frequency:1 iso_code_3:pka
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "Skriftspråkdialekt fra dramatisert Prakrit"
 
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
@@ -149,7 +150,7 @@ msgstr "Armensk"
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
 msgid "Aromanian"
-msgstr ""
+msgstr "Aromensk Balkandialekt"
 
 #. frequency:1 iso_code_3:asm
 #: DB:language/name:26
@@ -159,17 +160,17 @@ msgstr "Assamesisk"
 #. frequency:1 iso_code_3:ast
 #: DB:language/name:27
 msgid "Asturian"
-msgstr ""
+msgstr "Asturisk Latin"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr ""
+msgstr "Nordamerikansk Dene"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "Algonkinsk Atikamekw-dialekt"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
@@ -901,7 +902,7 @@ msgstr "Gotisk"
 msgid "Grebo"
 msgstr ""
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "Gresk"
@@ -976,7 +977,7 @@ msgstr ""
 msgid "Hawaiian"
 msgstr ""
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "Hebraisk"
@@ -1339,6 +1340,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
 msgid "Kru languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+msgid "Kuanua"
 msgstr ""
 
 #. frequency:1 iso_code_3:kua

@@ -13,7 +13,7 @@ import Jed from 'jed';
 import jedDataTemplate from '../../../../jedDataTemplate.mjs';
 import * as serverGettext from '../../../../server/gettext.mjs';
 
-import cleanMsgid from './cleanMsgid.js';
+import cleanMsgid from './cleanMsgid.mjs';
 
 let gettext;
 if (isNodeJS) {
@@ -29,7 +29,7 @@ if (isNodeJS) {
 /*
  * On the usage of cleanMsgid:
  *
- * /script/xgettext.js will strip newlines and collapse adjacent
+ * /script/xgettext.mjs will strip newlines and collapse adjacent
  * whitespace when extracting strings into .pot files. Yet the string
  * in the source code obviously remains unchanged. So to make sure we
  * look up the correct key, we have to apply the same whitespace

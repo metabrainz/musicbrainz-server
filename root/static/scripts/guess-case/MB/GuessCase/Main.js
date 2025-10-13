@@ -193,7 +193,7 @@ class GuessCase {
                  method === 'guessSortName') {
         result = handler[method](inputString, isPerson);
       } else {
-        // $FlowIgnore[incompatible-call]
+        // $FlowFixMe[incompatible-type]
         result = handler[method](inputString);
       }
 

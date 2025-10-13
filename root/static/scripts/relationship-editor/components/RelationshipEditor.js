@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-// $FlowIgnore[untyped-import]
+// $FlowFixMe[untyped-import]
 import {captureException} from '@sentry/browser';
 import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
@@ -85,7 +85,7 @@ import RelationshipTargetTypeGroups from './RelationshipTargetTypeGroups.js';
 
 // Export modules that userscripts may need access to.
 
-// $FlowIgnore[prop-missing]
+// $FlowFixMe[prop-missing]
 MB.relationshipEditor.getRelationshipStateId = getRelationshipStateId;
 MB.tree = tree;
 
@@ -148,7 +148,7 @@ export function* getInitialRelationshipUpdates(
        * Writing here is sound because the object was just created.
        * (This is needed to create a self-reference.)
        */
-      // $FlowIgnore[cannot-write]
+      // $FlowFixMe[cannot-write]
       relationshipState._original = relationshipState;
     }
 
@@ -234,7 +234,7 @@ export function loadOrCreateInitialState(
       try {
         submittedRelationships = ((decompactEntityJson(
           JSON.parse(submittedRelationshipsJson),
-        // $FlowIgnore[unclear-type]
+        // $FlowFixMe[unclear-type]
         ): any): $ReadOnlyArray<RelationshipStateT>);
       } catch (e) {
         captureException(e);
@@ -329,28 +329,26 @@ export function runReducer(
     | {...ReleaseRelationshipEditorStateT},
   action: RelationshipEditorActionT,
 ): void {
-  switch (action.type) {
-    case 'move-relationship-down': {
+  match (action) {
+    {type: 'move-relationship-down', const relationship, const source} => {
       moveRelationship(
         writableState,
-        action.relationship,
-        action.source,
+        relationship,
+        source,
         true,
       );
-      break;
     }
 
-    case 'move-relationship-up': {
+    {type: 'move-relationship-up', const relationship, const source} => {
       moveRelationship(
         writableState,
-        action.relationship,
-        action.source,
+        relationship,
+        source,
         false,
       );
-      break;
     }
 
-    case 'remove-relationship': {
+    {type: 'remove-relationship', ...} as action => {
       const {relationship} = action;
 
       const updates: Array<RelationshipUpdateT> = [
@@ -381,15 +379,14 @@ export function runReducer(
       }
 
       updateRelationships(writableState, updates);
-      break;
     }
 
-    case 'toggle-ordering': {
-      const {
-        hasOrdering,
-        linkPhraseGroup,
-      } = action;
-
+    {
+      type: 'toggle-ordering',
+      const hasOrdering,
+      const linkPhraseGroup,
+      ...
+    } => {
       const updates: Array<RelationshipUpdateT> = [];
       let nextLogicalLinkOrder = 1;
 
@@ -424,36 +421,33 @@ export function runReducer(
       }
 
       updateRelationships(writableState, updates);
-      break;
     }
 
-    case 'update-dialog-location': {
-      writableState.dialogLocation = action.location;
-      break;
+    {type: 'update-dialog-location', const location} => {
+      writableState.dialogLocation = location;
     }
 
-    case 'update-entity': {
+    {type: 'update-entity', const changes, const entityType} => {
       invariant(
-        writableState.entity.entityType === action.entityType,
+        writableState.entity.entityType === entityType,
         'Cannot change the relationship editor entity type',
       );
-      // $FlowIgnore[cannot-spread-indexer]
+      // $FlowFixMe[cannot-spread-indexer]
       writableState.entity = {
         ...writableState.entity,
-        ...action.changes,
+        ...changes,
       };
-      break;
     }
 
-    case 'update-relationship-state': {
-      const {
-        creditsToChangeForSource,
-        creditsToChangeForTarget,
-        newRelationshipState,
-        oldRelationshipState,
-        sourceEntity,
-      } = action;
-
+    {
+      type: 'update-relationship-state',
+      const creditsToChangeForSource,
+      const creditsToChangeForTarget,
+      const newRelationshipState,
+      const oldRelationshipState,
+      const sourceEntity,
+      ...
+    } => {
       const relationshipStateChanged = (
         oldRelationshipState != null &&
         !relationshipsAreIdentical(
@@ -547,12 +541,6 @@ export function runReducer(
           }
         }
       }
-
-      break;
-    }
-
-    default: {
-      /*:: exhaustive(action); */
     }
   }
 }
@@ -618,15 +606,15 @@ component RelationshipEditor(
 
   // Expose internal state for userscripts.
   React.useEffect(() => {
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.dispatch = dispatch;
-    // $FlowIgnore[prop-missing]
+    // $FlowFixMe[prop-missing]
     MB.relationshipEditor.state = state;
 
     return () => {
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.dispatch = null;
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       MB.relationshipEditor.state = null;
     };
   }, [dispatch, state]);
