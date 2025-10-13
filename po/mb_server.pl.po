@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-08-11 22:36+0000\n"
+"PO-Revision-Date: 2025-10-13 10:02+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
@@ -42,9 +42,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 #, fuzzy
@@ -4189,7 +4189,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:455
 msgid "does not match"
-msgstr ""
+msgstr "nie pasuje"
 
 #: ../root/edit/search_macros.tt:25
 msgid "earliest closed first"
@@ -9557,10 +9557,8 @@ msgid "We are unable to display history for this image."
 msgstr ""
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "Wprowadzono"
+msgstr "Wprowadzono z"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -14471,10 +14469,8 @@ msgstr ""
 
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
-#, fuzzy
-#| msgid "Remove release label"
 msgid "Releases older than their release label"
-msgstr "Usuń wytwórnię z wydania"
+msgstr "Wydania starsze niż ich wytwórnia"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
 msgid ""
@@ -15364,7 +15360,7 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:210
 msgid "Language to receive emails in"
-msgstr ""
+msgstr "Język, w którym będą odbierane wiadomości e-mail"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 msgid "Email me about"
@@ -16619,6 +16615,9 @@ msgid ""
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
+"Strony z wydaniami Last.fm są bardzo często generowane w oparciu o dane "
+"MusicBrainz i zwykle nie pasują do konkretnych wydań MusicBrainz, dlatego "
+"dodawanie linków do wydań Last.fm jest obecnie zablokowane."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7592
 msgid ""
@@ -17004,10 +17003,8 @@ msgid "This URL is not allowed for events."
 msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:941
-#, fuzzy
-#| msgid "This value is not allowed for this work attribute type."
 msgid "This URL is not allowed for genres."
-msgstr "Ta wartość nie jest dozwolona dla tego typu atrybutu pracy."
+msgstr "Ten adres URL nie jest dozwolony dla gatunków."
 
 #: ../root/static/scripts/edit/externalLinks.js:943
 msgid "This URL is not allowed for instruments."

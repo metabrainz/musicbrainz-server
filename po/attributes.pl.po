@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-06-23 11:20+0000\n"
+"PO-Revision-Date: 2025-10-13 10:02+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/pl/>\n"
@@ -31,9 +31,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -3481,6 +3481,8 @@ msgid ""
 "Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
 "compatible with all Blu-ray players."
 msgstr ""
+"Udoskonalona wersja Blu-ray obsługująca rozdzielczość 4K Ultra HD, która nie "
+"jest kompatybilna ze wszystkimi odtwarzaczami Blu-ray."
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4647,12 +4649,9 @@ msgstr ""
 
 #. name:EAÜ ID
 #: DB:work_attribute_type/description:215
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr "Identyfikator austriackiego stowarzyszenia praw autorskich twórców AKM"
+msgstr "Identyfikator estońskiego stowarzyszenia praw autorskich twórców EAÜ"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -9005,12 +9004,9 @@ msgid "Udaya ravicandrika"
 msgstr ""
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-ray"
+msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13

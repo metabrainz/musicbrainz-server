@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-08 06:35+0000\n"
-"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"PO-Revision-Date: 2025-10-13 10:02+0000\n"
+"Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
@@ -17,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.13.1\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -3720,12 +3720,6 @@ msgstr ""
 
 #. name:khamak
 #: DB:instrument/description:1215
-#, fuzzy
-#| msgid ""
-#| "Used in folk music of the Bengal, Odisha and north-east India, the "
-#| "soundbox is a drum-like wooden cylinder with a membrane at one end held "
-#| "underneath an arm, attached to the membrane is a single string which is "
-#| "plucked with a pick. It is known by many names."
 msgid ""
 "Not to be confused with the two pronged <a href=\"/instrument/"
 "ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
@@ -3736,10 +3730,15 @@ msgid ""
 "underneath an arm, attached to the membrane is a single string which is "
 "plucked with a pick. It is known by many names."
 msgstr ""
-"Używany w muzyce ludowej Bengalu, Odiszy i północno-wschodnich Indii, pudło "
-"rezonansowe to drewniany cylinder przypominający bęben, z membraną na jednym "
-"końcu, trzymaną pod ramieniem, do której przymocowana jest pojedyncza "
-"struna, szarpana kostką. Jest znane pod wieloma nazwami."
+"Nie należy go mylić z dwuzębnym <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</"
+"a>, podobną koncepcją <a href="
+"\"/instrument/068b3fc6-c11f-4ae7-bd85-ca5725b2b9f4\">tuntuna</a>, tokari "
+"przypominającym dotara lub pulluvan kudam.<br /> Pudło rezonansowe, używane "
+"w muzyce ludowej Bengalu, Odiszy i północno-wschodnich Indii, to drewniany "
+"cylinder przypominający bęben z membraną na jednym końcu, trzymaną pod "
+"ramieniem, do której przymocowana jest pojedyncza struna, szarpana kostką. "
+"Jest znane pod wieloma nazwami."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -7586,6 +7585,8 @@ msgid ""
 "Used since medieval times in Karnatakan folk music, it has 3 resonators made "
 "of calabash. It is similar to the ancient bin."
 msgstr ""
+"Używany od czasów średniowiecza w muzyce ludowej Karnataki, ma 3 rezonatory "
+"wykonane z tykwy. Przypomina starożytną skrzynię."
 
 #. name:somu dūdas
 #: DB:instrument/description:1198

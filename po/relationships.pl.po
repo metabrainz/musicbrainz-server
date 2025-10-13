@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-11 22:36+0000\n"
+"PO-Revision-Date: 2025-10-13 10:02+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -768,21 +768,17 @@ msgstr "Oznacza autora tekstu tego dzieła."
 
 #. name:mastering
 #: DB:link_type/description:1293
-#, fuzzy
-#| msgid ""
-#| "Indicates the instrument technician for this release. Use also for "
-#| "\"piano tuner\" credits and other similar ones."
 msgid ""
 "Indicates the mastering company for this release, when a company is credited "
 "instead of a specific engineer."
 msgstr ""
-"Wskazuje technika instrumentu dla tego wydania. Używaj również dla napisów "
-"„stroiciel fortepianu” i innych podobnych."
+"Oznacza firmę masteringową danego wydania, gdy zamiast nazwiska konkretnego "
+"inżyniera dźwięku wymieniona jest firma."
 
 #. name:mastering
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this release."
-msgstr ""
+msgstr "Oznacza inżyniera masteringowego tego wydania."
 
 #. name:official site
 #: DB:link_type/description:219
@@ -2057,21 +2053,14 @@ msgstr "Opisuje inżyniera wykonującego ogólne zadania inżynieryjne."
 
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
-#, fuzzy
-#| msgid ""
-#| "This describes an engineer responsible for using a mixing console to mix "
-#| "a recorded track into a single piece of music suitable for release. For "
-#| "remixing, see <a href=\"/relationship/"
-#| "7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">remixer</a>."
 msgid ""
 "This describes the company responsible for using a mixing console to mix a "
 "recorded track into a single piece of music suitable for release, when a "
 "company is credited instead of a specific engineer."
 msgstr ""
-"Opisuje to inżyniera odpowiedzialnego za używanie konsoli miksującej do "
-"miksowania nagranego utworu w pojedynczy utwór nadający się do wydania. W "
-"przypadku remiksowania zobacz <a href=\"/relationship/"
-"7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">remikser</a>."
+"Opisuje to firmę odpowiedzialną za użycie konsoli mikserskiej do zmiksowania "
+"nagranego utworu w jeden utwór muzyczny nadający się do wydania, przy czym "
+"zamiast konkretnego inżyniera dźwięku podana jest nazwa firmy."
 
 #. name:member of band
 #: DB:link_type/description:103
@@ -2937,16 +2926,20 @@ msgid ""
 "This indicates the recording is dedicated to a specific artist. This is for "
 "dedications such as \"This track is dedicated to the memory of Artist\"."
 msgstr ""
+"Oznacza to, że nagranie jest dedykowane konkretnemu artyście. Dotyczy to "
+"dedykacji takich jak „Ten utwór jest dedykowany pamięci artysty”."
 
 #. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
 msgstr ""
+"Wskazuje to na grupę wydawniczą, która zainspirowała nazwisko tego artysty."
 
 #. name:named after release group
 #: DB:link_type/description:1261
 msgid "This indicates the release group that inspired this genre’s name."
 msgstr ""
+"Wskazuje to na grupę wydawniczą, która zainspirowała nazwę tego gatunku."
 
 #. name:named after release group
 #: DB:link_type/description:1282
@@ -3394,7 +3387,7 @@ msgstr ""
 msgid ""
 "This links a group to an artist who has an artist-in-residence position with "
 "the group."
-msgstr ""
+msgstr "Łączy grupę z artystą, który ma status artysty-rezydenta w grupie."
 
 #. name:video channel
 #: DB:link_type/description:304
@@ -3402,6 +3395,8 @@ msgid ""
 "This links a label to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Łączy dane miejsce z kanałem, playlistą lub stroną użytkownika w serwisie "
+"udostępniającym filmy, zawierającym filmy przez niego wybrane."
 
 #. name:fanpage
 #: DB:link_type/description:214
@@ -3467,6 +3462,8 @@ msgid ""
 "This links a place (often a concert hall or educational institution) to an "
 "artist who has an artist-in-residence position with it."
 msgstr ""
+"Łączy miejsce (często salę koncertową lub instytucję edukacyjną) z artystą, "
+"który ma tam status artysty-rezydenta."
 
 #. name:video channel
 #: DB:link_type/description:495
@@ -5396,8 +5393,9 @@ msgid "artist rename"
 msgstr ""
 
 #: DB:link_type/name:1164 DB:link_type/name:1296
+#, fuzzy
 msgid "artist-in-residence"
-msgstr ""
+msgstr "artysta-rezydent"
 
 #. name:artist-in-residence
 #: DB:link_type/link_phrase:1164 DB:link_type/link_phrase:1296
@@ -6019,15 +6017,16 @@ msgstr ""
 #. name:dedication
 #: DB:link_type/link_phrase:1290
 msgid "dedicated recordings"
-msgstr ""
+msgstr "dedykowane nagrania"
 
 #. name:dedicated to, name:dedication
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:983
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
 #: DB:link_type/reverse_link_phrase:1290 DB:link_type/reverse_link_phrase:914
 #: DB:link_type/reverse_link_phrase:868
+#, fuzzy
 msgid "dedicated to"
-msgstr ""
+msgstr "poświęcony"
 
 #. name:dedication
 #: DB:link_type/link_phrase:983 DB:link_type/link_phrase:846
