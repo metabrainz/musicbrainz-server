@@ -365,11 +365,6 @@ msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr ""
 
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "alto violina"
-
 #: DB:instrument/name:363
 msgid "amadinda"
 msgstr "amadinda"
@@ -1535,6 +1530,11 @@ msgstr ""
 msgid "electronic organ"
 msgstr ""
 
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr ""
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2360,6 +2360,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2398,6 +2403,11 @@ msgstr ""
 
 #: DB:instrument/name:307
 msgid "ki pah"
+msgstr ""
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
 msgstr ""
 
 #: DB:instrument/name:247
@@ -3820,6 +3830,11 @@ msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr ""
 
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr ""
+
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
@@ -4335,6 +4350,13 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
 
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "clavichord"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "klavikord"
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr ""
@@ -4730,6 +4752,10 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "alto violina"
 
 #~ msgid "chalumeau"
 #~ msgstr "Chalumeau"

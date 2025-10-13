@@ -4,10 +4,11 @@
 # Echelon666 <echelon01@wp.pl>, 2024.
 # PS123 <adres2015@wp.pl>, 2025.
 # Echelon <weblate@wp.pl>, 2025.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-14 16:36+0000\n"
+"PO-Revision-Date: 2025-10-13 10:02+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
@@ -16,9 +17,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1931,15 +1932,14 @@ msgid ""
 "veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
+"Zmodyfikowany sarod stworzony w latach 40. przez Radhikę Mohan Maitrę można "
+"obejrzeć na stronie <a href=\"/instrument/198ecbd1-48fa-43cc-"
+"bda9-370206689074\">Mohan veena Radhiki</a>.<br /> Jest to zmodyfikowana "
+"gitara hawajska lub gitara lapsteel, ma od 19 do 21 strun i tykwę dodaną do "
+"gryfu."
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
-#, fuzzy
-#| msgid ""
-#| "For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt "
-#| "see VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika "
-#| "Maitra in the 1940s, it has a wooden soundbox cover (like sitar), an "
-#| "extra neck resonator (like veena) and the fretboard from the sarod."
 msgid ""
 "For the modified slide-guitar created in the 1990's by Vishwa Mohan Bhatt "
 "see <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt's "
@@ -1948,9 +1948,10 @@ msgid ""
 "(like veena) and the fretboard from the sarod."
 msgstr ""
 "Zmodyfikowaną gitarę typu slide, stworzoną w latach 90. przez Vishwę Mohana "
-"Bhatta, można obejrzeć na stronie Mohan veena autorstwa VM Bhatta.<br /> "
-"Stworzona jako zmodyfikowany sarod przez Radhikę Maitrę w latach 40. XX "
-"wieku, ma drewnianą pokrywę pudła rezonansowego (jak sitar), dodatkowy "
+"Bhatta, można obejrzeć na stronie <a href=\"/instrument/9a2b6ae1-a5fb-42ab-"
+"b18c-9985e8b606c4\">Mohan veena Bhatta</a>.<br /> Gitara ta została "
+"stworzona jako zmodyfikowany sarod przez Radhikę Maitrę w latach 40. XX "
+"wieku. Ma drewnianą pokrywę pudła rezonansowego (jak sitar), dodatkowy "
 "rezonator szyjki (jak veena) i podstrunnicę z sarodu."
 
 #. name:tumbi
@@ -3699,6 +3700,45 @@ msgstr ""
 "bcde-f0f34e8d6eb0\">dulzainą</a> z podwójnym stroikiem.<br /> Używana w "
 "renesansie, wykonana z drewna klonowego, ze składanym kanałem i stożkową "
 "czarą."
+
+#. name:electronic shruti box
+#: DB:instrument/description:1213
+msgid ""
+"Not to be confused with the analogue bellow powered <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> or the string "
+"instrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
+"synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
+"using recording samples."
+msgstr ""
+"Nie należy mylić go z analogowym, zasilanym miechami <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> ani z instrumentem "
+"strunowym <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Syntezator "
+"elektroniczny wynaleziony przez pana G. Raja Narayana w 1979 roku. Modele z "
+"1990 roku wykorzystywały próbki nagrań."
+
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
+msgstr ""
+"Nie należy go mylić z dwuzębnym <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</"
+"a>, podobną koncepcją <a href="
+"\"/instrument/068b3fc6-c11f-4ae7-bd85-ca5725b2b9f4\">tuntuna</a>, tokari "
+"przypominającym dotara lub pulluvan kudam.<br /> Pudło rezonansowe, używane "
+"w muzyce ludowej Bengalu, Odiszy i północno-wschodnich Indii, to drewniany "
+"cylinder przypominający bęben z membraną na jednym końcu, trzymaną pod "
+"ramieniem, do której przymocowana jest pojedyncza struna, szarpana kostką. "
+"Jest znane pod wieloma nazwami."
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -6334,6 +6374,19 @@ msgstr ""
 msgid "The shudraga is a Mongolian fretless lute with three strings."
 msgstr "Shudraga to mongolska lutnia bezprogowa z trzema strunami."
 
+#. name:swaragat
+#: DB:instrument/description:1214
+msgid ""
+"The skin covered deep wooden soundbox, has a neck that is carved like parrot "
+"and a gut bridge with three courses of double silk strings, plucked with a "
+"horn-plectrum. Used in southern India since ancient times, it is essentially "
+"a bass rabab."
+msgstr ""
+"Pokryty skórą, głęboki, drewniany pudło rezonansowe ma gryf wyrzeźbiony w "
+"papugę i mostek jelitowy z trzema rzędami podwójnych strun jedwabnych, "
+"szarpanych plektronem rogowym. Używany w południowych Indiach od czasów "
+"starożytnych, jest w zasadzie basowym rababem."
+
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -6975,7 +7028,7 @@ msgstr ""
 msgid "Tuned metal bar, bent into triangle shape."
 msgstr "Strojony pręt metalowy, wygięty w kształt trójkąta."
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -7525,6 +7578,15 @@ msgstr ""
 "z północnej Białorusi i wschodnio-południowej Litwy jeden burdon i jeden "
 "piszczałka, oba mają na końcach smyczkowe rogi. <br /> Po drugie; macianka "
 "duda bez rogów ma 3 burdony w jednym otworze zamiast jednego."
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
+msgstr ""
+"Używany od czasów średniowiecza w muzyce ludowej Karnataki, ma 3 rezonatory "
+"wykonane z tykwy. Przypomina starożytną skrzynię."
 
 #. name:somu dūdas
 #: DB:instrument/description:1198
