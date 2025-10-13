@@ -60,7 +60,7 @@
 # yvanz, 2016-2023
 # yvanz, 2016,2018
 # yvanz, 2018
-# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # BlueCamille <BlueCamille@users.noreply.translations.metabrainz.org>, 2024.
 # Dibou <doc@boudon.nom.fr>, 2024.
@@ -69,18 +69,17 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2024-11-28 14:42+0000\n"
-"Last-Translator: reosarevok "
-"<reosarevok@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-10-10 11:02+0000\n"
+"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
-"1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8.4\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : "
+"((n != 0 && n % 1000000 == 0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -357,15 +356,13 @@ msgstr "Adresse"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:213
 msgctxt "vote"
 msgid "Admin approval"
-msgstr ""
+msgstr "Approuver comme administrateur"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
-#, fuzzy
-#| msgid "Add collection"
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "Ajouter une collection"
+msgstr "Rejeter comme administrateur"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -447,10 +444,8 @@ msgid "Area"
 msgstr "Région"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "Type primaire"
+msgstr "Type de région"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -528,10 +523,8 @@ msgid "Artist details"
 msgstr "Détails de l’artiste"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Région de l’artiste"
+msgstr "Type d’artiste"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -1170,10 +1163,8 @@ msgid "Event"
 msgstr "Événement"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
-msgstr "Type d’entité"
+msgstr "Type d’événement"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1706,10 +1697,8 @@ msgid "Instrument"
 msgstr "Instrument"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Instrument list"
 msgid "Instrument type"
-msgstr "Liste d’instruments"
+msgstr "Type d’instrument"
 
 #: ../root/recording/edit_form.tt:105
 msgid ""
@@ -1810,10 +1799,8 @@ msgid "Label details"
 msgstr "Détails du label"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Label area"
 msgid "Label type"
-msgstr "Région du label"
+msgstr "Type de label"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -2179,10 +2166,8 @@ msgid "Place details"
 msgstr "Détails du lieu"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Related type"
 msgid "Place type"
-msgstr "Type de destination"
+msgstr "Type de lieu"
 
 #: ../root/edit/search_macros.tt:478
 msgid "Please choose a condition"
@@ -2427,20 +2412,16 @@ msgid "Release group details"
 msgstr "Détails du groupe de parution"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group primary type"
-msgstr "Type de groupe de parution"
+msgstr "Type primaire de groupe de parution"
 
 #: ../root/release/edit/information.tt:67
 msgid "Release group search error"
 msgstr "Erreur de recherche des groupes de parution"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group secondary type"
-msgstr "Type de groupe de parution"
+msgstr "Type secondaire de groupe de parution"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2683,10 +2664,8 @@ msgid "Series details"
 msgstr "Détails de la série"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Series"
 msgid "Series type"
-msgstr "Série"
+msgstr "Type de série"
 
 #: ../root/release_group/set_cover_art.tt:1
 #: ../root/release_group/set_cover_art.tt:5
@@ -6194,10 +6173,8 @@ msgid "{role} (as {credited_name})"
 msgstr "{role} (en tant que {credited_name})"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at AWA"
-msgstr "Diffusion en flux VK"
+msgstr "Diffusion en flux AWA"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Anghami.pm:10
 msgid "Stream at Anghami"
@@ -18740,14 +18717,12 @@ msgid "Account administrators"
 msgstr "Administrateurs de compte"
 
 #: ../root/user/PrivilegedUsers.js:113
-#, fuzzy
-#| msgid "Account administrators can edit and delete user accounts."
 msgid ""
 "Account administrators can edit and delete user accounts, and immediately "
 "accept and reject edits."
 msgstr ""
-"Les administrateurs de compte peuvent modifier et supprimer les comptes "
-"d’utilisateurs."
+"Les administrateurs de compte peuvent modifier et supprimer les comptes d’"
+"utilisateurs, et accepter ou rejeter immédiatement les modifications."
 
 #: ../root/user/PrivilegedUsers.js:118
 msgid "The following {count} users are account administrators:"
@@ -18957,11 +18932,9 @@ msgid "Internal/Bot"
 msgstr "Interne/Robot"
 
 #: ../root/user/UserProfile.js:93
-#, fuzzy
-#| msgid "Account admin"
 msgctxt "user type"
 msgid "Account admin"
-msgstr "Administration du compte"
+msgstr "Administrateur"
 
 #: ../root/user/UserProfile.js:126
 msgctxt "user type"
