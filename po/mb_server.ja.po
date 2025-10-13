@@ -46,7 +46,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-10-03 19:54+0000\n"
+"PO-Revision-Date: 2025-10-11 18:02+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -2333,10 +2333,8 @@ msgid "Release data quality"
 msgstr "リリースデータの品質"
 
 #: ../root/release/edit/layout.tt:14
-#, fuzzy
-#| msgid "Release Duplicates"
 msgid "Release duplicates"
-msgstr "リリースが重複"
+msgstr "重複したリリース"
 
 #: ../root/release/edit/information.tt:167
 #: ../root/static/scripts/common/components/ReleaseEvents.js:34
@@ -2375,22 +2373,16 @@ msgid "Release group details"
 msgstr "リリースグループの詳細"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group primary type"
-msgstr "リリースグループタイプ"
+msgstr "リリースグループの一次タイプ"
 
 #: ../root/release/edit/information.tt:67
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group search error"
-msgstr "リリースグループ"
+msgstr "リリースグループの検索エラー"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Release group type"
 msgid "Release group secondary type"
-msgstr "リリースグループタイプ"
+msgstr "リリースグループの二次タイプ"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2435,31 +2427,21 @@ msgid "Remove"
 msgstr "削除"
 
 #: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
-#, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "IPI コード"
+msgstr "IPIコードを削除"
 
 #: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
-#, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "ISNIコード"
+msgstr "ISNIコードを削除"
 
 #: ../root/recording/edit_form.tt:44
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "ISRCを削除"
 
 #: ../root/work/edit_form.tt:15
-#, fuzzy
-#| msgctxt "edit type"
-#| msgid "Remove ISWC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "ISWCを削除"
@@ -3344,7 +3326,7 @@ msgstr "このレコーディングはビデオです"
 
 #: ../root/release/edit/information.tt:278
 msgid "This release does not have a barcode"
-msgstr "このリリースはバーコードがありません。"
+msgstr "このリリースにはバーコードがありません"
 
 #: ../root/release/edit/tracklist.tt:366
 msgid ""
@@ -3377,7 +3359,7 @@ msgstr "タイトル"
 
 #: ../root/release/edit/information.tt:148
 msgid "To edit types, please {edit_page|edit the release group}."
-msgstr ""
+msgstr "タイプを編集するには{edit_page|リリースグループを編集してください}。"
 
 #: ../root/release/edit/tracklist.tt:243
 msgid ""
@@ -4561,11 +4543,9 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:226
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
-msgstr "［不明］"
+msgstr "[不明]"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Load.pm:96
 msgid "The provided relationship type ID is not valid."
@@ -7006,7 +6986,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:167
 msgctxt "header"
 msgid "Preview"
-msgstr ""
+msgstr "プレビュー"
 
 #: ../root/annotation/EditAnnotation.js:71
 #: ../root/static/scripts/common/components/Annotation.js:59
@@ -7297,7 +7277,7 @@ msgstr "このアーティストの公式リリースグループを表示中"
 
 #: ../root/artist/ArtistIndex.js:213
 msgid "Performance name of"
-msgstr ""
+msgstr "主要な名前"
 
 #: ../root/artist/ArtistIndex.js:221
 msgid "Legal name"
@@ -7305,11 +7285,11 @@ msgstr "正式名称"
 
 #: ../root/artist/ArtistIndex.js:227 ../root/label/LabelIndex.js:59
 msgid "Previously known as"
-msgstr ""
+msgstr "以前に知られていた名前"
 
 #: ../root/artist/ArtistIndex.js:234 ../root/label/LabelIndex.js:66
 msgid "Renamed to"
-msgstr ""
+msgstr "新しい名称"
 
 #: ../root/artist/ArtistIndex.js:242
 msgid "Also performs as"
@@ -8877,10 +8857,8 @@ msgid "We are unable to display history for this image."
 msgstr "このカバーアートの履歴を表示できません。"
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "入力されました"
+msgstr "次で入力された"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -9145,11 +9123,11 @@ msgstr "ヘルプ:"
 
 #: ../root/edit/components/ListHeader.js:235
 msgid "Introduction to voting"
-msgstr ""
+msgstr "投票の手引き"
 
 #: ../root/edit/components/ListHeader.js:239
 msgid "Introduction to editing"
-msgstr ""
+msgstr "編集の手引き"
 
 #: ../root/edit/components/ListHeader.js:242
 #: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:182
@@ -11399,11 +11377,9 @@ msgstr "シリーズの情報"
 
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
-#, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
-msgstr "［不明］"
+msgstr "[不明]"
 
 #: ../root/layout/components/sidebar/SidebarLicenses.js:142
 msgid "License"
@@ -12291,7 +12267,8 @@ msgstr "{release}の関連を編集"
 #: ../root/release/EditRelationships.js:35
 msgid ""
 "To use the batch tools, select some recordings or works using the checkboxes."
-msgstr ""
+msgstr "一括追加ツールを使用するには、レコーディングか作品のチェックボックスを選択し"
+"てください。"
 
 #: ../root/release/EditRelationships.js:42
 msgid ""
@@ -14493,10 +14470,8 @@ msgid "Send me mails with edits to my subscriptions"
 msgstr "購読中の項目が編集された際にメール通知する"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:248
-#, fuzzy
-#| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add"
-msgstr "自分が追加したレーベルを自動的に購読する。"
+msgstr "自分が追加した項目を自動的に購読する"
 
 #: ../root/static/scripts/account/components/RegisterForm.js:58
 msgid "Your username will be publicly visible."
@@ -14536,14 +14511,12 @@ msgid "Alias name:"
 msgstr "別名:"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:327
-#, fuzzy
-#| msgid "This is the primary alias for this locale"
 msgid "This is the {alias_doc|primary alias} for this locale"
-msgstr "このロケールの主な別名です"
+msgstr "このロケールの{alias_doc|主な別名}です"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:349
 msgid "This alias is no longer current."
-msgstr ""
+msgstr "この別名はもう使用されていません。"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:91
 msgctxt "annotation"
@@ -14678,7 +14651,7 @@ msgstr "検索するか、MBIDを貼り付け"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:216
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:33
 msgid "Clear recent items"
-msgstr "最近のアイテムを削除"
+msgstr "最近使用した項目をリセット"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:485
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:92
@@ -14779,7 +14752,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:39
 msgid "Recent items"
-msgstr ""
+msgstr "最近使用した項目"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:48
 msgid "Try again with direct search."
@@ -14888,10 +14861,8 @@ msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:51
-#, fuzzy
-#| msgid "{medium_format} {position}"
 msgid "{medium_format_and_position}: {medium_name}"
-msgstr "{medium_format} {position}"
+msgstr "{medium_format_and_position}: {medium_name}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:65
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:98
@@ -15058,10 +15029,8 @@ msgid "{action_label} (in a new tab)"
 msgstr ""
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
-#, fuzzy
-#| msgid "Medium {position}: {title}"
 msgid "Medium {position} ({medium_format})"
-msgstr "メディア {position}: {title}"
+msgstr "メディア {position} ({medium_format})"
 
 #: ../root/static/scripts/common/components/MediumDescription.js:34
 #: ../root/static/scripts/release-editor/fields.js:920
@@ -16271,11 +16240,9 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:39
-#, fuzzy
-#| msgid "Old Order"
 msgctxt "noun"
 msgid "Order"
-msgstr "以前の順序"
+msgstr "順序"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:51
 msgid ""
@@ -16300,11 +16267,11 @@ msgstr "入力またはクリックして検索"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:299
 msgid "Please select a relationship type. ({url|more documentation})"
-msgstr ""
+msgstr "関連タイプを選択してください。 ({url|ドキュメントを読む})"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:219
 msgid "Please fill out all required fields."
-msgstr ""
+msgstr "すべての必須項目を選択してください。"
 
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:231
 msgid "Change direction"
@@ -16340,7 +16307,7 @@ msgstr "関係する二つの項目は異なっていなければなりません
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetType.js:38
 msgid "Related type"
-msgstr ""
+msgstr "関係タイプ"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:899
 msgid ""
@@ -16435,7 +16402,7 @@ msgstr "関連情報を追加"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:261
 msgid "no type"
-msgstr ""
+msgstr "タイプなし"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:300
 msgid "These relationships have a specific ordering"
@@ -16457,12 +16424,9 @@ msgid_plural "{n} works selected"
 msgstr[0] "{n} 作品を選択"
 
 #: ../root/static/scripts/release-editor/actions.js:142
-#, fuzzy
-#| msgid "{num} release found"
-#| msgid_plural "{num} releases found"
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "{num} 件のリリースがあります"
+msgstr[0] "{num}件のリリース"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -16639,7 +16603,7 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:312
 msgid "Batch-add new works"
-msgstr ""
+msgstr "新しい作品を一括追加"
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:147
 msgctxt "header"
@@ -16685,7 +16649,7 @@ msgstr "レコーディングに関連情報を一括追加"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:124
 msgid "[selected recording]"
-msgstr ""
+msgstr "[選択したレコーディング]"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:150
 msgid "Batch-add a relationship to works"
@@ -16693,7 +16657,7 @@ msgstr "作品に関連情報を一括追加"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:152
 msgid "[selected work]"
-msgstr ""
+msgstr "[選択した作品]"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:277
 msgid "An error occurred:"
