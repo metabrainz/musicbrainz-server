@@ -736,6 +736,18 @@ msgid "Indicates the lyricist for this work."
 msgstr "ציון תמלילן היצירה."
 
 #. name:mastering
+#: DB:link_type/description:1293
+#, fuzzy
+#| msgid ""
+#| "Indicates the instrument technician for this release. Use also for "
+#| "\"piano tuner\" credits and other similar ones."
+msgid ""
+"Indicates the mastering company for this release, when a company is credited "
+"instead of a specific engineer."
+msgstr ""
+"ציון טכנאי כלי נגינה להוצאה זו. משמש גם למזכה \"כוון פסנתר\" ודומים אחרים."
+
+#. name:mastering
 #: DB:link_type/description:42
 #, fuzzy
 #| msgid "Indicates the mastering engineer for this work."
@@ -809,8 +821,8 @@ msgid ""
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
-"ציון המו״ל של הוצאה זו. זה <strong>לא</strong> אותו דבר כמו <a href="
-"\"/doc/Label\" target=\"_blank\">חברת התקליטים</a>."
+"ציון המו״ל של הוצאה זו. זה <strong>לא</strong> אותו דבר כמו <a href=\"/doc/"
+"Label\" target=\"_blank\">חברת התקליטים</a>."
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
@@ -818,8 +830,8 @@ msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"ציון המו״ל של יצירה זו. זה <strong>לא</strong> אותו דבר כמו <a href="
-"\"/doc/Label\" target=\"_blank\">חברת התקליטים</a>."
+"ציון המו״ל של יצירה זו. זה <strong>לא</strong> אותו דבר כמו <a href=\"/doc/"
+"Label\" target=\"_blank\">חברת התקליטים</a>."
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
@@ -1915,6 +1927,14 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "תאור מהנדס שביצע תפקיד הנדסי כללי."
 
+#. name:mix
+#: DB:link_type/description:1294 DB:link_type/description:1295
+msgid ""
+"This describes the company responsible for using a mixing console to mix a "
+"recorded track into a single piece of music suitable for release, when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+
 #. name:member of band
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
@@ -2975,6 +2995,19 @@ msgid ""
 "credit, do not guess."
 msgstr ""
 
+#. name:dedication
+#: DB:link_type/description:1290
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the recording is dedicated to a specific artist. This is for "
+"dedications such as \"This track is dedicated to the memory of Artist\"."
+msgstr ""
+"ציון שהיצירה מוקדשת לאזור מסוים. נפוץ בעיקר ביצירות קלאסיות, אך נמצא, במידה "
+"מסוימת, גם בסוגות אחרות."
+
 #. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
@@ -3028,21 +3061,25 @@ msgstr ""
 "מסוימת, גם בסוגות אחרות."
 
 #. name:dedication
+#: DB:link_type/description:846
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work is dedicated to a specific artist. This is most "
+"common for classical works, but also exists in other genres to a degree."
+msgstr ""
+"ציון שהיצירה מוקדשת לאזור מסוים. נפוץ בעיקר ביצירות קלאסיות, אך נמצא, במידה "
+"מסוימת, גם בסוגות אחרות."
+
+#. name:dedication
 #: DB:link_type/description:922
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
 "most common for classical works, but also exists in other genres to a degree."
 msgstr ""
 "ציון שהיצירה מוקדשת לארגון מסוים. נפוץ בעיקר ביצירות קלאסיות, אך נמצא, במידה "
-"מסוימת, גם בסוגות אחרות."
-
-#. name:dedication
-#: DB:link_type/description:846
-msgid ""
-"This indicates the work is dedicated to a specific person. This is most "
-"common for classical works, but also exists in other genres to a degree."
-msgstr ""
-"ציון שהיצירה מוקדשת לאדם מסוים. נפוץ בעיקר ביצירות קלאסיות, אך נמצא, במידה "
 "מסוימת, גם בסוגות אחרות."
 
 #. name:dedication
@@ -3478,6 +3515,17 @@ msgid ""
 "residence position with the group."
 msgstr "קישור קבוצת (לעיתים תזמורת) למלחין המשמש בתפקיד מלחין הבית של ההרכב."
 
+#. name:artist-in-residence
+#: DB:link_type/description:1296
+#, fuzzy
+#| msgid ""
+#| "This links a group (often an orchestra) to a composer who has a composer-"
+#| "in-residence position with the group."
+msgid ""
+"This links a group to an artist who has an artist-in-residence position with "
+"the group."
+msgstr "קישור קבוצת (לעיתים תזמורת) למלחין המשמש בתפקיד מלחין הבית של ההרכב."
+
 #. name:video channel
 #: DB:link_type/description:304
 msgid ""
@@ -3549,6 +3597,19 @@ msgstr ""
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
+msgstr ""
+"קישור מקום (לעיתים אולם קונצרטים או מוסד חינוכי) למלחין המשמש בתפקיד מלחין "
+"הבית של המקום."
+
+#. name:artist-in-residence
+#: DB:link_type/description:1164
+#, fuzzy
+#| msgid ""
+#| "This links a place (often a concert hall or educational institution) to a "
+#| "composer who has a composer-in-residence position with it."
+msgid ""
+"This links a place (often a concert hall or educational institution) to an "
+"artist who has an artist-in-residence position with it."
 msgstr ""
 "קישור מקום (לעיתים אולם קונצרטים או מוסד חינוכי) למלחין המשמש בתפקיד מלחין "
 "הבית של המקום."
@@ -5915,6 +5976,19 @@ msgstr ""
 msgid "artist rename"
 msgstr ""
 
+#: DB:link_type/name:1164 DB:link_type/name:1296
+#, fuzzy
+#| msgid "composers-in-residence"
+msgid "artist-in-residence"
+msgstr "מלחין הבית"
+
+#. name:artist-in-residence
+#: DB:link_type/link_phrase:1164 DB:link_type/link_phrase:1296
+#, fuzzy
+#| msgid "composer-in-residence at"
+msgid "artist-in-residence at"
+msgstr "מלחין הבית ב"
+
 #. name:artistic director
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
@@ -5944,6 +6018,13 @@ msgstr ""
 #| msgid "artists and repertoire"
 msgid "artists and repertoire position at"
 msgstr "אמן ומַעֲרֶכֶת־הַצָּגוֹת"
+
+#. name:artist-in-residence
+#: DB:link_type/reverse_link_phrase:1164 DB:link_type/reverse_link_phrase:1296
+#, fuzzy
+#| msgid "composers-in-residence"
+msgid "artists-in-residence"
+msgstr "מלחין הבית"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
 #: DB:link_type/name:993
@@ -6540,10 +6621,18 @@ msgstr "עמוד גיוס־המונים ל־"
 msgid "cut the lacquer for"
 msgstr "חיתוך הלכה ל־"
 
+#. name:dedication
+#: DB:link_type/link_phrase:1290
+#, fuzzy
+#| msgid "field recordings"
+msgid "dedicated recordings"
+msgstr "הקלטות שטח"
+
 #. name:dedicated to, name:dedication
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:983
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
-#: DB:link_type/reverse_link_phrase:914 DB:link_type/reverse_link_phrase:868
+#: DB:link_type/reverse_link_phrase:1290 DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:868
 msgid "dedicated to"
 msgstr "מוקדש ל־"
 
@@ -6554,7 +6643,7 @@ msgid "dedicated works"
 msgstr "יצירות מוקדשות"
 
 #: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
-#: DB:link_type/name:914
+#: DB:link_type/name:1290 DB:link_type/name:914
 msgid "dedication"
 msgstr "הקדשה"
 
@@ -8446,7 +8535,7 @@ msgstr ""
 msgid "mastered in"
 msgstr "עותק־האב נוצר ב"
 
-#: DB:link_type/name:136 DB:link_type/name:42
+#: DB:link_type/name:136 DB:link_type/name:1293 DB:link_type/name:42
 msgid "mastering"
 msgstr "עותק־אב"
 
@@ -8553,7 +8642,8 @@ msgstr "תפקידים שונים"
 msgid "miscellaneous support"
 msgstr "תמיכה כללית"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:1294 DB:link_type/name:26 DB:link_type/name:1295
+#: DB:link_type/name:143
 msgid "mix"
 msgstr "ערבול"
 
@@ -9283,13 +9373,16 @@ msgstr "מפיקים"
 
 #. name:production
 #: DB:link_type/name:256 DB:link_type/name:160 DB:link_type/name:59
-#: DB:link_type/name:72 DB:link_type/link_phrase:256
-#: DB:link_type/link_phrase:160 DB:link_type/link_phrase:59
-#: DB:link_type/link_phrase:72 DB:link_type/reverse_link_phrase:256
-#: DB:link_type/reverse_link_phrase:160 DB:link_type/reverse_link_phrase:59
-#: DB:link_type/reverse_link_phrase:72 DB:link_type/long_link_phrase:256
-#: DB:link_type/long_link_phrase:160 DB:link_type/long_link_phrase:59
-#: DB:link_type/long_link_phrase:72
+#: DB:link_type/name:1291 DB:link_type/name:1292 DB:link_type/name:72
+#: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
+#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:1291
+#: DB:link_type/link_phrase:1292 DB:link_type/link_phrase:72
+#: DB:link_type/reverse_link_phrase:256 DB:link_type/reverse_link_phrase:160
+#: DB:link_type/reverse_link_phrase:59 DB:link_type/reverse_link_phrase:1291
+#: DB:link_type/reverse_link_phrase:1292 DB:link_type/reverse_link_phrase:72
+#: DB:link_type/long_link_phrase:256 DB:link_type/long_link_phrase:160
+#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:1291
+#: DB:link_type/long_link_phrase:1292 DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "הפקה"
 
@@ -9692,12 +9785,6 @@ msgstr ""
 #: DB:link_type/name:836 DB:link_type/link_phrase:836
 msgid "rescheduled as"
 msgstr "תזמון מחדש כ־"
-
-#. name:residence position
-#: DB:link_type/name:1164 DB:link_type/link_phrase:1164
-#: DB:link_type/reverse_link_phrase:1164 DB:link_type/long_link_phrase:1164
-msgid "residence position"
-msgstr ""
 
 #. name:residency
 #: DB:link_type/link_phrase:994
@@ -10452,6 +10539,13 @@ msgstr "היו פעולת תמיכה ב־"
 msgid "was a supporting DJ at"
 msgstr "היו די־ג'יי תמיכה ב־"
 
+#. name:artist-in-residence
+#: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
+#, fuzzy
+#| msgid "was a composer-in-residence at"
+msgid "was an artist-in-residence at"
+msgstr "היה/היתה מלחין הבית ב"
+
 #. name:orchestra
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
@@ -10725,6 +10819,14 @@ msgstr "{additional:additionally} הונדס ב־"
 msgid "{additional:additionally} engineered in"
 msgstr "{additional:additionally} הונדס ב־"
 
+#. name:mix
+#: DB:link_type/link_phrase:1294 DB:link_type/link_phrase:1295
+#: DB:link_type/long_link_phrase:1294 DB:link_type/long_link_phrase:1295
+#, fuzzy
+#| msgid "{additional:additionally} remixed"
+msgid "{additional:additionally} mixed"
+msgstr "{additional:additionally} ערבול־מחודש"
+
 #. name:mixed at
 #: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
 msgid "{additional:additionally} mixed at"
@@ -10988,6 +11090,13 @@ msgstr ""
 msgid "{additional:additionally} {guest} {solo} performed"
 msgstr "{additional:additionally} {guest} {solo} בוצע"
 
+#. name:mastering
+#: DB:link_type/long_link_phrase:1293
+#, fuzzy
+#| msgid "{additional:additionally} {re}mastered at"
+msgid "{additional:additionally} {pre:pre-}{re}mastered"
+msgstr "{additional:additionally} הונדס {re} ב־"
+
 #. name:mastered at
 #: DB:link_type/reverse_link_phrase:697
 msgid "{additional:additionally} {pre:pre-}{re}mastered at"
@@ -11154,6 +11263,13 @@ msgstr "{additional} תמליל נכתב ב־"
 #: DB:link_type/reverse_link_phrase:877 DB:link_type/reverse_link_phrase:1270
 msgid "{additional} lyrics written in"
 msgstr "{additional} תמליל נכתב ב־"
+
+#. name:mix
+#: DB:link_type/reverse_link_phrase:1294 DB:link_type/reverse_link_phrase:1295
+#, fuzzy
+#| msgid "{additional} remixer"
+msgid "{additional} mixer"
+msgstr "{additional} ערבול־מחודש"
 
 #. name:mixed at, name:mixed in
 #: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
@@ -11411,6 +11527,13 @@ msgstr "{additional} {original} {eponymous} חבר ב"
 msgid "{additional} {original} {eponymous} members"
 msgstr "{additional} {original} {eponymous} חברים"
 
+#. name:mastering
+#: DB:link_type/link_phrase:1293 DB:link_type/reverse_link_phrase:1293
+#, fuzzy
+#| msgid "{additional} {re}mastering location for"
+msgid "{additional} {pre:pre-}{re}mastering"
+msgstr "אתר {additional} {re}־עותק־אב של"
+
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
@@ -11653,8 +11776,8 @@ msgstr ""
 
 #. name:dedicated to, name:dedication
 #: DB:link_type/long_link_phrase:983 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
-#: DB:link_type/long_link_phrase:868
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:1290
+#: DB:link_type/long_link_phrase:914 DB:link_type/long_link_phrase:868
 msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} מוקדש ל־{entity0}"
 
@@ -12056,6 +12179,13 @@ msgid "{vocal:%|vocals} support for"
 msgstr "תמיכה עבור {vocal:%|vocals}"
 
 #~ msgid ""
+#~ "This indicates the work is dedicated to a specific person. This is most "
+#~ "common for classical works, but also exists in other genres to a degree."
+#~ msgstr ""
+#~ "ציון שהיצירה מוקדשת לאדם מסוים. נפוץ בעיקר ביצירות קלאסיות, אך נמצא, "
+#~ "במידה מסוימת, גם בסוגות אחרות."
+
+#~ msgid ""
 #~ "Links a release to the area it was arranged in. Use only when the place "
 #~ "is unknown!"
 #~ msgstr "קישור הוצאה לאזור בו עובדה. נא להשתמש רק כאשר המקום לא ידוע."
@@ -12307,12 +12437,6 @@ msgstr "תמיכה עבור {vocal:%|vocals}"
 #~ msgid "{additional} {vocal:%|vocals} {co:co-}arranger"
 #~ msgstr "{additional} {vocal:%|vocals} {co:co-}מעבד"
 
-#~ msgid "{additional:additionally} remixed"
-#~ msgstr "{additional:additionally} ערבול־מחודש"
-
-#~ msgid "{additional} remixer"
-#~ msgstr "{additional} ערבול־מחודש"
-
 #~ msgid ""
 #~ "This credits a person or agency whose photographs are included as part of "
 #~ "a release."
@@ -12347,17 +12471,11 @@ msgstr "תמיכה עבור {vocal:%|vocals}"
 #~ msgstr ""
 #~ "{additional:additionally} {assistant} {associate} {co:co-} הונדס {re}"
 
-#~ msgid "{additional:additionally} {re}mastered at"
-#~ msgstr "{additional:additionally} הונדס {re} ב־"
-
 #~ msgid "{additional:additionally} {re}mastered in"
 #~ msgstr "{additional:additionally} הונדס {re} ב־"
 
 #~ msgid "{additional} {assistant} {associate} {co:co-}{re}mastering"
 #~ msgstr "{additional} {assistant} {associate} {co:co-}{re}עותק־אב"
-
-#~ msgid "{additional} {re}mastering location for"
-#~ msgstr "אתר {additional} {re}־עותק־אב של"
 
 #~ msgid "{entity1} was {additional:additionally} {re}mastered at {entity0}"
 #~ msgstr "{entity1} {additional:additionally} עורבל־מחדש ב־{entity0}"

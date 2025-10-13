@@ -1692,10 +1692,10 @@ msgid ""
 "veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
-"对于 1940 年代由 Radhika Mohan Maitra 改造的萨罗德，请参见 <a href="
-"\"/instrument/198ecbd1-48fa-43cc-bda9-370206689074\">Radhika 的 Mohan "
-"veena</a>。<br />它是作为一种改良版的夏威夷吉他或平放式钢弦吉他创制的，具有 "
-"19 到 21 根弦，并在琴颈上加装了一个葫芦共鸣器。"
+"对于 1940 年代由 Radhika Mohan Maitra 改造的萨罗德，请参见 <a href=\"/"
+"instrument/198ecbd1-48fa-43cc-bda9-370206689074\">Radhika 的 Mohan veena</"
+"a>。<br />它是作为一种改良版的夏威夷吉他或平放式钢弦吉他创制的，具有 19 到 "
+"21 根弦，并在琴颈上加装了一个葫芦共鸣器。"
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1739,13 +1739,11 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
-"对于一种只有一根弦的琵琶，也称为 ektar/ektara，请参见 <a href="
-"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\""
-">tumbi</a>。对于外形相似但只有一个辐条的乐器，请参见 tun tuna。<br /> "
-"不要将其与 ekatantri veena "
-"混淆，后者是印度古代的单弦乐器。它有一个小型的圆形或梯形木质或椰壳共鸣箱，底"
-"部覆盖有膜。在两侧连接有由裂开的竹子制成的琴颈，从琴颈悬挂着一根弦，并与膜相"
-"连。"
+"对于一种只有一根弦的琵琶，也称为 ektar/ektara，请参见 <a href=\"/instrument/"
+"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。对于外形相似但只有一个辐条"
+"的乐器，请参见 tun tuna。<br /> 不要将其与 ekatantri veena 混淆，后者是印度古"
+"代的单弦乐器。它有一个小型的圆形或梯形木质或椰壳共鸣箱，底部覆盖有膜。在两侧"
+"连接有由裂开的竹子制成的琴颈，从琴颈悬挂着一根弦，并与膜相连。"
 
 #. name:tun tuna
 #: DB:instrument/description:1210
@@ -3261,6 +3259,19 @@ msgid ""
 "a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
 "synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
 "using recording samples."
+msgstr ""
+
+#. name:khamak
+#: DB:instrument/description:1215
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
 msgstr ""
 
 #. name:shawm
@@ -6200,7 +6211,7 @@ msgstr ""
 msgid "Tuned metal bar, bent into triangle shape."
 msgstr "调整过的金属棒，被塑造成三角形。"
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -6488,15 +6499,6 @@ msgstr ""
 "用于民间音乐和朝鲜半岛的学校教育中，是一种带有缺口的端吹式竖笛，和较大的关联"
 "乐器朝鲜洞箫同样于19世纪由中国的箫衍生而来。"
 
-#. name:khamak
-#: DB:instrument/description:1215
-msgid ""
-"Used in folk music of the Bengal, Odisha and north-east India, the soundbox "
-"is a drum-like wooden cylinder with a membrane at one end held underneath an "
-"arm, attached to the membrane is a single string which is plucked with a "
-"pick. It is known by many names."
-msgstr ""
-
 #. name:krap khū
 #: DB:instrument/description:950
 msgid ""
@@ -6677,6 +6679,13 @@ msgid ""
 "northern Belarus and east-south Lithuania one drone one chanter both having "
 "bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
 "3 drones in one hole instead of one."
+msgstr ""
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
 msgstr ""
 
 #. name:somu dūdas

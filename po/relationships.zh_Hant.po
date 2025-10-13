@@ -687,6 +687,17 @@ msgid "Indicates the lyricist for this work."
 msgstr "指該作品的作詞者。"
 
 #. name:mastering
+#: DB:link_type/description:1293
+#, fuzzy
+#| msgid ""
+#| "Indicates the instrument technician for this release. Use also for "
+#| "\"piano tuner\" credits and other similar ones."
+msgid ""
+"Indicates the mastering company for this release, when a company is credited "
+"instead of a specific engineer."
+msgstr "指該專輯的樂器調律師。也可用於“鋼琴調音師”或類似演職員資訊。"
+
+#. name:mastering
 #: DB:link_type/description:42
 msgid "Indicates the mastering engineer for this release."
 msgstr "指該專輯的母帶工程師。"
@@ -1830,6 +1841,23 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "這說明工程師負責一般工程任務。"
 
+#. name:mix
+#: DB:link_type/description:1294 DB:link_type/description:1295
+#, fuzzy
+#| msgid ""
+#| "This describes an engineer responsible for using a mixing console to mix "
+#| "a recorded track into a single piece of music suitable for release. For "
+#| "remixing, see <a href=\"/relationship/"
+#| "7950be4d-13a3-48e7-906b-5af562e39544\" target=\"_blank\">remixer</a>."
+msgid ""
+"This describes the company responsible for using a mixing console to mix a "
+"recorded track into a single piece of music suitable for release, when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+"這說明工程師負責使用調音台將錄製的音軌混音為適合納入專輯的單曲音樂。關於重混"
+"音，參見<a href=\"/relationship/7950be4d-13a3-48e7-906b-5af562e39544\" "
+"target=\"_blank\">重混音者</a>。"
+
 #. name:member of band
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
@@ -2768,6 +2796,19 @@ msgstr ""
 "指負責在特定地區出版該發行版本或作品的子出版商。只有在你有具體的子出版商署名"
 "資訊時才使用此選項，不要猜測。"
 
+#. name:dedication
+#: DB:link_type/description:1290
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the recording is dedicated to a specific artist. This is for "
+"dedications such as \"This track is dedicated to the memory of Artist\"."
+msgstr ""
+"這表示該作品獻給一個特定的地區。這種情況在古典音樂作品中最常見，但在其他流派"
+"中也有一定的體現。"
+
 #. name:named after release group
 #: DB:link_type/description:974
 msgid "This indicates the release group that inspired this artist’s name."
@@ -2817,6 +2858,19 @@ msgstr ""
 "中也有一定的體現。"
 
 #. name:dedication
+#: DB:link_type/description:846
+#, fuzzy
+#| msgid ""
+#| "This indicates the work is dedicated to a specific area. This is most "
+#| "common for classical works, but also exists in other genres to a degree."
+msgid ""
+"This indicates the work is dedicated to a specific artist. This is most "
+"common for classical works, but also exists in other genres to a degree."
+msgstr ""
+"這表示該作品獻給一個特定的地區。這種情況在古典音樂作品中最常見，但在其他流派"
+"中也有一定的體現。"
+
+#. name:dedication
 #: DB:link_type/description:922
 msgid ""
 "This indicates the work is dedicated to a specific organization. This is "
@@ -2824,15 +2878,6 @@ msgid ""
 msgstr ""
 "這表示該作品獻給一個特定的組織。這種情況在古典音樂作品中最常見，但在其他流派"
 "中也有一定的體現。"
-
-#. name:dedication
-#: DB:link_type/description:846
-msgid ""
-"This indicates the work is dedicated to a specific person. This is most "
-"common for classical works, but also exists in other genres to a degree."
-msgstr ""
-"這表示該作品獻給一個特定的人。這種情況在古典音樂作品中最常見，但在其他流派中"
-"也有一定的體現。"
 
 #. name:dedication
 #: DB:link_type/description:983
@@ -3273,6 +3318,17 @@ msgid ""
 "residence position with the group."
 msgstr "此連結將一個團體（通常是樂團）與擔任該團體駐團作曲家的作曲家相連。"
 
+#. name:artist-in-residence
+#: DB:link_type/description:1296
+#, fuzzy
+#| msgid ""
+#| "This links a group (often an orchestra) to a composer who has a composer-"
+#| "in-residence position with the group."
+msgid ""
+"This links a group to an artist who has an artist-in-residence position with "
+"the group."
+msgstr "此連結將一個團體（通常是樂團）與擔任該團體駐團作曲家的作曲家相連。"
+
 #. name:video channel
 #: DB:link_type/description:304
 msgid ""
@@ -3344,6 +3400,19 @@ msgstr ""
 msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
+msgstr ""
+"此連結將一個地點（通常是音樂廳或教育機構）與擔任該地點駐場作曲家的作曲家相"
+"連。"
+
+#. name:artist-in-residence
+#: DB:link_type/description:1164
+#, fuzzy
+#| msgid ""
+#| "This links a place (often a concert hall or educational institution) to a "
+#| "composer who has a composer-in-residence position with it."
+msgid ""
+"This links a place (often a concert hall or educational institution) to an "
+"artist who has an artist-in-residence position with it."
 msgstr ""
 "此連結將一個地點（通常是音樂廳或教育機構）與擔任該地點駐場作曲家的作曲家相"
 "連。"
@@ -5528,6 +5597,19 @@ msgstr "創作者文憑"
 msgid "artist rename"
 msgstr "創作者更名"
 
+#: DB:link_type/name:1164 DB:link_type/name:1296
+#, fuzzy
+#| msgid "composers-in-residence"
+msgid "artist-in-residence"
+msgstr "駐校作曲家們"
+
+#. name:artist-in-residence
+#: DB:link_type/link_phrase:1164 DB:link_type/link_phrase:1296
+#, fuzzy
+#| msgid "composer-in-residence at"
+msgid "artist-in-residence at"
+msgstr "駐校作曲家在"
+
 #. name:artistic director
 #: DB:link_type/name:965 DB:link_type/reverse_link_phrase:965
 msgid "artistic director"
@@ -5555,6 +5637,13 @@ msgstr "創作者與曲目職位"
 #: DB:link_type/name:1081
 msgid "artists and repertoire position at"
 msgstr "以工程師職位任職於"
+
+#. name:artist-in-residence
+#: DB:link_type/reverse_link_phrase:1164 DB:link_type/reverse_link_phrase:1296
+#, fuzzy
+#| msgid "composers-in-residence"
+msgid "artists-in-residence"
+msgstr "駐校作曲家們"
 
 #: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
 #: DB:link_type/name:993
@@ -6137,10 +6226,18 @@ msgstr "眾籌頁面，關於"
 msgid "cut the lacquer for"
 msgstr "刻紋，為"
 
+#. name:dedication
+#: DB:link_type/link_phrase:1290
+#, fuzzy
+#| msgid "field recordings"
+msgid "dedicated recordings"
+msgstr "現場錄音"
+
 #. name:dedicated to, name:dedication
 #: DB:link_type/name:868 DB:link_type/reverse_link_phrase:983
 #: DB:link_type/reverse_link_phrase:846 DB:link_type/reverse_link_phrase:922
-#: DB:link_type/reverse_link_phrase:914 DB:link_type/reverse_link_phrase:868
+#: DB:link_type/reverse_link_phrase:1290 DB:link_type/reverse_link_phrase:914
+#: DB:link_type/reverse_link_phrase:868
 msgid "dedicated to"
 msgstr "獻給"
 
@@ -6151,7 +6248,7 @@ msgid "dedicated works"
 msgstr "獻給的作品"
 
 #: DB:link_type/name:983 DB:link_type/name:846 DB:link_type/name:922
-#: DB:link_type/name:914
+#: DB:link_type/name:1290 DB:link_type/name:914
 msgid "dedication"
 msgstr "獻辭"
 
@@ -7990,7 +8087,7 @@ msgstr "混合"
 msgid "mastered in"
 msgstr "母帶處理，在"
 
-#: DB:link_type/name:136 DB:link_type/name:42
+#: DB:link_type/name:136 DB:link_type/name:1293 DB:link_type/name:42
 msgid "mastering"
 msgstr "location"
 
@@ -8097,7 +8194,8 @@ msgstr "雜項角色"
 msgid "miscellaneous support"
 msgstr "雜項支援"
 
-#: DB:link_type/name:26 DB:link_type/name:143
+#: DB:link_type/name:1294 DB:link_type/name:26 DB:link_type/name:1295
+#: DB:link_type/name:143
 msgid "mix"
 msgstr "混音"
 
@@ -8805,13 +8903,16 @@ msgstr "製作人"
 
 #. name:production
 #: DB:link_type/name:256 DB:link_type/name:160 DB:link_type/name:59
-#: DB:link_type/name:72 DB:link_type/link_phrase:256
-#: DB:link_type/link_phrase:160 DB:link_type/link_phrase:59
-#: DB:link_type/link_phrase:72 DB:link_type/reverse_link_phrase:256
-#: DB:link_type/reverse_link_phrase:160 DB:link_type/reverse_link_phrase:59
-#: DB:link_type/reverse_link_phrase:72 DB:link_type/long_link_phrase:256
-#: DB:link_type/long_link_phrase:160 DB:link_type/long_link_phrase:59
-#: DB:link_type/long_link_phrase:72
+#: DB:link_type/name:1291 DB:link_type/name:1292 DB:link_type/name:72
+#: DB:link_type/link_phrase:256 DB:link_type/link_phrase:160
+#: DB:link_type/link_phrase:59 DB:link_type/link_phrase:1291
+#: DB:link_type/link_phrase:1292 DB:link_type/link_phrase:72
+#: DB:link_type/reverse_link_phrase:256 DB:link_type/reverse_link_phrase:160
+#: DB:link_type/reverse_link_phrase:59 DB:link_type/reverse_link_phrase:1291
+#: DB:link_type/reverse_link_phrase:1292 DB:link_type/reverse_link_phrase:72
+#: DB:link_type/long_link_phrase:256 DB:link_type/long_link_phrase:160
+#: DB:link_type/long_link_phrase:59 DB:link_type/long_link_phrase:1291
+#: DB:link_type/long_link_phrase:1292 DB:link_type/long_link_phrase:72
 msgid "production"
 msgstr "製作"
 
@@ -9202,12 +9303,6 @@ msgstr "被取代，由"
 #: DB:link_type/name:836 DB:link_type/link_phrase:836
 msgid "rescheduled as"
 msgstr "重新排程為"
-
-#. name:residence position
-#: DB:link_type/name:1164 DB:link_type/link_phrase:1164
-#: DB:link_type/reverse_link_phrase:1164 DB:link_type/long_link_phrase:1164
-msgid "residence position"
-msgstr "駐校職位"
 
 #. name:residency
 #: DB:link_type/link_phrase:994
@@ -9950,6 +10045,13 @@ msgstr "曾是支援表演者"
 msgid "was a supporting DJ at"
 msgstr "曾是支援DJ"
 
+#. name:artist-in-residence
+#: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
+#, fuzzy
+#| msgid "was a composer-in-residence at"
+msgid "was an artist-in-residence at"
+msgstr "曾是駐校作曲家"
+
 #. name:orchestra
 #: DB:link_type/long_link_phrase:807
 msgid "was an orchestra at"
@@ -10215,6 +10317,14 @@ msgstr "{additional:additionally} 錄音於"
 msgid "{additional:additionally} engineered in"
 msgstr "{additional:additionally} 錄音於"
 
+#. name:mix
+#: DB:link_type/link_phrase:1294 DB:link_type/link_phrase:1295
+#: DB:link_type/long_link_phrase:1294 DB:link_type/long_link_phrase:1295
+#, fuzzy
+#| msgid "{additional:additionally} mixed at"
+msgid "{additional:additionally} mixed"
+msgstr "{additional:additionally} 混音於"
+
 #. name:mixed at
 #: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
 msgid "{additional:additionally} mixed at"
@@ -10478,6 +10588,13 @@ msgstr "{additional:additionally} {associate} {vocal:%|vocals} {co:co-}編排"
 msgid "{additional:additionally} {guest} {solo} performed"
 msgstr "{additional:additionally} {guest} {solo} 表演"
 
+#. name:mastering
+#: DB:link_type/long_link_phrase:1293
+#, fuzzy
+#| msgid "{additional:additionally} {pre:pre-}{re}mastered at"
+msgid "{additional:additionally} {pre:pre-}{re}mastered"
+msgstr "{additional:additionally} {pre:pre-}{re}母帶製作於"
+
 #. name:mastered at
 #: DB:link_type/reverse_link_phrase:697
 msgid "{additional:additionally} {pre:pre-}{re}mastered at"
@@ -10638,6 +10755,13 @@ msgstr "{additional} 歌詞於某地撰寫"
 #: DB:link_type/reverse_link_phrase:877 DB:link_type/reverse_link_phrase:1270
 msgid "{additional} lyrics written in"
 msgstr "{additional} 歌詞以某語言撰寫"
+
+#. name:mix
+#: DB:link_type/reverse_link_phrase:1294 DB:link_type/reverse_link_phrase:1295
+#, fuzzy
+#| msgid "{additional} writer"
+msgid "{additional} mixer"
+msgstr "{additional} 作家"
 
 #. name:mixed at, name:mixed in
 #: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
@@ -10889,6 +11013,13 @@ msgstr "{additional} {original} {eponymous} 成員"
 msgid "{additional} {original} {eponymous} members"
 msgstr "{additional} {original} {eponymous} 成員們"
 
+#. name:mastering
+#: DB:link_type/link_phrase:1293 DB:link_type/reverse_link_phrase:1293
+#, fuzzy
+#| msgid "{additional} {pre:pre-}{re}mastering location for"
+msgid "{additional} {pre:pre-}{re}mastering"
+msgstr "{additional} {pre:pre-}{re}母帶製作地點於"
+
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
@@ -11127,8 +11258,8 @@ msgstr "{entity1} 通常用於 {entity0}"
 
 #. name:dedicated to, name:dedication
 #: DB:link_type/long_link_phrase:983 DB:link_type/long_link_phrase:846
-#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:914
-#: DB:link_type/long_link_phrase:868
+#: DB:link_type/long_link_phrase:922 DB:link_type/long_link_phrase:1290
+#: DB:link_type/long_link_phrase:914 DB:link_type/long_link_phrase:868
 msgid "{entity1} is dedicated to {entity0}"
 msgstr "{entity1} 獻給 {entity0}"
 
@@ -11520,6 +11651,16 @@ msgstr "{vocal:%|vocals} 支援來自"
 #: DB:link_type/link_phrase:107
 msgid "{vocal:%|vocals} support for"
 msgstr "{vocal:%|vocals} 支援於"
+
+#~ msgid ""
+#~ "This indicates the work is dedicated to a specific person. This is most "
+#~ "common for classical works, but also exists in other genres to a degree."
+#~ msgstr ""
+#~ "這表示該作品獻給一個特定的人。這種情況在古典音樂作品中最常見，但在其他流派"
+#~ "中也有一定的體現。"
+
+#~ msgid "residence position"
+#~ msgstr "駐校職位"
 
 #~ msgid ""
 #~ "Links a release to the area it was arranged in. Use only when the place "

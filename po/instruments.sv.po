@@ -369,11 +369,6 @@ msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr ""
 
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr ""
-
 #: DB:instrument/name:363
 msgid "amadinda"
 msgstr ""
@@ -2414,6 +2409,11 @@ msgstr ""
 msgid "ki pah"
 msgstr ""
 
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
+
 #: DB:instrument/name:247
 msgid "kinnor"
 msgstr ""
@@ -4353,6 +4353,13 @@ msgstr ""
 msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
+
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric violin"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "elektrisk violin"
 
 #: DB:instrument/name:650
 msgid "vessel flute"

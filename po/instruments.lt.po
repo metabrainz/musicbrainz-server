@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 :"
-" n % 1 != 0 ? 2: 3);\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
@@ -365,11 +365,6 @@ msgstr ""
 #: DB:instrument/name:923
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
-msgstr ""
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
 msgstr ""
 
 #: DB:instrument/name:363
@@ -2406,6 +2401,11 @@ msgstr ""
 msgid "ki pah"
 msgstr ""
 
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
+
 #: DB:instrument/name:247
 msgid "kinnor"
 msgstr ""
@@ -4344,6 +4344,11 @@ msgstr ""
 #: DB:instrument/name:418
 msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
+msgstr ""
+
+#: DB:instrument/name:174
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
 msgstr ""
 
 #: DB:instrument/name:650

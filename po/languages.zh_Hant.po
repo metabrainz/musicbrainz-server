@@ -1339,6 +1339,13 @@ msgstr "克佩勒文"
 msgid "Kru languages"
 msgstr "克魯語"
 
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+#, fuzzy
+#| msgid "Kuanyama"
+msgid "Kuanua"
+msgstr "寬亞馬語"
+
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
 msgid "Kuanyama"

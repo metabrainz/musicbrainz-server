@@ -28,8 +28,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
@@ -379,11 +379,6 @@ msgstr "альт-саксофон"
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr ""
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "альт-скрипка"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -2421,6 +2416,11 @@ msgstr ""
 msgid "ki pah"
 msgstr ""
 
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
+
 #: DB:instrument/name:247
 msgid "kinnor"
 msgstr ""
@@ -4361,6 +4361,13 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
 
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "электрический альт"
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr ""
@@ -4756,3 +4763,7 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "альт-скрипка"
