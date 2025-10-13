@@ -1355,6 +1355,13 @@ msgstr "kpelle"
 msgid "Kru languages"
 msgstr "kru-kielet"
 
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+#, fuzzy
+#| msgid "Kuanyama"
+msgid "Kuanua"
+msgstr "kuanjama"
+
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
 msgid "Kuanyama"

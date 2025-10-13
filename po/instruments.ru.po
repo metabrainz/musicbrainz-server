@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-25 21:54+0000\n"
+"PO-Revision-Date: 2025-10-07 20:02+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -379,11 +379,6 @@ msgstr "альт-саксофон"
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr ""
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "альт-скрипка"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -2421,6 +2416,11 @@ msgstr ""
 msgid "ki pah"
 msgstr ""
 
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
+
 #: DB:instrument/name:247
 msgid "kinnor"
 msgstr ""
@@ -3055,7 +3055,7 @@ msgstr ""
 
 #: DB:instrument/name:137
 msgid "piano"
-msgstr "фортепьяно"
+msgstr "фортепияно"
 
 #: DB:instrument/name:359
 msgid "piano accordion"
@@ -4361,6 +4361,13 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
 
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "электрический альт"
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr ""
@@ -4756,3 +4763,7 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "альт-скрипка"
