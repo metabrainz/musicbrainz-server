@@ -362,34 +362,36 @@ test all => sub {
         );
     };
 
-    $email->send_edit_note(
-        editor => $user2,
-        from_editor => $user1,
-        edit_id => 9000,
-        note_text => 'This edit is totally wrong!',
-        own_edit => 1,
-    );
+    subtest 'send_edit_note (own_edit)' => sub {
+        $email->send_edit_note(
+            editor => $user2,
+            from_editor => $user1,
+            edit_id => 9000,
+            note_text => 'This edit is totally wrong!',
+            own_edit => 1,
+        );
 
-    is($email->transport->delivery_count, 1);
-    my $delivery = $email->transport->shift_deliveries;
-    is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
-    my $e = $delivery->{email};
-    $email->transport->clear_deliveries;
-    is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
-    is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
-    is($e->get_header('Subject'), 'Note added to your edit #9000', 'Subject is Note added to your edit #9000');
-    like($e->get_header('Message-Id'), qr{<edit-9000-4444-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
-    is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
-    compare_body($e->object->body_str,
-                 "'Editor 1' has added the following note to your edit #9000:\n".
-                 "------------------------------------------------------------------------\n".
-                 "This edit is totally wrong!\n".
-                 "------------------------------------------------------------------------\n".
-                 "If you would like to reply to this note, please add your note at:\n".
-                 "$server/edit/9000\n".
-                 "Please do not respond to this email.\n".
-                 "\n".
-                 "-- The MusicBrainz Team\n");
+        is($email->transport->delivery_count, 1);
+        my $delivery = $email->transport->shift_deliveries;
+        is($delivery->{envelope}->{from}, 'noreply@musicbrainz.org', 'Envelope from is noreply@...');
+        my $e = $delivery->{email};
+        $email->transport->clear_deliveries;
+        is($e->get_header('From'), '"Editor 1" <noreply@musicbrainz.org>', 'Header from is "Editor 1" <noreply@musicbrainz.org>');
+        is($e->get_header('To'), '"Editor 2" <bar@example.com>', 'To is Editor 2, bar@example.com');
+        is($e->get_header('Subject'), 'Note added to your edit #9000', 'Subject is Note added to your edit #9000');
+        like($e->get_header('Message-Id'), qr{<edit-9000-4444-edit-note-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>} , 'Message ID has right format');
+        is($e->get_header('Sender'), 'MusicBrainz Server <noreply@musicbrainz.org>', 'Sender is noreply@...');
+        compare_body($e->object->body_str,
+                     "'Editor 1' has added the following note to your edit #9000:\n".
+                     "------------------------------------------------------------------------\n".
+                     "This edit is totally wrong!\n".
+                     "------------------------------------------------------------------------\n".
+                     "If you would like to reply to this note, please add your note at:\n".
+                     "$server/edit/9000\n".
+                     "Please do not respond to this email.\n".
+                     "\n".
+                     "-- The MusicBrainz Team\n");
+    };
 };
 
 =head1 COPYRIGHT AND LICENSE
