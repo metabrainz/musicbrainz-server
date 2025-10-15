@@ -41,6 +41,8 @@
 
     <div style="clear: left;"> </div>
 
+    [%- field_errors(form, 'artwork') -%]
+
     [%- INCLUDE 'forms/edit-note.tt' -%]
     [% enter_edit() %]
 
