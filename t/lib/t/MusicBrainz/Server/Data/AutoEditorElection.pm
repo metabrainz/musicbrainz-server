@@ -13,11 +13,13 @@ use MusicBrainz::Server::Test;
 use MusicBrainz::Server::Constants qw( :election_status :election_vote );
 use Sql;
 
-with 't::Context';
+with 't::Context', 't::Email';
 
 test 'Accept' => sub {
     my $test = shift;
     my $c = $test->c;
+
+    $test->skip_unless_mailpit_configured;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
@@ -32,19 +34,17 @@ test 'Accept' => sub {
     ok( $election );
     is( $election->id, 1 );
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-
-    is($email_transport->delivery_count, 1);
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Autoeditor Election: noob1');
-    my $email_body = $email->object->body_str;
+    my @emails = $test->get_emails;
+    is(scalar @emails, 1, 'One email sent after nomination');
+    my $email = shift @emails;
+    is($email->{headers}{'Subject'}, 'Autoeditor Election: noob1');
+    my $email_body = $email->{body};
     like($email_body, qr{A new candidate has been put forward for autoeditor status});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
     like($email_body, qr{Candidate:\s+noob1});
     like($email_body, qr{Proposer:\s+autoeditor1});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
-    $email_transport->clear_deliveries;
+    is($email->{headers}{References}, sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->{headers}{'Message-Id'}, qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
@@ -57,7 +57,8 @@ test 'Accept' => sub {
     $election = $c->model('AutoEditorElection')->second($election, $seconder1);
     ok( $election );
 
-    is($email_transport->delivery_count, 0);
+    @emails = $test->get_emails;
+    is(scalar @emails, 0, 'No emails sent after first seconding');
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
@@ -71,19 +72,19 @@ test 'Accept' => sub {
     $election = $c->model('AutoEditorElection')->second($election, $seconder2);
     ok( $election );
 
-    is($email_transport->delivery_count, 1);
-    $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Autoeditor Election: noob1');
-    $email_body = $email->object->body_str;
+    @emails = $test->get_emails;
+    is(scalar @emails, 1, 'One email sent after second seconding');
+    $email = shift @emails;
+    is($email->{headers}{Subject}, 'Autoeditor Election: noob1');
+    $email_body = $email->{body};
     like($email_body, qr{Voting in this election is now open});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
     like($email_body, qr{Candidate:\s+noob1});
     like($email_body, qr{Proposer:\s+autoeditor1});
     like($email_body, qr{Seconder:\s+autoeditor2});
     like($email_body, qr{Seconder:\s+autoeditor3});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
-    $email_transport->clear_deliveries;
+    is($email->{headers}{References}, sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->{headers}{'Message-Id'}, qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );
@@ -140,15 +141,15 @@ test 'Accept' => sub {
     ok( $election );
     is( $election->status, $ELECTION_ACCEPTED );
 
-    is($email_transport->delivery_count, 1);
-    $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Autoeditor Election: noob1');
-    $email_body = $email->object->body_str;
+    @emails = $test->get_emails;
+    is(scalar @emails, 1);
+    $email = shift @emails;
+    is($email->{headers}{'Subject'}, 'Autoeditor Election: noob1');
+    $email_body = $email->{body};
     like($email_body, qr{Voting in this election is now closed: noob1 has been\s+accepted as an auto-editor});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
-    $email_transport->clear_deliveries;
+    is($email->{headers}{'References'}, sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->{headers}{'Message-Id'}, qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
 
     $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( $candidate->is_auto_editor );
@@ -157,6 +158,8 @@ test 'Accept' => sub {
 test 'Rejected' => sub {
     my $test = shift;
     my $c = $test->c;
+
+    $test->skip_unless_mailpit_configured;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
@@ -170,12 +173,10 @@ test 'Rejected' => sub {
     ok( $election );
     is( $election->id, 1 );
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-
     $election = $c->model('AutoEditorElection')->second($election, $seconder1);
     $election = $c->model('AutoEditorElection')->second($election, $seconder2);
     $c->model('AutoEditorElection')->vote($election, $voter1, $ELECTION_VOTE_NO);
-    $email_transport->clear_deliveries;
+    $test->clear_email_deliveries;
 
     $c->model('AutoEditorElection')->try_to_close();
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -189,15 +190,15 @@ test 'Rejected' => sub {
     ok( $election );
     is( $election->status, $ELECTION_REJECTED );
 
-    is($email_transport->delivery_count, 1);
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Autoeditor Election: noob1');
-    my $email_body = $email->object->body_str;
+    my @emails = $test->get_emails;
+    is(scalar @emails, 1);
+    my $email = shift @emails;
+    is($email->{headers}{'Subject'}, 'Autoeditor Election: noob1');
+    my $email_body = $email->{body};
     like($email_body, qr{Voting in this election is now closed: the proposal to make\s+noob1 an auto-editor was declined});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
-    $email_transport->clear_deliveries;
+    is($email->{headers}{'References'}, sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->{headers}{'Message-Id'}, qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
 
     $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( !$candidate->is_auto_editor );
@@ -280,6 +281,8 @@ test 'Timeout' => sub {
     my $test = shift;
     my $c = $test->c;
 
+    $test->skip_unless_mailpit_configured;
+
     MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
     my $candidate = $c->model('Editor')->get_by_name('noob1');
@@ -289,8 +292,7 @@ test 'Timeout' => sub {
     ok( $election );
     is( $election->id, 1 );
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    $email_transport->clear_deliveries;
+    $test->clear_email_deliveries;
 
     $c->model('AutoEditorElection')->try_to_close();
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
@@ -304,15 +306,15 @@ test 'Timeout' => sub {
     ok( $election );
     is( $election->status, $ELECTION_REJECTED );
 
-    is($email_transport->delivery_count, 1);
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Autoeditor Election: noob1');
-    my $email_body = $email->object->body_str;
+    my @emails = $test->get_emails;
+    is(scalar @emails, 1);
+    my $email = shift @emails;
+    is($email->{headers}{'Subject'}, 'Autoeditor Election: noob1');
+    my $email_body = $email->{body};
     like($email_body, qr{This election has been cancelled, because two seconders could not be\s+found within the allowed time \(1 week\)});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
-    $email_transport->clear_deliveries;
+    is($email->{headers}{'References'}, sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->{headers}{'Message-Id'}, qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
 
     $candidate = $c->model('Editor')->get_by_id($candidate->id);
     ok( !$candidate->is_auto_editor );
@@ -321,6 +323,8 @@ test 'Timeout' => sub {
 test 'Cancel' => sub {
     my $test = shift;
     my $c = $test->c;
+
+    $test->skip_unless_mailpit_configured;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+autoeditor_election');
 
@@ -332,20 +336,19 @@ test 'Cancel' => sub {
     is( $election->id, 1 );
     is( $election->status, $ELECTION_SECONDER_1 );
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    $email_transport->clear_deliveries;
+    $test->clear_email_deliveries;
 
     $c->model('AutoEditorElection')->cancel($election, $proposer);
 
-    is($email_transport->delivery_count, 1);
-    my $email = $email_transport->shift_deliveries->{email};
-    is($email->get_header('Subject'), 'Autoeditor Election: noob1');
-    my $email_body = $email->object->body_str;
+    my @emails = $test->get_emails;
+    is(scalar @emails, 1);
+    my $email = shift @emails;
+    is($email->{headers}{'Subject'}, 'Autoeditor Election: noob1');
+    my $email_body = $email->{body};
     like($email_body, qr{This election has been cancelled by the proposer \(autoeditor1\)});
     like($email_body, qr{https://[^/]+/election/${\ $election->id }});
-    is($email->get_header('References'), sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
-    like($email->get_header('Message-Id'), qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
-    $email_transport->clear_deliveries;
+    is($email->{headers}{'References'}, sprintf('<autoeditor-election-%s@%s>', $election->id, DBDefs->WEB_SERVER_USED_IN_EMAIL), 'References header is correct');
+    like($email->{headers}{'Message-Id'}, qr{<autoeditor-election-1-\d+@.*>}, 'Message-id header has correct format');
 
     $election = $c->model('AutoEditorElection')->get_by_id($election->id);
     ok( $election );

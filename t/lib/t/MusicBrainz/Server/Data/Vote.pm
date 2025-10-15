@@ -14,7 +14,7 @@ use MusicBrainz::Server::Constants qw( :vote );
 use MusicBrainz::Server::Test qw( accept_edit );
 use DateTime;
 
-with 't::Context';
+with 't::Context', 't::Email';
 
 {
     package t::Vote::MockEdit;
@@ -107,6 +107,8 @@ test 'Email on first no vote' => sub {
     my $test = shift;
     my $c = $test->c;
 
+    $test->skip_unless_mailpit_configured;
+
     MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
     my $edit = $c->model('Edit')->create(
@@ -116,7 +118,6 @@ test 'Email on first no vote' => sub {
     );
     my $edit_id = $edit->id;
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
     my $editor2 = $c->model('Editor')->get_by_id(2);
     my $editor3 = $c->model('Editor')->get_by_id(3);
 
@@ -124,32 +125,37 @@ test 'Email on first no vote' => sub {
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
-    is($email_transport->delivery_count, 0, 'Yes vote sends no email');
+    my @emails = $test->get_emails;
+    is(scalar @emails, 0, 'Yes vote sends no email');
 
     $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
-    is($email_transport->delivery_count, 1, 'First No vote sends email');
+    @emails = $test->get_emails;
+    is(scalar @emails, 1, 'First No vote sends email');
 
     $c->model('Vote')->enter_votes(
         $editor3,
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
-    is($email_transport->delivery_count, 1, 'Second No vote sends no email');
+    @emails = $test->get_emails;
+    is(scalar @emails, 0, 'Second No vote sends no email');
 
     $c->model('Vote')->enter_votes(
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
-    is($email_transport->delivery_count, 1, 'Second Yes vote sends no email');
+    @emails = $test->get_emails;
+    is(scalar @emails, 0, 'Second Yes vote sends no email');
     $c->model('Vote')->enter_votes(
         $editor3,
         [{ edit_id => $edit_id, vote => $VOTE_YES }],
     );
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
-        1,
+        scalar @emails,
+        0,
         'Changing No vote to Yes vote sends no email',
     );
 
@@ -157,31 +163,32 @@ test 'Email on first no vote' => sub {
         $editor2,
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
-        2,
+        scalar @emails,
+        1,
         'New No vote bringing count from 0 to 1 sends an email',
     );
 
-    my $email = $email_transport->shift_deliveries->{email};
+    my $email = pop @emails;
     is(
-        $email->get_header('Subject'),
+        $email->{headers}{Subject},
         "Someone has voted against your edit #$edit_id",
         'Email subject explains someone has voted against your edit',
     );
     is(
-        $email->get_header('References'),
+        $email->{headers}{References},
         sprintf('<edit-%d@%s>', $edit_id, DBDefs->WEB_SERVER_USED_IN_EMAIL),
         'Email’s References header contains edit id',
     );
     is(
-        $email->get_header('To'),
+        $email->{headers}{To},
         'editor1 <editor1@example.com>',
         'Email’s To header contains editor email',
     );
 
     my $server = DBDefs->WEB_SERVER_USED_IN_EMAIL;
-    my $email_body = $email->object->body_str;
+    my $email_body = $email->{body};
     like(
         $email_body,
         qr{https://$server/edit/${\ $edit_id }},
@@ -249,6 +256,8 @@ test 'Voting is blocked in the appropriate cases' => sub {
     my $test = shift;
     my $c = $test->c;
 
+    $test->skip_unless_mailpit_configured;
+
     MusicBrainz::Server::Test->prepare_test_database($c, '+vote');
 
     my $edit = $c->model('Edit')->create(
@@ -263,8 +272,6 @@ test 'Voting is blocked in the appropriate cases' => sub {
     my $unverified = $c->model('Editor')->get_by_id(5);
     my $beginner = $c->model('Editor')->get_by_id(6);
 
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-
     note('We try to enter a No vote with the editor who entered the edit');
     $c->model('Vote')->enter_votes(
         $edit_creator,
@@ -272,8 +279,9 @@ test 'Voting is blocked in the appropriate cases' => sub {
     );
     $edit = $c->model('Edit')->get_by_id($edit_id);
     $c->model('Vote')->load_for_edits($edit);
+    my @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
+        scalar @emails,
         0,
         'The forbidden No vote did not trigger an email',
     );
@@ -301,8 +309,9 @@ test 'Voting is blocked in the appropriate cases' => sub {
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
     $edit = $c->model('Edit')->get_by_id($edit_id);
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
+        scalar @emails,
         0,
         'The forbidden No vote did not trigger an email',
     );
@@ -317,8 +326,9 @@ test 'Voting is blocked in the appropriate cases' => sub {
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
     $edit = $c->model('Edit')->get_by_id($edit_id);
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
+        scalar @emails,
         0,
         'The forbidden No vote did not trigger an email',
     );
@@ -334,8 +344,9 @@ test 'Voting is blocked in the appropriate cases' => sub {
         [{ edit_id => $edit_id, vote => $VOTE_NO }],
     );
     $edit = $c->model('Edit')->get_by_id($edit_id);
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
+        scalar @emails,
         0,
         'The forbidden No vote did not trigger an email',
     );

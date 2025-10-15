@@ -20,7 +20,8 @@ use MusicBrainz::Server::Data::EditNote;
 use MusicBrainz::Server::Email;
 use MusicBrainz::Server::Test;
 
-with 't::Context';
+with 't::Context',
+     't::Email';
 
 BEGIN {
     package MockEdit;
@@ -90,6 +91,8 @@ test 'Adding edit notes works and sends emails when it should' => sub {
     my $test = shift;
     my $c = $test->c;
 
+    $test->skip_unless_mailpit_configured;
+
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_note');
 
     my $editor2 = $c->model('Editor')->get_by_id(2);
@@ -122,24 +125,24 @@ test 'Adding edit notes works and sends emails when it should' => sub {
     );
 
     my $server = 'https://' . DBDefs->WEB_SERVER_USED_IN_EMAIL;
-    my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    is($email_transport->delivery_count, 2, 'Exactly two emails sent');
+    my @emails = $test->get_emails;
+    is(scalar @emails, 2, 'Exactly two emails sent');
 
-    my $email = $email_transport->shift_deliveries->{email};
-    my $email2 = $email_transport->shift_deliveries->{email};
+    my $email = pop @emails;
+    my $email2 = pop @emails;
 
     note('Checking email sent to editor1 (edit creator)');
     is(
-        $email->get_header('Subject'),
+        $email->{headers}{Subject},
         'Note added to your edit #' . $edit_id,
         'Subject explains a note was added to edit',
     );
     is(
-        $email->get_header('To'),
+        $email->{headers}{To},
         'editor1 <editor1@example.com>',
         'Email is addressed to editor1',
     );
-    my $email_body = $email->object->body_str;
+    my $email_body = $email->{body};
     like(
         $email_body,
         qr{$server/edit/$edit_id},
@@ -163,16 +166,16 @@ test 'Adding edit notes works and sends emails when it should' => sub {
 
     note('Checking email sent to editor2 (voter)');
     is(
-        $email2->get_header('Subject'),
+        $email2->{headers}{Subject},
         'Note added to edit #' . $edit_id,
         'Subject explains a note was added to edit',
     );
     is(
-        $email2->get_header('To'),
+        $email2->{headers}{To},
         'editor2 <editor2@example.com>',
         'Email is addressed to editor2',
     );
-    my $email2_body = $email2->object->body_str;
+    my $email2_body = $email2->{body};
     like(
         $email2_body,
         qr{$server/edit/$edit_id},
@@ -207,9 +210,9 @@ test 'Adding edit notes works and sends emails when it should' => sub {
         { text => 'This is my response!', editor_id => 1 },
     );
 
-    $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
+        scalar @emails,
         0,
         'No emails were sent because of voter and note adder preferences',
     );
@@ -227,11 +230,11 @@ test 'Adding edit notes works and sends emails when it should' => sub {
         { text => 'This is my new note!', editor_id => 3 },
     );
 
-    $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    is($email_transport->delivery_count, 1, 'One email was sent');
-    $email = $email_transport->shift_deliveries->{email};
+    @emails = $test->get_emails;
+    is(scalar @emails, 1, 'One email was sent');
+    $email = shift @emails;
     is(
-        $email->get_header('To'),
+        $email->{headers}{To},
         'editor1 <editor1@example.com>',
         'Email was sent to edit creator editor1, despite their preferences',
     );
@@ -254,11 +257,11 @@ test 'Adding edit notes works and sends emails when it should' => sub {
         { text => 'This is my second response!', editor_id => 1 },
     );
 
-    $email_transport = MusicBrainz::Server::Email->get_test_transport;
-    is($email_transport->delivery_count, 1, 'One email was sent');
-    $email = $email_transport->shift_deliveries->{email};
+    @emails = $test->get_emails;
+    is(scalar @emails, 1, 'One email was sent');
+    $email = shift @emails;
     is(
-        $email->get_header('To'),
+        $email->{headers}{To},
         'editor2 <editor2@example.com>',
         'Email was sent to voter editor2',
     );
@@ -275,9 +278,9 @@ test 'Adding edit notes works and sends emails when it should' => sub {
         { text => 'This is my third response!', editor_id => 1 },
     );
 
-    $email_transport = MusicBrainz::Server::Email->get_test_transport;
+    @emails = $test->get_emails;
     is(
-        $email_transport->delivery_count,
+        scalar @emails,
         0,
         'No emails were sent because of the abstain note preferences',
     );
