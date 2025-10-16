@@ -138,7 +138,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       });
       runNameReducer(nameStateCtx, action);
 
-      const nameState = nameStateCtx.read();
+      const nameState = nameStateCtx.final();
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
