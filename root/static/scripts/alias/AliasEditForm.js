@@ -75,6 +75,11 @@ type StateT = {
   +searchHintType: number,
 };
 
+type CreateInitialStatePropsT = {
+  +form: AliasEditFormT,
+  +searchHintType: number,
+};
+
 const blankDatePeriod = {
   errors: [],
   field: {
@@ -94,7 +99,10 @@ const blankDatePeriod = {
   type: 'compound_field' as const,
 };
 
-function createInitialState(form: AliasEditFormT, searchHintType: number) {
+function createInitialState({
+  form,
+  searchHintType,
+}: CreateInitialStatePropsT): StateT {
   return {
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -212,7 +220,8 @@ const AliasEditForm = ({
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm, searchHintType),
+    {form: initialForm, searchHintType},
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {

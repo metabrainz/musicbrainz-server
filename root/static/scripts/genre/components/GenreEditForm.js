@@ -80,7 +80,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm),
+    initialForm,
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {
