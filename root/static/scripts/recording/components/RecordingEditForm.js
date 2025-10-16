@@ -354,6 +354,10 @@ component RecordingEditForm(
     dispatch({bubble: 'comment', type: 'toggle-bubble'});
   }
 
+  function handleExternalLinksFocus() {
+    dispatch({bubble: 'external-links', type: 'toggle-bubble'});
+  }
+
   function handleIsrcFocus() {
     dispatch({bubble: 'isrc', type: 'toggle-bubble'});
   }
@@ -402,7 +406,7 @@ component RecordingEditForm(
   const commentFieldRef = React.useRef<HTMLDivElement | null>(null);
   const lengthFieldRef = React.useRef<HTMLDivElement | null>(null);
   const isrcFieldRef = React.useRef<HTMLDivElement | null>(null);
-  const externalLinksFieldRef = React.useRef<HTMLDivElement | null>(null);
+  const externalLinksTableRef = React.useRef<HTMLTableElement | null>(null);
 
   return (
     <form
@@ -501,7 +505,9 @@ component RecordingEditForm(
 
         <ExternalLinksEditorFieldset
           dispatch={dispatch}
+          onFocus={handleExternalLinksFocus}
           state={state.externalLinksEditor}
+          tableRef={externalLinksTableRef}
         />
 
         <EnterEditNote
@@ -636,10 +642,9 @@ component RecordingEditForm(
             </p>
           </Bubble>
         ) : null}
-        {/* TODO: Make this show */}
         {state.shownBubble === 'external-links' ? (
           <Bubble
-            controlRef={externalLinksFieldRef}
+            controlRef={externalLinksTableRef}
             id="external-link-bubble"
           >
             <p>

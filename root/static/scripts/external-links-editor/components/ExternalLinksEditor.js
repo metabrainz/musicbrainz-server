@@ -190,7 +190,9 @@ function prepareExternalLinksHtmlFormSubmission(
 
 component ExternalLinksEditor(
   dispatch: (LinksEditorActionT) => void,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   state: LinksEditorStateT,
+  tableRef as passedTableRef?: {current: HTMLTableElement | null},
 ) {
   const {focus, links, source} = state;
 
@@ -266,6 +268,7 @@ component ExternalLinksEditor(
         isOnlyLink={links.size === 1}
         key={link.key}
         link={link}
+        onFocus={onFocus}
         source={source}
       />,
     );
@@ -275,7 +278,18 @@ component ExternalLinksEditor(
     <table
       className="row-form"
       id="external-links-editor"
-      ref={tableRef}
+      ref={(node) => {
+        tableRef.current = node;
+        if (passedTableRef) {
+          passedTableRef.current = node;
+        }
+        return () => {
+          tableRef.current = null;
+          if (passedTableRef) {
+            passedTableRef.current = null;
+          }
+        };
+      }}
     >
       <tbody>
         {linkElements}
