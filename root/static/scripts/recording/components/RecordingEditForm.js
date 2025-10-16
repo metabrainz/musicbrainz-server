@@ -353,6 +353,10 @@ component RecordingEditForm(
     dispatch({bubble: 'name', type: 'toggle-bubble'});
   }
 
+  function handleExternalLinksFocus() {
+    dispatch({bubble: 'external-links', type: 'toggle-bubble'});
+  }
+
   const hasErrors = hasSubfieldErrors(state.form) ||
                     !isArtistCreditStateComplete(state.artistCredit.names);
 
@@ -382,7 +386,7 @@ component RecordingEditForm(
   const commentFieldRef = React.useRef<HTMLDivElement | null>(null);
   const lengthFieldRef = React.useRef<HTMLDivElement | null>(null);
   const isrcFieldRef = React.useRef<HTMLDivElement | null>(null);
-  const externalLinksFieldRef = React.useRef<HTMLDivElement | null>(null);
+  const externalLinksTableRef = React.useRef<HTMLTableElement | null>(null);
 
   return (
     <form
@@ -483,8 +487,10 @@ component RecordingEditForm(
           <legend>{l('External links')}</legend>
           <ExternalLinksEditor
             isNewEntity={!state.recording.id}
+            onFocus={handleExternalLinksFocus}
             ref={externalLinksEditorRef}
             sourceData={state.recording}
+            tableRef={externalLinksTableRef}
           />
         </fieldset>
 
@@ -620,10 +626,9 @@ component RecordingEditForm(
             </p>
           </Bubble>
         ) : null}
-        {/* TODO: Make this show */}
         {state.shownBubble === 'external-links' ? (
           <Bubble
-            controlRef={externalLinksFieldRef}
+            controlRef={externalLinksTableRef}
             id="external-link-bubble"
           >
             <p>
