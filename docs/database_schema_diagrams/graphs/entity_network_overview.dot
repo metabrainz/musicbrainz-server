@@ -3,9 +3,8 @@
 digraph entity_network_overview {
     tooltip = "Overview of tables connecting primary entity types"
     graph [
-        bgcolor = "#cb75ab:#f0976c"
+        bgcolor = "#e8c2da"
         concentrate = true
-        gradientangle = 330
         pack = true
         rankdir = "LR"
     ];
@@ -17,195 +16,195 @@ digraph entity_network_overview {
     "musicbrainz.area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">area</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">area</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.artist" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">artist</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="area"><font point-size="14">area</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">artist</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="area"><font point-size="14">area</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.artist_credit" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">artist_credit</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.artist_credit_name" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">artist_credit_name</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="artist_credit"><font point-size="14"><u>artist_credit</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="position"><font point-size="14"><u>position</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="artist"><font point-size="14">artist</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">artist_credit_name</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="artist_credit"><font point-size="14"><u>artist_credit</u></font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="position"><font point-size="14"><u>position</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="artist"><font point-size="14">artist</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.country_area" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">country_area</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="area"><font point-size="14"><u>area</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">country_area</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="area"><font point-size="14"><u>area</u></font></td></tr>
             </table>
         >
     ];
     "musicbrainz.event" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">event</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">event</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.genre" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">genre</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">genre</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.instrument" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">instrument</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">instrument</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">label</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="area"><font point-size="14">area</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">label</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="area"><font point-size="14">area</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.medium" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">medium</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">medium</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="release"><font point-size="14">release</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.place" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">place</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="area"><font point-size="14">area</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">place</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="area"><font point-size="14">area</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.recording" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">recording</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">recording</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.release" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">release</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">release</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="release_group"><font point-size="14">release_group</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.release_country" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_country</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="release"><font point-size="14"><u>release</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="country"><font point-size="14"><u>country</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">release_country</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="release"><font point-size="14"><u>release</u></font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="country"><font point-size="14"><u>country</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.release_group" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">release_group</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">release_group</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.release_label" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">release_label</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="release"><font point-size="14">release</font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="label"><font point-size="14">label</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">release_label</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="release"><font point-size="14">release</font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="label"><font point-size="14">label</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.series" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">series</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">series</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.track" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#bbbbbb77"><font point-size="17">track</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="recording"><font point-size="14">recording</font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="medium"><font point-size="14">medium</font></td></tr>
-                <tr><td bgcolor="#eeeeee55" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eeeeee"><font point-size="17">track</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="recording"><font point-size="14">recording</font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="medium"><font point-size="14">medium</font></td></tr>
+                <tr><td bgcolor="#f8d1be" align="left" port="artist_credit"><font point-size="14">artist_credit</font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.url" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">url</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">url</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
     "musicbrainz.work" [
         label = <
             <table border="0" cellspacing="0" cellborder="1">
-                <tr><td bgcolor="#eeeeeebb"><font point-size="17">work</font></td></tr>
-                <tr><td bgcolor="#eeeeee77" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
-                <tr><td bgcolor="#bbbbbb33" align="left" port="..."><font point-size="14">...</font></td></tr>
+                <tr><td bgcolor="#eb743b"><font point-size="17">work</font></td></tr>
+                <tr><td bgcolor="#f0976c" align="left" port="id"><font point-size="14"><u>id</u></font></td></tr>
+                <tr><td bgcolor="#eeeeee" align="left" port="..."><font point-size="14">...</font></td></tr>
             </table>
         >
     ];
