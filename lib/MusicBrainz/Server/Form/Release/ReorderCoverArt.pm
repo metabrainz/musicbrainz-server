@@ -3,16 +3,11 @@ use strict;
 use warnings;
 
 use HTML::FormHandler::Moose;
+
 extends 'MusicBrainz::Server::Form';
-with 'MusicBrainz::Server::Form::Role::Edit';
+with 'MusicBrainz::Server::Form::Role::ReorderArt';
 
 has '+name' => ( default => 'reorder-cover-art' );
-
-has_field 'artwork' => ( type => 'Repeatable' );
-has_field 'artwork.id' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
-has_field 'artwork.position' => ( type => '+MusicBrainz::Server::Form::Field::Integer' );
-
-sub edit_field_names { qw( artwork ) }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
