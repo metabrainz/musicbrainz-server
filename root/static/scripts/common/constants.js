@@ -320,10 +320,6 @@ export const PART_OF_SERIES_LINK_TYPE_IDS: ReadonlyArray<number> = [
   1307, // series
 ];
 
-// orchestrator, orchestra performed, conductor, concertmaster
-export const PROBABLY_CLASSICAL_LINK_TYPES =
-  [40, 45, 46, 150, 151, 300, 759, 760];
-
 export const RECORDING_OF_LINK_TYPE_ID: number = 278;
 
 export const RECORDING_OF_LINK_TYPE_GID: string =
