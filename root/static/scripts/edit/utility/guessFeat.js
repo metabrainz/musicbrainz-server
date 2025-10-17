@@ -28,7 +28,6 @@ import {
   toFullwidthLatin,
 } from './fullwidthLatin.js';
 import getRelatedArtists from './getRelatedArtists.js';
-import isEntityProbablyClassical from './isEntityProbablyClassical.js';
 import getSimilarity from './similarity.js';
 
 /* eslint-disable sort-keys */
@@ -41,11 +40,11 @@ export const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａ
 const featQuickTestRegex = /ft|feat|ｆｔ|ｆｅａｔ/i;
 const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
 
-function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
+function extractNonBracketedFeatCredits(str, artists) {
   const parts = str.split(featRegex).map(clean);
 
   function fixFeatJoinPhrase(existing) {
-    const joinPhrase = isProbablyClassical ? '; ' : existing ? (
+    const joinPhrase = existing ? (
       ' ' +
       fromFullwidthLatin(existing)
         .toLowerCase()
@@ -67,7 +66,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   const artistCredit = parts
     .splice(2)
     .filter((value, key) => value && key % 2 === 0)
-    .flatMap(c => expandCredit(c, artists, isProbablyClassical));
+    .flatMap(c => expandCredit(c, artists));
 
   return {
     name,
@@ -76,7 +75,7 @@ function extractNonBracketedFeatCredits(str, artists, isProbablyClassical) {
   };
 }
 
-function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
+function extractBracketedFeatCredits(str, artists) {
   return BRACKET_PAIRS.reduce(function (accum, pair) {
     let name = '';
     let joinPhrase = accum.joinPhrase;
@@ -88,7 +87,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
     while (true) {
       b = balanced(pair[0], pair[1], remainder);
       if (b) {
-        m = extractFeatCredits(b.body, artists, isProbablyClassical, true);
+        m = extractFeatCredits(b.body, artists, true);
         name += b.pre;
 
         if (m.name) {
@@ -97,7 +96,7 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
            * is also an artist name.
            */
           const expandedCredits = expandCredit(
-            m.name, artists, isProbablyClassical,
+            m.name, artists,
           );
 
           if (expandedCredits.some(
@@ -123,20 +122,20 @@ function extractBracketedFeatCredits(str, artists, isProbablyClassical) {
 }
 
 export function extractFeatCredits(
-  str, artists, isProbablyClassical, allowEmptyName,
+  str, artists, allowEmptyName,
 ) {
   if (!featQuickTestRegex.test(str)) {
     return {name: str, joinPhrase: '', artistCredit: []};
   }
 
-  const m1 = extractBracketedFeatCredits(str, artists, isProbablyClassical);
+  const m1 = extractBracketedFeatCredits(str, artists);
 
   if (!m1.name && !allowEmptyName) {
     return {name: str, joinPhrase: '', artistCredit: []};
   }
 
   const m2 = extractNonBracketedFeatCredits(
-    m1.name, artists, isProbablyClassical,
+    m1.name, artists,
   );
 
   if (!m2.name && !allowEmptyName) {
@@ -148,11 +147,6 @@ export function extractFeatCredits(
     joinPhrase: m2.joinPhrase || m1.joinPhrase,
     artistCredit: m2.artistCredit.concat(m1.artistCredit),
   };
-}
-
-function cleanCredit(name, isProbablyClassical) {
-  // remove classical roles
-  return isProbablyClassical ? name.replace(/^[a-z]+: (.+)$/, '$1') : name;
 }
 
 function bestArtistMatch(artists, name) {
@@ -172,9 +166,7 @@ function bestArtistMatch(artists, name) {
   return match;
 }
 
-function expandCredit(fullName, artists, isProbablyClassical) {
-  fullName = cleanCredit(fullName, isProbablyClassical);
-
+function expandCredit(fullName, artists) {
   /*
    * See which produces a better match to an existing artist: the full
    * credit, or the individual credits as split by collabRegex. Some artist
@@ -185,7 +177,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
   const bestFullMatch = bestArtistMatch(artists, fullName);
 
   function fixJoinPhrase(existing) {
-    const joinPhrase = isProbablyClassical ? ', ' : (existing || ' & ');
+    const joinPhrase = (existing || ' & ');
 
     return hasFullwidthLatin(existing)
       ? toFullwidthLatin(joinPhrase)
@@ -197,7 +189,7 @@ function expandCredit(fullName, artists, isProbablyClassical) {
   let bestSplitMatch;
 
   for (let i = 0; i < splitParts.length; i += 2) {
-    const name = cleanCredit(splitParts[i], isProbablyClassical);
+    const name = splitParts[i];
     const match = {
       similarity: -1,
       artist: null,
@@ -234,15 +226,8 @@ export default function guessFeat(entity) {
     relatedArtists = relatedArtists.call(entity);
   }
 
-  let isProbablyClassical = entity.isProbablyClassical;
-  if (isProbablyClassical == null) {
-    isProbablyClassical = isEntityProbablyClassical(entity);
-  } else if (typeof isProbablyClassical === 'function') {
-    isProbablyClassical = isProbablyClassical.call(entity);
-  }
-
   const match = extractFeatCredits(
-    name, relatedArtists, isProbablyClassical, false,
+    name, relatedArtists, false,
   );
 
   if (!match.name || !match.artistCredit.length) {
