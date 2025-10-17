@@ -11,8 +11,6 @@ import * as ReactDOMServer from 'react-dom/server';
 
 import formatLabelCode from '../../../utility/formatLabelCode.js';
 import getRelatedArtists from '../edit/utility/getRelatedArtists.js';
-import isEntityProbablyClassical
-  from '../edit/utility/isEntityProbablyClassical.js';
 
 import ArtistCreditLink from './components/ArtistCreditLink.js';
 import DescriptiveLink from './components/DescriptiveLink.js';
@@ -330,7 +328,6 @@ import MB from './MB.js';
       }
 
       this.relatedArtists = getRelatedArtists(data.relationships);
-      this.isProbablyClassical = isEntityProbablyClassical(data);
 
       if (this._afterRecordingCtor) {
         this._afterRecordingCtor(data);
@@ -360,7 +357,6 @@ import MB from './MB.js';
       }
 
       this.relatedArtists = getRelatedArtists(data.relationships);
-      this.isProbablyClassical = isEntityProbablyClassical(data);
     }
 
     toJSON() {

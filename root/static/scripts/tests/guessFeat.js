@@ -14,7 +14,7 @@ import fields from '../release-editor/fields.js';
 
 /* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {
-  t.plan(25);
+  t.plan(22);
 
   const trackTests = [
     {
@@ -336,96 +336,6 @@ test('guessing feat. artists', function (t) {
   ];
 
   const releaseTests = [
-    {
-      input: {
-        name: 'The Nutcracker: Suite, Op. 71 ' +
-              '(London Symphony Orchestra feat. conductor: André Previn) ' +
-              '(disc 2)',
-        artistCredit: {
-          names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],
-        },
-        relationships: [
-          {
-            target: {name: 'London Symphony Orchestra', entityType: 'artist'},
-            backward: true,
-            linkTypeID: 45,
-          },
-        ],
-      },
-      output: {
-        name: 'The Nutcracker: Suite, Op. 71 (disc 2)',
-        artistCredit: {
-          names: [
-            {name: 'Пётр Ильич Чайковский', joinPhrase: '; '},
-            {name: 'London Symphony Orchestra', joinPhrase: ', '},
-            {name: 'André Previn', joinPhrase: ''},
-          ],
-        },
-      },
-    },
-    {
-      input: {
-        name: 'Intermezzi from Palandrana and Zambrano ' +
-              '(feat. Fortuna Ensemble; conductor: Roberto Cascio; ' +
-              'soprano: Barbara di Castri; tenor: Gastone Sarti)',
-        artistCredit: {
-          names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],
-        },
-        relationships: [
-          {
-            target: {name: 'Roberto Cascio', entityType: 'artist'},
-            backward: true,
-            linkTypeID: 46,
-          },
-        ],
-      },
-      output: {
-        name: 'Intermezzi from Palandrana and Zambrano',
-        artistCredit: {
-          names: [
-            {name: 'Alessandro Scarlatti', joinPhrase: '; '},
-            {name: 'Fortuna Ensemble', joinPhrase: ', '},
-            {name: 'Roberto Cascio', joinPhrase: ', '},
-            {name: 'Barbara di Castri', joinPhrase: ', '},
-            {name: 'Gastone Sarti', joinPhrase: ''},
-          ],
-        },
-      },
-    },
-    {
-      input: {
-        name: 'Le nozze di Figaro - highlights ' +
-              '(The Drottningholm Court Theatre Orchestra & Chorus, feat. ' +
-              'conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
-        artistCredit: {names: [{name: 'Mozart', joinPhrase: ''}]},
-        relationships: [
-          {
-            target: {
-              name: 'The Drottningholm Court Theatre Orchestra & Chorus',
-              entityType: 'artist',
-            },
-            backward: true,
-            linkTypeID: 45,
-          },
-        ],
-      },
-      output: {
-        name: 'Le nozze di Figaro - highlights',
-        artistCredit: {
-          names: [
-            {name: 'Mozart', joinPhrase: '; '},
-            {
-              name: 'The Drottningholm Court Theatre Orchestra & Chorus',
-              joinPhrase: ', ',
-            },
-            {name: 'Arnold Östman', joinPhrase: ', '},
-            {name: 'Salomaa', joinPhrase: ', '},
-            {name: 'Bonney', joinPhrase: ', '},
-            {name: 'Hagagård', joinPhrase: ''},
-          ],
-        },
-      },
-    },
     {
       input: {
         name: 'Coast To Coast feat. 漢、般若',
