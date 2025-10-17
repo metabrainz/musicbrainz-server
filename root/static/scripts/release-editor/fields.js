@@ -390,7 +390,6 @@ class Track {
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
-      release.isProbablyClassical ||= value.isProbablyClassical;
     }
 
     this.recordingValue(value);
@@ -410,10 +409,6 @@ class Track {
 
   relatedArtists() {
     return this.medium.release.relatedArtists;
-  }
-
-  isProbablyClassical() {
-    return this.medium.release.isProbablyClassical;
   }
 }
 
