@@ -133,6 +133,22 @@ function updateNameFieldErrors(
   }
 }
 
+function updateLengthFieldErrors(
+  lengthFieldCtx: CowContext<FieldT<string | null>>,
+) {
+  const length = lengthFieldCtx.get('value').read();
+  if (length && isInvalidLength(length)) {
+    lengthFieldCtx.set('has_errors', true);
+    lengthFieldCtx.set('errors', [
+      l('Not a valid time. Must be in the format MM:SS'),
+    ]);
+  } else {
+    lengthFieldCtx.set('has_errors', false);
+    lengthFieldCtx.set('pendingErrors', []);
+    lengthFieldCtx.set('errors', []);
+  }
+}
+
 function updateNoteFieldErrors(
   actionName: string,
   editNoteFieldCtx: CowContext<FieldT<string>>,
@@ -170,6 +186,8 @@ function createInitialState({
   // $FlowExpectedError[incompatible-call]
   const nameFieldCtx = formCtx.get('field', 'name');
   updateNameFieldErrors(nameFieldCtx);
+  const lengthFieldCtx = formCtx.get('field', 'length');
+  updateLengthFieldErrors(lengthFieldCtx);
   formCtx
     .update('field', 'isrcs', (isrcCtx) => {
       isrcCtx.set(createIsrcState(isrcCtx.read()));
@@ -206,15 +224,11 @@ function reducer(state: StateT, action: ActionT): StateT {
         });
     }
     {type: 'update-length', const length} => {
-      const errors = isInvalidLength(length)
-        ? [l('Not a valid time. Must be in the format MM:SS')]
-        : [];
-
-      newStateCtx.set('form', 'field', 'length', {
-        ...newStateCtx.get('form', 'field', 'length').read(),
-        errors,
-        value: length,
-      });
+      newStateCtx
+        .update('form', 'field', 'length', (lengthFieldCtx) => {
+          lengthFieldCtx.set('value', length);
+          updateLengthFieldErrors(lengthFieldCtx);
+        });
     }
     {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
