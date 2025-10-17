@@ -23,6 +23,7 @@ import {debounceComputed} from '../common/utility/debounce.js';
 import getCookie from '../common/utility/getCookie.js';
 import isBlank from '../common/utility/isBlank.js';
 import setCookie from '../common/utility/setCookie.js';
+import unformatTrackLength from '../common/utility/unformatTrackLength.js';
 import {fromFullwidthLatin} from '../edit/utility/fullwidthLatin.js';
 import getSimilarity from '../edit/utility/similarity.js';
 
@@ -345,7 +346,9 @@ const trackParser = releaseEditor.trackParser = {
     if (match !== null) {
       if (options.useTrackLengths && match[1] !== '?:??') {
         data.formattedLength = fromFullwidthLatin(match[1]);
-        data.length = utils.unformatTrackLength(data.formattedLength);
+        const unformattedLength = unformatTrackLength(data.formattedLength);
+        data.length =
+          Number.isNaN(unformattedLength) ? '' : unformattedLength;
       }
       // Remove the track time from the line.
       line = line.slice(0, -match[0].length);

@@ -222,6 +222,7 @@ export function createRecordingObject(
   }>,
 ): RecordingT {
   return {
+    artist: '',
     artistCredit: {
       names: ([]: $ReadOnlyArray<ArtistCreditNameT>),
     },
