@@ -1,4 +1,5 @@
 /*
+ * @flow
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -8,9 +9,11 @@
 
 import balanced from 'balanced-match';
 import $ from 'jquery';
+import mutate from 'mutate-cow';
 
 import '../../common/entity.js';
 
+import {expect} from '../../../../utility/invariant.js';
 import {
   BRACKET_PAIRS,
   MIN_NAME_SIMILARITY,
@@ -30,8 +33,34 @@ import {
 import getRelatedArtists from './getRelatedArtists.js';
 import getSimilarity from './similarity.js';
 
+type GuessFeatEntityT = {
+  +artistCredit: IncompleteArtistCreditT,
+  +entityType: EntityWithArtistCreditsTypeT,
+  +name: string,
+  +recording?: {
+    +relationships?: $ReadOnlyArray<RelationshipT>,
+  },
+  +relationships?: $ReadOnlyArray<RelationshipT>,
+};
+
+type GuessFeatResultT = {
+  artistCreditNames: $ReadOnlyArray<IncompleteArtistCreditNameT>,
+  name: string,
+};
+
+type ExpandedArtistCreditNameT = {
+  ...IncompleteArtistCreditNameT,
+  similarity: number,
+};
+
+type ExtractedCreditsT = {
+  +artistCredit: Array<ExpandedArtistCreditNameT>,
+  +joinPhrase: string,
+  +name: string,
+};
+
 /* eslint-disable sort-keys */
-export const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
+export const featRegex: RegExp = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａｔ)(?:[.．]|(?=\s))|(?:featuring|ｆｅａｔｕｒｉｎｇ)(?=\s))\s*/i;
 /*
  * `featQuickTestRegex` is used to quickly test whether a title *might*
  * contain featured artists. It's fine if it returns false-positives.
@@ -40,10 +69,13 @@ export const featRegex = /(?:^\s*|[,，－-]\s*|\s+)((?:ft|feat|ｆｔ|ｆｅａ
 const featQuickTestRegex = /ft|feat|ｆｔ|ｆｅａｔ/i;
 const collabRegex = /([,，]?\s+(?:&|and|et|＆|ａｎｄ|ｅｔ)\s+|、|[,，;；]\s+|\s*[/／]\s*|\s+(?:vs|ｖｓ)[.．]\s+)/i;
 
-function extractNonBracketedFeatCredits(str, artists) {
+function extractNonBracketedFeatCredits(
+  str: string,
+  artists: Array<ArtistT>,
+): ExtractedCreditsT {
   const parts = str.split(featRegex).map(clean);
 
-  function fixFeatJoinPhrase(existing) {
+  function fixFeatJoinPhrase(existing: string) {
     const joinPhrase = existing ? (
       ' ' +
       fromFullwidthLatin(existing)
@@ -75,7 +107,10 @@ function extractNonBracketedFeatCredits(str, artists) {
   };
 }
 
-function extractBracketedFeatCredits(str, artists) {
+function extractBracketedFeatCredits(
+  str: string,
+  artists: Array<ArtistT>,
+): ExtractedCreditsT {
   return BRACKET_PAIRS.reduce(function (accum, pair) {
     let name = '';
     let joinPhrase = accum.joinPhrase;
@@ -122,16 +157,18 @@ function extractBracketedFeatCredits(str, artists) {
 }
 
 export function extractFeatCredits(
-  str, artists, allowEmptyName,
-) {
-  if (!featQuickTestRegex.test(str)) {
-    return {name: str, joinPhrase: '', artistCredit: []};
+  name: string,
+  artists: Array<ArtistT>,
+  allowEmptyName: boolean,
+): ExtractedCreditsT {
+  if (!featQuickTestRegex.test(name)) {
+    return {name, joinPhrase: '', artistCredit: []};
   }
 
-  const m1 = extractBracketedFeatCredits(str, artists);
+  const m1 = extractBracketedFeatCredits(name, artists);
 
   if (!m1.name && !allowEmptyName) {
-    return {name: str, joinPhrase: '', artistCredit: []};
+    return {name, joinPhrase: '', artistCredit: []};
   }
 
   const m2 = extractNonBracketedFeatCredits(
@@ -149,24 +186,30 @@ export function extractFeatCredits(
   };
 }
 
-function bestArtistMatch(artists, name) {
+function bestArtistMatch(
+  artists: Array<ArtistT> | null,
+  name: string,
+): ExpandedArtistCreditNameT | null {
   if (!artists) {
     return null;
   }
-  let match = null;
+  let match: ExpandedArtistCreditNameT | null = null;
   for (const artist of artists) {
     const similarity = getSimilarity(name, artist.name);
     if (
       similarity >= MIN_NAME_SIMILARITY &&
       (match == null || similarity > match.similarity)
     ) {
-      match = {similarity, artist, name};
+      match = {similarity, artist, name, joinPhrase: ''};
     }
   }
   return match;
 }
 
-function expandCredit(fullName, artists) {
+function expandCredit(
+  fullName: string,
+  artists: Array<ArtistT>,
+): Array<ExpandedArtistCreditNameT> {
   /*
    * See which produces a better match to an existing artist: the full
    * credit, or the individual credits as split by collabRegex. Some artist
@@ -176,7 +219,7 @@ function expandCredit(fullName, artists) {
    */
   const bestFullMatch = bestArtistMatch(artists, fullName);
 
-  function fixJoinPhrase(existing) {
+  function fixJoinPhrase(existing: string) {
     const joinPhrase = (existing || ' & ');
 
     return hasFullwidthLatin(existing)
@@ -185,12 +228,12 @@ function expandCredit(fullName, artists) {
   }
 
   const splitParts = fullName.split(collabRegex);
-  const splitMatches = [];
-  let bestSplitMatch;
+  const splitMatches: Array<ExpandedArtistCreditNameT> = [];
+  let bestSplitMatch: ExpandedArtistCreditNameT;
 
   for (let i = 0; i < splitParts.length; i += 2) {
     const name = splitParts[i];
-    const match = {
+    const match: ExpandedArtistCreditNameT = {
       similarity: -1,
       artist: null,
       name,
@@ -203,15 +246,71 @@ function expandCredit(fullName, artists) {
     }
   }
 
-  if (bestFullMatch && bestFullMatch.similarity > bestSplitMatch.similarity) {
-    bestFullMatch.joinPhrase = fixJoinPhrase();
+  if (bestFullMatch && bestSplitMatch &&
+      bestFullMatch.similarity > bestSplitMatch.similarity) {
+    bestFullMatch.joinPhrase = fixJoinPhrase('');
     return [bestFullMatch];
   }
 
   return splitMatches;
 }
 
-export default function guessFeat(entity) {
+export default function guessFeat(
+  entity: GuessFeatEntityT,
+): GuessFeatResultT | null {
+  const name = entity.name;
+
+  if (empty(name)) {
+    // Nothing to guess from an empty name
+    return null;
+  }
+
+  const isTrack = entity.entityType === 'track';
+  const relatedArtists = isTrack
+    ? getRelatedArtists(entity.recording?.relationships)
+    : getRelatedArtists(entity.relationships);
+
+  const match = extractFeatCredits(
+    name, relatedArtists, false,
+  );
+
+  if (!match.name || !match.artistCredit.length) {
+    return null;
+  }
+
+  const artistCreditNamesCtx = mutate(entity.artistCredit.names);
+  artistCreditNamesCtx.set(
+    entity.artistCredit.names.length - 1,
+    'joinPhrase',
+    match.joinPhrase,
+  );
+  expect(last(match.artistCredit)).joinPhrase = '';
+
+  for (const name of match.artistCredit) {
+    artistCreditNamesCtx.write().push({
+      artist: name.artist,
+      joinPhrase: name.joinPhrase,
+      name: name.name,
+    });
+  }
+
+  return {
+    name: match.name,
+    artistCreditNames: artistCreditNamesCtx.final(),
+  };
+}
+
+/*
+ * The following bits are deprecated and shouldn't be needed after
+ * we finish the React conversion. I'm not bothering to add Flow
+ * to them.
+ */
+
+export function guessFeatForReleaseEditor(
+  // eslint-disable-next-line ft-flow/no-weak-types
+  entity: any,
+  // eslint-disable-next-line ft-flow/no-weak-types
+): any {
   const name = entity.name();
 
   if (empty(name)) {
@@ -237,10 +336,13 @@ export default function guessFeat(entity) {
   entity.name(match.name);
 
   const artistCredit = cloneArrayDeep(entity.artistCredit().names);
+  // $FlowExpectedError[incompatible-use]
   last(artistCredit).joinPhrase = match.joinPhrase;
+  // $FlowExpectedError[incompatible-use]
   last(match.artistCredit).joinPhrase = '';
 
   for (const name of match.artistCredit) {
+  // $FlowExpectedError[incompatible-type]
     delete name.similarity;
   }
 
@@ -250,8 +352,13 @@ export default function guessFeat(entity) {
 }
 
 // For use outside of the release editor.
-export function initGuessFeatButton(formName) {
+// eslint-disable-next-line ft-flow/no-weak-types
+export function initGuessFeatButton(formName: any): any {
+  // $FlowExpectedError[prop-missing]
   const source = MB.getSourceEntityInstance();
+  /* eslint-disable-next-line @stylistic/multiline-comment-style */
+  // $FlowExpectedError[unsafe-object-assign]
+  // $FlowExpectedError[prop-missing]
   const augmentedEntity = Object.assign(
     Object.create(source),
     {
@@ -259,18 +366,23 @@ export function initGuessFeatButton(formName) {
        * Emulate an observable that just reads/writes
        * to the name input directly.
        */
+      // $FlowExpectedError[missing-local-annot]
       name(...args) {
         const nameInput = document.getElementById('id-' + formName + '.name');
         if (args.length) {
+          // $FlowExpectedError[incompatible-type]
           setInputValueForReact(nameInput, args[0]);
           return undefined;
         }
+        /* eslint-disable-next-line @stylistic/multiline-comment-style */
+        // $FlowExpectedError[prop-missing]
+        // $FlowExpectedError[incompatible-use]
         return nameInput.value;
       },
     },
   );
 
   $(document).on('click', 'button.guessfeat.icon', function () {
-    guessFeat(augmentedEntity);
+    guessFeatForReleaseEditor(augmentedEntity);
   });
 }
