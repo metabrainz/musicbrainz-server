@@ -9,12 +9,13 @@
 import ko from 'knockout';
 import test from 'tape';
 
-import guessFeat from '../edit/utility/guessFeat.js';
+import guessFeat, {guessFeatForReleaseEditor as guessFeatKo}
+  from '../edit/utility/guessFeat.js';
 import fields from '../release-editor/fields.js';
 
 /* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {
-  t.plan(22);
+  t.plan(64);
 
   const trackTests = [
     {
@@ -27,7 +28,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'micromatics', joinPhrase: ' feat. '},
-            {name: '813', joinPhrase: ''},
+            {artist: null, name: '813', joinPhrase: ''},
           ],
         },
       },
@@ -42,8 +43,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: '[unknown]', joinPhrase: ' feat. '},
-            {name: '마리오', joinPhrase: ' & '},
-            {name: '영지', joinPhrase: ''},
+            {artist: null, name: '마리오', joinPhrase: ' & '},
+            {artist: null, name: '영지', joinPhrase: ''},
           ],
         },
       },
@@ -58,8 +59,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'David TMX', joinPhrase: ' feat. '},
-            {name: 'Christine', joinPhrase: ' & '},
-            {name: 'Stouffi', joinPhrase: ''},
+            {artist: null, name: 'Christine', joinPhrase: ' & '},
+            {artist: null, name: 'Stouffi', joinPhrase: ''},
           ],
         },
       },
@@ -74,7 +75,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Suspekt', joinPhrase: ' feat. '},
-            {name: 'Jooks', joinPhrase: ''},
+            {artist: null, name: 'Jooks', joinPhrase: ''},
           ],
         },
       },
@@ -108,7 +109,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Red Horizons', joinPhrase: ' ft. '},
-            {name: 'Landforge', joinPhrase: ''},
+            {artist: null, name: 'Landforge', joinPhrase: ''},
           ],
         },
       },
@@ -123,7 +124,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Lil Bibby', joinPhrase: ' ft '},
-            {name: 'Juicy J', joinPhrase: ''},
+            {artist: null, name: 'Juicy J', joinPhrase: ''},
           ],
         },
       },
@@ -149,9 +150,9 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Ill', joinPhrase: ' feat. '},
-            {name: 'Hfi', joinPhrase: ', '},
-            {name: 'Oxmo', joinPhrase: ' et '},
-            {name: 'Pit Baccardi', joinPhrase: ''},
+            {artist: null, name: 'Hfi', joinPhrase: ', '},
+            {artist: null, name: 'Oxmo', joinPhrase: ' et '},
+            {artist: null, name: 'Pit Baccardi', joinPhrase: ''},
           ],
         },
       },
@@ -166,8 +167,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Dragon Fli Empire', joinPhrase: ' featuring '},
-            {name: 'Sphere720', joinPhrase: ' And '},
-            {name: 'Tariq', joinPhrase: ''},
+            {artist: null, name: 'Sphere720', joinPhrase: ' And '},
+            {artist: null, name: 'Tariq', joinPhrase: ''},
           ],
         },
       },
@@ -183,8 +184,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Stephan Smith', joinPhrase: ' featuring '},
-            {name: 'Pete Seeger', joinPhrase: ' & '},
-            {name: 'DJ Spooky', joinPhrase: ''},
+            {artist: null, name: 'Pete Seeger', joinPhrase: ' & '},
+            {artist: null, name: 'DJ Spooky', joinPhrase: ''},
           ],
         },
       },
@@ -200,8 +201,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Daft Punk', joinPhrase: ' feat. '},
-            {name: 'Parliament', joinPhrase: '/'},
-            {name: 'Funkadelic', joinPhrase: ''},
+            {artist: null, name: 'Parliament', joinPhrase: '/'},
+            {artist: null, name: 'Funkadelic', joinPhrase: ''},
           ],
         },
       },
@@ -216,7 +217,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Kameleba', joinPhrase: ' feat. '},
-            {name: 'Rubén Rada', joinPhrase: ''},
+            {artist: null, name: 'Rubén Rada', joinPhrase: ''},
           ],
         },
       },
@@ -250,8 +251,16 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Blackstreet', joinPhrase: ' feat. '},
-            {name: 'Slash', joinPhrase: ' & '},
-            {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
+            {artist: null, name: 'Slash', joinPhrase: ' & '},
+            {
+              artist: {
+                name: 'Ol’ Dirty Bastard',
+                gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819',
+                entityType: 'artist',
+              },
+              name: 'Ol\' Dirty Bastard',
+              joinPhrase: '',
+            },
           ],
         },
       },
@@ -266,7 +275,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'cight', joinPhrase: '　ｆｔ．　'},
-            {name: 'grèg', joinPhrase: ''},
+            {artist: null, name: 'grèg', joinPhrase: ''},
           ],
         },
       },
@@ -281,7 +290,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'cight', joinPhrase: '　ｆｔ．　'},
-            {name: 'ｅｐvｒ', joinPhrase: ''},
+            {artist: null, name: 'ｅｐvｒ', joinPhrase: ''},
           ],
         },
       },
@@ -296,7 +305,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: '菅野よう子', joinPhrase: ' feat. '},
-            {name: 'Predawn', joinPhrase: ''},
+            {artist: null, name: 'Predawn', joinPhrase: ''},
           ],
         },
       },
@@ -311,8 +320,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
-            {name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
-            {name: '貝木泥舟', joinPhrase: ''},
+            {artist: null, name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
+            {artist: null, name: '貝木泥舟', joinPhrase: ''},
           ],
         },
       },
@@ -327,8 +336,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'DJ Baku', joinPhrase: ' feat. '},
-            {name: '漢', joinPhrase: '、'},
-            {name: '般若', joinPhrase: ''},
+            {artist: null, name: '漢', joinPhrase: '、'},
+            {artist: null, name: '般若', joinPhrase: ''},
           ],
         },
       },
@@ -346,8 +355,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'DJ Baku', joinPhrase: ' feat. '},
-            {name: '漢', joinPhrase: '、'},
-            {name: '般若', joinPhrase: ''},
+            {artist: null, name: '漢', joinPhrase: '、'},
+            {artist: null, name: '般若', joinPhrase: ''},
           ],
         },
       },
@@ -362,7 +371,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Someone', joinPhrase: ' feat. '},
-            {name: 'Artist', joinPhrase: ''},
+            {artist: null, name: 'Artist', joinPhrase: ''},
           ],
         },
       },
@@ -380,8 +389,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'DJ Baku', joinPhrase: ' feat. '},
-            {name: '漢', joinPhrase: '、'},
-            {name: '般若', joinPhrase: ''},
+            {artist: null, name: '漢', joinPhrase: '、'},
+            {artist: null, name: '般若', joinPhrase: ''},
           ],
         },
       },
@@ -394,7 +403,6 @@ test('guessing feat. artists', function (t) {
       artistCredit: {
         names: entity.artistCredit().names.map((name) => {
           const copy = {...name};
-          delete copy.artist;
           delete copy.automaticJoinPhrase;
           return copy;
         }),
@@ -402,8 +410,22 @@ test('guessing feat. artists', function (t) {
     };
   }
 
-  function runTest(x, entity) {
-    guessFeat(entity);
+  function runTest(x) {
+    const output = guessFeat(x.input);
+    if (output === null) {
+      t.deepEqual(x.input, x.output, 'Expected no changes and saw none');
+    } else {
+      t.deepEqual(
+        output.name, x.output.name, x.input.name + ' -> ' + x.output.name,
+      );
+      t.deepEqual(
+        output.artistCreditNames, x.output.artistCredit.names, x.input.name + ' -> ' + x.output.name,
+      );
+    }
+  }
+
+  function runTestOld(x, entity) {
+    guessFeatKo(entity);
     t.deepEqual(
       toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
     );
@@ -417,7 +439,7 @@ test('guessing feat. artists', function (t) {
     entity.name = ko.observable(entity.name);
     entity.artistCredit = ko.observable(entity.artistCredit);
 
-    guessFeat(entity);
+    guessFeatKo(entity);
     t.deepEqual(
       toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
     );
@@ -429,14 +451,17 @@ test('guessing feat. artists', function (t) {
       mediums: [{tracks: [test.input]}],
     });
 
-    runTest(test, release.mediums()[0].tracks()[0]);
+    runTestOld(test, release.mediums()[0].tracks()[0]);
+    runTest(test);
   }
 
   for (const test of releaseTests) {
-    runTest(test, new fields.Release(test.input));
+    runTestOld(test, new fields.Release(test.input));
+    runTest(test);
   }
 
   for (const test of releaseGroupTests) {
     runReleaseGroupTest(test, new fields.ReleaseGroup(test.input));
+    runTest(test);
   }
 });

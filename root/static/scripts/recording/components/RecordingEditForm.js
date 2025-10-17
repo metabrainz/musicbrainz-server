@@ -57,7 +57,7 @@ import {
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
-import guessFeat from '../../edit/utility/guessFeat2.js';
+import guessFeat from '../../edit/utility/guessFeat.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isInvalidLength from '../../edit/utility/isInvalidLength.js';
 import isValidIsrc from '../../edit/utility/isValidIsrc.js';
