@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-18 20:36+0000\n"
+"PO-Revision-Date: 2025-10-18 17:08+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -21,9 +21,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1352,10 +1352,8 @@ msgstr "Lingue kru"
 
 #. frequency:1 iso_code_3:ksd
 #: DB:language/name:3525
-#, fuzzy
-#| msgid "Kuanyama"
 msgid "Kuanua"
-msgstr "Kuanyama"
+msgstr "Kuanua"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
