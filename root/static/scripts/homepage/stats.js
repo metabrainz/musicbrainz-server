@@ -34,12 +34,13 @@ component Stats(
         delay: 2500,
         pauseOnMouseEnter: true,
       }}
+      loop={true}
       modules={[Navigation, Autoplay]}
     >
       {weeklyStats.map((stat, index) => (
         <SwiperSlide key={index}>
           <div className="stat-card">
-            <h2>+{stat.count.toLocaleString()} {stat.name} last week</h2>
+            <h2>{stat.count > 0 ? `+${stat.count.toLocaleString()}` : stat.count.toLocaleString()} {stat.name} last week</h2>
             <p className="d-flex align-items-center gap-2">
               {stat.total.toLocaleString()} total
               <a

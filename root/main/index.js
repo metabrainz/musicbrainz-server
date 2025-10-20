@@ -53,7 +53,9 @@ type CommunityPostT = {
 component Homepage(
   blogEntries: $ReadOnlyArray<BlogEntryT> | null,
   newestEvents: $ReadOnlyArray<EventArtT>,
+  freshEvents: $ReadOnlyArray<EventArtT>,
   newestReleases: $ReadOnlyArray<ReleaseArtT>,
+  freshReleases: $ReadOnlyArray<ReleaseArtT>,
   communityPosts: $ReadOnlyArray<CommunityPostT> | null,
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
@@ -82,7 +84,11 @@ component Homepage(
 
         <div className="timeline-container" id="releases-container">
           <div className="timeline-container-inner layout-width">
-            <TimelineCarousel />
+            <TimelineCarousel
+              newestReleaseArtwork={newestReleases} 
+              freshReleaseArtwork={freshReleases}
+              entityType="release"
+            />
           </div>
         </div>
 
@@ -117,7 +123,7 @@ component Homepage(
               <div className="d-flex align-items-center gap-2 flex-wrap">
                 <a
                   className="social-pill"
-                  href="https://blog.metabrainz.org"
+                  href="/doc/About"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{backgroundColor: '#46433A', color: 'white !important'}}
@@ -126,7 +132,7 @@ component Homepage(
                 </a>
                 <a
                   className="social-pill"
-                  href="https://blog.metabrainz.org"
+                  href="/doc/Beginners_Guide"
                   target="_blank"
                   rel="noopener noreferrer"
                   style={{backgroundColor: '#46433A', color: 'white !important'}}
@@ -214,7 +220,11 @@ component Homepage(
 
         <div className="timeline-container" id="events-container">
           <div className="timeline-container-inner layout-width">
-            <TimelineCarousel />
+            <TimelineCarousel
+              newestEventArtwork={newestEvents} 
+              freshEventArtwork={freshEvents}
+              entityType="event"
+            />
           </div>
         </div>
 
