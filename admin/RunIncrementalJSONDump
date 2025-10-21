@@ -46,7 +46,11 @@ echo Making incremental JSON dumps
     --foreign-keys-dump "$FK_DUMP" \
     || exit $?
 
-cleanup() { rm -f "$FK_DUMP"; }
+cleanup() {
+    rm -f "$FK_DUMP"
+    # We've clobbered the trap set by `make_temp_dir`. Reinstate it.
+    rmdir "$TEMP_DIR"
+}
 trap cleanup EXIT
 
 # Was a dump created?

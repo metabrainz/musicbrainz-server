@@ -24,7 +24,11 @@ FK_DUMP="$TEMP_DIR"/foreign_keys
     --foreign-keys-dump "$FK_DUMP" \
     --ping
 
-cleanup() { rm -f "$FK_DUMP"; }
+cleanup() {
+    rm -f "$FK_DUMP"
+    # We've clobbered the trap set by `make_temp_dir`. Reinstate it.
+    rmdir "$TEMP_DIR"
+}
 trap cleanup EXIT
 
 ./bin/rsync-sitemaps
