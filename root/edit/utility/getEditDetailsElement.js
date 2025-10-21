@@ -9,6 +9,7 @@
 
 import * as EDIT_TYPES
   from '../../static/scripts/common/constants/editTypes.js';
+import invariant from '../../utility/invariant.js';
 import AddAnnotation from '../details/AddAnnotation.js';
 import AddArea from '../details/AddArea.js';
 import AddArtist from '../details/AddArtist.js';
@@ -123,8 +124,11 @@ import SetCoverArt from '../details/SetCoverArt.js';
 import SetTrackLengths from '../details/SetTrackLengths.js';
 
 const editDetailsElementMap: {
-  +[T in EditT['edit_type']]:
-    component(edit: Extract<EditT, {+edit_type: T, ...}>),
+  /* eslint-disable ft-flow/no-weak-types */
+  /* eslint-disable-next-line ft-flow/no-flow-suppressions-in-strict-files */
+  // $FlowFixMe[unclear-type]
+  +[edit_type: EditT['edit_type']]: component(edit: any),
+  /* eslint-enable ft-flow/no-weak-types */
 } = {
   [EDIT_TYPES.EDIT_AREA_ADD_ANNOTATION]: AddAnnotation,
   [EDIT_TYPES.EDIT_ARTIST_ADD_ANNOTATION]: AddAnnotation,
@@ -305,5 +309,9 @@ export default function getEditDetailsElement(
   edit: EditT,
 ): React.MixedElement {
   const EditDetailsElement = editDetailsElementMap[edit.edit_type];
+  invariant(
+    EditDetailsElement != null,
+    `No component found for edit type ${edit.edit_type}`,
+  );
   return <EditDetailsElement edit={edit} />;
 }
