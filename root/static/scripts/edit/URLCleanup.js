@@ -2343,6 +2343,24 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url, id) {
+      if (/link\.deezer\.com\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
       const m = /^https:\/\/www\.deezer\.com\/([a-z]+)\/(?:\d+)$/.exec(url);
       if (m) {
         const prefix = m[1];
