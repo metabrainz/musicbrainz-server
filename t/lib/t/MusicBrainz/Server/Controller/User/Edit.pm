@@ -9,60 +9,59 @@ use MusicBrainz::Server::Test qw( html_ok test_xpath_html );
 
 use HTTP::Status qw( :constants );
 
-with 't::Mechanize', 't::Context';
+with 't::Mechanize', 't::Context', 't::Email';
 
 test all => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c    = $test->c;
 
-my $test = shift;
-my $mech = $test->mech;
-my $c    = $test->c;
+    $test->skip_unless_mailpit_configured;
 
-MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
-$mech->get('/login');
-$mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
+    $mech->get('/login');
+    $mech->submit_form( with_fields => { username => 'new_editor', password => 'password' } );
 
-$mech->get_ok('/account/edit');
-html_ok($mech->content);
-$mech->submit_form( with_fields => {
-    'profile.website' => 'foo',
-    'profile.biography' => 'hello world!',
-} );
-$mech->content_contains('Invalid URL format', q(Invalid URL format 'foo' triggers validation failure.));
-$mech->submit_form( with_fields => {
-    'profile.birth_date.year' => 0,
-    'profile.birth_date.month' => 1,
-    'profile.birth_date.day' => 1,
-} );
-$mech->content_contains('invalid date', 'Invalid date 0-1-1 triggers validation failure.');
-$mech->submit_form( with_fields => {
-    'profile.website' => 'http://example.com/~new_editor/',
-    'profile.biography' => 'hello world!',
-    'profile.email' => 'new_email@example.com',
-    'profile.birth_date.year' => '',
-    'profile.birth_date.month' => '',
-    'profile.birth_date.day' => '',
-} );
-$mech->content_contains('Your profile has been updated');
-$mech->content_contains('We have sent you a verification email');
+    $mech->get_ok('/account/edit');
+    html_ok($mech->content);
+    $mech->submit_form( with_fields => {
+        'profile.website' => 'foo',
+        'profile.biography' => 'hello world!',
+    } );
+    $mech->content_contains('Invalid URL format', q(Invalid URL format 'foo' triggers validation failure.));
+    $mech->submit_form( with_fields => {
+        'profile.birth_date.year' => 0,
+        'profile.birth_date.month' => 1,
+        'profile.birth_date.day' => 1,
+    } );
+    $mech->content_contains('invalid date', 'Invalid date 0-1-1 triggers validation failure.');
+    $mech->submit_form( with_fields => {
+        'profile.website' => 'http://example.com/~new_editor/',
+        'profile.biography' => 'hello world!',
+        'profile.email' => 'new_email@example.com',
+        'profile.birth_date.year' => '',
+        'profile.birth_date.month' => '',
+        'profile.birth_date.day' => '',
+    } );
+    $mech->content_contains('Your profile has been updated');
+    $mech->content_contains('We have sent you a verification email');
 
-my $email_transport = MusicBrainz::Server::Email->get_test_transport;
-my $email = $email_transport->shift_deliveries->{email};
-is($email->get_header('To'), 'new_email@example.com', 'Verification email sent to correct address');
-is($email->get_header('Subject'), 'Please verify your email address', 'Verification email has correct subject');
+    my @emails = $test->get_emails;
+    my $email = shift @emails;
+    is($email->{headers}{To}, 'new_email@example.com', 'Verification email sent to correct address');
+    is($email->{headers}{Subject}, 'Verify your email', 'Verification email has correct subject');
 
-my $email_body = $email->object->body_str;
-like($email_body, qr{http://localhost/verify-email.*}, 'Verification email contains verification link');
-like($email_body, qr{\[127\.0\.0\.1\]}, 'Verification email contains request IP');
+    my $email_body = $email->{body};
+    like($email_body, qr{http://localhost/verify-email.*}, 'Verification email contains verification link');
 
-$email_body =~ qr{http://localhost(/verify-email.*)};
-my $verify_email_path = $1;
-$mech->get_ok($verify_email_path);
-$mech->content_contains('Thank you, your email address has now been verified!');
+    $email_body =~ qr{\[http://localhost(/verify-email.*?)\]}ms;
+    my $verify_email_path = ($1 =~ s/\R//gr);
+    $mech->get_ok($verify_email_path);
+    $mech->content_contains('Thank you, your email address has now been verified!');
 
-$mech->get('/user/new_editor');
-$mech->content_contains('new_email@example.com');
-
+    $mech->get('/user/new_editor');
+    $mech->content_contains('new_email@example.com');
 };
 
 test 'Hide biography and website/homepage of beginners/limited users from not-logged-in users and only from them' => sub {

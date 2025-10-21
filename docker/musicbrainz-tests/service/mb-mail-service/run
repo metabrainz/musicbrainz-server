@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+export APP_SMTP_PORT=1025
+
+exec mb-mail-service
