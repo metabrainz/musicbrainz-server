@@ -1334,6 +1334,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.beatport.com/label/justice-hardcore/30135',
        only_valid_entity_types: ['label'],
   },
+  {                             // Country code prefix should be normalized
+                     input_url: 'https://www.beatport.com/fr/release/boosted/4121021',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/release/boosted/4121021',
+       only_valid_entity_types: ['release'],
+  },
   // Behance
   {
                      input_url: 'http://behance.net/tristan-gion/appreciated',

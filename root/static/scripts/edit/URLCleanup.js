@@ -1565,6 +1565,8 @@ export const CLEANUPS: CleanupEntries = {
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?([^/]+\.)?beatport\.com\//, 'https://$1beatport.com/');
       url = url.replace(/^https:\/\/(?:(?:classic|pro|www)\.)?beatport\.com\//, 'https://www.beatport.com/');
+      // Remove country code from release urls
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[a-z]{2}(\/release\/)/i, '$1$2');
       url = url.replace(/^https:\/\/dj\.beatport\.com\/(artist|label)s\/([\w-]+)\/([1-9][0-9]*)/, 'https://www.beatport.com/$1/$2/$3');
       url = url.replace(/^https:\/\/dj\.beatport\.com\/releases\/[1-9][0-9]*\/([1-9][0-9]*)/, 'https://www.beatport.com/track/-/$1');
       url = url.replace(/^https:\/\/dj\.beatport\.com\/releases\/([1-9][0-9]*)/, 'https://www.beatport.com/release/-/$1');
