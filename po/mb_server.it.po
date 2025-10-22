@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-08-18 20:36+0000\n"
+"PO-Revision-Date: 2025-10-20 02:08+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -44,9 +44,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -4044,10 +4044,8 @@ msgid "does not include"
 msgstr "non comprende"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "do not match"
 msgid "does not match"
-msgstr "non corrispondono a"
+msgstr "non corrisponde a"
 
 #: ../root/edit/search_macros.tt:25
 msgid "earliest closed first"
@@ -4197,10 +4195,8 @@ msgid "match"
 msgstr "corrispondono a"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "match"
 msgid "matches"
-msgstr "corrispondono a"
+msgstr "corrisponde a"
 
 #: ../root/edit/search_macros.tt:25
 msgid "newest first"
@@ -9377,10 +9373,8 @@ msgid "We are unable to display history for this image."
 msgstr "Non è possibile visualizzare la cronologia di quest'immagine."
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "Inserite"
+msgstr "Inserita da"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -14328,13 +14322,15 @@ msgid ""
 "or to works of the same name. While this can be correct, in most cases "
 "either the relationships or the works will be duplicated."
 msgstr ""
+"Questo rapporto elenca le registrazioni che sono collegate più volte alla "
+"stessa opera o a opere con lo stesso nome. Anche se può essere che questo "
+"sia corretto, nella maggior parte dei casi le relazioni o le opere sono dei "
+"doppioni."
 
 #: ../root/report/RecordingsWithDuplicateWorks.js:33
 #: ../root/report/ReportsIndex.js:531
-#, fuzzy
-#| msgid "Recordings with possible duplicate relationships"
 msgid "Recordings with possible duplicate works"
-msgstr "Registrazioni che potrebbero avere relazioni doppie"
+msgstr "Registrazioni che potrebbero avere opere doppie"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:25
 msgid ""
@@ -14519,14 +14515,15 @@ msgid ""
 "one of the two dates is incorrect, or the label has been incorrectly "
 "selected."
 msgstr ""
+"Questo rapporto mostra le pubblicazioni in cui la prima data di "
+"pubblicazione è antecedente alla data iniziale di almeno una delle etichette "
+"di pubblicazione contrassegnate. Questo significa che o una delle due date "
+"non è corretta, o è stata selezionata l'etichetta sbagliata."
 
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
-#, fuzzy
-#| msgid "Releases with a different name than their release group"
 msgid "Releases older than their release label"
-msgstr ""
-"Pubblicazioni con un nome diverso da quello del loro gruppo di pubblicazioni"
+msgstr "Pubblicazioni più vecchie della loro etichetta della pubblicazione"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
 msgid ""
@@ -15585,7 +15582,7 @@ msgstr "I miei tag e generi"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:210
 msgid "Language to receive emails in"
-msgstr ""
+msgstr "Lingua in cui ricevere le email"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 msgid "Email me about"
@@ -16919,6 +16916,10 @@ msgid ""
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
+"Le pagine delle pubblicazioni di Last.fm sono molto spesso generate a "
+"partire da dati di MusicBrainz, tanto per cominciare, e in genere non "
+"corrispondono a pubblicazioni di MusicBrainz specifiche, perciò l'aggiunta "
+"di collegamenti di Last.fm alle pubblicazioni è attualmente bloccata."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7592
 msgid ""
@@ -17335,10 +17336,8 @@ msgid "This URL is not allowed for events."
 msgstr "Questo URL non è consentito per gli eventi."
 
 #: ../root/static/scripts/edit/externalLinks.js:941
-#, fuzzy
-#| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
-msgstr "Questo URL non è consentito per le serie."
+msgstr "Questo URL non è consentito per i generi."
 
 #: ../root/static/scripts/edit/externalLinks.js:943
 msgid "This URL is not allowed for instruments."
