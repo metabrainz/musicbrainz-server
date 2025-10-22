@@ -21,9 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-09-05 13:42+0000\n"
-"Last-Translator: reosarevok <reosarevok@users.noreply.translations.metabrainz"
-".org>\n"
+"PO-Revision-Date: 2025-10-21 05:08+0000\n"
+"Last-Translator: Dino RTX <rtxdino36@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/es/>\n"
 "Language: es\n"
@@ -32,11 +31,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.7.1\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr ""
+msgstr "Se retiró la directriz \"No Agrupar\""
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
@@ -52,6 +51,9 @@ msgid ""
 "very large image with a consistent size that avoids having to use the "
 "original uploads directly."
 msgstr ""
+"Las miniaturas de 1200px son añadidas a Cover Art Archive, proporcionando a "
+"los usuarios una imagen grande con un tamaño consistente que evita tener que "
+"usar la originalmente subida."
 
 #: DB:statistics.statistic_event/description:2016-03-01
 msgid ""
@@ -96,24 +98,32 @@ msgstr ""
 "sobre la edición."
 
 #: DB:statistics.statistic_event/description:2003-04-05
+#, fuzzy
 msgid "A new, much faster search mechanism is added."
-msgstr ""
+msgstr "Un nuevo mecanismo de búsqueda mucho más rápido se ha añadido."
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr "Una brecha en la comunidad de MusicBrainz termina en una Gran Disputa."
 
 #: DB:statistics.statistic_event/description:2013-05-15
+#, fuzzy
 msgid ""
 "A very substantial schema change release adds a new entity type (areas), "
 "support for ISNI codes for artists and labels, and the possibility to have "
 "more than one release event on one release."
 msgstr ""
+"Un cambio sustancial en el esquema añadió un nuevo tipo de entidad (áreas), "
+"soporte para códigos ISNI para artistas y discográficas, y la posibilidad de "
+"tener más de un lanzamiento de publicación en un lanzamiento."
 
 #: DB:statistics.statistic_event/description:2003-11-10
+#, fuzzy
 msgid ""
 "A way to search for edits based on several different criteria is released."
 msgstr ""
+"Una forma de buscar ediciones basado en varios criterios diferentes se ha "
+"publicado."
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
@@ -144,23 +154,36 @@ msgid ""
 "avoid further issues until Wikimedia makes changes that make image reuse "
 "more safe."
 msgstr ""
+"Después de un montón de drama detrás de escena, MetaBrainz ganó una batalla "
+"legal sobre derechos de autor contra un trol que intento demandar por el uso "
+"de imágenes de Wikimedia Commons. Las imágenes de Commons todavía son "
+"retiradas de los sitios de MusicBrainz para evitar más problemas hasta que "
+"Wikimedia realicé cambios que hagan la reutilización de imágenes más segura."
 
 #: DB:statistics.statistic_event/description:2011-11-23
+#, fuzzy
 msgid ""
 "After a lot of debate, relationship data starts being displayed on release "
 "pages, making it a lot more visible."
 msgstr ""
+"Después de mucho debate, los datos de las relaciones comienzan a mostrarse "
+"en las páginas de lanzamiento, lo que los hace mucho más visibles."
 
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
+"Después de un exitoso Summer of Code, Ian McEwen se unió al equipo de "
+"MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
 "After many years at Digital West in California, the MetaBrainz project moves "
 "all servers to a much larger dedicated provider in Germany, Hetzner."
 msgstr ""
+"Después de muchos años en Digital West en California, el proyecto MetaBrainz "
+"movió todos sus servidores a un proveedor dedicado mucho más grande en "
+"Hetznet, Alemania."
 
 #: DB:statistics.statistic_event/description:2018-09-10
 msgid ""
@@ -168,6 +191,9 @@ msgid ""
 "adopted as an official project and given an actual developer position with "
 "the hiring of Monkey."
 msgstr ""
+"Después de varios años como un proyecto comunitario, BookBrainz es adoptado "
+"como un proyecto oficial y se le otorgó un puesto de desarrollo con la "
+"contratación de Monkey."
 
 #: DB:statistics.statistic_event/description:2021-05-26
 msgid ""
@@ -180,9 +206,12 @@ msgid "Album languages"
 msgstr "Idiomas del álbum"
 
 #: DB:statistics.statistic_event/description:2005-05-22
+#, fuzzy
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
+"Idiomas de álbumes, mejoras en el retoque de títulos y una renovación en los "
+"formularios de edición se ha lanzado."
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -190,10 +219,12 @@ msgid ""
 "recordings, releases and release groups. This allows storing aliases for, "
 "for example, English names of Asian release groups."
 msgstr ""
+"Se añadieron los alias para los tres tipos de entidad que todavía no tenían: "
+"grabaciones, publicaciones y grupos de publicaciones."
 
 #: DB:statistics.statistic_event/title:2015-05-19
 msgid "Aliases for recordings, releases and release groups"
-msgstr ""
+msgstr "Alias para grabaciones, publicaciones y grupos de publicaciones"
 
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
@@ -212,21 +243,25 @@ msgstr "Imágenes de Amazon"
 
 #: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon cover art support released."
-msgstr ""
+msgstr "Se ha añadido soporte para las imágenes de Amazon."
 
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
 msgstr ""
+"Se ha lanzado un editor de publicaciones mejorado y un nuevo diseño del "
+"sitio."
 
 #: DB:statistics.statistic_event/description:2015-06-02
 msgid ""
 "An update is released that allows specifying a credit for artists in a "
 "relationship, if not the same as the artist name."
 msgstr ""
+"Se lanza una actualización que permite especificar un crédito para los "
+"artistas en una relación, si no es el mismo que el nombre del artista."
 
 #: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
-msgstr ""
+msgstr "Se publicó soporte para anotaciones."
 
 #: DB:statistics.statistic_event/title:2004-11-14
 msgid "Annotations"
