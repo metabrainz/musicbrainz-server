@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-10-06 22:02+0000\n"
+"PO-Revision-Date: 2025-10-22 00:08+0000\n"
 "Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
 "Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/tok/>\n"
@@ -11377,7 +11377,7 @@ msgstr ""
 
 #: ../root/otherlookup/OtherLookupForm.js:102
 msgid "MBID"
-msgstr "MBID"
+msgstr "nimi MBID"
 
 #: ../root/otherlookup/OtherLookupIndex.js:17
 #: ../root/otherlookup/OtherLookupIndex.js:19 ../root/search/SearchIndex.js:29
