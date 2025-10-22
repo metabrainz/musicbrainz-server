@@ -268,7 +268,7 @@ sub mock_subscriptions
             ->then_return(@$edits);
     }
 
-    when($c->model('Editor'))->editors_with_subscriptions(0, anything)
+    when($c->model('Editor'))->editors_with_subscriptions(['daily', 'never'], 0, anything)
         ->then_return( @{ $args{editors} } );
 }
 
