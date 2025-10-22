@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-10-07 20:02+0000\n"
+"PO-Revision-Date: 2025-10-18 22:08+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -53,9 +53,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
+": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #: ../root/components/common-macros.tt:11
@@ -1210,8 +1210,8 @@ msgid ""
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
 "Внешние ссылки – это URL-адреса, связанные с местом. К ним можно отнести "
-"официальный сайт и страницы исполнителя в соцсетях, страницы по продаже "
-"билетов, или неофициальные страницы, такие как статьи в Википедии, истории и "
+"официальный сайт и страницы места в соцсетях, страницы по продаже билетов, "
+"или неофициальные страницы, такие как статьи в Википедии, истории и "
 "фан-сайты."
 
 #: ../root/recording/edit_form.tt:125
@@ -1520,7 +1520,7 @@ msgid ""
 "If this is an Amazon ASIN, please do not enter it in the catalog number "
 "field, but add it as a URL relationship later."
 msgstr ""
-"Если это код Amazon ASIN, пожалуйста, не вводите его в поле для каталожного "
+"Если это ASIN-код Amazon, пожалуйста, не вводите его в поле каталожного "
 "номера. Введите его позднее как ссылку-отношение."
 
 #: ../root/release/edit/recordings.tt:160
@@ -2671,9 +2671,9 @@ msgid ""
 "to add (or remove) the special data tracks section. You should only add data "
 "tracks that contain audio or video ({info|more info})"
 msgstr ""
-"Некоторые диски после всех аудиотреков содержат треки с данными. Используйте "
-"эту опцию, чтобы добавить (или удалить) секцию треков с данными, которые "
-"содержат только аудио- или видеоконтент. ({info|подробнее})"
+"Некоторые диски после всех аудио-треков содержат треки с данными. "
+"Используйте эту опцию, чтобы добавить (или удалить) секцию треков с данными, "
+"которые содержат только аудио- или видеоконтент. ({info|подробнее})"
 
 #: ../root/layout.tt:92 ../root/layout/index.js:289
 msgid ""
@@ -2830,7 +2830,7 @@ msgid ""
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free‐form text)."
 msgstr ""
-"Цель этого поля - добавить информацию, которая обычно не вписывается в "
+"Цель этого поля – добавить информацию, которая обычно не вписывается в "
 "строгую структурную схему данных MusicBrainz (будь то из-за технических "
 "ограничений, которые могут быть рассмотрены в дальнейшем, или из-за того, "
 "что информация сама по себе должна быть представлена в свободной форме)."
@@ -3342,7 +3342,7 @@ msgstr ""
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
-msgstr "Это PDF-файл, обложка может не показывать всё содержимое файла."
+msgstr "Это PDF-файл; обложка может не показывать всё содержимое файла."
 
 #: ../root/release/edit/tracklist.tt:386
 msgid ""
@@ -3492,7 +3492,7 @@ msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
 msgstr ""
-"Чтобы ввести новый треклист, использовать существующий носитель или "
+"Чтобы ввести новый трек-лист, использовать существующий носитель или "
 "импортировать диск из CD-заглушки, выберите соответствующую вкладку."
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:47
@@ -4214,7 +4214,7 @@ msgstr "сначала с последними комментарии к пра�
 
 #: ../root/cdtoc/lookup.tt:24
 msgid "{artist} - {name}"
-msgstr "{artist} - {name}"
+msgstr "{artist} – {name}"
 
 #: ../root/cdtoc/attach_artist_releases.tt:45
 msgid "{artist} has no releases which have only {n} track."
@@ -6559,10 +6559,8 @@ msgstr "Год рождения должен быть после 1900 года"
 #: ../root/layout/components/Search.js:45
 #: ../root/search/components/CDStubResults.js:45
 #: ../root/search/components/SearchForm.js:40
-#, fuzzy
-#| msgid "Import CD stub"
 msgid "CD stub"
-msgstr "Импорт CD-заглушки"
+msgstr "CD-заглушка"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:49
 #: ../root/layout/components/Search.js:42
@@ -6637,7 +6635,7 @@ msgid ""
 "The value of this field cannot be longer than {max} characters, but you "
 "entered {actual}."
 msgstr ""
-"Максимальное количество символов данного поля - {max}. Вы ввели символов: "
+"Максимальное количество символов данного поля – {max}. Вы ввели символов: "
 "{actual}."
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:44
@@ -7176,9 +7174,9 @@ msgid ""
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
-"Вы хотите разработать приложение, использующее {mb_api_doc_url|API "
-"MusicBrainz}? {register_url|Зарегистрируйте его} для генерации OAuth-"
-"токенов. Подробнее см. в нашей {oauth2_doc_url|документации по OAuth}."
+"Хотите разработать приложение, использующее {mb_api_doc_url|API MusicBrainz}"
+"? {register_url|Зарегистрируйте его} для генерации OAuth-токенов. Подробнее "
+"см. в нашей {oauth2_doc_url|документации по OAuth}."
 
 #: ../root/account/applications/ApplicationList.js:149
 msgid "OAuth client ID"
@@ -9342,10 +9340,8 @@ msgid "We are unable to display history for this image."
 msgstr "Не удалось отобразить историю для этого изображения."
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "Внесена"
+msgstr "Откуда внесена"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -9600,11 +9596,11 @@ msgstr "Уточнить этот поиск"
 
 #: ../root/edit/components/ListHeader.js:174
 msgid "Subscribed entities"
-msgstr ""
+msgstr "К сущностям из подписок"
 
 #: ../root/edit/components/ListHeader.js:181
 msgid "Subscribed editors"
-msgstr ""
+msgstr "От редакторов из подписок"
 
 #: ../root/edit/components/ListHeader.js:196 ../root/vote/VotingIndex.js:99
 #: ../root/vote/VotingIndex.js:101
@@ -9727,7 +9723,7 @@ msgstr "Дополнения:"
 
 #: ../root/edit/details/AddIsrcs.js:35
 msgid "ISRC {isrc} to {recording}"
-msgstr "код ISRC {isrc} к записи \"{recording}\""
+msgstr "код ISRC {isrc} к записи {recording}"
 
 #: ../root/edit/details/AddIswcs.js:27
 msgid "ISWC {iswc} to {work}"
@@ -13158,6 +13154,10 @@ msgid ""
 "changes may therefore be under-reviewed. Artists with more release groups "
 "and more open edits are listed first."
 msgstr ""
+"Данный отчет показывает исполнителей, на которых никто из редакторов не "
+"подписан, и, тем самым, чьи изменения должны быть пересмотрены. Первыми в "
+"списке идут исполнители с бо́льшим количеством групп релизов и открытых "
+"правок."
 
 #: ../root/report/ArtistsWithNoSubscribers.js:32
 #: ../root/report/ReportsIndex.js:60
@@ -13610,13 +13610,13 @@ msgstr ""
 #: ../root/report/DuplicateReleaseGroups.js:51
 #: ../root/report/ReportsIndex.js:239
 msgid "Possible duplicate release groups"
-msgstr ""
+msgstr "Возможные дубликаты групп релизов"
 
 #: ../root/report/DuplicateReleaseGroups.js:99
 #: ../root/report/EmptyReleaseGroups.js:100
 #: ../root/report/components/ReleaseGroupUrlList.js:78
 msgid "This release group no longer exists."
-msgstr ""
+msgstr "Данная группа релизов больше не существует."
 
 #: ../root/report/EmptyReleaseGroups.js:38
 msgid ""
@@ -13712,7 +13712,7 @@ msgstr "Показать все результаты."
 
 #: ../root/report/FilterLink.js:27
 msgid "Show only results that are in my subscribed entities."
-msgstr ""
+msgstr "Показывать только результаты в сущностях, на которые я подписан."
 
 #: ../root/report/IsrcsWithManyRecordings.js:37
 msgid ""
