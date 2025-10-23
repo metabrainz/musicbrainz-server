@@ -45,7 +45,7 @@ function reduceReleaseArtistCreditEditor(state, action) {
   const entity = state.entity;
   switch (action.type) {
     case 'next-track': {
-      invariant(entity.entityType === 'track');
+      invariant(entity?.entityType === 'track');
 
       const nextTrack = entity.next();
       if (nextTrack) {
@@ -67,7 +67,7 @@ function reduceReleaseArtistCreditEditor(state, action) {
     }
 
     case 'previous-track': {
-      invariant(entity.entityType === 'track');
+      invariant(entity?.entityType === 'track');
 
       const previousTrack = entity.previous();
       if (previousTrack) {

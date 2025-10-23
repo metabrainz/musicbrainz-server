@@ -32,7 +32,7 @@ export type StateT = {
   +artistCreditString: string,
   +changeMatchingTrackArtists?: boolean,
   +editsPending?: boolean,
-  +entity: ArtistCreditableT,
+  +entity?: ArtistCreditableT,
   +formName?: string,
   +id: string,
   +initialArtistCreditString: string,
