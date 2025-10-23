@@ -2158,6 +2158,17 @@ limited_link_type_combinations: [
        input_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
   },
+  {
+                     input_url: 'https://link.deezer.com/s/31aEpblnSrNBNSHi3nrZZ',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'streamingfree',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
+  },
   // DeviantArt
   {
                      input_url: 'https://www.deviantart.com/user/about#about',
