@@ -39,7 +39,8 @@ import linkedEntities, {
 import MB from '../../common/MB.js';
 import areDatesEqual from '../../common/utility/areDatesEqual.js';
 import {
-  getSourceEntityDataForRelationshipEditor,
+  getCatalystContext,
+  getSourceEntityData,
 } from '../../common/utility/catalyst.js';
 import clean from '../../common/utility/clean.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
@@ -193,7 +194,7 @@ export function createInitialState(
   const release: ReleaseWithMediumsAndReleaseGroupT =
     source ??
     // $FlowFixMe[unclear-type]
-    (getSourceEntityDataForRelationshipEditor(): any);
+    (getSourceEntityData(getCatalystContext(), 'release') as any);
 
   const newState: {...ReleaseRelationshipEditorStateT} = {
     ...createInitialLazyReleaseState(),
