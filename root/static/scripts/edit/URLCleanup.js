@@ -474,53 +474,28 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   '45cat': {
-    hostname: '45cat.com',
-    match: [/^(https?:\/\/)?(www\.)?45cat\.com\//i],
+    hostname: ['45cat.com', '45worlds.com'],
+    match: [/^(https?:\/\/)?(www\.)?45(cat|worlds)\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45cat.com/$1');
+      // Clean up 45worlds style URLs
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(?:45cat|45worlds)\.com\/(((?:vinyl|live|cdalbum|cdsingle|12single|78rpm|tape|classical|dvd)\/(?:album|artist|composer|conductor|orchestra|soloist|cd|label|listing|media|music|record|venue))\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45cat.com/$1');
+      // The old 45worlds classical prefixes are now just "artist" in 45cat
+      url = url.replace(/^https:\/\/www\.45cat.com\/classical\/(?:artist|composer|conductor|orchestra|soloist)\//, 'https://www.45cat.com/classical/artist/');
+      // Clean up 45cat style URLs
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/((?:artist|label|record)\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45cat.com/$1');
+      // Remove per-country filter for labels
+      url = url.replace(/\/label\/([^-]+)-[a-z]{2}$/, '/label/$1');
+      return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.45cat\.com\/([a-z]+)\/[^/?&#]+$/.exec(url);
+      const m = /^https:\/\/www\.45cat\.com\/(?:(artist|label|record)|(?:(?:vinyl|live|cdalbum|cdsingle|12single|78rpm|tape|classical|dvd)\/(album|artist|cd|label|listing|media|music|record|venue)))\/[^/?&#]+$/.exec(url);
       if (m) {
-        const prefix = m[1];
+        const prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.label:
-            return {
-              result: prefix === 'label',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.release_group:
-            return {
-              result: prefix === 'record',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
-  '45worlds': {
-    hostname: '45worlds.com',
-    match: [/^(https?:\/\/)?(www\.)?45worlds\.com\//i],
-    restrict: [LINK_TYPES.otherdatabases],
-    clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45worlds.com/$1');
-    },
-    validate(url, id) {
-      const m = /^https:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^/?&#]+$/.exec(url);
-      if (m) {
-        const prefix = m[2];
-        switch (id) {
-          case LINK_TYPES.otherdatabases.artist:
-            return {
-              result: /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
