@@ -73,3 +73,20 @@ export function createField<T>(
     ...props,
   };
 }
+
+export function createRepeatableField<T extends AnyFieldT>(
+  name: string,
+  field: ReadonlyArray<T>,
+  props?: Partial<RepeatableFieldT<T>>,
+): RepeatableFieldT<T> {
+  return {
+    errors: [],
+    field,
+    has_errors: false,
+    html_name: name,
+    id: ++LAST_FIELD_ID,
+    last_index: field.length - 1,
+    type: 'repeatable_field',
+    ...props,
+  };
+}
