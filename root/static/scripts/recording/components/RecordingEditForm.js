@@ -29,7 +29,6 @@ import {
 } from '../../edit/components/ArtistCreditEditor/types.js';
 import {
   incompleteArtistCreditFromState,
-  isArtistCreditStateComplete,
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
@@ -403,7 +402,6 @@ component RecordingEditForm(
   }
 
   const hasErrors = hasSubfieldErrors(state.form) ||
-    !isArtistCreditStateComplete(state.artistCredit.names) ||
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
 
   // Ensure errors are shown if the user tries to submit with Enter
@@ -534,7 +532,7 @@ component RecordingEditForm(
           field={state.form.field.edit_note}
           onChange={handleEditNoteChange}
         />
-        <EnterEdit disabled={hasErrors} form={state.form} />
+        <EnterEdit form={state.form} />
       </div>
 
       <div className="documentation">
