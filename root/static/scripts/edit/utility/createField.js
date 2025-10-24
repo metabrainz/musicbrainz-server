@@ -22,6 +22,7 @@ export function createCompoundFieldFromObject<
 >(
   name: string,
   fieldValues: F,
+  props?: Partial<CompoundFieldT<MapFields<F>>>,
 ): CompoundFieldT<MapFields<F>> {
   // $FlowExpectedError[incompatible-type]
   const field: MapFields<F> = Object.fromEntries(
@@ -37,12 +38,14 @@ export function createCompoundFieldFromObject<
     html_name: name,
     id: ++LAST_FIELD_ID,
     type: 'compound_field',
+    ...props,
   };
 }
 
 export function createCompoundField<T>(
   name: string,
   fieldValues: T,
+  props?: Partial<CompoundFieldT<T>>,
 ): CompoundFieldT<T> {
   return {
     errors: [],
@@ -51,12 +54,14 @@ export function createCompoundField<T>(
     html_name: name,
     id: ++LAST_FIELD_ID,
     type: 'compound_field',
+    ...props,
   };
 }
 
 export function createField<T>(
   name: string,
   value: T,
+  props?: Partial<FieldT<T>>,
 ): FieldT<T> {
   return {
     errors: [],
@@ -65,5 +70,6 @@ export function createField<T>(
     id: ++LAST_FIELD_ID,
     type: 'field',
     value,
+    ...props,
   };
 }
