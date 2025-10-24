@@ -173,7 +173,7 @@ component _ArtistCreditNameEditor(
               onBlur={handleNameBlur}
               onChange={handleNameChange}
               type="text"
-              value={artistCreditName.name ?? ''}
+              value={artistCreditName.field.name.value}
             />
           </td>
           <td>
