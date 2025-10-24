@@ -19,33 +19,32 @@ export type ArtistCreditableT =
   | ReleaseGroupT
   | ReleaseEditorTrackT;
 
-export type ArtistCreditNameStateT = {
+export type ArtistCreditNameStateT = Readonly<{
+  ...ArtistCreditNameFieldT,
   readonly artist: AutocompleteStateT<ArtistT>,
   readonly automaticJoinPhrase: boolean,
-  readonly id: number,
-  readonly joinPhrase: string,
-  readonly name: string,
   readonly removed: boolean,
-};
+}>;
+
+export type ArtistCreditNamesStateT =
+  RepeatableFieldT<ArtistCreditNameStateT>;
 
 export type InitialBubbleFocusT =
   | 'default'
   | 'next-track'
   | 'prev-track';
 
-export type StateT = {
-  readonly artistCreditString: string,
+export type StateT = Readonly<{
+  ...CompoundFieldT<{readonly names: ArtistCreditNamesStateT}>,
   readonly changeMatchingTrackArtists?: boolean,
   readonly editsPending?: boolean,
   readonly entity?: ArtistCreditableT,
-  readonly formName?: string,
   readonly htmlId: string,
   readonly initialArtistCreditString: string,
   readonly initialBubbleFocus?: InitialBubbleFocusT | void,
   readonly isOpen: boolean,
-  readonly names: ReadonlyArray<ArtistCreditNameStateT>,
   readonly singleArtistAutocomplete: AutocompleteStateT<ArtistT>,
-};
+}>;
 
 /* eslint-disable ft-flow/sort-keys */
 export type EditArtistActionT = {

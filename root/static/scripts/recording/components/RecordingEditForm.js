@@ -25,9 +25,9 @@ import {
 } from '../../edit/components/ArtistCreditEditor.js';
 import {
   type ActionT as ArtistCreditActionT,
-  type StateT as ArtistCreditStateT,
 } from '../../edit/components/ArtistCreditEditor/types.js';
 import {
+  getArtistCreditNames,
   incompleteArtistCreditFromState,
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
@@ -113,7 +113,6 @@ type ActionT =
 
 type StateT = {
   readonly actionName: string,
-  readonly artistCredit: ArtistCreditStateT,
   readonly externalLinksEditor: LinksEditorStateT,
   readonly form: RecordingFormT,
   readonly guessCaseOptions: GuessCaseOptionsStateT,
@@ -132,10 +131,9 @@ function updateArtistCreditState(
   stateCtx: CowContext<StateT>,
   action: ArtistCreditActionT,
 ): void {
-  stateCtx.set(
-    'artistCredit',
-    runArtistCreditReducer(stateCtx.read().artistCredit, action),
-  );
+  stateCtx.update('form', 'field', 'artist_credit', (ctx) => {
+    ctx.set(runArtistCreditReducer(ctx.read(), action));
+  });
 }
 
 function updateIsrcFieldErrors(
@@ -238,14 +236,16 @@ function createInitialState({
   const editNoteFieldCtx = formCtx.get('field', 'edit_note');
   updateNoteFieldErrors(actionName, editNoteFieldCtx);
 
+  formCtx.set('field', 'artist_credit', createArtistCreditState({
+    artistCredit: $c.stash.artist_credit,
+    entity: recording,
+    formName: form.name,
+    htmlId: 'source',
+    initialField: form.field.artist_credit,
+  }));
+
   return {
     actionName,
-    artistCredit: createArtistCreditState({
-      artistCredit: $c.stash.artist_credit,
-      entity: recording,
-      formName: form.name,
-      htmlId: 'source',
-    }),
     externalLinksEditor: createExternalLinksEditorState($c),
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -328,7 +328,7 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'guess-feat'} => {
       const results = guessFeat({
         artistCredit: incompleteArtistCreditFromState(
-          state.artistCredit.names,
+          getArtistCreditNames(state.form.field.artist_credit),
         ),
         entityType: 'recording',
         name: state.form.field.name.value || '',
@@ -492,11 +492,10 @@ component RecordingEditForm(
             rowRef={nameFieldRef}
           />
           <FormRowArtistCredit
-            artistCreditField={state.form.field.artist_credit}
             dispatch={artistCreditEditorDispatch}
             onFocus={handleArtistFocus}
             rowRef={artistFieldRef}
-            state={state.artistCredit}
+            state={state.form.field.artist_credit}
           />
           <FormRowTextLong
             field={state.form.field.comment}
