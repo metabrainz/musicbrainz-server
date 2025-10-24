@@ -74,26 +74,9 @@ declare type SubfieldsT = {
 };
 
 declare type AnyFieldT =
-  | {
-      readonly errors: ReadonlyArray<string>,
-      readonly field: SubfieldsT,
-      readonly pendingErrors?: ReadonlyArray<string>,
-      readonly type: 'compound_field',
-      ...
-    }
-  | {
-      readonly errors: ReadonlyArray<string>,
-      readonly field: ReadonlyArray<AnyFieldT>,
-      readonly pendingErrors?: ReadonlyArray<string>,
-      readonly type: 'repeatable_field',
-      ...
-    }
-  | {
-      readonly errors: ReadonlyArray<string>,
-      readonly pendingErrors?: ReadonlyArray<string>,
-      readonly type: 'field',
-      ...
-    };
+  | CompoundFieldT<SubfieldsT>
+  | RepeatableFieldT<AnyFieldT>
+  | FieldT<unknown>;
 
 declare type FormOrAnyFieldT =
   | FormT<SubfieldsT>
