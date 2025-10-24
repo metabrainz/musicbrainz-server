@@ -37,10 +37,10 @@ component EditArtistCredit(
       <div className="half-width">
         <p>
           {exp.l(
-            `This form allows you to edit the artist credit "{ac}".
+            `This form allows you to edit the artist credit “{ac}”.
              When the edit is accepted, all tracks, recordings, releases
              and release groups using this artist credit will be
-             update to use the new one.`,
+             updated to use the new one.`,
             {ac: <ArtistCreditLink artistCredit={artistCredit} />},
           )}
         </p>
