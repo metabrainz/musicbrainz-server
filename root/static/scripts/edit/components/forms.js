@@ -173,6 +173,7 @@ export function initializeArtistCredit(formName) {
     entity: source,
     formName,
     htmlId: 'source',
+    initialField: artistCreditField,
   });
   const container = document.getElementById('artist-credit-editor');
   const root = ReactDOMClient.createRoot(container);

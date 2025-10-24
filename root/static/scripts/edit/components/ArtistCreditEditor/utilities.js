@@ -25,24 +25,24 @@ export function getArtist(
 export function getArtistCreditNames(
   state: StateT,
 ): ReadonlyArray<ArtistCreditNameStateT> {
-  return state.names;
+  return state.field.names.field;
 }
 
 export function getArtistCreditNamesCtx(
   stateCtx: CowContext<StateT>,
 ): CowContext<ReadonlyArray<ArtistCreditNameStateT>> {
-  return stateCtx.get('names');
+  return stateCtx.get('field', 'names', 'field');
 }
 
-function getCreditedName(
+export function getCreditedName(
   name: ArtistCreditNameStateT,
   artist?: ?ArtistT = getArtist(name),
 ): string {
-  return name.name || (artist?.name ?? '');
+  return name.field.name.value || (artist?.name ?? '');
 }
 
 export function getJoinPhrase(name: ArtistCreditNameStateT): string {
-  return name.joinPhrase;
+  return name.field.join_phrase.value;
 }
 
 export function isNameRemoved(name: ArtistCreditNameStateT): boolean {
@@ -127,12 +127,12 @@ export function setCreditedName(
   nameCtx: CowContext<ArtistCreditNameStateT>,
   creditedName: string,
 ): void {
-  nameCtx.set('name', creditedName);
+  nameCtx.set('field', 'name', 'value', creditedName);
 }
 
 export function setJoinPhrase(
   nameCtx: CowContext<ArtistCreditNameStateT>,
   joinPhrase: string,
 ): void {
-  nameCtx.set('joinPhrase', joinPhrase);
+  nameCtx.set('field', 'join_phrase', 'value', joinPhrase);
 }
