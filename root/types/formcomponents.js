@@ -26,11 +26,11 @@ declare type ArtistFieldT = CompoundFieldT<{
 }>;
 
 declare type ArtistCreditFieldT = CompoundFieldT<{
-  readonly names: ArtistCreditNameFieldT,
+  readonly names: RepeatableFieldT<ArtistCreditNameFieldT>,
 }>;
 
 declare type ArtistCreditNameFieldT = CompoundFieldT<{
-  readonly artist: ArtistCreditFieldT,
+  readonly artist: ArtistFieldT,
   readonly join_phrase: FieldT<string>,
   readonly name: FieldT<string>,
 }>;
