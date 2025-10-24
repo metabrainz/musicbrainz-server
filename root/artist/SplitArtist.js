@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 import manifest from '../static/manifest.mjs';
-import SplitArtistForm
-  from '../static/scripts/artist/components/SplitArtistForm.js';
+import EditArtistCreditForm
+  from '../static/scripts/artist/components/EditArtistCreditForm.js';
 import EntityLink
   from '../static/scripts/common/components/EntityLink.js';
 import entityHref from '../static/scripts/common/utility/entityHref.js';
@@ -36,12 +36,35 @@ component SplitArtist(
       <h2>{l('Split into separate artists')}</h2>
 
       {inUse ? (
-        <SplitArtistForm
-          artist={artist}
-          artistCredit={artistCredit}
-          collaborators={collaborators}
-          form={form}
-        />
+        <>
+          <div className="half-width">
+            <p>
+              {exp.l(
+                `This form allows you to split {artist} into separate artists.
+                 When the edit is accepted, existing artist credits will be
+                 updated, and collaboration relationships will be removed.`,
+                {artist: <EntityLink entity={artist} />},
+              )}
+            </p>
+
+            {collaborators.length ? (
+              <>
+                <h3>{addColonText(l('Collaborators on this artist'))}</h3>
+                <ul>
+                  {collaborators.map((collaborator, index) => (
+                    <li key={index}>
+                      <EntityLink entity={collaborator} />
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : null}
+          </div>
+          <EditArtistCreditForm
+            artistCredit={artistCredit}
+            form={form}
+          />
+        </>
       ) : (
         <p>
           {exp.l(
@@ -59,7 +82,7 @@ component SplitArtist(
           )}
         </p>
       )}
-      {manifest('artist/components/SplitArtistForm', {async: true})}
+      {manifest('artist/components/EditArtistCreditForm', {async: true})}
     </ArtistLayout>
   );
 }

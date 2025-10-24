@@ -11,7 +11,6 @@ import mutate from 'mutate-cow';
 import * as React from 'react';
 
 import type {EditArtistCreditFormT} from '../../../../artist/types.js';
-import EntityLink from '../../common/components/EntityLink.js';
 import ArtistCreditEditor, {
   createInitialState as createArtistCreditState,
   reducer as runArtistCreditReducer,
@@ -67,10 +66,8 @@ function reducer(state: StateT, action: ActionT): StateT {
   return newStateCtx.final();
 }
 
-component SplitArtistForm(
-  artist: ArtistT,
+component EditArtistCreditForm(
   artistCredit: ArtistCreditT,
-  collaborators: $ReadOnlyArray<ArtistT>,
   form as initialForm: EditArtistCreditFormT,
 ) {
   const [state, dispatch] = React.useReducer(
@@ -88,28 +85,6 @@ component SplitArtistForm(
   return (
     <form method="post">
       <div className="half-width">
-        <p>
-          {exp.l(
-            `This form allows you to split {artist} into separate artists.
-              When the edit is accepted, existing artist credits will be
-              updated, and collaboration relationships will be removed.`,
-            {artist: <EntityLink entity={artist} />},
-          )}
-        </p>
-
-        {collaborators.length ? (
-          <>
-            <h3>{addColonText(l('Collaborators on this artist'))}</h3>
-            <ul>
-              {collaborators.map((collaborator, index) => (
-                <li key={index}>
-                  <EntityLink entity={collaborator} />
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : null}
-
         <fieldset>
           <legend>{l('New artist credit')}</legend>
           <FormRow>
@@ -130,7 +105,7 @@ component SplitArtistForm(
   );
 }
 
-export default (hydrate<React.PropsOf<SplitArtistForm>>(
+export default (hydrate<React.PropsOf<EditArtistCreditForm>>(
   'div.split-artist-form',
-  SplitArtistForm,
-): component(...React.PropsOf<SplitArtistForm>));
+  EditArtistCreditForm,
+): component(...React.PropsOf<EditArtistCreditForm>));
