@@ -375,6 +375,21 @@ const testData = [
             expected_clean_url: 'https://www.allmusic.com/song/mt0043064796',
        only_valid_entity_types: ['work'],
   },
+  // AlloCiné
+  {
+                     input_url: 'http://allocine.fr/personne/fichepersonne_gen_cpersonne=38022.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.allocine.fr/personne/fichepersonne_gen_cpersonne=38022.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.allocine.fr/personne/fichepersonne-38022/filmographie/#technical',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.allocine.fr/personne/fichepersonne_gen_cpersonne=38022.html',
+       only_valid_entity_types: ['artist'],
+  },
   // Amazon
   {
                      input_url: 'http://www.amazon.co.uk/gp/product/B00005JIWP',

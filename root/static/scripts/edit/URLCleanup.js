@@ -663,6 +663,29 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'allocine': {
+    hostname: 'allocine.fr',
+    match: [/^(https?:\/\/)?(?:www\.)?allocine\.fr\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^https?:\/\/(?:www\.)?allocine\.fr/i, 'https://www.allocine.fr');
+      url = url.replace(
+        /^(https:\/\/www\.allocine\.fr)\/personne\/(?:fichepersonne-|fichepersonne_gen_cpersonne=)(\d+).*$/i,
+        '$1/personne/fichepersonne_gen_cpersonne=$2.html',
+      );
+      return url;
+    },
+    validate(url, id) {
+      const isValid = /^https:\/\/www\.allocine\.fr\/personne\/fichepersonne_gen_cpersonne=\d+\.html$/i.test(url);
+      if (isValid) {
+        return {
+          result: id === LINK_TYPES.otherdatabases.artist,
+          target: ERROR_TARGETS.ENTITY,
+        };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'amazon': {
     hostname: ['amazon.*', 'amzn.com', 'amzn.to'],
     match: [
