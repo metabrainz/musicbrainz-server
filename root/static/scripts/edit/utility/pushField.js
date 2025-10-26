@@ -28,7 +28,9 @@ export function pushField<V>(
     );
 }
 
-export function pushCompoundField<F extends {...}>(
+export function pushCompoundField<
+  F extends {readonly [fieldName: string]: unknown},
+>(
   repeatableCtx: CowContext<
     RepeatableFieldT<
       CompoundFieldT<{readonly [K in keyof F]: FieldT<F[K]>}>,

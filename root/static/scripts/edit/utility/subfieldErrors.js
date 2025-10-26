@@ -27,7 +27,9 @@ function* iterSubfields(
     case 'repeatable_field': {
       yield formOrField;
       for (const subfield of formOrField.field) {
-        yield* iterSubfields(subfield);
+        if (subfield != null) {
+          yield* iterSubfields(subfield);
+        }
       }
       break;
     }

@@ -22,6 +22,8 @@ export type CollaboratorStateT = Readonly<{
 }>;
 
 export type CollaboratorsStateT =
+  /* eslint-disable-next-line ft-flow/no-flow-suppressions-in-strict-files */
+  // $FlowFixMe[incompatible-type]
   RepeatableFieldT<CollaboratorStateT>;
 
 export type CollectionEditFormT = FormT<{
