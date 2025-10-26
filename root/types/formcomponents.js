@@ -73,8 +73,13 @@ declare type SubfieldsT = {
   readonly [fieldName: string]: AnyFieldT,
 };
 
+declare type AnyCompoundFieldT = Readonly<{
+  ...CompoundFieldT<SubfieldsT>,
+  ...
+}>;
+
 declare type AnyFieldT =
-  | CompoundFieldT<SubfieldsT>
+  | AnyCompoundFieldT
   | RepeatableFieldT<AnyFieldT | void>
   | FieldT<unknown>;
 
