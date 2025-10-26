@@ -18,7 +18,7 @@ let LAST_FIELD_ID = 99999;
 export type MapFields<F> = {[K in keyof F]: FieldT<F[K]>};
 
 export function createCompoundFieldFromObject<
-  F extends {...},
+  F extends {readonly [fieldName: string]: unknown},
 >(
   name: string,
   fieldValues: F,
@@ -42,7 +42,7 @@ export function createCompoundFieldFromObject<
   };
 }
 
-export function createCompoundField<T>(
+export function createCompoundField<T extends SubfieldsT>(
   name: string,
   fieldValues: T,
   props?: Partial<CompoundFieldT<T>>,

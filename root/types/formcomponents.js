@@ -35,7 +35,7 @@ declare type ArtistCreditNameFieldT = CompoundFieldT<{
   readonly name: FieldT<string>,
 }>;
 
-declare type CompoundFieldT<out F> = {
+declare type CompoundFieldT<out F extends SubfieldsT> = {
   readonly errors: ReadonlyArray<string>,
   readonly field: F,
   readonly has_errors: boolean,
@@ -75,7 +75,7 @@ declare type SubfieldsT = {
 
 declare type AnyFieldT =
   | CompoundFieldT<SubfieldsT>
-  | RepeatableFieldT<AnyFieldT>
+  | RepeatableFieldT<AnyFieldT | void>
   | FieldT<unknown>;
 
 declare type FormOrAnyFieldT =
@@ -117,7 +117,13 @@ declare type PartialDateFieldT = CompoundFieldT<{
   readonly year: FieldT<StrOrNum | null>,
 }>;
 
-declare type RepeatableFieldT<out F> = {
+/*
+ * A repeatable field should not actually contain any `undefined` values in
+ * the `field` array, but `void` is specified to allow some forms to guard
+ * against out-of-bounds indexed access, which Flow happily allows otherwise.
+ * See, e.g,, 626aadc5534b20d2fabc2b0c90d55de01a97678a.
+ */
+declare type RepeatableFieldT<out F extends AnyFieldT | void> = {
   readonly errors: ReadonlyArray<string>,
   readonly field: ReadonlyArray<F>,
   readonly has_errors: boolean,
