@@ -47,7 +47,7 @@ declare type MergeReleasesFormT = FormT<{
   readonly edit_note: FieldT<string>,
   readonly make_votable: FieldT<boolean>,
   readonly medium_positions: CompoundFieldT<{
-    readonly map: CompoundFieldT<ReadonlyArray<MediumFieldT | void>>,
+    readonly map: RepeatableFieldT<MediumFieldT | void>,
   }>,
   readonly merge_rgs: FieldT<boolean>,
   readonly merge_strategy: FieldT<StrOrNum>,
