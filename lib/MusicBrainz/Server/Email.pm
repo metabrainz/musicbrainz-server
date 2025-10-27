@@ -88,43 +88,6 @@ sub _create_email
         });
 }
 
-sub _create_email_verification_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => $opts{email},
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('verify-email-%s', generate_gid()),
-        'Subject'    => 'Please verify your email address',
-    );
-
-    my $verification_link = $opts{verification_link};
-    my $ip = $opts{ip};
-    my $user_name = $opts{editor}->name;
-
-    my $body = <<"EOS";
-Hello $user_name,
-
-This is a verification email for your MusicBrainz account. Please click
-on the link below to verify your email address:
-
-$verification_link
-
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-This email was triggered by a request from the IP address [$ip].
-
-Thanks for using MusicBrainz!
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
 sub _create_email_in_use_email
 {
     my ($self, %opts) = @_;
@@ -446,8 +409,25 @@ sub send_email_verification
 {
     my ($self, %opts) = @_;
 
-    my $email = $self->_create_email_verification_email(%opts);
-    return $self->_send_email($email);
+    my $verification_link = $opts{verification_link};
+
+    my $editor = $opts{editor};
+    $self->c->model('Editor')->load_preferences($editor);
+
+    my $user_name = $editor->name;
+
+    $self->_mb_mail_service_send_single({
+        template_id => 'verify-email',
+        to          => $opts{email},
+        from        => $EMAIL_NOREPLY_ADDRESS,
+        reply_to    => $EMAIL_NOREPLY_ADDRESS,
+        lang        => $editor->preferences->email_language,
+        message_id  => _message_id('verify-email-%s', generate_gid()),
+        params      => {
+            to_name             => $user_name,
+            verification_url    => "$verification_link",
+        },
+    });
 }
 
 sub send_email_in_use
@@ -636,20 +616,9 @@ has 'transport' => (
     builder => '_build_transport',
 );
 
-sub get_test_transport
-{
-    require MusicBrainz::Server::Test;
-    MusicBrainz::Server::Email->import;
-    return MusicBrainz::Server::Test->get_test_transport;
-}
-
 sub _build_transport
 {
     my ($self) = @_;
-
-    if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) { # XXX shouldn't be here
-        return $self->get_test_transport;
-    }
 
     my ($host, $port) = split /:/, DBDefs->SMTP_SERVER;
     return Email::Sender::Transport::SMTP->new({

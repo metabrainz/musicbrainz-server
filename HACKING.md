@@ -116,6 +116,42 @@ While to run all Data:: tests you can do the following:
 
     $ prove -l t/tests.t :: --tests 'Data::'
 
+Some of the Perl tests run via `prove` require additional services in order
+to execute:
+
+ 1. [An HTML5 validator](https://validator.github.io/validator/), configured
+    via `HTML_VALIDATOR` in DBDefs.pm:
+
+    ```Perl
+    sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
+    ```
+
+    Although the tests will use the service hosted at validator.w3.org by
+    default, it's *significantly* faster to query your own.
+
+ 2. [Mailpit](https://mailpit.axllent.org/docs/install/), configured via
+    `SMTP_SERVER` and `MAILPIT_API` in DBDefs.pm:
+
+    ```Perl
+    sub SMTP_SERVER { 'localhost:1025' }
+    sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+    ```
+
+    It's a single binary that you can start with just: `mailpit`.
+
+ 3. [mb-mail-service](https://github.com/metabrainz/mb-mail-service/blob/main/docs/OPERATING.md),
+    configured via `MAIL_SERVICE_BASE_URL` in DBDefs.pm:
+
+    ```Perl
+    sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+    ```
+
+    Once again, it's a single binary, but make sure to point it to Mailpit:
+
+    ```sh
+    APP_SMTP_PORT=1025 ./target/release/mb-mail-service
+    ```
+
 ### Database tests (pgTAP)
 
 For unit testing database functions we use pgtap, on a recent Ubuntu

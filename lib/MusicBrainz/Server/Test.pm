@@ -31,7 +31,6 @@ use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare qw( is_xml_same );
 use Test::XPath;
 use XML::LibXML;
-use Email::Sender::Transport::Test;
 
 binmode Test::More->builder->output, ':utf8';
 binmode Test::More->builder->failure_output, ':utf8';
@@ -67,7 +66,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->connector_class('MusicBrainz::Se
 MusicBrainz::Server::DatabaseConnectionFactory->alias('READWRITE' => 'TEST');
 
 our $test_context;
-our $test_transport = Email::Sender::Transport::Test->new();
 
 sub get_test_context
 {
@@ -150,12 +148,6 @@ sub prepare_test_server
         $ENV{PERL_JSON_BACKEND} = 2;
         *DBDefs::REPLICATION_TYPE = sub { RT_STANDALONE };
     }
-
-    $test_transport->clear_deliveries;
-}
-
-sub get_test_transport {
-    return $test_transport;
 }
 
 sub get_latest_edit
