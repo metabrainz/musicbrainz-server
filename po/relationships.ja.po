@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-12 10:02+0000\n"
+"PO-Revision-Date: 2025-10-16 19:08+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
@@ -4770,7 +4770,7 @@ msgstr ""
 #. name:sibling
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
-msgstr "2人の兄弟（または姉妹）がリンクする。"
+msgstr "2人のきょうだい（兄弟または姉妹）をリンクする。"
 
 #. name:other version
 #: DB:link_type/description:241
@@ -6352,12 +6352,12 @@ msgstr "アーティスト・アンド・レパートリー"
 #. name:artists and repertoire position at
 #: DB:link_type/reverse_link_phrase:1081
 msgid "artists and repertoire persons"
-msgstr ""
+msgstr "アーティスト・アンド・レパートリー担当"
 
 #. name:artists and repertoire position at
 #: DB:link_type/link_phrase:1081
 msgid "artists and repertoire position"
-msgstr ""
+msgstr "アーティスト・アンド・レパートリー・ポジション"
 
 #: DB:link_type/name:1081
 #, fuzzy
@@ -6913,12 +6913,12 @@ msgstr "クリエイティブディレクション"
 #. name:creative position at
 #: DB:link_type/reverse_link_phrase:115
 msgid "creative persons"
-msgstr ""
+msgstr "クリエイティブ担当"
 
 #. name:creative position at
 #: DB:link_type/link_phrase:115
 msgid "creative position"
-msgstr ""
+msgstr "クリエイティブポジション"
 
 #: DB:link_type/name:115
 #, fuzzy
@@ -7911,7 +7911,7 @@ msgstr ""
 #. name:personal label
 #: DB:link_type/link_phrase:723 DB:link_type/long_link_phrase:723
 msgid "has personal label"
-msgstr ""
+msgstr "プライベートレーベル"
 
 #. name:personal publisher
 #: DB:link_type/link_phrase:724 DB:link_type/long_link_phrase:724
@@ -10406,17 +10406,17 @@ msgstr ""
 
 #: DB:link_type/name:722
 msgid "subgroup"
-msgstr ""
+msgstr "サブグループ"
 
 #. name:subgroup
 #: DB:link_type/link_phrase:722
 msgid "subgroup of"
-msgstr ""
+msgstr "次のサブグループ"
 
 #. name:subgroup
 #: DB:link_type/reverse_link_phrase:722
 msgid "subgroups"
-msgstr ""
+msgstr "サブグループ"
 
 #: DB:link_attribute_type/name:1125
 msgid "subject"
@@ -10435,7 +10435,7 @@ msgstr ""
 #. name:label ownership
 #: DB:link_type/link_phrase:200
 msgid "subsidiaries"
-msgstr ""
+msgstr "子レーベル"
 
 #: DB:link_type/name:736
 msgid "subtype"
