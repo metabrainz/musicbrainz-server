@@ -3182,7 +3182,7 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?idref\.fr\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr/, 'https://www.idref.fr');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr\/([\dX]+)(?:\/id)?\/?$/i, 'https://www.idref.fr/$1');
       return url;
     },
     validate(url, id) {
