@@ -3119,7 +3119,7 @@ limited_link_type_combinations: [
   },
   // IdRef
   {
-                     input_url: 'http://idref.fr/172248248',
+                     input_url: 'http://idref.fr/172248248/id',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.idref.fr/172248248',
