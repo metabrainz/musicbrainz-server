@@ -21,7 +21,6 @@ my %URL_SPECIALIZATIONS = (
     # External links section
     '7digital'            => qr{^https?://([^/]+\.)?7digital\.com/}i,
     '45cat'               => qr{^https?://(?:www\.)?45cat\.com/}i,
-    '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
     'ACUM'                => qr{^https?://nocs\.acum\.org\.il/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
     'AlloCine'            => qr{^https?://(?:www\.)?allocine\.fr/}i,
