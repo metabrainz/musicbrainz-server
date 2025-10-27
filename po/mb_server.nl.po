@@ -33,14 +33,14 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # invalidCards <musicbrainz@invalid.cards>, 2025.
+# hamaryns <hendrik@hendrikmaryns.name>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-07 16:33+0200\n"
-"PO-Revision-Date: 2025-09-30 15:54+0000\n"
-"Last-Translator: mfmeulenbelt "
-"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-10-27 15:31+0000\n"
+"Last-Translator: hamaryns <hendrik@hendrikmaryns.name>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -3163,7 +3163,7 @@ msgid ""
 "official releases."
 msgstr ""
 "De {doc|naam} is meestal de meest gebruikelijke titel die op officiële "
-"uitgaven wordt vermeldt."
+"uitgaven wordt vermeld."
 
 #: ../root/release_group/edit_form.tt:33
 msgid ""

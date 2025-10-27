@@ -12,22 +12,22 @@
 # Екатерина Тишина <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # liilliil <liilliil@liilliil.net>, 2024.
+# craftersmine <me@craftersmine.ru>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-03-25 22:44+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-10-27 00:08+0000\n"
+"Last-Translator: craftersmine <me@craftersmine.ru>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.10.4\n"
+"Plural-Forms: nplurals=4; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
+": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code:Afak
 #: DB:script/name:133
@@ -42,7 +42,7 @@ msgstr "арабский"
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
-msgstr "армянское"
+msgstr "армянский"
 
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114

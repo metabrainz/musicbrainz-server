@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-07 20:02+0000\n"
+"PO-Revision-Date: 2025-10-18 17:08+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -31,9 +31,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || ("
-"n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
+": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #. name:artist diploma
@@ -7921,6 +7921,7 @@ msgstr "является ранней версией релиза"
 #: DB:link_type/long_link_phrase:241
 msgid "is the earliest version of {translated} {parody}"
 msgstr ""
+"является ранней версией {translated:переведенной} {parody:пародийной} записи"
 
 #. name:transl-tracklisting
 #: DB:link_type/long_link_phrase:2
@@ -8896,12 +8897,12 @@ msgstr "страница пожертвований для"
 #: DB:link_type/reverse_link_phrase:34 DB:link_type/reverse_link_phrase:122
 #: DB:link_type/long_link_phrase:34 DB:link_type/long_link_phrase:122
 msgid "performance"
-msgstr "performance"
+msgstr "выступление"
 
 #. name:is person
 #: DB:link_type/reverse_link_phrase:108
 msgid "performance name of"
-msgstr ""
+msgstr "сценическое имя"
 
 #. name:performance of
 #: DB:link_type/name:887 DB:link_type/link_phrase:887
@@ -8916,7 +8917,7 @@ msgstr ""
 #. name:voice actor
 #: DB:link_type/long_link_phrase:292
 msgid "performed the voice of"
-msgstr ""
+msgstr "исполнил(а) голос"
 
 #. name:chorus master
 #: DB:link_type/long_link_phrase:152 DB:link_type/long_link_phrase:53
@@ -8950,21 +8951,21 @@ msgstr ""
 
 #: DB:link_type/name:723
 msgid "personal label"
-msgstr "personal label"
+msgstr "личный лейбл"
 
 #. name:personal label
 #: DB:link_type/reverse_link_phrase:723
 msgid "personal label for"
-msgstr ""
+msgstr "личный лейбл для"
 
 #: DB:link_type/name:724
 msgid "personal publisher"
-msgstr ""
+msgstr "личный издатель"
 
 #. name:personal publisher
 #: DB:link_type/reverse_link_phrase:724
 msgid "personal publisher for"
-msgstr ""
+msgstr "личный издатель для"
 
 #. name:personal relationship
 #: DB:link_type/name:113 DB:link_type/link_phrase:113
@@ -9011,7 +9012,7 @@ msgstr "канал подкастов"
 
 #: DB:link_attribute_type/name:1200
 msgid "popular / rock music"
-msgstr ""
+msgstr "популярная / рок-музыка"
 
 #: DB:link_type/name:119
 msgid "position at"
