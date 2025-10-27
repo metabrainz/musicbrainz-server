@@ -99,6 +99,7 @@ m4_define(
     `m4_dnl
 bzip2
 ca-certificates
+file
 iproute2
 libdb5.3
 libexpat1

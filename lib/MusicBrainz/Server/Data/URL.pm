@@ -21,9 +21,9 @@ my %URL_SPECIALIZATIONS = (
     # External links section
     '7digital'            => qr{^https?://([^/]+\.)?7digital\.com/}i,
     '45cat'               => qr{^https?://(?:www\.)?45cat\.com/}i,
-    '45worlds'            => qr{^https?://(?:www\.)?45worlds\.com/}i,
     'ACUM'                => qr{^https?://nocs\.acum\.org\.il/}i,
     'Allmusic'            => qr{^https?://(?:www\.)?allmusic\.com/}i,
+    'AlloCine'            => qr{^https?://(?:www\.)?allocine\.fr/}i,
     'AmazonMusic'         => qr{^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)/}i,
     'Anghami'             => qr{^https?://([^/]+\.)?anghami\.com/}i,
     'AniDB'               => qr{^https?://(?:www\.)?anidb\.net/}i,

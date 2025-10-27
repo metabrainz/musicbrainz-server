@@ -7,7 +7,7 @@ use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use List::AllUtils qw( nsort_by );
+use List::AllUtils qw( nsort_by uniq );
 use Data::Compare;
 
 with 'MusicBrainz::Server::Edit::Role::Art',
@@ -142,20 +142,23 @@ sub build_display_data {
         $artwork = [];
     }
     my %artwork_by_id = map { $_->id => $_ } @$artwork;
+    my @old_ids = map { $_->{id} } @{ $data->{old} };
+    my @new_ids = map { $_->{id} } @{ $data->{new} };
 
-    for my $undef_artwork (
-        grep { !defined $artwork_by_id{ $_->{id} } } @{ $data->{old} }
+    for my $undef_artwork_id (
+        grep { !defined $artwork_by_id{ $_ } } uniq (@old_ids, @new_ids)
     ) {
         my $fake_artwork = $art_archive_model->art_model->_entity_class->new(
             $entity_type => $entity,
-            id => $undef_artwork->{id},
+            id => $undef_artwork_id,
         );
-        push @$artwork, $fake_artwork;
-        $artwork_by_id{ $undef_artwork->{id} } = $fake_artwork;
+        $artwork_by_id{ $undef_artwork_id } = $fake_artwork;
     }
 
-    my @old = nsort_by { $_->{position} } @{ $data->{old} };
-    my @new = nsort_by { $_->{position} } @{ $data->{new} };
+    my %old_ids = map { $_ => 1 } @old_ids;
+    my %new_ids = map { $_ => 1 } @new_ids;
+    my @old = nsort_by { $_->{position} } grep { defined $new_ids{ $_->{id} } } @{ $data->{old} };
+    my @new = nsort_by { $_->{position} } grep { defined $old_ids{ $_->{id} } } @{ $data->{new} };
 
     return {
         $entity_type => to_json_object($entity),

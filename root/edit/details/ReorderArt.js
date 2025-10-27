@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {Artwork} from '../../components/Artwork.js';
+import {Artwork} from '../../static/scripts/common/components/Artwork.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import expand2html from '../../static/scripts/common/i18n/expand2html.js';
@@ -26,6 +26,7 @@ component ReorderArt(
   const entity = display[entityType];
   const oldArt = display.old;
   const newArt = display.new;
+  const isMismatched = display.old.length !== display.new.length;
 
   const historyMessage = entity.gid ? (
     expand2html(
@@ -48,11 +49,15 @@ component ReorderArt(
       <tr>
         <th>{l('Old positions:')}</th>
         <td>
-          {oldArt.map(art => (
-            <div className="thumb-position" key={'old-' + art.id}>
-              <Artwork artwork={art} message={historyMessage} />
-            </div>
-          ))}
+          {isMismatched ? (
+            l('An error occurred while loading this edit.')
+          ) : (
+            oldArt.map(art => (
+              <div className="thumb-position" key={'old-' + art.id}>
+                <Artwork artwork={art} message={historyMessage} />
+              </div>
+            ))
+          )}
         </td>
       </tr>
 
@@ -60,15 +65,19 @@ component ReorderArt(
       <tr>
         <th>{l('New positions:')}</th>
         <td>
-          {newArt.map((art, index) => (
-            <div
-              className={'thumb-position' +
-                         (art.id === oldArt[index].id ? '' : ' moved')}
-              key={'new-' + art.id}
-            >
-              <Artwork artwork={art} message={historyMessage} />
-            </div>
-          ))}
+          {isMismatched ? (
+            l('An error occurred while loading this edit.')
+          ) : (
+            newArt.map((art, index) => (
+              <div
+                className={'thumb-position' +
+                          (art.id === oldArt[index].id ? '' : ' moved')}
+                key={'new-' + art.id}
+              >
+                <Artwork artwork={art} message={historyMessage} />
+              </div>
+            ))
+          )}
         </td>
       </tr>
     </table>

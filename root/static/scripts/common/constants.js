@@ -77,7 +77,6 @@ export const FAVICON_CLASSES: {
 } = {
   '7digital.com': 'sevendigital',
   '45cat.com': 'fortyfivecat',
-  '45worlds.com': 'fortyfiveworlds',
   'abc.net.au/triplejunearthed': 'triplejunearthed',
   'acum.org.il': 'acum',
   'adp.library.ucsb.edu': 'dahr',

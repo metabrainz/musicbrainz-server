@@ -135,7 +135,7 @@
             [%- display_artwork(image) -%]
             <div style="display: flex; justify-content: space-around;">
               [% React.embed(c, 'static/scripts/edit/components/InformationIcon', {
-                style => {'align-self' => 'flex-start'},
+                style => {'alignSelf' => 'flex-start'},
                 title => l('Types:') _ ' ' _ (comma_only_list(image.l_types) || '-') _
                         (image.comment ? (' / ' _ add_colon(l('Comment')) _ ' ' _ image.comment) : '')}) %]
             </div>
