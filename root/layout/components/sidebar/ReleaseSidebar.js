@@ -10,7 +10,6 @@
 import * as React from 'react';
 import * as ReactDOMServer from 'react-dom/server';
 
-import {Artwork} from '../../../components/Artwork.js';
 import CritiqueBrainzLinks from '../../../components/CritiqueBrainzLinks.js';
 import LinkSearchableLanguage
   from '../../../components/LinkSearchableLanguage.js';
@@ -19,6 +18,7 @@ import LinkSearchableProperty
 import {QUALITY_UNKNOWN} from '../../../constants.js';
 import {CatalystContext} from '../../../context.mjs';
 import manifest from '../../../static/manifest.mjs';
+import {Artwork} from '../../../static/scripts/common/components/Artwork.js';
 import EntityLink
   from '../../../static/scripts/common/components/EntityLink.js';
 import ReleaseEvents
