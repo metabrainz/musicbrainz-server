@@ -21,7 +21,7 @@ component MediumsWithOrderInTitle(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report lists releases where at least one medium has a title
          that seems to just be indicating its position (such a first medium
          with the title “Disc 1”). These should usually be removed, as per
@@ -31,7 +31,7 @@ component MediumsWithOrderInTitle(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with mediums named after their position')}
+      title={l_reports('Releases with mediums named after their position')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

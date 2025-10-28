@@ -21,7 +21,7 @@ component MultipleAsins(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have more than one Amazon ASIN.
          In most cases ASINs should map to MusicBrainz releases 1:1, so
          only one of them will be correct. Just check which ones do not
@@ -32,7 +32,7 @@ component MultipleAsins(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with multiple ASINs')}
+      title={l_reports('Releases with multiple ASINs')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

@@ -21,7 +21,7 @@ component ReleasesWithoutCaa(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases that have no cover art in the Cover Art
          Archive. Given that most releases have some form of cover art, the
          vast majority of releases in this report should have artwork 
@@ -34,13 +34,13 @@ component ReleasesWithoutCaa(...{
         {caa_how_to: '/doc/How_to_Add_Cover_Art'},
       )}
       entityType="release"
-      extraInfo={l(
+      extraInfo={l_reports(
         `We strongly suggest restricting this report to entities
          in your subscriptions only for a more manageable list of results.`,
       )}
       filtered={filtered}
       generated={generated}
-      title={l('Releases without any art in the Cover Art Archive')}
+      title={l_reports('Releases without any art in the Cover Art Archive')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

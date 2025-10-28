@@ -43,7 +43,7 @@ component EventList<D: {+event: ?EventT, ...}>(
         columnName: 'event',
         descriptive: false, // since dates have their own column
         getEntity: result => result.event ?? null,
-        title: l('Event'),
+        title: l_mb_server('Event'),
       });
       const typeColumn = defineTextColumn<D>({
         columnName: 'type',
@@ -54,12 +54,12 @@ component EventList<D: {+event: ?EventT, ...}>(
             : ''
           );
         },
-        title: l('Type'),
+        title: l_mb_server('Type'),
       });
       const artistsColumn = defineArtistRolesColumn<D>({
         columnName: 'performers',
         getRoles: result => result.event?.performers ?? [],
-        title: l('Artists'),
+        title: l_mb_server('Artists'),
       });
       const locationColumn = defineLocationColumn<D>({
         getEntity: result => result.event ?? null,
@@ -67,7 +67,7 @@ component EventList<D: {+event: ?EventT, ...}>(
       const timeColumn = defineTextColumn<D>({
         columnName: 'time',
         getText: result => result.event?.time ?? '',
-        title: lp('Time', 'event'),
+        title: lp_mb_server('Time', 'event'),
       });
       const dateColumn = defineDatePeriodColumn<D>({
         getEntity: result => result.event ?? null,

@@ -21,14 +21,14 @@ component MediumsWithSequenceIssues(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists all releases with gaps in the medium numbers
          (for example, there is a medium 1 and 3 but no medium 2).`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with medium number issues')}
+      title={l_reports('Releases with medium number issues')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

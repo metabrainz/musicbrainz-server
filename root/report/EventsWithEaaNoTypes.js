@@ -21,7 +21,7 @@ component EventsWithEaaNoTypes(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows events which have images in the Event Art
          Archive, but where none of the images have any types set.
          This often means a poster, flyer or banner was added, but not
@@ -30,8 +30,9 @@ component EventsWithEaaNoTypes(...{
       entityType="event"
       filtered={filtered}
       generated={generated}
-      title={l(`Events in the Event Art Archive
-                where no event art piece has types`)}
+      title={l_reports(
+        'Events in the Event Art Archive where no event art piece has types',
+      )}
       totalEntries={pager.total_entries}
     >
       <EventList items={items} pager={pager} />

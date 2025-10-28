@@ -36,13 +36,13 @@ component UrlList<D: {+url: ?UrlT, ...}>(
         columnName: 'url',
         getContent: result => result.url?.name ?? '',
         getHref: result => result.url?.name ?? '',
-        title: l('URL'),
+        title: l_mb_server('URL'),
       });
       const urlEntityColumn = defineLinkColumn<D>({
         columnName: 'url_entity',
         getContent: result => result.url?.gid ?? '',
         getHref: result => result.url?.gid ? '/url/' + result.url.gid : '',
-        title: l('URL entity'),
+        title: l_reports('URL entity'),
       });
 
       return [

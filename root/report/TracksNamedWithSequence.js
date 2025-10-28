@@ -21,7 +21,7 @@ component TracksNamedWithSequence(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report aims to identify releases where track names include
          their own track number, such as "1) Some Name" (instead of just
          "Some Name"). Notice that sometimes this is justified and correct,
@@ -31,7 +31,9 @@ component TracksNamedWithSequence(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases where track names start with their track number')}
+      title={l_reports(
+        'Releases where track names start with their track number',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

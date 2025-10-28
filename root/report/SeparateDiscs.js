@@ -21,19 +21,19 @@ component SeparateDiscs(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases which have
          (disc n) or (bonus disc) in the title.`,
       )}
       entityType="release"
-      extraInfo={exp.l(
+      extraInfo={exp.l_reports(
         `For instructions on how to fix them, please see
          the documentation about {howto|how to merge releases}.`,
         {howto: '/doc/How_to_Merge_Releases'},
       )}
       filtered={filtered}
       generated={generated}
-      title={l('Discs as separate releases')}
+      title={l_reports('Discs as separate releases')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

@@ -21,7 +21,7 @@ component ArtistsWithMismatchedPrimaryAliases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that have at least one alias marked as
          primary for a locale, but have no primary aliases that match their
          name. In general, the main name for an artist should always be
@@ -30,7 +30,7 @@ component ArtistsWithMismatchedPrimaryAliases(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists with mismatched primary aliases')}
+      title={l_reports('Artists with mismatched primary aliases')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

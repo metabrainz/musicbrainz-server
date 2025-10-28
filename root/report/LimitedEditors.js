@@ -40,7 +40,7 @@ component LimitedEditors(...{
       {isAccountAdmin($c.user) ? (
         <EditorList items={items} pager={pager} />
       ) : (
-        <p>{l('Sorry, you are not authorized to view this page.')}</p>
+        <p>{l_reports('Sorry, you are not authorized to view this page.')}</p>
       )}
     </ReportLayout>
   );

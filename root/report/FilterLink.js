@@ -20,11 +20,11 @@ component FilterLink(filtered: boolean = false) {
     <li>
       {filtered ? (
         <a href={uriWith(reqUri, {filter: 0})}>
-          {l('Show all results.')}
+          {l_reports('Show all results.')}
         </a>
       ) : (
         <a href={uriWith(reqUri, {filter: 1})}>
-          {l('Show only results that are in my subscribed entities.')}
+          {l_reports('Show only results that are in my subscribed entities.')}
         </a>
       )}
     </li>

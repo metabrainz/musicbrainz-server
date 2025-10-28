@@ -21,7 +21,7 @@ component RecordingsWithEarliestReleaseRelationships(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings that have the deprecated "earliest
          release" relationship. They should be merged if they are truly
          the same recording; if they're not, the relationship should be
@@ -32,7 +32,7 @@ component RecordingsWithEarliestReleaseRelationships(...{
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with earliest release relationships')}
+      title={l_reports('Recordings with earliest release relationships')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

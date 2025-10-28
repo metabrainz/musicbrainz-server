@@ -30,12 +30,12 @@ component RecordingsWithFutureDates(...{
       const beginDateColumn = defineTextColumn<ReportRecordingRelationshipT>({
         columnName: 'begin_date',
         getText: result => result.begin?.toString() ?? '',
-        title: l('Begin date'),
+        title: l_mb_server('Begin date'),
       });
       const endDateColumn = defineTextColumn<ReportRecordingRelationshipT>({
         columnName: 'end_date',
         getText: result => result.end?.toString() ?? '',
-        title: l('End date'),
+        title: l_mb_server('End date'),
       });
 
       return [
@@ -50,14 +50,16 @@ component RecordingsWithFutureDates(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings with relationships using dates in
         the future. Those are probably typos (such as 2109 instead of 2019).`,
       )}
       entityType="relationship"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with relationships having dates in the future')}
+      title={l_reports(
+        'Recordings with relationships having dates in the future',
+      )}
       totalEntries={pager.total_entries}
     >
       <RecordingList

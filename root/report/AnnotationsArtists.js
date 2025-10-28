@@ -25,12 +25,12 @@ component AnnotationsArtists(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists artists with annotations.')}
+      description={l_reports('This report lists artists with annotations.')}
       entityType="artist"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Artist annotations')}
+      title={l_reports('Artist annotations')}
       totalEntries={pager.total_entries}
     >
       <ArtistList

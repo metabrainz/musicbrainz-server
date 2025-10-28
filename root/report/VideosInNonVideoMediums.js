@@ -21,12 +21,12 @@ component VideosInNonVideoMediums(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings marked as video, but that appear in
          at least one medium that does not support videos.`,
       )}
       entityType="recording"
-      extraInfo={exp.l(
+      extraInfo={exp.l_reports(
         `There are two main possibilities here: either the recording being
          marked as a video is correct, but the format is not (a CD should be a
          VCD, for example), or the recording is being used for both a video 
@@ -38,7 +38,7 @@ component VideosInNonVideoMediums(...{
       )}
       filtered={filtered}
       generated={generated}
-      title={l('Video recordings in non-video mediums')}
+      title={l_reports('Video recordings in non-video mediums')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

@@ -21,7 +21,7 @@ component SingleMediumReleasesWithMediumTitles(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have a single medium, where this
          medium also has a specific name. Usually, this is not necessary
          and is duplicate information which can be removed.`,
@@ -29,7 +29,7 @@ component SingleMediumReleasesWithMediumTitles(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with a single medium that has a name')}
+      title={l_reports('Releases with a single medium that has a name')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

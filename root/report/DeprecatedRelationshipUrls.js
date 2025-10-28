@@ -25,14 +25,14 @@ component DeprecatedRelationshipUrls(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists URLs which have relationships using
          deprecated and grouping-only relationship types.`,
       )}
       entityType="url"
       filtered={filtered}
       generated={generated}
-      title={l('URLs with deprecated relationships')}
+      title={l_reports('URLs with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <UrlList

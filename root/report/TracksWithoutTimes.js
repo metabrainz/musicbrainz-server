@@ -21,14 +21,14 @@ component TracksWithoutTimes(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists all releases where some or all tracks
          have unknown track lengths.`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with unknown track times')}
+      title={l_reports('Releases with unknown track times')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

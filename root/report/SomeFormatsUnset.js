@@ -21,7 +21,7 @@ component SomeFormatsUnset(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases where some of the medium formats are
          set, but others are unset. In most cases, it should be easy to
          find out which the correct formats are (don't just assume that
@@ -30,7 +30,7 @@ component SomeFormatsUnset(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with some formats unset')}
+      title={l_reports('Releases with some formats unset')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

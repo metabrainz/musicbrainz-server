@@ -24,7 +24,7 @@ component CatNoLooksLikeLabelCode(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={exp.l(
+      description={exp.l_reports(
         `This report shows releases which have catalog numbers that look
          like {doc_link|Label Codes}. This is often wrong, since the two
          are often confused: label codes apply to the label, not to a
@@ -36,7 +36,9 @@ component CatNoLooksLikeLabelCode(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with catalog numbers that look like label codes')}
+      title={l_reports(
+        'Releases with catalog numbers that look like label codes',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

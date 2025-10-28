@@ -21,7 +21,7 @@ component ReleasesWithAmazonCoverArt(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases which have cover art on Amazon, but have
          no front cover in the Cover Art Archive. The use of Amazon art has
          been discontinued since the 16th of May 2022, so these releases have
@@ -30,7 +30,7 @@ component ReleasesWithAmazonCoverArt(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l(
+      title={l_reports(
         `Releases that have Amazon cover art
          but no Cover Art Archive front cover`,
       )}

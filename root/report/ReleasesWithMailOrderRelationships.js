@@ -21,7 +21,7 @@ component ReleasesWithMailOrderRelationships(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have mail order relationships
          (which by definition only apply to physical media releases),
          but only have media whose format is “Digital Media”.
@@ -31,7 +31,7 @@ component ReleasesWithMailOrderRelationships(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Digital releases with mail order relationships')}
+      title={l_reports('Digital releases with mail order relationships')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />
