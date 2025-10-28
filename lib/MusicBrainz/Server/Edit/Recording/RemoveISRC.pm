@@ -4,6 +4,7 @@ use Method::Signatures::Simple;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict );
 use MusicBrainz::Server::Constants qw( $EDIT_RECORDING_CREATE $EDIT_RECORDING_REMOVE_ISRC );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -19,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
      };
 
 sub edit_name { N_lp('Remove ISRC', 'edit type') }
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 sub edit_type { $EDIT_RECORDING_REMOVE_ISRC }
 sub edit_template { 'RemoveIsrc' }
 

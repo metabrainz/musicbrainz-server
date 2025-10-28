@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADD_COVER_ART );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseArt;
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -15,6 +16,7 @@ with 'MusicBrainz::Server::Edit::Release',
 sub edit_name { N_lp('Add cover art', 'singular, edit type') }
 sub edit_type_name_context { 'singular, edit type' }
 sub edit_template { 'AddCoverArt' }
+sub edit_kind { $EDIT_KIND_LABELS{'add'} }
 sub edit_type { $EDIT_RELEASE_ADD_COVER_ART }
 
 sub art_archive_model { shift->c->model('CoverArtArchive') }
