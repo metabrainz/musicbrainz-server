@@ -99,6 +99,7 @@ export default {
   'cdstub/ImportCDStub': (): Promise<mixed> => import('../cdstub/ImportCDStub.js'),
   'cdtoc/AttachCDTocConfirmation': (): Promise<mixed> => import('../cdtoc/AttachCDTocConfirmation.js'),
   'cdtoc/AttachCDTocToRelease': (): Promise<mixed> => import('../cdtoc/AttachCDTocToRelease.js'),
+  'cdtoc/CDTocIndex': (): Promise<mixed> => import('../cdtoc/CDTocIndex.js'),
   'cdtoc/RemoveDiscId': (): Promise<mixed> => import('../cdtoc/RemoveDiscId.js'),
   'cdtoc/SelectArtistForCDToc': (): Promise<mixed> => import('../cdtoc/SelectArtistForCDToc.js'),
   'cdtoc/SetTracklistDurations': (): Promise<mixed> => import('../cdtoc/SetTracklistDurations.js'),
@@ -409,7 +410,6 @@ export default {
    */
   'area/AreaHeader': (): Promise<mixed> => import('../area/AreaHeader.js'),
   'artist/ArtistHeader': (): Promise<mixed> => import('../artist/ArtistHeader.js'),
-  'cdtoc/CDTocInfo': (): Promise<mixed> => import('../cdtoc/CDTocInfo.js'),
   'collection/CollectionHeader': (): Promise<mixed> => import('../collection/CollectionHeader.js'),
   'components/UserAccountTabs': (): Promise<mixed> => import('../components/UserAccountTabs.js'),
   'edit/components/EditList': (): Promise<mixed> => import('../edit/components/EditList.js'),
