@@ -12,7 +12,7 @@ import AreaEditForm
   from '../static/scripts/area/components/AreaEditForm.js';
 
 import AreaLayout from './AreaLayout.js';
-import {AreaFormT} from './types.js';
+import {type AreaFormT} from './types.js';
 
 component EditArea(
   entity: AreaT,

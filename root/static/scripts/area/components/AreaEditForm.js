@@ -212,14 +212,15 @@ component AreaEditForm(
     dispatch({type: 'toggle-type-bubble'});
   }
 
-  const handleIso3166Update = React.useCallback((variant: Iso3166Variant) =>
-    (action: Iso3166ActionT) => {
+  const handleIso3166Update = React.useCallback(
+    (variant: Iso3166Variant) => (action: Iso3166ActionT) => {
       dispatch({
         action,
         type: 'update-iso-3166',
         variant,
       });
-    }, [dispatch]);
+    }, [dispatch],
+  );
 
   const dispatchDateRange = React.useCallback((
     action: DateRangeFieldsetActionT,

@@ -68,7 +68,9 @@ component TextListRow(
   );
 }
 
-export const createInitialState = (repeatable: RepeatableFieldT<FieldT<string>>) => {
+export const createInitialState = (
+  repeatable: RepeatableFieldT<FieldT<string>>,
+): RepeatableFieldT<FieldT<string>> => {
   let newField = {...repeatable};
   if (newField.last_index === -1) {
     newField = mutate(newField).update((fieldCtx) => {
