@@ -208,9 +208,9 @@ component AreaEditForm(
     dispatch({type: 'set-type', type_id: event.currentTarget.value});
   }, [dispatch]);
 
-  function handleTypeFocus() {
+  const handleTypeFocus = React.useCallback(() => {
     dispatch({type: 'toggle-type-bubble'});
-  }
+  }, [dispatch]);
 
   const handleIso3166Update = React.useCallback(
     (variant: Iso3166Variant) => (action: Iso3166ActionT) => {

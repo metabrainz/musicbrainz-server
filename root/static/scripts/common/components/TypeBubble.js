@@ -8,6 +8,7 @@
  */
 
 import expand2react from '../i18n/expand2react.js';
+
 import Bubble from './Bubble.js';
 
 component TypeBubble(
