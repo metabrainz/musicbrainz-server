@@ -35,7 +35,7 @@ role {
     method 'edit' => sub {
         my ($self, $c) = @_;
 
-        my @react_models = qw( Event Genre);
+        my @react_models = qw( Area Event Genre );
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
@@ -70,6 +70,14 @@ role {
             edit_rels   => 1,
             pre_validation => sub {
                 my $form = shift;
+                if ($model eq 'Area') {
+                    my %area_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('AreaType')->get_all();
+
+                    $props{areaTypes} = $form->options_type_id;
+                    $props{areaDescriptions} = \%area_descriptions;
+                }
                 if ($model eq 'Event') {
                     my %event_descriptions = map {
                         $_->id => $_->l_description
