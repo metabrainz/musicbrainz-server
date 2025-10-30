@@ -5516,7 +5516,7 @@ export const CLEANUPS: CleanupEntries = {
   'runeberg': {
     hostname: 'runeberg.org',
     match: [/^(https?:\/\/)?([^/]+\.)?runeberg\.org\//i],
-    restrict: [LINK_TYPES.lyrics],
+    restrict: [{work: LINK_TYPES.lyrics.work}],
     clean(url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?runeberg\.org\/(.*)$/, 'http://runeberg.org/$1');
     },
