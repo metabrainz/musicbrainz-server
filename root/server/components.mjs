@@ -98,6 +98,7 @@ export default {
   'cdstub/DiscIdNotValid': (): Promise<mixed> => import('../cdstub/DiscIdNotValid.js'),
   'cdstub/ImportCDStub': (): Promise<mixed> => import('../cdstub/ImportCDStub.js'),
   'cdtoc/AttachCDTocConfirmation': (): Promise<mixed> => import('../cdtoc/AttachCDTocConfirmation.js'),
+  'cdtoc/AttachCDTocToArtistRelease': (): Promise<mixed> => import('../cdtoc/AttachCDTocToArtistRelease.js'),
   'cdtoc/AttachCDTocToRelease': (): Promise<mixed> => import('../cdtoc/AttachCDTocToRelease.js'),
   'cdtoc/CDTocIndex': (): Promise<mixed> => import('../cdtoc/CDTocIndex.js'),
   'cdtoc/CDTocLookup': (): Promise<mixed> => import('../cdtoc/CDTocLookup.js'),
