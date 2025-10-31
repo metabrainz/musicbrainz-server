@@ -38,6 +38,7 @@ import type {
 import {
   compareTargetTypeWithGroup,
   iterateRelationshipsInTargetTypeGroup,
+  iterateRelationshipsInTargetTypeGroups,
 } from '../../relationship-editor/utility/findState.js';
 
 import EditWorkDialog from './EditWorkDialog.js';
@@ -244,12 +245,41 @@ component _RelatedWorkRelationshipEditor(
   ]);
 
   const removeWork = React.useCallback(() => {
+    if (isNewWork) {
+      let hasActiveRelationships = false;
+      for (
+        const relationship of
+        iterateRelationshipsInTargetTypeGroups(relatedWork.targetTypeGroups)
+      ) {
+        if (relationship._status === REL_STATUS_REMOVE) {
+          continue;
+        }
+        if (
+          relationship.entity0.entityType === 'recording' &&
+        relationship.entity0.id === track.recording.id &&
+        relationship.entity1.entityType === 'work' &&
+        relationship.entity1.id === relatedWork.work.id
+        ) {
+          continue;
+        }
+        hasActiveRelationships = true;
+        break;
+      }
+      if (hasActiveRelationships) {
+        const confirmed = window.confirm(
+          l('Are you sure you want to remove this work?'),
+        );
+        if (!confirmed) {
+          return;
+        }
+      }
+    }
     dispatch({
       recording: track.recording,
       type: 'remove-work',
       workState: relatedWork,
     });
-  }, [dispatch, track.recording, relatedWork]);
+  }, [dispatch, track.recording, relatedWork, isNewWork]);
 
   const removeWorkButton = React.useMemo(() => (
     <button
