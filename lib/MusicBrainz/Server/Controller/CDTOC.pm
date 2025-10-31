@@ -293,6 +293,7 @@ sub _attach_list {
             $c->model('Release')->find_for_cdtoc($artist_id, $cdtoc->track_count, shift, shift);
         });
         $c->model('Release')->load_related_info(@$releases);
+        $c->model('ArtistCredit')->load(@$releases);
 
         my @mediums = grep { !$_->format || $_->format->has_discids }
             map { $_->all_mediums } @$releases;
@@ -304,11 +305,20 @@ sub _attach_list {
         my @rgs = $c->model('ReleaseGroup')->load(@$releases);
         $c->model('ReleaseGroup')->load_meta(@rgs);
 
-        $c->stash(
-            artist => $artist,
-            releases => $releases,
-            template => 'cdtoc/attach_artist_releases.tt',
+        my %props = (
+            artist      => $artist->TO_JSON,
+            cdToc       => $cdtoc->TO_JSON,
+            pager       => serialize_pager($c->stash->{pager}),
+            releases    => to_json_array($releases),
+            tocString   => $c->stash->{toc},
         );
+
+        $c->stash(
+            current_view => 'Node',
+            component_path => 'cdtoc/AttachCDTocToArtistRelease.js',
+            component_props => \%props,
+        );
+        $c->detach;
     }
     else {
         my $search_artist = $c->form( query_artist => 'Search::Query', name => 'filter-artist' );
