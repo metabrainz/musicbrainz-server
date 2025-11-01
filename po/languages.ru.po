@@ -25,8 +25,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-27 00:08+0000\n"
-"Last-Translator: craftersmine <me@craftersmine.ru>\n"
+"PO-Revision-Date: 2025-10-28 21:21+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ru/>\n"
 "Language: ru\n"
@@ -141,7 +142,7 @@ msgstr "апачские языки"
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "арабский"
+msgstr "арабское"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
@@ -166,7 +167,7 @@ msgstr "ардхамагадхи пракрит"
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
-msgstr "армянский"
+msgstr "армянское"
 
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
@@ -211,7 +212,7 @@ msgstr "аварский"
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
 msgid "Avestan"
-msgstr "авестийский"
+msgstr "авестийское"
 
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
@@ -236,7 +237,7 @@ msgstr "бэггу"
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
 msgid "Balinese"
-msgstr "балийский"
+msgstr "балийское"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:43

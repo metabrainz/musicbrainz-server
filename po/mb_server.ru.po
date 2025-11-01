@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-27 17:21+0100\n"
-"PO-Revision-Date: 2025-10-18 22:08+0000\n"
+"PO-Revision-Date: 2025-11-01 19:20+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -53,10 +53,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"Plural-Forms: nplurals=4; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
+": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.14\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -4926,12 +4926,12 @@ msgstr "({text})"
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 msgctxt "edit type"
 msgid "Add area alias"
-msgstr "Добавить новый псевдоним зоны"
+msgstr "Добавление нового псевдонима зоны"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add area annotation"
-msgstr "Добавить аннотацию к зоне"
+msgstr "Добавление аннотации к зоне"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 msgctxt "edit type"
@@ -4941,62 +4941,62 @@ msgstr "Добавление области"
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 msgctxt "edit type"
 msgid "Remove area"
-msgstr "Удалить зону"
+msgstr "Удаление области"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 msgctxt "edit type"
 msgid "Remove area alias"
-msgstr "Удалить псевдоним зоны"
+msgstr "Удаление псевдонима области"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 msgctxt "edit type"
 msgid "Edit area"
-msgstr "Область завершения"
+msgstr "Правка области"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit area alias"
-msgstr "Править псевдоним зоны"
+msgstr "Правка псевдонима зоны"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 msgctxt "edit type"
 msgid "Merge areas"
-msgstr "Объединить зоны"
+msgstr "Объединение зон"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 msgctxt "edit type"
 msgid "Add artist alias"
-msgstr "Добавить псевдоним исполнителя"
+msgstr "Добавление псевдонима исполнителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add artist annotation"
-msgstr "Добавить аннотацию к исполнителю"
+msgstr "Добавление аннотации к исполнителю"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 msgctxt "edit type"
 msgid "Add artist"
-msgstr "Добавить исполнителя"
+msgstr "Добавление исполнителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
 msgctxt "edit type"
 msgid "Remove artist"
-msgstr "Удалить исполнителя"
+msgstr "Удаление исполнителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
 msgctxt "edit type"
 msgid "Remove artist alias"
-msgstr "Удалить псевдоним исполнителя"
+msgstr "Удаление псевдонима исполнителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 msgctxt "edit type"
 msgid "Edit artist"
-msgstr "Править исполнителя"
+msgstr "Правка исполнителя"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit artist alias"
-msgstr "Править псевдоним артиста"
+msgstr "Правка псевдонима артиста"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 msgctxt "edit type"
@@ -5006,7 +5006,7 @@ msgstr "Править авторство исполнителя"
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 msgctxt "edit type"
 msgid "Merge artists"
-msgstr "Объединить исполнителей"
+msgstr "Объединение исполнителей"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:72
 #, perl-brace-format
@@ -5033,12 +5033,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 msgctxt "edit type"
 msgid "Add event alias"
-msgstr "Добавить псевдоним события"
+msgstr "Добавление псевдонима события"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
 msgctxt "edit type"
 msgid "Add event annotation"
-msgstr "Добавить аннотацию к событию"
+msgstr "Добавление аннотации к событию"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 msgctxt "singular, edit type"
@@ -5048,27 +5048,27 @@ msgstr "Добавление фото события"
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 msgctxt "edit type"
 msgid "Add event"
-msgstr "Добавить событие"
+msgstr "Добавление события"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
 msgctxt "edit type"
 msgid "Remove event"
-msgstr "Удалить событие"
+msgstr "Удаление события"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 msgctxt "edit type"
 msgid "Remove event alias"
-msgstr "Удалить псевдоним события"
+msgstr "Удаление псевдонима события"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 msgctxt "edit type"
 msgid "Edit event"
-msgstr "Править событие"
+msgstr "Правка события"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit event alias"
-msgstr "Править псевдоним события"
+msgstr "Правка псевдонима события"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 msgctxt "singular, edit type"
@@ -5078,7 +5078,7 @@ msgstr "Правка фото события"
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 msgctxt "edit type"
 msgid "Merge events"
-msgstr "Объединить события"
+msgstr "Объединение событий"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 msgctxt "singular, edit type"
@@ -5134,7 +5134,7 @@ msgstr "Исторический"
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
 msgctxt "edit type"
 msgid "Add disc ID"
-msgstr "Добавление идентификатора диска"
+msgstr "Добавление ID диска"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:39
@@ -5180,7 +5180,7 @@ msgstr "Изменение качества исполнителя (истори
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 msgctxt "edit type"
 msgid "Edit release"
-msgstr "Редактирование релиза"
+msgstr "Правка релиза"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:26
@@ -5192,26 +5192,26 @@ msgstr "Изменение качества данных релиза"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
 msgctxt "edit type"
 msgid "Edit track (historic)"
-msgstr "Редактирование трека (исторический)"
+msgstr "Правка трека (исторический)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:47
 msgctxt "edit type"
 msgid "Edit relationship"
-msgstr "Редактирование отношения"
+msgstr "Правка отношения"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:18
 msgctxt "edit type"
 msgid "Edit release events (historic)"
-msgstr "Редактирование выпуска релиза (исторический)"
+msgstr "Правка событий релиза (исторический)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 msgctxt "edit type"
 msgid "Edit recording"
-msgstr "Редактирование записи"
+msgstr "Правка записи"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
 msgctxt "edit type"
@@ -5229,19 +5229,19 @@ msgstr "Объединение релизов"
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
 msgctxt "edit type"
 msgid "Move disc ID"
-msgstr "Перемещение идентификатора диска"
+msgstr "Перемещение ID диска"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 msgctxt "edit type"
 msgid "Remove disc ID"
-msgstr "Удаление идентификатора диска"
+msgstr "Удаление ID диска"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 msgctxt "edit type"
 msgid "Remove label alias"
-msgstr "Удаление псевдоним лейбла"
+msgstr "Удаление псевдонима лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:41
@@ -5349,7 +5349,7 @@ msgstr "Правка лейбла"
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
 msgctxt "edit type"
 msgid "Edit label alias"
-msgstr "Изменение псевдонима лейбла"
+msgstr "Правка псевдонима лейбла"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 msgctxt "edit type"
@@ -8634,7 +8634,7 @@ msgstr "Рецензии"
 #: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
-msgstr "Рейтинги"
+msgstr "Оценки"
 
 #: ../root/components/EntityTabs.js:166
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:285
@@ -9657,7 +9657,7 @@ msgstr "(отсутствует)"
 #: ../root/edit/details/AddArt.js:48 ../root/edit/details/EditArt.js:54
 #: ../root/edit/details/RemoveArt.js:49 ../root/taglookup/Form.js:47
 msgid "Filename"
-msgstr "Название файла"
+msgstr "Имя файла"
 
 #: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:161
 msgctxt "artist ended boolean"
@@ -9752,7 +9752,7 @@ msgstr ""
 #: ../root/edit/details/AddRelationshipAttribute.js:60
 #: ../root/edit/details/EditRelationshipAttribute.js:106
 msgid "Free text"
-msgstr ""
+msgstr "Свободный текст"
 
 #: ../root/edit/details/AddRelationshipType.js:74
 #: ../root/edit/details/RemoveRelationshipAttribute.js:43
@@ -9834,7 +9834,7 @@ msgstr "(новая группа релизов)"
 #: ../root/static/scripts/common/components/ReleaseEvents.js:85
 #: ../root/static/scripts/edit/components/edit/ReleaseEventsDiff.js:115
 msgid "Release events"
-msgstr ""
+msgstr "События релиза"
 
 #: ../root/edit/details/AddReleaseLabel.js:39
 #: ../root/edit/details/EditReleaseLabel.js:74
@@ -9974,7 +9974,7 @@ msgstr "Новый исполнитель"
 
 #: ../root/edit/details/EditRecording.js:59
 msgid "This edit makes subsecond changes to the recording length"
-msgstr ""
+msgstr "Данная правка совершает подсекундные изменения к длительности записи"
 
 #: ../root/edit/details/EditRelationshipType.js:138
 #: ../root/edit/details/historic/EditRelationship.js:36
@@ -10496,7 +10496,7 @@ msgstr "Назад к выборам"
 
 #: ../root/elections/Show.js:30
 msgid "Votes cast"
-msgstr ""
+msgstr "Распределение голосов"
 
 #: ../root/elections/Show.js:33
 msgid "The list of voters will only be shown when the election is complete."
@@ -10569,7 +10569,7 @@ msgstr "{name}: правки"
 
 #: ../root/entity/Edits.js:60
 msgid "{entity_type} by {artist}"
-msgstr "{entity_type} – {artist}"
+msgstr "{entity_type} исполнителя {artist}"
 
 #: ../root/entity/NotFound.js:27
 msgctxt "header"
@@ -11834,10 +11834,8 @@ msgstr "Посмотреть все обложки"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:78
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:110
-#, fuzzy
-#| msgid "No front cover image available."
 msgid "No images available."
-msgstr "Обложка отсутствует."
+msgstr "Нет доступных изображений."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:93
 msgid "Event information"
@@ -12396,7 +12394,7 @@ msgstr "Недавно добавленные события"
 #: ../root/static/scripts/common/components/DescriptiveLink.js:65
 #: ../root/static/scripts/release-editor/dialogs.js:158
 msgid "{entity} by {artist}"
-msgstr "{entity} - {artist}"
+msgstr "{entity} исполнителя {artist}"
 
 #: ../root/mbid/NotFound.js:15
 msgid "MBID not found"
@@ -15808,7 +15806,7 @@ msgstr "Носитель {position}"
 
 #: ../root/static/scripts/common/components/MediumLink.js:17
 msgid "{medium} on {release}"
-msgstr ""
+msgstr "{medium} в релизе {release}"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:14
 msgctxt "relationship order direction"
@@ -18676,16 +18674,12 @@ msgid "Report this user for bad behavior"
 msgstr "Пожаловаться на плохое поведение пользователя"
 
 #: ../root/user/UserProfile.js:994
-#, fuzzy
-#| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
-msgstr "Смотреть комментарии других пользователей к вашим правкам"
+msgstr "Смотреть комментарии других пользователей к моим правкам"
 
 #: ../root/user/UserProfile.js:995
-#, fuzzy
-#| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
-msgstr "Посмотреть ваши комментарии к правкам пользователя"
+msgstr "Смотреть мои комментарии к правкам пользователя"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
