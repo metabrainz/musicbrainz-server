@@ -3961,10 +3961,11 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   'livenation': {
-    hostname: 'livenation.*',
-    match: [/^(https?:\/\/)?(?:(?:concerts|www)\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\//i],
+    hostname: ['livenation.*', 'livenationtero.co.th'],
+    match: [/^(https?:\/\/)?(?:(?:concerts|www)\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\//i, /^(https?:\/\/)?(?:www\.)?livenationtero\.co\.th\//i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenationtero\.co\.th\//, 'https://www.livenation.co.th/');
       url = url.replace(/^(?:https?:\/\/)?concerts\.livenation\.com\/(?:[\w\d-]+\/)?event\/([0-9A-F]+).*$/, 'https://concerts.livenation.com/event/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([\w-]+).*$/, 'https://www.livenation.com/$1/$2');
       // International sites use somewhat different formats
