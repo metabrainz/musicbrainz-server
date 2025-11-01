@@ -27,8 +27,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
@@ -261,10 +261,6 @@ msgstr "violino di Stroh"
 msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr "grande organo Stalacpipe"
-
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr "tamburo ad acqua tibetano"
 
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
@@ -4504,6 +4500,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr "bidofono"
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "wavedrum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "wavedrum"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr "waterphone"
@@ -4602,6 +4605,11 @@ msgstr "yatga"
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "yaylı tanbur"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
@@ -4758,6 +4766,9 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgid "Tibetan water drum"
+#~ msgstr "tamburo ad acqua tibetano"
 
 #~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 #~ msgid "alto violin"

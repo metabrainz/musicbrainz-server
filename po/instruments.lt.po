@@ -14,10 +14,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural="
-"(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : "
-"(n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != "
-"0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
+"1 : n % 1 != 0 ? 2: 3);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
@@ -249,10 +248,6 @@ msgstr ""
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
-msgstr ""
-
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
 msgstr ""
 
 #: DB:instrument/name:846
@@ -4493,6 +4488,14 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr ""
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgctxt "Double headed hourglass Nigerian drums"
+#| msgid "Batá drum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "Batá būgnas"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr "vandenphonas"
@@ -4591,6 +4594,11 @@ msgstr ""
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "jaili tanburas"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"

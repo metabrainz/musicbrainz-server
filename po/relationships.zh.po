@@ -1853,6 +1853,25 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "这说明工程师负责一般工程任务。"
 
+#. name:recording
+#: DB:link_type/description:1297
+#, fuzzy
+#| msgid ""
+#| "This describes an engineer responsible for committing the performance to "
+#| "tape or another recording medium. This can be as complex as setting up "
+#| "the microphones, amplifiers, and recording devices, or as simple as "
+#| "pressing the 'record' button on a 4-track or a digital audio workstation."
+msgid ""
+"This describes the company committing the performance to tape or another "
+"recording medium. This can be as complex as setting up the microphones, "
+"amplifiers, and recording devices, or as simple as pressing the 'record' "
+"button on a 4-track or a digital audio workstation. Use this only when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+"这说明工程师负责制作演出磁带或其他媒介上的录音。这可能是需要使用话筒，功放和"
+"大型录音机的复杂工作，也可能只是在四轨录音机或数字音频工作站上按下“录音”按钮"
+"的简单工作。"
+
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
 #, fuzzy
@@ -9174,7 +9193,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "录音"
 
@@ -10379,10 +10398,24 @@ msgstr ""
 msgid "{additional:additionally} produced in"
 msgstr ""
 
+#. name:recording
+#: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
+#, fuzzy
+#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
+msgid "{additional:additionally} recorded"
+msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
 msgstr ""
+
+#. name:recording
+#: DB:link_type/reverse_link_phrase:1297
+#, fuzzy
+#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
+msgid "{additional:additionally} recorded by"
+msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
 
 #. name:recorded in
 #: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699

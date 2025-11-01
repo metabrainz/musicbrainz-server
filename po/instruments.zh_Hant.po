@@ -245,10 +245,6 @@ msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr "大鐘乳石風琴"
 
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr "西藏水鼓"
-
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
@@ -4497,6 +4493,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr "洗衣盆琴"
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "wavedrum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "音波鼓"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr "水琴"
@@ -4595,6 +4598,11 @@ msgstr "雅托噶"
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "牙伊坦布琴"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
@@ -4751,6 +4759,9 @@ msgstr "馬耳他風笛"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "祖馬拉笛"
+
+#~ msgid "Tibetan water drum"
+#~ msgstr "西藏水鼓"
 
 #~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 #~ msgid "alto violin"

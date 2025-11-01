@@ -251,10 +251,6 @@ msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr ""
 
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr ""
-
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
@@ -4512,6 +4508,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr ""
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "bass drum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "bass davul"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr ""
@@ -4610,6 +4613,11 @@ msgstr ""
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "yaylı tanbur"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
