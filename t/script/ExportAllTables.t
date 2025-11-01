@@ -9,7 +9,7 @@ use String::ShellQuote;
 use Test::More;
 use Test::Routine;
 use Test::Routine::Util;
-use Test::Deep qw( cmp_deeply ignore );
+use Test::Deep qw( cmp_deeply ignore re );
 use MusicBrainz::Server::Test;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 use utf8;
@@ -216,7 +216,7 @@ test all => sub {
             bio => undef,
             birth_date => undef,
             deleted => 0,
-            email => '',
+            email => re(qr/^editor-\d+\@musicbrainz\.invalid$/),
             email_confirm_date => '2013-07-26 11:48:31.088042+00',
             gender => undef,
             ha1 => '03503a81a03bdbb6055f4a6c8b86b5b8',
@@ -234,7 +234,7 @@ test all => sub {
             bio => undef,
             birth_date => undef,
             deleted => 0,
-            email => '',
+            email => re(qr/^editor-\d+\@musicbrainz\.invalid$/),
             email_confirm_date => '2020-11-26 01:13:57.82052+00',
             gender => undef,
             ha1 => '62918b6c0e34b4bf056ecad67c96b765',
