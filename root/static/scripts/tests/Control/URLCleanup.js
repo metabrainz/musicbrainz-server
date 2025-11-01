@@ -3991,6 +3991,41 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.livenation.ee/venue/953330',
        only_valid_entity_types: ['place'],
   },
+  {
+    input_url: 'https://www.livenationtero.co.th/artist-alice-cooper-332374?omq=alice-cooper',
+    input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+    expected_clean_url: 'https://www.livenation.co.th/artist-332374',
+    only_valid_entity_types: ['artist'],
+  },
+  {
+    input_url: 'https://www.livenationtero.co.th/show/1431241/anna-of-the-north/bangkok/2023-09-14/en',
+    input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+    expected_clean_url: 'https://www.livenation.co.th/show/1431241',
+    only_valid_entity_types: ['event'],
+  },
+  {
+    input_url: 'https://www.livenationtero.co.th/venue/KovZpZAEAFeA/impact-muang-thong-thani-events#seat-map',
+    input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+    expected_clean_url: 'https://www.livenation.co.th/venue/KovZpZAEAFeA',
+    only_valid_entity_types: ['place'],
+  },
+  {
+    input_url: 'https://livenationtero.co.th/artist-coldplay-123456/extra-params#info',
+    input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+    expected_clean_url: 'https://www.livenation.co.th/artist-123456',
+    only_valid_entity_types: ['artist'],
+  },
+  {
+    input_url: 'https://livenationtero.co.th/show/999999/concert-name/city/2024-01-15/en',
+    input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+    expected_clean_url: 'https://www.livenation.co.th/show/999999',
+    only_valid_entity_types: ['event'],
+  },
   // Loudr
   {
                      input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',
