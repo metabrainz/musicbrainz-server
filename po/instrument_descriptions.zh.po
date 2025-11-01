@@ -7,11 +7,12 @@
 # Ral Hole <ral-hole@outlook.com>, 2025.
 # Beteix <1158817754@qq.com>, 2025.
 # MoeCaa <qytc233@gmail.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-26 10:54+0000\n"
-"Last-Translator: MoeCaa <qytc233@gmail.com>\n"
+"PO-Revision-Date: 2025-10-28 07:21+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -1699,12 +1700,6 @@ msgstr ""
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
-#, fuzzy
-#| msgid ""
-#| "For the modified slide-guitar created in the 1990s by Vishwa Mohan Bhatt "
-#| "see VM Bhatt's Mohan veena.<br /> Created as a modified sarod by Radhika "
-#| "Maitra in the 1940s, it has a wooden soundbox cover (like sitar), an "
-#| "extra neck resonator (like veena) and the fretboard from the sarod."
 msgid ""
 "For the modified slide-guitar created in the 1990's by Vishwa Mohan Bhatt "
 "see <a href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt's "
@@ -1712,10 +1707,11 @@ msgid ""
 "1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
 "(like veena) and the fretboard from the sarod."
 msgstr ""
-"关于维什瓦-莫汉-巴特（Vishwa Mohan Bhatt）在 20 世纪 90 年代制作的改良型滑弦"
-"吉他，请参阅 VM Bhatt's Mohan veena。<br /> 拉迪卡-梅特拉（Radhika Maitra）"
-"在 20 世纪 40 年代制作的改良型萨罗琴，有一个木制音箱盖（类似西塔琴）、一个额"
-"外的颈部共鸣器（类似维纳琴）以及萨罗琴的指板。"
+"有关 1990 年代 Vishwa Mohan Bhatt 改良制作的滑音吉他，请参见 <a href="
+"\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt 的 Mohan veena</a>"
+"。<br/>该乐器由 Radhika Maitra 在 1940 年代把索罗德（sarod）改良而成，具有木"
+"制共鸣箱盖（类似锡塔尔 sitar）、额外的琴颈共鸣器（类似维纳 veena）以及索罗德"
+"的指板。"
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1755,6 +1751,12 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
+"有关单弦双辐鼓-筝，请参见 <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>。<br />有"
+"关单弦旁遮比琵琶，请参见<a href="
+"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。<br />该乐器"
+"被 Bhil、Kukna 和 Worli 等部落使用，具有一个圆柱形共鸣箱，一根金属弦从辐条琴"
+"颈拉至底部膜面。"
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -2356,7 +2358,8 @@ msgid ""
 "It has a single chanter and drone with a bag made of a variety of animals, "
 "it has fur out and an ornamental goats head. Traditionally played at spring "
 "festivities, recently it has had a resurgence."
-msgstr ""
+msgstr "它具有单音笛管和持续音管，气囊由多种动物制成，外覆毛皮，并饰有一只装饰性的山"
+"羊头。传统上在春季节庆中演奏，近来又重新流行起来。"
 
 #. name:sho
 #: DB:instrument/description:192
@@ -2671,10 +2674,8 @@ msgstr ""
 
 #. name:baglamas
 #: DB:instrument/description:236
-#, fuzzy
-#| msgid "Long necked bowl lute, it is named after a related Turkish lute"
 msgid "Long necked bowl lute, it is named after a related Turkish lute."
-msgstr "长颈碗状鲁特琴，得名自一种相关的土耳其鲁特琴。"
+msgstr "指长颈碗形鲁特琴，它的名字来源于一种相关的土耳其鲁特琴。"
 
 #. name:pūmotomoto
 #: DB:instrument/description:785
