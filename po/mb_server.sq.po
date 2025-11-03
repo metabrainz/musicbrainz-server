@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-27 17:21+0100\n"
-"PO-Revision-Date: 2025-04-28 20:20+0000\n"
+"PO-Revision-Date: 2025-11-03 11:34+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/sq/>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.1\n"
+"X-Generator: Weblate 5.14\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -17180,14 +17180,10 @@ msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "Data që dhatë s’është e vlefshme."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
-#, fuzzy
-#| msgid "No cover art available."
 msgid "No cover art available."
-msgstr "S’ka kopertinë të passhme."
+msgstr "S’ka kopertinë gati."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
-#, fuzzy
-#| msgid "Types"
 msgctxt "cover art"
 msgid "Types"
 msgstr "Lloje"
@@ -18362,10 +18358,8 @@ msgid "View other users’ notes on my edits"
 msgstr "Shënime të Lëna Së Fundi në Përpunimet Tuaja"
 
 #: ../root/user/UserProfile.js:995
-#, fuzzy
-#| msgid "Recent Notes Left on Your Edits"
 msgid "View my notes on this user’s edits"
-msgstr "Shënime të Lëna Së Fundi në Përpunimet Tuaja"
+msgstr ""
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
