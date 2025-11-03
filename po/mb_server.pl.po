@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-27 17:21+0100\n"
-"PO-Revision-Date: 2025-10-13 10:02+0000\n"
+"PO-Revision-Date: 2025-11-02 16:20+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
@@ -42,9 +42,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.14\n"
 
 #: ../root/components/common-macros.tt:11
 #, fuzzy
@@ -1573,19 +1573,14 @@ msgstr ""
 "„[brak]”."
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"Uwaga! Jeśli nie znasz miesiąca lub dnia wydania, zostaw je puste. 1 "
-"stycznia nie jest często faktyczną datą wydania, sprawdź dokładnie, czy "
-"poprawnie wpisałeś datę wydania."
+"Jeśli nie znasz miesiąca ani dnia premiery, zostaw te pola puste. 1 stycznia "
+"często nie jest faktyczną datą premiery. <strong>Sprawdź dokładnie, czy "
+"poprawnie wpisałeś datę premiery.</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -4517,10 +4512,12 @@ msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr ""
+"Nie możemy wysłać wiadomości e-mail umożliwiającej zresetowanie hasła, "
+"ponieważ nie mamy w bazie danych żadnego adresu e-mail tego użytkownika."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:252
 msgid "Your password has been reset."
-msgstr ""
+msgstr "Twoje hasło zostało zresetowane."
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:267
 msgid "Missing one or more required parameters."
@@ -4671,22 +4668,26 @@ msgstr "Domyślnie"
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:122
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:140
 msgid "Can’t change edit note"
-msgstr ""
+msgstr "Nie można zmienić notatki edycji"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:67
 msgid "You can’t change other users’ edit notes."
-msgstr ""
+msgstr "Nie możesz zmieniać notatek edycyjnych innych użytkowników."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:80
+#, fuzzy
 msgid ""
 "You’re currently not allowed to leave or change edit notes because an admin "
 "has revoked your privileges. If you haven’t already been contacted about "
 "why, please {uri|send us a message}."
 msgstr ""
+"Obecnie nie masz uprawnień do pozostawiania ani edytowania notatek, ponieważ "
+"administrator cofnął Twoje uprawnienia. Jeśli jeszcze nie skontaktowano się "
+"z Tobą w sprawie powodu, {uri|send us a message}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
 msgid "This note has already been removed."
-msgstr ""
+msgstr "Ta notatka została już usunięta."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:124
 msgid ""
@@ -4694,6 +4695,10 @@ msgid ""
 "If there’s an important reason why it should be changed (for example, it "
 "contains private data), please {contact_url|contact us}."
 msgstr ""
+"Nie możesz zmienić tej notatki, ponieważ ktoś inny już na nią odpowiedział. "
+"Jeśli istnieje ważny powód, dla którego powinna zostać zmieniona "
+"(na przykład zawiera dane prywatne), skontaktuj się z nami pod adresem "
+"{contact_url|contact us}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
 msgid ""
@@ -4701,6 +4706,10 @@ msgid ""
 "important reason why it should be changed (for example, it contains private "
 "data), please {contact_url|contact us}."
 msgstr ""
+"Nie możesz zmienić tej notatki, ponieważ została wprowadzona zbyt dawno "
+"temu. Jeśli istnieje ważny powód, dla którego powinna zostać zmieniona "
+"(na przykład zawiera dane prywatne), skontaktuj się z nami pod adresem "
+"{contact_url|contact us}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
@@ -4718,7 +4727,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
-msgstr ""
+msgstr "Ocena powinna być liczbą całkowitą od 0 do 100."
 
 #: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:72
 #, perl-brace-format
@@ -4742,21 +4751,21 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Release.pm:539
 msgid ""
 "This merge strategy is not applicable to the releases you have selected."
-msgstr ""
+msgstr "Ta strategia scalania nie ma zastosowania do wybranych wydań."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:68
 msgid "The annotation revision ID must be a positive integer"
-msgstr ""
+msgstr "Identyfikator wersji adnotacji musi być dodatnią liczbą całkowitą"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
 msgid "Found no annotation with ID “{id}”."
-msgstr ""
+msgstr "Nie znaleziono adnotacji o identyfikatorze „{id}”."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
 msgid "The annotation with ID “{id}” is not associated with this entity."
-msgstr ""
+msgstr "Adnotacja o identyfikatorze „{id}” nie jest powiązana z tą jednostką."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:230
 msgid "The old and new annotation ids must be unique, positive integers."
@@ -4780,19 +4789,23 @@ msgstr "[brak danych]"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Load.pm:96
 msgid "The provided relationship type ID is not valid."
-msgstr ""
+msgstr "Podany identyfikator typu relacji jest nieprawidłowy."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:99
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
+"Język ustawiony. Jeśli nie było to zamierzone, po prostu {url|set "
+"“{prev_lang_name}” back}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:107
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
+"Jeśli znajdziesz jakiekolwiek problemy z tłumaczeniem, {url|help us improve "
+"it}!"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:355
 msgid ""
@@ -4802,7 +4815,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:169
 msgid "Series that have different entity types cannot be merged."
-msgstr ""
+msgstr "Nie można scalić serii zawierających różne typy jednostek."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:313
 #: ../lib/MusicBrainz/Server/Controller/User.pm:339
@@ -4819,10 +4832,12 @@ msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr ""
+"Nie możesz skontaktować się z innymi użytkownikami, ponieważ nie {url|"
+"verified your email address}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:341
 msgid "You are not allowed to send messages to editors."
-msgstr ""
+msgstr "Nie masz uprawnień do wysyłania wiadomości do redaktorów."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:355
 #, perl-brace-format
@@ -4834,7 +4849,7 @@ msgstr "Redaktor {name} nie posiada adresu e-mail."
 #: ../root/account/LostUsernameSent.js:16
 msgctxt "header"
 msgid "Email sent"
-msgstr ""
+msgstr "E-mail wysłany"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:370
 #, perl-brace-format
@@ -4842,6 +4857,8 @@ msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr ""
+"Twój e-mail został pomyślnie wysłany! Kliknij {link|here}, aby przejść do "
+"profilu użytkownika {user}."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:407
 #, fuzzy
@@ -4855,7 +4872,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:843
 msgid "An error occurred while trying to send your report."
-msgstr ""
+msgstr "Wystąpił błąd podczas próby wysłania raportu."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:847
 msgid "Your report has been sent."
@@ -4870,12 +4887,16 @@ msgid ""
 "An error occurred trying to communicate with the Internet Archive servers. "
 "Please wait a few moments and try again."
 msgstr ""
+"Wystąpił błąd podczas próby komunikacji z serwerami Internet Archive. "
+"Poczekaj chwilę i spróbuj ponownie."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:323
 msgid ""
 "We’ve hit a temporary delay while trying to fetch metadata from the Internet "
 "Archive. Please wait a minute and try again."
 msgstr ""
+"Wystąpiło tymczasowe opóźnienie podczas próby pobrania metadanych z Internet "
+"Archive. Poczekaj chwilę i spróbuj ponownie."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:339
 #, perl-brace-format
@@ -4884,6 +4905,9 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
+"Nie możemy przesłać okładki do tego wydania, ponieważ nie jesteśmy "
+"właścicielami powiązanego elementu w Internet Archive. Prosimy o kontakt pod "
+"adresem {contact_url}, abyśmy mogli rozwiązać ten problem."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:358
 #, perl-brace-format
@@ -4899,6 +4923,8 @@ msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
 msgstr ""
+"Internet Archive otrzymało już wcześniej prośbę o usunięcie tego elementu, "
+"dlatego nie możemy zezwolić na dalsze przesyłanie."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:528
 #, perl-brace-format
@@ -4907,12 +4933,17 @@ msgid ""
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
 msgstr ""
+"Nie możemy przesłać tutaj zdjęć, ponieważ nie jesteśmy właścicielami "
+"powiązanego elementu w Internet Archive. Prosimy o kontakt pod adresem "
+"{contact_url}, abyśmy mogli rozwiązać ten problem."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:762
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
 msgstr ""
+"Musisz się zalogować, aby przesłać zmiany. Najpierw zaloguj się {url|Log in} "
+"i spróbuj ponownie przesłać zmiany."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:799
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
@@ -4923,12 +4954,16 @@ msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
 msgstr ""
+"Twoja notatka edycyjna wydaje się być pozbawiona treści. Proszę, napisz "
+"notatkę, która będzie pomocna dla innych redaktorów!"
 
 #: ../lib/MusicBrainz/Server/ControllerUtils/Delete.pm:25
 msgid ""
 "Since your edit adding this object was still open, that edit has been "
 "cancelled instead of opening a new edit."
 msgstr ""
+"Ponieważ Twoja edycja dodająca ten obiekt była nadal otwarta, ta edycja "
+"została anulowana zamiast otworzyć nową."
 
 #: ../lib/MusicBrainz/Server/Data/LinkType.pm:246
 #, perl-brace-format
@@ -14298,7 +14333,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Recordings with possible duplicate relationships"
 msgid "Recordings with possible duplicate works"
-msgstr "Nagrania z możliwymi duplikatami relacji"
+msgstr "Nagrania z możliwymi duplikatami utworów"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:25
 msgid ""
@@ -14308,17 +14343,25 @@ msgid ""
 "recordings blindly just because the lengths fit, and do not merge recordings "
 "with very different times!"
 msgstr ""
+"Ten raport pokazuje nagrania z wycofaną relacją „najwcześniejsze wydanie”. "
+"Powinny one zostać scalone, jeśli rzeczywiście są to te same nagrania; jeśli "
+"nie, relacją należy usunąć. Prosimy, nie scalaj nagrań bez powodu tylko "
+"dlatego, że ich długość się zgadza, ani nie scalaj nagrań o bardzo różnych "
+"czasach!"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:35
 #: ../root/report/ReportsIndex.js:519
+#, fuzzy
 msgid "Recordings with earliest release relationships"
-msgstr ""
+msgstr "Nagrania z najwcześniejszymi relacjami wydawniczymi"
 
 #: ../root/report/RecordingsWithFutureDates.js:54
 msgid ""
 "This report shows recordings with relationships using dates in the future. "
 "Those are probably typos (such as 2109 instead of 2019)."
 msgstr ""
+"Ten raport pokazuje nagrania z relacjami opartymi na datach w przyszłości. "
+"To prawdopodobnie literówki (np. 2109 zamiast 2019)."
 
 #: ../root/report/RecordingsWithFutureDates.js:60
 msgid "Recordings with relationships having dates in the future"
@@ -14329,6 +14372,8 @@ msgid ""
 "This report shows recordings where the linked tracks have times that vary by "
 "more than 30 seconds."
 msgstr ""
+"W raporcie tym wyświetlane są nagrania, w których różnice czasowe pomiędzy "
+"połączonymi ścieżkami wynoszą ponad 30 sekund."
 
 #: ../root/report/RecordingsWithVaryingTrackLengths.js:31
 #: ../root/report/ReportsIndex.js:535
@@ -14448,12 +14493,17 @@ msgid "Suspiciously early digital releases"
 msgstr "Podejrzanie wczesne wydania cyfrowe"
 
 #: ../root/report/ReleasedTooEarlyForLabel.js:25
+#, fuzzy
 msgid ""
 "This report shows releases where the earliest release date predates the "
 "begin date of at least one of the marked release labels. This means either "
 "one of the two dates is incorrect, or the label has been incorrectly "
 "selected."
 msgstr ""
+"Ten raport pokazuje wydania, których najwcześniejsza data wydania jest "
+"wcześniejsza niż data rozpoczęcia obowiązywania co najmniej jednej z "
+"oznaczonych etykiet wydania. Oznacza to, że jedna z dwóch dat jest "
+"nieprawidłowa lub etykieta została wybrana nieprawidłowo."
 
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
