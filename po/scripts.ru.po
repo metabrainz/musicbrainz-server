@@ -16,8 +16,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-27 00:08+0000\n"
-"Last-Translator: craftersmine <me@craftersmine.ru>\n"
+"PO-Revision-Date: 2025-10-28 21:21+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ru/>\n"
 "Language: ru\n"
@@ -37,22 +38,22 @@ msgstr "афака"
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
 msgid "Arabic"
-msgstr "арабский"
+msgstr "арабское"
 
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
-msgstr "армянский"
+msgstr "армянское"
 
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
 msgid "Avestan"
-msgstr "авестийский"
+msgstr "авестийское"
 
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
-msgstr "балийский"
+msgstr "балийское"
 
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155

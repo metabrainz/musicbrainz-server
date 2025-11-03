@@ -1,17 +1,19 @@
 #
 # Translators:
+# Besnik <besnik@programeshqip.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:57+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Albanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sq/)\n"
+"PO-Revision-Date: 2025-11-03 11:34+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"Language-Team: Albanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/sq/>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -242,10 +244,6 @@ msgstr ""
 #: DB:instrument/name:934
 msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
-msgstr ""
-
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
 msgstr ""
 
 #: DB:instrument/name:846
@@ -4501,6 +4499,11 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr ""
 
+#: DB:instrument/name:279
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr ""
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr ""
@@ -4598,6 +4601,11 @@ msgstr ""
 #: DB:instrument/name:527
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
+msgstr ""
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
 msgstr ""
 
 #: DB:instrument/name:222

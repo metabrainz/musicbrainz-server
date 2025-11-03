@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-20 21:08+0000\n"
+"PO-Revision-Date: 2025-11-02 16:21+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
 "(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1404,66 +1404,66 @@ msgstr "Wskazuje na stronę Internet Movie Database dotyczącą tego miejsca."
 
 #. name:wikidata
 #: DB:link_type/description:358
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this series."
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tej serii."
+msgstr ""
+"Odsyła do strony Wikidata dla tego obszaru i będzie używana do pobierania "
+"podsumowań Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:352
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this artist."
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tego artysty."
+msgstr ""
+"Link odsyła do strony Wikidata poświęconej temu artyście. Link ten zostanie "
+"użyty do pobrania streszczeń z Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:790
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this series."
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tej serii."
+msgstr ""
+"Przekierowuje do strony Wikidata dotyczącej tego wydarzenia i będzie używana "
+"do pobierania streszczeń z Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:1087
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this series."
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tej serii."
+msgstr ""
+"Odsyła do strony Wikidata poświęconej temu gatunkowi, która będzie używana "
+"do pobierania streszczeń z Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:733
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this series."
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tej serii."
+msgstr ""
+"Wskazuje na stronę Wikidata dla tego narzędzia i będzie używana do "
+"pobierania podsumowań z Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:354
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this series."
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tej serii."
+msgstr ""
+"Wskazuje na stronę Wikidata dla tej wytwórni i będzie używana do pobierania "
+"streszczeń Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this series."
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
-msgstr "Wskazuje na artykuł w Wikipedii dla tej serii."
+msgstr ""
+"Wskazuje na stronę Wikidata dla tego miejsca i będzie używana do pobierania "
+"podsumowań Wikipedii."
 
 #. name:wikidata
 #: DB:link_type/description:353
@@ -2063,6 +2063,21 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "Opisuje inżyniera wykonującego ogólne zadania inżynieryjne."
 
+#. name:recording
+#: DB:link_type/description:1297
+#, fuzzy
+msgid ""
+"This describes the company committing the performance to tape or another "
+"recording medium. This can be as complex as setting up the microphones, "
+"amplifiers, and recording devices, or as simple as pressing the 'record' "
+"button on a 4-track or a digital audio workstation. Use this only when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+"Opisuje to inżyniera odpowiedzialnego za nagrywanie na taśmę lub inny "
+"nośnik. Może to być tak złożone, jak ustawienie mikrofonów, wzmacniaczy i "
+"urządzeń nagrywających, lub tak proste, jak naciśnięcie przycisku „nagraj” "
+"na 4-ścieżkowej lub cyfrowej stacji roboczej audio."
+
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
 msgid ""
@@ -2207,8 +2222,8 @@ msgid ""
 "This indicates an artist (generally a person) was the founder of a series "
 "(mostly, but not always, an event series such as a festival)."
 msgstr ""
-"Oznacza to, że artysta (zazwyczaj osoba) był założycielem cyklu "
-"(przeważnie, choć nie zawsze, cyklu wydarzeń, np. festiwalu)."
+"Oznacza to, że artysta (zazwyczaj osoba) był założycielem cyklu (przeważnie, "
+"choć nie zawsze, cyklu wydarzeń, np. festiwalu)."
 
 #. name:cancelled
 #: DB:link_attribute_type/description:921
@@ -2221,9 +2236,8 @@ msgid ""
 "This indicates an artist reconstructed a work (usually one where the score "
 "was lost) to make it ready for performance."
 msgstr ""
-"Oznacza to, że artysta zrekonstruował dzieło "
-"(zwykle takie, do którego zaginęła partytura), aby przygotować je do "
-"wykonania."
+"Oznacza to, że artysta zrekonstruował dzieło (zwykle takie, do którego "
+"zaginęła partytura), aby przygotować je do wykonania."
 
 #. name:art direction
 #: DB:link_type/description:18
@@ -2266,7 +2280,8 @@ msgstr ""
 #: DB:link_type/description:1242
 #, fuzzy
 msgid "This indicates an artist who did design for a video recording."
-msgstr "Oznacza to artystę, który zaprojektował coś na potrzeby nagrania wideo."
+msgstr ""
+"Oznacza to artystę, który zaprojektował coś na potrzeby nagrania wideo."
 
 #. name:design
 #: DB:link_type/description:1233
@@ -2413,8 +2428,8 @@ msgid ""
 "This indicates that a person is, or was, the artistic director of a group "
 "(such as a ballet/opera company)."
 msgstr ""
-"Oznacza to, że dana osoba jest lub była dyrektorem artystycznym zespołu "
-"(np. baletu/opery)."
+"Oznacza to, że dana osoba jest lub była dyrektorem artystycznym zespołu (np. "
+"baletu/opery)."
 
 #. name:art direction
 #: DB:link_type/description:137
@@ -2430,7 +2445,8 @@ msgstr ""
 msgid ""
 "This indicates that a person or firm provided legal representation for the "
 "recording."
-msgstr "Oznacza to, że osoba lub firma zapewniła reprezentację prawną nagrania."
+msgstr ""
+"Oznacza to, że osoba lub firma zapewniła reprezentację prawną nagrania."
 
 #. name:legal representation
 #: DB:link_type/description:22
@@ -2466,9 +2482,9 @@ msgstr ""
 "Oznacza to, że nagranie jest kompilacją kilku innych nagrań. Dotyczy to "
 "jednego długiego nagrania zawierającego wiele utworów, jeden po drugim, w "
 "którym materiał audio oryginalnych nagrań nie został zmieniony. Jeśli "
-"ścieżki są zsynchronizowane lub połączone, <a href="
-"\"/relationship/451076df-61cf-46ab-9921-555cab2f050d\">typ relacji DJ-miks</"
-"a> może być bardziej odpowiedni."
+"ścieżki są zsynchronizowane lub połączone, <a href=\"/relationship/"
+"451076df-61cf-46ab-9921-555cab2f050d\">typ relacji DJ-miks</a> może być "
+"bardziej odpowiedni."
 
 #. name:included in
 #: DB:link_type/description:894
@@ -2591,8 +2607,8 @@ msgid ""
 "This indicates that an event is made up of multiple parts (e.g. a festival "
 "happening on multiple venues over the course of a few days)."
 msgstr ""
-"Oznacza to, że wydarzenie składa się z wielu części "
-"(np. festiwal odbywający się w wielu miejscach w ciągu kilku dni)."
+"Oznacza to, że wydarzenie składa się z wielu części (np. festiwal odbywający "
+"się w wielu miejscach w ciągu kilku dni)."
 
 #. name:parts
 #: DB:link_type/description:739
@@ -2839,8 +2855,8 @@ msgid ""
 "This indicates the artist was the owner of this place (often a studio, but "
 "sometimes also a venue)."
 msgstr ""
-"Oznacza to, że artysta był właścicielem tego miejsca "
-"(często studia, ale czasami także lokalu)."
+"Oznacza to, że artysta był właścicielem tego miejsca (często studia, ale "
+"czasami także lokalu)."
 
 #. name:arranger, name:instrument arranger, name:vocal arranger
 #: DB:link_type/description:295 DB:link_type/description:294
@@ -2881,8 +2897,8 @@ msgid ""
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 "Oznacza to firmę, która wykonała szklany master do wydania. Nie jest to "
-"<strong>to</strong> to samo, co <a href=\"/doc/Label\" target=\"_blank\""
-">wytwórnia płytowa</a> ani inżynieria masteringu."
+"<strong>to</strong> to samo, co <a href=\"/doc/Label\" "
+"target=\"_blank\">wytwórnia płytowa</a> ani inżynieria masteringu."
 
 #. name:owner
 #: DB:link_type/description:989
@@ -2890,8 +2906,8 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
-"Oznacza to, że wytwórnia/organizacja była właścicielem tego miejsca "
-"(często studia, ale czasami także lokalu)."
+"Oznacza to, że wytwórnia/organizacja była właścicielem tego miejsca (często "
+"studia, ale czasami także lokalu)."
 
 #. name:named after label
 #: DB:link_type/description:1259
@@ -2920,11 +2936,11 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"Oznacza to organizację, która zajmuje się dystrybucją (lub zleca dystrybucję)"
-".\n"
+"Oznacza to organizację, która zajmuje się dystrybucją (lub zleca "
+"dystrybucję).\n"
 "\n"
-"To <strong>nie</strong> to samo, co <a href=\"/doc/Label\" target=\"_blank\""
-">wytwórnia płytowa</a>."
+"To <strong>nie</strong> to samo, co <a href=\"/doc/Label\" "
+"target=\"_blank\">wytwórnia płytowa</a>."
 
 #. name:exported
 #: DB:link_type/description:1280
@@ -2960,8 +2976,8 @@ msgid ""
 "target=\"_blank\">record label</a>."
 msgstr ""
 "Oznacza to organizację, która wprowadza wydanie na rynek. <strong>Nie</"
-"strong> jest to samo pojęcie, co <a href=\"/doc/Label\" target=\"_blank\""
-">wytwórnia płytowa</a>."
+"strong> jest to samo pojęcie, co <a href=\"/doc/Label\" "
+"target=\"_blank\">wytwórnia płytowa</a>."
 
 #. name:printed
 #: DB:link_type/description:985
@@ -3050,9 +3066,8 @@ msgid ""
 msgstr ""
 "Wskazuje osobę, która wybrała utwory i ich kolejność do kompilacji. Jeśli "
 "utwory są dopasowane lub połączone ze sobą, bardziej odpowiednie jest "
-"określenie tej osoby jako <a href="
-"\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-"
-"miksera</a>."
+"określenie tej osoby jako <a href=\"/relationship/"
+"9162dedd-790c-446c-838e-240f877dbfe2\" target=\"_blank\">DJ-miksera</a>."
 
 #. name:compiler
 #: DB:link_type/description:147
@@ -3067,9 +3082,8 @@ msgstr ""
 "Oznacza osobę, która wybrała utwory i ich kolejność do kompilacji. Dotyczy "
 "to jednego długiego nagrania zawierającego wiele utworów, jeden po drugim. "
 "Jeśli utwory są zsynchronizowane lub połączone, bardziej odpowiednie jest "
-"określenie tej osoby jako <a href="
-"\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\" target=\"_blank\">DJ-"
-"miksera</a>."
+"określenie tej osoby jako <a href=\"/relationship/28338ee6-d578-485a-"
+"bb53-61dbfd7c6545\" target=\"_blank\">DJ-miksera</a>."
 
 #. name:named after place
 #: DB:link_type/description:1281
@@ -3164,6 +3178,9 @@ msgid ""
 "This indicates the work is dedicated to a specific artist. This is most "
 "common for classical works, but also exists in other genres to a degree."
 msgstr ""
+"Oznacza to, że utwór jest dedykowany konkretnemu artyście. Jest to "
+"powszechne w przypadku dzieł klasycznych, ale w pewnym stopniu występuje "
+"również w innych gatunkach."
 
 #. name:dedication
 #: DB:link_type/description:922
@@ -3237,9 +3254,8 @@ msgid ""
 "This is used to indicate that the recording is a <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other recordings."
 msgstr ""
-"Używa się tego do wskazania, że nagranie jest <a href="
-"\"/doc/Mix_Terminology#mash-up\">złożeniem</a> dwóch (lub więcej) innych "
-"nagrań."
+"Używa się tego do wskazania, że nagranie jest <a href=\"/doc/"
+"Mix_Terminology#mash-up\">złożeniem</a> dwóch (lub więcej) innych nagrań."
 
 #. name:mashes up
 #: DB:link_type/description:10
@@ -3247,15 +3263,23 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other release groups."
 msgstr ""
+"Służy do wskazania, że grupa wydań jest połączeniem <a href="
+"\"/doc/Mix_Terminology#mash-up\">połączenia</a> dwóch (lub więcej) innych "
+"grup wydań."
 
 #. name:DJ-mix
 #: DB:link_type/description:227
+#, fuzzy
 msgid ""
 "This is used to link a <a href=\"/doc/Mix_Terminology#DJ_mix\">DJ-mixed</a> "
 "recording to each of the source recordings. See <a href=\"/relationship/"
 "28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for crediting the person "
 "who created the DJ-mix."
 msgstr ""
+"Służy do łączenia nagrania <a href=\"/doc/Mix_Terminology#DJ_mix\""
+">zmiksowanego przez DJ-a</a> z każdym z nagrań źródłowych. Informacje o "
+"autorze miksu DJ-skiego można znaleźć w sekcji <a href="
+"\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">Mikser DJ-ski</a>."
 
 #. name:allmusic
 #: DB:link_type/description:1093
@@ -3334,10 +3358,10 @@ msgid ""
 "9162dedd-790c-446c-838e-240f877dbfe2\">DJ-mixer</a> for crediting the person "
 "who created the DJ-mix."
 msgstr ""
-"Służy do łączenia grupy wydań zawierającej wersję wydania z <a href="
-"\"/doc/Mix_Terminology#DJ_mix\">miksem DJ</a> z grupą wydań zawierającą "
-"wersję źródłową. Informacje o autorze miksu DJ można znaleźć w sekcji <a "
-"href=\"/relationship/9162dedd-790c-446c-838e-240f877dbfe2\">Mikser DJ</a>."
+"Służy do łączenia grupy wydań zawierającej wersję wydania z <a href=\"/doc/"
+"Mix_Terminology#DJ_mix\">miksem DJ</a> z grupą wydań zawierającą wersję "
+"źródłową. Informacje o autorze miksu DJ można znaleźć w sekcji <a href=\"/"
+"relationship/9162dedd-790c-446c-838e-240f877dbfe2\">Mikser DJ</a>."
 
 #. name:allmusic
 #: DB:link_type/description:284
@@ -3376,7 +3400,8 @@ msgstr ""
 #. name:discogs
 #: DB:link_type/description:747
 msgid "This is used to link a series to the equivalent entry in Discogs."
-msgstr "Służy do łączenia serii z odpowiadającym jej wpisem w serwisie Discogs."
+msgstr ""
+"Służy do łączenia serii z odpowiadającym jej wpisem w serwisie Discogs."
 
 #. name:secondhandsongs
 #: DB:link_type/description:280
@@ -3399,8 +3424,8 @@ msgid ""
 "(for example, a hip hop vocal track without the beat)."
 msgstr ""
 "Służy do łączenia wersji a cappella utworu z piosenką oryginalną.<br/><br/>\n"
-"Wersja a cappella to wersja utworu zawierająca wyłącznie ścieżkę wokalną "
-"(na przykład ścieżka wokalna hip-hopowa bez rytmu)."
+"Wersja a cappella to wersja utworu zawierająca wyłącznie ścieżkę wokalną (na "
+"przykład ścieżka wokalna hip-hopowa bez rytmu)."
 
 #. name:secondhandsongs
 #: DB:link_type/description:307
@@ -3434,9 +3459,9 @@ msgid ""
 msgstr ""
 "Służy do powiązania wersji instrumentalnej utworu z utworem oryginalnym.<br/"
 "><br/>\n"
-"Wersja instrumentalna to wersja utworu z usuniętym wokalem "
-"(na przykład rytm hip-hopowy bez ścieżek rapowych). W przypadku utworów "
-"karaoke należy użyć powiązania karaoke."
+"Wersja instrumentalna to wersja utworu z usuniętym wokalem (na przykład rytm "
+"hip-hopowy bez ścieżek rapowych). W przypadku utworów karaoke należy użyć "
+"powiązania karaoke."
 
 #. name:discogs
 #: DB:link_type/description:180
@@ -3462,7 +3487,7 @@ msgstr "Służy do linkowania strony Discogs tej wytwórni."
 #. name:discogs
 #: DB:link_type/description:90
 msgid "This is used to link the Discogs page for this release group."
-msgstr ""
+msgstr "Służy do linkowania strony Discogs dla tej grupy wydań."
 
 #. name:discogs
 #: DB:link_type/description:76
@@ -3481,6 +3506,8 @@ msgid ""
 "This is used to link to a page where the artist's releases can be purchased "
 "for download."
 msgstr ""
+"Służy do linkowania do strony, na której można nabyć i pobrać wydawnictwa "
+"danego artysty."
 
 #. name:purchase for download
 #: DB:link_type/description:959
@@ -3495,6 +3522,8 @@ msgid ""
 "This is used to link to a page where the recording can be purchased for "
 "download."
 msgstr ""
+"Tutaj znajdziesz odnośnik do strony, na której możesz zakupić nagranie i je "
+"pobrać."
 
 #. name:purchase for download
 #: DB:link_type/description:74
@@ -3643,7 +3672,7 @@ msgstr ""
 #. name:fanpage
 #: DB:link_type/description:214
 msgid "This links a label to a fan-created website."
-msgstr ""
+msgstr "Łączy wytwórnię ze stroną internetową stworzoną przez fanów."
 
 #. name:patronage
 #: DB:link_type/description:899
@@ -3651,38 +3680,41 @@ msgid ""
 "This links a label to a site where the label can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Łączy wytwórnię ze stroną, na której wytwórnia może otrzymywać darowizny/"
+"patronat, np. Flattr lub PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1194
 msgid ""
 "This links a label to a site where tickets can be purchased for their events."
 msgstr ""
+"Łączy wytwórnię ze stroną, na której można kupić bilety na jej wydarzenia."
 
 #. name:youtube
 #: DB:link_type/description:225
 msgid "This links a label to its channel at YouTube."
-msgstr ""
+msgstr "Łączy wytwórnię z jej kanałem na YouTube."
 
 #. name:apple music
 #: DB:link_type/description:1130
 msgid "This links a label to its page at Apple Music."
-msgstr ""
+msgstr "Link do strony wytwórni w serwisie Apple Music."
 
 #. name:bandcamp
 #: DB:link_type/description:719
 msgid "This links a label to its page at Bandcamp."
-msgstr ""
+msgstr "Link do strony wytwórni na Bandcamp."
 
 #. name:IMDb
 #: DB:link_type/description:313
 msgid ""
 "This links a label to its page in <a href=\"http://www.imdb.com/\">IMDb</a>."
-msgstr ""
+msgstr "Łączy wytwórnię ze stroną w <a href=\"http://www.imdb.com/\">IMDb</a>."
 
 #. name:soundcloud
 #: DB:link_type/description:290
 msgid "This links a label to its profile at SoundCloud."
-msgstr ""
+msgstr "Tutaj znajdziesz link do profilu wytwórni na SoundCloud."
 
 #. name:crowdfunding
 #: DB:link_type/description:903
@@ -3713,11 +3745,13 @@ msgid ""
 "This links a place to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Łączy dane miejsce z kanałem, playlistą lub stroną użytkownika w serwisie "
+"udostępniającym filmy, zawierającym filmy przez niego wybrane."
 
 #. name:fanpage
 #: DB:link_type/description:1191
 msgid "This links a place to a fan-created website."
-msgstr ""
+msgstr "Łączy dane miejsce ze stroną internetową stworzoną przez fana."
 
 #. name:patronage
 #: DB:link_type/description:900
@@ -9174,7 +9208,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr ""
 
@@ -10359,9 +10393,19 @@ msgstr ""
 msgid "{additional:additionally} produced in"
 msgstr ""
 
+#. name:recording
+#: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
+msgid "{additional:additionally} recorded"
+msgstr ""
+
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
+msgstr ""
+
+#. name:recording
+#: DB:link_type/reverse_link_phrase:1297
+msgid "{additional:additionally} recorded by"
 msgstr ""
 
 #. name:recorded in

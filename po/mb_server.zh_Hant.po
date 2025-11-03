@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-07 16:33+0200\n"
+"POT-Creation-Date: 2025-10-27 17:21+0100\n"
 "PO-Revision-Date: 2025-05-27 11:20+0000\n"
 "Last-Translator: silentbird "
 "<silentbird@users.noreply.translations.metabrainz.org>\n"
@@ -102,7 +102,7 @@ msgstr ""
 "總是與{csg_track_artist|音軌創作者} 不同，因此，除非您確認無誤，否則在編輯古"
 "典音樂專輯時不要使用“複製創作者名單”選項！"
 
-#: ../root/components/common-macros.tt:400 ../root/recording/edit_form.tt:6
+#: ../root/components/common-macros.tt:396 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
 msgstr "<strong>警告</strong>:"
 
@@ -137,12 +137,12 @@ msgstr "放棄"
 msgid "Accept"
 msgstr "接受"
 
-#: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
+#: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 msgctxt "interactive"
 msgid "Add IPI code"
 msgstr "添加IPI代碼"
 
-#: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
+#: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 msgctxt "interactive"
 msgid "Add ISNI code"
 msgstr "添加ISNI代碼"
@@ -315,7 +315,7 @@ msgstr ""
 "管理員已對您的帳戶做出了如下限制: {list}。如果您還沒有被告知原因，請{uri|發送"
 "消息}。"
 
-#: ../root/components/common-macros.tt:485
+#: ../root/components/common-macros.tt:454
 msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
@@ -347,7 +347,7 @@ msgctxt "vote"
 msgid "Approve"
 msgstr "通過"
 
-#: ../root/artist/edit_form.tt:22 ../root/edit/search_macros.tt:480
+#: ../root/artist/edit_form.tt:20 ../root/edit/search_macros.tt:480
 #: ../root/label/edit_form.tt:16 ../root/place/edit_form.tt:21
 #: ../lib/MusicBrainz/Server/Edit/Area.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:44
@@ -384,7 +384,6 @@ msgstr "主要類型"
 #: ../root/edit/search_macros.tt:480 ../root/release/edit/duplicates.tt:11
 #: ../root/release/edit/information.tt:26 ../root/release/edit/tracklist.tt:110
 #: ../root/release/edit/tracklist.tt:163 ../root/release/edit/tracklist.tt:513
-#: ../root/release_group/set_cover_art.tt:33
 #: ../lib/MusicBrainz/Server/Edit/Artist.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/CDStubInfo.js:21
@@ -441,6 +440,7 @@ msgstr "主要類型"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
 #: ../root/static/scripts/common/utility/formatSetlist.js:69
 #: ../root/static/scripts/edit/components/forms.js:129
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:103
 #: ../root/static/scripts/release/components/MediumTable.js:75
 #: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
 msgid "Artist"
@@ -492,7 +492,6 @@ msgstr "自動確認編輯者"
 #: ../root/cdtoc/attach_artist_releases.tt:19 ../root/cdtoc/list.tt:13
 #: ../root/cdtoc/lookup.tt:46 ../root/release/edit/duplicates.tt:18
 #: ../root/release/edit/information.tt:265
-#: ../root/release_group/set_cover_art.tt:63
 #: ../root/components/list/ReleaseList.js:126
 #: ../root/edit/details/AddRelease.js:107
 #: ../root/edit/details/EditBarcodes.js:41
@@ -509,6 +508,7 @@ msgstr "自動確認編輯者"
 #: ../root/report/ReleasesSameBarcode.js:40
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:163
 msgid "Barcode"
 msgstr "條碼"
 
@@ -526,28 +526,6 @@ msgid ""
 msgstr ""
 "根據您提供的資訊，我們發現MusicBrainz中已經存在一下類似的發行版。如果您希望將"
 "您的版本基於現有的基礎上，請在下面選擇它。"
-
-#: ../root/artist/edit_form.tt:56 ../root/artist/utils.js:15
-#: ../root/components/list/ArtistList.js:90
-#: ../root/search/components/ArtistResults.js:58
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:101
-msgid "Begin area"
-msgstr "開始地區"
-
-#: ../root/artist/edit_form.tt:52 ../root/artist/utils.js:24
-#: ../root/components/Aliases/AliasTable.js:19
-#: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
-#: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:69
-#: ../root/edit/details/AddRemoveAlias.js:86
-#: ../root/edit/details/EditAlias.js:111 ../root/edit/details/EditArea.js:101
-#: ../root/edit/details/EditEvent.js:68 ../root/edit/details/EditLabel.js:89
-#: ../root/edit/details/EditPlace.js:89
-#: ../root/layout/components/sidebar/AreaSidebar.js:63
-#: ../root/report/RecordingsWithFutureDates.js:33
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:180
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:161
-msgid "Begin date"
-msgstr "開始日期"
 
 #: ../root/event/add_event_art.tt:95 ../root/release/add_cover_art.tt:95
 #: ../root/search/error/InternalError.js:22
@@ -632,12 +610,12 @@ msgstr "Cat. No:"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18 ../root/cdtoc/list.tt:12
 #: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:17
-#: ../root/release_group/set_cover_art.tt:57
 #: ../root/edit/details/MergeReleases.js:232
 #: ../root/recording/RecordingIndex.js:52
 #: ../root/release_group/ReleaseGroupIndex.js:172
 #: ../root/search/components/ReleaseResults.js:124
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:154
 #: ../root/utility/tableColumns.js:498 ../root/utility/tableColumns.js:503
 msgid "Catalog#"
 msgstr "目錄#"
@@ -674,10 +652,10 @@ msgstr "崩潰介質"
 #: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:69 ../root/release/add_cover_art.tt:137
-#: ../root/release/reorder_cover_art.tt:19
-#: ../root/release_group/set_cover_art.tt:72 ../root/cdstub/CDStubIndex.js:28
+#: ../root/release/reorder_cover_art.tt:19 ../root/cdstub/CDStubIndex.js:28
 #: ../root/components/ArtFields.js:97 ../root/edit/details/AddArt.js:58
 #: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:183
 msgid "Comment"
 msgstr "注釋"
 
@@ -717,7 +695,6 @@ msgstr "將發行名複製到發行組"
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:15
 #: ../root/release/edit/information.tt:199
-#: ../root/release_group/set_cover_art.tt:42
 #: ../root/edit/details/EditReleaseLabel.js:106
 #: ../root/edit/details/MergeReleases.js:230
 #: ../root/edit/details/historic/AddRelease.js:118
@@ -727,15 +704,10 @@ msgstr "將發行名複製到發行組"
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:287
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:119
 #: ../root/utility/tableColumns.js:520 ../root/utility/tableColumns.js:532
 msgid "Country"
 msgstr "地區"
-
-#: ../root/release_group/set_cover_art.tt:68
-#: ../root/edit/components/EditArtwork.js:26 ../root/user/UserProfile.js:56
-msgctxt "singular"
-msgid "Cover art"
-msgstr "封面"
 
 #: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -760,7 +732,6 @@ msgstr "資料音軌"
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
 #: ../root/release/edit/information.tt:173
-#: ../root/release_group/set_cover_art.tt:38
 #: ../root/components/RelationshipsTable.js:312
 #: ../root/edit/details/EditReleaseLabel.js:98
 #: ../root/edit/details/MergeReleases.js:230
@@ -775,24 +746,11 @@ msgstr "資料音軌"
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:96
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:319
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:111
 #: ../root/utility/tableColumns.js:286 ../root/utility/tableColumns.js:291
 #: ../root/utility/tableColumns.js:526 ../root/utility/tableColumns.js:532
 msgid "Date"
 msgstr "日期"
-
-#: ../root/artist/edit_form.tt:48
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:170
-msgid "Date period"
-msgstr "日期範圍"
-
-#: ../root/artist/edit_form.tt:50
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
-msgid ""
-"Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
-"YYYY are OK, or you can omit the date entirely."
-msgstr ""
-"日期的格式為YYYY-MM-DD。部分日期（如YYYY-MM或只是YYYY）也可以，或者你可以省略"
-"該日期。"
 
 #: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:186
 #: ../root/edit/details/AddInstrument.js:60
@@ -986,31 +944,6 @@ msgstr "編輯器標誌"
 msgid "Enable vinyl track numbers"
 msgstr "啟用黑膠音軌編號"
 
-#: ../root/artist/edit_form.tt:70 ../root/artist/utils.js:32
-#: ../root/components/list/ArtistList.js:100
-#: ../root/search/components/ArtistResults.js:60
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:88
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:102
-msgid "End area"
-msgstr "結束地區"
-
-#: ../root/artist/edit_form.tt:65 ../root/artist/utils.js:44
-#: ../root/components/Aliases/AliasTable.js:20
-#: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
-#: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
-#: ../root/edit/details/AddRemoveAlias.js:93
-#: ../root/edit/details/EditAlias.js:118 ../root/edit/details/EditArea.js:109
-#: ../root/edit/details/EditEvent.js:76 ../root/edit/details/EditLabel.js:98
-#: ../root/edit/details/EditPlace.js:97
-#: ../root/elections/ElectionTable/index.js:20
-#: ../root/layout/components/sidebar/AreaSidebar.js:69
-#: ../root/layout/components/sidebar/EventSidebar.js:113
-#: ../root/report/RecordingsWithFutureDates.js:38
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:195
-#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
-msgid "End date"
-msgstr "結束日期"
-
 #: ../root/components/forms.tt:170 ../root/components/forms.tt:195
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:101
 msgid "English"
@@ -1111,7 +1044,7 @@ msgstr "擴展媒體"
 msgid "Expire action"
 msgstr "過期操作"
 
-#: ../root/artist/edit_form.tt:84 ../root/label/edit_form.tt:55
+#: ../root/artist/edit_form.tt:52 ../root/label/edit_form.tt:55
 #: ../root/place/edit_form.tt:43 ../root/recording/edit_form.tt:59
 #: ../root/release/edit/information.tt:311
 #: ../root/release_group/edit_form.tt:21 ../root/series/edit_form.tt:24
@@ -1120,7 +1053,7 @@ msgstr "過期操作"
 msgid "External links"
 msgstr "外部連結"
 
-#: ../root/artist/edit_form.tt:210
+#: ../root/artist/edit_form.tt:178
 msgid ""
 "External links are URLs associated with the artist. These can include the "
 "artist’s official homepage and social networking pages, streaming services, "
@@ -1218,7 +1151,6 @@ msgstr ""
 
 #: ../root/cdtoc/list.tt:9 ../root/release/edit/duplicates.tt:12
 #: ../root/release/edit/tracklist.tt:305
-#: ../root/release_group/set_cover_art.tt:47
 #: ../root/components/list/ReleaseList.js:85
 #: ../root/edit/details/AddMedium.js:119 ../root/edit/details/EditMedium.js:450
 #: ../root/edit/details/EditReleaseLabel.js:124
@@ -1229,6 +1161,7 @@ msgstr ""
 #: ../root/release_group/ReleaseGroupIndex.js:168
 #: ../root/report/components/CDTocList.js:44
 #: ../root/search/components/ReleaseResults.js:120
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:127
 msgid "Format"
 msgstr "格式"
 
@@ -1375,12 +1308,12 @@ msgstr "我沒有關於這個版本的媒體和音軌列表的資訊。"
 msgid "ID"
 msgstr "ID"
 
-#: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
+#: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
 msgid "IPI codes"
 msgstr "IPI 代碼"
 
-#: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
+#: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #: ../root/edit/details/EditArtist.js:176 ../root/edit/details/EditLabel.js:136
 msgid "ISNI codes"
 msgstr "ISNI 代碼"
@@ -1550,7 +1483,9 @@ msgstr ""
 "如果您確定使用特邀創作者是正確的，請在上方確認。否則，請修正資料（使用“猜測 "
 "feat. 創作者”按鈕可能有所幫助）。"
 
-#: ../root/components/common-macros.tt:57 ../root/components/Artwork.js:43
+#: ../root/components/common-macros.tt:57
+#: ../root/static/scripts/common/components/Artwork.js:42
+#: ../root/static/scripts/common/components/Artwork2.js:44
 msgid "Image not available, please try again later."
 msgstr "圖像不可用，請稍後再試。"
 
@@ -1587,7 +1522,7 @@ msgid ""
 "names, and this isn’t a live recording."
 msgstr ""
 
-#: ../root/components/common-macros.tt:406
+#: ../root/components/common-macros.tt:402
 msgid "Javascript is required for this page to work properly."
 msgstr "此頁面需要 Javascript 才能正常工作。"
 
@@ -1632,7 +1567,6 @@ msgstr ""
 #: ../root/cdtoc/lookup.tt:44 ../root/edit/search_macros.tt:480
 #: ../root/release/edit/duplicates.tt:16
 #: ../root/release/edit/information.tt:222
-#: ../root/release_group/set_cover_art.tt:53
 #: ../lib/MusicBrainz/Server/Edit/Label.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:43
 #: ../root/components/list/LabelList.js:47 ../root/edit/details/AddLabel.js:26
@@ -1655,6 +1589,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:271
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:38
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:146
 #: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
 #: ../root/utility/tableColumns.js:554
 msgid "Label"
@@ -1732,7 +1667,7 @@ msgctxt "user type"
 msgid "Location editor"
 msgstr "位置編輯者"
 
-#: ../root/components/common-macros.tt:359
+#: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 msgctxt "interactive"
@@ -1776,7 +1711,7 @@ msgstr "Mastodon"
 msgid "Matching CDs"
 msgstr "匹配的CD"
 
-#: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:423
+#: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:419
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
 #: ../root/cdtoc/AttachCDTocConfirmation.js:54
 #: ../root/cdtoc/SetTracklistDurations.js:43
@@ -1911,10 +1846,6 @@ msgstr "否"
 msgid "No description available."
 msgstr "無可用描述。"
 
-#: ../root/release_group/set_cover_art.tt:97
-msgid "No releases have cover art marked as \"Front\", cannot set cover art."
-msgstr "沒有專輯有標記為“正面”的封面圖片，無法設定封面圖片。"
-
 #: ../root/release/edit/tracklist.tt:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:471
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:72
@@ -1963,12 +1894,6 @@ msgstr "正在載入錄音關聯..."
 msgid "Now loading tracklist..."
 msgstr "正在載入音軌列表..."
 
-#: ../root/release_group/set_cover_art.tt:14
-msgid ""
-"Only releases with a front cover on the {caa|Cover Art Archive} can be "
-"selected."
-msgstr "只能選擇在 {caa|Cover Art Archive} 有正面封面的專輯。"
-
 #: ../root/release/add_cover_art.tt:168
 msgid ""
 "Only upload images that match this specific release (for example, check it "
@@ -1996,7 +1921,9 @@ msgstr "選項"
 msgid "Ordering type"
 msgstr "排序類型"
 
-#: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:70
+#: ../root/components/common-macros.tt:64
+#: ../root/static/scripts/common/components/Artwork.js:69
+#: ../root/static/scripts/common/components/Artwork2.js:66
 msgid "PDF file"
 msgstr "PDF 文件"
 
@@ -2038,7 +1965,7 @@ msgstr "相關類型"
 msgid "Please choose a condition"
 msgstr "請選擇一個條件"
 
-#: ../root/artist/edit_form.tt:215 ../root/label/edit_form.tt:119
+#: ../root/artist/edit_form.tt:183 ../root/label/edit_form.tt:119
 #: ../root/place/edit_form.tt:115 ../root/release_group/edit_form.tt:91
 msgid ""
 "Please don’t add a Wikipedia page if a Wikidata item linking to the same "
@@ -2077,9 +2004,9 @@ msgid ""
 "guidelines} for more information."
 msgstr "如需更多資訊，請查看 {doc_doc|文件} 和 {doc_styleguide|風格指南}。"
 
-#: ../root/artist/edit_form.tt:110 ../root/artist/edit_form.tt:138
-#: ../root/artist/edit_form.tt:150 ../root/artist/edit_form.tt:180
-#: ../root/artist/edit_form.tt:202 ../root/components/forms.tt:250
+#: ../root/artist/edit_form.tt:78 ../root/artist/edit_form.tt:106
+#: ../root/artist/edit_form.tt:118 ../root/artist/edit_form.tt:148
+#: ../root/artist/edit_form.tt:170 ../root/components/forms.tt:250
 #: ../root/place/edit_form.tt:59 ../root/recording/edit_form.tt:75
 #: ../root/release/edit/information.tt:323
 #: ../root/release/edit/information.tt:355
@@ -2328,12 +2255,12 @@ msgstr "{artist} 的專輯 “{name}”"
 msgid "Remove"
 msgstr "移除"
 
-#: ../root/artist/edit_form.tt:31 ../root/label/edit_form.tt:30
+#: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "IPI代碼"
 
-#: ../root/artist/edit_form.tt:38 ../root/label/edit_form.tt:37
+#: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 msgctxt "interactive"
 msgid "Remove ISNI code"
 msgstr "ISNI代碼"
@@ -2523,12 +2450,6 @@ msgstr "系列詳情"
 msgid "Series type"
 msgstr "系列"
 
-#: ../root/release_group/set_cover_art.tt:1
-#: ../root/release_group/set_cover_art.tt:5
-msgctxt "singular, header"
-msgid "Set cover art"
-msgstr "設定封面"
-
 #: ../root/cdtoc/list.tt:54 ../root/release/DiscIds.js:58
 msgid "Set track lengths"
 msgstr "設定音軌長度"
@@ -2603,6 +2524,7 @@ msgstr "狀態"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:181
 #: ../root/search/components/ReleaseResults.js:128
 #: ../root/static/scripts/common/components/FilterForm.js:303
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:137
 msgctxt "release"
 msgid "Status"
 msgstr "狀態"
@@ -2637,22 +2559,22 @@ msgid ""
 "is unlikely to work at the moment."
 msgstr "Internet Archive 目前遇到了問題。現在可能無法添加圖片。"
 
-#: ../root/artist/edit_form.tt:188
+#: ../root/artist/edit_form.tt:156
 msgid "The begin and end areas describe where the artist was born and died."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:198
+#: ../root/artist/edit_form.tt:166
 msgid ""
 "The begin and end areas describe where the artist was when it started and "
 "stopped existing."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:191
+#: ../root/artist/edit_form.tt:159
 msgid ""
 "The begin and end areas describe where the group was formed and dissolved."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:194
+#: ../root/artist/edit_form.tt:162
 msgid ""
 "The begin area is the real-life area where the character concept was "
 "created. The end area should not be set."
@@ -2785,7 +2707,7 @@ msgid ""
 "leave it empty."
 msgstr "注釋欄功能類似於小型wiki。"
 
-#: ../root/artist/edit_form.tt:145
+#: ../root/artist/edit_form.tt:113
 msgid ""
 "The {doc|area} indicates the country the artist is primarily identified "
 "with. If the artist is strongly associated with an area smaller than a "
@@ -2829,18 +2751,18 @@ msgid ""
 "existed or was active."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:175
+#: ../root/artist/edit_form.tt:143
 msgid ""
 "The {doc|begin and end dates} describe when the artist started and stopped "
 "existing."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:162
+#: ../root/artist/edit_form.tt:130
 msgid ""
 "The {doc|begin and end dates} describe when the artist was born and died."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:166
+#: ../root/artist/edit_form.tt:134
 msgid ""
 "The {doc|begin and end dates} describe when the group was formed and "
 "dissolved."
@@ -2852,7 +2774,7 @@ msgid ""
 "it shut down."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:170
+#: ../root/artist/edit_form.tt:138
 msgid ""
 "The {doc|begin date} is the real-life date when the character concept was "
 "created. The end date should not be set."
@@ -2873,7 +2795,7 @@ msgid ""
 "The {doc|date} describes when this particular release was made available."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:119
+#: ../root/artist/edit_form.tt:87
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between artists with "
 "identical or similar names. Feel free to leave it blank if it seems unlikely "
@@ -2941,7 +2863,7 @@ msgid ""
 "named works."
 msgstr "消歧義欄用於幫助使用者區分同名專輯。"
 
-#: ../root/artist/edit_form.tt:134
+#: ../root/artist/edit_form.tt:102
 msgid ""
 "The {doc|gender} field describes the gender with which a person or character "
 "identifies."
@@ -2985,7 +2907,7 @@ msgid ""
 "portion of the work’s lyrics (or [No lyrics] if it has none)."
 msgstr ""
 
-#: ../root/artist/edit_form.tt:106
+#: ../root/artist/edit_form.tt:74
 msgid "The {doc|name} is the artist’s official name."
 msgstr ""
 
@@ -3110,9 +3032,9 @@ msgstr ""
 "一個來源來支持你的觀點，但你不應該在注釋中輸入宣傳文字或其他創作者或標籤的文"
 "字。"
 
-#: ../root/artist/edit_form.tt:67
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:84
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:98
+#: ../root/artist/edit_form.tt:41
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:96
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:110
 msgid "This artist has ended."
 msgstr "這位創作者已經逝世。"
 
@@ -3133,12 +3055,12 @@ msgstr "此碟片末尾含有資料音軌"
 msgid "This disc has a hidden pregap track before track 1"
 msgstr "此碟片在音軌 1 之前有隱藏的前間隙音軌"
 
-#: ../root/components/common-macros.tt:159
+#: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:38
 msgid "This entity has been removed, and cannot be displayed correctly."
 msgstr "這個項目已被移除，無法正常顯示。"
 
-#: ../root/components/common-macros.tt:159
+#: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:37
 msgid "This entity will be added by this edit."
 msgstr "此項實體將由此次編輯新增。"
@@ -3153,7 +3075,7 @@ msgid ""
 "release. That kind of information should go in the annotation field."
 msgstr "此欄位不是儲存有關發布的一般背景資訊的地方：此類資訊應放在注釋欄位中。"
 
-#: ../root/artist/edit_form.tt:124 ../root/label/edit_form.tt:79
+#: ../root/artist/edit_form.tt:92 ../root/label/edit_form.tt:79
 #: ../root/place/edit_form.tt:71
 #, fuzzy
 #| msgid ""
@@ -3194,7 +3116,9 @@ msgstr ""
 "這是一台 MusicBrainz 鏡像伺服器。若要編輯資料，請 {uri|返回 "
 "musicbrainz.org}。"
 
-#: ../root/components/common-macros.tt:64 ../root/components/Artwork.js:66
+#: ../root/components/common-macros.tt:64
+#: ../root/static/scripts/common/components/Artwork.js:65
+#: ../root/static/scripts/common/components/Artwork2.js:62
 msgid ""
 "This is a PDF file, the thumbnail may not show the entire contents of the "
 "file."
@@ -3208,10 +3132,6 @@ msgid ""
 msgstr ""
 "這幾乎總是不正確的。請確定您是否確實需要不同的格式（例如“USB 隨身碟”或“下載"
 "卡”）或包裝類型。"
-
-#: ../root/release_group/set_cover_art.tt:77
-msgid "This is the current release group image"
-msgstr "這是目前的專輯組圖片"
 
 #: ../root/label/edit_form.tt:46
 msgid "This label has ended."
@@ -3286,7 +3206,7 @@ msgstr ""
 "這個問題在您打開發行品編輯器之前就已經存在，因此您不需要對此進行任何操作。不"
 "過，如果您有時間，可以考慮嘗試找出正確的格式，或者是否應該將發行品拆分！"
 
-#: ../root/components/common-macros.tt:189
+#: ../root/components/common-macros.tt:185
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:689
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:390
 #: ../root/static/scripts/common/components/EntityLink.js:361
@@ -3305,12 +3225,12 @@ msgstr ""
 "這幾乎不會是正確的。請確保您設定為 CD 的發行品不是黑膠唱片，或者您的黑膠唱片"
 "其實不是蟲膠唱片。"
 
-#: ../root/components/common-macros.tt:467
+#: ../root/components/common-macros.tt:436
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
 msgid "This track is a data track."
 msgstr "該音軌是資料軌。"
 
-#: ../root/components/common-macros.tt:463
+#: ../root/components/common-macros.tt:432
 #: ../root/static/scripts/common/components/PregapTrackIcon.js:14
 msgid "This track is hidden in the pregap."
 msgstr "此音軌隱藏在前置間隙中。"
@@ -3368,7 +3288,6 @@ msgid "Tracklist"
 msgstr "音軌列表"
 
 #: ../root/release/edit/duplicates.tt:13
-#: ../root/release_group/set_cover_art.tt:48
 #: ../root/artist_credit/ArtistCreditIndex.js:156
 #: ../root/artist_credit/ArtistCreditLayout.js:22
 #: ../root/components/list/ReleaseList.js:95
@@ -3377,6 +3296,7 @@ msgstr "音軌列表"
 #: ../root/release_group/ReleaseGroupIndex.js:169
 #: ../root/search/components/CDStubResults.js:47
 #: ../root/search/components/ReleaseResults.js:121
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:131
 msgid "Tracks"
 msgstr "音軌"
 
@@ -3468,9 +3388,9 @@ msgstr "類型"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
-#: ../root/release_group/set_cover_art.tt:70 ../root/edit/details/AddArt.js:37
-#: ../root/edit/details/EditArt.js:65 ../root/edit/details/RemoveArt.js:37
-#: ../root/event/EventArt.js:57 ../root/release/CoverArt.js:58
+#: ../root/edit/details/AddArt.js:37 ../root/edit/details/EditArt.js:65
+#: ../root/edit/details/RemoveArt.js:37 ../root/event/EventArt.js:57
+#: ../root/release/CoverArt.js:58
 msgid "Types:"
 msgstr "類型："
 
@@ -3691,7 +3611,7 @@ msgstr "您在此錄音使用了 {valink|群星} 特殊用途創作者。"
 msgid "You must be logged in to use this option."
 msgstr "您必須登入才能使用此選項。"
 
-#: ../root/components/common-macros.tt:484
+#: ../root/components/common-macros.tt:453
 msgid "You must enter a disambiguation comment for this entity."
 msgstr "您必須為此實體輸入消歧義註解。"
 
@@ -3760,7 +3680,7 @@ msgstr ""
 "您在下面的一些音軌中使用了 {valink|Various Artists} 特殊用途創作者。 {valink|"
 "Various Artists} 很少用於音軌；請確保創作者輸入正確。"
 
-#: ../root/components/common-macros.tt:159
+#: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
 msgctxt "generic entity"
 msgid "[removed]"
@@ -3804,7 +3724,7 @@ msgstr "介於"
 msgid "by"
 msgstr "來自"
 
-#: ../root/components/common-macros.tt:104
+#: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:111
 msgctxt "event"
 msgid "cancelled"
@@ -3863,17 +3783,17 @@ msgstr "幫助"
 msgid "hide tracklist"
 msgstr "隱藏音軌列表"
 
-#: ../root/components/common-macros.tt:95
+#: ../root/components/common-macros.tt:91
 #: ../root/static/scripts/common/components/EntityLink.js:132
 msgid "historical"
 msgstr "歷史"
 
-#: ../root/components/common-macros.tt:93
+#: ../root/components/common-macros.tt:89
 #: ../root/static/scripts/common/components/EntityLink.js:134
 msgid "historical, until {end}"
 msgstr "歷史，直到{end}"
 
-#: ../root/components/common-macros.tt:91
+#: ../root/components/common-macros.tt:87
 #: ../root/static/scripts/common/components/EntityLink.js:128
 msgid "historical, {begin}-{end}"
 msgstr "歷史，{begin}-{end}"
@@ -3906,8 +3826,8 @@ msgstr "包括其他的編輯者"
 msgid "includes"
 msgstr "包括"
 
-#: ../root/components/common-macros.tt:126
-#: ../root/components/common-macros.tt:189
+#: ../root/components/common-macros.tt:122
+#: ../root/components/common-macros.tt:185
 #: ../root/static/scripts/common/components/EntityLink.js:157
 #: ../root/static/scripts/common/components/EntityLink.js:525
 msgid "info"
@@ -4094,7 +4014,7 @@ msgid ""
 "read them and respond if necessary."
 msgstr "你的一些編輯下有 {link|新的備註} 。請務必閱讀並進行必要的回應。"
 
-#: ../root/components/common-macros.tt:220
+#: ../root/components/common-macros.tt:216
 #: ../root/static/scripts/common/components/EntityLink.js:296
 msgid "{name} – {additional_info}"
 msgstr "{name} – {additional_info}"
@@ -4122,7 +4042,7 @@ msgid ""
 "that the artist has been entered correctly."
 msgstr "{valink|群星} 僅在極少情況下被用於錄音，請確保輸入的創作者正確。"
 
-#: ../root/components/common-macros.tt:458
+#: ../root/components/common-macros.tt:427
 #: ../root/static/scripts/common/i18n/addColon.js:13
 #: ../root/static/scripts/common/i18n/addColon.js:17
 msgid "{variable}:"
@@ -4214,38 +4134,38 @@ msgstr[0] ""
 "謝謝您，您的 {num_edits} 個 {edit_url|編輯} ({edit_ids}) 已經被提交，目前有 "
 "{num_open_edits} 在同儕審查的編輯佇列中，其餘則已自動接受並應用。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:67
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:71
 msgid "The user ID is missing or is in an invalid format."
 msgstr "帳號空缺或格式不正確。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:77
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:81
 msgid "The email address is missing."
 msgstr "電子信箱地址空缺。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:87
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:91
 msgid "The time is missing or is in an invalid format."
 msgstr "時間空缺或格式不正確。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:98
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:102
 msgid "The verification key is missing."
 msgstr "驗證金鑰空缺。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:109
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:285
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:113
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:289
 msgid "The checksum is invalid, please double check your email."
 msgstr "校驗和不正確，請重新檢查您的郵件。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:120
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:124
 msgid "Sorry, this email verification link has expired."
 msgstr "對不起，這個郵件驗證連結已失效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:132
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:297
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:136
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:301
 #, perl-brace-format
 msgid "The user with ID '{user_id}' could not be found."
 msgstr "使用者ID '{user_id}' 無法被找到。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:183
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:187
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
@@ -4253,41 +4173,41 @@ msgstr ""
 "無法向您的電子郵件地址發送登入資訊。請再試一次，如果您仍然遇到問題，請"
 "{contact_url|聯繫我們}。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:210
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:214
 msgid "There is no user with this username"
 msgstr "沒有使用者使用這個使用者名稱"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:215
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:219
 msgid "There is no user with this username and email"
 msgstr "沒有使用者使用這個使用者名稱和信箱"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:218
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:222
 msgid ""
 "We can't send a password reset email, because we have no email on record for "
 "this user."
 msgstr "無法發送密碼重設電子郵件，因為沒有此使用者的電子郵件記錄。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:248
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:252
 msgid "Your password has been reset."
 msgstr "您的密碼已被重設。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:263
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:267
 msgid "Missing one or more required parameters."
 msgstr "一個或多個項目空缺。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:274
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:278
 msgid "Sorry, this password reset link has expired."
 msgstr "對不起，這個密碼重設連結已失效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:348
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:352
 msgid "There is no user with this email"
 msgstr "沒有使用者使用這個信箱"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:430
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:434
 msgid "Your profile has been updated."
 msgstr "您的資料已更新。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:434
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:438
 #, perl-brace-format
 msgid ""
 "We have sent you a verification email to <code>{email}</code>. Please check "
@@ -4297,11 +4217,11 @@ msgstr ""
 "我們已經向<code>{email}</code>發送了一封確認電子郵件。請查看您的收件箱並點擊"
 "電子郵件中的連結來驗證新電子郵件地址。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:473
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:477
 msgid "Your password has been changed."
 msgstr "您的密碼已更改。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:810
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:814
 msgid ""
 "<strong>We were unable to send you a verification email.</strong><br/>Please "
 "re-enter your address in your {settings|account settings}. If that still "
@@ -4310,7 +4230,7 @@ msgstr ""
 "<strong>我們無法向您發送驗證郵件。</strong><br/>請在{settings|帳號設定}重新輸"
 "入電子郵件地址。如果問題仍然存在，請透過{contact_url|聯繫我們}。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:893
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:897
 msgid "There is no OAuth token with these parameters."
 msgstr "這些參數中沒有 OAuth 令牌。"
 
@@ -4397,20 +4317,20 @@ msgstr "“{id}” 不是有效的行 ID；該實體可能已被合併或移除�
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:419
+#: ../root/static/scripts/common/constants.js:418
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
+#: ../root/static/scripts/common/constants.js:419
 #: ../root/static/scripts/common/constants.js:420
-#: ../root/static/scripts/common/constants.js:421
 msgid "Normal"
 msgstr "一般"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:422
+#: ../root/static/scripts/common/constants.js:421
 msgid "High"
 msgstr "高"
 
@@ -6217,6 +6137,12 @@ msgstr "您提交的表單已過期。請重新提交請求。"
 msgid "You must provide an edit note"
 msgstr "必須提供編輯備註"
 
+#: ../lib/MusicBrainz/Server/Form/Role/ReorderArt.pm:29
+msgid ""
+"The edit could not be applied because the images have changed. Please try "
+"again."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
 msgstr "URL 格式無效"
@@ -6230,22 +6156,22 @@ msgid "A fluency level is required."
 msgstr "流利程度為必填項。"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:430
+#: ../root/static/scripts/common/constants.js:429
 msgid "Basic"
 msgstr "基礎"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:431
+#: ../root/static/scripts/common/constants.js:430
 msgid "Intermediate"
 msgstr "中級"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:429
+#: ../root/static/scripts/common/constants.js:428
 msgid "Advanced"
 msgstr "進階"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:432
+#: ../root/static/scripts/common/constants.js:431
 msgid "Native"
 msgstr "母語"
 
@@ -7465,52 +7391,81 @@ msgid ""
 msgstr "您嘗試編輯的創作者是特殊用途創作者，您無法直接更改此資料。"
 
 #: ../root/artist/utils.js:12
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
 msgid "Born in:"
 msgstr "出生於："
 
 #: ../root/artist/utils.js:13
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:74
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:86
 msgctxt "group artist"
 msgid "Founded in"
 msgstr "成立於"
 
 #: ../root/artist/utils.js:14
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:87
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:99
 msgctxt "character artist"
 msgid "Created in"
 msgstr "已建立"
 
+#: ../root/artist/utils.js:15 ../root/components/list/ArtistList.js:90
+#: ../root/search/components/ArtistResults.js:58
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
+#: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:85
+msgid "Begin area"
+msgstr "開始地區"
+
 #: ../root/artist/utils.js:21
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:57
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:69
 msgid "Born:"
 msgstr "出生於:"
 
 #: ../root/artist/utils.js:22
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:69
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
 msgctxt "group artist"
 msgid "Founded"
 msgstr "成立於"
 
 #: ../root/artist/utils.js:23
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:94
 msgctxt "character artist"
 msgid "Created"
 msgstr "已建立"
 
+#: ../root/artist/utils.js:24 ../root/components/Aliases/AliasTable.js:19
+#: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
+#: ../root/edit/details/AddLabel.js:56 ../root/edit/details/AddPlace.js:69
+#: ../root/edit/details/AddRemoveAlias.js:86
+#: ../root/edit/details/EditAlias.js:111 ../root/edit/details/EditArea.js:101
+#: ../root/edit/details/EditEvent.js:68 ../root/edit/details/EditLabel.js:89
+#: ../root/edit/details/EditPlace.js:89
+#: ../root/layout/components/sidebar/AreaSidebar.js:63
+#: ../root/report/RecordingsWithFutureDates.js:33
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:182
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:161
+msgid "Begin date"
+msgstr "開始日期"
+
 #: ../root/artist/utils.js:30
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:61
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
 msgid "Died in:"
 msgstr "逝世於："
 
 #: ../root/artist/utils.js:31
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:75
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:87
 msgctxt "group artist"
 msgid "Dissolved in"
 msgstr "解散於"
 
+#: ../root/artist/utils.js:32 ../root/components/list/ArtistList.js:100
+#: ../root/search/components/ArtistResults.js:60
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:100
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
+#: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:87
+msgid "End area"
+msgstr "結束地區"
+
 #: ../root/artist/utils.js:41
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:58
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:70
 msgid "Died:"
 msgstr "死亡："
 
@@ -7520,10 +7475,26 @@ msgid "Dissolving"
 msgstr "解散中"
 
 #: ../root/artist/utils.js:43
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:70
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
 msgctxt "group artist"
 msgid "Dissolved"
 msgstr "已解散"
+
+#: ../root/artist/utils.js:44 ../root/components/Aliases/AliasTable.js:20
+#: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
+#: ../root/edit/details/AddLabel.js:63 ../root/edit/details/AddPlace.js:75
+#: ../root/edit/details/AddRemoveAlias.js:93
+#: ../root/edit/details/EditAlias.js:118 ../root/edit/details/EditArea.js:109
+#: ../root/edit/details/EditEvent.js:76 ../root/edit/details/EditLabel.js:98
+#: ../root/edit/details/EditPlace.js:97
+#: ../root/elections/ElectionTable/index.js:20
+#: ../root/layout/components/sidebar/AreaSidebar.js:69
+#: ../root/layout/components/sidebar/EventSidebar.js:113
+#: ../root/report/RecordingsWithFutureDates.js:38
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:198
+#: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
+msgid "End date"
+msgstr "結束日期"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:91
 msgid "This artist credit is composed of the following artists:"
@@ -8313,6 +8284,7 @@ msgstr "未找到所選類型的關聯關係。"
 #: ../root/static/scripts/common/components/ReleaseEvents.js:54
 #: ../root/static/scripts/common/components/ReleaseEvents.js:71
 #: ../root/static/scripts/release-editor/duplicates.js:149
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:179
 msgctxt "missing data"
 msgid "-"
 msgstr "-"
@@ -8603,7 +8575,8 @@ msgid "Are you sure you wish to cancel edit #{n}? This cannot be undone!"
 msgstr "你確定希望取消編輯 #{n} 嗎？此操作不可復原！"
 
 #: ../root/edit/CancelEdit.js:38 ../root/edit/EditIndex.js:60
-#: ../root/edit/components/ListEdit.js:48
+#: ../root/edit/components/ListEdit.js:48 ../root/edit/details/ReorderArt.js:53
+#: ../root/edit/details/ReorderArt.js:69
 #: ../root/edit/details/historic/RemoveRelationship.js:32
 msgid "An error occurred while loading this edit."
 msgstr "載入此編輯時出錯。"
@@ -8842,15 +8815,22 @@ msgctxt "singular"
 msgid "Event art"
 msgstr "活動圖片"
 
+#: ../root/edit/components/EditArtwork.js:26
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:170
+#: ../root/user/UserProfile.js:56
+msgctxt "singular"
+msgid "Cover art"
+msgstr "封面"
+
 #: ../root/edit/components/EditArtwork.js:32
-#: ../root/edit/details/ReorderArt.js:32
+#: ../root/edit/details/ReorderArt.js:33
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
 msgstr "無法顯示此封面的歷史。請參閱{artpage|all current images}。"
 
 #: ../root/edit/components/EditArtwork.js:36
-#: ../root/edit/details/ReorderArt.js:36
+#: ../root/edit/details/ReorderArt.js:37
 msgid "We are unable to display history for this image."
 msgstr "無法顯示此圖片的歷史。"
 
@@ -9674,11 +9654,11 @@ msgstr "原始音軌列表"
 msgid "Current tracklist"
 msgstr "現有音軌列表"
 
-#: ../root/edit/details/ReorderArt.js:49
+#: ../root/edit/details/ReorderArt.js:50
 msgid "Old positions:"
 msgstr "舊位置："
 
-#: ../root/edit/details/ReorderArt.js:61
+#: ../root/edit/details/ReorderArt.js:66
 msgid "New positions:"
 msgstr "新位置："
 
@@ -12297,6 +12277,16 @@ msgid ""
 "select the release group all others should be merged into:"
 msgstr ""
 "您即將將所有這些發行組合併為一個。請選擇所有其他發行組應合併進去的發行組："
+
+#: ../root/release_group/SetCoverArt.js:29
+#: ../root/release_group/SetCoverArt.js:31
+msgctxt "singular, header"
+msgid "Set cover art"
+msgstr "設定封面"
+
+#: ../root/release_group/SetCoverArt.js:41
+msgid "No releases have cover art marked as \"Front\", cannot set cover art."
+msgstr "沒有專輯有標記為“正面”的封面圖片，無法設定封面圖片。"
 
 #: ../root/report/AnnotationsArtists.js:28
 msgid "This report lists artists with annotations."
@@ -15504,21 +15494,21 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:59
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:71
 msgid "This person is deceased."
 msgstr "此人已逝世。"
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:71
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:83
 msgid "This group has dissolved."
 msgstr "此團體已解散。"
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:83
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:97
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:95
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:109
 msgctxt "artist end date"
 msgid "Ended"
 msgstr "結束"
 
-#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:96
+#: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:108
 msgid "Began:"
 msgstr "開始於："
 
@@ -15551,7 +15541,7 @@ msgstr ""
 "這是一個歌詞網站。因此，網站的連結應該在專輯組級別添加“歌詞”關係，而不是直接"
 "添加到任何特定的專輯。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:626
+#: ../root/static/scripts/edit/URLCleanup.js:601
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
@@ -15560,24 +15550,25 @@ msgstr ""
 "所有音樂的“{album_url_pattern}”連結都應該添加到專輯組中。要找到這個專輯的適當"
 "發行連結，請從{album_url|您的連結}檢查專輯頁籤。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:706
-#: ../root/static/scripts/edit/URLCleanup.js:972
-#: ../root/static/scripts/edit/URLCleanup.js:4557
-#: ../root/static/scripts/edit/URLCleanup.js:5747
-#: ../root/static/scripts/edit/URLCleanup.js:6407
+#: ../root/static/scripts/edit/URLCleanup.js:704
+#: ../root/static/scripts/edit/URLCleanup.js:970
+#: ../root/static/scripts/edit/URLCleanup.js:2349
+#: ../root/static/scripts/edit/URLCleanup.js:4575
+#: ../root/static/scripts/edit/URLCleanup.js:5765
+#: ../root/static/scripts/edit/URLCleanup.js:6425
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:724
+#: ../root/static/scripts/edit/URLCleanup.js:722
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr "這是一個使用者影片的連結，不應該添加。如果相關，請添加產品連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:931
+#: ../root/static/scripts/edit/URLCleanup.js:929
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
@@ -15585,7 +15576,7 @@ msgstr ""
 "只有 Apple Books 有聲書可以新增到 MusicBrainz。考慮改為將書籍新增到 "
 "{bookbrainz_url|BookBrainz}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1264
+#: ../root/static/scripts/edit/URLCleanup.js:1262
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
@@ -15593,18 +15584,18 @@ msgstr ""
 "請不要新增 “{blocked_url_pattern}” 連結，請改為連結到相應的 "
 "“{wanted_url_pattern}” 頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1284
+#: ../root/static/scripts/edit/URLCleanup.js:1282
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "請連結到此創作者的首頁，而非特定專輯或音軌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1304
+#: ../root/static/scripts/edit/URLCleanup.js:1302
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "請連結到此廠牌的首頁，而非特定專輯或音軌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1326
+#: ../root/static/scripts/edit/URLCleanup.js:1324
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15616,7 +15607,7 @@ msgstr ""
 "創作者發布另一個時，這也可能會改變。請找到並新增適當的錄音頁面 "
 "(“{single_url_pattern}”)，並隨意將此個人資料連結新增到適當的創作者或廠牌。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1354
+#: ../root/static/scripts/edit/URLCleanup.js:1352
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15637,7 +15628,7 @@ msgstr "請連結到創作者的首頁，而不是特定產品。"
 msgid "Please link to the main page for the label, not a specific product."
 msgstr "請連結到廠牌的首頁，而不是特定產品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:2491
+#: ../root/static/scripts/edit/URLCleanup.js:2509
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
@@ -15645,7 +15636,7 @@ msgstr ""
 "Discogs 的 “{master_url_pattern}” 連結將多個發行品分組，因此應該將其新增到發"
 "行組中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3242
+#: ../root/static/scripts/edit/URLCleanup.js:3260
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
@@ -15653,7 +15644,7 @@ msgstr ""
 "僅允許 IMSLP “{category_url_pattern}” 連結用於創作者。請將作品頁面連結到特定"
 "作品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3260
+#: ../root/static/scripts/edit/URLCleanup.js:3278
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
@@ -15661,7 +15652,7 @@ msgstr ""
 "IMSLP “{category_url_pattern}” 連結僅允許用於創作者。請將特定作品頁面連結到該"
 "作品，而不是連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3304
+#: ../root/static/scripts/edit/URLCleanup.js:3322
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -15669,7 +15660,7 @@ msgstr ""
 "Instagram “{explore_url_pattern}” 連結不被允許。請連結到個人資料，如果有的"
 "話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3332
+#: ../root/static/scripts/edit/URLCleanup.js:3350
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -15678,11 +15669,11 @@ msgstr ""
 "請不要直接連結到圖片，而是連結到適當的Instagram首頁。如果你想連結到一個影片，"
 "{url|添加一個獨立的錄音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3357
+#: ../root/static/scripts/edit/URLCleanup.js:3375
 msgid "This is an internal Instagram page and should not be added."
 msgstr "這是一個內部 Instagram 頁面，不應該被新增。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4453
+#: ../root/static/scripts/edit/URLCleanup.js:4471
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
@@ -15691,11 +15682,11 @@ msgstr ""
 "Musixmatch 的 “{album_url_pattern}” 頁面與 MusicBrainz 發行組不匹配，並且目前"
 "不允許連結到它們。請考慮將 Musixmatch 連結新增到相關的創作者和作品中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5197
+#: ../root/static/scripts/edit/URLCleanup.js:5215
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音樂影片可以連結到錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5265
+#: ../root/static/scripts/edit/URLCleanup.js:5283
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
@@ -15704,27 +15695,27 @@ msgstr ""
 "這是一個指向舊 Resident Advisor 網域的連結。請遵循 {ra_url|您的連結}，確保重"
 "新導向的連結仍然是正確的，如果是，則請新增該連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6011
+#: ../root/static/scripts/edit/URLCleanup.js:6029
 msgid "Please link to Threads profiles, not threads."
 msgstr "請連結到 Threads 個人資料，而不是執行緒。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6139
+#: ../root/static/scripts/edit/URLCleanup.js:6157
 msgid "Please link to TikTok profiles, not videos."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6427
+#: ../root/static/scripts/edit/URLCleanup.js:6445
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "這不是個人資料頁，而是一個 Twitter 文件頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6441
+#: ../root/static/scripts/edit/URLCleanup.js:6459
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6457
+#: ../root/static/scripts/edit/URLCleanup.js:6475
 msgid "This site does not allow direct links to their images."
 msgstr "此網站不允許圖片直鏈。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6759
+#: ../root/static/scripts/edit/URLCleanup.js:6777
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
@@ -15732,7 +15723,7 @@ msgstr ""
 "請連結到 “{allowed_url_pattern}” 頁面，而不是此 “{current_url_pattern}” 連"
 "結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6937
+#: ../root/static/scripts/edit/URLCleanup.js:6955
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15741,7 +15732,7 @@ msgstr ""
 "此 URL 中有未編碼的 “?” 或 “#” 字元。請檢查它們是否是無用的，並且應該被移除，"
 "或是 URL 被錯誤編碼。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6957
+#: ../root/static/scripts/edit/URLCleanup.js:6975
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -15749,19 +15740,19 @@ msgstr ""
 "請不要直接連結到 WhoSampled 的 “{unwanted_url_pattern}” 頁面。請連結到適當的 "
 "WhoSampled 創作者、音軌或專輯頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6978
+#: ../root/static/scripts/edit/URLCleanup.js:6996
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "請將 WhoSampled “{album_url_pattern}” 頁面連結至專輯組。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6996
+#: ../root/static/scripts/edit/URLCleanup.js:7014
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "請將 WhoSampled 創作者頁面連結至創作者。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7008
+#: ../root/static/scripts/edit/URLCleanup.js:7026
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "請將 WhoSampled 音軌頁面連結至錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7071
+#: ../root/static/scripts/edit/URLCleanup.js:7089
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15769,13 +15760,13 @@ msgstr ""
 "不允許連結至維基百科文字的特定部分。如果合適，請移除 “{fragment}”。詳見 {url|"
 "指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7096
+#: ../root/static/scripts/edit/URLCleanup.js:7114
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr "連結到維基百科使用者頁面是不允許的。請僅連結到實際的維基百科文章。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7257
+#: ../root/static/scripts/edit/URLCleanup.js:7275
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15784,36 +15775,36 @@ msgstr ""
 "這是一個播放列錶連結，不是影片頻道，也不能保證得到官方批准。如果該實體存在，"
 "請連結到該實體的官方頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7297
+#: ../root/static/scripts/edit/URLCleanup.js:7315
 msgid "Only video and playlist links are allowed on releases."
 msgstr "專輯只能有影片或播放列錶連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7343
+#: ../root/static/scripts/edit/URLCleanup.js:7361
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr "這是一個發行品（播放清單）連結，而不是創作者頻道。請連結到創作者頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7379
+#: ../root/static/scripts/edit/URLCleanup.js:7397
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7389
+#: ../root/static/scripts/edit/URLCleanup.js:7407
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7399
+#: ../root/static/scripts/edit/URLCleanup.js:7417
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7569
+#: ../root/static/scripts/edit/URLCleanup.js:7587
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
@@ -15822,14 +15813,14 @@ msgstr ""
 "維基百科通常沒有針對特定發行品的條目，因此目前不允許將維基百科連結新增到發行"
 "品。請將此維基百科連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7581
+#: ../root/static/scripts/edit/URLCleanup.js:7599
 msgid ""
 "Last.fm release pages are very often generated from MusicBrainz data to "
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7592
+#: ../root/static/scripts/edit/URLCleanup.js:7610
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -15838,11 +15829,11 @@ msgstr ""
 "Wikidata 通常沒有針對特定發行品的條目，因此目前不允許將 Wikidata 連結新增到發"
 "行品。請將此 Wikidata 連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7800
+#: ../root/static/scripts/edit/URLCleanup.js:7818
 msgid "Some relationship types are missing for this URL."
 msgstr "此 URL 缺少某些關聯類型。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7817
+#: ../root/static/scripts/edit/URLCleanup.js:7835
 #: ../root/static/scripts/edit/externalLinks.js:1149
 msgid "This relationship type combination is invalid."
 msgstr "此關聯類型組合無效。"
@@ -15964,7 +15955,19 @@ msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "移除創作者資訊"
 
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:187
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
+msgid "Date period"
+msgstr "日期範圍"
+
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:174
+msgid ""
+"Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
+"YYYY are OK, or you can omit the date entirely."
+msgstr ""
+"日期的格式為YYYY-MM-DD。部分日期（如YYYY-MM或只是YYYY）也可以，或者你可以省略"
+"該日期。"
+
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:189
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:173
 msgid "Copy to end date"
 msgstr "複製到結束日期"
@@ -16778,6 +16781,29 @@ msgstr "您輸入的條碼是有效的 UPC 代碼。"
 #: ../root/static/scripts/release-editor/validation.js:326
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "您輸入的條碼不是有效的 UPC 或 EAN 代碼。"
+
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
+#, fuzzy
+#| msgid "No poster available."
+msgid "No cover art available."
+msgstr "無可用的封面圖片。"
+
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
+#, fuzzy
+#| msgid "Types"
+msgctxt "cover art"
+msgid "Types"
+msgstr "類型"
+
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:191
+msgid "This is the current release group image"
+msgstr "這是目前的專輯組圖片"
+
+#: ../root/static/scripts/release-group/components/SetCoverArtForm.js:220
+msgid ""
+"Only releases with a front cover on the {caa|Cover Art Archive} can be "
+"selected."
+msgstr "只能選擇在 {caa|Cover Art Archive} 有正面封面的專輯。"
 
 #: ../root/static/scripts/release/components/BatchCreateWorksDialog.js:220
 msgid ""
@@ -17828,11 +17854,15 @@ msgid "Report this user for bad behavior"
 msgstr "報告此使用者的不良行為"
 
 #: ../root/user/UserProfile.js:994
-msgid "View other users’ notes on your edits"
+#, fuzzy
+#| msgid "View other users’ notes on your edits"
+msgid "View other users’ notes on my edits"
 msgstr "您的編輯內容收到的他人回復"
 
 #: ../root/user/UserProfile.js:995
-msgid "View your notes on this user’s edits"
+#, fuzzy
+#| msgid "View your notes on this user’s edits"
+msgid "View my notes on this user’s edits"
 msgstr "查看你對這個使用者的編輯的回覆"
 
 #: ../root/user/UserRatingEntity.js:51
