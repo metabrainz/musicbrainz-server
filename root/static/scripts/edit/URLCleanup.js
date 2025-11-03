@@ -474,53 +474,28 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   '45cat': {
-    hostname: '45cat.com',
-    match: [/^(https?:\/\/)?(www\.)?45cat\.com\//i],
+    hostname: ['45cat.com', '45worlds.com'],
+    match: [/^(https?:\/\/)?(www\.)?45(cat|worlds)\.com\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/([a-z]+\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45cat.com/$1');
+      // Clean up 45worlds style URLs
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?(?:45cat|45worlds)\.com\/(((?:vinyl|live|cdalbum|cdsingle|12single|78rpm|tape|classical|dvd)\/(?:album|artist|composer|conductor|orchestra|soloist|cd|label|listing|media|music|record|venue))\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45cat.com/$1');
+      // The old 45worlds classical prefixes are now just "artist" in 45cat
+      url = url.replace(/^https:\/\/www\.45cat.com\/classical\/(?:artist|composer|conductor|orchestra|soloist)\//, 'https://www.45cat.com/classical/artist/');
+      // Clean up 45cat style URLs
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?45cat\.com\/((?:artist|label|record)\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45cat.com/$1');
+      // Remove per-country filter for labels
+      url = url.replace(/\/label\/([^-]+)-[a-z]{2}$/, '/label/$1');
+      return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.45cat\.com\/([a-z]+)\/[^/?&#]+$/.exec(url);
+      const m = /^https:\/\/www\.45cat\.com\/(?:(artist|label|record)|(?:(?:vinyl|live|cdalbum|cdsingle|12single|78rpm|tape|classical|dvd)\/(album|artist|cd|label|listing|media|music|record|venue)))\/[^/?&#]+$/.exec(url);
       if (m) {
-        const prefix = m[1];
+        const prefix = m[1] || m[2];
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
               result: prefix === 'artist',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.label:
-            return {
-              result: prefix === 'label',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.release_group:
-            return {
-              result: prefix === 'record',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
-  '45worlds': {
-    hostname: '45worlds.com',
-    match: [/^(https?:\/\/)?(www\.)?45worlds\.com\//i],
-    restrict: [LINK_TYPES.otherdatabases],
-    clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?45worlds\.com\/([0-9a-z]+\/[a-z]+\/[^/?&#]+)(?:[/?&#].*)?$/, 'https://www.45worlds.com/$1');
-    },
-    validate(url, id) {
-      const m = /^https:\/\/www\.45worlds\.com\/([0-9a-z]+)\/([a-z]+)\/[^/?&#]+$/.exec(url);
-      if (m) {
-        const prefix = m[2];
-        switch (id) {
-          case LINK_TYPES.otherdatabases.artist:
-            return {
-              result: /^(artist|composer|conductor|orchestra|soloist)$/.test(prefix),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.event:
@@ -659,6 +634,29 @@ export const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'allocine': {
+    hostname: 'allocine.fr',
+    match: [/^(https?:\/\/)?(?:www\.)?allocine\.fr\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^https?:\/\/(?:www\.)?allocine\.fr/i, 'https://www.allocine.fr');
+      url = url.replace(
+        /^(https:\/\/www\.allocine\.fr)\/personne\/(?:fichepersonne-|fichepersonne_gen_cpersonne=)(\d+).*$/i,
+        '$1/personne/fichepersonne_gen_cpersonne=$2.html',
+      );
+      return url;
+    },
+    validate(url, id) {
+      const isValid = /^https:\/\/www\.allocine\.fr\/personne\/fichepersonne_gen_cpersonne=\d+\.html$/i.test(url);
+      if (isValid) {
+        return {
+          result: id === LINK_TYPES.otherdatabases.artist,
+          target: ERROR_TARGETS.ENTITY,
+        };
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -1565,6 +1563,8 @@ export const CLEANUPS: CleanupEntries = {
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?([^/]+\.)?beatport\.com\//, 'https://$1beatport.com/');
       url = url.replace(/^https:\/\/(?:(?:classic|pro|www)\.)?beatport\.com\//, 'https://www.beatport.com/');
+      // Remove country code from release urls
+      url = url.replace(/^(https:\/\/www\.beatport\.com)\/[a-z]{2}(\/release\/)/i, '$1$2');
       url = url.replace(/^https:\/\/dj\.beatport\.com\/(artist|label)s\/([\w-]+)\/([1-9][0-9]*)/, 'https://www.beatport.com/$1/$2/$3');
       url = url.replace(/^https:\/\/dj\.beatport\.com\/releases\/[1-9][0-9]*\/([1-9][0-9]*)/, 'https://www.beatport.com/track/-/$1');
       url = url.replace(/^https:\/\/dj\.beatport\.com\/releases\/([1-9][0-9]*)/, 'https://www.beatport.com/release/-/$1');
@@ -2343,6 +2343,24 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url, id) {
+      if (/link\.deezer\.com\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
       const m = /^https:\/\/www\.deezer\.com\/([a-z]+)\/(?:\d+)$/.exec(url);
       if (m) {
         const prefix = m[1];
@@ -3162,7 +3180,7 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?(www\.)?idref\.fr\//i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr/, 'https://www.idref.fr');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?idref\.fr\/([\dX]+)(?:\/id)?\/?$/i, 'https://www.idref.fr/$1');
       return url;
     },
     validate(url, id) {

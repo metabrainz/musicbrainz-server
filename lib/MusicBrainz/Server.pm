@@ -767,8 +767,8 @@ sub set_csp_headers {
 
     my @csp_frame_src = ('frame-src', q('self'));
     if ($self->req->path eq 'register') {
-        my $use_captcha = (defined DBDefs->MTCAPTCHA_PUBLIC_KEY &&
-                           defined DBDefs->MTCAPTCHA_PRIVATE_KEY);
+        my $use_captcha = (non_empty(DBDefs->MTCAPTCHA_PUBLIC_KEY) &&
+                           non_empty(DBDefs->MTCAPTCHA_PRIVATE_KEY));
         if ($use_captcha) {
             my $mtcaptcha_script_nonce = $self->generate_nonce;
             $self->stash->{mtcaptcha_script_nonce} = $mtcaptcha_script_nonce;

@@ -32,6 +32,8 @@ component MTCaptcha() {
     if (MUSICBRAINZ_RUNNING_TESTS) {
       // $FlowExpectedError[prop-missing]
       mtcaptchaConfig.enableTestMode = MTCAPTCHA_PRIVATE_TEST_KEY;
+      // $FlowExpectedError[prop-missing]
+      mtcaptchaConfig.lowFrictionInvisible = 'force-visible';
     }
     s.innerHTML = 'var mtcaptchaConfig = ' +
       escapeClosingTags(JSON.stringify(mtcaptchaConfig)) + ';';

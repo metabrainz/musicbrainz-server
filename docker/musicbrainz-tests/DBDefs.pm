@@ -151,7 +151,6 @@ sub PLUGIN_CACHE_OPTIONS {
 
 sub SEARCH_SERVER { '127.0.0.1:8983/solr' }
 sub SEARCH_SCHEME { 'http' }
-sub SEARCH_ENGINE { 'SOLR' }
 
 sub USE_SET_DATABASE_HEADER { 1 }
 sub DISABLE_LAST_LOGIN_UPDATE { 1 }
@@ -162,5 +161,9 @@ sub STATIC_RESOURCES_LOCATION { '//mbtest.local:5000/static/build' }
 sub BETA_REDIRECT_HOSTNAME { 'mbtest-beta.local:5000' }
 
 sub REPLICATION_USE_DBMIRROR2 { 1 }
+
+sub SMTP_SERVER { 'localhost:1025' }
+sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+sub MAILPIT_API { 'http://localhost:8025/api/v1' }
 
 1;

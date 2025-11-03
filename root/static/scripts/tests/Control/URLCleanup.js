@@ -129,7 +129,7 @@ import {
 /* eslint-disable @stylistic/max-len */
 /* eslint-disable sort-keys */
 const testData = [
-  // 45cat
+  // 45cat / 45worlds
   {
                      input_url: 'https://www.45cat.com/artist/edwin-starr',
              input_entity_type: 'artist',
@@ -161,75 +161,109 @@ const testData = [
                                   target: 'url',
                                 },
   },
-  // 45worlds
   {
                      input_url: 'http://www.45worlds.com/78rpm/artist/yehudi-menuhin',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/78rpm/artist/yehudi-menuhin',
+            expected_clean_url: 'https://www.45cat.com/78rpm/artist/yehudi-menuhin',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.45cat.com/78rpm/artist/yehudi-menuhin/ca',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.45cat.com/78rpm/artist/yehudi-menuhin',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://45worlds.com/classical/artist/yehudi-menuhin',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/classical/artist/yehudi-menuhin',
+            expected_clean_url: 'https://www.45cat.com/classical/artist/yehudi-menuhin',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.45cat.com/classical/artist/yehudi-menuhin/2',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.45cat.com/classical/artist/yehudi-menuhin',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'www.45worlds.com/classical/soloist/yehudi-menuhin',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/classical/soloist/yehudi-menuhin',
+            expected_clean_url: 'https://www.45cat.com/classical/artist/yehudi-menuhin',
        only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'http://www.45worlds.com/live/listing/rumer-fawcetts-field-2012&rc=186697#186697',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/live/listing/rumer-fawcetts-field-2012',
+            expected_clean_url: 'https://www.45cat.com/live/listing/rumer-fawcetts-field-2012',
+       only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'http://www.45cat.com/live/listing/rumer-fawcetts-field-2012&rc=186697#186697',
+             input_entity_type: 'event',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.45cat.com/live/listing/rumer-fawcetts-field-2012',
        only_valid_entity_types: ['event'],
   },
   {
                      input_url: 'http://www.45worlds.com/tape/label/parlophone/all',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/tape/label/parlophone',
+            expected_clean_url: 'https://www.45cat.com/tape/label/parlophone',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://www.45cat.com/tape/label/parlophone-mx',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.45cat.com/tape/label/parlophone',
        only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://www.45worlds.com/live/venue/stadium-high-school-stadium',
              input_entity_type: 'place',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/live/venue/stadium-high-school-stadium',
+            expected_clean_url: 'https://www.45cat.com/live/venue/stadium-high-school-stadium',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'http://www.45cat.com/live/venue/stadium-high-school-stadium#',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.45cat.com/live/venue/stadium-high-school-stadium',
        only_valid_entity_types: ['place'],
   },
   {
                      input_url: 'http://www.45worlds.com/vinyl/album/mfsl1100',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/vinyl/album/mfsl1100',
+            expected_clean_url: 'https://www.45cat.com/vinyl/album/mfsl1100',
        only_valid_entity_types: ['release_group'],
   },
   {
-                     input_url: 'http://www.45worlds.com/12single/record/fu2t',
+                     input_url: 'http://www.45cat.com/12single/record/fu2t',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/12single/record/fu2t',
+            expected_clean_url: 'https://www.45cat.com/12single/record/fu2t',
        only_valid_entity_types: ['release_group'],
   },
   {
                      input_url: 'http://www.45worlds.com/cdsingle/cd/pwcd227',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/cdsingle/cd/pwcd227',
+            expected_clean_url: 'https://www.45cat.com/cdsingle/cd/pwcd227',
        only_valid_entity_types: ['release_group'],
   },
   {
-                     input_url: 'http://www.45worlds.com/classical/music/asd264',
+                     input_url: 'http://www.45cat.com/classical/music/asd264',
              input_entity_type: 'release_group',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://www.45worlds.com/classical/music/asd264',
+            expected_clean_url: 'https://www.45cat.com/classical/music/asd264',
        only_valid_entity_types: ['release_group'],
   },
   // 7digital (zdigital)
@@ -374,6 +408,21 @@ const testData = [
     expected_relationship_type: 'allmusic',
             expected_clean_url: 'https://www.allmusic.com/song/mt0043064796',
        only_valid_entity_types: ['work'],
+  },
+  // AlloCiné
+  {
+                     input_url: 'http://allocine.fr/personne/fichepersonne_gen_cpersonne=38022.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.allocine.fr/personne/fichepersonne_gen_cpersonne=38022.html',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.allocine.fr/personne/fichepersonne-38022/filmographie/#technical',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.allocine.fr/personne/fichepersonne_gen_cpersonne=38022.html',
+       only_valid_entity_types: ['artist'],
   },
   // Amazon
   {
@@ -1334,6 +1383,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.beatport.com/label/justice-hardcore/30135',
        only_valid_entity_types: ['label'],
   },
+  {                             // Country code prefix should be normalized
+                     input_url: 'https://www.beatport.com/fr/release/boosted/4121021',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://www.beatport.com/release/boosted/4121021',
+       only_valid_entity_types: ['release'],
+  },
   // Behance
   {
                      input_url: 'http://behance.net/tristan-gion/appreciated',
@@ -2150,6 +2206,17 @@ limited_link_type_combinations: [
     expected_relationship_type: undefined,
        input_relationship_type: 'streamingfree',
        only_valid_entity_types: [],
+  },
+  {
+                     input_url: 'https://link.deezer.com/s/31aEpblnSrNBNSHi3nrZZ',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'streamingfree',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
   },
   // DeviantArt
   {
@@ -3086,7 +3153,7 @@ limited_link_type_combinations: [
   },
   // IdRef
   {
-                     input_url: 'http://idref.fr/172248248',
+                     input_url: 'http://idref.fr/172248248/id',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.idref.fr/172248248',

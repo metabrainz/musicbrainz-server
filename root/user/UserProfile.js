@@ -991,8 +991,8 @@ component UserProfile(
               )}
               <a className="styled-button" href={searchEditNotesURL}>
                 {viewingOwnProfile
-                  ? l('View other users’ notes on your edits')
-                  : l('View your notes on this user’s edits')}
+                  ? l('View other users’ notes on my edits')
+                  : l('View my notes on this user’s edits')}
               </a>
             </div>
           ) : null}

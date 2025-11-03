@@ -5333,6 +5333,15 @@ msgid ""
 "traditionally to accompany didgeridoo. There are also Boomerang clapsticks."
 msgstr ""
 
+#. name:yazh
+#: DB:instrument/description:1217
+msgid ""
+"Used by Dravidian Tamil from at least 2200 years ago, by the 7th century it "
+"had come into disuse. It had a curved ebony neck with gut strings above the "
+"skin covered resonator shaped like a boat, but there are versions shaped "
+"like peacocks, fish and even the monster Makara."
+msgstr ""
+
 #. name:Magyar duda
 #: DB:instrument/description:1200
 msgid ""
@@ -5352,6 +5361,13 @@ msgstr ""
 msgid ""
 "Used by the Quechua and Aymara, it is a small lute of 5 courses with 10 "
 "strings."
+msgstr ""
+
+#. name:water drum
+#: DB:instrument/description:279
+msgid ""
+"Used ceremonially all over the world, they are clay, wood or metal pots "
+"containing water, with an animal hide membrane."
 msgstr ""
 
 #. name:swarmandal

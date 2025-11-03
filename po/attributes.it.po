@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-18 20:36+0000\n"
+"PO-Revision-Date: 2025-10-18 17:08+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,9 +25,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -3422,7 +3422,7 @@ msgstr "mi diesis minore"
 #: DB:work_attribute_type/name:215
 msgctxt "work_attribute_type"
 msgid "EAÜ ID"
-msgstr ""
+msgstr "ID EAÜ"
 
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
@@ -3461,6 +3461,8 @@ msgid ""
 "Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
 "compatible with all Blu-ray players."
 msgstr ""
+"Versione migliorata del Blu-ray che supporta video Ultra HD 4K e che non è "
+"compatibile con tutti i lettori Blu-ray."
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4591,12 +4593,9 @@ msgstr "ID per la società di diritti ecuadoriana SAYCE"
 
 #. name:EAÜ ID
 #: DB:work_attribute_type/description:215
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr "ID per la società di diritti austriaca AKM"
+msgstr "ID per la società di diritti estone EAÜ"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -8898,12 +8897,9 @@ msgid "Udaya ravicandrika"
 msgstr "Udaya ravicandrika"
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-ray"
+msgstr "Blu-ray Ultra HD"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13

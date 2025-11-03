@@ -7,12 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-component HiddenField(field: FieldT<number | string>) {
+component HiddenField(field: FieldT<number | string>, value?: string) {
   return (
     <input
       name={field.html_name}
       type="hidden"
-      value={field.value}
+      value={value ?? field.value}
     />
   );
 }

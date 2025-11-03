@@ -121,10 +121,11 @@ Prerequisites
 
 8.  Script dependencies
 
-    In order to run one-off scripts, you’ll need the `ts` command which is provided
+    In order to run the script importing dumps, you’ll need the `file` command.
+    And to run one-off scripts, you’ll need the `ts` command which is provided
     by the `moreutils` package. If needed, you can install it with the command:
 
-        sudo apt-get install moreutils
+        sudo apt-get install file moreutils
 
 Server configuration
 --------------------
@@ -395,21 +396,28 @@ If you'd like a more permanent setup,
 [the plackup documentation](https://metacpan.org/pod/plackup) may prove useful
 in setting up a server such as nginx, using FastCGI.
 
-
 Rate limiting
 -------------
 
 The server by itself doesn't rate limit any request it handles. If you're
-receiving 503s, then you're likely performing
-[search queries](https://musicbrainz.org/doc/Search_Server) without having set
-up a local instance of the
+interested in implementing rate limiting for your local server, you will
+need to set it up yourself. Our recommendation would be to use the
+rate limiting features of your reverse proxy, which we do in production for
+[our own rate limiting](https://musicbrainz.org/doc/MusicBrainz_API/Rate_Limiting).
+
+Searches
+--------
+
+The server by itself doesn't support indexed searches, just direct
+database searches.
+If you want to perform indexed
+[search queries](https://musicbrainz.org/doc/Search_Server) you will need
+to set up your own instance of the
 [search server](https://github.com/metabrainz/mb-solr) along with the
-[search index rebuilder](https://github.com/metabrainz/sir). By default,
-search queries are sent to search.musicbrainz.org and are rate limited.
+[search index rebuilder](https://github.com/metabrainz/sir).
 
 Once you set up your own instance, change `SEARCH_SERVER` in lib/DBDefs.pm to
 point to it.
-
 
 Translations
 ------------

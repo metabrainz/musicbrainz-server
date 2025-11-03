@@ -14,7 +14,8 @@ sv_start_if_down \
     postgresql \
     redis # script/dump_js_type_info.pl needs Redis running.
 
-sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
+REPLICATION_TYPE=1 \
+    sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
 
 cd /var/lib/postgresql
 
@@ -26,18 +27,9 @@ sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres m
 
 cd /home/musicbrainz/sir
 
-# Generate and install the sir triggers into musicbrainz_selenium.
+# Generate the sir extensions and triggers, which is required before
+# invoking create_selenium_db.sh.
 sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir extension; python -m sir triggers --broker-id=1'
-
-psql -U postgres -f sql/CreateExtension.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateFunctions.sql musicbrainz_selenium
-psql -U musicbrainz -f sql/CreateTriggers.sql musicbrainz_selenium
-
-cd /home/musicbrainz/artwork-indexer
-
-# Install the artwork_indexer schema into musicbrainz_selenium.
-sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" \
-    poetry run python indexer.py --setup-schema
 
 cd "$MBS_ROOT"
 
