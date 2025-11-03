@@ -18,7 +18,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-08-19 15:36+0000\n"
+"PO-Revision-Date: 2025-10-19 03:08+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -29,7 +29,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -261,10 +261,6 @@ msgstr "violino di Stroh"
 msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr "grande organo Stalacpipe"
-
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr "tamburo ad acqua tibetano"
 
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
@@ -2416,7 +2412,7 @@ msgstr "ki pah"
 #: DB:instrument/name:1216
 msgctxt "Large Karnatakan stick zither"
 msgid "kinnari vina"
-msgstr ""
+msgstr "kinnari vina"
 
 #: DB:instrument/name:247
 msgid "kinnor"
@@ -4359,11 +4355,9 @@ msgid "venu"
 msgstr "venu"
 
 #: DB:instrument/name:174
-#, fuzzy
-#| msgid "electric viola"
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "vertical viola"
-msgstr "viola elettrica"
+msgstr "viola verticale"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4506,6 +4500,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr "bidofono"
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "wavedrum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "wavedrum"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr "waterphone"
@@ -4604,6 +4605,11 @@ msgstr "yatga"
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "yaylı tanbur"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
@@ -4760,6 +4766,9 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgid "Tibetan water drum"
+#~ msgstr "tamburo ad acqua tibetano"
 
 #~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 #~ msgid "alto violin"

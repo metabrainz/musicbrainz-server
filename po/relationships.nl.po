@@ -2082,6 +2082,26 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "Dit beschrijft een technicus die een algemene technische rol vervulde."
 
+#. name:recording
+#: DB:link_type/description:1297
+#, fuzzy
+#| msgid ""
+#| "This describes an engineer responsible for committing the performance to "
+#| "tape or another recording medium. This can be as complex as setting up "
+#| "the microphones, amplifiers, and recording devices, or as simple as "
+#| "pressing the 'record' button on a 4-track or a digital audio workstation."
+msgid ""
+"This describes the company committing the performance to tape or another "
+"recording medium. This can be as complex as setting up the microphones, "
+"amplifiers, and recording devices, or as simple as pressing the 'record' "
+"button on a 4-track or a digital audio workstation. Use this only when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+"Dit geeft de technicus aan die verantwoordelijk was voor het opnemen van een "
+"uitvoering op band of een ander medium. Dit kan zo complex zijn als het "
+"opzetten van de microfoons, versterkers en opnameapparatuur, maar ook zo "
+"simpel als het indrukken van een opnameknop."
+
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
 #, fuzzy
@@ -9797,7 +9817,7 @@ msgstr "nam muziekserie op"
 msgid "recorded release groups"
 msgstr "opgenomen uitgavegroepen"
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "opname"
 
@@ -10996,9 +11016,23 @@ msgstr "{additional:aanvullend} geproduceerd bij"
 msgid "{additional:additionally} produced in"
 msgstr "{additional:aanvullend} geproduceerd in"
 
+#. name:recording
+#: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
+#, fuzzy
+#| msgid "{additional:additionally} recorded at"
+msgid "{additional:additionally} recorded"
+msgstr "{additional:aanvullend} opgenomen bij"
+
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
+msgstr "{additional:aanvullend} opgenomen bij"
+
+#. name:recording
+#: DB:link_type/reverse_link_phrase:1297
+#, fuzzy
+#| msgid "{additional:additionally} recorded at"
+msgid "{additional:additionally} recorded by"
 msgstr "{additional:aanvullend} opgenomen bij"
 
 #. name:recorded in

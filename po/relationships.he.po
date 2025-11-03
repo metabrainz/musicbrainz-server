@@ -1927,6 +1927,16 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr "תאור מהנדס שביצע תפקיד הנדסי כללי."
 
+#. name:recording
+#: DB:link_type/description:1297
+msgid ""
+"This describes the company committing the performance to tape or another "
+"recording medium. This can be as complex as setting up the microphones, "
+"amplifiers, and recording devices, or as simple as pressing the 'record' "
+"button on a 4-track or a digital audio workstation. Use this only when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
 msgid ""
@@ -9630,7 +9640,7 @@ msgstr "סדרה מוזיקלית הוקלטה"
 msgid "recorded release groups"
 msgstr "קבוצות הוצאה הוקלטה"
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "הקלטה"
 
@@ -10854,9 +10864,23 @@ msgstr "{additional:additionally} הופק ב־"
 msgid "{additional:additionally} produced in"
 msgstr "{additional:additionally} הופק ב־"
 
+#. name:recording
+#: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
+#, fuzzy
+#| msgid "{additional:additionally} recorded at"
+msgid "{additional:additionally} recorded"
+msgstr "{additional:additionally} הוקלט ב־"
+
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
+msgstr "{additional:additionally} הוקלט ב־"
+
+#. name:recording
+#: DB:link_type/reverse_link_phrase:1297
+#, fuzzy
+#| msgid "{additional:additionally} recorded at"
+msgid "{additional:additionally} recorded by"
 msgstr "{additional:additionally} הוקלט ב־"
 
 #. name:recorded in

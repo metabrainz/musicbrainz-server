@@ -23,6 +23,12 @@ source admin/config.sh
 . ./admin/functions.sh
 make_temp_dir
 
+# We use "$TEMP_DIR" directly as an rsync source below, which means its
+# permissions are transferred onto the remote directory as well. This sets
+# something more permissive than the default 0700, which allows the uwsgi
+# processes serving the incremental JSON dumps to be able to read them.
+chmod 755 "$TEMP_DIR"
+
 # Create a clean test database from which to dump foreign keys.
 export REPLICATION_TYPE=3 # RT_STANDALONE
 ./script/create_test_db.sh TEST
@@ -40,7 +46,11 @@ echo Making incremental JSON dumps
     --foreign-keys-dump "$FK_DUMP" \
     || exit $?
 
-cleanup() { rm -f "$FK_DUMP"; }
+cleanup() {
+    rm -f "$FK_DUMP"
+    # We've clobbered the trap set by `make_temp_dir`. Reinstate it.
+    rmdir "$TEMP_DIR"
+}
 trap cleanup EXIT
 
 # Was a dump created?

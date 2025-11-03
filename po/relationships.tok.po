@@ -1,15 +1,18 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-10-22 00:08+0000\n"
+"Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
+"Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/tok/>\n"
 "Language: tok\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -87,7 +90,7 @@ msgstr ""
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
 msgid "Apple Music"
-msgstr ""
+msgstr "ilo Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
@@ -1727,6 +1730,16 @@ msgstr ""
 #. name:engineer
 #: DB:link_type/description:28 DB:link_type/description:138
 msgid "This describes an engineer who performed a general engineering role."
+msgstr ""
+
+#. name:recording
+#: DB:link_type/description:1297
+msgid ""
+"This describes the company committing the performance to tape or another "
+"recording medium. This can be as complex as setting up the microphones, "
+"amplifiers, and recording devices, or as simple as pressing the 'record' "
+"button on a 4-track or a digital audio workstation. Use this only when a "
+"company is credited instead of a specific engineer."
 msgstr ""
 
 #. name:mix
@@ -5076,7 +5089,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:526
 msgid "assistant"
-msgstr ""
+msgstr "poka la, jan pali"
 
 #: DB:link_attribute_type/name:527
 msgid "associate"
@@ -5817,7 +5830,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "ante"
 
 #. name:edit
 #: DB:link_type/link_phrase:309
@@ -8550,7 +8563,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr ""
 
@@ -9735,9 +9748,19 @@ msgstr ""
 msgid "{additional:additionally} produced in"
 msgstr ""
 
+#. name:recording
+#: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
+msgid "{additional:additionally} recorded"
+msgstr ""
+
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
+msgstr ""
+
+#. name:recording
+#: DB:link_type/reverse_link_phrase:1297
+msgid "{additional:additionally} recorded by"
 msgstr ""
 
 #. name:recorded in
