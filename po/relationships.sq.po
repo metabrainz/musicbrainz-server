@@ -1916,6 +1916,16 @@ msgstr ""
 msgid "This describes an engineer who performed a general engineering role."
 msgstr ""
 
+#. name:recording
+#: DB:link_type/description:1297
+msgid ""
+"This describes the company committing the performance to tape or another "
+"recording medium. This can be as complex as setting up the microphones, "
+"amplifiers, and recording devices, or as simple as pressing the 'record' "
+"button on a 4-track or a digital audio workstation. Use this only when a "
+"company is credited instead of a specific engineer."
+msgstr ""
+
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
 msgid ""
@@ -8984,7 +8994,7 @@ msgstr ""
 msgid "recorded release groups"
 msgstr ""
 
-#: DB:link_type/name:128 DB:link_type/name:36
+#: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
 msgid "recording"
 msgstr "incizim"
 
@@ -10193,10 +10203,24 @@ msgstr ""
 msgid "{additional:additionally} produced in"
 msgstr ""
 
+#. name:recording
+#: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
+#, fuzzy
+#| msgid "{entity1} was arranged in {entity0}"
+msgid "{additional:additionally} recorded"
+msgstr "{entity1} qe orkestruar në {entity0}"
+
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
 msgid "{additional:additionally} recorded at"
 msgstr ""
+
+#. name:recording
+#: DB:link_type/reverse_link_phrase:1297
+#, fuzzy
+#| msgid "{entity1} was arranged in {entity0}"
+msgid "{additional:additionally} recorded by"
+msgstr "{entity1} qe orkestruar në {entity0}"
 
 #. name:recorded in
 #: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
