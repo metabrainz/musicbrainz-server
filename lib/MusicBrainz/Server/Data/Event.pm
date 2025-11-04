@@ -301,6 +301,15 @@ sub _order_by {
     return $order_by;
 }
 
+=method find_by_events
+
+Recursively find all events linked to the given event IDs via relationships,
+using the provided C<$limit> and C<$offset> parameters for pagination. Note
+that this also includes the events having the given C<$event_ids> in the
+results.
+
+=cut
+
 sub find_by_events {
     my ($self, $event_ids, $limit, $offset) = @_;
 
@@ -331,6 +340,9 @@ sub find_by_events {
         )
         SELECT $columns FROM event
         WHERE id IN (
+            -- The requested events (MBS-14179)
+            SELECT unnest(\$1::INTEGER[]) event
+             UNION ALL
             SELECT event FROM linked_entity0
              UNION ALL
             SELECT event FROM linked_entity1
