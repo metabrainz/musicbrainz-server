@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-27 17:21+0100\n"
-"PO-Revision-Date: 2025-11-02 16:20+0000\n"
+"PO-Revision-Date: 2025-11-03 17:20+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
@@ -6791,6 +6791,8 @@ msgid ""
 "The edit could not be applied because the images have changed. Please try "
 "again."
 msgstr ""
+"Nie udało się zastosować edycji, ponieważ obrazy uległy zmianie. Spróbuj "
+"ponownie."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -18794,14 +18796,12 @@ msgid "Report this user for bad behavior"
 msgstr "Zgłoś użytkownika za złe zachowanie"
 
 #: ../root/user/UserProfile.js:994
-#, fuzzy
-#| msgid "Vote on all edits:"
 msgid "View other users’ notes on my edits"
-msgstr "Głosuj na wszystkie edycje"
+msgstr "Wyświetl notatki innych użytkowników dotyczące moich edycji"
 
 #: ../root/user/UserProfile.js:995
 msgid "View my notes on this user’s edits"
-msgstr ""
+msgstr "Wyświetl moje notatki dotyczące edycji tego użytkownika"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
