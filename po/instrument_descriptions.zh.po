@@ -8,11 +8,12 @@
 # Beteix <1158817754@qq.com>, 2025.
 # MoeCaa <qytc233@gmail.com>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025.
+# Pioneers <spinleftgit@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-28 07:21+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2025-11-06 16:20+0000\n"
+"Last-Translator: Pioneers <spinleftgit@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1721,8 +1722,10 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
-"单弦鼓筝也称为 ektar/ektara，见 <a href=\"/instrument/ba30c0de-373c-44e4-"
-"ac28-594c4f316ab0\">gopichant</a>."
+"单弦鼓筝也称为 ektar/ektara，见 <a href="
+"\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>。<br />在"
+"旁遮普民间音乐和宗教音乐中使用，它有一根琴弦，琴弦横跨一个长长的木制琴颈，琴"
+"颈穿透了微小的羊皮纸覆盖的音箱。"
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -1735,11 +1738,12 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
-"对于一种只有一根弦的琵琶，也称为 ektar/ektara，请参见 <a href=\"/instrument/"
-"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。对于外形相似但只有一个辐条"
-"的乐器，请参见 tun tuna。<br /> 不要将其与 ekatantri veena 混淆，后者是印度古"
-"代的单弦乐器。它有一个小型的圆形或梯形木质或椰壳共鸣箱，底部覆盖有膜。在两侧"
-"连接有由裂开的竹子制成的琴颈，从琴颈悬挂着一根弦，并与膜相连。"
+"对于一种只有一根弦的琵琶，也称为 ektar/ektara，请参见 <a href="
+"\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。<br />对于外"
+"形相似但只有一个辐条的乐器，请参见 tun tuna。 <br />不要将其与 ekatantri "
+"veena 混淆，后者是印度古代的单弦乐器。<br />它有一个小型的圆形或梯形木质或椰"
+"壳共鸣箱，底部覆盖有膜。在两侧连接有由裂开的竹子制成的琴颈，从琴颈悬挂着一根"
+"弦，并与膜相连。"
 
 #. name:tun tuna
 #: DB:instrument/description:1210
@@ -2699,7 +2703,7 @@ msgstr ""
 msgid ""
 "Lute played by Gnawa people, its camel hide covered wooden soundbox has 3 "
 "goat gut strings."
-msgstr ""
+msgstr "格纳瓦人演奏的鲁特琴，其木制音箱覆盖着骆驼皮，用3根羊肠线做琴弦。"
 
 #. name:marimba lumina
 #: DB:instrument/description:767
@@ -2722,7 +2726,8 @@ msgstr "马达勒鼓是来自印度卡纳塔克邦的双面鼓。是雅克莎迦
 #: DB:instrument/description:717
 msgid ""
 "Made of a gourd wrapped in a beaded net, it is used in Brazilian afoxé music."
-msgstr ""
+msgstr "它由葫芦制成，葫芦上覆盖着各种尺寸和大小的珠子制成的网，被用于巴西的 afoxé 音"
+"乐中。"
 
 #. name:żaqq
 #: DB:instrument/description:590
@@ -2734,14 +2739,10 @@ msgstr ""
 
 #. name:quijada
 #: DB:instrument/description:755
-#, fuzzy
-#| msgid ""
-#| "Made of equusine jawbone, it is used in traditional Latin-american music "
-#| "as a rattle."
 msgid ""
 "Made of an equine jawbone, it is used in traditional Latin American music as "
 "a rattle."
-msgstr "由马科动物颚骨制成，在传统拉丁美洲音乐中作为摇子使用。"
+msgstr "由马的颚骨制成，在传统拉丁美洲音乐中作为摇子使用。"
 
 #. name:żummara
 #: DB:instrument/description:592
