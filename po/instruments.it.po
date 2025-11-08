@@ -15,21 +15,21 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# GABG <musicbrainz@gabg.email>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-19 03:08+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-11-08 02:21+0000\n"
+"Last-Translator: GABG <musicbrainz@gabg.email>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.14\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -4501,11 +4501,9 @@ msgid "washtub bass"
 msgstr "bidofono"
 
 #: DB:instrument/name:279
-#, fuzzy
-#| msgid "wavedrum"
 msgctxt "water filled membranophone"
 msgid "water drum"
-msgstr "wavedrum"
+msgstr "tamburo d'acqua"
 
 #: DB:instrument/name:280
 msgid "waterphone"

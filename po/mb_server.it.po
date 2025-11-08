@@ -29,24 +29,23 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# GABG <musicbrainz@gabg.email>, 2024.
+# GABG <musicbrainz@gabg.email>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-27 17:21+0100\n"
-"PO-Revision-Date: 2025-10-20 02:08+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-11-08 02:20+0000\n"
+"Last-Translator: GABG <musicbrainz@gabg.email>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.14\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -6461,6 +6460,8 @@ msgid ""
 "The edit could not be applied because the images have changed. Please try "
 "again."
 msgstr ""
+"Non è stato possibile applicare la modifica perché le immagini sono "
+"cambiate. Riprovare."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -17949,14 +17950,10 @@ msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "Il codice a barre inserito non è un codice UPC, EAN o GTIN valido."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
-#, fuzzy
-#| msgid "No poster available."
 msgid "No cover art available."
-msgstr "Nessun manifesto disponibile."
+msgstr "Nessuna copertina disponibile."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
-#, fuzzy
-#| msgid "Types"
 msgctxt "cover art"
 msgid "Types"
 msgstr "Tipi"
@@ -19096,16 +19093,12 @@ msgid "Report this user for bad behavior"
 msgstr "Segnala quest'utente per comportamento scorretto"
 
 #: ../root/user/UserProfile.js:994
-#, fuzzy
-#| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
-msgstr "Visualizza le note degli altri utenti sulle tue modifiche"
+msgstr "Visualizza le note degli altri utenti sulle mie modifiche"
 
 #: ../root/user/UserProfile.js:995
-#, fuzzy
-#| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
-msgstr "Visualizza le tue note sulle modifiche di quest'utente"
+msgstr "Visualizza le mie note sulle modifiche di quest'utente"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
