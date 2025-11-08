@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-03 11:34+0000\n"
+"PO-Revision-Date: 2025-11-08 17:21+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -34,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural="
 "(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
 ": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6337,7 +6337,7 @@ msgstr ""
 
 #: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
 msgid "conductor"
-msgstr ""
+msgstr "кондуктор"
 
 #. name:conductor
 #: DB:link_type/link_phrase:806
@@ -6346,12 +6346,12 @@ msgstr ""
 
 #: DB:link_type/name:305
 msgid "conductor position"
-msgstr ""
+msgstr "должность кондуктора"
 
 #. name:conductor
 #: DB:link_type/reverse_link_phrase:806
 msgid "conductors"
-msgstr ""
+msgstr "кондукторы"
 
 #. name:educational institution connection
 #: DB:link_type/reverse_link_phrase:925
@@ -6780,7 +6780,7 @@ msgstr "инженер"
 #. name:engineer position at
 #: DB:link_type/name:701 DB:link_type/link_phrase:120
 msgid "engineer position"
-msgstr ""
+msgstr "должность инженера"
 
 #. name:engineer position
 #: DB:link_type/name:120 DB:link_type/link_phrase:701
@@ -6789,16 +6789,16 @@ msgstr ""
 
 #: DB:link_type/name:813 DB:link_type/name:812
 msgid "engineered at"
-msgstr ""
+msgstr "место инженеринга"
 
 #: DB:link_type/name:814 DB:link_type/name:815
 msgid "engineered in"
-msgstr ""
+msgstr "место инженеринга"
 
 #. name:engineer position, name:engineer position at
 #: DB:link_type/reverse_link_phrase:701 DB:link_type/reverse_link_phrase:120
 msgid "engineers"
-msgstr ""
+msgstr "инженеры"
 
 #: DB:link_attribute_type/name:1094
 msgid "eponymous"
@@ -8024,6 +8024,8 @@ msgid ""
 "is/was {assistant:an|a} {assistant} {principal} {guest} conductor {emeritus} "
 "for"
 msgstr ""
+"является/был(-а) {assistant:ассистент} {principal:основным} "
+"{guest:приглашенным} {emeritus:почетным} кондуктором для"
 
 #: DB:link_attribute_type/name:1132
 msgid "jazz"
@@ -8390,7 +8392,7 @@ msgstr "мастеринг"
 
 #: DB:link_type/name:704
 msgid "mastering engineer position"
-msgstr "должность мастеринг-инжинера"
+msgstr "должность мастеринг-инженера"
 
 #. name:mastering engineer position
 #: DB:link_type/link_phrase:704
@@ -8400,7 +8402,7 @@ msgstr ""
 #. name:mastering engineer position
 #: DB:link_type/reverse_link_phrase:704
 msgid "mastering engineers"
-msgstr ""
+msgstr "мастеринг-инженеры"
 
 #: DB:link_attribute_type/name:1136
 msgid "master’s degree"
@@ -8516,7 +8518,7 @@ msgstr ""
 
 #: DB:link_type/name:703
 msgid "mixing engineer position"
-msgstr ""
+msgstr "должность миксинг-инженера"
 
 #. name:mixing engineer position
 #: DB:link_type/link_phrase:703
@@ -10300,7 +10302,7 @@ msgstr ""
 #. name:conductor
 #: DB:link_type/long_link_phrase:806
 msgid "was a conductor at"
-msgstr "был(а) кондуктором"
+msgstr "был(а) кондуктором в"
 
 #. name:jury member
 #: DB:link_type/long_link_phrase:1255
@@ -10427,6 +10429,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:128 DB:link_type/long_link_phrase:36
 msgid "was {additional} {assistant} {associate} {co:co-}recording engineer for"
 msgstr ""
+"был(-а) {additional:дополнительным} {assistant:ассистентом} "
+"{associate:связанным} {co:со-}звукорежиссер{assistant:а} для"
 
 #. name:audio director
 #: DB:link_type/long_link_phrase:1186 DB:link_type/long_link_phrase:1187
@@ -10507,7 +10511,7 @@ msgstr ""
 #. name:recording engineer position
 #: DB:link_type/long_link_phrase:702
 msgid "works as a recording engineer at"
-msgstr "работает звукооператором"
+msgstr "работает звукорежиссером"
 
 #. name:engineer position
 #: DB:link_type/long_link_phrase:701
@@ -10608,12 +10612,12 @@ msgstr ""
 #. name:engineered at
 #: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
 msgid "{additional:additionally} engineered at"
-msgstr ""
+msgstr "место {additional:дополнительного} инженеринга"
 
 #. name:engineered in
 #: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
 msgid "{additional:additionally} engineered in"
-msgstr ""
+msgstr "место {additional:дополнительного} инженеринга"
 
 #. name:mix
 #: DB:link_type/link_phrase:1294 DB:link_type/link_phrase:1295
@@ -11174,6 +11178,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:46 DB:link_type/reverse_link_phrase:151
 msgid "{additional} {assistant} conductor"
 msgstr ""
+"{additional:дополнительный} {assistant:ассистент} кондуктор{assistant:а}"
 
 #. name:design
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
@@ -11216,6 +11221,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:128 DB:link_type/reverse_link_phrase:36
 msgid "{additional} {assistant} {associate} {co:co-}recording engineer"
 msgstr ""
+"{additional:дополнительный} {assistant:ассистент} {associate:связанный} "
+"{co:со-}звукорежиссер{assistant:а}"
 
 #. name:recording
 #: DB:link_type/link_phrase:128 DB:link_type/link_phrase:36
@@ -11237,12 +11244,16 @@ msgstr ""
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
+"{additional:дополнительный} {assistant:ассистент} {associate:связанный} "
+"{co:со-}{executive:исполнительный }инженер"
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
 msgstr ""
+"{additional:дополнительные} {assistant:ассистент} {associate:связанные} "
+"{co:со-}{executive:исполнительные }инженеры"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -11332,15 +11343,13 @@ msgstr ""
 
 #. name:mastering
 #: DB:link_type/link_phrase:1293 DB:link_type/reverse_link_phrase:1293
-#, fuzzy
-#| msgid "{additional} creative direction"
 msgid "{additional} {pre:pre-}{re}mastering"
-msgstr "{additional:дополнительное} креативное руководство"
+msgstr "{additional:дополнительный} {pre:пре-}{re:ре}мастеринг"
 
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
-msgstr ""
+msgstr "место {additional:дополнительного} {pre:пре-}{re:ре}мастеринга релиза"
 
 #. name:tour in support of
 #: DB:link_type/reverse_link_phrase:888
@@ -11406,6 +11415,8 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:305
 msgid "{assistant} {principal} {guest} conductor {emeritus}"
 msgstr ""
+"{assistant:ассистент} {principal:основной} {guest:приглашенный} "
+"{emeritus:почетный} кондуктор"
 
 #. name:conductor position
 #: DB:link_type/link_phrase:305
