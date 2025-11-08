@@ -21,8 +21,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-10-21 05:08+0000\n"
-"Last-Translator: Dino RTX <rtxdino36@gmail.com>\n"
+"PO-Revision-Date: 2025-11-06 16:20+0000\n"
+"Last-Translator: LeoVallejo <leovallejo389@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/es/>\n"
 "Language: es\n"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -98,7 +98,6 @@ msgstr ""
 "sobre la edición."
 
 #: DB:statistics.statistic_event/description:2003-04-05
-#, fuzzy
 msgid "A new, much faster search mechanism is added."
 msgstr "Un nuevo mecanismo de búsqueda mucho más rápido se ha añadido."
 
