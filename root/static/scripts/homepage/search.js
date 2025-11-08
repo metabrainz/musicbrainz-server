@@ -83,7 +83,7 @@ component Search (
 
         <form onSubmit={handleSearch}>
           <div className="search-input-container">
-            <div className="search-entity-selector">
+            <div className="search-entity-selector d-none d-md-flex">
               {entitiesWithStats.map((entity) => {
                 return (
                   <div className={`entity-pill ${selectedEntity.value === entity.value ? 'selected' : ''}`} key={entity.value} onClick={() => setSelectedEntity(entity)}>

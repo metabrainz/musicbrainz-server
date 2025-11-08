@@ -119,6 +119,7 @@ component TimelineCarousel(
 ) {
   const [mode, setMode] = React.useState<'fresh' | 'new'>('fresh');
   const [autoPlay, setAutoPlay] = React.useState<boolean>(true);
+  const swiperRef = React.useRef<React.ElementRef<typeof Swiper>>(null);
 
   const handlePillClick = (pill: 'fresh' | 'new') => {
     setMode(pill);
@@ -126,6 +127,11 @@ component TimelineCarousel(
 
   const toggleAutoPlay = () => {
     setAutoPlay((currentAutoPlayState) => {
+      if (currentAutoPlayState) {
+        swiperRef.current.swiper.autoplay.stop();
+      } else {
+        swiperRef.current.swiper.autoplay.start()
+      }
       return !currentAutoPlayState;
     });
   };
@@ -140,15 +146,16 @@ component TimelineCarousel(
           Now
         </div>
         <Swiper
+          ref={swiperRef}
           navigation={true}
           slidesPerView="auto"
           spaceBetween={24}
           modules={[Navigation, Mousewheel, Autoplay]}
           mousewheel={true}
-          autoplay={autoPlay ? {
+          autoplay={{
             delay: 5000,
             pauseOnMouseEnter: true,
-          }: {}}
+          }}
         >
           {entityType === "release" ? releaseSlides?.map((artwork, index) => {
             return (
@@ -165,7 +172,7 @@ component TimelineCarousel(
           })}
         </Swiper>
       </div>
-      <div className='d-flex pt-3 justify-content-between flex-column flex-md-row gap-3'>
+      <div className='d-flex pt-3 justify-content-between flex-row gap-3'>
         <div className="d-flex gap-2">
           <div className={`timeline-carousel-pill ${mode === 'fresh' ? 'selected' : ''}`} onClick={() => handlePillClick('fresh')}>
             Fresh releases
@@ -175,9 +182,9 @@ component TimelineCarousel(
           </div>
         </div>
         <div className="d-flex gap-3">
-          <div role="button" onClick={toggleAutoPlay} className="d-flex gap-1 align-items-center">
+          <div role="button" onClick={toggleAutoPlay} className="d-flex gap-1 align-items-center timeline-control">
             <FontAwesomeIcon icon={autoPlay ? faPauseCircle : faPlayCircle} />
-            <h5 className="timeline-control">
+            <h5 className="timeline-control d-none d-md-block">
               {autoPlay ? "Pause" : "Play"}
             </h5>
           </div>
@@ -188,7 +195,7 @@ component TimelineCarousel(
             rel="noopener noreferrer"
           >
             <FontAwesomeIcon icon={faPlusCircle} />
-            <h5 className="timeline-control">
+            <h5 className="timeline-control d-none d-md-block">
               Add {entityType === "release" ? "Release" : "Event"}
             </h5>
           </a>

@@ -236,7 +236,7 @@
 			border-image: linear-gradient(180deg, #BA478F 0%, #EB743B 100%);
   		border-image-slice: 1;
     	border-right: 9px solid;
-			width: min(190px, calc(100vw - 190px));
+			width: min(300px, calc(100vw - 190px));
 
 			@media (min-width: 992px) {
 				display: none;
@@ -1103,6 +1103,10 @@
 				color: #464547;
 				margin-bottom: 0;
 				cursor: pointer;
+
+				@media (max-width: 768px) {
+					font-size: 20px;
+				}
 			}
 
 			.swiper-slide {
