@@ -1631,7 +1631,7 @@ sub newest_releases_with_artwork {
 sub fresh_releases_with_artwork {
     my $self = shift;
     my $query = '
-      SELECT DISTINCT ON (edit.id) ' . $self->_columns . ',
+      SELECT edit.id, ' . $self->_columns . ',
         cover_art.id AS cover_art_id
       FROM ' . $self->_table . q(
       JOIN cover_art_archive.cover_art ON (cover_art.release = release.id)
@@ -1644,7 +1644,7 @@ sub fresh_releases_with_artwork {
         AND cover_art.ordering = 1
         AND edit.type = ?
         AND cover_art.date_uploaded < NOW() - INTERVAL '10 minutes'
-      ORDER BY edit.id DESC, date_year DESC NULLS LAST, date_month DESC NULLS LAST, date_day DESC NULLS LAST
+      ORDER BY date_year DESC NULLS LAST, date_month DESC NULLS LAST, date_day DESC NULLS LAST, edit.id DESC
       LIMIT 50);
 
     my $FRONT = 1;
