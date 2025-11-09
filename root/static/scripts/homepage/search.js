@@ -13,7 +13,7 @@ import openSourceImage from '../../images/homepage/open-source.png';
 import dataProviderImage from '../../images/homepage/data-provider.png';
 import ethicalSourceImage from '../../images/homepage/ethical-forever.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faChevronDown, faXmark } from '@fortawesome/free-solid-svg-icons';
 import Blob from './blob.js';
 import { entities } from './utils';
 import { type WeeklyStatsT } from './stats';
@@ -35,6 +35,7 @@ component Search (
   });
 
   const [selectedEntity, setSelectedEntity] = React.useState(entitiesWithStats[0]);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const placeholder = selectedEntity.stat && selectedEntity.stat.total > 0
   ? `Search ${selectedEntity.stat.total.toLocaleString()} ${selectedEntity.stat?.name || selectedEntity.name}...`
@@ -50,6 +51,11 @@ component Search (
     if (openSourceElement) {
       openSourceElement.scrollIntoView({ behavior: 'smooth' });
     }
+  }
+
+  const handleEntitySelect = (entity: typeof entitiesWithStats[0]) => {
+    setSelectedEntity(entity);
+    setIsModalOpen(false);
   }
 
   return (
@@ -108,9 +114,52 @@ component Search (
                 <img src={searchIcon} alt="Search" width={30} height={30} />
               </button>
             </div>
+
+            <div className="mobile-entity-selector d-md-none">
+              <div
+                className="mobile-entity-button"
+                onClick={() => setIsModalOpen(true)}
+              >
+                <span className="mobile-entity-text">in {selectedEntity.name}</span>
+                <FontAwesomeIcon icon={faChevronDown} />
+              </div>
+              <a href="/search" className="mobile-advanced-search-text">Advanced search</a>
+            </div>
           </div>
         </form>
       </div>
+
+      {isModalOpen && (
+        <>
+          <div
+            className="mobile-entity-modal-backdrop"
+            onClick={() => setIsModalOpen(false)}
+          />
+          <div className="mobile-entity-modal">
+            <h3 className="mobile-entity-modal-title">Search in:</h3>
+            <div className="mobile-entity-list">
+              {entitiesWithStats.map((entity) => (
+                <button
+                  key={entity.value}
+                  type="button"
+                  className="mobile-entity-item"
+                  onClick={() => handleEntitySelect(entity)}
+                >
+                  {entity.name}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              className="mobile-entity-modal-close"
+              onClick={() => setIsModalOpen(false)}
+              aria-label="Close"
+            >
+              <FontAwesomeIcon icon={faXmark} />
+            </button>
+          </div>
+        </>
+      )}
     </div>
   )
 }

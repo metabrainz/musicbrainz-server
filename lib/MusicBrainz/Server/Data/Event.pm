@@ -671,7 +671,7 @@ sub newest_events_with_artwork {
 sub fresh_events_with_artwork {
     my $self = shift;
     my $query = '
-      SELECT DISTINCT ON (edit.id) ' . $self->_columns . ',
+      SELECT edit.id, ' . $self->_columns . ',
         event_art.id AS event_art_id
       FROM ' . $self->_table . q(
       JOIN event_art_archive.event_art ON (event_art.event = event.id)
@@ -683,10 +683,10 @@ sub fresh_events_with_artwork {
         AND event_art.ordering = 1
         AND edit.type = ?
         AND event_art.date_uploaded < NOW() - INTERVAL '10 minutes'
-      ORDER BY edit.id DESC,
-               begin_date_year DESC NULLS LAST,
+      ORDER BY begin_date_year DESC NULLS LAST,
                begin_date_month DESC NULLS LAST,
-               begin_date_day DESC NULLS LAST
+               begin_date_day DESC NULLS LAST,
+               edit.id DESC
       LIMIT 50);
 
     my $FRONT = 1;
