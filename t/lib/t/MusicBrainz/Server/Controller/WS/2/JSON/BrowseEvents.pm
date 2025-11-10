@@ -17,9 +17,24 @@ test 'browse events via events' => sub {
     ws_test_json 'browse events via event',
         '/event?event=183ba1ec-a87b-4c0e-85dd-496b7cea4399' =>
         {
-            'event-count' => 4,
+            'event-count' => 5,
             'event-offset' => 0,
             events => [
+                {
+                    cancelled => JSON::false,
+                    disambiguation => '',
+                    id => '183ba1ec-a87b-4c0e-85dd-496b7cea4399',
+                    'life-span' => {
+                        begin => '2024-07-31',
+                        end => '2024-08-03',
+                        ended => JSON::true,
+                    },
+                    name => 'Wacken Open Air 2024',
+                    setlist => '',
+                    time => '',
+                    type => 'Festival',
+                    'type-id' => 'b6ded574-b592-3f0e-b56e-5b5f06aa0678',
+                },
                 {
                     cancelled => JSON::false,
                     disambiguation => '',
