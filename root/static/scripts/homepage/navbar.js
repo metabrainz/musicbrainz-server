@@ -18,6 +18,7 @@ import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 import magnifyingGlassTheme from '../../images/icons/magnifying-glass-theme.svg';
 import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
 import MobileSearchPopup from './mobile-search-popup.js';
+import LanguageSelector from './language.js';
 
 const aboutGroups = [
   [
@@ -106,7 +107,7 @@ component DropDownMenu(
   groups: DropdownMenuItem[][],
 ) {
   return (
-    <li className="nav-item dropdown">
+    <li className="nav-item dropdown d-flex align-items-center">
       <a
         className="nav-link dropdown-toggle"
         href="#"
@@ -252,7 +253,13 @@ component Navbar() {
               {Object.keys(dropdownSections).map((section) => (
                 <DropDownMenu key={section} label={section} groups={dropdownSections[section]} />
               ))}
+
+              {/* Language Selector */}
+              <li className="nav-item dropdown d-flex">
+                <LanguageSelector />
+              </li>
             </ul>
+
             <form className="d-none d-lg-flex mt-3 mt-lg-0" role="search" action="/search" method="get">
               <div className="input-group">
                 <input
