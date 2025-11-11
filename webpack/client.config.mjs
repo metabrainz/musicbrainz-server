@@ -92,7 +92,7 @@ const entries = [
   'event/index',
   'genre/components/GenreEditForm',
   'genre/index',
-  'instrument/edit',
+  'instrument/components/InstrumentEditForm.js',
   'instrument/index',
   'label/edit',
   'label/index',

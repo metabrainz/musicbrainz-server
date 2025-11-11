@@ -193,7 +193,6 @@ sub _merge_load_entities {
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Instrument',
     edit_type => $EDIT_INSTRUMENT_CREATE,
-    dialog_template => 'instrument/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Delete' => {

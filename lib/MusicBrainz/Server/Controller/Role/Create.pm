@@ -64,7 +64,7 @@ role {
         my %props;
         my %edit_arguments = $params->edit_arguments->($self, $c);
 
-        if ($model eq 'Event' || $model eq 'Genre' || $model eq 'Recording') {
+        if ($model eq 'Event' || $model eq 'Genre' || $model eq 'Instrument' || $model eq 'Recording') {
             my $type = model_to_type($model);
             my %form_args = %{ $edit_arguments{form_args} || {}};
             my $form = $c->form( form => $params->form, ctx => $c, %form_args );
@@ -110,6 +110,9 @@ role {
 
                     $props{eventTypes} = $form->options_type_id;
                     $props{eventDescriptions} = \%event_descriptions;
+                }
+                if ($model eq 'Instrument') {
+                    $props{instrumentTypes} = $form->options_type_id;
                 }
                 if ($self->does('MusicBrainz::Server::Controller::Role::IdentifierSet')) {
                     $self->munge_compound_text_fields($c, $form);
