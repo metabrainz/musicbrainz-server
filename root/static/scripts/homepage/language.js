@@ -87,7 +87,4 @@ component LanguageSelector() {
   )
 }
 
-export default (hydrate < React.PropsOf < LanguageSelector >> (
-  'div',
-  LanguageSelector,
-): component(...React.PropsOf < LanguageSelector >));
+export default LanguageSelector;
