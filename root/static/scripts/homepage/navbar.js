@@ -213,10 +213,6 @@ component Navbar() {
     }
   };
 
-  React.useEffect(() => {
-    void import('bootstrap/dist/js/bootstrap.bundle.min.js');
-  }, []);
-
   return (
     <nav className="navbar navbar-expand-lg shadow-sm" aria-label="Offcanvas navbar large">
       <div className="container-fluid gap-4 position-relative layout-width">

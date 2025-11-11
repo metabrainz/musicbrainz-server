@@ -23,6 +23,7 @@ import escapeClosingTags from '../../utility/escapeClosingTags.js';
 import FaviconLinks from './FaviconLinks.js';
 import globalsScript from './globalsScript.mjs';
 import MetaDescription from './MetaDescription.js';
+import bootstrapCssUrl from 'bootstrap/dist/css/bootstrap.css';
 
 const canonRegexp = new RegExp('^(https?:)?//' + WEB_SERVER);
 function canonicalize(url: string) {
@@ -97,7 +98,7 @@ component Head(
 
       {isHomepage && (
         <link
-          href="/static/build/bootstrap.css"
+          href={bootstrapCssUrl}
           rel="stylesheet"
           type="text/css"
         />
