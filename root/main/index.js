@@ -459,6 +459,7 @@ component Homepage(
         <NewFooter />
       </div>
 
+      {manifest('bootstrap', {async: true})}
       {manifest('homepage/navbar', {async: true})}
       {manifest('homepage/editor-tools', {async: true})}
       {manifest('homepage/user-menu', {async: true})}
