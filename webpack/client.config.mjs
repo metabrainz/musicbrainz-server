@@ -144,6 +144,11 @@ entries['whatwg-fetch'] = path.resolve(
   'node_modules/whatwg-fetch/fetch.js',
 );
 
+entries.bootstrap = path.resolve(
+  MB_SERVER_ROOT,
+ 'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+);
+
 function langToPosix(lang) {
   return lang.replace(/^([a-zA-Z]+)-([a-zA-Z0-9]+)$/, function (match, l, c) {
     l = l.toLowerCase();
