@@ -342,7 +342,7 @@ component Homepage(
         {/* Open source */}
         <div className="info-container" id="open-source" ref={openSourceContainerRef}>
           <div className="row g-4">
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-6 col-md-4">
               <div className="info-container-inner">
                 <h2>{l('Open source')}</h2>
                 <p>
@@ -363,7 +363,7 @@ component Homepage(
               </div>
             </div>
 
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-6 col-md-4">
               <div className="info-container-inner">
                 <h2>{l('Data provider')}</h2>
                 <p>
@@ -380,10 +380,8 @@ component Homepage(
                 </span>
               </div>
             </div>
-          </div>
 
-          <div className="row g-4">
-            <div className="col-12 col-sm-6">
+            <div className="col-12 col-sm-6 col-md-4">
               <div className="info-container-inner">
                 <h2>{l('Ethical forever')}</h2>
                 <p>
