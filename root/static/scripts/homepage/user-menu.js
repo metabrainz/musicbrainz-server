@@ -35,7 +35,7 @@ component UserMenu(
           </div>
           <div className="user-menu-columns">
             <div className="user-menu-column">
-              <a href="https://community.metabrainz.org/" target="_blank" rel="noopener noreferrer">
+              <a href="https://community.metabrainz.org/">
                 {l('Forums')}
               </a>
               <a href="/doc/Communication/ChatBrainz">
@@ -43,7 +43,7 @@ component UserMenu(
               </a>
             </div>
             <div className="user-menu-column">
-              <a href="https://tickets.metabrainz.org/" target="_blank" rel="noopener noreferrer">
+              <a href="https://tickets.metabrainz.org/">
                 {l('Ticket tracker')}
               </a>
               <a href="/doc/Style">
@@ -51,14 +51,14 @@ component UserMenu(
               </a>
             </div>
             <div className="user-menu-column">
-              <a href="https://wiki.musicbrainz.org/Guides/Userscripts" target="_blank" rel="noopener noreferrer">
+              <a href="https://wiki.musicbrainz.org/Guides/Userscripts">
                 {l('Userscripts')}
               </a>
             </div>
             {latestBlogPost && (
               <div className="user-menu-column">
                 <span>Latest blog post:</span>
-                <a href={latestBlogPost.url} target="_blank" rel="noopener noreferrer">
+                <a href={latestBlogPost.url}>
                   {latestBlogPost.title}
                 </a>
               </div>

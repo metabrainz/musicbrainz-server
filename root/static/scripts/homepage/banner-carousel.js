@@ -40,18 +40,18 @@ component BannerCarousel() {
               <h2>Tag your music</h2>
               <div className="carousel-pill d-flex gap-2">
                 <img src={picardLogo} alt="Picard" className="picard-logo" />
-                <a href="https://picard.musicbrainz.org/" target="_blank" rel="noopener noreferrer">
+                <a href="https://picard.musicbrainz.org/">
                   MusicBrainz Picard
                 </a>
               </div>
               <div className="d-flex gap-3">
-                <a href="/doc/AudioRanger" target="_blank" rel="noopener noreferrer">
+                <a href="/doc/AudioRanger">
                   AudioRanger
                 </a>
-                <a href="/doc/Mp3tag" target="_blank" rel="noopener noreferrer">
+                <a href="/doc/Mp3tag">
                   Mp3tag
                 </a>
-                <a href="/doc/Yate_Music_Tagger" target="_blank" rel="noopener noreferrer">
+                <a href="/doc/Yate_Music_Tagger">
                   Yate
                 </a>
               </div>
@@ -69,13 +69,13 @@ component BannerCarousel() {
               <h2>Listen together</h2>
               <div className="carousel-pill d-flex gap-2">
                 <img src={listenBrainzLogo} alt="ListenBrainz" className="listenbrainz-logo" />
-                <a href="https://listenbrainz.org/" target="_blank" rel="noopener noreferrer">
+                <a href="https://listenbrainz.org/">
                   with ListenBrainz
                 </a>
               </div>
               <div className="d-flex gap-3 align-items-center">
                 <FontAwesomeIcon icon={faAngleRight} size="sm" color='#1E1E1E' /> 
-                <a href="https://listenbrainz.org/" target="_blank" rel="noopener noreferrer">
+                <a href="https://listenbrainz.org/">
                   Explore the music you listen to.
                 </a>
               </div>

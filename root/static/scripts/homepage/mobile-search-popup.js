@@ -70,7 +70,7 @@ component MobileSearchPopup() {
         </form>
 
         <div className="p-3 d-flex justify-content-center advanced-search">
-          <a href="/search">
+          <a href="/search" title="Advanced Search">
             <h3>
               Advanced Search
             </h3>

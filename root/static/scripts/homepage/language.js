@@ -58,6 +58,7 @@ component LanguageSelector() {
         role="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        title={l('Language')}
       >
         <img src={languageIcon} alt="Language" width={40} height={40} />
       </a>
@@ -69,6 +70,7 @@ component LanguageSelector() {
               <a
                 href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
                 className={`dropdown-item ${isSelected ? 'active' : ''}`}
+                title={languageName(language, isSelected)}
               >
                 {languageName(language, isSelected)}
               </a>
@@ -76,11 +78,23 @@ component LanguageSelector() {
           );
         })}
         <li>
-          <a href={`/set-language/unset?${returnToCurrentPage($c)}`} className="dropdown-item">{l('(reset language)')}</a>
+          <a
+            href={`/set-language/unset?${returnToCurrentPage($c)}`}
+            className="dropdown-item"
+            title={l('reset language')}
+          >
+            {l('(reset language)')}
+          </a>
         </li>
         <li className="dropdown-divider" />
         <li>
-          <a href="https://translations.metabrainz.org/projects/musicbrainz/" className="dropdown-item">{l('Help translate')}</a>
+          <a
+            href="https://translations.metabrainz.org/projects/musicbrainz/"
+            className="dropdown-item"
+            title={l('Help translate')}
+          >
+            {l('Help translate')}
+          </a>
         </li>
       </ul>
     </>

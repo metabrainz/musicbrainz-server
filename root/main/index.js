@@ -123,8 +123,6 @@ component Homepage(
                 <a
                   className="social-pill"
                   href="/doc/About"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   style={{backgroundColor: '#46433A', color: 'white !important'}}
                 >
                   {l('Read More')}
@@ -132,8 +130,6 @@ component Homepage(
                 <a
                   className="social-pill"
                   href="/doc/Beginners_Guide"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   style={{backgroundColor: '#46433A', color: 'white !important'}}
                 >
                   {l('Beginner editor\'s guide')}
@@ -160,22 +156,20 @@ component Homepage(
                   <a
                     className="social-pill"
                     href="https://blog.metabrainz.org"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     style={{color: 'white !important'}}
                   >
                     Blog
                   </a>
-                  <a href="https://bsky.app/profile/musicbrainz.org" target="_blank" rel="noopener noreferrer">
+                  <a href="https://bsky.app/profile/musicbrainz.org" title="Bluesky">
                     <FontAwesomeIcon icon={faBluesky} size="lg" />
                   </a>
-                  <a href="https://mastodon.social/@musicbrainz" target="_blank" rel="noopener noreferrer">
+                  <a href="https://mastodon.social/@musicbrainz" title="Mastodon">
                     <FontAwesomeIcon icon={faMastodon} size="lg" />
                   </a>
-                  <a href="https://discord.gg/R4hBw972QA" target="_blank" rel="noopener noreferrer">
+                  <a href="https://discord.gg/R4hBw972QA" title="Discord">
                     <FontAwesomeIcon icon={faDiscord} size="lg" />
                   </a>
-                  <a href="https://www.reddit.com/r/MusicBrainz/" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.reddit.com/r/MusicBrainz/" title="Reddit">
                     <FontAwesomeIcon icon={faReddit} size="lg" />
                   </a>
                 </div>
@@ -187,11 +181,7 @@ component Homepage(
                   <ul className="list-unstyled">
                     {communityPosts.slice(0, 5).map(item => (
                       <li key={item.slug}>
-                        <a
-                          href={`https://community.metabrainz.org/t/${item.slug}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href={`https://community.metabrainz.org/t/${item.slug}`}>
                           {he.decode(item.title)}
                         </a>
                       </li>
@@ -205,8 +195,6 @@ component Homepage(
                   <a
                     className="social-pill"
                     href="https://community.metabrainz.org/"
-                    target="_blank"
-                    rel="noopener noreferrer"
                     style={{color: 'white !important'}}
                   >
                     {l('Forums')}
@@ -235,19 +223,19 @@ component Homepage(
                 <h2>{l('Develop')}</h2>
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="https://github.com/orgs/metabrainz" target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com/orgs/metabrainz">
                     {l('Datasets and Live Data Feed')}
                   </a>
                 </span>
 
                 <p className="info-text">
                   {l('Access all our datasets and the MusicBrainz Live Data Feed by')} {" "}
-                  <a href="https://metabrainz.org/supporters/account-type" target="_blank" rel="noopener noreferrer">{l('creating an account')} </a>, {l('whether for personal or non-commercial use')}.
+                  <a href="https://metabrainz.org/supporters/account-type">{l('creating an account')} </a>, {l('whether for personal or non-commercial use')}.
                 </p>
 
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="/doc/MusicBrainz_Database" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/MusicBrainz_Database">
                     {l('Database')}
                   </a>
                 </span>
@@ -258,7 +246,7 @@ component Homepage(
 
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="/doc/Developer_Resources" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/Developer_Resources">
                     {l('Developer resources')}
                   </a>
                 </span>
@@ -271,11 +259,11 @@ component Homepage(
                   <span className="fw-bold">
                     {l('See also:')}
                   </span>
-                  <a href="/doc/About/Data_License" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/About/Data_License">
                     {l('Data license')}
                   </a>
                   |
-                  <a href="/doc/Frequently_Asked_Questions" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/Frequently_Asked_Questions">
                     {l('MetaBrainz FAQ')}
                   </a>
                 </p>
@@ -288,7 +276,7 @@ component Homepage(
                 <h2>{l('Contribute')}</h2>
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="/doc/How_to_Contribute" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/How_to_Contribute">
                     {l('Edit the database')}
                   </a>
                 </span>
@@ -298,7 +286,7 @@ component Homepage(
 
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="https://tickets.metabrainz.org/secure/Dashboard.jspa" target="_blank" rel="noopener noreferrer">
+                  <a href="https://tickets.metabrainz.org/secure/Dashboard.jspa">
                     {l('Bug Tracker')}
                   </a>
                 </span>
@@ -308,7 +296,7 @@ component Homepage(
 
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="/doc/Communication/ChatBrainz" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/Communication/ChatBrainz">
                     {l('Join the community')}
                   </a>
                 </span>
@@ -320,27 +308,27 @@ component Homepage(
                   <span className="fw-bold">
                     {l('See also:')}
                   </span>
-                  <a href="/doc/Beginners_Guide" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/Beginners_Guide">
                     {l('Beginners guide')}
                   </a>
                   |
-                  <a href="/doc/How_Editing_Works" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/How_Editing_Works">
                     {l('Editing introduction')}
                   </a>
                   |
-                  <a href="/doc/Style" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/Style">
                     {l('Style guidelines')}
                   </a>
                   |
-                  <a href="/doc/Frequently_Asked_Questions" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/Frequently_Asked_Questions">
                     {l('MusicBrainz FAQs')}
                   </a>
                   |
-                  <a href="/doc/How_to_Add_an_Artist" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/How_to_Add_an_Artist">
                     {l('How to add artists')}
                   </a>
                   |
-                  <a href="/doc/How_to_Add_a_Release" target="_blank" rel="noopener noreferrer">
+                  <a href="/doc/How_to_Add_a_Release">
                     {l('How to add releases')}
                   </a>
                 </p>
@@ -358,7 +346,7 @@ component Homepage(
                 <h2>{l('Open source')}</h2>
                 <p>
                   {l('"Open source is source code that is made freely available for possible modification and redistribution..."')} - {" "}
-                  <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank" rel="noopener noreferrer">{l('Wikipedia')}</a>
+                  <a href="https://en.wikipedia.org/wiki/Open_source">{l('Wikipedia')}</a>
                 </p>
                 <p>
                   {l('The MusicBrainz database is all open source. This means that anyone can view the code, contribute improvements and new features, and copy and modify it for their own use.')}
@@ -369,7 +357,7 @@ component Homepage(
 
                 <span className="d-flex align-items-center">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="https://github.com/orgs/metabrainz" target="_blank" rel="noopener noreferrer">{l('GitHub repositories')}</a>
+                  <a href="https://github.com/orgs/metabrainz">{l('GitHub repositories')}</a>
                 </span>
               </div>
             </div>
@@ -379,7 +367,7 @@ component Homepage(
                 <h2>{l('Data provider')}</h2>
                 <p>
                   {l('The MetaBrainz core mission is to curate and maintain public datasets that anyone can download and use. Some of the world\'s biggest platforms, such as Google and Amazon, use our data, as well as small-scale developers and curious individuals.')}{" "}
-                  {l('We ask')} <a href='https://metabrainz.org/supporters' target="_blank" rel="noopener noreferrer">{l('commercial users')}</a> {l('to support us. Personal use of our datasets will always be free.')}
+                  {l('We ask')} <a href='https://metabrainz.org/supporters'>{l('commercial users')}</a> {l('to support us. Personal use of our datasets will always be free.')}
                 </p>
                 <p>
                   {l('Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our datasets are AI Ready, perfect for training large language models for music-based tasks.')}
@@ -387,7 +375,7 @@ component Homepage(
 
                 <span className="d-flex align-items-center">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="https://metabrainz.org/datasets" target="_blank" rel="noopener noreferrer">{l('MetaBrainz Datasets')}</a>
+                  <a href="https://metabrainz.org/datasets">{l('MetaBrainz Datasets')}</a>
                 </span>
               </div>
             </div>
@@ -402,12 +390,12 @@ component Homepage(
                 </p>
                 <p>
                   {l('Our team and volunteer contributers from across the globe are proud to consider MusicBrainz and it\'s sister sites')} {" "}
-                  <a href="https://en.wikipedia.org/wiki/Enshittification" target="_blank" rel="noopener noreferrer">enshittification</a>{l('-proof projects, immune to the the crapifying that takes place when business interests inevitably subsume and monetize projects that initially focussed on high-quality offerings to attract users. ')}
+                  <a href="https://en.wikipedia.org/wiki/Enshittification">enshittification</a>{l('-proof projects, immune to the the crapifying that takes place when business interests inevitably subsume and monetize projects that initially focussed on high-quality offerings to attract users. ')}
                 </p>
 
                 <span className="d-flex align-items-center">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" /> 
-                  <a href="https://metabrainz.org" target="_blank" rel="noopener noreferrer">MetaBrainz Foundation</a>
+                  <a href="https://metabrainz.org">MetaBrainz Foundation</a>
                 </span>
               </div>
             </div>
@@ -416,39 +404,19 @@ component Homepage(
 
         {/* Logo container */}
         <div className="logo-container layout-width">
-          <a
-            href="https://metabrainz.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://metabrainz.org">
             <img src={MetaBrainzLogo} alt="MetaBrainz"/>
           </a>
-          <a
-            href="https://musicbrainz.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://musicbrainz.org">
             <img src={MusicBrainzLogo} alt="MusicBrainz" />
           </a>
-          <a
-            href="https://picard.musicbrainz.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://picard.musicbrainz.org">
             <img src={PicardLogo} alt="Picard"/>
           </a>
-          <a
-            href="https://listenbrainz.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://listenbrainz.org">
             <img src={ListenBrainzLogo} alt="ListenBrainz"/>
           </a>
-          <a
-            href="https://bookbrainz.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href="https://bookbrainz.org">
             <img src={BookBrainzLogo} alt="BookBrainz"/>
           </a>
         </div>

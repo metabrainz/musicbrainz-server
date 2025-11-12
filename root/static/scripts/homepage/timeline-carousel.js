@@ -175,7 +175,7 @@ component TimelineCarousel(
       <div className='d-flex pt-3 justify-content-between flex-row gap-3'>
         <div className="d-flex gap-2">
           <div className={`timeline-carousel-pill ${mode === 'fresh' ? 'selected' : ''}`} onClick={() => handlePillClick('fresh')}>
-            Fresh releases
+            Fresh {entityType === "release" ? "releases" : "events"}
           </div>
           <div className={`timeline-carousel-pill ${mode === 'new' ? 'selected' : ''}`} onClick={() => handlePillClick('new')}>
             New Additions
@@ -191,8 +191,6 @@ component TimelineCarousel(
           <a
             className="d-flex gap-1 align-items-center text-decoration-none timeline-control"
             href={entityType === "release" ? "/release/add" : "/event/create"}
-            target="_blank"
-            rel="noopener noreferrer"
           >
             <FontAwesomeIcon icon={faPlusCircle} />
             <h5 className="timeline-control d-none d-md-block">

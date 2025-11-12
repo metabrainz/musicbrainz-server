@@ -97,7 +97,7 @@ component Search (
                   </div>
                 )
               })}
-              <a href="/search" className="advanced-search-text">Advanced Search</a>
+              <a href="/search" title="Advanced Search" className="advanced-search-text">Advanced Search</a>
             </div>
 
             <div className="search-bar">
