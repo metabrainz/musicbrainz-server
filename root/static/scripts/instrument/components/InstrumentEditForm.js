@@ -40,6 +40,7 @@ import {
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
+import isParseableHtml from '../../edit/utility/isParseableHtml.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -52,6 +53,7 @@ import {
 type ActionT =
   | {+type: 'set-type', +type_id: string}
   | {+type: 'show-all-pending-errors'}
+  | {+type: 'update-description', +description: string}
   | {+type: 'update-edit-note', +editNote: string}
   | {+type: 'update-name', +action: NameActionT};
 /* eslint-enable ft-flow/sort-keys */
@@ -82,6 +84,21 @@ function updateNameFieldErrors(
     nameFieldCtx.set('has_errors', false);
     nameFieldCtx.set('pendingErrors', []);
     nameFieldCtx.set('errors', []);
+  }
+}
+
+function updateDescriptionFieldErrors(
+  descriptionFieldCtx: CowContext<FieldT<string>>,
+) {
+  const description = descriptionFieldCtx.get('value').read();
+  const error = isParseableHtml(description);
+  if (error) {
+    descriptionFieldCtx.set('has_errors', true);
+    descriptionFieldCtx.set('errors', [error]);
+  } else {
+    descriptionFieldCtx.set('has_errors', false);
+    descriptionFieldCtx.set('pendingErrors', []);
+    descriptionFieldCtx.set('errors', []);
   }
 }
 
@@ -133,6 +150,13 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
 
   match (action) {
+    {type: 'update-description', const description} => {
+      newStateCtx
+        .update('form', 'field', 'description', (descriptionFieldCtx) => {
+          descriptionFieldCtx.set('value', description);
+          updateDescriptionFieldErrors(descriptionFieldCtx);
+        });
+    }
     {type: 'update-edit-note', const editNote} => {
       newStateCtx
         .update('form', 'field', 'edit_note', (editNoteFieldCtx) => {
@@ -192,6 +216,16 @@ component InstrumentEditForm(
   const nameDispatch = React.useCallback((action: NameActionT) => {
     dispatch({action, type: 'update-name'});
   }, [dispatch]);
+
+  const handleDescriptionChange = React.useCallback((
+    event: SyntheticEvent<HTMLTextAreaElement>,
+  ) => {
+    dispatch({
+      description: event.currentTarget.value,
+      type: 'update-description',
+    });
+  }, [dispatch]);
+
 
   const handleEditNoteChange = React.useCallback((
     event: SyntheticEvent<HTMLTextAreaElement>,
@@ -265,8 +299,9 @@ component InstrumentEditForm(
             cols={80}
             field={state.form.field.description}
             label={addColonText(l_admin('Description'))}
+            onChange={handleDescriptionChange}
             rows={5}
-            uncontrolled
+            uncontrolled={false}
           />
           <FormRow>
             <p>
