@@ -114,19 +114,26 @@ component DropDownMenu(
         role="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
+        title={l(label)}
       >
         {l(label)}
       </a>
       <ul className="dropdown-menu">
         {groups.map((group, gIdx) => (
           <React.Fragment key={gIdx}>
-            {group.map((item, idx) => (
-              <li key={idx}>
-                <a className="dropdown-item" href={item.href}>
-                  {item.context !== undefined ? lp(item.label, item.context) : l(item.label)}
-                </a>
-              </li>
-            ))}
+
+            {group.map((item, idx) => {
+              const itemLabel = item.context !== undefined ? lp(item.label, item.context) : l(item.label);
+
+              return (
+                <li key={idx}>
+                  <a className="dropdown-item" href={item.href} title={itemLabel}>
+                    {itemLabel}
+                  </a>
+                </li>
+              );
+            })}
+
             {gIdx !== groups.length - 1 && (
               <li>
                 <hr className="dropdown-divider" />
@@ -268,7 +275,7 @@ component Navbar() {
                 />
 
                 <span className="input-group-text">
-                  in
+                  {l('in')}
                 </span>
 
                 <select className="form-select" aria-label="Server" name="type">
@@ -289,6 +296,7 @@ component Navbar() {
             <a 
               className="btn search-button advanced-search-button d-none d-lg-block"
               href="/search"
+              title="Advanced Search"
             >
               <img src={advancedSearchIcon} alt="Advanced Search" width={20} height={20} />
             </a>

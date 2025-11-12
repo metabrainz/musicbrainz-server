@@ -35,21 +35,13 @@ component NewFooter() {
             <ul className="list-unstyled">
               <li className="color-a">
                 <span>Development IRC: </span>{" "}
-                <a
-                  href="/doc/Communication/ChatBrainz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="/doc/Communication/ChatBrainz">
                   #metabrainz
                 </a>
               </li>
               <li className="color-a">
                 <span>Discussion IRC: </span>{" "}
-                <a
-                  href="/doc/Communication/ChatBrainz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="/doc/Communication/ChatBrainz">
                   #metabrainz
                 </a>
               </li>
@@ -66,81 +58,49 @@ component NewFooter() {
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://metabrainz.org/donate"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://metabrainz.org/donate">
                   Donate
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://wiki.musicbrainz.org/Main_Page"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://wiki.musicbrainz.org/Main_Page">
                   Wiki
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://community.metabrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://community.metabrainz.org/">
                   Community
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://blog.metabrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://blog.metabrainz.org/">
                   Blog
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://www.redbubble.com/people/metabrainz/shop"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://www.redbubble.com/people/metabrainz/shop">
                   Shop
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://metabrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://metabrainz.org/">
                   MetaBrainz
                 </a>
               </li>
               <li className="d-block d-md-none">
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://github.com/metabrainz/listenbrainz-server"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://github.com/metabrainz/listenbrainz-server">
                   Contribute Here
                 </a>
               </li>
               <li className="d-block d-md-none">
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://tickets.metabrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://tickets.metabrainz.org/">
                   Bug Tracker
                 </a>
               </li>
@@ -151,61 +111,37 @@ component NewFooter() {
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://listenbrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://listenbrainz.org/">
                   {l('ListenBrainz')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://critiquebrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://critiquebrainz.org/">
                   {l('CritiqueBrainz')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://picard.musicbrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://picard.musicbrainz.org/">
                   {l('Picard')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://bookbrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://bookbrainz.org/">
                   {l('BookBrainz')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://acousticbrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://acousticbrainz.org/">
                   {l('AcousticBrainz')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://coverartarchive.org"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://coverartarchive.org">
                   {l('Cover Art Archive')}
                 </a>
               </li>
@@ -228,11 +164,7 @@ component NewFooter() {
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="sm" />
-                <a
-                  href="https://picard.musicbrainz.org/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                <a href="https://picard.musicbrainz.org/">
                   {l('How Tos')}
                 </a>
               </li>
@@ -261,11 +193,7 @@ component NewFooter() {
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
               OSS Geek?{" "}
-              <a
-                href="https://github.com/metabrainz/musicbrainz-server"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://github.com/metabrainz/musicbrainz-server">
                 Contribute Here {" "}
               </a>
             </p>
@@ -279,11 +207,7 @@ component NewFooter() {
                 height="30"
                 alt="MetaBrainz"
               />{" "}
-              <a
-                href="https://metabrainz.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://metabrainz.org/">
                 MetaBrainz Foundation
               </a>
             </p>
@@ -291,11 +215,7 @@ component NewFooter() {
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
               Found an Issue?{" "}
-              <a
-                href="https://tickets.metabrainz.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href="https://tickets.metabrainz.org/">
                 Report Here {" "}
               </a>
             </p>

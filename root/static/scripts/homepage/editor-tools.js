@@ -160,7 +160,7 @@ component EditorTools() {
             </span>
           </div>
           <button
-            className="close-editor-tools-button d-md-none"
+            className="close-editor-tools-button d-sm-none"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#editorToolsCollapse"
