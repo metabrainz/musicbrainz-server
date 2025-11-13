@@ -11,7 +11,12 @@ use DBDefs;
 use integer;
 
 use Getopt::Long;
-use HTTP::Status qw( RC_OK RC_NOT_FOUND RC_NOT_MODIFIED );
+use HTTP::Status qw(
+    RC_OK
+    RC_NOT_FOUND
+    RC_NOT_MODIFIED
+    is_server_error
+);
 use String::ShellQuote qw( shell_quote );
 
 use MusicBrainz::Server::Replication qw(
@@ -208,24 +213,30 @@ if ($dbmirror2) {
 my $url = "$baseuri/$file";
 my $localfile = "$tmpdir/$file";
 
-my $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
-# We only understand a limited set of responses:
-# OK, not found, and the rest.
+my $packet_retrieval_attempts = 0;
+while (1) {
+    my $resp = retrieve_remote_file($url, $localfile, $fVerifySig);
+    my $code = $resp->code;
+    if ($code == RC_OK || $code == RC_NOT_MODIFIED) {
+        last;
+    } elsif ($code == RC_NOT_FOUND) {
+        # TODO check for newer replication packets, in case the server has lost one?
+        # die if so
 
-if ($resp->code == RC_NOT_FOUND)
-{
-    # TODO check for newer replication packets, in case the server has lost one?
-    # die if so
-
-    # Otherwise exit ok
-    print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
-    exit 0;
-}
-
-unless ($resp->code == RC_OK or $resp->code == RC_NOT_MODIFIED)
-{
-    print $resp->as_string;
-    die;
+        # Otherwise exit ok
+        print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
+        exit 0;
+    } else {
+        print localtime() . " : Error retrieving $url:\n";
+        print $resp->as_string;
+        # Retry up to 3 times on server errors.
+        if (is_server_error($code) && (++$packet_retrieval_attempts) <= 3) {
+            print localtime() . " : Retrying in 10 seconds...\n";
+            sleep 10;
+            next;
+        }
+        die;
+    }
 }
 
 # We successfully retrieved the replication packet.

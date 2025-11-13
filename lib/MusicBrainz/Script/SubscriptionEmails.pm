@@ -38,6 +38,12 @@ has 'dry_run' => (
     cmd_flag => 'dry-run',
 );
 
+has 'daily' => (
+    isa => 'Bool',
+    is => 'ro',
+    default => 1,
+);
+
 has 'weekly' => (
     isa => 'Bool',
     is => 'ro',
@@ -91,11 +97,17 @@ sub run {
     my $collator = get_collator('root');
         # plain UCA without language-specific tailoring
 
+    # We include "never" when processing daily subscriptions only to call
+    # `update_subscriptions` on those editors.
+    my @email_periods;
+    push @email_periods, 'daily', 'never' if $self->daily;
+    push @email_periods, 'weekly' if $self->weekly;
+
     my $max = $self->c->model('Edit')->get_max_id;
     my $seen = 0;
     my $count;
     do {
-        my @editors = $self->c->model('Editor')->editors_with_subscriptions($seen, $BATCH_SIZE);
+        my @editors = $self->c->model('Editor')->editors_with_subscriptions(\@email_periods, $seen, $BATCH_SIZE);
         $count = @editors;
         printf "Starting batch with %d editors\n\n", $count if $self->verbose;
 
@@ -104,8 +116,6 @@ sub run {
             my $period = $editor->preferences->subscriptions_email_period;
             printf "Processing subscriptions for '%s' (%s)\n", $editor->name, $period
                 if $self->verbose;
-
-            next if $period eq 'weekly' && !$self->weekly;
 
             unless ($period eq 'never') {
                 my @subscriptions = $self->c->model('EditorSubscriptions')

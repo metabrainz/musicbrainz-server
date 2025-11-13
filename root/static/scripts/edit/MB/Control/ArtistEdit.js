@@ -23,12 +23,12 @@ export default function ArtistEdit() {
    * some of the labels below (like ended) might have other child nodes
    * this method supports replacing text without removing child nodes
    */
-  jQuery.fn.replaceText = function (newText) {
+  function replaceText(newText) {
     return this.contents().filter(function () {
       return (this.nodeType === Node.TEXT_NODE &&
         this.nodeValue.trim() !== '');
     }).replaceWith(newText);
-  };
+  }
 
 
   self.$name = $('#id-edit-artist\\.name');
@@ -42,14 +42,14 @@ export default function ArtistEdit() {
   self.old_gender = self.$gender.val();
 
   self.changeDateText = function (begin, end, ended) {
-    self.$begin.replaceText(begin);
-    self.$end.replaceText(end);
-    self.$ended.replaceText(ended);
+    replaceText.call(self.$begin, begin);
+    replaceText.call(self.$end, end);
+    replaceText.call(self.$ended, ended);
   };
 
   self.changeAreaText = function (begin, end) {
-    self.$beginarea.replaceText(begin);
-    self.$endarea.replaceText(end);
+    replaceText.call(self.$beginarea, begin);
+    replaceText.call(self.$endarea, end);
   };
 
   /*

@@ -353,16 +353,46 @@ test 'Editor subscription methods' => sub {
     };
 
     subtest 'editors_with_subscriptions' => sub {
-        my @editors = $editor_data->editors_with_subscriptions(0, 1000);
+        my @editors = $editor_data->editors_with_subscriptions(['daily'], 0, 1000);
         is(@editors => 1, 'Found 1 editor searching with no offset');
         is($editors[0]->id => 2, 'The editor is editor #2');
 
-        @editors = $editor_data->editors_with_subscriptions(1, 1000);
+        @editors = $editor_data->editors_with_subscriptions(['daily'], 1, 1000);
         is(@editors => 1, 'Found 1 editor searching with offset 1');
         is($editors[0]->id => 2, 'The editor is editor #2');
 
-        @editors = $editor_data->editors_with_subscriptions(2, 1000);
+        @editors = $editor_data->editors_with_subscriptions(['daily'], 2, 1000);
         is(@editors => 0, 'Found no editors searching with offset 2');
+
+        note('We set editor #2\'s subscription_email_period to "weekly"');
+        $test->c->sql->do(<<~'SQL');
+            INSERT INTO editor_preference (editor, name, value)
+            VALUES (2, 'subscriptions_email_period', 'weekly');
+            SQL
+
+        @editors = $editor_data->editors_with_subscriptions(['daily'], 0, 1000);
+        is(@editors => 0, 'Found no editors receiving daily emails');
+
+        @editors = $editor_data->editors_with_subscriptions(['weekly'], 0, 1000);
+        is(@editors => 1, 'Found one editor receiving weekly emails');
+        is($editors[0]->id => 2, 'The editor is editor #2');
+
+        note('We set editor #2\'s subscription_email_period to "never"');
+        $test->c->sql->do(<<~'SQL');
+            UPDATE editor_preference
+            SET value = 'never'
+            WHERE editor = 2 AND name = 'subscriptions_email_period';
+            SQL
+
+        @editors = $editor_data->editors_with_subscriptions(['daily'], 0, 1000);
+        is(@editors => 0, 'Found no editors receiving daily emails');
+
+        @editors = $editor_data->editors_with_subscriptions(['weekly'], 0, 1000);
+        is(@editors => 0, 'Found no editors receiving weekly emails');
+
+        @editors = $editor_data->editors_with_subscriptions(['never'], 0, 1000);
+        is(@editors => 1, 'Found one editor receiving no emails');
+        is($editors[0]->id => 2, 'The editor is editor #2');
 
         note('We mark editor #2 as a spammer (+ block edit, voting & notes privs)');
         $test->c->sql->do(<<~'SQL');
@@ -371,7 +401,7 @@ test 'Editor subscription methods' => sub {
             WHERE id = 2
             SQL
 
-        @editors = $editor_data->editors_with_subscriptions(0, 1000);
+        @editors = $editor_data->editors_with_subscriptions(['daily'], 0, 1000);
         is(@editors => 0, 'Found no editors since spammer is not returned');
     };
 };
