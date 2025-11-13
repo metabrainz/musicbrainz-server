@@ -65,9 +65,15 @@ sub show : Chained('load') PathPart('')
     my $cdtoc = $c->stash->{cdtoc};
     my $medium_cdtocs = $self->_load_releases($c, $cdtoc);
 
+    my %props = (
+        mediumCDTocs => to_json_array($medium_cdtocs),
+        cdToc        => $cdtoc->TO_JSON,
+    );
+
     $c->stash(
-        medium_cdtocs => $medium_cdtocs,
-        template      => 'cdtoc/index.tt',
+        current_view => 'Node',
+        component_path => 'cdtoc/CDTocIndex.js',
+        component_props => \%props,
     );
 }
 
