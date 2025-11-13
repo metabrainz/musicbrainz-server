@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-10-27 17:21+0100\n"
-"PO-Revision-Date: 2025-11-01 19:20+0000\n"
+"PO-Revision-Date: 2025-11-08 17:20+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -56,7 +56,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural="
 "(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
 ": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -348,9 +348,9 @@ msgid ""
 "recording for each track. Choose “Add a new recording” if an appropriate one "
 "doesn’t exist yet."
 msgstr ""
-"Ко всем трекам нужно указать соответствующую запись. Нажмите "
-"«Редактировать», чтобы выбрать запись для каждого трека. Выберите «Добавить "
-"новую запись», если подходящей еще нет."
+"Ко всем трекам нужно указать соответствующую запись. Нажмите «Править», "
+"чтобы выбрать запись для каждого трека. Выберите «Добавить новую запись», "
+"если подходящей еще нет."
 
 #: ../root/layout.tt:18 ../root/layout/index.js:210
 msgid ""
@@ -1983,7 +1983,7 @@ msgstr ""
 #: ../root/edit/details/historic/MergeReleases.js:51
 #: ../root/user/ReportUser.js:109
 msgid "Note"
-msgstr "Комментарий"
+msgstr "Внимание"
 
 #: ../root/edit/search_macros.tt:265
 msgid ""

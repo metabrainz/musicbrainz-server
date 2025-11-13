@@ -17,22 +17,21 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# GABG <musicbrainz@gabg.email>, 2024.
+# GABG <musicbrainz@gabg.email>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-20 02:08+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-11-08 02:21+0000\n"
+"Last-Translator: GABG <musicbrainz@gabg.email>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.14\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2096,12 +2095,6 @@ msgstr "Indica un tecnico che ha eseguito un ruolo tecnico generico."
 
 #. name:recording
 #: DB:link_type/description:1297
-#, fuzzy
-#| msgid ""
-#| "This describes an engineer responsible for committing the performance to "
-#| "tape or another recording medium. This can be as complex as setting up "
-#| "the microphones, amplifiers, and recording devices, or as simple as "
-#| "pressing the 'record' button on a 4-track or a digital audio workstation."
 msgid ""
 "This describes the company committing the performance to tape or another "
 "recording medium. This can be as complex as setting up the microphones, "
@@ -2109,11 +2102,12 @@ msgid ""
 "button on a 4-track or a digital audio workstation. Use this only when a "
 "company is credited instead of a specific engineer."
 msgstr ""
-"Indica un tecnico responsabile per fissare l'esecuzione su nastro o su un "
+"Indica un'azienda responsabile per fissare l'esecuzione su nastro o su un "
 "altro supporto di registrazione. Ciò può comportare montare i microfoni, gli "
-"amplificatori e i dispositivi di registrazione, oppure semplicemente "
-"schiacciare il tasto \"registra\" su un registratore multitraccia o su una "
-"workstation audio digitale."
+"amplificatori e i dispositivi di registrazione, oppure semplicemente premere "
+"il tasto \"registra\" su un registratore multitraccia o su una workstation "
+"audio digitale. Da usare solo quando viene citata un'azienda invece che un "
+"tecnico in particolare."
 
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
@@ -11070,10 +11064,8 @@ msgstr "prodotta {additional:in aggiunta} a"
 
 #. name:recording
 #: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
-#, fuzzy
-#| msgid "{additional:additionally} recorded at"
 msgid "{additional:additionally} recorded"
-msgstr "registrata {additional:in aggiunta} presso"
+msgstr "registrata {additional:in aggiunta}"
 
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
@@ -11082,8 +11074,6 @@ msgstr "registrata {additional:in aggiunta} presso"
 
 #. name:recording
 #: DB:link_type/reverse_link_phrase:1297
-#, fuzzy
-#| msgid "{additional:additionally} recorded at"
 msgid "{additional:additionally} recorded by"
 msgstr "registrata {additional:in aggiunta} presso"
 
