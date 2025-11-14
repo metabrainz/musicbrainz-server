@@ -35,7 +35,7 @@ role {
     method 'edit' => sub {
         my ($self, $c) = @_;
 
-        my @react_models = qw( Event Genre Instrument Recording );
+        my @react_models = qw( Event Genre Instrument Label Recording );
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
@@ -86,6 +86,14 @@ role {
                 }
                 if ($model eq 'Instrument') {
                     $props{instrumentTypes} = $form->options_type_id;
+                }
+                if ($model eq 'Label') {
+                    my %label_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('LabelType')->get_all();
+
+                    $props{labelTypes} = $form->options_type_id;
+                    $props{labelDescriptions} = \%label_descriptions;
                 }
                 if ($self->does('MusicBrainz::Server::Controller::Role::IdentifierSet')) {
                     $self->munge_compound_text_fields($c, $form);
