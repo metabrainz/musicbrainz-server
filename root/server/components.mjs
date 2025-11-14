@@ -162,6 +162,8 @@ export default {
   'instrument/List': (): Promise<mixed> => import('../instrument/List.js'),
   'isrc/Index': (): Promise<mixed> => import('../isrc/Index.js'),
   'iswc/Index': (): Promise<mixed> => import('../iswc/Index.js'),
+  'label/CreateLabel': (): Promise<mixed> => import('../label/CreateLabel.js'),
+  'label/EditLabel': (): Promise<mixed> => import('../label/EditLabel.js'),
   'label/LabelIndex': (): Promise<mixed> => import('../label/LabelIndex.js'),
   'label/LabelMerge': (): Promise<mixed> => import('../label/LabelMerge.js'),
   'label/LabelRelationships': (): Promise<mixed> => import('../label/LabelRelationships.js'),

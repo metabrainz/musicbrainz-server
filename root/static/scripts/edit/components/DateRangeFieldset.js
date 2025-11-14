@@ -160,13 +160,14 @@ component _DateRangeFieldset(
   dispatch: (ActionT) => void,
   endedLabel?: string,
   field: DatePeriodFieldT,
+  fieldSetRef?: {current: HTMLFieldSetElement | null},
 ) {
   const subfields = field.field;
 
   const hooks = useDateRangeFieldset(dispatch);
 
   return (
-    <fieldset>
+    <fieldset ref={fieldSetRef}>
       <legend>{l('Date period')}</legend>
       <p>
         {l(`Dates are in the format YYYY-MM-DD.
