@@ -14,7 +14,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-02 16:21+0000\n"
+"PO-Revision-Date: 2025-11-14 13:20+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
 "(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3722,6 +3722,8 @@ msgid ""
 "This links a label to their profile at a crowdfunding site like Kickstarter "
 "or Indiegogo."
 msgstr ""
+"Łączy on wytwórnię z jej profilem na stronie finansowania społecznościowego, "
+"np. Kickstarter lub Indiegogo."
 
 #. name:composer-in-residence
 #: DB:link_type/description:937
@@ -3729,6 +3731,8 @@ msgid ""
 "This links a place (often a concert hall or educational institution) to a "
 "composer who has a composer-in-residence position with it."
 msgstr ""
+"Łączy dane miejsce (często salę koncertową lub instytucję edukacyjną) z "
+"kompozytorem, który sprawuje tam funkcję kompozytora-rezydenta."
 
 #. name:artist-in-residence
 #: DB:link_type/description:1164
@@ -3759,22 +3763,25 @@ msgid ""
 "This links a place to a site where the place or the organisation behind it "
 "can receive donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Łączy dane miejsce ze stroną, na której dane miejsce lub organizacja stojąca "
+"za nim może otrzymywać darowizny/patronat, np. Flattr lub PayPal.me."
 
 #. name:ticketing
 #: DB:link_type/description:1195
 msgid ""
 "This links a place to a site where tickets can be purchased for its events."
 msgstr ""
+"Łączy dane miejsce ze stroną, na której możesz kupić bilety na wydarzenia."
 
 #. name:youtube
 #: DB:link_type/description:528
 msgid "This links a place to its channel at YouTube."
-msgstr ""
+msgstr "Łączy dane miejsce z jego kanałem na YouTube."
 
 #. name:soundcloud
 #: DB:link_type/description:940
 msgid "This links a place to its profile at SoundCloud."
-msgstr ""
+msgstr "Łączy dane miejsce z jego profilem na SoundCloud."
 
 #. name:crowdfunding
 #: DB:link_type/description:909
@@ -3782,22 +3789,25 @@ msgid ""
 "This links a place to its profile at a crowdfunding site like Kickstarter or "
 "Indiegogo."
 msgstr ""
+"Łączy miejsce z jego profilem na stronie finansowania społecznościowego, np. "
+"Kickstarter lub Indiegogo."
 
 #. name:rescheduled as
 #: DB:link_type/description:836
 msgid "This links a postponed event to the later rescheduled event."
-msgstr ""
+msgstr "Łączy przełożone wydarzenie z późniejszym zaplanowanym wydarzeniem."
 
 #. name:license
 #: DB:link_type/description:302
 msgid "This links a recording to a license under which it is available."
-msgstr ""
+msgstr "Łączy nagranie z licencją, na podstawie której jest ono dostępne."
 
 #. name:download for free
 #: DB:link_type/description:255
 msgid ""
 "This links a recording to a page where it can be legally downloaded for free."
 msgstr ""
+"Łączy nagranie ze stroną, na której można je legalnie i bezpłatnie pobrać."
 
 #. name:commentary
 #: DB:link_type/description:1177
@@ -3805,6 +3815,8 @@ msgid ""
 "This links a recording to another containing official commentary for it "
 "(usually the artist talking about it)."
 msgstr ""
+"Łączy nagranie z innym, zawierającym oficjalny komentarz do niego "
+"(zazwyczaj od artysty mówiącego o nim)."
 
 #. name:programming
 #: DB:link_type/description:132
@@ -3813,6 +3825,9 @@ msgid ""
 "instruments used on the recording. In the most cases, the 'electronic "
 "instrument' is either a synthesizer or a drum machine."
 msgstr ""
+"Łączy to nagranie z artystą, który zaprogramował instrumenty elektroniczne "
+"użyte w nagraniu. W większości przypadków „instrumentem elektronicznym” jest "
+"syntezator lub automat perkusyjny."
 
 #. name:balance
 #: DB:link_type/description:726
@@ -3827,6 +3842,10 @@ msgid ""
 "other material. Note that this includes the artist who created a mash-up or "
 "used samples as well."
 msgstr ""
+"Łączy nagranie z osobą, która je zremiksowała, wykorzystując jeden lub "
+"więcej innych utworów, znacząco je modyfikując i miksując z innym "
+"materiałem. Należy pamiętać, że dotyczy to również artysty, który stworzył "
+"mashup lub wykorzystał sample."
 
 #. name:crowdfunding
 #: DB:link_type/description:905
@@ -3834,6 +3853,8 @@ msgid ""
 "This links a recording to the relevant crowdfunding project at a "
 "crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
+"Łączy nagranie z odpowiednim projektem finansowania społecznościowego na "
+"stronie finansowania społecznościowego, np. Kickstarter lub Indiegogo."
 
 #. name:fanpage
 #: DB:link_type/description:1190
@@ -4033,6 +4054,8 @@ msgid ""
 "This links a series (most commonly, but not necessarily always, a music "
 "festival) to its official page at SoundCloud."
 msgstr ""
+"Łączy serię (najczęściej, choć nie zawsze, festiwal muzyczny) z jej "
+"oficjalną stroną w serwisie SoundCloud."
 
 #. name:patronage
 #: DB:link_type/description:901
@@ -4041,6 +4064,9 @@ msgid ""
 "series) to a site where the organisers/creators can receive donations/"
 "patronage, such as Flattr or PayPal.me."
 msgstr ""
+"Łączy serię (zazwyczaj, ale nie wyłącznie, festiwal lub serię koncertów) ze "
+"stroną, na której organizatorzy/twórcy mogą otrzymywać darowizny/patronat, "
+"np. Flattr lub PayPal.me."
 
 #. name:video channel
 #: DB:link_type/description:805
@@ -4048,11 +4074,13 @@ msgid ""
 "This links a series to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"Łączy serię z kanałem, playlistą lub stroną użytkownika w serwisie "
+"udostępniającym filmy, na którym znajdują się filmy przez niego wybrane."
 
 #. name:fanpage
 #: DB:link_type/description:1189
 msgid "This links a series to a fan-created website."
-msgstr ""
+msgstr "Łączy serię ze stroną internetową stworzoną przez fanów."
 
 #. name:ticketing
 #: DB:link_type/description:1196
@@ -4060,11 +4088,13 @@ msgid ""
 "This links a series to a site where tickets can be purchased for events in "
 "it."
 msgstr ""
+"Łączy serię ze stroną internetową, na której można kupić bilety na "
+"wydarzenia z danej serii."
 
 #. name:youtube
 #: DB:link_type/description:792
 msgid "This links a series to its channel at YouTube."
-msgstr ""
+msgstr "Łączy serię z jej kanałem na YouTube."
 
 #. name:crowdfunding
 #: DB:link_type/description:910
@@ -4073,6 +4103,9 @@ msgid ""
 "page (such as for a specific tour, or for compiling a classical catalogue) "
 "at a crowdfunding site like Kickstarter or Indiegogo."
 msgstr ""
+"Łączy serię ze stroną jej profilu (np. festiwalu) lub stroną projektu (np. "
+"konkretnej trasy koncertowej lub w celu skompilowania katalogu muzyki "
+"klasycznej) w serwisie crowdfundingowym, takim jak Kickstarter lub Indiegogo."
 
 #. name:IMDb
 #: DB:link_type/description:97
