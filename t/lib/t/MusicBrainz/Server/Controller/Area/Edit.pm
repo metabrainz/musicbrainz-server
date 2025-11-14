@@ -61,7 +61,10 @@ test 'Editing a (non-ended) area' => sub {
                 id => 5099,
                 name => 'Chicago',
             },
-            new => { name => 'wild onion' },
+            new => {
+                name => 'wild onion',
+                type_id => undef,
+            },
             old => { name => 'Chicago' },
         },
         'The edit contains the right data',
