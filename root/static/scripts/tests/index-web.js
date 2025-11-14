@@ -62,6 +62,7 @@ require('./utility/isObjectEmpty.js');
 require('./utility/isShortenedUrl.js');
 require('./utility/isSpecialPurpose.js');
 require('./utility/isValidIsrc.js');
+require('./utility/isValidLabelCode.js');
 require('./utility/natatime.js');
 require('./utility/parseDate.js');
 require('./utility/primaryAreaCode.js');
