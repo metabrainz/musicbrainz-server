@@ -10,7 +10,7 @@
 import $ from 'jquery';
 
 import './components/ArtistCreditRenamer.js';
-import '../edit/components/FormRowTextListSimple.js';
+import '../edit/components/StandaloneFormRowTextListSimple.js';
 import '../relationship-editor/components/RelationshipEditorWrapper.js';
 
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
