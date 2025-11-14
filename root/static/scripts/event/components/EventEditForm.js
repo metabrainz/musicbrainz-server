@@ -93,7 +93,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       });
       runNameReducer(nameStateCtx, action);
 
-      const nameState = nameStateCtx.read();
+      const nameState = nameStateCtx.final();
       newStateCtx
         .update('form', 'field', 'name', (nameFieldCtx) => {
           nameFieldCtx.set(nameState.field);
@@ -153,7 +153,8 @@ component EventEditForm(
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm),
+    initialForm,
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {

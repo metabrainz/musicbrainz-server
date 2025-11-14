@@ -62,6 +62,8 @@ export type Parser<+T, -V> = (VarArgsClass<V>) => T;
 const EMPTY_OBJECT = Object.freeze({});
 
 type State = {
+  // The last returned error, if any, to allow accessing it elsewhere
+  error: string,
   /*
    * A slice of the source string containing an in-progress match; used
    * as a fallback if there's no substitution value in `args`.
@@ -80,6 +82,7 @@ type State = {
 };
 
 export const state: State = {
+  error: '',
   match: '',
   position: 0,
   remainder: '',
@@ -319,6 +322,7 @@ export default function expand<T, V>(
   }
 
   // Reset the global state.
+  state.error = '';
   state.match = '';
   state.position = 0;
   state.remainder = source;
@@ -337,10 +341,11 @@ export default function expand<T, V>(
     /*
      * If we can't parse the string, just return the source string back
      * so that the page doesn't break. But also log the error to the
-     * console and Sentry.
+     * console and Sentry, and to state for display when useful.
      */
     console.error(e);
     Sentry.captureException(e);
+    state.error = e.message;
     return source;
   } finally {
     if (savedState) {

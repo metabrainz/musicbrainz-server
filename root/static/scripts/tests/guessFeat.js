@@ -9,16 +9,18 @@
 import ko from 'knockout';
 import test from 'tape';
 
-import guessFeat from '../edit/utility/guessFeat.js';
+import guessFeat, {guessFeatForReleaseEditor as guessFeatKo}
+  from '../edit/utility/guessFeat.js';
 import fields from '../release-editor/fields.js';
 
 /* eslint-disable sort-keys */
 test('guessing feat. artists', function (t) {
-  t.plan(25);
+  t.plan(71);
 
-  const trackTests = [
+  const recordingTests = [
     {
       input: {
+        entityType: 'recording',
         name: 'мыльныйопус (feat.813)',
         artistCredit: {names: [{name: 'micromatics', joinPhrase: ''}]},
       },
@@ -27,13 +29,69 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'micromatics', joinPhrase: ' feat. '},
-            {name: '813', joinPhrase: ''},
+            {artist: null, name: '813', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'recording',
+        name: 'Fix (Main Mix) (feat. Slash & Ol\' Dirty Bastard)',
+        artistCredit: {names: [{name: 'Blackstreet', joinPhrase: ''}]},
+        relationships: [
+          {
+            target: {
+              name: 'Ol’ Dirty Bastard',
+              gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819',
+              entityType: 'artist',
+            },
+            backward: true,
+            linkTypeID: 156,
+          },
+        ],
+      },
+      output: {
+        name: 'Fix (Main Mix)',
+        artistCredit: {
+          names: [
+            {name: 'Blackstreet', joinPhrase: ' feat. '},
+            {artist: null, name: 'Slash', joinPhrase: ' & '},
+            {
+              artist: {
+                name: 'Ol’ Dirty Bastard',
+                gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819',
+                entityType: 'artist',
+              },
+              name: 'Ol\' Dirty Bastard',
+              joinPhrase: '',
+            },
+          ],
+        },
+      },
+    },
+  ];
+
+  const trackTests = [
+    {
+      input: {
+        entityType: 'track',
+        name: 'мыльныйопус (feat.813)',
+        artistCredit: {names: [{name: 'micromatics', joinPhrase: ''}]},
+      },
+      output: {
+        name: 'мыльныйопус',
+        artistCredit: {
+          names: [
+            {name: 'micromatics', joinPhrase: ' feat. '},
+            {artist: null, name: '813', joinPhrase: ''},
+          ],
+        },
+      },
+    },
+    {
+      input: {
+        entityType: 'track',
         name: 'City Of Time (feat. 마리오(Feat.영지))',
         artistCredit: {names: [{name: '[unknown]', joinPhrase: ''}]},
       },
@@ -42,14 +100,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: '[unknown]', joinPhrase: ' feat. '},
-            {name: '마리오', joinPhrase: ' & '},
-            {name: '영지', joinPhrase: ''},
+            {artist: null, name: '마리오', joinPhrase: ' & '},
+            {artist: null, name: '영지', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Feat Stouffi (feat. Christine & Stouffi)',
         artistCredit: {names: [{name: 'David TMX', joinPhrase: ''}]},
       },
@@ -58,14 +117,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'David TMX', joinPhrase: ' feat. '},
-            {name: 'Christine', joinPhrase: ' & '},
-            {name: 'Stouffi', joinPhrase: ''},
+            {artist: null, name: 'Christine', joinPhrase: ' & '},
+            {artist: null, name: 'Stouffi', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Åndsvag ( Feat. Jooks)',
         artistCredit: {names: [{name: 'Suspekt', joinPhrase: ''}]},
       },
@@ -74,13 +134,14 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Suspekt', joinPhrase: ' feat. '},
-            {name: 'Jooks', joinPhrase: ''},
+            {artist: null, name: 'Jooks', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Ft. Smith Breakdown',
         artistCredit: {
           names: [
@@ -100,6 +161,7 @@ test('guessing feat. artists', function (t) {
     },
     {
       input: {
+        entityType: 'track',
         name: 'Stormclouds [ft. Landforge]',
         artistCredit: {names: [{name: 'Red Horizons', joinPhrase: ''}]},
       },
@@ -108,13 +170,14 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Red Horizons', joinPhrase: ' ft. '},
-            {name: 'Landforge', joinPhrase: ''},
+            {artist: null, name: 'Landforge', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Montana Ft Juicy J',
         artistCredit: {names: [{name: 'Lil Bibby', joinPhrase: ''}]},
       },
@@ -123,13 +186,14 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Lil Bibby', joinPhrase: ' ft '},
-            {name: 'Juicy J', joinPhrase: ''},
+            {artist: null, name: 'Juicy J', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: '50,000 ft.',
         artistCredit: {names: [{name: 'The Hang Ups', joinPhrase: ''}]},
       },
@@ -141,6 +205,7 @@ test('guessing feat. artists', function (t) {
     },
     {
       input: {
+        entityType: 'track',
         name: 'Classe x et freestyle (Feat. Hfi, Oxmo et Pit Baccardi)',
         artistCredit: {names: [{name: 'Ill', joinPhrase: ''}]},
       },
@@ -149,15 +214,16 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Ill', joinPhrase: ' feat. '},
-            {name: 'Hfi', joinPhrase: ', '},
-            {name: 'Oxmo', joinPhrase: ' et '},
-            {name: 'Pit Baccardi', joinPhrase: ''},
+            {artist: null, name: 'Hfi', joinPhrase: ', '},
+            {artist: null, name: 'Oxmo', joinPhrase: ' et '},
+            {artist: null, name: 'Pit Baccardi', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'The Lion (Featuring Sphere720 And Tariq)',
         artistCredit: {names: [{name: 'Dragon Fli Empire', joinPhrase: ''}]},
       },
@@ -166,14 +232,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Dragon Fli Empire', joinPhrase: ' featuring '},
-            {name: 'Sphere720', joinPhrase: ' And '},
-            {name: 'Tariq', joinPhrase: ''},
+            {artist: null, name: 'Sphere720', joinPhrase: ' And '},
+            {artist: null, name: 'Tariq', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'The Bell (Paranoia Network Remix), ' +
               'featuring Pete Seeger & DJ Spooky',
         artistCredit: {names: [{name: 'Stephan Smith', joinPhrase: ''}]},
@@ -183,14 +250,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Stephan Smith', joinPhrase: ' featuring '},
-            {name: 'Pete Seeger', joinPhrase: ' & '},
-            {name: 'DJ Spooky', joinPhrase: ''},
+            {artist: null, name: 'Pete Seeger', joinPhrase: ' & '},
+            {artist: null, name: 'DJ Spooky', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Mothership Reconnection (Feat Parliament/Funkadelic) ' +
               '(Daft Punk Remix)',
         artistCredit: {names: [{name: 'Daft Punk', joinPhrase: ''}]},
@@ -200,14 +268,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Daft Punk', joinPhrase: ' feat. '},
-            {name: 'Parliament', joinPhrase: '/'},
-            {name: 'Funkadelic', joinPhrase: ''},
+            {artist: null, name: 'Parliament', joinPhrase: '/'},
+            {artist: null, name: 'Funkadelic', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Yes my lord (dub version - feat. Rubén Rada)',
         artistCredit: {names: [{name: 'Kameleba', joinPhrase: ''}]},
       },
@@ -216,7 +285,7 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Kameleba', joinPhrase: ' feat. '},
-            {name: 'Rubén Rada', joinPhrase: ''},
+            {artist: null, name: 'Rubén Rada', joinPhrase: ''},
           ],
         },
       },
@@ -227,6 +296,7 @@ test('guessing feat. artists', function (t) {
      */
     {
       input: {
+        entityType: 'track',
         name: 'Fix (Main Mix) (feat. Slash & Ol\' Dirty Bastard)',
         artistCredit: {names: [{name: 'Blackstreet', joinPhrase: ''}]},
         recording: {
@@ -250,14 +320,23 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Blackstreet', joinPhrase: ' feat. '},
-            {name: 'Slash', joinPhrase: ' & '},
-            {name: 'Ol\' Dirty Bastard', joinPhrase: ''},
+            {artist: null, name: 'Slash', joinPhrase: ' & '},
+            {
+              artist: {
+                name: 'Ol’ Dirty Bastard',
+                gid: 'd50548a0-3cfd-4d7a-964b-0aef6545d819',
+                entityType: 'artist',
+              },
+              name: 'Ol\' Dirty Bastard',
+              joinPhrase: '',
+            },
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'ｆｒｏｚｅｎ ｆｔ.grèg',
         artistCredit: {names: [{name: 'cight', joinPhrase: ''}]},
       },
@@ -266,13 +345,14 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'cight', joinPhrase: '　ｆｔ．　'},
-            {name: 'grèg', joinPhrase: ''},
+            {artist: null, name: 'grèg', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'ｓｍｏｋｅ ｆｔ. ｅｐvｒ',
         artistCredit: {names: [{name: 'cight', joinPhrase: ''}]},
       },
@@ -281,13 +361,14 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'cight', joinPhrase: '　ｆｔ．　'},
-            {name: 'ｅｐvｒ', joinPhrase: ''},
+            {artist: null, name: 'ｅｐvｒ', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'lulu（feat. Predawn）',
         artistCredit: {names: [{name: '菅野よう子', joinPhrase: ''}]},
       },
@@ -296,13 +377,14 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: '菅野よう子', joinPhrase: ' feat. '},
-            {name: 'Predawn', joinPhrase: ''},
+            {artist: null, name: 'Predawn', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: '本能の呼吸（カラオケ） feat．戦場ヶ原ひたぎ ＆ 貝木泥舟',
         artistCredit: {names: [{name: '凪宗一郎', joinPhrase: ''}]},
       },
@@ -311,14 +393,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: '凪宗一郎', joinPhrase: '　ｆｅａｔ．　'},
-            {name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
-            {name: '貝木泥舟', joinPhrase: ''},
+            {artist: null, name: '戦場ヶ原ひたぎ', joinPhrase: '　＆　'},
+            {artist: null, name: '貝木泥舟', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'track',
         name: 'Coast To Coast feat. 漢、般若',
         artistCredit: {names: [{name: 'DJ Baku', joinPhrase: ''}]},
       },
@@ -327,8 +410,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'DJ Baku', joinPhrase: ' feat. '},
-            {name: '漢', joinPhrase: '、'},
-            {name: '般若', joinPhrase: ''},
+            {artist: null, name: '漢', joinPhrase: '、'},
+            {artist: null, name: '般若', joinPhrase: ''},
           ],
         },
       },
@@ -338,96 +421,7 @@ test('guessing feat. artists', function (t) {
   const releaseTests = [
     {
       input: {
-        name: 'The Nutcracker: Suite, Op. 71 ' +
-              '(London Symphony Orchestra feat. conductor: André Previn) ' +
-              '(disc 2)',
-        artistCredit: {
-          names: [{name: 'Пётр Ильич Чайковский', joinPhrase: ''}],
-        },
-        relationships: [
-          {
-            target: {name: 'London Symphony Orchestra', entityType: 'artist'},
-            backward: true,
-            linkTypeID: 45,
-          },
-        ],
-      },
-      output: {
-        name: 'The Nutcracker: Suite, Op. 71 (disc 2)',
-        artistCredit: {
-          names: [
-            {name: 'Пётр Ильич Чайковский', joinPhrase: '; '},
-            {name: 'London Symphony Orchestra', joinPhrase: ', '},
-            {name: 'André Previn', joinPhrase: ''},
-          ],
-        },
-      },
-    },
-    {
-      input: {
-        name: 'Intermezzi from Palandrana and Zambrano ' +
-              '(feat. Fortuna Ensemble; conductor: Roberto Cascio; ' +
-              'soprano: Barbara di Castri; tenor: Gastone Sarti)',
-        artistCredit: {
-          names: [{name: 'Alessandro Scarlatti', joinPhrase: ''}],
-        },
-        relationships: [
-          {
-            target: {name: 'Roberto Cascio', entityType: 'artist'},
-            backward: true,
-            linkTypeID: 46,
-          },
-        ],
-      },
-      output: {
-        name: 'Intermezzi from Palandrana and Zambrano',
-        artistCredit: {
-          names: [
-            {name: 'Alessandro Scarlatti', joinPhrase: '; '},
-            {name: 'Fortuna Ensemble', joinPhrase: ', '},
-            {name: 'Roberto Cascio', joinPhrase: ', '},
-            {name: 'Barbara di Castri', joinPhrase: ', '},
-            {name: 'Gastone Sarti', joinPhrase: ''},
-          ],
-        },
-      },
-    },
-    {
-      input: {
-        name: 'Le nozze di Figaro - highlights ' +
-              '(The Drottningholm Court Theatre Orchestra & Chorus, feat. ' +
-              'conductor: Arnold Östman, singers: Salomaa, Bonney, Hagagård)',
-        artistCredit: {names: [{name: 'Mozart', joinPhrase: ''}]},
-        relationships: [
-          {
-            target: {
-              name: 'The Drottningholm Court Theatre Orchestra & Chorus',
-              entityType: 'artist',
-            },
-            backward: true,
-            linkTypeID: 45,
-          },
-        ],
-      },
-      output: {
-        name: 'Le nozze di Figaro - highlights',
-        artistCredit: {
-          names: [
-            {name: 'Mozart', joinPhrase: '; '},
-            {
-              name: 'The Drottningholm Court Theatre Orchestra & Chorus',
-              joinPhrase: ', ',
-            },
-            {name: 'Arnold Östman', joinPhrase: ', '},
-            {name: 'Salomaa', joinPhrase: ', '},
-            {name: 'Bonney', joinPhrase: ', '},
-            {name: 'Hagagård', joinPhrase: ''},
-          ],
-        },
-      },
-    },
-    {
-      input: {
+        entityType: 'release',
         name: 'Coast To Coast feat. 漢、般若',
         artistCredit: {names: [{name: 'DJ Baku', joinPhrase: ''}]},
       },
@@ -436,14 +430,15 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'DJ Baku', joinPhrase: ' feat. '},
-            {name: '漢', joinPhrase: '、'},
-            {name: '般若', joinPhrase: ''},
+            {artist: null, name: '漢', joinPhrase: '、'},
+            {artist: null, name: '般若', joinPhrase: ''},
           ],
         },
       },
     },
     {
       input: {
+        entityType: 'release',
         name: 'Stuffy Stuff【Feat. Artist】',
         artistCredit: {names: [{name: 'Someone', joinPhrase: ''}]},
       },
@@ -452,7 +447,42 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'Someone', joinPhrase: ' feat. '},
-            {name: 'Artist', joinPhrase: ''},
+            {artist: null, name: 'Artist', joinPhrase: ''},
+          ],
+        },
+      },
+    },
+    {
+      input: {
+        entityType: 'release',
+        name: 'Montana Ft Juicy J',
+        relationships: [
+          {
+            target: {
+              gid: 'c45d161f-83ce-4464-ba41-44202e6916d9',
+              name: 'Juicy J',
+              entityType: 'artist',
+            },
+            backward: true,
+            linkTypeID: 44,
+          },
+        ],
+        artistCredit: {names: [{name: 'Lil Bibby', joinPhrase: ''}]},
+      },
+      output: {
+        name: 'Montana',
+        artistCredit: {
+          names: [
+            {name: 'Lil Bibby', joinPhrase: ' ft '},
+            {
+              artist: {
+                name: 'Juicy J',
+                gid: 'c45d161f-83ce-4464-ba41-44202e6916d9',
+                entityType: 'artist',
+              },
+              name: 'Juicy J',
+              joinPhrase: '',
+            },
           ],
         },
       },
@@ -462,6 +492,7 @@ test('guessing feat. artists', function (t) {
   const releaseGroupTests = [
     {
       input: {
+        entityType: 'release_group',
         name: 'Coast To Coast feat. 漢、般若',
         artistCredit: {names: [{name: 'DJ Baku', joinPhrase: ''}]},
       },
@@ -470,8 +501,8 @@ test('guessing feat. artists', function (t) {
         artistCredit: {
           names: [
             {name: 'DJ Baku', joinPhrase: ' feat. '},
-            {name: '漢', joinPhrase: '、'},
-            {name: '般若', joinPhrase: ''},
+            {artist: null, name: '漢', joinPhrase: '、'},
+            {artist: null, name: '般若', joinPhrase: ''},
           ],
         },
       },
@@ -484,7 +515,6 @@ test('guessing feat. artists', function (t) {
       artistCredit: {
         names: entity.artistCredit().names.map((name) => {
           const copy = {...name};
-          delete copy.artist;
           delete copy.automaticJoinPhrase;
           return copy;
         }),
@@ -492,8 +522,23 @@ test('guessing feat. artists', function (t) {
     };
   }
 
-  function runTest(x, entity) {
-    guessFeat(entity);
+  function runTest(x) {
+    const output = guessFeat(x.input);
+    if (output === null) {
+      delete x.input.entityType;
+      t.deepEqual(x.input, x.output, 'Expected no changes and saw none');
+    } else {
+      t.deepEqual(
+        output.name, x.output.name, x.input.name + ' -> ' + x.output.name,
+      );
+      t.deepEqual(
+        output.artistCreditNames, x.output.artistCredit.names, x.input.name + ' -> ' + x.output.name,
+      );
+    }
+  }
+
+  function runTestOld(x, entity) {
+    guessFeatKo(entity);
     t.deepEqual(
       toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
     );
@@ -507,7 +552,7 @@ test('guessing feat. artists', function (t) {
     entity.name = ko.observable(entity.name);
     entity.artistCredit = ko.observable(entity.artistCredit);
 
-    guessFeat(entity);
+    guessFeatKo(entity);
     t.deepEqual(
       toJS(entity), x.output, x.input.name + ' -> ' + x.output.name,
     );
@@ -519,14 +564,21 @@ test('guessing feat. artists', function (t) {
       mediums: [{tracks: [test.input]}],
     });
 
-    runTest(test, release.mediums()[0].tracks()[0]);
+    runTestOld(test, release.mediums()[0].tracks()[0]);
+    runTest(test);
+  }
+
+  for (const test of recordingTests) {
+    runTest(test);
   }
 
   for (const test of releaseTests) {
-    runTest(test, new fields.Release(test.input));
+    runTestOld(test, new fields.Release(test.input));
+    runTest(test);
   }
 
   for (const test of releaseGroupTests) {
     runReleaseGroupTest(test, new fields.ReleaseGroup(test.input));
+    runTest(test);
   }
 });
