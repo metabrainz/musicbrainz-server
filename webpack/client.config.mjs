@@ -95,6 +95,7 @@ const entries = [
   'genre/index',
   'instrument/components/InstrumentEditForm.js',
   'instrument/index',
+  'label/components/LabelEditForm.js',
   'label/edit',
   'label/index',
   'place/edit',

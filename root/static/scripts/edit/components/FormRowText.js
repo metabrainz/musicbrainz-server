@@ -43,6 +43,7 @@ component FormRowText(
   inputRef?: {-current: HTMLInputElement | null},
   label: React.Node,
   placeholder?: string,
+  preInput?: string,
   preview?: string | null = null,
   onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   required: boolean = false,
@@ -77,6 +78,7 @@ component FormRowText(
   return (
     <FormRow rowRef={rowRef}>
       <FormLabel forField={field} label={label} required={required} />
+      {preInput}
       <input {...inputProps} />
       {children}
       <FieldErrors field={field} />
