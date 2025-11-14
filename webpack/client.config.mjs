@@ -86,6 +86,7 @@ const entries = [
   'edit/components/NewNotesAlertCheckbox',
   'edit/components/ReleaseMergeStrategy',
   'edit/components/StandaloneFormRowTextList',
+  'edit/components/StandaloneFormRowTextListSimple',
   'edit/ExampleRelationships',
   'edit/MB/reltypeslist',
   'event/components/EventEditForm',

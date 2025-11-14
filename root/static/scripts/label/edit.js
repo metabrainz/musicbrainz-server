@@ -9,7 +9,7 @@
 
 import $ from 'jquery';
 
-import '../edit/components/FormRowTextListSimple.js';
+import '../edit/components/StandaloneFormRowTextListSimple.js';
 
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
