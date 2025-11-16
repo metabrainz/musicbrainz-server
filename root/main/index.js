@@ -93,7 +93,7 @@ component Homepage(
         </div>
 
         <div className="info-container" id="about">
-          <div className="row g-4">
+          <div className="row g-5">
             <div className="col-12 col-sm-8" id="about-musicbrainz-container">
               <h2>{l('About MusicBrainz')}</h2>
               <p className="fw-bold">{l('MusicBrainz is an open music encyclopedia that collects music metadata and makes it available to the public.')}</p>
@@ -218,7 +218,7 @@ component Homepage(
 
         {/* Contribute */}
         <div className="info-container" id="contribute">
-          <div className="row g-4">
+          <div className="row g-5">
             <div className="col-12 col-sm-6">
               <div className="info-container-inner">
                 <h2>{l('Develop')}</h2>
@@ -341,7 +341,7 @@ component Homepage(
 
         {/* Open source */}
         <div className="info-container" id="open-source" ref={openSourceContainerRef}>
-          <div className="row g-4">
+          <div className="row g-5">
             <div className="col-12 col-sm-6 col-md-4">
               <div className="info-container-inner">
                 <h2>{l('Open source')}</h2>
