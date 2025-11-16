@@ -174,10 +174,18 @@ component TimelineCarousel(
       </div>
       <div className='d-flex pt-3 justify-content-between flex-row gap-3'>
         <div className="d-flex gap-2">
-          <div className={`timeline-carousel-pill ${mode === 'fresh' ? 'selected' : ''}`} onClick={() => handlePillClick('fresh')}>
+          <div
+            className={`timeline-carousel-pill ${mode === 'fresh' ? 'selected' : ''}`}
+            onClick={() => handlePillClick('fresh')}
+            title={`Order by ${entityType === "release" ? "release" : "event"} date`}
+          >
             Fresh {entityType === "release" ? "releases" : "events"}
           </div>
-          <div className={`timeline-carousel-pill ${mode === 'new' ? 'selected' : ''}`} onClick={() => handlePillClick('new')}>
+          <div
+            className={`timeline-carousel-pill ${mode === 'new' ? 'selected' : ''}`}
+            onClick={() => handlePillClick('new')}
+            title="Order by date added to MusicBrainz"
+          >
             New Additions
           </div>
         </div>

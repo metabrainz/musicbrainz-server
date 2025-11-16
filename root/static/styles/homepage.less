@@ -98,13 +98,6 @@
 			align-content: center;
 		}
 
-		.form-select,
-		.form-control {
-			font-family: Sintony;
-			font-weight: 700;
-			font-size: 14px;
-		}
-
 		.search-button-mobile {
 			width: 40px;
 			height: 40px;
@@ -330,6 +323,13 @@
 		}
 	}
 
+	.form-select,
+	.form-control {
+		font-family: Sintony;
+		font-weight: 700;
+		font-size: 14px;
+	}
+
 	.auth-buttons {
 		position: relative;
 		z-index: 10;
@@ -445,8 +445,7 @@
 					border: 1px solid #585858;
 					padding: 10px;
 					display: flex;
-					justify-content: space-between;
-					gap: 10px;
+					gap: 15px;
 
 					a {
 						color: #F5F5F5;
@@ -475,6 +474,7 @@
 						grid-column-start: 1;
   					grid-column-end: 5;
 						border-left: none;
+						justify-content: space-between;
 
 						@media (max-width: 992px) {
 							grid-column-start: 1;
@@ -797,6 +797,7 @@
 				justify-content: center;
 				z-index: 5;
 				max-width: 700px;
+				gap: 10px;
 
 				.search-info-text {
 					font-size: 45px;
@@ -811,18 +812,15 @@
 				display: flex;
 				flex-direction: column;
 				align-items: center;
+				gap: 10px;
 
 				.search-entity-selector {
 					width: 100%;
 
-					display: flex;
 					flex-wrap: wrap;
 					justify-content: center;
 					align-items: center;
 					gap: 10px;
-
-					margin-top: 20px;
-					margin-bottom: 10px;
 
 					.advanced-search-text {
 						margin: 5px;
@@ -840,7 +838,6 @@
 					flex-direction: column;
 					align-items: center;
 					gap: 8px;
-					margin-top: 15px;
 					width: 100%;
 
 					.mobile-entity-button {
@@ -1143,12 +1140,28 @@
 
 			#about-news-container {
 				ul {
+					li:not(:last-child) {
+						margin-bottom: 3px;
+					}
+
+					margin-bottom: 25px;
+
 					a {
 						font-size: 14px;
 						font-weight: 700;
 						overflow: hidden;
-						display: block;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 2;
+						line-clamp: 2;
 						text-overflow: ellipsis;
+						
+						@media (min-width: 576px) {
+							display: block;
+							white-space: nowrap;
+							-webkit-line-clamp: unset;
+							line-clamp: unset;
+						}
 					}
 				}
 			}

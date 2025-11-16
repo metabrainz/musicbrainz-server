@@ -21,9 +21,29 @@ export type WeeklyStatsT = {
   +total: number,
 };
 
+const entitiesForStats = [
+  "edits",
+  "votes",
+  "artists",
+  "releases",
+  "recordings",
+  "works",
+  "labels",
+  "tracks",
+  "events",
+  "places",
+  "series",
+  "tags",
+  "release groups",
+];
+
+
 component Stats(
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
+  // Filter the stats which need to be displayed in the carousel
+  const filteredStats = weeklyStats.filter((stat) => entitiesForStats.includes(stat.name));
+
   return (
     <Swiper
       navigation={true}
@@ -37,7 +57,7 @@ component Stats(
       loop={true}
       modules={[Navigation, Autoplay]}
     >
-      {weeklyStats.map((stat, index) => (
+      {filteredStats.map((stat, index) => (
         <SwiperSlide key={index}>
           <div className="stat-card">
             <h2>{stat.count > 0 ? `+${stat.count.toLocaleString()}` : stat.count.toLocaleString()} {stat.name} last week</h2>

@@ -38,12 +38,12 @@ component BannerCarousel() {
             <img src={picardImage} alt="Tag your music" />
             <div className="d-flex flex-column gap-3 carousel-slide-content-text">
               <h2>Tag your music</h2>
-              <div className="carousel-pill d-flex gap-2">
+              <a href="https://picard.musicbrainz.org/">
+                <div className="carousel-pill d-flex gap-2">
                 <img src={picardLogo} alt="Picard" className="picard-logo" />
-                <a href="https://picard.musicbrainz.org/">
                   MusicBrainz Picard
-                </a>
-              </div>
+                </div>
+              </a>
               <div className="d-flex gap-3">
                 <a href="/doc/AudioRanger">
                   AudioRanger
@@ -67,12 +67,12 @@ component BannerCarousel() {
             <img src={listenBrainzImage} alt="Listen together" className="listenbrainz-image" />
             <div className="d-flex flex-column gap-3 carousel-slide-content-text" id="listenbrainz-content">
               <h2>Listen together</h2>
-              <div className="carousel-pill d-flex gap-2">
+              <a href="https://listenbrainz.org/">
+               <div className="carousel-pill d-flex gap-2">
                 <img src={listenBrainzLogo} alt="ListenBrainz" className="listenbrainz-logo" />
-                <a href="https://listenbrainz.org/">
                   with ListenBrainz
-                </a>
-              </div>
+                </div>
+              </a>
               <div className="d-flex gap-3 align-items-center">
                 <FontAwesomeIcon icon={faAngleRight} size="sm" color='#1E1E1E' /> 
                 <a href="https://listenbrainz.org/">
