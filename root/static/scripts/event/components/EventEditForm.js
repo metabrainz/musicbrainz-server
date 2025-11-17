@@ -12,8 +12,7 @@ import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
-import Bubble from '../../common/components/Bubble.js';
-import expand2react from '../../common/i18n/expand2react.js';
+import TypeBubble from '../../common/components/TypeBubble.js';
 import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
@@ -313,43 +312,14 @@ component EventEditForm(
       </div>
 
       <div className="documentation">
-        {state.showTypeBubble ? (
-          <Bubble
+         {state.showTypeBubble ? (
+          <TypeBubble
             controlRef={typeSelectRef}
-            id="type-bubble"
-          >
-            <span
-              id="type-bubble-default"
-              style={
-                state.form.field.type_id.value ? {display: 'none'} : null
-              }
-            >
-              {l(`Select any type from the list to see its description.
-                  If no type seems to fit, just leave this blank.`)}
-            </span>
-            {eventTypes.map((type) => {
-              const typeId = type.value.toString();
-              const selectedType = state.form.field.type_id.value.toString();
-              const description = eventDescriptions[typeId];
-              return (
-                <span
-                  className="type-bubble-description"
-                  id={`type-bubble-description-${typeId}`}
-                  key={typeId}
-                  style={
-                    selectedType === typeId
-                      ? {}
-                      : {display: 'none'}
-                  }
-                >
-                  {nonEmpty(description)
-                    ? expand2react(description)
-                    : l('No description available.')}
-                </span>
-              );
-            })}
-          </Bubble>
-        ) : null}
+            descriptions={eventDescriptions}
+            field={state.form.field.type_id}
+            types={eventTypes}
+          />
+         ) : null}
       </div>
     </form>
   );
