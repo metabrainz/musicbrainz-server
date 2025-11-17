@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {Artwork} from '../../components/Artwork.js';
 import manifest from '../../static/manifest.mjs';
+import {Artwork} from '../../static/scripts/common/components/Artwork.js';
 import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import ReleaseEvents

@@ -20,7 +20,7 @@
  */
 
 const functionToString: () => string =
-  // $FlowIgnore[method-unbinding]
+  // $FlowFixMe[method-unbinding]
   Function.prototype.toString;
 const objectCtorString: string = functionToString.call(Object);
 
@@ -65,7 +65,7 @@ function _indexValue(
           const prototype = Object.getPrototypeOf(value);
           if (
             prototype &&
-            // $FlowIgnore[prop-missing]
+            // $FlowFixMe[prop-missing]
             typeof prototype.constructor === 'function' &&
             functionToString.call(prototype.constructor) === objectCtorString
           ) {

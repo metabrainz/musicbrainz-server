@@ -5,13 +5,14 @@
 # Maurits Meulenbelt, 2012-2022
 # Nicolás Tamargo <email address hidden>, 2022
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-17 09:59+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-08 06:35+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/nl/>\n"
 "Language: nl\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.13.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -446,6 +447,10 @@ msgid ""
 "since atleast 1340's. It has a single drone and chanter with single reeds, "
 "modern variants are bellows blown."
 msgstr ""
+"De dudy, naar de luchtzak van geitenhuid ook ‘bock’ genoemd, is een "
+"doedelzak die zeker al sinds de jaren 1340 wordt bespeeld. Het instrument "
+"heeft één bourdonpijp en een melodiepijp met één riet. Moderne varianten "
+"hebben een balg."
 
 #. name:classical guitar
 #: DB:instrument/description:54
@@ -1560,6 +1565,9 @@ msgid ""
 "strings and specialised bridge so the sound will resemble sitar, it became "
 "popular in rock, jazz and fusion music after its invention in the 1960's."
 msgstr ""
+"Een elekrtische sitar is een elektrische gitaar met een standaard "
+"frettenbord en stemming. Door het toevoegen van resonantiesnaren en een "
+"speciale brug lijkt het geluid op dat van een sitar."
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -1805,14 +1813,16 @@ msgid ""
 "a paragraph by Praetorius is the only known information, all reconstructions "
 "are approximations."
 msgstr ""
+"De cornamuse is een instrument uit de Renaissance dat verwant is aan de "
+"kromhoorn. Omdat het instrument alleen door Praetorius in één paragraaf "
+"wordt genoemd, zijn alle reconstructies benaderingen.<br />Zie <a href=\"/"
+"instrument/fc4a9a4d-3901-4c67-bfe5-5acbcdaef535\">cornemuse du Centre</a> "
+"voor de Franse doedelzak.<br />Zie <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
 
 #. name:siku
 #: DB:instrument/description:569
 #, fuzzy
-#| msgid ""
-#| "For the Italian bag-pipe, see <a href=\"/\">zampogna</a>.<br /> Also "
-#| "known as zampona, traditional Andean panpipe has two rows of pipes tied "
-#| "together with colourful bands."
 msgid ""
 "For the Italian bagpipe, see <a href=\"/instrument/"
 "7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Also known as "
@@ -1821,7 +1831,9 @@ msgid ""
 msgstr ""
 "De siku, ook bekend als zampoña, is een traditionele panfluit uit de Andes "
 "die bestaat uit twee rijen pijpen die met kleurrijke linten aan elkaar zijn "
-"gebonden.<br />Zie <a href=\"/\">zampogna</a> voor de Italiaanse doedelzak."
+"gebonden.<br />Zie <a href=\"/instrument/"
+"7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a> voor de Italiaanse "
+"doedelzak."
 
 #. name:chalumeau
 #: DB:instrument/description:436
@@ -1870,6 +1882,12 @@ msgid ""
 "goatskin, it has a single round stock that all chanters and drones are fixed "
 "into."
 msgstr ""
+"De zampogna is een grote Italiaanse doedelzak van schapen- of geitenhuid. "
+"Alle melodie- en bourdonpijpen zijn op dezelfde plek aan de zak bevestigd."
+"<br />Zie <a href=\"/instrument/448eeddf-37a3-49f3-9e46-d46ccd821aaf\">siku</"
+"a> voor de Zuid-Amerikaanse panfluit.<br />Zie <a href=\"/instrument/"
+"86cf0eb3-b12d-40eb-bc32-928a1aebe3b1\">tsampouna</a> voor de Griekse "
+"doedelzak."
 
 #. name:reed organ
 #: DB:instrument/description:204
@@ -1894,14 +1912,6 @@ msgstr ""
 
 #. name:musette de cour
 #: DB:instrument/description:735
-#, fuzzy
-#| msgid ""
-#| "Also known as baroque musette, it was a small bagpipe used predominantly "
-#| "by French court and nobility in the 1600-1700's.<br /> For the instrument "
-#| "known as “chinese musette”, see <a href=\"/instrument/15cd573d-15a8-4f9f-"
-#| "a48f-f73218d85e14/\">suona</a>.<br /> For the oboe also known as musette, "
-#| "see <a href=\"/instrument/77b29599-96c7-4571-9fae-09e7e42b8175/\">piccolo "
-#| "oboe</a>."
 msgid ""
 "For the instrument known as \"chinese musette\", see <a href=\"/instrument/"
 "15cd573d-15a8-4f9f-a48f-f73218d85e14/\">suona</a>.<br /> For the oboe also "
@@ -1920,12 +1930,6 @@ msgstr ""
 #. name:fiscorn
 #: DB:instrument/description:1184
 #, fuzzy
-#| msgid ""
-#| "For the instrument known in Italy as flicorno see <a href=\"/instrument/"
-#| "\">saxhorn</a>.<br /> For the instrument known in Spain as fliscorno see "
-#| "<a href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">flugelhorn</"
-#| "a>.<br /><br /> Originating in Germanic polka bands, it is used today in "
-#| "Catalan cobla."
 msgid ""
 "For the instrument known in Italy as flicorno see saxhorn.<br /> For the "
 "instrument known in Spain as fliscorno see <a href=\"/instrument/"
@@ -1933,10 +1937,10 @@ msgid ""
 "Originating in Germanic polka bands, it is used today in Catalan cobla."
 msgstr ""
 "De fiscorn is een soort bugel die oorspronkelijk veel in Duitse polkabands "
-"werd gebruikt, maar vandaag vaak in Catalaanse cobla-ensembles.<br /> Zie <a "
-"href=\"/instrument/\">saxhoorn</a> voor het instrument dat in het Italiaans "
-"flicorno heet.<br /> Zie <a href=\"/instrument/fd016966-658e-40db-8fe1-"
-"f2235fe1e9a3\">bugel</a> voor het instrument dat in Spanje fliscorno heet."
+"werd gebruikt, maar tegenwoordig vaak in Catalaanse cobla-ensembles.<br /> "
+"Zie saxhoorn voor het instrument dat in het Italiaans flicorno heet.<br /> "
+"Zie <a href=\"/instrument/fd016966-658e-40db-8fe1-f2235fe1e9a3\">bugel</a> "
+"voor het instrument dat in Spanje fliscorno heet."
 
 #. name:VM Bhatt's Mohan veena
 #: DB:instrument/description:1212
@@ -1946,6 +1950,11 @@ msgid ""
 "veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
+"Vishwa Mohan Bhatt ontwikkelde zijn vina op basis van een Hawaïaanse of "
+"lapsteelgitaar. Het instrument heeft 19 tot 21 snaren en op de hals zit een "
+"kalebas.<br />Zie <a href=\"/instrument/198ecbd1-48fa-43cc-"
+"bda9-370206689074\">Radhika’s Mohan-vina</a> voor het instrument dat Radhika "
+"Mohan Maitra in de jaren 1940 uit de sarod ontwikkelde."
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1956,6 +1965,12 @@ msgid ""
 "1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
 "(like veena) and the fretboard from the sarod."
 msgstr ""
+"Radhika’s Mohan-vina is in de jaren 1940 door Radhika Mohan Maitra uit de "
+"sarod ontwikkeld. Het heeft een houten klankkast (zoals een sitar), een "
+"extra resonator op de hals (zoals de vina) en het frettenbord van de sarod."
+"<br />Zie <a href=\"/instrument/9a2b6ae1-a5fb-42ab-"
+"b18c-9985e8b606c4\">Bhatt’s Mohan-vina</a> voor de aangepaste slidegitaar "
+"die Vishwa Mohan Bhatt in de jaren 1990 ontwikkelde."
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1965,6 +1980,10 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
+"De thumbi is een instrument met één snaar die is bevestigd aan een lange "
+"houten hals en door een perkamenten membraan op de klankkast loopt.<br />Zie "
+"<a href=\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">ektara</a> voor "
+"de trommelciter met één snaar die ook gopichant wordt genoemd."
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -1977,6 +1996,14 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
+"De ektara heeft een kleine, ronde of trapezevormige klankkast van hout of "
+"kokosnoot en aan de onderkant een membraan. Aan de zijkant is een stok van "
+"gespleten bamboe bevestigd, met daaraan een snaar die ook aan het membraan "
+"vastzit.<br />Zie <a href=\"/instrument/b0edfd1a-"
+"e728-4b93-802e-96c1c2f9d84a\">thumbi</a> voor de luit met één snaar die ook "
+"ektar of ektara wordt genoemd. Zie tunatune voor het hierop lijkende "
+"instrument met één staaf.<br />Niet te verwarren met de ekatantri-vina, een "
+"antiek Indiaas instrument met één snaar."
 
 #. name:tun tuna
 #: DB:instrument/description:1210
@@ -1988,6 +2015,13 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
+"De tunatune is een snaarinstrument met een cilindrische klankkast waaraan "
+"een lange staaf is bevestigd. Tussen het uiteinde van de stok en een "
+"membraan in de klankkast is één metalen snaar gespannen.<br />Zie <a href=\"/"
+"instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">ektara</a> voor de "
+"trommelciter met twee staven en één snaar.<br />Zie <a href=\"/instrument/"
+"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">thumbi</a> voor de eensnarige luit "
+"uit Punjab."
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -2013,6 +2047,10 @@ msgid ""
 "7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a>.<br /> Made of goatskin, "
 "it has two chanters and no drones. Its name is a reborrowing of the Italian."
 msgstr ""
+"De tsampouna is een Griekse doedelzak met twee melodiepijpen en geen "
+"bourdonpijp. De naam is afgeleid van de zampogna.<br />Zie <a href=\"/"
+"instrument/7186ac40-8154-49d0-8d24-33efd8c2a41e\">zampogna</a> voor de "
+"Italiaanse doedelzak."
 
 #. name:charumera
 #: DB:instrument/description:1150
@@ -2049,16 +2087,6 @@ msgstr ""
 #. name:xeremies
 #: DB:instrument/description:1186
 #, fuzzy
-#| msgid ""
-#| "For the two tube bagless used on Ibiza, see <a href=\"/instrument/"
-#| "1464f316-aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br /> For "
-#| "the Latin American oboe, see <a href=\"/instrument/174e4a7a-"
-#| "dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a>.<br /> For the mediaeval "
-#| "woodwind, see <a href=\"/instrument/b4f112c3-d666-47f2-bb85-"
-#| "bae28572ca13\">shawm</a>.<br /> Used historically since the middle ages "
-#| "on the Iberian islands, its bag is made of skin and it has one chanter "
-#| "with usually 3 drones, but of these usually one is real and the others "
-#| "are only decorative."
 msgid ""
 "For the two tube bagless used on Ibiza, see <a href=\"/instrument/1464f316-"
 "aca0-4690-9115-28805720f846\">reclam de xeremies</a>.<br /> For the Latin "
@@ -2078,7 +2106,9 @@ msgstr ""
 "xeremies</a> voor de dubbele fluit van Ibiza.<br /> Zie <a href=\"/"
 "instrument/174e4a7a-dad6-4b3b-95e2-e3010b53a0ca\">chirimía</a> voor de "
 "Latijns-Amerikaanse hobo.<br /> Zie <a href=\"/instrument/b4f112c3-d666-47f2-"
-"bb85-bae28572ca13\">schalmei</a> voor het middeleeuwse blaasinstrument."
+"bb85-bae28572ca13\">schalmei</a> voor het middeleeuwse blaasinstrument.<br /"
+">Zie <a href=\"/instrument/ad0ddf4c-05ca-4d9b-a159-8caed25e6bf4\">gralla</a> "
+"voor het Catalaanse dubbelrietinstrument dat ook xirimita wordt genoemd."
 
 #. name:lira da braccio
 #: DB:instrument/description:1016
@@ -2308,16 +2338,13 @@ msgid ""
 "collected in a single horn. Both wooden chanters have holes; one for melody, "
 "the other for drone."
 msgstr ""
+"De parkapzoek is een Armeense doedelzak met een zak van geiten-, schapen- of "
+"kalfshuid, en een dubbele melodiepijp die uitloopt in één beker. De beide "
+"melodiepijpen zen niet iets anders gestemd en ze hebben allebei vingergaten."
 
 #. name:ghaychak
 #: DB:instrument/description:931
 #, fuzzy
-#| msgid ""
-#| "Having 4 metal strings, it is carved from a single piece of wood into a "
-#| "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
-#| "side of the short neck and one under the bridge which is membrane-covered."
-#| "<br /> Not to be confused with the Uyghur spike fiddle <a href=\"/"
-#| "instrument//0d766870-3021-47ce-bd51-78d2d2484e1b\">ghijak</a>."
 msgid ""
 "Having 4 metal strings, it is carved from a single piece of wood into a "
 "particular shape similar to the Sarinda, it has 3 soundholes, two on each "
@@ -2329,7 +2356,7 @@ msgstr ""
 "één stuk hout gesneden in een vorm die lijkt op die van de sarinda. Het "
 "instrument heeft drie klankgaten: twee aan weerszijden van de korte hals en "
 "een onder de brug, afgedekt door een membraan.<br />Het instrument moet niet "
-"worden verward met het Oeigoerse spijkerluit <a href=\"/instrument//"
+"worden verward met het Oeigoerse spijkerluit <a href=\"/instrument/"
 "0d766870-3021-47ce-bd51-78d2d2484e1b\">ghidjak</a>."
 
 #. name:hümmelchen
@@ -2339,6 +2366,11 @@ msgid ""
 "differing length are made of fruitwood. It historically had single reeds, "
 "modern creations are more complex and double-reeded."
 msgstr ""
+"Het hümmelchen is een Duitse doedelzak met een kleine luchtzak. De "
+"melodiepijp en de twee bourdonpijpen zijn gemaakt van het hout van "
+"fruitbomen en hebben verschillende lengten. Oorspronkelijk had het "
+"instrument een enkel riet, maar moderne varianten zijn ingewikkelder en "
+"hebben een dubbel riet."
 
 #. name:kantilan
 #: DB:instrument/description:975
@@ -2689,6 +2721,10 @@ msgid ""
 "it has fur out and an ornamental goats head. Traditionally played at spring "
 "festivities, recently it has had a resurgence."
 msgstr ""
+"De dūdmaišis of Labonoro dūda is een Litouwse doedelzak met één melodiepijp "
+"en één bourdonpijp. De zak kan van de huid verschillende diersoorten zijn "
+"gemaakt. Het instrument werd oorspronkelijk bij lentefestivals bespeeld en "
+"beleeft de laatste jaren een opleving."
 
 #. name:sho
 #: DB:instrument/description:192
@@ -2842,6 +2878,8 @@ msgid ""
 "Known since atleast the 16th century, it has a long chanter, a three-"
 "segmented shoulder drone and a short blowpipe."
 msgstr ""
+"De veuze is een Bretonse doedelzak met een lange melodiepijp, een "
+"bourdonpijp met drie segmenten en een korte aanblaaspijp."
 
 #. name:cimpoi
 #: DB:instrument/description:1194
@@ -2850,6 +2888,9 @@ msgid ""
 "fur either in or out. It has from 5 to 8 fingerholes and metalwork decorated "
 "wooden chanters."
 msgstr ""
+"De cimpoi is een Roemeense doedelzak die is gemaakt van een hele geiten- of "
+"schapenhuid. Het instrument heeft vijf tot acht vingergaten en met metaal "
+"versierde houten melodiepijpen."
 
 #. name:dudy podhalanskie
 #: DB:instrument/description:1202
@@ -2858,6 +2899,9 @@ msgid ""
 "and two in the chanter (which as three channels), it has no bells and is "
 "mouthblown."
 msgstr ""
+"De dudy podhalańskie, ook wel koza genoemd (Pools voor geit) is een Poolse "
+"doedelzak met drie bourdonpijpen, waarvan er twee deel van de melodiepijp "
+"uitmaken."
 
 #. name:krakebs
 #: DB:instrument/description:652
@@ -3616,6 +3660,11 @@ msgid ""
 "drone in single stock. <br /> Early models were mouth blown, later modified "
 "to have bellows."
 msgstr ""
+"De cabrette is een doedelzak van geitenhuid met een melodiebuis met "
+"dubbelriet en een puur decoratieve bourdonpijp uit de Auvergne. Vroege "
+"modellen werden met de mond van lucht aangeblazen, later werd een balg "
+"toegevoegd.<br />Niet te verwarren met de chabrette, een doedelzak uit de "
+"regio Limousin."
 
 #. name:crumhorn
 #: DB:instrument/description:348
@@ -3624,6 +3673,10 @@ msgid ""
 "Used during the Renaissance, its double-reed is inside a windcap and its "
 "body ends in a decorative curve."
 msgstr ""
+"De kromhoorn is een instrument uit de Renaissance met een dubbel riet in een "
+"windkapsel. Het instrument eindigt in een decoratieve bocht.<br />Niet te "
+"verwarren met de cromorne, een zeventiende- en achttiende-eeuws instrument "
+"dat aan het Franse hof werd bespeeld."
 
 #. name:tabor
 #: DB:instrument/description:806
@@ -3652,6 +3705,13 @@ msgid ""
 "> Used in traditional music together with drums, it has a small bag made of "
 "ewe or goat and double chanters with bells made of cowhorn."
 msgstr ""
+"De mezwed is een kleine doedelzak van schapen- of geitenhuid met twee "
+"melodiepijpen die uitlopen in bekers van koeienhoorn.<br />Niet te verwarren "
+"met de Lybische schalmei die ook bekend staat als zoekra.<br />Niet te "
+"verwarren met de <a href=\"/instrument/"
+"826a3a61-75ce-4620-9890-241f118d99e9\">midjwiz</a> of de zummara.<br />Ook "
+"niet te verwarren met mizmar, een algemene Arabische term voor verschillende "
+"rietinstrumenten, de bespelers daarvan en een soort dans."
 
 #. name:ghijak
 #: DB:instrument/description:932
@@ -3673,6 +3733,12 @@ msgid ""
 "for bagpipes in French, they have two telescoping drones with single reeds "
 "and a double-reed chanter."
 msgstr ""
+"De cornemuse du Centre is een doedelzak uit Centraal-Frankrijk. Het "
+"instrument heeft twee telescopische bourdonpijpen en een melodiepijp met "
+"dubbel riet.<br />Niet te verwarren met de <a href=\"/instrument/"
+"28527011-9cf4-4dcd-a70c-22042a92a52c\">cornamuse</a> met dubbel riet uit de "
+"Renaissance.<br />Zie <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
 
 #. name:dulcian
 #: DB:instrument/description:496
@@ -3686,23 +3752,49 @@ msgstr ""
 "href=\"/instrument/bd57c6a6-616b-4c00-bcde-f0f34e8d6eb0\">dulzaina</a> voor "
 "het Spaanse dubbelrietinstrument."
 
+#. name:electronic shruti box
+#: DB:instrument/description:1213
+msgid ""
+"Not to be confused with the analogue bellow powered <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> or the string "
+"instrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>.<br /> Electronic "
+"synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
+"using recording samples."
+msgstr ""
+"De elektronische shrutidoos is een elektronische synthesizer die in 1979 "
+"door G. Raj Narayan is ontwikkeld. Sinds de jaren 1990 worden opgenomen "
+"samples gebruikt.<br />Niet te verwarren met de <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">analoge variant</a> of het "
+"snaarinstrument <a href=\"/instrument/"
+"a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a>."
+
+#. name:khamak
+#: DB:instrument/description:1215
+#, fuzzy
+#| msgid ""
+#| "Used in folk music of the Bengal, Odisha and north-east India, the "
+#| "soundbox is a drum-like wooden cylinder with a membrane at one end held "
+#| "underneath an arm, attached to the membrane is a single string which is "
+#| "plucked with a pick. It is known by many names."
+msgid ""
+"Not to be confused with the two pronged <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopiyantra/gopichan</a>, the similar "
+"concept <a href=\"/instrument/068b3fc6-c11f-4ae7-bd85-"
+"ca5725b2b9f4\">tuntuna</a>, the dotara-like tokari or the pulluvan kudam."
+"<br /> Used in folk music of the Bengal, Odisha and north-east India, the "
+"soundbox is a drum-like wooden cylinder with a membrane at one end held "
+"underneath an arm, attached to the membrane is a single string which is "
+"plucked with a pick. It is known by many names."
+msgstr ""
+"De khamak is een snaarinstrument dat lijkt op een trommel. Aan het membraan "
+"zit één snaar die met een plectrum wordt bespeeld. Het instrument wordt "
+"gebruikt voor volksmuziek in Bengalen, Odisha en het noordoosten van India. "
+"Het instrument is onder veel namen bekend."
+
 #. name:shawm
 #: DB:instrument/description:408
 #, fuzzy
-#| msgid ""
-#| "Not to be confused with zummara or other double clarinets with similar "
-#| "names.<br /> For the multiple bore free reed created in 1880 see "
-#| "Martinshorn.<br /> For the similarly named single-reed woodwind see <a "
-#| "href=\"/instrument/e3511ed1-3d73-4340-880f-c8ccc8eda11c\">chalumeau</a>."
-#| "<br /> For the Japanese descendant named from Portuguese, see <a href=\"/"
-#| "instrument/07b91470-b63e-41e4-88e6-11c4acac064f\">charumera</a>.<br /> "
-#| "For the Catalan shawm, see <a href=\"/instrument/dffe56f5-cd75-4392-"
-#| "ad31-1c3abf2b8e37\"> tible</a>.<br /> For the Italian ciaramella see <a "
-#| "href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a>."
-#| "<br /> For the bagpipe, see xeremia.<br /><br /> European medieval and "
-#| "renaissance conical bore double-reed woodwind, two types evolved; one "
-#| "from Middle-eastern instruments and one from bagpipe chanters. A "
-#| "combination of both where used to develop the modern oboe."
 msgid ""
 "Not to be confused with zummara or other double clarinets with similar names."
 "<br /> For the multiple bore free reed created in 1880, see Martinshorn.<br /"
@@ -3731,7 +3823,9 @@ msgstr ""
 "<a href=\"/instrument/dffe56f5-cd75-4392-ad31-1c3abf2b8e37\">tible</a> (ook "
 "wel discantschalmei genoemd) voor de Catalaanse variant.<br /> Zie <a "
 "href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</a> voor "
-"het Italiaanse instrument dat ook wel ciaramella wordt genoemd."
+"het Italiaanse instrument dat ook wel ciaramella wordt genoemd.<br />Zie <a "
+"href=\"/instrument/21d5d4ec-f8ef-44dc-b02f-e564de057dcc\">xeremies</a> voor "
+"de doedelzak."
 
 #. name:oboe
 #: DB:instrument/description:8
@@ -3760,6 +3854,8 @@ msgid ""
 "Often colourfully decorated, it is known since ancient times in southern "
 "Persia. It has a single reed with a double piped chanter with 6-7 holes."
 msgstr ""
+"De nejanbar is een kleurrijk versierde Zuid-Iraanse doedelzak. Het "
+"enkelrietinstrument heeft een dubbele melodiepijp met zes of zeven gaten."
 
 #. name:slapstick
 #: DB:instrument/description:107
@@ -3902,6 +3998,10 @@ msgid ""
 "prepared violin or solo, it has a single chanter with seven finger holes and "
 "a drone pipe folded back on itself twice both ending in curved bells."
 msgstr ""
+"De dudy wielkopolskie is een Poolse doedelzak met een melodiepijp met zeven "
+"vingergaten en een twee keer dubbelgevouwen bourdonpijp. Oorspronkelijk werd "
+"het instrument samen met een mazanki bespeeld, een soort vedel, maar "
+"tegenwoordig vaak samen met een viool of solo."
 
 #. name:clavinet
 #: DB:instrument/description:175
@@ -4338,6 +4438,8 @@ msgid ""
 "Precursor of the cobla used in sardana, it was in use since the medieval "
 "period."
 msgstr ""
+"De cobla de tres quartans is een Middeleeuwse voorloper van het cobla-"
+"ensemble."
 
 #. name:baroque guitar
 #: DB:instrument/description:917
@@ -4924,6 +5026,9 @@ msgid ""
 "Starting as a pastoral folk bellows blown bagpipe, it was developed into a "
 "complex 2, then 3 and finally 4 chanter with keyed regulators."
 msgstr ""
+"De sordellina was oorspronkelijk een eenvoudige doedelzak met balg en werd "
+"ontwikkeld tot een complex instrument met twee, drie en uiteindelijk vier "
+"melodiebuizen en regelaars met toetsen."
 
 #. name:jantar
 #: DB:instrument/description:1032
@@ -5678,7 +5783,7 @@ msgid ""
 "The harp is a plucked string instrument consisting of multiple strings "
 "stretched across a vertical frame."
 msgstr ""
-"Een harp is een tokkel0instrument met meerdere snaren die op een verticale "
+"Een harp is een tokkelinstrument met meerdere snaren die op een verticale "
 "lijst zijn gespannen."
 
 #. name:heike biwa
@@ -6365,6 +6470,18 @@ msgstr ""
 "De shudraga (ook bekend als shanz en shadraga) is een Mongoolse luit zonder "
 "fretten en met drie snaren."
 
+#. name:swaragat
+#: DB:instrument/description:1214
+msgid ""
+"The skin covered deep wooden soundbox, has a neck that is carved like parrot "
+"and a gut bridge with three courses of double silk strings, plucked with a "
+"horn-plectrum. Used in southern India since ancient times, it is essentially "
+"a bass rabab."
+msgstr ""
+"De swaragat is een Zuid-Indiaas snaarinstrument met een diepe houten "
+"klankkast, een hals die in de vorm van een papegaai is gesneden en drie "
+"dubbele koren. Het is in feite een basrebab."
+
 #. name:kendang lanang
 #: DB:instrument/description:994
 msgid ""
@@ -6944,6 +7061,10 @@ msgid ""
 "leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
 "holes."
 msgstr ""
+"De piva is een Italiaanse doedelzak met twee bourdonpijpen en een "
+"melodiepijp met zeven of acht vingergaten. Het instrument wordt vaak samen "
+"met de <a href=\"/instrument/814816db-3368-4889-a8cd-aa34bd1043f0\">piffero</"
+"a> bespeeld."
 
 #. name:caixa
 #: DB:instrument/description:903
@@ -7013,7 +7134,7 @@ msgstr ""
 "Een triangel bestaat uit een gestemde metalen buis die in een driehoek is "
 "gebogen."
 
-#. name:alto violin
+#. name:vertical viola
 #: DB:instrument/description:174
 msgid ""
 "Tuned the same as the viola but larger in size, it is played upright like "
@@ -7135,12 +7256,24 @@ msgstr ""
 "het ritme te blijven. Hij wordt traditioneel gebruikt als begeleiding van de "
 "didgeridoo. Er zijn ook boomerangclapsticks."
 
+#. name:yazh
+#: DB:instrument/description:1217
+msgid ""
+"Used by Dravidian Tamil from at least 2200 years ago, by the 7th century it "
+"had come into disuse. It had a curved ebony neck with gut strings above the "
+"skin covered resonator shaped like a boat, but there are versions shaped "
+"like peacocks, fish and even the monster Makara."
+msgstr ""
+
 #. name:Magyar duda
 #: DB:instrument/description:1200
 msgid ""
 "Used by shepherds and in pagan lifestyle, it has a double bore chanter with "
 "one to 2 drones, historically made of dogskin but today goat is used."
 msgstr ""
+"De duda is een doedelzak met een dubbele melodiepijp en een of twee "
+"bourdonpijpen. Traditioneel werd de zak van hondenhuid gemaakt, maar "
+"tegenwoordig van geitenhuid."
 
 #. name:tulum
 #: DB:instrument/description:1116
@@ -7160,6 +7293,13 @@ msgid ""
 msgstr ""
 "De charango is een kleine luit met vijf koren en tien snaren die door de "
 "Quechua en Aymara wordt bespeeld."
+
+#. name:water drum
+#: DB:instrument/description:279
+msgid ""
+"Used ceremonially all over the world, they are clay, wood or metal pots "
+"containing water, with an animal hide membrane."
+msgstr ""
 
 #. name:swarmandal
 #: DB:instrument/description:716
@@ -7433,6 +7573,9 @@ msgid ""
 "drone. It is becoming increasingly rare due to being displaced by Scottish "
 "Highland pipes."
 msgstr ""
+"De mashak is een doedelzak uit Noord-India, Afghanistan en Pakistan met één "
+"melodie- en één bourdonpijp, elk met enkel riet. Het instrument wordt "
+"tegenwoordig verdrongen door de Schotse doedelzak."
 
 #. name:sistrum
 #: DB:instrument/description:370
@@ -7553,6 +7696,18 @@ msgid ""
 "bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
 "3 drones in one hole instead of one."
 msgstr ""
+"De Wit-Russische doeda is een kleine halfronde doedelzak met aan het ene "
+"uiteinde de melodiepijp en aan het andere uiteinde een bourdonpijp, beide "
+"met trechtervormige uiteinden. Er zijn twee varianten: uit het noorden van "
+"Wit-Rusland en uit het zuid-oosten van Litouwen.<br />Gerelateerd aan dit "
+"instrument is de moetsjanka doeda met drie bourdonpijpen in plaats van één."
+
+#. name:kinnari vina
+#: DB:instrument/description:1216
+msgid ""
+"Used since medieval times in Karnatakan folk music, it has 3 resonators made "
+"of calabash. It is similar to the ancient bin."
+msgstr ""
 
 #. name:somu dūdas
 #: DB:instrument/description:1198
@@ -7562,6 +7717,10 @@ msgid ""
 "The name dudy/duda(s) is used for very many folk bagpipes in Europe and "
 "western Asia - see annotation(s) for more."
 msgstr ""
+"De suomoe doedas is een Letse doedelzak met een of twee bourdonpijpen en een "
+"melodiepijp met vier tot zeven vingergaten.<br />Het woord dudy/duda/doeda "
+"wordt voor veel verschillende doedelzakken uit Europa en West-Azië gebruikt. "
+"Zie de aantekening voor meer informatie."
 
 #. name:bonang panerus
 #: DB:instrument/description:971

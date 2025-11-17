@@ -9,22 +9,26 @@
 
 import * as React from 'react';
 
+import LayoutComponent from '../components/LayoutComponent.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import EditorLink from '../static/scripts/common/components/EditorLink.js';
 import isSpecialPurpose
   from '../static/scripts/common/utility/isSpecialPurpose.js';
-import chooseLayoutComponent from '../utility/chooseLayoutComponent.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
+type SubscribersLayoutEntityT =
+  | SubscribableEntityWithSidebarT
+  | AccountLayoutUserT
+  | CollectionT;
+
 component Subscribers(
-  entity: SubscribableEntityT,
+  entity: SubscribersLayoutEntityT,
   privateEditors: number,
   publicEditors: $ReadOnlyArray<EditorT>,
   subscribed: boolean,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const entityType = entity.entityType;
-  const LayoutComponent = chooseLayoutComponent(entityType);
   const returnTo = '&' + returnToCurrentPage($c);
   const subLink =
     `/account/subscriptions/${entityType}/add?id=${entity.id}` +

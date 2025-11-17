@@ -68,7 +68,6 @@ export type ActionT =
       +initialFocus?: StateT['initialBubbleFocus'],
     }
   | {+type: 'close-dialog'}
-  | {+type: 'toggle-dialog'}
   | {+type: 'add-name'}
   | {+type: 'move-name-down', +index: number}
   | {+type: 'move-name-up', +index: number}

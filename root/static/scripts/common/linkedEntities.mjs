@@ -153,7 +153,7 @@ export type LinkedEntitiesT = {
   },
 };
 
-const linkedEntities: LinkedEntitiesT = Object.seal({
+const linkedEntities: LinkedEntitiesT = {
   area:                           {},
   area_alias_type:                {},
   area_type:                      {},
@@ -201,7 +201,9 @@ const linkedEntities: LinkedEntitiesT = Object.seal({
   work_alias_type:                {},
   work_attribute_type:            {},
   work_type:                      {},
-});
+};
+
+Object.seal(linkedEntities);
 
 export default linkedEntities;
 
@@ -213,10 +215,10 @@ export function mergeLinkedEntities(
       if (Object.hasOwn(linkedEntities, type)) {
         if (entities != null) {
           if (isObjectEmpty(linkedEntities[type])) {
-            // $FlowIgnore[incompatible-type]
+            // $FlowFixMe[incompatible-type]
             linkedEntities[type] = entities;
           } else {
-            // $FlowIssue[unsafe-object-assign]
+            // $FlowExpectedError[unsafe-object-assign]
             Object.assign(linkedEntities[type], entities);
           }
         }

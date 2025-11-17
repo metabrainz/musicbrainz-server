@@ -78,21 +78,20 @@ function reducer(state: StateT, action: ActionT): StateT {
   const newStateCtx = mutate(state);
   const fieldCtx = newStateCtx.get('form', 'field');
 
-  switch (action.type) {
-    case 'update-date-range': {
+  match (action) {
+    {type: 'update-date-range', const action} => {
       runDateRangeFieldsetReducer(
         newStateCtx.get('form', 'field', 'period'),
-        action.action,
+        action,
       );
-      break;
     }
-    case 'update-name': {
+    {type: 'update-name', const action} => {
       const nameStateCtx = mutate({
         field: state.form.field.name,
         guessCaseOptions: state.guessCaseOptions,
         isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
       });
-      runNameReducer(nameStateCtx, action.action);
+      runNameReducer(nameStateCtx, action);
 
       const nameState = nameStateCtx.read();
       newStateCtx
@@ -111,16 +110,14 @@ function reducer(state: StateT, action: ActionT): StateT {
         })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
-      break;
     }
-    case 'toggle-type-bubble': {
+    {type: 'toggle-type-bubble'} => {
       newStateCtx.set('showTypeBubble', true);
-      break;
     }
-    case 'set-setlist': {
+    {type: 'set-setlist', const setlist} => {
       fieldCtx.update('setlist', (setlistFieldCtx) => {
-        setlistFieldCtx.set('value', action.setlist);
-        if (isValidSetlist(action.setlist)) {
+        setlistFieldCtx.set('value', setlist);
+        if (isValidSetlist(setlist)) {
           setlistFieldCtx.set('has_errors', false);
           setlistFieldCtx.set('errors', []);
         } else {
@@ -131,18 +128,12 @@ function reducer(state: StateT, action: ActionT): StateT {
           ]);
         }
       });
-      break;
     }
-    case 'set-type': {
-      fieldCtx.set('type_id', 'value', action.type_id);
-      break;
+    {type: 'set-type', const type_id} => {
+      fieldCtx.set('type_id', 'value', type_id);
     }
-    case 'show-all-pending-errors': {
+    {type: 'show-all-pending-errors'} => {
       applyAllPendingErrors(newStateCtx.get('form'));
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
     }
   }
   return newStateCtx.final();

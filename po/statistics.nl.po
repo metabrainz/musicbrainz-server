@@ -7,16 +7,16 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # Remko de Keijzer <email address hidden>, 2021
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-08-05 12:42+0000\n"
-"Last-Translator: mfmeulenbelt <mfmeulenbelt@users.noreply.translations."
-"metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-01 18:39+0000\n"
+"Last-Translator: mfmeulenbelt "
+"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/nl/>\n"
 "Language: nl\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.13\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -172,19 +172,15 @@ msgstr "Open en doorgevoerde bewerkingen in de afgelopen week"
 
 #: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
-msgstr "Meest actieve redacteurs in de afgelopen week (bewerken)"
+msgstr "Actiefste redacteurs in de afgelopen week"
 
 #: ../root/statistics/Editors.js:110
-#, fuzzy
-#| msgid "Open and applied edits in past week"
 msgid "Applied edits in past year"
-msgstr "Open en doorgevoerde bewerkingen in de afgelopen week"
+msgstr "Doorgevoerde bewerkingen in het afgelopen jaar"
 
 #: ../root/statistics/Editors.js:113
-#, fuzzy
-#| msgid "Most active editors in the past week"
 msgid "Most active editors in the past year"
-msgstr "Meest actieve redacteurs in de afgelopen week (bewerken)"
+msgstr "Actiefste redacteurs in het afgelopen jaar"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
@@ -208,19 +204,15 @@ msgstr "Stemmer"
 
 #: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
-msgstr "Meest actieve redacteurs in de afgelopen week (stemmen)"
+msgstr "Actiefste stemmers in de afgelopen week"
 
 #: ../root/statistics/Editors.js:133
-#, fuzzy
-#| msgid "Votes in past week"
 msgid "Votes in past year"
-msgstr "Stemmen in de afgelopen week"
+msgstr "Stemmen in het afgelopen jaar"
 
 #: ../root/statistics/Editors.js:136
-#, fuzzy
-#| msgid "Most active voters in the past week"
 msgid "Most active voters in the past year"
-msgstr "Meest actieve redacteurs in de afgelopen week (stemmen)"
+msgstr "Actiefste stemmers in het afgelopen jaar"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -567,8 +559,6 @@ msgid "Primary types"
 msgstr "Primaire types"
 
 #: ../root/statistics/Index.js:632
-#, fuzzy
-#| msgid "None"
 msgctxt "release group primary type"
 msgid "None"
 msgstr "Geen"
@@ -578,8 +568,6 @@ msgid "Secondary types"
 msgstr "Secundaire types"
 
 #: ../root/statistics/Index.js:666
-#, fuzzy
-#| msgid "None"
 msgctxt "release group secondary type"
 msgid "None"
 msgstr "Geen"
@@ -605,15 +593,11 @@ msgid "Types"
 msgstr "Types"
 
 #: ../root/statistics/Index.js:723
-#, fuzzy
-#| msgid "None"
 msgctxt "label type"
 msgid "None"
 msgstr "Geen"
 
 #: ../root/statistics/Index.js:751
-#, fuzzy
-#| msgid "None"
 msgctxt "work type"
 msgid "None"
 msgstr "Geen"
@@ -627,43 +611,31 @@ msgid "Attributes"
 msgstr "Eigenschappen"
 
 #: ../root/statistics/Index.js:785
-#, fuzzy
-#| msgid "None"
 msgctxt "work attribute"
 msgid "None"
 msgstr "Geen"
 
 #: ../root/statistics/Index.js:813
-#, fuzzy
-#| msgid "None"
 msgctxt "area type"
 msgid "None"
 msgstr "Geen"
 
 #: ../root/statistics/Index.js:841
-#, fuzzy
-#| msgid "None"
 msgctxt "place type"
 msgid "None"
 msgstr "Geen"
 
 #: ../root/statistics/Index.js:895
-#, fuzzy
-#| msgid "None"
 msgctxt "instrument type"
 msgid "None"
 msgstr "Geen"
 
 #: ../root/statistics/Index.js:923
-#, fuzzy
-#| msgid "None"
 msgctxt "event type"
 msgid "None"
 msgstr "Geen"
 
 #: ../root/statistics/Index.js:931 ../root/statistics/stats.js:30
-#, fuzzy
-#| msgid "Event art"
 msgctxt "plural, multiple events, header"
 msgid "Event art"
 msgstr "Evenementafbeeldingen"
@@ -932,9 +904,6 @@ msgid "Artist types and genders"
 msgstr "Types artiesten en geslachten"
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art"
 msgctxt "plural, multiple releases, header"
 msgid "Cover art"
 msgstr "Afbeeldingen"
@@ -1567,16 +1536,12 @@ msgid "Abstentions"
 msgstr "Onthoudingen"
 
 #: ../root/statistics/stats.js:911
-#, fuzzy
-#| msgid "Approvals"
 msgid "Admin approvals"
-msgstr "Goedkeuringen"
+msgstr "Goedgekeurd door beheerder"
 
 #: ../root/statistics/stats.js:916
-#, fuzzy
-#| msgid "Area collections"
 msgid "Admin rejections"
-msgstr "Collecties van gebieden"
+msgstr "Afgewezen door beheerder"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"

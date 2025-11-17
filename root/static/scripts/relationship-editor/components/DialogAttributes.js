@@ -245,19 +245,18 @@ export function reducer(
   const newState: {...DialogAttributesStateT} = {...state};
   let updateResultingLinkAttributes = true;
 
-  switch (action.type) {
-    case 'update-boolean-attribute': {
+  match (action) {
+    {type: 'update-boolean-attribute', const action, const rootKey} => {
       newState.attributesList = newState.attributesList.map((x) => {
-        if (x.key === action.rootKey) {
+        if (x.key === rootKey) {
           invariant(x.control === 'checkbox');
-          return booleanAttributeReducer(x, action.action);
+          return booleanAttributeReducer(x, action);
         }
         return x;
       });
-      break;
     }
-    case 'update-multiselect-attribute': {
-      const subAction = action.action;
+    {type: 'update-multiselect-attribute', const action, const rootKey} => {
+      const subAction = action;
       if (subAction.type === 'update-value-autocomplete') {
         const autocompleteAction = subAction.action;
         if (
@@ -268,27 +267,21 @@ export function reducer(
         }
       }
       newState.attributesList = newState.attributesList.map((x) => {
-        if (x.key === action.rootKey) {
+        if (x.key === rootKey) {
           invariant(x.control === 'multiselect');
           return multiselectAttributeReducer(x, subAction);
         }
         return x;
       });
-      break;
     }
-    case 'update-text-attribute': {
+    {type: 'update-text-attribute', const action, const rootKey} => {
       newState.attributesList = newState.attributesList.map((x) => {
-        if (x.key === action.rootKey) {
+        if (x.key === rootKey) {
           invariant(x.control === 'text');
-          return textAttributeReducer(x, action.action);
+          return textAttributeReducer(x, action);
         }
         return x;
       });
-      break;
-    }
-    default: {
-      /*:: exhaustive(action); */
-      invariant(false);
     }
   }
 

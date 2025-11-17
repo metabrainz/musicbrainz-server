@@ -14,6 +14,7 @@ my @classes = (
     't::MusicBrainz::DataStore::RedisMulti',
     't::MusicBrainz::Script::RemoveEmptyURLs',
     't::MusicBrainz::Script::RemoveUnreferencedRows',
+    't::MusicBrainz::Script::Utils',
     map {
         Module::Pluggable::Object->new( search_path => $_ )->plugins
     } (

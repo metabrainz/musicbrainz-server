@@ -261,10 +261,6 @@ msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr "グレートスタラパイプオルガン"
 
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr "チベット・ウォーター・ドラム"
-
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
@@ -377,11 +373,6 @@ msgstr "アルト・サクソフォン"
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr "アルト・ヴァイオル"
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "アルト・ヴァイオリン"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -1578,6 +1569,13 @@ msgstr "電子楽器"
 msgid "electronic organ"
 msgstr "電子オルガン"
 
+#: DB:instrument/name:1213
+#, fuzzy
+#| msgid "electronic drum set"
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "電子ドラム"
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2410,6 +2408,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "ショルダーキーボード"
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2449,6 +2452,11 @@ msgstr "ケーン・メオ"
 #: DB:instrument/name:307
 msgid "ki pah"
 msgstr "ki pah"
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
 
 #: DB:instrument/name:247
 msgid "kinnor"
@@ -3880,6 +3888,13 @@ msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "sursingar"
 
+#: DB:instrument/name:1214
+#, fuzzy
+#| msgid "taragot"
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "タラゴット"
+
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
@@ -4403,6 +4418,13 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr "ヴェヌー"
 
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "エレクトリック・ヴィオラ"
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "容器形笛"
@@ -4550,6 +4572,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr "ウォッシュタブ・ベース"
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "wavedrum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "wavedrum"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr "ウォーターフォン"
@@ -4650,6 +4679,11 @@ msgstr "ヤトガ"
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "yaylı tanbur"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
@@ -4809,6 +4843,13 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "żummara"
+
+#~ msgid "Tibetan water drum"
+#~ msgstr "チベット・ウォーター・ドラム"
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "アルト・ヴァイオリン"
 
 #~ msgid "rauschpfeife"
 #~ msgstr "ラウシュプファイフェ"

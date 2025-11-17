@@ -2,11 +2,11 @@
 # Translators:
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-02 10:42+0000\n"
+"PO-Revision-Date: 2025-10-14 10:08+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/lt/>\n"
@@ -17,25 +17,25 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
 "11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
 "1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
-msgstr "12 stygų gitara"
+msgstr "12-stygė gitara"
 
 #: DB:instrument/name:516
 msgid "17-string bass koto"
-msgstr "17 stygų bosinė koto"
+msgstr "17-stygė bosinė koto"
 
 #: DB:instrument/name:839
 msgctxt "Historical hybrid between English and German style concertinas"
 msgid "Anglo concertina"
-msgstr "Anglų koncertina"
+msgstr "anglo koncertina"
 
 #: DB:instrument/name:66
 msgctxt "Folk drone zither from N. America"
 msgid "Appalachian dulcimer"
-msgstr "Apalačų cimbolas"
+msgstr "apalačų cimbolas"
 
 #: DB:instrument/name:421
 msgctxt "Family of Baltic box-zithers"
@@ -50,12 +50,12 @@ msgstr "Batá būgnas"
 #: DB:instrument/name:852
 msgctxt "long metal bar with strings"
 msgid "Blaster Beam"
-msgstr "Blasterio spindulys"
+msgstr "blasterio spindulys"
 
 #: DB:instrument/name:794
 msgctxt "electric piano with reeds"
 msgid "Cembalet"
-msgstr "Cembaletas"
+msgstr "cembaletas"
 
 #: DB:instrument/name:183
 msgid "Chapman stick"
@@ -83,12 +83,12 @@ msgstr ""
 
 #: DB:instrument/name:441
 msgid "EWI"
-msgstr ""
+msgstr "Elektroninis pučiamasis instrumentas (EPI)"
 
 #: DB:instrument/name:837
 msgctxt "Unisonoric concertina"
 msgid "English concertina"
-msgstr ""
+msgstr "angliška koncertina"
 
 #: DB:instrument/name:844
 msgctxt "1800's improved flageolet"
@@ -102,7 +102,7 @@ msgstr ""
 #: DB:instrument/name:838
 msgctxt "Bisonoric concertina"
 msgid "German concertina"
-msgstr ""
+msgstr "vokiška koncertina"
 
 #: DB:instrument/name:356
 msgid "German harp"
@@ -151,17 +151,17 @@ msgstr ""
 
 #: DB:instrument/name:561
 msgid "Lyricon"
-msgstr ""
+msgstr "Lirikonas"
 
 #: DB:instrument/name:1200
 msgctxt "Traditional Hungarian bagpipe"
 msgid "Magyar duda"
-msgstr ""
+msgstr "Vengrų duda"
 
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
 msgid "Mark tree"
-msgstr ""
+msgstr "Marko tri"
 
 #: DB:instrument/name:442
 msgid "Marxophone"
@@ -173,11 +173,11 @@ msgstr ""
 
 #: DB:instrument/name:278
 msgid "Minimoog"
-msgstr ""
+msgstr "minimogas"
 
 #: DB:instrument/name:277
 msgid "Moog"
-msgstr ""
+msgstr "mogas"
 
 #: DB:instrument/name:358
 msgctxt "Small north east England bagpipes"
@@ -250,10 +250,6 @@ msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr ""
 
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr ""
-
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
@@ -262,11 +258,11 @@ msgstr ""
 #: DB:instrument/name:1212
 msgctxt "Indian modified lap slide-guitar"
 msgid "VM Bhatt's Mohan veena"
-msgstr ""
+msgstr "VM Bhatto Mohano vina"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
-msgstr ""
+msgstr "vietnamiečių gitara"
 
 #: DB:instrument/name:152
 msgid "Wagner tuba"
@@ -308,7 +304,7 @@ msgstr ""
 
 #: DB:instrument/name:53
 msgid "acoustic guitar"
-msgstr ""
+msgstr "akustinė gitara"
 
 #: DB:instrument/name:65
 msgid "aeolian harp"
@@ -367,11 +363,6 @@ msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr ""
 
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr ""
-
 #: DB:instrument/name:363
 msgid "amadinda"
 msgstr ""
@@ -384,7 +375,7 @@ msgstr ""
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
-msgstr ""
+msgstr "analoginis sintezatorius"
 
 #: DB:instrument/name:371
 msgctxt "Single pitch bamboo rattle xylophone used in Sundanese gamelan"
@@ -457,7 +448,7 @@ msgstr ""
 
 #: DB:instrument/name:4
 msgid "bagpipe"
-msgstr ""
+msgstr "dūdmaišis"
 
 #: DB:instrument/name:728
 msgid "bajo sexto"
@@ -568,31 +559,31 @@ msgstr ""
 
 #: DB:instrument/name:47
 msgid "bass"
-msgstr ""
+msgstr "bosas"
 
 #: DB:instrument/name:11
 msgid "bass clarinet"
-msgstr ""
+msgstr "bosinis klarnetas"
 
 #: DB:instrument/name:430
 msgid "bass drum"
-msgstr ""
+msgstr "bosinis būgnas"
 
 #: DB:instrument/name:416
 msgid "bass flute"
-msgstr ""
+msgstr "bosinė fleita"
 
 #: DB:instrument/name:207
 msgid "bass guitar"
-msgstr ""
+msgstr "bosinė gitara"
 
 #: DB:instrument/name:465
 msgid "bass harmonica"
-msgstr ""
+msgstr "bosinė armonika"
 
 #: DB:instrument/name:732
 msgid "bass oboe"
-msgstr ""
+msgstr "bosinis obojus"
 
 #: DB:instrument/name:400
 msgid "bass pedals"
@@ -792,12 +783,12 @@ msgstr ""
 
 #: DB:instrument/name:103
 msgid "bongos"
-msgstr ""
+msgstr "bongai"
 
 #: DB:instrument/name:874
 msgctxt "arrangement of bamboo tube-drums"
 msgid "boobam"
-msgstr ""
+msgstr "būbam"
 
 #: DB:instrument/name:948
 msgctxt "Tuned hollow plastic tubes"
@@ -866,7 +857,7 @@ msgstr ""
 
 #: DB:instrument/name:577
 msgid "buk"
-msgstr ""
+msgstr "bukas"
 
 #: DB:instrument/name:528
 msgctxt "Indian keyed box zither"
@@ -1146,11 +1137,11 @@ msgstr ""
 
 #: DB:instrument/name:351
 msgid "concert harp"
-msgstr ""
+msgstr "koncertinė arfa"
 
 #: DB:instrument/name:42
 msgid "concertina"
-msgstr ""
+msgstr "koncertina"
 
 #: DB:instrument/name:156
 msgid "conch"
@@ -1308,7 +1299,7 @@ msgstr ""
 #: DB:instrument/name:361
 msgctxt "Accordion with buttons arranged diatonically"
 msgid "diatonic button accordion"
-msgstr ""
+msgstr "diatoninis mygtukinis akordeonas"
 
 #: DB:instrument/name:635
 msgid "diddley bow"
@@ -1531,6 +1522,11 @@ msgstr ""
 
 #: DB:instrument/name:447
 msgid "electronic organ"
+msgstr ""
+
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
 msgstr ""
 
 #: DB:instrument/name:848
@@ -2356,6 +2352,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2394,6 +2395,11 @@ msgstr ""
 
 #: DB:instrument/name:307
 msgid "ki pah"
+msgstr ""
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
 msgstr ""
 
 #: DB:instrument/name:247
@@ -3816,6 +3822,11 @@ msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr ""
 
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr ""
+
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
@@ -4331,6 +4342,11 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
 
+#: DB:instrument/name:174
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr ""
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr ""
@@ -4472,9 +4488,17 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr ""
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgctxt "Double headed hourglass Nigerian drums"
+#| msgid "Batá drum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "Batá būgnas"
+
 #: DB:instrument/name:280
 msgid "waterphone"
-msgstr ""
+msgstr "vandenphonas"
 
 #: DB:instrument/name:374
 msgid "wavedrum"
@@ -4569,6 +4593,11 @@ msgstr ""
 #: DB:instrument/name:527
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
+msgstr "jaili tanburas"
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
 msgstr ""
 
 #: DB:instrument/name:222
@@ -4691,38 +4720,38 @@ msgstr ""
 
 #: DB:instrument/name:608
 msgid "đàn tứ"
-msgstr ""
+msgstr "ketvertas"
 
 #: DB:instrument/name:233
 msgid "đàn tứ dây"
-msgstr ""
+msgstr "4-stygis instrumentas"
 
 #: DB:instrument/name:243
 msgid "đàn tỳ bà"
-msgstr ""
+msgstr "pipa"
 
 #: DB:instrument/name:696
 msgid "ģīga"
-msgstr ""
+msgstr "gigė"
 
 #: DB:instrument/name:558
 msgid "ōtsuzumi"
-msgstr ""
+msgstr "otsuzumi"
 
 #: DB:instrument/name:680
 msgid "šargija"
-msgstr ""
+msgstr "šariatas"
 
 #: DB:instrument/name:589
 msgid "żafżafa"
-msgstr ""
+msgstr "žafžafa"
 
 #: DB:instrument/name:590
 msgctxt "Maltese mouth-blown bagpipe"
 msgid "żaqq"
-msgstr ""
+msgstr "žata"
 
 #: DB:instrument/name:592
 msgctxt "Maltese mirliton"
 msgid "żummara"
-msgstr ""
+msgstr "žumara"

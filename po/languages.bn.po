@@ -903,7 +903,7 @@ msgstr "গথিক"
 msgid "Grebo"
 msgstr ""
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "গ্রিক"
@@ -978,7 +978,7 @@ msgstr "হাউসা"
 msgid "Hawaiian"
 msgstr "হাইওয়ান"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "হিব্রু"
@@ -1341,6 +1341,11 @@ msgstr "কেপেলে"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:228
 msgid "Kru languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+msgid "Kuanua"
 msgstr ""
 
 #. frequency:1 iso_code_3:kua

@@ -69,7 +69,7 @@ install_javascript
 
 copy_mb(``docker/scripts/compile_resources_for_image.sh docker/scripts/'')
 copy_mb(``root/ root/'')
-copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/xgettext.js script/'')
+copy_mb(``script/compile_resources.sh script/dbdefs_to_js.pl script/start_renderer.pl script/xgettext.mjs script/'')
 copy_mb(``webpack/ webpack/'')
 
 ENV NODE_ENV production
@@ -99,6 +99,7 @@ m4_define(
     `m4_dnl
 bzip2
 ca-certificates
+file
 iproute2
 libdb5.3
 libexpat1
@@ -199,11 +200,12 @@ run_with_apt_cache \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
     rm -f /etc/apt/sources.list.d/pgdg.list && \
-    install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
     # Clean build dependencies up
-    apt_purge(`mbs_build_deps')')
+    apt_purge(`mbs_build_deps')
+
+install_ts')
 
 m4_define(
     `install_perl_modules',
@@ -226,9 +228,7 @@ m4_define(
     `install_ts',
     `m4_dnl
 # Install ts (needed to run admin background task scripts locally)
-    curl -sSL https://git.joeyh.name/index.cgi/moreutils.git/plain/ts?h=0.69 -o /usr/local/bin/ts && \
-    echo "01b67f3d81e6205f01cc0ada87039293ebc56596955225300dd69ec1257124f5 */usr/local/bin/ts" | sha256sum --strict --check - && \
-    chmod +x /usr/local/bin/ts')
+COPY --chmod=755 bin/ts /usr/local/bin/ts')
 
 m4_define(
     `chown_mb',
@@ -269,6 +269,7 @@ language-pack-et
 language-pack-fi
 language-pack-he
 language-pack-ja
+language-pack-ru
 language-pack-sq')
 m4_ifelse(with_test_translations, 1, `m4_dnl
 language-pack-da
@@ -277,7 +278,6 @@ language-pack-hr
 language-pack-nb
 language-pack-oc
 language-pack-pl
-language-pack-ru
 language-pack-sv
 language-pack-tr
 language-pack-zh-hans

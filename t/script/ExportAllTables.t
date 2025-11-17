@@ -117,6 +117,7 @@ test all => sub {
         '-U', $system_db->username,
         $test_db->database;
 
+    $ENV{REPLICATION_TYPE} = 1; # master
     system(
         File::Spec->catfile($root, 'admin/InitDb.pl'),
         '--database', 'TEST_FULL_EXPORT',
@@ -128,12 +129,6 @@ test all => sub {
             File::Spec->catfile($output_dir, 'mbdump-cover-art-archive.tar.bz2'),
             File::Spec->catfile($output_dir, 'mbdump-event-art-archive.tar.bz2'),
     );
-
-    my $replication_setup = File::Spec->catfile($root, 'admin/sql/ReplicationSetup.sql');
-    system 'sh', '-c' => "$psql TEST_FULL_EXPORT < $replication_setup";
-
-    $replication_setup = File::Spec->catfile($root, 'admin/sql/dbmirror2/ReplicationSetup.sql');
-    system 'sh', '-c' => "$psql TEST_FULL_EXPORT < $replication_setup";
 
     $exec_sql->(<<~"SQL");
         SET client_min_messages TO WARNING;

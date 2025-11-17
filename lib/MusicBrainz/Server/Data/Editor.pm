@@ -710,7 +710,7 @@ sub load_for_collection {
 }
 
 sub editors_with_subscriptions {
-    my ($self, $after, $limit) = @_;
+    my ($self, $email_periods, $after, $limit) = @_;
 
     my @tables = (entities_with('subscriptions',
                                 take => sub { return 'editor_subscribe_' . (shift) }),
@@ -722,13 +722,14 @@ sub editors_with_subscriptions {
               LEFT JOIN editor_preference ep
                      ON ep.editor = editor.id AND
                         ep.name = 'subscriptions_email_period'
-                  WHERE editor.id > ?
+                  WHERE coalesce(ep.value, 'daily') = any(?)
+                    AND editor.id > ?
                     AND editor.id IN ($ids)
                     AND (editor.privs & $SPAMMER_FLAG) = 0
                ORDER BY editor.id ASC
                   LIMIT ?";
 
-    $self->query_to_list($query, [$after, $limit], sub {
+    $self->query_to_list($query, [$email_periods, $after, $limit], sub {
         my ($model, $row) = @_;
 
         my $editor = $model->_new_from_row($row);

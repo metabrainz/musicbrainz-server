@@ -8,5 +8,5 @@
  */
 
 export default function isUselessMediumTitle(title: string): boolean {
-  return /^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*\d+/i.test(title);
+  return /^(Cassette|CD|Dis[ck]|DVD|SACD|Vinyl)\s*(\d+|One|Two|Three|Four)/i.test(title);
 }

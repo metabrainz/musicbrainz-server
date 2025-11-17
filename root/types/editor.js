@@ -9,6 +9,21 @@
 
 /* eslint-disable no-unused-vars */
 
+// Corresponds to serialize_user in lib/MusicBrainz/Server/Controller/User.pm
+declare type AccountLayoutUserT = {
+  +avatar: string,
+  +deleted: boolean,
+  +entityType: 'editor',
+  +id: number,
+  +name: string,
+  +preferences: {
+    +public_ratings: boolean,
+    +public_subscriptions: boolean,
+    +public_tags: boolean,
+  },
+  +privileges: number,
+};
+
 declare type ActiveEditorPreferencesT = {
   +datetime_format: string,
   +timezone: string,
@@ -49,6 +64,7 @@ declare type FluencyT =
 
 declare type UnsanitizedEditorPreferencesT = {
   +datetime_format: string,
+  +email_language: string,
   +email_on_abstain: boolean,
   +email_on_no_vote: boolean,
   +email_on_notes: boolean,

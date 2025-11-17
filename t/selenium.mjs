@@ -1,4 +1,4 @@
-#!./bin/sucrase-node
+#!./bin/babel-node
 /*
  * This file is part of MusicBrainz, the open internet music database.
  * Copyright (C) 2017 MetaBrainz Foundation
@@ -757,6 +757,15 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       await element.sendKeys(...value);
       break;
 
+    case 'switchFrame':
+      if (target === 'default') {
+        await driver.switchTo().defaultContent();
+      } else {
+        element = await findElement(target);
+        await driver.switchTo().frame(element);
+      }
+      break;
+
     case 'type':
       element = await findElement(target);
       /*
@@ -782,6 +791,13 @@ async function handleCommand(stest, {command, index, target, value}, t) {
       await setChecked(findElement(target), false);
       break;
 
+    case 'waitUntilElementIsVisible':
+      await driver.wait(
+        until.elementIsVisible(findElement(target)),
+        30000,
+      );
+      break;
+
     case 'waitUntilUrlIs':
       await driver.wait(until.urlIs(
         'http://' + DBDefs.WEB_SERVER + target,
@@ -797,7 +813,14 @@ async function handleCommand(stest, {command, index, target, value}, t) {
 
 /* eslint-disable sort-keys */
 const seleniumTests = [
-  {name: 'Create_Account.json5'},
+  {
+    name: (
+      DBDefs.MTCAPTCHA_PUBLIC_KEY &&
+      DBDefs.MTCAPTCHA_PRIVATE_TEST_KEY
+    )
+      ? 'Create_Account_With_Captcha.json5'
+      : 'Create_Account.json5',
+  },
   {name: 'MBS-2604.json5', login: true},
   {name: 'MBS-5387.json5', login: true},
   {name: 'MBS-7456.json5', login: true},
@@ -833,6 +856,11 @@ const seleniumTests = [
   {name: 'MBS-13604.json5', login: true},
   {name: 'MBS-13615.json5', login: true},
   {name: 'MBS-13993.json5', login: true},
+  {
+    name: 'MBS-14125.json5',
+    login: true,
+    sql: 'whatever_it_takes.sql',
+  },
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
   {name: 'External_Links_Editor.json5', login: true},
@@ -1137,6 +1165,13 @@ async function runCommands(stest, commands, t) {
 
           const inspector = await logInspector(driver);
           await inspector.onConsoleEntry(function (log) {
+            if (
+              log.type === 'console' &&
+              log.level === 'info' &&
+              /React DevTools/.test(log.text)
+            ) {
+              return;
+            }
             t.comment(`[${log.type}] [${log.level}] ${log.text}`);
           });
 

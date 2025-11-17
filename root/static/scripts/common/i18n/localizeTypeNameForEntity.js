@@ -14,27 +14,26 @@ export default function localizeTypeNameForEntity(
 ): string {
   const formattedEntityTypeName = formatEntityTypeName(entity.entityType);
 
-  switch (entity.entityType) {
-    case 'area':
-    case 'artist':
-    case 'collection':
-    case 'event':
-    case 'instrument':
-    case 'label':
-    case 'place':
-    case 'series':
-    case 'work':
-      return nonEmpty(entity.typeName)
-        ? lp_attributes(entity.typeName, entity.entityType + '_type')
-        : formattedEntityTypeName;
-    case 'genre':
-    case 'recording':
-    case 'release':
-    case 'url':
-      return formattedEntityTypeName;
-    case 'release_group':
-      return l('Release group');
-    default:
-      throw new Error('Unknown entity type: ' + entity.entityType);
-  }
+  return match (entity) {
+    {
+      entityType:
+        | 'area'
+        | 'artist'
+        | 'collection'
+        | 'event'
+        | 'instrument'
+        | 'label'
+        | 'place'
+        | 'series'
+        | 'work',
+      ...
+    } as entity => nonEmpty(entity.typeName)
+      ? lp_attributes(entity.typeName, entity.entityType + '_type')
+      : formattedEntityTypeName,
+    {
+      entityType: 'genre' | 'recording' | 'release' | 'url',
+      ...
+    } => formattedEntityTypeName,
+    {entityType: 'release_group', ...} => l('Release group'),
+  };
 }

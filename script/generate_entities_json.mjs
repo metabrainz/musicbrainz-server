@@ -1,4 +1,4 @@
-#!./bin/sucrase-node
+#!./bin/babel-node
 /*
  * @flow strict
  * Copyright (C) 2022 MetaBrainz Foundation

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!./bin/babel-node
 /*
  * Copyright (C) 2018 MetaBrainz Foundation
  *
@@ -7,30 +7,19 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-/* eslint-disable import/no-commonjs */
+import XGettext from '@metabrainz/xgettext-js';
+import gettextParser from 'gettext-parser';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+import yargs from 'yargs';
 
-const fs = require('fs');
-const path = require('path');
+import cleanMsgid from '../root/static/scripts/common/i18n/cleanMsgid.mjs';
 
-const rootPath = path.resolve(__dirname, '..');
-
-require('@babel/register')({
-  /*
-   * Needed to allow executing this script with po/ as the cwd.
-   * https://github.com/babel/babel/issues/8321
-   */
-  ignore: [/node_modules/],
-  only: [rootPath],
-  root: rootPath,
-});
-
-const XGettext = require('@metabrainz/xgettext-js');
-const argv = require('yargs').argv;
-
-const cleanMsgid =
-  require('../root/static/scripts/common/i18n/cleanMsgid.js').default;
-
-const PO_DIR = path.resolve(__dirname, '../po');
+const PO_DIR = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  '../po',
+);
 
 const translations = {};
 
@@ -233,7 +222,7 @@ const parser = new XGettext({
   },
 });
 
-for (currentFile of argv._) {
+for (currentFile of yargs.argv._) {
   currentFile = path.resolve(process.cwd(), currentFile);
   const fp = fs.readFileSync(currentFile);
   try {
@@ -244,14 +233,12 @@ for (currentFile of argv._) {
   }
 }
 
-import('gettext-parser').then(({default: gettextParser}) => {
-  console.log(
-    gettextParser.po
-      .compile(potFile, {
-        sort(a, b) {
-          return msgOrdering.get(a) - msgOrdering.get(b);
-        },
-      })
-      .toString('utf-8'),
-  );
-});
+console.log(
+  gettextParser.po
+    .compile(potFile, {
+      sort(a, b) {
+        return msgOrdering.get(a) - msgOrdering.get(b);
+      },
+    })
+    .toString('utf-8'),
+);

@@ -9,6 +9,7 @@
 
 import * as EDIT_TYPES
   from '../../static/scripts/common/constants/editTypes.js';
+import invariant from '../../utility/invariant.js';
 import AddAnnotation from '../details/AddAnnotation.js';
 import AddArea from '../details/AddArea.js';
 import AddArtist from '../details/AddArtist.js';
@@ -122,286 +123,195 @@ import ReorderRelationships from '../details/ReorderRelationships.js';
 import SetCoverArt from '../details/SetCoverArt.js';
 import SetTrackLengths from '../details/SetTrackLengths.js';
 
+const editDetailsElementMap: {
+  /* eslint-disable ft-flow/no-weak-types */
+  /* eslint-disable-next-line ft-flow/no-flow-suppressions-in-strict-files */
+  // $FlowFixMe[unclear-type]
+  +[edit_type: EditT['edit_type']]: component(edit: any),
+  /* eslint-enable ft-flow/no-weak-types */
+} = {
+  [EDIT_TYPES.EDIT_AREA_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_ARTIST_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_EVENT_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_GENRE_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_INSTRUMENT_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_LABEL_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_PLACE_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_RECORDING_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_RELEASE_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_SERIES_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_WORK_ADD_ANNOTATION]: AddAnnotation,
+  [EDIT_TYPES.EDIT_AREA_CREATE]: AddArea,
+  [EDIT_TYPES.EDIT_ARTIST_CREATE]: AddArtist,
+  [EDIT_TYPES.EDIT_RELEASE_ADD_COVER_ART]: AddCoverArt,
+  [EDIT_TYPES.EDIT_EVENT_ADD_EVENT_ART]: AddEventArt,
+  [EDIT_TYPES.EDIT_MEDIUM_ADD_DISCID]: AddDiscId,
+  [EDIT_TYPES.EDIT_EVENT_CREATE]: AddEvent,
+  [EDIT_TYPES.EDIT_GENRE_CREATE]: AddGenre,
+  [EDIT_TYPES.EDIT_INSTRUMENT_CREATE]: AddInstrument,
+  [EDIT_TYPES.EDIT_RECORDING_ADD_ISRCS]: AddIsrcs,
+  [EDIT_TYPES.EDIT_WORK_ADD_ISWCS]: AddIswcs,
+  [EDIT_TYPES.EDIT_LABEL_CREATE]: AddLabel,
+  [EDIT_TYPES.EDIT_MEDIUM_CREATE]: AddMedium,
+  [EDIT_TYPES.EDIT_PLACE_CREATE]: AddPlace,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_CREATE]: AddRelationship,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_ADD_ATTRIBUTE]: AddRelationshipAttribute,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_ADD_TYPE]: AddRelationshipType,
+  [EDIT_TYPES.EDIT_RELEASE_CREATE]: AddRelease,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_CREATE]: AddReleaseGroup,
+  [EDIT_TYPES.EDIT_RELEASE_ADDRELEASELABEL]: AddReleaseLabel,
+  [EDIT_TYPES.EDIT_AREA_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_AREA_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_ARTIST_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_ARTIST_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_EVENT_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_EVENT_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_GENRE_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_GENRE_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_INSTRUMENT_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_INSTRUMENT_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_LABEL_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_LABEL_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_PLACE_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_PLACE_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_RECORDING_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_RECORDING_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_RELEASE_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_RELEASE_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_SERIES_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_SERIES_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_WORK_ADD_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_WORK_DELETE_ALIAS]: AddRemoveAlias,
+  [EDIT_TYPES.EDIT_SERIES_CREATE]: AddSeries,
+  [EDIT_TYPES.EDIT_RECORDING_CREATE]: AddStandaloneRecording,
+  [EDIT_TYPES.EDIT_WORK_CREATE]: AddWork,
+  [EDIT_TYPES.EDIT_RELEASE_CHANGE_QUALITY]: ChangeReleaseQuality,
+  [EDIT_TYPES.EDIT_WIKIDOC_CHANGE]: ChangeWikiDoc,
+  [EDIT_TYPES.EDIT_AREA_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_ARTIST_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_EVENT_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_GENRE_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_INSTRUMENT_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_LABEL_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_PLACE_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_RECORDING_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_RELEASE_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_SERIES_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_WORK_EDIT_ALIAS]: EditAlias,
+  [EDIT_TYPES.EDIT_AREA_EDIT]: EditArea,
+  [EDIT_TYPES.EDIT_ARTIST_EDIT]: EditArtist,
+  [EDIT_TYPES.EDIT_ARTIST_EDITCREDIT]: EditArtistCredit,
+  [EDIT_TYPES.EDIT_RELEASE_EDIT_BARCODES]: EditBarcodes,
+  [EDIT_TYPES.EDIT_RELEASE_EDIT_COVER_ART]: EditCoverArt,
+  [EDIT_TYPES.EDIT_EVENT_EDIT_EVENT_ART]: EditEventArt,
+  [EDIT_TYPES.EDIT_EVENT_EDIT]: EditEvent,
+  [EDIT_TYPES.EDIT_GENRE_EDIT]: EditGenre,
+  [EDIT_TYPES.EDIT_INSTRUMENT_EDIT]: EditInstrument,
+  [EDIT_TYPES.EDIT_LABEL_EDIT]: EditLabel,
+  [EDIT_TYPES.EDIT_MEDIUM_EDIT]: EditMedium,
+  [EDIT_TYPES.EDIT_PLACE_EDIT]: EditPlace,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACK_LENGTH]: EditRecording,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACKNAME]: EditRecording,
+  [EDIT_TYPES.EDIT_RECORDING_EDIT]: EditRecording,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_EDIT]: EditRelationship,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_ATTRIBUTE]: EditRelationshipAttribute,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_EDIT_LINK_TYPE]: EditRelationshipType,
+  [EDIT_TYPES.EDIT_RELEASE_ARTIST]: EditRelease,
+  [EDIT_TYPES.EDIT_RELEASE_EDIT]: EditRelease,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_EDIT]: EditReleaseGroup,
+  [EDIT_TYPES.EDIT_RELEASE_EDITRELEASELABEL]: EditReleaseLabel,
+  [EDIT_TYPES.EDIT_SERIES_EDIT]: EditSeries,
+  [EDIT_TYPES.EDIT_URL_EDIT]: EditUrl,
+  [EDIT_TYPES.EDIT_WORK_EDIT]: EditWork,
+  [EDIT_TYPES.EDIT_AREA_MERGE]: MergeAreas,
+  [EDIT_TYPES.EDIT_ARTIST_MERGE]: MergeArtists,
+  [EDIT_TYPES.EDIT_EVENT_MERGE]: MergeEvents,
+  [EDIT_TYPES.EDIT_INSTRUMENT_MERGE]: MergeInstruments,
+  [EDIT_TYPES.EDIT_LABEL_MERGE]: MergeLabels,
+  [EDIT_TYPES.EDIT_PLACE_MERGE]: MergePlaces,
+  [EDIT_TYPES.EDIT_RECORDING_MERGE]: MergeRecordings,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_MERGE]: MergeReleaseGroups,
+  [EDIT_TYPES.EDIT_RELEASE_MERGE]: MergeReleases,
+  [EDIT_TYPES.EDIT_SERIES_MERGE]: MergeSeries,
+  [EDIT_TYPES.EDIT_WORK_MERGE]: MergeWorks,
+  [EDIT_TYPES.EDIT_MEDIUM_MOVE_DISCID]: MoveDiscId,
+  [EDIT_TYPES.EDIT_RELEASE_REMOVE_COVER_ART]: RemoveCoverArt,
+  [EDIT_TYPES.EDIT_EVENT_REMOVE_EVENT_ART]: RemoveEventArt,
+  [EDIT_TYPES.EDIT_MEDIUM_REMOVE_DISCID]: RemoveDiscId,
+  [EDIT_TYPES.EDIT_AREA_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_ARTIST_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_EVENT_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_GENRE_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_INSTRUMENT_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_LABEL_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_PLACE_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_RECORDING_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_RELEASE_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_SERIES_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_WORK_DELETE]: RemoveEntity,
+  [EDIT_TYPES.EDIT_RECORDING_REMOVE_ISRC]: RemoveIsrc,
+  [EDIT_TYPES.EDIT_WORK_REMOVE_ISWC]: RemoveIswc,
+  [EDIT_TYPES.EDIT_MEDIUM_DELETE]: RemoveMedium,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_DELETE]: RemoveRelationship,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE]:
+    RemoveRelationshipAttribute,
+  [EDIT_TYPES.EDIT_RELATIONSHIP_REMOVE_LINK_TYPE]: RemoveRelationshipType,
+  [EDIT_TYPES.EDIT_RELEASE_DELETERELEASELABEL]: RemoveReleaseLabel,
+  [EDIT_TYPES.EDIT_RELEASE_REORDER_COVER_ART]: ReorderCoverArt,
+  [EDIT_TYPES.EDIT_EVENT_REORDER_EVENT_ART]: ReorderEventArt,
+  [EDIT_TYPES.EDIT_RELEASE_REORDER_MEDIUMS]: ReorderMediums,
+  [EDIT_TYPES.EDIT_RELATIONSHIPS_REORDER]: ReorderRelationships,
+  [EDIT_TYPES.EDIT_RELEASEGROUP_SET_COVER_ART]: SetCoverArt,
+  [EDIT_TYPES.EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC]: SetTrackLengths,
+  [EDIT_TYPES.EDIT_SET_TRACK_LENGTHS]: SetTrackLengths,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_DISCID]: AddDiscIdHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_LINK]: AddRelationshipHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_RELEASE]: AddReleaseHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_RELEASE_ANNOTATION]:
+    AddReleaseAnnotationHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_TRACK_KV]: AddTrackKV,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_TRACK]: AddTrackOld,
+  [EDIT_TYPES.EDIT_HISTORIC_CHANGE_ARTIST_QUALITY]: ChangeArtistQuality,
+  [EDIT_TYPES.EDIT_HISTORIC_MAC_TO_SAC]: ChangeReleaseArtist,
+  [EDIT_TYPES.EDIT_HISTORIC_SAC_TO_MAC]: ChangeReleaseArtist,
+  [EDIT_TYPES.EDIT_HISTORIC_CHANGE_RELEASE_GROUP]: ChangeReleaseGroup,
+  [EDIT_TYPES.EDIT_HISTORIC_CHANGE_RELEASE_QUALITY]:
+    ChangeReleaseQualityHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_LINK]: EditRelationshipHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_ATTRS]: EditReleaseAttributes,
+  [EDIT_TYPES.EDIT_HISTORIC_ADD_RELEASE_EVENTS]: EditReleaseEvents,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_EVENTS]: EditReleaseEvents,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD]: EditReleaseEvents,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_RELEASE_EVENTS]: EditReleaseEvents,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE]: EditReleaseLanguage,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_NAME]: EditReleaseName,
+  [EDIT_TYPES.EDIT_HISTORIC_CHANGE_TRACK_ARTIST]: EditTrack,
+  [EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACKNUM]: EditTrack,
+  [EDIT_TYPES.EDIT_HISTORIC_MERGE_RELEASE]: MergeReleasesHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_MERGE_RELEASE_MAC]: MergeReleasesHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_MOVE_DISCID]: MoveDiscIdHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_MOVE_RELEASE]: MoveReleaseHistoric,
+  [EDIT_TYPES.EDIT_RELEASE_MOVE]: MoveReleaseToReleaseGroup,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_DISCID]: RemoveDiscIdHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_LABEL_ALIAS]: RemoveLabelAlias,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_LINK]: RemoveRelationshipHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_RELEASE]: RemoveReleaseHistoric,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_RELEASES]: RemoveReleases,
+  [EDIT_TYPES.EDIT_HISTORIC_REMOVE_TRACK]: RemoveTrack,
+};
+
 export default function getEditDetailsElement(
   edit: EditT,
 ): React.MixedElement {
-  switch (edit.edit_type) {
-    case EDIT_TYPES.EDIT_AREA_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_ARTIST_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_EVENT_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_GENRE_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_INSTRUMENT_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_LABEL_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_PLACE_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_RECORDING_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_RELEASEGROUP_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_RELEASE_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_SERIES_ADD_ANNOTATION:
-    case EDIT_TYPES.EDIT_WORK_ADD_ANNOTATION:
-      return <AddAnnotation edit={edit} />;
-    case EDIT_TYPES.EDIT_AREA_CREATE:
-      return <AddArea edit={edit} />;
-    case EDIT_TYPES.EDIT_ARTIST_CREATE:
-      return <AddArtist edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_ADD_COVER_ART:
-      return <AddCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_ADD_EVENT_ART:
-      return <AddEventArt edit={edit} />;
-    case EDIT_TYPES.EDIT_MEDIUM_ADD_DISCID:
-      return <AddDiscId edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_CREATE:
-      return <AddEvent edit={edit} />;
-    case EDIT_TYPES.EDIT_GENRE_CREATE:
-      return <AddGenre edit={edit} />;
-    case EDIT_TYPES.EDIT_INSTRUMENT_CREATE:
-      return <AddInstrument edit={edit} />;
-    case EDIT_TYPES.EDIT_RECORDING_ADD_ISRCS:
-      return <AddIsrcs edit={edit} />;
-    case EDIT_TYPES.EDIT_WORK_ADD_ISWCS:
-      return <AddIswcs edit={edit} />;
-    case EDIT_TYPES.EDIT_LABEL_CREATE:
-      return <AddLabel edit={edit} />;
-    case EDIT_TYPES.EDIT_MEDIUM_CREATE:
-      return <AddMedium edit={edit} />;
-    case EDIT_TYPES.EDIT_PLACE_CREATE:
-      return <AddPlace edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_CREATE:
-      return <AddRelationship edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_ADD_ATTRIBUTE:
-      return <AddRelationshipAttribute edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_ADD_TYPE:
-      return <AddRelationshipType edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_CREATE:
-      return <AddRelease edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASEGROUP_CREATE:
-      return <AddReleaseGroup edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_ADDRELEASELABEL:
-      return <AddReleaseLabel edit={edit} />;
-    case EDIT_TYPES.EDIT_AREA_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_AREA_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_ARTIST_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_ARTIST_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_EVENT_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_EVENT_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_GENRE_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_GENRE_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_INSTRUMENT_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_INSTRUMENT_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_LABEL_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_LABEL_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_PLACE_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_PLACE_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_RECORDING_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_RECORDING_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_RELEASEGROUP_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_RELEASEGROUP_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_RELEASE_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_RELEASE_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_SERIES_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_SERIES_DELETE_ALIAS:
-    case EDIT_TYPES.EDIT_WORK_ADD_ALIAS:
-    case EDIT_TYPES.EDIT_WORK_DELETE_ALIAS:
-      return <AddRemoveAlias edit={edit} />;
-    case EDIT_TYPES.EDIT_SERIES_CREATE:
-      return <AddSeries edit={edit} />;
-    case EDIT_TYPES.EDIT_RECORDING_CREATE:
-      return <AddStandaloneRecording edit={edit} />;
-    case EDIT_TYPES.EDIT_WORK_CREATE:
-      return <AddWork edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_CHANGE_QUALITY:
-      return <ChangeReleaseQuality edit={edit} />;
-    case EDIT_TYPES.EDIT_WIKIDOC_CHANGE:
-      return <ChangeWikiDoc edit={edit} />;
-    case EDIT_TYPES.EDIT_AREA_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_ARTIST_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_EVENT_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_GENRE_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_INSTRUMENT_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_LABEL_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_PLACE_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_RECORDING_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_RELEASEGROUP_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_RELEASE_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_SERIES_EDIT_ALIAS:
-    case EDIT_TYPES.EDIT_WORK_EDIT_ALIAS:
-      return <EditAlias edit={edit} />;
-    case EDIT_TYPES.EDIT_AREA_EDIT:
-      return <EditArea edit={edit} />;
-    case EDIT_TYPES.EDIT_ARTIST_EDIT:
-      return <EditArtist edit={edit} />;
-    case EDIT_TYPES.EDIT_ARTIST_EDITCREDIT:
-      return <EditArtistCredit edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_EDIT_BARCODES:
-      return <EditBarcodes edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_EDIT_COVER_ART:
-      return <EditCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_EDIT_EVENT_ART:
-      return <EditEventArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_EDIT:
-      return <EditEvent edit={edit} />;
-    case EDIT_TYPES.EDIT_GENRE_EDIT:
-      return <EditGenre edit={edit} />;
-    case EDIT_TYPES.EDIT_INSTRUMENT_EDIT:
-      return <EditInstrument edit={edit} />;
-    case EDIT_TYPES.EDIT_LABEL_EDIT:
-      return <EditLabel edit={edit} />;
-    case EDIT_TYPES.EDIT_MEDIUM_EDIT:
-      return <EditMedium edit={edit} />;
-    case EDIT_TYPES.EDIT_PLACE_EDIT:
-      return <EditPlace edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACK_LENGTH:
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACKNAME:
-    case EDIT_TYPES.EDIT_RECORDING_EDIT:
-      return <EditRecording edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_EDIT:
-      return <EditRelationship edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_ATTRIBUTE:
-      return <EditRelationshipAttribute edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_EDIT_LINK_TYPE:
-      return <EditRelationshipType edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_ARTIST:
-    case EDIT_TYPES.EDIT_RELEASE_EDIT:
-      return <EditRelease edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASEGROUP_EDIT:
-      return <EditReleaseGroup edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_EDITRELEASELABEL:
-      return <EditReleaseLabel edit={edit} />;
-    case EDIT_TYPES.EDIT_SERIES_EDIT:
-      return <EditSeries edit={edit} />;
-    case EDIT_TYPES.EDIT_URL_EDIT:
-      return <EditUrl edit={edit} />;
-    case EDIT_TYPES.EDIT_WORK_EDIT:
-      return <EditWork edit={edit} />;
-    case EDIT_TYPES.EDIT_AREA_MERGE:
-      return <MergeAreas edit={edit} />;
-    case EDIT_TYPES.EDIT_ARTIST_MERGE:
-      return <MergeArtists edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_MERGE:
-      return <MergeEvents edit={edit} />;
-    case EDIT_TYPES.EDIT_INSTRUMENT_MERGE:
-      return <MergeInstruments edit={edit} />;
-    case EDIT_TYPES.EDIT_LABEL_MERGE:
-      return <MergeLabels edit={edit} />;
-    case EDIT_TYPES.EDIT_PLACE_MERGE:
-      return <MergePlaces edit={edit} />;
-    case EDIT_TYPES.EDIT_RECORDING_MERGE:
-      return <MergeRecordings edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASEGROUP_MERGE:
-      return <MergeReleaseGroups edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_MERGE:
-      return <MergeReleases edit={edit} />;
-    case EDIT_TYPES.EDIT_SERIES_MERGE:
-      return <MergeSeries edit={edit} />;
-    case EDIT_TYPES.EDIT_WORK_MERGE:
-      return <MergeWorks edit={edit} />;
-    case EDIT_TYPES.EDIT_MEDIUM_MOVE_DISCID:
-      return <MoveDiscId edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_REMOVE_COVER_ART:
-      return <RemoveCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_REMOVE_EVENT_ART:
-      return <RemoveEventArt edit={edit} />;
-    case EDIT_TYPES.EDIT_MEDIUM_REMOVE_DISCID:
-      return <RemoveDiscId edit={edit} />;
-    case EDIT_TYPES.EDIT_AREA_DELETE:
-    case EDIT_TYPES.EDIT_ARTIST_DELETE:
-    case EDIT_TYPES.EDIT_EVENT_DELETE:
-    case EDIT_TYPES.EDIT_GENRE_DELETE:
-    case EDIT_TYPES.EDIT_INSTRUMENT_DELETE:
-    case EDIT_TYPES.EDIT_LABEL_DELETE:
-    case EDIT_TYPES.EDIT_PLACE_DELETE:
-    case EDIT_TYPES.EDIT_RECORDING_DELETE:
-    case EDIT_TYPES.EDIT_RELEASEGROUP_DELETE:
-    case EDIT_TYPES.EDIT_RELEASE_DELETE:
-    case EDIT_TYPES.EDIT_SERIES_DELETE:
-    case EDIT_TYPES.EDIT_WORK_DELETE:
-      return <RemoveEntity edit={edit} />;
-    case EDIT_TYPES.EDIT_RECORDING_REMOVE_ISRC:
-      return <RemoveIsrc edit={edit} />;
-    case EDIT_TYPES.EDIT_WORK_REMOVE_ISWC:
-      return <RemoveIswc edit={edit} />;
-    case EDIT_TYPES.EDIT_MEDIUM_DELETE:
-      return <RemoveMedium edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_DELETE:
-      return <RemoveRelationship edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_REMOVE_LINK_ATTRIBUTE:
-      return <RemoveRelationshipAttribute edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIP_REMOVE_LINK_TYPE:
-      return <RemoveRelationshipType edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_DELETERELEASELABEL:
-      return <RemoveReleaseLabel edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_REORDER_COVER_ART:
-      return <ReorderCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_EVENT_REORDER_EVENT_ART:
-      return <ReorderEventArt edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_REORDER_MEDIUMS:
-      return <ReorderMediums edit={edit} />;
-    case EDIT_TYPES.EDIT_RELATIONSHIPS_REORDER:
-      return <ReorderRelationships edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASEGROUP_SET_COVER_ART:
-      return <SetCoverArt edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_SET_TRACK_LENGTHS_FROM_CDTOC:
-    case EDIT_TYPES.EDIT_SET_TRACK_LENGTHS:
-      return <SetTrackLengths edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_DISCID:
-      return <AddDiscIdHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_LINK:
-      return <AddRelationshipHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_RELEASE:
-      return <AddReleaseHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_RELEASE_ANNOTATION:
-      return <AddReleaseAnnotationHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_TRACK_KV:
-      return <AddTrackKV edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_TRACK:
-      return <AddTrackOld edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_CHANGE_ARTIST_QUALITY:
-      return <ChangeArtistQuality edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_MAC_TO_SAC:
-    case EDIT_TYPES.EDIT_HISTORIC_SAC_TO_MAC:
-      return <ChangeReleaseArtist edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_CHANGE_RELEASE_GROUP:
-      return <ChangeReleaseGroup edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_CHANGE_RELEASE_QUALITY:
-      return <ChangeReleaseQualityHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_LINK:
-      return <EditRelationshipHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_ATTRS:
-      return <EditReleaseAttributes edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_ADD_RELEASE_EVENTS:
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_EVENTS:
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD:
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_RELEASE_EVENTS:
-      return <EditReleaseEvents edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_LANGUAGE:
-      return <EditReleaseLanguage edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_RELEASE_NAME:
-      return <EditReleaseName edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_CHANGE_TRACK_ARTIST:
-    case EDIT_TYPES.EDIT_HISTORIC_EDIT_TRACKNUM:
-      return <EditTrack edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_MERGE_RELEASE:
-    case EDIT_TYPES.EDIT_HISTORIC_MERGE_RELEASE_MAC:
-      return <MergeReleasesHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_MOVE_DISCID:
-      return <MoveDiscIdHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_MOVE_RELEASE:
-      return <MoveReleaseHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_RELEASE_MOVE:
-      return <MoveReleaseToReleaseGroup edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_DISCID:
-      return <RemoveDiscIdHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_LABEL_ALIAS:
-      return <RemoveLabelAlias edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_LINK:
-      return <RemoveRelationshipHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_RELEASE:
-      return <RemoveReleaseHistoric edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_RELEASES:
-      return <RemoveReleases edit={edit} />;
-    case EDIT_TYPES.EDIT_HISTORIC_REMOVE_TRACK:
-      return <RemoveTrack edit={edit} />;
-    default:
-      /*:: exhaustive(edit); */
-      throw new Error('Invalid edit type.');
-  }
+  const EditDetailsElement = editDetailsElementMap[edit.edit_type];
+  invariant(
+    EditDetailsElement != null,
+    `No component found for edit type ${edit.edit_type}`,
+  );
+  return <EditDetailsElement edit={edit} />;
 }

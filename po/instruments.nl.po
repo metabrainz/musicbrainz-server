@@ -8,13 +8,14 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # reneweesp <email address hidden>, 2017,2019
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-01-17 09:59+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-09-01 18:39+0000\n"
+"Last-Translator: mfmeulenbelt "
+"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/nl/>\n"
 "Language: nl\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.3\n"
+"X-Generator: Weblate 5.13\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -161,7 +162,7 @@ msgstr "Lyricon"
 #: DB:instrument/name:1200
 msgctxt "Traditional Hungarian bagpipe"
 msgid "Magyar duda"
-msgstr ""
+msgstr "Hongaarse duda"
 
 #: DB:instrument/name:637
 msgctxt "Mark Stevens' bar chime"
@@ -216,7 +217,7 @@ msgstr "Portugese gitaar"
 #: DB:instrument/name:1211
 msgctxt "1940s modified sarod"
 msgid "Radhika's Mohan veena"
-msgstr ""
+msgstr "Radhika’s Mohan-vina"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -255,10 +256,6 @@ msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr "The Great Stalacpipe Organ"
 
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr "Tibetaanse watertrommel"
-
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
@@ -267,7 +264,7 @@ msgstr "tonette"
 #: DB:instrument/name:1212
 msgctxt "Indian modified lap slide-guitar"
 msgid "VM Bhatt's Mohan veena"
-msgstr ""
+msgstr "VM Bhatt’s Mohan-vina"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
@@ -371,11 +368,6 @@ msgstr "altsaxofoon"
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
 msgstr "altgamba"
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
-msgstr "verticale altviool"
 
 #: DB:instrument/name:363
 msgid "amadinda"
@@ -903,7 +895,7 @@ msgstr "kabassa"
 #: DB:instrument/name:1195
 msgctxt "Auvergnat bagpipe"
 msgid "cabrette"
-msgstr ""
+msgstr "cabrette"
 
 #: DB:instrument/name:903
 msgctxt "Brazilian Samba snare-drum"
@@ -1069,7 +1061,7 @@ msgstr "cimbasso"
 #: DB:instrument/name:1194
 msgctxt "Romanian & Moldovan bagpipe"
 msgid "cimpoi"
-msgstr ""
+msgstr "cimpoi"
 
 #: DB:instrument/name:761
 msgid "citole"
@@ -1143,7 +1135,7 @@ msgstr "cobla"
 #: DB:instrument/name:1189
 msgctxt "Catalonian ancient cobla ensemble"
 msgid "cobla de tres quartans"
-msgstr ""
+msgstr "cobla de tres quartans"
 
 #: DB:instrument/name:414
 msgid "concert flute"
@@ -1200,8 +1192,6 @@ msgid "cor anglais"
 msgstr "althobo"
 
 #: DB:instrument/name:510
-#, fuzzy
-#| msgid "cornamuse"
 msgctxt "Renaissance capped double-reed"
 msgid "cornamuse"
 msgstr "cornamuse"
@@ -1209,7 +1199,7 @@ msgstr "cornamuse"
 #: DB:instrument/name:1190
 msgctxt "French two-drone bagpipes"
 msgid "cornemuse du Centre"
-msgstr ""
+msgstr "cornemuse du Centre"
 
 #: DB:instrument/name:25
 msgctxt "19th century brass trumpet-like"
@@ -1236,8 +1226,6 @@ msgid "crotales"
 msgstr "crotales"
 
 #: DB:instrument/name:348
-#, fuzzy
-#| msgid "crumhorn"
 msgctxt "Curved capped double reed"
 msgid "crumhorn"
 msgstr "kromhoorn"
@@ -1420,17 +1408,17 @@ msgstr "doedoek"
 #: DB:instrument/name:1203
 msgctxt "Czechian / Bohemian bagpipe"
 msgid "dudy"
-msgstr ""
+msgstr "dudy"
 
 #: DB:instrument/name:1202
 msgctxt "Podhale bagpipe"
 msgid "dudy podhalanskie"
-msgstr ""
+msgstr "dudy podhalańskie"
 
 #: DB:instrument/name:1201
 msgctxt "Great Polish bagpipe"
 msgid "dudy wielkopolskie"
-msgstr ""
+msgstr "dudy wielkopolskie"
 
 #: DB:instrument/name:851
 msgctxt "indian clay kettle drum"
@@ -1471,7 +1459,7 @@ msgstr "duxianqin"
 #: DB:instrument/name:1204
 msgctxt "Lithuanian bagpipe"
 msgid "dūdmaišis"
-msgstr ""
+msgstr "dūdmaišis"
 
 #: DB:instrument/name:327
 msgid "ebow"
@@ -1541,6 +1529,11 @@ msgstr "elektronische instrumenten"
 #: DB:instrument/name:447
 msgid "electronic organ"
 msgstr "elektronisch orgel"
+
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr "elektronische shrutidoos"
 
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
@@ -2097,7 +2090,7 @@ msgstr "härjedalspipa"
 #: DB:instrument/name:1205
 msgctxt "Small German Renaissance bagpipe"
 msgid "hümmelchen"
-msgstr ""
+msgstr "hümmelchen"
 
 #: DB:instrument/name:674
 msgid "idiophone"
@@ -2365,6 +2358,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr "keytar"
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr "khamak"
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2404,6 +2402,11 @@ msgstr "khèn Mèo"
 #: DB:instrument/name:307
 msgid "ki pah"
 msgstr "ki pah"
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
+msgstr ""
 
 #: DB:instrument/name:247
 msgid "kinnor"
@@ -2667,17 +2670,14 @@ msgid "marímbula"
 msgstr "marímbula"
 
 #: DB:instrument/name:1208
-#, fuzzy
-#| msgctxt "Latin-American tube rattle"
-#| msgid "shakers"
 msgctxt "Northern Indian bagpipe"
 msgid "mashak"
-msgstr "shakers"
+msgstr "mashak"
 
 #: DB:instrument/name:1199
 msgctxt "Belorussian duda"
 msgid "matstsyanka"
-msgstr ""
+msgstr "Wit-Russische doeda"
 
 #: DB:instrument/name:85
 msgid "mbira"
@@ -2715,7 +2715,7 @@ msgstr "metallofoon"
 #: DB:instrument/name:1209
 msgctxt "Tunisian and Algerian bagpipe"
 msgid "mezwed"
-msgstr ""
+msgstr "mezwed"
 
 #: DB:instrument/name:876
 msgctxt "twin bamboo single reed pipe"
@@ -2828,7 +2828,7 @@ msgstr "ney"
 #: DB:instrument/name:1206
 msgctxt "Iranian single reed bagpipe"
 msgid "neyanban"
-msgstr ""
+msgstr "nejanbar"
 
 #: DB:instrument/name:783
 msgctxt "Māori taonga pūoro small vessel flute"
@@ -3000,7 +3000,7 @@ msgstr "pardessus de viole"
 #: DB:instrument/name:1207
 msgctxt "Armenian double chanter bagpipe"
 msgid "parkapzuk"
-msgstr ""
+msgstr "parkapzoek"
 
 #: DB:instrument/name:1076
 msgctxt "Polish foot-pedal accordion"
@@ -3111,7 +3111,7 @@ msgstr "piri"
 #: DB:instrument/name:1197
 msgctxt "Northern Italian bagpipe"
 msgid "piva"
-msgstr ""
+msgstr "piva"
 
 #: DB:instrument/name:700
 msgid "pkhachich"
@@ -3276,8 +3276,6 @@ msgid "rauschpfeife"
 msgstr "rauschpfeife"
 
 #: DB:instrument/name:754
-#, fuzzy
-#| msgid "ravanahatha"
 msgctxt "Indian bowed spikefiddle"
 msgid "ravanahatta"
 msgstr "ravanahatha"
@@ -3675,7 +3673,7 @@ msgstr "kleine trom"
 #: DB:instrument/name:1198
 msgctxt "Latvian bagpipe"
 msgid "somu dūdas"
-msgstr ""
+msgstr "suomoe doedas"
 
 #: DB:instrument/name:284
 msgid "song loan"
@@ -3717,7 +3715,7 @@ msgstr "sopraanviool"
 #: DB:instrument/name:1191
 msgctxt "Complex Neapolitan bagpipe"
 msgid "sordellina"
-msgstr ""
+msgstr "sordellina"
 
 #: DB:instrument/name:151
 msgid "sousaphone"
@@ -3829,6 +3827,11 @@ msgstr "surdo"
 msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr "surshringar"
+
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr "swaragat"
 
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
@@ -4211,7 +4214,7 @@ msgstr "trống bông"
 #: DB:instrument/name:1193
 msgctxt "Greek double chanter droneless bagpipe"
 msgid "tsampouna"
-msgstr ""
+msgstr "tsampouna"
 
 #: DB:instrument/name:34
 msgid "tuba"
@@ -4246,8 +4249,6 @@ msgid "tulum"
 msgstr "tulum"
 
 #: DB:instrument/name:511
-#, fuzzy
-#| msgid "tumbi"
 msgctxt "Punjabi one string lute"
 msgid "tumbi"
 msgstr "thumbi"
@@ -4260,7 +4261,7 @@ msgstr "tumutumu"
 #: DB:instrument/name:1210
 msgctxt "West Indian one-spoke monochord"
 msgid "tun tuna"
-msgstr ""
+msgstr "tunatune"
 
 #: DB:instrument/name:887
 msgctxt "Korean notched end-blown bamboo flute"
@@ -4347,6 +4348,13 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr "venu"
 
+#: DB:instrument/name:174
+#, fuzzy
+#| msgid "electric viola"
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr "elektrische altviool"
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr "vatfluit"
@@ -4354,7 +4362,7 @@ msgstr "vatfluit"
 #: DB:instrument/name:1196
 msgctxt "Breton bagpipe"
 msgid "veuze"
-msgstr ""
+msgstr "veuze"
 
 #: DB:instrument/name:840
 msgctxt "accordina with piano keys"
@@ -4488,6 +4496,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr "wastobbebas"
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "wavedrum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "wavedrum"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr "waterfoon"
@@ -4587,6 +4602,11 @@ msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
 msgstr "yaylı tanbur"
 
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
+msgstr ""
+
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
 msgid "yehu"
@@ -4619,7 +4639,7 @@ msgstr "zabumba"
 #: DB:instrument/name:1192
 msgctxt "Large Italian bagpipe"
 msgid "zampogna"
-msgstr ""
+msgstr "zampogna"
 
 #: DB:instrument/name:328
 msgid "zarb"
@@ -4742,6 +4762,13 @@ msgstr "żaqq"
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr "zummara"
+
+#~ msgid "Tibetan water drum"
+#~ msgstr "Tibetaanse watertrommel"
+
+#~ msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+#~ msgid "alto violin"
+#~ msgstr "verticale altviool"
 
 #~ msgid "rauschpfeife"
 #~ msgstr "rauschpfeife"

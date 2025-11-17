@@ -82,9 +82,8 @@ sub GPG_ENCRYPT_KEY { '' }
 sub WEB_SERVER                { 'localhost:5000' }
 # Relevant only if SSL redirects are enabled
 sub WEB_SERVER_SSL            { 'localhost' }
-sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+sub SEARCH_SERVER             { '' }
 sub SEARCH_SCHEME             { 'http' }
-sub SEARCH_ENGINE             { 'SOLR' }
 # Whether to use x-accel-redirect for webservice searches,
 # using /internal/search as the internal redirect
 sub SEARCH_X_ACCEL_REDIRECT   { 0 }
@@ -116,7 +115,13 @@ sub STATIC_RESOURCES_LOCATION { '//' . shift->WEB_SERVER . '/static/build' }
 sub SMTP_SERVER { 'localhost' }
 
 # An instance of https://github.com/metabrainz/mb-mail-service.
-sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+sub MAIL_SERVICE_BASE_URL { '' }
+# sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+
+# An instance of https://mailpit.axllent.org to run email-related tests in
+# development. See HACKING.md.
+sub MAILPIT_API { '' }
+# sub MAILPIT_API { 'http://localhost:8025/api/v1' }
 
 # This value should be set to some secret value for your server.  Any old
 # string of stuff should do; something suitably long and random, like for
@@ -351,11 +356,10 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
-# To enable use of reCAPTCHA:
-# 1. make sure $ENV{'REMOTE_ADDR'} is the ip address of the visitor.
-# 2. replace undef with your recaptcha keys:
-sub RECAPTCHA_PUBLIC_KEY { return undef }
-sub RECAPTCHA_PRIVATE_KEY { return undef }
+# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
+sub MTCAPTCHA_PUBLIC_KEY { return undef }
+sub MTCAPTCHA_PRIVATE_KEY { return undef }
+sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
 
 # A list of email domains which are blocked for the purposes of
 # new account registration.
@@ -425,8 +429,8 @@ sub SENTRY_DSN_PUBLIC { undef }
 
 # Configure which html validator should be used.  If you run tests
 # often, you should probably run a local copy of the validator.  See
-# http://about.validator.nu/#src for instructions.
-sub HTML_VALIDATOR { 'http://validator.w3.org/nu/?out=json' }
+# HACKING.md for instructions.
+sub HTML_VALIDATOR { 'https://validator.w3.org/nu/?out=json' }
 # sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 # We use a small Node.js server (root/server.mjs) to render React.js

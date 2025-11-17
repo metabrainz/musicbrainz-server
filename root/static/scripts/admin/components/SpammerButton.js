@@ -60,12 +60,11 @@ export function reducer<T: InexactUserT>(
   state: StateT<T>,
   action: ActionT<T>,
 ): StateT<T> {
-  switch (action.type) {
-    case 'update': {
-      return {...state, ...action.update};
+  match (action) {
+    {type: 'update', const update, ...} => {
+      return {...state, ...update};
     }
   }
-  return state;
 }
 
 component _SpammerButton<T: InexactUserT>(
@@ -137,7 +136,7 @@ component _SpammerButton<T: InexactUserT>(
 }
 
 const SpammerButton: typeof _SpammerButton =
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   React.memo(_SpammerButton);
 
 export default SpammerButton;

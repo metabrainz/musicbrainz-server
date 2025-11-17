@@ -116,6 +116,42 @@ While to run all Data:: tests you can do the following:
 
     $ prove -l t/tests.t :: --tests 'Data::'
 
+Some of the Perl tests run via `prove` require additional services in order
+to execute:
+
+ 1. [An HTML5 validator](https://validator.github.io/validator/), configured
+    via `HTML_VALIDATOR` in DBDefs.pm:
+
+    ```Perl
+    sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
+    ```
+
+    Although the tests will use the service hosted at validator.w3.org by
+    default, it's *significantly* faster to query your own.
+
+ 2. [Mailpit](https://mailpit.axllent.org/docs/install/), configured via
+    `SMTP_SERVER` and `MAILPIT_API` in DBDefs.pm:
+
+    ```Perl
+    sub SMTP_SERVER { 'localhost:1025' }
+    sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+    ```
+
+    It's a single binary that you can start with just: `mailpit`.
+
+ 3. [mb-mail-service](https://github.com/metabrainz/mb-mail-service/blob/main/docs/OPERATING.md),
+    configured via `MAIL_SERVICE_BASE_URL` in DBDefs.pm:
+
+    ```Perl
+    sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
+    ```
+
+    Once again, it's a single binary, but make sure to point it to Mailpit:
+
+    ```sh
+    APP_SMTP_PORT=1025 ./target/release/mb-mail-service
+    ```
+
 ### Database tests (pgTAP)
 
 For unit testing database functions we use pgtap, on a recent Ubuntu
@@ -173,7 +209,7 @@ Webpack's [ProvidePlugin](webpack/providePluginConfig.js).
 We have a couple of scripts you may find useful that generate Flow object
 types based on JSON data:
 
- * `./bin/sucrase-node script/generate_edit_data_flow_type.mjs --edit-type $EDIT_TYPE_ID`
+ * `./script/generate_edit_data_flow_type.mjs --edit-type $EDIT_TYPE_ID`
    will generate an object type to represent the edit data of `$EDIT_TYPE_ID`.
    However, this requires having a `PROD_STANDBY` database configured in
    DBDefs.pm, as it uses production data to ensure a correct type.
@@ -679,13 +715,13 @@ components, it also creates two issues that you need to manage:
       ;
 
     function reducer(state: StateT, action: ActionT): StateT {
-      switch (action.type) {
+      match (action) {
         /*
          * No need to list every child action here, since they're
          * encapsulated by `update-child`.
          */
-        case 'update-child': {
-          const childAction = action.action;
+        {type: 'update-child', const action} => {
+          const childAction = action;
           /*
            * You could even have another switch statement here on
            * childAction.type, in case you need to handle particular actions
@@ -693,7 +729,6 @@ components, it also creates two issues that you need to manage:
            * that the child doesn't know about).
            */
           state.child = childReducer(state.child, childAction);
-          break;
         }
       }
     }
@@ -808,11 +843,11 @@ are injected by Webpack.
 
 There are two utilities which can help here:
 
- 1. ./bin/sucrase-node
+ 1. ./bin/babel-node
 
     If you'd like to execute an ES module which uses *at most* Flow syntax,
     and not any magic Webpack imports, then you may do so with
-    ./bin/sucrase-node (the same as you would with just `node`).
+    ./bin/babel-node (the same as you would with just `node`).
 
  2. ./webpack/exec
 

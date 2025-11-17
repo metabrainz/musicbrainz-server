@@ -149,9 +149,8 @@ sub DB_SCHEMA_SEQUENCE { 30 }
 sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # Relevant only if SSL redirects are enabled
 # sub WEB_SERVER_SSL            { 'localhost' }
-# sub SEARCH_SERVER             { 'search.musicbrainz.org' }
+# sub SEARCH_SERVER             { '' }
 # sub SEARCH_SCHEME             { 'http' }
-# sub SEARCH_ENGINE             { 'SOLR' }
 # Used, for example, to have emails sent from the beta server list the
 # main server
 # sub WEB_SERVER_USED_IN_EMAIL  { my $self = shift; $self->WEB_SERVER }
@@ -360,11 +359,10 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub AWS_PRIVATE { '' }
 # sub AWS_PUBLIC { '' }
 
-# To enable use of reCAPTCHA:
-# 1. make sure $ENV{'REMOTE_ADDR'} is the ip address of the visitor.
-# 2. replace undef with your recaptcha keys:
-# sub RECAPTCHA_PUBLIC_KEY { return undef }
-# sub RECAPTCHA_PRIVATE_KEY { return undef }
+# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
+# sub MTCAPTCHA_PUBLIC_KEY { return undef }
+# sub MTCAPTCHA_PRIVATE_KEY { return undef }
+# sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
 
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).

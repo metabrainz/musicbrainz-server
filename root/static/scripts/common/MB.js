@@ -29,7 +29,7 @@ const MB: {[namespace: string]: {...}, ...} = {
   constants,
 };
 
-// $FlowIgnore[prop-missing]
+// $FlowFixMe[prop-missing]
 globalThis.MB = MB;
 
 export default MB;

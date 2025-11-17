@@ -8,62 +8,39 @@
  */
 
 export function artistBeginAreaLabel(typeId: ?number): string {
-  switch (typeId) {
-    case 1:
-      return l('Born in:');
-    case 2:
-    case 5:
-    case 6:
-      return addColonText(lp('Founded in', 'group artist'));
-    case 4:
-      return addColonText(lp('Created in', 'character artist'));
-    default:
-      return addColonText(l('Begin area'));
-  }
+  return match (typeId) {
+    1 => l('Born in:'),
+    2 | 5 | 6 => addColonText(lp('Founded in', 'group artist')),
+    4 => addColonText(lp('Created in', 'character artist')),
+    _ => addColonText(l('Begin area')),
+  };
 }
 
 export function artistBeginLabel(typeId: ?number): string {
-  switch (typeId) {
-    case 1:
-      return l('Born:');
-    case 2:
-    case 5:
-    case 6:
-      return addColonText(lp('Founded', 'group artist'));
-    case 4:
-      return addColonText(lp('Created', 'character artist'));
-    default:
-      return addColonText(l('Begin date'));
-  }
+  return match (typeId) {
+    1 => l('Born:'),
+    2 | 5 | 6 => addColonText(lp('Founded', 'group artist')),
+    4 => addColonText(lp('Created', 'character artist')),
+    _ => addColonText(l('Begin date')),
+  };
 }
 
 export function artistEndAreaLabel(typeId: ?number): string {
-  switch (typeId) {
-    case 1:
-      return l('Died in:');
-    case 2:
-    case 5:
-    case 6:
-      return addColonText(lp('Dissolved in', 'group artist'));
-    default:
-      return addColonText(l('End area'));
-  }
+  return match (typeId) {
+    1 => l('Died in:'),
+    2 | 5 | 6 => addColonText(lp('Dissolved in', 'group artist')),
+    _ => addColonText(l('End area')),
+  };
 }
 
 export function artistEndLabel(
   typeId: ?number,
   future: boolean = false,
 ): string {
-  switch (typeId) {
-    case 1:
-      return l('Died:');
-    case 2:
-    case 5:
-    case 6:
-      return future
-        ? addColonText(lp('Dissolving', 'group artist'))
-        : addColonText(lp('Dissolved', 'group artist'));
-    default:
-      return addColonText(l('End date'));
-  }
+  return match ([typeId, future]) {
+    [1, true | false] => l('Died:'),
+    [2 | 5 | 6, true] => addColonText(lp('Dissolving', 'group artist')),
+    [2 | 5 | 6, false] => addColonText(lp('Dissolved', 'group artist')),
+    _ => addColonText(l('End date')),
+  };
 }

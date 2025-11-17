@@ -13,7 +13,7 @@ component CodeLink(code: IsrcT | IswcT) {
   let link: React.MixedElement = (
     <a href={entityHref(code)}>
       <bdi>
-        {/* $FlowIssue[prop-missing] */}
+        {/* $FlowExpectedError[prop-missing] */}
         <code>{code[code.entityType]}</code>
       </bdi>
     </a>

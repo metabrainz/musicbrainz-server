@@ -217,7 +217,7 @@ export function defineCheckboxColumn(
     Cell: ({row: {index, original}}) => props.mergeForm
       ? (
         <MergeCheckboxElement
-          // $FlowIgnore[incompatible-type] - only Mergeable have mergeForm
+          // $FlowFixMe[incompatible-type] - only Mergeable have mergeForm
           entity={original}
           form={props.mergeForm}
           index={index}

@@ -21,7 +21,7 @@ type RecordingDeleteFormT = FormT<{
 
 component DeleteRecording(
   canDelete: boolean,
-  entity as recording: RecordingWithArtistCreditT,
+  entity as recording: RecordingT,
   form: RecordingDeleteFormT,
 ) {
   return (

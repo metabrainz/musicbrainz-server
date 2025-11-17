@@ -246,10 +246,6 @@ msgctxt "electrically actuated lithophone"
 msgid "The Great Stalacpipe Organ"
 msgstr ""
 
-#: DB:instrument/name:279
-msgid "Tibetan water drum"
-msgstr ""
-
 #: DB:instrument/name:846
 msgctxt "plastic fipple flute"
 msgid "Tonette"
@@ -361,11 +357,6 @@ msgstr ""
 #: DB:instrument/name:923
 msgctxt "Alto member of the viol family"
 msgid "alto viol"
-msgstr ""
-
-#: DB:instrument/name:174
-msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
-msgid "alto violin"
 msgstr ""
 
 #: DB:instrument/name:363
@@ -1529,6 +1520,11 @@ msgstr ""
 msgid "electronic organ"
 msgstr ""
 
+#: DB:instrument/name:1213
+msgctxt "Indian electronic drone device"
+msgid "electronic shruti box"
+msgstr ""
+
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
 msgid "elektronium"
@@ -2354,6 +2350,11 @@ msgctxt "Shoulder-strapped electric keyboard"
 msgid "keytar"
 msgstr ""
 
+#: DB:instrument/name:1215
+msgctxt "percussion string instrument"
+msgid "khamak"
+msgstr ""
+
 #: DB:instrument/name:611
 msgctxt "Traditional bamboo mouth organ"
 msgid "khene"
@@ -2392,6 +2393,11 @@ msgstr ""
 
 #: DB:instrument/name:307
 msgid "ki pah"
+msgstr ""
+
+#: DB:instrument/name:1216
+msgctxt "Large Karnatakan stick zither"
+msgid "kinnari vina"
 msgstr ""
 
 #: DB:instrument/name:247
@@ -3814,6 +3820,11 @@ msgctxt "19th century large North-Indian dhrupad bass-sarod"
 msgid "sursingar"
 msgstr ""
 
+#: DB:instrument/name:1214
+msgctxt "Carnatic bass lute"
+msgid "swaragat"
+msgstr ""
+
 #: DB:instrument/name:716
 msgctxt "North Indian trapezoid board zither"
 msgid "swarmandal"
@@ -4329,6 +4340,11 @@ msgctxt "South Indian transverse bamboo flute"
 msgid "venu"
 msgstr ""
 
+#: DB:instrument/name:174
+msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
+msgid "vertical viola"
+msgstr ""
+
 #: DB:instrument/name:650
 msgid "vessel flute"
 msgstr ""
@@ -4470,6 +4486,13 @@ msgctxt "Improvised monochord"
 msgid "washtub bass"
 msgstr ""
 
+#: DB:instrument/name:279
+#, fuzzy
+#| msgid "bass drum"
+msgctxt "water filled membranophone"
+msgid "water drum"
+msgstr "bas boben"
+
 #: DB:instrument/name:280
 msgid "waterphone"
 msgstr ""
@@ -4567,6 +4590,11 @@ msgstr ""
 #: DB:instrument/name:527
 msgctxt "Turkish bowed lute"
 msgid "yaylı tanbur"
+msgstr ""
+
+#: DB:instrument/name:1217
+msgctxt "Ancient south-Indian harp"
+msgid "yazh"
 msgstr ""
 
 #: DB:instrument/name:222

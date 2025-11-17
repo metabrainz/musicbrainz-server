@@ -914,7 +914,7 @@ msgstr "ゴート語"
 msgid "Grebo"
 msgstr "グレボ語"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "現代ギリシア語"
@@ -989,7 +989,7 @@ msgstr "ハウサ語"
 msgid "Hawaiian"
 msgstr "ハワイ語"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "ヘブライ文字"
@@ -1353,6 +1353,13 @@ msgstr "クペレ語"
 #: DB:language/name:228
 msgid "Kru languages"
 msgstr "クルー語"
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+#, fuzzy
+#| msgid "Kuanyama"
+msgid "Kuanua"
+msgstr "クワニャマ語"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230

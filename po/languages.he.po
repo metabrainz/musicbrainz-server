@@ -903,7 +903,7 @@ msgstr "גותית"
 msgid "Grebo"
 msgstr "גרבו"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "יוונית"
@@ -978,7 +978,7 @@ msgstr "האוסה"
 msgid "Hawaiian"
 msgstr "הוואית"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "עברית"
@@ -1343,6 +1343,13 @@ msgstr "קפלה"
 #: DB:language/name:228
 msgid "Kru languages"
 msgstr "שפות קרו"
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+#, fuzzy
+#| msgid "Kuanyama"
+msgid "Kuanua"
+msgstr "קוואניאמה"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230

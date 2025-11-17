@@ -11,7 +11,8 @@
 import NotFoundComponent from '../components/NotFound.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
-const defaultSearchArgs = {search_url: '/search'};
+const defaultSearchArgs: NotFoundPagesPropsT['args'] =
+  {search_url: '/search'};
 
 type NotFoundPagesPropsT = {
   +args: {genre_list?: string, search_url?: string},

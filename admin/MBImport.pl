@@ -10,6 +10,12 @@ use lib "$FindBin::Bin/../lib";
 use Getopt::Long;
 use DBDefs;
 use Sql;
+use String::ShellQuote qw( shell_quote );
+use MusicBrainz::Script::Utils qw(
+    copy_table_from_file
+    find_mbdump_file
+    is_table_empty
+);
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Constants qw( @FULL_TABLE_LIST );
 
@@ -17,7 +23,6 @@ use aliased 'MusicBrainz::Server::DatabaseConnectionFactory' => 'Databases';
 
 my ($fHelp, $fIgnoreErrors);
 my $tmpdir = '/tmp';
-my $fProgress = -t STDOUT;
 my $fFixUTF8 = 0;
 my $skip_ensure_editor = 0;
 my $update_replication_control = 1;
@@ -105,28 +110,26 @@ for my $arg (@ARGV)
     next if -d _;
     -f _ or die "'$arg' is neither a regular file nor a directory";
 
-    next unless $arg =~ /\.tar(?:\.(gz|bz2|xz))?$/;
-
-    my $decompress = '';
-    $decompress = '--gzip' if $1 and $1 eq 'gz';
-    $decompress = '--bzip2' if $1 and $1 eq 'bz2';
-    $decompress = '--xz' if $1 and $1 eq 'xz';
+    my $quoted_arg = shell_quote($arg);
+    my $mime_type = qx{ file --brief --mime-type $quoted_arg };
+    chomp $mime_type;
+    next unless $mime_type =~ /^application\/(?:gzip|x-bzip2|x-tar|x-xz)$/;
 
     use File::Temp qw( tempdir );
     my $dir = tempdir('MBImport-XXXXXXXX', DIR => $tmpdir, CLEANUP => 1)
         or die $OS_ERROR;
 
-    validate_tar($arg, $dir, $decompress);
-    push @tar_to_extract, [ $arg, $dir, $decompress ];
+    validate_tar($quoted_arg, $dir, $mime_type);
+    push @tar_to_extract, [ $quoted_arg, $dir ];
 
     $arg = $dir;
 }
 
 for (@tar_to_extract)
 {
-    my ($tar, $dir, $decompress) = @$_;
-    print localtime() . " : tar -C $dir $decompress --no-same-owner -xvf $tar\n";
-    system "tar -C $dir $decompress --no-same-owner -xvf $tar";
+    my ($tar, $dir) = @$_;
+    print localtime() . " : tar -C $dir --no-same-owner -xvf $tar\n";
+    system "tar -C $dir --no-same-owner -xvf $tar";
     exit($CHILD_ERROR >> 8) if $CHILD_ERROR;
 }
 
@@ -214,121 +217,31 @@ if ($update_replication_control) {
 
 exit($errors ? 1 : 0);
 
-
-
 sub ImportTable
 {
     my ($table, $file) = @_;
 
-    print localtime() . " : load $table\n";
-
-    my $rows = 0;
-
-    my $t1 = [gettimeofday];
-    my $interval;
-
-    my $size = -s($file)
-        or return 1;
-
-    my $p = sub {
-        my ($pre, $post) = @_;
-        no integer;
-        printf $pre.'%-30.30s %9d %3d%% %9d'.$post,
-                $table, $rows, int(100 * tell(LOAD) / $size),
-                $rows / ($interval||1);
-    };
-
-    $OUTPUT_AUTOFLUSH = 1;
-
-    eval
-    {
-        # open in :bytes mode (always keep byte octets), to allow fixing of invalid
-        # UTF-8 byte sequences in --fix-broken-utf8 mode.
-        # in default mode, the Pg driver will take care of the UTF-8 transformation
-        # and croak on any invalid UTF-8 character
-        open(LOAD, '<:bytes', $file) or die "open $file: $OS_ERROR";
-
-        # If you're looking at this code because your import failed, maybe
-        # with an error like this:
-        #   ERROR:  copy: line 1, Missing data for column "automodsaccepted"
-        # then the chances are it's because the data you're trying to load
-        # doesn't match the structure of the database you're trying to load it
-        # into.  Please make sure you've got the right copy of the server
-        # code, as described in the INSTALL file.
-
-        $sql->begin;
-        $sql->do("DELETE FROM $table") if $delete_first;
-        my $dbh = $sql->dbh; # issues a ping, must be done before COPY
-        $sql->do("COPY $table FROM stdin");
-
-        $p->('', '') if $fProgress;
-        my $t;
-
-        use Encode;
-        while (<LOAD>)
-        {
-                $t = $_;
-                if ($fFixUTF8) {
-                        # replaces any invalid UTF-8 character with special 0xFFFD codepoint
-                        # and warn on any such occurence
-                        $t = Encode::decode('UTF-8', $t, Encode::FB_DEFAULT | Encode::WARN_ON_ERR);
-                } else {
-                        $t = Encode::decode('UTF-8', $t, Encode::FB_CROAK);
-                }
-                if (!$dbh->pg_putcopydata($t))
-                {
-                        print 'ERROR while processing: ', $t;
-                        die;
-                }
-
-                ++$rows;
-                unless ($rows & 0xFFF)
-                {
-                        $interval = tv_interval($t1);
-                        $p->("\r", '') if $fProgress;
-                }
-        }
-        $dbh->pg_putcopyend() or die;
-        $interval = tv_interval($t1);
-        $p->(($fProgress ? "\r" : ''), sprintf(" %.2f sec\n", $interval));
-
-        close LOAD
-                or die $OS_ERROR;
-
-        $sql->commit;
-
-        die 'Error loading data'
-                if -f $file and empty($table);
-
-        ++$tables;
-        $totalrows += $rows;
-
-        1;
-    };
-
-    return 1 unless $EVAL_ERROR;
-    warn "Error loading $file: $EVAL_ERROR";
-    $sql->rollback;
-
-    ++$errors, return 0 if $fIgnoreErrors;
-    exit 1;
-}
-
-sub empty
-{
-    my $table = shift;
-
-    my $any = $sql->select_single_value(
-        "SELECT 1 FROM $table LIMIT 1",
+    my $rows = copy_table_from_file(
+        $sql, $table, $file,
+        delete_first    => $delete_first,
+        fix_utf8        => $fFixUTF8,
+        ignore_errors   => $fIgnoreErrors,
     );
 
-    not defined $any;
+    if ($rows) {
+        ++$tables;
+        $totalrows += $rows;
+        return 1;
+    } else {
+        ++$errors;
+        return 0;
+    }
 }
 
 sub ImportAllTables
 {
     for my $table (@$import_tables) {
-        my $file = (find_file($table))[0];
+        my $file = find_mbdump_file($table, @ARGV);
         $file or print("No data file found for '$table', skipping\n"), next;
         $imported_tables{$table} = 1;
 
@@ -342,7 +255,7 @@ sub ImportAllTables
         {
                 my $basetable = $1;
 
-                if (not empty($basetable) and not $delete_first)
+                if (not is_table_empty($sql, $basetable) and not $delete_first)
                 {
                         warn "$basetable table already contains data; skipping $table\n";
                         next;
@@ -352,7 +265,7 @@ sub ImportAllTables
                 ImportTable($basetable, $file) or next;
 
         } else {
-                if (not empty($table) and not $delete_first)
+                if (not is_table_empty($sql, $table) and not $delete_first)
                 {
                         warn "$table already contains data; skipping\n";
                         next;
@@ -365,27 +278,11 @@ sub ImportAllTables
     return 1;
 }
 
-sub find_file
-{
-    my $table = shift;
-    my @r;
-
-    for my $arg (@ARGV)
-    {
-        use File::Basename;
-        push(@r, $arg), next if -f $arg and basename($arg) eq $table;
-        push(@r, "$arg/$table"), next if -f "$arg/$table";
-        push(@r, "$arg/mbdump/$table"), next if -f "$arg/mbdump/$table";
-    }
-
-    @r;
-}
-
 sub read_all_and_check
 {
     my $file = shift;
 
-    my @files = find_file($file);
+    my @files = find_mbdump_file($file, @ARGV);
     my %contents;
     my %uniq;
 
@@ -413,7 +310,7 @@ sub read_all_and_check
 
 sub validate_tar
 {
-    my ($tar, $dir, $decompress) = @_;
+    my ($tar, $dir, $mime_type) = @_;
 
     # One of the more annoying things that can go wrong with imports is
     # schema sequence mismatches.  It's annoying because this script has to
@@ -425,10 +322,10 @@ sub validate_tar
     # contain all the relevant SCHEMA_SEQUENCE, TIMESTAMP files etc.
 
     my $cat_cmd = (
-        not($decompress) ? 'cat'
-        : $decompress eq '--gzip' ? 'gunzip'
-        : $decompress eq '--bzip2' ? 'bunzip2'
-        : $decompress eq '--xz' ? 'xz -d'
+        $mime_type eq 'application/x-tar' ? 'cat'
+        : $mime_type eq 'application/gzip' ? 'gunzip'
+        : $mime_type eq 'application/x-bzip2' ? 'bunzip2'
+        : $mime_type eq 'application/x-xz' ? 'xz -d'
         : die
     );
 

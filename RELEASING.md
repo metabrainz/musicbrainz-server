@@ -89,7 +89,7 @@ process below first!), you need to start by updating the translated messages:
 
 ### Draft blog post
 
-[Create a new draft from the template](https://wordpress.com/post/blog.metabrainz.org?jetpack-copy=8634).
+[Create a new draft from the template](https://blog.metabrainz.org/wp-admin/post-new.php?post_type=post&jetpack-copy=8634).
 The list of tickets can be copied from the auto-generated release notes,
 by going to the [Releases](http://tickets.musicbrainz.org/browse/MBS#selectedTab=com.atlassian.jira.plugin.system.project%3Aversions-panel) tab,
 selecting the version you are going to release,

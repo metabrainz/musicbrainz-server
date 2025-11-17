@@ -1,4 +1,4 @@
-#!./bin/sucrase-node
+#!./bin/babel-node
 /*
  * Copyright (C) 2023 MetaBrainz Foundation
  *

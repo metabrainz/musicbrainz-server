@@ -465,7 +465,7 @@ component UserEditsProperty(
           TYPES.EDIT_RELEASE_CREATE,
           TYPES.EDIT_HISTORIC_ADD_RELEASE,
         ].join(',')
-      // $FlowIgnore[invalid-computed-prop]
+      // $FlowFixMe[invalid-computed-prop]
       ) : String(TYPES[`EDIT_${entityType.toUpperCase()}_CREATE`]);
   const searchEditsURL = ((createEditTypes: string) => (
     '/search/edits' +
@@ -991,8 +991,8 @@ component UserProfile(
               )}
               <a className="styled-button" href={searchEditNotesURL}>
                 {viewingOwnProfile
-                  ? l('View other users’ notes on your edits')
-                  : l('View your notes on this user’s edits')}
+                  ? l('View other users’ notes on my edits')
+                  : l('View my notes on this user’s edits')}
               </a>
             </div>
           ) : null}

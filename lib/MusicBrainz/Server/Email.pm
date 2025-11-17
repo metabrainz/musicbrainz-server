@@ -10,8 +10,8 @@ use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
 use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
-use HTTP::Request::Common qw( POST );
-use JSON::XS qw( encode_json );
+use HTTP::Request::Common qw( GET POST );
+use JSON::XS qw( decode_json encode_json );
 use URI::Escape qw( uri_escape_utf8 );
 use DBDefs;
 use Try::Tiny;
@@ -86,43 +86,6 @@ sub _create_email
             charset      => 'UTF-8',
             encoding     => 'quoted-printable',
         });
-}
-
-sub _create_email_verification_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => $opts{email},
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('verify-email-%s', generate_gid()),
-        'Subject'    => 'Please verify your email address',
-    );
-
-    my $verification_link = $opts{verification_link};
-    my $ip = $opts{ip};
-    my $user_name = $opts{editor}->name;
-
-    my $body = <<"EOS";
-Hello $user_name,
-
-This is a verification email for your MusicBrainz account. Please click
-on the link below to verify your email address:
-
-$verification_link
-
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-This email was triggered by a request from the IP address [$ip].
-
-Thanks for using MusicBrainz!
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
 }
 
 sub _create_email_in_use_email
@@ -396,6 +359,8 @@ sub send_message_to_editor
     my $message = $opts{message} or die q(Missing 'message' argument);
 
     my @correspondents = sort_by { $_->name } ($from, $to);
+    $self->c->model('Editor')->load_preferences(@correspondents);
+
     my $contact_url = $url_prefix .
         sprintf '/user/%s/contact', uri_escape_utf8($from->name);
     my $body = {
@@ -403,9 +368,7 @@ sub send_message_to_editor
         to          => _user_address($to),
         from        => _user_address($from, 1),
         sender      => $EMAIL_NOREPLY_ADDRESS,
-        # TODO: send the user's language preference here. (This preference is not yet stored on the server)
-        # Which language should we use, as this email is going to a different user?
-        # 'lang'
+        lang        => $to->preferences->email_language,
         message_id  => _message_id('correspondence-%s-%s-%s', $correspondents[0]->id, $correspondents[1]->id, generate_gid()),
         references  => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
         in_reply_to => [_message_id('correspondence-%s-%s', $correspondents[0]->id, $correspondents[1]->id)],
@@ -429,8 +392,8 @@ sub send_message_to_editor
 
     if ($opts{send_to_self}) {
         $body->{to} = _user_address($from);
+        $body->{lang} = $from->preferences->email_language;
         $body->{params}{is_self_copy} = \1;
-        # TODO: Should we set language here to the initiator's language?
 
         if ($opts{reveal_address}) {
             $body->{reply_to} = _user_address($from);
@@ -446,8 +409,25 @@ sub send_email_verification
 {
     my ($self, %opts) = @_;
 
-    my $email = $self->_create_email_verification_email(%opts);
-    return $self->_send_email($email);
+    my $verification_link = $opts{verification_link};
+
+    my $editor = $opts{editor};
+    $self->c->model('Editor')->load_preferences($editor);
+
+    my $user_name = $editor->name;
+
+    $self->_mb_mail_service_send_single({
+        template_id => 'verify-email',
+        to          => $opts{email},
+        from        => $EMAIL_NOREPLY_ADDRESS,
+        reply_to    => $EMAIL_NOREPLY_ADDRESS,
+        lang        => $editor->preferences->email_language,
+        message_id  => _message_id('verify-email-%s', generate_gid()),
+        params      => {
+            to_name             => $user_name,
+            verification_url    => "$verification_link",
+        },
+    });
 }
 
 sub send_email_in_use
@@ -636,20 +616,9 @@ has 'transport' => (
     builder => '_build_transport',
 );
 
-sub get_test_transport
-{
-    require MusicBrainz::Server::Test;
-    MusicBrainz::Server::Email->import;
-    return MusicBrainz::Server::Test->get_test_transport;
-}
-
 sub _build_transport
 {
     my ($self) = @_;
-
-    if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) { # XXX shouldn't be here
-        return $self->get_test_transport;
-    }
 
     my ($host, $port) = split /:/, DBDefs->SMTP_SERVER;
     return Email::Sender::Transport::SMTP->new({
@@ -700,6 +669,21 @@ sub _mb_mail_service_send_single {
         die "Failed to send mail ($status):\n" . Dumper($res->content);
     }
     return;
+}
+
+sub get_available_locales {
+    my ($self) = @_;
+
+    my $res = $self->c->lwp->request(
+        GET "$mail_service_base_url/available_locales",
+        Accept => 'application/json',
+    );
+    unless ($res->is_success) {
+        my $status = $res->code;
+        die "Failed to get available email locales ($status):\n" .
+            Dumper($res->content);
+    }
+    return decode_json($res->content);
 }
 
 __PACKAGE__->meta->make_immutable;

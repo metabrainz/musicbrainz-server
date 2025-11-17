@@ -372,7 +372,7 @@ export class _ExternalLinksEditor
        * `externalLinksEditData` is an observable hooked into the release
        * editor's edit generation code.
        */
-      // $FlowIgnore[prop-missing]
+      // $FlowFixMe[prop-missing]
       releaseEditor.externalLinksEditData(this.getEditData());
     }
   }
@@ -470,7 +470,7 @@ export class _ExternalLinksEditor
       link.submitted = true;
       if (isDuplicate) {
         /*
-         * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+         * $FlowExpectedError[incompatible-type]: relatedTarget is EventTarget
          * Don't merge when user clicks on delete icon,
          * otherwise UI change will prevent the deletion.
          */
@@ -595,7 +595,7 @@ export class _ExternalLinksEditor
       return;
     }
     /*
-     * $FlowIssue[incompatible-type]: relatedTarget is EventTarget
+     * $FlowExpectedError[incompatible-type]: relatedTarget is EventTarget
      * Don't merge when user clicks on delete icon,
      * otherwise UI change will prevent the deletion.
      */
@@ -930,42 +930,34 @@ export class _ExternalLinksEditor
                              for the selected link type.`);
         }
         if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
-          switch (checker.entityType) {
-            case 'area':
-              error.message = l(`This URL is not allowed for areas.`);
-              break;
-            case 'artist':
-              error.message = l(`This URL is not allowed for artists.`);
-              break;
-            case 'event':
-              error.message = l(`This URL is not allowed for events.`);
-              break;
-            case 'instrument':
-              error.message = l(`This URL is not allowed for instruments.`);
-              break;
-            case 'label':
-              error.message = l(`This URL is not allowed for labels.`);
-              break;
-            case 'place':
-              error.message = l(`This URL is not allowed for places.`);
-              break;
-            case 'recording':
-              error.message = l(`This URL is not allowed for recordings.`);
-              break;
-            case 'release':
-              error.message = l(`This URL is not allowed for releases.`);
-              break;
-            case 'release_group':
-              error.message = l(`This URL is not allowed for release
-                                 groups.`);
-              break;
-            case 'series':
-              error.message = l(`This URL is not allowed for series.`);
-              break;
-            case 'work':
-              error.message = l(`This URL is not allowed for works.`);
-              break;
-          }
+          error.message = match (checker) {
+            {entityType: 'area', ...} =>
+              l(`This URL is not allowed for areas.`),
+            {entityType: 'artist', ...} =>
+              l(`This URL is not allowed for artists.`),
+            {entityType: 'event', ...} =>
+              l(`This URL is not allowed for events.`),
+            {entityType: 'genre', ...} =>
+              l(`This URL is not allowed for genres.`),
+            {entityType: 'instrument', ...} =>
+              l(`This URL is not allowed for instruments.`),
+            {entityType: 'label', ...} =>
+              l(`This URL is not allowed for labels.`),
+            {entityType: 'place', ...} =>
+              l(`This URL is not allowed for places.`),
+            {entityType: 'recording', ...} =>
+              l(`This URL is not allowed for recordings.`),
+            {entityType: 'release', ...} =>
+              l(`This URL is not allowed for releases.`),
+            {entityType: 'release_group', ...} =>
+              l(`This URL is not allowed for release groups.`),
+            {entityType: 'series', ...} =>
+              l(`This URL is not allowed for series.`),
+            {entityType: 'work', ...} =>
+              l(`This URL is not allowed for works.`),
+            // URLs don't themselves have an external links editor
+            {entityType: 'url', ...} => '',
+          };
         }
         error.message = check.error || error.message;
       }
@@ -1114,7 +1106,7 @@ export class _ExternalLinksEditor
                   /*
                    * FIXME: This should be read-only! See question above.
                    */
-                  // $FlowIgnore[cannot-write]
+                  // $FlowFixMe[cannot-write]
                   link.error = error;
                 } else {
                   canMerge = false;

@@ -9,9 +9,9 @@
 
 import he from 'he';
 import * as React from "react";
-import {ArtworkImage} from '../components/Artwork.js';
 import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
+import {ArtworkImage} from '../static/scripts/common/components/Artwork.js';
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
 import entityHref from '../static/scripts/common/utility/entityHref.js';

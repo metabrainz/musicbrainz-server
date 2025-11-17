@@ -27,7 +27,7 @@ import {SidebarProperties, SidebarProperty} from './SidebarProperties.js';
 import SidebarRating from './SidebarRating.js';
 import SidebarTags from './SidebarTags.js';
 
-component RecordingSidebar(recording: RecordingWithArtistCreditT) {
+component RecordingSidebar(recording: RecordingT) {
   const firstReleaseYear = recording.first_release_date?.year;
 
   return (

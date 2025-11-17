@@ -44,7 +44,6 @@ run_with_apt_cache \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
     systemctl disable rabbitmq-server && \
-    install_ts && \
     install_perl && \
     install_cpanm_and_carton && \
     python3.13 -m ensurepip --upgrade && \
@@ -54,6 +53,8 @@ run_with_apt_cache \
     # Primarily needed to run rabbitmqctl.
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
+
+install_ts
 
 ENV JAVA_HOME=/usr/local/jdk \
     PATH=/usr/local/jdk/bin:$PATH \
@@ -140,7 +141,7 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-in
     cd artwork-indexer && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_INDEXER_COMMIT
 
-COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.ini
+COPY docker/musicbrainz-tests/artwork-indexer-config.ini artwork-indexer/config.selenium.ini
 
 FROM build AS artwork_redirect
 
@@ -152,6 +153,28 @@ RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-re
     sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
+
+FROM build AS mailpit
+
+ARG MAILPIT_VERSION=v1.27.10
+ARG MAILPIT_BIN_SUM=5686314f7010da85f7f7266a3987399c19b64ccbb394f0bdfca5ee3228ea6837
+
+RUN curl -sSLO https://github.com/axllent/mailpit/releases/download/$MAILPIT_VERSION/mailpit-linux-amd64.tar.gz && \
+    echo "$MAILPIT_BIN_SUM *mailpit-linux-amd64.tar.gz" | sha256sum --strict --check - && \
+    tar xzf mailpit-linux-amd64.tar.gz && \
+    rm mailpit-linux-amd64.tar.gz
+
+FROM build AS mb_mail_service
+
+ARG MB_MAIL_SERVICE_TAG=v0.4.10
+
+ENV PATH="/root/.cargo/bin:${PATH}"
+
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain none && \
+    sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/mb-mail-service.git && \
+    cd mb-mail-service && \
+    sudo -E -H -u musicbrainz git reset --hard $MB_MAIL_SERVICE_TAG && \
+    cargo build --release
 
 FROM build AS node_modules
 
@@ -177,7 +200,7 @@ RUN update-alternatives --install /usr/bin/java java /usr/local/jdk/bin/java 100
 ARG SOLR_VERSION=9.7.0
 ARG SOLR_SRC_SUM=a80417a79c8371d2049868573927c587b4a5b7b37e938ca6e64e8a8842449f49eddc987968ddad5d6b6b1f4395990c1edc4576a884b3a62c4fbcd97091a659d9
 
-RUN curl -sSLO http://archive.apache.org/dist/solr/solr/$SOLR_VERSION/solr-$SOLR_VERSION.tgz && \
+RUN curl -sSLO https://data.metabrainz.org/pub/musicbrainz/solr/solr-$SOLR_VERSION.tgz && \
     echo "$SOLR_SRC_SUM *solr-$SOLR_VERSION.tgz" | sha512sum --strict --check - && \
     tar xzf solr-$SOLR_VERSION.tgz solr-$SOLR_VERSION/bin/install_solr_service.sh --strip-components=2 && \
     ./install_solr_service.sh solr-$SOLR_VERSION.tgz && \
@@ -213,6 +236,8 @@ COPY --from=pgdata --chown=postgres:postgres "$PGHOME"/ "$PGHOME"/
 COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/target/ /
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
+COPY --from=mailpit --chown=root:root /home/musicbrainz/mailpit /usr/local/bin/
+COPY --from=mb_mail_service --chown=root:root /home/musicbrainz/mb-mail-service/target/release/mb-mail-service /usr/local/bin/
 COPY --from=node_modules --chown=musicbrainz:musicbrainz MBS_ROOT/node_modules/ MBS_ROOT/node_modules/
 COPY --chmod=0755 docker/musicbrainz-tests/service/ /etc/service/
 
@@ -223,6 +248,8 @@ COPY --chmod=0755 \
 RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`artwork-redirect') && \
     setup_test_service(`chrome') && \
+    setup_test_service(`mailpit') && \
+    setup_test_service(`mb-mail-service') && \
     setup_test_service(`postgresql') && \
     setup_test_service(`redis') && \
     setup_test_service(`solr') && \

@@ -19,7 +19,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
-                         linked   => [ qw( area artist place collection ) ],
+                         linked   => [ qw( area artist collection event place ) ],
      },
      event => {
                          action   => '/ws/2/event/lookup',
@@ -86,21 +86,21 @@ sub event_browse : Private {
 
         my @tmp = $c->model('Event')->find_by_area($area->id, $limit, $offset);
         $events = $self->make_list(@tmp, $offset);
-    }
-
-    if ($resource eq 'artist') {
+    } elsif ($resource eq 'artist') {
         my $artist = $c->model('Artist')->get_by_gid($id);
         $c->detach('not_found') unless $artist;
 
         my @tmp = $c->model('Event')->find_by_artist($artist->id, $limit, $offset);
         $events = $self->make_list(@tmp, $offset);
-    }
-
-    if ($resource eq 'collection') {
+    } elsif ($resource eq 'collection') {
         $events = $self->browse_by_collection($c, 'event', $id, $limit, $offset);
-    }
+    } elsif ($resource eq 'event') {
+        my $event = $c->model('Event')->get_by_gid($id);
+        $c->detach('not_found') unless $event;
 
-    if ($resource eq 'place') {
+        my @tmp = $c->model('Event')->find_by_events([$event->id], $limit, $offset);
+        $events = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'place') {
         my $place = $c->model('Place')->get_by_gid($id);
         $c->detach('not_found') unless $place;
 

@@ -42,7 +42,7 @@ if (typeof document !== 'undefined') {
   }
 }
 
-const collatorOptions = {numeric: true};
+const collatorOptions: Intl$CollatorOptions = {numeric: true};
 
 const collator = typeof Intl === 'undefined'
   ? null

@@ -23,7 +23,7 @@ export function createCompoundFieldFromObject<
   name: string,
   fieldValues: F,
 ): CompoundFieldT<MapFields<F>> {
-  // $FlowIssue[incompatible-type]
+  // $FlowExpectedError[incompatible-type]
   const field: MapFields<F> = Object.fromEntries(
     Object.entries(fieldValues).map(([key, value]) => [
       key,

@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-13 21:19+0000\n"
+"PO-Revision-Date: 2025-10-18 17:08+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -21,9 +21,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.9.2\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -910,7 +910,7 @@ msgstr "Gotico"
 msgid "Grebo"
 msgstr "Grebo"
 
-#. frequency:2 iso_code_3:ell
+#. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
 msgstr "Greco"
@@ -985,7 +985,7 @@ msgstr "Hausa"
 msgid "Hawaiian"
 msgstr "Hawaiiano"
 
-#. frequency:1 iso_code_3:heb
+#. frequency:2 iso_code_3:heb
 #: DB:language/name:167
 msgid "Hebrew"
 msgstr "Ebraico"
@@ -1349,6 +1349,11 @@ msgstr "Kpelle"
 #: DB:language/name:228
 msgid "Kru languages"
 msgstr "Lingue kru"
+
+#. frequency:1 iso_code_3:ksd
+#: DB:language/name:3525
+msgid "Kuanua"
+msgstr "Kuanua"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
@@ -2163,7 +2168,7 @@ msgstr "Selkupico"
 #. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
-msgstr ""
+msgstr "Semai"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
@@ -2383,7 +2388,7 @@ msgstr "Siriaco"
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
-msgstr ""
+msgstr "Tashelhit"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

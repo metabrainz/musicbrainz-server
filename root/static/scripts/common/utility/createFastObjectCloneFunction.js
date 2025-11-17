@@ -26,7 +26,7 @@ export default function createFastObjectCloneFunction<T: {...}>(
     keyValueItems.push(jsonKey + ':o[' + jsonKey + ']');
   }
 
-  // $FlowIgnore[incompatible-return]
+  // $FlowFixMe[incompatible-type]
   return new Function(
     'o',
     'return {' + keyValueItems.join(',') + '}',
