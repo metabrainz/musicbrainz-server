@@ -50,7 +50,6 @@
     "less-loader": "12.3.0",
     "less-plugin-clean-css": "1.6.0",
     "leven": "4.0.0",
-    "lodash": "^4.17.21",
     "mutate-cow": "6.0.0",
     "nodemon": "3.1.10",
     "pg": "8.16.0",
