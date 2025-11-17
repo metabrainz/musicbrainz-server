@@ -9,7 +9,10 @@
 
 import * as React from "react";
 import * as blobs2Animate from "blobs/v2/animate";
-import { isUndefined } from "lodash";
+
+function isUndefined(value) {
+  return value === undefined;
+}
 
 component Blob(
   width: number,

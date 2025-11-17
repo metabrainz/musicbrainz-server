@@ -7603,7 +7603,6 @@ __metadata:
     less-loader: "npm:12.3.0"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.1.0"
-    lodash: "npm:4.17.21"
     mutate-cow: "npm:8.1.0"
     nodemon: "npm:3.1.11"
     nyc: "npm:17.1.0"
