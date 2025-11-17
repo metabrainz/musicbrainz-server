@@ -63,7 +63,7 @@ role {
         my $entity;
         my %props;
 
-        if ($model eq 'Event' || $model eq 'Genre') {
+        if ($model eq 'Area' || $model eq 'Event' || $model eq 'Genre') {
             my $form = $c->form( form => $params->form );
             %props = ( form => $form->TO_JSON );
 
@@ -100,6 +100,14 @@ role {
             },
             pre_validation => sub {
                 my $form = shift;
+                if ($model eq 'Area') {
+                    my %area_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('AreaType')->get_all();
+
+                    $props{areaTypes} = $form->options_type_id;
+                    $props{areaDescriptions} = \%area_descriptions;
+                }
                 if ($model eq 'Event') {
                     my %event_descriptions = map {
                         $_->id => $_->l_description

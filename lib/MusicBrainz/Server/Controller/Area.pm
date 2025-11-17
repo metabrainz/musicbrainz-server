@@ -382,7 +382,6 @@ after [qw( show collections details tags aliases artists events labels releases 
 with 'MusicBrainz::Server::Controller::Role::Create' => {
     form      => 'Area',
     edit_type => $EDIT_AREA_CREATE,
-    dialog_template => 'area/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
