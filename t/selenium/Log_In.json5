@@ -22,11 +22,6 @@
       value: 'password',
     },
     {
-      command: 'check',
-      target: 'id=id-remember_me',
-      value: '',
-    },
-    {
       command: 'clickAndWait',
       target: 'css=span.buttons.login > button[type="submit"]',
       value: '',
