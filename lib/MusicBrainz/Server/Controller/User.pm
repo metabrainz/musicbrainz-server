@@ -138,7 +138,7 @@ sub do_login : Private
     if ($c->form_posted) {
         $post_params = $c->req->body_params;
 
-        for my $param (qw( username password remember_me csrf_token csrf_session_key )) {
+        for my $param (qw( username password csrf_token csrf_session_key )) {
             if (exists $post_params->{$param}) {
                 $login_params{$param} = delete $post_params->{$param};
             }
@@ -158,9 +158,6 @@ sub do_login : Private
                 $form->field('password')->value,
             )
         ) {
-            if ($form->field('remember_me')->value) {
-                $self->_renew_login_cookie($c, $username);
-            }
             return;
         }
     }

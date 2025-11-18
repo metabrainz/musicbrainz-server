@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 
-use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -57,33 +56,6 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
         1,
         'The amount of ratings for the entity is correct',
     );
-};
-
-test 'Remember me tokens' => sub {
-    my $test = shift;
-
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
-
-    my $model = $test->c->model('Editor');
-
-    my $user_name = 'alice';
-    my ($normalized_name, $token) = $model->allocate_remember_me_token($user_name);
-
-    ok($token, 'Token is returned with improper username capitalization');
-
-    is($normalized_name, 'Alice', 'Normalized name (with proper caps) is returned from allocating remember me token');
-
-    ok($model->consume_remember_me_token($normalized_name, $token),
-       'Can consume "remember me" tokens');
-
-    ok(!$model->consume_remember_me_token($user_name, $token),
-       q(Remember me tokens with improper capitalization can't be consumed));
-
-    ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
-       'It is not an exception to attempt to consume tokens for non-existent users');
-
-    is($model->allocate_remember_me_token('Unknown User'), undef,
-       'Allocating tokens for unknown users returns undefined');
 };
 
 test 'Creating a new editor' => sub {
