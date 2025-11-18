@@ -8,6 +8,7 @@
  */
 
 import formatBarcode from '../static/scripts/common/utility/formatBarcode.js';
+import releaseGroupType from '../utility/releaseGroupType.js';
 import {
   defineEntityColumn,
   defineTextColumn,
@@ -45,6 +46,14 @@ component ReleasesSameBarcode(...{
     getEntity: result => result.release_group ?? null,
     title: l('Release group'),
   });
+  const releaseGroupTypeColumn = defineTextColumn<ReportRowT>({
+    cellProps: {className: 'barcode-cell'},
+    columnName: 'release_group_type',
+    getText: result => result.release_group
+      ? releaseGroupType(result.release_group)
+      : '',
+    title: l('Release group type'),
+  });
 
   return (
     <ReportLayout
@@ -62,7 +71,11 @@ component ReleasesSameBarcode(...{
       totalEntries={pager.total_entries}
     >
       <ReleaseList
-        columnsBefore={[barcodeColumn, releaseGroupColumn]}
+        columnsBefore={[
+          barcodeColumn,
+          releaseGroupColumn,
+          releaseGroupTypeColumn,
+        ]}
         items={items}
         pager={pager}
       />
