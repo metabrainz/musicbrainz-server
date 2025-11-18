@@ -87,6 +87,7 @@ __PACKAGE__->config(
         COMPILE_DIR => '/tmp/ttc',
     },
     'Plugin::Session' => {
+        cookie_name => 'musicbrainz_server_session',
         expires => DBDefs->SESSION_EXPIRE,
     },
     stacktrace => {
@@ -178,7 +179,6 @@ if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
     };
 } else {
     push @args, DBDefs->SESSION_STORE;
-    __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }
 
 if (DBDefs->STAT_TTL) {
@@ -188,16 +188,6 @@ if (DBDefs->STAT_TTL) {
 if (DBDefs->CATALYST_DEBUG) {
     push @args, '-Debug';
 }
-
-if (DBDefs->SESSION_COOKIE) {
-    __PACKAGE__->config->{session}{cookie_name} = DBDefs->SESSION_COOKIE;
-}
-
-if (DBDefs->SESSION_DOMAIN) {
-    __PACKAGE__->config->{session}{cookie_domain} = DBDefs->SESSION_DOMAIN;
-}
-
-__PACKAGE__->config->{session}{cookie_expires} = DBDefs->WEB_SESSION_SECONDS_TO_LIVE;
 
 if (DBDefs->USE_ETAGS) {
     push @args, 'Cache::HTTP';
