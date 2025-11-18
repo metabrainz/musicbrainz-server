@@ -274,8 +274,7 @@ sub ENTITY_CACHE_TTL {
 # uses DATASTORE_VALKEY_ARGS to connect to and store sessions in Valkey.
 
 sub SESSION_STORE { 'Session::Store::MusicBrainz' }
-sub SESSION_STORE_ARGS { return {} }
-sub SESSION_EXPIRE { return 36000; } # 10 hours
+sub SESSION_EXPIRE { return 3600 * 3; } # 3 hours
 
 sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
@@ -288,18 +287,6 @@ sub DATASTORE_VALKEY_ARGS {
 
 # Exists for backwards compatibility, to be removed in the future.
 sub DATASTORE_REDIS_ARGS { undef }
-
-################################################################################
-# Session cookies
-################################################################################
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { 'AF_SID' }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
 
 ################################################################################
 # Other Settings
