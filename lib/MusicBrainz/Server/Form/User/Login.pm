@@ -25,10 +25,6 @@ has_field 'password' => (
     localize_meth => \&localize_error,
 );
 
-has_field 'remember_me' => (
-    type => 'Boolean',
-);
-
 __PACKAGE__->meta->make_immutable;
 no Moose;
 

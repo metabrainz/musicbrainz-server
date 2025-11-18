@@ -22,8 +22,6 @@ import {
 } from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
-import FormRowCheckbox
-  from '../static/scripts/edit/components/FormRowCheckbox.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import returnUri from '../utility/returnUri.js';
@@ -31,7 +29,6 @@ import returnUri from '../utility/returnUri.js';
 type LoginFormT = FormT<{
   readonly csrf_token: FieldT<string>,
   readonly password: FieldT<string>,
-  readonly remember_me: FieldT<boolean>,
   readonly username: FieldT<string>,
 }>;
 
@@ -115,12 +112,6 @@ component Login(
             </span>
           </div>
         ) : null}
-
-        <FormRowCheckbox
-          field={loginForm.field.remember_me}
-          label={l('Keep me logged in')}
-          uncontrolled
-        />
 
         {postParameters ? <PostParameters params={postParameters} /> : null}
 
