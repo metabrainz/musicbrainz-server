@@ -43,6 +43,7 @@ export const cloneReleaseRelationshipEditorState:
       relationshipsBySource: null,
       selectedRecordings: null,
       selectedWorks: null,
+      showLoginDialog: null,
       submissionError: null,
       submissionInProgress: null,
     });

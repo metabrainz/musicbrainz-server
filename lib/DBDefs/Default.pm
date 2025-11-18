@@ -158,8 +158,8 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
 # Enable local account registration and login, bypassing OAuth login with
-# MetaBarainz.
-sub LOCAL_ACCOUNTS_ENABLED { 1 }
+# MetaBarainz. This should only be enabled for development purposes.
+sub LOCAL_ACCOUNTS_ENABLED { 0 }
 
 # SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
 # the "RequireSSL" attribute on Catalyst actions, which will redirect
@@ -379,6 +379,9 @@ sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 
 # URLs for MetaBrainz account registration, login, and OAuth.
 sub METABRAINZ_URL { 'https://metabrainz.org' }
+# `METABRAINZ_INTERNAL_URL` may be configured in production to allow querying
+# the OAuth API via the internal network, e.g., using Consul DNS.
+sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
 # OAuth application used for login and introspecting "meba_*" tokens issued
 # by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }

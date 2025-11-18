@@ -375,6 +375,7 @@ export default {
   'url/UrlIndex': (): Promise<unknown> => import('../url/UrlIndex.js'),
   'user/ContactUser': (): Promise<unknown> => import('../user/ContactUser.js'),
   'user/Login': (): Promise<unknown> => import('../user/Login.js'),
+  'user/LoginDialogSuccess': (): Promise<unknown> => import('../user/LoginDialogSuccess.js'),
   'user/PrivilegedUsers': (): Promise<unknown> => import('../user/PrivilegedUsers.js'),
   'user/ReportUser': (): Promise<unknown> => import('../user/ReportUser.js'),
   'user/UserCollections': (): Promise<unknown> => import('../user/UserCollections.js'),

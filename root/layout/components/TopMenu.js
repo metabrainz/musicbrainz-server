@@ -52,7 +52,7 @@ component AccountMenu(user: UnsanitizedEditorT) {
             href={
               '/logout' + (
                 $c.stash.current_action_requires_auth === true
-                  ? ''
+                  ? '?returnto=%2F'
                   : ('?' + returnToCurrentPage($c))
               )
             }

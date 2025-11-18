@@ -13,7 +13,7 @@ use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Authentication::User;
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Data::Utils qw( boolean_to_json non_empty );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Errors qw(
     build_request_and_user_context
@@ -69,8 +69,11 @@ sub index : Private
     # Can't set an attribute on a private action; manually inserting detatch code.
     $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
 
-    $c->forward('login');
-    $c->detach('/user/profile', [ $c->user->name ]);
+    if ($c->user_exists) {
+        $c->detach('/user/profile', [ $c->user->name ]);
+    } else {
+        $c->detach('login');
+    }
 }
 
 sub _perform_password_login {
@@ -193,7 +196,19 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
         # Logged in OK
         $c->redirect_back(fallback => $c->relative_uri);
         $c->detach;
+    } else {
+        $c->forward('/metabrainz/oauth2_redirect', ['/login', 'login']);
     }
+}
+
+sub login_dialog_success : Path('/login-dialog-success') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/LoginDialogSuccess',
+        component_props => {},
+    );
 }
 
 sub logout : Path('/logout')
