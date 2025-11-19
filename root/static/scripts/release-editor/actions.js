@@ -18,7 +18,8 @@ import {
 import {bracketedText} from '../common/utility/bracketed.js';
 import request from '../common/utility/request.js';
 import deferFocus from '../edit/utility/deferFocus.js';
-import guessFeat from '../edit/utility/guessFeat.js';
+import {guessFeatForReleaseEditor as guessFeat}
+  from '../edit/utility/guessFeat.js';
 import GuessCase from '../guess-case/MB/GuessCase/Main.js';
 
 import fields from './fields.js';
