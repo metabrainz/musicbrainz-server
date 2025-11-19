@@ -7046,9 +7046,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"less@npm:4.3.0":
-  version: 4.3.0
-  resolution: "less@npm:4.3.0"
+"less@npm:4.4.2":
+  version: 4.4.2
+  resolution: "less@npm:4.4.2"
   dependencies:
     copy-anything: "npm:^2.0.1"
     errno: "npm:^0.1.1"
@@ -7077,7 +7077,7 @@ __metadata:
       optional: true
   bin:
     lessc: bin/lessc
-  checksum: 10c0/69a9260d4613387fd1f2da3b0904005423272c59f304b27475c145a62f6890be5d38729fd78ef2a65cba3d1d9b02760f309074cad0be4764252934ad04efb2ae
+  checksum: 10c0/f8b796e45ef171adc390b5250f3018922cd046c256181dd9d4cbcbbdc5d6de7cb88c8327741c10eff7ff76421cd826fd95a664ea1b88fbf6f31742428d4a2dab
   languageName: node
   linkType: hard
 
@@ -7643,7 +7643,7 @@ __metadata:
     knockout-arraytransforms: "https://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b"
     leaflet: "npm:1.9.4"
     leaflet.markercluster: "npm:1.5.3"
-    less: "npm:4.3.0"
+    less: "npm:4.4.2"
     less-loader: "npm:12.3.0"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.0.0"
