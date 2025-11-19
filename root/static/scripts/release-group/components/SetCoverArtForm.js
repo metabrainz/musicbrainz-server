@@ -200,7 +200,7 @@ component _SetCoverArtFormImage(
 
 const SetCoverArtFormImage:
   component(...React.PropsOf<_SetCoverArtFormImage>) =
-  React.memo(_SetCoverArtFormImage);
+    React.memo(_SetCoverArtFormImage);
 
 component SetCoverArtForm(
   allReleases: $ReadOnlyArray<ReleaseT>,

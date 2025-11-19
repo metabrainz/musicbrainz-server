@@ -1,9 +1,10 @@
 /* eslint-disable import/prefer-default-export */
 
+import {readFile} from 'fs/promises';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
 import {transformAsync} from '@babel/core';
-import {readFile} from 'node:fs/promises';
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
 
 const MB_SERVER_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),

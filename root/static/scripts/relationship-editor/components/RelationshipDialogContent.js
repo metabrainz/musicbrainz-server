@@ -1003,7 +1003,7 @@ component _RelationshipDialogContent(...props: PropsT) {
 
 const RelationshipDialogContent:
   component(...React.PropsOf<_RelationshipDialogContent>) =
-  React.memo(_RelationshipDialogContent);
+    React.memo(_RelationshipDialogContent);
 
 function getBatchSelectionMessage(sourceType: RelatableEntityTypeT) {
   return match (sourceType) {

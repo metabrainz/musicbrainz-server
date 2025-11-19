@@ -376,7 +376,7 @@ component ReportsIndex() {
           />
           <ReportsIndexEntry
             content={l(
-              `Pseudo-Releases that have cover art`,
+              'Pseudo-Releases that have cover art',
             )}
             reportName="PseudoReleasesWithCoverArt"
           />

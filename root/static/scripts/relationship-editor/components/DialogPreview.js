@@ -238,6 +238,6 @@ component _DialogPreview(
 
 const DialogPreview:
   component(...React.PropsOf<_DialogPreview>) =
-  React.memo(_DialogPreview);
+    React.memo(_DialogPreview);
 
 export default DialogPreview;

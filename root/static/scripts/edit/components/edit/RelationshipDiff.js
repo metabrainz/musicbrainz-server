@@ -242,6 +242,6 @@ component _RelationshipDiff(
 
 const RelationshipDiff:
   component(...React.PropsOf<_RelationshipDiff>) =
-  React.memo(_RelationshipDiff);
+    React.memo(_RelationshipDiff);
 
 export default RelationshipDiff;

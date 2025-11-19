@@ -25,11 +25,11 @@ function setCookie(
     _cookies[name] = value.toString();
   } else {
     document.cookie =
-    cookie.serialize(
-      name,
-      value.toString(),
-      {expires: expiration, path: '/'},
-    );
+      cookie.serialize(
+        name,
+        value.toString(),
+        {expires: expiration, path: '/'},
+      );
   }
 }
 

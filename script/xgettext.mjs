@@ -7,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import fs from 'fs';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
 import XGettext from '@metabrainz/xgettext-js';
 import gettextParser from 'gettext-parser';
-import fs from 'node:fs';
-import path from 'node:path';
-import {fileURLToPath} from 'node:url';
 import yargs from 'yargs';
 
 import cleanMsgid from '../root/static/scripts/common/i18n/cleanMsgid.mjs';
@@ -111,7 +112,7 @@ const addMsg = (data) => {
     prev.comments.reference += '\n' + data.comments.reference;
     if (data.msgid_plural !== prev.msgid_plural) {
       console.warn(
-        `Warning: Plural forms differ ` +
+        'Warning: Plural forms differ ' +
         `(${JSON.stringify(prev.msgid_plural)} vs. ` +
         `${JSON.stringify(data.msgid_plural)}):`,
         prev,
