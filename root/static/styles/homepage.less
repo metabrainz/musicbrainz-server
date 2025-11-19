@@ -797,7 +797,7 @@
 				justify-content: center;
 				z-index: 5;
 				max-width: 700px;
-				gap: 10px;
+				gap: 30px;
 
 				.search-info-text {
 					font-size: 45px;
@@ -1495,7 +1495,6 @@
 
 				@media (max-width: 768px) {
 					height: 200px;
-					align-self: flex-start;
 				}
 			}
 		}
@@ -1503,30 +1502,11 @@
 	.carousel-slide-2 {
 		background: linear-gradient(270deg, #EB743B -8.99%, #BA478F 87.81%);
 		.carousel-slide {
-			@media (max-width: 768px) {
-				display: block;
-			}
-
-			.carousel-slide-content {
-				gap: 0;
-			}
-
-			.listenbrainz-image {
-				margin-top: 70px;
+			img {
+				height: 300px;
 
 				@media (max-width: 768px) {
-					margin-top: 0;
-					position: absolute;
-					top: 50px;
-					z-index: 10;
-				}
-			}
-
-			#listenbrainz-content {
-				@media (max-width: 768px) {
-					position: absolute;
-					bottom: 50px;
-					z-index: 10;
+					height: 200px;
 				}
 			}
 		}

@@ -17,9 +17,13 @@ import {faPlusCircle, faPauseCircle, faPlayCircle} from '@fortawesome/free-solid
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {reduceArtistCredit} from '../common/immutable-entities';
 import entityHref from '../common/utility/entityHref';
+// $FlowFixMe[untyped-import]
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import timelineCoverartPlaceholder from '../../images/homepage/timeline-coverart-placeholder.png';
 
 component ReleaseTimelineImage(artwork: ReleaseArtT) {
   const release = artwork.release;
+  const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
   if (!release) {
     return null;
   }
@@ -30,6 +34,10 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
     artist: artist,
     entity: release.name,
   });
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  }
 
   return (
     <div className="timeline-image-container">
@@ -44,14 +52,26 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
           }}
         >
           <img
+            src={timelineCoverartPlaceholder}
+            style={{
+              objectFit: 'cover',
+              width: '150px',
+              height: '150px',
+              display: imageLoaded ? "none" : "block",
+            }}
+            alt={release.name}
+            title={releaseDescription}
+          />
+          <LazyLoadImage
             src={artwork.small_ia_thumbnail}
+            alt={release.name}
+            title={releaseDescription}
+            onLoad={handleImageLoad}
             style={{
               objectFit: 'cover',
               width: '150px',
               height: '150px',
             }}
-            alt={release.name}
-            title={releaseDescription}
           />
           <div className="hover-backdrop">
             <p>
@@ -69,13 +89,19 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
 
 component EventTimelineImage(artwork: EventArtT) {
   const event = artwork.event;
+  const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
+
   if (!event) {
     return null;
   }
 
-  const releaseDescription = texp.l('{entity}', {
+  const eventDescription = texp.l('{entity}', {
     entity: event.name,
   });
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  }
 
   return (
     <div className="timeline-image-container">
@@ -90,14 +116,27 @@ component EventTimelineImage(artwork: EventArtT) {
           }}
         >
           <img
+            src={timelineCoverartPlaceholder}
+            style={{
+              objectFit: 'cover',
+              width: '150px',
+              height: '150px',
+              display: imageLoaded ? "none" : "block",
+            }}
+            alt={event.name}
+            title={eventDescription}
+          />
+          <LazyLoadImage
+            className={`${imageLoaded ? "" : "hidden"}`}
             src={artwork.small_ia_thumbnail}
+            alt={event.name}
+            title={eventDescription}
+            onLoad={handleImageLoad}
             style={{
               objectFit: 'cover',
               width: '150px',
               height: '150px',
             }}
-            alt={event.name}
-            title={releaseDescription}
           />
           <div className="hover-backdrop">
             <p>

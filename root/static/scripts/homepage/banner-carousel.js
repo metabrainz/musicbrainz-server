@@ -17,7 +17,7 @@ import { Navigation, Autoplay } from 'swiper/modules';
 
 import picardImage from "../../../static/images/homepage/picard.png"
 import picardLogo from "../../../static/images/meb-logos/Picard_logo_icon.svg"
-import listenBrainzImage from "../../../static/images/homepage/LB-Headphone.svg"
+import listenBrainzImage from "../../../static/images/homepage/LB-Headphone.png"
 import listenBrainzLogo from "../../../static/images/meb-logos/Listenbrainz_logo_icon.svg"
 import Blob from './blob.js';
 
