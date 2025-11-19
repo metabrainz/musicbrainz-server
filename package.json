@@ -25,7 +25,7 @@
     "balanced-match": "3.0.1",
     "canonical-json": "0.0.4",
     "cookie": "0.7.2",
-    "core-js": "3.45.1",
+    "core-js": "3.47.0",
     "deep-freeze-strict": "1.1.1",
     "detect-node": "2.1.0",
     "eslint-import-resolver-webpack": "0.13.10",

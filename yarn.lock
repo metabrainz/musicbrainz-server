@@ -3839,10 +3839,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"core-js@npm:3.45.1":
-  version: 3.45.1
-  resolution: "core-js@npm:3.45.1"
-  checksum: 10c0/c38e5fae5a05ee3a129c45e10056aafe61dbb15fd35d27e0c289f5490387541c89741185e0aeb61acb558559c6697e016c245cca738fa169a73f2b06cd30e6b6
+"core-js@npm:3.47.0":
+  version: 3.47.0
+  resolution: "core-js@npm:3.47.0"
+  checksum: 10c0/9b1a7088b7c660c7b8f1d4c90bb1816a8d5352ebdcb7bc742e3a0e4eb803316b5aa17bacb8769522342196351a5430178f46914644f2bfdb94ce0ced3c7fd523
   languageName: node
   linkType: hard
 
@@ -7613,7 +7613,7 @@ __metadata:
     canonical-json: "npm:0.0.4"
     chrome-remote-interface: "npm:0.33.3"
     cookie: "npm:0.7.2"
-    core-js: "npm:3.45.1"
+    core-js: "npm:3.47.0"
     deep-freeze-strict: "npm:1.1.1"
     detect-node: "npm:2.1.0"
     eslint: "npm:9.16.0"
