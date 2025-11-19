@@ -23,6 +23,7 @@ import escapeClosingTags from '../../utility/escapeClosingTags.js';
 import FaviconLinks from './FaviconLinks.js';
 import globalsScript from './globalsScript.mjs';
 import MetaDescription from './MetaDescription.js';
+import bootstrapCssUrl from 'bootstrap/dist/css/bootstrap.css';
 
 const canonRegexp = new RegExp('^(https?:)?//' + WEB_SERVER);
 function canonicalize(url: string) {
@@ -72,7 +73,7 @@ component Head(
     <head>
       <meta charSet="utf-8" />
       <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover" />
       <FaviconLinks />
 
       <MetaDescription entity={$c.stash.entity} />
@@ -90,6 +91,14 @@ component Head(
       {noIcons ? null : (
         <link
           href={iconLessUrl}
+          rel="stylesheet"
+          type="text/css"
+        />
+      )}
+
+      {isHomepage && (
+        <link
+          href={bootstrapCssUrl}
           rel="stylesheet"
           type="text/css"
         />
@@ -120,6 +129,10 @@ component Head(
         type="application/opensearchdescription+xml"
       />
 
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Sintony:wght@400;700&display=swap" rel="stylesheet" />
+
       <noscript>
         <link
           href={noScriptLessUrl}
@@ -141,6 +154,8 @@ component Head(
       {manifest('common-chunks')}
 
       {manifest('common/jquery-global')}
+
+      {manifest('common/bootstrap')}
 
       {manifest('common/sentry')}
 
