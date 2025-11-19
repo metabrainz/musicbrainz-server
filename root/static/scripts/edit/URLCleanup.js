@@ -3372,7 +3372,7 @@ export const CLEANUPS: CleanupEntries = {
           ].includes(prefix)) {
             return {
               error: l(
-                `This is an internal Instagram page and should not be added.`,
+                'This is an internal Instagram page and should not be added.',
               ),
               result: false,
               target: ERROR_TARGETS.URL,

@@ -111,7 +111,7 @@ const addMsg = (data) => {
     prev.comments.reference += '\n' + data.comments.reference;
     if (data.msgid_plural !== prev.msgid_plural) {
       console.warn(
-        `Warning: Plural forms differ ` +
+        'Warning: Plural forms differ ' +
         `(${JSON.stringify(prev.msgid_plural)} vs. ` +
         `${JSON.stringify(data.msgid_plural)}):`,
         prev,

@@ -600,7 +600,7 @@ export default [
       }],
       '@stylistic/quotes': ['warn', 'single', {
         avoidEscape: true,
-        allowTemplateLiterals: true,
+        allowTemplateLiterals: 'avoidEscape',
       }],
       '@stylistic/rest-spread-spacing': ['warn', 'never'],
       '@stylistic/semi': ['warn', 'always', {

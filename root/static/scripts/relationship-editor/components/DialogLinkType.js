@@ -61,7 +61,7 @@ function getLinkTypeError(
     );
   } else if (linkType.deprecated) {
     return l(
-      `This relationship type is deprecated and should not be used.`,
+      'This relationship type is deprecated and should not be used.',
     );
   }
   if (

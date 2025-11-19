@@ -22,7 +22,7 @@ component InstrumentsWithoutWikidata(...{
     <ReportLayout
       canBeFiltered={canBeFiltered}
       description={l_admin(
-        `This report shows instruments without Wikidata relationships.`,
+        'This report shows instruments without Wikidata relationships.',
       )}
       entityType="instrument"
       filtered={filtered}
