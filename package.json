@@ -84,7 +84,7 @@
     "flow-bin": "0.285.0",
     "flow-typed": "4.1.1",
     "gettext-parser": "4.2.0",
-    "globals": "15.9.0",
+    "globals": "16.5.0",
     "hermes-eslint": "0.32.1",
     "http-proxy": "1.18.1",
     "json5": "2.2.3",
