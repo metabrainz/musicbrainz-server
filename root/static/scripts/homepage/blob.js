@@ -10,7 +10,7 @@
 import * as React from "react";
 import * as blobs2Animate from "blobs/v2/animate";
 
-function isUndefined(value) {
+function isUndefined(value: mixed): boolean {
   return value === undefined;
 }
 

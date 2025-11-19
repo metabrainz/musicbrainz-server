@@ -20,7 +20,14 @@ import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
 import MobileSearchPopup from './mobile-search-popup.js';
 import LanguageSelector from './language.js';
 
-const aboutGroups = [
+type DropdownMenuItem = {
+  label: string,
+  href: string,
+  context?: string,
+};
+
+
+const aboutGroups: DropdownMenuItem[][] = [
   [
     { label: 'About MusicBrainz', href: '/doc/About' },
     { label: 'Sponsors', href: 'https://metabrainz.org/sponsors' },
@@ -46,7 +53,7 @@ const aboutGroups = [
   ],
 ];
 
-const productGroups = [
+const productGroups: DropdownMenuItem[][] = [
   [
     { label: 'MusicBrainz Picard', href: '//picard.musicbrainz.org' },
     { label: 'AudioRanger', href: '/doc/AudioRanger' },
@@ -67,7 +74,7 @@ const productGroups = [
   ],
 ];
 
-const searchGroups = [
+const searchGroups: DropdownMenuItem[][] = [
   [
     { label: 'Advanced search', href: '/search' },
     { label: 'Edit search', href: '/search/edits' },
@@ -76,7 +83,7 @@ const searchGroups = [
   ],
 ];
 
-const communityGroups = [
+const communityGroups: DropdownMenuItem[][] = [
   [
     { label: 'Forums', href: 'https://community.metabrainz.org/' },
     { label: 'Chat', href: '/doc/Communication/ChatBrainz' },
@@ -95,12 +102,6 @@ const dropdownSections = {
 }
 
 type Section = $Keys<typeof dropdownSections>;
-
-type DropdownMenuItem = {
-  label: string,
-  href: string,
-  context?: string,
-};
 
 component DropDownMenu(
   label: string,
