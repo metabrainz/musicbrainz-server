@@ -68,7 +68,6 @@
     "yargs": "3.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "7.27.2",
     "@metabrainz/xgettext-js": "5.0.0",
     "@stylistic/eslint-plugin": "4.4.1",
     "babel-plugin-istanbul": "7.0.0",
