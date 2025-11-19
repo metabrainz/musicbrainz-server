@@ -57,49 +57,49 @@ component NewFooter() {
             <h3 className="text-brand text-body">Useful Links</h3>
             <ul className="list-unstyled">
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://metabrainz.org/donate">
                   Donate
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://wiki.musicbrainz.org/Main_Page">
                   Wiki
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://community.metabrainz.org/">
                   Community
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://blog.metabrainz.org/">
                   Blog
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://www.redbubble.com/people/metabrainz/shop">
                   Shop
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://metabrainz.org/">
                   MetaBrainz
                 </a>
               </li>
               <li className="d-block d-md-none">
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://github.com/metabrainz/listenbrainz-server">
                   Contribute Here
                 </a>
               </li>
               <li className="d-block d-md-none">
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://tickets.metabrainz.org/">
                   Bug Tracker
                 </a>
@@ -110,37 +110,37 @@ component NewFooter() {
             <h3 className="text-brand text-body">Fellow Projects</h3>
             <ul className="list-unstyled">
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://listenbrainz.org/">
                   {l('ListenBrainz')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://critiquebrainz.org/">
                   {l('CritiqueBrainz')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://picard.musicbrainz.org/">
                   {l('Picard')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://bookbrainz.org/">
                   {l('BookBrainz')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://acousticbrainz.org/">
                   {l('AcousticBrainz')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://coverartarchive.org">
                   {l('Cover Art Archive')}
                 </a>
@@ -151,37 +151,37 @@ component NewFooter() {
             <h3 className="text-brand text-body">Join Us</h3>
             <ul className="list-unstyled">
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/Beginners_Guide">
                   {l('Beginner\'s Guide')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/Style">
                   {l('Style Guidelines')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://picard.musicbrainz.org/">
                   {l('How Tos')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/Frequently_Asked_Questions">
                   {l('FAQs')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/MusicBrainz_Documentation">
                   {l('Doc Index')}
                 </a>
               </li>
               <li>
-                <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/Development">
                   {l('Development')}
                 </a>
