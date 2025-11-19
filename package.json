@@ -61,7 +61,7 @@
     "tablesorter": "2.32.0",
     "terser-webpack-plugin": "5.3.14",
     "tldts": "7.0.10",
-    "webpack": "5.99.9",
+    "webpack": "5.103.0",
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.9.0",
     "whatwg-fetch": "3.6.20",
