@@ -7081,10 +7081,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"leven@npm:4.0.0":
-  version: 4.0.0
-  resolution: "leven@npm:4.0.0"
-  checksum: 10c0/393bd949d93103d9ef487be96321bdb02c2e7695e372193f650642e1ad653c61b03da16bf55e45d442db59c7b6407eb947a7748b5777e48ddf0ada25f8b2a815
+"leven@npm:4.1.0":
+  version: 4.1.0
+  resolution: "leven@npm:4.1.0"
+  checksum: 10c0/de45316555624d7616c562055ce4773ad44dff7486a1696be300b040eb85472a429c2f18fd0f6352101b1fb01b336405b893f048d88d30f6fb7f8a2a2999a0c0
   languageName: node
   linkType: hard
 
@@ -7646,7 +7646,7 @@ __metadata:
     less: "npm:4.4.2"
     less-loader: "npm:12.3.0"
     less-plugin-clean-css: "npm:1.6.0"
-    leven: "npm:4.0.0"
+    leven: "npm:4.1.0"
     mutate-cow: "npm:6.0.0"
     nodemon: "npm:3.1.11"
     nyc: "npm:17.1.0"
