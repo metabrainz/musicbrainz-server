@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+// eslint-disable-next-line import/enforce-node-protocol-usage
 import {toUnicode} from 'punycode';
 
 import $ from 'jquery';

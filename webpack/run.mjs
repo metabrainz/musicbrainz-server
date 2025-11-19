@@ -6,9 +6,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import fs from 'fs';
-import path from 'path';
-
+import fs from 'node:fs';
+import path from 'node:path';
 import webpack from 'webpack';
 
 import clientConfig from './client.config.mjs';

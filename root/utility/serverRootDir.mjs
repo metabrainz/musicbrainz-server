@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import path from 'path';
+import path from 'node:path';
 
 /*
  * This module exports MB_SERVER_ROOT for cases where the DBDefs module is

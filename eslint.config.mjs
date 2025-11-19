@@ -400,6 +400,7 @@ export default [
       'import/consistent-type-specifier-style': 'off',
       'import/default': 'off', // Enforced by Flow
       'import/dynamic-import-chunkname': 'off',
+      'import/enforce-node-protocol-usage': ['warn', 'always'],
       'import/export': 'error',
       'import/exports-last': 'off',
       'import/extensions': ['error', 'always', {
