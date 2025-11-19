@@ -7647,7 +7647,7 @@ __metadata:
     less-loader: "npm:12.3.0"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.1.0"
-    mutate-cow: "npm:6.0.0"
+    mutate-cow: "npm:8.1.0"
     nodemon: "npm:3.1.11"
     nyc: "npm:17.1.0"
     path-browserify: "npm:1.0.1"
@@ -7682,10 +7682,10 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"mutate-cow@npm:6.0.0":
-  version: 6.0.0
-  resolution: "mutate-cow@npm:6.0.0"
-  checksum: 10c0/461e387db5ac06c62187e0b8de4ab15539ebb7d57b9d67e14659f320d7230abbbb196b6c083aff181cec5b7c53eeda88d1bd3c3fab5894a394b3bc651898cbc5
+"mutate-cow@npm:8.1.0":
+  version: 8.1.0
+  resolution: "mutate-cow@npm:8.1.0"
+  checksum: 10c0/8dced915f6efd1219a848233296c2f9e6dbf0d2d498d1d88c63431fb8b55c30f0b21dbb4bdf4c5ba40c95bed73c834c3b8a92809b0de79e670947178d64090d1
   languageName: node
   linkType: hard
 
