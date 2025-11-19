@@ -66,9 +66,9 @@ component _RelationshipEditorWrapper(
 
 export const NonHydratedRelationshipEditorWrapper:
   component(ref: React.RefSetter<mixed>, ...PropsT) =
-  withLoadedTypeInfoForRelationshipEditor<PropsT>(
-    _RelationshipEditorWrapper,
-  );
+    withLoadedTypeInfoForRelationshipEditor<PropsT>(
+      _RelationshipEditorWrapper,
+    );
 
 const RelationshipEditorWrapper = (hydrate<PropsT>(
   'div.relationship-editor',

@@ -71,9 +71,9 @@ component _UrlRelationshipEditor(
 
 const NonHydratedUrlRelationshipEditor:
   component(ref: React.RefSetter<mixed>, ...PropsT) =
-  withLoadedTypeInfoForRelationshipEditor<PropsT>(
-    _UrlRelationshipEditor,
-  );
+    withLoadedTypeInfoForRelationshipEditor<PropsT>(
+      _UrlRelationshipEditor,
+    );
 
 const UrlRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',

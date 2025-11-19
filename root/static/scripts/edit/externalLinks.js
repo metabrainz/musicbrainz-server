@@ -476,7 +476,8 @@ export class _ExternalLinksEditor
          */
         const relatedTarget: HTMLElement = event.relatedTarget;
         const clickingDeleteIcon =
-        relatedTarget && relatedTarget.dataset.index === urlIndex.toString();
+          relatedTarget &&
+          relatedTarget.dataset.index === urlIndex.toString();
         if (clickingDeleteIcon) {
           link.submitted = false;
         }
@@ -1684,10 +1685,10 @@ export class ExternalLink extends React.Component<LinkProps> {
 
 export const ExternalLinksEditor:
   component(ref: React.RefSetter<_ExternalLinksEditor>, ...LinksEditorProps) =
-  withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
-    _ExternalLinksEditor,
-    new Set(['link_type', 'link_attribute_type']),
-  );
+    withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
+      _ExternalLinksEditor,
+      new Set(['link_type', 'link_attribute_type']),
+    );
 
 const defaultLinkState: LinkStateT = {
   begin_date: EMPTY_PARTIAL_DATE,

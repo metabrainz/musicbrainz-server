@@ -377,6 +377,6 @@ component _DialogTargetEntity(
 
 const DialogTargetEntity:
   component(...React.PropsOf<_DialogTargetEntity>) =
-  React.memo(_DialogTargetEntity);
+    React.memo(_DialogTargetEntity);
 
 export default DialogTargetEntity;

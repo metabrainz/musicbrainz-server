@@ -7559,21 +7559,21 @@ function findCleanupEntry(inputUrl: string): CleanupEntry | null {
 
 export const CLEANUP_ENTRIES_BY_HOSTNAME:
   {+[hostname: string]: $ReadOnlyArray<CleanupEntry>} =
-  Object.values(CLEANUPS).reduce((accum, entry) => {
-    const hostnames = Array.isArray(entry.hostname)
-      ? entry.hostname
-      : [entry.hostname];
-    hostnames.forEach((hostname) => {
-      let entries = accum[hostname];
-      if (!entries) {
-        entries = [];
-        accum[hostname] = entries;
-      }
-      entries.push(entry);
-    });
-    return accum;
-  // $FlowFixMe[incompatible-type]
-  }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
+    Object.values(CLEANUPS).reduce((accum, entry) => {
+      const hostnames = Array.isArray(entry.hostname)
+        ? entry.hostname
+        : [entry.hostname];
+      hostnames.forEach((hostname) => {
+        let entries = accum[hostname];
+        if (!entries) {
+          entries = [];
+          accum[hostname] = entries;
+        }
+        entries.push(entry);
+      });
+      return accum;
+      // $FlowFixMe[incompatible-type]
+    }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
 
 const entitySpecificRules: {
   [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
