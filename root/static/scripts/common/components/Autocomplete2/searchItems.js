@@ -22,6 +22,7 @@ import type {
 
 const itemIndexes:
   WeakMap<
+    /* eslint-disable-next-line @stylistic/multiline-comment-style */
     // $FlowFixMe[unclear-type]
     $ReadOnlyArray<ItemT<any>>,
     Map<

@@ -167,6 +167,6 @@ component _RelationshipEditorBatchTools(
 
 const RelationshipEditorBatchTools:
   component(...React.PropsOf<_RelationshipEditorBatchTools>) =
-  React.memo(_RelationshipEditorBatchTools);
+    React.memo(_RelationshipEditorBatchTools);
 
 export default RelationshipEditorBatchTools;

@@ -524,7 +524,7 @@ component _TrackRelationshipEditor(
 
 const TrackRelationshipEditor:
   component(...React.PropsOf<_TrackRelationshipEditor>) =
-  React.memo(_TrackRelationshipEditor);
+    React.memo(_TrackRelationshipEditor);
 
 TrackRelationshipEditor.displayName = 'TrackRelationshipEditor';
 

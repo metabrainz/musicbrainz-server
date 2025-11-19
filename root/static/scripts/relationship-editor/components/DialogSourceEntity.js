@@ -134,6 +134,6 @@ component _DialogSourceEntity(
 
 const DialogSourceEntity:
   component(...React.PropsOf<_DialogSourceEntity>) =
-  React.memo(_DialogSourceEntity);
+    React.memo(_DialogSourceEntity);
 
 export default DialogSourceEntity;

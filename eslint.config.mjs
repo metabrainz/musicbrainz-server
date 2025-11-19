@@ -685,7 +685,7 @@ export default [
       'react/jsx-no-useless-fragment': 'warn',
       'react/jsx-one-expression-per-line': 'off', // in eslint-jsx
       'react/jsx-pascal-case': 'off', // in eslint-jsx
-      'react/jsx-props-no-multi-spaces': 'off', // in eslint-js
+      'react/jsx-props-no-multi-spaces': 'off', // deprecated
       'react/jsx-props-no-spreading': 'off',
       'react/jsx-props-no-spread-multi': 'error',
       'react/jsx-sort-default-props': 'off', // deprecated

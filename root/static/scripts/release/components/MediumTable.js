@@ -139,6 +139,6 @@ component _MediumTable(
 
 const MediumTable:
   component(...React.PropsOf<_MediumTable>) =
-  React.memo(_MediumTable);
+    React.memo(_MediumTable);
 
 export default MediumTable;

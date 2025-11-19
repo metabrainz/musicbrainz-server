@@ -190,6 +190,6 @@ component _MediumRelationshipEditor(
 
 const MediumRelationshipEditor:
   component(...React.PropsOf<_MediumRelationshipEditor>) =
-  React.memo(_MediumRelationshipEditor);
+    React.memo(_MediumRelationshipEditor);
 
 export default MediumRelationshipEditor;

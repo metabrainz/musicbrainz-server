@@ -166,9 +166,9 @@ function cleanRecordingData(data) {
     recording.appearsOn = {...clean.appearsOn};
 
     recording.appearsOn.results =
-    recording.appearsOn.results.map(function (appearance) {
-      return MB.entity(appearance, 'release');
-    });
+      recording.appearsOn.results.map(function (appearance) {
+        return MB.entity(appearance, 'release');
+      });
   }
 
   return clean;

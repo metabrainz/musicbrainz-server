@@ -283,7 +283,7 @@ component _RelationshipItem(
 
 const RelationshipItem:
   component(...React.PropsOf<_RelationshipItem>) =
-  React.memo(_RelationshipItem);
+    React.memo(_RelationshipItem);
 
 function getRelationshipStyling(relationship: RelationshipStateT) {
   return 'rel-' + getRelationshipStatusName(relationship);

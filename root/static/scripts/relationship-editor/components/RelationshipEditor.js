@@ -551,9 +551,9 @@ type ErrorMessagePropsT = {
 
 export const ErrorMessage:
   component(...ErrorMessagePropsT) =
-  React.memo<ErrorMessagePropsT, void>(({
-    error,
-  }: ErrorMessagePropsT): React.MixedElement => (
+    React.memo<ErrorMessagePropsT, void>(({
+      error,
+    }: ErrorMessagePropsT): React.MixedElement => (
     <div className="error">
       <strong className="error">
         {l('Oops, something went wrong!')}

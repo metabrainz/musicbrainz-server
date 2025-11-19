@@ -571,6 +571,6 @@ component _ArtistCreditEditor(
 
 const ArtistCreditEditor:
   component(...React.PropsOf<_ArtistCreditEditor>) =
-  React.memo(_ArtistCreditEditor);
+    React.memo(_ArtistCreditEditor);
 
 export default ArtistCreditEditor;

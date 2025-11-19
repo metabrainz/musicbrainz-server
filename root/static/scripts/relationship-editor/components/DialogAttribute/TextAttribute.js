@@ -56,6 +56,6 @@ component _TextAttribute(
 
 const TextAttribute:
   component(...React.PropsOf<_TextAttribute>) =
-  React.memo(_TextAttribute);
+    React.memo(_TextAttribute);
 
 export default TextAttribute;

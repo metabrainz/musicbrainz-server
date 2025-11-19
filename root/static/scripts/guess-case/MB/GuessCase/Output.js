@@ -125,6 +125,7 @@ class GuessCaseOutput {
           } else if (
             !forceCaps && modes[this.modeName].isUpperCaseWord(probe)
           ) {
+            /* eslint-disable-next-line @stylistic/multiline-comment-style */
             // If it is an UPPERCASE word,do nothing.
           } else { // Else capitalize the current word.
             // Rewind pos pointer on input

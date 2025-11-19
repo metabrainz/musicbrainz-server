@@ -70,6 +70,6 @@ component _WorkTypeSelect(
 
 const WorkTypeSelect:
   component(...React.PropsOf<_WorkTypeSelect>) =
-  React.memo(_WorkTypeSelect);
+    React.memo(_WorkTypeSelect);
 
 export default WorkTypeSelect;
