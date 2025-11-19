@@ -31,6 +31,7 @@ const entitiesForStats = [
   "labels",
   "tracks",
   "events",
+  "editors",
   "places",
   "series",
   "tags",
