@@ -932,29 +932,29 @@ export class _ExternalLinksEditor
         if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
           error.message = match (checker) {
             {entityType: 'area', ...} =>
-              l(`This URL is not allowed for areas.`),
+              l('This URL is not allowed for areas.'),
             {entityType: 'artist', ...} =>
-              l(`This URL is not allowed for artists.`),
+              l('This URL is not allowed for artists.'),
             {entityType: 'event', ...} =>
-              l(`This URL is not allowed for events.`),
+              l('This URL is not allowed for events.'),
             {entityType: 'genre', ...} =>
-              l(`This URL is not allowed for genres.`),
+              l('This URL is not allowed for genres.'),
             {entityType: 'instrument', ...} =>
-              l(`This URL is not allowed for instruments.`),
+              l('This URL is not allowed for instruments.'),
             {entityType: 'label', ...} =>
-              l(`This URL is not allowed for labels.`),
+              l('This URL is not allowed for labels.'),
             {entityType: 'place', ...} =>
-              l(`This URL is not allowed for places.`),
+              l('This URL is not allowed for places.'),
             {entityType: 'recording', ...} =>
-              l(`This URL is not allowed for recordings.`),
+              l('This URL is not allowed for recordings.'),
             {entityType: 'release', ...} =>
-              l(`This URL is not allowed for releases.`),
+              l('This URL is not allowed for releases.'),
             {entityType: 'release_group', ...} =>
-              l(`This URL is not allowed for release groups.`),
+              l('This URL is not allowed for release groups.'),
             {entityType: 'series', ...} =>
-              l(`This URL is not allowed for series.`),
+              l('This URL is not allowed for series.'),
             {entityType: 'work', ...} =>
-              l(`This URL is not allowed for works.`),
+              l('This URL is not allowed for works.'),
             // URLs don't themselves have an external links editor
             {entityType: 'url', ...} => '',
           };
