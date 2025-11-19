@@ -550,6 +550,7 @@ export default [
       '@stylistic/line-comment-position': 'off',
       '@stylistic/lines-around-comment': 'off',
       '@stylistic/lines-between-class-members': ['warn', 'always'],
+      '@stylistic/exp-list-style': 'off', // still experimental
       '@stylistic/max-len': ['warn', {
         code: 78,
         ignoreUrls: true,
