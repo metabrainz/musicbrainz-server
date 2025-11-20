@@ -99,6 +99,13 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
 
         if (!$is_spammer && $form_values->{spammer}) {
             $c->forward('/discourse/log_out', [$user]);
+
+            $c->model('Artist')->subscription->remove_all_subscriptions_by_editor($user->id);
+            $c->model('Label')->subscription->remove_all_subscriptions_by_editor($user->id);
+            $c->model('Series')->subscription->remove_all_subscriptions_by_editor($user->id);
+            $c->model('Collection')->subscription->remove_all_subscriptions_by_editor($user->id);
+            $c->model('Editor')->subscription->remove_all_subscriptions_by_editor($user->id);
+
         }
 
         $c->flash->{message} = 'User successfully edited.';
