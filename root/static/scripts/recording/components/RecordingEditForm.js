@@ -339,6 +339,10 @@ component RecordingEditForm(
     });
   }, [dispatch]);
 
+  function handleArtistFocus() {
+    dispatch({bubble: 'artist', type: 'toggle-bubble'});
+  }
+
   function handleCommentFocus() {
     dispatch({bubble: 'comment', type: 'toggle-bubble'});
   }
@@ -437,7 +441,9 @@ component RecordingEditForm(
               {addColonText(l('Artist'))}
             </label>
             <ArtistCreditEditor
+              containerRef={artistFieldRef}
               dispatch={artistCreditEditorDispatch}
+              onFocus={handleArtistFocus}
               state={state.artistCredit}
             />
             <FieldErrors field={state.form.field.artist_credit} />

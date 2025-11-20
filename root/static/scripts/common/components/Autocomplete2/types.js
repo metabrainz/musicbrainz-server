@@ -51,7 +51,9 @@ export type StateT<T: EntityItemT> = {
 
 export type PropsT<T: EntityItemT> = {
   +children?: React.Node,
+  +containerRef?: {-current: HTMLDivElement | null},
   +dispatch: (ActionT<T>) => void,
+  +onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   +state: StateT<T>,
 };
 

@@ -471,7 +471,9 @@ export function createInitialState(
 }
 
 component _ArtistCreditEditor(
+  containerRef?: {-current: HTMLDivElement | null},
   dispatch: (ActionT) => void,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   state: StateT,
 ) {
   const {
@@ -524,7 +526,9 @@ component _ArtistCreditEditor(
   return (
     <>
       <Autocomplete2
+        containerRef={containerRef}
         dispatch={firstArtistDispatch}
+        onFocus={onFocus}
         state={singleArtistAutocomplete}
       >
         <ButtonPopover
