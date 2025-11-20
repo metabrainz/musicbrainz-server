@@ -272,12 +272,10 @@ sub remove_all_subscriptions_by_editor
 {
     my ($self, $editor_id) = @_;
     my $table = $self->table;
-    
     Sql::run_in_transaction(sub {
         $self->sql->do(
             "DELETE FROM $table WHERE editor = ?",
-            $editor_id
-        );
+            $editor_id);
     }, $self->c->sql);
 }
 
