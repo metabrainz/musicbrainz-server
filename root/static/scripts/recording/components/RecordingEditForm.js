@@ -21,7 +21,7 @@ import {
 import formatTrackLength
   from '../../common/utility/formatTrackLength.js';
 import isBlank from '../../common/utility/isBlank.js';
-import ArtistCreditEditor, {
+import {
   createInitialState as createArtistCreditState,
   reducer as runArtistCreditReducer,
 } from '../../edit/components/ArtistCreditEditor.js';
@@ -35,8 +35,9 @@ import {
 } from '../../edit/components/ArtistCreditEditor/utilities.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
-import FieldErrors from '../../edit/components/FieldErrors.js';
 import FormRow from '../../edit/components/FormRow.js';
+import FormRowArtistCredit
+  from '../../edit/components/FormRowArtistCredit.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
@@ -339,6 +340,10 @@ component RecordingEditForm(
     });
   }, [dispatch]);
 
+  function handleArtistFocus() {
+    dispatch({bubble: 'artist', type: 'toggle-bubble'});
+  }
+
   function handleCommentFocus() {
     dispatch({bubble: 'comment', type: 'toggle-bubble'});
   }
@@ -432,16 +437,13 @@ component RecordingEditForm(
             onFocus={handleNameFocus}
             rowRef={nameFieldRef}
           />
-          <FormRow>
-            <label className="required" htmlFor="ac-source-single-artist">
-              {addColonText(l('Artist'))}
-            </label>
-            <ArtistCreditEditor
-              dispatch={artistCreditEditorDispatch}
-              state={state.artistCredit}
-            />
-            <FieldErrors field={state.form.field.artist_credit} />
-          </FormRow>
+          <FormRowArtistCredit
+            artistCreditField={state.form.field.artist_credit}
+            dispatch={artistCreditEditorDispatch}
+            onFocus={handleArtistFocus}
+            rowRef={artistFieldRef}
+            state={state.artistCredit}
+          />
           <FormRowTextLong
             field={state.form.field.comment}
             label={addColonText(l('Disambiguation'))}
