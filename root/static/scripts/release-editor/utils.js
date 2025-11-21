@@ -50,27 +50,6 @@ utils.withRelease = function (read, defaultValue) {
   );
 };
 
-utils.unformatTrackLength = function (duration) {
-  if (!duration) {
-    return null;
-  }
-
-  if (duration.slice(-2) == 'ms') {
-    return parseInt(duration, 10);
-  }
-
-  var parts = duration.replace(/[:.]/, ':').split(':');
-  if (parts[0] == '?' || parts[0] == '??' || duration === '') {
-    return null;
-  }
-
-  var seconds = parseInt(parts.pop(), 10);
-  var minutes = parseInt(parts.pop() || 0, 10) * 60;
-  var hours = parseInt(parts.pop() || 0, 10) * 3600;
-
-  return (hours + minutes + seconds) * 1000;
-};
-
 // Webservice helpers
 
 utils.escapeLuceneValue = escapeLuceneValue;
