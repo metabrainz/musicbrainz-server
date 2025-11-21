@@ -15,7 +15,7 @@ import {compare} from '../common/i18n.js';
 import {isCompleteArtistCredit} from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
 import {compactMap, sortByString} from '../common/utility/arrays.js';
-import {debounceComputed} from '../common/utility/debounce.js';
+import debounceComputed from '../common/utility/debounceComputed.js';
 import {incrementCounter} from '../common/utility/numbers.js';
 import request from '../common/utility/request.js';
 

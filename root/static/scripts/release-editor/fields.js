@@ -28,7 +28,7 @@ import {
 import MB from '../common/MB.js';
 import {groupBy} from '../common/utility/arrays.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import {debounceComputed} from '../common/utility/debounce.js';
+import debounceComputed from '../common/utility/debounceComputed.js';
 import escapeRegExp from '../common/utility/escapeRegExp.mjs';
 import formatTrackLength from '../common/utility/formatTrackLength.js';
 import isBlank from '../common/utility/isBlank.js';

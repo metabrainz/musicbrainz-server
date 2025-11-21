@@ -8,7 +8,8 @@ import './jquery.flot.musicbrainz_events.js';
 
 import stats, {buildTypeStats, getStat} from '../../statistics/stats.js';
 
-import debounce, {debounceComputed} from './common/utility/debounce.js';
+import debounce from './common/utility/debounce.js';
+import debounceComputed from './common/utility/debounceComputed.js';
 import parseDate from './common/utility/parseDate.js';
 
 const defaultLines = [
