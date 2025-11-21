@@ -1,4 +1,5 @@
 /*
+ * @flow strict
  * Copyright (C) 2015 MetaBrainz Foundation
  *
  * This file is part of MusicBrainz, the open internet music database,
@@ -6,11 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import ko from 'knockout';
-
-export default function debounce(func, ms = 100) {
-  let timeoutId = null;
-  return (...args) => {
+export default function debounce<T: [...]>(
+  func: (...T) => void,
+  ms: number = 100,
+): (...T) => void {
+  let timeoutId: TimeoutID | null = null;
+  return (...args: T) => {
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
@@ -19,19 +21,4 @@ export default function debounce(func, ms = 100) {
       func(...args);
     }, ms);
   };
-}
-
-export function debounceComputed(value, delay) {
-  if (!ko.isObservable(value)) {
-    value = ko.computed(value);
-  }
-  if (
-    typeof MUSICBRAINZ_RUNNING_TESTS !== 'undefined' &&
-    MUSICBRAINZ_RUNNING_TESTS
-  ) {
-    return value;
-  }
-  return value.extend({
-    rateLimit: {method: 'notifyWhenChangesStop', timeout: delay || 500},
-  });
 }
