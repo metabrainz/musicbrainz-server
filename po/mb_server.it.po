@@ -35,17 +35,18 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 12:11+0100\n"
-"PO-Revision-Date: 2025-11-08 02:20+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2025-11-16 20:20+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
-"0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
+" ? 1 : 2);\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -6461,7 +6462,7 @@ msgid ""
 "again."
 msgstr ""
 "Non è stato possibile applicare la modifica perché le immagini sono "
-"cambiate. Riprovare."
+"cambiate. Riprova."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -18088,10 +18089,8 @@ msgid "Release group relationships"
 msgstr "Relazioni del gruppo di pubblicazioni"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:267
-#, fuzzy
-#| msgid "Are you sure you want to remove this application?"
 msgid "Are you sure you want to remove this work?"
-msgstr "Sei sicuro di voler rimuovere questa applicazione?"
+msgstr "Sei sicuro di voler rimuovere quest'opera?"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:349
 msgid "Error loading work relationships: {error}"
