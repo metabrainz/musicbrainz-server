@@ -39,8 +39,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 12:11+0100\n"
-"PO-Revision-Date: 2025-10-27 15:31+0000\n"
-"Last-Translator: hamaryns <hendrik@hendrikmaryns.name>\n"
+"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"Last-Translator: mfmeulenbelt "
+"<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/nl/>\n"
 "Language: nl\n"
@@ -48,7 +49,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3930,8 +3931,6 @@ msgid "does not include"
 msgstr "zonder"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "do not match"
 msgid "does not match"
 msgstr "niet overeenkomend met"
 
@@ -4083,8 +4082,6 @@ msgid "match"
 msgstr "overeenkomend met"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "match"
 msgid "matches"
 msgstr "overeenkomend met"
 
@@ -6418,6 +6415,8 @@ msgid ""
 "The edit could not be applied because the images have changed. Please try "
 "again."
 msgstr ""
+"De bewerking kon niet worden toegepast, omdat de afbeeldingen zijn "
+"gewijzigd. Probeer het opnieuw."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -9263,10 +9262,8 @@ msgid "We are unable to display history for this image."
 msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "Ingediend"
+msgstr ""
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -14165,13 +14162,14 @@ msgid ""
 "or to works of the same name. While this can be correct, in most cases "
 "either the relationships or the works will be duplicated."
 msgstr ""
+"In dit rapport staan opnamen met meerdere relaties met dezelfde compositie "
+"of composities met dezelfde naam. Dit kan kloppen, maar in de meeste "
+"gevallen zijn de relaties of de composities dubbel."
 
 #: ../root/report/RecordingsWithDuplicateWorks.js:33
 #: ../root/report/ReportsIndex.js:531
-#, fuzzy
-#| msgid "Recordings with possible duplicate relationships"
 msgid "Recordings with possible duplicate works"
-msgstr "Opnamen met mogelijk dubbele relaties"
+msgstr "Opnamen met mogelijk dubbele relaties met composities"
 
 #: ../root/report/RecordingsWithEarliestReleaseRelationships.js:25
 msgid ""
@@ -14359,13 +14357,15 @@ msgid ""
 "one of the two dates is incorrect, or the label has been incorrectly "
 "selected."
 msgstr ""
+"In dit rapport staat uitgaven waarvan de vroegste uitgavedatum eerder is dan "
+"de startdatum van minstens één van de gemarkeerde platenmaatschappijen. Dat "
+"betekent dat één van beide data niet klopt of dat de verkeerde "
+"platenmaatschappij is geselecteerd."
 
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
-#, fuzzy
-#| msgid "Releases with a different name than their release group"
 msgid "Releases older than their release label"
-msgstr "Uitgaven met een andere titel dan hun uitgavegroep"
+msgstr "Uitgaven die ouder dan de gekoppelde platenmaatschappij zijn"
 
 #: ../root/report/ReleasesConflictingDiscIds.js:25
 msgid ""
@@ -15407,7 +15407,7 @@ msgstr "Mijn tags en genres"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:210
 msgid "Language to receive emails in"
-msgstr ""
+msgstr "De taal waarin je e-mails wilt krijgen"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 msgid "Email me about"
@@ -16730,6 +16730,9 @@ msgid ""
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
+"Uitgavepagina’s van Last.fm zijn vaak toch al gebaseerd op gegevens van "
+"MusicBrainz en passen ook zelden bij een specifieke uitgave op MusicBrainz. "
+"Daarom wordt het toevoegen van Last.fm-koppelingen op dit moment geblokkeerd."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7610
 msgid ""
@@ -17052,11 +17055,11 @@ msgstr "URL bewerken"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:32
 msgid "Credit"
-msgstr ""
+msgstr "Vermelding"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:35
 msgid "Credited to"
-msgstr ""
+msgstr "Vermeld als"
 
 #: ../root/static/scripts/edit/components/forms.js:229
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:42
@@ -17153,10 +17156,8 @@ msgid "This URL is not allowed for events."
 msgstr "Deze URL is voor evenementen niet toegestaan."
 
 #: ../root/static/scripts/edit/externalLinks.js:941
-#, fuzzy
-#| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
-msgstr "Deze URL is voor series niet toegestaan."
+msgstr "Deze URL is voor genres niet toegestaan."
 
 #: ../root/static/scripts/edit/externalLinks.js:943
 msgid "This URL is not allowed for instruments."
@@ -17761,14 +17762,10 @@ msgstr ""
 "code."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
-#, fuzzy
-#| msgid "No poster available."
 msgid "No cover art available."
-msgstr "Geen poster beschikbaar."
+msgstr "Geen afbeelding beschikbaar."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
-#, fuzzy
-#| msgid "Types"
 msgctxt "cover art"
 msgid "Types"
 msgstr "Types"
@@ -17898,10 +17895,8 @@ msgid "Release group relationships"
 msgstr "Relaties van de uitgavegroep"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:267
-#, fuzzy
-#| msgid "Are you sure you want to remove this application?"
 msgid "Are you sure you want to remove this work?"
-msgstr "Weet je zeker dat je deze applicatie wil verwijderen?"
+msgstr "Weet je zeker dat je deze compositie wil verwijderen?"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:349
 msgid "Error loading work relationships: {error}"
@@ -18893,16 +18888,12 @@ msgid "Report this user for bad behavior"
 msgstr "Deze gebruiker rapporteren voor slecht gedrag"
 
 #: ../root/user/UserProfile.js:994
-#, fuzzy
-#| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
-msgstr "Bekijk de notities van andere redacteuren op je bewerkingen"
+msgstr "Notities van andere redacteuren op mijn bewerkingen bekijken"
 
 #: ../root/user/UserProfile.js:995
-#, fuzzy
-#| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
-msgstr "Bekijk je notities op bewerkingen van deze redacteur"
+msgstr "Mijn notities op bewerkiingen van deze redacteur bekijken"
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."

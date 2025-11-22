@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-01 18:39+0000\n"
+"PO-Revision-Date: 2025-11-22 16:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -26,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -3386,7 +3386,7 @@ msgstr "eïs kleine terts"
 #: DB:work_attribute_type/name:215
 msgctxt "work_attribute_type"
 msgid "EAÜ ID"
-msgstr ""
+msgstr "EAÜ-ID"
 
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
@@ -3425,6 +3425,8 @@ msgid ""
 "Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
 "compatible with all Blu-ray players."
 msgstr ""
+"Verbeterde versie van Blu-ray met ondersteuning voor Ultra HD-video (4K). "
+"Niet alle Blu-ray-spelers kunnen hiermee overweg."
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4557,12 +4559,9 @@ msgstr "Een ID van de Ecuadoraanse rechtenorganisatie SAYCE"
 
 #. name:EAÜ ID
 #: DB:work_attribute_type/description:215
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr "Een ID van de Oostenrijkse rechtenorganisatie AKM"
+msgstr "Een ID van de Estse rechtenorganisatie EAÜ"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -8867,12 +8866,9 @@ msgid "Udaya ravicandrika"
 msgstr "Udaya ravicandrika"
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "blu-ray"
+msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13

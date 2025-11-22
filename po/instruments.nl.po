@@ -13,7 +13,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-01 18:39+0000\n"
+"PO-Revision-Date: 2025-11-22 16:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -2406,7 +2406,7 @@ msgstr "ki pah"
 #: DB:instrument/name:1216
 msgctxt "Large Karnatakan stick zither"
 msgid "kinnari vina"
-msgstr ""
+msgstr "kinnari-vina"
 
 #: DB:instrument/name:247
 msgid "kinnor"
@@ -4349,11 +4349,9 @@ msgid "venu"
 msgstr "venu"
 
 #: DB:instrument/name:174
-#, fuzzy
-#| msgid "electric viola"
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "vertical viola"
-msgstr "elektrische altviool"
+msgstr "verticale altviool"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4497,11 +4495,9 @@ msgid "washtub bass"
 msgstr "wastobbebas"
 
 #: DB:instrument/name:279
-#, fuzzy
-#| msgid "wavedrum"
 msgctxt "water filled membranophone"
 msgid "water drum"
-msgstr "wavedrum"
+msgstr "watertrommel"
 
 #: DB:instrument/name:280
 msgid "waterphone"
@@ -4605,7 +4601,7 @@ msgstr "yaylı tanbur"
 #: DB:instrument/name:1217
 msgctxt "Ancient south-Indian harp"
 msgid "yazh"
-msgstr ""
+msgstr "yazh"
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"
