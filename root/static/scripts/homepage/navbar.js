@@ -301,8 +301,8 @@ component Navbar() {
     }
   };
 
-  const openLanguageSidebar = () => {
-    openMobileSidebar("Language");
+  const toggleLanguageSidebar = () => {
+    toggleMobileSidebar("Language");
   };
 
   return (
@@ -406,7 +406,7 @@ component Navbar() {
 
             <button
               type="button"
-              onClick={openLanguageSidebar}
+              onClick={toggleLanguageSidebar}
               className="d-lg-none border-0 bg-transparent text-end"
               aria-label="Language"
             >
