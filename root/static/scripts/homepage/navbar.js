@@ -19,6 +19,10 @@ import magnifyingGlassTheme from '../../images/icons/magnifying-glass-theme.svg'
 import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
 import MobileSearchPopup from './mobile-search-popup.js';
 import LanguageSelector from './language.js';
+import languageIcon from '../../images/homepage/language-icon.svg';
+import { SanitizedCatalystContext } from '../../../context.mjs';
+import { returnToCurrentPage } from '../../../utility/returnUri.js';
+import { capitalize } from '../common/utility/strings.js';
 
 type DropdownMenuItem = {
   label: string,
@@ -101,7 +105,7 @@ const dropdownSections = {
   "Community": communityGroups,
 }
 
-type Section = $Keys<typeof dropdownSections>;
+type Section = $Keys<typeof dropdownSections> | "Language";
 
 component DropDownMenu(
   label: string,
@@ -152,7 +156,43 @@ component MobileSidebar(
   onClose: () => void,
   section: Section | null,
 ) {
-  const groups = section ? dropdownSections[section] : [];
+  const $c = React.useContext(SanitizedCatalystContext);
+  const groups = section && section !== "Language" ? dropdownSections[section] : [];
+  const isLanguage = section === "Language";
+
+  function languageName(
+    language: ?ServerLanguageT,
+    selected: boolean,
+  ) {
+    if (!language) {
+      return '';
+    }
+
+    const {
+      id,
+      native_language: nativeLanguage,
+      native_territory: nativeTerritory,
+    } = language;
+
+    let text = `[${id}]`;
+
+    if (nativeLanguage) {
+      text = capitalize(nativeLanguage);
+
+      if (nativeTerritory) {
+        text += ' (' + capitalize(nativeTerritory) + ')';
+      }
+    }
+
+    if (selected) {
+      text += ' \u25be';
+    }
+
+    return text;
+  }
+
+  const serverLanguages = isLanguage ? $c.stash.server_languages : null;
+  const currentLanguage = isLanguage ? $c.stash.current_language.replace('_', '-') : null;
 
   return (
     <>
@@ -162,21 +202,61 @@ component MobileSidebar(
       />
       <div className={`mobile-sidebar ${isOpen ? 'open' : ''}`}>
         <div className="offcanvas-body">
-          {groups.map((group, gIdx) => (
-            <ul className="list-unstyled mb-0" key={gIdx}>
-              {group.map((item, idx) => (
-              <li key={idx} className="border-bottom">
-                <a 
-                  href={item.href} 
+          {isLanguage ? (
+            <ul className="list-unstyled mb-0">
+              {serverLanguages?.map((language) => {
+                const isSelected = language.name === currentLanguage;
+                return (
+                  <li key={language.name} className="border-bottom">
+                    <a
+                      href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
+                      className={`d-block bg-transparent text-decoration-none ${isSelected ? 'active' : ''}`}
+                      onClick={onClose}
+                      title={languageName(language, isSelected)}
+                    >
+                      {languageName(language, isSelected)}
+                    </a>
+                  </li>
+                );
+              })}
+              <li className="border-bottom">
+                <a
+                  href={`/set-language/unset?${returnToCurrentPage($c)}`}
                   className="d-block bg-transparent text-decoration-none"
                   onClick={onClose}
+                  title={l('reset language')}
                 >
-                  {item.context !== undefined ? lp(item.label, item.context) : l(item.label)}
+                  {l('(reset language)')}
                 </a>
               </li>
-              ))}
+              <li className="border-bottom">
+                <a
+                  href="https://translations.metabrainz.org/projects/musicbrainz/"
+                  className="d-block bg-transparent text-decoration-none"
+                  onClick={onClose}
+                  title={l('Help translate')}
+                >
+                  {l('Help translate')}
+                </a>
+              </li>
             </ul>
-          ))}
+          ) : (
+            groups.map((group, gIdx) => (
+              <ul className="list-unstyled mb-0" key={gIdx}>
+                {group.map((item, idx) => (
+                <li key={idx} className="border-bottom">
+                  <a 
+                    href={item.href} 
+                    className="d-block bg-transparent text-decoration-none"
+                    onClick={onClose}
+                  >
+                    {item.context !== undefined ? lp(item.label, item.context) : l(item.label)}
+                  </a>
+                </li>
+                ))}
+              </ul>
+            ))
+          )}
         </div>
         <button 
           type="button" 
@@ -219,6 +299,10 @@ component Navbar() {
     } else {
       openMobileSidebar(section);
     }
+  };
+
+  const openLanguageSidebar = () => {
+    openMobileSidebar("Language");
   };
 
   return (
@@ -319,6 +403,15 @@ component Navbar() {
                 );
               })}
             </ul>
+
+            <button
+              type="button"
+              onClick={openLanguageSidebar}
+              className="d-lg-none border-0 bg-transparent text-end"
+              aria-label="Language"
+            >
+              <img src={languageIcon} alt="Language" width={40} height={40} />
+            </button>
 
             <button
               type="button"

@@ -13,6 +13,7 @@ import languageIcon from '../../images/homepage/language-icon.svg';
 import { SanitizedCatalystContext } from '../../../context.mjs';
 import { returnToCurrentPage } from '../../../utility/returnUri.js';
 import { capitalize } from '../common/utility/strings.js';
+import { l } from '../common/i18n.js';
 
 function languageName(
   language: ?ServerLanguageT,

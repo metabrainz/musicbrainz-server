@@ -257,6 +257,11 @@
 						font-weight: 500;
 						font-size: 16px;
 						color: #1E1E1E !important;
+
+						&.active {
+							color: #BA478F;
+							font-weight: 700;
+						}
 					}
 				}
 
@@ -1117,6 +1122,18 @@
 	}
 
 	.info-container {
+		.col-12 {
+			@media screen and (min-width: 768px) {
+				margin-top: 0;
+			}
+
+			@media screen and (max-width: 768px) {
+				&:first-child {
+					margin-top: 0;
+				}
+			}
+		}
+
 		&#contribute {
 			background-color: #F5F5F5;
 		}
@@ -1130,7 +1147,6 @@
 			display: flex;
 			flex-direction: column;
 			gap: 50px;
-			padding: 75px 1.5rem;
 
 			#about-musicbrainz-container {
 				li {
@@ -1167,8 +1183,8 @@
 			}
 		}
 
-		padding: 75px 1.5rem;
-		
+		padding: 100px 1.5rem;
+
 		color: #46433A;
 		font-size: 16px;
 		line-height: 125%;
@@ -1234,11 +1250,10 @@
 	}
 
 	.timeline-container {
-		height: 430px;
 		background-color: #E2E2E2;
 
 		.timeline-container-inner {
-			padding: 125px 40px 0 40px;
+			padding: 100px 40px;
 			
 			.timeline-carousel {
 
