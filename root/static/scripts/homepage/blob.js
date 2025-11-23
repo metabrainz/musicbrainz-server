@@ -7,8 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from "react";
-import * as blobs2Animate from "blobs/v2/animate";
+import * as blobs2Animate from 'blobs/v2/animate';
+import * as React from 'react';
 
 function isUndefined(value: mixed): boolean {
   return value === undefined;
@@ -28,7 +28,7 @@ component Blob(
   const blobCanvas = React.useRef<HTMLCanvasElement | null>(null);
 
   React.useEffect(() => {
-    const ctx = blobCanvas.current?.getContext("2d");
+    const ctx = blobCanvas.current?.getContext('2d');
     if (!ctx) {
       return;
     }
@@ -45,10 +45,10 @@ component Blob(
         width / 2,
         0,
         width / 2 + Math.cos(angle) * width,
-        Math.sin(angle) * height
+        Math.sin(angle) * height,
       );
-      gradient.addColorStop(0, "#D48835");
-      gradient.addColorStop(1, "#BC4C88");
+      gradient.addColorStop(0, '#D48835');
+      gradient.addColorStop(1, '#BC4C88');
       ctx.fillStyle = gradient;
       ctx.fill(animation.renderFrame());
       requestAnimationFrame(renderAnimation);
@@ -71,21 +71,21 @@ component Blob(
         randomness: randomness * 2,
         size,
       },
-      { offsetX, offsetY },
-      { speed: Math.random() * 1.7 }
+      {offsetX, offsetY},
+      {speed: Math.random() * 1.7},
     );
   }, [blobCanvas, height, width, randomness, blur, seed]);
 
   return (
     <canvas
-      width={width}
-      height={height}
       className={className}
+      height={height}
       ref={blobCanvas}
       style={style}
+      width={width}
     />
   );
-};
+}
 
 export default (hydrate<React.PropsOf<Blob>>(
   'div.blob',

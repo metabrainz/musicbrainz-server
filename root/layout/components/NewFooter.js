@@ -7,13 +7,14 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import musicbrainzLogo
-  from '../../static/images/meb-logos/musicbrainz.svg';
+
 import metabrainzLogo
   from '../../static/images/meb-logos/metabrainz.svg';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import musicbrainzLogo
+  from '../../static/images/meb-logos/musicbrainz.svg';
 
 component NewFooter() {
   return (
@@ -23,9 +24,9 @@ component NewFooter() {
           <div className="col-12 col-lg-4">
             <h3>
               <img
+                alt="MusicBrainz"
                 src={musicbrainzLogo}
                 width="180"
-                alt="MusicBrainz"
               />
             </h3>
             <br />
@@ -34,21 +35,24 @@ component NewFooter() {
             </p>
             <ul className="list-unstyled">
               <li className="color-a">
-                <span>Development IRC: </span>{" "}
+                <span>Development IRC: </span>
+{' '}
                 <a href="/doc/Communication/ChatBrainz">
                   #metabrainz
                 </a>
               </li>
               <li className="color-a">
-                <span>Discussion IRC: </span>{" "}
+                <span>Discussion IRC: </span>
+{' '}
                 <a href="/doc/Communication/ChatBrainz">
                   #metabrainz
                 </a>
               </li>
               <li className="color-a">
-                <span>Email: </span>{" "}
+                <span>Email: </span>
+{' '}
                 <a href="mailto:support@metabrainz.org">
-                  support@metabrainz.org{" "}
+                  support@metabrainz.org{' '}
                 </a>
               </li>
             </ul>
@@ -192,21 +196,24 @@ component NewFooter() {
         <div className="row center-p">
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
-              OSS Geek?{" "}
+              OSS Geek?
+{' '}
               <a href="https://github.com/metabrainz/musicbrainz-server">
-                Contribute Here {" "}
+                Contribute Here {' '}
               </a>
             </p>
           </div>
           <div className="col-12 col-lg-6">
             <p className="border-light border-top pt-3 text-center">
-              Brought to you by{" "}
+              Brought to you by
+{' '}
               <img
+                alt="MetaBrainz"
+                height="30"
                 src={metabrainzLogo}
                 width="30"
-                height="30"
-                alt="MetaBrainz"
-              />{" "}
+              />
+{' '}
               <a href="https://metabrainz.org/">
                 MetaBrainz Foundation
               </a>
@@ -214,9 +221,10 @@ component NewFooter() {
           </div>
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
-              Found an Issue?{" "}
+              Found an Issue?
+{' '}
               <a href="https://tickets.metabrainz.org/">
-                Report Here {" "}
+                Report Here {' '}
               </a>
             </p>
           </div>
@@ -224,7 +232,7 @@ component NewFooter() {
       </div>
     </section>
   );
-};
+}
 
 
 export default NewFooter;

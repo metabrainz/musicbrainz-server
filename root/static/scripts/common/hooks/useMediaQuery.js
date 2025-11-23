@@ -7,12 +7,12 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import { useState, useEffect } from 'react';
+import {useCallback, useEffect, useState} from 'react';
 
 // Originally from https://usehooks-ts.com/react-hook/use-media-query
 export default function useMediaQuery(queryStr: string): boolean {
   const getMatches = (query: string): boolean => {
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       return window.matchMedia(query).matches;
     }
     return false;
@@ -20,18 +20,18 @@ export default function useMediaQuery(queryStr: string): boolean {
 
   const [matches, setMatches] = useState<boolean>(getMatches(queryStr));
 
-  function handleChange() {
+  const handleChange = useCallback(() => {
     setMatches(getMatches(queryStr));
-  }
+  }, [queryStr]);
 
   useEffect(() => {
     const matchMedia = window.matchMedia(queryStr);
     handleChange();
-    matchMedia.addEventListener("change", handleChange);
+    matchMedia.addEventListener('change', handleChange);
     return () => {
-      matchMedia.removeEventListener("change", handleChange);
+      matchMedia.removeEventListener('change', handleChange);
     };
-  }, [queryStr]);
+  }, [queryStr, handleChange]);
 
   return matches;
 }

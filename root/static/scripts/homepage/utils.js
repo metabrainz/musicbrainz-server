@@ -8,21 +8,21 @@
  */
 
 const entities = [
-  { name: "Artist", value: "artist" },
-  { name: "Event", value: "event" },
-  { name: "Release", value: "release" },
-  { name: "Release Group", value: "release_group" },
-  { name: "Recording", value: "recording" },
-  { name: "Series", value: "series" }, 
-  { name: "Work", value: "work" },
-  { name: "Area", value: "area" },
-  { name: "Instrument", value: "instrument" },
-  { name: "Label", value: "label" },
-  { name: "Place", value: "place" },
-  { name: "Annotation", value: "annotation" },
-  { name: "Tag", value: "tag" },
-  { name: "CD Stub", value: "cdstub" },
-  { name: "Editor", value: "editor" },
-]
+  {name: 'Artist', value: 'artist'},
+  {name: 'Event', value: 'event'},
+  {name: 'Release', value: 'release'},
+  {name: 'Release Group', value: 'release_group'},
+  {name: 'Recording', value: 'recording'},
+  {name: 'Series', value: 'series'},
+  {name: 'Work', value: 'work'},
+  {name: 'Area', value: 'area'},
+  {name: 'Instrument', value: 'instrument'},
+  {name: 'Label', value: 'label'},
+  {name: 'Place', value: 'place'},
+  {name: 'Annotation', value: 'annotation'},
+  {name: 'Tag', value: 'tag'},
+  {name: 'CD Stub', value: 'cdstub'},
+  {name: 'Editor', value: 'editor'},
+];
 
-export { entities };
+export default entities;
