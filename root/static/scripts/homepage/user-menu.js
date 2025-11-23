@@ -7,7 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from "react";
+import * as React from 'react';
+
 import {SanitizedCatalystContext} from '../../../context.mjs';
 
 type BlogEntryT = {
@@ -27,7 +28,7 @@ component UserMenu(
         <>
           <div>
             <h2>{l('Welcome back')}</h2>
-            <a href={`/user/${user?.name}`} className="username-link">
+            <a className="username-link" href={`/user/${user?.name}`}>
               <h2 className="username">
                 {user?.name}
               </h2>
@@ -70,7 +71,7 @@ component UserMenu(
   );
 }
 
-export default (hydrate<React.PropsOf<UserMenu>> (
+export default (hydrate<React.PropsOf<UserMenu>>(
   'div.user-menu',
   UserMenu,
 ): component(...React.PropsOf<UserMenu>));

@@ -8,10 +8,10 @@
  */
 
 import * as React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
-import { entities } from './utils';
+
 import searchIcon from '../../images/homepage/search-bar-icon.svg';
+
+import entities from './utils.js';
 
 component MobileSearchPopup() {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -23,27 +23,29 @@ component MobileSearchPopup() {
   };
 
   return (
-    <div 
-      className="offcanvas offcanvas-top d-lg-none" 
-      tabIndex={-1}
-      id="mobileSearchOffcanvas" 
+    <div
       aria-labelledby="mobileSearchOffcanvasLabel"
-    > 
+      className="offcanvas offcanvas-top d-lg-none"
+      id="mobileSearchOffcanvas"
+      tabIndex={-1}
+    >
       <div className="offcanvas-body p-0">
-        <form onSubmit={handleSearch} className="d-flex flex-column gap-3 p-4 align-items-center">
+        <form className="d-flex flex-column gap-3 p-4 align-items-center" onSubmit={handleSearch}>
           <div className="d-grid align-items-center search-container">
             <p>
               Search
-            </p> 
-            <select 
-              id="searchEntitySelect"
+            </p>
+            <select
               className="form-select"
-              value={selectedEntity.value}
+              id="searchEntitySelect"
               onChange={(e) => {
                 const target = e.currentTarget;
                 const entity = entities.find(ent => ent.value === target.value);
-                if (entity) setSelectedEntity(entity);
+                if (entity) {
+                  setSelectedEntity(entity);
+                }
               }}
+              value={selectedEntity.value}
             >
               {entities.map((entity) => (
                 <option key={entity.value} value={entity.value}>
@@ -55,16 +57,16 @@ component MobileSearchPopup() {
 
           <div className="search-bar">
             <input
-              type="text"
               className="form-control form-control-lg"
               name="search_term"
-              placeholder="Search"
-              value={searchQuery}
               onChange={(e) => setSearchQuery(e.currentTarget.value)}
+              placeholder="Search"
               required
+              type="text"
+              value={searchQuery}
             />
             <button type="submit">
-              <img src={searchIcon} alt="Search" width={30} height={30} />
+              <img alt="Search" height={30} src={searchIcon} width={30} />
             </button>
           </div>
         </form>

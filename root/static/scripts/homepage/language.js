@@ -8,12 +8,13 @@
  */
 
 
-import * as React from "react";
+import * as React from 'react';
+
+import {SanitizedCatalystContext} from '../../../context.mjs';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
 import languageIcon from '../../images/homepage/language-icon.svg';
-import { SanitizedCatalystContext } from '../../../context.mjs';
-import { returnToCurrentPage } from '../../../utility/returnUri.js';
-import { capitalize } from '../common/utility/strings.js';
-import { l } from '../common/i18n.js';
+import {l} from '../common/i18n.js';
+import {capitalize} from '../common/utility/strings.js';
 
 function languageName(
   language: ?ServerLanguageT,
@@ -54,14 +55,14 @@ component LanguageSelector() {
   return (
     <>
       <a
+        aria-expanded="false"
         className="dropdown-toggle align-items-center dropdown-toggle-no-caret"
+        data-bs-toggle="dropdown"
         href="#"
         role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
         title={l('Language')}
       >
-        <img src={languageIcon} alt="Language" width={40} height={40} />
+        <img alt="Language" height={40} src={languageIcon} width={40} />
       </a>
       <ul className="dropdown-menu">
         {serverLanguages?.map((language) => {
@@ -69,8 +70,8 @@ component LanguageSelector() {
           return (
             <li key={language.name}>
               <a
-                href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
                 className={`dropdown-item ${isSelected ? 'active' : ''}`}
+                href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
                 title={languageName(language, isSelected)}
               >
                 {languageName(language, isSelected)}
@@ -80,8 +81,8 @@ component LanguageSelector() {
         })}
         <li>
           <a
-            href={`/set-language/unset?${returnToCurrentPage($c)}`}
             className="dropdown-item"
+            href={`/set-language/unset?${returnToCurrentPage($c)}`}
             title={l('reset language')}
           >
             {l('(reset language)')}
@@ -90,8 +91,8 @@ component LanguageSelector() {
         <li className="dropdown-divider" />
         <li>
           <a
-            href="https://translations.metabrainz.org/projects/musicbrainz/"
             className="dropdown-item"
+            href="https://translations.metabrainz.org/projects/musicbrainz/"
             title={l('Help translate')}
           >
             {l('Help translate')}
@@ -99,7 +100,7 @@ component LanguageSelector() {
         </li>
       </ul>
     </>
-  )
+  );
 }
 
 export default LanguageSelector;

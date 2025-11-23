@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import bootstrapCssUrl from 'bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
@@ -23,7 +24,6 @@ import escapeClosingTags from '../../utility/escapeClosingTags.js';
 import FaviconLinks from './FaviconLinks.js';
 import globalsScript from './globalsScript.mjs';
 import MetaDescription from './MetaDescription.js';
-import bootstrapCssUrl from 'bootstrap/dist/css/bootstrap.css';
 
 const canonRegexp = new RegExp('^(https?:)?//' + WEB_SERVER);
 function canonicalize(url: string) {
@@ -73,7 +73,7 @@ component Head(
     <head>
       <meta charSet="utf-8" />
       <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover" />
+      <meta content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, viewport-fit=cover" name="viewport" />
       <FaviconLinks />
 
       <MetaDescription entity={$c.stash.entity} />
@@ -129,8 +129,8 @@ component Head(
         type="application/opensearchdescription+xml"
       />
 
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link href="https://fonts.googleapis.com" rel="preconnect" />
+      <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
       <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Sintony:wght@400;700&display=swap" rel="stylesheet" />
 
       <noscript>

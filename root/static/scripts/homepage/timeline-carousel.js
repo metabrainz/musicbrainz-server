@@ -7,19 +7,22 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {faPauseCircle, faPlayCircle, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import timelineImage from '../../images/homepage/timeline-image.png'
+
 // $FlowFixMe[untyped-import]
-import { Swiper, SwiperSlide } from 'swiper/react';
+import {LazyLoadImage} from 'react-lazy-load-image-component';
+
 // $FlowFixMe[untyped-import]
-import { Navigation, Mousewheel, Autoplay } from 'swiper/modules';
-import {faPlusCircle, faPauseCircle, faPlayCircle} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {reduceArtistCredit} from '../common/immutable-entities';
-import entityHref from '../common/utility/entityHref';
+import {Autoplay, Mousewheel, Navigation} from 'swiper/modules';
+
 // $FlowFixMe[untyped-import]
-import { LazyLoadImage } from 'react-lazy-load-image-component';
+import {Swiper, SwiperSlide} from 'swiper/react';
+
 import timelineCoverartPlaceholder from '../../images/homepage/timeline-coverart-placeholder.png';
+import {reduceArtistCredit} from '../common/immutable-entities.js';
+import entityHref from '../common/utility/entityHref.js';
 
 component ReleaseTimelineImage(artwork: ReleaseArtT) {
   const release = artwork.release;
@@ -31,47 +34,47 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
   const artist = reduceArtistCredit(release.artistCredit);
 
   const releaseDescription = texp.l('{entity} by {artist}', {
-    artist: artist,
+    artist,
     entity: release.name,
   });
 
   const handleImageLoad = () => {
     setImageLoaded(true);
-  }
+  };
 
   return (
     <div className="timeline-image-container">
       <div className="timeline-item">
         <a
           className="timeline-coverart-container"
-          role="button"
-          tabIndex={0}
           href={entityHref(release)}
+          role="button"
           style={{
             overflow: 'hidden',
           }}
+          tabIndex={0}
         >
           <img
+            alt={release.name}
             src={timelineCoverartPlaceholder}
             style={{
+              display: imageLoaded ? 'none' : 'block',
+              height: '150px',
               objectFit: 'cover',
               width: '150px',
-              height: '150px',
-              display: imageLoaded ? "none" : "block",
             }}
-            alt={release.name}
             title={releaseDescription}
           />
           <LazyLoadImage
-            src={artwork.small_ia_thumbnail}
             alt={release.name}
-            title={releaseDescription}
             onLoad={handleImageLoad}
+            src={artwork.small_ia_thumbnail}
             style={{
+              height: '150px',
               objectFit: 'cover',
               width: '150px',
-              height: '150px',
             }}
+            title={releaseDescription}
           />
           <div className="hover-backdrop">
             <p>
@@ -84,7 +87,7 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
         </a>
       </div>
     </div>
-  )
+  );
 }
 
 component EventTimelineImage(artwork: EventArtT) {
@@ -101,42 +104,42 @@ component EventTimelineImage(artwork: EventArtT) {
 
   const handleImageLoad = () => {
     setImageLoaded(true);
-  }
+  };
 
   return (
     <div className="timeline-image-container">
       <div className="timeline-item">
         <a
           className="timeline-coverart-container"
-          role="button"
-          tabIndex={0}
           href={entityHref(event)}
+          role="button"
           style={{
             overflow: 'hidden',
           }}
+          tabIndex={0}
         >
           <img
+            alt={event.name}
             src={timelineCoverartPlaceholder}
             style={{
               objectFit: 'cover',
               width: '150px',
               height: '150px',
-              display: imageLoaded ? "none" : "block",
+              display: imageLoaded ? 'none' : 'block',
             }}
-            alt={event.name}
             title={eventDescription}
           />
           <LazyLoadImage
-            className={`${imageLoaded ? "" : "hidden"}`}
-            src={artwork.small_ia_thumbnail}
             alt={event.name}
-            title={eventDescription}
+            className={`${imageLoaded ? '' : 'hidden'}`}
             onLoad={handleImageLoad}
+            src={artwork.small_ia_thumbnail}
             style={{
               objectFit: 'cover',
               width: '150px',
               height: '150px',
             }}
+            title={eventDescription}
           />
           <div className="hover-backdrop">
             <p>
@@ -146,7 +149,7 @@ component EventTimelineImage(artwork: EventArtT) {
         </a>
       </div>
     </div>
-  )
+  );
 }
 
 component TimelineCarousel(
@@ -154,7 +157,7 @@ component TimelineCarousel(
   freshReleaseArtwork?: $ReadOnlyArray<ReleaseArtT>,
   newestEventArtwork?: $ReadOnlyArray<EventArtT>,
   freshEventArtwork?: $ReadOnlyArray<EventArtT>,
-  entityType: "release" | "event",
+  entityType: 'release' | 'event',
 ) {
   const [mode, setMode] = React.useState<'fresh' | 'new'>('fresh');
   const [autoPlay, setAutoPlay] = React.useState<boolean>(true);
@@ -162,14 +165,14 @@ component TimelineCarousel(
 
   const handlePillClick = (pill: 'fresh' | 'new') => {
     setMode(pill);
-  }
+  };
 
   const toggleAutoPlay = () => {
     setAutoPlay((currentAutoPlayState) => {
       if (currentAutoPlayState) {
         swiperRef.current.swiper.autoplay.stop();
       } else {
-        swiperRef.current.swiper.autoplay.start()
+        swiperRef.current.swiper.autoplay.start();
       }
       return !currentAutoPlayState;
     });
@@ -180,68 +183,68 @@ component TimelineCarousel(
 
   return (
     <>
-      <div className='timeline-carousel-inner'>
-        <div className='timeline-carousel-text'>
+      <div className="timeline-carousel-inner">
+        <div className="timeline-carousel-text">
           Now
         </div>
         <Swiper
-          ref={swiperRef}
-          navigation={true}
-          slidesPerView="auto"
-          spaceBetween={24}
-          modules={[Navigation, Mousewheel, Autoplay]}
-          mousewheel={true}
           autoplay={{
             delay: 5000,
             pauseOnMouseEnter: true,
           }}
+          modules={[Navigation, Mousewheel, Autoplay]}
+          mousewheel
+          navigation
+          ref={swiperRef}
+          slidesPerView="auto"
+          spaceBetween={24}
         >
-          {entityType === "release" ? releaseSlides?.map((artwork, index) => {
+          {entityType === 'release' ? releaseSlides?.map((artwork, index) => {
             return (
               <SwiperSlide key={`${mode}-${index}`}>
                 <ReleaseTimelineImage artwork={artwork} />
               </SwiperSlide>
-            )
+            );
           }) : eventSlides?.map((artwork, index) => {
             return (
               <SwiperSlide key={`${mode}-${index}`}>
                 <EventTimelineImage artwork={artwork} />
               </SwiperSlide>
-            )
+            );
           })}
         </Swiper>
       </div>
-      <div className='d-flex pt-3 justify-content-between flex-row gap-3'>
+      <div className="d-flex pt-3 justify-content-between flex-row gap-3">
         <div className="d-flex gap-2">
           <div
             className={`timeline-carousel-pill ${mode === 'fresh' ? 'selected' : ''}`}
             onClick={() => handlePillClick('fresh')}
-            title={`Order by ${entityType === "release" ? "release" : "event"} date`}
+            title={`Order by ${entityType === 'release' ? 'release' : 'event'} date`}
           >
-            Fresh {entityType === "release" ? "releases" : "events"}
+            Fresh {entityType === 'release' ? 'releases' : 'events'}
           </div>
           <div
             className={`timeline-carousel-pill ${mode === 'new' ? 'selected' : ''}`}
             onClick={() => handlePillClick('new')}
             title="Order by date added to MusicBrainz"
           >
-            New Additions
+            {l('New Additions')}
           </div>
         </div>
         <div className="d-flex gap-3">
-          <div role="button" onClick={toggleAutoPlay} className="d-flex gap-1 align-items-center timeline-control">
+          <div className="d-flex gap-1 align-items-center timeline-control" onClick={toggleAutoPlay} role="button">
             <FontAwesomeIcon icon={autoPlay ? faPauseCircle : faPlayCircle} />
             <h5 className="timeline-control d-none d-md-block">
-              {autoPlay ? "Pause" : "Play"}
+              {autoPlay ? 'Pause' : 'Play'}
             </h5>
           </div>
           <a
             className="d-flex gap-1 align-items-center text-decoration-none timeline-control"
-            href={entityType === "release" ? "/release/add" : "/event/create"}
+            href={entityType === 'release' ? '/release/add' : '/event/create'}
           >
             <FontAwesomeIcon icon={faPlusCircle} />
             <h5 className="timeline-control d-none d-md-block">
-              Add {entityType === "release" ? "Release" : "Event"}
+              Add {entityType === 'release' ? 'Release' : 'Event'}
             </h5>
           </a>
         </div>
@@ -250,7 +253,7 @@ component TimelineCarousel(
   );
 }
 
-export default (hydrate<React.PropsOf<TimelineCarousel>> (
+export default (hydrate<React.PropsOf<TimelineCarousel>>(
   'div.timeline-carousel',
   TimelineCarousel,
-): component(...React.PropsOf <TimelineCarousel>));
+): component(...React.PropsOf<TimelineCarousel>));

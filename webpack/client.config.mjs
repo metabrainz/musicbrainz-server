@@ -148,7 +148,7 @@ entries['whatwg-fetch'] = path.resolve(
 
 entries.bootstrap = path.resolve(
   MB_SERVER_ROOT,
- 'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
+  'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
 );
 
 function langToPosix(lang) {

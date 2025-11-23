@@ -7,118 +7,120 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from "react";
-import musicbrainzLogo from '../../images/meb-logos/MusicBrainz_logo_mini.svg';
-import musicbrainzLogoIcon from '../../images/meb-logos/MusicBrainz_logo_icon.svg';
-import { l, lp } from '../common/i18n.js';
-import { entities } from './utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import {faChevronLeft, faChevronRight, faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import * as React from 'react';
+
+import {SanitizedCatalystContext} from '../../../context.mjs';
+import {returnToCurrentPage} from '../../../utility/returnUri.js';
+import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
+import languageIcon from '../../images/homepage/language-icon.svg';
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 import magnifyingGlassTheme from '../../images/icons/magnifying-glass-theme.svg';
-import advancedSearchIcon from '../../images/homepage/advanced_search.svg';
-import MobileSearchPopup from './mobile-search-popup.js';
+import musicbrainzLogoIcon from '../../images/meb-logos/MusicBrainz_logo_icon.svg';
+import musicbrainzLogo from '../../images/meb-logos/MusicBrainz_logo_mini.svg';
+import {l, lp} from '../common/i18n.js';
+import {capitalize} from '../common/utility/strings.js';
+
 import LanguageSelector from './language.js';
-import languageIcon from '../../images/homepage/language-icon.svg';
-import { SanitizedCatalystContext } from '../../../context.mjs';
-import { returnToCurrentPage } from '../../../utility/returnUri.js';
-import { capitalize } from '../common/utility/strings.js';
+import MobileSearchPopup from './mobile-search-popup.js';
+import entities from './utils.js';
 
 type DropdownMenuItem = {
-  label: string,
-  href: string,
   context?: string,
+  href: string,
+  label: string,
 };
 
 
-const aboutGroups: DropdownMenuItem[][] = [
+const aboutGroups: Array<Array<DropdownMenuItem>> = [
   [
-    { label: 'About MusicBrainz', href: '/doc/About' },
-    { label: 'Sponsors', href: 'https://metabrainz.org/sponsors' },
-    { label: 'Team', href: 'https://metabrainz.org/team' },
-    { label: 'Shop', href: 'https://www.redbubble.com/people/metabrainz/shop' },
-    { label: 'Contact us', href: 'https://metabrainz.org/contact' },
+    {label: 'About MusicBrainz', href: '/doc/About'},
+    {label: 'Sponsors', href: 'https://metabrainz.org/sponsors'},
+    {label: 'Team', href: 'https://metabrainz.org/team'},
+    {label: 'Shop', href: 'https://www.redbubble.com/people/metabrainz/shop'},
+    {label: 'Contact us', href: 'https://metabrainz.org/contact'},
   ],
   [
-    { label: 'Data licenses', href: '/doc/About/Data_License' },
-    { label: 'Social contract', href: 'https://metabrainz.org/social-contract' },
-    { label: 'Code of Conduct', href: '/doc/Code_of_Conduct' },
-    { label: 'Privacy policy', href: 'https://metabrainz.org/privacy' },
-    { label: 'GDPR compliance', href: 'https://metabrainz.org/gdpr' },
-    { label: 'Copyright and DMCA compliance', href: '/doc/Copyright_and_DMCA_Compliance' },
-    { label: 'Data removal policy', href: '/doc/Data_Removal_Policy' },
+    {label: 'Data licenses', href: '/doc/About/Data_License'},
+    {label: 'Social contract', href: 'https://metabrainz.org/social-contract'},
+    {label: 'Code of Conduct', href: '/doc/Code_of_Conduct'},
+    {label: 'Privacy policy', href: 'https://metabrainz.org/privacy'},
+    {label: 'GDPR compliance', href: 'https://metabrainz.org/gdpr'},
+    {label: 'Copyright and DMCA compliance', href: '/doc/Copyright_and_DMCA_Compliance'},
+    {label: 'Data removal policy', href: '/doc/Data_Removal_Policy'},
   ],
   [
-    { label: 'Auto-editor elections', href: '/elections' },
-    { label: 'Privileged user accounts', href: '/privileged' },
-    { label: 'Statistics', href: '/statistics' },
-    { label: 'Timeline graph', href: '/statistics/timeline' },
-    { label: 'MusicBrainz history', href: '/history' },
-  ],
-];
-
-const productGroups: DropdownMenuItem[][] = [
-  [
-    { label: 'MusicBrainz Picard', href: '//picard.musicbrainz.org' },
-    { label: 'AudioRanger', href: '/doc/AudioRanger' },
-    { label: 'Mp3tag', href: '/doc/Mp3tag' },
-    { label: 'Yate Music Tagger', href: '/doc/Yate_Music_Tagger' },
-  ],
-  [
-    { label: 'MusicBrainz for Android', href: '/doc/MusicBrainz_for_Android' },
-  ],
-  [
-    { label: 'MusicBrainz Server', href: '/doc/MusicBrainz_Server' },
-    { label: 'MusicBrainz Database', href: '/doc/MusicBrainz_Database' },
-  ],
-  [
-    { label: 'Developer resources', href: '/doc/Developer_Resources' },
-    { label: 'MusicBrainz API', href: '/doc/MusicBrainz_API' },
-    { label: 'Live Data Feed', href: '/doc/Live_Data_Feed' },
+    {label: 'Auto-editor elections', href: '/elections'},
+    {label: 'Privileged user accounts', href: '/privileged'},
+    {label: 'Statistics', href: '/statistics'},
+    {label: 'Timeline graph', href: '/statistics/timeline'},
+    {label: 'MusicBrainz history', href: '/history'},
   ],
 ];
 
-const searchGroups: DropdownMenuItem[][] = [
+const productGroups: Array<Array<DropdownMenuItem>> = [
   [
-    { label: 'Advanced search', href: '/search' },
-    { label: 'Edit search', href: '/search/edits' },
-    { label: 'Tag cloud', href: '/tags', context: "folksonomy" },
-    { label: 'Top CD stubs', href: '/cdstub/browse' },
+    {label: 'MusicBrainz Picard', href: '//picard.musicbrainz.org'},
+    {label: 'AudioRanger', href: '/doc/AudioRanger'},
+    {label: 'Mp3tag', href: '/doc/Mp3tag'},
+    {label: 'Yate Music Tagger', href: '/doc/Yate_Music_Tagger'},
+  ],
+  [
+    {label: 'MusicBrainz for Android', href: '/doc/MusicBrainz_for_Android'},
+  ],
+  [
+    {label: 'MusicBrainz Server', href: '/doc/MusicBrainz_Server'},
+    {label: 'MusicBrainz Database', href: '/doc/MusicBrainz_Database'},
+  ],
+  [
+    {label: 'Developer resources', href: '/doc/Developer_Resources'},
+    {label: 'MusicBrainz API', href: '/doc/MusicBrainz_API'},
+    {label: 'Live Data Feed', href: '/doc/Live_Data_Feed'},
   ],
 ];
 
-const communityGroups: DropdownMenuItem[][] = [
+const searchGroups: Array<Array<DropdownMenuItem>> = [
   [
-    { label: 'Forums', href: 'https://community.metabrainz.org/' },
-    { label: 'Chat', href: '/doc/Communication/ChatBrainz' },
-    { label: 'Bluesky', href: 'https://bsky.app/profile/musicbrainz.org' },
-    { label: 'Mastodon', href: 'https://mastodon.social/@musicbrainz' },
-    { label: 'Reddit', href: 'https://www.reddit.com/r/MusicBrainz/' },
-    { label: 'Discord', href: 'https://discord.gg/R4hBw972QA' },
-  ]
-]
+    {label: 'Advanced search', href: '/search'},
+    {label: 'Edit search', href: '/search/edits'},
+    {label: 'Tag cloud', href: '/tags', context: 'folksonomy'},
+    {label: 'Top CD stubs', href: '/cdstub/browse'},
+  ],
+];
+
+const communityGroups: Array<Array<DropdownMenuItem>> = [
+  [
+    {label: 'Forums', href: 'https://community.metabrainz.org/'},
+    {label: 'Chat', href: '/doc/Communication/ChatBrainz'},
+    {label: 'Bluesky', href: 'https://bsky.app/profile/musicbrainz.org'},
+    {label: 'Mastodon', href: 'https://mastodon.social/@musicbrainz'},
+    {label: 'Reddit', href: 'https://www.reddit.com/r/MusicBrainz/'},
+    {label: 'Discord', href: 'https://discord.gg/R4hBw972QA'},
+  ],
+];
 
 const dropdownSections = {
-  "About": aboutGroups,
-  "Products": productGroups,
-  "Search": searchGroups,
-  "Community": communityGroups,
-}
+  About: aboutGroups,
+  Products: productGroups,
+  Search: searchGroups,
+  Community: communityGroups,
+};
 
-type Section = $Keys<typeof dropdownSections> | "Language";
+type Section = $Keys<typeof dropdownSections> | 'Language';
 
 component DropDownMenu(
   label: string,
-  groups: DropdownMenuItem[][],
+  groups: Array<Array<DropdownMenuItem>>,
 ) {
   return (
     <li className="nav-item dropdown d-flex align-items-center">
       <a
+        aria-expanded="false"
         className="nav-link dropdown-toggle"
+        data-bs-toggle="dropdown"
         href="#"
         role="button"
-        data-bs-toggle="dropdown"
-        aria-expanded="false"
         title={l(label)}
       >
         {l(label)}
@@ -157,8 +159,8 @@ component MobileSidebar(
   section: Section | null,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
-  const groups = section && section !== "Language" ? dropdownSections[section] : [];
-  const isLanguage = section === "Language";
+  const groups = section && section !== 'Language' ? dropdownSections[section] : [];
+  const isLanguage = section === 'Language';
 
   function languageName(
     language: ?ServerLanguageT,
@@ -196,9 +198,9 @@ component MobileSidebar(
 
   return (
     <>
-      <div 
-        className={`mobile-sidebar-backdrop ${isOpen ? "open" : ''}`} 
-        onClick={onClose} 
+      <div
+        className={`mobile-sidebar-backdrop ${isOpen ? 'open' : ''}`}
+        onClick={onClose}
       />
       <div className={`mobile-sidebar ${isOpen ? 'open' : ''}`}>
         <div className="offcanvas-body">
@@ -207,10 +209,10 @@ component MobileSidebar(
               {serverLanguages?.map((language) => {
                 const isSelected = language.name === currentLanguage;
                 return (
-                  <li key={language.name} className="border-bottom">
+                  <li className="border-bottom" key={language.name}>
                     <a
-                      href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
                       className={`d-block bg-transparent text-decoration-none ${isSelected ? 'active' : ''}`}
+                      href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
                       onClick={onClose}
                       title={languageName(language, isSelected)}
                     >
@@ -221,8 +223,8 @@ component MobileSidebar(
               })}
               <li className="border-bottom">
                 <a
-                  href={`/set-language/unset?${returnToCurrentPage($c)}`}
                   className="d-block bg-transparent text-decoration-none"
+                  href={`/set-language/unset?${returnToCurrentPage($c)}`}
                   onClick={onClose}
                   title={l('reset language')}
                 >
@@ -231,8 +233,8 @@ component MobileSidebar(
               </li>
               <li className="border-bottom">
                 <a
-                  href="https://translations.metabrainz.org/projects/musicbrainz/"
                   className="d-block bg-transparent text-decoration-none"
+                  href="https://translations.metabrainz.org/projects/musicbrainz/"
                   onClick={onClose}
                   title={l('Help translate')}
                 >
@@ -244,10 +246,10 @@ component MobileSidebar(
             groups.map((group, gIdx) => (
               <ul className="list-unstyled mb-0" key={gIdx}>
                 {group.map((item, idx) => (
-                <li key={idx} className="border-bottom">
-                  <a 
-                    href={item.href} 
+                <li className="border-bottom" key={idx}>
+                  <a
                     className="d-block bg-transparent text-decoration-none"
+                    href={item.href}
                     onClick={onClose}
                   >
                     {item.context !== undefined ? lp(item.label, item.context) : l(item.label)}
@@ -258,12 +260,12 @@ component MobileSidebar(
             ))
           )}
         </div>
-        <button 
-          type="button" 
-          onClick={onClose}
+        <button
           aria-label="Close"
+          onClick={onClose}
+          type="button"
         >
-          <FontAwesomeIcon icon={faChevronLeft} size="xl" color="white" />
+          <FontAwesomeIcon color="white" icon={faChevronLeft} size="xl" />
         </button>
       </div>
     </>
@@ -302,44 +304,44 @@ component Navbar() {
   };
 
   const toggleLanguageSidebar = () => {
-    toggleMobileSidebar("Language");
+    toggleMobileSidebar('Language');
   };
 
   return (
-    <nav className="navbar navbar-expand-lg shadow-sm" aria-label="Offcanvas navbar large">
+    <nav aria-label="Offcanvas navbar large" className="navbar navbar-expand-lg shadow-sm">
       <div className="container-fluid gap-4 position-relative layout-width">
         <button
-          className="navbar-toggler position-absolute"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#offcanvasNavbar"
           aria-controls="offcanvasNavbar"
+          className="navbar-toggler position-absolute"
+          data-bs-target="#offcanvasNavbar"
+          data-bs-toggle="offcanvas"
+          type="button"
         >
           <span className="navbar-toggler-icon" />
         </button>
 
         <a className="navbar-brand mx-auto" href="#">
-          <img src={musicbrainzLogo} alt="MusicBrainz" width={200} height={40} />
+          <img alt="MusicBrainz" height={40} src={musicbrainzLogo} width={200} />
         </a>
 
         <button
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#mobileSearchOffcanvas"
           aria-controls="mobileSearchOffcanvas"
           className="d-lg-none position-absolute end-0 pe-2 border-0 bg-transparent"
+          data-bs-target="#mobileSearchOffcanvas"
+          data-bs-toggle="offcanvas"
+          type="button"
         >
-          <img src={magnifyingGlassTheme} alt="Search" className="search-button-mobile" />
+          <img alt="Search" className="search-button-mobile" src={magnifyingGlassTheme} />
         </button>
 
-        <div className="offcanvas offcanvas-start gap-3" id="offcanvasNavbar" data-bs-scroll="true">
+        <div className="offcanvas offcanvas-start gap-3" data-bs-scroll="true" id="offcanvasNavbar">
           <div className="offcanvas-header">
-            <img src={musicbrainzLogoIcon} alt="MusicBrainz" height={40} />
+            <img alt="MusicBrainz" height={40} src={musicbrainzLogoIcon} />
           </div>
           <div className="offcanvas-body gap-3">
             <ul className="d-none d-lg-flex navbar-nav flex-grow-1 gap-3" id="offcanvasNavbarMenu">
               {Object.keys(dropdownSections).map((section) => (
-                <DropDownMenu key={section} label={section} groups={dropdownSections[section]} />
+                <DropDownMenu groups={dropdownSections[section]} key={section} label={section} />
               ))}
 
               {/* Language Selector */}
@@ -348,29 +350,29 @@ component Navbar() {
               </li>
             </ul>
 
-            <form className="d-none d-lg-flex mt-3 mt-lg-0" role="search" action="/search" method="get">
+            <form action="/search" className="d-none d-lg-flex mt-3 mt-lg-0" method="get" role="search">
               <div className="input-group">
                 <input
-                  type="text"
-                  className="form-control"
                   aria-label="search"
+                  className="form-control"
                   name="query"
                   placeholder="Search"
                   required
+                  type="text"
                 />
 
                 <span className="input-group-text">
                   {l('in')}
                 </span>
 
-                <select className="form-select" aria-label="Server" name="type">
+                <select aria-label="Server" className="form-select" name="type">
                   {entities.map((entity) => (
                     <option key={entity.value} value={entity.value}>{entity.name}</option>
                   ))}
                 </select>
 
-                <button 
-                  className="btn search-button" 
+                <button
+                  className="btn search-button"
                   type="submit"
                 >
                   <FontAwesomeIcon icon={faMagnifyingGlass} size="xl" />
@@ -378,12 +380,12 @@ component Navbar() {
               </div>
             </form>
 
-            <a 
+            <a
               className="btn search-button advanced-search-button d-none d-lg-block"
               href="/search"
               title="Advanced Search"
             >
-              <img src={advancedSearchIcon} alt="Advanced Search" width={20} height={20} />
+              <img alt="Advanced Search" height={20} src={advancedSearchIcon} width={20} />
             </a>
 
             {/* Mobile Menu */}
@@ -395,9 +397,10 @@ component Navbar() {
                     <button
                       className={`nav-link border-0 bg-transparent d-flex align-items-center ${isActive ? 'active' : ''}`}
                       onClick={() => toggleMobileSidebar(section)}
+                      type="button"
                     >
                       {l(section)}
-                      <FontAwesomeIcon icon={faChevronRight} className={isActive ? 'active' : ''} />
+                      <FontAwesomeIcon className={isActive ? 'active' : ''} icon={faChevronRight} />
                     </button>
                   </li>
                 );
@@ -405,23 +408,23 @@ component Navbar() {
             </ul>
 
             <button
-              type="button"
-              onClick={toggleLanguageSidebar}
-              className="d-lg-none border-0 bg-transparent text-end"
               aria-label="Language"
+              className="d-lg-none border-0 bg-transparent text-end"
+              onClick={toggleLanguageSidebar}
+              type="button"
             >
-              <img src={languageIcon} alt="Language" width={40} height={40} />
+              <img alt="Language" height={40} src={languageIcon} width={40} />
             </button>
 
             <button
-              type="button"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#mobileSearchOffcanvas"
               aria-controls="mobileSearchOffcanvas"
               className="d-lg-none border-0 bg-transparent text-end"
+              data-bs-target="#mobileSearchOffcanvas"
+              data-bs-toggle="offcanvas"
               onClick={() => closeMobileSidebar()}
+              type="button"
             >
-              <img src={magnifyingGlass} alt="Search" width={40} height={40} className="search-button" />
+              <img alt="Search" className="search-button" height={40} src={magnifyingGlass} width={40} />
             </button>
           </div>
         </div>
@@ -438,9 +441,9 @@ component Navbar() {
       <MobileSearchPopup />
     </nav>
   );
-};
+}
 
-export default (hydrate < React.PropsOf < Navbar >> (
+export default (hydrate < React.PropsOf< Navbar >>(
   'div.new-navbar.fixed-top',
   Navbar,
-): component(...React.PropsOf < Navbar >));
+): component(...React.PropsOf< Navbar >));

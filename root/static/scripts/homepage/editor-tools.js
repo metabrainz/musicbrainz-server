@@ -7,12 +7,13 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import * as React from "react";
+import {faChevronDown, faChevronUp, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import * as React from 'react';
+
 import {SanitizedCatalystContext} from '../../../context.mjs';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown, faChevronUp, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import useMediaQuery from '../common/hooks/useMediaQuery';
-import {VARTIST_GID} from '../common/constants';
+import {VARTIST_GID} from '../common/constants.js';
+import useMediaQuery from '../common/hooks/useMediaQuery.js';
 
 const editorToolsItems = [
   {
@@ -25,49 +26,49 @@ const editorToolsItems = [
     href: '/label/create',
     context: 'interactive',
   },
-  
+
   {
     label: 'Add release group',
     href: '/release-group/create',
     context: 'interactive',
   },
-  
+
   {
     label: 'Add release',
     href: '/release/add',
     context: 'interactive',
   },
-  
+
   {
     label: 'Add Various Artists release',
     href: '/release/add?artist=' + encodeURIComponent(VARTIST_GID),
     context: 'interactive',
   },
-  
+
   {
     label: 'Add standalone recording',
     href: '/recording/create',
     context: 'interactive',
   },
-  
+
   {
     label: 'Add work',
     href: '/work/create',
     context: 'interactive',
   },
-  
+
   {
     label: 'Add place',
     href: '/place/create',
     context: 'interactive',
   },
-  
+
   {
     label: 'Add series',
     href: '/series/create',
     context: 'singular, interactive',
   },
-  
+
   {
     label: 'Add event',
     href: '/event/create',
@@ -95,18 +96,18 @@ component EditorTools() {
   return (
     <div className="editor-tools-container layout-width">
       <button
-        className="editor-tools-button"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#editorToolsCollapse"
-        aria-expanded={isExpanded ? "true" : "false"}
         aria-controls="editorToolsCollapse"
+        aria-expanded={isExpanded ? 'true' : 'false'}
+        className="editor-tools-button"
+        data-bs-target="#editorToolsCollapse"
+        data-bs-toggle="collapse"
+        type="button"
       >
         <FontAwesomeIcon icon={faChevronDown} />
         Editor Tools
       </button>
 
-      <div className={`collapse ${isExpanded ? "show" : ""}`} id="editorToolsCollapse">
+      <div className={`collapse ${isExpanded ? 'show' : ''}`} id="editorToolsCollapse">
         <div className="editor-tools-content">
           <div className="editor-tools-cell" id="editor-tools-cell-1">
             <div className="editor-tools-cell-sub">
@@ -139,11 +140,11 @@ component EditorTools() {
           <div className="editor-tools-cell" id="editor-tools-cell-6">
             <span className="dropdown">
               <a
+                aria-expanded="false"
                 className="dropdown-toggle editor-tools-dropdown-toggle"
+                data-bs-toggle="dropdown"
                 href="#"
                 role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
               >
                 <FontAwesomeIcon icon={faPlusCircle} />
                 Add new...
@@ -160,14 +161,14 @@ component EditorTools() {
             </span>
           </div>
           <button
-            className="close-editor-tools-button d-sm-none"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#editorToolsCollapse"
-            aria-expanded={isExpanded ? "true" : "false"}
             aria-controls="editorToolsCollapse"
+            aria-expanded={isExpanded ? 'true' : 'false'}
+            className="close-editor-tools-button d-sm-none"
+            data-bs-target="#editorToolsCollapse"
+            data-bs-toggle="collapse"
+            type="button"
           >
-            <FontAwesomeIcon icon={faChevronUp} color="white" size="xl" />
+            <FontAwesomeIcon color="white" icon={faChevronUp} size="xl" />
           </button>
         </div>
       </div>
@@ -175,7 +176,7 @@ component EditorTools() {
   );
 }
 
-export default (hydrate<React.PropsOf<EditorTools>> (
+export default (hydrate<React.PropsOf<EditorTools>>(
   'div.editor-tools',
   EditorTools,
 ): component(...React.PropsOf<EditorTools>));
