@@ -31,6 +31,7 @@ import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
+import clean from '../../common/utility/clean.js';
 import debounce from '../../common/utility/debounce.js';
 import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
@@ -45,9 +46,6 @@ import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
   runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
-import {
-  createInitialState as createInitialDuplicatesState,
-} from '../../edit/components/PossibleDuplicates.js';
 import FormRowPossibleDuplicates
   from '../../edit/components/FormRowPossibleDuplicates.js';
 import FormRowSelect from '../../edit/components/FormRowSelect.js';
@@ -82,6 +80,8 @@ import {
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
+  | {+type: 'set-duplicates', +duplicates: $ReadOnlyArray<LabelT>}
+  | {+type: 'set-duplicates-confirmed', +confirmed: boolean}
   | {+type: 'set-type', +type_id: string}
   | {+type: 'show-all-pending-errors'}
   | {+type: 'toggle-bubble', +bubble: string}
@@ -100,6 +100,8 @@ type ActionT =
 type StateT = {
   +actionName: string,
   +area: AutocompleteStateT<AreaT>,
+  +areDuplicatesConfirmed: boolean,
+  +duplicates: $ReadOnlyArray<LabelT>,
   +form: LabelFormT,
   +guessCaseOptions: GuessCaseOptionsStateT,
   +isGuessCaseOptionsOpen: boolean,
@@ -253,7 +255,8 @@ function createInitialState({
       } : null,
       showLabel: true,
     }),
-    duplicates: createInitialDuplicatesState(),
+    areDuplicatesConfirmed: false,
+    duplicates: [],
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
@@ -345,6 +348,13 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'show-all-pending-errors'} => {
       applyAllPendingErrors(newStateCtx.get('form'));
     }
+    {type: 'set-duplicates', const duplicates} => {
+      newStateCtx.set('duplicates', duplicates);
+      newStateCtx.set('areDuplicatesConfirmed', false);
+    }
+    {type: 'set-duplicates-confirmed', const confirmed} => {
+      newStateCtx.set('areDuplicatesConfirmed', confirmed);
+    }
   }
   return newStateCtx.final();
 }
@@ -369,39 +379,56 @@ component LabelEditForm(
     createInitialState,
   );
 
-  const origName = React.useRef(state.form.field.name.value || '');
+  const currentName = state.form.field.name.value ?? '';
+  const origName = React.useRef(currentName);
 
   React.useEffect(() => {
-    let cancelled = false;
-    fetchPossibleDuplicates(
-      entityType,
-      state.recentItemsKey,
-    ).then((loadedRecentItems) => {
-      if (cancelled) {
-        return [];
+    if (
+      isBlank(currentName) ||
+      clean(currentName).toLowerCase() ===
+        clean(origName.current).toLowerCase()
+    ) {
+      if (state.duplicates.length) {
+        dispatch({duplicates: [], type: 'set-duplicates'});
       }
-      if (loadedRecentItems !== state.recentItems) {
-        setTimeout(() => {
-          dispatch({
-            items: loadedRecentItems,
-            type: 'set-recent-items',
-          });
-        }, 1);
-      }
-      return loadedRecentItems;
-    }).catch((error) => {
-      console.error(error);
-      Sentry.captureException(error);
+      return undefined;
+    }
+
+    const requestController = new AbortController();
+    const requestParams = new URLSearchParams({
+      mbid: state.label.gid,
+      name: currentName,
+      type: 'label',
     });
+    let cancelled = false;
+
+    fetch(
+      `/ws/js/check_duplicates?${requestParams.toString()}`,
+      {signal: requestController.signal},
+    )
+      .then(response => response.json())
+      .then(data => {
+        if (!cancelled) {
+          dispatch({
+            duplicates: data.duplicates || [],
+            type: 'set-duplicates',
+          });
+        }
+      })
+      .catch(error => {
+        if (error.name !== 'AbortError') {
+          console.error(error);
+        }
+      });
+
     return () => {
+      requestController.abort();
       cancelled = true;
     };
   }, [
-    dispatch,
-    entityType,
-    origName,
-    state.duplicates,
-    state.form.field.name.value,
+    currentName,
+    state.duplicates.length,
+    state.label.gid,
   ]);
 
   const areaDispatch = React.useCallback((
@@ -437,6 +464,15 @@ component LabelEditForm(
     dispatch({
       labelCode: event.currentTarget.value,
       type: 'update-label-code',
+    });
+  }, [dispatch]);
+
+  const handleDuplicatesConfirmChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      confirmed: event.currentTarget.checked,
+      type: 'set-duplicates-confirmed',
     });
   }, [dispatch]);
 
@@ -484,7 +520,8 @@ component LabelEditForm(
     dispatch({action, type: 'update-date-range'});
   }, [dispatch]);
 
-  const hasErrors = hasSubfieldErrors(state.form);
+  const hasErrors = hasSubfieldErrors(state.form) ||
+    (state.duplicates.length > 0 && !state.areDuplicatesConfirmed);
 
   const externalLinksEditorRef = React.createRef<_ExternalLinksEditor>();
 
@@ -546,7 +583,11 @@ component LabelEditForm(
             onFocus={handleNameFocus}
             rowRef={nameFieldRef}
           />
-          <FormRowPossibleDuplicates />
+          <FormRowPossibleDuplicates
+            duplicates={state.duplicates}
+            name={state.form.field.name.value || ''}
+            onCheckboxChange={handleDuplicatesConfirmChange}
+          />
           <FormRowTextLong
             field={state.form.field.comment}
             label={addColonText(l('Disambiguation'))}
