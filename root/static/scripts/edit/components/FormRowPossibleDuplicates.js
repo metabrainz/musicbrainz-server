@@ -16,6 +16,10 @@ component FormRowPossibleDuplicates(
   onCheckboxChange: (event: SyntheticEvent<HTMLInputElement>) => void,
   rowRef?: {-current: HTMLDivElement | null},
 ) {
+  if (!duplicates.length) {
+    return null;
+  }
+
   return (
     <FormRow hasNoLabel rowRef={rowRef}>
       <PossibleDuplicates
