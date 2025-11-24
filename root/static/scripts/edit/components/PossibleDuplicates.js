@@ -9,6 +9,63 @@
 
 import EntityLink from '../../common/components/EntityLink.js';
 
+type StateT<T: ArtistT | LabelT> = {
+  +commentEmpty: boolean,
+  +commentRequired: boolean,
+  +duplicates: Array<T>,
+  +entityType: T['entityType'],
+  +isConfirmed: boolean,
+  +name: string,
+  +needsConfirmation: boolean,
+  +requestPending: boolean,
+};
+
+
+export function createInitialState(
+  initialState: StateT,
+): {...StateT} {
+  const {
+    commentEmpty,
+    commentRequired,
+    duplicates: [],
+    entityType,
+    isConfirmed,
+    name,
+    needsConfirmation,
+    requestPending,
+  } = initialState;
+
+  const inputValue =
+    initialInputValue ??
+    (selectedItem == null ? null : unwrapNl<string>(selectedItem.name)) ??
+    '';
+
+  if (staticItems) {
+    indexItems(staticItems, extractSearchTerms);
+  }
+
+  let staticResults = staticItems ?? null;
+  if (staticResults && nonEmpty(inputValue)) {
+    staticResults = searchItems(staticResults, inputValue);
+  }
+
+  const state: {...StateT} = {
+    commentEmpty,
+    commentRequired,
+    duplicates: [],
+    entityType,
+    isConfirmed,
+    name,
+    needsConfirmation,
+    requestPending: false,
+  };
+
+  state.items = generateItems(state);
+  state.statusMessage = generateStatusMessage(state);
+
+  return state;
+}
+
 component PossibleDuplicates(
   duplicates: $ReadOnlyArray<EditableEntityT>,
   name: string,

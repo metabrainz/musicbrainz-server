@@ -31,6 +31,7 @@ import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {
   getSourceEntityDataForRelationshipEditor,
 } from '../../common/utility/catalyst.js';
+import debounce from '../../common/utility/debounce.js';
 import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
@@ -44,6 +45,11 @@ import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
   runReducer as runNameReducer,
 } from '../../edit/components/FormRowNameWithGuessCase.js';
+import {
+  createInitialState as createInitialDuplicatesState,
+} from '../../edit/components/PossibleDuplicates.js';
+import FormRowPossibleDuplicates
+  from '../../edit/components/FormRowPossibleDuplicates.js';
 import FormRowSelect from '../../edit/components/FormRowSelect.js';
 import FormRowText from '../../edit/components/FormRowText.js';
 import FormRowTextListSimple, {
@@ -247,6 +253,7 @@ function createInitialState({
       } : null,
       showLabel: true,
     }),
+    duplicates: createInitialDuplicatesState(),
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
@@ -261,7 +268,7 @@ function reducer(state: StateT, action: ActionT): StateT {
   match (action) {
     {type: 'update-area', const action} => {
       const areaAutocomplete = autocompleteReducer(state.area, action);
-      const areaId = areaAutocomplete.selectedItem?.id ?? '';
+      const areaId = areaAutocomplete.selectedItem?.entity?.id ?? '';
       newStateCtx.set(
         'area',
         areaAutocomplete,
@@ -361,6 +368,41 @@ component LabelEditForm(
     {$c, form: initialForm},
     createInitialState,
   );
+
+  const origName = React.useRef(state.form.field.name.value || '');
+
+  React.useEffect(() => {
+    let cancelled = false;
+    fetchPossibleDuplicates(
+      entityType,
+      state.recentItemsKey,
+    ).then((loadedRecentItems) => {
+      if (cancelled) {
+        return [];
+      }
+      if (loadedRecentItems !== state.recentItems) {
+        setTimeout(() => {
+          dispatch({
+            items: loadedRecentItems,
+            type: 'set-recent-items',
+          });
+        }, 1);
+      }
+      return loadedRecentItems;
+    }).catch((error) => {
+      console.error(error);
+      Sentry.captureException(error);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    dispatch,
+    entityType,
+    origName,
+    state.duplicates,
+    state.form.field.name.value,
+  ]);
 
   const areaDispatch = React.useCallback((
     action: AutocompleteActionT<AreaT>,
@@ -504,7 +546,7 @@ component LabelEditForm(
             onFocus={handleNameFocus}
             rowRef={nameFieldRef}
           />
-          {/*         [%- duplicate_entities_section() -%] */}
+          <FormRowPossibleDuplicates />
           <FormRowTextLong
             field={state.form.field.comment}
             label={addColonText(l('Disambiguation'))}
