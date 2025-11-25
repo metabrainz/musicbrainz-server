@@ -7,72 +7,77 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {faChevronDown, faChevronUp, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronDown,
+  faChevronUp,
+  faPlusCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../context.mjs';
 import {VARTIST_GID} from '../common/constants.js';
 import useMediaQuery from '../common/hooks/useMediaQuery.js';
+import {l, lp} from '../common/i18n.js';
 
 const editorToolsItems = [
   {
-    label: 'Add artist',
+    context: 'interactive',
     href: '/artist/create',
-    context: 'interactive',
+    label: 'Add artist',
   },
   {
-    label: 'Add label',
+    context: 'interactive',
     href: '/label/create',
-    context: 'interactive',
+    label: 'Add label',
   },
 
   {
-    label: 'Add release group',
+    context: 'interactive',
     href: '/release-group/create',
-    context: 'interactive',
+    label: 'Add release group',
   },
 
   {
-    label: 'Add release',
+    context: 'interactive',
     href: '/release/add',
-    context: 'interactive',
+    label: 'Add release',
   },
 
   {
-    label: 'Add Various Artists release',
+    context: 'interactive',
     href: '/release/add?artist=' + encodeURIComponent(VARTIST_GID),
-    context: 'interactive',
+    label: 'Add Various Artists release',
   },
 
   {
-    label: 'Add standalone recording',
+    context: 'interactive',
     href: '/recording/create',
-    context: 'interactive',
+    label: 'Add standalone recording',
   },
 
   {
-    label: 'Add work',
+    context: 'interactive',
     href: '/work/create',
-    context: 'interactive',
+    label: 'Add work',
   },
 
   {
-    label: 'Add place',
+    context: 'interactive',
     href: '/place/create',
-    context: 'interactive',
+    label: 'Add place',
   },
 
   {
-    label: 'Add series',
-    href: '/series/create',
     context: 'singular, interactive',
+    href: '/series/create',
+    label: 'Add series',
   },
 
   {
-    label: 'Add event',
-    href: '/event/create',
     context: 'interactive',
+    href: '/event/create',
+    label: 'Add event',
   },
 ];
 
@@ -104,38 +109,51 @@ component EditorTools() {
         type="button"
       >
         <FontAwesomeIcon icon={faChevronDown} />
-        Editor Tools
+        {l('Editor Tools')}
       </button>
 
-      <div className={`collapse ${isExpanded ? 'show' : ''}`} id="editorToolsCollapse">
+      <div
+        className={`collapse ${isExpanded ? 'show' : ''}`}
+        id="editorToolsCollapse"
+      >
         <div className="editor-tools-content">
           <div className="editor-tools-cell" id="editor-tools-cell-1">
             <div className="editor-tools-cell-sub">
-              <a href={`/user/${user.name}`}>My Profile</a>
-              <a href="/logout">Logout</a>
+              <a href={`/user/${user.name}`}>{l('My Profile')}</a>
+              <a href="/logout">{l('Logout')}</a>
             </div>
             <div className="editor-tools-cell-sub">
-              <a href="/account/applications">Applications</a>
-              <a href={`/user/${user.name}/subscriptions/artist`}>Subscriptions</a>
+              <a href="/account/applications">{l('Applications')}</a>
+              <a href={`/user/${user.name}/subscriptions/artist`}>
+                {l('Subscriptions')}
+              </a>
             </div>
           </div>
           <div className="editor-tools-cell" id="editor-tools-cell-2">
-            <a href={`/user/${user.name}/collections`}>My collections</a>
-            <a href={`/user/${user.name}/ratings`}>My ratings</a>
-            <a href={`/user/${user.name}/tags`}>My tags</a>
+            <a href={`/user/${user.name}/collections`}>
+              {l('My collections')}
+            </a>
+            <a href={`/user/${user.name}/ratings`}>{l('My ratings')}</a>
+            <a href={`/user/${user.name}/tags`}>{l('My tags')}</a>
           </div>
           <div className="editor-tools-cell" id="editor-tools-cell-3">
-            <a href={`/user/${user.name}/edits/open`}>My open edits</a>
-            <a href={`/user/${user.name}/edits`}>All my edits</a>
-            <a href="/edit/subscribed">Subscribed entity edits</a>
-            <a href="/edit/subscribed_editors">Subscribed editor edits</a>
+            <a href={`/user/${user.name}/edits/open`}>
+              {l('My open edits')}
+            </a>
+            <a href={`/user/${user.name}/edits`}>{l('All my edits')}</a>
+            <a href="/edit/subscribed">{l('Subscribed entity edits')}</a>
+            <a href="/edit/subscribed_editors">
+              {l('Subscribed editor edits')}
+            </a>
           </div>
           <div className="editor-tools-cell" id="editor-tools-cell-4">
-            <a href="/edit/notes-received">Notes left on my edits</a>
+            <a href="/edit/notes-received">
+              {l('Notes left on my edits')}
+            </a>
           </div>
           <div className="editor-tools-cell" id="editor-tools-cell-5">
-            <a href="/vote">Votes on edits</a>
-            <a href="/reports">My reports</a>
+            <a href="/vote">{l('Votes on edits')}</a>
+            <a href="/reports">{l('My reports')}</a>
           </div>
           <div className="editor-tools-cell" id="editor-tools-cell-6">
             <span className="dropdown">
@@ -147,13 +165,15 @@ component EditorTools() {
                 role="button"
               >
                 <FontAwesomeIcon icon={faPlusCircle} />
-                Add new...
+                {l('Add new...')}
               </a>
               <ul className="dropdown-menu">
                 {editorToolsItems.map((item) => (
                   <li className="dropdown-item" key={item.label}>
                     <a href={item.href}>
-                      {item.context !== undefined ? lp(item.label, item.context) : l(item.label)}
+                      {item.context === undefined
+                        ? l(item.label)
+                        : lp(item.label, item.context)}
                     </a>
                   </li>
                 ))}

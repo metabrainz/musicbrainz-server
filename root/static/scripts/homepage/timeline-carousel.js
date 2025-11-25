@@ -7,26 +7,37 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {faPauseCircle, faPlayCircle, faPlusCircle} from '@fortawesome/free-solid-svg-icons';
+import {
+  faPauseCircle,
+  faPlayCircle,
+  faPlusCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
-// $FlowFixMe[untyped-import]
+// $FlowExpectedError[untyped-import]
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 
-// $FlowFixMe[untyped-import]
+// $FlowExpectedError[untyped-import]
 import {Autoplay, Mousewheel, Navigation} from 'swiper/modules';
 
-// $FlowFixMe[untyped-import]
+// $FlowExpectedError[untyped-import]
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import timelineCoverartPlaceholder from '../../images/homepage/timeline-coverart-placeholder.png';
+import timelineCoverartPlaceholder
+  from '../../images/homepage/timeline-coverart-placeholder.png';
+import {l} from '../common/i18n.js';
 import {reduceArtistCredit} from '../common/immutable-entities.js';
 import entityHref from '../common/utility/entityHref.js';
 
 component ReleaseTimelineImage(artwork: ReleaseArtT) {
   const release = artwork.release;
   const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
+
+  const handleImageLoad = React.useCallback(() => {
+    setImageLoaded(true);
+  }, []);
+
   if (!release) {
     return null;
   }
@@ -37,10 +48,6 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
     artist,
     entity: release.name,
   });
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
 
   return (
     <div className="timeline-image-container">
@@ -81,7 +88,9 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
               {release.name}
             </p>
             <p>
-              By {reduceArtistCredit(release.artistCredit)}
+              {texp.l('By {artist}', {
+                artist: reduceArtistCredit(release.artistCredit),
+              })}
             </p>
           </div>
         </a>
@@ -94,6 +103,10 @@ component EventTimelineImage(artwork: EventArtT) {
   const event = artwork.event;
   const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
 
+  const handleImageLoad = React.useCallback(() => {
+    setImageLoaded(true);
+  }, []);
+
   if (!event) {
     return null;
   }
@@ -101,10 +114,6 @@ component EventTimelineImage(artwork: EventArtT) {
   const eventDescription = texp.l('{entity}', {
     entity: event.name,
   });
-
-  const handleImageLoad = () => {
-    setImageLoaded(true);
-  };
 
   return (
     <div className="timeline-image-container">
@@ -122,10 +131,10 @@ component EventTimelineImage(artwork: EventArtT) {
             alt={event.name}
             src={timelineCoverartPlaceholder}
             style={{
+              display: imageLoaded ? 'none' : 'block',
+              height: '150px',
               objectFit: 'cover',
               width: '150px',
-              height: '150px',
-              display: imageLoaded ? 'none' : 'block',
             }}
             title={eventDescription}
           />
@@ -135,9 +144,9 @@ component EventTimelineImage(artwork: EventArtT) {
             onLoad={handleImageLoad}
             src={artwork.small_ia_thumbnail}
             style={{
+              height: '150px',
               objectFit: 'cover',
               width: '150px',
-              height: '150px',
             }}
             title={eventDescription}
           />
@@ -163,11 +172,15 @@ component TimelineCarousel(
   const [autoPlay, setAutoPlay] = React.useState<boolean>(true);
   const swiperRef = React.useRef<React.ElementRef<typeof Swiper>>(null);
 
-  const handlePillClick = (pill: 'fresh' | 'new') => {
-    setMode(pill);
-  };
+  const handleFreshPillClick = React.useCallback(() => {
+    setMode('fresh');
+  }, []);
 
-  const toggleAutoPlay = () => {
+  const handleNewPillClick = React.useCallback(() => {
+    setMode('new');
+  }, []);
+
+  const toggleAutoPlay = React.useCallback(() => {
     setAutoPlay((currentAutoPlayState) => {
       if (currentAutoPlayState) {
         swiperRef.current.swiper.autoplay.stop();
@@ -176,16 +189,20 @@ component TimelineCarousel(
       }
       return !currentAutoPlayState;
     });
-  };
+  }, []);
 
-  const releaseSlides = mode === 'fresh' ? freshReleaseArtwork : newestReleaseArtwork;
-  const eventSlides = mode === 'fresh' ? freshEventArtwork : newestEventArtwork;
+  const releaseSlides = mode === 'fresh'
+    ? freshReleaseArtwork
+    : newestReleaseArtwork;
+  const eventSlides = mode === 'fresh'
+    ? freshEventArtwork
+    : newestEventArtwork;
 
   return (
     <>
       <div className="timeline-carousel-inner">
         <div className="timeline-carousel-text">
-          Now
+          {l('Now')}
         </div>
         <Swiper
           autoplay={{
@@ -217,34 +234,54 @@ component TimelineCarousel(
       <div className="d-flex pt-3 justify-content-between flex-row gap-3">
         <div className="d-flex gap-2">
           <div
-            className={`timeline-carousel-pill ${mode === 'fresh' ? 'selected' : ''}`}
-            onClick={() => handlePillClick('fresh')}
-            title={`Order by ${entityType === 'release' ? 'release' : 'event'} date`}
+            className={`timeline-carousel-pill ${
+              mode === 'fresh' ? 'selected' : ''
+            }`}
+            onClick={handleFreshPillClick}
+            title={texp.l(
+              'Order by {type} date',
+              {
+                type: entityType === 'release' ? 'release' : 'event',
+              },
+            )}
           >
-            Fresh {entityType === 'release' ? 'releases' : 'events'}
+            {texp.l('Fresh {type}', {
+              type: entityType === 'release' ? 'releases' : 'events',
+            })}
           </div>
           <div
-            className={`timeline-carousel-pill ${mode === 'new' ? 'selected' : ''}`}
-            onClick={() => handlePillClick('new')}
-            title="Order by date added to MusicBrainz"
+            className={`timeline-carousel-pill ${
+              mode === 'new' ? 'selected' : ''
+            }`}
+            onClick={handleNewPillClick}
+            title={l('Order by date added to MusicBrainz')}
           >
             {l('New Additions')}
           </div>
         </div>
         <div className="d-flex gap-3">
-          <div className="d-flex gap-1 align-items-center timeline-control" onClick={toggleAutoPlay} role="button">
+          <div
+            className="d-flex gap-1 align-items-center timeline-control"
+            onClick={toggleAutoPlay}
+            role="button"
+          >
             <FontAwesomeIcon icon={autoPlay ? faPauseCircle : faPlayCircle} />
             <h5 className="timeline-control d-none d-md-block">
-              {autoPlay ? 'Pause' : 'Play'}
+              {autoPlay ? l('Pause') : l('Play')}
             </h5>
           </div>
           <a
-            className="d-flex gap-1 align-items-center text-decoration-none timeline-control"
-            href={entityType === 'release' ? '/release/add' : '/event/create'}
+            className={`d-flex gap-1 align-items-center
+              text-decoration-none timeline-control`}
+            href={
+              entityType === 'release' ? '/release/add' : '/event/create'
+            }
           >
             <FontAwesomeIcon icon={faPlusCircle} />
             <h5 className="timeline-control d-none d-md-block">
-              Add {entityType === 'release' ? 'Release' : 'Event'}
+              {texp.l('Add {type}', {
+                type: entityType === 'release' ? 'Release' : 'Event',
+              })}
             </h5>
           </a>
         </div>

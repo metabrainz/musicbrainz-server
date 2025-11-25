@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import searchIcon from '../../images/homepage/search-bar-icon.svg';
+import {l} from '../common/i18n.js';
 
 import entities from './utils.js';
 
@@ -19,7 +20,10 @@ component MobileSearchPopup() {
 
   const handleSearch = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.location.href = `/search?query=${encodeURIComponent(searchQuery)}&type=${selectedEntity.value}`;
+    window.location.href =
+      `/search?query=${encodeURIComponent(
+        searchQuery,
+      )}&type=${selectedEntity.value}`;
   };
 
   return (
@@ -30,17 +34,22 @@ component MobileSearchPopup() {
       tabIndex={-1}
     >
       <div className="offcanvas-body p-0">
-        <form className="d-flex flex-column gap-3 p-4 align-items-center" onSubmit={handleSearch}>
+        <form
+          className="d-flex flex-column gap-3 p-4 align-items-center"
+          onSubmit={handleSearch}
+        >
           <div className="d-grid align-items-center search-container">
             <p>
-              Search
+              {l('Search')}
             </p>
             <select
               className="form-select"
               id="searchEntitySelect"
               onChange={(e) => {
                 const target = e.currentTarget;
-                const entity = entities.find(ent => ent.value === target.value);
+                const entity = entities.find(
+                  (ent) => ent.value === target.value,
+                );
                 if (entity) {
                   setSelectedEntity(entity);
                 }
@@ -74,7 +83,7 @@ component MobileSearchPopup() {
         <div className="p-3 d-flex justify-content-center advanced-search">
           <a href="/search" title="Advanced Search">
             <h3>
-              Advanced Search
+              {l('Advanced Search')}
             </h3>
           </a>
         </div>

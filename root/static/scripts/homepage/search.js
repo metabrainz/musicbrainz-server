@@ -15,6 +15,7 @@ import dataProviderImage from '../../images/homepage/data-provider.png';
 import ethicalSourceImage from '../../images/homepage/ethical-forever.png';
 import openSourceImage from '../../images/homepage/open-source.png';
 import searchIcon from '../../images/homepage/search-bar-icon.svg';
+import {l} from '../common/i18n.js';
 
 import Blob from './blob.js';
 import {type WeeklyStatsT} from './stats.js';
@@ -35,16 +36,22 @@ component Search (
     return {...entity, stat};
   });
 
-  const [selectedEntity, setSelectedEntity] = React.useState(entitiesWithStats[0]);
+  const [selectedEntity, setSelectedEntity] = React.useState(
+    entitiesWithStats[0],
+  );
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const placeholder = selectedEntity.stat && selectedEntity.stat.total > 0
-    ? `Search ${selectedEntity.stat.total.toLocaleString()} ${selectedEntity.stat?.name || selectedEntity.name}...`
+    ? `Search ${selectedEntity.stat.total.toLocaleString()} ${
+      selectedEntity.stat?.name || selectedEntity.name
+    }...`
     : `Search ${selectedEntity.name.toLowerCase()}...`;
 
   const handleSearch = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
-    window.location.href = `/search?query=${encodeURIComponent(searchQuery)}&type=${selectedEntity.value}`;
+    window.location.href = `/search?query=${encodeURIComponent(
+      searchQuery,
+    )}&type=${selectedEntity.value}`;
   };
 
   const scrollToElement = () => {
@@ -61,11 +68,30 @@ component Search (
 
   return (
     <div className="universal-search layout-width">
-      <Blob className="search-vector-1" height={250} randomness={1.5} width={250} />
-      <Blob className="search-vector-2" height={350} randomness={2} width={350} />
-      <Blob className="search-vector-3" height={400} randomness={2} width={400} />
+      <Blob
+        className="search-vector-1"
+        height={250}
+        randomness={1.5}
+        width={250}
+      />
+      <Blob
+        className="search-vector-2"
+        height={350}
+        randomness={2}
+        width={350}
+      />
+      <Blob
+        className="search-vector-3"
+        height={400}
+        randomness={2}
+        width={400}
+      />
 
-      <div className="search-logo-info d-none d-md-flex" onClick={scrollToElement} role="button">
+      <div
+        className="search-logo-info d-none d-md-flex"
+        onClick={scrollToElement}
+        role="button"
+      >
         <img
           alt="MusicBrainz Open Source Logo"
           className="search-logo-info-image"
@@ -85,20 +111,32 @@ component Search (
 
       <div className="search-container">
         <h2 className="search-info-text">
-          The open music encyclopedia
+          {l('The open music encyclopedia')}
         </h2>
 
         <form onSubmit={handleSearch}>
           <div className="search-input-container">
             <div className="search-entity-selector d-none d-md-flex">
               {entitiesWithStats.map((entity) => {
+                const isSelected = selectedEntity.value === entity.value;
+                const handleClick = () => setSelectedEntity(entity);
                 return (
-                  <div className={`entity-pill ${selectedEntity.value === entity.value ? 'selected' : ''}`} key={entity.value} onClick={() => setSelectedEntity(entity)}>
+                  <div
+                    className={`entity-pill ${isSelected ? 'selected' : ''}`}
+                    key={entity.value}
+                    onClick={handleClick}
+                  >
                     <span className="entity-pill-text">{entity.name}</span>
                   </div>
                 );
               })}
-              <a className="advanced-search-text" href="/search" title="Advanced Search">Advanced Search</a>
+              <a
+                className="advanced-search-text"
+                href="/search"
+                title={l('Advanced Search')}
+              >
+                {l('Advanced Search')}
+              </a>
             </div>
 
             <div className="search-bar">
@@ -121,10 +159,17 @@ component Search (
                 className="mobile-entity-button"
                 onClick={() => setIsModalOpen(true)}
               >
-                <span className="mobile-entity-text">in {selectedEntity.name}</span>
+                <span className="mobile-entity-text">
+                  {l('in')} {selectedEntity.name}
+                </span>
                 <FontAwesomeIcon icon={faChevronDown} />
               </div>
-              <a className="mobile-advanced-search-text" href="/search">Advanced search</a>
+              <a
+                className="mobile-advanced-search-text"
+                href="/search"
+              >
+                {l('Advanced search')}
+              </a>
             </div>
           </div>
         </form>
@@ -137,7 +182,9 @@ component Search (
             onClick={() => setIsModalOpen(false)}
           />
           <div className="mobile-entity-modal">
-            <h3 className="mobile-entity-modal-title">Search in:</h3>
+            <h3 className="mobile-entity-modal-title">
+              {l('Search in:')}
+            </h3>
             <div className="mobile-entity-list">
               {entitiesWithStats.map((entity) => (
                 <button

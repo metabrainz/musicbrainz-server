@@ -58,7 +58,7 @@ component UserMenu(
             </div>
             {latestBlogPost && (
               <div className="user-menu-column">
-                <span>Latest blog post:</span>
+                <span>{l('Latest blog post:')}</span>
                 <a href={latestBlogPost.url}>
                   {latestBlogPost.title}
                 </a>

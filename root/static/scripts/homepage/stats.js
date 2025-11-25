@@ -9,13 +9,14 @@
 
 import * as React from 'react';
 
-// $FlowFixMe[untyped-import]
+// $FlowExpectedError[untyped-import]
 import {Autoplay, Navigation} from 'swiper/modules';
 
-// $FlowFixMe[untyped-import]
+// $FlowExpectedError[untyped-import]
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
+import {l} from '../common/i18n.js';
 
 export type WeeklyStatsT = {
   +count: number,
@@ -46,7 +47,9 @@ component Stats(
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
   // Filter the stats which need to be displayed in the carousel
-  const filteredStats = weeklyStats.filter((stat) => entitiesForStats.includes(stat.name));
+  const filteredStats = weeklyStats.filter(
+    (stat) => entitiesForStats.includes(stat.name),
+  );
 
   return (
     <Swiper
@@ -64,19 +67,27 @@ component Stats(
       {filteredStats.map((stat, index) => (
         <SwiperSlide key={index}>
           <div className="stat-card">
-            <h2>{stat.count > 0 ? `+${stat.count.toLocaleString()}` : stat.count.toLocaleString()} {stat.name} last week</h2>
+            <h2>
+              {stat.count > 0
+                ? `+${stat.count.toLocaleString()}`
+                : stat.count.toLocaleString()}
+{' '}
+              {stat.name}
+{' '}
+{l('last week')}
+            </h2>
             <p className="d-flex align-items-center gap-2">
               {stat.total.toLocaleString()}
 {' '}
-              total
-<a
-  href={`/statistics/timeline/${stat.stat}#r`}
-  rel="noopener noreferrer"
-  target="_blank"
-  title="View detailed statistics"
->
+              {l('total')}
+              <a
+                href={`/statistics/timeline/${stat.stat}#r`}
+                rel="noopener noreferrer"
+                target="_blank"
+                title="View detailed statistics"
+              >
                 <img alt="Magnifying glass" src={magnifyingGlass} />
-</a>
+              </a>
             </p>
           </div>
         </SwiperSlide>
