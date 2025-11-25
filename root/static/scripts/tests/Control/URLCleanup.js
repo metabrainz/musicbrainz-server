@@ -7451,6 +7451,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.youtube.com/@ChristophSch%C3%B6nberger-music/playlists',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/@ChristophSch%C3%B6nberger-music',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
                      input_url: 'https://www.youtube.com/@MetaBrainz#soon',
              input_entity_type: 'label',
     expected_relationship_type: 'youtube',
