@@ -343,6 +343,7 @@ role {
 
         $c->stash(
             source_entity => $source_entity,
+            original_name => $source ? $source->name : '',
             seeded_relationships => to_json_array(get_seeded_relationships($c, $source_type, $source)),
         );
 

@@ -18,7 +18,7 @@ import isBlank from '../common/utility/isBlank.js';
 import request from '../common/utility/request.js';
 import {unaccent} from '../common/utility/strings.js';
 
-import {PossibleDuplicates} from './components/FormRowPossibleDuplicates.js';
+import PossibleDuplicates from './components/PossibleDuplicates.js';
 import * as validation from './validation.js';
 
 const commentRequired = ko.observable(false);
