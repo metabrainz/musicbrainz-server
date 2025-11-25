@@ -264,8 +264,7 @@ sub redirect_back {
             $returnto->authority ne $c->req->uri->authority
         )
     ) {
-        $returnto->path_query('/');
-        $returnto->fragment(undef);
+        $returnto = $c->uri_for('/');
     }
 
     if (my $callback = $opts{callback}) {
