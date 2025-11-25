@@ -38,6 +38,8 @@ import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
 } from '../../edit/components/DateRangeFieldset.js';
+import DisambiguationError
+  from '../../edit/components/DisambiguationError.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowAreaAutocomplete
@@ -66,6 +68,7 @@ import {
   ExternalLinksEditor,
   prepareExternalLinksHtmlFormSubmission,
 } from '../../edit/externalLinks.js';
+import isCommentRequired from '../../edit/utility/isCommentRequired.js';
 import isInvalidEditNote from '../../edit/utility/isInvalidEditNote.js';
 import isValidIpi from '../../edit/utility/isValidIpi.js';
 import isValidIsni from '../../edit/utility/isValidIsni.js';
@@ -89,6 +92,7 @@ type ActionT =
       +action: AutocompleteActionT<AreaT>,
       +type: 'update-area',
     }
+  | {+type: 'update-comment', +comment: string}
   | {+type: 'update-date-range', +action: DateRangeFieldsetActionT}
   | {+type: 'update-edit-note', +editNote: string}
   | {+type: 'update-ipis', +action: CodesActionT}
@@ -101,6 +105,7 @@ type StateT = {
   +actionName: string,
   +area: AutocompleteStateT<AreaT>,
   +areDuplicatesConfirmed: boolean,
+  +commentRequired: boolean,
   +duplicates: $ReadOnlyArray<LabelT>,
   +form: LabelFormT,
   +guessCaseOptions: GuessCaseOptionsStateT,
@@ -256,6 +261,7 @@ function createInitialState({
       showLabel: true,
     }),
     areDuplicatesConfirmed: false,
+    commentRequired: false,
     duplicates: [],
     form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -282,6 +288,12 @@ function reducer(state: StateT, action: ActionT): StateT {
         newStateCtx.get('form', 'field', 'period'),
         action,
       );
+    }
+    {type: 'update-comment', const comment} => {
+      newStateCtx
+        .update('form', 'field', 'comment', (commentFieldCtx) => {
+          commentFieldCtx.set('value', comment);
+        });
     }
     {type: 'update-edit-note', const editNote} => {
       newStateCtx
@@ -349,8 +361,14 @@ function reducer(state: StateT, action: ActionT): StateT {
       applyAllPendingErrors(newStateCtx.get('form'));
     }
     {type: 'set-duplicates', const duplicates} => {
+      const name =
+        newStateCtx.get('form', 'field', 'name', 'value').read() ?? '';
       newStateCtx.set('duplicates', duplicates);
       newStateCtx.set('areDuplicatesConfirmed', false);
+      newStateCtx.set(
+        'commentRequired',
+        isCommentRequired(name, duplicates),
+      );
     }
     {type: 'set-duplicates-confirmed', const confirmed} => {
       newStateCtx.set('areDuplicatesConfirmed', confirmed);
@@ -380,7 +398,11 @@ component LabelEditForm(
   );
 
   const currentName = state.form.field.name.value ?? '';
-  const origName = React.useRef(currentName);
+  const origName = React.useRef($c.stash.original_name ?? '');
+  const hasUnchangedComment =
+    state.form.field.comment.value === initialForm.field.comment.value;
+  const hasUnchangedName =
+    state.form.field.name.value === initialForm.field.name.value;
 
   React.useEffect(() => {
     if (
@@ -447,6 +469,15 @@ component LabelEditForm(
 
   const isniDispatch = React.useCallback((action: CodesActionT) => {
     dispatch({action, type: 'update-isnis'});
+  }, [dispatch]);
+
+  const handleCommentChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({
+      comment: event.currentTarget.value,
+      type: 'update-comment',
+    });
   }, [dispatch]);
 
   const handleEditNoteChange = React.useCallback((
@@ -591,11 +622,20 @@ component LabelEditForm(
           <FormRowTextLong
             field={state.form.field.comment}
             label={addColonText(l('Disambiguation'))}
+            onChange={handleCommentChange}
             onFocus={handleCommentFocus}
+            required={state.commentRequired}
             rowRef={commentFieldRef}
-            uncontrolled
           />
-          {/*         [%- disambiguation_error() -%] */}
+          <DisambiguationError
+            duplicateViolation={
+              $c.stash.duplicate_violation /*:: === true */ &&
+              hasUnchangedName &&
+              hasUnchangedComment
+            }
+            needsDisambiguation={state.commentRequired &&
+              empty(state.form.field.comment.value)}
+          />
           <FormRowSelect
             allowEmpty
             field={state.form.field.type_id}
