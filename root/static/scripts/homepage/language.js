@@ -56,7 +56,10 @@ component LanguageSelector() {
     <>
       <a
         aria-expanded="false"
-        className="dropdown-toggle align-items-center dropdown-toggle-no-caret"
+        className={
+          `dropdown-toggle align-items-center
+          dropdown-toggle-no-caret`
+        }
         data-bs-toggle="dropdown"
         href="#"
         role="button"
@@ -71,7 +74,9 @@ component LanguageSelector() {
             <li key={language.name}>
               <a
                 className={`dropdown-item ${isSelected ? 'active' : ''}`}
-                href={`/set-language/${encodeURIComponent(language.name)}?${returnToCurrentPage($c)}`}
+                href={`/set-language/${encodeURIComponent(
+                  language.name,
+                )}?${returnToCurrentPage($c)}`}
                 title={languageName(language, isSelected)}
               >
                 {languageName(language, isSelected)}

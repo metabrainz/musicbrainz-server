@@ -16,9 +16,9 @@ component AuthButtons() {
     <div className="auth-buttons layout-width">
       <a href="/register?returnto=%2F" id="create-account">
         <FontAwesomeIcon icon={faUser} />
-        Create Account
+        {l('Create Account')}
       </a>
-      <a href="/login?returnto=%2F">Login</a>
+      <a href="/login?returnto=%2F">{l('Login')}</a>
     </div>
   );
 }

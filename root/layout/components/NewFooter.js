@@ -15,6 +15,7 @@ import metabrainzLogo
   from '../../static/images/meb-logos/metabrainz.svg';
 import musicbrainzLogo
   from '../../static/images/meb-logos/musicbrainz.svg';
+import {l} from '../../static/scripts/common/i18n.js';
 
 component NewFooter() {
   return (
@@ -31,87 +32,90 @@ component NewFooter() {
             </h3>
             <br />
             <p>
-              is an open music encyclopedia that collects music metadata and makes it available to the public.
+              {l(
+                `is an open music encyclopedia that collects music metadata
+                and makes it available to the public.`,
+              )}
             </p>
             <ul className="list-unstyled">
               <li className="color-a">
-                <span>Development IRC: </span>
+                <span>{l('Development IRC:')} </span>
 {' '}
                 <a href="/doc/Communication/ChatBrainz">
-                  #metabrainz
+                  {'#metabrainz'}
                 </a>
               </li>
               <li className="color-a">
-                <span>Discussion IRC: </span>
+                <span>{l('Discussion IRC:')} </span>
 {' '}
                 <a href="/doc/Communication/ChatBrainz">
-                  #metabrainz
+                  {'#metabrainz'}
                 </a>
               </li>
               <li className="color-a">
-                <span>Email: </span>
+                <span>{l('Email:')} </span>
 {' '}
                 <a href="mailto:support@metabrainz.org">
-                  support@metabrainz.org{' '}
+                  {'support@metabrainz.org'}{' '}
                 </a>
               </li>
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-3">
-            <h3 className="text-brand text-body">Useful Links</h3>
+            <h3 className="text-brand text-body">{l('Useful Links')}</h3>
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://metabrainz.org/donate">
-                  Donate
+                  {l('Donate')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://wiki.musicbrainz.org/Main_Page">
-                  Wiki
+                  {l('Wiki')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://community.metabrainz.org/">
-                  Community
+                  {l('Community')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://blog.metabrainz.org/">
-                  Blog
+                  {l('Blog')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://www.redbubble.com/people/metabrainz/shop">
-                  Shop
+                  {l('Shop')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://metabrainz.org/">
-                  MetaBrainz
+                  {l('MetaBrainz')}
                 </a>
               </li>
               <li className="d-block d-md-none">
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://github.com/metabrainz/listenbrainz-server">
-                  Contribute Here
+                  {l('Contribute Here')}
                 </a>
               </li>
               <li className="d-block d-md-none">
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://tickets.metabrainz.org/">
-                  Bug Tracker
+                  {l('Bug Tracker')}
                 </a>
               </li>
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-3">
-            <h3 className="text-brand text-body">Fellow Projects</h3>
+            <h3 className="text-brand text-body">{l('Fellow Projects')}</h3>
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
@@ -152,7 +156,7 @@ component NewFooter() {
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-2">
-            <h3 className="text-brand text-body">Join Us</h3>
+            <h3 className="text-brand text-body">{l('Join Us')}</h3>
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
@@ -196,16 +200,16 @@ component NewFooter() {
         <div className="row center-p">
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
-              OSS Geek?
+              {l('OSS Geek?')}
 {' '}
               <a href="https://github.com/metabrainz/musicbrainz-server">
-                Contribute Here {' '}
+                {l('Contribute Here')} {' '}
               </a>
             </p>
           </div>
           <div className="col-12 col-lg-6">
             <p className="border-light border-top pt-3 text-center">
-              Brought to you by
+              {l('Brought to you by')}
 {' '}
               <img
                 alt="MetaBrainz"
@@ -215,16 +219,16 @@ component NewFooter() {
               />
 {' '}
               <a href="https://metabrainz.org/">
-                MetaBrainz Foundation
+                {l('MetaBrainz Foundation')}
               </a>
             </p>
           </div>
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
-              Found an Issue?
+              {l('Found an Issue?')}
 {' '}
               <a href="https://tickets.metabrainz.org/">
-                Report Here {' '}
+                {l('Report Here')} {' '}
               </a>
             </p>
           </div>

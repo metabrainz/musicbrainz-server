@@ -327,7 +327,11 @@ component Layout(
     <html lang={$c.stash.current_language_html}>
       <Head {...headProps} />
 
-      <body className={headProps.isHomepage /*:: === true */ ? 'body-homepage' : ''}>
+      <body
+        className={
+          headProps.isHomepage /*:: === true */ ? 'body-homepage' : ''
+        }
+      >
         {$c.stash.within_dialog === true
           ? null
           : <HeaderAndBanners $c={$c} />}
@@ -340,7 +344,8 @@ component Layout(
           {children}
         </div>
 
-        {$c.stash.within_dialog === true || headProps.isHomepage /*:: === true */
+        {$c.stash.within_dialog === true ||
+          (headProps.isHomepage /*:: === true */)
           ? null
           : <MergeHelperAndFooter $c={$c} />}
 

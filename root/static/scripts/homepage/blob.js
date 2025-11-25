@@ -44,7 +44,7 @@ component Blob(
       const gradient = ctx.createLinearGradient(
         width / 2,
         0,
-        width / 2 + Math.cos(angle) * width,
+        (width / 2) + (Math.cos(angle) * width),
         Math.sin(angle) * height,
       );
       gradient.addColorStop(0, '#D48835');
@@ -66,9 +66,9 @@ component Blob(
     blobs2Animate.wigglePreset(
       animation,
       {
-        seed: seed ?? Date.now(),
         extraPoints: 3,
         randomness: randomness * 2,
+        seed: seed ?? Date.now(),
         size,
       },
       {offsetX, offsetY},
