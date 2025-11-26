@@ -315,13 +315,13 @@ role {
 
         # XXX Copy any submitted data required by the relationship editor.
         {
-            my $name = $c->req->params->{"${form_name}.name"};
+            my $name = $c->req->body_params->{"${form_name}.name"} // $c->req->query_params->{"${form_name}.name"};
             if (non_empty($name)) {
                 $source_entity->{name} = $name;
             }
         }
         if ($source_type eq 'series') {
-            my $ordering_type_id = $c->req->params->{'edit-series.ordering_type_id'};
+            my $ordering_type_id = $c->req->body_params->{'edit-series.ordering_type_id'} // $c->req->query_params->{'edit-series.ordering_type_id'};
             if (is_positive_integer($ordering_type_id)) {
                 $source_entity->{orderingTypeID} = 0 + $ordering_type_id;
             }
