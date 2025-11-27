@@ -36,6 +36,10 @@ declare module 'knockout' {
     callback: () => T,
   ): ComputedObservable<T>;
 
+  declare function isObservable<T>(
+    value: mixed,
+  ): value is Observable<T>;
+
   declare function observable<T>(
     value: T,
   ): Observable<T>;
@@ -58,6 +62,7 @@ declare module 'knockout' {
   declare module.exports: {
     applyBindings: typeof applyBindings,
     computed: typeof computed,
+    isObservable: typeof isObservable,
     observable: typeof observable,
     observableArray: typeof observableArray,
     unwrap: typeof unwrap,

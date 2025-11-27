@@ -62,9 +62,12 @@ role {
         my $type = model_to_type($model);
         my $entity;
         my %props;
+        my %edit_arguments = $params->edit_arguments->($self, $c);
 
-        if ($model eq 'Event' || $model eq 'Genre') {
-            my $form = $c->form( form => $params->form );
+        if ($model eq 'Event' || $model eq 'Genre' || $model eq 'Instrument' || $model eq 'Label' || $model eq 'Recording') {
+            my $type = model_to_type($model);
+            my %form_args = %{ $edit_arguments{form_args} || {}};
+            my $form = $c->form( form => $params->form, ctx => $c, %form_args );
             %props = ( form => $form->TO_JSON );
 
             $c->stash(
@@ -108,8 +111,22 @@ role {
                     $props{eventTypes} = $form->options_type_id;
                     $props{eventDescriptions} = \%event_descriptions;
                 }
+                if ($model eq 'Instrument') {
+                    $props{instrumentTypes} = $form->options_type_id;
+                }
+                if ($model eq 'Label') {
+                    my %label_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('LabelType')->get_all();
+
+                    $props{labelTypes} = $form->options_type_id;
+                    $props{labelDescriptions} = \%label_descriptions;
+                }
                 if ($self->does('MusicBrainz::Server::Controller::Role::IdentifierSet')) {
                     $self->munge_compound_text_fields($c, $form);
+                }
+                if ($model eq 'Recording') {
+                    $props{usedByTracks} = $form->used_by_tracks;
                 }
             },
             redirect => sub {
@@ -118,7 +135,7 @@ role {
             },
             no_redirect => $args{within_dialog},
             edit_rels   => 1,
-            $params->edit_arguments->($self, $c),
+            %edit_arguments,
         );
 
         if ($ENTITIES{$type}{artist_credits}) {

@@ -19,7 +19,7 @@ import {createExternalLinksEditorForHtmlForm} from './edit/externalLinks.js';
 $(function () {
   const sourceData = getSourceEntityDataForRelationshipEditor();
   const entityType = sourceData.entityType;
-  const reactEditors = ['event', 'genre'];
+  const reactEditors = ['event', 'genre', 'instrument', 'label', 'recording'];
 
   if (
     /*

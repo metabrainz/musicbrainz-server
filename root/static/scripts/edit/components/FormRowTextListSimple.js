@@ -14,7 +14,7 @@
  * which values the user removed (to handle cases like MBS-13969).
  */
 
-import mutate from 'mutate-cow';
+import mutate, {type CowContext} from 'mutate-cow';
 import React from 'react';
 
 import {pushField} from '../utility/pushField.js';
@@ -25,9 +25,9 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 import RemoveButton from './RemoveButton.js';
 
-type StateT = RepeatableFieldT<FieldT<string>>;
+export type StateT = RepeatableFieldT<FieldT<string>>;
 
-type ActionT =
+export type ActionT =
   | {+type: 'add-row'}
   | {+fieldId: number, +type: 'remove-row'}
   | {+fieldId: number, +type: 'update-row', +value: string};
@@ -36,6 +36,7 @@ component TextListRow(
   dispatch: (ActionT) => void,
   fieldId: number,
   name: string,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   removeButtonLabel: string,
   value: string,
 ) {
@@ -56,6 +57,7 @@ component TextListRow(
         className="value with-button"
         name={name}
         onChange={updateRow}
+        onFocus={onFocus}
         type="text"
         value={value}
       />
@@ -67,18 +69,20 @@ component TextListRow(
   );
 }
 
-const createInitialState = (repeatable: RepeatableFieldT<FieldT<string>>) => {
-  let newField = {...repeatable};
+export function createInitialState(state: StateT): StateT {
+  let newField = {...state};
   if (newField.last_index === -1) {
     newField = mutate(newField).update((fieldCtx) => {
       pushField(fieldCtx, '');
     }).final();
   }
   return newField;
-};
+}
 
-function reducer(state: StateT, action: ActionT): StateT {
-  const newStateCtx = mutate(state);
+export function runReducer(
+  newStateCtx: CowContext<StateT>,
+  action: ActionT,
+): void {
   const fieldCtx = newStateCtx.get('field');
 
   match (action) {
@@ -108,24 +112,26 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx.set('field', index, 'value', value);
     }
   }
+}
+
+export function reducer(state: StateT, action: ActionT): StateT {
+  const newStateCtx = mutate(state);
+
+  runReducer(newStateCtx, action);
+
   return newStateCtx.final();
 }
 
-component FormRowTextListSimple(
+export component InnerFormRowTextListSimple(
   addButtonLabel: string,
   addButtonId: string,
+  dispatch: (ActionT) => void,
   label: string,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   removeButtonLabel: string,
-  repeatable: RepeatableFieldT<FieldT<string>>,
+  state: StateT,
   required: boolean = false,
 ) {
-  const [state, dispatch] =
-    React.useReducer<StateT, ActionT, RepeatableFieldT<FieldT<string>>>(
-      reducer,
-      repeatable,
-      createInitialState,
-    );
-
   const addRow = React.useCallback(() => {
     dispatch({type: 'add-row'});
   }, [dispatch]);
@@ -141,6 +147,7 @@ component FormRowTextListSimple(
             fieldId={field.id}
             key={field.id}
             name={field.html_name}
+            onFocus={onFocus}
             removeButtonLabel={removeButtonLabel}
             value={field.value}
           />
@@ -155,26 +162,20 @@ component FormRowTextListSimple(
         </div>
       </div>
 
-      <FieldErrors field={repeatable} />
+      <FieldErrors field={state} />
     </>
   );
 }
 
-export component NonHydratedFormRowTextListSimple(
-  ...props: React.PropsOf<FormRowTextListSimple>
+component FormRowTextListSimple(
+  rowRef?: {-current: HTMLDivElement | null},
+  ...props: React.PropsOf<InnerFormRowTextListSimple>
 ) {
   return (
-    <FormRow className="form-row-text-list-container">
-      <FormRowTextListSimple {...props} />
+    <FormRow rowRef={rowRef}>
+      <InnerFormRowTextListSimple {...props} />
     </FormRow>
   );
 }
 
-/*
- * Hydration must be moved higher up in the component hierarchy once
- * more of the page is converted to React.
- */
-export default (hydrate<React.PropsOf<FormRowTextListSimple>>(
-  'div.row.form-row-text-list-container',
-  FormRowTextListSimple,
-): component(...React.PropsOf<FormRowTextListSimple>));
+export default FormRowTextListSimple;
