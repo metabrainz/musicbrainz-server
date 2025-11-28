@@ -7,7 +7,11 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_EDIT
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    EnteredFromEntity
+    Nullable
+);
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     changed_display_data
@@ -71,6 +75,7 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
+        entered_from => EnteredFromEntity,
         entity => Dict[
             id => Int,
             gid => Optional[Str],
