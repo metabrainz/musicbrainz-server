@@ -194,6 +194,7 @@ our $data_processors = {
 
         process_entity($c, $loader, $data);
         load_entity_prop($loader, $data, 'to_edit', 'Recording');
+        process_entered_from($c, $loader, $data);
     },
 
     $EDIT_RELATIONSHIP_CREATE => \&process_relationship,
@@ -243,6 +244,7 @@ our $data_processors = {
 
         $data->{to_edit} = delete $data->{gid};
         load_entity_prop($loader, $data, 'to_edit', 'ReleaseGroup');
+        process_entered_from($c, $loader, $data);
     },
 
     # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Work

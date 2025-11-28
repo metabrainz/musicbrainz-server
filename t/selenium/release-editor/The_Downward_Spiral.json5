@@ -716,6 +716,11 @@
           old: {
             name: 'mr self destruct',
           },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downword Spiral'
+          },
           entity: {
             id: 164872,
             gid: '96f64611-49df-4e54-84e7-0f9a30f01766',
@@ -758,6 +763,11 @@
                 },
               ],
             },
+          },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downword Spiral'
           },
           entity: {
             id: 164873,
@@ -1625,6 +1635,11 @@
               ],
             },
           },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downward Spiral'
+          },
           entity: {
             id: 2,
             gid: '$$__IGNORE__$$',
@@ -1667,6 +1682,11 @@
                 },
               ],
             },
+          },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downward Spiral'
           },
           entity: {
             id: 3,
@@ -1711,6 +1731,11 @@
               ],
             },
           },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downward Spiral'
+          },
           entity: {
             id: 4,
             gid: '$$__IGNORE__$$',
@@ -1754,6 +1779,11 @@
               ],
             },
           },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downward Spiral'
+          },
           entity: {
             id: 5,
             gid: '$$__IGNORE__$$',
@@ -1796,6 +1826,11 @@
                 },
               ],
             },
+          },
+          entered_from: {
+            gid: '$$__IGNORE__$$',
+            entity_type: 'release',
+            name: 'The Downward Spiral'
           },
           entity: {
             id: 6,
