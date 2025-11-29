@@ -21,7 +21,7 @@ component LabelsDisambiguationSameName(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists labels that have their disambiguation set
          to be the same as their name.
          The disambiguation should be removed or, if it is needed, improved.`,
@@ -29,7 +29,7 @@ component LabelsDisambiguationSameName(...{
       entityType="label"
       filtered={filtered}
       generated={generated}
-      title={l('Labels with disambiguation the same as the name')}
+      title={l_reports('Labels with disambiguation the same as the name')}
       totalEntries={pager.total_entries}
     >
       <LabelList items={items} pager={pager} />

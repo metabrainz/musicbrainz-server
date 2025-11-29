@@ -34,7 +34,7 @@ component EmptyReleaseGroups(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists release groups which do not contain any releases.
          There are two main reasons that could lead to this, both
          of which usually mean the data can be improved. One is that the
@@ -49,16 +49,16 @@ component EmptyReleaseGroups(...{
       entityType="release_group"
       filtered={filtered}
       generated={generated}
-      title={l('Release groups without any releases')}
+      title={l_reports('Release groups without any releases')}
       totalEntries={pager.total_entries}
     >
       <PaginatedResults pager={pager}>
         <table className="tbl">
           <thead>
             <tr>
-              <th>{l('Artist')}</th>
-              <th>{l('Release group')}</th>
-              <th>{l('Type')}</th>
+              <th>{l_mb_server('Artist')}</th>
+              <th>{l_mb_server('Release group')}</th>
+              <th>{l_mb_server('Type')}</th>
             </tr>
           </thead>
           <tbody>
@@ -90,14 +90,14 @@ component EmptyReleaseGroups(...{
                         <td>
                           {nonEmpty(item.release_group.l_type_name)
                             ? item.release_group.l_type_name
-                            : lp('Unknown', 'type')}
+                            : lp_mb_server('Unknown', 'type')}
                         </td>
                       </>
                     ) : (
                       <>
                         <td />
                         <td colSpan={2}>
-                          {l('This release group no longer exists.')}
+                          {l_reports('This release group no longer exists.')}
                         </td>
                       </>
                     )}

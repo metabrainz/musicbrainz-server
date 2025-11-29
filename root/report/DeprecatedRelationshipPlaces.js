@@ -25,14 +25,14 @@ component DeprecatedRelationshipPlaces(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists places which have relationships using
         deprecated and grouping-only relationship types.`,
       )}
       entityType="place"
       filtered={filtered}
       generated={generated}
-      title={l('Places with deprecated relationships')}
+      title={l_reports('Places with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <PlaceList

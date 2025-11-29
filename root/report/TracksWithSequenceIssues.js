@@ -21,7 +21,7 @@ component TracksWithSequenceIssues(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists all releases where the track numbers are not
          continuous (for example, there is no "track 2"), or with duplicated
          track numbers (for example, there are two "track 4"s).`,
@@ -29,7 +29,7 @@ component TracksWithSequenceIssues(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with track number issues')}
+      title={l_reports('Releases with track number issues')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

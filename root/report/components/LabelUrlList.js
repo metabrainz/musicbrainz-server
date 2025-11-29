@@ -26,8 +26,8 @@ component LabelUrlList(
       <table className="tbl">
         <thead>
           <tr>
-            <th>{l('URL')}</th>
-            <th>{l('Label')}</th>
+            <th>{l_mb_server('URL')}</th>
+            <th>{l_mb_server('Label')}</th>
           </tr>
         </thead>
         <tbody>
@@ -67,7 +67,7 @@ component LabelUrlList(
                   <tr key={`removed-${item.label_id}`}>
                     <td />
                     <td>
-                      {l('This label no longer exists.')}
+                      {l_reports('This label no longer exists.')}
                     </td>
                   </tr>
                 )}

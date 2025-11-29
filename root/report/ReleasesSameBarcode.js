@@ -38,13 +38,13 @@ component ReleasesSameBarcode(...{
     cellProps: {className: 'barcode-cell'},
     columnName: 'barcode',
     getText: result => formatBarcode(result.barcode),
-    title: l('Barcode'),
+    title: l_mb_server('Barcode'),
   });
   const releaseGroupColumn = defineEntityColumn<ReportRowT>({
     columnName: 'release_group',
     descriptive: false,
     getEntity: result => result.release_group ?? null,
-    title: l('Release group'),
+    title: l_mb_server('Release group'),
   });
   const releaseGroupTypeColumn = defineTextColumn<ReportRowT>({
     cellProps: {className: 'barcode-cell'},
@@ -58,7 +58,7 @@ component ReleasesSameBarcode(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows non-bootleg releases which have
          the same barcode, yet are placed in different release groups.
          Chances are that the releases are duplicates or parts of a set,
@@ -67,7 +67,9 @@ component ReleasesSameBarcode(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with the same barcode in different release groups')}
+      title={l_reports(
+        'Releases with the same barcode in different release groups',
+      )}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

@@ -21,13 +21,13 @@ component ReleasesWithNoMediums(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         'This report shows releases without any mediums (no tracklist).',
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with no mediums')}
+      title={l_reports('Releases with no mediums')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

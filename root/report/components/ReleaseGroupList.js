@@ -40,22 +40,24 @@ component ReleaseGroupList<D: {+release_group: ?ReleaseGroupT, ...}>(
         columnName: 'release_group',
         descriptive: false,
         getEntity: result => result.release_group ?? null,
-        title: l('Release group'),
+        title: l_mb_server('Release group'),
       });
       const artistCreditColumn =
         defineArtistCreditColumn<D>({
           columnName: 'artist',
           getArtistCredit:
             result => result.release_group?.artistCredit ?? null,
-          title: l('Artist'),
+          title: l_mb_server('Artist'),
         });
       const typeColumn = defineTextColumn<D>({
         columnName: 'type',
         getText: result => {
           const typeName = result.release_group?.l_type_name;
-          return nonEmpty(typeName) ? typeName : lp('Unknown', 'type');
+          return nonEmpty(typeName)
+            ? typeName
+            : lp_mb_server('Unknown', 'type');
         },
-        title: l('Type'),
+        title: l_mb_server('Type'),
       });
 
       return [

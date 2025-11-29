@@ -21,7 +21,7 @@ component ShouldNotHaveDiscIds(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have at least one medium with a
          format that does not support disc IDs, yet have disc IDs attached.
          Usually this means the disc IDs ended up here because of a bug
@@ -30,7 +30,7 @@ component ShouldNotHaveDiscIds(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases that have disc IDs, but shouldn’t')}
+      title={l_reports('Releases that have disc IDs, but shouldn’t')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} subPath="discids" />

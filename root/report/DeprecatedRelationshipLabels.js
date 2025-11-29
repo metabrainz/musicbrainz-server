@@ -25,14 +25,14 @@ component DeprecatedRelationshipLabels(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists labels which have relationships using
          deprecated and grouping-only relationship types.`,
       )}
       entityType="label"
       filtered={filtered}
       generated={generated}
-      title={l('Labels with deprecated relationships')}
+      title={l_reports('Labels with deprecated relationships')}
       totalEntries={pager.total_entries}
     >
       <LabelList

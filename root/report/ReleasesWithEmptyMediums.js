@@ -21,7 +21,7 @@ component ReleasesWithEmptyMediums(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases with at least one medium
          that is missing a tracklist. If you can find the tracklist,
          please help complete the data!`,
@@ -29,7 +29,7 @@ component ReleasesWithEmptyMediums(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with empty mediums')}
+      title={l_reports('Releases with empty mediums')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

@@ -28,9 +28,9 @@ component ReleaseGroupUrlList(
       <table className="tbl">
         <thead>
           <tr>
-            <th>{l('URL')}</th>
-            <th>{l('Release group')}</th>
-            <th>{l('Artist')}</th>
+            <th>{l_mb_server('URL')}</th>
+            <th>{l_mb_server('Release group')}</th>
+            <th>{l_mb_server('Artist')}</th>
           </tr>
         </thead>
         <tbody>
@@ -75,7 +75,7 @@ component ReleaseGroupUrlList(
                   <tr key={`removed-${item.release_group_id}`}>
                     <td />
                     <td colSpan={2}>
-                      {l('This release group no longer exists.')}
+                      {l_reports('This release group no longer exists.')}
                     </td>
                   </tr>
                 )}

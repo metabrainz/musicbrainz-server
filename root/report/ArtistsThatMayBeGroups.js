@@ -21,7 +21,7 @@ component ArtistsThatMayBeGroups(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists artists that have their type set to other
          than Group (or a subtype of Group) but may be a group,
          because they have other artists listed as members or use other
@@ -36,7 +36,7 @@ component ArtistsThatMayBeGroups(...{
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Artists that may be groups')}
+      title={l_reports('Artists that may be groups')}
       totalEntries={pager.total_entries}
     >
       <ArtistList items={items} pager={pager} />

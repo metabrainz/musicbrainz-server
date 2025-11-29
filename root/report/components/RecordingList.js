@@ -39,13 +39,13 @@ component RecordingList<D: {+recording: ?RecordingT, ...}>(
         columnName: 'recording',
         descriptive: false,
         getEntity: result => result.recording ?? null,
-        title: l('Recording'),
+        title: l_mb_server('Recording'),
       });
       const artistCreditColumn =
         defineArtistCreditColumn<D>({
           columnName: 'artist',
           getArtistCredit: result => result.recording?.artistCredit ?? null,
-          title: l('Artist'),
+          title: l_mb_server('Artist'),
         });
 
       return [

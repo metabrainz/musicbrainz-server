@@ -25,12 +25,12 @@ component AnnotationsReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists releases with annotations.')}
+      description={l_reports('This report lists releases with annotations.')}
       entityType="release"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Release annotations')}
+      title={l_reports('Release annotations')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList

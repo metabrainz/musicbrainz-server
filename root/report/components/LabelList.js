@@ -37,7 +37,7 @@ component LabelList<D: {+label: ?LabelT, ...}>(
       const nameColumn = defineEntityColumn<D>({
         columnName: 'label',
         getEntity: result => result.label ?? null,
-        title: l('Label'),
+        title: l_mb_server('Label'),
       });
 
       return [

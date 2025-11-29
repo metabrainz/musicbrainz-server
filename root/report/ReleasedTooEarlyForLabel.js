@@ -21,7 +21,7 @@ component ReleasedTooEarlyForLabel(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases where the earliest release date
          predates the begin date of at least one of the marked release labels.
          This means either one of the two dates is incorrect,
@@ -30,7 +30,7 @@ component ReleasedTooEarlyForLabel(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases older than their release label')}
+      title={l_reports('Releases older than their release label')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

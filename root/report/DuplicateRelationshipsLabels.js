@@ -21,14 +21,14 @@ component DuplicateRelationshipsLabels(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists labels which have multiple relationships
          to the same entity using the same relationship type.`,
       )}
       entityType="label"
       filtered={filtered}
       generated={generated}
-      title={l('Labels with possible duplicate relationships')}
+      title={l_reports('Labels with possible duplicate relationships')}
       totalEntries={pager.total_entries}
     >
       <LabelList items={items} pager={pager} />

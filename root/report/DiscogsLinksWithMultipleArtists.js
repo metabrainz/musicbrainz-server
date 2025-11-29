@@ -21,14 +21,14 @@ component DiscogsLinksWithMultipleArtists(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows Discogs URLs
          which are linked to multiple artists.`,
       )}
       entityType="artist"
       filtered={filtered}
       generated={generated}
-      title={l('Discogs URLs linked to multiple artists')}
+      title={l_reports('Discogs URLs linked to multiple artists')}
       totalEntries={pager.total_entries}
     >
       <ArtistUrlList items={items} pager={pager} />

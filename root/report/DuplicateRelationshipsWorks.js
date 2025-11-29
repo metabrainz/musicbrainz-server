@@ -21,7 +21,7 @@ component DuplicateRelationshipsWorks(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists works which have multiple relationships
          to the same entity using the same relationship type.
          This excludes recording-work relationships. See the recording
@@ -30,7 +30,7 @@ component DuplicateRelationshipsWorks(...{
       entityType="work"
       filtered={filtered}
       generated={generated}
-      title={l('Works with possible duplicate relationships')}
+      title={l_reports('Works with possible duplicate relationships')}
       totalEntries={pager.total_entries}
     >
       <WorkList items={items} pager={pager} />

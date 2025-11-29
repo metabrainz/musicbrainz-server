@@ -26,12 +26,14 @@ component AnnotationsRecordings(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists recordings with annotations.')}
+      description={
+        l_reports('This report lists recordings with annotations.')
+      }
       entityType="recording"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Recording annotations')}
+      title={l_reports('Recording annotations')}
       totalEntries={pager.total_entries}
     >
       <RecordingList

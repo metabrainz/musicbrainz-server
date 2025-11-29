@@ -21,14 +21,14 @@ component DuplicateRelationshipsReleases(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report lists releases which have multiple relationships
          to the same entity using the same relationship type.`,
       )}
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with possible duplicate relationships')}
+      title={l_reports('Releases with possible duplicate relationships')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} />

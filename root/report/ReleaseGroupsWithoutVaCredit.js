@@ -21,14 +21,14 @@ component ReleaseGroupsWithoutVaCredit(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows release groups linked to the Various Artists
          entity without "Various Artists" as the credited name.`,
       )}
       entityType="release_group"
       filtered={filtered}
       generated={generated}
-      title={l(
+      title={l_reports(
         'Release groups not credited to "Various Artists" but linked to VA',
       )}
       totalEntries={pager.total_entries}

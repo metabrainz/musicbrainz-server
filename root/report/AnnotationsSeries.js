@@ -25,12 +25,12 @@ component AnnotationsSeries(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l('This report lists series with annotations.')}
+      description={l_reports('This report lists series with annotations.')}
       entityType="series"
       extraInfo={ANNOTATION_REPORT_TEXT()}
       filtered={filtered}
       generated={generated}
-      title={l('Series annotations')}
+      title={l_reports('Series annotations')}
       totalEntries={pager.total_entries}
     >
       <SeriesList

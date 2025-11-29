@@ -21,14 +21,14 @@ component RecordingsWithVaryingTrackLengths(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings where the linked tracks
         have times that vary by more than 30 seconds.`,
       )}
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with varying track times')}
+      title={l_reports('Recordings with varying track times')}
       totalEntries={pager.total_entries}
     >
       <RecordingList items={items} pager={pager} />

@@ -21,7 +21,7 @@ component ReleasesConflictingDiscIds(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows releases that have conflicting disc IDs on the
          same medium with significant differences in duration. This usually
          means a disc ID was applied to the wrong medium
@@ -30,7 +30,7 @@ component ReleasesConflictingDiscIds(...{
       entityType="release"
       filtered={filtered}
       generated={generated}
-      title={l('Releases with conflicting disc IDs')}
+      title={l_reports('Releases with conflicting disc IDs')}
       totalEntries={pager.total_entries}
     >
       <ReleaseList items={items} pager={pager} subPath="discids" />

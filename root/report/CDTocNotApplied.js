@@ -21,7 +21,7 @@ component CDTocNotApplied(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows disc IDs attached to a release but obviously not
          applied because at least one track length is unknown on the release.
          The report is also restricted to mediums where only one disc ID is
@@ -32,7 +32,7 @@ component CDTocNotApplied(...{
       entityType="discId"
       filtered={filtered}
       generated={generated}
-      title={l('Disc IDs attached but not applied')}
+      title={l_reports('Disc IDs attached but not applied')}
       totalEntries={pager.total_entries}
     >
       <CDTocReleaseList items={items} pager={pager} />

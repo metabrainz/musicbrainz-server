@@ -33,7 +33,7 @@ component RecordingTrackDifferentName(...{
   return (
     <ReportLayout
       canBeFiltered={canBeFiltered}
-      description={l(
+      description={l_reports(
         `This report shows recordings that are linked to only one track,
          yet have a different name than the track. This might mean
          one of the two needs to be renamed to match the other.`,
@@ -41,7 +41,9 @@ component RecordingTrackDifferentName(...{
       entityType="recording"
       filtered={filtered}
       generated={generated}
-      title={l('Recordings with a different name than their only track')}
+      title={l_reports(
+        'Recordings with a different name than their only track',
+      )}
       totalEntries={pager.total_entries}
     >
       <RecordingList
