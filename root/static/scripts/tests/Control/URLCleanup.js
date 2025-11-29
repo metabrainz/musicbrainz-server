@@ -7402,6 +7402,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['recording', 'release'],
   },
   {
+                     input_url: 'http://www.youtube.com/shorts/4Xl6zdY0m6o',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.youtube.com/watch?v=4Xl6zdY0m6o',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/live/E4W-_FayUf8',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.youtube.com/watch?v=E4W-_FayUf8',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'http://youtube.com/user/officialpsy/videos',
              input_entity_type: 'label',
     expected_relationship_type: 'youtube',
