@@ -51,6 +51,7 @@ const entries = [
   'area/edit',
   'area/index',
   'area/places-map',
+  'artist/components/EditArtistCreditForm',
   'artist/edit',
   'artist/index',
   'artist/split',
