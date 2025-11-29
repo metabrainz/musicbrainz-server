@@ -50,7 +50,10 @@ import {
   iso3166VariantSnake,
   isValidIso3166,
 } from '../../edit/utility/iso3166.js';
-import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
+import {
+  applyAllPendingErrors,
+  hasSubfieldErrors,
+} from '../../edit/utility/subfieldErrors.js';
 import {
   NonHydratedRelationshipEditorWrapper as RelationshipEditorWrapper,
 } from '../../relationship-editor/components/RelationshipEditorWrapper.js';
@@ -228,13 +231,12 @@ component AreaEditForm(
     dispatch({action, type: 'update-date-range'});
   }, [dispatch]);
 
-  const missingRequired = isBlank(state.form.field.name.value);
-
-  const hasErrors = missingRequired;
+  const hasErrors = hasSubfieldErrors(state.form);
 
   // Ensure errors are shown if the user tries to submit with Enter
   const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
     if (event.key === 'Enter' && hasErrors) {
+      dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
     }
   };
@@ -246,6 +248,7 @@ component AreaEditForm(
 
   const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
     if (hasErrors) {
+      dispatch({type: 'show-all-pending-errors'});
       event.preventDefault();
     }
     invariant(externalLinksEditorRef.current);
