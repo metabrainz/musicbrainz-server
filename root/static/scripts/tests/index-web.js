@@ -62,6 +62,7 @@ require('./utility/isShortenedUrl.js');
 require('./utility/isSpecialPurpose.js');
 require('./utility/natatime.js');
 require('./utility/parseDate.js');
+require('./utility/parseNaturalDate.js');
 require('./utility/primaryAreaCode.js');
 require('./utility/relationshipDateText.js');
 require('./utility/sanitizedEditor.js');
