@@ -120,7 +120,7 @@ component EditorTools() {
           <div className="editor-tools-cell" id="editor-tools-cell-1">
             <div className="editor-tools-cell-sub">
               <a href={`/user/${user.name}`}>{l('My Profile')}</a>
-              <a href="/logout">{l('Logout')}</a>
+              <a href="/logout">{l('Log out')}</a>
             </div>
             <div className="editor-tools-cell-sub">
               <a href="/account/applications">{l('Applications')}</a>
