@@ -30,6 +30,7 @@ export default [
       'flow-typed/npm/blobs_*.js',
       'flow-typed/npm/bootstrap_*.js',
       'flow-typed/npm/swiper_*.js',
+      'flow-typed/npm/react-lazy-load-image-component_*.js',
       'perl_modules/**/*',
       'root/static/build/**/*',
       'root/static/lib/**/*',
