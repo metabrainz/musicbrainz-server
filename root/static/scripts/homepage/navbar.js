@@ -324,12 +324,12 @@ component Navbar() {
     });
   };
 
-  const closeMobileSidebar = () => {
+  const closeMobileSidebar = React.useCallback(() => {
     setMobileSidebar((prev) => ({
       ...prev,
       isOpen: false,
     }));
-  };
+  }, []);
 
   const toggleMobileSidebar = (section: Section) => {
     if (mobileSidebar.isOpen && mobileSidebar.section === section) {
