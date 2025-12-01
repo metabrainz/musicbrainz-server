@@ -8,11 +8,7 @@
  */
 
 import * as React from 'react';
-
-// $FlowExpectedError[untyped-import]
 import {Autoplay, Navigation} from 'swiper/modules';
-
-// $FlowExpectedError[untyped-import]
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import magnifyingGlass from '../../images/icons/magnifying-glass.svg';

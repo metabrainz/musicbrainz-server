@@ -14,14 +14,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-
-// $FlowExpectedError[untyped-import]
 import {LazyLoadImage} from 'react-lazy-load-image-component';
-
-// $FlowExpectedError[untyped-import]
 import {Autoplay, Mousewheel, Navigation} from 'swiper/modules';
-
-// $FlowExpectedError[untyped-import]
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import timelineCoverartPlaceholder

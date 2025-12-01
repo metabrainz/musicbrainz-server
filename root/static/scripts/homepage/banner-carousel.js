@@ -10,19 +10,14 @@
 import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-
-// $FlowExpectedError[untyped-import]
 import {Autoplay, Navigation} from 'swiper/modules';
-
-// $FlowExpectedError[untyped-import]
 import {Swiper, SwiperSlide} from 'swiper/react';
 
 import listenBrainzImage from '../../images/homepage/LB-Headphone.png';
+import picardImage from '../../images/homepage/picard.png';
 import listenBrainzLogo
   from '../../images/meb-logos/Listenbrainz_logo_icon.svg';
-import picardImage from '../../images/homepage/picard.png';
 import picardLogo from '../../images/meb-logos/Picard_logo_icon.svg';
-
 import {l} from '../common/i18n.js';
 
 import Blob from './blob.js';
