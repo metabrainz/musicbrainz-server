@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import bootstrapCssUrl from 'bootstrap/dist/css/bootstrap.css';
 import * as React from 'react';
 
 import {CatalystContext} from '../../context.mjs';
@@ -72,7 +73,11 @@ component Head(
     <head>
       <meta charSet="utf-8" />
       <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
-      <meta content="width=device-width, initial-scale=1" name="viewport" />
+      <meta
+        content={`width=device-width, initial-scale=1,
+          maximum-scale=1, minimum-scale=1, viewport-fit=cover`}
+        name="viewport"
+      />
       <FaviconLinks />
 
       <MetaDescription entity={$c.stash.entity} />
@@ -90,6 +95,14 @@ component Head(
       {noIcons ? null : (
         <link
           href={iconLessUrl}
+          rel="stylesheet"
+          type="text/css"
+        />
+      )}
+
+      {isHomepage && (
+        <link
+          href={bootstrapCssUrl}
           rel="stylesheet"
           type="text/css"
         />
@@ -120,6 +133,10 @@ component Head(
         type="application/opensearchdescription+xml"
       />
 
+      <link href="https://fonts.googleapis.com" rel="preconnect" />
+      <link crossOrigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Sintony:wght@400;700&display=swap" rel="stylesheet" />
+
       <noscript>
         <link
           href={noScriptLessUrl}
@@ -141,6 +158,8 @@ component Head(
       {manifest('common-chunks')}
 
       {manifest('common/jquery-global')}
+
+      {manifest('common/bootstrap')}
 
       {manifest('common/sentry')}
 

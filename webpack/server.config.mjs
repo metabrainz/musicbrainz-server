@@ -57,7 +57,7 @@ export default {
        * remove Flow and ESM syntax; this is also fine because it's free of
        * side-effects.
        */
-      allowlist: [/(jquery|mutate-cow|po2json|weight-balanced-tree)/],
+      allowlist: [/(bootstrap|jquery|mutate-cow|po2json|weight-balanced-tree)/],
       modulesFromFile: true,
     }),
   ],
