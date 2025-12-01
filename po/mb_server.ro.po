@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 17:21+0100\n"
+"POT-Creation-Date: 2025-12-01 13:16-0600\n"
 "PO-Revision-Date: 2024-05-27 15:01+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
@@ -147,14 +147,12 @@ msgstr ""
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "Adaugă coduri ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "Adaugă coduri ISRC"
@@ -185,28 +183,24 @@ msgstr ""
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add area"
 msgstr "Adăugați Album"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Adaugă artist"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "plural, header"
 msgid "Add cover art"
 msgstr "Adaugă artist"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
-#| msgid "Add release"
 msgctxt "plural, header"
 msgid "Add event art"
 msgstr "Adăugați Album"
@@ -218,7 +212,6 @@ msgstr ""
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "header"
 msgid "Add label"
 msgstr "Adaugă un alias pentru casa de discuri"
@@ -227,7 +220,6 @@ msgstr "Adaugă un alias pentru casa de discuri"
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Adaugă un alias pentru casa de discuri"
@@ -239,7 +231,6 @@ msgstr ""
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add place"
 msgstr "Adăugați Album"
@@ -248,7 +239,6 @@ msgstr "Adăugați Album"
 #: ../root/static/scripts/release-editor/init.js:256
 #: ../root/static/scripts/release-editor/init.js:257
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Adăugați Album"
@@ -256,21 +246,18 @@ msgstr "Adăugați Album"
 #: ../root/release/edit/information.tt:214
 #: ../root/release/edit/information.tt:215
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add release event"
 msgstr "Adăugați Album"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Adăugați Album"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header, singular"
 msgid "Add series"
 msgstr "Adaugă artist"
@@ -395,7 +382,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Area type"
 msgstr "Editați  artist"
 
@@ -468,19 +454,16 @@ msgstr "Artist"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist area"
 msgstr "Artist"
 
 #: ../root/artist/edit_form.tt:12
 #, fuzzy
-#| msgid "Add artist alias"
 msgid "Artist details"
 msgstr "Adaugă un alias pentru artist"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist type"
 msgstr "Artist"
 
@@ -502,7 +485,6 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
 #, fuzzy
-#| msgid "Add disc ID"
 msgid "Attach disc ID"
 msgstr "Adaugă ID-ul discului"
 
@@ -561,6 +543,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
+#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
 msgid "Blog"
 msgstr ""
 
@@ -580,7 +563,6 @@ msgid ""
 msgstr ""
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
-#: ../root/main/index.js:211
 msgid "Bug tracker"
 msgstr ""
 
@@ -642,12 +624,12 @@ msgid "Catalog#"
 msgstr ""
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
 #, fuzzy
-#| msgid "Edit release"
 msgid "Checking existing release groups…"
 msgstr "Editați album"
 
@@ -857,6 +839,7 @@ msgid "Do not use any of the above releases as a starting point"
 msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
+#: ../root/layout/components/NewFooter.js:70
 msgid "Donate"
 msgstr ""
 
@@ -882,7 +865,6 @@ msgstr ""
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:99
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "Editați adresa URL"
@@ -898,35 +880,30 @@ msgstr "Editați adresa URL"
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:529
 #: ../root/user/UserCollections.js:121
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Editați adresa URL"
 
 #: ../root/url/edit_form.tt:1
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "Editați adresa URL"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit artist credit"
 msgstr "Editați  artist"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "Editați  artist"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "singular, header"
 msgid "Edit event art"
 msgstr "Editați album"
@@ -934,7 +911,6 @@ msgstr "Editați album"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "noun"
 msgid "Edit note"
 msgstr "Editați casa de discuri"
@@ -956,7 +932,6 @@ msgstr ""
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
 #: ../root/layout/components/BottomMenu.js:320
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "Editați  artist"
@@ -975,7 +950,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit label"
 msgid "Editor flag"
 msgstr "Editați casa de discuri"
 
@@ -1047,7 +1021,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Remove artist"
 msgid "Event type"
 msgstr "Elimină artist"
 
@@ -1064,7 +1037,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:77
 #, fuzzy
-#| msgid "Edit release"
 msgid "Existing release groups with similar names"
 msgstr "Editați album"
 
@@ -1202,7 +1174,7 @@ msgid "Format"
 msgstr ""
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:214
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr ""
 
@@ -1603,6 +1575,7 @@ msgstr ""
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
+#: ../root/static/scripts/homepage/language.js:66
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr ""
@@ -2067,7 +2040,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:100
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "Adaugă tipul relației"
@@ -2118,13 +2090,11 @@ msgstr "Album"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release"
 msgid "Release country"
 msgstr "Album"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release"
 msgid "Release data quality"
 msgstr "Album"
 
@@ -2170,19 +2140,16 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Release group primary type"
 msgstr "Adaugă tipul relației"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Release group search error"
 msgstr "Adaugă tipul relației"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Release group secondary type"
 msgstr "Adaugă tipul relației"
 
@@ -2203,7 +2170,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release"
 msgid "Release language"
 msgstr "Album"
 
@@ -2232,28 +2198,24 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "Elimină casa de discuri"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove ISNI code"
 msgstr "Elimină casa de discuri"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Elimină cod ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "Elimină cod ISRC"
@@ -2264,7 +2226,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:242
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "Elimină casa de discuri"
@@ -2275,7 +2236,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:202
 #, fuzzy
-#| msgid "Remove label"
 msgid "Remove release event"
 msgstr "Elimină casa de discuri"
 
@@ -2286,14 +2246,12 @@ msgstr ""
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "Elimină artist"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "Elimină artist"
@@ -2346,6 +2304,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
+#: ../root/static/scripts/homepage/mobile-search-popup.js:43
 #: ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "Caută"
@@ -2429,7 +2388,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Series type"
 msgstr "Editați  artist"
 
@@ -2482,7 +2440,6 @@ msgstr ""
 
 #: ../root/artist/split.tt:1
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Split artist"
 msgstr "Editați  artist"
 
@@ -3141,7 +3098,6 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:46
 #, fuzzy
-#| msgid "Tracks"
 msgid "Track parser"
 msgstr "Piese"
 
@@ -3392,6 +3348,7 @@ msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr ""
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
+#: ../root/layout/components/NewFooter.js:76
 msgid "Wiki"
 msgstr ""
 
@@ -3525,7 +3482,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
@@ -4256,8 +4212,6 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
 #, fuzzy
-#| msgctxt "medium format"
-#| msgid "(unknown)"
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "(necunoscut)"
@@ -4266,19 +4220,19 @@ msgstr "(necunoscut)"
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -4293,7 +4247,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:354
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 #, fuzzy
-#| msgid "Send Email"
 msgctxt "header"
 msgid "Send email"
 msgstr "Trimite un e-mail"
@@ -4472,119 +4425,102 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add area alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Adnotare"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Elimină alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit area alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge areas"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist alias"
 msgstr "Adaugă un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Adaugă un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Adaugă artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Elimina un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Edit artist alias"
 msgstr "Adaugă un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist credit"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge artists"
 msgstr "îmbinare artiști"
@@ -4607,133 +4543,114 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add event alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Adnotare"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 #, fuzzy
-#| msgid "Add release"
 msgctxt "singular, edit type"
 msgid "Add event art"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove event"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Elimină alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "singular, edit type"
 msgid "Edit event art"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "singular, edit type"
 msgid "Remove event art"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add genre alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Adnotare"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove genre"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Elimină alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit genre alias"
 msgstr "Editați album"
@@ -4746,7 +4663,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
 #, fuzzy
-#| msgid "Add disc ID"
 msgctxt "edit type"
 msgid "Add disc ID"
 msgstr "Adaugă ID-ul discului"
@@ -4754,7 +4670,6 @@ msgstr "Adaugă ID-ul discului"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:39
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "Adaugă o relație"
@@ -4762,7 +4677,6 @@ msgstr "Adaugă o relație"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Adăugați Album"
@@ -4770,7 +4684,6 @@ msgstr "Adăugați Album"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release annotation"
 msgstr "Adăugați Album"
@@ -4800,7 +4713,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release"
 msgstr "Editați album"
@@ -4820,7 +4732,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:47
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr "Adaugă o relație"
@@ -4847,7 +4758,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge releases"
 msgstr "îmbinare artiști"
@@ -4855,7 +4765,6 @@ msgstr "îmbinare artiști"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
 #, fuzzy
-#| msgid "Add disc ID"
 msgctxt "edit type"
 msgid "Move disc ID"
 msgstr "Adaugă ID-ul discului"
@@ -4863,7 +4772,6 @@ msgstr "Adaugă ID-ul discului"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove disc ID"
 msgstr "Elimină artist"
@@ -4871,7 +4779,6 @@ msgstr "Elimină artist"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove label alias"
 msgstr "Elimină alias pentru casa de discuri"
@@ -4879,7 +4786,6 @@ msgstr "Elimină alias pentru casa de discuri"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:41
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr "Adaugă o relație"
@@ -4887,7 +4793,6 @@ msgstr "Adaugă o relație"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove release"
 msgstr "Elimină casa de discuri"
@@ -4904,7 +4809,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove track"
 msgstr "Elimină casa de discuri"
@@ -4922,7 +4826,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add instrument alias"
 msgstr "Adaugă un alias pentru artist"
@@ -4939,84 +4842,72 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove instrument"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Elimina un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit instrument alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge instruments"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add label alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add label"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "Editați casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Edit label alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Elimină casa de discuri"
@@ -5028,7 +4919,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Elimină casa de discuri"
@@ -5046,63 +4936,54 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add place alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Adnotare"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add place"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove place"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Elimină alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "Editați casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Edit place alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge places"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add recording alias"
 msgstr "Adaugă un alias pentru artist"
@@ -5114,7 +4995,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "Adaugă coduri ISRC"
@@ -5126,35 +5006,30 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove recording"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove recording alias"
 msgstr "Elimina un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit recording alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge recordings"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISRC"
 msgstr "Elimină cod ISRC"
@@ -5171,14 +5046,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:16
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship attribute"
 msgstr "Adaugă tipul relației"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship type"
 msgstr "Adaugă tipul relației"
@@ -5199,112 +5072,96 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Edit relationship attribute"
 msgstr "Adaugă tipul relației"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:23
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Edit relationship type"
 msgstr "Adaugă tipul relației"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkAttribute.pm:13
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Remove relationship attribute"
 msgstr "Adaugă tipul relației"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Remove relationship type"
 msgstr "Adaugă tipul relației"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:32
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Reorder relationships"
 msgstr "Adaugă o relație"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add release alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "Adaugă artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release label"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove release alias"
 msgstr "Elimină alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove release label"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release label"
 msgstr "Editați album"
@@ -5323,14 +5180,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "Elimină artist"
@@ -5342,7 +5197,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add release group alias"
 msgstr "Adaugă un alias pentru casa de discuri"
@@ -5354,35 +5208,30 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Adăugați Album"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove release group"
 msgstr "Elimină casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Elimină alias pentru casa de discuri"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release group alias"
 msgstr "Editați album"
@@ -5394,7 +5243,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, edit type"
 msgid "Set cover art"
 msgstr "Elimină artist"
@@ -5449,63 +5297,54 @@ msgstr[2] ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add series alias"
 msgstr "Adaugă un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "Adnotare"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add series"
 msgstr "Adaugă artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove series"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Elimina un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit series alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge series"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
 msgstr "Editați adresa URL"
@@ -5561,21 +5400,18 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add work alias"
 msgstr "Adaugă un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add work annotation"
 msgstr "Adnotare"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:21
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "Adaugă coduri ISRC"
@@ -5587,42 +5423,36 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove work"
 msgstr "Elimină artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Elimina un alias pentru artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "Editați  artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit work alias"
 msgstr "Editați album"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge works"
 msgstr "îmbinare artiști"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISWC"
 msgstr "Elimină cod ISRC"
@@ -5698,7 +5528,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
 #, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[nimic]"
@@ -5706,7 +5535,6 @@ msgstr "[nimic]"
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
-#| msgid "Edit label"
 msgid "Editing disabled"
 msgstr "Editați casa de discuri"
 
@@ -6057,7 +5885,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Related to works"
 msgstr "Adaugă tipul relației"
 
@@ -6067,14 +5894,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[nimic]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[nimic]"
@@ -6087,7 +5912,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseForArtist.pm:13
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
 msgstr "[nimic]"
@@ -6100,7 +5924,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
 #, fuzzy
-#| msgid "Add artist alias"
 msgid "As recording artist"
 msgstr "Adaugă un alias pentru artist"
 
@@ -6110,7 +5933,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
-#| msgid "Merge artists"
 msgid "As other artist"
 msgstr "îmbinare artiști"
 
@@ -6481,7 +6303,6 @@ msgstr ""
 #: ../root/account/DeleteOwnAccount.js:37
 #: ../root/components/UserAccountTabs.js:113
 #, fuzzy
-#| msgid "Release"
 msgctxt "header"
 msgid "Delete account"
 msgstr "Album"
@@ -6510,7 +6331,6 @@ msgstr ""
 
 #: ../root/account/DeleteOwnAccount.js:76
 #, fuzzy
-#| msgid "Release"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "Album"
@@ -6553,7 +6373,6 @@ msgstr ""
 
 #: ../root/account/EditProfile.js:30 ../root/account/EditProfile.js:32
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "header"
 msgid "Edit profile"
 msgstr "Editați album"
@@ -6619,7 +6438,6 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
 #, fuzzy
-#| msgid "Send Email"
 msgctxt "interactive"
 msgid "Send email"
 msgstr "Trimite un e-mail"
@@ -6724,6 +6542,7 @@ msgstr ""
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "Applications"
 msgstr ""
 
@@ -6806,14 +6625,12 @@ msgstr ""
 #: ../root/account/applications/RegisterApplication.js:19
 #: ../root/account/applications/RegisterApplication.js:20
 #, fuzzy
-#| msgid "Actions"
 msgctxt "header"
 msgid "Register application"
 msgstr "Acțiuni"
 
 #: ../root/account/applications/RegisterApplication.js:24
 #, fuzzy
-#| msgid "Actions"
 msgctxt "interactive"
 msgid "Register application"
 msgstr "Acțiuni"
@@ -6824,7 +6641,6 @@ msgstr ""
 
 #: ../root/account/applications/RemoveApplication.js:17
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "header"
 msgid "Remove application"
 msgstr "Elimină artist"
@@ -6907,7 +6723,6 @@ msgstr ""
 #: ../root/annotation/EditAnnotation.js:37
 #: ../root/annotation/EditAnnotation.js:39
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "header"
 msgid "Edit annotation"
 msgstr "Adnotare"
@@ -6939,7 +6754,6 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:89
 #, fuzzy
-#| msgid "Annotation"
 msgid "Annotation formatting"
 msgstr "Adnotare"
 
@@ -7642,7 +7456,6 @@ msgstr ""
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 #, fuzzy
-#| msgid "Add disc ID"
 msgid "Invalid disc ID"
 msgstr "Adaugă ID-ul discului"
 
@@ -7684,7 +7497,6 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
 #, fuzzy
-#| msgid "Add disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "Adaugă ID-ul discului"
@@ -7800,7 +7612,6 @@ msgstr ""
 
 #: ../root/cdtoc/RemoveDiscId.js:33 ../root/cdtoc/RemoveDiscId.js:35
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "Elimină artist"
@@ -7878,7 +7689,6 @@ msgstr ""
 
 #: ../root/collection/CollectionHeader.js:78
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Editați adresa URL"
@@ -8051,7 +7861,6 @@ msgstr ""
 
 #: ../root/components/Aliases/index.js:71
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "Adaugă un alias pentru casa de discuri"
@@ -8177,7 +7986,6 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:108
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Elimină artist"
@@ -8189,7 +7997,6 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:123
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural"
 msgid "Event art"
 msgstr "Elimină artist"
@@ -8396,6 +8203,7 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
+#: ../root/static/scripts/homepage/editor-tools.js:128
 msgid "Subscriptions"
 msgstr ""
 
@@ -8507,7 +8315,6 @@ msgstr ""
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Other artists"
 msgstr "îmbinare artiști"
 
@@ -8730,7 +8537,6 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:181
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "noun"
 msgid "Edit notes"
 msgstr "Editați  artist"
@@ -8819,7 +8625,6 @@ msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular"
 msgid "Event art"
 msgstr "Elimină artist"
@@ -8828,7 +8633,6 @@ msgstr "Elimină artist"
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:170
 #: ../root/user/UserProfile.js:56
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular"
 msgid "Cover art"
 msgstr "Elimină artist"
@@ -9121,7 +8925,7 @@ msgid "Introduction to editing"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:182
+#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
 msgid "Style guidelines"
 msgstr ""
 
@@ -9445,7 +9249,6 @@ msgstr ""
 
 #: ../root/edit/details/EditAlias.js:74
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
@@ -9486,13 +9289,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:547
 #, fuzzy
-#| msgid "Add artist"
 msgid "Old artist"
 msgstr "Adaugă artist"
 
 #: ../root/edit/details/EditMedium.js:548
 #, fuzzy
-#| msgid "Add artist"
 msgid "New artist"
 msgstr "Adaugă artist"
 
@@ -9730,7 +9531,6 @@ msgstr ""
 
 #: ../root/edit/details/SetTrackLengths.js:54
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
@@ -10061,7 +9861,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:27
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "header"
 msgid "Area not found"
 msgstr "Adnotare"
@@ -10074,7 +9873,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:36
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "Adaugă un alias pentru artist"
@@ -10087,7 +9885,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:45
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Artist credit not found"
 msgstr "Adaugă artist"
@@ -10116,7 +9913,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:65
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "Editați casa de discuri"
@@ -10129,7 +9925,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:74
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "header"
 msgid "Edit note not found"
 msgstr "Adnotare"
@@ -10219,7 +10014,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:143
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "header"
 msgid "Medium not found"
 msgstr "Editați casa de discuri"
@@ -10252,7 +10046,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:169
 #, fuzzy
-#| msgid "Actions"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Acțiuni"
@@ -10265,7 +10058,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:178
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "Adaugă tipul relației"
@@ -10277,7 +10069,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:187
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "Adaugă tipul relației"
@@ -10288,7 +10079,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:196
 #, fuzzy
-#| msgid "Release"
 msgctxt "header"
 msgid "Release not found"
 msgstr "Album"
@@ -10301,7 +10091,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:205
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Adaugă tipul relației"
@@ -10314,7 +10103,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:214
 #, fuzzy
-#| msgid "Actions"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Acțiuni"
@@ -10347,7 +10135,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:239
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Adnotare"
@@ -10466,21 +10253,18 @@ msgstr ""
 
 #: ../root/entity/alias/AddOrEditAlias.js:27
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "header"
 msgid "Add alias"
 msgstr "Adaugă un alias pentru casa de discuri"
 
 #: ../root/entity/alias/AddOrEditAlias.js:28
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit alias"
 msgstr "Editați  artist"
 
 #: ../root/entity/alias/DeleteAlias.js:25
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "header"
 msgid "Remove alias"
 msgstr "Elimină alias pentru casa de discuri"
@@ -10495,21 +10279,18 @@ msgstr ""
 
 #: ../root/event/CreateEvent.js:23 ../root/event/CreateEvent.js:25
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add event"
 msgstr "Adăugați Album"
 
 #: ../root/event/EditEvent.js:28
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Editați album"
 
 #: ../root/event/EventArt.js:28
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, header"
 msgid "Event art"
 msgstr "Elimină artist"
@@ -10544,14 +10325,12 @@ msgstr ""
 
 #: ../root/event/EventArt.js:118
 #, fuzzy
-#| msgid "Add release"
 msgctxt "plural, interactive"
 msgid "Add event art"
 msgstr "Adăugați Album"
 
 #: ../root/event/EventArt.js:124
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "Elimină artist"
@@ -10588,7 +10367,6 @@ msgstr ""
 
 #: ../root/event/RemoveEventArt.js:24
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "singular, header"
 msgid "Remove event art"
 msgstr "Elimină casa de discuri"
@@ -10709,7 +10487,6 @@ msgstr[2] ""
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Recording artists"
 msgstr "îmbinare artiști"
 
@@ -10738,10 +10515,16 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
+#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:93
+#: ../root/static/scripts/homepage/language.js:101
+#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/navbar.js:273
+#: ../root/static/scripts/homepage/navbar.js:275
 msgid "Help translate"
 msgstr ""
 
@@ -10749,7 +10532,7 @@ msgstr ""
 msgid "About us"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:110
+#: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
 msgid "About MusicBrainz"
 msgstr ""
 
@@ -10762,6 +10545,7 @@ msgid "Team"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:119
+#: ../root/layout/components/NewFooter.js:94
 msgid "Shop"
 msgstr ""
 
@@ -10818,19 +10602,22 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
+#: ../root/layout/components/BottomMenu.js:176
+#: ../root/static/scripts/homepage/banner-carousel.js:47
 msgid "MusicBrainz Picard"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
+#: ../root/layout/components/BottomMenu.js:179
+#: ../root/static/scripts/homepage/banner-carousel.js:52
 msgid "AudioRanger"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:160
+#: ../root/layout/components/BottomMenu.js:182
+#: ../root/static/scripts/homepage/banner-carousel.js:55
 msgid "Mp3tag"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:164
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Yate Music Tagger"
 msgstr ""
 
@@ -10842,11 +10629,11 @@ msgstr ""
 msgid "MusicBrainz Server"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:220
+#: ../root/layout/components/BottomMenu.js:196
 msgid "MusicBrainz Database"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:199
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
 msgid "Developer resources"
 msgstr ""
 
@@ -10859,12 +10646,12 @@ msgid "Live Data Feed"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/search.js:171
 msgid "Advanced search"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:224
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Edit search"
 msgstr "Editați  artist"
 
@@ -10882,7 +10669,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:246
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "Adaugă artist"
@@ -10890,7 +10676,6 @@ msgstr "Adaugă artist"
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Adăugați Album"
@@ -10900,14 +10685,12 @@ msgstr "Adăugați Album"
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add release"
 msgstr "Adăugați Album"
 
 #: ../root/layout/components/BottomMenu.js:261
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "Adaugă un alias pentru artist"
@@ -10925,14 +10708,12 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:273
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add place"
 msgstr "Adăugați Album"
 
 #: ../root/layout/components/BottomMenu.js:277
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "Adaugă artist"
@@ -10941,7 +10722,6 @@ msgstr "Adaugă artist"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add event"
 msgstr "Adăugați Album"
@@ -10955,7 +10735,7 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:174
+#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
 msgid "Beginners guide"
 msgstr ""
 
@@ -10963,7 +10743,8 @@ msgstr ""
 msgid "How tos"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:312 ../root/main/index.js:185
+#: ../root/layout/components/BottomMenu.js:312
+#: ../root/layout/components/NewFooter.js:182
 msgid "FAQs"
 msgstr ""
 
@@ -10977,11 +10758,11 @@ msgstr ""
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
 #: ../root/utility/tableColumns.js:383
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Relationship types"
 msgstr "Adaugă tipul relației"
 
 #: ../root/layout/components/BottomMenu.js:332
+#: ../root/layout/components/NewFooter.js:194
 msgid "Development"
 msgstr ""
 
@@ -11005,29 +10786,28 @@ msgstr ""
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:45
+#: ../root/layout/components/Head.js:46
 msgid "Page {n}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:101
+#: ../root/layout/components/Head.js:114
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/components/Head.js:107
+#: ../root/layout/components/Head.js:120
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/components/Head.js:113
+#: ../root/layout/components/Head.js:126
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/components/Head.js:119
+#: ../root/layout/components/Head.js:132
 msgid "MusicBrainz: Track"
 msgstr ""
 
 #: ../root/layout/components/MergeHelper.js:26
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Merge process"
 msgstr "îmbinare artiști"
 
@@ -11058,6 +10838,116 @@ msgstr ""
 msgid "Remove selected entities"
 msgstr ""
 
+#: ../root/layout/components/NewFooter.js:36
+msgid ""
+"is an open music encyclopedia that collects music metadata and makes it "
+"available to the public."
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:42
+msgid "Development IRC:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:49
+msgid "Discussion IRC:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:56
+msgid "Email:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:65
+msgid "Useful Links"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:82
+msgid "Community"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:100
+msgid "MetaBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:106
+#: ../root/layout/components/NewFooter.js:206
+msgid "Contribute Here"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#, fuzzy
+msgid "Bug Tracker"
+msgstr "Piese"
+
+#: ../root/layout/components/NewFooter.js:118
+msgid "Fellow Projects"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
+msgid "ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:129
+msgid "CritiqueBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:135
+msgid "Picard"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:141
+msgid "BookBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:147
+msgid "AcousticBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:153
+#, fuzzy
+msgid "Cover Art Archive"
+msgstr "Elimină artist"
+
+#: ../root/layout/components/NewFooter.js:159
+msgid "Join Us"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:164
+msgid "Beginner's Guide"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:170
+msgid "Style Guidelines"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:176
+msgid "How Tos"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:188
+msgid "Doc Index"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:203
+msgid "OSS Geek?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:212
+msgid "Brought to you by"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+msgid "MetaBrainz Foundation"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:228
+msgid "Found an Issue?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:231
+msgid "Report Here"
+msgstr ""
+
 #: ../root/layout/components/SupportedBrowserCheck.js:32
 msgid ""
 "The browser you’re using is unsupported, and the website may not work "
@@ -11067,6 +10957,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
+#: ../root/static/scripts/homepage/editor-tools.js:123
 msgid "Log out"
 msgstr ""
 
@@ -11076,12 +10967,14 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/homepage/editor-tools.js:136
 msgid "My ratings"
 msgstr ""
 
@@ -11091,12 +10984,13 @@ msgid "My tags"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:92
+#: ../root/static/scripts/homepage/editor-tools.js:141
 msgid "My open edits"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:95
+#: ../root/static/scripts/homepage/editor-tools.js:143
 #, fuzzy
-#| msgid "All My Edits"
 msgid "All my edits"
 msgstr "Toate Editările Mele"
 
@@ -11109,6 +11003,7 @@ msgid "Edits by subscribed editors"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:106
+#: ../root/static/scripts/homepage/editor-tools.js:151
 msgid "Notes left on my edits"
 msgstr ""
 
@@ -11125,14 +11020,12 @@ msgstr ""
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "interactive"
 msgid "Edit annotation"
 msgstr "Adnotare"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:32
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "interactive"
 msgid "Add annotation"
 msgstr "Adnotare"
@@ -11191,7 +11084,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
 #, fuzzy
-#| msgid "Actions"
 msgid "You have no genre collections!"
 msgstr "Acțiuni"
 
@@ -11355,10 +11247,6 @@ msgctxt "place"
 msgid "Closed"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
-msgid "ListenBrainz"
-msgstr ""
-
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:68
 msgid "Play on ListenBrainz"
 msgstr ""
@@ -11377,7 +11265,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:86
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "Elimină artist"
@@ -11413,8 +11300,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
 #, fuzzy
-#| msgctxt "medium format"
-#| msgid "(unknown)"
 msgctxt "date"
 msgid "[unknown]"
 msgstr "(necunoscut)"
@@ -11442,8 +11327,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/SidebarTags.js:46
 #: ../root/static/scripts/common/components/TagEditor.js:673
 #, fuzzy
-#| msgctxt "link_phrase"
-#| msgid "(none)"
 msgctxt "folksonomy tag"
 msgid "(none)"
 msgstr "(nimic)"
@@ -11490,6 +11373,15 @@ msgstr[2] ""
 
 #: ../root/layout/index.js:250
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
+msgstr ""
+
+#: ../root/main/AuthButtons.js:19
+#, fuzzy
+msgid "Create Account"
+msgstr "Album"
+
+#: ../root/main/AuthButtons.js:21
+msgid "Login"
 msgstr ""
 
 #: ../root/main/ConfirmSeed.js:26
@@ -11687,132 +11579,271 @@ msgstr ""
 msgid "(No details about this error are available)"
 msgstr ""
 
-#: ../root/main/index.js:34
+#: ../root/main/index.js:75
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr ""
 
-#: ../root/main/index.js:38
-msgid "Welcome to MusicBrainz!"
-msgstr ""
-
-#: ../root/main/index.js:42
+#: ../root/main/index.js:111
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
 msgstr ""
 
-#: ../root/main/index.js:48
-msgid "MusicBrainz aims to be:"
-msgstr ""
-
-#: ../root/main/index.js:54
+#: ../root/main/index.js:124
 msgid ""
-"<strong>The ultimate source of music information</strong> by allowing anyone "
-"to contribute and releasing the {doc|data} under {doc2|open licenses}."
+"The ultimate source of audio information, releasing data under open licenses "
+"and allowing anyone to contribute."
 msgstr ""
 
-#: ../root/main/index.js:65
+#: ../root/main/index.js:136
 msgid ""
-"<strong>The universal lingua franca for music</strong> by providing a "
-"reliable and unambiguous form of {doc|music identification}, enabling both "
-"people and machines to have meaningful conversations about music."
+"The universal lingua franca for music, providing reliable and unambiguous "
+"forms of music identification, enabling people and machines to have "
+"meaningful conversations about music."
 msgstr ""
 
-#: ../root/main/index.js:78
+#: ../root/main/index.js:150
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
-"we want everyone &#x2014; including you &#x2014; to {doc|participate and "
-"contribute}."
+"everyone - including you - can participate and contribute."
 msgstr ""
 
-#: ../root/main/index.js:89
+#: ../root/main/index.js:163
 msgid ""
-"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+"MusicBrainz is operated by the MetaBrainz Foundation, a non-profit dedicated "
+"to keeping MusicBrainz free and open source."
 msgstr ""
 
-#: ../root/main/index.js:101
-msgid ""
-"MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
-"based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
-"MusicBrainz {free|free and open source}."
-msgstr ""
-
-#: ../root/main/index.js:114
-msgid "MetaBrainz blog"
-msgstr ""
-
-#: ../root/main/index.js:119
-msgid "Latest posts:"
-msgstr ""
-
-#: ../root/main/index.js:131
-msgid "Read more »"
-msgstr ""
-
-#: ../root/main/index.js:138
-msgid "The blog is currently unavailable."
-msgstr ""
-
-#: ../root/main/index.js:148
-msgctxt "audio file metadata"
-msgid "Tag your music"
-msgstr ""
-
-#: ../root/main/index.js:171
-msgid "Quick start"
-msgstr ""
-
-#: ../root/main/index.js:178
-msgid "Editing introduction"
+#: ../root/main/index.js:179
+msgid "Read More"
 msgstr ""
 
 #: ../root/main/index.js:189
+msgid "Beginner editor's guide"
+msgstr ""
+
+#: ../root/main/index.js:199
+msgid "Latest News"
+msgstr ""
+
+#: ../root/main/index.js:209
+msgid "The blog is currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:236
+msgid "Community Posts"
+msgstr ""
+
+#: ../root/main/index.js:248
+msgid "The community posts are currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:280
+msgid "Develop"
+msgstr ""
+
+#: ../root/main/index.js:284
+msgid "Datasets and Live Data Feed"
+msgstr ""
+
+#: ../root/main/index.js:290
+msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
+msgstr ""
+
+#: ../root/main/index.js:295
+#, fuzzy
+msgid "creating an account"
+msgstr "Album"
+
+#: ../root/main/index.js:297
+msgid ","
+msgstr ""
+
+#: ../root/main/index.js:300
+msgid "whether for personal or non-commercial use"
+msgstr ""
+
+#: ../root/main/index.js:302
+msgid "."
+msgstr ""
+
+#: ../root/main/index.js:308
+msgid "Database"
+msgstr ""
+
+#: ../root/main/index.js:313
+msgid "View and download the MusicBrainz Database."
+msgstr ""
+
+#: ../root/main/index.js:325
+msgid ""
+"Use our XML web service or development libraries to create your own "
+"MusicBrainz-enabled applications."
+msgstr ""
+
+#: ../root/main/index.js:332 ../root/main/index.js:393
+msgid "See also:"
+msgstr ""
+
+#: ../root/main/index.js:335
+msgid "Data license"
+msgstr ""
+
+#: ../root/main/index.js:338 ../root/main/index.js:399
+#: ../root/main/index.js:405 ../root/main/index.js:411
+#: ../root/main/index.js:417 ../root/main/index.js:423
+msgid "|"
+msgstr ""
+
+#: ../root/main/index.js:341
+msgid "MetaBrainz FAQ"
+msgstr ""
+
+#: ../root/main/index.js:350
+msgid "Contribute"
+msgstr ""
+
+#: ../root/main/index.js:354
+#, fuzzy
+msgid "Edit the database"
+msgstr "Editați album"
+
+#: ../root/main/index.js:359
+msgid ""
+"Anyone can help improve our global database! Get started and improve "
+"existing data or add new artists and music."
+msgstr ""
+
+#: ../root/main/index.js:372
+msgid ""
+"Developers, view and pick up issues in our bug tracker, and join us in the "
+"developer chat."
+msgstr ""
+
+#: ../root/main/index.js:380
+msgid "Join the community"
+msgstr ""
+
+#: ../root/main/index.js:385
+msgid ""
+"Talk to other database editors and music fans on our forums or our live chat "
+"via IRC, Matrix and Discord."
+msgstr ""
+
+#: ../root/main/index.js:402
+msgid "Editing introduction"
+msgstr ""
+
+#: ../root/main/index.js:414
+msgid "MusicBrainz FAQs"
+msgstr ""
+
+#: ../root/main/index.js:420
 msgid "How to add artists"
 msgstr ""
 
-#: ../root/main/index.js:194
+#: ../root/main/index.js:426
 msgid "How to add releases"
 msgstr ""
 
-#: ../root/main/index.js:205
-msgid "Community"
+#: ../root/main/index.js:444
+msgid "Open source"
 msgstr ""
 
-#: ../root/main/index.js:208
-msgid "How to contribute"
-msgstr ""
-
-#: ../root/main/index.js:224
+#: ../root/main/index.js:447
 msgid ""
-"The majority of the data in the <strong>MusicBrainz Database</strong> is "
-"released into the <strong>Public Domain</strong> and can be downloaded and "
-"used <strong>for free</strong>."
+"\"Open source is source code that is made freely available for possible "
+"modification and redistribution...\""
 msgstr ""
 
-#: ../root/main/index.js:234
-msgid "Developers"
+#: ../root/main/index.js:451
+msgid "-"
 msgstr ""
 
-#: ../root/main/index.js:238
+#: ../root/main/index.js:454
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr ""
+
+#: ../root/main/index.js:459
 msgid ""
-"Use our <strong>XML web service</strong> or <strong>development libraries</"
-"strong> to create your own MusicBrainz-enabled applications."
+"The MusicBrainz database is all open source. This means that anyone can view "
+"the code, contribute improvements and new features, and copy and modify it "
+"for their own use."
 msgstr ""
 
-#: ../root/main/index.js:251
-msgid "Recently added releases"
+#: ../root/main/index.js:467
+msgid ""
+"Thousands of wonderful people contribute code or data to MusicBrainz and its "
+"sister projects for no monetary return and for everyone's benefit."
 msgstr ""
 
-#: ../root/main/index.js:266
+#: ../root/main/index.js:476
+msgid "GitHub repositories"
+msgstr ""
+
+#: ../root/main/index.js:484
 #, fuzzy
-#| msgid "Actions"
-msgid "Recently added events"
+msgid "Data provider"
+msgstr "Niciun titlu furnizat"
+
+#: ../root/main/index.js:487
+msgid ""
+"The MetaBrainz core mission is to curate and maintain public datasets that "
+"anyone can download and use. Some of the world's biggest platforms, such as "
+"Google and Amazon, use our data, as well as small-scale developers and "
+"curious individuals."
+msgstr ""
+
+#: ../root/main/index.js:494
+msgid "We ask"
+msgstr ""
+
+#: ../root/main/index.js:497
+msgid "commercial users"
+msgstr ""
+
+#: ../root/main/index.js:501
+msgid "to support us. Personal use of our datasets will always be free."
+msgstr ""
+
+#: ../root/main/index.js:507
+msgid ""
+"Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
+"datasets are AI Ready, perfect for training large language models for music-"
+"based tasks."
+msgstr ""
+
+#: ../root/main/index.js:516
+msgid "MetaBrainz Datasets"
+msgstr ""
+
+#: ../root/main/index.js:524
+msgid "Ethical forever"
+msgstr ""
+
+#: ../root/main/index.js:527
+msgid ""
+"The MetaBrainz Foundation is a registered non-profit, making it impossible "
+"for us to be bought or traded."
+msgstr ""
+
+#: ../root/main/index.js:533
+msgid ""
+"Our team and volunteer contributers from across the globe are proud to "
+"consider MusicBrainz and it's sister sites"
+msgstr ""
+
+#: ../root/main/index.js:538
+#, fuzzy
+msgid "enshittification"
 msgstr "Acțiuni"
 
-#: ../root/main/index.js:323
-#: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/release-editor/dialogs.js:158
-msgid "{entity} by {artist}"
+#: ../root/main/index.js:541
+msgid ""
+"-proof projects, immune to the the crapifying that takes place when business "
+"interests inevitably subsume and monetize projects that initially focussed "
+"on high-quality offerings to attract users."
 msgstr ""
 
 #: ../root/mbid/NotFound.js:15
@@ -11924,7 +11955,6 @@ msgstr ""
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
 #, fuzzy
-#| msgid "Search"
 msgid "Search results"
 msgstr "Caută"
 
@@ -11957,7 +11987,6 @@ msgstr ""
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "header"
 msgid "Remove recording"
 msgstr "Elimină artist"
@@ -11986,25 +12015,21 @@ msgstr ""
 
 #: ../root/recording/RecordingIndex.js:46
 #, fuzzy
-#| msgid "Tracks"
 msgid "Track artist"
 msgstr "Piese"
 
 #: ../root/recording/RecordingIndex.js:47
 #, fuzzy
-#| msgid "Release"
 msgid "Release title"
 msgstr "Album"
 
 #: ../root/recording/RecordingIndex.js:48
 #, fuzzy
-#| msgid "Remove artist"
 msgid "Release artist"
 msgstr "Elimină artist"
 
 #: ../root/recording/RecordingIndex.js:49
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Release group type"
 msgstr "Adaugă tipul relației"
 
@@ -12048,13 +12073,11 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:80
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:161
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Relationship attributes"
 msgstr "Adaugă tipul relației"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:70
 #, fuzzy
-#| msgid "Add relationship type"
 msgid "Relationship attribute"
 msgstr "Adaugă tipul relației"
 
@@ -12105,7 +12128,6 @@ msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:32
 #, fuzzy
-#| msgid "[none]"
 msgctxt "relationship attribute description"
 msgid "none"
 msgstr "[nimic]"
@@ -12215,7 +12237,6 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:29
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "Elimină artist"
@@ -12243,14 +12264,12 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:134
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "Adaugă artist"
 
 #: ../root/release/CoverArt.js:140
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "Elimină artist"
@@ -12272,7 +12291,6 @@ msgstr ""
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "header"
 msgid "Remove release"
 msgstr "Elimină casa de discuri"
@@ -12329,7 +12347,6 @@ msgstr ""
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "Elimină artist"
@@ -12349,7 +12366,6 @@ msgstr ""
 #: ../root/release_group/SetCoverArt.js:29
 #: ../root/release_group/SetCoverArt.js:31
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, header"
 msgid "Set cover art"
 msgstr "Elimină artist"
@@ -12836,7 +12852,6 @@ msgstr ""
 #: ../root/report/components/ReleaseGroupList.js:56
 #: ../root/report/components/WorkList.js:56
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "type"
 msgid "Unknown"
 msgstr "Necunoscut"
@@ -12956,7 +12971,6 @@ msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
-#| msgid "Add relationship"
 msgid "Release groups without any releases"
 msgstr "Adaugă o relație"
 
@@ -13512,7 +13526,6 @@ msgstr ""
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
 #, fuzzy
-#| msgid "Remove label"
 msgid "Releases older than their release label"
 msgstr "Elimină casa de discuri"
 
@@ -14190,7 +14203,6 @@ msgstr ""
 
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
-#| msgid "Search"
 msgid "Search error"
 msgstr "Caută"
 
@@ -14343,7 +14355,6 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:293
 #: ../root/static/scripts/work/edit.js:337
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Adăugați Album"
@@ -14351,7 +14362,6 @@ msgstr "Adăugați Album"
 #: ../root/static/scripts/account/components/EditProfileForm.js:301
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 #, fuzzy
-#| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "Înregistrează"
@@ -14448,7 +14458,6 @@ msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:292
 #, fuzzy
-#| msgid "Aliases"
 msgid "Alias details"
 msgstr "Aliasuri"
 
@@ -14669,7 +14678,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:41
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist roles"
 msgstr "Artist"
 
@@ -14766,7 +14774,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:82
 #, fuzzy
-#| msgid "Edit release"
 msgid "Primary alias"
 msgstr "Editați album"
 
@@ -14824,7 +14831,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Cardinality.js:16
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
 msgstr "Necunoscut"
@@ -14843,6 +14849,12 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/CritiqueBrainzReview.js:33
 msgid "{review_link|Review} by {author} on {date}"
+msgstr ""
+
+#: ../root/static/scripts/common/components/DescriptiveLink.js:65
+#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/release-editor/dialogs.js:158
+msgid "{entity} by {artist}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:78
@@ -15137,7 +15149,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:616
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "folksonomy"
 msgid "Add tags"
 msgstr "Adaugă artist"
@@ -15169,10 +15180,6 @@ msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr ""
 
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
-msgstr ""
-
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
 msgid "Continue reading at Wikipedia..."
 msgstr ""
@@ -15185,7 +15192,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/WorkArtists.js:24
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Work artists"
 msgstr "îmbinare artiști"
 
@@ -15230,7 +15236,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "language"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
@@ -15692,7 +15697,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:168
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "Adaugă artist"
@@ -15707,35 +15711,30 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:156
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Move artist credit down"
 msgstr "Elimină artist"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Move artist credit up"
 msgstr "Elimină artist"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
 msgstr "Adaugă artist"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:222
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "Elimină artist"
@@ -15778,14 +15777,12 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:256
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "Editați  artist"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:173
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "Elimină cod ISRC"
@@ -15892,7 +15889,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:145
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "Editați adresa URL"
@@ -16028,7 +16024,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1321
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Adaugă o relație"
@@ -16044,7 +16039,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1529
 #, fuzzy
-#| msgid "Remove label"
 msgid "Remove link"
 msgstr "Elimină casa de discuri"
 
@@ -16119,6 +16113,164 @@ msgid ""
 "This mode handles the Turkish capitalisation of 'i' ('İ') and 'ı' ('I'). "
 "Some words may need to be manually corrected according to the {url|Turkish "
 "language guidelines}."
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:43
+msgid "Tag your music"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:58
+msgid "Yate"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:89
+msgid "Listen together"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:97
+msgid "with ListenBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:107
+msgid "Explore the music you listen to."
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:112
+#, fuzzy
+msgid "Editor Tools"
+msgstr "Editați casa de discuri"
+
+#: ../root/static/scripts/homepage/editor-tools.js:122
+#, fuzzy
+msgid "My Profile"
+msgstr "Editați album"
+
+#: ../root/static/scripts/homepage/editor-tools.js:137
+#, fuzzy
+msgid "My tags"
+msgstr "Adaugă artist"
+
+#: ../root/static/scripts/homepage/editor-tools.js:144
+msgid "Subscribed entity edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:146
+msgid "Subscribed editor edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:155
+msgid "Votes on edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:156
+msgid "My reports"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:168
+#, fuzzy
+msgid "Add new..."
+msgstr "Adăugați Album"
+
+#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/navbar.js:263
+#, fuzzy
+msgid "reset language"
+msgstr "Album"
+
+#: ../root/static/scripts/homepage/mobile-search-popup.js:86
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/search.js:136
+#: ../root/static/scripts/homepage/search.js:138
+msgid "Advanced Search"
+msgstr ""
+
+#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/search.js:163
+msgid "in"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:114
+msgid "The open music encyclopedia"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:186
+#, fuzzy
+msgid "Search in:"
+msgstr "Caută"
+
+#: ../root/static/scripts/homepage/stats.js:73
+msgid "last week"
+msgstr ""
+
+#: ../root/static/scripts/homepage/stats.js:78
+msgid "total"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#, fuzzy
+msgid "By {artist}"
+msgstr "Adaugă artist"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:108
+msgid "{entity}"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:199
+msgid "Now"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:236
+#, fuzzy
+msgid "Order by {type} date"
+msgstr "Editați  artist"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:242
+#, fuzzy
+msgid "Fresh {type}"
+msgstr "Editați  artist"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:251
+msgid "Order by date added to MusicBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:253
+#, fuzzy
+msgid "New Additions"
+msgstr "Adaugă artist"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:276
+#, fuzzy
+msgid "Add {type}"
+msgstr "Editați  artist"
+
+#: ../root/static/scripts/homepage/user-menu.js:30
+msgid "Welcome back"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:48
+msgid "Ticket tracker"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:51
+#, fuzzy
+msgid "Editing guidelines"
+msgstr "Editați casa de discuri"
+
+#: ../root/static/scripts/homepage/user-menu.js:56
+msgid "Userscripts"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:61
+msgid "Latest blog post:"
 msgstr ""
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
@@ -16283,7 +16435,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:175
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Edit relationship"
 msgstr "Adaugă o relație"
@@ -16349,7 +16500,6 @@ msgstr ""
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:50
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "Adaugă o relație"
@@ -16364,7 +16514,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:97
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Add relationship"
 msgstr "Adaugă o relație"
@@ -16385,7 +16534,6 @@ msgstr[2] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
 #, fuzzy
-#| msgid "Add release"
 msgid "{num} release"
 msgid_plural "{num} releases"
 msgstr[0] "Adăugați Album"
@@ -16461,7 +16609,6 @@ msgstr ""
 #: ../root/static/scripts/release-editor/init.js:260
 #: ../root/static/scripts/release-editor/init.js:261
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "header"
 msgid "Edit release"
 msgstr "Editați album"
@@ -16584,7 +16731,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:147
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit work"
 msgstr "Editați  artist"
@@ -16612,7 +16758,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
 #, fuzzy
-#| msgid "Remove artist alias"
 msgid "Recording alias: {alias}"
 msgstr "Elimina un alias pentru artist"
 
@@ -16646,7 +16791,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1518
 #, fuzzy
-#| msgid "Add relationship"
 msgid "Track relationships"
 msgstr "Adaugă o relație"
 
@@ -16663,13 +16807,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1635
 #, fuzzy
-#| msgid "Add relationship"
 msgid "Release relationships"
 msgstr "Adaugă o relație"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1672
 #, fuzzy
-#| msgid "Add relationship"
 msgid "Release group relationships"
 msgstr "Adaugă o relație"
 
@@ -16698,14 +16840,12 @@ msgstr ""
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove note"
 msgstr "Elimină casa de discuri"
 
 #: ../root/static/scripts/work/edit.js:349
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove language"
 msgstr "Elimină casa de discuri"
@@ -17095,7 +17235,6 @@ msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:47
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "header"
 msgid "Relationship editors"
 msgstr "Adaugă tipul relației"
@@ -17232,7 +17371,6 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:36
 #, fuzzy
-#| msgid "Actions"
 msgid "Area collections"
 msgstr "Acțiuni"
 
@@ -17246,7 +17384,6 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
-#| msgid "Actions"
 msgid "Genre collections"
 msgstr "Acțiuni"
 
@@ -17264,7 +17401,6 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:43
 #, fuzzy
-#| msgid "Actions"
 msgid "Recording collections"
 msgstr "Acțiuni"
 
@@ -17278,7 +17414,6 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:46
 #, fuzzy
-#| msgid "Actions"
 msgctxt "plural"
 msgid "Series collections"
 msgstr "Acțiuni"
@@ -17420,8 +17555,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:250
 #, fuzzy
-#| msgctxt "link_phrase"
-#| msgid "(none)"
 msgctxt "email address"
 msgid "(none)"
 msgstr "(nimic)"
@@ -17444,7 +17577,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:295
 #, fuzzy
-#| msgid "Actions"
 msgid "Restrictions"
 msgstr "Acțiuni"
 
@@ -17587,7 +17719,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Elimină cod ISRC"
@@ -17903,14 +18034,12 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:761
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "header"
 msgid "Relationship type"
 msgstr "Adaugă tipul relației"
 
 #: ../root/utility/tableColumns.js:776
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "Editați  artist"
@@ -17921,7 +18050,6 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:832
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "Adăugați Album"
@@ -18177,6 +18305,11 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+#~| msgid "Actions"
+#~ msgid "Recently added events"
+#~ msgstr "Acțiuni"
+
+#, fuzzy
 #~| msgid "Remove label"
 #~ msgctxt "header"
 #~ msgid "Remove area"
@@ -18242,9 +18375,6 @@ msgstr ""
 
 #~ msgid "Artist:"
 #~ msgstr "Artist:"
-
-#~ msgid "No title provided"
-#~ msgstr "Niciun titlu furnizat"
 
 #~ msgid "No artist names provided"
 #~ msgstr "Nici un nume de artist furnizat"

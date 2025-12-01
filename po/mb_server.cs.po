@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 17:21+0100\n"
+"POT-Creation-Date: 2025-12-01 13:16-0600\n"
 "PO-Revision-Date: 2024-04-17 17:34+0000\n"
 "Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Czech <https://translations.metabrainz.org/projects/"
@@ -184,7 +184,6 @@ msgstr ""
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 #, fuzzy
-#| msgid "Artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Interpret"
@@ -196,14 +195,12 @@ msgstr ""
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
-#| msgid "Event"
 msgctxt "plural, header"
 msgid "Add event art"
 msgstr "Událost"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "Nástroj"
@@ -222,7 +219,6 @@ msgstr ""
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
 #, fuzzy
-#| msgid "Medium"
 msgctxt "interactive"
 msgid "Add medium"
 msgstr "Médium"
@@ -236,7 +232,6 @@ msgstr ""
 #: ../root/static/scripts/release-editor/init.js:256
 #: ../root/static/scripts/release-editor/init.js:257
 #, fuzzy
-#| msgid "Release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Vydání"
@@ -249,7 +244,6 @@ msgstr ""
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Skupina vydání"
@@ -450,19 +444,16 @@ msgstr "Interpret"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist area"
 msgstr "Interpret"
 
 #: ../root/artist/edit_form.tt:12
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist details"
 msgstr "Interpret"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist type"
 msgstr "Interpret"
 
@@ -541,6 +532,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
+#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
 msgid "Blog"
 msgstr ""
 
@@ -560,7 +552,6 @@ msgid ""
 msgstr ""
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
-#: ../root/main/index.js:211
 msgid "Bug tracker"
 msgstr ""
 
@@ -622,12 +613,12 @@ msgid "Catalog#"
 msgstr ""
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
 #, fuzzy
-#| msgid "Release Group"
 msgid "Checking existing release groups…"
 msgstr "Skupina vydání"
 
@@ -837,6 +828,7 @@ msgid "Do not use any of the above releases as a starting point"
 msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
+#: ../root/layout/components/NewFooter.js:70
 msgid "Donate"
 msgstr "Darovat"
 
@@ -862,7 +854,6 @@ msgstr ""
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:99
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "Editovat URL"
@@ -878,14 +869,12 @@ msgstr "Editovat URL"
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:529
 #: ../root/user/UserCollections.js:121
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Editovat URL"
 
 #: ../root/url/edit_form.tt:1
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "Editovat URL"
@@ -902,7 +891,6 @@ msgstr ""
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
 #, fuzzy
-#| msgid "Event"
 msgctxt "singular, header"
 msgid "Edit event art"
 msgstr "Událost"
@@ -1017,7 +1005,6 @@ msgstr "Událost"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Event"
 msgid "Event type"
 msgstr "Událost"
 
@@ -1170,7 +1157,7 @@ msgid "Format"
 msgstr ""
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:214
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr ""
 
@@ -1474,7 +1461,6 @@ msgstr "Nástroj"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Instrument"
 msgid "Instrument type"
 msgstr "Nástroj"
 
@@ -1551,7 +1537,6 @@ msgstr "Vydavatel"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label"
 msgid "Label area"
 msgstr "Vydavatel"
 
@@ -1567,7 +1552,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label"
 msgid "Label type"
 msgstr "Vydavatel"
 
@@ -1579,6 +1563,7 @@ msgstr "Vydavatel"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
+#: ../root/static/scripts/homepage/language.js:66
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr ""
@@ -1627,7 +1612,6 @@ msgstr ""
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 #, fuzzy
-#| msgid "Log In"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Přihlásit se"
@@ -2017,7 +2001,6 @@ msgstr "Nahrávka"
 
 #: ../root/recording/edit_form.tt:23
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording details"
 msgstr "Nahrávka"
 
@@ -2096,19 +2079,16 @@ msgstr "Vydání"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release country"
 msgstr "Skupina vydání"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release data quality"
 msgstr "Skupina vydání"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release duplicates"
 msgstr "Skupina vydání"
 
@@ -2146,25 +2126,21 @@ msgstr ""
 
 #: ../root/release_group/edit_form.tt:10
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group details"
 msgstr "Skupina vydání"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group primary type"
 msgstr "Skupina vydání"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group search error"
 msgstr "Skupina vydání"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group secondary type"
 msgstr "Skupina vydání"
 
@@ -2185,7 +2161,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release language"
 msgstr "Skupina vydání"
 
@@ -2214,28 +2189,24 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "Odstranit stopu"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "interactive"
 msgid "Remove ISNI code"
 msgstr "Odstranit stopu"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Odstranit ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "Odstranit ISRC"
@@ -2246,7 +2217,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:242
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "Odstranit stopu"
@@ -2271,7 +2241,6 @@ msgstr ""
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "Odstranit stopu"
@@ -2324,6 +2293,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
+#: ../root/static/scripts/homepage/mobile-search-popup.js:43
 #: ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "Hledat"
@@ -2503,7 +2473,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:793
 #, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Tagger"
@@ -3117,7 +3086,6 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:46
 #, fuzzy
-#| msgid "Tracks"
 msgid "Track parser"
 msgstr "Skladby"
 
@@ -3368,6 +3336,7 @@ msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr ""
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
+#: ../root/layout/components/NewFooter.js:76
 msgid "Wiki"
 msgstr ""
 
@@ -3501,7 +3470,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -4243,19 +4211,19 @@ msgstr ""
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -4462,14 +4430,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Odstranit stopu"
@@ -4501,14 +4467,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
-#| msgid "Artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Interpret"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "Odstranit stopu"
@@ -4566,7 +4530,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 #, fuzzy
-#| msgid "Event"
 msgctxt "singular, edit type"
 msgid "Add event art"
 msgstr "Událost"
@@ -4578,21 +4541,18 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove event"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
-#| msgid "Event"
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Událost"
@@ -4604,7 +4564,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 #, fuzzy
-#| msgid "Event"
 msgctxt "singular, edit type"
 msgid "Edit event art"
 msgstr "Událost"
@@ -4616,14 +4575,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "singular, edit type"
 msgid "Remove event art"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
 msgstr "Odstranit stopu"
@@ -4645,14 +4602,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove genre"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Odstranit stopu"
@@ -4687,7 +4642,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
-#| msgid "Release"
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Vydání"
@@ -4723,7 +4677,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
-#| msgid "Release"
 msgctxt "edit type"
 msgid "Edit release"
 msgstr "Vydání"
@@ -4756,7 +4709,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 #, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Nahrávka"
@@ -4770,7 +4722,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
 #, fuzzy
-#| msgid "Releases"
 msgctxt "edit type"
 msgid "Merge releases"
 msgstr "Vydání"
@@ -4784,7 +4735,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove disc ID"
 msgstr "Odstranit ISRC"
@@ -4804,7 +4754,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove release"
 msgstr "Odstranit stopu"
@@ -4821,7 +4770,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove track"
 msgstr "Odstranit stopu"
@@ -4834,14 +4782,12 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:23
 #, fuzzy
-#| msgid "Set track lengths"
 msgctxt "edit type"
 msgid "Set track lengths"
 msgstr "Nastavit délky stop"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "edit type"
 msgid "Add instrument alias"
 msgstr "Nástroj"
@@ -4853,14 +4799,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Nástroj"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "edit type"
 msgid "Remove instrument"
 msgstr "Nástroj"
@@ -4872,7 +4816,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Nástroj"
@@ -4884,7 +4827,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "edit type"
 msgid "Merge instruments"
 msgstr "Nástroj"
@@ -4906,7 +4848,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove label"
 msgstr "Odstranit stopu"
@@ -4928,7 +4869,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 #, fuzzy
-#| msgid "Medium"
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "Médium"
@@ -4966,14 +4906,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove place"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Odstranit stopu"
@@ -5015,7 +4953,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
 #, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Remove recording"
 msgstr "Nahrávka"
@@ -5032,14 +4969,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
 #, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Merge recordings"
 msgstr "Nahrávka"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISRC"
 msgstr "Odstranit ISRC"
@@ -5100,7 +5035,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -5127,7 +5061,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -5149,7 +5082,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 #, fuzzy
-#| msgid "Invalid barcode"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Neplatný čárový kód"
@@ -5178,7 +5110,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "Odstranit stopu"
@@ -5195,7 +5126,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Add release group alias"
 msgstr "Skupina vydání"
@@ -5207,28 +5137,24 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Skupina vydání"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Remove release group"
 msgstr "Skupina vydání"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Skupina vydání"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Skupina vydání"
@@ -5240,7 +5166,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Merge release groups"
 msgstr "Skupina vydání"
@@ -5319,7 +5244,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove series"
 msgstr "Odstranit stopu"
@@ -5346,7 +5270,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
 msgstr "Editovat URL"
@@ -5422,14 +5345,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove work"
 msgstr "Odstranit stopu"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Odstranit stopu"
@@ -5451,7 +5372,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISWC"
 msgstr "Odstranit ISRC"
@@ -5917,7 +5837,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
 #, fuzzy
-#| msgid "Recording"
 msgid "As recording artist"
 msgstr "Nahrávka"
 
@@ -5927,7 +5846,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
-#| msgid "Remove track"
 msgid "As other artist"
 msgstr "Odstranit stopu"
 
@@ -6048,7 +5966,6 @@ msgstr ""
 #: ../root/layout/components/Search.js:42
 #: ../root/search/components/SearchForm.js:42
 #, fuzzy
-#| msgid "Tags"
 msgctxt "noun, folksonomy"
 msgid "Tag"
 msgstr "Tagy"
@@ -6300,7 +6217,6 @@ msgstr ""
 #: ../root/account/DeleteOwnAccount.js:37
 #: ../root/components/UserAccountTabs.js:113
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Delete account"
 msgstr "Skupina vydání"
@@ -6329,7 +6245,6 @@ msgstr ""
 
 #: ../root/account/DeleteOwnAccount.js:76
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "Skupina vydání"
@@ -6337,7 +6252,6 @@ msgstr "Skupina vydání"
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:94
 #, fuzzy
-#| msgid "Donate"
 msgid "Donation check"
 msgstr "Darovat"
 
@@ -6541,6 +6455,7 @@ msgstr ""
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "Applications"
 msgstr ""
 
@@ -6623,14 +6538,12 @@ msgstr ""
 #: ../root/account/applications/RegisterApplication.js:19
 #: ../root/account/applications/RegisterApplication.js:20
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Register application"
 msgstr "Sbírky"
 
 #: ../root/account/applications/RegisterApplication.js:24
 #, fuzzy
-#| msgid "Collections"
 msgctxt "interactive"
 msgid "Register application"
 msgstr "Sbírky"
@@ -6641,7 +6554,6 @@ msgstr ""
 
 #: ../root/account/applications/RemoveApplication.js:17
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "header"
 msgid "Remove application"
 msgstr "Odstranit stopu"
@@ -7464,7 +7376,6 @@ msgstr ""
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 #, fuzzy
-#| msgid "This is not a valid disc ID"
 msgid "Invalid disc ID"
 msgstr "Toto není platný identifikátor CD"
 
@@ -7506,7 +7417,6 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "Odstranit ISRC"
@@ -7623,7 +7533,6 @@ msgstr ""
 
 #: ../root/cdtoc/RemoveDiscId.js:33 ../root/cdtoc/RemoveDiscId.js:35
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "Odstranit ISRC"
@@ -7667,7 +7576,6 @@ msgstr ""
 #: ../root/cdtoc/SetTracklistDurations.js:33
 #: ../root/cdtoc/SetTracklistDurations.js:34
 #, fuzzy
-#| msgid "Set track lengths"
 msgid "Set tracklist durations"
 msgstr "Nastavit délky stop"
 
@@ -7703,7 +7611,6 @@ msgstr ""
 
 #: ../root/collection/CollectionHeader.js:78
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Editovat URL"
@@ -8011,7 +7918,6 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:123
 #, fuzzy
-#| msgid "Event"
 msgctxt "plural"
 msgid "Event art"
 msgstr "Událost"
@@ -8028,7 +7934,6 @@ msgstr ""
 #: ../root/tag/TagCloud.js:94 ../root/tag/TagCloud.js:96
 #: ../root/user/UserTagList.js:55
 #, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tags"
 msgstr "Tagy"
@@ -8229,6 +8134,7 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
+#: ../root/static/scripts/homepage/editor-tools.js:128
 msgid "Subscriptions"
 msgstr ""
 
@@ -8343,7 +8249,6 @@ msgstr ""
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
-#| msgid "Artist"
 msgid "Other artists"
 msgstr "Interpret"
 
@@ -8653,7 +8558,6 @@ msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 #, fuzzy
-#| msgid "Event"
 msgctxt "singular"
 msgid "Event art"
 msgstr "Událost"
@@ -8956,7 +8860,7 @@ msgid "Introduction to editing"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:182
+#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
 msgid "Style guidelines"
 msgstr ""
 
@@ -9280,7 +9184,6 @@ msgstr ""
 
 #: ../root/edit/details/EditAlias.js:74
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -9305,7 +9208,6 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:273
 #, fuzzy
-#| msgid "Set track lengths"
 msgid "New tracklist"
 msgstr "Nastavit délky stop"
 
@@ -9323,13 +9225,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:547
 #, fuzzy
-#| msgid "Artist"
 msgid "Old artist"
 msgstr "Interpret"
 
 #: ../root/edit/details/EditMedium.js:548
 #, fuzzy
-#| msgid "Artist"
 msgid "New artist"
 msgstr "Interpret"
 
@@ -9437,7 +9337,6 @@ msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:298
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording merges"
 msgstr "Nahrávka"
 
@@ -9570,7 +9469,6 @@ msgstr ""
 
 #: ../root/edit/details/SetTrackLengths.js:54
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -9904,7 +9802,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:27
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Area not found"
 msgstr "Sbírky"
@@ -9917,7 +9814,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:36
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "Sbírky"
@@ -9948,7 +9844,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:57
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "Sbírky"
@@ -9959,7 +9854,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:65
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "Nástroj"
@@ -9972,7 +9866,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:74
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "header"
 msgid "Edit note not found"
 msgstr "Nástroj"
@@ -9996,7 +9889,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:88
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Event not found"
 msgstr "Sbírky"
@@ -10020,7 +9912,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:106
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Nástroj"
@@ -10055,7 +9946,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:134
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Label not found"
 msgstr "Sbírky"
@@ -10068,7 +9958,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:143
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "header"
 msgid "Medium not found"
 msgstr "Nástroj"
@@ -10090,7 +9979,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:160
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Place not found"
 msgstr "Sbírky"
@@ -10103,7 +9991,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:169
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Sbírky"
@@ -10135,7 +10022,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:196
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Release not found"
 msgstr "Skupina vydání"
@@ -10148,7 +10034,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:205
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Skupina vydání"
@@ -10161,7 +10046,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:214
 #, fuzzy
-#| msgid "Collections"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Sbírky"
@@ -10205,7 +10089,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:248
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Work not found"
 msgstr "Sbírky"
@@ -10330,7 +10213,6 @@ msgstr ""
 
 #: ../root/entity/alias/DeleteAlias.js:25
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "header"
 msgid "Remove alias"
 msgstr "Odstranit stopu"
@@ -10350,14 +10232,12 @@ msgstr ""
 
 #: ../root/event/EditEvent.js:28
 #, fuzzy
-#| msgid "Event"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Událost"
 
 #: ../root/event/EventArt.js:28
 #, fuzzy
-#| msgid "Event"
 msgctxt "plural, header"
 msgid "Event art"
 msgstr "Událost"
@@ -10392,14 +10272,12 @@ msgstr ""
 
 #: ../root/event/EventArt.js:118
 #, fuzzy
-#| msgid "Event"
 msgctxt "plural, interactive"
 msgid "Add event art"
 msgstr "Událost"
 
 #: ../root/event/EventArt.js:124
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "Odstranit stopu"
@@ -10436,7 +10314,6 @@ msgstr ""
 
 #: ../root/event/RemoveEventArt.js:24
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "singular, header"
 msgid "Remove event art"
 msgstr "Odstranit stopu"
@@ -10494,7 +10371,6 @@ msgstr ""
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
 #: ../root/layout/components/BottomMenu.js:329
 #, fuzzy
-#| msgid "Genres"
 msgid "Genre list"
 msgstr "Žánry"
 
@@ -10521,7 +10397,6 @@ msgstr ""
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
 #, fuzzy
-#| msgid "Instrument"
 msgid "Instrument list"
 msgstr "Nástroj"
 
@@ -10563,7 +10438,6 @@ msgstr[3] ""
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording artists"
 msgstr "Nahrávka"
 
@@ -10592,10 +10466,16 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
+#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:93
+#: ../root/static/scripts/homepage/language.js:101
+#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/navbar.js:273
+#: ../root/static/scripts/homepage/navbar.js:275
 msgid "Help translate"
 msgstr ""
 
@@ -10603,7 +10483,7 @@ msgstr ""
 msgid "About us"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:110
+#: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
 msgid "About MusicBrainz"
 msgstr ""
 
@@ -10616,6 +10496,7 @@ msgid "Team"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:119
+#: ../root/layout/components/NewFooter.js:94
 msgid "Shop"
 msgstr ""
 
@@ -10672,19 +10553,22 @@ msgstr ""
 msgid "Products"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
+#: ../root/layout/components/BottomMenu.js:176
+#: ../root/static/scripts/homepage/banner-carousel.js:47
 msgid "MusicBrainz Picard"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
+#: ../root/layout/components/BottomMenu.js:179
+#: ../root/static/scripts/homepage/banner-carousel.js:52
 msgid "AudioRanger"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:160
+#: ../root/layout/components/BottomMenu.js:182
+#: ../root/static/scripts/homepage/banner-carousel.js:55
 msgid "Mp3tag"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:164
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Yate Music Tagger"
 msgstr ""
 
@@ -10696,11 +10580,11 @@ msgstr ""
 msgid "MusicBrainz Server"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:220
+#: ../root/layout/components/BottomMenu.js:196
 msgid "MusicBrainz Database"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:199
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
 msgid "Developer resources"
 msgstr ""
 
@@ -10713,6 +10597,7 @@ msgid "Live Data Feed"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/search.js:171
 msgid "Advanced search"
 msgstr ""
 
@@ -10734,7 +10619,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:246
 #, fuzzy
-#| msgid "Artist"
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "Interpret"
@@ -10742,7 +10626,6 @@ msgstr "Interpret"
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Skupina vydání"
@@ -10752,7 +10635,6 @@ msgstr "Skupina vydání"
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
 #, fuzzy
-#| msgid "Release"
 msgctxt "interactive"
 msgid "Add release"
 msgstr "Vydání"
@@ -10799,7 +10681,7 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:174
+#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
 msgid "Beginners guide"
 msgstr ""
 
@@ -10807,7 +10689,8 @@ msgstr ""
 msgid "How tos"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:312 ../root/main/index.js:185
+#: ../root/layout/components/BottomMenu.js:312
+#: ../root/layout/components/NewFooter.js:182
 msgid "FAQs"
 msgstr ""
 
@@ -10824,6 +10707,7 @@ msgid "Relationship types"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:332
+#: ../root/layout/components/NewFooter.js:194
 msgid "Development"
 msgstr ""
 
@@ -10847,23 +10731,23 @@ msgstr ""
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:45
+#: ../root/layout/components/Head.js:46
 msgid "Page {n}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:101
+#: ../root/layout/components/Head.js:114
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/components/Head.js:107
+#: ../root/layout/components/Head.js:120
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/components/Head.js:113
+#: ../root/layout/components/Head.js:126
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/components/Head.js:119
+#: ../root/layout/components/Head.js:132
 msgid "MusicBrainz: Track"
 msgstr ""
 
@@ -10898,6 +10782,116 @@ msgstr ""
 msgid "Remove selected entities"
 msgstr ""
 
+#: ../root/layout/components/NewFooter.js:36
+msgid ""
+"is an open music encyclopedia that collects music metadata and makes it "
+"available to the public."
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:42
+msgid "Development IRC:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:49
+msgid "Discussion IRC:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:56
+msgid "Email:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:65
+msgid "Useful Links"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:82
+msgid "Community"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:100
+msgid "MetaBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:106
+#: ../root/layout/components/NewFooter.js:206
+msgid "Contribute Here"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#, fuzzy
+msgid "Bug Tracker"
+msgstr "Skladby"
+
+#: ../root/layout/components/NewFooter.js:118
+msgid "Fellow Projects"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
+msgid "ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:129
+msgid "CritiqueBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:135
+msgid "Picard"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:141
+msgid "BookBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:147
+#, fuzzy
+msgid "AcousticBrainz"
+msgstr "Vítejte v MusicBrainz!"
+
+#: ../root/layout/components/NewFooter.js:153
+msgid "Cover Art Archive"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:159
+msgid "Join Us"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:164
+msgid "Beginner's Guide"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:170
+msgid "Style Guidelines"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:176
+msgid "How Tos"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:188
+msgid "Doc Index"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:203
+msgid "OSS Geek?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:212
+msgid "Brought to you by"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+msgid "MetaBrainz Foundation"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:228
+msgid "Found an Issue?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:231
+msgid "Report Here"
+msgstr ""
+
 #: ../root/layout/components/SupportedBrowserCheck.js:32
 msgid ""
 "The browser you’re using is unsupported, and the website may not work "
@@ -10907,8 +10901,8 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
+#: ../root/static/scripts/homepage/editor-tools.js:123
 #, fuzzy
-#| msgid "Log Out"
 msgid "Log out"
 msgstr "Odhlásit se"
 
@@ -10918,14 +10912,15 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/homepage/editor-tools.js:136
 #, fuzzy
-#| msgid "Rating"
 msgid "My ratings"
 msgstr "Hodnocení"
 
@@ -10935,10 +10930,12 @@ msgid "My tags"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:92
+#: ../root/static/scripts/homepage/editor-tools.js:141
 msgid "My open edits"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:95
+#: ../root/static/scripts/homepage/editor-tools.js:143
 msgid "All my edits"
 msgstr ""
 
@@ -10951,6 +10948,7 @@ msgid "Edits by subscribed editors"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:106
+#: ../root/static/scripts/homepage/editor-tools.js:151
 msgid "Notes left on my edits"
 msgstr ""
 
@@ -10990,7 +10988,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ArtistSidebar.js:168
 #, fuzzy
-#| msgid "Recording"
 msgctxt "interactive"
 msgid "Add recording"
 msgstr "Nahrávka"
@@ -11031,7 +11028,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
 #, fuzzy
-#| msgid "Collections"
 msgid "You have no genre collections!"
 msgstr "Sbírky"
 
@@ -11196,10 +11192,6 @@ msgctxt "place"
 msgid "Closed"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
-msgid "ListenBrainz"
-msgstr ""
-
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:68
 msgid "Play on ListenBrainz"
 msgstr ""
@@ -11324,6 +11316,15 @@ msgstr[3] ""
 
 #: ../root/layout/index.js:250
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
+msgstr ""
+
+#: ../root/main/AuthButtons.js:19
+#, fuzzy
+msgid "Create Account"
+msgstr "Skupina vydání"
+
+#: ../root/main/AuthButtons.js:21
+msgid "Login"
 msgstr ""
 
 #: ../root/main/ConfirmSeed.js:26
@@ -11521,132 +11522,270 @@ msgstr ""
 msgid "(No details about this error are available)"
 msgstr ""
 
-#: ../root/main/index.js:34
+#: ../root/main/index.js:75
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr ""
 
-#: ../root/main/index.js:38
-msgid "Welcome to MusicBrainz!"
-msgstr "Vítejte v MusicBrainz!"
-
-#: ../root/main/index.js:42
+#: ../root/main/index.js:111
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
 msgstr ""
 
-#: ../root/main/index.js:48
-msgid "MusicBrainz aims to be:"
-msgstr ""
-
-#: ../root/main/index.js:54
+#: ../root/main/index.js:124
 msgid ""
-"<strong>The ultimate source of music information</strong> by allowing anyone "
-"to contribute and releasing the {doc|data} under {doc2|open licenses}."
+"The ultimate source of audio information, releasing data under open licenses "
+"and allowing anyone to contribute."
 msgstr ""
 
-#: ../root/main/index.js:65
+#: ../root/main/index.js:136
 msgid ""
-"<strong>The universal lingua franca for music</strong> by providing a "
-"reliable and unambiguous form of {doc|music identification}, enabling both "
-"people and machines to have meaningful conversations about music."
+"The universal lingua franca for music, providing reliable and unambiguous "
+"forms of music identification, enabling people and machines to have "
+"meaningful conversations about music."
 msgstr ""
 
-#: ../root/main/index.js:78
+#: ../root/main/index.js:150
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
-"we want everyone &#x2014; including you &#x2014; to {doc|participate and "
-"contribute}."
+"everyone - including you - can participate and contribute."
 msgstr ""
 
-#: ../root/main/index.js:89
+#: ../root/main/index.js:163
 msgid ""
-"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+"MusicBrainz is operated by the MetaBrainz Foundation, a non-profit dedicated "
+"to keeping MusicBrainz free and open source."
 msgstr ""
 
-#: ../root/main/index.js:101
-msgid ""
-"MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
-"based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
-"MusicBrainz {free|free and open source}."
-msgstr ""
-
-#: ../root/main/index.js:114
-msgid "MetaBrainz blog"
-msgstr ""
-
-#: ../root/main/index.js:119
-msgid "Latest posts:"
-msgstr ""
-
-#: ../root/main/index.js:131
-msgid "Read more »"
-msgstr ""
-
-#: ../root/main/index.js:138
-msgid "The blog is currently unavailable."
-msgstr ""
-
-#: ../root/main/index.js:148
-msgctxt "audio file metadata"
-msgid "Tag your music"
-msgstr ""
-
-#: ../root/main/index.js:171
-msgid "Quick start"
-msgstr ""
-
-#: ../root/main/index.js:178
-msgid "Editing introduction"
+#: ../root/main/index.js:179
+msgid "Read More"
 msgstr ""
 
 #: ../root/main/index.js:189
+msgid "Beginner editor's guide"
+msgstr ""
+
+#: ../root/main/index.js:199
+msgid "Latest News"
+msgstr ""
+
+#: ../root/main/index.js:209
+msgid "The blog is currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:236
+msgid "Community Posts"
+msgstr ""
+
+#: ../root/main/index.js:248
+msgid "The community posts are currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:280
+msgid "Develop"
+msgstr ""
+
+#: ../root/main/index.js:284
+msgid "Datasets and Live Data Feed"
+msgstr ""
+
+#: ../root/main/index.js:290
+msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
+msgstr ""
+
+#: ../root/main/index.js:295
+#, fuzzy
+msgid "creating an account"
+msgstr "Skupina vydání"
+
+#: ../root/main/index.js:297
+msgid ","
+msgstr ""
+
+#: ../root/main/index.js:300
+msgid "whether for personal or non-commercial use"
+msgstr ""
+
+#: ../root/main/index.js:302
+msgid "."
+msgstr ""
+
+#: ../root/main/index.js:308
+msgid "Database"
+msgstr ""
+
+#: ../root/main/index.js:313
+msgid "View and download the MusicBrainz Database."
+msgstr ""
+
+#: ../root/main/index.js:325
+msgid ""
+"Use our XML web service or development libraries to create your own "
+"MusicBrainz-enabled applications."
+msgstr ""
+
+#: ../root/main/index.js:332 ../root/main/index.js:393
+msgid "See also:"
+msgstr ""
+
+#: ../root/main/index.js:335
+msgid "Data license"
+msgstr ""
+
+#: ../root/main/index.js:338 ../root/main/index.js:399
+#: ../root/main/index.js:405 ../root/main/index.js:411
+#: ../root/main/index.js:417 ../root/main/index.js:423
+msgid "|"
+msgstr ""
+
+#: ../root/main/index.js:341
+msgid "MetaBrainz FAQ"
+msgstr ""
+
+#: ../root/main/index.js:350
+msgid "Contribute"
+msgstr ""
+
+#: ../root/main/index.js:354
+#, fuzzy
+msgid "Edit the database"
+msgstr "Vydání"
+
+#: ../root/main/index.js:359
+msgid ""
+"Anyone can help improve our global database! Get started and improve "
+"existing data or add new artists and music."
+msgstr ""
+
+#: ../root/main/index.js:372
+msgid ""
+"Developers, view and pick up issues in our bug tracker, and join us in the "
+"developer chat."
+msgstr ""
+
+#: ../root/main/index.js:380
+msgid "Join the community"
+msgstr ""
+
+#: ../root/main/index.js:385
+msgid ""
+"Talk to other database editors and music fans on our forums or our live chat "
+"via IRC, Matrix and Discord."
+msgstr ""
+
+#: ../root/main/index.js:402
+msgid "Editing introduction"
+msgstr ""
+
+#: ../root/main/index.js:414
+msgid "MusicBrainz FAQs"
+msgstr ""
+
+#: ../root/main/index.js:420
 msgid "How to add artists"
 msgstr ""
 
-#: ../root/main/index.js:194
+#: ../root/main/index.js:426
 msgid "How to add releases"
 msgstr ""
 
-#: ../root/main/index.js:205
-msgid "Community"
+#: ../root/main/index.js:444
+msgid "Open source"
 msgstr ""
 
-#: ../root/main/index.js:208
-msgid "How to contribute"
-msgstr ""
-
-#: ../root/main/index.js:224
+#: ../root/main/index.js:447
 msgid ""
-"The majority of the data in the <strong>MusicBrainz Database</strong> is "
-"released into the <strong>Public Domain</strong> and can be downloaded and "
-"used <strong>for free</strong>."
+"\"Open source is source code that is made freely available for possible "
+"modification and redistribution...\""
 msgstr ""
 
-#: ../root/main/index.js:234
-msgid "Developers"
+#: ../root/main/index.js:451
+msgid "-"
 msgstr ""
 
-#: ../root/main/index.js:238
+#: ../root/main/index.js:454
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr ""
+
+#: ../root/main/index.js:459
 msgid ""
-"Use our <strong>XML web service</strong> or <strong>development libraries</"
-"strong> to create your own MusicBrainz-enabled applications."
+"The MusicBrainz database is all open source. This means that anyone can view "
+"the code, contribute improvements and new features, and copy and modify it "
+"for their own use."
 msgstr ""
 
-#: ../root/main/index.js:251
-msgid "Recently added releases"
+#: ../root/main/index.js:467
+msgid ""
+"Thousands of wonderful people contribute code or data to MusicBrainz and its "
+"sister projects for no monetary return and for everyone's benefit."
 msgstr ""
 
-#: ../root/main/index.js:266
+#: ../root/main/index.js:476
+msgid "GitHub repositories"
+msgstr ""
+
+#: ../root/main/index.js:484
+msgid "Data provider"
+msgstr ""
+
+#: ../root/main/index.js:487
+msgid ""
+"The MetaBrainz core mission is to curate and maintain public datasets that "
+"anyone can download and use. Some of the world's biggest platforms, such as "
+"Google and Amazon, use our data, as well as small-scale developers and "
+"curious individuals."
+msgstr ""
+
+#: ../root/main/index.js:494
+msgid "We ask"
+msgstr ""
+
+#: ../root/main/index.js:497
+msgid "commercial users"
+msgstr ""
+
+#: ../root/main/index.js:501
+msgid "to support us. Personal use of our datasets will always be free."
+msgstr ""
+
+#: ../root/main/index.js:507
+msgid ""
+"Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
+"datasets are AI Ready, perfect for training large language models for music-"
+"based tasks."
+msgstr ""
+
+#: ../root/main/index.js:516
+msgid "MetaBrainz Datasets"
+msgstr ""
+
+#: ../root/main/index.js:524
+msgid "Ethical forever"
+msgstr ""
+
+#: ../root/main/index.js:527
+msgid ""
+"The MetaBrainz Foundation is a registered non-profit, making it impossible "
+"for us to be bought or traded."
+msgstr ""
+
+#: ../root/main/index.js:533
+msgid ""
+"Our team and volunteer contributers from across the globe are proud to "
+"consider MusicBrainz and it's sister sites"
+msgstr ""
+
+#: ../root/main/index.js:538
 #, fuzzy
-#| msgid "Collections"
-msgid "Recently added events"
+msgid "enshittification"
 msgstr "Sbírky"
 
-#: ../root/main/index.js:323
-#: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/release-editor/dialogs.js:158
-msgid "{entity} by {artist}"
+#: ../root/main/index.js:541
+msgid ""
+"-proof projects, immune to the the crapifying that takes place when business "
+"interests inevitably subsume and monetize projects that initially focussed "
+"on high-quality offerings to attract users."
 msgstr ""
 
 #: ../root/mbid/NotFound.js:15
@@ -11758,7 +11897,6 @@ msgstr ""
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
 #, fuzzy
-#| msgid "Search"
 msgid "Search results"
 msgstr "Hledat"
 
@@ -11791,7 +11929,6 @@ msgstr ""
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
 #, fuzzy
-#| msgid "Recording"
 msgctxt "header"
 msgid "Remove recording"
 msgstr "Nahrávka"
@@ -11820,25 +11957,21 @@ msgstr ""
 
 #: ../root/recording/RecordingIndex.js:46
 #, fuzzy
-#| msgid "Tracks"
 msgid "Track artist"
 msgstr "Skladby"
 
 #: ../root/recording/RecordingIndex.js:47
 #, fuzzy
-#| msgid "Release"
 msgid "Release title"
 msgstr "Vydání"
 
 #: ../root/recording/RecordingIndex.js:48
 #, fuzzy
-#| msgid "Releases"
 msgid "Release artist"
 msgstr "Vydání"
 
 #: ../root/recording/RecordingIndex.js:49
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group type"
 msgstr "Skupina vydání"
 
@@ -12094,7 +12227,6 @@ msgstr ""
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "header"
 msgid "Remove release"
 msgstr "Odstranit stopu"
@@ -12148,13 +12280,11 @@ msgstr ""
 
 #: ../root/release/ReleaseMerge.js:63
 #, fuzzy
-#| msgid "Release Group"
 msgid "Also merge the associated release groups"
 msgstr "Skupina vydání"
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "Odstranit stopu"
@@ -12777,7 +12907,6 @@ msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release groups without any releases"
 msgstr "Skupina vydání"
 
@@ -13656,7 +13785,6 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:622
 #: ../root/report/SeriesContainingDuplicates.js:49
 #, fuzzy
-#| msgid "Release Group"
 msgid "Series containing duplicates"
 msgstr "Skupina vydání"
 
@@ -14011,7 +14139,6 @@ msgstr ""
 
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
-#| msgid "Search"
 msgid "Search error"
 msgstr "Hledat"
 
@@ -14170,7 +14297,6 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:301
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 #, fuzzy
-#| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "Uložit"
@@ -14487,7 +14613,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:41
 #, fuzzy
-#| msgid "Artist"
 msgid "Artist roles"
 msgstr "Interpret"
 
@@ -14658,6 +14783,12 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/CritiqueBrainzReview.js:33
 msgid "{review_link|Review} by {author} on {date}"
+msgstr ""
+
+#: ../root/static/scripts/common/components/DescriptiveLink.js:65
+#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/release-editor/dialogs.js:158
+msgid "{entity} by {artist}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:78
@@ -14976,7 +15107,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:696
 #, fuzzy
-#| msgid "Tags"
 msgctxt "verb, folksonomy"
 msgid "Tag"
 msgstr "Tagy"
@@ -14984,10 +15114,6 @@ msgstr "Tagy"
 #: ../root/static/scripts/common/components/TaggerIcon.js:71
 msgctxt "audio file metadata"
 msgid "Open in tagger"
-msgstr ""
-
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
 msgstr ""
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
@@ -15045,7 +15171,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "language"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -15520,7 +15645,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:156
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -15588,7 +15712,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/Multiselect.js:173
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "Odstranit ISRC"
@@ -15695,7 +15818,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:145
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "Editovat URL"
@@ -15845,7 +15967,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1529
 #, fuzzy
-#| msgid "Remove track"
 msgid "Remove link"
 msgstr "Odstranit stopu"
 
@@ -15922,6 +16043,158 @@ msgid ""
 "language guidelines}."
 msgstr ""
 
+#: ../root/static/scripts/homepage/banner-carousel.js:43
+msgid "Tag your music"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:58
+msgid "Yate"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:89
+msgid "Listen together"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:97
+msgid "with ListenBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:107
+msgid "Explore the music you listen to."
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:112
+msgid "Editor Tools"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:122
+msgid "My Profile"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:137
+msgid "My tags"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:144
+msgid "Subscribed entity edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:146
+msgid "Subscribed editor edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:155
+msgid "Votes on edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:156
+#, fuzzy
+msgid "My reports"
+msgstr "Hodnocení"
+
+#: ../root/static/scripts/homepage/editor-tools.js:168
+msgid "Add new..."
+msgstr ""
+
+#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/navbar.js:263
+#, fuzzy
+msgid "reset language"
+msgstr "Skupina vydání"
+
+#: ../root/static/scripts/homepage/mobile-search-popup.js:86
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/search.js:136
+#: ../root/static/scripts/homepage/search.js:138
+msgid "Advanced Search"
+msgstr ""
+
+#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/search.js:163
+msgid "in"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:114
+msgid "The open music encyclopedia"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:186
+#, fuzzy
+msgid "Search in:"
+msgstr "Hledat"
+
+#: ../root/static/scripts/homepage/stats.js:73
+msgid "last week"
+msgstr ""
+
+#: ../root/static/scripts/homepage/stats.js:78
+msgid "total"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#, fuzzy
+msgid "By {artist}"
+msgstr "Interpret"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:108
+msgid "{entity}"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:199
+msgid "Now"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:236
+msgid "Order by {type} date"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:242
+#, fuzzy
+msgid "Fresh {type}"
+msgstr "Interpret"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:251
+msgid "Order by date added to MusicBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:253
+#, fuzzy
+msgid "New Additions"
+msgstr "Interpret"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:276
+msgid "Add {type}"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:30
+msgid "Welcome back"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:48
+msgid "Ticket tracker"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:51
+msgid "Editing guidelines"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:56
+msgid "Userscripts"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:61
+msgid "Latest blog post:"
+msgstr ""
+
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
 msgstr ""
@@ -15932,7 +16205,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "Nástroj"
@@ -16184,7 +16456,6 @@ msgstr[3] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
 #, fuzzy
-#| msgid "Release"
 msgid "{num} release"
 msgid_plural "{num} releases"
 msgstr[0] "Vydání"
@@ -16230,7 +16501,6 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/dialogs.js:317
 #, fuzzy
-#| msgid "Medium"
 msgctxt "header"
 msgid "Add medium"
 msgstr "Médium"
@@ -16263,7 +16533,6 @@ msgstr ""
 #: ../root/static/scripts/release-editor/init.js:260
 #: ../root/static/scripts/release-editor/init.js:261
 #, fuzzy
-#| msgid "Release"
 msgctxt "header"
 msgid "Edit release"
 msgstr "Vydání"
@@ -16412,7 +16681,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording alias: {alias}"
 msgstr "Nahrávka"
 
@@ -16461,13 +16729,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1635
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release relationships"
 msgstr "Skupina vydání"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1672
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group relationships"
 msgstr "Skupina vydání"
 
@@ -16496,7 +16762,6 @@ msgstr ""
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "interactive"
 msgid "Remove note"
 msgstr "Odstranit stopu"
@@ -16764,7 +17029,6 @@ msgstr ""
 
 #: ../root/tag/TagLayout.js:56
 #, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tag"
 msgstr "Tagy"
@@ -16850,7 +17114,6 @@ msgstr ""
 
 #: ../root/user/Login.js:48 ../root/user/Login.js:49
 #, fuzzy
-#| msgid "Log In"
 msgctxt "header"
 msgid "Log in"
 msgstr "Přihlásit se"
@@ -17038,74 +17301,62 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:36
 #, fuzzy
-#| msgid "Collections"
 msgid "Area collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:37
 #, fuzzy
-#| msgid "Collections"
 msgid "Artist collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:38
 #, fuzzy
-#| msgid "Collections"
 msgid "Event collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
-#| msgid "Collections"
 msgid "Genre collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
-#| msgid "Instrument"
 msgid "Instrument collections"
 msgstr "Nástroj"
 
 #: ../root/user/UserCollections.js:41
 #, fuzzy
-#| msgid "Collections"
 msgid "Label collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:42
 #, fuzzy
-#| msgid "Collections"
 msgid "Place collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:43
 #, fuzzy
-#| msgid "Collections"
 msgid "Recording collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:44
 #, fuzzy
-#| msgid "Collections"
 msgid "Release collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:45
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group collections"
 msgstr "Skupina vydání"
 
 #: ../root/user/UserCollections.js:46
 #, fuzzy
-#| msgid "Collections"
 msgctxt "plural"
 msgid "Series collections"
 msgstr "Sbírky"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
-#| msgid "Collections"
 msgid "Work collections"
 msgstr "Sbírky"
 
@@ -17263,7 +17514,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:295
 #, fuzzy
-#| msgid "Collections"
 msgid "Restrictions"
 msgstr "Sbírky"
 
@@ -17406,7 +17656,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Odstranit ISRC"
@@ -17494,7 +17743,6 @@ msgstr ""
 
 #: ../root/user/UserSubscriptions.js:24
 #, fuzzy
-#| msgid "Collections"
 msgid "Collection subscriptions"
 msgstr "Sbírky"
 
@@ -17737,7 +17985,6 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:761
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Relationship type"
 msgstr "Skupina vydání"
@@ -17753,7 +18000,6 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:832
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "Skupina vydání"
@@ -18007,6 +18253,11 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#, fuzzy
+#~| msgid "Collections"
+#~ msgid "Recently added events"
+#~ msgstr "Sbírky"
 
 #, fuzzy
 #~| msgid "Remove track"

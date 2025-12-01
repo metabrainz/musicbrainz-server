@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 17:21+0100\n"
+"POT-Creation-Date: 2025-12-01 13:16-0600\n"
 "PO-Revision-Date: 2025-09-03 23:39+0000\n"
 "Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
@@ -84,7 +84,6 @@ msgstr "(הוספת הקלטה חדשה)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
 #, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
 msgstr "(אין תמונות עטיפה נוספות)"
 
@@ -113,10 +112,6 @@ msgstr "<strong>אזהרה</strong>:"
 
 #: ../root/cdtoc/lookup.tt:22
 #, fuzzy
-#| msgid ""
-#| "A CD Stub was found that matches the disc ID you provided. If the below "
-#| "tracklist appears correct, you may use it as a starting point as a new "
-#| "MusicBrainz release"
 msgid ""
 "A CD stub was found that matches the disc ID you provided. If the below "
 "tracklist appears correct, you may use it as a starting point for a new "
@@ -148,28 +143,24 @@ msgstr "קבלה"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
 msgstr "קוד IPI"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
 msgstr "קוד ISNI"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "הוספת ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Add ISWCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "הוספת ISWC"
@@ -200,42 +191,36 @@ msgstr "הוספת קבוצת הוצאה חדשה"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 #, fuzzy
-#| msgid "Add area"
 msgctxt "header"
 msgid "Add area"
 msgstr "הוספת אזור"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "הוספת אמן"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 #, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, header"
 msgid "Add cover art"
 msgstr "הוספת תמונת עטיפה"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
-#| msgid "Add event"
 msgctxt "plural, header"
 msgid "Add event art"
 msgstr "הוספת אירוע"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 #, fuzzy
-#| msgid "Add instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "הוספת כלי נגינה"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 #, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Add label"
 msgstr "הוספת חברת תקליטים"
@@ -244,21 +229,18 @@ msgstr "הוספת חברת תקליטים"
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
 #, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "הוספת חברת תקליטים"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
 #, fuzzy
-#| msgid "Add medium"
 msgctxt "interactive"
 msgid "Add medium"
 msgstr "הוספת מדיה"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 #, fuzzy
-#| msgid "Add place"
 msgctxt "header"
 msgid "Add place"
 msgstr "הוספת מקום"
@@ -267,7 +249,6 @@ msgstr "הוספת מקום"
 #: ../root/static/scripts/release-editor/init.js:256
 #: ../root/static/scripts/release-editor/init.js:257
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release"
 msgstr "הוספת הוצאה"
@@ -275,29 +256,24 @@ msgstr "הוספת הוצאה"
 #: ../root/release/edit/information.tt:214
 #: ../root/release/edit/information.tt:215
 #, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Release Event"
 msgctxt "interactive"
 msgid "Add release event"
 msgstr "הוספת אירוע השקת הוצאה"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "הוספת קבוצת הוצאה"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 #, fuzzy
-#| msgid "Add series"
 msgctxt "header, singular"
 msgid "Add series"
 msgstr "הוספת סדרה"
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
 #, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "header"
 msgid "Add standalone recording"
 msgstr "הוספת הקלטה עצמאית"
@@ -308,15 +284,12 @@ msgstr "הוספת רצועה(ות)"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 #, fuzzy
-#| msgid "Add work"
 msgctxt "header"
 msgid "Add work"
 msgstr "הוספת יצירה"
 
 #: ../root/work/edit_form.tt:85
 #, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Work Attribute"
 msgctxt "interactive"
 msgid "Add work attribute"
 msgstr "הוספת תכונות יצירה"
@@ -346,7 +319,6 @@ msgstr ""
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
 #, fuzzy
-#| msgid "Auto-editor elections"
 msgctxt "vote"
 msgid "Admin rejection"
 msgstr "בחירות עורך־אוטומטי"
@@ -360,10 +332,6 @@ msgstr ""
 
 #: ../root/layout.tt:18 ../root/layout/index.js:210
 #, fuzzy
-#| msgid ""
-#| "You’re currently not allowed to edit or vote because an admin has revoked "
-#| "your privileges. If you haven’t already been contacted about why, please "
-#| "{uri|send us a message}."
 msgid ""
 "An admin has set the following restrictions on your account: {list}. If you "
 "haven’t already been contacted about why, please {uri|send us a message}."
@@ -395,7 +363,6 @@ msgstr "ביאור"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Applied Edit Count of Editor"
 msgid "Applied edit count of editor"
 msgstr "ספירת עריכות מוחלות של עורך"
 
@@ -433,7 +400,6 @@ msgstr "אזור"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Primary Type:"
 msgid "Area type"
 msgstr "סוגים עקריים:"
 
@@ -506,19 +472,16 @@ msgstr "אמן"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist Area"
 msgid "Artist area"
 msgstr "אזור אמן"
 
 #: ../root/artist/edit_form.tt:12
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Artist details"
 msgstr "פרטי אמן"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist Area"
 msgid "Artist type"
 msgstr "אזור אמן"
 
@@ -535,15 +498,12 @@ msgstr "צרוף תוכן עניינים תקליטור"
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/AttachCDTocToRelease.js:120
 #, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Attach CD TOC"
 msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "צרוף תוכן עניינים תקליטור"
 
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
 #, fuzzy
-#| msgid "Attach Disc ID"
 msgid "Attach disc ID"
 msgstr "צרוף מזהה תקליטור"
 
@@ -553,7 +513,6 @@ msgstr "מצורף להוצאות"
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:79
 #, fuzzy
-#| msgid "Auto-editor"
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "עורך אוטומטי"
@@ -606,6 +565,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
+#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
 msgid "Blog"
 msgstr "בלוג"
 
@@ -615,16 +575,12 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438
 #, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "בוט"
 
 #: ../root/layout.tt:134 ../root/layout/components/Footer.js:62
 #, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
@@ -633,9 +589,7 @@ msgstr ""
 "תומכי}. תמונת עטיפה המסופקות על־ידי {caa|ארכיב תמונות עטיפה}."
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
-#: ../root/main/index.js:211
 #, fuzzy
-#| msgid "Bug Tracker"
 msgid "Bug tracker"
 msgstr "מנפה תקלים"
 
@@ -649,7 +603,6 @@ msgstr "ספח תקליטור לפי {artist}"
 
 #: ../root/cdtoc/lookup.tt:21
 #, fuzzy
-#| msgid "CD Stub found"
 msgid "CD stub found"
 msgstr "נמצא ספח תקליטור"
 
@@ -699,12 +652,12 @@ msgid "Catalog#"
 msgstr "קטלוג#"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
 #, fuzzy
-#| msgid "Merge release groups"
 msgid "Checking existing release groups…"
 msgstr "מיזוג קבוצת הוצאה"
 
@@ -807,7 +760,6 @@ msgstr "DD"
 #: ../root/medium/MediumTracklist.js:46
 #: ../root/static/scripts/release/components/MediumTable.js:117
 #, fuzzy
-#| msgid "Data Tracks"
 msgid "Data tracks"
 msgstr "רצועות נתונים"
 
@@ -916,6 +868,7 @@ msgid "Do not use any of the above releases as a starting point"
 msgstr "לא להשתמש באף אחת מההוצאות שלעיל כנקודת פתיחה"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
+#: ../root/layout/components/NewFooter.js:70
 msgid "Donate"
 msgstr "תרומה"
 
@@ -941,7 +894,6 @@ msgstr "עריכה"
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:99
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "עריכה"
@@ -957,35 +909,30 @@ msgstr "עריכה"
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:529
 #: ../root/user/UserCollections.js:121
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "עריכה"
 
 #: ../root/url/edit_form.tt:1
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "עריכת מען url"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "header"
 msgid "Edit artist credit"
 msgstr "עריכת מזכה אמן"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
 #, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "עריכת תמונת עטיפה"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
 #, fuzzy
-#| msgid "Edit event"
 msgctxt "singular, header"
 msgid "Edit event art"
 msgstr "עריכת אירוע"
@@ -993,20 +940,17 @@ msgstr "עריכת אירוע"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
 #, fuzzy
-#| msgid "Edit note:"
 msgctxt "noun"
 msgid "Edit note"
 msgstr "עריכת הערה:"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit Note Authors"
 msgid "Edit note authors"
 msgstr "עריכת יוצרי הערה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit Note Content"
 msgid "Edit note content"
 msgstr "עריכת תוכן הערה"
 
@@ -1019,7 +963,6 @@ msgstr "עריכת הערה:"
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
 #: ../root/layout/components/BottomMenu.js:320
 #, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "עריכת סוגים"
@@ -1038,7 +981,6 @@ msgstr "עורכים"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Editor Flag"
 msgid "Editor flag"
 msgstr "דגל עורך"
 
@@ -1115,7 +1057,6 @@ msgstr "אירוע"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
 msgstr "סוג ישות"
 
@@ -1132,7 +1073,6 @@ msgstr "מדיה קיימת"
 
 #: ../root/release/edit/information.tt:77
 #, fuzzy
-#| msgid "Edit release group alias"
 msgid "Existing release groups with similar names"
 msgstr "עריכת כִּנּוּי קבוצת הוצאה"
 
@@ -1270,7 +1210,7 @@ msgid "Format"
 msgstr "תבנית"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:214
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "פורומים"
 
@@ -1332,7 +1272,6 @@ msgstr "ניחוש רישיות"
 
 #: ../root/components/forms.tt:166
 #, fuzzy
-#| msgid "Guess case"
 msgctxt "interactive"
 msgid "Guess case"
 msgstr "ניחוש רישיות"
@@ -1486,8 +1425,6 @@ msgstr "אם קוד ישות זו אינה ידועה, נא להשאיר את ה
 
 #: ../root/release/edit/information.tt:515
 #, fuzzy
-#| msgid ""
-#| "If you don’t know the code for this entity, just leave the field blank."
 msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
@@ -1560,7 +1497,6 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
 #, fuzzy
-#| msgid "Import CD stub"
 msgctxt "interactive"
 msgid "Import CD stub"
 msgstr "ייבוא ספח תקליטור"
@@ -1583,7 +1519,6 @@ msgstr "כלי נגינה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument type"
 msgstr "רשימת כלי נגינה"
 
@@ -1660,7 +1595,6 @@ msgstr "חברת תקליטים"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label Area"
 msgid "Label area"
 msgstr "אזור חברת תקליטים"
 
@@ -1672,13 +1606,11 @@ msgstr "קוד חברת תקליטים"
 
 #: ../root/label/edit_form.tt:8
 #, fuzzy
-#| msgid "Label Details"
 msgid "Label details"
 msgstr "פרטי חברת תקליטים"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label Area"
 msgid "Label type"
 msgstr "אזור חברת תקליטים"
 
@@ -1690,6 +1622,7 @@ msgstr "אזור חברת תקליטים"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
+#: ../root/static/scripts/homepage/language.js:66
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr "שפה"
@@ -1731,7 +1664,6 @@ msgstr "שורות המתחילות עם מספר רצועה"
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:114
 #, fuzzy
-#| msgid "Location editor"
 msgctxt "user type"
 msgid "Location editor"
 msgstr "עורך מיקום"
@@ -1740,7 +1672,6 @@ msgstr "עורך מיקום"
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 #, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "התחברות למערכת"
@@ -1887,7 +1818,6 @@ msgstr "שם"
 
 #: ../root/artist/edit_credit.tt:16 ../root/artist/split.tt:43
 #, fuzzy
-#| msgid "New Artist Credit"
 msgid "New artist credit"
 msgstr "מזכה אמן חדש"
 
@@ -2006,7 +1936,6 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:238
 #, fuzzy
-#| msgid "Parse Tracks"
 msgid "Parse tracks"
 msgstr "נתוח רצועות"
 
@@ -2025,13 +1954,11 @@ msgstr "מקום"
 
 #: ../root/place/edit_form.tt:12
 #, fuzzy
-#| msgid "Place Details"
 msgid "Place details"
 msgstr "פרטי מקום"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Place"
 msgid "Place type"
 msgstr "מקום"
 
@@ -2101,7 +2028,6 @@ msgstr "מיקום"
 
 #: ../root/cdtoc/lookup.tt:32
 #, fuzzy
-#| msgid "Possible Mediums"
 msgid "Possible mediums"
 msgstr "מדיה אפשרית"
 
@@ -2118,7 +2044,6 @@ msgstr "הקודם"
 #: ../root/edit/details/AddReleaseGroup.js:62
 #: ../root/edit/details/EditReleaseGroup.js:56
 #, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary type"
 msgstr "סוגים עקריים:"
 
@@ -2144,7 +2069,6 @@ msgstr "הקלטה"
 
 #: ../root/recording/edit_form.tt:23
 #, fuzzy
-#| msgid "Recording Details"
 msgid "Recording details"
 msgstr "פרטי הקלטה"
 
@@ -2174,7 +2098,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:100
 #, fuzzy
-#| msgid "Relationship editor"
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "עורך קשר־גומלין"
@@ -2225,19 +2148,16 @@ msgstr "הוצאה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "מדינת ההוצאה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Country"
 msgid "Release data quality"
 msgstr "מדינת ההוצאה"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
-#| msgid "Release Title"
 msgid "Release duplicates"
 msgstr "כותרת הוצאה"
 
@@ -2275,25 +2195,21 @@ msgstr "‮קבוצת הוצאה"
 
 #: ../root/release_group/edit_form.tt:10
 #, fuzzy
-#| msgid "Release groups"
 msgid "Release group details"
 msgstr "‮קבוצות הוצאה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group primary type"
 msgstr "‮סוג קבוצת הוצאה"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
-#| msgid "Release groups"
 msgid "Release group search error"
 msgstr "‮קבוצות הוצאה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group secondary type"
 msgstr "‮סוג קבוצת הוצאה"
 
@@ -2305,7 +2221,6 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:31
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:63
 #, fuzzy
-#| msgid "Release group by {artist}"
 msgid "Release group: {release_group_link}"
 msgstr "‮קבוצת הוצאה על־ידי {artist}"
 
@@ -2316,7 +2231,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "(reset language)"
 msgid "Release language"
 msgstr "(אתחל שפה)"
 
@@ -2345,28 +2259,24 @@ msgstr "הסרה"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "קוד IPI"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
 msgstr "קוד ISNI"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "הסרת ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Remove ISWC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "הסרת ISWC"
@@ -2377,7 +2287,6 @@ msgstr "הסרת תכונה"
 
 #: ../root/release/edit/information.tt:242
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "הסרת חברת תקליטים"
@@ -2388,7 +2297,6 @@ msgstr "הסרת מדיה"
 
 #: ../root/release/edit/information.tt:202
 #, fuzzy
-#| msgid "Remove Release Event"
 msgid "Remove release event"
 msgstr "הסרת אירוע הוצאה"
 
@@ -2399,14 +2307,12 @@ msgstr "הסרת רצועה"
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
 #, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "תמונת עטיפה של המקליט"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 #, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "תמונת עטיפה של המקליט"
@@ -2459,6 +2365,7 @@ msgstr "תַּסְרִיט"
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
+#: ../root/static/scripts/homepage/mobile-search-popup.js:43
 #: ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "חיפוש"
@@ -2485,7 +2392,6 @@ msgstr ""
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
 #, fuzzy
-#| msgid "Seconder 1"
 msgid "Secondary types"
 msgstr "תומך 1"
 
@@ -2500,9 +2406,6 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:66
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
@@ -2510,9 +2413,6 @@ msgstr "לתיעוד תאור סוגים אלו נא ראו  {doc|סוגי תמ�
 
 #: ../root/event/add_event_art.tt:66
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
@@ -2548,13 +2448,11 @@ msgstr "סדרה"
 
 #: ../root/series/edit_form.tt:8
 #, fuzzy
-#| msgid "Series Details"
 msgid "Series details"
 msgstr "פרטי סדרה"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Series"
 msgid "Series type"
 msgstr "סדרה"
 
@@ -2612,7 +2510,6 @@ msgstr "שם מיון"
 
 #: ../root/artist/split.tt:1
 #, fuzzy
-#| msgid "Split Artist"
 msgid "Split artist"
 msgstr " פיצול אמן"
 
@@ -2635,7 +2532,6 @@ msgstr "מצב"
 #: ../root/static/scripts/common/components/FilterForm.js:303
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:137
 #, fuzzy
-#| msgid "Status"
 msgctxt "release"
 msgid "Status"
 msgstr "מצב"
@@ -2661,16 +2557,12 @@ msgstr "החלפת כותרת רצוע במזכה אמן"
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:793
 #, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "מתייג"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
 #, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
@@ -2725,12 +2617,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:393
 #, fuzzy
-#| msgid ""
-#| "This release status should be used for unofficial translations and "
-#| "transliterations of tracklists and release titles, and does not denote a "
-#| "separate real release. It should not be used to denote bootlegs, mixtape/"
-#| "street albums, demos, or digital albums. Be sure to link to the "
-#| "corresponding real release with the {url|transl(iter)ation relationship}."
 msgid ""
 "The pseudo‐release status should be used for unofficial translations and "
 "transliterations of tracklists and release titles, and does not denote a "
@@ -2802,7 +2688,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:549
 #, fuzzy
-#| msgid "The annotation field functions like a miniature wiki."
 msgid ""
 "The {doc|annotation} field functions like a miniature wiki. It’s fine to "
 "leave it empty."
@@ -2832,9 +2717,6 @@ msgstr ""
 
 #: ../root/release_group/edit_form.tt:44
 #, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|artist} should usually match the earliest official release in the "
 "release group."
@@ -3014,9 +2896,6 @@ msgstr ""
 
 #: ../root/release_group/edit_form.tt:33
 #, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|name} is usually the title from the earliest official release in "
 "the release group."
@@ -3080,7 +2959,6 @@ msgstr "לא ניתן לנתח נקודות ציון."
 
 #: ../root/cdtoc/attach_list.tt:54 ../root/cdtoc/attach_list.tt:67
 #, fuzzy
-#| msgid "This CDTOC is already attached to this medium."
 msgid "This CD TOC is already attached to this medium."
 msgstr "תוכן עניינים תקליטור כבר מצורף למדיה זו."
 
@@ -3128,9 +3006,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:577
 #, fuzzy
-#| msgid ""
-#| "This field is not a place to store general background information about "
-#| "the release: that kind of information should go in the annotation field."
 msgid ""
 "This field is not a place to store general background information about the "
 "release. That kind of information should go in the annotation field."
@@ -3141,9 +3016,6 @@ msgstr ""
 #: ../root/artist/edit_form.tt:92 ../root/label/edit_form.tt:79
 #: ../root/place/edit_form.tt:71
 #, fuzzy
-#| msgid ""
-#| "This field is not a place to store general background information about "
-#| "the release: that kind of information should go in the annotation field."
 msgid ""
 "This field is not a place to store general background information. That kind "
 "of information should go in an {doc|annotation}."
@@ -3320,7 +3192,6 @@ msgstr "מספר רצועות:"
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:46
 #, fuzzy
-#| msgid "Track Parser"
 msgid "Track parser"
 msgstr "מנתח רצועות"
 
@@ -3356,7 +3227,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:107
 #, fuzzy
-#| msgid "Transclusion editors"
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "עורכי הפניות מקושרות"
@@ -3429,7 +3299,6 @@ msgstr "סוג"
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
 #, fuzzy
-#| msgid "Type"
 msgid "Types"
 msgstr "סוג"
 
@@ -3560,7 +3429,6 @@ msgstr "אזהרה"
 #: ../root/release/edit/tracklist.tt:425 ../root/release/edit/tracklist.tt:444
 #: ../root/release/edit/tracklist.tt:463
 #, fuzzy
-#| msgid "Warning"
 msgid "Warning:"
 msgstr "אזהרה"
 
@@ -3577,6 +3445,7 @@ msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr ""
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
+#: ../root/layout/components/NewFooter.js:76
 msgid "Wiki"
 msgstr "ויקי"
 
@@ -3608,7 +3477,6 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:10
 #, fuzzy
-#| msgid "Genre details"
 msgid "Work details"
 msgstr "פרטי סוגה"
 
@@ -3712,7 +3580,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "[הוסר]"
@@ -3758,7 +3625,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:111
 #, fuzzy
-#| msgid "cancelled"
 msgctxt "event"
 msgid "cancelled"
 msgstr "בוטל"
@@ -4074,10 +3940,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:441
 #, fuzzy
-#| msgid ""
-#| "Warning! \"1990-10-25\" is the bogus date that Amazon gives to all "
-#| "releases for which they don't know the actual date. <strong>Please use "
-#| "this date only if you're certain this date is correct!</strong>"
 msgid ""
 "“1990-10-25” is the bogus date that Amazon gives to all releases for which "
 "they don’t know the actual date. <strong>Please use this date only if you’re "
@@ -4290,7 +4152,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:215
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:457
 #, fuzzy
-#| msgid "The provided medium id is not valid"
 msgid "The provided medium ID is not valid."
 msgstr "מזהה המדיה שסופק אינו תקין"
 
@@ -4466,7 +4327,6 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
 #, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "[לא ידוע]"
@@ -4475,19 +4335,19 @@ msgstr "[לא ידוע]"
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -4502,7 +4362,6 @@ msgstr "לא ניתן למזג סדרות בעלות סוג ישות שונה."
 #: ../lib/MusicBrainz/Server/Controller/User.pm:354
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 #, fuzzy
-#| msgid "Send Email"
 msgctxt "header"
 msgid "Send email"
 msgstr "שליחת דוא\"ל"
@@ -4526,7 +4385,6 @@ msgstr "לא צורף חשבון דוא\"ל לחשבון העורך {name}."
 #: ../root/account/LostPasswordSent.js:16
 #: ../root/account/LostUsernameSent.js:16
 #, fuzzy
-#| msgid "Email Sent"
 msgctxt "header"
 msgid "Email sent"
 msgstr "דוא\"ל נשלח"
@@ -4590,9 +4448,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:483
 #: ../root/event/EventArtDarkened.js:19 ../root/release/CoverArtDarkened.js:19
 #, fuzzy
-#| msgid ""
-#| "The Cover Art Archive has had a takedown request in the past for this "
-#| "release, so we are unable to allow any more uploads."
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
@@ -4692,119 +4547,102 @@ msgstr "({text})"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add area alias"
 msgctxt "edit type"
 msgid "Add area alias"
 msgstr "הוספת כִּנּוּי אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add area annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "הוספת ביאור אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 #, fuzzy
-#| msgid "Add area"
 msgctxt "edit type"
 msgid "Add area"
 msgstr "הוספת אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 #, fuzzy
-#| msgid "Remove area"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "הסרת אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove area alias"
 msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "הסרת כִּנּוּי אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
-#| msgid "Edit area"
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "עריכת אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit area alias"
 msgctxt "edit type"
 msgid "Edit area alias"
 msgstr "עריכת כִּנּוּי אזור"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 #, fuzzy
-#| msgid "Merge areas"
 msgctxt "edit type"
 msgid "Merge areas"
 msgstr "מיזוג אזורים"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist alias"
 msgstr "הוספת כִּנּוּי אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add artist annotation"
 msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "הוספת ביאור אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "הוספת אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "הסרת אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "הסרת כִּנּוּי אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "עריכת אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit artist alias"
 msgstr "עריכת כִּנּוּי אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "edit type"
 msgid "Edit artist credit"
 msgstr "עריכת מזכה אמן"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge artists"
 msgstr "מיזוג אמן"
@@ -4827,134 +4665,114 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add event alias"
 msgctxt "edit type"
 msgid "Add event alias"
 msgstr "הוספת כִּנּוּי אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add event annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "הוספת ביאור אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 #, fuzzy
-#| msgid "Add event"
 msgctxt "singular, edit type"
 msgid "Add event art"
 msgstr "הוספת אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
-#| msgid "Add event"
 msgctxt "edit type"
 msgid "Add event"
 msgstr "הוספת אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
 #, fuzzy
-#| msgid "Remove event"
 msgctxt "edit type"
 msgid "Remove event"
 msgstr "הסרת אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove event alias"
 msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "הסרת כִּנּוּי אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
-#| msgid "Edit event"
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "עריכת אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit event alias"
 msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "עריכת כִּנּוּי אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 #, fuzzy
-#| msgid "Edit event"
 msgctxt "singular, edit type"
 msgid "Edit event art"
 msgstr "עריכת אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 #, fuzzy
-#| msgid "Merge events"
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "מיזוג ארועים"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 #, fuzzy
-#| msgid "Remove event"
 msgctxt "singular, edit type"
 msgid "Remove event art"
 msgstr "הסרת אירוע"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
 #, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
 msgstr "תמונת עטיפה של המקליט"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add series alias"
 msgctxt "edit type"
 msgid "Add genre alias"
 msgstr "הוספת כִּנּוּי סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add series annotation"
 msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "הוספת ביאור סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Genre"
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "הוספת סוגה"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #, fuzzy
-#| msgid "Remove genre"
 msgctxt "edit type"
 msgid "Remove genre"
 msgstr "הסרת סוגה"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove series alias"
 msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "הסרת כִּנּוּי סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
-#| msgid "Edit genre"
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "עריכת סוגה"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit series alias"
 msgctxt "edit type"
 msgid "Edit genre alias"
 msgstr "עריכת כִּנּוּי סדרה"
@@ -4967,7 +4785,6 @@ msgstr "היסטורי"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
 #, fuzzy
-#| msgid "Add disc ID"
 msgctxt "edit type"
 msgid "Add disc ID"
 msgstr "הוספת מזהה תקליטור"
@@ -4975,7 +4792,6 @@ msgstr "הוספת מזהה תקליטור"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:39
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "הוספת קשר־גומלין"
@@ -4983,7 +4799,6 @@ msgstr "הוספת קשר־גומלין"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release"
 msgstr "הוספת הוצאה"
@@ -4991,14 +4806,12 @@ msgstr "הוספת הוצאה"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add release annotation"
 msgctxt "edit type"
 msgid "Add release annotation"
 msgstr "הוספת ביאור הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:12
 #, fuzzy
-#| msgid "Add release events (historic)"
 msgctxt "edit type"
 msgid "Add release events (historic)"
 msgstr "הוספת אירוע הוצאה (היסטורי)"
@@ -5006,14 +4819,12 @@ msgstr "הוספת אירוע הוצאה (היסטורי)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:11
 #, fuzzy
-#| msgid "Add track (historic)"
 msgctxt "edit type"
 msgid "Add track (historic)"
 msgstr "הוספת רצועה (היסטורי)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:13
 #, fuzzy
-#| msgid "Change artist quality (historic)"
 msgctxt "edit type"
 msgid "Change artist quality (historic)"
 msgstr "שינוי איכות אמן  (היסטורי)"
@@ -5027,7 +4838,6 @@ msgstr "שינוי איכות אמן  (היסטורי)"
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "edit type"
 msgid "Edit release"
 msgstr "עריכת הוצאה"
@@ -5041,7 +4851,6 @@ msgstr "שינוי באיכות נתונים של הוצאה"
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
 #, fuzzy
-#| msgid "Edit track (historic)"
 msgctxt "edit type"
 msgid "Edit track (historic)"
 msgstr "עריכת רצועה (היסטורי)"
@@ -5049,7 +4858,6 @@ msgstr "עריכת רצועה (היסטורי)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:47
 #, fuzzy
-#| msgid "Edit relationship"
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr "עריכת קשר־גומלין"
@@ -5057,7 +4865,6 @@ msgstr "עריכת קשר־גומלין"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:18
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Edit release events (historic)"
 msgstr "עריכת אירוע הוצאה (היסטורי)"
@@ -5066,14 +4873,12 @@ msgstr "עריכת אירוע הוצאה (היסטורי)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 #, fuzzy
-#| msgid "Edit recording"
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "עריכת הקלטה"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
 #, fuzzy
-#| msgid "Convert release to single artist (historic)"
 msgctxt "edit type"
 msgid "Convert release to single artist (historic)"
 msgstr "המרת הוצאה לאמן יחידני  (היסטורי)"
@@ -5082,7 +4887,6 @@ msgstr "המרת הוצאה לאמן יחידני  (היסטורי)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
 #, fuzzy
-#| msgid "Merge releases"
 msgctxt "edit type"
 msgid "Merge releases"
 msgstr "מיזוג הוצאות"
@@ -5090,7 +4894,6 @@ msgstr "מיזוג הוצאות"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
 #, fuzzy
-#| msgid "Move disc ID"
 msgctxt "edit type"
 msgid "Move disc ID"
 msgstr "העברת מזהה תקליטור"
@@ -5098,7 +4901,6 @@ msgstr "העברת מזהה תקליטור"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "edit type"
 msgid "Remove disc ID"
 msgstr "הסרת מזהה תקליטור"
@@ -5106,7 +4908,6 @@ msgstr "הסרת מזהה תקליטור"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove label alias"
 msgstr "הסרת כִּנּוּי חברת תקליטים"
@@ -5114,7 +4915,6 @@ msgstr "הסרת כִּנּוּי חברת תקליטים"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:41
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr "הסרת קשר־גומלין"
@@ -5122,35 +4922,30 @@ msgstr "הסרת קשר־גומלין"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release"
 msgstr "הסרת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
 #, fuzzy
-#| msgid "Remove release events (historic)"
 msgctxt "edit type"
 msgid "Remove release events (historic)"
 msgstr "הסרת אירוע הוצאה (היסטורי)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 #, fuzzy
-#| msgid "Remove releases (historic)"
 msgctxt "edit type"
 msgid "Remove releases (historic)"
 msgstr "הסרת הוצאות (היסטורי)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove track"
 msgstr "הסרת רצועה"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:16
 #, fuzzy
-#| msgid "Convert release to multiple artists (historic)"
 msgctxt "edit type"
 msgid "Convert release to multiple artists (historic)"
 msgstr "המרת הוצאה לריבוי אמנים (היסטורי)"
@@ -5158,133 +4953,114 @@ msgstr "המרת הוצאה לריבוי אמנים (היסטורי)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/SetTrackLengthsFromCDTOC.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Medium/SetTrackLengths.pm:23
 #, fuzzy
-#| msgid "Set track lengths"
 msgctxt "edit type"
 msgid "Set track lengths"
 msgstr "קביעת אותך רצועות"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add instrument alias"
 msgctxt "edit type"
 msgid "Add instrument alias"
 msgstr "הוספת כינוי כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add instrument annotation"
 msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "הוספת ביאור כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 #, fuzzy
-#| msgid "Add instrument"
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "הוספת כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 #, fuzzy
-#| msgid "Remove instrument"
 msgctxt "edit type"
 msgid "Remove instrument"
 msgstr "הסרת כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove instrument alias"
 msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "הסרת כינוי כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
-#| msgid "Edit instrument"
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "עריכת כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit instrument alias"
 msgctxt "edit type"
 msgid "Edit instrument alias"
 msgstr "עריכת כִּנּוּי כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 #, fuzzy
-#| msgid "Merge instruments"
 msgctxt "edit type"
 msgid "Merge instruments"
 msgstr "מיזוג כלי נגינה"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add label alias"
 msgstr "הוספת כִּנּוּי חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add label annotation"
 msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "הוספת ביאור חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 #, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add label"
 msgstr "הוספת חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label"
 msgstr "הסרת חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "עריכת חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit label alias"
 msgstr "עריכת כִּנּוּי חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 #, fuzzy
-#| msgid "Merge labels"
 msgctxt "edit type"
 msgid "Merge labels"
 msgstr "מיזוג חברת תקליטים"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 #, fuzzy
-#| msgid "Add medium"
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "הוספת מדיה"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 #, fuzzy
-#| msgid "Remove medium"
 msgctxt "edit type"
 msgid "Remove medium"
 msgstr "הסרת מדיה"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 #, fuzzy
-#| msgid "Edit medium"
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "עריכת מדיה"
@@ -5298,119 +5074,102 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add place alias"
 msgctxt "edit type"
 msgid "Add place alias"
 msgstr "הוספת כִּנּוּי מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add place annotation"
 msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "הוספת ביאור מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
-#| msgid "Add place"
 msgctxt "edit type"
 msgid "Add place"
 msgstr "הוספת מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
 #, fuzzy
-#| msgid "Remove place"
 msgctxt "edit type"
 msgid "Remove place"
 msgstr "הסרת מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove place alias"
 msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "הסרת כִּנּוּי מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
-#| msgid "Edit place"
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "עריכת מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit place alias"
 msgctxt "edit type"
 msgid "Edit place alias"
 msgstr "עריכת כִּנּוּי מקום"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
 #, fuzzy
-#| msgid "Merge places"
 msgctxt "edit type"
 msgid "Merge places"
 msgstr "מיזוג מקומות"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add recording alias"
 msgctxt "edit type"
 msgid "Add recording alias"
 msgstr "הוספת כִּנּוּי הקלטה"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add recording annotation"
 msgctxt "edit type"
 msgid "Add recording annotation"
 msgstr "הוספת ביאור הקלטה"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "הוספת ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 #, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "edit type"
 msgid "Add standalone recording"
 msgstr "הוספת הקלטה עצמאית"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
 #, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording"
 msgstr "הסרת הקלטה"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove recording alias"
 msgctxt "edit type"
 msgid "Remove recording alias"
 msgstr "הסרת כִּנּוּי הקלטה"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit recording alias"
 msgctxt "edit type"
 msgid "Edit recording alias"
 msgstr "עריכת כִּנּוּי הקלטה"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
 #, fuzzy
-#| msgid "Merge recordings"
 msgctxt "edit type"
 msgid "Merge recordings"
 msgstr "מיזוג הקלטות"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISRC"
 msgstr "הסרת ISRC"
@@ -5427,14 +5186,12 @@ msgstr "קשר־גומלין"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:16
 #, fuzzy
-#| msgid "Add relationship attribute"
 msgctxt "edit type"
 msgid "Add relationship attribute"
 msgstr "הוספת תכונת קשר־גומלין"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship type"
 msgstr "הוספת סוג קשר־גומלין"
@@ -5456,112 +5213,96 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
 #, fuzzy
-#| msgid "Edit relationship attribute"
 msgctxt "edit type"
 msgid "Edit relationship attribute"
 msgstr "עריכת תכונות קשר־גומלין"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:23
 #, fuzzy
-#| msgid "Edit relationship type"
 msgctxt "edit type"
 msgid "Edit relationship type"
 msgstr "עריכת סוג קשר־גומלין"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkAttribute.pm:13
 #, fuzzy
-#| msgid "Remove relationship attribute"
 msgctxt "edit type"
 msgid "Remove relationship attribute"
 msgstr "הסרת תכונת קשר־גומלין"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
 #, fuzzy
-#| msgid "Remove relationship type"
 msgctxt "edit type"
 msgid "Remove relationship type"
 msgstr "הסרת סוג קשר־גומלין"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "[הוסר]"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:32
 #, fuzzy
-#| msgid "Reorder relationships"
 msgctxt "edit type"
 msgid "Reorder relationships"
 msgstr "סידור קשרי־גומלין מחדש"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add release alias"
 msgctxt "edit type"
 msgid "Add release alias"
 msgstr "הוספת כִּנּוּי הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 #, fuzzy
-#| msgid "Add cover art"
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "הוספת תמונת עטיפה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
 #, fuzzy
-#| msgid "Add release label"
 msgctxt "edit type"
 msgid "Add release label"
 msgstr "הוספת חברת תקליטים להוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "[הוסר]"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove release alias"
 msgctxt "edit type"
 msgid "Remove release alias"
 msgstr "הסרת כִּנּוּי הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 #, fuzzy
-#| msgid "Remove release label"
 msgctxt "edit type"
 msgid "Remove release label"
 msgstr "הסרת חברת תקליטים מהוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release alias"
 msgctxt "edit type"
 msgid "Edit release alias"
 msgstr "עריכת כִּנּוּי הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 #, fuzzy
-#| msgid "Edit barcodes"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "עריכת ברקוד"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 #, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "עריכת תמונת עטיפה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 #, fuzzy
-#| msgid "Edit release label"
 msgctxt "edit type"
 msgid "Edit release label"
 msgstr "עריכת חברת תקליטים הוצאה"
@@ -5580,84 +5321,72 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "הסרת תמונת עטיפה"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "תמונת עטיפה של המקליט"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:20
 #, fuzzy
-#| msgid "Reorder mediums"
 msgctxt "edit type"
 msgid "Reorder mediums"
 msgstr "מיון מדיה מחדש"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add release group alias"
 msgctxt "edit type"
 msgid "Add release group alias"
 msgstr "הוספת כִּנּוּי קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add release group annotation"
 msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "הוספת ביאור קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "הוספת קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 #, fuzzy
-#| msgid "Remove release group"
 msgctxt "edit type"
 msgid "Remove release group"
 msgstr "הסרת קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove release group alias"
 msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "הסרת כִּנּוּי קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
-#| msgid "Edit release group"
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "עריכת קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit release group alias"
 msgctxt "edit type"
 msgid "Edit release group alias"
 msgstr "עריכת כִּנּוּי קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
 #, fuzzy
-#| msgid "Merge release groups"
 msgctxt "edit type"
 msgid "Merge release groups"
 msgstr "מיזוג קבוצת הוצאה"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 #, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, edit type"
 msgid "Set cover art"
 msgstr "הגדרת תמונת עטיפה"
@@ -5716,119 +5445,102 @@ msgstr[3] ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add series alias"
 msgctxt "edit type"
 msgid "Add series alias"
 msgstr "הוספת כִּנּוּי סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add series annotation"
 msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "הוספת ביאור סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
-#| msgid "Add series"
 msgctxt "edit type"
 msgid "Add series"
 msgstr "הוספת סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 #, fuzzy
-#| msgid "Remove series"
 msgctxt "edit type"
 msgid "Remove series"
 msgstr "הסרת סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove series alias"
 msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "הסרת כִּנּוּי סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
-#| msgid "Edit series"
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "עריכת סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit series alias"
 msgctxt "edit type"
 msgid "Edit series alias"
 msgstr "עריכת כִּנּוּי סדרה"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 #, fuzzy
-#| msgid "Merge series"
 msgctxt "edit type"
 msgid "Merge series"
 msgstr "מיזוג סדרות"
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
 msgstr "עריכת מען url"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:48
 #, fuzzy
-#| msgid "Open"
 msgctxt "adjective, edit status"
 msgid "Open"
 msgstr "פתיחה"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:41
 #, fuzzy
-#| msgid "Applied"
 msgctxt "edit status"
 msgid "Applied"
 msgstr "הוחל"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:46
 #, fuzzy
-#| msgid "Failed vote"
 msgctxt "edit status"
 msgid "Failed vote"
 msgstr "הצבעות שכשלו"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:44
 #, fuzzy
-#| msgid "Failed dependency"
 msgctxt "edit status"
 msgid "Failed dependency"
 msgstr "תלות כשלה"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:43
 #, fuzzy
-#| msgid "Error"
 msgctxt "edit status"
 msgid "Error"
 msgstr "שגיאה"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:276 ../root/utility/edit.js:45
 #, fuzzy
-#| msgid "Failed prerequisite"
 msgctxt "edit status"
 msgid "Failed prerequisite"
 msgstr "דרישת קדם כשלה"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:47
 #, fuzzy
-#| msgid "No votes"
 msgctxt "edit status"
 msgid "No votes"
 msgstr "אין הצבעות"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:42
 #, fuzzy
-#| msgid "Cancelled"
 msgctxt "edit status"
 msgid "Cancelled"
 msgstr "בוטל"
@@ -5839,77 +5551,66 @@ msgstr "תעוד ויקי"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc/Change.pm:16
 #, fuzzy
-#| msgid "Change WikiDoc"
 msgctxt "edit type"
 msgid "Change WikiDoc"
 msgstr "שינויי ויקידוק"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add work alias"
 msgctxt "edit type"
 msgid "Add work alias"
 msgstr "הוספת כִּנּוּי יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add work annotation"
 msgctxt "edit type"
 msgid "Add work annotation"
 msgstr "הוספת ביאור יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:21
 #, fuzzy
-#| msgid "Add ISWCs"
 msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "הוספת ISWC"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:22
 #, fuzzy
-#| msgid "Add work"
 msgctxt "edit type"
 msgid "Add work"
 msgstr "הוספת יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
 #, fuzzy
-#| msgid "Remove work"
 msgctxt "edit type"
 msgid "Remove work"
 msgstr "הסרת יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove work alias"
 msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "הסרת כִּנּוּי יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
-#| msgid "Edit work"
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "עריכת יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
 #, fuzzy
-#| msgid "Edit work alias"
 msgctxt "edit type"
 msgid "Edit work alias"
 msgstr "עריכת כִּנּוּי יצירה"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
 #, fuzzy
-#| msgid "Merge works"
 msgctxt "edit type"
 msgid "Merge works"
 msgstr "מיזוג יצירות"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 #, fuzzy
-#| msgid "Remove ISWC"
 msgctxt "edit type"
 msgid "Remove ISWC"
 msgstr "הסרת ISWC"
@@ -5985,7 +5686,6 @@ msgstr "בוטל"
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
 #, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[ללא]"
@@ -5993,14 +5693,12 @@ msgstr "[ללא]"
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Editing disabled"
 msgstr "עריכה/העברה נוטרלו"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
 #: ../root/static/scripts/common/utility/privileges.js:164
 #, fuzzy
-#| msgid "Voting is closed."
 msgid "Voting disabled"
 msgstr "ההצבעה נסגרה."
 
@@ -6054,7 +5752,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/AWA.pm:10
 #, fuzzy
-#| msgid "Stream at Deezer"
 msgid "Stream at AWA"
 msgstr "הזרמה בדיזר"
 
@@ -6132,7 +5829,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/VK.pm:14
 #, fuzzy
-#| msgid "Stream at Deezer"
 msgid "Stream at VK"
 msgstr "הזרמה בדיזר"
 
@@ -6146,7 +5842,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Yandex.pm:10
 #, fuzzy
-#| msgid "Stream at Deezer"
 msgid "Stream at Yandex"
 msgstr "הזרמה בדיזר"
 
@@ -6173,10 +5868,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, fuzzy, perl-brace-format
-#| msgid ""
-#| "Callback URI is optional for installed applications. If set, its scheme "
-#| "must be a custom reverse-DNS string, as in <code>org.example.app://auth</"
-#| "code>, for installed applications."
 msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
@@ -6304,7 +5995,6 @@ msgstr "לא ISWC תקין"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
 #, fuzzy
-#| msgid "Label codes must be greater than 0 and 5 digits at most"
 msgid "Label codes must be greater than 0 and 6 digits at most"
 msgstr "קוד חברת תקליטים חייב להיות גדול מ 0 אל לא יותר מ 5 ספרות"
 
@@ -6361,26 +6051,22 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
 #, fuzzy
-#| msgid "Add related work"
 msgid "Related to works"
 msgstr "הוספת יצירה קשורה"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
 #, fuzzy
-#| msgid "Add related work"
 msgid "Not related to works"
 msgstr "הוספת יצירה קשורה"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[ללא]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[ללא]"
@@ -6393,7 +6079,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseForArtist.pm:13
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
 msgstr "[ללא]"
@@ -6406,7 +6091,6 @@ msgstr "[ללא]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
 #, fuzzy
-#| msgid "Add recording alias"
 msgid "As recording artist"
 msgstr "הוספת כִּנּוּי הקלטה"
 
@@ -6416,7 +6100,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
-#| msgid "Add another artist"
 msgid "As other artist"
 msgstr "הוספת אמן נוסף"
 
@@ -6531,7 +6214,6 @@ msgstr "שנת הלידה צריכה להיות לאחר 1900"
 #: ../root/search/components/CDStubResults.js:45
 #: ../root/search/components/SearchForm.js:40
 #, fuzzy
-#| msgid "CD stub import"
 msgid "CD stub"
 msgstr "ייבוא ספח תקליטור"
 
@@ -6539,8 +6221,6 @@ msgstr "ייבוא ספח תקליטור"
 #: ../root/layout/components/Search.js:42
 #: ../root/search/components/SearchForm.js:42
 #, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "noun, folksonomy"
 msgid "Tag"
 msgstr "תג"
@@ -6782,7 +6462,6 @@ msgstr "אישרור סיסמה:"
 
 #: ../root/account/ChangePassword.js:95
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "interactive"
 msgid "Change password"
 msgstr "שינוי סיסמה"
@@ -6791,7 +6470,6 @@ msgstr "שינוי סיסמה"
 #: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
 #: ../root/components/UserAccountTabs.js:88
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "header"
 msgid "Change password"
 msgstr "שינוי סיסמה"
@@ -6800,7 +6478,6 @@ msgstr "שינוי סיסמה"
 #: ../root/account/DeleteOwnAccount.js:37
 #: ../root/components/UserAccountTabs.js:113
 #, fuzzy
-#| msgid "Delete Account"
 msgctxt "header"
 msgid "Delete account"
 msgstr "מחיקת חשבון"
@@ -6829,7 +6506,6 @@ msgstr "האם למחוק את החשבון? לא ניתן להסגה"
 
 #: ../root/account/DeleteOwnAccount.js:76
 #, fuzzy
-#| msgid "Delete my account"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "מחיקת חשבון כלשהו"
@@ -6837,7 +6513,6 @@ msgstr "מחיקת חשבון כלשהו"
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:94
 #, fuzzy
-#| msgid "Donate"
 msgid "Donation check"
 msgstr "תרומה"
 
@@ -6874,7 +6549,6 @@ msgstr ""
 
 #: ../root/account/EditProfile.js:30 ../root/account/EditProfile.js:32
 #, fuzzy
-#| msgid "Edit profile"
 msgctxt "header"
 msgid "Edit profile"
 msgstr "עריכת פרופיל"
@@ -6886,7 +6560,6 @@ msgstr "הצגת {uri|user preferences}, הכולל גם את הגדרות הפ�
 
 #: ../root/account/EmailVerificationStatus.js:14
 #, fuzzy
-#| msgid "Email Search"
 msgctxt "header"
 msgid "Email verification"
 msgstr "חיפוש דוא\"ל"
@@ -6900,7 +6573,6 @@ msgstr ""
 #: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
 #: ../root/account/LostPasswordSent.js:16
 #, fuzzy
-#| msgid "Old password:"
 msgid "Lost password"
 msgstr "סיסמה ישנה:"
 
@@ -6921,7 +6593,6 @@ msgstr ""
 
 #: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
 #, fuzzy
-#| msgid "Old password:"
 msgctxt "interactive"
 msgid "Reset password"
 msgstr "סיסמה ישנה:"
@@ -6936,7 +6607,6 @@ msgstr ""
 #: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
 #: ../root/account/LostUsernameSent.js:16
 #, fuzzy
-#| msgid "Lost Username"
 msgid "Lost username"
 msgstr "שכחתי שם משתמש"
 
@@ -6948,7 +6618,6 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
 #, fuzzy
-#| msgid "Send Email"
 msgctxt "interactive"
 msgid "Send email"
 msgstr "שליחת דוא\"ל"
@@ -6973,7 +6642,6 @@ msgstr ""
 
 #: ../root/account/Register.js:22 ../root/account/Register.js:29
 #, fuzzy
-#| msgid "Create an Account"
 msgctxt "header"
 msgid "Create an account"
 msgstr "יצירת חשבון"
@@ -7031,7 +6699,6 @@ msgstr ""
 #: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
 #: ../root/account/ResetPasswordStatus.js:14
 #, fuzzy
-#| msgid "Old password:"
 msgctxt "header"
 msgid "Reset password"
 msgstr "סיסמה ישנה:"
@@ -7043,32 +6710,29 @@ msgstr ""
 #: ../root/account/applications/ApplicationList.js:27
 #: ../root/static/scripts/account/components/ApplicationForm.js:39
 #, fuzzy
-#| msgid "Applications"
 msgid "Web application"
 msgstr "יישומים"
 
 #: ../root/account/applications/ApplicationList.js:28
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
 #, fuzzy
-#| msgid "Edit Application"
 msgid "Installed application"
 msgstr "עריכת יישום"
 
 #: ../root/account/applications/ApplicationList.js:58
 #, fuzzy
-#| msgid "Allow access"
 msgid "Revoke access"
 msgstr "איפשור גישה"
 
 #: ../root/account/applications/ApplicationList.js:70
 #, fuzzy
-#| msgid "Allow access"
 msgid "Offline access"
 msgstr "איפשור גישה"
 
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "Applications"
 msgstr "יישומים"
 
@@ -7140,14 +6804,12 @@ msgstr ""
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
 #, fuzzy
-#| msgid "Edit Application"
 msgctxt "header"
 msgid "Edit application"
 msgstr "עריכת יישום"
 
 #: ../root/account/applications/EditApplication.js:23
 #, fuzzy
-#| msgid "Update"
 msgctxt "verb, data, interactive"
 msgid "Update"
 msgstr "עדכון"
@@ -7155,14 +6817,12 @@ msgstr "עדכון"
 #: ../root/account/applications/RegisterApplication.js:19
 #: ../root/account/applications/RegisterApplication.js:20
 #, fuzzy
-#| msgid "Remove Application"
 msgctxt "header"
 msgid "Register application"
 msgstr "הסרת יישום"
 
 #: ../root/account/applications/RegisterApplication.js:24
 #, fuzzy
-#| msgid "Remove Application"
 msgctxt "interactive"
 msgid "Register application"
 msgstr "הסרת יישום"
@@ -7173,7 +6833,6 @@ msgstr ""
 
 #: ../root/account/applications/RemoveApplication.js:17
 #, fuzzy
-#| msgid "Remove Application"
 msgctxt "header"
 msgid "Remove application"
 msgstr "הסרת יישום"
@@ -7188,7 +6847,6 @@ msgstr ""
 
 #: ../root/account/applications/RevokeApplicationAccess.js:41
 #, fuzzy
-#| msgid "Remove Application"
 msgctxt "header"
 msgid "Revoke application access"
 msgstr "הסרת יישום"
@@ -7196,7 +6854,6 @@ msgstr "הסרת יישום"
 #: ../root/account/sso/DiscourseRegistered.js:14
 #: ../root/account/sso/DiscourseRegistered.js:15
 #, fuzzy
-#| msgid "Account Created"
 msgctxt "header"
 msgid "Account created"
 msgstr "חשבון נוצר"
@@ -7217,7 +6874,6 @@ msgstr ""
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:14
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:15
 #, fuzzy
-#| msgid "View your email address"
 msgctxt "header"
 msgid "Unverified email address"
 msgstr "הצגת כתובת הדוא\"ל שלי"
@@ -7262,7 +6918,6 @@ msgstr ""
 #: ../root/annotation/EditAnnotation.js:37
 #: ../root/annotation/EditAnnotation.js:39
 #, fuzzy
-#| msgid "Edit annotation"
 msgctxt "header"
 msgid "Edit annotation"
 msgstr "עריכת ביאור"
@@ -7289,14 +6944,12 @@ msgstr "לוג שינויים"
 
 #: ../root/annotation/EditAnnotation.js:84
 #, fuzzy
-#| msgid "Preview"
 msgctxt "interactive"
 msgid "Preview"
 msgstr "תצוגה מקדימה"
 
 #: ../root/annotation/EditAnnotation.js:89
 #, fuzzy
-#| msgid "Annotation Formatting"
 msgid "Annotation formatting"
 msgstr "תבנות ביאור"
 
@@ -7765,8 +7418,6 @@ msgstr "נוסד ב־"
 #: ../root/artist/utils.js:14
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:99
 #, fuzzy
-#| msgctxt "character artist"
-#| msgid "Created"
 msgctxt "character artist"
 msgid "Created in"
 msgstr " נוצר"
@@ -7776,7 +7427,6 @@ msgstr " נוצר"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:85
 #, fuzzy
-#| msgid "Begin area:"
 msgid "Begin area"
 msgstr "אזור התחלה:"
 
@@ -7828,7 +7478,6 @@ msgstr "פורק ב־"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:87
 #, fuzzy
-#| msgid "End area:"
 msgid "End area"
 msgstr "אזור סיום:"
 
@@ -7870,7 +7519,6 @@ msgstr ""
 
 #: ../root/artist_credit/ArtistCreditIndex.js:101
 #, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
 msgstr "זוכו כ־ “{credit}”"
@@ -7987,7 +7635,6 @@ msgstr ""
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
 #, fuzzy
-#| msgid "Top CD Stubs"
 msgid "Top CD stubs"
 msgstr "ספחי תקליטור מובילים"
 
@@ -8013,7 +7660,6 @@ msgstr "התווסף {add}, עודכן לאחרונה {lastmod}"
 
 #: ../root/cdstub/CDStubNotFound.js:14
 #, fuzzy
-#| msgid "CD Stub Not Found"
 msgid "CD stub not found"
 msgstr "לא נמצא ספח תקליטור"
 
@@ -8027,7 +7673,6 @@ msgstr ""
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 #, fuzzy
-#| msgid "Invalid Disc ID"
 msgid "Invalid disc ID"
 msgstr "מזהה תקליטור לא תקין"
 
@@ -8037,7 +7682,6 @@ msgstr "למרבה הצער, <code>{discid} </code> אינו מזהה תקליט
 
 #: ../root/cdstub/ImportCDStub.js:30
 #, fuzzy
-#| msgid "Import CD stub"
 msgctxt "header"
 msgid "Import CD stub"
 msgstr "ייבוא ספח תקליטור"
@@ -8048,9 +7692,6 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:41
 #, fuzzy
-#| msgid ""
-#| "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
-#| "{format} {pos} of {release} by {artist}?"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "medium {pos} ({format}) of {release} by {artist}?"
@@ -8077,7 +7718,6 @@ msgstr "משך רצועות מדיה:"
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
 #, fuzzy
-#| msgid "Move disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "העברת מזהה תקליטור"
@@ -8196,7 +7836,6 @@ msgstr ""
 
 #: ../root/cdtoc/RemoveDiscId.js:33 ../root/cdtoc/RemoveDiscId.js:35
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "הסרת מזהה תקליטור"
@@ -8242,7 +7881,6 @@ msgstr ""
 #: ../root/cdtoc/SetTracklistDurations.js:33
 #: ../root/cdtoc/SetTracklistDurations.js:34
 #, fuzzy
-#| msgid "Series Subscriptions"
 msgid "Set tracklist durations"
 msgstr "מנויי סדרה"
 
@@ -8280,7 +7918,6 @@ msgstr "הצגת כל האוספים הציבוריים של {editor}"
 
 #: ../root/collection/CollectionHeader.js:78
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "עריכה"
@@ -8392,7 +8029,6 @@ msgstr "אישור"
 #: ../root/collection/CreateCollection.js:24
 #: ../root/collection/CreateCollection.js:27
 #, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "header"
 msgid "Add a new collection"
 msgstr "הוספה לאוסף חדש"
@@ -8463,7 +8099,6 @@ msgstr "{entity} ללא כינוי."
 
 #: ../root/components/Aliases/index.js:71
 #, fuzzy
-#| msgid "Add a new alias"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "הוספת כינוי חדש"
@@ -8594,28 +8229,24 @@ msgstr "מזהי תקליטור"
 
 #: ../root/components/EntityTabs.js:108
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "תמונת עטיפה:"
 
 #: ../root/components/EntityTabs.js:110
 #, fuzzy
-#| msgid "Cover Art ({num})"
 msgctxt "plural"
 msgid "Cover art ({num})"
 msgstr "תמונת עטיפה ({num})"
 
 #: ../root/components/EntityTabs.js:123
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural"
 msgid "Event art"
 msgstr "דֵּרוּגי אירוע"
 
 #: ../root/components/EntityTabs.js:125
 #, fuzzy
-#| msgid "Cover Art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
 msgstr "תמונת עטיפה ({num})"
@@ -8627,7 +8258,6 @@ msgstr "תמונת עטיפה ({num})"
 #: ../root/tag/TagCloud.js:94 ../root/tag/TagCloud.js:96
 #: ../root/user/UserTagList.js:55
 #, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tags"
 msgstr "תגים"
@@ -8828,6 +8458,7 @@ msgstr "פרופיל"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
+#: ../root/static/scripts/homepage/editor-tools.js:128
 msgid "Subscriptions"
 msgstr "מינויים"
 
@@ -8954,7 +8585,6 @@ msgstr ""
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Other artists"
 msgstr "מיזוג אמן"
 
@@ -8984,7 +8614,6 @@ msgstr "שגור ISRC חדשים למסד הנתונים"
 
 #: ../root/constants.js:28
 #, fuzzy
-#| msgid "View and modify your private tags"
 msgctxt "folksonomy"
 msgid "View and modify your private tags"
 msgstr "הצגת והסגלת התגים הפרטיים שלי"
@@ -8992,7 +8621,6 @@ msgstr "הצגת והסגלת התגים הפרטיים שלי"
 #: ../root/doc/DocError.js:26 ../root/doc/DocError.js:30
 #: ../root/main/error/Error404.js:26 ../root/main/error/MirrorError404.js:14
 #, fuzzy
-#| msgid "Page Not Found"
 msgid "Page not found"
 msgstr "לא נמצאה עמוד"
 
@@ -9031,7 +8659,6 @@ msgstr ""
 
 #: ../root/edit/CancelEdit.js:24 ../root/edit/CancelEdit.js:25
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "header"
 msgid "Cancel edit"
 msgstr "ביטול עריכה"
@@ -9055,7 +8682,6 @@ msgstr ""
 
 #: ../root/edit/CancelEdit.js:52
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "interactive"
 msgid "Cancel edit"
 msgstr "ביטול עריכה"
@@ -9075,7 +8701,6 @@ msgstr ""
 #: ../root/edit/CannotApproveEdit.js:30 ../root/edit/CannotApproveEdit.js:31
 #: ../root/edit/NoteIsRequired.js:17 ../root/edit/NoteIsRequired.js:18
 #, fuzzy
-#| msgid "Error Approving Edit"
 msgid "Error approving edit"
 msgstr "שגיאה אשור עריכה"
 
@@ -9085,7 +8710,6 @@ msgstr ""
 
 #: ../root/edit/CannotCancelEdit.js:18 ../root/edit/CannotCancelEdit.js:19
 #, fuzzy
-#| msgid "Error Cancelling Edit"
 msgid "Error cancelling edit"
 msgstr "שגיאת ביטול עריכה"
 
@@ -9099,7 +8723,6 @@ msgstr ""
 
 #: ../root/edit/CannotVote.js:14 ../root/edit/CannotVote.js:15
 #, fuzzy
-#| msgid "Error Voting on Edits"
 msgid "Error voting on edits"
 msgstr "שגיאת הצבעה לעריכות"
 
@@ -9191,7 +8814,6 @@ msgstr "נא להתחבר על מנת להצביע על עריכות."
 
 #: ../root/edit/EditIndex.js:181
 #, fuzzy
-#| msgid "Edit notes"
 msgctxt "noun"
 msgid "Edit notes"
 msgstr "עריכת הערות"
@@ -9248,7 +8870,6 @@ msgstr ""
 
 #: ../root/edit/NotesReceived.js:28 ../root/edit/NotesReceived.js:30
 #, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "Recent notes left on your edits"
 msgstr "הערות שהושארו בעריכות שלי"
 
@@ -9261,7 +8882,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:37
 #, fuzzy
-#| msgid "Open edits"
 msgctxt "noun"
 msgid "Open edits"
 msgstr "פתיחת עריכות"
@@ -9269,13 +8889,11 @@ msgstr "פתיחת עריכות"
 #: ../root/edit/SubscribedEditorEdits.js:21
 #: ../root/edit/SubscribedEditorEdits.js:23
 #, fuzzy
-#| msgid "Edits by Your Subscribed Editors"
 msgid "Edits by your subscribed editors"
 msgstr "עריכות על־ידי עורכים מנויים"
 
 #: ../root/edit/SubscribedEdits.js:21 ../root/edit/SubscribedEdits.js:23
 #, fuzzy
-#| msgid "Edits for Your Subscribed Entities"
 msgid "Edits for your subscribed entities"
 msgstr "עריכות לישויות מנויות"
 
@@ -9288,7 +8906,6 @@ msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "singular"
 msgid "Event art"
 msgstr "דֵּרוּגי אירוע"
@@ -9297,7 +8914,6 @@ msgstr "דֵּרוּגי אירוע"
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:170
 #: ../root/user/UserProfile.js:56
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
 msgstr "תמונת עטיפה:"
@@ -9305,7 +8921,6 @@ msgstr "תמונת עטיפה:"
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:33
 #, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
@@ -9314,13 +8929,11 @@ msgstr "לא ניתן להציג היסטוריה עבור תמונת עטיפה
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:37
 #, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid "We are unable to display history for this image."
 msgstr "לא ניתן להציג היסטוריה עבור תמונת עטיפה זו."
 
 #: ../root/edit/components/EditEnteredFrom.js:25
 #, fuzzy
-#| msgid "Enter edit"
 msgid "Entered from"
 msgstr "הזנת עריכה"
 
@@ -9355,7 +8968,6 @@ msgstr "ל/ר"
 
 #: ../root/edit/components/EditHeader.js:114 ../root/edit/components/Vote.js:93
 #, fuzzy
-#| msgid "None"
 msgctxt "vote"
 msgid "None"
 msgstr "ללא"
@@ -9494,7 +9106,6 @@ msgstr "עריכת שו\"ת"
 #: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/voting.js:29
 #, fuzzy
-#| msgid "Add Note"
 msgctxt "interactive"
 msgid "Add note"
 msgstr "הוספת הערה"
@@ -9547,13 +9158,11 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:93
 #, fuzzy
-#| msgid "Remove selected items from collection"
 msgid "Everyone’s edits for this collection"
 msgstr "הסרת פריטים שנבחרו מהאוסף"
 
 #: ../root/edit/components/ListHeader.js:104
 #, fuzzy
-#| msgid "Allow other users to see this collection"
 msgid "Others’ edits for this collection"
 msgstr "לאפשר למשתמשים אחרים לצפות באוסף זה"
 
@@ -9607,7 +9216,7 @@ msgid "Introduction to editing"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:182
+#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
 msgid "Style guidelines"
 msgstr ""
 
@@ -9932,7 +9541,6 @@ msgstr ""
 
 #: ../root/edit/details/EditAlias.js:74
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "[הוסר]"
@@ -9953,13 +9561,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:272
 #, fuzzy
-#| msgid "hide tracklist"
 msgid "Old tracklist"
 msgstr "הסתרת רשימת רצועות"
 
 #: ../root/edit/details/EditMedium.js:273
 #, fuzzy
-#| msgid "New Tracklist"
 msgid "New tracklist"
 msgstr "רשימת רצועות חדשה"
 
@@ -9977,13 +9583,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:547
 #, fuzzy
-#| msgid "Old Artist"
 msgid "Old artist"
 msgstr "אמן קודם"
 
 #: ../root/edit/details/EditMedium.js:548
 #, fuzzy
-#| msgid "New Artist"
 msgid "New artist"
 msgstr "אמן חדש"
 
@@ -10045,7 +9649,6 @@ msgstr ""
 #: ../root/edit/details/MergeReleaseGroups.js:17
 #: ../root/edit/details/MergeSeries.js:16 ../root/edit/details/MergeWorks.js:16
 #, fuzzy
-#| msgid "Merge"
 msgctxt "verb, header, paired with Into"
 msgid "Merge"
 msgstr "מיזוג"
@@ -10093,7 +9696,6 @@ msgstr "להוצאה זו אין מדיה למיזוג."
 
 #: ../root/edit/details/MergeReleases.js:298
 #, fuzzy
-#| msgid "Recording Merges"
 msgid "Recording merges"
 msgstr "מיזוגי הקלטות"
 
@@ -10207,7 +9809,6 @@ msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:33
 #, fuzzy
-#| msgid "Old cover art:"
 msgctxt "singular"
 msgid "Old cover art:"
 msgstr "תמונת עטיפה ישנה:"
@@ -10225,14 +9826,12 @@ msgstr "לא ניתן להציג תמונת עטיפה זו."
 
 #: ../root/edit/details/SetCoverArt.js:61
 #, fuzzy
-#| msgid "New cover art:"
 msgctxt "singular"
 msgid "New cover art:"
 msgstr "תמונת עטיפה חדשה:"
 
 #: ../root/edit/details/SetTrackLengths.js:54
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "[הוסר]"
@@ -10278,13 +9877,11 @@ msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:57
 #, fuzzy
-#| msgid "No type"
 msgid "New type:"
 msgstr "אין סוג"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:64
 #, fuzzy
-#| msgid "Status:"
 msgid "New status:"
 msgstr "מצב:"
 
@@ -10572,7 +10169,6 @@ msgstr "{entity_type} על־ידי {artist}"
 
 #: ../root/entity/NotFound.js:27
 #, fuzzy
-#| msgid "Area Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "לא נמצא אזור"
@@ -10587,7 +10183,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:36
 #, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "לא נמצא אמן"
@@ -10602,7 +10197,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:45
 #, fuzzy
-#| msgid "Artist Credit Not Found"
 msgctxt "header"
 msgid "Artist credit not found"
 msgstr "לא נמצא מזכה אמן"
@@ -10613,7 +10207,6 @@ msgstr "למרבה הצער, לא מצאנו סוג מזכה אמן עם מזה�
 
 #: ../root/entity/NotFound.js:51
 #, fuzzy
-#| msgid "CD TOC Not Found"
 msgctxt "header"
 msgid "CD TOC not found"
 msgstr "לא נמצא תוכן עינינים תקליטור"
@@ -10624,7 +10217,6 @@ msgstr "למרבה הצער, לא יכולנו למצוא את תוכן העינ
 
 #: ../root/entity/NotFound.js:57
 #, fuzzy
-#| msgid "Collection Not Found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "לא נמצאה אוסף"
@@ -10635,7 +10227,6 @@ msgstr "למרבה הצער, לא מצאנו אוסף עם מזהה מיוזיק
 
 #: ../root/entity/NotFound.js:65
 #, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "לא נמצאה עריכה"
@@ -10651,20 +10242,17 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:74
 #, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Edit note not found"
 msgstr "לא נמצא עורך"
 
 #: ../root/entity/NotFound.js:76
 #, fuzzy
-#| msgid "Sorry, we could not find an artist credit with that ID."
 msgid "Sorry, we could not find an edit note with that ID."
 msgstr "למרבה הצער, לא מצאנו סוג מזכה אמן עם מזהה זה."
 
 #: ../root/entity/NotFound.js:82
 #, fuzzy
-#| msgid "Election Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "לא נמצאה בחירה"
@@ -10679,7 +10267,6 @@ msgstr "חזרה לכל הבחירות."
 
 #: ../root/entity/NotFound.js:88
 #, fuzzy
-#| msgid "Event Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "לא נמצאה אירוע"
@@ -10694,7 +10281,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:97
 #, fuzzy
-#| msgid "Genre Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "לא נמצאה סוגה"
@@ -10709,7 +10295,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:106
 #, fuzzy
-#| msgid "Instrument Not Found"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "לא נמצא כלי נגינה"
@@ -10724,7 +10309,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:115
 #, fuzzy
-#| msgid "ISRC Not Currently Used"
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr "ISRC כרגע אינו בשימוש"
@@ -10739,7 +10323,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:125
 #, fuzzy
-#| msgid "ISWC Not Currently Used"
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr "ISWC כרגע אינו בשימוש"
@@ -10754,7 +10337,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:134
 #, fuzzy
-#| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "לא נמצאה חברת תקליטים"
@@ -10769,20 +10351,17 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:143
 #, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Medium not found"
 msgstr "לא נמצאה עריכה"
 
 #: ../root/entity/NotFound.js:145
 #, fuzzy
-#| msgid "Sorry, we could not find a URL with that MusicBrainz ID."
 msgid "Sorry, we could not find a medium with that MusicBrainz ID."
 msgstr "למרבה הצער, לא נמצא  מען url עם מזהה מיוזיקבריינז זה."
 
 #: ../root/entity/NotFound.js:151
 #, fuzzy
-#| msgid "Entity Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "לא נמצאה ישות"
@@ -10797,7 +10376,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:160
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Place not found"
 msgstr "לא נמצאה עמוד"
@@ -10812,7 +10390,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:169
 #, fuzzy
-#| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "לא נמצאה הקלטה"
@@ -10827,7 +10404,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:178
 #, fuzzy
-#| msgid "Relationship Attribute Not Found"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "תכונת קשר־גומלין לא נמצאה"
@@ -10839,7 +10415,6 @@ msgstr "למרבה הצער, לא מצאנו מאפין קשר־גומלין ע�
 
 #: ../root/entity/NotFound.js:187
 #, fuzzy
-#| msgid "Relationship Type Not Found"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "סוג קשר־גומלין לא נמצא"
@@ -10850,7 +10425,6 @@ msgstr "למרבה הצער, לא מצאנו סוג קשר־גומלין עם מ
 
 #: ../root/entity/NotFound.js:196
 #, fuzzy
-#| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "לא נמצא הוצאה"
@@ -10865,7 +10439,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:205
 #, fuzzy
-#| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "לא נמצא קבוצת הוצאה"
@@ -10880,7 +10453,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:214
 #, fuzzy
-#| msgid "Series Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "לא נמצאה סדרה"
@@ -10895,7 +10467,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:223
 #, fuzzy
-#| msgid "Track Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "לא נמצאה רצועה"
@@ -10910,7 +10481,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:233
 #, fuzzy
-#| msgid "URL Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "לא נמצא מען url"
@@ -10921,7 +10491,6 @@ msgstr "למרבה הצער, לא נמצא  מען url עם מזהה מיוזי�
 
 #: ../root/entity/NotFound.js:239
 #, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "לא נמצא עורך"
@@ -10936,7 +10505,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:248
 #, fuzzy
-#| msgid "Work Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "לא נמצאה יצירה"
@@ -11054,21 +10622,18 @@ msgstr "אתם לא מנויים כעת. {sub|Subscribe}?"
 
 #: ../root/entity/alias/AddOrEditAlias.js:27
 #, fuzzy
-#| msgid "Add alias"
 msgctxt "header"
 msgid "Add alias"
 msgstr "הוספת כִּנּוּי"
 
 #: ../root/entity/alias/AddOrEditAlias.js:28
 #, fuzzy
-#| msgid "Edit alias"
 msgctxt "header"
 msgid "Edit alias"
 msgstr "עריכת כִּנּוּי"
 
 #: ../root/entity/alias/DeleteAlias.js:25
 #, fuzzy
-#| msgid "Remove alias"
 msgctxt "header"
 msgid "Remove alias"
 msgstr "הסרת כִּנּוּי"
@@ -11083,28 +10648,24 @@ msgstr ""
 
 #: ../root/event/CreateEvent.js:23 ../root/event/CreateEvent.js:25
 #, fuzzy
-#| msgid "Add event"
 msgctxt "header"
 msgid "Add event"
 msgstr "הוספת אירוע"
 
 #: ../root/event/EditEvent.js:28
 #, fuzzy
-#| msgid "Edit event"
 msgctxt "header"
 msgid "Edit event"
 msgstr "עריכת אירוע"
 
 #: ../root/event/EventArt.js:28
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural, header"
 msgid "Event art"
 msgstr "דֵּרוּגי אירוע"
 
 #: ../root/event/EventArt.js:34
 #, fuzzy
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
 msgstr "לא ניתן להציג תמונת עטיפה"
@@ -11124,9 +10685,6 @@ msgstr "כל הגדלים:"
 
 #: ../root/event/EventArt.js:96
 #, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
@@ -11136,49 +10694,40 @@ msgstr ""
 
 #: ../root/event/EventArt.js:108
 #, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
 msgstr "אין לנו כרגע אף תמונת עטיפה ל{release}."
 
 #: ../root/event/EventArt.js:118
 #, fuzzy
-#| msgid "Add event"
 msgctxt "plural, interactive"
 msgid "Add event art"
 msgstr "הוספת אירוע"
 
 #: ../root/event/EventArt.js:124
 #, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "תמונת עטיפה של המקליט"
 
 #: ../root/event/EventArt.js:133 ../root/release/CoverArt.js:149
 #, fuzzy
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
 msgstr "כניסה על מנת להעלות תמונת עטיפה"
 
 #: ../root/event/EventArtDarkened.js:13
 #, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add event art"
 msgstr "לא ניתן להוסיף תמונת עטיפה"
 
 #: ../root/event/EventArtFields.js:21
 #, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
 msgstr "בחירת סוג אחד או יותר של תמונות עטיפה עבור תמונה זו"
 
 #: ../root/event/EventArtFields.js:23
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "their descriptions."
@@ -11198,16 +10747,12 @@ msgstr ""
 
 #: ../root/event/RemoveEventArt.js:24
 #, fuzzy
-#| msgid "Remove event"
 msgctxt "singular, header"
 msgid "Remove event art"
 msgstr "הסרת אירוע"
 
 #: ../root/event/RemoveEventArt.js:31 ../root/release/RemoveCoverArt.js:32
 #, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
 msgstr "האם להסיר תמונת עטיפה מטה מ־ {release} על־ידי {artist}?"
 
@@ -11254,7 +10799,6 @@ msgstr ""
 
 #: ../root/genre/GenreIndex.js:34
 #, fuzzy
-#| msgid "Primary Type:"
 msgctxt "folksonomy"
 msgid "Primary tag"
 msgstr "סוגים עקריים:"
@@ -11262,7 +10806,6 @@ msgstr "סוגים עקריים:"
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
 #: ../root/layout/components/BottomMenu.js:329
 #, fuzzy
-#| msgid "Genre List"
 msgid "Genre list"
 msgstr "רשימת סוגות"
 
@@ -11290,7 +10833,6 @@ msgstr "לא נמצאו אמנים."
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
 #, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument list"
 msgstr "רשימת כלי נגינה"
 
@@ -11332,7 +10874,6 @@ msgstr[3] ""
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 #, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording artists"
 msgstr "הקלטה על־ידי ‮{artist}"
 
@@ -11363,20 +10904,25 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
+#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr "(אתחל שפה)"
 
 #: ../root/layout/components/BottomMenu.js:93
+#: ../root/static/scripts/homepage/language.js:101
+#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/navbar.js:273
+#: ../root/static/scripts/homepage/navbar.js:275
 msgid "Help translate"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:105
 #, fuzzy
-#| msgid "About Us"
 msgid "About us"
 msgstr "אודותנו"
 
-#: ../root/layout/components/BottomMenu.js:110
+#: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
 msgid "About MusicBrainz"
 msgstr ""
 
@@ -11389,36 +10935,32 @@ msgid "Team"
 msgstr "צוות"
 
 #: ../root/layout/components/BottomMenu.js:119
+#: ../root/layout/components/NewFooter.js:94
 msgid "Shop"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:122
 #, fuzzy
-#| msgid "Contact Us"
 msgid "Contact us"
 msgstr "יצירת קשר"
 
 #: ../root/layout/components/BottomMenu.js:125
 #, fuzzy
-#| msgid "Data Licenses"
 msgid "Data licenses"
 msgstr "רישינות נתונים"
 
 #: ../root/layout/components/BottomMenu.js:128
 #, fuzzy
-#| msgid "Social Contract"
 msgid "Social contract"
 msgstr "קשר חברתי"
 
 #: ../root/layout/components/BottomMenu.js:131
 #, fuzzy
-#| msgid "Code of Conduct"
 msgid "Code of Conduct"
 msgstr "קוד התנהגות"
 
 #: ../root/layout/components/BottomMenu.js:134
 #, fuzzy
-#| msgid "Privacy Policy"
 msgid "Privacy policy"
 msgstr "מדיניות פרטיות"
 
@@ -11432,7 +10974,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:145
 #, fuzzy
-#| msgid "Data Removal Policy"
 msgid "Data removal policy"
 msgstr "מדיניות הסרת נתונים"
 
@@ -11447,13 +10988,11 @@ msgstr "סטטיסטיקה"
 
 #: ../root/layout/components/BottomMenu.js:157
 #, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
 msgstr "תרשים ציר זמן"
 
 #: ../root/layout/components/BottomMenu.js:160
 #, fuzzy
-#| msgid "MusicBrainz: Artist"
 msgid "MusicBrainz history"
 msgstr "מוזיקבריינז: אמן"
 
@@ -11461,19 +11000,22 @@ msgstr "מוזיקבריינז: אמן"
 msgid "Products"
 msgstr "מוצרים"
 
-#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
+#: ../root/layout/components/BottomMenu.js:176
+#: ../root/static/scripts/homepage/banner-carousel.js:47
 msgid "MusicBrainz Picard"
 msgstr "מוזיקבריינז פיקארד"
 
-#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
+#: ../root/layout/components/BottomMenu.js:179
+#: ../root/static/scripts/homepage/banner-carousel.js:52
 msgid "AudioRanger"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:160
+#: ../root/layout/components/BottomMenu.js:182
+#: ../root/static/scripts/homepage/banner-carousel.js:55
 msgid "Mp3tag"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:164
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Yate Music Tagger"
 msgstr "מתייג מוזיקה Yate"
 
@@ -11485,13 +11027,12 @@ msgstr "מוזיקבריינז עבור אנדרואיד"
 msgid "MusicBrainz Server"
 msgstr "‮שרת מוזיקבריינז"
 
-#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:220
+#: ../root/layout/components/BottomMenu.js:196
 msgid "MusicBrainz Database"
 msgstr "מסד נתונים מוזיקבריינז"
 
-#: ../root/layout/components/BottomMenu.js:199
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
 #, fuzzy
-#| msgid "Developer Resources"
 msgid "Developer resources"
 msgstr "משאבי פתוח"
 
@@ -11504,20 +11045,18 @@ msgid "Live Data Feed"
 msgstr "הזנת נתונים חיים"
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/search.js:171
 #, fuzzy
-#| msgid "Advanced"
 msgid "Advanced search"
 msgstr "מתקדם"
 
 #: ../root/layout/components/BottomMenu.js:224
 #, fuzzy
-#| msgid "Edit user"
 msgid "Edit search"
 msgstr "עריכת משתמש"
 
 #: ../root/layout/components/BottomMenu.js:227
 #, fuzzy
-#| msgid "Tag lookup"
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "חפוש תג"
@@ -11531,7 +11070,6 @@ msgstr "עריכה"
 
 #: ../root/layout/components/BottomMenu.js:246
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "הוספת אמן"
@@ -11539,7 +11077,6 @@ msgstr "הוספת אמן"
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "הוספת קבוצת הוצאה"
@@ -11549,21 +11086,18 @@ msgstr "הוספת קבוצת הוצאה"
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add release"
 msgstr "הוספת הוצאה"
 
 #: ../root/layout/components/BottomMenu.js:261
 #, fuzzy
-#| msgid "Add Various Artists Release"
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "הוספת מהדורת אמנים שונים"
 
 #: ../root/layout/components/BottomMenu.js:266
 #, fuzzy
-#| msgid "Add standalone recording"
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "הוספת הקלטה עצמאית"
@@ -11571,21 +11105,18 @@ msgstr "הוספת הקלטה עצמאית"
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
 #, fuzzy
-#| msgid "Add work"
 msgctxt "interactive"
 msgid "Add work"
 msgstr "הוספת יצירה"
 
 #: ../root/layout/components/BottomMenu.js:273
 #, fuzzy
-#| msgid "Add place"
 msgctxt "interactive"
 msgid "Add place"
 msgstr "הוספת מקום"
 
 #: ../root/layout/components/BottomMenu.js:277
 #, fuzzy
-#| msgid "Add series"
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "הוספת סדרה"
@@ -11594,14 +11125,12 @@ msgstr "הוספת סדרה"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
 #, fuzzy
-#| msgid "Add event"
 msgctxt "interactive"
 msgid "Add event"
 msgstr "הוספת אירוע"
 
 #: ../root/layout/components/BottomMenu.js:284
 #, fuzzy
-#| msgid "Vote on Edits"
 msgid "Vote on edits"
 msgstr "הצבעה לעריכות"
 
@@ -11610,23 +11139,22 @@ msgstr "הצבעה לעריכות"
 msgid "Reports"
 msgstr "דוחות"
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:174
+#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
 msgid "Beginners guide"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:309
 #, fuzzy
-#| msgid "How Tos"
 msgid "How tos"
 msgstr "כיצד לבצע"
 
-#: ../root/layout/components/BottomMenu.js:312 ../root/main/index.js:185
+#: ../root/layout/components/BottomMenu.js:312
+#: ../root/layout/components/NewFooter.js:182
 msgid "FAQs"
 msgstr "שאלות נפוצות"
 
 #: ../root/layout/components/BottomMenu.js:316
 #, fuzzy
-#| msgid "Documentation"
 msgid "Documentation index"
 msgstr "תיעוד"
 
@@ -11636,11 +11164,11 @@ msgstr "תיעוד"
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
 #: ../root/utility/tableColumns.js:383
 #, fuzzy
-#| msgid "Relationship Types"
 msgid "Relationship types"
 msgstr "סוגי קשרי־גומלין"
 
 #: ../root/layout/components/BottomMenu.js:332
+#: ../root/layout/components/NewFooter.js:194
 msgid "Development"
 msgstr "פתוח"
 
@@ -11664,29 +11192,28 @@ msgstr "הצגת כל קשרי־הגומלין"
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:45
+#: ../root/layout/components/Head.js:46
 msgid "Page {n}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:101
+#: ../root/layout/components/Head.js:114
 msgid "MusicBrainz: Artist"
 msgstr "מוזיקבריינז: אמן"
 
-#: ../root/layout/components/Head.js:107
+#: ../root/layout/components/Head.js:120
 msgid "MusicBrainz: Label"
 msgstr "מוזיקבריינז: חברת תקליטים"
 
-#: ../root/layout/components/Head.js:113
+#: ../root/layout/components/Head.js:126
 msgid "MusicBrainz: Release"
 msgstr "מיוזיקבריינז: הוצאה"
 
-#: ../root/layout/components/Head.js:119
+#: ../root/layout/components/Head.js:132
 msgid "MusicBrainz: Track"
 msgstr "מוזיקבריינז: רצועה"
 
 #: ../root/layout/components/MergeHelper.js:26
 #, fuzzy
-#| msgid "Merge Process"
 msgid "Merge process"
 msgstr "תהליך מיזוג"
 
@@ -11712,7 +11239,6 @@ msgstr "נא לנווט לעמודי הישויות האחרות למיזוג ו
 #: ../root/layout/components/MergeHelper.js:66
 #: ../root/layout/components/sidebar/MergeLink.js:30
 #, fuzzy
-#| msgid "Merge"
 msgctxt "interactive"
 msgid "Merge"
 msgstr "מיזוג"
@@ -11720,6 +11246,132 @@ msgstr "מיזוג"
 #: ../root/layout/components/MergeHelper.js:70
 msgid "Remove selected entities"
 msgstr "הסרת ישויות שנבחרו"
+
+#: ../root/layout/components/NewFooter.js:36
+#, fuzzy
+msgid ""
+"is an open music encyclopedia that collects music metadata and makes it "
+"available to the public."
+msgstr ""
+" מוזיקבריינז היא אנציקלופדיה מוזיקלית פתוחה שאוספת נתוני־על של מוזיקה והופכת "
+"אותה לזמינה לציבור."
+
+#: ../root/layout/components/NewFooter.js:42
+#, fuzzy
+msgid "Development IRC:"
+msgstr "פתוח"
+
+#: ../root/layout/components/NewFooter.js:49
+#, fuzzy
+msgid "Discussion IRC:"
+msgstr "מזהה תקליטור:"
+
+#: ../root/layout/components/NewFooter.js:56
+msgid "Email:"
+msgstr "דוא\"ל:"
+
+#: ../root/layout/components/NewFooter.js:65
+#, fuzzy
+msgid "Useful Links"
+msgstr "קישורים פנימיים"
+
+#: ../root/layout/components/NewFooter.js:82
+msgid "Community"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:100
+#, fuzzy
+msgid "MetaBrainz"
+msgstr "מוזיקבריינז: חברת תקליטים"
+
+#: ../root/layout/components/NewFooter.js:106
+#: ../root/layout/components/NewFooter.js:206
+#, fuzzy
+msgid "Contribute Here"
+msgstr "להמשיך"
+
+#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#, fuzzy
+msgid "Bug Tracker"
+msgstr "מנפה תקלים"
+
+#: ../root/layout/components/NewFooter.js:118
+msgid "Fellow Projects"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
+msgid "ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:129
+#, fuzzy
+msgid "CritiqueBrainz"
+msgstr "אמן במוזיקבריינז:"
+
+#: ../root/layout/components/NewFooter.js:135
+msgid "Picard"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:141
+msgid "BookBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:147
+#, fuzzy
+msgid "AcousticBrainz"
+msgstr "API מוזיקבריינז"
+
+#: ../root/layout/components/NewFooter.js:153
+#, fuzzy
+msgid "Cover Art Archive"
+msgstr "תמונת עטיפה"
+
+#: ../root/layout/components/NewFooter.js:159
+#, fuzzy
+msgid "Join Us"
+msgstr "ביטוי מצורף:"
+
+#: ../root/layout/components/NewFooter.js:164
+#, fuzzy
+msgid "Beginner's Guide"
+msgstr "מדריך למתחילים"
+
+#: ../root/layout/components/NewFooter.js:170
+msgid "Style Guidelines"
+msgstr "קוים מנחים לסוגה"
+
+#: ../root/layout/components/NewFooter.js:176
+#, fuzzy
+msgid "How Tos"
+msgstr "כיצד לבצע"
+
+#: ../root/layout/components/NewFooter.js:188
+msgid "Doc Index"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:203
+msgid "OSS Geek?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:212
+msgid "Brought to you by"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+#, fuzzy
+msgid "MetaBrainz Foundation"
+msgstr "מוזיקבריינז: חברת תקליטים"
+
+#: ../root/layout/components/NewFooter.js:228
+#, fuzzy
+msgid "Found an Issue?"
+msgstr "נמצאה {n} תוצאה"
+
+#: ../root/layout/components/NewFooter.js:231
+#, fuzzy
+msgid "Report Here"
+msgstr "דיווח משתמש"
 
 #: ../root/layout/components/SupportedBrowserCheck.js:32
 msgid ""
@@ -11730,8 +11382,8 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
+#: ../root/static/scripts/homepage/editor-tools.js:123
 #, fuzzy
-#| msgid "Log Out"
 msgid "Log out"
 msgstr "התנתקות מהמערכת"
 
@@ -11741,14 +11393,15 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/homepage/editor-tools.js:136
 #, fuzzy
-#| msgid "My Ratings"
 msgid "My ratings"
 msgstr "הדֵּרוּגים שלי"
 
@@ -11758,32 +11411,30 @@ msgid "My tags"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:92
+#: ../root/static/scripts/homepage/editor-tools.js:141
 #, fuzzy
-#| msgid "My Open Edits"
 msgid "My open edits"
 msgstr "העריכות הפתוחות שלי"
 
 #: ../root/layout/components/TopMenu.js:95
+#: ../root/static/scripts/homepage/editor-tools.js:143
 #, fuzzy
-#| msgid "All edits"
 msgid "All my edits"
 msgstr "כל העריכות"
 
 #: ../root/layout/components/TopMenu.js:98
 #, fuzzy
-#| msgid "Edits for Subscribed Entities"
 msgid "Edits for subscribed entities"
 msgstr "עריכות ישויות מנויים"
 
 #: ../root/layout/components/TopMenu.js:102
 #, fuzzy
-#| msgid "Edits by Subscribed Editors"
 msgid "Edits by subscribed editors"
 msgstr "עריכות על־ידי עורכים מנויים"
 
 #: ../root/layout/components/TopMenu.js:106
+#: ../root/static/scripts/homepage/editor-tools.js:151
 #, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "Notes left on my edits"
 msgstr "הערות שהושארו בעריכות שלי"
 
@@ -11794,7 +11445,6 @@ msgstr "מנהלן"
 #: ../root/layout/components/TopMenu.js:209
 #: ../root/static/scripts/account/components/RegisterForm.js:118
 #, fuzzy
-#| msgid "Create Account"
 msgctxt "interactive"
 msgid "Create account"
 msgstr "יצירת חשבון"
@@ -11802,14 +11452,12 @@ msgstr "יצירת חשבון"
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
 #, fuzzy
-#| msgid "Edit annotation"
 msgctxt "interactive"
 msgid "Edit annotation"
 msgstr "עריכת ביאור"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:32
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "interactive"
 msgid "Add annotation"
 msgstr "הוספת ביאור"
@@ -11829,21 +11477,18 @@ msgstr "מידע אמן"
 
 #: ../root/layout/components/sidebar/ArtistSidebar.js:168
 #, fuzzy
-#| msgid "Add recording"
 msgctxt "interactive"
 msgid "Add recording"
 msgstr "הוספת הקלטה"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:44
 #, fuzzy
-#| msgid "Added"
 msgctxt "CD stub"
 msgid "Added"
 msgstr "התווסף"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:52
 #, fuzzy
-#| msgid "Last updated"
 msgctxt "CD stub"
 msgid "Last modified"
 msgstr "עודכן לאחרונה"
@@ -11874,7 +11519,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
 #, fuzzy
-#| msgid "You have no collections."
 msgid "You have no genre collections!"
 msgstr "אין לכם אוספים."
 
@@ -11965,7 +11609,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/EditLinks.js:30
 #, fuzzy
-#| msgid "Location editor"
 msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "עורך מיקום"
@@ -11973,15 +11616,12 @@ msgstr "עורך מיקום"
 #: ../root/layout/components/sidebar/EventSidebar.js:57
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:89
 #, fuzzy
-#| msgid ""
-#| "Front cover image failed to load correctly.<br/>{all|View all artwork}."
 msgid "Image failed to load correctly.<br/>{all|View all images}."
 msgstr ""
 "תמונת עטיפה - חזית כשלה להיטען באופן תקין.<br/>{all|הצגת כל  תמונות העטיפה}."
 
 #: ../root/layout/components/sidebar/EventSidebar.js:72
 #, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
 msgstr "תמונות עטיפה לא זמינה."
 
@@ -11993,7 +11633,6 @@ msgstr "הצגת כל תמונות העטיפה"
 #: ../root/layout/components/sidebar/EventSidebar.js:78
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:110
 #, fuzzy
-#| msgid "No description available."
 msgid "No images available."
 msgstr "תיאור לא זמין"
 
@@ -12049,10 +11688,6 @@ msgctxt "place"
 msgid "Closed"
 msgstr "סגור"
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
-msgid "ListenBrainz"
-msgstr ""
-
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:68
 msgid "Play on ListenBrainz"
 msgstr ""
@@ -12071,7 +11706,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:86
 #, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "הגדרת תמונת עטיפה"
@@ -12107,7 +11741,6 @@ msgstr "מידע סדרה"
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
 #, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
 msgstr "[לא ידוע]"
@@ -12135,8 +11768,6 @@ msgstr "(ללא)"
 #: ../root/layout/components/sidebar/SidebarTags.js:46
 #: ../root/static/scripts/common/components/TagEditor.js:673
 #, fuzzy
-#| msgctxt "type"
-#| msgid "(none)"
 msgctxt "folksonomy tag"
 msgid "(none)"
 msgstr "(ללא)"
@@ -12154,14 +11785,12 @@ msgstr "סוגה"
 #: ../root/static/scripts/common/components/TagEditor.js:667
 #: ../root/user/UserTagList.js:92
 #, fuzzy
-#| msgid "Other tags"
 msgctxt "folksonomy"
 msgid "Other tags"
 msgstr "תגים אחרים"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:91
 #, fuzzy
-#| msgid "See all tags"
 msgctxt "folksonomy"
 msgid "See all tags"
 msgstr "הצגת כל התגים"
@@ -12190,9 +11819,18 @@ msgstr[3] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
+#: ../root/main/AuthButtons.js:19
+#, fuzzy
+msgid "Create Account"
+msgstr "יצירת חשבון"
+
+#: ../root/main/AuthButtons.js:21
+#, fuzzy
+msgid "Login"
+msgstr "התחברות אחרונה"
+
 #: ../root/main/ConfirmSeed.js:26
 #, fuzzy
-#| msgid "Confirm Form Submission"
 msgid "Confirm form submission"
 msgstr "אישור שגור טופס"
 
@@ -12214,7 +11852,6 @@ msgstr ""
 
 #: ../root/main/ImageEditingUnavailable.js:14
 #, fuzzy
-#| msgid "No description available."
 msgid "Image editing unavailable"
 msgstr "תיאור לא זמין"
 
@@ -12224,7 +11861,6 @@ msgstr ""
 
 #: ../root/main/error/Error400.js:19
 #, fuzzy
-#| msgid "Bad Request"
 msgid "Bad request"
 msgstr "בקשה שגויה"
 
@@ -12240,13 +11876,11 @@ msgstr ""
 
 #: ../root/main/error/Error400.js:45 ../root/main/error/TimeoutError.js:32
 #, fuzzy
-#| msgid "Label information"
 msgid "Technical information"
 msgstr "מידע חברת תקליטים"
 
 #: ../root/main/error/Error401.js:20
 #, fuzzy
-#| msgid "Unauthorized Request"
 msgid "Unauthorized request"
 msgstr "בקשה לא מזוהה"
 
@@ -12268,7 +11902,6 @@ msgstr ""
 
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:14
 #, fuzzy
-#| msgid "Forbidden Request"
 msgid "Forbidden request"
 msgstr "בקשה אסורה"
 
@@ -12368,7 +12001,6 @@ msgstr ""
 
 #: ../root/main/error/TimeoutError.js:20
 #, fuzzy
-#| msgid "Request Timed Out"
 msgid "Request timed out"
 msgstr "פג תוקפה של הבקשה"
 
@@ -12406,15 +12038,11 @@ msgstr "שגיאה"
 msgid "(No details about this error are available)"
 msgstr "(אין פרטים זמינים לגבי שגיאה זו)"
 
-#: ../root/main/index.js:34
+#: ../root/main/index.js:75
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr ""
 
-#: ../root/main/index.js:38
-msgid "Welcome to MusicBrainz!"
-msgstr "ברוכים הבאים למוזיקבריינז!"
-
-#: ../root/main/index.js:42
+#: ../root/main/index.js:111
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
@@ -12422,133 +12050,279 @@ msgstr ""
 " מוזיקבריינז היא אנציקלופדיה מוזיקלית פתוחה שאוספת נתוני־על של מוזיקה והופכת "
 "אותה לזמינה לציבור."
 
-#: ../root/main/index.js:48
-msgid "MusicBrainz aims to be:"
-msgstr ""
-
-#: ../root/main/index.js:54
+#: ../root/main/index.js:124
 msgid ""
-"<strong>The ultimate source of music information</strong> by allowing anyone "
-"to contribute and releasing the {doc|data} under {doc2|open licenses}."
+"The ultimate source of audio information, releasing data under open licenses "
+"and allowing anyone to contribute."
 msgstr ""
 
-#: ../root/main/index.js:65
+#: ../root/main/index.js:136
 msgid ""
-"<strong>The universal lingua franca for music</strong> by providing a "
-"reliable and unambiguous form of {doc|music identification}, enabling both "
-"people and machines to have meaningful conversations about music."
+"The universal lingua franca for music, providing reliable and unambiguous "
+"forms of music identification, enabling people and machines to have "
+"meaningful conversations about music."
 msgstr ""
 
-#: ../root/main/index.js:78
+#: ../root/main/index.js:150
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
-"we want everyone &#x2014; including you &#x2014; to {doc|participate and "
-"contribute}."
+"everyone - including you - can participate and contribute."
 msgstr ""
 
-#: ../root/main/index.js:89
+#: ../root/main/index.js:163
 msgid ""
-"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+"MusicBrainz is operated by the MetaBrainz Foundation, a non-profit dedicated "
+"to keeping MusicBrainz free and open source."
 msgstr ""
 
-#: ../root/main/index.js:101
-msgid ""
-"MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
-"based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
-"MusicBrainz {free|free and open source}."
-msgstr ""
-
-#: ../root/main/index.js:114
-#, fuzzy
-#| msgid "MusicBrainz: Label"
-msgid "MetaBrainz blog"
-msgstr "מוזיקבריינז: חברת תקליטים"
-
-#: ../root/main/index.js:119
-msgid "Latest posts:"
-msgstr ""
-
-#: ../root/main/index.js:131
-msgid "Read more »"
-msgstr ""
-
-#: ../root/main/index.js:138
-msgid "The blog is currently unavailable."
-msgstr ""
-
-#: ../root/main/index.js:148
-#, fuzzy
-#| msgid "Tag Your Music"
-msgctxt "audio file metadata"
-msgid "Tag your music"
-msgstr "תיגו את המוזיקה שלכם"
-
-#: ../root/main/index.js:171
-#, fuzzy
-#| msgid "Quick links:"
-msgid "Quick start"
-msgstr "קישורים מהירים:"
-
-#: ../root/main/index.js:178
-msgid "Editing introduction"
+#: ../root/main/index.js:179
+msgid "Read More"
 msgstr ""
 
 #: ../root/main/index.js:189
+#, fuzzy
+msgid "Beginner editor's guide"
+msgstr "מדריך למתחילים"
+
+#: ../root/main/index.js:199
+msgid "Latest News"
+msgstr ""
+
+#: ../root/main/index.js:209
+msgid "The blog is currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:236
+msgid "Community Posts"
+msgstr ""
+
+#: ../root/main/index.js:248
+msgid "The community posts are currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:280
+#, fuzzy
+msgid "Develop"
+msgstr "פתוח"
+
+#: ../root/main/index.js:284
+#, fuzzy
+msgid "Datasets and Live Data Feed"
+msgstr "הזנת נתונים חיים"
+
+#: ../root/main/index.js:290
+msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
+msgstr ""
+
+#: ../root/main/index.js:295
+#, fuzzy
+msgid "creating an account"
+msgstr "יצירת חשבון"
+
+#: ../root/main/index.js:297
+msgid ","
+msgstr ""
+
+#: ../root/main/index.js:300
+msgid "whether for personal or non-commercial use"
+msgstr ""
+
+#: ../root/main/index.js:302
+msgid "."
+msgstr ""
+
+#: ../root/main/index.js:308
+#, fuzzy
+msgid "Database"
+msgstr "רצועות נתונים"
+
+#: ../root/main/index.js:313
+#, fuzzy
+msgid "View and download the MusicBrainz Database."
+msgstr "מסד נתונים מוזיקבריינז"
+
+#: ../root/main/index.js:325
+msgid ""
+"Use our XML web service or development libraries to create your own "
+"MusicBrainz-enabled applications."
+msgstr ""
+
+#: ../root/main/index.js:332 ../root/main/index.js:393
+#, fuzzy
+msgid "See also:"
+msgstr "הצגת כל התגים"
+
+#: ../root/main/index.js:335
+#, fuzzy
+msgid "Data license"
+msgstr "רישינות נתונים"
+
+#: ../root/main/index.js:338 ../root/main/index.js:399
+#: ../root/main/index.js:405 ../root/main/index.js:411
+#: ../root/main/index.js:417 ../root/main/index.js:423
+msgid "|"
+msgstr ""
+
+#: ../root/main/index.js:341
+#, fuzzy
+msgid "MetaBrainz FAQ"
+msgstr "מוזיקבריינז: חברת תקליטים"
+
+#: ../root/main/index.js:350
+#, fuzzy
+msgid "Contribute"
+msgstr "להמשיך"
+
+#: ../root/main/index.js:354
+#, fuzzy
+msgid "Edit the database"
+msgstr "עריכת הערות מושבתת"
+
+#: ../root/main/index.js:359
+msgid ""
+"Anyone can help improve our global database! Get started and improve "
+"existing data or add new artists and music."
+msgstr ""
+
+#: ../root/main/index.js:372
+msgid ""
+"Developers, view and pick up issues in our bug tracker, and join us in the "
+"developer chat."
+msgstr ""
+
+#: ../root/main/index.js:380
+msgid "Join the community"
+msgstr ""
+
+#: ../root/main/index.js:385
+msgid ""
+"Talk to other database editors and music fans on our forums or our live chat "
+"via IRC, Matrix and Discord."
+msgstr ""
+
+#: ../root/main/index.js:402
+msgid "Editing introduction"
+msgstr ""
+
+#: ../root/main/index.js:414
+#, fuzzy
+msgid "MusicBrainz FAQs"
+msgstr "API מוזיקבריינז"
+
+#: ../root/main/index.js:420
 msgid "How to add artists"
 msgstr "כיצד להוסיף אמנים"
 
-#: ../root/main/index.js:194
+#: ../root/main/index.js:426
 msgid "How to add releases"
 msgstr "כיצד להוסיף הוצאות"
 
-#: ../root/main/index.js:205
-msgid "Community"
-msgstr ""
-
-#: ../root/main/index.js:208
+#: ../root/main/index.js:444
 #, fuzzy
-#| msgid "New Attribute"
-msgid "How to contribute"
-msgstr "תכונה חדשה"
+msgid "Open source"
+msgstr "משאבי פתוח"
 
-#: ../root/main/index.js:224
+#: ../root/main/index.js:447
 msgid ""
-"The majority of the data in the <strong>MusicBrainz Database</strong> is "
-"released into the <strong>Public Domain</strong> and can be downloaded and "
-"used <strong>for free</strong>."
+"\"Open source is source code that is made freely available for possible "
+"modification and redistribution...\""
 msgstr ""
 
-#: ../root/main/index.js:234
-msgid "Developers"
-msgstr ""
+#: ../root/main/index.js:451
+#, fuzzy
+msgid "-"
+msgstr "-"
 
-#: ../root/main/index.js:238
+#: ../root/main/index.js:454
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr "ויקיפדיה"
+
+#: ../root/main/index.js:459
 msgid ""
-"Use our <strong>XML web service</strong> or <strong>development libraries</"
-"strong> to create your own MusicBrainz-enabled applications."
+"The MusicBrainz database is all open source. This means that anyone can view "
+"the code, contribute improvements and new features, and copy and modify it "
+"for their own use."
 msgstr ""
 
-#: ../root/main/index.js:251
-#, fuzzy
-#| msgid "How to add releases"
-msgid "Recently added releases"
-msgstr "כיצד להוסיף הוצאות"
+#: ../root/main/index.js:467
+msgid ""
+"Thousands of wonderful people contribute code or data to MusicBrainz and its "
+"sister projects for no monetary return and for everyone's benefit."
+msgstr ""
 
-#: ../root/main/index.js:266
-#, fuzzy
-#| msgid "Recent Additions"
-msgid "Recently added events"
-msgstr "תוספות אחרונות"
+#: ../root/main/index.js:476
+msgid "GitHub repositories"
+msgstr ""
 
-#: ../root/main/index.js:323
-#: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/release-editor/dialogs.js:158
-msgid "{entity} by {artist}"
-msgstr "{entity} על־ידי {artist}"
+#: ../root/main/index.js:484
+#, fuzzy
+msgid "Data provider"
+msgstr "לא הוזנה כותרת"
+
+#: ../root/main/index.js:487
+msgid ""
+"The MetaBrainz core mission is to curate and maintain public datasets that "
+"anyone can download and use. Some of the world's biggest platforms, such as "
+"Google and Amazon, use our data, as well as small-scale developers and "
+"curious individuals."
+msgstr ""
+
+#: ../root/main/index.js:494
+msgid "We ask"
+msgstr ""
+
+#: ../root/main/index.js:497
+#, fuzzy
+msgid "commercial users"
+msgstr "נורמלי"
+
+#: ../root/main/index.js:501
+msgid "to support us. Personal use of our datasets will always be free."
+msgstr ""
+
+#: ../root/main/index.js:507
+msgid ""
+"Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
+"datasets are AI Ready, perfect for training large language models for music-"
+"based tasks."
+msgstr ""
+
+#: ../root/main/index.js:516
+#, fuzzy
+msgid "MetaBrainz Datasets"
+msgstr "מסד נתונים מוזיקבריינז"
+
+#: ../root/main/index.js:524
+msgid "Ethical forever"
+msgstr ""
+
+#: ../root/main/index.js:527
+msgid ""
+"The MetaBrainz Foundation is a registered non-profit, making it impossible "
+"for us to be bought or traded."
+msgstr ""
+
+#: ../root/main/index.js:533
+msgid ""
+"Our team and volunteer contributers from across the globe are proud to "
+"consider MusicBrainz and it's sister sites"
+msgstr ""
+
+#: ../root/main/index.js:538
+#, fuzzy
+msgid "enshittification"
+msgstr "תאור"
+
+#: ../root/main/index.js:541
+msgid ""
+"-proof projects, immune to the the crapifying that takes place when business "
+"interests inevitably subsume and monetize projects that initially focussed "
+"on high-quality offerings to attract users."
+msgstr ""
 
 #: ../root/mbid/NotFound.js:15
 #, fuzzy
-#| msgid "CD Not Found"
 msgid "MBID not found"
 msgstr "לא נמצא תקליטור"
 
@@ -12657,7 +12431,6 @@ msgstr "חיפושים אחרים"
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
 #, fuzzy
-#| msgid "Search Results"
 msgid "Search results"
 msgstr "תוצאות חיפוש"
 
@@ -12692,7 +12465,6 @@ msgstr "אין הקלטות, הוצאות, או קבוצות הוצאה מקוש
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
 #, fuzzy
-#| msgid "Remove recording"
 msgctxt "header"
 msgid "Remove recording"
 msgstr "הסרת הקלטה"
@@ -12721,25 +12493,21 @@ msgstr "הקלטה על־ידי ‮{artist}"
 
 #: ../root/recording/RecordingIndex.js:46
 #, fuzzy
-#| msgid "Tracklist"
 msgid "Track artist"
 msgstr "רשימת רצועות"
 
 #: ../root/recording/RecordingIndex.js:47
 #, fuzzy
-#| msgid "Release Title"
 msgid "Release title"
 msgstr "כותרת הוצאה"
 
 #: ../root/recording/RecordingIndex.js:48
 #, fuzzy
-#| msgid "Release Artist"
 msgid "Release artist"
 msgstr "אמן הוצאה"
 
 #: ../root/recording/RecordingIndex.js:49
 #, fuzzy
-#| msgid "Release Group Type"
 msgid "Release group type"
 msgstr "‮סוג קבוצת הוצאה"
 
@@ -12787,13 +12555,11 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:80
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:161
 #, fuzzy
-#| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "תכונות קשר־גומלין"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:70
 #, fuzzy
-#| msgid "Relationship Attribute"
 msgid "Relationship attribute"
 msgstr "תכונת קשר־גומלין"
 
@@ -12844,7 +12610,6 @@ msgstr "תכונה זו אינה משמשת במישרין סוג קשר־גומ
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:32
 #, fuzzy
-#| msgid "[none]"
 msgctxt "relationship attribute description"
 msgid "none"
 msgstr "[ללא]"
@@ -12954,23 +12719,18 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:29
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "תמונת עטיפה:"
 
 #: ../root/release/CoverArt.js:35
 #, fuzzy
-#| msgid "Cannot show cover art"
 msgctxt "plural, header"
 msgid "Cannot show cover art"
 msgstr "לא ניתן להציג תמונת עטיפה"
 
 #: ../root/release/CoverArt.js:97
 #, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
@@ -12990,21 +12750,18 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:134
 #, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "הוספת תמונת עטיפה"
 
 #: ../root/release/CoverArt.js:140
 #, fuzzy
-#| msgid "Reorder cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "תמונת עטיפה של המקליט"
 
 #: ../root/release/CoverArtDarkened.js:13
 #, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "לא ניתן להוסיף תמונת עטיפה"
@@ -13015,9 +12772,6 @@ msgstr "בחירת סוג אחד או יותר של תמונות עטיפה עב
 
 #: ../root/release/CoverArtFields.js:23
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
@@ -13025,7 +12779,6 @@ msgstr "לתיעוד תאור סוגים אלו נא ראו  {doc|סוגי תמ�
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "header"
 msgid "Remove release"
 msgstr "הסרת הוצאה"
@@ -13081,13 +12834,11 @@ msgstr ""
 
 #: ../root/release/ReleaseMerge.js:63
 #, fuzzy
-#| msgid "Merge release groups"
 msgid "Also merge the associated release groups"
 msgstr "מיזוג קבוצת הוצאה"
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "הסרת תמונת עטיפה"
@@ -13109,7 +12860,6 @@ msgstr ""
 #: ../root/release_group/SetCoverArt.js:29
 #: ../root/release_group/SetCoverArt.js:31
 #, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, header"
 msgid "Set cover art"
 msgstr "הגדרת תמונת עטיפה"
@@ -13228,12 +12978,6 @@ msgstr ""
 
 #: ../root/report/ArtistsThatMayBeGroups.js:25
 #, fuzzy
-#| msgid ""
-#| "This report lists artists that have their type set to other than Group "
-#| "(or a subtype of Group) but may be a group, because they have other "
-#| "artists listed as members. If you find that an artist here is indeed a "
-#| "group, change its type. If it is not, please make sure that the “member "
-#| "of” relationships are in the right direction and are correct."
 msgid ""
 "This report lists artists that have their type set to other than Group (or a "
 "subtype of Group) but may be a group, because they have other artists listed "
@@ -13257,12 +13001,6 @@ msgstr ""
 
 #: ../root/report/ArtistsThatMayBePersons.js:25
 #, fuzzy
-#| msgid ""
-#| "This report lists artists that have their type set to other than Group "
-#| "(or a subtype of Group) but may be a group, because they have other "
-#| "artists listed as members. If you find that an artist here is indeed a "
-#| "group, change its type. If it is not, please make sure that the “member "
-#| "of” relationships are in the right direction and are correct."
 msgid ""
 "This report lists artists that have their type set to other than Person or "
 "Character, but may be a person, based on their relationships. For example, "
@@ -13292,7 +13030,6 @@ msgstr ""
 #: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:108
 #, fuzzy
-#| msgid "Artists with deprecated relationships"
 msgid "Artists with mismatched primary aliases"
 msgstr "אמנים עם קישרי־גומלין שהוצאו משימוש"
 
@@ -13447,7 +13184,6 @@ msgstr ""
 #: ../root/report/CatNoLooksLikeLabelCode.js:39
 #: ../root/report/ReportsIndex.js:352
 #, fuzzy
-#| msgid "Releases with catalog numbers that look like Label Codes"
 msgid "Releases with catalog numbers that look like label codes"
 msgstr "הוצאות עם מספר קטלוגי דומה לקוד חברת תקליטים"
 
@@ -13655,7 +13391,6 @@ msgstr "כִּנּוּי:"
 #: ../root/report/components/ReleaseGroupList.js:56
 #: ../root/report/components/WorkList.js:56
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "type"
 msgid "Unknown"
 msgstr "לא ידוע"
@@ -13787,7 +13522,6 @@ msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
-#| msgid "Release groups with annotations"
 msgid "Release groups without any releases"
 msgstr "‮קבוצות הוצאה עם באורים"
 
@@ -13805,10 +13539,6 @@ msgstr "ארועים שאמורים להיות חלק מסדרה או ארוע �
 
 #: ../root/report/EventsWithEaaNoTypes.js:25
 #, fuzzy
-#| msgid ""
-#| "This report shows releases which have cover art in the Cover Art Archive, "
-#| "but where none of it has any types set. This often means a front cover "
-#| "was added, but not marked as such."
 msgid ""
 "This report shows events which have images in the Event Art Archive, but "
 "where none of the images have any types set. This often means a poster, "
@@ -13819,7 +13549,6 @@ msgstr ""
 
 #: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:154
 #, fuzzy
-#| msgid "Releases in the Cover Art Archive where no cover art piece has types"
 msgid "Events in the Event Art Archive where no event art piece has types"
 msgstr "הוצאות בארכיב תמונות עטיפה בהן קיימות עטיפות ללא סוגים"
 
@@ -13985,7 +13714,6 @@ msgstr "מעני url מקושרים להוצאות מרובות ישויות"
 #: ../root/report/WikidataLinksWithMultipleEntities.js:56
 #: ../root/report/components/UrlList.js:45
 #, fuzzy
-#| msgid "URL Entity"
 msgid "URL entity"
 msgstr "ישות מען url"
 
@@ -14233,7 +13961,6 @@ msgstr ""
 #: ../root/report/RecordingsWithDuplicateWorks.js:33
 #: ../root/report/ReportsIndex.js:531
 #, fuzzy
-#| msgid "Recordings with possible duplicate relationships"
 msgid "Recordings with possible duplicate works"
 msgstr "הקלטות עם אפשרות לקשרי־גומלין כפולים"
 
@@ -14390,7 +14117,6 @@ msgstr ""
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
 #, fuzzy
-#| msgid "Remove release label"
 msgid "Releases older than their release label"
 msgstr "הסרת חברת תקליטים מהוצאה"
 
@@ -14550,7 +14276,6 @@ msgstr ""
 
 #: ../root/report/ReleasesWithoutCaa.js:43 ../root/report/ReportsIndex.js:398
 #, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "Releases without any art in the Cover Art Archive"
 msgstr "‮להוצאה זו תמונת עטיפה בארכיב תמונות עטיפה"
 
@@ -14708,7 +14433,6 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:588
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
 #, fuzzy
-#| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
 msgstr "הקלטות עם קישרי־גומלין שהוצאו משימוש"
 
@@ -14723,7 +14447,6 @@ msgstr "סדרות עם באורים"
 #: ../root/report/ReportsIndex.js:622
 #: ../root/report/SeriesContainingDuplicates.js:49
 #, fuzzy
-#| msgid "Release Title"
 msgid "Series containing duplicates"
 msgstr "כותרת הוצאה"
 
@@ -14762,21 +14485,16 @@ msgstr "תקליטורים כהוצאות נפרדות"
 
 #: ../root/report/SeriesContainingDuplicates.js:23
 #, fuzzy
-#| msgid "Edited entity"
 msgid "Duplicate entity"
 msgstr "ישות שעברה עריכה"
 
 #: ../root/report/SeriesContainingDuplicates.js:29
 #, fuzzy
-#| msgid "ISO number"
 msgid "Number"
 msgstr "מספר ‮ISO"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
 #, fuzzy
-#| msgid ""
-#| "This report lists recordings which have multiple relationships to the "
-#| "same entity using the same relationship type."
 msgid ""
 "This report lists series which contain the same entity multiple times with "
 "the same number attribute."
@@ -15027,7 +14745,6 @@ msgstr ""
 #: ../root/search/SearchIndex.js:27 ../root/taglookup/Index.js:17
 #: ../root/taglookup/Index.js:19
 #, fuzzy
-#| msgid "Tag lookup"
 msgctxt "audio file metadata"
 msgid "Tag lookup"
 msgstr "חפוש תג"
@@ -15047,7 +14764,6 @@ msgstr "לחלופין ניתן {uri|add a new artist}."
 #: ../root/search/components/DocResults.js:19
 #: ../root/search/components/DocResults.js:21
 #, fuzzy
-#| msgid "Documentation"
 msgid "Documentation search"
 msgstr "תיעוד"
 
@@ -15097,7 +14813,6 @@ msgstr "עודכן לאחרונה: {date}"
 
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
-#| msgid "Search method:"
 msgid "Search error"
 msgstr "שיטת חיפוש:"
 
@@ -15174,10 +14889,6 @@ msgstr ""
 
 #: ../root/search/error/RateLimited.js:17
 #, fuzzy
-#| msgid ""
-#| "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
-#| "because it appears you've been rate-limited. Either the server is "
-#| "overloaded or you're making a lot of requests all at once!."
 msgid ""
 "Sorry, but your query “(<code>{query}</code>)” could not be performed, "
 "because it appears you’ve been rate-limited. Either the server is overloaded "
@@ -15208,7 +14919,6 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:92
 #, fuzzy
-#| msgid "Callback URL"
 msgid "Callback URI"
 msgstr "מען url להתקשרות חוזרת"
 
@@ -15265,7 +14975,6 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:257
 #, fuzzy
-#| msgid "Language:"
 msgid "Languages known:"
 msgstr "שפה:"
 
@@ -15278,7 +14987,6 @@ msgstr "הוספת שפה"
 #: ../root/static/scripts/account/components/EditProfileForm.js:301
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 #, fuzzy
-#| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "שמירה"
@@ -15301,19 +15009,16 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:189
 #, fuzzy
-#| msgid "Allow other users to see my tags"
 msgid "Allow other users to see"
 msgstr "לאפשר למשתמשים אחרים לצפות בתגים שלי"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
-#| msgid "Subscriptions"
 msgid "My subscriptions"
 msgstr "מינויים"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:197
 #, fuzzy
-#| msgid "Add a new genre"
 msgctxt "folksonomy"
 msgid "My tags and genres"
 msgstr "הוספת סוגה חדשה"
@@ -15324,7 +15029,6 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 #, fuzzy
-#| msgid "Email Sent"
 msgid "Email me about"
 msgstr "דוא\"ל נשלח"
 
@@ -15346,13 +15050,11 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 #, fuzzy
-#| msgid "Allow other users to see my subscriptions"
 msgid "Send me mails with edits to my subscriptions"
 msgstr "לאפשר למשתמשים אחרים לצפות במנויים שלי"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:248
 #, fuzzy
-#| msgid "Automatically subscribe me to series I create."
 msgid "Automatically subscribe me when I add"
 msgstr "רישומו אותי אוטומטית לסדרות שאני יצרתי."
 
@@ -15387,7 +15089,6 @@ msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:292
 #, fuzzy
-#| msgid "Alias Details"
 msgid "Alias details"
 msgstr "פרטי כינוי"
 
@@ -15415,7 +15116,6 @@ msgstr ""
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:97
 #, fuzzy
-#| msgid "View annotation history"
 msgid "Version history"
 msgstr "הצגת היסטורית ביאורים"
 
@@ -15613,7 +15313,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:41
 #, fuzzy
-#| msgid "Artist Area"
 msgid "Artist roles"
 msgstr "אזור אמן"
 
@@ -15710,7 +15409,6 @@ msgstr "חיפוש יצירה"
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:82
 #, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary alias"
 msgstr "סוגים עקריים:"
 
@@ -15752,14 +15450,12 @@ msgstr "{medium_format} {position}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:51
 #, fuzzy
-#| msgid "{medium_format} {position}"
 msgid "{medium_format_and_position}: {medium_name}"
 msgstr "{medium_format} {position}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:65
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:98
 #, fuzzy
-#| msgid "This CDTOC is already attached to this medium."
 msgid "This CDTOC is already attached to this medium."
 msgstr "תוכן עניינים תקליטור כבר מצורף למדיה זו."
 
@@ -15773,7 +15469,6 @@ msgstr "קשרי־גומלין רבים"
 
 #: ../root/static/scripts/common/components/Cardinality.js:16
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
 msgstr "לא ידוע"
@@ -15793,6 +15488,12 @@ msgstr "תמונה מויקימדיה קומונס"
 #: ../root/static/scripts/common/components/CritiqueBrainzReview.js:33
 msgid "{review_link|Review} by {author} on {date}"
 msgstr "{review_link|Review} על־ידי {author} ב־{date}"
+
+#: ../root/static/scripts/common/components/DescriptiveLink.js:65
+#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/release-editor/dialogs.js:158
+msgid "{entity} by {artist}"
+msgstr "{entity} על־ידי {artist}"
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:78
 msgid "{place} in {area}"
@@ -15816,7 +15517,6 @@ msgstr "קישור זה הושבת באופן זמני מכיוון שדווח �
 
 #: ../root/static/scripts/common/components/EntityLink.js:375
 #, fuzzy
-#| msgid "This release has artwork in the Cover Art Archive"
 msgid "This event has artwork in the Event Art Archive"
 msgstr "‮להוצאה זו תמונת עטיפה בארכיב תמונות עטיפה"
 
@@ -15928,7 +15628,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 #, fuzzy
-#| msgid "Medium {position}: {title}"
 msgid "Medium {position} ({medium_format})"
 msgstr "{position} מדיה: {title}"
 
@@ -15943,7 +15642,6 @@ msgstr "{medium} ב־ {release}"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:14
 #, fuzzy
-#| msgid "None"
 msgctxt "relationship order direction"
 msgid "None"
 msgstr "ללא"
@@ -16029,7 +15727,6 @@ msgstr "משיכת הצבעה"
 
 #: ../root/static/scripts/common/components/TagEditor.js:118
 #, fuzzy
-#| msgid "You’ve upvoted this tag"
 msgctxt "folksonomy"
 msgid "You’ve upvoted this tag"
 msgstr "הצבעת הצבעה לחיוב לתג זה"
@@ -16040,7 +15737,6 @@ msgstr "הצבעת בעד"
 
 #: ../root/static/scripts/common/components/TagEditor.js:134
 #, fuzzy
-#| msgid "You’ve downvoted this tag"
 msgctxt "folksonomy"
 msgid "You’ve downvoted this tag"
 msgstr "הצבעת הצבעה שלילית לתג זה"
@@ -16057,23 +15753,18 @@ msgstr "אין סוגות להצגה"
 #: ../root/static/scripts/common/components/TagEditor.js:541
 #: ../root/user/UserTagList.js:112
 #, fuzzy
-#| msgid "There are no other tags to show."
 msgctxt "folksonomy"
 msgid "There are no other tags to show."
 msgstr "אין תגים אחרים להצגה."
 
 #: ../root/static/scripts/common/components/TagEditor.js:545
 #, fuzzy
-#| msgid "Nobody has tagged this yet."
 msgctxt "folksonomy"
 msgid "Nobody has tagged this yet."
 msgstr "אף אחד לא תייג זאת עדין."
 
 #: ../root/static/scripts/common/components/TagEditor.js:556
 #, fuzzy
-#| msgid ""
-#| "Tags with a score of zero or below, and tags that you’ve downvoted are "
-#| "hidden."
 msgctxt "folksonomy"
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
@@ -16082,14 +15773,12 @@ msgstr "תגים בעלי ציון אפס ומטה, ותגים להם הצבעת
 
 #: ../root/static/scripts/common/components/TagEditor.js:564
 #, fuzzy
-#| msgid "Hide tags with a score of zero or below."
 msgctxt "folksonomy"
 msgid "Tags with a score of zero or below are hidden."
 msgstr "הסתרת תגים עם ניקוד אפס או פחות."
 
 #: ../root/static/scripts/common/components/TagEditor.js:574
 #, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "Show all tags."
 msgstr "הצגת כל התגים."
@@ -16101,9 +15790,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:592
 #, fuzzy
-#| msgid ""
-#| "Tags with a score of zero or below, and tags that you’ve downvoted are "
-#| "hidden."
 msgctxt "folksonomy"
 msgid ""
 "Hide tags with a score of zero or below, and tags that you’ve downvoted."
@@ -16111,14 +15797,12 @@ msgstr "תגים בעלי ציון אפס ומטה, ותגים להם הצבעת
 
 #: ../root/static/scripts/common/components/TagEditor.js:605
 #, fuzzy
-#| msgid "Hide tags with a score of zero or below."
 msgctxt "folksonomy"
 msgid "Hide tags with a score of zero or below."
 msgstr "הסתרת תגים עם ניקוד אפס או פחות."
 
 #: ../root/static/scripts/common/components/TagEditor.js:616
 #, fuzzy
-#| msgid "Add Tags"
 msgctxt "folksonomy"
 msgid "Add tags"
 msgstr "הוספת תגים"
@@ -16132,36 +15816,27 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:634
 #, fuzzy
-#| msgid "Submit tags"
 msgctxt "folksonomy"
 msgid "Submit tags"
 msgstr "‮שגור ‭םיגת"
 
 #: ../root/static/scripts/common/components/TagEditor.js:680
 #, fuzzy
-#| msgid "see all tags"
 msgctxt "folksonomy"
 msgid "see all tags"
 msgstr "הצגת כל התגים"
 
 #: ../root/static/scripts/common/components/TagEditor.js:696
 #, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "verb, folksonomy"
 msgid "Tag"
 msgstr "תג"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:71
 #, fuzzy
-#| msgid "Open in tagger"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr "פתיחה במתייג"
-
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
-msgstr "ויקיפדיה"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
 msgid "Continue reading at Wikipedia..."
@@ -16177,7 +15852,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/WorkArtists.js:24
 #, fuzzy
-#| msgid "Work Artists"
 msgid "Work artists"
 msgstr "אמני יצירה"
 
@@ -16224,7 +15898,6 @@ msgstr "{title} - {subtitle}"
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "language"
 msgid "[removed]"
 msgstr "[הוסר]"
@@ -16384,9 +16057,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:1262
 #, fuzzy
-#| msgid ""
-#| "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
-#| "Link to the appropriate WhoSampled artist, track or album page instead."
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
@@ -16498,7 +16168,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:6157
 #, fuzzy
-#| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
 msgstr "נא לקשר לפרופיל טוויטר, לא לציוצים."
 
@@ -16667,13 +16336,11 @@ msgstr "הוספת יצירה חדשה"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:49
 #, fuzzy
-#| msgid "Copy Credits"
 msgid "Copy credits"
 msgstr "העתקת מזכים"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
 #, fuzzy
-#| msgid "Paste Credits"
 msgid "Paste credits"
 msgstr "הדבקת מזכים"
 
@@ -16710,7 +16377,6 @@ msgstr "ביטוי מצורף:"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:168
 #, fuzzy
-#| msgid "Add Artist Credit"
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "הוספת מזכה אמן"
@@ -16725,42 +16391,36 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:156
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "[הוסר]"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
 #, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Move artist credit down"
 msgstr "הסרת מזכה אמן"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
 #, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Move artist credit up"
 msgstr "הסרת מזכה אמן"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 #, fuzzy
-#| msgid "Add Artist Credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
 msgstr "הוספת מזכה אמן"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:222
 #, fuzzy
-#| msgid "Remove Artist Credit"
 msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "הסרת מזכה אמן"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
 #, fuzzy
-#| msgid "Date Period"
 msgid "Date period"
 msgstr "תקופה"
 
@@ -16803,14 +16463,12 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:256
 #, fuzzy
-#| msgid "Edit Attributes"
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "עריכת תכונות"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:173
 #, fuzzy
-#| msgid "[removed]"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "[הוסר]"
@@ -16825,7 +16483,6 @@ msgstr "התאריך שהוזן אינו תקין."
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
 #, fuzzy
-#| msgid "Possible Duplicates"
 msgid "Possible duplicates"
 msgstr "כפילויות אפשריות"
 
@@ -16926,20 +16583,17 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:145
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "עריכת מען url"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:32
 #, fuzzy
-#| msgid "Credits"
 msgid "Credit"
 msgstr "מזכים"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:35
 #, fuzzy
-#| msgid "Creditable"
 msgid "Credited to"
 msgstr "ברי זיכוי"
 
@@ -17027,7 +16681,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:941
 #, fuzzy
-#| msgid "This URL is not allowed for the selected link type."
 msgid "This URL is not allowed for genres."
 msgstr "מען url זה לא מאופשר לסוג קישור שנבחר."
 
@@ -17070,14 +16723,12 @@ msgstr "{description} ({url|more documentation})"
 
 #: ../root/static/scripts/edit/externalLinks.js:1321
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "הסרת קשר־גומלין"
 
 #: ../root/static/scripts/edit/externalLinks.js:1396
 #, fuzzy
-#| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "זוכו כ־ “{credit}”"
@@ -17088,7 +16739,6 @@ msgstr "חוזי"
 
 #: ../root/static/scripts/edit/externalLinks.js:1529
 #, fuzzy
-#| msgid "Remove Link"
 msgid "Remove link"
 msgstr "הסרת קישור"
 
@@ -17106,7 +16756,6 @@ msgstr "הוספת קשר־גומלין נוסף"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:229
 #, fuzzy
-#| msgid "Event Details"
 msgid "Event details"
 msgstr "פרטי אירוע"
 
@@ -17167,6 +16816,177 @@ msgid ""
 "language guidelines}."
 msgstr ""
 
+#: ../root/static/scripts/homepage/banner-carousel.js:43
+#, fuzzy
+msgid "Tag your music"
+msgstr "תיגו את המוזיקה שלכם"
+
+#: ../root/static/scripts/homepage/banner-carousel.js:58
+msgid "Yate"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:89
+msgid "Listen together"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:97
+msgid "with ListenBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:107
+msgid "Explore the music you listen to."
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:112
+#, fuzzy
+msgid "Editor Tools"
+msgstr "עורכים"
+
+#: ../root/static/scripts/homepage/editor-tools.js:122
+#, fuzzy
+msgid "My Profile"
+msgstr "פרופיל"
+
+#: ../root/static/scripts/homepage/editor-tools.js:137
+#, fuzzy
+msgid "My tags"
+msgstr "הוספת תגים"
+
+#: ../root/static/scripts/homepage/editor-tools.js:144
+#, fuzzy
+msgid "Subscribed entity edits"
+msgstr "ישויות מניות"
+
+#: ../root/static/scripts/homepage/editor-tools.js:146
+#, fuzzy
+msgid "Subscribed editor edits"
+msgstr "ישויות מניות"
+
+#: ../root/static/scripts/homepage/editor-tools.js:155
+#, fuzzy
+msgid "Votes on edits"
+msgstr "הצבעה לעריכות"
+
+#: ../root/static/scripts/homepage/editor-tools.js:156
+#, fuzzy
+msgid "My reports"
+msgstr "דוחות"
+
+#: ../root/static/scripts/homepage/editor-tools.js:168
+#, fuzzy
+msgid "Add new..."
+msgstr "הוספת הערה"
+
+#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/navbar.js:263
+#, fuzzy
+msgid "reset language"
+msgstr "(אתחל שפה)"
+
+#: ../root/static/scripts/homepage/mobile-search-popup.js:86
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/search.js:136
+#: ../root/static/scripts/homepage/search.js:138
+#, fuzzy
+msgid "Advanced Search"
+msgstr "מתקדם"
+
+#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/search.js:163
+#, fuzzy
+msgid "in"
+msgstr "מידע"
+
+#: ../root/static/scripts/homepage/search.js:114
+msgid "The open music encyclopedia"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:186
+#, fuzzy
+msgid "Search in:"
+msgstr "חיפוש"
+
+#: ../root/static/scripts/homepage/stats.js:73
+msgid "last week"
+msgstr ""
+
+#: ../root/static/scripts/homepage/stats.js:78
+#, fuzzy
+msgid "total"
+msgstr "סך כל"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#, fuzzy
+msgid "By {artist}"
+msgstr "‮על־ידי {artist}"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:108
+#, fuzzy
+msgid "{entity}"
+msgstr "אין ישות"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:199
+#, fuzzy
+msgid "Now"
+msgstr "לא"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:236
+#, fuzzy
+msgid "Order by {type} date"
+msgstr "עריכת סוגים"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:242
+#, fuzzy
+msgid "Fresh {type}"
+msgstr "סדרה"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:251
+#, fuzzy
+msgid "Order by date added to MusicBrainz"
+msgstr "משתמשים חדשים במוזיקבריינז."
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:253
+#, fuzzy
+msgid "New Additions"
+msgstr "תוספות:"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:276
+#, fuzzy
+msgid "Add {type}"
+msgstr "הוספת {item}"
+
+#: ../root/static/scripts/homepage/user-menu.js:30
+msgid "Welcome back"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:48
+#, fuzzy
+msgid "Ticket tracker"
+msgstr "מנפה תקלים"
+
+#: ../root/static/scripts/homepage/user-menu.js:51
+#, fuzzy
+msgid "Editing guidelines"
+msgstr "קוים מנחים לסוגה"
+
+#: ../root/static/scripts/homepage/user-menu.js:56
+#, fuzzy
+msgid "Userscripts"
+msgstr "תאור"
+
+#: ../root/static/scripts/homepage/user-menu.js:61
+msgid "Latest blog post:"
+msgstr ""
+
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
 msgstr "להמשיך"
@@ -17177,7 +16997,6 @@ msgstr "לעזוב"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
 #, fuzzy
-#| msgid "Add instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "הוספת כלי נגינה"
@@ -17333,7 +17152,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:175
 #, fuzzy
-#| msgid "Edit relationship"
 msgctxt "header"
 msgid "Edit relationship"
 msgstr "עריכת קשר־גומלין"
@@ -17399,7 +17217,6 @@ msgstr "הוספת יצירה נוספת"
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:50
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "הוספת קשר־גומלין"
@@ -17414,7 +17231,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:97
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Add relationship"
 msgstr "הוספת קשר־גומלין"
@@ -17437,8 +17253,6 @@ msgstr[3] "{n} יצירות נבחרו"
 
 #: ../root/static/scripts/release-editor/actions.js:142
 #, fuzzy
-#| msgid "{num} release found"
-#| msgid_plural "{num} releases found"
 msgid "{num} release"
 msgid_plural "{num} releases"
 msgstr[0] "{num} הוצאה נמצאה"
@@ -17486,7 +17300,6 @@ msgstr "עמוד {page} מתוך {total}"
 
 #: ../root/static/scripts/release-editor/dialogs.js:317
 #, fuzzy
-#| msgid "Add medium"
 msgctxt "header"
 msgid "Add medium"
 msgstr "הוספת מדיה"
@@ -17519,7 +17332,6 @@ msgstr ""
 #: ../root/static/scripts/release-editor/init.js:260
 #: ../root/static/scripts/release-editor/init.js:261
 #, fuzzy
-#| msgid "Edit release"
 msgctxt "header"
 msgid "Edit release"
 msgstr "עריכת הוצאה"
@@ -17537,7 +17349,6 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/validation.js:178
 #, fuzzy
-#| msgid "The check digit is {checkdigit}."
 msgid "The check digit would be {checkdigit}."
 msgstr "ספרת הביקורת היא {checkdigit}."
 
@@ -17578,7 +17389,6 @@ msgstr "הברקוד שהוזן הוא קוד  UPC או EMA לא תקין, או 
 
 #: ../root/static/scripts/release-editor/validation.js:235
 #, fuzzy
-#| msgid "The barcode you entered is a valid EAN code."
 msgid "The barcode you entered is a valid GTIN code."
 msgstr "הברקוד שהוזן הוא קוד EMA תקין."
 
@@ -17594,31 +17404,26 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/validation.js:253
 #, fuzzy
-#| msgid "The barcode you entered is not a valid EAN code."
 msgid "The barcode you entered is not a valid GTIN code."
 msgstr "הברקוד שהוזן אינו קוד EMA תקין."
 
 #: ../root/static/scripts/release-editor/validation.js:297
 #, fuzzy
-#| msgid "The barcode you entered is a valid UPC code."
 msgid "The barcode you entered is not a valid UPC code."
 msgstr "הברקוד שהוזן הוא קוד UPC תקין."
 
 #: ../root/static/scripts/release-editor/validation.js:326
 #, fuzzy
-#| msgid "The barcode you entered is not a valid UPC or EAN code."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "הברקוד שהוזן אינו קוד UPC או EMA תקין."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
 #, fuzzy
-#| msgid "No cover art available."
 msgid "No cover art available."
 msgstr "תמונות עטיפה לא זמינה."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
 #, fuzzy
-#| msgid "Type"
 msgctxt "cover art"
 msgid "Types"
 msgstr "סוג"
@@ -17657,7 +17462,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:147
 #, fuzzy
-#| msgid "Edit work"
 msgctxt "header"
 msgid "Edit work"
 msgstr "עריכת יצירה"
@@ -17677,19 +17481,16 @@ msgstr "כווץ כל המדיה"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:86
 #, fuzzy
-#| msgid "Display Credits Inline"
 msgid "Display credits inline"
 msgstr "מצג מזכה אמן בשורה"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:87
 #, fuzzy
-#| msgid "Display Credits at Bottom"
 msgid "Display credits at bottom"
 msgstr "מצג מזכה אמן בתחתית"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
 #, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
 msgstr "הקלטה על־ידי ‮{artist}"
 
@@ -17723,7 +17524,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1518
 #, fuzzy
-#| msgid "Track Relationships"
 msgid "Track relationships"
 msgstr "קשרי רצועה"
 
@@ -17740,13 +17540,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1635
 #, fuzzy
-#| msgid "Release Relationships"
 msgid "Release relationships"
 msgstr "קשרי־גומלין הוצאה"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1672
 #, fuzzy
-#| msgid "Release Group Relationships"
 msgid "Release group relationships"
 msgstr "קשרי־גומלין קבוצת הוצאה"
 
@@ -17775,14 +17573,12 @@ msgstr "הוספת שפת מילים"
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
-#| msgid "Remove event"
 msgctxt "interactive"
 msgid "Remove note"
 msgstr "הסרת אירוע"
 
 #: ../root/static/scripts/work/edit.js:349
 #, fuzzy
-#| msgid "Remove Language"
 msgctxt "interactive"
 msgid "Remove language"
 msgstr "הסרת שפה"
@@ -17987,7 +17783,6 @@ msgstr[3] "{num} יצירות נמצאו"
 
 #: ../root/tag/NotFound.js:14
 #, fuzzy
-#| msgid "Tag Not Used"
 msgctxt "folksonomy"
 msgid "Tag not used"
 msgstr "תג לא בשימוש"
@@ -18036,7 +17831,6 @@ msgstr ""
 
 #: ../root/tag/TagIndex.js:24
 #, fuzzy
-#| msgid "This place is not currently associated with any events."
 msgctxt "folksonomy"
 msgid "This tag is associated with the genre {genre}."
 msgstr "מקום זה אינו משויך כרגע לאף ארוע."
@@ -18044,15 +17838,12 @@ msgstr "מקום זה אינו משויך כרגע לאף ארוע."
 #: ../root/tag/TagLayout.js:42 ../root/tag/TagLayout.js:44
 #: ../root/tag/TagLayout.js:51
 #, fuzzy
-#| msgid "Tag “{tag}”"
 msgctxt "folksonomy"
 msgid "Tag “{tag}”"
 msgstr "תג “{tag}”"
 
 #: ../root/tag/TagLayout.js:56
 #, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "folksonomy"
 msgid "Tag"
 msgstr "תג"
@@ -18094,7 +17885,6 @@ msgstr "כבר תרמתי, מדוע אני רואה זאת?"
 
 #: ../root/taglookup/NotFound.js:14
 #, fuzzy
-#| msgid "Tag Lookup Error"
 msgctxt "audio file metadata"
 msgid "Tag lookup error"
 msgstr "שגיאת חיפוש תג"
@@ -18113,20 +17903,17 @@ msgstr "נא {search|try again}, ולספק לפחות את אחד המאפיי�
 
 #: ../root/taglookup/Results.js:21 ../root/taglookup/Results.js:23
 #, fuzzy
-#| msgid "Tag Lookup Results"
 msgctxt "audio file metadata"
 msgid "Tag lookup results"
 msgstr "תוצאות חפוש תג"
 
 #: ../root/url/UrlIndex.js:18
 #, fuzzy
-#| msgid "URL Information"
 msgid "URL information"
 msgstr "מידע מען url"
 
 #: ../root/url/UrlIndex.js:19
 #, fuzzy
-#| msgid "URL Details"
 msgid "URL details"
 msgstr "פרטי מען url"
 
@@ -18148,7 +17935,6 @@ msgstr "שליחת עותק  לכתובת הדוא\"ל שלי"
 
 #: ../root/user/Login.js:48 ../root/user/Login.js:49
 #, fuzzy
-#| msgid "Log in"
 msgctxt "header"
 msgid "Log in"
 msgstr "התחברות למערכת"
@@ -18184,7 +17970,6 @@ msgstr "האם שכחתם את {link1|username} או את {link2|password}?"
 
 #: ../root/user/PrivilegedUsers.js:28
 #, fuzzy
-#| msgid "Auto-editors"
 msgctxt "header"
 msgid "Auto-editors"
 msgstr "עורכים אוטומטיים"
@@ -18206,7 +17991,6 @@ msgstr " {count} למשתמשים הבאים הרשאות עורכה אוטומ�
 
 #: ../root/user/PrivilegedUsers.js:47
 #, fuzzy
-#| msgid "Relationship editors"
 msgctxt "header"
 msgid "Relationship editors"
 msgstr "עורך קשרי־גומלין"
@@ -18228,7 +18012,6 @@ msgstr " {count} המשתמשים הבאים הם עורכי קשרי־גומל�
 
 #: ../root/user/PrivilegedUsers.js:66
 #, fuzzy
-#| msgid "Transclusion editors"
 msgctxt "header"
 msgid "Transclusion editors"
 msgstr "עורכי הפניות מקושרות"
@@ -18247,7 +18030,6 @@ msgstr " {count} המשתמשים הבאים הם עורכי הפניות מקו
 
 #: ../root/user/PrivilegedUsers.js:82
 #, fuzzy
-#| msgid "Location editors"
 msgctxt "header"
 msgid "Location editors"
 msgstr "עורכי מיקום"
@@ -18262,7 +18044,6 @@ msgstr " {count} המשתמשים הבאים הם עורכי מיקום:"
 
 #: ../root/user/PrivilegedUsers.js:97
 #, fuzzy
-#| msgid "Banner message editors"
 msgctxt "header"
 msgid "Banner message editors"
 msgstr "עורכי הודעת כְּרָזָה"
@@ -18280,14 +18061,12 @@ msgstr " {count} המשתמשים הבאים הם עורכי הודעות כרז
 
 #: ../root/user/PrivilegedUsers.js:111
 #, fuzzy
-#| msgid "Account administrators"
 msgctxt "header"
 msgid "Account administrators"
 msgstr "מנהלי חשבון"
 
 #: ../root/user/PrivilegedUsers.js:113
 #, fuzzy
-#| msgid "Account administrators can edit and delete user accounts."
 msgid ""
 "Account administrators can edit and delete user accounts, and immediately "
 "accept and reject edits."
@@ -18299,7 +18078,6 @@ msgstr " {count} המשתמשים הבאים הם מנהלני חשבון:"
 
 #: ../root/user/PrivilegedUsers.js:124
 #, fuzzy
-#| msgid "Bots"
 msgctxt "header"
 msgid "Bots"
 msgstr "בוטים"
@@ -18310,7 +18088,6 @@ msgstr " {count} המשתמשים הבאים הם בוטים:"
 
 #: ../root/user/ReportUser.js:76 ../root/user/ReportUser.js:78
 #, fuzzy
-#| msgid "Report User"
 msgctxt "header"
 msgid "Report user"
 msgstr "דיווח משתמש"
@@ -18364,75 +18141,62 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:36
 #, fuzzy
-#| msgid "Area Collections"
 msgid "Area collections"
 msgstr "אוספי אזור"
 
 #: ../root/user/UserCollections.js:37
 #, fuzzy
-#| msgid "Artist Collections"
 msgid "Artist collections"
 msgstr "אוספי אמנים"
 
 #: ../root/user/UserCollections.js:38
 #, fuzzy
-#| msgid "Event Collections"
 msgid "Event collections"
 msgstr "הזנת אוסף"
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
-#| msgid "Merge collections"
 msgid "Genre collections"
 msgstr "מיזוג אוספים"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
-#| msgid "Instrument Collections"
 msgid "Instrument collections"
 msgstr "אוספי כלי נגינה"
 
 #: ../root/user/UserCollections.js:41
 #, fuzzy
-#| msgid "Label Collections"
 msgid "Label collections"
 msgstr "אוספי חברת תקליטים"
 
 #: ../root/user/UserCollections.js:42
 #, fuzzy
-#| msgid "Place Collections"
 msgid "Place collections"
 msgstr "אוספי מקום"
 
 #: ../root/user/UserCollections.js:43
 #, fuzzy
-#| msgid "Recording Collections"
 msgid "Recording collections"
 msgstr "אוספי הקלטות"
 
 #: ../root/user/UserCollections.js:44
 #, fuzzy
-#| msgid "Release Collections"
 msgid "Release collections"
 msgstr "אוספי הוצאה"
 
 #: ../root/user/UserCollections.js:45
 #, fuzzy
-#| msgid "Release Group Collections"
 msgid "Release group collections"
 msgstr "‮אוספי קבוצת הוצאה"
 
 #: ../root/user/UserCollections.js:46
 #, fuzzy
-#| msgctxt "plural"
-#| msgid "Series Collections"
 msgctxt "plural"
 msgid "Series collections"
 msgstr "אוספי סדרות"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
-#| msgid "Work Collections"
 msgid "Work collections"
 msgstr "אוספי יצירות"
 
@@ -18462,7 +18226,6 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:215
 #, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "interactive"
 msgid "Add a new collection"
 msgstr "הוספה לאוסף חדש"
@@ -18505,7 +18268,6 @@ msgstr "עריכות  לפי {name}"
 
 #: ../root/user/UserProfile.js:74
 #, fuzzy
-#| msgid "Deleted User"
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "משתמש שנמחק"
@@ -18517,21 +18279,18 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:93
 #, fuzzy
-#| msgid "Account admin"
 msgctxt "user type"
 msgid "Account admin"
 msgstr "מנהל חשבון"
 
 #: ../root/user/UserProfile.js:126
 #, fuzzy
-#| msgid "Beginner"
 msgctxt "user type"
 msgid "Beginner"
 msgstr "מתחיל"
 
 #: ../root/user/UserProfile.js:132
 #, fuzzy
-#| msgid "Normal"
 msgctxt "user type"
 msgid "Normal user"
 msgstr "נורמלי"
@@ -18552,27 +18311,23 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:194
 #, fuzzy
-#| msgid "Label information"
 msgid "General information"
 msgstr "מידע חברת תקליטים"
 
 #: ../root/user/UserProfile.js:200
 #, fuzzy
-#| msgid "(hidden)"
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(מוסתר)"
 
 #: ../root/user/UserProfile.js:203
 #, fuzzy
-#| msgid "(verified at {date})"
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(אומת ב {date})"
 
 #: ../root/user/UserProfile.js:208
 #, fuzzy
-#| msgid "(<strong>unverified!</strong>)"
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>לא מאומת</strong>)"
@@ -18587,8 +18342,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:250
 #, fuzzy
-#| msgctxt "type"
-#| msgid "(none)"
 msgctxt "email address"
 msgid "(none)"
 msgstr "(ללא)"
@@ -18611,7 +18364,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:295
 #, fuzzy
-#| msgid "Description"
 msgid "Restrictions"
 msgstr "תאור"
 
@@ -18739,14 +18491,12 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:798
 #, fuzzy
-#| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "תגים ודירוגים"
 
 #: ../root/user/UserProfile.js:805
 #, fuzzy
-#| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "תגים שקיבלו הצבעה חיובית"
@@ -18758,14 +18508,12 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
 #, fuzzy
-#| msgid "Removed"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "הוסר"
 
 #: ../root/user/UserProfile.js:825
 #, fuzzy
-#| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "תגים שקיבלו הצבעה שלילית"
@@ -18781,7 +18529,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:921
 #, fuzzy
-#| msgid "Delete my account"
 msgid "Blocked spam account"
 msgstr "מחיקת חשבון כלשהו"
 
@@ -18798,13 +18545,11 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:994
 #, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "View other users’ notes on my edits"
 msgstr "הערות שהושארו בעריכות שלי"
 
 #: ../root/user/UserProfile.js:995
 #, fuzzy
-#| msgid "Notes Left on My Edits"
 msgid "View my notes on this user’s edits"
 msgstr "הערות שהושארו בעריכות שלי"
 
@@ -18850,31 +18595,26 @@ msgstr "{user} לא דירג דבר."
 
 #: ../root/user/UserSubscriptions.js:23
 #, fuzzy
-#| msgid "Artist Subscriptions"
 msgid "Artist subscriptions"
 msgstr "מנוי לאמן"
 
 #: ../root/user/UserSubscriptions.js:24
 #, fuzzy
-#| msgid "Collection Subscriptions"
 msgid "Collection subscriptions"
 msgstr "מנוים לאוסף"
 
 #: ../root/user/UserSubscriptions.js:25
 #, fuzzy
-#| msgid "Artist Subscriptions"
 msgid "Editor subscriptions"
 msgstr "מנוי לאמן"
 
 #: ../root/user/UserSubscriptions.js:26
 #, fuzzy
-#| msgid "Subscriptions"
 msgid "Label subscriptions"
 msgstr "מינויים"
 
 #: ../root/user/UserSubscriptions.js:27
 #, fuzzy
-#| msgid "Series Subscriptions"
 msgid "Series subscriptions"
 msgstr "מנויי סדרה"
 
@@ -18952,14 +18692,12 @@ msgstr[3] "{editor} מנוי ל  {n} אוספים פרטיים."
 
 #: ../root/user/UserTagList.js:19
 #, fuzzy
-#| msgid "Tags {user} downvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} downvoted"
 msgstr "תגים {user} קיבלו הצבעה שלילית"
 
 #: ../root/user/UserTagList.js:20
 #, fuzzy
-#| msgid "Tags {user} upvoted"
 msgctxt "folksonomy"
 msgid "Tags {user} upvoted"
 msgstr "תגים {user} קיבלו הצבעה חיובית"
@@ -18978,21 +18716,18 @@ msgstr "לא נמצאו משתמשים"
 
 #: ../root/user/components/UserTagFilters.js:27
 #, fuzzy
-#| msgid "No votes"
 msgctxt "folksonomy tag upvotes or downvotes"
 msgid "Show votes"
 msgstr "אין הצבעות"
 
 #: ../root/user/components/UserTagFilters.js:35
 #, fuzzy
-#| msgid "Upvote"
 msgctxt "folksonomy tag"
 msgid "upvotes"
 msgstr "הצבעת בעד"
 
 #: ../root/user/components/UserTagFilters.js:36
 #, fuzzy
-#| msgid "Downvote"
 msgctxt "folksonomy tag"
 msgid "downvotes"
 msgstr "הצבעה שלילית"
@@ -19117,14 +18852,12 @@ msgstr "עריכה זו בוטלה."
 
 #: ../root/utility/tableColumns.js:761
 #, fuzzy
-#| msgid "Relationship Types"
 msgctxt "header"
 msgid "Relationship type"
 msgstr "סוגי קשרי־גומלין"
 
 #: ../root/utility/tableColumns.js:776
 #, fuzzy
-#| msgid "Edit Types"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "עריכת סוגים"
@@ -19176,17 +18909,6 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:139
 #, fuzzy
-#| msgid ""
-#| "Destructive edits (removals and merges) are often very hard or even "
-#| "impossible to revert. As such, an incorrect destructive edit that applies "
-#| "unnoticed can cause quite a big mess! Most are guaranteed to remain open "
-#| "for at least two full days even if they get three “Yes” votes, to avoid "
-#| "them closing too quickly, but it’s always good to get more eyes on them. "
-#| "Below you can find four different searches: one for all destructive edits "
-#| "(which might be overwhelming sometimes), one for entity merges and "
-#| "removals only (the edits more likely to cause a mess if they incorrectly "
-#| "go through), one for relationship removals only, and one for destructive "
-#| "changes to releases (track, medium and release label removals)."
 msgid ""
 "Destructive edits (removals and merges) are often very hard or even "
 "impossible to revert. As such, an incorrect destructive edit that applies "
@@ -19232,7 +18954,6 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:204
 #, fuzzy
-#| msgid "All open relationship removals"
 msgid "All open artwork removals"
 msgstr "הסרת כל קשרי־גומלין פתוחים"
 
@@ -19377,7 +19098,6 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:413
 #, fuzzy
-#| msgid "All \"Add release/medium\" edits by beginner editors"
 msgid "All artwork edits by beginner editors"
 msgstr "על עריכות \"הוספת הוצאה/מדיה\" על־ידי עורכים מתחילים"
 
@@ -19431,6 +19151,29 @@ msgstr ""
 "<strong>אזהרה:</strong> לחלק מהיצירות שנבחרו למיזוג יש ISWCs שונה. נא וודא "
 "שאכן מדובר באותן היצירות ורק אז להמשיך במיזוג."
 
+#~ msgid "Welcome to MusicBrainz!"
+#~ msgstr "ברוכים הבאים למוזיקבריינז!"
+
+#, fuzzy
+#~| msgid "Quick links:"
+#~ msgid "Quick start"
+#~ msgstr "קישורים מהירים:"
+
+#, fuzzy
+#~| msgid "New Attribute"
+#~ msgid "How to contribute"
+#~ msgstr "תכונה חדשה"
+
+#, fuzzy
+#~| msgid "How to add releases"
+#~ msgid "Recently added releases"
+#~ msgstr "כיצד להוסיף הוצאות"
+
+#, fuzzy
+#~| msgid "Recent Additions"
+#~ msgid "Recently added events"
+#~ msgstr "תוספות אחרונות"
+
 #~ msgid "Captcha"
 #~ msgstr "קפטצ'ה"
 
@@ -19478,9 +19221,6 @@ msgstr ""
 
 #~ msgid "Twitter"
 #~ msgstr "טוויטר"
-
-#~ msgid "Add {item}"
-#~ msgstr "הוספת {item}"
 
 #~ msgid "Remove {item}"
 #~ msgstr "הסרת {item}"
@@ -19810,9 +19550,6 @@ msgstr ""
 #~ msgid "Begin Area"
 #~ msgstr "אזור התחלה"
 
-#~ msgid "Cover Art"
-#~ msgstr "תמונת עטיפה"
-
 #~ msgid "Edit Artist Credit"
 #~ msgstr "עריכת מזכה אמן"
 
@@ -19827,9 +19564,6 @@ msgstr ""
 
 #~ msgid "End Area"
 #~ msgstr "אזור סיום"
-
-#~ msgid "External Links"
-#~ msgstr "קישורים פנימיים"
 
 #~ msgid "Frequency notes:"
 #~ msgstr "הערות תדירות:"
@@ -20161,12 +19895,6 @@ msgstr ""
 #~ msgid "Add Event"
 #~ msgstr "הוספת אירוע"
 
-#~ msgid "Beginners Guide"
-#~ msgstr "מדריך למתחילים"
-
-#~ msgid "Style Guidelines"
-#~ msgstr "קוים מנחים לסוגה"
-
 #~ msgid "Relationship Types"
 #~ msgstr "סוגי קשרי־גומלין"
 
@@ -20234,9 +19962,6 @@ msgstr ""
 
 #~ msgid "Remove Cover Art"
 #~ msgstr "הסרת תמונת עטיפה"
-
-#~ msgid "Editors"
-#~ msgstr "עורכים"
 
 #~ msgid "Catalog Number"
 #~ msgstr "מספר קטלוגי"
@@ -20424,9 +20149,6 @@ msgstr ""
 
 #~ msgid "Preview:"
 #~ msgstr "תצוגה מקדימה:"
-
-#~ msgid "Disc ID:"
-#~ msgstr "מזהה תקליטור:"
 
 #~ msgid "Create a new collection"
 #~ msgstr "יצירת אוסף חדש"
@@ -20629,9 +20351,6 @@ msgstr ""
 #~ "עורכי הודעות כרזה הם משתמשים שיכולים להגדיר הודעה המוצגת ככרזה בכל הדפים, "
 #~ "למשל כדי להתריע למשתמשים על תחזוקת אתר קרובה."
 
-#~ msgid "Email:"
-#~ msgstr "דוא\"ל:"
-
 #~ msgid "This user has not created any entities."
 #~ msgstr "משתמש זה לא יצר ישויות כלל."
 
@@ -20655,9 +20374,6 @@ msgstr ""
 
 #~ msgid "The required TOC parameter was invalid or not present"
 #~ msgstr "מאפיין תוכן העניינים הנדרש אינו תקין או שאינו בנמצא"
-
-#~ msgid "No title provided"
-#~ msgstr "לא הוזנה כותרת"
 
 #~ msgid "No artist names provided"
 #~ msgstr "לא הוזן שם אמן"

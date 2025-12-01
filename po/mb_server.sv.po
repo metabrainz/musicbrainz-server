@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 17:21+0100\n"
+"POT-Creation-Date: 2025-12-01 13:16-0600\n"
 "PO-Revision-Date: 2024-04-17 17:39+0000\n"
 "Last-Translator: reosarevok "
 "<reosarevok@users.noreply.translations.metabrainz.org>\n"
@@ -92,7 +92,6 @@ msgstr "(lägg till en ny inspelning)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
 #, fuzzy
-#| msgid "(no other cover art)"
 msgid "(no other images)"
 msgstr "(ingen annan omslagsbild)"
 
@@ -149,28 +148,24 @@ msgstr "Acceptera"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Add IPI code"
 msgstr "IPI-kod"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Add ISNI code"
 msgstr "ISNI-kod"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "Lägg till ISRC:er"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "Lägg till ISRC:er"
@@ -201,42 +196,36 @@ msgstr "Lägg till utgivningsgrupp"
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "header"
 msgid "Add area"
 msgstr "Lägg till område"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "Lägg till artist"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 #, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, header"
 msgid "Add cover art"
 msgstr "Lägg till omslag"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
-#| msgid "Add Event"
 msgctxt "plural, header"
 msgid "Add event art"
 msgstr "Lägg till händelse"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "Lägg till instrument"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 #, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Add label"
 msgstr "Lägg till etikett"
@@ -245,21 +234,18 @@ msgstr "Lägg till etikett"
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
 #, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Lägg till etikett"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
 #, fuzzy
-#| msgid "Add medium"
 msgctxt "interactive"
 msgid "Add medium"
 msgstr "Lägg till media"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 #, fuzzy
-#| msgid "Add Place"
 msgctxt "header"
 msgid "Add place"
 msgstr "Lägg till plats"
@@ -268,7 +254,6 @@ msgstr "Lägg till plats"
 #: ../root/static/scripts/release-editor/init.js:256
 #: ../root/static/scripts/release-editor/init.js:257
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Add release"
 msgstr "Lägg till utgåva"
@@ -276,30 +261,24 @@ msgstr "Lägg till utgåva"
 #: ../root/release/edit/information.tt:214
 #: ../root/release/edit/information.tt:215
 #, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Release Event"
 msgctxt "interactive"
 msgid "Add release event"
 msgstr "Lägg till utgivningshändelse"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "Lägg till utgivningsgrupp"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 #, fuzzy
-#| msgid "Add Series"
 msgctxt "header, singular"
 msgid "Add series"
 msgstr "Lägg till serie"
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Standalone Recording"
 msgctxt "header"
 msgid "Add standalone recording"
 msgstr "Lägg till ensam inspelning"
@@ -310,15 +289,12 @@ msgstr "Lägg till spår"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 #, fuzzy
-#| msgid "Add work"
 msgctxt "header"
 msgid "Add work"
 msgstr "Lägg till verk"
 
 #: ../root/work/edit_form.tt:85
 #, fuzzy
-#| msgctxt "button/menu"
-#| msgid "Add Work Attribute"
 msgctxt "interactive"
 msgid "Add work attribute"
 msgstr "Lägg till verkattribut"
@@ -427,7 +403,6 @@ msgstr "Område"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Primary Type:"
 msgid "Area type"
 msgstr "Primär typ:"
 
@@ -500,19 +475,16 @@ msgstr "Artist"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist Area"
 msgid "Artist area"
 msgstr "Artistområde"
 
 #: ../root/artist/edit_form.tt:12
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Artist details"
 msgstr "Artistdetaljer"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist Area"
 msgid "Artist type"
 msgstr "Artistområde"
 
@@ -529,14 +501,12 @@ msgstr ""
 #: ../root/cdtoc/attach_artist_releases.tt:40
 #: ../root/cdtoc/AttachCDTocToRelease.js:120
 #, fuzzy
-#| msgid "CD TOC:"
 msgctxt "interactive"
 msgid "Attach CD TOC"
 msgstr "Innehållsförteckning för CD:"
 
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
 #, fuzzy
-#| msgid "Add disc ID"
 msgid "Attach disc ID"
 msgstr "Lägg till disc-ID"
 
@@ -546,7 +516,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:79
 #, fuzzy
-#| msgid "Auto-edits"
 msgctxt "user type"
 msgid "Auto-editor"
 msgstr "Automatiska redigeringar"
@@ -600,6 +569,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
+#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
 msgid "Blog"
 msgstr "Blogg"
 
@@ -609,16 +579,12 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438
 #, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "Bot"
 
 #: ../root/layout.tt:134 ../root/layout/components/Footer.js:62
 #, fuzzy
-#| msgid ""
-#| "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
-#| "{supp|supporters}. Cover Art provided by the {caa|Cover Art Archive}."
 msgid ""
 "Brought to you by {MeB|MetaBrainz Foundation} and our {spon|sponsors} and "
 "{supp|supporters}."
@@ -627,9 +593,7 @@ msgstr ""
 "{supp|supportrar}. Omslag tillhandahålls av {caa|Cover Art Archive}."
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
-#: ../root/main/index.js:211
 #, fuzzy
-#| msgid "Bug Tracker"
 msgid "Bug tracker"
 msgstr "Bughantering"
 
@@ -643,7 +607,6 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:21
 #, fuzzy
-#| msgid "No results found."
 msgid "CD stub found"
 msgstr "Inga resultat hittades."
 
@@ -693,12 +656,12 @@ msgid "Catalog#"
 msgstr "Katalognr"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
 #, fuzzy
-#| msgid "Merge release groups"
 msgid "Checking existing release groups…"
 msgstr "Slå samman utgivningsgrupper"
 
@@ -802,7 +765,6 @@ msgstr "DD"
 #: ../root/medium/MediumTracklist.js:46
 #: ../root/static/scripts/release/components/MediumTable.js:117
 #, fuzzy
-#| msgid "Data Tracks"
 msgid "Data tracks"
 msgstr "Dataspår"
 
@@ -911,6 +873,7 @@ msgid "Do not use any of the above releases as a starting point"
 msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
+#: ../root/layout/components/NewFooter.js:70
 msgid "Donate"
 msgstr "Donera"
 
@@ -938,7 +901,6 @@ msgstr "Redigera"
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:99
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "Redigera"
@@ -954,35 +916,30 @@ msgstr "Redigera"
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:529
 #: ../root/user/UserCollections.js:121
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "Redigera"
 
 #: ../root/url/edit_form.tt:1
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "Redigera webbadress"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit artist credit"
 msgstr "Ändra artist"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
 #, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "Redigera omslag"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, header"
 msgid "Edit event art"
 msgstr "Redigera omslag"
@@ -990,20 +947,17 @@ msgstr "Redigera omslag"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
 #, fuzzy
-#| msgid "Edit work"
 msgctxt "noun"
 msgid "Edit note"
 msgstr "Redigera verk"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit annotation"
 msgid "Edit note authors"
 msgstr "Redigera anteckning"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit Not Found"
 msgid "Edit note content"
 msgstr "Redigering hittades inte"
 
@@ -1016,7 +970,6 @@ msgstr ""
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
 #: ../root/layout/components/BottomMenu.js:320
 #, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "Redigera typer"
@@ -1035,7 +988,6 @@ msgstr "Redigerare"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Editor Flag"
 msgid "Editor flag"
 msgstr "Redigerarflagga"
 
@@ -1107,7 +1059,6 @@ msgstr "Händelse"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
 msgstr "Entitetstyp"
 
@@ -1124,7 +1075,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:77
 #, fuzzy
-#| msgid "Add release group"
 msgid "Existing release groups with similar names"
 msgstr "Lägg till utgivningsgrupp"
 
@@ -1262,7 +1212,7 @@ msgid "Format"
 msgstr "Format"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:214
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "Forum"
 
@@ -1355,7 +1305,6 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:472
 #, fuzzy
-#| msgid "I confirm that this is the barcode as it appears on the release."
 msgid "I confirm that these titles are capitalized correctly."
 msgstr ""
 "Jag bekräftar att detta är streckkoden som den förekommer i utgivningen."
@@ -1566,7 +1515,6 @@ msgstr "Instrument"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument type"
 msgstr "Instrumentlista"
 
@@ -1643,7 +1591,6 @@ msgstr "Skivbolag"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label Area"
 msgid "Label area"
 msgstr "Skivbolagområde"
 
@@ -1655,13 +1602,11 @@ msgstr ""
 
 #: ../root/label/edit_form.tt:8
 #, fuzzy
-#| msgid "Label Details"
 msgid "Label details"
 msgstr "Skivbolagsdetaljer"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label Area"
 msgid "Label type"
 msgstr "Skivbolagområde"
 
@@ -1673,6 +1618,7 @@ msgstr "Skivbolagområde"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
+#: ../root/static/scripts/homepage/language.js:66
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr "Språk"
@@ -1714,7 +1660,6 @@ msgstr "Rader som börjar med ett spårnummer"
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:114
 #, fuzzy
-#| msgid "Location Editor"
 msgctxt "user type"
 msgid "Location editor"
 msgstr "Platsredigerare"
@@ -1723,7 +1668,6 @@ msgstr "Platsredigerare"
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 #, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Logga in"
@@ -1870,13 +1814,11 @@ msgstr "Namn"
 
 #: ../root/artist/edit_credit.tt:16 ../root/artist/split.tt:43
 #, fuzzy
-#| msgid "New Artist"
 msgid "New artist credit"
 msgstr "Ny artist"
 
 #: ../root/event/add_event_art.tt:148 ../root/release/add_cover_art.tt:148
 #, fuzzy
-#| msgid "New Image Goes Here"
 msgid "New image goes here"
 msgstr "Ny bild ska vara här"
 
@@ -1989,7 +1931,6 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:238
 #, fuzzy
-#| msgid "Data Tracks"
 msgid "Parse tracks"
 msgstr "Dataspår"
 
@@ -2008,13 +1949,11 @@ msgstr "Plats"
 
 #: ../root/place/edit_form.tt:12
 #, fuzzy
-#| msgid "Place Details"
 msgid "Place details"
 msgstr "Platsdetaljer"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Place"
 msgid "Place type"
 msgstr "Plats"
 
@@ -2084,7 +2023,6 @@ msgstr "Position"
 
 #: ../root/cdtoc/lookup.tt:32
 #, fuzzy
-#| msgid "Possible values:"
 msgid "Possible mediums"
 msgstr "Möjliga värden:"
 
@@ -2101,7 +2039,6 @@ msgstr "Föregående"
 #: ../root/edit/details/AddReleaseGroup.js:62
 #: ../root/edit/details/EditReleaseGroup.js:56
 #, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary type"
 msgstr "Primär typ:"
 
@@ -2127,7 +2064,6 @@ msgstr "Inspelning"
 
 #: ../root/recording/edit_form.tt:23
 #, fuzzy
-#| msgid "Recording Details"
 msgid "Recording details"
 msgstr "Inspelningsdetaljer"
 
@@ -2157,7 +2093,6 @@ msgstr "Avvisa"
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:100
 #, fuzzy
-#| msgid "Relationship editor"
 msgctxt "user type"
 msgid "Relationship editor"
 msgstr "Förhållanderedigerare"
@@ -2208,19 +2143,16 @@ msgstr "Utgåva"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "Utgivningsland"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Quality"
 msgid "Release data quality"
 msgstr "Utgivningskvalitet"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
-#| msgid "Release Duplicates"
 msgid "Release duplicates"
 msgstr "Utgivningsdubbletter"
 
@@ -2258,25 +2190,21 @@ msgstr "Utgivningsgrupp"
 
 #: ../root/release_group/edit_form.tt:10
 #, fuzzy
-#| msgid "Release Group Details"
 msgid "Release group details"
 msgstr "Utgivningsgruppsdetaljer"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release group"
 msgid "Release group primary type"
 msgstr "Utgivningsgrupp"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
-#| msgid "Release groups"
 msgid "Release group search error"
 msgstr "Utgivningsgrupper"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release group"
 msgid "Release group secondary type"
 msgstr "Utgivningsgrupp"
 
@@ -2288,7 +2216,6 @@ msgstr "Utgivningsgrupp “{name}” av {artist}"
 #: ../root/cdtoc/attach_artist_releases.tt:31
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:63
 #, fuzzy
-#| msgid "Release Group: {release_group_link}"
 msgid "Release group: {release_group_link}"
 msgstr "Utgivningsgrupp: {release_group_link}"
 
@@ -2299,7 +2226,6 @@ msgstr "Utgivningsinformation"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Language"
 msgid "Release language"
 msgstr "Utgivningsspråk"
 
@@ -2328,28 +2254,24 @@ msgstr "Ta bort"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "IPI code"
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "IPI-kod"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "ISNI code"
 msgctxt "interactive"
 msgid "Remove ISNI code"
 msgstr "ISNI-kod"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "Ta bort ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "Ta bort ISRC"
@@ -2360,7 +2282,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:242
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "Ta bort etikett"
@@ -2371,7 +2292,6 @@ msgstr "Ta bort media"
 
 #: ../root/release/edit/information.tt:202
 #, fuzzy
-#| msgid "Remove release"
 msgid "Remove release event"
 msgstr "Ta bort ugåva"
 
@@ -2382,14 +2302,12 @@ msgstr "Ta bort spår"
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "Ta bort omslag"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "Ta bort omslag"
@@ -2442,6 +2360,7 @@ msgstr "Skript"
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
+#: ../root/static/scripts/homepage/mobile-search-popup.js:43
 #: ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "Sök"
@@ -2481,9 +2400,6 @@ msgstr ""
 
 #: ../root/release/add_cover_art.tt:66
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "a description of these types."
@@ -2492,9 +2408,6 @@ msgstr ""
 
 #: ../root/event/add_event_art.tt:66
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "a description of these types."
@@ -2531,13 +2444,11 @@ msgstr "Serie"
 
 #: ../root/series/edit_form.tt:8
 #, fuzzy
-#| msgid "View details"
 msgid "Series details"
 msgstr "Visa detaljer"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Series"
 msgid "Series type"
 msgstr "Serie"
 
@@ -2590,7 +2501,6 @@ msgstr ""
 
 #: ../root/artist/split.tt:1
 #, fuzzy
-#| msgid "Split Artist"
 msgid "Split artist"
 msgstr "Dela upp artist"
 
@@ -2613,7 +2523,6 @@ msgstr "Status"
 #: ../root/static/scripts/common/components/FilterForm.js:303
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:137
 #, fuzzy
-#| msgid "Status"
 msgctxt "release"
 msgid "Status"
 msgstr "Status"
@@ -2639,16 +2548,12 @@ msgstr ""
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:793
 #, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "Taggare"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
 #, fuzzy
-#| msgid ""
-#| "The Cover Art Archive is currently experiencing difficulties. Adding "
-#| "images for this release is unlikely to work at the moment."
 msgid ""
 "The Internet Archive is currently experiencing difficulties. Adding images "
 "is unlikely to work at the moment."
@@ -3261,7 +3166,6 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:46
 #, fuzzy
-#| msgid "Tracks"
 msgid "Track parser"
 msgstr "Spår"
 
@@ -3297,7 +3201,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:107
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "Avbryt redigering"
@@ -3370,7 +3273,6 @@ msgstr "Typ"
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
 #, fuzzy
-#| msgid "Type"
 msgid "Types"
 msgstr "Typ"
 
@@ -3516,6 +3418,7 @@ msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr ""
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
+#: ../root/layout/components/NewFooter.js:76
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3547,7 +3450,6 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:10
 #, fuzzy
-#| msgid "View details"
 msgid "Work details"
 msgstr "Visa detaljer"
 
@@ -3651,7 +3553,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
 #, fuzzy
-#| msgid "Removed"
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "Borttagen"
@@ -3697,7 +3598,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:111
 #, fuzzy
-#| msgid "Cancelled"
 msgctxt "event"
 msgid "cancelled"
 msgstr "Avbruten"
@@ -4111,10 +4011,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:187
 #, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
 msgid ""
 "We were unable to send login information to your email address. Please try "
 "again, and if that still doesn’t work, {contact_url|contact us}."
@@ -4219,7 +4115,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:215
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:457
 #, fuzzy
-#| msgid "The date you've entered is not valid."
 msgid "The provided medium ID is not valid."
 msgstr "Datumet du angav är inte giltigt."
 
@@ -4395,7 +4290,6 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
 #, fuzzy
-#| msgid "[unknown]"
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "[okänd]"
@@ -4404,19 +4298,19 @@ msgstr "[okänd]"
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -4431,7 +4325,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:354
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 #, fuzzy
-#| msgid "send email"
 msgctxt "header"
 msgid "Send email"
 msgstr "skicka e-post"
@@ -4455,7 +4348,6 @@ msgstr "Redigeraren {name} har ingen e-postadress kopplat till sitt konto."
 #: ../root/account/LostPasswordSent.js:16
 #: ../root/account/LostUsernameSent.js:16
 #, fuzzy
-#| msgid "Email Sent"
 msgctxt "header"
 msgid "Email sent"
 msgstr "E-post skickat"
@@ -4521,9 +4413,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:483
 #: ../root/event/EventArtDarkened.js:19 ../root/release/CoverArtDarkened.js:19
 #, fuzzy
-#| msgid ""
-#| "The Cover Art Archive has had a takedown request in the past for this "
-#| "release, so we are unable to allow any more uploads."
 msgid ""
 "The Internet Archive has had a takedown request in the past for this item, "
 "so we are unable to allow any more uploads."
@@ -4622,119 +4511,102 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add a new alias"
 msgctxt "edit type"
 msgid "Add area alias"
 msgstr "Lägg till nytt alias"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "Lägg till anteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "edit type"
 msgid "Add area"
 msgstr "Lägg till område"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "Ta bort ugåva"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "Ta bort artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
-#| msgid "End area:"
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "Slutområde:"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit area alias"
 msgstr "Redigera skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 #, fuzzy
-#| msgid "Merge releases"
 msgctxt "edit type"
 msgid "Merge areas"
 msgstr "Merge utgåvor"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist alias"
 msgstr "Skapa artistpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Artist annotations"
 msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "Artistanteckningar"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "Lägg till artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "Ta bort artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "Ta bort artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "Ändra artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit artist alias"
 msgstr "Redigera artistpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist credit"
 msgstr "Ändra artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 #, fuzzy
-#| msgid "Merge artists"
 msgctxt "edit type"
 msgid "Merge artists"
 msgstr "Slå ihop artister"
@@ -4757,133 +4629,114 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add alias"
 msgctxt "edit type"
 msgid "Add event alias"
 msgstr "Lägg till alias"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "Lägg till anteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 #, fuzzy
-#| msgid "Add Event"
 msgctxt "singular, edit type"
 msgid "Add event art"
 msgstr "Lägg till händelse"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
-#| msgid "Add Event"
 msgctxt "edit type"
 msgid "Add event"
 msgstr "Lägg till händelse"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
 #, fuzzy
-#| msgid "Release event"
 msgctxt "edit type"
 msgid "Remove event"
 msgstr "Utgivningshändelse"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "Ta bort artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "Redigera omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit alias"
 msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "Redigera alias"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, edit type"
 msgid "Edit event art"
 msgstr "Redigera omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Merge.pm:11
 #, fuzzy
-#| msgid "Release events"
 msgctxt "edit type"
 msgid "Merge events"
 msgstr "Utgivningshändelser"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 #, fuzzy
-#| msgid "Release event"
 msgctxt "singular, edit type"
 msgid "Remove event art"
 msgstr "Utgivningshändelse"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
 msgstr "Ta bort omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add a new alias"
 msgctxt "edit type"
 msgid "Add genre alias"
 msgstr "Lägg till nytt alias"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "Lägg till anteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
-#| msgid "Add Series"
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "Lägg till serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #, fuzzy
-#| msgid "Remove work"
 msgctxt "edit type"
 msgid "Remove genre"
 msgstr "Ta bort verk"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove work alias"
 msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "Ta bort verkpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "Redigera användare"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit work alias"
 msgctxt "edit type"
 msgid "Edit genre alias"
 msgstr "Redigera verkpseudonym"
@@ -4896,7 +4749,6 @@ msgstr "Historisk"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
 #, fuzzy
-#| msgid "Add disc ID"
 msgctxt "edit type"
 msgid "Add disc ID"
 msgstr "Lägg till disc-ID"
@@ -4904,7 +4756,6 @@ msgstr "Lägg till disc-ID"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:39
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "Lägg till förhållande"
@@ -4912,7 +4763,6 @@ msgstr "Lägg till förhållande"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release"
 msgstr "Lägg till utgåva"
@@ -4920,14 +4770,12 @@ msgstr "Lägg till utgåva"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Release annotations"
 msgctxt "edit type"
 msgid "Add release annotation"
 msgstr "Utgivningsanteckningar"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseEvents.pm:12
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Add release events (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
@@ -4935,14 +4783,12 @@ msgstr "Redigera utgivningshändelser (historiska)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:11
 #, fuzzy
-#| msgid "Add track(s)"
 msgctxt "edit type"
 msgid "Add track (historic)"
 msgstr "Lägg till spår"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeArtistQuality.pm:13
 #, fuzzy
-#| msgid "Change release data quality"
 msgctxt "edit type"
 msgid "Change artist quality (historic)"
 msgstr "Ändra utgivningens datakvalitet"
@@ -4956,7 +4802,6 @@ msgstr "Ändra utgivningens datakvalitet"
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Edit release"
 msgstr "Lägg till utgåva"
@@ -4964,7 +4809,6 @@ msgstr "Lägg till utgåva"
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseQuality.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Release/ChangeQuality.pm:26
 #, fuzzy
-#| msgid "Change release data quality"
 msgctxt "edit type"
 msgid "Change release data quality"
 msgstr "Ändra utgivningens datakvalitet"
@@ -4972,7 +4816,6 @@ msgstr "Ändra utgivningens datakvalitet"
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Edit track (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
@@ -4980,7 +4823,6 @@ msgstr "Redigera utgivningshändelser (historiska)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:47
 #, fuzzy
-#| msgid "Edit relationship"
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr "Redigera förhållande"
@@ -4988,7 +4830,6 @@ msgstr "Redigera förhållande"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEvents.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseEventsOld.pm:18
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Edit release events (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
@@ -4997,14 +4838,12 @@ msgstr "Redigera utgivningshändelser (historiska)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 #, fuzzy
-#| msgid "Edit recording"
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Redigera inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MACToSAC.pm:13
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Convert release to single artist (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
@@ -5013,7 +4852,6 @@ msgstr "Redigera utgivningshändelser (historiska)"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
 #, fuzzy
-#| msgid "Merge releases"
 msgctxt "edit type"
 msgid "Merge releases"
 msgstr "Merge utgåvor"
@@ -5021,7 +4859,6 @@ msgstr "Merge utgåvor"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
 #, fuzzy
-#| msgid "Move disc ID"
 msgctxt "edit type"
 msgid "Move disc ID"
 msgstr "Flytta disc-ID"
@@ -5029,7 +4866,6 @@ msgstr "Flytta disc-ID"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "edit type"
 msgid "Remove disc ID"
 msgstr "Ta bort disc-ID"
@@ -5037,7 +4873,6 @@ msgstr "Ta bort disc-ID"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label alias"
 msgstr "Ta bort etikett"
@@ -5045,7 +4880,6 @@ msgstr "Ta bort etikett"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:41
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr "Ta bort förhållande"
@@ -5053,35 +4887,30 @@ msgstr "Ta bort förhållande"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release"
 msgstr "Ta bort ugåva"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Remove release events (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Remove releases (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 #, fuzzy
-#| msgid "Remove track"
 msgctxt "edit type"
 msgid "Remove track"
 msgstr "Ta bort spår"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/SACToMAC.pm:16
 #, fuzzy
-#| msgid "Edit release events (historic)"
 msgctxt "edit type"
 msgid "Convert release to multiple artists (historic)"
 msgstr "Redigera utgivningshändelser (historiska)"
@@ -5094,126 +4923,108 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Add instrument alias"
 msgstr "Lägg till instrument"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add work annotation"
 msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "Lägg till verkanteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "Lägg till instrument"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 #, fuzzy
-#| msgid "Add another instrument"
 msgctxt "edit type"
 msgid "Remove instrument"
 msgstr "Lägg till ett annat instrument"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "Ta bort artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "Lägg till instrument"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit instrument alias"
 msgstr "Redigera artistpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 #, fuzzy
-#| msgid "Instruments"
 msgctxt "edit type"
 msgid "Merge instruments"
 msgstr "Instrument"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add label alias"
 msgstr "Skapa skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "Lägg till anteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 #, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add label"
 msgstr "Lägg till etikett"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label"
 msgstr "Ta bort etikett"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "Redigera etiketten"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit label alias"
 msgstr "Redigera skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 #, fuzzy
-#| msgid "Merge labels"
 msgctxt "edit type"
 msgid "Merge labels"
 msgstr "Sammanfoga etiketter"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 #, fuzzy
-#| msgid "Add medium"
 msgctxt "edit type"
 msgid "Add medium"
 msgstr "Lägg till media"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 #, fuzzy
-#| msgid "Remove medium"
 msgctxt "edit type"
 msgid "Remove medium"
 msgstr "Ta bort media"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 #, fuzzy
-#| msgid "Edit medium"
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "Redigera media"
@@ -5226,120 +5037,102 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add place alias"
 msgstr "Skapa skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "Lägg till anteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
-#| msgid "Add Place"
 msgctxt "edit type"
 msgid "Add place"
 msgstr "Lägg till plats"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove place"
 msgstr "Ta bort etikett"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "Ta bort artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "Redigera etiketten"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit place alias"
 msgstr "Redigera skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Merge.pm:11
 #, fuzzy
-#| msgid "Merge labels"
 msgctxt "edit type"
 msgid "Merge places"
 msgstr "Sammanfoga etiketter"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add recording"
 msgctxt "edit type"
 msgid "Add recording alias"
 msgstr "Lägg till inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Recording annotations"
 msgctxt "edit type"
 msgid "Add recording annotation"
 msgstr "Inspeningsanteckningar"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "Lägg till ISRC:er"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Standalone Recording"
 msgctxt "edit type"
 msgid "Add standalone recording"
 msgstr "Lägg till ensam inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
 #, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording"
 msgstr "Ta bort inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove recording"
 msgctxt "edit type"
 msgid "Remove recording alias"
 msgstr "Ta bort inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit recording"
 msgctxt "edit type"
 msgid "Edit recording alias"
 msgstr "Redigera inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
 #, fuzzy
-#| msgid "New recording"
 msgctxt "edit type"
 msgid "Merge recordings"
 msgstr "Ny inspelning"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISRC"
 msgstr "Ta bort ISRC"
@@ -5356,14 +5149,12 @@ msgstr "Förhållande"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkAttribute.pm:16
 #, fuzzy
-#| msgid "Edit Relationship Attribute"
 msgctxt "edit type"
 msgid "Add relationship attribute"
 msgstr "Redigera förhållandeattribut"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/AddLinkType.pm:15
 #, fuzzy
-#| msgid "Add relationship type"
 msgctxt "edit type"
 msgid "Add relationship type"
 msgstr "Lägg till relationstyp"
@@ -5384,112 +5175,96 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkAttribute.pm:17
 #, fuzzy
-#| msgid "Edit Relationship Attribute"
 msgctxt "edit type"
 msgid "Edit relationship attribute"
 msgstr "Redigera förhållandeattribut"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:23
 #, fuzzy
-#| msgid "Edit relationship type"
 msgctxt "edit type"
 msgid "Edit relationship type"
 msgstr "Redigera relationstyp"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkAttribute.pm:13
 #, fuzzy
-#| msgid "Relationship Attributes"
 msgctxt "edit type"
 msgid "Remove relationship attribute"
 msgstr "Förhållandeattribut"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "edit type"
 msgid "Remove relationship type"
 msgstr "Ta bort förhållande"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #, fuzzy
-#| msgid "Removed"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "Borttagen"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:32
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "edit type"
 msgid "Reorder relationships"
 msgstr "Ta bort förhållande"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label alias"
 msgctxt "edit type"
 msgid "Add release alias"
 msgstr "Skapa skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 #, fuzzy
-#| msgid "Add cover art"
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "Lägg till omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
 #, fuzzy
-#| msgid "Add release"
 msgctxt "edit type"
 msgid "Add release label"
 msgstr "Lägg till utgåva"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
-#| msgid "Removed"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "Borttagen"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release alias"
 msgstr "Ta bort ugåva"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release label"
 msgstr "Ta bort ugåva"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit label alias"
 msgctxt "edit type"
 msgid "Edit release alias"
 msgstr "Redigera skivbolagspseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 #, fuzzy
-#| msgid "Edit barcodes"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "Redigera streckkoder"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 #, fuzzy
-#| msgid "Edit cover art"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "Redigera omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit release label"
 msgstr "Redigera etiketten"
@@ -5508,84 +5283,72 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "Ta bort omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "Ta bort omslag"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderMediums.pm:20
 #, fuzzy
-#| msgid "Remove medium"
 msgctxt "edit type"
 msgid "Reorder mediums"
 msgstr "Ta bort media"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Add release group alias"
 msgstr "Lägg till utgivningsgrupp"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Release group annotations"
 msgctxt "edit type"
 msgid "Add release group annotation"
 msgstr "Utgivningsgruppsanteckningar"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "Lägg till utgivningsgrupp"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "edit type"
 msgid "Remove release group"
 msgstr "Ta bort ugåva"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Merge release groups"
 msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Slå samman utgivningsgrupper"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Lägg till utgivningsgrupp"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/EditAlias.pm:12
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "edit type"
 msgid "Edit release group alias"
 msgstr "Lägg till utgivningsgrupp"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
 #, fuzzy
-#| msgid "Merge release groups"
 msgctxt "edit type"
 msgid "Merge release groups"
 msgstr "Slå samman utgivningsgrupper"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/SetCoverArt.pm:20
 #, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, edit type"
 msgid "Set cover art"
 msgstr "Ändra omslag"
@@ -5636,70 +5399,60 @@ msgstr[1] ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add series alias"
 msgstr "Skapa artistpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add work annotation"
 msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "Lägg till verkanteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
-#| msgid "Add Series"
 msgctxt "edit type"
 msgid "Add series"
 msgstr "Lägg till serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove series"
 msgstr "Ta bort artist"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "Ta bort artistalias"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "Redigera användare"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit series alias"
 msgstr "Redigera artistpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Merge.pm:11
 #, fuzzy
-#| msgid "Merge Process"
 msgctxt "edit type"
 msgid "Merge series"
 msgstr "Sammanfoga framsteg"
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
 msgstr "Redigera webbadress"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:48
 #, fuzzy
-#| msgid "Opened:"
 msgctxt "adjective, edit status"
 msgid "Open"
 msgstr "Öppnade:"
@@ -5711,7 +5464,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:46
 #, fuzzy
-#| msgid "Failed"
 msgctxt "edit status"
 msgid "Failed vote"
 msgstr "Misslyckades"
@@ -5723,7 +5475,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:43
 #, fuzzy
-#| msgid "Error"
 msgctxt "edit status"
 msgid "Error"
 msgstr "Fel"
@@ -5735,14 +5486,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:47
 #, fuzzy
-#| msgid "No vote"
 msgctxt "edit status"
 msgid "No votes"
 msgstr "Ingen röstning"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:42
 #, fuzzy
-#| msgid "Cancelled"
 msgctxt "edit status"
 msgid "Cancelled"
 msgstr "Avbruten"
@@ -5753,77 +5502,66 @@ msgstr "Wiki-dokumentation"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc/Change.pm:16
 #, fuzzy
-#| msgid "Change WikiDoc"
 msgctxt "edit type"
 msgid "Change WikiDoc"
 msgstr "Ändra WikiDoc"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add work alias"
 msgctxt "edit type"
 msgid "Add work alias"
 msgstr "Skapa verkpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add work annotation"
 msgctxt "edit type"
 msgid "Add work annotation"
 msgstr "Lägg till verkanteckning"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddISWCs.pm:21
 #, fuzzy
-#| msgid "Add ISRCs"
 msgctxt "edit type"
 msgid "Add ISWCs"
 msgstr "Lägg till ISRC:er"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:22
 #, fuzzy
-#| msgid "Add work"
 msgctxt "edit type"
 msgid "Add work"
 msgstr "Lägg till verk"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
 #, fuzzy
-#| msgid "Remove work"
 msgctxt "edit type"
 msgid "Remove work"
 msgstr "Ta bort verk"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove work alias"
 msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "Ta bort verkpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
-#| msgid "Edit work"
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "Redigera verk"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
 #, fuzzy
-#| msgid "Edit work alias"
 msgctxt "edit type"
 msgid "Edit work alias"
 msgstr "Redigera verkpseudonym"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
 #, fuzzy
-#| msgid "Merge works"
 msgctxt "edit type"
 msgid "Merge works"
 msgstr "Sammanfoga verk"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 #, fuzzy
-#| msgid "Remove ISRC"
 msgctxt "edit type"
 msgid "Remove ISWC"
 msgstr "Ta bort ISRC"
@@ -5899,7 +5637,6 @@ msgstr "Avbruten"
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
 #, fuzzy
-#| msgid "[none]"
 msgctxt "barcode"
 msgid "[none]"
 msgstr "[inget]"
@@ -5907,14 +5644,12 @@ msgstr "[inget]"
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Editing disabled"
 msgstr "Redigering/röstning inaktiverat"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
 #: ../root/static/scripts/common/utility/privileges.js:164
 #, fuzzy
-#| msgid "Editing/voting disabled"
 msgid "Voting disabled"
 msgstr "Redigering/röstning inaktiverat"
 
@@ -6260,26 +5995,22 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
 #, fuzzy
-#| msgid "Related works"
 msgid "Related to works"
 msgstr "Relaterade verk"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:54
 #, fuzzy
-#| msgid "Related works"
 msgid "Not related to works"
 msgstr "Relaterade verk"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:71
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release country"
 msgid "[none]"
 msgstr "[inget]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Release.pm:80
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release status"
 msgid "[none]"
 msgstr "[inget]"
@@ -6292,7 +6023,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/ReleaseForArtist.pm:13
 #, fuzzy
-#| msgid "[none]"
 msgctxt "release label"
 msgid "[none]"
 msgstr "[inget]"
@@ -6305,7 +6035,6 @@ msgstr "[inget]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
 #, fuzzy
-#| msgid "Add recording"
 msgid "As recording artist"
 msgstr "Lägg till inspelning"
 
@@ -6315,13 +6044,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
-#| msgid "Merge artists"
 msgid "As other artist"
 msgstr "Slå ihop artister"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:48
 #, fuzzy
-#| msgid "Cannot edit"
 msgctxt "language"
 msgid "[not set]"
 msgstr "Kan inte redigera"
@@ -6438,7 +6165,6 @@ msgstr ""
 #: ../root/layout/components/Search.js:42
 #: ../root/search/components/SearchForm.js:42
 #, fuzzy
-#| msgid "Tags"
 msgctxt "noun, folksonomy"
 msgid "Tag"
 msgstr "Taggar"
@@ -6676,7 +6402,6 @@ msgstr "Bekräfta lösenord:"
 
 #: ../root/account/ChangePassword.js:95
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "interactive"
 msgid "Change password"
 msgstr "Ändra lösenord"
@@ -6685,7 +6410,6 @@ msgstr "Ändra lösenord"
 #: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
 #: ../root/components/UserAccountTabs.js:88
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "header"
 msgid "Change password"
 msgstr "Ändra lösenord"
@@ -6694,7 +6418,6 @@ msgstr "Ändra lösenord"
 #: ../root/account/DeleteOwnAccount.js:37
 #: ../root/components/UserAccountTabs.js:113
 #, fuzzy
-#| msgid "Delete Account"
 msgctxt "header"
 msgid "Delete account"
 msgstr "Ta bort konto"
@@ -6723,7 +6446,6 @@ msgstr "Är du säker på att du vill ta bort ditt konto? Detta kan inte ångras
 
 #: ../root/account/DeleteOwnAccount.js:76
 #, fuzzy
-#| msgid "Delete my account"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "Ta bort mitt konto"
@@ -6731,7 +6453,6 @@ msgstr "Ta bort mitt konto"
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:94
 #, fuzzy
-#| msgid "Documentation Search"
 msgid "Donation check"
 msgstr "Dokumentationssökning"
 
@@ -6773,7 +6494,6 @@ msgstr ""
 
 #: ../root/account/EditProfile.js:30 ../root/account/EditProfile.js:32
 #, fuzzy
-#| msgid "Edit profile"
 msgctxt "header"
 msgid "Edit profile"
 msgstr "Redigera profil"
@@ -6785,7 +6505,6 @@ msgstr ""
 
 #: ../root/account/EmailVerificationStatus.js:14
 #, fuzzy
-#| msgid "resend verification email"
 msgctxt "header"
 msgid "Email verification"
 msgstr "skicka bekräftelse igen"
@@ -6799,7 +6518,6 @@ msgstr ""
 #: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
 #: ../root/account/LostPasswordSent.js:16
 #, fuzzy
-#| msgid "Lost Password"
 msgid "Lost password"
 msgstr "Förlorat lösenord"
 
@@ -6820,7 +6538,6 @@ msgstr "E-post"
 
 #: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
 #, fuzzy
-#| msgid "Reset Password"
 msgctxt "interactive"
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -6838,7 +6555,6 @@ msgstr ""
 #: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
 #: ../root/account/LostUsernameSent.js:16
 #, fuzzy
-#| msgid "Lost Username"
 msgid "Lost username"
 msgstr "Förlorat användarnamn"
 
@@ -6852,7 +6568,6 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
 #, fuzzy
-#| msgid "send email"
 msgctxt "interactive"
 msgid "Send email"
 msgstr "skicka e-post"
@@ -6880,7 +6595,6 @@ msgstr ""
 
 #: ../root/account/Register.js:22 ../root/account/Register.js:29
 #, fuzzy
-#| msgid "Create an Account"
 msgctxt "header"
 msgid "Create an account"
 msgstr "Skapa ett konto"
@@ -6914,9 +6628,6 @@ msgstr ""
 
 #: ../root/account/Register.js:67
 #, fuzzy
-#| msgid ""
-#| "If you have any questions, please review the {faq|FAQs} or {doc|"
-#| "documentation} before {con|contacting us}. "
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
@@ -6926,9 +6637,6 @@ msgstr ""
 
 #: ../root/account/Register.js:79
 #, fuzzy
-#| msgid ""
-#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-#| "the {fo|forums} or {irc|IRC}."
 msgid ""
 "Follow our {blog_link|blog} or our {bluesky_link|Bluesky} or {mastodon_link|"
 "Mastodon} accounts! To talk to other users, try the {forum_link|forums} or "
@@ -6946,7 +6654,6 @@ msgstr ""
 #: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
 #: ../root/account/ResetPasswordStatus.js:14
 #, fuzzy
-#| msgid "Reset Password"
 msgctxt "header"
 msgid "Reset password"
 msgstr "Återställ lösenord"
@@ -6958,32 +6665,29 @@ msgstr "Ange ett nytt lösenord för ditt MusicBrainz-konto."
 #: ../root/account/applications/ApplicationList.js:27
 #: ../root/static/scripts/account/components/ApplicationForm.js:39
 #, fuzzy
-#| msgid "Application"
 msgid "Web application"
 msgstr "Applikation"
 
 #: ../root/account/applications/ApplicationList.js:28
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
 #, fuzzy
-#| msgid "Installed Application"
 msgid "Installed application"
 msgstr "Installerad applikation"
 
 #: ../root/account/applications/ApplicationList.js:58
 #, fuzzy
-#| msgid "Allow access"
 msgid "Revoke access"
 msgstr "Tillåt åtkomst"
 
 #: ../root/account/applications/ApplicationList.js:70
 #, fuzzy
-#| msgid "Allow access"
 msgid "Offline access"
 msgstr "Tillåt åtkomst"
 
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "Applications"
 msgstr "Applikationer"
 
@@ -7055,14 +6759,12 @@ msgstr ""
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
 #, fuzzy
-#| msgid "Application"
 msgctxt "header"
 msgid "Edit application"
 msgstr "Applikation"
 
 #: ../root/account/applications/EditApplication.js:23
 #, fuzzy
-#| msgid "Update"
 msgctxt "verb, data, interactive"
 msgid "Update"
 msgstr "Uppdatera"
@@ -7070,14 +6772,12 @@ msgstr "Uppdatera"
 #: ../root/account/applications/RegisterApplication.js:19
 #: ../root/account/applications/RegisterApplication.js:20
 #, fuzzy
-#| msgid "Description"
 msgctxt "header"
 msgid "Register application"
 msgstr "Beskrivning"
 
 #: ../root/account/applications/RegisterApplication.js:24
 #, fuzzy
-#| msgid "Description"
 msgctxt "interactive"
 msgid "Register application"
 msgstr "Beskrivning"
@@ -7088,7 +6788,6 @@ msgstr "Är du säker på att du vill ta bort denna applikation?"
 
 #: ../root/account/applications/RemoveApplication.js:17
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "header"
 msgid "Remove application"
 msgstr "Ta bort förhållande"
@@ -7109,7 +6808,6 @@ msgstr ""
 #: ../root/account/sso/DiscourseRegistered.js:14
 #: ../root/account/sso/DiscourseRegistered.js:15
 #, fuzzy
-#| msgid "Account Created"
 msgctxt "header"
 msgid "Account created"
 msgstr "Konto har skapats"
@@ -7132,7 +6830,6 @@ msgstr ""
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:14
 #: ../root/account/sso/DiscourseUnconfirmedEmailAddress.js:15
 #, fuzzy
-#| msgid "View your email address"
 msgctxt "header"
 msgid "Unverified email address"
 msgstr "Visa din e-postadress"
@@ -7179,7 +6876,6 @@ msgstr ""
 #: ../root/annotation/EditAnnotation.js:37
 #: ../root/annotation/EditAnnotation.js:39
 #, fuzzy
-#| msgid "Edit annotation"
 msgctxt "header"
 msgid "Edit annotation"
 msgstr "Redigera anteckning"
@@ -7206,14 +6902,12 @@ msgstr "Ändringslogg:"
 
 #: ../root/annotation/EditAnnotation.js:84
 #, fuzzy
-#| msgid "Preview"
 msgctxt "interactive"
 msgid "Preview"
 msgstr "Förhandsvisning"
 
 #: ../root/annotation/EditAnnotation.js:89
 #, fuzzy
-#| msgid "Annotation Formatting"
 msgid "Annotation formatting"
 msgstr "Anteckningsformat"
 
@@ -7529,7 +7223,6 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:326
 #, fuzzy
-#| msgid "No releases found which feature this recording."
 msgid "No release groups found that match this search."
 msgstr "Inga utgivningar hittades som har denna inspelning."
 
@@ -7681,8 +7374,6 @@ msgstr ""
 #: ../root/artist/utils.js:14
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:99
 #, fuzzy
-#| msgctxt "character artist"
-#| msgid "Created"
 msgctxt "character artist"
 msgid "Created in"
 msgstr "Skapades"
@@ -7692,7 +7383,6 @@ msgstr "Skapades"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:85
 #, fuzzy
-#| msgid "Begin Area"
 msgid "Begin area"
 msgstr "Startområde"
 
@@ -7744,7 +7434,6 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:87
 #, fuzzy
-#| msgid "End area:"
 msgid "End area"
 msgstr "Slutområde:"
 
@@ -7909,7 +7598,6 @@ msgstr "Lade till {add}, senast ändrad {lastmod}"
 
 #: ../root/cdstub/CDStubNotFound.js:14
 #, fuzzy
-#| msgid "Artist Not Found"
 msgid "CD stub not found"
 msgstr "Artist hittades inte"
 
@@ -7921,7 +7609,6 @@ msgstr ""
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 #, fuzzy
-#| msgid "Invalid Disc ID"
 msgid "Invalid disc ID"
 msgstr "Ogiltigt skiv-ID"
 
@@ -7940,9 +7627,6 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:41
 #, fuzzy
-#| msgid ""
-#| "Are you sure you want to remove the disc ID <code>{discid}</code> from "
-#| "the release {release} by {artist}?"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "medium {pos} ({format}) of {release} by {artist}?"
@@ -7969,7 +7653,6 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
 #, fuzzy
-#| msgid "Move Disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "Flytta skiv-ID"
@@ -8084,7 +7767,6 @@ msgstr ""
 
 #: ../root/cdtoc/RemoveDiscId.js:33 ../root/cdtoc/RemoveDiscId.js:35
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "Ta bort disc-ID"
@@ -8130,7 +7812,6 @@ msgstr ""
 #: ../root/cdtoc/SetTracklistDurations.js:33
 #: ../root/cdtoc/SetTracklistDurations.js:34
 #, fuzzy
-#| msgid "Series Subscriptions"
 msgid "Set tracklist durations"
 msgstr "Serieprenumeranter"
 
@@ -8166,7 +7847,6 @@ msgstr ""
 
 #: ../root/collection/CollectionHeader.js:78
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Redigera"
@@ -8272,7 +7952,6 @@ msgstr ""
 #: ../root/collection/CreateCollection.js:24
 #: ../root/collection/CreateCollection.js:27
 #, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "header"
 msgid "Add a new collection"
 msgstr "Lägg till i en ny samling"
@@ -8341,7 +8020,6 @@ msgstr ""
 
 #: ../root/components/Aliases/index.js:71
 #, fuzzy
-#| msgid "Add a new alias"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "Lägg till nytt alias"
@@ -8466,7 +8144,6 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:108
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural"
 msgid "Cover art"
 msgstr "Omslag:"
@@ -8478,15 +8155,12 @@ msgstr "Omslag ({num})"
 
 #: ../root/components/EntityTabs.js:123
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural"
 msgid "Event art"
 msgstr "Händelsebetyg"
 
 #: ../root/components/EntityTabs.js:125
 #, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
 msgstr "Omslag ({num})"
@@ -8498,7 +8172,6 @@ msgstr "Omslag ({num})"
 #: ../root/tag/TagCloud.js:94 ../root/tag/TagCloud.js:96
 #: ../root/user/UserTagList.js:55
 #, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tags"
 msgstr "Taggar"
@@ -8681,6 +8354,7 @@ msgstr "Profil"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
+#: ../root/static/scripts/homepage/editor-tools.js:128
 msgid "Subscriptions"
 msgstr "Prenumerationer"
 
@@ -8789,7 +8463,6 @@ msgstr ""
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Other artists"
 msgstr "Slå ihop artister"
 
@@ -8825,7 +8498,6 @@ msgstr ""
 #: ../root/doc/DocError.js:26 ../root/doc/DocError.js:30
 #: ../root/main/error/Error404.js:26 ../root/main/error/MirrorError404.js:14
 #, fuzzy
-#| msgid "Page Not Found"
 msgid "Page not found"
 msgstr "Sidan hittades inte"
 
@@ -8867,7 +8539,6 @@ msgstr "Sök dokumentationen..."
 
 #: ../root/edit/CancelEdit.js:24 ../root/edit/CancelEdit.js:25
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "header"
 msgid "Cancel edit"
 msgstr "Avbryt redigering"
@@ -8892,7 +8563,6 @@ msgstr ""
 
 #: ../root/edit/CancelEdit.js:52
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "interactive"
 msgid "Cancel edit"
 msgstr "Avbryt redigering"
@@ -8912,7 +8582,6 @@ msgstr ""
 #: ../root/edit/CannotApproveEdit.js:30 ../root/edit/CannotApproveEdit.js:31
 #: ../root/edit/NoteIsRequired.js:17 ../root/edit/NoteIsRequired.js:18
 #, fuzzy
-#| msgid "&#x26a0; Error creating edit"
 msgid "Error approving edit"
 msgstr "&#x26a0; Fel när redigering skapades"
 
@@ -8922,7 +8591,6 @@ msgstr ""
 
 #: ../root/edit/CannotCancelEdit.js:18 ../root/edit/CannotCancelEdit.js:19
 #, fuzzy
-#| msgid "&#x26a0; Error creating edit"
 msgid "Error cancelling edit"
 msgstr "&#x26a0; Fel när redigering skapades"
 
@@ -8936,7 +8604,6 @@ msgstr ""
 
 #: ../root/edit/CannotVote.js:14 ../root/edit/CannotVote.js:15
 #, fuzzy
-#| msgid "Log in to edit"
 msgid "Error voting on edits"
 msgstr "Logga in för att redigera"
 
@@ -9028,7 +8695,6 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:181
 #, fuzzy
-#| msgid "Editors"
 msgctxt "noun"
 msgid "Edit notes"
 msgstr "Redigerare"
@@ -9096,7 +8762,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:37
 #, fuzzy
-#| msgid "Open Edits"
 msgctxt "noun"
 msgid "Open edits"
 msgstr "Öppnade redigeringar"
@@ -9104,13 +8769,11 @@ msgstr "Öppnade redigeringar"
 #: ../root/edit/SubscribedEditorEdits.js:21
 #: ../root/edit/SubscribedEditorEdits.js:23
 #, fuzzy
-#| msgid "Edits by Your Subscribed Editors"
 msgid "Edits by your subscribed editors"
 msgstr "Redigeringar av dina prenumererande redigerare"
 
 #: ../root/edit/SubscribedEdits.js:21 ../root/edit/SubscribedEdits.js:23
 #, fuzzy
-#| msgid "Edits for Your Subscribed Entities"
 msgid "Edits for your subscribed entities"
 msgstr "Redigeringar för dina prenumererande entiteter"
 
@@ -9123,7 +8786,6 @@ msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "singular"
 msgid "Event art"
 msgstr "Händelsebetyg"
@@ -9132,7 +8794,6 @@ msgstr "Händelsebetyg"
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:170
 #: ../root/user/UserProfile.js:56
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Cover art"
 msgstr "Omslag:"
@@ -9140,7 +8801,6 @@ msgstr "Omslag:"
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:33
 #, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
@@ -9149,13 +8809,11 @@ msgstr "Vi kan inte visa historik för detta omslag."
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:37
 #, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid "We are unable to display history for this image."
 msgstr "Vi kan inte visa historik för detta omslag."
 
 #: ../root/edit/components/EditEnteredFrom.js:25
 #, fuzzy
-#| msgid "Enter edit"
 msgid "Entered from"
 msgstr "Ange redigering"
 
@@ -9190,7 +8848,6 @@ msgstr "N/A"
 
 #: ../root/edit/components/EditHeader.js:114 ../root/edit/components/Vote.js:93
 #, fuzzy
-#| msgid "None"
 msgctxt "vote"
 msgid "None"
 msgstr "Inga"
@@ -9323,7 +8980,6 @@ msgstr "Redigerar vanliga frågor"
 #: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/voting.js:29
 #, fuzzy
-#| msgid "Add Note"
 msgctxt "interactive"
 msgid "Add note"
 msgstr "Lägg till anteckning"
@@ -9380,7 +9036,6 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:104
 #, fuzzy
-#| msgid "Allow other users to see this collection"
 msgid "Others’ edits for this collection"
 msgstr "Tillåt andra användare att se denna samling"
 
@@ -9434,7 +9089,7 @@ msgid "Introduction to editing"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:182
+#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
 msgid "Style guidelines"
 msgstr "Stilriktlinjer"
 
@@ -9710,7 +9365,6 @@ msgstr ""
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:119
 #: ../root/static/scripts/work/edit.js:343
 #, fuzzy
-#| msgid "Languages:"
 msgid "Lyrics languages"
 msgstr "Språk"
 
@@ -9724,7 +9378,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:25
 #: ../root/release/ChangeQuality.js:58
 #, fuzzy
-#| msgid "Data Quality"
 msgid "Data quality"
 msgstr "datakvalitet"
 
@@ -9762,7 +9415,6 @@ msgstr ""
 
 #: ../root/edit/details/EditAlias.js:74
 #, fuzzy
-#| msgid "Removed"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "Borttagen"
@@ -9783,13 +9435,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:272
 #, fuzzy
-#| msgid "Old Tracklist"
 msgid "Old tracklist"
 msgstr "Gammal spårlista"
 
 #: ../root/edit/details/EditMedium.js:273
 #, fuzzy
-#| msgid "New Tracklist"
 msgid "New tracklist"
 msgstr "Ny spårlista"
 
@@ -9807,13 +9457,11 @@ msgstr "Ny inspelning"
 
 #: ../root/edit/details/EditMedium.js:547
 #, fuzzy
-#| msgid "Old Artist"
 msgid "Old artist"
 msgstr "Gammal artist"
 
 #: ../root/edit/details/EditMedium.js:548
 #, fuzzy
-#| msgid "New Artist"
 msgid "New artist"
 msgstr "Ny artist"
 
@@ -9873,7 +9521,6 @@ msgstr "Sök efter målwebbadressen"
 #: ../root/edit/details/MergeReleaseGroups.js:17
 #: ../root/edit/details/MergeSeries.js:16 ../root/edit/details/MergeWorks.js:16
 #, fuzzy
-#| msgid "Merge"
 msgctxt "verb, header, paired with Into"
 msgid "Merge"
 msgstr "Sammanfoga"
@@ -9892,7 +9539,6 @@ msgstr "Sammanfoga"
 #: ../root/edit/details/MergeReleases.js:304
 #: ../root/edit/details/MergeSeries.js:22 ../root/edit/details/MergeWorks.js:22
 #, fuzzy
-#| msgid "Into:"
 msgctxt "header, paired with Merge"
 msgid "Into"
 msgstr "Till:"
@@ -9923,7 +9569,6 @@ msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:298
 #, fuzzy
-#| msgid "Recording Merges"
 msgid "Recording merges"
 msgstr "Inspelning sammanfogas"
 
@@ -10035,7 +9680,6 @@ msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:33
 #, fuzzy
-#| msgid "Old cover art:"
 msgctxt "singular"
 msgid "Old cover art:"
 msgstr "Gammalt omslag:"
@@ -10053,14 +9697,12 @@ msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:61
 #, fuzzy
-#| msgid "New cover art:"
 msgctxt "singular"
 msgid "New cover art:"
 msgstr "Nytt omslag:"
 
 #: ../root/edit/details/SetTrackLengths.js:54
 #, fuzzy
-#| msgid "Removed"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "Borttagen"
@@ -10106,13 +9748,11 @@ msgstr ""
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:57
 #, fuzzy
-#| msgid "New Type:"
 msgid "New type:"
 msgstr "Ny typ:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:64
 #, fuzzy
-#| msgid "New Status:"
 msgid "New status:"
 msgstr "Ny status:"
 
@@ -10392,7 +10032,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:27
 #, fuzzy
-#| msgid "Area Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "Område hittades inte"
@@ -10405,7 +10044,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:36
 #, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "Artist hittades inte"
@@ -10418,7 +10056,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:45
 #, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "Artist credit not found"
 msgstr "Artist hittades inte"
@@ -10429,7 +10066,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:51
 #, fuzzy
-#| msgid "Artist Not Found"
 msgctxt "header"
 msgid "CD TOC not found"
 msgstr "Artist hittades inte"
@@ -10440,7 +10076,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:57
 #, fuzzy
-#| msgid "Collection Not Found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "Samling hittades inte"
@@ -10451,7 +10086,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:65
 #, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "Redigering hittades inte"
@@ -10464,20 +10098,17 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:74
 #, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Edit note not found"
 msgstr "Redigerare hittades inte"
 
 #: ../root/entity/NotFound.js:76
 #, fuzzy
-#| msgid "Sorry, we could not find this election."
 msgid "Sorry, we could not find an edit note with that ID."
 msgstr "Ledsen, men vi kunde inte hitta det här valet."
 
 #: ../root/entity/NotFound.js:82
 #, fuzzy
-#| msgid "Collection Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "Samling hittades inte"
@@ -10492,7 +10123,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:88
 #, fuzzy
-#| msgid "Event Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "Händelse hittades inte"
@@ -10505,7 +10135,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:97
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "Sidan hittades inte"
@@ -10518,7 +10147,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:106
 #, fuzzy
-#| msgid "Instrument Not Found"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "Instrument hittades inte"
@@ -10531,7 +10159,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:115
 #, fuzzy
-#| msgid "ISRC Not Currently Used"
 msgctxt "header"
 msgid "ISRC not currently used"
 msgstr "ISRC används inte för tillfället"
@@ -10544,7 +10171,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:125
 #, fuzzy
-#| msgid "ISRC Not Currently Used"
 msgctxt "header"
 msgid "ISWC not currently used"
 msgstr "ISRC används inte för tillfället"
@@ -10557,7 +10183,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:134
 #, fuzzy
-#| msgid "Label Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "Skivbolag hittades inte"
@@ -10570,20 +10195,17 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:143
 #, fuzzy
-#| msgid "Edit Not Found"
 msgctxt "header"
 msgid "Medium not found"
 msgstr "Redigering hittades inte"
 
 #: ../root/entity/NotFound.js:145
 #, fuzzy
-#| msgid "Sorry, we could not find this election."
 msgid "Sorry, we could not find a medium with that MusicBrainz ID."
 msgstr "Ledsen, men vi kunde inte hitta det här valet."
 
 #: ../root/entity/NotFound.js:151
 #, fuzzy
-#| msgid "Entity Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "Entitet hittades inte"
@@ -10596,7 +10218,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:160
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Place not found"
 msgstr "Sidan hittades inte"
@@ -10609,7 +10230,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:169
 #, fuzzy
-#| msgid "Recording Not Found"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "Inspelning hittades inte"
@@ -10622,7 +10242,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:178
 #, fuzzy
-#| msgid "Relationship attribute in use"
 msgctxt "header"
 msgid "Relationship attribute not found"
 msgstr "Förhållandeattribut används"
@@ -10634,7 +10253,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:187
 #, fuzzy
-#| msgid "Relationship Type In Use"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "Förhållandetyp används"
@@ -10645,7 +10263,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:196
 #, fuzzy
-#| msgid "Release Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "Utgivning hittades inte"
@@ -10658,7 +10275,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:205
 #, fuzzy
-#| msgid "Release Group Not Found"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "Utgivningsgrupp hittades inte"
@@ -10671,7 +10287,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:214
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "Sidan hittades inte"
@@ -10684,7 +10299,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:223
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "Sidan hittades inte"
@@ -10697,7 +10311,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:233
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "Sidan hittades inte"
@@ -10708,7 +10321,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:239
 #, fuzzy
-#| msgid "Editor Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "Redigerare hittades inte"
@@ -10721,7 +10333,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:248
 #, fuzzy
-#| msgid "Page Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "Sidan hittades inte"
@@ -10758,7 +10369,6 @@ msgstr ""
 
 #: ../root/entity/Ratings.js:113
 #, fuzzy
-#| msgid "Most Popular"
 msgid "Most popular"
 msgstr "Mest populär"
 
@@ -10824,21 +10434,18 @@ msgstr "Du prenumererar inte för tillfället. {sub|Prenumerera}?"
 
 #: ../root/entity/alias/AddOrEditAlias.js:27
 #, fuzzy
-#| msgid "Add alias"
 msgctxt "header"
 msgid "Add alias"
 msgstr "Lägg till alias"
 
 #: ../root/entity/alias/AddOrEditAlias.js:28
 #, fuzzy
-#| msgid "Edit alias"
 msgctxt "header"
 msgid "Edit alias"
 msgstr "Redigera alias"
 
 #: ../root/entity/alias/DeleteAlias.js:25
 #, fuzzy
-#| msgid "Remove work alias"
 msgctxt "header"
 msgid "Remove alias"
 msgstr "Ta bort verkpseudonym"
@@ -10853,28 +10460,24 @@ msgstr ""
 
 #: ../root/event/CreateEvent.js:23 ../root/event/CreateEvent.js:25
 #, fuzzy
-#| msgid "Add Event"
 msgctxt "header"
 msgid "Add event"
 msgstr "Lägg till händelse"
 
 #: ../root/event/EditEvent.js:28
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "header"
 msgid "Edit event"
 msgstr "Redigera omslag"
 
 #: ../root/event/EventArt.js:28
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "plural, header"
 msgid "Event art"
 msgstr "Händelsebetyg"
 
 #: ../root/event/EventArt.js:34
 #, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
 msgstr "Kan inte lägga till omslag"
@@ -10894,9 +10497,6 @@ msgstr "Alla storlekar:"
 
 #: ../root/event/EventArt.js:96
 #, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
@@ -10906,49 +10506,40 @@ msgstr ""
 
 #: ../root/event/EventArt.js:108
 #, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
 msgstr "Vi har för tillfället inte något omslag för {release}."
 
 #: ../root/event/EventArt.js:118
 #, fuzzy
-#| msgid "Add Event"
 msgctxt "plural, interactive"
 msgid "Add event art"
 msgstr "Lägg till händelse"
 
 #: ../root/event/EventArt.js:124
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "Ta bort omslag"
 
 #: ../root/event/EventArt.js:133 ../root/release/CoverArt.js:149
 #, fuzzy
-#| msgid "Log in to upload cover art"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
 msgstr "Logga in för att ladda upp omslagsbild"
 
 #: ../root/event/EventArtDarkened.js:13
 #, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add event art"
 msgstr "Kan inte lägga till omslag"
 
 #: ../root/event/EventArtFields.js:21
 #, fuzzy
-#| msgid "Choose one or more cover art types for this image"
 msgid "Choose one or more event art types for this image"
 msgstr "Välj en eller flera omslagstyper för denna bild"
 
 #: ../root/event/EventArtFields.js:23
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Event Art Types} documentation for "
 "their descriptions."
@@ -10967,16 +10558,12 @@ msgstr ""
 
 #: ../root/event/RemoveEventArt.js:24
 #, fuzzy
-#| msgid "Release event"
 msgctxt "singular, header"
 msgid "Remove event art"
 msgstr "Utgivningshändelse"
 
 #: ../root/event/RemoveEventArt.js:31 ../root/release/RemoveCoverArt.js:32
 #, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
 msgstr ""
 "Är du säker på att du vill ta bort omslaget nedan från {release} av {artist}?"
@@ -11024,7 +10611,6 @@ msgstr ""
 
 #: ../root/genre/GenreIndex.js:34
 #, fuzzy
-#| msgid "Primary Type:"
 msgctxt "folksonomy"
 msgid "Primary tag"
 msgstr "Primär typ:"
@@ -11032,7 +10618,6 @@ msgstr "Primär typ:"
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
 #: ../root/layout/components/BottomMenu.js:329
 #, fuzzy
-#| msgid "Genres"
 msgid "Genre list"
 msgstr "Genrer"
 
@@ -11061,7 +10646,6 @@ msgstr ""
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
 #, fuzzy
-#| msgid "Instrument List"
 msgid "Instrument list"
 msgstr "Instrumentlista"
 
@@ -11099,7 +10683,6 @@ msgstr[1] ""
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 #, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording artists"
 msgstr "Inspelning av {artist}"
 
@@ -11128,22 +10711,26 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
+#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr "(återställ språk)"
 
 #: ../root/layout/components/BottomMenu.js:93
+#: ../root/static/scripts/homepage/language.js:101
+#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/navbar.js:273
+#: ../root/static/scripts/homepage/navbar.js:275
 #, fuzzy
-#| msgid "Help Translate"
 msgid "Help translate"
 msgstr "Hjälp till att översätta"
 
 #: ../root/layout/components/BottomMenu.js:105
 #, fuzzy
-#| msgid "About Us"
 msgid "About us"
 msgstr "Om oss"
 
-#: ../root/layout/components/BottomMenu.js:110
+#: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
 msgid "About MusicBrainz"
 msgstr "Om MusicBrainz"
 
@@ -11156,18 +10743,17 @@ msgid "Team"
 msgstr "Team"
 
 #: ../root/layout/components/BottomMenu.js:119
+#: ../root/layout/components/NewFooter.js:94
 msgid "Shop"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:122
 #, fuzzy
-#| msgid "Contact Us"
 msgid "Contact us"
 msgstr "Kontakta oss"
 
 #: ../root/layout/components/BottomMenu.js:125
 #, fuzzy
-#| msgid "Data Licenses"
 msgid "Data licenses"
 msgstr "Datalicenser"
 
@@ -11181,7 +10767,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:134
 #, fuzzy
-#| msgid "Privacy Policy"
 msgid "Privacy policy"
 msgstr "Integritetspolicy"
 
@@ -11208,13 +10793,11 @@ msgstr "Statistik"
 
 #: ../root/layout/components/BottomMenu.js:157
 #, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
 msgstr "Tidslinjegraf"
 
 #: ../root/layout/components/BottomMenu.js:160
 #, fuzzy
-#| msgid "MusicBrainz: Artist"
 msgid "MusicBrainz history"
 msgstr "MusicBrainz: Artist"
 
@@ -11222,19 +10805,22 @@ msgstr "MusicBrainz: Artist"
 msgid "Products"
 msgstr "Produkter"
 
-#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
+#: ../root/layout/components/BottomMenu.js:176
+#: ../root/static/scripts/homepage/banner-carousel.js:47
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
-#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
+#: ../root/layout/components/BottomMenu.js:179
+#: ../root/static/scripts/homepage/banner-carousel.js:52
 msgid "AudioRanger"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:160
+#: ../root/layout/components/BottomMenu.js:182
+#: ../root/static/scripts/homepage/banner-carousel.js:55
 msgid "Mp3tag"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:164
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Yate Music Tagger"
 msgstr ""
 
@@ -11246,13 +10832,12 @@ msgstr "MusicBrainz för Android"
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz-server"
 
-#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:220
+#: ../root/layout/components/BottomMenu.js:196
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz databas"
 
-#: ../root/layout/components/BottomMenu.js:199
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
 #, fuzzy
-#| msgid "Developer Resources"
 msgid "Developer resources"
 msgstr "Utvecklingsresurser"
 
@@ -11265,20 +10850,18 @@ msgid "Live Data Feed"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/search.js:171
 #, fuzzy
-#| msgid "Advanced"
 msgid "Advanced search"
 msgstr "Avancerad"
 
 #: ../root/layout/components/BottomMenu.js:224
 #, fuzzy
-#| msgid "Edit user"
 msgid "Edit search"
 msgstr "Redigera användare"
 
 #: ../root/layout/components/BottomMenu.js:227
 #, fuzzy
-#| msgid "Tag lookup"
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "Kolla upp tagg"
@@ -11292,7 +10875,6 @@ msgstr "Redigerar"
 
 #: ../root/layout/components/BottomMenu.js:246
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "Lägg till artist"
@@ -11300,7 +10882,6 @@ msgstr "Lägg till artist"
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
 #, fuzzy
-#| msgid "Add release group"
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Lägg till utgivningsgrupp"
@@ -11310,22 +10891,18 @@ msgstr "Lägg till utgivningsgrupp"
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
 #, fuzzy
-#| msgid "Add release"
 msgctxt "interactive"
 msgid "Add release"
 msgstr "Lägg till utgåva"
 
 #: ../root/layout/components/BottomMenu.js:261
 #, fuzzy
-#| msgid "Add Various Artists Release"
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "Lägg till utgåva av blandade artister"
 
 #: ../root/layout/components/BottomMenu.js:266
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Standalone Recording"
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "Lägg till ensam inspelning"
@@ -11333,21 +10910,18 @@ msgstr "Lägg till ensam inspelning"
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
 #, fuzzy
-#| msgid "Add work"
 msgctxt "interactive"
 msgid "Add work"
 msgstr "Lägg till verk"
 
 #: ../root/layout/components/BottomMenu.js:273
 #, fuzzy
-#| msgid "Add Place"
 msgctxt "interactive"
 msgid "Add place"
 msgstr "Lägg till plats"
 
 #: ../root/layout/components/BottomMenu.js:277
 #, fuzzy
-#| msgid "Add Series"
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "Lägg till serie"
@@ -11356,14 +10930,12 @@ msgstr "Lägg till serie"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
 #, fuzzy
-#| msgid "Add Event"
 msgctxt "interactive"
 msgid "Add event"
 msgstr "Lägg till händelse"
 
 #: ../root/layout/components/BottomMenu.js:284
 #, fuzzy
-#| msgid "Search for edits"
 msgid "Vote on edits"
 msgstr "Sök efter redigeringar"
 
@@ -11372,7 +10944,7 @@ msgstr "Sök efter redigeringar"
 msgid "Reports"
 msgstr "Rapporter"
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:174
+#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
 msgid "Beginners guide"
 msgstr "Nybörjarguide"
 
@@ -11380,13 +10952,13 @@ msgstr "Nybörjarguide"
 msgid "How tos"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:312 ../root/main/index.js:185
+#: ../root/layout/components/BottomMenu.js:312
+#: ../root/layout/components/NewFooter.js:182
 msgid "FAQs"
 msgstr "Vanliga frågor"
 
 #: ../root/layout/components/BottomMenu.js:316
 #, fuzzy
-#| msgid "Documentation Index"
 msgid "Documentation index"
 msgstr "Dokumentationsindex"
 
@@ -11396,11 +10968,11 @@ msgstr "Dokumentationsindex"
 #: ../root/relationship/linktype/RelationshipTypesList.js:58
 #: ../root/utility/tableColumns.js:383
 #, fuzzy
-#| msgid "Relationship Types"
 msgid "Relationship types"
 msgstr "Förhållandetyper"
 
 #: ../root/layout/components/BottomMenu.js:332
+#: ../root/layout/components/NewFooter.js:194
 msgid "Development"
 msgstr "Utveckling"
 
@@ -11424,29 +10996,28 @@ msgstr "Visa alla relationer"
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:45
+#: ../root/layout/components/Head.js:46
 msgid "Page {n}"
 msgstr "Sida {n}"
 
-#: ../root/layout/components/Head.js:101
+#: ../root/layout/components/Head.js:114
 msgid "MusicBrainz: Artist"
 msgstr "MusicBrainz: Artist"
 
-#: ../root/layout/components/Head.js:107
+#: ../root/layout/components/Head.js:120
 msgid "MusicBrainz: Label"
 msgstr "MusicBrainz: Skivbolag"
 
-#: ../root/layout/components/Head.js:113
+#: ../root/layout/components/Head.js:126
 msgid "MusicBrainz: Release"
 msgstr "MusicBrainz: Utgivning"
 
-#: ../root/layout/components/Head.js:119
+#: ../root/layout/components/Head.js:132
 msgid "MusicBrainz: Track"
 msgstr "MusicBrainz: Spår"
 
 #: ../root/layout/components/MergeHelper.js:26
 #, fuzzy
-#| msgid "Merge Process"
 msgid "Merge process"
 msgstr "Sammanfoga framsteg"
 
@@ -11470,7 +11041,6 @@ msgstr ""
 #: ../root/layout/components/MergeHelper.js:66
 #: ../root/layout/components/sidebar/MergeLink.js:30
 #, fuzzy
-#| msgid "Merge"
 msgctxt "interactive"
 msgid "Merge"
 msgstr "Sammanfoga"
@@ -11478,6 +11048,127 @@ msgstr "Sammanfoga"
 #: ../root/layout/components/MergeHelper.js:70
 msgid "Remove selected entities"
 msgstr ""
+
+#: ../root/layout/components/NewFooter.js:36
+#, fuzzy
+msgid ""
+"is an open music encyclopedia that collects music metadata and makes it "
+"available to the public."
+msgstr ""
+"MusicBrainz är en öppen musikencyklopedin som samlar in metadata om musik "
+"och gör den tillgänglig till allmänheten."
+
+#: ../root/layout/components/NewFooter.js:42
+#, fuzzy
+msgid "Development IRC:"
+msgstr "Utveckling"
+
+#: ../root/layout/components/NewFooter.js:49
+msgid "Discussion IRC:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:56
+msgid "Email:"
+msgstr "E-post:"
+
+#: ../root/layout/components/NewFooter.js:65
+#, fuzzy
+msgid "Useful Links"
+msgstr "Externa länkar"
+
+#: ../root/layout/components/NewFooter.js:82
+msgid "Community"
+msgstr "Gemenskap"
+
+#: ../root/layout/components/NewFooter.js:100
+#, fuzzy
+msgid "MetaBrainz"
+msgstr "MusicBrainz: Skivbolag"
+
+#: ../root/layout/components/NewFooter.js:106
+#: ../root/layout/components/NewFooter.js:206
+msgid "Contribute Here"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#, fuzzy
+msgid "Bug Tracker"
+msgstr "Bughantering"
+
+#: ../root/layout/components/NewFooter.js:118
+msgid "Fellow Projects"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
+msgid "ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:129
+msgid "CritiqueBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:135
+msgid "Picard"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:141
+msgid "BookBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:147
+#, fuzzy
+msgid "AcousticBrainz"
+msgstr "Om MusicBrainz"
+
+#: ../root/layout/components/NewFooter.js:153
+#, fuzzy
+msgid "Cover Art Archive"
+msgstr "Omslag"
+
+#: ../root/layout/components/NewFooter.js:159
+msgid "Join Us"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:164
+#, fuzzy
+msgid "Beginner's Guide"
+msgstr "Nybörjarguide"
+
+#: ../root/layout/components/NewFooter.js:170
+msgid "Style Guidelines"
+msgstr "Stilriktlinjer"
+
+#: ../root/layout/components/NewFooter.js:176
+msgid "How Tos"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:188
+msgid "Doc Index"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:203
+msgid "OSS Geek?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:212
+msgid "Brought to you by"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+#, fuzzy
+msgid "MetaBrainz Foundation"
+msgstr "MusicBrainz: Skivbolag"
+
+#: ../root/layout/components/NewFooter.js:228
+#, fuzzy
+msgid "Found an Issue?"
+msgstr "Hittade {n} resultat"
+
+#: ../root/layout/components/NewFooter.js:231
+#, fuzzy
+msgid "Report Here"
+msgstr "Rapporter"
 
 #: ../root/layout/components/SupportedBrowserCheck.js:32
 msgid ""
@@ -11488,8 +11179,8 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
+#: ../root/static/scripts/homepage/editor-tools.js:123
 #, fuzzy
-#| msgid "Log Out"
 msgid "Log out"
 msgstr "Logga ut"
 
@@ -11499,14 +11190,15 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/homepage/editor-tools.js:136
 #, fuzzy
-#| msgid "My Ratings"
 msgid "My ratings"
 msgstr "Mina betyg"
 
@@ -11516,30 +11208,29 @@ msgid "My tags"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:92
+#: ../root/static/scripts/homepage/editor-tools.js:141
 #, fuzzy
-#| msgid "My Open Edits"
 msgid "My open edits"
 msgstr "Mina öppnade redigeringar"
 
 #: ../root/layout/components/TopMenu.js:95
+#: ../root/static/scripts/homepage/editor-tools.js:143
 #, fuzzy
-#| msgid "All My Edits"
 msgid "All my edits"
 msgstr "Alla mina redigeringar"
 
 #: ../root/layout/components/TopMenu.js:98
 #, fuzzy
-#| msgid "Edits for Subscribed Entities"
 msgid "Edits for subscribed entities"
 msgstr "Redigeringar för prenumererande entiteter"
 
 #: ../root/layout/components/TopMenu.js:102
 #, fuzzy
-#| msgid "Edits by Subscribed Editors"
 msgid "Edits by subscribed editors"
 msgstr "Redigeringar av prenumererande redigerare"
 
 #: ../root/layout/components/TopMenu.js:106
+#: ../root/static/scripts/homepage/editor-tools.js:151
 msgid "Notes left on my edits"
 msgstr ""
 
@@ -11550,7 +11241,6 @@ msgstr "Administratör"
 #: ../root/layout/components/TopMenu.js:209
 #: ../root/static/scripts/account/components/RegisterForm.js:118
 #, fuzzy
-#| msgid "Create Account"
 msgctxt "interactive"
 msgid "Create account"
 msgstr "Skapa konto"
@@ -11558,14 +11248,12 @@ msgstr "Skapa konto"
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
 #, fuzzy
-#| msgid "Edit annotation"
 msgctxt "interactive"
 msgid "Edit annotation"
 msgstr "Redigera anteckning"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:32
 #, fuzzy
-#| msgid "Add annotation"
 msgctxt "interactive"
 msgid "Add annotation"
 msgstr "Lägg till anteckning"
@@ -11585,21 +11273,18 @@ msgstr "Artist information"
 
 #: ../root/layout/components/sidebar/ArtistSidebar.js:168
 #, fuzzy
-#| msgid "Add recording"
 msgctxt "interactive"
 msgid "Add recording"
 msgstr "Lägg till inspelning"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:44
 #, fuzzy
-#| msgid "Added"
 msgctxt "CD stub"
 msgid "Added"
 msgstr "Lades till"
 
 #: ../root/layout/components/sidebar/CDStubSidebar.js:52
 #, fuzzy
-#| msgid "Last modified:"
 msgctxt "CD stub"
 msgid "Last modified"
 msgstr "Senast ändrad:"
@@ -11630,7 +11315,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
 #, fuzzy
-#| msgid "Add to a new collection"
 msgid "You have no genre collections!"
 msgstr "Lägg till i en ny samling"
 
@@ -11719,7 +11403,6 @@ msgstr "Prenumerera"
 
 #: ../root/layout/components/sidebar/EditLinks.js:30
 #, fuzzy
-#| msgid "Log in to edit"
 msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "Logga in för att redigera"
@@ -11731,7 +11414,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/EventSidebar.js:72
 #, fuzzy
-#| msgid "No cover art available."
 msgid "No poster available."
 msgstr "Inget omslag tillgängligt"
 
@@ -11743,7 +11425,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/EventSidebar.js:78
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:110
 #, fuzzy
-#| msgid "No cover art available."
 msgid "No images available."
 msgstr "Inget omslag tillgängligt"
 
@@ -11799,10 +11480,6 @@ msgctxt "place"
 msgid "Closed"
 msgstr "Stängd"
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
-msgid "ListenBrainz"
-msgstr ""
-
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:68
 msgid "Play on ListenBrainz"
 msgstr ""
@@ -11821,7 +11498,6 @@ msgstr "Utgivningsgruppsinformation"
 
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:86
 #, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, interactive"
 msgid "Set cover art"
 msgstr "Ändra omslag"
@@ -11857,7 +11533,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
 #, fuzzy
-#| msgid "[unknown]"
 msgctxt "date"
 msgid "[unknown]"
 msgstr "[okänd]"
@@ -11885,8 +11560,6 @@ msgstr "(inga)"
 #: ../root/layout/components/sidebar/SidebarTags.js:46
 #: ../root/static/scripts/common/components/TagEditor.js:673
 #, fuzzy
-#| msgctxt "type"
-#| msgid "(none)"
 msgctxt "folksonomy tag"
 msgid "(none)"
 msgstr "(inga)"
@@ -11904,15 +11577,12 @@ msgstr "Genrer"
 #: ../root/static/scripts/common/components/TagEditor.js:667
 #: ../root/user/UserTagList.js:92
 #, fuzzy
-#| msgctxt "language optgroup"
-#| msgid "Other"
 msgctxt "folksonomy"
 msgid "Other tags"
 msgstr "Övrigt"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:91
 #, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "See all tags"
 msgstr "Visa alla taggar"
@@ -11939,6 +11609,16 @@ msgstr[1] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
+#: ../root/main/AuthButtons.js:19
+#, fuzzy
+msgid "Create Account"
+msgstr "Skapa konto"
+
+#: ../root/main/AuthButtons.js:21
+#, fuzzy
+msgid "Login"
+msgstr "Senaste inloggning:"
+
 #: ../root/main/ConfirmSeed.js:26
 msgid "Confirm form submission"
 msgstr ""
@@ -11958,19 +11638,16 @@ msgstr ""
 
 #: ../root/main/ImageEditingUnavailable.js:14
 #, fuzzy
-#| msgid "No cover art available."
 msgid "Image editing unavailable"
 msgstr "Inget omslag tillgängligt"
 
 #: ../root/main/ImageEditingUnavailable.js:17
 #, fuzzy
-#| msgid "The blog is currently unavailable."
 msgid "Image editing is currently unavailable."
 msgstr "Bloggen är för närvarande otillgänglig."
 
 #: ../root/main/error/Error400.js:19
 #, fuzzy
-#| msgid "Bad Request"
 msgid "Bad request"
 msgstr "Trasig begäran"
 
@@ -11988,7 +11665,6 @@ msgstr ""
 
 #: ../root/main/error/Error400.js:45 ../root/main/error/TimeoutError.js:32
 #, fuzzy
-#| msgid "Technical Information"
 msgid "Technical information"
 msgstr "Teknisk information"
 
@@ -12045,7 +11721,6 @@ msgstr ""
 
 #: ../root/main/error/Error500.js:30
 #, fuzzy
-#| msgid "Internal Server Error"
 msgid "Internal server error"
 msgstr "Internt serverfel"
 
@@ -12080,7 +11755,6 @@ msgstr ""
 
 #: ../root/main/error/Error503.js:14
 #, fuzzy
-#| msgid "System Busy"
 msgid "System busy"
 msgstr "Systemet är upptagen"
 
@@ -12151,17 +11825,12 @@ msgstr "Fel"
 msgid "(No details about this error are available)"
 msgstr "(Inga detaljer om detta fel finns tillgängligt)"
 
-#: ../root/main/index.js:34
+#: ../root/main/index.js:75
 #, fuzzy
-#| msgid "MusicBrainz - The Open Music Encyclopedia"
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr "MusicBrainz - Den öppna musikencyklopedin"
 
-#: ../root/main/index.js:38
-msgid "Welcome to MusicBrainz!"
-msgstr "Välkommen till MusicBrainz!"
-
-#: ../root/main/index.js:42
+#: ../root/main/index.js:111
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
@@ -12169,136 +11838,282 @@ msgstr ""
 "MusicBrainz är en öppen musikencyklopedin som samlar in metadata om musik "
 "och gör den tillgänglig till allmänheten."
 
-#: ../root/main/index.js:48
-msgid "MusicBrainz aims to be:"
-msgstr "MusicBrainz siktar mot att bli:"
-
-#: ../root/main/index.js:54
+#: ../root/main/index.js:124
 msgid ""
-"<strong>The ultimate source of music information</strong> by allowing anyone "
-"to contribute and releasing the {doc|data} under {doc2|open licenses}."
+"The ultimate source of audio information, releasing data under open licenses "
+"and allowing anyone to contribute."
 msgstr ""
 
-#: ../root/main/index.js:65
+#: ../root/main/index.js:136
 msgid ""
-"<strong>The universal lingua franca for music</strong> by providing a "
-"reliable and unambiguous form of {doc|music identification}, enabling both "
-"people and machines to have meaningful conversations about music."
+"The universal lingua franca for music, providing reliable and unambiguous "
+"forms of music identification, enabling people and machines to have "
+"meaningful conversations about music."
 msgstr ""
 
-#: ../root/main/index.js:78
+#: ../root/main/index.js:150
+#, fuzzy
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
-"we want everyone &#x2014; including you &#x2014; to {doc|participate and "
-"contribute}."
+"everyone - including you - can participate and contribute."
 msgstr ""
 "Som Wikipedia, tillhandahålls MusicBrainz av en global gemenskap av "
 "användare och vi vill att alla &#x2014; inklusive dig &#x2014; {doc|deltar "
 "och bidrar}."
 
-#: ../root/main/index.js:89
+#: ../root/main/index.js:163
 msgid ""
-"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
-msgstr ""
-"{about|Mer information} &#x2014; {faq|Vanliga frågor} &#x2014; {contact|"
-"Kontakta oss}"
-
-#: ../root/main/index.js:101
-msgid ""
-"MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
-"based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
-"MusicBrainz {free|free and open source}."
+"MusicBrainz is operated by the MetaBrainz Foundation, a non-profit dedicated "
+"to keeping MusicBrainz free and open source."
 msgstr ""
 
-#: ../root/main/index.js:114
+#: ../root/main/index.js:179
 #, fuzzy
-#| msgid "MusicBrainz: Label"
-msgid "MetaBrainz blog"
-msgstr "MusicBrainz: Skivbolag"
-
-#: ../root/main/index.js:119
-msgid "Latest posts:"
-msgstr "Senaste inlägg:"
-
-#: ../root/main/index.js:131
-msgid "Read more »"
+msgid "Read More"
 msgstr "Läs mer »"
 
-#: ../root/main/index.js:138
+#: ../root/main/index.js:189
+#, fuzzy
+msgid "Beginner editor's guide"
+msgstr "Nybörjarguide"
+
+#: ../root/main/index.js:199
+#, fuzzy
+msgid "Latest News"
+msgstr "Senaste inlägg:"
+
+#: ../root/main/index.js:209
 msgid "The blog is currently unavailable."
 msgstr "Bloggen är för närvarande otillgänglig."
 
-#: ../root/main/index.js:148
+#: ../root/main/index.js:236
 #, fuzzy
-#| msgid "Tag Your Music"
-msgctxt "audio file metadata"
-msgid "Tag your music"
-msgstr "Tagga din musik"
+msgid "Community Posts"
+msgstr "Gemenskap"
 
-#: ../root/main/index.js:171
+#: ../root/main/index.js:248
 #, fuzzy
-#| msgid "Quick Start"
-msgid "Quick start"
-msgstr "Snabbstart"
+msgid "The community posts are currently unavailable."
+msgstr "Bloggen är för närvarande otillgänglig."
 
-#: ../root/main/index.js:178
+#: ../root/main/index.js:280
+#, fuzzy
+msgid "Develop"
+msgstr "Utvecklare"
+
+#: ../root/main/index.js:284
+msgid "Datasets and Live Data Feed"
+msgstr ""
+
+#: ../root/main/index.js:290
+msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
+msgstr ""
+
+#: ../root/main/index.js:295
+#, fuzzy
+msgid "creating an account"
+msgstr "Skapa ett konto"
+
+#: ../root/main/index.js:297
+msgid ","
+msgstr ""
+
+#: ../root/main/index.js:300
+msgid "whether for personal or non-commercial use"
+msgstr ""
+
+#: ../root/main/index.js:302
+msgid "."
+msgstr ""
+
+#: ../root/main/index.js:308
+#, fuzzy
+msgid "Database"
+msgstr "Dataspår"
+
+#: ../root/main/index.js:313
+#, fuzzy
+msgid "View and download the MusicBrainz Database."
+msgstr "MusicBrainz databas"
+
+#: ../root/main/index.js:325
+msgid ""
+"Use our XML web service or development libraries to create your own "
+"MusicBrainz-enabled applications."
+msgstr ""
+
+#: ../root/main/index.js:332 ../root/main/index.js:393
+#, fuzzy
+msgid "See also:"
+msgstr "Visa alla taggar"
+
+#: ../root/main/index.js:335
+#, fuzzy
+msgid "Data license"
+msgstr "Datalicenser"
+
+#: ../root/main/index.js:338 ../root/main/index.js:399
+#: ../root/main/index.js:405 ../root/main/index.js:411
+#: ../root/main/index.js:417 ../root/main/index.js:423
+msgid "|"
+msgstr ""
+
+#: ../root/main/index.js:341
+#, fuzzy
+msgid "MetaBrainz FAQ"
+msgstr "MusicBrainz: Skivbolag"
+
+#: ../root/main/index.js:350
+#, fuzzy
+msgid "Contribute"
+msgstr "Attribut"
+
+#: ../root/main/index.js:354
+#, fuzzy
+msgid "Edit the database"
+msgstr "Redigera anteckning"
+
+#: ../root/main/index.js:359
+msgid ""
+"Anyone can help improve our global database! Get started and improve "
+"existing data or add new artists and music."
+msgstr ""
+
+#: ../root/main/index.js:372
+msgid ""
+"Developers, view and pick up issues in our bug tracker, and join us in the "
+"developer chat."
+msgstr ""
+
+#: ../root/main/index.js:380
+msgid "Join the community"
+msgstr ""
+
+#: ../root/main/index.js:385
+msgid ""
+"Talk to other database editors and music fans on our forums or our live chat "
+"via IRC, Matrix and Discord."
+msgstr ""
+
+#: ../root/main/index.js:402
 msgid "Editing introduction"
 msgstr "Introduktion till redigering"
 
-#: ../root/main/index.js:189
+#: ../root/main/index.js:414
+#, fuzzy
+msgid "MusicBrainz FAQs"
+msgstr "MusicBrainz: Artist"
+
+#: ../root/main/index.js:420
 msgid "How to add artists"
 msgstr ""
 
-#: ../root/main/index.js:194
+#: ../root/main/index.js:426
 msgid "How to add releases"
 msgstr ""
 
-#: ../root/main/index.js:205
-msgid "Community"
-msgstr "Gemenskap"
-
-#: ../root/main/index.js:208
+#: ../root/main/index.js:444
 #, fuzzy
-#| msgid "How to Contribute"
-msgid "How to contribute"
-msgstr "Hur man bidrar"
+msgid "Open source"
+msgstr "Utvecklingsresurser"
 
-#: ../root/main/index.js:224
+#: ../root/main/index.js:447
 msgid ""
-"The majority of the data in the <strong>MusicBrainz Database</strong> is "
-"released into the <strong>Public Domain</strong> and can be downloaded and "
-"used <strong>for free</strong>."
-msgstr ""
-"Majoriteten av data i <strong>MusicBrainz-databasen</strong> släpps ut i "
-"<strong>Public Domain</strong> och kan hämtas och användas <strong>utan "
-"kostnad</strong>."
-
-#: ../root/main/index.js:234
-msgid "Developers"
-msgstr "Utvecklare"
-
-#: ../root/main/index.js:238
-msgid ""
-"Use our <strong>XML web service</strong> or <strong>development libraries</"
-"strong> to create your own MusicBrainz-enabled applications."
+"\"Open source is source code that is made freely available for possible "
+"modification and redistribution...\""
 msgstr ""
 
-#: ../root/main/index.js:251
+#: ../root/main/index.js:451
 #, fuzzy
-#| msgid "Old releases:"
-msgid "Recently added releases"
-msgstr "Gamla förhållanden:"
+msgid "-"
+msgstr "-"
 
-#: ../root/main/index.js:266
+#: ../root/main/index.js:454
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr "Wikipedia"
+
+#: ../root/main/index.js:459
+msgid ""
+"The MusicBrainz database is all open source. This means that anyone can view "
+"the code, contribute improvements and new features, and copy and modify it "
+"for their own use."
+msgstr ""
+
+#: ../root/main/index.js:467
+msgid ""
+"Thousands of wonderful people contribute code or data to MusicBrainz and its "
+"sister projects for no monetary return and for everyone's benefit."
+msgstr ""
+
+#: ../root/main/index.js:476
+msgid "GitHub repositories"
+msgstr ""
+
+#: ../root/main/index.js:484
 #, fuzzy
-#| msgid "Release events"
-msgid "Recently added events"
-msgstr "Utgivningshändelser"
+msgid "Data provider"
+msgstr "Rubrik ej angiven"
 
-#: ../root/main/index.js:323
-#: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/release-editor/dialogs.js:158
-msgid "{entity} by {artist}"
+#: ../root/main/index.js:487
+msgid ""
+"The MetaBrainz core mission is to curate and maintain public datasets that "
+"anyone can download and use. Some of the world's biggest platforms, such as "
+"Google and Amazon, use our data, as well as small-scale developers and "
+"curious individuals."
+msgstr ""
+
+#: ../root/main/index.js:494
+msgid "We ask"
+msgstr ""
+
+#: ../root/main/index.js:497
+#, fuzzy
+msgid "commercial users"
+msgstr "Normal användare"
+
+#: ../root/main/index.js:501
+msgid "to support us. Personal use of our datasets will always be free."
+msgstr ""
+
+#: ../root/main/index.js:507
+msgid ""
+"Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
+"datasets are AI Ready, perfect for training large language models for music-"
+"based tasks."
+msgstr ""
+
+#: ../root/main/index.js:516
+#, fuzzy
+msgid "MetaBrainz Datasets"
+msgstr "MusicBrainz databas"
+
+#: ../root/main/index.js:524
+msgid "Ethical forever"
+msgstr ""
+
+#: ../root/main/index.js:527
+msgid ""
+"The MetaBrainz Foundation is a registered non-profit, making it impossible "
+"for us to be bought or traded."
+msgstr ""
+
+#: ../root/main/index.js:533
+msgid ""
+"Our team and volunteer contributers from across the globe are proud to "
+"consider MusicBrainz and it's sister sites"
+msgstr ""
+
+#: ../root/main/index.js:538
+#, fuzzy
+msgid "enshittification"
+msgstr "Beskrivning"
+
+#: ../root/main/index.js:541
+msgid ""
+"-proof projects, immune to the the crapifying that takes place when business "
+"interests inevitably subsume and monetize projects that initially focussed "
+"on high-quality offerings to attract users."
 msgstr ""
 
 #: ../root/mbid/NotFound.js:15
@@ -12410,7 +12225,6 @@ msgstr ""
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
 #, fuzzy
-#| msgid "Search Results"
 msgid "Search results"
 msgstr "Sökresultat"
 
@@ -12443,7 +12257,6 @@ msgstr ""
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
 #, fuzzy
-#| msgid "Remove recording"
 msgctxt "header"
 msgid "Remove recording"
 msgstr "Ta bort inspelning"
@@ -12472,25 +12285,21 @@ msgstr "Inspelning av {artist}"
 
 #: ../root/recording/RecordingIndex.js:46
 #, fuzzy
-#| msgid "Tracklist"
 msgid "Track artist"
 msgstr "Låtlista"
 
 #: ../root/recording/RecordingIndex.js:47
 #, fuzzy
-#| msgid "Release Title"
 msgid "Release title"
 msgstr "Utgivningstitel"
 
 #: ../root/recording/RecordingIndex.js:48
 #, fuzzy
-#| msgid "Release Artist"
 msgid "Release artist"
 msgstr "Utgivningsartist"
 
 #: ../root/recording/RecordingIndex.js:49
 #, fuzzy
-#| msgid "Release group"
 msgid "Release group type"
 msgstr "Utgivningsgrupp"
 
@@ -12534,13 +12343,11 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:80
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:161
 #, fuzzy
-#| msgid "Relationship Attributes"
 msgid "Relationship attributes"
 msgstr "Förhållandeattribut"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:70
 #, fuzzy
-#| msgid "Relationship Attributes"
 msgid "Relationship attribute"
 msgstr "Förhållandeattribut"
 
@@ -12591,7 +12398,6 @@ msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:32
 #, fuzzy
-#| msgid "[none]"
 msgctxt "relationship attribute description"
 msgid "none"
 msgstr "[inget]"
@@ -12701,23 +12507,18 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:29
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "plural, header"
 msgid "Cover art"
 msgstr "Omslag:"
 
 #: ../root/release/CoverArt.js:35
 #, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural, header"
 msgid "Cannot show cover art"
 msgstr "Kan inte lägga till omslag"
 
 #: ../root/release/CoverArt.js:97
 #, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {caa|Cover Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
@@ -12737,21 +12538,18 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:134
 #, fuzzy
-#| msgid "Add cover art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "Lägg till omslag"
 
 #: ../root/release/CoverArt.js:140
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "Ta bort omslag"
 
 #: ../root/release/CoverArtDarkened.js:13
 #, fuzzy
-#| msgid "Cannot Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "Kan inte lägga till omslag"
@@ -12762,9 +12560,6 @@ msgstr "Välj en eller flera omslagstyper för denna bild"
 
 #: ../root/release/CoverArtFields.js:23
 #, fuzzy
-#| msgid ""
-#| "Please see the {doc|Cover Art Types} documentation for a description of "
-#| "these types."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
@@ -12773,7 +12568,6 @@ msgstr ""
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
-#| msgid "Remove release"
 msgctxt "header"
 msgid "Remove release"
 msgstr "Ta bort ugåva"
@@ -12825,13 +12619,11 @@ msgstr ""
 
 #: ../root/release/ReleaseMerge.js:63
 #, fuzzy
-#| msgid "Merge release groups"
 msgid "Also merge the associated release groups"
 msgstr "Slå samman utgivningsgrupper"
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
-#| msgid "Remove cover art"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "Ta bort omslag"
@@ -12851,7 +12643,6 @@ msgstr ""
 #: ../root/release_group/SetCoverArt.js:29
 #: ../root/release_group/SetCoverArt.js:31
 #, fuzzy
-#| msgid "Set cover art"
 msgctxt "singular, header"
 msgid "Set cover art"
 msgstr "Ändra omslag"
@@ -13012,7 +12803,6 @@ msgstr ""
 #: ../root/report/ArtistsWithMismatchedPrimaryAliases.js:33
 #: ../root/report/ReportsIndex.js:108
 #, fuzzy
-#| msgid "Artists with deprecated relationships"
 msgid "Artists with mismatched primary aliases"
 msgstr "Artister med föråldrade förhållanden"
 
@@ -13341,7 +13131,6 @@ msgstr "alias:"
 #: ../root/report/components/ReleaseGroupList.js:56
 #: ../root/report/components/WorkList.js:56
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "type"
 msgid "Unknown"
 msgstr "Okänd"
@@ -13461,7 +13250,6 @@ msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
-#| msgid "Release groups with annotations"
 msgid "Release groups without any releases"
 msgstr "Utgivningsgrupper med anteckningar"
 
@@ -13478,10 +13266,6 @@ msgstr ""
 
 #: ../root/report/EventsWithEaaNoTypes.js:25
 #, fuzzy
-#| msgid ""
-#| "This report shows releases which have cover art in the Cover Art Archive, "
-#| "but where none of it has any types set. This often means a front cover "
-#| "was added, but not marked as such."
 msgid ""
 "This report shows events which have images in the Event Art Archive, but "
 "where none of the images have any types set. This often means a poster, "
@@ -13493,7 +13277,6 @@ msgstr ""
 
 #: ../root/report/EventsWithEaaNoTypes.js:33 ../root/report/ReportsIndex.js:154
 #, fuzzy
-#| msgid "Releases in the Cover Art Archive where no cover art piece has types"
 msgid "Events in the Event Art Archive where no event art piece has types"
 msgstr "Utgåvor i omslagsarkivet där inget omslagsverk har typer"
 
@@ -13882,7 +13665,6 @@ msgstr ""
 #: ../root/report/RecordingsWithDuplicateWorks.js:33
 #: ../root/report/ReportsIndex.js:531
 #, fuzzy
-#| msgid "Recordings with possible duplicate relationships"
 msgid "Recordings with possible duplicate works"
 msgstr "Inspelningar med möjliga dubblettförhållanden"
 
@@ -14029,7 +13811,6 @@ msgstr ""
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
 #, fuzzy
-#| msgid "Remove release"
 msgid "Releases older than their release label"
 msgstr "Ta bort ugåva"
 
@@ -14344,7 +14125,6 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:588
 #: ../root/report/VideoRelationshipsOnNonVideos.js:52
 #, fuzzy
-#| msgid "Recordings with deprecated relationships"
 msgid "Non-video recordings with video relationships"
 msgstr "Inspelningar med föråldrade förhållanden"
 
@@ -14359,7 +14139,6 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:622
 #: ../root/report/SeriesContainingDuplicates.js:49
 #, fuzzy
-#| msgid "Release Duplicates"
 msgid "Series containing duplicates"
 msgstr "Utgivningsdubbletter"
 
@@ -14398,13 +14177,11 @@ msgstr ""
 
 #: ../root/report/SeriesContainingDuplicates.js:23
 #, fuzzy
-#| msgid "Related entities:"
 msgid "Duplicate entity"
 msgstr "Relaterade entiteter:"
 
 #: ../root/report/SeriesContainingDuplicates.js:29
 #, fuzzy
-#| msgid "ISO number"
 msgid "Number"
 msgstr "ISO-nummer"
 
@@ -14652,7 +14429,6 @@ msgstr "Senast redigerad"
 #: ../root/search/SearchIndex.js:27 ../root/taglookup/Index.js:17
 #: ../root/taglookup/Index.js:19
 #, fuzzy
-#| msgid "Tag lookup"
 msgctxt "audio file metadata"
 msgid "Tag lookup"
 msgstr "Kolla upp tagg"
@@ -14672,7 +14448,6 @@ msgstr "Alternativt kan du {uri|lägga till en ny artist}."
 #: ../root/search/components/DocResults.js:19
 #: ../root/search/components/DocResults.js:21
 #, fuzzy
-#| msgid "Documentation Search"
 msgid "Documentation search"
 msgstr "Dokumentationssökning"
 
@@ -14722,7 +14497,6 @@ msgstr "Senast uppdaterad: {date}"
 
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
-#| msgid "Search method:"
 msgid "Search error"
 msgstr "Sökmetod:"
 
@@ -14870,14 +14644,12 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:257
 #, fuzzy
-#| msgid "Languages Known:"
 msgid "Languages known:"
 msgstr "Kända språk:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:293
 #: ../root/static/scripts/work/edit.js:337
 #, fuzzy
-#| msgid "Add a language"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Lägg till nytt språk"
@@ -14885,7 +14657,6 @@ msgstr "Lägg till nytt språk"
 #: ../root/static/scripts/account/components/EditProfileForm.js:301
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 #, fuzzy
-#| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "Spara"
@@ -14908,13 +14679,11 @@ msgstr "Datum-/tidsperiod:"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:189
 #, fuzzy
-#| msgid "Allow other users to see my tags"
 msgid "Allow other users to see"
 msgstr "Tillåt andra användare att se mina taggar"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
-#| msgid "No subscriptions."
 msgid "My subscriptions"
 msgstr "Ingen prenumeration."
 
@@ -14929,7 +14698,6 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 #, fuzzy
-#| msgid "Email Sent"
 msgid "Email me about"
 msgstr "E-post skickat"
 
@@ -14951,13 +14719,11 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:239
 #, fuzzy
-#| msgid "Send me mails with edits to my subscriptions:"
 msgid "Send me mails with edits to my subscriptions"
 msgstr "Skicka e-post med redigeringar i mina prenumerationer:"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:248
 #, fuzzy
-#| msgid "Automatically subscribe me to labels I create."
 msgid "Automatically subscribe me when I add"
 msgstr "Prenumerera automatiskt på skivbolag jag skapar."
 
@@ -14993,7 +14759,6 @@ msgstr "Läs igenom {coc|MusicBrainz uppförandekod} innan du skapar ett konto."
 
 #: ../root/static/scripts/alias/AliasEditForm.js:292
 #, fuzzy
-#| msgid "Alias Details"
 msgid "Alias details"
 msgstr "Aliasdetaljer"
 
@@ -15021,7 +14786,6 @@ msgstr ""
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:97
 #, fuzzy
-#| msgid "Annotation history"
 msgid "Version history"
 msgstr "Anteckningshistorik"
 
@@ -15215,7 +14979,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:41
 #, fuzzy
-#| msgid "Artist Area"
 msgid "Artist roles"
 msgstr "Artistområde"
 
@@ -15312,7 +15075,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:82
 #, fuzzy
-#| msgid "Primary Type:"
 msgid "Primary alias"
 msgstr "Primär typ:"
 
@@ -15369,7 +15131,6 @@ msgstr "Många relationer"
 
 #: ../root/static/scripts/common/components/Cardinality.js:16
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
 msgstr "Okänd"
@@ -15388,6 +15149,12 @@ msgstr "Bild från Wikimedia Commons"
 
 #: ../root/static/scripts/common/components/CritiqueBrainzReview.js:33
 msgid "{review_link|Review} by {author} on {date}"
+msgstr ""
+
+#: ../root/static/scripts/common/components/DescriptiveLink.js:65
+#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/release-editor/dialogs.js:158
+msgid "{entity} by {artist}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:78
@@ -15533,7 +15300,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:14
 #, fuzzy
-#| msgid "None"
 msgctxt "relationship order direction"
 msgid "None"
 msgstr "Inga"
@@ -15639,7 +15405,6 @@ msgstr "Det finns inga genrer att visa."
 #: ../root/static/scripts/common/components/TagEditor.js:541
 #: ../root/user/UserTagList.js:112
 #, fuzzy
-#| msgid "There are no genres to show."
 msgctxt "folksonomy"
 msgid "There are no other tags to show."
 msgstr "Det finns inga genrer att visa."
@@ -15663,7 +15428,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:574
 #, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "Show all tags."
 msgstr "Visa alla taggar"
@@ -15686,7 +15450,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:616
 #, fuzzy
-#| msgid "Add Tags"
 msgctxt "folksonomy"
 msgid "Add tags"
 msgstr "Lägg till taggar"
@@ -15700,21 +15463,18 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:634
 #, fuzzy
-#| msgid "Submit"
 msgctxt "folksonomy"
 msgid "Submit tags"
 msgstr "Skicka"
 
 #: ../root/static/scripts/common/components/TagEditor.js:680
 #, fuzzy
-#| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "see all tags"
 msgstr "Visa alla taggar"
 
 #: ../root/static/scripts/common/components/TagEditor.js:696
 #, fuzzy
-#| msgid "Tags"
 msgctxt "verb, folksonomy"
 msgid "Tag"
 msgstr "Taggar"
@@ -15723,10 +15483,6 @@ msgstr "Taggar"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr ""
-
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
-msgstr "Wikipedia"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
 msgid "Continue reading at Wikipedia..."
@@ -15740,7 +15496,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/WorkArtists.js:24
 #, fuzzy
-#| msgid "Merge artists"
 msgid "Work artists"
 msgstr "Slå ihop artister"
 
@@ -15785,7 +15540,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 #, fuzzy
-#| msgid "Removed"
 msgctxt "language"
 msgid "[removed]"
 msgstr "Borttagen"
@@ -16206,13 +15960,11 @@ msgstr "Lägg till nytt verk"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:49
 #, fuzzy
-#| msgid "Credits"
 msgid "Copy credits"
 msgstr "Tack till"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
 #, fuzzy
-#| msgid "Last edited"
 msgid "Paste credits"
 msgstr "Senast redigerad"
 
@@ -16249,7 +16001,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:168
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "Lägg till artist"
@@ -16264,42 +16015,36 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:156
 #, fuzzy
-#| msgid "Removed"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "Borttagen"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Move artist credit down"
 msgstr "Ta bort artist"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Move artist credit up"
 msgstr "Ta bort artist"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
 msgstr "Lägg till artist"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:222
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "Ta bort artist"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
 #, fuzzy
-#| msgid "Date Period"
 msgid "Date period"
 msgstr "Datumperiod"
 
@@ -16339,14 +16084,12 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:256
 #, fuzzy
-#| msgid "Edit Attributes"
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "Redigera attributer"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:173
 #, fuzzy
-#| msgid "Removed"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "Borttagen"
@@ -16361,7 +16104,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
 #, fuzzy
-#| msgid "Possibly duplicate events"
 msgid "Possible duplicates"
 msgstr "Möjliga dubletthändelser"
 
@@ -16455,20 +16197,17 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:145
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "Redigera webbadress"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:32
 #, fuzzy
-#| msgid "Credits"
 msgid "Credit"
 msgstr "Tack till"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:35
 #, fuzzy
-#| msgid "Credits"
 msgid "Credited to"
 msgstr "Tack till"
 
@@ -16595,7 +16334,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1321
 #, fuzzy
-#| msgid "Remove relationship"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Ta bort förhållande"
@@ -16611,7 +16349,6 @@ msgstr "video"
 
 #: ../root/static/scripts/edit/externalLinks.js:1529
 #, fuzzy
-#| msgid "Remove work"
 msgid "Remove link"
 msgstr "Ta bort verk"
 
@@ -16629,7 +16366,6 @@ msgstr ""
 
 #: ../root/static/scripts/event/components/EventEditForm.js:229
 #, fuzzy
-#| msgid "Event Details"
 msgid "Event details"
 msgstr "Händelsedetaljer"
 
@@ -16690,6 +16426,178 @@ msgid ""
 "language guidelines}."
 msgstr ""
 
+#: ../root/static/scripts/homepage/banner-carousel.js:43
+#, fuzzy
+msgid "Tag your music"
+msgstr "Tagga din musik"
+
+#: ../root/static/scripts/homepage/banner-carousel.js:58
+msgid "Yate"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:89
+msgid "Listen together"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:97
+msgid "with ListenBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:107
+msgid "Explore the music you listen to."
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:112
+#, fuzzy
+msgid "Editor Tools"
+msgstr "Redigerarflagga"
+
+#: ../root/static/scripts/homepage/editor-tools.js:122
+#, fuzzy
+msgid "My Profile"
+msgstr "Profil"
+
+#: ../root/static/scripts/homepage/editor-tools.js:137
+#, fuzzy
+msgid "My tags"
+msgstr "Lägg till taggar"
+
+#: ../root/static/scripts/homepage/editor-tools.js:144
+#, fuzzy
+msgid "Subscribed entity edits"
+msgstr "Prenumererade entiteter"
+
+#: ../root/static/scripts/homepage/editor-tools.js:146
+#, fuzzy
+msgid "Subscribed editor edits"
+msgstr "Prenumererade redigerare"
+
+#: ../root/static/scripts/homepage/editor-tools.js:155
+#, fuzzy
+msgid "Votes on edits"
+msgstr "Sök efter redigeringar"
+
+#: ../root/static/scripts/homepage/editor-tools.js:156
+#, fuzzy
+msgid "My reports"
+msgstr "Rapporter"
+
+#: ../root/static/scripts/homepage/editor-tools.js:168
+#, fuzzy
+msgid "Add new..."
+msgstr "Lägg till anteckning"
+
+#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/navbar.js:263
+#, fuzzy
+msgid "reset language"
+msgstr "(återställ språk)"
+
+#: ../root/static/scripts/homepage/mobile-search-popup.js:86
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/search.js:136
+#: ../root/static/scripts/homepage/search.js:138
+#, fuzzy
+msgid "Advanced Search"
+msgstr "Avancerad"
+
+#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/search.js:163
+#, fuzzy
+msgid "in"
+msgstr "info"
+
+#: ../root/static/scripts/homepage/search.js:114
+#, fuzzy
+msgid "The open music encyclopedia"
+msgstr "MusicBrainz - Den öppna musikencyklopedin"
+
+#: ../root/static/scripts/homepage/search.js:186
+#, fuzzy
+msgid "Search in:"
+msgstr "Sök:"
+
+#: ../root/static/scripts/homepage/stats.js:73
+#, fuzzy
+msgid "last week"
+msgstr "Senast redigerad"
+
+#: ../root/static/scripts/homepage/stats.js:78
+#, fuzzy
+msgid "total"
+msgstr "Totalt"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#, fuzzy
+msgid "By {artist}"
+msgstr "Utgivningar efter {artist}"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:108
+msgid "{entity}"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:199
+#, fuzzy
+msgid "Now"
+msgstr "Nej"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:236
+#, fuzzy
+msgid "Order by {type} date"
+msgstr "Redigera typer"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:242
+#, fuzzy
+msgid "Fresh {type}"
+msgstr "Serie"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:251
+msgid "Order by date added to MusicBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:253
+#, fuzzy
+msgid "New Additions"
+msgstr "Tillägg:"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:276
+#, fuzzy
+msgid "Add {type}"
+msgstr "Lägg till {item}"
+
+#: ../root/static/scripts/homepage/user-menu.js:30
+msgid "Welcome back"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:48
+#, fuzzy
+msgid "Ticket tracker"
+msgstr "Bughantering"
+
+#: ../root/static/scripts/homepage/user-menu.js:51
+#, fuzzy
+msgid "Editing guidelines"
+msgstr "Stilriktlinjer"
+
+#: ../root/static/scripts/homepage/user-menu.js:56
+#, fuzzy
+msgid "Userscripts"
+msgstr "Beskrivning"
+
+#: ../root/static/scripts/homepage/user-menu.js:61
+#, fuzzy
+msgid "Latest blog post:"
+msgstr "Senaste inlägg:"
+
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
 msgstr ""
@@ -16700,7 +16608,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "Lägg till instrument"
@@ -16762,7 +16669,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:39
 #, fuzzy
-#| msgid "Old Order"
 msgctxt "noun"
 msgid "Order"
 msgstr "Gammal ordning"
@@ -16856,7 +16762,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:175
 #, fuzzy
-#| msgid "Edit relationship"
 msgctxt "header"
 msgid "Edit relationship"
 msgstr "Redigera förhållande"
@@ -16922,7 +16827,6 @@ msgstr ""
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:50
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "Lägg till förhållande"
@@ -16937,7 +16841,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:97
 #, fuzzy
-#| msgid "Add relationship"
 msgctxt "interactive"
 msgid "Add relationship"
 msgstr "Lägg till förhållande"
@@ -16956,7 +16859,6 @@ msgstr[1] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
 #, fuzzy
-#| msgid "Add release"
 msgid "{num} release"
 msgid_plural "{num} releases"
 msgstr[0] "Lägg till utgåva"
@@ -17000,7 +16902,6 @@ msgstr "Sida {page} av {total}"
 
 #: ../root/static/scripts/release-editor/dialogs.js:317
 #, fuzzy
-#| msgid "Add medium"
 msgctxt "header"
 msgid "Add medium"
 msgstr "Lägg till media"
@@ -17033,7 +16934,6 @@ msgstr ""
 #: ../root/static/scripts/release-editor/init.js:260
 #: ../root/static/scripts/release-editor/init.js:261
 #, fuzzy
-#| msgid "Add release"
 msgctxt "header"
 msgid "Edit release"
 msgstr "Lägg till utgåva"
@@ -17090,7 +16990,6 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/validation.js:235
 #, fuzzy
-#| msgid "The date you've entered is not valid."
 msgid "The barcode you entered is a valid GTIN code."
 msgstr "Datumet du angav är inte giltigt."
 
@@ -17106,31 +17005,26 @@ msgstr ""
 
 #: ../root/static/scripts/release-editor/validation.js:253
 #, fuzzy
-#| msgid "The date you've entered is not valid."
 msgid "The barcode you entered is not a valid GTIN code."
 msgstr "Datumet du angav är inte giltigt."
 
 #: ../root/static/scripts/release-editor/validation.js:297
 #, fuzzy
-#| msgid "The date you've entered is not valid."
 msgid "The barcode you entered is not a valid UPC code."
 msgstr "Datumet du angav är inte giltigt."
 
 #: ../root/static/scripts/release-editor/validation.js:326
 #, fuzzy
-#| msgid "The date you've entered is not valid."
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "Datumet du angav är inte giltigt."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
 #, fuzzy
-#| msgid "No cover art available."
 msgid "No cover art available."
 msgstr "Inget omslag tillgängligt"
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
 #, fuzzy
-#| msgid "Type"
 msgctxt "cover art"
 msgid "Types"
 msgstr "Typ"
@@ -17168,7 +17062,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:147
 #, fuzzy
-#| msgid "Edit work"
 msgctxt "header"
 msgid "Edit work"
 msgstr "Redigera verk"
@@ -17196,7 +17089,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
 #, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
 msgstr "Inspelning av {artist}"
 
@@ -17230,7 +17122,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1518
 #, fuzzy
-#| msgid "Many relationships"
 msgid "Track relationships"
 msgstr "Många relationer"
 
@@ -17247,13 +17138,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1635
 #, fuzzy
-#| msgid "Release Relationships"
 msgid "Release relationships"
 msgstr "Utgivningsförhållanden"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1672
 #, fuzzy
-#| msgid "Release Group Relationships"
 msgid "Release group relationships"
 msgstr "Utgivningsgruppsförhållanden"
 
@@ -17282,14 +17171,12 @@ msgstr ""
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
-#| msgid "Remove {item}"
 msgctxt "interactive"
 msgid "Remove note"
 msgstr "Ta bort {item}"
 
 #: ../root/static/scripts/work/edit.js:349
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove language"
 msgstr "Ta bort etikett"
@@ -17478,7 +17365,6 @@ msgstr[1] ""
 
 #: ../root/tag/NotFound.js:14
 #, fuzzy
-#| msgid "Tag Not Used"
 msgctxt "folksonomy"
 msgid "Tag not used"
 msgstr "Tagg används inte"
@@ -17513,7 +17399,6 @@ msgstr ""
 
 #: ../root/tag/TagCloud.js:116
 #, fuzzy
-#| msgid "No edit notes have been added."
 msgctxt "folksonomy"
 msgid "No genre tags have been used yet."
 msgstr "Inga redigeringsanteckningar har lagts till."
@@ -17524,7 +17409,6 @@ msgstr ""
 
 #: ../root/tag/TagCloud.js:123
 #, fuzzy
-#| msgid "No edit notes have been added."
 msgctxt "folksonomy"
 msgid "No non-genre tags have been used yet."
 msgstr "Inga redigeringsanteckningar har lagts till."
@@ -17537,14 +17421,12 @@ msgstr ""
 #: ../root/tag/TagLayout.js:42 ../root/tag/TagLayout.js:44
 #: ../root/tag/TagLayout.js:51
 #, fuzzy
-#| msgid "Tag “{tag}”"
 msgctxt "folksonomy"
 msgid "Tag “{tag}”"
 msgstr "Taggen “{tag}”"
 
 #: ../root/tag/TagLayout.js:56
 #, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tag"
 msgstr "Taggar"
@@ -17586,7 +17468,6 @@ msgstr "Jag donerade precis! Varför ser jag detta?"
 
 #: ../root/taglookup/NotFound.js:14
 #, fuzzy
-#| msgid "Tag lookup"
 msgctxt "audio file metadata"
 msgid "Tag lookup error"
 msgstr "Kolla upp tagg"
@@ -17603,20 +17484,17 @@ msgstr ""
 
 #: ../root/taglookup/Results.js:21 ../root/taglookup/Results.js:23
 #, fuzzy
-#| msgid "Tag lookup"
 msgctxt "audio file metadata"
 msgid "Tag lookup results"
 msgstr "Kolla upp tagg"
 
 #: ../root/url/UrlIndex.js:18
 #, fuzzy
-#| msgid "Label information"
 msgid "URL information"
 msgstr "Skivbolagsinformation"
 
 #: ../root/url/UrlIndex.js:19
 #, fuzzy
-#| msgid "View details"
 msgid "URL details"
 msgstr "Visa detaljer"
 
@@ -17638,7 +17516,6 @@ msgstr "Skicka en kopia till min e-postadress"
 
 #: ../root/user/Login.js:48 ../root/user/Login.js:49
 #, fuzzy
-#| msgid "Log in"
 msgctxt "header"
 msgid "Log in"
 msgstr "Logga in"
@@ -17675,7 +17552,6 @@ msgstr "Glömt {link1|användarnamnet} eller {link2|lösenordet}?"
 
 #: ../root/user/PrivilegedUsers.js:28
 #, fuzzy
-#| msgid "Auto-edits"
 msgctxt "header"
 msgid "Auto-editors"
 msgstr "Automatiska redigeringar"
@@ -17694,7 +17570,6 @@ msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:47
 #, fuzzy
-#| msgid "Relationship editors"
 msgctxt "header"
 msgid "Relationship editors"
 msgstr "Förhållanderedigerare"
@@ -17713,7 +17588,6 @@ msgstr "Följande {count} användare är förhållanderedigerare:"
 
 #: ../root/user/PrivilegedUsers.js:66
 #, fuzzy
-#| msgid "Relationship editors"
 msgctxt "header"
 msgid "Transclusion editors"
 msgstr "Förhållanderedigerare"
@@ -17730,7 +17604,6 @@ msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:82
 #, fuzzy
-#| msgid "Location Editor"
 msgctxt "header"
 msgid "Location editors"
 msgstr "Platsredigerare"
@@ -17745,7 +17618,6 @@ msgstr "Följande {count} användare är platsredigerare:"
 
 #: ../root/user/PrivilegedUsers.js:97
 #, fuzzy
-#| msgid "Banner message"
 msgctxt "header"
 msgid "Banner message editors"
 msgstr "Bannermeddelande"
@@ -17763,14 +17635,12 @@ msgstr "Följande {count} användare är bannermeddelanderedigerare:"
 
 #: ../root/user/PrivilegedUsers.js:111
 #, fuzzy
-#| msgid "Account administrators"
 msgctxt "header"
 msgid "Account administrators"
 msgstr "Kontoadministratörer"
 
 #: ../root/user/PrivilegedUsers.js:113
 #, fuzzy
-#| msgid "Account administrators can edit and delete user accounts."
 msgid ""
 "Account administrators can edit and delete user accounts, and immediately "
 "accept and reject edits."
@@ -17782,7 +17652,6 @@ msgstr "Följande {count} användare är kontoadministratörer:"
 
 #: ../root/user/PrivilegedUsers.js:124
 #, fuzzy
-#| msgid "Bots"
 msgctxt "header"
 msgid "Bots"
 msgstr "Bottar"
@@ -17793,7 +17662,6 @@ msgstr "Följande {count} användarkonton är robotar:"
 
 #: ../root/user/ReportUser.js:76 ../root/user/ReportUser.js:78
 #, fuzzy
-#| msgid "Reports"
 msgctxt "header"
 msgid "Report user"
 msgstr "Rapporter"
@@ -17845,74 +17713,62 @@ msgstr "Skicka"
 
 #: ../root/user/UserCollections.js:36
 #, fuzzy
-#| msgid "Area Collections"
 msgid "Area collections"
 msgstr "Områdessamlingar"
 
 #: ../root/user/UserCollections.js:37
 #, fuzzy
-#| msgid "Artist Collections"
 msgid "Artist collections"
 msgstr "Artistsamlingar"
 
 #: ../root/user/UserCollections.js:38
 #, fuzzy
-#| msgid "Event Collections"
 msgid "Event collections"
 msgstr "Händelsesamlingar"
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
-#| msgid "Artist Collections"
 msgid "Genre collections"
 msgstr "Artistsamlingar"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
-#| msgid "Instrument Collections"
 msgid "Instrument collections"
 msgstr "Instrumentsamlingar"
 
 #: ../root/user/UserCollections.js:41
 #, fuzzy
-#| msgid "Label Collections"
 msgid "Label collections"
 msgstr "Skivbolagssamlingar"
 
 #: ../root/user/UserCollections.js:42
 #, fuzzy
-#| msgid "Place Collections"
 msgid "Place collections"
 msgstr "Platssamlingar"
 
 #: ../root/user/UserCollections.js:43
 #, fuzzy
-#| msgid "Recording Collections"
 msgid "Recording collections"
 msgstr "Inspelningssamlingar"
 
 #: ../root/user/UserCollections.js:44
 #, fuzzy
-#| msgid "Release Collections"
 msgid "Release collections"
 msgstr "Utgivningssamlingar"
 
 #: ../root/user/UserCollections.js:45
 #, fuzzy
-#| msgid "Release Group Collections"
 msgid "Release group collections"
 msgstr "Utgivningsgruppsamlingar"
 
 #: ../root/user/UserCollections.js:46
 #, fuzzy
-#| msgid "Artist Collections"
 msgctxt "plural"
 msgid "Series collections"
 msgstr "Artistsamlingar"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
-#| msgid "(your collection)"
 msgid "Work collections"
 msgstr "(din samling)"
 
@@ -17942,7 +17798,6 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:215
 #, fuzzy
-#| msgid "Add to a new collection"
 msgctxt "interactive"
 msgid "Add a new collection"
 msgstr "Lägg till i en ny samling"
@@ -17985,35 +17840,30 @@ msgstr "Redigeringar av {name}"
 
 #: ../root/user/UserProfile.js:74
 #, fuzzy
-#| msgid "Deleted User"
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "Borttagen användare"
 
 #: ../root/user/UserProfile.js:86
 #, fuzzy
-#| msgid "Internal/Bot"
 msgctxt "user type"
 msgid "Internal/Bot"
 msgstr "Internt/bot"
 
 #: ../root/user/UserProfile.js:93
 #, fuzzy
-#| msgid "Account admin"
 msgctxt "user type"
 msgid "Account admin"
 msgstr "Kontoadministratör"
 
 #: ../root/user/UserProfile.js:126
 #, fuzzy
-#| msgid "Begin"
 msgctxt "user type"
 msgid "Beginner"
 msgstr "Börja"
 
 #: ../root/user/UserProfile.js:132
 #, fuzzy
-#| msgid "Normal User"
 msgctxt "user type"
 msgid "Normal user"
 msgstr "Normal användare"
@@ -18034,27 +17884,23 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:194
 #, fuzzy
-#| msgid "General Information"
 msgid "General information"
 msgstr "Allmän information"
 
 #: ../root/user/UserProfile.js:200
 #, fuzzy
-#| msgid "(hidden)"
 msgctxt "email address"
 msgid "(hidden)"
 msgstr "(gömd)"
 
 #: ../root/user/UserProfile.js:203
 #, fuzzy
-#| msgid "(verified at {date})"
 msgctxt "email address"
 msgid "(verified at {date})"
 msgstr "(verifierades {date})"
 
 #: ../root/user/UserProfile.js:208
 #, fuzzy
-#| msgid "(<strong>unverified!</strong>)"
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>overifierad!</strong>)"
@@ -18069,8 +17915,6 @@ msgstr "skicka e-post"
 
 #: ../root/user/UserProfile.js:250
 #, fuzzy
-#| msgctxt "type"
-#| msgid "(none)"
 msgctxt "email address"
 msgid "(none)"
 msgstr "(inga)"
@@ -18093,7 +17937,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:295
 #, fuzzy
-#| msgid "Description"
 msgid "Restrictions"
 msgstr "Beskrivning"
 
@@ -18221,7 +18064,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:798
 #, fuzzy
-#| msgid "Event ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Händelsebetyg"
@@ -18238,7 +18080,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
 #, fuzzy
-#| msgid "Removed"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Borttagen"
@@ -18259,7 +18100,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:921
 #, fuzzy
-#| msgid "Delete my account"
 msgid "Blocked spam account"
 msgstr "Ta bort mitt konto"
 
@@ -18276,7 +18116,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:994
 #, fuzzy
-#| msgid "Allow other users to see my ratings"
 msgid "View other users’ notes on my edits"
 msgstr "Tillåt andra användare att se mina betyg"
 
@@ -18326,31 +18165,26 @@ msgstr ""
 
 #: ../root/user/UserSubscriptions.js:23
 #, fuzzy
-#| msgid "Artist Subscriptions"
 msgid "Artist subscriptions"
 msgstr "Artistprenumerationer"
 
 #: ../root/user/UserSubscriptions.js:24
 #, fuzzy
-#| msgid "Collection Subscriptions"
 msgid "Collection subscriptions"
 msgstr "Samlingsprenumerationer"
 
 #: ../root/user/UserSubscriptions.js:25
 #, fuzzy
-#| msgid "Editor Subscriptions"
 msgid "Editor subscriptions"
 msgstr "Redigerarprenumerationer"
 
 #: ../root/user/UserSubscriptions.js:26
 #, fuzzy
-#| msgid "Label Subscriptions"
 msgid "Label subscriptions"
 msgstr "Skivbolagsprenumerationer"
 
 #: ../root/user/UserSubscriptions.js:27
 #, fuzzy
-#| msgid "Series Subscriptions"
 msgid "Series subscriptions"
 msgstr "Serieprenumeranter"
 
@@ -18436,21 +18270,18 @@ msgstr "Inga användare hittades"
 
 #: ../root/user/components/UserTagFilters.js:27
 #, fuzzy
-#| msgid "No vote"
 msgctxt "folksonomy tag upvotes or downvotes"
 msgid "Show votes"
 msgstr "Ingen röstning"
 
 #: ../root/user/components/UserTagFilters.js:35
 #, fuzzy
-#| msgid "Votes"
 msgctxt "folksonomy tag"
 msgid "upvotes"
 msgstr "Röster"
 
 #: ../root/user/components/UserTagFilters.js:36
 #, fuzzy
-#| msgid "No vote"
 msgctxt "folksonomy tag"
 msgid "downvotes"
 msgstr "Ingen röstning"
@@ -18561,14 +18392,12 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:761
 #, fuzzy
-#| msgid "Relationship Types"
 msgctxt "header"
 msgid "Relationship type"
 msgstr "Förhållandetyper"
 
 #: ../root/utility/tableColumns.js:776
 #, fuzzy
-#| msgid "Edit Types"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "Redigera typer"
@@ -18579,7 +18408,6 @@ msgstr "Prenumererar"
 
 #: ../root/utility/tableColumns.js:832
 #, fuzzy
-#| msgid "Languages:"
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "Språk"
@@ -18834,6 +18662,47 @@ msgid ""
 "continue with the merge."
 msgstr ""
 
+#~ msgid "Welcome to MusicBrainz!"
+#~ msgstr "Välkommen till MusicBrainz!"
+
+#~ msgid "MusicBrainz aims to be:"
+#~ msgstr "MusicBrainz siktar mot att bli:"
+
+#~ msgid ""
+#~ "{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+#~ msgstr ""
+#~ "{about|Mer information} &#x2014; {faq|Vanliga frågor} &#x2014; {contact|"
+#~ "Kontakta oss}"
+
+#, fuzzy
+#~| msgid "Quick Start"
+#~ msgid "Quick start"
+#~ msgstr "Snabbstart"
+
+#, fuzzy
+#~| msgid "How to Contribute"
+#~ msgid "How to contribute"
+#~ msgstr "Hur man bidrar"
+
+#~ msgid ""
+#~ "The majority of the data in the <strong>MusicBrainz Database</strong> is "
+#~ "released into the <strong>Public Domain</strong> and can be downloaded "
+#~ "and used <strong>for free</strong>."
+#~ msgstr ""
+#~ "Majoriteten av data i <strong>MusicBrainz-databasen</strong> släpps ut i "
+#~ "<strong>Public Domain</strong> och kan hämtas och användas <strong>utan "
+#~ "kostnad</strong>."
+
+#, fuzzy
+#~| msgid "Old releases:"
+#~ msgid "Recently added releases"
+#~ msgstr "Gamla förhållanden:"
+
+#, fuzzy
+#~| msgid "Release events"
+#~ msgid "Recently added events"
+#~ msgstr "Utgivningshändelser"
+
 #~ msgid "Captcha"
 #~ msgstr "Captcha"
 
@@ -18851,9 +18720,6 @@ msgstr ""
 
 #~ msgid "Twitter"
 #~ msgstr "Twitter"
-
-#~ msgid "Add {item}"
-#~ msgstr "Lägg till {item}"
 
 #~ msgid "Remove {item}"
 #~ msgstr "Ta bort {item}"
@@ -19056,17 +18922,11 @@ msgstr ""
 #~ msgid "Add Work"
 #~ msgstr "Lägg till verk"
 
-#~ msgid "Cover Art"
-#~ msgstr "Omslag"
-
 #~ msgid "Edit Attribute"
 #~ msgstr "Redigera attribut"
 
 #~ msgid "End Area"
 #~ msgstr "Slutområde"
-
-#~ msgid "External Links"
-#~ msgstr "Externa länkar"
 
 #~ msgid "Frequency notes:"
 #~ msgstr "Frekvensanteckningar:"
@@ -19208,12 +19068,6 @@ msgstr ""
 #~ msgctxt "button/menu"
 #~ msgid "Add Event"
 #~ msgstr "Lägg till händelse"
-
-#~ msgid "Beginners Guide"
-#~ msgstr "Nybörjarguide"
-
-#~ msgid "Style Guidelines"
-#~ msgstr "Stilriktlinjer"
 
 #~ msgid "Relationship Types"
 #~ msgstr "Förhållandetyper"
@@ -19371,9 +19225,6 @@ msgstr ""
 #~ msgid "Release:"
 #~ msgstr "Utgivning:"
 
-#~ msgid "Search:"
-#~ msgstr "Sök:"
-
 #~ msgid "Status:"
 #~ msgstr "Status:"
 
@@ -19494,14 +19345,8 @@ msgstr ""
 #~ msgid "Release events:"
 #~ msgstr "Utgivningshändelser:"
 
-#~ msgid "Email:"
-#~ msgstr "E-post:"
-
 #~ msgid "Member since:"
 #~ msgstr "Medlem sedan:"
-
-#~ msgid "Last login:"
-#~ msgstr "Senaste inloggning:"
 
 #~ msgid "Subscribers:"
 #~ msgstr "Prenumeranter:"
@@ -19511,9 +19356,6 @@ msgstr ""
 
 #~ msgid "Or..."
 #~ msgstr "Eller..."
-
-#~ msgid "No title provided"
-#~ msgstr "Rubrik ej angiven"
 
 #~ msgid "No artist names provided"
 #~ msgstr "Artistnamn ej angivna"

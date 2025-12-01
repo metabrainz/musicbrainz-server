@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 17:21+0100\n"
+"POT-Creation-Date: 2025-12-01 13:16-0600\n"
 "PO-Revision-Date: 2024-04-17 17:36+0000\n"
 "Last-Translator: hashflu "
 "<hashflu@users.noreply.translations.metabrainz.org>\n"
@@ -137,7 +137,6 @@ msgstr ""
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "Add Place"
 msgctxt "interactive"
 msgid "Add IPI code"
 msgstr "장소 추가"
@@ -149,14 +148,12 @@ msgstr ""
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "ISRC"
 msgctxt "interactive"
 msgid "Add ISRC"
 msgstr "국제표준녹음코드(ISRC)"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "ISRC"
 msgctxt "interactive"
 msgid "Add ISWC"
 msgstr "국제표준녹음코드(ISRC)"
@@ -187,44 +184,36 @@ msgstr ""
 
 #: ../root/area/create.tt:1 ../root/area/create.tt:3
 #, fuzzy
-#| msgid "Add area"
 msgctxt "header"
 msgid "Add area"
 msgstr "지역 추가"
 
 #: ../root/artist/create.tt:1 ../root/artist/create.tt:3
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add artist"
 msgstr "아티스트 추가"
 
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural, header"
 msgid "Add cover art"
 msgstr "커버 아트 추가"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural, header"
 msgid "Add event art"
 msgstr "커버 아트 추가"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "header"
 msgid "Add instrument"
 msgstr "악기 추가"
 
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 #, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Add label"
 msgstr "레이블 추가"
@@ -233,7 +222,6 @@ msgstr "레이블 추가"
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
 #, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add label"
 msgstr "레이블 추가"
@@ -245,7 +233,6 @@ msgstr ""
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 #, fuzzy
-#| msgid "Add place"
 msgctxt "header"
 msgid "Add place"
 msgstr "장소 추가"
@@ -254,7 +241,6 @@ msgstr "장소 추가"
 #: ../root/static/scripts/release-editor/init.js:256
 #: ../root/static/scripts/release-editor/init.js:257
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "header"
 msgid "Add release"
 msgstr "지역 추가"
@@ -267,14 +253,12 @@ msgstr ""
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Add release group"
 msgstr "발매 그룹"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 #, fuzzy
-#| msgid "Add Artist"
 msgctxt "header, singular"
 msgid "Add series"
 msgstr "아티스트 추가"
@@ -290,7 +274,6 @@ msgstr "트랙 추가"
 
 #: ../root/work/create.tt:1 ../root/work/create.tt:2
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "header"
 msgid "Add work"
 msgstr "지역 추가"
@@ -401,7 +384,6 @@ msgstr "지역"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Area type"
 msgstr "아티스트 수정"
 
@@ -474,19 +456,16 @@ msgstr "아티스트"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Artist area"
 msgstr "아티스트 정보"
 
 #: ../root/artist/edit_form.tt:12
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Artist details"
 msgstr "아티스트 정보"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Artist type"
 msgstr "아티스트 정보"
 
@@ -508,7 +487,6 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
 #, fuzzy
-#| msgid "Add disc ID"
 msgid "Attach disc ID"
 msgstr "디스크 ID 추가"
 
@@ -567,6 +545,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
+#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
 msgid "Blog"
 msgstr "블로그"
 
@@ -576,7 +555,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438
 #, fuzzy
-#| msgid "Bot"
 msgctxt "user type"
 msgid "Bot"
 msgstr "봇"
@@ -588,7 +566,6 @@ msgid ""
 msgstr ""
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
-#: ../root/main/index.js:211
 msgid "Bug tracker"
 msgstr ""
 
@@ -602,7 +579,6 @@ msgstr ""
 
 #: ../root/cdtoc/lookup.tt:21
 #, fuzzy
-#| msgid "CD Not Found"
 msgid "CD stub found"
 msgstr "CD를 찾을 수 없습니다"
 
@@ -652,12 +628,12 @@ msgid "Catalog#"
 msgstr ""
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr ""
 
 #: ../root/release/edit/information.tt:58
 #, fuzzy
-#| msgid "Release Group"
 msgid "Checking existing release groups…"
 msgstr "발매 그룹"
 
@@ -760,7 +736,6 @@ msgstr ""
 #: ../root/medium/MediumTracklist.js:46
 #: ../root/static/scripts/release/components/MediumTable.js:117
 #, fuzzy
-#| msgid "Add track(s)"
 msgid "Data tracks"
 msgstr "트랙 추가"
 
@@ -869,6 +844,7 @@ msgid "Do not use any of the above releases as a starting point"
 msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
+#: ../root/layout/components/NewFooter.js:70
 msgid "Donate"
 msgstr "기부"
 
@@ -894,7 +870,6 @@ msgstr "편집"
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:99
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header"
 msgid "Edit"
 msgstr "편집"
@@ -910,35 +885,30 @@ msgstr "편집"
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:529
 #: ../root/user/UserCollections.js:121
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, interactive"
 msgid "Edit"
 msgstr "편집"
 
 #: ../root/url/edit_form.tt:1
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "header"
 msgid "Edit URL"
 msgstr "URL 편집"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "header"
 msgid "Edit artist credit"
 msgstr "아티스트 인정함 수정"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, header"
 msgid "Edit cover art"
 msgstr "커버 아트 편집"
 
 #: ../root/event/edit_event_art.tt:1 ../root/event/edit_event_art.tt:5
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, header"
 msgid "Edit event art"
 msgstr "커버 아트 편집"
@@ -946,7 +916,6 @@ msgstr "커버 아트 편집"
 #: ../root/forms/edit-note.tt:2 ../root/release/edit/layout.tt:18
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "noun"
 msgid "Edit note"
 msgstr "사용자 편집"
@@ -968,7 +937,6 @@ msgstr ""
 #: ../root/doc/EditTypeList.js:37 ../root/edit/components/EditSidebar.js:93
 #: ../root/layout/components/BottomMenu.js:320
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "noun"
 msgid "Edit types"
 msgstr "아티스트 수정"
@@ -987,7 +955,6 @@ msgstr "편집자"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Editor"
 msgid "Editor flag"
 msgstr "편집자"
 
@@ -1059,7 +1026,6 @@ msgstr "이벤트"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Event"
 msgid "Event type"
 msgstr "이벤트"
 
@@ -1076,7 +1042,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:77
 #, fuzzy
-#| msgid "Edit artist alias"
 msgid "Existing release groups with similar names"
 msgstr "아티스트 별칭 수정"
 
@@ -1214,7 +1179,7 @@ msgid "Format"
 msgstr "포맷"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:214
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr ""
 
@@ -1512,7 +1477,6 @@ msgstr "악기"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Instrument"
 msgid "Instrument type"
 msgstr "악기"
 
@@ -1589,7 +1553,6 @@ msgstr "레이블"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label"
 msgid "Label area"
 msgstr "레이블"
 
@@ -1601,13 +1564,11 @@ msgstr ""
 
 #: ../root/label/edit_form.tt:8
 #, fuzzy
-#| msgid "Labels"
 msgid "Label details"
 msgstr "레이블"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Label"
 msgid "Label type"
 msgstr "레이블"
 
@@ -1619,6 +1580,7 @@ msgstr "레이블"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
+#: ../root/static/scripts/homepage/language.js:66
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr ""
@@ -1660,7 +1622,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:114
 #, fuzzy
-#| msgid "Location"
 msgctxt "user type"
 msgid "Location editor"
 msgstr "위치"
@@ -1669,7 +1630,6 @@ msgstr "위치"
 #: ../root/components/RequestLogin.js:19
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 #, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in"
 msgstr "로그인"
@@ -1816,7 +1776,6 @@ msgstr ""
 
 #: ../root/artist/edit_credit.tt:16 ../root/artist/split.tt:43
 #, fuzzy
-#| msgid "Edit artist credit"
 msgid "New artist credit"
 msgstr "아티스트 인정함 수정"
 
@@ -1950,13 +1909,11 @@ msgstr "장소"
 
 #: ../root/place/edit_form.tt:12
 #, fuzzy
-#| msgid "Details"
 msgid "Place details"
 msgstr "상세내용"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Place"
 msgid "Place type"
 msgstr "장소"
 
@@ -2065,7 +2022,6 @@ msgstr "곡명"
 
 #: ../root/recording/edit_form.tt:23
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording details"
 msgstr "곡명"
 
@@ -2144,19 +2100,16 @@ msgstr "릴리즈"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Country"
 msgid "Release country"
 msgstr "릴리즈 국가"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Country"
 msgid "Release data quality"
 msgstr "릴리즈 국가"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release duplicates"
 msgstr "발매 그룹"
 
@@ -2194,25 +2147,21 @@ msgstr ""
 
 #: ../root/release_group/edit_form.tt:10
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group details"
 msgstr "발매 그룹"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group primary type"
 msgstr "발매 그룹"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group search error"
 msgstr "발매 그룹"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group secondary type"
 msgstr "발매 그룹"
 
@@ -2233,7 +2182,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release language"
 msgstr "발매 그룹"
 
@@ -2262,28 +2210,24 @@ msgstr "제거"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #, fuzzy
-#| msgid "Remove"
 msgctxt "interactive"
 msgid "Remove IPI code"
 msgstr "제거"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
-#| msgid "Remove"
 msgctxt "interactive"
 msgid "Remove ISNI code"
 msgstr "제거"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
-#| msgid "Remove"
 msgctxt "interactive"
 msgid "Remove ISRC"
 msgstr "제거"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
-#| msgid "Remove"
 msgctxt "interactive"
 msgid "Remove ISWC"
 msgstr "제거"
@@ -2294,7 +2238,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:242
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove label"
 msgstr "레이블 제거"
@@ -2305,7 +2248,6 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:202
 #, fuzzy
-#| msgid "Remove label"
 msgid "Remove release event"
 msgstr "레이블 제거"
 
@@ -2316,14 +2258,12 @@ msgstr ""
 #: ../root/release/reorder_cover_art.tt:1
 #: ../root/release/reorder_cover_art.tt:4
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, header"
 msgid "Reorder cover art"
 msgstr "아티스트 제거"
 
 #: ../root/event/reorder_event_art.tt:1 ../root/event/reorder_event_art.tt:4
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, header"
 msgid "Reorder event art"
 msgstr "아티스트 제거"
@@ -2376,6 +2316,7 @@ msgstr "스크립트"
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
+#: ../root/static/scripts/homepage/mobile-search-popup.js:43
 #: ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "검색"
@@ -2455,13 +2396,11 @@ msgstr ""
 
 #: ../root/series/edit_form.tt:8
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Series details"
 msgstr "아티스트 정보"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Series type"
 msgstr "아티스트 수정"
 
@@ -2514,7 +2453,6 @@ msgstr ""
 
 #: ../root/artist/split.tt:1
 #, fuzzy
-#| msgid "Edit artist"
 msgid "Split artist"
 msgstr "아티스트 수정"
 
@@ -2537,7 +2475,6 @@ msgstr "상태"
 #: ../root/static/scripts/common/components/FilterForm.js:303
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:137
 #, fuzzy
-#| msgid "Status"
 msgctxt "release"
 msgid "Status"
 msgstr "상태"
@@ -2563,7 +2500,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:793
 #, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "태그제공자"
@@ -3177,7 +3113,6 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:584
 #: ../root/static/scripts/release-editor/dialogs.js:46
 #, fuzzy
-#| msgid "Tracks"
 msgid "Track parser"
 msgstr "트랙"
 
@@ -3213,7 +3148,6 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:107
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "user type"
 msgid "Transclusion editor"
 msgstr "편집 취소"
@@ -3286,7 +3220,6 @@ msgstr "유형"
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
 #, fuzzy
-#| msgid "Type"
 msgid "Types"
 msgstr "유형"
 
@@ -3432,6 +3365,7 @@ msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr ""
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
+#: ../root/layout/components/NewFooter.js:76
 msgid "Wiki"
 msgstr "위키"
 
@@ -3463,7 +3397,6 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:10
 #, fuzzy
-#| msgid "Details"
 msgid "Work details"
 msgstr "상세내용"
 
@@ -3567,7 +3500,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
 #, fuzzy
-#| msgid "Remove"
 msgctxt "generic entity"
 msgid "[removed]"
 msgstr "제거"
@@ -3613,7 +3545,6 @@ msgstr ""
 #: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:111
 #, fuzzy
-#| msgid "Cancel"
 msgctxt "event"
 msgid "cancelled"
 msgstr "취소"
@@ -4292,7 +4223,6 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "generic entity"
 msgid "[unknown]"
 msgstr "알 수 없음"
@@ -4301,19 +4231,19 @@ msgstr "알 수 없음"
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -4328,7 +4258,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:354
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 #, fuzzy
-#| msgid "Send Email"
 msgctxt "header"
 msgid "Send email"
 msgstr "이메일 보내기"
@@ -4507,119 +4436,102 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add area alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add area annotation"
 msgstr "주석"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Create.pm:26
 #, fuzzy
-#| msgid "Add area"
 msgctxt "edit type"
 msgid "Add area"
 msgstr "지역 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove area"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove area alias"
 msgstr "레이블 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit area"
 msgstr "레이블 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit area alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Merge.pm:11
 #, fuzzy
-#| msgid "Merge"
 msgctxt "edit type"
 msgid "Merge areas"
 msgstr "병합"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add artist annotation"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Create.pm:37
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "edit type"
 msgid "Add artist"
 msgstr "아티스트 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Delete.pm:11
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove artist"
 msgstr "아티스트 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove artist alias"
 msgstr "아티스트 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit artist"
 msgstr "아티스트 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit artist alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/EditArtistCredit.pm:26
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "edit type"
 msgid "Edit artist credit"
 msgstr "아티스트 인정함 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Merge artists"
 msgstr "아티스트 제거"
@@ -4642,65 +4554,54 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add event alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add event annotation"
 msgstr "주석"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/AddEventArt.pm:15
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "singular, edit type"
 msgid "Add event art"
 msgstr "커버 아트 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Create.pm:26
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "edit type"
 msgid "Add event"
 msgstr "커버 아트 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Delete.pm:11
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove event"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove event alias"
 msgstr "레이블 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "edit type"
 msgid "Edit event"
 msgstr "커버 아트 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit event alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/EditEventArt.pm:15
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, edit type"
 msgid "Edit event art"
 msgstr "커버 아트 편집"
@@ -4712,63 +4613,54 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Event/RemoveEventArt.pm:15
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "singular, edit type"
 msgid "Remove event art"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/ReorderEventArt.pm:15
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, edit type"
 msgid "Reorder event art"
 msgstr "아티스트 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add genre alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add genre annotation"
 msgstr "주석"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "edit type"
 msgid "Add genre"
 msgstr "지역 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove genre"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove genre alias"
 msgstr "레이블 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "edit type"
 msgid "Edit genre"
 msgstr "사용자 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit genre alias"
 msgstr "아티스트 별칭 수정"
@@ -4781,7 +4673,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/AddDiscID.pm:11
 #, fuzzy
-#| msgid "Add disc ID"
 msgctxt "edit type"
 msgid "Add disc ID"
 msgstr "디스크 ID 추가"
@@ -4789,7 +4680,6 @@ msgstr "디스크 ID 추가"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Create.pm:39
 #, fuzzy
-#| msgid "Add Artist"
 msgctxt "edit type"
 msgid "Add relationship"
 msgstr "아티스트 추가"
@@ -4797,7 +4687,6 @@ msgstr "아티스트 추가"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddRelease.pm:22
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:34
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "edit type"
 msgid "Add release"
 msgstr "지역 추가"
@@ -4805,7 +4694,6 @@ msgstr "지역 추가"
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddReleaseAnnotation.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add release annotation"
 msgstr "주석"
@@ -4818,7 +4706,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:11
 #, fuzzy
-#| msgid "Add track(s)"
 msgctxt "edit type"
 msgid "Add track (historic)"
 msgstr "트랙 추가"
@@ -4837,7 +4724,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release/Edit.pm:50
 #: ../lib/MusicBrainz/Server/Edit/Release/EditArtist.pm:31
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit release"
 msgstr "레이블 편집"
@@ -4851,7 +4737,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeTrackArtist.pm:14
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackNum.pm:14
 #, fuzzy
-#| msgid "Add track(s)"
 msgctxt "edit type"
 msgid "Edit track (historic)"
 msgstr "트랙 추가"
@@ -4859,7 +4744,6 @@ msgstr "트랙 추가"
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditLink.pm:16
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Edit.pm:47
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit relationship"
 msgstr "아티스트 수정"
@@ -4874,7 +4758,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
 #: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
 #, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "곡명"
@@ -4888,7 +4771,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Historic/MergeReleaseMAC.pm:10
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:139
 #, fuzzy
-#| msgid "Releases"
 msgctxt "edit type"
 msgid "Merge releases"
 msgstr "릴리즈"
@@ -4896,7 +4778,6 @@ msgstr "릴리즈"
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
 #, fuzzy
-#| msgid "Move disc ID"
 msgctxt "edit type"
 msgid "Move disc ID"
 msgstr "디스크 ID 이동"
@@ -4904,7 +4785,6 @@ msgstr "디스크 ID 이동"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/RemoveDiscID.pm:10
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "edit type"
 msgid "Remove disc ID"
 msgstr "디스크 ID 제거"
@@ -4912,7 +4792,6 @@ msgstr "디스크 ID 제거"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove label alias"
 msgstr "레이블 별칭 제거"
@@ -4920,7 +4799,6 @@ msgstr "레이블 별칭 제거"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:41
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove relationship"
 msgstr "아티스트 제거"
@@ -4928,7 +4806,6 @@ msgstr "아티스트 제거"
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove release"
 msgstr "레이블 제거"
@@ -4945,7 +4822,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove track"
 msgstr "레이블 제거"
@@ -4963,105 +4839,90 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Add instrument alias"
 msgstr "악기 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Add instrument annotation"
 msgstr "악기 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Create.pm:23
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Add instrument"
 msgstr "악기 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Delete.pm:10
 #, fuzzy
-#| msgid "Add another instrument"
 msgctxt "edit type"
 msgid "Remove instrument"
 msgstr "다른 악기 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove instrument alias"
 msgstr "아티스트 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "edit type"
 msgid "Edit instrument"
 msgstr "악기 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit instrument alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 #, fuzzy
-#| msgid "Add another instrument"
 msgctxt "edit type"
 msgid "Merge instruments"
 msgstr "다른 악기 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add label alias"
 msgstr "레이블 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add label annotation"
 msgstr "주석"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Create.pm:33
 #, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add label"
 msgstr "레이블 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Delete.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove label"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label"
 msgstr "레이블 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit label alias"
 msgstr "레이블 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Merge.pm:12
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Merge labels"
 msgstr "레이블 제거"
@@ -5073,14 +4934,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "edit type"
 msgid "Remove medium"
 msgstr "디스크 ID 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Edit.pm:54
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "edit type"
 msgid "Edit medium"
 msgstr "사용자 편집"
@@ -5093,49 +4952,42 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add place"
 msgctxt "edit type"
 msgid "Add place alias"
 msgstr "장소 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add place annotation"
 msgstr "주석"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Create.pm:29
 #, fuzzy
-#| msgid "Add place"
 msgctxt "edit type"
 msgid "Add place"
 msgstr "장소 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Delete.pm:10
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove place"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove place alias"
 msgstr "레이블 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit place"
 msgstr "레이블 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit place alias"
 msgstr "아티스트 별칭 수정"
@@ -5147,7 +4999,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add recording alias"
 msgstr "아티스트 별칭 추가"
@@ -5159,7 +5010,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/AddISRCs.pm:23
 #, fuzzy
-#| msgid "ISRC"
 msgctxt "edit type"
 msgid "Add ISRCs"
 msgstr "국제표준녹음코드(ISRC)"
@@ -5171,35 +5021,30 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
 #, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Remove recording"
 msgstr "곡명"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove recording alias"
 msgstr "아티스트 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit recording alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Merge.pm:15
 #, fuzzy
-#| msgid "Recording"
 msgctxt "edit type"
 msgid "Merge recordings"
 msgstr "곡명"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 #, fuzzy
-#| msgid "Remove"
 msgctxt "edit type"
 msgid "Remove ISRC"
 msgstr "제거"
@@ -5245,7 +5090,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/EditLinkType.pm:23
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit relationship type"
 msgstr "아티스트 수정"
@@ -5257,14 +5101,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:14
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove relationship type"
 msgstr "아티스트 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #, fuzzy
-#| msgid "Remove"
 msgctxt "relationship attribute type"
 msgid "[removed]"
 msgstr "제거"
@@ -5276,71 +5118,60 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add release alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddCoverArt.pm:15
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr "커버 아트 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
 #, fuzzy
-#| msgid "Add label"
 msgctxt "edit type"
 msgid "Add release label"
 msgstr "레이블 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
-#| msgid "Remove"
 msgctxt "release group"
 msgid "[removed]"
 msgstr "제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove release alias"
 msgstr "레이블 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteReleaseLabel.pm:21
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "edit type"
 msgid "Remove release label"
 msgstr "레이블 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit release alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditBarcodes.pm:20
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "edit type"
 msgid "Edit barcodes"
 msgstr "아티스트 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditCoverArt.pm:14
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "singular, edit type"
 msgid "Edit cover art"
 msgstr "커버 아트 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:27
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "edit type"
 msgid "Edit release label"
 msgstr "레이블 편집"
@@ -5359,14 +5190,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Release/RemoveCoverArt.pm:15
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, edit type"
 msgid "Remove cover art"
 msgstr "아티스트 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, edit type"
 msgid "Reorder cover art"
 msgstr "아티스트 제거"
@@ -5378,7 +5207,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add release group alias"
 msgstr "아티스트 별칭 추가"
@@ -5390,42 +5218,36 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Create.pm:31
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Add release group"
 msgstr "발매 그룹"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Remove release group"
 msgstr "발매 그룹"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "레이블 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "발매 그룹"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit release group alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Merge.pm:13
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "edit type"
 msgid "Merge release groups"
 msgstr "발매 그룹"
@@ -5477,49 +5299,42 @@ msgstr[0] ""
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add series alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add series annotation"
 msgstr "주석"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
-#| msgid "Add Artist"
 msgctxt "edit type"
 msgid "Add series"
 msgstr "아티스트 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Delete.pm:12
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "edit type"
 msgid "Remove series"
 msgstr "아티스트 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove series alias"
 msgstr "아티스트 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Edit.pm:33
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "edit type"
 msgid "Edit series"
 msgstr "사용자 편집"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/EditAlias.pm:12
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit series alias"
 msgstr "아티스트 별칭 수정"
@@ -5531,7 +5346,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/URL/Edit.pm:26
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "edit type"
 msgid "Edit URL"
 msgstr "URL 편집"
@@ -5558,7 +5372,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:43
 #, fuzzy
-#| msgid "Error"
 msgctxt "edit status"
 msgid "Error"
 msgstr "오류"
@@ -5575,7 +5388,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:42
 #, fuzzy
-#| msgid "Cancel"
 msgctxt "edit status"
 msgid "Cancelled"
 msgstr "취소"
@@ -5591,14 +5403,12 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAlias.pm:11
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "edit type"
 msgid "Add work alias"
 msgstr "아티스트 별칭 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/AddAnnotation.pm:11
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "edit type"
 msgid "Add work annotation"
 msgstr "주석"
@@ -5610,49 +5420,42 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:22
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "edit type"
 msgid "Add work"
 msgstr "지역 추가"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Delete.pm:11
 #, fuzzy
-#| msgid "Remove"
 msgctxt "edit type"
 msgid "Remove work"
 msgstr "제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 #, fuzzy
-#| msgid "Remove artist alias"
 msgctxt "edit type"
 msgid "Remove work alias"
 msgstr "아티스트 별칭 제거"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Edit.pm:93
 #, fuzzy
-#| msgid "Editor"
 msgctxt "edit type"
 msgid "Edit work"
 msgstr "편집자"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/EditAlias.pm:13
 #, fuzzy
-#| msgid "Edit artist alias"
 msgctxt "edit type"
 msgid "Edit work alias"
 msgstr "아티스트 별칭 수정"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Merge.pm:12
 #, fuzzy
-#| msgid "Merge"
 msgctxt "edit type"
 msgid "Merge works"
 msgstr "병합"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 #, fuzzy
-#| msgid "Remove"
 msgctxt "edit type"
 msgid "Remove ISWC"
 msgstr "제거"
@@ -5734,7 +5537,6 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
-#| msgid "Edit label"
 msgid "Editing disabled"
 msgstr "레이블 편집"
 
@@ -6120,7 +5922,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:39
 #, fuzzy
-#| msgid "Add artist alias"
 msgid "As recording artist"
 msgstr "아티스트 별칭 추가"
 
@@ -6130,7 +5931,6 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
-#| msgid "Remove artist"
 msgid "As other artist"
 msgstr "아티스트 제거"
 
@@ -6251,8 +6051,6 @@ msgstr ""
 #: ../root/layout/components/Search.js:42
 #: ../root/search/components/SearchForm.js:42
 #, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "noun, folksonomy"
 msgid "Tag"
 msgstr "태그"
@@ -6490,7 +6288,6 @@ msgstr ""
 
 #: ../root/account/ChangePassword.js:95
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "interactive"
 msgid "Change password"
 msgstr "비밀번호 변경"
@@ -6499,7 +6296,6 @@ msgstr "비밀번호 변경"
 #: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
 #: ../root/components/UserAccountTabs.js:88
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "header"
 msgid "Change password"
 msgstr "비밀번호 변경"
@@ -6508,7 +6304,6 @@ msgstr "비밀번호 변경"
 #: ../root/account/DeleteOwnAccount.js:37
 #: ../root/components/UserAccountTabs.js:113
 #, fuzzy
-#| msgid "Delete Account"
 msgctxt "header"
 msgid "Delete account"
 msgstr "계정 삭제"
@@ -6537,7 +6332,6 @@ msgstr ""
 
 #: ../root/account/DeleteOwnAccount.js:76
 #, fuzzy
-#| msgid "Delete my account"
 msgctxt "interactive"
 msgid "Delete my account"
 msgstr "내 계정 삭제"
@@ -6545,7 +6339,6 @@ msgstr "내 계정 삭제"
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:94
 #, fuzzy
-#| msgid "Donate"
 msgid "Donation check"
 msgstr "기부"
 
@@ -6582,7 +6375,6 @@ msgstr ""
 
 #: ../root/account/EditProfile.js:30 ../root/account/EditProfile.js:32
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "header"
 msgid "Edit profile"
 msgstr "레이블 편집"
@@ -6625,7 +6417,6 @@ msgstr ""
 
 #: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "interactive"
 msgid "Reset password"
 msgstr "비밀번호 변경"
@@ -6650,7 +6441,6 @@ msgstr ""
 
 #: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
 #, fuzzy
-#| msgid "Send Email"
 msgctxt "interactive"
 msgid "Send email"
 msgstr "이메일 보내기"
@@ -6675,7 +6465,6 @@ msgstr ""
 
 #: ../root/account/Register.js:22 ../root/account/Register.js:29
 #, fuzzy
-#| msgid "Create an Account"
 msgctxt "header"
 msgid "Create an account"
 msgstr "계정 생성"
@@ -6729,7 +6518,6 @@ msgstr ""
 #: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
 #: ../root/account/ResetPasswordStatus.js:14
 #, fuzzy
-#| msgid "Change Password"
 msgctxt "header"
 msgid "Reset password"
 msgstr "비밀번호 변경"
@@ -6759,6 +6547,7 @@ msgstr ""
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "Applications"
 msgstr ""
 
@@ -6835,7 +6624,6 @@ msgstr ""
 
 #: ../root/account/applications/EditApplication.js:23
 #, fuzzy
-#| msgid "Update"
 msgctxt "verb, data, interactive"
 msgid "Update"
 msgstr "업데이트"
@@ -6857,7 +6645,6 @@ msgstr ""
 
 #: ../root/account/applications/RemoveApplication.js:17
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "header"
 msgid "Remove application"
 msgstr "아티스트 제거"
@@ -6940,7 +6727,6 @@ msgstr ""
 #: ../root/annotation/EditAnnotation.js:37
 #: ../root/annotation/EditAnnotation.js:39
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "header"
 msgid "Edit annotation"
 msgstr "주석"
@@ -6972,7 +6758,6 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:89
 #, fuzzy
-#| msgid "Annotation history"
 msgid "Annotation formatting"
 msgstr "주석 역사"
 
@@ -7434,7 +7219,6 @@ msgstr ""
 #: ../root/artist/utils.js:14
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:99
 #, fuzzy
-#| msgid "Create"
 msgctxt "character artist"
 msgid "Created in"
 msgstr "생성"
@@ -7444,7 +7228,6 @@ msgstr "생성"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:85
 #, fuzzy
-#| msgid "Begin Area"
 msgid "Begin area"
 msgstr "시작 영역"
 
@@ -7496,7 +7279,6 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:87
 #, fuzzy
-#| msgid "End Area"
 msgid "End area"
 msgstr "종료 영역"
 
@@ -7653,7 +7435,6 @@ msgstr ""
 
 #: ../root/cdstub/CDStubNotFound.js:14
 #, fuzzy
-#| msgid "CD Not Found"
 msgid "CD stub not found"
 msgstr "CD를 찾을 수 없습니다"
 
@@ -7665,7 +7446,6 @@ msgstr ""
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 #, fuzzy
-#| msgid "Add disc ID"
 msgid "Invalid disc ID"
 msgstr "디스크 ID 추가"
 
@@ -7707,7 +7487,6 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:39
 #, fuzzy
-#| msgid "Move disc ID"
 msgctxt "header"
 msgid "Move Disc ID"
 msgstr "디스크 ID 이동"
@@ -7821,7 +7600,6 @@ msgstr ""
 
 #: ../root/cdtoc/RemoveDiscId.js:33 ../root/cdtoc/RemoveDiscId.js:35
 #, fuzzy
-#| msgid "Remove disc ID"
 msgctxt "header"
 msgid "Remove disc ID"
 msgstr "디스크 ID 제거"
@@ -7899,7 +7677,6 @@ msgstr ""
 
 #: ../root/collection/CollectionHeader.js:78
 #, fuzzy
-#| msgid "Edit"
 msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "편집"
@@ -8072,7 +7849,6 @@ msgstr ""
 
 #: ../root/components/Aliases/index.js:71
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "interactive"
 msgid "Add a new alias"
 msgstr "아티스트 별칭 추가"
@@ -8206,15 +7982,12 @@ msgstr "커버 아트 {{num}}"
 
 #: ../root/components/EntityTabs.js:123
 #, fuzzy
-#| msgid "Event"
 msgctxt "plural"
 msgid "Event art"
 msgstr "이벤트"
 
 #: ../root/components/EntityTabs.js:125
 #, fuzzy
-#| msgctxt "plural"
-#| msgid "Cover art ({num})"
 msgctxt "plural"
 msgid "Event art ({num})"
 msgstr "커버 아트 {{num}}"
@@ -8226,7 +7999,6 @@ msgstr "커버 아트 {{num}}"
 #: ../root/tag/TagCloud.js:94 ../root/tag/TagCloud.js:96
 #: ../root/user/UserTagList.js:55
 #, fuzzy
-#| msgid "Tags"
 msgctxt "folksonomy"
 msgid "Tags"
 msgstr "태그"
@@ -8400,6 +8172,7 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
+#: ../root/static/scripts/homepage/editor-tools.js:128
 msgid "Subscriptions"
 msgstr ""
 
@@ -8505,7 +8278,6 @@ msgstr ""
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
-#| msgid "Remove artist"
 msgid "Other artists"
 msgstr "아티스트 제거"
 
@@ -8541,7 +8313,6 @@ msgstr ""
 #: ../root/doc/DocError.js:26 ../root/doc/DocError.js:30
 #: ../root/main/error/Error404.js:26 ../root/main/error/MirrorError404.js:14
 #, fuzzy
-#| msgid "CD Not Found"
 msgid "Page not found"
 msgstr "CD를 찾을 수 없습니다"
 
@@ -8580,7 +8351,6 @@ msgstr ""
 
 #: ../root/edit/CancelEdit.js:24 ../root/edit/CancelEdit.js:25
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "header"
 msgid "Cancel edit"
 msgstr "편집 취소"
@@ -8604,7 +8374,6 @@ msgstr ""
 
 #: ../root/edit/CancelEdit.js:52
 #, fuzzy
-#| msgid "Cancel edit"
 msgctxt "interactive"
 msgid "Cancel edit"
 msgstr "편집 취소"
@@ -8632,7 +8401,6 @@ msgstr ""
 
 #: ../root/edit/CannotCancelEdit.js:18 ../root/edit/CannotCancelEdit.js:19
 #, fuzzy
-#| msgid "Cancel edit"
 msgid "Error cancelling edit"
 msgstr "편집 취소"
 
@@ -8736,7 +8504,6 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:181
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "noun"
 msgid "Edit notes"
 msgstr "아티스트 수정"
@@ -8825,7 +8592,6 @@ msgstr ""
 
 #: ../root/edit/components/EditArtwork.js:23 ../root/user/UserProfile.js:58
 #, fuzzy
-#| msgid "Event"
 msgctxt "singular"
 msgid "Event art"
 msgstr "이벤트"
@@ -9012,7 +8778,6 @@ msgstr ""
 #: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/voting.js:29
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "interactive"
 msgid "Add note"
 msgstr "악기 추가"
@@ -9121,7 +8886,7 @@ msgid "Introduction to editing"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:182
+#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
 msgid "Style guidelines"
 msgstr ""
 
@@ -9445,7 +9210,6 @@ msgstr ""
 
 #: ../root/edit/details/EditAlias.js:74
 #, fuzzy
-#| msgid "Remove"
 msgctxt "alias"
 msgid "[removed]"
 msgstr "제거"
@@ -9466,13 +9230,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:272
 #, fuzzy
-#| msgid "Tracklist"
 msgid "Old tracklist"
 msgstr "곡 목록"
 
 #: ../root/edit/details/EditMedium.js:273
 #, fuzzy
-#| msgid "Tracklist"
 msgid "New tracklist"
 msgstr "곡 목록"
 
@@ -9490,13 +9252,11 @@ msgstr ""
 
 #: ../root/edit/details/EditMedium.js:547
 #, fuzzy
-#| msgid "Add artist"
 msgid "Old artist"
 msgstr "아티스트 추가"
 
 #: ../root/edit/details/EditMedium.js:548
 #, fuzzy
-#| msgid "Add artist"
 msgid "New artist"
 msgstr "아티스트 추가"
 
@@ -9555,7 +9315,6 @@ msgstr ""
 #: ../root/edit/details/MergeReleaseGroups.js:17
 #: ../root/edit/details/MergeSeries.js:16 ../root/edit/details/MergeWorks.js:16
 #, fuzzy
-#| msgid "Merge"
 msgctxt "verb, header, paired with Into"
 msgid "Merge"
 msgstr "병합"
@@ -9603,7 +9362,6 @@ msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:298
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording merges"
 msgstr "곡명"
 
@@ -9715,7 +9473,6 @@ msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:33
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "Old cover art:"
 msgstr "커버 아트:"
@@ -9733,14 +9490,12 @@ msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:61
 #, fuzzy
-#| msgid "Cover art:"
 msgctxt "singular"
 msgid "New cover art:"
 msgstr "커버 아트:"
 
 #: ../root/edit/details/SetTrackLengths.js:54
 #, fuzzy
-#| msgid "Remove"
 msgctxt "CD TOC"
 msgid "[removed]"
 msgstr "제거"
@@ -10065,7 +9820,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:27
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Area not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10078,7 +9832,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:36
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Artist not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10091,7 +9844,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:45
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "header"
 msgid "Artist credit not found"
 msgstr "아티스트 인정함 수정"
@@ -10102,7 +9854,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:51
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "CD TOC not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10113,7 +9864,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:57
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Collection not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10124,7 +9874,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:65
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Edit not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10137,7 +9886,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:74
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Edit note not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10148,7 +9896,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:82
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Election not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10163,7 +9910,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:88
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Event not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10176,7 +9922,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:97
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Genre not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10189,7 +9934,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:106
 #, fuzzy
-#| msgid "Instrument"
 msgctxt "header"
 msgid "Instrument not found"
 msgstr "악기"
@@ -10224,7 +9968,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:134
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Label not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10237,7 +9980,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:143
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Medium not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10248,7 +9990,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:151
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Entity not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10261,7 +10002,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:160
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Place not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10274,7 +10014,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:169
 #, fuzzy
-#| msgid "Collections"
 msgctxt "header"
 msgid "Recording not found"
 msgstr "컬렉션"
@@ -10297,7 +10036,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:187
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "header"
 msgid "Relationship type not found"
 msgstr "아티스트 제거"
@@ -10308,7 +10046,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:196
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Release not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10321,7 +10058,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:205
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "header"
 msgid "Release group not found"
 msgstr "발매 그룹"
@@ -10334,7 +10070,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:214
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "singular, header"
 msgid "Series not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10347,7 +10082,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:223
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Track not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10360,7 +10094,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:233
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "URL not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10371,7 +10104,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:239
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Editor not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10384,7 +10116,6 @@ msgstr ""
 
 #: ../root/entity/NotFound.js:248
 #, fuzzy
-#| msgid "CD Not Found"
 msgctxt "header"
 msgid "Work not found"
 msgstr "CD를 찾을 수 없습니다"
@@ -10478,21 +10209,18 @@ msgstr ""
 
 #: ../root/entity/alias/AddOrEditAlias.js:27
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "header"
 msgid "Add alias"
 msgstr "아티스트 추가"
 
 #: ../root/entity/alias/AddOrEditAlias.js:28
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit alias"
 msgstr "아티스트 수정"
 
 #: ../root/entity/alias/DeleteAlias.js:25
 #, fuzzy
-#| msgid "Remove label alias"
 msgctxt "header"
 msgid "Remove alias"
 msgstr "레이블 별칭 제거"
@@ -10507,30 +10235,24 @@ msgstr ""
 
 #: ../root/event/CreateEvent.js:23 ../root/event/CreateEvent.js:25
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "header"
 msgid "Add event"
 msgstr "커버 아트 추가"
 
 #: ../root/event/EditEvent.js:28
 #, fuzzy
-#| msgid "Edit Cover Art"
 msgctxt "header"
 msgid "Edit event"
 msgstr "커버 아트 편집"
 
 #: ../root/event/EventArt.js:28
 #, fuzzy
-#| msgid "Event"
 msgctxt "plural, header"
 msgid "Event art"
 msgstr "이벤트"
 
 #: ../root/event/EventArt.js:34
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural, header"
 msgid "Cannot show event art"
 msgstr "커버 아트 추가"
@@ -10560,30 +10282,24 @@ msgstr ""
 
 #: ../root/event/EventArt.js:118
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural, interactive"
 msgid "Add event art"
 msgstr "커버 아트 추가"
 
 #: ../root/event/EventArt.js:124
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, interactive"
 msgid "Reorder event art"
 msgstr "아티스트 제거"
 
 #: ../root/event/EventArt.js:133 ../root/release/CoverArt.js:149
 #, fuzzy
-#| msgid "Log in"
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
 msgstr "로그인"
 
 #: ../root/event/EventArtDarkened.js:13
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add event art"
 msgstr "커버 아트 추가"
@@ -10610,7 +10326,6 @@ msgstr ""
 
 #: ../root/event/RemoveEventArt.js:24
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "singular, header"
 msgid "Remove event art"
 msgstr "레이블 제거"
@@ -10668,7 +10383,6 @@ msgstr ""
 #: ../root/genre/GenreListPage.js:15 ../root/genre/GenreListPage.js:17
 #: ../root/layout/components/BottomMenu.js:329
 #, fuzzy
-#| msgid "Genres"
 msgid "Genre list"
 msgstr "장느"
 
@@ -10695,7 +10409,6 @@ msgstr ""
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
 #, fuzzy
-#| msgid "Instrument"
 msgid "Instrument list"
 msgstr "악기"
 
@@ -10731,7 +10444,6 @@ msgstr[0] ""
 #: ../root/search/components/WorkResults.js:56
 #: ../root/utility/tableColumns.js:813
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording artists"
 msgstr "곡명"
 
@@ -10760,10 +10472,16 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
+#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:93
+#: ../root/static/scripts/homepage/language.js:101
+#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/navbar.js:273
+#: ../root/static/scripts/homepage/navbar.js:275
 msgid "Help translate"
 msgstr ""
 
@@ -10771,7 +10489,7 @@ msgstr ""
 msgid "About us"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:110
+#: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
 msgid "About MusicBrainz"
 msgstr ""
 
@@ -10784,6 +10502,7 @@ msgid "Team"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:119
+#: ../root/layout/components/NewFooter.js:94
 msgid "Shop"
 msgstr ""
 
@@ -10793,7 +10512,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:125
 #, fuzzy
-#| msgid "License"
 msgid "Data licenses"
 msgstr "라이선스"
 
@@ -10836,7 +10554,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:160
 #, fuzzy
-#| msgid "MusicBrainz Server"
 msgid "MusicBrainz history"
 msgstr "MusicBrainz 서버"
 
@@ -10844,19 +10561,22 @@ msgstr "MusicBrainz 서버"
 msgid "Products"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
+#: ../root/layout/components/BottomMenu.js:176
+#: ../root/static/scripts/homepage/banner-carousel.js:47
 msgid "MusicBrainz Picard"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
+#: ../root/layout/components/BottomMenu.js:179
+#: ../root/static/scripts/homepage/banner-carousel.js:52
 msgid "AudioRanger"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:182 ../root/main/index.js:160
+#: ../root/layout/components/BottomMenu.js:182
+#: ../root/static/scripts/homepage/banner-carousel.js:55
 msgid "Mp3tag"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:185 ../root/main/index.js:164
+#: ../root/layout/components/BottomMenu.js:185
 msgid "Yate Music Tagger"
 msgstr ""
 
@@ -10868,11 +10588,11 @@ msgstr ""
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz 서버"
 
-#: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:220
+#: ../root/layout/components/BottomMenu.js:196
 msgid "MusicBrainz Database"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:199
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
 msgid "Developer resources"
 msgstr ""
 
@@ -10885,14 +10605,13 @@ msgid "Live Data Feed"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/search.js:171
 #, fuzzy
-#| msgid "Advanced"
 msgid "Advanced search"
 msgstr "고급"
 
 #: ../root/layout/components/BottomMenu.js:224
 #, fuzzy
-#| msgid "Edit user"
 msgid "Edit search"
 msgstr "사용자 편집"
 
@@ -10910,7 +10629,6 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:246
 #, fuzzy
-#| msgid "Add artist"
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "아티스트 추가"
@@ -10918,7 +10636,6 @@ msgstr "아티스트 추가"
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
 #, fuzzy
-#| msgid "Release Group"
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "발매 그룹"
@@ -10928,14 +10645,12 @@ msgstr "발매 그룹"
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "interactive"
 msgid "Add release"
 msgstr "지역 추가"
 
 #: ../root/layout/components/BottomMenu.js:261
 #, fuzzy
-#| msgid "Add artist alias"
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "아티스트 별칭 추가"
@@ -10948,21 +10663,18 @@ msgstr ""
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
 #, fuzzy
-#| msgid "Add Area"
 msgctxt "interactive"
 msgid "Add work"
 msgstr "지역 추가"
 
 #: ../root/layout/components/BottomMenu.js:273
 #, fuzzy
-#| msgid "Add place"
 msgctxt "interactive"
 msgid "Add place"
 msgstr "장소 추가"
 
 #: ../root/layout/components/BottomMenu.js:277
 #, fuzzy
-#| msgid "Add Artist"
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "아티스트 추가"
@@ -10971,8 +10683,6 @@ msgstr "아티스트 추가"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "interactive"
 msgid "Add event"
 msgstr "커버 아트 추가"
@@ -10986,7 +10696,7 @@ msgstr ""
 msgid "Reports"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:174
+#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
 msgid "Beginners guide"
 msgstr ""
 
@@ -10994,13 +10704,13 @@ msgstr ""
 msgid "How tos"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:312 ../root/main/index.js:185
+#: ../root/layout/components/BottomMenu.js:312
+#: ../root/layout/components/NewFooter.js:182
 msgid "FAQs"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:316
 #, fuzzy
-#| msgid "Documentation"
 msgid "Documentation index"
 msgstr "다큐먼트"
 
@@ -11013,6 +10723,7 @@ msgid "Relationship types"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:332
+#: ../root/layout/components/NewFooter.js:194
 msgid "Development"
 msgstr ""
 
@@ -11036,23 +10747,23 @@ msgstr ""
 msgid "Running: {git_details}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:45
+#: ../root/layout/components/Head.js:46
 msgid "Page {n}"
 msgstr ""
 
-#: ../root/layout/components/Head.js:101
+#: ../root/layout/components/Head.js:114
 msgid "MusicBrainz: Artist"
 msgstr ""
 
-#: ../root/layout/components/Head.js:107
+#: ../root/layout/components/Head.js:120
 msgid "MusicBrainz: Label"
 msgstr ""
 
-#: ../root/layout/components/Head.js:113
+#: ../root/layout/components/Head.js:126
 msgid "MusicBrainz: Release"
 msgstr ""
 
-#: ../root/layout/components/Head.js:119
+#: ../root/layout/components/Head.js:132
 msgid "MusicBrainz: Track"
 msgstr ""
 
@@ -11080,7 +10791,6 @@ msgstr ""
 #: ../root/layout/components/MergeHelper.js:66
 #: ../root/layout/components/sidebar/MergeLink.js:30
 #, fuzzy
-#| msgid "Merge"
 msgctxt "interactive"
 msgid "Merge"
 msgstr "병합"
@@ -11088,6 +10798,121 @@ msgstr "병합"
 #: ../root/layout/components/MergeHelper.js:70
 msgid "Remove selected entities"
 msgstr ""
+
+#: ../root/layout/components/NewFooter.js:36
+msgid ""
+"is an open music encyclopedia that collects music metadata and makes it "
+"available to the public."
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:42
+msgid "Development IRC:"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:49
+#, fuzzy
+msgid "Discussion IRC:"
+msgstr "디스크 ID:"
+
+#: ../root/layout/components/NewFooter.js:56
+#, fuzzy
+msgid "Email:"
+msgstr "이메일"
+
+#: ../root/layout/components/NewFooter.js:65
+msgid "Useful Links"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:82
+msgid "Community"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:100
+msgid "MetaBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:106
+#: ../root/layout/components/NewFooter.js:206
+msgid "Contribute Here"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#, fuzzy
+msgid "Bug Tracker"
+msgstr "트랙"
+
+#: ../root/layout/components/NewFooter.js:118
+msgid "Fellow Projects"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
+msgid "ListenBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:129
+msgid "CritiqueBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:135
+msgid "Picard"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:141
+msgid "BookBrainz"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:147
+#, fuzzy
+msgid "AcousticBrainz"
+msgstr "뮤직브레인즈에 온 것을 환영합니다!"
+
+#: ../root/layout/components/NewFooter.js:153
+#, fuzzy
+msgid "Cover Art Archive"
+msgstr "커버 아트"
+
+#: ../root/layout/components/NewFooter.js:159
+msgid "Join Us"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:164
+#, fuzzy
+msgid "Beginner's Guide"
+msgstr "시작"
+
+#: ../root/layout/components/NewFooter.js:170
+msgid "Style Guidelines"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:176
+msgid "How Tos"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:188
+msgid "Doc Index"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:203
+msgid "OSS Geek?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:212
+msgid "Brought to you by"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+msgid "MetaBrainz Foundation"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:228
+msgid "Found an Issue?"
+msgstr ""
+
+#: ../root/layout/components/NewFooter.js:231
+#, fuzzy
+msgid "Report Here"
+msgstr "사용자 편집"
 
 #: ../root/layout/components/SupportedBrowserCheck.js:32
 msgid ""
@@ -11098,8 +10923,8 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
+#: ../root/static/scripts/homepage/editor-tools.js:123
 #, fuzzy
-#| msgid "Log Out"
 msgid "Log out"
 msgstr "로그아웃"
 
@@ -11109,14 +10934,15 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/homepage/editor-tools.js:136
 #, fuzzy
-#| msgid "Ratings"
 msgid "My ratings"
 msgstr "등급"
 
@@ -11126,10 +10952,12 @@ msgid "My tags"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:92
+#: ../root/static/scripts/homepage/editor-tools.js:141
 msgid "My open edits"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:95
+#: ../root/static/scripts/homepage/editor-tools.js:143
 msgid "All my edits"
 msgstr ""
 
@@ -11142,6 +10970,7 @@ msgid "Edits by subscribed editors"
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:106
+#: ../root/static/scripts/homepage/editor-tools.js:151
 msgid "Notes left on my edits"
 msgstr ""
 
@@ -11152,7 +10981,6 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:209
 #: ../root/static/scripts/account/components/RegisterForm.js:118
 #, fuzzy
-#| msgid "Create Account"
 msgctxt "interactive"
 msgid "Create account"
 msgstr "계정 생성"
@@ -11160,14 +10988,12 @@ msgstr "계정 생성"
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "interactive"
 msgid "Edit annotation"
 msgstr "주석"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:32
 #, fuzzy
-#| msgid "Annotation"
 msgctxt "interactive"
 msgid "Add annotation"
 msgstr "주석"
@@ -11187,7 +11013,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ArtistSidebar.js:168
 #, fuzzy
-#| msgid "Recording"
 msgctxt "interactive"
 msgid "Add recording"
 msgstr "곡명"
@@ -11228,7 +11053,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/CollectionLinks.js:22
 #, fuzzy
-#| msgid "Collections"
 msgid "You have no genre collections!"
 msgstr "컬렉션"
 
@@ -11316,7 +11140,6 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/EditLinks.js:30
 #, fuzzy
-#| msgid "Log in"
 msgctxt "interactive"
 msgid "Log in to edit"
 msgstr "로그인"
@@ -11392,10 +11215,6 @@ msgctxt "place"
 msgid "Closed"
 msgstr ""
 
-#: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
-msgid "ListenBrainz"
-msgstr ""
-
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:68
 msgid "Play on ListenBrainz"
 msgstr ""
@@ -11448,7 +11267,6 @@ msgstr ""
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "date"
 msgid "[unknown]"
 msgstr "알 수 없음"
@@ -11521,6 +11339,15 @@ msgstr[0] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
+#: ../root/main/AuthButtons.js:19
+#, fuzzy
+msgid "Create Account"
+msgstr "계정 생성"
+
+#: ../root/main/AuthButtons.js:21
+msgid "Login"
+msgstr ""
+
 #: ../root/main/ConfirmSeed.js:26
 msgid "Confirm form submission"
 msgstr ""
@@ -11562,7 +11389,6 @@ msgstr ""
 
 #: ../root/main/error/Error400.js:45 ../root/main/error/TimeoutError.js:32
 #, fuzzy
-#| msgid "Disc ID information"
 msgid "Technical information"
 msgstr "디스크 ID 정보"
 
@@ -11718,137 +11544,279 @@ msgstr "오류"
 msgid "(No details about this error are available)"
 msgstr ""
 
-#: ../root/main/index.js:34
+#: ../root/main/index.js:75
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr ""
 
-#: ../root/main/index.js:38
-msgid "Welcome to MusicBrainz!"
-msgstr "뮤직브레인즈에 온 것을 환영합니다!"
-
-#: ../root/main/index.js:42
+#: ../root/main/index.js:111
 msgid ""
 "MusicBrainz is an open music encyclopedia that collects music metadata and "
 "makes it available to the public."
 msgstr ""
 
-#: ../root/main/index.js:48
-msgid "MusicBrainz aims to be:"
-msgstr ""
-
-#: ../root/main/index.js:54
+#: ../root/main/index.js:124
 msgid ""
-"<strong>The ultimate source of music information</strong> by allowing anyone "
-"to contribute and releasing the {doc|data} under {doc2|open licenses}."
+"The ultimate source of audio information, releasing data under open licenses "
+"and allowing anyone to contribute."
 msgstr ""
 
-#: ../root/main/index.js:65
+#: ../root/main/index.js:136
 msgid ""
-"<strong>The universal lingua franca for music</strong> by providing a "
-"reliable and unambiguous form of {doc|music identification}, enabling both "
-"people and machines to have meaningful conversations about music."
+"The universal lingua franca for music, providing reliable and unambiguous "
+"forms of music identification, enabling people and machines to have "
+"meaningful conversations about music."
 msgstr ""
 
-#: ../root/main/index.js:78
+#: ../root/main/index.js:150
 msgid ""
 "Like Wikipedia, MusicBrainz is maintained by a global community of users and "
-"we want everyone &#x2014; including you &#x2014; to {doc|participate and "
-"contribute}."
+"everyone - including you - can participate and contribute."
 msgstr ""
 
-#: ../root/main/index.js:89
+#: ../root/main/index.js:163
 msgid ""
-"{about|More Information} &#x2014; {faq|FAQs} &#x2014; {contact|Contact Us}"
+"MusicBrainz is operated by the MetaBrainz Foundation, a non-profit dedicated "
+"to keeping MusicBrainz free and open source."
 msgstr ""
 
-#: ../root/main/index.js:101
-msgid ""
-"MusicBrainz is operated by the {uri|MetaBrainz Foundation}, a California "
-"based 501(c)(3) tax-exempt non-profit corporation dedicated to keeping "
-"MusicBrainz {free|free and open source}."
-msgstr ""
-
-#: ../root/main/index.js:114
-msgid "MetaBrainz blog"
-msgstr ""
-
-#: ../root/main/index.js:119
-msgid "Latest posts:"
-msgstr ""
-
-#: ../root/main/index.js:131
-msgid "Read more »"
-msgstr ""
-
-#: ../root/main/index.js:138
-msgid "The blog is currently unavailable."
-msgstr ""
-
-#: ../root/main/index.js:148
-msgctxt "audio file metadata"
-msgid "Tag your music"
-msgstr ""
-
-#: ../root/main/index.js:171
-msgid "Quick start"
-msgstr ""
-
-#: ../root/main/index.js:178
-msgid "Editing introduction"
+#: ../root/main/index.js:179
+msgid "Read More"
 msgstr ""
 
 #: ../root/main/index.js:189
+msgid "Beginner editor's guide"
+msgstr ""
+
+#: ../root/main/index.js:199
+msgid "Latest News"
+msgstr ""
+
+#: ../root/main/index.js:209
+msgid "The blog is currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:236
+msgid "Community Posts"
+msgstr ""
+
+#: ../root/main/index.js:248
+msgid "The community posts are currently unavailable."
+msgstr ""
+
+#: ../root/main/index.js:280
+msgid "Develop"
+msgstr ""
+
+#: ../root/main/index.js:284
+msgid "Datasets and Live Data Feed"
+msgstr ""
+
+#: ../root/main/index.js:290
+msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
+msgstr ""
+
+#: ../root/main/index.js:295
+#, fuzzy
+msgid "creating an account"
+msgstr "계정 생성"
+
+#: ../root/main/index.js:297
+msgid ","
+msgstr ""
+
+#: ../root/main/index.js:300
+msgid "whether for personal or non-commercial use"
+msgstr ""
+
+#: ../root/main/index.js:302
+msgid "."
+msgstr ""
+
+#: ../root/main/index.js:308
+#, fuzzy
+msgid "Database"
+msgstr "트랙 추가"
+
+#: ../root/main/index.js:313
+#, fuzzy
+msgid "View and download the MusicBrainz Database."
+msgstr "MusicBrainz 서버"
+
+#: ../root/main/index.js:325
+msgid ""
+"Use our XML web service or development libraries to create your own "
+"MusicBrainz-enabled applications."
+msgstr ""
+
+#: ../root/main/index.js:332 ../root/main/index.js:393
+msgid "See also:"
+msgstr ""
+
+#: ../root/main/index.js:335
+#, fuzzy
+msgid "Data license"
+msgstr "라이선스"
+
+#: ../root/main/index.js:338 ../root/main/index.js:399
+#: ../root/main/index.js:405 ../root/main/index.js:411
+#: ../root/main/index.js:417 ../root/main/index.js:423
+msgid "|"
+msgstr ""
+
+#: ../root/main/index.js:341
+msgid "MetaBrainz FAQ"
+msgstr ""
+
+#: ../root/main/index.js:350
+msgid "Contribute"
+msgstr ""
+
+#: ../root/main/index.js:354
+#, fuzzy
+msgid "Edit the database"
+msgstr "아티스트 별칭 수정"
+
+#: ../root/main/index.js:359
+msgid ""
+"Anyone can help improve our global database! Get started and improve "
+"existing data or add new artists and music."
+msgstr ""
+
+#: ../root/main/index.js:372
+msgid ""
+"Developers, view and pick up issues in our bug tracker, and join us in the "
+"developer chat."
+msgstr ""
+
+#: ../root/main/index.js:380
+msgid "Join the community"
+msgstr ""
+
+#: ../root/main/index.js:385
+msgid ""
+"Talk to other database editors and music fans on our forums or our live chat "
+"via IRC, Matrix and Discord."
+msgstr ""
+
+#: ../root/main/index.js:402
+msgid "Editing introduction"
+msgstr ""
+
+#: ../root/main/index.js:414
+#, fuzzy
+msgid "MusicBrainz FAQs"
+msgstr "MusicBrainz 서버"
+
+#: ../root/main/index.js:420
 msgid "How to add artists"
 msgstr ""
 
-#: ../root/main/index.js:194
+#: ../root/main/index.js:426
 msgid "How to add releases"
 msgstr ""
 
-#: ../root/main/index.js:205
-msgid "Community"
+#: ../root/main/index.js:444
+msgid "Open source"
 msgstr ""
 
-#: ../root/main/index.js:208
-msgid "How to contribute"
-msgstr ""
-
-#: ../root/main/index.js:224
+#: ../root/main/index.js:447
 msgid ""
-"The majority of the data in the <strong>MusicBrainz Database</strong> is "
-"released into the <strong>Public Domain</strong> and can be downloaded and "
-"used <strong>for free</strong>."
+"\"Open source is source code that is made freely available for possible "
+"modification and redistribution...\""
 msgstr ""
 
-#: ../root/main/index.js:234
-msgid "Developers"
+#: ../root/main/index.js:451
+msgid "-"
 msgstr ""
 
-#: ../root/main/index.js:238
+#: ../root/main/index.js:454
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr "위키백과"
+
+#: ../root/main/index.js:459
 msgid ""
-"Use our <strong>XML web service</strong> or <strong>development libraries</"
-"strong> to create your own MusicBrainz-enabled applications."
+"The MusicBrainz database is all open source. This means that anyone can view "
+"the code, contribute improvements and new features, and copy and modify it "
+"for their own use."
 msgstr ""
 
-#: ../root/main/index.js:251
-msgid "Recently added releases"
+#: ../root/main/index.js:467
+msgid ""
+"Thousands of wonderful people contribute code or data to MusicBrainz and its "
+"sister projects for no monetary return and for everyone's benefit."
 msgstr ""
 
-#: ../root/main/index.js:266
+#: ../root/main/index.js:476
+msgid "GitHub repositories"
+msgstr ""
+
+#: ../root/main/index.js:484
+msgid "Data provider"
+msgstr ""
+
+#: ../root/main/index.js:487
+msgid ""
+"The MetaBrainz core mission is to curate and maintain public datasets that "
+"anyone can download and use. Some of the world's biggest platforms, such as "
+"Google and Amazon, use our data, as well as small-scale developers and "
+"curious individuals."
+msgstr ""
+
+#: ../root/main/index.js:494
+msgid "We ask"
+msgstr ""
+
+#: ../root/main/index.js:497
+msgid "commercial users"
+msgstr ""
+
+#: ../root/main/index.js:501
+msgid "to support us. Personal use of our datasets will always be free."
+msgstr ""
+
+#: ../root/main/index.js:507
+msgid ""
+"Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
+"datasets are AI Ready, perfect for training large language models for music-"
+"based tasks."
+msgstr ""
+
+#: ../root/main/index.js:516
 #, fuzzy
-#| msgid "Recent additions"
-msgid "Recently added events"
-msgstr "설명"
+msgid "MetaBrainz Datasets"
+msgstr "MusicBrainz 서버"
 
-#: ../root/main/index.js:323
-#: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/release-editor/dialogs.js:158
-msgid "{entity} by {artist}"
+#: ../root/main/index.js:524
+msgid "Ethical forever"
+msgstr ""
+
+#: ../root/main/index.js:527
+msgid ""
+"The MetaBrainz Foundation is a registered non-profit, making it impossible "
+"for us to be bought or traded."
+msgstr ""
+
+#: ../root/main/index.js:533
+msgid ""
+"Our team and volunteer contributers from across the globe are proud to "
+"consider MusicBrainz and it's sister sites"
+msgstr ""
+
+#: ../root/main/index.js:538
+#, fuzzy
+msgid "enshittification"
+msgstr "설명:"
+
+#: ../root/main/index.js:541
+msgid ""
+"-proof projects, immune to the the crapifying that takes place when business "
+"interests inevitably subsume and monetize projects that initially focussed "
+"on high-quality offerings to attract users."
 msgstr ""
 
 #: ../root/mbid/NotFound.js:15
 #, fuzzy
-#| msgid "CD Not Found"
 msgid "MBID not found"
 msgstr "CD를 찾을 수 없습니다"
 
@@ -11957,7 +11925,6 @@ msgstr ""
 #: ../root/search/components/ResultsLayout.js:26
 #: ../root/search/components/ResultsLayout.js:28
 #, fuzzy
-#| msgid "Search"
 msgid "Search results"
 msgstr "검색"
 
@@ -11990,7 +11957,6 @@ msgstr ""
 #: ../root/recording/DeleteRecording.js:32
 #: ../root/recording/DeleteRecording.js:34
 #, fuzzy
-#| msgid "Recording"
 msgctxt "header"
 msgid "Remove recording"
 msgstr "곡명"
@@ -12019,25 +11985,21 @@ msgstr ""
 
 #: ../root/recording/RecordingIndex.js:46
 #, fuzzy
-#| msgid "Tracklist"
 msgid "Track artist"
 msgstr "곡 목록"
 
 #: ../root/recording/RecordingIndex.js:47
 #, fuzzy
-#| msgid "Release"
 msgid "Release title"
 msgstr "릴리즈"
 
 #: ../root/recording/RecordingIndex.js:48
 #, fuzzy
-#| msgid "Remove artist"
 msgid "Release artist"
 msgstr "아티스트 제거"
 
 #: ../root/recording/RecordingIndex.js:49
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group type"
 msgstr "발매 그룹"
 
@@ -12268,23 +12230,18 @@ msgstr ""
 
 #: ../root/release/CoverArt.js:134
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural, interactive"
 msgid "Add cover art"
 msgstr "커버 아트 추가"
 
 #: ../root/release/CoverArt.js:140
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "plural, interactive"
 msgid "Reorder cover art"
 msgstr "아티스트 제거"
 
 #: ../root/release/CoverArtDarkened.js:13
 #, fuzzy
-#| msgctxt "header"
-#| msgid "Add Cover Art"
 msgctxt "plural"
 msgid "Cannot add cover art"
 msgstr "커버 아트 추가"
@@ -12301,7 +12258,6 @@ msgstr ""
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "header"
 msgid "Remove release"
 msgstr "레이블 제거"
@@ -12352,13 +12308,11 @@ msgstr ""
 
 #: ../root/release/ReleaseMerge.js:63
 #, fuzzy
-#| msgid "Release Group"
 msgid "Also merge the associated release groups"
 msgstr "발매 그룹"
 
 #: ../root/release/RemoveCoverArt.js:25
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "singular, header"
 msgid "Remove cover art"
 msgstr "아티스트 제거"
@@ -12863,7 +12817,6 @@ msgstr ""
 #: ../root/report/components/ReleaseGroupList.js:56
 #: ../root/report/components/WorkList.js:56
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "type"
 msgid "Unknown"
 msgstr "알 수 없음"
@@ -12983,7 +12936,6 @@ msgstr ""
 
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release groups without any releases"
 msgstr "발매 그룹"
 
@@ -13539,7 +13491,6 @@ msgstr ""
 #: ../root/report/ReleasedTooEarlyForLabel.js:33
 #: ../root/report/ReportsIndex.js:332
 #, fuzzy
-#| msgid "Remove label"
 msgid "Releases older than their release label"
 msgstr "레이블 제거"
 
@@ -13864,7 +13815,6 @@ msgstr ""
 #: ../root/report/ReportsIndex.js:622
 #: ../root/report/SeriesContainingDuplicates.js:49
 #, fuzzy
-#| msgid "Release Group"
 msgid "Series containing duplicates"
 msgstr "발매 그룹"
 
@@ -13907,7 +13857,6 @@ msgstr ""
 
 #: ../root/report/SeriesContainingDuplicates.js:29
 #, fuzzy
-#| msgid "Catalog Number"
 msgid "Number"
 msgstr "카탈로그 번호"
 
@@ -14173,7 +14122,6 @@ msgstr ""
 #: ../root/search/components/DocResults.js:19
 #: ../root/search/components/DocResults.js:21
 #, fuzzy
-#| msgid "Documentation"
 msgid "Documentation search"
 msgstr "다큐먼트"
 
@@ -14223,7 +14171,6 @@ msgstr ""
 
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
-#| msgid "Search"
 msgid "Search error"
 msgstr "검색"
 
@@ -14376,7 +14323,6 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:293
 #: ../root/static/scripts/work/edit.js:337
 #, fuzzy
-#| msgid "Add label"
 msgctxt "interactive"
 msgid "Add language"
 msgstr "레이블 추가"
@@ -14384,7 +14330,6 @@ msgstr "레이블 추가"
 #: ../root/static/scripts/account/components/EditProfileForm.js:301
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 #, fuzzy
-#| msgid "Save"
 msgctxt "interactive"
 msgid "Save"
 msgstr "저장"
@@ -14481,7 +14426,6 @@ msgstr ""
 
 #: ../root/static/scripts/alias/AliasEditForm.js:292
 #, fuzzy
-#| msgid "Artist Details"
 msgid "Alias details"
 msgstr "아티스트 정보"
 
@@ -14509,7 +14453,6 @@ msgstr ""
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:97
 #, fuzzy
-#| msgid "Annotation history"
 msgid "Version history"
 msgstr "주석 역사"
 
@@ -14702,7 +14645,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:41
 #, fuzzy
-#| msgid "Artists"
 msgid "Artist roles"
 msgstr "아티스트"
 
@@ -14799,7 +14741,6 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:82
 #, fuzzy
-#| msgid "Edit artist alias"
 msgid "Primary alias"
 msgstr "아티스트 별칭 수정"
 
@@ -14855,7 +14796,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Cardinality.js:16
 #, fuzzy
-#| msgid "Unknown"
 msgctxt "cardinality"
 msgid "Unknown"
 msgstr "알 수 없음"
@@ -14874,6 +14814,12 @@ msgstr "위키미디어 공용에서 온 그림"
 
 #: ../root/static/scripts/common/components/CritiqueBrainzReview.js:33
 msgid "{review_link|Review} by {author} on {date}"
+msgstr ""
+
+#: ../root/static/scripts/common/components/DescriptiveLink.js:65
+#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/release-editor/dialogs.js:158
+msgid "{entity} by {artist}"
 msgstr ""
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:78
@@ -15164,7 +15110,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:616
 #, fuzzy
-#| msgid "Add track(s)"
 msgctxt "folksonomy"
 msgid "Add tags"
 msgstr "트랙 추가"
@@ -15188,8 +15133,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/TagEditor.js:696
 #, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "verb, folksonomy"
 msgid "Tag"
 msgstr "태그"
@@ -15198,10 +15141,6 @@ msgstr "태그"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr ""
-
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
-msgstr "위키백과"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
 msgid "Continue reading at Wikipedia..."
@@ -15215,7 +15154,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/WorkArtists.js:24
 #, fuzzy
-#| msgid "Remove artist"
 msgid "Work artists"
 msgstr "아티스트 제거"
 
@@ -15260,7 +15198,6 @@ msgstr ""
 
 #: ../root/static/scripts/common/i18n/localizeLanguageName.js:15
 #, fuzzy
-#| msgid "Remove"
 msgctxt "language"
 msgid "[removed]"
 msgstr "제거"
@@ -15684,7 +15621,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:56
 #, fuzzy
-#| msgid "Edit artist credit"
 msgid "Paste credits"
 msgstr "아티스트 인정함 수정"
 
@@ -15721,7 +15657,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:168
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr "아티스트 인정함 수정"
@@ -15736,35 +15671,30 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:156
 #, fuzzy
-#| msgid "Remove"
 msgctxt "artist credit name"
 msgid "[removed]"
 msgstr "제거"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:194
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Move artist credit down"
 msgstr "아티스트 제거"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:205
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Move artist credit up"
 msgstr "아티스트 제거"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:215
 #, fuzzy
-#| msgid "Edit artist credit"
 msgctxt "interactive"
 msgid "Undo artist credit removal"
 msgstr "아티스트 인정함 수정"
 
 #: ../root/static/scripts/edit/components/ArtistCreditNameEditor.js:222
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "아티스트 제거"
@@ -15807,14 +15737,12 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:256
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "interactive"
 msgid "Edit attributes"
 msgstr "아티스트 수정"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:173
 #, fuzzy
-#| msgid "Remove"
 msgctxt "generic row"
 msgid "[removed]"
 msgstr "제거"
@@ -15921,7 +15849,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/URLInputPopover.js:145
 #, fuzzy
-#| msgid "Edit URL"
 msgctxt "interactive"
 msgid "Edit URL"
 msgstr "URL 편집"
@@ -16057,7 +15984,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1321
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "아티스트 제거"
@@ -16073,7 +15999,6 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:1529
 #, fuzzy
-#| msgid "Remove"
 msgid "Remove link"
 msgstr "제거"
 
@@ -16091,7 +16016,6 @@ msgstr ""
 
 #: ../root/static/scripts/event/components/EventEditForm.js:229
 #, fuzzy
-#| msgid "Details"
 msgid "Event details"
 msgstr "상세내용"
 
@@ -16152,6 +16076,168 @@ msgid ""
 "language guidelines}."
 msgstr ""
 
+#: ../root/static/scripts/homepage/banner-carousel.js:43
+msgid "Tag your music"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:58
+msgid "Yate"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:89
+msgid "Listen together"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:97
+msgid "with ListenBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/banner-carousel.js:107
+msgid "Explore the music you listen to."
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:112
+#, fuzzy
+msgid "Editor Tools"
+msgstr "편집자"
+
+#: ../root/static/scripts/homepage/editor-tools.js:122
+#, fuzzy
+msgid "My Profile"
+msgstr "레이블 편집"
+
+#: ../root/static/scripts/homepage/editor-tools.js:137
+#, fuzzy
+msgid "My tags"
+msgstr "트랙 추가"
+
+#: ../root/static/scripts/homepage/editor-tools.js:144
+msgid "Subscribed entity edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:146
+msgid "Subscribed editor edits"
+msgstr ""
+
+#: ../root/static/scripts/homepage/editor-tools.js:155
+#, fuzzy
+msgid "Votes on edits"
+msgstr "위치"
+
+#: ../root/static/scripts/homepage/editor-tools.js:156
+#, fuzzy
+msgid "My reports"
+msgstr "등급"
+
+#: ../root/static/scripts/homepage/editor-tools.js:168
+#, fuzzy
+msgid "Add new..."
+msgstr "악기 추가"
+
+#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/navbar.js:263
+#, fuzzy
+msgid "reset language"
+msgstr "발매 그룹"
+
+#: ../root/static/scripts/homepage/mobile-search-popup.js:86
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/search.js:136
+#: ../root/static/scripts/homepage/search.js:138
+#, fuzzy
+msgid "Advanced Search"
+msgstr "고급"
+
+#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/search.js:163
+msgid "in"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:114
+msgid "The open music encyclopedia"
+msgstr ""
+
+#: ../root/static/scripts/homepage/search.js:186
+#, fuzzy
+msgid "Search in:"
+msgstr "검색"
+
+#: ../root/static/scripts/homepage/stats.js:73
+msgid "last week"
+msgstr ""
+
+#: ../root/static/scripts/homepage/stats.js:78
+msgid "total"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#, fuzzy
+msgid "By {artist}"
+msgstr "아티스트 추가"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:108
+msgid "{entity}"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:199
+#, fuzzy
+msgid "Now"
+msgstr "새로운"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:236
+#, fuzzy
+msgid "Order by {type} date"
+msgstr "아티스트 수정"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:242
+#, fuzzy
+msgid "Fresh {type}"
+msgstr "아티스트 수정"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:251
+msgid "Order by date added to MusicBrainz"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:253
+#, fuzzy
+msgid "New Additions"
+msgstr "아티스트 추가"
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:264
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/timeline-carousel.js:276
+#, fuzzy
+msgid "Add {type}"
+msgstr "악기 추가"
+
+#: ../root/static/scripts/homepage/user-menu.js:30
+msgid "Welcome back"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:48
+msgid "Ticket tracker"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:51
+#, fuzzy
+msgid "Editing guidelines"
+msgstr "레이블 편집"
+
+#: ../root/static/scripts/homepage/user-menu.js:56
+msgid "Userscripts"
+msgstr ""
+
+#: ../root/static/scripts/homepage/user-menu.js:61
+msgid "Latest blog post:"
+msgstr ""
+
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
 msgstr ""
@@ -16162,7 +16248,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
 #, fuzzy
-#| msgid "Add Instrument"
 msgctxt "interactive"
 msgid "Add instrument"
 msgstr "악기 추가"
@@ -16316,7 +16401,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:175
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Edit relationship"
 msgstr "아티스트 수정"
@@ -16382,7 +16466,6 @@ msgstr ""
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:50
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
 #, fuzzy
-#| msgid "Add Artist"
 msgctxt "header"
 msgid "Add relationship"
 msgstr "아티스트 추가"
@@ -16397,7 +16480,6 @@ msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:97
 #, fuzzy
-#| msgid "Add Artist"
 msgctxt "interactive"
 msgid "Add relationship"
 msgstr "아티스트 추가"
@@ -16414,7 +16496,6 @@ msgstr[0] ""
 
 #: ../root/static/scripts/release-editor/actions.js:142
 #, fuzzy
-#| msgid "Add Area"
 msgid "{num} release"
 msgid_plural "{num} releases"
 msgstr[0] "지역 추가"
@@ -16488,7 +16569,6 @@ msgstr ""
 #: ../root/static/scripts/release-editor/init.js:260
 #: ../root/static/scripts/release-editor/init.js:261
 #, fuzzy
-#| msgid "Edit label"
 msgctxt "header"
 msgid "Edit release"
 msgstr "레이블 편집"
@@ -16575,7 +16655,6 @@ msgstr ""
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
 #, fuzzy
-#| msgid "Type"
 msgctxt "cover art"
 msgid "Types"
 msgstr "유형"
@@ -16613,7 +16692,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/EditWorkDialog.js:147
 #, fuzzy
-#| msgid "Editor"
 msgctxt "header"
 msgid "Edit work"
 msgstr "편집자"
@@ -16641,7 +16719,6 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
 #, fuzzy
-#| msgid "Recording"
 msgid "Recording alias: {alias}"
 msgstr "곡명"
 
@@ -16690,13 +16767,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1635
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release relationships"
 msgstr "발매 그룹"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1672
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group relationships"
 msgstr "발매 그룹"
 
@@ -16725,14 +16800,12 @@ msgstr ""
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
-#| msgid "Remove"
 msgctxt "interactive"
 msgid "Remove note"
 msgstr "제거"
 
 #: ../root/static/scripts/work/edit.js:349
 #, fuzzy
-#| msgid "Remove label"
 msgctxt "interactive"
 msgid "Remove language"
 msgstr "레이블 제거"
@@ -16971,8 +17044,6 @@ msgstr ""
 
 #: ../root/tag/TagLayout.js:56
 #, fuzzy
-#| msgctxt "noun"
-#| msgid "Tag"
 msgctxt "folksonomy"
 msgid "Tag"
 msgstr "태그"
@@ -17034,13 +17105,11 @@ msgstr ""
 
 #: ../root/url/UrlIndex.js:18
 #, fuzzy
-#| msgid "Disc ID information"
 msgid "URL information"
 msgstr "디스크 ID 정보"
 
 #: ../root/url/UrlIndex.js:19
 #, fuzzy
-#| msgid "Details"
 msgid "URL details"
 msgstr "상세내용"
 
@@ -17062,7 +17131,6 @@ msgstr ""
 
 #: ../root/user/Login.js:48 ../root/user/Login.js:49
 #, fuzzy
-#| msgid "Log in"
 msgctxt "header"
 msgid "Log in"
 msgstr "로그인"
@@ -17147,7 +17215,6 @@ msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:82
 #, fuzzy
-#| msgid "Location"
 msgctxt "header"
 msgid "Location editors"
 msgstr "위치"
@@ -17202,7 +17269,6 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:76 ../root/user/ReportUser.js:78
 #, fuzzy
-#| msgid "Edit user"
 msgctxt "header"
 msgid "Report user"
 msgstr "사용자 편집"
@@ -17254,74 +17320,62 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:36
 #, fuzzy
-#| msgid "Collections"
 msgid "Area collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:37
 #, fuzzy
-#| msgid "Collections"
 msgid "Artist collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:38
 #, fuzzy
-#| msgid "Collections"
 msgid "Event collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
-#| msgid "Collections"
 msgid "Genre collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
-#| msgid "Instrument"
 msgid "Instrument collections"
 msgstr "악기"
 
 #: ../root/user/UserCollections.js:41
 #, fuzzy
-#| msgid "Collections"
 msgid "Label collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:42
 #, fuzzy
-#| msgid "Collections"
 msgid "Place collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:43
 #, fuzzy
-#| msgid "Collections"
 msgid "Recording collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:44
 #, fuzzy
-#| msgid "Collections"
 msgid "Release collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:45
 #, fuzzy
-#| msgid "Release Group"
 msgid "Release group collections"
 msgstr "발매 그룹"
 
 #: ../root/user/UserCollections.js:46
 #, fuzzy
-#| msgid "Collections"
 msgctxt "plural"
 msgid "Series collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
-#| msgid "Collections"
 msgid "Work collections"
 msgstr "컬렉션"
 
@@ -17392,7 +17446,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:74
 #, fuzzy
-#| msgid "Delete User"
 msgctxt "user type"
 msgid "Deleted user"
 msgstr "사용자 삭제"
@@ -17409,7 +17462,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:126
 #, fuzzy
-#| msgid "Begin"
 msgctxt "user type"
 msgid "Beginner"
 msgstr "시작"
@@ -17435,7 +17487,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:194
 #, fuzzy
-#| msgid "Disc ID information"
 msgid "General information"
 msgstr "디스크 ID 정보"
 
@@ -17485,7 +17536,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:295
 #, fuzzy
-#| msgid "Description:"
 msgid "Restrictions"
 msgstr "설명:"
 
@@ -17613,7 +17663,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:798
 #, fuzzy
-#| msgid "Artist ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "아티스트 순위"
@@ -17630,7 +17679,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
 #, fuzzy
-#| msgid "Remove"
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "제거"
@@ -17651,7 +17699,6 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:921
 #, fuzzy
-#| msgid "Delete my account"
 msgid "Blocked spam account"
 msgstr "내 계정 삭제"
 
@@ -17716,13 +17763,11 @@ msgstr ""
 
 #: ../root/user/UserSubscriptions.js:23
 #, fuzzy
-#| msgid "Artist ratings"
 msgid "Artist subscriptions"
 msgstr "아티스트 순위"
 
 #: ../root/user/UserSubscriptions.js:24
 #, fuzzy
-#| msgid "Collections"
 msgid "Collection subscriptions"
 msgstr "컬렉션"
 
@@ -17926,14 +17971,12 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:761
 #, fuzzy
-#| msgid "Remove artist"
 msgctxt "header"
 msgid "Relationship type"
 msgstr "아티스트 제거"
 
 #: ../root/utility/tableColumns.js:776
 #, fuzzy
-#| msgid "Edit artist"
 msgctxt "header"
 msgid "Ordering type"
 msgstr "아티스트 수정"
@@ -17944,7 +17987,6 @@ msgstr ""
 
 #: ../root/utility/tableColumns.js:832
 #, fuzzy
-#| msgid "Add label"
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "레이블 추가"
@@ -18200,6 +18242,11 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+#~| msgid "Recent additions"
+#~ msgid "Recently added events"
+#~ msgstr "설명"
+
+#, fuzzy
 #~| msgid "Remove label"
 #~ msgctxt "header"
 #~ msgid "Remove area"
@@ -18269,20 +18316,12 @@ msgstr ""
 #~ msgid "Edit genre"
 #~ msgstr "사용자 편집"
 
-#, fuzzy
-#~| msgid "MusicBrainz Server"
-#~ msgid "MusicBrainz database"
-#~ msgstr "MusicBrainz 서버"
-
 #~ msgid "Add Label"
 #~ msgstr "레이블 추가"
 
 #~ msgctxt "button/menu"
 #~ msgid "Add Label"
 #~ msgstr "레이블 추가"
-
-#~ msgid "Cover Art"
-#~ msgstr "커버 아트"
 
 #~ msgid "Version:"
 #~ msgstr "버전:"
@@ -18349,12 +18388,6 @@ msgstr ""
 
 #~ msgid "Title:"
 #~ msgstr "타이틀"
-
-#~ msgid "Disc ID:"
-#~ msgstr "디스크 ID:"
-
-#~ msgid "New"
-#~ msgstr "새로운"
 
 #~ msgid "Artist {n}:"
 #~ msgstr "아티스트 {n}:"
