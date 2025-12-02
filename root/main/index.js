@@ -109,7 +109,7 @@ component Homepage(
               <p className="fw-bold">
                 {l(
                   `MusicBrainz is an open music encyclopedia that collects
-                  music metadata and makes it available to the public.`,
+                   music metadata and makes it available to the public.`,
                 )}
               </p>
 
@@ -122,7 +122,7 @@ component Homepage(
                   />
                   {l(
                     `The ultimate source of audio information, releasing data
-                    under open licenses and allowing anyone to contribute.`,
+                     under open licenses and allowing anyone to contribute.`,
                   )}
                 </li>
 
@@ -134,9 +134,9 @@ component Homepage(
                   />
                   {l(
                     `The universal lingua franca for music, providing reliable
-                    and unambiguous forms of music identification, enabling
-                    people and machines to have meaningful conversations
-                    about music.`,
+                     and unambiguous forms of music identification, enabling
+                     people and machines to have meaningful conversations
+                     about music.`,
                   )}
                 </li>
 
@@ -148,8 +148,8 @@ component Homepage(
                   />
                   {l(
                     `Like Wikipedia, MusicBrainz is maintained by a global
-                    community of users and everyone - including you -
-                    can participate and contribute.`,
+                     community of users and everyone - including you -
+                     can participate and contribute.`,
                   )}
                 </li>
 
@@ -161,8 +161,8 @@ component Homepage(
                   />
                   {l(
                     `MusicBrainz is operated by the MetaBrainz Foundation,
-                    a non-profit dedicated to keeping MusicBrainz free
-                    and open source.`,
+                     a non-profit dedicated to keeping MusicBrainz free
+                     and open source.`,
                   )}
                 </li>
               </ul>
@@ -186,7 +186,7 @@ component Homepage(
                     color: 'white !important',
                   }}
                 >
-                  {l('Beginner editor\'s guide')}
+                  {l('Beginner’s guide')}
                 </a>
               </div>
             </div>
@@ -196,7 +196,7 @@ component Homepage(
               id="about-news-container"
             >
               <div>
-                <h3>{l('Latest News')}</h3>
+                <h3>{l('Latest news')}</h3>
                 {blogEntries?.length ? (
                   <ul className="list-unstyled">
                     {blogEntries.slice(0, 5).map(item => (
@@ -233,7 +233,7 @@ component Homepage(
               </div>
 
               <div>
-                <h3>{l('Community Posts')}</h3>
+                <h3>{l('Community posts')}</h3>
                 {communityPosts?.length ? (
                   <ul className="list-unstyled">
                     {communityPosts.slice(0, 5).map(item => (
@@ -286,20 +286,12 @@ component Homepage(
                 </span>
 
                 <p className="info-text">
-                  {l(
+                  {exp.l(
                     `Access all our datasets and the MusicBrainz
-                    Live Data Feed by`,
+                     Live Data Feed by {account_link|creating an account},
+                     whether for personal or non-commercial use.`,
+                     {account_link: 'https://metabrainz.org/supporters/account-type'},
                   )}
-{' '}
-                  <a href="https://metabrainz.org/supporters/account-type">
-                    {l('creating an account')}
-                  </a>
-                  {l(',')}
-{' '}
-                  {l(
-                    'whether for personal or non-commercial use',
-                  )}
-                  {l('.')}
                 </p>
 
                 <span className="d-flex align-items-center fw-bold">
@@ -323,7 +315,7 @@ component Homepage(
                 <p className="info-text">
                   {l(
                     `Use our XML web service or development libraries
-                    to create your own MusicBrainz-enabled applications.`,
+                     to create your own MusicBrainz-enabled applications.`,
                   )}
                 </p>
 
@@ -357,20 +349,20 @@ component Homepage(
                 <p className="info-text">
                   {l(
                     `Anyone can help improve our global database! Get started
-                    and improve existing data or add new artists and music.`,
+                     and improve existing data or add new artists and music.`,
                   )}
                 </p>
 
                 <span className="d-flex align-items-center fw-bold">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" />
                   <a href="https://tickets.metabrainz.org/secure/Dashboard.jspa">
-                    {l('Bug Tracker')}
+                    {l('Bug tracker')}
                   </a>
                 </span>
                 <p className="info-text">
                   {l(
                     `Developers, view and pick up issues in our
-                    bug tracker, and join us in the developer chat.`,
+                     bug tracker, and join us in the developer chat.`,
                   )}
                 </p>
 
@@ -383,8 +375,8 @@ component Homepage(
                 <p className="info-text">
                   {l(
                     `Talk to other database editors and music fans
-                    on our forums or our live chat via IRC,
-                    Matrix and Discord.`,
+                     on our forums or our live chat via IRC,
+                     Matrix and Discord.`,
                   )}
                 </p>
 
@@ -393,11 +385,9 @@ component Homepage(
                     {l('See also:')}
                   </span>
                   <a href="/doc/Beginners_Guide">
-                    {l('Beginners guide')}
+                  {l('Beginner’s guide')}
                   </a>
-                  {' '}
-                  {l('|')}
-                  {' '}
+                  {' | '}
                   <a href="/doc/How_Editing_Works">
                     {l('Editing introduction')}
                   </a>
@@ -445,7 +435,7 @@ component Homepage(
                 <p>
                   {l(
                     `"Open source is source code that is made freely available
-                    for possible modification and redistribution..."`,
+                     for possible modification and redistribution..."`,
                   )}
 {' '}
                   {l('-')}
@@ -457,16 +447,16 @@ component Homepage(
                 <p>
                   {l(
                     `The MusicBrainz database is all open source.
-                    This means that anyone can view the code,
-                    contribute improvements and new features,
-                    and copy and modify it for their own use.`,
+                     This means that anyone can view the code,
+                     contribute improvements and new features,
+                     and copy and modify it for their own use.`,
                   )}
                 </p>
                 <p>
                   {l(
                     `Thousands of wonderful people contribute code
-                    or data to MusicBrainz and its sister projects
-                    for no monetary return and for everyone's benefit.`,
+                     or data to MusicBrainz and its sister projects
+                     for no monetary return and for everyone's benefit.`,
                   )}
                 </p>
 

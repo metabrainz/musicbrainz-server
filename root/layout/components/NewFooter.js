@@ -62,7 +62,7 @@ component NewFooter() {
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-3">
-            <h3 className="text-brand text-body">{l('Useful Links')}</h3>
+            <h3 className="text-brand text-body">{l('Useful links')}</h3>
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
@@ -115,7 +115,7 @@ component NewFooter() {
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-3">
-            <h3 className="text-brand text-body">{l('Fellow Projects')}</h3>
+            <h3 className="text-brand text-body">{l('Fellow projects')}</h3>
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
@@ -167,13 +167,13 @@ component NewFooter() {
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/Style">
-                  {l('Style Guidelines')}
+                  {l('Style guidelines')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="https://picard.musicbrainz.org/">
-                  {l('How Tos')}
+                  {l('How tos')}
                 </a>
               </li>
               <li>
@@ -185,7 +185,7 @@ component NewFooter() {
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/MusicBrainz_Documentation">
-                  {l('Doc Index')}
+                  {l('Documentation index')}
                 </a>
               </li>
               <li>
@@ -203,7 +203,7 @@ component NewFooter() {
               {l('OSS Geek?')}
 {' '}
               <a href="https://github.com/metabrainz/musicbrainz-server">
-                {l('Contribute Here')} {' '}
+                {l('Contribute here')} {' '}
               </a>
             </p>
           </div>
@@ -225,10 +225,10 @@ component NewFooter() {
           </div>
           <div className="col-12 col-lg-3">
             <p className="border-light border-top pt-3 text-center">
-              {l('Found an Issue?')}
+              {l('Found an issue?')}
 {' '}
               <a href="https://tickets.metabrainz.org/">
-                {l('Report Here')} {' '}
+                {l('Report it here')} {' '}
               </a>
             </p>
           </div>
