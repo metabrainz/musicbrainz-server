@@ -2303,7 +2303,7 @@ sub get_weekly_stats_for_homepage {
 
     my @stats_order = (
         'count.edit',
-        'count.vote', 
+        'count.vote',
         'count.artist',
         'count.release',
         'count.recording',
@@ -2341,7 +2341,7 @@ sub get_weekly_stats_for_homepage {
         'count.releasegroup' => 'release groups',
     };
 
-    my $case_expr = join " ", map {
+    my $case_expr = join ' ', map {
         "WHEN '$_' THEN '$stats_map->{$_}'"
     } @stats_order;
 
