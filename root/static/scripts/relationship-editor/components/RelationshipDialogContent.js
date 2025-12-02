@@ -449,10 +449,13 @@ export function reducer(
         newTargetState.target = createUrlObject();
         newTargetState.error = '';
       } else if (newTargetType !== 'url') {
-
-        const defaultName = (
+        const currentInputValue = newTargetState.autocomplete?.inputValue || '';
+        const isChangingToWork = (
           source.entityType === 'recording' && newTargetType === 'work'
-        ) ? source.name : '';
+        );
+        const isChangingFromWork = (
+          source.entityType === 'recording' && oldTargetType === 'work'
+        );
 
         updateTargetAutocomplete(newTargetState, {
           action: {
@@ -464,11 +467,22 @@ export function reducer(
           type: 'update-autocomplete',
         });
 
-        if (defaultName) {
+        if (isChangingToWork && !currentInputValue) {
           updateTargetAutocomplete(newTargetState, {
             action: {
               type: 'type-value',
-              value: defaultName,
+              value: source.name,
+            },
+            linkType: null,
+            source,
+            type: 'update-autocomplete',
+          });
+        }
+        else if (isChangingFromWork && currentInputValue === source.name) {
+          updateTargetAutocomplete(newTargetState, {
+            action: {
+              type: 'type-value',
+              value: '',
             },
             linkType: null,
             source,
