@@ -418,6 +418,7 @@ component Navbar() {
             >
               <div className="input-group">
                 <input
+                  id="headerid-query"
                   aria-label="search"
                   className="form-control"
                   name="query"
