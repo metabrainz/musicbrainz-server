@@ -238,5 +238,4 @@ component NewFooter() {
   );
 }
 
-
 export default NewFooter;
