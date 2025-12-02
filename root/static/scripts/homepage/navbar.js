@@ -26,7 +26,6 @@ import musicbrainzLogoIcon
   from '../../images/meb-logos/MusicBrainz_logo_icon.svg';
 import musicbrainzLogo
   from '../../images/meb-logos/MusicBrainz_logo_mini.svg';
-import {l, lp} from '../common/i18n.js';
 import {capitalize} from '../common/utility/strings.js';
 
 import LanguageSelector from './language.js';
