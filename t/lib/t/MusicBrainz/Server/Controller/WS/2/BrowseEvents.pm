@@ -135,6 +135,46 @@ test all => sub {
 
     ws2_test_xml 'browse events via event (cycle C)',
         '/event?event=8b918af8-c275-42e3-858b-2098ea307208&inc=event-rels' => $event_cycle_response;
+
+    ws2_test_xml 'browse events via series, inc=place-rels',
+        '/event?series=d977f7fd-96c9-4e3e-83b5-eb484a9e6584&inc=place-rels' => <<~'XML';
+        <?xml version="1.0" encoding="UTF-8"?>
+        <metadata xmlns="http://musicbrainz.org/ns/mmd-2.0#">
+            <event-list count="2">
+                <event id="ca1d24c1-1999-46fd-8a95-3d4108df5cb2" type="Concert" type-id="ef55e8d7-3d00-394a-8012-f5506a29ff0b">
+                    <name>BBC Open Music Prom</name>
+                    <disambiguation>2022, Prom 60</disambiguation>
+                    <life-span>
+                        <begin>2022-09-01</begin>
+                        <end>2022-09-01</end>
+                    </life-span>
+                    <time>19:30</time>
+                    <relation-list target-type="place">
+                        <relation type="held at" type-id="e2c6f697-07dc-38b1-be0b-83d740165532">
+                            <target>4352063b-a833-421b-a420-e7fb295dece0</target>
+                            <direction>forward</direction>
+                            <place id="4352063b-a833-421b-a420-e7fb295dece0" type="Venue" type-id="cd92781a-a73f-30e8-a430-55d7521338db">
+                                <name>Royal Albert Hall</name>
+                                <address>Kensington Gore, London SW7 2AP</address>
+                                <coordinates>
+                                    <latitude>51.50105</latitude>
+                                    <longitude>-0.17748</longitude>
+                                </coordinates>
+                            </place>
+                        </relation>
+                    </relation-list>
+                </event>
+                <event id="183ba1ec-a87b-4c0e-85dd-496b7cea4399" type="Festival" type-id="b6ded574-b592-3f0e-b56e-5b5f06aa0678">
+                    <name>Wacken Open Air 2024</name>
+                    <life-span>
+                        <begin>2024-07-31</begin>
+                        <end>2024-08-03</end>
+                    </life-span>
+                </event>
+            </event-list>
+        </metadata>
+        XML
+
 };
 
 1;

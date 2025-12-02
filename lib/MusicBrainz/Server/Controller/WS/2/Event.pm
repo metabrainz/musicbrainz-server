@@ -19,7 +19,7 @@ my $ws_defs = Data::OptList::mkopt([
                          inc      => [ qw(aliases annotation _relations
                                           tags user-tags genres user-genres ratings user-ratings) ],
                          optional => [ qw(fmt limit offset) ],
-                         linked   => [ qw( area artist collection event place ) ],
+                         linked   => [ qw( area artist collection event place series ) ],
      },
      event => {
                          action   => '/ws/2/event/lookup',
@@ -105,6 +105,12 @@ sub event_browse : Private {
         $c->detach('not_found') unless $place;
 
         my @tmp = $c->model('Event')->find_by_place($place->id, $limit, $offset);
+        $events = $self->make_list(@tmp, $offset);
+    } elsif ($resource eq 'series') {
+        my $series = $c->model('Series')->get_by_gid($id);
+        $c->detach('not_found') unless $series;
+
+        my @tmp = $c->model('Event')->find_by_series($series->id, $limit, $offset);
         $events = $self->make_list(@tmp, $offset);
     }
 
