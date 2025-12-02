@@ -28,7 +28,6 @@ component MobileSearchPopup() {
 
   return (
     <div
-      aria-labelledby="mobileSearchOffcanvasLabel"
       className="offcanvas offcanvas-top d-lg-none"
       id="mobileSearchOffcanvas"
       tabIndex={-1}
