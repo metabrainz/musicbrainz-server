@@ -140,7 +140,6 @@ component DropDownMenu(
         data-bs-toggle="dropdown"
         href="#"
         role="button"
-        title={l(label)}
       >
         {l(label)}
       </a>
@@ -248,7 +247,6 @@ component MobileSidebar(
                         language.name,
                       )}?${returnToCurrentPage($c)}`}
                       onClick={onClose}
-                      title={languageName(language, isSelected)}
                     >
                       {languageName(language, isSelected)}
                     </a>
@@ -260,7 +258,6 @@ component MobileSidebar(
                   className="d-block bg-transparent text-decoration-none"
                   href={`/set-language/unset?${returnToCurrentPage($c)}`}
                   onClick={onClose}
-                  title={l('reset language')}
                 >
                   {l('(reset language)')}
                 </a>
@@ -270,7 +267,6 @@ component MobileSidebar(
                   className="d-block bg-transparent text-decoration-none"
                   href="https://translations.metabrainz.org/projects/musicbrainz/"
                   onClick={onClose}
-                  title={l('Help translate')}
                 >
                   {l('Help translate')}
                 </a>
@@ -418,9 +414,9 @@ component Navbar() {
             >
               <div className="input-group">
                 <input
-                  id="headerid-query"
                   aria-label="search"
                   className="form-control"
+                  id="headerid-query"
                   name="query"
                   placeholder="Search"
                   required
@@ -456,7 +452,6 @@ component Navbar() {
               className={`btn search-button advanced-search-button
                 d-none d-lg-block`}
               href="/search"
-              title={l('Advanced Search')}
             >
               <img
                 alt={l('Advanced Search')}
