@@ -18,66 +18,55 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../context.mjs';
 import {VARTIST_GID} from '../common/constants.js';
 import useMediaQuery from '../common/hooks/useMediaQuery.js';
-import {l, lp} from '../common/i18n.js';
 
 const editorToolsItems = [
   {
-    context: 'interactive',
     href: '/artist/create',
-    label: 'Add artist',
+    label: N_lp('Add artist', 'interactive'),
   },
   {
-    context: 'interactive',
     href: '/label/create',
-    label: 'Add label',
+    label: N_lp('Add label', 'interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/release-group/create',
-    label: 'Add release group',
+    label: N_lp('Add release group', 'interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/release/add',
-    label: 'Add release',
+    label: N_lp('Add release', 'interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/release/add?artist=' + encodeURIComponent(VARTIST_GID),
-    label: 'Add Various Artists release',
+    label: N_lp('Add Various Artists release', 'interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/recording/create',
-    label: 'Add standalone recording',
+    label: N_lp('Add standalone recording', 'interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/work/create',
-    label: 'Add work',
+    label: N_lp('Add work', 'interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/place/create',
-    label: 'Add place',
+    label: N_lp('Add place', 'interactive'),
   },
 
   {
-    context: 'singular, interactive',
     href: '/series/create',
-    label: 'Add series',
+    label: N_lp('Add series', 'singular, interactive'),
   },
 
   {
-    context: 'interactive',
     href: '/event/create',
-    label: 'Add event',
+    label: N_lp('Add event', 'interactive'),
   },
 ];
 
@@ -168,12 +157,10 @@ component EditorTools() {
                 {l('Add new...')}
               </a>
               <ul className="dropdown-menu">
-                {editorToolsItems.map((item) => (
-                  <li className="dropdown-item" key={item.label}>
+                {editorToolsItems.map((item, index) => (
+                  <li className="dropdown-item" key={index}>
                     <a href={item.href}>
-                      {item.context === undefined
-                        ? l(item.label)
-                        : lp(item.label, item.context)}
+                      {item.label()}
                     </a>
                   </li>
                 ))}

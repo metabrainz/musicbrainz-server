@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-02 09:03-0600\n"
+"POT-Creation-Date: 2025-12-02 09:29-0600\n"
 "PO-Revision-Date: 2025-10-28 07:20+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
@@ -237,6 +237,7 @@ msgstr "添加厂牌"
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
+#: ../root/static/scripts/homepage/editor-tools.js:29
 msgctxt "interactive"
 msgid "Add label"
 msgstr "添加厂牌"
@@ -563,7 +564,7 @@ msgid "Blog"
 msgstr "博客"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
-#: ../root/static/scripts/homepage/navbar.js:114
+#: ../root/static/scripts/homepage/navbar.js:113
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -641,7 +642,7 @@ msgid "Catalog#"
 msgstr "目录#"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
-#: ../root/static/scripts/homepage/navbar.js:113
+#: ../root/static/scripts/homepage/navbar.js:112
 #: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr "聊天"
@@ -1206,7 +1207,7 @@ msgid "Format"
 msgstr "格式"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:112
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:111
 #: ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "论坛"
@@ -1715,7 +1716,7 @@ msgid "Manual entry"
 msgstr "手动输入"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
-#: ../root/static/scripts/homepage/navbar.js:115
+#: ../root/static/scripts/homepage/navbar.js:114
 msgid "Mastodon"
 msgstr "Mastodon"
 
@@ -2361,7 +2362,7 @@ msgstr "文字"
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/static/scripts/homepage/mobile-search-popup.js:42
-#: ../root/static/scripts/homepage/navbar.js:135 ../root/taglookup/Form.js:51
+#: ../root/static/scripts/homepage/navbar.js:134 ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "搜索"
 
@@ -6598,7 +6599,7 @@ msgstr "离线访问"
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
-#: ../root/static/scripts/homepage/editor-tools.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:115
 msgid "Applications"
 msgstr "应用"
 
@@ -7472,7 +7473,7 @@ msgstr "未找到包含此艺术家名单的音轨。"
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
-#: ../root/static/scripts/homepage/navbar.js:106
+#: ../root/static/scripts/homepage/navbar.js:105
 msgid "Top CD stubs"
 msgstr "热门 CD 存根"
 
@@ -8248,7 +8249,7 @@ msgstr "资料"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
-#: ../root/static/scripts/homepage/editor-tools.js:128
+#: ../root/static/scripts/homepage/editor-tools.js:117
 msgid "Subscriptions"
 msgstr "订阅"
 
@@ -9801,7 +9802,7 @@ msgstr "取消选举"
 
 #: ../root/elections/Index.js:16 ../root/elections/Index.js:17
 #: ../root/layout/components/BottomMenu.js:148
-#: ../root/static/scripts/homepage/navbar.js:69
+#: ../root/static/scripts/homepage/navbar.js:68
 msgid "Auto-editor elections"
 msgstr "自动确认编辑者选举"
 
@@ -10529,14 +10530,14 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
 #: ../root/static/scripts/homepage/language.js:93
-#: ../root/static/scripts/homepage/navbar.js:266
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr "(重置语言)"
 
 #: ../root/layout/components/BottomMenu.js:93
 #: ../root/static/scripts/homepage/language.js:101
 #: ../root/static/scripts/homepage/language.js:103
-#: ../root/static/scripts/homepage/navbar.js:275
+#: ../root/static/scripts/homepage/navbar.js:274
 msgid "Help translate"
 msgstr "协助翻译"
 
@@ -10545,161 +10546,161 @@ msgid "About us"
 msgstr "关于我们"
 
 #: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
-#: ../root/static/scripts/homepage/navbar.js:44
+#: ../root/static/scripts/homepage/navbar.js:43
 msgid "About MusicBrainz"
 msgstr "关于 MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:113
-#: ../root/static/scripts/homepage/navbar.js:45
+#: ../root/static/scripts/homepage/navbar.js:44
 msgid "Sponsors"
 msgstr "赞助商"
 
 #: ../root/layout/components/BottomMenu.js:116
-#: ../root/static/scripts/homepage/navbar.js:46
+#: ../root/static/scripts/homepage/navbar.js:45
 msgid "Team"
 msgstr "团队"
 
 #: ../root/layout/components/BottomMenu.js:119
 #: ../root/layout/components/NewFooter.js:94
-#: ../root/static/scripts/homepage/navbar.js:49
+#: ../root/static/scripts/homepage/navbar.js:48
 msgid "Shop"
 msgstr "商店"
 
 #: ../root/layout/components/BottomMenu.js:122
-#: ../root/static/scripts/homepage/navbar.js:51
+#: ../root/static/scripts/homepage/navbar.js:50
 msgid "Contact us"
 msgstr "联系我们"
 
 #: ../root/layout/components/BottomMenu.js:125
-#: ../root/static/scripts/homepage/navbar.js:54
+#: ../root/static/scripts/homepage/navbar.js:53
 msgid "Data licenses"
 msgstr "数据协议"
 
 #: ../root/layout/components/BottomMenu.js:128
-#: ../root/static/scripts/homepage/navbar.js:57
+#: ../root/static/scripts/homepage/navbar.js:56
 #, fuzzy
 msgid "Social contract"
 msgstr "社会合同"
 
 #: ../root/layout/components/BottomMenu.js:131
-#: ../root/static/scripts/homepage/navbar.js:59
+#: ../root/static/scripts/homepage/navbar.js:58
 #, fuzzy
 msgid "Code of Conduct"
 msgstr "行为准则"
 
 #: ../root/layout/components/BottomMenu.js:134
-#: ../root/static/scripts/homepage/navbar.js:60
+#: ../root/static/scripts/homepage/navbar.js:59
 msgid "Privacy policy"
 msgstr "隐私政策"
 
 #: ../root/layout/components/BottomMenu.js:137
-#: ../root/static/scripts/homepage/navbar.js:61
+#: ../root/static/scripts/homepage/navbar.js:60
 msgid "GDPR compliance"
 msgstr "GDPR 合规性"
 
 #: ../root/layout/components/BottomMenu.js:141
-#: ../root/static/scripts/homepage/navbar.js:64
+#: ../root/static/scripts/homepage/navbar.js:63
 msgid "Copyright and DMCA compliance"
 msgstr "版权和 DMCA 合规性"
 
 #: ../root/layout/components/BottomMenu.js:145
-#: ../root/static/scripts/homepage/navbar.js:66
+#: ../root/static/scripts/homepage/navbar.js:65
 #, fuzzy
 msgid "Data removal policy"
 msgstr "数据移除政策"
 
 #: ../root/layout/components/BottomMenu.js:151
-#: ../root/static/scripts/homepage/navbar.js:70
+#: ../root/static/scripts/homepage/navbar.js:69
 #: ../root/user/PrivilegedUsers.js:24 ../root/user/PrivilegedUsers.js:26
 msgid "Privileged user accounts"
 msgstr "特权用户账号"
 
 #: ../root/layout/components/BottomMenu.js:154
-#: ../root/static/scripts/homepage/navbar.js:71 ../root/user/UserProfile.js:570
+#: ../root/static/scripts/homepage/navbar.js:70 ../root/user/UserProfile.js:570
 msgid "Statistics"
 msgstr "统计"
 
 #: ../root/layout/components/BottomMenu.js:157
-#: ../root/static/scripts/homepage/navbar.js:72
+#: ../root/static/scripts/homepage/navbar.js:71
 msgid "Timeline graph"
 msgstr "时间线"
 
 #: ../root/layout/components/BottomMenu.js:160
-#: ../root/static/scripts/homepage/navbar.js:73
+#: ../root/static/scripts/homepage/navbar.js:72
 msgid "MusicBrainz history"
 msgstr "MusicBrainz 历史"
 
 #: ../root/layout/components/BottomMenu.js:171
-#: ../root/static/scripts/homepage/navbar.js:134
+#: ../root/static/scripts/homepage/navbar.js:133
 msgid "Products"
 msgstr "产品"
 
 #: ../root/layout/components/BottomMenu.js:176
 #: ../root/static/scripts/homepage/banner-carousel.js:47
-#: ../root/static/scripts/homepage/navbar.js:79
+#: ../root/static/scripts/homepage/navbar.js:78
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:179
 #: ../root/static/scripts/homepage/banner-carousel.js:52
-#: ../root/static/scripts/homepage/navbar.js:80
+#: ../root/static/scripts/homepage/navbar.js:79
 msgid "AudioRanger"
 msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:182
 #: ../root/static/scripts/homepage/banner-carousel.js:55
-#: ../root/static/scripts/homepage/navbar.js:81
+#: ../root/static/scripts/homepage/navbar.js:80
 msgid "Mp3tag"
 msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:185
-#: ../root/static/scripts/homepage/navbar.js:82
+#: ../root/static/scripts/homepage/navbar.js:81
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
 #: ../root/layout/components/BottomMenu.js:189
-#: ../root/static/scripts/homepage/navbar.js:87
+#: ../root/static/scripts/homepage/navbar.js:86
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz 安卓版"
 
 #: ../root/layout/components/BottomMenu.js:193
-#: ../root/static/scripts/homepage/navbar.js:91
+#: ../root/static/scripts/homepage/navbar.js:90
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz 服务器"
 
 #: ../root/layout/components/BottomMenu.js:196
-#: ../root/static/scripts/homepage/navbar.js:92
+#: ../root/static/scripts/homepage/navbar.js:91
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz 数据库"
 
 #: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
-#: ../root/static/scripts/homepage/navbar.js:95
+#: ../root/static/scripts/homepage/navbar.js:94
 msgid "Developer resources"
 msgstr "开发者资源"
 
 #: ../root/layout/components/BottomMenu.js:202
-#: ../root/static/scripts/homepage/navbar.js:96
+#: ../root/static/scripts/homepage/navbar.js:95
 msgid "MusicBrainz API"
 msgstr "MusicBrainz API"
 
 #: ../root/layout/components/BottomMenu.js:205
-#: ../root/static/scripts/homepage/navbar.js:97
+#: ../root/static/scripts/homepage/navbar.js:96
 msgid "Live Data Feed"
 msgstr "实时数据馈送"
 
 #: ../root/layout/components/BottomMenu.js:221
-#: ../root/static/scripts/homepage/navbar.js:103
+#: ../root/static/scripts/homepage/navbar.js:102
 #: ../root/static/scripts/homepage/search.js:171
 msgid "Advanced search"
 msgstr "高级搜索"
 
 #: ../root/layout/components/BottomMenu.js:224
-#: ../root/static/scripts/homepage/navbar.js:104
+#: ../root/static/scripts/homepage/navbar.js:103
 msgid "Edit search"
 msgstr "编辑搜索"
 
 #: ../root/layout/components/BottomMenu.js:227
-#: ../root/static/scripts/homepage/navbar.js:105
+#: ../root/static/scripts/homepage/navbar.js:104
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "标签云"
@@ -10712,12 +10713,14 @@ msgid "Editing"
 msgstr "修改"
 
 #: ../root/layout/components/BottomMenu.js:246
+#: ../root/static/scripts/homepage/editor-tools.js:25
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "添加艺术家"
 
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
+#: ../root/static/scripts/homepage/editor-tools.js:34
 #, fuzzy
 msgctxt "interactive"
 msgid "Add release group"
@@ -10727,17 +10730,20 @@ msgstr "添加发行团"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
+#: ../root/static/scripts/homepage/editor-tools.js:39
 msgctxt "interactive"
 msgid "Add release"
 msgstr "添加专辑"
 
 #: ../root/layout/components/BottomMenu.js:261
+#: ../root/static/scripts/homepage/editor-tools.js:44
 #, fuzzy
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "添加群星的发行专辑"
 
 #: ../root/layout/components/BottomMenu.js:266
+#: ../root/static/scripts/homepage/editor-tools.js:49
 #, fuzzy
 msgctxt "interactive"
 msgid "Add standalone recording"
@@ -10745,16 +10751,19 @@ msgstr "添加独立录音"
 
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
+#: ../root/static/scripts/homepage/editor-tools.js:54
 msgctxt "interactive"
 msgid "Add work"
 msgstr "添加作品"
 
 #: ../root/layout/components/BottomMenu.js:273
+#: ../root/static/scripts/homepage/editor-tools.js:59
 msgctxt "interactive"
 msgid "Add place"
 msgstr "添加地点"
 
 #: ../root/layout/components/BottomMenu.js:277
+#: ../root/static/scripts/homepage/editor-tools.js:64
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "添加系列"
@@ -10762,6 +10771,7 @@ msgstr "添加系列"
 #: ../root/layout/components/BottomMenu.js:281
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:69
 msgctxt "interactive"
 msgid "Add event"
 msgstr "添加活动"
@@ -10906,7 +10916,7 @@ msgid "Useful Links"
 msgstr "外部链接"
 
 #: ../root/layout/components/NewFooter.js:82
-#: ../root/static/scripts/homepage/navbar.js:133
+#: ../root/static/scripts/homepage/navbar.js:132
 msgid "Community"
 msgstr "社区"
 
@@ -11013,7 +11023,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
-#: ../root/static/scripts/homepage/editor-tools.js:123
+#: ../root/static/scripts/homepage/editor-tools.js:112
 msgid "Log out"
 msgstr "登出"
 
@@ -11023,14 +11033,14 @@ msgstr "我的数据"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
-#: ../root/static/scripts/homepage/editor-tools.js:134
+#: ../root/static/scripts/homepage/editor-tools.js:123
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr "我的收藏"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
-#: ../root/static/scripts/homepage/editor-tools.js:136
+#: ../root/static/scripts/homepage/editor-tools.js:125
 msgid "My ratings"
 msgstr "我的评分"
 
@@ -11040,13 +11050,13 @@ msgid "My tags"
 msgstr "我的标签"
 
 #: ../root/layout/components/TopMenu.js:92
-#: ../root/static/scripts/homepage/editor-tools.js:141
+#: ../root/static/scripts/homepage/editor-tools.js:130
 #, fuzzy
 msgid "My open edits"
 msgstr "我的待审核编辑"
 
 #: ../root/layout/components/TopMenu.js:95
-#: ../root/static/scripts/homepage/editor-tools.js:143
+#: ../root/static/scripts/homepage/editor-tools.js:132
 #, fuzzy
 msgid "All my edits"
 msgstr "所有编辑"
@@ -11062,7 +11072,7 @@ msgid "Edits by subscribed editors"
 msgstr "已订阅编辑者的编辑"
 
 #: ../root/layout/components/TopMenu.js:106
-#: ../root/static/scripts/homepage/editor-tools.js:151
+#: ../root/static/scripts/homepage/editor-tools.js:140
 #, fuzzy
 msgid "Notes left on my edits"
 msgstr "我的编辑收到的备注"
@@ -16316,42 +16326,42 @@ msgstr "ListenBrainz"
 msgid "Explore the music you listen to."
 msgstr ""
 
-#: ../root/static/scripts/homepage/editor-tools.js:112
+#: ../root/static/scripts/homepage/editor-tools.js:101
 #, fuzzy
 msgid "Editor Tools"
 msgstr "编者"
 
-#: ../root/static/scripts/homepage/editor-tools.js:122
+#: ../root/static/scripts/homepage/editor-tools.js:111
 #, fuzzy
 msgid "My Profile"
 msgstr "资料"
 
-#: ../root/static/scripts/homepage/editor-tools.js:137
+#: ../root/static/scripts/homepage/editor-tools.js:126
 #, fuzzy
 msgid "My tags"
 msgstr "我的标签"
 
-#: ../root/static/scripts/homepage/editor-tools.js:144
+#: ../root/static/scripts/homepage/editor-tools.js:133
 #, fuzzy
 msgid "Subscribed entity edits"
 msgstr "已订阅的实体"
 
-#: ../root/static/scripts/homepage/editor-tools.js:146
+#: ../root/static/scripts/homepage/editor-tools.js:135
 #, fuzzy
 msgid "Subscribed editor edits"
 msgstr "已订阅的编辑者"
 
-#: ../root/static/scripts/homepage/editor-tools.js:155
+#: ../root/static/scripts/homepage/editor-tools.js:144
 #, fuzzy
 msgid "Votes on edits"
 msgstr "为编辑投票"
 
-#: ../root/static/scripts/homepage/editor-tools.js:156
+#: ../root/static/scripts/homepage/editor-tools.js:145
 #, fuzzy
 msgid "My reports"
 msgstr "报告"
 
-#: ../root/static/scripts/homepage/editor-tools.js:168
+#: ../root/static/scripts/homepage/editor-tools.js:157
 #, fuzzy
 msgid "Add new..."
 msgstr "添加备注"
@@ -16362,28 +16372,28 @@ msgid "reset language"
 msgstr "(重置语言)"
 
 #: ../root/static/scripts/homepage/mobile-search-popup.js:85
-#: ../root/static/scripts/homepage/navbar.js:462
+#: ../root/static/scripts/homepage/navbar.js:461
 #: ../root/static/scripts/homepage/search.js:136
 #: ../root/static/scripts/homepage/search.js:138
 #, fuzzy
 msgid "Advanced Search"
 msgstr "高级搜索"
 
-#: ../root/static/scripts/homepage/navbar.js:116
+#: ../root/static/scripts/homepage/navbar.js:115
 msgid "Reddit"
 msgstr ""
 
-#: ../root/static/scripts/homepage/navbar.js:117
+#: ../root/static/scripts/homepage/navbar.js:116
 #, fuzzy
 msgid "Discord"
 msgstr "目录"
 
-#: ../root/static/scripts/homepage/navbar.js:132
+#: ../root/static/scripts/homepage/navbar.js:131
 #, fuzzy
 msgid "About"
 msgstr "关于我们"
 
-#: ../root/static/scripts/homepage/navbar.js:432
+#: ../root/static/scripts/homepage/navbar.js:431
 #: ../root/static/scripts/homepage/search.js:163
 #, fuzzy
 msgid "in"

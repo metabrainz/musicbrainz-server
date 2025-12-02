@@ -45,7 +45,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-02 09:03-0600\n"
+"POT-Creation-Date: 2025-12-02 09:29-0600\n"
 "PO-Revision-Date: 2025-10-11 18:02+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
@@ -255,6 +255,7 @@ msgstr "レーベルを追加"
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
+#: ../root/static/scripts/homepage/editor-tools.js:29
 msgctxt "interactive"
 msgid "Add label"
 msgstr "レーベルを追加"
@@ -589,7 +590,7 @@ msgid "Blog"
 msgstr "ブログ"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
-#: ../root/static/scripts/homepage/navbar.js:114
+#: ../root/static/scripts/homepage/navbar.js:113
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -668,7 +669,7 @@ msgid "Catalog#"
 msgstr "カタログ番号"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
-#: ../root/static/scripts/homepage/navbar.js:113
+#: ../root/static/scripts/homepage/navbar.js:112
 #: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr "チャット"
@@ -1253,7 +1254,7 @@ msgid "Format"
 msgstr "フォーマット"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:112
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:111
 #: ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "フォーラム"
@@ -1785,7 +1786,7 @@ msgid "Manual entry"
 msgstr "手動で入力"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
-#: ../root/static/scripts/homepage/navbar.js:115
+#: ../root/static/scripts/homepage/navbar.js:114
 msgid "Mastodon"
 msgstr "Mastodon"
 
@@ -2431,7 +2432,7 @@ msgstr "文字"
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/static/scripts/homepage/mobile-search-popup.js:42
-#: ../root/static/scripts/homepage/navbar.js:135 ../root/taglookup/Form.js:51
+#: ../root/static/scripts/homepage/navbar.js:134 ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "検索"
 
@@ -6640,7 +6641,7 @@ msgstr "オフラインアクセス"
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
-#: ../root/static/scripts/homepage/editor-tools.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:115
 msgid "Applications"
 msgstr "アプリケーション"
 
@@ -7517,7 +7518,7 @@ msgstr ""
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
-#: ../root/static/scripts/homepage/navbar.js:106
+#: ../root/static/scripts/homepage/navbar.js:105
 msgid "Top CD stubs"
 msgstr "上位のCDスタブ"
 
@@ -8302,7 +8303,7 @@ msgstr "プロフィール"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
-#: ../root/static/scripts/homepage/editor-tools.js:128
+#: ../root/static/scripts/homepage/editor-tools.js:117
 msgid "Subscriptions"
 msgstr "購読中"
 
@@ -9858,7 +9859,7 @@ msgstr "選挙をキャンセル"
 
 #: ../root/elections/Index.js:16 ../root/elections/Index.js:17
 #: ../root/layout/components/BottomMenu.js:148
-#: ../root/static/scripts/homepage/navbar.js:69
+#: ../root/static/scripts/homepage/navbar.js:68
 msgid "Auto-editor elections"
 msgstr "編集者選挙"
 
@@ -10613,14 +10614,14 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
 #: ../root/static/scripts/homepage/language.js:93
-#: ../root/static/scripts/homepage/navbar.js:266
+#: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr "(言語をリセット)"
 
 #: ../root/layout/components/BottomMenu.js:93
 #: ../root/static/scripts/homepage/language.js:101
 #: ../root/static/scripts/homepage/language.js:103
-#: ../root/static/scripts/homepage/navbar.js:275
+#: ../root/static/scripts/homepage/navbar.js:274
 msgid "Help translate"
 msgstr "翻訳に参加"
 
@@ -10629,158 +10630,158 @@ msgid "About us"
 msgstr "私たちについて"
 
 #: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
-#: ../root/static/scripts/homepage/navbar.js:44
+#: ../root/static/scripts/homepage/navbar.js:43
 msgid "About MusicBrainz"
 msgstr "MusicBrainzについて"
 
 #: ../root/layout/components/BottomMenu.js:113
-#: ../root/static/scripts/homepage/navbar.js:45
+#: ../root/static/scripts/homepage/navbar.js:44
 msgid "Sponsors"
 msgstr "スポンサー"
 
 #: ../root/layout/components/BottomMenu.js:116
-#: ../root/static/scripts/homepage/navbar.js:46
+#: ../root/static/scripts/homepage/navbar.js:45
 msgid "Team"
 msgstr "チーム"
 
 #: ../root/layout/components/BottomMenu.js:119
 #: ../root/layout/components/NewFooter.js:94
-#: ../root/static/scripts/homepage/navbar.js:49
+#: ../root/static/scripts/homepage/navbar.js:48
 msgid "Shop"
 msgstr "ショップ"
 
 #: ../root/layout/components/BottomMenu.js:122
-#: ../root/static/scripts/homepage/navbar.js:51
+#: ../root/static/scripts/homepage/navbar.js:50
 msgid "Contact us"
 msgstr "お問い合わせ"
 
 #: ../root/layout/components/BottomMenu.js:125
-#: ../root/static/scripts/homepage/navbar.js:54
+#: ../root/static/scripts/homepage/navbar.js:53
 msgid "Data licenses"
 msgstr "データのライセンス"
 
 #: ../root/layout/components/BottomMenu.js:128
-#: ../root/static/scripts/homepage/navbar.js:57
+#: ../root/static/scripts/homepage/navbar.js:56
 msgid "Social contract"
 msgstr "コンタクト"
 
 #: ../root/layout/components/BottomMenu.js:131
-#: ../root/static/scripts/homepage/navbar.js:59
+#: ../root/static/scripts/homepage/navbar.js:58
 msgid "Code of Conduct"
 msgstr "行動規範"
 
 #: ../root/layout/components/BottomMenu.js:134
-#: ../root/static/scripts/homepage/navbar.js:60
+#: ../root/static/scripts/homepage/navbar.js:59
 msgid "Privacy policy"
 msgstr "プライバシーポリシー"
 
 #: ../root/layout/components/BottomMenu.js:137
-#: ../root/static/scripts/homepage/navbar.js:61
+#: ../root/static/scripts/homepage/navbar.js:60
 msgid "GDPR compliance"
 msgstr "GDPRコンプライアンス"
 
 #: ../root/layout/components/BottomMenu.js:141
-#: ../root/static/scripts/homepage/navbar.js:64
+#: ../root/static/scripts/homepage/navbar.js:63
 msgid "Copyright and DMCA compliance"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:145
-#: ../root/static/scripts/homepage/navbar.js:66
+#: ../root/static/scripts/homepage/navbar.js:65
 msgid "Data removal policy"
 msgstr "データの削除ポリシー"
 
 #: ../root/layout/components/BottomMenu.js:151
-#: ../root/static/scripts/homepage/navbar.js:70
+#: ../root/static/scripts/homepage/navbar.js:69
 #: ../root/user/PrivilegedUsers.js:24 ../root/user/PrivilegedUsers.js:26
 msgid "Privileged user accounts"
 msgstr "特権ユーザーアカウント"
 
 #: ../root/layout/components/BottomMenu.js:154
-#: ../root/static/scripts/homepage/navbar.js:71 ../root/user/UserProfile.js:570
+#: ../root/static/scripts/homepage/navbar.js:70 ../root/user/UserProfile.js:570
 msgid "Statistics"
 msgstr "統計"
 
 #: ../root/layout/components/BottomMenu.js:157
-#: ../root/static/scripts/homepage/navbar.js:72
+#: ../root/static/scripts/homepage/navbar.js:71
 msgid "Timeline graph"
 msgstr "タイムライングラフ"
 
 #: ../root/layout/components/BottomMenu.js:160
-#: ../root/static/scripts/homepage/navbar.js:73
+#: ../root/static/scripts/homepage/navbar.js:72
 msgid "MusicBrainz history"
 msgstr "MusicBrainzの歴史"
 
 #: ../root/layout/components/BottomMenu.js:171
-#: ../root/static/scripts/homepage/navbar.js:134
+#: ../root/static/scripts/homepage/navbar.js:133
 msgid "Products"
 msgstr "プロダクト"
 
 #: ../root/layout/components/BottomMenu.js:176
 #: ../root/static/scripts/homepage/banner-carousel.js:47
-#: ../root/static/scripts/homepage/navbar.js:79
+#: ../root/static/scripts/homepage/navbar.js:78
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:179
 #: ../root/static/scripts/homepage/banner-carousel.js:52
-#: ../root/static/scripts/homepage/navbar.js:80
+#: ../root/static/scripts/homepage/navbar.js:79
 msgid "AudioRanger"
 msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:182
 #: ../root/static/scripts/homepage/banner-carousel.js:55
-#: ../root/static/scripts/homepage/navbar.js:81
+#: ../root/static/scripts/homepage/navbar.js:80
 msgid "Mp3tag"
 msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:185
-#: ../root/static/scripts/homepage/navbar.js:82
+#: ../root/static/scripts/homepage/navbar.js:81
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
 #: ../root/layout/components/BottomMenu.js:189
-#: ../root/static/scripts/homepage/navbar.js:87
+#: ../root/static/scripts/homepage/navbar.js:86
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz for Android"
 
 #: ../root/layout/components/BottomMenu.js:193
-#: ../root/static/scripts/homepage/navbar.js:91
+#: ../root/static/scripts/homepage/navbar.js:90
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz Server"
 
 #: ../root/layout/components/BottomMenu.js:196
-#: ../root/static/scripts/homepage/navbar.js:92
+#: ../root/static/scripts/homepage/navbar.js:91
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz データベース"
 
 #: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
-#: ../root/static/scripts/homepage/navbar.js:95
+#: ../root/static/scripts/homepage/navbar.js:94
 msgid "Developer resources"
 msgstr "開発者リソース"
 
 #: ../root/layout/components/BottomMenu.js:202
-#: ../root/static/scripts/homepage/navbar.js:96
+#: ../root/static/scripts/homepage/navbar.js:95
 msgid "MusicBrainz API"
 msgstr "MusicBrainz API"
 
 #: ../root/layout/components/BottomMenu.js:205
-#: ../root/static/scripts/homepage/navbar.js:97
+#: ../root/static/scripts/homepage/navbar.js:96
 msgid "Live Data Feed"
 msgstr "ライブデータフィード"
 
 #: ../root/layout/components/BottomMenu.js:221
-#: ../root/static/scripts/homepage/navbar.js:103
+#: ../root/static/scripts/homepage/navbar.js:102
 #: ../root/static/scripts/homepage/search.js:171
 msgid "Advanced search"
 msgstr "高度な検索"
 
 #: ../root/layout/components/BottomMenu.js:224
-#: ../root/static/scripts/homepage/navbar.js:104
+#: ../root/static/scripts/homepage/navbar.js:103
 msgid "Edit search"
 msgstr "編集を検索"
 
 #: ../root/layout/components/BottomMenu.js:227
-#: ../root/static/scripts/homepage/navbar.js:105
+#: ../root/static/scripts/homepage/navbar.js:104
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "タグクラウド"
@@ -10793,12 +10794,14 @@ msgid "Editing"
 msgstr "編集"
 
 #: ../root/layout/components/BottomMenu.js:246
+#: ../root/static/scripts/homepage/editor-tools.js:25
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "アーティストを追加"
 
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
+#: ../root/static/scripts/homepage/editor-tools.js:34
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "リリースグループを追加"
@@ -10807,32 +10810,38 @@ msgstr "リリースグループを追加"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
+#: ../root/static/scripts/homepage/editor-tools.js:39
 msgctxt "interactive"
 msgid "Add release"
 msgstr "リリースを追加"
 
 #: ../root/layout/components/BottomMenu.js:261
+#: ../root/static/scripts/homepage/editor-tools.js:44
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "複数アーティストのリリースを追加"
 
 #: ../root/layout/components/BottomMenu.js:266
+#: ../root/static/scripts/homepage/editor-tools.js:49
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "独立したレコーディングを追加"
 
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
+#: ../root/static/scripts/homepage/editor-tools.js:54
 msgctxt "interactive"
 msgid "Add work"
 msgstr "作品を追加"
 
 #: ../root/layout/components/BottomMenu.js:273
+#: ../root/static/scripts/homepage/editor-tools.js:59
 msgctxt "interactive"
 msgid "Add place"
 msgstr "場所を追加"
 
 #: ../root/layout/components/BottomMenu.js:277
+#: ../root/static/scripts/homepage/editor-tools.js:64
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "シリーズを追加"
@@ -10840,6 +10849,7 @@ msgstr "シリーズを追加"
 #: ../root/layout/components/BottomMenu.js:281
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:69
 msgctxt "interactive"
 msgid "Add event"
 msgstr "イベントを追加"
@@ -10983,7 +10993,7 @@ msgid "Useful Links"
 msgstr "外部リンク"
 
 #: ../root/layout/components/NewFooter.js:82
-#: ../root/static/scripts/homepage/navbar.js:133
+#: ../root/static/scripts/homepage/navbar.js:132
 msgid "Community"
 msgstr "コミュニティ"
 
@@ -11090,7 +11100,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
-#: ../root/static/scripts/homepage/editor-tools.js:123
+#: ../root/static/scripts/homepage/editor-tools.js:112
 msgid "Log out"
 msgstr "ログアウト"
 
@@ -11100,14 +11110,14 @@ msgstr "マイデータ"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
-#: ../root/static/scripts/homepage/editor-tools.js:134
+#: ../root/static/scripts/homepage/editor-tools.js:123
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr "コレクション一覧"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
-#: ../root/static/scripts/homepage/editor-tools.js:136
+#: ../root/static/scripts/homepage/editor-tools.js:125
 msgid "My ratings"
 msgstr "評価一覧"
 
@@ -11117,12 +11127,12 @@ msgid "My tags"
 msgstr "タグ一覧"
 
 #: ../root/layout/components/TopMenu.js:92
-#: ../root/static/scripts/homepage/editor-tools.js:141
+#: ../root/static/scripts/homepage/editor-tools.js:130
 msgid "My open edits"
 msgstr "未確定の編集一覧"
 
 #: ../root/layout/components/TopMenu.js:95
-#: ../root/static/scripts/homepage/editor-tools.js:143
+#: ../root/static/scripts/homepage/editor-tools.js:132
 msgid "All my edits"
 msgstr "すべての編集"
 
@@ -11135,7 +11145,7 @@ msgid "Edits by subscribed editors"
 msgstr "購読中の編集者による編集"
 
 #: ../root/layout/components/TopMenu.js:106
-#: ../root/static/scripts/homepage/editor-tools.js:151
+#: ../root/static/scripts/homepage/editor-tools.js:140
 msgid "Notes left on my edits"
 msgstr "自分の編集に対するノート"
 
@@ -16402,42 +16412,42 @@ msgstr "ListenBrainz"
 msgid "Explore the music you listen to."
 msgstr ""
 
-#: ../root/static/scripts/homepage/editor-tools.js:112
+#: ../root/static/scripts/homepage/editor-tools.js:101
 #, fuzzy
 msgid "Editor Tools"
 msgstr "編集者"
 
-#: ../root/static/scripts/homepage/editor-tools.js:122
+#: ../root/static/scripts/homepage/editor-tools.js:111
 #, fuzzy
 msgid "My Profile"
 msgstr "プロフィール"
 
-#: ../root/static/scripts/homepage/editor-tools.js:137
+#: ../root/static/scripts/homepage/editor-tools.js:126
 #, fuzzy
 msgid "My tags"
 msgstr "タグ一覧"
 
-#: ../root/static/scripts/homepage/editor-tools.js:144
+#: ../root/static/scripts/homepage/editor-tools.js:133
 #, fuzzy
 msgid "Subscribed entity edits"
 msgstr "購読中の項目"
 
-#: ../root/static/scripts/homepage/editor-tools.js:146
+#: ../root/static/scripts/homepage/editor-tools.js:135
 #, fuzzy
 msgid "Subscribed editor edits"
 msgstr "購読中の編集者"
 
-#: ../root/static/scripts/homepage/editor-tools.js:155
+#: ../root/static/scripts/homepage/editor-tools.js:144
 #, fuzzy
 msgid "Votes on edits"
 msgstr "編集への投票"
 
-#: ../root/static/scripts/homepage/editor-tools.js:156
+#: ../root/static/scripts/homepage/editor-tools.js:145
 #, fuzzy
 msgid "My reports"
 msgstr "レポート"
 
-#: ../root/static/scripts/homepage/editor-tools.js:168
+#: ../root/static/scripts/homepage/editor-tools.js:157
 #, fuzzy
 msgid "Add new..."
 msgstr "メモを追加"
@@ -16448,28 +16458,28 @@ msgid "reset language"
 msgstr "(言語をリセット)"
 
 #: ../root/static/scripts/homepage/mobile-search-popup.js:85
-#: ../root/static/scripts/homepage/navbar.js:462
+#: ../root/static/scripts/homepage/navbar.js:461
 #: ../root/static/scripts/homepage/search.js:136
 #: ../root/static/scripts/homepage/search.js:138
 #, fuzzy
 msgid "Advanced Search"
 msgstr "高度な検索"
 
-#: ../root/static/scripts/homepage/navbar.js:116
+#: ../root/static/scripts/homepage/navbar.js:115
 msgid "Reddit"
 msgstr ""
 
-#: ../root/static/scripts/homepage/navbar.js:117
+#: ../root/static/scripts/homepage/navbar.js:116
 #, fuzzy
 msgid "Discord"
 msgstr "ディスコグラフィー"
 
-#: ../root/static/scripts/homepage/navbar.js:132
+#: ../root/static/scripts/homepage/navbar.js:131
 #, fuzzy
 msgid "About"
 msgstr "私たちについて"
 
-#: ../root/static/scripts/homepage/navbar.js:432
+#: ../root/static/scripts/homepage/navbar.js:431
 #: ../root/static/scripts/homepage/search.js:163
 #, fuzzy
 msgid "in"
