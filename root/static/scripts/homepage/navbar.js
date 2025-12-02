@@ -36,101 +36,107 @@ import entities from './utils.js';
 type DropdownMenuItem = {
   context?: string,
   href: string,
-  label: string,
+  label: N_l_T,
 };
-
 
 const aboutGroups: Array<Array<DropdownMenuItem>> = [
   [
-    {href: '/doc/About', label: 'About MusicBrainz'},
-    {href: 'https://metabrainz.org/sponsors', label: 'Sponsors'},
-    {href: 'https://metabrainz.org/team', label: 'Team'},
+    {href: '/doc/About', label: N_l('About MusicBrainz')},
+    {href: 'https://metabrainz.org/sponsors', label: N_l('Sponsors')},
+    {href: 'https://metabrainz.org/team', label: N_l('Team')},
     {
       href: 'https://www.redbubble.com/people/metabrainz/shop',
-      label: 'Shop',
+      label: N_l('Shop'),
     },
-    {href: 'https://metabrainz.org/contact', label: 'Contact us'},
+    {href: 'https://metabrainz.org/contact', label: N_l('Contact us')},
   ],
   [
-    {href: '/doc/About/Data_License', label: 'Data licenses'},
+    {href: '/doc/About/Data_License', label: N_l('Data licenses')},
     {
       href: 'https://metabrainz.org/social-contract',
-      label: 'Social contract',
+      label: N_l('Social contract'),
     },
-    {href: '/doc/Code_of_Conduct', label: 'Code of Conduct'},
-    {href: 'https://metabrainz.org/privacy', label: 'Privacy policy'},
-    {href: 'https://metabrainz.org/gdpr', label: 'GDPR compliance'},
+    {href: '/doc/Code_of_Conduct', label: N_l('Code of Conduct')},
+    {href: 'https://metabrainz.org/privacy', label: N_l('Privacy policy')},
+    {href: 'https://metabrainz.org/gdpr', label: N_l('GDPR compliance')},
     {
       href: '/doc/Copyright_and_DMCA_Compliance',
-      label: 'Copyright and DMCA compliance',
+      label: N_l('Copyright and DMCA compliance'),
     },
-    {href: '/doc/Data_Removal_Policy', label: 'Data removal policy'},
+    {href: '/doc/Data_Removal_Policy', label: N_l('Data removal policy')},
   ],
   [
-    {href: '/elections', label: 'Auto-editor elections'},
-    {href: '/privileged', label: 'Privileged user accounts'},
-    {href: '/statistics', label: 'Statistics'},
-    {href: '/statistics/timeline', label: 'Timeline graph'},
-    {href: '/history', label: 'MusicBrainz history'},
+    {href: '/elections', label: N_l('Auto-editor elections')},
+    {href: '/privileged', label: N_l('Privileged user accounts')},
+    {href: '/statistics', label: N_l('Statistics')},
+    {href: '/statistics/timeline', label: N_l('Timeline graph')},
+    {href: '/history', label: N_l('MusicBrainz history')},
   ],
 ];
 
 const productGroups: Array<Array<DropdownMenuItem>> = [
   [
-    {href: '//picard.musicbrainz.org', label: 'MusicBrainz Picard'},
-    {href: '/doc/AudioRanger', label: 'AudioRanger'},
-    {href: '/doc/Mp3tag', label: 'Mp3tag'},
-    {href: '/doc/Yate_Music_Tagger', label: 'Yate Music Tagger'},
+    {href: '//picard.musicbrainz.org', label: N_l('MusicBrainz Picard')},
+    {href: '/doc/AudioRanger', label: N_l('AudioRanger')},
+    {href: '/doc/Mp3tag', label: N_l('Mp3tag')},
+    {href: '/doc/Yate_Music_Tagger', label: N_l('Yate Music Tagger')},
   ],
   [
     {
       href: '/doc/MusicBrainz_for_Android',
-      label: 'MusicBrainz for Android',
+      label: N_l('MusicBrainz for Android'),
     },
   ],
   [
-    {href: '/doc/MusicBrainz_Server', label: 'MusicBrainz Server'},
-    {href: '/doc/MusicBrainz_Database', label: 'MusicBrainz Database'},
+    {href: '/doc/MusicBrainz_Server', label: N_l('MusicBrainz Server')},
+    {href: '/doc/MusicBrainz_Database', label: N_l('MusicBrainz Database')},
   ],
   [
-    {href: '/doc/Developer_Resources', label: 'Developer resources'},
-    {href: '/doc/MusicBrainz_API', label: 'MusicBrainz API'},
-    {href: '/doc/Live_Data_Feed', label: 'Live Data Feed'},
+    {href: '/doc/Developer_Resources', label: N_l('Developer resources')},
+    {href: '/doc/MusicBrainz_API', label: N_l('MusicBrainz API')},
+    {href: '/doc/Live_Data_Feed', label: N_l('Live Data Feed')},
   ],
 ];
 
 const searchGroups: Array<Array<DropdownMenuItem>> = [
   [
-    {href: '/search', label: 'Advanced search'},
-    {href: '/search/edits', label: 'Edit search'},
-    {context: 'folksonomy', href: '/tags', label: 'Tag cloud'},
-    {href: '/cdstub/browse', label: 'Top CD stubs'},
+    {href: '/search', label: N_l('Advanced search')},
+    {href: '/search/edits', label: N_l('Edit search')},
+    {href: '/tags', label: N_lp('Tag cloud', 'folksonomy')},
+    {href: '/cdstub/browse', label: N_l('Top CD stubs')},
   ],
 ];
 
 const communityGroups: Array<Array<DropdownMenuItem>> = [
   [
-    {href: 'https://community.metabrainz.org/', label: 'Forums'},
-    {href: '/doc/Communication/ChatBrainz', label: 'Chat'},
-    {href: 'https://bsky.app/profile/musicbrainz.org', label: 'Bluesky'},
-    {href: 'https://mastodon.social/@musicbrainz', label: 'Mastodon'},
-    {href: 'https://www.reddit.com/r/MusicBrainz/', label: 'Reddit'},
-    {href: 'https://discord.gg/R4hBw972QA', label: 'Discord'},
+    {href: 'https://community.metabrainz.org/', label: N_l('Forums')},
+    {href: '/doc/Communication/ChatBrainz', label: N_l('Chat')},
+    {href: 'https://bsky.app/profile/musicbrainz.org', label: N_l('Bluesky')},
+    {href: 'https://mastodon.social/@musicbrainz', label: N_l('Mastodon')},
+    {href: 'https://www.reddit.com/r/MusicBrainz/', label: N_l('Reddit')},
+    {href: 'https://discord.gg/R4hBw972QA', label: N_l('Discord')},
   ],
 ];
 
-const dropdownSections = {
-  About: aboutGroups,
-  Community: communityGroups,
-  Products: productGroups,
-  Search: searchGroups,
+type DropdownSectionT = {
+  +groups: Array<Array<DropdownMenuItem>>,
+  +key: string,
+  +label: N_l_T,
 };
 
-type Section = $Keys<typeof dropdownSections> | 'Language';
+type LanguageDropdownSectionT = {
+  +key: 'language',
+};
+
+const dropdownSections: $ReadOnlyArray<DropdownSectionT> = [
+  {groups: aboutGroups, key: 'about', label: N_l('About')},
+  {groups: communityGroups, key: 'community', label: N_l('Community')},
+  {groups: productGroups, key: 'products', label: N_l('Products')},
+  {groups: searchGroups, key: 'search', label: N_l('Search')},
+];
 
 component DropDownMenu(
-  label: string,
-  groups: Array<Array<DropdownMenuItem>>,
+  section: DropdownSectionT,
 ) {
   return (
     <li className="nav-item dropdown d-flex align-items-center">
@@ -141,16 +147,14 @@ component DropDownMenu(
         href="#"
         role="button"
       >
-        {l(label)}
+        {section.label()}
       </a>
       <ul className="dropdown-menu">
-        {groups.map((group, gIdx) => (
+        {section.groups.map((group, gIdx) => (
           <React.Fragment key={gIdx}>
 
             {group.map((item, idx) => {
-              const itemLabel = item.context === undefined
-                ? l(item.label)
-                : lp(item.label, item.context);
+              const itemLabel = item.label();
 
               return (
                 <li key={idx}>
@@ -165,7 +169,7 @@ component DropDownMenu(
               );
             })}
 
-            {gIdx !== groups.length - 1 && (
+            {gIdx !== section.groups.length - 1 && (
               <li>
                 <hr className="dropdown-divider" />
               </li>
@@ -180,13 +184,13 @@ component DropDownMenu(
 component MobileSidebar(
   isOpen: boolean,
   onClose: () => void,
-  section: Section | null,
+  section: DropdownSectionT | LanguageDropdownSectionT | null,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
-  const groups = section && section !== 'Language'
-    ? dropdownSections[section]
+  const groups = section && section.key !== 'language'
+    ? section.groups
     : [];
-  const isLanguage = section === 'Language';
+  const isLanguage = section ? section.key === 'language' : false;
 
   function languageName(
     language: ?ServerLanguageT,
@@ -282,9 +286,7 @@ component MobileSidebar(
                     href={item.href}
                     onClick={onClose}
                   >
-                    {item.context === undefined
-                      ? l(item.label)
-                      : lp(item.label, item.context)}
+                    {item.label()}
                   </a>
                 </li>
                 ))}
@@ -307,13 +309,18 @@ component MobileSidebar(
 component Navbar() {
   const [mobileSidebar, setMobileSidebar] = React.useState<{
     isOpen: boolean,
-    section: Section | null,
+    section:
+      | DropdownSectionT
+      | LanguageDropdownSectionT
+      | null,
   }>({
     isOpen: false,
     section: null,
   });
 
-  const openMobileSidebar = (section: Section) => {
+  const openMobileSidebar = (
+    section: DropdownSectionT | LanguageDropdownSectionT,
+  ) => {
     setMobileSidebar({
       isOpen: true,
       section,
@@ -327,7 +334,9 @@ component Navbar() {
     }));
   }, []);
 
-  const toggleMobileSidebar = (section: Section) => {
+  const toggleMobileSidebar = (
+    section: DropdownSectionT | LanguageDropdownSectionT,
+  ) => {
     if (mobileSidebar.isOpen && mobileSidebar.section === section) {
       closeMobileSidebar();
     } else {
@@ -336,7 +345,7 @@ component Navbar() {
   };
 
   const toggleLanguageSidebar = () => {
-    toggleMobileSidebar('Language');
+    toggleMobileSidebar({key: 'language'});
   };
 
   return (
@@ -392,12 +401,8 @@ component Navbar() {
               className="d-none d-lg-flex navbar-nav flex-grow-1 gap-3"
               id="offcanvasNavbarMenu"
             >
-              {Object.keys(dropdownSections).map((section) => (
-                <DropDownMenu
-                  groups={dropdownSections[section]}
-                  key={section}
-                  label={section}
-                />
+              {dropdownSections.map((section) => (
+                <DropDownMenu key={section.key} section={section} />
               ))}
 
               {/* Language Selector */}
@@ -467,12 +472,12 @@ component Navbar() {
                 align-items-end`}
               id="offcanvasNavbarMenuMobile"
             >
-              {Object.keys(dropdownSections).map((section) => {
+              {dropdownSections.map((section) => {
                 const isActive = mobileSidebar.section === section &&
                   mobileSidebar.isOpen;
                 const handleClick = () => toggleMobileSidebar(section);
                 return (
-                  <li className="nav-item" key={section}>
+                  <li className="nav-item" key={section.key}>
                     <button
                       className={`nav-link border-0 bg-transparent
                         d-flex align-items-center ${
@@ -481,7 +486,7 @@ component Navbar() {
                       onClick={handleClick}
                       type="button"
                     >
-                      {l(section)}
+                      {section.label()}
                       <FontAwesomeIcon
                         className={isActive ? 'active' : ''}
                         icon={faChevronRight}

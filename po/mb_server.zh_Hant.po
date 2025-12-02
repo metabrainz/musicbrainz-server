@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 13:16-0600\n"
+"POT-Creation-Date: 2025-12-02 09:03-0600\n"
 "PO-Revision-Date: 2025-05-27 11:20+0000\n"
 "Last-Translator: silentbird "
 "<silentbird@users.noreply.translations.metabrainz.org>\n"
@@ -542,6 +542,7 @@ msgid "Blog"
 msgstr "部落格"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
+#: ../root/static/scripts/homepage/navbar.js:114
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -619,6 +620,7 @@ msgid "Catalog#"
 msgstr "目錄#"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/navbar.js:113
 #: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr "聊天"
@@ -1165,7 +1167,8 @@ msgid "Format"
 msgstr "格式"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:112
+#: ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "論壇"
 
@@ -1678,6 +1681,7 @@ msgid "Manual entry"
 msgstr "手動輸入"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
+#: ../root/static/scripts/homepage/navbar.js:115
 msgid "Mastodon"
 msgstr "Mastodon"
 
@@ -2321,8 +2325,8 @@ msgstr "文字"
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
-#: ../root/static/scripts/homepage/mobile-search-popup.js:43
-#: ../root/taglookup/Form.js:51
+#: ../root/static/scripts/homepage/mobile-search-popup.js:42
+#: ../root/static/scripts/homepage/navbar.js:135 ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "搜尋"
 
@@ -7478,6 +7482,7 @@ msgstr "未找到包含此創作者名單的音軌。"
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
+#: ../root/static/scripts/homepage/navbar.js:106
 msgid "Top CD stubs"
 msgstr "熱門 CD 草稿"
 
@@ -9835,6 +9840,7 @@ msgstr "取消選舉"
 
 #: ../root/elections/Index.js:16 ../root/elections/Index.js:17
 #: ../root/layout/components/BottomMenu.js:148
+#: ../root/static/scripts/homepage/navbar.js:69
 msgid "Auto-editor elections"
 msgstr "自動確認編輯者選舉"
 
@@ -10581,14 +10587,13 @@ msgstr "您嘗試編輯的廠牌是一個特殊用途廠牌，您無法對此資
 
 #: ../root/layout/components/BottomMenu.js:88
 #: ../root/static/scripts/homepage/language.js:93
-#: ../root/static/scripts/homepage/navbar.js:265
+#: ../root/static/scripts/homepage/navbar.js:266
 msgid "(reset language)"
 msgstr "(重設語言)"
 
 #: ../root/layout/components/BottomMenu.js:93
 #: ../root/static/scripts/homepage/language.js:101
 #: ../root/static/scripts/homepage/language.js:103
-#: ../root/static/scripts/homepage/navbar.js:273
 #: ../root/static/scripts/homepage/navbar.js:275
 msgid "Help translate"
 msgstr "協助翻譯"
@@ -10598,128 +10603,158 @@ msgid "About us"
 msgstr "關於我們"
 
 #: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
+#: ../root/static/scripts/homepage/navbar.js:44
 msgid "About MusicBrainz"
 msgstr "關於 MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:113
+#: ../root/static/scripts/homepage/navbar.js:45
 msgid "Sponsors"
 msgstr "贊助商"
 
 #: ../root/layout/components/BottomMenu.js:116
+#: ../root/static/scripts/homepage/navbar.js:46
 msgid "Team"
 msgstr "團隊"
 
 #: ../root/layout/components/BottomMenu.js:119
 #: ../root/layout/components/NewFooter.js:94
+#: ../root/static/scripts/homepage/navbar.js:49
 msgid "Shop"
 msgstr "商店"
 
 #: ../root/layout/components/BottomMenu.js:122
+#: ../root/static/scripts/homepage/navbar.js:51
 msgid "Contact us"
 msgstr "聯絡我們"
 
 #: ../root/layout/components/BottomMenu.js:125
+#: ../root/static/scripts/homepage/navbar.js:54
 msgid "Data licenses"
 msgstr "資料協議"
 
 #: ../root/layout/components/BottomMenu.js:128
+#: ../root/static/scripts/homepage/navbar.js:57
 msgid "Social contract"
 msgstr "社會契約"
 
 #: ../root/layout/components/BottomMenu.js:131
+#: ../root/static/scripts/homepage/navbar.js:59
 msgid "Code of Conduct"
 msgstr "行為準則"
 
 #: ../root/layout/components/BottomMenu.js:134
+#: ../root/static/scripts/homepage/navbar.js:60
 msgid "Privacy policy"
 msgstr "隱私政策"
 
 #: ../root/layout/components/BottomMenu.js:137
+#: ../root/static/scripts/homepage/navbar.js:61
 msgid "GDPR compliance"
 msgstr "GDPR 合規性"
 
 #: ../root/layout/components/BottomMenu.js:141
+#: ../root/static/scripts/homepage/navbar.js:64
 msgid "Copyright and DMCA compliance"
 msgstr "版權和 DMCA 合規性"
 
 #: ../root/layout/components/BottomMenu.js:145
+#: ../root/static/scripts/homepage/navbar.js:66
 msgid "Data removal policy"
 msgstr "資料移除政策"
 
 #: ../root/layout/components/BottomMenu.js:151
+#: ../root/static/scripts/homepage/navbar.js:70
 #: ../root/user/PrivilegedUsers.js:24 ../root/user/PrivilegedUsers.js:26
 msgid "Privileged user accounts"
 msgstr "特權使用者帳號"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
+#: ../root/layout/components/BottomMenu.js:154
+#: ../root/static/scripts/homepage/navbar.js:71 ../root/user/UserProfile.js:570
 msgid "Statistics"
 msgstr "統計"
 
 #: ../root/layout/components/BottomMenu.js:157
+#: ../root/static/scripts/homepage/navbar.js:72
 msgid "Timeline graph"
 msgstr "時間軸"
 
 #: ../root/layout/components/BottomMenu.js:160
+#: ../root/static/scripts/homepage/navbar.js:73
 msgid "MusicBrainz history"
 msgstr "MusicBrainz 歷史"
 
 #: ../root/layout/components/BottomMenu.js:171
+#: ../root/static/scripts/homepage/navbar.js:134
 msgid "Products"
 msgstr "產品"
 
 #: ../root/layout/components/BottomMenu.js:176
 #: ../root/static/scripts/homepage/banner-carousel.js:47
+#: ../root/static/scripts/homepage/navbar.js:79
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:179
 #: ../root/static/scripts/homepage/banner-carousel.js:52
+#: ../root/static/scripts/homepage/navbar.js:80
 msgid "AudioRanger"
 msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:182
 #: ../root/static/scripts/homepage/banner-carousel.js:55
+#: ../root/static/scripts/homepage/navbar.js:81
 msgid "Mp3tag"
 msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:185
+#: ../root/static/scripts/homepage/navbar.js:82
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
 #: ../root/layout/components/BottomMenu.js:189
+#: ../root/static/scripts/homepage/navbar.js:87
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz 安卓版"
 
 #: ../root/layout/components/BottomMenu.js:193
+#: ../root/static/scripts/homepage/navbar.js:91
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz 伺服器"
 
 #: ../root/layout/components/BottomMenu.js:196
+#: ../root/static/scripts/homepage/navbar.js:92
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz 資料庫"
 
 #: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
+#: ../root/static/scripts/homepage/navbar.js:95
 msgid "Developer resources"
 msgstr "開發者資源"
 
 #: ../root/layout/components/BottomMenu.js:202
+#: ../root/static/scripts/homepage/navbar.js:96
 msgid "MusicBrainz API"
 msgstr "MusicBrainz API"
 
 #: ../root/layout/components/BottomMenu.js:205
+#: ../root/static/scripts/homepage/navbar.js:97
 msgid "Live Data Feed"
 msgstr "即時資料饋送"
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/navbar.js:103
 #: ../root/static/scripts/homepage/search.js:171
 msgid "Advanced search"
 msgstr "進階搜尋"
 
 #: ../root/layout/components/BottomMenu.js:224
+#: ../root/static/scripts/homepage/navbar.js:104
 msgid "Edit search"
 msgstr "編輯搜尋"
 
 #: ../root/layout/components/BottomMenu.js:227
+#: ../root/static/scripts/homepage/navbar.js:105
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr "標籤雲"
@@ -10921,6 +10956,7 @@ msgid "Useful Links"
 msgstr ""
 
 #: ../root/layout/components/NewFooter.js:82
+#: ../root/static/scripts/homepage/navbar.js:133
 msgid "Community"
 msgstr "社群"
 
@@ -16577,21 +16613,33 @@ msgid "Add new..."
 msgstr "添加備註"
 
 #: ../root/static/scripts/homepage/language.js:91
-#: ../root/static/scripts/homepage/navbar.js:263
 #, fuzzy
 msgid "reset language"
 msgstr "(重設語言)"
 
-#: ../root/static/scripts/homepage/mobile-search-popup.js:86
-#: ../root/static/scripts/homepage/navbar.js:458
-#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/mobile-search-popup.js:85
+#: ../root/static/scripts/homepage/navbar.js:462
 #: ../root/static/scripts/homepage/search.js:136
 #: ../root/static/scripts/homepage/search.js:138
 #, fuzzy
 msgid "Advanced Search"
 msgstr "進階搜尋"
 
-#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/navbar.js:116
+msgid "Reddit"
+msgstr ""
+
+#: ../root/static/scripts/homepage/navbar.js:117
+#, fuzzy
+msgid "Discord"
+msgstr "目錄"
+
+#: ../root/static/scripts/homepage/navbar.js:132
+#, fuzzy
+msgid "About"
+msgstr "關於我們"
+
+#: ../root/static/scripts/homepage/navbar.js:432
 #: ../root/static/scripts/homepage/search.js:163
 #, fuzzy
 msgid "in"
@@ -18758,6 +18806,10 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合併的作品中有一些擁有不同的ISWC編號。請先確保"
 "這些作品確實為相同作品，然後再繼續進行合併。"
+
+#, fuzzy
+#~ msgid "Tag cloud"
+#~ msgstr "標籤雲"
 
 #~ msgid "Welcome to MusicBrainz!"
 #~ msgstr "歡迎使用 MusicBrainz!"

@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-01 13:16-0600\n"
+"POT-Creation-Date: 2025-12-02 09:03-0600\n"
 "PO-Revision-Date: 2025-11-02 16:20+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
@@ -609,6 +609,7 @@ msgid "Blog"
 msgstr "Blog"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
+#: ../root/static/scripts/homepage/navbar.js:114
 msgid "Bluesky"
 msgstr "Bluesky"
 
@@ -693,6 +694,7 @@ msgid "Catalog#"
 msgstr "Catalog#"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
+#: ../root/static/scripts/homepage/navbar.js:113
 #: ../root/static/scripts/homepage/user-menu.js:43
 msgid "Chat"
 msgstr "Czat"
@@ -1304,7 +1306,8 @@ msgid "Format"
 msgstr "Format"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
-#: ../root/main/index.js:257 ../root/static/scripts/homepage/user-menu.js:40
+#: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:112
+#: ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "Forum"
 
@@ -1868,6 +1871,7 @@ msgid "Manual entry"
 msgstr "Wprowadzanie ręczne"
 
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
+#: ../root/static/scripts/homepage/navbar.js:115
 msgid "Mastodon"
 msgstr "Mastodon"
 
@@ -2557,8 +2561,8 @@ msgstr "Skrypt"
 #: ../root/static/scripts/common/components/Autocomplete2.js:782
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
-#: ../root/static/scripts/homepage/mobile-search-popup.js:43
-#: ../root/taglookup/Form.js:51
+#: ../root/static/scripts/homepage/mobile-search-popup.js:42
+#: ../root/static/scripts/homepage/navbar.js:135 ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "Szukaj"
 
@@ -7948,6 +7952,7 @@ msgstr ""
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
+#: ../root/static/scripts/homepage/navbar.js:106
 #, fuzzy
 msgid "Top CD stubs"
 msgstr "Top Szkiców CD"
@@ -10345,6 +10350,7 @@ msgstr "Anuluj wybory"
 
 #: ../root/elections/Index.js:16 ../root/elections/Index.js:17
 #: ../root/layout/components/BottomMenu.js:148
+#: ../root/static/scripts/homepage/navbar.js:69
 msgid "Auto-editor elections"
 msgstr "Wybory auto-redaktorów"
 
@@ -11155,14 +11161,13 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:88
 #: ../root/static/scripts/homepage/language.js:93
-#: ../root/static/scripts/homepage/navbar.js:265
+#: ../root/static/scripts/homepage/navbar.js:266
 msgid "(reset language)"
 msgstr "(resetuj język)"
 
 #: ../root/layout/components/BottomMenu.js:93
 #: ../root/static/scripts/homepage/language.js:101
 #: ../root/static/scripts/homepage/language.js:103
-#: ../root/static/scripts/homepage/navbar.js:273
 #: ../root/static/scripts/homepage/navbar.js:275
 #, fuzzy
 msgid "Help translate"
@@ -11174,137 +11179,167 @@ msgid "About us"
 msgstr "O nas"
 
 #: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
+#: ../root/static/scripts/homepage/navbar.js:44
 msgid "About MusicBrainz"
 msgstr "O MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:113
+#: ../root/static/scripts/homepage/navbar.js:45
 msgid "Sponsors"
 msgstr "Sponsorzy"
 
 #: ../root/layout/components/BottomMenu.js:116
+#: ../root/static/scripts/homepage/navbar.js:46
 msgid "Team"
 msgstr "Ekipa"
 
 #: ../root/layout/components/BottomMenu.js:119
 #: ../root/layout/components/NewFooter.js:94
+#: ../root/static/scripts/homepage/navbar.js:49
 msgid "Shop"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:122
+#: ../root/static/scripts/homepage/navbar.js:51
 #, fuzzy
 msgid "Contact us"
 msgstr "Kontakt"
 
 #: ../root/layout/components/BottomMenu.js:125
+#: ../root/static/scripts/homepage/navbar.js:54
 #, fuzzy
 msgid "Data licenses"
 msgstr "Licencje Danych"
 
 #: ../root/layout/components/BottomMenu.js:128
+#: ../root/static/scripts/homepage/navbar.js:57
 #, fuzzy
 msgid "Social contract"
 msgstr "Umowa Społeczna"
 
 #: ../root/layout/components/BottomMenu.js:131
+#: ../root/static/scripts/homepage/navbar.js:59
 #, fuzzy
 msgid "Code of Conduct"
 msgstr "Kodeks postępowania"
 
 #: ../root/layout/components/BottomMenu.js:134
+#: ../root/static/scripts/homepage/navbar.js:60
 #, fuzzy
 msgid "Privacy policy"
 msgstr "Polityka prywatności"
 
 #: ../root/layout/components/BottomMenu.js:137
+#: ../root/static/scripts/homepage/navbar.js:61
 msgid "GDPR compliance"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:141
+#: ../root/static/scripts/homepage/navbar.js:64
 msgid "Copyright and DMCA compliance"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:145
+#: ../root/static/scripts/homepage/navbar.js:66
 msgid "Data removal policy"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:151
+#: ../root/static/scripts/homepage/navbar.js:70
 #: ../root/user/PrivilegedUsers.js:24 ../root/user/PrivilegedUsers.js:26
 msgid "Privileged user accounts"
 msgstr ""
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
+#: ../root/layout/components/BottomMenu.js:154
+#: ../root/static/scripts/homepage/navbar.js:71 ../root/user/UserProfile.js:570
 msgid "Statistics"
 msgstr "Statystyki"
 
 #: ../root/layout/components/BottomMenu.js:157
+#: ../root/static/scripts/homepage/navbar.js:72
 #, fuzzy
 msgid "Timeline graph"
 msgstr "Wykres z osią czasu"
 
 #: ../root/layout/components/BottomMenu.js:160
+#: ../root/static/scripts/homepage/navbar.js:73
 #, fuzzy
 msgid "MusicBrainz history"
 msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:171
+#: ../root/static/scripts/homepage/navbar.js:134
 msgid "Products"
 msgstr "Produkty"
 
 #: ../root/layout/components/BottomMenu.js:176
 #: ../root/static/scripts/homepage/banner-carousel.js:47
+#: ../root/static/scripts/homepage/navbar.js:79
 msgid "MusicBrainz Picard"
 msgstr "MusicBrainz Picard"
 
 #: ../root/layout/components/BottomMenu.js:179
 #: ../root/static/scripts/homepage/banner-carousel.js:52
+#: ../root/static/scripts/homepage/navbar.js:80
 msgid "AudioRanger"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:182
 #: ../root/static/scripts/homepage/banner-carousel.js:55
+#: ../root/static/scripts/homepage/navbar.js:81
 msgid "Mp3tag"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:185
+#: ../root/static/scripts/homepage/navbar.js:82
 msgid "Yate Music Tagger"
 msgstr "Yate Music Tagger"
 
 #: ../root/layout/components/BottomMenu.js:189
+#: ../root/static/scripts/homepage/navbar.js:87
 msgid "MusicBrainz for Android"
 msgstr "MusicBrainz dla Androida"
 
 #: ../root/layout/components/BottomMenu.js:193
+#: ../root/static/scripts/homepage/navbar.js:91
 msgid "MusicBrainz Server"
 msgstr "MusicBrainz Server"
 
 #: ../root/layout/components/BottomMenu.js:196
+#: ../root/static/scripts/homepage/navbar.js:92
 msgid "MusicBrainz Database"
 msgstr "Baza danych MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
+#: ../root/static/scripts/homepage/navbar.js:95
 msgid "Developer resources"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:202
+#: ../root/static/scripts/homepage/navbar.js:96
 msgid "MusicBrainz API"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:205
+#: ../root/static/scripts/homepage/navbar.js:97
 msgid "Live Data Feed"
 msgstr "Strumień danych"
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/navbar.js:103
 #: ../root/static/scripts/homepage/search.js:171
 #, fuzzy
 msgid "Advanced search"
 msgstr "Zaawansowany"
 
 #: ../root/layout/components/BottomMenu.js:224
+#: ../root/static/scripts/homepage/navbar.js:104
 #, fuzzy
 msgid "Edit search"
 msgstr "Edytuj użytkownika"
 
 #: ../root/layout/components/BottomMenu.js:227
+#: ../root/static/scripts/homepage/navbar.js:105
 msgctxt "folksonomy"
 msgid "Tag cloud"
 msgstr ""
@@ -11521,6 +11556,7 @@ msgid "Useful Links"
 msgstr "Link zewnętrzne"
 
 #: ../root/layout/components/NewFooter.js:82
+#: ../root/static/scripts/homepage/navbar.js:133
 msgid "Community"
 msgstr ""
 
@@ -17011,21 +17047,32 @@ msgid "Add new..."
 msgstr "Dodaj notatkę"
 
 #: ../root/static/scripts/homepage/language.js:91
-#: ../root/static/scripts/homepage/navbar.js:263
 #, fuzzy
 msgid "reset language"
 msgstr "(resetuj język)"
 
-#: ../root/static/scripts/homepage/mobile-search-popup.js:86
-#: ../root/static/scripts/homepage/navbar.js:458
-#: ../root/static/scripts/homepage/navbar.js:461
+#: ../root/static/scripts/homepage/mobile-search-popup.js:85
+#: ../root/static/scripts/homepage/navbar.js:462
 #: ../root/static/scripts/homepage/search.js:136
 #: ../root/static/scripts/homepage/search.js:138
 #, fuzzy
 msgid "Advanced Search"
 msgstr "Zaawansowany"
 
-#: ../root/static/scripts/homepage/navbar.js:430
+#: ../root/static/scripts/homepage/navbar.js:116
+msgid "Reddit"
+msgstr ""
+
+#: ../root/static/scripts/homepage/navbar.js:117
+msgid "Discord"
+msgstr ""
+
+#: ../root/static/scripts/homepage/navbar.js:132
+#, fuzzy
+msgid "About"
+msgstr "O nas"
+
+#: ../root/static/scripts/homepage/navbar.js:432
 #: ../root/static/scripts/homepage/search.js:163
 #, fuzzy
 msgid "in"
@@ -19236,6 +19283,10 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Tag cloud"
+#~ msgstr "Tag nie jest używany"
 
 #~ msgid "Welcome to MusicBrainz!"
 #~ msgstr "Witamy w MusicBrainz!"
