@@ -29,13 +29,13 @@ sub get_latest_posts {
 
         if ($response && $response->is_success) {
             $posts = decode_json(
-              $response->decoded_content(charset => 'utf-8')
+              $response->decoded_content(charset => 'utf-8'),
             );
             my $topics_ref = $posts->{topic_list}->{topics};
             my $limit = @$topics_ref < 5 ? $#$topics_ref : 4;
             my $topics = [
                 map { { title => $_->{title}, slug => $_->{slug} } }
-                @$topics_ref[1..$limit]
+                @$topics_ref[1..$limit],
             ];
             $posts = $topics;
             $cache->set($key => $posts, $COMMUNITY_POSTS_CACHE_TIMEOUT);
