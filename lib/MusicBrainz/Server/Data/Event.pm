@@ -661,7 +661,6 @@ sub fresh_events_with_artwork {
     });
 }
 
-
 sub series_ordering {
     my ($self, $a, $b) = @_;
 
