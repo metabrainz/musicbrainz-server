@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-27 17:21+0100\n"
+"POT-Creation-Date: 2025-11-13 12:11+0100\n"
 "PO-Revision-Date: 2025-11-03 17:20+0000\n"
 "Last-Translator: Echelon <weblate@wp.pl>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
@@ -42,8 +42,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
-"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.14\n"
 
 #: ../root/components/common-macros.tt:11
@@ -4696,8 +4696,8 @@ msgid ""
 "contains private data), please {contact_url|contact us}."
 msgstr ""
 "Nie możesz zmienić tej notatki, ponieważ ktoś inny już na nią odpowiedział. "
-"Jeśli istnieje ważny powód, dla którego powinna zostać zmieniona "
-"(na przykład zawiera dane prywatne), skontaktuj się z nami pod adresem "
+"Jeśli istnieje ważny powód, dla którego powinna zostać zmieniona (na "
+"przykład zawiera dane prywatne), skontaktuj się z nami pod adresem "
 "{contact_url|contact us}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:142
@@ -4707,8 +4707,8 @@ msgid ""
 "data), please {contact_url|contact us}."
 msgstr ""
 "Nie możesz zmienić tej notatki, ponieważ została wprowadzona zbyt dawno "
-"temu. Jeśli istnieje ważny powód, dla którego powinna zostać zmieniona "
-"(na przykład zawiera dane prywatne), skontaktuj się z nami pod adresem "
+"temu. Jeśli istnieje ważny powód, dla którego powinna zostać zmieniona (na "
+"przykład zawiera dane prywatne), skontaktuj się z nami pod adresem "
 "{contact_url|contact us}."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
@@ -17425,7 +17425,7 @@ msgstr "Dodaj kolejną pracę"
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:160
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:42
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:50
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:403
 #, fuzzy
 #| msgid "Add relationship"
 msgctxt "header"
@@ -17773,11 +17773,17 @@ msgstr "Relacje wydania"
 msgid "Release group relationships"
 msgstr "Relacje wydania"
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:322
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:267
+#, fuzzy
+#| msgid "Are you sure you want to remove this application?"
+msgid "Are you sure you want to remove this work?"
+msgstr "Czy na pewno chcesz usunąć tę aplikację?"
+
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:349
 msgid "Error loading work relationships: {error}"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:396
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:423
 msgid "Add related work"
 msgstr "Dodaj powiązaną pracę"
 
