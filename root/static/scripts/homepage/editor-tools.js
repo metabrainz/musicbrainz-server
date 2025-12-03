@@ -19,7 +19,7 @@ import {SanitizedCatalystContext} from '../../../context.mjs';
 import {VARTIST_GID} from '../common/constants.js';
 import useMediaQuery from '../common/hooks/useMediaQuery.js';
 
-const editorToolsItems = [
+const addEntityItems = [
   {
     href: '/artist/create',
     label: N_lp('Add artist', 'interactive'),
@@ -98,7 +98,7 @@ component EditorTools() {
         type="button"
       >
         <FontAwesomeIcon icon={faChevronDown} />
-        {l('Editor Tools')}
+        {l('Editor tools')}
       </button>
 
       <div
@@ -108,7 +108,7 @@ component EditorTools() {
         <div className="editor-tools-content">
           <div className="editor-tools-cell" id="editor-tools-cell-1">
             <div className="editor-tools-cell-sub">
-              <a href={`/user/${user.name}`}>{l('My Profile')}</a>
+              <a href={`/user/${user.name}`}>{l('My profile')}</a>
               <a href="/logout">{l('Log out')}</a>
             </div>
             <div className="editor-tools-cell-sub">
@@ -157,7 +157,7 @@ component EditorTools() {
                 {l('Add new...')}
               </a>
               <ul className="dropdown-menu">
-                {editorToolsItems.map((item, index) => (
+                {addEntityItems.map((item, index) => (
                   <li className="dropdown-item" key={index}>
                     <a href={item.href}>
                       {item.label()}

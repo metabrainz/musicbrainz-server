@@ -19,7 +19,7 @@ import he from 'he';
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
-import NewFooter from '../layout/components/NewFooter.js';
+import Footer from '../layout/components/NewFooter.js';
 import Layout from '../layout/index.js';
 import BookBrainzLogo
   from '../static/images/meb-logos/BookBrainz_logo_mini.svg';
@@ -32,14 +32,14 @@ import MusicBrainzLogo
 import PicardLogo from '../static/images/meb-logos/Picard_logo_mini.svg';
 import manifest from '../static/manifest.mjs';
 import {l} from '../static/scripts/common/i18n.js';
+import ArtworkCarousel
+  from '../static/scripts/homepage/artwork-carousel.js';
 import BannerCarousel from '../static/scripts/homepage/banner-carousel.js';
 import EditorTools from '../static/scripts/homepage/editor-tools.js';
 import Navbar from '../static/scripts/homepage/navbar.js';
 import Search from '../static/scripts/homepage/search.js';
 import Stats, {type WeeklyStatsT}
   from '../static/scripts/homepage/stats.js';
-import TimelineCarousel
-  from '../static/scripts/homepage/timeline-carousel.js';
 import UserMenu from '../static/scripts/homepage/user-menu.js';
 
 import AuthButtons from './AuthButtons.js';
@@ -92,9 +92,9 @@ component Homepage(
         </div>
 
 
-        <div className="timeline-container" id="releases-container">
-          <div className="timeline-container-inner layout-width">
-            <TimelineCarousel
+        <div className="artwork-container" id="releases-container">
+          <div className="artwork-container-inner layout-width">
+            <ArtworkCarousel
               entityType="release"
               freshReleaseArtwork={freshReleases}
               newestReleaseArtwork={newestReleases}
@@ -262,9 +262,11 @@ component Homepage(
           </div>
         </div>
 
-        <div className="timeline-container" id="events-container">
-          <div className="timeline-container-inner layout-width">
-            <TimelineCarousel
+        <div className="artwork-container" id="events-container">
+          <div
+            className="artwork-container-inner layout-width"
+          >
+            <ArtworkCarousel
               entityType="event"
               freshEventArtwork={freshEvents}
               newestEventArtwork={newestEvents}
@@ -290,7 +292,7 @@ component Homepage(
                     `Access all our datasets and the MusicBrainz
                      Live Data Feed by {account_link|creating an account},
                      whether for personal or non-commercial use.`,
-                     {account_link: 'https://metabrainz.org/supporters/account-type'},
+                    {account_link: 'https://metabrainz.org/supporters/account-type'},
                   )}
                 </p>
 
@@ -326,9 +328,7 @@ component Homepage(
                   <a href="/doc/About/Data_License">
                     {l('Data license')}
                   </a>
-                  {' '}
-                  {l('|')}
-                  {' '}
+                  {' | '}
                   <a href="/doc/Frequently_Asked_Questions">
                     {l('MetaBrainz FAQ')}
                   </a>
@@ -391,27 +391,19 @@ component Homepage(
                   <a href="/doc/How_Editing_Works">
                     {l('Editing introduction')}
                   </a>
-                  {' '}
-                  {l('|')}
-                  {' '}
+                  {' | '}
                   <a href="/doc/Style">
                     {l('Style guidelines')}
                   </a>
-                  {' '}
-                  {l('|')}
-                  {' '}
+                  {' | '}
                   <a href="/doc/Frequently_Asked_Questions">
                     {l('MusicBrainz FAQs')}
                   </a>
-                  {' '}
-                  {l('|')}
-                  {' '}
+                  {' | '}
                   <a href="/doc/How_to_Add_an_Artist">
                     {l('How to add artists')}
                   </a>
-                  {' '}
-                  {l('|')}
-                  {' '}
+                  {' | '}
                   <a href="/doc/How_to_Add_a_Release">
                     {l('How to add releases')}
                   </a>
@@ -433,16 +425,12 @@ component Homepage(
               <div className="info-container-inner">
                 <h2>{l('Open source')}</h2>
                 <p>
-                  {l(
+                  {exp.l(
                     `"Open source is source code that is made freely available
-                     for possible modification and redistribution..."`,
+                     for possible modification and redistribution..."
+                     - {wikipedia_link|Wikipedia}`,
+                    {wikipedia_link: 'https://en.wikipedia.org/wiki/Open_source'},
                   )}
-{' '}
-                  {l('-')}
-{' '}
-                  <a href="https://en.wikipedia.org/wiki/Open_source">
-                    {l('Wikipedia')}
-                  </a>
                 </p>
                 <p>
                   {l(
@@ -473,23 +461,16 @@ component Homepage(
               <div className="info-container-inner">
                 <h2>{l('Data provider')}</h2>
                 <p>
-                  {l(
+                  {exp.l(
                     `The MetaBrainz core mission is to curate and
                     maintain public datasets that anyone can download
                     and use. Some of the world's biggest platforms,
                     such as Google and Amazon, use our data, as well as
-                    small-scale developers and curious individuals.`,
-                  )}
-{' '}
-                  {l('We ask')}
-{' '}
-                  <a href="https://metabrainz.org/supporters">
-                    {l('commercial users')}
-                  </a>
-{' '}
-                  {l(
-                    `to support us. Personal use of our
-                    datasets will always be free.`,
+                    small-scale developers and curious individuals.
+                    We ask {commercial_users_link|commercial users}
+                    to support us. Personal use of our datasets will
+                    always be free.`,
+                    {commercial_users_link: 'https://metabrainz.org/supporters'},
                   )}
                 </p>
                 <p>
@@ -503,7 +484,7 @@ component Homepage(
                 <span className="d-flex align-items-center">
                   <FontAwesomeIcon icon={faAngleRight} size="sm" />
                   <a href="https://metabrainz.org/datasets">
-                    {l('MetaBrainz Datasets')}
+                    {l('MetaBrainz datasets')}
                   </a>
                 </span>
               </div>
@@ -519,19 +500,15 @@ component Homepage(
                   )}
                 </p>
                 <p>
-                  {l(
+                  {exp.l(
                     `Our team and volunteer contributers from across the globe
-                    are proud to consider MusicBrainz and it's sister sites`,
-                  )}
-{' '}
-                  <a href="https://en.wikipedia.org/wiki/Enshittification">
-                    {l('enshittification')}
-                  </a>
-                  {l(
-                    `-proof projects, immune to the the crapifying that
-                    takes place when business interests inevitably subsume
-                    and monetize projects that initially focussed on
-                    high-quality offerings to attract users.`,
+                     are proud to consider MusicBrainz and it's sister sites
+                     {enshittification_link|enshittification},
+                     -proof projects, immune to the the crapifying that
+                     takes place when business interests inevitably subsume
+                     and monetize projects that initially focused on
+                     high-quality offerings to attract users.`,
+                    {enshittification_link: 'https://en.wikipedia.org/wiki/Enshittification'},
                   )}
                 </p>
 
@@ -567,7 +544,7 @@ component Homepage(
 
         <BannerCarousel />
 
-        <NewFooter />
+        <Footer />
       </div>
 
       {manifest('bootstrap', {async: true})}
@@ -578,7 +555,7 @@ component Homepage(
       {manifest('homepage/banner-carousel', {async: true})}
       {manifest('homepage/stats', {async: true})}
       {manifest('common/loadArtwork', {async: true})}
-      {manifest('homepage/timeline-carousel', {async: true})}
+      {manifest('homepage/artwork-carousel', {async: true})}
     </Layout>
   );
 }

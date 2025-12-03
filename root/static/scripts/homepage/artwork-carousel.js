@@ -18,13 +18,13 @@ import {LazyLoadImage} from 'react-lazy-load-image-component';
 import {Autoplay, Mousewheel, Navigation} from 'swiper/modules';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
-import timelineCoverartPlaceholder
-  from '../../images/homepage/timeline-coverart-placeholder.png';
+import artworkCoverartPlaceholder
+  from '../../images/homepage/artwork-coverart-placeholder.png';
 import {l} from '../common/i18n.js';
 import {reduceArtistCredit} from '../common/immutable-entities.js';
 import entityHref from '../common/utility/entityHref.js';
 
-component ReleaseTimelineImage(artwork: ReleaseArtT) {
+component ReleaseArtworkImage(artwork: ReleaseArtT) {
   const release = artwork.release;
   const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
 
@@ -44,10 +44,10 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
   });
 
   return (
-    <div className="timeline-image-container">
-      <div className="timeline-item">
+    <div className="artwork-image-container">
+      <div className="artwork-item">
         <a
-          className="timeline-coverart-container"
+          className="artwork-coverart-container"
           href={entityHref(release)}
           role="button"
           style={{
@@ -57,7 +57,7 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
         >
           <img
             alt={release.name}
-            src={timelineCoverartPlaceholder}
+            src={artworkCoverartPlaceholder}
             style={{
               display: imageLoaded ? 'none' : 'block',
               height: '150px',
@@ -82,7 +82,7 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
               {release.name}
             </p>
             <p>
-              {texp.l('By {artist}', {
+              {texp.l('by {artist}', {
                 artist: reduceArtistCredit(release.artistCredit),
               })}
             </p>
@@ -93,7 +93,7 @@ component ReleaseTimelineImage(artwork: ReleaseArtT) {
   );
 }
 
-component EventTimelineImage(artwork: EventArtT) {
+component EventArtworkImage(artwork: EventArtT) {
   const event = artwork.event;
   const [imageLoaded, setImageLoaded] = React.useState<boolean>(false);
 
@@ -105,15 +105,13 @@ component EventTimelineImage(artwork: EventArtT) {
     return null;
   }
 
-  const eventDescription = texp.l('{entity}', {
-    entity: event.name,
-  });
+  const eventDescription = event.name;
 
   return (
-    <div className="timeline-image-container">
-      <div className="timeline-item">
+    <div className="artwork-image-container">
+      <div className="artwork-item">
         <a
-          className="timeline-coverart-container"
+          className="artwork-coverart-container"
           href={entityHref(event)}
           role="button"
           style={{
@@ -123,7 +121,7 @@ component EventTimelineImage(artwork: EventArtT) {
         >
           <img
             alt={event.name}
-            src={timelineCoverartPlaceholder}
+            src={artworkCoverartPlaceholder}
             style={{
               display: imageLoaded ? 'none' : 'block',
               height: '150px',
@@ -155,7 +153,7 @@ component EventTimelineImage(artwork: EventArtT) {
   );
 }
 
-component TimelineCarousel(
+component ArtworkCarousel(
   newestReleaseArtwork?: $ReadOnlyArray<ReleaseArtT>,
   freshReleaseArtwork?: $ReadOnlyArray<ReleaseArtT>,
   newestEventArtwork?: $ReadOnlyArray<EventArtT>,
@@ -194,8 +192,8 @@ component TimelineCarousel(
 
   return (
     <>
-      <div className="timeline-carousel-inner">
-        <div className="timeline-carousel-text">
+      <div className="artwork-carousel-inner">
+        <div className="artwork-carousel-text">
           {l('Now')}
         </div>
         <Swiper
@@ -213,13 +211,13 @@ component TimelineCarousel(
           {entityType === 'release' ? releaseSlides?.map((artwork, index) => {
             return (
               <SwiperSlide key={`${mode}-${index}`}>
-                <ReleaseTimelineImage artwork={artwork} />
+                <ReleaseArtworkImage artwork={artwork} />
               </SwiperSlide>
             );
           }) : eventSlides?.map((artwork, index) => {
             return (
               <SwiperSlide key={`${mode}-${index}`}>
-                <EventTimelineImage artwork={artwork} />
+                <EventArtworkImage artwork={artwork} />
               </SwiperSlide>
             );
           })}
@@ -228,7 +226,7 @@ component TimelineCarousel(
       <div className="d-flex pt-3 justify-content-between flex-row gap-3">
         <div className="d-flex gap-2">
           <div
-            className={`timeline-carousel-pill ${
+            className={`artwork-carousel-pill ${
               mode === 'fresh' ? 'selected' : ''
             }`}
             onClick={handleFreshPillClick}
@@ -244,37 +242,37 @@ component TimelineCarousel(
             })}
           </div>
           <div
-            className={`timeline-carousel-pill ${
+            className={`artwork-carousel-pill ${
               mode === 'new' ? 'selected' : ''
             }`}
             onClick={handleNewPillClick}
             title={l('Order by date added to MusicBrainz')}
           >
-            {l('New Additions')}
+            {l('New additions')}
           </div>
         </div>
         <div className="d-flex gap-3">
           <div
-            className="d-flex gap-1 align-items-center timeline-control"
+            className="d-flex gap-1 align-items-center artwork-control"
             onClick={toggleAutoPlay}
             role="button"
           >
             <FontAwesomeIcon icon={autoPlay ? faPauseCircle : faPlayCircle} />
-            <h5 className="timeline-control d-none d-md-block">
+            <h5 className="artwork-control d-none d-md-block">
               {autoPlay ? l('Pause') : l('Play')}
             </h5>
           </div>
           <a
             className={`d-flex gap-1 align-items-center
-              text-decoration-none timeline-control`}
+              text-decoration-none artwork-control`}
             href={
               entityType === 'release' ? '/release/add' : '/event/create'
             }
           >
             <FontAwesomeIcon icon={faPlusCircle} />
-            <h5 className="timeline-control d-none d-md-block">
+            <h5 className="artwork-control d-none d-md-block">
               {texp.l('Add {type}', {
-                type: entityType === 'release' ? 'Release' : 'Event',
+                type: entityType === 'release' ? 'release' : 'event',
               })}
             </h5>
           </a>
@@ -284,7 +282,7 @@ component TimelineCarousel(
   );
 }
 
-export default (hydrate<React.PropsOf<TimelineCarousel>>(
-  'div.timeline-carousel',
-  TimelineCarousel,
-): component(...React.PropsOf<TimelineCarousel>));
+export default (hydrate<React.PropsOf<ArtworkCarousel>>(
+  'div.artwork-carousel',
+  ArtworkCarousel,
+): component(...React.PropsOf<ArtworkCarousel>));

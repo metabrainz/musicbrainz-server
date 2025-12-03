@@ -18,7 +18,6 @@ import {capitalize} from '../common/utility/strings.js';
 
 function languageName(
   language: ?ServerLanguageT,
-  selected: boolean,
 ) {
   if (!language) {
     return '';
@@ -39,11 +38,6 @@ function languageName(
       text += ' (' + capitalize(nativeTerritory) + ')';
     }
   }
-
-  if (selected) {
-    text += ' \u25be';
-  }
-
   return text;
 }
 
@@ -65,7 +59,7 @@ component LanguageSelector() {
         role="button"
         title={l('Language')}
       >
-        <img alt="Language" height={40} src={languageIcon} width={40} />
+        <img alt={l('Language')} height={40} src={languageIcon} width={40} />
       </a>
       <ul className="dropdown-menu">
         {serverLanguages?.map((language) => {
@@ -77,9 +71,9 @@ component LanguageSelector() {
                 href={`/set-language/${encodeURIComponent(
                   language.name,
                 )}?${returnToCurrentPage($c)}`}
-                title={languageName(language, isSelected)}
+                title={languageName(language)}
               >
-                {languageName(language, isSelected)}
+                {languageName(language)}
               </a>
             </li>
           );

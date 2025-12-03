@@ -68,22 +68,25 @@ component MobileSearchPopup() {
               className="form-control form-control-lg"
               name="search_term"
               onChange={(e) => setSearchQuery(e.currentTarget.value)}
-              placeholder="Search"
+              placeholder={l('Search')}
               required
               type="text"
               value={searchQuery}
             />
             <button type="submit">
-              <img alt="Search" height={30} src={searchIcon} width={30} />
+              <img
+                alt={l('Search')}
+                height={30}
+                src={searchIcon}
+                width={30}
+              />
             </button>
           </div>
         </form>
 
         <div className="p-3 d-flex justify-content-center advanced-search">
-          <a href="/search" title="Advanced Search">
-            <h3>
-              {l('Advanced Search')}
-            </h3>
+          <a href="/search" title={l('Advanced search')}>
+            <h3>{l('Advanced search')}</h3>
           </a>
         </div>
       </div>

@@ -294,7 +294,7 @@ component MobileSidebar(
           )}
         </div>
         <button
-          aria-label="Close"
+          aria-label={lp('Close', 'interactive')}
           onClick={onClose}
           type="button"
         >
@@ -348,10 +348,7 @@ component Navbar() {
   };
 
   return (
-    <nav
-      aria-label="Offcanvas navbar large"
-      className="navbar navbar-expand-lg shadow-sm"
-    >
+    <nav className="navbar navbar-expand-lg shadow-sm">
       <div className="container-fluid gap-4 position-relative layout-width">
         <button
           aria-controls="offcanvasNavbar"
@@ -381,7 +378,7 @@ component Navbar() {
           type="button"
         >
           <img
-            alt="Search"
+            alt={l('Search')}
             className="search-button-mobile"
             src={magnifyingGlassTheme}
           />
@@ -418,11 +415,11 @@ component Navbar() {
             >
               <div className="input-group">
                 <input
-                  aria-label="search"
+                  aria-label={l('Search')}
                   className="form-control"
                   id="headerid-query"
                   name="query"
-                  placeholder="Search"
+                  placeholder={l('Search')}
                   required
                   type="text"
                 />
@@ -432,7 +429,7 @@ component Navbar() {
                 </span>
 
                 <select
-                  aria-label="Server"
+                  aria-label={l('Entity for search')}
                   className="form-select"
                   name="type"
                 >
@@ -497,12 +494,17 @@ component Navbar() {
             </ul>
 
             <button
-              aria-label="Language"
+              aria-label={l('Language')}
               className="d-lg-none border-0 bg-transparent text-end"
               onClick={toggleLanguageSidebar}
               type="button"
             >
-              <img alt="Language" height={40} src={languageIcon} width={40} />
+              <img
+                alt={l('Language')}
+                height={40}
+                src={languageIcon}
+                width={40}
+              />
             </button>
 
             <button
@@ -514,7 +516,7 @@ component Navbar() {
               type="button"
             >
               <img
-                alt="Search"
+                alt={l('Search')}
                 className="search-button"
                 height={40}
                 src={magnifyingGlass}
@@ -525,14 +527,12 @@ component Navbar() {
         </div>
       </div>
 
-      {/* Mobile Sidebar */}
       <MobileSidebar
         isOpen={mobileSidebar.isOpen}
         onClose={closeMobileSidebar}
         section={mobileSidebar.section}
       />
 
-      {/* Mobile Search Popup */}
       <MobileSearchPopup />
     </nav>
   );

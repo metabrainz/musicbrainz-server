@@ -36,7 +36,7 @@ component BannerCarousel() {
       <SwiperSlide className="carousel-slide-1">
         <div className="carousel-slide">
           <div className="carousel-slide-content">
-            <img alt="Tag your music" src={picardImage} />
+            <img alt={l('Tag your music')} src={picardImage} />
             <div
               className="d-flex flex-column gap-3 carousel-slide-content-text"
             >
@@ -78,7 +78,7 @@ component BannerCarousel() {
         <div className="carousel-slide">
           <div className="carousel-slide-content">
             <img
-              alt="Listen together"
+              alt={l('Listen together')}
               className="listenbrainz-image"
               src={listenBrainzImage}
             />

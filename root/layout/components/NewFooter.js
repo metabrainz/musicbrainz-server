@@ -17,7 +17,7 @@ import musicbrainzLogo
   from '../../static/images/meb-logos/musicbrainz.svg';
 import {l} from '../../static/scripts/common/i18n.js';
 
-component NewFooter() {
+component Footer() {
   return (
     <section className="footer layout-width">
       <div className="container-fluid px-4">
@@ -39,21 +39,21 @@ component NewFooter() {
             </p>
             <ul className="list-unstyled">
               <li className="color-a">
-                <span>{l('Development IRC:')} </span>
+                <span>{addColonText(l('Development chat'))} </span>
 {' '}
                 <a href="/doc/Communication/ChatBrainz">
                   {'#metabrainz'}
                 </a>
               </li>
               <li className="color-a">
-                <span>{l('Discussion IRC:')} </span>
+                <span>{addColonText(l('Discussion chat'))} </span>
 {' '}
                 <a href="/doc/Communication/ChatBrainz">
                   {'#metabrainz'}
                 </a>
               </li>
               <li className="color-a">
-                <span>{l('Email:')} </span>
+                <span>{addColonText(l('Email'))} </span>
 {' '}
                 <a href="mailto:support@metabrainz.org">
                   {'support@metabrainz.org'}{' '}
@@ -143,25 +143,25 @@ component NewFooter() {
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
-                <a href="https://acousticbrainz.org/">
-                  {l('AcousticBrainz')}
+                <a href="https://coverartarchive.org">
+                  {l('Cover Art Archive')}
                 </a>
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
-                <a href="https://coverartarchive.org">
-                  {l('Cover Art Archive')}
+                <a href="https://eventartarchive.org/">
+                  {l('Event Art Archive')}
                 </a>
               </li>
             </ul>
           </div>
           <div className="col-12 col-md-4 col-lg-2">
-            <h3 className="text-brand text-body">{l('Join Us')}</h3>
+            <h3 className="text-brand text-body">{l('Documentation')}</h3>
             <ul className="list-unstyled">
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
                 <a href="/doc/Beginners_Guide">
-                  {l('Beginner\'s Guide')}
+                  {l('Beginner’s guide')}
                 </a>
               </li>
               <li>
@@ -203,7 +203,7 @@ component NewFooter() {
               {l('OSS Geek?')}
 {' '}
               <a href="https://github.com/metabrainz/musicbrainz-server">
-                {l('Contribute here')} {' '}
+                {l('Contribute here')}
               </a>
             </p>
           </div>
@@ -228,7 +228,7 @@ component NewFooter() {
               {l('Found an issue?')}
 {' '}
               <a href="https://tickets.metabrainz.org/">
-                {l('Report it here')} {' '}
+                {l('Report it here')}
               </a>
             </p>
           </div>
@@ -238,4 +238,4 @@ component NewFooter() {
   );
 }
 
-export default NewFooter;
+export default Footer;

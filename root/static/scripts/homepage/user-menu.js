@@ -37,7 +37,7 @@ component UserMenu(
           <div className="user-menu-columns">
             <div className="user-menu-column">
               <a href="https://community.metabrainz.org/">
-                {l('Forums')}
+                {l('Community forums')}
               </a>
               <a href="/doc/Communication/ChatBrainz">
                 {l('Chat')}
@@ -48,7 +48,7 @@ component UserMenu(
                 {l('Ticket tracker')}
               </a>
               <a href="/doc/Style">
-                {l('Editing guidelines')}
+                {l('Style guidelines')}
               </a>
             </div>
             <div className="user-menu-column">
