@@ -16,11 +16,12 @@
 # Solarenta <2325840950@qq.com>, 2025.
 # Beteix <1158817754@qq.com>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025.
+# Avava_Ava <2245176012haha@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-09-25 16:54+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2025-11-18 06:20+0000\n"
+"Last-Translator: Avava_Ava <2245176012haha@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -28,7 +29,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -3233,7 +3234,7 @@ msgstr "升E小调"
 #: DB:work_attribute_type/name:215
 msgctxt "work_attribute_type"
 msgid "EAÜ ID"
-msgstr ""
+msgstr "EAÜ ID"
 
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
@@ -3272,6 +3273,8 @@ msgid ""
 "Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
 "compatible with all Blu-ray players."
 msgstr ""
+"Ultra HD Blu-ray 是 Blu-ray 的改良版本，支持播放 4K Ultra HD 视频。所有 Blu-"
+"ray 光碟播放器均不兼容 Ultra HD Bluray。"
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4395,12 +4398,9 @@ msgstr "厄瓜多尔著作权协会SAYCE ID"
 
 #. name:EAÜ ID
 #: DB:work_attribute_type/description:215
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr "奥地利著作权协会AKM ID"
+msgstr "爱沙尼亚著作权协会EAÜ ID"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -8629,12 +8629,9 @@ msgid "Udaya ravicandrika"
 msgstr "Udaya ravicandrika"
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-ray"
+msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
