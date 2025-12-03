@@ -4,14 +4,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# kKZvtcqX <musicbrainz.kelp772@slmails.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 12:11+0100\n"
-"PO-Revision-Date: 2025-05-27 11:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-11-20 18:07+0000\n"
+"Last-Translator: kKZvtcqX <musicbrainz.kelp772@slmails.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -782,7 +782,7 @@ msgstr "詳細資訊"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "停用傳統瀏覽器模式"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -827,7 +827,8 @@ msgid ""
 "Do not mark digital media releases as having no barcode unless you are "
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
-msgstr ""
+msgstr "除非你很熟悉該平台，否則請勿將數位媒體發行標記為無條碼。大多數主流數位平台都"
+"有使用條碼，即使它們沒有顯示出來。"
 
 #: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
@@ -1022,7 +1023,8 @@ msgid ""
 "Examples of releases that should be grouped together include original "
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
-msgstr ""
+msgstr "應歸類在一起的發行版本範例，包括原版發行、再版、CD 與數位媒體等不同格式，以及"
+"重新母帶處理版。"
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
@@ -1059,7 +1061,8 @@ msgid ""
 "artist’s official homepage and social networking pages, streaming services, "
 "and unofficial pages like Wikipedia entries, biographies, interviews, and "
 "fan sites."
-msgstr ""
+msgstr "外部連結是與該藝人相關的網址。這可能包括藝人的官方首頁、社群網站頁面、串流媒"
+"體服務，以及如維基百科條目、傳記、訪談和粉絲網站等非官方頁面。"
 
 #: ../root/label/edit_form.tt:114
 msgid ""
@@ -1067,6 +1070,8 @@ msgid ""
 "label’s official homepage and social networking pages, catalogs, order "
 "pages, and unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"外部連結是與該唱片公司相關的網址。這可能包括唱片公司的官方首頁、社群網站頁面"
+"、目錄、訂購頁面，以及如維基百科條目、歷史紀錄和粉絲網站等非官方頁面。"
 
 #: ../root/place/edit_form.tt:110
 msgid ""
@@ -1105,7 +1110,7 @@ msgstr ""
 
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
-msgstr ""
+msgstr "如果這個\t的名稱本身就很獨特的話，這一欄可以不用填。"
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
@@ -1123,7 +1128,7 @@ msgstr "首先輸入所有音軌資訊，包括標題和創作者名單，以便
 
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
-msgstr ""
+msgstr "古典音樂類別應包含最重要的演奏者資訊。"
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
@@ -1263,7 +1268,7 @@ msgstr "我確認這就是發行版上顯示的條碼。"
 
 #: ../root/release/edit/tracklist.tt:450
 msgid "I confirm that this extra title information is capitalized correctly."
-msgstr ""
+msgstr "我確認這項額外標題資訊的大小寫正確無誤。"
 
 #: ../root/release/edit/information.tt:529
 msgid "I confirm that this is the barcode as it appears on the release."
@@ -1345,7 +1350,7 @@ msgstr ""
 msgid ""
 "If this is a live recording, please also see the {doc|live recording} "
 "guidelines."
-msgstr ""
+msgstr "如果是現場錄音，請務必參閱{doc|live recording}指南。"
 
 #: ../root/release/edit/information.tt:484
 msgid ""
@@ -1369,21 +1374,17 @@ msgstr "如果沒有找到所需的結果，您可以添加一張新專輯："
 msgid ""
 "If you can’t find a catalog number, please leave this blank. If you are "
 "certain the release does not have a catalog number assigned, enter “[none]”."
-msgstr ""
+msgstr "如果你找不到目錄編號，請留空。如果你確定該發行作品沒有分配目錄編號，請輸入“"
+"[none]”。"
 
 #: ../root/release/edit/information.tt:450
-#, fuzzy
-#| msgid ""
-#| "Note! If you do not know the month or day of release, please leave them "
-#| "empty.  January 1st is not often the actual release date, please double "
-#| "check that you have entered the release date correctly."
 msgid ""
 "If you do not know the month or day of release, please leave them empty. "
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"注意！如果您不知道專輯的發行月份或日期，請留空。一月一日通常都不是實際的發行"
-"日期，請再三檢查您輸入的發行日期是否正確。"
+"如果您不知道專輯的發行月份或日期，請留空。一月一日通常都不是實際的發行日期，<"
+"strong>請再三檢查您輸入的發行日期是否正確。</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
