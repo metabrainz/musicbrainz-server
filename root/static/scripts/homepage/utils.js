@@ -8,21 +8,25 @@
  */
 
 const entities = [
-  {name: 'Artist', value: 'artist'},
-  {name: 'Event', value: 'event'},
-  {name: 'Release', value: 'release'},
-  {name: 'Release Group', value: 'release_group'},
-  {name: 'Recording', value: 'recording'},
-  {name: 'Series', value: 'series'},
-  {name: 'Work', value: 'work'},
-  {name: 'Area', value: 'area'},
-  {name: 'Instrument', value: 'instrument'},
-  {name: 'Label', value: 'label'},
-  {name: 'Place', value: 'place'},
-  {name: 'Annotation', value: 'annotation'},
-  {name: 'Tag', value: 'tag'},
-  {name: 'CD Stub', value: 'cdstub'},
-  {name: 'Editor', value: 'editor'},
+  {name: 'Artist', statKey: 'count.artist', value: 'artist'},
+  {name: 'Event', statKey: 'count.event', value: 'event'},
+  {name: 'Release', statKey: 'count.release', value: 'release'},
+  {
+    name: 'Release group',
+    statKey: 'count.releasegroup',
+    value: 'release_group',
+  },
+  {name: 'Recording', statKey: 'count.recording', value: 'recording'},
+  {name: 'Series', statKey: 'count.series', value: 'series'},
+  {name: 'Work', statKey: 'count.work', value: 'work'},
+  {name: 'Area', statKey: 'count.area', value: 'area'},
+  {name: 'Instrument', statKey: 'count.instrument', value: 'instrument'},
+  {name: 'Label', statKey: 'count.label', value: 'label'},
+  {name: 'Place', statKey: 'count.place', value: 'place'},
+  {name: 'Annotation', statKey: 'count.annotation', value: 'annotation'},
+  {name: 'Tag', statKey: 'count.tag', value: 'tag'},
+  {name: 'CD Stub', statKey: 'count.cdstub', value: 'cdstub'},
+  {name: 'Editor', statKey: 'count.editor', value: 'editor'},
 ];
 
 export default entities;

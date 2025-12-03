@@ -21,24 +21,26 @@ import Blob from './blob.js';
 import {type WeeklyStatsT} from './stats.js';
 import entities from './utils.js';
 
+type EntityWithStatsT = {
+  +name: string,
+  +stat: WeeklyStatsT | void,
+  +statKey: string,
+  +value: string,
+};
+
 component Search (
   weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const entitiesWithStats = entities.map((entity) => {
-    let statKey = `count.${entity.value}`;
-    if (entity.value === 'release_group') {
-      statKey = 'count.releasegroup';
-    }
+  const entitiesWithStats: $ReadOnlyArray<EntityWithStatsT> =
+    entities.map((entity) => {
+      const stat = weeklyStats.find((s) => s.stat === entity.statKey);
+      return {...entity, stat};
+    });
 
-    const stat = weeklyStats.find((s) => s.stat === statKey);
-    return {...entity, stat};
-  });
-
-  const [selectedEntity, setSelectedEntity] = React.useState(
-    entitiesWithStats[0],
-  );
+  const [selectedEntity, setSelectedEntity] =
+    React.useState<EntityWithStatsT>(entitiesWithStats[0]);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   const placeholder = selectedEntity.stat && selectedEntity.stat.total > 0
@@ -61,7 +63,7 @@ component Search (
     }
   };
 
-  const handleEntitySelect = (entity: typeof entitiesWithStats[0]) => {
+  const handleEntitySelect = (entity: EntityWithStatsT) => {
     setSelectedEntity(entity);
     setIsModalOpen(false);
   };
@@ -93,17 +95,17 @@ component Search (
         role="button"
       >
         <img
-          alt="MusicBrainz Open Source Logo"
+          alt={l('MusicBrainz open source logo')}
           className="search-logo-info-image"
           src={openSourceImage}
         />
         <img
-          alt="MusicBrainz Data Provider Logo"
+          alt={l('MusicBrainz data provider logo')}
           className="search-logo-info-image"
           src={dataProviderImage}
         />
         <img
-          alt="MusicBrainz Ethical Source Logo"
+          alt={l('MusicBrainz ethical source logo')}
           className="search-logo-info-image"
           src={ethicalSourceImage}
         />
@@ -133,7 +135,7 @@ component Search (
               <a
                 className="advanced-search-text"
                 href="/search"
-                title={l('Advanced Search')}
+                title={l('Advanced search')}
               >
                 {l('Advanced Search')}
               </a>
@@ -150,7 +152,12 @@ component Search (
                 value={searchQuery}
               />
               <button type="submit">
-                <img alt="Search" height={30} src={searchIcon} width={30} />
+                <img
+                  alt={l('Search')}
+                  height={30}
+                  src={searchIcon}
+                  width={30}
+                />
               </button>
             </div>
 
@@ -183,7 +190,7 @@ component Search (
           />
           <div className="mobile-entity-modal">
             <h3 className="mobile-entity-modal-title">
-              {l('Search in:')}
+              {addColonText(l('Search in'))}
             </h3>
             <div className="mobile-entity-list">
               {entitiesWithStats.map((entity) => (
@@ -198,7 +205,7 @@ component Search (
               ))}
             </div>
             <button
-              aria-label="Close"
+              aria-label={lp('Close', 'interactive')}
               className="mobile-entity-modal-close"
               onClick={() => setIsModalOpen(false)}
               type="button"

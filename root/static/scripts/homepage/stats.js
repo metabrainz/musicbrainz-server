@@ -47,6 +47,10 @@ component Stats(
     (stat) => entitiesForStats.includes(stat.name),
   );
 
+  if (filteredStats.length === 0) {
+    return null;
+  }
+
   return (
     <Swiper
       autoplay={{
@@ -80,9 +84,9 @@ component Stats(
                 href={`/statistics/timeline/${stat.stat}#r`}
                 rel="noopener noreferrer"
                 target="_blank"
-                title="View detailed statistics"
+                title={l('View detailed statistics')}
               >
-                <img alt="Magnifying glass" src={magnifyingGlass} />
+                <img alt={l('Magnifying glass')} src={magnifyingGlass} />
               </a>
             </p>
           </div>
