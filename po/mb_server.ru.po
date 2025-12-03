@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-11-13 12:11+0100\n"
-"PO-Revision-Date: 2025-11-08 17:20+0000\n"
+"PO-Revision-Date: 2025-12-03 17:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -53,9 +53,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
+": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
@@ -14023,7 +14023,7 @@ msgstr ""
 
 #: ../root/report/PossibleCollaborations.js:40
 msgid "Artists that may be collaborations"
-msgstr ""
+msgstr "Исполнители, которые могут быть коллаборациями"
 
 #: ../root/report/PseudoReleasesWithCoverArt.js:25
 msgid ""
@@ -14035,7 +14035,7 @@ msgstr ""
 #: ../root/report/PseudoReleasesWithCoverArt.js:33
 #: ../root/report/ReportsIndex.js:379
 msgid "Pseudo-Releases that have cover art"
-msgstr ""
+msgstr "Псевдо-релизы с обложками"
 
 #: ../root/report/RecordingTrackDifferentName.js:37
 msgid ""
@@ -14729,7 +14729,7 @@ msgstr ""
 
 #: ../root/report/TracksWithSequenceIssues.js:32
 msgid "Releases with track number issues"
-msgstr ""
+msgstr "Релизы с проблемами с номерами треков"
 
 #: ../root/report/TracksWithoutTimes.js:25
 msgid ""
@@ -17663,10 +17663,8 @@ msgid "Release group relationships"
 msgstr "Отношения к группе релизов"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:267
-#, fuzzy
-#| msgid "Are you sure you want to remove this application?"
 msgid "Are you sure you want to remove this work?"
-msgstr "Вы уверены, что хотите удалить это приложение?"
+msgstr "Вы уверены, что хотите удалить эту работу?"
 
 #: ../root/static/scripts/release/components/TrackRelationshipEditor.js:349
 msgid "Error loading work relationships: {error}"
@@ -17685,6 +17683,8 @@ msgid ""
 "The credits listed below may be incomplete, as some tracks/mediums haven’t "
 "been loaded yet."
 msgstr ""
+"Список авторов ниже может быть неполным, так как некоторые треки/носители "
+"ещё не загрузились."
 
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:80
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:123
