@@ -44,6 +44,7 @@ import {
 import clean from '../../common/utility/clean.js';
 import deepFreezeInDevelopment
   from '../../common/utility/deepFreezeInDevelopment.js';
+import errorToString from '../../common/utility/errorToString.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import natatime from '../../common/utility/natatime.js';
@@ -265,13 +266,14 @@ export function createInitialState(
 
 function handleSubmissionError(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  error: unknown,
+  error: WsJsEditErrorT['error'] | string | void,
 ): void {
-  captureException(error);
-
-  console.error(error);
-
-  const errorString = String(error) || 'unknown error';
+  let errorString = 'unknown error';
+  if (typeof error === 'string') {
+    errorString = error;
+  } else if (typeof error === 'object' && error != null) {
+    errorString = error.message;
+  }
 
   dispatch({
     error: errorString,
@@ -287,7 +289,9 @@ function handlePromiseRejection<T>(
   promise: Promise<T | SubmissionRejected>,
 ): Promise<T | SubmissionRejected> {
   return promise.catch(function (error: unknown) {
-    handleSubmissionError(dispatch, error);
+    console.error(error);
+    captureException(error);
+    handleSubmissionError(dispatch, errorToString(error));
     return new SubmissionRejected();
   });
 }
@@ -331,18 +335,14 @@ async function wsJsEditSubmission(
     return null;
   }
   const respJson:
-    | (WsJsEditResponseT | {readonly error: string, ...})
+    | (WsJsEditResponseT | WsJsEditErrorT)
     | SubmissionRejected =
       await handlePromiseRejection(dispatch, resp.json());
   if (respJson instanceof SubmissionRejected) {
     return null;
   }
-  if (!resp.ok || (respJson?.error) != null) {
-    const error = (
-      (
-        respJson != null && typeof respJson === 'object'
-      ) ? String(respJson.error) : ''
-    ) || 'unknown error';
+  const error = respJson?.error;
+  if (!resp.ok || error != null) {
     handleSubmissionError(dispatch, error);
     return null;
   }
@@ -1773,7 +1773,9 @@ component _ReleaseRelationshipEditor() {
     event.preventDefault();
     submitEdits(dispatch, currentStateRef)
       .catch(function (error: unknown) {
-        handleSubmissionError(dispatch, error);
+        console.error(error);
+        captureException(error);
+        handleSubmissionError(dispatch, errorToString(error));
       });
   }, [dispatch]);
 

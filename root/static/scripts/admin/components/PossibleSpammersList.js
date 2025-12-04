@@ -19,6 +19,7 @@ import hydrate from '../../../../utility/hydrate.js';
 import invariant from '../../../../utility/invariant.js';
 import loopParity from '../../../../utility/loopParity.js';
 import EditorLink from '../../common/components/EditorLink.js';
+import errorToString from '../../common/utility/errorToString.js';
 import isDatabaseRowId, {
   MAX_POSTGRES_INT,
 } from '../../common/utility/isDatabaseRowId.js';
@@ -93,17 +94,6 @@ function getPageState(): PageStateT {
 
 function cmpUserState(a: UserStateT, b: UserStateT) {
   return b.user.id - a.user.id;
-}
-
-function errorToString(error: unknown) {
-  if (error == null) {
-    return '';
-  }
-  return String(
-    (typeof error === 'object' && nonEmpty(error.message))
-      ? error.message
-      : error,
-  );
 }
 
 function createInitialState(): StateT {
