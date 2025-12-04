@@ -451,7 +451,8 @@ export function reducer(
       } else if (newTargetType !== 'url') {
         const currentInputValue = newTargetState.autocomplete?.inputValue || '';
         const isChangingToWork = (
-          source.entityType === 'recording' && newTargetType === 'work'
+          source.entityType === 'recording' &&
+          newTargetType === 'work'
         );
         const isChangingFromWork = (
           source.entityType === 'recording' && oldTargetType === 'work'
@@ -477,8 +478,7 @@ export function reducer(
             source,
             type: 'update-autocomplete',
           });
-        }
-        else if (isChangingFromWork && currentInputValue === source.name) {
+        } else if (isChangingFromWork && currentInputValue === source.name) {
           updateTargetAutocomplete(newTargetState, {
             action: {
               type: 'type-value',
