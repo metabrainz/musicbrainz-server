@@ -144,3 +144,12 @@ declare type WsJsEditResponseT = {
     | {readonly response: WS_EDIT_RESPONSE_NO_CHANGES_T}
   >,
 };
+
+declare type WsJsEditErrorT = {
+  readonly error:
+    | string
+    | {
+        readonly errorCode?: number,
+        readonly message: string,
+      },
+};
