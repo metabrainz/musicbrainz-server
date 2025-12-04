@@ -449,17 +449,12 @@ export function reducer(
         newTargetState.target = createUrlObject();
         newTargetState.error = '';
       } else if (newTargetType !== 'url') {
-        const currentInputValue = (
-          newTargetState.autocomplete?.inputValue || ''
-        );
-        const isChangingToWork = (
-          source.entityType === 'recording' &&
-          newTargetType === 'work'
-        );
-        const isChangingFromWork = (
-          source.entityType === 'recording' &&
-          oldTargetType === 'work'
-        );
+        const currentInputValue =
+          newTargetState.autocomplete?.inputValue || '';
+        const isChangingToWork = source.entityType === 'recording' &&
+          newTargetType === 'work';
+        const isChangingFromWork = source.entityType === 'recording' &&
+          oldTargetType === 'work';
 
         updateTargetAutocomplete(newTargetState, {
           action: {
