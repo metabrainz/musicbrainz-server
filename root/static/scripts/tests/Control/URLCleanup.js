@@ -7010,6 +7010,7 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.weibo.com/u/1768129797',
   },
+  // WhoSampled
   {
                      input_url: 'https://www.whosampled.com/Death-Grips/',
              input_entity_type: 'artist',
