@@ -4912,6 +4912,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.patreon.com/example',
   },
   {
+                     input_url: 'https://www.patreon.com/cw/BereniceElenion/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'patronage',
+            expected_clean_url: 'https://www.patreon.com/BereniceElenion',
+  },
+  {
                      input_url: 'https://www.patreon.com/c/heyriddleriddle/',
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
