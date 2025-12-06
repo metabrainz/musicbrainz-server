@@ -16,7 +16,11 @@ const entities = [
     statKey: 'count.releasegroup',
     value: 'release_group',
   },
-  {name: 'Recording', statKey: 'count.recording', value: 'recording'},
+  {
+    name: 'Recording',
+    statKey: 'count.recording',
+    value: 'recording',
+  },
   {name: 'Series', statKey: 'count.series', value: 'series'},
   {name: 'Work', statKey: 'count.work', value: 'work'},
   {name: 'Area', statKey: 'count.area', value: 'area'},
