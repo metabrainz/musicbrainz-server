@@ -32,6 +32,7 @@ my %URL_SPECIALIZATIONS = (
     'AppleBooks'          => qr{^https?://books\.apple\.com/}i,
     'AppleClassical'      => qr{^https?://classical\.music\.apple\.com/}i,
     'AppleMusic'          => qr{^https?://music\.apple\.com/}i,
+    'ArchivesDuSpectacle' => qr{^https?://(?:www\.)?lesarchivesduspectacle\.net/}i,
     'ASIN'                => qr{^https?://(?:www\.)?amazon(.*?)(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}i,
     'Audiomack'           => qr{^https?://(?:www\.)?audiomack\.com/}i,
     'AWA'                 => qr{^https?://s\.awa\.fm/}i,

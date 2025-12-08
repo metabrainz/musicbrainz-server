@@ -1079,6 +1079,41 @@ export const CLEANUPS: CleanupEntries = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
   },
+  'archivesduspectacle': {
+    hostname: 'lesarchivesduspectacle.net',
+    match: [/^(https?:\/\/)?(www\.)?lesarchivesduspectacle\.net/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?lesarchivesduspectacle\.net\/(o|oe|p)\/([0-9]+)(?:[^0-9].*)?$/, 'https://lesarchivesduspectacle.net/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/lesarchivesduspectacle\.net\/(o|oe|p)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'p',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.series:
+            return {
+              result: prefix === 'o',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: prefix === 'oe',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'artstation': {
     hostname: 'artstation.com',
     match: [/^(https?:\/\/)?(www\.)?artstation\.com/i],
