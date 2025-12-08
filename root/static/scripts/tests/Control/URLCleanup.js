@@ -5531,6 +5531,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://runeberg.org/saol/9-5/0593.html',
        only_valid_entity_types: ['work'],
   },
+  {
+                     input_url: 'https://runeberg.org/vemarhon/0452.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'http://runeberg.org/vemarhon/0452.html',
+  },
   // SecondHandSongs
   {
                      input_url: 'http://www.secondhandsongs.com/artist/48874+56478+64931',
