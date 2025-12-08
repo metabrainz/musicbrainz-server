@@ -3593,10 +3593,22 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['label'],
   },
   {
+                     input_url: 'https://www.junodownload.com/labels/da.n.c.e./',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['label'],
+  },
+  {
                      input_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/artists/Dominik+M%c3%bcller/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
        only_valid_entity_types: ['artist'],
   },
   {
