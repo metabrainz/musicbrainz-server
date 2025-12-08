@@ -4298,6 +4298,27 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.mixcloud.com/andrea_mi/',
   },
+  // MixesDB
+  {
+                     input_url: 'https://mixesdb.com/w/Category:DJ_Stingray',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mixesdb.com/w/Category:DJ_Stingray',
+       only_valid_entity_types: ['artist', 'series'],
+  },
+  {
+                     input_url: 'http://www.mixesdb.com/w/2019-03-02_-_DJ_Stingray_-_Essential_Mix',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mixesdb.com/w/2019-03-02_-_DJ_Stingray_-_Essential_Mix',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.mixesdb.com/w/Category:Essential_Mix',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist', 'series'],
+  },
   // mora
   {
                      input_url: 'https://mora.jp/package/43000001/4534530058010/',

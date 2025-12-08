@@ -131,6 +131,7 @@ my %URL_SPECIALIZATIONS = (
     'MetalMusicArchives'  => qr{^https?://(?:www\.)?metalmusicarchives\.com/}i,
     'MiguMusic'           => qr{^https?://music\.migu\.cn/}i,
     'Mixcloud'            => qr{^https?://(?:www\.)?mixcloud\.com/}i,
+    'MixesDB'             => qr{^https?://(?:www\.)?mixesdb\.com/}i,
     'MobyGames'           => qr{^https?://(?:www\.)?mobygames\.com/}i,
     'Mora'                => qr{^https?://(?:www\.)?mora\.jp/}i,
     'MusicaPopularCl'     => qr{^https?://(?:www\.)?musicapopular\.cl/}i,
