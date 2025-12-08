@@ -841,6 +841,28 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                      input_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
             expected_clean_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
   },
+  // Archives du spectacle
+  {
+          input_url: 'https://www.lesarchivesduspectacle.net/p/9148-Jules-Massenet#metier-compositeur',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://lesarchivesduspectacle.net/p/9148',
+          only_valid_entity_types: ['artist'],
+  },
+  {
+          input_url: 'https://lesarchivesduspectacle.net/o/29291-Auditorium-Maurice-Ravel#organisme-historique',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://lesarchivesduspectacle.net/o/29291',
+          only_valid_entity_types: ['place', 'series'],
+  },
+  {
+          input_url: 'https://lesarchivesduspectacle.net/oe/1700-Cosi-fan-tutte',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://lesarchivesduspectacle.net/oe/1700',
+          only_valid_entity_types: ['work'],
+  },
   // Artstation
   {
                      input_url: 'http://artstation.com/bysau/profile',

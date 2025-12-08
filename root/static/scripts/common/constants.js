@@ -158,6 +158,7 @@ export const FAVICON_CLASSES: {
   'laboiteauxparoles.com': 'laboiteauxparoles',
   'lantis.jp': 'lantis',
   'last.fm': 'lastfm',
+  'lesarchivesduspectacle.net': 'archivesduspectacle',
   'librarything.com': 'librarything',
   'librivox.org': 'librivox',
   'lieder.net': 'lieder',
