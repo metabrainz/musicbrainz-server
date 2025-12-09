@@ -358,7 +358,7 @@ $.widget('mb.entitylookup', $.ui.autocomplete, {
 
     if (observable) {
       this._selectionSubscription =
-                observable.subscribe(this.setSelection, this);
+        observable.subscribe(this.setSelection, this);
       this.setSelection(observable.peek());
     }
   },

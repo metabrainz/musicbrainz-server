@@ -54,6 +54,6 @@ component _RelationshipLinkTypeGroup(
 
 const RelationshipLinkTypeGroup:
   component(...React.PropsOf<_RelationshipLinkTypeGroup>) =
-  React.memo(_RelationshipLinkTypeGroup);
+    React.memo(_RelationshipLinkTypeGroup);
 
 export default RelationshipLinkTypeGroup;

@@ -330,7 +330,7 @@ async function wsJsEditSubmission(
   const respJson:
     | (WsJsEditResponseT | {+error: string, ...})
     | SubmissionRejected =
-    await handlePromiseRejection(dispatch, resp.json());
+      await handlePromiseRejection(dispatch, resp.json());
   if (respJson instanceof SubmissionRejected) {
     return null;
   }

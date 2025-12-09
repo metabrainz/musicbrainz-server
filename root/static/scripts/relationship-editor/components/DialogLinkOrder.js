@@ -60,6 +60,6 @@ component _DialogLinkOrder(
 
 const DialogLinkOrder:
   component(...React.PropsOf<_DialogLinkOrder>) =
-  React.memo(_DialogLinkOrder);
+    React.memo(_DialogLinkOrder);
 
 export default DialogLinkOrder;

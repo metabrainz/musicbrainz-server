@@ -184,6 +184,6 @@ component _EditWorkDialog(
 
 const EditWorkDialog:
   component(...React.PropsOf<_EditWorkDialog>) =
-  React.memo(_EditWorkDialog);
+    React.memo(_EditWorkDialog);
 
 export default EditWorkDialog;

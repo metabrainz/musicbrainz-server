@@ -49,3 +49,13 @@ INSERT INTO musicbrainz.l_event_event (id, link, entity0, entity1, edits_pending
     (10000000, 201443, 10000000, 10000001, 0, '2025-09-04 12:00:00+00', 0, '', ''),
     (10000001, 201443, 10000001, 10000002, 0, '2025-09-04 12:00:00+00', 0, '', ''),
     (10000002, 201443, 10000002, 10000000, 0, '2025-09-04 12:00:00+00', 0, '', '');
+
+INSERT INTO series (id, gid, name, type, ordering_type) VALUES
+    (35, 'd977f7fd-96c9-4e3e-83b5-eb484a9e6584', 'Totally True Tour', 8, 1);
+
+INSERT INTO link (attribute_count, begin_date_day, begin_date_month, begin_date_year, created, end_date_day, end_date_month, end_date_year, ended, id, link_type) VALUES
+    (0, NULL, NULL, NULL, '2014-07-09 15:10:16.494155-05', NULL, NULL, NULL, '0', 180899, 802);
+
+INSERT INTO l_event_series (edits_pending, entity0, entity0_credit, entity1, entity1_credit, id, last_updated, link, link_order) VALUES
+    (0, 59357, '', 35, '', 7798, '2014-07-09 15:10:16.494155-05', 180899, 1),
+    (0, 72229, '', 35, '', 7799, '2014-07-09 15:10:16.494155-05', 180899, 1);

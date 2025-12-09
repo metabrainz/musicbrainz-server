@@ -375,6 +375,37 @@ sub find_by_place
     $self->query_to_list_limited($query, [$place_id], $limit, $offset);
 }
 
+=method find_by_series
+
+Find all events linked to the given series ID via part-of relationships,
+using the provided C<$limit> and C<$offset> parameters for pagination.
+
+=cut
+
+sub find_by_series
+{
+    my ($self, $series_id, $limit, $offset) = @_;
+
+    my $columns = $self->_columns;
+    my $table = $self->_table;
+    my $order_by = $self->_order_by('date');
+
+    my $query = <<~"SQL";
+         SELECT $columns
+           FROM (
+            SELECT DISTINCT entity0 AS event
+              FROM l_event_series ar
+              JOIN link ON ar.link = link.id
+             WHERE entity1 = ?
+               AND link.link_type = 802 -- part of (event) series
+        ) s, $table
+          WHERE event.id = s.event
+       ORDER BY $order_by
+       SQL
+
+    $self->query_to_list_limited($query, [$series_id], $limit, $offset);
+}
+
 =method find_related_entities
 
 This method will return a map with lists of artists and locations

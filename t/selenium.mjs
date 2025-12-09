@@ -6,13 +6,12 @@
  * http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import childProcess from 'child_process';
-import fs from 'fs';
-import http from 'http';
-import path from 'path';
-
 import httpProxy from 'http-proxy';
 import JSON5 from 'json5';
+import childProcess from 'node:child_process';
+import fs from 'node:fs';
+import http from 'node:http';
+import path from 'node:path';
 import webdriver from 'selenium-webdriver';
 import getBrowsingContextInstance from 'selenium-webdriver/bidi/browsingContext.js';
 import {

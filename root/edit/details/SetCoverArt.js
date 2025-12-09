@@ -53,7 +53,7 @@ component SetCoverArt(edit: SetCoverArtEditT) {
           ) : display.isOldArtworkAutomatic ? (
             l(`The old image was selected automatically
                from the earliest release in the release group.`)
-          ) : l(`We are unable to display this cover art.`)}
+          ) : l('We are unable to display this cover art.')}
         </td>
       </tr>
 
@@ -78,7 +78,7 @@ component SetCoverArt(edit: SetCoverArtEditT) {
                 {newArt.comment}
               </p>
             </div>
-          ) : l(`We are unable to display this cover art.`)}
+          ) : l('We are unable to display this cover art.')}
         </td>
       </tr>
       {manifest('common/components/ReleaseEvents', {async: true})}

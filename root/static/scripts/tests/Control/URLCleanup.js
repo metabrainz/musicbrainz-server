@@ -841,6 +841,28 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
                      input_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020/',
             expected_clean_url: 'https://archive.org/details/NormRejection-MaltaNotForSaleEp-Dtm020',
   },
+  // Archives du spectacle
+  {
+          input_url: 'https://www.lesarchivesduspectacle.net/p/9148-Jules-Massenet#metier-compositeur',
+          input_entity_type: 'artist',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://lesarchivesduspectacle.net/p/9148',
+          only_valid_entity_types: ['artist'],
+  },
+  {
+          input_url: 'https://lesarchivesduspectacle.net/o/29291-Auditorium-Maurice-Ravel#organisme-historique',
+          input_entity_type: 'label',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://lesarchivesduspectacle.net/o/29291',
+          only_valid_entity_types: ['place', 'series'],
+  },
+  {
+          input_url: 'https://lesarchivesduspectacle.net/oe/1700-Cosi-fan-tutte',
+          input_entity_type: 'work',
+          expected_relationship_type: 'otherdatabases',
+          expected_clean_url: 'https://lesarchivesduspectacle.net/oe/1700',
+          only_valid_entity_types: ['work'],
+  },
   // Artstation
   {
                      input_url: 'http://artstation.com/bysau/profile',
@@ -3593,10 +3615,22 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['label'],
   },
   {
+                     input_url: 'https://www.junodownload.com/labels/da.n.c.e./',
+             input_entity_type: 'label',
+    expected_relationship_type: 'downloadpurchase',
+       only_valid_entity_types: ['label'],
+  },
+  {
                      input_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
              input_entity_type: 'artist',
     expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.junodownload.com/artists/Dominik+M%c3%bcller/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -4286,6 +4320,27 @@ limited_link_type_combinations: [
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.mixcloud.com/andrea_mi/',
   },
+  // MixesDB
+  {
+                     input_url: 'https://mixesdb.com/w/Category:DJ_Stingray',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mixesdb.com/w/Category:DJ_Stingray',
+       only_valid_entity_types: ['artist', 'series'],
+  },
+  {
+                     input_url: 'http://www.mixesdb.com/w/2019-03-02_-_DJ_Stingray_-_Essential_Mix',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.mixesdb.com/w/2019-03-02_-_DJ_Stingray_-_Essential_Mix',
+       only_valid_entity_types: ['release_group'],
+  },
+  {
+                     input_url: 'https://www.mixesdb.com/w/Category:Essential_Mix',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist', 'series'],
+  },
   // mora
   {
                      input_url: 'https://mora.jp/package/43000001/4534530058010/',
@@ -4912,6 +4967,12 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.patreon.com/example',
   },
   {
+                     input_url: 'https://www.patreon.com/cw/BereniceElenion/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'patronage',
+            expected_clean_url: 'https://www.patreon.com/BereniceElenion',
+  },
+  {
                      input_url: 'https://www.patreon.com/c/heyriddleriddle/',
              input_entity_type: 'artist',
     expected_relationship_type: 'patronage',
@@ -5524,6 +5585,12 @@ limited_link_type_combinations: [
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'http://runeberg.org/saol/9-5/0593.html',
        only_valid_entity_types: ['work'],
+  },
+  {
+                     input_url: 'https://runeberg.org/vemarhon/0452.html',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'http://runeberg.org/vemarhon/0452.html',
   },
   // SecondHandSongs
   {
@@ -7448,6 +7515,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'youtube',
             expected_clean_url: 'https://www.youtube.com/MetaBrainz',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/@ChristophSch%C3%B6nberger-music/playlists',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtube',
+            expected_clean_url: 'https://www.youtube.com/@ChristophSch%C3%B6nberger-music',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {

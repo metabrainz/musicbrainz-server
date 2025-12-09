@@ -1079,6 +1079,41 @@ export const CLEANUPS: CleanupEntries = {
       return url.replace(/^(https:\/\/archive\.org\/details\/[A-Za-z0-9._-]+)\/$/, '$1');
     },
   },
+  'archivesduspectacle': {
+    hostname: 'lesarchivesduspectacle.net',
+    match: [/^(https?:\/\/)?(www\.)?lesarchivesduspectacle\.net/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?lesarchivesduspectacle\.net\/(o|oe|p)\/([0-9]+)(?:[^0-9].*)?$/, 'https://lesarchivesduspectacle.net/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/lesarchivesduspectacle\.net\/(o|oe|p)\/[0-9]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'p',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.place:
+          case LINK_TYPES.otherdatabases.series:
+            return {
+              result: prefix === 'o',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.work:
+            return {
+              result: prefix === 'oe',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'artstation': {
     hostname: 'artstation.com',
     match: [/^(https?:\/\/)?(www\.)?artstation\.com/i],
@@ -3372,7 +3407,7 @@ export const CLEANUPS: CleanupEntries = {
           ].includes(prefix)) {
             return {
               error: l(
-                `This is an internal Instagram page and should not be added.`,
+                'This is an internal Instagram page and should not be added.',
               ),
               result: false,
               target: ERROR_TARGETS.URL,
@@ -3625,7 +3660,7 @@ export const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
-      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d+-]+\/$/.exec(url);
+      const m = /^https:\/\/www\.junodownload\.com\/(artists|labels|products)\/[\w\d+%.-]+\/$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
@@ -4345,6 +4380,56 @@ export const CLEANUPS: CleanupEntries = {
       return url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
     },
   },
+  'mixesdb': {
+    hostname: 'mixesdb.com',
+    match: [/^(https?:\/\/)?(www\.)?mixesdb\.com/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://www.$1');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+        case LINK_TYPES.otherdatabases.series:
+          if (/^https:\/\/www\.mixesdb\.com\/w\/Category:/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `Only MixesDB “{category_url_pattern}” links are allowed
+               for artists and series. Please link mix pages to the specific
+               release group in question.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release_group:
+          if (/^https:\/\/www\.mixesdb\.com\/w\/(?!Category:)/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `MixesDB “{category_url_pattern}” links are only allowed
+               for artists and series. Please link the specific mix page
+               to this release group instead, if available.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'mobygames': {
     hostname: 'mobygames.com',
     match: [/^(https?:\/\/)?(www\.)?mobygames\.com/i],
@@ -4966,7 +5051,7 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.patronage],
     clean(url) {
       url = url.replace(/^((?:https?:\/\/)?(?:www\.)?patreon\.com\/user)\/(?:community|posts)(\?u=\d+).*$/, '$1$2');
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(?:c\/)?(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?patreon\.com\/(?:cw?\/)?(user\?u=\d+|(?!posts\/)\w+).*$/, 'https://www.patreon.com/$1');
       return url;
     },
     validate(url) {
@@ -5516,7 +5601,7 @@ export const CLEANUPS: CleanupEntries = {
   'runeberg': {
     hostname: 'runeberg.org',
     match: [/^(https?:\/\/)?([^/]+\.)?runeberg\.org\//i],
-    restrict: [LINK_TYPES.lyrics],
+    restrict: [{work: LINK_TYPES.lyrics.work}],
     clean(url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?runeberg\.org\/(.*)$/, 'http://runeberg.org/$1');
     },
@@ -7245,7 +7330,7 @@ export const CLEANUPS: CleanupEntries = {
         'https://www.youtube.com/$1',
       );
       // YouTube handle
-      url = url.replace(/^https:\/\/www\.youtube\.com\/(@[a-zA-Z0-9_.-]{3,30}).*$/, 'https://www.youtube.com/$1');
+      url = url.replace(/^https:\/\/www\.youtube\.com\/(@[a-zA-Z0-9_%.-]+).*$/, 'https://www.youtube.com/$1');
       // YouTube URL shortener
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
@@ -7559,21 +7644,21 @@ function findCleanupEntry(inputUrl: string): CleanupEntry | null {
 
 export const CLEANUP_ENTRIES_BY_HOSTNAME:
   {+[hostname: string]: $ReadOnlyArray<CleanupEntry>} =
-  Object.values(CLEANUPS).reduce((accum, entry) => {
-    const hostnames = Array.isArray(entry.hostname)
-      ? entry.hostname
-      : [entry.hostname];
-    hostnames.forEach((hostname) => {
-      let entries = accum[hostname];
-      if (!entries) {
-        entries = [];
-        accum[hostname] = entries;
-      }
-      entries.push(entry);
-    });
-    return accum;
-  // $FlowFixMe[incompatible-type]
-  }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
+    Object.values(CLEANUPS).reduce((accum, entry) => {
+      const hostnames = Array.isArray(entry.hostname)
+        ? entry.hostname
+        : [entry.hostname];
+      hostnames.forEach((hostname) => {
+        let entries = accum[hostname];
+        if (!entries) {
+          entries = [];
+          accum[hostname] = entries;
+        }
+        entries.push(entry);
+      });
+      return accum;
+      // $FlowFixMe[incompatible-type]
+    }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
 
 const entitySpecificRules: {
   [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
