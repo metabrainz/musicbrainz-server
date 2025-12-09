@@ -6,7 +6,6 @@ extends 'MusicBrainz::Server::Controller';
 
 use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
-use Email::Address::XS;
 use HTTP::Request;
 use List::AllUtils qw( uniq );
 use DBDefs;
@@ -14,7 +13,6 @@ use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
-    contains_string
     is_blank
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -627,21 +625,6 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
     if ($c->form_posted_and_valid($form)) {
         my $email = $form->field('email')->value;
-
-        my @blocked_domains = DBDefs->BLOCKED_EMAIL_DOMAINS;
-        if ($email && scalar @blocked_domains) {
-            my $parsed_email = Email::Address::XS->parse_bare_address($email);
-            if (
-                $parsed_email->is_valid &&
-                contains_string(\@blocked_domains, lc $parsed_email->host)
-            ) {
-                send_message_to_sentry(
-                    'Attempt to use a blocked email domain during account registration',
-                    build_request_and_user_context($c),
-                );
-                $c->detach('/error_400');
-            }
-        }
 
         # Limit the number of accounts registered from the same IP per day.
         my $store = $c->model('MB')->context->store;
