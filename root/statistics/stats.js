@@ -1258,7 +1258,7 @@ export function buildTypeStats(typeData) {
 
     stats[`count.ar.links.${encodeURI(key)}`] = {
       category: 'relationships',
-      color: `#ff0000`,
+      color: '#ff0000',
       label,
     };
 
@@ -1274,7 +1274,7 @@ export function buildTypeStats(typeData) {
     );
     stats[`count.ar.links.${encodeURI(key)}.inclusive`] = {
       category: 'relationships',
-      color: `#ff0000`,
+      color: '#ff0000',
       label: labelInclusive,
     };
   }

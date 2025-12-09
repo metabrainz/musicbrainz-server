@@ -7,10 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import crypto from 'crypto';
-import fs from 'fs';
-import fsPromises from 'fs/promises';
-import path from 'path';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import fsPromises from 'node:fs/promises';
+import path from 'node:path';
 
 import * as DBDefs from '../static/scripts/common/DBDefs.mjs';
 

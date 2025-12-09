@@ -6,8 +6,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import path from 'path';
-
+import path from 'node:path';
 import webpack from 'webpack';
 
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';

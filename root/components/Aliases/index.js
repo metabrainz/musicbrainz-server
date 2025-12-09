@@ -67,7 +67,7 @@ const Aliases = ({aliases, entity}: Props): React.MixedElement => {
       {allowEditing
         ? (
           <p>
-            <a href={entityHref(entity, `/add-alias`)}>
+            <a href={entityHref(entity, '/add-alias')}>
               {lp('Add a new alias', 'interactive')}
             </a>
           </p>

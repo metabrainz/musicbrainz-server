@@ -11,11 +11,10 @@
  * See HACKING.md > Debugging > JavaScript for usage.
  */
 
-import {execFile} from 'child_process';
-import crypto from 'crypto';
-import fs from 'fs';
-import path from 'path';
-
+import {execFile} from 'node:child_process';
+import crypto from 'node:crypto';
+import fs from 'node:fs';
+import path from 'node:path';
 import webpack from 'webpack';
 
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';

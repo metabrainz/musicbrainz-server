@@ -29,7 +29,7 @@ export function expect<T>(value: ?T, description?: string): T {
   invariant(
     value != null,
     'Expected a non-null value' +
-      (nonEmpty(description) ? ` ({description})` : ''),
+      (nonEmpty(description) ? ' ({description})' : ''),
   );
   return value;
 }

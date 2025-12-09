@@ -6,9 +6,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import net from 'net';
-
 import Sentry from '@sentry/node';
+import net from 'node:net';
 
 import {
   mergeLinkedEntities,
