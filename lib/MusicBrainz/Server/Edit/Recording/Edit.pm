@@ -13,7 +13,11 @@ use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     boolean_from_json
 );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    EnteredFromEntity
+    Nullable
+);
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
@@ -73,6 +77,7 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
+        entered_from => EnteredFromEntity,
         entity => Dict[
             id => Int,
             gid => Optional[Str],
