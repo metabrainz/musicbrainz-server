@@ -12,20 +12,12 @@ import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
 import RegisterForm, {type RegisterFormT}
   from '../static/scripts/account/components/RegisterForm.js';
-import Warning from '../static/scripts/common/components/Warning.js';
 
 component Register(
   form: RegisterFormT,
-  invalidCaptchaResponse: boolean,
 ) {
   return (
     <Layout fullWidth title={lp('Create an account', 'header')}>
-      {invalidCaptchaResponse ? (
-        <Warning
-          message={l('Captcha incorrect. Try again.')}
-        />
-      ) : null}
-
       <h1>{lp('Create an account', 'header')}</h1>
 
       <p>

@@ -349,11 +349,6 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
-# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
-sub MTCAPTCHA_PUBLIC_KEY { return undef }
-sub MTCAPTCHA_PRIVATE_KEY { return undef }
-sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
-
 # A list of email domains which are blocked for the purposes of
 # new account registration.
 sub BLOCKED_EMAIL_DOMAINS { }

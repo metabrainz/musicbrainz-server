@@ -10,14 +10,11 @@
 import * as React from 'react';
 
 import Warning from '../../common/components/Warning.js';
-import {MTCAPTCHA_PUBLIC_KEY} from '../../common/DBDefs-client.mjs';
 import FormCsrfToken from '../../edit/components/FormCsrfToken.js';
 import FormRow from '../../edit/components/FormRow.js';
 import FormRowEmailLong from '../../edit/components/FormRowEmailLong.js';
 import FormRowText from '../../edit/components/FormRowText.js';
 import FormSubmit from '../../edit/components/FormSubmit.js';
-
-import MTCaptcha from './MTCaptcha.js';
 
 export type RegisterFormT = FormT<{
   readonly confirm_password: FieldT<string>,
@@ -102,11 +99,6 @@ component RegisterForm(form: RegisterFormT) {
               if you wish to contribute to the database.`)}
         </span>
       </div>
-      {nonEmpty(MTCAPTCHA_PUBLIC_KEY) ? (
-        <div className="row no-label">
-          <MTCaptcha />
-        </div>
-      ) : null}
       <FormRow hasNoLabel>
         <p>
           {exp.l(
