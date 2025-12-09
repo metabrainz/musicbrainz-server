@@ -18,10 +18,6 @@ use MusicBrainz::Server::Data::Utils qw(
     non_empty
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Errors qw(
-    build_request_and_user_context
-    send_message_to_sentry
-);
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     language_options
@@ -627,22 +623,6 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
     if ($c->form_posted_and_valid($form)) {
         my $email = $form->field('email')->value;
-
-        # Limit the number of accounts registered from the same IP per day.
-        my $store = $c->model('MB')->context->store;
-        my $newusercount_key = 'newusercount:' . $c->req->address;
-        my $newusercount = $store->increment($newusercount_key);
-        if ($newusercount == 1) {
-            # Store the count of users registered from this IP for 1 day.
-            $store->expire($newusercount_key, 60 * 60 * 24);
-        }
-        if ($newusercount > 5) {
-            send_message_to_sentry(
-                'Attempt to register more than 5 accounts in one day',
-                build_request_and_user_context($c),
-            );
-            $c->detach('/error_400');
-        }
 
         my $editor = $c->model('Editor')->insert({
             name => $form->field('username')->value,
