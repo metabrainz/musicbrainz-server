@@ -755,22 +755,6 @@ sub set_csp_headers {
     );
 
     my @csp_frame_src = ('frame-src', q('self'));
-    if ($self->req->path eq 'register') {
-        my $use_captcha = (non_empty(DBDefs->MTCAPTCHA_PUBLIC_KEY) &&
-                           non_empty(DBDefs->MTCAPTCHA_PRIVATE_KEY));
-        if ($use_captcha) {
-            my $mtcaptcha_script_nonce = $self->generate_nonce;
-            $self->stash->{mtcaptcha_script_nonce} = $mtcaptcha_script_nonce;
-            push @csp_script_src, qq('nonce-$mtcaptcha_script_nonce'), qw(
-                https://service.mtcaptcha.com
-                https://service2.mtcaptcha.com
-            );
-            push @csp_frame_src, qw(
-                https://service.mtcaptcha.com
-                https://service2.mtcaptcha.com
-            );
-        }
-    }
 
     $self->res->header(
         # X-Frame-Options is obsoleted by `frame-ancestors` on the
@@ -851,7 +835,6 @@ sub TO_JSON {
         jsonld_data
         last_replication_date
         more_tags
-        mtcaptcha_script_nonce
         new_edit_notes_mtime
         number_of_collections
         number_of_revisions

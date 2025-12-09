@@ -346,11 +346,6 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub AWS_PRIVATE { '' }
 # sub AWS_PUBLIC { '' }
 
-# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
-# sub MTCAPTCHA_PUBLIC_KEY { return undef }
-# sub MTCAPTCHA_PRIVATE_KEY { return undef }
-# sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
-
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).
 # sub COVER_ART_ARCHIVE_ACCESS_KEY { }
