@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-08 17:21+0000\n"
+"PO-Revision-Date: 2025-11-23 15:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -11274,7 +11274,7 @@ msgstr ""
 msgid "{additional} {assistant} {associate} {instrument} programming"
 msgstr ""
 "{additional:дополнительное} {associate:связанное} программирование "
-"{instrument:инструментов} ({assistant:ассистент})"
+"{instrument:инструментов} {assistant:(ассистент)}"
 
 #. name:arranger
 #: DB:link_type/reverse_link_phrase:295 DB:link_type/reverse_link_phrase:297

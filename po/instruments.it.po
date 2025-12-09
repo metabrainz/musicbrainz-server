@@ -19,8 +19,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-08 02:21+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2025-11-16 20:20+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/it/>\n"
 "Language: it\n"
@@ -29,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -4503,7 +4504,7 @@ msgstr "bidofono"
 #: DB:instrument/name:279
 msgctxt "water filled membranophone"
 msgid "water drum"
-msgstr "tamburo d'acqua"
+msgstr "tamburo ad acqua"
 
 #: DB:instrument/name:280
 msgid "waterphone"
@@ -4607,7 +4608,7 @@ msgstr "yaylı tanbur"
 #: DB:instrument/name:1217
 msgctxt "Ancient south-Indian harp"
 msgid "yazh"
-msgstr ""
+msgstr "yazh"
 
 #: DB:instrument/name:222
 msgctxt "southern coconut huqin"

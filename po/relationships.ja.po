@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-16 19:08+0000\n"
+"PO-Revision-Date: 2025-11-25 17:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -476,9 +476,7 @@ msgstr "アーティストの（JPEG、GIF、PNG形式の）画像を示しま�
 msgid ""
 "Indicates a place that moved from one location to another, while still being "
 "generally considered the same."
-msgstr ""
-"一般的に同一と見なされている期間に、ある場所から別の場所に移動した場所を示"
-"す。"
+msgstr "ある場所から別に移転したが、一般的に同一と見なされている場所を示す。"
 
 #. name:half
 #: DB:link_attribute_type/description:1019
@@ -10435,7 +10433,7 @@ msgstr ""
 #. name:subseries
 #: DB:link_type/name:823 DB:link_type/link_phrase:823
 msgid "subseries"
-msgstr ""
+msgstr "サブシリーズ"
 
 #. name:subseries
 #: DB:link_type/reverse_link_phrase:823
@@ -10553,7 +10551,7 @@ msgstr ""
 #: DB:link_type/link_phrase:1195 DB:link_type/link_phrase:1196
 #: DB:link_type/link_phrase:1197
 msgid "ticketing page"
-msgstr ""
+msgstr "チケットページ"
 
 #. name:ticketing
 #: DB:link_type/reverse_link_phrase:1193 DB:link_type/reverse_link_phrase:1194
@@ -10568,12 +10566,12 @@ msgstr ""
 
 #: DB:link_type/name:859
 msgid "tour"
-msgstr ""
+msgstr "ツアー"
 
 #. name:tour
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
-msgstr ""
+msgstr "のツアー"
 
 #: DB:link_type/name:888
 msgid "tour in support of"
@@ -10582,7 +10580,7 @@ msgstr ""
 #. name:tour
 #: DB:link_type/link_phrase:859
 msgid "tours"
-msgstr ""
+msgstr "ツアー"
 
 #: DB:link_type/name:1179
 msgid "transfer"

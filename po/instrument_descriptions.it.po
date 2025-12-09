@@ -20,8 +20,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-08 02:21+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2025-11-16 20:20+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/it/>\n"
 "Language: it\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
 " ? 1 : 2);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -7117,10 +7118,10 @@ msgid ""
 "skin covered resonator shaped like a boat, but there are versions shaped "
 "like peacocks, fish and even the monster Makara."
 msgstr ""
-"Utilizzato dal tamil dravidico di almeno 2200 anni fa, dal 7 secolo è "
-"diventato in disuso. Aveva un collo di ebano curvo con corde centrali sopra "
-"il risonatore coperto di pelle a forma di barca, ma ci sono versioni a forma "
-"di pavoni, pesci e persino a mostro di Makara."
+"Utilizzato dal tamil dravidico sin da almeno 2200 anni fa, in disuso dal VII "
+"secolo. Aveva un collo ricurvo in ebano con corde in budello sopra un "
+"risuonatore ricoperto in pelle e a forma di barca, ma ne esistono anche "
+"versioni a forma di pavone, di pesce e persino di mostro Makara."
 
 #. name:Magyar duda
 #: DB:instrument/description:1200
@@ -7156,8 +7157,8 @@ msgid ""
 "Used ceremonially all over the world, they are clay, wood or metal pots "
 "containing water, with an animal hide membrane."
 msgstr ""
-"Usato in cerimonie in tutto il mondo. Sono vasi di argilla, legno o metallo "
-"contenti acqua con una membrana di pelle animale."
+"Usato in tutto il mondo per cerimonie; sono vasi in argilla, legno o metallo "
+"contenenti acqua, con una membrana in pelle animale."
 
 #. name:swarmandal
 #: DB:instrument/description:716
