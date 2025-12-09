@@ -13,7 +13,11 @@ use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     boolean_from_json
 );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    EnteredFromEntity
+    Nullable
+);
 use MusicBrainz::Server::Edit::Utils qw(
     changed_relations
     changed_display_data
@@ -37,6 +41,7 @@ with 'MusicBrainz::Server::Edit::Recording::RelatedEntities',
         get_string => sub { shift->{new}{name} },
      },
      'MusicBrainz::Server::Edit::Role::EditArtistCredit',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::CheckForConflicts';
 
@@ -73,6 +78,7 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
+        entered_from => EnteredFromEntity,
         entity => Dict[
             id => Int,
             gid => Optional[Str],
@@ -167,12 +173,20 @@ around 'initialize' => sub
     my ($orig, $self, %opts) = @_;
     my $recording = $opts{to_edit} or return;
 
+    my $entered_from = delete $opts{entered_from};
+
     delete $opts{length} if exists $opts{length} &&
         $self->c->model('Recording')->usage_count($recording->id);
 
     $opts{video} = boolean_from_json($opts{video}) if exists $opts{video};
 
-    $self->$orig(%opts);
+    my $data = $self->$orig(%opts);
+
+    if (defined $entered_from) {
+      $data->{entered_from} = $entered_from;
+    }
+
+    return $data;
 };
 
 sub _mapping

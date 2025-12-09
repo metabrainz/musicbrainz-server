@@ -70,7 +70,12 @@ releaseEditor.edits = {
       }
 
       if (dataChanged) {
-        return [MBEdit.releaseGroupEdit(editData, origData)];
+        const edit = MBEdit.releaseGroupEdit(editData, origData);
+        edit.enteredFrom = {
+          entity_type: 'release',
+          gid: release.gid(),
+        };
+        return [edit];
       }
     } else if (releaseEditor.action === 'add') {
       editData.name = clean(releaseGroup.name) || releaseName;
@@ -254,7 +259,12 @@ releaseEditor.edits = {
             }
 
             if (!deepEqual(newRecording, oldRecording)) {
-              edits.push(MBEdit.recordingEdit(newRecording, oldRecording));
+              const edit = MBEdit.recordingEdit(newRecording, oldRecording);
+              edit.enteredFrom = {
+                entity_type: 'release',
+                gid: release.gid(),
+              };
+              edits.push(edit);
             }
           }
         }

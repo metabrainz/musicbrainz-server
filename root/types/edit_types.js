@@ -854,6 +854,7 @@ declare type EditRecordingEditGenericT = $ReadOnly<{
   +display_data: {
     +artist_credit?: CompT<ArtistCreditT>,
     +comment?: CompT<string | null>,
+    +entered_from?: NonUrlRelatableEntityT,
     +length?: CompT<number | null>,
     +name?: CompT<string>,
     +recording: RecordingT,
@@ -980,6 +981,7 @@ declare type EditReleaseGroupEditT = $ReadOnly<{
   +display_data: {
     +artist_credit?: CompT<ArtistCreditT>,
     +comment?: CompT<string | null>,
+    +entered_from?: NonUrlRelatableEntityT,
     +name?: CompT<string>,
     +release_group: ReleaseGroupT,
     +secondary_types: CompT<string>,

@@ -7,7 +7,11 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASEGROUP_EDIT
 );
 use MusicBrainz::Server::Data::Utils qw( artist_credit_to_ref );
-use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition Nullable );
+use MusicBrainz::Server::Edit::Types qw(
+    ArtistCreditDefinition
+    EnteredFromEntity
+    Nullable
+);
 use MusicBrainz::Server::Edit::Utils qw(
     artist_credit_from_loaded_definition
     changed_display_data
@@ -39,6 +43,7 @@ with 'MusicBrainz::Server::Edit::ReleaseGroup::RelatedEntities',
         get_string => sub { shift->{new}{name} },
      },
      'MusicBrainz::Server::Edit::Role::EditArtistCredit',
+     'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::Preview';
 
 sub edit_type { $EDIT_RELEASEGROUP_EDIT }
@@ -71,6 +76,7 @@ sub change_fields
 
 has '+data' => (
     isa => Dict[
+        entered_from => EnteredFromEntity,
         entity => Dict[
             id => Int,
             gid => Optional[Str],
@@ -167,6 +173,8 @@ around initialize => sub
     my ($self, %opts) = @_;
     my $release_group = $opts{to_edit} or return;
 
+    my $entered_from = delete $opts{entered_from};
+
     $self->c->model('ReleaseGroupType')->load($release_group);
 
     $opts{type_id} = delete $opts{primary_type_id} if exists $opts{primary_type_id};
@@ -175,7 +183,13 @@ around initialize => sub
         grep { looks_like_number($_) } @{ $opts{secondary_type_ids} },
     ] if $opts{secondary_type_ids};
 
-    $self->$orig(%opts);
+    my $data = $self->$orig(%opts);
+
+    if (defined $entered_from) {
+      $data->{entered_from} = $entered_from;
+    }
+
+    return $data;
 };
 
 around extract_property => sub {
