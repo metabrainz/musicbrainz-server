@@ -449,13 +449,6 @@ export function reducer(
         newTargetState.target = createUrlObject();
         newTargetState.error = '';
       } else if (newTargetType !== 'url') {
-        const currentInputValue =
-          newTargetState.autocomplete?.inputValue || '';
-        const isChangingToWork = source.entityType === 'recording' &&
-          newTargetType === 'work';
-        const isChangingFromWork = source.entityType === 'recording' &&
-          oldTargetType === 'work';
-
         updateTargetAutocomplete(newTargetState, {
           action: {
             entityType: newTargetType,
@@ -466,26 +459,25 @@ export function reducer(
           type: 'update-autocomplete',
         });
 
-        if (isChangingToWork && !currentInputValue) {
-          updateTargetAutocomplete(newTargetState, {
-            action: {
-              type: 'type-value',
-              value: source.name,
-            },
-            linkType: null,
-            source,
-            type: 'update-autocomplete',
-          });
-        } else if (isChangingFromWork && currentInputValue === source.name) {
-          updateTargetAutocomplete(newTargetState, {
-            action: {
-              type: 'type-value',
-              value: '',
-            },
-            linkType: null,
-            source,
-            type: 'update-autocomplete',
-          });
+        if (source.entityType === 'recording') {
+          const currentInputValue =
+            newTargetState.autocomplete?.inputValue;
+          const shouldFillRecordingName = newTargetType === 'work' &&
+            empty(currentInputValue);
+          const shouldClearRecordingName = oldTargetType === 'work' &&
+            currentInputValue === source.name;
+
+          if (shouldFillRecordingName || shouldClearRecordingName) {
+            updateTargetAutocomplete(newTargetState, {
+              action: {
+                type: 'type-value',
+                value: shouldFillRecordingName ? source.name : '',
+              },
+              linkType: null,
+              source,
+              type: 'update-autocomplete',
+            });
+          }
         }
       }
 
