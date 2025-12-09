@@ -8,7 +8,6 @@ use namespace::autoclean;
 use Digest::SHA qw(sha1_base64);
 use Email::Address::XS;
 use HTTP::Request;
-use JSON qw( decode_json );
 use List::AllUtils qw( uniq );
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
@@ -17,7 +16,6 @@ use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     contains_string
     is_blank
-    non_empty
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Errors qw(
@@ -627,93 +625,69 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
     my $form = $c->form(register_form => 'User::Register');
 
-    my $use_captcha = (non_empty(DBDefs->MTCAPTCHA_PUBLIC_KEY) &&
-                       non_empty(DBDefs->MTCAPTCHA_PRIVATE_KEY));
-
     if ($c->form_posted_and_valid($form)) {
-        my $valid = 0;
-        if ($use_captcha)
-        {
-            my $verification_token =
-                $c->req->body_params->{'mtcaptcha-verifiedtoken'} // '';
-            if ($verification_token) {
-                $valid = $self->_check_mtcaptcha_token($c, $verification_token);
-            }
-        }
-        else
-        {
-            $valid = 1;
-        }
+        my $email = $form->field('email')->value;
 
-        if ($valid)
-        {
-            my $email = $form->field('email')->value;
-
-            my @blocked_domains = DBDefs->BLOCKED_EMAIL_DOMAINS;
-            if ($email && scalar @blocked_domains) {
-                my $parsed_email = Email::Address::XS->parse_bare_address($email);
-                if (
-                    $parsed_email->is_valid &&
-                    contains_string(\@blocked_domains, lc $parsed_email->host)
-                ) {
-                    send_message_to_sentry(
-                        'Attempt to use a blocked email domain during account registration',
-                        build_request_and_user_context($c),
-                    );
-                    $c->detach('/error_400');
-                }
-            }
-
-            # Limit the number of accounts registered from the same IP per day.
-            my $store = $c->model('MB')->context->store;
-            my $newusercount_key = 'newusercount:' . $c->req->address;
-            my $newusercount = $store->increment($newusercount_key);
-            if ($newusercount == 1) {
-                # Store the count of users registered from this IP for 1 day.
-                $store->expire($newusercount_key, 60 * 60 * 24);
-            }
-            if ($newusercount > 5) {
+        my @blocked_domains = DBDefs->BLOCKED_EMAIL_DOMAINS;
+        if ($email && scalar @blocked_domains) {
+            my $parsed_email = Email::Address::XS->parse_bare_address($email);
+            if (
+                $parsed_email->is_valid &&
+                contains_string(\@blocked_domains, lc $parsed_email->host)
+            ) {
                 send_message_to_sentry(
-                    'Attempt to register more than 5 accounts in one day',
+                    'Attempt to use a blocked email domain during account registration',
                     build_request_and_user_context($c),
                 );
                 $c->detach('/error_400');
             }
+        }
 
-            my $editor = $c->model('Editor')->insert({
-                name => $form->field('username')->value,
-                password => $form->field('password')->value,
-                privs => $BEGINNER_FLAG,
-            });
+        # Limit the number of accounts registered from the same IP per day.
+        my $store = $c->model('MB')->context->store;
+        my $newusercount_key = 'newusercount:' . $c->req->address;
+        my $newusercount = $store->increment($newusercount_key);
+        if ($newusercount == 1) {
+            # Store the count of users registered from this IP for 1 day.
+            $store->expire($newusercount_key, 60 * 60 * 24);
+        }
+        if ($newusercount > 5) {
+            send_message_to_sentry(
+                'Attempt to register more than 5 accounts in one day',
+                build_request_and_user_context($c),
+            );
+            $c->detach('/error_400');
+        }
 
-            if ($email) {
-                $self->_send_confirmation_email($c, $editor, $email);
-            }
+        my $editor = $c->model('Editor')->insert({
+            name => $form->field('username')->value,
+            password => $form->field('password')->value,
+            privs => $BEGINNER_FLAG,
+        });
 
-            my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
-            $c->set_authenticated($user);
+        if ($email) {
+            $self->_send_confirmation_email($c, $editor, $email);
+        }
 
-            my $redirect = $c->req->query_params->{returnto} // '';
-            if ($redirect =~ /^\/discourse\/sso/) {
-                $c->stash(
-                    current_view => 'Node',
-                    component_path => 'account/sso/DiscourseRegistered',
-                    component_props => {
-                        emailAddress => $email,
-                    },
-                );
-                $c->detach;
-            }
+        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+        $c->set_authenticated($user);
 
-            $c->redirect_back(
-                fallback => $c->uri_for_action('/user/profile', [ $user->name ]),
+        my $redirect = $c->req->query_params->{returnto} // '';
+        if ($redirect =~ /^\/discourse\/sso/) {
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'account/sso/DiscourseRegistered',
+                component_props => {
+                    emailAddress => $email,
+                },
             );
             $c->detach;
         }
-        else
-        {
-            $c->stash(invalid_captcha_response => 1);
-        }
+
+        $c->redirect_back(
+            fallback => $c->uri_for_action('/user/profile', [ $user->name ]),
+        );
+        $c->detach;
     }
 
     $c->stash(
@@ -721,40 +695,8 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         component_path => 'account/Register',
         component_props => {
             form => $form->TO_JSON,
-            invalidCaptchaResponse => boolean_to_json(
-                $c->stash->{invalid_captcha_response} // 0,
-            ),
         },
     );
-}
-
-sub _check_mtcaptcha_token {
-    my ($self, $c, $verification_token) = @_;
-
-    my $uri = URI->new(
-        'https://service.mtcaptcha.com/mtcv1/api/checktoken',
-    );
-    $uri->query_param(privatekey => DBDefs->MTCAPTCHA_PRIVATE_KEY);
-    $uri->query_param(token => $verification_token);
-
-    my $context = $c->model('MB')->context;
-    my $request = HTTP::Request->new(GET => $uri->as_string);
-    my $response = $context->lwp->request($request);
-    if ($response->is_success) {
-        my $result = decode_json($response->content);
-        return $result->{success} ? 1 : 0;
-    } else {
-        send_message_to_sentry(
-            'Error checking MTCaptcha token',
-            build_request_and_user_context($c),
-            extra => {
-                verifications_token => $verification_token,
-                status_line => $response->status_line,
-                response_content => $response->content,
-            },
-        );
-    }
-    return 0;
 }
 
 =head2 resend_verification
