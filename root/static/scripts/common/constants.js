@@ -172,6 +172,7 @@ export const FAVICON_CLASSES: {
   'metal-archives.com': 'metalarchives',
   'metalmusicarchives.com': 'metalmusicarchives',
   'mixcloud.com': 'mixcloud',
+  'mixesdb.com': 'mixesdb',
   'mobygames.com': 'mobygames',
   'mora.jp': 'mora',
   'music.amazon': 'amazonmusic',

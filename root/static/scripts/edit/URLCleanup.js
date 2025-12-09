@@ -4380,6 +4380,56 @@ export const CLEANUPS: CleanupEntries = {
       return url.replace(/^https?:\/\/(?:[^/]+\.)?mixcloud\.com/, 'https://www.mixcloud.com');
     },
   },
+  'mixesdb': {
+    hostname: 'mixesdb.com',
+    match: [/^(https?:\/\/)?(www\.)?mixesdb\.com/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^https?:\/\/(?:www\.)?(.*)$/, 'https://www.$1');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+        case LINK_TYPES.otherdatabases.series:
+          if (/^https:\/\/www\.mixesdb\.com\/w\/Category:/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `Only MixesDB “{category_url_pattern}” links are allowed
+               for artists and series. Please link mix pages to the specific
+               release group in question.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+        case LINK_TYPES.otherdatabases.release_group:
+          if (/^https:\/\/www\.mixesdb\.com\/w\/(?!Category:)/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: exp.l(
+              `MixesDB “{category_url_pattern}” links are only allowed
+               for artists and series. Please link the specific mix page
+               to this release group instead, if available.`,
+              {
+                category_url_pattern: (
+                  <span className="url-quote">{'Category:'}</span>
+                ),
+              },
+            ),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'mobygames': {
     hostname: 'mobygames.com',
     match: [/^(https?:\/\/)?(www\.)?mobygames\.com/i],
