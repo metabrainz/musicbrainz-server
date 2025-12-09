@@ -349,10 +349,6 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
-# A list of email domains which are blocked for the purposes of
-# new account registration.
-sub BLOCKED_EMAIL_DOMAINS { }
-
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).
 sub COVER_ART_ARCHIVE_ACCESS_KEY { }
