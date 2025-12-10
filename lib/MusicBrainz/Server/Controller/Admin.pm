@@ -108,45 +108,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
     }
 }
 
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) HiddenOnMirrors SecureForm {
-    my ($self, $c, $name) = @_;
-
-    my $editor = $c->model('Editor')->get_by_name($name);
-    $c->detach('/user/not_found') if !$editor || $editor->deleted;
-
-    my $id = $editor->id;
-    $c->detach('/account/delete') if $c->user_exists && $c->user->id == $id;
-
-    $c->stash( user => $editor );
-
-    my $form = $c->form(form => 'Admin::DeleteUser');
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'admin/DeleteUser',
-        component_props => {
-            form => $form->TO_JSON,
-            user => $c->controller('User')->serialize_user($editor),
-        },
-    );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $allow_reuse = 0;
-        $allow_reuse = 1 if $form->field('allow_reuse')->value;
-
-        $c->model('Editor')->delete($id, $allow_reuse);
-
-        $editor->name('Deleted Editor #' . $id);
-        $editor->email('editor-' . $id . '@musicbrainz.invalid');
-        $c->forward('/discourse/sync_sso', [$editor]);
-        $c->forward('/discourse/log_out', [$editor]);
-
-        $editor = $c->model('Editor')->get_by_id($id);
-        $c->response->redirect(
-            $editor ? $c->uri_for_action('/user/profile', [ $editor->name ]) : $c->uri_for('/'));
-    }
-}
-
 sub edit_banner : Path('/admin/banner/edit') Args(0) RequireAuth(banner_editor) SecureForm {
     my ($self, $c) = @_;
 
