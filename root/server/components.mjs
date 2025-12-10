@@ -36,8 +36,6 @@ export default {
   'account/Preferences': (): Promise<unknown> => import('../account/Preferences.js'),
   'account/PreferencesSaved': (): Promise<unknown> => import('../account/PreferencesSaved.js'),
   'account/Register': (): Promise<unknown> => import('../account/Register.js'),
-  'account/ResetPassword': (): Promise<unknown> => import('../account/ResetPassword.js'),
-  'account/ResetPasswordStatus': (): Promise<unknown> => import('../account/ResetPasswordStatus.js'),
   'admin/attributes/Attribute': (): Promise<unknown> => import('../admin/attributes/Attribute.js'),
   'admin/attributes/CannotRemoveAttribute': (): Promise<unknown> => import('../admin/attributes/CannotRemoveAttribute.js'),
   'admin/attributes/CreateAttribute': (): Promise<unknown> => import('../admin/attributes/CreateAttribute.js'),
