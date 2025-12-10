@@ -5,11 +5,10 @@ use MooseX::MethodAttributes;
 extends 'MusicBrainz::Server::Controller';
 
 use namespace::autoclean;
-use Digest::SHA qw(sha1_base64);
 use HTTP::Request;
 use List::AllUtils qw( uniq );
 use DBDefs;
-use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
@@ -37,38 +36,6 @@ sub begin : Private
     $c->forward('/begin');
     $c->stash->{viewing_own_profile} = 1;
     $c->stash->{user}                = $c->user;
-}
-
-sub _reset_password_checksum
-{
-    my ($self, $id, $time) = @_;
-    return sha1_base64("reset_password $id $time " . DBDefs->SMTP_SECRET_CHECKSUM);
-}
-
-sub _send_password_reset_email
-{
-    my ($self, $c, $editor) = @_;
-
-    my $time = time();
-    my $reset_password_link = $c->uri_for_action('/account/reset_password', {
-        id => $editor->id,
-        time => $time,
-        key => $self->_reset_password_checksum($editor->id, $time),
-    });
-
-    try {
-        $c->model('Email')->send_password_reset_request(
-            user                => $editor,
-            reset_password_link => $reset_password_link,
-        );
-    }
-    catch {
-        $c->flash->{message} = l(
-            'We were unable to send login information to your email address. ' .
-            'Please try again, and if that still doesn’t work, {contact_url|contact us}.',
-            {contact_url => $CONTACT_URL},
-        );
-    };
 }
 
 sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
@@ -102,7 +69,6 @@ sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
                 $form->field('email')->add_error(l(q(We can't send a password reset email, because we have no email on record for this user.)));
             }
             else {
-                $self->_send_password_reset_email($c, $editor);
                 $c->response->redirect($c->uri_for_action('/account/lost_password',
                                                           { sent => 1}));
                 $c->detach;
@@ -118,96 +84,6 @@ sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
         },
     );
     $c->detach;
-}
-
-sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{ok}) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('Your password has been reset.'),
-            },
-        );
-        $c->detach;
-    }
-
-    my $editor_id = $c->request->params->{id};
-    my $time = $c->request->params->{time};
-    my $key = $c->request->params->{key};
-
-    if (!$editor_id || !$time || !$key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('Missing one or more required parameters.'),
-            },
-        );
-        $c->detach;
-    }
-
-    if ($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT < time()) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('Sorry, this password reset link has expired.'),
-            },
-        );
-        $c->detach;
-    }
-
-    if ($self->_reset_password_checksum($editor_id, $time) ne $key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('The checksum is invalid, please double check your email.'),
-            },
-        );
-        $c->detach;
-    }
-
-    my $editor = $c->model('Editor')->get_by_id($editor_id);
-    if (!defined $editor) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l(q(The user with ID '{user_id}' could not be found.),
-                                                { user_id => $editor_id }),
-            },
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form( form => 'User::ResetPassword' );
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/ResetPassword.js',
-        component_props => {
-            form => $form->TO_JSON,
-        },
-    );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($editor->name, $password);
-
-        $c->model('Editor')->load_preferences($editor);
-        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
-        $c->set_authenticated($user);
-
-        $c->response->redirect($c->uri_for_action('/account/reset_password', { ok => 1 }));
-        $c->detach;
-    }
-
-    $c->stash->{form} = $form;
 }
 
 sub lost_username : Path('/lost-username') ForbiddenOnMirrors SecureForm
