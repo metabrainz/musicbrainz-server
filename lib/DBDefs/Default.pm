@@ -157,6 +157,10 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
+# Enable local account registration and login, bypassing OAuth login with
+# MetaBarainz.
+sub LOCAL_ACCOUNTS_ENABLED { 1 }
+
 # SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
 # the "RequireSSL" attribute on Catalyst actions, which will redirect
 # users to the SSL version of a Catalyst action (and redirect back to

@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
+import {
+  LOCAL_ACCOUNTS_ENABLED,
+} from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
@@ -149,11 +152,13 @@ component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
           required
           uncontrolled
         />
-        <FormRowEmailLong
-          field={form.field.email}
-          label="Email:"
-          uncontrolled
-        />
+        {LOCAL_ACCOUNTS_ENABLED ? (
+          <FormRowEmailLong
+            field={form.field.email}
+            label="Email:"
+            uncontrolled
+          />
+        ) : null}
         <FormRowURLLong
           field={form.field.website}
           label="Website:"

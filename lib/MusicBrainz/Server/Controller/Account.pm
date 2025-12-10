@@ -78,11 +78,13 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             $form->value,
         );
 
-        my $old_email = $editor->email || '';
-        my $new_email = $form->field('email')->value || '';
+        if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+            my $old_email = $editor->email || '';
+            my $new_email = $form->field('email')->value || '';
 
-        if ($old_email ne $new_email) {
-            $c->model('Editor')->update_email($editor, undef);
+            if ($old_email ne $new_email) {
+                $c->model('Editor')->update_email($editor, $new_email);
+            }
         }
 
         $c->model('EditorLanguage')->set_languages(
@@ -182,6 +184,10 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         $c->response->redirect($c->uri_for_action('/user/profile',
                                                  [ $c->user->name ]));
         $c->detach;
+    }
+
+    unless (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+        $c->detach('/error_403');
     }
 
     my $form = $c->form(register_form => 'User::Register');
