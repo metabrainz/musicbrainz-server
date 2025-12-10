@@ -122,7 +122,7 @@ component Login(
 
       <p>
         {exp.l('Forgot your {link1|username} or {link2|password}?', {
-          link1: '/lost-username',
+          link1: '',
           link2: '/lost-password',
         })}
       </p>

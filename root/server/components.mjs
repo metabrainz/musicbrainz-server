@@ -31,8 +31,6 @@ export default {
   'account/EditProfile': (): Promise<unknown> => import('../account/EditProfile.js'),
   'account/LostPassword': (): Promise<unknown> => import('../account/LostPassword.js'),
   'account/LostPasswordSent': (): Promise<unknown> => import('../account/LostPasswordSent.js'),
-  'account/LostUsername': (): Promise<unknown> => import('../account/LostUsername.js'),
-  'account/LostUsernameSent': (): Promise<unknown> => import('../account/LostUsernameSent.js'),
   'account/Preferences': (): Promise<unknown> => import('../account/Preferences.js'),
   'account/PreferencesSaved': (): Promise<unknown> => import('../account/PreferencesSaved.js'),
   'account/Register': (): Promise<unknown> => import('../account/Register.js'),

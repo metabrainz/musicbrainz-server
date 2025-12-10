@@ -31,7 +31,7 @@ component LostPassword(form: LostPasswordFormT) {
            email with a link to reset your password. If you have
            forgotten your username, {link|retrieve it} first and then
            reset your password.`,
-          {link: '/lost-username'},
+          {link: ''},
         )}
       </p>
       <form method="post">
