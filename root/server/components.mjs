@@ -36,8 +36,6 @@ export default {
   'account/Preferences': (): Promise<unknown> => import('../account/Preferences.js'),
   'account/PreferencesSaved': (): Promise<unknown> => import('../account/PreferencesSaved.js'),
   'account/Register': (): Promise<unknown> => import('../account/Register.js'),
-  'account/ResetPassword': (): Promise<unknown> => import('../account/ResetPassword.js'),
-  'account/ResetPasswordStatus': (): Promise<unknown> => import('../account/ResetPasswordStatus.js'),
   'account/sso/DiscourseRegistered': (): Promise<unknown> => import('../account/sso/DiscourseRegistered.js'),
   'account/sso/DiscourseUnconfirmedEmailAddress': (): Promise<unknown> => import('../account/sso/DiscourseUnconfirmedEmailAddress.js'),
   'admin/attributes/Attribute': (): Promise<unknown> => import('../admin/attributes/Attribute.js'),

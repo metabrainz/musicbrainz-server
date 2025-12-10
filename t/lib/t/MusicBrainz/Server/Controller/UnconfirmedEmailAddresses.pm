@@ -71,7 +71,6 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Account::register',
   'Controller::Account::register_application',
   'Controller::Account::remove_application',
-  'Controller::Account::reset_password',
   'Controller::Account::revoke_application_access',
   'Controller::Admin::Attributes::attribute_base',
   'Controller::Admin::Attributes::attribute_index',

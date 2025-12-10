@@ -174,39 +174,6 @@ test all => sub {
                      "-- The MusicBrainz Team\n");
     };
 
-    subtest 'send_password_reset_request' => sub {
-        $email->send_password_reset_request(
-            user => $user1,
-            reset_password_link => "$server/reset-password",
-        );
-
-        my @emails = $test->get_emails;
-        is(scalar @emails, 1, 'One email sent');
-        my $email = shift @emails;
-        is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
-        is($email->{headers}{To}, '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-        is($email->{headers}{Subject}, 'Password reset request', 'Subject is Password reset request');
-        like($email->{headers}{'Message-Id'}, qr{<password-reset-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-        compare_body($email->{body},
-                     "Someone, probably you, asked that your MusicBrainz password be reset.\n".
-                     "\n".
-                     "To reset your password, click the link below:\n".
-                     "\n".
-                     "$server/reset-password\n".
-                     "\n".
-                     "If clicking the link above doesn't work, please copy and paste the URL in a\n".
-                     "new browser window instead.\n".
-                     "\n".
-                     "If you didn't initiate this request and feel that you've received this email in\n".
-                     "error, don't worry, you don't need to take any further action and can safely\n".
-                     "disregard this email.\n".
-                     "\n".
-                     "If you still have problems logging in, please drop us a line - see\n".
-                     "https://metabrainz.org/contact for details.\n".
-                     "\n".
-                     "-- The MusicBrainz Team\n");
-    };
-
     subtest 'send_first_no_vote' => sub {
         $email->send_first_no_vote(
             editor => $user1,
