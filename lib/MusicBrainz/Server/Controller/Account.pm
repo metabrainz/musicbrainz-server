@@ -20,7 +20,6 @@ use MusicBrainz::Server::Form::Utils qw(
     language_options
 );
 use MusicBrainz::Server::Translation qw( l );
-use Try::Tiny;
 use URI;
 
 sub index : Path('/account') RequireAuth
@@ -79,47 +78,6 @@ sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
     $c->stash(
         current_view => 'Node',
         component_path => 'account/LostPassword',
-        component_props => {
-            form => $form->TO_JSON,
-        },
-    );
-    $c->detach;
-}
-
-sub lost_username : Path('/lost-username') ForbiddenOnMirrors SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{sent}) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/LostUsernameSent',
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form( form => 'User::LostUsername' );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $email = $form->field('email')->value;
-
-        my @editors = $c->model('Editor')->find_by_email($email);
-        if (!@editors) {
-            $form->field('email')->add_error(l('There is no user with this email'));
-        }
-        else {
-            foreach my $editor (@editors) {
-                try { $c->model('Email')->send_lost_username( user => $editor ) }
-            }
-            $c->response->redirect($c->uri_for_action('/account/lost_username',
-                                                      { sent => 1}));
-            $c->detach;
-        }
-    }
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/LostUsername',
         component_props => {
             form => $form->TO_JSON,
         },
