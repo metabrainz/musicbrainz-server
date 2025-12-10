@@ -87,25 +87,15 @@ sub _perform_login {
         $c->logout;
         return 0;
     } else {
-        if ($c->user->requires_password_reset) {
-            $c->response->redirect($c->uri_for_action('/account/change_password', {
-                username => $c->user->name,
-                mandatory => 1,
-            } ));
-            $c->logout;
-            $c->detach;
-        }
-        else {
-            unless (DBDefs->DB_READ_ONLY || DBDefs->DISABLE_LAST_LOGIN_UPDATE) {
-                if ($c->user->requires_password_rehash) {
-                    $c->model('Editor')->update_password($user_name, $password);
-                } else {
-                    $c->model('Editor')->update_last_login_date($c->user->id);
-                }
+        unless (DBDefs->DB_READ_ONLY || DBDefs->DISABLE_LAST_LOGIN_UPDATE) {
+            if ($c->user->requires_password_rehash) {
+                $c->model('Editor')->update_password($user_name, $password);
+            } else {
+                $c->model('Editor')->update_last_login_date($c->user->id);
             }
-
-            return 1;
         }
+
+        return 1;
     }
 }
 
