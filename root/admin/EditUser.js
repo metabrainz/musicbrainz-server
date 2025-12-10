@@ -40,7 +40,6 @@ type EditUserFormT = FormT<{
   readonly mbid_submitter: FieldT<boolean>,
   readonly no_nag: FieldT<boolean>,
   readonly show_exact: FieldT<boolean>,
-  readonly skip_verification: FieldT<boolean>,
   readonly spammer: FieldT<boolean>,
   readonly untrusted: FieldT<boolean>,
   readonly username: FieldT<string>,
@@ -153,11 +152,6 @@ component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
         <FormRowEmailLong
           field={form.field.email}
           label="Email:"
-          uncontrolled
-        />
-        <FormRowCheckbox
-          field={form.field.skip_verification}
-          label="Skip verification"
           uncontrolled
         />
         <FormRowURLLong

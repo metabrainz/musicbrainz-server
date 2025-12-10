@@ -52,7 +52,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             # user profile
             username                => $user->name,
             email                   => $user->email,
-            skip_verification       => 0,
             website                 => $user->website,
             biography               => $user->biography,
         },
@@ -75,18 +74,13 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         $c->model('Editor')->update_privileges($user, $form_values);
         $c->model('Editor')->update_profile($user, $form_values);
 
-        my %args = ( ok => 1 );
         my $old_email = $user->email || '';
         my $new_email = $form->field('email')->value || '';
         if ($old_email ne $new_email) {
             if ($new_email) {
-                if ($form->field('skip_verification')->value) {
-                    $c->model('Editor')->update_email($user, $new_email);
-                    $user->email($new_email);
-                    $c->forward('/discourse/sync_sso', [$user]);
-                } else {
-                    $args{email} = $new_email;
-                }
+                $c->model('Editor')->update_email($user, $new_email);
+                $user->email($new_email);
+                $c->forward('/discourse/sync_sso', [$user]);
             }
             else {
                 $c->model('Editor')->update_email($user, undef);
