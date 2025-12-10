@@ -40,7 +40,6 @@ const jsExt = /\.[cm]?js$/;
 
 const entries = [
   'account/applications/register',
-  'account/components/RegisterForm',
   'account/edit',
   'account/preferences',
   'admin/components/PossibleSpammersList',
