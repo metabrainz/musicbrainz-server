@@ -309,7 +309,7 @@ sub _check_for_confirmed_email {
             component_props => {
                 title    => lp('Send email', 'header'),
                 message  => l('You cannot contact other users because you have not {url|verified your email address}.',
-                            {url => $c->uri_for_action('/account/resend_verification')}),
+                              {url => DBDefs->METABRAINZ_URL . '/profile'}),
             },
             current_view    => 'Node',
         );

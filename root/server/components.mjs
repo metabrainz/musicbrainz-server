@@ -30,7 +30,6 @@ export default {
   'account/DigestAuthentication': (): Promise<unknown> => import('../account/DigestAuthentication.js'),
   'account/Donation': (): Promise<unknown> => import('../account/Donation.js'),
   'account/EditProfile': (): Promise<unknown> => import('../account/EditProfile.js'),
-  'account/EmailVerificationStatus': (): Promise<unknown> => import('../account/EmailVerificationStatus.js'),
   'account/LostPassword': (): Promise<unknown> => import('../account/LostPassword.js'),
   'account/LostPasswordSent': (): Promise<unknown> => import('../account/LostPasswordSent.js'),
   'account/LostUsername': (): Promise<unknown> => import('../account/LostUsername.js'),

@@ -21,7 +21,6 @@ use MusicBrainz::Server::Form::Utils qw(
     language_options
 );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
 use Try::Tiny;
 use URI;
 
@@ -38,118 +37,6 @@ sub begin : Private
     $c->forward('/begin');
     $c->stash->{viewing_own_profile} = 1;
     $c->stash->{user}                = $c->user;
-}
-
-=head2 verify
-
-Verify the email address (this is the URL handed out in "verify your email
-address" emails)
-
-=cut
-
-sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
-{
-    my ($self, $c) = @_;
-
-    my $user_id = $c->request->params->{userid};
-    my $email   = $c->request->params->{email};
-    my $time    = $c->request->params->{time};
-    my $key     = $c->request->params->{chk};
-
-    unless (is_positive_integer($user_id) && $user_id) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The user ID is missing or is in an invalid format.'),
-            },
-        );
-    }
-
-    unless ($email) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The email address is missing.'),
-            },
-        );
-    }
-
-    unless (is_positive_integer($time) && $time) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The time is missing or is in an invalid format.'),
-            },
-        );
-        $c->detach;
-    }
-
-    unless ($key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The verification key is missing.'),
-            },
-        );
-        $c->detach;
-    }
-
-    unless ($self->_checksum($email, $user_id, $time) eq $key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The checksum is invalid, please double check your email.'),
-            },
-        );
-        $c->detach;
-    }
-
-    if (($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT) < time()) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('Sorry, this email verification link has expired.'),
-            },
-        );
-        $c->detach;
-    }
-
-    my $editor = $c->model('Editor')->get_by_id($user_id);
-    unless (defined $editor) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l(q(The user with ID '{user_id}' could not be found.),
-                                                { user_id => $user_id }),
-            },
-        );
-        $c->detach;
-    }
-
-    if ($editor->deleted) {
-        $c->detach('/user/not_found');
-    }
-
-    $c->model('Editor')->update_email($editor, $email);
-
-    if ($c->user_exists) {
-        $c->user->email($editor->email);
-        $c->user->email_confirmation_date($editor->email_confirmation_date);
-        $c->persist_user();
-    }
-
-    $c->forward('/discourse/sync_sso', [$editor]);
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/EmailVerificationStatus',
-    );
 }
 
 sub _reset_password_checksum
@@ -408,15 +295,9 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
 
         my $old_email = $editor->email || '';
         my $new_email = $form->field('email')->value || '';
-        my $verification_sent;
 
         if ($old_email ne $new_email) {
-            if ($new_email) {
-                $self->_send_confirmation_email($c, $editor, $new_email);
-                $verification_sent = 1;
-            } else {
-                $c->model('Editor')->update_email($editor, undef);
-            }
+            $c->model('Editor')->update_email($editor, undef);
         }
 
         $c->model('EditorLanguage')->set_languages(
@@ -424,17 +305,7 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             $form->field('languages')->value,
         );
 
-        my $flash = l('Your profile has been updated.');
-
-        if ($verification_sent) {
-            $flash .= ' ';
-            $flash .= l('We have sent you a verification email to <code>{email}</code>. ' .
-                        'Please check your mailbox and click on the link in the email ' .
-                        'to verify the new email address.',
-                        { email => encode_entities($new_email) });
-        }
-
-        $c->flash->{message} = $flash;
+        $c->flash->{message} = l('Your profile has been updated.');
         $c->response->redirect($c->uri_for_action('/user/profile', [$editor->name]));
         $c->detach;
     } else {
@@ -628,10 +499,6 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
             privs => $BEGINNER_FLAG,
         });
 
-        if ($email) {
-            $self->_send_confirmation_email($c, $editor, $email);
-        }
-
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
 
@@ -660,77 +527,6 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
             form => $form->TO_JSON,
         },
     );
-}
-
-=head2 resend_verification
-
-Send out an email allowing users to verify their email address, from the web
-
-=cut
-
-sub resend_verification : Path('/account/resend-verification') ForbiddenOnMirrors RequireAuth
-{
-    my ($self, $c) = @_;
-    my $editor = $c->model('Editor')->get_by_id($c->user->id);
-    if ($editor->has_email_address) {
-        $self->_send_confirmation_email($c, $editor, $editor->email);
-    }
-    $c->response->redirect($c->uri_for_action('/user/profile', [ $editor->name ]));
-    $c->detach;
-}
-
-=head2 _send_confirmation_email
-
-Send out an email allowing users to verify their email address
-
-=cut
-
-sub _send_confirmation_email
-{
-    my ($self, $c, $editor, $email) = @_;
-
-    my $time = time();
-    my $verification_link = $c->uri_for_action('/account/verify_email', {
-        userid => $editor->id,
-        email  => $email,
-        time   => $time,
-        chk    => $self->_checksum($email, $editor->id, $time),
-    });
-
-    my $email_in_use = $c->model('Editor')->is_email_used_elsewhere($email, $editor->id);
-
-    try {
-        if ($email_in_use) {
-            $c->model('Email')->send_email_in_use(
-                email             => $email,
-                ip                => $c->req->address,
-                editor            => $editor,
-            );
-        } else {
-            $c->model('Email')->send_email_verification(
-                email             => $email,
-                verification_link => $verification_link,
-                ip                => $c->req->address,
-                editor            => $editor,
-            );
-        }
-    }
-    catch {
-        $c->flash->{message} = l(
-            '<strong>We were unable to send you a verification email.</strong><br/>Please re-enter your address ' .
-            'in your {settings|account settings}. If that still doesn’t work, {contact_url|contact us}.',
-            {
-                settings => $c->uri_for_action('/account/edit'),
-                contact_url => $CONTACT_URL,
-            },
-        );
-    };
-}
-
-sub _checksum
-{
-    my ($self, $email, $uid, $time) = @_;
-    return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
 sub donation : Local RequireAuth HiddenOnMirrors

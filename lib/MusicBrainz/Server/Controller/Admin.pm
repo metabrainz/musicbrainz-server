@@ -86,7 +86,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
                     $user->email($new_email);
                     $c->forward('/discourse/sync_sso', [$user]);
                 } else {
-                    $c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
                     $args{email} = $new_email;
                 }
             }
