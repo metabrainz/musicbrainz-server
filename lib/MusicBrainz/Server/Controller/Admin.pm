@@ -84,7 +84,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
                 if ($form->field('skip_verification')->value) {
                     $c->model('Editor')->update_email($user, $new_email);
                     $user->email($new_email);
-                    $c->forward('/discourse/sync_sso', [$user]);
                 } else {
                     $args{email} = $new_email;
                 }
@@ -92,12 +91,7 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             else {
                 $c->model('Editor')->update_email($user, undef);
                 $user->email('editor-' . $user->id . '@musicbrainz.invalid');
-                $c->forward('/discourse/sync_sso', [$user]);
             }
-        }
-
-        if (!$is_spammer && $form_values->{spammer}) {
-            $c->forward('/discourse/log_out', [$user]);
         }
 
         $c->flash->{message} = 'User successfully edited.';
@@ -138,8 +132,6 @@ sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) 
 
         $editor->name('Deleted Editor #' . $id);
         $editor->email('editor-' . $id . '@musicbrainz.invalid');
-        $c->forward('/discourse/sync_sso', [$editor]);
-        $c->forward('/discourse/log_out', [$editor]);
 
         $editor = $c->model('Editor')->get_by_id($id);
         $c->response->redirect(

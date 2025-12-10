@@ -971,10 +971,6 @@ sub mark_spammer : Chained('root') PathPart('mark-spammer') Args(1) {
 
     $c->model('Editor')->update_privileges($editor, \%privilege_updates);
 
-    if ($privilege_updates{spammer}) {
-        $c->forward('/discourse/log_out', [$editor]);
-    }
-
     $c->res->body('ok');
     $c->res->status(200);
 }

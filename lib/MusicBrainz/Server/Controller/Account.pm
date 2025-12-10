@@ -403,8 +403,6 @@ sub delete : Local RequireAuth HiddenOnMirrors SecureForm {
 
         $editor->name('Deleted Editor #' . $id);
         $editor->email('editor-' . $id . '@musicbrainz.invalid');
-        $c->forward('/discourse/sync_sso', [$editor]);
-        $c->forward('/discourse/log_out', [$editor]);
 
         $c->response->redirect('/');
     } else {
@@ -505,18 +503,6 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
 
         my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
         $c->set_authenticated($user);
-
-        my $redirect = $c->req->query_params->{returnto} // '';
-        if ($redirect =~ /^\/discourse\/sso/) {
-            $c->stash(
-                current_view => 'Node',
-                component_path => 'account/sso/DiscourseRegistered',
-                component_props => {
-                    emailAddress => $email,
-                },
-            );
-            $c->detach;
-        }
 
         $c->redirect_back(
             fallback => $c->uri_for_action('/user/profile', [ $user->name ]),

@@ -443,15 +443,6 @@ sub RENDERER_SOCKET {
 # (./script/start_renderer.pl) when using a superdaemon.
 sub FORK_RENDERER { 1 }
 
-# Base URL of external Discourse instance.
-sub DISCOURSE_SERVER { '' }
-# Used to authenticate when synchronizing SSO records.
-# See https://meta.discourse.org/t/discourse-api-documentation/22706
-sub DISCOURSE_API_KEY { '' }
-sub DISCOURSE_API_USERNAME { '' }
-# See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
-sub DISCOURSE_SSO_SECRET { '' }
-
 # Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
 # and CSP headers. Even without a secret set, the generated nonces are very
 # unlikely to be guessed; this is mainly only useful for an additional layer
