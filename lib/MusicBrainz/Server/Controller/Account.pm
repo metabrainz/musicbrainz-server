@@ -117,55 +117,6 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
     }
 }
 
-=head2 change_password
-
-Allow users to change their password. This displays a form prompting
-for their old password and a new password (with confirmation), which
-when use to update the database data when we receive a valid POST request.
-
-=cut
-
-sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{ok}) {
-        $c->flash->{message} = l('Your password has been changed.');
-        $c->response->redirect($c->uri_for_action('/user/login'));
-
-        $c->detach;
-    }
-
-    my $mandatory = $c->req->query_params->{mandatory};
-
-    my $form = $c->form(
-        form => 'User::ChangePassword',
-        init_object => {
-            username => $c->user_exists
-                ? $c->user->name
-                : ($c->req->query_parameters->{username} // ''),
-        },
-    );
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/ChangePassword.js',
-        component_props => {
-            form => $form->TO_JSON,
-            isMandatory => boolean_to_json($mandatory),
-        },
-    );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password(
-            $form->field('username')->value, $password);
-
-        $c->response->redirect($c->uri_for_action('/account/change_password', { ok => 1 }));
-        $c->detach;
-    }
-}
-
 =head2 preferences
 
 Change the users preferences
