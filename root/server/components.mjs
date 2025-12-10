@@ -28,8 +28,6 @@ export default {
   'account/DigestAuthentication': (): Promise<unknown> => import('../account/DigestAuthentication.js'),
   'account/Donation': (): Promise<unknown> => import('../account/Donation.js'),
   'account/EditProfile': (): Promise<unknown> => import('../account/EditProfile.js'),
-  'account/LostPassword': (): Promise<unknown> => import('../account/LostPassword.js'),
-  'account/LostPasswordSent': (): Promise<unknown> => import('../account/LostPasswordSent.js'),
   'account/Preferences': (): Promise<unknown> => import('../account/Preferences.js'),
   'account/PreferencesSaved': (): Promise<unknown> => import('../account/PreferencesSaved.js'),
   'account/Register': (): Promise<unknown> => import('../account/Register.js'),
