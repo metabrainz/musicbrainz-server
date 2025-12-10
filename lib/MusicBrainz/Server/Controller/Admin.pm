@@ -75,17 +75,17 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         $c->model('Editor')->update_privileges($user, $form_values);
         $c->model('Editor')->update_profile($user, $form_values);
 
-        my %args = ( ok => 1 );
-        my $old_email = $user->email || '';
-        my $new_email = $form->field('email')->value || '';
-        if ($old_email ne $new_email) {
-            if ($new_email) {
-                $c->model('Editor')->update_email($user, $new_email);
-                $user->email($new_email);
-            }
-            else {
-                $c->model('Editor')->update_email($user, undef);
-                $user->email('editor-' . $user->id . '@musicbrainz.invalid');
+        if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+            my $old_email = $user->email || '';
+            my $new_email = $form->field('email')->value || '';
+            if ($old_email ne $new_email) {
+                if ($new_email) {
+                    $c->model('Editor')->update_email($user, $new_email);
+                    $user->email($new_email);
+                } else {
+                    $c->model('Editor')->update_email($user, undef);
+                    $user->email('editor-' . $user->id . '@musicbrainz.invalid');
+                }
             }
         }
 

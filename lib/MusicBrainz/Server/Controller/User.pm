@@ -186,12 +186,14 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
         $c->detach;
     }
 
-    $c->stash( required_login => 0 );
-    $c->forward('/user/do_login');
+    if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+        $c->stash( required_login => 0 );
+        $c->forward('/user/do_login');
 
-    # Logged in OK
-    $c->redirect_back(fallback => $c->relative_uri);
-    $c->detach;
+        # Logged in OK
+        $c->redirect_back(fallback => $c->relative_uri);
+        $c->detach;
+    }
 }
 
 sub logout : Path('/logout')
