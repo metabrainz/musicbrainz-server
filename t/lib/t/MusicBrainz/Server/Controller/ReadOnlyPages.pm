@@ -13,7 +13,6 @@ use Hook::LexWrap;
 with 't::Context', 't::Mechanize';
 
 for my $path (
-    '/verify-email',
     '/reset-password',
     '/account/edit',
     '/account/change-password',

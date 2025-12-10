@@ -123,7 +123,7 @@ test 'Creating a new editor' => sub {
     );
 };
 
-test 'find_by_email and is_email_used_elsewhere' => sub {
+test 'find_by_email' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
@@ -133,8 +133,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
         name => 'new_editor_2',
         password => 'password',
     });
-    # For testing is_email_used_elsewhere
-    my $future_editor_id = $new_editor_2->id + 1;
 
     note('We set an email for the new editor with update_email');
     $editor_data->update_email($new_editor_2, 'editor@example.com');
@@ -148,22 +146,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     is(scalar(@editors), 1, 'An editor was found searching with all caps');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
 
-    note('We check is_email_used_elsewhere shows the email as being in use');
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'editor@example.com',
-            $future_editor_id,
-        ),
-        'The exact email is shown to be in use if another editor wants it',
-    );
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'EDITOR@EXAMPLE.COM',
-            $future_editor_id,
-        ),
-        'The email is shown to be in use even if searching with all caps',
-    );
-
     note('We set an all caps email for the new editor with update_email');
     $editor_data->update_email($new_editor_2, 'EDITOR@EXAMPLE.COM');
 
@@ -175,22 +157,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     @editors = $editor_data->find_by_email('editor@example.com');
     is(scalar(@editors), 1, 'An editor was found searching with normal caps');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
-
-    note('We check is_email_used_elsewhere shows the email as being in use');
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'EDITOR@EXAMPLE.COM',
-            $future_editor_id,
-        ),
-        'The exact email is shown to be in use if another editor wants it',
-    );
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'editor@example.com',
-            $future_editor_id,
-        ),
-        'The email is shown to be in use even if searching with normal caps',
-    );
 };
 
 test 'Getting/loading existing editors' => sub {

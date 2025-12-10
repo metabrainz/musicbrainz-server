@@ -27,12 +27,10 @@ test 'Registering without verifying an email address' => sub {
     like($mech->uri, qr{/user/brand_new_editor}, 'should redirect to profile page after registering');
 };
 
-test 'Registering and verifying an email address' => sub {
+test 'Registering' => sub {
     my $test = shift;
     my $mech = $test->mech;
     my $c    = $test->c;
-
-    $test->skip_unless_mailpit_configured;
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
 
@@ -46,18 +44,6 @@ test 'Registering and verifying an email address' => sub {
 
     like($mech->uri, qr{/user/email_editor}, 'should redirect to profile page after registering');
 
-    my @emails = $test->get_emails;
-    my $email = shift @emails;
-    is($email->{headers}{Subject}, 'Verify your email');
-    my $email_body = $email->{body};
-    like($email_body, qr{/verify-email}, 'has a link to verify email address');
-
-    $email_body =~ qr{\[http://localhost(/verify-email.*?)\]}ms;
-    my $verify_link = ($1 =~ s/\R//gr);
-    $mech->get_ok($verify_link, 'verify account');
-    $mech->content_like(qr/Thank you, your email address has now been verified/);
-
-    $mech->get('/user/email_editor');
     $mech->content_like(qr{\(verified at (.*)\)});
     $mech->content =~ qr{\(verified at (.*)\)};
     my $original_verification = $1;

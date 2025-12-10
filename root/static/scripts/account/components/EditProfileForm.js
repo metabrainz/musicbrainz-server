@@ -198,12 +198,6 @@ component EditProfileForm(
         label={addColonText(l('Email'))}
         uncontrolled
       />
-      <FormRow hasNoLabel>
-        {l(
-          `If you change your email address,
-           you will be required to verify it.`,
-        )}
-      </FormRow>
 
       <FormRowURLLong
         field={field.website}
