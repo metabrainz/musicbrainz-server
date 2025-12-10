@@ -39,10 +39,6 @@ has_field 'email' => (
     type => 'Email',
 );
 
-has_field 'skip_verification' => (
-    type => 'Boolean',
-);
-
 has_field 'gender_id' => (
     type => 'Select',
 );
