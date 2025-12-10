@@ -120,13 +120,6 @@ component Login(
         </div>
       </form>
 
-      <p>
-        {exp.l('Forgot your {link1|username} or {link2|password}?', {
-          link1: '',
-          link2: '/lost-password',
-        })}
-      </p>
-
       {manifest('user/login', {async: true})}
     </Layout>
   );

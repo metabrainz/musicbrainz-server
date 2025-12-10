@@ -37,54 +37,6 @@ sub begin : Private
     $c->stash->{user}                = $c->user;
 }
 
-sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{sent}) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/LostPasswordSent',
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form( form => 'User::LostPassword' );
-    if ($c->form_posted_and_valid($form)) {
-        my $username = $form->field('username')->value;
-        my $email = $form->field('email')->value;
-
-        my $editor = $c->model('Editor')->get_by_name($username);
-
-        if (!defined $editor) {
-            $form->field('username')->add_error(l('There is no user with this username'));
-        }
-        else {
-            # HTML::FormHandler::Field::Email lowercases the email, so we should compare the lowercase version (MBS-6158)
-            if ($editor->email && lc($editor->email) ne lc($email)) {
-                $form->field('email')->add_error(l('There is no user with this username and email'));
-            }
-            elsif (!$editor->email) {
-                $form->field('email')->add_error(l(q(We can't send a password reset email, because we have no email on record for this user.)));
-            }
-            else {
-                $c->response->redirect($c->uri_for_action('/account/lost_password',
-                                                          { sent => 1}));
-                $c->detach;
-            }
-        }
-    }
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/LostPassword',
-        component_props => {
-            form => $form->TO_JSON,
-        },
-    );
-    $c->detach;
-}
-
 =head2 edit
 
 Display a form to allow users to edit their profile, or (if a POST
