@@ -10785,7 +10785,7 @@ msgid "Label information"
 msgstr ""
 
 #: ../root/layout/components/sidebar/LabelSidebar.js:72
-msgid "Founded:"
+msgid "Started:"
 msgstr ""
 
 #: ../root/layout/components/sidebar/LabelSidebar.js:78
