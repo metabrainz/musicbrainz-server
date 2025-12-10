@@ -9,7 +9,6 @@
 
 import {CONTACT_URL} from '../constants.js';
 import Layout from '../layout/index.js';
-import manifest from '../static/manifest.mjs';
 import RegisterForm, {type RegisterFormT}
   from '../static/scripts/account/components/RegisterForm.js';
 
@@ -52,7 +51,6 @@ component Register(
       </p>
 
       <RegisterForm form={form} />
-      {manifest('account/components/RegisterForm', {async: true})}
 
       <p>
         {exp.l(
