@@ -87,40 +87,6 @@ sub _create_email
         });
 }
 
-sub _create_lost_username_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => _user_address($opts{user}),
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('lost-username-%s', generate_gid()),
-        'Subject'    => 'Lost username',
-    );
-
-    my $user_name = $opts{user}->name;
-    my $lost_password_url = $url_prefix . '/lost-password';
-
-    my $body = <<"EOS";
-Someone, probably you, asked to look up the username of the
-MusicBrainz account associated with this email address.
-
-Your MusicBrainz username is: $user_name
-
-If you have also forgotten your password, use this username and your email address
-to reset your password here - $lost_password_url
-
-If you didn't initiate this request and feel that you've received this email in
-error, don't worry, you don't need to take any further action and can safely
-disregard this email.
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
 sub _create_no_vote_email
 {
     my ($self, %opts) = @_;
@@ -311,14 +277,6 @@ sub send_message_to_editor
 
         $self->_mb_mail_service_send_single($body);
     }
-}
-
-sub send_lost_username
-{
-    my ($self, %opts) = @_;
-
-    my $email = $self->_create_lost_username_email(%opts);
-    return $self->_send_email($email);
 }
 
 sub send_subscriptions_digest

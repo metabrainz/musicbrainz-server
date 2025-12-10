@@ -146,34 +146,6 @@ test all => sub {
             EOS
     };
 
-    subtest 'send_lost_username' => sub {
-        $email->send_lost_username(
-            user => $user1,
-        );
-
-        my @emails = $test->get_emails;
-        is(scalar @emails, 1);
-        my $email = shift @emails;
-        is($email->{headers}{From}, '"MusicBrainz Server" <noreply@musicbrainz.org>', 'From is noreply@...');
-        is($email->{headers}{To}, '"Editor 1" <foo@example.com>', 'To is Editor 1, foo@example.com');
-        is($email->{headers}{Subject}, 'Lost username', 'Subject is Lost username');
-        like($email->{headers}{'Message-Id'}, qr{<lost-username-[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}@.*>}, 'Message-Id has right format');
-        compare_body($email->{body},
-                     "Someone, probably you, asked to look up the username of the\n".
-                     "MusicBrainz account associated with this email address.\n".
-                     "\n".
-                     "Your MusicBrainz username is: Editor 1\n".
-                     "\n".
-                     "If you have also forgotten your password, use this username and your email address\n".
-                     "to reset your password here - $server/lost-password\n".
-                     "\n".
-                     "If you didn't initiate this request and feel that you've received this email in\n".
-                     "error, don't worry, you don't need to take any further action and can safely\n".
-                     "disregard this email.\n".
-                     "\n".
-                     "-- The MusicBrainz Team\n");
-    };
-
     subtest 'send_first_no_vote' => sub {
         $email->send_first_no_vote(
             editor => $user1,
