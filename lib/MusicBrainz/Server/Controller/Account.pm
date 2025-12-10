@@ -61,7 +61,6 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
         item => {
             username          => $editor->name,
             email             => $editor->email,
-            skip_verification => 0,
             website           => $editor->website,
             biography         => $editor->biography,
             gender_id         => $editor->gender_id,

@@ -53,7 +53,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             # user profile
             username                => $user->name,
             email                   => $user->email,
-            skip_verification       => 0,
             website                 => $user->website,
             biography               => $user->biography,
         },
@@ -81,12 +80,8 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         my $new_email = $form->field('email')->value || '';
         if ($old_email ne $new_email) {
             if ($new_email) {
-                if ($form->field('skip_verification')->value) {
-                    $c->model('Editor')->update_email($user, $new_email);
-                    $user->email($new_email);
-                } else {
-                    $args{email} = $new_email;
-                }
+                $c->model('Editor')->update_email($user, $new_email);
+                $user->email($new_email);
             }
             else {
                 $c->model('Editor')->update_email($user, undef);
