@@ -14,7 +14,6 @@ with 't::Context', 't::Mechanize';
 
 for my $path (
     '/account/edit',
-    '/account/change-password',
     '/account/preferences',
     '/register',
     '/account/applications/register',

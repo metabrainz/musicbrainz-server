@@ -19,8 +19,6 @@ use MusicBrainz::Server::Filters qw( format_wikitext );
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 
-my $LATEST_SECURITY_VULNERABILITY = DateTime->new( year => 2013, month => 3, day => 28 );
-
 extends 'MusicBrainz::Server::Entity';
 
 sub entity_type { 'editor' }
@@ -252,11 +250,6 @@ has languages => (
         add_language => 'push',
     },
 );
-
-sub requires_password_reset {
-    my $self = shift;
-    return $self->last_login_date < $LATEST_SECURITY_VULNERABILITY;
-}
 
 has ha1 => (
     isa => 'Str',
