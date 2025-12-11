@@ -379,23 +379,6 @@ sub insert
     }, $self->sql);
 }
 
-sub search_old_editor_names {
-    my ($self, $name, $use_regular_expression) = @_;
-
-    my $condition = $use_regular_expression ? 'name ~* ?' : 'LOWER(name) = LOWER(?)';
-    my $query = "SELECT name FROM old_editor_name WHERE $condition LIMIT 100";
-
-    @{ $self->sql->select_single_column_array($query, $name) };
-}
-
-sub unlock_old_editor_name {
-    my ($self, $name) = @_;
-
-    my $query = 'DELETE FROM old_editor_name WHERE name = ?';
-
-    $self->sql->do($query, $name);
-}
-
 sub update_email
 {
     my ($self, $editor, $email) = @_;
@@ -777,16 +760,11 @@ sub editors_with_subscriptions {
 }
 
 sub delete {
-    my ($self, $editor_id, $allow_reuse) = @_;
+    my ($self, $editor_id) = @_;
     die "Invalid editor_id: $editor_id" unless $editor_id > 0;
     my $editor = $self->c->model('Editor')->get_by_id($editor_id);
 
     $self->sql->begin;
-    $self->sql->do(
-        'INSERT INTO old_editor_name (name)
-         (SELECT name FROM editor WHERE id = ?)',
-        $editor_id,
-    ) unless $allow_reuse;
     $self->sql->do(
         q{UPDATE editor SET name = 'Deleted Editor #' || id,
                            password = ?,
@@ -1136,8 +1114,6 @@ sub is_name_used {
 
     return 1 if $self->sql->select_single_value(
         'SELECT 1 FROM editor WHERE lower(name) = lower(?)', $name);
-    return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM old_editor_name WHERE lower(name) = lower(?)', $name);
     return 0;
 }
 

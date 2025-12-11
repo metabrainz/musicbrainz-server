@@ -274,7 +274,6 @@ DROP TABLE mood;
 DROP TABLE mood_alias;
 DROP TABLE mood_alias_type;
 DROP TABLE mood_annotation;
-DROP TABLE old_editor_name;
 DROP TABLE orderable_link_type;
 DROP TABLE place;
 DROP TABLE place_alias;
