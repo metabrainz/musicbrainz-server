@@ -952,7 +952,6 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     instrument_tag_raw
     label_rating_raw
     label_tag_raw
-    old_editor_name
     place_rating_raw
     place_tag_raw
     recording_rating_raw

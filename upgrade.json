@@ -273,6 +273,7 @@
   },
   "32": {
     "all": [
+      "20251211-drop-old-editor-name.sql",
       "20260602-new-sitemaps-indexes.sql"
     ]
   }

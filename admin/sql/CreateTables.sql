@@ -690,10 +690,6 @@ CREATE TABLE editor ( -- replicate
     deleted             BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE old_editor_name (
-    name    VARCHAR(64) NOT NULL
-);
-
 CREATE TABLE editor_language (
     editor   INTEGER NOT NULL,  -- PK, references editor.id
     language INTEGER NOT NULL,  -- PK, references language.id

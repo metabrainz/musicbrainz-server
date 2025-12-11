@@ -43,8 +43,6 @@ export default {
   'admin/EditUser': (): Promise<unknown> => import('../admin/EditUser.js'),
   'admin/EmailSearch': (): Promise<unknown> => import('../admin/EmailSearch.js'),
   'admin/IpLookup': (): Promise<unknown> => import('../admin/IpLookup.js'),
-  'admin/LockedUsernameSearch': (): Promise<unknown> => import('../admin/LockedUsernameSearch.js'),
-  'admin/LockedUsernameUnlock': (): Promise<unknown> => import('../admin/LockedUsernameUnlock.js'),
   'admin/PossibleSpammers': (): Promise<unknown> => import('../admin/PossibleSpammers.js'),
   'admin/PrivilegeSearch': (): Promise<unknown> => import('../admin/PrivilegeSearch.js'),
   'admin/statistics-events/CreateStatisticsEvent': (): Promise<unknown> => import('../admin/statistics-events/CreateStatisticsEvent.js'),
