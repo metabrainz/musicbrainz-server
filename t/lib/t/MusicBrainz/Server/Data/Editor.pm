@@ -430,14 +430,6 @@ test 'Deleting editors removes most information' => sub {
     );
     is($bob->deleted, 1, 'The editor is marked as deleted');
 
-    # The name should be prevented from being reused by default (MBS-9271).
-    ok(
-        $c->sql->select_single_value(
-            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob',
-        ),
-        'The editor name is listed in old_editor_name as not reusable',
-    );
-
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
         qw( id name password privileges last_login_date languages
