@@ -420,8 +420,14 @@ export function reducer(
         oldTargetType === 'url' &&
         newTargetType !== 'url'
       ) {
-        const newPlaceholderTarget =
-          createNonUrlRelatableEntityObject(newTargetType);
+        const defaultName = (
+          source.entityType === 'recording' && newTargetType === 'work'
+        ) ? source.name : '';
+
+        const newPlaceholderTarget = createNonUrlRelatableEntityObject(
+          newTargetType,
+          {name: defaultName},
+        );
 
         newTargetState.autocomplete =
           createInitialAutocompleteStateForTarget({
@@ -452,6 +458,27 @@ export function reducer(
           source,
           type: 'update-autocomplete',
         });
+
+        if (source.entityType === 'recording') {
+          const currentInputValue =
+            newTargetState.autocomplete?.inputValue;
+          const shouldFillRecordingName = newTargetType === 'work' &&
+            empty(currentInputValue);
+          const shouldClearRecordingName = oldTargetType === 'work' &&
+            currentInputValue === source.name;
+
+          if (shouldFillRecordingName || shouldClearRecordingName) {
+            updateTargetAutocomplete(newTargetState, {
+              action: {
+                type: 'type-value',
+                value: shouldFillRecordingName ? source.name : '',
+              },
+              linkType: null,
+              source,
+              type: 'update-autocomplete',
+            });
+          }
+        }
       }
 
       newTargetState.creditedAs = '';
