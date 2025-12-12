@@ -47,7 +47,7 @@ import {
 } from '../static/scripts/common/utility/privileges.js';
 import {formatCount, formatPercentage} from '../statistics/utilities.js';
 import formatUserDate from '../utility/formatUserDate.js';
-import {returnToCurrentPage} from '../utility/returnUri.js';
+import returnUri, {returnToCurrentPage} from '../utility/returnUri.js';
 import {canNominate} from '../utility/voting.js';
 
 const ADDED_ENTITIES_TYPES = {
@@ -340,7 +340,7 @@ component UserProfileInformation(
                 {exp.l(
                   `This content is hidden to prevent spam.
                    To view it, please {url|log in}.`,
-                  {url: '/account/login'},
+                  {url: returnUri($c, '/login')},
                 )}
               </div>
             )}
@@ -401,7 +401,7 @@ component UserProfileInformation(
                 {exp.l(
                   `This content is hidden to prevent spam.
                    To view it, please {url|log in}.`,
-                  {url: '/account/login'},
+                  {url: returnUri($c, '/login')},
                 )}
               </div>
             )}
