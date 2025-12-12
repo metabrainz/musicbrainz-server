@@ -46,6 +46,7 @@ role {
             end_date => Nullable[PartialDateHash],
             type_id => Nullable[Int],
             primary_for_locale => Nullable[Bool],
+            previous_primary_for_locale => Nullable[Str],
             ended => Optional[Bool],
         ],
     );
@@ -77,6 +78,15 @@ role {
         my $self = shift;
         my %data = %{ $self->data };
         my $alias_model = $self->_alias_model;
+
+        my $primary_aliases =
+            $alias_model->find_primary_aliases_by_entity_id($self->$entity_id);
+        my $previous_primary_for_locale = %$primary_aliases{$self->data->{locale}} // '';
+
+        # We add the primary locale that was replaced on edit enter to the edit data
+        $self->data->{previous_primary_for_locale} = $previous_primary_for_locale;
+        my $json = JSON::XS->new;
+        $self->c->sql->update_row('edit_data', { data => $json->encode($self->to_hash) }, { edit => $self->id });
 
         $self->alias_id(
             $alias_model->insert({
@@ -151,6 +161,13 @@ role {
             ),
         );
 
+        my $previous_primary_for_locale = $self->data->{previous_primary_for_locale};
+        if ($self->is_open && !defined $previous_primary_for_locale && $self->data->{primary_for_locale}) {
+            my $primary_aliases =
+                $self->_alias_model->find_primary_aliases_by_entity_id($entity_id);
+            $previous_primary_for_locale = %$primary_aliases{$self->data->{locale}} // '';
+        }
+
         return {
             alias               => $self->data->{name},
             locale              => $self->data->{locale},
@@ -159,6 +176,7 @@ role {
             begin_date          => to_json_object(PartialDate->new($self->data->{begin_date})),
             end_date            => to_json_object(PartialDate->new($self->data->{end_date})),
             primary_for_locale  => boolean_to_json($self->data->{primary_for_locale}),
+            $previous_primary_for_locale ? (previous_primary_for_locale => $previous_primary_for_locale) : (),
             ended               => boolean_to_json($self->data->{ended}),
             entity_type         => $entity_type,
             $entity_type        => $entity,
