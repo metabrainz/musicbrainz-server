@@ -418,5 +418,38 @@ SELECT results_eq(
   'all_calculated_area_containments_2'
 );
 
+-- Check that ended relationships are ignored in area_containment
+-- The ended relationship (4 > 5) shouldn't appear in area_containment
+
+INSERT INTO link (id, link_type, ended, end_date_year)
+     VALUES (4, 356, TRUE, 2025);
+
+INSERT INTO l_area_area (id, link, entity0, entity1)
+     VALUES (8, 4, 4, 5);
+
+-- 1 > 2
+-- 1 > 3
+-- 2 > 3
+
+SELECT results_eq(
+  'area_containment_table',
+  $$
+    VALUES
+      (2::integer, 1::integer, 1::smallint),
+      (3::integer, 1::integer, 1::smallint),
+      (3::integer, 2::integer, 1::smallint)
+  $$
+);
+
+SELECT results_eq(
+  'area_containment_table',
+  'all_calculated_area_containments_1'
+);
+
+SELECT results_eq(
+  'area_containment_table',
+  'all_calculated_area_containments_2'
+);
+
 SELECT finish();
 ROLLBACK;
