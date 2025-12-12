@@ -670,6 +670,24 @@ test('BugFixes', function (t) {
       mode: 'English',
     },
     {
+      input: 'The .44 Magnum Is a Monster',
+      expected: 'The .44 Magnum Is a Monster',
+      bug: 'MBS-13986',
+      mode: 'English',
+    },
+    {
+      input: 'The .123',
+      expected: 'The .123',
+      bug: 'MBS-13986',
+      mode: 'English',
+    },
+    {
+      input: 'A .22 Rifle',
+      expected: 'A .22 Rifle',
+      bug: 'MBS-13986',
+      mode: 'English',
+    },
+    {
       input: 'The Best Re-Edit (Someone Famous Re-Edit)',
       expected: 'The Best Re-Edit (Someone Famous re-edit)',
       bug: 'MBS-13153',
