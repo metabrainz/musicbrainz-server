@@ -112,9 +112,15 @@ function titleString(
     uppercase = guessCaseMode.toUpperCase(outputString);
 
     const nextWord = input.getNextWord();
+    let wordAfterCurrent = nextWord;
+    let lookAheadPos = pos + 1;
+    while (wordAfterCurrent === ' ' && lookAheadPos < input.getLength()) {
+      lookAheadPos++;
+      wordAfterCurrent = input.getWordAtIndex(lookAheadPos);
+    }
     const followedByPunctuation =
-      nonEmpty(nextWord) && nextWord.length === 1 &&
-      isPunctuationChar(nextWord);
+      nonEmpty(wordAfterCurrent) && wordAfterCurrent.length === 1 &&
+      isPunctuationChar(wordAfterCurrent);
     const followedByApostrophe =
       nonEmpty(nextWord) && nextWord.length === 1 && isApostrophe(nextWord);
 
