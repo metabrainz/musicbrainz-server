@@ -264,6 +264,7 @@ export const FAVICON_CLASSES: {
   'utaten.com': 'utaten',
   'vgmdb.net': 'vgmdb',
   'viaf.org': 'viaf',
+  'vibe.naver.com': 'navervibe',
   'vimeo.com/ondemand': 'vimeoondemand',
   // eslint-disable-next-line sort-keys
   'vimeo.com': 'vimeo',
