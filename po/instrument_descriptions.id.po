@@ -888,6 +888,13 @@ msgid ""
 "equivalent."
 msgstr ""
 
+#. name:tabla
+#: DB:instrument/description:185
+msgid ""
+"Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
+"and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
+msgstr ""
+
 #. name:gambang
 #: DB:instrument/description:977
 msgid ""
@@ -1268,6 +1275,11 @@ msgid ""
 "Extra large double-headed water buffalo hide barrel drum. It is suspended "
 "from a rack and beat with mallet, it is used in central Javanese gamelan and "
 "for religious signalling purposes in mosques."
+msgstr ""
+
+#. name:ruan
+#: DB:instrument/description:545
+msgid "Family of Chinese plucked lutes."
 msgstr ""
 
 #. name:hmông flute
@@ -2125,13 +2137,6 @@ msgid ""
 "mouthblown."
 msgstr ""
 
-#. name:krakebs
-#: DB:instrument/description:652
-msgid ""
-"Krakebs are large metal castanet-like instruments which are the primary "
-"rhythmic component of Gnawa music."
-msgstr ""
-
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid ""
@@ -2513,6 +2518,11 @@ msgstr ""
 #. name:cowbell
 #: DB:instrument/description:158
 msgid "Metal bell used in various genres, it is often attached to a drum kit."
+msgstr ""
+
+#. name:bajo sexto
+#: DB:instrument/description:728
+msgid "Mexican 6 course 12 string bass"
 msgstr ""
 
 #. name:Mexican vihuela
@@ -3045,13 +3055,6 @@ msgid ""
 "one thumb hole."
 msgstr ""
 
-#. name:phách
-#: DB:instrument/description:302
-msgid ""
-"Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
-"block. The sound produced is used to keep time."
-msgstr ""
-
 #. name:boobam
 #: DB:instrument/description:874
 msgid ""
@@ -3278,11 +3281,6 @@ msgstr ""
 #. name:gittern
 #: DB:instrument/description:802
 msgid "Round-backed lute ancestral to the guitar."
-msgstr ""
-
-#. name:ruan
-#: DB:instrument/description:545
-msgid "Ruan is a family of Chinese plucked lutes."
 msgstr ""
 
 #. name:junjung
@@ -3592,7 +3590,8 @@ msgstr ""
 #: DB:instrument/description:637
 msgid ""
 "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
-"pitch."
+"pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
+"href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
 
 #. name:sopilka
@@ -3675,6 +3674,11 @@ msgstr ""
 msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
+msgstr ""
+
+#. name:zhongruan
+#: DB:instrument/description:241
+msgid "Tenor member of the Chinese ruan family of lutes."
 msgstr ""
 
 #. name:primero
@@ -3826,13 +3830,6 @@ msgid ""
 "a bag of air."
 msgstr ""
 
-#. name:bajo sexto
-#: DB:instrument/description:728
-msgid ""
-"The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
-"courses."
-msgstr ""
-
 #. name:banhu
 #: DB:instrument/description:221
 msgid ""
@@ -3887,12 +3884,6 @@ msgid ""
 "size of a regular oboe."
 msgstr ""
 
-#. name:bass trumpet
-#: DB:instrument/description:727
-msgid ""
-"The bass trumpet is a type of low trumpet similar to the valve trombone."
-msgstr ""
-
 #. name:bawu
 #: DB:instrument/description:483
 msgid ""
@@ -3932,20 +3923,6 @@ msgstr ""
 msgid ""
 "The buk is a Korean drum. While buk is a generic term for drum, it normally "
 "refers to a shallow barrel-shaped drum with a wooden body."
-msgstr ""
-
-#. name:buzuq
-#: DB:instrument/description:655
-msgid ""
-"The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
-"Turkish saz which is associated with the music of Lebanon and Syria."
-msgstr ""
-
-#. name:caxixi
-#: DB:instrument/description:489
-msgid ""
-"The caxixi is a shaker originating in Brazil which is made of a small wicker "
-"basket containing seeds or other small particles."
 msgstr ""
 
 #. name:chakhe
@@ -4177,13 +4154,6 @@ msgid ""
 "which typically has 6 strings."
 msgstr ""
 
-#. name:guan
-#: DB:instrument/description:683
-msgid ""
-"The guan is a Chinese double reed wind instrument made from hardwood or "
-"bamboo."
-msgstr ""
-
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
@@ -4231,13 +4201,6 @@ msgstr ""
 msgid ""
 "The harp is a plucked string instrument consisting of multiple strings "
 "stretched across a vertical frame."
-msgstr ""
-
-#. name:heike biwa
-#: DB:instrument/description:579
-msgid ""
-"The heike biwa is a biwa with four strings and five frets used to play Heike "
-"Monogatari."
 msgstr ""
 
 #. name:hotchiku
@@ -4543,13 +4506,6 @@ msgstr ""
 msgid "The nyckelharpa is a traditional Swedish string instrument."
 msgstr ""
 
-#. name:ocarina
-#: DB:instrument/description:15
-msgid ""
-"The ocarina is a type of vessel flute which has a mouthpiece extending from "
-"the body."
-msgstr ""
-
 #. name:octave mandolin
 #: DB:instrument/description:601
 msgid ""
@@ -4590,13 +4546,6 @@ msgstr ""
 msgid ""
 "The pkhachich is a traditional shaken percussion instrument of the "
 "Circassian peoples."
-msgstr ""
-
-#. name:pocket trumpet
-#: DB:instrument/description:690
-msgid ""
-"The pocket trumpet is a compact size B♭ trumpet, with the same playing range "
-"as the regular trumpet."
 msgstr ""
 
 #. name:pātē
@@ -4705,13 +4654,6 @@ msgstr ""
 msgid ""
 "The satsuma biwa is a biwa with four strings and frets popularised during "
 "the Edo period."
-msgstr ""
-
-#. name:saw duang
-#: DB:instrument/description:624
-msgid ""
-"The saw duang is a two-stringed instrument used in traditional Thai music "
-"which has a cylindrical soundbox made of wood and a snakeskin resonator."
 msgstr ""
 
 #. name:saw sam sai
@@ -4826,14 +4768,6 @@ msgid ""
 "is played by ethnic groups such as the Bahnar and the Ê Đê."
 msgstr ""
 
-#. name:tabla
-#: DB:instrument/description:185
-msgid ""
-"The tabla is a pair of hand drums used in Hindustani classical music and in "
-"the traditional music of India, Pakistan, Afghanistan, Nepal, Bangladesh and "
-"Sri Lanka."
-msgstr ""
-
 #. name:tack piano
 #: DB:instrument/description:636
 msgid ""
@@ -4912,13 +4846,6 @@ msgid ""
 "similar but smaller than the European double bass."
 msgstr ""
 
-#. name:tonkori
-#: DB:instrument/description:575
-msgid ""
-"The tonkori is a plucked string instrument played by the Ainu of northern "
-"Japan and Sakhalin."
-msgstr ""
-
 #. name:topshuur
 #: DB:instrument/description:708
 msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
@@ -4934,13 +4861,6 @@ msgstr ""
 msgid ""
 "The trống bông is a wooden Vietnamese drum with a single drumhead which is "
 "played with both hands."
-msgstr ""
-
-#. name:tubax
-#: DB:instrument/description:694
-msgid ""
-"The tubax is a modified saxophone which is more compact due to the tubing "
-"being folded more times."
 msgstr ""
 
 #. name:ukeke
@@ -4969,13 +4889,6 @@ msgid ""
 "The violino piccolo is a stringed instrument of the baroque period. Most "
 "examples are similar to a child's size violin in size and are tuned a third "
 "or a fourth higher."
-msgstr ""
-
-#. name:virginal
-#: DB:instrument/description:509
-msgid ""
-"The virginal is a smaller and simpler rectangular form of the harpsichord "
-"with only one string per note."
 msgstr ""
 
 #. name:xiaoluo
@@ -5022,31 +4935,11 @@ msgstr ""
 msgid "The zarb is a goblet drum from Persia."
 msgstr ""
 
-#. name:zhaleika
-#: DB:instrument/description:692
-msgid "The zhaleika is a single reed hornpipe from Russia."
-msgstr ""
-
 #. name:zhonghu
 #: DB:instrument/description:217
 msgid ""
 "The zhonghu is a Chinese bowed string instrument developed from the erhu and "
 "tuned a fourth or a fifth lower."
-msgstr ""
-
-#. name:zhongruan
-#: DB:instrument/description:241
-msgid ""
-"The zhongruan is a Chinese plucked lute, the tenor-ranged size in the ruan "
-"family."
-msgstr ""
-
-#. name:đing năm
-#: DB:instrument/description:319
-msgid ""
-"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
-"Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
-"the central highlands of Vietnam."
 msgstr ""
 
 #. name:đàn nguyệt
@@ -5443,6 +5336,13 @@ msgid ""
 "Used in Carnatic tradition, named after goddess of art and music Saraswati, "
 "it is known since ancient times. Lute with a gourd sound resonator, it has "
 "24 fixed frets, 7 steel strings (4 main & 3 drone)."
+msgstr ""
+
+#. name:krakeb
+#: DB:instrument/description:652
+msgid ""
+"Used in Gnawa music, it consists of two large iron shapes with round bowls "
+"tied together."
 msgstr ""
 
 #. name:pakhawaj

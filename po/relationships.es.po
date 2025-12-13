@@ -2433,6 +2433,13 @@ msgstr ""
 "indicado. Permite enlazar un grupo de publicaciones a sus singles y EPs "
 "asociados."
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 msgid ""
@@ -2746,6 +2753,16 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "Indica que el artista fue el coreógrafo de esta grabación de vídeo."
+
+#. name:choreographer
+#: DB:link_type/description:1299
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist was the choreographer for this video recording."
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
 msgstr "Indica que el artista fue el coreógrafo de esta grabación de vídeo."
 
 #. name:cinematographer
@@ -3088,6 +3105,13 @@ msgstr ""
 "Indica la sociedad de gestión de derechos asociada a una publicación. Las "
 "sociedades de gestión de derechos son organizaciones que administran las "
 "regalías en nombre de los artistas."
+
+#. name:named after series
+#: DB:link_type/description:1298
+#, fuzzy
+#| msgid "This indicates the artist that inspired this genre’s name."
+msgid "This indicates the series that inspired this series’ name."
+msgstr "Indica el artista que inspiró el nombre de este género."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -6302,7 +6326,7 @@ msgstr "voces de coro"
 msgid "choral conducting"
 msgstr "dirección de coro"
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 msgid "choreographer"
 msgstr "coreógrafo"
 
@@ -7550,8 +7574,8 @@ msgid "has orchestration"
 msgstr "tiene la orquestación"
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr "tiene la parte"
 
@@ -7740,10 +7764,18 @@ msgstr "sellos"
 msgid "improvisation"
 msgstr ""
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
 msgstr "incluido en"
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+#, fuzzy
+#| msgid "includes"
+msgid "included works"
+msgstr "incluye"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -7798,8 +7830,9 @@ msgstr "inspiró el nombre del lugar"
 msgid "inspired the name of release group"
 msgstr "inspiró el nombre de la discográfica"
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 msgid "inspired the name of series"
 msgstr "inspiró el nombre de la serie"
 
@@ -8008,9 +8041,16 @@ msgstr "tiene un nombre inspirado en el lugar"
 msgid "is named after release group"
 msgstr "tiene un nombre inspirado en el grupo de publicaciones"
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "is named after artist"
+msgid "is named after series"
+msgstr "tiene un nombre inspirado en el artista"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "tiene un nombre inspirado en la obra"
 
@@ -8746,10 +8786,17 @@ msgstr "nombre inspirado en el lugar"
 msgid "named after release group"
 msgstr "nombre inspirado en el grupo de publicaciones"
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+#, fuzzy
+#| msgid "named after artist"
+msgid "named after series"
+msgstr "nombre inspirado en el artista"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "nombre inspirado en la obra"
@@ -8947,8 +8994,8 @@ msgstr "parodia"
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "parte de"
 
@@ -8979,10 +9026,10 @@ msgid "participants"
 msgstr "participantes"
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "partes"
 
@@ -10548,7 +10595,7 @@ msgid "was {assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr ""
 
@@ -11507,12 +11554,12 @@ msgid "{assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr "coreógrafo {assistant:asistente}"
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 msgid "{assistant} choreographer for"
 msgstr ""
 
@@ -11723,6 +11770,13 @@ msgstr "{entity1} está dedicado a {entity0}"
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
 msgstr ""
+
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} is included in {entity0}"
+msgstr "{entity1} fue impresa en {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939

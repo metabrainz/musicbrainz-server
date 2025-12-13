@@ -2552,6 +2552,13 @@ msgstr ""
 "kan een uitgavegroep aan bijbehorende uitgavegroepen voor singles en EP’s "
 "worden gekoppeld."
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 msgid ""
@@ -2884,6 +2891,16 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "Dit geeft aan dat de artiest deze video heeft gechoreografeerd."
+
+#. name:choreographer
+#: DB:link_type/description:1299
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist was the choreographer for this video recording."
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
 msgstr "Dit geeft aan dat de artiest deze video heeft gechoreografeerd."
 
 #. name:cinematographer
@@ -3230,6 +3247,14 @@ msgid ""
 msgstr ""
 "Dit geeft de rechtenorganisatie aan die met een uitgave is geassocieerd. De "
 "rechtenorganisatie is een organisatie die voor een artiest royalty’s int."
+
+#. name:named after series
+#: DB:link_type/description:1298
+#, fuzzy
+#| msgid "This indicates the artist that inspired this genre’s name."
+msgid "This indicates the series that inspired this series’ name."
+msgstr ""
+"Dit geeft aan dat de naam van het genre is geïnspireerd op deze artiest."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -3759,8 +3784,8 @@ msgid ""
 "This links a group to an artist who has an artist-in-residence position with "
 "the group."
 msgstr ""
-"Dit koppelt een groep aan een artiest die daar huisartiest "
-"(zoals huispianist) is."
+"Dit koppelt een groep aan een artiest die daar huisartiest (zoals "
+"huispianist) is."
 
 #. name:video channel
 #: DB:link_type/description:304
@@ -6539,7 +6564,7 @@ msgstr "koor"
 msgid "choral conducting"
 msgstr "koordirectie"
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 msgid "choreographer"
 msgstr "choreografie"
 
@@ -7780,8 +7805,8 @@ msgid "has orchestration"
 msgstr "heeft orkestratie"
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr "heeft deel"
 
@@ -7966,10 +7991,18 @@ msgstr "imprints"
 msgid "improvisation"
 msgstr "improvisatie"
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
 msgstr "maakt deel uit van"
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+#, fuzzy
+#| msgid "includes"
+msgid "included works"
+msgstr "bevat"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -8022,8 +8055,9 @@ msgstr "was de inspiratie voor de naam van de plaats"
 msgid "inspired the name of release group"
 msgstr "was de inspiratie voor de naam van de uitgavegroep"
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 msgid "inspired the name of series"
 msgstr "was de inspiratie voor de naam van de serie"
 
@@ -8232,9 +8266,16 @@ msgstr "is vernoemd naar de plaats"
 msgid "is named after release group"
 msgstr "is vernoemd naar de uitgavegroep"
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "is named after artist"
+msgid "is named after series"
+msgstr "is vernoemd naar de artiest"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "is vernoemd naar de compositie"
 
@@ -8974,10 +9015,17 @@ msgstr "vernoemd naar de plaats"
 msgid "named after release group"
 msgstr "vernoemd naar de uitgavegroep"
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+#, fuzzy
+#| msgid "named after artist"
+msgid "named after series"
+msgstr "vernoemd naar de artiest"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "vernoemd naar de compositie"
@@ -9175,8 +9223,8 @@ msgstr "parodie"
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "deel van"
 
@@ -9207,10 +9255,10 @@ msgid "participants"
 msgstr "deelnemers"
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "delen"
 
@@ -10766,7 +10814,7 @@ msgid "was {assistant} carillonneur at"
 msgstr "was {assistant:assistent-}beiaardier van"
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr "was {assistant:assistent-}choreograaf van"
 
@@ -11742,12 +11790,12 @@ msgid "{assistant} carillonneur at"
 msgstr "{assistant:assisterend} beiaardier van"
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr "{assistant:assisterend} choreograaf"
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 msgid "{assistant} choreographer for"
 msgstr "{assistant:assisterend} choreograaf van"
 
@@ -11958,6 +12006,13 @@ msgstr "{entity1} is opgedragen aan {entity0}"
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
 msgstr "{entity1} heeft een hoofdkantoor in {entity0}"
+
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} is included in {entity0}"
+msgstr "{entity1} werd gedrukt in {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939

@@ -2293,6 +2293,13 @@ msgid ""
 "to its associated singles and EPs."
 msgstr ""
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 msgid ""
@@ -2561,6 +2568,15 @@ msgstr ""
 #| msgid "Indicates an artist that performed on this recording."
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "Tregon një artist që ekzekutoi në këtë incizim."
+
+#. name:choreographer
+#: DB:link_type/description:1299
+#, fuzzy
+#| msgid "Indicates an artist that performed on this recording."
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
 msgstr "Tregon një artist që ekzekutoi në këtë incizim."
 
 #. name:cinematographer
@@ -2883,6 +2899,13 @@ msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the artists."
 msgstr ""
+
+#. name:named after series
+#: DB:link_type/description:1298
+#, fuzzy
+#| msgid "This indicates the work that inspired this artist’s name."
+msgid "This indicates the series that inspired this series’ name."
+msgstr "Kjo tregon veprën që frymëzoi emrin e këtij artisti."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -5703,7 +5726,7 @@ msgstr "zëra kori"
 msgid "choral conducting"
 msgstr ""
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 #, fuzzy
 #| msgid "photography"
 msgid "choreographer"
@@ -6963,8 +6986,8 @@ msgid "has orchestration"
 msgstr "ka orkestrim"
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr "ka pjesë"
 
@@ -7153,10 +7176,18 @@ msgstr ""
 msgid "improvisation"
 msgstr "improvizim"
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
 msgstr "përfshirë në"
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+#, fuzzy
+#| msgid "includes"
+msgid "included works"
+msgstr "përfshin"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -7219,8 +7250,9 @@ msgstr "frymëzoi emrin e "
 msgid "inspired the name of release group"
 msgstr "frymëzoi emrin e "
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 #, fuzzy
 #| msgid "inspired the name of"
 msgid "inspired the name of series"
@@ -7443,9 +7475,16 @@ msgstr "emërtuar për nder të"
 msgid "is named after release group"
 msgstr ""
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "named after"
+msgid "is named after series"
+msgstr "emërtuar për nder të"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 #, fuzzy
 #| msgid "named after"
 msgid "is named after work"
@@ -8189,10 +8228,17 @@ msgstr "emërtuar për nder të"
 msgid "named after release group"
 msgstr "emërtuar për nder të"
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+#, fuzzy
+#| msgid "named after"
+msgid "named after series"
+msgstr "emërtuar për nder të"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "named after"
@@ -8392,8 +8438,8 @@ msgstr "parodi"
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "pjesë e"
 
@@ -8424,10 +8470,10 @@ msgid "participants"
 msgstr ""
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "pjesë"
 
@@ -9998,7 +10044,7 @@ msgid "was {assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr ""
 
@@ -10901,12 +10947,12 @@ msgid "{assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 #, fuzzy
 #| msgid "discography entry for"
 msgid "{assistant} choreographer for"
@@ -11115,6 +11161,13 @@ msgstr ""
 #, fuzzy
 #| msgid "{entity1} was arranged in {entity0}"
 msgid "{entity1} is headquartered in {entity0}"
+msgstr "{entity1} qe orkestruar në {entity0}"
+
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+#, fuzzy
+#| msgid "{entity1} was arranged in {entity0}"
+msgid "{entity1} is included in {entity0}"
 msgstr "{entity1} qe orkestruar në {entity0}"
 
 #. name:license
@@ -11517,9 +11570,6 @@ msgstr ""
 
 #~ msgid "{entity1} was arranged at {entity0}"
 #~ msgstr "{entity1} qe orkestruar më {entity0}"
-
-#~ msgid "{entity1} was arranged in {entity0}"
-#~ msgstr "{entity1} qe orkestruar në {entity0}"
 
 #~ msgid "Links a release to the place it was arranged at."
 #~ msgstr "Lidh një hedhje në qarkullim me vendin ku u orkestrua."

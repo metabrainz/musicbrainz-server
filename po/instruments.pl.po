@@ -17,8 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
-"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.14\n"
 
 #: DB:instrument/name:438
@@ -514,7 +514,7 @@ msgid "bansuri"
 msgstr ""
 
 #: DB:instrument/name:819
-msgctxt "ancient asian/persian lute"
+msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr ""
 
@@ -2469,7 +2469,8 @@ msgid "kotsuzumi"
 msgstr ""
 
 #: DB:instrument/name:652
-msgid "krakebs"
+msgctxt "Gnawa iron clapper"
+msgid "krakeb"
 msgstr ""
 
 #: DB:instrument/name:949
@@ -3371,6 +3372,7 @@ msgid "rototom"
 msgstr ""
 
 #: DB:instrument/name:545
+msgctxt "Chinese plucked lute family"
 msgid "ruan"
 msgstr ""
 
@@ -3874,6 +3876,7 @@ msgid "t'rưng"
 msgstr ""
 
 #: DB:instrument/name:185
+msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr ""
 
@@ -4652,6 +4655,7 @@ msgid "zarb"
 msgstr ""
 
 #: DB:instrument/name:692
+msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
 msgstr ""
 
@@ -4661,6 +4665,7 @@ msgid "zhonghu"
 msgstr ""
 
 #: DB:instrument/name:241
+msgctxt "Tenor ruan"
 msgid "zhongruan"
 msgstr ""
 
