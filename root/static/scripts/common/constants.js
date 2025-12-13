@@ -134,6 +134,7 @@ export const FAVICON_CLASSES: {
   'geonames.org': 'geonames',
   'goodreads.com': 'goodreads',
   'gutenberg.org': 'gutenberg',
+  'hoerspielforscher.de': 'hoerspielforscher',
   'hoick.jp': 'hoick',
   'ibdb.com': 'ibdb',
   'idref.fr': 'idref',

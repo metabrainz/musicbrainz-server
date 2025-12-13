@@ -3160,6 +3160,51 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'hoerspielforscher': {
+    hostname: 'hoerspielforscher.de',
+    match: [/^(https?:\/\/)?hoerspielforscher\.de\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      // Preserve only the detail query parameter (which is always the first)
+      return url.replace(/^(?:https?:\/\/)?hoerspielforscher\.de\/(kartei\/[a-z]+)\?(detail=[0-9]+).*/, 'https://hoerspielforscher.de/$1?$2');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/hoerspielforscher\.de\/kartei\/(album|hoerspiel|interpret|person|label|serie|musik)\?detail=[0-9]+$/.exec(url);
+      if (m) {
+        const type = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: type === 'interpret' || type === 'person',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              // A person can also be a company
+              result: type === 'label' || type === 'person',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: type === 'album' || type === 'hoerspiel',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: type === 'musik',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.series:
+            return {
+              result: type === 'serie',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'hoick': {
     hostname: 'hoick.jp',
     match: [/^(https?:\/\/)?([^/]+\.)?hoick\.jp\//i],
