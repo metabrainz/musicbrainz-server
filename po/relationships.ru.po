@@ -19,12 +19,12 @@
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # Libra <recreate_squall363@simplelogin.com>, 2024, 2025.
+# karpuzikov <karpuzikovanton@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-23 15:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-12-15 15:58+0000\n"
+"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -2081,10 +2081,10 @@ msgid ""
 "company is credited instead of a specific engineer."
 msgstr ""
 "Описывает компанию, ответственную за запись выступления на пленку или другой "
-"носитель. Эта работа может быть как сложной "
-"(настройка микрофонов, усилителей и записывающих устройств), так и простой "
-"(нажатие кнопки «запись» на аппаратуре). Используйте только если вместо "
-"конкретного техника указана компания."
+"носитель. Эта работа может быть как сложной (настройка микрофонов, "
+"усилителей и записывающих устройств), так и простой (нажатие кнопки «запись» "
+"на аппаратуре). Используйте только если вместо конкретного техника указана "
+"компания."
 
 #. name:mix
 #: DB:link_type/description:1294 DB:link_type/description:1295
@@ -2535,6 +2535,13 @@ msgstr ""
 "взятый из группы релизов альбома. Это позволяет связать группу релизов с "
 "соответствующими синглами и EP."
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 msgid ""
@@ -2856,14 +2863,22 @@ msgid ""
 "This indicates the artist was the choreographer for this video recording."
 msgstr "Указывает исполнителя, который выступал хореографом этого видео."
 
+#. name:choreographer
+#: DB:link_type/description:1299
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
+msgstr ""
+"Указывает исполнителя, который выступал хореографом этой работы "
+"(чаще всего, балета)."
+
 #. name:cinematographer
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid "Indicates an artist that performed on this recording."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
-msgstr "Указывает исполнителя, выступавшего на этой записи."
+msgstr ""
+"Указывает исполнителя, выступавшего кинема-/фотографом этой видеозаписи."
 
 #. name:video director
 #: DB:link_type/description:962
@@ -3156,6 +3171,11 @@ msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the artists."
 msgstr ""
+
+#. name:named after series
+#: DB:link_type/description:1298
+msgid "This indicates the series that inspired this series’ name."
+msgstr "Указывает на серию, которая вдохновила имя этой серии."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -5561,8 +5581,8 @@ msgid ""
 "Use this relationship for credits like “Release was manufactured by X for "
 "Label”."
 msgstr ""
-"Используйте данное отношение для упоминаний типа "
-"\"Релиз произведен компанией X по заказу лейбла Y\"."
+"Используйте данное отношение для упоминаний типа \"Релиз произведен "
+"компанией X по заказу лейбла Y\"."
 
 #. name:mastered for
 #: DB:link_type/description:1183
@@ -6212,7 +6232,7 @@ msgstr "хоровой вокал"
 msgid "choral conducting"
 msgstr ""
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 msgid "choreographer"
 msgstr "хореограф"
 
@@ -7458,8 +7478,8 @@ msgid "has orchestration"
 msgstr "имеет оркестрацию"
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr "имеет часть"
 
@@ -7644,10 +7664,16 @@ msgstr "импринты"
 msgid "improvisation"
 msgstr "импровизация"
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
 msgstr "в составе"
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+msgid "included works"
+msgstr "включённые работы"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -7657,12 +7683,12 @@ msgstr "включает"
 #. name:influenced by
 #: DB:link_type/name:1097 DB:link_type/link_phrase:1097
 msgid "influenced by"
-msgstr ""
+msgstr "под влиянием"
 
 #. name:influenced by
 #: DB:link_type/reverse_link_phrase:1097
 msgid "influenced genres"
-msgstr ""
+msgstr "жанры, оказавшие влияние"
 
 #. name:information page
 #: DB:link_type/name:734 DB:link_type/description:734
@@ -7700,15 +7726,16 @@ msgstr "вдохновило имя места"
 msgid "inspired the name of release group"
 msgstr "вдохновило имя группы релизов"
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 msgid "inspired the name of series"
 msgstr "вдохновило имя серии"
 
 #. name:named after artist, name:named after work
 #: DB:link_type/link_phrase:1257 DB:link_type/reverse_link_phrase:1278
 msgid "inspired the name of work"
-msgstr "вдохновило имя работы"
+msgstr "вдохновило название работы"
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
@@ -7910,9 +7937,16 @@ msgstr "назван в честь места"
 msgid "is named after release group"
 msgstr "назван в честь группы релизов"
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "is named after artist"
+msgid "is named after series"
+msgstr "назван в честь исполнителя"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "назван в честь работы"
 
@@ -8652,10 +8686,15 @@ msgstr "названо в честь места"
 msgid "named after release group"
 msgstr "названо в честь группы релизов"
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+msgid "named after series"
+msgstr "названо в честь серии"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "названо в честь работы"
@@ -8853,8 +8892,8 @@ msgstr "пародия"
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "часть"
 
@@ -8885,10 +8924,10 @@ msgid "participants"
 msgstr "участники"
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "части"
 
@@ -8948,8 +8987,8 @@ msgstr ""
 #: DB:link_type/long_link_phrase:44 DB:link_type/long_link_phrase:148
 msgid "performed {additional} {guest} {solo} {instrument:%|instruments} on"
 msgstr ""
-"исполнил(-а) {additional:дополнительный} инструмент "
-"{instrument:%|instruments} {guest:в качестве гостя} {solo: в соло} в"
+"исполнил(-а) {additional:дополнительный} инструмент {instrument:%|"
+"instruments} {guest:в качестве гостя} {solo: в соло} в"
 
 #. name:vocal
 #: DB:link_type/long_link_phrase:60 DB:link_type/long_link_phrase:149
@@ -10443,7 +10482,7 @@ msgid "was {assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr ""
 
@@ -11382,12 +11421,12 @@ msgid "{assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 msgid "{assistant} choreographer for"
 msgstr ""
 
@@ -11596,159 +11635,158 @@ msgstr "{entity1} посвящено {entity0}"
 msgid "{entity1} is headquartered in {entity0}"
 msgstr "штаб-квартира {entity1} находится в {entity0}"
 
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+msgid "{entity1} is included in {entity0}"
+msgstr "{entity1} включено в {entity0}"
+
 #. name:license
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
-msgstr ""
+msgstr "лицензировано в соответствии с"
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is named after area {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} назван в честь местности {entity0}"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
 #: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is named after artist {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} назван в честь артиста {entity0}"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1282
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is named after release group {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} назван в честь группы релизов {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
-msgstr "{entity1} был/является гимном {entity0}"
+msgstr "{entity1} является/был гимном {entity0}"
 
 #. name:primary concert venue
 #: DB:link_type/long_link_phrase:714
 msgid "{entity1} is/was the primary concert venue of {entity0}"
-msgstr "{entity1} был/является основным концертным помещением для {entity0}"
+msgstr "{entity1} является/была основной концертной площадкой для {entity0}"
 
 #. name:presented
 #: DB:link_type/long_link_phrase:1168
 msgid "{entity1} presented {entity0}"
-msgstr ""
+msgstr "{entity1} представлено {entity0}"
 
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
-msgstr ""
+msgstr "{entity1} было организовано для {entity0}"
 
 #. name:available at
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
-msgstr ""
+msgstr "{entity1} было доступно в {entity0}"
 
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 msgid "{entity1} was edited for {entity0}"
-msgstr ""
+msgstr "{entity1} было отредактированно для {entity0}"
 
 #. name:glass mastered at
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
-msgstr ""
+msgstr "{entity1} было изготовлено методом стеклянного мастеринга на {entity0}"
 
 #. name:held at, name:held in
 #: DB:link_type/long_link_phrase:995 DB:link_type/long_link_phrase:1085
 msgid "{entity1} was held at {entity0}"
-msgstr "{entity1} проводилось в {entity0}"
+msgstr "{entity1} проводилось на {entity0}"
 
 #. name:held in
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"
-msgstr ""
+msgstr "{entity1} проводилось в {entity0}"
 
 #. name:licensee
 #: DB:link_type/long_link_phrase:833
 msgid "{entity1} was licensed to {entity0}"
-msgstr ""
+msgstr "{entity1} было лицензированно {entity0}"
 
 #. name:manufactured at
 #: DB:link_type/long_link_phrase:953
 msgid "{entity1} was manufactured at {entity0}"
-msgstr ""
+msgstr "{entity1} был изготовлен на {entity0}"
 
 #. name:manufactured for
 #: DB:link_type/long_link_phrase:952
 msgid "{entity1} was manufactured for {entity0}"
-msgstr ""
+msgstr "{entity1} был изготовлен для {entity0}"
 
 #. name:manufactured in
 #: DB:link_type/long_link_phrase:835
 msgid "{entity1} was manufactured in {entity0}"
-msgstr ""
+msgstr "{entity1} был изготовлен в {entity0}"
 
 #. name:mastered for
 #: DB:link_type/long_link_phrase:1183
 msgid "{entity1} was mastered for {entity0}"
-msgstr ""
+msgstr "{entity1} был отмастерён для {entity0}"
 
 #. name:mixed for
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
-msgstr ""
+msgstr "{entity1} был миксован для {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
 msgid "{entity1} was premiered at {entity0}"
-msgstr ""
+msgstr "{entity1} состоялась премьера на {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:956
 msgid "{entity1} was premiered by {entity0}"
-msgstr ""
+msgstr "{entity1} премьера была осуществлена {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:715
 msgid "{entity1} was premiered in {entity0}"
-msgstr ""
+msgstr "{entity1} премьра состоялась в {entity0}"
 
 #. name:pressed at
 #: DB:link_type/long_link_phrase:941
 msgid "{entity1} was pressed at {entity0}"
-msgstr ""
+msgstr "{entity1} был отпечатан на {entity0}"
 
 #. name:previous attribution
 #: DB:link_type/long_link_phrase:834
 msgid "{entity1} was previously attributed to {entity0}"
-msgstr ""
+msgstr "{entity1} ранее приписывался {entity0}"
 
 #. name:printed in
 #: DB:link_type/long_link_phrase:849
 msgid "{entity1} was printed in {entity0}"
-msgstr ""
+msgstr "{entity1} был напечатан в {entity0}"
 
 #. name:remixed for
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
-msgstr ""
+msgstr "{entity1} был ремиксован для {entity0}"
 
 #. name:revised at
 #: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
-msgstr ""
+msgstr "{entity1} был пересмотрен на {entity0}"
 
 #. name:revised in
 #: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:1272
 msgid "{entity1} was revised in {entity0}"
-msgstr ""
+msgstr "{entity1} был пересмотрен в {entity0}"
 
 #. name:arranged at
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 #: DB:link_type/long_link_phrase:866
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
-msgstr ""
+msgstr "{entity1} был {additional:additionally} организован на {entity0}"
 
 #. name:arranged in
 #: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863

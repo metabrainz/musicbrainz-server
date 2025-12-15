@@ -11,11 +11,13 @@
 # PS <weblate@wp.pl>, 2025.
 # Michal77 <michal_wilk@poczta.fm>, 2025.
 # Echelon <weblate@wp.pl>, 2025.
+# Echelon <echelon@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-14 13:20+0000\n"
-"Last-Translator: Echelon <weblate@wp.pl>\n"
+"PO-Revision-Date: 2025-12-15 12:11+0000\n"
+"Last-Translator: Echelon <echelon@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
 "Language: pl\n"
@@ -2522,6 +2524,13 @@ msgstr ""
 "pochodzący z grupy wydań albumu. Pozwala to na powiązanie grupy wydań z "
 "powiązanymi z nią singlami i EP-kami."
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 msgid ""
@@ -2828,6 +2837,16 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "Oznacza to, że artysta był choreografem tego nagrania wideo."
+
+#. name:choreographer
+#: DB:link_type/description:1299
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist was the choreographer for this video recording."
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
 msgstr "Oznacza to, że artysta był choreografem tego nagrania wideo."
 
 #. name:cinematographer
@@ -3149,6 +3168,11 @@ msgstr ""
 "Stowarzyszenie praw autorskich to organizacja pobierająca tantiemy w imieniu "
 "artystów."
 
+#. name:named after series
+#: DB:link_type/description:1298
+msgid "This indicates the series that inspired this series’ name."
+msgstr "Wskazuje to na serię, która zainspirowała nazwę tej serii."
+
 #. name:video shot at
 #: DB:link_type/description:963
 msgid "This indicates the video was shot at this place."
@@ -3263,9 +3287,9 @@ msgid ""
 "This is used to indicate that the release group is a mash-up <a href=\"/doc/"
 "Mix_Terminology#mash-up\">mash-up</a> of two (or more) other release groups."
 msgstr ""
-"Służy do wskazania, że grupa wydań jest połączeniem <a href="
-"\"/doc/Mix_Terminology#mash-up\">połączenia</a> dwóch (lub więcej) innych "
-"grup wydań."
+"Służy do wskazania, że grupa wydań jest połączeniem <a href=\"/doc/"
+"Mix_Terminology#mash-up\">połączenia</a> dwóch (lub więcej) innych grup "
+"wydań."
 
 #. name:DJ-mix
 #: DB:link_type/description:227
@@ -3276,10 +3300,11 @@ msgid ""
 "28338ee6-d578-485a-bb53-61dbfd7c6545\">DJ-mixer</a> for crediting the person "
 "who created the DJ-mix."
 msgstr ""
-"Służy do łączenia nagrania <a href=\"/doc/Mix_Terminology#DJ_mix\""
-">zmiksowanego przez DJ-a</a> z każdym z nagrań źródłowych. Informacje o "
-"autorze miksu DJ-skiego można znaleźć w sekcji <a href="
-"\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">Mikser DJ-ski</a>."
+"Służy do łączenia nagrania <a href=\"/doc/"
+"Mix_Terminology#DJ_mix\">zmiksowanego przez DJ-a</a> z każdym z nagrań "
+"źródłowych. Informacje o autorze miksu DJ-skiego można znaleźć w sekcji <a "
+"href=\"/relationship/28338ee6-d578-485a-bb53-61dbfd7c6545\">Mikser DJ-ski</"
+"a>."
 
 #. name:allmusic
 #: DB:link_type/description:1093
@@ -3815,8 +3840,8 @@ msgid ""
 "This links a recording to another containing official commentary for it "
 "(usually the artist talking about it)."
 msgstr ""
-"Łączy nagranie z innym, zawierającym oficjalny komentarz do niego "
-"(zazwyczaj od artysty mówiącego o nim)."
+"Łączy nagranie z innym, zawierającym oficjalny komentarz do niego (zazwyczaj "
+"od artysty mówiącego o nim)."
 
 #. name:programming
 #: DB:link_type/description:132
@@ -6007,7 +6032,7 @@ msgstr ""
 msgid "choral conducting"
 msgstr ""
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 msgid "choreographer"
 msgstr ""
 
@@ -7248,8 +7273,8 @@ msgid "has orchestration"
 msgstr ""
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr ""
 
@@ -7434,9 +7459,15 @@ msgstr ""
 msgid "improvisation"
 msgstr ""
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
+msgstr ""
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+msgid "included works"
 msgstr ""
 
 #. name:included in
@@ -7492,8 +7523,9 @@ msgstr ""
 msgid "inspired the name of release group"
 msgstr "zainspirowało nazwę grupy wydawniczej"
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 msgid "inspired the name of series"
 msgstr ""
 
@@ -7704,9 +7736,16 @@ msgstr "Strona Geonames dla"
 msgid "is named after release group"
 msgstr ""
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "Geonames page for"
+msgid "is named after series"
+msgstr "Strona Geonames dla"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -8442,10 +8481,17 @@ msgstr "Strona Geonames dla"
 msgid "named after release group"
 msgstr ""
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+#, fuzzy
+#| msgid "Geonames page for"
+msgid "named after series"
+msgstr "Strona Geonames dla"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "Geonames page for"
@@ -8645,8 +8691,8 @@ msgstr ""
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr ""
 
@@ -8677,10 +8723,10 @@ msgid "participants"
 msgstr ""
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr ""
 
@@ -10225,7 +10271,7 @@ msgid "was {assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr ""
 
@@ -11118,12 +11164,12 @@ msgid "{assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 msgid "{assistant} choreographer for"
 msgstr ""
 
@@ -11328,6 +11374,11 @@ msgstr ""
 #. name:headquarters
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
+msgstr ""
+
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+msgid "{entity1} is included in {entity0}"
 msgstr ""
 
 #. name:license

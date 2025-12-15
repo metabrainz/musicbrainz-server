@@ -43,8 +43,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-13 12:11+0100\n"
-"PO-Revision-Date: 2025-12-03 17:11+0000\n"
+"POT-Creation-Date: 2025-12-09 14:04+0100\n"
+"PO-Revision-Date: 2025-12-09 23:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -549,7 +549,7 @@ msgstr "Авторедактор"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:130
 #: ../root/otherlookup/OtherLookupForm.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:173
-#: ../root/report/ReleasesSameBarcode.js:40
+#: ../root/report/ReleasesSameBarcode.js:41
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:163
@@ -2223,7 +2223,7 @@ msgstr "Редактор отношений"
 #: ../root/edit/details/AddRelationshipType.js:48
 #: ../root/edit/details/EditRelationshipType.js:148
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:82
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:284
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:283
 msgid "Relationship type"
 msgstr "Тип отношений"
 
@@ -2294,7 +2294,7 @@ msgstr "Событие релиза"
 #: ../root/report/DuplicateReleaseGroups.js:59
 #: ../root/report/EmptyReleaseGroups.js:60
 #: ../root/report/ReleaseRgDifferentName.js:29
-#: ../root/report/ReleasesSameBarcode.js:46
+#: ../root/report/ReleasesSameBarcode.js:47
 #: ../root/report/components/ReleaseGroupList.js:43
 #: ../root/report/components/ReleaseGroupUrlList.js:32
 #: ../root/search/components/ReleaseGroupResults.js:74
@@ -3292,8 +3292,8 @@ msgid ""
 "This medium format is set to “Digital Media”, but the packaging type for "
 "this release is not “None”."
 msgstr ""
-"Формат носителя установлен на \"Цифровой носитель\", но тип упаковки для "
-"этого релиза не \"Отсутствует\"."
+"Форматом носителя выбран \"Цифровой носитель\", но тип упаковки для этого "
+"релиза не \"Отсутствует\"."
 
 #: ../root/release/edit/tracklist.tt:334
 msgid ""
@@ -3528,8 +3528,8 @@ msgstr "турецкий"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/edit/externalLinks.js:1334
-#: ../root/static/scripts/edit/externalLinks.js:1649
+#: ../root/static/scripts/edit/externalLinks.js:1336
+#: ../root/static/scripts/edit/externalLinks.js:1651
 #: ../root/static/scripts/event/components/EventEditForm.js:246
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -4533,20 +4533,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:418
+#: ../root/static/scripts/common/constants.js:420
 msgid "Low"
 msgstr "Низкое"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:419
-#: ../root/static/scripts/common/constants.js:420
+#: ../root/static/scripts/common/constants.js:421
+#: ../root/static/scripts/common/constants.js:422
 msgid "Normal"
 msgstr "Нормальное"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:421
+#: ../root/static/scripts/common/constants.js:423
 msgid "High"
 msgstr "Высокое"
 
@@ -4824,7 +4824,7 @@ msgid ""
 "this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:762
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:764
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
@@ -4832,7 +4832,7 @@ msgstr ""
 "Правки могут оставлять только зарегистрированные пользователи. Пожалуйста, "
 "сначала {url|выполните вход} и попробуйте внести правки еще раз."
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:799
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:801
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
@@ -5208,7 +5208,7 @@ msgstr "Правка событий релиза (исторический)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:51
 msgctxt "edit type"
 msgid "Edit recording"
 msgstr "Правка записи"
@@ -5635,7 +5635,7 @@ msgctxt "edit type"
 msgid "Remove release group alias"
 msgstr "Удаление псевдонима группы релизов"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:50
 msgctxt "edit type"
 msgid "Edit release group"
 msgstr "Правка группы релизов"
@@ -6297,7 +6297,7 @@ msgid "This is not a valid time."
 msgstr "Некорректное время."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
-#: ../root/static/scripts/edit/externalLinks.js:836
+#: ../root/static/scripts/edit/externalLinks.js:838
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr "Пожалуйста, введите допустимый URL, например, \"{example_url}\"."
@@ -6451,22 +6451,22 @@ msgid "A fluency level is required."
 msgstr "Выберите уровень владения языком."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:429
+#: ../root/static/scripts/common/constants.js:431
 msgid "Basic"
 msgstr "Начальный"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:430
+#: ../root/static/scripts/common/constants.js:432
 msgid "Intermediate"
 msgstr "Средний"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:428
+#: ../root/static/scripts/common/constants.js:430
 msgid "Advanced"
 msgstr "Продвинутый"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:431
+#: ../root/static/scripts/common/constants.js:433
 msgid "Native"
 msgstr "Родной"
 
@@ -8625,7 +8625,7 @@ msgstr "Теги"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:862
 msgid "Reviews"
 msgstr "Рецензии"
 
@@ -12585,6 +12585,7 @@ msgid "Release artist"
 msgstr "Исполнитель релиза"
 
 #: ../root/recording/RecordingIndex.js:49
+#: ../root/report/ReleasesSameBarcode.js:55
 msgid "Release group type"
 msgstr "Тип группы релиза"
 
@@ -12716,7 +12717,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/edit/externalLinks.js:902
+#: ../root/static/scripts/edit/externalLinks.js:904
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Этот тип отношения устарел и не должен использоваться."
@@ -14275,7 +14276,7 @@ msgstr ""
 msgid "Releases missing disc IDs"
 msgstr ""
 
-#: ../root/report/ReleasesSameBarcode.js:53
+#: ../root/report/ReleasesSameBarcode.js:62
 msgid ""
 "This report shows non-bootleg releases which have the same barcode, yet are "
 "placed in different release groups. Chances are that the releases are "
@@ -14283,7 +14284,7 @@ msgid ""
 "merged."
 msgstr ""
 
-#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:487
+#: ../root/report/ReleasesSameBarcode.js:70 ../root/report/ReportsIndex.js:487
 msgid "Releases with the same barcode in different release groups"
 msgstr ""
 
@@ -16207,10 +16208,10 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:704
 #: ../root/static/scripts/edit/URLCleanup.js:970
-#: ../root/static/scripts/edit/URLCleanup.js:2349
-#: ../root/static/scripts/edit/URLCleanup.js:4575
-#: ../root/static/scripts/edit/URLCleanup.js:5765
-#: ../root/static/scripts/edit/URLCleanup.js:6425
+#: ../root/static/scripts/edit/URLCleanup.js:2384
+#: ../root/static/scripts/edit/URLCleanup.js:4660
+#: ../root/static/scripts/edit/URLCleanup.js:5850
+#: ../root/static/scripts/edit/URLCleanup.js:6510
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -16233,7 +16234,7 @@ msgstr ""
 "Apple Books. Ссылки на текстовые книги лучше стоит добавить на "
 "{bookbrainz_url|BookBrainz}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1262
+#: ../root/static/scripts/edit/URLCleanup.js:1297
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
@@ -16241,7 +16242,7 @@ msgstr ""
 "Пожалуйста, не добавляйте ссылки типа \"{blocked_url_pattern}\". Лучше "
 "добавьте подходящую ссылку формата \"{wanted_url_pattern}\"."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1282
+#: ../root/static/scripts/edit/URLCleanup.js:1317
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
@@ -16249,14 +16250,14 @@ msgstr ""
 "Пожалуйста, добавьте ссылку на основную страницу исполнителя, а не "
 "конкретного альбома или трека."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1302
+#: ../root/static/scripts/edit/URLCleanup.js:1337
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 "Пожалуйста, добавьте ссылку на основную страницу лейбла, а не конкретного "
 "альбома или трека."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1324
+#: ../root/static/scripts/edit/URLCleanup.js:1359
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -16270,7 +16271,7 @@ msgstr ""
 "(\"{single_url_pattern}\"), а эту страницу профиля - к подходящему "
 "исполнителю или лейблу."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1352
+#: ../root/static/scripts/edit/URLCleanup.js:1387
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -16284,37 +16285,37 @@ msgstr ""
 "(\"{album_url_pattern}\" или \"{single_url_pattern}\"), а эту страницу "
 "профиля - к подходящему исполнителю или лейблу."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1698
+#: ../root/static/scripts/edit/URLCleanup.js:1733
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 "Пожалуйста, разместите ссылку на главную страницу исполнителя, а не на "
 "конкретный продукт."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1700
+#: ../root/static/scripts/edit/URLCleanup.js:1735
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 "Пожалуйста, разместите ссылку на главную страницу лейбла, а не на конкретный "
 "продукт."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2509
+#: ../root/static/scripts/edit/URLCleanup.js:2544
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3260
+#: ../root/static/scripts/edit/URLCleanup.js:3295
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3278
+#: ../root/static/scripts/edit/URLCleanup.js:3313
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3322
+#: ../root/static/scripts/edit/URLCleanup.js:3357
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -16322,62 +16323,81 @@ msgstr ""
 "Ссылки на Instagram (\"{explore_url_pattern}\") не разрешены. Добавьте "
 "ссылку на конкретный профиль, если такая имеется."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3350
+#: ../root/static/scripts/edit/URLCleanup.js:3385
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3375
+#: ../root/static/scripts/edit/URLCleanup.js:3410
 msgid "This is an internal Instagram page and should not be added."
 msgstr "Не стоит добавлять внутренние страницы Instagram."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4471
+#: ../root/static/scripts/edit/URLCleanup.js:4399
+msgid ""
+"Only MixesDB “{category_url_pattern}” links are allowed for artists and "
+"series. Please link mix pages to the specific release group in question."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:4417
+#, fuzzy
+#| msgid ""
+#| "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
+#| "profile instead, if there is one."
+msgid ""
+"MixesDB “{category_url_pattern}” links are only allowed for artists and "
+"series. Please link the specific mix page to this release group instead, if "
+"available."
+msgstr ""
+"Ссылки на Instagram (\"{explore_url_pattern}\") не разрешены. Добавьте "
+"ссылку на конкретный профиль, если такая имеется."
+
+#: ../root/static/scripts/edit/URLCleanup.js:4556
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5215
+#: ../root/static/scripts/edit/URLCleanup.js:5300
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5283
+#: ../root/static/scripts/edit/URLCleanup.js:5368
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6029
+#: ../root/static/scripts/edit/URLCleanup.js:6114
 msgid "Please link to Threads profiles, not threads."
 msgstr "Добавьте ссылки на профили в Threads, а не отдельные ветки."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6157
+#: ../root/static/scripts/edit/URLCleanup.js:6242
 msgid "Please link to TikTok profiles, not videos."
 msgstr "Добавьте ссылки на профили в TikTok, а не отдельные видео."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6445
+#: ../root/static/scripts/edit/URLCleanup.js:6530
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "Это страница документации Твиттера, а не профиля."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6459
+#: ../root/static/scripts/edit/URLCleanup.js:6544
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "Добавьте ссылки на профили в Твиттере, а не отдельные твиты."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6475
+#: ../root/static/scripts/edit/URLCleanup.js:6560
 msgid "This site does not allow direct links to their images."
 msgstr "На этом сайте запрещены прямые ссылки к изображениям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6777
+#: ../root/static/scripts/edit/URLCleanup.js:6862
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6955
+#: ../root/static/scripts/edit/URLCleanup.js:7040
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -16386,30 +16406,30 @@ msgstr ""
 "В ссылке есть незакодированный символ \"?\" или \"#\". Проверьте, стоит ли "
 "его убрать, или это ошибка и ссылка неправильно закодирована."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6975
+#: ../root/static/scripts/edit/URLCleanup.js:7060
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6996
+#: ../root/static/scripts/edit/URLCleanup.js:7081
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 "Пожалуйста, добавляйте ссылки на страницы WhoSampled типа "
 "\"{album_url_pattern}\" к группам релизов."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7014
+#: ../root/static/scripts/edit/URLCleanup.js:7099
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 "Пожалуйста, добавляйте ссылки на страницы исполнителей на WhoSampled к "
 "исполнителям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7026
+#: ../root/static/scripts/edit/URLCleanup.js:7111
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 "Пожалуйста, добавляйте ссылки на страницы треков на WhoSampled к записям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7089
+#: ../root/static/scripts/edit/URLCleanup.js:7174
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -16417,7 +16437,7 @@ msgstr ""
 "Ссылки на отдельные разделы статей Википедии запрещены. Уберите \"{fragment}"
 "\" из ссылки и ознакомьтесь с {url|руководством}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7114
+#: ../root/static/scripts/edit/URLCleanup.js:7199
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
@@ -16425,7 +16445,7 @@ msgstr ""
 "Ссылки на страницы пользователей Википедии не разрешены. Добавляйте ссылки "
 "только на конкретные статьи."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7275
+#: ../root/static/scripts/edit/URLCleanup.js:7360
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -16435,11 +16455,11 @@ msgstr ""
 "что он официально одобрен. Вместо этого, пожалуйста, дайте ссылку на "
 "официальный канал этой организации, если он существует."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7315
+#: ../root/static/scripts/edit/URLCleanup.js:7400
 msgid "Only video and playlist links are allowed on releases."
 msgstr "В релизах разрешены ссылки только на видео или плейлисты."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7361
+#: ../root/static/scripts/edit/URLCleanup.js:7446
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
@@ -16447,7 +16467,7 @@ msgstr ""
 "Это ссылка релиза (плейлиста), а не канала исполнителя. Пожалуйста, добавьте "
 "ссылку на канал исполнителя."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7397
+#: ../root/static/scripts/edit/URLCleanup.js:7482
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
@@ -16455,7 +16475,7 @@ msgstr ""
 "Пожалуйста, добавьте ссылку на конкретный релиз (плейлист). Ссылки на треки "
 "(видео) стоит добавлять к связанным записям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7407
+#: ../root/static/scripts/edit/URLCleanup.js:7492
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
@@ -16463,7 +16483,7 @@ msgstr ""
 "Пожалуйста, добавьте ссылку на конкретный релиз (плейлист). Ссылки на каналы "
 "стоит добавлять к связанным исполнителям."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7417
+#: ../root/static/scripts/edit/URLCleanup.js:7502
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
@@ -16472,7 +16492,7 @@ msgstr ""
 "{redirect_url|ссылке} и добавьте ссылку на релиз (плейлист), на который она "
 "перенаправляет."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7587
+#: ../root/static/scripts/edit/URLCleanup.js:7672
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
@@ -16482,14 +16502,14 @@ msgstr ""
 "ссылок на Википедию к релизу в настоящее время заблокировано. Вместо этого "
 "добавьте эту ссылку из Википедии к группе релизов, если это уместно."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7599
+#: ../root/static/scripts/edit/URLCleanup.js:7684
 msgid ""
 "Last.fm release pages are very often generated from MusicBrainz data to "
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7610
+#: ../root/static/scripts/edit/URLCleanup.js:7695
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -16499,17 +16519,17 @@ msgstr ""
 "ссылок на Викиданные к релизу в настоящее время заблокировано. Вместо этого "
 "добавьте эту ссылку из Викиданных к группе релизов, если это уместно."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7818
+#: ../root/static/scripts/edit/URLCleanup.js:7903
 msgid "Some relationship types are missing for this URL."
 msgstr "Для этого URL отсутствуют некоторые типы отношений."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7835
-#: ../root/static/scripts/edit/externalLinks.js:1149
+#: ../root/static/scripts/edit/URLCleanup.js:7920
+#: ../root/static/scripts/edit/externalLinks.js:1151
 msgid "This relationship type combination is invalid."
 msgstr "Эта комбинация типов отношений недействительна."
 
 #: ../root/static/scripts/edit/check-duplicates.js:155
-#: ../root/static/scripts/edit/externalLinks.js:831
+#: ../root/static/scripts/edit/externalLinks.js:833
 #: ../root/static/scripts/event/components/EventEditForm.js:103
 #: ../root/static/scripts/release/components/EditWorkDialog.js:161
 msgid "Required field."
@@ -16823,7 +16843,7 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Все ваши изменения будут потеряны, если вы покинете эту страницу."
 
-#: ../root/static/scripts/edit/externalLinks.js:843
+#: ../root/static/scripts/edit/externalLinks.js:845
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
@@ -16831,7 +16851,7 @@ msgstr ""
 "\"{example_url}» является всего лишь примером. Введите фактическую ссылку, "
 "которую хотите добавить."
 
-#: ../root/static/scripts/edit/externalLinks.js:851
+#: ../root/static/scripts/edit/externalLinks.js:853
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
@@ -16839,7 +16859,7 @@ msgstr ""
 "Ссылаться на URL-адреса MusicBrainz запрещено. Может, вы хотели вставить что-"
 "то другое?"
 
-#: ../root/static/scripts/edit/externalLinks.js:858
+#: ../root/static/scripts/edit/externalLinks.js:860
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
@@ -16847,12 +16867,12 @@ msgstr ""
 "Пожалуйста, не вводите ссылки на CritiqueBrainz - рецензии автоматически "
 "размещаются на вкладке \"{reviews_tab_name}\"."
 
-#: ../root/static/scripts/edit/externalLinks.js:866
+#: ../root/static/scripts/edit/externalLinks.js:868
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "Ссылки на данный сайт запрещены из-за распространения на нем вирусов."
 
-#: ../root/static/scripts/edit/externalLinks.js:872
+#: ../root/static/scripts/edit/externalLinks.js:874
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
@@ -16860,7 +16880,7 @@ msgstr ""
 "Пожалуйста, не вводите сокращенные URL-адреса, вместо этого введите URL-"
 "адрес(а) назначения."
 
-#: ../root/static/scripts/edit/externalLinks.js:878
+#: ../root/static/scripts/edit/externalLinks.js:880
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
@@ -16868,7 +16888,7 @@ msgstr ""
 "Пожалуйста, не вводите ссылки Google AMP, так как они фактически являются "
 "дополнительным редиректом. Вместо этого введите URL-адрес назначения."
 
-#: ../root/static/scripts/edit/externalLinks.js:885
+#: ../root/static/scripts/edit/externalLinks.js:887
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
@@ -16876,17 +16896,17 @@ msgstr ""
 "Пожалуйста, не добавляйте ссылки на результаты поисковой выдачи. Если в ходе "
 "поиска вы нашли ссылки, которые кажутся вам полезными, укажите их."
 
-#: ../root/static/scripts/edit/externalLinks.js:892
+#: ../root/static/scripts/edit/externalLinks.js:894
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Пожалуйста, выберите тип ссылки для введенного URL."
 
-#: ../root/static/scripts/edit/externalLinks.js:912
+#: ../root/static/scripts/edit/externalLinks.js:914
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:987
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr "Это отношение уже существует."
 
-#: ../root/static/scripts/edit/externalLinks.js:924
+#: ../root/static/scripts/edit/externalLinks.js:926
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
@@ -16895,92 +16915,92 @@ msgstr ""
 "Данный URL не разрешен для выбранного типа ссылок или указан в неверном "
 "формате."
 
-#: ../root/static/scripts/edit/externalLinks.js:929
+#: ../root/static/scripts/edit/externalLinks.js:931
 msgid "This URL is not allowed for the selected link type."
 msgstr "Данный URL не разрешен для выбранного типа ссылок."
 
-#: ../root/static/scripts/edit/externalLinks.js:935
+#: ../root/static/scripts/edit/externalLinks.js:937
 msgid "This URL is not allowed for areas."
 msgstr "Данный тип ссылок не разрешен для областей."
 
-#: ../root/static/scripts/edit/externalLinks.js:937
+#: ../root/static/scripts/edit/externalLinks.js:939
 msgid "This URL is not allowed for artists."
 msgstr "Данный тип ссылок не разрешен для исполнителей."
 
-#: ../root/static/scripts/edit/externalLinks.js:939
+#: ../root/static/scripts/edit/externalLinks.js:941
 msgid "This URL is not allowed for events."
 msgstr "Данный тип ссылок не разрешен для событий."
 
-#: ../root/static/scripts/edit/externalLinks.js:941
+#: ../root/static/scripts/edit/externalLinks.js:943
 #, fuzzy
 #| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
 msgstr "Данный тип ссылок не разрешен для использования в сериях."
 
-#: ../root/static/scripts/edit/externalLinks.js:943
+#: ../root/static/scripts/edit/externalLinks.js:945
 msgid "This URL is not allowed for instruments."
 msgstr "Данный тип ссылок не разрешен для инструментов."
 
-#: ../root/static/scripts/edit/externalLinks.js:945
+#: ../root/static/scripts/edit/externalLinks.js:947
 msgid "This URL is not allowed for labels."
 msgstr "Данный тип ссылок не разрешен для лейблов."
 
-#: ../root/static/scripts/edit/externalLinks.js:947
+#: ../root/static/scripts/edit/externalLinks.js:949
 msgid "This URL is not allowed for places."
 msgstr "Данный тип ссылок не разрешен для мест."
 
-#: ../root/static/scripts/edit/externalLinks.js:949
+#: ../root/static/scripts/edit/externalLinks.js:951
 msgid "This URL is not allowed for recordings."
 msgstr "Данный тип ссылок не разрешен для использования в записях."
 
-#: ../root/static/scripts/edit/externalLinks.js:951
+#: ../root/static/scripts/edit/externalLinks.js:953
 msgid "This URL is not allowed for releases."
 msgstr "Данный тип ссылок не разрешен для использования в релизах."
 
-#: ../root/static/scripts/edit/externalLinks.js:953
+#: ../root/static/scripts/edit/externalLinks.js:955
 msgid "This URL is not allowed for release groups."
 msgstr "Данный тип ссылок не разрешен для использования в группах релизов."
 
-#: ../root/static/scripts/edit/externalLinks.js:955
+#: ../root/static/scripts/edit/externalLinks.js:957
 msgid "This URL is not allowed for series."
 msgstr "Данный тип ссылок не разрешен для использования в сериях."
 
-#: ../root/static/scripts/edit/externalLinks.js:957
+#: ../root/static/scripts/edit/externalLinks.js:959
 msgid "This URL is not allowed for works."
 msgstr "Данный тип ссылок не разрешен для использования в работах."
 
-#: ../root/static/scripts/edit/externalLinks.js:1261
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:312
+#: ../root/static/scripts/edit/externalLinks.js:1263
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|подробнее в документации})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1321
+#: ../root/static/scripts/edit/externalLinks.js:1323
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Удалить отношение"
 
-#: ../root/static/scripts/edit/externalLinks.js:1396
+#: ../root/static/scripts/edit/externalLinks.js:1398
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1420
+#: ../root/static/scripts/edit/externalLinks.js:1422
 msgid "video"
 msgstr "видео"
 
-#: ../root/static/scripts/edit/externalLinks.js:1529
+#: ../root/static/scripts/edit/externalLinks.js:1531
 msgid "Remove link"
 msgstr "Удалить ссылку"
 
-#: ../root/static/scripts/edit/externalLinks.js:1559
+#: ../root/static/scripts/edit/externalLinks.js:1561
 msgid "Add link"
 msgstr "Добавить ссылку"
 
-#: ../root/static/scripts/edit/externalLinks.js:1562
+#: ../root/static/scripts/edit/externalLinks.js:1564
 msgid "Add another link"
 msgstr "Добавить еще ссылку"
 
-#: ../root/static/scripts/edit/externalLinks.js:1675
+#: ../root/static/scripts/edit/externalLinks.js:1677
 msgid "Add another relationship"
 msgstr "Добавить еще отношение"
 
@@ -17183,7 +17203,7 @@ msgstr "Данный тип отношений не разрешен с теку
 msgid "Type or click to search"
 msgstr "Начните печатать запрос или нажмите для поиска"
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:299
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:298
 msgid "Please select a relationship type. ({url|more documentation})"
 msgstr "Пожалуйста, выберите тип отношения. ({url|подробнее в документации})"
 
