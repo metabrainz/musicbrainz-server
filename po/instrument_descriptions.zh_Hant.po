@@ -967,6 +967,13 @@ msgstr ""
 "洪亮的金屬共鳴器上)。木質的類似樂器為<a href=\"/instrument/"
 "db95a035-6a3d-44b4-8694-74ff71b61768\">木琴</a>。"
 
+#. name:tabla
+#: DB:instrument/description:185
+msgid ""
+"Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
+"and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
+msgstr ""
+
 #. name:gambang
 #: DB:instrument/description:977
 msgid ""
@@ -1419,6 +1426,13 @@ msgid ""
 msgstr ""
 "超大型雙頭水牛皮桶鼓。懸掛在架子上使用小錘擊打，用於爪哇中部甘美蘭以及清真寺"
 "的宗教提醒用途。"
+
+#. name:ruan
+#: DB:instrument/description:545
+#, fuzzy
+#| msgid "Ruan is a family of Chinese plucked lutes."
+msgid "Family of Chinese plucked lutes."
+msgstr "阮是一族中國彈撥魯特琴。"
 
 #. name:hmông flute
 #: DB:instrument/description:312
@@ -2468,13 +2482,6 @@ msgstr ""
 "自16世紀以來已知，具有3個風箱；一個在獨立的風箱管中，兩個在吹管中（有三個通"
 "道），沒有鈴，靠嘴吹氣。"
 
-#. name:krakebs
-#: DB:instrument/description:652
-msgid ""
-"Krakebs are large metal castanet-like instruments which are the primary "
-"rhythmic component of Gnawa music."
-msgstr "克拉凱布是巨大的金屬質響板狀樂器，是格納瓦音樂的主要節奏組成部分。"
-
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid ""
@@ -2908,6 +2915,11 @@ msgstr "木琴族成員，有 5 個八度。"
 #: DB:instrument/description:158
 msgid "Metal bell used in various genres, it is often attached to a drum kit."
 msgstr "用於各種音樂類型的金屬鈴，通常附在鼓組上。"
+
+#. name:bajo sexto
+#: DB:instrument/description:728
+msgid "Mexican 6 course 12 string bass"
+msgstr ""
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -3553,13 +3565,6 @@ msgid ""
 "one thumb hole."
 msgstr "波斯/土耳其/阿拉伯的端吹式長笛，具有五或六個指孔和一個拇指孔。"
 
-#. name:phách
-#: DB:instrument/description:302
-msgid ""
-"Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
-"block. The sound produced is used to keep time."
-msgstr "越南梆子由小木棍和用於擊打的小竹片或木塊組成。發出的聲音用來把握時間。"
-
 #. name:boobam
 #: DB:instrument/description:874
 msgid ""
@@ -3830,11 +3835,6 @@ msgstr ""
 #: DB:instrument/description:802
 msgid "Round-backed lute ancestral to the guitar."
 msgstr "圓背魯特琴，吉他的祖先。"
-
-#. name:ruan
-#: DB:instrument/description:545
-msgid "Ruan is a family of Chinese plucked lutes."
-msgstr "阮是一族中國彈撥魯特琴。"
 
 #. name:junjung
 #: DB:instrument/description:892
@@ -4194,8 +4194,9 @@ msgstr ""
 #: DB:instrument/description:637
 msgid ""
 "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
-"pitch."
-msgstr "懸掛在一根棒上的實心金屬(通常是鋁)棒，按一個非和諧的響度安放。"
+"pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
+"href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
+msgstr ""
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4291,6 +4292,13 @@ msgid ""
 "Tap dancing is a type of dance in which the dancer wears special shoes that "
 "make a clicking sound as the dancer's feet strike the floor."
 msgstr "踢踏舞是一種舞蹈，舞者們使用特殊的舞鞋在腳打擊地面時發出聲音。"
+
+#. name:zhongruan
+#: DB:instrument/description:241
+#, fuzzy
+#| msgid "Bass member of Chinese ruan family of lutes."
+msgid "Tenor member of the Chinese ruan family of lutes."
+msgstr "中國阮族的低音種類。"
 
 #. name:primero
 #: DB:instrument/description:758
@@ -4448,13 +4456,6 @@ msgid ""
 "a bag of air."
 msgstr "風笛是一種由一系列封閉簧和一個供氣氣囊組成的樂器。"
 
-#. name:bajo sexto
-#: DB:instrument/description:728
-msgid ""
-"The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
-"courses."
-msgstr "第六貝司是一種墨西哥弦樂器，有12根弦，分為6股。"
-
 #. name:banhu
 #: DB:instrument/description:221
 msgid ""
@@ -4511,12 +4512,6 @@ msgid ""
 "size of a regular oboe."
 msgstr "低音雙簧管是一種雙簧木管樂器，有普通雙簧管的兩倍大。"
 
-#. name:bass trumpet
-#: DB:instrument/description:727
-msgid ""
-"The bass trumpet is a type of low trumpet similar to the valve trombone."
-msgstr "低音小號是音高較低的一種小號，類似於按鍵式長號。"
-
 #. name:bawu
 #: DB:instrument/description:483
 msgid ""
@@ -4561,24 +4556,6 @@ msgid ""
 msgstr ""
 "朝鮮鼓是朝鮮半島上的鼓。儘管buk是朝鮮語/韓語中鼓的通稱，通常稱為朝鮮鼓的是木"
 "製鼓身的扁平桶鼓。"
-
-#. name:buzuq
-#: DB:instrument/description:655
-msgid ""
-"The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
-"Turkish saz which is associated with the music of Lebanon and Syria."
-msgstr ""
-"布祖克琴是一種長頸有品魯特琴，與希臘的布祖基琴和土耳其的薩孜琴有關，和黎巴嫩"
-"和敘利亞的音樂有關聯。"
-
-#. name:caxixi
-#: DB:instrument/description:489
-msgid ""
-"The caxixi is a shaker originating in Brazil which is made of a small wicker "
-"basket containing seeds or other small particles."
-msgstr ""
-"編織搖鈴是一種源自巴西的搖晃樂器，由小柳條籃和內部所含的種子或其他顆粒物構"
-"成。"
 
 #. name:chakhe
 #: DB:instrument/description:627
@@ -4823,13 +4800,6 @@ msgid ""
 "which typically has 6 strings."
 msgstr "玄琴是從中國的古琴發展而來的朝鮮民族樂器，典型上有6根弦。"
 
-#. name:guan
-#: DB:instrument/description:683
-msgid ""
-"The guan is a Chinese double reed wind instrument made from hardwood or "
-"bamboo."
-msgstr "管子是一種中國雙簧樂器，有硬木或竹子製成。"
-
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
@@ -4881,13 +4851,6 @@ msgid ""
 "The harp is a plucked string instrument consisting of multiple strings "
 "stretched across a vertical frame."
 msgstr "豎琴是一種彈撥樂器，包括張在垂直框架上的多根弦。"
-
-#. name:heike biwa
-#: DB:instrument/description:579
-msgid ""
-"The heike biwa is a biwa with four strings and five frets used to play Heike "
-"Monogatari."
-msgstr "平家琵琶是一種四弦五品日本琵琶，用於表演平家物語。"
 
 #. name:hotchiku
 #: DB:instrument/description:709
@@ -5211,13 +5174,6 @@ msgstr "尼亞提提琴是肯亞一種五至八弦的彈撥樂器。"
 msgid "The nyckelharpa is a traditional Swedish string instrument."
 msgstr "鍵提琴是一種瑞典傳統弦樂器。"
 
-#. name:ocarina
-#: DB:instrument/description:15
-msgid ""
-"The ocarina is a type of vessel flute which has a mouthpiece extending from "
-"the body."
-msgstr "陶笛是一種腔體笛，笛身上延伸初一個吹口。"
-
 #. name:octave mandolin
 #: DB:instrument/description:601
 msgid ""
@@ -5265,13 +5221,6 @@ msgid ""
 "The pkhachich is a traditional shaken percussion instrument of the "
 "Circassian peoples."
 msgstr "普哈奇奇是一種徹爾克斯人傳統搖晃打擊樂器。"
-
-#. name:pocket trumpet
-#: DB:instrument/description:690
-msgid ""
-"The pocket trumpet is a compact size B♭ trumpet, with the same playing range "
-"as the regular trumpet."
-msgstr "袖珍小號是一種小型降B大調小號，與普通小號的演奏範圍一致。"
 
 #. name:pātē
 #: DB:instrument/description:726
@@ -5391,14 +5340,6 @@ msgid ""
 "the Edo period."
 msgstr "薩摩琵琶是四弦四品日本琵琶，流行於江戶時期。"
 
-#. name:saw duang
-#: DB:instrument/description:624
-msgid ""
-"The saw duang is a two-stringed instrument used in traditional Thai music "
-"which has a cylindrical soundbox made of wood and a snakeskin resonator."
-msgstr ""
-"泰國二胡是一種用於泰國傳統音樂中的雙弦樂器，具有木製的共鳴箱和蛇皮共鳴器。"
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -5515,16 +5456,6 @@ msgid ""
 "is played by ethnic groups such as the Bahnar and the Ê Đê."
 msgstr "竹琴是一種泰國中部高地一種竹質木琴，由巴拿族和埃地族等族群演奏。"
 
-#. name:tabla
-#: DB:instrument/description:185
-msgid ""
-"The tabla is a pair of hand drums used in Hindustani classical music and in "
-"the traditional music of India, Pakistan, Afghanistan, Nepal, Bangladesh and "
-"Sri Lanka."
-msgstr ""
-"塔布拉鼓是一種手拍式鼓，用於印度斯坦古典音樂以及印度，巴基斯坦，阿富汗，尼泊"
-"爾，孟加拉國和斯里蘭卡的傳統音樂。"
-
 #. name:tack piano
 #: DB:instrument/description:636
 msgid ""
@@ -5610,13 +5541,6 @@ msgid ""
 "similar but smaller than the European double bass."
 msgstr "托羅羅切琴是墨西哥北部傳統樂器，類似於歐洲的倍大提琴，但是較小。"
 
-#. name:tonkori
-#: DB:instrument/description:575
-msgid ""
-"The tonkori is a plucked string instrument played by the Ainu of northern "
-"Japan and Sakhalin."
-msgstr "彤谷麗琴是一種彈撥樂器，由日本北部和庫頁島的阿伊努人演奏。"
-
 #. name:topshuur
 #: DB:instrument/description:708
 msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
@@ -5633,13 +5557,6 @@ msgid ""
 "The trống bông is a wooden Vietnamese drum with a single drumhead which is "
 "played with both hands."
 msgstr "越南花鼓是一種越南鼓，有一個鼓面，雙手演奏。"
-
-#. name:tubax
-#: DB:instrument/description:694
-msgid ""
-"The tubax is a modified saxophone which is more compact due to the tubing "
-"being folded more times."
-msgstr "土巴克斯是一種薩克斯變體，由於管彎曲更多，因此更緊湊。"
 
 #. name:ukeke
 #: DB:instrument/description:631
@@ -5674,13 +5591,6 @@ msgid ""
 msgstr ""
 "超小提琴是巴洛克時期的弦樂器。多數案例大小與兒童小提琴相近，調音高三度或四"
 "度。"
-
-#. name:virginal
-#: DB:instrument/description:509
-msgid ""
-"The virginal is a smaller and simpler rectangular form of the harpsichord "
-"with only one string per note."
-msgstr "維吉那琴是大鍵琴的小型簡易長方形版本，每個音只有一根弦。"
 
 #. name:xiaoluo
 #: DB:instrument/description:550
@@ -5726,34 +5636,12 @@ msgstr "巴西軍鼓是一種巴西低音鼓。"
 msgid "The zarb is a goblet drum from Persia."
 msgstr "通巴克鼓是波斯的杯形鼓。"
 
-#. name:zhaleika
-#: DB:instrument/description:692
-msgid "The zhaleika is a single reed hornpipe from Russia."
-msgstr "角笛是一種俄羅斯單簧號笛。"
-
 #. name:zhonghu
 #: DB:instrument/description:217
 msgid ""
 "The zhonghu is a Chinese bowed string instrument developed from the erhu and "
 "tuned a fourth or a fifth lower."
 msgstr "中胡是一種中國拉弦樂器，由二胡發展而來，調音低四度或五度。"
-
-#. name:zhongruan
-#: DB:instrument/description:241
-msgid ""
-"The zhongruan is a Chinese plucked lute, the tenor-ranged size in the ruan "
-"family."
-msgstr "中阮是一種中國彈撥魯特琴，阮族的中音成員。"
-
-#. name:đing năm
-#: DB:instrument/description:319
-msgid ""
-"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
-"Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
-"the central highlands of Vietnam."
-msgstr ""
-"越南蘆笙是越南中部高地少數民族使用的一種<a href=\"https://en.wikipedia.org/"
-"wiki/Gourd_mouth_organ\">葫蘆笙</a>。"
 
 #. name:đàn nguyệt
 #: DB:instrument/description:242
@@ -6216,6 +6104,13 @@ msgid ""
 msgstr ""
 "用於卡納蒂克傳統音樂，得名自古代即為人所知的文藝女神娑羅室伐底/辯才天。具有葫"
 "蘆共鳴腔的魯特琴，附有24個固定品，7根鋼絲弦(4根主弦和3根持續音弦)。"
+
+#. name:krakeb
+#: DB:instrument/description:652
+msgid ""
+"Used in Gnawa music, it consists of two large iron shapes with round bowls "
+"tied together."
+msgstr ""
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -6813,6 +6708,110 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "Krakebs are large metal castanet-like instruments which are the primary "
+#~ "rhythmic component of Gnawa music."
+#~ msgstr "克拉凱布是巨大的金屬質響板狀樂器，是格納瓦音樂的主要節奏組成部分。"
+
+#~ msgid ""
+#~ "Phách are small wooden sticks beaten on a small piece of bamboo or a "
+#~ "wooden block. The sound produced is used to keep time."
+#~ msgstr ""
+#~ "越南梆子由小木棍和用於擊打的小竹片或木塊組成。發出的聲音用來把握時間。"
+
+#~ msgid ""
+#~ "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
+#~ "pitch."
+#~ msgstr "懸掛在一根棒上的實心金屬(通常是鋁)棒，按一個非和諧的響度安放。"
+
+#~ msgid ""
+#~ "The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
+#~ "courses."
+#~ msgstr "第六貝司是一種墨西哥弦樂器，有12根弦，分為6股。"
+
+#~ msgid ""
+#~ "The bass trumpet is a type of low trumpet similar to the valve trombone."
+#~ msgstr "低音小號是音高較低的一種小號，類似於按鍵式長號。"
+
+#~ msgid ""
+#~ "The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
+#~ "Turkish saz which is associated with the music of Lebanon and Syria."
+#~ msgstr ""
+#~ "布祖克琴是一種長頸有品魯特琴，與希臘的布祖基琴和土耳其的薩孜琴有關，和黎巴"
+#~ "嫩和敘利亞的音樂有關聯。"
+
+#~ msgid ""
+#~ "The caxixi is a shaker originating in Brazil which is made of a small "
+#~ "wicker basket containing seeds or other small particles."
+#~ msgstr ""
+#~ "編織搖鈴是一種源自巴西的搖晃樂器，由小柳條籃和內部所含的種子或其他顆粒物構"
+#~ "成。"
+
+#~ msgid ""
+#~ "The guan is a Chinese double reed wind instrument made from hardwood or "
+#~ "bamboo."
+#~ msgstr "管子是一種中國雙簧樂器，有硬木或竹子製成。"
+
+#~ msgid ""
+#~ "The heike biwa is a biwa with four strings and five frets used to play "
+#~ "Heike Monogatari."
+#~ msgstr "平家琵琶是一種四弦五品日本琵琶，用於表演平家物語。"
+
+#~ msgid ""
+#~ "The ocarina is a type of vessel flute which has a mouthpiece extending "
+#~ "from the body."
+#~ msgstr "陶笛是一種腔體笛，笛身上延伸初一個吹口。"
+
+#~ msgid ""
+#~ "The pocket trumpet is a compact size B♭ trumpet, with the same playing "
+#~ "range as the regular trumpet."
+#~ msgstr "袖珍小號是一種小型降B大調小號，與普通小號的演奏範圍一致。"
+
+#~ msgid ""
+#~ "The saw duang is a two-stringed instrument used in traditional Thai music "
+#~ "which has a cylindrical soundbox made of wood and a snakeskin resonator."
+#~ msgstr ""
+#~ "泰國二胡是一種用於泰國傳統音樂中的雙弦樂器，具有木製的共鳴箱和蛇皮共鳴器。"
+
+#~ msgid ""
+#~ "The tabla is a pair of hand drums used in Hindustani classical music and "
+#~ "in the traditional music of India, Pakistan, Afghanistan, Nepal, "
+#~ "Bangladesh and Sri Lanka."
+#~ msgstr ""
+#~ "塔布拉鼓是一種手拍式鼓，用於印度斯坦古典音樂以及印度，巴基斯坦，阿富汗，尼"
+#~ "泊爾，孟加拉國和斯里蘭卡的傳統音樂。"
+
+#~ msgid ""
+#~ "The tonkori is a plucked string instrument played by the Ainu of northern "
+#~ "Japan and Sakhalin."
+#~ msgstr "彤谷麗琴是一種彈撥樂器，由日本北部和庫頁島的阿伊努人演奏。"
+
+#~ msgid ""
+#~ "The tubax is a modified saxophone which is more compact due to the tubing "
+#~ "being folded more times."
+#~ msgstr "土巴克斯是一種薩克斯變體，由於管彎曲更多，因此更緊湊。"
+
+#~ msgid ""
+#~ "The virginal is a smaller and simpler rectangular form of the harpsichord "
+#~ "with only one string per note."
+#~ msgstr "維吉那琴是大鍵琴的小型簡易長方形版本，每個音只有一根弦。"
+
+#~ msgid "The zhaleika is a single reed hornpipe from Russia."
+#~ msgstr "角笛是一種俄羅斯單簧號笛。"
+
+#~ msgid ""
+#~ "The zhongruan is a Chinese plucked lute, the tenor-ranged size in the "
+#~ "ruan family."
+#~ msgstr "中阮是一種中國彈撥魯特琴，阮族的中音成員。"
+
+#~ msgid ""
+#~ "The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
+#~ "Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups "
+#~ "in the central highlands of Vietnam."
+#~ msgstr ""
+#~ "越南蘆笙是越南中部高地少數民族使用的一種<a href=\"https://"
+#~ "en.wikipedia.org/wiki/Gourd_mouth_organ\">葫蘆笙</a>。"
 
 #~ msgid ""
 #~ "An electric derivation of the sitar, it often features sympathetic "
