@@ -3130,6 +3130,63 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
   },
+  // Hoerspielforscher
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/interpret?detail=1254&detailSub=veroeffentlichung&expanded=1#page-main',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/interpret?detail=1254',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/person?detail=80&detailSub=schauspieler&expanded=1&discography_sort=1#page-main',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/person?detail=80',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/person?detail=4796',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/person?detail=4796',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/label?detail=4&expanded=1&label_filter_medium=2&label_filter_catalog=193',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/label?detail=4',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/album?detail=27086#page-main',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/album?detail=27086',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/hoerspiel?detail=2820&detailSub=musik',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/hoerspiel?detail=2820',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/musik?detail=419&release_sort=2&multiple_rel=1#page-main',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/musik?detail=419',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/serie?detail=37&detailSub=veroeffentlichung&release_sort=2#page-main',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/serie?detail=37',
+       only_valid_entity_types: ['series'],
+  },
   // Hoick Music Search
   {
                      input_url: 'http://hoick.jp/mdb/author/%E4%BD%90%E7%80%AC%E5%AF%BF%E4%B8%80',

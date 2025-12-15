@@ -89,6 +89,7 @@ my %URL_SPECIALIZATIONS = (
     'Goodreads'           => qr{^https?://(?:www\.)?goodreads\.com/}i,
     'Gutenberg'           => qr{^https?://(?:www\.)?gutenberg\.org/}i,
     'HMikuWiki'           => qr{^https?://www5\.atwiki\.jp/hmiku/}i,
+    'Hoerspielforscher'   => qr{^https?://hoerspielforscher\.de/}i,
     'Hoick'               => qr{^https?://(?:www\.)?hoick\.jp/}i,
     'IBDb'                => qr{^https?://(?:www\.)?ibdb\.com/}i,
     'IdRef'               => qr{^https?://(?:www\.)?idref\.fr/}i,
