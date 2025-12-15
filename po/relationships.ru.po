@@ -22,7 +22,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-23 15:11+0000\n"
+"PO-Revision-Date: 2025-12-09 23:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -31,9 +31,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
+": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 "X-Generator: Weblate 5.14.3\n"
 
 #. name:artist diploma
@@ -2865,22 +2865,20 @@ msgstr "Указывает исполнителя, который выступа
 
 #. name:choreographer
 #: DB:link_type/description:1299
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the choreographer for this work (often a "
 "ballet)."
-msgstr "Указывает исполнителя, который выступал хореографом этого видео."
+msgstr ""
+"Указывает исполнителя, который выступал хореографом этой работы "
+"(чаще всего, балета)."
 
 #. name:cinematographer
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid "Indicates an artist that performed on this recording."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
-msgstr "Указывает исполнителя, выступавшего на этой записи."
+msgstr ""
+"Указывает исполнителя, выступавшего кинема-/фотографом этой видеозаписи."
 
 #. name:video director
 #: DB:link_type/description:962
@@ -3176,10 +3174,8 @@ msgstr ""
 
 #. name:named after series
 #: DB:link_type/description:1298
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the series that inspired this series’ name."
-msgstr "Указывает на исполнителя, который вдохновил имя этого жанра."
+msgstr "Указывает на серию, которая вдохновила имя этой серии."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -7676,10 +7672,8 @@ msgstr "в составе"
 
 #. name:included works
 #: DB:link_type/name:1300 DB:link_type/link_phrase:1300
-#, fuzzy
-#| msgid "includes"
 msgid "included works"
-msgstr "включает"
+msgstr "включенные работы"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -8694,10 +8688,8 @@ msgstr "названо в честь группы релизов"
 
 #. name:named after series
 #: DB:link_type/name:1298 DB:link_type/link_phrase:1298
-#, fuzzy
-#| msgid "named after artist"
 msgid "named after series"
-msgstr "названо в честь исполнителя"
+msgstr "названо в честь серии"
 
 #. name:named after work
 #: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
@@ -11645,10 +11637,8 @@ msgstr "штаб-квартира {entity1} находится в {entity0}"
 
 #. name:included works
 #: DB:link_type/long_link_phrase:1300
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is included in {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} включено в {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939
