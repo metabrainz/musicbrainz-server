@@ -19,12 +19,12 @@
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # Libra <recreate_squall363@simplelogin.com>, 2024, 2025.
+# karpuzikov <karpuzikovanton@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-09 23:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2025-12-15 15:58+0000\n"
+"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -7673,7 +7673,7 @@ msgstr "в составе"
 #. name:included works
 #: DB:link_type/name:1300 DB:link_type/link_phrase:1300
 msgid "included works"
-msgstr "включенные работы"
+msgstr "включённые работы"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -7683,12 +7683,12 @@ msgstr "включает"
 #. name:influenced by
 #: DB:link_type/name:1097 DB:link_type/link_phrase:1097
 msgid "influenced by"
-msgstr ""
+msgstr "под влиянием"
 
 #. name:influenced by
 #: DB:link_type/reverse_link_phrase:1097
 msgid "influenced genres"
-msgstr ""
+msgstr "жанры, оказавшие влияние"
 
 #. name:information page
 #: DB:link_type/name:734 DB:link_type/description:734
@@ -7735,7 +7735,7 @@ msgstr "вдохновило имя серии"
 #. name:named after artist, name:named after work
 #: DB:link_type/link_phrase:1257 DB:link_type/reverse_link_phrase:1278
 msgid "inspired the name of work"
-msgstr "вдохновило имя работы"
+msgstr "вдохновило название работы"
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
 msgid "instrument"
@@ -11643,156 +11643,150 @@ msgstr "{entity1} включено в {entity0}"
 #. name:license
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
-msgstr ""
+msgstr "лицензировано в соответствии с"
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is named after area {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} назван в честь местности {entity0}"
 
 #. name:named after artist
 #: DB:link_type/long_link_phrase:1258 DB:link_type/long_link_phrase:1260
 #: DB:link_type/long_link_phrase:1257 DB:link_type/long_link_phrase:975
 #: DB:link_type/long_link_phrase:1000
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is named after artist {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} назван в честь артиста {entity0}"
 
 #. name:named after release group
 #: DB:link_type/long_link_phrase:1282
-#, fuzzy
-#| msgid "{entity1} is dedicated to {entity0}"
 msgid "{entity1} is named after release group {entity0}"
-msgstr "{entity1} посвящено {entity0}"
+msgstr "{entity1} назван в честь группы релизов {entity0}"
 
 #. name:anthem
 #: DB:link_type/long_link_phrase:357
 msgid "{entity1} is/was an anthem of {entity0}"
-msgstr "{entity1} был/является гимном {entity0}"
+msgstr "{entity1} является/был гимном {entity0}"
 
 #. name:primary concert venue
 #: DB:link_type/long_link_phrase:714
 msgid "{entity1} is/was the primary concert venue of {entity0}"
-msgstr "{entity1} был/является основным концертным помещением для {entity0}"
+msgstr "{entity1} является/была основной концертной площадкой для {entity0}"
 
 #. name:presented
 #: DB:link_type/long_link_phrase:1168
 msgid "{entity1} presented {entity0}"
-msgstr ""
+msgstr "{entity1} представлено {entity0}"
 
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
-msgstr ""
+msgstr "{entity1} было организовано для {entity0}"
 
 #. name:available at
 #: DB:link_type/long_link_phrase:795
 msgid "{entity1} was available at {entity0}"
-msgstr ""
+msgstr "{entity1} было доступно в {entity0}"
 
 #. name:edited for
 #: DB:link_type/long_link_phrase:1252 DB:link_type/long_link_phrase:1253
 msgid "{entity1} was edited for {entity0}"
-msgstr ""
+msgstr "{entity1} было отредактированно для {entity0}"
 
 #. name:glass mastered at
 #: DB:link_type/long_link_phrase:954
 msgid "{entity1} was glass mastered at {entity0}"
-msgstr ""
+msgstr "{entity1} было изготовлено методом стеклянного мастеринга на {entity0}"
 
 #. name:held at, name:held in
 #: DB:link_type/long_link_phrase:995 DB:link_type/long_link_phrase:1085
 msgid "{entity1} was held at {entity0}"
-msgstr "{entity1} проводилось в {entity0}"
+msgstr "{entity1} проводилось на {entity0}"
 
 #. name:held in
 #: DB:link_type/long_link_phrase:793
 msgid "{entity1} was held in {entity0}"
-msgstr ""
+msgstr "{entity1} проводилось в {entity0}"
 
 #. name:licensee
 #: DB:link_type/long_link_phrase:833
 msgid "{entity1} was licensed to {entity0}"
-msgstr ""
+msgstr "{entity1} было лицензированно {entity0}"
 
 #. name:manufactured at
 #: DB:link_type/long_link_phrase:953
 msgid "{entity1} was manufactured at {entity0}"
-msgstr ""
+msgstr "{entity1} был изготовлен на {entity0}"
 
 #. name:manufactured for
 #: DB:link_type/long_link_phrase:952
 msgid "{entity1} was manufactured for {entity0}"
-msgstr ""
+msgstr "{entity1} был изготовлен для {entity0}"
 
 #. name:manufactured in
 #: DB:link_type/long_link_phrase:835
 msgid "{entity1} was manufactured in {entity0}"
-msgstr ""
+msgstr "{entity1} был изготовлен в {entity0}"
 
 #. name:mastered for
 #: DB:link_type/long_link_phrase:1183
 msgid "{entity1} was mastered for {entity0}"
-msgstr ""
+msgstr "{entity1} был отмастерён для {entity0}"
 
 #. name:mixed for
 #: DB:link_type/long_link_phrase:947 DB:link_type/long_link_phrase:946
 msgid "{entity1} was mixed for {entity0}"
-msgstr ""
+msgstr "{entity1} был миксован для {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:845 DB:link_type/long_link_phrase:716
 msgid "{entity1} was premiered at {entity0}"
-msgstr ""
+msgstr "{entity1} состоялась премьера на {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:956
 msgid "{entity1} was premiered by {entity0}"
-msgstr ""
+msgstr "{entity1} премьера была осуществлена {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:715
 msgid "{entity1} was premiered in {entity0}"
-msgstr ""
+msgstr "{entity1} премьра состоялась в {entity0}"
 
 #. name:pressed at
 #: DB:link_type/long_link_phrase:941
 msgid "{entity1} was pressed at {entity0}"
-msgstr ""
+msgstr "{entity1} был отпечатан на {entity0}"
 
 #. name:previous attribution
 #: DB:link_type/long_link_phrase:834
 msgid "{entity1} was previously attributed to {entity0}"
-msgstr ""
+msgstr "{entity1} ранее приписывался {entity0}"
 
 #. name:printed in
 #: DB:link_type/long_link_phrase:849
 msgid "{entity1} was printed in {entity0}"
-msgstr ""
+msgstr "{entity1} был напечатан в {entity0}"
 
 #. name:remixed for
 #: DB:link_type/long_link_phrase:1178
 msgid "{entity1} was remixed for {entity0}"
-msgstr ""
+msgstr "{entity1} был ремиксован для {entity0}"
 
 #. name:revised at
 #: DB:link_type/long_link_phrase:882 DB:link_type/long_link_phrase:1248
 msgid "{entity1} was revised at {entity0}"
-msgstr ""
+msgstr "{entity1} был пересмотрен на {entity0}"
 
 #. name:revised in
 #: DB:link_type/long_link_phrase:881 DB:link_type/long_link_phrase:1272
 msgid "{entity1} was revised in {entity0}"
-msgstr ""
+msgstr "{entity1} был пересмотрен в {entity0}"
 
 #. name:arranged at
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 #: DB:link_type/long_link_phrase:866
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
-msgstr ""
+msgstr "{entity1} был {additional:additionally} организован на {entity0}"
 
 #. name:arranged in
 #: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
