@@ -28,13 +28,15 @@
 # Michal77 <michal_wilk@poczta.fm>, 2025.
 # PS <weblate@wp.pl>, 2025.
 # Echelon <weblate@wp.pl>, 2025.
+# Echelon <echelon@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 14:04+0100\n"
-"PO-Revision-Date: 2025-11-17 12:21+0000\n"
-"Last-Translator: Echelon <weblate@wp.pl>\n"
+"PO-Revision-Date: 2025-12-15 12:11+0000\n"
+"Last-Translator: Echelon <echelon@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
 "Language: pl\n"
@@ -42,8 +44,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
@@ -16533,6 +16535,9 @@ msgid ""
 "Only MixesDB “{category_url_pattern}” links are allowed for artists and "
 "series. Please link mix pages to the specific release group in question."
 msgstr ""
+"Dozwolone są tylko linki MixesDB „{category_url_pattern}” dla artystów i "
+"serii. Prosimy o linkowanie stron miksów do konkretnej grupy wydawniczej, "
+"której to dotyczy."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4417
 msgid ""
@@ -16540,6 +16545,9 @@ msgid ""
 "series. Please link the specific mix page to this release group instead, if "
 "available."
 msgstr ""
+"Linki „{category_url_pattern}” w MixesDB są dozwolone tylko dla artystów i "
+"serii. Jeśli to możliwe, prosimy o linkowanie konkretnej strony miksu do tej "
+"grupy wydawniczej."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4556
 msgid ""

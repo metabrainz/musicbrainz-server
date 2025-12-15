@@ -5,11 +5,13 @@
 # PS123 <adres2015@wp.pl>, 2025.
 # Echelon <weblate@wp.pl>, 2025.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
+# Echelon <echelon@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-02 16:21+0000\n"
-"Last-Translator: Echelon <weblate@wp.pl>\n"
+"PO-Revision-Date: 2025-12-15 12:11+0000\n"
+"Last-Translator: Echelon <echelon@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
@@ -17,9 +19,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.14\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1151,6 +1153,9 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"Składa się z dwóch bębnów: większego <em>baya</em> lub <em>dagga</em> "
+"przeznaczonego na bas i mniejszego <em>daya</em> lub <em>tabla</em> "
+"przeznaczonego na rytm i „melodię”."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -1665,10 +1670,8 @@ msgstr ""
 
 #. name:ruan
 #: DB:instrument/description:545
-#, fuzzy
-#| msgid "Ruan is a family of Chinese plucked lutes."
 msgid "Family of Chinese plucked lutes."
-msgstr "Ruan jest rodziną chińskich lutni szarpanych."
+msgstr "Rodzina chińskich lutni szarpanych."
 
 #. name:hmông flute
 #: DB:instrument/description:312
@@ -4881,6 +4884,10 @@ msgid ""
 "pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
+"Pręty z litego metalu (często aluminium) zawieszone na pręcie, ustawione w "
+"nieharmonijnej tonacji. <br /> NIE należy mylić z samodzielnymi, "
+"przypominającymi dzwonki <a href="
+"\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">prętami dzwonkowymi</a>."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4996,10 +5003,8 @@ msgstr ""
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
-msgstr "Basowy członek chińskiej rodziny lutni Ruan."
+msgstr "Tenor, członek chińskiej rodziny lutni ruan."
 
 #. name:primero
 #: DB:instrument/description:758
@@ -7133,6 +7138,8 @@ msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
 msgstr ""
+"Instrument ten, wykorzystywany w muzyce Gnawa, składa się z dwóch dużych "
+"żelaznych kształtów z okrągłymi misami połączonymi ze sobą."
 
 #. name:pakhawaj
 #: DB:instrument/description:502

@@ -11,11 +11,13 @@
 # PS <weblate@wp.pl>, 2025.
 # Michal77 <michal_wilk@poczta.fm>, 2025.
 # Echelon <weblate@wp.pl>, 2025.
+# Echelon <echelon@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-14 13:20+0000\n"
-"Last-Translator: Echelon <weblate@wp.pl>\n"
+"PO-Revision-Date: 2025-12-15 12:11+0000\n"
+"Last-Translator: Echelon <echelon@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/pl/>\n"
 "Language: pl\n"
@@ -23,8 +25,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
-"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
+"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.14.3\n"
 
 #. name:artist diploma
@@ -3168,10 +3170,8 @@ msgstr ""
 
 #. name:named after series
 #: DB:link_type/description:1298
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the series that inspired this series’ name."
-msgstr "Wskazuje to na artystę, który zainspirował nazwę tego gatunku."
+msgstr "Wskazuje to na serię, która zainspirowała nazwę tej serii."
 
 #. name:video shot at
 #: DB:link_type/description:963
