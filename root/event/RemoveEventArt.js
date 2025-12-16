@@ -28,7 +28,7 @@ component RemoveEventArt(
       <h2>{title}</h2>
       <p>
         {exp.l(
-          `Are you sure you wish to remove the image below from {entity}?`,
+          'Are you sure you wish to remove the image below from {entity}?',
           {entity: <EntityLink entity={event} />},
         )}
       </p>

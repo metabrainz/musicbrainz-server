@@ -22,7 +22,7 @@ component DiscogsLinksWithMultipleLabels(...{
     <ReportLayout
       canBeFiltered={canBeFiltered}
       description={l(
-        `This report shows Discogs URLs which are linked to multiple labels.`,
+        'This report shows Discogs URLs which are linked to multiple labels.',
       )}
       entityType="label"
       filtered={filtered}

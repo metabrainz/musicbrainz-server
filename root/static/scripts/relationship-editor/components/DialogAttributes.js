@@ -471,6 +471,6 @@ component _DialogAttributes(
 
 const DialogAttributes:
   component(...React.PropsOf<_DialogAttributes>) =
-  React.memo(_DialogAttributes);
+    React.memo(_DialogAttributes);
 
 export default DialogAttributes;

@@ -10,7 +10,7 @@
 
 /* eslint-disable import/no-commonjs */
 
-const readline = require('readline');
+const readline = require('node:readline');
 
 const {generateFlowType} = require('../root/utility/generateFlowType.js');
 

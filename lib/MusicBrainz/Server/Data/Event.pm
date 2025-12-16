@@ -301,6 +301,15 @@ sub _order_by {
     return $order_by;
 }
 
+=method find_by_events
+
+Recursively find all events linked to the given event IDs via relationships,
+using the provided C<$limit> and C<$offset> parameters for pagination. Note
+that this also includes the events having the given C<$event_ids> in the
+results.
+
+=cut
+
 sub find_by_events {
     my ($self, $event_ids, $limit, $offset) = @_;
 
@@ -331,6 +340,9 @@ sub find_by_events {
         )
         SELECT $columns FROM event
         WHERE id IN (
+            -- The requested events (MBS-14179)
+            SELECT unnest(\$1::INTEGER[]) event
+             UNION ALL
             SELECT event FROM linked_entity0
              UNION ALL
             SELECT event FROM linked_entity1
@@ -361,6 +373,37 @@ sub find_by_place
        ORDER BY event.begin_date_year DESC NULLS LAST, event.begin_date_month DESC NULLS LAST, event.begin_date_day DESC NULLS LAST, event.time DESC NULLS LAST, event.name COLLATE musicbrainz';
 
     $self->query_to_list_limited($query, [$place_id], $limit, $offset);
+}
+
+=method find_by_series
+
+Find all events linked to the given series ID via part-of relationships,
+using the provided C<$limit> and C<$offset> parameters for pagination.
+
+=cut
+
+sub find_by_series
+{
+    my ($self, $series_id, $limit, $offset) = @_;
+
+    my $columns = $self->_columns;
+    my $table = $self->_table;
+    my $order_by = $self->_order_by('date');
+
+    my $query = <<~"SQL";
+         SELECT $columns
+           FROM (
+            SELECT DISTINCT entity0 AS event
+              FROM l_event_series ar
+              JOIN link ON ar.link = link.id
+             WHERE entity1 = ?
+               AND link.link_type = 802 -- part of (event) series
+        ) s, $table
+          WHERE event.id = s.event
+       ORDER BY $order_by
+       SQL
+
+    $self->query_to_list_limited($query, [$series_id], $limit, $offset);
 }
 
 =method find_related_entities

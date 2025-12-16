@@ -3443,6 +3443,10 @@ declare module 'node:assert/strict' {
   declare module.exports: $Exports<'assert'>['strict'];
 }
 
+declare module 'node:crypto' {
+  declare module.exports: $Exports<'crypto'>;
+}
+
 declare module 'node:events' {
   declare module.exports: $Exports<'events'>;
 }
@@ -3453,6 +3457,10 @@ declare module 'node:fs' {
 
 declare module 'node:os' {
   declare module.exports: $Exports<'os'>;
+}
+
+declare module 'node:readline' {
+  declare module.exports: $Exports<'readline'>;
 }
 
 declare module 'fs/promises' {

@@ -56,7 +56,7 @@ component _ToggleAllMediumsButtons(
 
 export const ToggleAllMediumsButtons:
   component(...React.PropsOf<_ToggleAllMediumsButtons>) =
-  React.memo(_ToggleAllMediumsButtons);
+    React.memo(_ToggleAllMediumsButtons);
 
 component _MediumToolbox(
   creditsMode: CreditsModeT,
@@ -92,6 +92,6 @@ component _MediumToolbox(
 
 const MediumToolbox:
   component(...React.PropsOf<_MediumToolbox>) =
-  React.memo(_MediumToolbox);
+    React.memo(_MediumToolbox);
 
 export default MediumToolbox;

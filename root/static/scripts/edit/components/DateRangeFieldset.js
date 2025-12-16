@@ -223,6 +223,6 @@ export type PropsT = React.PropsOf<_DateRangeFieldset>;
 
 const DateRangeFieldset:
   component(...PropsT) =
-  React.memo(_DateRangeFieldset);
+    React.memo(_DateRangeFieldset);
 
 export default DateRangeFieldset;

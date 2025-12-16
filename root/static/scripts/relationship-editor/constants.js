@@ -50,7 +50,7 @@ export const EMPTY_DIALOG_DATE_PERIOD = Object.freeze({
 
 export const RelationshipSourceGroupsContext:
   React.Context<RelationshipSourceGroupsContextT> =
-  createContext({
-    existing: tree.empty,
-    pending: tree.empty,
-  });
+    createContext({
+      existing: tree.empty,
+      pending: tree.empty,
+    });

@@ -200,9 +200,9 @@ component _HydratedArtistDateRangeFieldset(
 
 const HydratedArtistDateRangeFieldset:
   component(...React.PropsOf<_HydratedArtistDateRangeFieldset>) =
-  hydrate(
-    'div.date-range-fieldset',
-    _HydratedArtistDateRangeFieldset,
-  );
+    hydrate(
+      'div.date-range-fieldset',
+      _HydratedArtistDateRangeFieldset,
+    );
 
 export default HydratedArtistDateRangeFieldset;

@@ -188,9 +188,9 @@ component _SeriesRelationshipEditor(
 
 const NonHydratedSeriesRelationshipEditor:
   component(ref: React.RefSetter<mixed>, ...PropsT) =
-  withLoadedTypeInfoForRelationshipEditor<PropsT>(
-    _SeriesRelationshipEditor,
-  );
+    withLoadedTypeInfoForRelationshipEditor<PropsT>(
+      _SeriesRelationshipEditor,
+    );
 
 const SeriesRelationshipEditor = (hydrate<PropsT>(
   'div.relationship-editor',

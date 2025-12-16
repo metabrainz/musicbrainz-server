@@ -23,9 +23,9 @@ component PostParameters(params: PostParametersT) {
 
   const sortedParams:
     $ReadOnlyArray<[string, string | $ReadOnlyArray<string>]> =
-    Object.entries(params).sort(
-      (a, b) => compareStrings(a[0], b[0]),
-    );
+      Object.entries(params).sort(
+        (a, b) => compareStrings(a[0], b[0]),
+      );
 
   return (
     <>

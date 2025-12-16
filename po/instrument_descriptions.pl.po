@@ -5,11 +5,13 @@
 # PS123 <adres2015@wp.pl>, 2025.
 # Echelon <weblate@wp.pl>, 2025.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
+# Echelon <echelon@users.noreply.translations.metabrainz.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-02 16:21+0000\n"
-"Last-Translator: Echelon <weblate@wp.pl>\n"
+"PO-Revision-Date: 2025-12-15 12:11+0000\n"
+"Last-Translator: Echelon <echelon@users.noreply.translations.metabrainz.org>"
+"\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
@@ -19,7 +21,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
 "(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1145,6 +1147,16 @@ msgstr ""
 "db95a035-6a3d-44b4-8694-74ff71b61768\">ksylofon</a> z drewnianym "
 "odpowiednikiem sztabki."
 
+#. name:tabla
+#: DB:instrument/description:185
+msgid ""
+"Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
+"and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
+msgstr ""
+"Składa się z dwóch bębnów: większego <em>baya</em> lub <em>dagga</em> "
+"przeznaczonego na bas i mniejszego <em>daya</em> lub <em>tabla</em> "
+"przeznaczonego na rytm i „melodię”."
+
 #. name:gambang
 #: DB:instrument/description:977
 msgid ""
@@ -1655,6 +1667,11 @@ msgstr ""
 "Bardzo duży bęben beczkowy z podwójną głowicą ze skóry bawołu wodnego. "
 "Zawieszony na stojaku i uderzany młotkiem, używany w centralnojawajskim "
 "gamelanie i do celów sygnalizacji religijnej w meczetach."
+
+#. name:ruan
+#: DB:instrument/description:545
+msgid "Family of Chinese plucked lutes."
+msgstr "Rodzina chińskich lutni szarpanych."
 
 #. name:hmông flute
 #: DB:instrument/description:312
@@ -2862,15 +2879,6 @@ msgstr ""
 "osobnej piszczałce burdonowej i dwa w piszczałce (która składa się z trzech "
 "kanałów). Nie posiada dzwonków i jest dmuchany ustami."
 
-#. name:krakebs
-#: DB:instrument/description:652
-msgid ""
-"Krakebs are large metal castanet-like instruments which are the primary "
-"rhythmic component of Gnawa music."
-msgstr ""
-"Krakeby to duże metalowe instrumenty przypominające kastaniety, które "
-"stanowią podstawowy element rytmiczny muzyki Gnawa."
-
 #. name:four-string banjo
 #: DB:instrument/description:656
 msgid ""
@@ -3384,6 +3392,11 @@ msgid "Metal bell used in various genres, it is often attached to a drum kit."
 msgstr ""
 "Metalowy dzwonek używany w różnych gatunkach muzyki, często dołączany do "
 "zestawu perkusyjnego."
+
+#. name:bajo sexto
+#: DB:instrument/description:728
+msgid "Mexican 6 course 12 string bass"
+msgstr ""
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -4144,15 +4157,6 @@ msgstr ""
 "Perski/turecki/arabski flet o dmuchanym końcu, z pięcioma lub sześcioma "
 "otworami na palce i jednym otworem na kciuk."
 
-#. name:phách
-#: DB:instrument/description:302
-msgid ""
-"Phách are small wooden sticks beaten on a small piece of bamboo or a wooden "
-"block. The sound produced is used to keep time."
-msgstr ""
-"Phách to małe drewniane patyczki uderzane w mały kawałek bambusa lub "
-"drewniany klocek. Wytwarzany dźwięk służy do pomiaru czasu."
-
 #. name:boobam
 #: DB:instrument/description:874
 msgid ""
@@ -4462,11 +4466,6 @@ msgstr ""
 #: DB:instrument/description:802
 msgid "Round-backed lute ancestral to the guitar."
 msgstr "Lutnia o okrągłym tyle, przodek gitary."
-
-#. name:ruan
-#: DB:instrument/description:545
-msgid "Ruan is a family of Chinese plucked lutes."
-msgstr "Ruan jest rodziną chińskich lutni szarpanych."
 
 #. name:junjung
 #: DB:instrument/description:892
@@ -4882,10 +4881,13 @@ msgstr ""
 #: DB:instrument/description:637
 msgid ""
 "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
-"pitch."
+"pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
+"href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
 "Pręty z litego metalu (często aluminium) zawieszone na pręcie, ustawione w "
-"nieharmonijnej tonacji."
+"nieharmonijnej tonacji. <br /> NIE należy mylić z samodzielnymi, "
+"przypominającymi dzwonki <a href="
+"\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">prętami dzwonkowymi</a>."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4998,6 +5000,11 @@ msgid ""
 msgstr ""
 "Stepowanie to rodzaj tańca, w którym tancerz nosi specjalne buty, które "
 "wydają dźwięk klikania, gdy stopy tancerza uderzają o podłogę."
+
+#. name:zhongruan
+#: DB:instrument/description:241
+msgid "Tenor member of the Chinese ruan family of lutes."
+msgstr "Tenor, członek chińskiej rodziny lutni ruan."
 
 #. name:primero
 #: DB:instrument/description:758
@@ -5184,15 +5191,6 @@ msgstr ""
 "Dudy to instrument składający się z szeregu zamkniętych stroików, zasilanych "
 "workiem z powietrzem."
 
-#. name:bajo sexto
-#: DB:instrument/description:728
-msgid ""
-"The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
-"courses."
-msgstr ""
-"Bajo sexto to meksykański instrument strunowy posiadający 12 strun w 6 "
-"podwójnych pasmach."
-
 #. name:banhu
 #: DB:instrument/description:221
 msgid ""
@@ -5261,12 +5259,6 @@ msgstr ""
 "Obój basowy jest instrumentem dętym drewnianym z podwójnym stroikiem, który "
 "jest około dwa razy większy od zwykłego oboju."
 
-#. name:bass trumpet
-#: DB:instrument/description:727
-msgid ""
-"The bass trumpet is a type of low trumpet similar to the valve trombone."
-msgstr "Trąbka basowa to rodzaj niskiej trąbki, podobny do puzonu wentylowego."
-
 #. name:bawu
 #: DB:instrument/description:483
 msgid ""
@@ -5321,24 +5313,6 @@ msgid ""
 msgstr ""
 "Buk to koreański bęben. Chociaż buk to ogólne określenie bębna, zwykle "
 "odnosi się do płytkiego bębna w kształcie beczki z drewnianym korpusem."
-
-#. name:buzuq
-#: DB:instrument/description:655
-msgid ""
-"The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
-"Turkish saz which is associated with the music of Lebanon and Syria."
-msgstr ""
-"Buzuq to lutnia o długiej szyjce i progach, spokrewniona z greckim buzuki i "
-"tureckim saz, kojarzona z muzyką Libanu i Syrii."
-
-#. name:caxixi
-#: DB:instrument/description:489
-msgid ""
-"The caxixi is a shaker originating in Brazil which is made of a small wicker "
-"basket containing seeds or other small particles."
-msgstr ""
-"Caxixi to pojemnik pochodzący z Brazylii, który wykonany jest z małego "
-"wiklinowego koszyka wypełnionego nasionami lub innymi małymi cząsteczkami."
 
 #. name:chakhe
 #: DB:instrument/description:627
@@ -5630,15 +5604,6 @@ msgstr ""
 "Geomungo to tradycyjna koreańska cytra, wzorowana na chińskiej guqin, która "
 "zazwyczaj ma 6 strun."
 
-#. name:guan
-#: DB:instrument/description:683
-msgid ""
-"The guan is a Chinese double reed wind instrument made from hardwood or "
-"bamboo."
-msgstr ""
-"Guan to chiński instrument dęty o podwójnym stroiku, wykonany z twardego "
-"drewna lub bambusa."
-
 #. name:guitalele
 #: DB:instrument/description:645
 msgid ""
@@ -5702,15 +5667,6 @@ msgid ""
 msgstr ""
 "Harfa to instrument strunowy szarpany, składający się z wielu strun "
 "rozciągniętych na pionowej ramie."
-
-#. name:heike biwa
-#: DB:instrument/description:579
-msgid ""
-"The heike biwa is a biwa with four strings and five frets used to play Heike "
-"Monogatari."
-msgstr ""
-"Heike biwa to biwa z czterema strunami i pięcioma progami, używana do gry na "
-"Heike Monogatari."
 
 #. name:hotchiku
 #: DB:instrument/description:709
@@ -6093,14 +6049,6 @@ msgstr ""
 msgid "The nyckelharpa is a traditional Swedish string instrument."
 msgstr "Nyckelharpa jest tradycyjnym szwedzkim instrumentem strunowym."
 
-#. name:ocarina
-#: DB:instrument/description:15
-msgid ""
-"The ocarina is a type of vessel flute which has a mouthpiece extending from "
-"the body."
-msgstr ""
-"Okaryna to rodzaj fletu naczyniowego, w którym ustnik wystaje z korpusu."
-
 #. name:octave mandolin
 #: DB:instrument/description:601
 msgid ""
@@ -6155,15 +6103,6 @@ msgid ""
 msgstr ""
 "Pkhachich to tradycyjny potrząsany instrument perkusyjny używany przez ludy "
 "czerkieskie."
-
-#. name:pocket trumpet
-#: DB:instrument/description:690
-msgid ""
-"The pocket trumpet is a compact size B♭ trumpet, with the same playing range "
-"as the regular trumpet."
-msgstr ""
-"Trąbka kieszonkowa to kompaktowa trąbka B♭ o takiej samej skali gry jak "
-"zwykła trąbka."
 
 #. name:pātē
 #: DB:instrument/description:726
@@ -6301,16 +6240,6 @@ msgid ""
 msgstr ""
 "Satsuma biwa to biwa z czterema strunami i progami, która zyskała "
 "popularność w okresie Edo."
-
-#. name:saw duang
-#: DB:instrument/description:624
-msgid ""
-"The saw duang is a two-stringed instrument used in traditional Thai music "
-"which has a cylindrical soundbox made of wood and a snakeskin resonator."
-msgstr ""
-"Saw duang to dwustrunowy instrument używany w tradycyjnej muzyce tajskiej. "
-"Posiada cylindryczny pudło rezonansowe wykonane z drewna i rezonator "
-"wykonany ze skóry węża."
 
 #. name:saw sam sai
 #: DB:instrument/description:712
@@ -6451,17 +6380,6 @@ msgstr ""
 "T'rưng to bambusowy ksylofon pochodzący z centralnych wyżyn Wietnamu, na "
 "którym grają takie grupy etniczne, jak Bahnar i Ê Đê."
 
-#. name:tabla
-#: DB:instrument/description:185
-msgid ""
-"The tabla is a pair of hand drums used in Hindustani classical music and in "
-"the traditional music of India, Pakistan, Afghanistan, Nepal, Bangladesh and "
-"Sri Lanka."
-msgstr ""
-"Tabla to para ręcznych bębnów używanych w klasycznej muzyce hindustańskiej "
-"oraz w tradycyjnej muzyce Indii, Pakistanu, Afganistanu, Nepalu, Bangladeszu "
-"i Sri Lanki."
-
 #. name:tack piano
 #: DB:instrument/description:636
 msgid ""
@@ -6560,15 +6478,6 @@ msgstr ""
 "Tololoche to tradycyjny instrument muzyczny z północnego Meksyku, podobny do "
 "europejskiego kontrabasu, ale mniejszy."
 
-#. name:tonkori
-#: DB:instrument/description:575
-msgid ""
-"The tonkori is a plucked string instrument played by the Ainu of northern "
-"Japan and Sakhalin."
-msgstr ""
-"Tonkori to instrument strunowy szarpany, na którym grają Ajnowie z północnej "
-"Japonii i Sachalinu."
-
 #. name:topshuur
 #: DB:instrument/description:708
 msgid "The topshuur is a two-stringed lute from Mongolia and Tuva."
@@ -6588,15 +6497,6 @@ msgid ""
 msgstr ""
 "Trống bông to drewniany wietnamski bęben z pojedynczą membraną, na którym "
 "gra się obiema rękami."
-
-#. name:tubax
-#: DB:instrument/description:694
-msgid ""
-"The tubax is a modified saxophone which is more compact due to the tubing "
-"being folded more times."
-msgstr ""
-"Tubaks jest zmodyfikowaną wersją saksofonu, która jest bardziej kompaktowa, "
-"ponieważ jej rura jest składana częściej."
 
 #. name:ukeke
 #: DB:instrument/description:631
@@ -6633,15 +6533,6 @@ msgstr ""
 "Skrzypce piccolo to instrument strunowy z okresu baroku. Większość "
 "przykładów jest wielkością podobna do skrzypiec dziecięcych i jest strojona "
 "o tercję lub kwartę wyżej."
-
-#. name:virginal
-#: DB:instrument/description:509
-msgid ""
-"The virginal is a smaller and simpler rectangular form of the harpsichord "
-"with only one string per note."
-msgstr ""
-"Virginal to mniejsza i prostsza prostokątna forma klawesynu, z tylko jedną "
-"struną na nutę."
 
 #. name:xiaoluo
 #: DB:instrument/description:550
@@ -6694,11 +6585,6 @@ msgstr "Zabumba to bęben basowy pochodzący z Brazylii."
 msgid "The zarb is a goblet drum from Persia."
 msgstr "Zarb to bęben w kształcie kielicha pochodzący z Persji."
 
-#. name:zhaleika
-#: DB:instrument/description:692
-msgid "The zhaleika is a single reed hornpipe from Russia."
-msgstr "Żaleika to rosyjska piszczałka z pojedynczym trzcinowym instrumentem."
-
 #. name:zhonghu
 #: DB:instrument/description:217
 msgid ""
@@ -6707,27 +6593,6 @@ msgid ""
 msgstr ""
 "Zhonghu to chiński instrument strunowy smyczkowy, który rozwinął się z erhu "
 "i jest strojony o kwartę lub kwintę niżej."
-
-#. name:zhongruan
-#: DB:instrument/description:241
-msgid ""
-"The zhongruan is a Chinese plucked lute, the tenor-ranged size in the ruan "
-"family."
-msgstr ""
-"Zhongruan to chińska lutnia szarpana, o rozmiarze odpowiadającym skali "
-"tenorowej w rodzinie ruan."
-
-#. name:đing năm
-#: DB:instrument/description:319
-#, fuzzy
-msgid ""
-"The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
-"Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups in "
-"the central highlands of Vietnam."
-msgstr ""
-"đing năm to <a href=\"https://en.wikipedia.org/wiki/"
-"Gourd_mouth_organ\">organ ustny wykonany z tykwy</a> używany przez "
-"mniejszości etniczne zamieszkujące centralne wyżyny Wietnamu."
 
 #. name:đàn nguyệt
 #: DB:instrument/description:242
@@ -7266,6 +7131,15 @@ msgstr ""
 "Saraswati, znana jest od czasów starożytnych. Lutnia z rezonatorem "
 "dźwiękowym z tykwy, ma 24 stałe progi, 7 stalowych strun (4 główne i 3 "
 "dronowe)."
+
+#. name:krakeb
+#: DB:instrument/description:652
+msgid ""
+"Used in Gnawa music, it consists of two large iron shapes with round bowls "
+"tied together."
+msgstr ""
+"Instrument ten, wykorzystywany w muzyce Gnawa, składa się z dwóch dużych "
+"żelaznych kształtów z okrągłymi misami połączonymi ze sobą."
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -7968,6 +7842,139 @@ msgstr "saó ôi (flet Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu basowa forma trắng lu"
+
+#~ msgid ""
+#~ "Krakebs are large metal castanet-like instruments which are the primary "
+#~ "rhythmic component of Gnawa music."
+#~ msgstr ""
+#~ "Krakeby to duże metalowe instrumenty przypominające kastaniety, które "
+#~ "stanowią podstawowy element rytmiczny muzyki Gnawa."
+
+#~ msgid ""
+#~ "Phách are small wooden sticks beaten on a small piece of bamboo or a "
+#~ "wooden block. The sound produced is used to keep time."
+#~ msgstr ""
+#~ "Phách to małe drewniane patyczki uderzane w mały kawałek bambusa lub "
+#~ "drewniany klocek. Wytwarzany dźwięk służy do pomiaru czasu."
+
+#~ msgid ""
+#~ "Solid metal (often aluminium) rods hanging on a bar, set at an inharmonic "
+#~ "pitch."
+#~ msgstr ""
+#~ "Pręty z litego metalu (często aluminium) zawieszone na pręcie, ustawione "
+#~ "w nieharmonijnej tonacji."
+
+#~ msgid ""
+#~ "The bajo sexto is a Mexican string instrument with 12 strings in 6 double "
+#~ "courses."
+#~ msgstr ""
+#~ "Bajo sexto to meksykański instrument strunowy posiadający 12 strun w 6 "
+#~ "podwójnych pasmach."
+
+#~ msgid ""
+#~ "The bass trumpet is a type of low trumpet similar to the valve trombone."
+#~ msgstr ""
+#~ "Trąbka basowa to rodzaj niskiej trąbki, podobny do puzonu wentylowego."
+
+#~ msgid ""
+#~ "The buzuq is a long-necked fretted lute related to the Greek bouzouki and "
+#~ "Turkish saz which is associated with the music of Lebanon and Syria."
+#~ msgstr ""
+#~ "Buzuq to lutnia o długiej szyjce i progach, spokrewniona z greckim buzuki "
+#~ "i tureckim saz, kojarzona z muzyką Libanu i Syrii."
+
+#~ msgid ""
+#~ "The caxixi is a shaker originating in Brazil which is made of a small "
+#~ "wicker basket containing seeds or other small particles."
+#~ msgstr ""
+#~ "Caxixi to pojemnik pochodzący z Brazylii, który wykonany jest z małego "
+#~ "wiklinowego koszyka wypełnionego nasionami lub innymi małymi cząsteczkami."
+
+#~ msgid ""
+#~ "The guan is a Chinese double reed wind instrument made from hardwood or "
+#~ "bamboo."
+#~ msgstr ""
+#~ "Guan to chiński instrument dęty o podwójnym stroiku, wykonany z twardego "
+#~ "drewna lub bambusa."
+
+#~ msgid ""
+#~ "The heike biwa is a biwa with four strings and five frets used to play "
+#~ "Heike Monogatari."
+#~ msgstr ""
+#~ "Heike biwa to biwa z czterema strunami i pięcioma progami, używana do gry "
+#~ "na Heike Monogatari."
+
+#~ msgid ""
+#~ "The ocarina is a type of vessel flute which has a mouthpiece extending "
+#~ "from the body."
+#~ msgstr ""
+#~ "Okaryna to rodzaj fletu naczyniowego, w którym ustnik wystaje z korpusu."
+
+#~ msgid ""
+#~ "The pocket trumpet is a compact size B♭ trumpet, with the same playing "
+#~ "range as the regular trumpet."
+#~ msgstr ""
+#~ "Trąbka kieszonkowa to kompaktowa trąbka B♭ o takiej samej skali gry jak "
+#~ "zwykła trąbka."
+
+#~ msgid ""
+#~ "The saw duang is a two-stringed instrument used in traditional Thai music "
+#~ "which has a cylindrical soundbox made of wood and a snakeskin resonator."
+#~ msgstr ""
+#~ "Saw duang to dwustrunowy instrument używany w tradycyjnej muzyce "
+#~ "tajskiej. Posiada cylindryczny pudło rezonansowe wykonane z drewna i "
+#~ "rezonator wykonany ze skóry węża."
+
+#~ msgid ""
+#~ "The tabla is a pair of hand drums used in Hindustani classical music and "
+#~ "in the traditional music of India, Pakistan, Afghanistan, Nepal, "
+#~ "Bangladesh and Sri Lanka."
+#~ msgstr ""
+#~ "Tabla to para ręcznych bębnów używanych w klasycznej muzyce "
+#~ "hindustańskiej oraz w tradycyjnej muzyce Indii, Pakistanu, Afganistanu, "
+#~ "Nepalu, Bangladeszu i Sri Lanki."
+
+#~ msgid ""
+#~ "The tonkori is a plucked string instrument played by the Ainu of northern "
+#~ "Japan and Sakhalin."
+#~ msgstr ""
+#~ "Tonkori to instrument strunowy szarpany, na którym grają Ajnowie z "
+#~ "północnej Japonii i Sachalinu."
+
+#~ msgid ""
+#~ "The tubax is a modified saxophone which is more compact due to the tubing "
+#~ "being folded more times."
+#~ msgstr ""
+#~ "Tubaks jest zmodyfikowaną wersją saksofonu, która jest bardziej "
+#~ "kompaktowa, ponieważ jej rura jest składana częściej."
+
+#~ msgid ""
+#~ "The virginal is a smaller and simpler rectangular form of the harpsichord "
+#~ "with only one string per note."
+#~ msgstr ""
+#~ "Virginal to mniejsza i prostsza prostokątna forma klawesynu, z tylko "
+#~ "jedną struną na nutę."
+
+#~ msgid "The zhaleika is a single reed hornpipe from Russia."
+#~ msgstr ""
+#~ "Żaleika to rosyjska piszczałka z pojedynczym trzcinowym instrumentem."
+
+#~ msgid ""
+#~ "The zhongruan is a Chinese plucked lute, the tenor-ranged size in the "
+#~ "ruan family."
+#~ msgstr ""
+#~ "Zhongruan to chińska lutnia szarpana, o rozmiarze odpowiadającym skali "
+#~ "tenorowej w rodzinie ruan."
+
+#, fuzzy
+#~ msgid ""
+#~ "The đing năm is a <a href=\"https://en.wikipedia.org/wiki/"
+#~ "Gourd_mouth_organ\">gourd mouth organ</a> used by minority ethnic groups "
+#~ "in the central highlands of Vietnam."
+#~ msgstr ""
+#~ "đing năm to <a href=\"https://en.wikipedia.org/wiki/"
+#~ "Gourd_mouth_organ\">organ ustny wykonany z tykwy</a> używany przez "
+#~ "mniejszości etniczne zamieszkujące centralne wyżyny Wietnamu."
 
 #~ msgid ""
 #~ "An electric derivation of the sitar, it often features sympathetic "
