@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-16 19:08+0000\n"
+"PO-Revision-Date: 2025-12-13 20:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -476,9 +476,7 @@ msgstr "アーティストの（JPEG、GIF、PNG形式の）画像を示しま�
 msgid ""
 "Indicates a place that moved from one location to another, while still being "
 "generally considered the same."
-msgstr ""
-"一般的に同一と見なされている期間に、ある場所から別の場所に移動した場所を示"
-"す。"
+msgstr "ある場所から別に移転したが、一般的に同一と見なされている場所を示す。"
 
 #. name:half
 #: DB:link_attribute_type/description:1019
@@ -2549,6 +2547,13 @@ msgstr ""
 "したトラックが少なくとも1つ含まれていることを示す。 これにより、リリースグ"
 "ループを関連するシングルおよびEPにリンク可能である。"
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 #, fuzzy
@@ -2869,6 +2874,17 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr ""
+"これは、アーティストがこのビデオレコーディングの振付師であったことを示す。"
+
+#. name:choreographer
+#: DB:link_type/description:1299
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist was the choreographer for this video recording."
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
 msgstr ""
 "これは、アーティストがこのビデオレコーディングの振付師であったことを示す。"
 
@@ -3254,6 +3270,13 @@ msgid ""
 msgstr ""
 "これは、リリースに関連する権利協会を示す。 権利協会は、アーティストに代わって"
 "使用料を徴収する組織である。"
+
+#. name:named after series
+#: DB:link_type/description:1298
+#, fuzzy
+#| msgid "This indicates the artist that inspired this place’s name."
+msgid "This indicates the series that inspired this series’ name."
+msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -6643,7 +6666,7 @@ msgstr "合唱団のボーカル"
 msgid "choral conducting"
 msgstr ""
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 msgid "choreographer"
 msgstr "振付師"
 
@@ -7905,8 +7928,8 @@ msgid "has orchestration"
 msgstr ""
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr ""
 
@@ -8095,10 +8118,18 @@ msgstr "インプリント"
 msgid "improvisation"
 msgstr "即興"
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
 msgstr "次に含まれる"
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+#, fuzzy
+#| msgid "includes"
+msgid "included works"
+msgstr "含まれる"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -8153,8 +8184,9 @@ msgstr ""
 msgid "inspired the name of release group"
 msgstr "このリリースグループのBookBrainzページを指します。"
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 msgid "inspired the name of series"
 msgstr ""
 
@@ -8369,9 +8401,16 @@ msgstr "親レーベル"
 msgid "is named after release group"
 msgstr ""
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "parent label"
+msgid "is named after series"
+msgstr "親レーベル"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr ""
 
@@ -9111,10 +9150,17 @@ msgstr "親レーベル"
 msgid "named after release group"
 msgstr ""
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+#, fuzzy
+#| msgid "parent label"
+msgid "named after series"
+msgstr "親レーベル"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 #, fuzzy
 #| msgid "Geonames page for"
@@ -9314,8 +9360,8 @@ msgstr "パロディー"
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "次の細目"
 
@@ -9352,10 +9398,10 @@ msgid "participants"
 msgstr "首席"
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "細目"
 
@@ -10435,7 +10481,7 @@ msgstr ""
 #. name:subseries
 #: DB:link_type/name:823 DB:link_type/link_phrase:823
 msgid "subseries"
-msgstr ""
+msgstr "サブシリーズ"
 
 #. name:subseries
 #: DB:link_type/reverse_link_phrase:823
@@ -10553,7 +10599,7 @@ msgstr ""
 #: DB:link_type/link_phrase:1195 DB:link_type/link_phrase:1196
 #: DB:link_type/link_phrase:1197
 msgid "ticketing page"
-msgstr ""
+msgstr "チケットページ"
 
 #. name:ticketing
 #: DB:link_type/reverse_link_phrase:1193 DB:link_type/reverse_link_phrase:1194
@@ -10568,12 +10614,12 @@ msgstr ""
 
 #: DB:link_type/name:859
 msgid "tour"
-msgstr ""
+msgstr "ツアー"
 
 #. name:tour
 #: DB:link_type/reverse_link_phrase:859
 msgid "tour by"
-msgstr ""
+msgstr "のツアー"
 
 #: DB:link_type/name:888
 msgid "tour in support of"
@@ -10582,7 +10628,7 @@ msgstr ""
 #. name:tour
 #: DB:link_type/link_phrase:859
 msgid "tours"
-msgstr ""
+msgstr "ツアー"
 
 #: DB:link_type/name:1179
 msgid "transfer"
@@ -10769,7 +10815,7 @@ msgstr "声優"
 #. name:voice actor
 #: DB:link_type/link_phrase:292
 msgid "voice of"
-msgstr "声の担当"
+msgstr "次の声を担当"
 
 #. name:voice actor
 #: DB:link_type/reverse_link_phrase:292
@@ -10940,7 +10986,7 @@ msgid "was {assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr "が{assistant}振付師を担当した"
 
@@ -11893,12 +11939,12 @@ msgid "{assistant} carillonneur at"
 msgstr ""
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr "{assistant}振付師"
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 msgid "{assistant} choreographer for"
 msgstr "が{assistant}振付師を担当したのは"
 
@@ -12105,6 +12151,13 @@ msgstr ""
 #, fuzzy
 #| msgid "{entity1} was manufactured in {entity0}"
 msgid "{entity1} is headquartered in {entity0}"
+msgstr "{entity1}は{entity0}で生産されました"
+
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+#, fuzzy
+#| msgid "{entity1} was manufactured in {entity0}"
+msgid "{entity1} is included in {entity0}"
 msgstr "{entity1}は{entity0}で生産されました"
 
 #. name:license

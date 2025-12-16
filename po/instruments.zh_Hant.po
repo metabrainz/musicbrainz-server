@@ -507,7 +507,10 @@ msgid "bansuri"
 msgstr "印度竹笛"
 
 #: DB:instrument/name:819
-msgctxt "ancient asian/persian lute"
+#, fuzzy
+#| msgctxt "ancient asian/persian lute"
+#| msgid "barbat"
+msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "巴爾巴特琴"
 
@@ -2459,7 +2462,10 @@ msgid "kotsuzumi"
 msgstr "日本小鼓"
 
 #: DB:instrument/name:652
-msgid "krakebs"
+#, fuzzy
+#| msgid "krakebs"
+msgctxt "Gnawa iron clapper"
+msgid "krakeb"
 msgstr "克拉凱布"
 
 #: DB:instrument/name:949
@@ -3363,6 +3369,9 @@ msgid "rototom"
 msgstr "輪鼓"
 
 #: DB:instrument/name:545
+#, fuzzy
+#| msgid "ruan"
+msgctxt "Chinese plucked lute family"
 msgid "ruan"
 msgstr "阮"
 
@@ -3868,6 +3877,9 @@ msgid "t'rưng"
 msgstr "竹琴"
 
 #: DB:instrument/name:185
+#, fuzzy
+#| msgid "tabla"
+msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "塔布拉鼓"
 
@@ -4643,6 +4655,9 @@ msgid "zarb"
 msgstr "通巴克鼓"
 
 #: DB:instrument/name:692
+#, fuzzy
+#| msgid "zhaleika"
+msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
 msgstr "角笛"
 
@@ -4652,6 +4667,9 @@ msgid "zhonghu"
 msgstr "中胡"
 
 #: DB:instrument/name:241
+#, fuzzy
+#| msgid "zhongruan"
+msgctxt "Tenor ruan"
 msgid "zhongruan"
 msgstr "中阮"
 

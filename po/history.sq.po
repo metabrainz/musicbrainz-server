@@ -4,15 +4,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2012-05-24 18:54+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Albanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sq/)\n"
+"PO-Revision-Date: 2025-11-17 12:21+0000\n"
+"Last-Translator: Besnik <besnik@programeshqip.org>\n"
+"Language-Team: Albanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/history/sq/>\n"
 "Language: sq\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -213,7 +214,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "Pajtime te artistë"
 
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
@@ -1074,7 +1075,7 @@ msgstr ""
 #: DB:statistics.statistic_event/title:2014-03-17
 #: ../root/statistics/stats.js:43
 msgid "Work attributes"
-msgstr ""
+msgstr "Atribute vepre"
 
 #: DB:statistics.statistic_event/description:2014-03-17
 msgid ""
