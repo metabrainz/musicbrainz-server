@@ -1,7 +1,0 @@
-[% WRAPPER 'layout.tt' title=lp('Add release group', 'header') full_width=1 %]
-    <div id="content">
-        <h1>[%- lp('Add release group', 'header') -%]</h1>
-        [%~ javascript_required() ~%]
-        [% INCLUDE 'release_group/edit_form.tt' new=1 %]
-    </div>
-[% END %]

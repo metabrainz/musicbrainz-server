@@ -64,7 +64,7 @@ role {
         my %props;
         my %edit_arguments = $params->edit_arguments->($self, $c);
 
-        if ($model eq 'Event' || $model eq 'Genre' || $model eq 'Instrument' || $model eq 'Recording') {
+        if ($model eq 'Event' || $model eq 'Genre' || $model eq 'Instrument' || $model eq 'Recording' || $model eq 'ReleaseGroup') {
             my $type = model_to_type($model);
             my %form_args = %{ $edit_arguments{form_args} || {}};
             my $form = $c->form( form => $params->form, ctx => $c, %form_args );
@@ -119,6 +119,20 @@ role {
                 }
                 if ($model eq 'Recording') {
                     $props{usedByTracks} = $form->used_by_tracks;
+                }
+                if ($model eq 'ReleaseGroup') {
+                    my %primary_type_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('ReleaseGroupType')->get_all();
+                    my %secondary_type_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('ReleaseGroupSecondaryType')->get_all();
+
+                    $props{primaryTypes} = $form->options_primary_type_id;
+                    $props{primaryTypeDescriptions} = \%primary_type_descriptions;
+
+                    $props{secondaryTypes} = $form->options_secondary_type_ids;
+                    $props{secondaryTypeDescriptions} = \%secondary_type_descriptions;
                 }
             },
             redirect => sub {

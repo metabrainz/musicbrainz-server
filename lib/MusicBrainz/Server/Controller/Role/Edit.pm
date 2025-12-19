@@ -35,7 +35,7 @@ role {
     method 'edit' => sub {
         my ($self, $c) = @_;
 
-        my @react_models = qw( Event Genre Instrument Recording );
+        my @react_models = qw( Event Genre Instrument Recording ReleaseGroup );
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
@@ -93,6 +93,20 @@ role {
                 }
                 if ($model eq 'Recording') {
                     $props{usedByTracks} = $form->used_by_tracks;
+                }
+                if ($model eq 'ReleaseGroup') {
+                    my %primary_type_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('ReleaseGroupType')->get_all();
+                    my %secondary_type_descriptions = map {
+                        $_->id => $_->l_description
+                    } $c->model('ReleaseGroupSecondaryType')->get_all();
+
+                    $props{primaryTypes} = $form->options_primary_type_id;
+                    $props{primaryTypeDescriptions} = \%primary_type_descriptions;
+
+                    $props{secondaryTypes} = $form->options_secondary_type_ids;
+                    $props{secondaryTypeDescriptions} = \%secondary_type_descriptions;
                 }
             },
             redirect    => sub {
