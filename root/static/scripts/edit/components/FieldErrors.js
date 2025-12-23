@@ -41,7 +41,7 @@ export component FieldErrorsList(
 }
 
 component FieldErrors(
-  field: AnyFieldT,
+  field: FormOrAnyFieldT,
   hasHtmlErrors: boolean = false,
   includeSubFields: boolean = true,
  ) {

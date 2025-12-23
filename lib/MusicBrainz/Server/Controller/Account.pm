@@ -16,6 +16,7 @@ use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     contains_string
+    is_blank
     non_empty
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -854,7 +855,7 @@ sub donation : Local RequireAuth HiddenOnMirrors
     );
 }
 
-sub applications : Path('/account/applications') RequireAuth RequireSSL
+sub applications : Path('/account/applications') RequireAuth RequireSSL SecureForm
 {
     my ($self, $c) = @_;
 
@@ -869,12 +870,17 @@ sub applications : Path('/account/applications') RequireAuth RequireSSL
         return ($applications, $hits);
     }, prefix => 'apps_');
 
+    my $digest_auth_form = $c->form( form => 'Account::DigestAuthentication' );
+    my $is_digest_auth_enabled = !is_blank($c->user->ha1);
+
     $c->stash(
         current_view => 'Node',
         component_path => 'account/applications/ApplicationList',
         component_props => {
             applications => to_json_array($applications),
             appsPager => serialize_pager($c->stash->{apps_pager}),
+            digestAuthForm => $digest_auth_form->TO_JSON,
+            isDigestAuthEnabled => boolean_to_json($is_digest_auth_enabled),
             tokens => to_json_array($tokens),
             tokensPager => serialize_pager($c->stash->{tokens_pager}),
         },
@@ -1016,6 +1022,44 @@ sub remove_application : Path('/account/applications/remove') Args(1) RequireAut
         );
         $c->detach;
     }
+}
+
+=head2 digest_authentication
+
+This form allows users to reset the token used for digest auth in the
+web service, or disable digest auth entirely.
+
+=cut
+
+sub digest_authentication : Path('/account/digest-authentication') RequireAuth RequireSSL DenyWhenReadonly SecureForm
+{
+    my ($self, $c) = @_;
+
+    my $form = $c->form( form => 'Account::DigestAuthentication' );
+    my %component_props;
+
+    if ($c->form_posted_and_valid($form)) {
+        my $action = $form->field('action')->value;
+
+        if ($action eq 'disable') {
+            $c->model('MB')->with_transaction(sub {
+                $c->model('Editor')->disable_digest_auth_token($c->user->id);
+            });
+        } elsif ($action eq 'reset_token') {
+            $c->model('MB')->with_transaction(sub {
+                my $new_token = $c->model('Editor')->reset_digest_auth_token($c->user->id);
+                $component_props{token} = $new_token;
+            });
+        }
+    }
+
+    $component_props{form} = $form->TO_JSON;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'account/DigestAuthentication.js',
+        component_props => \%component_props,
+    );
 }
 
 __PACKAGE__->meta->make_immutable;

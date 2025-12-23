@@ -21,6 +21,7 @@ use MusicBrainz::Server::Constants qw(
     :vote
 );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( ha1_password );
 use Set::Scalar;
 use Sql;
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
@@ -959,6 +960,33 @@ test 'Marking an editor as spammer changes all Yes/No votes on open edits to Abs
     is(scalar @{ $edit->votes }, 2, 'There is two votes');
     is($edit->votes->[1]->vote, $VOTE_ABSTAIN, 'New vote is Abstain');
     is($edit->votes->[1]->editor_id, 2, 'New vote is by editor 2');
+};
+
+test 'Test disable_digest_auth_token' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, 'cee82955d47bf0bd71038244579e766f', 'The ha1 is non-empty before disabling');
+
+    $c->model('Editor')->disable_digest_auth_token(14);
+    $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, '', 'The ha1 is empty after disabling');
+};
+
+test 'Test reset_digest_auth_token' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $token = $c->model('Editor')->reset_digest_auth_token(14);
+    my $ha1 = ha1_password('æditorⅣ', $token);
+
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, $ha1, 'The ha1 is reset');
 };
 
 1;
