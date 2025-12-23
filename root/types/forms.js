@@ -16,6 +16,11 @@ declare type ConfirmFormT = FormT<{
   readonly submit: FieldT<string>,
 }>;
 
+declare type DigestAuthFormT = FormT<{
+  readonly action: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+}>;
+
 declare type TextListItemFieldT = CompoundFieldT<{
   readonly removed: FieldT<boolean>,
   readonly value: FieldT<string>,

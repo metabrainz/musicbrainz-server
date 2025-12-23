@@ -18,6 +18,7 @@ use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Data::Utils qw(
     generate_token
+    ha1_password
     hash_to_row
     load_subobjects
     placeholders
@@ -424,6 +425,26 @@ sub update_password
             WHERE lower(name) = lower(?)
             SQL
     }, $self->sql);
+}
+
+sub disable_digest_auth_token {
+    my ($self, $editor_id) = @_;
+
+    $self->sql->do(q(UPDATE editor SET ha1 = '' WHERE id = ?), $editor_id);
+}
+
+sub reset_digest_auth_token {
+    my ($self, $editor_id) = @_;
+
+    my $username = $self->sql->select_single_value(<<~'SQL', $editor_id);
+        SELECT name FROM editor WHERE id = ?
+        SQL
+    my $token = generate_token();
+    my $ha1 = ha1_password($username, $token);
+    $self->sql->do(<<~'SQL', $ha1, $editor_id);
+        UPDATE editor SET ha1 = ? WHERE id = ?
+        SQL
+    return $token;
 }
 
 sub update_profile

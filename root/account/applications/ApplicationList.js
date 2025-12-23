@@ -16,6 +16,8 @@ import Layout from '../../layout/index.js';
 import {compare} from '../../static/scripts/common/i18n.js';
 import {commaOnlyListText}
   from '../../static/scripts/common/i18n/commaOnlyList.js';
+import FormCsrfToken
+  from '../../static/scripts/edit/components/FormCsrfToken.js';
 import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
 
@@ -78,6 +80,8 @@ function formatScopes(token: EditorOAuthTokenT) {
 component ApplicationList(
   applications: ReadonlyArray<ApplicationT>,
   appsPager: PagerT,
+  digestAuthForm: DigestAuthFormT,
+  isDigestAuthEnabled: boolean,
   tokens: ReadonlyArray<EditorOAuthTokenT>,
   tokensPager: PagerT,
 ) {
@@ -159,6 +163,75 @@ component ApplicationList(
         ) : (
           <p>{l('You do not have any registered applications.')}</p>
         )}
+
+      <h2>{l('Digest access authentication')}</h2>
+
+      <p>
+        {exp.l(
+          `Some applications use a legacy form of authentication
+           called {digest_url|HTTP Digest Access Authentication}.
+           This requires us to store a password using an
+           {md5_url|insecure hash function}.
+           Rather than storing your MusicBrainz account password this way,
+           we require generating a separate token if you want to use such an
+           application; use this token in place of your password when
+           the application asks for one.`,
+          {
+            digest_url:
+              'https://en.wikipedia.org/wiki/Digest_access_authentication',
+            md5_url: 'https://en.wikipedia.org/wiki/MD5',
+          },
+        )}
+      </p>
+      <p>
+        {l(
+          `We don’t track which applications are using digest authentication.
+           You can choose to either reset the token,
+           or disable this access method entirely.`,
+        )}
+      </p>
+      <p>
+        {isDigestAuthEnabled
+          ? exp.l(`Digest authentication is
+                  <strong>enabled</strong> on your account.`)
+          : exp.l(`Digest authentication is
+                   <strong>disabled</strong> on your account.`)}
+      </p>
+
+      <p>
+        <form action="/account/digest-authentication" method="post">
+          <FormCsrfToken form={digestAuthForm} />
+          {isDigestAuthEnabled ? (
+            <>
+              <button
+                className="styled-button"
+                name="digestauth.action"
+                type="submit"
+                value="disable"
+              >
+                {l('Disable digest authentication')}
+              </button>
+              <button
+                className="styled-button"
+                name="digestauth.action"
+                type="submit"
+                value="reset_token"
+              >
+                {l('Reset the digest authentication token')}
+              </button>
+            </>
+          ) : (
+            <button
+              className="styled-button"
+              name="digestauth.action"
+              type="submit"
+              value="reset_token"
+            >
+              {l('Enable digest authentication')}
+            </button>
+          )}
+        </form>
+      </p>
     </Layout>
   );
 }
