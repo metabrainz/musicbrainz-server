@@ -2304,6 +2304,7 @@ sub get_weekly_stats_for_homepage {
     my @stats_order = (
         'count.edit',
         'count.vote',
+        'count.rating',
         'count.artist',
         'count.release',
         'count.recording',
@@ -2324,6 +2325,7 @@ sub get_weekly_stats_for_homepage {
     my $stats_map = {
         'count.edit' => 'edits',
         'count.vote' => 'votes',
+        'count.rating' => 'ratings',
         'count.artist' => 'artists',
         'count.release' => 'releases',
         'count.recording' => 'recordings',

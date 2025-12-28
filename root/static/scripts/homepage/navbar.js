@@ -435,7 +435,7 @@ component Navbar() {
                 >
                   {entities.map((entity) => (
                     <option key={entity.value} value={entity.value}>
-                      {entity.name}
+                      {entity.name()}
                     </option>
                   ))}
                 </select>
@@ -455,7 +455,7 @@ component Navbar() {
               href="/search"
             >
               <img
-                alt={l('Advanced Search')}
+                alt={l('Advanced search')}
                 height={20}
                 src={advancedSearchIcon}
                 width={20}

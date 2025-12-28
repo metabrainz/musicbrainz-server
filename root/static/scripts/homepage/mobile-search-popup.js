@@ -57,7 +57,7 @@ component MobileSearchPopup() {
             >
               {entities.map((entity) => (
                 <option key={entity.value} value={entity.value}>
-                  {entity.name}
+                  {entity.name()}
                 </option>
               ))}
             </select>
