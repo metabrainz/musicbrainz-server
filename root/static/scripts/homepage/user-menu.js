@@ -29,7 +29,10 @@ component UserMenu(
           <div className="welcome-message">
             {exp.l('Welcome back<br />{username}', {
               username: (
-                <a className="username-link username" href={`/user/${user?.name}`}>
+                <a
+                  className="username-link username"
+                  href={`/user/${user?.name}`}
+                >
                   {user?.name}
                 </a>
               ),
