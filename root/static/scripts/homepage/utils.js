@@ -7,30 +7,36 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-const entities = [
-  {name: 'Artist', statKey: 'count.artist', value: 'artist'},
-  {name: 'Event', statKey: 'count.event', value: 'event'},
-  {name: 'Release', statKey: 'count.release', value: 'release'},
+type EntityT = {
+  name: N_l_T,
+  statKey: string,
+  value: string,
+};
+
+const entities: Array<EntityT> = [
+  {name: N_l('Artist'), statKey: 'count.artist', value: 'artist'},
+  {name: N_l('Event'), statKey: 'count.event', value: 'event'},
+  {name: N_l('Release'), statKey: 'count.release', value: 'release'},
   {
-    name: 'Release group',
+    name: N_l('Release group'),
     statKey: 'count.releasegroup',
     value: 'release_group',
   },
   {
-    name: 'Recording',
+    name: N_l('Recording'),
     statKey: 'count.recording',
     value: 'recording',
   },
-  {name: 'Series', statKey: 'count.series', value: 'series'},
-  {name: 'Work', statKey: 'count.work', value: 'work'},
-  {name: 'Area', statKey: 'count.area', value: 'area'},
-  {name: 'Instrument', statKey: 'count.instrument', value: 'instrument'},
-  {name: 'Label', statKey: 'count.label', value: 'label'},
-  {name: 'Place', statKey: 'count.place', value: 'place'},
-  {name: 'Annotation', statKey: 'count.annotation', value: 'annotation'},
-  {name: 'Tag', statKey: 'count.tag', value: 'tag'},
-  {name: 'CD Stub', statKey: 'count.cdstub', value: 'cdstub'},
-  {name: 'Editor', statKey: 'count.editor', value: 'editor'},
+  {name: N_l('Series'), statKey: 'count.series', value: 'series'},
+  {name: N_l('Work'), statKey: 'count.work', value: 'work'},
+  {name: N_l('Area'), statKey: 'count.area', value: 'area'},
+  {name: N_l('Instrument'), statKey: 'count.instrument', value: 'instrument'},
+  {name: N_l('Label'), statKey: 'count.label', value: 'label'},
+  {name: N_l('Place'), statKey: 'count.place', value: 'place'},
+  {name: N_l('Annotation'), statKey: 'count.annotation', value: 'annotation'},
+  {name: N_l('Tag'), statKey: 'count.tag', value: 'tag'},
+  {name: N_l('CD Stub'), statKey: 'count.cdstub', value: 'cdstub'},
+  {name: N_l('Editor'), statKey: 'count.editor', value: 'editor'},
 ];
 
 export default entities;

@@ -24,6 +24,7 @@ export type WeeklyStatsT = {
 const entitiesForStats = [
   'edits',
   'votes',
+  'ratings',
   'artists',
   'releases',
   'recordings',

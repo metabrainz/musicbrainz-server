@@ -15,6 +15,7 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
+import AdminToolsDropdown from '../../../components/AdminToolsDropdown.js';
 import {SanitizedCatalystContext} from '../../../context.mjs';
 import {VARTIST_GID} from '../common/constants.js';
 import useMediaQuery from '../common/hooks/useMediaQuery.js';
@@ -145,6 +146,7 @@ component EditorTools() {
             <a href="/reports">{l('My reports')}</a>
           </div>
           <div className="editor-tools-cell" id="editor-tools-cell-6">
+            <AdminToolsDropdown user={user} />
             <span className="dropdown">
               <a
                 aria-expanded="false"

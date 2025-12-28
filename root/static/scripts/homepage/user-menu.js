@@ -26,13 +26,14 @@ component UserMenu(
     <div className="user-menu-container">
       {user && (
         <>
-          <div>
-            <h2>{l('Welcome back')}</h2>
-            <a className="username-link" href={`/user/${user?.name}`}>
-              <h2 className="username">
-                {user?.name}
-              </h2>
-            </a>
+          <div className="welcome-message">
+            {exp.l('Welcome back<br />{username}', {
+              username: (
+                <a className="username-link username" href={`/user/${user?.name}`}>
+                  {user?.name}
+                </a>
+              ),
+            })}
           </div>
           <div className="user-menu-columns">
             <div className="user-menu-column">

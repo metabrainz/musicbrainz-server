@@ -36,7 +36,7 @@ component Search (
   const entitiesWithStats: $ReadOnlyArray<EntityWithStatsT> =
     entities.map((entity) => {
       const stat = weeklyStats.find((s) => s.stat === entity.statKey);
-      return {...entity, stat};
+      return {name: entity.name(), statKey: entity.statKey, value: entity.value, stat};
     });
 
   const [selectedEntity, setSelectedEntity] =
@@ -137,7 +137,7 @@ component Search (
                 href="/search"
                 title={l('Advanced search')}
               >
-                {l('Advanced Search')}
+                {l('Advanced search')}
               </a>
             </div>
 

@@ -33,7 +33,7 @@ component Footer() {
             <br />
             <p>
               {l(
-                `is an open music encyclopedia that collects music metadata
+                `MusicBrainz is an open music encyclopedia that collects music metadata
                 and makes it available to the public.`,
               )}
             </p>
@@ -50,13 +50,6 @@ component Footer() {
 {' '}
                 <a href="/doc/Communication/ChatBrainz">
                   {'#metabrainz'}
-                </a>
-              </li>
-              <li className="color-a">
-                <span>{addColonText(l('Email'))} </span>
-{' '}
-                <a href="mailto:support@metabrainz.org">
-                  {'support@metabrainz.org'}{' '}
                 </a>
               </li>
             </ul>

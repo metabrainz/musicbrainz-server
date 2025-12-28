@@ -230,16 +230,13 @@ component ArtworkCarousel(
               mode === 'fresh' ? 'selected' : ''
             }`}
             onClick={handleFreshPillClick}
-            title={texp.l(
-              'Order by {type} date',
-              {
-                type: entityType === 'release' ? 'release' : 'event',
-              },
-            )}
+            title={entityType === 'release'
+              ? l('Order by release date')
+              : l('Order by event date')}
           >
-            {texp.l('Fresh {type}', {
-              type: entityType === 'release' ? 'releases' : 'events',
-            })}
+            {entityType === 'release'
+              ? l('Fresh releases')
+              : l('Fresh events')}
           </div>
           <div
             className={`artwork-carousel-pill ${
@@ -271,9 +268,9 @@ component ArtworkCarousel(
           >
             <FontAwesomeIcon icon={faPlusCircle} />
             <h5 className="artwork-control d-none d-md-block">
-              {texp.l('Add {type}', {
-                type: entityType === 'release' ? 'release' : 'event',
-              })}
+              {entityType === 'release'
+                ? l('Add release')
+                : l('Add event')}
             </h5>
           </a>
         </div>
