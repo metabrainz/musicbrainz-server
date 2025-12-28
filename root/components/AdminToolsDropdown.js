@@ -23,7 +23,6 @@ import {
 type EditorPropT = ?{+privileges: number, ...};
 
 component AdminToolsDropdown(user: EditorPropT) {
-
   if (!isAdmin(user)) {
     return null;
   }
@@ -117,4 +116,3 @@ component AdminToolsDropdown(user: EditorPropT) {
 }
 
 export default AdminToolsDropdown;
-

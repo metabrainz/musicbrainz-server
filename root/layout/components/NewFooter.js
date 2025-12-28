@@ -15,7 +15,6 @@ import metabrainzLogo
   from '../../static/images/meb-logos/metabrainz.svg';
 import musicbrainzLogo
   from '../../static/images/meb-logos/musicbrainz.svg';
-import {l} from '../../static/scripts/common/i18n.js';
 
 component Footer() {
   return (
@@ -33,7 +32,8 @@ component Footer() {
             <br />
             <p>
               {l(
-                `MusicBrainz is an open music encyclopedia that collects music metadata
+                `MusicBrainz is an open music encyclopedia that
+                collects music metadata
                 and makes it available to the public.`,
               )}
             </p>
