@@ -4625,6 +4625,28 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
   },
+  // MyAnimeList
+  {
+                     input_url: 'https://myanimelist.net/people/185/Kana_Hanazawa',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/people/185',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://myanimelist.net/character/40/Luffy_Monkey_D',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/character/40',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://myanimelist.net/anime/producer/1696/Kadokawa',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/anime/producer/1696',
+       only_valid_entity_types: ['label'],
+  },
   // Myspace
   {
                      input_url: 'https://myspace.com/instramentaluk',
