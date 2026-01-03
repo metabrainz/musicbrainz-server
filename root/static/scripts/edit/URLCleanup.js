@@ -4508,8 +4508,37 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?mora\.jp/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(\/)?.*$/, 'https://mora.jp/package/$1/$2/');
+      const artistPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/artist\/(\d+)(?:\/)?.*$/;
+      const trackPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?\?trackMaterialNo=(\d+).*$/;
+      const packagePattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?.*$/;
+      if (artistPattern.test(url)) return url.replace(artistPattern, 'https://mora.jp/artist/$1/');
+      if (trackPattern.test(url)) return url.replace(trackPattern, 'https://mora.jp/package/$1/$2/?trackMaterialNo=$3');
+      if (packagePattern.test(url)) return url.replace(packagePattern, 'https://mora.jp/package/$1/$2/');
+      return url;
     },
+    validate(url, id) {
+      const artistPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/artist\/(\d+)(?:\/)?.*$/;
+      const trackPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?\?trackMaterialNo=(\d+).*$/;
+      const packagePattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?.*$/;
+      switch (id) {
+        case LINK_TYPES.downloadpurchase.artist:
+          return {
+            result: artistPattern.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+        case LINK_TYPES.downloadpurchase.recording:
+          return {
+            result: trackPattern.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+        case LINK_TYPES.downloadpurchase.release:
+          return {
+            result: packagePattern.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
+    }
   },
   'musicapopularcl': {
     hostname: 'musicapopular.cl',

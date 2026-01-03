@@ -4400,6 +4400,18 @@ limited_link_type_combinations: [
   },
   // mora
   {
+                     input_url: 'https://mora.jp/artist/2024469/#',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+  },
+  {
+                     input_url: 'https://mora.jp/artist/2024469?test',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+  },
+  {
+                     input_url: 'https://mora.jp/package/43000011/4580789738098_HD?trackMaterialNo=42101983&test#test',
+            expected_clean_url: 'https://mora.jp/package/43000011/4580789738098_HD/?trackMaterialNo=42101983',
+  },
+  {
                      input_url: 'https://mora.jp/package/43000001/4534530058010/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
