@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-02 09:29-0600\n"
+"POT-Creation-Date: 2026-01-05 21:27+0530\n"
 "PO-Revision-Date: 2025-05-27 11:20+0000\n"
 "Last-Translator: silentbird "
 "<silentbird@users.noreply.translations.metabrainz.org>\n"
@@ -214,7 +214,7 @@ msgstr "添加廠牌"
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
-#: ../root/static/scripts/homepage/editor-tools.js:29
+#: ../root/static/scripts/homepage/editor-tools.js:30
 msgctxt "interactive"
 msgid "Add label"
 msgstr "添加廠牌"
@@ -335,6 +335,7 @@ msgstr "發生錯誤: "
 #: ../root/search/components/AnnotationResults.js:57
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/components/Annotation.js:39
+#: ../root/static/scripts/homepage/utils.js:36
 msgid "Annotation"
 msgstr "注釋"
 
@@ -370,7 +371,7 @@ msgstr "通過"
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:32
-#: ../root/user/UserProfile.js:54
+#: ../root/static/scripts/homepage/utils.js:32 ../root/user/UserProfile.js:54
 msgid "Area"
 msgstr "區域"
 
@@ -440,6 +441,7 @@ msgstr "主要類型"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
 #: ../root/static/scripts/common/utility/formatSetlist.js:69
 #: ../root/static/scripts/edit/components/forms.js:129
+#: ../root/static/scripts/homepage/utils.js:17
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:103
 #: ../root/static/scripts/release/components/MediumTable.js:75
 #: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
@@ -538,7 +540,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
-#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
+#: ../root/layout/components/NewFooter.js:81 ../root/main/index.js:218
 msgid "Blog"
 msgstr "部落格"
 
@@ -560,6 +562,7 @@ msgstr ""
 "由 {MeB|MetaBrainz 基金會} 和我們的 {spon|贊助商} 和 {supp|支援者} 為您呈現。"
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
+#: ../root/main/index.js:359
 msgid "Bug tracker"
 msgstr "錯誤追蹤器"
 
@@ -622,7 +625,7 @@ msgstr "目錄#"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
 #: ../root/static/scripts/homepage/navbar.js:112
-#: ../root/static/scripts/homepage/user-menu.js:43
+#: ../root/static/scripts/homepage/user-menu.js:47
 msgid "Chat"
 msgstr "聊天"
 
@@ -836,7 +839,7 @@ msgid "Do not use any of the above releases as a starting point"
 msgstr "請勿使用上述任何版本作為起點"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
-#: ../root/layout/components/NewFooter.js:70
+#: ../root/layout/components/NewFooter.js:63
 msgid "Donate"
 msgstr "捐助"
 
@@ -936,6 +939,7 @@ msgstr "已編輯的內容"
 #: ../root/layout/components/Search.js:48
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:95
+#: ../root/static/scripts/homepage/utils.js:39
 msgid "Editor"
 msgstr "編輯者"
 
@@ -1010,7 +1014,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
-#: ../root/user/UserProfile.js:57
+#: ../root/static/scripts/homepage/utils.js:18 ../root/user/UserProfile.js:57
 msgid "Event"
 msgstr "事件"
 
@@ -1169,7 +1173,6 @@ msgstr "格式"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:111
-#: ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "論壇"
 
@@ -1485,7 +1488,7 @@ msgstr "匯入 CD 草稿"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
-#: ../root/user/UserProfile.js:59
+#: ../root/static/scripts/homepage/utils.js:33 ../root/user/UserProfile.js:59
 msgid "Instrument"
 msgstr "樂器"
 
@@ -1567,6 +1570,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:271
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:38
+#: ../root/static/scripts/homepage/utils.js:34
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:146
 #: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
 #: ../root/utility/tableColumns.js:554
@@ -1600,7 +1604,10 @@ msgstr "廠牌區域"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
-#: ../root/static/scripts/homepage/language.js:66
+#: ../root/static/scripts/homepage/language.js:60
+#: ../root/static/scripts/homepage/language.js:62
+#: ../root/static/scripts/homepage/navbar.js:497
+#: ../root/static/scripts/homepage/navbar.js:503
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr "語言"
@@ -1926,7 +1933,7 @@ msgstr "解析音軌"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
-#: ../root/user/UserProfile.js:61
+#: ../root/static/scripts/homepage/utils.js:35 ../root/user/UserProfile.js:61
 msgid "Place"
 msgstr "地點"
 
@@ -2039,6 +2046,7 @@ msgstr "主要類型"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:40
+#: ../root/static/scripts/homepage/utils.js:26
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1567
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
@@ -2116,6 +2124,7 @@ msgstr "關聯類型"
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:37
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:41
+#: ../root/static/scripts/homepage/utils.js:19
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:387
 #: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:63
 msgid "Release"
@@ -2160,6 +2169,7 @@ msgstr "發行事件"
 #: ../root/static/scripts/common/constants.js:44
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:37
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:42
+#: ../root/static/scripts/homepage/utils.js:21
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:394
 #: ../root/user/UserProfile.js:64
 msgid "Release group"
@@ -2327,7 +2337,14 @@ msgstr "文字"
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/static/scripts/homepage/mobile-search-popup.js:42
-#: ../root/static/scripts/homepage/navbar.js:134 ../root/taglookup/Form.js:51
+#: ../root/static/scripts/homepage/mobile-search-popup.js:71
+#: ../root/static/scripts/homepage/mobile-search-popup.js:78
+#: ../root/static/scripts/homepage/navbar.js:134
+#: ../root/static/scripts/homepage/navbar.js:381
+#: ../root/static/scripts/homepage/navbar.js:418
+#: ../root/static/scripts/homepage/navbar.js:422
+#: ../root/static/scripts/homepage/navbar.js:519
+#: ../root/static/scripts/homepage/search.js:161 ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "搜尋"
 
@@ -3440,7 +3457,7 @@ msgid "We used disc ID <code>{discid}</code> to look up this information."
 msgstr "我們使用碟片 ID <code>{discid}</code> 來尋找此資訊。"
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
-#: ../root/layout/components/NewFooter.js:76
+#: ../root/layout/components/NewFooter.js:69
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3454,7 +3471,8 @@ msgstr "Wiki"
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:45
-#: ../root/user/UserProfile.js:66 ../root/work/WorkLayout.js:25
+#: ../root/static/scripts/homepage/utils.js:31 ../root/user/UserProfile.js:66
+#: ../root/work/WorkLayout.js:25
 msgid "Work"
 msgstr "作品"
 
@@ -4351,19 +4369,19 @@ msgstr "[未知]"
 msgid "The provided relationship type ID is not valid."
 msgstr "提供的關聯類型 ID 無效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:106
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr "已設定語言。如果這是誤操作，你可以 {url|設定回 “{prev_lang_name}”}。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:114
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr "如果你發現翻譯中有任何問題，請{url|幫助我們改進它}！"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:362
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -6091,6 +6109,7 @@ msgstr "標籤"
 #: ../root/edit/details/AddRelationshipType.js:179
 #: ../root/edit/details/EditRelationshipType.js:319
 #: ../root/layout/components/BottomMenu.js:298
+#: ../root/layout/components/NewFooter.js:152
 #: ../root/layout/components/Search.js:51
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:67
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:79
@@ -6602,7 +6621,7 @@ msgstr "離線訪問"
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
-#: ../root/static/scripts/homepage/editor-tools.js:115
+#: ../root/static/scripts/homepage/editor-tools.js:116
 msgid "Applications"
 msgstr "應用"
 
@@ -7880,6 +7899,11 @@ msgstr "移除收藏"
 msgid "Are you sure you want to remove the collection {collection}?"
 msgstr "您確定要移除收藏 {collection} 嗎？"
 
+#: ../root/components/AdminToolsDropdown.js:40
+#, fuzzy
+msgid "Admin tools"
+msgstr "管理員批准"
+
 #: ../root/components/Aliases/AliasTable.js:17
 #: ../root/edit/details/AddRemoveAlias.js:53
 #: ../root/edit/details/EditAlias.js:59 ../root/edit/details/EditAlias.js:81
@@ -8275,7 +8299,7 @@ msgstr "資料"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
-#: ../root/static/scripts/homepage/editor-tools.js:117
+#: ../root/static/scripts/homepage/editor-tools.js:118
 msgid "Subscriptions"
 msgstr "訂閱"
 
@@ -8998,7 +9022,9 @@ msgid "Introduction to editing"
 msgstr "編輯簡介"
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
+#: ../root/layout/components/BottomMenu.js:306
+#: ../root/layout/components/NewFooter.js:163 ../root/main/index.js:396
+#: ../root/static/scripts/homepage/user-menu.js:55
 msgid "Style guidelines"
 msgstr "風格指南"
 
@@ -10587,14 +10613,14 @@ msgid ""
 msgstr "您嘗試編輯的廠牌是一個特殊用途廠牌，您無法對此資料進行直接更改。"
 
 #: ../root/layout/components/BottomMenu.js:88
-#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/language.js:87
 #: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr "(重設語言)"
 
 #: ../root/layout/components/BottomMenu.js:93
-#: ../root/static/scripts/homepage/language.js:101
-#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/language.js:95
+#: ../root/static/scripts/homepage/language.js:97
 #: ../root/static/scripts/homepage/navbar.js:274
 msgid "Help translate"
 msgstr "協助翻譯"
@@ -10619,7 +10645,7 @@ msgid "Team"
 msgstr "團隊"
 
 #: ../root/layout/components/BottomMenu.js:119
-#: ../root/layout/components/NewFooter.js:94
+#: ../root/layout/components/NewFooter.js:87
 #: ../root/static/scripts/homepage/navbar.js:48
 msgid "Shop"
 msgstr "商店"
@@ -10728,7 +10754,7 @@ msgstr "MusicBrainz 伺服器"
 msgid "MusicBrainz Database"
 msgstr "MusicBrainz 資料庫"
 
-#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:313
 #: ../root/static/scripts/homepage/navbar.js:94
 msgid "Developer resources"
 msgstr "開發者資源"
@@ -10744,8 +10770,13 @@ msgid "Live Data Feed"
 msgstr "即時資料饋送"
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/mobile-search-popup.js:88
+#: ../root/static/scripts/homepage/mobile-search-popup.js:89
 #: ../root/static/scripts/homepage/navbar.js:102
-#: ../root/static/scripts/homepage/search.js:171
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/search.js:143
+#: ../root/static/scripts/homepage/search.js:145
+#: ../root/static/scripts/homepage/search.js:183
 msgid "Advanced search"
 msgstr "進階搜尋"
 
@@ -10768,14 +10799,14 @@ msgid "Editing"
 msgstr "修改"
 
 #: ../root/layout/components/BottomMenu.js:246
-#: ../root/static/scripts/homepage/editor-tools.js:25
+#: ../root/static/scripts/homepage/editor-tools.js:26
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "添加創作者"
 
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
-#: ../root/static/scripts/homepage/editor-tools.js:34
+#: ../root/static/scripts/homepage/editor-tools.js:35
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "添加發行團"
@@ -10784,38 +10815,38 @@ msgstr "添加發行團"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
-#: ../root/static/scripts/homepage/editor-tools.js:39
+#: ../root/static/scripts/homepage/editor-tools.js:40
 msgctxt "interactive"
 msgid "Add release"
 msgstr "添加專輯"
 
 #: ../root/layout/components/BottomMenu.js:261
-#: ../root/static/scripts/homepage/editor-tools.js:44
+#: ../root/static/scripts/homepage/editor-tools.js:45
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "添加群星的發行專輯"
 
 #: ../root/layout/components/BottomMenu.js:266
-#: ../root/static/scripts/homepage/editor-tools.js:49
+#: ../root/static/scripts/homepage/editor-tools.js:50
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "添加獨立錄音"
 
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
-#: ../root/static/scripts/homepage/editor-tools.js:54
+#: ../root/static/scripts/homepage/editor-tools.js:55
 msgctxt "interactive"
 msgid "Add work"
 msgstr "添加作品"
 
 #: ../root/layout/components/BottomMenu.js:273
-#: ../root/static/scripts/homepage/editor-tools.js:59
+#: ../root/static/scripts/homepage/editor-tools.js:60
 msgctxt "interactive"
 msgid "Add place"
 msgstr "添加地點"
 
 #: ../root/layout/components/BottomMenu.js:277
-#: ../root/static/scripts/homepage/editor-tools.js:64
+#: ../root/static/scripts/homepage/editor-tools.js:65
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "添加系列"
@@ -10823,7 +10854,7 @@ msgstr "添加系列"
 #: ../root/layout/components/BottomMenu.js:281
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
-#: ../root/static/scripts/homepage/editor-tools.js:69
+#: ../root/static/scripts/homepage/editor-tools.js:70
 msgctxt "interactive"
 msgid "Add event"
 msgstr "添加活動"
@@ -10837,20 +10868,22 @@ msgstr "為編輯投票"
 msgid "Reports"
 msgstr "報告"
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
+#: ../root/layout/components/BottomMenu.js:303
 msgid "Beginners guide"
 msgstr "新手指南"
 
 #: ../root/layout/components/BottomMenu.js:309
+#: ../root/layout/components/NewFooter.js:169
 msgid "How tos"
 msgstr "教學"
 
 #: ../root/layout/components/BottomMenu.js:312
-#: ../root/layout/components/NewFooter.js:182
+#: ../root/layout/components/NewFooter.js:175
 msgid "FAQs"
 msgstr "常見問題"
 
 #: ../root/layout/components/BottomMenu.js:316
+#: ../root/layout/components/NewFooter.js:181
 msgid "Documentation index"
 msgstr "文件索引"
 
@@ -10863,7 +10896,7 @@ msgid "Relationship types"
 msgstr "關聯類型"
 
 #: ../root/layout/components/BottomMenu.js:332
-#: ../root/layout/components/NewFooter.js:194
+#: ../root/layout/components/NewFooter.js:187
 msgid "Development"
 msgstr "開發"
 
@@ -10940,129 +10973,110 @@ msgstr "合併"
 msgid "Remove selected entities"
 msgstr "移除選中實體"
 
-#: ../root/layout/components/NewFooter.js:36
-#, fuzzy
+#: ../root/layout/components/NewFooter.js:35 ../root/main/index.js:111
 msgid ""
-"is an open music encyclopedia that collects music metadata and makes it "
-"available to the public."
+"MusicBrainz is an open music encyclopedia that collects music metadata and "
+"makes it available to the public."
 msgstr "MusicBrainz 是公開的音樂百科全書，收集音樂中繼資料開放給公眾。"
 
 #: ../root/layout/components/NewFooter.js:42
 #, fuzzy
-msgid "Development IRC:"
+msgid "Development chat"
 msgstr "開發"
 
 #: ../root/layout/components/NewFooter.js:49
-msgid "Discussion IRC:"
+msgid "Discussion chat"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:56
+#: ../root/layout/components/NewFooter.js:58
 #, fuzzy
-msgid "Email:"
-msgstr "電子郵件"
+msgid "Useful links"
+msgstr "外部連結"
 
-#: ../root/layout/components/NewFooter.js:65
-msgid "Useful Links"
-msgstr ""
-
-#: ../root/layout/components/NewFooter.js:82
+#: ../root/layout/components/NewFooter.js:75
 #: ../root/static/scripts/homepage/navbar.js:132
 msgid "Community"
 msgstr "社群"
 
-#: ../root/layout/components/NewFooter.js:100
+#: ../root/layout/components/NewFooter.js:93
 #, fuzzy
 msgid "MetaBrainz"
 msgstr "MetaBrainz 部落格"
 
-#: ../root/layout/components/NewFooter.js:106
-#: ../root/layout/components/NewFooter.js:206
+#: ../root/layout/components/NewFooter.js:99
 #, fuzzy
 msgid "Contribute Here"
 msgstr "繼續"
 
-#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#: ../root/layout/components/NewFooter.js:105
 #, fuzzy
 msgid "Bug Tracker"
 msgstr "錯誤追蹤器"
 
-#: ../root/layout/components/NewFooter.js:118
-msgid "Fellow Projects"
+#: ../root/layout/components/NewFooter.js:111
+msgid "Fellow projects"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/NewFooter.js:116
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
 msgid "ListenBrainz"
 msgstr "ListenBrainz"
 
-#: ../root/layout/components/NewFooter.js:129
+#: ../root/layout/components/NewFooter.js:122
 #, fuzzy
 msgid "CritiqueBrainz"
 msgstr "ListenBrainz"
 
-#: ../root/layout/components/NewFooter.js:135
+#: ../root/layout/components/NewFooter.js:128
 msgid "Picard"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:141
+#: ../root/layout/components/NewFooter.js:134
 msgid "BookBrainz"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:147
-#, fuzzy
-msgid "AcousticBrainz"
-msgstr "關於 MusicBrainz"
-
-#: ../root/layout/components/NewFooter.js:153
+#: ../root/layout/components/NewFooter.js:140
 #, fuzzy
 msgid "Cover Art Archive"
 msgstr "封面"
 
-#: ../root/layout/components/NewFooter.js:159
+#: ../root/layout/components/NewFooter.js:146
 #, fuzzy
-msgid "Join Us"
-msgstr "連接詞："
+msgid "Event Art Archive"
+msgstr "封面"
 
-#: ../root/layout/components/NewFooter.js:164
+#: ../root/layout/components/NewFooter.js:157 ../root/main/index.js:189
+#: ../root/main/index.js:388
 #, fuzzy
-msgid "Beginner's Guide"
+msgid "Beginner’s guide"
 msgstr "新手指南"
 
-#: ../root/layout/components/NewFooter.js:170
-#, fuzzy
-msgid "Style Guidelines"
-msgstr "風格指南"
-
-#: ../root/layout/components/NewFooter.js:176
-#, fuzzy
-msgid "How Tos"
-msgstr "教學"
-
-#: ../root/layout/components/NewFooter.js:188
-msgid "Doc Index"
-msgstr ""
-
-#: ../root/layout/components/NewFooter.js:203
+#: ../root/layout/components/NewFooter.js:196
 msgid "OSS Geek?"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:212
+#: ../root/layout/components/NewFooter.js:199
+#, fuzzy
+msgid "Contribute here"
+msgstr "繼續"
+
+#: ../root/layout/components/NewFooter.js:205
 msgid "Brought to you by"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+#: ../root/layout/components/NewFooter.js:215 ../root/main/index.js:518
 #, fuzzy
 msgid "MetaBrainz Foundation"
 msgstr "MetaBrainz 部落格"
 
-#: ../root/layout/components/NewFooter.js:228
+#: ../root/layout/components/NewFooter.js:221
 #, fuzzy
-msgid "Found an Issue?"
+msgid "Found an issue?"
 msgstr "找到 {n} 個結果"
 
-#: ../root/layout/components/NewFooter.js:231
+#: ../root/layout/components/NewFooter.js:224
 #, fuzzy
-msgid "Report Here"
+msgid "Report it here"
 msgstr "報告使用者"
 
 #: ../root/layout/components/SupportedBrowserCheck.js:32
@@ -11074,7 +11088,7 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
-#: ../root/static/scripts/homepage/editor-tools.js:112
+#: ../root/static/scripts/homepage/editor-tools.js:113
 msgid "Log out"
 msgstr "登出"
 
@@ -11084,14 +11098,14 @@ msgstr "我的資料"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
-#: ../root/static/scripts/homepage/editor-tools.js:123
+#: ../root/static/scripts/homepage/editor-tools.js:124
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr "我的收藏"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
-#: ../root/static/scripts/homepage/editor-tools.js:125
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "My ratings"
 msgstr "我的評分"
 
@@ -11101,12 +11115,12 @@ msgid "My tags"
 msgstr "我的標籤"
 
 #: ../root/layout/components/TopMenu.js:92
-#: ../root/static/scripts/homepage/editor-tools.js:130
+#: ../root/static/scripts/homepage/editor-tools.js:131
 msgid "My open edits"
 msgstr "我的待審核編輯"
 
 #: ../root/layout/components/TopMenu.js:95
-#: ../root/static/scripts/homepage/editor-tools.js:132
+#: ../root/static/scripts/homepage/editor-tools.js:133
 msgid "All my edits"
 msgstr "所有編輯"
 
@@ -11119,7 +11133,7 @@ msgid "Edits by subscribed editors"
 msgstr "已訂閱編輯者的編輯"
 
 #: ../root/layout/components/TopMenu.js:106
-#: ../root/static/scripts/homepage/editor-tools.js:140
+#: ../root/static/scripts/homepage/editor-tools.js:141
 msgid "Notes left on my edits"
 msgstr "我的編輯收到的備註"
 
@@ -11702,12 +11716,6 @@ msgstr "（沒有關於此錯誤的詳情）"
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr "MusicBrainz - 開放的音樂百科全書"
 
-#: ../root/main/index.js:111
-msgid ""
-"MusicBrainz is an open music encyclopedia that collects music metadata and "
-"makes it available to the public."
-msgstr "MusicBrainz 是公開的音樂百科全書，收集音樂中繼資料開放給公眾。"
-
 #: ../root/main/index.js:124
 msgid ""
 "The ultimate source of audio information, releasing data under open licenses "
@@ -11747,14 +11755,9 @@ msgstr ""
 msgid "Read More"
 msgstr "閱讀更多 »"
 
-#: ../root/main/index.js:189
-#, fuzzy
-msgid "Beginner editor's guide"
-msgstr "新手指南"
-
 #: ../root/main/index.js:199
 #, fuzzy
-msgid "Latest News"
+msgid "Latest news"
 msgstr "最新文章："
 
 #: ../root/main/index.js:209
@@ -11763,7 +11766,7 @@ msgstr "部落格目前不可用。"
 
 #: ../root/main/index.js:236
 #, fuzzy
-msgid "Community Posts"
+msgid "Community posts"
 msgstr "社群"
 
 #: ../root/main/index.js:248
@@ -11771,48 +11774,33 @@ msgstr "社群"
 msgid "The community posts are currently unavailable."
 msgstr "部落格目前不可用。"
 
-#: ../root/main/index.js:280
+#: ../root/main/index.js:282
 #, fuzzy
 msgid "Develop"
 msgstr "開發者"
 
-#: ../root/main/index.js:284
+#: ../root/main/index.js:286
 #, fuzzy
 msgid "Datasets and Live Data Feed"
 msgstr "即時資料饋送"
 
-#: ../root/main/index.js:290
-msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
-msgstr ""
-
-#: ../root/main/index.js:295
-#, fuzzy
-msgid "creating an account"
-msgstr "建立帳號"
-
-#: ../root/main/index.js:297
-msgid ","
-msgstr ""
-
-#: ../root/main/index.js:300
-msgid "whether for personal or non-commercial use"
+#: ../root/main/index.js:292
+msgid ""
+"Access all our datasets and the MusicBrainz Live Data Feed by {account_link|"
+"creating an account}, whether for personal or non-commercial use."
 msgstr ""
 
 #: ../root/main/index.js:302
-msgid "."
-msgstr ""
-
-#: ../root/main/index.js:308
 #, fuzzy
 msgid "Database"
 msgstr "資料音軌"
 
-#: ../root/main/index.js:313
+#: ../root/main/index.js:307
 #, fuzzy
 msgid "View and download the MusicBrainz Database."
 msgstr "MusicBrainz 資料庫"
 
-#: ../root/main/index.js:325
+#: ../root/main/index.js:319
 #, fuzzy
 msgid ""
 "Use our XML web service or development libraries to create your own "
@@ -11821,177 +11809,140 @@ msgstr ""
 "使用我們的 <strong>XML 網路服務</strong> 或 <strong>開發庫</strong> 建立您自"
 "己的 MusicBrainz 應用程式。"
 
-#: ../root/main/index.js:332 ../root/main/index.js:393
+#: ../root/main/index.js:326 ../root/main/index.js:385
 #, fuzzy
 msgid "See also:"
 msgstr "查看所有標籤"
 
-#: ../root/main/index.js:335
+#: ../root/main/index.js:329
 #, fuzzy
 msgid "Data license"
 msgstr "資料協議"
 
-#: ../root/main/index.js:338 ../root/main/index.js:399
-#: ../root/main/index.js:405 ../root/main/index.js:411
-#: ../root/main/index.js:417 ../root/main/index.js:423
-msgid "|"
-msgstr ""
-
-#: ../root/main/index.js:341
+#: ../root/main/index.js:333
 #, fuzzy
 msgid "MetaBrainz FAQ"
 msgstr "MetaBrainz 部落格"
 
-#: ../root/main/index.js:350
+#: ../root/main/index.js:342
 #, fuzzy
 msgid "Contribute"
 msgstr "繼續"
 
-#: ../root/main/index.js:354
+#: ../root/main/index.js:346
 #, fuzzy
 msgid "Edit the database"
 msgstr "已停用編輯備註"
 
-#: ../root/main/index.js:359
+#: ../root/main/index.js:351
 msgid ""
 "Anyone can help improve our global database! Get started and improve "
 "existing data or add new artists and music."
 msgstr ""
 
-#: ../root/main/index.js:372
+#: ../root/main/index.js:364
 msgid ""
 "Developers, view and pick up issues in our bug tracker, and join us in the "
 "developer chat."
 msgstr ""
 
-#: ../root/main/index.js:380
+#: ../root/main/index.js:372
 msgid "Join the community"
 msgstr ""
 
-#: ../root/main/index.js:385
+#: ../root/main/index.js:377
 msgid ""
 "Talk to other database editors and music fans on our forums or our live chat "
 "via IRC, Matrix and Discord."
 msgstr ""
 
-#: ../root/main/index.js:402
+#: ../root/main/index.js:392
 msgid "Editing introduction"
 msgstr "編輯介紹"
 
-#: ../root/main/index.js:414
+#: ../root/main/index.js:400
 #, fuzzy
 msgid "MusicBrainz FAQs"
 msgstr "MusicBrainz API"
 
-#: ../root/main/index.js:420
+#: ../root/main/index.js:404
 msgid "How to add artists"
 msgstr "如何添加創作者"
 
-#: ../root/main/index.js:426
+#: ../root/main/index.js:408
 msgid "How to add releases"
 msgstr "如何添加專輯"
 
-#: ../root/main/index.js:444
+#: ../root/main/index.js:426
 #, fuzzy
 msgid "Open source"
 msgstr "開發者資源"
 
-#: ../root/main/index.js:447
+#: ../root/main/index.js:429
 msgid ""
 "\"Open source is source code that is made freely available for possible "
-"modification and redistribution...\""
+"modification and redistribution...\" - {wikipedia_link|Wikipedia}"
 msgstr ""
 
-#: ../root/main/index.js:451
-#, fuzzy
-msgid "-"
-msgstr "-"
-
-#: ../root/main/index.js:454
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
-msgstr "Wikipedia"
-
-#: ../root/main/index.js:459
+#: ../root/main/index.js:437
 msgid ""
 "The MusicBrainz database is all open source. This means that anyone can view "
 "the code, contribute improvements and new features, and copy and modify it "
 "for their own use."
 msgstr ""
 
-#: ../root/main/index.js:467
+#: ../root/main/index.js:445
 msgid ""
 "Thousands of wonderful people contribute code or data to MusicBrainz and its "
 "sister projects for no monetary return and for everyone's benefit."
 msgstr ""
 
-#: ../root/main/index.js:476
+#: ../root/main/index.js:454
 msgid "GitHub repositories"
 msgstr ""
 
-#: ../root/main/index.js:484
+#: ../root/main/index.js:462
 msgid "Data provider"
 msgstr ""
 
-#: ../root/main/index.js:487
+#: ../root/main/index.js:465
 msgid ""
 "The MetaBrainz core mission is to curate and maintain public datasets that "
 "anyone can download and use. Some of the world's biggest platforms, such as "
 "Google and Amazon, use our data, as well as small-scale developers and "
-"curious individuals."
+"curious individuals. We ask {commercial_users_link|commercial users} to "
+"support us. Personal use of our datasets will always be free."
 msgstr ""
 
-#: ../root/main/index.js:494
-msgid "We ask"
-msgstr ""
-
-#: ../root/main/index.js:497
-#, fuzzy
-msgid "commercial users"
-msgstr "普通使用者"
-
-#: ../root/main/index.js:501
-msgid "to support us. Personal use of our datasets will always be free."
-msgstr ""
-
-#: ../root/main/index.js:507
+#: ../root/main/index.js:478
 msgid ""
 "Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
 "datasets are AI Ready, perfect for training large language models for music-"
 "based tasks."
 msgstr ""
 
-#: ../root/main/index.js:516
+#: ../root/main/index.js:487
 #, fuzzy
-msgid "MetaBrainz Datasets"
+msgid "MetaBrainz datasets"
 msgstr "MusicBrainz 資料庫"
 
-#: ../root/main/index.js:524
+#: ../root/main/index.js:495
 msgid "Ethical forever"
 msgstr ""
 
-#: ../root/main/index.js:527
+#: ../root/main/index.js:498
 msgid ""
 "The MetaBrainz Foundation is a registered non-profit, making it impossible "
 "for us to be bought or traded."
 msgstr ""
 
-#: ../root/main/index.js:533
+#: ../root/main/index.js:504
 msgid ""
 "Our team and volunteer contributers from across the globe are proud to "
-"consider MusicBrainz and it's sister sites"
-msgstr ""
-
-#: ../root/main/index.js:538
-#, fuzzy
-msgid "enshittification"
-msgstr "限制"
-
-#: ../root/main/index.js:541
-msgid ""
-"-proof projects, immune to the the crapifying that takes place when business "
-"interests inevitably subsume and monetize projects that initially focussed "
-"on high-quality offerings to attract users."
+"consider MusicBrainz and it's sister sites {enshittification_link|"
+"enshittification}, -proof projects, immune to the the crapifying that takes "
+"place when business interests inevitably subsume and monetize projects that "
+"initially focused on high-quality offerings to attract users."
 msgstr ""
 
 #: ../root/mbid/NotFound.js:15
@@ -15168,6 +15119,7 @@ msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr "{forward_link_phrase} / {backward_link_phrase}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:402
+#: ../root/static/scripts/homepage/artwork-carousel.js:85
 msgid "by {artist}"
 msgstr "由 {artist} 提供"
 
@@ -15235,7 +15187,7 @@ msgid "{review_link|Review} by {author} on {date}"
 msgstr "{review_link|審核} 由 {author} 在 {date} 提供"
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/homepage/artwork-carousel.js:41
 #: ../root/static/scripts/release-editor/dialogs.js:158
 msgid "{entity} by {artist}"
 msgstr "{artist} 的 {entity}"
@@ -15559,6 +15511,10 @@ msgstr "標籤"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr "在標籤工具中打開"
+
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr "Wikipedia"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
 msgid "Continue reading at Wikipedia..."
@@ -16560,6 +16516,60 @@ msgstr ""
 "此模式處理土耳其語中 ‘i’ 的大寫 (‘İ’) 和 ‘ı’ (‘I’)。某些單字可能需要根據 "
 "{url|土耳其語指南} 手動修正。"
 
+#: ../root/static/scripts/homepage/artwork-carousel.js:197
+#, fuzzy
+msgid "Now"
+msgstr "否"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:234
+#, fuzzy
+msgid "Order by release date"
+msgstr "排序類型"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:235
+#, fuzzy
+msgid "Order by event date"
+msgstr "排序類型"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:238
+#, fuzzy
+msgid "Fresh releases"
+msgstr "合併專輯"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:239
+#, fuzzy
+msgid "Fresh events"
+msgstr "合併事件"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:246
+#, fuzzy
+msgid "Order by date added to MusicBrainz"
+msgstr "此使用者剛加入 MusicBrainz 不久。"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:248
+#, fuzzy
+msgid "New additions"
+msgstr "補充內容："
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:259
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:259
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:272
+#, fuzzy
+msgid "Add release"
+msgstr "添加發行版"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:273
+#, fuzzy
+msgid "Add event"
+msgstr "添加活動"
+
+#: ../root/static/scripts/homepage/banner-carousel.js:39
 #: ../root/static/scripts/homepage/banner-carousel.js:43
 #, fuzzy
 msgid "Tag your music"
@@ -16569,6 +16579,7 @@ msgstr "標記您的音樂"
 msgid "Yate"
 msgstr ""
 
+#: ../root/static/scripts/homepage/banner-carousel.js:81
 #: ../root/static/scripts/homepage/banner-carousel.js:89
 msgid "Listen together"
 msgstr ""
@@ -16582,58 +16593,50 @@ msgstr "ListenBrainz"
 msgid "Explore the music you listen to."
 msgstr ""
 
-#: ../root/static/scripts/homepage/editor-tools.js:101
+#: ../root/static/scripts/homepage/editor-tools.js:102
 #, fuzzy
-msgid "Editor Tools"
+msgid "Editor tools"
 msgstr "編輯器標誌"
 
-#: ../root/static/scripts/homepage/editor-tools.js:111
+#: ../root/static/scripts/homepage/editor-tools.js:112
 #, fuzzy
-msgid "My Profile"
+msgid "My profile"
 msgstr "資料"
 
-#: ../root/static/scripts/homepage/editor-tools.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:127
 #, fuzzy
 msgid "My tags"
 msgstr "我的標籤"
 
-#: ../root/static/scripts/homepage/editor-tools.js:133
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #, fuzzy
 msgid "Subscribed entity edits"
 msgstr "已訂閱的實體"
 
-#: ../root/static/scripts/homepage/editor-tools.js:135
+#: ../root/static/scripts/homepage/editor-tools.js:136
 #, fuzzy
 msgid "Subscribed editor edits"
 msgstr "已訂閱的編輯者"
 
-#: ../root/static/scripts/homepage/editor-tools.js:144
+#: ../root/static/scripts/homepage/editor-tools.js:145
 #, fuzzy
 msgid "Votes on edits"
 msgstr "為編輯投票"
 
-#: ../root/static/scripts/homepage/editor-tools.js:145
+#: ../root/static/scripts/homepage/editor-tools.js:146
 #, fuzzy
 msgid "My reports"
 msgstr "報告"
 
-#: ../root/static/scripts/homepage/editor-tools.js:157
+#: ../root/static/scripts/homepage/editor-tools.js:159
 #, fuzzy
 msgid "Add new..."
 msgstr "添加備註"
 
-#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/language.js:85
 #, fuzzy
 msgid "reset language"
 msgstr "(重設語言)"
-
-#: ../root/static/scripts/homepage/mobile-search-popup.js:85
-#: ../root/static/scripts/homepage/navbar.js:461
-#: ../root/static/scripts/homepage/search.js:136
-#: ../root/static/scripts/homepage/search.js:138
-#, fuzzy
-msgid "Advanced Search"
-msgstr "進階搜尋"
 
 #: ../root/static/scripts/homepage/navbar.js:115
 msgid "Reddit"
@@ -16649,103 +16652,105 @@ msgstr "目錄"
 msgid "About"
 msgstr "關於我們"
 
-#: ../root/static/scripts/homepage/navbar.js:431
-#: ../root/static/scripts/homepage/search.js:163
+#: ../root/static/scripts/homepage/navbar.js:297
+#: ../root/static/scripts/homepage/search.js:213
+#, fuzzy
+msgctxt "interactive"
+msgid "Close"
+msgstr "關閉"
+
+#: ../root/static/scripts/homepage/navbar.js:428
+#: ../root/static/scripts/homepage/search.js:175
 #, fuzzy
 msgid "in"
 msgstr "資訊"
 
-#: ../root/static/scripts/homepage/search.js:114
+#: ../root/static/scripts/homepage/navbar.js:432
+#, fuzzy
+msgid "Entity for search"
+msgstr "編輯搜尋"
+
+#: ../root/static/scripts/homepage/search.js:103
+#, fuzzy
+msgid "MusicBrainz open source logo"
+msgstr "MusicBrainz 伺服器"
+
+#: ../root/static/scripts/homepage/search.js:108
+#, fuzzy
+msgid "MusicBrainz data provider logo"
+msgstr "MusicBrainz 伺服器"
+
+#: ../root/static/scripts/homepage/search.js:113
+#, fuzzy
+msgid "MusicBrainz ethical source logo"
+msgstr "MusicBrainz 歷史"
+
+#: ../root/static/scripts/homepage/search.js:121
 #, fuzzy
 msgid "The open music encyclopedia"
 msgstr "MusicBrainz - 開放的音樂百科全書"
 
-#: ../root/static/scripts/homepage/search.js:186
+#: ../root/static/scripts/homepage/search.js:198
 #, fuzzy
-msgid "Search in:"
+msgid "Search in"
 msgstr "搜尋"
 
-#: ../root/static/scripts/homepage/stats.js:73
+#: ../root/static/scripts/homepage/stats.js:78
 #, fuzzy
 msgid "last week"
 msgstr "上次編輯"
 
-#: ../root/static/scripts/homepage/stats.js:78
+#: ../root/static/scripts/homepage/stats.js:83
 #, fuzzy
 msgid "total"
 msgstr "總計"
 
-#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#: ../root/static/scripts/homepage/stats.js:88
 #, fuzzy
-msgid "By {artist}"
-msgstr "由 {artist} 提供"
+msgid "View detailed statistics"
+msgstr "查看詳情"
 
-#: ../root/static/scripts/homepage/timeline-carousel.js:108
-#, fuzzy
-msgid "{entity}"
-msgstr "無實體"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:199
-#, fuzzy
-msgid "Now"
-msgstr "否"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:236
-#, fuzzy
-msgid "Order by {type} date"
-msgstr "排序類型"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:242
-#, fuzzy
-msgid "Fresh {type}"
-msgstr "系列"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:251
-#, fuzzy
-msgid "Order by date added to MusicBrainz"
-msgstr "此使用者剛加入 MusicBrainz 不久。"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:253
-#, fuzzy
-msgid "New Additions"
-msgstr "補充內容："
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:264
-msgid "Pause"
+#: ../root/static/scripts/homepage/stats.js:90
+msgid "Magnifying glass"
 msgstr ""
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:264
-msgid "Play"
-msgstr ""
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:276
-#, fuzzy
-msgid "Add {type}"
-msgstr "添加備註"
 
 #: ../root/static/scripts/homepage/user-menu.js:30
-msgid "Welcome back"
+msgid "Welcome back<br />{username}"
 msgstr ""
 
-#: ../root/static/scripts/homepage/user-menu.js:48
+#: ../root/static/scripts/homepage/user-menu.js:44
+#, fuzzy
+msgid "Community forums"
+msgstr "社群"
+
+#: ../root/static/scripts/homepage/user-menu.js:52
 #, fuzzy
 msgid "Ticket tracker"
 msgstr "錯誤追蹤器"
 
-#: ../root/static/scripts/homepage/user-menu.js:51
-#, fuzzy
-msgid "Editing guidelines"
-msgstr "風格指南"
-
-#: ../root/static/scripts/homepage/user-menu.js:56
+#: ../root/static/scripts/homepage/user-menu.js:60
 #, fuzzy
 msgid "Userscripts"
 msgstr "描述"
 
-#: ../root/static/scripts/homepage/user-menu.js:61
+#: ../root/static/scripts/homepage/user-menu.js:65
 #, fuzzy
 msgid "Latest blog post:"
 msgstr "最新文章："
+
+#: ../root/static/scripts/homepage/utils.js:30
+#, fuzzy
+msgid "Series"
+msgstr "系列"
+
+#: ../root/static/scripts/homepage/utils.js:37
+#, fuzzy
+msgid "Tag"
+msgstr "標籤"
+
+#: ../root/static/scripts/homepage/utils.js:38
+msgid "CD Stub"
+msgstr ""
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
@@ -18816,6 +18821,84 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合併的作品中有一些擁有不同的ISWC編號。請先確保"
 "這些作品確實為相同作品，然後再繼續進行合併。"
+
+#, fuzzy
+#~ msgid ""
+#~ "is an open music encyclopedia that collects music metadata and makes it "
+#~ "available to the public."
+#~ msgstr "MusicBrainz 是公開的音樂百科全書，收集音樂中繼資料開放給公眾。"
+
+#, fuzzy
+#~ msgid "Development IRC:"
+#~ msgstr "開發"
+
+#, fuzzy
+#~ msgid "Email:"
+#~ msgstr "電子郵件"
+
+#, fuzzy
+#~ msgid "AcousticBrainz"
+#~ msgstr "關於 MusicBrainz"
+
+#, fuzzy
+#~ msgid "Join Us"
+#~ msgstr "連接詞："
+
+#, fuzzy
+#~ msgid "Beginner's Guide"
+#~ msgstr "新手指南"
+
+#, fuzzy
+#~ msgid "Style Guidelines"
+#~ msgstr "風格指南"
+
+#, fuzzy
+#~ msgid "How Tos"
+#~ msgstr "教學"
+
+#, fuzzy
+#~ msgid "Beginner editor's guide"
+#~ msgstr "新手指南"
+
+#, fuzzy
+#~ msgid "creating an account"
+#~ msgstr "建立帳號"
+
+#, fuzzy
+#~ msgid "-"
+#~ msgstr "-"
+
+#, fuzzy
+#~ msgid "commercial users"
+#~ msgstr "普通使用者"
+
+#, fuzzy
+#~ msgid "enshittification"
+#~ msgstr "限制"
+
+#, fuzzy
+#~ msgid "Advanced Search"
+#~ msgstr "進階搜尋"
+
+#, fuzzy
+#~ msgid "By {artist}"
+#~ msgstr "由 {artist} 提供"
+
+#, fuzzy
+#~ msgid "{entity}"
+#~ msgstr "無實體"
+
+#, fuzzy
+#~ msgid "Fresh {type}"
+#~ msgstr "系列"
+
+#, fuzzy
+#~ msgid "Add {type}"
+#~ msgstr "添加備註"
+
+#, fuzzy
+#~ msgid "Editing guidelines"
+#~ msgstr "風格指南"
 
 #, fuzzy
 #~ msgid "Tag cloud"

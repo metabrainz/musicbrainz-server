@@ -34,7 +34,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-02 09:29-0600\n"
+"POT-Creation-Date: 2026-01-05 21:27+0530\n"
 "PO-Revision-Date: 2025-10-20 02:08+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
@@ -247,7 +247,7 @@ msgstr "Aggiungi etichetta"
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
-#: ../root/static/scripts/homepage/editor-tools.js:29
+#: ../root/static/scripts/homepage/editor-tools.js:30
 msgctxt "interactive"
 msgid "Add label"
 msgstr "Aggiungi etichetta"
@@ -372,6 +372,7 @@ msgstr "Si è verificato un errore: "
 #: ../root/search/components/AnnotationResults.js:57
 #: ../root/search/components/SearchForm.js:39
 #: ../root/static/scripts/common/components/Annotation.js:39
+#: ../root/static/scripts/homepage/utils.js:36
 msgid "Annotation"
 msgstr "Annotazione"
 
@@ -407,7 +408,7 @@ msgstr "Approva"
 #: ../root/search/components/SearchForm.js:37
 #: ../root/static/scripts/common/constants.js:35
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:32
-#: ../root/user/UserProfile.js:54
+#: ../root/static/scripts/homepage/utils.js:32 ../root/user/UserProfile.js:54
 msgid "Area"
 msgstr "Area"
 
@@ -476,6 +477,7 @@ msgstr "Area principale"
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:33
 #: ../root/static/scripts/common/utility/formatSetlist.js:69
 #: ../root/static/scripts/edit/components/forms.js:129
+#: ../root/static/scripts/homepage/utils.js:17
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:103
 #: ../root/static/scripts/release/components/MediumTable.js:75
 #: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
@@ -577,7 +579,7 @@ msgstr ""
 
 #: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
 #: ../root/layout/components/Footer.js:33
-#: ../root/layout/components/NewFooter.js:88 ../root/main/index.js:218
+#: ../root/layout/components/NewFooter.js:81 ../root/main/index.js:218
 msgid "Blog"
 msgstr "Blog"
 
@@ -600,6 +602,7 @@ msgstr ""
 "{supp|sostenitori}."
 
 #: ../root/layout.tt:119 ../root/layout/components/Footer.js:32
+#: ../root/main/index.js:359
 msgid "Bug tracker"
 msgstr "Bug tracker"
 
@@ -662,7 +665,7 @@ msgstr "Nº di catalogo"
 
 #: ../root/layout.tt:118 ../root/layout/components/Footer.js:30
 #: ../root/static/scripts/homepage/navbar.js:112
-#: ../root/static/scripts/homepage/user-menu.js:43
+#: ../root/static/scripts/homepage/user-menu.js:47
 msgid "Chat"
 msgstr "Chat"
 
@@ -888,7 +891,7 @@ msgstr ""
 "Non utilizzare nessuna delle pubblicazioni qui sopra come punto di partenza"
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
-#: ../root/layout/components/NewFooter.js:70
+#: ../root/layout/components/NewFooter.js:63
 msgid "Donate"
 msgstr "Fai una donazione"
 
@@ -988,6 +991,7 @@ msgstr "Entità modificata"
 #: ../root/layout/components/Search.js:48
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:95
+#: ../root/static/scripts/homepage/utils.js:39
 msgid "Editor"
 msgstr "Editor"
 
@@ -1070,7 +1074,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:45
 #: ../root/static/scripts/common/constants.js:37
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
-#: ../root/user/UserProfile.js:57
+#: ../root/static/scripts/homepage/utils.js:18 ../root/user/UserProfile.js:57
 msgid "Event"
 msgstr "Evento"
 
@@ -1262,7 +1266,6 @@ msgstr "Formato"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:257 ../root/static/scripts/homepage/navbar.js:111
-#: ../root/static/scripts/homepage/user-menu.js:40
 msgid "Forums"
 msgstr "Forum"
 
@@ -1608,7 +1611,7 @@ msgstr "Importa bozza CD"
 #: ../root/search/components/SearchForm.js:43
 #: ../root/static/scripts/common/constants.js:39
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
-#: ../root/user/UserProfile.js:59
+#: ../root/static/scripts/homepage/utils.js:33 ../root/user/UserProfile.js:59
 msgid "Instrument"
 msgstr "Strumento"
 
@@ -1696,6 +1699,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:271
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:38
+#: ../root/static/scripts/homepage/utils.js:34
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:146
 #: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
 #: ../root/utility/tableColumns.js:554
@@ -1728,7 +1732,10 @@ msgstr "Tipo di etichetta"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
-#: ../root/static/scripts/homepage/language.js:66
+#: ../root/static/scripts/homepage/language.js:60
+#: ../root/static/scripts/homepage/language.js:62
+#: ../root/static/scripts/homepage/navbar.js:497
+#: ../root/static/scripts/homepage/navbar.js:503
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
 msgstr "Lingua"
@@ -2067,7 +2074,7 @@ msgstr "Analizza tracce"
 #: ../root/search/components/SearchForm.js:38
 #: ../root/static/scripts/common/constants.js:41
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:39
-#: ../root/user/UserProfile.js:61
+#: ../root/static/scripts/homepage/utils.js:35 ../root/user/UserProfile.js:61
 msgid "Place"
 msgstr "Posto"
 
@@ -2187,6 +2194,7 @@ msgstr "Tipo principale"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:40
+#: ../root/static/scripts/homepage/utils.js:26
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1567
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
@@ -2264,6 +2272,7 @@ msgstr "Tipo di relazione"
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:37
 #: ../root/static/scripts/common/constants.js:43
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:41
+#: ../root/static/scripts/homepage/utils.js:19
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:387
 #: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:63
 msgid "Release"
@@ -2308,6 +2317,7 @@ msgstr "Evento di pubblicazione"
 #: ../root/static/scripts/common/constants.js:44
 #: ../root/static/scripts/common/i18n/localizeTypeNameForEntity.js:37
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:42
+#: ../root/static/scripts/homepage/utils.js:21
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:394
 #: ../root/user/UserProfile.js:64
 msgid "Release group"
@@ -2476,7 +2486,14 @@ msgstr "Sistema di scrittura"
 #: ../root/static/scripts/common/components/Autocomplete2.js:802
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/static/scripts/homepage/mobile-search-popup.js:42
-#: ../root/static/scripts/homepage/navbar.js:134 ../root/taglookup/Form.js:51
+#: ../root/static/scripts/homepage/mobile-search-popup.js:71
+#: ../root/static/scripts/homepage/mobile-search-popup.js:78
+#: ../root/static/scripts/homepage/navbar.js:134
+#: ../root/static/scripts/homepage/navbar.js:381
+#: ../root/static/scripts/homepage/navbar.js:418
+#: ../root/static/scripts/homepage/navbar.js:422
+#: ../root/static/scripts/homepage/navbar.js:519
+#: ../root/static/scripts/homepage/search.js:161 ../root/taglookup/Form.js:51
 msgid "Search"
 msgstr "Cerca"
 
@@ -3734,7 +3751,7 @@ msgstr ""
 "code>."
 
 #: ../root/layout.tt:116 ../root/layout/components/Footer.js:27
-#: ../root/layout/components/NewFooter.js:76
+#: ../root/layout/components/NewFooter.js:69
 msgid "Wiki"
 msgstr "Wiki"
 
@@ -3748,7 +3765,8 @@ msgstr "Wiki"
 #: ../root/search/components/SearchForm.js:35
 #: ../root/static/scripts/common/constants.js:47
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:45
-#: ../root/user/UserProfile.js:66 ../root/work/WorkLayout.js:25
+#: ../root/static/scripts/homepage/utils.js:31 ../root/user/UserProfile.js:66
+#: ../root/work/WorkLayout.js:25
 msgid "Work"
 msgstr "Opera"
 
@@ -4715,7 +4733,7 @@ msgstr "[sconosciuto]"
 msgid "The provided relationship type ID is not valid."
 msgstr "L'ID del tipo di relazione fornito non è valido."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:106
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
@@ -4723,13 +4741,13 @@ msgstr ""
 "Lingua impostata correttamente. Se non l'hai fatto di proposito, {url|"
 "reimposta la lingua “{prev_lang_name}”}."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:115
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:114
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr "Se noti un problema con la traduzione, {url|aiutaci a migliorarla}!"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:362
 msgid ""
 "Our Redis server appears to be down; some features may not work as intended "
 "or expected."
@@ -6532,6 +6550,7 @@ msgstr "Tag"
 #: ../root/edit/details/AddRelationshipType.js:179
 #: ../root/edit/details/EditRelationshipType.js:319
 #: ../root/layout/components/BottomMenu.js:298
+#: ../root/layout/components/NewFooter.js:152
 #: ../root/layout/components/Search.js:51
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:67
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:79
@@ -7080,7 +7099,7 @@ msgstr "Accesso offline"
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
-#: ../root/static/scripts/homepage/editor-tools.js:115
+#: ../root/static/scripts/homepage/editor-tools.js:116
 msgid "Applications"
 msgstr "Applicazioni"
 
@@ -8449,6 +8468,11 @@ msgstr "Rimuovi collezione"
 msgid "Are you sure you want to remove the collection {collection}?"
 msgstr "Sei sicuro di voler rimuovere la collezione {collection}?"
 
+#: ../root/components/AdminToolsDropdown.js:40
+#, fuzzy
+msgid "Admin tools"
+msgstr "Approvazione amministratore"
+
 #: ../root/components/Aliases/AliasTable.js:17
 #: ../root/edit/details/AddRemoveAlias.js:53
 #: ../root/edit/details/EditAlias.js:59 ../root/edit/details/EditAlias.js:81
@@ -8877,7 +8901,7 @@ msgstr "Profilo"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
-#: ../root/static/scripts/homepage/editor-tools.js:117
+#: ../root/static/scripts/homepage/editor-tools.js:118
 msgid "Subscriptions"
 msgstr "Iscrizioni"
 
@@ -9656,7 +9680,9 @@ msgid "Introduction to editing"
 msgstr "Introduzione alle modifiche"
 
 #: ../root/edit/components/ListHeader.js:242
-#: ../root/layout/components/BottomMenu.js:306 ../root/main/index.js:408
+#: ../root/layout/components/BottomMenu.js:306
+#: ../root/layout/components/NewFooter.js:163 ../root/main/index.js:396
+#: ../root/static/scripts/homepage/user-menu.js:55
 msgid "Style guidelines"
 msgstr "Linee guida di stile"
 
@@ -11336,14 +11362,14 @@ msgstr ""
 "non puoi apportare cambiamenti diretti a questi dati."
 
 #: ../root/layout/components/BottomMenu.js:88
-#: ../root/static/scripts/homepage/language.js:93
+#: ../root/static/scripts/homepage/language.js:87
 #: ../root/static/scripts/homepage/navbar.js:265
 msgid "(reset language)"
 msgstr "(reimposta lingua)"
 
 #: ../root/layout/components/BottomMenu.js:93
-#: ../root/static/scripts/homepage/language.js:101
-#: ../root/static/scripts/homepage/language.js:103
+#: ../root/static/scripts/homepage/language.js:95
+#: ../root/static/scripts/homepage/language.js:97
 #: ../root/static/scripts/homepage/navbar.js:274
 msgid "Help translate"
 msgstr "Aiuta a tradurre"
@@ -11368,7 +11394,7 @@ msgid "Team"
 msgstr "Team"
 
 #: ../root/layout/components/BottomMenu.js:119
-#: ../root/layout/components/NewFooter.js:94
+#: ../root/layout/components/NewFooter.js:87
 #: ../root/static/scripts/homepage/navbar.js:48
 msgid "Shop"
 msgstr "Negozio"
@@ -11477,7 +11503,7 @@ msgstr "Server di MusicBrainz"
 msgid "MusicBrainz Database"
 msgstr "Database di MusicBrainz"
 
-#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:319
+#: ../root/layout/components/BottomMenu.js:199 ../root/main/index.js:313
 #: ../root/static/scripts/homepage/navbar.js:94
 msgid "Developer resources"
 msgstr "Risorse per sviluppatori"
@@ -11493,8 +11519,13 @@ msgid "Live Data Feed"
 msgstr "Live Data Feed"
 
 #: ../root/layout/components/BottomMenu.js:221
+#: ../root/static/scripts/homepage/mobile-search-popup.js:88
+#: ../root/static/scripts/homepage/mobile-search-popup.js:89
 #: ../root/static/scripts/homepage/navbar.js:102
-#: ../root/static/scripts/homepage/search.js:171
+#: ../root/static/scripts/homepage/navbar.js:458
+#: ../root/static/scripts/homepage/search.js:143
+#: ../root/static/scripts/homepage/search.js:145
+#: ../root/static/scripts/homepage/search.js:183
 msgid "Advanced search"
 msgstr "Ricerca avanzata"
 
@@ -11517,14 +11548,14 @@ msgid "Editing"
 msgstr "Modifiche"
 
 #: ../root/layout/components/BottomMenu.js:246
-#: ../root/static/scripts/homepage/editor-tools.js:25
+#: ../root/static/scripts/homepage/editor-tools.js:26
 msgctxt "interactive"
 msgid "Add artist"
 msgstr "Aggiungi artista"
 
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
-#: ../root/static/scripts/homepage/editor-tools.js:34
+#: ../root/static/scripts/homepage/editor-tools.js:35
 msgctxt "interactive"
 msgid "Add release group"
 msgstr "Aggiungi gruppo di pubblicazioni"
@@ -11533,38 +11564,38 @@ msgstr "Aggiungi gruppo di pubblicazioni"
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
-#: ../root/static/scripts/homepage/editor-tools.js:39
+#: ../root/static/scripts/homepage/editor-tools.js:40
 msgctxt "interactive"
 msgid "Add release"
 msgstr "Aggiungi pubblicazione"
 
 #: ../root/layout/components/BottomMenu.js:261
-#: ../root/static/scripts/homepage/editor-tools.js:44
+#: ../root/static/scripts/homepage/editor-tools.js:45
 msgctxt "interactive"
 msgid "Add Various Artists release"
 msgstr "Aggiungi pubblicazione di artisti vari"
 
 #: ../root/layout/components/BottomMenu.js:266
-#: ../root/static/scripts/homepage/editor-tools.js:49
+#: ../root/static/scripts/homepage/editor-tools.js:50
 msgctxt "interactive"
 msgid "Add standalone recording"
 msgstr "Aggiungi registrazione a sé stante"
 
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
-#: ../root/static/scripts/homepage/editor-tools.js:54
+#: ../root/static/scripts/homepage/editor-tools.js:55
 msgctxt "interactive"
 msgid "Add work"
 msgstr "Aggiungi opera"
 
 #: ../root/layout/components/BottomMenu.js:273
-#: ../root/static/scripts/homepage/editor-tools.js:59
+#: ../root/static/scripts/homepage/editor-tools.js:60
 msgctxt "interactive"
 msgid "Add place"
 msgstr "Aggiungi posto"
 
 #: ../root/layout/components/BottomMenu.js:277
-#: ../root/static/scripts/homepage/editor-tools.js:64
+#: ../root/static/scripts/homepage/editor-tools.js:65
 msgctxt "singular, interactive"
 msgid "Add series"
 msgstr "Aggiungi serie"
@@ -11572,7 +11603,7 @@ msgstr "Aggiungi serie"
 #: ../root/layout/components/BottomMenu.js:281
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
-#: ../root/static/scripts/homepage/editor-tools.js:69
+#: ../root/static/scripts/homepage/editor-tools.js:70
 msgctxt "interactive"
 msgid "Add event"
 msgstr "Aggiungi evento"
@@ -11586,20 +11617,22 @@ msgstr "Vota le modifiche"
 msgid "Reports"
 msgstr "Rapporti"
 
-#: ../root/layout/components/BottomMenu.js:303 ../root/main/index.js:396
+#: ../root/layout/components/BottomMenu.js:303
 msgid "Beginners guide"
 msgstr "Guida per principianti"
 
 #: ../root/layout/components/BottomMenu.js:309
+#: ../root/layout/components/NewFooter.js:169
 msgid "How tos"
 msgstr "Istruzioni"
 
 #: ../root/layout/components/BottomMenu.js:312
-#: ../root/layout/components/NewFooter.js:182
+#: ../root/layout/components/NewFooter.js:175
 msgid "FAQs"
 msgstr "Domande frequenti"
 
 #: ../root/layout/components/BottomMenu.js:316
+#: ../root/layout/components/NewFooter.js:181
 msgid "Documentation index"
 msgstr "Indice della documentazione"
 
@@ -11612,7 +11645,7 @@ msgid "Relationship types"
 msgstr "Tipi di relazione"
 
 #: ../root/layout/components/BottomMenu.js:332
-#: ../root/layout/components/NewFooter.js:194
+#: ../root/layout/components/NewFooter.js:187
 msgid "Development"
 msgstr "Sviluppo"
 
@@ -11692,131 +11725,113 @@ msgstr "Unisci"
 msgid "Remove selected entities"
 msgstr "Rimuovi entità selezionate"
 
-#: ../root/layout/components/NewFooter.js:36
-#, fuzzy
+#: ../root/layout/components/NewFooter.js:35 ../root/main/index.js:111
 msgid ""
-"is an open music encyclopedia that collects music metadata and makes it "
-"available to the public."
+"MusicBrainz is an open music encyclopedia that collects music metadata and "
+"makes it available to the public."
 msgstr ""
 "MusicBrainz è un'enciclopedia musicale aperta che raccoglie metadati "
 "musicali e li mette a disposizione del pubblico."
 
 #: ../root/layout/components/NewFooter.js:42
 #, fuzzy
-msgid "Development IRC:"
+msgid "Development chat"
 msgstr "Sviluppo"
 
 #: ../root/layout/components/NewFooter.js:49
 #, fuzzy
-msgid "Discussion IRC:"
+msgid "Discussion chat"
 msgstr "ID disco:"
 
-#: ../root/layout/components/NewFooter.js:56
-msgid "Email:"
-msgstr "Email:"
-
-#: ../root/layout/components/NewFooter.js:65
+#: ../root/layout/components/NewFooter.js:58
 #, fuzzy
-msgid "Useful Links"
+msgid "Useful links"
 msgstr "Collegamenti esterni"
 
-#: ../root/layout/components/NewFooter.js:82
+#: ../root/layout/components/NewFooter.js:75
 #: ../root/static/scripts/homepage/navbar.js:132
 msgid "Community"
 msgstr "Comunità"
 
-#: ../root/layout/components/NewFooter.js:100
+#: ../root/layout/components/NewFooter.js:93
 #, fuzzy
 msgid "MetaBrainz"
 msgstr "Blog di MetaBrainz"
 
-#: ../root/layout/components/NewFooter.js:106
-#: ../root/layout/components/NewFooter.js:206
+#: ../root/layout/components/NewFooter.js:99
 #, fuzzy
 msgid "Contribute Here"
 msgstr "Continua"
 
-#: ../root/layout/components/NewFooter.js:112 ../root/main/index.js:367
+#: ../root/layout/components/NewFooter.js:105
 #, fuzzy
 msgid "Bug Tracker"
 msgstr "Bug tracker"
 
-#: ../root/layout/components/NewFooter.js:118
-msgid "Fellow Projects"
+#: ../root/layout/components/NewFooter.js:111
+msgid "Fellow projects"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:123
+#: ../root/layout/components/NewFooter.js:116
 #: ../root/layout/components/sidebar/PlayOnListenBrainzButton.js:63
 msgid "ListenBrainz"
 msgstr "ListenBrainz"
 
-#: ../root/layout/components/NewFooter.js:129
+#: ../root/layout/components/NewFooter.js:122
 #, fuzzy
 msgid "CritiqueBrainz"
 msgstr "ListenBrainz"
 
-#: ../root/layout/components/NewFooter.js:135
+#: ../root/layout/components/NewFooter.js:128
 msgid "Picard"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:141
+#: ../root/layout/components/NewFooter.js:134
 msgid "BookBrainz"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:147
-#, fuzzy
-msgid "AcousticBrainz"
-msgstr "Cos'è MusicBrainz"
-
-#: ../root/layout/components/NewFooter.js:153
+#: ../root/layout/components/NewFooter.js:140
 #, fuzzy
 msgid "Cover Art Archive"
 msgstr "Copertine"
 
-#: ../root/layout/components/NewFooter.js:159
+#: ../root/layout/components/NewFooter.js:146
 #, fuzzy
-msgid "Join Us"
-msgstr "Connettore:"
+msgid "Event Art Archive"
+msgstr "Copertine"
 
-#: ../root/layout/components/NewFooter.js:164
+#: ../root/layout/components/NewFooter.js:157 ../root/main/index.js:189
+#: ../root/main/index.js:388
 #, fuzzy
-msgid "Beginner's Guide"
+msgid "Beginner’s guide"
 msgstr "Guida per principianti"
 
-#: ../root/layout/components/NewFooter.js:170
-msgid "Style Guidelines"
-msgstr "Linee guida di stile"
-
-#: ../root/layout/components/NewFooter.js:176
-#, fuzzy
-msgid "How Tos"
-msgstr "Istruzioni"
-
-#: ../root/layout/components/NewFooter.js:188
-msgid "Doc Index"
-msgstr ""
-
-#: ../root/layout/components/NewFooter.js:203
+#: ../root/layout/components/NewFooter.js:196
 msgid "OSS Geek?"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:212
+#: ../root/layout/components/NewFooter.js:199
+#, fuzzy
+msgid "Contribute here"
+msgstr "Continua"
+
+#: ../root/layout/components/NewFooter.js:205
 msgid "Brought to you by"
 msgstr ""
 
-#: ../root/layout/components/NewFooter.js:222 ../root/main/index.js:551
+#: ../root/layout/components/NewFooter.js:215 ../root/main/index.js:518
 #, fuzzy
 msgid "MetaBrainz Foundation"
 msgstr "Blog di MetaBrainz"
 
-#: ../root/layout/components/NewFooter.js:228
+#: ../root/layout/components/NewFooter.js:221
 #, fuzzy
-msgid "Found an Issue?"
+msgid "Found an issue?"
 msgstr "Trovato {n} risultato"
 
-#: ../root/layout/components/NewFooter.js:231
+#: ../root/layout/components/NewFooter.js:224
 #, fuzzy
-msgid "Report Here"
+msgid "Report it here"
 msgstr "Segnala utente"
 
 #: ../root/layout/components/SupportedBrowserCheck.js:32
@@ -11832,7 +11847,7 @@ msgstr ""
 "ti è possibile, puoi provare ad abilitare la {url|modalità browser datato}."
 
 #: ../root/layout/components/TopMenu.js:60
-#: ../root/static/scripts/homepage/editor-tools.js:112
+#: ../root/static/scripts/homepage/editor-tools.js:113
 msgid "Log out"
 msgstr "Disconnettiti"
 
@@ -11842,14 +11857,14 @@ msgstr "I miei dati"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
-#: ../root/static/scripts/homepage/editor-tools.js:123
+#: ../root/static/scripts/homepage/editor-tools.js:124
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr "Le mie collezioni"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
-#: ../root/static/scripts/homepage/editor-tools.js:125
+#: ../root/static/scripts/homepage/editor-tools.js:126
 msgid "My ratings"
 msgstr "Le mie valutazioni"
 
@@ -11859,12 +11874,12 @@ msgid "My tags"
 msgstr "I miei tag"
 
 #: ../root/layout/components/TopMenu.js:92
-#: ../root/static/scripts/homepage/editor-tools.js:130
+#: ../root/static/scripts/homepage/editor-tools.js:131
 msgid "My open edits"
 msgstr "Le mie modifiche in corso"
 
 #: ../root/layout/components/TopMenu.js:95
-#: ../root/static/scripts/homepage/editor-tools.js:132
+#: ../root/static/scripts/homepage/editor-tools.js:133
 msgid "All my edits"
 msgstr "Tutte le mie modifiche"
 
@@ -11877,7 +11892,7 @@ msgid "Edits by subscribed editors"
 msgstr "Modifiche di editor a cui sei iscritto"
 
 #: ../root/layout/components/TopMenu.js:106
-#: ../root/static/scripts/homepage/editor-tools.js:140
+#: ../root/static/scripts/homepage/editor-tools.js:141
 msgid "Notes left on my edits"
 msgstr "Note lasciate sulle mie modifiche"
 
@@ -12486,14 +12501,6 @@ msgstr "(Nessun dettaglio disponibile riguardo a questo errore)"
 msgid "MusicBrainz - the open music encyclopedia"
 msgstr "MusicBrainz - L'enciclopedia musicale aperta"
 
-#: ../root/main/index.js:111
-msgid ""
-"MusicBrainz is an open music encyclopedia that collects music metadata and "
-"makes it available to the public."
-msgstr ""
-"MusicBrainz è un'enciclopedia musicale aperta che raccoglie metadati "
-"musicali e li mette a disposizione del pubblico."
-
 #: ../root/main/index.js:124
 msgid ""
 "The ultimate source of audio information, releasing data under open licenses "
@@ -12536,14 +12543,9 @@ msgstr ""
 msgid "Read More"
 msgstr "Continua »"
 
-#: ../root/main/index.js:189
-#, fuzzy
-msgid "Beginner editor's guide"
-msgstr "Guida per principianti"
-
 #: ../root/main/index.js:199
 #, fuzzy
-msgid "Latest News"
+msgid "Latest news"
 msgstr "Ultimi post:"
 
 #: ../root/main/index.js:209
@@ -12552,7 +12554,7 @@ msgstr "Il blog non è al momento disponibile."
 
 #: ../root/main/index.js:236
 #, fuzzy
-msgid "Community Posts"
+msgid "Community posts"
 msgstr "Comunità"
 
 #: ../root/main/index.js:248
@@ -12560,48 +12562,33 @@ msgstr "Comunità"
 msgid "The community posts are currently unavailable."
 msgstr "Il blog non è al momento disponibile."
 
-#: ../root/main/index.js:280
+#: ../root/main/index.js:282
 #, fuzzy
 msgid "Develop"
 msgstr "Sviluppatori"
 
-#: ../root/main/index.js:284
+#: ../root/main/index.js:286
 #, fuzzy
 msgid "Datasets and Live Data Feed"
 msgstr "Live Data Feed"
 
-#: ../root/main/index.js:290
-msgid "Access all our datasets and the MusicBrainz Live Data Feed by"
-msgstr ""
-
-#: ../root/main/index.js:295
-#, fuzzy
-msgid "creating an account"
-msgstr "Crea un account"
-
-#: ../root/main/index.js:297
-msgid ","
-msgstr ""
-
-#: ../root/main/index.js:300
-msgid "whether for personal or non-commercial use"
+#: ../root/main/index.js:292
+msgid ""
+"Access all our datasets and the MusicBrainz Live Data Feed by {account_link|"
+"creating an account}, whether for personal or non-commercial use."
 msgstr ""
 
 #: ../root/main/index.js:302
-msgid "."
-msgstr ""
-
-#: ../root/main/index.js:308
 #, fuzzy
 msgid "Database"
 msgstr "Tracce dati"
 
-#: ../root/main/index.js:313
+#: ../root/main/index.js:307
 #, fuzzy
 msgid "View and download the MusicBrainz Database."
 msgstr "Database di MusicBrainz"
 
-#: ../root/main/index.js:325
+#: ../root/main/index.js:319
 #, fuzzy
 msgid ""
 "Use our XML web service or development libraries to create your own "
@@ -12611,178 +12598,141 @@ msgstr ""
 "<strong>librerie di sviluppo</strong> per creare le tue applicazioni basate "
 "su MusicBrainz."
 
-#: ../root/main/index.js:332 ../root/main/index.js:393
+#: ../root/main/index.js:326 ../root/main/index.js:385
 #, fuzzy
 msgid "See also:"
 msgstr "Visualizza tutti i tag"
 
-#: ../root/main/index.js:335
+#: ../root/main/index.js:329
 #, fuzzy
 msgid "Data license"
 msgstr "Licenze dati"
 
-#: ../root/main/index.js:338 ../root/main/index.js:399
-#: ../root/main/index.js:405 ../root/main/index.js:411
-#: ../root/main/index.js:417 ../root/main/index.js:423
-msgid "|"
-msgstr ""
-
-#: ../root/main/index.js:341
+#: ../root/main/index.js:333
 #, fuzzy
 msgid "MetaBrainz FAQ"
 msgstr "Blog di MetaBrainz"
 
-#: ../root/main/index.js:350
+#: ../root/main/index.js:342
 #, fuzzy
 msgid "Contribute"
 msgstr "Continua"
 
-#: ../root/main/index.js:354
+#: ../root/main/index.js:346
 #, fuzzy
 msgid "Edit the database"
 msgstr "Note di modifica disabilitate"
 
-#: ../root/main/index.js:359
+#: ../root/main/index.js:351
 msgid ""
 "Anyone can help improve our global database! Get started and improve "
 "existing data or add new artists and music."
 msgstr ""
 
-#: ../root/main/index.js:372
+#: ../root/main/index.js:364
 msgid ""
 "Developers, view and pick up issues in our bug tracker, and join us in the "
 "developer chat."
 msgstr ""
 
-#: ../root/main/index.js:380
+#: ../root/main/index.js:372
 msgid "Join the community"
 msgstr ""
 
-#: ../root/main/index.js:385
+#: ../root/main/index.js:377
 msgid ""
 "Talk to other database editors and music fans on our forums or our live chat "
 "via IRC, Matrix and Discord."
 msgstr ""
 
-#: ../root/main/index.js:402
+#: ../root/main/index.js:392
 msgid "Editing introduction"
 msgstr "Introduzione alle modifiche"
 
-#: ../root/main/index.js:414
+#: ../root/main/index.js:400
 #, fuzzy
 msgid "MusicBrainz FAQs"
 msgstr "API di MusicBrainz"
 
-#: ../root/main/index.js:420
+#: ../root/main/index.js:404
 msgid "How to add artists"
 msgstr "Come aggiungere artisti"
 
-#: ../root/main/index.js:426
+#: ../root/main/index.js:408
 msgid "How to add releases"
 msgstr "Come aggiungere pubblicazioni"
 
-#: ../root/main/index.js:444
+#: ../root/main/index.js:426
 #, fuzzy
 msgid "Open source"
 msgstr "Risorse per sviluppatori"
 
-#: ../root/main/index.js:447
+#: ../root/main/index.js:429
 msgid ""
 "\"Open source is source code that is made freely available for possible "
-"modification and redistribution...\""
+"modification and redistribution...\" - {wikipedia_link|Wikipedia}"
 msgstr ""
 
-#: ../root/main/index.js:451
-#, fuzzy
-msgid "-"
-msgstr "-"
-
-#: ../root/main/index.js:454
-#: ../root/static/scripts/common/components/WikipediaExtract.js:71
-msgid "Wikipedia"
-msgstr "Wikipedia"
-
-#: ../root/main/index.js:459
+#: ../root/main/index.js:437
 msgid ""
 "The MusicBrainz database is all open source. This means that anyone can view "
 "the code, contribute improvements and new features, and copy and modify it "
 "for their own use."
 msgstr ""
 
-#: ../root/main/index.js:467
+#: ../root/main/index.js:445
 msgid ""
 "Thousands of wonderful people contribute code or data to MusicBrainz and its "
 "sister projects for no monetary return and for everyone's benefit."
 msgstr ""
 
-#: ../root/main/index.js:476
+#: ../root/main/index.js:454
 msgid "GitHub repositories"
 msgstr ""
 
-#: ../root/main/index.js:484
+#: ../root/main/index.js:462
 #, fuzzy
 msgid "Data provider"
 msgstr "Nessun titolo fornito"
 
-#: ../root/main/index.js:487
+#: ../root/main/index.js:465
 msgid ""
 "The MetaBrainz core mission is to curate and maintain public datasets that "
 "anyone can download and use. Some of the world's biggest platforms, such as "
 "Google and Amazon, use our data, as well as small-scale developers and "
-"curious individuals."
+"curious individuals. We ask {commercial_users_link|commercial users} to "
+"support us. Personal use of our datasets will always be free."
 msgstr ""
 
-#: ../root/main/index.js:494
-msgid "We ask"
-msgstr ""
-
-#: ../root/main/index.js:497
-#, fuzzy
-msgid "commercial users"
-msgstr "Utente normale"
-
-#: ../root/main/index.js:501
-msgid "to support us. Personal use of our datasets will always be free."
-msgstr ""
-
-#: ../root/main/index.js:507
+#: ../root/main/index.js:478
 msgid ""
 "Our datasets include the MusicBrainz PostgreSQL and JSON Data Dumps. Our "
 "datasets are AI Ready, perfect for training large language models for music-"
 "based tasks."
 msgstr ""
 
-#: ../root/main/index.js:516
+#: ../root/main/index.js:487
 #, fuzzy
-msgid "MetaBrainz Datasets"
+msgid "MetaBrainz datasets"
 msgstr "Database di MusicBrainz"
 
-#: ../root/main/index.js:524
+#: ../root/main/index.js:495
 msgid "Ethical forever"
 msgstr ""
 
-#: ../root/main/index.js:527
+#: ../root/main/index.js:498
 msgid ""
 "The MetaBrainz Foundation is a registered non-profit, making it impossible "
 "for us to be bought or traded."
 msgstr ""
 
-#: ../root/main/index.js:533
+#: ../root/main/index.js:504
 msgid ""
 "Our team and volunteer contributers from across the globe are proud to "
-"consider MusicBrainz and it's sister sites"
-msgstr ""
-
-#: ../root/main/index.js:538
-#, fuzzy
-msgid "enshittification"
-msgstr "Restrizioni"
-
-#: ../root/main/index.js:541
-msgid ""
-"-proof projects, immune to the the crapifying that takes place when business "
-"interests inevitably subsume and monetize projects that initially focussed "
-"on high-quality offerings to attract users."
+"consider MusicBrainz and it's sister sites {enshittification_link|"
+"enshittification}, -proof projects, immune to the the crapifying that takes "
+"place when business interests inevitably subsume and monetize projects that "
+"initially focused on high-quality offerings to attract users."
 msgstr ""
 
 #: ../root/mbid/NotFound.js:15
@@ -16331,6 +16281,7 @@ msgid "{forward_link_phrase} / {backward_link_phrase}"
 msgstr "{forward_link_phrase} / {backward_link_phrase}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:402
+#: ../root/static/scripts/homepage/artwork-carousel.js:85
 msgid "by {artist}"
 msgstr "di {artist}"
 
@@ -16406,7 +16357,7 @@ msgid "{review_link|Review} by {author} on {date}"
 msgstr "{review_link|Recensione} di {author} del {date}"
 
 #: ../root/static/scripts/common/components/DescriptiveLink.js:65
-#: ../root/static/scripts/homepage/timeline-carousel.js:41
+#: ../root/static/scripts/homepage/artwork-carousel.js:41
 #: ../root/static/scripts/release-editor/dialogs.js:158
 msgid "{entity} by {artist}"
 msgstr "{entity} di {artist}"
@@ -16748,6 +16699,10 @@ msgstr "Tag"
 msgctxt "audio file metadata"
 msgid "Open in tagger"
 msgstr "Apri nel tagger"
+
+#: ../root/static/scripts/common/components/WikipediaExtract.js:71
+msgid "Wikipedia"
+msgstr "Wikipedia"
 
 #: ../root/static/scripts/common/components/WikipediaExtract.js:77
 msgid "Continue reading at Wikipedia..."
@@ -17853,6 +17808,60 @@ msgstr ""
 "('I'). Alcune parole potrebbero aver bisogno di correzioni manuali per "
 "seguire le {url|linee guida su maiuscolo/minuscolo per il turco}."
 
+#: ../root/static/scripts/homepage/artwork-carousel.js:197
+#, fuzzy
+msgid "Now"
+msgstr "No"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:234
+#, fuzzy
+msgid "Order by release date"
+msgstr "Tipo di ordinamento"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:235
+#, fuzzy
+msgid "Order by event date"
+msgstr "Tipo di ordinamento"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:238
+#, fuzzy
+msgid "Fresh releases"
+msgstr "Unisci pubblicazioni"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:239
+#, fuzzy
+msgid "Fresh events"
+msgstr "Unisci eventi"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:246
+#, fuzzy
+msgid "Order by date added to MusicBrainz"
+msgstr "Quest'utente è nuovo su MusicBrainz."
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:248
+#, fuzzy
+msgid "New additions"
+msgstr "Aggiunte:"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:259
+msgid "Pause"
+msgstr ""
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:259
+msgid "Play"
+msgstr ""
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:272
+#, fuzzy
+msgid "Add release"
+msgstr "Aggiungi pubblicazione"
+
+#: ../root/static/scripts/homepage/artwork-carousel.js:273
+#, fuzzy
+msgid "Add event"
+msgstr "Aggiungi evento"
+
+#: ../root/static/scripts/homepage/banner-carousel.js:39
 #: ../root/static/scripts/homepage/banner-carousel.js:43
 #, fuzzy
 msgid "Tag your music"
@@ -17862,6 +17871,7 @@ msgstr "Tagga la tua musica"
 msgid "Yate"
 msgstr ""
 
+#: ../root/static/scripts/homepage/banner-carousel.js:81
 #: ../root/static/scripts/homepage/banner-carousel.js:89
 msgid "Listen together"
 msgstr ""
@@ -17875,58 +17885,50 @@ msgstr "ListenBrainz"
 msgid "Explore the music you listen to."
 msgstr ""
 
-#: ../root/static/scripts/homepage/editor-tools.js:101
+#: ../root/static/scripts/homepage/editor-tools.js:102
 #, fuzzy
-msgid "Editor Tools"
+msgid "Editor tools"
 msgstr "Editor"
 
-#: ../root/static/scripts/homepage/editor-tools.js:111
+#: ../root/static/scripts/homepage/editor-tools.js:112
 #, fuzzy
-msgid "My Profile"
+msgid "My profile"
 msgstr "Profilo"
 
-#: ../root/static/scripts/homepage/editor-tools.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:127
 #, fuzzy
 msgid "My tags"
 msgstr "I miei tag"
 
-#: ../root/static/scripts/homepage/editor-tools.js:133
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #, fuzzy
 msgid "Subscribed entity edits"
 msgstr "Entità a cui sei iscritto"
 
-#: ../root/static/scripts/homepage/editor-tools.js:135
+#: ../root/static/scripts/homepage/editor-tools.js:136
 #, fuzzy
 msgid "Subscribed editor edits"
 msgstr "Editor a cui sei iscritto"
 
-#: ../root/static/scripts/homepage/editor-tools.js:144
+#: ../root/static/scripts/homepage/editor-tools.js:145
 #, fuzzy
 msgid "Votes on edits"
 msgstr "Vota le modifiche"
 
-#: ../root/static/scripts/homepage/editor-tools.js:145
+#: ../root/static/scripts/homepage/editor-tools.js:146
 #, fuzzy
 msgid "My reports"
 msgstr "Rapporti"
 
-#: ../root/static/scripts/homepage/editor-tools.js:157
+#: ../root/static/scripts/homepage/editor-tools.js:159
 #, fuzzy
 msgid "Add new..."
 msgstr "Aggiungi nota"
 
-#: ../root/static/scripts/homepage/language.js:91
+#: ../root/static/scripts/homepage/language.js:85
 #, fuzzy
 msgid "reset language"
 msgstr "(reimposta lingua)"
-
-#: ../root/static/scripts/homepage/mobile-search-popup.js:85
-#: ../root/static/scripts/homepage/navbar.js:461
-#: ../root/static/scripts/homepage/search.js:136
-#: ../root/static/scripts/homepage/search.js:138
-#, fuzzy
-msgid "Advanced Search"
-msgstr "Ricerca avanzata"
 
 #: ../root/static/scripts/homepage/navbar.js:115
 msgid "Reddit"
@@ -17942,103 +17944,105 @@ msgstr "Discografia"
 msgid "About"
 msgstr "Chi siamo"
 
-#: ../root/static/scripts/homepage/navbar.js:431
-#: ../root/static/scripts/homepage/search.js:163
+#: ../root/static/scripts/homepage/navbar.js:297
+#: ../root/static/scripts/homepage/search.js:213
+#, fuzzy
+msgctxt "interactive"
+msgid "Close"
+msgstr "Chiudi"
+
+#: ../root/static/scripts/homepage/navbar.js:428
+#: ../root/static/scripts/homepage/search.js:175
 #, fuzzy
 msgid "in"
 msgstr "info"
 
-#: ../root/static/scripts/homepage/search.js:114
+#: ../root/static/scripts/homepage/navbar.js:432
+#, fuzzy
+msgid "Entity for search"
+msgstr "Ricerca modifiche"
+
+#: ../root/static/scripts/homepage/search.js:103
+#, fuzzy
+msgid "MusicBrainz open source logo"
+msgstr "Server di MusicBrainz"
+
+#: ../root/static/scripts/homepage/search.js:108
+#, fuzzy
+msgid "MusicBrainz data provider logo"
+msgstr "Database di MusicBrainz"
+
+#: ../root/static/scripts/homepage/search.js:113
+#, fuzzy
+msgid "MusicBrainz ethical source logo"
+msgstr "Storia di MusicBrainz"
+
+#: ../root/static/scripts/homepage/search.js:121
 #, fuzzy
 msgid "The open music encyclopedia"
 msgstr "MusicBrainz - L'enciclopedia musicale aperta"
 
-#: ../root/static/scripts/homepage/search.js:186
+#: ../root/static/scripts/homepage/search.js:198
 #, fuzzy
-msgid "Search in:"
+msgid "Search in"
 msgstr "Cerca:"
 
-#: ../root/static/scripts/homepage/stats.js:73
+#: ../root/static/scripts/homepage/stats.js:78
 #, fuzzy
 msgid "last week"
 msgstr "Ultima modifica"
 
-#: ../root/static/scripts/homepage/stats.js:78
+#: ../root/static/scripts/homepage/stats.js:83
 #, fuzzy
 msgid "total"
 msgstr "Totale"
 
-#: ../root/static/scripts/homepage/timeline-carousel.js:85
+#: ../root/static/scripts/homepage/stats.js:88
 #, fuzzy
-msgid "By {artist}"
-msgstr "di {artist}"
+msgid "View detailed statistics"
+msgstr "Visualizza dettagli"
 
-#: ../root/static/scripts/homepage/timeline-carousel.js:108
-#, fuzzy
-msgid "{entity}"
-msgstr "nessuna entità"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:199
-#, fuzzy
-msgid "Now"
-msgstr "No"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:236
-#, fuzzy
-msgid "Order by {type} date"
-msgstr "Tipo di ordinamento"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:242
-#, fuzzy
-msgid "Fresh {type}"
-msgstr "Tipo di serie"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:251
-#, fuzzy
-msgid "Order by date added to MusicBrainz"
-msgstr "Quest'utente è nuovo su MusicBrainz."
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:253
-#, fuzzy
-msgid "New Additions"
-msgstr "Aggiunte:"
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:264
-msgid "Pause"
+#: ../root/static/scripts/homepage/stats.js:90
+msgid "Magnifying glass"
 msgstr ""
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:264
-msgid "Play"
-msgstr ""
-
-#: ../root/static/scripts/homepage/timeline-carousel.js:276
-#, fuzzy
-msgid "Add {type}"
-msgstr "Aggiungi {item}"
 
 #: ../root/static/scripts/homepage/user-menu.js:30
-msgid "Welcome back"
+msgid "Welcome back<br />{username}"
 msgstr ""
 
-#: ../root/static/scripts/homepage/user-menu.js:48
+#: ../root/static/scripts/homepage/user-menu.js:44
+#, fuzzy
+msgid "Community forums"
+msgstr "Comunità"
+
+#: ../root/static/scripts/homepage/user-menu.js:52
 #, fuzzy
 msgid "Ticket tracker"
 msgstr "Bug tracker"
 
-#: ../root/static/scripts/homepage/user-menu.js:51
-#, fuzzy
-msgid "Editing guidelines"
-msgstr "Linee guida di stile"
-
-#: ../root/static/scripts/homepage/user-menu.js:56
+#: ../root/static/scripts/homepage/user-menu.js:60
 #, fuzzy
 msgid "Userscripts"
 msgstr "Sanzioni utente"
 
-#: ../root/static/scripts/homepage/user-menu.js:61
+#: ../root/static/scripts/homepage/user-menu.js:65
 #, fuzzy
 msgid "Latest blog post:"
 msgstr "Ultimi post:"
+
+#: ../root/static/scripts/homepage/utils.js:30
+#, fuzzy
+msgid "Series"
+msgstr "Serie"
+
+#: ../root/static/scripts/homepage/utils.js:37
+#, fuzzy
+msgid "Tag"
+msgstr "Tag"
+
+#: ../root/static/scripts/homepage/utils.js:38
+msgid "CD Stub"
+msgstr "Bozza CD"
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
@@ -20302,6 +20306,84 @@ msgstr ""
 "proseguire."
 
 #, fuzzy
+#~ msgid ""
+#~ "is an open music encyclopedia that collects music metadata and makes it "
+#~ "available to the public."
+#~ msgstr ""
+#~ "MusicBrainz è un'enciclopedia musicale aperta che raccoglie metadati "
+#~ "musicali e li mette a disposizione del pubblico."
+
+#, fuzzy
+#~ msgid "Development IRC:"
+#~ msgstr "Sviluppo"
+
+#~ msgid "Email:"
+#~ msgstr "Email:"
+
+#, fuzzy
+#~ msgid "AcousticBrainz"
+#~ msgstr "Cos'è MusicBrainz"
+
+#, fuzzy
+#~ msgid "Join Us"
+#~ msgstr "Connettore:"
+
+#, fuzzy
+#~ msgid "Beginner's Guide"
+#~ msgstr "Guida per principianti"
+
+#~ msgid "Style Guidelines"
+#~ msgstr "Linee guida di stile"
+
+#, fuzzy
+#~ msgid "How Tos"
+#~ msgstr "Istruzioni"
+
+#, fuzzy
+#~ msgid "Beginner editor's guide"
+#~ msgstr "Guida per principianti"
+
+#, fuzzy
+#~ msgid "creating an account"
+#~ msgstr "Crea un account"
+
+#, fuzzy
+#~ msgid "-"
+#~ msgstr "-"
+
+#, fuzzy
+#~ msgid "commercial users"
+#~ msgstr "Utente normale"
+
+#, fuzzy
+#~ msgid "enshittification"
+#~ msgstr "Restrizioni"
+
+#, fuzzy
+#~ msgid "Advanced Search"
+#~ msgstr "Ricerca avanzata"
+
+#, fuzzy
+#~ msgid "By {artist}"
+#~ msgstr "di {artist}"
+
+#, fuzzy
+#~ msgid "{entity}"
+#~ msgstr "nessuna entità"
+
+#, fuzzy
+#~ msgid "Fresh {type}"
+#~ msgstr "Tipo di serie"
+
+#, fuzzy
+#~ msgid "Add {type}"
+#~ msgstr "Aggiungi {item}"
+
+#, fuzzy
+#~ msgid "Editing guidelines"
+#~ msgstr "Linee guida di stile"
+
+#, fuzzy
 #~ msgid "Tag cloud"
 #~ msgstr "Nuvola di tag"
 
@@ -20765,11 +20847,6 @@ msgstr ""
 #~ msgid "Edit genre"
 #~ msgstr "Modifica genere"
 
-#, fuzzy
-#~| msgid "MusicBrainz Database"
-#~ msgid "MusicBrainz database"
-#~ msgstr "Database di MusicBrainz"
-
 #~ msgid "Web Application"
 #~ msgstr "Applicazione web"
 
@@ -21013,9 +21090,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Non è possibile aggiungere o modificare strumenti qui; usa piuttosto i "
 #~ "moduli di modifica degli strumenti."
-
-#~ msgid "CD Stub"
-#~ msgstr "Bozza CD"
 
 #~ msgctxt "noun"
 #~ msgid "Tag"
