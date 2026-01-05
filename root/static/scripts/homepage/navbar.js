@@ -417,7 +417,7 @@ component Navbar() {
                 <input
                   aria-label={l('Search')}
                   className="form-control"
-                  id="headerid-query"
+                  id="navbar-search"
                   name="query"
                   placeholder={l('Search')}
                   required

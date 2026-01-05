@@ -18,7 +18,7 @@ import {
   isLocationEditor,
   isRelationshipEditor,
   isWikiTranscluder,
-} from '../static/scripts/common/utility/privileges.js';
+} from '../common/utility/privileges.js';
 
 type EditorPropT = ?{+privileges: number, ...};
 
