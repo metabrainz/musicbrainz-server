@@ -653,21 +653,21 @@ const testData = [
   },
   // AniList
   {
-                     input_url: 'https://anilist.co/staff/95185/Kana-Hanazawa',
+                     input_url: 'https://anilist.co/staff/95185/Kana-Hanazawa?hello&world',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://anilist.co/staff/95185',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://anilist.co/character/40/Luffy-D-Monkey',
+                     input_url: 'https://anilist.co/character/40/Luffy-D-Monkey?hello#world',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://anilist.co/character/40',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://anilist.co/studio/6698/KADOKAWA',
+                     input_url: 'https://anilist.co/studio/6698/KADOKAWA?hello#world',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://anilist.co/studio/6698',
