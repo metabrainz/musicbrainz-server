@@ -4690,13 +4690,13 @@ export const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === "people" || prefix === "character",
-              target: ERROR_TARGETS.ENTITY
+              result: prefix === 'people' || prefix === 'character',
+              target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.label:
             return {
               result: prefix === 'anime/producer',
-              target: ERROR_TARGETS.ENTITY
+              target: ERROR_TARGETS.ENTITY,
             };
         }
         return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
