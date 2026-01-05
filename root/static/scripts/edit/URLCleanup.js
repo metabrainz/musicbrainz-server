@@ -857,6 +857,34 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'anilist': {
+    hostname: 'anilist.co',
+    match: [/^(?:https?:\/\/)?(?:www\.)?anilist\.co/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?anilist\.co\/(staff|character|studio)\/(\d+).*$/, 'https://anilist.co/$1/$2');
+    },
+    validate(url, id) {
+      const m = /^(?:https?:\/\/)?(?:www\.)?anilist\.co\/(staff|character|studio)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'staff' || prefix === 'character',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'studio',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'animenewsnetwork': {
     hostname: 'animenewsnetwork.com',
     match: [/^(https?:\/\/)?(www\.)?animenewsnetwork\.com/i],

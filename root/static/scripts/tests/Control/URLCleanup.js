@@ -651,6 +651,28 @@ const testData = [
             expected_clean_url: 'https://anidb.net/collection/4451',
        only_valid_entity_types: ['release'],
   },
+  // AniList
+  {
+                     input_url: 'https://anilist.co/staff/95185/Kana-Hanazawa',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/staff/95185',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anilist.co/character/40/Luffy-D-Monkey',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/character/40',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anilist.co/studio/6698/KADOKAWA',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/studio/6698',
+       only_valid_entity_types: ['label'],
+  },
   // Anime News Network
   {
                      input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
