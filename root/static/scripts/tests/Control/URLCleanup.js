@@ -4634,7 +4634,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://myanimelist.net/character/40/Luffy_Monkey_D',
+                     input_url: 'https://myanimelist.net/character/40/Luffy_Monkey_D/clubs',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://myanimelist.net/character/40',
