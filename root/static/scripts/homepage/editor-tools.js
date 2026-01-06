@@ -15,10 +15,11 @@ import {
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
-import AdminToolsDropdown from './AdminToolsDropdown.js';
 import {SanitizedCatalystContext} from '../../../context.mjs';
 import {VARTIST_GID} from '../common/constants.js';
 import useMediaQuery from '../common/hooks/useMediaQuery.js';
+
+import AdminToolsDropdown from './AdminToolsDropdown.js';
 
 const addEntityItems = [
   {
