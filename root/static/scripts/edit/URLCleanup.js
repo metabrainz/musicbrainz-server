@@ -4511,9 +4511,16 @@ export const CLEANUPS: CleanupEntries = {
       const artistPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/artist\/(\d+)(?:\/)?.*$/;
       const trackPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?\?trackMaterialNo=(\d+).*$/;
       const packagePattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?.*$/;
-      if (artistPattern.test(url)) return url.replace(artistPattern, 'https://mora.jp/artist/$1/');
-      if (trackPattern.test(url)) return url.replace(trackPattern, 'https://mora.jp/package/$1/$2/?trackMaterialNo=$3');
-      if (packagePattern.test(url)) return url.replace(packagePattern, 'https://mora.jp/package/$1/$2/');
+      if (artistPattern.test(url)) {
+        return url.replace(artistPattern, 'https://mora.jp/artist/$1/');
+      }
+      if (trackPattern.test(url)) {
+        return url.replace(trackPattern, 'https://mora.jp/package/$1/$2/?trackMaterialNo=$3');
+      }
+      if (packagePattern.test(url)) {
+        return url.replace(packagePattern, 'https://mora.jp/package/$1/$2/');
+      }
+      // Only known and accepted link types are cleaned as different link types on the site use various query parameters for identifying resources.
       return url;
     },
     validate(url, id) {
