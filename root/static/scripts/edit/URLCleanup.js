@@ -865,7 +865,7 @@ export const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?anilist\.co\/(staff|character|studio)\/(\d+).*$/, 'https://anilist.co/$1/$2');
     },
     validate(url, id) {
-      const m = /^(?:https?:\/\/)?(?:www\.)?anilist\.co\/(staff|character|studio)\/(\d+)$/.exec(url);
+      const m = /^https:\/\/anilist\.co\/(staff|character|studio)\/(\d+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
