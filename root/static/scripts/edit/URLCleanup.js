@@ -4684,7 +4684,7 @@ export const CLEANUPS: CleanupEntries = {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?myanimelist\.net\/(people|character|anime\/producer)\/(\d+).*$/, 'https://myanimelist.net/$1/$2');
     },
     validate(url, id) {
-      const m = /^(?:https?:\/\/)?(?:www\.)?myanimelist\.net\/(people|character|anime\/producer)\/(\d+)$/.exec(url);
+      const m = /^https:\/\/myanimelist\.net\/(people|character|anime\/producer)\/(\d+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
