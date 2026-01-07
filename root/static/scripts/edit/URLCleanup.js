@@ -4517,23 +4517,20 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url, id) {
-      const artistPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/artist\/(\d+)(?:\/)?.*$/;
-      const trackPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?\?trackMaterialNo=(\d+).*$/;
-      const packagePattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?.*$/;
       switch (id) {
         case LINK_TYPES.downloadpurchase.artist:
           return {
-            result: artistPattern.test(url),
+            result: /^https:\/\/mora\.jp\/artist\/(\d+)\/$/.test(url),
             target: ERROR_TARGETS.URL,
           };
         case LINK_TYPES.downloadpurchase.recording:
           return {
-            result: trackPattern.test(url),
+            result: /^https:\/\/mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)\/\?trackMaterialNo=(\d+)$/.test(url),
             target: ERROR_TARGETS.URL,
           };
         case LINK_TYPES.downloadpurchase.release:
           return {
-            result: packagePattern.test(url),
+            result: /^https:\/\/mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)\/$/.test(url),
             target: ERROR_TARGETS.URL,
           };
       }
