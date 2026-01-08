@@ -205,13 +205,16 @@ export function useAddRelationshipDialogContent(
         : (source.entityType <= targetType),
     );
   }
+  const defaultName = (
+    source.entityType === 'recording' && targetType === 'work'
+  ) ? source.name : '';
 
   const defaultTargetObject = React.useMemo(() => {
-    return createRelatableEntityObject(
-      targetType,
-      {id: uniqueNegativeId(), name: ''},
-    );
-  }, [targetType]);
+    return createRelatableEntityObject(targetType, {
+      id: uniqueNegativeId(),
+      name: defaultName,
+    });
+  }, [targetType, defaultName]);
 
   const _backward = backward ?? (source.entityType > targetType);
 
