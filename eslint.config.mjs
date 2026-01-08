@@ -405,6 +405,7 @@ export default [
       'import/consistent-type-specifier-style': 'off',
       'import/default': 'off', // Enforced by Flow
       'import/dynamic-import-chunkname': 'off',
+      'import/enforce-node-protocol-usage': ['warn', 'always'],
       'import/export': 'error',
       'import/exports-last': 'off',
       'import/extensions': ['error', 'always', {
@@ -555,6 +556,7 @@ export default [
       '@stylistic/line-comment-position': 'off',
       '@stylistic/lines-around-comment': 'off',
       '@stylistic/lines-between-class-members': ['warn', 'always'],
+      '@stylistic/exp-list-style': 'off', // still experimental
       '@stylistic/max-len': ['warn', {
         code: 78,
         ignoreUrls: true,
@@ -605,7 +607,7 @@ export default [
       }],
       '@stylistic/quotes': ['warn', 'single', {
         avoidEscape: true,
-        allowTemplateLiterals: true,
+        allowTemplateLiterals: 'avoidEscape',
       }],
       '@stylistic/rest-spread-spacing': ['warn', 'never'],
       '@stylistic/semi': ['warn', 'always', {
@@ -690,7 +692,7 @@ export default [
       'react/jsx-no-useless-fragment': 'warn',
       'react/jsx-one-expression-per-line': 'off', // in eslint-jsx
       'react/jsx-pascal-case': 'off', // in eslint-jsx
-      'react/jsx-props-no-multi-spaces': 'off', // in eslint-js
+      'react/jsx-props-no-multi-spaces': 'off', // deprecated
       'react/jsx-props-no-spreading': 'off',
       'react/jsx-props-no-spread-multi': 'error',
       'react/jsx-sort-default-props': 'off', // deprecated

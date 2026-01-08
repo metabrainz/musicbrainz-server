@@ -6,11 +6,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import {spawnSync} from 'child_process';
-import cluster from 'cluster';
-import fs from 'fs';
-
 import Sentry from '@sentry/node';
+import {spawnSync} from 'node:child_process';
+import cluster from 'node:cluster';
+import fs from 'node:fs';
 
 import createServer from './server/createServer.mjs';
 import * as DBDefs from './static/scripts/common/DBDefs.mjs';

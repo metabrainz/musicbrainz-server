@@ -6,10 +6,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import fs from 'fs';
-import path from 'path';
-
 import canonicalJson from 'canonical-json';
+import fs from 'node:fs';
+import path from 'node:path';
 import shellQuote from 'shell-quote';
 import shell from 'shelljs';
 import TerserPlugin from 'terser-webpack-plugin';

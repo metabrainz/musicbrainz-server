@@ -9,7 +9,7 @@
 
 /* eslint-disable import/no-commonjs */
 
-const path = require('path');
+const path = require('node:path');
 
 const CDP = require('chrome-remote-interface');
 const utf8 = require('utf8');
@@ -77,7 +77,7 @@ CDP((client) => {
       exit(1);
     });
 
-    const url = require('url');
+    const url = require('node:url');
 
     return Page.navigate({
       url: url.pathToFileURL(

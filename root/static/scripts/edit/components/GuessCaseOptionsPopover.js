@@ -64,6 +64,6 @@ component _GuessCaseOptionsPopover(
 
 const GuessCaseOptionsPopover:
   component(...React.PropsOf<_GuessCaseOptionsPopover>) =
-  React.memo(_GuessCaseOptionsPopover);
+    React.memo(_GuessCaseOptionsPopover);
 
 export default GuessCaseOptionsPopover;

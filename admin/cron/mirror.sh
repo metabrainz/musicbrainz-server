@@ -11,11 +11,13 @@ X=${LOGROTATE:=/usr/sbin/logrotate --state $MB_SERVER_ROOT/.logrotate-state}
     echo `date`" : LoadReplicationChanges failed (rc=$RC) - see $MIRROR_LOG"
 }
 
-$LOGROTATE /dev/stdin <<EOF
+cat >./logrotate.config <<EOF
 $MIRROR_LOG {
     daily
     rotate 30
 }
 EOF
+
+$LOGROTATE ./logrotate.config
 
 # eof

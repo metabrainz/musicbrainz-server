@@ -443,14 +443,19 @@ sub get_current_replication_sequence {
     my ($self, $c) = @_;
 
     my $replication_info_uri = $self->replication_access_uri . '/replication-info';
-    my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
 
-    unless ($response->code == HTTP_OK) {
-        log_info { "ERROR: Request to $replication_info_uri returned status code " . $response->code };
-        exit 1;
-    }
-
-    my $replication_info = decode_json($response->content);
+    # retry: Requests to the MetaBrainz API have been failing with
+    # "connection reset by peer" semi-frequently.
+    my $replication_info = retry(
+        sub {
+            my $response = $c->lwp->get("$replication_info_uri?token=" . DBDefs->REPLICATION_ACCESS_TOKEN);
+            unless ($response->code == HTTP_OK) {
+                die "Request to $replication_info_uri returned status code " . $response->code;
+            }
+            decode_json($response->content);
+        },
+        reason => 'retrieving current replication sequence',
+    );
 
     $replication_info->{last_packet} =~ s/^replication-([0-9]+)\.tar\.bz2$/$1/r;
 }

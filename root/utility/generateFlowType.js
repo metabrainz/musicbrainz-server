@@ -10,7 +10,7 @@
 /* eslint-disable @stylistic/multiline-comment-style */
 /* eslint-disable import/no-commonjs */
 
-const crypto = require('crypto');
+const crypto = require('node:crypto');
 
 const TYPE_STRING = 1;
 const TYPE_NUMBER = 2;

@@ -2253,6 +2253,13 @@ msgstr ""
 "這表明單曲或迷你專輯組含有至少一個來自大碟專輯組的音軌。這允許將專輯組連結到"
 "相關的單曲或迷你專輯。"
 
+#. name:included works
+#: DB:link_type/description:1300
+msgid ""
+"This indicates that a work contains another, pre-existing work (such as a "
+"pop song being used in a soundtrack or a jukebox musical)."
+msgstr ""
+
 #. name:parts
 #: DB:link_type/description:281
 msgid ""
@@ -2534,6 +2541,16 @@ msgstr ""
 #: DB:link_type/description:1230
 msgid ""
 "This indicates the artist was the choreographer for this video recording."
+msgstr "指某位創作者是這個影片錄製的編舞。"
+
+#. name:choreographer
+#: DB:link_type/description:1299
+#, fuzzy
+#| msgid ""
+#| "This indicates the artist was the choreographer for this video recording."
+msgid ""
+"This indicates the artist was the choreographer for this work (often a "
+"ballet)."
 msgstr "指某位創作者是這個影片錄製的編舞。"
 
 #. name:cinematographer
@@ -2851,6 +2868,13 @@ msgid ""
 "This indicates the rights society associated with a release. The rights "
 "society is an organization which collects royalties on behalf of the artists."
 msgstr "指與該發行版本相關的權利協會。權利協會是一個代表創作者收取版稅的組織。"
+
+#. name:named after series
+#: DB:link_type/description:1298
+#, fuzzy
+#| msgid "This indicates the artist that inspired this genre’s name."
+msgid "This indicates the series that inspired this series’ name."
+msgstr "指某位創作者啟發了這個流派的名稱。"
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -5929,7 +5953,7 @@ msgstr "合唱團人聲"
 msgid "choral conducting"
 msgstr "合唱指揮"
 
-#: DB:link_type/name:1230
+#: DB:link_type/name:1299 DB:link_type/name:1230
 msgid "choreographer"
 msgstr "唱片條目"
 
@@ -7175,8 +7199,8 @@ msgid "has orchestration"
 msgstr "有管弦樂編排"
 
 #. name:part of, name:parts
-#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:717
-#: DB:link_type/long_link_phrase:356 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:739 DB:link_type/long_link_phrase:281
+#: DB:link_type/long_link_phrase:717 DB:link_type/long_link_phrase:356
 msgid "has part"
 msgstr "有部分"
 
@@ -7365,9 +7389,17 @@ msgstr "印記"
 msgid "improvisation"
 msgstr "即興"
 
-#. name:included in
+#. name:included in, name:included works
 #: DB:link_type/name:894 DB:link_type/link_phrase:894
+#: DB:link_type/reverse_link_phrase:1300
 msgid "included in"
+msgstr "包含在"
+
+#. name:included works
+#: DB:link_type/name:1300 DB:link_type/link_phrase:1300
+#, fuzzy
+#| msgid "included in"
+msgid "included works"
 msgstr "包含在"
 
 #. name:included in
@@ -7423,8 +7455,9 @@ msgstr "啟發了地點的名稱"
 msgid "inspired the name of release group"
 msgstr "啟發了廠牌的名稱"
 
-#. name:named after artist, name:named after release group
+#. name:named after artist, name:named after release group, name:named after series
 #: DB:link_type/link_phrase:1000 DB:link_type/link_phrase:1282
+#: DB:link_type/reverse_link_phrase:1298
 msgid "inspired the name of series"
 msgstr "啟發了系列的名稱"
 
@@ -7633,9 +7666,16 @@ msgstr "母廠牌"
 msgid "is named after release group"
 msgstr "以發行組命名"
 
+#. name:named after series
+#: DB:link_type/long_link_phrase:1298
+#, fuzzy
+#| msgid "is named after artist"
+msgid "is named after series"
+msgstr "以創作者命名"
+
 #. name:named after work
-#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1278
-#: DB:link_type/long_link_phrase:1283 DB:link_type/long_link_phrase:1265
+#: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
+#: DB:link_type/long_link_phrase:1278 DB:link_type/long_link_phrase:1265
 msgid "is named after work"
 msgstr "以作品命名"
 
@@ -8372,10 +8412,17 @@ msgstr "母廠牌"
 msgid "named after release group"
 msgstr "以發行組命名"
 
+#. name:named after series
+#: DB:link_type/name:1298 DB:link_type/link_phrase:1298
+#, fuzzy
+#| msgid "named after artist"
+msgid "named after series"
+msgstr "以創作者命名"
+
 #. name:named after work
-#: DB:link_type/name:972 DB:link_type/name:1278 DB:link_type/name:1283
+#: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
 #: DB:link_type/name:1265 DB:link_type/link_phrase:972
-#: DB:link_type/link_phrase:1278 DB:link_type/link_phrase:1283
+#: DB:link_type/link_phrase:1283 DB:link_type/link_phrase:1278
 #: DB:link_type/link_phrase:1265
 msgid "named after work"
 msgstr "Geonames 頁面，關於"
@@ -8573,8 +8620,8 @@ msgstr "致敬"
 #: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
 #: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
 #: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
+#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "部分，屬於"
 
@@ -8605,10 +8652,10 @@ msgid "participants"
 msgstr "不完整"
 
 #. name:part of, name:parts
-#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:717
-#: DB:link_type/name:281 DB:link_type/link_phrase:818
-#: DB:link_type/link_phrase:717 DB:link_type/link_phrase:356
-#: DB:link_type/link_phrase:281
+#: DB:link_type/name:739 DB:link_type/name:818 DB:link_type/name:281
+#: DB:link_type/name:717 DB:link_type/link_phrase:818
+#: DB:link_type/link_phrase:281 DB:link_type/link_phrase:717
+#: DB:link_type/link_phrase:356
 msgid "parts"
 msgstr "部分"
 
@@ -10162,7 +10209,7 @@ msgid "was {assistant} carillonneur at"
 msgstr "曾是 {assistant} 鐘琴演奏者"
 
 #. name:choreographer
-#: DB:link_type/long_link_phrase:1230
+#: DB:link_type/long_link_phrase:1299 DB:link_type/long_link_phrase:1230
 msgid "was {assistant} choreographer for"
 msgstr "曾是 {assistant} 編舞者"
 
@@ -11089,12 +11136,12 @@ msgid "{assistant} carillonneur at"
 msgstr "{assistant} 鐘琴演奏者於"
 
 #. name:choreographer
-#: DB:link_type/reverse_link_phrase:1230
+#: DB:link_type/reverse_link_phrase:1299 DB:link_type/reverse_link_phrase:1230
 msgid "{assistant} choreographer"
 msgstr "{assistant} 編舞者"
 
 #. name:choreographer
-#: DB:link_type/link_phrase:1230
+#: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
 msgid "{assistant} choreographer for"
 msgstr "{assistant} 編舞於"
 
@@ -11300,6 +11347,13 @@ msgstr "{entity1} 獻給 {entity0}"
 #: DB:link_type/long_link_phrase:1237
 msgid "{entity1} is headquartered in {entity0}"
 msgstr "{entity1} 於 {entity0} 製造"
+
+#. name:included works
+#: DB:link_type/long_link_phrase:1300
+#, fuzzy
+#| msgid "{entity1} was printed in {entity0}"
+msgid "{entity1} is included in {entity0}"
+msgstr "{entity1} 印刷於 {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939

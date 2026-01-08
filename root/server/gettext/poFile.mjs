@@ -7,10 +7,9 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import fs from 'fs';
-import path from 'path';
-
 import type {JedOptions} from 'jed';
+import fs from 'node:fs';
+import path from 'node:path';
 import {parseFileSync} from 'po2json';
 
 import MB_SERVER_ROOT from '../../utility/serverRootDir.mjs';

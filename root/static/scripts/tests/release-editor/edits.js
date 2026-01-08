@@ -186,6 +186,10 @@ editReleaseTest((
   t.deepEqual(releaseEditor.edits.releaseGroup(release), [
     {
       edit_type: 21,
+      enteredFrom: {
+        entity_type: 'release',
+        gid: '868cc741-e3bc-31bc-9dac-756e35c8f152',
+      },
       gid: '1c205925-2cfe-35c0-81de-d7ef17df9658',
       hash: '6b8e1d79cb7a109986781e453bd954558cb6bf19',
       name: 'Blah',

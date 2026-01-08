@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-08 22:44+0000\n"
+"PO-Revision-Date: 2025-11-18 00:20+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/sq/>\n"
@@ -14,41 +14,41 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.2\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
-msgstr ""
+msgstr "Shtoni/hiqni rreshta:"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
-msgstr ""
+msgstr "U vini shenjë kutizave më sipër"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
-msgstr ""
+msgstr "Klikojeni që të hiqet përzgjedhja"
 
 #: ../root/statistics/timeline.tt:15
 msgid "Controls"
-msgstr ""
+msgstr "Kontrolle"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Countries.js:39
 msgid "Countries"
-msgstr ""
+msgstr "Vende"
 
 #: ../root/statistics/layout.tt:25 ../root/statistics/layout.tt:37
 #: ../root/statistics/StatisticsLayout.js:86
 #: ../root/statistics/StatisticsLayout.js:100
 msgid "Database statistics"
-msgstr ""
+msgstr "Statistika baze të dhënash"
 
 #: ../root/statistics/layout.tt:16
 msgid "Database statistics - {title}"
-msgstr ""
+msgstr "Statistika baze të dhënash - {title}"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Draw a rectangle on either graph"
-msgstr ""
+msgstr "Vizatoni një drejtkëndësh në secilin grafik"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
 #: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
@@ -57,7 +57,7 @@ msgstr "Përpunues"
 
 #: ../root/statistics/layout.tt:5
 msgid "Edits"
-msgstr ""
+msgstr "Përpunime"
 
 #: ../root/statistics/timeline.tt:30
 msgid "Exact values (items vs. day)"
@@ -65,7 +65,7 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/stats.js:33
 msgid "Formats"
-msgstr ""
+msgstr "Formate"
 
 #: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
@@ -73,19 +73,19 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
-msgstr ""
+msgstr "Figura"
 
 #: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
-msgstr ""
+msgstr "Gjuhë/Shkrime"
 
 #: ../root/statistics/timeline.tt:3
 msgid "Legend"
-msgstr ""
+msgstr "Legjendë"
 
 #: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
-msgstr ""
+msgstr "Veprimtari MusicBrainz"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
@@ -109,13 +109,11 @@ msgstr ""
 
 #: ../root/statistics/layout.tt:5
 msgid "Timeline"
-msgstr ""
+msgstr "Rrjedhë kohore"
 
 #: ../root/statistics/timeline.tt:27
-#, fuzzy
-#| msgid "Timeline Graph"
 msgid "Timeline graph"
-msgstr "Grafik Rrjedhe Kohore"
+msgstr "Grafik rrjedhe kohore"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
@@ -133,7 +131,7 @@ msgstr "Përditësuar së fundi më: {date}"
 #: ../root/statistics/Formats.js:48 ../root/statistics/LanguagesScripts.js:59
 #: ../root/statistics/LanguagesScripts.js:147
 msgid "Rank"
-msgstr ""
+msgstr "Renditje"
 
 #: ../root/statistics/Countries.js:74 ../root/statistics/Formats.js:59
 #: ../root/statistics/LanguagesScripts.js:73
@@ -142,11 +140,11 @@ msgstr "Githsej"
 
 #: ../root/statistics/Countries.js:96
 msgid "Unknown country"
-msgstr ""
+msgstr "Vend i panjohur"
 
 #: ../root/statistics/Editors.js:67
 msgid "There is no data to display here."
-msgstr ""
+msgstr "S’ka të dhëna për shfaqje këtu."
 
 #: ../root/statistics/Editors.js:96
 msgid ""
@@ -172,19 +170,19 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
-msgstr ""
+msgstr "Përpunime të aplikuara gjithsej"
 
 #: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
-msgstr ""
+msgstr "Përpunuesit kryesues gjithsej"
 
 #: ../root/statistics/Editors.js:125
 msgid "Voters"
-msgstr ""
+msgstr "Votues"
 
 #: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
-msgstr ""
+msgstr "Vota gjatë javës së shkuar"
 
 #: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
@@ -204,31 +202,31 @@ msgstr ""
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
-msgstr ""
+msgstr "Vota gjithsej"
 
 #: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
-msgstr ""
+msgstr "Votuesit kryesues gjithsej"
 
 #: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
-msgstr ""
+msgstr "S’ka statistikat përpunimesh gati."
 
 #: ../root/statistics/Formats.js:38 ../root/statistics/Formats.js:44
 msgid "Release/Medium Formats"
-msgstr ""
+msgstr "Formate Hedhjesh Në Qarkullim/Mediash"
 
 #: ../root/statistics/Formats.js:51
 msgid "% of total releases"
-msgstr ""
+msgstr "% e hedhjeve në qarkullim gjithsej"
 
 #: ../root/statistics/Formats.js:53
 msgid "% of total mediums"
-msgstr ""
+msgstr "% e mediave gjithsej"
 
 #: ../root/statistics/Formats.js:87
 msgid "Unknown format"
-msgstr ""
+msgstr "Format i panjohur"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
@@ -236,13 +234,13 @@ msgstr ""
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
-msgstr ""
+msgstr "S’ka statistika figurash gati."
 
 #: ../root/statistics/Images.js:84 ../root/statistics/Images.js:149
 #: ../root/statistics/Images.js:186 ../root/statistics/Images.js:224
 #: ../root/statistics/Images.js:362
 msgid "Releases with cover art:"
-msgstr ""
+msgstr "Hedhje në qarkullim me kopertinë:"
 
 #: ../root/statistics/Images.js:99 ../root/statistics/Images.js:327
 msgid "Pieces of cover art:"
@@ -260,13 +258,11 @@ msgstr ""
 
 #: ../root/statistics/Images.js:139 ../root/statistics/Images.js:318
 msgid "No cover art statistics available."
-msgstr ""
+msgstr "S’ka statistika kopertinash gati."
 
 #: ../root/statistics/Images.js:145
-#, fuzzy
-#| msgid "Release groups"
 msgid "By release group type"
-msgstr "Grupe hedhjesh në qarkullim"
+msgstr "Sipas llojesh grupesh hedhjesh në qarkullim"
 
 #: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
 #: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
@@ -274,30 +270,28 @@ msgid "No type"
 msgstr "Pa lloj"
 
 #: ../root/statistics/Images.js:182
-#, fuzzy
-#| msgid "Release Status"
 msgid "By release status"
-msgstr "Gjendje Hedhjeje Në Qarkullim"
+msgstr "Sipas gjendjesh hedhjeje në qarkullim"
 
 #: ../root/statistics/Images.js:201
 msgid "No status"
-msgstr ""
+msgstr "Pa gjendje"
 
 #: ../root/statistics/Images.js:220
 msgid "By release format"
-msgstr ""
+msgstr "Sipas formatesh hedhjesh në qarkullim"
 
 #: ../root/statistics/Images.js:239
 msgid "No format"
-msgstr ""
+msgstr "Pa format"
 
 #: ../root/statistics/Images.js:264
 msgid "Release groups with cover art:"
-msgstr ""
+msgstr "Grupe hedhjesh në qarkullim me kopertinë:"
 
 #: ../root/statistics/Images.js:275
 msgid "manually selected:"
-msgstr ""
+msgstr "përzgjedhur dorazi:"
 
 #: ../root/statistics/Images.js:297
 msgid "automatically inferred:"
@@ -309,7 +303,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:324
 msgid "By cover art type"
-msgstr ""
+msgstr "Sipas lloji kopertine"
 
 #: ../root/statistics/Images.js:359
 msgid "Per release"
@@ -323,23 +317,19 @@ msgstr[1] ""
 
 #: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
-msgstr ""
+msgstr "me 30 ose më tepër kopertina:"
 
 #: ../root/statistics/Images.js:432 ../root/statistics/Images.js:481
 msgid "No event art statistics available."
 msgstr ""
 
 #: ../root/statistics/Images.js:438
-#, fuzzy
-#| msgid "Events"
 msgid "By event type"
-msgstr "Veprimtari"
+msgstr "Sipas llojesh veprimtarie"
 
 #: ../root/statistics/Images.js:487
-#, fuzzy
-#| msgid "Events"
 msgid "By event art type"
-msgstr "Veprimtari"
+msgstr ""
 
 #: ../root/statistics/Images.js:524
 msgid "Per event"
@@ -357,19 +347,19 @@ msgstr ""
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
-msgstr ""
+msgstr "Tejtëdhëna elementare"
 
 #: ../root/statistics/Index.js:72 ../root/statistics/stats.js:20
 msgid "Core entities"
-msgstr ""
+msgstr "Njësi bazë"
 
 #: ../root/statistics/Index.js:137
 msgid "Other entities"
-msgstr ""
+msgstr "Njësi të tjera"
 
 #: ../root/statistics/Index.js:140
 msgid "Editors (valid / deleted):"
-msgstr ""
+msgstr "Përpunues (të vlefshëm / të fshirë):"
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
@@ -402,31 +392,31 @@ msgstr ""
 
 #: ../root/statistics/Index.js:200 ../root/statistics/stats.js:161
 msgid "Barcodes"
-msgstr ""
+msgstr "Kode me vija"
 
 #: ../root/statistics/Index.js:204 ../root/statistics/stats.js:499
 msgid "IPIs"
-msgstr ""
+msgstr "IPI-ra"
 
 #: ../root/statistics/Index.js:208 ../root/statistics/stats.js:514
 msgid "ISNIs"
-msgstr ""
+msgstr "ISNI-ra"
 
 #: ../root/statistics/Index.js:227
 msgid "of type Person:"
-msgstr ""
+msgstr "e llojit Person:"
 
 #: ../root/statistics/Index.js:233
 msgid "of type Group:"
-msgstr ""
+msgstr "e llojit Grup:"
 
 #: ../root/statistics/Index.js:239
 msgid "of type Orchestra:"
-msgstr ""
+msgstr "e llojit Orkestër:"
 
 #: ../root/statistics/Index.js:245
 msgid "of type Choir:"
-msgstr ""
+msgstr "e llojit Kor:"
 
 #: ../root/statistics/Index.js:251
 msgid "of type Character:"
@@ -434,7 +424,7 @@ msgstr ""
 
 #: ../root/statistics/Index.js:257
 msgid "of type Other:"
-msgstr ""
+msgstr "e llojit Tjetër:"
 
 #: ../root/statistics/Index.js:263
 msgid "with no type set:"
@@ -450,23 +440,23 @@ msgstr ""
 
 #: ../root/statistics/Index.js:280
 msgid "Non-group artists:"
-msgstr ""
+msgstr "Artistë jodyorë:"
 
 #: ../root/statistics/Index.js:319
 msgid "Other gender:"
-msgstr ""
+msgstr "Gjini tjetër:"
 
 #: ../root/statistics/Index.js:330
 msgid "Gender not applicable:"
-msgstr ""
+msgstr "Gjini e paaplikueshme:"
 
 #: ../root/statistics/Index.js:341
 msgid "with no gender set:"
-msgstr ""
+msgstr "pa gjini të caktuar:"
 
 #: ../root/statistics/Index.js:353
 msgid "Releases, Data Quality, and Disc IDs"
-msgstr ""
+msgstr "Hedhje në qarkullim, Cilësi të Dhënash dhe ID-ra Disqesh"
 
 #: ../root/statistics/Index.js:366
 msgid "by various artists:"
@@ -477,30 +467,24 @@ msgid "by a single artist:"
 msgstr ""
 
 #: ../root/statistics/Index.js:379
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release status"
-msgstr "Gjendje Hedhjeje Në Qarkullim"
+msgstr "Gjendje hedhjeje në qarkullim"
 
 #: ../root/statistics/Index.js:398
 msgid "No status set"
-msgstr ""
+msgstr "Pa gjendje të caktuar"
 
 #: ../root/statistics/Index.js:405
-#, fuzzy
-#| msgid "Release group ratings"
 msgid "Release packaging"
-msgstr "Vlerësime grupi hedhjesh në qarkullim"
+msgstr "Paketim hedhjeje në qarkullim"
 
 #: ../root/statistics/Index.js:424
 msgid "No packaging set"
 msgstr ""
 
 #: ../root/statistics/Index.js:431
-#, fuzzy
-#| msgid "Cover Art"
 msgid "Cover art sources"
-msgstr "Kopertinë"
+msgstr "Burime kopertinash"
 
 #: ../root/statistics/Index.js:440
 msgid "CAA:"
@@ -508,37 +492,27 @@ msgstr ""
 
 #: ../root/statistics/Index.js:446
 msgid "No front cover art:"
-msgstr ""
+msgstr "Pa kopertinë të përparme:"
 
 #: ../root/statistics/Index.js:463 ../root/statistics/stats.js:604
-#, fuzzy
-#| msgid "Data Quality"
 msgid "High data quality"
-msgstr "Cilësi të Dhënash"
+msgstr "Cilësi e lartë të dhënash"
 
 #: ../root/statistics/Index.js:471
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Default data quality"
-msgstr "Cilësi të Dhënash"
+msgstr "Cilësi parazgjedhje të dhënash"
 
 #: ../root/statistics/Index.js:479 ../root/statistics/stats.js:614
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Normal data quality"
-msgstr "Cilësi të Dhënash"
+msgstr "Cilësi normale të dhënash"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:619
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Unknown data quality"
-msgstr "Cilësi të Dhënash"
+msgstr "Cilësi e panjohur të dhënash"
 
 #: ../root/statistics/Index.js:495 ../root/statistics/stats.js:609
-#, fuzzy
-#| msgid "Data Quality"
 msgid "Low data quality"
-msgstr "Cilësi të Dhënash"
+msgstr "Cilësi e ulët të dhënash"
 
 #: ../root/statistics/Index.js:517
 msgid "Releases with no disc IDs:"
@@ -556,41 +530,37 @@ msgstr[1] ""
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
 msgid "with 10 or more disc IDs:"
-msgstr ""
+msgstr "me 10 ose më tepër ID-ra disqesh:"
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
-msgstr ""
+msgstr "Media pa ID-ra disqesh:"
 
 #: ../root/statistics/Index.js:568
 msgid "Mediums with at least one disc ID:"
-msgstr ""
+msgstr "Media me të paktën një ID disku:"
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
-msgstr ""
+msgstr "Lloje parësore"
 
 #: ../root/statistics/Index.js:632
-#, fuzzy
-#| msgid "None"
 msgctxt "release group primary type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
-msgstr ""
+msgstr "Lloje dytësore"
 
 #: ../root/statistics/Index.js:666
-#, fuzzy
-#| msgid "None"
 msgctxt "release group secondary type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:685 ../root/statistics/stats.js:895
 msgid "Videos"
-msgstr ""
+msgstr "Video"
 
 #: ../root/statistics/Index.js:690
 msgctxt "recording"
@@ -599,88 +569,70 @@ msgstr ""
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr ""
+msgstr "Me ISRC-ra"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
 #: ../root/statistics/Index.js:852 ../root/statistics/Index.js:876
 #: ../root/statistics/Index.js:906
 msgid "Types"
-msgstr ""
+msgstr "Lloje"
 
 #: ../root/statistics/Index.js:723
-#, fuzzy
-#| msgid "None"
 msgctxt "label type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:751
-#, fuzzy
-#| msgid "None"
 msgctxt "work type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr ""
+msgstr "Me ISWC-ra"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
 msgstr "Atribute"
 
 #: ../root/statistics/Index.js:785
-#, fuzzy
-#| msgid "None"
 msgctxt "work attribute"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:813
-#, fuzzy
-#| msgid "None"
 msgctxt "area type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:841
-#, fuzzy
-#| msgid "None"
 msgctxt "place type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:895
-#, fuzzy
-#| msgid "None"
 msgctxt "instrument type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:923
-#, fuzzy
-#| msgid "None"
 msgctxt "event type"
 msgid "None"
 msgstr "Asnjë"
 
 #: ../root/statistics/Index.js:931 ../root/statistics/stats.js:30
-#, fuzzy
-#| msgid "Events"
 msgctxt "plural, multiple events, header"
 msgid "Event art"
-msgstr "Veprimtari"
+msgstr ""
 
 #: ../root/statistics/Index.js:941
 msgid "With EAA poster art:"
 msgstr ""
 
 #: ../root/statistics/Index.js:947
-#, fuzzy
-#| msgid "Cover Art"
 msgid "No poster art:"
-msgstr "Kopertinë"
+msgstr ""
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
@@ -719,10 +671,8 @@ msgid "Of artists"
 msgstr ""
 
 #: ../root/statistics/Index.js:1048
-#, fuzzy
-#| msgid "Genres"
 msgid "Of genres"
-msgstr "Zhanre"
+msgstr ""
 
 #: ../root/statistics/Index.js:1055
 msgid "Of instruments"
@@ -754,15 +704,15 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1113
 msgid "With collaborators"
-msgstr ""
+msgstr "Me bashkëpunëtorë"
 
 #: ../root/statistics/Index.js:1121
 msgid "Editors, Edits, and Votes"
-msgstr ""
+msgstr "Përpunues, Përpunime dhe Vota"
 
 #: ../root/statistics/Index.js:1128
 msgid "Editors (valid):"
-msgstr ""
+msgstr "Përpunues (të vlefshëm):"
 
 #: ../root/statistics/Index.js:1134
 msgid "active ever:"
@@ -770,48 +720,48 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1142
 msgid "who edited and/or voted in the last 7 days:"
-msgstr ""
+msgstr "që përpunuan dhe/ose votuan në 7 ditët e fundit:"
 
 #: ../root/statistics/Index.js:1151
 msgid "who edited in the last 7 days:"
-msgstr ""
+msgstr "që përpunuan në 7 ditët e fundit:"
 
 #: ../root/statistics/Index.js:1159
 msgid "who voted in the last 7 days:"
-msgstr ""
+msgstr "që votuan në 7 ditët e fundit:"
 
 #: ../root/statistics/Index.js:1166
 msgid "who edit:"
-msgstr ""
+msgstr "që përpunojnë:"
 
 #: ../root/statistics/Index.js:1173
 msgid "who vote:"
-msgstr ""
+msgstr "që votojnë:"
 
 #: ../root/statistics/Index.js:1180
 msgid "who leave edit notes:"
-msgstr ""
+msgstr "që lënë shënime përpunimi:"
 
 #: ../root/statistics/Index.js:1188
 msgctxt "folksonomy"
 msgid "who use tags:"
-msgstr ""
+msgstr "që përdorin etiketat:"
 
 #: ../root/statistics/Index.js:1196
 msgid "who use ratings:"
-msgstr ""
+msgstr "që përdorin vlerësime:"
 
 #: ../root/statistics/Index.js:1205
 msgid "who use subscriptions:"
-msgstr ""
+msgstr "që përdorin pajtime:"
 
 #: ../root/statistics/Index.js:1214
 msgid "who use collections:"
-msgstr ""
+msgstr "që përdorin koleksione:"
 
 #: ../root/statistics/Index.js:1224
 msgid "who have registered applications:"
-msgstr ""
+msgstr "që kanë regjistruar aplikacione:"
 
 #: ../root/statistics/Index.js:1233
 msgid "validated email only:"
@@ -819,11 +769,11 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1239
 msgid "inactive:"
-msgstr ""
+msgstr "joaktiv:"
 
 #: ../root/statistics/Index.js:1244
 msgid "Editors (deleted):"
-msgstr ""
+msgstr "Përpunues (të fshirë):"
 
 #: ../root/statistics/Index.js:1276
 msgid "Voted down"
@@ -831,29 +781,27 @@ msgstr ""
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (dependency):"
-msgstr ""
+msgstr "Dështoi (varësi):"
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (prerequisite):"
-msgstr ""
+msgstr "Dështoi (parakushte):"
 
 #: ../root/statistics/Index.js:1294
 msgid "Failed (internal error):"
-msgstr ""
+msgstr "Dështoi (gabim i brendshëm):"
 
 #: ../root/statistics/Index.js:1313 ../root/statistics/Index.js:1385
 msgid "Last 7 days:"
-msgstr ""
+msgstr "7 ditët e fundit:"
 
 #: ../root/statistics/Index.js:1320 ../root/statistics/Index.js:1392
 msgid "Yesterday:"
-msgstr ""
+msgstr "Dje:"
 
 #: ../root/statistics/LanguagesScripts.js:43
-#, fuzzy
-#| msgid "Languages"
 msgid "Languages and scripts"
-msgstr "Gjuhë"
+msgstr "Gjuhë dhe shkrime"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
@@ -865,27 +813,27 @@ msgstr "Gjuhë"
 
 #: ../root/statistics/LanguagesScripts.js:90
 msgid "Unknown language"
-msgstr ""
+msgstr "Gjuhë e panjohur"
 
 #: ../root/statistics/LanguagesScripts.js:143
 msgid "Scripts"
-msgstr ""
+msgstr "Shkrime"
 
 #: ../root/statistics/LanguagesScripts.js:166
 msgid "Unknown script"
-msgstr ""
+msgstr "Shkrim i panjohur"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
-msgstr ""
+msgstr "Histori"
 
 #: ../root/statistics/MusicBrainzHistory.js:16
 msgid "Our glorious history"
-msgstr ""
+msgstr "Historia jonë e lavdishme"
 
 #: ../root/statistics/MusicBrainzHistory.js:20
 msgid "{date} - {title}"
-msgstr ""
+msgstr "{date} - {title}"
 
 #: ../root/statistics/MusicBrainzHistory.js:36
 msgid "It seems we have no history to show at all!"
@@ -893,7 +841,7 @@ msgstr ""
 
 #: ../root/statistics/NoStatistics.js:17 ../root/statistics/NoStatistics.js:19
 msgid "No statistics"
-msgstr ""
+msgstr "S’ka statistika"
 
 #: ../root/statistics/NoStatistics.js:22
 msgid ""
@@ -904,17 +852,17 @@ msgstr ""
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
-msgstr ""
+msgstr "S’ka statistika rreth marrëdhëniesh."
 
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
 msgid "This type only"
-msgstr ""
+msgstr "Vetëm këtë lloj"
 
 #: ../root/statistics/Relationships.js:106
 msgctxt "relationships"
 msgid "Including subtypes"
-msgstr ""
+msgstr "Përfshi nënlloje"
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
@@ -922,27 +870,21 @@ msgstr "{type0}-{type1}"
 
 #: ../root/statistics/Relationships.js:136
 msgid "{type0}-{type1} relationships:"
-msgstr ""
+msgstr "Marrëdhënie {type0}-{type1}:"
 
 #: ../root/statistics/stats.js:16
-#, fuzzy
-#| msgid "Areas"
 msgid "Area types"
-msgstr "Zona"
+msgstr "Lloje zonash"
 
 #: ../root/statistics/stats.js:17
-#, fuzzy
-#| msgid "Artist Credits"
 msgid "Artist countries"
-msgstr "Kredite Artisti"
+msgstr "Vende artistësh"
 
 #: ../root/statistics/stats.js:18
 msgid "Artist types and genders"
-msgstr ""
+msgstr "Lloje dhe gjini artistësh"
 
 #: ../root/statistics/stats.js:23
-#, fuzzy
-#| msgid "Cover Art"
 msgctxt "plural, multiple releases, header"
 msgid "Cover art"
 msgstr "Kopertinë"
@@ -950,36 +892,28 @@ msgstr "Kopertinë"
 #: ../root/statistics/stats.js:26
 msgctxt "noun"
 msgid "Edit information"
-msgstr ""
+msgstr "Përpunoni informacion"
 
 #: ../root/statistics/stats.js:27
-#, fuzzy
-#| msgid "Edit Types"
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Përpunoni Lloje"
+msgstr "Lloje përpunimesh"
 
 #: ../root/statistics/stats.js:32
-#, fuzzy
-#| msgid "Events"
 msgid "Event types"
-msgstr "Veprimtari"
+msgstr "Lloje veprimtarish"
 
 #: ../root/statistics/stats.js:34
-#, fuzzy
-#| msgid "Instruments"
 msgid "Instrument types"
-msgstr "Instrumenta"
+msgstr "Lloje instrumentesh"
 
 #: ../root/statistics/stats.js:35
 msgid "Label countries"
 msgstr ""
 
 #: ../root/statistics/stats.js:36
-#, fuzzy
-#| msgid "Labels"
 msgid "Label types"
-msgstr "Etiketa"
+msgstr "Lloje etiketash"
 
 #: ../root/statistics/stats.js:37
 msgctxt "stats category"
@@ -987,120 +921,93 @@ msgid "Other"
 msgstr "Të tjera"
 
 #: ../root/statistics/stats.js:38
-#, fuzzy
-#| msgid "Places"
 msgid "Place types"
-msgstr "Vende"
+msgstr "Lloje vendesh"
 
 #: ../root/statistics/stats.js:39
-#, fuzzy
-#| msgid "Ratings and Tags"
 msgctxt "folksonomy"
 msgid "Ratings and tags"
-msgstr "Vlerësime dhe Etiketa"
+msgstr "Vlerësime dhe etiketa"
 
 #: ../root/statistics/stats.js:41
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release countries"
-msgstr "Grupe hedhjesh në qarkullim"
+msgstr "Vende hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:42
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release group types"
-msgstr "Grupe hedhjesh në qarkullim"
+msgstr "Lloje grupesh hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:43
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release languages"
-msgstr "Grupe hedhjesh në qarkullim"
+msgstr "Gjuhë hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:44
-#, fuzzy
-#| msgid "Release group ratings"
 msgid "Release packagings"
-msgstr "Vlerësime grupi hedhjesh në qarkullim"
+msgstr "Paketime hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:45
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release data quality"
-msgstr "Gjendje Hedhjeje Në Qarkullim"
+msgstr "Cilësi të dhënash hedhjeje në qarkullim"
 
 #: ../root/statistics/stats.js:46
-#, fuzzy
-#| msgid "Release groups"
 msgid "Release scripts"
-msgstr "Grupe hedhjesh në qarkullim"
+msgstr ""
 
 #: ../root/statistics/stats.js:47
-#, fuzzy
-#| msgid "Release Status"
 msgid "Release statuses"
-msgstr "Gjendje Hedhjeje Në Qarkullim"
+msgstr "Gjendje hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:48
-#, fuzzy
-#| msgctxt "plural"
-#| msgid "Series"
 msgid "Series types"
-msgstr "Seri"
+msgstr "Lloje serish"
 
 #: ../root/statistics/stats.js:49
 msgid "Work attributes"
-msgstr ""
+msgstr "Atribute vepre"
 
 #: ../root/statistics/stats.js:50
-#, fuzzy
-#| msgid "Languages"
 msgid "Work languages"
-msgstr "Gjuhë"
+msgstr "Gjuhë vepre"
 
 #: ../root/statistics/stats.js:51
-#, fuzzy
-#| msgid "No type"
 msgid "Work types"
-msgstr "Pa lloj"
+msgstr "Lloje vepre"
 
 #: ../root/statistics/stats.js:66
 msgid "Areas with no type set"
-msgstr ""
+msgstr "Zona pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:76
 msgid "Artists with no appearances in artist credits"
-msgstr ""
+msgstr "Artisë pa prani në kredite artistësh"
 
 #: ../root/statistics/stats.js:81
 msgid "Artists with no country set"
-msgstr ""
+msgstr "Artistë pa vend të caktuar"
 
 #: ../root/statistics/stats.js:86
 msgid "Female artists"
-msgstr ""
+msgstr "Artiste femra"
 
 #: ../root/statistics/stats.js:91
-#, fuzzy
-#| msgid "Artists"
 msgid "Male artists"
-msgstr "Artistë"
+msgstr "Artistë meshkuj"
 
 #: ../root/statistics/stats.js:96
 msgid "Non-binary Artists"
-msgstr ""
+msgstr "Artistë Jodyorë"
 
 #: ../root/statistics/stats.js:101
 msgid "Gender not applicable"
-msgstr ""
+msgstr "Gjini e paaplikueshme"
 
 #: ../root/statistics/stats.js:106
 msgid "Artists with no gender set (non-group artists)"
-msgstr ""
+msgstr "Artistë pa gjini të caktuar (artistë jo të grupuar)"
 
 #: ../root/statistics/stats.js:111
 msgid "Artists with gender set to Other"
-msgstr ""
+msgstr "Artistë me gjininë vënë si “Tjetër”"
 
 #: ../root/statistics/stats.js:116
 msgid "Artists with at least one artist credit appearance"
@@ -1112,27 +1019,27 @@ msgstr ""
 
 #: ../root/statistics/stats.js:126
 msgid "Choirs"
-msgstr ""
+msgstr "Kore"
 
 #: ../root/statistics/stats.js:131
 msgid "Groups"
-msgstr ""
+msgstr "Grupe"
 
 #: ../root/statistics/stats.js:136
 msgid "Artists with no type set"
-msgstr ""
+msgstr "Artistë pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:141
 msgid "Orchestras"
-msgstr ""
+msgstr "Orkestra"
 
 #: ../root/statistics/stats.js:146
 msgid "Artists with type set to Other"
-msgstr ""
+msgstr "Artistë me llojin vënë si “Tjetër”"
 
 #: ../root/statistics/stats.js:151
 msgid "Persons"
-msgstr ""
+msgstr "Persona"
 
 #: ../root/statistics/stats.js:166
 msgid "CD stubs (current)"
@@ -1148,23 +1055,23 @@ msgstr ""
 
 #: ../root/statistics/stats.js:186
 msgid "Collections with collaborators"
-msgstr ""
+msgstr "Koleksione me bashkëpunëtorë"
 
 #: ../root/statistics/stats.js:191
 msgid "Private collections"
-msgstr ""
+msgstr "Koleksione private"
 
 #: ../root/statistics/stats.js:196
 msgid "Public collections"
-msgstr ""
+msgstr "Koleksione publike"
 
 #: ../root/statistics/stats.js:201
 msgid "Area collections"
-msgstr ""
+msgstr "Koleksione zonash"
 
 #: ../root/statistics/stats.js:206
 msgid "Artist collections"
-msgstr ""
+msgstr "Koleksione artistësh"
 
 #: ../root/statistics/stats.js:211
 msgid "Collections of type Attending"
@@ -1176,21 +1083,19 @@ msgstr ""
 
 #: ../root/statistics/stats.js:221
 msgid "Event collections (all types)"
-msgstr ""
+msgstr "Koleksione veprimtarish (tërë llojet)"
 
 #: ../root/statistics/stats.js:226
-#, fuzzy
-#| msgid "Collections"
 msgid "Genre collections"
-msgstr "Koleksione"
+msgstr "Koleksione zhnresh"
 
 #: ../root/statistics/stats.js:231
 msgid "Instrument collections"
-msgstr ""
+msgstr "Koleksione instrumentesh"
 
 #: ../root/statistics/stats.js:236
 msgid "Label collections"
-msgstr ""
+msgstr "Koleksione etiketash"
 
 #: ../root/statistics/stats.js:241
 msgid "Collections of type Maybe attending"
@@ -1202,11 +1107,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:251
 msgid "Place collections"
-msgstr ""
+msgstr "Koleksionesh vendesh"
 
 #: ../root/statistics/stats.js:256
 msgid "Recording collections"
-msgstr ""
+msgstr "Koleksione incizimesh"
 
 #: ../root/statistics/stats.js:261
 msgid "Collections of type Release"
@@ -1214,7 +1119,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:266
 msgid "Release collections (all types)"
-msgstr ""
+msgstr "Koleksione hedhjesh në qarkullim (tërë llojet)"
 
 #: ../root/statistics/stats.js:271
 msgid "Release group collections"
@@ -1222,7 +1127,7 @@ msgstr "Koleksione grupesh hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:276
 msgid "Series collections"
-msgstr ""
+msgstr "Koleksione serish"
 
 #: ../root/statistics/stats.js:281
 msgid "Collections of type Wishlist"
@@ -1230,15 +1135,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:286
 msgid "Work collections"
-msgstr ""
+msgstr "Koleksione veprasj"
 
 #: ../root/statistics/stats.js:307
 msgid "Applied edits"
-msgstr ""
+msgstr "Përpunime të aplikuara"
 
 #: ../root/statistics/stats.js:312
 msgid "Cancelled edits"
-msgstr ""
+msgstr "Përpunime të anuluara"
 
 #: ../root/statistics/stats.js:317
 msgid "Error edits"
@@ -1246,96 +1151,96 @@ msgstr ""
 
 #: ../root/statistics/stats.js:322
 msgid "Edits that have failed dependency checks"
-msgstr ""
+msgstr "Përpunime me kontrolle varësish të dështuar"
 
 #: ../root/statistics/stats.js:327
 msgid "Edits that have failed prerequisite checks"
-msgstr ""
+msgstr "Përpunime me kontrolle parakushtesh të dështuar"
 
 #: ../root/statistics/stats.js:332
 msgid "Edits that have been voted down"
-msgstr ""
+msgstr "Përpunime të cilave u janë hequr vota"
 
 #: ../root/statistics/stats.js:343
 msgid "Edits per day"
-msgstr ""
+msgstr "Përpunime në ditë"
 
 #: ../root/statistics/stats.js:348
 msgid "Edits per week"
-msgstr ""
+msgstr "Përpunime në javë"
 
 #: ../root/statistics/stats.js:354
 msgid "Editors (all)"
-msgstr ""
+msgstr "Përpunues (krejt)"
 
 #: ../root/statistics/stats.js:359
 msgid "Editors who edited or voted in the last week"
-msgstr ""
+msgstr "Përpunues që përpunuan, ose votuan javën e fundit"
 
 #: ../root/statistics/stats.js:365
 msgid "Editors (deleted)"
-msgstr ""
+msgstr "Përpunues (të fshirë)"
 
 #: ../root/statistics/stats.js:370
 msgid "Editors who submitted edits in the last week"
-msgstr ""
+msgstr "Përpunues që parashtruan përpunime javën e fundit"
 
 #: ../root/statistics/stats.js:376
 msgid "Editors (current)"
-msgstr ""
+msgstr "Përpunues (të tanishëm)"
 
 #: ../root/statistics/stats.js:382
 msgid "Editors (current) who have ever been active"
-msgstr ""
+msgstr "Përpunues (të tanishëm) që s’kanë qenë kurrë aktivë"
 
 #: ../root/statistics/stats.js:387
 msgid "Editors who have registered applications"
-msgstr ""
+msgstr "Përpunues që kanë regjistruar aplikacione"
 
 #: ../root/statistics/stats.js:392
 msgid "Editors who use collections"
-msgstr ""
+msgstr "Përpunues që përdorin koleksione"
 
 #: ../root/statistics/stats.js:397
 msgid "Editors who have made edits"
-msgstr ""
+msgstr "Përpunues që kanë bërë përpunime"
 
 #: ../root/statistics/stats.js:402
 msgid "Editors who have written edit notes"
-msgstr ""
+msgstr "Përpunues që kanë shkruar shënime përpunimi"
 
 #: ../root/statistics/stats.js:407
 msgid "Editors who have added ratings"
-msgstr ""
+msgstr "Përpunues që kanë shtuar vlerësime"
 
 #: ../root/statistics/stats.js:412
 msgid "Editors who use subscriptions"
-msgstr ""
+msgstr "Përpunues që përdorim pajtime"
 
 #: ../root/statistics/stats.js:417
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
-msgstr ""
+msgstr "Përpunues që kanë shtuar etiketa"
 
 #: ../root/statistics/stats.js:422
 msgid "Editors who have voted on edits"
-msgstr ""
+msgstr "Përpunues që kanë votuar për përpunime"
 
 #: ../root/statistics/stats.js:427
 msgid "Editors who have not been active at all"
-msgstr ""
+msgstr "Përpunues që s’kanë qenë fare aktivë"
 
 #: ../root/statistics/stats.js:432
 msgid "Editors who have only validated their email"
-msgstr ""
+msgstr "Përpunues që vetëm kanë vleftësuar email-in e tyre"
 
 #: ../root/statistics/stats.js:437
 msgid "Editors who voted in the last week"
-msgstr ""
+msgstr "Përpunues që votuan javën e shkuar"
 
 #: ../root/statistics/stats.js:447
 msgid "Events with no country set"
-msgstr ""
+msgstr "Veprimtari pa vend të caktuar"
 
 #: ../root/statistics/stats.js:452
 msgid "Events with EAA event art"
@@ -1343,7 +1248,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:457
 msgid "Events with an EAA poster"
-msgstr ""
+msgstr "Veprimtari me një afishe EAA"
 
 #: ../root/statistics/stats.js:462
 msgid "Events without an EAA poster"
@@ -1351,7 +1256,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:467
 msgid "Events with no type set"
-msgstr ""
+msgstr "Veprimtari pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:473
 msgid "Events with no type set that have event art"
@@ -1359,83 +1264,83 @@ msgstr ""
 
 #: ../root/statistics/stats.js:494
 msgid "Instruments with no type set"
-msgstr ""
+msgstr "Instrumente pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:504
 msgid "Artist IPIs"
-msgstr ""
+msgstr "IPI Artistësh"
 
 #: ../root/statistics/stats.js:509
 msgid "Label IPIs"
-msgstr ""
+msgstr "IPI Etiketash"
 
 #: ../root/statistics/stats.js:519
 msgid "Artist ISNIs"
-msgstr ""
+msgstr "ISNI Artistësh"
 
 #: ../root/statistics/stats.js:524
 msgid "Label ISNIs"
-msgstr ""
+msgstr "ISNI Etiketash"
 
 #: ../root/statistics/stats.js:529
 msgid "ISRCs (unique)"
-msgstr ""
+msgstr "ISRC-ra (unike)"
 
 #: ../root/statistics/stats.js:534
 msgid "ISRCs (all uses)"
-msgstr ""
+msgstr "ISRC-ra (tërë përdorimet)"
 
 #: ../root/statistics/stats.js:539
 msgid "ISWCs (unique)"
-msgstr ""
+msgstr "ISWC-ra (unike)"
 
 #: ../root/statistics/stats.js:544
 msgid "ISWCs (all uses)"
-msgstr ""
+msgstr "ISWC-ra (tërë përdorimet)"
 
 #: ../root/statistics/stats.js:554
 msgid "Labels with no country set"
-msgstr ""
+msgstr "Etiketa pa vend të caktuar"
 
 #: ../root/statistics/stats.js:559
 msgid "Labels with no type set"
-msgstr ""
+msgstr "Etiketa pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:574
 msgid "Mediums with no format set"
-msgstr ""
+msgstr "Media pa format të caktuar"
 
 #: ../root/statistics/stats.js:579
 msgid "Mediums with disc IDs"
-msgstr ""
+msgstr "Media me ID-ra disqesh"
 
 #: ../root/statistics/stats.js:589
 msgid "Places with no country set"
-msgstr ""
+msgstr "Vende pa vend të caktuar"
 
 #: ../root/statistics/stats.js:594
 msgid "Places with no type set"
-msgstr ""
+msgstr "Vende pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:599
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr ""
+msgstr "Cilësi Parazgjedhje (Normale + E panjohur) të Dhënash"
 
 #: ../root/statistics/stats.js:624
 msgid "Entities with ratings"
-msgstr ""
+msgstr "Njësi me vlerësime"
 
 #: ../root/statistics/stats.js:629
 msgid "Artists with ratings"
-msgstr ""
+msgstr "Artistë me vlerësime"
 
 #: ../root/statistics/stats.js:634
 msgid "Labels with ratings"
-msgstr ""
+msgstr "Etiketa me vlerësime"
 
 #: ../root/statistics/stats.js:639
 msgid "Places with ratings"
-msgstr ""
+msgstr "Vende me vlerësime"
 
 #: ../root/statistics/stats.js:649
 msgid "Artist ratings"
@@ -1447,7 +1352,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:659
 msgid "Place ratings"
-msgstr ""
+msgstr "Vende me vlerësime"
 
 #: ../root/statistics/stats.js:664
 msgid "Recording ratings"
@@ -1463,19 +1368,19 @@ msgstr "Vlerësime vepre"
 
 #: ../root/statistics/stats.js:679
 msgid "Recordings with ratings"
-msgstr ""
+msgstr "Incizime me vlerësime"
 
 #: ../root/statistics/stats.js:684
 msgid "Release groups with ratings"
-msgstr ""
+msgstr "Grupe hedhjesh në qarkullim me vlerësime"
 
 #: ../root/statistics/stats.js:689
 msgid "Works with ratings"
-msgstr ""
+msgstr "Vepra me vlerësime"
 
 #: ../root/statistics/stats.js:699
 msgid "Recordings with ISRCs"
-msgstr ""
+msgstr "Incizime me ISRC-ra"
 
 #: ../root/statistics/stats.js:704
 msgid "Standalone recordings"
@@ -1483,7 +1388,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:714
 msgid "Releases with no country set"
-msgstr ""
+msgstr "Hedhje në qarkullim pa vend të caktuar"
 
 #: ../root/statistics/stats.js:719
 msgid "Releases with CAA cover art"
@@ -1491,11 +1396,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:724
 msgid "Releases with no cover art"
-msgstr ""
+msgstr "Hedhje në qarkullim pa kopertinë"
 
 #: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set"
-msgstr ""
+msgstr "Hedhje në qarkullim me një media pa format të caktuar"
 
 #: ../root/statistics/stats.js:735
 msgid "Releases with a medium with no format set that have cover art"
@@ -1503,31 +1408,31 @@ msgstr ""
 
 #: ../root/statistics/stats.js:741
 msgid "Releases with cover art"
-msgstr ""
+msgstr "Hedhje në qarkullim me kopertinë"
 
 #: ../root/statistics/stats.js:746
 msgid "Releases with disc IDs"
-msgstr ""
+msgstr "Hedhje në qarkullim me ID-ra disqesh"
 
 #: ../root/statistics/stats.js:751
 msgid "Releases with no language set"
-msgstr ""
+msgstr "Hedhje në qarkullim pa gjuhë të caktuar"
 
 #: ../root/statistics/stats.js:756
 msgid "Releases not credited to Various Artists"
-msgstr ""
+msgstr "Hedhje në qarkullim të patreguara si nga “Artistë të Ndryshëm”"
 
 #: ../root/statistics/stats.js:761
 msgid "Releases with no packaging set"
-msgstr ""
+msgstr "Hedhje në qarkullim pa paketim të caktuar"
 
 #: ../root/statistics/stats.js:766
 msgid "Releases with no script set"
-msgstr ""
+msgstr "Hedhje në qarkullim pa shkrim të caktuar"
 
 #: ../root/statistics/stats.js:771
 msgid "Releases with no status set"
-msgstr ""
+msgstr "Hedhje në qarkullim pa gjendje të caktuar"
 
 #: ../root/statistics/stats.js:776
 msgid "Releases with no status set that have cover art"
@@ -1539,7 +1444,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:788
 msgid "Releases credited to Various Artists"
-msgstr ""
+msgstr "Hedhje në qarkullim të treguara si nga “Artistë të Ndryshëm”"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with automatically inferred cover art"
@@ -1551,37 +1456,37 @@ msgstr ""
 
 #: ../root/statistics/stats.js:810
 msgid "Release groups with no primary type set"
-msgstr ""
+msgstr "Grupe hedhjesh në qarkullim pa lloj parësor të caktuar"
 
 #: ../root/statistics/stats.js:815
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "Grupe hedhjesh në qarkullim pa lloj dytësor të caktuar"
 
 #: ../root/statistics/stats.js:825
 msgid "Series with no type set"
-msgstr ""
+msgstr "Seri pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:830
 msgctxt "folksonomy"
 msgid "Unique tag names"
-msgstr ""
+msgstr "Emra unikë etiketash"
 
 #: ../root/statistics/stats.js:835
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
-msgstr ""
+msgstr "Vota pro/kundër etikash"
 
 #: ../root/statistics/stats.js:840
 msgid "Votes for/against area tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash zone"
 
 #: ../root/statistics/stats.js:845
 msgid "Votes for/against artist tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash artistësh"
 
 #: ../root/statistics/stats.js:850
 msgid "Votes for/against instrument tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash instrumentesh"
 
 #: ../root/statistics/stats.js:855
 msgid "Votes for/against label tags"
@@ -1589,11 +1494,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:860
 msgid "Votes for/against recording tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash incizimesh"
 
 #: ../root/statistics/stats.js:865
 msgid "Votes for/against release tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash hedhjesh në qarkullim"
 
 #: ../root/statistics/stats.js:870
 msgid "Votes for/against release group tags"
@@ -1601,73 +1506,69 @@ msgstr ""
 
 #: ../root/statistics/stats.js:875
 msgid "Votes for/against series tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash serish"
 
 #: ../root/statistics/stats.js:880
 msgid "Votes for/against work tags"
-msgstr ""
+msgstr "Vota pro/kundër etiketash veprash"
 
 #: ../root/statistics/stats.js:906
 msgid "Abstentions"
-msgstr ""
+msgstr "Abstenime"
 
 #: ../root/statistics/stats.js:911
 msgid "Admin approvals"
-msgstr ""
+msgstr "Miratime përgjegjësi"
 
 #: ../root/statistics/stats.js:916
-#, fuzzy
-#| msgid "Collections"
 msgid "Admin rejections"
-msgstr "Koleksione"
+msgstr "Hedhje poshtë nga përgjegjës"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
-msgstr ""
+msgstr "Miratime"
 
 #: ../root/statistics/stats.js:926
-#, fuzzy
-#| msgid "Votes"
 msgid "No votes"
-msgstr "Vota"
+msgstr "Pa vota"
 
 #: ../root/statistics/stats.js:932
 msgid "Votes per day"
-msgstr ""
+msgstr "Vota në ditë"
 
 #: ../root/statistics/stats.js:937
 msgid "Votes per week"
-msgstr ""
+msgstr "Vota në javë"
 
 #: ../root/statistics/stats.js:942
 msgid "Yes votes"
-msgstr ""
+msgstr "Vota Po"
 
 #: ../root/statistics/stats.js:952
 msgid "Works with no attributes"
-msgstr ""
+msgstr "Vepra pa atribute"
 
 #: ../root/statistics/stats.js:957
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "Vepra me ISWCs"
 
 #: ../root/statistics/stats.js:962
 msgid "Works with no language set"
-msgstr ""
+msgstr "Vepra pa gjuhë të caktuar"
 
 #: ../root/statistics/stats.js:967
 msgid "Works with no type set"
-msgstr ""
+msgstr "Vepra pa lloj të caktuar"
 
 #: ../root/statistics/stats.js:969
 msgid "/day"
-msgstr ""
+msgstr "/ditë"
 
 #: ../root/statistics/stats.js:979
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Hedhje në qarkullim me 1 ID Disku"
+msgstr[1] "Hedhje në qarkullim me with {n} ID-ra Disku"
 
 #: ../root/statistics/stats.js:990
 msgid "Mediums with 1 Disc ID"
@@ -1678,46 +1579,46 @@ msgstr[1] ""
 #: ../root/statistics/stats.js:1001
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Incizime me 1 Hedhje në qarkullim"
+msgstr[1] "Incizime me {n} Recordings with 1 Release"
 
 #: ../root/statistics/stats.js:1012
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Grupe Hedhjesh Në Qarkullim me 1 Hedhje në qarkullim"
+msgstr[1] "Grupe Hedhjesh Në Qarkullim me {n} Hedhje në qarkullim"
 
 #: ../root/statistics/stats.js:1065
 msgid "{type} areas"
-msgstr ""
+msgstr "Zona {type}"
 
 #: ../root/statistics/stats.js:1077
 msgid "{country} artists"
-msgstr ""
+msgstr "Artistë nga {country}"
 
 #: ../root/statistics/stats.js:1083
 msgid "{country} events"
-msgstr ""
+msgstr "Veprimtari në {country}"
 
 #: ../root/statistics/stats.js:1089
 msgid "{country} labels"
-msgstr ""
+msgstr "Etiketa në {country}"
 
 #: ../root/statistics/stats.js:1095
 msgid "{country} places"
-msgstr ""
+msgstr "Vende {country}"
 
 #: ../root/statistics/stats.js:1101
 msgid "{country} releases"
-msgstr ""
+msgstr "Hedhje në qarkullim në {country}"
 
 #: ../root/statistics/stats.js:1112
 msgid "{type} edits"
-msgstr ""
+msgstr "Përpunime {type}"
 
 #: ../root/statistics/stats.js:1123
 msgid "{type} events"
-msgstr ""
+msgstr "Veprimtari {type} events"
 
 #: ../root/statistics/stats.js:1130
 msgid "Events of type “{type}” with event art"
@@ -1725,7 +1626,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1143
 msgid "{name} releases"
-msgstr ""
+msgstr "Hedhje në qarkullim {name}"
 
 #: ../root/statistics/stats.js:1149
 msgid "{name} mediums"
@@ -1737,19 +1638,19 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1169
 msgid "{type} instruments"
-msgstr ""
+msgstr "Instrumente {type}"
 
 #: ../root/statistics/stats.js:1180
 msgid "{type} labels"
-msgstr ""
+msgstr "Etiketa {type}"
 
 #: ../root/statistics/stats.js:1191
 msgid "{language} releases"
-msgstr ""
+msgstr "Hedhje në qarkullim në {language}"
 
 #: ../root/statistics/stats.js:1198
 msgid "{language} works"
-msgstr ""
+msgstr "Vepra në {language}"
 
 #: ../root/statistics/stats.js:1210
 msgid "Releases with packaging “{packaging}”"
@@ -1757,27 +1658,31 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1223
 msgid "{type} places"
-msgstr ""
+msgstr "Vende {type}"
 
 #: ../root/statistics/stats.js:1231
 msgid "{first_entity_type}-{second_entity_type} Relationships"
-msgstr ""
+msgstr "Marrëdhënie {first_entity_type}-{second_entity_type}"
 
 #: ../root/statistics/stats.js:1250
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
+"Marrëdhënie {first_entity_type_name}-{second_entity_type_name} "
+"“{relationship_type_name}”"
 
 #: ../root/statistics/stats.js:1266
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
+"Marrëdhënie {first_entity_type_name}-{second_entity_type_name} "
+"“{relationship_type_name}” përfshi lloje pjella marëdhëniesh"
 
 #: ../root/statistics/stats.js:1289 ../root/statistics/stats.js:1309
 msgid "{type} release groups"
-msgstr ""
+msgstr "Grupe hedhjesh në qarkullim {type}"
 
 #: ../root/statistics/stats.js:1296
 msgid "Releases in groups of type “{type}” with cover art"
@@ -1785,15 +1690,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1320
 msgid "{script} releases"
-msgstr ""
+msgstr "Hedhje në qarkullim në {script}"
 
 #: ../root/statistics/stats.js:1331
 msgid "{type} series"
-msgstr ""
+msgstr "Seri {type}"
 
 #: ../root/statistics/stats.js:1342
 msgid "{status} releases"
-msgstr ""
+msgstr "Hedhje në qarkullim {status}"
 
 #: ../root/statistics/stats.js:1349
 msgid "Releases of status “{status}” with cover art"
@@ -1801,15 +1706,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1366
 msgid "Works with attribute “{attribute}”"
-msgstr ""
+msgstr "Vepra me atributin “{attribute}”"
 
 #: ../root/statistics/stats.js:1379
 msgid "{type} works"
-msgstr ""
+msgstr "Vepra {type}"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
-msgstr ""
+msgstr "Shiheni në rrjedhë kohore"
 
 #~ msgid "Country"
 #~ msgstr "Vend"

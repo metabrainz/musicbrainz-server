@@ -58,6 +58,7 @@
 
 # Ignore log files (created by replication mirror.sh cron script)
 /.logrotate-state
+/logrotate.config
 /mirror.log*
 /slave.log*
 

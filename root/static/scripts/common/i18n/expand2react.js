@@ -223,10 +223,10 @@ const parseHtmlAttrValue = (args: VarArgsClass<Input>) => (
 
 const parseHtmlAttrValueCondSubst:
   Parser<string | NO_MATCH, Input> =
-  createCondSubstParser(
-    args => parseContinuousString(htmlAttrCondSubstThenParsers, args),
-    args => parseContinuousString(htmlAttrCondSubstElseParsers, args),
-  );
+    createCondSubstParser(
+      args => parseContinuousString(htmlAttrCondSubstThenParsers, args),
+      args => parseContinuousString(htmlAttrCondSubstElseParsers, args),
+    );
 
 const htmlAttrCondSubstThenParsers = [
   createTextContentParser<string, Input>(

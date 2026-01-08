@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-05 21:27+0530\n"
+"POT-Creation-Date: 2026-01-08 19:30+0530\n"
 "PO-Revision-Date: 2025-11-03 11:34+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
@@ -20,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -90,7 +90,7 @@ msgstr "(s’ka figura të tjera)"
 #: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -220,7 +220,7 @@ msgstr "Shtoni etiketë"
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
-#: ../root/static/scripts/homepage/editor-tools.js:30
+#: ../root/static/scripts/homepage/editor-tools.js:31
 #, fuzzy
 msgctxt "interactive"
 msgid "Add label"
@@ -230,7 +230,7 @@ msgstr "Shtoni etiketë"
 #, fuzzy
 msgctxt "interactive"
 msgid "Add medium"
-msgstr "Shtoni mdeia"
+msgstr "Shtoni media"
 
 #: ../root/place/create.tt:1 ../root/place/create.tt:3
 #, fuzzy
@@ -251,13 +251,13 @@ msgstr "Shtoni hedhje në qarkullim"
 #, fuzzy
 msgctxt "interactive"
 msgid "Add release event"
-msgstr "Shtoni Veprimtari Hedhjeje Në Qarkullim"
+msgstr "Shtoni veprimtari hedhjeje në qarkullim"
 
 #: ../root/release_group/create.tt:1 ../root/release_group/create.tt:3
 #, fuzzy
 msgctxt "header"
 msgid "Add release group"
-msgstr "Shtoni grup hedhjeje në qarkullim"
+msgstr "Shtoni grup hedhjesh në qarkullim"
 
 #: ../root/series/create.tt:1 ../root/series/create.tt:3
 #, fuzzy
@@ -285,7 +285,7 @@ msgstr "Shtoni vepër"
 #, fuzzy
 msgctxt "interactive"
 msgid "Add work attribute"
-msgstr "Shtoni Atribut Vepre"
+msgstr "Shtoni atribut vepre"
 
 #: ../root/release/edit/tracklist.tt:592
 msgid "Add {num} track(s)"
@@ -307,14 +307,14 @@ msgstr "Adresë"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:213
 msgctxt "vote"
 msgid "Admin approval"
-msgstr ""
+msgstr "Miratim përgjegjësi"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
 #, fuzzy
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "Zgjedhje auto-përpunuesi"
+msgstr "Hedhje poshtë nga përgjegjësi"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -396,7 +396,7 @@ msgstr "Zonë"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Area type"
-msgstr "Lloj parësor"
+msgstr "Lloj zone"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -469,17 +469,17 @@ msgstr "Artist"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Artist area"
-msgstr "Zonë Artisti"
+msgstr "Zonë artisti"
 
 #: ../root/artist/edit_form.tt:12
 #, fuzzy
 msgid "Artist details"
-msgstr "Hollësi Artisti"
+msgstr "Hollësi artisti"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Artist type"
-msgstr "Zonë Artisti"
+msgstr "Lloj artisti"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -501,7 +501,7 @@ msgstr "Bashkëngjitni PL CD-je"
 #: ../root/cdtoc/lookup.tt:68 ../root/release/edit/tracklist.tt:538
 #, fuzzy
 msgid "Attach disc ID"
-msgstr "Bashkëngjitni ID Disku"
+msgstr "Bashkëngjitni ID disku"
 
 #: ../root/cdtoc/index.tt:8
 msgid "Attached to releases"
@@ -529,7 +529,7 @@ msgstr "Auto-përpunues"
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:130
 #: ../root/otherlookup/OtherLookupForm.js:57
 #: ../root/release_group/ReleaseGroupIndex.js:173
-#: ../root/report/ReleasesSameBarcode.js:40
+#: ../root/report/ReleasesSameBarcode.js:41
 #: ../root/search/components/ReleaseResults.js:125
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:163
@@ -573,7 +573,7 @@ msgstr "Blog"
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
 #: ../root/static/scripts/homepage/navbar.js:113
 msgid "Bluesky"
-msgstr ""
+msgstr "Bluesky"
 
 #: ../root/edit/search_macros.tt:438
 #, fuzzy
@@ -593,7 +593,7 @@ msgstr ""
 #: ../root/main/index.js:359
 #, fuzzy
 msgid "Bug tracker"
-msgstr "Ndjekës të Metash"
+msgstr "Ndjekës të metash"
 
 #: ../root/release/edit/tracklist.tt:6
 msgid "By default, the parser expects the following format:"
@@ -657,7 +657,7 @@ msgstr "Katalog#"
 #: ../root/static/scripts/homepage/navbar.js:112
 #: ../root/static/scripts/homepage/user-menu.js:47
 msgid "Chat"
-msgstr ""
+msgstr "Fjalosje"
 
 #: ../root/release/edit/information.tt:58
 msgid "Checking existing release groups…"
@@ -680,11 +680,11 @@ msgstr ""
 
 #: ../root/artist/split.tt:34
 msgid "Collaborators on this artist"
-msgstr ""
+msgstr "Bashkëpunëtorë me këtë artist"
 
 #: ../root/release/edit/tracklist.tt:301
 msgid "Collapse medium"
-msgstr ""
+msgstr "Tkurre median"
 
 #: ../root/cdstub/index.tt:3 ../root/event/add_event_art.tt:69
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
@@ -822,7 +822,7 @@ msgstr "Hollësi"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Çaktivizoni mënyrën shfletues të dikurshëm"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -852,7 +852,7 @@ msgstr "Ftillim dykuptimësie"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
 msgid "Disc ID information"
-msgstr ""
+msgstr "Informacion ID-je Disku"
 
 #: ../root/cdtoc/index.tt:3
 msgid "Disc ID “<code>{discid}</code>”"
@@ -904,7 +904,7 @@ msgstr "Përpunim"
 #, fuzzy
 msgctxt "verb, header"
 msgid "Edit"
-msgstr "Përpunim"
+msgstr "Përpunojeni"
 
 #: ../root/release/edit/recordings.tt:73
 #: ../root/account/applications/ApplicationList.js:34
@@ -919,19 +919,19 @@ msgstr "Përpunim"
 #, fuzzy
 msgctxt "verb, interactive"
 msgid "Edit"
-msgstr "Përpunim"
+msgstr "Përpunojeni"
 
 #: ../root/url/edit_form.tt:1
 #, fuzzy
 msgctxt "header"
 msgid "Edit URL"
-msgstr "Përpunoni URL"
+msgstr "Përpunojeni URL-në"
 
 #: ../root/artist/edit_credit.tt:1 ../root/artist/edit_credit.tt:4
 #, fuzzy
 msgctxt "header"
 msgid "Edit artist credit"
-msgstr "Përpunoni kredite artistësh"
+msgstr "Përpunoni kredite artisti"
 
 #: ../root/release/edit_cover_art.tt:1 ../root/release/edit_cover_art.tt:5
 #, fuzzy
@@ -949,7 +949,7 @@ msgstr "Përpunoni veprimtari"
 #: ../root/static/scripts/edit/components/EnterEditNote.js:39
 msgctxt "noun"
 msgid "Edit note"
-msgstr ""
+msgstr "Përpunoni shënim"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
@@ -971,7 +971,7 @@ msgstr "Përpunoni shënim:"
 #, fuzzy
 msgctxt "noun"
 msgid "Edit types"
-msgstr "Përpunoni Lloje"
+msgstr "Lloje përpunimesh"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Edited entity"
@@ -1066,7 +1066,7 @@ msgstr "Veprimtari"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Event type"
-msgstr "Lloj njësie"
+msgstr "Lloj veprimtarie"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1165,7 +1165,7 @@ msgstr "Kartelë:"
 
 #: ../root/release/edit/layout.tt:64
 msgid "Finish"
-msgstr ""
+msgstr "Përfundoje"
 
 #: ../root/release/edit/layout.tt:17
 msgid ""
@@ -1346,7 +1346,7 @@ msgstr "S’e di"
 
 #: ../root/release/edit/tracklist.tt:486
 msgid "I don’t know the tracklist for this medium."
-msgstr ""
+msgstr "S’e di listën e pjesëve për këtë media."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
@@ -1362,12 +1362,12 @@ msgstr "ID"
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
 msgid "IPI codes"
-msgstr ""
+msgstr "Kode IPI"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #: ../root/edit/details/EditArtist.js:176 ../root/edit/details/EditLabel.js:136
 msgid "ISNI codes"
-msgstr ""
+msgstr "Kode ISNI"
 
 #: ../root/recording/edit_form.tt:44 ../root/report/ReportsIndex.js:665
 #: ../root/search/components/RecordingResults.js:140
@@ -1430,10 +1430,10 @@ msgid ""
 "January 1st is not often the actual release date. <strong>Please double‐"
 "check that you have entered the release date correctly.</strong>"
 msgstr ""
-"Vini re! Nëse nuk e dini muajin apo datën e hedhjes në qarkullim, ju lutemi, "
-"lëreni të zbrazët. 1 janar shpesh s’është data faktike e hedhjes në "
-"qarkullim, ju lutemi, rikontrolloni që datën e hedhjes në qarkullim e keni "
-"dhënë saktësisht."
+"Nëse nuk e dini muajin apo ditën e hedhjes në qarkullim, ju lutemi, lëreni "
+"të zbrazët. 1 janar shpesh s’është data faktike e hedhjes në qarkullim. "
+"<strong>Ju lutemi, rikontrolloni që datën e hedhjes në qarkullim e keni "
+"dhënë saktësisht.</strong>"
 
 #: ../root/components/forms.tt:223 ../root/components/forms.tt:231
 msgid "If you don’t know the code for this entity, just leave the field blank."
@@ -1445,7 +1445,7 @@ msgid ""
 "If you don’t know whether the release has a barcode or not, please leave "
 "this blank."
 msgstr ""
-"Nëse nuk dini nëse ka apo jo një kod me vija hedhja në qarkullim, thjesht "
+"Nëse nuk dini nëse ka apo jo një kod me vija hedhja në qarkullim, ju lutemi, "
 "lëreni të zbrazët këtë."
 
 #: ../root/release/edit/information.tt:97
@@ -1511,7 +1511,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Artwork.js:42
 #: ../root/static/scripts/common/components/Artwork2.js:44
 msgid "Image not available, please try again later."
-msgstr ""
+msgstr "Figurë jo e passhme, ju lutemi, riprovoni më vonë."
 
 #: ../root/cdtoc/lookup.tt:28 ../root/cdstub/ImportCDStub.js:94
 msgctxt "interactive"
@@ -1537,7 +1537,7 @@ msgstr "Instrument"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Instrument type"
-msgstr "Listë instrumentesh"
+msgstr "Lloj instrumenti"
 
 #: ../root/recording/edit_form.tt:105
 msgid ""
@@ -1614,23 +1614,23 @@ msgstr "Etiketë"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Label area"
-msgstr "Zonë Etikete"
+msgstr "Zonë etiketash"
 
 #: ../root/label/edit_form.tt:26 ../root/edit/details/AddLabel.js:89
 #: ../root/edit/details/EditLabel.js:81
 #: ../root/layout/components/sidebar/LabelSidebar.js:88
 msgid "Label code"
-msgstr ""
+msgstr "Kod etikete"
 
 #: ../root/label/edit_form.tt:8
 #, fuzzy
 msgid "Label details"
-msgstr "Hollësi Etikete"
+msgstr "Hollësi etiketë"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Label type"
-msgstr "Zonë Etikete"
+msgstr "Lloj etikete"
 
 #: ../root/release/edit/information.tt:157
 #: ../root/edit/details/AddRelease.js:86 ../root/edit/details/AddWork.js:57
@@ -1677,7 +1677,7 @@ msgstr "Gjatësi"
 
 #: ../root/release/edit/tracklist.tt:54
 msgid "Lines contain track artists"
-msgstr ""
+msgstr "Rreshtat përmbajnë artist pjese"
 
 #: ../root/release/edit/tracklist.tt:31
 msgid "Lines start with a track number"
@@ -1687,7 +1687,7 @@ msgstr "Rreshtat fillojnë me numër pjese"
 #, fuzzy
 msgctxt "user type"
 msgid "Location editor"
-msgstr "Përpunues vendesh"
+msgstr "Përpunues vendndodhjesh"
 
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
@@ -1709,7 +1709,7 @@ msgstr "Kërko CD"
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
 #: ../root/static/scripts/edit/components/PartialDateInput.js:161
 msgid "MM"
-msgstr ""
+msgstr "MM"
 
 #: ../root/release/edit/information.tt:587
 msgid ""
@@ -1729,7 +1729,7 @@ msgstr "Futje dorazi"
 #: ../root/layout.tt:121 ../root/layout/components/Footer.js:34
 #: ../root/static/scripts/homepage/navbar.js:114
 msgid "Mastodon"
-msgstr ""
+msgstr "Mastodon"
 
 #: ../root/cdtoc/lookup.tt:5
 msgid "Matching CDs"
@@ -1750,7 +1750,7 @@ msgstr "Media"
 
 #: ../root/release/edit/tracklist.tt:318
 msgid "Medium title:"
-msgstr ""
+msgstr "Titull media:"
 
 #: ../root/cdtoc/list.tt:63 ../root/release/DiscIds.js:70
 msgid "Move"
@@ -1870,7 +1870,7 @@ msgstr "Jo"
 #: ../root/components/forms.tt:268
 #: ../root/static/scripts/event/components/EventEditForm.js:347
 msgid "No description available."
-msgstr ""
+msgstr "S’ka përshkrim."
 
 #: ../root/release/edit/tracklist.tt:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:471
@@ -1978,12 +1978,12 @@ msgstr "Vend"
 #: ../root/place/edit_form.tt:12
 #, fuzzy
 msgid "Place details"
-msgstr "Hollësi Vendi"
+msgstr "Hollësi vendi"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Place type"
-msgstr "Vend"
+msgstr "Lloj vendi"
 
 #: ../root/edit/search_macros.tt:478
 msgid "Please choose a condition"
@@ -2098,7 +2098,7 @@ msgstr "Incizim"
 #: ../root/recording/edit_form.tt:23
 #, fuzzy
 msgid "Recording details"
-msgstr "Hollësi Incizimi"
+msgstr "Hollësi incizimi"
 
 #: ../root/recording/layout.tt:3 ../root/recording/RecordingLayout.js:32
 msgid "Recording “{name}” by {artist}"
@@ -2134,9 +2134,9 @@ msgstr "Përpunues marrëdhëniesh"
 #: ../root/edit/details/AddRelationshipType.js:48
 #: ../root/edit/details/EditRelationshipType.js:148
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:82
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:284
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:283
 msgid "Relationship type"
-msgstr ""
+msgstr "Lloj marrëdhënieje"
 
 #: ../root/cdtoc/attach_artist_releases.tt:15 ../root/cdtoc/lookup.tt:40
 #: ../root/edit/search_macros.tt:480 ../root/release/edit/duplicates.tt:10
@@ -2178,17 +2178,17 @@ msgstr "Hedhje Në Qarkullim"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Release country"
-msgstr "Vend Hedhjeje Në Qarkullim"
+msgstr "Vend hedhjeje në qarkullim"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Release data quality"
-msgstr "Cilësi Hedhjeje Në Qarkullim"
+msgstr "Cilësi të dhënash hedhjeje në qarkullim"
 
 #: ../root/release/edit/layout.tt:14
 #, fuzzy
 msgid "Release duplicates"
-msgstr "Përsëdytje Hedhjeje Në Qarkullim"
+msgstr "Përsëdytje hedhjeje në qarkullim"
 
 #: ../root/release/edit/information.tt:167
 #: ../root/static/scripts/common/components/ReleaseEvents.js:34
@@ -2209,7 +2209,7 @@ msgstr "Veprimtari hedhjeje në qarkullim"
 #: ../root/report/DuplicateReleaseGroups.js:59
 #: ../root/report/EmptyReleaseGroups.js:60
 #: ../root/report/ReleaseRgDifferentName.js:29
-#: ../root/report/ReleasesSameBarcode.js:46
+#: ../root/report/ReleasesSameBarcode.js:47
 #: ../root/report/components/ReleaseGroupList.js:43
 #: ../root/report/components/ReleaseGroupUrlList.js:32
 #: ../root/search/components/ReleaseGroupResults.js:74
@@ -2226,22 +2226,22 @@ msgstr "Grup hedhjeje në qarkullim"
 #: ../root/release_group/edit_form.tt:10
 #, fuzzy
 msgid "Release group details"
-msgstr "Hollësi Grupi Hedhjesh Në Qarkullim"
+msgstr "Hollësi grupi hedhjesh në qarkullim"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Release group primary type"
-msgstr "Grup hedhjeje në qarkullim"
+msgstr "Lloj parësor grupi hedhjesh në qarkullim"
 
 #: ../root/release/edit/information.tt:67
 #, fuzzy
 msgid "Release group search error"
-msgstr "Grupe hedhjesh në qarkullim"
+msgstr "Gabim kërkimi te grupi i hedhjeve në qarkullim"
 
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Release group secondary type"
-msgstr "Grup hedhjeje në qarkullim"
+msgstr "Lloj dytësor grupi hedhjesh në qarkullim"
 
 #: ../root/release_group/layout.tt:1
 #: ../root/release_group/ReleaseGroupLayout.js:26
@@ -2252,7 +2252,7 @@ msgstr "Grup hedhjeje në qarkullim “{name}” nga {artist}"
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:63
 #, fuzzy
 msgid "Release group: {release_group_link}"
-msgstr "Grup Hedhjesh Në Qarkullim: {release_group_link}"
+msgstr "Grup hedhjesh në qarkullim: {release_group_link}"
 
 #: ../root/release/edit/information.tt:3 ../root/release/edit/layout.tt:12
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:123
@@ -2262,7 +2262,7 @@ msgstr "Të dhëna hedhjeje në qarkullim"
 #: ../root/edit/search_macros.tt:480
 #, fuzzy
 msgid "Release language"
-msgstr "Gjuhë Hedhjeje Në Qarkullim"
+msgstr "Gjuhë hedhjeje në qarkullim"
 
 #: ../root/cdtoc/lookup.tt:87 ../root/cdtoc/AttachCDTocToRelease.js:75
 msgid "Release title or MBID"
@@ -2291,25 +2291,25 @@ msgstr "Hiqe"
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove IPI code"
-msgstr "Kod IPI"
+msgstr "Hiqe kodin IPI"
 
 #: ../root/artist/edit_form.tt:32 ../root/label/edit_form.tt:37
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove ISNI code"
-msgstr "Kod ISNI"
+msgstr "Hiqe kodin ISNI"
 
 #: ../root/recording/edit_form.tt:44
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove ISRC"
-msgstr "Hiqni ISRC"
+msgstr "Hiq ISRC"
 
 #: ../root/work/edit_form.tt:15
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove ISWC"
-msgstr "Hiqni ISWC"
+msgstr "Hiq ISWC"
 
 #: ../root/work/edit_form.tt:68
 msgid "Remove attribute"
@@ -2319,7 +2319,7 @@ msgstr "Hiqni atribut"
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove label"
-msgstr "Hiqni etiketë"
+msgstr "Hiqe etiketën"
 
 #: ../root/release/edit/tracklist.tt:330
 msgid "Remove medium"
@@ -2328,7 +2328,7 @@ msgstr "Hiqni media"
 #: ../root/release/edit/information.tt:202
 #, fuzzy
 msgid "Remove release event"
-msgstr "Hiqni Veprimtari Hedhjeje Në Qarkullim"
+msgstr "Hiqe veprimtari hedhjeje në qarkullim"
 
 #: ../root/release/edit/tracklist.tt:227
 msgid "Remove track"
@@ -2349,7 +2349,7 @@ msgstr "Rirenditni kopertinë"
 
 #: ../root/event/add_event_art.tt:83 ../root/release/add_cover_art.tt:83
 msgid "Request signature..."
-msgstr ""
+msgstr "Kërkoni nënshkrim…"
 
 #: ../root/release/edit/tracklist.tt:585
 msgid "Reset track numbers"
@@ -2357,7 +2357,7 @@ msgstr "Ricaktoni numra pjesësh"
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "Riprovo"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
@@ -2496,7 +2496,7 @@ msgstr "Seri"
 #: ../root/series/edit_form.tt:8
 #, fuzzy
 msgid "Series details"
-msgstr "Hollësi Serish"
+msgstr "Hollësi serie"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Series type"
@@ -3310,8 +3310,8 @@ msgstr "Turqisht"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/edit/externalLinks.js:1334
-#: ../root/static/scripts/edit/externalLinks.js:1649
+#: ../root/static/scripts/edit/externalLinks.js:1336
+#: ../root/static/scripts/edit/externalLinks.js:1651
 #: ../root/static/scripts/event/components/EventEditForm.js:246
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -3487,7 +3487,7 @@ msgstr "Vepër"
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
 #: ../root/static/scripts/common/components/AttributeList.js:61
 msgid "Work attributes"
-msgstr ""
+msgstr "Atribute vepre"
 
 #: ../root/work/edit_form.tt:151
 msgid ""
@@ -3498,12 +3498,12 @@ msgstr ""
 #: ../root/work/edit_form.tt:10
 #, fuzzy
 msgid "Work details"
-msgstr "Hollësi Vepre"
+msgstr "Hollësi vepre"
 
 #: ../root/edit/search_macros.tt:480 ../root/edit/details/EditWork.js:69
 #: ../root/static/scripts/release/components/WorkTypeSelect.js:51
 msgid "Work type"
-msgstr ""
+msgstr "Lloj vepre"
 
 #: ../root/release/edit/information.tt:176
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
@@ -3542,7 +3542,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:471
 msgid "You must be logged in to use this option."
-msgstr ""
+msgstr "Që të përdorni këtë mundësi, duhet të keni bërë hyrjen."
 
 #: ../root/components/common-macros.tt:453
 msgid "You must enter a disambiguation comment for this entity."
@@ -3602,7 +3602,7 @@ msgstr ""
 #, fuzzy
 msgctxt "generic entity"
 msgid "[removed]"
-msgstr "[hequr]"
+msgstr "[e hequr]"
 
 #: ../root/edit/search_macros.tt:194
 msgid "after"
@@ -3647,7 +3647,7 @@ msgstr ""
 #, fuzzy
 msgctxt "event"
 msgid "cancelled"
-msgstr "anuluar"
+msgstr "e anuluar"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not exist (edit has no notes)"
@@ -3655,7 +3655,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not include"
-msgstr ""
+msgstr "mos përfshi"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not include editors in my subscriptions"
@@ -3663,7 +3663,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not include me"
-msgstr ""
+msgstr "mos më përfshi"
 
 #: ../root/edit/search_macros.tt:35
 msgid "do not match"
@@ -3726,15 +3726,15 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:389
 msgid "include a beginner editor"
-msgstr ""
+msgstr "përfshi një përpunues fillestar"
 
 #: ../root/edit/search_macros.tt:389
 msgid "include an editor in my subscriptions"
-msgstr ""
+msgstr "përfshi një përpunues te pajtimet e mia"
 
 #: ../root/edit/search_macros.tt:389
 msgid "include me"
-msgstr ""
+msgstr "më përfshi"
 
 #: ../root/edit/search_macros.tt:389
 msgid "include someone other than the edit author"
@@ -3759,11 +3759,11 @@ msgstr "info"
 #: ../root/edit/search_macros.tt:400 ../root/edit/search_macros.tt:434
 #: ../root/edit/search_macros.tt:455
 msgid "is"
-msgstr ""
+msgstr "është"
 
 #: ../root/edit/search_macros.tt:400
 msgid "is a beginner"
-msgstr ""
+msgstr "është fillestar"
 
 #: ../root/edit/search_macros.tt:156
 msgid "is after"
@@ -3802,17 +3802,17 @@ msgstr "është më tepër se"
 #: ../root/edit/search_macros.tt:375 ../root/edit/search_macros.tt:400
 #: ../root/edit/search_macros.tt:434 ../root/edit/search_macros.tt:455
 msgid "is not"
-msgstr ""
+msgstr "s’është"
 
 #: ../root/edit/search_macros.tt:400
 #, fuzzy
 msgid "is not a beginner"
-msgstr "fillestar"
+msgstr "s’është fillestar"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:347
 #: ../root/edit/search_macros.tt:400 ../root/edit/search_macros.tt:428
 msgid "is not in my subscriptions"
-msgstr ""
+msgstr "s’është te pajtimet e mia"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:400
 msgid "is not me"
@@ -3976,7 +3976,7 @@ msgstr ""
 #: ../root/components/Paginator.js:112 ../root/components/Paginator.js:126
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:165
 msgid "…"
-msgstr ""
+msgstr "…"
 
 #: ../lib/MusicBrainz/Script/RemoveEmpty.pm:139
 msgid ""
@@ -4121,7 +4121,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Account.pm:897
 msgid "There is no OAuth token with these parameters."
-msgstr ""
+msgstr "S’ka token OAuth me këto parametra."
 
 #: ../lib/MusicBrainz/Server/Controller/Account/Subscriptions/Collection.pm:22
 msgid "The provided collection ID doesn’t exist."
@@ -4204,20 +4204,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:418
+#: ../root/static/scripts/common/constants.js:421
 msgid "Low"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:419
-#: ../root/static/scripts/common/constants.js:420
+#: ../root/static/scripts/common/constants.js:422
+#: ../root/static/scripts/common/constants.js:423
 msgid "Normal"
 msgstr "Normal"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:421
+#: ../root/static/scripts/common/constants.js:424
 msgid "High"
 msgstr ""
 
@@ -4231,7 +4231,7 @@ msgstr "Parazgjedhje"
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:122
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:140
 msgid "Can’t change edit note"
-msgstr ""
+msgstr "S’ndryshohet dot shënim përpunimi"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:67
 msgid "You can’t change other users’ edit notes."
@@ -4246,7 +4246,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:97
 msgid "This note has already been removed."
-msgstr ""
+msgstr "Ky shënim është hequr tashmë."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:124
 msgid ""
@@ -4311,7 +4311,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:76
 #, perl-brace-format
 msgid "Found no annotation with ID “{id}”."
-msgstr ""
+msgstr "S’u gjet shënim me ID-në “{id}”."
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Annotation.pm:91
 #, perl-brace-format
@@ -4368,7 +4368,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Send email"
-msgstr "dërgo email"
+msgstr "Dërgo email"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:314
 msgid ""
@@ -4391,7 +4391,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Email sent"
-msgstr "Email-i u Dërgua"
+msgstr "Email-i u dërgua"
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:370
 #, perl-brace-format
@@ -4464,13 +4464,13 @@ msgid ""
 "this."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:762
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:764
 msgid ""
 "You must be logged in to submit edits. {url|Log in} first, and then try "
 "submitting your edits again."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:799
+#: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:801
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
@@ -4565,13 +4565,13 @@ msgstr "Shtoni zonë"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove area"
-msgstr "Hiqni zonë"
+msgstr "Hiqe zonën"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/DeleteAlias.pm:15
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove area alias"
-msgstr "Hiqni alias zone"
+msgstr "Hiq alias zone"
 
 #: ../lib/MusicBrainz/Server/Edit/Area/Edit.pm:34
 #, fuzzy
@@ -4589,7 +4589,7 @@ msgstr "Përpunoni alias zone"
 #, fuzzy
 msgctxt "edit type"
 msgid "Merge areas"
-msgstr "Përzieni zona"
+msgstr "Përzieji zonat"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/AddAlias.pm:11
 #, fuzzy
@@ -4619,7 +4619,7 @@ msgstr "Hiqni artist"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove artist alias"
-msgstr "Hiqni alias artisti"
+msgstr "Hiq alias artisti"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Edit.pm:48
 #, fuzzy
@@ -4637,7 +4637,7 @@ msgstr "Përpunoni alias artisti"
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit artist credit"
-msgstr "Përpunoni kredite artistësh"
+msgstr "Përpunoni kredite artisti"
 
 #: ../lib/MusicBrainz/Server/Edit/Artist/Merge.pm:16
 #, fuzzy
@@ -4689,13 +4689,13 @@ msgstr "Shtoni veprimtari"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove event"
-msgstr "Hiqni veprimtari"
+msgstr "Hiqe veprimtarinë"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/DeleteAlias.pm:16
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove event alias"
-msgstr "Hiqni alias veprimtarie"
+msgstr "Hiq alias veprimtarie"
 
 #: ../lib/MusicBrainz/Server/Edit/Event/Edit.pm:43
 #, fuzzy
@@ -4737,19 +4737,19 @@ msgstr "Rirenditni kopertinë"
 #, fuzzy
 msgctxt "edit type"
 msgid "Add genre alias"
-msgstr "Shtoni alias serish"
+msgstr "Shtoni alias zhanri"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/AddAnnotation.pm:11
 #, fuzzy
 msgctxt "edit type"
 msgid "Add genre annotation"
-msgstr "Shtoni shënim serish"
+msgstr "Shtoni shënim zhanri"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Create.pm:24
 #, fuzzy
 msgctxt "edit type"
 msgid "Add genre"
-msgstr "Shtoni Zhanër"
+msgstr "Shtoni zhanër"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Delete.pm:10
 #, fuzzy
@@ -4761,7 +4761,7 @@ msgstr "Hiqe zhanrin"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove genre alias"
-msgstr "Hiqni alias serie"
+msgstr "Hiq alias zhanri"
 
 #: ../lib/MusicBrainz/Server/Edit/Genre/Edit.pm:25
 #, fuzzy
@@ -4773,7 +4773,7 @@ msgstr "Përpunoni zhanër"
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit genre alias"
-msgstr "Përpunoni alias serie"
+msgstr "Përpunoni alias zhanri"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic.pm:10 ../root/doc/EditTypeList.js:22
 #: ../root/doc/EditTypeList.js:25
@@ -4812,7 +4812,7 @@ msgstr "Shtoni shënim hedhjeje në qarkullim"
 #, fuzzy
 msgctxt "edit type"
 msgid "Add release events (historic)"
-msgstr "Shtoni pjesë (historik)"
+msgstr "Shtoni veprimtari hedhjesh në qarkullim (historik)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrack.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Historic/AddTrackKV.pm:11
@@ -4825,7 +4825,7 @@ msgstr "Shtoni pjesë (historik)"
 #, fuzzy
 msgctxt "edit type"
 msgid "Change artist quality (historic)"
-msgstr "Ndryshoni cilësi të dhënash"
+msgstr "Ndryshoni cilësi artisti (historik)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/ChangeReleaseGroup.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditReleaseAttrs.pm:17
@@ -4866,11 +4866,11 @@ msgstr "Përpunoni marrëdhënie"
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit release events (historic)"
-msgstr "Përpunoni pjesë (historik)"
+msgstr "Përpunoni veprimtari hedhjesh në qarkullim (historik)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackLength.pm:13
 #: ../lib/MusicBrainz/Server/Edit/Historic/EditTrackName.pm:23
-#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:46
+#: ../lib/MusicBrainz/Server/Edit/Recording/Edit.pm:51
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit recording"
@@ -4887,7 +4887,7 @@ msgstr ""
 #, fuzzy
 msgctxt "edit type"
 msgid "Merge releases"
-msgstr "Përzieni hedhje në qarkullim"
+msgstr "Përzie hedhje në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/MoveDiscID.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Medium/MoveDiscID.pm:21
@@ -4901,40 +4901,40 @@ msgstr "Lëvizni ID disku"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove disc ID"
-msgstr "Hiqni ID disku"
+msgstr "Hiq ID disku"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLabelAlias.pm:12
 #: ../lib/MusicBrainz/Server/Edit/Label/DeleteAlias.pm:16
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove label alias"
-msgstr "Hiqni alias shtëpie diskografike"
+msgstr "Hiqe alias etikete"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveLink.pm:11
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Delete.pm:41
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove relationship"
-msgstr "Hiqni marrëdhënie"
+msgstr "Hiq marrëdhënie"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveRelease.pm:15
 #: ../lib/MusicBrainz/Server/Edit/Release/Delete.pm:12
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove release"
-msgstr "Hiqni hedhje në qarkullim"
+msgstr "Hiq hedhje në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleaseEvents.pm:12
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove release events (historic)"
-msgstr "Hiqni Veprimtari Hedhjeje Në Qarkullim"
+msgstr "Hiq veprimtari hedhjesh në qarkullim (historik)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveReleases.pm:12
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove releases (historic)"
-msgstr "Hiqni alias hedhjeje në qarkullim"
+msgstr "Hiq hedhje në qarkullim (historik)"
 
 #: ../lib/MusicBrainz/Server/Edit/Historic/RemoveTrack.pm:11
 #, fuzzy
@@ -4982,7 +4982,7 @@ msgstr "Hiqni instrument"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove instrument alias"
-msgstr "Hiqni alias instrumenti"
+msgstr "Hiq alias instrumenti"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Edit.pm:29
 #, fuzzy
@@ -4994,13 +4994,13 @@ msgstr "Përpunoni instrument"
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit instrument alias"
-msgstr "Përpunoi alias instrumenti"
+msgstr "Përpunoni alias instrumenti"
 
 #: ../lib/MusicBrainz/Server/Edit/Instrument/Merge.pm:11
 #, fuzzy
 msgctxt "edit type"
 msgid "Merge instruments"
-msgstr "Përzieni instrumente"
+msgstr "Përzje instrumente"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/AddAlias.pm:11
 #, fuzzy
@@ -5024,7 +5024,7 @@ msgstr "Shtoni etiketë"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove label"
-msgstr "Hiqni etiketë"
+msgstr "Hiqe etiketën"
 
 #: ../lib/MusicBrainz/Server/Edit/Label/Edit.pm:45
 #, fuzzy
@@ -5042,13 +5042,13 @@ msgstr "Përpunoni alias etikete"
 #, fuzzy
 msgctxt "edit type"
 msgid "Merge labels"
-msgstr "Përzieni etiketa"
+msgstr "Përzje etiketa"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Create.pm:34
 #, fuzzy
 msgctxt "edit type"
 msgid "Add medium"
-msgstr "Shtoni mdeia"
+msgstr "Shtoni media"
 
 #: ../lib/MusicBrainz/Server/Edit/Medium/Delete.pm:23
 #, fuzzy
@@ -5090,13 +5090,13 @@ msgstr "Shtoni vend"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove place"
-msgstr "Hiqe vendin"
+msgstr "Hiq vend"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/DeleteAlias.pm:15
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove place alias"
-msgstr "Hiqni alias vendi"
+msgstr "Hiq alias vendi"
 
 #: ../lib/MusicBrainz/Server/Edit/Place/Edit.pm:46
 #, fuzzy
@@ -5144,13 +5144,13 @@ msgstr "Shtoni Incizim Më Vete"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove recording"
-msgstr "Hiqe incizimin"
+msgstr "Hiqe regjistrimin"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/DeleteAlias.pm:15
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove recording alias"
-msgstr "Hiqni alias incizimi"
+msgstr "Hiq alias incizimi"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/EditAlias.pm:12
 #, fuzzy
@@ -5162,13 +5162,13 @@ msgstr "Përpunoni alias incizimi"
 #, fuzzy
 msgctxt "edit type"
 msgid "Merge recordings"
-msgstr "Përzieni incizime"
+msgstr "Përzje incizime"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/RemoveISRC.pm:21
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove ISRC"
-msgstr "Hiqni ISRC"
+msgstr "Hiq ISRC"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship.pm:16
 #: ../root/edit/details/AddRelationship.js:18
@@ -5228,19 +5228,19 @@ msgstr "Hiqni atribut marrëdhënieje"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove relationship type"
-msgstr "Hiqni lloj marrëdhënieje"
+msgstr "Hiq lloj marrëdhënieje"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/RemoveLinkType.pm:86
 #, fuzzy
 msgctxt "relationship attribute type"
 msgid "[removed]"
-msgstr "[hequr]"
+msgstr "[i hequr]"
 
 #: ../lib/MusicBrainz/Server/Edit/Relationship/Reorder.pm:32
 #, fuzzy
 msgctxt "edit type"
 msgid "Reorder relationships"
-msgstr "Rirenditni marrëdhënie"
+msgstr "Rirenditi marrëdhëniet"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/AddAlias.pm:11
 #, fuzzy
@@ -5258,13 +5258,13 @@ msgstr "Shtoni kopertinë"
 #, fuzzy
 msgctxt "edit type"
 msgid "Add release label"
-msgstr "Shtoni shtëpi diskografike hedhjeje në qarkullim"
+msgstr "Shtoni etiketë hedhjeje në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Create.pm:115
 #, fuzzy
 msgctxt "release group"
 msgid "[removed]"
-msgstr "[hequr]"
+msgstr "[i hequr]"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/DeleteAlias.pm:15
 #, fuzzy
@@ -5276,7 +5276,7 @@ msgstr "Hiqni alias hedhjeje në qarkullim"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove release label"
-msgstr "Hiqni shtëpi diskografike hedhjeje në qarkullim"
+msgstr "Hiq etiketë hedhjeje në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/EditAlias.pm:12
 #, fuzzy
@@ -5318,7 +5318,7 @@ msgstr ""
 #, fuzzy
 msgctxt "singular, edit type"
 msgid "Remove cover art"
-msgstr "Hiqni kopertinë"
+msgstr "Hiqe kopertinën"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/ReorderCoverArt.pm:14
 #, fuzzy
@@ -5330,7 +5330,7 @@ msgstr "Rirenditni kopertinë"
 #, fuzzy
 msgctxt "edit type"
 msgid "Reorder mediums"
-msgstr "Rirenditi media"
+msgstr "Rirenditi mediat"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/AddAlias.pm:11
 #, fuzzy
@@ -5348,21 +5348,21 @@ msgstr "Shtoni shënim grupi hedhjesh në qarkullim"
 #, fuzzy
 msgctxt "edit type"
 msgid "Add release group"
-msgstr "Shtoni grup hedhjeje në qarkullim"
+msgstr "Shtoni grup hedhjesh në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Delete.pm:12
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove release group"
-msgstr "Hiqni grup hedhjeje në qarkullim"
+msgstr "Hiq grup hedhjesh në qarkullim"
 
 #: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/DeleteAlias.pm:15
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove release group alias"
-msgstr "Hiqni alias grupi hedhjeje në qarkullim"
+msgstr "Hiq alias grupi hedhjesh në qarkullim"
 
-#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:45
+#: ../lib/MusicBrainz/Server/Edit/ReleaseGroup/Edit.pm:50
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit release group"
@@ -5434,13 +5434,13 @@ msgstr[1] ""
 #, fuzzy
 msgctxt "edit type"
 msgid "Add series alias"
-msgstr "Shtoni alias serish"
+msgstr "Shtoni alias serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/AddAnnotation.pm:11
 #, fuzzy
 msgctxt "edit type"
 msgid "Add series annotation"
-msgstr "Shtoni shënim serish"
+msgstr "Shtoni shënim serie"
 
 #: ../lib/MusicBrainz/Server/Edit/Series/Create.pm:27
 #, fuzzy
@@ -5482,18 +5482,18 @@ msgstr "Përzieni seri"
 #, fuzzy
 msgctxt "edit type"
 msgid "Edit URL"
-msgstr "Përpunoni URL"
+msgstr "Përpunojeni URL-në"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:48
 msgctxt "adjective, edit status"
 msgid "Open"
-msgstr ""
+msgstr "E hapur"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:41
 #, fuzzy
 msgctxt "edit status"
 msgid "Applied"
-msgstr "U zbatua"
+msgstr "U aplikua"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:46
 #, fuzzy
@@ -5529,7 +5529,7 @@ msgstr "S’ka vota"
 #, fuzzy
 msgctxt "edit status"
 msgid "Cancelled"
-msgstr "U anulua"
+msgstr "Anuluar"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"
@@ -5557,7 +5557,7 @@ msgstr "Shtoni shënim vepre"
 #, fuzzy
 msgctxt "edit type"
 msgid "Add ISWCs"
-msgstr "Shtoni ISWCra"
+msgstr "Shtoni ISWC-ra"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/Create.pm:22
 #, fuzzy
@@ -5569,7 +5569,7 @@ msgstr "Shtoni vepër"
 #, fuzzy
 msgctxt "edit type"
 msgid "Remove work"
-msgstr "Hiqni vepër"
+msgstr "Hiqe veprën"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/DeleteAlias.pm:16
 #, fuzzy
@@ -5593,7 +5593,7 @@ msgstr "Përpunoni alias vepre"
 #, fuzzy
 msgctxt "edit type"
 msgid "Merge works"
-msgstr "Përzieji veprat"
+msgstr "Përzje veprat"
 
 #: ../lib/MusicBrainz/Server/Edit/Work/RemoveISWC.pm:23
 #, fuzzy
@@ -5680,7 +5680,7 @@ msgstr "[asnjë]"
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
 msgid "Editing disabled"
-msgstr "Përpunimi/votimi është i çaktivizuar"
+msgstr "Përpunimet janë çaktivizuar"
 
 #: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
 #: ../root/static/scripts/common/utility/privileges.js:164
@@ -5789,15 +5789,15 @@ msgstr "Projekti Runeberg"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:14
 msgid "Playlists at Spotify"
-msgstr ""
+msgstr "Luajlista në Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:16
 msgid "Purchase at Spotify"
-msgstr ""
+msgstr "Blerje në Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:18
 msgid "Songwriter info at Spotify"
-msgstr ""
+msgstr "Hollësi autori kënge në Spotify"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Spotify.pm:20
 msgid "Stream at Spotify"
@@ -5805,7 +5805,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:14
 msgid "Purchase at Tidal"
-msgstr ""
+msgstr "Blerje në Tidal"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/Tidal.pm:16
 msgid "Stream at Tidal"
@@ -5891,7 +5891,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:129
 #, perl-brace-format
 msgid "Editor “{editor}” does not exist."
-msgstr ""
+msgstr "Përpunuesi “{editor}” s’ekziston."
 
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:30
 msgid ""
@@ -5943,12 +5943,12 @@ msgstr "Kjo s’është ID baze të dhënash e vlefshme"
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/IPI.pm:19
 msgid "This is not a valid IPI."
-msgstr ""
+msgstr "Ky s’është IPI i vlefshëm."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:15
 #: ../lib/MusicBrainz/Server/Form/Field/ISNI.pm:19
 msgid "This is not a valid ISNI."
-msgstr ""
+msgstr "Ky s’është ISNI i vlefshëm."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ISO_3166_1.pm:15
 msgid "This is not a valid ISO 3166-1 code"
@@ -6005,10 +6005,10 @@ msgid "This is not a valid time."
 msgstr "Kjo s’është kohë e vlefshme."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
-#: ../root/static/scripts/edit/externalLinks.js:836
+#: ../root/static/scripts/edit/externalLinks.js:838
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
-msgstr ""
+msgstr "Ju lutemi, jepni një URL të vlefshme, b.f., “{example_url}”."
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:33
 msgid "URL protocol must be HTTP, HTTPS or FTP"
@@ -6022,11 +6022,11 @@ msgstr "[asnjë]"
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:46
 #, fuzzy
 msgid "Videos only"
-msgstr "Video"
+msgstr "Vetëm video"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:47
 msgid "Non-videos only"
-msgstr ""
+msgstr "Vetëm ç’nuk është video"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Recording.pm:53
 #, fuzzy
@@ -6075,18 +6075,18 @@ msgstr "Shtoni alias incizimi"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:40
 msgid "As author"
-msgstr ""
+msgstr "Si autor"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:41
 #, fuzzy
 msgid "As other artist"
-msgstr "Shtoni artist tjetër"
+msgstr "Si artist tjetër"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:48
 #, fuzzy
 msgctxt "language"
 msgid "[not set]"
-msgstr "S’përpunohet dot"
+msgstr "[s’është caktuar]"
 
 #: ../lib/MusicBrainz/Server/Form/Filter/Work.pm:52
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:105
@@ -6155,29 +6155,29 @@ msgstr "Format URL-je i pavlefshëm"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:64
 msgid "A language is required."
-msgstr ""
+msgstr "Është e domosdoshme një gjuhë."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
 msgid "A fluency level is required."
-msgstr ""
+msgstr "Është e domosdoshme një shkallë zotërimi."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:429
+#: ../root/static/scripts/common/constants.js:432
 msgid "Basic"
 msgstr "Fillestar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:430
+#: ../root/static/scripts/common/constants.js:433
 msgid "Intermediate"
 msgstr "Mesatar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:428
+#: ../root/static/scripts/common/constants.js:431
 msgid "Advanced"
 msgstr "I përparuar"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:431
+#: ../root/static/scripts/common/constants.js:434
 msgid "Native"
 msgstr ""
 
@@ -6187,7 +6187,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:99
 msgid "Birth year must be after 1900"
-msgstr ""
+msgstr "Viti i lindjes duhet të bjerë pas 1900-s"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:47
 #: ../root/layout/components/Search.js:45
@@ -6232,7 +6232,7 @@ msgstr "Kërkim i drejtpërdrejtë në bazë të dhënash"
 
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
-msgstr ""
+msgstr "Një lloj është i domosdoshëm."
 
 #: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
 msgid "The old password is incorrect"
@@ -6430,7 +6430,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/RegisterForm.js:52
 #: ../root/user/Login.js:97
 msgid "Username"
-msgstr ""
+msgstr "Emër përdoruesi"
 
 #: ../root/account/ChangePassword.js:73
 msgid "Old password:"
@@ -6449,7 +6449,7 @@ msgstr "Ripohoni fjalëkalimin:"
 #, fuzzy
 msgctxt "interactive"
 msgid "Change password"
-msgstr "Ndryshoni Fjalëkalimin"
+msgstr "Ndryshoni fjalëkalimin"
 
 #: ../root/account/ChangePassword.js:114 ../root/account/ChangePassword.js:116
 #: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
@@ -6457,7 +6457,7 @@ msgstr "Ndryshoni Fjalëkalimin"
 #, fuzzy
 msgctxt "header"
 msgid "Change password"
-msgstr "Ndryshoni Fjalëkalimin"
+msgstr "Ndryshoni fjalëkalimin"
 
 #: ../root/account/DeleteOwnAccount.js:35
 #: ../root/account/DeleteOwnAccount.js:37
@@ -6465,7 +6465,7 @@ msgstr "Ndryshoni Fjalëkalimin"
 #, fuzzy
 msgctxt "header"
 msgid "Delete account"
-msgstr "Fshini Llogari"
+msgstr "Fshije llogarinë"
 
 #: ../root/account/DeleteOwnAccount.js:40
 msgid ""
@@ -6550,7 +6550,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Email verification"
-msgstr "Verifikim Email-i"
+msgstr "Verifikim email-i"
 
 #: ../root/account/EmailVerificationStatus.js:18
 msgid ""
@@ -6562,7 +6562,7 @@ msgstr ""
 #: ../root/account/LostPasswordSent.js:16
 #, fuzzy
 msgid "Lost password"
-msgstr "Humbi Fjalëkalimi"
+msgstr "Humbi fjalëkalimi"
 
 #: ../root/account/LostPassword.js:30
 msgid ""
@@ -6583,7 +6583,7 @@ msgstr "Emaili"
 #, fuzzy
 msgctxt "interactive"
 msgid "Reset password"
-msgstr "Ricaktoni Fjalëkalimin"
+msgstr "Ricaktoni fjalëkalimin"
 
 #: ../root/account/LostPasswordSent.js:20
 msgid ""
@@ -6596,7 +6596,7 @@ msgstr ""
 #: ../root/account/LostUsernameSent.js:16
 #, fuzzy
 msgid "Lost username"
-msgstr "Humbi Emri i Përdoruesit"
+msgstr "Humbi emër përdoruesi"
 
 #: ../root/account/LostUsername.js:27
 msgid ""
@@ -6608,7 +6608,7 @@ msgstr ""
 #, fuzzy
 msgctxt "interactive"
 msgid "Send email"
-msgstr "dërgo email"
+msgstr "Dërgo email"
 
 #: ../root/account/LostUsernameSent.js:20
 msgid ""
@@ -6632,7 +6632,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Create an account"
-msgstr "Krijoni Llogari"
+msgstr "Krijoni një llogari"
 
 #: ../root/account/Register.js:25
 msgid "Captcha incorrect. Try again."
@@ -6698,7 +6698,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Reset password"
-msgstr "Ricaktoni Fjalëkalimin"
+msgstr "Ricaktoni fjalëkalimin"
 
 #: ../root/account/ResetPassword.js:28
 msgid "Set a new password for your MusicBrainz account."
@@ -6714,12 +6714,12 @@ msgstr "Aplikacion Web"
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
 #, fuzzy
 msgid "Installed application"
-msgstr "Aplikacion i Instaluar"
+msgstr "Aplikacion i instaluar"
 
 #: ../root/account/applications/ApplicationList.js:58
 #, fuzzy
 msgid "Revoke access"
-msgstr "Shfuqizoji Hyrjen"
+msgstr "Shfuqizoji hyrjen"
 
 #: ../root/account/applications/ApplicationList.js:70
 #, fuzzy
@@ -6729,14 +6729,14 @@ msgstr "Përdorim Pa Internet"
 #: ../root/account/applications/ApplicationList.js:87
 #: ../root/account/applications/ApplicationList.js:88
 #: ../root/layout/components/TopMenu.js:43
-#: ../root/static/scripts/homepage/editor-tools.js:116
+#: ../root/static/scripts/homepage/editor-tools.js:117
 msgid "Applications"
 msgstr "Aplikacione"
 
 #: ../root/account/applications/ApplicationList.js:90
 #: ../root/user/UserProfile.js:310
 msgid "Authorized applications"
-msgstr ""
+msgstr "Aplikacione të autorizuar"
 
 #: ../root/account/applications/ApplicationList.js:94
 msgid ""
@@ -6777,7 +6777,7 @@ msgstr "S’keni autorizuar ndonjë aplikacion."
 #: ../root/account/applications/ApplicationList.js:125
 #: ../root/user/UserProfile.js:324
 msgid "Developer applications"
-msgstr ""
+msgstr "Aplikacione zhvilluesi"
 
 #: ../root/account/applications/ApplicationList.js:129
 msgid ""
@@ -6789,12 +6789,12 @@ msgstr ""
 #: ../root/account/applications/ApplicationList.js:149
 #, fuzzy
 msgid "OAuth client ID"
-msgstr "ID Klienti OAuth"
+msgstr "ID klienti OAuth"
 
 #: ../root/account/applications/ApplicationList.js:150
 #, fuzzy
 msgid "OAuth client secret"
-msgstr "E fshehtë Klienti OAuth"
+msgstr "E fshehtë klienti OAuth"
 
 #: ../root/account/applications/ApplicationList.js:160
 msgid "You do not have any registered applications."
@@ -6805,7 +6805,7 @@ msgstr "S’keni të regjistruar ndonjë aplikacion."
 #, fuzzy
 msgctxt "header"
 msgid "Edit application"
-msgstr "Përpunoni Aplikacion"
+msgstr "Përpunoni aplikacion"
 
 #: ../root/account/applications/EditApplication.js:23
 #, fuzzy
@@ -6834,7 +6834,7 @@ msgstr "Jeni i sigurt se doni të hiqet ky aplikacion?"
 #, fuzzy
 msgctxt "header"
 msgid "Remove application"
-msgstr "Hiqe Aplikacionin"
+msgstr "Hiqe aplikacionin"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:25
 msgid "You’re about to revoke {app}’s permissions to:"
@@ -6842,13 +6842,13 @@ msgstr ""
 
 #: ../root/account/applications/RevokeApplicationAccess.js:37
 msgid "Are you sure you want to revoke this application’s access?"
-msgstr ""
+msgstr "Jeni i sigurt se dëshironi të shfuqizohet hyrja për këtë aplikacion?"
 
 #: ../root/account/applications/RevokeApplicationAccess.js:41
 #, fuzzy
 msgctxt "header"
 msgid "Revoke application access"
-msgstr "Shfuqizoni Hyrje Aplikacioni"
+msgstr "Shfuqizo hyrje te aplikacion"
 
 #: ../root/account/sso/DiscourseRegistered.js:14
 #: ../root/account/sso/DiscourseRegistered.js:15
@@ -6875,7 +6875,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Unverified email address"
-msgstr "Shihni adresën tuaj email"
+msgstr "Adresë email e paverifikuar"
 
 #: ../root/annotation/AnnotationComparison.js:35
 #: ../root/annotation/AnnotationComparison.js:37
@@ -6885,11 +6885,11 @@ msgstr "Krahasim shënimesh"
 
 #: ../root/annotation/AnnotationComparison.js:41
 msgid "Old annotation"
-msgstr ""
+msgstr "Shënim i vjetër"
 
 #: ../root/annotation/AnnotationComparison.js:50
 msgid "New annotation"
-msgstr ""
+msgstr "Shënim i ri"
 
 #: ../root/annotation/AnnotationComparison.js:63
 msgid ""
@@ -6914,7 +6914,7 @@ msgstr "Krahasoni versione"
 
 #: ../root/annotation/AnnotationHistory.js:55
 msgid "This entity has no annotation history."
-msgstr ""
+msgstr "Kjo njësi s’ka historik shënimi."
 
 #: ../root/annotation/EditAnnotation.js:37
 #: ../root/annotation/EditAnnotation.js:39
@@ -6936,7 +6936,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:167
 msgctxt "header"
 msgid "Preview"
-msgstr ""
+msgstr "Paraparje"
 
 #: ../root/annotation/EditAnnotation.js:71
 #: ../root/static/scripts/common/components/Annotation.js:59
@@ -6952,7 +6952,7 @@ msgstr "Paraparje"
 #: ../root/annotation/EditAnnotation.js:89
 #, fuzzy
 msgid "Annotation formatting"
-msgstr "Formatim Shënimi"
+msgstr "Formatim shënimesh"
 
 #: ../root/annotation/EditAnnotation.js:91
 msgid "Annotations support a limited set of wiki formatting options:"
@@ -6974,7 +6974,7 @@ msgstr "Krye:"
 
 #: ../root/annotation/EditAnnotation.js:105
 msgid "= Title 1 =; == Title 2 ==; === Title 3 ==="
-msgstr ""
+msgstr "= Titull 1 =; == Titull 2 ==; === Titull 3 ==="
 
 #: ../root/annotation/EditAnnotation.js:109
 msgid "Lists:"
@@ -7178,7 +7178,7 @@ msgstr ""
 
 #: ../root/artist/ArtistEvents.js:74
 msgid "No events found that match this search."
-msgstr ""
+msgstr "S’u gjetën veprimtari që kanë përkim me këtë kërkim."
 
 #: ../root/artist/ArtistEvents.js:75
 msgid "This artist is not currently associated with any events."
@@ -7186,11 +7186,11 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:61
 msgid "Show official release groups"
-msgstr ""
+msgstr "Shfaq grupe zyrtarë hedhjeje në qarkullim"
 
 #: ../root/artist/ArtistIndex.js:71
 msgid "Show all release groups"
-msgstr ""
+msgstr "Shfaq krejt grupet e hedhjeve në qarkullim"
 
 #: ../root/artist/ArtistIndex.js:81
 msgid "Show official various artist release groups"
@@ -7226,7 +7226,7 @@ msgstr ""
 
 #: ../root/artist/ArtistIndex.js:152
 msgid "Showing all release groups by this artist"
-msgstr ""
+msgstr "Po shfaqen krejt grupet e hedhjeve në qarkullim nga ky artist"
 
 #: ../root/artist/ArtistIndex.js:163
 msgid "Showing official release groups by this artist"
@@ -7242,7 +7242,7 @@ msgstr "Emër ligjor"
 
 #: ../root/artist/ArtistIndex.js:227 ../root/label/LabelIndex.js:59
 msgid "Previously known as"
-msgstr ""
+msgstr "Njohur dikur si"
 
 #: ../root/artist/ArtistIndex.js:234 ../root/label/LabelIndex.js:66
 msgid "Renamed to"
@@ -7305,7 +7305,7 @@ msgstr ""
 
 #: ../root/artist/ArtistRecordings.js:35
 msgid "Show all recordings"
-msgstr ""
+msgstr "Shfaq krejt incizimet"
 
 #: ../root/artist/ArtistRecordings.js:40
 msgid "Show only standalone recordings"
@@ -7313,7 +7313,7 @@ msgstr ""
 
 #: ../root/artist/ArtistRecordings.js:45
 msgid "Show only videos"
-msgstr ""
+msgstr "Shfaq vetëm video"
 
 #: ../root/artist/ArtistRecordings.js:53
 msgid "Showing only standalone recordings"
@@ -7321,15 +7321,15 @@ msgstr ""
 
 #: ../root/artist/ArtistRecordings.js:69
 msgid "Showing only videos"
-msgstr ""
+msgstr "Po shfaqen vetëm video"
 
 #: ../root/artist/ArtistRecordings.js:85
 msgid "Showing all recordings"
-msgstr ""
+msgstr "Po shfaqen krejt incizimet"
 
 #: ../root/artist/ArtistRecordings.js:159
 msgid "No recordings found that match this search."
-msgstr ""
+msgstr "S’u gjetën incizime që kanë përkim me këtë kërkim."
 
 #: ../root/artist/ArtistRecordings.js:160
 #: ../root/instrument/InstrumentRecordings.js:65
@@ -7343,7 +7343,7 @@ msgstr "Dukje"
 
 #: ../root/artist/ArtistReleases.js:70 ../root/label/LabelIndex.js:110
 msgid "No releases found that match this search."
-msgstr ""
+msgstr "S’u gjetën hedhje në qarkullim që kanë përkim me këtë kërkim."
 
 #: ../root/artist/ArtistReleases.js:71
 #: ../root/instrument/InstrumentReleases.js:64
@@ -7379,7 +7379,7 @@ msgstr "Shtoji veprat e përzgjedhura për përzierje"
 
 #: ../root/artist/ArtistWorks.js:70
 msgid "No works found that match this search."
-msgstr ""
+msgstr "S’u gjetën vepra që kanë përkim me këtë kërkim."
 
 #: ../root/artist/ArtistWorks.js:71
 msgid "This artist is not currently associated with any works."
@@ -7419,14 +7419,14 @@ msgstr "Lindur në:"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:86
 msgctxt "group artist"
 msgid "Founded in"
-msgstr ""
+msgstr "Themeluar në"
 
 #: ../root/artist/utils.js:14
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:99
 #, fuzzy
 msgctxt "character artist"
 msgid "Created in"
-msgstr "Krijoje"
+msgstr "Krijoje në"
 
 #: ../root/artist/utils.js:15 ../root/components/list/ArtistList.js:90
 #: ../root/search/components/ArtistResults.js:58
@@ -7444,13 +7444,13 @@ msgstr "Lindur më:"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:81
 msgctxt "group artist"
 msgid "Founded"
-msgstr ""
+msgstr "Themeluar"
 
 #: ../root/artist/utils.js:23
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:94
 msgctxt "character artist"
 msgid "Created"
-msgstr ""
+msgstr "I krijuar"
 
 #: ../root/artist/utils.js:24 ../root/components/Aliases/AliasTable.js:19
 #: ../root/edit/details/AddArea.js:85 ../root/edit/details/AddEvent.js:59
@@ -7475,7 +7475,7 @@ msgstr "Vdekur në:"
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:87
 msgctxt "group artist"
 msgid "Dissolved in"
-msgstr ""
+msgstr "Shpërndarë më"
 
 #: ../root/artist/utils.js:32 ../root/components/list/ArtistList.js:100
 #: ../root/search/components/ArtistResults.js:60
@@ -7499,7 +7499,7 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
 msgctxt "group artist"
 msgid "Dissolved"
-msgstr ""
+msgstr "I shpërndarë"
 
 #: ../root/artist/utils.js:44 ../root/components/Aliases/AliasTable.js:20
 #: ../root/edit/details/AddArea.js:92 ../root/edit/details/AddEvent.js:66
@@ -7524,11 +7524,11 @@ msgstr ""
 #: ../root/artist_credit/ArtistCreditIndex.js:101
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "kredituar si “{credit}”"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:110
 msgid "Uses"
-msgstr ""
+msgstr "Përdorime"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:123
 #: ../root/artist_credit/ArtistCreditLayout.js:19
@@ -7564,8 +7564,8 @@ msgstr[1] "Shihni krejt {num} incizimet"
 #: ../root/artist_credit/ArtistCreditIndex.js:158
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Shihni {num} pjesë"
+msgstr[1] "Shihni krejt {num} pjesët"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:18
 #: ../root/collection/CollectionHeader.js:69
@@ -7600,8 +7600,8 @@ msgstr[1] "U gjetën {num} grupe hedhjesh në qarkullim"
 #: ../root/artist_credit/EntityList.js:28
 msgid "{num} track found"
 msgid_plural "{num} tracks found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "U gjet {num} pjesë"
+msgstr[1] "U gjetën {num} pjesë"
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No recordings with this artist credit were found."
@@ -7659,7 +7659,7 @@ msgstr ""
 #: ../root/cdstub/DiscIdNotValid.js:14
 #, fuzzy
 msgid "Invalid disc ID"
-msgstr "ID Disku e pavlefshme"
+msgstr "ID e pavlefshme disku"
 
 #: ../root/cdstub/DiscIdNotValid.js:17
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
@@ -7685,7 +7685,7 @@ msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:69
 msgid "Track length comparison"
-msgstr ""
+msgstr "Krahasim gjatësish pjesësh"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:73
 #: ../root/cdtoc/SetTracklistDurations.js:54
@@ -7870,7 +7870,7 @@ msgstr ""
 #: ../root/cdtoc/SetTracklistDurations.js:34
 #, fuzzy
 msgid "Set tracklist durations"
-msgstr "Caktoni Kohëzgjatje Pjesësh"
+msgstr "Caktoni kohëzgjatje liste pjesësh"
 
 #: ../root/cdtoc/SetTracklistDurations.js:37
 msgid ""
@@ -7900,13 +7900,13 @@ msgstr "Shihni krejt koleksionet tuaja"
 
 #: ../root/collection/CollectionHeader.js:49
 msgid "See all of {editor}'s public collections"
-msgstr ""
+msgstr "Shihni krejt koleksionet publike të {editor}"
 
 #: ../root/collection/CollectionHeader.js:78
 #, fuzzy
 msgctxt "verb, header, interactive"
 msgid "Edit"
-msgstr "Përpunim"
+msgstr "Përpunojeni"
 
 #: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:347
 #: ../root/user/UserProfile.js:408
@@ -7945,7 +7945,7 @@ msgstr "Lloj njësie"
 
 #: ../root/collection/CollectionMerge.js:51
 msgid "Entities"
-msgstr ""
+msgstr "Njësi"
 
 #: ../root/collection/CollectionMerge.js:65 ../root/user/UserCollections.js:71
 msgid "Public"
@@ -7964,7 +7964,7 @@ msgstr "Privatësi"
 #: ../root/collection/CollectionMerge.js:104
 #: ../root/collection/CollectionMerge.js:106
 msgid "Merge collections"
-msgstr ""
+msgstr "Përzieji koleksionet"
 
 #: ../root/collection/CollectionMerge.js:108
 msgid ""
@@ -8004,14 +8004,14 @@ msgstr ""
 
 #: ../root/collection/CollectionMerge.js:172
 msgid "Confirm"
-msgstr ""
+msgstr "Ripohojeni"
 
 #: ../root/collection/CreateCollection.js:24
 #: ../root/collection/CreateCollection.js:27
 #, fuzzy
 msgctxt "header"
 msgid "Add a new collection"
-msgstr "Shtojeni te një koleksion i ri"
+msgstr "Shtoni një koleksion i ri"
 
 #: ../root/collection/DeleteCollection.js:23
 #: ../root/collection/DeleteCollection.js:29
@@ -8021,11 +8021,6 @@ msgstr "Hiqe koleksionin"
 #: ../root/collection/DeleteCollection.js:25
 msgid "Are you sure you want to remove the collection {collection}?"
 msgstr "Jeni i sigurt se doni të hiqet koleksioni {collection}?"
-
-#: ../root/components/AdminToolsDropdown.js:40
-#, fuzzy
-msgid "Admin tools"
-msgstr "Përgjegjës"
 
 #: ../root/components/Aliases/AliasTable.js:17
 #: ../root/edit/details/AddRemoveAlias.js:53
@@ -8043,7 +8038,7 @@ msgstr "Vendore"
 
 #: ../root/components/Aliases/AliasTableRow.js:45
 msgid "primary"
-msgstr ""
+msgstr "parësore"
 
 #: ../root/components/Aliases/ArtistCreditList.js:28
 #: ../root/edit/details/AddMedium.js:145 ../root/edit/details/EditMedium.js:541
@@ -8061,7 +8056,7 @@ msgstr ""
 #: ../root/components/Aliases/ArtistCreditList.js:64
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:155
 msgid "see uses"
-msgstr ""
+msgstr "shihni përdorime"
 
 #: ../root/components/Aliases/index.js:45 ../root/components/EntityTabs.js:137
 #: ../root/entity/Aliases.js:23
@@ -8096,7 +8091,7 @@ msgstr "500px"
 
 #: ../root/components/ArtLinks.js:29
 msgid "1200px"
-msgstr ""
+msgstr "1200px"
 
 #: ../root/components/ArtLinks.js:33
 msgid "original"
@@ -8153,7 +8148,7 @@ msgstr "Po, jam"
 
 #: ../root/components/CritiqueBrainzLinks.js:39
 msgid "An error occurred when loading reviews."
-msgstr ""
+msgstr "Ndodhi një gabim gjatë ngarkimit të shqyrtimeve."
 
 #: ../root/components/CritiqueBrainzLinks.js:43
 msgid ""
@@ -8173,7 +8168,7 @@ msgstr[1] ""
 
 #: ../root/components/EntityDeletionHelp.js:20
 msgid "Are you sure you wish to remove {entity} from MusicBrainz?"
-msgstr ""
+msgstr "Jeni i sigurt se dëshironi të hiqet {entity} nga MusicBrainz?"
 
 #: ../root/components/EntityDeletionHelp.js:26
 msgid ""
@@ -8212,7 +8207,7 @@ msgstr "Kopertinë"
 #: ../root/components/EntityTabs.js:110
 msgctxt "plural"
 msgid "Cover art ({num})"
-msgstr ""
+msgstr "Kopertinë ({num})"
 
 #: ../root/components/EntityTabs.js:123
 msgctxt "plural"
@@ -8237,9 +8232,9 @@ msgstr "Etiketa"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:862
 msgid "Reviews"
-msgstr ""
+msgstr "Shqyrtime"
 
 #: ../root/components/EntityTabs.js:150
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:43
@@ -8261,7 +8256,7 @@ msgstr ""
 #: ../root/components/RelationshipsTable.js:286
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:272
 msgid "See all {num} relationships"
-msgstr ""
+msgstr "Shihini krejt {num} marrëdhëniet"
 
 #: ../root/components/RelationshipsTable.js:314
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:199
@@ -8269,7 +8264,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:197
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:201
 msgid "Credited as"
-msgstr ""
+msgstr "Kredituar si"
 
 #: ../root/components/RelationshipsTable.js:315
 #: ../root/edit/details/AddRelationshipType.js:161
@@ -8287,7 +8282,7 @@ msgstr ""
 
 #: ../root/components/RelationshipsTable.js:333
 msgid "Invalid relationship type"
-msgstr ""
+msgstr "Lloj i pavlefshëm marrëdhënieje"
 
 #: ../root/components/RelationshipsTable.js:343
 msgid "No relationships of the selected type were found."
@@ -8305,12 +8300,12 @@ msgstr ""
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:179
 msgctxt "missing data"
 msgid "-"
-msgstr ""
+msgstr "-"
 
 #: ../root/components/RemoveFromMergeTableCell.js:34
 #: ../root/utility/tableColumns.js:738 ../root/utility/tableColumns.js:748
 msgid "Remove from merge"
-msgstr ""
+msgstr "Hiqe nga përzierja"
 
 #: ../root/components/TagEntitiesList.js:117
 msgid "Entities where {user} downvoted “{tag}”"
@@ -8413,7 +8408,7 @@ msgstr "Profil"
 #: ../root/layout/components/TopMenu.js:47
 #: ../root/layout/components/sidebar/CollectionSidebar.js:91
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:26
-#: ../root/static/scripts/homepage/editor-tools.js:118
+#: ../root/static/scripts/homepage/editor-tools.js:119
 msgid "Subscriptions"
 msgstr "Pajtime"
 
@@ -8509,7 +8504,7 @@ msgstr "[mungon media]"
 #: ../root/layout/components/sidebar/SeriesSidebar.js:69
 #: ../root/search/components/SeriesResults.js:62
 msgid "Number of entities"
-msgstr ""
+msgstr "Numër njësish"
 
 #: ../root/components/list/WorkList.js:58 ../root/iswc/Index.js:59
 #: ../root/report/IswcsWithManyWorks.js:51
@@ -8519,13 +8514,13 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:558
 #, fuzzy
 msgid "Authors"
-msgstr "Autorizim"
+msgstr "Autorë"
 
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
 #, fuzzy
 msgid "Other artists"
-msgstr "Përzieni artistë"
+msgstr "Artistë të tjerë"
 
 #: ../root/constants.js:22
 msgid "View and modify your private collections"
@@ -8561,7 +8556,7 @@ msgstr "Shihni dhe ndryshoni etiketat tuaja private"
 #: ../root/main/error/Error404.js:26 ../root/main/error/MirrorError404.js:14
 #, fuzzy
 msgid "Page not found"
-msgstr "Faqe Që S’u Gjet"
+msgstr "Faqja s’u gjet"
 
 #: ../root/doc/DocError.js:34
 msgid "Sorry, “{id}” is not a valid documentation page."
@@ -8645,7 +8640,7 @@ msgstr "Vetëm {doc|auto-përpunuesit} mund të miratojnë një përpunim."
 #: ../root/edit/NoteIsRequired.js:17 ../root/edit/NoteIsRequired.js:18
 #, fuzzy
 msgid "Error approving edit"
-msgstr "Gabim Në Miratim Përpunimi"
+msgstr "Gabim në miratim përpunimi"
 
 #: ../root/edit/CannotApproveEdit.js:34
 msgid "There was a problem approving {edit}."
@@ -8654,7 +8649,7 @@ msgstr "Pati një problem në miratimin e {edit}."
 #: ../root/edit/CannotCancelEdit.js:18 ../root/edit/CannotCancelEdit.js:19
 #, fuzzy
 msgid "Error cancelling edit"
-msgstr "Gabim Në Anulim Përpunimi"
+msgstr "Gabim teksa anulohej përpunim"
 
 #: ../root/edit/CannotCancelEdit.js:22
 msgid "There was a problem cancelling {edit}."
@@ -8667,7 +8662,7 @@ msgstr ""
 #: ../root/edit/CannotVote.js:14 ../root/edit/CannotVote.js:15
 #, fuzzy
 msgid "Error voting on edits"
-msgstr "Gabim Në Miratim Përpunimi"
+msgstr "Gabim gjatë votimit për përpunime"
 
 #: ../root/edit/CannotVote.js:17
 msgid "You’re not currently allowed to vote, please read the banner."
@@ -8676,7 +8671,7 @@ msgstr ""
 #: ../root/edit/DeleteNote.js:27 ../root/edit/DeleteNote.js:28
 #: ../root/edit/components/EditNote.js:145
 msgid "Remove edit note"
-msgstr ""
+msgstr "Hiq shënim përpunimi"
 
 #: ../root/edit/DeleteNote.js:30
 msgid "Are you sure you want to remove the following edit note?"
@@ -8753,7 +8748,7 @@ msgstr ""
 
 #: ../root/edit/EditIndex.js:175
 msgid "You must be logged in to vote on edits."
-msgstr ""
+msgstr "Që të votoni përpunime, duhet të keni bërë hyrjen."
 
 #: ../root/edit/EditIndex.js:181
 #, fuzzy
@@ -8771,20 +8766,20 @@ msgstr "Shënim parashtrimi"
 
 #: ../root/edit/EditIndex.js:193
 msgid "You must be logged in to see edit notes."
-msgstr ""
+msgstr "Që të shihni shënime përpunimi, duhet të keni bërë hyrjen."
 
 #: ../root/edit/ModifyNote.js:31 ../root/edit/ModifyNote.js:32
 #: ../root/edit/components/EditNote.js:140
 msgid "Modify edit note"
-msgstr ""
+msgstr "Ndryshoni shënim përpunimi"
 
 #: ../root/edit/ModifyNote.js:34
 msgid "You are modifying the following edit note:"
-msgstr ""
+msgstr "Po ndryshoni shënimin vijues të përpunimit:"
 
 #: ../root/edit/ModifyNote.js:47
 msgid "New edit note"
-msgstr ""
+msgstr "Shënim i ri përpunimi"
 
 #: ../root/edit/ModifyNote.js:54
 msgid ""
@@ -8828,7 +8823,7 @@ msgstr ""
 #, fuzzy
 msgctxt "noun"
 msgid "Open edits"
-msgstr "Hapni përpunime"
+msgstr "Përpunime të hapura"
 
 #: ../root/edit/SubscribedEditorEdits.js:21
 #: ../root/edit/SubscribedEditorEdits.js:23
@@ -8974,7 +8969,7 @@ msgstr ""
 
 #: ../root/edit/components/EditNote.js:218
 msgid "Last modified by the note author ({time})."
-msgstr ""
+msgstr "Ndryshuar së fundi nga autori i shënimit ({time})."
 
 #: ../root/edit/components/EditNote.js:225
 msgid "Last modified by an admin ({time}). Reason given: “{reason}”."
@@ -8982,7 +8977,7 @@ msgstr ""
 
 #: ../root/edit/components/EditNote.js:234
 msgid "Last modified by an admin ({time})."
-msgstr ""
+msgstr "Ndryshuar së fundi nga përgjegjësi ({time})."
 
 #: ../root/edit/components/EditNoteHelp.js:15
 msgid ""
@@ -9035,14 +9030,14 @@ msgstr "FAQ votimi"
 
 #: ../root/edit/components/EditSidebar.js:92
 msgid "Editing FAQ"
-msgstr ""
+msgstr "PBR Përpunimesh"
 
 #: ../root/edit/components/EditSummary.js:58
 #: ../root/static/scripts/voting.js:29
 #, fuzzy
 msgctxt "interactive"
 msgid "Add note"
-msgstr "Shtoni Shënim"
+msgstr "Shtoni shënim"
 
 #: ../root/edit/components/EditorTypeInfo.js:25 ../root/user/UserProfile.js:124
 msgid "This user is new to MusicBrainz."
@@ -9068,37 +9063,37 @@ msgstr ""
 
 #: ../root/edit/components/ListHeader.js:44
 msgid "Open edits for {user}"
-msgstr ""
+msgstr "Përpunime të hapura për {user}"
 
 #: ../root/edit/components/ListHeader.js:52
 msgid "All edits for {user}"
-msgstr ""
+msgstr "Krejt përpunimet {user}"
 
 #: ../root/edit/components/ListHeader.js:68
 msgid "Open edits for this collection"
-msgstr ""
+msgstr "Përpunime të hapura për këtë koleksion"
 
 #: ../root/edit/components/ListHeader.js:69
 msgid "Open edits for this entity"
-msgstr ""
+msgstr "Përpunime të hapura për këtë njësi"
 
 #: ../root/edit/components/ListHeader.js:79
 msgid "All edits for this collection"
-msgstr ""
+msgstr "Krejt përpunimet për këtë koleksion"
 
 #: ../root/edit/components/ListHeader.js:80
 msgid "All edits for this entity"
-msgstr ""
+msgstr "Krejt përpunimet për këtë njësi"
 
 #: ../root/edit/components/ListHeader.js:93
 #, fuzzy
 msgid "Everyone’s edits for this collection"
-msgstr "Hiq prej koleksionit objektet e përzgjedhur"
+msgstr "Përpunime të cilitdo për këtë koleksion"
 
 #: ../root/edit/components/ListHeader.js:104
 #, fuzzy
 msgid "Others’ edits for this collection"
-msgstr "Lejoju përdoruesve të tjerë ta shohin këtë koleksion"
+msgstr "Përpunime të të tjerëve për këtë koleksion"
 
 #: ../root/edit/components/ListHeader.js:116
 msgid "All edits for your subscribed entities"
@@ -9198,7 +9193,7 @@ msgstr "ISO 3166-3"
 #: ../root/edit/details/AddArea.js:98 ../root/edit/details/EditArea.js:117
 msgctxt "area ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Përfundoi"
 
 #: ../root/edit/details/AddArt.js:43 ../root/edit/details/RemoveArt.js:43
 msgctxt "type"
@@ -9213,7 +9208,7 @@ msgstr "Emër kartele"
 #: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:161
 msgctxt "artist ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Përfundoi"
 
 #: ../root/edit/details/AddArtist.js:132 ../root/edit/details/AddLabel.js:97
 #: ../root/layout/components/sidebar/SidebarIpis.js:16
@@ -9228,7 +9223,7 @@ msgstr "Kod ISNI"
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
 msgctxt "event"
 msgid "Cancelled"
-msgstr ""
+msgstr "E anuluar"
 
 #: ../root/edit/details/AddEvent.js:80 ../root/edit/details/EditEvent.js:91
 #: ../root/event/EventIndex.js:47
@@ -9260,12 +9255,12 @@ msgstr ""
 #: ../root/edit/details/AddLabel.js:69 ../root/edit/details/EditLabel.js:107
 msgctxt "label ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Përfundoi"
 
 #: ../root/edit/details/AddPlace.js:80 ../root/edit/details/EditPlace.js:105
 msgctxt "place ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Përfundoi"
 
 #: ../root/edit/details/AddRelationship.js:29
 msgid "Link order:"
@@ -9318,7 +9313,7 @@ msgstr "(asnjë)"
 #: ../root/edit/details/RemoveRelationshipType.js:59
 #: ../root/edit/details/RemoveRelationshipType.js:68
 msgid "Type of {entity_placeholder}"
-msgstr ""
+msgstr "Lloj i {entity_placeholder}"
 
 #: ../root/edit/details/AddRelationshipType.js:97
 #: ../root/edit/details/EditRelationshipType.js:205
@@ -9410,7 +9405,7 @@ msgstr "Parësor për vendoren"
 #: ../root/edit/details/EditAlias.js:125
 msgctxt "alias ended boolean"
 msgid "Ended"
-msgstr ""
+msgstr "Përfundoi"
 
 #: ../root/edit/details/AddWork.js:45 ../root/edit/details/EditWork.js:62
 #: ../root/edit/details/RemoveIswc.js:23
@@ -9429,7 +9424,7 @@ msgstr "ISWC"
 #: ../root/static/scripts/work/edit.js:343
 #, fuzzy
 msgid "Lyrics languages"
-msgstr "Gjuhë Vargjesh"
+msgstr "Gjuhë vargjesh"
 
 #: ../root/edit/details/BetaOnlyEdit.js:33
 msgid "This edit can currently only be viewed on the {beta|beta server}."
@@ -9442,7 +9437,7 @@ msgstr ""
 #: ../root/release/ChangeQuality.js:58
 #, fuzzy
 msgid "Data quality"
-msgstr "Cilësi të Dhënash"
+msgstr "Cilësi të dhënash"
 
 #: ../root/edit/details/ChangeWikiDoc.js:33
 msgid "WikiDoc:"
@@ -9486,7 +9481,7 @@ msgstr "[hequr]"
 #: ../root/report/components/ArtistCreditList.js:25
 #: ../root/static/scripts/common/components/FilterForm.js:119
 msgid "Artist credit"
-msgstr ""
+msgstr "Kredite artisti"
 
 #: ../root/edit/details/EditArtistCredit.js:37
 msgid "See all uses of the artist credit being changed."
@@ -9499,12 +9494,12 @@ msgstr ""
 #: ../root/edit/details/EditMedium.js:272
 #, fuzzy
 msgid "Old tracklist"
-msgstr "Listë e Vjetër Pjesësh"
+msgstr "Listë e vjetër pjesësh"
 
 #: ../root/edit/details/EditMedium.js:273
 #, fuzzy
 msgid "New tracklist"
-msgstr "Listë e Re Pjesësh"
+msgstr "Listë e re pjesësh"
 
 #: ../root/edit/details/EditMedium.js:470
 msgid "This edit changes which tracks are data tracks."
@@ -9521,12 +9516,12 @@ msgstr "Incizim i ri"
 #: ../root/edit/details/EditMedium.js:547
 #, fuzzy
 msgid "Old artist"
-msgstr "Artist i Vjetër"
+msgstr "Artist i vjetër"
 
 #: ../root/edit/details/EditMedium.js:548
 #, fuzzy
 msgid "New artist"
-msgstr "Artist i Ri"
+msgstr "Artist i ri"
 
 #: ../root/edit/details/EditRecording.js:59
 msgid "This edit makes subsecond changes to the recording length"
@@ -9692,11 +9687,11 @@ msgstr ""
 
 #: ../root/edit/details/RemoveMedium.js:70
 msgid "Original tracklist"
-msgstr ""
+msgstr "Listë pjesësh origjinale"
 
 #: ../root/edit/details/RemoveMedium.js:89
 msgid "Current tracklist"
-msgstr ""
+msgstr "Listë pjesësh e tanishme"
 
 #: ../root/edit/details/ReorderArt.js:50
 msgid "Old positions:"
@@ -9708,7 +9703,7 @@ msgstr "Pozicione të reja:"
 
 #: ../root/edit/details/ReorderMediums.js:38
 msgid "Mediums"
-msgstr ""
+msgstr "Media"
 
 #: ../root/edit/details/ReorderMediums.js:42
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
@@ -9737,12 +9732,12 @@ msgstr ""
 #: ../root/edit/details/ReorderRelationships.js:18
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:152
 msgid "Old order"
-msgstr ""
+msgstr "Renditje e vjetër"
 
 #: ../root/edit/details/ReorderRelationships.js:19
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
 msgid "New order"
-msgstr ""
+msgstr "Renditje e re"
 
 #: ../root/edit/details/SetCoverArt.js:33
 #, fuzzy
@@ -9806,7 +9801,7 @@ msgstr "Marrëdhënie të reja:"
 #: ../root/edit/details/historic/EditReleaseAttributes.js:31
 msgctxt "release type and status"
 msgid "Old"
-msgstr ""
+msgstr "I vjetër"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:38
 msgid "Type: {type}, status: {status}"
@@ -9815,32 +9810,32 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseAttributes.js:57
 #, fuzzy
 msgid "New type:"
-msgstr "Lloj i Ri:"
+msgstr "Lloj i ri:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:64
 #, fuzzy
 msgid "New status:"
-msgstr "Gjendje e Re:"
+msgstr "Gjendje e re:"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:119
 msgctxt "list of added release events"
 msgid "Added"
-msgstr ""
+msgstr "Të shtuara"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:135
 msgctxt "list of removed release events"
 msgid "Removed"
-msgstr ""
+msgstr "Të hequra"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:151
 msgctxt "list of edited release events"
 msgid "Edited"
-msgstr ""
+msgstr "Të përpunuara"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:17
 msgctxt "release language"
 msgid "Old"
-msgstr ""
+msgstr "E vjetër"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:24
 msgid "Language: {language}, script: {script}"
@@ -9860,7 +9855,7 @@ msgstr "Hedhje të vjetra në qarkullim:"
 
 #: ../root/edit/details/historic/MergeReleases.js:30
 msgid "New releases:"
-msgstr ""
+msgstr "Hedhje të reja në qarkullim:"
 
 #: ../root/edit/details/historic/MergeReleases.js:42
 msgid "Merge attributes:"
@@ -9902,7 +9897,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr ""
+msgstr "Vota gjithsej"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -9916,7 +9911,7 @@ msgstr "Vota kundër"
 
 #: ../root/elections/ElectionDetails.js:67
 msgid "Abstentions"
-msgstr ""
+msgstr "Abstenime"
 
 #: ../root/elections/ElectionDetails.js:75
 msgid "Votes for/against:"
@@ -9981,7 +9976,7 @@ msgstr ""
 
 #: ../root/elections/ElectionVoting.js:76
 msgid "Your current vote: {vote}"
-msgstr ""
+msgstr "Vota juaj e tanishme: {vote}"
 
 #: ../root/elections/ElectionVoting.js:84
 msgid "Vote YES"
@@ -10079,11 +10074,11 @@ msgstr "Lidhje e përhershme:"
 
 #: ../root/entity/Details.js:115
 msgid "{xml_ws_docs|XML}"
-msgstr ""
+msgstr "{xml_ws_docs|XML}"
 
 #: ../root/entity/Details.js:131
 msgid "{json_ws_docs|JSON}"
-msgstr ""
+msgstr "{json_ws_docs|JSON}"
 
 #: ../root/entity/Edits.js:43 ../root/entity/Edits.js:47
 msgid "Open Edits for {name}"
@@ -10101,7 +10096,7 @@ msgstr "{entity_type} nga {artist}"
 #, fuzzy
 msgctxt "header"
 msgid "Area not found"
-msgstr "S’u Gjet Zonë"
+msgstr "S’u gjet zonë"
 
 #: ../root/entity/NotFound.js:29
 msgid ""
@@ -10113,7 +10108,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Artist not found"
-msgstr "S’u Gjet Artist"
+msgstr "S’u gjet artist"
 
 #: ../root/entity/NotFound.js:38
 msgid ""
@@ -10135,7 +10130,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "CD TOC not found"
-msgstr "S’u Gjet PL CD-je"
+msgstr "S’u gjet PL CD-je"
 
 #: ../root/entity/NotFound.js:52
 msgid "Sorry, we could not find the CD TOC you specified."
@@ -10145,7 +10140,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Collection not found"
-msgstr "S’u Gjet Koleksion"
+msgstr "Koleksioni s’u gjet"
 
 #: ../root/entity/NotFound.js:59
 msgid "Sorry, we could not find a collection with that MusicBrainz ID."
@@ -10155,7 +10150,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Edit not found"
-msgstr "S’u Gjet Përpunim"
+msgstr "S’u gjet përpunim"
 
 #: ../root/entity/NotFound.js:67
 msgid ""
@@ -10167,7 +10162,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Edit note not found"
-msgstr "S’u Gjet Përpunues"
+msgstr "S’u gjet shënim përpunimi"
 
 #: ../root/entity/NotFound.js:76
 msgid "Sorry, we could not find an edit note with that ID."
@@ -10191,7 +10186,7 @@ msgstr "Mbrapsht te krejt zgjedhjet."
 #, fuzzy
 msgctxt "header"
 msgid "Event not found"
-msgstr "S’u Gjet Veprimtari"
+msgstr "S’u gjet veprimtari"
 
 #: ../root/entity/NotFound.js:90
 msgid ""
@@ -10203,7 +10198,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Genre not found"
-msgstr "S’u Gjet Zhanër"
+msgstr "S’u gjet zhanër"
 
 #: ../root/entity/NotFound.js:99
 msgid ""
@@ -10215,7 +10210,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Instrument not found"
-msgstr "S’u Gjet Instrument"
+msgstr "S’u gjet instrument"
 
 #: ../root/entity/NotFound.js:108
 msgid ""
@@ -10249,7 +10244,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Label not found"
-msgstr "S’u Gjet Etiketë"
+msgstr "S’u gjet etiketë"
 
 #: ../root/entity/NotFound.js:136
 msgid ""
@@ -10261,7 +10256,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Medium not found"
-msgstr "S’u Gjet Përpunim"
+msgstr "S’u gjet medium"
 
 #: ../root/entity/NotFound.js:145
 #, fuzzy
@@ -10272,7 +10267,7 @@ msgstr "Na ndjeni, s’gjetëm dot një URL me atë ID MusicBrainz."
 #, fuzzy
 msgctxt "header"
 msgid "Entity not found"
-msgstr "S’u Gjet Njësi"
+msgstr "S’u gjet njësi"
 
 #: ../root/entity/NotFound.js:153
 msgid ""
@@ -10284,7 +10279,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Place not found"
-msgstr "Faqe Që S’u Gjet"
+msgstr "S’u gjet vend"
 
 #: ../root/entity/NotFound.js:162
 msgid ""
@@ -10296,7 +10291,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Recording not found"
-msgstr "S’u Gjet Incizim"
+msgstr "S’u gjet incizim"
 
 #: ../root/entity/NotFound.js:171
 msgid ""
@@ -10308,7 +10303,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Relationship attribute not found"
-msgstr "Atribut marrëdhënieje në përdorim"
+msgstr "S’u gjet atribute marrëdhëniesh"
 
 #: ../root/entity/NotFound.js:180
 msgid ""
@@ -10319,7 +10314,7 @@ msgstr "Na ndjeni, s’gjetëm dot atribut marrëdhënieje me atë ID MusicBrain
 #, fuzzy
 msgctxt "header"
 msgid "Relationship type not found"
-msgstr "Lloj Marrëdhënieje Në Përdorim"
+msgstr "S’u gjet lloj marrëdhëniesh"
 
 #: ../root/entity/NotFound.js:189
 msgid "Sorry, we could not find a relationship type with that MusicBrainz ID."
@@ -10329,7 +10324,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Release not found"
-msgstr "S’u Gjet Hedhje Në Qarkullim"
+msgstr "S’u gjet hedhje në qarkullim"
 
 #: ../root/entity/NotFound.js:198
 msgid ""
@@ -10341,7 +10336,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Release group not found"
-msgstr "S’u Gjet Grup Hedhjeje Në Qarkullim"
+msgstr "S’u gjet grup hedhjesh në qarkullim"
 
 #: ../root/entity/NotFound.js:207
 msgid ""
@@ -10355,7 +10350,7 @@ msgstr ""
 #, fuzzy
 msgctxt "singular, header"
 msgid "Series not found"
-msgstr "S’U GJETËN SERI"
+msgstr "S’u gjetën seri"
 
 #: ../root/entity/NotFound.js:216
 msgid ""
@@ -10367,7 +10362,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Track not found"
-msgstr "S’u Gjet Pjesë"
+msgstr "S’u gjet pjesë"
 
 #: ../root/entity/NotFound.js:225
 msgid ""
@@ -10379,7 +10374,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "URL not found"
-msgstr "S’u Gjet URL"
+msgstr "S’u gjet URL"
 
 #: ../root/entity/NotFound.js:234
 msgid "Sorry, we could not find a URL with that MusicBrainz ID."
@@ -10389,7 +10384,7 @@ msgstr "Na ndjeni, s’gjetëm dot një URL me atë ID MusicBrainz."
 #, fuzzy
 msgctxt "header"
 msgid "Editor not found"
-msgstr "S’u Gjet Përpunues"
+msgstr "S’u gjet përpunues"
 
 #: ../root/entity/NotFound.js:241
 msgid ""
@@ -10403,7 +10398,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Work not found"
-msgstr "S’u Gjet Vepër"
+msgstr "S’u gjet vepër"
 
 #: ../root/entity/NotFound.js:250
 msgid ""
@@ -10434,7 +10429,7 @@ msgstr "{link} s’ka vlerësime."
 #: ../root/entity/Ratings.js:106
 #, fuzzy
 msgid "Most recent"
-msgstr "Më të Rejat"
+msgstr "Më të rejat"
 
 #: ../root/entity/Ratings.js:113
 #, fuzzy
@@ -10517,7 +10512,7 @@ msgstr "Përpunoni alias"
 #, fuzzy
 msgctxt "header"
 msgid "Remove alias"
-msgstr "Hiqni alias"
+msgstr "Hiqe aliasin"
 
 #: ../root/entity/alias/DeleteAlias.js:36
 msgid "You're removing the alias <em>{alias}</em>."
@@ -10539,7 +10534,7 @@ msgstr "Shtoni veprimtari"
 #, fuzzy
 msgctxt "header"
 msgid "Edit event"
-msgstr "Përpunoni veprimtari"
+msgstr "Përpunoni veprimtarinë"
 
 #: ../root/event/EventArt.js:28
 #, fuzzy
@@ -10592,7 +10587,7 @@ msgstr "Rirenditni kopertinë"
 #, fuzzy
 msgctxt "plural, interactive"
 msgid "Log in to upload images"
-msgstr "Që të ngarkoni kopertinë, bëni hyrjen"
+msgstr "Që të ngarkoni figura, bëni hyrjen në llogari"
 
 #: ../root/event/EventArtDarkened.js:13
 #, fuzzy
@@ -10674,7 +10669,7 @@ msgstr "Të dhëna zhanri"
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Associated tags"
-msgstr "Etiketa përshoqëruar"
+msgstr "Etiketa të përshoqëruara"
 
 #: ../root/genre/GenreIndex.js:34
 #, fuzzy
@@ -10686,7 +10681,7 @@ msgstr "Etiketë parësore"
 #: ../root/layout/components/BottomMenu.js:329
 #, fuzzy
 msgid "Genre list"
-msgstr "Listë Zhanresh"
+msgstr "Listë zhanresh"
 
 #: ../root/genre/GenreListPage.js:20
 msgid ""
@@ -10706,13 +10701,13 @@ msgstr ""
 
 #: ../root/instrument/InstrumentArtists.js:65
 msgid "No artists found."
-msgstr ""
+msgstr "S’u gjetën artistë."
 
 #: ../root/instrument/List.js:44 ../root/instrument/List.js:46
 #: ../root/layout/components/BottomMenu.js:326
 #, fuzzy
 msgid "Instrument list"
-msgstr "Listë instrumentesh"
+msgstr "Listë instrumentash"
 
 #: ../root/instrument/List.js:60 ../root/report/components/InstrumentList.js:50
 msgid "Unclassified instrument"
@@ -10786,12 +10781,12 @@ msgstr "(ricaktoni gjuhën)"
 #: ../root/static/scripts/homepage/navbar.js:274
 #, fuzzy
 msgid "Help translate"
-msgstr "Ndihmoni Në Përkthim"
+msgstr "Ndihmoni të përkthehet"
 
 #: ../root/layout/components/BottomMenu.js:105
 #, fuzzy
 msgid "About us"
-msgstr "Rreth Nesh"
+msgstr "Rreth nesh"
 
 #: ../root/layout/components/BottomMenu.js:110 ../root/main/index.js:108
 #: ../root/static/scripts/homepage/navbar.js:43
@@ -10818,19 +10813,19 @@ msgstr "Shitore"
 #: ../root/static/scripts/homepage/navbar.js:50
 #, fuzzy
 msgid "Contact us"
-msgstr "Lidhuni Me Ne"
+msgstr "Lidhuni me ne"
 
 #: ../root/layout/components/BottomMenu.js:125
 #: ../root/static/scripts/homepage/navbar.js:53
 #, fuzzy
 msgid "Data licenses"
-msgstr "Licenca të Dhënash"
+msgstr "Licenca të dhënash"
 
 #: ../root/layout/components/BottomMenu.js:128
 #: ../root/static/scripts/homepage/navbar.js:56
 #, fuzzy
 msgid "Social contract"
-msgstr "Kontratë Shoqërore"
+msgstr "Kontratën shoqërore"
 
 #: ../root/layout/components/BottomMenu.js:131
 #: ../root/static/scripts/homepage/navbar.js:58
@@ -10842,13 +10837,13 @@ msgstr "Kod Sjelljeje"
 #: ../root/static/scripts/homepage/navbar.js:59
 #, fuzzy
 msgid "Privacy policy"
-msgstr "Rregulla Privatësie"
+msgstr "Rregulla privatësie"
 
 #: ../root/layout/components/BottomMenu.js:137
 #: ../root/static/scripts/homepage/navbar.js:60
 #, fuzzy
 msgid "GDPR compliance"
-msgstr "Pajtueshmëri me GDPR-në"
+msgstr "Pajtueshmëri me GDPR-n"
 
 #: ../root/layout/components/BottomMenu.js:141
 #: ../root/static/scripts/homepage/navbar.js:63
@@ -10858,7 +10853,7 @@ msgstr ""
 #: ../root/layout/components/BottomMenu.js:145
 #: ../root/static/scripts/homepage/navbar.js:65
 msgid "Data removal policy"
-msgstr ""
+msgstr "Rregulla heqje të dhënash"
 
 #: ../root/layout/components/BottomMenu.js:151
 #: ../root/static/scripts/homepage/navbar.js:69
@@ -10875,13 +10870,13 @@ msgstr "Statistika"
 #: ../root/static/scripts/homepage/navbar.js:71
 #, fuzzy
 msgid "Timeline graph"
-msgstr "Grafik Rrjedhe Kohore"
+msgstr "Grafik rrjedhe kohore"
 
 #: ../root/layout/components/BottomMenu.js:160
 #: ../root/static/scripts/homepage/navbar.js:72
 #, fuzzy
 msgid "MusicBrainz history"
-msgstr "MusicBrainz: Artist"
+msgstr "Historik MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:171
 #: ../root/static/scripts/homepage/navbar.js:133
@@ -10898,13 +10893,13 @@ msgstr "MusicBrainz Picard"
 #: ../root/static/scripts/homepage/banner-carousel.js:52
 #: ../root/static/scripts/homepage/navbar.js:79
 msgid "AudioRanger"
-msgstr ""
+msgstr "AudioRanger"
 
 #: ../root/layout/components/BottomMenu.js:182
 #: ../root/static/scripts/homepage/banner-carousel.js:55
 #: ../root/static/scripts/homepage/navbar.js:80
 msgid "Mp3tag"
-msgstr ""
+msgstr "Mp3tag"
 
 #: ../root/layout/components/BottomMenu.js:185
 #: ../root/static/scripts/homepage/navbar.js:81
@@ -10930,12 +10925,12 @@ msgstr "Bazë të Dhënash MusicBrainz"
 #: ../root/static/scripts/homepage/navbar.js:94
 #, fuzzy
 msgid "Developer resources"
-msgstr "Burime Programuesish"
+msgstr "Burime zhvilluesish"
 
 #: ../root/layout/components/BottomMenu.js:202
 #: ../root/static/scripts/homepage/navbar.js:95
 msgid "MusicBrainz API"
-msgstr ""
+msgstr "API MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:205
 #: ../root/static/scripts/homepage/navbar.js:96
@@ -10952,7 +10947,7 @@ msgstr "Prurje e Drejtpërdrejtë të Dhënash"
 #: ../root/static/scripts/homepage/search.js:183
 #, fuzzy
 msgid "Advanced search"
-msgstr "I përparuar"
+msgstr "Kërkim i thelluar"
 
 #: ../root/layout/components/BottomMenu.js:224
 #: ../root/static/scripts/homepage/navbar.js:103
@@ -10965,7 +10960,7 @@ msgstr "Përpunoni përdorues"
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Tag cloud"
-msgstr "Kërkim etiketash"
+msgstr "Re etiketash"
 
 #: ../root/layout/components/BottomMenu.js:241
 #: ../root/layout/components/sidebar/CollectionSidebar.js:67
@@ -10975,7 +10970,7 @@ msgid "Editing"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:246
-#: ../root/static/scripts/homepage/editor-tools.js:26
+#: ../root/static/scripts/homepage/editor-tools.js:27
 #, fuzzy
 msgctxt "interactive"
 msgid "Add artist"
@@ -10983,31 +10978,31 @@ msgstr "Shtoni artist"
 
 #: ../root/layout/components/BottomMenu.js:253
 #: ../root/layout/components/sidebar/ArtistSidebar.js:158
-#: ../root/static/scripts/homepage/editor-tools.js:35
+#: ../root/static/scripts/homepage/editor-tools.js:36
 #, fuzzy
 msgctxt "interactive"
 msgid "Add release group"
-msgstr "Shtoni grup hedhjeje në qarkullim"
+msgstr "Shtoni grup hedhjesh në qarkullim"
 
 #: ../root/layout/components/BottomMenu.js:257
 #: ../root/layout/components/sidebar/ArtistSidebar.js:163
 #: ../root/layout/components/sidebar/LabelSidebar.js:110
 #: ../root/layout/components/sidebar/ReleaseGroupSidebar.js:78
-#: ../root/static/scripts/homepage/editor-tools.js:40
+#: ../root/static/scripts/homepage/editor-tools.js:41
 #, fuzzy
 msgctxt "interactive"
 msgid "Add release"
 msgstr "Shtoni hedhje në qarkullim"
 
 #: ../root/layout/components/BottomMenu.js:261
-#: ../root/static/scripts/homepage/editor-tools.js:45
+#: ../root/static/scripts/homepage/editor-tools.js:46
 #, fuzzy
 msgctxt "interactive"
 msgid "Add Various Artists release"
-msgstr "Artistë të Ndryshëm"
+msgstr "Shtoni hedhje në qarkullim nga “Artistë të Ndryshëm”"
 
 #: ../root/layout/components/BottomMenu.js:266
-#: ../root/static/scripts/homepage/editor-tools.js:50
+#: ../root/static/scripts/homepage/editor-tools.js:51
 #, fuzzy
 msgctxt "interactive"
 msgid "Add standalone recording"
@@ -11015,21 +11010,21 @@ msgstr "Shtoni Incizim Më Vete"
 
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
-#: ../root/static/scripts/homepage/editor-tools.js:55
+#: ../root/static/scripts/homepage/editor-tools.js:56
 #, fuzzy
 msgctxt "interactive"
 msgid "Add work"
 msgstr "Shtoni vepër"
 
 #: ../root/layout/components/BottomMenu.js:273
-#: ../root/static/scripts/homepage/editor-tools.js:60
+#: ../root/static/scripts/homepage/editor-tools.js:61
 #, fuzzy
 msgctxt "interactive"
 msgid "Add place"
 msgstr "Shtoni vend"
 
 #: ../root/layout/components/BottomMenu.js:277
-#: ../root/static/scripts/homepage/editor-tools.js:65
+#: ../root/static/scripts/homepage/editor-tools.js:66
 #, fuzzy
 msgctxt "singular, interactive"
 msgid "Add series"
@@ -11038,7 +11033,7 @@ msgstr "Shtoni seri"
 #: ../root/layout/components/BottomMenu.js:281
 #: ../root/layout/components/sidebar/ArtistSidebar.js:178
 #: ../root/layout/components/sidebar/PlaceSidebar.js:126
-#: ../root/static/scripts/homepage/editor-tools.js:70
+#: ../root/static/scripts/homepage/editor-tools.js:71
 #, fuzzy
 msgctxt "interactive"
 msgid "Add event"
@@ -11072,7 +11067,7 @@ msgstr "FAQ-e"
 #: ../root/layout/components/NewFooter.js:181
 #, fuzzy
 msgid "Documentation index"
-msgstr "Tregues i Dokumentimit"
+msgstr "Tregues dokumentimi"
 
 #: ../root/layout/components/BottomMenu.js:323
 #: ../root/relationship/RelationshipsHeader.js:18
@@ -11081,7 +11076,7 @@ msgstr "Tregues i Dokumentimit"
 #: ../root/utility/tableColumns.js:383
 #, fuzzy
 msgid "Relationship types"
-msgstr "Lloje Marrëdhëniesh"
+msgstr "Lloje marrëdhëniesh"
 
 #: ../root/layout/components/BottomMenu.js:332
 #: ../root/layout/components/NewFooter.js:187
@@ -11278,45 +11273,45 @@ msgid ""
 msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
-#: ../root/static/scripts/homepage/editor-tools.js:113
+#: ../root/static/scripts/homepage/editor-tools.js:114
 #, fuzzy
 msgid "Log out"
 msgstr "Dilni"
 
 #: ../root/layout/components/TopMenu.js:74
 msgid "My data"
-msgstr ""
+msgstr "Të dhëna e mia"
 
 #: ../root/layout/components/TopMenu.js:80
 #: ../root/layout/components/sidebar/CollectionLinks.js:45
-#: ../root/static/scripts/homepage/editor-tools.js:124
+#: ../root/static/scripts/homepage/editor-tools.js:125
 #: ../root/user/UserCollections.js:169
 msgid "My collections"
 msgstr "Koleksionet e mia"
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
-#: ../root/static/scripts/homepage/editor-tools.js:126
+#: ../root/static/scripts/homepage/editor-tools.js:127
 #, fuzzy
 msgid "My ratings"
-msgstr "Vlerësimet e Mia"
+msgstr "Vlerësimet e mia"
 
 #: ../root/layout/components/TopMenu.js:88
 msgctxt "folksonomy"
 msgid "My tags"
-msgstr ""
+msgstr "Etiketat e mia"
 
 #: ../root/layout/components/TopMenu.js:92
-#: ../root/static/scripts/homepage/editor-tools.js:131
+#: ../root/static/scripts/homepage/editor-tools.js:132
 #, fuzzy
 msgid "My open edits"
-msgstr "Përpunimet e Mia të Hapura"
+msgstr "Përpunime të hapura të miat"
 
 #: ../root/layout/components/TopMenu.js:95
-#: ../root/static/scripts/homepage/editor-tools.js:133
+#: ../root/static/scripts/homepage/editor-tools.js:134
 #, fuzzy
 msgid "All my edits"
-msgstr "Krejt Përpunimet e Mia"
+msgstr "Krejt përpunimet e mia"
 
 #: ../root/layout/components/TopMenu.js:98
 #, fuzzy
@@ -11329,10 +11324,10 @@ msgid "Edits by subscribed editors"
 msgstr "Përpunime nga Përpunues të Regjistruar"
 
 #: ../root/layout/components/TopMenu.js:106
-#: ../root/static/scripts/homepage/editor-tools.js:141
+#: ../root/static/scripts/homepage/editor-tools.js:142
 #, fuzzy
 msgid "Notes left on my edits"
-msgstr "Shënime të lëna në Përpunimet e Mia"
+msgstr "Shënime të lëna në përpunimet e mia"
 
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
@@ -11343,7 +11338,7 @@ msgstr "Përgjegjës"
 #, fuzzy
 msgctxt "interactive"
 msgid "Create account"
-msgstr "Krijoni Llogari"
+msgstr "Krijo llogari"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
@@ -11503,7 +11498,7 @@ msgstr "Pajtohuni"
 #, fuzzy
 msgctxt "interactive"
 msgid "Log in to edit"
-msgstr "Hyni që të përpunoni"
+msgstr "Që të përpunoni, bëni hyrjen në llogari"
 
 #: ../root/layout/components/sidebar/EventSidebar.js:57
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:89
@@ -11561,17 +11556,17 @@ msgstr "Të dhëna vendi"
 #: ../root/layout/components/sidebar/PlaceSidebar.js:71
 msgctxt "place"
 msgid "Opening"
-msgstr ""
+msgstr "Hapje"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:72
 msgctxt "place"
 msgid "Opened"
-msgstr ""
+msgstr "Hapur"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:81
 msgctxt "place"
 msgid "Closing"
-msgstr ""
+msgstr "Mbyllje"
 
 #: ../root/layout/components/sidebar/PlaceSidebar.js:82
 msgctxt "place"
@@ -11660,7 +11655,7 @@ msgstr "(nuk ka)"
 #, fuzzy
 msgctxt "folksonomy tag"
 msgid "(none)"
-msgstr "(asnjë)"
+msgstr "Asnjë"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:75
 #: ../root/static/scripts/common/components/TagEditor.js:524
@@ -11719,7 +11714,7 @@ msgstr "Hyrja e fundit:"
 
 #: ../root/main/ConfirmSeed.js:26
 msgid "Confirm form submission"
-msgstr ""
+msgstr "Ripohoni parashtrim formulari"
 
 #: ../root/main/ConfirmSeed.js:43
 msgid ""
@@ -11746,7 +11741,7 @@ msgstr "Ky blog hëpërhë është jashtë funksionimi."
 #: ../root/main/error/Error400.js:19
 #, fuzzy
 msgid "Bad request"
-msgstr "Kërkesë e Gabuar"
+msgstr "Kërkesë e gabuar"
 
 #: ../root/main/error/Error400.js:22
 msgid "Sorry, there was a problem with your request."
@@ -11763,12 +11758,12 @@ msgstr ""
 #: ../root/main/error/Error400.js:45 ../root/main/error/TimeoutError.js:32
 #, fuzzy
 msgid "Technical information"
-msgstr "Të dhëna Teknike"
+msgstr "Hollësi teknike"
 
 #: ../root/main/error/Error401.js:20
 #, fuzzy
 msgid "Unauthorized request"
-msgstr "Kërkesë e Paautorizuar"
+msgstr "Kërkesë e paautorizuar"
 
 #: ../root/main/error/Error401.js:23 ../root/report/LimitedEditors.js:43
 msgid "Sorry, you are not authorized to view this page."
@@ -11791,7 +11786,7 @@ msgstr ""
 #: ../root/main/error/Error403.js:21 ../root/main/error/MirrorError403.js:14
 #, fuzzy
 msgid "Forbidden request"
-msgstr "Kërkesë e Ndaluar"
+msgstr "Kërkesë e ndaluar"
 
 #: ../root/main/error/Error403.js:24
 msgid "The page you requested is private."
@@ -11825,7 +11820,7 @@ msgstr ""
 #: ../root/main/error/Error500.js:30
 #, fuzzy
 msgid "Internal server error"
-msgstr "Gabim i Brendshëm Shërbyesi"
+msgstr "Gabim i brendshëm shërbyesi"
 
 #: ../root/main/error/Error500.js:33
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:559
@@ -11861,7 +11856,7 @@ msgstr ""
 #: ../root/main/error/Error503.js:14
 #, fuzzy
 msgid "System busy"
-msgstr "Sistemi Është i Zënë"
+msgstr "Sistem i zënë"
 
 #: ../root/main/error/Error503.js:17
 msgid "The system is overloaded or you are making requests too fast."
@@ -11910,7 +11905,7 @@ msgstr "Mund të ndihmojë riprovimi duke ringarkuar faqen."
 
 #: ../root/main/error/components/ErrorEnvironment.js:19
 msgid "Date and time"
-msgstr ""
+msgstr "Datë dhe kohë"
 
 #: ../root/main/error/components/ErrorEnvironment.js:26
 msgid "Host:"
@@ -12078,11 +12073,11 @@ msgstr "MusicBrainz: Artist"
 
 #: ../root/main/index.js:404
 msgid "How to add artists"
-msgstr ""
+msgstr "Si të shtoni artistë"
 
 #: ../root/main/index.js:408
 msgid "How to add releases"
-msgstr ""
+msgstr "Si të shtoni hedhje në qarkullim"
 
 #: ../root/main/index.js:426
 #, fuzzy
@@ -12207,7 +12202,7 @@ msgstr "Lejo hyrje"
 #: ../root/oauth2/OAuth2Error.js:14
 #, fuzzy
 msgid "OAuth authorization error"
-msgstr "Gabim Autorizimi OAuth"
+msgstr "Gabim autorizimi OAuth"
 
 #: ../root/oauth2/OAuth2Error.js:15
 msgid "Error: {error}"
@@ -12257,7 +12252,7 @@ msgstr "ID FreeDB:"
 
 #: ../root/otherlookup/OtherLookupForm.js:102
 msgid "MBID"
-msgstr ""
+msgstr "MBID"
 
 #: ../root/otherlookup/OtherLookupIndex.js:17
 #: ../root/otherlookup/OtherLookupIndex.js:19 ../root/search/SearchIndex.js:29
@@ -12270,7 +12265,7 @@ msgstr "Kërkime të tjera"
 #: ../root/search/components/ResultsLayout.js:28
 #, fuzzy
 msgid "Search results"
-msgstr "Përfundime Kërkimi"
+msgstr "Përfundime kërkimi"
 
 #: ../root/otherlookup/OtherLookupReleaseResults.js:25
 msgid "No results found."
@@ -12343,9 +12338,10 @@ msgid "Release artist"
 msgstr "Artist Hedhjeje Në Qarkullim"
 
 #: ../root/recording/RecordingIndex.js:49
+#: ../root/report/ReleasesSameBarcode.js:55
 #, fuzzy
 msgid "Release group type"
-msgstr "Grup hedhjeje në qarkullim"
+msgstr "Lloj grupi hedhjesh në qarkullim"
 
 #: ../root/recording/RecordingIndex.js:71
 #: ../root/release_group/ReleaseGroupIndex.js:52
@@ -12388,12 +12384,12 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:161
 #, fuzzy
 msgid "Relationship attributes"
-msgstr "Atribute Marrëdhënieje"
+msgstr "Atribute marrëdhëniesh"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:70
 #, fuzzy
 msgid "Relationship attribute"
-msgstr "Atribute Marrëdhënieje"
+msgstr "Atribut marrëdhënieje"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:121
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:184
@@ -12403,7 +12399,7 @@ msgstr "UUID:"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:127
 msgid "Parent attribute"
-msgstr ""
+msgstr "Atribut mëme"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:138
 msgid "This attribute supports free text credits"
@@ -12416,7 +12412,7 @@ msgstr ""
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:150
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypesList.js:135
 msgid "Possible values"
-msgstr ""
+msgstr "Vlera të mundshme"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:154
 msgid ""
@@ -12426,7 +12422,7 @@ msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
 msgid "Relationship usage"
-msgstr ""
+msgstr "Përdorim marrëdhënieje"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:179
 msgid "This attribute is being used by the following relationship types:"
@@ -12471,7 +12467,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/edit/externalLinks.js:902
+#: ../root/static/scripts/edit/externalLinks.js:904
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -12611,7 +12607,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Remove release"
-msgstr "Hiqni hedhje në qarkullim"
+msgstr "Hiqe hedhjen në Qarkullim"
 
 #: ../root/release/DiscIds.js:138
 msgid ""
@@ -12708,7 +12704,7 @@ msgstr ""
 
 #: ../root/report/AnnotationsEvents.js:33
 msgid "Event annotations"
-msgstr ""
+msgstr "Shënime veprimtarie"
 
 #: ../root/report/AnnotationsLabels.js:28
 msgid "This report lists labels with annotations."
@@ -13294,7 +13290,7 @@ msgstr ""
 #: ../root/report/EmptyReleaseGroups.js:52 ../root/report/ReportsIndex.js:235
 #, fuzzy
 msgid "Release groups without any releases"
-msgstr "Grupe hedhjesh në qarkullim me shënime"
+msgstr "Grupe hedhjesh në qarkullim pa ndonjë hedhje në qarkullim"
 
 #: ../root/report/EventSequenceNotInSeries.js:25
 msgid ""
@@ -13881,7 +13877,7 @@ msgstr ""
 msgid "Releases missing disc IDs"
 msgstr "Hedhje në qarkullim që u mungojnë ID disku"
 
-#: ../root/report/ReleasesSameBarcode.js:53
+#: ../root/report/ReleasesSameBarcode.js:62
 msgid ""
 "This report shows non-bootleg releases which have the same barcode, yet are "
 "placed in different release groups. Chances are that the releases are "
@@ -13889,7 +13885,7 @@ msgid ""
 "merged."
 msgstr ""
 
-#: ../root/report/ReleasesSameBarcode.js:61 ../root/report/ReportsIndex.js:487
+#: ../root/report/ReleasesSameBarcode.js:70 ../root/report/ReportsIndex.js:487
 msgid "Releases with the same barcode in different release groups"
 msgstr ""
 
@@ -14058,7 +14054,7 @@ msgstr "Artistë pa shënime"
 
 #: ../root/report/ReportsIndex.js:139
 msgid "Events with annotations"
-msgstr ""
+msgstr "Veprimtari me shënime"
 
 #: ../root/report/ReportsIndex.js:194
 msgid "Labels with annotations"
@@ -14219,7 +14215,7 @@ msgstr "Njësi të afërta:"
 #: ../root/report/SeriesContainingDuplicates.js:29
 #, fuzzy
 msgid "Number"
-msgstr "Numër ISO"
+msgstr "Numër"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
 msgid ""
@@ -14479,13 +14475,13 @@ msgstr "Fillim"
 
 #: ../root/search/components/ArtistResults.js:87
 msgid "Alternatively, you may {uri|add a new artist}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një artist të ri}."
 
 #: ../root/search/components/DocResults.js:19
 #: ../root/search/components/DocResults.js:21
 #, fuzzy
 msgid "Documentation search"
-msgstr "Kërkim Në Dokumentim"
+msgstr "Kërkim te dokumentimi"
 
 #: ../root/search/components/EventResults.js:87
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:1049
@@ -14493,15 +14489,15 @@ msgstr "Kërkim Në Dokumentim"
 #: ../root/utility/tableColumns.js:398
 msgctxt "event location"
 msgid "Location"
-msgstr ""
+msgstr "Vendndodhje"
 
 #: ../root/search/components/EventResults.js:96
 msgid "Alternatively, you may {uri|add a new event}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një veprimtari të re}."
 
 #: ../root/search/components/LabelResults.js:80
 msgid "Alternatively, you may {uri|add a new label}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një etiketë të re}."
 
 #: ../root/search/components/PaginatedSearchResults.js:46
 msgid "The last page of results is page {last_page}."
@@ -14509,7 +14505,7 @@ msgstr ""
 
 #: ../root/search/components/PlaceResults.js:79
 msgid "Alternatively, you may {uri|add a new place}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një vend të ri}."
 
 #: ../root/search/components/RecordingResults.js:117
 msgid "(standalone recording)"
@@ -14517,15 +14513,15 @@ msgstr ""
 
 #: ../root/search/components/RecordingResults.js:175
 msgid "Alternatively, you may {uri|add a new recording}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një incizim të ri}."
 
 #: ../root/search/components/ReleaseGroupResults.js:85
 msgid "Alternatively, you may {uri|add a new release group}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një grup të ri hedhjesh në qarkullim}."
 
 #: ../root/search/components/ReleaseResults.js:158
 msgid "Alternatively, you may {uri|add a new release}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një hedhje të re në qarkullim}."
 
 #: ../root/search/components/ResultsLayout.js:32
 msgid "Last updated: {date}"
@@ -14534,7 +14530,7 @@ msgstr "Përditësuar së fundi më: {date}"
 #: ../root/search/components/SearchError.js:20
 #, fuzzy
 msgid "Search error"
-msgstr "Gabim Kërkimi"
+msgstr "Gabim kërkimi"
 
 #: ../root/search/components/SearchError.js:24
 msgid ""
@@ -14568,11 +14564,11 @@ msgstr "Metodë kërkimi:"
 
 #: ../root/search/components/SeriesResults.js:71
 msgid "Alternatively, you may {uri|add a new series}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një seri të re}."
 
 #: ../root/search/components/WorkResults.js:69
 msgid "Alternatively, you may {uri|add a new work}."
-msgstr ""
+msgstr "Ndryshe, mundeni {uri|të shtoni një vepër të re}."
 
 #: ../root/search/error/General.js:17
 msgid ""
@@ -14644,7 +14640,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:283
 msgctxt "user area"
 msgid "Location"
-msgstr ""
+msgstr "Vendndodhje"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:190
 msgid ""
@@ -14684,14 +14680,14 @@ msgstr "Jetëshkrim"
 #: ../root/static/scripts/account/components/EditProfileForm.js:257
 #, fuzzy
 msgid "Languages known:"
-msgstr "Gjuhë të Ditura:"
+msgstr "Gjuhë të njohura:"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:293
 #: ../root/static/scripts/work/edit.js:337
 #, fuzzy
 msgctxt "interactive"
 msgid "Add language"
-msgstr "Shtoni një gjuhë"
+msgstr "Shtoni gjuhë"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:301
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
@@ -14719,7 +14715,7 @@ msgstr "Format date/kohe:"
 #: ../root/static/scripts/account/components/PreferencesForm.js:189
 #, fuzzy
 msgid "Allow other users to see"
-msgstr "Lejoju përdoruesve të tjerë të shohin etiketat e mia"
+msgstr "Lejoju përdoruesve të tjerë ta shohin"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:192
 msgid "My subscriptions"
@@ -14729,11 +14725,11 @@ msgstr "Pajtimet e mia"
 #, fuzzy
 msgctxt "folksonomy"
 msgid "My tags and genres"
-msgstr "Shtoni zhanër të ri"
+msgstr "Etiketat dhe zhanret e mia"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:210
 msgid "Language to receive emails in"
-msgstr ""
+msgstr "Gjuhë në të cilën të merren email-e"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:214
 #, fuzzy
@@ -14799,7 +14795,7 @@ msgstr ""
 #: ../root/static/scripts/alias/AliasEditForm.js:292
 #, fuzzy
 msgid "Alias details"
-msgstr "Hollësi Aliasi"
+msgstr "Hollësi aliasi"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:299
 msgid "Alias name:"
@@ -14816,17 +14812,17 @@ msgstr "Ky alias s’është më në përdorim."
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:91
 msgctxt "annotation"
 msgid "Old"
-msgstr ""
+msgstr "I vjetër"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:92
 msgctxt "annotation"
 msgid "New"
-msgstr ""
+msgstr "I ri"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:97
 #, fuzzy
 msgid "Version history"
-msgstr "Historik Versionesh"
+msgstr "Historik versioni"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:139
 msgid "View this version"
@@ -14848,11 +14844,11 @@ msgstr "Pa lloj"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
-msgstr ""
+msgstr "{place_name} (i mbyllur)"
 
 #: ../root/static/scripts/area/places-map.js:125
 msgid "{place_type}: {place_link} (closed)"
-msgstr ""
+msgstr "{place_type}: {place_link} (i mbyllur)"
 
 #: ../root/static/scripts/area/places-map.js:130
 msgid "{place_type}: {place_link}"
@@ -14886,7 +14882,7 @@ msgstr ""
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:267
 msgid "Show less artist credits"
-msgstr ""
+msgstr "Shfaq më pak kredite artisti"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:269
 #: ../root/static/scripts/common/components/Collapsible.js:76
@@ -14895,7 +14891,7 @@ msgstr "Shfaqni më pak…"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:281
 msgid "Show more artist credits"
-msgstr ""
+msgstr "Shfaq më tepër kredite artisti"
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:283
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:478
@@ -14914,7 +14910,7 @@ msgstr "Lejoju përdoruesve të tjerë ta shohin këtë koleksion"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:227
 msgid "Add collection"
-msgstr ""
+msgstr "Shtoni koleksion"
 
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:229
 msgid "Update collection"
@@ -15025,25 +15021,25 @@ msgstr "{artist} ({roles})"
 #: ../root/static/scripts/common/components/ArtistRoles.js:41
 #, fuzzy
 msgid "Artist roles"
-msgstr "Zonë Artisti"
+msgstr "Role artistësh"
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:45
 #: ../root/static/scripts/common/components/WorkArtists.js:28
 msgid "Show all artists"
-msgstr ""
+msgstr "Shfaqi krejt artistët"
 
 #: ../root/static/scripts/common/components/ArtistRoles.js:46
 #: ../root/static/scripts/common/components/WorkArtists.js:29
 msgid "Show less artists"
-msgstr ""
+msgstr "Shfaq më pak artistë"
 
 #: ../root/static/scripts/common/components/AttributeList.js:65
 msgid "Show all attributes"
-msgstr ""
+msgstr "Shfaqi krejt atributet"
 
 #: ../root/static/scripts/common/components/AttributeList.js:66
 msgid "Show less attributes"
-msgstr ""
+msgstr "Shfaq më pak atribute"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:39
 msgid "Recent items"
@@ -15051,11 +15047,11 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:48
 msgid "Try again with direct search."
-msgstr ""
+msgstr "Riprovoni me kërkim të drejtpërdrejtë."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:54
 msgid "Try again with indexed search."
-msgstr ""
+msgstr "Riprovoni me kërkim të indeksuar."
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:60
 msgid "An error occurred while looking up the MBID you entered."
@@ -15067,35 +15063,35 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:111
 msgid "Search for an area"
-msgstr ""
+msgstr "Kërko për një zonë"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:113
 msgid "Search for an editor"
-msgstr ""
+msgstr "Kërko për një përpunuesi"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:114
 msgid "Search for an event"
-msgstr ""
+msgstr "Kërko për një veprimtari"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
 msgid "Search for a genre"
-msgstr ""
+msgstr "Kërko për një zhanër"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:116
 msgid "Search for an instrument"
-msgstr ""
+msgstr "Kërko për një instrument"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:117
 msgid "Search for a label"
-msgstr ""
+msgstr "Kërko për një etiketë"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:119
 msgid "Search for a relationship type"
-msgstr ""
+msgstr "Kërko për një lloj marrëdhëniesh"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:120
 msgid "Search for a place"
-msgstr ""
+msgstr "Kërko për një vend"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:121
 msgid "Search for a recording"
@@ -15103,25 +15099,25 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:122
 msgid "Search for a release"
-msgstr ""
+msgstr "Kërko për një hedhje në qarkullim"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:123
 msgid "Search for a release group"
-msgstr ""
+msgstr "Kërko për një grup hedhjesh në qarkullim"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:124
 msgid "Search for a series"
-msgstr ""
+msgstr "Kërko për një seri"
 
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:125
 msgid "Search for a work"
-msgstr ""
+msgstr "Kërko për një vepër"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:87
 #: ../root/static/scripts/common/components/EntityLink.js:82
 #, fuzzy
 msgid "Primary alias"
-msgstr "Etiketë parësore"
+msgstr "Aliasi parësor"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:336
 msgid "{forward_link_phrase} / {backward_link_phrase}"
@@ -15130,19 +15126,19 @@ msgstr ""
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:402
 #: ../root/static/scripts/homepage/artwork-carousel.js:85
 msgid "by {artist}"
-msgstr ""
+msgstr "nga {artist}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:466
 msgid "{first_list_item} … {last_list_item}"
-msgstr ""
+msgstr "{first_list_item} … {last_list_item}"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:157
 msgid "Hide descriptions"
-msgstr ""
+msgstr "Fshihi përshkrimet"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:158
 msgid "Show descriptions"
-msgstr ""
+msgstr "Shfaq përshkrime"
 
 #: ../root/static/scripts/common/components/Autocomplete2/reducer.js:254
 msgid ""
@@ -15183,11 +15179,11 @@ msgstr "I panjohur"
 
 #: ../root/static/scripts/common/components/CollapsibleList.js:71
 msgid "show {n} more"
-msgstr ""
+msgstr "shfaq {n} më tepër"
 
 #: ../root/static/scripts/common/components/CollapsibleList.js:93
 msgid "show less"
-msgstr ""
+msgstr "shfaq më pak"
 
 #: ../root/static/scripts/common/components/CommonsImage.js:55
 msgid "Image from Wikimedia Commons"
@@ -15289,7 +15285,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/components/FilterForm.js:346
 msgid "Secondary type"
-msgstr ""
+msgstr "Lloj dytësor"
 
 #: ../root/static/scripts/common/components/FingerprintTable.js:69
 msgid "Error loading AcoustIDs: {error}"
@@ -15383,11 +15379,11 @@ msgstr "{link} s’ka marrëdhënie."
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:52
 msgid "Missing country"
-msgstr ""
+msgstr "Mungon vendi"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:69
 msgid "Missing date"
-msgstr ""
+msgstr "Mungon data"
 
 #: ../root/static/scripts/common/components/ReleaseEvents.js:90
 msgid "Show all release events"
@@ -15405,7 +15401,7 @@ msgstr[1] ""
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:27
 msgid "{start_track}–{end_track}"
-msgstr ""
+msgstr "{start_track}–{end_track}"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:89
 #: ../root/static/scripts/relationship-editor/components/RelationshipItem.js:262
@@ -15414,7 +15410,7 @@ msgstr "{num}. {relationship}"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:94
 msgid "{relationship} (order: {num})"
-msgstr ""
+msgstr "{relationship} (renditje: {num})"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:106
 msgid "track {tracks}"
@@ -15462,7 +15458,7 @@ msgstr "S’ka etiketa të tjera për shfaqje."
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Nobody has tagged this yet."
-msgstr "Askush s’e ka etiketuar ende këtë."
+msgstr "Askush s’ka vënë ende ndonjë etiketë për këtë."
 
 #: ../root/static/scripts/common/components/TagEditor.js:556
 msgctxt "folksonomy"
@@ -15480,7 +15476,7 @@ msgstr ""
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Show all tags."
-msgstr "Shfaqi krejt etiketat."
+msgstr "Shfaqi krejt etiketa."
 
 #: ../root/static/scripts/common/components/TagEditor.js:583
 #, fuzzy
@@ -15503,7 +15499,7 @@ msgstr ""
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Add tags"
-msgstr "Shtoni Etiketa"
+msgstr "Shtoni etiketa"
 
 #: ../root/static/scripts/common/components/TagEditor.js:619
 msgctxt "folksonomy"
@@ -15516,19 +15512,19 @@ msgstr ""
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Submit tags"
-msgstr "Parashtroni etiketa"
+msgstr "Parashtroni etiketë"
 
 #: ../root/static/scripts/common/components/TagEditor.js:680
 #, fuzzy
 msgctxt "folksonomy"
 msgid "see all tags"
-msgstr "shihini krejt etiketat"
+msgstr "shihni krejt etiketat"
 
 #: ../root/static/scripts/common/components/TagEditor.js:696
 #, fuzzy
 msgctxt "verb, folksonomy"
 msgid "Tag"
-msgstr "Etiketë"
+msgstr "Etiketojeni"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:71
 #, fuzzy
@@ -15553,7 +15549,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/WorkArtists.js:24
 #, fuzzy
 msgid "Work artists"
-msgstr "Vlerësime vepre"
+msgstr "Artistë vepre"
 
 #: ../root/static/scripts/common/entity.js:255
 msgid "You selected {label}."
@@ -15583,7 +15579,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:222
 msgid "Load all tracks..."
-msgstr ""
+msgstr "Ngarko krejt pjesët…"
 
 #: ../root/static/scripts/common/i18n/addQuotes.js:13
 #: ../root/static/scripts/common/i18n/addQuotes.js:17
@@ -15598,11 +15594,11 @@ msgstr "{title} - {subtitle}"
 #, fuzzy
 msgctxt "language"
 msgid "[removed]"
-msgstr "[hequr]"
+msgstr "[e hequr]"
 
 #: ../root/static/scripts/common/i18n/semicolonOnlyList.js:25
 msgid "{semicolon_only_list_item}; {rest}"
-msgstr ""
+msgstr "{semicolon_only_list_item}; {rest}"
 
 #: ../root/static/scripts/common/utility/bracketed.js:18
 msgid "[{text}]"
@@ -15690,7 +15686,7 @@ msgstr "Ky grup është shpërndarë."
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:109
 msgctxt "artist end date"
 msgid "Ended"
-msgstr ""
+msgstr "Përfundoi"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:108
 msgid "Began:"
@@ -15730,10 +15726,10 @@ msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:704
 #: ../root/static/scripts/edit/URLCleanup.js:970
-#: ../root/static/scripts/edit/URLCleanup.js:2349
-#: ../root/static/scripts/edit/URLCleanup.js:4575
-#: ../root/static/scripts/edit/URLCleanup.js:5765
-#: ../root/static/scripts/edit/URLCleanup.js:6425
+#: ../root/static/scripts/edit/URLCleanup.js:2384
+#: ../root/static/scripts/edit/URLCleanup.js:4705
+#: ../root/static/scripts/edit/URLCleanup.js:5895
+#: ../root/static/scripts/edit/URLCleanup.js:6555
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -15751,24 +15747,24 @@ msgid ""
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1262
+#: ../root/static/scripts/edit/URLCleanup.js:1297
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1282
+#: ../root/static/scripts/edit/URLCleanup.js:1317
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1302
+#: ../root/static/scripts/edit/URLCleanup.js:1337
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1324
+#: ../root/static/scripts/edit/URLCleanup.js:1359
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15777,7 +15773,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1352
+#: ../root/static/scripts/edit/URLCleanup.js:1387
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15786,197 +15782,210 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1698
+#: ../root/static/scripts/edit/URLCleanup.js:1733
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1700
+#: ../root/static/scripts/edit/URLCleanup.js:1735
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2509
+#: ../root/static/scripts/edit/URLCleanup.js:2544
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3260
+#: ../root/static/scripts/edit/URLCleanup.js:3340
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3278
+#: ../root/static/scripts/edit/URLCleanup.js:3358
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3322
+#: ../root/static/scripts/edit/URLCleanup.js:3402
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3350
+#: ../root/static/scripts/edit/URLCleanup.js:3430
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3375
+#: ../root/static/scripts/edit/URLCleanup.js:3455
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4471
+#: ../root/static/scripts/edit/URLCleanup.js:4444
+msgid ""
+"Only MixesDB “{category_url_pattern}” links are allowed for artists and "
+"series. Please link mix pages to the specific release group in question."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:4462
+msgid ""
+"MixesDB “{category_url_pattern}” links are only allowed for artists and "
+"series. Please link the specific mix page to this release group instead, if "
+"available."
+msgstr ""
+
+#: ../root/static/scripts/edit/URLCleanup.js:4601
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5215
+#: ../root/static/scripts/edit/URLCleanup.js:5345
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5283
+#: ../root/static/scripts/edit/URLCleanup.js:5413
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6029
+#: ../root/static/scripts/edit/URLCleanup.js:6159
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6157
+#: ../root/static/scripts/edit/URLCleanup.js:6287
 msgid "Please link to TikTok profiles, not videos."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6445
+#: ../root/static/scripts/edit/URLCleanup.js:6575
 msgid "This is not a profile, but a Twitter documentation page."
-msgstr ""
+msgstr "Ky s’është profil, por një faqe dokumentimi Twitter."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6459
+#: ../root/static/scripts/edit/URLCleanup.js:6589
 msgid "Please link to Twitter profiles, not tweets."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6475
+#: ../root/static/scripts/edit/URLCleanup.js:6605
 msgid "This site does not allow direct links to their images."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6777
+#: ../root/static/scripts/edit/URLCleanup.js:6907
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6955
+#: ../root/static/scripts/edit/URLCleanup.js:7085
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6975
+#: ../root/static/scripts/edit/URLCleanup.js:7105
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6996
+#: ../root/static/scripts/edit/URLCleanup.js:7126
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7014
+#: ../root/static/scripts/edit/URLCleanup.js:7144
 msgid "Please link WhoSampled artist pages to artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7026
+#: ../root/static/scripts/edit/URLCleanup.js:7156
 msgid "Please link WhoSampled track pages to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7089
+#: ../root/static/scripts/edit/URLCleanup.js:7219
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7114
+#: ../root/static/scripts/edit/URLCleanup.js:7244
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7275
+#: ../root/static/scripts/edit/URLCleanup.js:7405
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7315
+#: ../root/static/scripts/edit/URLCleanup.js:7445
 msgid "Only video and playlist links are allowed on releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7361
+#: ../root/static/scripts/edit/URLCleanup.js:7491
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7397
+#: ../root/static/scripts/edit/URLCleanup.js:7527
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7407
+#: ../root/static/scripts/edit/URLCleanup.js:7537
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7417
+#: ../root/static/scripts/edit/URLCleanup.js:7547
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7587
+#: ../root/static/scripts/edit/URLCleanup.js:7717
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7599
+#: ../root/static/scripts/edit/URLCleanup.js:7729
 msgid ""
 "Last.fm release pages are very often generated from MusicBrainz data to "
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7610
+#: ../root/static/scripts/edit/URLCleanup.js:7740
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7818
+#: ../root/static/scripts/edit/URLCleanup.js:7948
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7835
-#: ../root/static/scripts/edit/externalLinks.js:1149
+#: ../root/static/scripts/edit/URLCleanup.js:7965
+#: ../root/static/scripts/edit/externalLinks.js:1151
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:155
-#: ../root/static/scripts/edit/externalLinks.js:831
+#: ../root/static/scripts/edit/externalLinks.js:833
 #: ../root/static/scripts/event/components/EventEditForm.js:103
 #: ../root/static/scripts/release/components/EditWorkDialog.js:161
 msgid "Required field."
@@ -15984,7 +15993,7 @@ msgstr "Fushë e domosdoshme."
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:20
 msgid "Add a new area"
-msgstr ""
+msgstr "Shtoni zonë të re"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:21
 msgid "Add a new artist"
@@ -15996,7 +16005,7 @@ msgstr "Shtoni veprimtari të re"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:23
 msgid "Add a new instrument"
-msgstr ""
+msgstr "Shtoni instrument të ri"
 
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:24
 msgid "Add a new label"
@@ -16059,7 +16068,7 @@ msgstr ""
 #, fuzzy
 msgctxt "interactive"
 msgid "Add artist credit"
-msgstr "Shtoni Kredite Artisti"
+msgstr "Shtoni kreditim artisti"
 
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:198
 msgid "Change all artists on this release that match “{name}”"
@@ -16097,12 +16106,12 @@ msgstr "Shtoni Kredite Artisti"
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove artist credit"
-msgstr "Hiqni Kredite Artisti"
+msgstr "Hiq kreditim artisti"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
 #, fuzzy
 msgid "Date period"
-msgstr "Periudhë Datash"
+msgstr "Periudhë datash"
 
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:174
 msgid ""
@@ -16131,7 +16140,7 @@ msgstr ""
 
 #: ../root/static/scripts/edit/components/EntityPendingEditsWarning.js:30
 msgid "This entity has open edits."
-msgstr ""
+msgstr "Kjo njësi ka përpunime të hapura."
 
 #: ../root/static/scripts/edit/components/ExternalLinkAttributeDialog.js:216
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:197
@@ -16142,13 +16151,13 @@ msgstr "Kjo marrëdhënie ka përfunduar."
 #, fuzzy
 msgctxt "interactive"
 msgid "Edit attributes"
-msgstr "Përpunoni Atribute"
+msgstr "Përpunoni atribute"
 
 #: ../root/static/scripts/edit/components/Multiselect.js:173
 #, fuzzy
 msgctxt "generic row"
 msgid "[removed]"
-msgstr "[hequr]"
+msgstr "[i hequr]"
 
 #: ../root/static/scripts/edit/components/NewNotesAlertCheckbox.js:29
 msgid "Show me an alert whenever I receive a new edit note."
@@ -16161,7 +16170,7 @@ msgstr ""
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:19
 #, fuzzy
 msgid "Possible duplicates"
-msgstr "Përsëdytje të Mundshme"
+msgstr "Përsëdytje të mundshme"
 
 #: ../root/static/scripts/edit/components/PossibleDuplicates.js:20
 msgid "We found the following entities with very similar names:"
@@ -16259,7 +16268,7 @@ msgstr ""
 #, fuzzy
 msgctxt "interactive"
 msgid "Edit URL"
-msgstr "Përpunoni URL"
+msgstr "Përpunojeni URL-në"
 
 #: ../root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js:32
 #, fuzzy
@@ -16277,158 +16286,158 @@ msgstr "Kredituar Si"
 msgid "All of your changes will be lost if you leave this page."
 msgstr "Krejt ndryshimet tuaja do të humbin, nëse e braktisni këtë faqe."
 
-#: ../root/static/scripts/edit/externalLinks.js:843
+#: ../root/static/scripts/edit/externalLinks.js:845
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:851
+#: ../root/static/scripts/edit/externalLinks.js:853
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:858
+#: ../root/static/scripts/edit/externalLinks.js:860
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:866
+#: ../root/static/scripts/edit/externalLinks.js:868
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:872
+#: ../root/static/scripts/edit/externalLinks.js:874
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:878
+#: ../root/static/scripts/edit/externalLinks.js:880
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:885
+#: ../root/static/scripts/edit/externalLinks.js:887
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:892
+#: ../root/static/scripts/edit/externalLinks.js:894
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:912
+#: ../root/static/scripts/edit/externalLinks.js:914
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:987
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr "Kjo marrëdhënie ekziston tashmë."
 
-#: ../root/static/scripts/edit/externalLinks.js:924
+#: ../root/static/scripts/edit/externalLinks.js:926
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:929
+#: ../root/static/scripts/edit/externalLinks.js:931
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:935
-msgid "This URL is not allowed for areas."
-msgstr ""
-
 #: ../root/static/scripts/edit/externalLinks.js:937
-msgid "This URL is not allowed for artists."
-msgstr ""
+msgid "This URL is not allowed for areas."
+msgstr "Kjo URL s’lejohet për zona."
 
 #: ../root/static/scripts/edit/externalLinks.js:939
-msgid "This URL is not allowed for events."
-msgstr ""
+msgid "This URL is not allowed for artists."
+msgstr "Kjo URL s’lejohet për artistë."
 
 #: ../root/static/scripts/edit/externalLinks.js:941
-#, fuzzy
-msgid "This URL is not allowed for genres."
-msgstr "Kjo URL s’ekziston më."
+msgid "This URL is not allowed for events."
+msgstr "Kjo URL s’lejohet për veprimtari."
 
 #: ../root/static/scripts/edit/externalLinks.js:943
-msgid "This URL is not allowed for instruments."
-msgstr ""
+#, fuzzy
+msgid "This URL is not allowed for genres."
+msgstr "Kjo URL s’lejohet për zona."
 
 #: ../root/static/scripts/edit/externalLinks.js:945
-msgid "This URL is not allowed for labels."
-msgstr ""
+msgid "This URL is not allowed for instruments."
+msgstr "Kjo URL s’lejohet për instrumente."
 
 #: ../root/static/scripts/edit/externalLinks.js:947
-msgid "This URL is not allowed for places."
-msgstr ""
+msgid "This URL is not allowed for labels."
+msgstr "Kjo URL s’lejohet për etiketa."
 
 #: ../root/static/scripts/edit/externalLinks.js:949
-msgid "This URL is not allowed for recordings."
-msgstr ""
+msgid "This URL is not allowed for places."
+msgstr "Kjo URL s’lejohet për vende."
 
 #: ../root/static/scripts/edit/externalLinks.js:951
-msgid "This URL is not allowed for releases."
-msgstr ""
+msgid "This URL is not allowed for recordings."
+msgstr "Kjo URL s’lejohet për incizime."
 
 #: ../root/static/scripts/edit/externalLinks.js:953
-msgid "This URL is not allowed for release groups."
-msgstr ""
+msgid "This URL is not allowed for releases."
+msgstr "Kjo URL s’lejohet për hedhje në qarkullim."
 
 #: ../root/static/scripts/edit/externalLinks.js:955
-msgid "This URL is not allowed for series."
-msgstr ""
+msgid "This URL is not allowed for release groups."
+msgstr "Kjo URL s’lejohet për grupe hedhjesh në qarkullim."
 
 #: ../root/static/scripts/edit/externalLinks.js:957
-msgid "This URL is not allowed for works."
-msgstr ""
+msgid "This URL is not allowed for series."
+msgstr "Kjo URL s’lejohet për seri."
 
-#: ../root/static/scripts/edit/externalLinks.js:1261
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:312
+#: ../root/static/scripts/edit/externalLinks.js:959
+msgid "This URL is not allowed for works."
+msgstr "Kjo URL s’lejohet për vepra."
+
+#: ../root/static/scripts/edit/externalLinks.js:1263
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|më tepër dokumentim})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1321
+#: ../root/static/scripts/edit/externalLinks.js:1323
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove relationship"
-msgstr "Hiqni marrëdhënie"
+msgstr "Hiq marrëdhënie"
 
-#: ../root/static/scripts/edit/externalLinks.js:1396
+#: ../root/static/scripts/edit/externalLinks.js:1398
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "kredituar si “{credit}”"
 
-#: ../root/static/scripts/edit/externalLinks.js:1420
+#: ../root/static/scripts/edit/externalLinks.js:1422
 msgid "video"
 msgstr "video"
 
-#: ../root/static/scripts/edit/externalLinks.js:1529
+#: ../root/static/scripts/edit/externalLinks.js:1531
 #, fuzzy
 msgid "Remove link"
-msgstr "Hiqe Lidhjen"
+msgstr "Hiqe lidhjen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1559
+#: ../root/static/scripts/edit/externalLinks.js:1561
 msgid "Add link"
-msgstr ""
+msgstr "Shto lidhje"
 
-#: ../root/static/scripts/edit/externalLinks.js:1562
+#: ../root/static/scripts/edit/externalLinks.js:1564
 msgid "Add another link"
-msgstr ""
+msgstr "Shtoni tjetër lidhje"
 
-#: ../root/static/scripts/edit/externalLinks.js:1675
+#: ../root/static/scripts/edit/externalLinks.js:1677
 msgid "Add another relationship"
-msgstr ""
+msgstr "Shtoni tjetër marrëdhënie"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:229
 #, fuzzy
 msgid "Event details"
-msgstr "Hollësi Veprimtarie"
+msgstr "Hollësi veprimtarie"
 
 #: ../root/static/scripts/event/components/EventEditForm.js:254
 msgid "This event was cancelled."
@@ -16493,6 +16502,11 @@ msgid ""
 "Some words may need to be manually corrected according to the {url|Turkish "
 "language guidelines}."
 msgstr ""
+
+#: ../root/static/scripts/homepage/AdminToolsDropdown.js:40
+#, fuzzy
+msgid "Admin tools"
+msgstr "Përgjegjës"
 
 #: ../root/static/scripts/homepage/artwork-carousel.js:197
 #, fuzzy
@@ -16570,42 +16584,42 @@ msgstr ""
 msgid "Explore the music you listen to."
 msgstr ""
 
-#: ../root/static/scripts/homepage/editor-tools.js:102
+#: ../root/static/scripts/homepage/editor-tools.js:103
 #, fuzzy
 msgid "Editor tools"
 msgstr "Përpunues"
 
-#: ../root/static/scripts/homepage/editor-tools.js:112
+#: ../root/static/scripts/homepage/editor-tools.js:113
 #, fuzzy
 msgid "My profile"
 msgstr "Profil"
 
-#: ../root/static/scripts/homepage/editor-tools.js:127
+#: ../root/static/scripts/homepage/editor-tools.js:128
 #, fuzzy
 msgid "My tags"
 msgstr "Shtoni Etiketa"
 
-#: ../root/static/scripts/homepage/editor-tools.js:134
+#: ../root/static/scripts/homepage/editor-tools.js:135
 #, fuzzy
 msgid "Subscribed entity edits"
 msgstr "Njësi të pajtuara"
 
-#: ../root/static/scripts/homepage/editor-tools.js:136
+#: ../root/static/scripts/homepage/editor-tools.js:137
 #, fuzzy
 msgid "Subscribed editor edits"
 msgstr "Përpunues të pajtuar"
 
-#: ../root/static/scripts/homepage/editor-tools.js:145
+#: ../root/static/scripts/homepage/editor-tools.js:146
 #, fuzzy
 msgid "Votes on edits"
 msgstr "Votoni Përpunime"
 
-#: ../root/static/scripts/homepage/editor-tools.js:146
+#: ../root/static/scripts/homepage/editor-tools.js:147
 #, fuzzy
 msgid "My reports"
 msgstr "Raporte"
 
-#: ../root/static/scripts/homepage/editor-tools.js:159
+#: ../root/static/scripts/homepage/editor-tools.js:160
 #, fuzzy
 msgid "Add new..."
 msgstr "Shtoni Shënim"
@@ -16731,11 +16745,11 @@ msgstr ""
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:25
 msgid "Continue"
-msgstr ""
+msgstr "Vazhdo"
 
 #: ../root/static/scripts/main/components/ConfirmSeedButtons.js:41
 msgid "Leave"
-msgstr ""
+msgstr "Braktiseni"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:39
 #, fuzzy
@@ -16750,7 +16764,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:41
 msgctxt "relationship attribute"
 msgid "Add another"
-msgstr ""
+msgstr "Shtoni tjetër"
 
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:160
 msgid "This attribute is required."
@@ -16802,7 +16816,7 @@ msgstr ""
 #, fuzzy
 msgctxt "noun"
 msgid "Order"
-msgstr "Renditje e Vjetër"
+msgstr "Rend"
 
 #: ../root/static/scripts/relationship-editor/components/DialogLinkOrder.js:51
 msgid ""
@@ -16825,7 +16839,7 @@ msgstr ""
 msgid "Type or click to search"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:299
+#: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:298
 msgid "Please select a relationship type. ({url|more documentation})"
 msgstr ""
 
@@ -16919,7 +16933,7 @@ msgstr "Shtoni veprimtari tjetër"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:36
 msgid "Add another genre"
-msgstr ""
+msgstr "Shtoni zhanër tjetër"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:37
 msgid "Add another instrument"
@@ -16956,7 +16970,7 @@ msgstr "Shtoni vepër tjetër"
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:160
 #: ../root/static/scripts/relationship-editor/components/RelationshipTargetTypeGroups.js:42
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:50
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:376
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:403
 #, fuzzy
 msgctxt "header"
 msgid "Add relationship"
@@ -16992,8 +17006,8 @@ msgstr[1] "{n} vepër të përzgjedhur"
 #, fuzzy
 msgid "{num} release"
 msgid_plural "{num} releases"
-msgstr[0] "U gjet {num} hedhje në qarkullim"
-msgstr[1] "U gjetën {num} hedhje në qarkullim"
+msgstr[0] "{num} hedhje në qarkullim"
+msgstr[1] "{num} hedhje në qarkullim"
 
 #: ../root/static/scripts/release-editor/actions.js:465
 msgid ""
@@ -17035,7 +17049,7 @@ msgstr "Faqja {page} nga {total} gjithsej"
 #, fuzzy
 msgctxt "header"
 msgid "Add medium"
-msgstr "Shtoni mdeia"
+msgstr "Shtoni media"
 
 #: ../root/static/scripts/release-editor/fields.js:914
 msgid "Medium {position}: {title}"
@@ -17094,14 +17108,14 @@ msgstr "Ju lutemi, rikontrolloni kodin me vija te hedhja në qarkullim."
 #: ../root/static/scripts/release-editor/validation.js:261
 #: ../root/static/scripts/release-editor/validation.js:305
 msgid "The barcode you entered is a valid EAN code."
-msgstr ""
+msgstr "Kodi me vija që dhatë, është kod EAN i vlefshëm."
 
 #: ../root/static/scripts/release-editor/validation.js:187
 #: ../root/static/scripts/release-editor/validation.js:228
 #: ../root/static/scripts/release-editor/validation.js:275
 #: ../root/static/scripts/release-editor/validation.js:319
 msgid "The barcode you entered is not a valid EAN code."
-msgstr ""
+msgstr "Kodi me vija që dhatë, s’është kod EAN i vlefshëm."
 
 #: ../root/static/scripts/release-editor/validation.js:195
 msgid ""
@@ -17112,7 +17126,7 @@ msgstr ""
 #: ../root/static/scripts/release-editor/validation.js:239
 #: ../root/static/scripts/release-editor/validation.js:283
 msgid "The barcode you entered is a valid UPC code."
-msgstr ""
+msgstr "Kodi me vija që dhatë, është kod UPC i vlefshëm."
 
 #: ../root/static/scripts/release-editor/validation.js:210
 msgid ""
@@ -17123,7 +17137,7 @@ msgstr ""
 #: ../root/static/scripts/release-editor/validation.js:235
 #, fuzzy
 msgid "The barcode you entered is a valid GTIN code."
-msgstr "Data që dhatë s’është e vlefshme."
+msgstr "Kodi me vija që dhatë, është kod GTIN i vlefshëm."
 
 #: ../root/static/scripts/release-editor/validation.js:242
 #: ../root/static/scripts/release-editor/validation.js:264
@@ -17138,17 +17152,17 @@ msgstr ""
 #: ../root/static/scripts/release-editor/validation.js:253
 #, fuzzy
 msgid "The barcode you entered is not a valid GTIN code."
-msgstr "Data që dhatë s’është e vlefshme."
+msgstr "Kodi me vija që dhatë, s’është kod GTIN i vlefshëm."
 
 #: ../root/static/scripts/release-editor/validation.js:297
 #, fuzzy
 msgid "The barcode you entered is not a valid UPC code."
-msgstr "Data që dhatë s’është e vlefshme."
+msgstr "Kodi me vija që dhatë, s’është kod UPC i vlefshëm."
 
 #: ../root/static/scripts/release-editor/validation.js:326
 #, fuzzy
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
-msgstr "Data që dhatë s’është e vlefshme."
+msgstr "Kodi me vija që dhatë s’është kod UPC , EAN apo GTIN i vlefshëm."
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:95
 msgid "No cover art available."
@@ -17203,11 +17217,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:36
 msgid "Expand all mediums"
-msgstr ""
+msgstr "Zgjeroji krejt mediat"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:51
 msgid "Collapse all mediums"
-msgstr ""
+msgstr "Tkurri krejt mediat"
 
 #: ../root/static/scripts/release/components/MediumToolbox.js:86
 #, fuzzy
@@ -17245,11 +17259,11 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:152
 msgid "[selected work]"
-msgstr ""
+msgstr "[vepër e përzgjedhur]"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:277
 msgid "An error occurred:"
-msgstr ""
+msgstr "Ndodhi një gabim:"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1518
 #, fuzzy
@@ -17277,17 +17291,21 @@ msgstr "Marrëdhënie Hedhjeje Në Qarkullim"
 msgid "Release group relationships"
 msgstr "Marrëdhënie Grupi Hedhjesh Në Qarkullim"
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:322
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:267
+msgid "Are you sure you want to remove this work?"
+msgstr "Jeni i sigurt se doni të hiqet kjo vepër?"
+
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:349
 msgid "Error loading work relationships: {error}"
 msgstr ""
 
-#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:396
+#: ../root/static/scripts/release/components/TrackRelationshipEditor.js:423
 msgid "Add related work"
 msgstr "Shtoni vepër të afërt"
 
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:371
 msgid "Credits"
-msgstr ""
+msgstr "Kredite"
 
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:377
 msgid ""
@@ -17298,19 +17316,19 @@ msgstr ""
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:80
 #: ../root/static/scripts/release/components/WorkLanguageMultiselect.js:123
 msgid "Add lyrics language"
-msgstr ""
+msgstr "Shtoni gjuhë vargjesh"
 
 #: ../root/static/scripts/voting.js:21
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove note"
-msgstr "Hiqni veprimtari"
+msgstr "Hiqe shënimin"
 
 #: ../root/static/scripts/work/edit.js:349
 #, fuzzy
 msgctxt "interactive"
 msgid "Remove language"
-msgstr "Hiqe Gjuhën"
+msgstr "Hiqe gjuhën"
 
 #: ../root/tag/EntityList.js:25
 msgid "Areas tagged as “{tag}”"
@@ -17351,7 +17369,7 @@ msgstr ""
 #: ../root/tag/EntityList.js:34
 msgctxt "plural series"
 msgid "Series tagged as “{tag}”"
-msgstr ""
+msgstr "Seri të etiketuara me “{tag}”"
 
 #: ../root/tag/EntityList.js:35
 msgid "Works tagged as “{tag}”"
@@ -17498,7 +17516,7 @@ msgstr[1] "U gjetën {num} vepra"
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Tag not used"
-msgstr "Etiketë e Papërdorur"
+msgstr "Etiketë e papërdorur"
 
 #: ../root/tag/NotFound.js:17
 msgid "No MusicBrainz entities have yet been tagged with \"{tag}\"."
@@ -17532,7 +17550,7 @@ msgstr ""
 #, fuzzy
 msgctxt "folksonomy"
 msgid "No genre tags have been used yet."
-msgstr "S’janë shtuar shënime përpunimi."
+msgstr "S’janë përdorur ende etiketa zhanresh."
 
 #: ../root/tag/TagCloud.js:118
 msgid "Other tags"
@@ -17542,19 +17560,19 @@ msgstr "Etiketa të tjera"
 #, fuzzy
 msgctxt "folksonomy"
 msgid "No non-genre tags have been used yet."
-msgstr "S’janë shtuar shënime përpunimi."
+msgstr "S’janë përdorur ende etiketa jo për zhanre."
 
 #: ../root/tag/TagIndex.js:24
 msgctxt "folksonomy"
 msgid "This tag is associated with the genre {genre}."
-msgstr ""
+msgstr "Kjo etiketë është e përshoqëruar me zhanrin {genre}."
 
 #: ../root/tag/TagLayout.js:42 ../root/tag/TagLayout.js:44
 #: ../root/tag/TagLayout.js:51
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Tag “{tag}”"
-msgstr "Etiketë “{tag}”"
+msgstr "Etiketa “{tag}”"
 
 #: ../root/tag/TagLayout.js:56
 #, fuzzy
@@ -17601,7 +17619,7 @@ msgstr "Sapo dhurova! Pse e shoh këtë?"
 #, fuzzy
 msgctxt "audio file metadata"
 msgid "Tag lookup error"
-msgstr "Gabim Kërkimi Etiketash"
+msgstr "Gabim kërkimi etiketash"
 
 #: ../root/taglookup/NotFound.js:17
 msgid ""
@@ -17620,12 +17638,12 @@ msgstr ""
 #, fuzzy
 msgctxt "audio file metadata"
 msgid "Tag lookup results"
-msgstr "Përfundime Kërkimi Etiketash"
+msgstr "Përfundime kërkimi etiketash"
 
 #: ../root/url/UrlIndex.js:18
 #, fuzzy
 msgid "URL information"
-msgstr "Të dhëna URL-je"
+msgstr "Informacion URL-je"
 
 #: ../root/url/UrlIndex.js:19
 #, fuzzy
@@ -17751,7 +17769,7 @@ msgstr "{count} përdoruesit vijues janë përpunues ndërpërfshirjesh:"
 #, fuzzy
 msgctxt "header"
 msgid "Location editors"
-msgstr "Përpunues vendndodhjesh"
+msgstr "Përpunues vendesh"
 
 #: ../root/user/PrivilegedUsers.js:85
 msgid "Location editors are users who can add or modify {uri|areas}."
@@ -17812,7 +17830,7 @@ msgstr "{count} llogaritë vijuese të përdoruesve janë robotë:"
 #, fuzzy
 msgctxt "header"
 msgid "Report user"
-msgstr "Raportoni Përdorues"
+msgstr "Raportoni përdorues"
 
 #: ../root/user/ReportUser.js:83
 msgid ""
@@ -17866,42 +17884,42 @@ msgstr "Dërgoje"
 #: ../root/user/UserCollections.js:36
 #, fuzzy
 msgid "Area collections"
-msgstr "Krijoni koleksion"
+msgstr "Koleksione zonash"
 
 #: ../root/user/UserCollections.js:37
 #, fuzzy
 msgid "Artist collections"
-msgstr "Koleksione Artisti"
+msgstr "Koleksione artistësh"
 
 #: ../root/user/UserCollections.js:38
 #, fuzzy
 msgid "Event collections"
-msgstr "Koleksione Veprimtarie"
+msgstr "Koleksione veprimtarish"
 
 #: ../root/user/UserCollections.js:39
 #, fuzzy
 msgid "Genre collections"
-msgstr "Koleksione Serish"
+msgstr "Koleksione zhnresh"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
 msgid "Instrument collections"
-msgstr "Koleksione Instrumenti"
+msgstr "Koleksione instrumentesh"
 
 #: ../root/user/UserCollections.js:41
 #, fuzzy
 msgid "Label collections"
-msgstr "Koleksione Etikete"
+msgstr "Koleksione etiketash"
 
 #: ../root/user/UserCollections.js:42
 #, fuzzy
 msgid "Place collections"
-msgstr "Koleksione Hedhjesh Në Qarkullim"
+msgstr "Koleksionesh vendesh"
 
 #: ../root/user/UserCollections.js:43
 #, fuzzy
 msgid "Recording collections"
-msgstr "Koleksione Incizimesh"
+msgstr "Koleksione incizimesh"
 
 #: ../root/user/UserCollections.js:44
 #, fuzzy
@@ -17916,12 +17934,12 @@ msgstr "Koleksione grupesh hedhjesh në qarkullim"
 #, fuzzy
 msgctxt "plural"
 msgid "Series collections"
-msgstr "Koleksione Serish"
+msgstr "Koleksione serish"
 
 #: ../root/user/UserCollections.js:47
 #, fuzzy
 msgid "Work collections"
-msgstr "Koleksione Veprash"
+msgstr "Koleksione veprasj"
 
 #: ../root/user/UserCollections.js:59
 msgid "{collaborator_number} (including you)"
@@ -17951,7 +17969,7 @@ msgstr ""
 #, fuzzy
 msgctxt "interactive"
 msgid "Add a new collection"
-msgstr "Shtojeni te një koleksion i ri"
+msgstr "Shtoni një koleksion i ri"
 
 #: ../root/user/UserEdits.js:33 ../root/user/UserEdits.js:34
 msgid "Votes by {name}"
@@ -17993,7 +18011,7 @@ msgstr "Përpunime nga {name}"
 #, fuzzy
 msgctxt "user type"
 msgid "Deleted user"
-msgstr "Përdorues i Fshirë"
+msgstr "Përdorues i fshirë"
 
 #: ../root/user/UserProfile.js:86
 msgctxt "user type"
@@ -18016,12 +18034,12 @@ msgstr "Fillestar"
 #, fuzzy
 msgctxt "user type"
 msgid "Normal user"
-msgstr "Përdorues Normal"
+msgstr "Përdorues normal"
 
 #: ../root/user/UserProfile.js:165
 #, fuzzy
 msgid "The dawn of the project"
-msgstr "Agimi i Projektit"
+msgstr "Agimi i projektit"
 
 #: ../root/user/UserProfile.js:167
 msgid "The early days of the project"
@@ -18036,13 +18054,13 @@ msgstr ""
 #: ../root/user/UserProfile.js:194
 #, fuzzy
 msgid "General information"
-msgstr "Të dhëna të Përgjithshme"
+msgstr "Hollësi të përgjithshme"
 
 #: ../root/user/UserProfile.js:200
 #, fuzzy
 msgctxt "email address"
 msgid "(hidden)"
-msgstr "(fshehur)"
+msgstr "(e fshehur)"
 
 #: ../root/user/UserProfile.js:203
 #, fuzzy
@@ -18054,7 +18072,7 @@ msgstr "(verifikuar më {date})"
 #, fuzzy
 msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
-msgstr "(<strong>i paverifikuar!</strong>)"
+msgstr "(<strong>e paverifikuar!</strong>)"
 
 #: ../root/user/UserProfile.js:217
 msgid "resend verification email"
@@ -18089,11 +18107,11 @@ msgstr "Anëtar që prej"
 #: ../root/user/UserProfile.js:295
 #, fuzzy
 msgid "Restrictions"
-msgstr "Përshkrim"
+msgstr "Kufizime"
 
 #: ../root/user/UserProfile.js:302
 msgid "Last login"
-msgstr ""
+msgstr "Hyrja e fundit më"
 
 #: ../root/user/UserProfile.js:305
 msgid "Hasn't logged in yet"
@@ -18136,7 +18154,7 @@ msgstr "{count} ({view_url|view})"
 
 #: ../root/user/UserProfile.js:576
 msgid "Edits"
-msgstr ""
+msgstr "Përpunime"
 
 #: ../root/user/UserProfile.js:582
 msgctxt "edit descriptor"
@@ -18162,16 +18180,16 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:632
 msgid "Failed"
-msgstr ""
+msgstr "Dështoi"
 
 #: ../root/user/UserProfile.js:642
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Anuluar"
 
 #: ../root/user/UserProfile.js:652
 msgid "Open"
-msgstr ""
+msgstr "E hapur"
 
 #: ../root/user/UserProfile.js:662
 msgid "Last 24 hours"
@@ -18203,11 +18221,11 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:759
 msgid "Added entities"
-msgstr ""
+msgstr "Njësi të shtuara"
 
 #: ../root/user/UserProfile.js:782
 msgid "This user has not added any entities."
-msgstr ""
+msgstr "Ky përdorues s’ka shtuar ndonjë njësi."
 
 #: ../root/user/UserProfile.js:792
 msgid "This table shows a summary of secondary data added by this editor."
@@ -18217,7 +18235,7 @@ msgstr ""
 #, fuzzy
 msgctxt "folksonomy"
 msgid "Tags and ratings"
-msgstr "shihni krejt vlerësimet"
+msgstr "Etiketa dhe vlerësime"
 
 #: ../root/user/UserProfile.js:805
 msgctxt "folksonomy"
@@ -18292,7 +18310,7 @@ msgstr ""
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"
-msgstr ""
+msgstr "Vende me vlerësime"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Recording ratings"
@@ -18317,12 +18335,12 @@ msgstr "{user} s’ka vlerësuar gjë."
 #: ../root/user/UserSubscriptions.js:23
 #, fuzzy
 msgid "Artist subscriptions"
-msgstr "Pajtime Artisti"
+msgstr "Pajtime te artistë"
 
 #: ../root/user/UserSubscriptions.js:24
 #, fuzzy
 msgid "Collection subscriptions"
-msgstr "Pajtime Koleksioni"
+msgstr "Pajtime te koleksione"
 
 #: ../root/user/UserSubscriptions.js:25
 #, fuzzy
@@ -18374,7 +18392,7 @@ msgstr[1] "{num} seri"
 
 #: ../root/user/UserSubscriptions.js:239
 msgid "No public subscriptions."
-msgstr ""
+msgstr "Pa pajtime publike."
 
 #: ../root/user/UserSubscriptions.js:240
 msgid "No subscriptions."
@@ -18382,7 +18400,7 @@ msgstr "S’ka pajtime."
 
 #: ../root/user/UserSubscriptions.js:244
 msgid "Private collections"
-msgstr ""
+msgstr "Koleksione private"
 
 #: ../root/user/UserSubscriptions.js:258
 msgid "{editor} is also subscribed to {n} other private collection."
@@ -18422,7 +18440,7 @@ msgstr "S’u gjetën përdorues"
 #, fuzzy
 msgctxt "folksonomy tag upvotes or downvotes"
 msgid "Show votes"
-msgstr "S’ka vota"
+msgstr "Shfaq vota"
 
 #: ../root/user/components/UserTagFilters.js:35
 #, fuzzy
@@ -18438,11 +18456,11 @@ msgstr "S’ka vota"
 
 #: ../root/user/components/UserTagFilters.js:45
 msgid "Sort by"
-msgstr ""
+msgstr "Renditi sipas"
 
 #: ../root/user/components/UserTagFilters.js:48
 msgid "name"
-msgstr ""
+msgstr "emër"
 
 #: ../root/user/components/UserTagFilters.js:49
 msgid "count (more first)"
@@ -18550,7 +18568,7 @@ msgstr "Ky përpunim qe anuluar."
 #, fuzzy
 msgctxt "header"
 msgid "Relationship type"
-msgstr "Lloje Marrëdhëniesh"
+msgstr "Lloj marrëdhënieje"
 
 #: ../root/utility/tableColumns.js:776
 msgctxt "header"
@@ -18565,7 +18583,7 @@ msgstr ""
 #, fuzzy
 msgctxt "header"
 msgid "Lyrics languages"
-msgstr "Gjuhë Vargjesh"
+msgstr "Gjuhë vargjesh"
 
 #: ../root/vote/VotingIndex.js:88
 msgid "…related to artists in my subscriptions"
@@ -18694,7 +18712,7 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:305
 msgid "Edits by beginners"
-msgstr ""
+msgstr "Përpunime nga fillestarë"
 
 #: ../root/vote/VotingIndex.js:308
 msgid ""
@@ -18785,7 +18803,7 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:447 ../root/vote/VotingIndex.js:469
 msgid "All edits"
-msgstr ""
+msgstr "Krejt përpunimet"
 
 #: ../root/vote/VotingIndex.js:450
 msgid ""
@@ -18798,7 +18816,7 @@ msgstr ""
 
 #: ../root/vote/VotingIndex.js:462
 msgid "All open edits"
-msgstr ""
+msgstr "Krejt përpunimet e hapura"
 
 #: ../root/work/WorkMerge.js:25 ../root/work/WorkMerge.js:27
 msgid "Merge works"
