@@ -33,6 +33,16 @@ sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir extension; p
 
 cd "$MBS_ROOT"
 
+# Run msgmerge on all .po flies to ensure string locations are up-to-date.
+shopt -s nullglob
+for pot in po/*.pot; do
+  domain="$(basename "$pot" .pot)"
+  for po in po/"$domain".*.po; do
+    sudo -E -H -u musicbrainz \
+      msgmerge --no-fuzzy-matching --update "$po" po/"$domain".pot || true
+  done
+done
+
 sudo -E -H -u musicbrainz make -C po all_quiet deploy
 
 # Compile static resources.
