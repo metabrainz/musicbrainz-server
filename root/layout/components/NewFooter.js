@@ -89,8 +89,12 @@ component Footer() {
               </li>
               <li>
                 <FontAwesomeIcon icon={faAngleRight} size="lg" />
-                <a href="https://metabrainz.org/">
-                  {l('MetaBrainz')}
+                <a href="https://mastodon.social/@MusicBrainz">
+                  {l('Mastodon')}
+                </a>
+                {' / '}
+                <a href="https://bsky.app/profile/musicbrainz.org">
+                  {l('Bluesky')}
                 </a>
               </li>
               <li className="d-block d-md-none">

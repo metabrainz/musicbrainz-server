@@ -18,6 +18,8 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../context.mjs';
 import {VARTIST_GID} from '../common/constants.js';
 import useMediaQuery from '../common/hooks/useMediaQuery.js';
+import getCookie from '../common/utility/getCookie.js';
+import setCookie from '../common/utility/setCookie.js';
 
 import AdminToolsDropdown from './AdminToolsDropdown.js';
 
@@ -83,20 +85,46 @@ component EditorTools() {
     setIsHydrated(true);
   }, []);
 
-  if (!user) {
+  const [isExpandedState, setIsExpandedState] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
+    if (isMobile) {
+      // Mobile: always collapsed, ignore cookie
+      setIsExpandedState(false);
+      return;
+    }
+
+    // Desktop: respect cookie
+    const expanded = getCookie('editor_tools_expanded', 'true');
+    setIsExpandedState(expanded === 'true');
+  }, [isMobile, isHydrated]);
+
+  const handleExpand = (value: boolean) => {
+    setIsExpandedState(value);
+
+    // Only persist preference on desktop.
+    if (!isMobile) {
+      setCookie('editor_tools_expanded', value ? 'true' : 'false');
+    }
+  };
+
+  if (!user || !isHydrated) {
     return null;
   }
-
-  const isExpanded = isHydrated ? !isMobile : false;
 
   return (
     <div className="editor-tools-container layout-width">
       <button
         aria-controls="editorToolsCollapse"
-        aria-expanded={isExpanded ? 'true' : 'false'}
+        aria-expanded={isExpandedState ? 'true' : 'false'}
         className="editor-tools-button"
         data-bs-target="#editorToolsCollapse"
         data-bs-toggle="collapse"
+        onClick={() => handleExpand(!isExpandedState)}
         type="button"
       >
         <FontAwesomeIcon icon={faChevronDown} />
@@ -104,7 +132,7 @@ component EditorTools() {
       </button>
 
       <div
-        className={`collapse ${isExpanded ? 'show' : ''}`}
+        className={`collapse ${isExpandedState ? 'show' : ''}`}
         id="editorToolsCollapse"
       >
         <div className="editor-tools-content">
@@ -172,10 +200,11 @@ component EditorTools() {
           </div>
           <button
             aria-controls="editorToolsCollapse"
-            aria-expanded={isExpanded ? 'true' : 'false'}
+            aria-expanded={isExpandedState ? 'true' : 'false'}
             className="close-editor-tools-button d-sm-none"
             data-bs-target="#editorToolsCollapse"
             data-bs-toggle="collapse"
+            onClick={() => handleExpand(!isExpandedState)}
             type="button"
           >
             <FontAwesomeIcon color="white" icon={faChevronUp} size="xl" />

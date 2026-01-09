@@ -423,11 +423,6 @@ component Navbar() {
                   required
                   type="text"
                 />
-
-                <span className="input-group-text">
-                  {l('in')}
-                </span>
-
                 <select
                   aria-label={l('Entity for search')}
                   className="form-select"
