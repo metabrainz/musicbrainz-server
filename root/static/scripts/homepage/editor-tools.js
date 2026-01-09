@@ -1,0 +1,221 @@
+/*
+ * @flow strict
+ * Copyright (C) 2025 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import {
+  faChevronDown,
+  faChevronUp,
+  faPlusCircle,
+} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import * as React from 'react';
+
+import {SanitizedCatalystContext} from '../../../context.mjs';
+import {VARTIST_GID} from '../common/constants.js';
+import useMediaQuery from '../common/hooks/useMediaQuery.js';
+import getCookie from '../common/utility/getCookie.js';
+import setCookie from '../common/utility/setCookie.js';
+
+import AdminToolsDropdown from './AdminToolsDropdown.js';
+
+const addEntityItems = [
+  {
+    href: '/artist/create',
+    label: N_lp('Add artist', 'interactive'),
+  },
+  {
+    href: '/label/create',
+    label: N_lp('Add label', 'interactive'),
+  },
+
+  {
+    href: '/release-group/create',
+    label: N_lp('Add release group', 'interactive'),
+  },
+
+  {
+    href: '/release/add',
+    label: N_lp('Add release', 'interactive'),
+  },
+
+  {
+    href: '/release/add?artist=' + encodeURIComponent(VARTIST_GID),
+    label: N_lp('Add Various Artists release', 'interactive'),
+  },
+
+  {
+    href: '/recording/create',
+    label: N_lp('Add standalone recording', 'interactive'),
+  },
+
+  {
+    href: '/work/create',
+    label: N_lp('Add work', 'interactive'),
+  },
+
+  {
+    href: '/place/create',
+    label: N_lp('Add place', 'interactive'),
+  },
+
+  {
+    href: '/series/create',
+    label: N_lp('Add series', 'singular, interactive'),
+  },
+
+  {
+    href: '/event/create',
+    label: N_lp('Add event', 'interactive'),
+  },
+];
+
+component EditorTools() {
+  const $c = React.useContext(SanitizedCatalystContext);
+  const user = $c.user;
+
+  const isMobile = useMediaQuery('(max-width: 992px)');
+  const [isHydrated, setIsHydrated] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const [isExpandedState, setIsExpandedState] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!isHydrated) {
+      return;
+    }
+
+    if (isMobile) {
+      // Mobile: always collapsed, ignore cookie
+      setIsExpandedState(false);
+      return;
+    }
+
+    // Desktop: respect cookie
+    const expanded = getCookie('editor_tools_expanded', 'true');
+    setIsExpandedState(expanded === 'true');
+  }, [isMobile, isHydrated]);
+
+  const handleExpand = (value: boolean) => {
+    setIsExpandedState(value);
+
+    // Only persist preference on desktop.
+    if (!isMobile) {
+      setCookie('editor_tools_expanded', value ? 'true' : 'false');
+    }
+  };
+
+  if (!user || !isHydrated) {
+    return null;
+  }
+
+  return (
+    <div className="editor-tools-container layout-width">
+      <button
+        aria-controls="editorToolsCollapse"
+        aria-expanded={isExpandedState ? 'true' : 'false'}
+        className="editor-tools-button"
+        data-bs-target="#editorToolsCollapse"
+        data-bs-toggle="collapse"
+        onClick={() => handleExpand(!isExpandedState)}
+        type="button"
+      >
+        <FontAwesomeIcon icon={faChevronDown} />
+        {l('Editor tools')}
+      </button>
+
+      <div
+        className={`collapse ${isExpandedState ? 'show' : ''}`}
+        id="editorToolsCollapse"
+      >
+        <div className="editor-tools-content">
+          <div className="editor-tools-cell" id="editor-tools-cell-1">
+            <div className="editor-tools-cell-sub">
+              <a href={`/user/${user.name}`}>{l('My profile')}</a>
+              <a href="/logout">{l('Log out')}</a>
+            </div>
+            <div className="editor-tools-cell-sub">
+              <a href="/account/applications">{l('Applications')}</a>
+              <a href={`/user/${user.name}/subscriptions/artist`}>
+                {l('Subscriptions')}
+              </a>
+            </div>
+          </div>
+          <div className="editor-tools-cell" id="editor-tools-cell-2">
+            <a href={`/user/${user.name}/collections`}>
+              {l('My collections')}
+            </a>
+            <a href={`/user/${user.name}/ratings`}>{l('My ratings')}</a>
+            <a href={`/user/${user.name}/tags`}>{l('My tags')}</a>
+          </div>
+          <div className="editor-tools-cell" id="editor-tools-cell-3">
+            <a href={`/user/${user.name}/edits/open`}>
+              {l('My open edits')}
+            </a>
+            <a href={`/user/${user.name}/edits`}>{l('All my edits')}</a>
+            <a href="/edit/subscribed">{l('Subscribed entity edits')}</a>
+            <a href="/edit/subscribed_editors">
+              {l('Subscribed editor edits')}
+            </a>
+          </div>
+          <div className="editor-tools-cell" id="editor-tools-cell-4">
+            <a href="/edit/notes-received">
+              {l('Notes left on my edits')}
+            </a>
+          </div>
+          <div className="editor-tools-cell" id="editor-tools-cell-5">
+            <a href="/vote">{l('Votes on edits')}</a>
+            <a href="/reports">{l('My reports')}</a>
+          </div>
+          <div className="editor-tools-cell" id="editor-tools-cell-6">
+            <AdminToolsDropdown user={user} />
+            <span className="dropdown">
+              <a
+                aria-expanded="false"
+                className="dropdown-toggle editor-tools-dropdown-toggle"
+                data-bs-toggle="dropdown"
+                href="#"
+                role="button"
+              >
+                <FontAwesomeIcon icon={faPlusCircle} />
+                {l('Add new...')}
+              </a>
+              <ul className="dropdown-menu">
+                {addEntityItems.map((item, index) => (
+                  <li className="dropdown-item" key={index}>
+                    <a href={item.href}>
+                      {item.label()}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </span>
+          </div>
+          <button
+            aria-controls="editorToolsCollapse"
+            aria-expanded={isExpandedState ? 'true' : 'false'}
+            className="close-editor-tools-button d-sm-none"
+            data-bs-target="#editorToolsCollapse"
+            data-bs-toggle="collapse"
+            onClick={() => handleExpand(!isExpandedState)}
+            type="button"
+          >
+            <FontAwesomeIcon color="white" icon={faChevronUp} size="xl" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default (hydrate<React.PropsOf<EditorTools>>(
+  'div.editor-tools',
+  EditorTools,
+): component(...React.PropsOf<EditorTools>));

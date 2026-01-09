@@ -7,329 +7,562 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import {
+  faBluesky,
+  faDiscord,
+  faMastodon,
+  faReddit,
+} from '@fortawesome/free-brands-svg-icons';
+import {faAngleRight} from '@fortawesome/free-solid-svg-icons';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import he from 'he';
+import * as React from 'react';
 
+import {CatalystContext} from '../context.mjs';
+import Banners from '../layout/components/Banners.js';
+import Footer from '../layout/components/NewFooter.js';
+import SupportedBrowserCheck
+  from '../layout/components/SupportedBrowserCheck.js';
 import Layout from '../layout/index.js';
+import BookBrainzLogo
+  from '../static/images/meb-logos/BookBrainz_logo_mini.svg';
+import ListenBrainzLogo
+  from '../static/images/meb-logos/ListenBrainz_logo_mini.svg';
+import MetaBrainzLogo
+  from '../static/images/meb-logos/MetaBrainz_logo_mini.svg';
+import MusicBrainzLogo
+  from '../static/images/meb-logos/MusicBrainz_logo_mini.svg';
+import PicardLogo from '../static/images/meb-logos/Picard_logo_mini.svg';
 import manifest from '../static/manifest.mjs';
-import {ArtworkImage} from '../static/scripts/common/components/Artwork.js';
-import {CONTACT_URL} from '../static/scripts/common/constants.js';
-import {reduceArtistCredit}
-  from '../static/scripts/common/immutable-entities.js';
-import entityHref from '../static/scripts/common/utility/entityHref.js';
+import {l} from '../static/scripts/common/i18n.js';
+import ArtworkCarousel
+  from '../static/scripts/homepage/artwork-carousel.js';
+import BannerCarousel from '../static/scripts/homepage/banner-carousel.js';
+import EditorTools from '../static/scripts/homepage/editor-tools.js';
+import Navbar from '../static/scripts/homepage/navbar.js';
+import Search from '../static/scripts/homepage/search.js';
+import Stats, {type WeeklyStatsT}
+  from '../static/scripts/homepage/stats.js';
+import UserMenu from '../static/scripts/homepage/user-menu.js';
+
+import AuthButtons from './AuthButtons.js';
 
 type BlogEntryT = {
   +title: string,
   +url: string,
 };
 
+type CommunityPostT = {
+  +slug: string,
+  +title: string,
+};
+
 component Homepage(
   blogEntries: $ReadOnlyArray<BlogEntryT> | null,
   newestEvents: $ReadOnlyArray<EventArtT>,
+  freshEvents: $ReadOnlyArray<EventArtT>,
   newestReleases: $ReadOnlyArray<ReleaseArtT>,
+  freshReleases: $ReadOnlyArray<ReleaseArtT>,
+  communityPosts: $ReadOnlyArray<CommunityPostT> | null,
+  weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
 ) {
+  const $c = React.useContext(CatalystContext);
+  const user = $c.user;
+
+  const openSourceContainerRef = React.useRef<HTMLDivElement | null>(null);
+
   return (
     <Layout
       fullWidth
       isHomepage
       title={l('MusicBrainz - the open music encyclopedia')}
     >
-      <div id="maincontent">
-        <div id="content">
-          <h1>{l('Welcome to MusicBrainz!')}</h1>
+      <Navbar />
+      <div className="new-homepage">
+        {user ? null : <AuthButtons />}
+        {user ? <EditorTools /> : null}
+        <SupportedBrowserCheck />
+        <Banners />
+        {user ? (
+          <UserMenu
+            latestBlogPost={
+              blogEntries && blogEntries.length > 0 ? blogEntries[0] : null
+            }
+          />
+        ) : null}
+        <Search weeklyStats={weeklyStats} />
 
-          <p>
-            {l(
-              `MusicBrainz is an open music encyclopedia that collects
-               music metadata and makes it available to the public.`,
-            )}
-          </p>
-
-          <p>
-            {l('MusicBrainz aims to be:')}
-          </p>
-
-          <ol>
-            <li>
-              {exp.l(
-                `<strong>The ultimate source of music information</strong>
-                 by allowing anyone to contribute and releasing the {doc|data}
-                 under {doc2|open licenses}.`,
-                {
-                  doc: '/doc/MusicBrainz_Database',
-                  doc2: '/doc/About/Data_License',
-                },
-              )}
-            </li>
-            <li>
-              {exp.l(
-                `<strong>The universal lingua franca for music</strong>
-                 by providing a reliable and unambiguous form of
-                 {doc|music identification}, enabling both people and machines
-                 to have meaningful conversations about music.`,
-                {
-                  doc: '/doc/MusicBrainz_Identifier',
-                },
-              )}
-            </li>
-          </ol>
-
-          <p>
-            {exp.l(
-              `Like Wikipedia, MusicBrainz is maintained by a global community
-               of users and we want everyone &#x2014; including you &#x2014;
-               to {doc|participate and contribute}.`,
-              {
-                doc: '/doc/How_to_Contribute',
-              },
-            )}
-          </p>
-
-          <div className="linkbar">
-            {exp.l(
-              `{about|More Information} &#x2014; {faq|FAQs} &#x2014;
-               {contact|Contact Us}`,
-              {
-                about: '/doc/About',
-                contact: CONTACT_URL,
-                faq: '/doc/Frequently_Asked_Questions',
-              },
-            )}
-          </div>
-
-          <p>
-            {exp.l(
-              `MusicBrainz is operated by the {uri|MetaBrainz Foundation},
-               a California based 501(c)(3) tax-exempt non-profit corporation
-               dedicated to keeping MusicBrainz {free|free and open source}.`,
-              {
-                free: '/doc/About/Data_License',
-                uri: 'https://metabrainz.org',
-              },
-            )}
-          </p>
+        <div className="stats-container-wrapper">
+          <Stats weeklyStats={weeklyStats} />
         </div>
 
-        <div className="sidebar">
-          <div className="feature-column" id="blog-feed">
-            <h2>{l('MetaBrainz blog')}</h2>
 
-            {blogEntries?.length ? (
-              <>
-                <p style={{margin: '1em 0 0'}}>
-                  <strong>{l('Latest posts:')}</strong>
-                </p>
-                <ul style={{margin: '0px', paddingLeft: '20px'}}>
-                  {blogEntries.slice(0, 6).map(item => (
-                    <li key={item.url}>
-                      <a href={item.url}>{he.decode(item.title)}</a>
-                    </li>
-                  ))}
-                </ul>
-                <p style={{margin: '1em 0', textAlign: 'right'}}>
-                  <strong>
-                    <a href="http://blog.metabrainz.org">
-                      {l('Read more »')}
-                    </a>
-                  </strong>
-                </p>
-              </>
-            ) : (
-              <p style={{margin: '0px', textAlign: 'center'}}>
-                {l('The blog is currently unavailable.')}
+        <div className="artwork-container" id="releases-container">
+          <div className="artwork-container-inner layout-width">
+            <ArtworkCarousel
+              entityType="release"
+              freshReleaseArtwork={freshReleases}
+              newestReleaseArtwork={newestReleases}
+            />
+          </div>
+        </div>
+
+        <div className="info-container" id="about">
+          <div className="row g-5">
+            <div className="col-12 col-sm-8" id="about-musicbrainz-container">
+              <h2>{l('About MusicBrainz')}</h2>
+              <p className="fw-bold">
+                {l(
+                  `MusicBrainz is an open music encyclopedia that collects
+                   music metadata and makes it available to the public.`,
+                )}
               </p>
-            )}
-          </div>
-        </div>
 
-        <div className="sidebar">
-          <div>
-            <div className="feature-column" id="taggers">
-              <h2 className="taggers">
-                {lp('Tag your music', 'audio file metadata')}
-              </h2>
-              <ul>
-                <li>
-                  <a href="//picard.musicbrainz.org">
-                    {l('MusicBrainz Picard')}
-                  </a>
+              <ul className="list-unstyled">
+                <li className="d-flex align-items-start">
+                  <FontAwesomeIcon
+                    className="mt-1"
+                    icon={faAngleRight}
+                    size="sm"
+                  />
+                  {l(
+                    `The ultimate source of audio information, releasing data
+                     under open licenses and allowing anyone to contribute.`,
+                  )}
                 </li>
-                <li>
-                  <a href="/doc/AudioRanger">{l('AudioRanger')}</a>
+
+                <li className="d-flex align-items-start">
+                  <FontAwesomeIcon
+                    className="mt-1"
+                    icon={faAngleRight}
+                    size="sm"
+                  />
+                  {l(
+                    `The universal lingua franca for music, providing reliable
+                     and unambiguous forms of music identification, enabling
+                     people and machines to have meaningful conversations
+                     about music.`,
+                  )}
                 </li>
-                <li>
-                  <a href="/doc/Mp3tag">{l('Mp3tag')}</a>
+
+                <li className="d-flex align-items-start">
+                  <FontAwesomeIcon
+                    className="mt-1"
+                    icon={faAngleRight}
+                    size="sm"
+                  />
+                  {l(
+                    `Like Wikipedia, MusicBrainz is maintained by a global
+                     community of users and everyone - including you -
+                     can participate and contribute.`,
+                  )}
                 </li>
-                <li>
-                  <a href="/doc/Yate_Music_Tagger">
-                    {l('Yate Music Tagger')}
-                  </a>
+
+                <li className="d-flex align-items-start">
+                  <FontAwesomeIcon
+                    className="mt-1"
+                    icon={faAngleRight}
+                    size="sm"
+                  />
+                  {l(
+                    `MusicBrainz is operated by the MetaBrainz Foundation,
+                     a non-profit dedicated to keeping MusicBrainz free
+                     and open source.`,
+                  )}
                 </li>
               </ul>
+
+              <div className="d-flex align-items-center gap-2 flex-wrap">
+                <a
+                  className="social-pill"
+                  href="/doc/About"
+                  style={{
+                    backgroundColor: '#46433A',
+                    color: 'white !important',
+                  }}
+                >
+                  {l('Read More')}
+                </a>
+                <a
+                  className="social-pill"
+                  href="/doc/Beginners_Guide"
+                  style={{
+                    backgroundColor: '#46433A',
+                    color: 'white !important',
+                  }}
+                >
+                  {l('Beginner’s guide')}
+                </a>
+              </div>
             </div>
 
-            <div className="feature-column" id="quick-start">
-              <h2>{l('Quick start')}</h2>
-              <ul>
-                <li>
-                  <a href="/doc/Beginners_Guide">{l('Beginners guide')}</a>
-                </li>
-                <li>
+            <div
+              className="col-12 col-sm-4 d-flex flex-column gap-4"
+              id="about-news-container"
+            >
+              <div>
+                <h3>{l('Latest news')}</h3>
+                {blogEntries?.length ? (
+                  <ul className="list-unstyled">
+                    {blogEntries.slice(0, 5).map(item => (
+                      <li key={item.url}>
+                        <a href={item.url}>{he.decode(item.title)}</a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>{l('The blog is currently unavailable.')}</p>
+                )}
+
+                <div className="social-buttons">
+                  <a
+                    className="social-pill"
+                    href="https://blog.metabrainz.org"
+                    style={{color: 'white !important'}}
+                  >
+                    {l('Blog')}
+                  </a>
+                  <a href="https://bsky.app/profile/musicbrainz.org" title="Bluesky">
+                    <FontAwesomeIcon icon={faBluesky} size="lg" />
+                  </a>
+                  <a href="https://mastodon.social/@musicbrainz" title="Mastodon">
+                    <FontAwesomeIcon icon={faMastodon} size="lg" />
+                  </a>
+                  <a href="https://discord.gg/R4hBw972QA" title="Discord">
+                    <FontAwesomeIcon icon={faDiscord} size="lg" />
+                  </a>
+                  <a href="https://www.reddit.com/r/MusicBrainz/" title="Reddit">
+                    <FontAwesomeIcon icon={faReddit} size="lg" />
+                  </a>
+                </div>
+              </div>
+
+              <div>
+                <h3>{l('Community posts')}</h3>
+                {communityPosts?.length ? (
+                  <ul className="list-unstyled">
+                    {communityPosts.slice(0, 5).map(item => (
+                      <li key={item.slug}>
+                        <a href={`https://community.metabrainz.org/t/${item.slug}`}>
+                          {he.decode(item.title)}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p>{l('The community posts are currently unavailable.')}</p>
+                )}
+
+                <div className="social-buttons">
+                  <a
+                    className="social-pill"
+                    href="https://community.metabrainz.org/"
+                    style={{color: 'white !important'}}
+                  >
+                    {l('Forums')}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="artwork-container" id="events-container">
+          <div
+            className="artwork-container-inner layout-width"
+          >
+            <ArtworkCarousel
+              entityType="event"
+              freshEventArtwork={freshEvents}
+              newestEventArtwork={newestEvents}
+            />
+          </div>
+        </div>
+
+        {/* Contribute */}
+        <div className="info-container" id="contribute">
+          <div className="row g-5">
+            <div className="col-12 col-sm-6">
+              <div className="info-container-inner">
+                <h2>{l('Develop')}</h2>
+                <span className="d-flex align-items-center fw-bold">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="https://github.com/orgs/metabrainz">
+                    {l('Datasets and Live Data Feed')}
+                  </a>
+                </span>
+
+                <p className="info-text">
+                  {exp.l(
+                    `Access all our datasets and the MusicBrainz
+                     Live Data Feed by {account_link|creating an account},
+                     whether for personal or non-commercial use.`,
+                    {account_link: 'https://metabrainz.org/supporters/account-type'},
+                  )}
+                </p>
+
+                <span className="d-flex align-items-center fw-bold">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="/doc/MusicBrainz_Database">
+                    {l('Database')}
+                  </a>
+                </span>
+
+                <p className="info-text">
+                  {l('View and download the MusicBrainz Database.')}
+                </p>
+
+                <span className="d-flex align-items-center fw-bold">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="/doc/Developer_Resources">
+                    {l('Developer resources')}
+                  </a>
+                </span>
+
+                <p className="info-text">
+                  {l(
+                    `Use our XML web service or development libraries
+                     to create your own MusicBrainz-enabled applications.`,
+                  )}
+                </p>
+
+                <p className="d-flex align-items-center gap-1 flex-wrap">
+                  <span className="fw-bold">
+                    {l('See also:')}
+                  </span>
+                  <a href="/doc/About/Data_License">
+                    {l('Data license')}
+                  </a>
+                  {' | '}
+                  <a href="/doc/Frequently_Asked_Questions">
+                    {l('MetaBrainz FAQ')}
+                  </a>
+                </p>
+
+              </div>
+            </div>
+
+            <div className="col-12 col-sm-6">
+              <div className="info-container-inner">
+                <h2>{l('Contribute')}</h2>
+                <span className="d-flex align-items-center fw-bold">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="/doc/How_to_Contribute">
+                    {l('Edit the database')}
+                  </a>
+                </span>
+                <p className="info-text">
+                  {l(
+                    `Anyone can help improve our global database! Get started
+                     and improve existing data or add new artists and music.`,
+                  )}
+                </p>
+
+                <span className="d-flex align-items-center fw-bold">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="https://tickets.metabrainz.org/secure/Dashboard.jspa">
+                    {l('Bug tracker')}
+                  </a>
+                </span>
+                <p className="info-text">
+                  {l(
+                    `Developers, view and pick up issues in our
+                     bug tracker, and join us in the developer chat.`,
+                  )}
+                </p>
+
+                <span className="d-flex align-items-center fw-bold">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="/doc/Communication/ChatBrainz">
+                    {l('Join the community')}
+                  </a>
+                </span>
+                <p className="info-text">
+                  {l(
+                    `Talk to other database editors and music fans
+                     on our forums or our live chat via IRC,
+                     Matrix and Discord.`,
+                  )}
+                </p>
+
+                <p className="d-flex align-items-center gap-1 flex-wrap">
+                  <span className="fw-bold">
+                    {l('See also:')}
+                  </span>
+                  <a href="/doc/Beginners_Guide">
+                  {l('Beginner’s guide')}
+                  </a>
+                  {' | '}
                   <a href="/doc/How_Editing_Works">
                     {l('Editing introduction')}
                   </a>
-                </li>
-                <li>
-                  <a href="/doc/Style">{l('Style guidelines')}</a>
-                </li>
-                <li>
-                  <a href="/doc/Frequently_Asked_Questions">{l('FAQs')}</a>
-                </li>
-                <li>
+                  {' | '}
+                  <a href="/doc/Style">
+                    {l('Style guidelines')}
+                  </a>
+                  {' | '}
+                  <a href="/doc/Frequently_Asked_Questions">
+                    {l('MusicBrainz FAQs')}
+                  </a>
+                  {' | '}
                   <a href="/doc/How_to_Add_an_Artist">
                     {l('How to add artists')}
                   </a>
-                </li>
-                <li>
+                  {' | '}
                   <a href="/doc/How_to_Add_a_Release">
                     {l('How to add releases')}
                   </a>
-                </li>
-              </ul>
+                </p>
+
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div id="triple">
-        <div className="feature-column" id="community">
-          <h2 className="community">{l('Community')}</h2>
-          <ul>
-            <li>
-              <a href="/doc/How_to_Contribute">{l('How to contribute')}</a>
-            </li>
-            <li>
-              <a href="https://tickets.metabrainz.org/">{l('Bug tracker')}</a>
-            </li>
-            <li>
-              <a href="https://community.metabrainz.org/">{l('Forums')}</a>
-            </li>
-          </ul>
-        </div>
-
-        <div className="feature-column" id="products">
-          <h2 className="products">{l('MusicBrainz Database')}</h2>
-          <p>
-            <a href="/doc/MusicBrainz_Database">
-              {exp.l(
-                `The majority of the data in the
-                 <strong>MusicBrainz Database</strong> is released into
-                 the <strong>Public Domain</strong> and can be
-                 downloaded and used <strong>for free</strong>.`,
-              )}
-            </a>
-          </p>
-        </div>
-
-        <div className="feature-column" id="developers">
-          <h2 className="developers">{l('Developers')}</h2>
-          <p>
-            <a href="/doc/Developer_Resources">
-              {exp.l(
-                `Use our <strong>XML web service</strong> or
-                 <strong>development libraries</strong> to create
-                 your own MusicBrainz-enabled applications.`,
-              )}
-            </a>
-          </p>
-        </div>
-      </div>
-
-      <div
-        className="feature-column"
-        style={{clear: 'both', paddingTop: '1%'}}
-      >
-        <h2>{l('Recently added releases')}</h2>
-        <div style={{height: '160px', overflow: 'hidden'}}>
-          {newestReleases.map((artwork, index) => (
-            <ReleaseArtwork
-              artwork={artwork}
-              key={index}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div
-        className="feature-column"
-        style={{clear: 'both', paddingTop: '1%'}}
-      >
-        <h2>{l('Recently added events')}</h2>
-        <div style={{height: '160px', overflow: 'hidden'}}>
-          {newestEvents.map((artwork, index) => (
-            <EventArtwork
-              artwork={artwork}
-              key={index}
-            />
-          ))}
-        </div>
-      </div>
-
-      {manifest('common/loadArtwork', {async: true})}
-    </Layout>
-  );
-}
-
-component Artwork(
-  artwork: ArtworkT,
-  description: string,
-  entity: EventT | ReleaseT,
-) {
-  return (
-    <div className="artwork-cont" style={{textAlign: 'center'}}>
-      <div className="artwork">
-        <a
-          href={entityHref(entity)}
-          title={description}
+        {/* Open source */}
+        <div
+          className="info-container"
+          id="open-source"
+          ref={openSourceContainerRef}
         >
-          <ArtworkImage
-            artwork={artwork}
-            hover={description}
-          />
-        </a>
+          <div className="row g-5">
+            <div className="col-12 col-sm-6 col-md-4">
+              <div className="info-container-inner">
+                <h2>{l('Open source')}</h2>
+                <p>
+                  {exp.l(
+                    `"Open source is source code that is made freely available
+                     for possible modification and redistribution..."
+                     - {wikipedia_link|Wikipedia}`,
+                    {wikipedia_link: 'https://en.wikipedia.org/wiki/Open_source'},
+                  )}
+                </p>
+                <p>
+                  {l(
+                    `The MusicBrainz database is all open source.
+                     This means that anyone can view the code,
+                     contribute improvements and new features,
+                     and copy and modify it for their own use.`,
+                  )}
+                </p>
+                <p>
+                  {l(
+                    `Thousands of wonderful people contribute code
+                     or data to MusicBrainz and its sister projects
+                     for no monetary return and for everyone's benefit.`,
+                  )}
+                </p>
+
+                <span className="d-flex align-items-center">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="https://github.com/orgs/metabrainz">
+                    {l('GitHub repositories')}
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div className="col-12 col-sm-6 col-md-4">
+              <div className="info-container-inner">
+                <h2>{l('Data provider')}</h2>
+                <p>
+                  {exp.l(
+                    `The MetaBrainz core mission is to curate and
+                    maintain public datasets that anyone can download
+                    and use. Some of the world's biggest platforms,
+                    such as Google and Amazon, use our data, as well as
+                    small-scale developers and curious individuals.
+                    We ask {commercial_users_link|commercial users}
+                    to support us. Personal use of our datasets will
+                    always be free.`,
+                    {commercial_users_link: 'https://metabrainz.org/supporters'},
+                  )}
+                </p>
+                <p>
+                  {l(
+                    `Our datasets include the MusicBrainz PostgreSQL and
+                    JSON Data Dumps. Our datasets are AI Ready, perfect for
+                    training large language models for music-based tasks.`,
+                  )}
+                </p>
+
+                <span className="d-flex align-items-center">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="https://metabrainz.org/datasets">
+                    {l('MetaBrainz datasets')}
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <div className="col-12 col-sm-6 col-md-4">
+              <div className="info-container-inner">
+                <h2>{l('Ethical forever')}</h2>
+                <p>
+                  {l(
+                    `The MetaBrainz Foundation is a registered non-profit,
+                    making it impossible for us to be bought or traded.`,
+                  )}
+                </p>
+                <p>
+                  {exp.l(
+                    `Our team and volunteer contributers from across the globe
+                     are proud to consider MusicBrainz and it's sister sites
+                     {enshittification_link|enshittification},
+                     -proof projects, immune to the the crapifying that
+                     takes place when business interests inevitably subsume
+                     and monetize projects that initially focused on
+                     high-quality offerings to attract users.`,
+                    {enshittification_link: 'https://en.wikipedia.org/wiki/Enshittification'},
+                  )}
+                </p>
+
+                <span className="d-flex align-items-center">
+                  <FontAwesomeIcon icon={faAngleRight} size="sm" />
+                  <a href="https://metabrainz.org">
+                    {l('MetaBrainz Foundation')}
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Logo container */}
+        <div className="logo-container layout-width">
+          <a href="https://metabrainz.org">
+            <img alt="MetaBrainz" src={MetaBrainzLogo} />
+          </a>
+          <a href="https://musicbrainz.org">
+            <img alt="MusicBrainz" src={MusicBrainzLogo} />
+          </a>
+          <a href="https://picard.musicbrainz.org">
+            <img alt="Picard" src={PicardLogo} />
+          </a>
+          <a href="https://listenbrainz.org">
+            <img alt="ListenBrainz" src={ListenBrainzLogo} />
+          </a>
+          <a href="https://bookbrainz.org">
+            <img alt="BookBrainz" src={BookBrainzLogo} />
+          </a>
+        </div>
+
+        <BannerCarousel />
+
+        <Footer />
       </div>
-    </div>
-  );
-}
 
-component EventArtwork(artwork: EventArtT) {
-  const event = artwork.event;
-  if (!event) {
-    return null;
-  }
-  return (
-    <Artwork
-      artwork={artwork}
-      description={event.name}
-      entity={event}
-    />
-  );
-}
-
-component ReleaseArtwork(artwork: ReleaseArtT) {
-  const release = artwork.release;
-  if (!release) {
-    return null;
-  }
-  const releaseDescription = texp.l('{entity} by {artist}', {
-    artist: reduceArtistCredit(release.artistCredit),
-    entity: release.name,
-  });
-  return (
-    <Artwork
-      artwork={artwork}
-      description={releaseDescription}
-      entity={release}
-    />
+      {manifest('bootstrap', {async: true})}
+      {manifest('homepage/navbar', {async: true})}
+      {manifest('homepage/editor-tools', {async: true})}
+      {manifest('homepage/user-menu', {async: true})}
+      {manifest('homepage/search', {async: true})}
+      {manifest('homepage/banner-carousel', {async: true})}
+      {manifest('homepage/stats', {async: true})}
+      {manifest('common/loadArtwork', {async: true})}
+      {manifest('homepage/artwork-carousel', {async: true})}
+      {manifest('common/banner', {async: true})}
+    </Layout>
   );
 }
 

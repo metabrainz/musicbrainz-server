@@ -47,11 +47,6 @@
       value: '',
     },
     {
-      command: 'click',
-      target: 'css=span.menu-header',
-      value: '',
-    },
-    {
       command: 'clickAndWait',
       target: 'link=Log out',
       value: '',

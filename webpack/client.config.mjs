@@ -91,6 +91,13 @@ const entries = [
   'event/index',
   'genre/components/GenreEditForm',
   'genre/index',
+  'homepage/banner-carousel',
+  'homepage/navbar',
+  'homepage/search',
+  'homepage/stats',
+  'homepage/user-menu',
+  'homepage/editor-tools',
+  'homepage/artwork-carousel',
   'instrument/edit',
   'instrument/index',
   'label/edit',
@@ -136,6 +143,11 @@ const entries = [
 entries['whatwg-fetch'] = path.resolve(
   MB_SERVER_ROOT,
   'node_modules/whatwg-fetch/fetch.js',
+);
+
+entries.bootstrap = path.resolve(
+  MB_SERVER_ROOT,
+  'node_modules/bootstrap/dist/js/bootstrap.bundle.js',
 );
 
 function langToPosix(lang) {

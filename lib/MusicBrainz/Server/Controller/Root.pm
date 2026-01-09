@@ -64,16 +64,23 @@ sub index : Path Args(0)
     my ($self, $c) = @_;
 
     my @newest_events = $c->model('Event')->newest_events_with_artwork;
+    my @fresh_events = $c->model('Event')->fresh_events_with_artwork;
     my @newest_releases = $c->model('Release')->newest_releases_with_artwork;
-    $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases);
+    my @fresh_releases = $c->model('Release')->fresh_releases_with_artwork;
+    $c->model('ArtistCredit')->load(map { $_->{release} } @newest_releases, @fresh_releases);
+    my $weekly_stats = $c->model('Statistics')->get_weekly_stats_for_homepage;
 
     $c->stash(
         current_view => 'Node',
         component_path => 'main/index',
         component_props => {
             blogEntries => $c->model('Blog')->get_latest_entries,
+            communityPosts => $c->model('Community')->get_latest_posts,
             newestEvents => to_json_array(\@newest_events),
+            freshEvents => to_json_array(\@fresh_events),
             newestReleases => to_json_array(\@newest_releases),
+            freshReleases => to_json_array(\@fresh_releases),
+            weeklyStats => $weekly_stats,
         },
     );
 }

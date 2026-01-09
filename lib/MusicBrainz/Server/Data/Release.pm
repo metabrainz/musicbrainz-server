@@ -1611,7 +1611,41 @@ sub newest_releases_with_artwork {
         AND edit.type = ?
         AND cover_art.date_uploaded < NOW() - INTERVAL '10 minutes'
       ORDER BY edit.id DESC
-      LIMIT 10);
+      LIMIT 50);
+
+    my $FRONT = 1;
+    $self->query_to_list($query, [$FRONT, $EDIT_RELEASE_CREATE], sub {
+        my ($model, $row) = @_;
+
+        my $release = $model->_new_from_row($row);
+        my $caa_id = $row->{cover_art_id};
+
+        ReleaseArt->new(
+            id => $caa_id,
+            release => $release,
+            suffix => 'spoof',
+        );
+    });
+}
+
+sub fresh_releases_with_artwork {
+    my $self = shift;
+    my $query = '
+      SELECT edit.id, ' . $self->_columns . ',
+        cover_art.id AS cover_art_id
+      FROM ' . $self->_table . q(
+      JOIN cover_art_archive.cover_art ON (cover_art.release = release.id)
+      JOIN cover_art_archive.cover_art_type
+        ON (cover_art.id = cover_art_type.id)
+      JOIN edit_release ON edit_release.release = release.id
+      JOIN edit ON edit.id = edit_release.edit
+      JOIN release_event ON release_event.release = release.id
+      WHERE cover_art_type.type_id = ?
+        AND cover_art.ordering = 1
+        AND edit.type = ?
+        AND cover_art.date_uploaded < NOW() - INTERVAL '10 minutes'
+      ORDER BY date_year DESC NULLS LAST, date_month DESC NULLS LAST, date_day DESC NULLS LAST, edit.id DESC
+      LIMIT 50);
 
     my $FRONT = 1;
     $self->query_to_list($query, [$FRONT, $EDIT_RELEASE_CREATE], sub {
