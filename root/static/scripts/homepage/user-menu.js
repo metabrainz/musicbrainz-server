@@ -7,6 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import he from 'he';
 import * as React from 'react';
 
 import {SanitizedCatalystContext} from '../../../context.mjs';
@@ -64,7 +65,7 @@ component UserMenu(
               <div className="user-menu-column">
                 <span>{l('Latest blog post:')}</span>
                 <a href={latestBlogPost.url}>
-                  {latestBlogPost.title}
+                  {he.decode(latestBlogPost.title)}
                 </a>
               </div>
             )}
