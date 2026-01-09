@@ -19,7 +19,10 @@ import he from 'he';
 import * as React from 'react';
 
 import {CatalystContext} from '../context.mjs';
+import Banners from '../layout/components/Banners.js';
 import Footer from '../layout/components/NewFooter.js';
+import SupportedBrowserCheck
+  from '../layout/components/SupportedBrowserCheck.js';
 import Layout from '../layout/index.js';
 import BookBrainzLogo
   from '../static/images/meb-logos/BookBrainz_logo_mini.svg';
@@ -78,6 +81,8 @@ component Homepage(
       <div className="new-homepage">
         {user ? null : <AuthButtons />}
         {user ? <EditorTools /> : null}
+        <SupportedBrowserCheck />
+        <Banners />
         {user ? (
           <UserMenu
             latestBlogPost={
@@ -556,6 +561,7 @@ component Homepage(
       {manifest('homepage/stats', {async: true})}
       {manifest('common/loadArtwork', {async: true})}
       {manifest('homepage/artwork-carousel', {async: true})}
+      {manifest('common/banner', {async: true})}
     </Layout>
   );
 }

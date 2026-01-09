@@ -11,6 +11,43 @@
 
 	.new-homepage {
 		margin-top: @navbar-height;
+
+		.banner {
+			margin: 0 auto;
+			border: none;
+			background: white;
+			max-width: 976px;
+			padding: 16px 40px;
+			word-wrap: break-word;
+			display: flex;
+			justify-content: center;
+
+			@media (max-width: 991px) {
+				padding-top: 54px;
+			}
+
+			@media (max-width: 576px) {
+				padding: 60px 20px 16px 20px;
+			}
+
+			p {
+				margin: 0;
+				margin-right: 10px; // Space for dismiss button
+				word-wrap: break-word;
+				overflow-wrap: break-word;
+			}
+
+			.dismiss-banner {
+				position: static;
+			}
+
+			&.server-details {
+				color: #464547;
+				p {
+					font-weight: 700;
+				}
+			}
+		}
 	}
 
 	.layout-width {
@@ -409,6 +446,7 @@
 				display: flex;
 				align-items: center;
 				gap: 10px;
+				z-index: 10;
 
 				&::after {
 					display: none;
@@ -1662,10 +1700,6 @@
 	min-width: 0;
 
 	.header {
-		display: none;
-	}
-
-	.banner {
 		display: none;
 	}
 }
