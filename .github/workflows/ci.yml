@@ -2,8 +2,10 @@ name: CI
 
 on:
   push:
-    branches-ignore:
-      - translations
+    branches:
+      - master
+      - beta
+      - production
   pull_request:
     branches-ignore:
       - translations
