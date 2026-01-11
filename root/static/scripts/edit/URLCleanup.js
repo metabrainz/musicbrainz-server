@@ -4520,7 +4520,8 @@ export const CLEANUPS: CleanupEntries = {
       if (packagePattern.test(url)) {
         return url.replace(packagePattern, 'https://mora.jp/package/$1/$2/');
       }
-      // Only known and accepted link types are cleaned as different link types on the site use various query parameters for identifying resources.
+      // Mora links use various query parameters for identifying resources,
+      // for simplicity sake only known and accepted link types are cleaned.
       return url;
     },
     validate(url, id) {
@@ -4542,7 +4543,7 @@ export const CLEANUPS: CleanupEntries = {
           };
       }
       return {result: false, target: ERROR_TARGETS.ENTITY};
-    }
+    },
   },
   'musicapopularcl': {
     hostname: 'musicapopular.cl',
