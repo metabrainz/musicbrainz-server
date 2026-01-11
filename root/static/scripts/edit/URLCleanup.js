@@ -4520,8 +4520,10 @@ export const CLEANUPS: CleanupEntries = {
       if (packagePattern.test(url)) {
         return url.replace(packagePattern, 'https://mora.jp/package/$1/$2/');
       }
-      // Mora links use various query parameters for identifying resources,
-      // for simplicity sake only known and accepted link types are cleaned.
+      /**
+       * Mora links use various query parameters for identifying resources,
+       * for simplicity sake only known and accepted link types are cleaned.
+       */
       return url;
     },
     validate(url, id) {
