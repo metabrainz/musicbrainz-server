@@ -146,6 +146,7 @@ my %URL_SPECIALIZATIONS = (
     'MVDbase'             => qr{^https?://(?:www\.)?mvdbase\.com/}i,
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
     'Napster'             => qr{^https?://[\w-]{2}\.napster\.com/}i,
+    'NaverVibe'           => qr{^https?://vibe\.naver\.com/}i,
     'NDL'                 => qr{^https?://(?:www\.)?iss\.ndl\.go\.jp/}i,
     'NDLAuthorities'      => qr{^https?://id\.ndl\.go\.jp/}i,
     'NicoNicoVideo'       => qr{^https?://(?:www\.)?nicovideo\.jp/}i,
