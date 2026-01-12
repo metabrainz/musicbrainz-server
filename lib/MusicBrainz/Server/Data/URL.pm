@@ -105,7 +105,6 @@ my %URL_SPECIALIZATIONS = (
     'iTunes'              => qr{^https?://itunes\.apple\.com/}i,
     'Jamendo'             => qr{^https?://(?:www\.)?jamendo\.com/}i,
     'Japameta'            => qr{^https?://(?:www\.)?japanesemetal\.gooside\.com/}i,
-    'Jaxsta'              => qr{^https?://(?:www\.)?jaxsta\.(?:com|io)/}i,
     'JazzMusicArchives'   => qr{^https?://(?:www\.)?jazzmusicarchives\.com/}i,
     'JLyric'              => qr{^https?://(?:www\.)?j-lyric\.net/}i,
     'Joysound'            => qr{^https?://(?:www\.)?joysound\.com/}i,

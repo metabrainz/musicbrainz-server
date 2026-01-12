@@ -3560,69 +3560,11 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  // Jaxsta is gone, this is minimal support for ended links
   'jaxsta': {
     hostname: ['jaxsta.com', 'jaxsta.io'],
     match: [/^(https?:\/\/)?(www\.)?jaxsta\.(com|io)/i],
-    restrict: [
-      LINK_TYPES.otherdatabases,
-      {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
-    ],
-    select(url, sourceType) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (prefix) {
-          case 'work':
-            if (sourceType === 'work') {
-              return LINK_TYPES.otherdatabases.work;
-            }
-            break;
-        }
-      }
-      return false;
-    },
-    clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.(?:com|io)\/([^#?]+).*$/, 'https://jaxsta.com/$1');
-      url = url.replace(/^https:\/\/jaxsta\.com\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.com/$1/$2$3');
-      return url;
-    },
-    validate(url, id) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
-      if (m) {
-        const type = m[1];
-        const hasVariant = Boolean(m[2]);
-        switch (id) {
-          case LINK_TYPES.otherdatabases.artist:
-            return {
-              result: type === 'profile',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.label:
-            return {
-              result: type === 'profile',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.recording:
-            return {
-              result: type === 'recording',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.release:
-            return {
-              result: type === 'release' && hasVariant,
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-          case LINK_TYPES.otherdatabases.work:
-            return {
-              result: type === 'work',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.ENTITY};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
+    restrict: [LINK_TYPES.otherdatabases],
   },
   'jazzmusicarchives': {
     hostname: 'jazzmusicarchives.com',
