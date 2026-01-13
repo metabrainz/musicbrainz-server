@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-16 20:21+0000\n"
+"PO-Revision-Date: 2025-12-25 19:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2571,6 +2571,8 @@ msgid ""
 "This indicates that a work contains another, pre-existing work (such as a "
 "pop song being used in a soundtrack or a jukebox musical)."
 msgstr ""
+"Indica che un'opera contiene un'altra opera pre-esistente (come una canzone "
+"pop che viene utilizzata in una colonna sonora o in un musical jukebox)."
 
 #. name:parts
 #: DB:link_type/description:281
@@ -2903,14 +2905,12 @@ msgstr ""
 
 #. name:choreographer
 #: DB:link_type/description:1299
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the choreographer for this work (often a "
 "ballet)."
 msgstr ""
-"Indica che l'artista è stato il coreografo per questa registrazione video."
+"Indica che l'artista è stato il coreografo per quest'opera (spesso un "
+"balletto)."
 
 #. name:cinematographer
 #: DB:link_type/description:1245
@@ -3258,10 +3258,8 @@ msgstr ""
 
 #. name:named after series
 #: DB:link_type/description:1298
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the series that inspired this series’ name."
-msgstr "Indica l'artista che ha ispirato il nome di questo genere."
+msgstr "Indica la serie che ha ispirato il nome di questa serie."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -8087,10 +8085,8 @@ msgstr "compresa in"
 
 #. name:included works
 #: DB:link_type/name:1300 DB:link_type/link_phrase:1300
-#, fuzzy
-#| msgid "includes"
 msgid "included works"
-msgstr "comprende"
+msgstr "opere comprese"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -8356,10 +8352,8 @@ msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after series
 #: DB:link_type/long_link_phrase:1298
-#, fuzzy
-#| msgid "is named after artist"
 msgid "is named after series"
-msgstr "prende il nome dall'artista"
+msgstr "prende il nome dalla serie"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
@@ -9104,10 +9098,8 @@ msgstr "prende il nome dal gruppo di pubblicazioni"
 
 #. name:named after series
 #: DB:link_type/name:1298 DB:link_type/link_phrase:1298
-#, fuzzy
-#| msgid "named after artist"
 msgid "named after series"
-msgstr "prende il nome dall'artista"
+msgstr "prende il nome dalla serie"
 
 #. name:named after work
 #: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
@@ -12094,10 +12086,8 @@ msgstr "{entity1} ha la sede principale a {entity0}"
 
 #. name:included works
 #: DB:link_type/long_link_phrase:1300
-#, fuzzy
-#| msgid "{entity1} was printed in {entity0}"
 msgid "{entity1} is included in {entity0}"
-msgstr "{entity1} è stata stampata a {entity0}"
+msgstr "{entity1} è compresa in {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939
