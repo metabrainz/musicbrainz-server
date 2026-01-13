@@ -27,6 +27,7 @@ my %URL_SPECIALIZATIONS = (
     'AmazonMusic'         => qr{^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|se|sg|com\.tr|co\.uk)/}i,
     'Anghami'             => qr{^https?://([^/]+\.)?anghami\.com/}i,
     'AniDB'               => qr{^https?://(?:www\.)?anidb\.net/}i,
+    'AniList'             => qr{^https?://(?:www\.)?anilist\.co/}i,
     'AnimeNewsNetwork'    => qr{^https?://(?:www\.)?animenewsnetwork\.com/}i,
     'AnisonGeneration'    => qr{^https?://anison\.info/}i,
     'AppleBooks'          => qr{^https?://books\.apple\.com/}i,

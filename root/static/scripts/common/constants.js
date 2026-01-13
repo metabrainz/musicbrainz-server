@@ -83,6 +83,7 @@ export const FAVICON_CLASSES: {
   'allmusic.com': 'allmusic',
   'anghami.com': 'anghami',
   'anidb.net': 'anidb',
+  'anilist.co': 'anilist',
   'animenewsnetwork.com': 'animenewsnetwork',
   'anison.info': 'anisongeneration',
   'archive.org': 'archive',
