@@ -188,6 +188,7 @@ export const FAVICON_CLASSES: {
   'musopen.org': 'musopen',
   'muziekweb.nl': 'muziekweb',
   'muzikum.eu': 'muzikum',
+  'myanimelist.net': 'myanimelist',
   'myspace.com': 'myspace',
   'napster.com': 'napster',
   'nicovideo.jp': 'niconicovideo',

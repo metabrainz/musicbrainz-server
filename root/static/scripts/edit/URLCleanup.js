@@ -4618,6 +4618,34 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'myanimelist': {
+    hostname: 'myanimelist.net',
+    match: [/^(?:https?:\/\/)?(?:www\.)?myanimelist\.net/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?myanimelist\.net\/(people|character|anime\/producer)\/(\d+).*$/, 'https://myanimelist.net/$1/$2');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/myanimelist\.net\/(people|character|anime\/producer)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'people' || prefix === 'character',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'anime/producer',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'myspace': {
     hostname: ['myspace.com', 'myspace.de', 'myspace.fr'],
     match: [/^(https?:\/\/)?([^/]+\.)?myspace\.(com|de|fr)/i],

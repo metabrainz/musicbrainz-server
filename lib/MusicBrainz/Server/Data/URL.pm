@@ -143,6 +143,7 @@ my %URL_SPECIALIZATIONS = (
     'Muziekweb'           => qr{^https?://www\.muziekweb\.nl/}i,
     'Muzikum'             => qr{^https?://(?:www\.)?muzikum\.eu/}i,
     'MVDbase'             => qr{^https?://(?:www\.)?mvdbase\.com/}i,
+    'MyAnimeList'         => qr{^https?://(?:www\.)?myanimelist\.net/}i,
     'MySpace'             => qr{^https?://(?:www\.)?myspace\.com/}i,
     'Napster'             => qr{^https?://[\w-]{2}\.napster\.com/}i,
     'NaverVibe'           => qr{^https?://vibe\.naver\.com/}i,
