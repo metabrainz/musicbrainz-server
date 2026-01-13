@@ -13,20 +13,21 @@
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # MoeCaa <qytc233@gmail.com>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025.
+# imgradeone <imgradeone@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-28 07:20+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2026-01-07 19:11+0000\n"
+"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/"
-">\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
+"\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2254,7 +2255,7 @@ msgstr ""
 msgid ""
 "This indicates that a work contains another, pre-existing work (such as a "
 "pop song being used in a soundtrack or a jukebox musical)."
-msgstr ""
+msgstr "这表明作品中包含另一个现存作品（例如流行歌曲被用于原声音乐或点唱机音乐剧）。"
 
 #. name:parts
 #: DB:link_type/description:281
@@ -2538,13 +2539,10 @@ msgstr "指某位艺术家是这个视频录制的编舞。"
 
 #. name:choreographer
 #: DB:link_type/description:1299
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the choreographer for this work (often a "
 "ballet)."
-msgstr "指某位艺术家是这个视频录制的编舞。"
+msgstr "指某位艺术家是这个作品（通常是芭蕾舞）的编舞。"
 
 #. name:cinematographer
 #: DB:link_type/description:1245
@@ -2847,10 +2845,8 @@ msgstr "指与该发行版本相关的权利协会。权利协会是一个代表
 
 #. name:named after series
 #: DB:link_type/description:1298
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the series that inspired this series’ name."
-msgstr "指某位艺术家启发了这个流派的名称。"
+msgstr "指某个系列启发了这个系列的名称。"
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -3937,7 +3933,7 @@ msgstr "将一个艺术家与其粉丝创建的网站相关联。"
 msgid ""
 "This links an artist to a site where the artist can receive donations/"
 "patronage, such as Flattr or PayPal.me."
-msgstr ""
+msgstr "将一个艺术家与其用于接收捐赠/赞助的网站（例如Flattr、PayPal.me）相关联。"
 
 #. name:ticketing
 #: DB:link_type/description:1193
@@ -3955,7 +3951,7 @@ msgstr ""
 #. name:biography
 #: DB:link_type/description:182
 msgid "This links an artist to an online biography for that artist."
-msgstr ""
+msgstr "将一个艺术家与该艺术家的在线传记相关联。"
 
 #. name:discography page
 #: DB:link_type/description:184
@@ -3973,7 +3969,7 @@ msgstr "此链接为艺人的 YouTube Music 频道"
 #. name:apple music
 #: DB:link_type/description:1131
 msgid "This links an artist to its page at Apple Music."
-msgstr ""
+msgstr "此链接为艺术家的 Apple Music 页面。"
 
 #. name:bandcamp
 #: DB:link_type/description:718
