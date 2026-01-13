@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 14:04+0100\n"
-"PO-Revision-Date: 2025-06-23 06:20+0000\n"
+"PO-Revision-Date: 2025-12-25 19:11+0000\n"
 "Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ka/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3645,8 +3645,6 @@ msgid "match"
 msgstr "ემთხვევა"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "match"
 msgid "matches"
 msgstr "ემთხვევა"
 
@@ -8405,10 +8403,8 @@ msgid "We are unable to display history for this image."
 msgstr ""
 
 #: ../root/edit/components/EditEnteredFrom.js:25
-#, fuzzy
-#| msgid "Entered"
 msgid "Entered from"
-msgstr "შეყვანილია"
+msgstr "შეყვანილია სადან"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -15914,8 +15910,6 @@ msgid "No cover art available."
 msgstr ""
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
-#, fuzzy
-#| msgid "Types"
 msgctxt "cover art"
 msgid "Types"
 msgstr "ტიპები"

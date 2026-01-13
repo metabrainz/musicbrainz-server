@@ -19,7 +19,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-16 20:20+0000\n"
+"PO-Revision-Date: 2025-12-25 19:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -525,9 +525,6 @@ msgid "bansuri"
 msgstr "bansuri"
 
 #: DB:instrument/name:819
-#, fuzzy
-#| msgctxt "ancient asian/persian lute"
-#| msgid "barbat"
 msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "barbat"
@@ -2478,8 +2475,6 @@ msgid "kotsuzumi"
 msgstr "kotsuzumi"
 
 #: DB:instrument/name:652
-#, fuzzy
-#| msgid "krakebs"
 msgctxt "Gnawa iron clapper"
 msgid "krakeb"
 msgstr "qraqeb"
@@ -3383,8 +3378,6 @@ msgid "rototom"
 msgstr "rototom"
 
 #: DB:instrument/name:545
-#, fuzzy
-#| msgid "ruan"
 msgctxt "Chinese plucked lute family"
 msgid "ruan"
 msgstr "ruan"
@@ -3889,8 +3882,6 @@ msgid "t'rưng"
 msgstr "t'rưng"
 
 #: DB:instrument/name:185
-#, fuzzy
-#| msgid "tabla"
 msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "tabla"
@@ -4661,8 +4652,6 @@ msgid "zarb"
 msgstr "zarb"
 
 #: DB:instrument/name:692
-#, fuzzy
-#| msgid "zhaleika"
 msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
 msgstr "žalejka"
@@ -4673,8 +4662,6 @@ msgid "zhonghu"
 msgstr "zhonghu"
 
 #: DB:instrument/name:241
-#, fuzzy
-#| msgid "zhongruan"
 msgctxt "Tenor ruan"
 msgid "zhongruan"
 msgstr "zhongruan"

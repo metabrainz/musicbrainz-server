@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-16 20:20+0000\n"
+"PO-Revision-Date: 2025-12-26 00:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1145,6 +1145,9 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"È composta da due tamburi: il più grande, chiamato <em>baya</em> o <em>"
+"dagga</em>, per il basso e il più piccolo, chiamato <em>daya</em> o <em>"
+"tabla</em>, per il ritmo e la \"melodia\"."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -1668,8 +1671,6 @@ msgstr ""
 
 #. name:ruan
 #: DB:instrument/description:545
-#, fuzzy
-#| msgid "Ruan is a family of Chinese plucked lutes."
 msgid "Family of Chinese plucked lutes."
 msgstr "Famiglia di liuti cinesi a corda pizzicata."
 
@@ -3405,7 +3406,7 @@ msgstr ""
 #. name:bajo sexto
 #: DB:instrument/description:728
 msgid "Mexican 6 course 12 string bass"
-msgstr ""
+msgstr "Basso messicano a 6 ordini e 12 corde"
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -4904,6 +4905,10 @@ msgid ""
 "pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
+"Bastoncini in metallo solido (spesso alluminio) appesi a una sbarra e "
+"impostati su un tono inarmonico. <br /> Da non confondere con le <a href=\"/"
+"instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar</a> a sé stanti, "
+"simili al glockenspiel."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -5021,10 +5026,8 @@ msgstr ""
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
-msgstr "Membro basso della famiglia di liuti cinesi ruan."
+msgstr "Membro tenore della famiglia di liuti cinesi ruan."
 
 #. name:primero
 #: DB:instrument/description:758
@@ -7101,6 +7104,8 @@ msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
 msgstr ""
+"Usate nella musica gnawa, sono composte da due grandi forme in ferro con "
+"scodelle rotonde, legate insieme."
 
 #. name:pakhawaj
 #: DB:instrument/description:502
