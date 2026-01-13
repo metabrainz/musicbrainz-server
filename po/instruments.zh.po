@@ -10,13 +10,13 @@
 # MoeCaa <qytc233@gmail.com>, 2025.
 # sut <xepinchan@qq.com>, 2025.
 # Beteix <1158817754@qq.com>, 2025.
-# KenParker_CN <kenparkercn@gmail.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Avava_Ava <2245176012haha@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-18 06:20+0000\n"
-"Last-Translator: Avava_Ava <2245176012haha@gmail.com>\n"
+"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hans/>\n"
 "Language: zh\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -519,9 +519,6 @@ msgid "bansuri"
 msgstr "班苏里竹笛"
 
 #: DB:instrument/name:819
-#, fuzzy
-#| msgctxt "ancient asian/persian lute"
-#| msgid "barbat"
 msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "巴尔巴特琴"
@@ -2472,11 +2469,9 @@ msgid "kotsuzumi"
 msgstr "日本小鼓"
 
 #: DB:instrument/name:652
-#, fuzzy
-#| msgid "krakebs"
 msgctxt "Gnawa iron clapper"
 msgid "krakeb"
-msgstr "克拉凯布"
+msgstr "krakeb"
 
 #: DB:instrument/name:949
 msgctxt "Group of thai concussion idiophones"

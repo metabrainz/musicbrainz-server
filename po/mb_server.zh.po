@@ -26,15 +26,15 @@
 # Beteix <1158817754@qq.com>, 2025.
 # 奶油糖派 <3310056144@qq.com>, 2025.
 # Ljcbaby <i@ljcbaby.top>, 2025.
-# KenParker_CN <kenparkercn@gmail.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Poesty Li <poesty7450@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 14:04+0100\n"
-"PO-Revision-Date: 2026-01-07 19:11+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -2533,11 +2533,9 @@ msgstr "交换艺术家名单与音轨标题"
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
 #: ../root/utility/tableColumns.js:793
-#, fuzzy
-#| msgid "Tagger"
 msgctxt "audio file metadata"
 msgid "Tagger"
-msgstr "分类器"
+msgstr "标签器"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
 msgid ""
@@ -3169,6 +3167,8 @@ msgid ""
 "This medium seems to have featured artists in the track titles. These should "
 "usually be {featured_style|entered as part of the track artist}."
 msgstr ""
+"这个载体似乎在曲目标题中标注了特邀艺术家。通常应将其 {featured_style|作为曲目"
+"艺术家的一部分录入}。"
 
 #: ../root/place/edit_form.tt:34
 msgid "This place has ended."
@@ -3200,6 +3200,8 @@ msgid ""
 "This should never be correct. Make sure that, say, your release set to CD "
 "isn’t meant to be a vinyl, or your vinyl isn’t actually a shellac disc."
 msgstr ""
+"这种情况绝不应出现。请确保，例如，你标记为 CD 的发行实际上不是黑胶，或者你的"
+"黑胶实际上也不是老式唱片（shellac）。"
 
 #: ../root/components/common-macros.tt:436
 #: ../root/static/scripts/common/components/DataTrackIcon.js:14
@@ -3233,6 +3235,8 @@ msgid ""
 "To enter a new tracklist, use an existing medium or import a disc from a CD "
 "stub, select the appropriate tab."
 msgstr ""
+"要录入新的曲目列表，请使用已有的载体或从 CD 副本导入光盘，并选择相应的标签页"
+"。"
 
 #: ../root/cdstub/index.tt:21 ../root/cdstub/CDStubIndex.js:47
 #: ../root/cdtoc/CDTocInfo.js:39
@@ -3282,13 +3286,14 @@ msgid ""
 "this medium” checkbox above and enter the available info. If you have no "
 "information about this release’s media, remove all media."
 msgstr ""
+"曲目是必填的。如果你不知道曲目，但知道一些信息（例如载体的格式或数量），请勾"
+"选上方的 “我不知道此载体的曲目列表” 复选框，并输入已知信息。如果你对完全没有"
+"该发行的载体信息，请删除所有载体。"
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:107
-#, fuzzy
-#| msgid "Location editor"
 msgctxt "user type"
 msgid "Transclusion editor"
-msgstr "位置编辑者"
+msgstr "引入内容编辑"
 
 #: ../root/components/forms.tt:173 ../root/components/forms.tt:198
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:104
@@ -3532,7 +3537,7 @@ msgstr "作品属性"
 msgid ""
 "Work attributes store additional information about this work, such as IDs "
 "assigned by regional rights-management organizations."
-msgstr ""
+msgstr "作品属性用于存储关于该作品的附加信息，例如各地区版权管理机构分配的 ID。"
 
 #: ../root/work/edit_form.tt:10
 msgid "Work details"
@@ -3567,6 +3572,9 @@ msgid ""
 "artists, or “{use_track_lengths}” if you have track lengths but want the "
 "parser to ignore them."
 msgstr ""
+"你可以使用解析器下方的复选框来停用某些部分。例如，如果你的数据没有曲目艺术家"
+"，可以停用 “{lines_have_artists}”；如果你有曲目时长但希望解析器忽略它们，可以"
+"停用 “{use_track_lengths}”。"
 
 #: ../root/release/edit/information.tt:208
 msgid "You cannot use the same country more than once."
@@ -3601,6 +3609,10 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"每首曲目都必须选择一个艺术家（每个艺术家字段的背景颜色应为绿色）。如果你已输"
+"入艺术家但背景仍未变色，请点击放大镜，将名字与 MusicBrainz 艺术家匹配。如果该"
+"艺术家尚不存在，你可以在搜索结果下拉菜单底部选择 “{add_a_new_artist}” 来添加"
+"新艺术家。"
 
 #: ../root/release/edit/information.tt:30
 msgid ""
@@ -3611,6 +3623,10 @@ msgid ""
 "selecting “{add_a_new_artist}” from the bottom of the search results drop-"
 "down."
 msgstr ""
+"你必须为该发行选择一个艺术家（艺术家字段的背景应显示为绿色）。如果你已输入艺"
+"术家但背景仍未变色，请点击放大镜图标，将名字与 MusicBrainz 艺术家匹配。如果该"
+"艺术家尚不存在，你可以在搜索结果下拉菜单底部选择 “{add_a_new_artist}” 来添加"
+"新艺术家。"
 
 #: ../root/release/edit/information.tt:99
 msgid "You must select an existing release group."
@@ -3623,26 +3639,21 @@ msgid ""
 msgstr "您的搜索花费了太长时间，已经被取消。请细化搜索条件，或再试一次。"
 
 #: ../root/release/edit/tracklist.tt:289
-#, fuzzy
-#| msgid ""
-#| "You’ve seeded some Disc IDs that aren’t matched to any medium. If this is "
-#| "wrong, use the “Attach Disc ID” options below."
 msgid ""
 "You’ve seeded some disc IDs that aren’t matched to any medium. If this is "
 "wrong, use the “Attach disc ID” options below."
 msgstr ""
-"您给未附加至任何媒介的唱片ID制了种。如有误，请使用下方的\"附上唱片 ID\"选项。"
+"你已添加了一些光盘 ID，但它们尚未与任何载体匹配。如果这是错误的，请使用下方"
+"的 “附加光盘 ID” 选项。"
 
 #: ../root/release/edit/tracklist.tt:409
-#, fuzzy
-#| msgid ""
-#| "{valink|Various Artists} should very rarely be used on recordings, make "
-#| "sure that the artist has been entered correctly."
 msgid ""
 "You’ve used the {valink|Various Artists} special purpose artist for some "
 "tracks below. {valink|Various Artists} should very rarely be used for "
 "tracks; please make sure the artists have been entered correctly."
-msgstr "{valink|群星} 仅在极少情况下被用于录音，请确保输入的艺术家正确。"
+msgstr ""
+"你在下面的某些曲目中使用了 {valink|群星} 这一特殊用途艺术家。{valink|群星} 很"
+"少应当用于曲目；请确保艺术家信息已正确录入。"
 
 #: ../root/components/common-macros.tt:155
 #: ../root/static/scripts/common/components/EntityLink.js:51
@@ -3696,7 +3707,7 @@ msgstr "已取消"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not exist (edit has no notes)"
-msgstr ""
+msgstr "不存在（编辑没有备注）"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not include"
@@ -3719,8 +3730,6 @@ msgid "does not include"
 msgstr "不包括"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "do not match"
 msgid "does not match"
 msgstr "不匹配"
 
@@ -9783,7 +9792,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:67
 msgid "Abstentions"
-msgstr ""
+msgstr "弃权"
 
 #: ../root/elections/ElectionDetails.js:75
 msgid "Votes for/against:"

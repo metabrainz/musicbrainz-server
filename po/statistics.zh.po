@@ -12,13 +12,13 @@
 # delamons <lamons.n@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # imgradeone <imgradeone@outlook.com>, 2025, 2026.
-# KenParker_CN <kenparkercn@gmail.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-07 09:11+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -1459,135 +1459,131 @@ msgstr "“多位创作者”的发行品"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with automatically inferred cover art"
-msgstr ""
+msgstr "自动推定封面的发行组"
 
 #: ../root/statistics/stats.js:805
 msgid "Release groups with user-selected cover art"
-msgstr ""
+msgstr "用户选择封面的发行组"
 
 #: ../root/statistics/stats.js:810
 msgid "Release groups with no primary type set"
-msgstr ""
+msgstr "未设置主要类型的发行组"
 
 #: ../root/statistics/stats.js:815
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "未设置次要类型的发行组"
 
 #: ../root/statistics/stats.js:825
 msgid "Series with no type set"
-msgstr ""
+msgstr "未设置类型的系列"
 
 #: ../root/statistics/stats.js:830
 msgctxt "folksonomy"
 msgid "Unique tag names"
-msgstr ""
+msgstr "唯一标签名称"
 
 #: ../root/statistics/stats.js:835
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
-msgstr ""
+msgstr "赞同/反对标签"
 
 #: ../root/statistics/stats.js:840
 msgid "Votes for/against area tags"
-msgstr ""
+msgstr "赞同/反对地区标签"
 
 #: ../root/statistics/stats.js:845
 msgid "Votes for/against artist tags"
-msgstr ""
+msgstr "赞同/反对艺术家标签"
 
 #: ../root/statistics/stats.js:850
 msgid "Votes for/against instrument tags"
-msgstr ""
+msgstr "赞同/反对乐器标签"
 
 #: ../root/statistics/stats.js:855
 msgid "Votes for/against label tags"
-msgstr ""
+msgstr "赞同/反对厂牌标签"
 
 #: ../root/statistics/stats.js:860
 msgid "Votes for/against recording tags"
-msgstr ""
+msgstr "赞同/反对录音标签"
 
 #: ../root/statistics/stats.js:865
 msgid "Votes for/against release tags"
-msgstr ""
+msgstr "赞同/反对发行标签"
 
 #: ../root/statistics/stats.js:870
 msgid "Votes for/against release group tags"
-msgstr ""
+msgstr "赞同/反对发行组标签"
 
 #: ../root/statistics/stats.js:875
 msgid "Votes for/against series tags"
-msgstr ""
+msgstr "赞同/反对系列标签"
 
 #: ../root/statistics/stats.js:880
 msgid "Votes for/against work tags"
-msgstr ""
+msgstr "赞同/反对作品标签"
 
 #: ../root/statistics/stats.js:906
 msgid "Abstentions"
-msgstr ""
+msgstr "弃权"
 
 #: ../root/statistics/stats.js:911
 msgid "Admin approvals"
-msgstr ""
+msgstr "管理员同意"
 
 #: ../root/statistics/stats.js:916
-#, fuzzy
-#| msgid "Area collections"
 msgid "Admin rejections"
-msgstr "地区收藏"
+msgstr "管理员拒绝"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
-msgstr ""
+msgstr "通过"
 
 #: ../root/statistics/stats.js:926
-#, fuzzy
-#| msgid "Votes"
 msgid "No votes"
-msgstr "投票"
+msgstr "无人投票"
 
 #: ../root/statistics/stats.js:932
 msgid "Votes per day"
-msgstr ""
+msgstr "每日投票量"
 
 #: ../root/statistics/stats.js:937
 msgid "Votes per week"
-msgstr ""
+msgstr "每周投票量"
 
 #: ../root/statistics/stats.js:942
 msgid "Yes votes"
-msgstr ""
+msgstr "赞同票"
 
 #: ../root/statistics/stats.js:952
 msgid "Works with no attributes"
-msgstr ""
+msgstr "无属性的作品"
 
 #: ../root/statistics/stats.js:957
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "无ISWC的作品"
 
 #: ../root/statistics/stats.js:962
 msgid "Works with no language set"
-msgstr ""
+msgstr "未设置语言的作品"
 
 #: ../root/statistics/stats.js:967
 msgid "Works with no type set"
-msgstr ""
+msgstr "未设置类型的作品"
 
 #: ../root/statistics/stats.js:969
 msgid "/day"
-msgstr ""
+msgstr "/天"
 
 #: ../root/statistics/stats.js:979
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
-msgstr[0] ""
+msgstr[0] "有 {n}个碟片ID的发行"
 
 #: ../root/statistics/stats.js:990
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] ""
+msgstr[0] "有 {n}个碟片ID的音频载体"
 
 #: ../root/statistics/stats.js:1001
 msgid "Recordings with 1 Release"

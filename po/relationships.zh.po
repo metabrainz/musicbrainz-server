@@ -12,13 +12,13 @@
 # percylee <freedomeng419@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # MoeCaa <qytc233@gmail.com>, 2025.
-# KenParker_CN <kenparkercn@gmail.com>, 2025.
+# KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # imgradeone <imgradeone@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-07 19:11+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
 "\n"
@@ -3940,13 +3940,13 @@ msgstr "将一个艺术家与其用于接收捐赠/赞助的网站（例如Flatt
 msgid ""
 "This links an artist to a site where tickets can be purchased for their "
 "events."
-msgstr ""
+msgstr "该链接将艺术家与可购买其演出门票的网站关联起来。"
 
 #. name:interview
 #: DB:link_type/description:707
 msgid ""
 "This links an artist to an URL containing an interview with that artist."
-msgstr ""
+msgstr "该链接将艺术家与包含该艺术家采访内容的网页关联起来。"
 
 #. name:biography
 #: DB:link_type/description:182
@@ -3960,6 +3960,8 @@ msgid ""
 "discography should provide a summary of most, if not all, releases by the "
 "artist, and be as comprehensive as possible."
 msgstr ""
+"该链接将艺术家与其作品的在线唱片目录关联起来。该唱片目录应尽可能全面地总结艺"
+"术家的大部分（如果不是全部的话）发行作品。"
 
 #. name:youtube music
 #: DB:link_type/description:1080
@@ -3979,7 +3981,7 @@ msgstr "此链接为艺术家的 Bandcamp 页面。"
 #. name:CD Baby
 #: DB:link_type/description:919
 msgid "This links an artist to its page at CD Baby."
-msgstr ""
+msgstr "该链接将艺术家与其在 CD Baby 的页面关联起来。"
 
 #. name:IMDb
 #: DB:link_type/description:178
@@ -3987,6 +3989,8 @@ msgid ""
 "This links an artist to its page in <a href=\"http://www.imdb.com/\">IMDb</"
 "a>."
 msgstr ""
+"该链接将艺术家与其在 <a href=\"http://www.imdb.com/\">IMDb</a> 的页面关联起来"
+"。"
 
 #. name:IMSLP
 #: DB:link_type/description:754
@@ -3994,6 +3998,8 @@ msgid ""
 "This links an artist to its page in <a href=\"http://www.imslp.org/\">IMSLP</"
 "a>."
 msgstr ""
+"该链接将艺术家与其在 <a href=\"http://www.imslp.org/\">IMSLP</a> 的页面关联起"
+"来。"
 
 #. name:CPDL
 #: DB:link_type/description:981
@@ -4001,11 +4007,13 @@ msgid ""
 "This links an artist to its page in <a href=\"https://www.cpdl.org/\">CPDL</"
 "a>."
 msgstr ""
+"该链接将艺术家与其在 <a href=\"https://www.cpdl.org/\">CPDL</a> 的页面关联起"
+"来。"
 
 #. name:soundcloud
 #: DB:link_type/description:291
 msgid "This links an artist to its profile at SoundCloud."
-msgstr ""
+msgstr "该链接将艺术家与其在 **SoundCloud** 的个人主页关联起来。"
 
 #. name:BBC Music page
 #: DB:link_type/description:190
