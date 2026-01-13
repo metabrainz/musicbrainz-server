@@ -46,7 +46,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 14:04+0100\n"
-"PO-Revision-Date: 2025-10-11 18:02+0000\n"
+"PO-Revision-Date: 2025-12-21 19:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -2555,7 +2555,7 @@ msgstr ""
 
 #: ../root/release/edit/duplicates.tt:2
 msgid "Similar releases"
-msgstr "類似したリリーズ"
+msgstr "類似したリリース"
 
 #: ../root/release/edit/tracklist.tt:559
 msgid ""
