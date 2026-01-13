@@ -651,6 +651,28 @@ const testData = [
             expected_clean_url: 'https://anidb.net/collection/4451',
        only_valid_entity_types: ['release'],
   },
+  // AniList
+  {
+                     input_url: 'https://anilist.co/staff/95185/Kana-Hanazawa?hello&world',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/staff/95185',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anilist.co/character/40/Luffy-D-Monkey?hello#world',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/character/40',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anilist.co/studio/6698/KADOKAWA?hello#world',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/studio/6698',
+       only_valid_entity_types: ['label'],
+  },
   // Anime News Network
   {
                      input_url: 'https://animenewsnetwork.com/encyclopedia/people.php?id=59062',
@@ -3130,6 +3152,63 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
   },
+  // Hoerspielforscher
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/interpret?detail=1254&detailSub=veroeffentlichung&expanded=1#page-main',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/interpret?detail=1254',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/person?detail=80&detailSub=schauspieler&expanded=1&discography_sort=1#page-main',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/person?detail=80',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/person?detail=4796',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/person?detail=4796',
+       only_valid_entity_types: ['artist', 'label'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/label?detail=4&expanded=1&label_filter_medium=2&label_filter_catalog=193',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/label?detail=4',
+       only_valid_entity_types: ['label'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/album?detail=27086#page-main',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/album?detail=27086',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/hoerspiel?detail=2820&detailSub=musik',
+             input_entity_type: 'release',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/hoerspiel?detail=2820',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/musik?detail=419&release_sort=2&multiple_rel=1#page-main',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/musik?detail=419',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://hoerspielforscher.de/kartei/serie?detail=37&detailSub=veroeffentlichung&release_sort=2#page-main',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://hoerspielforscher.de/kartei/serie?detail=37',
+       only_valid_entity_types: ['series'],
+  },
   // Hoick Music Search
   {
                      input_url: 'http://hoick.jp/mdb/author/%E4%BD%90%E7%80%AC%E5%AF%BF%E4%B8%80',
@@ -3468,47 +3547,26 @@ limited_link_type_combinations: [
                      input_url: 'http://www.jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79/catalogue?role_group=Featured%20Artist&view=tile',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
-       only_valid_entity_types: ['artist', 'label'],
-  },
-  {
-                     input_url: 'https://jaxsta.io/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801/credits',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801',
-       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407/catalogue?view=tile',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
-       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94/releases',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
-       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436/variants',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
-       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://jaxsta.io/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-limited_link_type_combinations: [
-                                  'otherdatabases',
-                                  ['lyrics', 'otherdatabases'],
-                                ],
-            expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
-       only_valid_entity_types: ['work'],
   },
   // Jazz Music Archives
   {
@@ -4343,26 +4401,60 @@ limited_link_type_combinations: [
   },
   // mora
   {
+                     input_url: 'https://mora.jp/artist/2024469/#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://mora.jp/artist/2024469?test',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://mora.jp/package/43000011/4580789738098_HD?trackMaterialNo=42101983&test#test',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000011/4580789738098_HD/?trackMaterialNo=42101983',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'https://mora.jp/package/43000001/4534530058010/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000001/4534530058010/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://mora.jp/package/43000014/KIZC-211/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000014/KIZC-211/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'http://mora.jp/package/43000021/SQEX-20016_F/#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000021/SQEX-20016_F/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'mora.jp/package/43000002/ANTCD-3106/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
+       only_valid_entity_types: ['release'],
   },
   // Musa24
   {
@@ -4567,6 +4659,28 @@ limited_link_type_combinations: [
                      input_url: 'http://www.mvdbase.com/video.php?id=4',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
+  },
+  // MyAnimeList
+  {
+                     input_url: 'https://myanimelist.net/people/185/Kana_Hanazawa',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/people/185',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://myanimelist.net/character/40/Luffy_Monkey_D/clubs',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/character/40',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://myanimelist.net/anime/producer/1696/Kadokawa',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/anime/producer/1696',
+       only_valid_entity_types: ['label'],
   },
   // Myspace
   {
@@ -7466,6 +7580,20 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'http://www.youtube.com/shorts/4Xl6zdY0m6o',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.youtube.com/watch?v=4Xl6zdY0m6o',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.youtube.com/live/E4W-_FayUf8',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.youtube.com/watch?v=E4W-_FayUf8',
        only_valid_entity_types: ['recording', 'release'],
   },
   {

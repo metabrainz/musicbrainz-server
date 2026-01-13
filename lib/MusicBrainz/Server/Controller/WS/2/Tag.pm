@@ -112,6 +112,13 @@ sub tag_submit : Private
                     $self->_error($c, 'Unrecognized vote type: ' . $vote);
                 }
             }
+            # Block upvoting and downvoting tags with commas, which are not
+            # properly supported by the UI. Still allow withdrawing tags
+            # with commas to delete legacy tags.
+            if ($name =~ /,/ && $vote ne 'withdraw') {
+                $self->_error($c, 'The tag name cannot contain commas. To submit multiple tags, send multiple user-tag elements.');
+            }
+
             push @{ $submit->{$name} //= [] }, [$model, $vote, $entity->id];
         }
 

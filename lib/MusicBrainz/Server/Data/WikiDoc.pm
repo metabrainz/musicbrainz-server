@@ -137,7 +137,8 @@ sub _load_page
     return MusicBrainz::Server::Entity::WikiDocPage->new({ canonical => 'MusicBrainz_Documentation' })
         if ($id eq '');
 
-    my $doc_url = sprintf 'http://%s/%s?action=render&redirect=no', DBDefs->WIKITRANS_SERVER, uri_escape_utf8($id);
+    # The Vector default skin does not return ToCs so we ask for MonoBook
+    my $doc_url = sprintf 'http://%s/%s?action=render&useskin=monobook&redirect=no', DBDefs->WIKITRANS_SERVER, uri_escape_utf8($id);
     if (defined $version) {
         $doc_url .= "&oldid=$version";
     }
