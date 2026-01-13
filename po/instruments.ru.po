@@ -19,8 +19,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-03 17:11+0000\n"
-"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
+"PO-Revision-Date: 2025-12-22 16:11+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ru/>\n"
 "Language: ru\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -525,9 +526,6 @@ msgid "bansuri"
 msgstr "бансури"
 
 #: DB:instrument/name:819
-#, fuzzy
-#| msgctxt "ancient asian/persian lute"
-#| msgid "barbat"
 msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "барбат"
@@ -1541,11 +1539,9 @@ msgid "electronic organ"
 msgstr "электронный орган"
 
 #: DB:instrument/name:1213
-#, fuzzy
-#| msgid "electronic instruments"
 msgctxt "Indian electronic drone device"
 msgid "electronic shruti box"
-msgstr "электронные инструменты"
+msgstr "электронная коробка шрути"
 
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
@@ -3887,8 +3883,6 @@ msgid "t'rưng"
 msgstr ""
 
 #: DB:instrument/name:185
-#, fuzzy
-#| msgid "tabla"
 msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "табла"
@@ -4366,11 +4360,9 @@ msgid "venu"
 msgstr ""
 
 #: DB:instrument/name:174
-#, fuzzy
-#| msgid "electric viola"
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "vertical viola"
-msgstr "электрический альт"
+msgstr "вертикальный альт"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4661,8 +4653,6 @@ msgid "zarb"
 msgstr ""
 
 #: DB:instrument/name:692
-#, fuzzy
-#| msgid "zhaleika"
 msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
 msgstr "жалейка"
