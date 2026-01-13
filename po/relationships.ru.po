@@ -23,18 +23,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-15 15:58+0000\n"
-"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
+"PO-Revision-Date: 2025-12-15 21:11+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural="
-"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
-": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14.3\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.15\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -11606,7 +11607,7 @@ msgstr ""
 #. name:tribute
 #: DB:link_type/long_link_phrase:65 DB:link_type/long_link_phrase:970
 msgid "{entity1} is a tribute to {entity0}"
-msgstr ""
+msgstr "{entity1} является трибьютом {entity0}"
 
 #. name:instrument origin
 #: DB:link_type/long_link_phrase:752
@@ -11643,7 +11644,7 @@ msgstr "{entity1} включено в {entity0}"
 #. name:license
 #: DB:link_type/long_link_phrase:939
 msgid "{entity1} is licensed under {entity0}"
-msgstr "лицензировано в соответствии с"
+msgstr "{entity1} выпущено по лицензии {entity0}"
 
 #. name:named after area
 #: DB:link_type/long_link_phrase:1262
@@ -11675,7 +11676,7 @@ msgstr "{entity1} является/была основной концертно�
 #. name:presented
 #: DB:link_type/long_link_phrase:1168
 msgid "{entity1} presented {entity0}"
-msgstr "{entity1} представлено {entity0}"
+msgstr "{entity1} представлял {entity0}"
 
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
@@ -11745,12 +11746,12 @@ msgstr "{entity1} состоялась премьера на {entity0}"
 #. name:premiere
 #: DB:link_type/long_link_phrase:956
 msgid "{entity1} was premiered by {entity0}"
-msgstr "{entity1} премьера была осуществлена {entity0}"
+msgstr "премьера {entity1} была осуществлена {entity0}"
 
 #. name:premiere
 #: DB:link_type/long_link_phrase:715
 msgid "{entity1} was premiered in {entity0}"
-msgstr "{entity1} премьра состоялась в {entity0}"
+msgstr "премьера {entity1} состоялась в {entity0}"
 
 #. name:pressed at
 #: DB:link_type/long_link_phrase:941
@@ -11786,7 +11787,7 @@ msgstr "{entity1} был пересмотрен в {entity0}"
 #: DB:link_type/long_link_phrase:865 DB:link_type/long_link_phrase:886
 #: DB:link_type/long_link_phrase:866
 msgid "{entity1} was {additional:additionally} arranged at {entity0}"
-msgstr "{entity1} был {additional:additionally} организован на {entity0}"
+msgstr "{entity1} был {additional:дополнительно} организован в {entity0}"
 
 #. name:arranged in
 #: DB:link_type/long_link_phrase:885 DB:link_type/long_link_phrase:863
