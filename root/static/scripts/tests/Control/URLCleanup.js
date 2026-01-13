@@ -4379,26 +4379,60 @@ limited_link_type_combinations: [
   },
   // mora
   {
+                     input_url: 'https://mora.jp/artist/2024469/#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://mora.jp/artist/2024469?test',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://mora.jp/package/43000011/4580789738098_HD?trackMaterialNo=42101983&test#test',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000011/4580789738098_HD/?trackMaterialNo=42101983',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'https://mora.jp/package/43000001/4534530058010/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000001/4534530058010/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://mora.jp/package/43000014/KIZC-211/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000014/KIZC-211/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'http://mora.jp/package/43000021/SQEX-20016_F/#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000021/SQEX-20016_F/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'mora.jp/package/43000002/ANTCD-3106/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
+       only_valid_entity_types: ['release'],
   },
   // Musa24
   {
