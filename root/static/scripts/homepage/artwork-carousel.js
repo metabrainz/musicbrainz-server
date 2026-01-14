@@ -14,7 +14,6 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import * as React from 'react';
-import {LazyLoadImage} from 'react-lazy-load-image-component';
 import {Autoplay, Mousewheel, Navigation} from 'swiper/modules';
 import {Swiper, SwiperSlide} from 'swiper/react';
 
@@ -52,6 +51,7 @@ component ReleaseArtworkImage(artwork: ReleaseArtT) {
           role="button"
           style={{
             overflow: 'hidden',
+            position: 'relative',
           }}
           tabIndex={0}
         >
@@ -59,21 +59,33 @@ component ReleaseArtworkImage(artwork: ReleaseArtT) {
             alt={release.name}
             src={artworkCoverartPlaceholder}
             style={{
-              display: imageLoaded ? 'none' : 'block',
               height: '150px',
               objectFit: 'cover',
+              opacity: imageLoaded ? 0 : 1,
+              position: 'absolute',
+              transition: 'opacity 0.3s ease',
               width: '150px',
+              zIndex: imageLoaded ? 0 : 1,
             }}
             title={releaseDescription}
           />
-          <LazyLoadImage
+          <img
             alt={release.name}
+            loading="lazy"
             onLoad={handleImageLoad}
             src={artwork.small_ia_thumbnail}
+            srcSet={
+              artwork.small_ia_thumbnail + ' 1x, ' +
+              artwork.large_ia_thumbnail + ' 1.5x'
+            }
             style={{
               height: '150px',
               objectFit: 'cover',
+              opacity: imageLoaded ? 1 : 0,
+              position: 'relative',
+              transition: 'opacity 0.3s ease',
               width: '150px',
+              zIndex: imageLoaded ? 1 : 0,
             }}
             title={releaseDescription}
           />
@@ -116,6 +128,7 @@ component EventArtworkImage(artwork: EventArtT) {
           role="button"
           style={{
             overflow: 'hidden',
+            position: 'relative',
           }}
           tabIndex={0}
         >
@@ -123,22 +136,33 @@ component EventArtworkImage(artwork: EventArtT) {
             alt={event.name}
             src={artworkCoverartPlaceholder}
             style={{
-              display: imageLoaded ? 'none' : 'block',
               height: '150px',
               objectFit: 'cover',
+              opacity: imageLoaded ? 0 : 1,
+              position: 'absolute',
+              transition: 'opacity 0.3s ease',
               width: '150px',
+              zIndex: imageLoaded ? 0 : 1,
             }}
             title={eventDescription}
           />
-          <LazyLoadImage
+          <img
             alt={event.name}
-            className={`${imageLoaded ? '' : 'hidden'}`}
+            loading="lazy"
             onLoad={handleImageLoad}
             src={artwork.small_ia_thumbnail}
+            srcSet={
+              artwork.small_ia_thumbnail + ' 1x, ' +
+              artwork.large_ia_thumbnail + ' 1.5x'
+            }
             style={{
               height: '150px',
               objectFit: 'cover',
+              opacity: imageLoaded ? 1 : 0,
+              position: 'relative',
+              transition: 'opacity 0.3s ease',
               width: '150px',
+              zIndex: imageLoaded ? 1 : 0,
             }}
             title={eventDescription}
           />
