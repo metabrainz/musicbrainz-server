@@ -1644,6 +1644,17 @@ sub fresh_releases_with_artwork {
         AND cover_art.ordering = 1
         AND edit.type = ?
         AND cover_art.date_uploaded < NOW() - INTERVAL '10 minutes'
+        AND release_event.date_year IS NOT NULL
+        AND MAKE_DATE(
+              release_event.date_year,
+              COALESCE(release_event.date_month, 1),
+              COALESCE(release_event.date_day, 1)
+            ) >= (CURRENT_DATE - INTERVAL '7 days')
+        AND MAKE_DATE(
+              release_event.date_year,
+              COALESCE(release_event.date_month, 1),
+              COALESCE(release_event.date_day, 1)
+            ) <= (CURRENT_DATE + INTERVAL '3 days')
       ORDER BY date_year DESC NULLS LAST, date_month DESC NULLS LAST, date_day DESC NULLS LAST, edit.id DESC
       LIMIT 50);
 

@@ -683,6 +683,17 @@ sub fresh_events_with_artwork {
         AND event_art.ordering = 1
         AND edit.type = ?
         AND event_art.date_uploaded < NOW() - INTERVAL '10 minutes'
+        AND event.begin_date_year IS NOT NULL
+        AND MAKE_DATE(
+              event.begin_date_year,
+              COALESCE(event.begin_date_month, 1),
+              COALESCE(event.begin_date_day, 1)
+            ) >= (CURRENT_DATE - INTERVAL '7 days')
+        AND MAKE_DATE(
+              event.begin_date_year,
+              COALESCE(event.begin_date_month, 1),
+              COALESCE(event.begin_date_day, 1)
+            ) <= (CURRENT_DATE + INTERVAL '3 days')
       ORDER BY begin_date_year DESC NULLS LAST,
                begin_date_month DESC NULLS LAST,
                begin_date_day DESC NULLS LAST,
