@@ -15,6 +15,7 @@ import RelationshipsHeader from '../RelationshipsHeader.js';
 component TypesTable(
   table: $ReadOnlyArray<$ReadOnlyArray<$ReadOnlyArray<string>>>,
   types: $ReadOnlyArray<string>,
+  usedTypes: {+[pairString: string]: 1},
 ) {
   return (
     <table className="wikitable">
@@ -30,11 +31,17 @@ component TypesTable(
           <th>{formatEntityTypeName(types[index])}</th>
           {types.map((type, index) => {
             const cellTypes = row[index];
+            const typePair = cellTypes ? cellTypes.join('-') : '';
+            const inUse = typePair in usedTypes;
 
             return (
-              <td key={'cell' + index}>
+              <td
+                className={inUse ? '' : 'unused-reltype-pair'}
+                key={'cell' + index}
+                title={inUse ? '' : l('This pair has no relationship types.')}
+              >
                 {cellTypes ? (
-                  <a href={'/relationships/' + cellTypes.join('-')}>
+                  <a href={'/relationships/' + typePair}>
                     {texp.l(
                       '{type0}-{type1}',
                       {
