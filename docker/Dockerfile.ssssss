@@ -1,4 +1,4 @@
-FROM perl:5.38.2
+FROM perl:5.38.5
 
 RUN useradd --create-home --shell /bin/bash musicbrainz && \
     mkdir /var/ssssss && \
