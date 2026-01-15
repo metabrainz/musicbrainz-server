@@ -302,6 +302,28 @@ sub get_authorship_relationship_gids {
     ) };
 }
 
+=method get_entity_pairs_with_relationship_types
+
+Returns an array of strings containing all the relatable entity pairs that
+have at least one relationship type, in the form "entitytype0-entitytype1"
+
+=cut
+
+sub get_entity_pairs_with_relationship_types {
+    my ($self) = @_;
+
+    my $rows = $self->sql->select_list_of_hashes(
+        'SELECT DISTINCT entity_type0, entity_type1 FROM link_type',
+    );
+
+    my @result;
+    for my $row (@$rows) {
+        push @result, $row->{entity_type0} . '-' . $row->{entity_type1};
+    }
+
+    return \@result;
+}
+
 sub load_root_ids {
     my ($self, @objs) = @_;
 

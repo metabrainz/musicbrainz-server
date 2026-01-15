@@ -48,9 +48,12 @@ sub list : Path('/relationships') Args(0)
 
     my @types = sort keys %by_second_type;
 
+    my $used_types = $c->model('LinkType')->get_entity_pairs_with_relationship_types;
+
     my %props = (
         types => \@types,
         table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ],
+        usedTypes => $used_types,
     );
 
     $c->stash(
