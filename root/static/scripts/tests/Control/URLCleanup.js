@@ -5138,6 +5138,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d',
        only_valid_entity_types: ['release_group'],
   },
+  // Pexels
+  {
+                     input_url: 'https://www.pexels.com/@wyxina-tresse-311038210/gallery/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pexels.com/@wyxina-tresse-311038210/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://pexels.com/ro-ro/@paduret',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pexels.com/@paduret/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.pexels.com/video/abstract-shapes-in-slow-motion-27491083/',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Pinterest
   {
                      input_url: 'uk.pinterest.com/tucenter/pins/#',
@@ -6715,6 +6737,28 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
                      input_url: 'http://www.universal-music.co.jp/sweety/products/umca-59007/',
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
+  },
+  // Unsplash
+  {
+                     input_url: 'http://www.unsplash.com/@marjan_blan/collections',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://unsplash.com/@marjan_blan',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://unsplash.com/ja/@cdd20',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://unsplash.com/@cdd20',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://unsplash.com/photos/a-black-binder-with-an-open-cover-is-shown-EIB-pwIRS9c',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
   },
   // UtaiteDB/VocaDB/TouhouDB
   {
