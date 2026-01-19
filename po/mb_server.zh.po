@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-13 11:46+0100\n"
-"PO-Revision-Date: 2026-01-13 11:01+0000\n"
+"PO-Revision-Date: 2026-01-13 15:11+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
@@ -1997,7 +1997,7 @@ msgstr "更多信息，请参阅{doc|文档}和{style|风格指南}。"
 msgid ""
 "Please see the {doc_style|style guidelines} and the {doc_classical|classical "
 "guidelines} for more information."
-msgstr "如需更多信息，请查看 {文档} 和 {风格指南}。"
+msgstr "有关更多信息，请参阅 {doc_style|风格指南} 和 {doc_classical|古典音乐指南}。"
 
 #: ../root/artist/edit_form.tt:78 ../root/artist/edit_form.tt:106
 #: ../root/artist/edit_form.tt:118 ../root/artist/edit_form.tt:148
@@ -2673,12 +2673,10 @@ msgstr ""
 "码，但不应包含国家名称。"
 
 #: ../root/release/edit/information.tt:549
-#, fuzzy
-#| msgid "The annotation field functions like a miniature wiki."
 msgid ""
 "The {doc|annotation} field functions like a miniature wiki. It’s fine to "
 "leave it empty."
-msgstr "注释栏功能类似于小型wiki。"
+msgstr "{doc|注释} 字段的功能类似一个迷你维基，也可以留空。"
 
 #: ../root/artist/edit_form.tt:113
 msgid ""
@@ -2705,14 +2703,10 @@ msgid ""
 msgstr "{doc|artist} 字段包含发布作品上显示的艺术家或艺术家名单。"
 
 #: ../root/release_group/edit_form.tt:44
-#, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|artist} should usually match the earliest official release in the "
 "release group."
-msgstr "旧图像是从专辑组中最早的专辑版本中自动选择的。"
+msgstr "{doc|艺术家} 通常应与发行组中最早的官方发行一致。"
 
 #: ../root/release/edit/information.tt:507
 msgid ""
@@ -2808,44 +2802,28 @@ msgstr ""
 "日期等其他属性已能区分该发行版本，请留空。"
 
 #: ../root/recording/edit_form.tt:97
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named recordings by the same artist."
-msgstr "消歧义栏用于帮助用户区分同名专辑。"
+msgstr "{doc|消歧义} 字段帮助用户区分同一艺术家的名称相似的不同录音。"
 
 #: ../root/release_group/edit_form.tt:55
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named release groups, such as multiple self-titled albums by the same artist."
-msgstr "消歧义栏用于帮助用户区分同名专辑。"
+msgstr "{doc|消歧义} 字段帮助用户区分名称相似的发行组，例如同一艺术家多张同名专辑。"
 
 #: ../root/series/edit_form.tt:43
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named series."
-msgstr "消歧义栏用于帮助用户区分同名专辑。"
+msgstr "{doc|消歧义} 字段帮助用户区分名称相似的系列。"
 
 #: ../root/work/edit_form.tt:117
-#, fuzzy
-#| msgid ""
-#| "The disambiguation field is used to help users distinguish between "
-#| "identically named releases."
 msgid ""
 "The {doc|disambiguation} field helps users distinguish between similarly-"
 "named works."
-msgstr "消歧义栏用于帮助用户区分同名专辑。"
+msgstr "{doc|消歧义} 字段帮助用户区分名称相似的作品。"
 
 #: ../root/artist/edit_form.tt:102
 msgid ""
@@ -2918,14 +2896,10 @@ msgid ""
 msgstr "{doc|name} 通常是官方发行版本曲目列表中最常用的标题。"
 
 #: ../root/release_group/edit_form.tt:33
-#, fuzzy
-#| msgid ""
-#| "The old image was selected automatically from the earliest release in the "
-#| "release group."
 msgid ""
 "The {doc|name} is usually the title from the earliest official release in "
 "the release group."
-msgstr "旧图像是从专辑组中最早的专辑版本中自动选择的。"
+msgstr "{doc|名称} 通常取自发行组中最早官方发行的标题。"
 
 #: ../root/release/edit/information.tt:539
 msgid ""
@@ -2990,14 +2964,6 @@ msgid "This CD TOC is already attached to this medium."
 msgstr "此 CD 目录已经附加到此媒介。"
 
 #: ../root/release/edit/information.tt:560
-#, fuzzy
-#| msgid ""
-#| "This annotation will be published under an open license (<a href=\"{url}"
-#| "\" target=\"_blank\">CC BY-NC-SA 3.0</a>) and as such, it should not "
-#| "contain text that you don't have the right to release under that license. "
-#| "While you can quote a source to support a point you're making, you should "
-#| "never enter promotional texts or other artist or label-owned texts into "
-#| "the annotation."
 msgid ""
 "This annotation will be published under an open license ({url|CC BY-NC-SA "
 "3.0}) and as such, it should not contain text that you don’t have the right "
@@ -3005,10 +2971,9 @@ msgid ""
 "point you’re making, you should never enter promotional text or other "
 "artist- or label‐owned text into the annotation."
 msgstr ""
-"该注释将以开放许可证的形式发布 (<a href=\"{url}\" target=\"_blank\">CC BY-NC-"
-"SA 3.0</a>) 故因此，它不应该包含你在该许可下无权发布的文本。虽然你可以引用一"
-"个来源来支持你的观点，但你不应该在注释中输入宣传文本或其他艺术家或标签的文"
-"本。"
+"该注释将以开放许可 ({url|CC BY-NC-SA 3.0}) 发布，因此其中不应包含你无权在该许"
+"可下发布的文本。虽然你可以引用资料来源来支持你的观点，但绝不应在注释中输入宣"
+"传性文字或其他由艺术家或厂牌拥有的文本。"
 
 #: ../root/artist/edit_form.tt:41
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:96
@@ -3055,14 +3020,10 @@ msgstr "此字段不是存储有关发布的一般背景信息的地方：此类
 
 #: ../root/artist/edit_form.tt:92 ../root/label/edit_form.tt:79
 #: ../root/place/edit_form.tt:71
-#, fuzzy
-#| msgid ""
-#| "This field is not a place to store general background information about "
-#| "the release: that kind of information should go in the annotation field."
 msgid ""
 "This field is not a place to store general background information. That kind "
 "of information should go in an {doc|annotation}."
-msgstr "此字段不是存储有关发布的一般背景信息的地方：此类信息应放在注释字段中。"
+msgstr "该字段不是用于录入常见背景信息的。此类信息应记录在 {doc|注释} 中。"
 
 #: ../root/artist/edit_credit.tt:10
 msgid ""
@@ -6599,17 +6560,14 @@ msgstr ""
 "如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。"
 
 #: ../root/account/Register.js:79
-#, fuzzy
-#| msgid ""
-#| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
-#| "the {fo|forums} or {irc|IRC}."
 msgid ""
 "Follow our {blog_link|blog} or our {bluesky_link|Bluesky} or {mastodon_link|"
 "Mastodon} accounts! To talk to other users, try the {forum_link|forums} or "
 "the {chat_link|chat}."
 msgstr ""
-"关注我们的 {bl|博客} 或 {tw|Twitter 账号}！要与其他用户交流，请前往 {fo|论"
-"坛} 或 {irc|IRC}。"
+"关注我们的 {blog_link|博客} 或 {bluesky_link|Bluesky}、"
+"{mastodon_link|Mastodon} 账号！想与其他用户交流，可以访问 {forum_link|论坛} "
+"或 {chat_link|聊天}。"
 
 #: ../root/account/Register.js:94
 msgid ""
@@ -7578,16 +7536,12 @@ msgid "Please search for the artist you wish to add a new release for:"
 msgstr ""
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:41
-#, fuzzy
-#| msgid ""
-#| "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
-#| "{format} {pos} of {release} by {artist}?"
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "medium {pos} ({format}) of {release} by {artist}?"
 msgstr ""
-"您确定要将唱片 ID<code>{discid}</code>附加到{艺术家}的{release}的{format} "
-"{pos} ？"
+"你确定要将光盘 ID <code>{discid}</code> 附加到 {artist} 的 {release} 中第 "
+"{pos} 个载体 ({format}) 吗？"
 
 #: ../root/cdtoc/AttachCDTocConfirmation.js:69
 msgid "Track length comparison"
@@ -8744,12 +8698,10 @@ msgstr "封面"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:33
-#, fuzzy
-#| msgid "We are unable to display history for this cover art."
 msgid ""
 "We are unable to display history for this image. See {artpage|all current "
 "images}."
-msgstr "无法显示此封面的历史。"
+msgstr "我们无法显示此图片的历史记录。请参见 {artpage|所有当前图片}。"
 
 #: ../root/edit/components/EditArtwork.js:36
 #: ../root/edit/details/ReorderArt.js:37
@@ -8836,7 +8788,7 @@ msgstr "[缺失时间]"
 
 #: ../root/edit/components/EditNote.js:166
 msgid "This edit note was removed by its author. Reason given: “{reason}”."
-msgstr "此编辑笔记已被其作者删除。给出的理由:“{Reason}”。"
+msgstr "此编辑备注已被作者删除。给出的原因是：“{reason}”。"
 
 #: ../root/edit/components/EditNote.js:171
 msgid "This edit note was removed by its author. No reason was provided."
@@ -8844,7 +8796,7 @@ msgstr "这个编辑笔记被作者删除了。没有提供任何理由。"
 
 #: ../root/edit/components/EditNote.js:177
 msgid "This edit note was removed by an admin. Reason given: “{reason}”."
-msgstr "此编辑笔记已被管理员删除。给出的原因:“{Reason}”。"
+msgstr "此编辑备注已被管理员删除。给出的原因是：“{reason}”。"
 
 #: ../root/edit/components/EditNote.js:182
 msgid "This edit note was removed by an admin. No reason was provided."
@@ -10398,21 +10350,16 @@ msgid "All sizes:"
 msgstr "所有尺寸:"
 
 #: ../root/event/EventArt.js:96
-#, fuzzy
-#| msgid ""
-#| "These images provided by the {caa|Cover Art Archive}. You can also see "
-#| "them at the {ia|Internet Archive}."
 msgid ""
 "These images are part of the {eaa|Event Art Archive}. You can also see them "
 "at the {ia|Internet Archive}."
 msgstr ""
-"这些图片由{caa|封面艺术档案馆}提供。你也可以在{ia|互联网档案}看到它们。"
+"这些图片属于 {eaa|Event Art Archive}。你也可以在 {ia|Internet Archive} 查看它"
+"们。"
 
 #: ../root/event/EventArt.js:108
-#, fuzzy
-#| msgid "We do not currently have any cover art for {release}."
 msgid "We do not currently have any event art for {event}."
-msgstr "目前没有 {release} 的封面图片。"
+msgstr "目前没有 {event} 的活动图片。"
 
 #: ../root/event/EventArt.js:118
 #, fuzzy
@@ -10470,12 +10417,8 @@ msgid "Remove event art"
 msgstr "移除事件"
 
 #: ../root/event/RemoveEventArt.js:31 ../root/release/RemoveCoverArt.js:32
-#, fuzzy
-#| msgid ""
-#| "Are you sure you wish to remove the below cover art from {release} by "
-#| "{artist}?"
 msgid "Are you sure you wish to remove the image below from {entity}?"
-msgstr "确定要从 {artist} 的 {release} 移除以下的封面图片吗？"
+msgstr "确定要移除{entity}的以下封面图片吗？"
 
 #: ../root/futureColumnLabels.js:24
 msgid "ISO 639-1"
@@ -13409,12 +13352,6 @@ msgid "Releases with a different name than their release group"
 msgstr ""
 
 #: ../root/report/ReleasedTooEarly.js:25
-#, fuzzy
-#| msgid ""
-#| "This report shows releases which have disc IDs even though they were "
-#| "released too early to have disc IDs, where one of the medium formats "
-#| "didn't exist at the time the release was released or where a disc ID is "
-#| "attached to a medium whose format does not have disc IDs."
 msgid ""
 "This report shows releases which have disc IDs even though they were "
 "released too early to have disc IDs, where one of the medium formats didn't "
@@ -13422,8 +13359,10 @@ msgid ""
 "a medium whose format does not have disc IDs. Fully digital releases are "
 "excluded; for those, see {digital_report|our digital-only report}."
 msgstr ""
-"此报告显示发行时间太早而不应有碟片ID但是实际上有碟片ID，使用了发行时不存在媒"
-"介格式或者媒介格式没有碟片ID但是附加了碟片ID的专辑。"
+"本报告显示了以下情况的发行：拥有光盘 ID，但发行时间过早而不应有光盘 ID；发行"
+"时某种载体格式尚不存在；或者光盘 ID 被附加到不支持光盘 ID 的载体格式上。完全"
+"数字化发行不包含在内；有关这些发行，请参见 {digital_report|我们的纯数字发行报"
+"告}。"
 
 #: ../root/report/ReleasedTooEarly.js:36 ../root/report/ReportsIndex.js:324
 msgid "Releases released too early"
@@ -13617,12 +13556,8 @@ msgid ""
 msgstr ""
 
 #: ../root/report/ReleasesWithoutCaa.js:43 ../root/report/ReportsIndex.js:398
-#, fuzzy
-#| msgid ""
-#| "Only releases with a front cover on the {caa|Cover Art Archive} can be "
-#| "selected."
 msgid "Releases without any art in the Cover Art Archive"
-msgstr "只能选择在 {caa|Cover Art Archive} 有正面封面的专辑。"
+msgstr "在 Cover Art Archive 中无任何封面图的发行品"
 
 #: ../root/report/ReleasesWithoutVaCredit.js:25
 msgid ""
@@ -14789,10 +14724,8 @@ msgid "{medium_format} {position}"
 msgstr "{medium_format} {position}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:51
-#, fuzzy
-#| msgid "{medium_format} {position}"
 msgid "{medium_format_and_position}: {medium_name}"
-msgstr "{medium_format} {position}"
+msgstr "{medium_format_and_position}: {medium_name}"
 
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:65
 #: ../root/static/scripts/common/components/CDTocReleaseListRow.js:98
@@ -14851,12 +14784,8 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/common/components/EntityLink.js:375
-#, fuzzy
-#| msgid ""
-#| "Only releases with a front cover on the {caa|Cover Art Archive} can be "
-#| "selected."
 msgid "This event has artwork in the Event Art Archive"
-msgstr "只能选择在 {caa|Cover Art Archive} 有正面封面的专辑。"
+msgstr "Event Art Archive 有此活动的相关图像"
 
 #: ../root/static/scripts/common/components/EntityLink.js:400
 msgid "This release has artwork in the Cover Art Archive"
@@ -14963,10 +14892,8 @@ msgid "{action_label} (in a new tab)"
 msgstr ""
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
-#, fuzzy
-#| msgid "Medium {position}: {title}"
 msgid "Medium {position} ({medium_format})"
-msgstr "媒介 {position}：{title}"
+msgstr "载体 {position} ({medium_format})"
 
 #: ../root/static/scripts/common/components/MediumDescription.js:34
 #: ../root/static/scripts/release-editor/fields.js:920
@@ -16680,10 +16607,8 @@ msgid "Display credits at bottom"
 msgstr "在底部显示名单"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:59
-#, fuzzy
-#| msgid "Recording by {artist}"
 msgid "Recording alias: {alias}"
-msgstr "{artist} 录制"
+msgstr "录音别名: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
@@ -17076,7 +17001,7 @@ msgstr ""
 
 #: ../root/taglookup/NotFound.js:24
 msgid "Please {search|try again}, providing at least one of these parameters"
-msgstr "请提供至少以下一个参数，然后 {搜索|再试一次}"
+msgstr "请提供至少以下一个参数，然后{search|try again}"
 
 #: ../root/taglookup/Results.js:21 ../root/taglookup/Results.js:23
 #, fuzzy
@@ -17265,7 +17190,7 @@ msgstr ""
 
 #: ../root/user/ReportUser.js:94
 msgid "Please review our {uri|Code of Conduct} before sending a report."
-msgstr "请在发送报告前查阅我们的 {coc|行为准则}。"
+msgstr "在提交举报之前，请先阅读我们的 {uri|行为准则}。"
 
 #: ../root/user/ReportUser.js:102
 msgid ""

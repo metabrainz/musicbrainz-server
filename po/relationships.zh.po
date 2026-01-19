@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 11:01+0000\n"
+"PO-Revision-Date: 2026-01-13 15:11+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
@@ -1398,8 +1398,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"词曲版权方应改为添加到作品。切记这和<a href=\"/doc/Label\" target=\"_blank\">"
-"厂牌</a><strong>不是</strong>一个概念。"
+"出版方应添加在作品层级上。请注意，这<strong>不等同于</strong><a href=\"/doc/"
+"Label\" target=\"_blank\">唱片厂牌</a>。"
 
 #. name:purevolume
 #: DB:link_type/link_phrase:174
@@ -2603,8 +2603,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
-"指为该发行版本制作玻璃母盘的公司。这与<a href=\"/doc/Label\" "
-"target=\"_blank\">唱片公司</a>和母带工程是<strong>不同的</strong>概念。"
+"指该发行品制作玻璃母盘的公司。这<strong>不等同于</strong><a href=\"/doc/"
+"Label\" target=\"_blank\">唱片厂牌</a>，也不同于母带工程。"
 
 #. name:owner
 #: DB:link_type/description:989
@@ -2641,8 +2641,10 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指某个负责分销（或外包分销）的组织。\n"
-"这和<a href=\"/doc/Label\">厂牌</a><strong>不是</strong>一个概念。"
+"指负责发行（或委托发行）的机构。 \n"
+"\n"
+"请注意，这<strong>不等同于</strong><a href=\"/doc/Label\" target=\"_blank\">"
+"唱片厂牌</a>。"
 
 #. name:exported
 #: DB:link_type/description:1280
@@ -2665,9 +2667,9 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指负责制造（或外包制造）的组织。\n"
-"这和<a href=\"/doc/Label\" target=\"_blank\">唱片厂牌</a><strong>不是</"
-"strong>一个概念。"
+"指负责制造（或外包制造）的组织。 \n"
+"这 <strong>不等同于</strong><a href=\"/doc/Label\" target=\"_blank\">唱片厂"
+"牌</a>。"
 
 #. name:marketed
 #: DB:link_type/description:848
@@ -2676,8 +2678,8 @@ msgid ""
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指负责营销该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\">厂牌"
-"</a><strong>不是</strong>一个概念。"
+"指负责营销该发行版本的组织。这<strong>不等同于</strong><a href=\"/doc/"
+"Label\" target=\"_blank\">唱片厂牌</a>。"
 
 #. name:printed
 #: DB:link_type/description:985
@@ -2686,8 +2688,8 @@ msgid ""
 "strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指此负责印刷该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\">厂"
-"牌</a><strong>不是</strong>一个概念。"
+"指此负责印刷该发行版本的组织。这<strong>不等同于</strong><a href=\"/doc/"
+"Label\" target=\"_blank\">唱片厂牌</a>。"
 
 #. name:promoted
 #: DB:link_type/description:359
@@ -2696,8 +2698,8 @@ msgid ""
 "for a release. This is <strong>not</strong> the same concept as the <a "
 "href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
-"指负责宣传（或外包宣传）该发行版本的组织。这和<a href=\"/doc/Label\" "
-"target=\"_blank\">厂牌</a><strong>不是</strong>一个概念。"
+"指负责营销宣传（或外包）该发行版本的组织。这<strong>不等同于</strong><a "
+"href=\"/doc/Label\" target=\"_blank\">唱片厂牌</a>。"
 
 #. name:published
 #: DB:link_type/description:362
@@ -2706,8 +2708,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"指负责出版该发行版本的组织。这和<a href=\"/doc/Label\" target=\"_blank\">厂牌"
-"</a><strong>不是</strong>一个概念。"
+"指负责出版该发行品的组织。<strong>不等同于</strong><a href=\"/doc/Label\" "
+"target=\"_blank\">唱片厂牌</a>。"
 
 #. name:orchestrator
 #: DB:link_type/description:300
@@ -2799,8 +2801,8 @@ msgid ""
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"这指的是压制专辑的压片公司。和<a href=\"/doc/Label\" target=\"_blank\">厂牌</"
-"a><strong>不是</strong>同一概念。"
+"指唱片压制的压制公司。<strong>不等同于</strong><a href=\"/doc/Label\" "
+"target=\"_blank\">唱片厂牌</a>。"
 
 #. name:sub
 #: DB:link_attribute_type/description:1310
@@ -3361,7 +3363,7 @@ msgstr "此链接将一个唱片厂牌与可以购买其活动门票的网站相
 #. name:youtube
 #: DB:link_type/description:225
 msgid "This links a label to its channel at YouTube."
-msgstr "此链接为厂牌的 YouTube Music 频道"
+msgstr "此链接为厂牌的 YouTube 频道"
 
 #. name:apple music
 #: DB:link_type/description:1130
@@ -3966,7 +3968,7 @@ msgstr ""
 #. name:youtube music
 #: DB:link_type/description:1080
 msgid "This links an artist to its channel at YouTube Music."
-msgstr "此链接为艺人的 YouTube Music 频道"
+msgstr "此链接为艺人的 YouTube Music 频道。"
 
 #. name:apple music
 #: DB:link_type/description:1131
@@ -4248,13 +4250,6 @@ msgstr ""
 
 #. name:VIAF
 #: DB:link_type/description:311
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this label. "
 "VIAF is an international project to make a common authority file available "
@@ -4265,7 +4260,7 @@ msgstr ""
 "这指向厂牌的<a href=\"//viaf.org/\">VIAF</a>页面。VIAF是一个向世界各地图书馆"
 "提供规范文件的国际项目。对图书馆而言，规范文件类似于MBID。(<a href=\"//"
 "en.wikipedia.org/wiki/Virtual_International_Authority_File\">详情见维基百科</"
-"a>)"
+"a>)。"
 
 #. name:VIAF
 #: DB:link_type/description:920
@@ -10102,12 +10097,12 @@ msgstr ""
 
 #. name:engineer
 #: DB:link_type/long_link_phrase:1084
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid ""
 "was an {additional} {assistant} {associate} {co:co-}{executive:executive }"
 "engineer at"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr ""
+"曾任 {additional} {assistant} {associate} {co:co-}{executive:executive } 工程"
+"师，任职于"
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
@@ -10306,10 +10301,8 @@ msgstr ""
 
 #. name:adapter
 #: DB:link_type/link_phrase:1285 DB:link_type/long_link_phrase:1285
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} adapted"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} 改编"
 
 #. name:arranged at
 #: DB:link_type/reverse_link_phrase:865 DB:link_type/reverse_link_phrase:886
@@ -10362,10 +10355,8 @@ msgstr ""
 #. name:mix
 #: DB:link_type/link_phrase:1294 DB:link_type/link_phrase:1295
 #: DB:link_type/long_link_phrase:1294 DB:link_type/long_link_phrase:1295
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} mixed"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} 混音"
 
 #. name:mixed at
 #: DB:link_type/reverse_link_phrase:694 DB:link_type/reverse_link_phrase:696
@@ -10396,10 +10387,8 @@ msgstr ""
 
 #. name:recording
 #: DB:link_type/link_phrase:1297 DB:link_type/long_link_phrase:1297
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} recorded"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} 录音"
 
 #. name:recorded at
 #: DB:link_type/reverse_link_phrase:693 DB:link_type/reverse_link_phrase:695
@@ -10408,10 +10397,8 @@ msgstr ""
 
 #. name:recording
 #: DB:link_type/reverse_link_phrase:1297
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} recorded by"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} 录制人员"
 
 #. name:recorded in
 #: DB:link_type/reverse_link_phrase:698 DB:link_type/reverse_link_phrase:699
@@ -10466,10 +10453,8 @@ msgstr ""
 
 #. name:translated at
 #: DB:link_type/reverse_link_phrase:1247 DB:link_type/reverse_link_phrase:883
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} translated at"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} 翻译"
 
 #. name:translated in
 #: DB:link_type/reverse_link_phrase:884 DB:link_type/reverse_link_phrase:1273
@@ -10504,10 +10489,8 @@ msgstr ""
 
 #. name:scriptwriter
 #: DB:link_type/link_phrase:1286 DB:link_type/long_link_phrase:1286
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} wrote the script for"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} 剧本作者"
 
 #. name:conductor
 #: DB:link_type/link_phrase:46 DB:link_type/link_phrase:151
@@ -10639,10 +10622,8 @@ msgstr ""
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:1293
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid "{additional:additionally} {pre:pre-}{re}mastered"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional:additionally} {pre:pre-}{re}母带处理"
 
 #. name:mastered at
 #: DB:link_type/reverse_link_phrase:697
@@ -10656,17 +10637,13 @@ msgstr ""
 
 #. name:adapter
 #: DB:link_type/reverse_link_phrase:1285
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} adapter"
-msgstr "额外"
+msgstr "{additional} 改编者"
 
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} animation"
-msgstr "额外"
+msgstr "{additional} 动画制作"
 
 #. name:arranged at, name:arranged in
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
@@ -10701,10 +10678,8 @@ msgstr ""
 
 #. name:composed at, name:composed in
 #: DB:link_type/link_phrase:1269 DB:link_type/link_phrase:1251
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} composition location for"
-msgstr "额外"
+msgstr "{additional} 作曲地点"
 
 #. name:creative direction
 #: DB:link_type/link_phrase:63 DB:link_type/link_phrase:146
@@ -10780,10 +10755,8 @@ msgstr ""
 
 #. name:liner notes
 #: DB:link_type/link_phrase:24
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} liner notes {translator} for"
-msgstr "额外"
+msgstr "{additional} 内页 {translator} 说明翻译"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
@@ -10813,10 +10786,8 @@ msgstr ""
 
 #. name:mix
 #: DB:link_type/reverse_link_phrase:1294 DB:link_type/reverse_link_phrase:1295
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} mixer"
-msgstr "额外"
+msgstr "{additional} 混音师"
 
 #. name:mixed at, name:mixed in
 #: DB:link_type/link_phrase:757 DB:link_type/link_phrase:758
@@ -10873,10 +10844,8 @@ msgstr ""
 
 #. name:scriptwriter
 #: DB:link_type/reverse_link_phrase:1286
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} scriptwriter"
-msgstr "额外"
+msgstr "{additional} 剧本作者"
 
 #. name:video shot at, name:video shot in
 #: DB:link_type/link_phrase:963 DB:link_type/link_phrase:964
@@ -10991,11 +10960,9 @@ msgstr ""
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
-#, fuzzy
-#| msgid "{additional:additionally} {assistant} {associate} {co:co-}mastered"
 msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineers"
-msgstr "{additional:额外}{assistant:助理}{associate:联合}{co:共同}母带处理"
+msgstr "{additional} {assistant} {associate} {co:co-}{executive:executive }工程师"
 
 #. name:producer
 #: DB:link_type/reverse_link_phrase:141 DB:link_type/reverse_link_phrase:30
@@ -11071,10 +11038,8 @@ msgstr ""
 
 #. name:mastering
 #: DB:link_type/link_phrase:1293 DB:link_type/reverse_link_phrase:1293
-#, fuzzy
-#| msgid "additional"
 msgid "{additional} {pre:pre-}{re}mastering"
-msgstr "额外"
+msgstr "{additional} {pre:pre-}{re}母带处理"
 
 #. name:mastered at, name:mastered in
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
@@ -11118,10 +11083,8 @@ msgstr ""
 
 #. name:choreographer
 #: DB:link_type/link_phrase:1299 DB:link_type/link_phrase:1230
-#, fuzzy
-#| msgid "discography entry for"
 msgid "{assistant} choreographer for"
-msgstr "的唱片条目"
+msgstr "{assistant} 编舞"
 
 #. name:organist
 #: DB:link_type/link_phrase:856

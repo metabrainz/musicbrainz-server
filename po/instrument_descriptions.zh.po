@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 11:01+0000\n"
+"PO-Revision-Date: 2026-01-13 15:11+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
@@ -345,7 +345,7 @@ msgstr "腔体笛是一类形状不为圆柱形而是封闭形体的笛子。"
 #. name:tube zither
 #: DB:instrument/description:944
 msgid "A zither with a hollow or vaulted body, it can have several resonators."
-msgstr "具有空心或圆顶琴身的齐特琴，可具有多个共鸣器，"
+msgstr "具有空心或圆顶琴身的齐特琴，可具有多个共鸣器。"
 
 #. name:pang gu ly hu hmông
 #: DB:instrument/description:315
@@ -1474,15 +1474,13 @@ msgid ""
 "li> <li>subcontrabass recorder</li> </ul> <br /> Not to be confused with the "
 "transverse (side-blown) Western concert flute."
 msgstr ""
-"这是一种端吹式的木管长笛家族，具有拇指孔和七个指孔，它是西方古典传统中最常见"
-"的长笛类型。<br />该家族包括多种不同的尺寸：<br />\n"
-"<ul><li>- 小型直笛（Garklein Recorder）</li><li>- 超高音直笛（Sopranino "
-"Recorder）</li><li>- 高音直笛（Soprano Recorder，又称Descant）</li><li>- 中音"
-"直笛（Alto Recorder，又称Treble）</li><li>- 次中音直笛（Tenor Recorder）</"
-"li><li>- 低音直笛（Bass Recorder）</li><li>- 大低音直笛（Great Bass "
-"Recorder，又称C-Bass）</li><li>- 低音倍低音直笛（Contrabass Recorder）</"
-"li><li>- 超低音倍低音直笛（Subcontrabass Recorder）</li><br />请注意，不要将"
-"其与横向吹奏的西方音乐会用长笛混淆。"
+"一类端吹式木管长笛，具有一个拇指孔和七个指孔，是西方古典传统音乐中最常见的笛"
+"类乐器之一。<br /> 该家族包含多种不同尺寸的乐器：<br /> <ul> <li>加克莱因竖"
+"笛 garklein recorder</li> <li>超高音竖笛 sopranino recorder</li> <li>高音竖笛"
+"soprano recorder (descant)</li> <li>中音竖笛 (treble)</li> <li>次中音竖笛"
+"tenor recorder</li> <li>低音竖笛bass recorder</li> <li>大低音竖笛great bass "
+"recorder (c-bass)</li> <li>倍低音竖笛</li> <li>次倍低音竖笛subcontrabass "
+"recorder</li> </ul> <br /> 不要与(横吹式)西方音乐会长笛混淆。"
 
 #. name:pi
 #: DB:instrument/description:667
@@ -2646,9 +2644,8 @@ msgid ""
 "instrument/9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>.<br /> In Sunda "
 "it is known as kendhang gedé."
 msgstr ""
-"印尼手鼓中最大的，有人用\"ageng\"形容，但是仍然比<a href=\"/instrument/"
-"9063d25e-87e4-4adc-81d4-8fdee23bd26f\">贝都格鼓</a>小。在巽他称kendhang "
-"gedé。"
+"kendang中最大的一种，又称“ageng”，但仍然小于 <a href=\"/instrument/9063d25e-"
+"87e4-4adc-81d4-8fdee23bd26f\">bedug</a>。<br />在巽他地区称为 kendhang gedé。"
 
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
@@ -2760,8 +2757,8 @@ msgid ""
 "blown\" mirliton.<br /> Not to be confused with the Egyptian/Iraqi zummara "
 "which is an instrument similar to a chalumeau."
 msgstr ""
-"竹制，一段覆有油纸，是侧吹式的太监笛。切莫与埃及/伊拉克祖马拉笛，一种类似于芦"
-"笛的乐器混淆。"
+"由竹子制成，一端覆有油纸，是一种“侧吹式”的膜鸣乐器。<br />不要与埃及／伊拉克"
+"的 zummara 混淆，后者是一种类似 chalumeau 的乐器。"
 
 #. name:suling
 #: DB:instrument/description:725
@@ -2837,10 +2834,10 @@ msgid ""
 "as chalung or calung, see <a href=\"/instrument/395bab77-bb77-4696-96d6-"
 "dfcade201c6d\">jublag</a>."
 msgstr ""
-"由多根垂直悬挂的竹管组成，通过切割管节来产生不同音高。可以悬挂演奏，也可以放"
-"在类似木琴的竹制支架上演奏。<br /> 对于有时被称为 <em>chalung</em> 或 "
-"<em>calung</em> 的巴厘岛金属琴，可参见 <a href=\"/instrument/395bab77-"
-"bb77-4696-96d6-dfcade201c6d\">jublag</a>。"
+"由多根垂直悬挂的竹管组成，通过切去不同长度的管段来形成不同音高。既可以悬挂演"
+"奏，也可以像木琴一样放置在竹制框架上演奏。<br />关于有时也被称为 chalung 或 "
+"calung 的巴厘岛金属键乐器，请参见 <a href=\"/instrument/395bab77-bb77-4696-"
+"96d6-dfcade201c6d\">jublag</a>。"
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -3101,8 +3098,9 @@ msgid ""
 "acoustic properties, thus their sound is at a more homogeneous pitch \"near "
 "the two middle open strings.\""
 msgstr ""
-"提琴族新成员，由尺寸上成比例的八个小提琴组成，主要由卡琳·赫钦斯发展，每一把直"
-"接基于标准小提琴及其声学性质，故其音高更为同质化，\"接近两根中部开弦\"。"
+"主要在美国制琴师Carleen Hutchins的指导下开发的一系列弦乐器。每种乐器都直接基"
+"于传统的小提琴，并共享其声学特性，旨在获得更丰富，更均匀的声音，音高大致位于“"
+"两根中间空弦”附近。"
 
 #. name:kōauau ponga ihu
 #: DB:instrument/description:856
@@ -3584,10 +3582,8 @@ msgstr ""
 
 #. name:pardessus de viole
 #: DB:instrument/description:924
-#, fuzzy
-#| msgid "Pardessus or sopranino member of the viol family"
 msgid "Pardessus or sopranino member of the viol family."
-msgstr "维奥尔琴族最高音种类"
+msgstr "维奥尔琴家族中体型最小、音调最高的弓弦乐器。"
 
 #. name:saron family
 #: DB:instrument/description:597
@@ -3662,10 +3658,8 @@ msgstr ""
 
 #. name:vuvuzela
 #: DB:instrument/description:877
-#, fuzzy
-#| msgid "plastic horn often used at football matches in South Africa"
 msgid "Plastic horn often used at football matches in South Africa."
-msgstr "常用于南非足球比赛上的塑料喇叭"
+msgstr "塑料号角，是南非足球文化的标志性符号。"
 
 #. name:k'lông pút
 #: DB:instrument/description:283
@@ -3726,14 +3720,12 @@ msgstr ""
 
 #. name:guitar family
 #: DB:instrument/description:52
-#, fuzzy
-#| msgid ""
-#| "please help move wrongly credited relationships from this, most if not "
-#| "almost all should probably just be \"guitar\" with credit (guitars)"
 msgid ""
 "Please help move wrongly credited relationships from this, most if not "
 "almost all should probably just be \"guitar\" with credit (guitars)."
-msgstr "请将错误关联至此的乐器移除，其中多数若非全部所有应该简单登记为吉他"
+msgstr ""
+"请帮忙将错误归属的关联移开，其中大部分（如果不是几乎全部的话）很可能只应标注"
+"为“吉他（guitar）”，并以 credit (guitars) 的形式记录。"
 
 #. name:viol family
 #: DB:instrument/description:899
@@ -3815,16 +3807,12 @@ msgstr ""
 
 #. name:orphica
 #: DB:instrument/description:842
-#, fuzzy
-#| msgid ""
-#| "portable piano with shoulder strap invented in 1795, it is a descendant "
-#| "of the Baroque Bauchladenspinett and a sort of early precursor of the "
-#| "keytar"
 msgid ""
 "Portable piano with shoulder strap invented in 1795, it is a descendant of "
 "the Baroque Bauchladenspinett and a sort of early precursor of the keytar."
 msgstr ""
-"发明于1795年的带肩带便携式钢琴，是巴洛克时期托盘式古竖琴，是键盘吉他的前身"
+"可携式钢琴，带肩带，发明于1795年，是巴洛克 Bauchladenspinett 的后裔，也可看作"
+"早期 keytar 的前身。"
 
 #. name:đàn bầu
 #: DB:instrument/description:251
@@ -3891,10 +3879,8 @@ msgstr ""
 
 #. name:flute
 #: DB:instrument/description:13
-#, fuzzy
-#| msgid "Reedless Aerophone, usually a tube"
 msgid "Reedless aerophone, usually a tube."
-msgstr "无簧气鸣乐器，通常是一根管"
+msgstr "无簧气鸣乐器，通常是一根管。"
 
 #. name:musical saw
 #: DB:instrument/description:145
@@ -3988,36 +3974,25 @@ msgstr ""
 
 #. name:jublag
 #: DB:instrument/description:980
-#, fuzzy
-#| msgid ""
-#| "Second lowest pitched of the gangsa, it has 4 to 7 bronze keys suspended "
-#| "over long bamboo resonators <br /> For the sundanese bamboo xylophone "
-#| "also used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
-#| "c576a010fb5a\">calung</a>"
 msgid ""
 "Second lowest pitched of the gangsa, it has 4 to 7 bronze keys suspended "
 "over long bamboo resonators.<br /> For the Sundanese bamboo xylophone also "
 "used in gamelan, see <a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
 "c576a010fb5a\">calung</a>."
 msgstr ""
-"音高第二低的铜片琴，有4至7个悬挂在长竹制共鸣器上的青铜琴键。<br />对于同样用"
-"于甘美兰中的巽他竹制木琴，参见<a href=\"/instrument/6e180df5-6df9-46bb-8ebf-"
-"c576a010fb5a\">竹琴</a>"
+"音高第二低的一种gangsa，带有 4 到 7 根青铜琴键，悬挂在长竹共鸣管上。<br />关"
+"于在巽他甘美朗中使用的竹制木琴，请参见 <a href=\"/instrument/6e180df5-6df9-"
+"46bb-8ebf-c576a010fb5a\">calung</a>。"
 
 #. name:brač
 #: DB:instrument/description:825
-#, fuzzy
-#| msgid ""
-#| "second smallest member of the Serbo-Croatian tamburica orchestra, there "
-#| "are often two, first and second bass. it can either have three double "
-#| "strings or two double strings and three single strings"
 msgid ""
 "Second smallest member of the Serbo-Croatian tamburica orchestra, there are "
 "often two, first and second bass. It can either have three double strings or "
 "two double strings and three single strings."
 msgstr ""
-"塞尔维亚克罗地亚坦布里卡乐团第二小的部分，一般有两个，即第一和第二低音。具有"
-"三根双弦或者两根双弦和三根单弦"
+"塞尔博-克罗地亚 tamburica 管弦乐队中第二小的成员，通常有两个，分别为第一低音"
+"和第二低音。它可以有三对双弦，或者两对双弦加三根单弦。"
 
 #. name:reyong
 #: DB:instrument/description:973
@@ -4080,10 +4055,8 @@ msgstr ""
 
 #. name:duck call
 #: DB:instrument/description:649
-#, fuzzy
-#| msgid "Short wooden flute used to imitate the sound of ducks"
 msgid "Short wooden flute used to imitate the sound of ducks."
-msgstr "用来模拟鸭子叫声的短木笛"
+msgstr "用来模拟鸭子叫声的短木笛。"
 
 #. name:celesta
 #: DB:instrument/description:129
@@ -4103,18 +4076,13 @@ msgstr ""
 
 #. name:akkordolia
 #: DB:instrument/description:1029
-#, fuzzy
-#| msgid ""
-#| "Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
-#| "wooden body with button accordion like keys which plays the melody and "
-#| "sets chords.."
 msgid ""
 "Similar to the Japanese taishogoto, it has an elongated teardrop shaped "
 "wooden body with button accordion like keys which plays the melody and sets "
 "chords."
 msgstr ""
 "类似于日本的中山琴，具有一个拉长的泪珠形琴身和类似于按钮式手风琴，用于演奏旋"
-"律和设定和弦的的按键，"
+"律和设定和弦的的按键。"
 
 #. name:nadaswaram
 #: DB:instrument/description:738
@@ -4502,7 +4470,7 @@ msgstr ""
 msgid ""
 "The Wurlitzer electric piano is an electric piano where flat steel reeds are "
 "struck by felt hammers."
-msgstr "伍利策电钢琴是一种琴锤敲击钢质簧片的电钢琴"
+msgstr "伍利策电钢琴是一种琴锤敲击钢质簧片的电钢琴。"
 
 #. name:Xaphoon
 #: DB:instrument/description:563
@@ -5039,7 +5007,7 @@ msgstr "京胡是一种中国拉弦乐器，具有两根弦，主要用于京剧
 msgid ""
 "The jouhikko is a traditional, 2 or 3 stringed bowed lyre, from Finland and "
 "Karelia."
-msgstr "悠亦可提琴是芬兰和卡累利阿地区一种2或3根弦的传统拉弦里拉琴，"
+msgstr "Jouhikko 是芬兰和卡累利阿地区的传统拉弦琴，通常有 2 或 3 根弦，用弓拉奏。"
 
 #. name:kartal
 #: DB:instrument/description:534
@@ -6431,18 +6399,13 @@ msgstr ""
 
 #. name:sistrum
 #: DB:instrument/description:370
-#, fuzzy
-#| msgid ""
-#| "Used in sacred rituals, it is made of metal or clay rattle with metal "
-#| "discs which jangle when shook. <br/> Not to be confused with the West "
-#| "African calabash sistrum or disc rattle (n'goso m'bara)"
 msgid ""
 "Used in sacred rituals, it is made of metal or clay rattle with metal discs "
 "which jangle when shook. <br/> Not to be confused with the West African "
 "calabash sistrum or disc rattle (n'goso m'bara)."
 msgstr ""
-"用于神圣的仪式中，由金属或粘土制的摇子体和摇晃时叮当作响的金属盘构成。切莫与"
-"西非葫芦摇子或响盘(恩戈索姆巴拉)混淆。"
+"用于神圣仪式，由金属或陶制响器制成，带有金属小片，摇动时会发出叮当声。<br/>不"
+"要与西非的calabash sistrum或n'goso m'bara混淆。"
 
 #. name:saron wayang
 #: DB:instrument/description:1010
