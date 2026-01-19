@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"PO-Revision-Date: 2026-01-13 11:01+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
@@ -4021,18 +4021,18 @@ msgid ""
 "This links an artist to that artist's page at <a href=\"http://www.bbc.co.uk/"
 "music\">BBC Music</a>."
 msgstr ""
+"该链接将艺术家与其在 <a href=\"http://www.bbc.co.uk/music\">BBC Music</a> 的"
+"页面关联起来。"
 
 #. name:purevolume
 #: DB:link_type/description:174
 msgid "This links an artist to the equivalent entry at PureVolume."
-msgstr ""
+msgstr "该链接将艺术家与 PureVolume 上的对应条目关联起来。"
 
 #. name:youtube
 #: DB:link_type/description:193
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an artist to their channel at YouTube."
-msgstr "此链接为艺人的 YouTube Music 频道"
+msgstr "该链接将艺术家与其 YouTube 频道关联起来。"
 
 #. name:crowdfunding
 #: DB:link_type/description:902
@@ -4040,6 +4040,8 @@ msgid ""
 "This links an artist to their profile at a crowdfunding site like "
 "Kickstarter or Indiegogo."
 msgstr ""
+"该链接将艺术家与其在众筹网站（如 Kickstarter 或 Indiegogo）的个人主页关联起来"
+"。"
 
 #. name:is person
 #: DB:link_type/description:108
@@ -4048,6 +4050,8 @@ msgid ""
 "legal name (or a more well know performance name if the legal name is "
 "unknown)."
 msgstr ""
+"该链接将艺术家的艺名（舞台名或别名）与其法定姓名（或在法定姓名未知时更为知名"
+"的艺名）关联起来。"
 
 #. name:edit
 #: DB:link_type/description:309
@@ -4071,6 +4075,8 @@ msgid ""
 "This links an entity to the appropriate listing in the Songfacts database, a "
 "user contributed database concerned with the stories behind the songs."
 msgstr ""
+"该链接将实体与 Songfacts 数据库中的相应条目关联起来。Songfacts 是一个用户贡献"
+"的数据库，专注于歌曲背后的故事。"
 
 #. name:other databases
 #: DB:link_type/description:1086 DB:link_type/description:753
@@ -4084,6 +4090,8 @@ msgid ""
 "respect the <a href=\"/doc/Other_Databases_Relationship_Type/"
 "Whitelist\">whitelist</a>."
 msgstr ""
+"该链接将一个实体与另一个数据库中的对应条目关联起来。请遵守 <a href=\"/doc/"
+"Other_Databases_Relationship_Type/Whitelist\">白名单</a> 规定。"
 
 #. name:video channel
 #: DB:link_type/description:804
@@ -4091,6 +4099,8 @@ msgid ""
 "This links an event to a channel, playlist, or user page on a video sharing "
 "site containing videos curated by it."
 msgstr ""
+"该链接将活动与视频分享网站上的频道、播放列表或用户页面关联起来，该页面包含由"
+"该活动策划的视频。"
 
 #. name:patronage
 #: DB:link_type/description:898
@@ -4098,18 +4108,18 @@ msgid ""
 "This links an event to a site where the event organisers can receive "
 "donations/patronage, such as Flattr or PayPal.me."
 msgstr ""
+"该链接将活动与活动组织者可接受捐赠或赞助的网站关联起来，例如 Flattr 或 "
+"PayPal.me。"
 
 #. name:ticketing
 #: DB:link_type/description:1197
 msgid "This links an event to a site where tickets can be purchased for it."
-msgstr ""
+msgstr "该链接将活动与可购买其门票的网站关联起来。"
 
 #. name:youtube
 #: DB:link_type/description:791
-#, fuzzy
-#| msgid "This links an artist to its channel at YouTube Music."
 msgid "This links an event to its channel at YouTube."
-msgstr "此链接为艺人的 YouTube Music 频道"
+msgstr "该链接将活动与其 YouTube 频道关联起来。"
 
 #. name:crowdfunding
 #: DB:link_type/description:904
@@ -4121,41 +4131,41 @@ msgstr "这将活动指向Kickstarter或者Indiegogo一类众筹网站上相关�
 #. name:derivation
 #: DB:link_type/description:737
 msgid "This links an instrument to an older instrument that it was based on."
-msgstr ""
+msgstr "该链接将一种乐器与其所基于的旧乐器关联起来。"
 
 #. name:subtype
 #: DB:link_type/description:736
 msgid "This links an instrument to more specific subtypes of it."
-msgstr ""
+msgstr "该链接将一种乐器与其更具体的子类型关联起来。"
 
 #. name:married
 #: DB:link_type/description:111
 msgid "This links artists who were married."
-msgstr ""
+msgstr "该链接用于关联曾经结婚的艺术家。"
 
 #. name:revision of
 #: DB:link_type/description:315
 msgid ""
 "This links different revisions of the same <a href=\"/doc/Work\" "
 "title=\"Work\">work</a>."
-msgstr ""
+msgstr "该链接用于关联同一 <a href=\"/doc/Work\" title=\"Work\">作品</a> 的修订版本。"
 
 #. name:catalog site
 #: DB:link_type/description:212
 msgid "This links to a catalog or list of records published by the label."
-msgstr ""
+msgstr "该链接指向该厂牌发布的唱片目录或列表。"
 
 #. name:history site
 #: DB:link_type/description:211
 msgid ""
 "This links to a site describing relevant details about a label's history."
-msgstr ""
+msgstr "该链接指向介绍厂牌历史相关细节的网站。"
 
 #. name:history site
 #: DB:link_type/description:984
 msgid ""
 "This links to a site describing relevant details about a place's history."
-msgstr ""
+msgstr "该链接指向介绍地点历史相关细节的网站。"
 
 #. name:arrangement
 #: DB:link_type/description:350
@@ -4163,6 +4173,8 @@ msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work "
 "is an arrangement of the other."
 msgstr ""
+"该链接关联两部 <a href=\"/doc/Work\" title=\"Work\">作品</a>，其中一部作品是"
+"另一部作品的改编版本。"
 
 #. name:orchestration
 #: DB:link_type/description:316
@@ -4170,6 +4182,8 @@ msgid ""
 "This links two <a href=\"/doc/Work\" title=\"Work\">works</a> where one work "
 "is an orchestration of the other."
 msgstr ""
+"该链接关联两部 <a href=\"/doc/Work\" title=\"Work\">作品</a>，其中一部作品是"
+"另一部作品的管弦乐改编版本。"
 
 #. name:adaptation
 #: DB:link_type/description:1284
@@ -4178,6 +4192,9 @@ msgid ""
 "work is an adaptation of the other (generally from a different medium, such "
 "as a prose work into an audio drama or a stage musical into a film musical)."
 msgstr ""
+"该链接关联两部 <a href=\"/doc/Work\" title=\"Work\">作品</a>，其中一部作品是"
+"另一部作品的改编版本（通常来自不同的载体，例如将散文作品改编为音频剧，或将舞"
+"台音乐剧改编为电影音乐剧）。"
 
 #. name:based on
 #: DB:link_type/description:314
@@ -4186,6 +4203,8 @@ msgid ""
 "second work is based on music or text from the first, but isn't directly a "
 "revision or an arrangement of it."
 msgstr ""
+"该链接关联两部 <a href=\"/doc/Work\" title=\"Work\">作品</a>，其中第二部作品"
+"基于第一部作品的音乐或文本，但并非其直接的修订版或编曲版。"
 
 #. name:remaster
 #: DB:link_type/description:6
@@ -4197,11 +4216,15 @@ msgid ""
 "artistically important way. It may, however, result in recordings that "
 "differ in length by a few seconds."
 msgstr ""
+"该链接关联两个发行版本，其中一个是另一个的 <a href=\"/doc/"
+"Mix_Terminology#remaster\">重新母带（remaster）</a>。通常这样做是为了提升音质"
+"或适应更现代的播放设备。该过程通常不会以任何艺术上重要的方式改变音乐，但可能"
+"导致录音时长相差几秒。"
 
 #. name:sibling
 #: DB:link_type/description:110
 msgid "This links two siblings (brothers or sisters)."
-msgstr ""
+msgstr "该关系用于表示两名实体之间的兄弟或姐妹关系。"
 
 #. name:other version
 #: DB:link_type/description:241
@@ -4211,13 +4234,6 @@ msgstr "链接一个<a href=\"/doc/Work\" title=\"Work\">作品</a>的两个版�
 
 #. name:VIAF
 #: DB:link_type/description:310
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
 "VIAF is an international project to make a common authority file available "
@@ -4225,10 +4241,10 @@ msgid ""
 "libraries (<a href=\"//en.wikipedia.org/wiki/"
 "Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
-"这指向艺术家的<a href=\"//viaf.org/\">VIAF</a>页面。VIAF是一个向世界各地图书"
-"馆提供规范文件的国际项目。对图书馆而言，规范文件类似于MBID。(<a href=\"//"
-"en.wikipedia.org/wiki/Virtual_International_Authority_File\">详情见维基百科</"
-"a>)"
+"该链接指向该艺术家的 <a href=\"//viaf.org/\">VIAF</a> 页面。VIAF 是一个国际项"
+"目，旨在向全球图书馆提供统一的权威控制文件。权威控制文件类似于图书馆的 MBID"
+"（<a href=\"//en.wikipedia.org/wiki/Virtual_International_Authority_File\">更"
+"多信息可见维基百科</a>）。"
 
 #. name:VIAF
 #: DB:link_type/description:311

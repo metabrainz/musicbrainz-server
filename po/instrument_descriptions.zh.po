@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"PO-Revision-Date: 2026-01-13 11:01+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
@@ -5162,6 +5162,8 @@ msgid ""
 "subcontrabass <a href=\"/instrument/"
 "6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a>)."
 msgstr ""
+"萨克斯风家族中体积最大、音域最低的成员（不包括次超低音 <a href=\"/instrument/"
+"6e33958d-741f-4669-955a-5a29a99f72e1\">tubax</a>）。"
 
 #. name:lasso d'amore
 #: DB:instrument/description:144

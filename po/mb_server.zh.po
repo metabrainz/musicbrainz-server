@@ -33,7 +33,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-09 14:04+0100\n"
-"PO-Revision-Date: 2026-01-13 10:38+0000\n"
+"PO-Revision-Date: 2026-01-13 11:01+0000\n"
 "Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
@@ -3860,10 +3860,8 @@ msgid "is not"
 msgstr "不等于"
 
 #: ../root/edit/search_macros.tt:400
-#, fuzzy
-#| msgid "is a beginner"
 msgid "is not a beginner"
-msgstr "是新手"
+msgstr "不是初学者"
 
 #: ../root/edit/search_macros.tt:293 ../root/edit/search_macros.tt:347
 #: ../root/edit/search_macros.tt:400 ../root/edit/search_macros.tt:428
@@ -3883,8 +3881,6 @@ msgid "match"
 msgstr "匹配"
 
 #: ../root/edit/search_macros.tt:455
-#, fuzzy
-#| msgid "match"
 msgid "matches"
 msgstr "匹配"
 
@@ -3952,28 +3948,16 @@ msgid "{doc|Disc ID}:"
 msgstr "{doc|唱片 ID}："
 
 #: ../root/components/forms.tt:221
-#, fuzzy
-#| msgid ""
-#| "IPI codes are assigned by CISAC to “interested parties” in musical rights "
-#| "management. Check {ipi_doc|the documentation} for more info."
 msgid ""
 "{doc|IPI codes} are assigned by CISAC to “interested parties” in musical "
 "rights management."
-msgstr ""
-"IPI编号由CISAC向音乐版权管理\"利益相关方\"分配。如需更多信息，请查看{ipi_doc|"
-"文档}。"
+msgstr "{doc|IPI 码} 由 CISAC 分配给音乐版权管理中的“相关方”。"
 
 #: ../root/components/forms.tt:229
-#, fuzzy
-#| msgid ""
-#| "ISNI codes are an ISO standard used to uniquely identify persons and "
-#| "organizations. Check {isni_doc|the documentation} for more info."
 msgid ""
 "{doc|ISNI codes} are an ISO standard used to uniquely identify persons and "
 "organizations."
-msgstr ""
-"ISNI编号是一对一识别个人和团体的ISO标准。如需更多信息，请查看{isni_doc|文"
-"档}。"
+msgstr "{doc|ISNI码} 是一种 ISO 标准，用于唯一标识个人和组织。"
 
 #: ../root/release/edit/information.tt:371
 #: ../root/release_group/edit_form.tt:74
