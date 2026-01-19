@@ -1,10 +1,11 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 # "-alex." <olyoshe4ka@gmail.com>, 2026.
+# gaahmua <gaa.hm.ua@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "PO-Revision-Date: 2026-01-15 22:11+0000\n"
-"Last-Translator: \"-alex.\" <olyoshe4ka@gmail.com>\n"
+"Last-Translator: gaahmua <gaa.hm.ua@gmail.com>\n"
 "Language-Team: Ukrainian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/uk/>\n"
 "Language: uk\n"
@@ -19,6 +20,7 @@ msgstr ""
 #: DB:link_attribute_type/description:1355
 msgid "A performance-centered, usually one to three year postgraduate program."
 msgstr ""
+"Орієнтована на результати, зазвичай одно-трирічна післядипломна програма."
 
 #. name:social network
 #: DB:link_type/description:218
@@ -8770,7 +8772,7 @@ msgstr ""
 
 #: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
-msgstr ""
+msgstr "огляд"
 
 #. name:review
 #: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
@@ -8780,7 +8782,7 @@ msgstr ""
 #. name:review
 #: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
-msgstr ""
+msgstr "відгуки"
 
 #. name:revised by
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
