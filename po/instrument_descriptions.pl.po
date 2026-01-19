@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2025-12-15 12:11+0000\n"
-"Last-Translator: Echelon <echelon@users.noreply.translations.metabrainz.org>"
-"\n"
+"Last-Translator: Echelon "
+"<echelon@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/pl/>\n"
 "Language: pl\n"
@@ -19,8 +19,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
-"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || "
-"(n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+"(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
+"n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 "X-Generator: Weblate 5.14.3\n"
 
 #. name:rebab
@@ -4886,8 +4886,8 @@ msgid ""
 msgstr ""
 "Pręty z litego metalu (często aluminium) zawieszone na pręcie, ustawione w "
 "nieharmonijnej tonacji. <br /> NIE należy mylić z samodzielnymi, "
-"przypominającymi dzwonki <a href="
-"\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">prętami dzwonkowymi</a>."
+"przypominającymi dzwonki <a href=\"/instrument/ddc0d7a5-cadb-4598-"
+"ac8d-83e17bde9816\">prętami dzwonkowymi</a>."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4977,6 +4977,14 @@ msgstr ""
 "w instrument, który jako całość wibruje, bez użycia strun lub membran. "
 "Dlatego najczęściej są wykonane z materiału dźwięcznego: metalu, drewna, "
 "szkła, a nawet kamienia."
+
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -6232,15 +6240,6 @@ msgstr ""
 "Sarrusofon to rodzina instrumentów transponujących, mających służyć jako "
 "zamiennik oboju i fagotu w orkiestrach dętych."
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"Satsuma biwa to biwa z czterema strunami i progami, która zyskała "
-"popularność w okresie Edo."
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -6458,11 +6457,6 @@ msgstr ""
 "używany w klasycznej muzyce tajskiej i kambodżańskiej. Stanowi część <a "
 "href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon i rammana</a>."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr "Tinya to mały bębenek używany w tradycyjnej muzyce Andów."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -6574,11 +6568,6 @@ msgid ""
 msgstr ""
 "Yehu to chiński instrument strunowy z rodziny huqin, wykonany z łupiny "
 "orzecha kokosowego."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "Zabumba to bęben basowy pochodzący z Brazylii."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -7842,6 +7831,20 @@ msgstr "saó ôi (flet Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu basowa forma trắng lu"
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "Satsuma biwa to biwa z czterema strunami i progami, która zyskała "
+#~ "popularność w okresie Edo."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr "Tinya to mały bębenek używany w tradycyjnej muzyce Andów."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "Zabumba to bęben basowy pochodzący z Brazylii."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

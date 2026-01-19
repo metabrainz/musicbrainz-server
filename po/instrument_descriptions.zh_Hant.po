@@ -4273,6 +4273,14 @@ msgstr ""
 "敲擊體鳴樂器是通過擊打使樂器其整體震動而發聲的樂器，不使用弦或鼓皮。因此通常"
 "由聲音響亮的材料製成:金屬，木材，玻璃，甚至是石材。"
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -5333,13 +5341,6 @@ msgid ""
 "serve as a replacement in wind bands for the oboe and bassoon."
 msgstr "薩魯管是一組移調樂器，原本作為木管樂隊中雙簧管和巴松的替代品。"
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr "薩摩琵琶是四弦四品日本琵琶，流行於江戶時期。"
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -5524,11 +5525,6 @@ msgstr ""
 "href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">通鼓和拉瑪納鼓</a>的一"
 "個聲部。"
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr "亭雅鼓是安地斯傳統音樂中使用的小鼓。"
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -5625,11 +5621,6 @@ msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from "
 "a coconut shell."
 msgstr "椰胡是一種中國拉弦樂器，屬於胡琴族，由椰子殼製成。"
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "巴西軍鼓是一種巴西低音鼓。"
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -6708,6 +6699,18 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr "薩摩琵琶是四弦四品日本琵琶，流行於江戶時期。"
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr "亭雅鼓是安地斯傳統音樂中使用的小鼓。"
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "巴西軍鼓是一種巴西低音鼓。"
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

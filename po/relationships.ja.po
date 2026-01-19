@@ -16,14 +16,14 @@
 # julian45 <techieboy45@gmail.com>, 2023.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # tkusano <tkusano@users.noreply.translations.metabrainz.org>, 2024.
-# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # Kori Syusetu <kori@isnowgroup.net>, 2025.
 # ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-13 20:11+0000\n"
+"PO-Revision-Date: 2026-01-13 20:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -4980,8 +4980,8 @@ msgid ""
 "This relationship indicates an artist credited as the booklet editor for a "
 "release."
 msgstr ""
-"この関係は、リリースの小冊子 編集者としてクレジットされているアーティストを示"
-"す。"
+"この関係は、リリースのブックレット編集者としてクレジットされている"
+"アーティストを示す。"
 
 #. name:teacher
 #: DB:link_type/description:893
@@ -6560,12 +6560,12 @@ msgstr "ブッキング"
 #. name:booklet editor
 #: DB:link_type/name:929 DB:link_type/reverse_link_phrase:929
 msgid "booklet editor"
-msgstr "小冊子編集者"
+msgstr "ブックレット編集者"
 
 #. name:booklet editor
 #: DB:link_type/link_phrase:929
 msgid "booklet editor for"
-msgstr "小冊子編集者"
+msgstr "ブックレットの編集を担当"
 
 #. name:broadcast
 #: DB:link_type/name:1228 DB:link_type/link_phrase:1228
@@ -7164,12 +7164,12 @@ msgstr "古楽"
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr "編集"
+msgstr "編集済"
 
 #. name:edit
 #: DB:link_type/link_phrase:309
 msgid "edit of"
-msgstr ""
+msgstr "編集元"
 
 #: DB:link_type/name:819 DB:link_type/name:820
 msgid "edited at"

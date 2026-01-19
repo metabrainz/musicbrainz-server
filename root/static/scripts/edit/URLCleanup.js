@@ -857,6 +857,34 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'anilist': {
+    hostname: 'anilist.co',
+    match: [/^(?:https?:\/\/)?(?:www\.)?anilist\.co/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?anilist\.co\/(staff|character|studio)\/(\d+).*$/, 'https://anilist.co/$1/$2');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/anilist\.co\/(staff|character|studio)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'staff' || prefix === 'character',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'studio',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'animenewsnetwork': {
     hostname: 'animenewsnetwork.com',
     match: [/^(https?:\/\/)?(www\.)?animenewsnetwork\.com/i],
@@ -3160,6 +3188,51 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'hoerspielforscher': {
+    hostname: 'hoerspielforscher.de',
+    match: [/^(https?:\/\/)?hoerspielforscher\.de\//i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      // Preserve only the detail query parameter (which is always the first)
+      return url.replace(/^(?:https?:\/\/)?hoerspielforscher\.de\/(kartei\/[a-z]+)\?(detail=[0-9]+).*/, 'https://hoerspielforscher.de/$1?$2');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/hoerspielforscher\.de\/kartei\/(album|hoerspiel|interpret|person|label|serie|musik)\?detail=[0-9]+$/.exec(url);
+      if (m) {
+        const type = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: type === 'interpret' || type === 'person',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              // A person can also be a company
+              result: type === 'label' || type === 'person',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.release:
+            return {
+              result: type === 'album' || type === 'hoerspiel',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.recording:
+            return {
+              result: type === 'musik',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.series:
+            return {
+              result: type === 'serie',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'hoick': {
     hostname: 'hoick.jp',
     match: [/^(https?:\/\/)?([^/]+\.)?hoick\.jp\//i],
@@ -3515,69 +3588,11 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  // Jaxsta is gone, this is minimal support for ended links
   'jaxsta': {
     hostname: ['jaxsta.com', 'jaxsta.io'],
     match: [/^(https?:\/\/)?(www\.)?jaxsta\.(com|io)/i],
-    restrict: [
-      LINK_TYPES.otherdatabases,
-      {work: [LINK_TYPES.otherdatabases.work, LINK_TYPES.lyrics.work]},
-    ],
-    select(url, sourceType) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(?:\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (prefix) {
-          case 'work':
-            if (sourceType === 'work') {
-              return LINK_TYPES.otherdatabases.work;
-            }
-            break;
-        }
-      }
-      return false;
-    },
-    clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?jaxsta\.(?:com|io)\/([^#?]+).*$/, 'https://jaxsta.com/$1');
-      url = url.replace(/^https:\/\/jaxsta\.com\/(\w+)\/([a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?.*$/, 'https://jaxsta.com/$1/$2$3');
-      return url;
-    },
-    validate(url, id) {
-      const m = /^https:\/\/jaxsta\.com\/(\w+)\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}(\/[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12})?$/.exec(url);
-      if (m) {
-        const type = m[1];
-        const hasVariant = Boolean(m[2]);
-        switch (id) {
-          case LINK_TYPES.otherdatabases.artist:
-            return {
-              result: type === 'profile',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.label:
-            return {
-              result: type === 'profile',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.recording:
-            return {
-              result: type === 'recording',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.otherdatabases.release:
-            return {
-              result: type === 'release' && hasVariant,
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-          case LINK_TYPES.otherdatabases.work:
-            return {
-              result: type === 'work',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.ENTITY};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
+    restrict: [LINK_TYPES.otherdatabases],
   },
   'jazzmusicarchives': {
     hostname: 'jazzmusicarchives.com',
@@ -4463,7 +4478,43 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?mora\.jp/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(\/)?.*$/, 'https://mora.jp/package/$1/$2/');
+      const artistPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/artist\/(\d+)(?:\/)?.*$/;
+      const trackPattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?\?trackMaterialNo=(\d+).*$/;
+      const packagePattern = /^(?:https?:\/\/)?(?:[^.]+\.)?mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)(?:\/)?.*$/;
+      if (artistPattern.test(url)) {
+        return url.replace(artistPattern, 'https://mora.jp/artist/$1/');
+      }
+      if (trackPattern.test(url)) {
+        return url.replace(trackPattern, 'https://mora.jp/package/$1/$2/?trackMaterialNo=$3');
+      }
+      if (packagePattern.test(url)) {
+        return url.replace(packagePattern, 'https://mora.jp/package/$1/$2/');
+      }
+      /**
+       * Mora links use various query parameters for identifying resources,
+       * for simplicity sake only known and accepted link types are cleaned.
+       */
+      return url;
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.downloadpurchase.artist:
+          return {
+            result: /^https:\/\/mora\.jp\/artist\/(\d+)\/$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+        case LINK_TYPES.downloadpurchase.recording:
+          return {
+            result: /^https:\/\/mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)\/\?trackMaterialNo=(\d+)$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+        case LINK_TYPES.downloadpurchase.release:
+          return {
+            result: /^https:\/\/mora\.jp\/package\/([0-9]+)\/([a-zA-Z0-9_-]+)\/$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
     },
   },
   'musicapopularcl': {
@@ -4623,6 +4674,34 @@ export const CLEANUPS: CleanupEntries = {
           case LINK_TYPES.otherdatabases.work:
             return {
               result: /^U\d{11}\/(CLASSICAL|POPULAR)$/.test(subpath),
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'myanimelist': {
+    hostname: 'myanimelist.net',
+    match: [/^(?:https?:\/\/)?(?:www\.)?myanimelist\.net/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?myanimelist\.net\/(people|character|anime\/producer)\/(\d+).*$/, 'https://myanimelist.net/$1/$2');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/myanimelist\.net\/(people|character|anime\/producer)\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.otherdatabases.artist:
+            return {
+              result: prefix === 'people' || prefix === 'character',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.otherdatabases.label:
+            return {
+              result: prefix === 'anime/producer',
               target: ERROR_TARGETS.ENTITY,
             };
         }
@@ -7335,8 +7414,8 @@ export const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?youtu\.be\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube standard watch URL
       url = url.replace(/^https:\/\/www\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?$1');
-      // YouTube embeds
-      url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
+      // YouTube embeds/live/shorts
+      url = url.replace(/^https:\/\/www\.youtube\.com\/(?:embed|live|shorts|v)\/([a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/watch?v=$1');
       // YouTube playlists
       url = url.replace(/^https:\/\/www\.youtube\.com\/playlist.*[?&](list=[a-zA-Z0-9_-]+).*$/, 'https://www.youtube.com/playlist?$1');
       return url;
