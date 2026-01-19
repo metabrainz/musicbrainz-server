@@ -16,14 +16,14 @@
 # Екатерина Тишина <email address hidden>, 2016
 # Иван Стасюк <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # Libra <recreate_squall363@simplelogin.com>, 2024, 2025.
 # karpuzikov <karpuzikovanton@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-22 16:11+0000\n"
+"PO-Revision-Date: 2026-01-19 12:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -6724,7 +6724,7 @@ msgstr "редактор"
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr "правки"
+msgstr "версии"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925
@@ -6756,7 +6756,7 @@ msgstr "нанят(-а) компанией"
 #. name:position at
 #: DB:link_type/reverse_link_phrase:119
 msgid "employees"
-msgstr ""
+msgstr "сотрудники"
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
 msgid "engineer"
@@ -11017,10 +11017,9 @@ msgstr ""
 
 #. name:liner notes
 #: DB:link_type/link_phrase:24
-#, fuzzy
-#| msgid "{additional} composition location for"
 msgid "{additional} liner notes {translator} for"
-msgstr "{additional:дополнительное} место композиции для"
+msgstr ""
+"{additional:дополнительный} {translator:переводчик} буклет{translator:а} для"
 
 #. name:lyricist
 #: DB:link_type/reverse_link_phrase:56 DB:link_type/reverse_link_phrase:165
@@ -11225,7 +11224,7 @@ msgid ""
 "{additional} {assistant} {associate} {co:co-}{executive:executive }engineer"
 msgstr ""
 "{additional:дополнительный} {assistant:ассистент} {associate:связанный} "
-"{co:со-}{executive:исполнительный }инженер"
+"{co:со-}{executive:исполнительный }инженер{assistant:а}"
 
 #. name:engineer
 #: DB:link_type/reverse_link_phrase:1084
@@ -11282,6 +11281,7 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
 msgid "{additional} {guest} {solo} performer"
 msgstr ""
+"{additional:дополнительный} {guest:приглашенный} {solo:соло-}исполнитель"
 
 #. name:instrument
 #: DB:link_type/link_phrase:44 DB:link_type/link_phrase:148

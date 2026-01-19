@@ -3524,6 +3524,9 @@ msgid "sasando"
 msgstr "sasando"
 
 #: DB:instrument/name:580
+#, fuzzy
+#| msgid "satsuma biwa"
+msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "satsuma biwa"
 
@@ -4670,6 +4673,9 @@ msgid "yueqin"
 msgstr "yueqin"
 
 #: DB:instrument/name:715
+#, fuzzy
+#| msgid "zabumba"
+msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr "zabumba"
 
