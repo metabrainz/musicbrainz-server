@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-13 10:38+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2026-01-13 11:01+0000\n"
+"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -1459,7 +1459,7 @@ msgstr "“多位创作者”的发行品"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with automatically inferred cover art"
-msgstr "自动推定封面的发行组"
+msgstr "自动推断封面图的发行组"
 
 #: ../root/statistics/stats.js:805
 msgid "Release groups with user-selected cover art"
