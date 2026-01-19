@@ -3837,6 +3837,14 @@ msgid ""
 "stone."
 msgstr ""
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -5234,16 +5242,6 @@ msgstr ""
 "Doppelrohrblattinstrument. Sein Korpus ist aus Metall gefertigt. Wegen "
 "seines Mundstücks wird es jedoch zu den Holzblasinstrumenten gerechnet."
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"Die (Satsuma) Biwa ist ein klassisches japanisches Musikinstrument, eine "
-"vier- oder fünfsaitige, birnenförmige Kurzhalslaute, die mit einem großen "
-"Plektrum angeschlagen wird."
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -5476,14 +5474,6 @@ msgstr ""
 "wird als Paar (zusammen mit der rammana) in der traditionellen "
 "thailändischen Musik verwendet und mit den Händen gespielt."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-"Die Tinya ist ein Schlaginstrument, eine kleine handgefertigte Trommel aus "
-"Leder, die in der traditionellen Musik der Andenregion, insbesondere Peru "
-"verwendet wird."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -5606,13 +5596,6 @@ msgid ""
 msgstr ""
 "Die Yehu ist ein chinesisches Streichinstrument aus der Huqin Familie. „Ye“ "
 "bedeutet Kokosnuss und „hu“ ist die Abkürzung für Huqin."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr ""
-"Die Zabumba ist eine flache Basstrommel der brasilianischen Musik mit zwei "
-"Fellen, ähnlich einer grossen Trommel in der Marschmusik."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -6602,6 +6585,26 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "Die (Satsuma) Biwa ist ein klassisches japanisches Musikinstrument, eine "
+#~ "vier- oder fünfsaitige, birnenförmige Kurzhalslaute, die mit einem großen "
+#~ "Plektrum angeschlagen wird."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr ""
+#~ "Die Tinya ist ein Schlaginstrument, eine kleine handgefertigte Trommel "
+#~ "aus Leder, die in der traditionellen Musik der Andenregion, insbesondere "
+#~ "Peru verwendet wird."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr ""
+#~ "Die Zabumba ist eine flache Basstrommel der brasilianischen Musik mit "
+#~ "zwei Fellen, ähnlich einer grossen Trommel in der Marschmusik."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

@@ -3620,6 +3620,14 @@ msgid ""
 "stone."
 msgstr ""
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -4612,13 +4620,6 @@ msgid ""
 "serve as a replacement in wind bands for the oboe and bassoon."
 msgstr ""
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -4792,11 +4793,6 @@ msgid ""
 "en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -4886,11 +4882,6 @@ msgstr ""
 msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from "
 "a coconut shell."
-msgstr ""
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
 msgstr ""
 
 #. name:zarb

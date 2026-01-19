@@ -1471,6 +1471,14 @@ msgstr ""
 "清唱剧是一种由管弦乐队，合唱团和独奏家表演的大型（通常为神圣的）的音乐作品。"
 "虽然它有角色和情节，但它通常不是戏剧表演（缺少戏服，道具和强烈的角色互动）。"
 
+#. name:Broadcaster
+#: DB:label_type/description:12
+msgctxt "label_type"
+msgid ""
+"An organization that mostly concentrates on broadcasting audio or video "
+"content, be it on television, radio or the internet."
+msgstr ""
+
 #. name:Creative Agency
 #: DB:label_type/description:11
 msgctxt "label_type"
@@ -2189,6 +2197,14 @@ msgstr "商标名称"
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
+msgstr "广播"
+
+#: DB:label_type/name:12
+#, fuzzy
+#| msgctxt "release_group_primary_type"
+#| msgid "Broadcast"
+msgctxt "label_type"
+msgid "Broadcaster"
 msgstr "广播"
 
 #: DB:work_attribute_type_allowed_value/value:885

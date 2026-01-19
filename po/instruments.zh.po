@@ -3499,6 +3499,9 @@ msgid "sasando"
 msgstr "撒桑多琴"
 
 #: DB:instrument/name:580
+#, fuzzy
+#| msgid "satsuma biwa"
+msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "萨摩琵琶"
 
@@ -4637,6 +4640,9 @@ msgid "yueqin"
 msgstr "月琴"
 
 #: DB:instrument/name:715
+#, fuzzy
+#| msgid "zabumba"
+msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr "巴西军鼓"
 

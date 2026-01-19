@@ -56,24 +56,23 @@ msgstr ""
 "«Ребаб» (и другие варианты написания) — это название главным образом для "
 "этих 3 типов семейств смычковых/щипковых струнных инструментов: <br /> <ul> "
 "<li>кабульский – большой, короткошейный лодкообразный ребаб типа «саринда»;</"
-"li> <li>индонезийский – маленький, длинношейный шиповидный ребаб типа «хуцинь"
-"»;</li> <li>смычковые лютни – различные размеры, длина грифа, грушевидный "
-"тип «критская лира».</li> </ul> <br /> <br /> Учитывая похожие названия, их "
-"путают друг с другом в большинстве источников. Любопытно, что эта путаница "
-"распространяется и на родственные, но отдельно или похоже названные "
-"инструменты, например, <a href=\"/instrument/0d766870-3021-47ce-bd51-"
-"78d2d2484e1b\">гхиджак</a> (шиповидная скрипка) и <a href=\"/instrument/"
+"li> <li>индонезийский – маленький, длинношейный шиповидный ребаб типа "
+"«хуцинь»;</li> <li>смычковые лютни – различные размеры, длина грифа, "
+"грушевидный тип «критская лира».</li> </ul> <br /> <br /> Учитывая похожие "
+"названия, их путают друг с другом в большинстве источников. Любопытно, что "
+"эта путаница распространяется и на родственные, но отдельно или похоже "
+"названные инструменты, например, <a href=\"/instrument/0d766870-3021-47ce-"
+"bd51-78d2d2484e1b\">гхиджак</a> (шиповидная скрипка) и <a href=\"/instrument/"
 "d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">гайчак</a> (в форме лодки).<br /> "
-"Пока неизвестно, как, если вообще как-то, связаны эти 3 подтипа.<br /> "
-"<br /> Для шиповидной скрипки, используемой в гамелане, см. <a href=\"/"
-"instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">индонезийский ребаб</a>"
-".<br /> Для щипкового, лодкообразного афганского инструмента, также "
-"известного как кабульский рабаб, см. <a href=\"/instrument/7e42e637-c7b4-"
-"422c-ad56-f7fafbd961bb\">рубаб</a>.<br /> Для средневековой индийской "
-"щипковой лютни см. <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-"
-"e19f4e4a1083\">сени ребаб</a>.<br /> Для средневековой европейской "
-"грушевидной скрипки см. <a href=\"/instrument/3f7302e4-f10f-4905-8d71-"
-"ef61141da383\">ребек</a>."
+"Пока неизвестно, как, если вообще как-то, связаны эти 3 подтипа.<br /> <br /"
+"> Для шиповидной скрипки, используемой в гамелане, см. <a href=\"/instrument/"
+"3dbbb5ff-103b-4260-8cf6-679a73a7c552\">индонезийский ребаб</a>.<br /> Для "
+"щипкового, лодкообразного афганского инструмента, также известного как "
+"кабульский рабаб, см. <a href=\"/instrument/7e42e637-c7b4-422c-ad56-"
+"f7fafbd961bb\">рубаб</a>.<br /> Для средневековой индийской щипковой лютни "
+"см. <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">сени ребаб</"
+"a>.<br /> Для средневековой европейской грушевидной скрипки см. <a href=\"/"
+"instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">ребек</a>."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -3955,6 +3954,14 @@ msgid ""
 "stone."
 msgstr ""
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -4947,13 +4954,6 @@ msgid ""
 "serve as a replacement in wind bands for the oboe and bassoon."
 msgstr ""
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -5127,11 +5127,6 @@ msgid ""
 "en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -5221,11 +5216,6 @@ msgstr ""
 msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from "
 "a coconut shell."
-msgstr ""
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
 msgstr ""
 
 #. name:zarb

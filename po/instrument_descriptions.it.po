@@ -1145,9 +1145,9 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
-"È composta da due tamburi: il più grande, chiamato <em>baya</em> o <em>"
-"dagga</em>, per il basso e il più piccolo, chiamato <em>daya</em> o <em>"
-"tabla</em>, per il ritmo e la \"melodia\"."
+"È composta da due tamburi: il più grande, chiamato <em>baya</em> o "
+"<em>dagga</em>, per il basso e il più piccolo, chiamato <em>daya</em> o "
+"<em>tabla</em>, per il ritmo e la \"melodia\"."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -5000,6 +5000,14 @@ msgstr ""
 "che questi strumenti sono realizzati il più delle volte in materiale "
 "risonante: metallo, legno, vetro o persino pietra."
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -6214,14 +6222,6 @@ msgstr ""
 "Famiglia di strumenti traspositori concepita per sostituire l'oboe e il "
 "fagotto nelle orchestre di fiati."
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"Biwa con quattro corde e quattro tasti diffusosi durante il periodo Edo."
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -6431,11 +6431,6 @@ msgstr ""
 "classica thailandese e cambogiana, forma parte del <a href=\"http://"
 "en.wikipedia.org/wiki/Thon_and_rammana\">thon e rammana</a>."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr "Piccolo tamburo usato nella musica tradizionale delle Ande."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -6546,11 +6541,6 @@ msgid ""
 msgstr ""
 "Strumento cinese a corda strofinata della famiglia degli huqin, realizzato a "
 "partire da una noce di cocco."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "Grancassa brasiliana."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -7807,6 +7797,19 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "Biwa con quattro corde e quattro tasti diffusosi durante il periodo Edo."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr "Piccolo tamburo usato nella musica tradizionale delle Ande."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "Grancassa brasiliana."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "
