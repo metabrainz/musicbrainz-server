@@ -5045,6 +5045,14 @@ msgstr ""
 "of membranen. Daarom zijn ze meestal gemaakt van klankrijke materialen zoals "
 "metaal, hout, glas of zelfs steen."
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -6318,15 +6326,6 @@ msgstr ""
 "Sarrusofoon is een familie van transponerende muziekinstrumenten, "
 "uitgevonden om de hobo en de fagot te vervangen in harmonieorkesten."
 
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"De satsuma biwa is een biwa met vier snaren en fretten die populair werd in "
-"de Edo-periode."
-
 #. name:saw sam sai
 #: DB:instrument/description:712
 msgid "The saw sam sai is a three-stringed bowed instrument from Thailand."
@@ -6549,13 +6548,6 @@ msgstr ""
 "van de combinatie <a href=\"http://en.wikipedia.org/wiki/"
 "Thon_and_rammana\">thon en rammana</a>."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-"Een tinya is een kleine trommel die wordt gebruikt voor traditionele muziek "
-"uit de Andes."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -6669,11 +6661,6 @@ msgid ""
 msgstr ""
 "De yehu is een Chinees strijkinstrument uit de familie van de huqin, gemaakt "
 "uit de schil van een kokosnoot."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "Een zabumba is een grote trom uit Brazilië."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -7945,6 +7932,22 @@ msgstr "Fluit van de Muong uit Vietnam"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "De trắng jâu is de basvariant van de trắng lu."
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "De satsuma biwa is een biwa met vier snaren en fretten die populair werd "
+#~ "in de Edo-periode."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr ""
+#~ "Een tinya is een kleine trommel die wordt gebruikt voor traditionele "
+#~ "muziek uit de Andes."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "Een zabumba is een grote trom uit Brazilië."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

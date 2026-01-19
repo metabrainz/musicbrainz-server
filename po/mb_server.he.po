@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-09 14:04+0100\n"
+"POT-Creation-Date: 2026-01-13 11:46+0100\n"
 "PO-Revision-Date: 2025-09-03 23:39+0000\n"
 "Last-Translator: לוכסן <lochsan.wikiped@gmail.com>\n"
 "Language-Team: Hebrew <https://translations.metabrainz.org/projects/"
@@ -3805,7 +3805,7 @@ msgstr "עריכות"
 #: ../root/release/edit/tracklist.tt:316 ../root/release/edit/tracklist.tt:555
 #: ../root/release/edit/tracklist.tt:570
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:883
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:910
 msgid "help"
 msgstr ""
 
@@ -4339,20 +4339,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:420
+#: ../root/static/scripts/common/constants.js:422
 msgid "Low"
 msgstr "נמוך"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:421
-#: ../root/static/scripts/common/constants.js:422
+#: ../root/static/scripts/common/constants.js:423
+#: ../root/static/scripts/common/constants.js:424
 msgid "Normal"
 msgstr "נורמלי"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:423
+#: ../root/static/scripts/common/constants.js:425
 msgid "High"
 msgstr "גבוהה"
 
@@ -5421,7 +5421,7 @@ msgstr "הסרת ISRC"
 #: ../root/edit/details/ReorderRelationships.js:17
 #: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:128
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:938
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:965
 msgid "Relationship"
 msgstr "קשר־גומלין"
 
@@ -6094,6 +6094,12 @@ msgstr ""
 msgid "Stream at Migu Music"
 msgstr "הזרמה מ מיגו מוזיק"
 
+#: ../lib/MusicBrainz/Server/Entity/URL/NaverVibe.pm:10
+#, fuzzy
+#| msgid "Stream at Deezer"
+msgid "Stream at Naver VIBE"
+msgstr "הזרמה בדיזר"
+
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
 msgstr "ניקוניקו"
@@ -6499,22 +6505,22 @@ msgid "A fluency level is required."
 msgstr "נדרשת רמת השליטה בשפה."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:431
+#: ../root/static/scripts/common/constants.js:433
 msgid "Basic"
 msgstr "בסיסי"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:432
+#: ../root/static/scripts/common/constants.js:434
 msgid "Intermediate"
 msgstr "ביניים"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:430
+#: ../root/static/scripts/common/constants.js:432
 msgid "Advanced"
 msgstr "מתקדם"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:433
+#: ../root/static/scripts/common/constants.js:435
 msgid "Native"
 msgstr "מובנה"
 
@@ -8673,7 +8679,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:289
 #: ../root/edit/details/RemoveRelationshipType.js:113
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:38
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:527
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:554
 #: ../root/utility/tableColumns.js:682
 msgid "Attributes"
 msgstr "תכונות"
@@ -16361,11 +16367,11 @@ msgid ""
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:704
-#: ../root/static/scripts/edit/URLCleanup.js:970
-#: ../root/static/scripts/edit/URLCleanup.js:2384
-#: ../root/static/scripts/edit/URLCleanup.js:4660
-#: ../root/static/scripts/edit/URLCleanup.js:5850
-#: ../root/static/scripts/edit/URLCleanup.js:6510
+#: ../root/static/scripts/edit/URLCleanup.js:998
+#: ../root/static/scripts/edit/URLCleanup.js:2412
+#: ../root/static/scripts/edit/URLCleanup.js:4739
+#: ../root/static/scripts/edit/URLCleanup.js:5929
+#: ../root/static/scripts/edit/URLCleanup.js:6589
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -16377,13 +16383,13 @@ msgid ""
 "product link instead, if relevant."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:929
+#: ../root/static/scripts/edit/URLCleanup.js:957
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1297
+#: ../root/static/scripts/edit/URLCleanup.js:1325
 #, fuzzy
 #| msgid ""
 #| "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
@@ -16395,18 +16401,18 @@ msgstr ""
 "נא לא לקשר ישירות לעמודי “{unwanted_url_pattern}” של הו־סאמפלד. יש לקשר "
 "לעמוד לאמן, הרצועה או האלבום המתאימים בהו־סאמפלד."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1317
+#: ../root/static/scripts/edit/URLCleanup.js:1345
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1337
+#: ../root/static/scripts/edit/URLCleanup.js:1365
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "נא לקשר לעמוד הראשי של חברת תקליטים, לא לאלבום אורצועה מסויימים."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1359
+#: ../root/static/scripts/edit/URLCleanup.js:1387
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -16415,7 +16421,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1387
+#: ../root/static/scripts/edit/URLCleanup.js:1415
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -16424,21 +16430,21 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1733
+#: ../root/static/scripts/edit/URLCleanup.js:1761
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr "ננא לקשר לעמוד הראשי של האמן, לא למוצר מסויים."
 
-#: ../root/static/scripts/edit/URLCleanup.js:1735
+#: ../root/static/scripts/edit/URLCleanup.js:1763
 msgid "Please link to the main page for the label, not a specific product."
 msgstr "נא לקשר לעמוד הראשי של חברת התקליטים, לא למוצר מסויים."
 
-#: ../root/static/scripts/edit/URLCleanup.js:2544
+#: ../root/static/scripts/edit/URLCleanup.js:2572
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3295
+#: ../root/static/scripts/edit/URLCleanup.js:3368
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
@@ -16446,7 +16452,7 @@ msgstr ""
 "רק קישורי “{category_url_pattern}” IMSLP אפשריים לאמנים. נא לקשר עמודי יצירה "
 "ליצירה מסויימת שבספק."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3313
+#: ../root/static/scripts/edit/URLCleanup.js:3386
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
@@ -16454,7 +16460,7 @@ msgstr ""
 "קישורי “{category_url_pattern}” IMSLP אפשריים רק לאמנים. נא לקשר יצירה "
 "מסויימת במקום, ככול שזמינה כזאת."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3357
+#: ../root/static/scripts/edit/URLCleanup.js:3430
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -16462,18 +16468,18 @@ msgstr ""
 "קישורי אינסטגרם “{explore_url_pattern}” לא מאופשרים. נא לקשר פרופיל ככול "
 "שקיים כזה."
 
-#: ../root/static/scripts/edit/URLCleanup.js:3385
+#: ../root/static/scripts/edit/URLCleanup.js:3458
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
 "recording} for it instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3410
+#: ../root/static/scripts/edit/URLCleanup.js:3483
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4399
+#: ../root/static/scripts/edit/URLCleanup.js:4414
 #, fuzzy
 #| msgid ""
 #| "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
@@ -16485,7 +16491,7 @@ msgstr ""
 "רק קישורי “{category_url_pattern}” IMSLP אפשריים לאמנים. נא לקשר עמודי יצירה "
 "ליצירה מסויימת שבספק."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4417
+#: ../root/static/scripts/edit/URLCleanup.js:4432
 #, fuzzy
 #| msgid ""
 #| "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
@@ -16498,18 +16504,18 @@ msgstr ""
 "קישורי “{category_url_pattern}” IMSLP אפשריים רק לאמנים. נא לקשר יצירה "
 "מסויימת במקום, ככול שזמינה כזאת."
 
-#: ../root/static/scripts/edit/URLCleanup.js:4556
+#: ../root/static/scripts/edit/URLCleanup.js:4607
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5300
+#: ../root/static/scripts/edit/URLCleanup.js:5379
 msgid "Only RYM music videos can be linked to recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5368
+#: ../root/static/scripts/edit/URLCleanup.js:5447
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
@@ -16518,42 +16524,42 @@ msgstr ""
 "קישור למתחם הישן של רזידנט אגויזר. נא לעקוב אחר {ra_url|הקישור שלכם}, ולוודא "
 "שהקישור אליו הוא מפנה עדיין נכון, אם כן, הוספו קישור זה במקום."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6114
+#: ../root/static/scripts/edit/URLCleanup.js:6193
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6242
+#: ../root/static/scripts/edit/URLCleanup.js:6321
 #, fuzzy
 #| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
 msgstr "נא לקשר לפרופיל טוויטר, לא לציוצים."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6530
+#: ../root/static/scripts/edit/URLCleanup.js:6609
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6544
+#: ../root/static/scripts/edit/URLCleanup.js:6623
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "נא לקשר לפרופיל טוויטר, לא לציוצים."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6560
+#: ../root/static/scripts/edit/URLCleanup.js:6639
 msgid "This site does not allow direct links to their images."
 msgstr "אתר זה אינו מאפשר קישור ישיר לתמונות שלהם."
 
-#: ../root/static/scripts/edit/URLCleanup.js:6862
+#: ../root/static/scripts/edit/URLCleanup.js:6941
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7040
+#: ../root/static/scripts/edit/URLCleanup.js:7119
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
 "is misencoded."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7060
+#: ../root/static/scripts/edit/URLCleanup.js:7139
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -16561,19 +16567,19 @@ msgstr ""
 "נא לא לקשר ישירות לעמודי “{unwanted_url_pattern}” של הו־סאמפלד. יש לקשר "
 "לעמוד לאמן, הרצועה או האלבום המתאימים בהו־סאמפלד."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7081
+#: ../root/static/scripts/edit/URLCleanup.js:7160
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "נא לקשר בין עמודי  “{album_url_pattern}” ב־ WhoSampled לקבוצות הוצאה."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7099
+#: ../root/static/scripts/edit/URLCleanup.js:7178
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "נא לקשר בין עמודי האמנים ב־ WhoSampled לאמנים."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7111
+#: ../root/static/scripts/edit/URLCleanup.js:7190
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "נא לקשר בין עמודי רצועה ב־ WhoSampled להקלטות."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7174
+#: ../root/static/scripts/edit/URLCleanup.js:7253
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -16581,73 +16587,73 @@ msgstr ""
 "קישור למקטעים מסוימים במאמרי ויקיפדיה אינם אפשריים. נא להסיר את \"{fragment}"
 "\" אם עדיין מתאים. נא לעיין ב־ {url|הנחיות}."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7199
+#: ../root/static/scripts/edit/URLCleanup.js:7278
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7360
+#: ../root/static/scripts/edit/URLCleanup.js:7439
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
 "entity, if it exists, instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7400
+#: ../root/static/scripts/edit/URLCleanup.js:7479
 msgid "Only video and playlist links are allowed on releases."
 msgstr "רק קישורי חוזי ורשימת השמעה מותרים בהוצאות."
 
-#: ../root/static/scripts/edit/URLCleanup.js:7446
+#: ../root/static/scripts/edit/URLCleanup.js:7525
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7482
+#: ../root/static/scripts/edit/URLCleanup.js:7561
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7492
+#: ../root/static/scripts/edit/URLCleanup.js:7571
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7502
+#: ../root/static/scripts/edit/URLCleanup.js:7581
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7672
+#: ../root/static/scripts/edit/URLCleanup.js:7751
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7684
+#: ../root/static/scripts/edit/URLCleanup.js:7763
 msgid ""
 "Last.fm release pages are very often generated from MusicBrainz data to "
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7695
+#: ../root/static/scripts/edit/URLCleanup.js:7774
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7903
+#: ../root/static/scripts/edit/URLCleanup.js:7982
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7920
+#: ../root/static/scripts/edit/URLCleanup.js:7999
 #: ../root/static/scripts/edit/externalLinks.js:1151
 msgid "This relationship type combination is invalid."
 msgstr ""
@@ -17023,7 +17029,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr "נא לבחור סוג קישור למען url שהוזן."
 
 #: ../root/static/scripts/edit/externalLinks.js:914
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:987
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr "קשר־גומלין זה קיים כבר."
@@ -17335,17 +17341,17 @@ msgstr "ישויות בקשר־גומלין לא יכולות להיות זהה�
 msgid "Related type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:899
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:926
 msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1011
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1038
 msgid "This will add a relationship to all checked recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1013
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1040
 msgid "This will add a relationship to all checked works."
 msgstr ""
 

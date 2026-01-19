@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-06-23 06:20+0000\n"
+"PO-Revision-Date: 2025-12-25 19:11+0000\n"
 "Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ka/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.15.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -1301,6 +1301,14 @@ msgid ""
 "character interaction)."
 msgstr ""
 
+#. name:Broadcaster
+#: DB:label_type/description:12
+msgctxt "label_type"
+msgid ""
+"An organization that mostly concentrates on broadcasting audio or video "
+"content, be it on television, radio or the internet."
+msgstr ""
+
 #. name:Creative Agency
 #: DB:label_type/description:11
 msgctxt "label_type"
@@ -2015,6 +2023,14 @@ msgstr "მარკის სახელი"
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
+msgstr "ფართოზოლოვანი"
+
+#: DB:label_type/name:12
+#, fuzzy
+#| msgctxt "release_group_primary_type"
+#| msgid "Broadcast"
+msgctxt "label_type"
+msgid "Broadcaster"
 msgstr "ფართოზოლოვანი"
 
 #: DB:work_attribute_type_allowed_value/value:885
@@ -8412,12 +8428,9 @@ msgid "Udaya ravicandrika"
 msgstr ""
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-Ray"
+msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
