@@ -13,12 +13,13 @@
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # imgradeone <imgradeone@outlook.com>, 2025, 2026.
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
+# dumbbird <dumbbirdvip@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-13 11:01+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2026-01-15 07:11+0000\n"
+"Last-Translator: dumbbird <dumbbirdvip@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -26,7 +27,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1588,12 +1589,12 @@ msgstr[0] "有 {n}个碟片ID的音频载体"
 #: ../root/statistics/stats.js:1001
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] ""
+msgstr[0] "录音"
 
 #: ../root/statistics/stats.js:1012
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] ""
+msgstr[0] "发行组"
 
 #: ../root/statistics/stats.js:1065
 msgid "{type} areas"
