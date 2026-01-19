@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2026-01-13 11:01+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -1463,7 +1463,7 @@ msgstr "自动推断封面图的发行组"
 
 #: ../root/statistics/stats.js:805
 msgid "Release groups with user-selected cover art"
-msgstr "用户选择封面的发行组"
+msgstr "含用户自选封面图的发行组"
 
 #: ../root/statistics/stats.js:810
 msgid "Release groups with no primary type set"
