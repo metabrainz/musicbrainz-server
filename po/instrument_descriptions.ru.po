@@ -9,13 +9,13 @@
 # Андрій Пиндик <email address hidden>, 2017
 # Дмитрий <email address hidden>, 2014
 # cijic <altcode@ya.ru>, 2024.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # liilliil <liilliil@liilliil.net>, 2024, 2025.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-22 16:11+0000\n"
+"PO-Revision-Date: 2026-01-17 20:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -27,7 +27,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -3961,6 +3961,9 @@ msgid ""
 "samurai, it has four strings and elevated frets, a large plectrum called "
 "Bachi is used."
 msgstr ""
+"Предположительно, была создана как модификация мосо бива для усиления звука "
+"и использовалась самураями. Имеет четыре струны и приподнятые лады, а для "
+"игры используется большой плектр бати."
 
 #. name:glass harmonica
 #: DB:instrument/description:285

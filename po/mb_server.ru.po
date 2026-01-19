@@ -36,7 +36,7 @@
 # Иван Стасюк <email address hidden>, 2016
 # й й <email address hidden>, 2016
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
 msgid ""
@@ -44,7 +44,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-13 11:46+0100\n"
-"PO-Revision-Date: 2025-12-29 22:11+0000\n"
+"PO-Revision-Date: 2026-01-19 12:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -56,7 +56,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3930,7 +3930,7 @@ msgstr "по сначала самым ранним закрытым"
 
 #: ../root/edit/search_macros.tt:20
 msgid "edits"
-msgstr "правки"
+msgstr "версии"
 
 #: ../root/components/forms.tt:175 ../root/components/forms.tt:200
 #: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:466
@@ -6052,10 +6052,8 @@ msgid "Stream at Migu Music"
 msgstr "Слушать в Migu Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NaverVibe.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at Naver VIBE"
-msgstr "Слушать в VK Музыке"
+msgstr "Слушать в Naver VIBE"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
@@ -12821,15 +12819,12 @@ msgid "Choose one or more cover art types for this image"
 msgstr "Выберите один или более типов для этого изображения"
 
 #: ../root/release/CoverArtFields.js:23
-#, fuzzy
-#| msgid ""
-#| "Please review the {doc|alias documentation} before entering this edit."
 msgid ""
 "Select all types that apply. See the {doc|Cover Art Types} documentation for "
 "their descriptions."
 msgstr ""
-"Перед тем как внести эту правку, ознакомьтесь с {doc|документацией по "
-"псевдонимам}."
+"Выберите все подходящие типы. Смотрите их описания в {doc|документации (на "
+"английском)}."
 
 #: ../root/release/DeleteRelease.js:31 ../root/release/DeleteRelease.js:33
 msgctxt "header"
@@ -14579,16 +14574,12 @@ msgid "Number"
 msgstr "Номер"
 
 #: ../root/report/SeriesContainingDuplicates.js:43
-#, fuzzy
-#| msgid ""
-#| "This report lists labels which have multiple relationships to the same "
-#| "entity using the same relationship type."
 msgid ""
 "This report lists series which contain the same entity multiple times with "
 "the same number attribute."
 msgstr ""
-"В отчете перечислены лейблы с несколькими одинаковыми отношениями с той же "
-"сущностью."
+"В этом отчете перечислены серии, в которых один и тот же объект встречается "
+"несколько раз с одинаковым числовым атрибутом."
 
 #: ../root/report/SetInDifferentRg.js:25
 msgid ""
@@ -18521,7 +18512,7 @@ msgstr "Всего принято"
 
 #: ../root/user/UserProfile.js:622
 msgid "Voted down"
-msgstr "Отклоенные большинством голосов"
+msgstr "Отклоненные большинством голосов"
 
 #: ../root/user/UserProfile.js:632
 msgid "Failed"
