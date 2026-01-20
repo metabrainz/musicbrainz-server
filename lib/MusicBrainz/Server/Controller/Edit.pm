@@ -19,7 +19,7 @@ use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_hash );
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use List::AllUtils qw( sort_by );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
@@ -311,6 +311,12 @@ sub search : Path('/search/edits')
     return unless %{ $c->req->query_params };
 
     my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user);
+
+    unless ($query) {
+        $c->stash->{message} = l('An edit search query could not be constructed. Some of your parameters are probably invalid.');
+        $c->detach('/error_400');
+    }
+
     $c->stash( query => $query );
 
     if ($query->valid && !$c->req->query_params->{'form_only'}) {

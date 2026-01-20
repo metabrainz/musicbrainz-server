@@ -132,17 +132,23 @@ sub new_from_user_input {
     my $input = expand_hash($user_input);
     my $ae = $input->{auto_edit_filter};
     $ae = undef if defined $ae && $ae =~ /^\s*$/;
-    return $class->new(
-        exists $input->{negation}   ? (negate => $input->{negation}) : (),
-        exists $input->{combinator} ? (combinator => $input->{combinator}) : (),
-        exists $input->{order}      ? (order => $input->{order}) : (),
-        auto_edit_filter => $ae,
-        fields => [
-            map {
-                $class->_construct_predicate($_, $user)
-            } grep { defined } @{ $input->{conditions} },
-        ],
-    );
+    return try {
+        $class->new(
+            exists $input->{negation}   ? (negate => $input->{negation}) : (),
+            exists $input->{combinator} ? (combinator => $input->{combinator}) : (),
+            exists $input->{order}      ? (order => $input->{order}) : (),
+            auto_edit_filter => $ae,
+            fields => [
+                map {
+                    $class->_construct_predicate($_, $user)
+                } grep { defined } @{ $input->{conditions} },
+            ],
+        );
+    } catch {
+        my $err = $_;
+        log_warning { "Unable to construct edit search from input ($err): $_" } $input;
+        return ();
+    };
 }
 
 sub _construct_predicate {
