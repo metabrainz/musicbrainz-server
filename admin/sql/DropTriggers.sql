@@ -152,6 +152,7 @@ DROP TRIGGER IF EXISTS b_upd_link_attribute_text_value ON link_attribute_text_va
 DROP TRIGGER IF EXISTS b_upd_link_attribute_type ON link_attribute_type;
 DROP TRIGGER IF EXISTS b_upd_link_type ON link_type;
 DROP TRIGGER IF EXISTS b_upd_link_type_attribute_type ON link_type_attribute_type;
+DROP TRIGGER IF EXISTS a_upd_medium ON medium;
 DROP TRIGGER IF EXISTS b_upd_medium ON medium;
 DROP TRIGGER IF EXISTS b_upd_medium_cdtoc ON medium_cdtoc;
 DROP TRIGGER IF EXISTS b_upd_mood ON mood;

@@ -4,6 +4,7 @@
 DROP TRIGGER IF EXISTS a_ins_l_area_area_mirror ON l_area_area;
 DROP TRIGGER IF EXISTS a_upd_l_area_area_mirror ON l_area_area;
 DROP TRIGGER IF EXISTS a_del_l_area_area_mirror ON l_area_area;
+DROP TRIGGER IF EXISTS a_upd_medium ON medium;
 DROP TRIGGER IF EXISTS a_ins_release_mirror ON release;
 DROP TRIGGER IF EXISTS a_upd_release_mirror ON release;
 DROP TRIGGER IF EXISTS a_del_release_mirror ON release;
