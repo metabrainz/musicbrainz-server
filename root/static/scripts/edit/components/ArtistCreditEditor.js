@@ -417,8 +417,8 @@ function createInitialNamesState(
 
 export function createInitialState(
   initialState: {
-    +activeUser: ActiveEditorT,
-    +entity: ArtistCreditableT,
+    +artistCredit?: ArtistCreditT,
+    +entity?: ArtistCreditableT,
     +formName?: string,
     /*
      * `id` should uniquely identify the artist credit editor instance
@@ -430,12 +430,15 @@ export function createInitialState(
   },
 ): StateT {
   const {
+    artistCredit: passedArtistCredit,
     entity,
     id,
     isOpen = false,
     ...otherState
   } = initialState;
-  const artistCredit: ?ArtistCreditT = ko.unwrap(entity.artistCredit);
+  // Consider enforcing AC once we use Flow everywhere
+  const artistCredit: ?ArtistCreditT =
+    passedArtistCredit ?? ko.unwrap(entity?.artistCredit);
 
   invariant(artistCredit);
 
@@ -472,7 +475,6 @@ component _ArtistCreditEditor(
   state: StateT,
 ) {
   const {
-    entity,
     formName,
     isOpen,
     names,
@@ -515,8 +517,8 @@ component _ArtistCreditEditor(
 
   const buttonProps = React.useMemo(() => ({
     className: 'open-ac',
-    id: 'open-ac-' + String(entity.id),
-  }), [entity.id]);
+    id: 'open-ac-' + state.id,
+  }), [state.id]);
 
   return (
     <>

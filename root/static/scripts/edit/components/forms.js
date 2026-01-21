@@ -162,7 +162,6 @@ export function initializeArtistCredit(formName) {
   });
 
   const initialState = createArtistCreditEditorState({
-    activeUser: window[GLOBAL_JS_NAMESPACE].$c.user,
     artistCredit: initialArtistCredit,
     entity: source,
     formName,
