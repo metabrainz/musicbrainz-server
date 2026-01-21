@@ -249,5 +249,13 @@
     "mirror_only": [
       "20241017-mbs-9253-mirror_only.sql"
     ]
+  },
+  "31": {
+    "all": [
+      "20260121-mbs-14092.sql"
+    ],
+    "master_and_standalone": [
+      "20260121-mbs-14092-fks.sql"
+    ]
   }
 }
