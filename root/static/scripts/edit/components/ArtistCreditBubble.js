@@ -100,7 +100,7 @@ const ArtistCreditDocumentation = (React.memo(() => (
 
 type ArtistCreditPreviewPropsT = {
   +editsPending: boolean | void,
-  +entity: ArtistCreditableT,
+  +entity?: ArtistCreditableT,
   +names: $ReadOnlyArray<ArtistCreditNameStateT>,
 };
 
@@ -121,7 +121,7 @@ const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT, void>(({
         <tr>
           <td colSpan={4} id="ac-preview-cell">
             {addColonText(lp('Preview', 'header')) + ' '}
-            {entity.entityType === 'track'
+            {entity?.entityType === 'track'
               ? (
                 <DescriptiveLink
                   allowNew
@@ -224,7 +224,7 @@ component _ArtistCreditBubble(
     names,
   } = state;
 
-  const isTrack = entity.entityType === 'track';
+  const isTrack = entity?.entityType === 'track';
 
   const tableRef = React.useRef<HTMLTableElement | null>(null);
 
@@ -232,7 +232,7 @@ component _ArtistCreditBubble(
     if (
       event.target instanceof HTMLInputElement &&
       event.keyCode === 13 /* Enter */ &&
-      isTrack && /*:: entity.entityType === 'track' && */
+      isTrack && /*:: entity?.entityType === 'track' && */
       entity.next()
     ) {
       // Prevent form submission.
