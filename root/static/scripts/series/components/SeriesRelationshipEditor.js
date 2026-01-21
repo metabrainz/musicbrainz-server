@@ -80,7 +80,7 @@ component _SeriesRelationshipEditor(...props: PropsT) {
           seriesItemType,
         ),
         partOfSeriesLinkTypeId,
-        /* backward = */ seriesItemType < 'series',
+        /* backward = */ seriesItemType <= 'series',
       );
       if (!linkTypeGroup) {
         continue;
