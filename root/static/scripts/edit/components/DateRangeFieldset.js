@@ -155,20 +155,21 @@ export function reducer(
 }
 
 component _DateRangeFieldset(
+  beginArea?: React.Node,
   children?: React.Node,
   disabled: boolean = false,
   dispatch: (ActionT) => void,
+  endArea?: React.Node,
   endedLabel?: string,
   field: DatePeriodFieldT,
-  beginArea?: React.Node,
-  endArea?: React.Node,
+  fieldSetRef?: {current: HTMLFieldSetElement | null},
 ) {
   const subfields = field.field;
 
   const hooks = useDateRangeFieldset(dispatch);
 
   return (
-    <fieldset>
+    <fieldset ref={fieldSetRef}>
       <legend>{l('Date period')}</legend>
       <p>
         {l(`Dates are in the format YYYY-MM-DD.

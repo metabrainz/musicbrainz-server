@@ -17,7 +17,7 @@ import {reduceArtistCredit} from '../common/immutable-entities.js';
 import {compactMap, keyBy, last} from '../common/utility/arrays.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import {debounceComputed} from '../common/utility/debounce.js';
+import debounceComputed from '../common/utility/debounceComputed.js';
 import deepEqual from '../common/utility/deepEqual.js';
 import isBlank from '../common/utility/isBlank.js';
 import MBEdit from '../edit/MB/edit.js';

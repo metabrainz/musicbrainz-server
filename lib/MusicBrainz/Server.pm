@@ -854,6 +854,7 @@ sub TO_JSON {
         current_iswcs
         current_language
         current_language_html
+        duplicate_violation
         entity
         event_artwork
         event_artwork_count
@@ -866,6 +867,7 @@ sub TO_JSON {
         new_edit_notes_mtime
         number_of_collections
         number_of_revisions
+        original_name
         own_collections
         release_artwork
         release_artwork_count

@@ -15,7 +15,7 @@ import {
 } from '../common/immutable-entities.js';
 import MB from '../common/MB.js';
 import {uniqBy} from '../common/utility/arrays.js';
-import {debounceComputed} from '../common/utility/debounce.js';
+import debounceComputed from '../common/utility/debounceComputed.js';
 import similarity from '../edit/utility/similarity.js';
 
 import utils from './utils.js';

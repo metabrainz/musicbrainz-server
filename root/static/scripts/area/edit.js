@@ -9,7 +9,7 @@
 
 import $ from 'jquery';
 
-import '../edit/components/FormRowTextListSimple.js';
+import '../edit/components/StandaloneFormRowTextListSimple.js';
 
 import typeBubble from '../edit/typeBubble.js';
 import initializeValidation from '../edit/validation.js';

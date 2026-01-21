@@ -28,7 +28,7 @@ import {
 } from '../common/utility/catalyst.js';
 import clean from '../common/utility/clean.js';
 import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
-import {debounceComputed} from '../common/utility/debounce.js';
+import debounceComputed from '../common/utility/debounceComputed.js';
 import {isBeginner} from '../common/utility/privileges.js';
 import request from '../common/utility/request.js';
 import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
