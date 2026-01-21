@@ -5182,6 +5182,21 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'pexels': {
+    hostname: 'pexels.com',
+    match: [/^(https?:\/\/)?(www\.)?pexels\.com/i],
+    restrict: [LINK_TYPES.artgallery],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?pexels\.com\/(?:[a-z-]+\/)?@([^/#?]+).*$/, 'https://www.pexels.com/@$1/');
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/www\.pexels\.com\/@([^/]+)\/$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'pinterest': {
     hostname: 'pinterest.com',
     match: [/^(https?:\/\/)?([^/]+\.)?pinterest\.com\//i],
@@ -6625,6 +6640,21 @@ export const CLEANUPS: CleanupEntries = {
             target: ERROR_TARGETS.ENTITY,
           };
         }
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'unsplash': {
+    hostname: 'unsplash.com',
+    match: [/^(https?:\/\/)?(www\.)?unsplash\.com/i],
+    restrict: [LINK_TYPES.artgallery],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?unsplash\.com\/(?:[a-z]+\/)?@([^/#?]+).*$/, 'https://unsplash.com/@$1');
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/unsplash\.com\/@([^/]+)$/.test(url)) {
         return {result: true};
       }
       return {result: false, target: ERROR_TARGETS.URL};
