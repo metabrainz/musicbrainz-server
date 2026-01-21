@@ -282,18 +282,21 @@ sub is_valid_setlist
     my @invalid_lines = grep { $_ !~ /^([@#*] |\s*$)/ } split(/\r\n/, $setlist); return @invalid_lines ? 0 : 1;
 }
 
+# Converted to JavaScript at root/static/scripts/edit/utility/iso3166.js
 sub is_valid_iso_3166_1
 {
     my $iso_3166_1 = shift;
     return $iso_3166_1 =~ /^[A-Z]{2}$/;
 }
 
+# Converted to JavaScript at root/static/scripts/edit/utility/iso3166.js
 sub is_valid_iso_3166_2
 {
     my $iso_3166_2 = shift;
     return $iso_3166_2 =~ /^[A-Z]{2}-[A-Z0-9]+$/;
 }
 
+# Converted to JavaScript at root/static/scripts/edit/utility/iso3166.js
 sub is_valid_iso_3166_3
 {
     my $iso_3166_3 = shift;
