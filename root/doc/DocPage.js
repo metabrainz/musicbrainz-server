@@ -17,13 +17,6 @@ import {
 
 import DocSearchBox from './components/DocSearchBox.js';
 
-type DocPageT = {
-  +content: string,
-  +hierarchy: $ReadOnlyArray<string>,
-  +title: string,
-  +version: number,
-};
-
 component DocPage(id: string, page: DocPageT) {
   let doc = '';
   let lastDoc = '';

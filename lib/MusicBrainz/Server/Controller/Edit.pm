@@ -17,8 +17,16 @@ use MusicBrainz::Server::Constants qw( :quality );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_hash );
-use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
+use MusicBrainz::Server::Entity::Util::JSON qw(
+    to_json_array
+    to_json_hash
+    to_json_object
+);
+use MusicBrainz::Server::Data::Utils qw(
+    boolean_to_json
+    load_everything_for_edits
+    type_to_model
+);
 use MusicBrainz::Server::Translation qw( N_l );
 use List::AllUtils qw( sort_by );
 
@@ -512,10 +520,24 @@ sub edit_type : Path('/doc/Edit_Types') Args(1) {
     my $version = $c->model('WikiDocIndex')->get_page_version($id);
     my $page = $c->model('WikiDoc')->get_page($id, $version);
 
+    my %edit_type = (
+        canBeApproved => boolean_to_json(
+            $class->edit_conditions->{auto_edit},
+        ),
+        defaultAutoEdit => boolean_to_json(
+            $class->edit_conditions->{default_auto_edit},
+        ),
+        editCategory => $class->edit_category,
+        editName => $class->l_edit_name,
+    );
+
     $c->stash(
-        edit_type => $class,
-        template => 'doc/edit_type.tt',
-        page => $page,
+        current_view => 'Node',
+        component_path => 'doc/EditTypeIndex.js',
+        component_props => {
+            editType => \%edit_type,
+            page => to_json_object($page),
+        },
     );
 }
 

@@ -174,6 +174,7 @@ sub editor_may_edit {
 #  * votes - number of votes to consider the edit as unanimously accepted/rejected
 #  * expire_action - what do do with expired edits without votes
 #  * auto_edit - whether the edit can be automatically accepted for an autoeditor
+#  * default_auto_edit - whether the edit applies automatically by default for normal editors
 
 sub edit_conditions
 {
@@ -182,6 +183,7 @@ sub edit_conditions
         votes         => $REQUIRED_VOTES,
         expire_action => $EXPIRE_ACCEPT,
         auto_edit     => 1,
+        default_auto_edit => 0,
     };
 }
 
