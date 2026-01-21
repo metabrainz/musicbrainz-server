@@ -11,30 +11,34 @@ import ko from 'knockout';
 
 import {fixedWidthInteger} from './strings.js';
 
-function formatDate(date: ?PartialDateT): string {
+function formatDate(date: ?{
+  +day?: ?StrOrNum,
+  +month?: ?StrOrNum,
+  +year?: ?StrOrNum,
+}): string {
   if (!date) {
     return '';
   }
 
-  const y: number | null = ko.unwrap(date.year ?? null);
-  const m: number | null = ko.unwrap(date.month ?? null);
-  const d: number | null = ko.unwrap(date.day ?? null);
+  const y: StrOrNum | null = ko.unwrap(date.year ?? null);
+  const m: StrOrNum | null = ko.unwrap(date.month ?? null);
+  const d: StrOrNum | null = ko.unwrap(date.day ?? null);
 
   let result = '';
 
   if (nonEmpty(y)) {
     result += fixedWidthInteger(y, 4);
-  } else if (m != null || d != null) {
+  } else if (nonEmpty(m) || nonEmpty(d)) {
     result = '????';
   }
 
-  if (m != null) {
+  if (nonEmpty(m)) {
     result += '-' + fixedWidthInteger(m, 2);
-  } else if (d != null) {
+  } else if (nonEmpty(d)) {
     result += '-??';
   }
 
-  if (d != null) {
+  if (nonEmpty(d)) {
     result += '-' + fixedWidthInteger(d, 2);
   }
 
