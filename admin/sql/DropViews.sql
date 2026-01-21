@@ -8,4 +8,5 @@ DROP VIEW recording_series;
 DROP VIEW release_event;
 DROP VIEW release_group_series;
 DROP VIEW release_series;
+DROP VIEW series_series;
 DROP VIEW work_series;
