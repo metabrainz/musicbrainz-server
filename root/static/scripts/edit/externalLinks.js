@@ -133,6 +133,7 @@ export type LinkRelationshipT = $ReadOnly<{
 type LinksEditorProps = {
   +errorObservable?: (boolean) => void,
   +isNewEntity: boolean,
+  +onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   +sourceData:
     | RelatableEntityT
     | {
@@ -143,6 +144,7 @@ type LinksEditorProps = {
         +orderingTypeID?: number,
         +relationships?: void,
       },
+  +tableRef?: {current: HTMLTableElement | null},
 };
 
 type LinksEditorState = {
@@ -354,7 +356,7 @@ export class _ExternalLinksEditor
       this.creditableEntityProp = null;
     }
     this.state = {links: withOneEmptyLink(initialLinks)};
-    this.tableRef = React.createRef();
+    this.tableRef = this.props.tableRef ?? React.createRef();
     this.oldLinks = this.getOldLinksHash();
     this.generalLinkTypes = this.typeOptions.filter(
       // Keep disabled options for grouping
@@ -1190,6 +1192,7 @@ export class _ExternalLinksEditor
                 isOnlyLink={linksByUrl.length === 1}
                 key={index}
                 onAddRelationship={(url) => this.addRelationship(url, index)}
+                onFocus={this.props.onFocus}
                 onTypeBlur={
                   (linkIndex, event) => this.handleTypeBlur(
                     linkIndex, event, duplicate != null, index, canMerge,
@@ -1455,6 +1458,7 @@ type LinkProps = {
   +isLastLink: boolean,
   +isOnlyLink: boolean,
   +onAddRelationship: (string) => void,
+  +onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   +onTypeBlur: (number, SyntheticFocusEvent<HTMLSelectElement>) => void,
   +onTypeChange: (number, SyntheticEvent<HTMLSelectElement>) => void,
   +onUrlRemove: () => void,
@@ -1556,6 +1560,7 @@ export class ExternalLink extends React.Component<LinkProps> {
                 onChange={(event) => {
                   props.handleUrlChange(event.currentTarget.value);
                 }}
+                onFocus={props.onFocus}
                 onKeyDown={(event) => this.handleKeyDown(event)}
                 placeholder={props.isOnlyLink
                   ? l('Add link')
