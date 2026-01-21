@@ -101,7 +101,8 @@ export function getTargetError(
     if (
       linkType &&
       PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
-      seriesItemType !== source.entityType
+      seriesItemType !== source.entityType &&
+      source.entityType !== 'series'
     ) {
       return INCORRECT_SERIES_ENTITY_MESSAGES[seriesItemType]();
     }
