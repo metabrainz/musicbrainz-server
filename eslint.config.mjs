@@ -992,7 +992,10 @@ export default [
       'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
       'root/static/scripts/edit/externalLinks.js',
       'root/static/scripts/event/components/EventEditForm.js',
+      'root/static/scripts/instrument/components/InstrumentEditForm.js',
+      'root/static/scripts/recording/components/RecordingEditForm.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
+      'root/static/scripts/release_group/components/ReleaseGroupEditForm.js',
     ],
     rules: {
       'react/jsx-no-bind': 'off',

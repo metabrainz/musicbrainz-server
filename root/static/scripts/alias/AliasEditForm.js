@@ -75,6 +75,11 @@ type StateT = {
   +searchHintType: number,
 };
 
+type CreateInitialStatePropsT = {
+  +form: AliasEditFormT,
+  +searchHintType: number,
+};
+
 const blankDatePeriod = {
   errors: [],
   field: {
@@ -94,7 +99,10 @@ const blankDatePeriod = {
   type: 'compound_field' as const,
 };
 
-function createInitialState(form: AliasEditFormT, searchHintType: number) {
+function createInitialState({
+  form,
+  searchHintType,
+}: CreateInitialStatePropsT): StateT {
   return {
     form,
     guessCaseOptions: createGuessCaseOptionsState(),
@@ -130,7 +138,7 @@ function reducer(state: StateT, action: ActionT): StateT {
         isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
       });
       runNameReducer(nameStateCtx, action);
-      const nameState = nameStateCtx.read();
+      const nameState = nameStateCtx.final();
       newStateCtx
         .set('form', 'field', 'name', nameState.field)
         .set('guessCaseOptions', nameState.guessCaseOptions)
@@ -212,7 +220,8 @@ const AliasEditForm = ({
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm, searchHintType),
+    {form: initialForm, searchHintType},
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {

@@ -133,7 +133,6 @@ with 'MusicBrainz::Server::Controller::Role::Create' => {
             return ();
         }
     },
-    dialog_template => 'release_group/edit_form.tt',
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
