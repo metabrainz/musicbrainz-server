@@ -21,6 +21,7 @@ type InputProps = {
   +id: string,
   +name: string,
   onChange?: InputOnChange,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   +placeholder?: string,
   +ref?: {-current: HTMLInputElement | null},
   +required: boolean,
@@ -43,7 +44,9 @@ component FormRowText(
   label: React.Node,
   placeholder?: string,
   preview?: string | null = null,
+  onFocus?: (event: SyntheticEvent<HTMLInputElement>) => void,
   required: boolean = false,
+  rowRef?: {-current: HTMLDivElement | null},
   size?: number,
   type: string = 'text',
   ...controlledProps: ControlledPropsT
@@ -54,6 +57,7 @@ component FormRowText(
     disabled,
     id: 'id-' + field.html_name,
     name: field.html_name,
+    onFocus,
     placeholder: placeholder ?? '',
     ref: inputRef,
     required,
@@ -71,7 +75,7 @@ component FormRowText(
   }
 
   return (
-    <FormRow>
+    <FormRow rowRef={rowRef}>
       <FormLabel forField={field} label={label} required={required} />
       <input {...inputProps} />
       {children}

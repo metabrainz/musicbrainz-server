@@ -30,7 +30,9 @@ export function maybeGetCatalystContext(): ?SanitizedCatalystContextT {
   return globalThis[GLOBAL_JS_NAMESPACE]?.$c;
 }
 
-export function getSourceEntityData():
+export function getSourceEntityData(
+  passedContext?: SanitizedCatalystContextT,
+):
     | RelatableEntityT
     | {
         +entityType: RelatableEntityTypeT,
@@ -39,12 +41,14 @@ export function getSourceEntityData():
         +orderingTypeID?: number,
       }
     | null {
-  const $c = getCatalystContext();
+  const $c = passedContext ?? getCatalystContext();
   return $c.stash.source_entity ?? null;
 }
 
-export function getSourceEntityDataForRelationshipEditor(): RelatableEntityT {
-  let source = getSourceEntityData();
+export function getSourceEntityDataForRelationshipEditor(
+  $c?: SanitizedCatalystContextT,
+): RelatableEntityT {
+  let source = getSourceEntityData($c);
   invariant(
     source,
     'Source entity data not found in global Catalyst stash',

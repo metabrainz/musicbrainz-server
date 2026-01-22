@@ -64,7 +64,7 @@ function reducer(state: StateT, action: ActionT): StateT {
         isGuessCaseOptionsOpen: state.isGuessCaseOptionsOpen,
       });
       runNameReducer(nameStateCtx, action);
-      const nameState = nameStateCtx.read();
+      const nameState = nameStateCtx.final();
       newState = mutate(state)
         .set('form', 'field', 'name', nameState.field)
         .set('guessCaseOptions', nameState.guessCaseOptions)
@@ -80,7 +80,8 @@ component GenreEditForm(form as initialForm: GenreFormT) {
 
   const [state, dispatch] = React.useReducer(
     reducer,
-    createInitialState(initialForm),
+    initialForm,
+    createInitialState,
   );
 
   const nameDispatch = React.useCallback((action: NameActionT) => {
