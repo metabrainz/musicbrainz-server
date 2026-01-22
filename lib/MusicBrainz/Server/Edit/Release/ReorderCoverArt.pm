@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Release::ReorderCoverArt;
 use Moose;
 use namespace::autoclean;
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_REORDER_COVER_ART );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Release;
 use MusicBrainz::Server::Entity::ReleaseArt;
 use MusicBrainz::Server::Translation qw( N_lp );
@@ -14,6 +15,7 @@ with 'MusicBrainz::Server::Edit::Release',
 sub edit_name { N_lp('Reorder cover art', 'plural, edit type') }
 sub edit_type_name_context { 'plural, edit type' }
 sub edit_template { 'ReorderCoverArt' }
+sub edit_kind { $EDIT_KIND_LABELS{'other'} }
 sub edit_type { $EDIT_RELEASE_REORDER_COVER_ART }
 
 sub art_archive_model { shift->c->model('CoverArtArchive') }
