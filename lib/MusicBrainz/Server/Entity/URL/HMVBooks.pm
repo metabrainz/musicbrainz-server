@@ -1,4 +1,4 @@
-package MusicBrainz::Server::Entity::URL::HMV;
+package MusicBrainz::Server::Entity::URL::HMVBooks;
 
 use Moose;
 use utf8;

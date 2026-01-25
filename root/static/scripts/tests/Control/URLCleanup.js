@@ -3152,26 +3152,26 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
   },
-  // HMV
+  // HMV&BOOKS
   {
-                     input_url: 'https://www.hmv.co.jp/en/artist_Kana-Hanazawa_000000000468840/',
+                     input_url: 'https://www.hmv.co.jp/en/artist_Kana-Hanazawa_000000000468840/?foo=bar',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'https://hmv.co.jp/artist/detail/000000000468840',
+            expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000468840',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://hmv.co.jp/artist/detail/000000000468840',
+                     input_url: 'https://www.hmv.co.jp/artist/detail/000000000842986',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'https://hmv.co.jp/artist/detail/000000000468840',
+            expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000842986',
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.hmv.co.jp/en/artist_Naniwa-Danshi_000000000852570/item_なにわ男子カレンダー2026-4→2027-3（STARTO-ENTERTAINMENT公認）_16444908',
+                     input_url: 'https://www.hmv.co.jp/en/artist_Naniwa-Danshi_000000000852570/item_なにわ男子カレンダー2026-4→2027-3（STARTO-ENTERTAINMENT公認）_16444908?foo=bar',
              input_entity_type: 'release',
     expected_relationship_type: 'mailorder',
-            expected_clean_url: 'https://hmv.co.jp/product/detail/16444908',
+            expected_clean_url: 'https://www.hmv.co.jp/product/detail/16444908',
        only_valid_entity_types: ['release'],
   },
   // Hoerspielforscher
