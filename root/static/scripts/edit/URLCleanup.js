@@ -3188,6 +3188,37 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'hmvbooks': {
+    hostname: 'hmv.co.jp',
+    match: [/^(?:https?:\/\/)?(?:www\.)?hmv\.co\.jp/i],
+    restrict: [LINK_TYPES.mailorder],
+    clean(url) {
+      url = url.replace(/^(https?:\/\/)?(www\.)?hmv\.co\.jp/, 'https://www.hmv.co.jp');
+      url = url.replace(/^https:\/\/www\.hmv\.co\.jp\/(?:[a-z]{2}\/)?artist_.+_\d+\/item_.+_(\d+).*$/, 'https://www.hmv.co.jp/product/detail/$1');
+      url = url.replace(/^https:\/\/www\.hmv\.co\.jp\/(?:[a-z]{2}\/)?artist_.+_(\d+).*$/, 'https://www.hmv.co.jp/artist/detail/$1');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/www\.hmv\.co\.jp\/(artist|product)\/detail\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix === 'product',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'hoerspielforscher': {
     hostname: 'hoerspielforscher.de',
     match: [/^(https?:\/\/)?hoerspielforscher\.de\//i],
