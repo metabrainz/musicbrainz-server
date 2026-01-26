@@ -3161,7 +3161,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
-                     input_url: 'https://www.hmv.co.jp/artist/detail/000000000842986',
+                     input_url: 'https://hmv.co.jp/artist/detail/000000000842986',
              input_entity_type: 'artist',
     expected_relationship_type: 'mailorder',
             expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000842986',

@@ -3201,8 +3201,11 @@ export const CLEANUPS: CleanupEntries = {
       if (artistPattern.test(url)) {
         return url.replace(artistPattern, 'https://www.hmv.co.jp/artist/detail/$1');
       }
-      // Only valid link types are cleaned.
-      return url;
+      /**
+       * Only valid link types are cleaned.
+       * Ensure cleaned links always include www to avoid certificate errors.
+       */
+      return url.replace('://hmv.co.jp', '://www.hmv.co.jp');
     },
     validate(url, id) {
       const m = /^https:\/\/www\.hmv\.co\.jp\/(artist|product)\/detail\/(\d+)$/.exec(url);
