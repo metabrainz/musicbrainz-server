@@ -3965,10 +3965,7 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?music\.line\.me/],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
-      url = url.replace(/^http:/, 'https:');
-      url = url.replace(/[#?].*/, '');
-      url = url.replace(/\/$/, '');
-      return url;
+      return url.replace(/^(?:https?:\/\/)?music\.line\.me\/webapp\/(artist|album|track|video)\/([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
     },
     validate(url, id) {
       const m = /^https:\/\/music\.line\.me\/webapp\/(artist|album|track|video)\/[0-9a-z]+$/.exec(url);
