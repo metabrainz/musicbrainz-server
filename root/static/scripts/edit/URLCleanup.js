@@ -3775,6 +3775,39 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'kkbox': {
+    hostname: 'kkbox.com',
+    match: [/^(https?:\/\/)?(www\.)?kkbox\.com/],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?kkbox\.com\/([a-z]{2})\/(?:[a-z]{2}\/)?(artist|album|song)\/([a-zA-Z0-9._-]+).*$/, 'https://www.kkbox.com/$1/$2/$3');
+    },
+    validate(url, id) {
+      const m = /^https:\/\/www\.kkbox\.com\/[a-z]{2}\/(artist|album|song)\/[a-zA-Z0-9._-]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'song',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'kofi': {
     hostname: 'ko-fi.com',
     match: [/^(https?:\/\/)?(www\.)?ko-fi\.com\/(?!s\/)/i],
