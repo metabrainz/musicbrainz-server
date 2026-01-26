@@ -3764,6 +3764,35 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
   },
+  // KKBOX
+  {
+                     input_url: 'http://kkbox.com/jp/en/artist/LZShQXVlw4lbgxexbP/?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/jp/artist/LZShQXVlw4lbgxexbP',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://kkbox.com/sg/en/album/H-rFRh4JibEcVaZfH6#test',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/sg/album/H-rFRh4JibEcVaZfH6',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.kkbox.com/hk/tc/song/T_4oqiGp6ZmfVogkW7',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/hk/song/T_4oqiGp6ZmfVogkW7',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://kkbox.fm/4p2hGs',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Ko-fi
   {
                      input_url: 'http://www.ko-fi.com/35MJZ8OL4IO',
