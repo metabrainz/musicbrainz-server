@@ -303,7 +303,7 @@ export const PART_OF_SERIES_LINK_TYPES: {
   recording: 'ea6f0698-6782-30d6-b16d-293081b66774',
   release: '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
   release_group: '01018437-91d8-36b9-bf89-3f885d53b5bd',
-  series: null,
+  series: '8da75c99-46ff-373c-9d31-276ca8fa8cc3',
   url: null,
   work: 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 };
@@ -312,12 +312,13 @@ export const PART_OF_SERIES_LINK_TYPE_GIDS: $ReadOnlyArray<string> =
   (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean));
 
 export const PART_OF_SERIES_LINK_TYPE_IDS: $ReadOnlyArray<number> = [
-  740, // recording
-  741, // release
-  742, // release group
-  743, // work
-  802, // event
-  996, // artist
+  740,  // recording
+  741,  // release
+  742,  // release group
+  743,  // work
+  802,  // event
+  996,  // artist
+  1301, // series
 ];
 
 // orchestrator, orchestra performed, conductor, concertmaster

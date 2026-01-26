@@ -15,6 +15,7 @@ import {
   defineCheckboxColumn,
   defineCountColumn,
   defineNameColumn,
+  defineSeriesNumberColumn,
   defineTypeColumn,
   removeFromMergeColumn,
   seriesOrderingTypeColumn,
@@ -25,6 +26,7 @@ component SeriesList(
   mergeForm?: MergeFormT,
   order?: string,
   series: $ReadOnlyArray<SeriesT>,
+  seriesItemNumbers?: $ReadOnlyArray<string>,
   sortable?: boolean,
 ) {
   const $c = React.useContext(CatalystContext);
@@ -39,6 +41,9 @@ component SeriesList(
         sortable,
         title: lp('Series', 'singular'),
       });
+      const seriesNumberColumn = seriesItemNumbers
+        ? defineSeriesNumberColumn({seriesItemNumbers})
+        : null;
       const typeColumn = defineTypeColumn({
         order,
         sortable,
@@ -52,6 +57,7 @@ component SeriesList(
 
       return [
         ...(checkboxColumn ? [checkboxColumn] : []),
+        ...(seriesNumberColumn ? [seriesNumberColumn] : []),
         nameColumn,
         typeColumn,
         seriesOrderingTypeColumn,
@@ -59,7 +65,15 @@ component SeriesList(
         ...(mergeForm && series.length > 2 ? [removeFromMergeColumn] : []),
       ];
     },
-    [$c.user, checkboxes, mergeForm, order, series, sortable],
+    [
+      $c.user,
+      checkboxes,
+      mergeForm,
+      order,
+      series,
+      seriesItemNumbers,
+      sortable,
+    ],
   );
 
   return useTable<SeriesT>({columns, data: series});
