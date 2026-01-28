@@ -11,8 +11,8 @@ INSERT INTO editor (
   id, name, password, ha1,
   email, email_confirm_date, privs)
 VALUES (
-  2, 'admin', '{CLEARTEXT}password', '3a115bc4f05ea9856bd4611b75c80bca',
-  'foo@example.com', now(), 128);
+  2, 'relationship_editor', '{CLEARTEXT}password',
+  '3a115bc4f05ea9856bd4611b75c80bca', 'foo@example.com', now(), 8);
 
 -- Release for language and script usage
 INSERT INTO artist (
