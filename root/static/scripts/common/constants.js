@@ -180,6 +180,7 @@ export const FAVICON_CLASSES: {
   'classical.music.apple.com': 'appleclassical',
   'music.apple.com': 'applemusic',
   'music.bugs.co.kr': 'bugs',
+  'music.line.me': 'linemusic',
   'music.migu.cn': 'migumusic',
   'music.yandex': 'yandex',
   'music.youtube.com': 'youtubemusic',

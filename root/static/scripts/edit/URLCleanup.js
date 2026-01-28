@@ -3960,6 +3960,44 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'linemusic': {
+    hostname: 'music.line.me',
+    match: [/^(https?:\/\/)?music\.line\.me/],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean(url) {
+      // Video launch links have a different type than canonical links.
+      url = url.replace('target=playSingleVideo', 'target=video');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me\/launch\?target=track.*&subitem=([0-9a-z]+).*$/, 'https://music.line.me/webapp/track/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me\/launch\?target=([a-z]+)&item=([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me(?:\/webapp)?\/(artist|album|track|video)\/([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/music\.line\.me\/webapp\/(artist|album|track|video)\/[0-9a-z]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'linkedin': {
     hostname: 'linkedin.com',
     match: [/^(https?:\/\/)?([^/]+\.)?linkedin\.com\//i],
