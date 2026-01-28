@@ -1,10 +1,10 @@
-# BestSteve <ibmibmibm.tw@gmail.com>, 2024.
+# BestSteve <ibmibmibm.tw@gmail.com>, 2024, 2026.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-12-28 17:42+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
+"PO-Revision-Date: 2026-01-28 17:11+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hant/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -973,6 +973,8 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"由兩個鼓組成：較大的<em>baya</em>或<em>dagga</em>負責低音，較小的<em>daya</"
+"em>或<em>tabla</em>負責節奏與「旋律」。"
 
 #. name:gambang
 #: DB:instrument/description:977

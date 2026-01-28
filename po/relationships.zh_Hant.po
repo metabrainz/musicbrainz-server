@@ -1,21 +1,21 @@
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# BestSteve <ibmibmibm.tw@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-05-26 23:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-01-28 17:11+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/"
-">\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>"
+"\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -688,14 +688,10 @@ msgstr "指該作品的作詞者。"
 
 #. name:mastering
 #: DB:link_type/description:1293
-#, fuzzy
-#| msgid ""
-#| "Indicates the instrument technician for this release. Use also for "
-#| "\"piano tuner\" credits and other similar ones."
 msgid ""
 "Indicates the mastering company for this release, when a company is credited "
 "instead of a specific engineer."
-msgstr "指該專輯的樂器調律師。也可用於“鋼琴調音師”或類似演職員資訊。"
+msgstr "指該發行品的母帶後期處理公司，當未標示特定母帶工程師，而用公司名義署名時。"
 
 #. name:mastering
 #: DB:link_type/description:42
@@ -734,6 +730,8 @@ msgid ""
 "medium, such as a prose work into an audio drama or a stage musical into a "
 "film musical)."
 msgstr ""
+"表示改編此作品的人(通常是從其他媒體改編而來，例如將散文作品改編為廣播劇，或將"
+"舞台音樂劇改編為電影音樂劇)。"
 
 #. name:translator
 #: DB:link_type/description:871
@@ -751,7 +749,7 @@ msgstr "指該作品的歌詞/歌劇劇本譯者。"
 msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
-msgstr ""
+msgstr "表示為戲劇作品(例如廣播劇)撰寫原始劇本的人。"
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -809,7 +807,7 @@ msgstr "將活動連結到作為參與者的創作者。"
 msgid ""
 "Links a podcast or broadcast series to an artist who was a host for the "
 "series."
-msgstr ""
+msgstr "用來連結播客或廣播節目系列與擔任主持人的創作者。"
 
 #. name:arranged in
 #: DB:link_type/description:864
