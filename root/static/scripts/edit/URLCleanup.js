@@ -3190,22 +3190,13 @@ export const CLEANUPS: CleanupEntries = {
   },
   'hmvbooks': {
     hostname: 'hmv.co.jp',
-    match: [/^(https?:\/\/)?(?:www\.)?hmv\.co\.jp/i],
+    match: [/^(https?:\/\/)?(www\.)?hmv\.co\.jp/i],
     restrict: [LINK_TYPES.mailorder],
     clean(url) {
-      const releasePattern = /^(?:https?:\/\/)(?:www\.)?hmv.co.jp\/(?:[a-z]{2}\/)?artist_.+_(\d+)\/item_.+_(\d+).*$/;
-      const artistPattern = /^(?:https?:\/\/)(?:www\.)?hmv.co.jp\/(?:[a-z]{2}\/)?artist_.+_(\d+).*$/;
-      if (releasePattern.test(url)) {
-        return url.replace(releasePattern, 'https://www.hmv.co.jp/product/detail/$2');
-      }
-      if (artistPattern.test(url)) {
-        return url.replace(artistPattern, 'https://www.hmv.co.jp/artist/detail/$1');
-      }
-      /**
-       * Only valid link types are cleaned.
-       * Ensure cleaned links always include www to avoid certificate errors.
-       */
-      return url.replace('://hmv.co.jp', '://www.hmv.co.jp');
+      url = url.replace(/^(https?:\/\/)?(www\.)?hmv\.co\.jp/, 'https://www.hmv.co.jp');
+      url = url.replace(/^https:\/\/www\.hmv\.co\.jp\/(?:[a-z]{2}\/)?artist_.+_\d+\/item_.+_(\d+).*$/, 'https://www.hmv.co.jp/product/detail/$1');
+      url = url.replace(/^https:\/\/www\.hmv\.co\.jp\/(?:[a-z]{2}\/)?artist_.+_(\d+).*$/, 'https://www.hmv.co.jp/artist/detail/$1');
+      return url;
     },
     validate(url, id) {
       const m = /^https:\/\/www\.hmv\.co\.jp\/(artist|product)\/detail\/(\d+)$/.exec(url);
