@@ -3965,7 +3965,12 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?music\.line\.me/],
     restrict: [LINK_TYPES.streamingpaid],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?music\.line\.me\/webapp\/(artist|album|track|video)\/([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      // Video launch links have a different type than canonical links.
+      url = url.replace('target=playSingleVideo', 'target=video');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me\/launch\?target=track.*&subitem=([0-9a-z]+).*$/, 'https://music.line.me/webapp/track/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me\/launch\?target=([a-z]+)&item=([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me(?:\/webapp)?\/(artist|album|track|video)\/([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      return url;
     },
     validate(url, id) {
       const m = /^https:\/\/music\.line\.me\/webapp\/(artist|album|track|video)\/[0-9a-z]+$/.exec(url);
