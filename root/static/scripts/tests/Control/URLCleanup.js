@@ -3786,6 +3786,13 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.kkbox.com/hk/song/T_4oqiGp6ZmfVogkW7',
        only_valid_entity_types: ['recording'],
   },
+  {
+                     input_url: 'https://kkbox.fm/4p2hGs',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Ko-fi
   {
                      input_url: 'http://www.ko-fi.com/35MJZ8OL4IO',
