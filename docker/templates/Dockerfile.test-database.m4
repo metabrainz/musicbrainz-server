@@ -17,6 +17,9 @@ RUN cd /tmp && \
     rm install_extensions.sh
 
 setup_mbs_root()
+# Allow the postgres user, which create_test_db.sh runs as,
+# access to /home/musicbrainz.
+RUN chmod 711 /home/musicbrainz
 
 set_perl_install_args
 
