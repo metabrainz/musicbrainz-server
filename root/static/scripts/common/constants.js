@@ -154,6 +154,7 @@ export const FAVICON_CLASSES: {
   'junodownload.com': 'junodownload',
   'kashinavi.com': 'kashinavi',
   'kickstarter.com': 'kickstarter',
+  'kkbox.com': 'kkbox',
   'ko-fi.com': 'kofi',
   'laboiteauxparoles.com': 'laboiteauxparoles',
   'lantis.jp': 'lantis',
