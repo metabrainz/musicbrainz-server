@@ -4002,6 +4002,56 @@ limited_link_type_combinations: [
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
   },
+  // LINE MUSIC
+  {
+                     input_url: 'http://music.line.me/artist/mi0000000012133931?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/artist/mi0000000012133931',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.line.me/webapp/album/mb0000000001e9ed76#foo=bar',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/album/mb0000000001e9ed76',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.line.me/webapp/track/mt0000000012404a19/?foo=bar',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/track/mt0000000012404a19',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.line.me/video/mv000000000017ea26?refererId=yoasobi&refererType=search',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/video/mv000000000017ea26',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=album&item=mb00000000021c335d&cc=JP&v=1',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/album/mb00000000021c335d',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=track&item=mb0000000002cce5c7&subitem=mt000000001a375440&cc=JP&v=1',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/track/mt000000001a375440',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=playSingleVideo&item=mv0000000000081f4e&cc=JP&v=1',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/video/mv0000000000081f4e',
+       only_valid_entity_types: ['recording', 'release'],
+  },
   // LinkedIn
   {
                      input_url: 'http://www.linkedin.com/pub/trevor-muzzy/5/282/538',

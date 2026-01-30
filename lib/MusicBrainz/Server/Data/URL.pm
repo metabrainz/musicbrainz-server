@@ -121,6 +121,7 @@ my %URL_SPECIALIZATIONS = (
     'LibraryThing'        => qr{^https?://(?:www\.)?librarything\.com/}i,
     'LibriVox'            => qr{^https?://(?:www\.)?librivox\.org/}i,
     'Lieder'              => qr{^https?://(?:www\.)?lieder\.net/}i,
+    'LineMusic'           => qr{^https?://music\.line\.me/}i,
     'LinkedIn'            => qr{^https?://([^/]+\.)?linkedin\.com/}i,
     'LiveFans'            => qr{^https?://(?:www\.)?livefans\.jp/}i,
     'LiveNation'          => qr{^https?://(?:[^/]+\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}/}i,
