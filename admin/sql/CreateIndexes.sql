@@ -679,6 +679,7 @@ CREATE INDEX unreferenced_row_log_idx_inserted ON unreferenced_row_log USING BRI
 
 CREATE UNIQUE INDEX url_idx_gid ON url (gid);
 CREATE UNIQUE INDEX url_idx_url ON url (url);
+CREATE INDEX url_idx_key ON url (key);
 
 CREATE INDEX vote_idx_edit ON vote (edit);
 CREATE INDEX vote_idx_editor_vote_time ON vote (editor, vote_time);
