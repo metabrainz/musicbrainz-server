@@ -26,7 +26,7 @@ sub sidebar_name { shift->pretty_name }
 
 sub key {
     # Countries share ASINs.
-    return shift->url =~ s{^https://www\.amazon\.[a-z\.]+(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})(?:[^0-9A-Z]|$)}{asin:$1}r;
+    return shift->url =~ s{^https://www\.amazon\.[a-z\.]+(?:\:[0-9]+)?/.*/([0-9B][0-9A-Z]{9})}{asin:$1}r;
 }
 
 override affiliate_url => sub {

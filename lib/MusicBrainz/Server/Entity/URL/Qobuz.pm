@@ -8,6 +8,11 @@ with 'MusicBrainz::Server::Entity::URL::Sidebar';
 
 sub sidebar_name { 'Qobuz' }
 
+sub key {
+    # Countries share IDs.
+    return shift->url =~ s{^https://www\.qobuz\.com/(?:[a-z]{2}-[a-z]{2}/)?(?:album|interpreter|label)/([\w\d-]+)}{qobuz:$1}r;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
