@@ -60,9 +60,9 @@ sub url_lookup_by_resource : Private
         if (scalar(@$resource) > $MAX_RESOURCE_PARAMS) {
             @$resource = @$resource[0 .. ($MAX_RESOURCE_PARAMS - 1)];
         }
-        @urls = $c->model('URL')->find_by_urls($resource);
+        @urls = $c->model('URL')->find_by_urls([ grep { $_ =~ m{^https?://} } @$resource ], [ grep { $_ !~ m{^https?://} } @$resource ]);
     } else {
-        my $url = $c->model('URL')->get_by_url($resource);
+        my $url = $resource =~ m{^https?://} ? $c->model('URL')->get_by_url($resource) : $c->model('URL')->get_by_key($resource);
         $c->detach('not_found') unless $url;
         @urls = $url;
     }
@@ -103,4 +103,3 @@ and is licensed under the GPL version 2, or (at your option) any
 later version: http://www.gnu.org/licenses/gpl-2.0.txt
 
 =cut
-

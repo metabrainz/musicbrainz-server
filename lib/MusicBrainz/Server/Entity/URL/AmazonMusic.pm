@@ -27,6 +27,11 @@ sub pretty_name
 
 sub sidebar_name { shift->pretty_name }
 
+sub key {
+    # Countries share ASINs.
+    return shift->url =~ s{^https://music\.amazon\.[a-z\.]+/[a-z]+/(B[0-9A-Z]{9}|[0-9]{9}[0-9X])$}{asin:$1}r;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

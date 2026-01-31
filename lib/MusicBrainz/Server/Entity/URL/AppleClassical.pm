@@ -16,6 +16,11 @@ sub sidebar_name {
     }
 }
 
+sub key {
+    # Storefronts on Apple Music and Apple Music Classical share IDs.
+    return shift->url =~ s{^https://(?:classical\.)?music\.apple\.com/[a-z]{2}/([a-z-]{3,})/([0-9]+)$}{applemusic:$1:$2}r;
+}
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

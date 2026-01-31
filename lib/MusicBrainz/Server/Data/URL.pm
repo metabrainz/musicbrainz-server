@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Data::URL;
 use Moose;
 use namespace::autoclean;
+use Class::Load qw( load_class );
 
 use Carp;
 use MusicBrainz::Server::Data::Utils qw( generate_gid hash_to_row );
@@ -265,6 +266,7 @@ sub _build_columns
         id
         gid
         url
+        key
         edits_pending
     );
 }
@@ -335,14 +337,31 @@ sub get_by_url {
     return;
 }
 
-sub find_by_urls {
-    my ($self, $urls) = @_;
+sub get_by_key {
+    my ($self, $key) = @_;
 
-    my $normalized = [map { URI->new($_)->canonical->as_string } @$urls];
-    $self->query_to_list(<<~"SQL", [$normalized]);
+    my $row = $self->c->prefer_ro_sql->select_single_row_hash(
+        <<~"SQL",
         SELECT ${\($self->_columns)}
           FROM ${\($self->_table)}
-         WHERE url = any(?)
+         WHERE key = ?
+        SQL
+        $key,
+    );
+    if (defined $row) {
+        return $self->_new_from_row($row);
+    }
+    return;
+}
+
+sub find_by_urls {
+    my ($self, $urls, $keys) = @_;
+
+    my $normalized = [map { URI->new($_)->canonical->as_string } @$urls];
+    $self->query_to_list(<<~"SQL", [$normalized, $keys]);
+        SELECT ${\($self->_columns)}
+          FROM ${\($self->_table)}
+         WHERE url = any(?) OR key = any(?)
          ORDER BY url
         SQL
 }
@@ -393,7 +412,13 @@ sub find_or_insert {
     unless ($row) {
         $self->sql->auto_commit(1);
 
-        my $to_insert = { url => $url, gid => generate_gid() };
+        my $specialized_url_class = $self->_entity_class({ url => $url });
+        load_class($specialized_url_class);
+
+        my $specialized_url = $specialized_url_class->new(url => $url);
+        my $key = $specialized_url->can('key') ? $specialized_url->key : undef;
+
+        my $to_insert = { url => $url, key => $key, gid => generate_gid() };
         $row = { %$to_insert, id => $self->sql->insert_row('url', $to_insert, 'id') };
     }
 
