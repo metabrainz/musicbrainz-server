@@ -30,6 +30,15 @@
 
 :beginner: If you have a lot to say, be more detailed in this section.
 
+# AI usage
+<!--
+    If you used AI / LLM tools while working on this pull request, you must
+    disclose it as pe the MetaBrainz Foundation's contribution guidelines
+    (https://github.com/metabrainz/guidelines).
+-->
+
+:beginner: If you used AI at all, you must disclose it, and what for, such as:
+Used Copilot when writing the tests I added to `testfile.js`
 
 # Testing
 <!--
