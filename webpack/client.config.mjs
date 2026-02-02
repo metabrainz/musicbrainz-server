@@ -47,6 +47,7 @@ const entries = [
   'admin/components/SpammerButton',
   'annotation/AnnotationHistoryTable',
   'alias',
+  'area/components/AreaEditForm',
   'area/edit',
   'area/index',
   'area/places-map',
