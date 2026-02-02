@@ -33,7 +33,7 @@
 # AI usage
 <!--
     If you used AI / LLM tools while working on this pull request, you must
-    disclose it as pe the MetaBrainz Foundation's contribution guidelines
+    disclose it as per the MetaBrainz Foundation's contribution guidelines
     (https://github.com/metabrainz/guidelines).
 -->
 
