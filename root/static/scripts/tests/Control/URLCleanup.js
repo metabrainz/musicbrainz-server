@@ -3152,6 +3152,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
   },
+  // HMV&BOOKS
+  {
+                     input_url: 'https://www.hmv.co.jp/en/artist_Kana-Hanazawa_000000000468840/?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000468840',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://hmv.co.jp/artist/detail/000000000842986',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000842986',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.hmv.co.jp/en/artist_Naniwa-Danshi_000000000852570/item_なにわ男子カレンダー2026-4→2027-3（STARTO-ENTERTAINMENT公認）_16444908?foo=bar',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.hmv.co.jp/product/detail/16444908',
+       only_valid_entity_types: ['release'],
+  },
   // Hoerspielforscher
   {
                      input_url: 'https://hoerspielforscher.de/kartei/interpret?detail=1254&detailSub=veroeffentlichung&expanded=1#page-main',
@@ -3764,6 +3786,35 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
   },
+  // KKBOX
+  {
+                     input_url: 'http://kkbox.com/jp/en/artist/LZShQXVlw4lbgxexbP/?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/jp/artist/LZShQXVlw4lbgxexbP',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://kkbox.com/sg/en/album/H-rFRh4JibEcVaZfH6#test',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/sg/album/H-rFRh4JibEcVaZfH6',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.kkbox.com/hk/tc/song/T_4oqiGp6ZmfVogkW7',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/hk/song/T_4oqiGp6ZmfVogkW7',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://kkbox.fm/4p2hGs',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Ko-fi
   {
                      input_url: 'http://www.ko-fi.com/35MJZ8OL4IO',
@@ -3972,6 +4023,56 @@ limited_link_type_combinations: [
                      input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
+  },
+  // LINE MUSIC
+  {
+                     input_url: 'http://music.line.me/artist/mi0000000012133931?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/artist/mi0000000012133931',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.line.me/webapp/album/mb0000000001e9ed76#foo=bar',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/album/mb0000000001e9ed76',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.line.me/webapp/track/mt0000000012404a19/?foo=bar',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/track/mt0000000012404a19',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.line.me/video/mv000000000017ea26?refererId=yoasobi&refererType=search',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/video/mv000000000017ea26',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=album&item=mb00000000021c335d&cc=JP&v=1',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/album/mb00000000021c335d',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=track&item=mb0000000002cce5c7&subitem=mt000000001a375440&cc=JP&v=1',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/track/mt000000001a375440',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=playSingleVideo&item=mv0000000000081f4e&cc=JP&v=1',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/video/mv0000000000081f4e',
+       only_valid_entity_types: ['recording', 'release'],
   },
   // LinkedIn
   {
@@ -5137,6 +5238,28 @@ limited_link_type_combinations: [
     expected_relationship_type: 'lyrics',
             expected_clean_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d',
        only_valid_entity_types: ['release_group'],
+  },
+  // Pexels
+  {
+                     input_url: 'https://www.pexels.com/@wyxina-tresse-311038210/gallery/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pexels.com/@wyxina-tresse-311038210/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://pexels.com/ro-ro/@paduret',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pexels.com/@paduret/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.pexels.com/video/abstract-shapes-in-slow-motion-27491083/',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
   },
   // Pinterest
   {
@@ -6716,6 +6839,28 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
   },
+  // Unsplash
+  {
+                     input_url: 'http://www.unsplash.com/@marjan_blan/collections',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://unsplash.com/@marjan_blan',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://unsplash.com/ja/@cdd20',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://unsplash.com/@cdd20',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://unsplash.com/photos/a-black-binder-with-an-open-cover-is-shown-EIB-pwIRS9c',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // UtaiteDB/VocaDB/TouhouDB
   {
                      input_url: 'http://utaitedb.net/Ar/1#',
@@ -7579,6 +7724,7 @@ limited_link_type_combinations: [
                      input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7586,6 +7732,7 @@ limited_link_type_combinations: [
                      input_url: 'http://www.youtube.com/shorts/4Xl6zdY0m6o',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=4Xl6zdY0m6o',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7593,6 +7740,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.youtube.com/live/E4W-_FayUf8',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=E4W-_FayUf8',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7621,6 +7769,7 @@ limited_link_type_combinations: [
                      input_url: 'http://youtu.be/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7628,6 +7777,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA&list=PLkHWBeudCLJCjB41Yt1iiain82Lp1zQOB',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7635,6 +7785,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.youtube.com/playlist?list=PLnbecBgjL4QQtjDRyHD99b6xWjLD3i9r5',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/playlist?list=PLnbecBgjL4QQtjDRyHD99b6xWjLD3i9r5',
        only_valid_entity_types: ['release'],
   },

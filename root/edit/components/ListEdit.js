@@ -30,7 +30,6 @@ component ListEdit(
   return (
     <div className="edit-list">
       <EditHeader edit={edit} isSummary voter={voter} />
-      <EditEnteredFrom edit={edit} />
 
       <input
         name={`enter-vote.vote.${index}.edit_id`}
@@ -42,10 +41,14 @@ component ListEdit(
         <EditSummary edit={edit} index={index} />
       </div>
 
-      <div className="edit-details">
-        {edit.data
-          ? detailsElement
-          : <p>{l('An error occurred while loading this edit.')}</p>}
+      <div>
+        <EditEnteredFrom edit={edit} />
+
+        <div className="edit-details">
+          {edit.data
+            ? detailsElement
+            : <p>{l('An error occurred while loading this edit.')}</p>}
+        </div>
       </div>
 
       {$c.user ? (

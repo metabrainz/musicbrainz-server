@@ -3188,6 +3188,37 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'hmvbooks': {
+    hostname: 'hmv.co.jp',
+    match: [/^(?:https?:\/\/)?(?:www\.)?hmv\.co\.jp/i],
+    restrict: [LINK_TYPES.mailorder],
+    clean(url) {
+      url = url.replace(/^(https?:\/\/)?(www\.)?hmv\.co\.jp/, 'https://www.hmv.co.jp');
+      url = url.replace(/^https:\/\/www\.hmv\.co\.jp\/(?:[a-z]{2}\/)?artist_.+_\d+\/item_.+_(\d+).*$/, 'https://www.hmv.co.jp/product/detail/$1');
+      url = url.replace(/^https:\/\/www\.hmv\.co\.jp\/(?:[a-z]{2}\/)?artist_.+_(\d+).*$/, 'https://www.hmv.co.jp/artist/detail/$1');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/www\.hmv\.co\.jp\/(artist|product)\/detail\/(\d+)$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.mailorder.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.mailorder.release:
+            return {
+              result: prefix === 'product',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'hoerspielforscher': {
     hostname: 'hoerspielforscher.de',
     match: [/^(https?:\/\/)?hoerspielforscher\.de\//i],
@@ -3775,6 +3806,60 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
+  'kkbox': {
+    hostname: ['kkbox.com', 'kkbox.fm'],
+    match: [
+      /^(https?:\/\/)?(www\.)?kkbox\.com/i,
+      /^(https?:\/\/)?([^/]+\.)?kkbox\.fm/i,
+    ],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?kkbox\.com\/([a-z]{2})\/(?:[a-z]{2}\/)?(artist|album|song)\/([a-zA-Z0-9._-]+).*$/, 'https://www.kkbox.com/$1/$2/$3');
+    },
+    validate(url, id) {
+      if (/kkbox\.fm\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+
+      const m = /^https:\/\/www\.kkbox\.com\/[a-z]{2}\/(artist|album|song)\/[a-zA-Z0-9._-]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'song',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'kofi': {
     hostname: 'ko-fi.com',
     match: [/^(https?:\/\/)?(www\.)?ko-fi\.com\/(?!s\/)/i],
@@ -3958,6 +4043,44 @@ export const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https?:\/\/)?([^/]+\.)?artlibre\.org\//, 'http://artlibre.org/');
       url = url.replace(/^http:\/\/artlibre\.org\/licence\.php\/lal\.html/, 'http://artlibre.org/licence/lal');
       return url;
+    },
+  },
+  'linemusic': {
+    hostname: 'music.line.me',
+    match: [/^(https?:\/\/)?music\.line\.me/],
+    restrict: [LINK_TYPES.streamingpaid],
+    clean(url) {
+      // Video launch links have a different type than canonical links.
+      url = url.replace('target=playSingleVideo', 'target=video');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me\/launch\?target=track.*&subitem=([0-9a-z]+).*$/, 'https://music.line.me/webapp/track/$1');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me\/launch\?target=([a-z]+)&item=([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?music\.line\.me(?:\/webapp)?\/(artist|album|track|video)\/([0-9a-z]+).*$/, 'https://music.line.me/webapp/$1/$2');
+      return url;
+    },
+    validate(url, id) {
+      const m = /^https:\/\/music\.line\.me\/webapp\/(artist|album|track|video)\/[0-9a-z]+$/.exec(url);
+      if (m) {
+        const prefix = m[1];
+        switch (id) {
+          case LINK_TYPES.streamingpaid.artist:
+            return {
+              result: prefix === 'artist',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.release:
+            return {
+              result: prefix === 'album' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+          case LINK_TYPES.streamingpaid.recording:
+            return {
+              result: prefix === 'track' || prefix === 'video',
+              target: ERROR_TARGETS.ENTITY,
+            };
+        }
+        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
     },
   },
   'linkedin': {
@@ -5178,6 +5301,21 @@ export const CLEANUPS: CleanupEntries = {
             };
         }
         return {result: false, target: ERROR_TARGETS.ENTITY};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
+  'pexels': {
+    hostname: 'pexels.com',
+    match: [/^(https?:\/\/)?(www\.)?pexels\.com/i],
+    restrict: [LINK_TYPES.artgallery],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?pexels\.com\/(?:[a-z-]+\/)?@([^/#?]+).*$/, 'https://www.pexels.com/@$1/');
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/www\.pexels\.com\/@([^/]+)\/$/.test(url)) {
+        return {result: true};
       }
       return {result: false, target: ERROR_TARGETS.URL};
     },
@@ -6630,6 +6768,21 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'unsplash': {
+    hostname: 'unsplash.com',
+    match: [/^(https?:\/\/)?(www\.)?unsplash\.com/i],
+    restrict: [LINK_TYPES.artgallery],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?unsplash\.com\/(?:[a-z]+\/)?@([^/#?]+).*$/, 'https://unsplash.com/@$1');
+      return url;
+    },
+    validate(url) {
+      if (/^https:\/\/unsplash\.com\/@([^/]+)$/.test(url)) {
+        return {result: true};
+      }
+      return {result: false, target: ERROR_TARGETS.URL};
+    },
+  },
   'unwelcomeimages': { // Block images from sites that don't allow deeplinking
     hostname: 'i.discogs.com',
     match: [/^(https?:\/\/)?i\.discogs\.com\//i],
@@ -7396,7 +7549,26 @@ export const CLEANUPS: CleanupEntries = {
   'youtube': {
     hostname: ['youtube.com', 'youtu.be'],
     match: [/^(https?:\/\/)?(((?!music)[^/])+\.)?(youtube\.com\/|youtu\.be\/)/i],
-    restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.youtube}],
+    restrict: [
+      LINK_TYPES.youtube,
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+    ],
+    select(url, sourceType) {
+      if (sourceType === 'recording') {
+        return LINK_TYPES.streamingfree.recording;
+      }
+      if (sourceType === 'release') {
+        return LINK_TYPES.streamingfree.release;
+      }
+      return false;
+    },
     clean(url) {
       url = url.replace(/^(https?:\/\/)?([^/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)
@@ -7462,6 +7634,7 @@ export const CLEANUPS: CleanupEntries = {
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.streamingfree.recording:
+        case LINK_TYPES.streamingpaid.recording:
           if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
             return {result: true};
           }
@@ -7471,6 +7644,7 @@ export const CLEANUPS: CleanupEntries = {
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.streamingfree.release:
+        case LINK_TYPES.streamingpaid.release:
           if (/^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url)) {
             return {result: true};
           }

@@ -128,15 +128,15 @@ postgresql-server-dev-16
 m4_define(
     `set_perl_install_args',
     `m4_dnl
-ARG PERL_VERSION=5.38.2
-ARG PERL_SRC_SUM=a0a31534451eb7b83c7d6594a497543a54d488bc90ca00f5e34762577f40655e')
+ARG PERL_VERSION=5.38.5
+ARG PERL_SRC_SUM=b7667d3ff309068852af7853910aaccec26c839d717402121b664ac705e07bfe')
 
 m4_define(
     `install_perl',
     `m4_dnl
 # Install Perl from source
     cd /usr/src && \
-    curl -sSLO https://cpan.metacpan.org/authors/id/P/PE/PEVANS/perl-$PERL_VERSION.tar.gz && \
+    curl -sSLO https://www.cpan.org/src/5.0/perl-$PERL_VERSION.tar.gz && \
     echo "$PERL_SRC_SUM *perl-$PERL_VERSION.tar.gz" | sha256sum --strict --check - && \
     tar -xzf perl-$PERL_VERSION.tar.gz && \
     cd - && cd /usr/src/perl-$PERL_VERSION && \

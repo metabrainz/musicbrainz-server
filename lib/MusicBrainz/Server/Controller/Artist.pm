@@ -821,11 +821,6 @@ sub split : Chained('load') Edit {
         $_->link->type->gid eq $ARTIST_ARTIST_COLLABORATION
     } $artist->all_relationships;
 
-    $c->stash(
-        in_use => $c->model('ArtistCredit')->in_use($ac),
-        collaborators => \@collaborators,
-    );
-
     my $edit = $self->edit_action(
         $c,
         form        => 'EditArtistCredit',
@@ -870,6 +865,20 @@ sub split : Chained('load') Edit {
     );
 
     $c->stash->{form}->field('artist_credit')->stash_field;
+
+    my %props = (
+        artist => $artist->TO_JSON,
+        artistCredit => $ac->TO_JSON,
+        collaborators => to_json_array(\@collaborators),
+        form => $c->stash->{form}->TO_JSON,
+        inUse => boolean_to_json($c->model('ArtistCredit')->in_use($ac)),
+    );
+    $c->stash(
+        component_path => 'artist/SplitArtist',
+        component_props => \%props,
+        current_view => 'Node',
+    );
+
 }
 
 sub credit : Chained('load') PathPart('credit') CaptureArgs(1) {
