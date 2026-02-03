@@ -39,14 +39,14 @@
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
+# EmO686 <eiswuste@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-13 11:46+0100\n"
-"PO-Revision-Date: 2026-01-20 16:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-01-24 04:11+0000\n"
+"Last-Translator: EmO686 <eiswuste@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -6121,12 +6121,13 @@ msgstr "Этот псевдоним уже существует."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
-msgstr ""
+msgstr "Для веб-приложений необходимо указать URL-адрес перенаправления."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
+"Для веб-приложений схема перенаправления URL должна быть «http», или «https»."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -6134,6 +6135,8 @@ msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
 msgstr ""
+"Схема URL-адреса перенаправления должна представлять собой строку обратного "
+"DNS, например, \"{example_url}\", для установленных приложений."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -6203,11 +6206,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
 msgid "Please add an artist name for each credit."
-msgstr ""
+msgstr "Пожалуйста, укажите имя исполнителя для каждого пункта в титрах."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:78
 msgid "Artist credit field is required"
-msgstr ""
+msgstr "Поле с указанием автора обязательно для заполнения"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:60
@@ -6264,7 +6267,7 @@ msgstr "Это недействительный ISWC"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
 msgid "Label codes must be greater than 0 and 6 digits at most"
-msgstr "Коды лейбла должны содержать от одной до шести цифр"
+msgstr "Коды лейбла должны состоять не более чем из 0 и не более чем из 6 цифр"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -6437,6 +6440,8 @@ msgid ""
 "The edit could not be applied because the images have changed. Please try "
 "again."
 msgstr ""
+"Редактирование не удалось, так как изображения изменились. Пожалуйста, "
+"попробуйте еще раз."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
