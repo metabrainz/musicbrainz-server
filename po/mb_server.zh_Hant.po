@@ -5,13 +5,14 @@
 # guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
 # kKZvtcqX <musicbrainz.kelp772@slmails.com>, 2025.
+# BestSteve <ibmibmibm.tw@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-13 11:46+0100\n"
-"PO-Revision-Date: 2025-11-20 18:07+0000\n"
-"Last-Translator: kKZvtcqX <musicbrainz.kelp772@slmails.com>\n"
+"PO-Revision-Date: 2026-01-28 17:11+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -374,10 +375,8 @@ msgid "Area"
 msgstr "區域"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Primary type"
 msgid "Area type"
-msgstr "主要類型"
+msgstr "地區類型"
 
 #: ../root/cdstub/cdstub.tt:7 ../root/cdtoc/list.tt:8
 #: ../root/cdtoc/lookup.tt:42 ../root/cdtoc/lookup.tt:77
@@ -455,10 +454,8 @@ msgid "Artist details"
 msgstr "創作者詳細資訊"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "創作者區域"
+msgstr "創作者類型"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -1014,10 +1011,8 @@ msgid "Event"
 msgstr "事件"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Entity type"
 msgid "Event type"
-msgstr "實體類型"
+msgstr "活動類型"
 
 #: ../root/release/edit/information.tt:351
 msgid ""
@@ -1082,24 +1077,30 @@ msgid ""
 "place’s official homepage and social networking pages, ticketing pages, and "
 "unofficial pages like Wikipedia entries, histories, and fan sites."
 msgstr ""
+"外部連結是與此地點相關的 URL。可包含該地點的官方首頁與社群網站頁面、售票頁面"
+"，以及像是 Wikipedia 條目、歷史介紹或粉絲網站等非官方頁面。"
 
 #: ../root/recording/edit_form.tt:125
 msgid ""
 "External links are URLs associated with the recording, such as purchase or "
 "streaming pages, or entries in other databases."
-msgstr ""
+msgstr "外部連結是與此錄音相關的 URL，例如購買或串流頁面，或其他資料庫中的條目。"
 
 #: ../root/release_group/edit_form.tt:87
 msgid ""
 "External links are URLs associated with the release group, such as official "
 "pages, Wikipedia articles, reviews, and entries in other databases."
 msgstr ""
+"外部連結是與此發行組相關的 URL，例如官方頁面、Wikipedia 條目、評論文章，以及"
+"其他資料庫中的條目。"
 
 #: ../root/series/edit_form.tt:59
 msgid ""
 "External links are URLs associated with the series, such as official pages, "
 "social networking sites, and entries in other databases."
 msgstr ""
+"外部連結是與此系列相關的 URL，例如官方頁面、社群網站，以及其他資料庫中的條目"
+"。"
 
 #: ../root/work/edit_form.tt:157
 msgid ""
