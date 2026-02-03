@@ -39,12 +39,13 @@
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
+# EmO686 <eiswuste@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-01-13 11:46+0100\n"
-"PO-Revision-Date: 2026-01-19 12:11+0000\n"
+"PO-Revision-Date: 2026-02-01 22:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -3317,9 +3318,9 @@ msgid ""
 "articles, conjunctions, and prepositions like “and”, “of”, “or”, “to”, and "
 "“the” {guidelines|should typically be lowercased}."
 msgstr ""
-"На этом носителе названия английских треков могли быть неправильно написаны "
-"заглавными буквами. Короткие артикли, союзы и предлоги, такие как «and», "
-"«of», «or», «to» и «the» {guidelines|обычно следует писать строчными "
+"Названия англоязычных треков на этом носителе могли быть написаны "
+"некорректно. Короткие артикли, союзы и предлоги, такие как «and», «of», «or"
+"», «to» и «the» {guidelines|обычно следует писать строчными, а не заглавными "
 "буквами}."
 
 #: ../root/release/edit/tracklist.tt:445
@@ -3872,7 +3873,7 @@ msgstr "любым"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:708
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:407
 msgid "appears on"
-msgstr ""
+msgstr "появляется в"
 
 #: ../root/edit/search_macros.tt:20
 msgid "auto-edits"
@@ -3964,7 +3965,7 @@ msgstr "исторический, с {begin} по {end}"
 
 #: ../root/edit/search_macros.tt:25
 msgid "in an unspecified order (possibly faster)"
-msgstr "в произвольном порядке (быстрее)"
+msgstr "в произвольном порядке (возможно быстрее)"
 
 #: ../root/edit/search_macros.tt:389
 msgid "include"
@@ -4860,6 +4861,8 @@ msgid ""
 "Unable to determine which recording {source_recording} should be merged "
 "into. There are multiple valid options: {target_recordings}."
 msgstr ""
+"Не удалось определить, в какую запись нужно объединить запись \""
+"{source_recording}\". Допустимые варианты: {target_recordings}."
 
 #: ../lib/MusicBrainz/Server/Data/Release.pm:55
 msgid ""
@@ -6113,7 +6116,7 @@ msgstr "Слушать в YouTube Music"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:115
 msgid "This alias can only be a primary alias if a locale is selected"
-msgstr "Этот псевдоним может быть основным, если выбран язык"
+msgstr "Этот псевдоним может быть основным, только если выбран язык"
 
 #: ../lib/MusicBrainz/Server/Form/Alias.pm:127
 msgid "This alias already exists."
@@ -6121,12 +6124,14 @@ msgstr "Этот псевдоним уже существует."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
-msgstr ""
+msgstr "Для веб-приложений необходимо указать URL-адрес перенаправления."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
+"Для веб-приложений схема перенаправления URL должна быть начинаться с "
+"\"http\" или \"https\"."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -6134,6 +6139,8 @@ msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
 msgstr ""
+"Схема URL-адреса перенаправления должна представлять собой строку обратного "
+"DNS, например, \"{example_url}\", для установленных приложений."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -6203,11 +6210,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
 msgid "Please add an artist name for each credit."
-msgstr ""
+msgstr "Пожалуйста, укажите имя исполнителя для каждого пункта в титрах."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:78
 msgid "Artist credit field is required"
-msgstr ""
+msgstr "Поле с указанием автора обязательно для заполнения"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
 #: ../root/static/scripts/edit/components/DateRangeFieldset.js:60
@@ -6264,7 +6271,7 @@ msgstr "Это недействительный ISWC"
 
 #: ../lib/MusicBrainz/Server/Form/Field/LabelCode.pm:17
 msgid "Label codes must be greater than 0 and 6 digits at most"
-msgstr "Коды лейбла должны содержать от одной до шести цифр"
+msgstr "Коды лейбла должны состоять не более чем из 0 и не более чем из 6 цифр"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Length.pm:31
 msgid "Not a valid time. Must be in the format MM:SS"
@@ -6437,6 +6444,8 @@ msgid ""
 "The edit could not be applied because the images have changed. Please try "
 "again."
 msgstr ""
+"Редактирование не удалось, так как изображения изменились. Пожалуйста, "
+"попробуйте еще раз."
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:34
 msgid "Invalid URL format"
@@ -7489,7 +7498,7 @@ msgstr "Работы"
 
 #: ../root/area/AreaWorks.js:24
 msgid "This area has no relationships to any works."
-msgstr ""
+msgstr "Данная область не связана с какими-либо работами."
 
 #: ../root/artist/ArtistEvents.js:74
 msgid "No events found that match this search."
@@ -7608,6 +7617,7 @@ msgstr ""
 #: ../root/artist/ArtistMerge.js:43
 msgid "You should only use the checkbox above to fix errors (such as typos)."
 msgstr ""
+"Используйте данный флажок только чтобы исправить ошибки (например, опечатки)."
 
 #: ../root/artist/ArtistMerge.js:49
 msgid ""
@@ -7648,12 +7658,12 @@ msgstr "Показаны все записи"
 
 #: ../root/artist/ArtistRecordings.js:159
 msgid "No recordings found that match this search."
-msgstr ""
+msgstr "Не найдено записей, соответствующих данному запросу."
 
 #: ../root/artist/ArtistRecordings.js:160
 #: ../root/instrument/InstrumentRecordings.js:65
 msgid "No recordings found."
-msgstr ""
+msgstr "Записи не найдены."
 
 #: ../root/artist/ArtistRelationships.js:32
 #: ../root/label/LabelRelationships.js:32
@@ -7662,7 +7672,7 @@ msgstr "Выступления"
 
 #: ../root/artist/ArtistReleases.js:70 ../root/label/LabelIndex.js:110
 msgid "No releases found that match this search."
-msgstr ""
+msgstr "Не найдено релизов, соответствующих данному запросу."
 
 #: ../root/artist/ArtistReleases.js:71
 #: ../root/instrument/InstrumentReleases.js:64
@@ -7675,14 +7685,16 @@ msgid ""
 "Showing Various Artist releases. {show_subset|Show releases by this artist "
 "instead}."
 msgstr ""
+"Показаны релизы разных исполнителей. {show_subset|Показывать вместо этого "
+"релизы этого исполнителя}."
 
 #: ../root/artist/ArtistReleases.js:88
 msgid "This search only found releases by various artists."
-msgstr ""
+msgstr "По данному запросу найдены только релизы с разными исполнителями."
 
 #: ../root/artist/ArtistReleases.js:90
 msgid "This artist only has releases by various artists."
-msgstr ""
+msgstr "У данного исполнителя есть только релизы с разными исполнителями."
 
 #: ../root/artist/ArtistReleases.js:95
 msgid ""
@@ -7690,7 +7702,7 @@ msgid ""
 "instead}."
 msgstr ""
 "Показаны релизы этого исполнителя. {show_all|Показывать вместо этого релизы "
-"разных артистов}."
+"разных исполнителей}."
 
 #: ../root/artist/ArtistWorks.js:58 ../root/iswc/Index.js:80
 msgid "Add selected works for merging"
@@ -7706,7 +7718,7 @@ msgstr ""
 
 #: ../root/artist/CannotSplit.js:18
 msgid "This artist is already empty and is awaiting automatic deletion."
-msgstr ""
+msgstr "Этот исполнитель уже пустой и ожидает автоматического удаления."
 
 #: ../root/artist/CannotSplit.js:22
 msgid ""
@@ -7724,13 +7736,16 @@ msgstr "Невозможно редактировать"
 
 #: ../root/artist/SpecialPurpose.js:20
 msgid "You may not edit special purpose artists"
-msgstr ""
+msgstr "Вам запрещено редактировать исполнителей специального предназначения"
 
 #: ../root/artist/SpecialPurpose.js:22
 msgid ""
 "The artist you are trying to edit is a special purpose artist, and you may "
 "not make direct changes to this data."
 msgstr ""
+"Исполнитель, который вы пытаетесь отредактировать, является исполнителем "
+"специального предназначения, и вам запрещено производить прямые изменения в "
+"эти данные."
 
 #: ../root/artist/utils.js:12
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
@@ -7845,11 +7860,11 @@ msgstr ""
 #: ../root/artist_credit/ArtistCreditIndex.js:101
 msgctxt "artist credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "указан как \"{credit}\""
 
 #: ../root/artist_credit/ArtistCreditIndex.js:110
 msgid "Uses"
-msgstr ""
+msgstr "Использования"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:123
 #: ../root/artist_credit/ArtistCreditLayout.js:19
@@ -7911,10 +7926,10 @@ msgstr ""
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:75
 msgid "{num} recording found"
 msgid_plural "{num} recordings found"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Найдена {num} запись"
+msgstr[1] "Найдено {num} записи"
+msgstr[2] "Найдено {num} записей"
+msgstr[3] "Найдено {num} записей"
 
 #: ../root/artist_credit/EntityList.js:23 ../root/tag/EntityList.js:76
 msgid "{num} release found"
@@ -7997,7 +8012,7 @@ msgstr "Неверный идентификатор диска"
 
 #: ../root/cdstub/DiscIdNotValid.js:17
 msgid "Sorry, <code>{discid}</code> is not a valid disc ID."
-msgstr ""
+msgstr "Извините, но <code>{discid}</code> не является допустимым ID диска."
 
 #: ../root/cdstub/ImportCDStub.js:30
 msgctxt "header"
@@ -8087,12 +8102,18 @@ msgid ""
 "ensure a better result, search for the full release title or as close to it "
 "as possible."
 msgstr ""
+"В целях повышения производительности этот запрос проверяет только "
+"ограниченное количество релизов с названиями, наиболее близкими к введенному "
+"вами запросу. Для получения более точного результата введите полное название "
+"релиза или название, максимально близкое к нему."
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:146
 msgid ""
 "You can also {search_link|search manually} and paste the link to the release "
 "here."
 msgstr ""
+"Вы также можете {search_link|выполнить поиск вручную} и вставить ссылку на "
+"релиз сюда."
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:163
 msgid ""
@@ -8104,7 +8125,7 @@ msgstr ""
 
 #: ../root/cdtoc/CDTocInfo.js:18
 msgid "CD TOC details"
-msgstr ""
+msgstr "Информация о таблице содержимого CD"
 
 #: ../root/cdtoc/CDTocInfo.js:27 ../root/edit/details/AddDiscId.js:29
 #: ../root/edit/details/MoveDiscId.js:22
@@ -8185,7 +8206,7 @@ msgstr ""
 #: ../root/cdtoc/SelectArtistForCDToc.js:30
 #: ../root/static/scripts/common/components/Autocomplete2/constants.js:112
 msgid "Search for an artist"
-msgstr ""
+msgstr "Искать исполнителя"
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:60
 msgid ""
@@ -8205,6 +8226,9 @@ msgid ""
 "release. This will allow you to add this artist and a release at the same "
 "time"
 msgstr ""
+"Если вы не видите нужного исполнителя, вы все равно можете добавить новый "
+"релиз. Это позволит вам одновременно добавить и этого исполнителя, и сам "
+"релиз"
 
 #: ../root/cdtoc/SetTracklistDurations.js:33
 #: ../root/cdtoc/SetTracklistDurations.js:34
@@ -8216,6 +8240,8 @@ msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
 msgstr ""
+"Вы собираетесь внести правку, которая изменит продолжительность треков в "
+"релизе в соответствии с ID диска, указанным ниже."
 
 #: ../root/cdtoc/SetTracklistDurations.js:50 ../root/edit/EditIndex.js:57
 msgid "Changes"
@@ -8407,7 +8433,7 @@ msgstr ""
 #: ../root/components/Aliases/ArtistCreditList.js:64
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:155
 msgid "see uses"
-msgstr ""
+msgstr "смотреть использования"
 
 #: ../root/components/Aliases/index.js:45 ../root/components/EntityTabs.js:137
 #: ../root/entity/Aliases.js:23
@@ -8665,7 +8691,7 @@ msgstr "Атрибуты"
 
 #: ../root/components/RelationshipsTable.js:331
 msgid "“{link_phrase}” relationships"
-msgstr ""
+msgstr "Отношения типа \"{link_phrase}\""
 
 #: ../root/components/RelationshipsTable.js:333
 msgid "Invalid relationship type"
@@ -8990,7 +9016,7 @@ msgstr "Страница не найдена"
 
 #: ../root/doc/DocError.js:34
 msgid "Sorry, “{id}” is not a valid documentation page."
-msgstr ""
+msgstr "Извините, но \"{id}\" не является допустимой страницей документации."
 
 #: ../root/doc/DocError.js:40 ../root/main/error/Error400.js:30
 #: ../root/main/error/Error403.js:29 ../root/main/error/Error404.js:40
@@ -9712,7 +9738,7 @@ msgstr ""
 
 #: ../root/edit/details/AddRelationship.js:29
 msgid "Link order:"
-msgstr ""
+msgstr "Ссылка на заказ:"
 
 #: ../root/edit/details/AddRelationship.js:37
 #: ../root/edit/details/EditRelationship.js:24
@@ -9736,7 +9762,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipAttribute.js:82
 #: ../root/edit/details/EditRelationshipType.js:309
 msgid "Parent"
-msgstr ""
+msgstr "Родитель"
 
 #: ../root/edit/details/AddRelationshipAttribute.js:56
 #: ../root/edit/details/EditRelationshipAttribute.js:98
@@ -9909,7 +9935,7 @@ msgstr "Страница удалена"
 
 #: ../root/edit/details/ChangeWikiDoc.js:69
 msgid "Diff"
-msgstr ""
+msgstr "Различия"
 
 #: ../root/edit/details/ChangeWikiDoc.js:72
 msgid "View diff"
@@ -12223,7 +12249,7 @@ msgstr "(Нет данных об этой ошибке)"
 
 #: ../root/main/index.js:34
 msgid "MusicBrainz - the open music encyclopedia"
-msgstr "MusicBrainz - открытая музыкальная энциклопедия"
+msgstr "MusicBrainz — открытая музыкальная энциклопедия"
 
 #: ../root/main/index.js:38
 msgid "Welcome to MusicBrainz!"
@@ -12708,7 +12734,7 @@ msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:223
 msgid "See the general {url|guidelines for URLs}."
-msgstr ""
+msgstr "Смотрите основные {url|правила для URL-ссылок (на английском)}."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:256
 msgid ""
@@ -13107,9 +13133,9 @@ msgid ""
 "and more open edits are listed first."
 msgstr ""
 "Данный отчет показывает исполнителей, на которых никто из редакторов не "
-"подписан, и, тем самым, чьи изменения должны быть пересмотрены. Первыми в "
-"списке идут исполнители с бо́льшим количеством групп релизов и открытых "
-"правок."
+"подписан, и, тем самым, изменения к которым должны быть пересмотрены. "
+"Первыми в списке идут исполнители с бо́льшим количеством групп релизов и "
+"открытых правок."
 
 #: ../root/report/ArtistsWithNoSubscribers.js:32
 #: ../root/report/ReportsIndex.js:60
@@ -15265,6 +15291,10 @@ msgid ""
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(such as for typos)."
 msgstr ""
+"Будут внесены дополнительные правки, которые изменят каждое конкретное "
+"авторство на новое. Используйте данную опцию только в том случае, если вы "
+"уверены, что уже существующие авторства некорректны (например, содержат "
+"опечатки)."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:242
 msgid ""
@@ -15272,8 +15302,8 @@ msgid ""
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
 msgstr ""
-"Помните, что титры исполнителей должны соответствовать тому, что напечатано "
-"в издании. Если исполнитель сменил имя, но старые издания были изданы под "
+"Помните, что имена исполнителей должны соответствовать тому, как они указаны "
+"в релизе. Если исполнитель сменил имя, но старые релизы были изданы под "
 "прежним именем, не меняйте имя исполнителя."
 
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:267
@@ -15813,7 +15843,7 @@ msgstr "{num}. {relationship}"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:94
 msgid "{relationship} (order: {num})"
-msgstr "{relationship} (номер: {num})"
+msgstr "{relationship} (порядковый номер: {num})"
 
 #: ../root/static/scripts/common/components/StaticRelationshipsDisplay.js:106
 msgid "track {tracks}"
