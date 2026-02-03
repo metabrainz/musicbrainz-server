@@ -9,8 +9,9 @@
 
 import * as React from 'react';
 
-import {isPerfectMatch} from '../cdtoc/utils.js';
 import {CatalystContext} from '../context.mjs';
+import CDTocEditColumn
+  from '../static/scripts/common/components/CDTocEditColumn.js';
 import CDTocLink
   from '../static/scripts/common/components/CDTocLink.js';
 import {groupBy} from '../static/scripts/common/utility/arrays.js';
@@ -47,29 +48,7 @@ component CDTocRow(
       <td>{cdtoc.track_count}</td>
       <td>{formatTrackLength(cdtoc.length)}</td>
       {showEditColumn ? (
-        <td>
-          {isPerfectMatch(medium, cdtoc) ? null : (
-            <>
-              <a
-                href={
-                  `/cdtoc/${cdtoc.discid}/set-durations?medium=${medium.id}`
-                }
-              >
-                {l('Set track lengths')}
-              </a>
-              {' | '}
-            </>
-          )}
-          <a
-            href={`/cdtoc/remove?medium_id=${medium.id}&cdtoc_id=${cdtoc.id}`}
-          >
-            {l('Remove')}
-          </a>
-          {' | '}
-          <a href={`/cdtoc/move?toc=${mediumCDToc.id}`}>
-            {l('Move')}
-          </a>
-        </td>
+        <CDTocEditColumn mediumCDToc={mediumCDToc} />
       ) : null}
     </tr>
   );

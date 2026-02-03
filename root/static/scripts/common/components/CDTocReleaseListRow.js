@@ -12,15 +12,14 @@ import * as React from 'react';
 import ReleaseCatnoList from '../../../../components/ReleaseCatnoList.js';
 import ReleaseLabelList from '../../../../components/ReleaseLabelList.js';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
-import MediumTracklist from '../../../../medium/MediumTracklist.js';
 import loopParity from '../../../../utility/loopParity.js';
 import type {ReleaseWithMediumsAndReleaseGroupT}
   from '../../relationship-editor/types.js';
-import bracketed from '../utility/bracketed.js';
 import formatBarcode from '../utility/formatBarcode.js';
 import mediumFormatName from '../utility/mediumFormatName.js';
 
 import ArtistCreditLink from './ArtistCreditLink.js';
+import {CDTocTracklistBlock, CDTocTracklistToggle} from './CDTocTracklist.js';
 import EntityLink from './EntityLink.js';
 import ReleaseEvents from './ReleaseEvents.js';
 import TaggerIcon from './TaggerIcon.js';
@@ -78,20 +77,10 @@ component CDTocReleaseListRowMediums(
             {formatPositionAndName}
           </label>
           {hasLoadedTracks ? (
-            <>
-              {' '}
-              <small>
-                {bracketed(
-                  <a
-                    className="toggle"
-                    onClick={onButtonClick}
-                    style={{cursor: 'pointer'}}
-                  >
-                    {hidden ? l('show tracklist') : l('hide tracklist')}
-                  </a>,
-                )}
-              </small>
-            </>
+            <CDTocTracklistToggle
+              hidden={hidden}
+              onButtonClick={onButtonClick}
+            />
           ) : null}
           {cdTocAlreadyAttached ? (
             <div className="error">
@@ -102,22 +91,7 @@ component CDTocReleaseListRowMediums(
         <td colSpan={6} />
       </tr>
       {hasLoadedTracks ? (
-        <tr
-          className="tracklist"
-          style={hidden ? {display: 'none'} : {}}
-        >
-          <td />
-          <td colSpan={6}>
-            <table
-              className="tbl medium"
-              style={{borderCollapse: 'collapse'}}
-            >
-              <tbody>
-                <MediumTracklist tracks={medium.tracks} />
-              </tbody>
-            </table>
-          </td>
-        </tr>
+        <CDTocTracklistBlock hidden={hidden} medium={medium} />
       ) : null}
     </>
   );
