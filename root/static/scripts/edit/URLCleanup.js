@@ -7549,7 +7549,26 @@ export const CLEANUPS: CleanupEntries = {
   'youtube': {
     hostname: ['youtube.com', 'youtu.be'],
     match: [/^(https?:\/\/)?(((?!music)[^/])+\.)?(youtube\.com\/|youtu\.be\/)/i],
-    restrict: [{...LINK_TYPES.streamingfree, ...LINK_TYPES.youtube}],
+    restrict: [
+      LINK_TYPES.youtube,
+      {
+        recording: LINK_TYPES.streamingfree.recording,
+        release: LINK_TYPES.streamingfree.release,
+      },
+      {
+        recording: LINK_TYPES.streamingpaid.recording,
+        release: LINK_TYPES.streamingpaid.release,
+      },
+    ],
+    select(url, sourceType) {
+      if (sourceType === 'recording') {
+        return LINK_TYPES.streamingfree.recording;
+      }
+      if (sourceType === 'release') {
+        return LINK_TYPES.streamingfree.release;
+      }
+      return false;
+    },
     clean(url) {
       url = url.replace(/^(https?:\/\/)?([^/]+\.)?youtube\.com(?:\/#)?/, 'https://www.youtube.com');
       // YouTube /c/ user channels (/c/ is unneeded)
@@ -7615,6 +7634,7 @@ export const CLEANUPS: CleanupEntries = {
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.streamingfree.recording:
+        case LINK_TYPES.streamingpaid.recording:
           if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
             return {result: true};
           }
@@ -7624,6 +7644,7 @@ export const CLEANUPS: CleanupEntries = {
             target: ERROR_TARGETS.ENTITY,
           };
         case LINK_TYPES.streamingfree.release:
+        case LINK_TYPES.streamingpaid.release:
           if (/^https:\/\/www\.youtube\.com\/(watch\?v=[a-zA-Z0-9_-]+|playlist\?list=[a-zA-Z0-9_-]+)$/.test(url)) {
             return {result: true};
           }
