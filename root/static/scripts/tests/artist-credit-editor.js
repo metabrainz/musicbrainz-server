@@ -9,22 +9,18 @@
 
 import test from 'tape';
 
-import activeSanitizedEditor
-  from '../../../utility/activeSanitizedEditor.mjs';
 import {
   createInitialState,
   reducer,
 } from '../edit/components/ArtistCreditEditor.js';
 
 import {
-  genericEditor,
   genericRecording,
 } from './utility/constants.js';
 
 test('MBS-13538: Removing all rows in the AC editor makes it disappear', function (t) {
   t.plan(2);
   const state = createInitialState({
-    activeUser: activeSanitizedEditor(genericEditor),
     entity: genericRecording,
     id: '',
   });
