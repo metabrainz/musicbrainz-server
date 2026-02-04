@@ -3709,7 +3709,7 @@ export const CLEANUPS: CleanupEntries = {
       if (m) {
         let tail = m[1];
         tail = tail.replace(/^(song_view\.html\?\d+).*$/, '$1');
-        tail = tail.replace(/^(kashu\.php\?).*(artist=\d+).*$/, '$1$2');
+        tail = tail.replace(/^(artist\.html\?).*(artist=[a-zA-Z0-9]+).*$/, '$1$2');
         url = 'https://kashinavi.com/' + tail;
       }
       return url;
@@ -3721,7 +3721,7 @@ export const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.lyrics.artist:
             return {
-              result: /^kashu\.php\?artist=\d+$/.test(tail),
+              result: /^artist\.html\?artist=[a-zA-Z0-9]+$/.test(tail),
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.lyrics.work:
