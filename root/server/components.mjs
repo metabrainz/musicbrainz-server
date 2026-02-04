@@ -101,6 +101,7 @@ export default {
   'cdtoc/AttachCDTocConfirmation': (): Promise<mixed> => import('../cdtoc/AttachCDTocConfirmation.js'),
   'cdtoc/AttachCDTocToRelease': (): Promise<mixed> => import('../cdtoc/AttachCDTocToRelease.js'),
   'cdtoc/CDTocIndex': (): Promise<mixed> => import('../cdtoc/CDTocIndex.js'),
+  'cdtoc/CDTocLookup': (): Promise<mixed> => import('../cdtoc/CDTocLookup.js'),
   'cdtoc/RemoveDiscId': (): Promise<mixed> => import('../cdtoc/RemoveDiscId.js'),
   'cdtoc/SelectArtistForCDToc': (): Promise<mixed> => import('../cdtoc/SelectArtistForCDToc.js'),
   'cdtoc/SetTracklistDurations': (): Promise<mixed> => import('../cdtoc/SetTracklistDurations.js'),
