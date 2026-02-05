@@ -171,13 +171,12 @@ const updateLinkPhraseGroup = (
   for (const update of relationshipUpdates.updates) {
     match (update) {
       {type: ADD_RELATIONSHIP, ...} as update => {
-        newRelationships = tree.update(
-          newRelationships,
-          update.relationship,
-          cmpRelationships,
-          update.onConflict ?? onConflictThrowError,
-          onNotFoundUseGivenValue,
-        );
+        newRelationships = tree.update(newRelationships, {
+          cmp: cmpRelationships,
+          key: update.relationship,
+          onConflict: update.onConflict ?? onConflictThrowError,
+          onNotFound: onNotFoundUseGivenValue,
+        });
       }
       {type: REMOVE_RELATIONSHIP, ...} as update => {
         const {
@@ -213,15 +212,14 @@ const updateLinkTypeGroup = (
     const relationshipUpdates of
     phraseGroupUpdates.relationshipUpdatesMap.values()
   ) {
-    newPhraseGroups = tree.update(
-      newPhraseGroups,
-      relationshipUpdates,
-      compareRelationshipUpdatesWithLinkPhraseGroup,
-      updateLinkPhraseGroup,
-      relationshipUpdates.createLinkPhraseGroup
+    newPhraseGroups = tree.update(newPhraseGroups, {
+      cmp: compareRelationshipUpdatesWithLinkPhraseGroup,
+      key: relationshipUpdates,
+      onConflict: updateLinkPhraseGroup,
+      onNotFound: relationshipUpdates.createLinkPhraseGroup
         ? createLinkPhraseGroup
         : onNotFoundDoNothing,
-    );
+    });
   }
   if (newPhraseGroups === linkTypeGroup.phraseGroups) {
     return linkTypeGroup;
@@ -241,15 +239,14 @@ const updateTargetTypeGroup = (
     const phraseGroupUpdates of
     linkTypeGroupUpdates.linkPhraseGroupUpdatesMap.values()
   ) {
-    newLinkTypeGroups = tree.update(
-      newLinkTypeGroups,
-      phraseGroupUpdates,
-      compareLinkPhraseGroupUpdatesWithLinkTypeGroup,
-      updateLinkTypeGroup,
-      phraseGroupUpdates.createLinkTypeGroup
+    newLinkTypeGroups = tree.update(newLinkTypeGroups, {
+      cmp: compareLinkPhraseGroupUpdatesWithLinkTypeGroup,
+      key: phraseGroupUpdates,
+      onConflict: updateLinkTypeGroup,
+      onNotFound: phraseGroupUpdates.createLinkTypeGroup
         ? createLinkTypeGroup
         : onNotFoundDoNothing,
-    );
+    });
   }
   if (newLinkTypeGroups === linkTypeGroups) {
     return targetTypeGroup;
@@ -267,15 +264,14 @@ const updateSourceGroup = (
     const linkTypeGroupUpdates of
     targetTypeGroupUpdates.linkTypeGroupUpdatesMap.values()
   ) {
-    newTargetTypeGroups = tree.update(
-      newTargetTypeGroups,
-      linkTypeGroupUpdates,
-      compareLinkTypeGroupUpdatesWithTargetTypeGroup,
-      updateTargetTypeGroup,
-      linkTypeGroupUpdates.createTargetTypeGroup
+    newTargetTypeGroups = tree.update(newTargetTypeGroups, {
+      cmp: compareLinkTypeGroupUpdatesWithTargetTypeGroup,
+      key: linkTypeGroupUpdates,
+      onConflict: updateTargetTypeGroup,
+      onNotFound: linkTypeGroupUpdates.createTargetTypeGroup
         ? createTargetTypeGroup
         : onNotFoundDoNothing,
-    );
+    });
   }
   if (newTargetTypeGroups === targetTypeGroups) {
     return sourceGroup;
@@ -376,15 +372,15 @@ export default function updateRelationships(
   }
 
   for (const targetTypeGroupUpdates of sourceGroupUpdates.values()) {
-    writableRootState.relationshipsBySource = tree.update(
-      writableRootState.relationshipsBySource,
-      targetTypeGroupUpdates,
-      compareTargetTypeGroupUpdatesWithSourceGroup,
-      updateSourceGroup,
-      targetTypeGroupUpdates.createSourceGroup
-        ? createSourceGroup
-        : onNotFoundDoNothing,
-    );
+    writableRootState.relationshipsBySource =
+      tree.update(writableRootState.relationshipsBySource, {
+        cmp: compareTargetTypeGroupUpdatesWithSourceGroup,
+        key: targetTypeGroupUpdates,
+        onConflict: updateSourceGroup,
+        onNotFound: targetTypeGroupUpdates.createSourceGroup
+          ? createSourceGroup
+          : onNotFoundDoNothing,
+      });
   }
 
   if (

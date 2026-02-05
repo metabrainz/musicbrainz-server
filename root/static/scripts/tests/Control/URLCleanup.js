@@ -8011,7 +8011,7 @@ function doRestrictSubtest(
   expectedTypeCombinations,
 ) {
   const checker = new Checker(cleanURL(url), entityType);
-  const possibleTypeCombinations = checker.getPossibleTypes();
+  const possibleTypeCombinations = checker.possibleTypes;
   let actualTypeCombinations = possibleTypeCombinations || undefined;
   if (expectedTypeCombinations === undefined) {
     actualTypeCombinations = undefined;
