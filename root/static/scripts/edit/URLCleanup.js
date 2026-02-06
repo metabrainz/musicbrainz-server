@@ -343,10 +343,10 @@ export const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
   LINK_TYPES.songfacts,
   LINK_TYPES.songkick,
   LINK_TYPES.soundcloud,
-  LINK_TYPES.wikidata,
-  LINK_TYPES.wikipedia,
   LINK_TYPES.vgmdb,
   LINK_TYPES.viaf,
+  LINK_TYPES.wikidata,
+  LINK_TYPES.wikipedia,
   LINK_TYPES.youtube,
 ].reduce(function (result, linkType) {
   return result.concat(Object.values(linkType));
