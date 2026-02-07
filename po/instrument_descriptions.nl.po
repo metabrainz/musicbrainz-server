@@ -1016,14 +1016,6 @@ msgstr ""
 "Een pipa is een Chinese peervormige getokkelde luit met vier snaren en 12 "
 "tot 26 fretten."
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Ching zijn een paar kleine handbekkens die worden gebruikt voor muziek uit "
-"Thailand en Cambodja."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -6264,13 +6256,6 @@ msgstr ""
 "Een riq, ook wel als riqq of rik gespeld, is een soort tamboerijn die "
 "traditioneel wordt gebruikt voor Arabische muziek."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-"Een rototom is een trommel zonder ketel. Hij kan worden gestemd door de "
-"spanring te draaien."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -7932,6 +7917,17 @@ msgstr "Fluit van de Muong uit Vietnam"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "De trắng jâu is de basvariant van de trắng lu."
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Ching zijn een paar kleine handbekkens die worden gebruikt voor muziek "
+#~ "uit Thailand en Cambodja."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr ""
+#~ "Een rototom is een trommel zonder ketel. Hij kan worden gestemd door de "
+#~ "spanring te draaien."
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "

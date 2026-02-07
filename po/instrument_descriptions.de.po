@@ -881,15 +881,6 @@ msgstr ""
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr ""
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Ein Ching ist ein thailändisches und kambodschanisches Schlaginstrument mit "
-"zwei Becken. Es ist aus Metall gefertigt, ebenso wie ein Chap, aber kleiner, "
-"tiefer und dicker."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -5171,15 +5162,6 @@ msgstr ""
 "beträgt ca. 24 cm, die Höhe ca. 6 cm. Am kreisrunden Rahmen sind Schellen "
 "wie in einem Schellenring angebracht."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-"Eine Rototom ist eine Trommel ohne Kessel. Sie besteht aus einem drehbaren "
-"Spannreifen aus Metall, der ein einzelnes Fell spannt, wobei man durch "
-"Drehen dieses Spannreifens die Fellspannung und damit den Klang verändern "
-"kann. Gespielt wird die Rototom mit Schlagzeugstöcken."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6585,6 +6567,20 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Ein Ching ist ein thailändisches und kambodschanisches Schlaginstrument "
+#~ "mit zwei Becken. Es ist aus Metall gefertigt, ebenso wie ein Chap, aber "
+#~ "kleiner, tiefer und dicker."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr ""
+#~ "Eine Rototom ist eine Trommel ohne Kessel. Sie besteht aus einem "
+#~ "drehbaren Spannreifen aus Metall, der ein einzelnes Fell spannt, wobei "
+#~ "man durch Drehen dieses Spannreifens die Fellspannung und damit den Klang "
+#~ "verändern kann. Gespielt wird die Rototom mit Schlagzeugstöcken."
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "

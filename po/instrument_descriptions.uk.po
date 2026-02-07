@@ -9,7 +9,7 @@ msgstr ""
 "musicbrainz/instrument-descriptions/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
@@ -41,8 +41,8 @@ msgid ""
 "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
 "«Ребаб» (та інші варіанти написання) — це назва, яка в основному позначає "
-"три типи сімейств смичкових/щипкових струнних інструментів: <br /> <ul> <li>"
-"Великий, з короткою шийкою, у формі човна, типу «сарінда», тут — кабулі "
+"три типи сімейств смичкових/щипкових струнних інструментів: <br /> <ul> "
+"<li>Великий, з короткою шийкою, у формі човна, типу «сарінда», тут — кабулі "
 "ребаб.</li> <li>Маленька скрипка з довгою шиєю типу «хуцинь», тут — "
 "індонезійська ребаб.</li> <li>різні розміри, різна довжина шиї, "
 "грушоподібний тип «критської ліри», тут власне скрипкові лютні.</li> </ul> "
@@ -53,11 +53,11 @@ msgstr ""
 "spikefiddle) and <a href=\"/instrument/d50ba107-4930-4e0b-8b3f-"
 "ffbea4a1ade1\">Гайчак</a> (a boat-shaped).<br /> Наразі невідомо, як саме, "
 "якщо взагалі, ці 3 підтипи пов'язані між собою.<br /> <br /> Щодо скрипки зі "
-"шпилем, яка використовується в гамелані, див. <a href=\"/instrument/3dbbb5ff-"
-"103b-4260-8cf6-679a73a7c552\">Індонезійська ребаб</a>.<br /> Щодо "
+"шпилем, яка використовується в гамелані, див. <a href=\"/instrument/"
+"3dbbb5ff-103b-4260-8cf6-679a73a7c552\">Індонезійська ребаб</a>.<br /> Щодо "
 "афганського інструменту у формі човна, який також відомий як кабулі рабаб, "
-"див. <a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">рубаб</a>"
-".<br /> Щодо середньовічної індійської щипкової лютні див. <a href=\"/"
+"див. <a href=\"/instrument/7e42e637-c7b4-422c-ad56-f7fafbd961bb\">рубаб</a>."
+"<br /> Щодо середньовічної індійської щипкової лютні див. <a href=\"/"
 "instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">Сені ребаб</a>.<br /> Щодо "
 "середньовічної європейської скрипки у формі груші див. <a href=\"/instrument/"
 "3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
@@ -778,12 +778,6 @@ msgstr ""
 #. name:pipa
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
-msgstr ""
-
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
 #. name:bugarija
@@ -4597,11 +4591,6 @@ msgstr ""
 msgid ""
 "The riq is a type of tambourine used as a traditional instrument in Arabic "
 "music."
-msgstr ""
-
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
 msgstr ""
 
 #. name:sabar

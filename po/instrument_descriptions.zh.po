@@ -873,12 +873,6 @@ msgstr ""
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr "中国的梨形鲁特琴，有四根弦和12至26个相和品。"
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr "泰国镲是用于泰国和柬埔寨音乐中的一对小镲。"
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -2644,8 +2638,9 @@ msgid ""
 "instrument/9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>.<br /> In Sunda "
 "it is known as kendhang gedé."
 msgstr ""
-"kendang中最大的一种，又称“ageng”，但仍然小于 <a href=\"/instrument/9063d25e-"
-"87e4-4adc-81d4-8fdee23bd26f\">bedug</a>。<br />在巽他地区称为 kendhang gedé。"
+"kendang中最大的一种，又称“ageng”，但仍然小于 <a href=\"/instrument/"
+"9063d25e-87e4-4adc-81d4-8fdee23bd26f\">bedug</a>。<br />在巽他地区称为 "
+"kendhang gedé。"
 
 #. name:Scottish smallpipes
 #: DB:instrument/description:427
@@ -2836,8 +2831,8 @@ msgid ""
 msgstr ""
 "由多根垂直悬挂的竹管组成，通过切去不同长度的管段来形成不同音高。既可以悬挂演"
 "奏，也可以像木琴一样放置在竹制框架上演奏。<br />关于有时也被称为 chalung 或 "
-"calung 的巴厘岛金属键乐器，请参见 <a href=\"/instrument/395bab77-bb77-4696-"
-"96d6-dfcade201c6d\">jublag</a>。"
+"calung 的巴厘岛金属键乐器，请参见 <a href=\"/instrument/395bab77-"
+"bb77-4696-96d6-dfcade201c6d\">jublag</a>。"
 
 #. name:sasando
 #: DB:instrument/description:928
@@ -3099,8 +3094,8 @@ msgid ""
 "the two middle open strings.\""
 msgstr ""
 "主要在美国制琴师Carleen Hutchins的指导下开发的一系列弦乐器。每种乐器都直接基"
-"于传统的小提琴，并共享其声学特性，旨在获得更丰富，更均匀的声音，音高大致位于“"
-"两根中间空弦”附近。"
+"于传统的小提琴，并共享其声学特性，旨在获得更丰富，更均匀的声音，音高大致位于"
+"“两根中间空弦”附近。"
 
 #. name:kōauau ponga ihu
 #: DB:instrument/description:856
@@ -3981,8 +3976,8 @@ msgid ""
 "c576a010fb5a\">calung</a>."
 msgstr ""
 "音高第二低的一种gangsa，带有 4 到 7 根青铜琴键，悬挂在长竹共鸣管上。<br />关"
-"于在巽他甘美朗中使用的竹制木琴，请参见 <a href=\"/instrument/6e180df5-6df9-"
-"46bb-8ebf-c576a010fb5a\">calung</a>。"
+"于在巽他甘美朗中使用的竹制木琴，请参见 <a href=\"/instrument/"
+"6e180df5-6df9-46bb-8ebf-c576a010fb5a\">calung</a>。"
 
 #. name:brač
 #: DB:instrument/description:825
@@ -5007,7 +5002,8 @@ msgstr "京胡是一种中国拉弦乐器，具有两根弦，主要用于京剧
 msgid ""
 "The jouhikko is a traditional, 2 or 3 stringed bowed lyre, from Finland and "
 "Karelia."
-msgstr "Jouhikko 是芬兰和卡累利阿地区的传统拉弦琴，通常有 2 或 3 根弦，用弓拉奏。"
+msgstr ""
+"Jouhikko 是芬兰和卡累利阿地区的传统拉弦琴，通常有 2 或 3 根弦，用弓拉奏。"
 
 #. name:kartal
 #: DB:instrument/description:534
@@ -5395,11 +5391,6 @@ msgid ""
 "The riq is a type of tambourine used as a traditional instrument in Arabic "
 "music."
 msgstr "阿拉伯铃鼓是一种铃鼓，在阿拉伯音乐中作为传统乐器使用。"
-
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr "轮鼓是一种没有外壳的鼓，通过旋转调音。"
 
 #. name:sabar
 #: DB:instrument/description:646
@@ -6831,6 +6822,13 @@ msgstr "越南苗族笛(苗族长笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑶笛，章卢笛的低音版"
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr "泰国镲是用于泰国和柬埔寨音乐中的一对小镲。"
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr "轮鼓是一种没有外壳的鼓，通过旋转调音。"
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "
