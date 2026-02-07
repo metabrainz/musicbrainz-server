@@ -45,7 +45,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-03 10:39+0100\n"
-"PO-Revision-Date: 2026-02-01 22:11+0000\n"
+"PO-Revision-Date: 2026-02-07 16:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -735,11 +735,11 @@ msgstr "Копировать имя"
 
 #: ../root/release/edit/information.tt:126
 msgid "Copy the release artist credit to the release group"
-msgstr "Скопировать данные об исполнителе издания в группу изданий"
+msgstr "Скопировать данные об исполнителе релиза в группу релизов"
 
 #: ../root/release/edit/information.tt:111
 msgid "Copy the release title to the release group"
-msgstr "Скопировать название издания в группу издания"
+msgstr "Скопировать название релиза в группу релизов"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:15
@@ -3905,7 +3905,7 @@ msgstr "по сначала самым ранним закрытым"
 
 #: ../root/edit/search_macros.tt:20
 msgid "edits"
-msgstr "версии"
+msgstr "правки"
 
 #: ../root/components/forms.tt:175 ../root/components/forms.tt:200
 #: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:466
