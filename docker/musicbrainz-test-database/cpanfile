@@ -15,4 +15,4 @@ requires 'DateTime::Duration'   => '1.51';
 requires 'File::Slurp';
 requires 'List::AllUtils'       => '0.03';
 requires 'Readonly'             => '1.04';
-requires 'File::Spec'           => '3.40';
+requires 'File::Spec'           => '3.75';
