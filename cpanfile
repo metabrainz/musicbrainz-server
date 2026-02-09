@@ -38,7 +38,6 @@ requires 'Digest::MD5::File'                          => '0.08';
 requires 'Digest::SHA'                                => '5.86';
 requires 'Email::Address::XS'                         => '1.05';
 requires 'Email::MIME'                                => '1.953';
-requires 'Email::MIME::Creator'                       => '1.953';
 requires 'Email::Sender'                              => '2.601';
 requires 'Email::Valid'                               => '1.204';
 requires 'Encode::Detect'                             => '1.01';
