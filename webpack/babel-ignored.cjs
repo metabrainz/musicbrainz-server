@@ -2,7 +2,7 @@
 
 // Note: This file is CommonJS because ESLint doesn't support async parsers.
 
-module.exports = [
+module.exports = (target) => [
   /*
    * The modules in the negative-lookahead assertion (?!...) are exceptions
    * to the node_modules exclusion. These most likely use language features
@@ -12,9 +12,14 @@ module.exports = [
    * except for core-js.
    */
   ...(
-    process.env.BROWSER_TARGET === 'legacy'
-      ? [/node_modules\/core-js/]
-      : [/node_modules\/(?!@babel\/runtime|@floating-ui|jed|mutate-cow|punycode|react|weight-balanced-tree)/]
+    target === 'web' ? (
+      process.env.BROWSER_TARGET === 'legacy'
+        ? [/node_modules\/core-js/]
+        : [/node_modules\/(?!@babel\/runtime|@floating-ui|jed|mutate-cow|punycode|react|weight-balanced-tree)/]
+    ) : (
+      /* target === 'node', ignore all of node_modules */
+      [/node_modules/]
+    )
   ),
   /root\/static\/scripts\/tests\/typeInfo\.js/,
   /root\/static\/build\/jed-[A-z0-9_-]+?\.source\.js$/,
