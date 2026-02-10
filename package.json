@@ -68,7 +68,7 @@
     "yargs": "3.10.0"
   },
   "devDependencies": {
-    "@metabrainz/xgettext-js": "5.0.0",
+    "@metabrainz/xgettext-js": "5.0.1",
     "@stylistic/eslint-plugin": "5.6.1",
     "babel-plugin-istanbul": "7.0.0",
     "babel-plugin-syntax-hermes-parser": "0.32.1",
