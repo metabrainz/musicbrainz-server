@@ -1,17 +1,19 @@
 #
 # Translators:
+# Lise Andersen <andersenlise@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:17+0000\n"
-"Last-Translator: FULL NAME <email address hidden>\n"
-"Language-Team: Danish (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/da/)\n"
+"PO-Revision-Date: 2026-02-05 22:11+0000\n"
+"Last-Translator: Lise Andersen <andersenlise@outlook.com>\n"
+"Language-Team: Danish <https://translations.metabrainz.org/projects/"
+"musicbrainz/instrument-descriptions/da/>\n"
 "Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -37,6 +39,27 @@ msgid ""
 "<br /> For the medieval European pear-shaped fiddle see <a href=\"/"
 "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
+"\"Rebab\" (og andre stavevarianter) er hovedsageligt navnet på følgende 3 "
+"typer af strygeinstrumentfamilier: <br /> <ul> <li>Store, korthalsede "
+"bådformede \"sarinda\"-typer, her kabuli-rebab.</li> <li>Lille, langhalset "
+"spidsviolin \"huqyin\"-typer, her den indonesiske rebab.</li> <li>"
+"forskellige størrelser, varierende halslængde, pæreformede \"kretenske "
+"lyra\"-typer, her bøjede lutter.</li> </ul> <br /> <br /> På grund af "
+"navneoverlapningen forveksles de med hinanden i de fleste kilder. Mærkeligt "
+"nok strækker denne forvirring sig også til relaterede, men separat eller "
+"lignende navngivne instrumenter, for eksempel <a href=\"/instrument/0d766870-"
+"3021-47ce-bd51-78d2d2484e1b\">Ghijak</a> (en spikefiddle) og <a href=\"/"
+"instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (en bådformet)"
+".<br /> Det er imidlertid uvist, hvordan, om overhovedet, disse 3 undertyper "
+"er relaterede.<br /> <br /> For spikefiddlen, der bruges i gamelan-"
+"orkestret, se <a href=\"/instrument/3dbbb5ff-103b-4260-8cf6-679a73a7c552\">"
+"indonesisk rebab</a>.<br /> For det plukkede, bådformede afghanske "
+"instrument også kendt som kabuli rabab, se <a href=\"/instrument/7e42e637-"
+"c7b4-422c-ad56-f7fafbd961bb\">rubab</a>.<br /> For den middelalderlige "
+"indiske plukkede lut, se <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-"
+"e19f4e4a1083\">Seni rebab</a>.<br /> For den middelalderlige europæiske "
+"pæreformede violin, se <a href=\"/instrument/3f7302e4-f10f-4905-8d71-"
+"ef61141da383\">rebec</a>."
 
 #. name:chitra veena
 #: DB:instrument/description:744

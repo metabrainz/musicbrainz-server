@@ -8,13 +8,14 @@
 # Frederik “Freso” S. Olesen <email address hidden>, 2012
 # Jakob Miland <email address hidden>, 2013
 # Frederik “Freso” S. Olesen <email address hidden>, 2013
+# Lise Andersen <andersenlise@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-03 10:39+0100\n"
-"PO-Revision-Date: 2024-04-17 17:34+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-02-05 22:11+0000\n"
+"Last-Translator: Lise Andersen <andersenlise@outlook.com>\n"
 "Language-Team: Danish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/da/>\n"
 "Language: da\n"
@@ -22,11 +23,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
+#, fuzzy
 msgid " ({text})"
-msgstr ""
+msgstr " ({text})"
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:19
@@ -41,7 +43,7 @@ msgstr ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1557
 #: ../root/utility/tableColumns.js:583
 msgid "#"
-msgstr ""
+msgstr "#"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10004;"
