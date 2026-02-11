@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-03 10:39+0100\n"
+"POT-Creation-Date: 2026-02-11 10:46-0600\n"
 "PO-Revision-Date: 2024-07-29 00:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<monkeypython+inst@yepmail.net>\n"
@@ -4228,6 +4228,12 @@ msgstr "Høy"
 msgid "Default"
 msgstr ""
 
+#: ../lib/MusicBrainz/Server/Controller/Edit.pm:316
+msgid ""
+"An edit search query could not be constructed. Some of your parameters are "
+"probably invalid."
+msgstr ""
+
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:96
@@ -4283,7 +4289,7 @@ msgstr ""
 msgid "The rating should be an integer between 0 and 100."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:72
+#: ../lib/MusicBrainz/Server/Controller/Relationship/LinkType.pm:76
 #, perl-brace-format
 msgid "'{types}' is not a valid pair of types for relationships."
 msgstr ""
@@ -11227,7 +11233,7 @@ msgstr "Dokumentasjon"
 #: ../root/layout/components/BottomMenu.js:323
 #: ../root/relationship/RelationshipsHeader.js:18
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:103
-#: ../root/relationship/linktype/RelationshipTypesList.js:58
+#: ../root/relationship/linktype/RelationshipTypesList.js:65
 #: ../root/utility/tableColumns.js:383
 #, fuzzy
 #| msgid "Relationships"
@@ -12477,7 +12483,13 @@ msgstr ""
 msgid "No {type0}-{type1} relationship types found."
 msgstr ""
 
-#: ../root/relationship/linktype/RelationshipTypesList.js:39
+#: ../root/relationship/linktype/RelationshipTypesList.js:41
+#, fuzzy
+#| msgid "Edit relationship type"
+msgid "This pair has no relationship types."
+msgstr "Endre relasjontype"
+
+#: ../root/relationship/linktype/RelationshipTypesList.js:46
 msgid "{type0}-{type1}"
 msgstr ""
 
@@ -18587,11 +18599,6 @@ msgstr ""
 #~ msgctxt "interactive"
 #~ msgid "Add genre"
 #~ msgstr "Legg til serier"
-
-#, fuzzy
-#~| msgid "Edit relationship type"
-#~ msgid "Edit relationship types"
-#~ msgstr "Endre relasjontype"
 
 #~ msgid "Alternatively, you may {uri|add a new area}."
 #~ msgstr "Alternativt, kan du {uri|legge til et nytt område}."
