@@ -40,14 +40,14 @@
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
 # EmO686 <eiswuste@gmail.com>, 2026.
+# karpuzikov <karpuzikovanton@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-03 10:39+0100\n"
-"PO-Revision-Date: 2026-02-07 16:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-02-09 09:11+0000\n"
+"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -6025,22 +6025,17 @@ msgid "Score at IMSLP"
 msgstr "Партитура на IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:15
-#, fuzzy, perl-brace-format
-#| msgid "Stream at Spotify"
+#, perl-brace-format
 msgid "Stream at KKBOX {country}"
-msgstr "Слушать в Spotify"
+msgstr "Слушать в KKBOX"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:19
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at KKBOX"
-msgstr "Слушать в VK Музыке"
+msgstr "Слушать в KKBOX"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/LineMusic.pm:10
-#, fuzzy
-#| msgid "Stream at Naver VIBE"
 msgid "Stream at LINE MUSIC"
-msgstr "Слушать в Naver VIBE"
+msgstr "Слушать в LINE MUSIC"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
@@ -6116,14 +6111,14 @@ msgstr "Этот псевдоним уже существует."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:48
 msgid "Redirect URL must be entered for web applications."
-msgstr "Для веб-приложений необходимо указать URL-адрес перенаправления."
+msgstr "URL-адрес перенаправления должен быть указан для веб-приложений."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:52
 msgid ""
 "Redirect URL scheme must be either “http” or “https” for web applications."
 msgstr ""
-"Для веб-приложений схема перенаправления URL должна быть начинаться с "
-"\"http\" или \"https\"."
+"Схема URL-адрес перенаправления должна быть “http” либо “https” для веб "
+"приложений."
 
 #: ../lib/MusicBrainz/Server/Form/Application.pm:59
 #, perl-brace-format
@@ -6131,8 +6126,8 @@ msgid ""
 "Redirect URL scheme must be a reverse-DNS string, as in “{example_url}”, for "
 "installed applications."
 msgstr ""
-"Схема URL-адреса перенаправления должна представлять собой строку обратного "
-"DNS, например, \"{example_url}\", для установленных приложений."
+"Схема URL перенаправления должна быть строкой в формате обратного DNS, как в "
+"“{example_url}”, для установленных приложений."
 
 #: ../lib/MusicBrainz/Server/Form/Area.pm:88
 msgid "An area already exists with this ISO code"
@@ -6140,15 +6135,15 @@ msgstr "Область с этим кодом ISO уже существует"
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:75
 msgid "Group artists cannot have a gender."
-msgstr "У исполнителей типа \"Группа\" не может быть пола."
+msgstr "У исполнителей типа \"Группа\" не может быть гендера."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:82
 msgid "Orchestras cannot have a gender."
-msgstr "У оркестров не может быть пола."
+msgstr "У оркестров не может быть гендера."
 
 #: ../lib/MusicBrainz/Server/Form/Artist.pm:89
 msgid "Choirs cannot have a gender."
-msgstr "У хоров не может быть пола."
+msgstr "У хоров не может быть гендера."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:92
 msgid "The collection type must match the type of entities it contains."
@@ -6161,16 +6156,14 @@ msgid ""
 "“{collaborator}” was added more than once. Did you intend to select someone "
 "else?"
 msgstr ""
-"Пользователь {collaborator} был добавлен более одного раза. Может вы хотели "
-"выбрать кого-то другого?"
+"{collaborator} был добавлен более одного раза. Может вы хотели выбрать кого-"
+"то другого?"
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:124
 #, perl-brace-format
 msgid ""
 "To add “{editor}” as a collaborator, please select them from the dropdown."
-msgstr ""
-"Чтобы добавить пользователя {editor} как соавтора, выберите его из "
-"выпадающего меню."
+msgstr "Чтобы добавить {editor} как соавтора, выберите его из выпадающего меню."
 
 #: ../lib/MusicBrainz/Server/Form/Collection.pm:129
 #, perl-brace-format
@@ -6182,8 +6175,8 @@ msgid ""
 "You must provide an edit note. If you want to blank the note, please remove "
 "it instead."
 msgstr ""
-"Введите комментарий к правке. Если вы хотите сделать его пустым, пожалуйста, "
-"удалите комментарий."
+"Вы должны указать примечание к правке. Если вы хотите оставить примечание "
+"пустым, пожалуйста, вместо этого удалите его."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:50
 #, perl-brace-format
@@ -6202,7 +6195,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:63
 msgid "Please add an artist name for each credit."
-msgstr "Пожалуйста, укажите имя исполнителя для каждого пункта в титрах."
+msgstr "Пожалуйста, добавьте имя исполнителя для каждого пункта в титрах."
 
 #: ../lib/MusicBrainz/Server/Form/Field/ArtistCredit.pm:78
 msgid "Artist credit field is required"
