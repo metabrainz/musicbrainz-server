@@ -29,7 +29,7 @@
 # nikki, 2012
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
 # kellnerd <kellnerd@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # invalidCards <musicbrainz@invalid.cards>, 2025.
@@ -39,7 +39,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-03 10:39+0100\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-02-10 15:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -49,7 +49,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -8980,11 +8980,11 @@ msgstr "Je privéwaarderingen te bekijken en bewerken"
 
 #: ../root/constants.js:26
 msgid "Submit new barcodes to the database"
-msgstr "Nieuwe streepjescodes in te dienen."
+msgstr "Nieuwe streepjescodes in te dienen"
 
 #: ../root/constants.js:27
 msgid "Submit new ISRCs to the database"
-msgstr "Nieuwe ISRC’s in te dienen."
+msgstr "Nieuwe ISRC’s in te dienen"
 
 #: ../root/constants.js:28
 msgctxt "folksonomy"
