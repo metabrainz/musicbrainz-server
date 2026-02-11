@@ -8,7 +8,6 @@ use Encode qw( encode );
 use Email::Address::XS;
 use Email::Sender::Simple qw( sendmail );
 use Email::MIME;
-use Email::MIME::Creator;
 use Email::Sender::Transport::SMTP;
 use HTTP::Request::Common qw( GET POST );
 use JSON::XS qw( decode_json encode_json );
