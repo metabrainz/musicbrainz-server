@@ -38,7 +38,7 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023.
 # julian45 <techieboy45@gmail.com>, 2023.
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
-# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # julian45 <julian45@users.noreply.translations.metabrainz.org>, 2024.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 msgid ""
@@ -46,7 +46,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-03 10:39+0100\n"
-"PO-Revision-Date: 2025-12-21 19:11+0000\n"
+"PO-Revision-Date: 2026-02-06 19:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -55,7 +55,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -5735,32 +5735,25 @@ msgid "Score at IMSLP"
 msgstr "IMSLPの楽譜"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:15
-#, fuzzy, perl-brace-format
-#| msgid "Stream at Spotify"
+#, perl-brace-format
 msgid "Stream at KKBOX {country}"
-msgstr "Spotifyでの配信"
+msgstr "KKBOX {country}での配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:19
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at KKBOX"
-msgstr "VKでの配信"
+msgstr "KKBOXでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/LineMusic.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at LINE MUSIC"
-msgstr "VKでの配信"
+msgstr "LINE MUSICでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
 msgstr "Migu Musicでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NaverVibe.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at Naver VIBE"
-msgstr "VKでの配信"
+msgstr "Naver VIBEでの配信"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
