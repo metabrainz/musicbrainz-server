@@ -853,12 +853,6 @@ msgstr ""
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr "中國的梨形魯特琴，有四根弦和12至26個相和品。"
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr "泰國鑔是用於泰國和柬埔寨音樂中的一對小鑔。"
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -5292,11 +5286,6 @@ msgid ""
 "music."
 msgstr "阿拉伯鈴鼓是一種鈴鼓，在阿拉伯音樂中作為傳統樂器使用。"
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr "輪鼓是一種沒有外殼的鼓，通過旋轉調音。"
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6701,6 +6690,13 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr "泰國鑔是用於泰國和柬埔寨音樂中的一對小鑔。"
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr "輪鼓是一種沒有外殼的鼓，通過旋轉調音。"
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "

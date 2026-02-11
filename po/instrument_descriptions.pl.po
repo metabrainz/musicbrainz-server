@@ -1012,14 +1012,6 @@ msgstr ""
 "Chińska lutnia szarpana w kształcie gruszki z czterema strunami i 12–26 "
 "progami."
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Ching to para małych talerzy ręcznych używanych w muzyce tajskiej i "
-"kambodżańskiej."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -6180,12 +6172,6 @@ msgstr ""
 "Riq to rodzaj tamburynu, który jest tradycyjnym instrumentem w muzyce "
 "arabskiej."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-"Rototom to bęben, który nie posiada obudowy i jest strojony przez obrót."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -7831,6 +7817,16 @@ msgstr "saó ôi (flet Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu basowa forma trắng lu"
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Ching to para małych talerzy ręcznych używanych w muzyce tajskiej i "
+#~ "kambodżańskiej."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr ""
+#~ "Rototom to bęben, który nie posiada obudowy i jest strojony przez obrót."
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "
