@@ -54,6 +54,7 @@ export async function load(url, context, nextLoad) {
       name: 'babel-node-loader',
       supportsStaticESM: true,
       supportsTopLevelAwait: true,
+      target: 'node',
     },
     cwd: process.cwd(),
     filename,

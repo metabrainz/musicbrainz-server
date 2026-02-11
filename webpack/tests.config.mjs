@@ -36,7 +36,7 @@ const webTestsConfig = {
 
   mode: 'development',
 
-  module: moduleConfig,
+  module: moduleConfig('web'),
 
   name: 'web-test-bundles',
 

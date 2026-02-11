@@ -3732,10 +3732,10 @@ limited_link_type_combinations: [
   },
   // Kashinavi.com
   {
-                     input_url: 'http://kashinavi.com/kashu.php?artist=103530&kashu=%8A%99%93c%8F%CD%8C%E1&start=1',
+                     input_url: 'https://kashinavi.com/artist.html?artist=E98E8CE794B0E7ABA0E590BE&foo=bar',
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://kashinavi.com/kashu.php?artist=103530',
+            expected_clean_url: 'https://kashinavi.com/artist.html?artist=E98E8CE794B0E7ABA0E590BE',
        only_valid_entity_types: ['artist'],
   },
   {

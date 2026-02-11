@@ -302,7 +302,7 @@ export default {
 
   mode: WEBPACK_MODE,
 
-  module: moduleConfig,
+  module: moduleConfig('web'),
 
   name: 'client-bundles',
 
