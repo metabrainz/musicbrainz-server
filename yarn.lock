@@ -2054,14 +2054,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metabrainz/xgettext-js@npm:5.0.0":
-  version: 5.0.0
-  resolution: "@metabrainz/xgettext-js@npm:5.0.0"
+"@metabrainz/xgettext-js@npm:5.0.1":
+  version: 5.0.1
+  resolution: "@metabrainz/xgettext-js@npm:5.0.1"
   dependencies:
     estree-walker: "npm:3.0.3"
     hermes-parser: "npm:0.32.0"
-    lodash: "npm:4.17.21"
-  checksum: 10c0/077e647d282411f96c728ee421ca5340aef1ea4eee4cf6938ce47077f0ec0d2d3045dc701612551d3edd43116b735f838aaa76af1ec2d73d7552d743679bdc6a
+    lodash: "npm:4.17.23"
+  checksum: 10c0/74b7c9a07f33d74a84e30dc46010e7ecdfd71bcc73a1338091f532a89d6b44054f61f8962ce7473f6fdf1ca3529fc2897c646ae2ebac119547554bbe320141f1
   languageName: node
   linkType: hard
 
@@ -7105,7 +7105,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4.17.21, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
+"lodash@npm:4.17.23":
+  version: 4.17.23
+  resolution: "lodash@npm:4.17.23"
+  checksum: 10c0/1264a90469f5bb95d4739c43eb6277d15b6d9e186df4ac68c3620443160fc669e2f14c11e7d8b2ccf078b81d06147c01a8ccced9aab9f9f63d50dcf8cace6bf6
+  languageName: node
+  linkType: hard
+
+"lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -7490,7 +7497,7 @@ __metadata:
     "@babel/register": "npm:7.28.3"
     "@babel/runtime": "npm:7.28.4"
     "@floating-ui/react": "npm:0.27.15"
-    "@metabrainz/xgettext-js": "npm:5.0.0"
+    "@metabrainz/xgettext-js": "npm:5.0.1"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
     "@stylistic/eslint-plugin": "npm:5.6.1"
