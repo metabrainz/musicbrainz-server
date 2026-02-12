@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import deepFreeze from 'deep-freeze-strict';
 import mutate, {
   type CowContext,
 } from 'mutate-cow';
@@ -26,6 +25,8 @@ import {
   getSourceEntityData,
 } from '../common/utility/catalyst.js';
 import {compareStrings} from '../common/utility/compare.mjs';
+import deepFreezeInDevelopment
+  from '../common/utility/deepFreezeInDevelopment.js';
 import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
 import {
   advanceUniqueId,
@@ -101,9 +102,7 @@ export function createInitialState(
   // Make sure there's an empty link field at the end.
   state.links = ensureEmptyLink(state, links);
 
-  if (__DEV__) {
-    deepFreeze(state);
-  }
+  deepFreezeInDevelopment(state);
 
   return state;
 }
@@ -619,26 +618,30 @@ export function reducer(
       if (!duplicateOf) {
         return state;
       }
-      moveFocusToNextLink(ctx, duplicate);
       ctx.set('links', tree.remove(
         state.links,
         duplicate,
         compareLinksByKey,
       ));
+      let relationshipsToMerge;
       updateLink(ctx, duplicateOf.link, existingLinkCtx => {
         const existingRelationships = existingLinkCtx.read().relationships;
         const existingRelationshipTypeIds =
           new Set(existingRelationships.map(r => r.linkTypeID));
+        relationshipsToMerge = duplicate.relationships.filter(
+          r => r.linkTypeID == null ||
+            !existingRelationshipTypeIds.has(r.linkTypeID),
+        );
         existingLinkCtx.set(
           'relationships',
-          existingRelationships.concat(
-            duplicate.relationships.filter(
-              r => r.linkTypeID == null ||
-                !existingRelationshipTypeIds.has(r.linkTypeID),
-            ),
-          ),
+          existingRelationships.concat(relationshipsToMerge),
         );
       });
+      if (relationshipsToMerge?.length) {
+        ctx.set('focus', `#url-link-type-${relationshipsToMerge[0].id}`);
+      } else {
+        ctx.set('focus', `#external-link-${duplicateOf.link.key}`);
+      }
     }
 
     {type: 'open-url-input-popover', const link} => {
