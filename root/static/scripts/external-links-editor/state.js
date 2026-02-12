@@ -7,7 +7,6 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import deepFreeze from 'deep-freeze-strict';
 import mutate, {
   type CowContext,
 } from 'mutate-cow';
@@ -26,6 +25,8 @@ import {
   getSourceEntityData,
 } from '../common/utility/catalyst.js';
 import {compareStrings} from '../common/utility/compare.mjs';
+import deepFreezeInDevelopment
+  from '../common/utility/deepFreezeInDevelopment.js';
 import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
 import {
   advanceUniqueId,
@@ -101,9 +102,7 @@ export function createInitialState(
   // Make sure there's an empty link field at the end.
   state.links = ensureEmptyLink(state, links);
 
-  if (__DEV__) {
-    deepFreeze(state);
-  }
+  deepFreezeInDevelopment(state);
 
   return state;
 }
