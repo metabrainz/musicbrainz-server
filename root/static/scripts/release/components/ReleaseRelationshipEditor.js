@@ -8,7 +8,6 @@
  */
 
 import {captureException} from '@sentry/browser';
-import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
 import {flushSync} from 'react-dom';
 import * as tree from 'weight-balanced-tree';
@@ -43,6 +42,8 @@ import {
   getSourceEntityData,
 } from '../../common/utility/catalyst.js';
 import clean from '../../common/utility/clean.js';
+import deepFreezeInDevelopment
+  from '../../common/utility/deepFreezeInDevelopment.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import natatime from '../../common/utility/natatime.js';
@@ -1420,9 +1421,7 @@ export const reducer: ((
     }
   }
 
-  if (__DEV__) {
-    deepFreeze(newState);
-  }
+  deepFreezeInDevelopment(newState);
 
   return newState;
 });
