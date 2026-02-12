@@ -508,8 +508,8 @@ msgstr ""
 "и самый распространённый инструмент в современной семье блокфлейт. <br /> "
 "Традиционно изготавливаемая из различных пород дерева, сегодня она часто "
 "делается из пластика и используется для обучения детей музыке.  <br /> Не "
-"следует путать с поперечной (концертной) <a href=\"/instrument/b524b7a7-2d87-"
-"43a7-9977-8a9081ff6e0f/\">флейтой-сопрано</a>."
+"следует путать с поперечной (концертной) <a href=\"/instrument/"
+"b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">флейтой-сопрано</a>."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -548,9 +548,9 @@ msgid ""
 "e139-44a9-8a48-7963eb693dd1\">indung</a>, dual child drums are divided into "
 "the katipung (\"besar\" or larger) and the kutiplak (\"kecil\" or smaller)."
 msgstr ""
-"Всегда используется вместе с <a href=\"/instrument/c588cc24-e139-44a9-8a48-"
-"7963eb693dd1\">индунг</a>. Парные детские барабаны делятся на катипунг («"
-"besar» — больший) и кутплак («kecil» — меньший)."
+"Всегда используется вместе с <a href=\"/instrument/c588cc24-"
+"e139-44a9-8a48-7963eb693dd1\">индунг</a>. Парные детские барабаны делятся на "
+"катипунг («besar» — больший) и кутплак («kecil» — меньший)."
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -963,13 +963,6 @@ msgstr ""
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr "Китайская лютня в форме груши с четырьмя струнами и 12–26 ладами."
-
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Пара небольших ручных цимбал, используемых в тайской и камбоджийской музыке."
 
 #. name:bugarija
 #: DB:instrument/description:826
@@ -4940,11 +4933,6 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6183,3 +6171,9 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Пара небольших ручных цимбал, используемых в тайской и камбоджийской "
+#~ "музыке."

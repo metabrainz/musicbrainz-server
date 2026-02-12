@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-27 21:11+0000\n"
+"PO-Revision-Date: 2026-02-06 14:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -6724,7 +6724,7 @@ msgstr "редактор"
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
 msgid "edits"
-msgstr "версии"
+msgstr "правки"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925
