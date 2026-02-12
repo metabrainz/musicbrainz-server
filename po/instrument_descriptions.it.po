@@ -1007,14 +1007,6 @@ msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr ""
 "Liuto cinese a pizzico, piriforme, con quattro corde e dai 12 ai 26 tasti."
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Coppia di piccoli piatti suonati con le mani, usata nella musica thailandese "
-"e cambogiana."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -6163,11 +6155,6 @@ msgid ""
 msgstr ""
 "Tipo di tamburino usato come strumento tradizionale nella musica araba."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr "Tamburo senza fusto che può essere intonato ruotandolo."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -7797,6 +7784,15 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Coppia di piccoli piatti suonati con le mani, usata nella musica "
+#~ "thailandese e cambogiana."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr "Tamburo senza fusto che può essere intonato ruotandolo."
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "

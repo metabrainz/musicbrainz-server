@@ -14,12 +14,13 @@
 # imgradeone <imgradeone@outlook.com>, 2025, 2026.
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # dumbbird <dumbbirdvip@gmail.com>, 2026.
+# m67186636 <m67186636@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-15 07:11+0000\n"
-"Last-Translator: dumbbird <dumbbirdvip@gmail.com>\n"
+"PO-Revision-Date: 2026-01-26 11:11+0000\n"
+"Last-Translator: m67186636 <m67186636@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -1598,35 +1599,35 @@ msgstr[0] "发行组"
 
 #: ../root/statistics/stats.js:1065
 msgid "{type} areas"
-msgstr ""
+msgstr "{type}地区"
 
 #: ../root/statistics/stats.js:1077
 msgid "{country} artists"
-msgstr ""
+msgstr "{country}艺术家"
 
 #: ../root/statistics/stats.js:1083
 msgid "{country} events"
-msgstr ""
+msgstr "{country} 事件"
 
 #: ../root/statistics/stats.js:1089
 msgid "{country} labels"
-msgstr ""
+msgstr "{country}厂牌"
 
 #: ../root/statistics/stats.js:1095
 msgid "{country} places"
-msgstr ""
+msgstr "{country}地点"
 
 #: ../root/statistics/stats.js:1101
 msgid "{country} releases"
-msgstr ""
+msgstr "{country} 发行"
 
 #: ../root/statistics/stats.js:1112
 msgid "{type} edits"
-msgstr ""
+msgstr "{type}编辑"
 
 #: ../root/statistics/stats.js:1123
 msgid "{type} events"
-msgstr ""
+msgstr "{type}事件"
 
 #: ../root/statistics/stats.js:1130
 msgid "Events of type “{type}” with event art"
@@ -1634,11 +1635,11 @@ msgstr "有活动图像的{type}类活动"
 
 #: ../root/statistics/stats.js:1143
 msgid "{name} releases"
-msgstr ""
+msgstr "{name}发行"
 
 #: ../root/statistics/stats.js:1149
 msgid "{name} mediums"
-msgstr ""
+msgstr "{name}媒体"
 
 #: ../root/statistics/stats.js:1156
 msgid "Releases with a medium of format “{format}” that have cover art"
@@ -1646,27 +1647,27 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1169
 msgid "{type} instruments"
-msgstr ""
+msgstr "{type}乐器"
 
 #: ../root/statistics/stats.js:1180
 msgid "{type} labels"
-msgstr ""
+msgstr "{type}厂牌"
 
 #: ../root/statistics/stats.js:1191
 msgid "{language} releases"
-msgstr ""
+msgstr "{language}发行"
 
 #: ../root/statistics/stats.js:1198
 msgid "{language} works"
-msgstr ""
+msgstr "{language}作品"
 
 #: ../root/statistics/stats.js:1210
 msgid "Releases with packaging “{packaging}”"
-msgstr ""
+msgstr "包装为“{packaging}”的发行"
 
 #: ../root/statistics/stats.js:1223
 msgid "{type} places"
-msgstr ""
+msgstr "{type}地点"
 
 #: ../root/statistics/stats.js:1231
 msgid "{first_entity_type}-{second_entity_type} Relationships"

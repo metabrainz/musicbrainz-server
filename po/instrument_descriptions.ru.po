@@ -12,12 +12,12 @@
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # liilliil <liilliil@liilliil.net>, 2024, 2025.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
+# djtusa <djtusaofficial@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-17 20:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-02-03 01:11+0000\n"
+"Last-Translator: djtusa <djtusaofficial@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -425,6 +425,8 @@ msgid ""
 "Also know and \"flat-top\", it is a hollow-body acoustic guitar strung with "
 "steel strings."
 msgstr ""
+"Также известна и \"флэттоп\" (\"flat-top\"), это акустическая гитара с полым "
+"корпусом, на который натянуты стальные струны."
 
 #. name:cello
 #: DB:instrument/description:60
@@ -444,6 +446,9 @@ msgid ""
 "since atleast 1340's. It has a single drone and chanter with single reeds, "
 "modern variants are bellows blown."
 msgstr ""
+"Также известный как \"бок\", в честь мешка из козьей шкуры, он используется, "
+"по крайней мере, с 1340-х годов. В нем есть один трутень и певчий механизм с "
+"одним язычком, современные варианты - мехи."
 
 #. name:classical guitar
 #: DB:instrument/description:54
@@ -461,6 +466,9 @@ msgid ""
 "ancestor of the entire tamburica ensemble. This plucked long-necked lute has "
 "two double strings and is played solo."
 msgstr ""
+"Также известная как дангубица или кутеревка, она похожа на бисерницу и "
+"является прародительницей всего ансамбля тамбуриков. Эта щипковая лютня с "
+"длинным грифом имеет две двойные струны и играет соло."
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -470,6 +478,11 @@ msgid ""
 "the Jamaican Burru music and Rastafari movement, it is part of the Nyabinghi/"
 "Akete drums."
 msgstr ""
+"Также известный как кетте или кете, это барабан самого маленького размера и "
+"самой высокой высоты звучания. Он оснащён туго натянутой мембраной из козьей "
+"кожи и исполняется ударами кончиков пальцев. Играет важную роль в ямайской "
+"музыке бурру и в движении растафари, являясь частью барабанного ансамбля "
+"нябинги (акете)."
 
 #. name:slide whistle
 #: DB:instrument/description:198
@@ -478,6 +491,9 @@ msgid ""
 "similar to the one of a recorder and a tube with a piston that varies the "
 "pitch. It is often used as a sound effect."
 msgstr ""
+"Также известный как свани-свисток или поршневая флейта, он состоит из "
+"мундштука, похожего на мундштук блокфлейты, и трубки с поршнем, который "
+"изменяет высоту звука. Часто используется как звуковой эффект."
 
 #. name:soprano recorder
 #: DB:instrument/description:469
@@ -488,6 +504,12 @@ msgid ""
 "Not to be confused with the side-blown (concerto) <a href=\"/instrument/"
 "b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano flute</a>."
 msgstr ""
+"Также известная как дискант, это третий по размеру (от меньшего к большему) "
+"и самый распространённый инструмент в современной семье блокфлейт. <br /> "
+"Традиционно изготавливаемая из различных пород дерева, сегодня она часто "
+"делается из пластика и используется для обучения детей музыке.  <br /> Не "
+"следует путать с поперечной (концертной) <a href=\"/instrument/"
+"b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">флейтой-сопрано</a>."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -526,6 +548,9 @@ msgid ""
 "e139-44a9-8a48-7963eb693dd1\">indung</a>, dual child drums are divided into "
 "the katipung (\"besar\" or larger) and the kutiplak (\"kecil\" or smaller)."
 msgstr ""
+"Всегда используется вместе с <a href=\"/instrument/c588cc24-"
+"e139-44a9-8a48-7963eb693dd1\">индунг</a>. Парные детские барабаны делятся на "
+"катипунг («besar» — больший) и кутплак («kecil» — меньший)."
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -534,6 +559,11 @@ msgid ""
 "pitched deeper than kempyangs'. Flat top bossed gong is sat in a highly "
 "decorated rancak frame, beaten with tabuh beaters by the same person."
 msgstr ""
+"Всегда используется вместе с кемпьянгом. Представляет собой один бронзовый "
+"котловой гонг, настроенный ниже по тону, чем кемпьянги. Гонг с плоской "
+"верхней частью и выступом (bossed) устанавливается в богато украшенную "
+"ракаковую раму (rancak) и ударяется палочками табух (tabuh) тем же "
+"исполнителем."
 
 #. name:kempyang
 #: DB:instrument/description:987
@@ -933,13 +963,6 @@ msgstr ""
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr "Китайская лютня в форме груши с четырьмя струнами и 12–26 ладами."
-
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Пара небольших ручных цимбал, используемых в тайской и камбоджийской музыке."
 
 #. name:bugarija
 #: DB:instrument/description:826
@@ -4910,11 +4933,6 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6153,3 +6171,9 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Пара небольших ручных цимбал, используемых в тайской и камбоджийской "
+#~ "музыке."
