@@ -9,7 +9,6 @@
 
 // $FlowFixMe[untyped-import]
 import {captureException} from '@sentry/browser';
-import deepFreeze from 'deep-freeze-strict';
 import * as React from 'react';
 import * as tree from 'weight-balanced-tree';
 import {ValueExistsError} from 'weight-balanced-tree/errors';
@@ -25,6 +24,8 @@ import {
   getSourceEntityData,
 } from '../../common/utility/catalyst.js';
 import coerceToError from '../../common/utility/coerceToError.js';
+import deepFreezeInDevelopment
+  from '../../common/utility/deepFreezeInDevelopment.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import {uniqueNegativeId} from '../../common/utility/numbers.js';
 import {
@@ -317,9 +318,7 @@ export const reducer: ((
   const writableState: {...RelationshipEditorStateT} =
     cloneRelationshipEditorState(state);
   runReducer(writableState, action);
-  if (__DEV__) {
-    deepFreeze(writableState);
-  }
+  deepFreezeInDevelopment(writableState);
   return writableState;
 });
 
