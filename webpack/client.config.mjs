@@ -50,6 +50,7 @@ const entries = [
   'area/edit',
   'area/index',
   'area/places-map',
+  'artist/components/EditArtistCreditForm',
   'artist/edit',
   'artist/index',
   'artist/split',
@@ -60,6 +61,7 @@ const entries = [
   'common/components/Annotation',
   'common/components/ArtistRoles',
   'common/components/AttributeList',
+  'common/components/CDTocMediumListTable',
   'common/components/CDTocReleaseListTable',
   'common/components/CommonsImage',
   'common/components/Filter',
@@ -300,7 +302,7 @@ export default {
 
   mode: WEBPACK_MODE,
 
-  module: moduleConfig,
+  module: moduleConfig('web'),
 
   name: 'client-bundles',
 

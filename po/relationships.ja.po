@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 20:11+0000\n"
+"PO-Revision-Date: 2026-02-02 17:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1715,7 +1715,7 @@ msgstr "{entity1}のスコアは、{entity0}でメール注文可能です。"
 #. name:publishes series
 #: DB:link_type/description:933
 msgid "This allows linking a series to the label who publishes it."
-msgstr "これにより、シリーズを発行元のラベルにリンク可能である。"
+msgstr "これにより、シリーズを発行元のレーベルにリンク可能である。"
 
 #. name:vocal
 #: DB:link_attribute_type/description:3
@@ -2768,8 +2768,8 @@ msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
 msgstr ""
-"これは、レコーディングがメドレーのものであり、その作業が一部であることを示"
-"す。"
+"これは、レコーディングがメドレーのものであり、その作品が一部であることを示す"
+"。"
 
 #. name:karaoke
 #: DB:link_attribute_type/description:1261
@@ -10093,7 +10093,7 @@ msgstr "リミキサー"
 #. name:remix
 #: DB:link_type/reverse_link_phrase:9
 msgid "remixes"
-msgstr ""
+msgstr "リミックス版"
 
 #. name:remixes and compilations
 #: DB:link_type/name:50 DB:link_type/name:157 DB:link_type/name:13

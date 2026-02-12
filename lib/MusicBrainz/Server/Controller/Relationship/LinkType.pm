@@ -9,6 +9,7 @@ use Sql;
 use List::AllUtils qw( partition_by sort_by );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( partial_date_to_hash type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Constants qw(
     :direction
     $EDIT_RELATIONSHIP_ADD_TYPE
@@ -48,9 +49,12 @@ sub list : Path('/relationships') Args(0)
 
     my @types = sort keys %by_second_type;
 
+    my $used_types = $c->model('LinkType')->get_entity_pairs_with_relationship_types;
+
     my %props = (
         types => \@types,
         table => [ map { [ sort_by { $_->[0] } @{ $by_second_type{$_} } ] } @types ],
+        usedTypes => to_json_object($used_types),
     );
 
     $c->stash(

@@ -1,10 +1,10 @@
-# BestSteve <ibmibmibm.tw@gmail.com>, 2024.
+# BestSteve <ibmibmibm.tw@gmail.com>, 2024, 2026.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-12-28 17:42+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
+"PO-Revision-Date: 2026-01-28 17:11+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hant/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -853,12 +853,6 @@ msgstr ""
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr "中國的梨形魯特琴，有四根弦和12至26個相和品。"
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr "泰國鑔是用於泰國和柬埔寨音樂中的一對小鑔。"
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -973,6 +967,8 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"由兩個鼓組成：較大的<em>baya</em>或<em>dagga</em>負責低音，較小的<em>daya</"
+"em>或<em>tabla</em>負責節奏與「旋律」。"
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -5290,11 +5286,6 @@ msgid ""
 "music."
 msgstr "阿拉伯鈴鼓是一種鈴鼓，在阿拉伯音樂中作為傳統樂器使用。"
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr "輪鼓是一種沒有外殼的鼓，通過旋轉調音。"
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6699,6 +6690,13 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr "泰國鑔是用於泰國和柬埔寨音樂中的一對小鑔。"
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr "輪鼓是一種沒有外殼的鼓，通過旋轉調音。"
 
 #~ msgid ""
 #~ "The satsuma biwa is a biwa with four strings and frets popularised during "
