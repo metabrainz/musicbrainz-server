@@ -75,7 +75,7 @@ function isExample(url: string) {
 }
 
 function isMusicBrainz(url: string) {
-  return /^https?:\/\/([^/]+\.)?musicbrainz\.org/.test(url);
+  return /^https?:\/\/([^/]+\.)?musicbrainz\.(?:org|eu)/.test(url);
 }
 
 function isCritiqueBrainz(url: string) {
