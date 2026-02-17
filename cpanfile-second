@@ -1,4 +1,4 @@
-requires 'perl' => '5.38.0';
+requires 'perl' => '5.42.0';
 
 # Mandatory modules
 requires 'Algorithm::Diff'                            => '1.1902';
