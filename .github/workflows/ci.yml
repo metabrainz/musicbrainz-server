@@ -229,6 +229,65 @@ jobs:
           path: screenshots
           if-no-files-found: ignore
 
+  second-selenium:
+    needs: build-tests-image
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        partition: [1, 2, 3, 4]
+      fail-fast: false
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: mbs_checkout
+
+      - name: Restore musicbrainz-tests image from cache
+        uses: actions/cache/restore@v4
+        with:
+          path: /tmp/musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+
+      - name: Load musicbrainz-tests image from .tar file
+        run: docker load -i /tmp/musicbrainz-tests.tar
+
+      - name: Run tests container
+        run: |
+          CONTAINER_NAME=mbtest-selenium-${{ matrix.partition }}
+
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+
+          docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
+          docker exec \
+            --env SELENIUM_JS_OPTIONS='--run-partition ${{ matrix.partition }}/4' \
+            "$CONTAINER_NAME" \
+            ./docker/musicbrainz-tests/run_selenium_tests.sh
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_service_logs
+          path: service_logs
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_nyc_output
+          path: nyc_output
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_junit_output
+          path: junit_output
+
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selenium_${{ matrix.partition }}_screenshots
+          path: screenshots
+          if-no-files-found: ignore
+
   generate-reports:
     needs: [js-perl-and-pgtap, selenium]
     if: always()
