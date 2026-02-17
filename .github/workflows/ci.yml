@@ -132,7 +132,7 @@ jobs:
           path: junit_output
 
   second-js-perl-and-pgtap:
-    needs: build-tests-image
+    needs: build-second-tests-image
     runs-on: ubuntu-latest
 
     steps:
@@ -140,20 +140,20 @@ jobs:
         with:
           path: mbs_checkout
 
-      - name: Restore musicbrainz-tests image from cache
+      - name: Restore second musicbrainz-tests image from cache
         uses: actions/cache/restore@v4
         with:
-          path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+          path: /tmp/second-musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}
 
-      - name: Load musicbrainz-tests image from .tar file
-        run: docker load -i /tmp/musicbrainz-tests.tar
+      - name: Load second musicbrainz-tests image from .tar file
+        run: docker load -i /tmp/second-musicbrainz-tests.tar
 
-      - name: Run tests container
+      - name: Run second tests container
         run: |
-          CONTAINER_NAME=mbtest-js-perl-and-pgtap
+          CONTAINER_NAME=mbtest-second-js-perl-and-pgtap
 
-          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}"
 
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
@@ -161,14 +161,14 @@ jobs:
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: js_nyc_output
-          path: nyc_output
+          name: second_js_nyc_output
+          path: second_nyc_output
 
       - if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: js_perl_and_pgtap_junit_output
-          path: junit_output
+          name: second_js_perl_and_pgtap_junit_output
+          path: second_junit_output
 
   selenium:
     needs: build-tests-image
