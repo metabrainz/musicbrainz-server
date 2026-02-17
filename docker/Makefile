@@ -1,6 +1,6 @@
 TARGETS := $(shell find templates -name 'Dockerfile.*.m4' -exec basename '{}' .m4 \;)
-BUILD_TARGETS := $(filter-out build-cpanfile-snapshot build-tests,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./build-/g))
-PUSH_TARGETS := $(filter-out push-cpanfile-snapshot push-tests,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./push-/g))
+BUILD_TARGETS := $(filter-out build-cpanfile-snapshot build-second-tests build-tests,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./build-/g))
+PUSH_TARGETS := $(filter-out push-cpanfile-snapshot push-second-tests push-tests,$(shell echo "$(TARGETS)" | sed s/Dockerfile\./push-/g))
 
 export DOCKER_CMD ?= docker
 export GIT_BRANCH := $(shell ../script/git_info branch)
