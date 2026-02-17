@@ -132,6 +132,12 @@ ARG PERL_VERSION=5.38.5
 ARG PERL_SRC_SUM=b7667d3ff309068852af7853910aaccec26c839d717402121b664ac705e07bfe')
 
 m4_define(
+    `set_second_perl_install_args',
+    `m4_dnl
+ARG PERL_VERSION=5.42.0
+ARG PERL_SRC_SUM=e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc')
+
+m4_define(
     `install_perl',
     `m4_dnl
 # Install Perl from source
