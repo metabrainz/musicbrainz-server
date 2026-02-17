@@ -7,7 +7,7 @@ RUN useradd --create-home --shell /bin/bash musicbrainz
 
 WORKDIR /home/musicbrainz
 
-set_perl_install_args
+set_second_perl_install_args
 
 set_cpanm_and_carton_env
 
@@ -185,8 +185,9 @@ RUN cd MBS_ROOT && \
 
 FROM build
 
-COPY --chown=musicbrainz:musicbrainz cpanfile cpanfile.snapshot MBS_ROOT/
-# Install Perl module dependencies for MusicBrainz Server
+COPY --chown=musicbrainz:musicbrainz cpanfile-second MBS_ROOT/cpanfile
+COPY --chown=musicbrainz:musicbrainz cpanfile.snapshot-second MBS_ROOT/cpanfile.snapshot
+# Install second Perl module dependencies for MusicBrainz Server
 RUN with_cpanm_cache \
     chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
