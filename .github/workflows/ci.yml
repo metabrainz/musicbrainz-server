@@ -58,39 +58,39 @@ jobs:
   build-second-tests-image:
     runs-on: ubuntu-latest
     steps:
-      - name: Check the cache for musicbrainz-tests-image
-        id: tests-image-cache-check
+      - name: Check the cache for the second musicbrainz-tests-image
+        id: second-tests-image-cache-check
         uses: actions/cache/restore@v4
         with:
-          path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+          path: /tmp/second-musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}
           lookup-only: true
 
-      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+      - if: steps.second-tests-image-cache-check.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
 
-      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+      - if: steps.second-tests-image-cache-check.outputs.cache-hit != 'true'
         uses: docker/setup-buildx-action@v3
 
-      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+      - if: steps.second-tests-image-cache-check.outputs.cache-hit != 'true'
         run: make -C docker config
 
-      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+      - if: steps.second-tests-image-cache-check.outputs.cache-hit != 'true'
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: docker/Dockerfile.tests
-          tags: metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}
+          file: docker/Dockerfile.second-tests
+          tags: metabrainz/musicbrainz-tests:${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: false
-          outputs: type=docker,dest=/tmp/musicbrainz-tests.tar
+          outputs: type=docker,dest=/tmp/second-musicbrainz-tests.tar
 
-      - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
+      - if: steps.second-tests-image-cache-check.outputs.cache-hit != 'true'
         uses: actions/cache/save@v4
         with:
-          path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+          path: /tmp/second-musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}
 
   js-perl-and-pgtap:
     needs: build-tests-image
