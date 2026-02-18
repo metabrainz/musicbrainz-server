@@ -354,7 +354,7 @@ jobs:
           require_tests: true
 
   second-generate-reports:
-    needs: [js-perl-and-pgtap, selenium]
+    needs: [second-js-perl-and-pgtap, second-selenium]
     if: always()
     runs-on: ubuntu-latest
 
@@ -363,20 +363,20 @@ jobs:
         with:
           path: mbs_checkout
 
-      - name: Restore musicbrainz-tests image from cache
+      - name: Restore second musicbrainz-tests image from cache
         uses: actions/cache/restore@v4
         with:
-          path: /tmp/musicbrainz-tests.tar
-          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
+          path: /tmp/second-musicbrainz-tests.tar
+          key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}
 
-      - name: Load musicbrainz-tests image from .tar file
-        run: docker load -i /tmp/musicbrainz-tests.tar
+      - name: Load second musicbrainz-tests image from .tar file
+        run: docker load -i /tmp/second-musicbrainz-tests.tar
 
       - name: Run tests container
         run: |
-          CONTAINER_NAME=mbtest-generate-reports
+          CONTAINER_NAME=mbtest-second-generate-reports
 
-          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}-perl${{ env.SECOND_PERL_VERSION }}"
 
           docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
 
@@ -391,7 +391,7 @@ jobs:
             echo 'No istanbul artifacts found.'
             exit 1
           fi
-          CONTAINER_NAME=mbtest-generate-reports
+          CONTAINER_NAME=mbtest-second-generate-reports
           docker exec --user musicbrainz "$CONTAINER_NAME" mkdir -p .nyc_output
           docker exec "$CONTAINER_NAME" sh -c 'mv /workspace/*_nyc_output/*.json .nyc_output/; chown -R musicbrainz:musicbrainz .nyc_output'
           docker exec --user musicbrainz "$CONTAINER_NAME" ./node_modules/.bin/nyc report --reporter=html
@@ -401,8 +401,8 @@ jobs:
       - if: steps.nyc_merge.outcome == 'success'
         uses: actions/upload-artifact@v4
         with:
-          name: coverage_report
-          path: coverage
+          name: second_coverage_report
+          path: second_coverage
 
       - if: always()
         uses: actions/download-artifact@v4
