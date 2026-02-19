@@ -5178,7 +5178,8 @@ export const CLEANUPS: CleanupEntries = {
   },
   'ototoy': {
     hostname: 'ototoy.jp',
-    match: [/^(https?:\/\/)?([^/]+\.)?ototoy\.jp/i],
+    // Skip /feature links (can be interviews, reviews or other)
+    match: [/^(https?:\/\/)?([^/]+\.)?ototoy\.jp\/(?!feature)/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?ototoy\.jp\/(labels|_\/default\/[ap])\/(\d+).*$/, 'https://ototoy.jp/$1/$2');
