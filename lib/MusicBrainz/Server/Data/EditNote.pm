@@ -164,19 +164,26 @@ sub add_note
 }
 
 sub find_by_recipient {
-    my ($self, $recipient_id, $limit, $offset) = @_;
+    my ($self, $recipient_id, $modbot_condition, $limit, $offset) = @_;
 
+    my $table = $self->_table;
+    my @params = ($recipient_id);
+    my $extra_condition = '';
+    if ($modbot_condition eq '=' || $modbot_condition eq '!=') {
+        push @params, $EDITOR_MODBOT;
+        $extra_condition = "AND $table.editor $modbot_condition ?";
+    }
     my $query = <<~"SQL";
         SELECT ${\($self->_columns)}
         FROM edit_note_recipient
-        JOIN ${\($self->_table)} ON ${\($self->_table)}.id = edit_note_recipient.edit_note
-        WHERE recipient = \$1
+        JOIN $table ON $table.id = edit_note_recipient.edit_note
+        WHERE recipient = ?
+        $extra_condition
         ORDER BY post_time DESC NULLS LAST, edit DESC
         LIMIT $LIMIT_FOR_EDIT_LISTING
         SQL
     $self->query_to_list_limited(
-        $query, [$recipient_id], $limit, $offset, undef,
-        dollar_placeholders => 1,
+        $query, [@params], $limit, $offset, undef,
     );
 }
 
