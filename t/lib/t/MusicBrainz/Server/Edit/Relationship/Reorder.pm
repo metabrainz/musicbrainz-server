@@ -11,7 +11,11 @@ with 't::Context';
 BEGIN { use MusicBrainz::Server::Edit::Relationship::Reorder }
 
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIPS_REORDER );
+use MusicBrainz::Server::Constants qw(
+    $EDIT_RELATIONSHIPS_REORDER
+    $UNTRUSTED_FLAG
+);
+use MusicBrainz::Server::Test qw( accept_edit );
 
 test all => sub {
     my $test = shift;
@@ -38,6 +42,7 @@ test all => sub {
             { relationship => $rels->{3}, old_order => 3, new_order => 2 },
             { relationship => $rels->{4}, old_order => 4, new_order => 1 },
         ],
+        privileges => $UNTRUSTED_FLAG,
     );
 
     my $edit = $c->model('Edit')->create(%edit_args);
@@ -51,6 +56,27 @@ test all => sub {
         is($hits, 1, "Found 1 edit for work $i");
         is($edits->[0]->id, $edit->id, '... which has the same id as the edit just created');
     }
+
+    ok($edit->is_open, 'edit is still open');
+
+    # MBS-14075: edits_pending is adjusted for all entities
+    my @entities = (
+        $c->model('Series')->get_by_id(2),
+        values %{ $c->model('Work')->get_by_ids(1..4) },
+    );
+    is($_->edits_pending, 1,
+       'edits_pending was incremented for ' . $_->entity_type . ' ' . $_->id)
+       for @entities;
+
+    accept_edit($c, $edit);
+
+    @entities = (
+        $c->model('Series')->get_by_id(2),
+        values %{ $c->model('Work')->get_by_ids(1..4) },
+    );
+    is($_->edits_pending, 0,
+       'edits_pending was decremented for ' . $_->entity_type . ' ' . $_->id)
+       for @entities;
 
     $rels = $c->model('Relationship')->get_by_ids('series', 'work', 1..4);
     $c->model('Link')->load(values %$rels);
