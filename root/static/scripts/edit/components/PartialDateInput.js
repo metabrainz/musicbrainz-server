@@ -9,6 +9,8 @@
 
 import type {CowContext} from 'mutate-cow';
 
+import formatDate from '../../common/utility/formatDate.js';
+import parseNaturalDate from '../../common/utility/parseNaturalDate.js';
 import {isDateValid, isYearFourDigits} from '../utility/dates.js';
 import {applyPendingErrors} from '../utility/subfieldErrors.js';
 
@@ -16,8 +18,9 @@ import {applyPendingErrors} from '../utility/subfieldErrors.js';
 export type ActionT =
   | {
       +type: 'set-date',
-      +date: {+year?: string, +month?: string, +day?: string},
+      +date: PartialDateStringsT,
     }
+  | {+type: 'set-parsed-date', +date: string}
   | {+type: 'show-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
 
@@ -26,6 +29,39 @@ type ControlledPropsT =
   | $ReadOnly<{+dispatch?: void, +uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
+
+export function createInitialState(
+  date: StateT,
+): StateT {
+  return {
+    ...date,
+    formattedDate: formatParserDate(date),
+  };
+}
+
+export function formatParserDate(date: StateT): string {
+  return formatDate({
+    day: date.field.day.value,
+    month: date.field.month.value,
+    year: date.field.year.value,
+  });
+}
+
+function updateDate(dateCtx: CowContext<StateT>, date: PartialDateStringsT) {
+  const newYear = date.year;
+  const newMonth = date.month;
+  const newDay = date.day;
+  if (newYear != null) {
+    dateCtx.set('field', 'year', 'value', newYear);
+  }
+  if (newMonth != null) {
+    dateCtx.set('field', 'month', 'value', newMonth);
+  }
+  if (newDay != null) {
+    dateCtx.set('field', 'day', 'value', newDay);
+  }
+  validateDate(dateCtx);
+}
 
 function validateDate(dateCtx: CowContext<StateT>) {
   const date = dateCtx.read();
@@ -60,20 +96,19 @@ export function runReducer(
     {type: 'show-pending-errors'} => {
       applyPendingErrors(state);
     }
+    {type: 'set-parsed-date', const date} => {
+      const parsedDate = parseNaturalDate(date);
+      updateDate(state, parsedDate);
+      state.set('formattedDate', date);
+    }
     {type: 'set-date', const date} => {
-      const newYear = date.year;
-      const newMonth = date.month;
-      const newDay = date.day;
-      if (newYear != null) {
-        state.set('field', 'year', 'value', newYear);
+      updateDate(state, date);
+      const formattedDate = formatParserDate(state.read());
+      if (nonEmpty(formattedDate)) {
+        state.set('formattedDate', formatParserDate(state.read()));
+      } else {
+        state.set('formattedDate', formatParserDate(state.read()));
       }
-      if (newMonth != null) {
-        state.set('field', 'month', 'value', newMonth);
-      }
-      if (newDay != null) {
-        state.set('field', 'day', 'value', newDay);
-      }
-      validateDate(state);
     }
   }
 }
@@ -85,6 +120,12 @@ type DatePartPropsT = {
   value?: StrOrNum,
 };
 
+type DateParserPropsT = {
+  onBlur?: () => void,
+  onChange?: (SyntheticEvent<HTMLInputElement>) => void,
+  value?: string,
+};
+
 component PartialDateInput(
   disabled: boolean = false,
   field: PartialDateFieldT,
@@ -94,6 +135,7 @@ component PartialDateInput(
   const yearProps: DatePartPropsT = {};
   const monthProps: DatePartPropsT = {};
   const dayProps: DatePartPropsT = {};
+  const parserProps: DateParserPropsT = {};
 
   if (controlledProps.uncontrolled /*:: === true */) {
     yearProps.defaultValue = field.field.year.value;
@@ -118,6 +160,7 @@ component PartialDateInput(
     yearProps.onBlur = handleBlur;
     monthProps.onBlur = handleBlur;
     dayProps.onBlur = handleBlur;
+    parserProps.onBlur = handleBlur;
 
     yearProps.onChange = (event) => handleDateChange(
       event,
@@ -132,9 +175,17 @@ component PartialDateInput(
       'day',
     );
 
+    parserProps.onChange = (event) => {
+      controlledProps.dispatch({
+        date: event.currentTarget.value,
+        type: 'set-parsed-date',
+      });
+    };
+
     yearProps.value = field.field.year.value ?? '';
     monthProps.value = field.field.month.value ?? '';
     dayProps.value = field.field.day.value ?? '';
+    parserProps.value = field.formattedDate ?? '';
   }
 
   return (
@@ -175,6 +226,22 @@ component PartialDateInput(
         type="text"
         {...dayProps}
       />
+      {controlledProps.uncontrolled /*:: === true */ ? null : (
+        <>
+          {' '}
+          <input
+            autoComplete="on"
+            className="partial-date-parser"
+            disabled={disabled}
+            id={'id-' + field.html_name + '.partial-date-parser'}
+            name={field.html_name + '.partial-date-parser'}
+            placeholder={l('or paste a full date here')}
+            size={12}
+            type="text"
+            {...parserProps}
+          />
+        </>
+      )}
     </span>
   );
 }

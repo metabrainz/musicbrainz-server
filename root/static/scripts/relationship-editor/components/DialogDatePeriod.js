@@ -21,7 +21,8 @@ import FieldErrors, {
   FieldErrorsList,
 } from '../../edit/components/FieldErrors.js';
 import FormRowCheckbox from '../../edit/components/FormRowCheckbox.js';
-import PartialDateInput from '../../edit/components/PartialDateInput.js';
+import PartialDateInput, {formatParserDate}
+  from '../../edit/components/PartialDateInput.js';
 import useDateRangeFieldset from '../../edit/hooks/useDateRangeFieldset.js';
 import {
   createCompoundField,
@@ -40,41 +41,51 @@ export function createInitialState(
     ended,
   } = datePeriod;
 
+  const beginDateField = createCompoundField(
+    'period.begin_date',
+    {
+      day: createField(
+        'period.begin_date.day',
+        (beginDate?.day ?? null),
+      ),
+      month: createField(
+        'period.begin_date.month',
+        (beginDate?.month ?? null),
+      ),
+      year: createField(
+        'period.begin_date.year',
+        (beginDate?.year ?? null),
+      ),
+    },
+  );
+
+  const endDateField = createCompoundField(
+    'period.end_date',
+    {
+      day: createField(
+        'period.end_date.day',
+        (endDate?.day ?? null),
+      ),
+      month: createField(
+        'period.end_date.month',
+        (endDate?.month ?? null),
+      ),
+      year: createField(
+        'period.end_date.year',
+        (endDate?.year ?? null),
+      ),
+    },
+  );
+
   const field = createCompoundField('period', {
-    begin_date: createCompoundField(
-      'period.begin_date',
-      {
-        day: createField(
-          'period.begin_date.day',
-          (beginDate?.day ?? null),
-        ),
-        month: createField(
-          'period.begin_date.month',
-          (beginDate?.month ?? null),
-        ),
-        year: createField(
-          'period.begin_date.year',
-          (beginDate?.year ?? null),
-        ),
-      },
-    ),
-    end_date: createCompoundField(
-      'period.end_date',
-      {
-        day: createField(
-          'period.end_date.day',
-          (endDate?.day ?? null),
-        ),
-        month: createField(
-          'period.end_date.month',
-          (endDate?.month ?? null),
-        ),
-        year: createField(
-          'period.end_date.year',
-          (endDate?.year ?? null),
-        ),
-      },
-    ),
+    begin_date: {
+      ...beginDateField,
+      formattedDate: formatParserDate(beginDateField),
+    },
+    end_date: {
+      ...endDateField,
+      formattedDate: formatParserDate(endDateField),
+    },
     ended: createField('period.ended', ended),
   });
 

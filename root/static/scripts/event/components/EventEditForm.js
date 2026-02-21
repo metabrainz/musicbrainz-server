@@ -18,6 +18,7 @@ import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
+  setInitialStateOnForm as setInitialDateRangeFieldsetStateOnForm,
 } from '../../edit/components/DateRangeFieldset.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
@@ -67,7 +68,7 @@ type StateT = {
 
 function createInitialState(form: EventFormT) {
   return {
-    form,
+    form: setInitialDateRangeFieldsetStateOnForm(form),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     showTypeBubble: false,

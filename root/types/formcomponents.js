@@ -128,10 +128,13 @@ declare type OptionTreeT<+T> = {
   +parent_id: number | null,
 };
 
-declare type PartialDateFieldT = CompoundFieldT<{
-  +day: FieldT<StrOrNum | null>,
-  +month: FieldT<StrOrNum | null>,
-  +year: FieldT<StrOrNum | null>,
+declare type PartialDateFieldT = $ReadOnly<{
+  ...CompoundFieldT<{
+    +day: FieldT<StrOrNum | null>,
+    +month: FieldT<StrOrNum | null>,
+    +year: FieldT<StrOrNum | null>,
+  }>,
+  +formattedDate?: string,
 }>;
 
 declare type RepeatableFieldT<+F> = {
