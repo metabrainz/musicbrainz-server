@@ -362,8 +362,11 @@ sub editors {
     $ids = get_new_ids('editor', $ids);
     return unless @{$ids};
 
+    my $editor_columns = $EDITOR_SANITISED_COLUMNS;
+    $editor_columns =~ s/'' AS email/'editor-' || editor.id || '\@musicbrainz.invalid' AS email/;
+
     my $editor_rows = $c->sql->select_list_of_hashes(
-        "SELECT $EDITOR_SANITISED_COLUMNS FROM editor WHERE id = any(?) ORDER BY id",
+        "SELECT $editor_columns FROM editor WHERE id = any(?) ORDER BY id",
         $ids,
     );
 
