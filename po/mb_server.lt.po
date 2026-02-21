@@ -9,13 +9,13 @@
 # "Vac31." <gateway_31@protonmail.com>, 2023, 2024.
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # "Vac31." <Vaclovas@users.noreply.translations.metabrainz.org>, 2024.
-# Vaclovas Intas <gateway_31@protonmail.com>, 2024, 2025.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2025-09-23 23:54+0000\n"
+"PO-Revision-Date: 2026-02-14 23:11+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 "
+": n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -69,7 +69,7 @@ msgstr "&#x26a0; Klaida įkeliant vaizdą."
 
 #: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
-msgstr "&#x26a0; Serveris užimtas, bandyk vėliau."
+msgstr "&#x26a0; Serveris užimtas. Bandykite vėliau."
 
 #: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
@@ -77,7 +77,7 @@ msgstr "&#x26a0; Neatpažintas failas."
 
 #: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
-msgstr "&#x2713; Sėkmingai."
+msgstr "&#x2713; Sėkmė."
 
 #: ../root/release/edit/recordings.tt:63
 msgid "(add a new recording)"
@@ -108,8 +108,9 @@ msgid ""
 msgstr ""
 "<strong>Pastaba:</strong> klasikinėje muzikoje {csg_recording_artist|įrašų "
 "atlikėjai} beveik visada turėtų skirtis nuo {csg_track_artist|takelių "
-"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudok parinkties "
-"„kopijuoti atlikėjų įrašus“, nebent esi tikras (-a), kad tai gera idėja!"
+"atlikėjų}, todėl redaguojant klasikinės muzikos leidinį nenaudokite "
+"parinkties „kopijuoti atlikėjų įrašus“, nebent esate tikri, kad tai geras "
+"sumanymas!"
 
 #: ../root/components/common-macros.tt:396 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -121,17 +122,17 @@ msgid ""
 "tracklist appears correct, you may use it as a starting point for a new "
 "MusicBrainz release."
 msgstr ""
-"Buvo rastas CD atplaiša, atitinkanti tavo pateiktą disko ID. Jei toliau "
-"pateiktas takelių sąrašas atrodo teisingas, gali naudoti jį kaip pradinį "
-"tašką naujai MusicBrainz leidiniui."
+"Buvo rastas CD atplaiša, atitinkanti jūsų pateiktą disko ID. Jei žemiau "
+"pateiktas takelių sąrašas atrodo teisingas, galite naudoti jį kaip pradinį "
+"tašką naujai „MusicBrainz“ leidiniui."
 
 #: ../root/release/edit/tracklist.tt:323
 msgid ""
 "A format is required. If you don’t know it, tick the “I don’t know” checkbox "
 "next to the format dropdown."
 msgstr ""
-"Formatas – reikalingas. Jei jo nežinai, pažymėk šalia išskleidžiamojo sąrašo "
-"formatas esantį žymimąjį langelį „Nežinau“."
+"Formatas – privalomas. Jei jo nežinote, pažymėkite šalia išskleidžiamojo "
+"sąrašo formatas esantį žymimąjį langelį „Nežinau“."
 
 #: ../root/release/edit/information.tt:23
 msgid "A release title is required."
@@ -173,8 +174,8 @@ msgid ""
 "Add a medium by clicking “Add medium” below, or tick the box confirming the "
 "tracklist is unknown."
 msgstr ""
-"Pridėk laikmeną spustelėjus toliau esantį mygtuką Pridėti laikmeną arba "
-"pažymėk laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
+"Pridėkite laikmeną spustelėjus žemiau esantį mygtuką „Pridėti laikmeną“ arba "
+"pažymėkite laukelį, patvirtinantį, kad takelių sąrašas nežinomas."
 
 #: ../root/release/edit/recordings.tt:178
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:26
@@ -207,12 +208,12 @@ msgstr "Pridėti atlikėją"
 #: ../root/release/add_cover_art.tt:1 ../root/release/add_cover_art.tt:8
 msgctxt "plural, header"
 msgid "Add cover art"
-msgstr "Pridėti viršelio apipavidalinimus"
+msgstr "Pridėti viršelio vaizdus"
 
 #: ../root/event/add_event_art.tt:1 ../root/event/add_event_art.tt:8
 msgctxt "plural, header"
 msgid "Add event art"
-msgstr "Pridėti renginių apipavidalinimus"
+msgstr "Pridėti renginių vaizdus"
 
 #: ../root/instrument/create.tt:1 ../root/instrument/create.tt:3
 msgctxt "header"
@@ -222,14 +223,14 @@ msgstr "Pridėti instrumentą"
 #: ../root/label/create.tt:1 ../root/label/create.tt:3
 msgctxt "header"
 msgid "Add label"
-msgstr "Pridėti įrašų kompaniją"
+msgstr "Pridėti leidyklą"
 
 #: ../root/release/edit/information.tt:258
 #: ../root/release/edit/information.tt:259
 #: ../root/layout/components/BottomMenu.js:249
 msgctxt "interactive"
 msgid "Add label"
-msgstr "Pridėti įrašų kompaniją"
+msgstr "Pridėti leidyklą"
 
 #: ../root/release/edit/layout.tt:67 ../root/release/edit/tracklist.tt:267
 msgctxt "interactive"
@@ -285,7 +286,7 @@ msgstr "Pridėti kūrinio požymį"
 
 #: ../root/release/edit/tracklist.tt:592
 msgid "Add {num} track(s)"
-msgstr "Pridėti {num} takelį (-us)"
+msgstr "Pridėti {num} takelį (-us, -ų)"
 
 #: ../root/release/edit/information.tt:290
 msgid "Additional information"
@@ -303,15 +304,13 @@ msgstr "Adresas"
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:213
 msgctxt "vote"
 msgid "Admin approval"
-msgstr ""
+msgstr "Administratoriaus patvirtinimas"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:214
-#, fuzzy
-#| msgid "Auto-editor elections"
 msgctxt "vote"
 msgid "Admin rejection"
-msgstr "Autoredaktoriaus rinkimai"
+msgstr "Administratoriaus atmetimas"
 
 #: ../root/release/edit/recordings.tt:3
 msgid ""
@@ -19118,8 +19117,8 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
-"<strong>Įspėjimas:</strong> Kai kurių kūrinių, kuriuos sujungi, ISWC "
-"skirtingi. Įsitikink, kad tai tikrai tie patys kūriniai ir nori tęsti "
+"<strong>Įspėjimas:</strong> kai kurių kūrinių, kuriuos sujungiate, ISWC "
+"skirtingi. Įsitikinkite, kad tai tikrai tie patys kūriniai ir norite tęsti "
 "sujungimą."
 
 #~ msgid "\"C\" is a single check digit."
