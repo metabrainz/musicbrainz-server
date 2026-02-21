@@ -1,0 +1,17 @@
+Format:
+  type: string
+  enum:
+    - json
+    - xml
+Limit:
+  type: integer
+  minimum: 1
+  maximum: 100
+MBID:
+  type: string
+  format: uuid
+TrueOrFalse:
+  type: boolean
+  enum:
+    - true
+    - false
