@@ -53,13 +53,14 @@
 # eigenric <ricardoruizfdez@gmail.com>, 2024.
 # Joax <joan_acosta_1994@hotmail.com>, 2025.
 # Dino RTX <rtxdino36@gmail.com>, 2025.
+# ShimiDoki <shimitv123@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2025-10-21 10:08+0000\n"
-"Last-Translator: Dino RTX <rtxdino36@gmail.com>\n"
+"PO-Revision-Date: 2026-02-13 07:11+0000\n"
+"Last-Translator: ShimiDoki <shimitv123@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
@@ -68,7 +69,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3124,11 +3125,14 @@ msgstr ""
 #: ../root/release_group/edit_form.tt:67
 msgid "The {doc|primary type} describes how the release group is categorized."
 msgstr ""
+"El {doc|tipo principal} describe cómo se clasifica el grupo de publicaciones."
 
 #: ../root/release/edit/information.tt:347
 msgid ""
 "The {doc|release group} groups related releases into a single logical entity."
 msgstr ""
+"El {doc|grupo de publicaciones} agrupa publicaciones relacionadas en una "
+"única entidad lógica."
 
 #: ../root/release/edit/information.tt:419
 msgid ""
@@ -3140,11 +3144,11 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:384
 msgid "The {doc|status} describes how “official” the release is."
-msgstr ""
+msgstr "La {doc|condición} describe lo “oficial” que es la publicación."
 
 #: ../root/release/edit/information.tt:319
 msgid "The {doc|title} is the release’s name."
-msgstr ""
+msgstr "El {doc|título} es el nombre de la publicación."
 
 #: ../root/cdtoc/lookup.tt:14
 msgid ""
@@ -3907,7 +3911,7 @@ msgstr "cancelado"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not exist (edit has no notes)"
-msgstr ""
+msgstr "no existe (la edición no tiene notas)"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not include"
@@ -4558,6 +4562,8 @@ msgid ""
 "An edit search query could not be constructed. Some of your parameters are "
 "probably invalid."
 msgstr ""
+"No se pudo crear la consulta de búsqueda de ediciones. Es probable que "
+"alguno de los parámetros no sea válido."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
@@ -8205,6 +8211,8 @@ msgid ""
 "You can also {search_link|search manually} and paste the link to the release "
 "here."
 msgstr ""
+"También puedes {search_link|buscar manualmente} y pegar aquí el enlace de la "
+"publicación."
 
 #: ../root/cdtoc/AttachCDTocToRelease.js:163
 msgid ""
@@ -9046,10 +9054,8 @@ msgstr "Autores"
 
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
-#, fuzzy
-#| msgid "Merge artists"
 msgid "Other artists"
-msgstr "Fusionar artistas"
+msgstr "Otros artistas"
 
 #: ../root/constants.js:22
 msgid "View and modify your private collections"
