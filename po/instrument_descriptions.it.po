@@ -13,14 +13,14 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 # GABG <musicbrainz@gabg.email>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-26 00:11+0000\n"
+"PO-Revision-Date: 2026-02-14 01:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -4999,6 +4999,9 @@ msgid ""
 "samurai, it has four strings and elevated frets, a large plectrum called "
 "Bachi is used."
 msgstr ""
+"Si ritiene che sia stato creato come modifica del moso biwa per fornire "
+"sostegno ai samurai; ha quattro corde e tasti sporgenti ed è suonato con un "
+"grande plettro chiamato bachi."
 
 #. name:glass harmonica
 #: DB:instrument/description:285
