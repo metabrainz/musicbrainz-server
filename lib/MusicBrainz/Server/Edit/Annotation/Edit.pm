@@ -7,6 +7,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
 use MusicBrainz::Server::Data::Utils qw( model_to_type );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Filters qw( format_wikitext );
@@ -55,7 +56,7 @@ role {
 
     method $entity_id => sub { shift->data->{entity}{id} };
 
-    method edit_kind => sub { 'add' };
+    method edit_kind => sub { $EDIT_KIND_LABELS{'add'} };
     method edit_name => sub { $params->edit_name };
     method edit_type => sub { $params->edit_type };
 

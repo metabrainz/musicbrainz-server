@@ -3,13 +3,14 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_ADD_TRACK_KV );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_lp('Add track (historic)', 'edit type') }
-sub edit_kind     { 'add' }
+sub edit_kind     { $EDIT_KIND_LABELS{'add'} }
 sub historic_type { 18 }
 sub edit_type     { $EDIT_HISTORIC_ADD_TRACK_KV }
 sub edit_template { 'historic/AddTrackKV' }

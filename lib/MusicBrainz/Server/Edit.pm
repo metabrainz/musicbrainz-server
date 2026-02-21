@@ -29,6 +29,7 @@ sub l_edit_name {
     my $self = shift;
     return lp($self->edit_name, $self->edit_type_name_context);
 }
+sub l_edit_kind { lp(shift->edit_kind, 'edit kind') }
 
 sub edit_template { die 'Unimplemented' }
 

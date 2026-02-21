@@ -4,6 +4,7 @@ use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_MOVE_RELEASE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -12,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_lp('Edit release', 'edit type') }
-sub edit_kind     { 'edit' }
+sub edit_kind     { $EDIT_KIND_LABELS{'edit'} }
 sub historic_type { 8 }
 sub edit_type     { $EDIT_HISTORIC_MOVE_RELEASE }
 sub edit_template { 'historic/MoveRelease' }

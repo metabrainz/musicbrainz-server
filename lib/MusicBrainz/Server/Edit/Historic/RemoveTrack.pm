@@ -3,13 +3,14 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_TRACK );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_lp('Remove track', 'edit type') }
-sub edit_kind     { 'remove' }
+sub edit_kind     { $EDIT_KIND_LABELS{'remove'} }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_TRACK }
 sub historic_type { 11 }
 sub edit_template { 'historic/RemoveTrack' }

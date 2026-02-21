@@ -27,8 +27,12 @@ sub valid {
 sub combine_with_query {
     my ($self, $query) = @_;
     return unless $self->arguments;
+
+    # Edit kind grouping is based on the edit type column
+    my $column = $self->field_name eq 'kind' ? 'type' : $self->field_name;
+
     $query->add_where([
-        join(' ', 'edit.'.$self->field_name, $self->operator,
+        join(' ', 'edit.'.$column, $self->operator,
              $self->operator eq '='  ? 'any(?)' :
              $self->operator eq '!=' ? 'all(?)' : die 'Shouldnt get here'),
         $self->sql_arguments,

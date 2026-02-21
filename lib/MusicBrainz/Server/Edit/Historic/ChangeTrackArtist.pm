@@ -3,6 +3,7 @@ use strict;
 use warnings;
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_CHANGE_TRACK_ARTIST );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
@@ -12,7 +13,7 @@ use aliased 'MusicBrainz::Server::Entity::Artist';
 use aliased 'MusicBrainz::Server::Entity::Recording';
 
 sub edit_name     { N_lp('Edit track (historic)', 'edit type') }
-sub edit_kind     { 'edit' }
+sub edit_kind     { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type     { $EDIT_HISTORIC_CHANGE_TRACK_ARTIST }
 sub historic_type { 10 }
 sub edit_template { 'historic/EditTrack' }

@@ -3,6 +3,7 @@ use utf8;
 use Moose;
 
 use Clone qw( clone );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 
 extends 'MusicBrainz::Server::Edit';
 with 'MusicBrainz::Server::Edit::Role::Insert';
@@ -13,7 +14,7 @@ with 'MusicBrainz::Server::Edit::Role::Insert';
 
 sub _create_model { die 'Unimplemented' }
 
-sub edit_kind { 'add' }
+sub edit_kind { $EDIT_KIND_LABELS{'add'} }
 
 sub alter_edit_pending
 {

@@ -3,6 +3,7 @@ use Moose;
 
 use DBDefs;
 use MusicBrainz::Server::Constants qw( $EDIT_WIKIDOC_CHANGE );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Translation qw( N_lp );
 use MooseX::Types::Moose qw( Int Str );
@@ -14,7 +15,7 @@ with 'MusicBrainz::Server::Edit::WikiDoc',
 
 sub edit_type { $EDIT_WIKIDOC_CHANGE }
 sub edit_name { N_lp('Change WikiDoc', 'edit type') }
-sub edit_kind { 'other' }
+sub edit_kind { $EDIT_KIND_LABELS{'other'} }
 sub edit_template { 'ChangeWikiDoc' }
 
 has '+data' => (

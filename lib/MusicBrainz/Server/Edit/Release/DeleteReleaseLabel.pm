@@ -5,6 +5,7 @@ use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_DELETERELEASELABEL );
 use MusicBrainz::Server::Translation qw( N_lp );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -19,7 +20,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
 sub edit_name { N_lp('Remove release label', 'edit type') }
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 sub edit_type { $EDIT_RELEASE_DELETERELEASELABEL }
 sub edit_template { 'RemoveReleaseLabel' }
 

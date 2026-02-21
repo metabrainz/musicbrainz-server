@@ -5,6 +5,7 @@ use warnings;
 use MusicBrainz::Server::Constants qw(
     $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD
 );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Historic::Utils qw(
     upgrade_date
     upgrade_id
@@ -16,7 +17,7 @@ use MusicBrainz::Server::Translation qw( N_lp );
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_lp('Edit release events (historic)', 'edit type') }
-sub edit_kind     { 'edit' }
+sub edit_kind     { $EDIT_KIND_LABELS{'edit'} }
 sub historic_type { 29 }
 sub edit_type     { $EDIT_HISTORIC_EDIT_RELEASE_EVENTS_OLD }
 sub edit_template { 'historic/EditReleaseEvents' }
