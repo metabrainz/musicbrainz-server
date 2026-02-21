@@ -10,6 +10,7 @@ use Test::Fatal;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw(
     order_by
+    find_best_primary_alias
     generate_gid
     take_while
     sanitize
@@ -17,6 +18,7 @@ use MusicBrainz::Server::Data::Utils qw(
     ref_to_type
     model_to_type
 );
+use MusicBrainz::Server::Entity::Alias;
 use MusicBrainz::Server::Entity::AreaAliasType;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Entity::Recording;
@@ -248,6 +250,97 @@ test 'Test model_to_type' => sub {
 
     is(model_to_type('URL'), 'url',
        'model_to_type of "URL" is "url"');
+};
+
+
+test 'Test find_best_primary_alias' => sub {
+    my @aliases = (
+        MusicBrainz::Server::Entity::Alias->new(
+            name => 'Alias McAliasy',
+            sort_name => 'McAliasy, Alias',
+            locale => 'en_US',
+            primary_for_locale => 1,
+        ),
+        MusicBrainz::Server::Entity::Alias->new(
+            name => 'Alias von Alias',
+            sort_name => 'Alias, Alias von',
+            locale => 'de',
+            primary_for_locale => 1,
+        ),
+        MusicBrainz::Server::Entity::Alias->new(
+            name => 'Alias von der Schweiz',
+            sort_name => 'Schweiz, Alias von der',
+            locale => 'de_CH',
+            primary_for_locale => 1,
+        ),
+        MusicBrainz::Server::Entity::Alias->new(
+            name => 'Alias van der Alias',
+            sort_name => 'van der Alias, Alias',
+            locale => 'nl',
+            primary_for_locale => 0,
+        ),
+        MusicBrainz::Server::Entity::Alias->new(
+            name => 'Alias de Alias y Alias',
+            sort_name => 'Alias y Alias, Alias de',
+            locale => 'es',
+            ended => 1,
+            primary_for_locale => 1,
+        ),
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'de')->name,
+       'Alias von Alias',
+       'Asking for "de" alias, "de" match is returned',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'de_CH')->name,
+       'Alias von der Schweiz',
+       'Asking for "de_CH" alias, "de_CH" match is returned',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'de_AT')->name,
+       'Alias von Alias',
+       'Asking for "de_AT" alias, "de" fallback is returned since we lack "de_AT"',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'en')->name,
+       'Alias McAliasy',
+       'Asking for "en" alias, "en" match is returned',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'nl')->name,
+       'Alias McAliasy',
+       'Asking for "nl" alias, "en" fallback is returned since "nl" is not primary',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'es')->name,
+       'Alias McAliasy',
+       'Asking for "es" alias, "en" fallback is returned since "es" is ended',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'es_AR')->name,
+       'Alias McAliasy',
+       'Asking for "es_AR" alias, "en" fallback is returned since "es" fallback is ended',
+    );
+
+    is(
+       find_best_primary_alias(\@aliases, 'it')->name,
+       'Alias McAliasy',
+       'Asking for "it" alias, "en" fallback is returned since we lack "it"',
+    );
+
+    is(
+       find_best_primary_alias([], 'en'),
+       undef,
+       'Nothing is returned if no aliases exist',
+    );
 };
 
 1;
