@@ -1,0 +1,10 @@
+-- Automatically generated, do not edit.
+\set ON_ERROR_STOP 1
+
+SET search_path = 'messaging';
+
+TRUNCATE TABLE edit_note_thanks RESTART IDENTITY CASCADE;
+TRUNCATE TABLE edit_thanks RESTART IDENTITY CASCADE;
+TRUNCATE TABLE hidden_message RESTART IDENTITY CASCADE;
+TRUNCATE TABLE message RESTART IDENTITY CASCADE;
+TRUNCATE TABLE notification RESTART IDENTITY CASCADE;
