@@ -48,7 +48,7 @@ sub search : Path('')
                 if $form->field('method')->value eq 'direct';
             $c->forward('external');
         }
-        elsif ($type eq 'tag')
+        elsif ($type eq 'tag' && DBDefs->SEARCH_ENGINE eq 'LUCENE')
         {
             $form->field('method')->value('direct');
             $c->forward('direct');

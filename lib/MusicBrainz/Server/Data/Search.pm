@@ -896,7 +896,7 @@ sub external_search
             undef;
 
         # Use types as provided by jsonnew format
-        if ($type =~ /^(area|artist|event|instrument|label|place|recording|release|release-group|work|annotation|cdstub|editor)$/) {
+        if ($type =~ /^(area|artist|event|instrument|label|place|recording|release|release-group|work|annotation|cdstub|editor|tag)$/) {
             $xmltype .= 's';
         }
 
@@ -906,7 +906,9 @@ sub external_search
             push @results, MusicBrainz::Server::Entity::SearchResult->new(
                     position => $pos++,
                     score  => $t->{score},
-                    entity => $entity_model->new($t),
+                    entity => $type eq 'tag'
+                        ? $self->c->model('Tag')->get_by_name($t->{name})
+                        : $entity_model->new($t),
                     extra  => $t->{_extra} || [],   # Not all data fits into the object model, this is for those cases
                 );
         }
@@ -974,6 +976,12 @@ sub external_search
             my @entities = map { $_->entity } @results;
             $self->c->model('Series')->load_ids(@entities);
             $self->c->model('Series')->load_entity_count(@entities);
+        }
+
+        if ($type eq 'tag')
+        {
+            my @entities = map { $_->entity } @results;
+            $self->c->model('Genre')->load(@entities);
         }
 
         my $pager = Data::Page->new;
