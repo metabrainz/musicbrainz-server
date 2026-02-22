@@ -228,6 +228,7 @@ export type ReleaseRelationshipEditorActionT =
   | RelationshipEditorActionT
   | AcceptBatchCreateWorksDialogActionT
   | {
+      +comment: string,
       +languages: $ReadOnlyArray<LanguageT>,
       +name: string,
       +type: 'accept-edit-work-dialog',

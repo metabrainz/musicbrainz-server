@@ -262,6 +262,7 @@ export type BatchCreateWorksDialogStateT = {
 };
 
 export type EditWorkDialogStateT = {
+  +comment: string,
   +languages: MultiselectLanguageStateT,
   +name: string,
   +workType: number | null,

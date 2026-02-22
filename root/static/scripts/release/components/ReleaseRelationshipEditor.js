@@ -394,7 +394,7 @@ async function submitWorkEdits(
         }
         seenWorks.add(work.id);
         const workEditData: WsJsEditWorkCreateT = {
-          comment: '',
+          comment: work.comment,
           edit_type: EDIT_WORK_CREATE,
           languages: work.languages.map(x => x.language.id),
           name: work.name,
@@ -1040,6 +1040,7 @@ export const reducer: ((
       const oldWork = action.work;
       const newWork = createWorkObject({
         _fromBatchCreateWorksDialog: true,
+        comment: clean(action.comment),
         id: uniqueNegativeId(),
         languages: action.languages.map(language => ({language})),
         name: clean(action.name),

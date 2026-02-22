@@ -42,6 +42,10 @@ type ActionT =
       action: MultiselectActionT<LanguageT>,
       type: 'update-languages',
     }
+  | {
+      comment: string,
+      type: 'update-comment',
+    }
   | WorkTypeSelectActionT;
 
 export function createInitialState(
@@ -53,6 +57,7 @@ export function createInitialState(
     ),
     name: work.name,
     workType: work.typeID,
+    comment: work.comment,
   };
 }
 
@@ -79,6 +84,9 @@ function reducer(
     {type: 'update-work-type', const workType} => {
       newState.workType = workType;
     }
+    {type: 'update-comment', const comment} => {
+      newState.comment = comment;
+    }
   }
 
   return newState;
@@ -100,6 +108,7 @@ component _EditWorkDialog(
     languages,
     name,
     workType,
+    comment,
   } = state;
 
   const isNameBlank = isBlank(name);
@@ -108,6 +117,12 @@ component _EditWorkDialog(
     event: SyntheticEvent<HTMLInputElement>,
   ) {
     dispatch({name: event.currentTarget.value, type: 'update-name'});
+  }
+
+  function handleCommentChange(
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
+    dispatch({comment: event.currentTarget.value, type: 'update-comment'});
   }
 
   const languagesDispatch = React.useCallback((
@@ -122,6 +137,7 @@ component _EditWorkDialog(
     }
 
     rootDispatch({
+      comment,
       languages: accumulateMultiselectValues(languages.values),
       name,
       type: 'accept-edit-work-dialog',
@@ -161,6 +177,16 @@ component _EditWorkDialog(
                   {l('Required field.')}
                 </div>
               ) : null}
+            </td>
+          </tr>
+          <tr>
+            <td className="section">{addColonText(l('Disambiguation'))}</td>
+            <td>
+              <input
+                onChange={handleCommentChange}
+                type="text"
+                value={comment}
+              />
             </td>
           </tr>
           <WorkTypeSelect
