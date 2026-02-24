@@ -90,8 +90,16 @@ sub find_by_entity {
     } $art_archive_model->art_archive_type_booleans);
 
     my $extra_conditions = '';
+    my $order_by = "ORDER BY $art_schema.index_listing.ordering";
+
     if ($opts{is_front}) {
-        $extra_conditions .= 'AND is_front = TRUE';
+        if ($entity_type eq 'event') {
+            $extra_conditions .= " AND (is_front = TRUE OR 'Flyer' = ANY($art_schema.index_listing.types) OR 'Banner' = ANY($art_schema.index_listing.types))";
+            
+            $order_by = "ORDER BY is_front DESC, 'Flyer' = ANY($art_schema.index_listing.types) DESC, 'Banner' = ANY($art_schema.index_listing.types) DESC, $art_schema.index_listing.ordering";
+        } else {
+            $extra_conditions .= ' AND is_front = TRUE';
+        }
     }
 
     my $query = <<~"SQL";
