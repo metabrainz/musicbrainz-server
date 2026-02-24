@@ -2,6 +2,7 @@ package MusicBrainz::Server::Controller::Event;
 use Moose;
 use MooseX::MethodAttributes;
 use namespace::autoclean;
+use Data::Dumper;
 use MusicBrainz::Server::Constants qw(
     $EDIT_EVENT_CREATE
     $EDIT_EVENT_EDIT
@@ -70,13 +71,39 @@ after 'load' => sub {
     $c->model('EventType')->load($event);
 
     if ($event->may_have_event_art) {
-        my $artwork =
-            $c->model('EventArt')->find_front_artwork_by_event($event);
-        $c->stash->{event_artwork} = $artwork->[0];
+        my $artwork = $c->model('EventArt')->find_front_artwork_by_event($event);
+        my $selected_art = $artwork ? $artwork->[0] : undef;
 
-        my $artwork_count =
-            $c->model('EventArt')->find_count_by_event($event->id);
-        $c->stash->{event_artwork_count} = $artwork_count;
+        if (!$selected_art) {
+            my $all_art = $c->model('EventArt')->find_by_entity([$event]);
+            
+            if ($all_art && @$all_art) {
+                foreach my $art (@$all_art) {
+                    if ($c->model('EventArt')->has_artwork_type($art->id, 'Flyer')) {
+                        $selected_art = $art;
+                        last;
+                    }
+                }
+                
+                if (!$selected_art) {
+                    foreach my $art (@$all_art) {
+                        if ($c->model('EventArt')->has_artwork_type($art->id, 'Banner')) {
+                            $selected_art = $art;
+                            last;
+                        }
+                    }
+                }
+
+                if ($c->model('EventArt')->has_artwork_type($art->id, 'Flyer')) {
+                    $selected_art = $art;
+                    $c->stash->{fallback_artwork_type} = 'Flyer';
+                    last;
+                }
+            }
+        }
+
+        $c->stash->{event_artwork} = $selected_art;
+        $c->stash->{event_artwork_count} = $c->model('EventArt')->find_count_by_event($event->id);
     }
 };
 

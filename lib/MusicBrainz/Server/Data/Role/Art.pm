@@ -166,6 +166,24 @@ sub image_type_suffix {
         SQL
 }
 
+sub has_artwork_type {
+    my ($self, $artwork_id, $type) = @_;
+
+    return 0 unless $artwork_id && $type;
+
+    my $art_archive_model = $self->art_archive_model;
+    my $archive = $art_archive_model->art_archive_name;
+    my $art_schema = "${archive}_art_archive";
+
+    my $query = <<~"SQL";
+        SELECT 1
+          FROM $art_schema.index_listing
+         WHERE id = ? AND ? = ANY(types)
+        SQL
+
+    return $self->sql->select_single_value($query, $artwork_id, $type) ? 1 : 0;
+}
+
 no Moose::Role;
 
 1;
