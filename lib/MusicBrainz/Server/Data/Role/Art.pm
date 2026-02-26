@@ -90,13 +90,24 @@ sub find_by_entity {
     } $art_archive_model->art_archive_type_booleans);
 
     my $extra_conditions = '';
-    my $order_by = "ORDER BY $art_schema.index_listing.ordering";
+    my $order_by = "$art_schema.index_listing.ordering";
 
     if ($opts{is_front}) {
         if ($entity_type eq 'event') {
-            $extra_conditions .= " AND (is_front = TRUE OR 'Flyer' = ANY($art_schema.index_listing.types) OR 'Banner' = ANY($art_schema.index_listing.types))";
-            
-            $order_by = "ORDER BY is_front DESC, 'Flyer' = ANY($art_schema.index_listing.types) DESC, 'Banner' = ANY($art_schema.index_listing.types) DESC, $art_schema.index_listing.ordering";
+
+            my $types_column = "$art_schema.index_listing.types";
+
+            $extra_conditions .= ' AND ( ' .
+            ' is_front = TRUE' .
+            " OR 'Flyer' = ANY($types_column)" .
+            " OR 'Banner' = ANY($types_column)" .
+            ')';
+
+            $order_by = 'is_front DESC, ' .
+            "'Flyer' = ANY($types_column) DESC, " .
+            "'Banner' = ANY($types_column) DESC, " .
+            $order_by;
+
         } else {
             $extra_conditions .= ' AND is_front = TRUE';
         }
@@ -172,24 +183,6 @@ sub image_type_suffix {
     return $self->c->sql->select_single_value(<<~'SQL', $mime_type);
         SELECT suffix FROM cover_art_archive.image_type WHERE mime_type = ?
         SQL
-}
-
-sub has_artwork_type {
-    my ($self, $artwork_id, $type) = @_;
-
-    return 0 unless $artwork_id && $type;
-
-    my $art_archive_model = $self->art_archive_model;
-    my $archive = $art_archive_model->art_archive_name;
-    my $art_schema = "${archive}_art_archive";
-
-    my $query = <<~"SQL";
-        SELECT 1
-          FROM $art_schema.index_listing
-         WHERE id = ? AND ? = ANY(types)
-        SQL
-
-    return $self->sql->select_single_value($query, $artwork_id, $type) ? 1 : 0;
 }
 
 no Moose::Role;

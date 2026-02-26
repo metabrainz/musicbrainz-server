@@ -69,7 +69,7 @@ component EventSidebar(event: EventT) {
             <p className="event-art-note" style={{textAlign: 'left'}}>
               {eventArtPresence === 'present' ? (
                 <>
-                  {l('No main event art available.')}
+                  {l('No front art available.')}
                   <br />
                   <a href={entityHref(event, 'event-art')}>
                     {l('View all artwork')}
