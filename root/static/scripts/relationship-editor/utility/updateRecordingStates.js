@@ -55,18 +55,17 @@ export default function updateRecordingStates(
 
       let newRecordingStateTree = recordingStateTree;
       for (const recording of mediumRecordings) {
-        newRecordingStateTree = tree.update(
-          newRecordingStateTree,
-          recording.id,
-          compareRecordingIdWithRecordingState,
-          updateRecordingState,
-          () => updateRecordingState({
+        newRecordingStateTree = tree.update(newRecordingStateTree, {
+          cmp: compareRecordingIdWithRecordingState,
+          key: recording.id,
+          onConflict: updateRecordingState,
+          onNotFound: () => updateRecordingState({
             isSelected: false,
             recording,
             relatedWorks: tree.empty,
             targetTypeGroups:  tree.empty,
           }),
-        );
+        });
       }
       if (newRecordingStateTree !== recordingStateTree) {
         return [mediumPosition, newRecordingStateTree];
@@ -77,12 +76,11 @@ export default function updateRecordingStates(
     writableRootState.mediums = tree.update<
       [MediumWithRecordingsT, MediumRecordingStateTreeT],
       MediumWithRecordingsT,
-    >(
-      writableRootState.mediums,
-      medium,
-      compareMediumWithMediumStateTuple,
-      updateMediumState,
-      () => updateMediumState([medium, tree.empty]),
-    );
+    >(writableRootState.mediums, {
+      cmp: compareMediumWithMediumStateTuple,
+      key: medium,
+      onConflict: updateMediumState,
+      onNotFound: () => updateMediumState([medium, tree.empty]),
+    });
   }
 }

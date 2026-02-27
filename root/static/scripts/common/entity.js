@@ -19,7 +19,10 @@ import DescriptiveLink from './components/DescriptiveLink.js';
 import EditorLink from './components/EditorLink.js';
 import EntityLink from './components/EntityLink.js';
 import {bracketedText} from './utility/bracketed.js';
-import {getSourceEntityData} from './utility/catalyst.js';
+import {
+  getCatalystContext,
+  getSourceEntityData,
+} from './utility/catalyst.js';
 import clean from './utility/clean.js';
 import {cloneArrayDeep, cloneObjectDeep} from './utility/cloneDeep.mjs';
 import formatTrackLength from './utility/formatTrackLength.js';
@@ -136,7 +139,9 @@ import MB from './MB.js';
     if (MB._sourceEntityInstance != null) {
       return MB._sourceEntityInstance;
     }
-    MB._sourceEntityInstance = MB.entity(getSourceEntityData());
+    MB._sourceEntityInstance = MB.entity(getSourceEntityData(
+      getCatalystContext(),
+    ));
     return MB._sourceEntityInstance;
   };
 

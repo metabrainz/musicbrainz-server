@@ -9,7 +9,8 @@
 import $ from 'jquery';
 import ko from 'knockout';
 import mutate from 'mutate-cow';
-import {createRoot} from 'react-dom/client';
+import * as ReactDOMClient from 'react-dom/client';
+import * as tree from 'weight-balanced-tree';
 
 import '../../lib/jquery.ui/ui/jquery-ui.custom.js';
 import '../../lib/knockout/knockout-delegatedEvents.js';
@@ -32,7 +33,6 @@ import {debounceComputed} from '../common/utility/debounce.js';
 import {isBeginner} from '../common/utility/privileges.js';
 import request from '../common/utility/request.js';
 import confirmNavigationFallback from '../edit/confirmNavigationFallback.js';
-import * as externalLinks from '../edit/externalLinks.js';
 import {createField} from '../edit/utility/createField.js';
 import getUpdatedTrackArtists from
   '../edit/utility/getUpdatedTrackArtists.js';
@@ -56,16 +56,18 @@ Object.assign(releaseEditor, {
       {error: releaseEditor.loadError()},
     );
   },
-  externalLinksEditData: ko.observable({}),
+  externalLinksData: ko.observable(tree.empty),
   hasInvalidLinks: errorField(ko.observable(false)),
 });
 
 releaseEditor.init = function (options) {
   var self = this;
 
+  const $c = getCatalystContext();
+
   $.extend(this, {
     action: options.action,
-    isBeginner: isBeginner(getCatalystContext().user),
+    isBeginner: isBeginner($c.user),
     redirectURI: options.redirectURI,
     returnTo: options.returnTo,
   });
@@ -351,15 +353,10 @@ releaseEditor.init = function (options) {
     return isInvalidEditNote(self.rootField.editNote());
   };
 
-  this.seed(options.seed);
+  this.seed($c.stash.seeded_release_data);
 
   if (this.action === 'edit') {
-    this.releaseLoaded(getSourceEntityData());
-  } else {
-    releaseEditor.createExternalLinksEditor(
-      {entityType: 'release'},
-      $('#external-links-editor-container')[0],
-    );
+    this.releaseLoaded(getSourceEntityData($c, 'release'));
   }
 
   this.getEditPreviews();
@@ -371,7 +368,7 @@ releaseEditor.init = function (options) {
   // Keep the React EditNoteTab component in sync.
 
   const editNoteTabContainer = document.getElementById('edit-note');
-  const editNoteTabRoot = createRoot(editNoteTabContainer);
+  const editNoteTabRoot = ReactDOMClient.createRoot(editNoteTabContainer);
   let releaseEditorForm = {
     field: {
       edit_note: createField('edit_note', ''),
@@ -432,7 +429,7 @@ releaseEditor.loadRelease = function (gid, callback) {
   };
 
   return request(args, this)
-    .done(callback || this.releaseLoaded)
+    .done(callback)
     .fail(function (jqXHR, status, error) {
       error = jqXHR.status + ' (' + error + ')';
 
@@ -448,18 +445,9 @@ releaseEditor.loadRelease = function (gid, callback) {
 releaseEditor.releaseLoaded = function (data) {
   this.loadError('');
 
-  var seed = this.seededReleaseData;
-
-  // Setup the external links editor
-  setTimeout(function () {
-    releaseEditor.createExternalLinksEditor(
-      data,
-      $('#external-links-editor-container')[0],
-    );
-  }, 1);
-
   var release = new fields.Release(data);
 
+  const seed = getCatalystContext().stash.seeded_release_data?.seed;
   if (seed) {
     this.seedRelease(release, seed);
   }
@@ -469,29 +457,6 @@ releaseEditor.releaseLoaded = function (data) {
   }
 
   this.rootField.release(release);
-};
-
-releaseEditor.createExternalLinksEditor = function (data, mountPoint) {
-  if (!mountPoint) {
-    // XXX undefined in some tape tests
-    return null;
-  }
-
-  var seed = this.seededReleaseData;
-  delete this.seededReleaseData;
-
-  if (seed && seed.relationships) {
-    data.relationships = (data.relationships || [])
-      .concat(seed.relationships);
-  }
-
-  this.externalLinks = externalLinks.createExternalLinksEditor({
-    sourceData: data,
-    mountPoint,
-    errorObservable: this.hasInvalidLinks,
-  });
-
-  return this.externalLinks;
 };
 
 releaseEditor.autoOpenTheAddMediumDialog = function (release) {

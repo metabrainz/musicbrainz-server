@@ -41,6 +41,7 @@ export default function sanitizedContext(
       current_language: stash.current_language,
       mtcaptcha_script_nonce: stash.mtcaptcha_script_nonce,
       seeded_relationships: stash.seeded_relationships,
+      seeded_release_data: stash.seeded_release_data,
       series_ordering_types: stash.series_ordering_types,
       server_languages: stash.server_languages,
       source_entity: stash.source_entity,

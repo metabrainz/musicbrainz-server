@@ -2,13 +2,13 @@ import $ from 'jquery';
 import ko from 'knockout';
 
 import '../common/entity.js';
+import '../external-links-editor/components/StandaloneExternalLinksEditor.js';
 import './components/SeriesRelationshipEditor.js';
 
 import MB from '../common/MB.js';
 import {getCatalystContext} from '../common/utility/catalyst.js';
 import initializeDuplicateChecker from '../edit/check-duplicates.js';
 import {installFormUnloadWarning} from '../edit/components/forms.js';
-import {createExternalLinksEditorForHtmlForm} from '../edit/externalLinks.js';
 import initializeBubble, {
   BubbleDoc,
   initializeExternalLinksBubble,
@@ -47,8 +47,6 @@ $(function () {
   });
 
   initializeDuplicateChecker('series');
-
-  createExternalLinksEditorForHtmlForm('edit-series');
 
   initializeBubble('#name-bubble', 'input[name=edit-series\\.name]');
   initializeBubble('#comment-bubble', 'input[name=edit-series\\.comment]');

@@ -959,18 +959,9 @@ export default [
   {
     files: [
       'root/static/scripts/common/components/TagEditor.js',
-      'root/static/scripts/edit/externalLinks.js',
     ],
     rules: {
       'react/no-access-state-in-setstate': 'off',
-    },
-  },
-  {
-    files: [
-      'root/static/scripts/edit/externalLinks.js',
-    ],
-    rules: {
-      'react/no-multi-comp': 'off',
     },
   },
   {
@@ -986,13 +977,9 @@ export default [
       'root/static/scripts/common/components/CDTocReleaseListRow.js',
       'root/static/scripts/common/components/TagEditor.js',
       'root/static/scripts/edit/check-duplicates.js',
-      'root/static/scripts/edit/components/ExternalLinkAttributeDialog.js',
       'root/static/scripts/edit/components/FormRowNameWithGuessCase.js',
       'root/static/scripts/edit/components/FormRowSelectList.js',
       'root/static/scripts/edit/components/ReleaseMergeStrategy.js',
-      'root/static/scripts/edit/components/URLInputPopover.js',
-      'root/static/scripts/edit/components/UrlRelationshipCreditFieldset.js',
-      'root/static/scripts/edit/externalLinks.js',
       'root/static/scripts/event/components/EventEditForm.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
     ],
@@ -1008,7 +995,6 @@ export default [
       'root/static/scripts/common/i18n/expand2.js',
       'root/static/scripts/common/utility/cloneDeep.mjs',
       'root/static/scripts/edit/components/withLoadedTypeInfo.js',
-      'root/static/scripts/edit/externalLinks.js',
       'root/static/scripts/relationship-editor/components/DialogEntityCredit.js',
       'root/static/scripts/relationship-editor/components/DialogTargetType.js',
       'root/static/scripts/relationship-editor/components/RelationshipEditor.js',
@@ -1042,12 +1028,12 @@ export default [
       'root/static/scripts/common/utility/createFastObjectCloneFunction.js',
       'root/static/scripts/edit/components/ArtistCreditEditor.js',
       'root/static/scripts/edit/components/ArtistCreditEditor/utilities.js',
-      'root/static/scripts/edit/components/ExternalLinkAttributeDialog.js',
       'root/static/scripts/edit/components/Multiselect.js',
       'root/static/scripts/edit/components/withLoadedTypeInfo.js',
       'root/static/scripts/edit/utility/compactEntityJson.js',
       'root/static/scripts/edit/utility/reducerWithErrorHandling.js',
       'root/static/scripts/edit/utility/subfieldErrors.js',
+      'root/static/scripts/external-links-editor/components/ExternalLinkRelationshipDialog.js',
       'root/static/scripts/guess-case/MB/GuessCase/Main.js',
       'root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js',
       'root/static/scripts/relationship-editor/components/DialogEntityCredit.js',
