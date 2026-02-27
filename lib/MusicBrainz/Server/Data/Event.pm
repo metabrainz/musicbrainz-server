@@ -245,6 +245,15 @@ sub find_by_artist
 
     if (exists $args{filter}) {
         my %filter = %{ $args{filter} };
+        if (exists $filter{cancelled}) {
+            if ($filter{cancelled} == 1) {
+                # Show only cancelled events
+                push @where_query, 'cancelled IS TRUE';
+            } elsif ($filter{cancelled} == 2) {
+                # Show only non-cancelled events
+                push @where_query, 'cancelled IS FALSE';
+            }
+        }
         if (exists $filter{name}) {
             push @where_query, "(mb_simple_tsvector(event.name) @@ plainto_tsquery('mb_simple', mb_lower(?)) OR event.name = ?)";
             push @where_args, ($filter{name}) x 2;
