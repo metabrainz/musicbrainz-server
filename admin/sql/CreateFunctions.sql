@@ -2144,6 +2144,7 @@ BEGIN
               FROM l_area_area laa
               JOIN link ON laa.link = link.id
              WHERE link.link_type = $1
+              AND link.ended = FALSE
     $SQL$ || (CASE WHEN descendant_area_ids IS NULL THEN '' ELSE 'AND entity1 = any($2)' END) ||
     $SQL$
              UNION ALL
@@ -2152,6 +2153,7 @@ BEGIN
               JOIN link ON laa.link = link.id
               JOIN area_parent_hierarchy ON area_parent_hierarchy.parent = laa.entity1
              WHERE link.link_type = $1
+               AND link.ended = FALSE
                AND descendant != entity0
                AND NOT cycle
         )
@@ -2181,6 +2183,7 @@ BEGIN
               FROM l_area_area laa
               JOIN link ON laa.link = link.id
              WHERE link.link_type = $1
+              AND link.ended = FALSE
     $SQL$ || (CASE WHEN parent_area_ids IS NULL THEN '' ELSE 'AND entity0 = any($2)' END) ||
     $SQL$
              UNION ALL
@@ -2189,6 +2192,7 @@ BEGIN
               JOIN link ON laa.link = link.id
               JOIN area_descendant_hierarchy ON area_descendant_hierarchy.descendant = laa.entity0
              WHERE link.link_type = $1
+               AND link.ended = FALSE
                AND parent != entity1
                AND NOT cycle
         )
