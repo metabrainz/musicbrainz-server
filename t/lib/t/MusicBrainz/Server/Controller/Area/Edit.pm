@@ -37,7 +37,10 @@ test 'Editing a (non-ended) area' => sub {
 
     my @edits = capture_edits {
         $mech->submit_form_ok({
-            with_fields => { 'edit-area.name' => 'wild onion' },
+            with_fields => {
+                'edit-area.name' => 'wild onion',
+                'edit-area.type_id' => 3,
+            },
         },
         'The form returned a 2xx response code')
     } $c;
