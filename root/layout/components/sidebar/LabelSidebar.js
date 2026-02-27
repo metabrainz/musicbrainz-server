@@ -69,7 +69,7 @@ component LabelSidebar(label: LabelT) {
         <SidebarBeginDate
           age={labelAge}
           entity={label}
-          label={l('Founded:')}
+          label={l('Started:')}
         />
 
         <SidebarEndDate
