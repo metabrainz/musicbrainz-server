@@ -20,6 +20,7 @@ import DateRangeFieldset, {
 } from '../edit/components/DateRangeFieldset.js';
 import EnterEdit from '../edit/components/EnterEdit.js';
 import EnterEditNote from '../edit/components/EnterEditNote.js';
+import FormRow from '../edit/components/FormRow.js';
 import FormRowCheckbox from '../edit/components/FormRowCheckbox.js';
 import FormRowNameWithGuessCase, {
   type ActionT as NameActionT,
@@ -51,6 +52,7 @@ type Props = {
   +entity: EntityWithAliasesT,
   +form: AliasEditFormT,
   +locales: SelectOptionsT,
+  +primaryAliases: {[locale: string]: string},
   +searchHintType: number,
 };
 
@@ -198,6 +200,7 @@ const AliasEditForm = ({
   entity,
   form: initialForm,
   locales,
+  primaryAliases,
   searchHintType,
 }: Props): React.MixedElement => {
   const localeOptions = {
@@ -269,6 +272,11 @@ const AliasEditForm = ({
     }
   };
 
+  const currentLocale = state.form.field.locale.value;
+  const currentPrimaryAlias = primaryAliases[currentLocale];
+  const isCurrentPrimary =
+    state.form.field.name.value === currentPrimaryAlias;
+
   return (
     <>
       <p>
@@ -334,6 +342,22 @@ const AliasEditForm = ({
                 )}
                 onChange={setPrimaryForLocale}
               />
+              {currentLocale ? (
+                <FormRow hasNoLabel>
+                  <p>
+                    {currentPrimaryAlias && isCurrentPrimary
+                      ? l(`This is the current primary alias
+                           for the selected locale.`)
+                      : currentPrimaryAlias
+                        ? exp.l(
+                          `The current primary alias for the selected locale
+                           is “{current_primary}”.`,
+                          {current_primary: currentPrimaryAlias},
+                        )
+                        : l('There is no primary alias for this locale yet.')}
+                  </p>
+                </FormRow>
+              ) : null}
             </div>
             <FormRowSelect
               allowEmpty

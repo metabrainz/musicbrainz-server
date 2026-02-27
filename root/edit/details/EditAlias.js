@@ -11,7 +11,7 @@ import DescriptiveLink
   from '../../static/scripts/common/components/DescriptiveLink.js';
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import locales from '../../static/scripts/common/constants/locales.json';
-import bracketed, {bracketedText}
+import bracketed
   from '../../static/scripts/common/utility/bracketed.js';
 import formatDate from '../../static/scripts/common/utility/formatDate.js';
 import formatEntityTypeName
@@ -28,10 +28,8 @@ component EditAlias(edit: EditAliasEditT) {
   const entityType = display.entity_type;
   const entity = display[entityType];
   const aliasName = edit.alias?.name ?? '';
-  const aliasPrimaryForLocale = edit.alias?.primary_for_locale ?? false;
   const entityWithGid = entity?.gid ? entity : null;
-  const aliasLocale = edit.alias?.locale;
-
+  console.log(display);
   return (
     <table className={`details edit-${entityType}-alias`}>
       <tbody>
@@ -58,18 +56,7 @@ component EditAlias(edit: EditAliasEditT) {
           <tr>
             <th>{addColonText(l('Alias'))}</th>
             <td colSpan={2}>
-              {aliasName ? (
-                <>
-                  {isolateText(aliasName)}
-                  {' '}
-                  {bracketedText(
-                    aliasPrimaryForLocale
-                      ? texp.l('primary for {locale}',
-                               {locale: locales[aliasLocale]})
-                      : locales[aliasLocale],
-                  )}
-                </>
-              ) : (
+              {aliasName ? (isolateText(aliasName)) : (
                 <span className="deleted">
                   {lp('[removed]', 'alias')}
                 </span>
@@ -89,17 +76,38 @@ component EditAlias(edit: EditAliasEditT) {
           oldText={display.sort_name.old}
         />
 
-        <FullChangeDiff
-          label={addColonText(l('Locale'))}
-          newContent={locales[display.locale.new]}
-          oldContent={locales[display.locale.old]}
-        />
+        {display.locale.new ? (
+          <FullChangeDiff
+            label={addColonText(l('Locale'))}
+            newContent={locales[display.locale.new]}
+            oldContent={locales[display.locale.old]}
+          />
+        ) : (
+          <tr>
+            <th>{addColonText(l('Locale'))}</th>
+            <td>{locales[display.current_locale]}</td>
+          </tr>
+        )}
 
-        <FullChangeDiff
-          label={addColonText(l('Primary for locale'))}
-          newContent={yesNo(display.primary_for_locale.new)}
-          oldContent={yesNo(display.primary_for_locale.old)}
-        />
+        {display.primary_for_locale.new ? (
+          <FullChangeDiff
+            label={addColonText(l('Primary for locale'))}
+            newContent={yesNo(display.primary_for_locale.new)}
+            oldContent={yesNo(display.primary_for_locale.old)}
+          />
+        ) : (
+          <tr>
+            <th>{addColonText(l('Primary for locale'))}</th>
+            <td>{yesNo(display.is_primary)}</td>
+          </tr>
+        )}
+
+        {display.previous_primary_for_locale ? (
+          <tr>
+            <th>{addColonText(l('Previous primary for locale'))}</th>
+            <td>{display.previous_primary_for_locale}</td>
+          </tr>
+        ) : null}
 
         <FullChangeDiff
           label={addColonText(l('Type'))}
