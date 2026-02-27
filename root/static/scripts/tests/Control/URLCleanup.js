@@ -4184,6 +4184,27 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.livenation.ee/venue/953330',
        only_valid_entity_types: ['place'],
   },
+  {
+                     input_url: 'https://www.livenationtero.co.th/babymonster-tickets-adp1479014',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.co.th/artist/adp1479014',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.livenationtero.co.th/impact-arena-muang-thong-thani-tickets-vdp1043802',
+             input_entity_type: 'place',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.co.th/venue/vdp1043802',
+       only_valid_entity_types: ['place'],
+  },
+  {
+                     input_url: 'https://www.livenationtero.co.th/event/tv-girl-perform-their-hits-live-bangkok-tickets-edp1606725',
+             input_entity_type: 'event',
+    expected_relationship_type: 'ticketing',
+            expected_clean_url: 'https://www.livenation.co.th/event/edp1606725',
+       only_valid_entity_types: ['event'],
+  },
   // Loudr
   {
                      input_url: 'https://loudr.fm/artist/kyle-landry/Z77SM?test',
