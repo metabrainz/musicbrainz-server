@@ -680,6 +680,7 @@ const ENTITIES = {
       automatic: ({}: AutomaticRemovalPropsT),
     },
     report_filter: true,
+    series: true,
     subscriptions: {
       deleted: true,
       entity: true,

@@ -31,6 +31,7 @@ declare type EntityWithSeriesMapT = {
   'recording': RecordingT,
   'release': ReleaseT,
   'release_group': ReleaseGroupT,
+  'series': SeriesT,
   'work': WorkT,
 };
 

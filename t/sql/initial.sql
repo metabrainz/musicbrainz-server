@@ -612,6 +612,7 @@ INSERT INTO link_type VALUES (1090, NULL, 0, '0b4d32c8-bdba-4842-a6b5-35b2ca2f4f
 INSERT INTO link_type VALUES (1091, NULL, 0, 'ec1bf02b-a941-4a5e-b0f1-ae97093061dd', 'genre', 'url', 'get the music', '', 'get the music', 'get the music', 'get the music', '2022-07-08 08:19:01.289751+00', false, false, 0, 0);
 INSERT INTO link_type VALUES (1092, 1091, 0, 'ad28869f-0f9e-4bd5-b786-70125cc69c3c', 'genre', 'url', 'bandcamp', 'This links a genre to its page at Bandcamp.', 'Bandcamp', 'Bandcamp page for', 'has Bandcamp page at', '2022-07-08 08:27:47.548371+00', false, true, 0, 0);
 INSERT INTO link_type VALUES (1093, 1086, 0, '6da144de-911b-49c5-81eb-bd8303b3f6b4', 'genre', 'url', 'allmusic', 'This is used to link a genre to its corresponding page on Allmusic.', 'Allmusic', 'Allmusic page for', 'has an Allmusic page at', '2022-07-08 08:29:10.188071+00', false, true, 0, 0);
+INSERT INTO link_type VALUES (1301, NULL, 0, '8da75c99-46ff-373c-9d31-276ca8fa8cc3', 'series', 'series','part of', 'Indicates that the series is part of a series.', 'part of', 'has parts', 'is a part of',  '2022-07-08 08:29:10.188071+00', false, true, 0, 0);
 
 INSERT INTO link_type_attribute_type VALUES (1, 516, 0, 1, '2014-08-07 11:40:17.44632+00');
 INSERT INTO link_type_attribute_type VALUES (15, 511, 0, 1, '2014-05-18 08:20:38.383976+00');
@@ -827,6 +828,7 @@ INSERT INTO link_type_attribute_type VALUES (802, 788, 0, 1, '2014-11-17 22:05:0
 INSERT INTO link_type_attribute_type VALUES (806, 830, 0, 1, '2014-11-29 05:43:56.893159+00');
 INSERT INTO link_type_attribute_type VALUES (807, 830, 0, 1, '2014-11-29 05:42:44.476677+00');
 INSERT INTO link_type_attribute_type VALUES (847, 14, 0, NULL, '2014-11-29 05:42:44.476677+00');
+INSERT INTO link_type_attribute_type VALUES (1301, 788, 0, 1, '2014-11-17 22:05:04.184272+00');
 
 INSERT INTO medium_format VALUES (1, 'CD', NULL, 0, 1982, true, NULL, '9712d52a-4509-3d4b-a1a2-67c88c643e31');
 INSERT INTO medium_format VALUES (2, 'DVD', NULL, 4, 1995, false, NULL, '2875c583-4580-3a90-b723-ba1b39921e23');
@@ -974,6 +976,8 @@ INSERT INTO series_type VALUES (12, 'Residency', 'event', 6, 3, 'A series of rel
 INSERT INTO series_type VALUES (15, 'Award ceremony', 'event', 6, 4, 'A series of award ceremonies, usually one per year.', '991925f8-ad29-4ff0-a777-fa2214f8b8e9');
 INSERT INTO series_type VALUES (13, 'Artist series', 'artist', NULL, 4, 'A series of artists.', 'c5358f01-618a-396d-8c78-9e76e6a52d7d');
 INSERT INTO series_type VALUES (14, 'Artist award', 'artist', 13, 0, 'A series of artists honoured by the same award.', 'dca73eca-a855-3408-9094-f7d5d073cef0');
+INSERT INTO series_type VALUES (16, 'Series series', 'series', NULL, 6, 'A series of series.', '088eb8a5-e5fd-33dc-9e9f-c62de2dd0300');
+INSERT INTO series_type VALUES (17, 'Series award', 'series', 16, 0, 'A series of series (such as podcasts or festivals) honoured by the same award.', 'a3d7e6d5-b4f2-3a36-bd2d-db73ebfcdbce');
 
 INSERT INTO work_alias_type VALUES (1, 'Work name', NULL, 0, NULL, 'a18cab3f-0ae2-3978-8f75-dd9c09702b25');
 INSERT INTO work_alias_type VALUES (2, 'Search hint', NULL, 0, NULL, '02238bc1-dfd8-39a8-bbf8-c697747291ec');
