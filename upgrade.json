@@ -249,5 +249,10 @@
     "mirror_only": [
       "20241017-mbs-9253-mirror_only.sql"
     ]
+  },
+  "31": {
+    "all": [
+      "20260212-mbs-14252.sql"
+    ]
   }
 }

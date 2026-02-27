@@ -34,6 +34,7 @@ has '+data' => (
                 id => Int,
                 name => Str,
             ],
+            # Dropped, but still in the data for old edits
             source    => Nullable[Int],
         ]],
         client_version => Nullable[Str],
@@ -87,7 +88,6 @@ sub build_display_data
                     Recording->new( id => $_->{recording}{id}, name => $_->{recording}{name} ),
                 ),
                 isrc      => to_json_object(ISRC->new( isrc => $_->{isrc} )),
-                source    => $_->{source},
             } } @{ $self->data->{isrcs} },
         ],
         client_version => $self->data->{client_version},
@@ -107,7 +107,6 @@ sub accept
         } map +{
             recording_id => $_->{recording}{id},
             isrc => $_->{isrc},
-            source => $_->{source},
         }, @{ $self->data->{isrcs} };
 
     $self->c->model('ISRC')->insert(@new_isrcs) if @new_isrcs;

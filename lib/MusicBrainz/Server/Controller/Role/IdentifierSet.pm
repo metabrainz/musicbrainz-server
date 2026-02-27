@@ -31,12 +31,6 @@ parameter 'remove_edit' => (
     required => 1,
 );
 
-parameter 'include_source' => (
-    isa => 'Bool',
-    required => 1,
-    default => 0,
-);
-
 role
 {
     my $params = shift;
@@ -47,8 +41,6 @@ role
 
     my $add_edit = $params->add_edit;
     my $remove_edit = $params->remove_edit;
-
-    my $include_source = $params->include_source;
 
     method _add_identifiers => sub {
         my ($self, $c, $form, $entity, @identifiers) = @_;
@@ -63,7 +55,6 @@ role
                         id => $entity->id,
                         name => $entity->name,
                     },
-                    $include_source ? (source   => 0) : ()
                 }, @identifiers ],
             );
         });
