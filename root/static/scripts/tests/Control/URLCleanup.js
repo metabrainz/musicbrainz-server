@@ -433,6 +433,12 @@ const testData = [
        only_valid_entity_types: ['release'],
   },
   {
+                     input_url: 'https://www.amazon.com.be/-/en/How-Replace-Deus/dp/B0BLFT2LBP/ref=sr_1_1?crid=1O1BWTMB6AFR4&dib=eyJ2IjoiMSJ9.2LhGteFs50LX0oL2ndp7U6_QpTCvDBwk23qlzZXsrxGeivmajYfscdK7vxX3LUP3mfLgapmkFseppCmClI25vZMTqUMdu9KfPvEbDPvt38ZqFQol_jk3aNumTW_Qwrk6H-vEOwfwnxRbH8RT_tnIAxhl30990wo1OBNJPlaFXPgNhdETw8ZWdg76aM8OlO8Uka9eEhm0UnHmc6KyNw1aGR0s2kB1lXhBBLOMrJjM3rl51VAiXZHe27v_nae_MhdV2DRL93gxbvE3zhvf87B7rYhKzPYkGy_ordKJe0zpQn8.86BcKf5L1IlDejlLZjrmoiJAP3qrtY_qswWw4BBzIJc&dib_tag=se&keywords=deus+cd&qid=1772453811&sprefix=deus%2Caps%2C129&sr=8-1',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.com.be/gp/product/B0BLFT2LBP',
+  },
+  {
                      input_url: 'http://amazon.com.br/dp/B00T8E47G2',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
