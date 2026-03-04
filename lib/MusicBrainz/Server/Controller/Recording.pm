@@ -155,7 +155,6 @@ with 'MusicBrainz::Server::Controller::Role::IdentifierSet' => {
     identifier_type => 'isrc',
     add_edit => $EDIT_RECORDING_ADD_ISRCS,
     remove_edit => $EDIT_RECORDING_REMOVE_ISRC,
-    include_source => 1,
 };
 
 with 'MusicBrainz::Server::Controller::Role::Edit' => {
