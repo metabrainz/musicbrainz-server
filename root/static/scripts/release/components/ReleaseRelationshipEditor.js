@@ -394,6 +394,11 @@ async function submitWorkEdits(
         }
         seenWorks.add(work.id);
         const workEditData: WsJsEditWorkCreateT = {
+          attributes: work.attributes.map(x => ({
+            attribute_text: x.value_id == null ? x.value : null,
+            attribute_type_id: x.typeID,
+            attribute_value_id: x.value_id,
+          })),
           comment: work.comment,
           edit_type: EDIT_WORK_CREATE,
           languages: work.languages.map(x => x.language.id),
@@ -1040,6 +1045,7 @@ export const reducer: ((
       const oldWork = action.work;
       const newWork = createWorkObject({
         _fromBatchCreateWorksDialog: true,
+        attributes: action.attributes,
         comment: clean(action.comment),
         id: uniqueNegativeId(),
         languages: action.languages.map(language => ({language})),
@@ -1877,7 +1883,12 @@ component _ReleaseRelationshipEditor(
 const NonHydratedReleaseRelationshipEditor =
   withLoadedTypeInfoForRelationshipEditor<{}>(
     _ReleaseRelationshipEditor,
-    ['language', 'work_type'],
+    [
+      'language',
+      'work_type',
+      'work_attribute_type',
+      'work_attribute_type_allowed_value',
+    ],
   );
 
 const ReleaseRelationshipEditor = (hydrate<{}>(

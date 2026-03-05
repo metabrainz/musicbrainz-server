@@ -78,6 +78,11 @@ declare type WsJsEditRelationshipsReorderT = {
 };
 
 declare type WsJsEditWorkCreateT = {
+  +attributes: $ReadOnlyArray<{
+    +attribute_text: string | null,
+    +attribute_type_id: number,
+    +attribute_value_id: number | null,
+  }>,
   +comment: string,
   +edit_type: EDIT_WORK_CREATE_T,
   +languages: $ReadOnlyArray<number>,

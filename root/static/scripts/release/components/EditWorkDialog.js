@@ -23,8 +23,13 @@ import type {
 } from '../../relationship-editor/types.js';
 import type {
   ReleaseRelationshipEditorActionT,
+  WorkAttributeMultiselectActionT,
 } from '../../relationship-editor/types/actions.js';
 
+import WorkAttributeMultiselect, {
+  createInitialState as createWorkAttributesState,
+  runReducer as runWorkAttributeMultiselectReducer,
+} from './WorkAttributeMultiselect.js';
 import WorkLanguageMultiselect, {
   createInitialState as createWorkLanguagesState,
   runReducer as runWorkLanguageMultiselectReducer,
@@ -46,18 +51,25 @@ type ActionT =
       comment: string,
       type: 'update-comment',
     }
+  | {
+      action: WorkAttributeMultiselectActionT,
+      type: 'update-work-attributes',
+    }
   | WorkTypeSelectActionT;
 
 export function createInitialState(
   work: WorkT,
 ): EditWorkDialogStateT {
   return {
+    attributes: createWorkAttributesState(
+      work.attributes,
+    ),
+    comment: work.comment,
     languages: createWorkLanguagesState(
       work.languages.map(workLanguage => workLanguage.language),
     ),
     name: work.name,
     workType: work.typeID,
-    comment: work.comment,
   };
 }
 
@@ -87,6 +99,16 @@ function reducer(
     {type: 'update-comment', const comment} => {
       newState.comment = comment;
     }
+    {type: 'update-work-attributes', const action} => {
+      const newAttributes = {...newState.attributes};
+
+      runWorkAttributeMultiselectReducer(
+        newAttributes,
+        action,
+      );
+
+      newState.attributes = newAttributes;
+    }
   }
 
   return newState;
@@ -109,6 +131,7 @@ component _EditWorkDialog(
     name,
     workType,
     comment,
+    attributes,
   } = state;
 
   const isNameBlank = isBlank(name);
@@ -131,12 +154,41 @@ component _EditWorkDialog(
     dispatch({action, type: 'update-languages'});
   }, [dispatch]);
 
+  const workAttributesDispatch = React.useCallback((
+    action: WorkAttributeMultiselectActionT,
+  ) => {
+    dispatch({action, type: 'update-work-attributes'});
+  }, [dispatch]);
+
   const acceptDialog = React.useCallback(() => {
     if (isNameBlank) {
       return;
     }
 
     rootDispatch({
+      attributes: attributes.values.reduce((accum, valueState) => {
+        const attributeType = valueState.autocomplete.selectedItem?.entity;
+        if (attributeType && !valueState.removed) {
+          if (valueState.textValue !== null) {
+            accum.push({
+              id: null,
+              typeID: attributeType.id,
+              typeName: attributeType.name,
+              value: valueState.textValue,
+              value_id: null,
+            });
+          } else if (valueState.autocompleteValue?.selectedItem) {
+            accum.push({
+              id: null,
+              typeID: attributeType.id,
+              typeName: attributeType.name,
+              value: valueState.autocompleteValue.selectedItem.entity.value,
+              value_id: valueState.autocompleteValue.selectedItem.entity.id,
+            });
+          }
+        }
+        return accum;
+      }, [] as Array<WorkAttributeT>),
       comment,
       languages: accumulateMultiselectValues(languages.values),
       name,
@@ -147,13 +199,15 @@ component _EditWorkDialog(
 
     closeDialog();
   }, [
+    attributes.values,
+    closeDialog,
+    comment,
     isNameBlank,
-    rootDispatch,
     languages,
     name,
-    workType,
+    rootDispatch,
     work,
-    closeDialog,
+    workType,
   ]);
 
   const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
@@ -196,6 +250,20 @@ component _EditWorkDialog(
           <WorkLanguageMultiselect
             dispatch={languagesDispatch}
             state={languages}
+          />
+        </tbody>
+      </table>
+      <h2>
+        <div className="heading-line" />
+        <span className="heading-text">
+          {l('Work Attributes')}
+        </span>
+      </h2>
+      <table>
+        <tbody>
+          <WorkAttributeMultiselect
+            dispatch={workAttributesDispatch}
+            state={attributes}
           />
         </tbody>
       </table>
