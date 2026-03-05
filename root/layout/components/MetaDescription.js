@@ -94,7 +94,7 @@ function labelDescription(label: LabelT) {
     desc.push('Label Code: ' + label.label_code);
   }
   if (beginDate) {
-    desc.push('Founded: ' + beginDate);
+    desc.push('Started: ' + beginDate);
   }
   if (endDate) {
     desc.push('Defunct: ' + endDate);
