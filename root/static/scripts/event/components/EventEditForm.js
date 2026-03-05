@@ -13,6 +13,7 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {EventFormT} from '../../../../event/types.js';
 import Bubble from '../../common/components/Bubble.js';
+import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import expand2react from '../../common/i18n/expand2react.js';
 import isBlank from '../../common/utility/isBlank.js';
 import DateRangeFieldset, {
@@ -145,6 +146,8 @@ component EventEditForm(
   form as initialForm: EventFormT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
+
+  useFormUnloadWarning();
 
   const typeOptions = {
     grouped: false as const,
