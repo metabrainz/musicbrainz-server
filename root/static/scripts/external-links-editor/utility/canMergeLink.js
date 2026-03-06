@@ -10,7 +10,7 @@
 import type {
   LinkRelationshipStateT,
   LinkStateT,
-} from '../types2.js';
+} from '../types.js';
 
 function canMergeLinkRelationship(
   relationship: LinkRelationshipStateT,

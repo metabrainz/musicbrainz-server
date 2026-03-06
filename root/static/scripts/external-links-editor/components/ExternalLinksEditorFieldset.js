@@ -12,7 +12,7 @@ import * as React from 'react';
 import type {
   LinksEditorActionT,
   LinksEditorStateT,
-} from '../types2.js';
+} from '../types.js';
 
 import ExternalLinksEditor from './ExternalLinksEditor2.js';
 

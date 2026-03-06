@@ -12,7 +12,7 @@ import memoize from '../../common/utility/memoize.js';
 import type {
   LinkRelationshipStateT,
   LinkRelationshipStatusT,
-} from '../types2.js';
+} from '../types.js';
 
 const getLinkRelationshipStatus: (
   relationship: LinkRelationshipStateT,

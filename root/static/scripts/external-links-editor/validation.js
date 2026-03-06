@@ -28,7 +28,7 @@ import type {
   LinkRelationshipStatusT,
   LinksEditorStateT,
   LinkStateT,
-} from './types2.js';
+} from './types.js';
 
 function isNewOrChangedLink(link: LinkStateT): boolean {
   return link.isNew ||

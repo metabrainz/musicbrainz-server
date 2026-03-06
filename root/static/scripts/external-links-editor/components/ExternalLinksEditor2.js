@@ -35,7 +35,7 @@ import type {
   LinksEditorActionT,
   LinksEditorStateT,
   LinkStateT,
-} from '../types2.js';
+} from '../types.js';
 import getLinkRelationshipStatus
   from '../utility/getLinkRelationshipStatus.js';
 import {

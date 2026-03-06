@@ -8,7 +8,7 @@
  */
 
 import linkedEntities from '../../common/linkedEntities.mjs';
-import type {LinkTypeOptionT} from '../types2.js';
+import type {LinkTypeOptionT} from '../types.js';
 
 component LinkTypeSelect(
   handleTypeBlur: (SyntheticFocusEvent<HTMLSelectElement>) => void,

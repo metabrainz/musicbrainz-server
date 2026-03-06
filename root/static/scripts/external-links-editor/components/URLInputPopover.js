@@ -12,7 +12,7 @@ import * as React from 'react';
 import {expect} from '../../../../utility/invariant.js';
 import ButtonPopover from '../../common/components/ButtonPopover.js';
 import {ERROR_TARGETS} from '../../edit/URLCleanup.js';
-import type {LinksEditorActionT, LinkStateT} from '../types2.js';
+import type {LinksEditorActionT, LinkStateT} from '../types.js';
 
 component URLInputPopoverContent(
   dispatch: (LinksEditorActionT) => void,

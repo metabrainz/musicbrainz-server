@@ -10,7 +10,7 @@
 import type {
   HighlightT,
   LinkRelationshipStateT,
-} from './types2.js';
+} from './types.js';
 
 export const DEFAULT_LINK_RELATIONSHIP: LinkRelationshipStateT = {
   beginDate: null,

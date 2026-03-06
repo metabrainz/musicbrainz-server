@@ -37,7 +37,7 @@ import {
 import type {
   LinksEditorActionT,
   LinksEditorStateT,
-} from '../../external-links-editor/types2.js';
+} from '../../external-links-editor/types.js';
 import {
   hasErrorsOnNewOrChangedLinks,
 } from '../../external-links-editor/validation.js';
