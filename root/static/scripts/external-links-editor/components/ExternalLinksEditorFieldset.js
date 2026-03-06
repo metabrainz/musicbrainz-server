@@ -14,7 +14,7 @@ import type {
   LinksEditorStateT,
 } from '../types.js';
 
-import ExternalLinksEditor from './ExternalLinksEditor2.js';
+import ExternalLinksEditor from './ExternalLinksEditor.js';
 
 component ExternalLinksEditorFieldset(
   dispatch: (
