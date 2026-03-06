@@ -45,7 +45,7 @@ type ActionT =
       +type: 'update-date-period',
     }
   | {
-      +props: React.PropsOf<ExternalLinkAttributeDialog>,
+      +props: React.PropsOf<ExternalLinkRelationshipDialog>,
       +type: 'update-initial-date-period',
     }
   | {+credit: string, +type: 'update-relationship-credit'}
@@ -53,7 +53,7 @@ type ActionT =
   | {+type: 'show-all-pending-errors'};
 
 const createInitialState = (
-  props: React.PropsOf<ExternalLinkAttributeDialog>,
+  props: React.PropsOf<ExternalLinkRelationshipDialog>,
 ): StateT => {
   const relationship = props.relationship;
   const beginDate = relationship.begin_date;
@@ -133,7 +133,7 @@ const reducer = (state: StateT, action: ActionT): StateT => {
   return ctx.final();
 };
 
-component ExternalLinkAttributeDialog(...props: {
+component ExternalLinkRelationshipDialog(...props: {
   creditableEntityProp: 'entity0_credit' | 'entity1_credit' | null,
   onConfirm: ($ReadOnly<Partial<LinkStateT>>) => void,
   relationship: LinkRelationshipT,
@@ -262,4 +262,4 @@ component ExternalLinkAttributeDialog(...props: {
   );
 }
 
-export default ExternalLinkAttributeDialog;
+export default ExternalLinkRelationshipDialog;
