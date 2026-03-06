@@ -22,7 +22,7 @@ import {
   hasErrorsOnNewOrChangedLinks,
 } from '../validation.js';
 
-import ExternalLinksEditor from './ExternalLinksEditor2.js';
+import ExternalLinksEditor from './ExternalLinksEditor.js';
 
 component _StandaloneExternalLinksEditor(
   /*:: ref: React.RefSetter<void>, */
