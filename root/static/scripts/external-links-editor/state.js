@@ -62,7 +62,7 @@ import type {
   LinksEditorActionT,
   LinksEditorStateT,
   LinkStateT,
-} from './types2.js';
+} from './types.js';
 import {
   normalizeUrl,
   validateLink,

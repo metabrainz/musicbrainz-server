@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import type {LinkStateT} from '../types2.js';
+import type {LinkStateT} from '../types.js';
 
 export function areLinkRelationshipsEmpty(link: LinkStateT): boolean {
   for (const relationship of link.relationships) {
