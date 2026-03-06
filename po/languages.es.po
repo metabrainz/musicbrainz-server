@@ -22,11 +22,12 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2024.
 # Joax <joan_acosta_1994@hotmail.com>, 2025.
 # Othon19 <othon19@gmail.com>, 2025.
+# syntariavoxmortem <voxmortemsyntaria@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-14 22:36+0000\n"
-"Last-Translator: Othon19 <othon19@gmail.com>\n"
+"PO-Revision-Date: 2026-02-16 04:11+0000\n"
+"Last-Translator: syntariavoxmortem <voxmortemsyntaria@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/es/>\n"
 "Language: es\n"
@@ -35,7 +36,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1364,8 +1365,6 @@ msgstr "Kru, lenguas"
 
 #. frequency:1 iso_code_3:ksd
 #: DB:language/name:3525
-#, fuzzy
-#| msgid "Kuanyama"
 msgid "Kuanua"
 msgstr "Kuanyama"
 
@@ -2182,7 +2181,7 @@ msgstr "Selkup"
 #. frequency:1 iso_code_3:sea
 #: DB:language/name:5888
 msgid "Semai"
-msgstr ""
+msgstr "Semai"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:368
