@@ -12,6 +12,9 @@ import * as React from 'react';
 import {CatalystContext} from '../context.mjs';
 import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
+import {
+  getSourceEntityData,
+} from '../static/scripts/common/utility/catalyst.js';
 import ReleaseRelationshipEditor
   from '../static/scripts/release/components/ReleaseRelationshipEditor.js';
 
@@ -19,8 +22,7 @@ import ReleaseHeader from './ReleaseHeader.js';
 
 component EditRelationships() {
   const $c = React.useContext(CatalystContext);
-  const release = $c.stash.source_entity;
-  invariant(release?.entityType === 'release');
+  const release: ReleaseT = getSourceEntityData($c, 'release');
 
   return (
     <Layout
