@@ -25,8 +25,8 @@ import type {
   LinkTypeOptionT,
 } from '../types.js';
 
-import ExternalLinkAttributeDialog
-  from './ExternalLinkAttributeDialog.js';
+import ExternalLinkRelationshipDialog
+  from './ExternalLinkRelationshipDialog.js';
 import LinkTypeSelect from './LinkTypeSelect.js';
 import TypeDescription from './TypeDescription.js';
 
@@ -83,7 +83,7 @@ component ExternalLinkRelationship(
             title={lp('Remove relationship', 'interactive')}
           />
         ) : null}
-        <ExternalLinkAttributeDialog
+        <ExternalLinkRelationshipDialog
           creditableEntityProp={creditableEntityProp}
           onConfirm={
             (attributes) => props.onAttributesChange(link.index, attributes)
