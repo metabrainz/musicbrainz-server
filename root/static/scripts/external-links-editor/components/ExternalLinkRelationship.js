@@ -34,7 +34,7 @@ import type {
   LinksEditorActionT,
   LinkStateT,
   LinkTypeOptionT,
-} from '../types2.js';
+} from '../types.js';
 import canMergeLink from '../utility/canMergeLink.js';
 import doesUrlMatchOnlyOnePossibleType
   from '../utility/doesUrlMatchOnlyOnePossibleType.js';

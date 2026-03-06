@@ -10,7 +10,7 @@
 import {stripAttributes} from '../../edit/utility/linkPhrase.js';
 import getRelationshipLinkType
   from '../../relationship-editor/utility/getRelationshipLinkType.js';
-import type {LinkRelationshipStateT} from '../types2.js';
+import type {LinkRelationshipStateT} from '../types.js';
 
 const linkPhraseCache = new WeakMap<LinkRelationshipStateT, string>();
 export default function getLinkPhrase(

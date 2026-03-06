@@ -30,7 +30,7 @@ import type {
   LinksEditorRelationshipDialogActionT as ActionT,
   LinksEditorRelationshipDialogStateT as StateT,
   LinkStateT,
-} from '../types2.js';
+} from '../types.js';
 
 import UrlRelationshipCreditFieldset
   from './UrlRelationshipCreditFieldset.js';

@@ -10,7 +10,7 @@
 import {Checker as URLCleanupChecker} from '../../edit/URLCleanup.js';
 import type {
   LinkStateT,
-} from '../types2.js';
+} from '../types.js';
 
 const linkCheckerCache:
   WeakMap<LinkStateT, URLCleanupChecker> = new WeakMap();
