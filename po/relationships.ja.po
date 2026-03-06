@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-02 17:11+0000\n"
+"PO-Revision-Date: 2026-02-18 20:11+0000\n"
 "Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -4629,11 +4629,11 @@ msgid ""
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
 msgstr ""
-"編集を元のレコーディングににリンクする。 この関係の「編集」は、ラジオ編集（ラ"
-"ジオ再生に適したものにするために長いトラックを約3分マークに合理化することを含"
-"む）、または同一素材を短縮、検閲、またはその他の方法で編集されたバージョンの"
-"場合がある。 レコーディング編集者は、<a href=\"/relationship/40dff87a-"
-"e475-4aa6-b615-9935b564d756\">編集者関係タイプ</a>を使用してリンクされる。"
+"編集を元のレコーディングにリンクする。 この関係の「編集」は、ラジオ編集（"
+"ラジオ再生に適したものにするために長いトラックを約3分マークに合理化することを"
+"含む）、または同一素材を短縮、検閲、またはその他の方法で編集されたバージョン"
+"の場合がある。 レコーディング編集者は、<a href=\"/relationship/40dff87a-e475-"
+"4aa6-b615-9935b564d756\">編集者関係タイプ</a>を使用してリンクされる。"
 
 #. name:songfacts
 #: DB:link_type/description:289
