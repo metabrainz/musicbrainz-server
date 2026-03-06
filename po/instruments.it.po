@@ -13,13 +13,13 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # GABG <musicbrainz@gabg.email>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-25 19:11+0000\n"
+"PO-Revision-Date: 2026-02-14 01:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -30,7 +30,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -3503,8 +3503,6 @@ msgid "sasando"
 msgstr "sasando"
 
 #: DB:instrument/name:580
-#, fuzzy
-#| msgid "satsuma biwa"
 msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "satsuma biwa"
@@ -4642,8 +4640,6 @@ msgid "yueqin"
 msgstr "yueqin"
 
 #: DB:instrument/name:715
-#, fuzzy
-#| msgid "zabumba"
 msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr "zabumba"

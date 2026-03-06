@@ -27,7 +27,7 @@
 # yvanz, 2018
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # GABG <musicbrainz@gabg.email>, 2024, 2025.
 msgid ""
@@ -35,7 +35,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2025-12-25 19:11+0000\n"
+"PO-Revision-Date: 2026-02-14 01:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -46,7 +46,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -4547,6 +4547,8 @@ msgid ""
 "An edit search query could not be constructed. Some of your parameters are "
 "probably invalid."
 msgstr ""
+"Non è stato possibile creare una ricerca modifiche. È probabile che qualche "
+"parametro utilizzato non sia valido."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
@@ -6044,32 +6046,25 @@ msgid "Score at IMSLP"
 msgstr "Partitura su IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:15
-#, fuzzy, perl-brace-format
-#| msgid "Stream at Spotify"
+#, perl-brace-format
 msgid "Stream at KKBOX {country}"
-msgstr "Streaming su Spotify"
+msgstr "Streaming su KKBOX {country}"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:19
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at KKBOX"
-msgstr "Streaming su VK"
+msgstr "Streaming su KKBOX"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/LineMusic.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at LINE MUSIC"
-msgstr "Streaming su VK"
+msgstr "Streaming su LINE MUSIC"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
 msgstr "Streaming su Migu Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NaverVibe.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at Naver VIBE"
-msgstr "Streaming su VK"
+msgstr "Streaming su Naver VIBE"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
@@ -7773,11 +7768,6 @@ msgstr ""
 "Visualizza tutte le relazioni}."
 
 #: ../root/artist/EditArtistCredit.js:40
-#, fuzzy
-#| msgid ""
-#| "This form allows you to edit the artist credit \"{ac}\". When the edit is "
-#| "accepted, all tracks, recordings, releases and release groups using this "
-#| "artist credit will be update to use the new one."
 msgid ""
 "This form allows you to edit the artist credit “{ac}”. When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
@@ -7809,11 +7799,6 @@ msgid "Split artist"
 msgstr "Dividi artista"
 
 #: ../root/artist/SplitArtist.js:43
-#, fuzzy
-#| msgid ""
-#| "This form allows you to split {artist} into separate artists. When the "
-#| "edit is accepted, existing artist credits will be updated, and "
-#| "collaboration relationships will be removed"
 msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
@@ -12893,10 +12878,8 @@ msgid "No {type0}-{type1} relationship types found."
 msgstr "Nessuna relazione {type0}-{type1} trovata."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:41
-#, fuzzy
-#| msgid "This area has no relationships to any works."
 msgid "This pair has no relationship types."
-msgstr "Quest'area non ha relazioni con nessun'opera."
+msgstr "Questa combinazione non ha tipi di relazione."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:46
 msgid "{type0}-{type1}"
