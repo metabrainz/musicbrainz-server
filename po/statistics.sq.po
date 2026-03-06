@@ -1,11 +1,11 @@
 #
 # Translators:
-# Besnik <besnik@programeshqip.org>, 2025.
+# Besnik <besnik@programeshqip.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-18 00:20+0000\n"
+"PO-Revision-Date: 2026-02-16 21:11+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/sq/>\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.16\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1348,7 +1348,7 @@ msgstr "Vlerësime artisti"
 
 #: ../root/statistics/stats.js:654
 msgid "Label ratings"
-msgstr ""
+msgstr "Vlerësim shtëpie diskografike"
 
 #: ../root/statistics/stats.js:659
 msgid "Place ratings"
