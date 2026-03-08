@@ -8,6 +8,7 @@ use JSON;
 use MusicBrainz::Server::Test      qw( capture_edits post_json );
 use MusicBrainz::Server::Constants qw(
   $EDIT_WORK_CREATE
+  $EDIT_WORK_ADD_ISWCS
   $WS_EDIT_RESPONSE_OK
 );
 use Test::Deep qw( cmp_deeply ignore );
@@ -53,7 +54,6 @@ test all => sub {
 
     is($data->[0]->{id}, 4223060, 'Got the work expected');
     is($data->[0]->{primaryAlias}, q(Hello! Let's Meet Again (7nin Matsuri version)), 'Got correct primary alias (en)');
-
 };
 
 test 'previewing/creating/editing a work' => sub {
@@ -184,6 +184,44 @@ test 'previewing/creating/editing a work' => sub {
         'ws response contains serialized work data'
     );
 
+    my $work = $response->{edits}->[0]->{entity};
+    my $iswc = 'T-111.222.002-0';
+    @edits = capture_edits {
+        post_json(
+            $mech,
+            '/ws/js/edit/create',
+            encode_json(
+                {
+                    edits => [
+                        {
+                            edit_type => $EDIT_WORK_ADD_ISWCS,
+                            iswcs => [
+                                {
+                                    iswc => $iswc,
+                                    work => {
+                                        id => $work->{id},
+                                        name => $work->{name},
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    makeVotable => 0,
+                }
+            )
+        );
+    }
+    $c;
+
+    isa_ok( $edits[0], 'MusicBrainz::Server::Edit::Work::AddISWCs',
+        'iswcs added' );
+    ok( $edits[0]->auto_edit, 'add ISWC should be an auto edit' );
+    
+    my @iswcs = $test->c->model('ISWC')->find_by_iswc($iswc);
+    is(@iswcs, 1, "Found 1 ISWC objects with ISWC=$iswc");
+    
+    is($iswcs[0]->iswc, $iswc, 'Has correct ISWC');
+    is($iswcs[0]->work_id, $work->{id}, "Is linked to work");
 };
 
 1;

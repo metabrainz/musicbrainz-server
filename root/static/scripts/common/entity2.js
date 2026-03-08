@@ -347,6 +347,7 @@ export function createWorkObject(
     +_fromBatchCreateWorksDialog?: boolean,
     +attributes?: $ReadOnlyArray<WorkAttributeT>,
     +comment?: string,
+    +iswcs?: $ReadOnlyArray<IswcT>,
     +languages?: $ReadOnlyArray<WorkLanguageT>,
     +typeID?: number | null,
   }>,

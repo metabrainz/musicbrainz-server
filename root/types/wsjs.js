@@ -90,6 +90,17 @@ declare type WsJsEditWorkCreateT = {
   +type_id: number | null,
 };
 
+declare type WsJsEditAddISWCsT = {
+  +edit_type: EDIT_WORK_ADD_ISWCS_T,
+  +iswcs: $ReadOnlyArray<{
+    +iswc: string,
+    +work: {
+      id: number,
+      name: string,
+    },
+  }>,
+};
+
 declare type WS_EDIT_RESPONSE_OK_T = 1;
 declare type WS_EDIT_RESPONSE_NO_CHANGES_T = 2;
 
@@ -144,6 +155,7 @@ declare type WsJsEditResponseT = {
           | EDIT_RELEASE_EDITRELEASELABEL_T
           | EDIT_RELEASE_REORDER_MEDIUMS_T
           | EDIT_RELEASEGROUP_EDIT_T,
+          | EDIT_WORK_ADD_ISWCS_T,
         +response: WS_EDIT_RESPONSE_OK_T,
       }
     | {+response: WS_EDIT_RESPONSE_NO_CHANGES_T}

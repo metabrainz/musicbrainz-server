@@ -230,6 +230,7 @@ export type ReleaseRelationshipEditorActionT =
   | {
       +attributes: $ReadOnlyArray<WorkAttributeT>,
       +comment: string,
+      +iswcs: $ReadOnlyArray<IswcT>,
       +languages: $ReadOnlyArray<LanguageT>,
       +name: string,
       +type: 'accept-edit-work-dialog',

@@ -37,6 +37,12 @@ import WorkLanguageMultiselect, {
 import WorkTypeSelect, {
   type WorkTypeSelectActionT,
 } from './WorkTypeSelect.js';
+import WorkISWCMultiInput, {
+  createInitialState as createWorkISWCsState,
+  runReducer as runWorkISWCMultiInputReducer,
+  accumulateValues as accumulateISWCValues,
+} from './WorkISWCMultiInput.js';
+import type {MultiInputActionT} from '../../edit/components/MultiInput.js';
 
 type ActionT =
   | {
@@ -55,6 +61,10 @@ type ActionT =
       action: WorkAttributeMultiselectActionT,
       type: 'update-work-attributes',
     }
+  | {
+      action: MultiInputActionT,
+      type: 'update-iswcs',
+    }
   | WorkTypeSelectActionT;
 
 export function createInitialState(
@@ -65,6 +75,7 @@ export function createInitialState(
       work.attributes,
     ),
     comment: work.comment,
+    iswcs: createWorkISWCsState(work.iswcs),
     languages: createWorkLanguagesState(
       work.languages.map(workLanguage => workLanguage.language),
     ),
@@ -108,6 +119,13 @@ function reducer(
       );
 
       newState.attributes = newAttributes;
+    },
+    {type: 'update-iswcs', const action} => {
+      const newISWCs = {...newState.iswcs};
+
+      runWorkISWCMultiInputReducer(newISWCs, action);
+
+      newState.iswcs = newISWCs;
     }
   }
 
@@ -127,6 +145,7 @@ component _EditWorkDialog(
   );
 
   const {
+    iswcs,
     languages,
     name,
     workType,
@@ -160,6 +179,12 @@ component _EditWorkDialog(
     dispatch({action, type: 'update-work-attributes'});
   }, [dispatch]);
 
+  const iswcsDispatch = React.useCallback((
+    action: MultiInputActionT,
+  ) => {
+    dispatch({action, type: 'update-iswcs'});
+  }, [dispatch]);
+
   const acceptDialog = React.useCallback(() => {
     if (isNameBlank) {
       return;
@@ -190,6 +215,7 @@ component _EditWorkDialog(
         return accum;
       }, [] as Array<WorkAttributeT>),
       comment,
+      iswcs: accumulateISWCValues(iswcs.values, work.id),
       languages: accumulateMultiselectValues(languages.values),
       name,
       type: 'accept-edit-work-dialog',
@@ -203,6 +229,7 @@ component _EditWorkDialog(
     closeDialog,
     comment,
     isNameBlank,
+    iswcs,
     languages,
     name,
     rootDispatch,
@@ -250,6 +277,10 @@ component _EditWorkDialog(
           <WorkLanguageMultiselect
             dispatch={languagesDispatch}
             state={languages}
+          />
+          <WorkISWCMultiInput
+            dispatch={iswcsDispatch}
+            state={iswcs}
           />
         </tbody>
       </table>
