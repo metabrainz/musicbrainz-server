@@ -202,7 +202,7 @@
     },
     {
       command: 'type',
-      target: 'css=#external-link-0 input[type=url]',
+      target: 'css=tr.external-link-item:nth-child(1) input[type=url]',
       value: 'https://newartist.bandcamp.com',
     },
     {
