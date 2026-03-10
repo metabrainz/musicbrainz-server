@@ -101,7 +101,7 @@ component ApplicationList(
 
       {tokens.length
         ? (
-          <PaginatedResults pageVar="tokens_page" pager={tokensPager}>
+          <PaginatedResults pager={tokensPager} pageVar="tokens_page">
             <table className="tbl">
               <thead>
                 <tr>
@@ -140,7 +140,7 @@ component ApplicationList(
 
       {applications.length
         ? (
-          <PaginatedResults pageVar="apps_page" pager={appsPager}>
+          <PaginatedResults pager={appsPager} pageVar="apps_page">
             <table className="tbl">
               <thead>
                 <tr>
