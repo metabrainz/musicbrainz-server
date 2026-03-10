@@ -1834,10 +1834,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@bazel/runfiles@npm:^6.3.1":
-  version: 6.3.1
-  resolution: "@bazel/runfiles@npm:6.3.1"
-  checksum: 10c0/7b542dcff9e917cc521520db137bd4f4a478796693700e2ec2c27f4beede800c9f4987e20c6b965d81000638f63549160780aea51eca2f0d0275be76fdc5e49f
+"@bazel/runfiles@npm:^6.5.0":
+  version: 6.5.0
+  resolution: "@bazel/runfiles@npm:6.5.0"
+  checksum: 10c0/4e60ff52c8503bf47e142d7835daf08d7cf6ee0047336954c5fb0d4b7d87ce00494d573eeb14571d51232a5da215258fa052278e4b0c9f6e3a65aca494cad945
   languageName: node
   linkType: hard
 
@@ -7910,7 +7910,7 @@ __metadata:
     react-is: "npm:18.3.1"
     react-table: "npm:7.8.0"
     redux: "npm:4.2.1"
-    selenium-webdriver: "npm:4.38.0"
+    selenium-webdriver: "npm:4.41.0"
     shell-quote: "npm:1.8.3"
     shelljs: "npm:0.10.0"
     sliced: "npm:1.0.1"
@@ -9627,15 +9627,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selenium-webdriver@npm:4.38.0":
-  version: 4.38.0
-  resolution: "selenium-webdriver@npm:4.38.0"
+"selenium-webdriver@npm:4.41.0":
+  version: 4.41.0
+  resolution: "selenium-webdriver@npm:4.41.0"
   dependencies:
-    "@bazel/runfiles": "npm:^6.3.1"
+    "@bazel/runfiles": "npm:^6.5.0"
     jszip: "npm:^3.10.1"
     tmp: "npm:^0.2.5"
-    ws: "npm:^8.18.3"
-  checksum: 10c0/de7dffb60c8ad1fcacda0dda57d8b9cc17d965e74e8af67001f2585c2ac091d8b7d305cd93ddb1c6d3000a913a1959aaea6053e9e587762a8eaac598927fb68a
+    ws: "npm:^8.19.0"
+  checksum: 10c0/a5f2e72083346d74cccca1fb0770c9e28ab9747745594519b86016a6b58e8e4741c48537d0a9af0f90e060a918d339c94b5291f861d8f9b7d7dcb8ebc767eb2f
   languageName: node
   linkType: hard
 
@@ -11416,9 +11416,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.18.3":
-  version: 8.18.3
-  resolution: "ws@npm:8.18.3"
+"ws@npm:^8.19.0":
+  version: 8.19.0
+  resolution: "ws@npm:8.19.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -11427,7 +11427,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/eac918213de265ef7cb3d4ca348b891a51a520d839aa51cdb8ca93d4fa7ff9f6ccb339ccee89e4075324097f0a55157c89fa3f7147bde9d8d7e90335dc087b53
+  checksum: 10c0/4741d9b9bc3f9c791880882414f96e36b8b254e34d4b503279d6400d9a4b87a033834856dbdd94ee4b637944df17ea8afc4bce0ff4a1560d2166be8855da5b04
   languageName: node
   linkType: hard
 
