@@ -44,9 +44,9 @@ if (__DEV__) {
    * root/utility/sanitizedEditor.js.
    */
   const sanitizedEditorProps = new Set([
+    'avatar',
     'deleted',
     'entityType',
-    'avatar',
     'id',
     'name',
     'privileges',

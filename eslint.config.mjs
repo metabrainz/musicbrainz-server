@@ -824,7 +824,28 @@ export default [
       'fb-flow/no-flow-enums-object-mapping': 'off',
 
       // eslint-plugin-perfectionist
+      'perfectionist/sort-array-includes': ['warn', {type: 'natural'}],
+      'perfectionist/sort-classes': 'off', // We should aim not to use classes
+      'perfectionist/sort-decorators': 'off', // We should aim not to use classes
+      'perfectionist/sort-enums': 'off', // This is for TS
+      'perfectionist/sort-export-attributes': 'warn',
+      'perfectionist/sort-exports': 'off', // We use simple-import-sort for this
+      'perfectionist/sort-heritage-clauses': 'off', // We should aim not to use classes
+      'perfectionist/sort-import-attributes': 'warn',
+      'perfectionist/sort-imports': 'off', // We use simple-import-sort for this
+      'perfectionist/sort-interfaces': 'off', // This is for TS
+      'perfectionist/sort-intersection-types': 'off', // This is for TS
       'perfectionist/sort-jsx-props': 'warn',
+      'perfectionist/sort-maps': ['warn', {type: 'natural'}],
+      'perfectionist/sort-modules': 'off',
+      'perfectionist/sort-named-exports': 'off', // We use simple-import-sort for this
+      'perfectionist/sort-named-imports': 'off', // We use simple-import-sort for this
+      'perfectionist/sort-object-types': 'off', // This is for TS
+      'perfectionist/sort-objects': 'off', // We use sort-keys for this
+      'perfectionist/sort-sets': ['warn', {type: 'natural'}],
+      'perfectionist/sort-switch-case': 'off',
+      'perfectionist/sort-union-types': 'off', // This is for TS
+      'perfectionist/sort-variable-declarations': 'off',
 
       // eslint-plugin-react-hooks
       'react-hooks/exhaustive-deps': 'error',
