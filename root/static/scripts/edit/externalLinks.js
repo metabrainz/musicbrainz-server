@@ -1697,7 +1697,7 @@ export const ExternalLinksEditor:
   component(ref: React.RefSetter<_ExternalLinksEditor>, ...LinksEditorProps) =
     withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
       _ExternalLinksEditor,
-      new Set(['link_type', 'link_attribute_type']),
+      new Set(['link_attribute_type', 'link_type']),
     );
 
 const defaultLinkState: LinkStateT = {
