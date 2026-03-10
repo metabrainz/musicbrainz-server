@@ -7162,11 +7162,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"less-loader@npm:12.3.0":
-  version: 12.3.0
-  resolution: "less-loader@npm:12.3.0"
+"less-loader@npm:12.3.1":
+  version: 12.3.1
+  resolution: "less-loader@npm:12.3.1"
   peerDependencies:
-    "@rspack/core": 0.x || 1.x
+    "@rspack/core": 0.x || ^1.0.0 || ^2.0.0-0
     less: ^3.5.0 || ^4.0.0
     webpack: ^5.0.0
   peerDependenciesMeta:
@@ -7174,7 +7174,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/11814ce601fe9a9a148f28643ffcb6041939b1142b21538c2c0a7a220f79e35f7eeffd4ac5f4d9495e41f1f25aabb98652fa18792d22eebb1d151716d8297332
+  checksum: 10c0/46287723e7c569bba7dcee697d8927a310d63822e67ed81c16f2216d7c00484b5c1e743f57927bb489d7dcd381b10cd0d2ce7f0501786567fb9f139800a53029
   languageName: node
   linkType: hard
 
@@ -7785,7 +7785,7 @@ __metadata:
     leaflet: "npm:1.9.4"
     leaflet.markercluster: "npm:1.5.3"
     less: "npm:4.5.1"
-    less-loader: "npm:12.3.0"
+    less-loader: "npm:12.3.1"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.1.0"
     mutate-cow: "npm:8.1.0"
