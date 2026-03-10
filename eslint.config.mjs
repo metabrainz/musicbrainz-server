@@ -9,6 +9,7 @@
 import fbFlow from 'eslint-plugin-fb-flow';
 import ftFlow from 'eslint-plugin-ft-flow';
 import importPlugin from 'eslint-plugin-import';
+import perfectionistPlugin from 'eslint-plugin-perfectionist';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
@@ -116,6 +117,7 @@ export default [
       'react': reactPlugin,
       'ft-flow': ftFlow,
       'fb-flow': fbFlow,
+      'perfectionist': perfectionistPlugin,
       'react-hooks': reactHooks,
       'simple-import-sort': simpleImportSort,
     },
@@ -533,7 +535,6 @@ export default [
       '@stylistic/jsx-props-no-multi-spaces': 'off', // in eslint-js
       '@stylistic/jsx-quotes': ['warn', 'prefer-double'],
       '@stylistic/jsx-self-closing-comp': 'error',
-      '@stylistic/jsx-sort-props': 'warn',
       '@stylistic/jsx-tag-spacing': ['error', {beforeClosing: 'never'}],
       '@stylistic/jsx-wrap-multilines': ['error', {
         declaration: 'parens-new-line',
@@ -820,6 +821,9 @@ export default [
       'fb-flow/use-flow-enums': 'warn',
       'fb-flow/flow-enums-default-if-possible': 'warn',
       'fb-flow/no-flow-enums-object-mapping': 'off',
+
+      // eslint-plugin-perfectionist
+      'perfectionist/sort-jsx-props': 'warn',
 
       // eslint-plugin-react-hooks
       'react-hooks/exhaustive-deps': 'error',

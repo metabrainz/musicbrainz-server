@@ -35,11 +35,11 @@ component IsrcList(
 ) {
   return (
     <CollapsibleList
-      ContainerElement={isSidebar ? 'dl' : 'ul'}
-      InnerElement={isSidebar ? 'div' : 'li'}
       ariaLabel={l('ISRCs')}
       buildRow={isSidebar ? buildIsrcSidebarRow : buildIsrcListRow}
       className={isSidebar ? 'properties isrcs' : 'isrcs'}
+      ContainerElement={isSidebar ? 'dl' : 'ul'}
+      InnerElement={isSidebar ? 'div' : 'li'}
       rows={isrcs}
       showAllTitle={l('Show all ISRCs')}
       showLessTitle={l('Show less ISRCs')}
