@@ -21,7 +21,7 @@
     "@floating-ui/react": "0.27.19",
     "@sentry/browser": "7.119.2",
     "@sentry/node": "7.119.2",
-    "babel-loader": "10.0.0",
+    "babel-loader": "10.1.1",
     "balanced-match": "3.0.1",
     "canonical-json": "0.0.4",
     "cookie": "0.7.2",
