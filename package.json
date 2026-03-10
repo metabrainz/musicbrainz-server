@@ -60,7 +60,7 @@
     "tabbable": "6.4.0",
     "tablesorter": "2.32.0",
     "terser-webpack-plugin": "5.3.17",
-    "tldts": "7.0.10",
+    "tldts": "7.0.25",
     "webpack": "5.103.0",
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.9.0",
