@@ -59,7 +59,7 @@
     "sliced": "1.0.1",
     "tabbable": "6.4.0",
     "tablesorter": "2.32.0",
-    "terser-webpack-plugin": "5.3.14",
+    "terser-webpack-plugin": "5.3.17",
     "tldts": "7.0.10",
     "webpack": "5.103.0",
     "webpack-node-externals": "3.0.0",
