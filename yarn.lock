@@ -3876,15 +3876,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chrome-remote-interface@npm:0.33.3":
-  version: 0.33.3
-  resolution: "chrome-remote-interface@npm:0.33.3"
+"chrome-remote-interface@npm:0.34.0":
+  version: 0.34.0
+  resolution: "chrome-remote-interface@npm:0.34.0"
   dependencies:
     commander: "npm:2.11.x"
     ws: "npm:^7.2.0"
   bin:
     chrome-remote-interface: bin/client.js
-  checksum: 10c0/fcc32714a9d20b21a62417341116e79e7838800e8545ce968b360486ccfa88873f631702a5b549c70801ed6358c32213bcd8657d6fab8eceb8c55ac0c43ceaf7
+  checksum: 10c0/49c713a25be82ca28cf877716e2f82cc0b3879d990dac9a9ae636436cae144d9de5692d8b202487e93ef12e461d59edf180e22df87648196e3b698f37d9b13c7
   languageName: node
   linkType: hard
 
@@ -7848,7 +7848,7 @@ __metadata:
     balanced-match: "npm:3.0.1"
     buffer: "npm:6.0.3"
     canonical-json: "npm:0.0.4"
-    chrome-remote-interface: "npm:0.33.3"
+    chrome-remote-interface: "npm:0.34.0"
     cookie: "npm:0.7.2"
     core-js: "npm:3.48.0"
     deep-freeze-strict: "npm:1.1.1"
