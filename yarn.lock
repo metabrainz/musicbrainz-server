@@ -2884,6 +2884,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"acorn@npm:^8.16.0":
+  version: 8.16.0
+  resolution: "acorn@npm:8.16.0"
+  bin:
+    acorn: bin/acorn
+  checksum: 10c0/c9c52697227661b68d0debaf972222d4f622aa06b185824164e153438afa7b08273432ca43ea792cadb24dada1d46f6f6bb1ef8de9956979288cc1b96bf9914e
+  languageName: node
+  linkType: hard
+
 "acorn@npm:^8.8.2":
   version: 8.11.2
   resolution: "acorn@npm:8.11.2"
@@ -3500,7 +3509,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"browserslist@npm:^4.26.3, browserslist@npm:^4.28.0":
+"browserslist@npm:^4.28.0":
   version: 4.28.0
   resolution: "browserslist@npm:4.28.0"
   dependencies:
@@ -4410,13 +4419,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.17.3":
-  version: 5.18.3
-  resolution: "enhanced-resolve@npm:5.18.3"
+"enhanced-resolve@npm:^5.20.0":
+  version: 5.20.0
+  resolution: "enhanced-resolve@npm:5.20.0"
   dependencies:
     graceful-fs: "npm:^4.2.4"
-    tapable: "npm:^2.2.0"
-  checksum: 10c0/d413c23c2d494e4c1c9c9ac7d60b812083dc6d446699ed495e69c920988af0a3c66bf3f8d0e7a45cb1686c2d4c1df9f4e7352d973f5b56fe63d8d711dd0ccc54
+    tapable: "npm:^2.3.0"
+  checksum: 10c0/4ed5f38406fc9ad74c58a3d63b8215862243ab0ed6b0efc51ccdb72cdcedd3ac8638abe298680b279d7a83c3cb140e5eea7a5f8bd99696c74588f07ad89a95a7
   languageName: node
   linkType: hard
 
@@ -4718,10 +4727,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"es-module-lexer@npm:^1.2.1":
-  version: 1.5.3
-  resolution: "es-module-lexer@npm:1.5.3"
-  checksum: 10c0/0f50b655490d1048432eac6eec94d99d3933119666ae82be578c3db1ea4b2c594118a336f6b7a3c4e2815355dcc9a469d880acef1c45aa656a5aae8c8ae8e5f6
+"es-module-lexer@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "es-module-lexer@npm:2.0.0"
+  checksum: 10c0/ae78dbbd43035a4b972c46cfb6877e374ea290adfc62bc2f5a083fea242c0b2baaab25c5886af86be55f092f4a326741cb94334cd3c478c383fdc8a9ec5ff817
   languageName: node
   linkType: hard
 
@@ -7815,7 +7824,7 @@ __metadata:
     terser-webpack-plugin: "npm:5.3.17"
     tldts: "npm:7.0.25"
     utf8: "npm:3.0.0"
-    webpack: "npm:5.103.0"
+    webpack: "npm:5.105.4"
     webpack-node-externals: "npm:3.0.0"
     weight-balanced-tree: "npm:0.9.0"
     whatwg-fetch: "npm:3.6.20"
@@ -8784,15 +8793,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"randombytes@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "randombytes@npm:2.1.0"
-  dependencies:
-    safe-buffer: "npm:^5.1.0"
-  checksum: 10c0/50395efda7a8c94f5dffab564f9ff89736064d32addf0cc7e8bf5e4166f09f8ded7a0849ca6c2d2a59478f7d90f78f20d8048bca3cdf8be09d8e8a10790388f3
-  languageName: node
-  linkType: hard
-
 "react-dom@npm:18.3.1":
   version: 18.3.1
   resolution: "react-dom@npm:18.3.1"
@@ -9388,7 +9388,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.1, safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
+"safe-buffer@npm:^5.1.1, safe-buffer@npm:^5.2.1, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
   checksum: 10c0/6501914237c0a86e9675d4e51d89ca3c21ffd6a31642efeba25ad65720bce6921c9e7e974e5be91a786b25aa058b5303285d3c15dbabf983a919f5f630d349f3
@@ -9555,15 +9555,6 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/aca305edfbf2383c22571cb7714f48cadc7ac95371b4b52362fb8eeffdfbc0de0669368b82b2b15978f8848f01d7114da65697e56cd8c37b0dab8c58e543f9ea
-  languageName: node
-  linkType: hard
-
-"serialize-javascript@npm:^6.0.2":
-  version: 6.0.2
-  resolution: "serialize-javascript@npm:6.0.2"
-  dependencies:
-    randombytes: "npm:^2.1.0"
-  checksum: 10c0/2dd09ef4b65a1289ba24a788b1423a035581bef60817bea1f01eda8e3bda623f86357665fe7ac1b50f6d4f583f97db9615b3f07b2a2e8cbcb75033965f771dd2
   languageName: node
   linkType: hard
 
@@ -10328,13 +10319,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tapable@npm:^2.2.0":
-  version: 2.2.1
-  resolution: "tapable@npm:2.2.1"
-  checksum: 10c0/bc40e6efe1e554d075469cedaba69a30eeb373552aaf41caeaaa45bf56ffacc2674261b106245bd566b35d8f3329b52d838e851ee0a852120acae26e622925c9
-  languageName: node
-  linkType: hard
-
 "tapable@npm:^2.3.0":
   version: 2.3.0
   resolution: "tapable@npm:2.3.0"
@@ -10381,7 +10365,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:5.3.17":
+"terser-webpack-plugin@npm:5.3.17, terser-webpack-plugin@npm:^5.3.17":
   version: 5.3.17
   resolution: "terser-webpack-plugin@npm:5.3.17"
   dependencies:
@@ -10399,28 +10383,6 @@ __metadata:
     uglify-js:
       optional: true
   checksum: 10c0/bfe08fbb3e5e5a8b2525dcc1705c370ca67f218051f0df241f86531ab0f1a93d5b290176ba09cff28cd5f774836684a7e436421d0641c0f4dfd07110d8d907bf
-  languageName: node
-  linkType: hard
-
-"terser-webpack-plugin@npm:^5.3.11":
-  version: 5.3.14
-  resolution: "terser-webpack-plugin@npm:5.3.14"
-  dependencies:
-    "@jridgewell/trace-mapping": "npm:^0.3.25"
-    jest-worker: "npm:^27.4.5"
-    schema-utils: "npm:^4.3.0"
-    serialize-javascript: "npm:^6.0.2"
-    terser: "npm:^5.31.1"
-  peerDependencies:
-    webpack: ^5.1.0
-  peerDependenciesMeta:
-    "@swc/core":
-      optional: true
-    esbuild:
-      optional: true
-    uglify-js:
-      optional: true
-  checksum: 10c0/9b060947241af43bd6fd728456f60e646186aef492163672a35ad49be6fbc7f63b54a7356c3f6ff40a8f83f00a977edc26f044b8e106cc611c053c8c0eaf8569
   languageName: node
   linkType: hard
 
@@ -11001,13 +10963,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"watchpack@npm:^2.4.4":
-  version: 2.4.4
-  resolution: "watchpack@npm:2.4.4"
+"watchpack@npm:^2.5.1":
+  version: 2.5.1
+  resolution: "watchpack@npm:2.5.1"
   dependencies:
     glob-to-regexp: "npm:^0.4.1"
     graceful-fs: "npm:^4.1.2"
-  checksum: 10c0/6c0901f75ce245d33991225af915eea1c5ae4ba087f3aee2b70dd377d4cacb34bef02a48daf109da9d59b2d31ec6463d924a0d72f8618ae1643dd07b95de5275
+  checksum: 10c0/dffbb483d1f61be90dc570630a1eb308581e2227d507d783b1d94a57ac7b705ecd9a1a4b73d73c15eab596d39874e5276a3d9cb88bbb698bafc3f8d08c34cf17
   languageName: node
   linkType: hard
 
@@ -11025,16 +10987,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.3.3":
-  version: 3.3.3
-  resolution: "webpack-sources@npm:3.3.3"
-  checksum: 10c0/ab732f6933b513ba4d505130418995ddef6df988421fccf3289e53583c6a39e205c4a0739cee98950964552d3006604912679c736031337fb4a9d78d8576ed40
+"webpack-sources@npm:^3.3.4":
+  version: 3.3.4
+  resolution: "webpack-sources@npm:3.3.4"
+  checksum: 10c0/94a42508531338eb41939cf1d48a4a8a6db97f3a47e5453cff2133a68d3169ca779d4bcbe9dfed072ce16611959eba1e16f085bc2dc56714e1a1c1783fd661a3
   languageName: node
   linkType: hard
 
-"webpack@npm:5.103.0":
-  version: 5.103.0
-  resolution: "webpack@npm:5.103.0"
+"webpack@npm:5.105.4":
+  version: 5.105.4
+  resolution: "webpack@npm:5.105.4"
   dependencies:
     "@types/eslint-scope": "npm:^3.7.7"
     "@types/estree": "npm:^1.0.8"
@@ -11042,12 +11004,12 @@ __metadata:
     "@webassemblyjs/ast": "npm:^1.14.1"
     "@webassemblyjs/wasm-edit": "npm:^1.14.1"
     "@webassemblyjs/wasm-parser": "npm:^1.14.1"
-    acorn: "npm:^8.15.0"
+    acorn: "npm:^8.16.0"
     acorn-import-phases: "npm:^1.0.3"
-    browserslist: "npm:^4.26.3"
+    browserslist: "npm:^4.28.1"
     chrome-trace-event: "npm:^1.0.2"
-    enhanced-resolve: "npm:^5.17.3"
-    es-module-lexer: "npm:^1.2.1"
+    enhanced-resolve: "npm:^5.20.0"
+    es-module-lexer: "npm:^2.0.0"
     eslint-scope: "npm:5.1.1"
     events: "npm:^3.2.0"
     glob-to-regexp: "npm:^0.4.1"
@@ -11058,15 +11020,15 @@ __metadata:
     neo-async: "npm:^2.6.2"
     schema-utils: "npm:^4.3.3"
     tapable: "npm:^2.3.0"
-    terser-webpack-plugin: "npm:^5.3.11"
-    watchpack: "npm:^2.4.4"
-    webpack-sources: "npm:^3.3.3"
+    terser-webpack-plugin: "npm:^5.3.17"
+    watchpack: "npm:^2.5.1"
+    webpack-sources: "npm:^3.3.4"
   peerDependenciesMeta:
     webpack-cli:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 10c0/d0cf86f8cac249874d6f36292e25011413ebb5bae82c48fa78a165a217e63db00b1a1f563f5195070eb17a055c6da4b6ab89fbdd37f781abdda862aa8c0bd623
+  checksum: 10c0/e9896d20bac351b119d59942b7efae5b117056ecf203acc0d1a84ecbf0a5a9a80ca733735f96bd163e3530be6ab7f615cd67e5320bd3c47d709c9bfe376c3280
   languageName: node
   linkType: hard
 
