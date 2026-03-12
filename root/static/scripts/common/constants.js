@@ -422,8 +422,8 @@ export const ENTITIES_WITH_RELATIONSHIP_CREDITS = {
 };
 
 export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
-  [0, N_l('Low')],
   [-1, N_l('Normal')],
+  [0, N_l('Low')],
   [1, N_l('Normal')],
   [2, N_l('High')],
 ]);
