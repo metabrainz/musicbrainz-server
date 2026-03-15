@@ -89,7 +89,11 @@ test 'previewing/creating/editing a work' => sub {
                     attribute_value_id => undef,
                     attribute_text     => 'Free Text',
                 }
-            ]
+            ],
+            enteredFrom => {
+                entity_type => 'release',
+                gid => 'f34c079d-374e-4436-9448-da92dedef3ce'
+            }
         }
     ];
 
@@ -126,6 +130,11 @@ test 'previewing/creating/editing a work' => sub {
     isa_ok( $edits[0], 'MusicBrainz::Server::Edit::Work::Create',
         'work created' );
     ok( $edits[0]->auto_edit, 'new work should be an auto edit' );
+    cmp_deeply($edits[0]->data->{entered_from}, {
+        entity_type => 'release',
+        gid => 'f34c079d-374e-4436-9448-da92dedef3ce',
+        name => 'Arrival',
+    });
 
     $response = from_json( $mech->content );
 
@@ -203,7 +212,11 @@ test 'previewing/creating/editing a work' => sub {
                                         name => $work->{name},
                                     }
                                 }
-                            ]
+                            ],
+                            enteredFrom => {
+                                entity_type => 'release',
+                                gid => 'f34c079d-374e-4436-9448-da92dedef3ce'
+                            }
                         }
                     ],
                     makeVotable => 0,
@@ -216,6 +229,11 @@ test 'previewing/creating/editing a work' => sub {
     isa_ok( $edits[0], 'MusicBrainz::Server::Edit::Work::AddISWCs',
         'iswcs added' );
     ok( $edits[0]->auto_edit, 'add ISWC should be an auto edit' );
+    cmp_deeply($edits[0]->data->{entered_from}, {
+        entity_type => 'release',
+        gid => 'f34c079d-374e-4436-9448-da92dedef3ce',
+        name => 'Arrival',
+    });
     
     my @iswcs = $test->c->model('ISWC')->find_by_iswc($iswc);
     is(@iswcs, 1, "Found 1 ISWC objects with ISWC=$iswc");
