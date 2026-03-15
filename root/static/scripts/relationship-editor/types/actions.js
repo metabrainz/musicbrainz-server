@@ -288,7 +288,8 @@ export type ReleaseRelationshipEditorActionT =
   | {
       +edits:
         | Array<[Array<RelationshipStateT>, WsJsEditRelationshipT]>
-        | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>,
+        | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>
+        | Array<[Array<RelationshipStateT>, WsJsEditAddISWCsT]>,
       +responseData: WsJsEditResponseT,
       +type: 'update-submitted-relationships',
     };

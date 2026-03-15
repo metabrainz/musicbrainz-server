@@ -154,7 +154,7 @@ declare type WsJsEditResponseT = {
           | EDIT_RELEASE_EDIT_T
           | EDIT_RELEASE_EDITRELEASELABEL_T
           | EDIT_RELEASE_REORDER_MEDIUMS_T
-          | EDIT_RELEASEGROUP_EDIT_T,
+          | EDIT_RELEASEGROUP_EDIT_T
           | EDIT_WORK_ADD_ISWCS_T,
         +response: WS_EDIT_RESPONSE_OK_T,
       }

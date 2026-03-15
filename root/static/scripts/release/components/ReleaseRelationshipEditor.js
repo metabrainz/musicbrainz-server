@@ -1450,18 +1450,20 @@ export const reducer: ((
                * `relationship` is always recording-work here
                * (see `getWorkEditsForEntity`).
                */
+              invariant(relationship.entity1.entityType === 'work');
               const oldWork = relationship.entity1;
               /*
                * preserve ISWCs to be submitted later
                */
-              const newWork = oldWork._fromBatchCreateWorksDialog
-                ? createWorkObject({
-                  ...response.entity,
-                  _fromBatchCreateWorksDialog:
-                  oldWork._fromBatchCreateWorksDialog,
-                  iswcs: oldWork.iswcs,
-                })
-                : reponse.entity;
+              const newWork =
+                oldWork._fromBatchCreateWorksDialog === true
+                  ? {
+                    ...response.entity,
+                    _fromBatchCreateWorksDialog:
+                    oldWork._fromBatchCreateWorksDialog,
+                    iswcs: oldWork.iswcs,
+                  }
+                  : response.entity;
               updateRelationshipState(
                 relationship,
                 (newRelationship) => {
@@ -1510,7 +1512,7 @@ export const reducer: ((
           }
           _ => {
             invariant(response.edit_type === EDIT_RELATIONSHIP_DELETE ||
-              reponse.edit_edit === EDIT_WORK_ADD_ISWCS);
+              response.edit_type === EDIT_WORK_ADD_ISWCS);
           }
         }
       }
