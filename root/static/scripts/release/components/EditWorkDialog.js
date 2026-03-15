@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import isBlank from '../../common/utility/isBlank.js';
+import type {MultiInputActionT} from '../../edit/components/MultiInput.js';
 import {
   type MultiselectActionT,
   accumulateMultiselectValues,
@@ -30,6 +31,11 @@ import WorkAttributeMultiselect, {
   createInitialState as createWorkAttributesState,
   runReducer as runWorkAttributeMultiselectReducer,
 } from './WorkAttributeMultiselect.js';
+import WorkISWCMultiInput, {
+  accumulateValues as accumulateISWCValues,
+  createInitialState as createWorkISWCsState,
+  runReducer as runWorkISWCMultiInputReducer,
+} from './WorkISWCMultiInput.js';
 import WorkLanguageMultiselect, {
   createInitialState as createWorkLanguagesState,
   runReducer as runWorkLanguageMultiselectReducer,
@@ -37,12 +43,6 @@ import WorkLanguageMultiselect, {
 import WorkTypeSelect, {
   type WorkTypeSelectActionT,
 } from './WorkTypeSelect.js';
-import WorkISWCMultiInput, {
-  createInitialState as createWorkISWCsState,
-  runReducer as runWorkISWCMultiInputReducer,
-  accumulateValues as accumulateISWCValues,
-} from './WorkISWCMultiInput.js';
-import type {MultiInputActionT} from '../../edit/components/MultiInput.js';
 
 type ActionT =
   | {
@@ -282,16 +282,6 @@ component _EditWorkDialog(
             dispatch={iswcsDispatch}
             state={iswcs}
           />
-        </tbody>
-      </table>
-      <h2>
-        <div className="heading-line" />
-        <span className="heading-text">
-          {l('Work Attributes')}
-        </span>
-      </h2>
-      <table>
-        <tbody>
           <WorkAttributeMultiselect
             dispatch={workAttributesDispatch}
             state={attributes}

@@ -271,6 +271,9 @@ component _WorkAttributeMultiselect(
 
   return (
     <tr>
+      <td className="section">
+        {addColonText(l('Attributes'))}
+      </td>
       <td>
         <Multiselect
           addLabel={l('Add work attribute')}
