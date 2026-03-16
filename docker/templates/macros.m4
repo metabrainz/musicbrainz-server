@@ -217,7 +217,7 @@ m4_define(
     `install_second_perl_and_mbs_run_deps',
     `m4_dnl
 
-set_perl_install_args
+set_second_perl_install_args
 
 set_cpanm_and_carton_env
 
