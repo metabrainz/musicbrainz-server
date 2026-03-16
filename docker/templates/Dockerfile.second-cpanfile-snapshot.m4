@@ -9,7 +9,7 @@ run_with_apt_cache \
 
 setup_mbs_root()
 
-install_perl_and_mbs_run_deps()
+install_second_perl_and_mbs_run_deps()
 
 copy_mb(`cpanfile ./')
 
