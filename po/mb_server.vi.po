@@ -5,13 +5,14 @@
 #
 # Translators:
 # Anh Phan <email address hidden>, 2013
+# dulijuong_artist <buimao19fc@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2024-04-17 17:40+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-03-14 09:11+0000\n"
+"Last-Translator: dulijuong_artist <buimao19fc@gmail.com>\n"
 "Language-Team: Vietnamese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/vi/>\n"
 "Language: vi\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -50,35 +51,35 @@ msgstr ""
 
 #: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
-msgstr ""
+msgstr "&#x26a0; Đã xảy ra lỗi khi tạo chỉnh sửa"
 
 #: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
-msgstr ""
+msgstr "&#x26a0; Đã xảy ra lỗi yêu cầu chứ ký"
 
 #: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
-msgstr ""
+msgstr "&#x26a0; Đã xảy ra lỗi trong việc tải ảnh lên"
 
 #: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
-msgstr ""
+msgstr "&#x26a0; Máy chủ hiện đang bận, vui lòng thử lại sau"
 
 #: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
-msgstr ""
+msgstr "&#x26a0; Không thể nhận dạng được file"
 
 #: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
-msgstr ""
+msgstr "&#x2713; Thành công"
 
 #: ../root/release/edit/recordings.tt:63
 msgid "(add a new recording)"
-msgstr ""
+msgstr "(Thêm một bản thu mới)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
 msgid "(no other images)"
-msgstr ""
+msgstr "(Không còn ảnh nào khác)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
@@ -90,7 +91,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
