@@ -88,13 +88,13 @@ test 'previewing/creating/editing a work' => sub {
                     attribute_type_id  => 6,
                     attribute_value_id => undef,
                     attribute_text     => 'Free Text',
-                }
+                },
             ],
             enteredFrom => {
                 entity_type => 'release',
-                gid => 'f34c079d-374e-4436-9448-da92dedef3ce'
-            }
-        }
+                gid => 'f34c079d-374e-4436-9448-da92dedef3ce',
+            },
+        },
     ];
 
     post_json( $mech, '/ws/js/edit/preview',
@@ -121,8 +121,8 @@ test 'previewing/creating/editing a work' => sub {
                 {
                     edits       => $work_edits,
                     makeVotable => 0,
-                }
-            )
+                },
+            ),
         );
     }
     $c;
@@ -158,7 +158,7 @@ test 'previewing/creating/editing a work' => sub {
                         typeName => 'Key',
                         value    => 'E major',
                         value_id => 13,
-                    }
+                    },
                 ],
                 authors      => [],
                 comment      => 'Elvis Presley song',
@@ -180,7 +180,7 @@ test 'previewing/creating/editing a work' => sub {
                             name        => 'English',
                         },
                         last_updated  => ignore(),
-                    }
+                    },
                 ],
                 last_updated  => ignore(),
                 name          => 'Follow That Dream',
@@ -190,7 +190,7 @@ test 'previewing/creating/editing a work' => sub {
             },
             response => $WS_EDIT_RESPONSE_OK,
         },
-        'ws response contains serialized work data'
+        'ws response contains serialized work data',
     );
 
     my $work = $response->{edits}->[0]->{entity};
@@ -210,18 +210,18 @@ test 'previewing/creating/editing a work' => sub {
                                     work => {
                                         id => $work->{id},
                                         name => $work->{name},
-                                    }
-                                }
+                                    },
+                                },
                             ],
                             enteredFrom => {
                                 entity_type => 'release',
-                                gid => 'f34c079d-374e-4436-9448-da92dedef3ce'
-                            }
-                        }
+                                gid => 'f34c079d-374e-4436-9448-da92dedef3ce',
+                            },
+                        },
                     ],
                     makeVotable => 0,
-                }
-            )
+                },
+            ),
         );
     }
     $c;
@@ -234,12 +234,12 @@ test 'previewing/creating/editing a work' => sub {
         gid => 'f34c079d-374e-4436-9448-da92dedef3ce',
         name => 'Arrival',
     });
-    
+
     my @iswcs = $test->c->model('ISWC')->find_by_iswc($iswc);
     is(@iswcs, 1, "Found 1 ISWC objects with ISWC=$iswc");
-    
+
     is($iswcs[0]->iswc, $iswc, 'Has correct ISWC');
-    is($iswcs[0]->work_id, $work->{id}, "Is linked to work");
+    is($iswcs[0]->work_id, $work->{id}, 'Is linked to work');
 };
 
 1;
