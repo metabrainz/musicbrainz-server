@@ -18,92 +18,79 @@ Readonly my $LANG_CACHE_TIMEOUT => 60 * 60 * 24 * 7; # 1 week
 # we still want to keep them around a while
 Readonly my $EXTRACT_CACHE_TIMEOUT => 60 * 60 * 24 * 3; # 3 days
 
-our %redirected_languages;
-
 sub get_extract
 {
     my ($self, $links, $wanted_language, %opts) = @_;
     my $cache_only = $opts{cache_only} // 0;
 
+    my $try_link = sub {
+        my ($lang_to_use) = @_;
+        return undef unless defined $lang_to_use;
+        my $extract = $self->get_extract_by_language(
+            $lang_to_use->{title},
+            $lang_to_use->{lang},
+            cache_only => $cache_only,
+        );
+        if (defined $extract && !$extract->is_redirect) {
+            return $extract;
+        }
+        return undef;
+    };
+
     my ($first_link) = $links->[0];
-    local %redirected_languages = ();
 
     if ($first_link->isa('MusicBrainz::Server::Entity::URL::Wikipedia') && $wanted_language eq $first_link->language) {
-        if (not $self->_check_for_redirect($first_link->page_name, $wanted_language)) {
-            return $self->get_extract_by_language($first_link->page_name, $wanted_language, cache_only => $cache_only);
-        }
+        my $extract = $try_link->({ title => $first_link->page_name, lang => $wanted_language });
+        return $extract if defined $extract;
     }
 
-    # We didn't by luck get a link in the right language
+    # We didn't by luck get a link in the right language (or it was a redirect)
     my ($languages, $link) = $self->get_available_languages($links, cache_only => $cache_only);
 
     if (defined $languages && scalar @$languages) {
         my %languages_by_code = map { $_->{lang} => $_ } @$languages;
 
         # Use desired language if available
-        my $lang_to_use = $languages_by_code{$wanted_language};
-        if ($lang_to_use && $self->_check_for_redirect($lang_to_use->{title}, $wanted_language)) {
-            $lang_to_use = undef;
+        my $extract = $try_link->($languages_by_code{$wanted_language});
+        return $extract if defined $extract;
+
+        # Fall back to browser accepted language
+        for my $lang (Translation->all_system_languages) {
+            my $extract = $try_link->($languages_by_code{$lang});
+            return $extract if defined $extract;
         }
 
-        # Fall back to browser accepted languages
-        if (!$lang_to_use) {
-            for my $lang (Translation->all_system_languages) {
-                $lang_to_use = $languages_by_code{$lang};
-                if ($lang_to_use) {
-                    last unless $self->_check_for_redirect($lang_to_use->{title}, $lang);
-                    $lang_to_use = undef;
-                }
-            }
-
-            # Fall back to editor known languages
-            if (!$lang_to_use) {
-                my $editor = $opts{editor};
-                if (defined $editor) {
-                    my @editor_languages = grep { $_ } map { $_->{language}->{iso_code_1} } @{ $editor->languages };
-                    for my $lang (@editor_languages) {
-                        $lang_to_use = $languages_by_code{$lang};
-                        if ($lang_to_use) {
-                            last unless $self->_check_for_redirect($lang_to_use->{title}, $lang);
-                            $lang_to_use = undef;
-                        }
-                    }
-                }
-
-                # Fall back to most frequent languages
-                if (!$lang_to_use) {
-                    for my $lang (qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh)) {
-                        $lang_to_use = $languages_by_code{$lang};
-                        if ($lang_to_use) {
-                            last unless $self->_check_for_redirect($lang_to_use->{title}, $lang);
-                            $lang_to_use = undef;
-                        }
-                    }
-
-                    # Fall back to languages that are explicitly linked
-                    if (!$lang_to_use) {
-                        $link = first { $_->isa('MusicBrainz::Server::Entity::URL::Wikipedia') } @$links;
-                        if (defined $link && !$self->_check_for_redirect($link->page_name, $link->language)) {
-                            $lang_to_use = {'title' => $link->page_name, 'lang' => $link->language};
-                        }
-
-                        # Finally fall back to “whatever we have”
-                        if (!$lang_to_use) {
-                            $lang_to_use = $languages->[0];
-                            $lang_to_use = undef if
-                                $self->_check_for_redirect($lang_to_use->{title}, $lang_to_use->{lang});
-                        }
-                    }
-                }
+        # Fall back to editor known languages
+        my $editor = $opts{editor};
+        if (defined $editor) {
+            my @editor_languages = grep { $_ } map { $_->{language}->{iso_code_1} } @{ $editor->languages };
+            for my $lang (@editor_languages) {
+                my $extract = $try_link->($languages_by_code{$lang});
+                return $extract if defined $extract;
             }
         }
 
-        return !$lang_to_use ? undef :
-            $self->get_extract_by_language($lang_to_use->{title}, $lang_to_use->{lang}, cache_only => $cache_only);
-    } else {
-        # We have no language data, probably because we requested cache_only
-        return undef;
+        # Fall back to most frequent languages
+        for my $lang (qw(en ja de fr fi it sv es ru pl nl pt et da ko ca cs cy el he hu id lt lv no ro sk sl tr uk vi zh)) {
+            my $extract = $try_link->($languages_by_code{$lang});
+            return $extract if defined $extract;
+        }
+
+        # Fall back to languages that are explicitly linked
+        $link = first { $_->isa('MusicBrainz::Server::Entity::URL::Wikipedia') } @$links;
+        if (defined $link) {
+            my $extract = $try_link->({'title' => $link->page_name, 'lang' => $link->language});
+            return $extract if defined $extract;
+        }
+
+        # Finally fall back to “whatever we have”
+        my $extract = $try_link->($languages->[0]);
+        return $extract if defined $extract;
     }
+
+    # We have no language data (probably because we requested cache_only),
+    # or all of the fallback options redirected.
+    return undef;
 }
 
 sub get_extract_by_language
@@ -173,38 +160,23 @@ sub _wikipedia_languages_callback
 sub _extract_by_language_callback
 {
     my (%opts) = @_;
-    if ($opts{fetched}{content}) {
-        return WikipediaExtract->new( title => $opts{fetched}{title},
-                                      content => $opts{fetched}{content} =~ s{<p>}{<p><bdi>}gr =~ s{</p>}{</bdi></p>}gr,
-                                      canonical => $opts{fetched}{canonical},
-                                      language => $opts{language},
-                                      url => sprintf 'https://%s.wikipedia.org/wiki/%s',
-                                                     $opts{language},
-                                                     uri_escape_utf8($opts{fetched}{title} =~ tr/ /_/r),
-        );
-    }
-}
-
-sub _check_for_redirect
-{
-    my ($self, $title, $language, %opts) = @_;
-    return 1 if exists $redirected_languages{$language};
-    # We use formatversion=2 so that "redirect" is returned as an actual boolean, not the empty string
-    my $url_pattern = 'https://%s.wikipedia.org/w/api.php?action=query&prop=info&format=json&formatversion=2&titles=%s';
-    my $return = $self->_fetch_cache_or_url($url_pattern, 'redirect',
-                                      $EXTRACT_CACHE_TIMEOUT,
-                                      $title, $language,
-                                      \&_check_for_redirect_callback,
-                                      %opts);
-    $redirected_languages{$language} = 1 if $return;
-    return $return;
-}
-
-sub _check_for_redirect_callback
-{
-    my (%opts) = @_;
-    if ($opts{fetched}{content}) {
-        return $opts{fetched}{content};
+    my $fetched = $opts{fetched};
+    my $content = $fetched->{content};
+    if ($content) {
+        my $is_redirect = $fetched->{is_redirect} // 0;
+        my %props = ( is_redirect => $is_redirect );
+        unless ($is_redirect) {
+            # No need to store this information in the cache, as redirects
+            # aren't displayed.
+            $props{title} = $fetched->{title};
+            $props{content} = $content =~ s{<p>}{<p><bdi>}gr =~ s{</p>}{</bdi></p>}gr;
+            $props{canonical} = $fetched->{canonical};
+            $props{language} = $opts{language};
+            $props{url} = sprintf 'https://%s.wikipedia.org/wiki/%s',
+                                  $opts{language},
+                                  uri_escape_utf8($fetched->{title} =~ tr/ /_/r);
+        }
+        return WikipediaExtract->new(%props);
     }
 }
 
