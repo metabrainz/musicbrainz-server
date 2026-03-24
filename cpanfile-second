@@ -109,7 +109,7 @@ feature production => sub {
     requires 'WWW::Sitemap::XML'                => '2.02';
 };
 
-author_requires 'Catalyst::Devel'               => '1.39';
+author_requires 'Catalyst::Devel'               => '1.42';
 author_requires 'Locale::PO'                    => '0.27';
 author_requires 'Test::EOL';
 author_requires 'Test::NoTabs';
