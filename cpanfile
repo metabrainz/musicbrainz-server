@@ -30,7 +30,7 @@ requires 'DateTime::Locale'                           => '== 1.45';
 requires 'DateTime::TimeZone'                         => '2.67';
 requires 'DBD::Pg'                                    => '3.20.0';
 requires 'DBI'                                        => '1.647';
-requires 'DBIx::Connector'                            => '0.56';
+requires 'DBIx::Connector'                            => '0.60';
 requires 'Digest::HMAC_SHA1'                          => '1.03';
 requires 'Digest::MD5'                                => '2.52';
 requires 'Digest::MD5::File'                          => '0.08';
