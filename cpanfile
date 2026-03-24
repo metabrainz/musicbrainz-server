@@ -105,7 +105,7 @@ feature production => sub {
     requires 'Parallel::ForkManager'            => '2.0.4';
     requires 'Sentry::Raven'                    => '1.14';
     requires 'Server::Starter'                  => '0.35';
-    requires 'Starlet'                          => '0.25';
+    requires 'Starlet'                          => '0.31';
     requires 'WWW::Sitemap::XML'                => '2.02';
 };
 
