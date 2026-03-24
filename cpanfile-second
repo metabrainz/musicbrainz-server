@@ -95,7 +95,7 @@ requires 'Unicode::ICU::Collator'                     => '0.005';
 requires 'URI'                                        => '5.34';
 requires 'XML::LibXML'                                => '2.0210';
 requires 'XML::Parser::Lite'                          => '0.722';
-requires 'XML::RSS::Parser::Lite'                     => '0.10';
+requires 'XML::RSS::Parser::Lite'                     => '0.12';
 requires 'XML::Simple'                                => '2.20';
 requires 'XML::XPath'                                 => '1.13';
 
