@@ -128,7 +128,7 @@ test_requires 'TAP::Harness::JUnit';
 test_requires 'TAP::Parser::SourceHandler::pgTAP';
 test_requires 'Test::Aggregate';
 test_requires 'Test::Differences';
-test_requires 'Test::Fatal' => '0.006';
+test_requires 'Test::Fatal' => '0.018';
 test_requires 'Test::JSON';
 test_requires 'Test::LongString';
 # Depends on UNIVERSAL::ref, which fails to build against recent versions of Perl.
