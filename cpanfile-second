@@ -1,7 +1,7 @@
 requires 'perl' => '5.42.0';
 
 # Mandatory modules
-requires 'Algorithm::Diff'                            => '1.1902';
+requires 'Algorithm::Diff'                            => '1.201';
 requires 'Authen::Passphrase'                         => '0.008';
 requires 'Catalyst::Action::RenderView'               => '0.16';
 requires 'Catalyst::Authentication::Credential::HTTP' => '1.019';
