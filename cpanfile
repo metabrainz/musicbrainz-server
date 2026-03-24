@@ -25,7 +25,7 @@ requires 'Date::Calc'                                 => '6.4';
 requires 'DateTime::Format::Duration'                 => '1.04';
 requires 'DateTime::Format::ISO8601'                  => '0.17';
 requires 'DateTime::Format::Natural'                  => '1.24';
-requires 'DateTime::Format::Pg'                       => '0.16013';
+requires 'DateTime::Format::Pg'                       => '0.16014';
 requires 'DateTime::Locale'                           => '== 1.45';
 requires 'DateTime::TimeZone'                         => '2.38';
 requires 'DBD::Pg'                                    => '3.10.0';
