@@ -23,7 +23,7 @@ requires 'Data::Page'                                 => '2.03';
 requires 'Data::UUID::MT'                             => '1.001';
 requires 'Date::Calc'                                 => '6.4';
 requires 'DateTime::Format::Duration'                 => '1.04';
-requires 'DateTime::Format::ISO8601'                  => '0.08';
+requires 'DateTime::Format::ISO8601'                  => '0.17';
 requires 'DateTime::Format::Natural'                  => '1.08';
 requires 'DateTime::Format::Pg'                       => '0.16013';
 requires 'DateTime::Locale'                           => '== 1.45';
