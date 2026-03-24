@@ -101,7 +101,7 @@ requires 'XML::XPath'                                 => '1.48';
 
 # Production server features
 feature production => sub {
-    requires 'DateTime::Format::W3CDTF'         => '0.07';
+    requires 'DateTime::Format::W3CDTF'         => '0.08';
     requires 'Parallel::ForkManager'            => '0.7.6';
     requires 'Sentry::Raven'                    => '1.09';
     requires 'Server::Starter'                  => '0.31';
