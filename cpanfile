@@ -40,7 +40,7 @@ requires 'Email::MIME'                                => '1.954';
 requires 'Email::Sender'                              => '2.601';
 requires 'Email::Valid'                               => '1.204';
 requires 'Encode::Detect'                             => '1.01';
-requires 'Exception::Class'                           => '1.37';
+requires 'Exception::Class'                           => '1.45';
 requires 'File::Slurp';
 requires 'File::Spec'                                 => '3.75';
 requires 'GnuPG'                                      => '0.19';
