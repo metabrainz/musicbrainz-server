@@ -104,7 +104,7 @@ feature production => sub {
     requires 'DateTime::Format::W3CDTF'         => '0.08';
     requires 'Parallel::ForkManager'            => '2.0.4';
     requires 'Sentry::Raven'                    => '1.14';
-    requires 'Server::Starter'                  => '0.31';
+    requires 'Server::Starter'                  => '0.35';
     requires 'Starlet'                          => '0.25';
     requires 'WWW::Sitemap::XML'                => '2.02';
 };
