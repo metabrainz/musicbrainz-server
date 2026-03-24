@@ -136,7 +136,7 @@ test_requires 'Test::LongString';
 test_requires 'Test::Memory::Cycle';
 test_requires 'Test::Mock::Class';
 test_requires 'Test::Routine';
-test_requires 'Test::WWW::Mechanize::Catalyst' => '0.59';
+test_requires 'Test::WWW::Mechanize::Catalyst' => '0.62';
 test_requires 'Test::XPath';
 test_requires 'XML::Parser';
 test_requires 'XML::SemanticDiff' => '1.0000';
