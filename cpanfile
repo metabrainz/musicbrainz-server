@@ -44,7 +44,7 @@ requires 'Exception::Class'                           => '1.45';
 requires 'File::Slurp';
 requires 'File::Spec'                                 => '3.75';
 requires 'GnuPG'                                      => '0.19';
-requires 'Hash::Merge'                                => '0.200';
+requires 'Hash::Merge'                                => '0.302';
 requires 'HTML::FormHandler'                          => '0.40063';
 requires 'HTML::Tiny'                                 => '1.05';
 requires 'HTML::TreeBuilder::XPath'                   => '0.14';
