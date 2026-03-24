@@ -132,6 +132,12 @@ ARG PERL_VERSION=5.38.5
 ARG PERL_SRC_SUM=b7667d3ff309068852af7853910aaccec26c839d717402121b664ac705e07bfe')
 
 m4_define(
+    `set_second_perl_install_args',
+    `m4_dnl
+ARG PERL_VERSION=5.42.0
+ARG PERL_SRC_SUM=e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc')
+
+m4_define(
     `install_perl',
     `m4_dnl
 # Install Perl from source
@@ -190,6 +196,28 @@ m4_define(
     `m4_dnl
 
 set_perl_install_args
+
+set_cpanm_and_carton_env
+
+set_cpanm_install_args
+
+run_with_apt_cache \
+    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
+    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`mbs_build_deps mbs_run_deps') && \
+    rm -f /etc/apt/sources.list.d/pgdg.list && \
+    install_perl && \
+    install_cpanm_and_carton && \
+    # Clean build dependencies up
+    apt_purge(`mbs_build_deps')
+
+install_ts')
+
+m4_define(
+    `install_second_perl_and_mbs_run_deps',
+    `m4_dnl
+
+set_second_perl_install_args
 
 set_cpanm_and_carton_env
 

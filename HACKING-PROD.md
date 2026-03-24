@@ -16,6 +16,13 @@ you have a Docker service running, run:
 
     $ ./docker/generate_cpanfile_snapshot.sh 
 
+Similarly, if you modified `cpanfile-second`, run:
+
+    $ ./docker/generate_cpanfile_snapshot.sh \
+        cpanfile-second \
+        docker/Dockerfile.second-cpanfile-snapshot \
+        cpanfile.snapshot-second
+
 Generating the snapshot will take quite a while. Once it is done, commit it
 and push it.
 
