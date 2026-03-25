@@ -5,7 +5,7 @@ package MusicBrainz::Script::RemoveExpiredSessions;
 This is a cleanup script related to MBS-8692. It removes all Catalyst
 "expires" session keys for which the expire time (stored as the value) is in
 the past. For the other session sub-keys used by Catalyst, namely "session"
-and "flash", cleanup is not necessary because they already had their Redis
+and "flash", cleanup is not necessary because they already had their Valkey
 expire time set correctly.
 
 The base issue for "expires" keys is now also fixed, so it should not be
@@ -55,7 +55,7 @@ sub run {
 
     printf qq(Fetching entries from database; prefix used is "%s".\n), $store->namespace if $self->verbose;
     my @keys = $r->_connection->keys($store->namespace . 'expires:*');
-        # KEYS is very heavy, but our current Redis doesn't have SCAN
+        # FIXME: KEYS is very heavy, use SCAN instead
     my $considered = scalar @keys;
     if ($considered == 0) {
         print "WARNING: No sessions found.\n";
