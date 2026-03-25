@@ -56,17 +56,21 @@ Prerequisites
 
         sudo apt-get install git
 
-5.  Redis
+5.  Valkey
 
-    Sessions and cached entities are stored in Redis, so a running Redis server
-    is required. Redis can be installed with the following command and will not
+    Sessions and cached entities are stored in Valkey, so a running Valkey server
+    is required. Valkey can be installed with the following command and will not
     need any further configuration:
 
-        sudo apt-get install redis-server
+        sudo apt-get install valkey
+
+    We don't require a specific Valkey version, since the commands we use are
+    very basic. Redis should also be fully compatible, though it's no longer
+    tested.
 
     The databases and key prefix used by musicbrainz can be configured
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
-    your redis install for anything else.
+    your Valkey install for anything else.
 
 6.  Node.js (at least version 20.9.0) and Yarn
 

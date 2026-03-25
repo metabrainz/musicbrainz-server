@@ -11,7 +11,7 @@ use MusicBrainz::DataStore::Redis;
 # `DataStore::RedisMulti->new`. We may revert back to plain-old
 # `DataStore::Redis` if multiple instances aren't needed.)
 #
-# This module is useful when Redis service needs to be migrated to a
+# This module is useful when Valkey service needs to be migrated to a
 # new server. We'll attempt to read from each connection in order
 # (returning the first non-empty result), and also distribute writes to
 # all connections. This allows time to copy any keys that don't exist

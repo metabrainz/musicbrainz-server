@@ -352,8 +352,8 @@ sub begin : Private
             $new_edit_notes_mtime = $notes_updated;
         }
     } catch {
-        $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
-        warn "Redis connection to get alert failed: $_";
+        $alert = l('Our Valkey server appears to be down; some features may not work as intended or expected.');
+        warn "Valkey connection to get alert failed: $_";
     };
     if ($c->user_exists && $c->user->is_banner_editor) {
         # For banner editors, show a dismissed banner again after 20 hours (MBS-8940)

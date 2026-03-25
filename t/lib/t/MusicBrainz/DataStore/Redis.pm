@@ -16,7 +16,7 @@ with 't::Context';
 
 =head1 DESCRIPTION
 
-This test checks basic tasks for the Redis store, including adding, deleting
+This test checks basic tasks for the Valkey store, including adding, deleting
 and expiring keys.
 
 =cut
@@ -26,7 +26,7 @@ my $args = DBDefs->DATASTORE_REDIS_ARGS;
 $args->{database} = DBDefs->REDIS_TEST_DATABASE;
 my $redis = MusicBrainz::DataStore::Redis->new(%$args);
 
-test 'Database is still selected in new Redis copy' => sub {
+test 'Database is still selected in new Valkey copy' => sub {
     my $some_value = rand();
     $redis->set('26fe2bfb-73dd-4660-8946-bd14c899163b', $some_value);
 

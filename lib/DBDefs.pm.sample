@@ -243,7 +243,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 #     };
 # }
 
-# The caching options here relate to object caching in Redis - such as for
+# The caching options here relate to object caching in Valkey - such as for
 # artists, releases, etc. in order to speed up queries. See below if you want
 # to disable caching.
 # sub CACHE_MANAGER_OPTIONS {
@@ -279,7 +279,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 #     return \%CACHE_MANAGER_OPTIONS;
 # }
 
-# Sets the TTL for entities stored in Redis, in seconds. A value of 0
+# Sets the TTL for entities stored in Valkey, in seconds. A value of 0
 # indicates that no expiration is set.
 # sub ENTITY_CACHE_TTL { 0 }
 
@@ -288,7 +288,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 ################################################################################
 
 # The session store holds user login sessions. Session::Store::MusicBrainz
-# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
+# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Valkey.
 
 # sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 # sub SESSION_STORE_ARGS { return {} }
