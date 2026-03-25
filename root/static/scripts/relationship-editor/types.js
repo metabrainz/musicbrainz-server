@@ -262,6 +262,9 @@ export type BatchCreateWorksDialogStateT = {
 };
 
 export type EditWorkDialogStateT = {
+  +attributes: MultiselectWorkAttributeStateT,
+  +comment: string,
+  +iswcs: MultiInputISWCStateT,
   +languages: MultiselectLanguageStateT,
   +name: string,
   +workType: number | null,
@@ -277,6 +280,35 @@ export type MultiselectLanguageStateT = {
   +max: number | null,
   +staticItems: $ReadOnlyArray<AutocompleteOptionItemT<LanguageT>>,
   +values: $ReadOnlyArray<MultiselectLanguageValueStateT>,
+};
+
+export type MultiselectWorkAttributeValueStateT = {
+  +autocomplete: AutocompleteStateT<WorkAttributeTypeT>,
+  +autocompleteValue:
+    AutocompleteStateT<WorkAttributeTypeAllowedValueT> | null,
+  +key: number,
+  +removed: boolean,
+  +textValue: string | null,
+};
+
+export type MultiselectWorkAttributeStateT = {
+  +max: number | null,
+  +staticTypeItems:
+    $ReadOnlyArray<AutocompleteOptionItemT<WorkAttributeTypeT>>,
+  +staticValueItems:
+    $ReadOnlyArray<AutocompleteOptionItemT<WorkAttributeTypeAllowedValueT>>,
+  +values: $ReadOnlyArray<MultiselectWorkAttributeValueStateT>,
+};
+
+export type MultiInputISWCStateT = {
+  +max: number | null,
+  +values: $ReadOnlyArray<MultiInputISWCValueStateT>,
+};
+
+export type MultiInputISWCValueStateT = {
+  +key: number,
+  +removed: boolean,
+  +value: string,
 };
 
 /*

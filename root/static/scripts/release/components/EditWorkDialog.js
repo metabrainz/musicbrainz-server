@@ -10,6 +10,7 @@
 import * as React from 'react';
 
 import isBlank from '../../common/utility/isBlank.js';
+import type {MultiInputActionT} from '../../edit/components/MultiInput.js';
 import {
   type MultiselectActionT,
   accumulateMultiselectValues,
@@ -23,8 +24,18 @@ import type {
 } from '../../relationship-editor/types.js';
 import type {
   ReleaseRelationshipEditorActionT,
+  WorkAttributeMultiselectActionT,
 } from '../../relationship-editor/types/actions.js';
 
+import WorkAttributeMultiselect, {
+  createInitialState as createWorkAttributesState,
+  runReducer as runWorkAttributeMultiselectReducer,
+} from './WorkAttributeMultiselect.js';
+import WorkISWCMultiInput, {
+  accumulateValues as accumulateISWCValues,
+  createInitialState as createWorkISWCsState,
+  runReducer as runWorkISWCMultiInputReducer,
+} from './WorkISWCMultiInput.js';
 import WorkLanguageMultiselect, {
   createInitialState as createWorkLanguagesState,
   runReducer as runWorkLanguageMultiselectReducer,
@@ -42,12 +53,29 @@ type ActionT =
       action: MultiselectActionT<LanguageT>,
       type: 'update-languages',
     }
+  | {
+      comment: string,
+      type: 'update-comment',
+    }
+  | {
+      action: WorkAttributeMultiselectActionT,
+      type: 'update-work-attributes',
+    }
+  | {
+      action: MultiInputActionT,
+      type: 'update-iswcs',
+    }
   | WorkTypeSelectActionT;
 
 export function createInitialState(
   work: WorkT,
 ): EditWorkDialogStateT {
   return {
+    attributes: createWorkAttributesState(
+      work.attributes,
+    ),
+    comment: work.comment,
+    iswcs: createWorkISWCsState(work.iswcs),
     languages: createWorkLanguagesState(
       work.languages.map(workLanguage => workLanguage.language),
     ),
@@ -79,6 +107,26 @@ function reducer(
     {type: 'update-work-type', const workType} => {
       newState.workType = workType;
     }
+    {type: 'update-comment', const comment} => {
+      newState.comment = comment;
+    }
+    {type: 'update-work-attributes', const action} => {
+      const newAttributes = {...newState.attributes};
+
+      runWorkAttributeMultiselectReducer(
+        newAttributes,
+        action,
+      );
+
+      newState.attributes = newAttributes;
+    },
+    {type: 'update-iswcs', const action} => {
+      const newISWCs = {...newState.iswcs};
+
+      runWorkISWCMultiInputReducer(newISWCs, action);
+
+      newState.iswcs = newISWCs;
+    }
   }
 
   return newState;
@@ -97,9 +145,12 @@ component _EditWorkDialog(
   );
 
   const {
+    iswcs,
     languages,
     name,
     workType,
+    comment,
+    attributes,
   } = state;
 
   const isNameBlank = isBlank(name);
@@ -110,10 +161,28 @@ component _EditWorkDialog(
     dispatch({name: event.currentTarget.value, type: 'update-name'});
   }
 
+  function handleCommentChange(
+    event: SyntheticEvent<HTMLInputElement>,
+  ) {
+    dispatch({comment: event.currentTarget.value, type: 'update-comment'});
+  }
+
   const languagesDispatch = React.useCallback((
     action: MultiselectActionT<LanguageT>,
   ) => {
     dispatch({action, type: 'update-languages'});
+  }, [dispatch]);
+
+  const workAttributesDispatch = React.useCallback((
+    action: WorkAttributeMultiselectActionT,
+  ) => {
+    dispatch({action, type: 'update-work-attributes'});
+  }, [dispatch]);
+
+  const iswcsDispatch = React.useCallback((
+    action: MultiInputActionT,
+  ) => {
+    dispatch({action, type: 'update-iswcs'});
   }, [dispatch]);
 
   const acceptDialog = React.useCallback(() => {
@@ -122,6 +191,31 @@ component _EditWorkDialog(
     }
 
     rootDispatch({
+      attributes: attributes.values.reduce((accum, valueState) => {
+        const attributeType = valueState.autocomplete.selectedItem?.entity;
+        if (attributeType && !valueState.removed) {
+          if (valueState.textValue !== null) {
+            accum.push({
+              id: null,
+              typeID: attributeType.id,
+              typeName: attributeType.name,
+              value: valueState.textValue,
+              value_id: null,
+            });
+          } else if (valueState.autocompleteValue?.selectedItem) {
+            accum.push({
+              id: null,
+              typeID: attributeType.id,
+              typeName: attributeType.name,
+              value: valueState.autocompleteValue.selectedItem.entity.value,
+              value_id: valueState.autocompleteValue.selectedItem.entity.id,
+            });
+          }
+        }
+        return accum;
+      }, [] as Array<WorkAttributeT>),
+      comment,
+      iswcs: accumulateISWCValues(iswcs.values, work.id),
       languages: accumulateMultiselectValues(languages.values),
       name,
       type: 'accept-edit-work-dialog',
@@ -131,13 +225,16 @@ component _EditWorkDialog(
 
     closeDialog();
   }, [
+    attributes.values,
+    closeDialog,
+    comment,
     isNameBlank,
-    rootDispatch,
+    iswcs,
     languages,
     name,
-    workType,
+    rootDispatch,
     work,
-    closeDialog,
+    workType,
   ]);
 
   const handleKeyDown = useDialogEnterKeyHandler(acceptDialog);
@@ -163,6 +260,16 @@ component _EditWorkDialog(
               ) : null}
             </td>
           </tr>
+          <tr>
+            <td className="section">{addColonText(l('Disambiguation'))}</td>
+            <td>
+              <input
+                onChange={handleCommentChange}
+                type="text"
+                value={comment}
+              />
+            </td>
+          </tr>
           <WorkTypeSelect
             dispatch={dispatch}
             workType={workType}
@@ -170,6 +277,14 @@ component _EditWorkDialog(
           <WorkLanguageMultiselect
             dispatch={languagesDispatch}
             state={languages}
+          />
+          <WorkISWCMultiInput
+            dispatch={iswcsDispatch}
+            state={iswcs}
+          />
+          <WorkAttributeMultiselect
+            dispatch={workAttributesDispatch}
+            state={attributes}
           />
         </tbody>
       </table>

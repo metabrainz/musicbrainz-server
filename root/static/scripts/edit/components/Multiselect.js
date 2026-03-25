@@ -73,7 +73,7 @@ export function accumulateMultiselectValues<
   return values.reduce(
     (accum: Array<V>, valueState) => {
       const item = valueState.autocomplete.selectedItem?.entity;
-      if (item) {
+      if (item && !valueState.removed) {
         accum.push(item);
       }
       return accum;
