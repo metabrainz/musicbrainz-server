@@ -30,7 +30,7 @@ test 'Get ja page from en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ja', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{は、中田ヤスタカがプロデュースする広島県出身の3人組テクノポップユニット。}, 'contains japanese text');
+    like($extract->content, qr{は、日本の音楽ユニット。中田ヤスタカが楽曲プロデュースする広島県出身の3人組テクノポップユニットである。}, 'contains japanese text');
 
     # check that content is wrapped in <bdi> tags
     like($extract->content, qr{<p><bdi>.*</bdi></p>}s, 'content is wrapped in <bdi> tags');
@@ -55,7 +55,7 @@ test 'Get en page from en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{Japanese pop girl group}, 'contains english text');
+    like($extract->content, qr{is a Japanese girl group}, 'contains english text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -77,7 +77,7 @@ test 'Get ast page from en, fallback to en' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'ast', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{Japanese pop girl group}, 'contains english text');
+    like($extract->content, qr{is a Japanese girl group}, 'contains english text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -100,7 +100,7 @@ test 'Get en page from wikidata' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{Japanese pop girl group}, 'contains english text');
+    like($extract->content, qr{is a Japanese girl group}, 'contains english text');
 
     LWP::UserAgent::Mockable->finished;
 };
@@ -218,16 +218,16 @@ test 'Request tr page via wikidata, fallback to it (according to editor known la
     LWP::UserAgent::Mockable->finished;
 };
 
-test 'Request en page via wikidata, fallback to de (en is redirect)' => sub {
+test 'Request en page via wikidata, fallback to nl (en is redirect)' => sub {
     my $test = shift;
     my $c = $test->c;
 
     LWP::UserAgent::Mockable->reset(
-        playback => $Bin.'/lwp-sessions/data_wikipedia.en-de-fallback-redirect.lwp-mock',
+        playback => $Bin.'/lwp-sessions/data_wikipedia.en-nl-fallback-redirect.lwp-mock',
     );
 
-    # American actress Clarissa Burt
-    my $entity = Wikidata->new(url => 'https://www.wikidata.org/wiki/Q514294');
+    # American bank robber Bonnie Parker
+    my $entity = Wikidata->new(url => 'https://www.wikidata.org/wiki/Q2319886');
     # No cache
     my $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 1);
     ok(!defined $extract);
@@ -236,7 +236,7 @@ test 'Request en page via wikidata, fallback to de (en is redirect)' => sub {
     $extract = $c->model('WikipediaExtract')->get_extract([$entity], 'en', cache_only => 0);
     ok(defined $extract);
 
-    like($extract->content, qr{ist eine US-amerikanisch-italienische Schauspielerin}, 'contains German text');
+    like($extract->content, qr{vormde samen met Clyde Barrow het beruchte Amerikaans duo Bonnie en Clyde}, 'contains Dutch text');
 
     LWP::UserAgent::Mockable->finished;
 };
