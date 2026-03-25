@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM phusion/baseimage:jammy-1.0.1 AS build
+FROM phusion/baseimage:noble-1.0.2 AS build
 
 SHELL ["/bin/bash", "-c"]
 
@@ -37,7 +37,7 @@ run_with_apt_cache \
         postgresql-16-pgtap
         redis-server
         runit
-        runit-systemd
+        runit-run
         sudo
         unzip
         ') && \
@@ -84,9 +84,9 @@ COPY --chown=postgres:postgres \
 
 FROM build AS pg_amqp
 
-ARG PG_AMQP_COMMIT=240d477
+ARG PG_AMQP_COMMIT=51497ac687f16989adff7729a303f9258706f663
 
-RUN git clone --depth 1 https://github.com/omniti-labs/pg_amqp.git && \
+RUN git clone https://github.com/mwiencek/pg_amqp.git && \
     cd pg_amqp && \
     git reset --hard $PG_AMQP_COMMIT && \
     mkdir target && \
