@@ -7255,7 +7255,14 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?weibo\.com\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/(u\/)?([^/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?weibo\.com\/((?:u|n)\/)?([^/?#]+)(?:.*)$/, 'https://www.weibo.com/$1$2');
+      return url;
+    },
+    validate(url) {
+      return {
+        result: /^https:\/\/www\.weibo\.com\/(?:(?:u\/\d+)|(?:n\/[^/?#]+)|(?:[^/?#]+))$/.test(url),
+        target: ERROR_TARGETS.URL,
+      };
     },
   },
   'whosampled': {
