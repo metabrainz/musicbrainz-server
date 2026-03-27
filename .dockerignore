@@ -1,9 +1,14 @@
 .cpanm/
 .dockerignore
 .DS_Store
+.git/
+.github/
+.nyc_output/
 blib/
 cover_db/
+cover_html/
 Dockerfile
+junit_output/
 lib/DBDefs.pm
 lib/DBDefs.pm.bak
 node_modules/
