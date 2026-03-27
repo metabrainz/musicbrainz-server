@@ -14,6 +14,7 @@
  * which values the user removed (to handle cases like MBS-13969).
  */
 
+import type {CowContext} from 'mutate-cow';
 import mutate from 'mutate-cow';
 import React from 'react';
 
@@ -27,7 +28,7 @@ import RemoveButton from './RemoveButton.js';
 
 type StateT = RepeatableFieldT<FieldT<string>>;
 
-type ActionT =
+export type ActionT =
   | {+type: 'add-row'}
   | {+fieldId: number, +type: 'remove-row'}
   | {+fieldId: number, +type: 'update-row', +value: string};
@@ -67,7 +68,9 @@ component TextListRow(
   );
 }
 
-const createInitialState = (repeatable: RepeatableFieldT<FieldT<string>>) => {
+export const createInitialState = (
+  repeatable: RepeatableFieldT<FieldT<string>>,
+): RepeatableFieldT<FieldT<string>> => {
   let newField = {...repeatable};
   if (newField.last_index === -1) {
     newField = mutate(newField).update((fieldCtx) => {
@@ -77,8 +80,10 @@ const createInitialState = (repeatable: RepeatableFieldT<FieldT<string>>) => {
   return newField;
 };
 
-function reducer(state: StateT, action: ActionT): StateT {
-  const newStateCtx = mutate(state);
+export function runReducer(
+  newStateCtx: CowContext<StateT>,
+  action: ActionT,
+): void {
   const fieldCtx = newStateCtx.get('field');
 
   match (action) {
@@ -108,27 +113,38 @@ function reducer(state: StateT, action: ActionT): StateT {
       newStateCtx.set('field', index, 'value', value);
     }
   }
+}
+
+function reducer(state: StateT, action: ActionT): StateT {
+  const newStateCtx = mutate(state);
+
+  runReducer(newStateCtx, action);
+
   return newStateCtx.final();
 }
 
 component FormRowTextListSimple(
   addButtonLabel: string,
   addButtonId: string,
+  dispatch: ?(ActionT) => void,
   label: string,
   removeButtonLabel: string,
   repeatable: RepeatableFieldT<FieldT<string>>,
   required: boolean = false,
 ) {
-  const [state, dispatch] =
+  const [internalState, internalDispatch] =
     React.useReducer<StateT, ActionT, RepeatableFieldT<FieldT<string>>>(
       reducer,
       repeatable,
       createInitialState,
     );
 
+  const dispatchFn: (ActionT) => void = dispatch ?? internalDispatch;
+  const state = dispatch ? repeatable : internalState;
+
   const addRow = React.useCallback(() => {
-    dispatch({type: 'add-row'});
-  }, [dispatch]);
+    dispatchFn({type: 'add-row'});
+  }, [dispatchFn]);
 
   return (
     <>
@@ -137,7 +153,7 @@ component FormRowTextListSimple(
       <div className="form-row-text-list">
         {state.field.map((field) => (
           <TextListRow
-            dispatch={dispatch}
+            dispatch={dispatchFn}
             fieldId={field.id}
             key={field.id}
             name={field.html_name}
