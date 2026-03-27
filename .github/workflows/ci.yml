@@ -18,6 +18,17 @@ env:
   SECOND_PERL_VERSION: 5.42.0
 
 jobs:
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Yarn
+        run: corepack enable && corepack prepare yarn@stable --activate
+
+      - name: Audit dependencies for known vulnerabilities
+        run: yarn npm audit --severity high --environment production
+
   build-tests-image:
     runs-on: ubuntu-latest
     steps:
