@@ -2,6 +2,7 @@ package MusicBrainz::Server::Edit::Generic::Delete;
 use Moose;
 
 use MusicBrainz::Server::Data::Artist;
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Constants qw( :edit_status );
@@ -20,7 +21,7 @@ with 'MusicBrainz::Server::Edit::Role::NeverAutoEdit';
 
 sub _delete_model { die 'Unimplemented' }
 
-sub edit_kind { 'remove' }
+sub edit_kind { $EDIT_KIND_LABELS{'remove'} }
 
 sub alter_edit_pending
 {

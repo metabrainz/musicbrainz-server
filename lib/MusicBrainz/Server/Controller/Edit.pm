@@ -285,12 +285,18 @@ sub search : Path('/search/edits')
 {
     my ($self, $c) = @_;
     my $coll = $c->get_collator();
-    my %grouped = MusicBrainz::Server::EditRegistry->grouped_by_name;
+    my %grouped_by_kind = MusicBrainz::Server::EditRegistry->grouped_by_kind;
+    my %grouped_by_name = MusicBrainz::Server::EditRegistry->grouped_by_name;
     $c->stash(
+        edit_kinds => [
+            map [
+                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped_by_kind{$_} }) => $_,
+            ], sort_by { $coll->getSortKey($_) } keys %grouped_by_kind,
+        ],
         edit_types => [
             map [
-                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped{$_} }) => $_,
-            ], sort_by { $coll->getSortKey($_) } keys %grouped,
+                join(q(,), sort { $a <=> $b } map { $_->edit_type } @{ $grouped_by_name{$_} }) => $_,
+            ], sort_by { $coll->getSortKey($_) } keys %grouped_by_name,
         ],
         status => status_names(),
         quality => [ [$QUALITY_LOW => N_l('Low')], [$QUALITY_NORMAL => N_l('Normal')], [$QUALITY_HIGH => N_l('High')], [$QUALITY_UNKNOWN => N_l('Default')] ],

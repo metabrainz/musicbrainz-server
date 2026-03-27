@@ -8,6 +8,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELEASE_ARTIST
     $EDIT_RELEASE_CREATE
 );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Edit::Exceptions;
 use MusicBrainz::Server::Edit::Types qw( ArtistCreditDefinition );
 use MusicBrainz::Server::Edit::Utils qw(
@@ -29,7 +30,7 @@ with 'MusicBrainz::Server::Edit::Role::Preview',
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 sub edit_name { N_lp('Edit release', 'edit type') }
-sub edit_kind { 'edit' }
+sub edit_kind { $EDIT_KIND_LABELS{'edit'} }
 sub edit_type { $EDIT_RELEASE_ARTIST }
 sub release_id { shift->data->{entity}{id} }
 sub edit_template { 'EditRelease' }

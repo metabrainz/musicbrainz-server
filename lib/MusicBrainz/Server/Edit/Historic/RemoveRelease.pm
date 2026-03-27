@@ -7,13 +7,14 @@ use aliased 'MusicBrainz::Server::Entity::ArtistCreditName';
 use aliased 'MusicBrainz::Server::Entity::Release';
 
 use MusicBrainz::Server::Constants qw( $EDIT_HISTORIC_REMOVE_RELEASE );
+use MusicBrainz::Server::Edit::Constants qw( %EDIT_KIND_LABELS );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 use MusicBrainz::Server::Translation qw( N_lp );
 
 use MusicBrainz::Server::Edit::Historic::Base;
 
 sub edit_name     { N_lp('Remove release', 'edit type') }
-sub edit_kind     { 'remove' }
+sub edit_kind     { $EDIT_KIND_LABELS{'remove'} }
 sub historic_type { 12 }
 sub edit_type     { $EDIT_HISTORIC_REMOVE_RELEASE }
 sub edit_template { 'historic/RemoveRelease' }
