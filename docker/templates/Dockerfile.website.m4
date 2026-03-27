@@ -24,3 +24,6 @@ COPY --chmod=0755 \
     docker/scripts/start_template_renderer.sh \
     docker/musicbrainz-website/dbdefs_to_js.sh \
     /usr/local/bin/
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=120s --retries=3 \
+    CMD curl -sf http://localhost:5000/ws/2/artist/65f4f0c5-ef9e-490c-aee3-909e7ae6b2ab?fmt=json || exit 1
