@@ -4132,15 +4132,20 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   'livenation': {
-    hostname: 'livenation.*',
-    match: [/^(https?:\/\/)?(?:(?:concerts|www)\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\//i],
+    hostname: ['livenation.*', 'livenationtero.co.th'],
+    match: [/^(https?:\/\/)?(?:(?:concerts|www)\.)?livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\//i, /^(https?:\/\/)?(?:www\.)?livenationtero\.co\.th\//i],
     restrict: [LINK_TYPES.ticketing],
     clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenationtero\.co\.th\//, 'https://www.livenation.co.th/');
       url = url.replace(/^(?:https?:\/\/)?concerts\.livenation\.com\/(?:[\w\d-]+\/)?event\/([0-9A-F]+).*$/, 'https://concerts.livenation.com/event/$1');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.com\/(artist|event|venue)\/([\w-]+).*$/, 'https://www.livenation.com/$1/$2');
       // International sites use somewhat different formats
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/(show|venue)\/([\w-]+).*$/, 'https://www.livenation.$1/$2/$3');
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.((?:[a-z]{2,3}?\.)?[a-z]{2,4})\/artist-[\w\d-]+-([0-9]+).*$/, 'https://www.livenation.$1/artist-$2');
+
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.co\.th\/event\/[\w\d-]*-(edp\d+).*$/, 'https://www.livenation.co.th/event/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.co\.th\/[\w\d-]*-(adp\d+).*$/, 'https://www.livenation.co.th/artist/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?livenation\.co\.th\/[\w\d-]*-(vdp\d+).*$/, 'https://www.livenation.co.th/venue/$1');
       return url;
     },
     validate(url, id) {
@@ -4148,9 +4153,33 @@ export const CLEANUPS: CleanupEntries = {
       if (!m) {
         m = /^https:\/\/(www)\.livenation\.(?:[a-z]{2,3}?\.)?[a-z]{2,4}\/(artist)-[0-9]+$/.exec(url);
       }
+      if (!m) {
+        m = /^https:\/\/(www)\.livenation\.co\.th\/(artist|event|venue)\/(adp|edp|vdp)\d+$/.exec(url);
+      }
       if (m) {
         const subdomain = m[1];
         const prefix = m[2];
+        const idType = m[3];
+        if (idType) {
+          switch (id) {
+            case LINK_TYPES.ticketing.artist:
+              if (idType === 'adp') {
+                return {result: true};
+              }
+              return {result: false, target: ERROR_TARGETS.ENTITY};
+            case LINK_TYPES.ticketing.event:
+              if (idType === 'edp') {
+                return {result: true};
+              }
+              return {result: false, target: ERROR_TARGETS.ENTITY};
+            case LINK_TYPES.ticketing.place:
+              if (idType === 'vdp') {
+                return {result: true};
+              }
+              return {result: false, target: ERROR_TARGETS.ENTITY};
+          }
+          return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
+        }
         switch (id) {
           case LINK_TYPES.ticketing.artist:
             if (prefix === 'artist' && subdomain === 'www') {
