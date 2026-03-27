@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import yargs from 'yargs';
+import {hideBin} from 'yargs/helpers';
 
 import cleanMsgid from '../root/static/scripts/common/i18n/cleanMsgid.mjs';
 
@@ -222,7 +223,7 @@ const parser = new XGettext({
   },
 });
 
-for (currentFile of yargs.argv._) {
+for (currentFile of yargs(hideBin(process.argv)).parseSync()._) {
   currentFile = path.resolve(process.cwd(), currentFile);
   const fp = fs.readFileSync(currentFile);
   try {

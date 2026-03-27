@@ -65,7 +65,7 @@
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.9.0",
     "whatwg-fetch": "3.6.20",
-    "yargs": "3.10.0"
+    "yargs": "17.7.2"
   },
   "devDependencies": {
     "@metabrainz/xgettext-js": "5.0.1",
