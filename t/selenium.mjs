@@ -27,6 +27,7 @@ import webdriverProxy from 'selenium-webdriver/proxy.js';
 import test from 'tape';
 import TestCls from 'tape/lib/test.js';
 import yargs from 'yargs';
+import {hideBin} from 'yargs/helpers';
 
 import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
 import {compareStrings}
@@ -43,7 +44,7 @@ import writeCoverage from '../root/utility/writeCoverage.mjs';
  */
 /* eslint-disable no-await-in-loop */
 
-const argv = yargs
+const argv = yargs(hideBin(process.argv))
   .option('b', {
     alias: 'browser',
     default: 'chrome',
@@ -84,7 +85,7 @@ const argv = yargs
   })
   .usage('Usage: $0 [-hs] [file...]')
   .help('help')
-  .argv;
+  .parseSync();
 
 function compareEditDataValues(actualValue, expectedValue) {
   if (expectedValue === '$$__IGNORE__$$') {

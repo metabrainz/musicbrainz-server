@@ -35,7 +35,7 @@
     "he": "1.2.0",
     "imports-loader": "5.0.0",
     "jed": "https://github.com/metabrainz/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9",
-    "jquery": "1.11.2",
+    "jquery": "3.7.1",
     "knockout": "https://github.com/mwiencek/knockout.git#a09f0778844130a89af438971ad6229ab81e26b3",
     "knockout-arraytransforms": "https://github.com/mwiencek/knockout-arraytransforms.git#9673e91a4755b92ba4eea5ca03067790dbbd997b",
     "leaflet": "1.9.4",
@@ -65,7 +65,7 @@
     "webpack-node-externals": "3.0.0",
     "weight-balanced-tree": "0.9.0",
     "whatwg-fetch": "3.6.20",
-    "yargs": "3.10.0"
+    "yargs": "17.7.2"
   },
   "devDependencies": {
     "@metabrainz/xgettext-js": "5.0.1",

@@ -320,17 +320,31 @@ sub DISABLE_IMAGE_EDITING { 0 }
 # Development server feature.
 # Used to display which git branch is currently running along with information
 # about the last commit
-my $git_info = shell_quote(catfile(__PACKAGE__->MB_SERVER_ROOT, 'script/git_info'));
+my $git_info_path = catfile(__PACKAGE__->MB_SERVER_ROOT, 'script/git_info');
+sub _run_git_info {
+    my ($arg) = @_;
+    my $result = '';
+    if (-x $git_info_path) {
+        ## no critic (InputOutput::RequireBriefOpen)
+        if (open my $fh, '-|', $git_info_path, $arg) {
+            local $/;
+            $result = <$fh> // '';
+            close $fh;
+        }
+    }
+    chomp $result;
+    return $result;
+}
 sub GIT_BRANCH {
-    CORE::state $branch = $ENV{GIT_BRANCH} // scalar(qx( $git_info branch ));
+    CORE::state $branch = $ENV{GIT_BRANCH} // _run_git_info('branch');
     return $branch;
 }
 sub GIT_MSG {
-    CORE::state $msg = $ENV{GIT_MSG} // scalar(qx( $git_info msg ));
+    CORE::state $msg = $ENV{GIT_MSG} // _run_git_info('msg');
     return $msg;
 }
 sub GIT_SHA {
-    CORE::state $sha = $ENV{GIT_SHA} // scalar(qx( $git_info sha ));
+    CORE::state $sha = $ENV{GIT_SHA} // _run_git_info('sha');
     return $sha;
 }
 
