@@ -22,6 +22,9 @@ import FormRowPartialDate, {
   type ActionT as FormRowPartialDateActionT,
   runReducer as runFormRowPartialDateReducer,
 } from './FormRowPartialDate.js';
+import {
+  createInitialState as createPartialDateInputState,
+} from './PartialDateInput.js';
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
@@ -33,6 +36,11 @@ export type ActionT =
 
 export type StateT = DatePeriodFieldT;
 
+type FormWithDateRangeT = FormT<{
+  +period: DatePeriodFieldT,
+  ...
+}>;
+
 export function partialDateFromField(
   compoundField: PartialDateFieldT,
 ): PartialDateT {
@@ -42,6 +50,26 @@ export function partialDateFromField(
     month: parseIntegerOrNull(fields.month.value),
     year: parseIntegerOrNull(fields.year.value),
   };
+}
+
+export function setInitialStateOnForm<T: FormWithDateRangeT>(form: T): T {
+  const formCtx = mutate(form);
+  // $FlowExpectedError[incompatible-type]
+  const periodCtx = formCtx.get('field', 'period');
+  periodCtx.set(createInitialState(periodCtx.read()));
+  return formCtx.final();
+}
+
+
+export function createInitialState(
+  field: StateT,
+): StateT {
+  const fieldCtx = mutate(field);
+  const beginDateField = fieldCtx.get('field', 'begin_date');
+  beginDateField.set(createPartialDateInputState(beginDateField.read()));
+  const endDateField = fieldCtx.get('field', 'end_date');
+  endDateField.set(createPartialDateInputState(endDateField.read()));
+  return fieldCtx.final();
 }
 
 function validateDatePeriod(stateCtx: CowContext<StateT>) {
@@ -76,6 +104,9 @@ function runDateFieldReducer(
   match (action) {
     {type: 'set-date', ...} => {
       validateDatePeriod(state);
+    }
+    {type: 'set-parsed-date', ...} => {
+      // Do nothing
     }
     {type: 'show-pending-errors'} => {
       /*
@@ -174,6 +205,10 @@ component _DateRangeFieldset(
         {l(`Dates are in the format YYYY-MM-DD.
             Partial dates such as YYYY-MM or just YYYY are OK,
             or you can omit the date entirely.`)}
+      </p>
+      <p>
+        {l(`You can also enter a full date string into the parsing field
+            rather than entering year, month and day separately.`)}
       </p>
       <FormRowPartialDate
         disabled={disabled}
