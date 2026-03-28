@@ -22,7 +22,6 @@ sub _build_columns
         id
         iswc
         work
-        source
         edits_pending
     );
 }
@@ -40,7 +39,6 @@ sub _column_mapping
         id            => 'id',
         iswc          => 'iswc',
         work_id       => 'work',
-        source_id     => 'source',
         edits_pending => 'edits_pending',
     };
 }

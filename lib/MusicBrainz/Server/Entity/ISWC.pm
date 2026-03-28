@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::ISWC;
 
 use Moose;
-use Readonly;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
@@ -21,24 +20,6 @@ has 'work' => (
     is => 'rw',
     isa => 'Work',
 );
-
-has 'source_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-Readonly my $SOURCE_MUSICBRAINZ => 0;
-
-Readonly my %SOURCES => (
-    $SOURCE_MUSICBRAINZ => 'MusicBrainz',
-);
-
-sub source
-{
-    my ($self) = @_;
-
-    return defined $self->source_id ? $SOURCES{$self->source_id} : undef;
-}
 
 around TO_JSON => sub {
     my ($orig, $self) = @_;
