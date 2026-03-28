@@ -145,6 +145,7 @@ ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
       'recording',
       'release',
       'release_group',
+      'series',
       'work'
     )
   );
