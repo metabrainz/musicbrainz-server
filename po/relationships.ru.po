@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-06 14:11+0000\n"
+"PO-Revision-Date: 2026-02-21 15:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -7958,8 +7958,8 @@ msgid ""
 "a} {partial} {instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 "является {partial:частичной} {instrumental:инструментальной} "
-"{karaoke:караоке} {live:концертной}{acappella:акапелла} {medley:поппури} "
-"{demo:демо} записью {cover:кавера} работы"
+"{karaoke:караоке} {live:концертной}{acappella:акапелла} {medley:поппури-}"
+"{demo:демо-}записью {cover:кавера} работы"
 
 #. name:host
 #: DB:link_type/long_link_phrase:1287
@@ -8352,7 +8352,7 @@ msgstr ""
 #: DB:link_type/name:111 DB:link_type/link_phrase:111
 #: DB:link_type/reverse_link_phrase:111
 msgid "married"
-msgstr ""
+msgstr "супруг(а)"
 
 #. name:mashes up
 #: DB:link_type/link_phrase:10 DB:link_type/link_phrase:232
@@ -10547,7 +10547,7 @@ msgid ""
 "{instrumental} {cover} {karaoke} {demo} recording of"
 msgstr ""
 "{partial:частичная} {instrumental:инструментальная} {karaoke:караоке} "
-"{live:концертная} {acappella:акапелла} {medley:поппури} {demo:демо} запись "
+"{live:концертная} {acappella:акапелла} {medley:поппури-}{demo:демо-}запись "
 "{cover:кавера} работы"
 
 #. name:performance
@@ -10557,7 +10557,7 @@ msgid ""
 "{instrumental} {cover} {karaoke} {demo} recordings"
 msgstr ""
 "{partial:частичные} {instrumental:инструментальные} {karaoke:караоке} "
-"{live:концертные} {acappella:акапелла} {medley:поппури} {demo:демо} записи "
+"{live:концертные} {acappella:акапелла} {medley:поппури-}{demo:демо-}записи "
 "{cover:кавера}"
 
 #. name:adapter

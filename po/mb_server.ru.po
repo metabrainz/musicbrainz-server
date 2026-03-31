@@ -46,7 +46,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2026-02-09 23:11+0000\n"
+"PO-Revision-Date: 2026-02-12 23:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -1393,7 +1393,7 @@ msgstr "Я не знаю трек-лист этого носителя."
 
 #: ../root/release/edit/tracklist.tt:280
 msgid "I have no information about this release’s media and tracklist."
-msgstr "У меня нет информации о носителях в этом релизе и о его треклисте."
+msgstr "У меня нет информации о носителях в этом релизе и о его трек-листе."
 
 #: ../root/edit/search_macros.tt:480 ../root/futureColumnLabels.js:22
 #: ../root/futureColumnLabels.js:38
@@ -2000,7 +2000,7 @@ msgstr "Загрузка связей аудиозаписи..."
 
 #: ../root/release/edit/tracklist.tt:180 ../root/release/edit/tracklist.tt:400
 msgid "Now loading tracklist..."
-msgstr "Загрузка треклиста..."
+msgstr "Загрузка трек-листа..."
 
 #: ../root/release/add_cover_art.tt:168
 msgid ""
@@ -2048,7 +2048,7 @@ msgstr "Упаковка"
 
 #: ../root/release/edit/tracklist.tt:238
 msgid "Parse tracks"
-msgstr "Парсер треклиста"
+msgstr "Парсер трек-листа"
 
 #: ../root/edit/search_macros.tt:480 ../lib/MusicBrainz/Server/Edit/Place.pm:8
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:45
@@ -2766,7 +2766,7 @@ msgid ""
 "but not other data such as medium format) will be loaded as a medium on this "
 "release."
 msgstr ""
-"Треклист носителя (включая ассоциации треков/записей, но не другие данные, "
+"Трек-лист носителя (включая ассоциации треков/записей, но не другие данные, "
 "такие как формат носителя) будет загружен как носитель в этом релизе."
 
 #: ../root/release/edit/recordings.tt:30 ../root/edit/details/AddMedium.js:137
@@ -3414,7 +3414,7 @@ msgstr "Парсер трек-листа"
 #: ../root/static/scripts/release-editor/fields.js:922
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:349
 msgid "Tracklist"
-msgstr "Треклист"
+msgstr "Трек-лист"
 
 #: ../root/release/edit/duplicates.tt:13
 #: ../root/artist_credit/ArtistCreditIndex.js:156
@@ -3545,7 +3545,7 @@ msgstr "URL"
 
 #: ../root/release/edit/tracklist.tt:21
 msgid "Unable to parse the tracklist you entered."
-msgstr "Не удалось обработать введенный вами треклист."
+msgstr "Не удалось обработать введенный вами трек-лист."
 
 #: ../root/release/edit/recordings.tt:98
 msgid "Update the recording artist credit to match the track artist credit."
@@ -3921,7 +3921,7 @@ msgstr "помощь"
 #: ../root/cdtoc/attach_list.tt:94 ../root/cdtoc/list.tt:84
 #: ../root/static/scripts/common/components/CDTocTracklist.js:27
 msgid "hide tracklist"
-msgstr "скрыть треклист"
+msgstr "скрыть трек-лист"
 
 #: ../root/components/common-macros.tt:91
 #: ../root/static/scripts/common/components/EntityLink.js:132
@@ -4083,7 +4083,7 @@ msgstr "запись"
 #: ../root/cdtoc/list.tt:82
 #: ../root/static/scripts/common/components/CDTocTracklist.js:27
 msgid "show tracklist"
-msgstr "показать треклист"
+msgstr "показать трек-лист"
 
 #: ../root/release/edit/recordings.tt:37
 msgid "track"
@@ -8290,7 +8290,7 @@ msgstr ""
 #: ../root/cdtoc/SetTracklistDurations.js:33
 #: ../root/cdtoc/SetTracklistDurations.js:34
 msgid "Set tracklist durations"
-msgstr "Установить длительность треклиста"
+msgstr "Установить длительность трек-листа"
 
 #: ../root/cdtoc/SetTracklistDurations.js:37
 msgid ""
