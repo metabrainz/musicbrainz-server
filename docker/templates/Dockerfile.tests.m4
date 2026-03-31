@@ -251,6 +251,7 @@ RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`mailpit') && \
     setup_test_service(`mb-mail-service') && \
     setup_test_service(`postgresql') && \
+    setup_test_service(`rabbitmq') && \
     setup_test_service(`redis') && \
     setup_test_service(`solr') && \
     setup_test_service(`ssssss') && \
