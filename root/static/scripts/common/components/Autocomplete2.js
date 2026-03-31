@@ -16,6 +16,7 @@ import AddEntityDialog from '../../edit/components/AddEntityDialog.js';
 import {MBID_REGEXP} from '../constants.js';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
 import {unwrapNl} from '../i18n.js';
+import {arraysEqual} from '../utility/arrays.js';
 import clean from '../utility/clean.js';
 import getCookie from '../utility/getCookie.js';
 import isBlank from '../utility/isBlank.js';
@@ -619,7 +620,10 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       if (cancelled) {
         return [];
       }
-      if (loadedRecentItems !== state.recentItems) {
+      if (
+        state.recentItems == null ||
+        !arraysEqual(loadedRecentItems, state.recentItems)
+      ) {
         setTimeout(() => {
           dispatch({
             items: loadedRecentItems,
