@@ -50,6 +50,9 @@ has '+data' => (
             id   => Int,
             name => Str,
         ],
+        current_locale => Nullable[Str],
+        primary_for_locale => Nullable[Bool],
+        previous_primary_for_locale => Nullable[Str],
         new => find_type_constraint('AliasHash'),
         old => find_type_constraint('AliasHash'),
     ],
@@ -84,8 +87,31 @@ sub build_display_data
     my $type = $self->_alias_model->type;
     my $model = type_to_model($type);
 
+    my $current_alias = $self->current_instance;
+    my $locale = $self->data->{current_locale} // $self->data->{new}{locale} // $current_alias->locale;
+    use Data::Dumper;
+    print Dumper($locale);
+    my $is_primary = $current_alias->primary_for_locale;
+
+    my $is_adding_primary = ($self->data->{new}{primary_for_locale} == 1) &&
+        ($self->data->{old}{primary_for_locale} == 0);
+    my $is_changing_locale_for_primary = $self->data->{new}{locale} &&
+        $is_primary;
+
+    my $previous_primary_for_locale = $self->data->{previous_primary_for_locale};
+    if ($self->is_open &&
+        !defined $previous_primary_for_locale &&
+        ($is_adding_primary || $is_changing_locale_for_primary)) {
+        my $primary_aliases =
+            $self->_alias_model->find_primary_aliases_by_entity_id($self->data->{entity}{id});
+        $previous_primary_for_locale = %$primary_aliases{$locale} // '';
+    }
+
     return {
         entity_type => $type,
+        $locale ? (current_locale => $locale) : (),
+        $previous_primary_for_locale ? (previous_primary_for_locale => $previous_primary_for_locale) : (),
+        $is_primary ? (is_primary => $is_primary) : (),
         alias => {
             new => $self->data->{new}{name},
             old => $self->data->{old}{name},
@@ -152,10 +178,43 @@ sub accept
 {
     my $self = shift;
     my $model = $self->_alias_model;
+    my $update_data = 0;
 
     MusicBrainz::Server::Edit::Exceptions::FailedDependency->throw(
         'This alias no longer exists',
     ) unless $self->_load_alias;
+
+    my $current_alias = $self->current_instance;
+    my $is_primary = $current_alias->primary_for_locale;
+
+    my $final_locale = $self->data->{new}{locale};
+
+    if (!$final_locale) {
+        my $final_locale = $current_alias->locale;
+        # We add the alias locale at the time of editing to the edit data
+        $self->data->{current_locale} = $final_locale;
+        $update_data = 1;
+    }
+
+    my $is_adding_primary = ($self->data->{new}{primary_for_locale} == 1) &&
+        ($self->data->{old}{primary_for_locale} == 0);
+    my $is_changing_locale_for_primary = $self->data->{new}{locale} &&
+        $is_primary;
+
+    if ($is_adding_primary || $is_changing_locale_for_primary) {
+        my $primary_aliases =
+            $model->find_primary_aliases_by_entity_id($self->data->{entity}{id});
+        my $previous_primary_for_locale = %$primary_aliases{$final_locale} // '';
+
+        # We add the previous primary locale that was replaced by the edit to the edit data
+        $self->data->{previous_primary_for_locale} = $previous_primary_for_locale;
+        $update_data = 1;
+    }
+
+    if ($update_data) {
+        my $json = JSON::XS->new;
+        $self->c->sql->update_row('edit_data', { data => $json->encode($self->to_hash) }, { edit => $self->id });
+    }
 
     $model->update($self->data->{alias_id}, $self->merge_changes);
 }

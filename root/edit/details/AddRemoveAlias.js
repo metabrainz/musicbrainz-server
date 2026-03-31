@@ -71,6 +71,12 @@ component AddRemoveAlias(edit: AddRemoveAliasEditT) {
               <th>{addColonText(l('Primary for locale'))}</th>
               <td>{yesNo(display.primary_for_locale)}</td>
             </tr>
+            {display.previous_primary_for_locale ? (
+              <tr>
+                <th>{addColonText(l('Previous primary for locale'))}</th>
+                <td>{display.previous_primary_for_locale}</td>
+              </tr>
+            ) : null}
           </>
         ) : null}
 
