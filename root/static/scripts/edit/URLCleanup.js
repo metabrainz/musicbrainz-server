@@ -2930,15 +2930,6 @@ export const CLEANUPS: CleanupEntries = {
       return {result: true, target: ERROR_TARGETS.URL};
     },
   },
-  'flattr': {
-    hostname: 'flattr.com',
-    match: [/^(https?:\/\/)?(www\.)?flattr\.com\/profile\/[^/?#]/i],
-    restrict: [LINK_TYPES.patronage],
-    clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^/?#]+).*$/, 'https://flattr.com/profile/$1');
-      return url;
-    },
-  },
   'foursquare': {
     hostname: 'foursquare.com',
     match: [/^(https?:\/\/)?([^/]+\.)?foursquare\.com\//i],
