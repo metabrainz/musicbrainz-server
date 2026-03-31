@@ -32,9 +32,9 @@ const CLASS_MAP: {+[editType: EditType]: string} = {
 };
 
 const FAST_DIFF_CHANGE_TYPE_MAP = new Map<number, NonChangeEditType>([
-  [fastDiff.INSERT, INSERT],
-  [fastDiff.EQUAL, EQUAL],
   [fastDiff.DELETE, DELETE],
+  [fastDiff.EQUAL, EQUAL],
+  [fastDiff.INSERT, INSERT],
 ]);
 
 export {CHANGE, CLASS_MAP, DELETE, EQUAL, INSERT};
