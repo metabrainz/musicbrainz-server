@@ -165,9 +165,10 @@ sub _extract_by_language_callback
     if ($content) {
         my $is_redirect = $fetched->{is_redirect} // 0;
         my %props = ( is_redirect => $is_redirect );
+        # If this is a redirect, then there's no need to store any of the
+        # properties added in the block below in the cache, as redirects
+        # aren't displayed.
         unless ($is_redirect) {
-            # No need to store this information in the cache, as redirects
-            # aren't displayed.
             $props{title} = $fetched->{title};
             $props{content} = $content =~ s{<p>}{<p><bdi>}gr =~ s{</p>}{</bdi></p>}gr;
             $props{canonical} = $fetched->{canonical};
