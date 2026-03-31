@@ -41,14 +41,14 @@
 # liilliil <liilliil@liilliil.net>, 2024.
 # EmO686 <eiswuste@gmail.com>, 2026.
 # karpuzikov <karpuzikovanton@gmail.com>, 2026.
+# dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2026-02-12 23:11+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-03-31 15:22+0000\n"
+"Last-Translator: dddrnzv <solodkovskiy+21w4amgy@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -58,7 +58,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -860,7 +860,7 @@ msgstr "Отключить режим устаревшего браузера"
 #: ../root/static/scripts/common/components/FilterForm.js:405
 #: ../root/static/scripts/event/components/EventEditForm.js:240
 msgid "Disambiguation"
-msgstr "Разотождествление"
+msgstr "Отличительное описание"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
 msgid "Disc ID information"
@@ -7624,6 +7624,7 @@ msgid ""
 "Update matching artist and relationship credits to use the target artist’s "
 "name"
 msgstr ""
+"Обновите информацию о артисте и его связи с другими артистами, указав имя"
 
 #: ../root/artist/ArtistRecordings.js:35
 msgid "Show all recordings"
@@ -7671,7 +7672,7 @@ msgstr "Не найдено релизов, соответствующих да�
 #: ../root/instrument/InstrumentReleases.js:64
 #: ../root/release_group/ReleaseGroupIndex.js:203
 msgid "No releases found."
-msgstr ""
+msgstr "Релизы не найдены."
 
 #: ../root/artist/ArtistReleases.js:77
 msgid ""
@@ -7703,11 +7704,11 @@ msgstr "Добавить выбранные работы для объедине
 
 #: ../root/artist/ArtistWorks.js:70
 msgid "No works found that match this search."
-msgstr ""
+msgstr "Работы, соответствующие запросу, не найдены."
 
 #: ../root/artist/ArtistWorks.js:71
 msgid "This artist is not currently associated with any works."
-msgstr ""
+msgstr "Сейчас этот артист не связан с какими-либо проектами."
 
 #: ../root/artist/CannotSplit.js:15 ../root/artist/SplitArtist.js:36
 #: ../root/layout/components/sidebar/ArtistSidebar.js:186
@@ -11220,7 +11221,7 @@ msgstr "Частота"
 
 #: ../root/futureColumnLabels.js:34
 msgid "Disc IDs allowed"
-msgstr ""
+msgstr "Разрешенные идентификаторы дисков"
 
 #: ../root/futureColumnLabels.js:40
 msgid "ISO code"
@@ -12925,10 +12926,12 @@ msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
+"К этому релизу не прикреплены идентификаторы дисков. Подробнее о том, как их "
+"добавить, см. в разделе {doc|Как добавить ID диска}"
 
 #: ../root/release/DiscIds.js:124
 msgid "This release has no mediums that can have disc IDs."
-msgstr ""
+msgstr "В этом выпуске нет носителей с идентификаторами дисков."
 
 #: ../root/release/EditRelationships.js:28
 msgid "Edit Relationships: {release}"
