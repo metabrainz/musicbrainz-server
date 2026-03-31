@@ -551,6 +551,12 @@ sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
 # number.
 sub WS_TRACK_LIMIT { 500 }
 
+# Whether to require logging in in order to view web pages other than
+# the homepage, registration page, and login page itself. This is generally
+# only enabled as a temporary measure on staging servers in order to obstruct
+# AI scraping bots from DDoSing the site. Has no effect on the web service.
+sub REQUIRE_LOGIN_FOR_VIEWING { 0 }
+
 ################################################################################
 # Profiling
 ################################################################################
