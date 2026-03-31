@@ -39,7 +39,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-02-11 10:46-0600\n"
-"PO-Revision-Date: 2026-02-10 15:11+0000\n"
+"PO-Revision-Date: 2026-03-12 20:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -49,7 +49,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -6002,32 +6002,25 @@ msgid "Score at IMSLP"
 msgstr "Bladmuziek op IMSLP"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:15
-#, fuzzy, perl-brace-format
-#| msgid "Stream at Spotify"
+#, perl-brace-format
 msgid "Stream at KKBOX {country}"
-msgstr "Stream op Spotify"
+msgstr "Streamen met KKBOX {country}"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/KKBOX.pm:19
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at KKBOX"
-msgstr "Streamen met VK"
+msgstr "Streamen met KKBOX"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/LineMusic.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at LINE MUSIC"
-msgstr "Streamen met VK"
+msgstr "Streamen met LINE MUSIC"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/MiguMusic.pm:9
 msgid "Stream at Migu Music"
 msgstr "Streamen op Migu Music"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NaverVibe.pm:10
-#, fuzzy
-#| msgid "Stream at VK"
 msgid "Stream at Naver VIBE"
-msgstr "Streamen met VK"
+msgstr "Streamen met Naver VIBE"
 
 #: ../lib/MusicBrainz/Server/Entity/URL/NicoNicoVideo.pm:9
 msgid "Niconico"
@@ -7716,11 +7709,6 @@ msgstr ""
 "bekijken}."
 
 #: ../root/artist/EditArtistCredit.js:40
-#, fuzzy
-#| msgid ""
-#| "This form allows you to edit the artist credit \"{ac}\". When the edit is "
-#| "accepted, all tracks, recordings, releases and release groups using this "
-#| "artist credit will be update to use the new one."
 msgid ""
 "This form allows you to edit the artist credit “{ac}”. When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
@@ -7752,11 +7740,6 @@ msgid "Split artist"
 msgstr "Artiest splitsen"
 
 #: ../root/artist/SplitArtist.js:43
-#, fuzzy
-#| msgid ""
-#| "This form allows you to split {artist} into separate artists. When the "
-#| "edit is accepted, existing artist credits will be updated, and "
-#| "collaboration relationships will be removed"
 msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
@@ -16639,29 +16622,23 @@ msgid "This is an internal Instagram page and should not be added."
 msgstr "Dit is een interne Instagram-pagina en moet niet worden toegevoegd."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4537
-#, fuzzy
-#| msgid ""
-#| "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
-#| "link work pages to the specific work in question."
 msgid ""
 "Only MixesDB “{category_url_pattern}” links are allowed for artists and "
 "series. Please link mix pages to the specific release group in question."
 msgstr ""
-"Alleen IMSLP-links met de vorm “{category_url_pattern}” mogen aan artiesten "
-"worden toegevoegd. Koppel compositiepagina’s aan de specifieke compositie."
+"Alleen MixesDB-links met de vorm “{category_url_pattern}” mogen aan "
+"artiesten worden toegevoegd. Koppel compositiepagina’s aan de specifieke "
+"compositie."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4555
-#, fuzzy
-#| msgid ""
-#| "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
-#| "link the specific work page to this work instead, if available."
 msgid ""
 "MixesDB “{category_url_pattern}” links are only allowed for artists and "
 "series. Please link the specific mix page to this release group instead, if "
 "available."
 msgstr ""
-"IMSLP-links met de vorm “{category_url_pattern}” mogen alleen aan artiesten "
-"worden toegevoegd. Koppel de compositiepagina aan de specifieke compositie."
+"MixesDB-links met de vorm “{category_url_pattern}” mogen alleen aan "
+"artiesten en series worden toegevoegd. Koppel de pagina over de mix aan deze "
+"uitgavegroep."
 
 #: ../root/static/scripts/edit/URLCleanup.js:4730
 msgid ""
