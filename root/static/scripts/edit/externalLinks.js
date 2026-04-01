@@ -839,6 +839,15 @@ export class _ExternalLinksEditor
                        {example_url: <span className="url-quote">{'http://example.com/'}</span>}),
         target: URLCleanup.ERROR_TARGETS.URL,
       };
+    } else if (isNewOrChangedLink && isEvilArchive(link.url)) {
+      error = {
+        message: l(
+          `Links to archive.today and associated domains are not allowed.
+           This site has been found to manipulate the archived websites
+           and perform DDoS attacks.`,
+        ),
+        target: URLCleanup.ERROR_TARGETS.URL,
+      };
     } else if (isNewOrChangedLink && isExample(link.url)) {
       error = {
         message: exp.l(
@@ -1688,7 +1697,7 @@ export const ExternalLinksEditor:
   component(ref: React.RefSetter<_ExternalLinksEditor>, ...LinksEditorProps) =
     withLoadedTypeInfo<LinksEditorProps, _ExternalLinksEditor>(
       _ExternalLinksEditor,
-      new Set(['link_type', 'link_attribute_type']),
+      new Set(['link_attribute_type', 'link_type']),
     );
 
 const defaultLinkState: LinkStateT = {
@@ -1890,6 +1899,10 @@ function isGoogleSearch(url: string) {
 
 function isExample(url: string) {
   return /^https?:\/\/(?:[^/]+\.)?example\.(?:com|org|net)(?:\/.*)?$/.test(url);
+}
+
+function isEvilArchive(url: string) {
+  return /^https?:\/\/(?:[^/]+\.)?archive\.(?:today|fo|is|li|md|ph|vn)(?:\/.*)?$/.test(url);
 }
 
 function isMusicBrainz(url: string) {

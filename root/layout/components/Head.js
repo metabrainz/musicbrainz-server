@@ -31,7 +31,7 @@ function canonicalize(url: string) {
     : url;
 }
 
-function getTitle(title?: string, isHomepage: boolean, pager?: PagerT) {
+function getTitle(title: ?string, isHomepage: boolean, pager?: PagerT) {
   let finalTitle = title;
 
   if (!isHomepage) {

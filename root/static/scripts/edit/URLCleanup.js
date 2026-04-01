@@ -662,9 +662,9 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   'amazon': {
-    hostname: ['amazon.*', 'amzn.com', 'amzn.to'],
+    hostname: ['amazon.*', 'amazon.com.be', 'amzn.com', 'amzn.to'],
     match: [
-      /^(https?:\/\/)?(((?!music)[^/])+\.)?(amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)|amzn\.com)/i,
+      /^(https?:\/\/)?(((?!music)[^/])+\.)?(amazon\.(ae|at|com\.au|com\.be|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)|amzn\.com)/i,
       /^(https?:\/\/)?([^/]+\.)?amzn\.to/i,
     ],
     restrict: [LINK_TYPES.amazon],
@@ -729,7 +729,7 @@ export const CLEANUPS: CleanupEntries = {
 
       // If you change this, please update the BadAmazonURLs report.
       return {
-        result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\//.test(url),
+        result: /^https:\/\/www\.amazon\.(ae|at|com\.au|com\.be|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\//.test(url),
         target: ERROR_TARGETS.URL,
       };
     },
@@ -765,7 +765,7 @@ export const CLEANUPS: CleanupEntries = {
     },
     validate(url, id) {
       // If you change this, please update the BadAmazonURLs report.
-      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\/(albums|artists|tracks)/.exec(url);
+      const m = /^https:\/\/music\.amazon\.(?:ae|at|com\.au|com\.be|com\.br|ca|cn|com|de|eg|es|fr|in|it|jp|co\.jp|com\.mx|nl|pl|sa|se|sg|com\.tr|co\.uk)\/(albums|artists|tracks)/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {

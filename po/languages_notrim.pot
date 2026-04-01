@@ -6883,7 +6883,7 @@ msgstr ""
 msgid "Classical Mongolian"
 msgstr ""
 
-#. frequency:0 iso_code_3:nci
+#. frequency:1 iso_code_3:nci
 #: DB:language/name:4704
 msgid "Classical Nahuatl"
 msgstr ""
@@ -22553,7 +22553,7 @@ msgstr ""
 msgid "Morigi"
 msgstr ""
 
-#. frequency:0 iso_code_3:mfe
+#. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
 msgstr ""
