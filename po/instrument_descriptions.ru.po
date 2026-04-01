@@ -13,11 +13,12 @@
 # liilliil <liilliil@liilliil.net>, 2024, 2025.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 # djtusa <djtusaofficial@gmail.com>, 2026.
+# dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-03 01:11+0000\n"
-"Last-Translator: djtusa <djtusaofficial@gmail.com>\n"
+"PO-Revision-Date: 2026-03-31 15:22+0000\n"
+"Last-Translator: dddrnzv <solodkovskiy+21w4amgy@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -644,6 +645,9 @@ msgid ""
 "oud. it was an important instrument in pre-Islamic Iran and Persia. The "
 "current “Persian barbat” is more similar to the oud."
 msgstr ""
+"Древний центральноазиатский/персидский струнный инструмент, предок иранского "
+"уда. Был популярным инструментом в доисламском Иране и Персии. Современный «"
+"персидский барбат» больше похож на уд."
 
 #. name:xiao
 #: DB:instrument/description:484
@@ -676,6 +680,10 @@ msgid ""
 "bridges each with 4 strings that are hit by special mallets called mezrab. "
 "Used in traditional, folk and mystic Sufi music."
 msgstr ""
+"Древний щипковый музыкальный инструмент с трапециевидным корпусом из "
+"орехового или кленового дерева, 25 струн, по 4 на каждый лад, по которым "
+"ударяют специальными молоточками мезраб. Используется в традиционной, "
+"народной и мистической суфийской музыке."
 
 #. name:three-hole pipe
 #: DB:instrument/description:805
@@ -703,6 +711,8 @@ msgid ""
 "As long as a trumpet, it shares the piston valve design of both instruments "
 "with a mellow sound between the two."
 msgstr ""
+"Как и труба, она имеет поршневой клапан, характерный для обоих инструментов, "
+"и отличается мягким звучанием."
 
 #. name:chimes
 #: DB:instrument/description:338
@@ -714,6 +724,10 @@ msgid ""
 "orchestra, see <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-"
 "b53de3739ad3\">tubular bells</a>."
 msgstr ""
+"Колокольчики в форме брусков или столбиков, обычно расположенные в ряд или "
+"по кругу, свободно свисающие или ударяемые молоточками. Об инструменте, "
+"который часто используется на колокольнях, см. карильон Об инструменте, "
+"используемом в оркестре, см. трубчатые колокола"
 
 #. name:violoncello piccolo
 #: DB:instrument/description:693
@@ -741,6 +755,9 @@ msgid ""
 "is electro-acoustic with a stainless steel frame with 24 nylon strings and "
 "an integral piezoelectric sensor."
 msgstr ""
+"Это электроакустическая гитара, созданная на основе полиритма африканской "
+"коры, калимбы и японского кото. Корпус из нержавеющей стали, 24 нейлоновые "
+"струны и встроенный пьезоэлектрический датчик."
 
 #. name:bass
 #: DB:instrument/description:47
@@ -800,7 +817,7 @@ msgstr ""
 #. name:bendir
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles."
-msgstr ""
+msgstr "У бендира, рамочного барабана из Северной Африки, нет колокольчиков."
 
 #. name:kemanak
 #: DB:instrument/description:988
@@ -823,6 +840,10 @@ msgid ""
 "the english, this concertina was created to rival the popular German variant "
 "imported into England."
 msgstr ""
+"Эта концертина с бисонорным строем и кнопочным управлением, как у немецкой, "
+"и язычковыми и шестигранными окончаниями, как у английской, была создана, "
+"чтобы составить конкуренцию популярному немецкому варианту, завезенному в "
+"Англию."
 
 #. name:cajón
 #: DB:instrument/description:336

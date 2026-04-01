@@ -1,19 +1,17 @@
-#
-# Translators:
-# Besnik <besnik@programeshqip.org>, 2025, 2026.
+# Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 msgid ""
 msgstr ""
-"Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-16 21:11+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
-"Language-Team: Albanian <https://translations.metabrainz.org/projects/"
-"musicbrainz/attributes/sq/>\n"
-"Language: sq\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: arz\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ((n == 1) ? 1 : ((n == 2) ? "
+"2 : ((n % 100 >= 3 && n % 100 <= 10) ? 3 : ((n % 100 >= 11 && n % 100 <= 99) "
+"? 4 : 5))));\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -23,9 +21,6 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"\"Motet\" është një term që zbatohet mbi lloje të ndryshme veprash korale "
-"(zakonisht të pashoqëruara me instrumente). Se çfarë është saktësisht një "
-"motet, varet paksa nga periudha."
 
 #. name:Sonata
 #: DB:work_type/description:5
@@ -34,9 +29,6 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
-"\"Sonata\" është një term i përgjithshëm i përdorur për të përshkruar vepra "
-"instrumentale të një shkalle të vogël (shumë shpesh solo ose solo + "
-"tastierë), fillimisht të muzikës baroke."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
@@ -46,12 +38,12 @@ msgstr ""
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr "Shellak 10\""
+msgstr ""
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr "Vinil 10\""
+msgstr ""
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
@@ -61,27 +53,27 @@ msgstr ""
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr "LazerDisk 12\""
+msgstr ""
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr "Shellak 12\""
+msgstr ""
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr "Vinil 12\""
+msgstr ""
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "Vinil 3\""
+msgstr ""
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr "Disketë 3.5\""
+msgstr ""
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
@@ -96,42 +88,42 @@ msgstr ""
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr "Fleksidisk 7\""
+msgstr ""
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr "Shellak 7\""
+msgstr ""
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "Vinil 7\""
+msgstr ""
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr "LazerDisk 8\""
+msgstr ""
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr "Bobinë 8-pista"
+msgstr ""
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr "CD 8cm"
+msgstr ""
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr "CD+G 8cm"
+msgstr ""
 
 #: DB:medium_format/name:210
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "8cm CD-R"
+msgstr ""
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
@@ -146,8 +138,6 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
-"Disqe shellak stampuar vertikalisht, 90 rpm, prodhuar nga etiketa Pathé nga "
-"1906 deri më 1932."
 
 #. name:Compilation
 #: DB:release_group_secondary_type/description:1
@@ -278,7 +268,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr "La Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1070
 msgctxt "work_attribute_type_allowed_value"
@@ -293,7 +283,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr "La Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1056
 msgctxt "work_attribute_type_allowed_value"
@@ -307,8 +297,6 @@ msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
 msgstr ""
-"Një balet është muzikë e kompozuar për t’u përdorur, tok me koreografi, për "
-"një produksion baleti."
 
 #. name:Program
 #: DB:event_art_archive.art_type/description:11
@@ -333,8 +321,6 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
-"Një kantata është një kompozim vokal (shpesh koral) me një shoqërim "
-"instrumental (zakonisht orkestër), zakonisht në disa kohë."
 
 #. name:Download Card
 #: DB:medium_format/description:46
@@ -360,8 +346,6 @@ msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
 msgstr ""
-"Një koncert është një vepër muzikore për solist(ë) të shoqëruar nga një "
-"orkestër."
 
 #. name:Convention/Expo
 #: DB:event_type/description:4
@@ -371,9 +355,6 @@ msgid ""
 "orientated around music performances, but can include them as side "
 "activities."
 msgstr ""
-"Një kongres, ekspozitë apo panair është një veprimtari e cila zakonisht nuk "
-"bazohet mbi shfaqje muzikore, por mund të përfshijë të tilla si veprimtari "
-"anësore."
 
 #. name:Flyer
 #: DB:event_art_archive.art_type/description:6
@@ -410,10 +391,6 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr ""
-"Një hedhje në qarkullim për t’u dhuruar ose e menduar të promovojë një "
-"hedhje zyrtare në qarkullim (p.sh., versione hedhje paraprake në qarkullim, "
-"hedhje në qarkullim të përfshira në një revistë, versione dhënë DJ-sh "
-"radiosh për transmetim)."
 
 #. name:Group
 #: DB:artist_type/description:2
@@ -430,8 +407,6 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr ""
-"Një grupim instrumentesh të afërt, por të ndryshëm, bie fjala, instrumente "
-"të ndryshëm të ngjashëm me violinën"
 
 #. name:Bootleg Production
 #: DB:label_type/description:5
@@ -464,7 +439,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr "La maxhore"
+msgstr ""
 
 #. name:Mass
 #: DB:work_type/description:8
@@ -474,10 +449,6 @@ msgid ""
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
 msgstr ""
-"Një meshë është një kompozim koral që muzikon pjesët e pandryshueshme të "
-"liturgjisë së Krishterë të Eukaristisë (Falënderimit) (Kyrie - Gloria - "
-"Credo - Sanctus - Benedictus - Agnus Dei, ndonjëherë me pjesë të tjera të "
-"shtuara)."
 
 #. name:Masterclass/Clinic
 #: DB:event_type/description:5
@@ -487,10 +458,6 @@ msgid ""
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
 msgstr ""
-"Një praktikë ose një klinikë është një veprimtari gjatë së cilës një artist "
-"takohet me një publik të pakët ose diçka më të madh dhe i udhëzon ata "
-"individualisht dhe/ose u përgjigjet pyetjeve që synojnë përmirësimin e "
-"aftësive ekzekutuese të anëtarëve të publikut."
 
 #. name:Clamshell Case
 #: DB:release_packaging/description:56
@@ -503,7 +470,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr "La minore"
+msgstr ""
 
 #. name:Partita
 #: DB:work_type/description:13
@@ -512,8 +479,6 @@ msgid ""
 "A partita is an instrumental piece composed of a series of variations, and "
 "it's by its current definition very similar to a suite."
 msgstr ""
-"Një partita është pjesë instrumentale e përbërë nga një seri variacionesh, "
-"dhe sipas përkufizimit të sotëm është shumë e ngjashme me një suitë."
 
 #. name:Launch event
 #: DB:event_type/description:3
@@ -522,8 +487,6 @@ msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
 msgstr ""
-"Një festë, pritje ose tjetër veprimtari e mbajtur posaçërisht për hedhjen në "
-"qarkullim të një vepre."
 
 #. name:Digibook
 #: DB:release_packaging/description:17
@@ -546,7 +509,6 @@ msgstr ""
 msgctxt "place_type"
 msgid "A place (generally a factory) at which physical media are manufactured."
 msgstr ""
-"Një vend (përgjithësisht një fabrikë) në të cilin prodhohet media fizike."
 
 #. name:Indoor arena
 #: DB:place_type/description:5
@@ -556,10 +518,6 @@ msgid ""
 "surrounded by tiered seating for spectators, which can be used for indoor "
 "sports, concerts and other entertainment events."
 msgstr ""
-"Një vend që është një zonë e madhe e rrethuar me një hapësirë qendrore "
-"veprimtarish rrethuar nga ndenjëse të fiksuara spektatorësh, që mund të "
-"përdoret për sporte brenda sallash, koncerte dhe veprimtari të tjera "
-"zbavitëse."
 
 #. name:Studio
 #: DB:place_type/description:1
@@ -568,8 +526,6 @@ msgid ""
 "A place designed for non-live production of music, typically a recording "
 "studio."
 msgstr ""
-"Një vend i ngritur për muzikë jo të drejtpërdrejtë, zakonisht një studio "
-"incizimesh."
 
 #. name:Venue
 #: DB:place_type/description:2
@@ -578,8 +534,6 @@ msgid ""
 "A place that has live artistic performances as one of its primary functions, "
 "such as a concert hall."
 msgstr ""
-"Një vend që si funksione parësorë të vetët ka shfaqjet e drejtpërdrejta "
-"artistike, bie fjala, një sallë koncertesh."
 
 #. name:Religious building
 #: DB:place_type/description:6
@@ -589,9 +543,6 @@ msgid ""
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
 msgstr ""
-"Një vend që si funksionin kryesor ka praktikat fetare ose studimet fetare. "
-"Në ndërtesa fetare shpesh organizohen koncerte dhe shërbejnë si vende "
-"incizimi, veçanërisht për muzikë klasike."
 
 #. name:Stadium
 #: DB:place_type/description:4
@@ -601,10 +552,6 @@ msgid ""
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
 msgstr ""
-"Një vend qëllimi kryesor i të cilit është organizimi i veprimtarive sportive "
-"jashtë sallash, zakonisht i përbërë nga një fushë e rrethuar nga një "
-"strukturë për spektatorët, pa çati, ose me një çati që mund të mblidhet "
-"anash."
 
 #. name:Cancelled
 #: DB:release_status/description:6
@@ -623,9 +570,6 @@ msgid ""
 "between characters, and intended for theatrical performance rather than just "
 "reading."
 msgstr ""
-"Një shfaqje teatrore është një formë e letërsisë që zakonisht përbëhet nga "
-"dialogë mes personazhesh, dhe e menduar për shfaqje në teatër, në vend se "
-"për thjesht lexim."
 
 #. name:Poem
 #: DB:work_type/description:21
@@ -634,9 +578,6 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr ""
-"Një poemë është një copë letrare, përgjithësisht e shkurtër dhe në vargje, "
-"ku fjalët zakonisht zgjidhen për tingullin e tyre dhe për figurat që sjellin "
-"në mend."
 
 #. name:Expunged
 #: DB:release_status/description:38
@@ -664,8 +605,6 @@ msgctxt "work_type"
 msgid ""
 "A quartet is a musical composition scored for four voices or instruments."
 msgstr ""
-"Një kuartet është një kompozim muzikor i hartuar për katër zëra ose "
-"instrumente."
 
 #. name:ROM cartridge
 #: DB:medium_format/description:208
@@ -680,7 +619,6 @@ msgstr ""
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
 msgstr ""
-"Një festival ripërsëritës, zakonisht i mbajtur çdo vit në të njëjtin vend."
 
 #. name:Field recording
 #: DB:release_group_secondary_type/description:12
@@ -711,8 +649,6 @@ msgid ""
 "A school, university or other similar educational institution (especially, "
 "but not only, one where music is taught)"
 msgstr ""
-"Një shkollë, universitet ose tjetër institucion arsimor i ngjashëm "
-"(veçanërisht, por jo vetëm, një i tillë ku mësohet muzikë)"
 
 #. name:Artist award
 #: DB:series_type/description:14
@@ -736,13 +672,13 @@ msgstr ""
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr "Një seri veprimtarish."
+msgstr ""
 
 #. name:Run
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr "Një seri shfaqjesh të të njëjtës gjë në të njëjtin vend."
+msgstr ""
 
 #. name:Recording award
 #: DB:series_type/description:48
@@ -754,13 +690,13 @@ msgstr ""
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr "Një seri incizimesh."
+msgstr ""
 
 #. name:Tour
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr "Një seri koncertesh të afërt nga një artist në vende të ndryshme."
+msgstr ""
 
 #. name:Residency
 #: DB:series_type/description:12
@@ -785,13 +721,13 @@ msgstr ""
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
-msgstr "Një seri grupesh hedhjesh në qarkullim."
+msgstr ""
 
 #. name:Release series
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr "Një seri hedhjesh në qarkullim."
+msgstr ""
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -803,13 +739,13 @@ msgstr ""
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "A series of works which form a catalogue of classical compositions."
-msgstr "Një seri veprash të cilat përbëjnë një katalog kompozimesh klasike."
+msgstr ""
 
 #. name:Work series
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "A series of works."
-msgstr "Një seri veprash."
+msgstr ""
 
 #. name:Club
 #: DB:place_type/description:42
@@ -827,9 +763,6 @@ msgid ""
 "single entity. In most cases, all of the songs are by the same composer, and "
 "often use words from the same poet or lyricist."
 msgstr ""
-"Një cikël këngësh është një grup këngësh i konceptuar të ekzekutohen në varg "
-"si një njësi e vetme. Në shumicën e rasteve, krejt këngët janë nga i njëjti "
-"kompozitor, dhe shpesh përdoren fjalë nga i njëjti poet apo libretist."
 
 #. name:Song
 #: DB:work_type/description:17
@@ -840,10 +773,6 @@ msgid ""
 "form by far in folk and popular music, but also fairly common in a classical "
 "context (\"art songs\")."
 msgstr ""
-"Një këngë, në origjinën e vet (dhe ende në shumicën e rasteve) është një "
-"kompozim për zë, me ose pa instrumenta, e ekzekutuar përmes të kënduarit. "
-"Kjo është forma më e rëndomtë në muzikën folkloristike dhe popullore, por "
-"edhe jo pak e rëndomtë në kontekst klasik (\"këngë arti\")."
 
 #. name:Soundtrack
 #: DB:work_type/description:22
@@ -852,8 +781,6 @@ msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or "
 "even book."
 msgstr ""
-"Kolona zanore është muzika që shoqëron një film, një program televiziv, një "
-"videolojë, ose madje një libër."
 
 #. name:Soundtrack
 #: DB:release_group_secondary_type/description:2
@@ -872,8 +799,6 @@ msgid ""
 "A standard grouping of instruments often played together, like a string "
 "quartet"
 msgstr ""
-"Një grupim standard instrumentesh, që shpesh luajnë tok, bie fjala, një "
-"kuartet harqesh"
 
 #. name:Minimax CD
 #: DB:medium_format/description:165
@@ -899,9 +824,6 @@ msgid ""
 "performed in a concert setting. They may be extracts from a ballet or opera, "
 "or entirely original movements."
 msgstr ""
-"Një suitë është një grup i renditur pjesësh instrumentale ose orkestrale, të "
-"ekzekutuara zakonisht si një koncert. Mund të jenë pjesë të nxjerra nga një "
-"balet ose opera, ose kohë tërësisht origjinale."
 
 #. name:Symphonic poem
 #: DB:work_type/description:18
@@ -911,9 +833,6 @@ msgid ""
 "single movement, that evokes a painting, a landscape, the content of a poem, "
 "a story or novel, or other non-musical source."
 msgstr ""
-"Një poemë simfonike është një pjesë muzike orkestrale programatike, "
-"zakonisht në një kohë, që evokon një pikturë, një peizazh, lëndën e një "
-"poeme, një romani apo novele, apo burimesh të tjera jomuzikore."
 
 #. name:Symphony
 #: DB:work_type/description:16
@@ -922,8 +841,6 @@ msgid ""
 "A symphony is an extended composition, almost always scored for orchestra "
 "without soloists."
 msgstr ""
-"Një simfoni është një kompozim i zgjeruar, thuajse përherë i hartuar për "
-"orkestër pa solistë."
 
 #. name:Festival stage
 #: DB:place_type/description:45
@@ -937,7 +854,7 @@ msgstr ""
 #: DB:release_packaging/description:2
 msgctxt "release_packaging"
 msgid "A thinner jewel case, commonly used for CD singles."
-msgstr "Një këllëf më i hollë, i përdorur rëndom për CD njëpjesëshe."
+msgstr ""
 
 #. name:DataPlay
 #: DB:medium_format/description:128
@@ -964,29 +881,26 @@ msgid ""
 "and sung scenes, the latter incorporating operatic and popular song, as well "
 "as dance."
 msgstr ""
-"Një zarzuela është një vepër dramatiko-lirike spanjolle gjatë së cilës "
-"pasojnë njëra-tjetrën skena të folure me të kënduare, dhe kjo e dyta "
-"përfshin këngë operistike dhe popullore, si dhe kërcim."
 
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat major"
-msgstr "La bemol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:27
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
-msgstr "La bemol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:817
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp major"
-msgstr "La diez maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
-msgstr "La diez minore"
+msgstr ""
 
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
@@ -1006,7 +920,7 @@ msgstr ""
 #: DB:work_attribute_type/name:206
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr "ID ACUM"
+msgstr ""
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -1026,7 +940,7 @@ msgstr ""
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
 msgid "AKM ID"
-msgstr "ID AKM"
+msgstr ""
 
 #: DB:work_attribute_type/name:38
 msgctxt "work_attribute_type"
@@ -1046,7 +960,7 @@ msgstr ""
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
 msgid "APRA ID"
-msgstr "ID APRA"
+msgstr ""
 
 #: DB:work_attribute_type/name:48
 msgctxt "work_attribute_type"
@@ -1056,12 +970,12 @@ msgstr ""
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
-msgstr "ID ASCAP"
+msgstr ""
 
 #: DB:work_attribute_type/name:211
 msgctxt "work_attribute_type"
 msgid "AUTODIA ID"
-msgstr "ID AUTODIA"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -1171,7 +1085,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr "Album"
+msgstr ""
 
 #: DB:work_attribute_type/name:216
 msgctxt "work_attribute_type"
@@ -1182,7 +1096,7 @@ msgstr ""
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr "Lejon rregullimin dorazi të pozicionit të çdo elementi në seritë."
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
@@ -1238,10 +1152,6 @@ msgid ""
 "don't correspond to any real release and should be linked to the original "
 "release using the transl(iter)ation relationship."
 msgstr ""
-"Një version alternativ i një hedhjeje në qarkullim ku titujt janë ndryshuar. "
-"Këto nuk i korrespondojnë ndonjë hedhje të njëmendtë në qarkullim dhe duhen "
-"lidhur me hedhjen origjinale në qarkullim duke përdorur marrëdhënien "
-"përkthim/transliterim."
 
 #. name:Aria
 #: DB:work_type/description:1
@@ -1251,9 +1161,6 @@ msgid ""
 "accompaniment. They are most common inside operas, but also appear in "
 "cantatas, oratorios and even on their own (concert arias)."
 msgstr ""
-"Një aria është një pjesë më vete për një zë, zakonisht me një shoqërim "
-"orkestral. Më rëndon ndeshen brenda operash, por shfaqen edhe në kantata, "
-"oratorio dhe madje edhe tërësisht më vete (arie koncerti)."
 
 #. name:Audio drama
 #: DB:work_type/description:25
@@ -1262,8 +1169,6 @@ msgid ""
 "An audio drama is a dramatized, purely acoustic performance, broadcast on "
 "radio or published on an audio medium (tape, CD, etc.)."
 msgstr ""
-"Një radiodramatizim është një shfaqje dramatizim, thjesht akustike, e "
-"transmetuar në radio ose e publikuar në një medie audio (shirit, CD, etj.)."
 
 #. name:Audio drama
 #: DB:release_group_secondary_type/description:11
@@ -1313,8 +1218,6 @@ msgid ""
 "An event where a number of different acts perform across the course of the "
 "day. Larger festivals may be spread across multiple days."
 msgstr ""
-"Një veprimtari gjatë së cilës një numër aktesh të ndryshme kryhen përgjatë "
-"ditës. Festivale më të mëdha mund të shtrihen përgjatë disa ditësh."
 
 #. name:Merchandise
 #: DB:event_art_archive.art_type/description:7
@@ -1342,8 +1245,6 @@ msgid ""
 "An individual concert by a single artist or collaboration, often with "
 "supporting artists who perform before the main act."
 msgstr ""
-"Një koncert më vete nga një artist ose nga një bashkëpunim, shpesh me "
-"artistë shtesë që ekzekutojnë përpara aktit kryesor."
 
 #. name:Concert hall / Theatre
 #: DB:place_type/description:44
@@ -1393,10 +1294,6 @@ msgid ""
 "orchestra/ensemble. In true operas all dialog is sung, through arias and "
 "recitatives, but some styles of opera include spoken dialogue."
 msgstr ""
-"Një opera është një vepër e dramatizuar (tekst + partiturë muzikore) për "
-"këngëtarë dhe orkestër/ansambël. Në opera të mirëfillta kretj dialogët janë "
-"të kënduar, përmes ariesh dhe recitativësh, për disa stile operash "
-"përfshijnë dialog të folur."
 
 #. name:Oratorio
 #: DB:work_type/description:11
@@ -1407,10 +1304,6 @@ msgid ""
 "usually not performed theatrically (it lacks costumes, props and strong "
 "character interaction)."
 msgstr ""
-"Një oratorio është një kompozim muzikor i gjerë (zakonisht kishtar) që "
-"përfshin një orkestër, një kor, dhe solistë. Teksa përmban personazhe dhe "
-"subjekt, zakonisht nuk ekzekutohet në mënyrë teatrale (mungojnë kostumet, "
-"dekoret dhe ndërveprim i fuqishëm mes personazhesh)."
 
 #. name:Broadcaster
 #: DB:label_type/description:12
@@ -1442,9 +1335,6 @@ msgid ""
 "Independent (\"concert\") overtures also exist, which are generally "
 "programmatic works shorter than a symphonic poem."
 msgstr ""
-"Një uverturë është, përgjithësisht, hyrja instrumentale e një opere. "
-"Ekzistojnë edhe uvertura të pavarura (\"koncert\"), të cilat janë "
-"përgjithësisht vepra programatike më të shkurtra se një poemë simfonike."
 
 #. name:Bootleg
 #: DB:release_status/description:3
@@ -1454,9 +1344,6 @@ msgid ""
 "or the record company. This includes unofficial live recordings and pirated "
 "releases."
 msgstr ""
-"Një hedhje në qarkullim jozyrtare/fshehtas që nuk është sanksionuar nga "
-"artisti dhe/ose shoqëria e incizimeve. Këtu përfshihen regjistrime "
-"drejtpërdrejt jozyrtare dhe hedhje pirate në qarkullim."
 
 #. name:Étude
 #: DB:work_type/description:20
@@ -1466,9 +1353,6 @@ msgid ""
 "considerable difficulty, usually designed to provide practice material for "
 "perfecting a particular technical skill."
 msgstr ""
-"Një etyd është një kompozim muzikor instrumental, në shumicën e rasteve i "
-"një vështirësie të konsiderueshme, e konceptuar zakonisht të japë material "
-"praktik për përsosjen e një aftësie të caktuar teknike."
 
 #: DB:work_attribute_type_allowed_value/value:310
 msgctxt "work_attribute_type_allowed_value"
@@ -1482,9 +1366,6 @@ msgid ""
 "Any release officially sanctioned by the artist and/or their record company. "
 "Most releases will fit into this category."
 msgstr ""
-"Çfarëdo hedhje në qarkullim e sanksionuar zyrtarisht nga artisti dhe/ose "
-"shoqëria e tij e incizimeve. Shumica e hedhjeve në qarkullim do të hyjnë në "
-"këtë kategori."
 
 #. name:Other
 #: DB:release_group_primary_type/description:11
@@ -1552,12 +1433,12 @@ msgstr ""
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr "Emër zone"
+msgstr ""
 
 #: DB:work_type/name:1
 msgctxt "work_type"
 msgid "Aria"
-msgstr "Arie"
+msgstr ""
 
 #: DB:series_type/name:14
 msgctxt "series_type"
@@ -1572,7 +1453,7 @@ msgstr ""
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
-msgstr "Emër artisti"
+msgstr ""
 
 #: DB:series_type/name:13
 msgctxt "series_type"
@@ -1597,27 +1478,27 @@ msgstr ""
 #: DB:editor_collection_type/name:5
 msgctxt "collection_type"
 msgid "Attending"
-msgstr "Do të marrë pjesë"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:11
 msgctxt "release_group_secondary_type"
 msgid "Audio drama"
-msgstr "Radiodramatizim"
+msgstr ""
 
 #: DB:work_type/name:25
 msgctxt "work_type"
 msgid "Audio drama"
-msgstr "Radiodramë"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
-msgstr "Audiolibër"
+msgstr ""
 
 #: DB:series_ordering_type/name:1
 msgctxt "series_ordering_type"
 msgid "Automatic"
-msgstr "E automatizuar"
+msgstr ""
 
 #: DB:event_type/name:7
 msgctxt "event_type"
@@ -1727,7 +1608,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:795
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Dorian"
-msgstr "Si Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1071
 msgctxt "work_attribute_type_allowed_value"
@@ -1742,7 +1623,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:807
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Mixolydian"
-msgstr "Si Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1057
 msgctxt "work_attribute_type_allowed_value"
@@ -1752,47 +1633,47 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:33
 msgctxt "work_attribute_type_allowed_value"
 msgid "B major"
-msgstr "Si maxhor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:34
 msgctxt "work_attribute_type_allowed_value"
 msgid "B minor"
-msgstr "Si minor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:31
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat major"
-msgstr "Si bemol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:32
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
-msgstr "Si bemol minor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:818
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-sharp major"
-msgstr "Do maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:819
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-sharp minor"
-msgstr "Do minore"
+msgstr ""
 
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
-msgstr "ID BMI"
+msgstr ""
 
 #: DB:work_attribute_type/name:26
 msgctxt "work_attribute_type"
 msgid "BUMA/STEMRA ID"
-msgstr "ID BUMA/STEMRA"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr "Prapa"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:323
 msgctxt "work_attribute_type_allowed_value"
@@ -1827,7 +1708,7 @@ msgstr ""
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
-msgstr "Balet"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
@@ -1867,7 +1748,7 @@ msgstr ""
 #: DB:work_type/name:26
 msgctxt "work_type"
 msgid "Beijing opera"
-msgstr "Opera e Pekinit"
+msgstr ""
 
 #. name:Beijing opera
 #: DB:work_type/description:26
@@ -1876,8 +1757,6 @@ msgid ""
 "Beijing opera is a form of traditional Chinese theatre which combines music, "
 "vocal performance, mime, dance, and acrobatics."
 msgstr ""
-"Operë e Pekinit është një formë teatri tradicional kinez që ndërthur muzikë, "
-"interpretime vokale, pantomimë, vallëzim dhe akrobaci."
 
 #: DB:work_attribute_type_allowed_value/value:697
 msgctxt "work_attribute_type_allowed_value"
@@ -1947,7 +1826,7 @@ msgstr ""
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
-msgstr "Betamax"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:329
 msgctxt "work_attribute_type_allowed_value"
@@ -2093,37 +1972,37 @@ msgstr ""
 #: DB:medium_format/name:20
 msgctxt "medium_format"
 msgid "Blu-ray"
-msgstr "Blu-ray"
+msgstr ""
 
 #: DB:medium_format/name:79
 msgctxt "medium_format"
 msgid "Blu-ray-R"
-msgstr "Blu-ray-R"
+msgstr ""
 
 #: DB:medium_format/name:35
 msgctxt "medium_format"
 msgid "Blu-spec CD"
-msgstr "CD Blu-spec"
+msgstr ""
 
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
-msgstr "Libër"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr "Libërth"
+msgstr ""
 
 #: DB:release_status/name:3
 msgctxt "release_status"
 msgid "Bootleg"
-msgstr "Pirate"
+msgstr ""
 
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr "Produksion Pirat"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
@@ -2133,7 +2012,7 @@ msgstr ""
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
 msgid "Box"
-msgstr "Kuti"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -2143,17 +2022,17 @@ msgstr ""
 #: DB:instrument_alias_type/name:3
 msgctxt "alias_type"
 msgid "Brand name"
-msgstr "Emër marke"
+msgstr ""
 
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr "Transmetim"
+msgstr ""
 
 #: DB:label_type/name:12
 msgctxt "label_type"
 msgid "Broadcaster"
-msgstr "Transmetues"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:885
 msgctxt "work_attribute_type_allowed_value"
@@ -2219,7 +2098,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:789
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Dorian"
-msgstr "Do Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1065
 msgctxt "work_attribute_type_allowed_value"
@@ -2234,7 +2113,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:801
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Mixolydian"
-msgstr "Do Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1051
 msgctxt "work_attribute_type_allowed_value"
@@ -2244,57 +2123,57 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:2
 msgctxt "work_attribute_type_allowed_value"
 msgid "C major"
-msgstr "Do maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:3
 msgctxt "work_attribute_type_allowed_value"
 msgid "C minor"
-msgstr "Do minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat major"
-msgstr "Do bemol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:812
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-flat minor"
-msgstr "Do bemol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:4
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp major"
-msgstr "Do diez maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:5
 msgctxt "work_attribute_type_allowed_value"
 msgid "C-sharp minor"
-msgstr "Do diez minore"
+msgstr ""
 
 #: DB:work_attribute_type/name:19
 msgctxt "work_attribute_type"
 msgid "CASH ID"
-msgstr "ID CASH"
+msgstr ""
 
 #: DB:work_attribute_type/name:22
 msgctxt "work_attribute_type"
 msgid "CCLI ID"
-msgstr "ID CCLI"
+msgstr ""
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
-msgstr "CD"
+msgstr ""
 
 #: DB:medium_format/name:39
 msgctxt "medium_format"
 msgid "CD+G"
-msgstr "CD+G"
+msgstr ""
 
 #: DB:medium_format/name:33
 msgctxt "medium_format"
 msgid "CD-R"
-msgstr "CD-R"
+msgstr ""
 
 #: DB:medium_format/name:209
 msgctxt "medium_format"
@@ -2304,12 +2183,12 @@ msgstr ""
 #: DB:medium_format/name:41
 msgctxt "medium_format"
 msgid "CDV"
-msgstr "CDV"
+msgstr ""
 
 #: DB:medium_format/name:60
 msgctxt "medium_format"
 msgid "CED"
-msgstr "CED"
+msgstr ""
 
 #: DB:work_attribute_type/name:45
 msgctxt "work_attribute_type"
@@ -2344,7 +2223,7 @@ msgstr ""
 #: DB:release_status/name:6
 msgctxt "release_status"
 msgid "Cancelled"
-msgstr "Anuluar"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -2370,17 +2249,17 @@ msgstr ""
 #: DB:work_type/name:3
 msgctxt "work_type"
 msgid "Cantata"
-msgstr "Kantatë"
+msgstr ""
 
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr "Këllëf Kartoni/Letre"
+msgstr ""
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
 msgid "Cartridge"
-msgstr "Bobinë"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:66
 msgctxt "work_attribute_type_allowed_value"
@@ -2390,17 +2269,17 @@ msgstr ""
 #: DB:medium_format/name:8
 msgctxt "medium_format"
 msgid "Cassette"
-msgstr "Kasetë"
+msgstr ""
 
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
-msgstr "Kuti kasete"
+msgstr ""
 
 #: DB:series_type/name:5
 msgctxt "series_type"
 msgid "Catalogue"
-msgstr "Katalog"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -2425,12 +2304,12 @@ msgstr ""
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr "Karakter"
+msgstr ""
 
 #: DB:artist_type/name:6
 msgctxt "artist_type"
 msgid "Choir"
-msgstr "Kor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:892
 msgctxt "work_attribute_type_allowed_value"
@@ -2455,15 +2334,13 @@ msgstr ""
 #: DB:area_type/name:3
 msgctxt "area_type"
 msgid "City"
-msgstr "Qytet"
+msgstr ""
 
 #. name:City
 #: DB:area_type/description:3
 msgctxt "area_type"
 msgid "City is used for settlements of any size, including towns and villages."
 msgstr ""
-"Qytet përdoret për vendbanime të çfarëdo madhësie, përfshi qyteza dhe "
-"fshatra."
 
 #: DB:release_packaging/name:56
 msgctxt "release_packaging"
@@ -2478,17 +2355,17 @@ msgstr ""
 #: DB:event_type/name:40
 msgctxt "event_type"
 msgid "Competition"
-msgstr "Konkurs"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
 msgid "Compilation"
-msgstr "Përmbledhje"
+msgstr ""
 
 #: DB:event_type/name:1
 msgctxt "event_type"
 msgid "Concert"
-msgstr "Koncert"
+msgstr ""
 
 #: DB:place_type/name:44
 msgctxt "place_type"
@@ -2498,17 +2375,17 @@ msgstr ""
 #: DB:work_type/name:4
 msgctxt "work_type"
 msgid "Concerto"
-msgstr "Koncert"
+msgstr ""
 
 #: DB:event_type/name:4
 msgctxt "event_type"
 msgid "Convention/Expo"
-msgstr "Qendër Konferencash/Ekspozitash"
+msgstr ""
 
 #: DB:medium_format/name:61
 msgctxt "medium_format"
 msgid "Copy Control CD"
-msgstr "CD Me Kontroll Kopjimi"
+msgstr ""
 
 #. name:Copy Control CD
 #: DB:medium_format/description:61
@@ -2519,16 +2396,11 @@ msgid ""
 "ripped. There are a number of software variants: the most well-known are "
 "Macrovision's Cactus Data Shield (CDS) and SunnComm's MediaMax."
 msgstr ""
-"CD Me Kontroll Kopjimi (CCCD) është një term ombrellë për CD të hedhur në "
-"qarkullim afërsisht më 2001-2006, që përmbanin software i cili qe konceptuar "
-"qëllimisht të pengonte përftim pjesësh në format elektronik nga CD-ja. Ka "
-"një numër variantesh software-i: më të njohurit janë Cactus Data Shield "
-"(CDS) nga Macrovision dhe MediaMax nga SunnComm."
 
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr "Vend"
+msgstr ""
 
 #. name:Country
 #: DB:area_type/description:1
@@ -2537,13 +2409,11 @@ msgid ""
 "Country is used for areas included (or previously included) in ISO 3166-1, "
 "e.g. United States."
 msgstr ""
-"Vend përdoret për zona të përfshira (ose të përfshira dikur) në standardin "
-"ISO 3166-1, p.sh., Shqipëria."
 
 #: DB:area_type/name:7
 msgctxt "area_type"
 msgid "County"
-msgstr "Vend"
+msgstr ""
 
 #. name:County
 #: DB:area_type/description:7
@@ -2554,10 +2424,6 @@ msgid ""
 "counties in the USA. These are not considered when displaying the parent "
 "areas for a given area."
 msgstr ""
-"Konte përdoret për ndarje më të vogla administrative të një vendi të cilat "
-"nuk përbëjnë ndarjet kryesore administrative, por as janë bashki dhe komuna, "
-"p.sh. kontetë në ShBA. Këto nuk merren parasysh kur shfaqen zonat mëmë për "
-"një zonë të dhënë."
 
 #: DB:label_type/name:11
 msgctxt "label_type"
@@ -2608,7 +2474,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:790
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Dorian"
-msgstr "Re Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1066
 msgctxt "work_attribute_type_allowed_value"
@@ -2623,7 +2489,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:802
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Mixolydian"
-msgstr "Re Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1052
 msgctxt "work_attribute_type_allowed_value"
@@ -2633,62 +2499,62 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:8
 msgctxt "work_attribute_type_allowed_value"
 msgid "D major"
-msgstr "Re maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:9
 msgctxt "work_attribute_type_allowed_value"
 msgid "D minor"
-msgstr "Re minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:6
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat major"
-msgstr "Re bemol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:7
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-flat minor"
-msgstr "Re bemol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:813
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-sharp major"
-msgstr "Re diez maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:10
 msgctxt "work_attribute_type_allowed_value"
 msgid "D-sharp minor"
-msgstr "Re diez minore"
+msgstr ""
 
 #: DB:medium_format/name:11
 msgctxt "medium_format"
 msgid "DAT"
-msgstr "DAT"
+msgstr ""
 
 #: DB:medium_format/name:16
 msgctxt "medium_format"
 msgid "DCC"
-msgstr "DCC"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:8
 msgctxt "release_group_secondary_type"
 msgid "DJ-mix"
-msgstr "DJ-mix"
+msgstr ""
 
 #: DB:medium_format/name:44
 msgctxt "medium_format"
 msgid "DTS CD"
-msgstr "DTS CD"
+msgstr ""
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
 msgid "DVD"
-msgstr "DVD"
+msgstr ""
 
 #: DB:medium_format/name:18
 msgctxt "medium_format"
 msgid "DVD-Audio"
-msgstr "DVD-Audio"
+msgstr ""
 
 #: DB:medium_format/name:92
 msgctxt "medium_format"
@@ -2698,27 +2564,27 @@ msgstr ""
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
-msgstr "DVD-Video"
+msgstr ""
 
 #: DB:medium_format/name:47
 msgctxt "medium_format"
 msgid "DVDplus"
-msgstr "DVDplus"
+msgstr ""
 
 #: DB:medium_format/name:70
 msgctxt "medium_format"
 msgid "DVDplus (CD side)"
-msgstr "DVDplus (anë CD)"
+msgstr ""
 
 #: DB:medium_format/name:68
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Audio side)"
-msgstr "DVDplus (anë DVD-Audio)"
+msgstr ""
 
 #: DB:medium_format/name:69
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Video side)"
-msgstr "DVDplus (anë DVD-Video)"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:343
 msgctxt "work_attribute_type_allowed_value"
@@ -2778,7 +2644,7 @@ msgstr ""
 #: DB:medium_format/name:43
 msgctxt "medium_format"
 msgid "Data CD"
-msgstr "CD të Dhënash"
+msgstr ""
 
 #: DB:medium_format/name:94
 msgctxt "medium_format"
@@ -2798,7 +2664,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:10
 msgctxt "release_group_secondary_type"
 msgid "Demo"
-msgstr "Demo"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:610
 msgctxt "work_attribute_type_allowed_value"
@@ -2914,7 +2780,7 @@ msgstr ""
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr "Media Dixhitale"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:345
 msgctxt "work_attribute_type_allowed_value"
@@ -2969,18 +2835,18 @@ msgstr ""
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
-msgstr "Distributor"
+msgstr ""
 
 #: DB:area_type/name:5
 msgctxt "area_type"
 msgid "District"
-msgstr "Distrikt"
+msgstr ""
 
 #. name:District
 #: DB:area_type/description:5
 msgctxt "area_type"
 msgid "District is used for a division of a large city, e.g. Queens."
-msgstr "Distrikti përdoret për një ndarje të një qyteti të madh, p.sh. Queens."
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:611
 msgctxt "work_attribute_type_allowed_value"
@@ -3000,12 +2866,12 @@ msgstr ""
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
-msgstr "DualDisk"
+msgstr ""
 
 #: DB:medium_format/name:67
 msgctxt "medium_format"
 msgid "DualDisc (CD side)"
-msgstr "DualDisk (anë CD)"
+msgstr ""
 
 #: DB:medium_format/name:130
 msgctxt "medium_format"
@@ -3015,12 +2881,12 @@ msgstr ""
 #: DB:medium_format/name:65
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Audio side)"
-msgstr "DualDisk (anë DVD-Audio)"
+msgstr ""
 
 #: DB:medium_format/name:66
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Video side)"
-msgstr "DualDisk (anë DVD-Video)"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:612
 msgctxt "work_attribute_type_allowed_value"
@@ -3151,7 +3017,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:791
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Dorian"
-msgstr "Mi Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1067
 msgctxt "work_attribute_type_allowed_value"
@@ -3166,7 +3032,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:803
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Mixolydian"
-msgstr "Mi Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1053
 msgctxt "work_attribute_type_allowed_value"
@@ -3176,32 +3042,32 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:13
 msgctxt "work_attribute_type_allowed_value"
 msgid "E major"
-msgstr "Mi maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:14
 msgctxt "work_attribute_type_allowed_value"
 msgid "E minor"
-msgstr "Mi minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:11
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat major"
-msgstr "Mi-bemol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:12
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-flat minor"
-msgstr "Mi-bemol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:814
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-sharp major"
-msgstr "Mi diez maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:15
 msgctxt "work_attribute_type_allowed_value"
 msgid "E-sharp minor"
-msgstr "Mi diez minore"
+msgstr ""
 
 #: DB:work_attribute_type/name:215
 msgctxt "work_attribute_type"
@@ -3216,27 +3082,27 @@ msgstr ""
 #: DB:release_group_primary_type/name:3
 msgctxt "release_group_primary_type"
 msgid "EP"
-msgstr "EP"
+msgstr ""
 
 #: DB:medium_format/name:50
 msgctxt "medium_format"
 msgid "Edison Diamond Disc"
-msgstr "Disk Edison Diamond"
+msgstr ""
 
 #: DB:place_type/name:7
 msgctxt "place_type"
 msgid "Educational institution"
-msgstr "Institucion edukimi"
+msgstr ""
 
 #: DB:instrument_type/name:4
 msgctxt "instrument_type"
 msgid "Electronic instrument"
-msgstr "Instrument elektronik"
+msgstr ""
 
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
-msgstr "CD i zgjeruar"
+msgstr ""
 
 #. name:Ultra HD Blu-ray
 #: DB:medium_format/description:211
@@ -3249,7 +3115,7 @@ msgstr ""
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
 msgid "Ensemble"
-msgstr "Ansambël"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:356
 msgctxt "work_attribute_type_allowed_value"
@@ -3274,12 +3140,12 @@ msgstr ""
 #: DB:event_alias_type/name:1
 msgctxt "alias_type"
 msgid "Event name"
-msgstr "Emër veprimtarie"
+msgstr ""
 
 #: DB:series_type/name:6
 msgctxt "series_type"
 msgid "Event series"
-msgstr "Seri veprimtarish"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:729
 msgctxt "work_attribute_type_allowed_value"
@@ -3349,7 +3215,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:792
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Dorian"
-msgstr "Fa Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1068
 msgctxt "work_attribute_type_allowed_value"
@@ -3364,7 +3230,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:804
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Mixolydian"
-msgstr "Fa Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1054
 msgctxt "work_attribute_type_allowed_value"
@@ -3374,17 +3240,17 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:17
 msgctxt "work_attribute_type_allowed_value"
 msgid "F major"
-msgstr "Fa maxhor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:18
 msgctxt "work_attribute_type_allowed_value"
 msgid "F minor"
-msgstr "Fa minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:16
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-flat major"
-msgstr "Fa bemol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:815
 msgctxt "work_attribute_type_allowed_value"
@@ -3394,12 +3260,12 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:19
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-sharp major"
-msgstr "Fa diez maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:20
 msgctxt "work_attribute_type_allowed_value"
 msgid "F-sharp minor"
-msgstr "Fa diez minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:731
 msgctxt "work_attribute_type_allowed_value"
@@ -3409,7 +3275,7 @@ msgstr ""
 #: DB:instrument_type/name:7
 msgctxt "instrument_type"
 msgid "Family"
-msgstr "Familje"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:615
 msgctxt "work_attribute_type_allowed_value"
@@ -3424,7 +3290,7 @@ msgstr ""
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
-msgstr "Femër"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:732
 msgctxt "work_attribute_type_allowed_value"
@@ -3464,12 +3330,12 @@ msgstr ""
 #: DB:event_type/name:2
 msgctxt "event_type"
 msgid "Festival"
-msgstr "Festival"
+msgstr ""
 
 #: DB:series_type/name:8
 msgctxt "series_type"
 msgid "Festival"
-msgstr "Festival"
+msgstr ""
 
 #: DB:place_type/name:45
 msgctxt "place_type"
@@ -3513,13 +3379,11 @@ msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
 "vinyl records, use that specifically."
 msgstr ""
-"Disqe të sheshtë me hulli, të përdorur në fonografë/gramafona. Për incizime "
-"në shellak dhe vinil, përdorni në mënyrë specifike këtë."
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr "Fleksidisk"
+msgstr ""
 
 #. name:Flexi-disc
 #: DB:medium_format/description:51
@@ -3528,14 +3392,11 @@ msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with "
 "a molded-in groove, designed to be playable on a normal phonograph turntable."
 msgstr ""
-"Fleksi-disqet janë incizime fonografi të krijuar nga fletë të holla, të "
-"epshme, vinili me një hulli të krijuar në të, të konceptuara për të qenë të "
-"luajtshme në një gramafon normal."
 
 #: DB:medium_format/name:76
 msgctxt "medium_format"
 msgid "Floppy Disk"
-msgstr "Disketë"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
@@ -3549,8 +3410,6 @@ msgid ""
 "For cases where gender just doesn't apply at all (like companies entered as "
 "artists)."
 msgstr ""
-"Për raste kur gjinia nuk ka vend fare (fjala vjen, shoqëri të dhëna si "
-"artist)."
 
 #: DB:work_attribute_type/name:16
 msgctxt "work_attribute_type"
@@ -3560,7 +3419,7 @@ msgstr ""
 #: DB:area_alias_type/name:2
 msgctxt "alias_type"
 msgid "Formal name"
-msgstr "Emër formal"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:735
 msgctxt "work_attribute_type_allowed_value"
@@ -3570,12 +3429,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
 msgid "Front"
-msgstr "Përpara"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:793
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Dorian"
-msgstr "Sol Dorike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1069
 msgctxt "work_attribute_type_allowed_value"
@@ -3590,7 +3449,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:805
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Mixolydian"
-msgstr "Sol Miksolidike"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1055
 msgctxt "work_attribute_type_allowed_value"
@@ -3600,37 +3459,37 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:22
 msgctxt "work_attribute_type_allowed_value"
 msgid "G major"
-msgstr "Sol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:23
 msgctxt "work_attribute_type_allowed_value"
 msgid "G minor"
-msgstr "Sol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:21
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat major"
-msgstr "Sol bemol maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:816
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-flat minor"
-msgstr "Sol bemol minore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:24
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-sharp major"
-msgstr "Sol diez maxhore"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:25
 msgctxt "work_attribute_type_allowed_value"
 msgid "G-sharp minor"
-msgstr "Sol diez minore"
+msgstr ""
 
 #: DB:work_attribute_type/name:9
 msgctxt "work_attribute_type"
 msgid "GEMA ID"
-msgstr "ID GEMA"
+msgstr ""
 
 #: DB:work_attribute_type/name:106
 msgctxt "work_attribute_type"
@@ -3767,7 +3626,7 @@ msgstr ""
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
-msgstr "Grup"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:916
 msgctxt "work_attribute_type_allowed_value"
@@ -3857,17 +3716,17 @@ msgstr ""
 #: DB:medium_format/name:17
 msgctxt "medium_format"
 msgid "HD-DVD"
-msgstr "HD-DVD"
+msgstr ""
 
 #: DB:medium_format/name:25
 msgctxt "medium_format"
 msgid "HDCD"
-msgstr "HDCD"
+msgstr ""
 
 #: DB:work_attribute_type/name:214
 msgctxt "work_attribute_type"
 msgid "HDS-ZAMP ID"
-msgstr "ID HDS-ZAMP"
+msgstr ""
 
 #: DB:work_attribute_type/name:64
 msgctxt "work_attribute_type"
@@ -3877,7 +3736,7 @@ msgstr ""
 #: DB:medium_format/name:37
 msgctxt "medium_format"
 msgid "HQCD"
-msgstr "HQCD"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:736
 msgctxt "work_attribute_type_allowed_value"
@@ -3957,7 +3816,7 @@ msgstr ""
 #: DB:medium_format/name:75
 msgctxt "medium_format"
 msgid "HiPac"
-msgstr "HiPac"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:391
 msgctxt "work_attribute_type_allowed_value"
@@ -4142,17 +4001,17 @@ msgstr ""
 #: DB:medium_format/name:38
 msgctxt "medium_format"
 msgid "Hybrid SACD"
-msgstr "SACD hibrid"
+msgstr ""
 
 #: DB:medium_format/name:63
 msgctxt "medium_format"
 msgid "Hybrid SACD (CD layer)"
-msgstr "SACD hibrid (shtresë CD)"
+msgstr ""
 
 #: DB:medium_format/name:64
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer)"
-msgstr "SACD hibrid (shtresë SACD)"
+msgstr ""
 
 #: DB:medium_format/name:87
 msgctxt "medium_format"
@@ -4237,7 +4096,7 @@ msgstr ""
 #: DB:work_attribute_type/name:29
 msgctxt "work_attribute_type"
 msgid "ICE ID"
-msgstr "ID ICE"
+msgstr ""
 
 #. name:SADAIC ID
 #: DB:work_attribute_type/description:24
@@ -4267,7 +4126,7 @@ msgstr ""
 #: DB:work_attribute_type/description:28
 msgctxt "work_attribute_type"
 msgid "ID for the Belgian rights society SABAM"
-msgstr "ID për shoqërinë belge të të drejtave, SABAM"
+msgstr ""
 
 #. name:SOBODAYCOM ID
 #: DB:work_attribute_type/description:61
@@ -4291,7 +4150,7 @@ msgstr ""
 #: DB:work_attribute_type/description:212
 msgctxt "work_attribute_type"
 msgid "ID for the Bulgarian rights society MUSICAUTOR"
-msgstr "ID për shoqërinë bullgare të të drejtave, MUSICAUTOR"
+msgstr ""
 
 #. name:SOCAN ID
 #: DB:work_attribute_type/description:10
@@ -4333,7 +4192,7 @@ msgstr ""
 #: DB:work_attribute_type/description:214
 msgctxt "work_attribute_type"
 msgid "ID for the Croatian rights society HDS-ZAMP"
-msgstr "ID për shoqërinë kroate të të drejtave, HDS-ZAMP"
+msgstr ""
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
@@ -4375,7 +4234,7 @@ msgstr ""
 #: DB:work_attribute_type/description:215
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr "ID për shoqërinë estoniane të të drejtave, EAÜ"
+msgstr ""
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -4399,7 +4258,7 @@ msgstr ""
 #: DB:work_attribute_type/description:211
 msgctxt "work_attribute_type"
 msgid "ID for the Greek rights society AUTODIA"
-msgstr "ID për shoqërinë greke të të drejtave, AUTODIA"
+msgstr ""
 
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
@@ -4441,13 +4300,13 @@ msgstr ""
 #: DB:work_attribute_type/description:210
 msgctxt "work_attribute_type"
 msgid "ID for the Indonesian rights society WAMI"
-msgstr "ID për shoqërinë indoneziane të të drejtave, WAMI"
+msgstr ""
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
 msgctxt "work_attribute_type"
 msgid "ID for the International Copyright Enterprise"
-msgstr "ID për International Copyright Enterprise"
+msgstr ""
 
 #. name:IMRO ID
 #: DB:work_attribute_type/description:52
@@ -4459,7 +4318,7 @@ msgstr ""
 #: DB:work_attribute_type/description:206
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr "ID për shoqërinë izraelite të të drejtave, ACUM"
+msgstr ""
 
 #. name:SIAE ID
 #: DB:work_attribute_type/description:36
@@ -4477,13 +4336,13 @@ msgstr ""
 #: DB:work_attribute_type/description:3
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society JASRAC"
-msgstr "ID për shoqërinë japoneze JASRAC të të drejtave"
+msgstr ""
 
 #. name:NexTone ID
 #: DB:work_attribute_type/description:33
 msgctxt "work_attribute_type"
 msgid "ID for the Japanese rights society NexTone"
-msgstr "ID për shoqërinë japoneze NexTone të të drejtave"
+msgstr ""
 
 #. name:KOMCA ID
 #: DB:work_attribute_type/description:11
@@ -4501,7 +4360,7 @@ msgstr ""
 #: DB:work_attribute_type/description:207
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr "ID për shoqërinë lituaneze të të drejtave, LATGA"
+msgstr ""
 
 #. name:MACP ID
 #: DB:work_attribute_type/description:49
@@ -4513,7 +4372,7 @@ msgstr ""
 #: DB:work_attribute_type/description:27
 msgctxt "work_attribute_type"
 msgid "ID for the Mexican rights society SACM"
-msgstr "ID për shoqërinë meksikane të të drejtave, SACM"
+msgstr ""
 
 #. name:NICAUTOR ID
 #: DB:work_attribute_type/description:59
@@ -4549,7 +4408,7 @@ msgstr ""
 #: DB:work_attribute_type/description:30
 msgctxt "work_attribute_type"
 msgid "ID for the Polish rights society ZAiKS"
-msgstr "ID për shoqërinë polake të të drejtave, ZAiKS"
+msgstr ""
 
 #. name:SPA ID
 #: DB:work_attribute_type/description:35
@@ -4567,7 +4426,7 @@ msgstr ""
 #: DB:work_attribute_type/description:213
 msgctxt "work_attribute_type"
 msgid "ID for the Serbian rights society SOKOJ"
-msgstr "ID për shoqërinë serbe të të drejtave, SOKOJ"
+msgstr ""
 
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
@@ -4631,12 +4490,9 @@ msgstr ""
 
 #. name:AllTrack ID
 #: DB:work_attribute_type/description:216
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Greek rights society AUTODIA"
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society AllTrack"
-msgstr "ID për shoqërinë greke të të drejtave, AUTODIA"
+msgstr ""
 
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
@@ -4660,7 +4516,7 @@ msgstr ""
 #: DB:work_attribute_type/description:209
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "ID për shoqërinë ukrainase të të drejtave, UACRR"
+msgstr ""
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -4724,7 +4580,7 @@ msgstr ""
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
-msgstr "Identifikues"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:832
 msgctxt "work_attribute_type_allowed_value"
@@ -4739,7 +4595,7 @@ msgstr ""
 #: DB:work_type/name:30
 msgctxt "work_type"
 msgid "Incidental music"
-msgstr "Muzikë skenike"
+msgstr ""
 
 #. name:Incidental music
 #: DB:work_type/description:30
@@ -4747,8 +4603,6 @@ msgctxt "work_type"
 msgid ""
 "Incidental music is music written as background for (usually) a theatre play."
 msgstr ""
-"Muzika skenike është muzikë e shkruar për (zakonisht) ilustrim muzikor të "
-"një shfaqje teatrore."
 
 #: DB:area_type/name:9
 msgctxt "area_type"
@@ -4767,7 +4621,7 @@ msgstr ""
 #: DB:place_type/name:5
 msgctxt "place_type"
 msgid "Indoor arena"
-msgstr "Arenë brenda"
+msgstr ""
 
 #: DB:editor_collection_type/name:9
 msgctxt "collection_type"
@@ -4777,12 +4631,12 @@ msgstr ""
 #: DB:instrument_alias_type/name:1
 msgctxt "alias_type"
 msgid "Instrument name"
-msgstr "Emër instrumenti"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
-msgstr "Intervistë"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:427
 msgctxt "work_attribute_type_allowed_value"
@@ -4837,7 +4691,7 @@ msgstr ""
 #: DB:area_type/name:6
 msgctxt "area_type"
 msgid "Island"
-msgstr "Ishull"
+msgstr ""
 
 #. name:Island
 #: DB:area_type/description:6
@@ -4847,10 +4701,6 @@ msgid ""
 "own, e.g. Skye. These are not considered when displaying the parent areas "
 "for a given area."
 msgstr ""
-"Ishull përdoret për ishuj dhe atolle që nuk përbëjnë nëndarje më vete, "
-"p.sh., Skye. These are not considered when displaying the parent areas for a "
-"given area. Këto nuk merren parasysh kur shfaqen zonat mëmë për një zonë të "
-"dhënë."
 
 #: DB:work_attribute_type/name:69
 msgctxt "work_attribute_type"
@@ -4860,7 +4710,7 @@ msgstr ""
 #: DB:work_attribute_type/name:3
 msgctxt "work_attribute_type"
 msgid "JASRAC ID"
-msgstr "ID JASRAC"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:114
 msgctxt "work_attribute_type_allowed_value"
@@ -4923,7 +4773,7 @@ msgstr ""
 #: DB:release_packaging/name:1
 msgctxt "release_packaging"
 msgid "Jewel Case"
-msgstr "Këllëf"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:119
 msgctxt "work_attribute_type_allowed_value"
@@ -4999,7 +4849,7 @@ msgstr ""
 #: DB:work_attribute_type/name:11
 msgctxt "work_attribute_type"
 msgid "KOMCA ID"
-msgstr "ID KOMCA"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:621
 msgctxt "work_attribute_type_allowed_value"
@@ -5412,7 +5262,7 @@ msgstr ""
 #: DB:work_attribute_type/name:207
 msgctxt "work_attribute_type"
 msgid "LATGA ID"
-msgstr "ID LATGA"
+msgstr ""
 
 #: DB:editor_collection_type/name:10
 msgctxt "collection_type"
@@ -5422,7 +5272,7 @@ msgstr ""
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr "Emër etikete"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:956
 msgctxt "work_attribute_type_allowed_value"
@@ -5472,7 +5322,7 @@ msgstr ""
 #: DB:medium_format/name:5
 msgctxt "medium_format"
 msgid "LaserDisc"
-msgstr "LazerDisk"
+msgstr ""
 
 #: DB:work_attribute_type/name:55
 msgctxt "work_attribute_type"
@@ -5487,7 +5337,7 @@ msgstr ""
 #: DB:event_type/name:3
 msgctxt "event_type"
 msgid "Launch event"
-msgstr "Veprimtari hedhjeje në qarkullim"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:160
 msgctxt "work_attribute_type_allowed_value"
@@ -5502,7 +5352,7 @@ msgstr ""
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr "Emër ligjor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:744
 msgctxt "work_attribute_type_allowed_value"
@@ -5517,7 +5367,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr "Drejtpërsëdrejti"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -5547,7 +5397,7 @@ msgstr ""
 #: DB:work_attribute_type/name:212
 msgctxt "work_attribute_type"
 msgid "MUSICAUTOR ID"
-msgstr "ID MUSICAUTOR"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:963
 msgctxt "work_attribute_type_allowed_value"
@@ -5582,7 +5432,7 @@ msgstr ""
 #: DB:work_type/name:7
 msgctxt "work_type"
 msgid "Madrigal"
-msgstr "Madrigal"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:163
 msgctxt "work_attribute_type_allowed_value"
@@ -5632,7 +5482,7 @@ msgstr ""
 #: DB:gender/name:1
 msgctxt "gender"
 msgid "Male"
-msgstr "Mashkull"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:638
 msgctxt "work_attribute_type_allowed_value"
@@ -5647,12 +5497,12 @@ msgstr ""
 #: DB:series_ordering_type/name:2
 msgctxt "series_ordering_type"
 msgid "Manual"
-msgstr "Dorazi"
+msgstr ""
 
 #: DB:label_type/name:10
 msgctxt "label_type"
 msgid "Manufacturer"
-msgstr "Prodhues"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
@@ -5672,12 +5522,12 @@ msgstr ""
 #: DB:work_type/name:8
 msgctxt "work_type"
 msgid "Mass"
-msgstr "Meshë"
+msgstr ""
 
 #: DB:event_type/name:5
 msgctxt "event_type"
 msgid "Masterclass/Clinic"
-msgstr "Praktikë/Klinikë"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:15
 msgctxt "cover_art_type"
@@ -5702,7 +5552,7 @@ msgstr ""
 #: DB:editor_collection_type/name:6
 msgctxt "collection_type"
 msgid "Maybe attending"
-msgstr "Ndoshta do të marrë pjesë"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:452
 msgctxt "work_attribute_type_allowed_value"
@@ -5747,7 +5597,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr "Media"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:176
 msgctxt "work_attribute_type_allowed_value"
@@ -5820,7 +5670,7 @@ msgstr ""
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
-msgstr "MiniDisk"
+msgstr ""
 
 #: DB:medium_format/name:165
 msgctxt "medium_format"
@@ -5925,7 +5775,7 @@ msgstr ""
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
-msgstr "Motet"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:746
 msgctxt "work_attribute_type_allowed_value"
@@ -5995,7 +5845,7 @@ msgstr ""
 #: DB:area_type/name:4
 msgctxt "area_type"
 msgid "Municipality"
-msgstr "Bashki"
+msgstr ""
 
 #. name:Municipality
 #: DB:area_type/description:4
@@ -6005,9 +5855,6 @@ msgid ""
 "municipalities, often contain a single city and a few surrounding villages. "
 "Rural municipalities typically group several villages together."
 msgstr ""
-"Bashki përdoret për ndarje të vogla administrative të cilat, për bashkitë "
-"urbane, shpesh përmbajnë një qytet më vete dhe disa fshatra përreth. "
-"Bashkitë rurale (komunat) zakonisht grupojnë tok disa fshatra."
 
 #: DB:work_attribute_type_allowed_value/value:645
 msgctxt "work_attribute_type_allowed_value"
@@ -6022,7 +5869,7 @@ msgstr ""
 #: DB:work_type/name:29
 msgctxt "work_type"
 msgid "Musical"
-msgstr "Teatër muzikor"
+msgstr ""
 
 #. name:Musical
 #: DB:work_type/description:29
@@ -6031,8 +5878,6 @@ msgid ""
 "Musical theatre is a form of theatrical performance that combines songs, "
 "spoken dialogue, acting, and dance."
 msgstr ""
-"Teatri muzikor është një lloj shfaqjeje teatrore që ndërthur këngë, dialogë "
-"të folur, aktrim dhe vallëzim."
 
 #: DB:work_attribute_type_allowed_value/value:748
 msgctxt "work_attribute_type_allowed_value"
@@ -6042,7 +5887,7 @@ msgstr ""
 #: DB:work_attribute_type/name:12
 msgctxt "work_attribute_type"
 msgid "MÜST ID"
-msgstr "ID MÜST"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:463
 msgctxt "work_attribute_type_allowed_value"
@@ -6372,7 +6217,7 @@ msgstr ""
 #: DB:work_attribute_type/name:33
 msgctxt "work_attribute_type"
 msgid "NexTone ID"
-msgstr "ID NexTone"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:471
 msgctxt "work_attribute_type_allowed_value"
@@ -6478,12 +6323,12 @@ msgstr ""
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
-msgstr "Asnjë"
+msgstr ""
 
 #: DB:gender/name:4
 msgctxt "gender"
 msgid "Not applicable"
-msgstr "S’ka vend"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:491
 msgctxt "work_attribute_type_allowed_value"
@@ -6558,7 +6403,7 @@ msgstr ""
 #: DB:work_attribute_type/name:25
 msgctxt "work_attribute_type"
 msgid "OSA ID"
-msgstr "ID OSA"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
@@ -6568,7 +6413,7 @@ msgstr ""
 #: DB:release_status/name:1
 msgctxt "release_status"
 msgid "Official"
-msgstr "Zyrtare"
+msgstr ""
 
 #. name:3" Vinyl
 #: DB:medium_format/description:207
@@ -6582,72 +6427,72 @@ msgstr ""
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
-msgstr "Opera"
+msgstr ""
 
 #: DB:work_type/name:24
 msgctxt "work_type"
 msgid "Operetta"
-msgstr "Operetë"
+msgstr ""
 
 #: DB:work_type/name:11
 msgctxt "work_type"
 msgid "Oratorio"
-msgstr "Oratorio"
+msgstr ""
 
 #: DB:artist_type/name:5
 msgctxt "artist_type"
 msgid "Orchestra"
-msgstr "Orkestër"
+msgstr ""
 
 #: DB:label_type/name:4
 msgctxt "label_type"
 msgid "Original Production"
-msgstr "Produksion Origjinal"
+msgstr ""
 
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "Tjetër"
+msgstr ""
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
 msgid "Other instrument"
-msgstr "Instrument tjetër"
+msgstr ""
 
 #: DB:work_type/name:12
 msgctxt "work_type"
 msgid "Overture"
-msgstr "Overturë"
+msgstr ""
 
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
@@ -6712,12 +6557,12 @@ msgstr ""
 #: DB:work_type/name:13
 msgctxt "work_type"
 msgid "Partita"
-msgstr "Partita"
+msgstr ""
 
 #: DB:medium_format/name:58
 msgctxt "medium_format"
 msgid "Pathé disc"
-msgstr "Dsik Pate"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:995
 msgctxt "work_attribute_type_allowed_value"
@@ -6753,7 +6598,7 @@ msgstr ""
 #: DB:instrument_type/name:3
 msgctxt "instrument_type"
 msgid "Percussion instrument"
-msgstr "Instrument perkusioni"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:496
 msgctxt "work_attribute_type_allowed_value"
@@ -6763,7 +6608,7 @@ msgstr ""
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr "Person"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:497
 msgctxt "work_attribute_type_allowed_value"
@@ -6788,12 +6633,12 @@ msgstr ""
 #: DB:medium_format/name:73
 msgctxt "medium_format"
 msgid "Phonograph record"
-msgstr "Incizim fonografi"
+msgstr ""
 
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
-msgstr "Bobinë Pianosh"
+msgstr ""
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
@@ -6803,33 +6648,33 @@ msgstr ""
 #: DB:place_alias_type/name:1
 msgctxt "alias_type"
 msgid "Place name"
-msgstr "Emër vendi"
+msgstr ""
 
 #. name:Slidepack
 #: DB:release_packaging/description:20
 msgctxt "release_packaging"
 msgid "Plastic CD tray inside a cardboard slipcover"
-msgstr "Mbajtëse plastike për CD-në brenda një mbulese kartoni"
+msgstr ""
 
 #: DB:release_packaging/name:18
 msgctxt "release_packaging"
 msgid "Plastic Sleeve"
-msgstr "Këllëf Plastik"
+msgstr ""
 
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr "Dramë"
+msgstr ""
 
 #: DB:medium_format/name:74
 msgctxt "medium_format"
 msgid "PlayTape"
-msgstr "PlayTape"
+msgstr ""
 
 #: DB:medium_format/name:45
 msgctxt "medium_format"
 msgid "Playbutton"
-msgstr "Playbutton"
+msgstr ""
 
 #: DB:series_type/name:80
 msgctxt "series_type"
@@ -6839,7 +6684,7 @@ msgstr ""
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr "Poemë"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:655
 msgctxt "work_attribute_type_allowed_value"
@@ -6849,12 +6694,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr "Afishe"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:1
 msgctxt "event_art_type"
 msgid "Poster"
-msgstr "Afishe"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:998
 msgctxt "work_attribute_type_allowed_value"
@@ -6864,12 +6709,12 @@ msgstr ""
 #: DB:place_type/name:8
 msgctxt "place_type"
 msgid "Pressing plant"
-msgstr "Linjë prodhimi disqesh"
+msgstr ""
 
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
-msgstr "Produksion"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:11
 msgctxt "event_art_type"
@@ -6879,7 +6724,7 @@ msgstr ""
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
-msgstr "Promocion"
+msgstr ""
 
 #. name:Mixtape/Street
 #: DB:release_group_secondary_type/description:9
@@ -6902,17 +6747,17 @@ msgstr ""
 #: DB:work_type/name:23
 msgctxt "work_type"
 msgid "Prose"
-msgstr "Prozë"
+msgstr ""
 
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
-msgstr "Pseudo-Hedhje Në Qarkullim"
+msgstr ""
 
 #: DB:label_type/name:7
 msgctxt "label_type"
 msgid "Publisher"
-msgstr "Botues"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:999
 msgctxt "work_attribute_type_allowed_value"
@@ -6968,12 +6813,12 @@ msgstr ""
 #: DB:work_type/name:14
 msgctxt "work_type"
 msgid "Quartet"
-msgstr "Kuartet"
+msgstr ""
 
 #: DB:medium_format/name:208
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "Shirit ROM"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -7083,12 +6928,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr "Bruto/E papërpunuar"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:9
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
-msgstr "Bruto/E papërpunuar"
+msgstr ""
 
 #: DB:series_type/name:48
 msgctxt "series_type"
@@ -7103,17 +6948,17 @@ msgstr ""
 #: DB:recording_alias_type/name:1
 msgctxt "alias_type"
 msgid "Recording name"
-msgstr "Emër incizimi"
+msgstr ""
 
 #: DB:series_type/name:3
 msgctxt "series_type"
 msgid "Recording series"
-msgstr "Seri incizimesh"
+msgstr ""
 
 #: DB:medium_format/name:10
 msgctxt "medium_format"
 msgid "Reel-to-reel"
-msgstr "Me shirit"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:514
 msgctxt "work_attribute_type_allowed_value"
@@ -7148,27 +6993,27 @@ msgstr ""
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release group name"
-msgstr "Emër grupi hedhjeje në qarkullim"
+msgstr ""
 
 #: DB:series_type/name:1
 msgctxt "series_type"
 msgid "Release group series"
-msgstr "Seri grupesh hedhjeje në qarkullim"
+msgstr ""
 
 #: DB:release_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release name"
-msgstr "Emër hedhjeje në qarkullim"
+msgstr ""
 
 #: DB:series_type/name:2
 msgctxt "series_type"
 msgid "Release series"
-msgstr "Seri hedhjeje në qarkullim"
+msgstr ""
 
 #: DB:place_type/name:6
 msgctxt "place_type"
 msgid "Religious building"
-msgstr "Ndërtesë fetare"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:765
 msgctxt "work_attribute_type_allowed_value"
@@ -7178,7 +7023,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
 msgid "Remix"
-msgstr "Remiks"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:516
 msgctxt "work_attribute_type_allowed_value"
@@ -7203,7 +7048,7 @@ msgstr ""
 #: DB:label_type/name:8
 msgctxt "label_type"
 msgid "Rights Society"
-msgstr "Shoqëri të Drejtash"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:222
 msgctxt "work_attribute_type_allowed_value"
@@ -7324,12 +7169,12 @@ msgstr ""
 #: DB:work_attribute_type/name:28
 msgctxt "work_attribute_type"
 msgid "SABAM ID"
-msgstr "ID SABAM"
+msgstr ""
 
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
-msgstr "SACD"
+msgstr ""
 
 #: DB:medium_format/name:84
 msgctxt "medium_format"
@@ -7344,7 +7189,7 @@ msgstr ""
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
 msgid "SACEM ID"
-msgstr "ID SACEM"
+msgstr ""
 
 #: DB:work_attribute_type/name:56
 msgctxt "work_attribute_type"
@@ -7354,7 +7199,7 @@ msgstr ""
 #: DB:work_attribute_type/name:27
 msgctxt "work_attribute_type"
 msgid "SACM ID"
-msgstr "ID SACM"
+msgstr ""
 
 #: DB:work_attribute_type/name:42
 msgctxt "work_attribute_type"
@@ -7364,7 +7209,7 @@ msgstr ""
 #: DB:work_attribute_type/name:24
 msgctxt "work_attribute_type"
 msgid "SADAIC ID"
-msgstr "ID SADAIC"
+msgstr ""
 
 #: DB:work_attribute_type/name:68
 msgctxt "work_attribute_type"
@@ -7394,12 +7239,12 @@ msgstr ""
 #: DB:medium_format/name:62
 msgctxt "medium_format"
 msgid "SD Card"
-msgstr "Kartë SD"
+msgstr ""
 
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
 msgid "SESAC ID"
-msgstr "ID SESAC"
+msgstr ""
 
 #: DB:work_attribute_type/name:60
 msgctxt "work_attribute_type"
@@ -7409,17 +7254,17 @@ msgstr ""
 #: DB:work_attribute_type/name:20
 msgctxt "work_attribute_type"
 msgid "SGAE ID"
-msgstr "ID SGAE"
+msgstr ""
 
 #: DB:medium_format/name:36
 msgctxt "medium_format"
 msgid "SHM-CD"
-msgstr "SHM-CD"
+msgstr ""
 
 #: DB:medium_format/name:57
 msgctxt "medium_format"
 msgid "SHM-SACD"
-msgstr "SHM-SACD"
+msgstr ""
 
 #: DB:medium_format/name:89
 msgctxt "medium_format"
@@ -7444,7 +7289,7 @@ msgstr ""
 #: DB:work_attribute_type/name:10
 msgctxt "work_attribute_type"
 msgid "SOCAN ID"
-msgstr "ID SOCAN"
+msgstr ""
 
 #: DB:work_attribute_type/name:53
 msgctxt "work_attribute_type"
@@ -7479,12 +7324,12 @@ msgstr ""
 #: DB:work_attribute_type/name:18
 msgctxt "work_attribute_type"
 msgid "SUISA ID"
-msgstr "ID SUISA"
+msgstr ""
 
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
-msgstr "SVCD"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:522
 msgctxt "work_attribute_type_allowed_value"
@@ -7610,7 +7455,7 @@ msgstr ""
 #: DB:event_alias_type/name:2
 msgctxt "alias_type"
 msgid "Search hint"
-msgstr "Ndihmëz mbi kërkimin"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:528
 msgctxt "work_attribute_type_allowed_value"
@@ -7675,7 +7520,7 @@ msgstr ""
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
-msgstr "Emër serie"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
@@ -7690,7 +7535,7 @@ msgstr ""
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr "Shellac"
+msgstr ""
 
 #. name:Shellac
 #: DB:medium_format/description:53
@@ -7699,8 +7544,6 @@ msgid ""
 "Shellac records were the most predominant type of gramophone record during "
 "the first half of the 20th century."
 msgstr ""
-"Incizimet shellak qenë lloji më mbizotërues i incizimeve për gramafon gjatë "
-"gjysmës së parë të shekullit të 20-të."
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -7736,7 +7579,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
 msgid "Single"
-msgstr "Njësh"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:533
 msgctxt "work_attribute_type_allowed_value"
@@ -7761,7 +7604,7 @@ msgstr ""
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr "Këllëf i Hollë"
+msgstr ""
 
 #: DB:release_packaging/name:122
 msgctxt "release_packaging"
@@ -7786,17 +7629,17 @@ msgstr ""
 #: DB:work_type/name:5
 msgctxt "work_type"
 msgid "Sonata"
-msgstr "Sonatë"
+msgstr ""
 
 #: DB:work_type/name:17
 msgctxt "work_type"
 msgid "Song"
-msgstr "Këngë"
+msgstr ""
 
 #: DB:work_type/name:15
 msgctxt "work_type"
 msgid "Song-cycle"
-msgstr "Cikël këngësh"
+msgstr ""
 
 #. name:Automatic
 #: DB:series_ordering_type/description:1
@@ -7805,8 +7648,6 @@ msgid ""
 "Sorts the items in the series automatically by their number attributes, "
 "using a natural sort order."
 msgstr ""
-"I rendit objektet në seri automatikisht sipas atributesh numri, duke përdor "
-"një rend natyral renditjeje."
 
 #: DB:work_attribute_type/name:208
 msgctxt "work_attribute_type"
@@ -7816,12 +7657,12 @@ msgstr ""
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
-msgstr "Muzikë filmi"
+msgstr ""
 
 #: DB:work_type/name:22
 msgctxt "work_type"
 msgid "Soundtrack"
-msgstr "Muzikë filmi"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
@@ -7831,12 +7672,12 @@ msgstr ""
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
-msgstr "Fjalë të folura"
+msgstr ""
 
 #: DB:place_type/name:4
 msgctxt "place_type"
 msgid "Stadium"
-msgstr "Stadium"
+msgstr ""
 
 #: DB:event_type/name:6
 msgctxt "event_type"
@@ -7846,22 +7687,22 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
-msgstr "Ngjitës"
+msgstr ""
 
 #: DB:instrument_type/name:2
 msgctxt "instrument_type"
 msgid "String instrument"
-msgstr "Instrument me korda"
+msgstr ""
 
 #: DB:place_type/name:1
 msgctxt "place_type"
 msgid "Studio"
-msgstr "Studio"
+msgstr ""
 
 #: DB:area_type/name:2
 msgctxt "area_type"
 msgid "Subdivision"
-msgstr "Nënndarje"
+msgstr ""
 
 #. name:Subdivision
 #: DB:area_type/description:2
@@ -7871,9 +7712,6 @@ msgid ""
 "California, Ontario, Okinawa. These are considered when displaying the "
 "parent areas for a given area."
 msgstr ""
-"Nëndarja përdoret për ndarjet kryesore administrative të një vendi, p.sh., "
-"Kaliforni, Ontario, Okinaua. Këto merren parasysh kur shfaqen zonat mëmë për "
-"një zonë të dhënë."
 
 #: DB:work_attribute_type_allowed_value/value:244
 msgctxt "work_attribute_type_allowed_value"
@@ -7893,7 +7731,7 @@ msgstr ""
 #: DB:work_type/name:6
 msgctxt "work_type"
 msgid "Suite"
-msgstr "Suitë"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:534
 msgctxt "work_attribute_type_allowed_value"
@@ -7998,12 +7836,12 @@ msgstr ""
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr "Poemë simfonike"
+msgstr ""
 
 #: DB:work_type/name:16
 msgctxt "work_type"
 msgid "Symphony"
-msgstr "Simfoni"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:547
 msgctxt "work_attribute_type_allowed_value"
@@ -8118,7 +7956,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:668
 msgctxt "work_attribute_type_allowed_value"
 msgid "Tango"
-msgstr "Tango"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1040
 msgctxt "work_attribute_type_allowed_value"
@@ -8202,7 +8040,6 @@ msgid ""
 "The CD layer of a DVDplus. The DVD layer should be added as a separate "
 "medium."
 msgstr ""
-"Shtresa CD e një DVDplus. Shtresa DVD do të duhej shtuar si një media veçmas."
 
 #. name:DualDisc (CD side)
 #: DB:medium_format/description:67
@@ -8211,8 +8048,6 @@ msgid ""
 "The CD layer of a DualDisc. The DVD layer should be added as a separate "
 "medium."
 msgstr ""
-"Shtresa CD e një DualDisku. Shtresa DVD do të duhej shtuar si një media "
-"veçmas."
 
 #. name:Hybrid SACD (CD layer)
 #: DB:medium_format/description:63
@@ -8221,8 +8056,6 @@ msgid ""
 "The CD layer of a hybrid SACD. The SACD layer should be added as a separate "
 "medium."
 msgstr ""
-"Shtresa CD e një SACD hibrid. Shtresa SACD do të duhej shtuar si një media "
-"veçmas."
 
 #. name:VinylDisc (CD side)
 #: DB:medium_format/description:82
@@ -8231,8 +8064,6 @@ msgid ""
 "The CD side of a vinyl + CD VinylDisc. The vinyl side should be added as a "
 "separate medium."
 msgstr ""
-"Ana CD e një vinil + CD VinilDisk. Ana vinil do të duhej shtuar si një media "
-"veçmas."
 
 #. name:CED
 #: DB:medium_format/description:60
@@ -8243,10 +8074,6 @@ msgid ""
 "TV set using a special needle and high-density groove system similar to "
 "phonograph records."
 msgstr ""
-"Capacitance Electronic Disc (CED) është një sistem analog riprodhimi videosh "
-"i zhvilluar nga RCA, me të cilin video dhe audio mund të luheshin tok në një "
-"televizor duke përdorur një gjilpërë speciale dhe një sistem hullish me "
-"dendësi të lartë, të ngjashëm me incizimet fonografike."
 
 #. name:DVDplus (DVD-Audio side)
 #: DB:medium_format/description:68
@@ -8255,8 +8082,6 @@ msgid ""
 "The DVD (audio) layer of a DVDplus. The CD layer should be added as a "
 "separate medium."
 msgstr ""
-"Shtresa DVD (audio) e një DVDplusi. Shtresa CD do të duhej shtuar si një "
-"media veçmas."
 
 #. name:DualDisc (DVD-Audio side)
 #: DB:medium_format/description:65
@@ -8265,8 +8090,6 @@ msgid ""
 "The DVD (audio) layer of a DualDisc. The CD layer should be added as a "
 "separate medium."
 msgstr ""
-"Shtresa DVD (audio) e një DualDisku. Shtresa SACD do të duhej shtuar si një "
-"media veçmas."
 
 #. name:DVDplus (DVD-Video side)
 #: DB:medium_format/description:69
@@ -8283,8 +8106,6 @@ msgid ""
 "The DVD (video) layer of a DualDisc. The CD layer should be added as a "
 "separate medium."
 msgstr ""
-"Shtresa DVD (video) e një DualDisku. Shtresa SACD do të duhej shtuar si një "
-"media veçmas."
 
 #. name:DualDisc (DVD side)
 #: DB:medium_format/description:130
@@ -8302,8 +8123,6 @@ msgid ""
 "The DVD side of a vinyl + DVD VinylDisc. The vinyl side should be added as a "
 "separate medium."
 msgstr ""
-"Ana DVD e një vinil + DVD VinilDisku. Ana vinil do të duhej shtuar si një "
-"media veçmas."
 
 #. name:Hybrid SACD (SACD layer)
 #: DB:medium_format/description:64
@@ -8312,8 +8131,6 @@ msgid ""
 "The SACD layer of a hybrid SACD. The CD layer should be added as a separate "
 "medium."
 msgstr ""
-"Shtresa SACD e një SACD-je hibrid. Shtresa SACD do të duhej shtuar si një "
-"media veçmas."
 
 #. name:Bottom
 #: DB:cover_art_archive.art_type/description:49
@@ -8340,9 +8157,6 @@ msgid ""
 "form, it had no instrumental accompaniment, although accompaniment is much "
 "more common in later madrigals."
 msgstr ""
-"Madrigali është një lloj kompozimi muzike shekullare vokale. Në formën e tij "
-"origjinale, s’ka shoqërim instrumental, edhe pse shoqërimi është shumë më i "
-"rëndomtë në madrigale të mëvonshëm."
 
 #. name:Operetta
 #: DB:work_type/description:24
@@ -8351,9 +8165,6 @@ msgid ""
 "The operetta is a genre of light opera, in terms both of music and subject "
 "matter. Operettas are generally short and include spoken parts."
 msgstr ""
-"Opereta është një zhanër opere të lehtë, si për nga muzika, ashtu edhe për "
-"nga subjekti. Operetat zakonisht janë të shkurtra dhe përfshijnë pjesë të "
-"folure."
 
 #. name:Matrix/Runout
 #: DB:cover_art_archive.art_type/description:15
@@ -8378,8 +8189,6 @@ msgstr ""
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
 msgstr ""
-"Mbajtësja tradicionale e CD-ve, e prodhuar nga material i fortë plastik i "
-"thyeshëm"
 
 #. name:VinylDisc (Vinyl side)
 #: DB:medium_format/description:81
@@ -8388,8 +8197,6 @@ msgid ""
 "The vinyl side of a VinylDisc. The CD or DVD side should be added as a "
 "separate medium."
 msgstr ""
-"Ana vinil e një VinilDisku. Ana CD ose DVD do të duhej shtuar si një media "
-"veçmas."
 
 #. name:Choir
 #: DB:artist_type/description:6
@@ -8434,9 +8241,6 @@ msgid ""
 "relatively ordinary language without metrical structure (e.g. novels, short "
 "stories, essays...)."
 msgstr ""
-"Kjo përfaqëson vepra letrare të shkruara në prozë, domethënë, shkruar në "
-"gjuhë relativisht ordinere ma strukturë metrike (p.sh., romane, tregime, "
-"sprova…)."
 
 #. name:SACD (2 channels)
 #: DB:medium_format/description:84
@@ -8483,7 +8287,7 @@ msgstr ""
 #: DB:event_art_archive.art_type/name:2
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Biletë"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
@@ -8533,12 +8337,12 @@ msgstr ""
 #: DB:series_type/name:7
 msgctxt "series_type"
 msgid "Tour"
-msgstr "Tur"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr "Pjesë"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
@@ -8618,12 +8422,12 @@ msgstr ""
 #: DB:medium_format/name:28
 msgctxt "medium_format"
 msgid "UMD"
-msgstr "UMD"
+msgstr ""
 
 #: DB:medium_format/name:26
 msgctxt "medium_format"
 msgid "USB Flash Drive"
-msgstr "Diskth USB"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:258
 msgctxt "work_attribute_type_allowed_value"
@@ -8633,7 +8437,7 @@ msgstr ""
 #: DB:medium_format/name:211
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-ray Ultra HD"
+msgstr ""
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
@@ -8718,7 +8522,7 @@ msgstr ""
 #: DB:medium_format/name:22
 msgctxt "medium_format"
 msgid "VCD"
-msgstr "VCD"
+msgstr ""
 
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
@@ -8728,12 +8532,12 @@ msgstr ""
 #: DB:medium_format/name:59
 msgctxt "medium_format"
 msgid "VHD"
-msgstr "VHD"
+msgstr ""
 
 #: DB:medium_format/name:21
 msgctxt "medium_format"
 msgid "VHS"
-msgstr "VHS"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:261
 msgctxt "work_attribute_type_allowed_value"
@@ -8803,7 +8607,7 @@ msgstr ""
 #: DB:place_type/name:2
 msgctxt "place_type"
 msgid "Venue"
-msgstr "Vendi ku mbahet"
+msgstr ""
 
 #. name:VHD
 #: DB:medium_format/description:59
@@ -8812,8 +8616,6 @@ msgid ""
 "Video High Density (VHD) was a videodisc format which was marketed "
 "predominantly in Japan by JVC."
 msgstr ""
-"Video High Density (VHD) qe një format videodisqesh i cili iu ofrua tregut "
-"kryesisht në Japoni nga JVC-ja."
 
 #: DB:work_attribute_type_allowed_value/value:273
 msgctxt "work_attribute_type_allowed_value"
@@ -8833,27 +8635,27 @@ msgstr ""
 #: DB:medium_format/name:7
 msgctxt "medium_format"
 msgid "Vinyl"
-msgstr "Vinil"
+msgstr ""
 
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr "VinylDisk"
+msgstr ""
 
 #: DB:medium_format/name:82
 msgctxt "medium_format"
 msgid "VinylDisc (CD side)"
-msgstr "VinylDisk (anë CD)"
+msgstr ""
 
 #: DB:medium_format/name:80
 msgctxt "medium_format"
 msgid "VinylDisc (DVD side)"
-msgstr "VinylDisk (anë DVD)"
+msgstr ""
 
 #: DB:medium_format/name:81
 msgctxt "medium_format"
 msgid "VinylDisc (Vinyl side)"
-msgstr "VinylDisk (anë Vinil)"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:259
 #: DB:work_attribute_type_allowed_value/value:1047
@@ -8889,7 +8691,7 @@ msgstr ""
 #: DB:work_attribute_type/name:210
 msgctxt "work_attribute_type"
 msgid "WAMI ID"
-msgstr "ID WAMI"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:13
 msgctxt "cover_art_type"
@@ -8904,17 +8706,17 @@ msgstr ""
 #: DB:medium_format/name:14
 msgctxt "medium_format"
 msgid "Wax Cylinder"
-msgstr "Cilindër Dylli"
+msgstr ""
 
 #: DB:instrument_type/name:1
 msgctxt "instrument_type"
 msgid "Wind instrument"
-msgstr "Instrument frymor"
+msgstr ""
 
 #: DB:editor_collection_type/name:3
 msgctxt "collection_type"
 msgid "Wishlist"
-msgstr "Listë dëshirash"
+msgstr ""
 
 #: DB:release_status/name:5
 msgctxt "release_status"
@@ -8934,12 +8736,12 @@ msgstr ""
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
 msgid "Work name"
-msgstr "Emër vepre"
+msgstr ""
 
 #: DB:series_type/name:4
 msgctxt "series_type"
 msgid "Work series"
-msgstr "Seri veprash"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:277
 msgctxt "work_attribute_type_allowed_value"
@@ -8990,7 +8792,7 @@ msgstr ""
 #: DB:work_attribute_type/name:30
 msgctxt "work_attribute_type"
 msgid "ZAiKS ID"
-msgstr "ID ZAiKS"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:780
 msgctxt "work_attribute_type_allowed_value"
@@ -9000,7 +8802,7 @@ msgstr ""
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr "Zarzuela"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:591
 msgctxt "work_attribute_type_allowed_value"
@@ -9060,7 +8862,7 @@ msgstr ""
 #: DB:medium_format/name:77
 msgctxt "medium_format"
 msgid "Zip Disk"
-msgstr "Disk Zip"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"
@@ -9072,7 +8874,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:681
 msgctxt "work_attribute_type_allowed_value"
 msgid "ambiguous"
-msgstr "e dykuptimtë"
+msgstr ""
 
 #: DB:medium_format/name:164
 msgctxt "medium_format"
@@ -9137,7 +8939,7 @@ msgstr ""
 #: DB:work_type/name:20
 msgctxt "work_type"
 msgid "Étude"
-msgstr "Etyd"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:653
 msgctxt "work_attribute_type_allowed_value"
