@@ -1,19 +1,16 @@
-#
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: MusicBrainz\n"
-"Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-16 21:11+0000\n"
-"Last-Translator: Besnik <besnik@programeshqip.org>\n"
-"Language-Team: Albanian <https://translations.metabrainz.org/projects/"
-"musicbrainz/history/sq/>\n"
-"Language: sq\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: arz\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.16\n"
+"Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ((n == 1) ? 1 : ((n == 2) ? "
+"2 : ((n % 100 >= 3 && n % 100 <= 10) ? 3 : ((n % 100 >= 11 && n % 100 <= 99) "
+"? 4 : 5))));\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -27,6 +24,7 @@ msgstr ""
 msgid "1200px thumbnails"
 msgstr ""
 
+#. title:1200px thumbnails
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""
 "1200px thumbnails are added to the Cover Art Archive, providing users with a "
@@ -34,6 +32,7 @@ msgid ""
 "original uploads directly."
 msgstr ""
 
+#. title:Discourse unifies community communication
 #: DB:statistics.statistic_event/description:2016-03-01
 msgid ""
 "A Discourse forum platform is added to replace both the old-school forums "
@@ -41,18 +40,21 @@ msgid ""
 "place."
 msgstr ""
 
+#. title:Tag up/downvoting
 #: DB:statistics.statistic_event/description:2015-06-29
 msgid ""
 "A change is introduced that allows voting for and against existing "
 "folksonomy tags, rather than only adding your own."
 msgstr ""
 
+#. title:Picard 2.0 released
 #: DB:statistics.statistic_event/description:2018-07-19
 msgid ""
 "A major update for the Picard tagger is released, with a huge amount of "
 "bugfixes and improvements."
 msgstr ""
 
+#. title:Voting suggestions
 #: DB:statistics.statistic_event/description:2019-11-12
 msgid ""
 "A new \"Voting suggestions\" page is released, containing predefined edit "
@@ -60,26 +62,31 @@ msgid ""
 "and vote on."
 msgstr ""
 
+#. title:Cover Art Uploader
 #: DB:statistics.statistic_event/description:2013-08-05
 msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
 msgstr ""
 
+#. title:Edit note notifications
 #: DB:statistics.statistic_event/description:2015-12-28
 msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
 msgstr ""
 
+#. title:Improved search
 #: DB:statistics.statistic_event/description:2003-04-05
 msgid "A new, much faster search mechanism is added."
 msgstr ""
 
+#. title:Great Dispute
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr ""
 
+#. title:Areas, ISNI codes and multiple release events per release
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
 "A very substantial schema change release adds a new entity type (areas), "
@@ -87,11 +94,13 @@ msgid ""
 "more than one release event on one release."
 msgstr ""
 
+#. title:Edit search
 #: DB:statistics.statistic_event/description:2003-11-10
 msgid ""
 "A way to search for edits based on several different criteria is released."
 msgstr ""
 
+#. title:The AcousticBrainz project goes live
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
 "AcousticBrainz, which aims to crowd source acoustic information for music, "
@@ -99,10 +108,22 @@ msgid ""
 "Pompeu Fabra."
 msgstr ""
 
+#. title:Adam James joins the MetaBrainz team
+#: DB:statistics.statistic_event/description:2022-02-07
+msgid ""
+"Adam James (atj) joins the MetaBrainz team pro-bono as a system "
+"administrator (thanks to Transitiv Technologies)."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2022-02-07
+msgid "Adam James joins the MetaBrainz team"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
 msgstr ""
 
+#. title:Advanced relationships
 #: DB:statistics.statistic_event/description:2005-04-10
 msgid ""
 "Advanced relationships that allow users to connect basic data entities is "
@@ -110,6 +131,7 @@ msgid ""
 "off by default, causing a drop in voting activity."
 msgstr ""
 
+#. title:MetaBrainz wins copyright troll battle, Wikimedia images dropped
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
 "After a lot of behind-the-scenes drama, MetaBrainz wins a legal battle "
@@ -119,23 +141,27 @@ msgid ""
 "more safe."
 msgstr ""
 
+#. title:Relationships displayed on release pages
 #: DB:statistics.statistic_event/description:2011-11-23
 msgid ""
 "After a lot of debate, relationship data starts being displayed on release "
 "pages, making it a lot more visible."
 msgstr ""
 
+#. title:Ian McEwen hired
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
 msgstr ""
 
+#. title:MetaBrainz projects complete move to European servers
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
 "After many years at Digital West in California, the MetaBrainz project moves "
 "all servers to a much larger dedicated provider in Germany, Hetzner."
 msgstr ""
 
+#. title:BookBrainz becomes official MetaBrainz project
 #: DB:statistics.statistic_event/description:2018-09-10
 msgid ""
 "After several years as a community-driven only project, BookBrainz is "
@@ -143,6 +169,7 @@ msgid ""
 "the hiring of Monkey."
 msgstr ""
 
+#. title:IRC channels move to Libera.Chat
 #: DB:statistics.statistic_event/description:2021-05-26
 msgid ""
 "After unexpected upheaval on Freenode, MetaBrainz moves all official "
@@ -153,11 +180,13 @@ msgstr ""
 msgid "Album languages"
 msgstr ""
 
+#. title:Album languages
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
 
+#. title:Aliases for recordings, releases and release groups
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
 "Aliases are added to the three entity types that were still missing them: "
@@ -169,10 +198,11 @@ msgstr ""
 msgid "Aliases for recordings, releases and release groups"
 msgstr ""
 
+#. title:Amazon betas SoundUnwound
 #: DB:statistics.statistic_event/description:2008-09-01
 msgid ""
-"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://www."
-"wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
+"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://"
+"www.wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
 
@@ -181,25 +211,27 @@ msgid "Amazon betas SoundUnwound"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2004-02-24
-#, fuzzy
-#| msgid "Cover Art"
 msgid "Amazon cover art"
-msgstr "Kopertinë"
+msgstr ""
 
+#. title:Amazon cover art
 #: DB:statistics.statistic_event/description:2004-02-24
 msgid "Amazon cover art support released."
 msgstr ""
 
+#. title:Release editor
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
 msgstr ""
 
+#. title:Relationship credits become available
 #: DB:statistics.statistic_event/description:2015-06-02
 msgid ""
 "An update is released that allows specifying a credit for artists in a "
 "relationship, if not the same as the artist name."
 msgstr ""
 
+#. title:Annotations
 #: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
 msgstr ""
@@ -208,24 +240,38 @@ msgstr ""
 msgid "Annotations"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2023-09-13
+msgid "Ansh Goyal joins the MetaBrainz team"
+msgstr ""
+
+#. title:Ansh Goyal joins the MetaBrainz team
+#: DB:statistics.statistic_event/description:2023-09-13
+msgid ""
+"Ansh Goyal joins the MetaBrainz team as a React developer, mostly focusing "
+"on ListenBrainz and BookBrainz."
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2013-05-15
 msgid "Areas, ISNI codes and multiple release events per release"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr "Pajtime te artistë"
+msgstr ""
 
+#. title:User improvements
 #: DB:statistics.statistic_event/description:2005-02-13
 msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
 
+#. title:Artist subscriptions
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
 msgstr ""
 
+#. title:"feat." standardization dropped
 #: DB:statistics.statistic_event/description:2017-04-11
 msgid ""
 "As part of a long term move towards more fidelity to the original data, we "
@@ -237,6 +283,7 @@ msgstr ""
 msgid "BBC dynamic artist pages"
 msgstr ""
 
+#. title:BBC dynamic artist pages
 #: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
 msgstr ""
@@ -261,6 +308,7 @@ msgstr ""
 msgid "CatQuest becomes Instrument Inserter"
 msgstr ""
 
+#. title:CatQuest becomes Instrument Inserter
 #: DB:statistics.statistic_event/description:2016-06-20
 msgid ""
 "CatQuest officially takes over from reosarevok as the main person for adding "
@@ -268,10 +316,15 @@ msgid ""
 "position."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2024-06-12
+msgid "ChatBrainz becomes the primary chat platform"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2019-08-08
 msgid "Collaborative collections"
-msgstr "Koleksione me bashkëpunim"
+msgstr ""
 
+#. title:Collaborative collections
 #: DB:statistics.statistic_event/description:2019-08-08
 msgid ""
 "Collection owners are now able to allow other editors to also add/remove "
@@ -282,10 +335,12 @@ msgstr ""
 msgid "Collection, Ratings, CDStubs"
 msgstr ""
 
+#. title:Collection, Ratings, CDStubs
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
 msgstr ""
 
+#. title:Mergeable collections, artist series and ratable places
 #: DB:statistics.statistic_event/description:2021-05-18
 msgid ""
 "Collections can now be merged, in case an editor wants to consolidate "
@@ -296,6 +351,22 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-10-09
+msgid "Cover and Event Art Archives down"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-11-12
+msgid "Cover and Event Art Archives up in Beta"
+msgstr ""
+
+#. title:Increased CritiqueBrainz integration
+#: DB:statistics.statistic_event/description:2022-08-08
+msgid ""
+"CritiqueBrainz reviews become more integrated into MusicBrainz, with reviews "
+"(and ratings) for all entities that support them moving to their own Reviews "
+"tab."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-03-29
@@ -310,6 +381,7 @@ msgstr ""
 msgid "Easier edit note adding"
 msgstr ""
 
+#. title:Install scripts
 #: DB:statistics.statistic_event/description:2004-05-09
 msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
@@ -324,6 +396,7 @@ msgstr ""
 msgid "Edit note notifications"
 msgstr ""
 
+#. title:Easier edit note adding
 #: DB:statistics.statistic_event/description:2003-07-25
 msgid ""
 "Edit notes can now be added when creating an edit, making it much easier for "
@@ -334,12 +407,34 @@ msgstr ""
 msgid "Edit search"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2023-05-22
+msgid "Editable edit notes"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2025-06-27
+msgid "Editor account cleanup"
+msgstr ""
+
+#. title:Track times set from DiscIDs
 #: DB:statistics.statistic_event/description:2007-12-07
 msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
 msgstr ""
 
+#. title:Genre collections
+#: DB:statistics.statistic_event/description:2024-05-12
+msgid "Editors can now create collections of genres."
+msgstr ""
+
+#. title:Spammer editors hidden from statistics
+#: DB:statistics.statistic_event/description:2022-03-28
+msgid ""
+"Editors marked as spammers are no longer counted as valid editors, "
+"influencing statistic numbers."
+msgstr ""
+
+#. title:More auto-edits
 #: DB:statistics.statistic_event/description:2015-11-30
 msgid ""
 "Edits made by editors to their own release additions within 1 hour of adding "
@@ -350,6 +445,7 @@ msgstr ""
 msgid "Email verification"
 msgstr ""
 
+#. title:Empty labels, release groups and works start being auto-removed
 #: DB:statistics.statistic_event/description:2012-06-25
 msgid ""
 "Empty labels, release groups and works are now auto-removed after 24 hours "
@@ -360,6 +456,11 @@ msgstr ""
 msgid "Empty labels, release groups and works start being auto-removed"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2024-06-30
+msgid "Event Art Archive"
+msgstr ""
+
+#. title:Event support, data tracks
 #: DB:statistics.statistic_event/description:2014-09-17
 msgid ""
 "Event support is added to MusicBrainz, allowing storing information about "
@@ -372,12 +473,18 @@ msgstr ""
 msgid "Event support, data tracks"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2022-11-24
+msgid "External access to MusicBrainz search server switched off"
+msgstr ""
+
+#. title:Tags, editor subscriptions, relationship batch-adding
 #: DB:statistics.statistic_event/description:2007-10-17
 msgid ""
 "Folksonomy tagging and editor subscriptions are released. Additionally, it's "
 "now possible to batch-add relationships to multiple tracks on a release."
 msgstr ""
 
+#. title:Roman Tsukanov joins the MetaBrainz team
 #: DB:statistics.statistic_event/description:2015-09-04
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
@@ -387,6 +494,7 @@ msgstr ""
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
 msgstr ""
 
+#. title:FreeDB off/Autoeditors
 #: DB:statistics.statistic_event/description:2004-10-10
 msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
@@ -397,6 +505,7 @@ msgstr ""
 msgid "FreeDB off/Autoeditors"
 msgstr ""
 
+#. title:Frederik "Freso" S. Olesen becomes MetaBrainz Community Manager
 #: DB:statistics.statistic_event/description:2015-08-06
 msgid ""
 "Freso becomes the first MetaBrainz Community Manager, tasked with helping "
@@ -407,10 +516,19 @@ msgstr ""
 msgid "Genre added as a new entity"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2024-05-12
+msgid "Genre collections"
+msgstr ""
+
+#. title:Genre added as a new entity
 #: DB:statistics.statistic_event/description:2018-11-02
 msgid ""
 "Genres are added as a new entity, although still tightly tied to folksonomy "
 "tags."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2022-06-20
+msgid "Genres become a more complete entity type"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-08-15
@@ -419,6 +537,14 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-06-04
+msgid "Harmony importer"
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2025-03-21
+msgid "Harmony seeds recording relationships"
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2021-05-26
@@ -433,6 +559,7 @@ msgstr ""
 msgid "Ian McEwen leaves MetaBrainz"
 msgstr ""
 
+#. title:Ian McEwen leaves MetaBrainz
 #: DB:statistics.statistic_event/description:2015-07-17
 msgid "Ian McEwen leaves the project for personal reasons."
 msgstr ""
@@ -441,6 +568,7 @@ msgstr ""
 msgid "Imported CD Baby catalog as CD Stubs"
 msgstr ""
 
+#. title:Imported CD Baby catalog as CD Stubs
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
@@ -454,6 +582,7 @@ msgstr ""
 msgid "Improved search"
 msgstr ""
 
+#. title:Voting period shortened to 7 days
 #: DB:statistics.statistic_event/description:2013-02-11
 msgid ""
 "In an effort to reduce the size of the open edit queue and force less "
@@ -461,6 +590,7 @@ msgid ""
 "reduced from 14 to 7 days."
 msgstr ""
 
+#. title:Guess feat. buttons
 #: DB:statistics.statistic_event/description:2015-04-27
 msgid ""
 "In order to make it easier to fix a lot of cases where featured artists are "
@@ -468,20 +598,27 @@ msgid ""
 "feat. buttons are added that greatly simplify the process."
 msgstr ""
 
+#. title:NGS No-Editing Phase
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
 msgstr ""
 
+#. title:NGS Reduced Editing Phase
 #: DB:statistics.statistic_event/description:2011-05-02
 msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2022-08-08
+msgid "Increased CritiqueBrainz integration"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
 msgstr ""
 
+#. title:Indexed search/XML WS
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
 msgstr ""
@@ -490,6 +627,7 @@ msgstr ""
 msgid "Inline edits"
 msgstr ""
 
+#. title:Inline edits
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
 msgstr ""
@@ -510,10 +648,22 @@ msgstr ""
 msgid "Italian translation released, IPI and ISNI become autoedits"
 msgstr ""
 
+#. title:Julian Anderson joins the MetaBrainz team
+#: DB:statistics.statistic_event/description:2024-11-13
+msgid ""
+"Julian Anderson (julian45) joins the MetaBrainz team pro-bono as a system "
+"administrator."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2024-11-13
+msgid "Julian Anderson joins the MetaBrainz team"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2021-02-23
 msgid "Kartik Ohri joins the MetaBrainz team"
 msgstr ""
 
+#. title:Kartik Ohri joins the MetaBrainz team
 #: DB:statistics.statistic_event/description:2021-02-23
 msgid ""
 "Kartik Ohri joins the MetaBrainz team to work on ListenBrainz, "
@@ -521,6 +671,7 @@ msgid ""
 "already significantly rewritten as a volunteer."
 msgstr ""
 
+#. title:Kuno Woudt hired as full-time developer
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
 msgstr ""
@@ -535,8 +686,9 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
-msgstr "Last.fm"
+msgstr ""
 
+#. title:Last.fm
 #: DB:statistics.statistic_event/description:2007-11-07
 msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
 msgstr ""
@@ -545,6 +697,7 @@ msgstr ""
 msgid "Laurent \"zas\" Monin becomes sysadmin"
 msgstr ""
 
+#. title:Laurent "zas" Monin becomes sysadmin
 #: DB:statistics.statistic_event/description:2015-09-28
 msgid ""
 "Laurent Monin, better known as Zas, joins the team as a dedicated systems "
@@ -552,11 +705,13 @@ msgid ""
 "a new community discussion system."
 msgstr ""
 
+#. title:Linking
 #: DB:statistics.statistic_event/description:2003-12-28
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
 msgstr ""
 
+#. title:MetaBrainz signs first customer
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
 msgstr ""
@@ -565,6 +720,7 @@ msgstr ""
 msgid "Linking"
 msgstr ""
 
+#. title:MBBE_Bot starts running
 #: DB:statistics.statistic_event/description:2020-10-07
 msgid ""
 "MBBE_Bot is created to make fixes that are too time-consuming to do by hand, "
@@ -585,6 +741,7 @@ msgstr ""
 msgid "Mergeable collections, artist series and ratable places"
 msgstr ""
 
+#. title:SoC 2008
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
 msgstr ""
@@ -609,6 +766,7 @@ msgstr ""
 msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
 msgstr ""
 
+#. title:MetaWeb signed
 #: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb becomes a MusicBrainz data user."
 msgstr ""
@@ -621,6 +779,7 @@ msgstr ""
 msgid "More auto-edits"
 msgstr ""
 
+#. title:Several new auto-edit types and translations
 #: DB:statistics.statistic_event/description:2015-11-16
 msgid ""
 "More edit types are made auto-edits for everyone: \"Add relationship\" and "
@@ -633,6 +792,7 @@ msgstr ""
 msgid "MusicBrainz Move"
 msgstr ""
 
+#. title:mb_server now hosted on Git
 #: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
 msgstr ""
@@ -641,20 +801,24 @@ msgstr ""
 msgid "MusicBrainz adds AcoustID support"
 msgstr ""
 
+#. title:Dedicated database server
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
 msgstr ""
 
+#. title:New MusicBrainz design
 #: DB:statistics.statistic_event/description:2016-02-22
 msgid ""
 "MusicBrainz itself gets a new design to better match the rest of the *Brainz "
 "family."
 msgstr ""
 
+#. title:MusicBrainz Move
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
 msgstr ""
 
+#. title:MusicIP PUID
 #: DB:statistics.statistic_event/description:2006-03-12
 msgid ""
 "MusicBrainz partners with MusicIP and starts using MusicDNS's PUID acoustic "
@@ -678,6 +842,7 @@ msgstr ""
 msgid "NGS Release"
 msgstr ""
 
+#. title:NGS Release
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
 msgstr ""
@@ -690,6 +855,7 @@ msgstr ""
 msgid "New entity auto-editing period extended to 24 hours"
 msgstr ""
 
+#. title:reosarevok becomes the MusicBrainz style leader
 #: DB:statistics.statistic_event/description:2012-02-17
 msgid ""
 "Nicolás Tamargo (reosarevok) becomes the MusicBrainz style leader, and a "
@@ -700,14 +866,17 @@ msgstr ""
 msgid "Non album tracks"
 msgstr ""
 
+#. title:Non album tracks
 #: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
 msgstr ""
 
+#. title:MetaBrainz hires Oliver Charles
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
 msgstr ""
 
+#. title:Oliver Charles joins MusicBrainz full-time
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
 msgstr ""
@@ -716,6 +885,7 @@ msgstr ""
 msgid "Oliver Charles joins MusicBrainz full-time"
 msgstr ""
 
+#. title:Solr-based search server deployed
 #: DB:statistics.statistic_event/description:2018-06-30
 msgid ""
 "Our old search server gets a significant upgrade with its move to Solr, "
@@ -730,6 +900,7 @@ msgstr ""
 msgid "Pagination added for relationships, user tags"
 msgstr ""
 
+#. title:Pagination added for relationships, user tags
 #: DB:statistics.statistic_event/description:2021-04-05
 msgid ""
 "Pagination was added for two very long lists that sometimes couldn't be "
@@ -744,6 +915,7 @@ msgstr ""
 msgid "Picard 2.0 released"
 msgstr ""
 
+#. title:New entity auto-editing period extended to 24 hours
 #: DB:statistics.statistic_event/description:2017-10-31
 msgid ""
 "Rather than having to notice any errors during a fairly brief 1 hour period, "
@@ -753,7 +925,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
-msgstr "Përpunues Marrëdhënieje"
+msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-06-02
 msgid "Relationship credits become available"
@@ -776,15 +948,18 @@ msgstr ""
 msgid "Release editor"
 msgstr ""
 
+#. title:Release editor
 #: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
 msgstr ""
 
+#. title:Release Groups, ISRCs, CDStub searching
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
 
+#. title:Release "stubs", minimum voting period for destructive edits
 #: DB:statistics.statistic_event/description:2015-04-06
 msgid ""
 "Releases can now be added without any mediums, for cases where the only "
@@ -795,6 +970,14 @@ msgid ""
 "oppose them have time to see them."
 msgstr ""
 
+#. title:Editor account cleanup
+#: DB:statistics.statistic_event/description:2025-06-27
+msgid ""
+"Removed editors with no confirmed email, no activity and no OAuth tokens/"
+"edits/votes."
+msgstr ""
+
+#. title:Sambhav Kothari and Param Singh replace Roman Tsukanov
 #: DB:statistics.statistic_event/description:2017-09-06
 msgid ""
 "Roman Tsukanov decides not to renew his contract. Sambhav Kothari and Param "
@@ -814,6 +997,7 @@ msgstr ""
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
 msgstr ""
 
+#. title:Sambhav Kothari leaves, Nicolás Tamargo joins as a programmer
 #: DB:statistics.statistic_event/description:2018-09-09
 msgid ""
 "Sambhav Kothari leaves MetaBrainz after a lot of hard work getting the SOLR "
@@ -833,6 +1017,17 @@ msgstr ""
 msgid "Several new auto-edit types and translations"
 msgstr ""
 
+#. title:Simon Hartman joins the MetaBrainz team
+#: DB:statistics.statistic_event/description:2022-02-23
+msgid ""
+"Simon Hartman (aerozol) joins the MetaBrainz team as a part-time designer."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2022-02-23
+msgid "Simon Hartman joins the MetaBrainz team"
+msgstr ""
+
+#. title:The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker
 #: DB:statistics.statistic_event/description:2020-05-16
 msgid ""
 "Since the Virtual Machine project tended to just lag way behind current data "
@@ -849,6 +1044,7 @@ msgstr ""
 msgid "Solr-based search server deployed"
 msgstr ""
 
+#. title:Instrument images, recordings' first release date
 #: DB:statistics.statistic_event/description:2020-12-31
 msgid ""
 "Some instrument pages start displaying instrument illustrations by IROM. "
@@ -856,6 +1052,11 @@ msgid ""
 "recordings based on the releases they appear on."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2022-03-28
+msgid "Spammer editors hidden from statistics"
+msgstr ""
+
+#. title:SG5 Fixes
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
@@ -866,6 +1067,7 @@ msgstr ""
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
 msgstr ""
 
+#. title:Labels/data quality
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
 msgstr ""
@@ -890,15 +1092,18 @@ msgstr ""
 msgid "The Android app goes live"
 msgstr ""
 
+#. title:BBC partners with MetaBrainz
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
 msgstr ""
 
+#. title:CAA initial release
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available."
 msgstr ""
 
+#. title:CAA official release
 #: DB:statistics.statistic_event/description:2012-10-10
 msgid "The Cover Art Archive is officially released."
 msgstr ""
@@ -907,6 +1112,28 @@ msgstr ""
 msgid "The CritiqueBrainz project goes live"
 msgstr ""
 
+#. title:Event Art Archive
+#: DB:statistics.statistic_event/description:2024-06-30
+msgid "The Event Art Archive is officially released."
+msgstr ""
+
+#. title:Cover and Event Art Archives up in Beta
+#: DB:statistics.statistic_event/description:2024-11-12
+msgid ""
+"The Internet Archive, which hosts the Cover and Event Art Archives, comes "
+"back online, and artwork uploading is enabled on the MusicBrainz Beta "
+"website."
+msgstr ""
+
+#. title:Cover and Event Art Archives down
+#: DB:statistics.statistic_event/description:2024-10-09
+msgid ""
+"The Internet Archive, which hosts the Cover and Event Art Archives, goes "
+"down due to a cyber-attack, meaning that MusicBrainz artwork can no longer "
+"be uploaded or displayed."
+msgstr ""
+
+#. title:Italian translation released, IPI and ISNI become autoedits
 #: DB:statistics.statistic_event/description:2021-02-01
 msgid ""
 "The Italian translation, mostly worked on by salo.rock, is officially "
@@ -918,6 +1145,7 @@ msgstr ""
 msgid "The ListenBrainz project goes live"
 msgstr ""
 
+#. title:MetaBrainz launched
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
@@ -928,16 +1156,43 @@ msgstr ""
 msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
 msgstr ""
 
+#. title:Updated, more consistent relationship editors
+#: DB:statistics.statistic_event/description:2023-02-28
+msgid ""
+"The MusicBrainz relationship editors, completely rewritten in React and "
+"sharing a lot more code than before to make them consistent with each other, "
+"are officially released after a long period of beta testing."
+msgstr ""
+
+#. title:External access to MusicBrainz search server switched off
+#: DB:statistics.statistic_event/description:2022-11-24
+msgid ""
+"The MusicBrainz-provided search server is switched off to external users, "
+"since the option to install a local search server has become a lot simpler "
+"to use."
+msgstr ""
+
+#. title:The ListenBrainz project goes live
 #: DB:statistics.statistic_event/description:2015-09-17
 msgid ""
 "The alpha version of ListenBrainz, an open source and open data alternative "
 "to Last.fm®, goes live."
 msgstr ""
 
+#. title:Genres become a more complete entity type
+#: DB:statistics.statistic_event/description:2022-06-20
+msgid ""
+"The barebones genre system introduced in 2018 expands to turn genres into a "
+"more complete entity type, using the edit system and supporting "
+"relationships, annotations and (soon after) aliases."
+msgstr ""
+
+#. title:The CritiqueBrainz project goes live
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
 msgstr ""
 
+#. title:PUID support is removed
 #: DB:statistics.statistic_event/description:2013-10-14
 msgid ""
 "The diminishing quality of the PUID fingerprinting service and the continued "
@@ -945,6 +1200,7 @@ msgid ""
 "of dropping PUIDs from MusicBrainz and supporting only AcoustID."
 msgstr ""
 
+#. title:Edit history visible without logging in
 #: DB:statistics.statistic_event/description:2020-02-18
 msgid ""
 "The edit history for entities is made visible even when logged out, to make "
@@ -952,18 +1208,21 @@ msgid ""
 "hidden to preserve some privacy)."
 msgstr ""
 
+#. title:Picard 1.0 released
 #: DB:statistics.statistic_event/description:2012-06-02
 msgid ""
 "The first full-version release of the Picard tagger comes out, with a lot of "
 "changes and improvements."
 msgstr ""
 
+#. title:The Android app goes live
 #: DB:statistics.statistic_event/description:2011-08-03
 msgid ""
 "The first version of the MusicBrainz Android app, a Google Summer of Code "
 "project by Jamie McDonald, is made officially available."
 msgstr ""
 
+#. title:"Do Not Cluster" guideline dropped
 #: DB:statistics.statistic_event/description:2015-09-08
 msgid ""
 "The increasingly controversial \"Do Not Cluster\" guideline, which forbid "
@@ -976,6 +1235,7 @@ msgstr ""
 msgid "The new MetaBrainz website goes live"
 msgstr ""
 
+#. title:The new MetaBrainz website goes live
 #: DB:statistics.statistic_event/description:2015-05-18
 msgid ""
 "The new MetaBrainz website, featuring an all-new design and online sign-up "
@@ -983,6 +1243,7 @@ msgid ""
 "2000!"
 msgstr ""
 
+#. title:MusicBrainz adds AcoustID support
 #: DB:statistics.statistic_event/description:2012-01-12
 msgid ""
 "The open source fingerprinting solution AcoustID (developed by friend of "
@@ -990,16 +1251,26 @@ msgid ""
 "fingerprint pages."
 msgstr ""
 
+#. title:ChatBrainz becomes the primary chat platform
+#: DB:statistics.statistic_event/description:2024-06-12
+msgid ""
+"The primary chat platform for MetaBrainz moves from IRC to Matrix, with IRC "
+"and Discord bridges, in a grand multi-platform project called ChatBrainz."
+msgstr ""
+
+#. title:Relationship Editor
 #: DB:statistics.statistic_event/description:2012-10-15
 msgid ""
 "The relationship editor, for bulk-editing relationships for a release, is "
 "released to production."
 msgstr ""
 
+#. title:Search improvements
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
 msgstr ""
 
+#. title:Style process updated again, reosarevok "promoted" to Style BDFL
 #: DB:statistics.statistic_event/description:2014-10-17
 msgid ""
 "The style process is updated again. Rather than requiring long, often angry "
@@ -1008,12 +1279,14 @@ msgid ""
 "Nicolás Tamargo (reosarevok) is \"promoted\" from style leader to style BDFL."
 msgstr ""
 
+#. title:Voting period for contested edits extended
 #: DB:statistics.statistic_event/description:2013-06-24
 msgid ""
 "The voting period for edits that get a No vote is extended to give users "
 "more time to react to the issues."
 msgstr ""
 
+#. title:Menus/Client scripting
 #: DB:statistics.statistic_event/description:2005-10-23
 msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
@@ -1024,20 +1297,39 @@ msgstr ""
 msgid "Track times set from DiscIDs"
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2023-12-21
+msgid "Translations move to Weblate"
+msgstr ""
+
+#. title:Instruments and series
 #: DB:statistics.statistic_event/description:2014-05-14
 msgid ""
 "Two new entity types are added to MusicBrainz: instruments and series. "
 "Series of recordings, releases, release groups and works are supported."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2023-02-28
+msgid "Updated, more consistent relationship editors"
+msgstr ""
+
 #: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
 msgstr ""
 
+#. title:Editable edit notes
+#: DB:statistics.statistic_event/description:2023-05-22
+msgid ""
+"Users are now able to modify or remove their recent edit notes, as long as "
+"nobody else has answered yet. Admins get the ability to modify or remove any "
+"note."
+msgstr ""
+
+#. title:Email verification
 #: DB:statistics.statistic_event/description:2003-06-07
 msgid "Users now have to verify their email address for editing."
 msgstr ""
 
+#. title:Web service version 1 taken down
 #: DB:statistics.statistic_event/description:2019-04-26
 msgid ""
 "Version 1 of the web service (already deprecated since 2011) is finally "
@@ -1045,6 +1337,7 @@ msgid ""
 "six months!)."
 msgstr ""
 
+#. title:Improve voting
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
 msgstr ""
@@ -1059,12 +1352,21 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
-msgstr "Sugjerime votimi"
+msgstr ""
+
+#. title:Translations move to Weblate
+#: DB:statistics.statistic_event/description:2023-12-21
+msgid ""
+"We move all our translations from Transifex to Weblate, a more modern "
+"platform providing a lot more help for translators and making things a bit "
+"easier for developers."
+msgstr ""
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
 msgstr ""
 
+#. title:The AcousticBrainz project is discontinued
 #: DB:statistics.statistic_event/description:2022-02-16
 msgid ""
 "With the AcousticBrainz project deemed to not have fulfilled its original "
@@ -1073,10 +1375,10 @@ msgid ""
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-03-17
-#: ../root/statistics/stats.js:43
 msgid "Work attributes"
-msgstr "Atribute vepre"
+msgstr ""
 
+#. title:Work attributes
 #: DB:statistics.statistic_event/description:2014-03-17
 msgid ""
 "Works get their first attributes (such as keys) allowing us to store data "
@@ -1088,10 +1390,34 @@ msgstr ""
 msgid "Yvanzo joins MusicBrainz as a developer"
 msgstr ""
 
+#. title:Yvanzo joins MusicBrainz as a developer
 #: DB:statistics.statistic_event/description:2017-03-13
 msgid ""
 "Yvanzo joins the development team as a second dedicated MusicBrainz "
 "developer."
+msgstr ""
+
+#: DB:statistics.statistic_event/title:2025-12-20
+msgid "annas-archive Spotify 'backup'"
+msgstr ""
+
+#. title:annas-archive Spotify 'backup'
+#: DB:statistics.statistic_event/description:2025-12-20
+msgid "annas-archive releases Spotify metadata torrent"
+msgstr ""
+
+#. title:Harmony seeds recording relationships
+#: DB:statistics.statistic_event/description:2025-03-21
+msgid ""
+"harmony.pulsewidth.org.uk is updated to allow the aggregating and seeding of "
+"individual track/recording relationships."
+msgstr ""
+
+#. title:Harmony importer
+#: DB:statistics.statistic_event/description:2024-06-04
+msgid ""
+"harmony.pulsewidth.org.uk, a third party open-source metadata aggregator and "
+"MusicBrainz seeder, is released by Kellnerd."
 msgstr ""
 
 #: DB:statistics.statistic_event/title:2010-02-08

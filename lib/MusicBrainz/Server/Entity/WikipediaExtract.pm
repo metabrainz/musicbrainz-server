@@ -27,6 +27,11 @@ has 'url' => (
     isa => 'Str',
 );
 
+has 'is_redirect' => (
+    is => 'rw',
+    isa => 'Bool',
+);
+
 sub TO_JSON {
     my ($self) = @_;
 
