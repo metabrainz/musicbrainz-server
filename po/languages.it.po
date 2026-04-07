@@ -8,11 +8,11 @@
 # salo.rock, 2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-18 17:08+0000\n"
+"PO-Revision-Date: 2026-04-07 00:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -517,10 +517,8 @@ msgstr "Ciuvascio"
 
 #. frequency:1 iso_code_3:nci
 #: DB:language/name:4704
-#, fuzzy
-#| msgid "Classical Newari"
 msgid "Classical Nahuatl"
-msgstr "Newari classico"
+msgstr "Nahuatl classico"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -1720,7 +1718,7 @@ msgstr "Mongolo"
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
-msgstr ""
+msgstr "Morisyen"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

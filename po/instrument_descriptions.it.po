@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-14 01:11+0000\n"
+"PO-Revision-Date: 2026-04-07 00:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -7354,13 +7354,8 @@ msgstr ""
 
 #. name:nabal
 #: DB:instrument/description:684
-#, fuzzy
-#| msgid ""
-#| "Used in traditional Andes music, it consists of a single row of pipes."
 msgid "Used in traditional music, it's long and straight."
-msgstr ""
-"Usato nella musica tradizionale andina, è composto da una fila singola di "
-"canne."
+msgstr "Usato nella musica tradizionale, è dritto e lungo."
 
 #. name:turntable
 #: DB:instrument/description:181
