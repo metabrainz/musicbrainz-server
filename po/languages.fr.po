@@ -22,8 +22,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : "
-"((n != 0 && n % 1000000 == 0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
+"1000000 == 0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #. frequency:1 iso_code_3:abk
@@ -515,6 +515,13 @@ msgstr "Chuuk"
 #: DB:language/name:84
 msgid "Chuvash"
 msgstr "Tchouvache"
+
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+#, fuzzy
+#| msgid "Classical Newari"
+msgid "Classical Nahuatl"
+msgstr "Newari classique"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -1710,6 +1717,11 @@ msgstr "Mongo"
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "Mongol"
+
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr ""
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

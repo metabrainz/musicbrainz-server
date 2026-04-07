@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 10:46-0600\n"
+"POT-Creation-Date: 2026-04-01 10:38-0500\n"
 "PO-Revision-Date: 2026-02-16 21:11+0000\n"
 "Last-Translator: Besnik <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <https://translations.metabrainz.org/projects/"
@@ -1318,13 +1318,13 @@ msgstr "Kode ISNI"
 #: ../root/search/components/RecordingResults.js:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
-#: ../root/static/scripts/common/components/IsrcList.js:40
+#: ../root/static/scripts/common/components/IsrcList.js:38
 #: ../root/utility/tableColumns.js:705
 msgid "ISRCs"
 msgstr "ISRC-ra"
 
 #: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:674
-#: ../root/static/scripts/common/components/IswcList.js:40
+#: ../root/static/scripts/common/components/IswcList.js:38
 msgid "ISWCs"
 msgstr "ISWC-ra"
 
@@ -2295,8 +2295,8 @@ msgstr "Programth"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:782
-#: ../root/static/scripts/common/components/Autocomplete2.js:802
+#: ../root/static/scripts/common/components/Autocomplete2.js:786
+#: ../root/static/scripts/common/components/Autocomplete2.js:806
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -2920,8 +2920,8 @@ msgid ""
 "of information should go in an {doc|annotation}."
 msgstr ""
 "Kjo fushë s’është vend për të depozituar informacion të përgjithshëm sfond "
-"për hedhjen në qarkullim. Ky lloj informacioni duhet të shkojë te një "
-"{doc|shënim}."
+"për hedhjen në qarkullim. Ky lloj informacioni duhet të shkojë te një {doc|"
+"shënim}."
 
 #: ../root/artist/edit_credit.tt:10
 msgid ""
@@ -3187,8 +3187,8 @@ msgstr "Turqisht"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/edit/externalLinks.js:1336
-#: ../root/static/scripts/edit/externalLinks.js:1651
+#: ../root/static/scripts/edit/externalLinks.js:1345
+#: ../root/static/scripts/edit/externalLinks.js:1660
 #: ../root/static/scripts/event/components/EventEditForm.js:246
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -3360,7 +3360,7 @@ msgstr "Vepër"
 
 #: ../root/work/edit_form.tt:28
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
-#: ../root/static/scripts/common/components/AttributeList.js:61
+#: ../root/static/scripts/common/components/AttributeList.js:59
 msgid "Work attributes"
 msgstr "Atribute vepre"
 
@@ -3427,8 +3427,8 @@ msgid ""
 "You must enter a title for every track (if the track is untitled, enter "
 "“{untitled_track}”)."
 msgstr ""
-"Duhet të jepni një titull për çdo pjesë (nëse pjesa është pa titull, jepni “"
-"{untitled_track}”)."
+"Duhet të jepni një titull për çdo pjesë (nëse pjesa është pa titull, jepni "
+"“{untitled_track}”)."
 
 #: ../root/release/edit/tracklist.tt:500
 msgid ""
@@ -4082,13 +4082,13 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:425
+#: ../root/static/scripts/common/constants.js:426
 msgid "Low"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:426
+#: ../root/static/scripts/common/constants.js:425
 #: ../root/static/scripts/common/constants.js:427
 msgid "Normal"
 msgstr "Normal"
@@ -8015,7 +8015,7 @@ msgstr "Etiketa"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/edit/externalLinks.js:862
+#: ../root/static/scripts/edit/externalLinks.js:871
 msgid "Reviews"
 msgstr "Shqyrtime"
 
@@ -8772,8 +8772,8 @@ msgstr "Shtoni shënim përpunimi"
 #: ../root/edit/components/EditNotes.js:72
 msgid "You are not currently able to add notes to this edit. ({url|Details})"
 msgstr ""
-"Aktualisht s’jeni në gjendje të shtoni shënime te ky përpunim. ("
-"{url|Hollësi})"
+"Aktualisht s’jeni në gjendje të shtoni shënime te ky përpunim. ({url|"
+"Hollësi})"
 
 #: ../root/edit/components/EditSidebar.js:42
 msgid "Opened:"
@@ -11842,8 +11842,8 @@ msgid ""
 "The possible values for this attribute can be seen from the {instrument_list|"
 "instrument list}."
 msgstr ""
-"Vlerat e mundshme për këtë atribut mund të shihen që nga "
-"{instrument_list|lista e instrumenteve}."
+"Vlerat e mundshme për këtë atribut mund të shihen që nga {instrument_list|"
+"lista e instrumenteve}."
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:175
 msgid "Relationship usage"
@@ -11891,10 +11891,11 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/edit/externalLinks.js:904
+#: ../root/static/scripts/edit/externalLinks.js:913
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
-msgstr "Ky lloj marrëdhëniesh është nxjerrë nga përdorimi dhe s’duhet përdorur."
+msgstr ""
+"Ky lloj marrëdhëniesh është nxjerrë nga përdorimi dhe s’duhet përdorur."
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:190
 msgid "Link phrases"
@@ -12059,7 +12060,8 @@ msgstr ""
 #: ../root/release/ReleaseHeader.js:21
 msgid "see all versions of this release, {count} available"
 msgid_plural "see all versions of this release, {count} available"
-msgstr[0] "shihni krejt versionet e kësaj hedhjeje në qarkullim, {count} i gatshëm"
+msgstr[0] ""
+"shihni krejt versionet e kësaj hedhjeje në qarkullim, {count} i gatshëm"
 msgstr[1] ""
 "shihni krejt versionet e kësaj hedhjeje në qarkullim, {count} të gatshëm"
 
@@ -14354,7 +14356,7 @@ msgid "Try with indexed search instead."
 msgstr "Provoni më mirë me kërkim të indeksuar."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:125
-#: ../root/static/scripts/common/components/Autocomplete2.js:772
+#: ../root/static/scripts/common/components/Autocomplete2.js:776
 msgid "Type to search, or paste an MBID"
 msgstr "Shtypni që të kërkohet, ose hidhni një MBID"
 
@@ -15386,7 +15388,7 @@ msgid "Some relationship types are missing for this URL."
 msgstr "Për këtë URL mungojnë disa lloje marrëdhëniesh."
 
 #: ../root/static/scripts/edit/URLCleanup.js:8173
-#: ../root/static/scripts/edit/externalLinks.js:1151
+#: ../root/static/scripts/edit/externalLinks.js:1160
 msgid "This relationship type combination is invalid."
 msgstr "Kjo ndërthurje llojesh marrëdhënieje është e pavlefshme."
 
@@ -15682,56 +15684,62 @@ msgstr "Krejt ndryshimet tuaja do të humbin, nëse e braktisni këtë faqe."
 
 #: ../root/static/scripts/edit/externalLinks.js:845
 msgid ""
+"Links to archive.today and associated domains are not allowed. This site has "
+"been found to manipulate the archived websites and perform DDoS attacks."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:854
+msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:853
+#: ../root/static/scripts/edit/externalLinks.js:862
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:869
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:868
+#: ../root/static/scripts/edit/externalLinks.js:877
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:874
+#: ../root/static/scripts/edit/externalLinks.js:883
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:880
+#: ../root/static/scripts/edit/externalLinks.js:889
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:887
+#: ../root/static/scripts/edit/externalLinks.js:896
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:894
+#: ../root/static/scripts/edit/externalLinks.js:903
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:914
+#: ../root/static/scripts/edit/externalLinks.js:923
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr "Kjo marrëdhënie ekziston tashmë."
 
-#: ../root/static/scripts/edit/externalLinks.js:926
+#: ../root/static/scripts/edit/externalLinks.js:935
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
@@ -15740,90 +15748,90 @@ msgstr ""
 "Kjo URL s’lejohet për llojin e përzgjedhur të lidhjeve, ose është formatuar "
 "pasaktësisht."
 
-#: ../root/static/scripts/edit/externalLinks.js:931
+#: ../root/static/scripts/edit/externalLinks.js:940
 msgid "This URL is not allowed for the selected link type."
 msgstr "Kjo URL s’lejohet për llojin e përzgjedhur të lidhjeve."
 
-#: ../root/static/scripts/edit/externalLinks.js:937
+#: ../root/static/scripts/edit/externalLinks.js:946
 msgid "This URL is not allowed for areas."
 msgstr "Kjo URL s’lejohet për zona."
 
-#: ../root/static/scripts/edit/externalLinks.js:939
+#: ../root/static/scripts/edit/externalLinks.js:948
 msgid "This URL is not allowed for artists."
 msgstr "Kjo URL s’lejohet për artistë."
 
-#: ../root/static/scripts/edit/externalLinks.js:941
+#: ../root/static/scripts/edit/externalLinks.js:950
 msgid "This URL is not allowed for events."
 msgstr "Kjo URL s’lejohet për veprimtari."
 
-#: ../root/static/scripts/edit/externalLinks.js:943
+#: ../root/static/scripts/edit/externalLinks.js:952
 msgid "This URL is not allowed for genres."
 msgstr "Kjo URL s’lejohet për zona."
 
-#: ../root/static/scripts/edit/externalLinks.js:945
+#: ../root/static/scripts/edit/externalLinks.js:954
 msgid "This URL is not allowed for instruments."
 msgstr "Kjo URL s’lejohet për instrumente."
 
-#: ../root/static/scripts/edit/externalLinks.js:947
+#: ../root/static/scripts/edit/externalLinks.js:956
 msgid "This URL is not allowed for labels."
 msgstr "Kjo URL s’lejohet për etiketa."
 
-#: ../root/static/scripts/edit/externalLinks.js:949
+#: ../root/static/scripts/edit/externalLinks.js:958
 msgid "This URL is not allowed for places."
 msgstr "Kjo URL s’lejohet për vende."
 
-#: ../root/static/scripts/edit/externalLinks.js:951
+#: ../root/static/scripts/edit/externalLinks.js:960
 msgid "This URL is not allowed for recordings."
 msgstr "Kjo URL s’lejohet për incizime."
 
-#: ../root/static/scripts/edit/externalLinks.js:953
+#: ../root/static/scripts/edit/externalLinks.js:962
 msgid "This URL is not allowed for releases."
 msgstr "Kjo URL s’lejohet për hedhje në qarkullim."
 
-#: ../root/static/scripts/edit/externalLinks.js:955
+#: ../root/static/scripts/edit/externalLinks.js:964
 msgid "This URL is not allowed for release groups."
 msgstr "Kjo URL s’lejohet për grupe hedhjesh në qarkullim."
 
-#: ../root/static/scripts/edit/externalLinks.js:957
+#: ../root/static/scripts/edit/externalLinks.js:966
 msgid "This URL is not allowed for series."
 msgstr "Kjo URL s’lejohet për seri."
 
-#: ../root/static/scripts/edit/externalLinks.js:959
+#: ../root/static/scripts/edit/externalLinks.js:968
 msgid "This URL is not allowed for works."
 msgstr "Kjo URL s’lejohet për vepra."
 
-#: ../root/static/scripts/edit/externalLinks.js:1263
+#: ../root/static/scripts/edit/externalLinks.js:1272
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|më tepër dokumentim})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1323
+#: ../root/static/scripts/edit/externalLinks.js:1332
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Hiq marrëdhënie"
 
-#: ../root/static/scripts/edit/externalLinks.js:1398
+#: ../root/static/scripts/edit/externalLinks.js:1407
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "kredituar si “{credit}”"
 
-#: ../root/static/scripts/edit/externalLinks.js:1422
+#: ../root/static/scripts/edit/externalLinks.js:1431
 msgid "video"
 msgstr "video"
 
-#: ../root/static/scripts/edit/externalLinks.js:1531
+#: ../root/static/scripts/edit/externalLinks.js:1540
 msgid "Remove link"
 msgstr "Hiqe lidhjen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1561
+#: ../root/static/scripts/edit/externalLinks.js:1570
 msgid "Add link"
 msgstr "Shto lidhje"
 
-#: ../root/static/scripts/edit/externalLinks.js:1564
+#: ../root/static/scripts/edit/externalLinks.js:1573
 msgid "Add another link"
 msgstr "Shtoni tjetër lidhje"
 
-#: ../root/static/scripts/edit/externalLinks.js:1677
+#: ../root/static/scripts/edit/externalLinks.js:1686
 msgid "Add another relationship"
 msgstr "Shtoni tjetër marrëdhënie"
 
@@ -17304,7 +17312,8 @@ msgstr "24 orët e fundit"
 
 #: ../root/user/UserProfile.js:686
 msgid "This table shows a summary of votes cast by this editor."
-msgstr "Kjo tabelë shfaq një përmbledhje të votave të hedhura nga ky përpunues."
+msgstr ""
+"Kjo tabelë shfaq një përmbledhje të votave të hedhura nga ky përpunues."
 
 #: ../root/user/UserProfile.js:691
 msgid "Votes ({view_url|view})"

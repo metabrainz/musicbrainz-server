@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 10:46-0600\n"
+"POT-Creation-Date: 2026-04-01 10:38-0500\n"
 "PO-Revision-Date: 2026-02-20 11:11+0000\n"
 "Last-Translator: imgradeone <imgradeone@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
@@ -1345,13 +1345,13 @@ msgstr "ISNI 代码"
 #: ../root/search/components/RecordingResults.js:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
-#: ../root/static/scripts/common/components/IsrcList.js:40
+#: ../root/static/scripts/common/components/IsrcList.js:38
 #: ../root/utility/tableColumns.js:705
 msgid "ISRCs"
 msgstr "ISRC"
 
 #: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:674
-#: ../root/static/scripts/common/components/IswcList.js:40
+#: ../root/static/scripts/common/components/IswcList.js:38
 msgid "ISWCs"
 msgstr "ISWC"
 
@@ -2344,8 +2344,8 @@ msgstr "文字"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:782
-#: ../root/static/scripts/common/components/Autocomplete2.js:802
+#: ../root/static/scripts/common/components/Autocomplete2.js:786
+#: ../root/static/scripts/common/components/Autocomplete2.js:806
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -3284,8 +3284,8 @@ msgstr "土耳其语"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/edit/externalLinks.js:1336
-#: ../root/static/scripts/edit/externalLinks.js:1651
+#: ../root/static/scripts/edit/externalLinks.js:1345
+#: ../root/static/scripts/edit/externalLinks.js:1660
 #: ../root/static/scripts/event/components/EventEditForm.js:246
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -3460,7 +3460,7 @@ msgstr "作品"
 
 #: ../root/work/edit_form.tt:28
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
-#: ../root/static/scripts/common/components/AttributeList.js:61
+#: ../root/static/scripts/common/components/AttributeList.js:59
 msgid "Work attributes"
 msgstr "作品属性"
 
@@ -3949,8 +3949,8 @@ msgid ""
 "they don’t know the actual date. <strong>Please use this date only if you’re "
 "certain this date is correct.</strong>"
 msgstr ""
-"“1990-10-25”是亚马逊为所有无法确定实际发行日期的发行品标注的虚假日期"
-"。<strong>请在确信此日期属实后，再使用此日期。</strong>"
+"“1990-10-25”是亚马逊为所有无法确定实际发行日期的发行品标注的虚假日期。"
+"<strong>请在确信此日期属实后，再使用此日期。</strong>"
 
 #: ../root/components/forms.tt:247
 msgid ""
@@ -4200,13 +4200,13 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:425
+#: ../root/static/scripts/common/constants.js:426
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:426
+#: ../root/static/scripts/common/constants.js:425
 #: ../root/static/scripts/common/constants.js:427
 msgid "Normal"
 msgstr "一般"
@@ -8157,7 +8157,7 @@ msgstr "标签"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/edit/externalLinks.js:862
+#: ../root/static/scripts/edit/externalLinks.js:871
 msgid "Reviews"
 msgstr "评论"
 
@@ -12044,7 +12044,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/edit/externalLinks.js:904
+#: ../root/static/scripts/edit/externalLinks.js:913
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -14578,7 +14578,7 @@ msgid "Try with indexed search instead."
 msgstr "尝试搜索索引。"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:125
-#: ../root/static/scripts/common/components/Autocomplete2.js:772
+#: ../root/static/scripts/common/components/Autocomplete2.js:776
 msgid "Type to search, or paste an MBID"
 msgstr "输入关键词来搜索，或粘贴 MBID"
 
@@ -15639,7 +15639,7 @@ msgid "Some relationship types are missing for this URL."
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:8173
-#: ../root/static/scripts/edit/externalLinks.js:1151
+#: ../root/static/scripts/edit/externalLinks.js:1160
 msgid "This relationship type combination is invalid."
 msgstr ""
 
@@ -15956,151 +15956,157 @@ msgstr "如果离开此网页，您的所有更改将会丢失。"
 
 #: ../root/static/scripts/edit/externalLinks.js:845
 msgid ""
+"Links to archive.today and associated domains are not allowed. This site has "
+"been found to manipulate the archived websites and perform DDoS attacks."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:854
+msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr "“{example_url}”只是一个例子。请输入你想添加的实际链接。"
 
-#: ../root/static/scripts/edit/externalLinks.js:853
+#: ../root/static/scripts/edit/externalLinks.js:862
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr "不允许添加 MusicBrainz 的 URL。您是想要粘贴其他 URL 吗？"
 
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:869
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:868
+#: ../root/static/scripts/edit/externalLinks.js:877
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "不允许添加此网站的链接，因为它是已知的恶意网站。"
 
-#: ../root/static/scripts/edit/externalLinks.js:874
+#: ../root/static/scripts/edit/externalLinks.js:883
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr "请勿输入捆绑链接或短链接，请输入目标网站 URL。"
 
-#: ../root/static/scripts/edit/externalLinks.js:880
+#: ../root/static/scripts/edit/externalLinks.js:889
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 "请勿输入 Google AMP 链接，因为它们只是一次额外的重定向。请输入目标 URL。"
 
-#: ../root/static/scripts/edit/externalLinks.js:887
+#: ../root/static/scripts/edit/externalLinks.js:896
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:894
+#: ../root/static/scripts/edit/externalLinks.js:903
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "请为您输入的 URL 选择一个链接类型。"
 
-#: ../root/static/scripts/edit/externalLinks.js:914
+#: ../root/static/scripts/edit/externalLinks.js:923
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr "此关联已存在。"
 
-#: ../root/static/scripts/edit/externalLinks.js:926
+#: ../root/static/scripts/edit/externalLinks.js:935
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "此 URL 不适用于选中的链接类型，或格式错误。"
 
-#: ../root/static/scripts/edit/externalLinks.js:931
+#: ../root/static/scripts/edit/externalLinks.js:940
 msgid "This URL is not allowed for the selected link type."
 msgstr "此 URL 不适用于选中的链接类型。"
 
-#: ../root/static/scripts/edit/externalLinks.js:937
+#: ../root/static/scripts/edit/externalLinks.js:946
 msgid "This URL is not allowed for areas."
 msgstr "此 URL 不适用于地区。"
 
-#: ../root/static/scripts/edit/externalLinks.js:939
+#: ../root/static/scripts/edit/externalLinks.js:948
 msgid "This URL is not allowed for artists."
 msgstr "此 URL 不适用于艺术家。"
 
-#: ../root/static/scripts/edit/externalLinks.js:941
+#: ../root/static/scripts/edit/externalLinks.js:950
 msgid "This URL is not allowed for events."
 msgstr "此 URL 不适用于活动。"
 
-#: ../root/static/scripts/edit/externalLinks.js:943
+#: ../root/static/scripts/edit/externalLinks.js:952
 #, fuzzy
 #| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
 msgstr "此 URL 不适用于系列。"
 
-#: ../root/static/scripts/edit/externalLinks.js:945
+#: ../root/static/scripts/edit/externalLinks.js:954
 msgid "This URL is not allowed for instruments."
 msgstr "此 URL 不适用于乐器。"
 
-#: ../root/static/scripts/edit/externalLinks.js:947
+#: ../root/static/scripts/edit/externalLinks.js:956
 msgid "This URL is not allowed for labels."
 msgstr "此 URL 不适用于厂牌。"
 
-#: ../root/static/scripts/edit/externalLinks.js:949
+#: ../root/static/scripts/edit/externalLinks.js:958
 msgid "This URL is not allowed for places."
 msgstr "此 URL 不适用于地点。"
 
-#: ../root/static/scripts/edit/externalLinks.js:951
+#: ../root/static/scripts/edit/externalLinks.js:960
 msgid "This URL is not allowed for recordings."
 msgstr "此 URL 不适用于录音。"
 
-#: ../root/static/scripts/edit/externalLinks.js:953
+#: ../root/static/scripts/edit/externalLinks.js:962
 msgid "This URL is not allowed for releases."
 msgstr "此 URL 不适用于专辑。"
 
-#: ../root/static/scripts/edit/externalLinks.js:955
+#: ../root/static/scripts/edit/externalLinks.js:964
 msgid "This URL is not allowed for release groups."
 msgstr "此 URL 不适用于专辑组。"
 
-#: ../root/static/scripts/edit/externalLinks.js:957
+#: ../root/static/scripts/edit/externalLinks.js:966
 msgid "This URL is not allowed for series."
 msgstr "此 URL 不适用于系列。"
 
-#: ../root/static/scripts/edit/externalLinks.js:959
+#: ../root/static/scripts/edit/externalLinks.js:968
 msgid "This URL is not allowed for works."
 msgstr "此 URL 不适用于作品。"
 
-#: ../root/static/scripts/edit/externalLinks.js:1263
+#: ../root/static/scripts/edit/externalLinks.js:1272
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
 msgid "{description} ({url|more documentation})"
 msgstr "{description}（{url|详细文档}）"
 
-#: ../root/static/scripts/edit/externalLinks.js:1323
+#: ../root/static/scripts/edit/externalLinks.js:1332
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "移除关联"
 
-#: ../root/static/scripts/edit/externalLinks.js:1398
+#: ../root/static/scripts/edit/externalLinks.js:1407
 #, fuzzy
 #| msgid "credited as “{credit}”"
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "署名为 “{credit}”"
 
-#: ../root/static/scripts/edit/externalLinks.js:1422
+#: ../root/static/scripts/edit/externalLinks.js:1431
 msgid "video"
 msgstr "视频"
 
-#: ../root/static/scripts/edit/externalLinks.js:1531
+#: ../root/static/scripts/edit/externalLinks.js:1540
 msgid "Remove link"
 msgstr "移除链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1561
+#: ../root/static/scripts/edit/externalLinks.js:1570
 msgid "Add link"
 msgstr "添加链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1564
+#: ../root/static/scripts/edit/externalLinks.js:1573
 msgid "Add another link"
 msgstr "添加其他链接"
 
-#: ../root/static/scripts/edit/externalLinks.js:1677
+#: ../root/static/scripts/edit/externalLinks.js:1686
 msgid "Add another relationship"
 msgstr "添加其他关联"
 
