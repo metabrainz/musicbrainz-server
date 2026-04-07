@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-21 15:11+0000\n"
+"PO-Revision-Date: 2026-04-05 13:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -458,11 +458,11 @@ msgstr "Указывает на страницу с официальным ра�
 
 #. name:schedule
 #: DB:link_type/description:1302
-#, fuzzy
-#| msgid "Indicates a page with an official schedule for an event series."
 msgid ""
 "Indicates a page with an official schedule for an event, such as a festival."
-msgstr "Указывает на страницу с официальным расписанием серии мероприятий."
+msgstr ""
+"Указывает на страницу с официальным расписанием мероприятия, например, "
+"фестиваля."
 
 #. name:parent
 #: DB:link_type/description:109
@@ -4499,10 +4499,8 @@ msgstr ""
 
 #. name:fanpage
 #: DB:link_type/description:1301
-#, fuzzy
-#| msgid "This links a series to a fan-created website."
 msgid "This links an event to a fan-created website."
-msgstr "Связывает серию с фанатским веб-сайтом."
+msgstr "Связывает событие с фанатским веб-сайтом."
 
 #. name:patronage
 #: DB:link_type/description:898

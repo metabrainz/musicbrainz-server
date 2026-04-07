@@ -47,8 +47,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-01 10:38-0500\n"
-"PO-Revision-Date: 2026-03-31 15:22+0000\n"
-"Last-Translator: dddrnzv <solodkovskiy+21w4amgy@gmail.com>\n"
+"PO-Revision-Date: 2026-04-06 18:11+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -860,7 +861,7 @@ msgstr "Отключить режим устаревшего браузера"
 #: ../root/static/scripts/common/components/FilterForm.js:405
 #: ../root/static/scripts/event/components/EventEditForm.js:240
 msgid "Disambiguation"
-msgstr "Отличительное описание"
+msgstr "Разотождествление"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
 msgid "Disc ID information"
@@ -7730,11 +7731,6 @@ msgstr ""
 "отношения}."
 
 #: ../root/artist/EditArtistCredit.js:40
-#, fuzzy
-#| msgid ""
-#| "This form allows you to edit the artist credit \"{ac}\". When the edit is "
-#| "accepted, all tracks, recordings, releases and release groups using this "
-#| "artist credit will be update to use the new one."
 msgid ""
 "This form allows you to edit the artist credit “{ac}”. When the edit is "
 "accepted, all tracks, recordings, releases and release groups using this "
