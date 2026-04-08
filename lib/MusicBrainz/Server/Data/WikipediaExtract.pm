@@ -84,7 +84,7 @@ sub get_extract
         }
 
         # Finally fall back to “whatever we have”
-        my $extract = $try_link->($languages->[0]);
+        $extract = $try_link->($languages->[0]);
         return $extract if defined $extract;
     }
 
