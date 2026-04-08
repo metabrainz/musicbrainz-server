@@ -46,9 +46,7 @@
       "20150429-tag-upvote.sql",
       "20150403-drop-empty-functions.sql"
     ],
-    "mirror_only": [
-      "20150415-mbs-8349.sql"
-    ],
+    "mirror_only": ["20150415-mbs-8349.sql"],
     "master_and_standalone": [
       "20150209-extend-aliases-to-more-entities-standalone.sql",
       "20150307-other-entities-collections-fks.sql",
@@ -73,9 +71,7 @@
       "20160515-recluster.sql",
       "20160516-mbs-8804.sql"
     ],
-    "mirror_only": [
-      "20160507-mbs-8669.sql"
-    ],
+    "mirror_only": ["20160507-mbs-8669.sql"],
     "master_and_standalone": [
       "20160516-mbs-8720-standalone.sql",
       "20160310-mbs-4501-alternative-tracklists-fks.sql",
@@ -83,9 +79,7 @@
       "20160514-mbs-8287-a-fks.sql",
       "20160514-mbs-8287-b-fks.sql"
     ],
-    "all_extensions": [
-      "20141226-geodesic-extension.sql"
-    ]
+    "all_extensions": ["20141226-geodesic-extension.sql"]
   },
   "24": {
     "all": [
@@ -141,9 +135,7 @@
       "20210505-mbs-11641.sql",
       "20210507-mbs-11652-artist-series.sql"
     ],
-    "mirror_only": [
-      "20210311-mbs-1424-11438-mirror_only.sql"
-    ],
+    "mirror_only": ["20210311-mbs-1424-11438-mirror_only.sql"],
     "master_and_standalone": [
       "20201028-mbs-1424-fks.sql",
       "20210311-mbs-11438-standalone.sql",
@@ -212,12 +204,8 @@
       "20221114-mbs-12704.sql",
       "20230320-mbs-12800.sql"
     ],
-    "master_only": [
-      "20230423-nix-pending-keys-insertion.sql"
-    ],
-    "master_and_standalone": [
-      "20211203-mbs-11312-standalone.sql"
-    ]
+    "master_only": ["20230423-nix-pending-keys-insertion.sql"],
+    "master_and_standalone": ["20211203-mbs-11312-standalone.sql"]
   },
   "29": {
     "all": [
@@ -246,8 +234,9 @@
       "20250425-mbs-13464-master_and_standalone.sql",
       "20250320-mbs-13768-fks.sql"
     ],
-    "mirror_only": [
-      "20241017-mbs-9253-mirror_only.sql"
-    ]
+    "mirror_only": ["20241017-mbs-9253-mirror_only.sql"]
+  },
+  "31": {
+    "all": ["20251209-mbs-14208.sql"]
   }
 }
