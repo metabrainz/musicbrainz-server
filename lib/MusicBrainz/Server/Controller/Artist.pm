@@ -893,6 +893,9 @@ sub edit_credit : Chained('credit') PathPart('edit') Edit {
     my $artist = $c->stash->{artist};
     my $ac = $c->stash->{ac};
 
+    # Needed by `getSourceEntityData` on the client.
+    $c->stash( source_entity => $artist->TO_JSON );
+
     $self->edit_action(
         $c,
         form        => 'EditArtistCredit',

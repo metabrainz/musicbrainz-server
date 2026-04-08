@@ -13,7 +13,7 @@
     },
     {
       command: 'assertValue',
-      target: 'css=#external-link-0 td:nth-child(3) input',
+      target: 'css=tr.external-link-item:nth-child(1) td:nth-child(3) input',
       value: 'http://www.example.com/',
     },
   ],
