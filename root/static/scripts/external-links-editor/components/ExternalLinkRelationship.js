@@ -7,6 +7,8 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import * as React from 'react';
+
 import {
   VIDEO_ATTRIBUTE_ID,
 } from '../../common/constants.js';
@@ -73,6 +75,37 @@ component ExternalLinkRelationship(
     ? link[creditableEntityProp]
     : null;
 
+  const handleTypeBlur = React.useCallback((
+    event: SyntheticFocusEvent<HTMLSelectElement>,
+  ) => {
+    props.onTypeBlur(link.index, event);
+  }, [props.onTypeBlur, link.index]);
+
+  const handleTypeChange = React.useCallback((
+    event: SyntheticEvent<HTMLSelectElement>,
+  ) => {
+    props.onTypeChange(link.index, event)
+  }, [props.onTypeChange, link.index]);
+
+  const typeOptions = props.typeOptions.reduce((
+    options: Array<LinkTypeOptionT>,
+    option: LinkTypeOptionT,
+    index: number,
+  ) => {
+    const nextOption = props.typeOptions[index + 1];
+    if (!option.disabled ||
+    /*
+      * Ignore empty groups by checking
+      * if the next option is an item in current group,
+      * if not, then it's an empty group.
+      */
+    (nextOption &&
+      nextOption.data.parent_id === option.value)) {
+      options.push(option);
+    }
+    return options;
+  }, []);
+
   return (
     <tr className="relationship-item" key={link.relationship}>
       <td />
@@ -101,28 +134,9 @@ component ExternalLinkRelationship(
               showTypeSelection
                 ? (
                   <LinkTypeSelect
-                    handleTypeBlur={
-                      (event) => props.onTypeBlur(link.index, event)
-                    }
-                    handleTypeChange={
-                      (event) => props.onTypeChange(link.index, event)
-                    }
-                    options={
-                      props.typeOptions.reduce((options, option, index) => {
-                        const nextOption = props.typeOptions[index + 1];
-                        if (!option.disabled ||
-                        /*
-                         * Ignore empty groups by checking
-                         * if the next option is an item in current group,
-                         * if not, then it's an empty group.
-                         */
-                        (nextOption &&
-                          nextOption.data.parent_id === option.value)) {
-                          options.push(option);
-                        }
-                        return options;
-                      }, [])
-                    }
+                    handleTypeBlur={handleTypeBlur}
+                    handleTypeChange={handleTypeChange}
+                    options={typeOptions}
                     type={link.type}
                   />
                 ) : (
