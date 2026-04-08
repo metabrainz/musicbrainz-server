@@ -1,0 +1,7 @@
+#!/bin/sh
+
+export HOME=/var/lib/rabbitmq
+# Log to stdout/stderr.
+export RABBITMQ_LOGS=-
+
+exec chpst -u rabbitmq:rabbitmq /usr/lib/rabbitmq/bin/rabbitmq-server 2>&1

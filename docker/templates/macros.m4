@@ -103,7 +103,7 @@ file
 iproute2
 libdb5.3
 libexpat1
-libicu70
+libicu74
 libpq5
 libssl3
 libxml2

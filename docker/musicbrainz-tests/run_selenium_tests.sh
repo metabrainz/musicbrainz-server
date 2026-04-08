@@ -12,7 +12,8 @@ ulimit -n 65000
 
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
 
-service rabbitmq-server start
+sv_start_if_down rabbitmq
+rabbitmqctl await_startup
 
 # Setup the rabbitmq user/vhost used by pg_amqp + sir.
 rabbitmqctl add_user sir sir
