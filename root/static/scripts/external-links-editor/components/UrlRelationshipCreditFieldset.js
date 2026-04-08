@@ -7,8 +7,10 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-import FieldErrors from './FieldErrors.js';
-import FormRowText from './FormRowText.js';
+import * as React from 'react';
+
+import FieldErrors from '../../edit/components/FieldErrors.js';
+import FormRowText from '../../edit/components/FormRowText.js';
 
 export type ActionT = {+credit: string, +type: 'update-relationship-credit'};
 
@@ -18,14 +20,14 @@ component UrlRelationshipCreditFieldset(
   dispatch: (ActionT) => void,
   field: FieldT<string | null>,
 ) {
-  function handleCreditChange(
+  const handleCreditChange = React.useCallback((
     event: SyntheticInputEvent<HTMLInputElement>,
-  ) {
+  ) => {
     dispatch({
       credit: event.currentTarget.value,
       type: 'update-relationship-credit',
     });
-  }
+  }, [dispatch]);
 
   return (
     <fieldset>
