@@ -38,7 +38,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 10:46-0600\n"
+"POT-Creation-Date: 2026-04-01 10:38-0500\n"
 "PO-Revision-Date: 2026-03-12 20:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
@@ -1402,13 +1402,13 @@ msgstr "ISNI-codes"
 #: ../root/search/components/RecordingResults.js:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
-#: ../root/static/scripts/common/components/IsrcList.js:40
+#: ../root/static/scripts/common/components/IsrcList.js:38
 #: ../root/utility/tableColumns.js:705
 msgid "ISRCs"
 msgstr "ISRC’s"
 
 #: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:674
-#: ../root/static/scripts/common/components/IswcList.js:40
+#: ../root/static/scripts/common/components/IswcList.js:38
 msgid "ISWCs"
 msgstr "ISWC’s"
 
@@ -2449,8 +2449,8 @@ msgstr "Schrift"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:782
-#: ../root/static/scripts/common/components/Autocomplete2.js:802
+#: ../root/static/scripts/common/components/Autocomplete2.js:786
+#: ../root/static/scripts/common/components/Autocomplete2.js:806
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -3504,8 +3504,8 @@ msgstr "Turks"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/edit/externalLinks.js:1336
-#: ../root/static/scripts/edit/externalLinks.js:1651
+#: ../root/static/scripts/edit/externalLinks.js:1345
+#: ../root/static/scripts/edit/externalLinks.js:1660
 #: ../root/static/scripts/event/components/EventEditForm.js:246
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -3684,7 +3684,7 @@ msgstr "Compositie"
 
 #: ../root/work/edit_form.tt:28
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
-#: ../root/static/scripts/common/components/AttributeList.js:61
+#: ../root/static/scripts/common/components/AttributeList.js:59
 msgid "Work attributes"
 msgstr "Compositie-eigenschappen"
 
@@ -4483,13 +4483,13 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:425
+#: ../root/static/scripts/common/constants.js:426
 msgid "Low"
 msgstr "Laag"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:426
+#: ../root/static/scripts/common/constants.js:425
 #: ../root/static/scripts/common/constants.js:427
 msgid "Normal"
 msgstr "Normaal"
@@ -8659,7 +8659,7 @@ msgstr "Tags"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/edit/externalLinks.js:862
+#: ../root/static/scripts/edit/externalLinks.js:871
 msgid "Reviews"
 msgstr "Recensies"
 
@@ -12685,7 +12685,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/edit/externalLinks.js:904
+#: ../root/static/scripts/edit/externalLinks.js:913
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
 msgstr "Dit relatietype is verouderd en moet niet meer worden gebruikt."
@@ -15682,7 +15682,7 @@ msgid "Try with indexed search instead."
 msgstr "Probeer het eens met een geïndexeerde zoekopdracht."
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:125
-#: ../root/static/scripts/common/components/Autocomplete2.js:772
+#: ../root/static/scripts/common/components/Autocomplete2.js:776
 msgid "Type to search, or paste an MBID"
 msgstr "Tik hier een naam om te zoeken, of plak een MBID"
 
@@ -16828,7 +16828,7 @@ msgid "Some relationship types are missing for this URL."
 msgstr "Voor deze URL ontbreken bepaalde relatietypes."
 
 #: ../root/static/scripts/edit/URLCleanup.js:8173
-#: ../root/static/scripts/edit/externalLinks.js:1151
+#: ../root/static/scripts/edit/externalLinks.js:1160
 msgid "This relationship type combination is invalid."
 msgstr "Deze combinatie van relaties is ongeldig."
 
@@ -17148,12 +17148,18 @@ msgstr "Al je veranderingen zullen verloren gaan als je deze pagina verlaat."
 
 #: ../root/static/scripts/edit/externalLinks.js:845
 msgid ""
+"Links to archive.today and associated domains are not allowed. This site has "
+"been found to manipulate the archived websites and perform DDoS attacks."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:854
+msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
 "“{example_url}” is maar een voorbeeld. Voer de link die je wil toevoegen in."
 
-#: ../root/static/scripts/edit/externalLinks.js:853
+#: ../root/static/scripts/edit/externalLinks.js:862
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
@@ -17161,7 +17167,7 @@ msgstr ""
 "Links naar MusicBrainz-URL’s zijn niet toegestaan. Misschien wilde je hier "
 "iets anders plakken?"
 
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:869
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
@@ -17169,21 +17175,21 @@ msgstr ""
 "Voeg geen links naar CritiqueBrainz toe; recensies worden automatisch "
 "gelinkt via het tabblad “{reviews_tab_name}”."
 
-#: ../root/static/scripts/edit/externalLinks.js:868
+#: ../root/static/scripts/edit/externalLinks.js:877
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 "Links naar deze website zijn niet toegestaan, omdat hij bekend staat om het "
 "hosten van malware."
 
-#: ../root/static/scripts/edit/externalLinks.js:874
+#: ../root/static/scripts/edit/externalLinks.js:883
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 "Voer liever geen gebundelde of afgekorte URL’s in, maar alleen doeladressen."
 
-#: ../root/static/scripts/edit/externalLinks.js:880
+#: ../root/static/scripts/edit/externalLinks.js:889
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
@@ -17191,7 +17197,7 @@ msgstr ""
 "Voeg geen Google AMP-links toe, want dit zijn eigenlijk doorverwijzingen. "
 "Voeg in plaats daarvan de doeladressen toe."
 
-#: ../root/static/scripts/edit/externalLinks.js:887
+#: ../root/static/scripts/edit/externalLinks.js:896
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
@@ -17199,17 +17205,17 @@ msgstr ""
 "Voeg geen links naar zoekresultaten toe. Als je tijdens het zoeken nuttige "
 "links hebt gevonden, kan je beter die links toevoegen."
 
-#: ../root/static/scripts/edit/externalLinks.js:894
+#: ../root/static/scripts/edit/externalLinks.js:903
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "Selecteer een passende relatie voor deze URL."
 
-#: ../root/static/scripts/edit/externalLinks.js:914
+#: ../root/static/scripts/edit/externalLinks.js:923
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr "De relatie bestaat al."
 
-#: ../root/static/scripts/edit/externalLinks.js:926
+#: ../root/static/scripts/edit/externalLinks.js:935
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
@@ -17218,90 +17224,90 @@ msgstr ""
 "Deze URL is niet toegestaan bij het geselecteerde linktype, of is niet "
 "correct opgemaakt."
 
-#: ../root/static/scripts/edit/externalLinks.js:931
+#: ../root/static/scripts/edit/externalLinks.js:940
 msgid "This URL is not allowed for the selected link type."
 msgstr "Deze URL is voor het geselecteerde linktype niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:937
+#: ../root/static/scripts/edit/externalLinks.js:946
 msgid "This URL is not allowed for areas."
 msgstr "Deze URL is voor gebieden niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:939
+#: ../root/static/scripts/edit/externalLinks.js:948
 msgid "This URL is not allowed for artists."
 msgstr "Deze URL is voor artiesten niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:941
+#: ../root/static/scripts/edit/externalLinks.js:950
 msgid "This URL is not allowed for events."
 msgstr "Deze URL is voor evenementen niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:943
+#: ../root/static/scripts/edit/externalLinks.js:952
 msgid "This URL is not allowed for genres."
 msgstr "Deze URL is voor genres niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:945
+#: ../root/static/scripts/edit/externalLinks.js:954
 msgid "This URL is not allowed for instruments."
 msgstr "Deze URL is voor instrumenten niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:947
+#: ../root/static/scripts/edit/externalLinks.js:956
 msgid "This URL is not allowed for labels."
 msgstr "Deze URL is voor platenmaatschappijen niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:949
+#: ../root/static/scripts/edit/externalLinks.js:958
 msgid "This URL is not allowed for places."
 msgstr "Deze URL is voor plaatsen niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:951
+#: ../root/static/scripts/edit/externalLinks.js:960
 msgid "This URL is not allowed for recordings."
 msgstr "Deze URL is voor opnamen niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:953
+#: ../root/static/scripts/edit/externalLinks.js:962
 msgid "This URL is not allowed for releases."
 msgstr "Deze URL is voor uitgaven niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:955
+#: ../root/static/scripts/edit/externalLinks.js:964
 msgid "This URL is not allowed for release groups."
 msgstr "Deze URL is voor uitgavegroepen niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:957
+#: ../root/static/scripts/edit/externalLinks.js:966
 msgid "This URL is not allowed for series."
 msgstr "Deze URL is voor series niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:959
+#: ../root/static/scripts/edit/externalLinks.js:968
 msgid "This URL is not allowed for works."
 msgstr "Deze URL is voor composities niet toegestaan."
 
-#: ../root/static/scripts/edit/externalLinks.js:1263
+#: ../root/static/scripts/edit/externalLinks.js:1272
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
 msgid "{description} ({url|more documentation})"
 msgstr "{description} ({url|meer documentatie})"
 
-#: ../root/static/scripts/edit/externalLinks.js:1323
+#: ../root/static/scripts/edit/externalLinks.js:1332
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr "Relatie verwijderen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1398
+#: ../root/static/scripts/edit/externalLinks.js:1407
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr "vermeld als “{credit}”"
 
-#: ../root/static/scripts/edit/externalLinks.js:1422
+#: ../root/static/scripts/edit/externalLinks.js:1431
 msgid "video"
 msgstr "video"
 
-#: ../root/static/scripts/edit/externalLinks.js:1531
+#: ../root/static/scripts/edit/externalLinks.js:1540
 msgid "Remove link"
 msgstr "Link verwijderen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1561
+#: ../root/static/scripts/edit/externalLinks.js:1570
 msgid "Add link"
 msgstr "Link toevoegen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1564
+#: ../root/static/scripts/edit/externalLinks.js:1573
 msgid "Add another link"
 msgstr "Nog een link toevoegen"
 
-#: ../root/static/scripts/edit/externalLinks.js:1677
+#: ../root/static/scripts/edit/externalLinks.js:1686
 msgid "Add another relationship"
 msgstr "Nog een relatie toevoegen"
 

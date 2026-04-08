@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 10:46-0600\n"
+"POT-Creation-Date: 2026-04-01 10:38-0500\n"
 "PO-Revision-Date: 2026-03-10 03:11+0000\n"
 "Last-Translator: DenilsonSama <denilsongomesdesouza1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
@@ -1281,13 +1281,13 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
-#: ../root/static/scripts/common/components/IsrcList.js:40
+#: ../root/static/scripts/common/components/IsrcList.js:38
 #: ../root/utility/tableColumns.js:705
 msgid "ISRCs"
 msgstr ""
 
 #: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:674
-#: ../root/static/scripts/common/components/IswcList.js:40
+#: ../root/static/scripts/common/components/IswcList.js:38
 msgid "ISWCs"
 msgstr ""
 
@@ -2251,8 +2251,8 @@ msgstr ""
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:782
-#: ../root/static/scripts/common/components/Autocomplete2.js:802
+#: ../root/static/scripts/common/components/Autocomplete2.js:786
+#: ../root/static/scripts/common/components/Autocomplete2.js:806
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -3118,8 +3118,8 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/edit/externalLinks.js:1336
-#: ../root/static/scripts/edit/externalLinks.js:1651
+#: ../root/static/scripts/edit/externalLinks.js:1345
+#: ../root/static/scripts/edit/externalLinks.js:1660
 #: ../root/static/scripts/event/components/EventEditForm.js:246
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -3291,7 +3291,7 @@ msgstr ""
 
 #: ../root/work/edit_form.tt:28
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
-#: ../root/static/scripts/common/components/AttributeList.js:61
+#: ../root/static/scripts/common/components/AttributeList.js:59
 msgid "Work attributes"
 msgstr ""
 
@@ -4010,13 +4010,13 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:425
+#: ../root/static/scripts/common/constants.js:426
 msgid "Low"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:426
+#: ../root/static/scripts/common/constants.js:425
 #: ../root/static/scripts/common/constants.js:427
 msgid "Normal"
 msgstr ""
@@ -7855,7 +7855,7 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/edit/externalLinks.js:862
+#: ../root/static/scripts/edit/externalLinks.js:871
 msgid "Reviews"
 msgstr ""
 
@@ -11632,7 +11632,7 @@ msgid "{entity0}-{entity1}"
 msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/edit/externalLinks.js:904
+#: ../root/static/scripts/edit/externalLinks.js:913
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
 msgstr ""
@@ -11968,12 +11968,12 @@ msgstr ""
 "Este relatório lista artistas cujo tipo está definido como diferente de "
 "Grupo (ou um subtipo de Grupo), mas que podem ser um grupo, porque possuem "
 "outros artistas listados como membros ou usam outros relacionamentos que "
-"geralmente são destinados apenas a grupos (tanto em ambas as direções, como “"
-"subgrupo” e “renomeado”, quanto em uma direção, como “diretor artístico”, “"
-"regente” e “compositor residente”). Se você identificar que um artista aqui "
+"geralmente são destinados apenas a grupos (tanto em ambas as direções, como "
+"“subgrupo” e “renomeado”, quanto em uma direção, como “diretor artístico”, "
+"“regente” e “compositor residente”). Se você identificar que um artista aqui "
 "é de fato um grupo, altere seu tipo. Caso não seja, certifique-se de que os "
-"relacionamentos “membro de” estejam na direção correta e sejam precisos, se “"
-"renomeado para” precisa ser transformado em relacionamentos “atua como”, e "
+"relacionamentos “membro de” estejam na direção correta e sejam precisos, se "
+"“renomeado para” precisa ser transformado em relacionamentos “atua como”, e "
 "assim por diante."
 
 #: ../root/report/ArtistsThatMayBeGroups.js:39
@@ -12660,8 +12660,8 @@ msgid ""
 msgstr ""
 "Lembre-se de que “instrumental” no MusicBrainz indica que a letra não é "
 "relevante para a gravação. Como as letras são, por definição, relevantes em "
-"gravações de karaokê, “instrumental” não deve ser usado nesses casos (use “"
-"karaokê” em vez disso). Alternativamente, se não for uma gravação de "
+"gravações de karaokê, “instrumental” não deve ser usado nesses casos (use "
+"“karaokê” em vez disso). Alternativamente, se não for uma gravação de "
 "karaokê, mas apenas uma gravação instrumental padrão, ela não deve ser "
 "vinculada a outra gravação com um relacionamento “karaokê”, mas sim com um "
 "relacionamento “instrumental”."
@@ -13664,8 +13664,8 @@ msgstr ""
 "um VCD), ou a gravação está sendo usada tanto para um vídeo quanto para uma "
 "gravação somente de áudio, caso em que as duas devem ser separadas, já que "
 "gravações de vídeo devem sempre ser distintas. Se você separar as gravações, "
-"considere se faz sentido vinculá-las com um relacionamento "
-"{doc_link|videoclipe}."
+"considere se faz sentido vinculá-las com um relacionamento {doc_link|"
+"videoclipe}."
 
 #: ../root/report/WikidataLinksWithMultipleEntities.js:40
 msgid ""
@@ -14244,7 +14244,7 @@ msgid "Try with indexed search instead."
 msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:125
-#: ../root/static/scripts/common/components/Autocomplete2.js:772
+#: ../root/static/scripts/common/components/Autocomplete2.js:776
 msgid "Type to search, or paste an MBID"
 msgstr ""
 
@@ -15262,7 +15262,7 @@ msgid "Some relationship types are missing for this URL."
 msgstr ""
 
 #: ../root/static/scripts/edit/URLCleanup.js:8173
-#: ../root/static/scripts/edit/externalLinks.js:1151
+#: ../root/static/scripts/edit/externalLinks.js:1160
 msgid "This relationship type combination is invalid."
 msgstr ""
 
@@ -15549,146 +15549,152 @@ msgstr ""
 
 #: ../root/static/scripts/edit/externalLinks.js:845
 msgid ""
+"Links to archive.today and associated domains are not allowed. This site has "
+"been found to manipulate the archived websites and perform DDoS attacks."
+msgstr ""
+
+#: ../root/static/scripts/edit/externalLinks.js:854
+msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:853
+#: ../root/static/scripts/edit/externalLinks.js:862
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:860
+#: ../root/static/scripts/edit/externalLinks.js:869
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:868
+#: ../root/static/scripts/edit/externalLinks.js:877
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:874
+#: ../root/static/scripts/edit/externalLinks.js:883
 msgid ""
 "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
 "instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:880
+#: ../root/static/scripts/edit/externalLinks.js:889
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:887
+#: ../root/static/scripts/edit/externalLinks.js:896
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:894
+#: ../root/static/scripts/edit/externalLinks.js:903
 msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:914
+#: ../root/static/scripts/edit/externalLinks.js:923
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:538
 msgid "This relationship already exists."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:926
+#: ../root/static/scripts/edit/externalLinks.js:935
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:931
+#: ../root/static/scripts/edit/externalLinks.js:940
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:937
+#: ../root/static/scripts/edit/externalLinks.js:946
 msgid "This URL is not allowed for areas."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:939
+#: ../root/static/scripts/edit/externalLinks.js:948
 msgid "This URL is not allowed for artists."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:941
+#: ../root/static/scripts/edit/externalLinks.js:950
 msgid "This URL is not allowed for events."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:943
+#: ../root/static/scripts/edit/externalLinks.js:952
 msgid "This URL is not allowed for genres."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:945
+#: ../root/static/scripts/edit/externalLinks.js:954
 msgid "This URL is not allowed for instruments."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:947
+#: ../root/static/scripts/edit/externalLinks.js:956
 msgid "This URL is not allowed for labels."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:949
+#: ../root/static/scripts/edit/externalLinks.js:958
 msgid "This URL is not allowed for places."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:951
+#: ../root/static/scripts/edit/externalLinks.js:960
 msgid "This URL is not allowed for recordings."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:953
+#: ../root/static/scripts/edit/externalLinks.js:962
 msgid "This URL is not allowed for releases."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:955
+#: ../root/static/scripts/edit/externalLinks.js:964
 msgid "This URL is not allowed for release groups."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:957
+#: ../root/static/scripts/edit/externalLinks.js:966
 msgid "This URL is not allowed for series."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:959
+#: ../root/static/scripts/edit/externalLinks.js:968
 msgid "This URL is not allowed for works."
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1263
+#: ../root/static/scripts/edit/externalLinks.js:1272
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
 msgid "{description} ({url|more documentation})"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1323
+#: ../root/static/scripts/edit/externalLinks.js:1332
 msgctxt "interactive"
 msgid "Remove relationship"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1398
+#: ../root/static/scripts/edit/externalLinks.js:1407
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1422
+#: ../root/static/scripts/edit/externalLinks.js:1431
 msgid "video"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1531
+#: ../root/static/scripts/edit/externalLinks.js:1540
 msgid "Remove link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1561
+#: ../root/static/scripts/edit/externalLinks.js:1570
 msgid "Add link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1564
+#: ../root/static/scripts/edit/externalLinks.js:1573
 msgid "Add another link"
 msgstr ""
 
-#: ../root/static/scripts/edit/externalLinks.js:1677
+#: ../root/static/scripts/edit/externalLinks.js:1686
 msgid "Add another relationship"
 msgstr ""
 
@@ -17533,8 +17539,8 @@ msgid ""
 "you find an editor that seems to be vandalizing the data, you can always "
 "report them from their profile."
 msgstr ""
-"Ao revisar o trabalho de seus colegas editores, tenha sempre em mente o "
-"{coc|Código de Conduta}. Quase todos os editores querem ajudar, então seu "
+"Ao revisar o trabalho de seus colegas editores, tenha sempre em mente o {coc|"
+"Código de Conduta}. Quase todos os editores querem ajudar, então seu "
 "objetivo como votante é ajudá-los a ajudar melhor. Isso se aplica ainda mais "
 "aos iniciantes: sempre tente ser útil e paciente com eles, mesmo que estejam "
 "cometendo erros, para que possam se tornar editores melhores no futuro! "
@@ -17571,12 +17577,12 @@ msgstr ""
 "Edições destrutivas (remoções e fusões) são frequentemente muito difíceis ou "
 "até impossíveis de reverter. Assim, uma edição destrutiva incorreta que "
 "passe despercebida pode causar uma grande bagunça! A maioria permanece "
-"aberta por pelo menos dois dias completos, mesmo que receba três votos “Sim"
-"”, para evitar que seja encerrada muito rapidamente, mas é sempre bom que "
-"mais pessoas as revisem. Abaixo você encontra seis pesquisas diferentes: uma "
-"para todas as edições destrutivas (o que pode ser avassalador às vezes), uma "
-"apenas para aquelas edições destrutivas que não possuem notas de edição (ou "
-"seja, nenhuma justificativa foi fornecida), uma apenas para fusões e "
+"aberta por pelo menos dois dias completos, mesmo que receba três votos "
+"“Sim”, para evitar que seja encerrada muito rapidamente, mas é sempre bom "
+"que mais pessoas as revisem. Abaixo você encontra seis pesquisas diferentes: "
+"uma para todas as edições destrutivas (o que pode ser avassalador às vezes), "
+"uma apenas para aquelas edições destrutivas que não possuem notas de edição "
+"(ou seja, nenhuma justificativa foi fornecida), uma apenas para fusões e "
 "remoções de entidades (as edições mais propensas a causar problemas se forem "
 "aprovadas incorretamente), uma apenas para remoções de relacionamentos, uma "
 "para alterações destrutivas em lançamentos (remoções de faixas, mídias e "
@@ -17703,8 +17709,8 @@ msgstr ""
 "estiverem fazendo uma grande bagunça, não seja de propósito, mas por "
 "confusão: o MusicBrainz pode ser intimidador para iniciantes! Sempre que "
 "possível, corrija os erros (e informe ao editor que você fez isso, para que "
-"ele possa conferir suas edições e ver como deveria ficar) em vez de votar “"
-"Não” nas edições, pois votos “Não” podem ser bastante desanimadores, "
+"ele possa conferir suas edições e ver como deveria ficar) em vez de votar "
+"“Não” nas edições, pois votos “Não” podem ser bastante desanimadores, "
 "especialmente para um editor novo. Se algo estiver tão ruim que não houver "
 "como corrigir e estiver prejudicando os dados existentes, vote contra a "
 "edição, mas explique de forma educada o porquê disso ser necessário, em vez "

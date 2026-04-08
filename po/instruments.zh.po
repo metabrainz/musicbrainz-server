@@ -2784,6 +2784,9 @@ msgid "musical saw"
 msgstr "乐锯"
 
 #: DB:instrument/name:684
+#, fuzzy
+#| msgid "nabal"
+msgctxt "Korean straight brass horn"
 msgid "nabal"
 msgstr "朝鲜喇叭"
 

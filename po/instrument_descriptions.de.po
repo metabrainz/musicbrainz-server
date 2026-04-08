@@ -4965,14 +4965,6 @@ msgstr ""
 "Die Mridangam ist eine zweifellige Doppelkonustrommel, die in der "
 "südindischen Musik gespielt wird."
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-"Die Nabal ist ein koreanisches Blasinstrumente (Langtrompete) die "
-"hauptsächlich an Prozessionen gespielt wird."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -6240,6 +6232,11 @@ msgid ""
 "pieces tied together with ornamental cord."
 msgstr ""
 
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr ""
+
 #. name:turntable
 #: DB:instrument/description:181
 msgid ""
@@ -6567,6 +6564,12 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "The nabal is a long, straight brass horn used in Korean traditional music."
+#~ msgstr ""
+#~ "Die Nabal ist ein koreanisches Blasinstrumente (Langtrompete) die "
+#~ "hauptsächlich an Prozessionen gespielt wird."
 
 #~ msgid ""
 #~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."

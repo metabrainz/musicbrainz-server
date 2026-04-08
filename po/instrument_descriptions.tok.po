@@ -4428,12 +4428,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr ""
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -5487,6 +5481,11 @@ msgstr ""
 msgid ""
 "Used in traditional kabuki and bunraku theatre, it consists of two hardwood "
 "pieces tied together with ornamental cord."
+msgstr ""
+
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
 msgstr ""
 
 #. name:turntable
