@@ -5,7 +5,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 run_with_apt_cache \
     keep_apt_cache && \
-    apt_install(`rsync sudo')
+    apt_install(`rsync sudo') && \
+    apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
 setup_mbs_root()
 
