@@ -15,11 +15,10 @@ set_cpanm_install_args
 
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     keep_apt_cache && \
-    apt_install(``ca-certificates curl gnupg software-properties-common'') && \
+    apt_install(``ca-certificates curl gnupg postgresql-common software-properties-common'') && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt_install(`m4_dnl
         mbs_build_deps
@@ -41,8 +40,7 @@ run_with_apt_cache \
         sudo
         unzip
         ') && \
-    rm -f /etc/apt/sources.list.d/nodesource.list \
-        /etc/apt/sources.list.d/pgdg.list && \
+    rm -f /etc/apt/sources.list.d/nodesource.list && \
     systemctl disable rabbitmq-server && \
     install_perl && \
     install_cpanm_and_carton && \

@@ -36,7 +36,6 @@ mkdir -p "$TMP_DIR/bin" "$TMP_DIR/docker"
 cd "$TMP_DIR"
 
 cp "$MB_SERVER_ROOT/bin/ts" "$TMP_DIR/bin/"
-cp "$MB_SERVER_ROOT/docker/pgdg_pubkey.txt" "$TMP_DIR/docker/"
 cp "$CPANFILE" "$TMP_DIR/cpanfile"
 cp "$DOCKERFILE" "$TMP_DIR/Dockerfile"
 
