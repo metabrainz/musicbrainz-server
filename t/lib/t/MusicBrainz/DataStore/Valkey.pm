@@ -22,8 +22,8 @@ and expiring keys.
 =cut
 
 # Initialize tests
-my $args = DBDefs->DATASTORE_REDIS_ARGS;
-$args->{database} = DBDefs->REDIS_TEST_DATABASE;
+my $args = DBDefs->DATASTORE_VALKEY_ARGS;
+$args->{database} = DBDefs->VALKEY_TEST_DATABASE;
 my $valkey = MusicBrainz::DataStore::Valkey->new(%$args);
 
 test 'Database is still selected in new Valkey copy' => sub {

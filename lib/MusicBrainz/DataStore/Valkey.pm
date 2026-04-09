@@ -19,9 +19,9 @@ around BUILDARGS => sub {
         return $class->$orig(@_);
     }
 
-    my $args = DBDefs->DATASTORE_REDIS_ARGS;
+    my $args = DBDefs->DATASTORE_VALKEY_ARGS;
     if (ref($args) eq 'ARRAY') {
-        die 'Use DataStore::ValkeyMulti to support an array in DATASTORE_REDIS_ARGS.';
+        die 'Use DataStore::ValkeyMulti to support an array in DATASTORE_VALKEY_ARGS.';
     }
     return $class->$orig($args);
 };

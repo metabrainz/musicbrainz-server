@@ -288,13 +288,13 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 ################################################################################
 
 # The session store holds user login sessions. Session::Store::MusicBrainz
-# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Valkey.
+# uses DATASTORE_VALKEY_ARGS to connect to and store sessions in Valkey.
 
 # sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 # sub SESSION_STORE_ARGS { return {} }
 # sub SESSION_EXPIRE { return 36000; } # 10 hours
 
-# sub DATASTORE_REDIS_ARGS {
+# sub DATASTORE_VALKEY_ARGS {
 #     my $self = shift;
 #     return {
 #         database => 0,

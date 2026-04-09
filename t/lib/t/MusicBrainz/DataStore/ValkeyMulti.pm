@@ -22,11 +22,11 @@ stores. Consistency among all the stores is checked after each operation.
 =cut
 
 # Initialize tests
-my $args1 = DBDefs->DATASTORE_REDIS_ARGS;
-$args1->{database} = DBDefs->REDIS_TEST_DATABASE;
+my $args1 = DBDefs->DATASTORE_VALKEY_ARGS;
+$args1->{database} = DBDefs->VALKEY_TEST_DATABASE;
 
-my $args2 = DBDefs->DATASTORE_REDIS_ARGS;
-$args2->{database} = DBDefs->REDIS_TEST_DATABASE + 1;
+my $args2 = DBDefs->DATASTORE_VALKEY_ARGS;
+$args2->{database} = DBDefs->VALKEY_TEST_DATABASE + 1;
 
 my $valkey1 = MusicBrainz::DataStore::Valkey->new($args1);
 my $valkey2 = MusicBrainz::DataStore::Valkey->new($args2);
