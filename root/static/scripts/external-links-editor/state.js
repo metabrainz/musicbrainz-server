@@ -305,7 +305,7 @@ function getInitialLinks(
       duplicateOf: null,
       error: null,
       isNew: true,
-      isSubmitted: false,
+      isSubmitted: linkTypeId != null,
       key: uniqueId(),
       originalUrlEntity: null,
       rawUrl,
