@@ -1,4 +1,4 @@
-package MusicBrainz::Server::CacheWrapper::Redis;
+package MusicBrainz::Server::CacheWrapper::Valkey;
 
 use Moose;
 use Storable qw( nfreeze thaw );

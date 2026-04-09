@@ -237,7 +237,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub PLUGIN_CACHE_OPTIONS {
 #     my $self = shift;
 #     return {
-#         class => 'MusicBrainz::Server::CacheWrapper::Redis',
+#         class => 'MusicBrainz::Server::CacheWrapper::Valkey',
 #         server => '127.0.0.1:6379',
 #         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
 #     };
@@ -251,7 +251,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 #     my %CACHE_MANAGER_OPTIONS = (
 #         profiles => {
 #             external => {
-#                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
+#                 class => 'MusicBrainz::Server::CacheWrapper::Valkey',
 #                 options => {
 #                     server => '127.0.0.1:6379',
 #                     namespace => $self->CACHE_NAMESPACE,
