@@ -222,7 +222,7 @@ sub REDIS_TEST_DATABASE { 1 }
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        class => 'MusicBrainz::Server::CacheWrapper::Valkey',
         server => '127.0.0.1:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
         database => 0,
@@ -236,7 +236,7 @@ sub CACHE_MANAGER_OPTIONS {
     my %CACHE_MANAGER_OPTIONS = (
         profiles => {
             external => {
-                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                class => 'MusicBrainz::Server::CacheWrapper::Valkey',
                 options => {
                     server => '127.0.0.1:6379',
                     namespace => $self->CACHE_NAMESPACE,

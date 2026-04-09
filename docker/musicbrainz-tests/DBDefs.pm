@@ -63,7 +63,7 @@ sub CACHE_MANAGER_OPTIONS {
     my %CACHE_MANAGER_OPTIONS = (
         profiles => {
             external => {
-                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                class => 'MusicBrainz::Server::CacheWrapper::Valkey',
                 options => {
                     server => 'localhost:6379',
                     namespace => $self->CACHE_NAMESPACE,
@@ -128,7 +128,7 @@ sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        class => 'MusicBrainz::Server::CacheWrapper::Valkey',
         server => 'localhost:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
         database => 0,

@@ -40,8 +40,14 @@ sub BUILD
                 $self->_key_to_profile->{$key} = $name;
             }
         }
-        load_class($profile->{class});
-        my $cache = $profile->{class}->new($profile->{options} || {});
+        my $class = $profile->{class};
+        if ($class eq 'MusicBrainz::Server::CacheWrapper::Redis') {
+            # This module was renamed for MBS-14245, but old DBDefs configurations
+            # may still refer to the old name.
+            $class = 'MusicBrainz::Server::CacheWrapper::Valkey';
+        }
+        load_class($class);
+        my $cache = $class->new($profile->{options} || {});
         if ($profile->{wrapped}) {
             $cache = MusicBrainz::Server::CacheWrapper->new(_orig => $cache);
         }
