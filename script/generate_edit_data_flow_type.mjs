@@ -11,16 +11,17 @@
 import pg from 'pg';
 import Cursor from 'pg-cursor';
 import yargs from 'yargs';
+import {hideBin} from 'yargs/helpers';
 
 import * as DBDefs from '../root/static/scripts/common/DBDefs.mjs';
 import {generateFlowType} from '../root/utility/generateFlowType.js';
 
-yargs
+const yargsInstance = yargs(hideBin(process.argv))
   .option('edit-type', {
     describe: 'Specifies the edit type number to generate a Flow type for.',
     type: 'number',
   })
-  .required('edit-type');
+  .demandOption('edit-type');
 
 (async function () {
   const pgClient = new pg.Client(DBDefs.DATABASES.PROD_STANDBY);
@@ -47,7 +48,7 @@ yargs
         'FROM edit_data ed ' +
         'JOIN edit e ON e.id = ed.edit ' +
        'WHERE e.type = $1',
-      [yargs.argv['edit-type']],
+      [yargsInstance.parseSync()['edit-type']],
     ),
   );
 
