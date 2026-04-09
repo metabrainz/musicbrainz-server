@@ -85,13 +85,6 @@ Prerequisites
 
         sudo apt-get install nodejs
 
-    Depending on your Ubuntu version, another package might be required, too:
-
-        sudo apt-get install nodejs-legacy
-
-    This is only needed where it exists, so a warning about the package not being
-    found is not a problem.
-
     Next you need a modern version of Yarn to install the JS dependencies.
     Yarn can be installed using the `corepack` command, which is bundled with
     Node.js. By default, corepack will install `yarn` to /usr/local/bin,
