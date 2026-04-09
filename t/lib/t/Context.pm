@@ -5,7 +5,7 @@ use namespace::autoclean;
 use Carp qw( confess );
 use DBDefs;
 use File::Temp;
-use MusicBrainz::DataStore::Redis;
+use MusicBrainz::DataStore::Valkey;
 use MusicBrainz::Server::Test;
 
 has c => (

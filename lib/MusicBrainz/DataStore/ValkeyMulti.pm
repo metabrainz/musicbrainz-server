@@ -1,15 +1,15 @@
-package MusicBrainz::DataStore::RedisMulti;
+package MusicBrainz::DataStore::ValkeyMulti;
 
 use Moose;
 use namespace::autoclean;
 use DBDefs;
-use MusicBrainz::DataStore::Redis;
+use MusicBrainz::DataStore::Valkey;
 
-# If the `DataStore::RedisMulti` module is active, then
+# If the `DataStore::ValkeyMulti` module is active, then
 # `DATASTORE_REDIS_ARGS` may return an array ref of connection details.
 # (How do you know if it's active? grep for
-# `DataStore::RedisMulti->new`. We may revert back to plain-old
-# `DataStore::Redis` if multiple instances aren't needed.)
+# `DataStore::ValkeyMulti->new`. We may revert back to plain-old
+# `DataStore::Valkey` if multiple instances aren't needed.)
 #
 # This module is useful when Valkey service needs to be migrated to a
 # new server. We'll attempt to read from each connection in order
@@ -19,7 +19,7 @@ use MusicBrainz::DataStore::Redis;
 
 has '_redis_instances' => (
     is => 'rw',
-    isa => 'ArrayRef[MusicBrainz::DataStore::Redis]',
+    isa => 'ArrayRef[MusicBrainz::DataStore::Valkey]',
 );
 
 with 'MusicBrainz::DataStore';
@@ -40,7 +40,7 @@ around BUILDARGS => sub {
     }
 
     $class->$orig({
-        _redis_instances => [map { MusicBrainz::DataStore::Redis->new($_) } @$args],
+        _redis_instances => [map { MusicBrainz::DataStore::Valkey->new($_) } @$args],
     });
 };
 

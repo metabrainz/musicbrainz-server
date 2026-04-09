@@ -90,7 +90,7 @@ sub create_test_context
     return MusicBrainz::Server::Context->new(
         cache_manager =>
             MusicBrainz::Server::CacheManager->new(%$cache_opts),
-        store => MusicBrainz::DataStore::Redis->new(%$store_opts),
+        store => MusicBrainz::DataStore::Valkey->new(%$store_opts),
         %args,
     );
 }
