@@ -6,7 +6,7 @@ use DBDefs;
 use MusicBrainz::DataStore::Valkey;
 
 # If the `DataStore::ValkeyMulti` module is active, then
-# `DATASTORE_REDIS_ARGS` may return an array ref of connection details.
+# `DATASTORE_VALKEY_ARGS` may return an array ref of connection details.
 # (How do you know if it's active? grep for
 # `DataStore::ValkeyMulti->new`. We may revert back to plain-old
 # `DataStore::Valkey` if multiple instances aren't needed.)
@@ -32,11 +32,11 @@ around BUILDARGS => sub {
         return $class->$orig(@_);
     }
 
-    my $args = DBDefs->DATASTORE_REDIS_ARGS;
+    my $args = DBDefs->DATASTORE_VALKEY_ARGS;
     if (ref($args) eq 'HASH') {
         $args = [$args];
     } elsif (ref($args) ne 'ARRAY') {
-        die 'DATASTORE_REDIS_ARGS must return a HASH or ARRAY ref.';
+        die 'DATASTORE_VALKEY_ARGS must return a HASH or ARRAY ref.';
     }
 
     $class->$orig({

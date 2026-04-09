@@ -108,7 +108,7 @@ unless (DBDefs->CATALYST_DEBUG) {
 {
     my $plugin_cache_opts = DBDefs->PLUGIN_CACHE_OPTIONS;
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
-        $plugin_cache_opts->{database} = DBDefs->REDIS_TEST_DATABASE;
+        $plugin_cache_opts->{database} = DBDefs->VALKEY_TEST_DATABASE;
     }
     __PACKAGE__->config->{'Plugin::Cache'}{backend} = $plugin_cache_opts;
 }

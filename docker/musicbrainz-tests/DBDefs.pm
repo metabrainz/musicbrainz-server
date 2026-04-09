@@ -110,7 +110,7 @@ sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 
-sub DATASTORE_REDIS_ARGS {
+sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
     return {
         database => 0,
