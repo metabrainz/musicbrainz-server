@@ -1,4 +1,4 @@
-package MusicBrainz::DataStore::Redis;
+package MusicBrainz::DataStore::Valkey;
 
 use Moose;
 use namespace::autoclean;
@@ -21,7 +21,7 @@ around BUILDARGS => sub {
 
     my $args = DBDefs->DATASTORE_REDIS_ARGS;
     if (ref($args) eq 'ARRAY') {
-        die 'Use DataStore::RedisMulti to support an array in DATASTORE_REDIS_ARGS.';
+        die 'Use DataStore::ValkeyMulti to support an array in DATASTORE_REDIS_ARGS.';
     }
     return $class->$orig($args);
 };

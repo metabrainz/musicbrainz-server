@@ -1,4 +1,4 @@
-package t::MusicBrainz::DataStore::Redis;
+package t::MusicBrainz::DataStore::Valkey;
 
 use utf8;
 use strict;
@@ -9,7 +9,7 @@ use Test::Moose;
 use Test::More;
 use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Test;
-use MusicBrainz::DataStore::Redis;
+use MusicBrainz::DataStore::Valkey;
 use DBDefs;
 
 with 't::Context';
@@ -24,7 +24,7 @@ and expiring keys.
 # Initialize tests
 my $args = DBDefs->DATASTORE_REDIS_ARGS;
 $args->{database} = DBDefs->REDIS_TEST_DATABASE;
-my $redis = MusicBrainz::DataStore::Redis->new(%$args);
+my $redis = MusicBrainz::DataStore::Valkey->new(%$args);
 
 test 'Database is still selected in new Valkey copy' => sub {
     my $some_value = rand();
@@ -33,7 +33,7 @@ test 'Database is still selected in new Valkey copy' => sub {
     # The above commands have set a known value in the test database.
     # Now initialize another copy of Redis->new and have it call
     # select(), and verify that our value is still there.
-    my $redis2 = MusicBrainz::DataStore::Redis->new(%$args);
+    my $redis2 = MusicBrainz::DataStore::Valkey->new(%$args);
     is($redis2->get('26fe2bfb-73dd-4660-8946-bd14c899163b'), $some_value,
         'Redis->new correctly calls SELECT with the test database number');
 

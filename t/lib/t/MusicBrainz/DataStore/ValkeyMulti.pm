@@ -1,4 +1,4 @@
-package t::MusicBrainz::DataStore::RedisMulti;
+package t::MusicBrainz::DataStore::ValkeyMulti;
 
 use utf8;
 use strict;
@@ -9,8 +9,8 @@ use Test::Moose;
 use Test::More;
 use Test::Deep qw( cmp_bag );
 use MusicBrainz::Server::Test;
-use MusicBrainz::DataStore::Redis;
-use MusicBrainz::DataStore::RedisMulti;
+use MusicBrainz::DataStore::Valkey;
+use MusicBrainz::DataStore::ValkeyMulti;
 use DBDefs;
 
 =head1 DESCRIPTION
@@ -28,10 +28,10 @@ $args1->{database} = DBDefs->REDIS_TEST_DATABASE;
 my $args2 = DBDefs->DATASTORE_REDIS_ARGS;
 $args2->{database} = DBDefs->REDIS_TEST_DATABASE + 1;
 
-my $redis1 = MusicBrainz::DataStore::Redis->new($args1);
-my $redis2 = MusicBrainz::DataStore::Redis->new($args2);
+my $redis1 = MusicBrainz::DataStore::Valkey->new($args1);
+my $redis2 = MusicBrainz::DataStore::Valkey->new($args2);
 
-my $redis_multi = MusicBrainz::DataStore::RedisMulti->new(
+my $redis_multi = MusicBrainz::DataStore::ValkeyMulti->new(
     _redis_instances => [$redis1, $redis2],
 );
 
