@@ -33,8 +33,8 @@ run_with_apt_cache \
         expect
         locales
         openssh-client
-        postgresql-16
-        postgresql-16-pgtap
+        postgresql-18
+        postgresql-18-pgtap
         redis-server
         runit
         runit-run
@@ -69,7 +69,7 @@ RUN mkdir -p "$PGDATA" && \
     chown -R postgres:postgres "$PGHOME" && \
     cd "$PGHOME" && \
     chmod 700 "$PGDATA" && \
-    sudo -u postgres /usr/lib/postgresql/16/bin/initdb \
+    sudo -u postgres /usr/lib/postgresql/18/bin/initdb \
         --data-checksums \
         --encoding utf8 \
         --locale en_US.UTF8 \
