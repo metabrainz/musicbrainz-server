@@ -7,7 +7,7 @@ use Encode;
 use Redis;
 use JSON;
 
-extends 'MusicBrainz::Redis';
+extends 'MusicBrainz::Valkey';
 
 with 'MusicBrainz::DataStore';
 
