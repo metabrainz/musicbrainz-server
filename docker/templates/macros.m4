@@ -90,7 +90,7 @@ zlib1g-dev
 pkg-config
 ')
 
-# postgresql-server-dev-16 provides pg_config, which is needed by InitDb.pl
+# postgresql-server-dev-18 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 # iproute2 provides ss, which is used by
 # docker/musicbrainz-website/website.service.
@@ -107,22 +107,22 @@ libicu74
 libpq5
 libssl3
 libxml2
-postgresql-client-16
-postgresql-server-dev-16
+postgresql-client-18
+postgresql-server-dev-18
 zlib1g
 ')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-postgresql-16-pgtap
+postgresql-18-pgtap
 ')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
 build-essential
-postgresql-server-dev-16
+postgresql-server-dev-18
 ')
 
 m4_define(
