@@ -55,7 +55,7 @@ m4_define(
 copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt_install(`git nodejs python3-minimal') && \
     rm -f /etc/apt/sources.list.d/nodesource.list && \
     corepack enable && \
