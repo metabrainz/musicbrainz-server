@@ -14,6 +14,7 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import type {
   GenreFormT,
 } from '../../../../genre/types.js';
+import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
 import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
@@ -101,6 +102,8 @@ function reducer(state: StateT, action: ActionT): StateT {
 
 component GenreEditForm(form as initialForm: GenreFormT) {
   const $c = React.useContext(SanitizedCatalystContext);
+
+  useFormUnloadWarning();
 
   const [state, dispatch] = React.useReducer(
     reducer,
