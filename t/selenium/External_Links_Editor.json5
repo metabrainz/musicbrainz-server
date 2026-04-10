@@ -202,7 +202,7 @@
     {
       command: 'assertEval',
       target: "document.getElementsByClassName('raw-url')[0].value.trim()",
-      value: 'https://en.wikipedia.org/wiki/No_Age2',
+      value: 'https://en.wikipedia.org/wiki/No_Age2?oldformat=true',
     },
     // Close popover
     {
