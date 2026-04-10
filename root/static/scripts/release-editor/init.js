@@ -494,5 +494,7 @@ releaseEditor.allowsSubmission = function () {
 };
 
 MB._releaseEditor = releaseEditor;
+// Export modules that userscripts may need access to.
+MB.tree = tree;
 
 $(confirmNavigationFallback);
