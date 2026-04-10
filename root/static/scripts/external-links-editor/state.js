@@ -305,7 +305,7 @@ function getInitialLinks(
       duplicateOf: null,
       error: null,
       isNew: true,
-      isSubmitted: false,
+      isSubmitted: linkTypeId != null,
       key: uniqueId(),
       originalUrlEntity: null,
       rawUrl,
@@ -734,7 +734,6 @@ export function reducer(
             const cleanUrl = linkCtx.read().url.trim();
             linkCtx
               .set('isSubmitted', true)
-              .set('rawUrl', cleanUrl)
               .set('url', getUnicodeUrl(cleanUrl));
 
             const updatedLink = linkCtx.read();
@@ -786,7 +785,7 @@ export function reducer(
         }
         linkCtx
           .set(acceptedLink)
-          .set('rawUrl', acceptedUrl)
+          .set('rawUrl', acceptedLink.rawUrl)
           .set('url', getUnicodeUrl(acceptedUrl))
           .set('urlPopoverLinkState', null);
         return undefined;
