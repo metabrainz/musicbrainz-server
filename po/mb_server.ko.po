@@ -9,13 +9,14 @@
 # hashflu <minwuekim@gmail.com>, 2024.
 # hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
 # smreo1590 <smreo1590@naver.com>, 2026.
+# coldified_ <me@coldified.dev>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-08 17:42+0000\n"
-"PO-Revision-Date: 2026-03-15 10:11+0000\n"
-"Last-Translator: smreo1590 <smreo1590@naver.com>\n"
+"PO-Revision-Date: 2026-04-10 10:11+0000\n"
+"Last-Translator: coldified_ <me@coldified.dev>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ko/>\n"
 "Language: ko\n"
@@ -27,7 +28,7 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
-msgstr ""
+msgstr " ({text})"
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:19
