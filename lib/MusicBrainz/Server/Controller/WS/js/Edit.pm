@@ -30,6 +30,7 @@ use MusicBrainz::Server::Constants qw(
     $EDIT_RELATIONSHIP_DELETE
     $EDIT_RELATIONSHIPS_REORDER
     $EDIT_WORK_CREATE
+    $EDIT_WORK_ADD_ISWCS
     $UNTRUSTED_FLAG
     $WS_EDIT_RESPONSE_OK
     $WS_EDIT_RESPONSE_NO_CHANGES
@@ -92,6 +93,7 @@ our $ALLOWED_EDIT_TYPES = [
     $EDIT_RELATIONSHIP_EDIT,
     $EDIT_RELATIONSHIP_DELETE,
     $EDIT_RELATIONSHIPS_REORDER,
+    $EDIT_WORK_ADD_ISWCS,
     $EDIT_WORK_CREATE,
 ];
 
@@ -249,6 +251,12 @@ our $data_processors = {
 
     # MBS-11428: Keep it synced with MusicBrainz::Server::Form::Work
     $EDIT_WORK_CREATE => \&process_entity,
+
+    $EDIT_WORK_ADD_ISWCS => sub {
+        my ($c, $loader, $data) = @_;
+
+        process_entered_from($c, $loader, $data);
+    },
 };
 
 

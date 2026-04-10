@@ -25,6 +25,8 @@ type LoadableEntityTypeT =
   | 'link_attribute_type'
   | 'link_type'
   | 'series_type'
+  | 'work_attribute_type'
+  | 'work_attribute_type_allowed_value'
   | 'work_type';
 
 export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
@@ -65,24 +67,18 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
       const typeInfo = responseJson[typeName + '_list'];
 
       match (typeName) {
-        'language' => {
-          linkedEntities.language = Object.fromEntries(
-            keyBy(typeInfo, language => language.id),
-          );
-        }
         'link_attribute_type' => {
           exportLinkAttributeTypeInfo(typeInfo);
         }
         'link_type' => {
           exportLinkTypeInfo(typeInfo);
         }
-        'series_type' => {
-          linkedEntities.series_type = Object.fromEntries(
-            keyBy(typeInfo, type => type.id),
-          );
-        }
-        'work_type' => {
-          linkedEntities.work_type = Object.fromEntries(
+        'language'
+          | 'series_type'
+          | 'work_type'
+          | 'work_attribute_type'
+          | 'work_attribute_type_allowed_value' => {
+          linkedEntities[typeName] = Object.fromEntries(
             keyBy(typeInfo, type => type.id),
           );
         }
