@@ -237,13 +237,13 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 # sub PLUGIN_CACHE_OPTIONS {
 #     my $self = shift;
 #     return {
-#         class => 'MusicBrainz::Server::CacheWrapper::Redis',
+#         class => 'MusicBrainz::Server::CacheWrapper::Valkey',
 #         server => '127.0.0.1:6379',
 #         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
 #     };
 # }
 
-# The caching options here relate to object caching in Redis - such as for
+# The caching options here relate to object caching in Valkey - such as for
 # artists, releases, etc. in order to speed up queries. See below if you want
 # to disable caching.
 # sub CACHE_MANAGER_OPTIONS {
@@ -251,7 +251,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 #     my %CACHE_MANAGER_OPTIONS = (
 #         profiles => {
 #             external => {
-#                 class => 'MusicBrainz::Server::CacheWrapper::Redis',
+#                 class => 'MusicBrainz::Server::CacheWrapper::Valkey',
 #                 options => {
 #                     server => '127.0.0.1:6379',
 #                     namespace => $self->CACHE_NAMESPACE,
@@ -279,7 +279,7 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 #     return \%CACHE_MANAGER_OPTIONS;
 # }
 
-# Sets the TTL for entities stored in Redis, in seconds. A value of 0
+# Sets the TTL for entities stored in Valkey, in seconds. A value of 0
 # indicates that no expiration is set.
 # sub ENTITY_CACHE_TTL { 0 }
 
@@ -288,13 +288,13 @@ sub WEB_SERVER                { 'www.musicbrainz.example.com' }
 ################################################################################
 
 # The session store holds user login sessions. Session::Store::MusicBrainz
-# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
+# uses DATASTORE_VALKEY_ARGS to connect to and store sessions in Valkey.
 
 # sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 # sub SESSION_STORE_ARGS { return {} }
 # sub SESSION_EXPIRE { return 36000; } # 10 hours
 
-# sub DATASTORE_REDIS_ARGS {
+# sub DATASTORE_VALKEY_ARGS {
 #     my $self = shift;
 #     return {
 #         database => 0,

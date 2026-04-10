@@ -77,7 +77,7 @@ sub CACHE_MANAGER_OPTIONS {
     my %CACHE_MANAGER_OPTIONS = (
         profiles => {
             external => {
-                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                class => 'MusicBrainz::Server::CacheWrapper::Valkey',
                 options => {
                     server => 'localhost:6379',
                     namespace => $self->CACHE_NAMESPACE,
@@ -110,7 +110,7 @@ sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 
-sub DATASTORE_REDIS_ARGS {
+sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
     return {
         database => 0,
@@ -142,7 +142,7 @@ sub ACTIVE_SCHEMA_SEQUENCE { 30 }
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        class => 'MusicBrainz::Server::CacheWrapper::Valkey',
         server => 'localhost:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
         database => 0,

@@ -10,8 +10,8 @@ use MusicBrainz::Server::Test qw( commandline_override );
 
 my @classes = (
     't::Sql',
-    't::MusicBrainz::DataStore::Redis',
-    't::MusicBrainz::DataStore::RedisMulti',
+    't::MusicBrainz::DataStore::Valkey',
+    't::MusicBrainz::DataStore::ValkeyMulti',
     't::MusicBrainz::Script::RemoveEmptyURLs',
     't::MusicBrainz::Script::RemoveUnreferencedRows',
     't::MusicBrainz::Script::Utils',

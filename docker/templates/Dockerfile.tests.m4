@@ -35,11 +35,11 @@ run_with_apt_cache \
         openssh-client
         postgresql-16
         postgresql-16-pgtap
-        redis-server
         runit
         runit-run
         sudo
         unzip
+        valkey
         ') && \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
@@ -252,11 +252,11 @@ RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`mb-mail-service') && \
     setup_test_service(`postgresql') && \
     setup_test_service(`rabbitmq') && \
-    setup_test_service(`redis') && \
     setup_test_service(`solr') && \
     setup_test_service(`ssssss') && \
     setup_test_service(`template-renderer') && \
-    setup_test_service(`vnu') &&\
+    setup_test_service(`valkey') && \
+    setup_test_service(`vnu') && \
     setup_test_service(`website')
 
 LABEL org.opencontainers.image.source=https://github.com/metabrainz/musicbrainz-server

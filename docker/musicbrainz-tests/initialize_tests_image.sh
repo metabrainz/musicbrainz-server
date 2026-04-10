@@ -12,7 +12,7 @@ sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
 
 sv_start_if_down \
     postgresql \
-    redis # script/dump_js_type_info.pl needs Redis running.
+    valkey # script/dump_js_type_info.pl needs Valkey running.
 
 REPLICATION_TYPE=1 \
     sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh

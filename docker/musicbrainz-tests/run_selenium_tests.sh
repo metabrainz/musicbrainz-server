@@ -30,7 +30,7 @@ sv_start_if_down \
   artwork-indexer \
   artwork-redirect \
   postgresql \
-  redis \
+  valkey \
   solr \
   ssssss \
   template-renderer \

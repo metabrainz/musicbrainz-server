@@ -1,9 +1,9 @@
-package MusicBrainz::Server::CacheWrapper::Redis;
+package MusicBrainz::Server::CacheWrapper::Valkey;
 
 use Moose;
 use Storable qw( nfreeze thaw );
 
-extends 'MusicBrainz::Redis';
+extends 'MusicBrainz::Valkey';
 
 sub _encode_value { nfreeze(\$_[1]) }
 
