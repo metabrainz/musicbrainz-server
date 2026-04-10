@@ -494,5 +494,6 @@ releaseEditor.allowsSubmission = function () {
 };
 
 MB._releaseEditor = releaseEditor;
+MB.tree = tree;
 
 $(confirmNavigationFallback);
