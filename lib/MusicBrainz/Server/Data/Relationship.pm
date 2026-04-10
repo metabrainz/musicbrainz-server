@@ -876,7 +876,9 @@ sub insert
     my ($self, $type0, $type1, $values) = @_;
     $self->_check_types($type0, $type1);
 
-    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq 'series';
+    # Check for incorrect part of series relationships
+    # If both sides are series, check only type0 (since type1 is the part and could be any series type)
+    $self->_check_series_type($values->{entity0_id}, $values->{link_type_id}, $type1) if $type0 eq 'series' && $type1 ne 'series';
     $self->_check_series_type($values->{entity1_id}, $values->{link_type_id}, $type0) if $type1 eq 'series';
 
     my $row = {
