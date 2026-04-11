@@ -75,7 +75,7 @@
     },
     {
       command: 'assertTextMatches',
-      target: 'css=table.tbl + p',
+      target: 'css=div.cd-toc-medium-list-table-container + p',
       value: 'We used disc ID JlNvZmrMXulXHkVZC6JtM1AShZg- to look up this information.',
     },
   ],

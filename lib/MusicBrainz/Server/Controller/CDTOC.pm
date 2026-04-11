@@ -317,6 +317,8 @@ sub _attach_list {
         my ($initial_artist, $initial_release) = map { $c->req->query_params->{$_} }
             qw( artist-name release-name );
 
+        my $cdstub;
+        my @possible_mediums;
         # One of these must have been submitted to get here
         if ($c->form_submitted_and_valid($search_artist, $c->req->query_params)) {
             my $artists = $self->_load_paged($c, sub {
@@ -399,9 +401,10 @@ sub _attach_list {
                 component_path => 'cdtoc/AttachCDTocToRelease.js',
                 component_props => \%props,
             );
+            $c->detach;
         }
         else {
-            my $cdstub = $c->model('CDStub')->get_by_discid($cdtoc->discid);
+            $cdstub = $c->model('CDStub')->get_by_discid($cdtoc->discid);
             if ($cdstub) {
                 $c->model('CDStubTrack')->load_for_cdstub($cdstub);
                 $cdstub->update_track_lengths;
@@ -409,16 +412,16 @@ sub _attach_list {
                 $initial_artist  ||= $cdstub->artist;
                 $initial_release ||= $cdstub->title;
 
-                my @mediums = $c->model('Medium')->find_for_cdstub($cdstub);
-                $c->model('MediumFormat')->load(@mediums);
-                $c->model('Track')->load_for_mediums(@mediums);
-                my @tracks = map { $_->all_tracks } @mediums;
+                @possible_mediums = $c->model('Medium')->find_for_cdstub($cdstub);
+                $c->model('MediumFormat')->load(@possible_mediums);
+                $c->model('Track')->load_for_mediums(@possible_mediums);
+                my @tracks = map { $_->all_tracks } @possible_mediums;
                 $c->model('Recording')->load(@tracks);
-                my @releases = map { $_->release } @mediums;
+                my @releases = map { $_->release } @possible_mediums;
                 $c->model('Release')->load_related_info(@releases);
                 $c->model('ArtistCredit')->load(@releases);
                 $c->stash(
-                    possible_mediums => [ @mediums  ],
+                    possible_mediums => [ @possible_mediums ],
                     cdstub => $cdstub,
                 );
             }
@@ -430,10 +433,22 @@ sub _attach_list {
         $search_release->process(params => { 'filter-release.query' => $initial_release })
             if $initial_release;
 
+        my $medium_cdtocs = $self->_load_releases($c, $cdtoc);
+
+        my %props = (
+            $cdstub ? (cdStub => $cdstub->TO_JSON) : (),
+            cdToc => $cdtoc->TO_JSON,
+            mediumCDTocs => to_json_array($medium_cdtocs),
+            possibleMediums => to_json_array(\@possible_mediums),
+            searchArtistForm => $search_artist->TO_JSON,
+            searchReleaseForm => $search_release->TO_JSON,
+            tocString => $c->stash->{toc},
+        );
+
         $c->stash(
-            medium_cdtocs => $self->_load_releases($c, $cdtoc),
-            cdtoc => $cdtoc,
-            template => 'cdtoc/lookup.tt',
+            current_view => 'Node',
+            component_path => 'cdtoc/CDTocLookup.js',
+            component_props => \%props,
         );
     }
 }

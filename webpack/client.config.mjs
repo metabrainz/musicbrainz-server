@@ -62,6 +62,7 @@ const entries = [
   'common/components/ArtistRoles',
   'common/components/AttributeList',
   'common/components/CDTocMediumListTable',
+  'common/components/CDTocPossibleMediumListTable',
   'common/components/CDTocReleaseListTable',
   'common/components/CommonsImage',
   'common/components/Filter',
