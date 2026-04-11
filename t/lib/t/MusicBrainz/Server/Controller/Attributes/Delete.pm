@@ -1,4 +1,4 @@
-package t::MusicBrainz::Server::Controller::Admin::Attributes::Delete;
+package t::MusicBrainz::Server::Controller::Attributes::Delete;
 use utf8;
 use strict;
 use warnings;
@@ -21,7 +21,7 @@ test 'Delete standard attribute (series type)' => sub {
         with_fields => { username => 'editor', password => 'password' },
     );
 
-    $mech->get('/admin/attributes/SeriesType/delete/1');
+    $mech->get('/attributes/SeriesType/delete/1');
     is(
         $mech->status,
         HTTP_FORBIDDEN,
@@ -31,24 +31,27 @@ test 'Delete standard attribute (series type)' => sub {
     $test->mech->get('/logout');
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'admin', password => 'password' },
+        with_fields => {
+            username => 'relationship_editor',
+            password => 'password',
+        },
     );
 
-    $mech->get('/admin/attributes/SeriesType/delete/1');
+    $mech->get('/attributes/SeriesType/delete/1');
     html_ok($mech->content);
     $mech->text_contains(
       'because it is the parent of other attributes.',
       'Series type with children attributes cannot be deleted',
     );
 
-    $mech->get('/admin/attributes/SeriesType/delete/2');
+    $mech->get('/attributes/SeriesType/delete/2');
     html_ok($mech->content);
     $mech->text_contains(
       'You cannot remove the attribute “Release series” because it is still in use.',
       'Series type in use on a series cannot be deleted',
     );
 
-    $mech->get_ok('/admin/attributes/SeriesType/delete/47');
+    $mech->get_ok('/attributes/SeriesType/delete/47');
     html_ok($mech->content);
     $mech->text_contains(
       'Are you sure you wish to remove the Release group award attribute?',
@@ -59,13 +62,13 @@ test 'Delete standard attribute (series type)' => sub {
     $mech->form_with_fields('confirm.submit');
     $mech->click('confirm.submit');
 
-    $mech->get_ok('/admin/attributes/SeriesType');
+    $mech->get_ok('/attributes/SeriesType');
     $mech->text_lacks(
       'Release group award',
       'The series type has been deleted (no longer shows on the types list)',
     );
 
-    $mech->get('/admin/attributes/SeriesType/delete/1');
+    $mech->get('/attributes/SeriesType/delete/1');
     html_ok($mech->content);
     $mech->text_contains(
       'Are you sure you wish to remove the Release group series attribute?',
@@ -84,7 +87,7 @@ test 'Delete language' => sub {
         with_fields => { username => 'editor', password => 'password' },
     );
 
-    $mech->get('/admin/attributes/Language/delete/120');
+    $mech->get('/attributes/Language/delete/120');
     is(
         $mech->status,
         HTTP_FORBIDDEN,
@@ -94,31 +97,34 @@ test 'Delete language' => sub {
     $test->mech->get('/logout');
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'admin', password => 'password' },
+        with_fields => {
+            username => 'relationship_editor',
+            password => 'password',
+        },
     );
 
-    $mech->get_ok('/admin/attributes/Language/delete/120');
+    $mech->get_ok('/attributes/Language/delete/120');
     html_ok($mech->content);
     $mech->text_contains(
       'You cannot remove the attribute “English” because it is still in use.',
       'Language in use on a release cannot be deleted',
     );
 
-    $mech->get_ok('/admin/attributes/Language/delete/27');
+    $mech->get_ok('/attributes/Language/delete/27');
     html_ok($mech->content);
     $mech->text_contains(
       'You cannot remove the attribute “Asturian” because it is still in use.',
       'Language in use on a work cannot be deleted',
     );
 
-    $mech->get_ok('/admin/attributes/Language/delete/123');
+    $mech->get_ok('/attributes/Language/delete/123');
     html_ok($mech->content);
     $mech->text_contains(
       'You cannot remove the attribute “Estonian” because it is still in use.',
       'Language in use on an editor cannot be deleted',
     );
 
-    $mech->get_ok('/admin/attributes/Language/delete/113');
+    $mech->get_ok('/attributes/Language/delete/113');
     html_ok($mech->content);
     $mech->text_contains(
       'Are you sure you wish to remove the Dutch attribute?',
@@ -129,7 +135,7 @@ test 'Delete language' => sub {
     $mech->form_with_fields('confirm.submit');
     $mech->click('confirm.submit');
 
-    $mech->get_ok('/admin/attributes/Language');
+    $mech->get_ok('/attributes/Language');
     $mech->text_lacks(
       'Dutch',
       'The language has been deleted (no longer shows on the languages list)',
@@ -147,7 +153,7 @@ test 'Delete script' => sub {
         with_fields => { username => 'editor', password => 'password' },
     );
 
-    $mech->get('/admin/attributes/Script/delete/28');
+    $mech->get('/attributes/Script/delete/28');
     is(
         $mech->status,
         HTTP_FORBIDDEN,
@@ -157,17 +163,20 @@ test 'Delete script' => sub {
     $test->mech->get('/logout');
     $test->mech->get('/login');
     $test->mech->submit_form(
-        with_fields => { username => 'admin', password => 'password' },
+        with_fields => {
+            username => 'relationship_editor',
+            password => 'password',
+        },
     );
 
-    $mech->get_ok('/admin/attributes/Script/delete/28');
+    $mech->get_ok('/attributes/Script/delete/28');
     html_ok($mech->content);
     $mech->text_contains(
       'You cannot remove the attribute “Latin” because it is still in use.',
       'Script in use on a release cannot be deleted',
     );
 
-    $mech->get_ok('/admin/attributes/Script/delete/85');
+    $mech->get_ok('/attributes/Script/delete/85');
     html_ok($mech->content);
     $mech->text_contains(
       'Are you sure you wish to remove the Japanese attribute?',
@@ -178,7 +187,7 @@ test 'Delete script' => sub {
     $mech->form_with_fields('confirm.submit');
     $mech->click('confirm.submit');
 
-    $mech->get_ok('/admin/attributes/Script');
+    $mech->get_ok('/attributes/Script');
     $mech->text_lacks(
       'Japanese',
       'The script has been deleted (no longer shows on the scripts list)',
