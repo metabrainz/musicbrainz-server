@@ -8,12 +8,12 @@
  */
 
 import FormCsrfToken
-  from '../../static/scripts/edit/components/FormCsrfToken.js';
-import FormRow from '../../static/scripts/edit/components/FormRow.js';
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
 import FormRowSelect
-  from '../../static/scripts/edit/components/FormRowSelect.js';
-import FormRowText from '../../static/scripts/edit/components/FormRowText.js';
-import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
+  from '../static/scripts/edit/components/FormRowSelect.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 import type {ScriptEditFormT} from './types.js';
 
