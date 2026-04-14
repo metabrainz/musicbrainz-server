@@ -27,6 +27,7 @@ import {
 import {compareStrings} from '../common/utility/compare.mjs';
 import deepFreezeInDevelopment
   from '../common/utility/deepFreezeInDevelopment.js';
+import formatDatePeriod from '../common/utility/formatDatePeriod.js';
 import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
 import {
   advanceUniqueId,
@@ -476,6 +477,16 @@ function moveFocusToNextLink(
   ctx.set('focus', nextLink ? `#external-link-${nextLink.key}` : 'empty');
 }
 
+function stringifyTypeAndDate(relationship: LinkRelationshipStateT): string {
+  const dateContainer = {
+    begin_date: relationship.beginDate,
+    end_date: relationship.endDate,
+    ended: relationship.ended,
+  };
+  const dateString = formatDatePeriod(dateContainer);
+  return (relationship.linkTypeID ?? '') + dateString;
+}
+
 function updateRemovedOnMatchingRelationships(
   relationshipsCtx: CowContext<$ReadOnlyArray<LinkRelationshipStateT>>,
   matchCallback: (LinkRelationshipStateT) => boolean,
@@ -626,11 +637,11 @@ export function reducer(
       let relationshipsToMerge;
       updateLink(ctx, duplicateOf.link, existingLinkCtx => {
         const existingRelationships = existingLinkCtx.read().relationships;
-        const existingRelationshipTypeIds =
-          new Set(existingRelationships.map(r => r.linkTypeID));
+        const existingRelationshipTypeIdsAndDates =
+          new Set(existingRelationships.map(r => stringifyTypeAndDate(r)));
         relationshipsToMerge = duplicate.relationships.filter(
           r => r.linkTypeID == null ||
-            !existingRelationshipTypeIds.has(r.linkTypeID),
+            !existingRelationshipTypeIdsAndDates.has(stringifyTypeAndDate(r)),
         );
         existingLinkCtx.set(
           'relationships',
