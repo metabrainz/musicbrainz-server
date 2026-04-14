@@ -10,9 +10,10 @@
 /*
  * See ./createFastObjectCloneFunction.benchmark.js
  *
- * node v20.11.1:
- * spread x 31,909,715 ops/sec ±0.95% (87 runs sampled)
- * fastClone x 196,128,209 ops/sec ±1.08% (90 runs sampled)
+ * node v25.9.0 (6.19.11-arch1-1):
+ * spread x 33,332,361 ops/sec ±2.09% (90 runs sampled)
+ * fastClone x 94,883,537 ops/sec ±4.03% (81 runs sampled)
+ * Fastest is fastClone
  */
 
 export default function createFastObjectCloneFunction<T: {...}>(

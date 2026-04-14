@@ -68,14 +68,14 @@ Prerequisites
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
     your redis install for anything else.
 
-6.  Node.js (at least version 20.9.0) and Yarn
+6.  Node.js (at least version 24.11.0) and Yarn
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
     install Node and the package manager Yarn.
 
-    We currently run Node.js v20 LTS in production. (The first LTS release of
-    v20 was v20.9.0.) If your release of Ubuntu doesn't have such a version
+    We currently run Node.js v24 LTS in production. (The first LTS release of
+    v24 was v24.11.0.) If your release of Ubuntu doesn't have such a version
     of Node.js in its repositories, we can recommended the NodeSource binary
     distributions, which we also use in production:
 
@@ -84,13 +84,6 @@ Prerequisites
     To install Node.js from either the Ubuntu or NodeSource repositories, run:
 
         sudo apt-get install nodejs
-
-    Depending on your Ubuntu version, another package might be required, too:
-
-        sudo apt-get install nodejs-legacy
-
-    This is only needed where it exists, so a warning about the package not being
-    found is not a problem.
 
     Next you need a modern version of Yarn to install the JS dependencies.
     Yarn can be installed using the `corepack` command, which is bundled with
