@@ -7466,6 +7466,7 @@ export const CLEANUPS: CleanupEntries = {
     hostname: ['youtube.com', 'youtu.be'],
     match: [/^(https?:\/\/)?(((?!music)[^/])+\.)?(youtube\.com\/|youtu\.be\/)/i],
     restrict: [
+      LINK_TYPES.interview,
       LINK_TYPES.youtube,
       {
         recording: LINK_TYPES.streamingfree.recording,
@@ -7477,6 +7478,16 @@ export const CLEANUPS: CleanupEntries = {
       },
     ],
     select(url, sourceType) {
+      if (sourceType === 'artist') {
+        if (/^https:\/\/www\.youtube\.com\/(?!watch\?v=[a-zA-Z0-9_-])/.test(url)) {
+          return LINK_TYPES.youtube.artist;
+        }
+        /*
+         * We do not autoselect interview for videos in case the user meant
+         * to add a channel link and made a mistake.
+         */
+        return false;
+      }
       if (sourceType === 'recording') {
         return LINK_TYPES.streamingfree.recording;
       }
@@ -7517,6 +7528,17 @@ export const CLEANUPS: CleanupEntries = {
         };
       }
       switch (id) {
+        case LINK_TYPES.interview.artist:
+          if (/^https:\/\/www\.youtube\.com\/watch\?v=[a-zA-Z0-9_-]+$/.test(url)) {
+            return {result: true};
+          }
+          return {
+            error: l(
+              'Only video links are allowed as interviews.',
+            ),
+            result: false,
+            target: ERROR_TARGETS.ENTITY,
+          };
         case LINK_TYPES.youtube.artist:
         case LINK_TYPES.youtube.event:
         case LINK_TYPES.youtube.label:
@@ -7536,7 +7558,9 @@ export const CLEANUPS: CleanupEntries = {
             return {
               error: linkToChannelMsg(),
               result: false,
-              target: ERROR_TARGETS.ENTITY,
+              target: id === LINK_TYPES.youtube.artist
+                ? ERROR_TARGETS.RELATIONSHIP
+                : ERROR_TARGETS.ENTITY,
             };
           }
           return {result: true};
