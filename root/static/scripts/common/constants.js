@@ -117,7 +117,6 @@ export const FAVICON_CLASSES: {
   'deezer.com': 'deezer',
   'deviantart.com': 'deviantart',
   'dhhu.dk': 'dhhu',
-  'directlyrics.com': 'directlyrics',
   'discogs.com': 'discogs',
   'dogmazic.net': 'dogmazic',
   'dramonline.org': 'dram',

@@ -4138,14 +4138,12 @@ export const CLEANUPS: CleanupEntries = {
   },
   'lyrics': {
     hostname: [
-      'directlyrics.com',
       'lieder.net',
       'j-lyric.net',
       'muzikum.eu',
       'gutenberg.org',
     ],
     match: [
-      /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,
       /^(https?:\/\/)?([^/]+\.)?lieder\.net/i,
       /^(https?:\/\/)?([^/]+\.)?j-lyric\.net/i,
       /^(https?:\/\/)?([^/]+\.)?muzikum\.eu/i,

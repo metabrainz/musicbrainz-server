@@ -66,7 +66,6 @@ my %URL_SPECIALIZATIONS = (
     'Deezer'              => qr{^https?://(?:www\.)?deezer\.com/}i,
     'DeviantArt'          => qr{^https?://(?:www\.)?deviantart\.com/}i,
     'DHHU'                => qr{^https?://(?:www\.)?dhhu\.dk/}i,
-    'Directlyrics'        => qr{^https?://(?:www\.)?directlyrics\.com/}i,
     'Discogs'             => qr{^https?://(?:www\.)?discogs\.com/}i,
     'DiscosDoBrasil'      => qr{^https?://(?:(?:discografia|www)\.)?discosdobrasil\.com\.br/}i,
     'Dogmazic'            => qr{^https?://(?:[^/]+\.)?dogmazic\.net/}i,
