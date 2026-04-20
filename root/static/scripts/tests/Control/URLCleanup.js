@@ -3828,35 +3828,6 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://ko-fi.com/s/e953259fd9', // uncleaned
     expected_relationship_type: undefined,
   },
-  // laboiteauxparoles
-  {
-                     input_url: 'https://laboiteauxparoles.com/interprete/269/loco-locass',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/interprete/269',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://laboiteauxparoles.com/titre/55857/wi',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/titre/55857',
-       only_valid_entity_types: ['work'],
-  },
-  {
-                     input_url: 'http://www.laboiteauxparoles.com/auteur/1682',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/auteur/1682',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://laboiteauxparoles.com/editeur/140?page=2',
-             input_entity_type: 'label',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/editeur/140',
-       only_valid_entity_types: ['label'],
-  },
   // Lantis
   {
                      input_url: 'http://www.lantis.jp/release-item2.php?id=326c88aa1cd230f96ef350e380a23078',

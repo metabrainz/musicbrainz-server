@@ -156,7 +156,6 @@ export const FAVICON_CLASSES: {
   'kickstarter.com': 'kickstarter',
   'kkbox.com': 'kkbox',
   'ko-fi.com': 'kofi',
-  'laboiteauxparoles.com': 'laboiteauxparoles',
   'lantis.jp': 'lantis',
   'last.fm': 'lastfm',
   'lesarchivesduspectacle.net': 'archivesduspectacle',

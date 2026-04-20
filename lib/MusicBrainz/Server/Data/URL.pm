@@ -115,7 +115,6 @@ my %URL_SPECIALIZATIONS = (
     'Kickstarter'         => qr{^https?://(?:www\.)?kickstarter\.com/}i,
     'KKBOX'               => qr{^https?://www\.kkbox\.com/}i,
     'Kofi'                => qr{^https?://(?:www\.)?ko-fi\.com/}i,
-    'LaBoiteAuxParoles'   => qr{^https?://(?:www\.)?laboiteauxparoles\.com/}i,
     'Lantis'              => qr{^https?://(?:www\.)?lantis\.jp/}i,
     'LastFM'              => qr{^https?://(?:www\.)?last\.fm/}i,
     'LibraryThing'        => qr{^https?://(?:www\.)?librarything\.com/}i,
