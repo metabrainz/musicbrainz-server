@@ -17,7 +17,7 @@ use MusicBrainz::DataStore::Valkey;
 # all connections. This allows time to copy any keys that don't exist
 # on the new instance from the old instance.
 
-has '_redis_instances' => (
+has '_valkey_instances' => (
     is => 'rw',
     isa => 'ArrayRef[MusicBrainz::DataStore::Valkey]',
 );
@@ -40,7 +40,7 @@ around BUILDARGS => sub {
     }
 
     $class->$orig({
-        _redis_instances => [map { MusicBrainz::DataStore::Valkey->new($_) } @$args],
+        _valkey_instances => [map { MusicBrainz::DataStore::Valkey->new($_) } @$args],
     });
 };
 
@@ -58,7 +58,7 @@ sub _exec_method_wantarray {
     my ($self, $method, $done, @args) = @_;
 
     my @ret;
-    for my $instance (@{ $self->_redis_instances }) {
+    for my $instance (@{ $self->_valkey_instances }) {
         @ret = $instance->$method(@args);
         last if $done->(@ret);
     }

@@ -24,59 +24,59 @@ and expiring keys.
 # Initialize tests
 my $args = DBDefs->DATASTORE_REDIS_ARGS;
 $args->{database} = DBDefs->REDIS_TEST_DATABASE;
-my $redis = MusicBrainz::DataStore::Valkey->new(%$args);
+my $valkey = MusicBrainz::DataStore::Valkey->new(%$args);
 
 test 'Database is still selected in new Valkey copy' => sub {
     my $some_value = rand();
-    $redis->set('26fe2bfb-73dd-4660-8946-bd14c899163b', $some_value);
+    $valkey->set('26fe2bfb-73dd-4660-8946-bd14c899163b', $some_value);
 
     # The above commands have set a known value in the test database.
-    # Now initialize another copy of Redis->new and have it call
+    # Now initialize another copy of Valkey->new and have it call
     # select(), and verify that our value is still there.
-    my $redis2 = MusicBrainz::DataStore::Valkey->new(%$args);
-    is($redis2->get('26fe2bfb-73dd-4660-8946-bd14c899163b'), $some_value,
-        'Redis->new correctly calls SELECT with the test database number');
+    my $valkey2 = MusicBrainz::DataStore::Valkey->new(%$args);
+    is($valkey2->get('26fe2bfb-73dd-4660-8946-bd14c899163b'), $some_value,
+        'Valkey->new correctly calls SELECT with the test database number');
 
-    $redis->_connection->flushdb;
+    $valkey->_connection->flushdb;
 };
 
 test 'Key setting/retrieving' => sub {
-    is($redis->get('does-not-exist'), undef, 'Non-existent key returns undef');
+    is($valkey->get('does-not-exist'), undef, 'Non-existent key returns undef');
 
-    $redis->set('string', 'Esperándote');
-    is($redis->get('string'), 'Esperándote', 'Retrieved expected string');
+    $valkey->set('string', 'Esperándote');
+    is($valkey->get('string'), 'Esperándote', 'Retrieved expected string');
 
-    $redis->set('ref', {
+    $valkey->set('ref', {
         artist => 'J Alvarez feat. Arcángel',
         title => 'Esperándote',
         duration => 215000,
     });
 
-    is_deeply($redis->get('ref'), {
+    is_deeply($valkey->get('ref'), {
         artist => 'J Alvarez feat. Arcángel',
         title => 'Esperándote',
         duration => 215000,
     }, 'Retrieved expected data');
 
-    ok(!$redis->exists('does-not-exist'), 'exists returns false for non-existent key');
-    ok($redis->exists('string'), 'exists returns true for existing key');
+    ok(!$valkey->exists('does-not-exist'), 'exists returns false for non-existent key');
+    ok($valkey->exists('string'), 'exists returns true for existing key');
 
-    $redis->delete('string');
-    ok(!$redis->exists('string'), 'exists returns false for deleted key');
+    $valkey->delete('string');
+    ok(!$valkey->exists('string'), 'exists returns false for deleted key');
 
-    $redis->_connection->flushdb;
+    $valkey->_connection->flushdb;
 };
 
 test 'Setting key expiration' => sub {
-    $redis->set('int', 23);
-    is($redis->get('int'), 23, 'Retrieved expected integer');
+    $valkey->set('int', 23);
+    is($valkey->get('int'), 23, 'Retrieved expected integer');
 
-    $redis->expire_at('int', time() + 2);
-    ok($redis->exists('int'), 'int still exists');
+    $valkey->expire_at('int', time() + 2);
+    ok($valkey->exists('int'), 'int still exists');
     sleep(2);
-    ok(!$redis->exists('int'), 'int no longer exists');
+    ok(!$valkey->exists('int'), 'int no longer exists');
 
-    $redis->_connection->flushdb;
+    $valkey->_connection->flushdb;
 };
 
 1;
