@@ -163,6 +163,27 @@ test 'Displays correctly following release merges' => sub {
     is($edit->display_data->{release}{id}, 2);
 };
 
+test 'Catalog numbers set to the empty string are stored as NULL' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $edit = $c->model('Edit')->create(
+        edit_type => $EDIT_RELEASE_ADDRELEASELABEL,
+        editor_id => 1,
+        release => $c->model('Release')->get_by_id(1),
+        label => $c->model('Label')->get_by_id(2),
+        catalog_number => '',
+    );
+
+    my $catalog_number = $c->sql->select_single_value(
+        'SELECT catalog_number FROM release_label WHERE id = ?',
+        $edit->entity_id,
+    );
+    is($catalog_number, undef, 'Catalog number is stored as NULL');
+};
+
 sub create_edit {
     my $c = shift;
     return $c->model('Edit')->create(
