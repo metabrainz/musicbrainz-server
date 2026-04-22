@@ -131,7 +131,7 @@ test q(Rejected edits are applied if the label can't be deleted) => sub {
         INSERT INTO release (id, gid, name, artist_credit, release_group)
             VALUES (1, '357cfecb-8afd-41b7-a357-c1fde7ce46cd', 'R', 1, 1);
 
-        INSERT INTO release_label (release, label, catalog_number) VALUES (1, $label_id, '');
+        INSERT INTO release_label (release, label, catalog_number) VALUES (1, $label_id, NULL);
         SQL
 
     reject_edit($c, $edit);
