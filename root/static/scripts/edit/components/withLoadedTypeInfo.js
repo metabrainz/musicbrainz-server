@@ -27,14 +27,11 @@ type LoadableEntityTypeT =
   | 'series_type'
   | 'work_type';
 
-export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
-  WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
+export default function withLoadedTypeInfo<Config: {...}>(
+  WrappedComponent: component(...Config),
   typeInfoToLoad: $ReadOnlySet<LoadableEntityTypeT>,
-): component(ref: React.RefSetter<Instance>, ...Config) {
-  const ComponentWrapper = React.forwardRef((
-    props: Config,
-    ref: React.RefSetter<Instance>,
-  ) => {
+): component(...Config) {
+  const ComponentWrapper = (props: Config) => {
     const [isLoading, setLoading] = React.useState<boolean>(true);
 
     const [
@@ -145,21 +142,18 @@ export default function withLoadedTypeInfo<Config: {...}, Instance = mixed>(
           </p>
         )
       ) : (
-        <WrappedComponent {...props} ref={ref} />
+        <WrappedComponent {...props} />
       )
     );
-  });
+  };
 
   return ComponentWrapper;
 }
 
-export function withLoadedTypeInfoForRelationshipEditor<
-  Config: {...},
-  Instance = mixed,
->(
-  WrappedComponent: component(ref: React.RefSetter<Instance>, ...Config),
+export function withLoadedTypeInfoForRelationshipEditor<Config: {...}>(
+  WrappedComponent: component(...Config),
   extraTypeInfoToLoad?: $ReadOnlyArray<LoadableEntityTypeT> = [],
-): component(ref: React.RefSetter<Instance>, ...Config) {
+): component(...Config) {
   return withLoadedTypeInfo(
     WrappedComponent,
     new Set([

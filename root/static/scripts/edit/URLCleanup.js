@@ -2926,15 +2926,6 @@ export const CLEANUPS: CleanupEntries = {
       return {result: true, target: ERROR_TARGETS.URL};
     },
   },
-  'flattr': {
-    hostname: 'flattr.com',
-    match: [/^(https?:\/\/)?(www\.)?flattr\.com\/profile\/[^/?#]/i],
-    restrict: [LINK_TYPES.patronage],
-    clean(url) {
-      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?flattr\.com\/profile\/([^/?#]+).*$/, 'https://flattr.com/profile/$1');
-      return url;
-    },
-  },
   'foursquare': {
     hostname: 'foursquare.com',
     match: [/^(https?:\/\/)?([^/]+\.)?foursquare\.com\//i],
@@ -5174,7 +5165,8 @@ export const CLEANUPS: CleanupEntries = {
   },
   'ototoy': {
     hostname: 'ototoy.jp',
-    match: [/^(https?:\/\/)?([^/]+\.)?ototoy\.jp/i],
+    // Skip /feature links (can be interviews, reviews or other)
+    match: [/^(https?:\/\/)?([^/]+\.)?ototoy\.jp\/(?!feature)/i],
     restrict: [LINK_TYPES.downloadpurchase],
     clean(url) {
       return url.replace(/^(?:https?:\/\/)?(?:www\.)?ototoy\.jp\/(labels|_\/default\/[ap])\/(\d+).*$/, 'https://ototoy.jp/$1/$2');

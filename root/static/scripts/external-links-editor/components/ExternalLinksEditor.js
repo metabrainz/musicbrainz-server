@@ -23,7 +23,6 @@ import {
   hasSessionStorage,
   sessionStorageWrapper,
 } from '../../common/utility/storage.js';
-import withLoadedTypeInfo from '../../edit/components/withLoadedTypeInfo.js';
 import {
   compactEntityJson,
 } from '../../edit/utility/compactEntityJson.js';
@@ -189,8 +188,7 @@ function prepareExternalLinksHtmlFormSubmission(
   );
 }
 
-component _ExternalLinksEditor(
-  /*:: ref: React.RefSetter<void>, */
+component ExternalLinksEditor(
   dispatch: (LinksEditorActionT) => void,
   state: LinksEditorStateT,
 ) {
@@ -285,15 +283,5 @@ component _ExternalLinksEditor(
     </table>
   );
 }
-
-const ExternalLinksEditor:
-  component(
-    ref: React.RefSetter<void>,
-    ...React.PropsOf<_ExternalLinksEditor>
-  ) =
-    withLoadedTypeInfo<React.PropsOf<_ExternalLinksEditor>, void>(
-      _ExternalLinksEditor,
-      new Set(['link_attribute_type', 'link_type']),
-    );
 
 export default ExternalLinksEditor;

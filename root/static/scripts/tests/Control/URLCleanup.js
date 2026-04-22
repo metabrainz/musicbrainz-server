@@ -2854,13 +2854,6 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
   },
-  // Flattr
-  {
-                     input_url: 'http://www.flattr.com/profile/example',
-             input_entity_type: 'label',
-    expected_relationship_type: 'patronage',
-            expected_clean_url: 'https://flattr.com/profile/example',
-  },
   // FolkWiki
   {
                      input_url: 'http://www.folkwiki.se/Personer/SvenDonat',

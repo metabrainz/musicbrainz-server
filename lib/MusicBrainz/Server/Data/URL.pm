@@ -79,7 +79,6 @@ my %URL_SPECIALIZATIONS = (
     'Facebook'            => qr{^https?://(?:www\.)?facebook\.com/}i,
     'Finna'               => qr{^https?://(?:www\.)?finna\.fi/}i,
     'Finnmusic'           => qr{^https?://(?:www\.)?finnmusic\.net/}i,
-    'Flattr'              => qr{^https?://(?:www\.)?flattr\.com/profile/}i,
     'FolkWiki'            => qr{^https?://(?:www\.)?folkwiki\.se/}i,
     'FonoFi'              => qr{^https?://(?:www\.)?fono\.fi/}i,
     'Gakki'               => qr{^https?://(?:www\.)?saisaibatake\.ame-zaiku\.com/(?:gakki|musical|musical_instrument)/}i,

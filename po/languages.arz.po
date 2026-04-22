@@ -7,11 +7,11 @@ msgstr ""
 "Language-Team: none\n"
 "Language: arz\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=(n == 0) ? 0 : ((n == 1) ? 1 : ((n == 2) ? "
-"2 : ((n % 100 >= 3 && n % 100 <= 10) ? 3 : ((n % 100 >= 11 && n % 100 <= 99) "
-"? 4 : 5))));\n"
+"2 : ((n % 100 >= 3 && n % 100 <= 10) ? 3 : ((n % 100 >= 11 && n % 100 <= "
+"99) ? 4 : 5))));\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -501,6 +501,11 @@ msgstr ""
 #. frequency:1 iso_code_3:chv
 #: DB:language/name:84
 msgid "Chuvash"
+msgstr ""
+
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+msgid "Classical Nahuatl"
 msgstr ""
 
 #. frequency:0 iso_code_3:nwc
@@ -1696,6 +1701,11 @@ msgstr ""
 #. frequency:1 iso_code_3:mon
 #: DB:language/name:282
 msgid "Mongolian"
+msgstr ""
+
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
 msgstr ""
 
 #. frequency:1 iso_code_3:mos

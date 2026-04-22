@@ -17,8 +17,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-03-31 15:22+0000\n"
-"Last-Translator: dddrnzv <solodkovskiy+21w4amgy@gmail.com>\n"
+"PO-Revision-Date: 2026-04-11 22:11+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ru/>\n"
 "Language: ru\n"
@@ -646,8 +647,8 @@ msgid ""
 "current “Persian barbat” is more similar to the oud."
 msgstr ""
 "Древний центральноазиатский/персидский струнный инструмент, предок иранского "
-"уда. Был популярным инструментом в доисламском Иране и Персии. Современный «"
-"персидский барбат» больше похож на уд."
+"уда. Был популярным инструментом в доисламском Иране и Персии. Современный "
+"«персидский барбат» больше похож на уд."
 
 #. name:xiao
 #: DB:instrument/description:484
@@ -4815,12 +4816,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr ""
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -5875,6 +5870,11 @@ msgid ""
 "Used in traditional kabuki and bunraku theatre, it consists of two hardwood "
 "pieces tied together with ornamental cord."
 msgstr ""
+
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr "Длинный и прямой инструмент. Используется в традиционной музыке."
 
 #. name:turntable
 #: DB:instrument/description:181

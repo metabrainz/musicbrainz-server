@@ -24,9 +24,7 @@ import {
 
 import ExternalLinksEditor from './ExternalLinksEditor.js';
 
-component _StandaloneExternalLinksEditor(
-  /*:: ref: React.RefSetter<void>, */
-) {
+component _StandaloneExternalLinksEditor() {
   const $c = React.useContext(SanitizedCatalystContext);
 
   const [state, dispatch] = React.useReducer(

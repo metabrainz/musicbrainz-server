@@ -25,15 +25,7 @@ import useEntityNameFromField
 
 type PropsT = InitialStateArgsT;
 
-component _UrlRelationshipEditor(
-  /*
-   * Hack required due to withLoadedTypeInfo's use of `forwardRef`.
-   * Remove once we upgrade to React v19.
-   */
-  // eslint-disable-next-line no-unused-vars
-  ref: React.RefSetter<mixed>,
-  ...props: PropsT
-) {
+component _UrlRelationshipEditor(...props: PropsT) {
   const [state, dispatch] = React.useReducer(
     reducer,
     props,
@@ -71,7 +63,7 @@ component _UrlRelationshipEditor(
 }
 
 const NonHydratedUrlRelationshipEditor:
-  component(ref: React.RefSetter<mixed>, ...PropsT) =
+  component(...PropsT) =
     withLoadedTypeInfoForRelationshipEditor<PropsT>(
       _UrlRelationshipEditor,
     );

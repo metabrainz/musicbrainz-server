@@ -454,6 +454,14 @@ msgstr ""
 msgid "Indicates a page with an official schedule for an event series."
 msgstr "イベントシリーズの公式スケジュールが記載されたページを示します。"
 
+#. name:schedule
+#: DB:link_type/description:1302
+#, fuzzy
+#| msgid "Indicates a page with an official schedule for an event series."
+msgid ""
+"Indicates a page with an official schedule for an event, such as a festival."
+msgstr "イベントシリーズの公式スケジュールが記載されたページを示します。"
+
 #. name:parent
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
@@ -2768,8 +2776,8 @@ msgid ""
 "This indicates that the recording is of a medley, of which the work is one "
 "part."
 msgstr ""
-"これは、レコーディングがメドレーのものであり、その作品が一部であることを示す"
-"。"
+"これは、レコーディングがメドレーのものであり、その作品が一部であることを示"
+"す。"
 
 #. name:karaoke
 #: DB:link_attribute_type/description:1261
@@ -4629,11 +4637,11 @@ msgid ""
 "href=\"/relationship/40dff87a-e475-4aa6-b615-9935b564d756\">editor "
 "relationship type</a>."
 msgstr ""
-"編集を元のレコーディングにリンクする。 この関係の「編集」は、ラジオ編集（"
-"ラジオ再生に適したものにするために長いトラックを約3分マークに合理化することを"
-"含む）、または同一素材を短縮、検閲、またはその他の方法で編集されたバージョン"
-"の場合がある。 レコーディング編集者は、<a href=\"/relationship/40dff87a-e475-"
-"4aa6-b615-9935b564d756\">編集者関係タイプ</a>を使用してリンクされる。"
+"編集を元のレコーディングにリンクする。 この関係の「編集」は、ラジオ編集（ラジ"
+"オ再生に適したものにするために長いトラックを約3分マークに合理化することを含"
+"む）、または同一素材を短縮、検閲、またはその他の方法で編集されたバージョンの"
+"場合がある。 レコーディング編集者は、<a href=\"/relationship/40dff87a-"
+"e475-4aa6-b615-9935b564d756\">編集者関係タイプ</a>を使用してリンクされる。"
 
 #. name:songfacts
 #: DB:link_type/description:289
@@ -4668,6 +4676,13 @@ msgid ""
 msgstr ""
 "イベントをキュレーションされた動画を含む動画共有サイトのチャンネル、再生リス"
 "ト、またはユーザーページにリンクする。"
+
+#. name:fanpage
+#: DB:link_type/description:1301
+#, fuzzy
+#| msgid "This links an artist to a fan-created website."
+msgid "This links an event to a fan-created website."
+msgstr "アーティストをファンが作成したウェブサイトへリンクします。"
 
 #. name:patronage
 #: DB:link_type/description:898
@@ -4980,8 +4995,8 @@ msgid ""
 "This relationship indicates an artist credited as the booklet editor for a "
 "release."
 msgstr ""
-"この関係は、リリースのブックレット編集者としてクレジットされている"
-"アーティストを示す。"
+"この関係は、リリースのブックレット編集者としてクレジットされているアーティス"
+"トを示す。"
 
 #. name:teacher
 #: DB:link_type/description:893
@@ -7320,19 +7335,22 @@ msgstr "声優"
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
-#: DB:link_type/reverse_link_phrase:1190 DB:link_type/reverse_link_phrase:1191
+#: DB:link_type/reverse_link_phrase:1301 DB:link_type/reverse_link_phrase:1190
+#: DB:link_type/reverse_link_phrase:1191
 msgid "fan page for"
 msgstr "次のファンページ"
 
 #. name:fanpage
 #: DB:link_type/link_phrase:214 DB:link_type/link_phrase:172
-#: DB:link_type/link_phrase:1189 DB:link_type/link_phrase:1190
-#: DB:link_type/link_phrase:1191 DB:link_type/reverse_link_phrase:1188
+#: DB:link_type/link_phrase:1189 DB:link_type/link_phrase:1301
+#: DB:link_type/link_phrase:1190 DB:link_type/link_phrase:1191
+#: DB:link_type/reverse_link_phrase:1188
 msgid "fan pages"
 msgstr "ファンページ"
 
 #: DB:link_type/name:214 DB:link_type/name:172 DB:link_type/name:1189
-#: DB:link_type/name:1190 DB:link_type/name:1188 DB:link_type/name:1191
+#: DB:link_type/name:1301 DB:link_type/name:1190 DB:link_type/name:1188
+#: DB:link_type/name:1191
 msgid "fanpage"
 msgstr "ファンページ"
 
@@ -7709,8 +7727,8 @@ msgstr ""
 
 #. name:fanpage
 #: DB:link_type/long_link_phrase:214 DB:link_type/long_link_phrase:172
-#: DB:link_type/long_link_phrase:1189 DB:link_type/long_link_phrase:1190
-#: DB:link_type/long_link_phrase:1191
+#: DB:link_type/long_link_phrase:1189 DB:link_type/long_link_phrase:1301
+#: DB:link_type/long_link_phrase:1190 DB:link_type/long_link_phrase:1191
 msgid "has a fan page at"
 msgstr "のファンページのURLは"
 
@@ -7758,7 +7776,7 @@ msgid "has a review page at"
 msgstr ""
 
 #. name:schedule
-#: DB:link_type/long_link_phrase:1083
+#: DB:link_type/long_link_phrase:1083 DB:link_type/long_link_phrase:1302
 msgid "has a schedule at"
 msgstr ""
 
@@ -10242,12 +10260,13 @@ msgid "samples material"
 msgstr ""
 
 #. name:schedule
-#: DB:link_type/name:1083 DB:link_type/link_phrase:1083
+#: DB:link_type/name:1083 DB:link_type/name:1302 DB:link_type/link_phrase:1083
+#: DB:link_type/link_phrase:1302
 msgid "schedule"
 msgstr ""
 
 #. name:schedule
-#: DB:link_type/reverse_link_phrase:1083
+#: DB:link_type/reverse_link_phrase:1083 DB:link_type/reverse_link_phrase:1302
 msgid "schedule for"
 msgstr ""
 

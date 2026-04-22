@@ -360,43 +360,45 @@ function getRelationshipError(
       message: check.error ?? '',
       target: check.target ?? URLCleanup.ERROR_TARGETS.NONE,
     };
-    if (error.target === URLCleanup.ERROR_TARGETS.URL) {
-      error.message = l(
-        `This URL is not allowed for the selected link type,
-         or is incorrectly formatted.`,
-      );
-    } else if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
-      error.message =
-        l('This URL is not allowed for the selected link type.');
-    } else if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
-      error.message = match (checker) {
-        {entityType: 'area', ...} =>
-          l('This URL is not allowed for areas.'),
-        {entityType: 'artist', ...} =>
-          l('This URL is not allowed for artists.'),
-        {entityType: 'event', ...} =>
-          l('This URL is not allowed for events.'),
-        {entityType: 'genre', ...} =>
-          l('This URL is not allowed for genres.'),
-        {entityType: 'instrument', ...} =>
-          l('This URL is not allowed for instruments.'),
-        {entityType: 'label', ...} =>
-          l('This URL is not allowed for labels.'),
-        {entityType: 'place', ...} =>
-          l('This URL is not allowed for places.'),
-        {entityType: 'recording', ...} =>
-          l('This URL is not allowed for recordings.'),
-        {entityType: 'release', ...} =>
-          l('This URL is not allowed for releases.'),
-        {entityType: 'release_group', ...} =>
-          l('This URL is not allowed for release groups.'),
-        {entityType: 'series', ...} =>
-          l('This URL is not allowed for series.'),
-        {entityType: 'work', ...} =>
-          l('This URL is not allowed for works.'),
-        // URLs don't themselves have an external links editor
-        {entityType: 'url', ...} => '',
-      };
+    if (empty(error.message)) {
+      if (error.target === URLCleanup.ERROR_TARGETS.URL) {
+        error.message = l(
+          `This URL is not allowed for the selected link type,
+           or is incorrectly formatted.`,
+        );
+      } else if (error.target === URLCleanup.ERROR_TARGETS.RELATIONSHIP) {
+        error.message =
+          l('This URL is not allowed for the selected link type.');
+      } else if (error.target === URLCleanup.ERROR_TARGETS.ENTITY) {
+        error.message = match (checker) {
+          {entityType: 'area', ...} =>
+            l('This URL is not allowed for areas.'),
+          {entityType: 'artist', ...} =>
+            l('This URL is not allowed for artists.'),
+          {entityType: 'event', ...} =>
+            l('This URL is not allowed for events.'),
+          {entityType: 'genre', ...} =>
+            l('This URL is not allowed for genres.'),
+          {entityType: 'instrument', ...} =>
+            l('This URL is not allowed for instruments.'),
+          {entityType: 'label', ...} =>
+            l('This URL is not allowed for labels.'),
+          {entityType: 'place', ...} =>
+            l('This URL is not allowed for places.'),
+          {entityType: 'recording', ...} =>
+            l('This URL is not allowed for recordings.'),
+          {entityType: 'release', ...} =>
+            l('This URL is not allowed for releases.'),
+          {entityType: 'release_group', ...} =>
+            l('This URL is not allowed for release groups.'),
+          {entityType: 'series', ...} =>
+            l('This URL is not allowed for series.'),
+          {entityType: 'work', ...} =>
+            l('This URL is not allowed for works.'),
+          // URLs don't themselves have an external links editor
+          {entityType: 'url', ...} => '',
+        };
+      }
     }
     return error;
   }

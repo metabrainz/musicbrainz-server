@@ -5133,12 +5133,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr "穆里丹根鼓是一種印度雙面鼓。"
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr "朝鮮喇叭是一種長而直的銅管號，用於朝鮮民族音樂。"
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -6324,6 +6318,14 @@ msgid ""
 msgstr ""
 "用於歌舞伎和文樂一類傳統戲劇，包括兩塊硬木，由一根裝飾性的絲帶連在一起。"
 
+#. name:nabal
+#: DB:instrument/description:684
+#, fuzzy
+#| msgid ""
+#| "Used in traditional Andes music, it consists of a single row of pipes."
+msgid "Used in traditional music, it's long and straight."
+msgstr "在傳統的安地斯音樂中使用，它由一排管子組成。"
+
 #. name:turntable
 #: DB:instrument/description:181
 msgid ""
@@ -6690,6 +6692,10 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid ""
+#~ "The nabal is a long, straight brass horn used in Korean traditional music."
+#~ msgstr "朝鮮喇叭是一種長而直的銅管號，用於朝鮮民族音樂。"
 
 #~ msgid ""
 #~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."

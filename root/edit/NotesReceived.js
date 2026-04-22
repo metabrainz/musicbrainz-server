@@ -15,13 +15,20 @@ import Layout from '../layout/index.js';
 import manifest from '../static/manifest.mjs';
 import linkedEntities from '../static/scripts/common/linkedEntities.mjs';
 import {isBeginner} from '../static/scripts/common/utility/privileges.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import InlineSubmitButton
+  from '../static/scripts/edit/components/InlineSubmitButton.js';
 import NewNotesAlertCheckbox
   from '../static/scripts/edit/components/NewNotesAlertCheckbox.js';
 import getRequestCookie from '../utility/getRequestCookie.mjs';
 
 import EditNoteListEntry from './components/EditNoteListEntry.js';
 
-component NotesReceived(editNotes: $ReadOnlyArray<EditNoteT>, pager: PagerT) {
+component NotesReceived(
+  editNotes: $ReadOnlyArray<EditNoteT>,
+  modbotCondition?: '' | '=' | '!=',
+  pager: PagerT,
+) {
   const $c = React.useContext(CatalystContext);
 
   return (
@@ -38,6 +45,25 @@ component NotesReceived(editNotes: $ReadOnlyArray<EditNoteT>, pager: PagerT) {
           />
         )}
 
+        <form style={{marginTop: '1em'}}>
+          <FormRow>
+            <label>
+              {addColonText(l('ModBot notes'))}
+              {' '}
+              <select
+                defaultValue={modbotCondition ?? ''}
+                name="modbot_condition"
+              >
+                <option value="">{l('Show all notes')}</option>
+                <option value="=">{l('Show only notes by ModBot')}</option>
+                <option value="!=">
+                  {l('Show only notes by someone else')}
+                </option>
+              </select>
+            </label>
+            <InlineSubmitButton />
+          </FormRow>
+        </form>
 
         {editNotes.length ? (
           <div className="edit-notes">

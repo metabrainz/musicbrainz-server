@@ -860,6 +860,7 @@ const seleniumTests = [
     login: true,
     sql: 'whatever_it_takes.sql',
   },
+  {name: 'MBS-14323.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
   {name: 'External_Links_Editor.json5', login: true},

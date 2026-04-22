@@ -301,6 +301,23 @@
       target: "Array.from(document.querySelectorAll('#external-links-editor tr[class=\"relationship-item\"]')).slice(0, 3).map(x => [x.querySelector('select').value, x.querySelector('.error') ? x.querySelector('.error').textContent : ''].join('\\t')).join('\\n')",
       value: '\tPlease select a link type for the URL you’ve entered.\n77\t\n288\t',
     },
+    // Seeded URLs should be turned into a link if a type is specified.
+    {
+      command: 'assertEval',
+      target: "document.querySelector('tr.external-link-item:nth-child(7) a.url')?.href",
+      value: 'https://open.spotify.com/album/3fu9okw4JVoyJQtGumKJHQ',
+    },
+    {
+      command: 'runScript',
+      target: "document.querySelector('tr.external-link-item:nth-child(7) > td.link-actions button.edit-item')?.click()",
+      value: '',
+    },
+    // The raw URL that was submitted is preserved in the URLInputPopover.
+    {
+      command: 'assertEval',
+      target: "document.querySelector('div#url-input-popover input.raw-url')?.value",
+      value: 'https://open.spotify.com/album/3fu9okw4JVoyJQtGumKJHQ?foo=bar',
+    },
     // MBS-7250: seeding empty date parts gives an ISE
     {
       command: 'open',

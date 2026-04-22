@@ -412,11 +412,14 @@ sub begin : Private
     # anything here, make sure it is reflected there, too (if applicable).
 
     if (DBDefs->REQUIRE_LOGIN_FOR_VIEWING && !$c->user_exists) {
-        my $action_name = $c->action->name;
+        my $action = $c->action;
+        my $namespace = $action->namespace;
+        my $private_path = $action->private_path;
         unless (
-            $action_name eq 'index' ||
-            $action_name eq 'login' ||
-            $action_name eq 'register'
+            $namespace eq 'oauth2' ||
+            $private_path eq '/index' ||
+            $private_path eq '/user/login' ||
+            $private_path eq '/account/register'
         ) {
             $attributes->{RequireAuth} = 1;
         }

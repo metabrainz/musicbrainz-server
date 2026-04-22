@@ -522,6 +522,13 @@ msgstr "chuuk"
 msgid "Chuvash"
 msgstr "czuwaski"
 
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+#, fuzzy
+#| msgid "Classical Newari"
+msgid "Classical Nahuatl"
+msgstr "newarski klasyczny"
+
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
 msgid "Classical Newari"
@@ -1718,6 +1725,11 @@ msgstr "mongo"
 #: DB:language/name:282
 msgid "Mongolian"
 msgstr "mongolski"
+
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr ""
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283

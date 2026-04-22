@@ -4837,14 +4837,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr "Le mridangam est un tambour à deux têtes d’Inde."
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-"Le nabal est un long cor droit en cuivre utilisé dans la musique "
-"traditionnelle coréenne."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -6043,6 +6035,11 @@ msgid ""
 "pieces tied together with ornamental cord."
 msgstr ""
 
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr ""
+
 #. name:turntable
 #: DB:instrument/description:181
 msgid ""
@@ -6376,6 +6373,12 @@ msgstr "flûte saó ôi, utilisée par les Muong"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu est la basse du trắng lu"
+
+#~ msgid ""
+#~ "The nabal is a long, straight brass horn used in Korean traditional music."
+#~ msgstr ""
+#~ "Le nabal est un long cor droit en cuivre utilisé dans la musique "
+#~ "traditionnelle coréenne."
 
 #~ msgid ""
 #~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."

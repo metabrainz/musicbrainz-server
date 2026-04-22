@@ -127,7 +127,6 @@ export const FAVICON_CLASSES: {
   'facebook.com': 'facebook',
   'finna.fi': 'finna',
   'finnmusic.net': 'finnmusic',
-  'flattr.com': 'flattr',
   'fono.fi': 'fonofi',
   'generasia.com/wiki': 'generasia',
   'genie.co.kr': 'genie',
