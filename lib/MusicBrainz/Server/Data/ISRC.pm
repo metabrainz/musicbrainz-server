@@ -22,7 +22,6 @@ sub _build_columns
         id
         isrc
         recording
-        source
         edits_pending
     );
 }
@@ -40,7 +39,6 @@ sub _column_mapping
         id            => 'id',
         isrc          => 'isrc',
         recording_id  => 'recording',
-        source_id     => 'source',
         edits_pending => 'edits_pending',
     };
 }
@@ -138,9 +136,9 @@ sub insert
 {
     my ($self, @isrcs) = @_;
 
-    $self->sql->do('INSERT INTO isrc (recording, isrc, source) VALUES ' .
-                 (join q(,), (('(?, ?, ?)') x @isrcs)),
-             map { $_->{recording_id}, $_->{isrc}, $_->{source} || undef }
+    $self->sql->do('INSERT INTO isrc (recording, isrc) VALUES ' .
+                 (join q(,), (('(?, ?)') x @isrcs)),
+             map { $_->{recording_id}, $_->{isrc} }
                  @isrcs);
 }
 
