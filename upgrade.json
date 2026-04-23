@@ -253,6 +253,7 @@
   "31": {
     "all": [
       "20260212-mbs-14252.sql"
-    ]
+    ],
+    "master_and_standalone": []
   }
 }
