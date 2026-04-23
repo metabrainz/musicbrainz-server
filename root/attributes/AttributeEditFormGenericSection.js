@@ -10,13 +10,13 @@
 import * as React from 'react';
 
 import FormCsrfToken
-  from '../../static/scripts/edit/components/FormCsrfToken.js';
+  from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRowSelect
-  from '../../static/scripts/edit/components/FormRowSelect.js';
+  from '../static/scripts/edit/components/FormRowSelect.js';
 import FormRowText
-  from '../../static/scripts/edit/components/FormRowText.js';
+  from '../static/scripts/edit/components/FormRowText.js';
 import FormRowTextArea
-  from '../../static/scripts/edit/components/FormRowTextArea.js';
+  from '../static/scripts/edit/components/FormRowTextArea.js';
 
 import {type AnyAttributeEditFormT} from './types.js';
 
