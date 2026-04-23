@@ -86,7 +86,7 @@ pg_dump \
     --schema-only \
     --superuser "$SUPERUSER" \
     --dbname musicbrainz_test_migration_1 \
-    --username musicbrainz > "$DB1SCHEMA"
+    --username musicbrainz | grep -Ev '^\\(un)?restrict ' > "$DB1SCHEMA"
 
 pg_dump \
     --host localhost \
@@ -94,7 +94,7 @@ pg_dump \
     --schema-only \
     --superuser "$SUPERUSER" \
     --dbname musicbrainz_test_migration_2 \
-    --username musicbrainz > "$DB2SCHEMA"
+    --username musicbrainz | grep -Ev '^\\(un)?restrict ' > "$DB2SCHEMA"
 
 drop_test_dbs
 
