@@ -5,13 +5,13 @@
 # Maurits Meulenbelt, 2012-2022
 # Nicolás Tamargo <email address hidden>, 2022
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-04-26 11:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.17\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1142,6 +1142,9 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"De tabla is een combinatie van twee trommels: de grotere <em>baya</em> of "
+"<em>dagga</em> voor lage tonen en de kleinere <em>daya</em> of <em>tabla</"
+"em> voor ritmen en melodieën."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -1292,11 +1295,9 @@ msgid ""
 "<br /> For the instrument called <em>bar chimes</em>, see <a href=\"/"
 "instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
 msgstr ""
-"Hoewel de naam anders doet vermoeden, bestaat een klokkenstaaf niet uit "
-"klokken, maar uit gestemde metalen staven op resonatoren. <br />Het "
-"instrument lijkt op een glockenspiel.<br />Ook al lijken de namen op elkaar, "
-"het instrument moet niet worden verward met <a href=\"/instrument/3b8cd68b-"
-"aadc-4e43-a13f-e575202d67ea\">klokkenspel</a>."
+"Een resonatorstaaf is een percussie-instrument dat bestaat uit een gestemde "
+"(vaak metalen) staaf die lijkt op een staaf van een glockenspiel. De staaf "
+"is bevestigd op een houten klankkast en wordt met een hamer bespeeld."
 
 #. name:theorbo
 #: DB:instrument/description:395
@@ -1674,8 +1675,6 @@ msgstr ""
 
 #. name:ruan
 #: DB:instrument/description:545
-#, fuzzy
-#| msgid "Ruan is a family of Chinese plucked lutes."
 msgid "Family of Chinese plucked lutes."
 msgstr "De ruan is een familie van Chinese getokkelde luiten."
 
@@ -3437,6 +3436,7 @@ msgstr ""
 #: DB:instrument/description:728
 msgid "Mexican 6 course 12 string bass"
 msgstr ""
+"De bajo sexto is een Mexicaanse dubbelkorige basgitaar met twaalf snaren."
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -4944,6 +4944,10 @@ msgid ""
 "pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
+"De Mark-tree bestaat uit massief metalen (vaak aluminium) staven die aan een "
+"balkje hangen. <br /> NIET te verwarren met de <a href=\"/instrument/"
+"ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">resonatorstaaf</a>, die lijkt op een "
+"losse resonator van een glockenspiel."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -5044,6 +5048,9 @@ msgid ""
 "samurai, it has four strings and elevated frets, a large plectrum called "
 "Bachi is used."
 msgstr ""
+"De satsuma biwa zou zijn ontworpen op basis van de moso biwa om samoerai op "
+"te peppen. Het instrument heeft vier snaren en hoge fretten, en wordt "
+"bespeeld met een groot plectrum dat en Bachi wordt genoemd."
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -5072,11 +5079,9 @@ msgstr ""
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
 msgstr ""
-"De daruan (letterlijk: grote ruan) is het basinstrument uit de Chinese "
+"De zhongruan (letterlijk: tenorruan) is het tenorinstrument uit de Chinese "
 "luitenfamilie ruan."
 
 #. name:primero
@@ -7209,6 +7214,8 @@ msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
 msgstr ""
+"De karkabou is een groot metalen castagnettenachtig instrument dat wordt "
+"gebruikt voor gnawamuziek."
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -7484,11 +7491,10 @@ msgstr ""
 
 #. name:nabal
 #: DB:instrument/description:684
-#, fuzzy
-#| msgid ""
-#| "Used in traditional Andes music, it consists of a single row of pipes."
 msgid "Used in traditional music, it's long and straight."
-msgstr "De antara is een panfluit uit de Andes die bestaat uit een rij pijpen."
+msgstr ""
+"Een nabal is een lange koperen rechte hoorn die gebruikt wordt voor "
+"traditionele Koreaanse muziek."
 
 #. name:turntable
 #: DB:instrument/description:181

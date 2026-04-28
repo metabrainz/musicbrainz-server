@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-10 13:13-0500\n"
+"POT-Creation-Date: 2026-04-21 13:13-0500\n"
 "PO-Revision-Date: 2024-07-29 00:42+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
 "<monkeypython+inst@yepmail.net>\n"
@@ -797,7 +797,7 @@ msgstr ""
 #: ../root/edit/details/EditReleaseGroup.js:46
 #: ../root/edit/details/EditSeries.js:44 ../root/edit/details/EditWork.js:55
 #: ../root/static/scripts/common/components/FilterForm.js:405
-#: ../root/static/scripts/event/components/EventEditForm.js:262
+#: ../root/static/scripts/event/components/EventEditForm.js:301
 msgid "Disambiguation"
 msgstr ""
 
@@ -1115,7 +1115,7 @@ msgstr ""
 
 #: ../root/label/edit_form.tt:1 ../root/work/edit_form.tt:3
 #: ../root/search/components/SearchForm.js:99
-#: ../root/static/scripts/event/components/EventEditForm.js:244
+#: ../root/static/scripts/event/components/EventEditForm.js:283
 msgid "For more information, check the {doc_doc|documentation}."
 msgstr ""
 
@@ -1741,7 +1741,7 @@ msgstr ""
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:195
 #: ../root/static/scripts/common/components/FilterForm.js:171
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:93
-#: ../root/static/scripts/event/components/EventEditForm.js:258
+#: ../root/static/scripts/event/components/EventEditForm.js:297
 #: ../root/static/scripts/release/components/EditWorkDialog.js:151
 #: ../root/user/UserSubscriptions.js:43
 msgid "Name"
@@ -1776,7 +1776,7 @@ msgid "No"
 msgstr ""
 
 #: ../root/components/forms.tt:268
-#: ../root/static/scripts/event/components/EventEditForm.js:365
+#: ../root/static/scripts/event/components/EventEditForm.js:405
 msgid "No description available."
 msgstr ""
 
@@ -3136,7 +3136,7 @@ msgstr "turščina"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/event/components/EventEditForm.js:268
+#: ../root/static/scripts/event/components/EventEditForm.js:307
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:240
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -5699,7 +5699,7 @@ msgid ""
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
-#: ../root/static/scripts/event/components/EventEditForm.js:152
+#: ../root/static/scripts/event/components/EventEditForm.js:185
 msgid "Please ensure all lines start with @, * or #, followed by a space."
 msgstr ""
 
@@ -8165,7 +8165,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/EventSidebar.js:122
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:84
-#: ../root/static/scripts/event/components/EventEditForm.js:312
+#: ../root/static/scripts/event/components/EventEditForm.js:351
 msgctxt "event"
 msgid "Time"
 msgstr ""
@@ -8924,7 +8924,7 @@ msgstr ""
 
 #: ../root/edit/details/AddEvent.js:80 ../root/edit/details/EditEvent.js:91
 #: ../root/event/EventIndex.js:47
-#: ../root/static/scripts/event/components/EventEditForm.js:282
+#: ../root/static/scripts/event/components/EventEditForm.js:321
 msgid "Setlist"
 msgstr ""
 
@@ -14258,7 +14258,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FingerprintTable.js:115
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:84
-#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
+#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:141
 msgid "Loading..."
 msgstr ""
 
@@ -15247,7 +15247,7 @@ msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:155
-#: ../root/static/scripts/event/components/EventEditForm.js:123
+#: ../root/static/scripts/event/components/EventEditForm.js:139
 #: ../root/static/scripts/external-links-editor/validation.js:131
 #: ../root/static/scripts/release/components/EditWorkDialog.js:161
 msgid "Required field."
@@ -15500,33 +15500,33 @@ msgstr ""
 msgid "All of your changes will be lost if you leave this page."
 msgstr ""
 
-#: ../root/static/scripts/event/components/EventEditForm.js:251
+#: ../root/static/scripts/event/components/EventEditForm.js:290
 msgid "Event details"
 msgstr ""
 
-#: ../root/static/scripts/event/components/EventEditForm.js:276
+#: ../root/static/scripts/event/components/EventEditForm.js:315
 msgid "This event was cancelled."
 msgstr ""
 
-#: ../root/static/scripts/event/components/EventEditForm.js:289
+#: ../root/static/scripts/event/components/EventEditForm.js:328
 msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \" "
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
 "artists and works."
 msgstr ""
 
-#: ../root/static/scripts/event/components/EventEditForm.js:297
+#: ../root/static/scripts/event/components/EventEditForm.js:336
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
 "\"<code>&amp;amp;</code>\" respectively."
 msgstr ""
 
-#: ../root/static/scripts/event/components/EventEditForm.js:313
+#: ../root/static/scripts/event/components/EventEditForm.js:352
 msgid "HH:MM"
 msgstr ""
 
-#: ../root/static/scripts/event/components/EventEditForm.js:345
+#: ../root/static/scripts/event/components/EventEditForm.js:385
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
@@ -15651,62 +15651,62 @@ msgstr ""
 msgid "This relationship already exists."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:365
+#: ../root/static/scripts/external-links-editor/validation.js:366
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:370
+#: ../root/static/scripts/external-links-editor/validation.js:371
 msgid "This URL is not allowed for the selected link type."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:374
+#: ../root/static/scripts/external-links-editor/validation.js:375
 msgid "This URL is not allowed for areas."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:376
+#: ../root/static/scripts/external-links-editor/validation.js:377
 msgid "This URL is not allowed for artists."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:378
+#: ../root/static/scripts/external-links-editor/validation.js:379
 msgid "This URL is not allowed for events."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:380
+#: ../root/static/scripts/external-links-editor/validation.js:381
 msgid "This URL is not allowed for genres."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:382
+#: ../root/static/scripts/external-links-editor/validation.js:383
 msgid "This URL is not allowed for instruments."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:384
+#: ../root/static/scripts/external-links-editor/validation.js:385
 msgid "This URL is not allowed for labels."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:386
+#: ../root/static/scripts/external-links-editor/validation.js:387
 msgid "This URL is not allowed for places."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:388
+#: ../root/static/scripts/external-links-editor/validation.js:389
 msgid "This URL is not allowed for recordings."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:390
+#: ../root/static/scripts/external-links-editor/validation.js:391
 msgid "This URL is not allowed for releases."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:392
+#: ../root/static/scripts/external-links-editor/validation.js:393
 msgid "This URL is not allowed for release groups."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:394
+#: ../root/static/scripts/external-links-editor/validation.js:395
 msgid "This URL is not allowed for series."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:396
+#: ../root/static/scripts/external-links-editor/validation.js:397
 msgid "This URL is not allowed for works."
 msgstr ""
 
@@ -16033,7 +16033,7 @@ msgid "You must provide an edit note when adding a release."
 msgstr ""
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1868
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1861
 msgid "Submitting edits..."
 msgstr ""
 

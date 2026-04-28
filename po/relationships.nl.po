@@ -12,13 +12,13 @@
 # nikki, 2012
 # yvanz, 2019
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Aszazin <aszazin@gmail.com>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-04-26 11:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.17\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -447,12 +447,11 @@ msgstr ""
 
 #. name:schedule
 #: DB:link_type/description:1302
-#, fuzzy
-#| msgid "Indicates a page with an official schedule for an event series."
 msgid ""
 "Indicates a page with an official schedule for an event, such as a festival."
 msgstr ""
-"Dit geeft een pagina met officiële speeldata voor een evenementenserie aan."
+"Dit geeft een pagina met officiële speeldata voor een evenement aan, zoals "
+"een festival."
 
 #. name:parent
 #: DB:link_type/description:109
@@ -2113,6 +2112,37 @@ msgstr ""
 "te geven. Gebruik dit alleen als er geen specifieke technicus wordt genoemd, "
 "maar alleen een bedrijf."
 
+#. name:design
+#: DB:link_type/description:1304
+msgid "This indicates a company who did design for the event."
+msgstr "Dit geeft aan welk bedrijf ontwerpen voor dit evenement heeft gemaakt."
+
+#. name:illustration
+#: DB:link_type/description:1305
+msgid "This indicates a company who did illustration for the event."
+msgstr ""
+"Dit geeft aan welk bedrijf illustraties voor dit evenement heeft gemaakt."
+
+#. name:graphic design
+#: DB:link_type/description:1306
+msgid ""
+"This indicates a company who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
+msgstr ""
+"Dit geeft aan welk bedrijf de grafische vormgeving / opmaak voor het "
+"evenement heeft verzorgd. Dit bestaat uit het samenstellen van verschillende "
+"beelden en typografie tot een mooi geheel."
+
+#. name:artwork
+#: DB:link_type/description:1303
+msgid ""
+"This indicates a company who provided artwork for the event when no more "
+"specific information is available."
+msgstr ""
+"Dit geeft aan welk bedrijf artwork voor het evenement heeft verzorgd. "
+"Gebruik dit als je geen specifiekere informatie hebt."
+
 #. name:member of band
 #: DB:link_type/description:103
 msgid "This indicates a person is a member of a group."
@@ -2314,7 +2344,7 @@ msgstr "Dit geeft aan welke artiest de video-opname heeft vormgegeven."
 #. name:design
 #: DB:link_type/description:1233
 msgid "This indicates an artist who did design for the event."
-msgstr "Dit geeft aan welke artiest het evenement heeft vormgegeven."
+msgstr "Dit geeft aan welke artiest ontwerpen voor dit evenement heeft gemaakt."
 
 #. name:design
 #: DB:link_type/description:928
@@ -2567,6 +2597,9 @@ msgid ""
 "This indicates that a work contains another, pre-existing work (such as a "
 "pop song being used in a soundtrack or a jukebox musical)."
 msgstr ""
+"Dit geeft aan dat een compositie een andere, al bestaande compositie bevat "
+"(zoals een popliedje dat in een soundtrack wordt gebruikt of een "
+"jukeboxmusical)."
 
 #. name:parts
 #: DB:link_type/description:281
@@ -2904,13 +2937,12 @@ msgstr "Dit geeft aan dat de artiest deze video heeft gechoreografeerd."
 
 #. name:choreographer
 #: DB:link_type/description:1299
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the choreographer for this work (often a "
 "ballet)."
-msgstr "Dit geeft aan dat de artiest deze video heeft gechoreografeerd."
+msgstr ""
+"Dit geeft aan dat de artiest deze compositie (vaak een ballet) heeft "
+"gechoreografeerd."
 
 #. name:cinematographer
 #: DB:link_type/description:1245
@@ -3259,11 +3291,8 @@ msgstr ""
 
 #. name:named after series
 #: DB:link_type/description:1298
-#, fuzzy
-#| msgid "This indicates the artist that inspired this genre’s name."
 msgid "This indicates the series that inspired this series’ name."
-msgstr ""
-"Dit geeft aan dat de naam van het genre is geïnspireerd op deze artiest."
+msgstr "Dit geeft aan dat de naam van de serie is geïnspireerd op deze serie."
 
 #. name:video shot at
 #: DB:link_type/description:963
@@ -4639,10 +4668,8 @@ msgstr ""
 
 #. name:fanpage
 #: DB:link_type/description:1301
-#, fuzzy
-#| msgid "This links a series to a fan-created website."
 msgid "This links an event to a fan-created website."
-msgstr "Dit koppelt een serie aan een website van een fan."
+msgstr "Dit koppelt een evenement aan een website van een fan."
 
 #. name:patronage
 #: DB:link_type/description:898
@@ -6317,8 +6344,8 @@ msgstr "werkte als A&amp;R (artiesten en repertoire) bij"
 msgid "artists-in-residence"
 msgstr "huisartiesten"
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
-#: DB:link_type/name:993
+#: DB:link_type/name:1231 DB:link_type/name:1303 DB:link_type/name:1241
+#: DB:link_type/name:1170 DB:link_type/name:993
 msgid "artwork"
 msgstr "artwork"
 
@@ -6944,8 +6971,8 @@ msgstr "afleidingen"
 msgid "derived from"
 msgstr "afgeleid van"
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
-#: DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1304
+#: DB:link_type/name:1242 DB:link_type/name:1171
 msgid "design"
 msgstr "ontwerp"
 
@@ -7370,8 +7397,8 @@ msgstr "glasmaster gemaakt door"
 msgid "glass mastering location for"
 msgstr "locatie waar de glasmaster werd gemaakt van"
 
-#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
-#: DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:1306
+#: DB:link_type/name:125 DB:link_type/name:27
 msgid "graphic design"
 msgstr "grafisch ontwerp"
 
@@ -7982,7 +8009,7 @@ msgid "hybrid of"
 msgstr "hybride afgeleide van"
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
-#: DB:link_type/name:1244
+#: DB:link_type/name:1305 DB:link_type/name:1244
 msgid "illustration"
 msgstr "illustratie"
 
@@ -8018,10 +8045,8 @@ msgstr "maakt deel uit van"
 
 #. name:included works
 #: DB:link_type/name:1300 DB:link_type/link_phrase:1300
-#, fuzzy
-#| msgid "includes"
 msgid "included works"
-msgstr "bevat"
+msgstr "bevat de composities"
 
 #. name:included in
 #: DB:link_type/reverse_link_phrase:894
@@ -8287,10 +8312,8 @@ msgstr "is vernoemd naar de uitgavegroep"
 
 #. name:named after series
 #: DB:link_type/long_link_phrase:1298
-#, fuzzy
-#| msgid "is named after artist"
 msgid "is named after series"
-msgstr "is vernoemd naar de artiest"
+msgstr "is vernoemd naar de serie"
 
 #. name:named after work
 #: DB:link_type/long_link_phrase:972 DB:link_type/long_link_phrase:1283
@@ -9036,10 +9059,8 @@ msgstr "vernoemd naar de uitgavegroep"
 
 #. name:named after series
 #: DB:link_type/name:1298 DB:link_type/link_phrase:1298
-#, fuzzy
-#| msgid "named after artist"
 msgid "named after series"
-msgstr "vernoemd naar de artiest"
+msgstr "vernoemd naar de serie"
 
 #. name:named after work
 #: DB:link_type/name:972 DB:link_type/name:1283 DB:link_type/name:1278
@@ -11347,9 +11368,10 @@ msgid "{additional} art direction"
 msgstr "{additional:aanvullende} artistieke leiding"
 
 #. name:artwork
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
-#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1303
+#: DB:link_type/link_phrase:1241 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/reverse_link_phrase:1303 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr "{additional:aanvullend} artwork"
@@ -11400,17 +11422,19 @@ msgstr "{additional:aanvullende} technieklocatie van"
 
 #. name:graphic design
 #: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
-#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
-#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
+#: DB:link_type/link_phrase:1306 DB:link_type/link_phrase:125
+#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/reverse_link_phrase:1234 DB:link_type/reverse_link_phrase:1306
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "{additional:aanvullend} grafisch ontwerp"
 
 #. name:illustration
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
-#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
-#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1305
+#: DB:link_type/link_phrase:1244 DB:link_type/reverse_link_phrase:1232
+#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/reverse_link_phrase:1305 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr "{additional:aanvullende} illustratie"
 
@@ -11588,8 +11612,9 @@ msgstr "was {additional:aanvullend }{assistant:assistent}dirigent"
 
 #. name:design
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
-#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
+#: DB:link_type/link_phrase:1304 DB:link_type/link_phrase:1242
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/reverse_link_phrase:1304 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 "verzorgde {additional:aanvullend} {assistant:als assistent} het ontwerp"
@@ -12029,10 +12054,8 @@ msgstr "{entity1} heeft een hoofdkantoor in {entity0}"
 
 #. name:included works
 #: DB:link_type/long_link_phrase:1300
-#, fuzzy
-#| msgid "{entity1} was printed in {entity0}"
 msgid "{entity1} is included in {entity0}"
-msgstr "{entity1} werd gedrukt in {entity0}"
+msgstr "{entity1} werd gebruikt in {entity0}"
 
 #. name:license
 #: DB:link_type/long_link_phrase:939
@@ -12070,6 +12093,30 @@ msgstr "{entity1} is of was de standaard concertlocatie van {entity0}"
 #: DB:link_type/long_link_phrase:1168
 msgid "{entity1} presented {entity0}"
 msgstr "{entity1} presenteerde {entity0}"
+
+#. name:artwork
+#: DB:link_type/long_link_phrase:1303
+msgid "{entity1} provided {additional} artwork on {entity0}"
+msgstr "{entity1} leverde {additional:aanvullende} artwork voor {entity0}"
+
+#. name:graphic design
+#: DB:link_type/long_link_phrase:1306
+msgid "{entity1} provided {additional} graphic design on {entity0}"
+msgstr ""
+"{entity1} verzorgde {additional:aanvullend} grafisch ontwerp voor {entity0}"
+
+#. name:illustration
+#: DB:link_type/long_link_phrase:1305
+msgid "{entity1} provided {additional} illustration on {entity0}"
+msgstr ""
+"{entity1} verzorgde {additional:aanvullende} illustraties voor {entity0}"
+
+#. name:design
+#: DB:link_type/long_link_phrase:1304
+msgid "{entity1} provided {additional} {assistant} design on {entity0}"
+msgstr ""
+"{entity1} verzorgde{assistant: als assistent} {additional:aanvullend} "
+"ontwerp voor {entity0}"
 
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948

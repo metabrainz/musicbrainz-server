@@ -4,12 +4,12 @@
 # Maurits Meulenbelt, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-04-26 11:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.17\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -513,10 +513,8 @@ msgstr "Tsjoevasjisch"
 
 #. frequency:1 iso_code_3:nci
 #: DB:language/name:4704
-#, fuzzy
-#| msgid "Classical Newari"
 msgid "Classical Nahuatl"
-msgstr "Klassiek Newari"
+msgstr "Klassiek Nahuatl"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -1718,7 +1716,7 @@ msgstr "Mongools"
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
-msgstr ""
+msgstr "Morisien"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
@@ -1738,7 +1736,7 @@ msgstr "N’Ko"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:291
 msgid "Nahuatl languages"
-msgstr "Nahuatl"
+msgstr "Nahuatl-talen"
 
 #. frequency:1 iso_code_3:nau
 #: DB:language/name:294

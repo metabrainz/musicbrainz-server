@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-10 13:13-0500\n"
+"POT-Creation-Date: 2026-04-21 13:13-0500\n"
 "PO-Revision-Date: 2026-01-28 17:11+0000\n"
 "Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
@@ -802,7 +802,7 @@ msgstr "停用傳統瀏覽器模式"
 #: ../root/edit/details/EditReleaseGroup.js:46
 #: ../root/edit/details/EditSeries.js:44 ../root/edit/details/EditWork.js:55
 #: ../root/static/scripts/common/components/FilterForm.js:405
-#: ../root/static/scripts/event/components/EventEditForm.js:262
+#: ../root/static/scripts/event/components/EventEditForm.js:301
 msgid "Disambiguation"
 msgstr "消歧義"
 
@@ -1142,7 +1142,7 @@ msgstr "如需更多資訊，請查看 {doc_doc|文件} 和 {doc_styleguide|風�
 
 #: ../root/label/edit_form.tt:1 ../root/work/edit_form.tt:3
 #: ../root/search/components/SearchForm.js:99
-#: ../root/static/scripts/event/components/EventEditForm.js:244
+#: ../root/static/scripts/event/components/EventEditForm.js:283
 msgid "For more information, check the {doc_doc|documentation}."
 msgstr "如需更多資訊，請查看 {doc_doc|文件}。"
 
@@ -1811,7 +1811,7 @@ msgstr "上移音軌"
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:195
 #: ../root/static/scripts/common/components/FilterForm.js:171
 #: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:93
-#: ../root/static/scripts/event/components/EventEditForm.js:258
+#: ../root/static/scripts/event/components/EventEditForm.js:297
 #: ../root/static/scripts/release/components/EditWorkDialog.js:151
 #: ../root/user/UserSubscriptions.js:43
 msgid "Name"
@@ -1846,7 +1846,7 @@ msgid "No"
 msgstr "否"
 
 #: ../root/components/forms.tt:268
-#: ../root/static/scripts/event/components/EventEditForm.js:365
+#: ../root/static/scripts/event/components/EventEditForm.js:405
 msgid "No description available."
 msgstr "無可用描述。"
 
@@ -3353,7 +3353,7 @@ msgstr "土耳其語"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/event/components/EventEditForm.js:268
+#: ../root/static/scripts/event/components/EventEditForm.js:307
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:240
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
@@ -5998,7 +5998,7 @@ msgid ""
 msgstr "您必須為每一個關聯選擇一個關聯類型和目標實體。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
-#: ../root/static/scripts/event/components/EventEditForm.js:152
+#: ../root/static/scripts/event/components/EventEditForm.js:185
 msgid "Please ensure all lines start with @, * or #, followed by a space."
 msgstr "請確保每一行都以 @，* 或 # 開始，緊跟一個空格。"
 
@@ -8515,7 +8515,7 @@ msgstr "即將關閉"
 #: ../root/layout/components/sidebar/EventSidebar.js:122
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:84
-#: ../root/static/scripts/event/components/EventEditForm.js:312
+#: ../root/static/scripts/event/components/EventEditForm.js:351
 msgctxt "event"
 msgid "Time"
 msgstr "時間"
@@ -9287,7 +9287,7 @@ msgstr "已取消"
 
 #: ../root/edit/details/AddEvent.js:80 ../root/edit/details/EditEvent.js:91
 #: ../root/event/EventIndex.js:47
-#: ../root/static/scripts/event/components/EventEditForm.js:282
+#: ../root/static/scripts/event/components/EventEditForm.js:321
 msgid "Setlist"
 msgstr "歌單"
 
@@ -14928,7 +14928,7 @@ msgstr "第 {current} 張圖片，共 {total} 張"
 #: ../root/static/scripts/common/components/FingerprintTable.js:115
 #: ../root/static/scripts/common/hooks/usePagedMediumTable.js:108
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:84
-#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:144
+#: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:141
 msgid "Loading..."
 msgstr "正在載入..."
 
@@ -15967,7 +15967,7 @@ msgid "This relationship type combination is invalid."
 msgstr "此關聯類型組合無效。"
 
 #: ../root/static/scripts/edit/check-duplicates.js:155
-#: ../root/static/scripts/event/components/EventEditForm.js:123
+#: ../root/static/scripts/event/components/EventEditForm.js:139
 #: ../root/static/scripts/external-links-editor/validation.js:131
 #: ../root/static/scripts/release/components/EditWorkDialog.js:161
 msgid "Required field."
@@ -16234,15 +16234,15 @@ msgstr "如果你繼續使用現有的合併策略，下列錄音會被合併，
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果離開此網頁，您的所有更改將會遺失。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:251
+#: ../root/static/scripts/event/components/EventEditForm.js:290
 msgid "Event details"
 msgstr "活動詳情"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:276
+#: ../root/static/scripts/event/components/EventEditForm.js:315
 msgid "This event was cancelled."
 msgstr "此事件已取消。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:289
+#: ../root/static/scripts/event/components/EventEditForm.js:328
 msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \" "
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
@@ -16251,7 +16251,7 @@ msgstr ""
 "在行首插入“@”表示創作者、“*”表示作品或樂曲、“#”表示補充資訊（如“Encore”）。"
 "[mbid|name] 能連結創作者和作品。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:297
+#: ../root/static/scripts/event/components/EventEditForm.js:336
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
@@ -16261,11 +16261,11 @@ msgstr ""
 "code>\"，\"<code>&rsqb;</code>\"，和 \"<code>&amp;</code>\" 實體編碼符號取"
 "代。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:313
+#: ../root/static/scripts/event/components/EventEditForm.js:352
 msgid "HH:MM"
 msgstr "HH:MM"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:345
+#: ../root/static/scripts/event/components/EventEditForm.js:385
 msgid ""
 "Select any type from the list to see its description. If no type seems to "
 "fit, just leave this blank."
@@ -16397,64 +16397,64 @@ msgstr "請為您輸入的 URL 選擇一個連結類型。"
 msgid "This relationship already exists."
 msgstr "此關聯已存在。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:365
+#: ../root/static/scripts/external-links-editor/validation.js:366
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "此 URL 不適用於選中的連結類型，或格式錯誤。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:370
+#: ../root/static/scripts/external-links-editor/validation.js:371
 msgid "This URL is not allowed for the selected link type."
 msgstr "此 URL 不適用於選中的連結類型。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:374
+#: ../root/static/scripts/external-links-editor/validation.js:375
 msgid "This URL is not allowed for areas."
 msgstr "此 URL 不適用於地區。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:376
+#: ../root/static/scripts/external-links-editor/validation.js:377
 msgid "This URL is not allowed for artists."
 msgstr "此 URL 不適用於創作者。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:378
+#: ../root/static/scripts/external-links-editor/validation.js:379
 msgid "This URL is not allowed for events."
 msgstr "此 URL 不適用於活動。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:380
+#: ../root/static/scripts/external-links-editor/validation.js:381
 #, fuzzy
 #| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
 msgstr "此 URL 不適用於系列。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:382
+#: ../root/static/scripts/external-links-editor/validation.js:383
 msgid "This URL is not allowed for instruments."
 msgstr "此 URL 不適用於樂器。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:384
+#: ../root/static/scripts/external-links-editor/validation.js:385
 msgid "This URL is not allowed for labels."
 msgstr "此 URL 不適用於廠牌。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:386
+#: ../root/static/scripts/external-links-editor/validation.js:387
 msgid "This URL is not allowed for places."
 msgstr "此 URL 不適用於地點。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:388
+#: ../root/static/scripts/external-links-editor/validation.js:389
 msgid "This URL is not allowed for recordings."
 msgstr "此 URL 不適用於錄音。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:390
+#: ../root/static/scripts/external-links-editor/validation.js:391
 msgid "This URL is not allowed for releases."
 msgstr "此 URL 不適用於專輯。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:392
+#: ../root/static/scripts/external-links-editor/validation.js:393
 msgid "This URL is not allowed for release groups."
 msgstr "此 URL 不適用於專輯組。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:394
+#: ../root/static/scripts/external-links-editor/validation.js:395
 msgid "This URL is not allowed for series."
 msgstr "此 URL 不適用於系列。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:396
+#: ../root/static/scripts/external-links-editor/validation.js:397
 msgid "This URL is not allowed for works."
 msgstr "此 URL 不適用於作品。"
 
@@ -16792,7 +16792,7 @@ msgid "You must provide an edit note when adding a release."
 msgstr "添加專輯時必須提供編輯備註。"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1868
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1861
 msgid "Submitting edits..."
 msgstr "正在提交編輯..."
 

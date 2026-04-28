@@ -8,12 +8,12 @@
 # Nikolai Prokoschenko <email address hidden>, 2011
 # reneweesp <email address hidden>, 2017,2019
 # RandomMushroom128 <RandomMushroom128@users.noreply.translations.metabrainz.org>, 2023.
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-04-26 11:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.17\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -518,9 +518,6 @@ msgid "bansuri"
 msgstr "bansuri"
 
 #: DB:instrument/name:819
-#, fuzzy
-#| msgctxt "ancient asian/persian lute"
-#| msgid "barbat"
 msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "barbat"
@@ -1006,7 +1003,7 @@ msgstr "chikuzen biwa"
 #: DB:instrument/name:638
 msgctxt "Individual percussion plates."
 msgid "chime bar"
-msgstr "klokkenstaaf"
+msgstr "resonatorstaaf"
 
 #: DB:instrument/name:338
 msgctxt "Arrangement of hanging struck tuned metal rods."
@@ -2471,11 +2468,9 @@ msgid "kotsuzumi"
 msgstr "kotsuzumi"
 
 #: DB:instrument/name:652
-#, fuzzy
-#| msgid "krakebs"
 msgctxt "Gnawa iron clapper"
 msgid "krakeb"
-msgstr "krakebs"
+msgstr "karkabou"
 
 #: DB:instrument/name:949
 msgctxt "Group of thai concussion idiophones"
@@ -2788,8 +2783,6 @@ msgid "musical saw"
 msgstr "zingende zaag"
 
 #: DB:instrument/name:684
-#, fuzzy
-#| msgid "nabal"
 msgctxt "Korean straight brass horn"
 msgid "nabal"
 msgstr "nabal"
@@ -3379,8 +3372,6 @@ msgid "rototom"
 msgstr "rototom"
 
 #: DB:instrument/name:545
-#, fuzzy
-#| msgid "ruan"
 msgctxt "Chinese plucked lute family"
 msgid "ruan"
 msgstr "ruan"
@@ -3506,8 +3497,6 @@ msgid "sasando"
 msgstr "sasando"
 
 #: DB:instrument/name:580
-#, fuzzy
-#| msgid "satsuma biwa"
 msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "satsuma biwa"
@@ -3888,8 +3877,6 @@ msgid "t'rưng"
 msgstr "t’rưng"
 
 #: DB:instrument/name:185
-#, fuzzy
-#| msgid "tabla"
 msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "tabla"
@@ -4647,8 +4634,6 @@ msgid "yueqin"
 msgstr "yueqin"
 
 #: DB:instrument/name:715
-#, fuzzy
-#| msgid "zabumba"
 msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr "zabumba"
@@ -4663,11 +4648,9 @@ msgid "zarb"
 msgstr "zarb"
 
 #: DB:instrument/name:692
-#, fuzzy
-#| msgid "zhaleika"
 msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
-msgstr "shaleika"
+msgstr "zjalejka"
 
 #: DB:instrument/name:217
 msgctxt "Alto huqin"
@@ -4675,8 +4658,6 @@ msgid "zhonghu"
 msgstr "zhonghu"
 
 #: DB:instrument/name:241
-#, fuzzy
-#| msgid "zhongruan"
 msgctxt "Tenor ruan"
 msgid "zhongruan"
 msgstr "zhongruan"
