@@ -29,7 +29,7 @@ type LoadableEntityTypeT =
 
 export default function withLoadedTypeInfo<Config: {...}>(
   WrappedComponent: component(...Config),
-  typeInfoToLoad: $ReadOnlySet<LoadableEntityTypeT>,
+  typeInfoToLoad: ReadonlySet<LoadableEntityTypeT>,
 ): component(...Config) {
   const ComponentWrapper = (props: Config) => {
     const [isLoading, setLoading] = React.useState<boolean>(true);
