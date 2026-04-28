@@ -97,7 +97,7 @@ const ephemeralSessionStorageValues = new Map<string, string>();
 export const sessionStorageWrapper: {
   get(key: string): ?string,
   remove(key: string): void,
-  set(key: string, value: mixed): void,
+  set(key: string, value: unknown): void,
 } = hasSessionStorage
   ? {
     get(key) {

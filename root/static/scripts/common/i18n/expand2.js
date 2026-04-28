@@ -89,7 +89,7 @@ export const state: State = {
 };
 Object.seal(state);
 
-export function getString(x: mixed): string {
+export function getString(x: unknown): string {
   if (typeof x === 'string') {
     return x;
   }
@@ -242,8 +242,8 @@ export const createVarSubstParser = <T, V>(
   },
 );
 
-export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
-  createVarSubstParser<string, mixed>(getString);
+export const parseStringVarSubst: Parser<string | NO_MATCH, unknown> =
+  createVarSubstParser<string, unknown>(getString);
 
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;

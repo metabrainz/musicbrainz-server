@@ -166,7 +166,7 @@ export type RelationshipEditorActionT =
       +type: 'update-dialog-location',
     }
   | {
-      +changes: {+[property: string]: mixed},
+      +changes: {+[property: string]: unknown},
       +entityType: RelatableEntityTypeT,
       +type: 'update-entity',
     }

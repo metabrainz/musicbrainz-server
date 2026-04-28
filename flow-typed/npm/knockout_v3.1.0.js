@@ -13,7 +13,7 @@ declare module 'knockout' {
     peek: () => T,
     subscribe: (
       (T) => void,
-      target?: mixed,
+      target?: unknown,
       event?: string
     ) => {dispose: () => empty},
   };

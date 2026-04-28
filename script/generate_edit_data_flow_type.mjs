@@ -29,7 +29,7 @@ yargs
   class SingleColumnCursor extends Cursor<string> {
     constructor(
       config: string,
-      values: ReadonlyArray<mixed>,
+      values: ReadonlyArray<unknown>,
     ) {
       super(config, values);
       this._result.parseRow = function (rowData) {
@@ -102,6 +102,6 @@ yargs
 
   await pgClient.query<string>('ROLLBACK');
   await pgClient.end();
-}()).catch((error: mixed) => {
+}()).catch((error: unknown) => {
   throw error;
 });

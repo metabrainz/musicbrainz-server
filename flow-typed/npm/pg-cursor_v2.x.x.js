@@ -19,7 +19,7 @@ declare module 'pg-cursor' {
   declare class Cursor<R> implements Submittable {
     constructor(
       text: string,
-      values: ReadonlyArray<mixed>,
+      values: ReadonlyArray<unknown>,
       config?: CursorQueryConfig,
     ): void,
     read(

@@ -83,7 +83,7 @@ class TypeInfo {
     return types.join(' | ');
   }
 
-  processTypes(data/*: mixed */)/*: void */ {
+  processTypes(data/*: unknown */)/*: void */ {
     this.count++;
     if (this.isEditDataTypeInfo && data == null) {
       throw new Error('data should not be null');

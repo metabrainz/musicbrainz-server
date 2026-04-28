@@ -15,7 +15,7 @@
 import {parse} from 'cookie';
 
 export default function parseCookie(
-  cookie: mixed,
+  cookie: unknown,
   name: string,
   defaultValue: string = '',
 ): string {

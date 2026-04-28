@@ -29,7 +29,7 @@ declare module 'react-table' {
   };
 
   declare export type ColumnOptionsNoValue<-D> = {
-    +accessor?: (D) => mixed,
+    +accessor?: (D) => unknown,
     +Cell?: component(...CellRenderProps<D, empty>),
     +Header?: component() | React.Node,
     +id?: string,
@@ -74,7 +74,7 @@ declare module 'react-table' {
   };
 
   declare export type Row<+D> = {
-    +cells: ReadonlyArray<Cell<mixed>>,
+    +cells: ReadonlyArray<Cell<unknown>>,
     +getRowProps: (props?: TrElementProps) => TrElementProps,
     +index: number,
     +original: D,

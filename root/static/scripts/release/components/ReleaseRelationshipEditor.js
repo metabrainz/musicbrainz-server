@@ -265,7 +265,7 @@ export function createInitialState(
 
 function handleSubmissionError(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  error: mixed,
+  error: unknown,
 ): void {
   captureException(error);
 
@@ -286,7 +286,7 @@ function handlePromiseRejection<T>(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   promise: Promise<T | SubmissionRejected>,
 ): Promise<T | SubmissionRejected> {
-  return promise.catch(function (error: mixed) {
+  return promise.catch(function (error: unknown) {
     handleSubmissionError(dispatch, error);
     return new SubmissionRejected();
   });
@@ -1772,7 +1772,7 @@ component _ReleaseRelationshipEditor() {
   ) => {
     event.preventDefault();
     submitEdits(dispatch, currentStateRef)
-      .catch(function (error: mixed) {
+      .catch(function (error: unknown) {
         handleSubmissionError(dispatch, error);
       });
   }, [dispatch]);

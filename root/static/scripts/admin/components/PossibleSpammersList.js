@@ -95,7 +95,7 @@ function cmpUserState(a: UserStateT, b: UserStateT) {
   return b.user.id - a.user.id;
 }
 
-function errorToString(error: mixed) {
+function errorToString(error: unknown) {
   if (error == null) {
     return '';
   }

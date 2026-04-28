@@ -31,7 +31,7 @@ import type {
  * artists with recent link types for areas, for example, so we'd
  * instead use keys of the form 'link_type-artist'.
  */
-type RecentEntitiesT = {[entityTypeKey: string]: mixed};
+type RecentEntitiesT = {[entityTypeKey: string]: unknown};
 
 type WsJsEntitiesDataT<T: EntityItemT> = {
   +results: {+[id: string]: ?T},

@@ -18,10 +18,10 @@ declare module 'pg' {
     +host?: string,
   };
 
-  declare export type QueryConfig<+V = mixed> = {
+  declare export type QueryConfig<+V = unknown> = {
     +name?: string,
     +text: string,
-    +values?: ReadonlyArray<mixed>,
+    +values?: ReadonlyArray<unknown>,
   };
 
   declare export type PgResultSet<Row> = {
@@ -39,20 +39,20 @@ declare module 'pg' {
     end(): Promise<empty>,
     escapeIdentifier(string): string,
     escapeLiteral(string): string,
-    query<R, V = mixed>(
+    query<R, V = unknown>(
       config: string | QueryConfig<V>,
       values?: ReadonlyArray<V>,
     ): Promise<PgResultSet<R>>,
-    query<R, V = mixed>(
+    query<R, V = unknown>(
       config: string | QueryConfig<V>,
       values: ?ReadonlyArray<V>,
       callback: (?Error, ?PgResultSet<R>) => void,
     ): void,
-    query<R, V = mixed>(
+    query<R, V = unknown>(
       config: string | QueryConfig<V>,
       callback: (?Error, ?PgResultSet<R>) => void,
     ): void,
-    query<Q: Submittable, V = mixed>(
+    query<Q: Submittable, V = unknown>(
       config: Q,
       values?: ReadonlyArray<V>,
     ): Q,
@@ -60,7 +60,7 @@ declare module 'pg' {
 
   declare class Connection {}
 
-  declare class Query<R, +V = mixed> implements Submittable {
+  declare class Query<R, +V = unknown> implements Submittable {
     constructor(
       config: string | QueryConfig<V>,
       values?: ReadonlyArray<V>,

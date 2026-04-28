@@ -57,7 +57,7 @@ component FingerprintTable(recording: RecordingT) {
           setIsLoaded(true);
         },
       )
-      .catch((caughtError: mixed) => {
+      .catch((caughtError: unknown) => {
         console.error(caughtError);
         setError(coerceToError(caughtError));
       });

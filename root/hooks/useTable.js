@@ -40,7 +40,7 @@ const renderTableHeaderRow = (headerGroup: HeaderGroup) => {
   );
 };
 
-const renderTableCell = (cell: Cell<mixed>) => {
+const renderTableCell = (cell: Cell<unknown>) => {
   const {key, ...cellProps} =
     // See https://github.com/TanStack/table/issues/2862
     cell.getCellProps({...cell.column.cellProps, role: null});

@@ -77,7 +77,7 @@ component _SpammerButton<T: InexactUserT>(
     dispatch({state, type: 'update', update});
   }, [dispatch, state]);
 
-  const setError = React.useCallback((error: mixed): void => {
+  const setError = React.useCallback((error: unknown): void => {
     doUpdate({requestError: String(error), requestPending: false});
   }, [doUpdate]);
 

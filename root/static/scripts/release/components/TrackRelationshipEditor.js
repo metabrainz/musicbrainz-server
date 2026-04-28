@@ -234,7 +234,7 @@ component _RelatedWorkRelationshipEditor(
           });
         }
       })
-      .catch((caughtError: mixed) => {
+      .catch((caughtError: unknown) => {
         setLoadingError(coerceToError(caughtError));
       });
   }, [

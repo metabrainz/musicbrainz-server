@@ -90,7 +90,7 @@ declare module '@floating-ui/react' {
 
   declare export type MiddlewareReturn = Readonly<{
     ...Partial<Coords>,
-    +data?: {+[key: string]: mixed},
+    +data?: {+[key: string]: unknown},
   }>;
 
   declare export interface Middleware {
@@ -98,7 +98,7 @@ declare module '@floating-ui/react' {
       | Promise<MiddlewareReturn>
       | MiddlewareReturn,
     +name: string,
-    +options?: mixed,
+    +options?: unknown,
   }
 
   declare export type DetectOverflowOptions = Partial<{
@@ -273,7 +273,7 @@ declare module '@floating-ui/react' {
    */
   declare export function useMergeRefs<Instance>(
     refs: ReadonlyArray<{-current: Instance} | void>,
-  ): ((Instance | null) => mixed);
+  ): ((Instance | null) => unknown);
 
   /*
    * FloatingArrow
@@ -326,7 +326,7 @@ declare module '@floating-ui/react' {
     +children: React.Node,
     +className?: string,
     +lockScroll?: boolean,
-    +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => mixed,
+    +onClick?: (SyntheticMouseEvent<HTMLDivElement>) => unknown,
   };
 
   declare export const FloatingOverlay:

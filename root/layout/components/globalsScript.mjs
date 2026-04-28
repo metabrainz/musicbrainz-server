@@ -48,7 +48,7 @@ import sanitizedContext from '../../utility/sanitizedContext.mjs';
  *   for the code used to generate those.
  */
 
-const renderValue = (value: mixed, wrapper: string = ''): string => {
+const renderValue = (value: unknown, wrapper: string = ''): string => {
   let result = escapeClosingTags(JSON.stringify(value) ?? '');
   if (wrapper) {
     result = wrapper + '(' + result + ')';
@@ -58,7 +58,7 @@ const renderValue = (value: mixed, wrapper: string = ''): string => {
 
 const renderKeyAndValue = (
   key: string,
-  value: mixed,
+  value: unknown,
   wrapper: string = '',
 ): string => (
   JSON.stringify(key) + ':' + renderValue(value, wrapper)
