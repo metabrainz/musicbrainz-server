@@ -37,7 +37,7 @@ declare type EntityWithSeriesMapT = {
 
 declare type EntityWithSeriesT = Values<EntityWithSeriesMapT>;
 
-declare type EntityWithSeriesTypeT = $Keys<EntityWithSeriesMapT>;
+declare type EntityWithSeriesTypeT = keyof EntityWithSeriesMapT;
 
 declare type AppearancesT<T> = {
   +hits: number,

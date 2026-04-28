@@ -16,9 +16,9 @@ declare module 'react-table' {
     /*
      * react-table also allows `accessor` to be a string, but we
      * intentionally require an accessor function. For one, it's more type-
-     * safe: a type like `$Keys<D>` has no relation to `V`, so there's no
+     * safe: a type like `keyof D` has no relation to `V`, so there's no
      * way to ensure that the given key provides `V`. The other reason is
-     * that `D` is invariant in `$Keys<D>`, so we wouldn't be able to make
+     * that `D` is invariant in `keyof D`, so we wouldn't be able to make
      * `D` contravariant above.
      */
     +accessor?: (D) => V,

@@ -256,7 +256,7 @@ const notFoundPages: {[namespace: string]: NotFoundPagesPropsT} = {
 };
 /* eslint-enable sort-keys */
 
-component NotFound(namespace: $Keys<typeof notFoundPages>) {
+component NotFound(namespace: keyof typeof notFoundPages) {
   const parameters = notFoundPages[namespace];
   return (
     <NotFoundComponent title={parameters.title()}>
