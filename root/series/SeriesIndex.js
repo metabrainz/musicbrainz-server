@@ -109,7 +109,7 @@ component SeriesIndex(
   listProps: ListPickerProps,
   numberOfRevisions: number,
   pager: PagerT,
-  series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
+  series: Readonly<{...SeriesT, +type: SeriesTypeT}>,
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const seriesEntityType = series.type.item_entity_type;

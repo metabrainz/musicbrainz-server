@@ -8,7 +8,7 @@
  */
 
 // MusicBrainz::Server::Entity::Area::TO_JSON
-declare type AreaT = $ReadOnly<{
+declare type AreaT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'area'>,

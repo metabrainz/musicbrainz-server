@@ -33,7 +33,7 @@ declare type LinkAttrTypeT = {
   +root_id: number,
 };
 
-declare type LinkTypeAttrTypeT = $ReadOnly<{
+declare type LinkTypeAttrTypeT = Readonly<{
   ...TypeRoleT<LinkAttrTypeT>,
   +max: number | null,
   +min: number | null,
@@ -86,7 +86,7 @@ declare type PagedTargetTypeGroupT = {
   +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
 };
 
-declare type RelationshipT = $ReadOnly<{
+declare type RelationshipT = Readonly<{
   ...DatePeriodRoleT,
   ...PendingEditsRoleT,
   +attributes: ReadonlyArray<LinkAttrT>,
@@ -107,7 +107,7 @@ declare type RelationshipT = $ReadOnly<{
   +verbosePhrase: string,
 }>;
 
-declare type SeededRelationshipT = $ReadOnly<{
+declare type SeededRelationshipT = Readonly<{
   ...RelationshipT,
   +entity0_id: number | null,
   +entity1_id: number | null,

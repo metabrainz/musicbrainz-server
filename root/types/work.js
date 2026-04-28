@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Work::TO_JSON
-declare type WorkT = $ReadOnly<{
+declare type WorkT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'work'>,

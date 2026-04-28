@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Track::TO_JSON
-declare type TrackT = $ReadOnly<{
+declare type TrackT = Readonly<{
   ...EntityRoleT<'track'>,
   ...LastUpdateRoleT,
   +artist: string,
@@ -27,7 +27,7 @@ declare type TrackT = $ReadOnly<{
   +recording?: RecordingT,
 }>;
 
-declare type TrackWithRecordingT = $ReadOnly<{
+declare type TrackWithRecordingT = Readonly<{
   ...TrackT,
   +recording: RecordingT,
 }>;

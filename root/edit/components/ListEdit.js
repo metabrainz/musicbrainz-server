@@ -19,7 +19,7 @@ import EditNotes from './EditNotes.js';
 import EditSummary from './EditSummary.js';
 
 component ListEdit(
-  edit: $ReadOnly<{...EditT, +id: number}>,
+  edit: Readonly<{...EditT, +id: number}>,
   index: number,
   voter?: UnsanitizedEditorT,
 ) {

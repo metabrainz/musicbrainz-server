@@ -80,7 +80,7 @@ declare type UnsanitizedEditorPreferencesT = {
 };
 
 // MusicBrainz::Server::unsanitized_editor_json
-declare type UnsanitizedEditorT = $ReadOnly<{
+declare type UnsanitizedEditorT = Readonly<{
   ...EntityRoleT<'editor'>,
   +age: number | null,
   +area: AreaT | null,

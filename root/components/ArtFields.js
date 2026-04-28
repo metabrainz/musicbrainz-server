@@ -23,7 +23,7 @@ export type CommonProps = {
   +typeIdOptions: SelectOptionsT,
 };
 
-type Props = $ReadOnly<{
+type Props = Readonly<{
   ...CommonProps,
   +archiveName: 'cover' | 'event',
   +chooseMessage: React.Node,

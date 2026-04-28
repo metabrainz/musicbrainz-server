@@ -26,8 +26,8 @@ type TextAreaProps = {
 };
 
 type ControlledPropsT =
-  | $ReadOnly<{onChange: TextAreaOnChange, uncontrolled?: false}>
-  | $ReadOnly<{uncontrolled: true}>;
+  | Readonly<{onChange: TextAreaOnChange, uncontrolled?: false}>
+  | Readonly<{uncontrolled: true}>;
 
 component FormRowTextArea(
   cols: number = 80,

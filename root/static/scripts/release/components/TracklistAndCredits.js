@@ -236,7 +236,7 @@ export function useReleaseHasUnloadedTracks(
 
 component _TracklistAndCredits(
   initialCreditsMode: CreditsModeT,
-  initialLinkedEntities: $ReadOnly<Partial<LinkedEntitiesT>>,
+  initialLinkedEntities: Readonly<Partial<LinkedEntitiesT>>,
   noScript: boolean,
   release: ReleaseWithMediumsT,
 ) {

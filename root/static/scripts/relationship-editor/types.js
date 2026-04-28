@@ -144,13 +144,13 @@ export type RelationshipDialogStateT = {
   +targetEntity: DialogTargetEntityStateT,
 };
 
-export type DialogBooleanAttributeStateT = $ReadOnly<{
+export type DialogBooleanAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
   +control: 'checkbox',
   +enabled: boolean,
 }>;
 
-export type DialogMultiselectAttributeStateT = $ReadOnly<{
+export type DialogMultiselectAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
   +control: 'multiselect',
   +linkType: LinkTypeT,
@@ -166,7 +166,7 @@ export type DialogMultiselectAttributeValueStateT = {
   +removed: boolean,
 };
 
-export type DialogTextAttributeStateT = $ReadOnly<{
+export type DialogTextAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
   +control: 'text',
   +textValue: string,
@@ -214,7 +214,7 @@ export type DialogLinkTypeStateT = {
   +error: React.Node,
 };
 
-export type DialogSourceEntityStateT = $ReadOnly<{
+export type DialogSourceEntityStateT = Readonly<{
   ...DialogEntityCreditStateT,
   +entityType: RelatableEntityTypeT,
   +error: React.Node,
@@ -227,7 +227,7 @@ export type TargetTypeOptionT = {
 
 export type TargetTypeOptionsT = ReadonlyArray<TargetTypeOptionT>;
 
-export type DialogTargetEntityStateT = $ReadOnly<{
+export type DialogTargetEntityStateT = Readonly<{
   ...DialogEntityCreditStateT,
   +allowedTypes: TargetTypeOptionsT | null,
   +autocomplete: AutocompleteStateT<NonUrlRelatableEntityT> | null,
@@ -283,7 +283,7 @@ export type MultiselectLanguageStateT = {
  * Release relationship editor types
  */
 
-export type ReleaseWithMediumsAndReleaseGroupT = $ReadOnly<{
+export type ReleaseWithMediumsAndReleaseGroupT = Readonly<{
   ...ReleaseWithMediumsT,
   +releaseGroup: ReleaseGroupT,
 }>;
@@ -315,7 +315,7 @@ export type MediumStateTreeT = tree.ImmutableTree<[
   MediumRecordingStateTreeT,
 ]>;
 
-export type ReleaseRelationshipEditorStateT = $ReadOnly<{
+export type ReleaseRelationshipEditorStateT = Readonly<{
   ...$Exact<LazyReleaseStateT>,
   ...$Exact<RelationshipEditorStateT>,
   +editNoteField: FieldT<string>,

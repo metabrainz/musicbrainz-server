@@ -124,7 +124,7 @@ const textI18n: LinkPhraseI18n<string> = {
 function _getAttributesByRootName(
   linkType: LinkTypeT,
   attributes: ReadonlyArray<LinkAttrT>,
-): $ReadOnly<LinkAttrsByRootName> {
+): Readonly<LinkAttrsByRootName> {
   const values: LinkAttrsByRootName = {};
 
   for (let i = 0; i < attributes.length; i++) {
@@ -183,13 +183,13 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: $ReadOnly<LinkAttrsByRootName>,
+  [linkTypeId: number]: Readonly<LinkAttrsByRootName>,
   ...
 } = Object.create(null);
 
 function _getRequiredAttributes(
   linkType: LinkTypeT,
-): $ReadOnly<LinkAttrsByRootName> {
+): Readonly<LinkAttrsByRootName> {
   const cached = requiredAttributesCache[linkType.id];
   if (cached) {
     return cached;

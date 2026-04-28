@@ -13,7 +13,7 @@ export type InlineResultsPropsT<T> = {
   +results: ReadonlyArray<SearchResultT<T>>,
 };
 
-export type ResultsPropsT<T> = $ReadOnly<{
+export type ResultsPropsT<T> = Readonly<{
   ...InlineResultsPropsT<T>,
   +form: SearchFormT,
   +lastUpdated?: string,

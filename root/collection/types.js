@@ -16,7 +16,7 @@ export type CollaboratorFieldT = CompoundFieldT<{
   +name: FieldT<string>,
 }>;
 
-export type CollaboratorStateT = $ReadOnly<{
+export type CollaboratorStateT = Readonly<{
   ...CollaboratorFieldT,
   +autocomplete: AutocompleteStateT<EditorT>,
 }>;

@@ -8,11 +8,11 @@
  */
 
 type ControlledPropsT =
-  | $ReadOnly<{
+  | Readonly<{
       controlled: true,
       onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
     }>
-  | $ReadOnly<{controlled?: false}>;
+  | Readonly<{controlled?: false}>;
 
 export component MakeVotable(
   disabled: boolean,

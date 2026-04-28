@@ -85,7 +85,7 @@ component RelationshipsTable(
   let columnsCount = 2;
   let totalRelationships = 0;
 
-  type PagedLinkTypeGroupWithPhraseT = $ReadOnly<{
+  type PagedLinkTypeGroupWithPhraseT = Readonly<{
     ...PagedLinkTypeGroupT,
     +phrase: string,
   }>;
@@ -237,7 +237,7 @@ component RelationshipsTable(
       }, []);
 
     for (const targetTypeGroup of targetTypeGroups) {
-      const linkTypeGroups: ReadonlyArray<$ReadOnly<{
+      const linkTypeGroups: ReadonlyArray<Readonly<{
         ...PagedLinkTypeGroupT,
         +phrase: string,
       }>> = Object.values(targetTypeGroup)

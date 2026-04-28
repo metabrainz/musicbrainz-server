@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Collection::TO_JSON
-declare type CollectionT = $ReadOnly<{
+declare type CollectionT = Readonly<{
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
   +collaborators: ReadonlyArray<EditorT>,

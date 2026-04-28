@@ -16,7 +16,7 @@ import EditorLink from '../static/scripts/common/components/EditorLink.js';
 
 component UserEdits(
   editCountLimit: number,
-  edits: ReadonlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<Readonly<{...EditT, +id: number}>>,
   pager: PagerT,
   refineUrlArgs?: {+[argument: string]: string},
   user: UnsanitizedEditorT,

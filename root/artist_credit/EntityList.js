@@ -36,7 +36,7 @@ const noEntitiesText = {
 };
 
 component EntityList(
-  artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
+  artistCredit: Readonly<{...ArtistCreditT, +id: number}>,
   entities: ReadonlyArray<EntityWithArtistCreditsT>,
   entityType: EntityWithArtistCreditsTypeT,
   page: string,

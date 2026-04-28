@@ -16,7 +16,7 @@ declare type CoordinatesT = {
 };
 
 // MusicBrainz::Server::Entity::Place::TO_JSON
-declare type PlaceT = $ReadOnly<{
+declare type PlaceT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'place'>,

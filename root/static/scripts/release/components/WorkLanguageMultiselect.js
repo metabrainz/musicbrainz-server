@@ -93,7 +93,7 @@ export function createSelectedLanguageValue(
 }
 
 export function createEmptyLanguageValue(
-  newState: $ReadOnly<{...MultiselectLanguageStateT, ...}>,
+  newState: Readonly<{...MultiselectLanguageStateT, ...}>,
 ): MultiselectLanguageValueStateT {
   return createSelectedLanguageValue(newState.staticItems, null);
 }

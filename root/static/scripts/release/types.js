@@ -38,7 +38,7 @@ export type LazyReleaseStateT = {
   ...
 };
 
-export type StateT = $ReadOnly<{
+export type StateT = Readonly<{
   +creditsMode: CreditsModeT,
   ...$Exact<LazyReleaseStateT>,
 }>;

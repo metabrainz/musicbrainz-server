@@ -14,7 +14,7 @@ type TocDetails = {
 };
 
 export default function calculateFullToc(
-  cdtoc: $ReadOnly<{...TocDetails, ...}>,
+  cdtoc: Readonly<{...TocDetails, ...}>,
 ): string {
   const trackOffset = cdtoc.track_offset;
   invariant(trackOffset != null, 'Expected a defined track offset');

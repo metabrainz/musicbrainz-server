@@ -174,7 +174,7 @@ export default function hydrate<
 }
 
 type PropsWithEntity = {
-  +entity: $ReadOnly<{...MinimalEntityT, ...}>,
+  +entity: Readonly<{...MinimalEntityT, ...}>,
   ...
 };
 

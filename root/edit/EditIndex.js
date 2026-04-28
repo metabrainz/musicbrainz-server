@@ -36,7 +36,7 @@ import VoteTally from './components/VoteTally.js';
 import getEditDetailsElement from './utility/getEditDetailsElement.js';
 
 component EditIndex(
-  edit: $ReadOnly<{...EditT, +id: number}>,
+  edit: Readonly<{...EditT, +id: number}>,
   fullWidth: boolean = false,
 ) {
   const $c = React.useContext(CatalystContext);

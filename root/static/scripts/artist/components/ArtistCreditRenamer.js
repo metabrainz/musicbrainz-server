@@ -19,7 +19,7 @@ import {sortedIndexWith} from '../../common/utility/arrays.js';
 import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
 import diffArtistCredits from '../../edit/utility/diffArtistCredits.js';
 
-type ArtistCreditWithIdT = $ReadOnly<{
+type ArtistCreditWithIdT = Readonly<{
   ...ArtistCreditT,
   +id: number,
 }>;

@@ -22,8 +22,8 @@ export type ActionT =
 /* eslint-enable ft-flow/sort-keys */
 
 type ControlledPropsT =
-  | $ReadOnly<{+dispatch: (ActionT) => void, +uncontrolled?: false}>
-  | $ReadOnly<{+dispatch?: void, +uncontrolled: true}>;
+  | Readonly<{+dispatch: (ActionT) => void, +uncontrolled?: false}>
+  | Readonly<{+dispatch?: void, +uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
 

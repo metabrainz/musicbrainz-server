@@ -12,7 +12,7 @@ import ko from 'knockout';
 import formatDate from './formatDate.js';
 
 function formatDatePeriod<
-  T: $ReadOnly<{...DatePeriodRoleT, ...}>,
+  T: Readonly<{...DatePeriodRoleT, ...}>,
 >(entity: T): string {
   const beginDate = formatDate(entity.begin_date);
   const endDate = formatDate(entity.end_date);

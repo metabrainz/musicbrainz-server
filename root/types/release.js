@@ -27,7 +27,7 @@ declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
 declare type ReleaseStatusT = OptionTreeT<'release_status'>;
 
 // MusicBrainz::Server::Entity::Release::TO_JSON
-declare type ReleaseT = $ReadOnly<{
+declare type ReleaseT = Readonly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
@@ -55,7 +55,7 @@ declare type ReleaseT = $ReadOnly<{
   +statusID: number | null,
 }>;
 
-declare type ReleaseWithMediumsT = $ReadOnly<{
+declare type ReleaseWithMediumsT = Readonly<{
   ...ReleaseT,
   +mediums: ReadonlyArray<MediumWithRecordingsT>,
 }>;

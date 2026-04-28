@@ -23,7 +23,7 @@ const tabLinks: ReadonlyArray<[string, () => string]> = [
 ];
 
 component ArtistCreditLayout(
-  artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
+  artistCredit: Readonly<{...ArtistCreditT, +id: number}>,
   children: React.Node,
   page: string,
   title?: string,

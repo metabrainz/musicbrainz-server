@@ -7,7 +7,7 @@ declare module 'react-table' {
     +row: Row<D>,
   };
 
-  declare export type HeaderProps<D> = $ReadOnly<{
+  declare export type HeaderProps<D> = Readonly<{
     ...UseTableInstance<D>,
     +column: ColumnInstance,
   }>;
@@ -37,19 +37,19 @@ declare module 'react-table' {
   };
 
   type ThElementProps =
-    Partial<$ReadOnly<{...ReactDOM$thProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$thProps, key?: string}>>;
 
   type TrElementProps =
-    Partial<$ReadOnly<{...ReactDOM$trProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$trProps, key?: string}>>;
 
   type TdElementProps =
-    Partial<$ReadOnly<{...ReactDOM$tdProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$tdProps, key?: string}>>;
 
   type TableElementProps =
-    Partial<$ReadOnly<{...ReactDOM$tableProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$tableProps, key?: string}>>;
 
   type TbodyElementProps =
-    Partial<$ReadOnly<{...ReactDOM$tbodyProps, key?: string}>>;
+    Partial<Readonly<{...ReactDOM$tbodyProps, key?: string}>>;
 
   declare export type ColumnInstance = {
     +cellProps?: TdElementProps,
@@ -60,8 +60,8 @@ declare module 'react-table' {
     +render: (type: 'Header' | string, props?: {...}) => React.Node,
   };
 
-  declare export type HeaderGroup = $ReadOnly<{
-    ...$ReadOnly<ColumnInstance>,
+  declare export type HeaderGroup = Readonly<{
+    ...Readonly<ColumnInstance>,
     +getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
     +headers: ReadonlyArray<ColumnInstance>,
   }>;

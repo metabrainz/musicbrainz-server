@@ -85,9 +85,9 @@ export type ActionT =
   | {+type: 'set-change-matching-artists', +checked: boolean}
   | {
       +type: 'set-names-from-artist-credit',
-      +artistCredit: $ReadOnly<{
+      +artistCredit: Readonly<{
         ...ArtistCreditT,
-        +names: ReadonlyArray<$ReadOnly<{
+        +names: ReadonlyArray<Readonly<{
           ...ArtistCreditNameT,
           +artist?: ?ArtistT,
         }>>,

@@ -77,7 +77,7 @@ declare module '@floating-ui/react' {
     +reference: ReferenceElement,
   }
 
-  declare export type MiddlewareState = $ReadOnly<{
+  declare export type MiddlewareState = Readonly<{
     ...Coords,
     +elements: Elements,
     +initialPlacement: Placement,
@@ -88,7 +88,7 @@ declare module '@floating-ui/react' {
 
   declare export type Derivable<T> = (state: MiddlewareState) => T;
 
-  declare export type MiddlewareReturn = $ReadOnly<{
+  declare export type MiddlewareReturn = Readonly<{
     ...Partial<Coords>,
     +data?: {+[key: string]: mixed},
   }>;
@@ -172,10 +172,10 @@ declare module '@floating-ui/react' {
   /*
    * size()
    */
-  declare export type SizeOptions = $ReadOnly<{
+  declare export type SizeOptions = Readonly<{
     ...DetectOverflowOptions,
     apply?: (
-      state: $ReadOnly<{
+      state: Readonly<{
         ...MiddlewareState,
         availableHeight: number,
         availableWidth: number,

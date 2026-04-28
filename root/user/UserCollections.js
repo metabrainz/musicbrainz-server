@@ -22,7 +22,7 @@ import {
   subscriptionColumn,
 } from '../utility/tableColumns.js';
 
-type CollectionWithSubscribedT = $ReadOnly<{
+type CollectionWithSubscribedT = Readonly<{
   ...CollectionT,
   subscribed: boolean,
 }>;

@@ -22,7 +22,7 @@ type EventFilterFormT = FormT<{
   +type_id: FieldT<number>,
 }>;
 
-export type EventFilterT = $ReadOnly<{
+export type EventFilterT = Readonly<{
   ...EventFilterFormT,
   +entity_type: 'event',
   +options_type_id: SelectOptionsT,
@@ -36,7 +36,7 @@ type RecordingFilterFormT = FormT<{
   +works: FieldT<number>,
 }>;
 
-export type RecordingFilterT = $ReadOnly<{
+export type RecordingFilterT = Readonly<{
   ...RecordingFilterFormT,
   +entity_type: 'recording',
   +options_artist_credit_id: SelectOptionsT,
@@ -53,7 +53,7 @@ type ReleaseFilterFormT = FormT<{
   +status_id: FieldT<number>,
 }>;
 
-export type ReleaseFilterT = $ReadOnly<{
+export type ReleaseFilterT = Readonly<{
   ...ReleaseFilterFormT,
   +entity_type: 'release',
   +options_artist_credit_id: SelectOptionsT,
@@ -69,7 +69,7 @@ type ReleaseGroupFilterFormT = FormT<{
   +type_id: FieldT<number>,
 }>;
 
-export type ReleaseGroupFilterT = $ReadOnly<{
+export type ReleaseGroupFilterT = Readonly<{
   ...ReleaseGroupFilterFormT,
   +entity_type: 'release_group',
   +options_artist_credit_id: SelectOptionsT,
@@ -84,7 +84,7 @@ type WorkFilterFormT = FormT<{
   +type_id: FieldT<number>,
 }>;
 
-export type WorkFilterT = $ReadOnly<{
+export type WorkFilterT = Readonly<{
   ...WorkFilterFormT,
   +entity_type: 'work',
   +options_language_id: SelectOptionsT,

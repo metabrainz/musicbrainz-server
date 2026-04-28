@@ -72,7 +72,7 @@ function buildSection(
 
 component ArtistCreditIndex(
   ...props: {
-    artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
+    artistCredit: Readonly<{...ArtistCreditT, +id: number}>,
     creditedEntities: {
       +[entityType: string]: {
         +count: number,

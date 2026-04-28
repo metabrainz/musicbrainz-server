@@ -295,7 +295,7 @@ export function defineDatePeriodColumn<D>(
 
 export function defineEndDateColumn(
   props: OrderableProps,
-): ColumnOptions<$ReadOnly<{...DatePeriodRoleT, ...}>, PartialDateT | null> {
+): ColumnOptions<Readonly<{...DatePeriodRoleT, ...}>, PartialDateT | null> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -752,7 +752,7 @@ export const removeFromMergeColumn:
   };
 
 export const relTypeColumn:
-  ColumnOptions<$ReadOnly<{...ReportRelationshipRoleT, ...}>, void> = {
+  ColumnOptions<Readonly<{...ReportRelationshipRoleT, ...}>, void> = {
     Cell: ({row: {original}}) => (
       <a href={'/relationship/' + encodeURIComponent(original.link_gid)}>
         {l_relationships(original.link_name)}

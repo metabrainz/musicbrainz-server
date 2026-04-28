@@ -46,7 +46,7 @@ export function createRelatableEntityObject(
 }
 
 export function createAreaObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): AreaT {
@@ -73,7 +73,7 @@ export function createAreaObject(
 }
 
 export function createArtistObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): ArtistT {
@@ -104,7 +104,7 @@ export function createArtistObject(
 }
 
 export function createEventObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): EventT {
@@ -132,7 +132,7 @@ export function createEventObject(
 }
 
 export function createGenreObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): GenreT {
@@ -149,7 +149,7 @@ export function createGenreObject(
 }
 
 export function createInstrumentObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): InstrumentT {
@@ -168,7 +168,7 @@ export function createInstrumentObject(
 }
 
 export function createLabelObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): LabelT {
@@ -193,7 +193,7 @@ export function createLabelObject(
 }
 
 export function createPlaceObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): PlaceT {
@@ -217,7 +217,7 @@ export function createPlaceObject(
 }
 
 export function createRecordingObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): RecordingT {
@@ -241,7 +241,7 @@ export function createRecordingObject(
 }
 
 export function createReleaseObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): ReleaseT {
@@ -274,7 +274,7 @@ export function createReleaseObject(
 }
 
 export function createReleaseGroupObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): ReleaseGroupT {
@@ -303,7 +303,7 @@ export function createReleaseGroupObject(
 }
 
 export function createSeriesObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
     +orderingTypeID?: number,
   }>,
@@ -323,7 +323,7 @@ export function createSeriesObject(
 }
 
 export function createUrlObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
   }>,
 ): UrlT {
@@ -342,7 +342,7 @@ export function createUrlObject(
 }
 
 export function createWorkObject(
-  props?: $ReadOnly<{
+  props?: Readonly<{
     ...CommonPropsT,
     +_fromBatchCreateWorksDialog?: boolean,
     +languages?: ReadonlyArray<WorkLanguageT>,

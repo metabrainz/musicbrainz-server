@@ -18,7 +18,7 @@ declare type InstrumentCreditsAndRelTypesRoleT = {
 };
 
 // MusicBrainz::Server::Entity::Instrument::TO_JSON
-declare type InstrumentT = $ReadOnly<{
+declare type InstrumentT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'instrument'>,

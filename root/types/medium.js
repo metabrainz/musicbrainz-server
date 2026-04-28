@@ -9,7 +9,7 @@
 
 /* eslint-disable no-unused-vars */
 
-declare type CDTocT = $ReadOnly<{
+declare type CDTocT = Readonly<{
   ...EntityRoleT<'cdtoc'>,
   +discid: string,
   +freedb_id: string,
@@ -27,7 +27,7 @@ declare type CDTocT = $ReadOnly<{
   +track_offset: ReadonlyArray<number>,
 }>;
 
-declare type MediumCDTocT = $ReadOnly<{
+declare type MediumCDTocT = Readonly<{
   ...EntityRoleT<'medium_cdtoc'>,
   +cdtoc: CDTocT,
   +editsPending: boolean,
@@ -41,7 +41,7 @@ declare type MediumFormatT = {
 };
 
 // MusicBrainz::Server::Entity::Medium::TO_JSON
-declare type MediumT = $ReadOnly<{
+declare type MediumT = Readonly<{
   ...EntityRoleT<'medium'>,
   ...LastUpdateRoleT,
   +cdtoc_track_count: number | null,
@@ -63,7 +63,7 @@ declare type MediumT = $ReadOnly<{
   +tracks_pager?: PagerT,
 }>;
 
-declare type MediumWithRecordingsT = $ReadOnly<{
+declare type MediumWithRecordingsT = Readonly<{
   ...MediumT,
   +tracks?: ReadonlyArray<TrackWithRecordingT>,
 }>;

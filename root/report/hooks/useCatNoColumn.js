@@ -16,7 +16,7 @@ import {
 import type {ReportReleaseCatNoT} from '../types.js';
 
 function useCatNoColumn<
-  D: $ReadOnly<{...ReportReleaseCatNoT, ...}>,
+  D: Readonly<{...ReportReleaseCatNoT, ...}>,
 >(): ReadonlyArray<ColumnOptionsNoValue<D>> {
   const columns = React.useMemo(
     () => {

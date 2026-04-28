@@ -13,7 +13,7 @@ declare type ReleaseGroupSecondaryTypeT =
   OptionTreeT<'release_group_secondary_type'>;
 
 // MusicBrainz::Server::Entity::ReleaseGroup::TO_JSON
-declare type ReleaseGroupT = $ReadOnly<{
+declare type ReleaseGroupT = Readonly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,

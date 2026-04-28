@@ -40,21 +40,21 @@ declare type WsJsRelationshipCommonT = {
   +entity1_credit: string,
 };
 
-declare type WsJsEditRelationshipCreateT = $ReadOnly<{
+declare type WsJsEditRelationshipCreateT = Readonly<{
   ...WsJsRelationshipCommonT,
   +edit_type: EDIT_RELATIONSHIP_CREATE_T,
   +linkOrder?: number,
   +linkTypeID: number,
 }>;
 
-declare type WsJsEditRelationshipEditT = $ReadOnly<{
+declare type WsJsEditRelationshipEditT = Readonly<{
   ...Partial<WsJsRelationshipCommonT>,
   +edit_type: EDIT_RELATIONSHIP_EDIT_T,
   +id: number,
   +linkTypeID: number,
 }>;
 
-declare type WsJsEditRelationshipDeleteT = $ReadOnly<{
+declare type WsJsEditRelationshipDeleteT = Readonly<{
   +edit_type: EDIT_RELATIONSHIP_DELETE_T,
   +enteredFrom?: WsJsRelationshipEntityT,
   +id: number,
