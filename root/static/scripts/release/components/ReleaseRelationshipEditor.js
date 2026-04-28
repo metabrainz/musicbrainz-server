@@ -148,7 +148,7 @@ const createMap = <K, V>(): Map<K, V> => new Map();
 
 function addTracksToState(
   writableRootState: {...ReleaseRelationshipEditorStateT},
-  tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  tracks: ReadonlyArray<TrackWithRecordingT>,
   medium: MediumWithRecordingsT,
 ): void {
   const recordingsWithNoRelationships = [];

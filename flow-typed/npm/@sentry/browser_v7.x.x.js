@@ -40,7 +40,7 @@ declare module '@sentry/browser' {
         +dsn?: string,
         +release?: string,
         +environment?: string,
-        +denyUrls?: $ReadOnlyArray<string | RegExp>,
-        +allowUrls?: $ReadOnlyArray<string | RegExp>,
+        +denyUrls?: ReadonlyArray<string | RegExp>,
+        +allowUrls?: ReadonlyArray<string | RegExp>,
     |};
 }

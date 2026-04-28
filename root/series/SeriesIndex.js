@@ -30,7 +30,7 @@ import SeriesLayout from './SeriesLayout.js';
 type ListPickerProps = $Values<{
   +[EntityType in keyof EntityWithSeriesMapT]: {
     ...SeriesItemNumbersRoleT,
-    +entities: $ReadOnlyArray<EntityWithSeriesMapT[EntityType]>,
+    +entities: ReadonlyArray<EntityWithSeriesMapT[EntityType]>,
     +seriesEntityType: EntityType,
   },
 }>;

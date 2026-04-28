@@ -27,6 +27,6 @@ declare type EditorOAuthTokenT = {
   +editor: EditorT | null,
   +granted: string,
   +is_offline: boolean,
-  +permissions: $ReadOnlyArray<string>,
+  +permissions: ReadonlyArray<string>,
   +scope: number,
 };

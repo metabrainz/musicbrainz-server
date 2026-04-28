@@ -18,7 +18,7 @@ import localizeTypeNameForEntity
 
 component Edits(
   editCountLimit: number,
-  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<$ReadOnly<{...EditT, +id: number}>>,
   entity: EditableEntityT | CollectionT,
   pager: PagerT,
   refineUrlArgs?: {+[argument: string]: string},

@@ -94,7 +94,7 @@ declare type UnsanitizedEditorT = $ReadOnly<{
   +has_confirmed_email_address: boolean,
   +has_email_address: boolean,
   +is_charter: boolean,
-  +languages: $ReadOnlyArray<EditorLanguageT> | null,
+  +languages: ReadonlyArray<EditorLanguageT> | null,
   +last_login_date: string | null,
   +name: string,
   +preferences: UnsanitizedEditorPreferencesT,

@@ -21,7 +21,7 @@ type LockedUsernameSearchFormT = FormT<{
 
 component LockedUsernameSearch(
   form: LockedUsernameSearchFormT,
-  results?: $ReadOnlyArray<string>,
+  results?: ReadonlyArray<string>,
   showResults: boolean,
 ) {
   return (

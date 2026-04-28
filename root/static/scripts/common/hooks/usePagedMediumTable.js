@@ -35,7 +35,7 @@ type TracksResponseT = {
     },
   },
   +pager: PagerT,
-  +tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  +tracks: ReadonlyArray<TrackWithRecordingT>,
 };
 
 type PagedMediumTableVarsT = {
@@ -66,7 +66,7 @@ export default function usePagedMediumTable(
     medium: MediumWithRecordingsT,
     noScript?: boolean,
     release: ReleaseWithMediumsT,
-    tracks: ?$ReadOnlyArray<TrackWithRecordingT>,
+    tracks: ?ReadonlyArray<TrackWithRecordingT>,
   },
 ): PagedMediumTableVarsT {
   const {

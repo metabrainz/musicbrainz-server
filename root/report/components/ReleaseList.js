@@ -18,9 +18,9 @@ import {
 } from '../../utility/tableColumns.js';
 
 component ReleaseList<D: {+release: ?ReleaseT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
   subPath?: string,
 ) {

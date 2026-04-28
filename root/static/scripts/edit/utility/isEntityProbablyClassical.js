@@ -26,7 +26,7 @@ export default function isEntityProbablyClassical(
   entity: {
     +name: string | KnockoutObservable<string>,
     +relationships?:
-      | $ReadOnlyArray<RelationshipT>
+      | ReadonlyArray<RelationshipT>
       | KnockoutObservableArray<RelationshipT>,
     ...
   },

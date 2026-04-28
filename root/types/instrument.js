@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 declare type InstrumentCreditsAndRelTypesT = {
-  +[entityGid: string]: $ReadOnlyArray<string>,
+  +[entityGid: string]: ReadonlyArray<string>,
 };
 
 declare type InstrumentCreditsAndRelTypesRoleT = {

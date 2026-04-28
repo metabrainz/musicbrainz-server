@@ -59,7 +59,7 @@ class TypeInfo {
     }
     if (this.array) {
       types.push(
-        '$ReadOnlyArray<' +
+        'ReadonlyArray<' +
         this.array.printTypeInfo(indentation) +
         '>',
       );

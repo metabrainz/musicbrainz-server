@@ -15,7 +15,7 @@ import linkedEntities from '../../common/linkedEntities.mjs';
 import {groupBy} from '../../common/utility/arrays.js';
 
 export function exportLinkTypeInfo(
-  allLinkTypes: $ReadOnlyArray<LinkTypeT>,
+  allLinkTypes: ReadonlyArray<LinkTypeT>,
 ): void {
   const linkTypeChildren =
     groupBy(allLinkTypes, x => String(x.parent_id));
@@ -69,7 +69,7 @@ export function exportLinkTypeInfo(
 }
 
 export function exportLinkAttributeTypeInfo(
-  allLinkAttributeTypes: $ReadOnlyArray<LinkAttrTypeT>,
+  allLinkAttributeTypes: ReadonlyArray<LinkAttrTypeT>,
 ): void {
   const linkAttributeTypeChildren =
     groupBy(allLinkAttributeTypes, x => String(x.parent_id));

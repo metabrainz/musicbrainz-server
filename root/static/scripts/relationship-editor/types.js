@@ -32,7 +32,7 @@ export type RelationshipStateForTypesT<
    * state was created.  It should be appended to whenever
    * `cloneRelationshipState` is used.
    */
-  +_lineage: $ReadOnlyArray<string>,
+  +_lineage: ReadonlyArray<string>,
   +_original: RelationshipStateT | null,
   +_status: RelationshipEditStatusT,
   +attributes: tree.ImmutableTree<LinkAttrT> | null,
@@ -154,7 +154,7 @@ export type DialogMultiselectAttributeStateT = $ReadOnly<{
   ...DialogLinkAttributeStateT,
   +control: 'multiselect',
   +linkType: LinkTypeT,
-  +values: $ReadOnlyArray<DialogMultiselectAttributeValueStateT>,
+  +values: ReadonlyArray<DialogMultiselectAttributeValueStateT>,
 }>;
 
 export type DialogMultiselectAttributeValueStateT = {
@@ -177,7 +177,7 @@ export type DialogAttributeT =
   | DialogMultiselectAttributeStateT
   | DialogTextAttributeStateT;
 
-export type DialogAttributesT = $ReadOnlyArray<DialogAttributeT>;
+export type DialogAttributesT = ReadonlyArray<DialogAttributeT>;
 
 export type DialogAttributesStateT = {
   +attributesList: DialogAttributesT,
@@ -225,7 +225,7 @@ export type TargetTypeOptionT = {
   +value: RelatableEntityTypeT,
 };
 
-export type TargetTypeOptionsT = $ReadOnlyArray<TargetTypeOptionT>;
+export type TargetTypeOptionsT = ReadonlyArray<TargetTypeOptionT>;
 
 export type DialogTargetEntityStateT = $ReadOnly<{
   ...DialogEntityCreditStateT,
@@ -275,8 +275,8 @@ export type MultiselectLanguageValueStateT = {
 
 export type MultiselectLanguageStateT = {
   +max: number | null,
-  +staticItems: $ReadOnlyArray<AutocompleteOptionItemT<LanguageT>>,
-  +values: $ReadOnlyArray<MultiselectLanguageValueStateT>,
+  +staticItems: ReadonlyArray<AutocompleteOptionItemT<LanguageT>>,
+  +values: ReadonlyArray<MultiselectLanguageValueStateT>,
 };
 
 /*

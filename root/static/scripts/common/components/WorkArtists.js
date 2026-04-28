@@ -18,7 +18,7 @@ const buildWorkArtistRow = (artistCredit: ArtistCreditT) => {
   );
 };
 
-component WorkArtists(artists: ?$ReadOnlyArray<ArtistCreditT>) {
+component WorkArtists(artists: ?ReadonlyArray<ArtistCreditT>) {
   return (
     <CollapsibleList
       ariaLabel={l('Work artists')}

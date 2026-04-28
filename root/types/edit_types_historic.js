@@ -14,7 +14,7 @@ declare type AddDiscIdHistoricEditT = $ReadOnly<{
   +display_data: {
     +cdtoc: CDTocT,
     +full_toc: string,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_ADD_DISCID_T,
 }>;
@@ -22,7 +22,7 @@ declare type AddDiscIdHistoricEditT = $ReadOnly<{
 declare type AddRelationshipHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +relationships: $ReadOnlyArray<RelationshipT>,
+    +relationships: ReadonlyArray<RelationshipT>,
   },
   +edit_type: EDIT_HISTORIC_ADD_LINK_T,
 }>;
@@ -33,7 +33,7 @@ declare type AddReleaseHistoricEditT = $ReadOnly<{
     +artist: ArtistT,
     +language: LanguageT | null,
     +name: string,
-    +release_events: $ReadOnlyArray<{
+    +release_events: ReadonlyArray<{
       +barcode: number,
       +catalog_number: string | null,
       +country: AreaT | null,
@@ -41,10 +41,10 @@ declare type AddReleaseHistoricEditT = $ReadOnly<{
       +format: MediumFormatT | null,
       +label: LabelT | null,
     }>,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
     +script: ScriptT | null,
     +status: ReleaseStatusT | null,
-    +tracks: $ReadOnlyArray<{
+    +tracks: ReadonlyArray<{
       +artist: ArtistT,
       +length: number | null,
       +name: string,
@@ -61,7 +61,7 @@ declare type AddReleaseAnnotationHistoricEditT = $ReadOnly<{
   +display_data: {
     +changelog: string,
     +html: string,
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
     +text: string,
   },
   +edit_type: EDIT_HISTORIC_ADD_RELEASE_ANNOTATION_T,
@@ -75,7 +75,7 @@ declare type AddTrackKVHistoricEditT = $ReadOnly<{
     +name: string,
     +position: number,
     +recording: RecordingT,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_ADD_TRACK_KV_T,
 }>;
@@ -86,7 +86,7 @@ declare type AddTrackOldHistoricEditT = $ReadOnly<{
     +artist_name?: string,
     +name: string,
     +position: number,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_ADD_TRACK_T,
 }>;
@@ -104,7 +104,7 @@ declare type ChangeReleaseArtistHistoricEditGenericT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +artist: CompT<ArtistT>,
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
   },
 }>;
 
@@ -126,7 +126,7 @@ declare type ChangeReleaseGroupHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +release_group: CompT<ReleaseGroupT>,
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
   },
   +edit_type: EDIT_HISTORIC_CHANGE_RELEASE_GROUP_T,
 }>;
@@ -134,9 +134,9 @@ declare type ChangeReleaseGroupHistoricEditT = $ReadOnly<{
 declare type ChangeReleaseQualityHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +changes: $ReadOnlyArray<{
+    +changes: ReadonlyArray<{
       +quality: CompT<QualityT>,
-      +releases: $ReadOnlyArray<ReleaseT>,
+      +releases: ReadonlyArray<ReleaseT>,
     }>,
   },
   +edit_type: EDIT_HISTORIC_CHANGE_RELEASE_QUALITY_T,
@@ -145,7 +145,7 @@ declare type ChangeReleaseQualityHistoricEditT = $ReadOnly<{
 declare type EditRelationshipHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +relationship: CompT<$ReadOnlyArray<RelationshipT>>,
+    +relationship: CompT<ReadonlyArray<RelationshipT>>,
   },
   +edit_type: EDIT_HISTORIC_EDIT_LINK_T,
 }>;
@@ -153,8 +153,8 @@ declare type EditRelationshipHistoricEditT = $ReadOnly<{
 declare type EditReleaseAttributesHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +changes: $ReadOnlyArray<{
-      +releases: $ReadOnlyArray<ReleaseT | null>,
+    +changes: ReadonlyArray<{
+      +releases: ReadonlyArray<ReleaseT | null>,
       +status: ReleaseStatusT | null,
       +type: ReleaseGroupTypeT | ReleaseGroupHistoricTypeT | null,
     }>,
@@ -167,9 +167,9 @@ declare type EditReleaseAttributesHistoricEditT = $ReadOnly<{
 declare type EditReleaseEventsHistoricEditGenericT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +additions: $ReadOnlyArray<OldReleaseEventT>,
-    +edits: $ReadOnlyArray<OldReleaseEventCompT>,
-    +removals: $ReadOnlyArray<OldReleaseEventT>,
+    +additions: ReadonlyArray<OldReleaseEventT>,
+    +edits: ReadonlyArray<OldReleaseEventCompT>,
+    +removals: ReadonlyArray<OldReleaseEventT>,
   },
   +edit_type: EDIT_HISTORIC_ADD_RELEASE_EVENTS_T |
               EDIT_HISTORIC_EDIT_RELEASE_EVENTS_T |
@@ -207,9 +207,9 @@ declare type EditReleaseLanguageHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +language: LanguageT | null,
-    +old: $ReadOnlyArray<{
+    +old: ReadonlyArray<{
       +language: LanguageT | null,
-      +releases: $ReadOnlyArray<ReleaseT | null>,
+      +releases: ReadonlyArray<ReleaseT | null>,
       +script: ScriptT | null,
     }>,
     +script: ScriptT | null,
@@ -221,7 +221,7 @@ declare type EditReleaseNameHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +name: CompT<string>,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_EDIT_RELEASE_NAME_T,
 }>;
@@ -255,8 +255,8 @@ declare type MergeReleasesHistoricEditGenericT = $ReadOnly<{
     merge_attributes: boolean,
     merge_language: boolean,
     releases: {
-      new: $ReadOnlyArray<ReleaseT>,
-      old: $ReadOnlyArray<ReleaseT>,
+      new: ReadonlyArray<ReleaseT>,
+      old: ReadonlyArray<ReleaseT>,
     },
   },
 }>;
@@ -279,8 +279,8 @@ declare type MoveDiscIdHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +cdtoc: CDTocT,
-    +new_releases: $ReadOnlyArray<ReleaseT | null>,
-    +old_releases: $ReadOnlyArray<ReleaseT | null>,
+    +new_releases: ReadonlyArray<ReleaseT | null>,
+    +old_releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_MOVE_DISCID_T,
 }>;
@@ -290,7 +290,7 @@ declare type MoveReleaseHistoricEditT = $ReadOnly<{
   +display_data: {
     +artist: CompT<ArtistT>,
     +move_tracks: boolean,
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
   },
   +edit_type: EDIT_HISTORIC_MOVE_RELEASE_T,
 }>;
@@ -311,7 +311,7 @@ declare type RemoveDiscIdHistoricEditT = $ReadOnly<{
       +discid: string,
       +entityType: 'cdtoc',
     },
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_REMOVE_DISCID_T,
 }>;
@@ -327,7 +327,7 @@ declare type RemoveLabelAliasHistoricEditT = $ReadOnly<{
 declare type RemoveRelationshipHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +relationships: $ReadOnlyArray<RelationshipT>,
+    +relationships: ReadonlyArray<RelationshipT>,
   },
   +edit_type: EDIT_HISTORIC_REMOVE_LINK_T,
 }>;
@@ -337,7 +337,7 @@ declare type RemoveReleaseHistoricEditT = $ReadOnly<{
   +display_data: {
     +artist_credit?: ArtistCreditT,
     +name: string,
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
   },
   +edit_type: EDIT_HISTORIC_REMOVE_RELEASE_T,
 }>;
@@ -345,7 +345,7 @@ declare type RemoveReleaseHistoricEditT = $ReadOnly<{
 declare type RemoveReleasesHistoricEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
   },
   +edit_type: EDIT_HISTORIC_REMOVE_RELEASES_T,
 }>;
@@ -355,7 +355,7 @@ declare type RemoveTrackHistoricEditT = $ReadOnly<{
   +display_data: {
     +name: string,
     +recording: RecordingT,
-    +releases: $ReadOnlyArray<ReleaseT | null>,
+    +releases: ReadonlyArray<ReleaseT | null>,
   },
   +edit_type: EDIT_HISTORIC_REMOVE_TRACK_T,
 }>;

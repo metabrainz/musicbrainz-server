@@ -122,18 +122,18 @@ export function isMediumExpanded(
 export function getMediumTracks(
   loadedTracks: LoadedTracksMapT,
   medium: MediumWithRecordingsT,
-): $ReadOnlyArray<TrackWithRecordingT> | null {
+): ReadonlyArray<TrackWithRecordingT> | null {
   return loadedTracks.get(medium.position) || medium.tracks || null;
 }
 
 const combinedTrackRelsCache = new WeakMap<
-  $ReadOnlyArray<TrackWithRecordingT>,
-  $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+  ReadonlyArray<TrackWithRecordingT>,
+  ReadonlyArray<RelationshipTargetTypeGroupT>,
 >();
 
 function getCombinedTrackRelationships(
-  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
-): $ReadOnlyArray<RelationshipTargetTypeGroupT> | null {
+  tracks: ReadonlyArray<TrackWithRecordingT> | null,
+): ReadonlyArray<RelationshipTargetTypeGroupT> | null {
   if (!tracks) {
     return null;
   }
@@ -202,7 +202,7 @@ function getCombinedTrackRelationships(
 }
 
 export function useUnloadedTracksMap(
-  mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  mediums: ReadonlyArray<MediumWithRecordingsT>,
   loadedTracks: LoadedTracksMapT,
 ): $ReadOnlyMap<number, boolean> {
   return React.useMemo(() => new Map(

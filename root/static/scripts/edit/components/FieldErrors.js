@@ -25,7 +25,7 @@ const buildErrorListItem = (
 };
 
 export component FieldErrorsList(
-  errors: ?$ReadOnlyArray<string>,
+  errors: ?ReadonlyArray<string>,
   hasHtmlErrors: boolean,
 ) {
   if (errors?.length) {

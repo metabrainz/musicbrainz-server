@@ -18,19 +18,19 @@ declare type WorkT = $ReadOnly<{
   ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,
   +_fromBatchCreateWorksDialog?: boolean,
-  +artists: $ReadOnlyArray<ArtistCreditT>,
-  +attributes: $ReadOnlyArray<WorkAttributeT>,
-  +authors: $ReadOnlyArray<{
+  +artists: ReadonlyArray<ArtistCreditT>,
+  +attributes: ReadonlyArray<WorkAttributeT>,
+  +authors: ReadonlyArray<{
     +credit: string,
     +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
+    +roles: ReadonlyArray<string>,
   }>,
-  +iswcs: $ReadOnlyArray<IswcT>,
-  +languages: $ReadOnlyArray<WorkLanguageT>,
-  +other_artists: $ReadOnlyArray<{
+  +iswcs: ReadonlyArray<IswcT>,
+  +languages: ReadonlyArray<WorkLanguageT>,
+  +other_artists: ReadonlyArray<{
     +credit: string,
     +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
+    +roles: ReadonlyArray<string>,
   }>,
   +primaryAlias?: string | null,
   +related_artists?: {

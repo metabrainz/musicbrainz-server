@@ -19,7 +19,7 @@ import DocSearchBox from './components/DocSearchBox.js';
 
 type DocPageT = {
   +content: string,
-  +hierarchy: $ReadOnlyArray<string>,
+  +hierarchy: ReadonlyArray<string>,
   +title: string,
   +version: number,
 };

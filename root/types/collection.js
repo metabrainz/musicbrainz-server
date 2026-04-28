@@ -13,7 +13,7 @@
 declare type CollectionT = $ReadOnly<{
   ...EntityRoleT<'collection'>,
   ...TypeRoleT<CollectionTypeT>,
-  +collaborators: $ReadOnlyArray<EditorT>,
+  +collaborators: ReadonlyArray<EditorT>,
   +description: string,
   +description_html: string,
   +editor: EditorT | null,

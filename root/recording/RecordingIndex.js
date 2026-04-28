@@ -154,7 +154,7 @@ component RecordingIndex(
   numberOfRevisions: number,
   pager: PagerT,
   recording: RecordingT,
-  tracks: $ReadOnlyArray<$ReadOnlyArray<{...TrackT, +medium: MediumT}>>,
+  tracks: ReadonlyArray<ReadonlyArray<{...TrackT, +medium: MediumT}>>,
 ) {
   return (
     <RecordingLayout entity={recording} page="index">

@@ -166,7 +166,7 @@ export function saveMatch<T, V>(cb: Parser<T, V>): Parser<T, V> {
 }
 
 export function parseContinuous<T, U, V>(
-  parsers: $ReadOnlyArray<Parser<T | NO_MATCH, V>>,
+  parsers: ReadonlyArray<Parser<T | NO_MATCH, V>>,
   args: VarArgsClass<V>,
   matchCallback: (U | NO_MATCH, T) => U,
   defaultValue: U,
@@ -204,7 +204,7 @@ function concatStringMatch(
 }
 
 export function parseContinuousString<V>(
-  parsers: $ReadOnlyArray<Parser<string | NO_MATCH, V>>,
+  parsers: ReadonlyArray<Parser<string | NO_MATCH, V>>,
   args: VarArgsClass<V>,
 ): string {
   return parseContinuous<string, string, V>(

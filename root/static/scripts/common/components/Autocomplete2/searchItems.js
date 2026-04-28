@@ -23,7 +23,7 @@ import type {
 const itemIndexes:
   WeakMap<
     // $FlowFixMe[unclear-type]
-    $ReadOnlyArray<ItemT<any>>,
+    ReadonlyArray<ItemT<any>>,
     Map<
       string, // gram
       // $FlowFixMe[unclear-type]
@@ -34,7 +34,7 @@ const itemIndexes:
 // The search terms for an item are cached for use in `weightEntry` below.
 const itemSearchTerms:
   // $FlowFixMe[unclear-type]
-  WeakMap<OptionItemT<any>, $ReadOnlyArray<string>> = new WeakMap();
+  WeakMap<OptionItemT<any>, ReadonlyArray<string>> = new WeakMap();
 
 function normalize(input: string): string {
   return unaccent(input).toLowerCase();
@@ -78,7 +78,7 @@ const createItemSet =
   <T: EntityItemT>(): Set<OptionItemT<T>> => new Set();
 
 export function indexItems<T: EntityItemT>(
-  items: $ReadOnlyArray<ItemT<T>>,
+  items: ReadonlyArray<ItemT<T>>,
   extractSearchTerms: (OptionItemT<T>) => Array<string>,
 ): void {
   if (itemIndexes.has(items)) {
@@ -159,9 +159,9 @@ function weightEntry<T: EntityItemT>(
 }
 
 export default function searchItems<T: EntityItemT>(
-  items: $ReadOnlyArray<OptionItemT<T>>,
+  items: ReadonlyArray<OptionItemT<T>>,
   searchTerm: string,
-): $ReadOnlyArray<OptionItemT<T>> {
+): ReadonlyArray<OptionItemT<T>> {
   if (!searchTerm) {
     return items;
   }

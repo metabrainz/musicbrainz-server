@@ -10,7 +10,7 @@
 type TocDetails = {
   +leadout_offset: number | null,
   +track_count: number,
-  +track_offset: $ReadOnlyArray<number> | null,
+  +track_offset: ReadonlyArray<number> | null,
 };
 
 export default function calculateFullToc(

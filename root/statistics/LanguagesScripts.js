@@ -32,8 +32,8 @@ type ScriptStatT = {
 
 component LanguagesScripts(
   dateCollected: string,
-  languageStats: $ReadOnlyArray<LanguageStatT>,
-  scriptStats: $ReadOnlyArray<ScriptStatT>,
+  languageStats: ReadonlyArray<LanguageStatT>,
+  scriptStats: ReadonlyArray<ScriptStatT>,
 ) {
   const $c = React.useContext(CatalystContext);
   return (

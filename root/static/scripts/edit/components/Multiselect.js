@@ -56,7 +56,7 @@ export type MultiselectStateT<
   VS: MultiselectValueStateT<V>,
 > = {
   +max: number | null,
-  +values: $ReadOnlyArray<$Exact<VS>>,
+  +values: ReadonlyArray<$Exact<VS>>,
   ...
 };
 
@@ -68,8 +68,8 @@ export function accumulateMultiselectValues<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
 >(
-  values: $ReadOnlyArray<$Exact<VS>>,
-): $ReadOnlyArray<V> {
+  values: ReadonlyArray<$Exact<VS>>,
+): ReadonlyArray<V> {
   return values.reduce(
     (accum: Array<V>, valueState) => {
       const item = valueState.autocomplete.selectedItem?.entity;
@@ -86,10 +86,10 @@ export function updateValue<
   V: AutocompleteEntityItemT,
   VS: MultiselectValueStateT<V>,
 >(
-  values: $ReadOnlyArray<$Exact<VS>>,
+  values: ReadonlyArray<$Exact<VS>>,
   valueKey: number,
   callback: ($Exact<VS>) => $Exact<VS>,
-): $ReadOnlyArray<$Exact<VS>> {
+): ReadonlyArray<$Exact<VS>> {
   return values.map((x) => {
     if (x.key === valueKey) {
       return callback(x);

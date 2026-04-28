@@ -31,7 +31,7 @@ declare type SeriesT = $ReadOnly<{
 }>;
 
 declare type SeriesItemNumbersRoleT = {
-  +seriesItemNumbers?: $ReadOnlyArray<string>,
+  +seriesItemNumbers?: ReadonlyArray<string>,
 };
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;

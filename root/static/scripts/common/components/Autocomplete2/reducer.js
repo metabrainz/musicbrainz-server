@@ -71,7 +71,7 @@ function initSearch<T: EntityItemT>(
 
 export function generateItems<T: EntityItemT>(
   state: StateT<T>,
-): $ReadOnlyArray<ItemT<T>> {
+): ReadonlyArray<ItemT<T>> {
   const items: Array<ItemT<T>> = [];
 
   if (state.error) {

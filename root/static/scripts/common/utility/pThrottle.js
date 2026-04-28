@@ -50,7 +50,7 @@ export type ThrottleResultT<+R: mixed> = {
 };
 
 const pThrottle = <
-  A: $ReadOnlyArray<mixed>,
+  A: ReadonlyArray<mixed>,
   R: mixed,
 >({
   interval,

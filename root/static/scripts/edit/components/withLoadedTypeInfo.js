@@ -37,7 +37,7 @@ export default function withLoadedTypeInfo<Config: {...}>(
     const [
       typeInfoLoadErrors,
       setTypeInfoLoadErrors,
-    ] = React.useState<$ReadOnlyArray<string>>([]);
+    ] = React.useState<ReadonlyArray<string>>([]);
 
     const loadingCanceledRef = React.useRef<boolean>(false);
 
@@ -152,7 +152,7 @@ export default function withLoadedTypeInfo<Config: {...}>(
 
 export function withLoadedTypeInfoForRelationshipEditor<Config: {...}>(
   WrappedComponent: component(...Config),
-  extraTypeInfoToLoad?: $ReadOnlyArray<LoadableEntityTypeT> = [],
+  extraTypeInfoToLoad?: ReadonlyArray<LoadableEntityTypeT> = [],
 ): component(...Config) {
   return withLoadedTypeInfo(
     WrappedComponent,

@@ -22,7 +22,7 @@ import UserTagFilters from '../user/components/UserTagFilters.js';
 type TaggedEntitiesT = {
   +[entityType: string]: {
     +count: number,
-    +tags: $ReadOnlyArray<{
+    +tags: ReadonlyArray<{
       +count: number,
       +entity: TaggableEntityT,
       +entity_id: number,

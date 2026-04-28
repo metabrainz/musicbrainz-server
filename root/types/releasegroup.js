@@ -28,7 +28,7 @@ declare type ReleaseGroupT = $ReadOnly<{
   +primaryAlias?: string | null,
   +release_count: number,
   +release_group?: ReleaseGroupT,
-  +secondaryTypeIDs: $ReadOnlyArray<number>,
+  +secondaryTypeIDs: ReadonlyArray<number>,
   +typeID: number | null,
   +typeName: string | null,
 }>;

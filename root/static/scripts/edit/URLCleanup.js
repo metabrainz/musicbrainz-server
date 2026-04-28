@@ -24,7 +24,7 @@ type LinkTypeMap = {
 
 export type RelationshipTypeT =
   | string // Single type
-  | $ReadOnlyArray<string>; // A type combination
+  | ReadonlyArray<string>; // A type combination
 
 // See https://musicbrainz.org/relationships (but deprecated ones)
 export const LINK_TYPES: LinkTypeMap = {
@@ -317,7 +317,7 @@ export const LINK_TYPES: LinkTypeMap = {
 
 // See https://musicbrainz.org/doc/Style/Relationships/URLs#Restricted_relationships
 
-export const RESTRICTED_LINK_TYPES: $ReadOnlyArray<string> = [
+export const RESTRICTED_LINK_TYPES: ReadonlyArray<string> = [
   LINK_TYPES.allmusic,
   LINK_TYPES.amazon,
   LINK_TYPES.bandcamp,
@@ -440,9 +440,9 @@ type ValidationResult = {
 
 type CleanupEntry = {
   +clean?: (url: string) => string,
-  +hostname: string | $ReadOnlyArray<string>,
-  +match: $ReadOnlyArray<RegExp>,
-  +restrict?: $ReadOnlyArray<EntityTypesMap>,
+  +hostname: string | ReadonlyArray<string>,
+  +match: ReadonlyArray<RegExp>,
+  +restrict?: ReadonlyArray<EntityTypesMap>,
   +select?:
     (url: string, sourceType: RelatableEntityTypeT) =>
     | RelationshipTypeT
@@ -7884,7 +7884,7 @@ function findCleanupEntry(inputUrl: string): CleanupEntry | null {
 }
 
 export const CLEANUP_ENTRIES_BY_HOSTNAME:
-  {+[hostname: string]: $ReadOnlyArray<CleanupEntry>} =
+  {+[hostname: string]: ReadonlyArray<CleanupEntry>} =
     Object.values(CLEANUPS).reduce((accum, entry) => {
       const hostnames = Array.isArray(entry.hostname)
         ? entry.hostname
@@ -7980,8 +7980,8 @@ entitySpecificRules.release_group = function (url) {
  */
 function anyCombinationOf(
   entityType: RelatableEntityTypeT,
-  types: $ReadOnlyArray<string>,
-): $ReadOnlyArray<EntityTypesMap> {
+  types: ReadonlyArray<string>,
+): ReadonlyArray<EntityTypesMap> {
   const result = [];
   const numCombinations = (1 << types.length) - 1;
   for (let i = 1; i <= numCombinations; i++) {
@@ -8013,7 +8013,7 @@ function anyCombinationOf(
  *   ...
  * }
  */
-function multiple(...types: $ReadOnlyArray<EntityTypeMap>): EntityTypesMap {
+function multiple(...types: ReadonlyArray<EntityTypeMap>): EntityTypesMap {
   const result: {[entityType: RelatableEntityTypeT]: Array<string>} = {};
   types.forEach(function (type: EntityTypeMap) {
     for (const [entityType, id] of Object.entries(type)) {
@@ -8030,7 +8030,7 @@ export class Checker {
 
   cleanup: ?CleanupEntry;
 
-  +possibleTypes: $ReadOnlyArray<RelationshipTypeT>;
+  +possibleTypes: ReadonlyArray<RelationshipTypeT>;
 
   constructor(url: string, entityType: RelatableEntityTypeT) {
     this.url = url;
@@ -8116,8 +8116,8 @@ export class Checker {
    * has passed validation.
    */
   checkRelationships(
-    selectedTypes: $ReadOnlyArray<string>,
-    allowedTypes: $ReadOnlyArray<RelationshipTypeT> | null,
+    selectedTypes: ReadonlyArray<string>,
+    allowedTypes: ReadonlyArray<RelationshipTypeT> | null,
   ): ValidationResult {
     if (allowedTypes == null || allowedTypes.length === 0) {
       return {result: true};

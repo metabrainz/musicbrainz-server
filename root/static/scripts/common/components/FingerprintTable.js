@@ -35,7 +35,7 @@ function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
 
 component FingerprintTable(recording: RecordingT) {
   const [tracks, setTracks] =
-    React.useState<$ReadOnlyArray<AcoustIdTrackT>>([]);
+    React.useState<ReadonlyArray<AcoustIdTrackT>>([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
 

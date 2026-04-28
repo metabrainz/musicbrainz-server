@@ -49,13 +49,13 @@ const nameOrNull = (name: string, defaultName: string) => {
 };
 
 component Images(
-  coverArtTypeStats: $ReadOnlyArray<ArtTypeStatT>,
+  coverArtTypeStats: ReadonlyArray<ArtTypeStatT>,
   dateCollected: string,
-  eventArtTypeStats: $ReadOnlyArray<ArtTypeStatT>,
-  eventTypeStats: $ReadOnlyArray<EventArtEventTypeStatT>,
-  releaseFormatStats: $ReadOnlyArray<CoverArtReleaseFormatStatT>,
-  releaseStatusStats: $ReadOnlyArray<CoverArtReleaseStatusStatT>,
-  releaseTypeStats: $ReadOnlyArray<CoverArtReleaseTypeStatT>,
+  eventArtTypeStats: ReadonlyArray<ArtTypeStatT>,
+  eventTypeStats: ReadonlyArray<EventArtEventTypeStatT>,
+  releaseFormatStats: ReadonlyArray<CoverArtReleaseFormatStatT>,
+  releaseStatusStats: ReadonlyArray<CoverArtReleaseStatusStatT>,
+  releaseTypeStats: ReadonlyArray<CoverArtReleaseTypeStatT>,
   stats: {[statName: string]: number},
 ) {
   const $c = React.useContext(CatalystContext);

@@ -188,16 +188,16 @@ component TagRow(
 }
 
 type TagEditorProps = {
-  +aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
+  +aggregatedTags: ReadonlyArray<AggregatedTagT>,
   +entity: TaggableEntityT | MinimalTaggableEntityT,
   +genreMap: ?{+[genreName: string]: GenreT, ...},
   +more: boolean,
-  +userTags: $ReadOnlyArray<UserTagT>,
+  +userTags: ReadonlyArray<UserTagT>,
 };
 
 type TagEditorState = {
   positiveTagsOnly: boolean,
-  tags: $ReadOnlyArray<UserTagT>,
+  tags: ReadonlyArray<UserTagT>,
 };
 
 type TagUpdateT =
@@ -219,7 +219,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   genreMap: {+[genreName: string]: GenreT, ...};
 
-  genreOptions: $ReadOnlyArray<{+label: string, +value: string}>;
+  genreOptions: ReadonlyArray<{+label: string, +value: string}>;
 
   handleSubmitBound: (SyntheticEvent<HTMLFormElement>) => void;
 
@@ -304,8 +304,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   createTagRows(): {
-    +genres: $ReadOnlyArray<React.MixedElement>,
-    +tags: $ReadOnlyArray<React.MixedElement>,
+    +genres: ReadonlyArray<React.MixedElement>,
+    +tags: ReadonlyArray<React.MixedElement>,
     } {
     const tags = this.state.tags;
 
@@ -397,7 +397,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.setState({tags});
   }
 
-  updateTags(updatedUserTags: $ReadOnlyArray<TagUpdateT>) {
+  updateTags(updatedUserTags: ReadonlyArray<TagUpdateT>) {
     const newTags = this.state.tags.slice(0);
 
     updatedUserTags.forEach(t => {
@@ -474,7 +474,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
         }
 
         const previousTerms = new Set(terms);
-        const filteredTerms: $ReadOnlyArray<string> =
+        const filteredTerms: ReadonlyArray<string> =
           sortByNumber(
             $.ui.autocomplete.filter(
               self.genreOptions.filter(x => !previousTerms.has(x.value)),
@@ -705,9 +705,9 @@ export const SidebarTagEditor = hydrate<TagEditorProps>(
 ) as component(...TagEditorProps);
 
 function createInitialTagState(
-  aggregatedTags: $ReadOnlyArray<AggregatedTagT>,
-  userTags: $ReadOnlyArray<UserTagT>,
-): $ReadOnlyArray<UserTagT> {
+  aggregatedTags: ReadonlyArray<AggregatedTagT>,
+  userTags: ReadonlyArray<UserTagT>,
+): ReadonlyArray<UserTagT> {
   const userTagsByName = keyBy(userTags, t => t.tag.name);
 
   const used = new Set<string>();

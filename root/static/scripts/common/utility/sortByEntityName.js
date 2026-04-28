@@ -16,7 +16,7 @@ function compareEntities(a: EditableEntityT, b: EditableEntityT): number {
 }
 
 export default function sortByEntityName<T: EditableEntityT>(
-  entities: $ReadOnlyArray<T>,
-): $ReadOnlyArray<T> {
+  entities: ReadonlyArray<T>,
+): ReadonlyArray<T> {
   return entities.slice(0).sort(compareEntities);
 }

@@ -223,7 +223,7 @@ export function createRecordingObject(
 ): RecordingT {
   return {
     artistCredit: {
-      names: [] as $ReadOnlyArray<ArtistCreditNameT>,
+      names: [] as ReadonlyArray<ArtistCreditNameT>,
     },
     comment: '',
     editsPending: false,
@@ -248,7 +248,7 @@ export function createReleaseObject(
   return {
     artist: '',
     artistCredit: {
-      names: [] as $ReadOnlyArray<ArtistCreditNameT>,
+      names: [] as ReadonlyArray<ArtistCreditNameT>,
     },
     barcode: null,
     comment: '',
@@ -345,7 +345,7 @@ export function createWorkObject(
   props?: $ReadOnly<{
     ...CommonPropsT,
     +_fromBatchCreateWorksDialog?: boolean,
-    +languages?: $ReadOnlyArray<WorkLanguageT>,
+    +languages?: ReadonlyArray<WorkLanguageT>,
     +typeID?: number | null,
   }>,
 ): WorkT {

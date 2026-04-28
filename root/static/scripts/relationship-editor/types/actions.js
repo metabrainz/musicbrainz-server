@@ -52,7 +52,7 @@ export type DialogActionT =
       +type: 'change-direction',
     }
   | {
-      +attributes: $ReadOnlyArray<ExternalLinkAttrT>,
+      +attributes: ReadonlyArray<ExternalLinkAttrT>,
       +type: 'set-attributes',
     }
   | {+type: 'toggle-help'}
@@ -217,7 +217,7 @@ export type AcceptBatchCreateWorksDialogActionT = {
   +begin_date: PartialDateT | null,
   +end_date: PartialDateT | null,
   +ended: boolean,
-  +languages: $ReadOnlyArray<LanguageT>,
+  +languages: ReadonlyArray<LanguageT>,
   +linkType: LinkTypeT,
   +type: 'accept-batch-create-works-dialog',
   +workType: number | null,
@@ -228,14 +228,14 @@ export type ReleaseRelationshipEditorActionT =
   | RelationshipEditorActionT
   | AcceptBatchCreateWorksDialogActionT
   | {
-      +languages: $ReadOnlyArray<LanguageT>,
+      +languages: ReadonlyArray<LanguageT>,
       +name: string,
       +type: 'accept-edit-work-dialog',
       +work: WorkT,
       +workType: number | null,
     }
   | {
-      +relationships: $ReadOnlyArray<RelationshipT>,
+      +relationships: ReadonlyArray<RelationshipT>,
       +type: 'load-work-relationships',
       +work: WorkT,
     }

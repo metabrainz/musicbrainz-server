@@ -29,7 +29,7 @@ yargs
   class SingleColumnCursor extends Cursor<string> {
     constructor(
       config: string,
-      values: $ReadOnlyArray<mixed>,
+      values: ReadonlyArray<mixed>,
     ) {
       super(config, values);
       this._result.parseRow = function (rowData) {

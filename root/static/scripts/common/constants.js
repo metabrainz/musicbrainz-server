@@ -310,10 +310,10 @@ export const PART_OF_SERIES_LINK_TYPES: {
   work: 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 };
 
-export const PART_OF_SERIES_LINK_TYPE_GIDS: $ReadOnlyArray<string> =
+export const PART_OF_SERIES_LINK_TYPE_GIDS: ReadonlyArray<string> =
   (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean));
 
-export const PART_OF_SERIES_LINK_TYPE_IDS: $ReadOnlyArray<number> = [
+export const PART_OF_SERIES_LINK_TYPE_IDS: ReadonlyArray<number> = [
   740,  // recording
   741,  // release
   742,  // release group
@@ -370,7 +370,7 @@ export const TRAD_ARTIST_ID = 762646;
 export const UNKNOWN_ARTIST_GID = '125ec42a-7229-4250-afc5-e057484327fe';
 export const UNKNOWN_ARTIST_ID = 97546;
 
-export const SPECIAL_ARTIST_GIDS: $ReadOnlyArray<string> = [
+export const SPECIAL_ARTIST_GIDS: ReadonlyArray<string> = [
   VARTIST_GID,
   ANON_ARTIST_GID,
   DATA_ARTIST_GID,
@@ -380,7 +380,7 @@ export const SPECIAL_ARTIST_GIDS: $ReadOnlyArray<string> = [
   UNKNOWN_ARTIST_GID,
 ];
 
-export const SPECIAL_ARTIST_IDS: $ReadOnlyArray<number> = [
+export const SPECIAL_ARTIST_IDS: ReadonlyArray<number> = [
   DARTIST_ID,
   VARTIST_ID,
   ANON_ARTIST_ID,

@@ -51,7 +51,7 @@ const buildAttributeSidebarRow = (attribute: WorkAttributeT) => (
 );
 
 component AttributeList(
-  attributes: ?$ReadOnlyArray<WorkAttributeT>,
+  attributes: ?ReadonlyArray<WorkAttributeT>,
   isSidebar: boolean = false,
 ) {
   return (

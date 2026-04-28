@@ -25,7 +25,7 @@ declare type ArtworkRoleT = $ReadOnly<{
   +small_ia_thumbnail: string,
   +small_thumbnail: string,
   +suffix: string,
-  +types: $ReadOnlyArray<string>,
+  +types: ReadonlyArray<string>,
 }>;
 
 declare type ReleaseArtT = $ReadOnly<{

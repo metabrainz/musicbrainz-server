@@ -13,7 +13,7 @@ import EditList from './components/EditList.js';
 
 component OpenEdits(
   editCountLimit: number,
-  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<$ReadOnly<{...EditT, +id: number}>>,
   pager: PagerT,
   refineUrlArgs: {+[argument: string]: string},
 ) {

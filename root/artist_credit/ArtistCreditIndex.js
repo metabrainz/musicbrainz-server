@@ -76,7 +76,7 @@ component ArtistCreditIndex(
     creditedEntities: {
       +[entityType: string]: {
         +count: number,
-        +entities: $ReadOnlyArray<EntityWithArtistCreditsT>,
+        +entities: ReadonlyArray<EntityWithArtistCreditsT>,
       },
     },
   }

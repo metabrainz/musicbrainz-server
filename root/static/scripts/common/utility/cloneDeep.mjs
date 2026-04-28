@@ -25,9 +25,9 @@ function _cloneDeep<T>(
 }
 
 function _cloneArrayDeep<T>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   seen: WeakMap<any, any>,
-): $ReadOnlyArray<T> {
+): ReadonlyArray<T> {
   const clone: Array<T> = [];
   seen.set(array, clone);
   const size = array.length;
@@ -38,8 +38,8 @@ function _cloneArrayDeep<T>(
 }
 
 export function cloneArrayDeep<T>(
-  array: $ReadOnlyArray<T>,
-): $ReadOnlyArray<T> {
+  array: ReadonlyArray<T>,
+): ReadonlyArray<T> {
   return _cloneArrayDeep<T>(array, new WeakMap());
 }
 

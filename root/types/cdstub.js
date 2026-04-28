@@ -25,8 +25,8 @@ declare type CDStubT = $ReadOnly<{
   +title: string,
   +toc: string | null,
   +track_count: number,
-  +track_offset: $ReadOnlyArray<number> | null,
-  +tracks: $ReadOnlyArray<CDStubTrackT>,
+  +track_offset: ReadonlyArray<number> | null,
+  +tracks: ReadonlyArray<CDStubTrackT>,
 }>;
 
 declare type CDStubTrackT = $ReadOnly<{

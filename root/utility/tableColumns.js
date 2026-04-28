@@ -61,7 +61,7 @@ type OrderableProps = {
 };
 
 export function defineActionsColumn(
-  props: {+actions: $ReadOnlyArray<[string, string]>},
+  props: {+actions: ReadonlyArray<[string, string]>},
 ): ColumnOptions<EditableEntityT | CollectionT, number> {
   return {
     Cell: ({row: {original}}) => (
@@ -126,17 +126,17 @@ export function defineArtistCreditColumn<D>(
 export function defineArtistRolesColumn<D>(
   props: {
     +columnName: string,
-    +getRoles: (D) => $ReadOnlyArray<{
+    +getRoles: (D) => ReadonlyArray<{
       +credit: string,
       +entity: ArtistT,
-      +roles: $ReadOnlyArray<string>,
+      +roles: ReadonlyArray<string>,
     }>,
     +title: string,
   },
-): ColumnOptions<D, $ReadOnlyArray<{
+): ColumnOptions<D, ReadonlyArray<{
       +credit: string,
       +entity: ArtistT,
-      +roles: $ReadOnlyArray<string>,
+      +roles: ReadonlyArray<string>,
 }>> {
   return {
     Cell: ({row: {original}}) => (
@@ -370,7 +370,7 @@ export function defineEntityColumn<D>(
 export function defineInstrumentUsageColumn(
   props: {
     +instrumentCreditsAndRelTypes?:
-      {+[entityGid: string]: $ReadOnlyArray<string>},
+      {+[entityGid: string]: ReadonlyArray<string>},
   },
 ): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
   return {
@@ -483,9 +483,9 @@ export function defineRatingsColumn<D>(
 export function defineReleaseCatnosColumn<D>(
   props: {
     ...OrderableProps,
-    getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
+    getLabels: (D) => ReadonlyArray<ReleaseLabelT>,
   },
-): ColumnOptions<D, $ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<D, ReadonlyArray<ReleaseLabelT>> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -507,7 +507,7 @@ export function defineReleaseCatnosColumn<D>(
 
 export function defineReleaseEventsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseEventT>> {
+): ColumnOptions<ReleaseT, ?ReadonlyArray<ReleaseEventT>> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -537,7 +537,7 @@ export function defineReleaseEventsColumn(
 
 export function defineReleaseLabelsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<ReleaseT, ?ReadonlyArray<ReleaseLabelT>> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -574,7 +574,7 @@ export function defineReleaseLanguageColumn<D>(
 
 export function defineSeriesNumberColumn(
   props: {
-    +seriesItemNumbers: $ReadOnlyArray<string>,
+    +seriesItemNumbers: ReadonlyArray<string>,
   },
 ): ColumnOptions<EntityWithSeriesT, number> {
   return {
@@ -673,7 +673,7 @@ export function defineTypeColumn(
 }
 
 export const attributesColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
+  ColumnOptions<WorkT, ReadonlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => (
       original.attributes ? (
         <AttributeList attributes={original.attributes} />
@@ -695,9 +695,9 @@ export const instrumentDescriptionColumn:
 
 export const isrcsColumn:
   ColumnOptions<{
-    +isrcs: $ReadOnlyArray<IsrcT>,
+    +isrcs: ReadonlyArray<IsrcT>,
     ...
-  }, $ReadOnlyArray<IsrcT>> = {
+  }, ReadonlyArray<IsrcT>> = {
     accessor: x => x.isrcs,
     Cell: ({cell: {value}}) => (
       <IsrcList isrcs={value} />
@@ -708,9 +708,9 @@ export const isrcsColumn:
 
 export const iswcsColumn:
   ColumnOptions<{
-    +iswcs: $ReadOnlyArray<IswcT>,
+    +iswcs: ReadonlyArray<IswcT>,
     ...
-  }, $ReadOnlyArray<IswcT>> = {
+  }, ReadonlyArray<IswcT>> = {
     accessor: x => x.iswcs,
     Cell: ({cell: {value}}) => (
       <IswcList iswcs={value} />
@@ -807,7 +807,7 @@ export const trackColumn:
   };
 
 export const workRecordingArtistsColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
+  ColumnOptions<WorkT, ReadonlyArray<ArtistCreditT>> = {
     accessor: x => x.artists,
     Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
     Header: N_l('Recording artists'),
@@ -815,7 +815,7 @@ export const workRecordingArtistsColumn:
   };
 
 export const workLanguagesColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<WorkLanguageT>> = {
+  ColumnOptions<WorkT, ReadonlyArray<WorkLanguageT>> = {
     accessor: x => x.languages,
     Cell: ({cell: {value}}) => (
       <ul>

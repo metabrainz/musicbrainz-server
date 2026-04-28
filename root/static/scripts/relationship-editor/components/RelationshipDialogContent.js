@@ -151,7 +151,7 @@ function accumulateRelationshipLinkAttributeByRootId(
 }
 
 function getAttributeRootIdMap(
-  attributes: $ReadOnlyArray<LinkAttrT | ExternalLinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT | ExternalLinkAttrT>,
 ): LinkAttributesByRootIdT {
   return attributes.reduce<LinkAttributesByRootIdT>(
     accumulateRelationshipLinkAttributeByRootId,

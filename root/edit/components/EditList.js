@@ -21,7 +21,7 @@ import ListHeader from './ListHeader.js';
 
 component EditList(
   editCountLimit: number,
-  edits: $ReadOnlyArray<$ReadOnly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<$ReadOnly<{...EditT, +id: number}>>,
   entity?: EditableEntityT | CollectionT,
   guessSearch: boolean = false,
   isSearch: boolean = false,

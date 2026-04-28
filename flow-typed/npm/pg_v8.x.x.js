@@ -21,7 +21,7 @@ declare module 'pg' {
   declare export type QueryConfig<+V = mixed> = {
     +name?: string,
     +text: string,
-    +values?: $ReadOnlyArray<mixed>,
+    +values?: ReadonlyArray<mixed>,
   };
 
   declare export type PgResultSet<Row> = {
@@ -41,11 +41,11 @@ declare module 'pg' {
     escapeLiteral(string): string,
     query<R, V = mixed>(
       config: string | QueryConfig<V>,
-      values?: $ReadOnlyArray<V>,
+      values?: ReadonlyArray<V>,
     ): Promise<PgResultSet<R>>,
     query<R, V = mixed>(
       config: string | QueryConfig<V>,
-      values: ?$ReadOnlyArray<V>,
+      values: ?ReadonlyArray<V>,
       callback: (?Error, ?PgResultSet<R>) => void,
     ): void,
     query<R, V = mixed>(
@@ -54,7 +54,7 @@ declare module 'pg' {
     ): void,
     query<Q: Submittable, V = mixed>(
       config: Q,
-      values?: $ReadOnlyArray<V>,
+      values?: ReadonlyArray<V>,
     ): Q,
   }
 
@@ -63,13 +63,13 @@ declare module 'pg' {
   declare class Query<R, +V = mixed> implements Submittable {
     constructor(
       config: string | QueryConfig<V>,
-      values?: $ReadOnlyArray<V>,
+      values?: ReadonlyArray<V>,
       callback?: (?Error, ?PgResultSet<R>) => void,
     ): void,
     submit: (Connection) => void,
     // shim for pg.Result class
     _result: {
-      parseRow: ($ReadOnlyArray<string>) => R | null,
+      parseRow: (ReadonlyArray<string>) => R | null,
     },
   }
 

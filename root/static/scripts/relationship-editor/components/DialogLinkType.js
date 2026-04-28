@@ -102,7 +102,7 @@ export function createInitialState(options: {
   id: string,
   initialFocusRef?: {-current: HTMLInputElement | null},
   linkType: LinkTypeT | null,
-  linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
+  linkTypeOptions: ReadonlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
 }): DialogLinkTypeStateT {

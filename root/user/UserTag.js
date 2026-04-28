@@ -15,7 +15,7 @@ import {getTagListHeading, getTagListUrl} from './UserTagList.js';
 type TaggedEntitiesT = {
   +[entityType: string]: {
     +count: number,
-    +tags: $ReadOnlyArray<{
+    +tags: ReadonlyArray<{
       +count: number,
       +entity: TaggableEntityT,
       +entity_id: number,

@@ -57,12 +57,12 @@ type ExternalLinkRelationshipPropsT = {
 };
 
 const typeOptionsCache:
-  Map<string, $ReadOnlyArray<LinkTypeOptionT>> = new Map();
+  Map<string, ReadonlyArray<LinkTypeOptionT>> = new Map();
 
 function getLinkTypeOptions(
   sourceType: RelatableEntityTypeT,
   link: LinkStateT,
-): $ReadOnlyArray<LinkTypeOptionT> {
+): ReadonlyArray<LinkTypeOptionT> {
   let allTypeOptions = typeOptionsCache.get(sourceType);
 
   if (allTypeOptions == null) {

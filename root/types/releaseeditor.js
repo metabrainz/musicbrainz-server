@@ -25,7 +25,7 @@ declare type ReleaseEditorSeededArtistCreditNameT = {
 };
 
 declare type ReleaseEditorSeededArtistCreditT = {
-  +names: $ReadOnlyArray<ReleaseEditorSeededArtistCreditNameT | {}> | null,
+  +names: ReadonlyArray<ReleaseEditorSeededArtistCreditNameT | {}> | null,
 };
 
 declare type ReleaseEditorSeededTrackT = {
@@ -41,14 +41,14 @@ declare type ReleaseEditorSeededMediumT = {
   +format_id?: number,
   +name?: string,
   +toc?: string,
-  +tracks?: $ReadOnlyArray<ReleaseEditorSeededTrackT | {}> | null,
+  +tracks?: ReadonlyArray<ReleaseEditorSeededTrackT | {}> | null,
 };
 
 declare type ReleaseEditorSeededReleaseGroupT =
   | ReleaseGroupT
   | {
       +name: string,
-      +secondaryTypeIDs?: $ReadOnlyArray<number>,
+      +secondaryTypeIDs?: ReadonlyArray<number>,
       +typeID?: number,
     };
 
@@ -80,20 +80,20 @@ declare type ReleaseEditorSeededReleaseT = {
   +artistCredit?: ReleaseEditorSeededArtistCreditT | null,
   +barcode?: string,
   +comment?: string,
-  +events?: $ReadOnlyArray<ReleaseEditorSeededReleaseEventT | {}> | null,
-  +labels?: $ReadOnlyArray<ReleaseEditorSeededReleaseLabelT | {}> | null,
+  +events?: ReadonlyArray<ReleaseEditorSeededReleaseEventT | {}> | null,
+  +labels?: ReadonlyArray<ReleaseEditorSeededReleaseLabelT | {}> | null,
   +languageID?: number,
-  +mediums?: $ReadOnlyArray<ReleaseEditorSeededMediumT> | null,
+  +mediums?: ReadonlyArray<ReleaseEditorSeededMediumT> | null,
   +name?: string,
   +packagingID?: number,
   +relationships?:
-    $ReadOnlyArray<ReleaseEditorSeededUrlRelationshipT | {}> | null,
+    ReadonlyArray<ReleaseEditorSeededUrlRelationshipT | {}> | null,
   +releaseGroup?: ReleaseEditorSeededReleaseGroupT | null,
   +scriptID?: number,
   +statusID?: number,
 };
 
 declare type ReleaseEditorSeedT = {
-  +errors: $ReadOnlyArray<string>,
+  +errors: ReadonlyArray<string>,
   +seed: ReleaseEditorSeededReleaseT,
 };

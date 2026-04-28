@@ -68,7 +68,7 @@ component _MediumRelationshipEditor(
   recordingStates: MediumRecordingStateTreeT,
   release: ReleaseWithMediumsT,
   releaseHasUnloadedTracks: boolean,
-  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
+  tracks: ReadonlyArray<TrackWithRecordingT> | null,
 ) {
   const tableVars = usePagedMediumTable({
     dispatch,

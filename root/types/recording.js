@@ -20,16 +20,16 @@ declare type RecordingT = $ReadOnly<{
   +artist?: string,
   +artistCredit: ArtistCreditT,
   +first_release_date?: PartialDateT,
-  +isrcs: $ReadOnlyArray<IsrcT>,
+  +isrcs: ReadonlyArray<IsrcT>,
   +length: number,
   +primaryAlias?: string | null,
-  +related_works: $ReadOnlyArray<number>,
+  +related_works: ReadonlyArray<number>,
   +video: boolean,
 }>;
 
 declare type ReleaseGroupAppearancesT = {
   +hits: number,
-  +results: $ReadOnlyArray<ReleaseGroupT>,
+  +results: ReadonlyArray<ReleaseGroupT>,
 };
 
 declare type ReleaseGroupAppearancesMapT = {

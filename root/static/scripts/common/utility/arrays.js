@@ -17,8 +17,8 @@ import {
  * against each pair of items.
  */
 export function arraysEqual<T>(
-  a: $ReadOnlyArray<T>,
-  b: $ReadOnlyArray<T>,
+  a: ReadonlyArray<T>,
+  b: ReadonlyArray<T>,
   isEqual: (T, T) => boolean = (a: T, b: T) => a === b,
 ): boolean {
   const length = a.length;
@@ -38,9 +38,9 @@ export function arraysEqual<T>(
  * loops over the array once.
  */
 export function compactMap<T, U>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   func: (T) => ?U,
-): $ReadOnlyArray<U> {
+): ReadonlyArray<U> {
   return array.reduce(function (result: Array<U>, item) {
     const mappedValue = func(item);
     /*
@@ -81,7 +81,7 @@ export function sortedFindOrInsert<T>(
  */
 export function mergeSortedArrayInto<T>(
   destination: Array<T>,
-  source: $ReadOnlyArray<T>,
+  source: ReadonlyArray<T>,
   cmp: (T, T) => number,
 ) {
   const length = source.length;
@@ -96,7 +96,7 @@ export function mergeSortedArrayInto<T>(
  * exists in the array.
  */
 export function sortedIndexWith<T, U>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   value: U,
   cmp: (T, U) => number,
 ): [number, boolean] {
@@ -120,10 +120,10 @@ export function sortedIndexWith<T, U>(
 }
 
 export function sortByNumber<T>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   func: (T) => number,
   customCmp?: (number, number) => number,
-): $ReadOnlyArray<T> {
+): ReadonlyArray<T> {
   const keys = array.map((x, i): [number, number] => [i, func(x)]);
   const cmp = customCmp ?? compareNumbers;
   keys.sort((a, b) => cmp(a[1], b[1]));
@@ -131,10 +131,10 @@ export function sortByNumber<T>(
 }
 
 export function sortByString<T>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   func: (T) => string,
   customCmp?: (string, string) => number,
-): $ReadOnlyArray<T> {
+): ReadonlyArray<T> {
   const keys = array.map((x, i): [number, string] => [i, func(x)]);
   const cmp = customCmp ?? compareStrings;
   keys.sort((a, b) => cmp(a[1], b[1]));
@@ -142,7 +142,7 @@ export function sortByString<T>(
 }
 
 export function groupBy<T, K>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   func: (T) => K,
 ): Map<K, Array<T>> {
   return array.reduce(function (result, item) {
@@ -157,12 +157,12 @@ export function groupBy<T, K>(
   }, new Map());
 }
 
-export function first<T>(array: ?$ReadOnlyArray<T>): ?T {
+export function first<T>(array: ?ReadonlyArray<T>): ?T {
   return array?.length ? array[0] : undefined;
 }
 
 export function keyBy<T, K = string>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   func: (T) => K,
 ): Map<K, T> {
   return array.reduce(function (result, item) {
@@ -171,12 +171,12 @@ export function keyBy<T, K = string>(
   }, new Map());
 }
 
-export function last<T>(array: ?$ReadOnlyArray<T>): ?T {
+export function last<T>(array: ?ReadonlyArray<T>): ?T {
   return array?.length ? array[array.length - 1] : undefined;
 }
 
 export function uniqBy<T, U>(
-  array: $ReadOnlyArray<T>,
+  array: ReadonlyArray<T>,
   func: (T) => U,
 ): Array<T> {
   const seenKeys = new Set<U>();

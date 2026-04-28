@@ -92,14 +92,14 @@ MB.tree = tree;
 
 export type InitialStateArgsT = {
   +formName: string,
-  +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
+  +seededRelationships: ?ReadonlyArray<SeededRelationshipT>,
   +source?: RelatableEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
   relationships:
-    | $ReadOnlyArray<RelationshipT>
-    | $ReadOnlyArray<SeededRelationshipT>,
+    | ReadonlyArray<RelationshipT>
+    | ReadonlyArray<SeededRelationshipT>,
   source: RelatableEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
   for (const relationshipData of relationships) {
@@ -170,7 +170,7 @@ export function* getInitialRelationshipUpdates(
 
 export function createInitialState(
   args: InitialStateArgsT,
-  submittedRelationships?: ?$ReadOnlyArray<RelationshipStateT>,
+  submittedRelationships?: ?ReadonlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
@@ -236,7 +236,7 @@ export function loadOrCreateInitialState(
         submittedRelationships = (decompactEntityJson(
           JSON.parse(submittedRelationshipsJson),
         // $FlowFixMe[unclear-type]
-        ) as any) as $ReadOnlyArray<RelationshipStateT>;
+        ) as any) as ReadonlyArray<RelationshipStateT>;
       } catch (e) {
         captureException(e);
       } finally {

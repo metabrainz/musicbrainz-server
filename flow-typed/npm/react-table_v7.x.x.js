@@ -63,7 +63,7 @@ declare module 'react-table' {
   declare export type HeaderGroup = $ReadOnly<{
     ...$ReadOnly<ColumnInstance>,
     +getHeaderGroupProps: (props?: TrElementProps) => TrElementProps,
-    +headers: $ReadOnlyArray<ColumnInstance>,
+    +headers: ReadonlyArray<ColumnInstance>,
   }>;
 
   declare export type Cell<+V> = {
@@ -74,7 +74,7 @@ declare module 'react-table' {
   };
 
   declare export type Row<+D> = {
-    +cells: $ReadOnlyArray<Cell<mixed>>,
+    +cells: ReadonlyArray<Cell<mixed>>,
     +getRowProps: (props?: TrElementProps) => TrElementProps,
     +index: number,
     +original: D,
@@ -83,14 +83,14 @@ declare module 'react-table' {
   declare export type UseTableInstance<D> = {
     +getTableBodyProps: (props?: TbodyElementProps) => TbodyElementProps,
     +getTableProps: (props?: TableElementProps) => TableElementProps,
-    +headerGroups: $ReadOnlyArray<HeaderGroup>,
+    +headerGroups: ReadonlyArray<HeaderGroup>,
     +prepareRow: (row: Row<D>) => void,
-    +rows: $ReadOnlyArray<Row<D>>,
+    +rows: ReadonlyArray<Row<D>>,
   };
 
   declare export type UseTableOptions<D> = {
-    +columns: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-    +data: $ReadOnlyArray<D>,
+    +columns: ReadonlyArray<ColumnOptionsNoValue<D>>,
+    +data: ReadonlyArray<D>,
   };
 
   /*

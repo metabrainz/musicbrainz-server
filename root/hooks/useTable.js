@@ -64,8 +64,8 @@ const renderTableRow = <D>(row: Row<D>, i: number): React.MixedElement => {
 
 type Props<D> = {
   className?: string,
-  columns: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  data: $ReadOnlyArray<D>,
+  columns: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  data: ReadonlyArray<D>,
 };
 
 const useRenderedTable = <D>({

@@ -59,7 +59,7 @@ function isInvalidPartOfSeriesType(
 const getDialogLinkTypeOptions = (
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
-): $ReadOnlyArray<OptionItemT<LinkTypeT>> => {
+): ReadonlyArray<OptionItemT<LinkTypeT>> => {
   const options: Array<OptionItemT<LinkTypeT>> = [];
 
   let seriesItemType = null;
@@ -74,7 +74,7 @@ const getDialogLinkTypeOptions = (
   }
 
   const buildOptions = (
-    parent: LinkTypeT | {+children: $ReadOnlyArray<LinkTypeT>},
+    parent: LinkTypeT | {+children: ReadonlyArray<LinkTypeT>},
     level: number,
   ) => {
     const children = parent.children;

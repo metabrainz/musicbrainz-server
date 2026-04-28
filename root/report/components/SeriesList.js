@@ -17,9 +17,9 @@ import {
 } from '../../utility/tableColumns.js';
 
 component SeriesList<D: {+series: ?SeriesT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
 ) {
   const existingSeriesItems = items.reduce((

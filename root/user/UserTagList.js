@@ -42,10 +42,10 @@ export function getTagListUrl(
 }
 
 component UserTagList(
-  genres: $ReadOnlyArray<UserTagT>,
+  genres: ReadonlyArray<UserTagT>,
   showDownvoted: boolean = false,
   sortBy?: 'count' | 'countdesc' | 'name',
-  tags: $ReadOnlyArray<UserTagT>,
+  tags: ReadonlyArray<UserTagT>,
   user: AccountLayoutUserT,
 ) {
   return (

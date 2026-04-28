@@ -164,11 +164,11 @@ type InitialStateT<T: EntityItemT> = {
   +required?: boolean,
   +selectedItem?: OptionItemT<T> | null,
   +showLabel?: boolean,
-  +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
+  +staticItems?: ReadonlyArray<OptionItemT<T>>,
   +width?: string,
 };
 
-const EMPTY_ITEMS: $ReadOnlyArray<ItemT<empty>> = Object.freeze([]);
+const EMPTY_ITEMS: ReadonlyArray<ItemT<empty>> = Object.freeze([]);
 
 export function createInitialState<T: EntityItemT>(
   initialState: InitialStateT<T>,

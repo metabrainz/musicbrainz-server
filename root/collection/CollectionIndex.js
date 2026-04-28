@@ -37,7 +37,7 @@ import CollectionLayout from './CollectionLayout.js';
 type PropsForEntity<T: CollectableEntityT> = {
   +collection: CollectionT,
   +collectionEntityType: T['entityType'],
-  +entities: $ReadOnlyArray<T>,
+  +entities: ReadonlyArray<T>,
   +order: string,
   +pager: PagerT,
 };

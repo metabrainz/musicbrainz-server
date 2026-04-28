@@ -113,7 +113,7 @@ function _indexValue(
 
 export function compactEntityJson(
   value: mixed,
-): $ReadOnlyArray<mixed> {
+): ReadonlyArray<mixed> {
   const result: Array<mixed> = [];
   const indexCache = new Map<mixed, number>();
   indexCache.set(undefined, UNDEFINED_INDEX);
@@ -122,7 +122,7 @@ export function compactEntityJson(
 }
 
 export function decompactEntityJson(
-  compactedArray: $ReadOnlyArray<mixed>,
+  compactedArray: ReadonlyArray<mixed>,
 ): mixed {
   const resolved = new Array<
     | Array<mixed>

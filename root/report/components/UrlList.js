@@ -15,9 +15,9 @@ import useTable from '../../hooks/useTable.js';
 import {defineLinkColumn} from '../../utility/tableColumns.js';
 
 component UrlList<D: {+url: ?UrlT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
 ) {
   const existingUrlItems = items.reduce((

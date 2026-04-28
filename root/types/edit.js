@@ -69,7 +69,7 @@ declare type GenericEditT = {
   +data: {+[dataProp: string]: any, ...},
   +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
   +edit_name: string,
-  +edit_notes: $ReadOnlyArray<EditNoteT>,
+  +edit_notes: ReadonlyArray<EditNoteT>,
   +edit_type: number,
   +edit_type_name_context: string,
   +editor_id: number,
@@ -81,7 +81,7 @@ declare type GenericEditT = {
   +preview?: boolean,
   +quality: QualityT,
   +status: EditStatusT,
-  +votes: $ReadOnlyArray<VoteT>,
+  +votes: ReadonlyArray<VoteT>,
 };
 
 declare type GenericEditWithIdT = $ReadOnly<{

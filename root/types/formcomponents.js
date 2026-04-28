@@ -36,12 +36,12 @@ declare type ArtistCreditNameFieldT = CompoundFieldT<{
 }>;
 
 declare type CompoundFieldT<+F> = {
-  +errors: $ReadOnlyArray<string>,
+  +errors: ReadonlyArray<string>,
   +field: F,
   +has_errors: boolean,
   +html_name: string,
   +id: number,
-  +pendingErrors?: $ReadOnlyArray<string>,
+  +pendingErrors?: ReadonlyArray<string>,
   +type: 'compound_field',
 };
 
@@ -52,11 +52,11 @@ declare type DatePeriodFieldT = CompoundFieldT<{
 }>;
 
 declare type FieldT<+V> = {
-  +errors: $ReadOnlyArray<string>,
+  +errors: ReadonlyArray<string>,
   +has_errors: boolean,
   +html_name: string,
   +id: number,
-  +pendingErrors?: $ReadOnlyArray<string>,
+  +pendingErrors?: ReadonlyArray<string>,
   +type: 'field',
   +value: V,
 };
@@ -75,22 +75,22 @@ declare type SubfieldsT = {
 
 declare type AnyFieldT =
   | {
-      +errors: $ReadOnlyArray<string>,
+      +errors: ReadonlyArray<string>,
       +field: SubfieldsT,
-      +pendingErrors?: $ReadOnlyArray<string>,
+      +pendingErrors?: ReadonlyArray<string>,
       +type: 'compound_field',
       ...
     }
   | {
-      +errors: $ReadOnlyArray<string>,
-      +field: $ReadOnlyArray<AnyFieldT>,
-      +pendingErrors?: $ReadOnlyArray<string>,
+      +errors: ReadonlyArray<string>,
+      +field: ReadonlyArray<AnyFieldT>,
+      +pendingErrors?: ReadonlyArray<string>,
       +type: 'repeatable_field',
       ...
     }
   | {
-      +errors: $ReadOnlyArray<string>,
-      +pendingErrors?: $ReadOnlyArray<string>,
+      +errors: ReadonlyArray<string>,
+      +pendingErrors?: ReadonlyArray<string>,
       +type: 'field',
       ...
     };
@@ -104,7 +104,7 @@ declare type FormOrAnyFieldT =
  * FIXME(michael): Figure out a way to consolidate GroupedOptionsT,
  * OptionListT, and OptionTreeT?
  */
-declare type GroupedOptionsT = $ReadOnlyArray<{
+declare type GroupedOptionsT = ReadonlyArray<{
   +optgroup: string,
   +options: SelectOptionsT,
 }>;
@@ -114,7 +114,7 @@ declare type MaybeGroupedOptionsT =
   | {+grouped: false, +options: SelectOptionsT};
 
 // See `buildOptionsTree` in root/static/scripts/edit/forms.js.
-declare type OptionListT = $ReadOnlyArray<{
+declare type OptionListT = ReadonlyArray<{
   +text: string,
   +value: number,
 }>;
@@ -135,13 +135,13 @@ declare type PartialDateFieldT = CompoundFieldT<{
 }>;
 
 declare type RepeatableFieldT<+F> = {
-  +errors: $ReadOnlyArray<string>,
-  +field: $ReadOnlyArray<F>,
+  +errors: ReadonlyArray<string>,
+  +field: ReadonlyArray<F>,
   +has_errors: boolean,
   +html_name: string,
   +id: number,
   +last_index: number,
-  +pendingErrors?: $ReadOnlyArray<string>,
+  +pendingErrors?: ReadonlyArray<string>,
   +type: 'repeatable_field',
 };
 
@@ -154,4 +154,4 @@ declare type SelectOptionT = {
   +value: number | string,
 };
 
-declare type SelectOptionsT = $ReadOnlyArray<SelectOptionT>;
+declare type SelectOptionsT = ReadonlyArray<SelectOptionT>;

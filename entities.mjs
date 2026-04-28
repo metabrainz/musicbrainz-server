@@ -16,7 +16,7 @@
 import deepFreeze from 'deep-freeze-strict';
 
 type AutomaticRemovalPropsT = {
-  +exempt?: $ReadOnlyArray<number>,
+  +exempt?: ReadonlyArray<number>,
   +extra_fks?: {+[foreignTable: string]: string},
   ...
 };
@@ -47,7 +47,7 @@ const ENTITIES = {
       'places',
       'users',
       'works',
-    ] as $ReadOnlyArray<string>,
+    ] as ReadonlyArray<string>,
     date_period: true,
     disambiguation: true,
     edit_table: true,
@@ -95,7 +95,7 @@ const ENTITIES = {
       'recordings',
       'works',
       'events',
-    ] as $ReadOnlyArray<string>),
+    ] as ReadonlyArray<string>),
     date_period: true,
     disambiguation: true,
     edit_table: true,
@@ -119,7 +119,7 @@ const ENTITIES = {
         exempt: ([
           1,
           2,
-        ] as $ReadOnlyArray<number>),
+        ] as ReadonlyArray<number>),
         extra_fks: {
           artist_credit_name: 'artist',
         },
@@ -307,7 +307,7 @@ const ENTITIES = {
       'artists',
       'releases',
       'recordings',
-    ] as $ReadOnlyArray<string>),
+    ] as ReadonlyArray<string>),
     disambiguation: true,
     edit_table: true,
     last_updated_column: true,
@@ -382,7 +382,7 @@ const ENTITIES = {
       automatic: {
         exempt: ([
           1,
-        ] as $ReadOnlyArray<number>),
+        ] as ReadonlyArray<number>),
         extra_fks: {
           release_label: 'label',
         },
@@ -463,7 +463,7 @@ const ENTITIES = {
       'events',
       'performances',
       'map',
-    ] as $ReadOnlyArray<string>),
+    ] as ReadonlyArray<string>),
     date_period: true,
     disambiguation: true,
     edit_table: true,
@@ -513,7 +513,7 @@ const ENTITIES = {
     collections: true,
     custom_tabs: ([
       'fingerprints',
-    ] as $ReadOnlyArray<string>),
+    ] as ReadonlyArray<string>),
     disambiguation: true,
     edit_table: true,
     last_updated_column: true,

@@ -217,7 +217,7 @@ class ViewModel {
   constructor(
     attributeTypes: WorkAttributeTypeTreeRootT,
     allowedValues: WorkAttributeTypeAllowedValueTreeRootT,
-    attributes: $ReadOnlyArray<WorkAttributeField>,
+    attributes: ReadonlyArray<WorkAttributeField>,
   ) {
     this.attributeTypes = buildOptionsTree(
       attributeTypes,

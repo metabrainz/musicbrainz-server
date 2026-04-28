@@ -33,13 +33,13 @@ import SpammerButton, {
 } from './SpammerButton.js';
 
 type FindNewUsersResponseT =
-  | {+users: $ReadOnlyArray<UnsanitizedEditorT>}
+  | {+users: ReadonlyArray<UnsanitizedEditorT>}
   | {+error: string};
 
 type ActionT =
   | {
       +type: 'set-users',
-      +users: $ReadOnlyArray<UnsanitizedEditorT>,
+      +users: ReadonlyArray<UnsanitizedEditorT>,
     }
   | {
       +type: 'remove-user',

@@ -76,9 +76,9 @@ function formatScopes(token: EditorOAuthTokenT) {
 }
 
 component ApplicationList(
-  applications: $ReadOnlyArray<ApplicationT>,
+  applications: ReadonlyArray<ApplicationT>,
   appsPager: PagerT,
-  tokens: $ReadOnlyArray<EditorOAuthTokenT>,
+  tokens: ReadonlyArray<EditorOAuthTokenT>,
   tokensPager: PagerT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

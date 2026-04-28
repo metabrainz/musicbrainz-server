@@ -29,7 +29,7 @@ type CollectionWithSubscribedT = $ReadOnly<{
 
 type CollectionListT = {
   +[entityType: CollectableEntityTypeT]:
-    $ReadOnlyArray<CollectionWithSubscribedT>,
+    ReadonlyArray<CollectionWithSubscribedT>,
 };
 
 const collectionsListTitles = {
@@ -48,7 +48,7 @@ const collectionsListTitles = {
 };
 
 function formatCollaboratorNumber(
-  collaborators: $ReadOnlyArray<EditorT>,
+  collaborators: ReadonlyArray<EditorT>,
   activeUserId: ?number,
 ) {
   const isCollaborator = activeUserId != null && collaborators.some(
@@ -77,7 +77,7 @@ function formatPrivacy(
 
 component CollectionsEntityTypeSection(
   activeUserId: number | void,
-  collections: $ReadOnlyArray<CollectionWithSubscribedT>,
+  collections: ReadonlyArray<CollectionWithSubscribedT>,
   isCollaborative: boolean,
   type: CollectableEntityTypeT,
   user: AccountLayoutUserT,
@@ -97,7 +97,7 @@ component CollectionsEntityTypeSection(
           id: 'size',
         };
       const collaboratorsColumn:
-        ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
+        ColumnOptions<CollectionT, ReadonlyArray<EditorT>> = {
           accessor: x => x.collaborators,
           Cell: ({cell: {value}}) => (
             formatCollaboratorNumber(value, activeUserId)

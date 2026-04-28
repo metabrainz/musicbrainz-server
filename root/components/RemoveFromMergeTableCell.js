@@ -16,7 +16,7 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 // Converted to react-table at root/utility/tableColumns.js
 component RemoveFromMergeTableCell(
   entity: MergeableEntityT,
-  toMerge: $ReadOnlyArray<MergeableEntityT>,
+  toMerge: ReadonlyArray<MergeableEntityT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const url = ENTITIES[entity.entityType].url;

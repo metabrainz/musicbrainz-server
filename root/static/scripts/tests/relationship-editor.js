@@ -935,7 +935,7 @@ function getAddRelationshipAction(
 function addRelationships(
   rootState: RelationshipEditorStateT,
   source: RelatableEntityT,
-  relationships: $ReadOnlyArray<RelationshipStateT>,
+  relationships: ReadonlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   let newState = rootState;
   relationships.forEach((relationship) => {
@@ -947,7 +947,7 @@ function addRelationships(
 function addRelationshipsToRelease(
   rootState: ReleaseRelationshipEditorStateT,
   source: RelatableEntityT,
-  relationships: $ReadOnlyArray<RelationshipStateT>,
+  relationships: ReadonlyArray<RelationshipStateT>,
 ): ReleaseRelationshipEditorStateT {
   let newState = rootState;
   relationships.forEach((relationship) => {
@@ -983,7 +983,7 @@ function currentRelationshipsEqual(
   rootState:
     | RelationshipEditorStateT
     | ReleaseRelationshipEditorStateT,
-  relationships: $ReadOnlyArray<RelationshipStateT | null>,
+  relationships: ReadonlyArray<RelationshipStateT | null>,
   msg: string,
 ) {
   t.ok(tree.equals(
@@ -994,7 +994,7 @@ function currentRelationshipsEqual(
 }
 
 function createRelationshipSourceGroups(
-  relationships: $ReadOnlyArray<RelationshipStateT | null>,
+  relationships: ReadonlyArray<RelationshipStateT | null>,
 ): RelationshipSourceGroupsT {
   const writableRootState = {...initialState};
   updateRelationships(
@@ -1079,7 +1079,7 @@ function id2attr(id: number): LinkAttrT {
 }
 
 function ids2attrs(
-  ids: $ReadOnlyArray<number>,
+  ids: ReadonlyArray<number>,
 ): tree.ImmutableTree<LinkAttrT> {
   return tree.fromDistinctAscArray(
     ids.map(id2attr).sort(compareLinkAttributeIds),

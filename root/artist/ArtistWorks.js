@@ -28,7 +28,7 @@ component ArtistWorks(
   filterForm: ?WorkFilterT,
   hasFilter: boolean,
   pager: PagerT,
-  works: ?$ReadOnlyArray<WorkT>,
+  works: ?ReadonlyArray<WorkT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (

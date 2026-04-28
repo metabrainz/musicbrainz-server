@@ -51,7 +51,7 @@ function isNameNotRemoved(name: ArtistCreditNameStateT): boolean {
 }
 
 function setAutoJoinPhrases(
-  namesCtx: CowContext<$ReadOnlyArray<ArtistCreditNameStateT>>,
+  namesCtx: CowContext<ReadonlyArray<ArtistCreditNameStateT>>,
 ): void {
   const names = namesCtx.read();
 
@@ -359,7 +359,7 @@ export function reducer(
 }
 
 function isSingleArtistEditableInState(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): boolean {
   if (names.filter(isNameNotRemoved).length === 1) {
     const firstArtist = names[0].artist.selectedItem?.entity;
@@ -375,7 +375,7 @@ function createInitialNamesState(
   artistCredit: IncompleteArtistCreditT,
   artistCreditEditorId: string,
   automaticJoinPhrase?: boolean = true,
-): $ReadOnlyArray<ArtistCreditNameStateT> {
+): ReadonlyArray<ArtistCreditNameStateT> {
   const names = artistCredit.names;
 
   if (!names.length) {

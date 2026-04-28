@@ -28,7 +28,7 @@ type CountryStatT = {
 };
 
 component Countries(
-  countryStats: $ReadOnlyArray<CountryStatT>,
+  countryStats: ReadonlyArray<CountryStatT>,
   dateCollected: string,
 ) {
   const $c = React.useContext(CatalystContext);

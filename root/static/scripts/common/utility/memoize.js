@@ -12,7 +12,7 @@ interface MapInterface<-K, V> {
   set(K, V): MapInterface<K, V>,
 }
 
-type ObjectType = interface {} | $ReadOnlyArray<mixed>;
+type ObjectType = interface {} | ReadonlyArray<mixed>;
 
 // Currently, only objects are supported as keys.
 

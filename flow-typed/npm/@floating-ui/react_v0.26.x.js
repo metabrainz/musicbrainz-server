@@ -59,7 +59,7 @@ declare module '@floating-ui/react' {
   declare export type Boundary =
     | 'clippingAncestors'
     | Element
-    | $ReadOnlyArray<Element>
+    | ReadonlyArray<Element>
     | Rect;
   declare export type ElementContext = 'reference' | 'floating';
   declare export type RootBoundary = 'viewport' | 'document' | Rect;
@@ -210,7 +210,7 @@ declare module '@floating-ui/react' {
    * useFloating()
    */
   declare export interface UseFloatingOptions {
-    middleware?: $ReadOnlyArray<?Middleware | false>,
+    middleware?: ReadonlyArray<?Middleware | false>,
     nodeId?: string,
     onOpenChange?: (
       open: boolean,
@@ -265,14 +265,14 @@ declare module '@floating-ui/react' {
   };
 
   declare export function useInteractions(
-    propsList: $ReadOnlyArray<ElementProps | void>,
+    propsList: ReadonlyArray<ElementProps | void>,
   ): UseInteractionsReturn;
 
   /*
    * useMergeRefs()
    */
   declare export function useMergeRefs<Instance>(
-    refs: $ReadOnlyArray<{-current: Instance} | void>,
+    refs: ReadonlyArray<{-current: Instance} | void>,
   ): ((Instance | null) => mixed);
 
   /*

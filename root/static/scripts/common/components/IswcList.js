@@ -30,7 +30,7 @@ const buildIswcSidebarRow = (iswc: IswcT) => (
 );
 
 component IswcList(
-  iswcs: ?$ReadOnlyArray<IswcT>,
+  iswcs: ?ReadonlyArray<IswcT>,
   isSidebar: boolean = false,
 ) {
   return (

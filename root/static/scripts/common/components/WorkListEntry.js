@@ -23,7 +23,7 @@ import WorkArtists from './WorkArtists.js';
 
 export component WorkListRow(
   checkboxes?: string,
-  seriesItemNumbers?: $ReadOnlyArray<string>,
+  seriesItemNumbers?: ReadonlyArray<string>,
   showAttributes: boolean = false,
   showIswcs: boolean = false,
   showRatings: boolean = false,

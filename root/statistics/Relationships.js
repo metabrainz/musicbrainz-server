@@ -18,7 +18,7 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 declare type RelationshipTypeT = {
-  +entity_types: $ReadOnlyArray<string>,
+  +entity_types: ReadonlyArray<string>,
   +tree: {[entityTypes: string]: Array<LinkTypeT>},
 };
 

@@ -237,8 +237,8 @@ function isNotInstrumentOrVocal(attribute: LinkAttrT) {
 }
 
 function areAttributeListsMergeable(
-  attributeList1: $ReadOnlyArray<LinkAttrT>,
-  attributeList2: $ReadOnlyArray<LinkAttrT>,
+  attributeList1: ReadonlyArray<LinkAttrT>,
+  attributeList2: ReadonlyArray<LinkAttrT>,
 ) {
   /*
    * Two attribute lists are mergeable for display if all their non-
@@ -357,7 +357,7 @@ function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
 }
 
 export default function groupRelationships(
-  relationships: ?$ReadOnlyArray<RelationshipT>,
+  relationships: ?ReadonlyArray<RelationshipT>,
   args?: {
     +filter?: (
       RelationshipT,
@@ -366,9 +366,9 @@ export default function groupRelationships(
     ) => boolean,
     +result?: Array<RelationshipTargetTypeGroupT>,
     +trackMapping?: Map<string, Set<TrackT>>,
-    +types?: ?$ReadOnlyArray<RelatableEntityTypeT>,
+    +types?: ?ReadonlyArray<RelatableEntityTypeT>,
   },
-): $ReadOnlyArray<RelationshipTargetTypeGroupT> {
+): ReadonlyArray<RelationshipTargetTypeGroupT> {
   if (!relationships) {
     return [];
   }

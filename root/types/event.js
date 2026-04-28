@@ -18,19 +18,19 @@ declare type EventT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<EventTypeT>,
-  +areas: $ReadOnlyArray<{
+  +areas: ReadonlyArray<{
     +credit: string,
     +entity: AreaT,
   }>,
   +cancelled: boolean,
   +event_art_presence: 'absent' | 'present' | 'darkened' | null,
   +may_have_event_art?: boolean,
-  +performers: $ReadOnlyArray<{
+  +performers: ReadonlyArray<{
     +credit: string,
     +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
+    +roles: ReadonlyArray<string>,
   }>,
-  +places: $ReadOnlyArray<{
+  +places: ReadonlyArray<{
     +credit: string,
     +entity: PlaceT,
   }>,
@@ -40,7 +40,7 @@ declare type EventT = $ReadOnly<{
     +performers: AppearancesT<string>,
     +places: AppearancesT<string>,
   },
-  +related_series: $ReadOnlyArray<number>,
+  +related_series: ReadonlyArray<number>,
   +setlist?: string,
   +time: string,
 }>;

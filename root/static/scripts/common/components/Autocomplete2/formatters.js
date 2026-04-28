@@ -144,7 +144,7 @@ function formatArtist(artist: ArtistT) {
 
 function showLabeledTextList(
   label: string,
-  items: $ReadOnlyArray<string>,
+  items: ReadonlyArray<string>,
   className?: string = 'comment',
 ) {
   return showExtraInfoLine(

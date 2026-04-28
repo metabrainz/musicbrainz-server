@@ -20,7 +20,7 @@ import EntityLink from './EntityLink.js';
 component CDTocReleaseListTable(
   associatedMedium?: number,
   cdTocTrackCount: number,
-  results: $ReadOnlyArray<
+  results: ReadonlyArray<
     SearchResultT<ReleaseWithMediumsAndReleaseGroupT>
   >,
   wasMbidSearch: boolean = false,

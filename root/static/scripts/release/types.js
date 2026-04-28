@@ -16,12 +16,12 @@ export type LazyReleaseActionT =
     }
   | {
       +expanded: boolean,
-      +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+      +mediums: ReadonlyArray<MediumWithRecordingsT>,
       +type: 'toggle-all-mediums',
     }
   | {
       +medium: MediumWithRecordingsT,
-      +tracks: $ReadOnlyArray<TrackWithRecordingT>,
+      +tracks: ReadonlyArray<TrackWithRecordingT>,
       +type: 'load-tracks',
     };
 
@@ -30,7 +30,7 @@ export type ActionT =
   | LazyReleaseActionT;
 
 export type LoadedTracksMapT =
-  $ReadOnlyMap<number, $ReadOnlyArray<TrackWithRecordingT>>;
+  $ReadOnlyMap<number, ReadonlyArray<TrackWithRecordingT>>;
 
 export type LazyReleaseStateT = {
   +expandedMediums: $ReadOnlyMap<number, boolean>,

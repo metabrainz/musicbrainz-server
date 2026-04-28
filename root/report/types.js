@@ -83,7 +83,7 @@ export type ReportDataT<T> = {
   +canBeFiltered: boolean,
   +filtered: boolean,
   +generated: string,
-  +items: $ReadOnlyArray<T>,
+  +items: ReadonlyArray<T>,
   +pager: PagerT,
 };
 

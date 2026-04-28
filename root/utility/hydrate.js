@@ -21,7 +21,7 @@ import escapeClosingTags from './escapeClosingTags.js';
 
 type PropsDataT =
   | StrOrNum
-  | $ReadOnlyArray<PropsDataT>
+  | ReadonlyArray<PropsDataT>
   | {+[key: string]: PropsDataT, ...}
   | null
   | void;

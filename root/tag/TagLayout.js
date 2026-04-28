@@ -12,7 +12,7 @@ import Tabs from '../components/Tabs.js';
 import Layout from '../layout/index.js';
 import TagLink from '../static/scripts/common/components/TagLink.js';
 
-const tabLinks: $ReadOnlyArray<[string, () => string]> = [
+const tabLinks: ReadonlyArray<[string, () => string]> = [
   ['', N_l('Overview')],
   ['/artist', N_l('Artists')],
   ['/release-group', N_l('Release groups')],

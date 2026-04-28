@@ -153,7 +153,7 @@ export type LinkStateT = {
   /*
    * The relationships associated with this URL, whether new or existing.
    */
-  +relationships: $ReadOnlyArray<LinkRelationshipStateT>,
+  +relationships: ReadonlyArray<LinkRelationshipStateT>,
   /*
    * The cleaned/normalized URL used for validation and submission.
    */

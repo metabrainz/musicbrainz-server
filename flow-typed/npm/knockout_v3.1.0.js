@@ -19,7 +19,7 @@ declare module 'knockout' {
   };
 
   declare type ObservableArray<T> =
-    & Observable<$ReadOnlyArray<T>>
+    & Observable<ReadonlyArray<T>>
     & {
         push: (T) => empty,
         remove: (T) => empty,
@@ -41,7 +41,7 @@ declare module 'knockout' {
   ): Observable<T>;
 
   declare function observableArray<T>(
-    array: $ReadOnlyArray<T>,
+    array: ReadonlyArray<T>,
   ): ObservableArray<T>;
 
   declare function unwrap<T>(

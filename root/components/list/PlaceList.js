@@ -27,7 +27,7 @@ component PlaceList(
   checkboxes?: string,
   mergeForm?: MergeFormT,
   order?: string,
-  places: $ReadOnlyArray<PlaceT>,
+  places: ReadonlyArray<PlaceT>,
   showRatings: boolean = false,
   sortable?: boolean,
 ) {

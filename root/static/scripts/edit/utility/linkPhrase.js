@@ -101,7 +101,7 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
 }
 
 export type LinkPhraseI18n<T> = {
-  commaList: ($ReadOnlyArray<T>) => T,
+  commaList: (ReadonlyArray<T>) => T,
   defaultValue: T,
   displayLinkAttribute: (LinkAttrT) => T,
   expand: (string, VarArgsClass<T>) => T,
@@ -123,7 +123,7 @@ const textI18n: LinkPhraseI18n<string> = {
 
 function _getAttributesByRootName(
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
 ): $ReadOnly<LinkAttrsByRootName> {
   const values: LinkAttrsByRootName = {};
 
@@ -213,7 +213,7 @@ function _getRequiredAttributes(
 export function getPhraseAndExtraAttributes<T>(
   i18n: LinkPhraseI18n<T | string>,
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
   entity0?: T,
@@ -306,7 +306,7 @@ export function getPhraseAndExtraAttributes<T>(
 
 export const getPhraseAndExtraAttributesText = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): [string, Array<LinkAttrT>] => getPhraseAndExtraAttributes<
@@ -322,7 +322,7 @@ export const getPhraseAndExtraAttributesText = (
 
 export const interpolate = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
   entity0?: React.MixedElement,
@@ -342,7 +342,7 @@ export const interpolate = (
 
 export const interpolateText = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): string => getPhraseAndExtraAttributesText(
@@ -354,7 +354,7 @@ export const interpolateText = (
 
 export const getExtraAttributes = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): Array<LinkAttrT> => getPhraseAndExtraAttributes<

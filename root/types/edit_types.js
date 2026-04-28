@@ -102,9 +102,9 @@ declare type AddAreaEditT = $ReadOnly<{
     ...DatePeriodRoleT,
     +area: AreaT,
     +comment: string | null,
-    +iso_3166_1: $ReadOnlyArray<string>,
-    +iso_3166_2: $ReadOnlyArray<string>,
-    +iso_3166_3: $ReadOnlyArray<string>,
+    +iso_3166_1: ReadonlyArray<string>,
+    +iso_3166_2: ReadonlyArray<string>,
+    +iso_3166_3: ReadonlyArray<string>,
     +name: string,
     +sort_name: string | null,
     +type: AreaTypeT | null,
@@ -122,8 +122,8 @@ declare type AddArtistEditT = $ReadOnly<{
     +begin_area: AreaT | null,
     +end_area: AreaT | null,
     +gender: GenderT | null,
-    +ipi_codes: $ReadOnlyArray<string> | null,
-    +isni_codes: $ReadOnlyArray<string> | null,
+    +ipi_codes: ReadonlyArray<string> | null,
+    +isni_codes: ReadonlyArray<string> | null,
     +name: string,
     +sort_name: string,
     +type: ArtistTypeT | null,
@@ -202,7 +202,7 @@ declare type AddInstrumentEditT = $ReadOnly<{
 declare type AddIsrcsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +additions: $ReadOnlyArray<{
+    +additions: ReadonlyArray<{
       +isrc: IsrcT,
       +recording: RecordingT,
     }>,
@@ -214,7 +214,7 @@ declare type AddIsrcsEditT = $ReadOnly<{
 declare type AddIswcsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +additions: $ReadOnlyArray<{
+    +additions: ReadonlyArray<{
       +iswc: IswcT,
       +work: WorkT,
     }>,
@@ -230,8 +230,8 @@ declare type AddLabelEditT = $ReadOnly<{
     +comment: string,
     +end_date: PartialDateT,
     +ended: boolean,
-    +ipi_codes: $ReadOnlyArray<string> | null,
-    +isni_codes: $ReadOnlyArray<string> | null,
+    +ipi_codes: ReadonlyArray<string> | null,
+    +isni_codes: ReadonlyArray<string> | null,
     +label: LabelT,
     +label_code: number | null,
     +name: string,
@@ -248,7 +248,7 @@ declare type AddMediumEditT = $ReadOnly<{
     +name?: string,
     +position: number | string,
     +release?: ReleaseT,
-    +tracks?: $ReadOnlyArray<TrackT>,
+    +tracks?: ReadonlyArray<TrackT>,
   },
   +edit_type: EDIT_MEDIUM_CREATE_T,
 }>;
@@ -294,7 +294,7 @@ declare type AddRelationshipAttributeEditT = $ReadOnly<{
 declare type AddRelationshipTypeEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +attributes: $ReadOnlyArray<{
+    +attributes: ReadonlyArray<{
       ...LinkTypeAttrTypeT,
       +typeName: string,
     }>,
@@ -321,7 +321,7 @@ declare type AddReleaseEditT = $ReadOnly<{
     +artist_credit: ArtistCreditT,
     +barcode: string | null,
     +comment: string,
-    +events?: $ReadOnlyArray<ReleaseEventT>,
+    +events?: ReadonlyArray<ReleaseEventT>,
     +language: LanguageT | null,
     +name: string,
     +packaging: ReleasePackagingT | null,
@@ -547,12 +547,12 @@ declare type AddWorkEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +attributes?: {
-      [attributeName: string]: $ReadOnlyArray<WorkAttributeT>,
+      [attributeName: string]: ReadonlyArray<WorkAttributeT>,
     },
     +comment: string,
     +iswc: string,
     +language?: LanguageT,
-    +languages?: $ReadOnlyArray<LanguageT>,
+    +languages?: ReadonlyArray<LanguageT>,
     +name: string,
     +type: WorkTypeT | null,
     +work: WorkT,
@@ -678,9 +678,9 @@ declare type EditAreaEditT = $ReadOnly<{
     +comment?: CompT<string | null>,
     +end_date?: CompT<PartialDateT>,
     +ended?: CompT<boolean>,
-    +iso_3166_1?: CompT<$ReadOnlyArray<string> | null>,
-    +iso_3166_2?: CompT<$ReadOnlyArray<string> | null>,
-    +iso_3166_3?: CompT<$ReadOnlyArray<string> | null>,
+    +iso_3166_1?: CompT<ReadonlyArray<string> | null>,
+    +iso_3166_2?: CompT<ReadonlyArray<string> | null>,
+    +iso_3166_3?: CompT<ReadonlyArray<string> | null>,
     +name?: CompT<string>,
     +sort_name?: CompT<string>,
     +type?: CompT<AreaTypeT | null>,
@@ -700,8 +700,8 @@ declare type EditArtistEditT = $ReadOnly<{
     +end_date?: CompT<PartialDateT>,
     +ended?: CompT<boolean>,
     +gender?: CompT<GenderT | null>,
-    +ipi_codes?: CompT<$ReadOnlyArray<string> | null>,
-    +isni_codes?: CompT<$ReadOnlyArray<string> | null>,
+    +ipi_codes?: CompT<ReadonlyArray<string> | null>,
+    +isni_codes?: CompT<ReadonlyArray<string> | null>,
     +name?: CompT<string>,
     +sort_name?: CompT<string>,
     +type?: CompT<ArtistTypeT | null>,
@@ -721,7 +721,7 @@ declare type EditBarcodesEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +client_version: string | null,
-    +submissions: $ReadOnlyArray<{
+    +submissions: ReadonlyArray<{
       +new_barcode: string | null,
       +old_barcode?: string | null,
       +release: ReleaseT,
@@ -736,7 +736,7 @@ declare type EditCoverArtEditT = $ReadOnly<{
     +artwork: ReleaseArtT,
     +comment: CompT<string | null>,
     +release: ReleaseT,
-    +types: CompT<$ReadOnlyArray<CoverArtTypeT>>,
+    +types: CompT<ReadonlyArray<CoverArtTypeT>>,
   },
   +edit_type: EDIT_RELEASE_EDIT_COVER_ART_T,
 }>;
@@ -747,7 +747,7 @@ declare type EditEventArtEditT = $ReadOnly<{
     +artwork: EventArtT,
     +comment: CompT<string | null>,
     +event: EventT,
-    +types: CompT<$ReadOnlyArray<EventArtTypeT>>,
+    +types: CompT<ReadonlyArray<EventArtTypeT>>,
   },
   +edit_type: EDIT_EVENT_EDIT_EVENT_ART_T,
 }>;
@@ -798,8 +798,8 @@ declare type EditLabelEditT = $ReadOnly<{
     +comment?: CompT<string | null>,
     +end_date?: CompT<PartialDateT>,
     +ended?: CompT<boolean>,
-    +ipi_codes?: CompT<$ReadOnlyArray<string> | null>,
-    +isni_codes?: CompT<$ReadOnlyArray<string> | null>,
+    +ipi_codes?: CompT<ReadonlyArray<string> | null>,
+    +isni_codes?: CompT<ReadonlyArray<string> | null>,
     +label: LabelT,
     +label_code?: CompT<number>,
     +name?: CompT<string>,
@@ -812,7 +812,7 @@ declare type EditLabelEditT = $ReadOnly<{
 declare type EditMediumEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +artist_credit_changes?: $ReadOnlyArray<
+    +artist_credit_changes?: ReadonlyArray<
       | TracklistChangesAddT
       | TracklistChangesChangeT>,
     +changed_mbids: boolean,
@@ -821,10 +821,10 @@ declare type EditMediumEditT = $ReadOnly<{
     +medium: MediumT,
     +name?: CompT<string>,
     +position?: CompT<number | string>,
-    +recording_changes?: $ReadOnlyArray<
+    +recording_changes?: ReadonlyArray<
       | TracklistChangesAddT
       | TracklistChangesChangeT>,
-    +tracklist_changes?: $ReadOnlyArray<
+    +tracklist_changes?: ReadonlyArray<
       | TracklistChangesAddT
       | TracklistChangesChangeT
       | TracklistChangesRemoveT>,
@@ -923,14 +923,14 @@ declare type EditRelationshipTypeEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +attributes: CompT<
-      $ReadOnlyArray<EditRelationshipTypeEditDisplayAttributeT>>,
+      ReadonlyArray<EditRelationshipTypeEditDisplayAttributeT>>,
     +child_order: CompT<number>,
     +description?: CompT<string | null>,
     +documentation: CompT<string | null>,
     +entity0_cardinality?: CompT<number>,
     +entity1_cardinality?: CompT<number>,
     +examples: CompT<
-      $ReadOnlyArray<EditRelationshipTypeEditDisplayExampleT>>,
+      ReadonlyArray<EditRelationshipTypeEditDisplayExampleT>>,
     +has_dates: CompT<boolean>,
     +is_deprecated: CompT<boolean>,
     +link_phrase?: CompT<string>,
@@ -950,7 +950,7 @@ declare type EditReleaseEditGenericT = $ReadOnly<{
     +artist_credit?: CompT<ArtistCreditT>,
     +barcode?: CompT<string | null>,
     +comment?: CompT<string | null>,
-    +events?: CompT<$ReadOnlyArray<ReleaseEventT>>,
+    +events?: CompT<ReadonlyArray<ReleaseEventT>>,
     +language?: CompT<LanguageT | null>,
     +name?: CompT<string>,
     +packaging?: CompT<ReleasePackagingT | null>,
@@ -999,7 +999,7 @@ declare type EditReleaseLabelEditT = $ReadOnly<{
       +old: string | null,
     },
     +combined_format?: string,
-    +events: $ReadOnlyArray<ReleaseEventT>,
+    +events: ReadonlyArray<ReleaseEventT>,
     +label: {
       +new?: LabelT | null,
       +old: LabelT | null,
@@ -1037,11 +1037,11 @@ declare type EditWorkEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +attributes?: {
-      +[attributeName: string]: CompT<$ReadOnlyArray<string>>,
+      +[attributeName: string]: CompT<ReadonlyArray<string>>,
     },
     +comment?: CompT<string | null>,
     +iswc?: CompT<string | null>,
-    +languages?: CompT<$ReadOnlyArray<LanguageT>>,
+    +languages?: CompT<ReadonlyArray<LanguageT>>,
     +name?: CompT<string>,
     +type?: CompT<WorkTypeT | null>,
     +work: WorkT,
@@ -1053,7 +1053,7 @@ declare type MergeAreasEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: AreaT,
-    +old: $ReadOnlyArray<AreaT>,
+    +old: ReadonlyArray<AreaT>,
   },
   +edit_type: EDIT_AREA_MERGE_T,
 }>;
@@ -1062,7 +1062,7 @@ declare type MergeArtistsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: ArtistT,
-    +old: $ReadOnlyArray<ArtistT>,
+    +old: ReadonlyArray<ArtistT>,
     +rename: boolean,
   },
   +edit_type: EDIT_ARTIST_MERGE_T,
@@ -1072,7 +1072,7 @@ declare type MergeEventsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: EventT,
-    +old: $ReadOnlyArray<EventT>,
+    +old: ReadonlyArray<EventT>,
   },
   +edit_type: EDIT_EVENT_MERGE_T,
 }>;
@@ -1081,7 +1081,7 @@ declare type MergeInstrumentsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: InstrumentT,
-    +old: $ReadOnlyArray<InstrumentT>,
+    +old: ReadonlyArray<InstrumentT>,
   },
   +edit_type: EDIT_INSTRUMENT_MERGE_T,
 }>;
@@ -1090,7 +1090,7 @@ declare type MergeLabelsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: LabelT,
-    +old: $ReadOnlyArray<LabelT>,
+    +old: ReadonlyArray<LabelT>,
   },
   +edit_type: EDIT_LABEL_MERGE_T,
 }>;
@@ -1099,7 +1099,7 @@ declare type MergePlacesEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: PlaceT,
-    +old: $ReadOnlyArray<PlaceT>,
+    +old: ReadonlyArray<PlaceT>,
   },
   +edit_type: EDIT_PLACE_MERGE_T,
 }>;
@@ -1109,7 +1109,7 @@ declare type MergeRecordingsEditT = $ReadOnly<{
   +display_data: {
     +large_spread: boolean,
     +new: RecordingT,
-    +old: $ReadOnlyArray<RecordingT>,
+    +old: ReadonlyArray<RecordingT>,
   },
   +edit_type: EDIT_RECORDING_MERGE_T,
 }>;
@@ -1118,13 +1118,13 @@ declare type MergeReleaseGroupsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: ReleaseGroupT,
-    +old: $ReadOnlyArray<ReleaseGroupT>,
+    +old: ReadonlyArray<ReleaseGroupT>,
   },
   +edit_type: EDIT_RELEASEGROUP_MERGE_T,
 }>;
 
 declare type MergeReleaseEditDisplayChangeT = {
-  +mediums: $ReadOnlyArray<{
+  +mediums: ReadonlyArray<{
     +id: number,
     +new_name: string,
     +new_position: number,
@@ -1138,7 +1138,7 @@ declare type MergeReleaseEditDisplayRecordingMergeT = {
   +destination: RecordingT,
   +large_spread: boolean,
   +medium: string,
-  +sources: $ReadOnlyArray<RecordingT>,
+  +sources: ReadonlyArray<RecordingT>,
   +track: string,
 };
 
@@ -1149,14 +1149,14 @@ declare type MergeReleasesEditT = $ReadOnly<{
       +message: string,
       +vars: {+[var: string]: string, ...},
     },
-    +changes: $ReadOnlyArray<MergeReleaseEditDisplayChangeT>,
+    +changes: ReadonlyArray<MergeReleaseEditDisplayChangeT>,
     +edit_version: 1 | 2 | 3,
-    +empty_releases?: $ReadOnlyArray<ReleaseT>,
+    +empty_releases?: ReadonlyArray<ReleaseT>,
     +merge_strategy: 'append' | 'merge',
     +new: ReleaseT,
-    +old: $ReadOnlyArray<ReleaseT>,
+    +old: ReadonlyArray<ReleaseT>,
     +recording_merges?:
-      $ReadOnlyArray<MergeReleaseEditDisplayRecordingMergeT>,
+      ReadonlyArray<MergeReleaseEditDisplayRecordingMergeT>,
   },
   +edit_type: EDIT_RELEASE_MERGE_T,
 }>;
@@ -1165,7 +1165,7 @@ declare type MergeSeriesEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: SeriesT,
-    +old: $ReadOnlyArray<SeriesT>,
+    +old: ReadonlyArray<SeriesT>,
   },
   +edit_type: EDIT_SERIES_MERGE_T,
 }>;
@@ -1174,7 +1174,7 @@ declare type MergeWorksEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +new: WorkT,
-    +old: $ReadOnlyArray<WorkT>,
+    +old: ReadonlyArray<WorkT>,
   },
   +edit_type: EDIT_WORK_MERGE_T,
 }>;
@@ -1358,7 +1358,7 @@ declare type RemoveMediumEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +medium: MediumT,
-    +tracks?: $ReadOnlyArray<TrackT>,
+    +tracks?: ReadonlyArray<TrackT>,
   },
   +edit_type: EDIT_MEDIUM_DELETE_T,
 }>;
@@ -1383,7 +1383,7 @@ declare type RemoveRelationshipEditT = $ReadOnly<{
       +extra_phrase_attributes?: string,
       +id: number,
       +link: {
-        +attributes?: $ReadOnlyArray<{
+        +attributes?: ReadonlyArray<{
           +credited_as?: string,
           +gid?: string,
           +id?: string | number,
@@ -1443,7 +1443,7 @@ declare type RemoveRelationshipAttributeEditT = $ReadOnly<{
 declare type RemoveRelationshipTypeEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +attributes: $ReadOnlyArray<{
+    +attributes: ReadonlyArray<{
       ...LinkTypeAttrTypeT,
       +typeName: string,
     }>,
@@ -1471,8 +1471,8 @@ declare type RemoveReleaseLabelEditT = $ReadOnly<{
 declare type ReorderCoverArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +new: $ReadOnlyArray<ReleaseArtT>,
-    +old: $ReadOnlyArray<ReleaseArtT>,
+    +new: ReadonlyArray<ReleaseArtT>,
+    +old: ReadonlyArray<ReleaseArtT>,
     +release: ReleaseT,
   },
   +edit_type: EDIT_RELEASE_REORDER_COVER_ART_T,
@@ -1482,8 +1482,8 @@ declare type ReorderEventArtEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +event: EventT,
-    +new: $ReadOnlyArray<EventArtT>,
-    +old: $ReadOnlyArray<EventArtT>,
+    +new: ReadonlyArray<EventArtT>,
+    +old: ReadonlyArray<EventArtT>,
   },
   +edit_type: EDIT_EVENT_REORDER_EVENT_ART_T,
 }>;
@@ -1491,7 +1491,7 @@ declare type ReorderEventArtEditT = $ReadOnly<{
 declare type ReorderMediumsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
-    +mediums: $ReadOnlyArray<{
+    +mediums: ReadonlyArray<{
       +new: number,
       +old: 'new' | number,
       +title: string,
@@ -1505,7 +1505,7 @@ declare type ReorderRelationshipsEditT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +entered_from?: NonUrlRelatableEntityT,
-    +relationships: $ReadOnlyArray<{
+    +relationships: ReadonlyArray<{
       +new_order: number,
       +old_order: number,
       +relationship: RelationshipT,
@@ -1528,9 +1528,9 @@ declare type SetTrackLengthsEditGenericT = $ReadOnly<{
   ...GenericEditT,
   +display_data: {
     +cdtoc: CDTocT | null,
-    +length: CompT<$ReadOnlyArray<number | null>>,
+    +length: CompT<ReadonlyArray<number | null>>,
     +medium?: MediumT,
-    +releases: $ReadOnlyArray<ReleaseT>,
+    +releases: ReadonlyArray<ReleaseT>,
   },
 }>;
 

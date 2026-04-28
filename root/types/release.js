@@ -36,15 +36,15 @@ declare type ReleaseT = $ReadOnly<{
   +combined_format_name?: string,
   +combined_track_count?: string,
   +cover_art_presence: 'absent' | 'present' | 'darkened' | null,
-  +events?: $ReadOnlyArray<ReleaseEventT>,
+  +events?: ReadonlyArray<ReleaseEventT>,
   +has_no_tracks: boolean,
-  +labels?: $ReadOnlyArray<ReleaseLabelT>,
+  +labels?: ReadonlyArray<ReleaseLabelT>,
   +language: LanguageT | null,
   +languageID: number | null,
   +length?: number,
   +may_have_cover_art?: boolean,
   +may_have_discids?: boolean,
-  +mediums?: $ReadOnlyArray<MediumT>,
+  +mediums?: ReadonlyArray<MediumT>,
   +packagingID: number | null,
   +primaryAlias?: string | null,
   +quality: QualityT,
@@ -57,5 +57,5 @@ declare type ReleaseT = $ReadOnly<{
 
 declare type ReleaseWithMediumsT = $ReadOnly<{
   ...ReleaseT,
-  +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  +mediums: ReadonlyArray<MediumWithRecordingsT>,
 }>;

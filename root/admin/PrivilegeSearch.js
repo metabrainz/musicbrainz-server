@@ -36,7 +36,7 @@ type PrivilegeSearchFormT = FormT<{
 component PrivilegeSearch(
   form: PrivilegeSearchFormT,
   pager?: PagerT,
-  results: $ReadOnlyArray<UnsanitizedEditorT> | null,
+  results: ReadonlyArray<UnsanitizedEditorT> | null,
 ) {
   return (
     <Layout fullWidth title="Search users by privileges">
