@@ -110,7 +110,7 @@ function createInitialState(creditsMode: CreditsModeT) {
 }
 
 export function isMediumExpanded(
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   medium: MediumWithRecordingsT,
 ): boolean {
   const expanded = expandedMediums.get(medium.position);
@@ -204,7 +204,7 @@ function getCombinedTrackRelationships(
 export function useUnloadedTracksMap(
   mediums: ReadonlyArray<MediumWithRecordingsT>,
   loadedTracks: LoadedTracksMapT,
-): $ReadOnlyMap<number, boolean> {
+): ReadonlyMap<number, boolean> {
   return React.useMemo(() => new Map(
     mediums.map(medium => [
       medium.id,
@@ -219,7 +219,7 @@ export function useUnloadedTracksMap(
 }
 
 export function useReleaseHasUnloadedTracks(
-  hasUnloadedTracksPerMedium: $ReadOnlyMap<number, boolean>,
+  hasUnloadedTracksPerMedium: ReadonlyMap<number, boolean>,
 ): boolean {
   return React.useMemo(() => {
     for (

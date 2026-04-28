@@ -210,7 +210,7 @@ class ViewModel {
 
   attributeTypesByID: {[typeId: StrOrNum]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: $ReadOnlyMap<string, OptionListT>;
+  allowedValuesByTypeID: ReadonlyMap<string, OptionListT>;
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 

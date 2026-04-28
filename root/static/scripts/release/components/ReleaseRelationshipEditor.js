@@ -1429,7 +1429,7 @@ export const reducer: ((
 component _MediumRelationshipEditors(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1470,7 +1470,7 @@ const MediumRelationshipEditors = React.memo(_MediumRelationshipEditors);
 component _TrackRelationshipsSection(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,

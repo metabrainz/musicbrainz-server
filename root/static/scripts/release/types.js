@@ -30,10 +30,10 @@ export type ActionT =
   | LazyReleaseActionT;
 
 export type LoadedTracksMapT =
-  $ReadOnlyMap<number, ReadonlyArray<TrackWithRecordingT>>;
+  ReadonlyMap<number, ReadonlyArray<TrackWithRecordingT>>;
 
 export type LazyReleaseStateT = {
-  +expandedMediums: $ReadOnlyMap<number, boolean>,
+  +expandedMediums: ReadonlyMap<number, boolean>,
   +loadedTracks: LoadedTracksMapT,
   ...
 };
