@@ -76,7 +76,7 @@ export type RelationshipTargetTypeGroupT = {
 };
 
 export function cmpTargetTypeGroups<
-  T: {+targetType: RelatableEntityTypeT, ...},
+  T extends {+targetType: RelatableEntityTypeT, ...},
 >(a: T, b: T): number {
   return compareStrings(a.targetType, b.targetType);
 }

@@ -10,7 +10,7 @@
 import areDatesEqual from './areDatesEqual.js';
 
 export default function areDatePeriodsEqual<
-  T: Readonly<{...DatePeriodRoleT, ...}>,
+  T extends Readonly<{...DatePeriodRoleT, ...}>,
 >(a: T, b: T): boolean {
   return (
     a.ended === b.ended &&

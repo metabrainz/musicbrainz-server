@@ -45,7 +45,7 @@ import type {
   StateT,
 } from './types.js';
 
-function initSearch<T: EntityItemT>(
+function initSearch<T extends EntityItemT>(
   state: {...StateT<T>},
   action: SearchActionT,
 ) {
@@ -69,7 +69,7 @@ function initSearch<T: EntityItemT>(
   }
 }
 
-export function generateItems<T: EntityItemT>(
+export function generateItems<T extends EntityItemT>(
   state: StateT<T>,
 ): ReadonlyArray<ItemT<T>> {
   const items: Array<ItemT<T>> = [];
@@ -187,7 +187,7 @@ export function generateItems<T: EntityItemT>(
   return items;
 }
 
-export function determineIfUserCanAddEntities<T: EntityItemT>(
+export function determineIfUserCanAddEntities<T extends EntityItemT>(
   state: StateT<T>,
 ): boolean {
   const user = getCatalystContext().user;
@@ -211,7 +211,7 @@ export function determineIfUserCanAddEntities<T: EntityItemT>(
   };
 }
 
-function getFirstHighlightableIndex<T: EntityItemT>(
+function getFirstHighlightableIndex<T extends EntityItemT>(
   state: StateT<T>,
 ): number {
   const items = state.items;
@@ -226,7 +226,7 @@ function getFirstHighlightableIndex<T: EntityItemT>(
   return -1;
 }
 
-export function generateStatusMessage<T: EntityItemT>(
+export function generateStatusMessage<T extends EntityItemT>(
   state: StateT<T>,
 ): string {
   if (state.isOpen) {
@@ -269,7 +269,7 @@ export function generateStatusMessage<T: EntityItemT>(
   return '';
 }
 
-export function filterStaticItems<T: EntityItemT>(
+export function filterStaticItems<T extends EntityItemT>(
   state: {...StateT<T>},
   newInputValue: string,
 ): void {
@@ -278,7 +278,7 @@ export function filterStaticItems<T: EntityItemT>(
   state.results = searchItems(staticItems, newInputValue);
 }
 
-export function resetPage<T: EntityItemT>(
+export function resetPage<T extends EntityItemT>(
   state: {...StateT<T>},
 ): void {
   state.highlightedIndex = -1;
@@ -288,7 +288,7 @@ export function resetPage<T: EntityItemT>(
   state.error = 0;
 }
 
-function selectItem<T: EntityItemT>(
+function selectItem<T extends EntityItemT>(
   state: {...StateT<T>},
   item: ItemT<T>,
 ) {
@@ -329,7 +329,7 @@ function selectItem<T: EntityItemT>(
   state.pendingSearch = null;
 }
 
-function setError<T: EntityItemT>(
+function setError<T extends EntityItemT>(
   state: {...StateT<T>},
   error: number,
 ) {
@@ -337,7 +337,7 @@ function setError<T: EntityItemT>(
   state.isOpen = true;
 }
 
-function highlightNextItem<T: EntityItemT>(
+function highlightNextItem<T extends EntityItemT>(
   state: {...StateT<T>},
   startingIndex: number,
   offset: number,
@@ -367,7 +367,7 @@ function highlightNextItem<T: EntityItemT>(
 }
 
 // `runReducer` should only be run on a copy of the existing state.
-export function runReducer<T: EntityItemT>(
+export function runReducer<T extends EntityItemT>(
   state: {...StateT<T>},
   action: ActionT<T>,
 ): void {
@@ -610,7 +610,7 @@ export function runReducer<T: EntityItemT>(
   }
 }
 
-export default function reducer<T: EntityItemT>(
+export default function reducer<T extends EntityItemT>(
   state: StateT<T>,
   action: ActionT<T>,
 ): StateT<T> {

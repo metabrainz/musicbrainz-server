@@ -52,7 +52,7 @@ declare module 'pg' {
       config: string | QueryConfig<V>,
       callback: (?Error, ?PgResultSet<R>) => void,
     ): void,
-    query<Q: Submittable, V = unknown>(
+    query<Q extends Submittable, V = unknown>(
       config: Q,
       values?: ReadonlyArray<V>,
     ): Q,

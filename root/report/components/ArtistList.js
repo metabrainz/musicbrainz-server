@@ -17,7 +17,7 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-component ArtistList<D: {+artist: ?ArtistT, ...}>(
+component ArtistList<D extends {+artist: ?ArtistT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

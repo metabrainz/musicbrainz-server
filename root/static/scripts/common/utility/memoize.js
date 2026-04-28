@@ -19,7 +19,7 @@ type ObjectType = interface {} | ReadonlyArray<unknown>;
 // const createMap = <K, V>(): Map<K, V> => new Map<K, V>();
 
 const createWeakMap =
-  <K: ObjectType, V>(): WeakMap<K, V> => new WeakMap<K, V>();
+  <K extends ObjectType, V>(): WeakMap<K, V> => new WeakMap<K, V>();
 
 function memoizeGeneric<T, U>(
   func: (T) => U,
@@ -37,13 +37,13 @@ function memoizeGeneric<T, U>(
   };
 }
 
-export default function memoize<T: interface {}, U>(
+export default function memoize<T extends interface {}, U>(
   func: (T) => U,
 ): (T) => U {
   return memoizeGeneric(func, createWeakMap);
 }
 
-export function memoizeWithDefault<T: interface {}, U>(
+export function memoizeWithDefault<T extends interface {}, U>(
   func: (T) => U,
   defaultValue: U,
 ): (?T) => U {

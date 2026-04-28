@@ -178,7 +178,7 @@ type PropsWithEntity = {
   ...
 };
 
-export function minimalEntity<T: PropsWithEntity>(
+export function minimalEntity<T extends PropsWithEntity>(
   props: T,
 ): T {
   const entity = props.entity;

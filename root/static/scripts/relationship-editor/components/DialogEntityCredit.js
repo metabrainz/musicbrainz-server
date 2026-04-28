@@ -30,7 +30,7 @@ export function createInitialState(
   };
 }
 
-export function reducer<T: Readonly<{...DialogEntityCreditStateT, ...}>>(
+export function reducer<T extends Readonly<{...DialogEntityCreditStateT, ...}>>(
   state: T,
   action: DialogEntityCreditActionT,
 ): T {

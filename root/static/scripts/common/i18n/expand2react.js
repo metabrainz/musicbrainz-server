@@ -187,7 +187,7 @@ function pushChild<T>(
  */
 type MatchUpperBoundT = StrOrNum | {...};
 
-function concatArrayMatch<T: MatchUpperBoundT>(
+function concatArrayMatch<T extends MatchUpperBoundT>(
   children: Array<T> | NO_MATCH,
   match: Array<T> | T,
 ): Array<T> {
@@ -205,7 +205,7 @@ function concatArrayMatch<T: MatchUpperBoundT>(
   return matchedChildren;
 }
 
-function parseContinuousArray<T: MatchUpperBoundT, V>(
+function parseContinuousArray<T extends MatchUpperBoundT, V>(
   parsers: ReadonlyArray<Parser<Array<T> | T | NO_MATCH, V>>,
   args: VarArgsClass<V>,
 ): Array<T> {

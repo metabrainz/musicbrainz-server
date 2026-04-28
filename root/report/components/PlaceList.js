@@ -16,7 +16,7 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component PlaceList<D: {+place: ?PlaceT, ...}>(
+component PlaceList<D extends {+place: ?PlaceT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

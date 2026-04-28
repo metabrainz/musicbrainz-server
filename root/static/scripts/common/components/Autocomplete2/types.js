@@ -9,7 +9,7 @@
 
 export type SearchableTypeT = EntityItemT['entityType'];
 
-export type StateT<T: EntityItemT> = {
+export type StateT<T extends EntityItemT> = {
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
   +disabled?: boolean,
@@ -49,7 +49,7 @@ export type StateT<T: EntityItemT> = {
   +width?: string,
 };
 
-export type PropsT<T: EntityItemT> = {
+export type PropsT<T extends EntityItemT> = {
   +children?: React.Node,
   +dispatch: (ActionT<T>) => void,
   +state: StateT<T>,
@@ -62,7 +62,7 @@ export type SearchActionT = {
 };
 
 /* eslint-disable ft-flow/sort-keys */
-export type ActionT<+T: EntityItemT> =
+export type ActionT<+T extends EntityItemT> =
   | SearchActionT
   | {
       +type: 'change-entity-type',
@@ -124,7 +124,7 @@ export type HeaderItemT = {
   +separator?: boolean,
 };
 
-export type ItemT<+T: EntityItemT> =
+export type ItemT<+T extends EntityItemT> =
   | ActionItemT<T>
   | OptionItemT<T>
   | HeaderItemT;

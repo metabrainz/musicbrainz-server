@@ -34,7 +34,7 @@ import UserInlineList from '../user/components/UserInlineList.js';
 
 import CollectionLayout from './CollectionLayout.js';
 
-type PropsForEntity<T: CollectableEntityT> = {
+type PropsForEntity<T extends CollectableEntityT> = {
   +collection: CollectionT,
   +collectionEntityType: T['entityType'],
   +entities: ReadonlyArray<T>,

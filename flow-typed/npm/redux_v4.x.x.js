@@ -11,7 +11,7 @@ declare module 'redux' {
 
   declare export type DispatchAPI<A> = (action: A) => A;
 
-  declare export type Dispatch<A: { type: unknown, ... }> = DispatchAPI<A>;
+  declare export type Dispatch<A extends { type: unknown, ... }> = DispatchAPI<A>;
 
   declare export type MiddlewareAPI<S, A, D = Dispatch<A>> = {
     dispatch: D,
@@ -82,8 +82,8 @@ declare module 'redux' {
 
   declare export function bindActionCreators<
     A,
-    C: ActionCreator<A, any>,
-    D: DispatchAPI<A>
+    C extends ActionCreator<A, any>,
+    D extends DispatchAPI<A>
   >(
     actionCreator: C,
     dispatch: D
@@ -91,8 +91,8 @@ declare module 'redux' {
   declare export function bindActionCreators<
     A,
     K,
-    C: ActionCreators<K, A>,
-    D: DispatchAPI<A>
+    C extends ActionCreators<K, A>,
+    D extends DispatchAPI<A>
   >(
     actionCreators: C,
     dispatch: D

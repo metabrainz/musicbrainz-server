@@ -43,7 +43,7 @@ export function cloneArrayDeep<T>(
   return _cloneArrayDeep<T>(array, new WeakMap());
 }
 
-function _cloneObjectDeep<T: {+[key: string]: any}>(
+function _cloneObjectDeep<T extends {+[key: string]: any}>(
   object: T,
   seen: WeakMap<any, any>,
 ): T {
@@ -57,7 +57,7 @@ function _cloneObjectDeep<T: {+[key: string]: any}>(
   return clone;
 }
 
-export function cloneObjectDeep<T: {...}>(
+export function cloneObjectDeep<T extends {...}>(
   object: T,
 ): T {
   return _cloneObjectDeep<T>(object, new WeakMap());

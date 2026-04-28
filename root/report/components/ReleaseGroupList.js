@@ -18,7 +18,7 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-component ReleaseGroupList<D: {+release_group: ?ReleaseGroupT, ...}>(
+component ReleaseGroupList<D extends {+release_group: ?ReleaseGroupT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

@@ -60,7 +60,7 @@ import type {
  * `doSearch` performs a direct or indexed search (via /ws/js). This is the
  * default behavior if no `items` prop is given.
  */
-function doSearch<T: EntityItemT>(
+function doSearch<T extends EntityItemT>(
   dispatch: (ActionT<T>) => void,
   state: StateT<T>,
   xhr: {current: XMLHttpRequest | null},
@@ -141,7 +141,7 @@ function setScrollPosition(menuId: string) {
   }
 }
 
-type InitialStateT<T: EntityItemT> = {
+type InitialStateT<T extends EntityItemT> = {
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
   +disabled?: boolean,
@@ -170,7 +170,7 @@ type InitialStateT<T: EntityItemT> = {
 
 const EMPTY_ITEMS: ReadonlyArray<ItemT<empty>> = Object.freeze([]);
 
-export function createInitialState<T: EntityItemT>(
+export function createInitialState<T extends EntityItemT>(
   initialState: InitialStateT<T>,
 ): {...StateT<T>} {
   const {
@@ -230,7 +230,7 @@ export function createInitialState<T: EntityItemT>(
   return state;
 }
 
-component _AutocompleteItem<T: EntityItemT>(
+component _AutocompleteItem<T extends EntityItemT>(
   autocompleteId: string,
   dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
@@ -291,7 +291,7 @@ component _AutocompleteItem<T: EntityItemT>(
 
 const AutocompleteItem = React.memo(_AutocompleteItem);
 
-component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
+component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
   const {dispatch, state} = props;
 
   const {

@@ -14,7 +14,7 @@ import PaginatedResults from '../../components/PaginatedResults.js';
 import useTable from '../../hooks/useTable.js';
 import {defineLinkColumn} from '../../utility/tableColumns.js';
 
-component UrlList<D: {+url: ?UrlT, ...}>(
+component UrlList<D extends {+url: ?UrlT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

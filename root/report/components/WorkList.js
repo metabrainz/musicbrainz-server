@@ -19,7 +19,7 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-component WorkList<D: {+work: ?WorkT, ...}>(
+component WorkList<D extends {+work: ?WorkT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

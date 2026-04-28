@@ -44,14 +44,14 @@ export type ThrottleOptionsT = {
   +limit: number,
 };
 
-export type ThrottleResultT<+R: unknown> = {
+export type ThrottleResultT<+R extends unknown> = {
   +abort: () => void,
   +promise: Promise<R>,
 };
 
 const pThrottle = <
-  A: ReadonlyArray<unknown>,
-  R: unknown,
+  A extends ReadonlyArray<unknown>,
+  R extends unknown,
 >({
   interval,
   limit,

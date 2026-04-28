@@ -17,7 +17,7 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component RecordingList<D: {+recording: ?RecordingT, ...}>(
+component RecordingList<D extends {+recording: ?RecordingT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

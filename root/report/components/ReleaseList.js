@@ -17,7 +17,7 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component ReleaseList<D: {+release: ?ReleaseT, ...}>(
+component ReleaseList<D extends {+release: ?ReleaseT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

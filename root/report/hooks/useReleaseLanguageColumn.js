@@ -16,7 +16,7 @@ import {
 import type {ReportReleaseT} from '../types.js';
 
 function useReleaseLanguageColumn<
-  D: Readonly<{...ReportReleaseT, ...}>,
+  D extends Readonly<{...ReportReleaseT, ...}>,
 >(): ReadonlyArray<ColumnOptionsNoValue<D>> {
   const columns = React.useMemo(
     () => {

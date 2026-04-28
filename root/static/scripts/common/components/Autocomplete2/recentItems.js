@@ -33,7 +33,7 @@ import type {
  */
 type RecentEntitiesT = {[entityTypeKey: string]: unknown};
 
-type WsJsEntitiesDataT<T: EntityItemT> = {
+type WsJsEntitiesDataT<T extends EntityItemT> = {
   +results: {+[id: string]: ?T},
 };
 
@@ -181,7 +181,7 @@ export function clearRecentItems(
 const _recentItemsCache =
   new Map<string, ReadonlyArray<OptionItemT<EntityItemT>>>();
 
-export function getRecentItems<T: EntityItemT>(
+export function getRecentItems<T extends EntityItemT>(
   key: string,
 ): ReadonlyArray<OptionItemT<T>> {
   let cachedList = _recentItemsCache.get(key);
@@ -211,7 +211,7 @@ const _recentItemsRequests =
   // $FlowFixMe[unclear-type]
   new Map<string, Promise<ReadonlyArray<OptionItemT<any>>>>();
 
-export function getOrFetchRecentItems<T: EntityItemT>(
+export function getOrFetchRecentItems<T extends EntityItemT>(
   entityType: EntityItemT['entityType'],
   key?: string = entityType,
 ): Promise<ReadonlyArray<OptionItemT<T>>> {
@@ -339,7 +339,7 @@ export function getOrFetchRecentItems<T: EntityItemT>(
   return Promise.resolve(cachedList);
 }
 
-export function pushRecentItem<T: EntityItemT>(
+export function pushRecentItem<T extends EntityItemT>(
   item: OptionItemT<T>,
   key?: string = item.entity.entityType,
 ): ReadonlyArray<OptionItemT<T>> {

@@ -33,7 +33,7 @@ export function maybeGetCatalystContext(): ?SanitizedCatalystContextT {
 const sourceEntityDataCache:
   WeakMap<CatalystContextT | SanitizedCatalystContextT, RelatableEntityT> =
     new WeakMap();
-export function getSourceEntityData<T: RelatableEntityTypeT | void>(
+export function getSourceEntityData<T extends RelatableEntityTypeT | void>(
   $c: CatalystContextT | SanitizedCatalystContextT,
   /*
    * Note: `entityType` is optional, but can't be marked with `?`, or else

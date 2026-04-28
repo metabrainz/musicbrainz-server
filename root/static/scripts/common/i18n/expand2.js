@@ -248,7 +248,7 @@ export const parseStringVarSubst: Parser<string | NO_MATCH, unknown> =
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
 export const substEnd: RegExp = /^}/;
-export const createCondSubstParser = <T, V: Expand2ReactInput>(
+export const createCondSubstParser = <T, V extends Expand2ReactInput>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {
