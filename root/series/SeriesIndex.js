@@ -27,7 +27,7 @@ import {formatPluralEntityTypeName}
 
 import SeriesLayout from './SeriesLayout.js';
 
-type ListPickerProps = $Values<{
+type ListPickerProps = Values<{
   +[EntityType in keyof EntityWithSeriesMapT]: {
     ...SeriesItemNumbersRoleT,
     +entities: ReadonlyArray<EntityWithSeriesMapT[EntityType]>,

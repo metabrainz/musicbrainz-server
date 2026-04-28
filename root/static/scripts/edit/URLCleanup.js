@@ -435,7 +435,7 @@ const linkAsLyricsMsg = N_l(
 type ValidationResult = {
   +error?: React.Node,
   result: boolean,
-  +target?: $Values<typeof ERROR_TARGETS>,
+  +target?: Values<typeof ERROR_TARGETS>,
 };
 
 type CleanupEntry = {

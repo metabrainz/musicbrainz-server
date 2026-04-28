@@ -35,7 +35,7 @@ declare type EntityWithSeriesMapT = {
   'work': WorkT,
 };
 
-declare type EntityWithSeriesT = $Values<EntityWithSeriesMapT>;
+declare type EntityWithSeriesT = Values<EntityWithSeriesMapT>;
 
 declare type EntityWithSeriesTypeT = $Keys<EntityWithSeriesMapT>;
 
