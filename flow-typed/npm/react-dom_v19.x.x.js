@@ -64,13 +64,13 @@ declare module 'react-dom_shared-types' {
 
   // Mutable source version can be anything (e.g. number, string, immutable data structure)
   // so long as it changes every time any part of the source changes.
-  declare type MutableSourceVersion = $NonMaybeType<mixed>;
+  declare type MutableSourceVersion = NonNullable<mixed>;
 
   declare type MutableSourceGetVersionFn = (
-    source: $NonMaybeType<mixed>,
+    source: NonNullable<mixed>,
   ) => MutableSourceVersion;
 
-  declare type MutableSource<Source: $NonMaybeType<mixed>> = {|
+  declare type MutableSource<Source: NonNullable<mixed>> = {|
     _source: Source,
 
     _getVersion: MutableSourceGetVersionFn,
