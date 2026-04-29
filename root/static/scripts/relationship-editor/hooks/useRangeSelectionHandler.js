@@ -36,14 +36,16 @@ export default function useRangeSelectionHandler(
         lastClicked.current !== target &&
         event.shiftKey
       ) {
-        const checkboxes = container.querySelectorAll('input.' + className);
+        const checkboxes = container.querySelectorAll<'input'>(
+          // $FlowExpectedError[incompatible-type]
+          'input.' + className,
+        );
         const isTargetChecked = target.checked;
         let lastClickedIndex = -1;
         let targetIndex = -1;
         let index = -1;
         for (const checkbox of checkboxes) {
           ++index;
-          /*:: invariant(checkbox instanceof HTMLInputElement); */
           if (checkbox === lastClicked.current) {
             lastClickedIndex = index;
             if (targetIndex >= 0) {
@@ -72,7 +74,6 @@ export default function useRangeSelectionHandler(
         }
         for (index = startIndex; index <= endIndex; ++index) {
           const checkbox = checkboxes[index];
-          /*:: invariant(checkbox instanceof HTMLInputElement); */
           if (checkbox.checked !== isTargetChecked) {
             ignoreEvents.current = true;
             checkbox.click();

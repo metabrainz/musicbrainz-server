@@ -1,5 +1,5 @@
-// flow-typed signature: dce13fe32697e8af512785bcee9afd53
-// flow-typed version: 591bf2a67c/node/flow_>=v0.261.x
+// flow-typed signature: 1b127426153f9aa8109fac43230ad6a8
+// flow-typed version: abf85c0489/node/flow_>=v0.261.x
 
 interface ErrnoError extends Error {
   address?: string;
@@ -11,6 +11,12 @@ interface ErrnoError extends Error {
   port?: number;
   syscall?: string;
 }
+
+type Node$Conditional<T: boolean, IfTrue, IfFalse> = T extends true
+  ? IfTrue
+  : T extends false
+    ? IfFalse
+    : IfTrue | IfFalse;
 
 type buffer$NonBufferEncoding =
   'hex' | 'HEX' |
@@ -1310,6 +1316,71 @@ declare module "fs" {
   declare function copyFile(src: string, dest: string, flags?: number, callback: (err: ErrnoError) => void): void;
   declare function copyFileSync(src: string, dest: string, flags?: number): void;
 
+  declare type GlobOptions<WithFileTypes: boolean> = $ReadOnly<{
+    /**
+     * Current working directory.
+     * @default process.cwd()
+     */
+    cwd?: string | void,
+    /**
+     * `true` if the glob should return paths as `Dirent`s, `false` otherwise.
+     * @default false
+     * @since v22.2.0
+     */
+    withFileTypes?: WithFileTypes,
+    /**
+     * Function to filter out files/directories or a
+     * list of glob patterns to be excluded. If a function is provided, return
+     * `true` to exclude the item, `false` to include it.
+     * @default undefined
+     */
+    exclude?:
+      | ((fileName: Node$Conditional<WithFileTypes, Dirent, string>) => boolean)
+      | $ReadOnlyArray<string>,
+    ...
+  }>;
+
+  /**
+   * Retrieves the files matching the specified pattern.
+   *
+   * ```js
+   * import { glob } from 'node:fs';
+   *
+   * glob('*.js', (err, matches) => {
+   *   if (err) throw err;
+   *   console.log(matches);
+   * });
+   * ```
+   * @since v22.0.0
+   */
+  declare function glob(
+    pattern: string | $ReadOnlyArray<string>,
+    callback: (err: ?ErrnoError, matches: Array<string>) => void,
+  ): void;
+
+  declare function glob<WithFileTypes: boolean = false>(
+    pattern: string | $ReadOnlyArray<string>,
+    options: GlobOptions<WithFileTypes>,
+    callback: (
+      err: ?ErrnoError,
+      matches: Node$Conditional<WithFileTypes, Array<Dirent>, Array<string>>,
+    ) => void,
+  ): void;
+
+  /**
+   * ```js
+   * import { globSync } from 'node:fs';
+   *
+   * console.log(globSync('*.js'));
+   * ```
+   * @since v22.0.0
+   * @returns paths of files that match the pattern.
+   */
+  declare function globSync<WithFileTypes: boolean = false>(
+    pattern: string | $ReadOnlyArray<string>,
+    options?: GlobOptions<WithFileTypes>,
+  ): Node$Conditional<WithFileTypes, Array<Dirent>, Array<string>>;
+
   declare var F_OK: number;
   declare var R_OK: number;
   declare var W_OK: number;
@@ -1412,6 +1483,14 @@ declare module "fs" {
     ftruncate(filehandle: FileHandle, len?: number): Promise<void>,
     futimes(filehandle: FileHandle, atime: number | string | Date, mtime: number | string | Date): Promise<void>,
     lchmod(path: FSPromisePath, mode: number): Promise<void>,
+    glob<WithFileTypes: boolean = false>(
+      pattern: string | $ReadOnlyArray<string>,
+      options?: GlobOptions<WithFileTypes>,
+    ): Node$Conditional<
+      WithFileTypes,
+      AsyncIterator<Dirent>,
+      AsyncIterator<string>,
+    >,
     lchown(path: FSPromisePath, uid: number, guid: number): Promise<void>,
     link(existingPath: FSPromisePath, newPath: FSPromisePath): Promise<void>,
     lstat(path: FSPromisePath): Promise<Stats>,
@@ -1487,6 +1566,7 @@ type http$agentOptions = {
 declare class http$Agent<+SocketT = net$Socket> {
   constructor(options: http$agentOptions): void;
   destroy(): void;
+  // $FlowExpectedError[incompatible-variance]
   freeSockets: { [name: string]: $ReadOnlyArray<SocketT>, ... };
   getName(options: {
     host: string,
@@ -1496,7 +1576,9 @@ declare class http$Agent<+SocketT = net$Socket> {
   }): string;
   maxFreeSockets: number;
   maxSockets: number;
+  // $FlowExpectedError[incompatible-variance]
   requests: { [name: string]: $ReadOnlyArray<http$ClientRequest<SocketT>>, ... };
+  // $FlowExpectedError[incompatible-variance]
   sockets: { [name: string]: $ReadOnlyArray<SocketT>, ... };
 }
 
@@ -2552,28 +2634,28 @@ type util$InspectOptions = {
 
 declare type util$ParseArgsOption =
 | {|
-    type: 'boolean',
-    multiple?: false,
-    short?: string,
-    default?: boolean,
+    +type: 'boolean',
+    +multiple?: false,
+    +short?: string,
+    +default?: boolean,
   |}
 | {|
-    type: 'boolean',
-    multiple: true,
-    short?: string,
-    default?: Array<boolean>,
+    +type: 'boolean',
+    +multiple: true,
+    +short?: string,
+    +default?: Array<boolean>,
   |}
 | {|
-    type: 'string',
-    multiple?: false,
-    short?: string,
-    default?: string,
+    +type: 'string',
+    +multiple?: false,
+    +short?: string,
+    +default?: string,
   |}
 | {|
-    type: 'string',
-    multiple: true,
-    short?: string,
-    default?: Array<string>,
+    +type: 'string',
+    +multiple: true,
+    +short?: string,
+    +default?: Array<string>,
   |};
 
 type util$ParseArgsOptionToValue<TOption> =
@@ -2626,7 +2708,7 @@ declare module "util" {
   declare function stripVTControlCharacters(str: string): string;
 
   declare function parseArgs<
-    TOptions: {[string]: util$ParseArgsOption} = {||},
+    TOptions: {+[string]: util$ParseArgsOption} = {||},
   >(config: {|
     args?: Array<string>,
     options?: TOptions,
@@ -2639,7 +2721,7 @@ declare module "util" {
   |};
 
   declare function parseArgs<
-    TOptions: {[string]: util$ParseArgsOption} = {||},
+    TOptions: {+[string]: util$ParseArgsOption} = {||},
   >(config: {|
     args?: Array<string>,
     options?: TOptions,
@@ -3459,10 +3541,6 @@ declare module 'node:os' {
   declare module.exports: $Exports<'os'>;
 }
 
-declare module 'node:readline' {
-  declare module.exports: $Exports<'readline'>;
-}
-
 declare module 'fs/promises' {
   declare module.exports: $Exports<'fs'>['promises'];
 }
@@ -3481,6 +3559,10 @@ declare module 'process' {
 
 declare module 'node:process' {
   declare module.exports: $Exports<'process'>;
+}
+
+declare module 'node:readline' {
+  declare module.exports: $Exports<'readline'>;
 }
 
 declare module 'node:util' {

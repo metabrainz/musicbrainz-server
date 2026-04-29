@@ -3,7 +3,8 @@ FROM phusion/baseimage:noble-1.0.2 AS build
 
 SHELL ["/bin/bash", "-c"]
 
-RUN useradd --create-home --shell /bin/bash musicbrainz
+RUN userdel --force --remove ubuntu && \
+    useradd --create-home --shell /bin/bash --uid 1000 musicbrainz
 
 WORKDIR /home/musicbrainz
 

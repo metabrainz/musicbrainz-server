@@ -34,7 +34,7 @@ type ButtonsPropsT = {
   +isTrack: boolean,
 };
 
-const Buttons = React.memo<ButtonsPropsT, void>(({
+const Buttons = React.memo<ButtonsPropsT, React.MixedElement>(({
   dispatch,
   initialBubbleFocus,
   initialFocusRef,
@@ -104,7 +104,10 @@ type ArtistCreditPreviewPropsT = {
   +names: $ReadOnlyArray<ArtistCreditNameStateT>,
 };
 
-const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT, void>(({
+const ArtistCreditPreview = (React.memo<
+  ArtistCreditPreviewPropsT,
+  React.MixedElement,
+>(({
   editsPending,
   entity,
   names,

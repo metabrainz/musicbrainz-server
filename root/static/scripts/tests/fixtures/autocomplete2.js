@@ -62,6 +62,7 @@ const attributeTypeOptions = (
       parentId == null ? null : attributeTypesById.get(String(parentId));
   }
   return {
+    disabled: false,
     entity: type,
     id: type.id,
     level,

@@ -3,6 +3,7 @@
     "bom",
     "cssom",
     "dom",
+    "geometry",
     "html",
     "indexeddb",
     "intl",
@@ -10,6 +11,7 @@
     "node",
     "serviceworkers",
     "streams",
-    "webassembly"
+    "webassembly",
+    "web-animations"
   ]
 }

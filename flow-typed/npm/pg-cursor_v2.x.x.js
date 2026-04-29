@@ -16,7 +16,7 @@ declare module 'pg-cursor' {
     +rowMode?: 'array',
   };
 
-  declare class Cursor<+R> implements Submittable {
+  declare class Cursor<R> implements Submittable {
     constructor(
       text: string,
       values: $ReadOnlyArray<mixed>,
