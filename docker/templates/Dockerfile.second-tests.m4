@@ -43,13 +43,11 @@ run_with_apt_cache \
         ') && \
     rm -f /etc/apt/sources.list.d/nodesource.list \
         /etc/apt/sources.list.d/pgdg.list && \
-    systemctl disable rabbitmq-server && \
     install_perl && \
     install_cpanm_and_carton && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen && \
     # Allow the musicbrainz user execute any command with sudo.
-    # Primarily needed to run rabbitmqctl.
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
 
@@ -84,17 +82,6 @@ COPY --chown=postgres:postgres \
     docker/musicbrainz-tests/postgresql.conf \
     "$PGDATA"/
 
-FROM build AS pg_amqp
-
-ARG PG_AMQP_COMMIT=51497ac687f16989adff7729a303f9258706f663
-
-RUN git clone https://github.com/mwiencek/pg_amqp.git && \
-    cd pg_amqp && \
-    git reset --hard $PG_AMQP_COMMIT && \
-    mkdir target && \
-    make && \
-    make install DESTDIR=target
-
 FROM build AS mb_solr
 
 ARG OPENJDK_VERSION=17.0.11+9 \
@@ -118,7 +105,7 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
 
 FROM build AS sir
 
-ARG SIR_TAG=v4.0.1
+ARG SIR_TAG=dbmirror2
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://github.com/metabrainz/sir.git && \
     cd sir && \
@@ -127,13 +114,11 @@ RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://gith
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 COPY docker/musicbrainz-tests/log_solr_data.patch \
     docker/musicbrainz-tests/sir_nullpool.patch \
-    docker/musicbrainz-tests/sir_retry_ttl.patch \
     sir/
 
 RUN cd sir && \
     git apply log_solr_data.patch && \
-    git apply sir_nullpool.patch && \
-    git apply sir_retry_ttl.patch
+    git apply sir_nullpool.patch
 
 FROM build AS artwork_indexer
 
@@ -235,7 +220,6 @@ RUN sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv t
     cd -
 
 COPY --from=pgdata --chown=postgres:postgres "$PGHOME"/ "$PGHOME"/
-COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/target/ /
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
 COPY --from=mailpit --chown=root:root /home/musicbrainz/mailpit /usr/local/bin/
@@ -253,7 +237,6 @@ RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`mailpit') && \
     setup_test_service(`mb-mail-service') && \
     setup_test_service(`postgresql') && \
-    setup_test_service(`rabbitmq') && \
     setup_test_service(`redis') && \
     setup_test_service(`solr') && \
     setup_test_service(`ssssss') && \

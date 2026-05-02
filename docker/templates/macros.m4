@@ -357,8 +357,7 @@ m4_define(
 lsof
 maven
 openjdk-8-jdk
-openjdk-8-jre
-rabbitmq-server')
+openjdk-8-jre')
 
 m4_define(
     `selenium_caa_deps',

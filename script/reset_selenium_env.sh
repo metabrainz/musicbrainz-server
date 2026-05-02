@@ -4,8 +4,8 @@ set -o errexit
 
 EXTRA_SQL="$1"
 MBS_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd -P)"
-SIR_LOG_FILE="$MBS_ROOT"/t/selenium/.sir-amqp_watch.log
-SIR_PID_FILE="$MBS_ROOT"/t/selenium/.sir-amqp_watch.pid
+SIR_LOG_FILE="$MBS_ROOT"/t/selenium/.sir-live.log
+SIR_PID_FILE="$MBS_ROOT"/t/selenium/.sir-live.pid
 SIR_REINDEX_LOG_FILE="$MBS_ROOT"/t/selenium/.sir-reindex.log
 
 terminate_pg_backends() {
@@ -81,7 +81,7 @@ if [[ $SIR_DIR ]]; then
 
     echo `date` : Starting sir
     echo '==========' `date` '==========' >> "$SIR_LOG_FILE"
-    uv run python -m sir --debug amqp_watch >> "$SIR_LOG_FILE" 2>&1 &
+    uv run python -m sir --debug live >> "$SIR_LOG_FILE" 2>&1 &
     SIR_PID=$!
     disown
     echo "$SIR_PID" > "$SIR_PID_FILE"

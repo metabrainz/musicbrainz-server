@@ -12,20 +12,7 @@ ulimit -n 65000
 
 ./docker/musicbrainz-tests/add_mbtest_alias.sh
 
-sv_start_if_down rabbitmq
-rabbitmqctl await_startup
-
-# Setup the rabbitmq user/vhost used by pg_amqp + sir.
-rabbitmqctl add_user sir sir
-rabbitmqctl add_vhost /sir-test
-rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
-
 export SIR_DIR=/home/musicbrainz/sir
-pushd "$SIR_DIR"
-# Setup the RabbitMQ channels/queues used by sir.
-sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" \
-  uv run python -m sir amqp_setup
-popd
 
 sv_start_if_down \
   artwork-indexer \

@@ -25,13 +25,6 @@ sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres m
 sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
 sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
 
-cd /home/musicbrainz/sir
-
-# Generate the sir extensions and triggers, which is required before
-# invoking create_selenium_db.sh.
-sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" \
-    sh -c 'uv run python -m sir extension; uv run python -m sir triggers --broker-id=1'
-
 cd "$MBS_ROOT"
 
 sudo -E -H -u musicbrainz make -C po all_quiet deploy

@@ -266,8 +266,7 @@ Some Selenium tests make search queries and require a working search setup.
    this is done by script/reset_selenium_env.sh, which is invoked by
    t/selenium.js before each test. (If you need to inspect the sir logs of
    each run, they get saved to t/selenium/.sir-reindex.log and
-   t/selenium/.sir-amqp_watch.log for the reindex and amqp_watch commands
-   respectively.)
+   t/selenium/.sir-live.log for the reindex and live commands respectively.)
 
    Extensions and functions should be installed to the `musicbrainz_selenium`
    database. (reset_selenium_env.sh takes care of triggers for you.) You can
