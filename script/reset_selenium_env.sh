@@ -89,4 +89,4 @@ if [[ $SIR_DIR ]]; then
 fi
 
 echo `date` : Pruning the cache
-./admin/PruneCache
+./admin/PruneCache --database SELENIUM
