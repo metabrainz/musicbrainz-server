@@ -17,7 +17,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-04-11 22:11+0000\n"
+"PO-Revision-Date: 2026-05-03 16:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -29,7 +29,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1345,6 +1345,10 @@ msgid ""
 "six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
 msgstr ""
+"В отличие от обычной гитары имеет явно асимметричную форму, а её тембр "
+"представляет собой сочетание звучания клавесина (порт. cravo) и виолы "
+"кайпира. Может иметь 6 или 12 струн из нейлона или стали и производится "
+"исключительно компанией Giannini."
 
 #. name:tambura
 #: DB:instrument/description:391
@@ -1455,6 +1459,8 @@ msgid ""
 "Electromechanical piano (not to be confused with <em>electronic</em> piano) "
 "designed and produced by Hohner in the 1960 and 70s."
 msgstr ""
+"Электромеханическое (не путать с <em>электронным</em>) пианино, "
+"разработанное и производившееся компанией Hohner в 1960-х и 70-х годах."
 
 #. name:Cembalet
 #: DB:instrument/description:794

@@ -23,7 +23,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-04-23 01:11+0000\n"
+"PO-Revision-Date: 2026-05-03 16:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.17\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -3677,6 +3677,10 @@ msgid ""
 "includes remixed versions of all (or most of) the tracks in the other "
 "release group."
 msgstr ""
+"Связывает группу релизов с <a href=\"/doc/Mix_Terminology#remix\">ремиксами</"
+"a> к исходной группе релизов и используется для обозначения того, что группа "
+"включает в себя ремиксованные версии всех (или бо́льшей части) треков в "
+"другой группе релизов."
 
 #. name:remix
 #: DB:link_type/description:230
@@ -3684,6 +3688,8 @@ msgid ""
 "This links a <a href=\"/doc/Mix_Terminology#remix\">remixed</a> recording to "
 "the source recording."
 msgstr ""
+"Связывает <a href=\"/doc/Mix_Terminology#remix\">ремиксованную</a> запись с "
+"исходной."
 
 #. name:amazon asin
 #: DB:link_type/description:77
@@ -4589,7 +4595,7 @@ msgstr ""
 #. name:catalog site
 #: DB:link_type/description:212
 msgid "This links to a catalog or list of records published by the label."
-msgstr ""
+msgstr "Указывает на каталог или список релизов, изданных лейблом."
 
 #. name:history site
 #: DB:link_type/description:211
@@ -5575,6 +5581,8 @@ msgid ""
 "Use this relationship for credits like “Recording was produced by X for "
 "Label”."
 msgstr ""
+"Используйте данное отношений для указаний типа \"Продюсер: X по заказу "
+"Лейбла\"."
 
 #. name:remixed for
 #: DB:link_type/description:1178
@@ -5582,6 +5590,8 @@ msgid ""
 "Use this relationship for credits like “Recording was remixed by X for "
 "Label”."
 msgstr ""
+"Используйте данное отношений для указаний типа \"Ремикс от X по заказу "
+"Лейбла\"."
 
 #. name:arranged for
 #: DB:link_type/description:948
@@ -5615,6 +5625,8 @@ msgstr ""
 msgid ""
 "Use this relationship for credits like “Release was produced by X for Label”."
 msgstr ""
+"Используйте данное отношений для указаний типа \"Продюсер релиза: X по "
+"заказу Лейбла\"."
 
 #. name:pre
 #: DB:link_attribute_type/description:1353
@@ -9219,11 +9231,11 @@ msgstr "место печати для"
 
 #: DB:link_type/name:825 DB:link_type/name:824
 msgid "produced at"
-msgstr ""
+msgstr "место продюсирования"
 
 #: DB:link_type/name:951 DB:link_type/name:950
 msgid "produced for"
-msgstr ""
+msgstr "спродюсировано для"
 
 #: DB:link_type/name:827 DB:link_type/name:826
 msgid "produced in"
@@ -9233,6 +9245,8 @@ msgstr ""
 #: DB:link_type/link_phrase:154 DB:link_type/link_phrase:49
 msgid "produced material that was {additional:additionally} sampled in"
 msgstr ""
+"спродюсировал(-а) материал, который был {additional:дополнительно} "
+"сэмплирован в"
 
 #: DB:link_type/name:141 DB:link_type/name:30
 msgid "producer"
@@ -9371,7 +9385,7 @@ msgstr ""
 #: DB:link_type/link_phrase:127 DB:link_type/long_link_phrase:206
 #: DB:link_type/long_link_phrase:127
 msgid "published"
-msgstr ""
+msgstr "является издателем"
 
 #. name:publishing
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
@@ -9598,12 +9612,12 @@ msgstr "является ремиксом"
 
 #: DB:link_type/name:829 DB:link_type/name:828
 msgid "remixed at"
-msgstr ""
+msgstr "место ремиксинга"
 
 #. name:remixed for
 #: DB:link_type/name:1178 DB:link_type/reverse_link_phrase:1178
 msgid "remixed for"
-msgstr ""
+msgstr "ремикс создан для"
 
 #: DB:link_type/name:831 DB:link_type/name:830
 msgid "remixed in"
@@ -10812,7 +10826,7 @@ msgstr ""
 #: DB:link_type/link_phrase:153 DB:link_type/link_phrase:47
 #: DB:link_type/long_link_phrase:153 DB:link_type/long_link_phrase:47
 msgid "{additional:additionally} {assistant} remixed"
-msgstr ""
+msgstr "{additional:дополнительно}{assistant:, как ассистент} создал ремикс"
 
 #. name:programming
 #: DB:link_type/long_link_phrase:37 DB:link_type/long_link_phrase:132
@@ -10858,6 +10872,8 @@ msgstr ""
 msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}sound engineered"
 msgstr ""
+"выступил(-а) {additional:дополнительным} {assistant:ассистентом} "
+"{associate:связанным} {co:со-}звукорежиссером"
 
 #. name:transfer
 #: DB:link_type/link_phrase:1179 DB:link_type/long_link_phrase:1179
@@ -10880,6 +10896,8 @@ msgid ""
 "{additional:additionally} {assistant} {associate} {co:co-}"
 "{executive:executive }produced"
 msgstr ""
+"{additional:дополнительно} {associate:связанно} {co:со-}"
+"{executive:исполнительно }спродюсировал{assistant:, являясь ассистентом}"
 
 #. name:mastering
 #: DB:link_type/long_link_phrase:42
@@ -11469,7 +11487,7 @@ msgstr "{bonus:может быть|является} частью сета, сл
 #. name:produced for
 #: DB:link_type/reverse_link_phrase:951 DB:link_type/reverse_link_phrase:950
 msgid "{co:co-}{executive:executive }produced for"
-msgstr ""
+msgstr "{co:со-}{executive:исполнительное } продюсирование для"
 
 #. name:has catalogue
 #: DB:link_type/long_link_phrase:750
@@ -11857,12 +11875,12 @@ msgstr ""
 #. name:produced at
 #: DB:link_type/long_link_phrase:825 DB:link_type/long_link_phrase:824
 msgid "{entity1} was {additional:additionally} produced at {entity0}"
-msgstr ""
+msgstr "{entity1} было {additional:дополнительно} спродюсировано в {entity0}"
 
 #. name:produced in
 #: DB:link_type/long_link_phrase:827 DB:link_type/long_link_phrase:826
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
-msgstr ""
+msgstr "{entity1} было {additional:дополнительно} спродюсировано в {entity0}"
 
 #. name:recorded at
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
@@ -11949,6 +11967,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:951 DB:link_type/long_link_phrase:950
 msgid "{entity1} was {co:co-}{executive:executive }produced for {entity0}"
 msgstr ""
+"{entity1} было {co:со-}{executive:исполнительно }спродюсировано для {entity0}"
 
 #. name:lacquer cut at, name:lacquer cut in
 #: DB:link_type/long_link_phrase:967 DB:link_type/long_link_phrase:968
@@ -11996,7 +12015,7 @@ msgstr "{step:приемные} родители"
 #: DB:link_type/long_link_phrase:161 DB:link_type/long_link_phrase:32
 #: DB:link_type/long_link_phrase:208 DB:link_type/long_link_phrase:362
 msgid "{sub:sub-}published"
-msgstr ""
+msgstr "является {sub:суб}издателем"
 
 #. name:published, name:publishing
 #: DB:link_type/reverse_link_phrase:161 DB:link_type/reverse_link_phrase:32
