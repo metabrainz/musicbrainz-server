@@ -230,6 +230,7 @@ DROP TRIGGER IF EXISTS reptg2_recording_annotation ON recording_annotation;
 DROP TRIGGER IF EXISTS reptg2_recording_attribute ON recording_attribute;
 DROP TRIGGER IF EXISTS reptg2_recording_attribute_type ON recording_attribute_type;
 DROP TRIGGER IF EXISTS reptg2_recording_attribute_type_allowed_value ON recording_attribute_type_allowed_value;
+DROP TRIGGER IF EXISTS reptg2_recording_first_release_date ON recording_first_release_date;
 DROP TRIGGER IF EXISTS reptg2_recording_gid_redirect ON recording_gid_redirect;
 DROP TRIGGER IF EXISTS reptg2_recording_meta ON recording_meta;
 DROP TRIGGER IF EXISTS reptg2_recording_tag ON recording_tag;

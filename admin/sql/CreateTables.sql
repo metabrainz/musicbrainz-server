@@ -945,7 +945,7 @@ CREATE TABLE release_first_release_date (
     day         SMALLINT
 );
 
-CREATE TABLE recording_first_release_date (
+CREATE TABLE recording_first_release_date ( -- replicate
     recording   INTEGER NOT NULL, -- PK, references recording.id CASCADE
     year        SMALLINT,
     month       SMALLINT,

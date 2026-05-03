@@ -224,8 +224,11 @@ sub process_tables
         print OUT "BEGIN;\n\n";
         foreach my $row (@replication_triggers) {
             my ($table, $verbose) = @$row;
-            if ($table eq 'editor') {
-                # This table is marked for replication in order to provide
+            if (
+                $table eq 'editor' ||
+                $table eq 'recording_first_release_date'
+            ) {
+                # These tables are marked for replication in order to provide
                 # change data to sir, which only requires dbmirror2 triggers.
                 next;
             }

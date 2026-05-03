@@ -227,7 +227,10 @@ if ($fDoReplication)
             # them in order to provide change data to sir.
             $sql->do(<<~'SQL');
                 DELETE FROM dbmirror2.pending_data
-                      WHERE tablename = 'musicbrainz.editor';
+                      WHERE tablename IN (
+                          'musicbrainz.editor',
+                          'musicbrainz.recording_first_release_date'
+                      );
                 SQL
 
             # Calculate the pending_keys table.
