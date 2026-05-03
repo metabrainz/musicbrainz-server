@@ -83,6 +83,12 @@ test all => sub {
                    c4 = '{{"{\"c4\":[1]}"},{"{\"c4\":[2]}"}}'::JSONB[]
              WHERE id = 1;
             SQL
+
+        # test that editor data is not replicated
+        $master_c->sql->do(<<~'SQL');
+            INSERT INTO editor (id, name, password, ha1)
+                 VALUES (909, 'ZZZ', '{CLEARTEXT}mb', '');
+            SQL
     }, $master_c->sql);
 
     $test->export_all_tables(
@@ -152,6 +158,9 @@ test all => sub {
     is($json_test_row->{c2}, '{"c2": [1]}');
     cmp_deeply($json_test_row->{c3}, [['{"c3":[1]}'], ['{"c3":[2]}']]);
     cmp_deeply($json_test_row->{c4}, [['{"c4": [1]}'], ['{"c4": [2]}']]);
+
+    my $editor_row = $mirror_c->sql->select_single_row_hash('SELECT * FROM editor WHERE id = 909');
+    is($editor_row, undef, 'editor is not replicated');
 
     Sql::run_in_transaction(sub {
         $master_c->model('Artist')->delete($to_be_deleted_artist->{id});
