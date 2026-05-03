@@ -25,11 +25,12 @@
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Dino RTX <rtxdino36@gmail.com>, 2025.
 # syntariavoxmortem <voxmortemsyntaria@gmail.com>, 2026.
+# jmrr83 <juanmiguelrr@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-16 04:11+0000\n"
-"Last-Translator: syntariavoxmortem <voxmortemsyntaria@gmail.com>\n"
+"PO-Revision-Date: 2026-05-01 04:11+0000\n"
+"Last-Translator: jmrr83 <juanmiguelrr@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/es/>\n"
 "Language: es\n"
@@ -38,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -214,10 +215,13 @@ msgstr ""
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
+#, fuzzy
 msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
 msgstr ""
+"Una calabaza hueca (hue) con entre uno y tres orificios, que se hace girar "
+"creando un sonido silbante y de gorjeo que se asemeja al de las aves."
 
 #. name:17-string bass koto
 #: DB:instrument/description:516
@@ -232,6 +236,8 @@ msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
 msgstr ""
+"Una versión más grande del tef, utilizada para indicar las estructuras "
+"rítmicas (usul) en la música makam."
 
 #. name:laser harp
 #: DB:instrument/description:515
@@ -271,10 +277,14 @@ msgstr "Un laúd de África Occidental, hecho de madera o calabaza."
 
 #. name:mandolute
 #: DB:instrument/description:766
+#, fuzzy
 msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
 msgstr ""
+"Un mandolute es un instrumento de cuerda con trastes del norte de África que "
+"combina el formato de cuerdas de un oud tradicional con cinco pares de "
+"cuerdas metálicas."
 
 #. name:mouth organ
 #: DB:instrument/description:610
