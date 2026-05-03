@@ -7,7 +7,6 @@ use base 'Exporter';
 use feature 'state';
 use MusicBrainz::Script::Utils qw( get_primary_keys );
 use MusicBrainz::Server::Constants qw(
-    $EDITOR_SANITISED_COLUMNS
     %ENTITIES
     entities_with
 );
@@ -86,6 +85,10 @@ sub get_rows {
 
     my @values = grep { defined } @{ $values // [] };
     return unless @values;
+
+    if ($table eq 'editor') {
+        $table = 'editor_sanitized';
+    }
 
     return $c->sql->select_list_of_hashes(
         "SELECT * FROM $table WHERE $column = any(?) ORDER BY $column",
@@ -358,7 +361,7 @@ sub editors {
     return unless @{$ids};
 
     my $editor_rows = $c->sql->select_list_of_hashes(
-        "SELECT $EDITOR_SANITISED_COLUMNS FROM editor WHERE id = any(?) ORDER BY id",
+        'SELECT * FROM editor_sanitized WHERE id = any(?) ORDER BY id',
         $ids,
     );
 

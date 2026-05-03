@@ -160,7 +160,13 @@ sub dump_table {
     $progress->('', '', 0);
 
     my $dbh = $self->dbh; # issues a ping, must be done before COPY
-    $self->sql->do("COPY $table TO stdout");
+
+    if ($table eq 'editor_sanitized') {
+        # Views cannot be copied directly
+        $self->sql->do("COPY (SELECT * FROM $table) TO stdout");
+    } else {
+        $self->sql->do("COPY $table TO stdout");
+    }
 
     my $buffer;
     while ($dbh->pg_getcopydata($buffer) >= 0) {

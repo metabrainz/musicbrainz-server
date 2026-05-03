@@ -254,7 +254,8 @@
     "all": [
       "20260121-mbs-14092.sql",
       "20260212-mbs-14252.sql",
-      "20260422-mbs-6551-all.sql"
+      "20260422-mbs-6551-all.sql",
+      "20260502-search-756-all.sql"
     ],
     "master_and_standalone": [
       "20260121-mbs-14092-fks.sql",

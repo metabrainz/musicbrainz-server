@@ -121,6 +121,10 @@ CREATE OR REPLACE VIEW medium_track_durations AS
     JOIN track ON track.medium = medium.id
     GROUP BY medium.id;
 
+CREATE OR REPLACE VIEW editor_sanitized AS
+    SELECT (sanitize_editor(editor)).*
+    FROM editor;
+
 COMMIT;
 
 -- vi: set ts=4 sw=4 et :

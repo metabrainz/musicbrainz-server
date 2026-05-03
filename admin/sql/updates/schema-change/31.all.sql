@@ -2,6 +2,7 @@
 -- 20260121-mbs-14092.sql
 -- 20260212-mbs-14252.sql
 -- 20260422-mbs-6551-all.sql
+-- 20260502-search-756-all.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -103,5 +104,34 @@ WHERE dupe.release = orig.release
   AND dupe.label IS NOT DISTINCT FROM orig.label
   AND dupe.catalog_number IS NOT DISTINCT FROM orig.catalog_number
   AND dupe.id > orig.id;
+
+--------------------------------------------------------------------------------
+SELECT '20260502-search-756-all.sql';
+
+
+CREATE OR REPLACE FUNCTION sanitize_editor(e editor) RETURNS editor AS $$
+    SELECT ROW(
+        e.id,
+        e.name,
+        0::INTEGER,
+        ''::VARCHAR(64),
+        NULL::VARCHAR(255),
+        NULL::TEXT,
+        e.member_since,
+        e.email_confirm_date,
+        now()::TIMESTAMP WITH TIME ZONE,
+        e.last_updated,
+        NULL::DATE,
+        NULL::INTEGER,
+        NULL::INTEGER,
+        '{CLEARTEXT}mb'::VARCHAR(128),
+        md5(e.name || ':musicbrainz.org:mb')::CHAR(32),
+        e.deleted
+    )::editor
+$$ LANGUAGE sql STABLE PARALLEL SAFE;
+
+CREATE OR REPLACE VIEW editor_sanitized AS
+    SELECT (sanitize_editor(editor)).*
+    FROM editor;
 
 COMMIT;
