@@ -84,6 +84,8 @@ test all => sub {
             VALUES (2, '$long_unicode_tag2', 1);
         INSERT INTO artist_tag (artist, tag, count, last_updated)
             VALUES (667, 2, 1, '2016-05-03 20:00:00+00');
+        INSERT INTO editor (id, name, password, ha1)
+            VALUES (909, 'ZZZ', '{CLEARTEXT}mb', '');
         COMMIT;
         SQL
 
