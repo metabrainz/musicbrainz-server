@@ -143,6 +143,10 @@ CREATE TRIGGER reptg2_country_area
 AFTER INSERT OR DELETE OR UPDATE ON country_area
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
 
+CREATE TRIGGER reptg2_editor
+AFTER INSERT OR DELETE OR UPDATE ON editor
+FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();
+
 CREATE TRIGGER reptg2_editor_collection_type
 AFTER INSERT OR DELETE OR UPDATE ON editor_collection_type
 FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();

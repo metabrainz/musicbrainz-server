@@ -260,6 +260,9 @@
     "master_and_standalone": [
       "20260121-mbs-14092-fks.sql",
       "20260422-mbs-6551-master_and_standalone.sql"
+    ],
+    "master_only": [
+      "20260502-search-756-master_only.sql"
     ]
   }
 }

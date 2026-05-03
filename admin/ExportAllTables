@@ -222,6 +222,14 @@ if ($fDoReplication)
             # NULL columns that are useless on slaves.
             $sql->do('UPDATE dbmirror2.pending_data SET oldctid = NULL, trgdepth = NULL');
 
+            # Remove rows for tables that have historically not been included
+            # in replication packets, but have `recordchange` triggers on
+            # them in order to provide change data to sir.
+            $sql->do(<<~'SQL');
+                DELETE FROM dbmirror2.pending_data
+                      WHERE tablename = 'musicbrainz.editor';
+                SQL
+
             # Calculate the pending_keys table.
             # (It should be empty, but clear it first just in case.)
             my $pending_keys_count = $sql->select_single_value(<<~'SQL');

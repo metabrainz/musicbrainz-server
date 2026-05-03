@@ -36,6 +36,7 @@ DROP TRIGGER IF EXISTS reptg2_artist_type ON artist_type;
 DROP TRIGGER IF EXISTS reptg2_cdtoc ON cdtoc;
 DROP TRIGGER IF EXISTS reptg2_cdtoc_raw ON cdtoc_raw;
 DROP TRIGGER IF EXISTS reptg2_country_area ON country_area;
+DROP TRIGGER IF EXISTS reptg2_editor ON editor;
 DROP TRIGGER IF EXISTS reptg2_editor_collection_type ON editor_collection_type;
 DROP TRIGGER IF EXISTS reptg2_event ON event;
 DROP TRIGGER IF EXISTS reptg2_event_alias ON event_alias;

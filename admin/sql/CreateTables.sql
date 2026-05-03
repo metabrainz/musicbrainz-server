@@ -671,8 +671,7 @@ CREATE TABLE edit_url
     url                 INTEGER NOT NULL  -- PK, references url.id CASCADE
 );
 
-CREATE TABLE editor
-(
+CREATE TABLE editor ( -- replicate
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
     privs               INTEGER DEFAULT 0,
