@@ -34,10 +34,6 @@ our $dump_types = 0;
 our $follow_extra_data = 0;
 our $relationships_cardinality = 0;
 our @skip_tables;
-# This is a hack that allows us to clear editor.area for areas that weren't
-# already dumped. (We don't follow this column because it creates cycles;
-# see `sub editors`.)
-our %area_ids;
 our %path_ids;
 
 sub pluck {
@@ -304,7 +300,6 @@ sub areas {
     my @ids = grep { defined } @{$ids};
     return unless @ids;
 
-    $area_ids{$_} = 1 for @ids;
     $ids = \@ids;
 
     core_entity($c, 'area', $ids, sub {
@@ -366,14 +361,6 @@ sub editors {
         "SELECT $EDITOR_SANITISED_COLUMNS FROM editor WHERE id = any(?) ORDER BY id",
         $ids,
     );
-
-    # The editor table's 'area' column creates cycles between several tables,
-    # so we only do this for areas that we know have been dumped. While it's
-    # true that we can detect cycles in core_entity, that would prevent us
-    # from filtering out core entities that have already been followed,
-    # because the result of the function would depend on the @link_path.
-    my @known_areas = grep { defined $_ && $area_ids{$_} } @{ pluck('area', $editor_rows) };
-    areas($c, \@known_areas);
 
     handle_rows($c, 'editor', $editor_rows);
 
