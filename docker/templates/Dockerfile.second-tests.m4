@@ -53,7 +53,7 @@ run_with_apt_cache \
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
 
-RUN curl -LsSf https://astral.sh/uv/install.sh | sudo -E -H -u musicbrainz sh && \
+RUN curl -LsSf https://astral.sh/uv/0.11.8/install.sh | sudo -E -H -u musicbrainz sh && \
     sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv python install 3.13
 
 install_ts
