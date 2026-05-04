@@ -5,6 +5,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use DBDefs;
+use Encode qw( decode_utf8 );
 use JSON;
 use Readonly;
 
@@ -84,7 +85,12 @@ my @conversions = (
     },
     {
         defs => \@STRING_DEFS,
-        convert => sub { \('' . (shift // '')) },
+        convert => sub {
+            my $value = '' . (shift // '');
+            $value = decode_utf8($value)
+                unless utf8::is_utf8($value);
+            return \$value;
+        },
         flowtype => 'string',
     },
     {
