@@ -36,7 +36,7 @@ ARTWORK_INDEXER_DIR="${ARTWORK_INDEXER_DIR:="$MB_SERVER_ROOT"/../artwork-indexer
 
 if [ -d "$ARTWORK_INDEXER_DIR" ]; then
     pushd "$ARTWORK_INDEXER_DIR"
-    # pipx installs poetry into ~/.local/bin.
+    # uv installs poetry into ~/.local/bin.
     export PATH="$HOME/.local/bin:$PATH"
     # Install the artwork_indexer schema into musicbrainz_selenium.
     poetry run python indexer.py --config=config.selenium.ini --setup-schema
