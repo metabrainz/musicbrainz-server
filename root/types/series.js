@@ -15,6 +15,7 @@ declare type SeriesEntityTypeT =
   | 'recording'
   | 'release'
   | 'release_group'
+  | 'series'
   | 'work';
 
 // MusicBrainz::Server::Entity::Series::TO_JSON
