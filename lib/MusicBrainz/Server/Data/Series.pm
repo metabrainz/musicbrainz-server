@@ -202,6 +202,16 @@ sub update {
     return 1;
 }
 
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $series_id, $update) = @_;
+
+    if ($update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('series', $series_id);
+    }
+};
+
 sub is_empty {
     my ($self, $series_id) = @_;
 
