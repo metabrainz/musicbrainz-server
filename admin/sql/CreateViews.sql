@@ -83,6 +83,20 @@ CREATE OR REPLACE VIEW release_group_series AS
     LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = 788 AND latv.link = l.id)
     ORDER BY series, link_order;
 
+CREATE OR REPLACE VIEW series_series AS
+    SELECT entity0 AS series_part,
+           entity1 AS series,
+           lss.id AS relationship,
+           link_order,
+           lss.link,
+           COALESCE(text_value, '') AS text_value
+    FROM l_series_series lss
+    JOIN series s ON s.id = lss.entity1
+    JOIN link l ON l.id = lss.link
+    JOIN link_type lt ON (lt.id = l.link_type AND lt.gid = '8da75c99-46ff-373c-9d31-276ca8fa8cc3')
+    LEFT OUTER JOIN link_attribute_text_value latv ON (latv.attribute_type = 788 AND latv.link = l.id)
+    ORDER BY series, link_order;
+
 CREATE OR REPLACE VIEW work_series AS
     SELECT entity1 AS work,
            entity0 AS series,

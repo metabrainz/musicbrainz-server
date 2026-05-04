@@ -27,6 +27,7 @@ import type {
 import {
   ARTIST_GROUP_TYPES,
   ARTIST_TYPE_PERSON,
+  PART_OF_SERIES_LINK_TYPE_IDS,
 } from '../../common/constants.js';
 import {
   createNonUrlRelatableEntityObject,
@@ -256,6 +257,30 @@ function inferLinkDirection(
     if ((isSourcePerson || isSourceUnset) && isTargetGroup) {
       newState.backward = false;
     } else if ((isSourceGroup || isSourceUnset) && isTargetPerson) {
+      newState.backward = true;
+    }
+  }
+
+  if (
+    source.entityType === 'series' &&
+    target.entityType === 'series' &&
+    linkTypeId !== null &&
+    PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId)
+  ) {
+    const isSourceUnset = source.typeID === null;
+    const isSourceSeriesOfSeries = source.type?.item_entity_type === 'series';
+
+    const isTargetSeriesOfSeries = target.type?.item_entity_type === 'series';
+
+    /*
+     * The source's type will be unset if the entity hasn't been added yet,
+     * so make an inference based on the target's type in that case.
+     */
+    if ((!isSourceSeriesOfSeries || isSourceUnset) &&
+          isTargetSeriesOfSeries) {
+      newState.backward = false;
+    } else if ((isSourceSeriesOfSeries || isSourceUnset) &&
+                !isTargetSeriesOfSeries) {
       newState.backward = true;
     }
   }
