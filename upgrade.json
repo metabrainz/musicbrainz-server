@@ -253,10 +253,12 @@
   "31": {
     "all": [
       "20260121-mbs-14092.sql",
-      "20260212-mbs-14252.sql"
+      "20260212-mbs-14252.sql",
+      "20260422-mbs-6551-all.sql"
     ],
     "master_and_standalone": [
-      "20260121-mbs-14092-fks.sql"
+      "20260121-mbs-14092-fks.sql",
+      "20260422-mbs-6551-master_and_standalone.sql"
     ]
   }
 }

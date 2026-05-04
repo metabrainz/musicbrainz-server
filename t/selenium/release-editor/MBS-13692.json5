@@ -52,7 +52,7 @@
             catalog_number: "123",
           },
           old: {
-            catalog_number: "",
+            catalog_number: null,
             label: {
               gid: "10f97e56-1ebe-4b1e-848f-9c5ae0f292ec",
               id: 62565,
