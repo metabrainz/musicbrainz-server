@@ -21,7 +21,6 @@ run_with_apt_cache \
     apt_install(``ca-certificates curl gnupg software-properties-common'') && \
     echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    add-apt-repository ppa:deadsnakes/ppa && \
     apt_install(`m4_dnl
         mbs_build_deps
         mbs_javascript_deps
@@ -47,13 +46,15 @@ run_with_apt_cache \
     systemctl disable rabbitmq-server && \
     install_perl && \
     install_cpanm_and_carton && \
-    python3.13 -m ensurepip --upgrade && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen && \
     # Allow the musicbrainz user execute any command with sudo.
     # Primarily needed to run rabbitmqctl.
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
+
+RUN curl -LsSf https://astral.sh/uv/0.11.8/install.sh | sudo -E -H -u musicbrainz sh && \
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv python install 3.13
 
 install_ts
 
@@ -121,7 +122,7 @@ ARG SIR_TAG=v4.0.1
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://github.com/metabrainz/sir.git && \
     cd sir && \
-    sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'uv venv --python 3.13 && uv pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 COPY docker/musicbrainz-tests/log_solr_data.patch \
@@ -151,7 +152,7 @@ ARG ARTWORK_REDIRECT_COMMIT=98ac770
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'uv venv --python 3.13 && uv pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
@@ -228,8 +229,7 @@ RUN curl -sSLO https://github.com/validator/validator/releases/download/20.6.30/
     rm vnu.jar_20.6.30.zip
 
 COPY --from=artwork_indexer --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-indexer/ /home/musicbrainz/artwork-indexer/
-RUN sudo -E -H -u musicbrainz python3.13 -m pip install --user --no-warn-script-location 'pipx==1.7.1' && \
-    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" pipx install --python python3.13 'poetry==2.1.3' && \
+RUN sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv tool install --python python3.13 'poetry==2.1.3' && \
     cd /home/musicbrainz/artwork-indexer && \
     sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" poetry install && \
     cd -
