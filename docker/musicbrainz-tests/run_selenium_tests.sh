@@ -23,7 +23,8 @@ rabbitmqctl set_permissions -p /sir-test sir '.*' '.*' '.*'
 export SIR_DIR=/home/musicbrainz/sir
 pushd "$SIR_DIR"
 # Setup the RabbitMQ channels/queues used by sir.
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir amqp_setup'
+sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" \
+  uv run python -m sir amqp_setup
 popd
 
 sv_start_if_down \
@@ -40,7 +41,7 @@ sv_start_if_down \
 sleep 10
 
 tests_exit_code=0
-sudo -E -H -u musicbrainz carton exec -- \
+sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" carton exec -- \
      ./t/selenium.js --browser-binary-path=/opt/chrome-linux64/chrome $SELENIUM_JS_OPTIONS \
      | tee >(./node_modules/.bin/tap-junit > ./junit_output/selenium.xml) \
      | ./node_modules/.bin/tap-difflet || { tests_exit_code=$?; true; }

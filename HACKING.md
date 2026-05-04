@@ -260,8 +260,9 @@ Some Selenium tests make search queries and require a working search setup.
    As it listens on port 8983 by default, make sure `SEARCH_SERVER` is set to
    `127.0.0.1:8983/solr` in DBDefs.pm.
 
- * Set up [sir](https://github.com/metabrainz/sir) with a virtual environment
-   under `./venv` (relative to the sir checkout). You don't have to start it:
+ * Set up [sir](https://github.com/metabrainz/sir) using
+   [uv](https://docs.astral.sh/uv/), with a virtual environment
+   under `.venv` (relative to the sir checkout). You don't have to start it:
    this is done by script/reset_selenium_env.sh, which is invoked by
    t/selenium.js before each test. (If you need to inspect the sir logs of
    each run, they get saved to t/selenium/.sir-reindex.log and

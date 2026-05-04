@@ -49,7 +49,6 @@ OUTPUT=`./script/create_selenium_db.sh "$EXTRA_SQL" 2>&1` || ( echo "$OUTPUT" &&
 
 if [[ $SIR_DIR ]]; then
     pushd "$SIR_DIR"
-    . venv/bin/activate
 
     # Unfortunately, we must work around SOLR-109 for the time being by
     # detecting when the reindex command is stuck.
@@ -57,7 +56,7 @@ if [[ $SIR_DIR ]]; then
     while true; do
         echo `date` : Reindexing search data
         echo '==========' `date` '==========' >> "$SIR_REINDEX_LOG_FILE"
-        python -m sir --debug reindex >> "$SIR_REINDEX_LOG_FILE" 2>&1 &
+        uv run python -m sir --debug reindex >> "$SIR_REINDEX_LOG_FILE" 2>&1 &
         SIR_PID=$!
         disown
         let 'reindex_attempts = reindex_attempts + 1'
@@ -82,11 +81,10 @@ if [[ $SIR_DIR ]]; then
 
     echo `date` : Starting sir
     echo '==========' `date` '==========' >> "$SIR_LOG_FILE"
-    python -m sir --debug amqp_watch >> "$SIR_LOG_FILE" 2>&1 &
+    uv run python -m sir --debug amqp_watch >> "$SIR_LOG_FILE" 2>&1 &
     SIR_PID=$!
     disown
     echo "$SIR_PID" > "$SIR_PID_FILE"
-    deactivate
     popd
 fi
 

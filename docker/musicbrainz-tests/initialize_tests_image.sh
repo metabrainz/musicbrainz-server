@@ -29,7 +29,8 @@ cd /home/musicbrainz/sir
 
 # Generate the sir extensions and triggers, which is required before
 # invoking create_selenium_db.sh.
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir extension; python -m sir triggers --broker-id=1'
+sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" \
+    sh -c 'uv run python -m sir extension; uv run python -m sir triggers --broker-id=1'
 
 cd "$MBS_ROOT"
 

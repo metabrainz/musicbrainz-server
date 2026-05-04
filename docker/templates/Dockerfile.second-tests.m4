@@ -122,7 +122,7 @@ ARG SIR_TAG=v4.0.1
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://github.com/metabrainz/sir.git && \
     cd sir && \
-    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'uv venv --python 3.13 && uv pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 COPY docker/musicbrainz-tests/log_solr_data.patch \
@@ -152,7 +152,7 @@ ARG ARTWORK_REDIRECT_COMMIT=98ac770
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
-    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'uv venv --python 3.13 && uv pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
