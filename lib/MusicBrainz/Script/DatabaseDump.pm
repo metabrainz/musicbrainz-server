@@ -115,7 +115,7 @@ around make_tar => sub {
 sub table_rowcount {
     my ($self, $table) = @_;
 
-    $table =~ s/_sanitised$//;
+    $table =~ s/_sanitized$//;
     $table =~ s/.*\.//;
 
     $self->sql->select_single_value(

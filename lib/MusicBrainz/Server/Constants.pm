@@ -912,7 +912,7 @@ Readonly our @EDIT_TABLE_LIST => qw(
 );
 
 Readonly our @EDITOR_TABLE_LIST => qw(
-    editor_sanitised
+    editor_sanitized
 );
 
 Readonly our @PRIVATE_TABLE_LIST => qw(

@@ -155,10 +155,10 @@ my $mbdump = MusicBrainz::Script::DatabaseDump->new(
 @tables = () if not $fDoFullExport;
 
 # Sanitise various things for public consumption
-if (contains_string(\@tables, 'editor_sanitised'))
+if (contains_string(\@tables, 'editor_sanitized'))
 {
     $sql->do("SELECT $EDITOR_SANITISED_COLUMNS
-              INTO TEMPORARY editor_sanitised
+              INTO TEMPORARY editor_sanitized
               FROM editor");
 }
 
@@ -303,7 +303,7 @@ $mbdump->end_dump;
 optimise_replication_tables() if $fDoReplication;
 
 # Now we have all the files; disconnect from the database.
-# This also drops the _sanitised temporary tables.
+# This also drops the _sanitized temporary tables.
 undef $sql;
 undef $c;
 
