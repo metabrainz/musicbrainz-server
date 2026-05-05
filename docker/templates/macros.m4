@@ -90,7 +90,7 @@ zlib1g-dev
 pkg-config
 ')
 
-# postgresql-server-dev-16 provides pg_config, which is needed by InitDb.pl
+# postgresql-server-dev-18 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 # iproute2 provides ss, which is used by
 # docker/musicbrainz-website/website.service.
@@ -107,22 +107,22 @@ libicu74
 libpq5
 libssl3
 libxml2
-postgresql-client-16
-postgresql-server-dev-16
+postgresql-client-18
+postgresql-server-dev-18
 zlib1g
 ')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-postgresql-16-pgtap
+postgresql-18-pgtap
 ')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
 build-essential
-postgresql-server-dev-16
+postgresql-server-dev-18
 ')
 
 m4_define(
@@ -202,10 +202,9 @@ set_cpanm_and_carton_env
 set_cpanm_install_args
 
 run_with_apt_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`postgresql-common ca-certificates') && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
     install_perl && \
     install_cpanm_and_carton && \
     # Clean build dependencies up
@@ -224,10 +223,9 @@ set_cpanm_and_carton_env
 set_cpanm_install_args
 
 run_with_apt_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`postgresql-common ca-certificates') && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
     install_perl && \
     install_cpanm_and_carton && \
     # Clean build dependencies up
@@ -241,10 +239,9 @@ m4_define(
 
 run_with_apt_cache \
     with_cpanm_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`postgresql-common ca-certificates') && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt_install(`mbs_build_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
     # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \

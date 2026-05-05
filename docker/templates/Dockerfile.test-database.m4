@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM postgres:16
+FROM postgres:18
 
 ARG DEBIAN_FRONTEND=noninteractive
 
