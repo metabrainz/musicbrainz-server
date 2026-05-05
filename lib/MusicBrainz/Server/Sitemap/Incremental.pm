@@ -35,7 +35,7 @@ sub make_jsonld_request {
 
     my %extra_headers;
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
-        $extra_headers{'mb-set-database'} = 'TEST_SITEMAPS';
+        $extra_headers{'mb-set-database'} = 'TEST_MASTER';
     }
     $c->lwp->get($url, Accept => 'application/ld+json', %extra_headers);
 }
