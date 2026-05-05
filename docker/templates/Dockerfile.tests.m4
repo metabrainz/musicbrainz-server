@@ -80,6 +80,17 @@ COPY --chown=postgres:postgres \
     docker/musicbrainz-tests/postgresql.conf \
     "$PGDATA"/
 
+FROM build AS dbmirror
+
+ARG DBMIRROR_COMMIT=ca46cc50ddc7c77eef658a5f2f45aa6ee47a8c5a
+
+RUN git clone https://github.com/metabrainz/dbmirror.git && \
+    cd dbmirror && \
+    git reset --hard $DBMIRROR_COMMIT && \
+    mkdir target && \
+    make && \
+    make install DESTDIR=target
+
 FROM build AS mb_solr
 
 ARG OPENJDK_VERSION=17.0.11+9 \
@@ -217,6 +228,7 @@ RUN sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv t
     cd -
 
 COPY --from=pgdata --chown=postgres:postgres "$PGHOME"/ "$PGHOME"/
+COPY --from=dbmirror --chown=musicbrainz:musicbrainz /home/musicbrainz/dbmirror/target/ /
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
 COPY --from=mailpit --chown=root:root /home/musicbrainz/mailpit /usr/local/bin/
