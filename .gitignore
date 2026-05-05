@@ -79,8 +79,8 @@
 /coverage/
 
 # sir log/pid files created by script/reset_selenium_env.sh.
-/t/selenium/.sir-amqp_watch.log
-/t/selenium/.sir-amqp_watch.pid
+/t/selenium/.sir-live.log
+/t/selenium/.sir-live.pid
 /t/selenium/.sir-reindex.log
 # screenshots taken by t/selenium.mjs
 /t/selenium/.screenshots
