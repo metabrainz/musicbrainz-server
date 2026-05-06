@@ -55,7 +55,7 @@ sub run {
 
     printf qq(Fetching entries from database; prefix used is "%s".\n), $store->namespace if $self->verbose;
     my @keys = $r->_connection->keys($store->namespace . 'expires:*');
-        # FIXME: KEYS is very heavy, use SCAN instead
+        # KEYS is very heavy, but our Redis at the time didn't have SCAN
     my $considered = scalar @keys;
     if ($considered == 0) {
         print "WARNING: No sessions found.\n";
