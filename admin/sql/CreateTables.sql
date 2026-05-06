@@ -671,8 +671,7 @@ CREATE TABLE edit_url
     url                 INTEGER NOT NULL  -- PK, references url.id CASCADE
 );
 
-CREATE TABLE editor
-(
+CREATE TABLE editor ( -- replicate
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
     privs               INTEGER DEFAULT 0,
@@ -946,7 +945,7 @@ CREATE TABLE release_first_release_date (
     day         SMALLINT
 );
 
-CREATE TABLE recording_first_release_date (
+CREATE TABLE recording_first_release_date ( -- replicate
     recording   INTEGER NOT NULL, -- PK, references recording.id CASCADE
     year        SMALLINT,
     month       SMALLINT,

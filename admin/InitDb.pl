@@ -346,6 +346,12 @@ sub CreateRelations
 
     RunSQLScript($DB, 'CreateSearchIndexes.sql', 'Creating search indexes ...');
 
+    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
+    {
+        RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
+        RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
+    }
+
     if ($REPTYPE == RT_MASTER)
     {
         if (defined $path_to_pending_so) {
@@ -365,11 +371,7 @@ sub CreateRelations
         RunSQLScript($DB, 'eaa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 EAA replication triggers ...');
         RunSQLScript($DB, 'statistics/CreateReplicationTriggers2.sql', 'Creating dbmirror2 statistics replication triggers ...');
         RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers2.sql', 'Creating dbmirror2 wikidocs replication triggers ...');
-    }
-    if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
-    {
-        RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
-        RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
+        RunSQLScript($DB, 'CreateCustomReplicationTriggers2.sql', 'Creating dbmirror2 custom replication triggers ...');
     }
 
     print localtime() . " : Optimizing database ...\n" unless $fQuiet;

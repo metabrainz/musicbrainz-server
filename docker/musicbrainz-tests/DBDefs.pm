@@ -35,13 +35,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_JSON_DUMP => {
-        database    => 'musicbrainz_test_json_dump',
-        host        => 'localhost',
-        password    => '',
-        port        => 5432,
-        username    => 'musicbrainz',
-    },
     TEST_FULL_EXPORT => {
         database    => 'musicbrainz_test_full_export',
         host        => 'localhost',
@@ -49,22 +42,15 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_SITEMAPS => {
-        database    => 'musicbrainz_test_sitemaps',
+    TEST_MASTER => {
+        database    => 'musicbrainz_test_master',
         host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_DBMIRROR2_MASTER => {
-        database    => 'musicbrainz_test_dbmirror2_master',
-        host        => 'localhost',
-        password    => '',
-        port        => 5432,
-        username    => 'musicbrainz',
-    },
-    TEST_DBMIRROR2_SLAVE => {
-        database    => 'musicbrainz_test_dbmirror2_slave',
+    TEST_MIRROR => {
+        database    => 'musicbrainz_test_mirror',
         host        => 'localhost',
         password    => '',
         port        => 5432,

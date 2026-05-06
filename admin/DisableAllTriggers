@@ -15,7 +15,7 @@ my $sql = Sql->new($conn->conn);
 
 for my $table (@FULL_TABLE_LIST) {
     my $real_table = $table;
-    $real_table = 'editor' if $table eq 'editor_sanitised';
+    $real_table = 'editor' if $table eq 'editor_sanitized';
     $sql->auto_commit;
     $sql->do("SET search_path = musicbrainz; ALTER TABLE $real_table DISABLE TRIGGER ALL");
 }

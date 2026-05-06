@@ -224,6 +224,14 @@ sub process_tables
         print OUT "BEGIN;\n\n";
         foreach my $row (@replication_triggers) {
             my ($table, $verbose) = @$row;
+            if (
+                $table eq 'editor' ||
+                $table eq 'recording_first_release_date'
+            ) {
+                # These tables are marked for replication in order to provide
+                # change data to sir, which only requires dbmirror2 triggers.
+                next;
+            }
             print OUT qq(CREATE TRIGGER "reptg_$table"\n);
             print OUT qq(AFTER INSERT OR DELETE OR UPDATE ON "$table"\n);
             print OUT 'FOR EACH ROW EXECUTE PROCEDURE "recordchange" (' . ($verbose ? q('verbose') : '') . ");\n\n"
@@ -357,6 +365,7 @@ process_triggers('CreateTriggers.sql', 'DropTriggers.sql');
 process_triggers('CreateMirrorOnlyTriggers.sql', 'DropMirrorOnlyTriggers.sql');
 process_triggers('CreateReplicationTriggers.sql', 'DropReplicationTriggers.sql');
 process_triggers('CreateReplicationTriggers2.sql', 'DropReplicationTriggers2.sql');
+process_triggers('CreateCustomReplicationTriggers2.sql', 'DropCustomReplicationTriggers2.sql');
 
 sub process_types
 {

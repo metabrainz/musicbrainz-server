@@ -13,7 +13,6 @@ use File::Spec::Functions qw( catfile );
 use List::AllUtils qw( any );
 use MusicBrainz::Script::DatabaseDump;
 use MusicBrainz::Server::Constants qw(
-    $EDITOR_SANITISED_COLUMNS
     @FULL_TABLE_LIST
     @CORE_TABLE_LIST
     @DERIVED_TABLE_LIST
@@ -154,14 +153,6 @@ my $mbdump = MusicBrainz::Script::DatabaseDump->new(
 @tables = @tablelist if @tablelist;
 @tables = () if not $fDoFullExport;
 
-# Sanitise various things for public consumption
-if (contains_string(\@tables, 'editor_sanitised'))
-{
-    $sql->do("SELECT $EDITOR_SANITISED_COLUMNS
-              INTO TEMPORARY editor_sanitised
-              FROM editor");
-}
-
 for my $table (@tables)
 {
     $mbdump->dump_table($table);
@@ -230,6 +221,17 @@ if ($fDoReplication)
         if ($dump_dbmirror2) {
             # NULL columns that are useless on slaves.
             $sql->do('UPDATE dbmirror2.pending_data SET oldctid = NULL, trgdepth = NULL');
+
+            # Remove rows for tables that have historically not been included
+            # in replication packets, but have `recordchange` triggers on
+            # them in order to provide change data to sir.
+            $sql->do(<<~'SQL');
+                DELETE FROM dbmirror2.pending_data
+                      WHERE tablename IN (
+                          'musicbrainz.editor',
+                          'musicbrainz.recording_first_release_date'
+                      );
+                SQL
 
             # Calculate the pending_keys table.
             # (It should be empty, but clear it first just in case.)
@@ -303,7 +305,6 @@ $mbdump->end_dump;
 optimise_replication_tables() if $fDoReplication;
 
 # Now we have all the files; disconnect from the database.
-# This also drops the _sanitised temporary tables.
 undef $sql;
 undef $c;
 
