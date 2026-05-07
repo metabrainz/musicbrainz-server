@@ -8,7 +8,7 @@ requires 'DBIx::Connector'      => '0.60';
 requires 'JSON'                 => '4.11';
 requires 'JSON::XS'             => '4.04';
 requires 'Moose'                => '2.4000';
-requires 'String::ShellQuote'   => '1.03';
+requires 'String::ShellQuote'   => '1.04';
 requires 'Throwable'            => '0.200009';
 requires 'DateTime::Duration'   => '1.51';
 requires 'File::Slurp';
