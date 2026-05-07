@@ -128,14 +128,8 @@ postgresql-server-dev-18
 m4_define(
     `set_perl_install_args',
     `m4_dnl
-ARG PERL_VERSION=5.38.5
-ARG PERL_SRC_SUM=b7667d3ff309068852af7853910aaccec26c839d717402121b664ac705e07bfe')
-
-m4_define(
-    `set_second_perl_install_args',
-    `m4_dnl
-ARG PERL_VERSION=5.42.0
-ARG PERL_SRC_SUM=e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc')
+ARG PERL_VERSION=5.42.2
+ARG PERL_SRC_SUM=9384e8deb75b7b1695e5637971b752281aaecd025a3d5d4734d33c1d0adfee47')
 
 m4_define(
     `install_perl',
@@ -196,27 +190,6 @@ m4_define(
     `m4_dnl
 
 set_perl_install_args
-
-set_cpanm_and_carton_env
-
-set_cpanm_install_args
-
-run_with_apt_cache \
-    apt_install(`postgresql-common ca-certificates') && \
-    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
-    apt_install(`mbs_build_deps mbs_run_deps') && \
-    install_perl && \
-    install_cpanm_and_carton && \
-    # Clean build dependencies up
-    apt_purge(`mbs_build_deps')
-
-install_ts')
-
-m4_define(
-    `install_second_perl_and_mbs_run_deps',
-    `m4_dnl
-
-set_second_perl_install_args
 
 set_cpanm_and_carton_env
 

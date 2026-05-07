@@ -27,10 +27,9 @@ echo "$DROP_SQL" | ./admin/psql --system SELENIUM
 SIR_DIR="${SIR_DIR:="$MB_SERVER_ROOT"/../sir}"
 
 if [ -d "$SIR_DIR" ]; then
-    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTables2.sql
-    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateFunctions2.sql
-    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTriggers2.sql
-    echo 'UPDATE sir.control SET indexing_enabled = TRUE;' | ./admin/psql SELENIUM
+    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTables.sql
+    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateFunctions.sql
+    ./admin/psql SELENIUM < "$SIR_DIR"/sql/CreateTriggers.sql
 fi
 
 ARTWORK_INDEXER_DIR="${ARTWORK_INDEXER_DIR:="$MB_SERVER_ROOT"/../artwork-indexer}"
