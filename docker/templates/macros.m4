@@ -128,8 +128,8 @@ postgresql-server-dev-18
 m4_define(
     `set_perl_install_args',
     `m4_dnl
-ARG PERL_VERSION=5.42.0
-ARG PERL_SRC_SUM=e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc')
+ARG PERL_VERSION=5.42.2
+ARG PERL_SRC_SUM=9384e8deb75b7b1695e5637971b752281aaecd025a3d5d4734d33c1d0adfee47')
 
 m4_define(
     `install_perl',
