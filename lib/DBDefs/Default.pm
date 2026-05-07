@@ -196,25 +196,28 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 
 # A namespace prefix to be applied to all items in all caches, whether for
 # entities or user login sessions. Note that this is used by the default
-# PLUGIN_CACHE_OPTIONS, CACHE_MANAGER_OPTIONS, and DATASTORE_REDIS_ARGS
+# PLUGIN_CACHE_OPTIONS, CACHE_MANAGER_OPTIONS, and DATASTORE_VALKEY_ARGS
 # implementations; if you redefine those, CACHE_NAMESPACE will only be used if
 # you use it in your own definitions.
 sub CACHE_NAMESPACE { 'MB:' }
 
-# Redis by default has 16 numbered databases available, of which DB 0 is the
+# Valkey by default has 16 numbered databases available, of which DB 0 is the
 # default. You can configure which of these databases are used by
 # musicbrainz-server via the `database` properties in `PLUGIN_CACHE_OPTIONS`,
-# `CACHE_MANAGER_OPTIONS`, and `DATASTORE_REDIS_ARGS`. It is not recommended
-# to change the default of 0 unless you are sharing a Redis instance with
+# `CACHE_MANAGER_OPTIONS`, and `DATASTORE_VALKEY_ARGS`. It is not recommended
+# to change the default of 0 unless you are sharing a Valkey instance with
 # other services. (We do not advise this; please heed the note about
-# `REDIS_TEST_DATABASE` below, or suffer data loss.)
+# `VALKEY_TEST_DATABASE` below, or suffer data loss.)
 #
-# `REDIS_TEST_DATABASE` indicates the minimum DB number used when running
+# `VALKEY_TEST_DATABASE` indicates the minimum DB number used when running
 # tests. This is used for both the cache and the store. Note that the tests
 # may use additional DB numbers greater than or equal to
-# `REDIS_TEST_DATABASE`, and that all production DB numbers should be less
+# `VALKEY_TEST_DATABASE`, and that all production DB numbers should be less
 # than it. All test databases will be completely erased on each test run.
-sub REDIS_TEST_DATABASE { 1 }
+sub VALKEY_TEST_DATABASE { shift->REDIS_TEST_DATABASE // 1 }
+
+# Exists for backwards compatibility, to be removed in the future.
+sub REDIS_TEST_DATABASE { undef }
 
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
@@ -222,21 +225,21 @@ sub REDIS_TEST_DATABASE { 1 }
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        class => 'MusicBrainz::Server::CacheWrapper::Valkey',
         server => '127.0.0.1:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
         database => 0,
     };
 }
 
-# The caching options here relate to object caching in Redis - such as for
+# The caching options here relate to object caching in Valkey - such as for
 # artists, releases, etc. in order to speed up queries.
 sub CACHE_MANAGER_OPTIONS {
     my $self = shift;
     my %CACHE_MANAGER_OPTIONS = (
         profiles => {
             external => {
-                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                class => 'MusicBrainz::Server::CacheWrapper::Valkey',
                 options => {
                     server => '127.0.0.1:6379',
                     namespace => $self->CACHE_NAMESPACE,
@@ -250,14 +253,14 @@ sub CACHE_MANAGER_OPTIONS {
     return \%CACHE_MANAGER_OPTIONS;
 }
 
-# Sets the TTL for entities stored in Redis, in seconds. On mirror servers,
+# Sets the TTL for entities stored in Valkey, in seconds. On mirror servers,
 # this is set to 1 hour by default, to mitigate MBS-8726. On standalone
 # servers, this is set to 1 day; cache invalidation is already handled by the
 # server in that case, so keys may be evicted sooner, but an upper limit is
-# set in case the same Redis instance storing login sessions is being used
+# set in case the same Valkey instance storing login sessions is being used
 # (where no memory limit should be in place). In production, where separate
-# Redis instances might be used to store sessions and cached entities, this
-# can be set to 0 if there's already a memory limit configured for Redis.
+# Valkey instances might be used to store sessions and cached entities, this
+# can be set to 0 if there's already a memory limit configured for Valkey.
 sub ENTITY_CACHE_TTL {
     return 3600 if shift->REPLICATION_TYPE == RT_MIRROR;
     return 86400;
@@ -268,20 +271,23 @@ sub ENTITY_CACHE_TTL {
 ################################################################################
 
 # The session store holds user login sessions. Session::Store::MusicBrainz
-# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
+# uses DATASTORE_VALKEY_ARGS to connect to and store sessions in Valkey.
 
 sub SESSION_STORE { 'Session::Store::MusicBrainz' }
 sub SESSION_STORE_ARGS { return {} }
 sub SESSION_EXPIRE { return 36000; } # 10 hours
 
-sub DATASTORE_REDIS_ARGS {
+sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
-    return {
+    return $self->DATASTORE_REDIS_ARGS // {
         database => 0,
         namespace => $self->CACHE_NAMESPACE,
         server => '127.0.0.1:6379',
     };
 }
+
+# Exists for backwards compatibility, to be removed in the future.
+sub DATASTORE_REDIS_ARGS { undef }
 
 ################################################################################
 # Session cookies

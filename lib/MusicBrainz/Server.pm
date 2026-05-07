@@ -108,7 +108,7 @@ unless (DBDefs->CATALYST_DEBUG) {
 {
     my $plugin_cache_opts = DBDefs->PLUGIN_CACHE_OPTIONS;
     if ($ENV{MUSICBRAINZ_RUNNING_TESTS}) {
-        $plugin_cache_opts->{database} = DBDefs->REDIS_TEST_DATABASE;
+        $plugin_cache_opts->{database} = DBDefs->VALKEY_TEST_DATABASE;
     }
     __PACKAGE__->config->{'Plugin::Cache'}{backend} = $plugin_cache_opts;
 }
@@ -454,9 +454,9 @@ before dispatch => sub {
         my $cache_namespace = DBDefs->CACHE_NAMESPACE;
         *DBDefs::CACHE_NAMESPACE = sub { $cache_namespace . $database . ':' };
         *DBDefs::ENTITY_CACHE_TTL = sub { 1 };
-        # Clear any Redis handles referencing the previous `CACHE_NAMESPACE`.
+        # Clear any Valkey handles referencing the previous `CACHE_NAMESPACE`.
         $ctx->clear_cache_manager;
-        # The Redis store may be the same instance as the cache in development.
+        # The Valkey store may be the same instance as the cache in development.
         $ctx->clear_store;
         # CSP script-src directives conflict with `Function` constructor calls
         # injected by babel-plugin-istanbul (unsafe-eval).

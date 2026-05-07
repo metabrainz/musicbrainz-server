@@ -1,7 +1,7 @@
 package Catalyst::Plugin::Session::Store::MusicBrainz;
 use Moose;
 use namespace::autoclean;
-use MusicBrainz::DataStore::RedisMulti;
+use MusicBrainz::DataStore::ValkeyMulti;
 use MIME::Base64 qw(encode_base64 decode_base64);
 use Storable qw/nfreeze thaw/;
 
@@ -10,7 +10,7 @@ extends 'Catalyst::Plugin::Session::Store';
 has '_datastore' => (
     is => 'rw',
     does => 'MusicBrainz::DataStore',
-    default => sub { return MusicBrainz::DataStore::RedisMulti->new; },
+    default => sub { return MusicBrainz::DataStore::ValkeyMulti->new; },
 );
 
 sub get_session_data {

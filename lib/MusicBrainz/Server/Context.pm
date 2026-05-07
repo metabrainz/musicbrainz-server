@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use DBDefs;
-use MusicBrainz::DataStore::RedisMulti;
+use MusicBrainz::DataStore::ValkeyMulti;
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::CacheManager;
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
@@ -164,7 +164,7 @@ has store => (
     clearer => 'clear_store',
 );
 
-sub _build_store { MusicBrainz::DataStore::RedisMulti->new }
+sub _build_store { MusicBrainz::DataStore::ValkeyMulti->new }
 
 # This is not the Catalyst stash, but it's used by
 # MusicBrainz::Server::JSONLookup to trick some controller methods into
