@@ -172,28 +172,28 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Authen-Passphrase-0.008
-    pathname: Z/ZE/ZEFRAM/Authen-Passphrase-0.008.tar.gz
+  Authen-Passphrase-0.009
+    pathname: L/LE/LEONT/Authen-Passphrase-0.009.tar.gz
     provides:
-      Authen::Passphrase 0.008
-      Authen::Passphrase::AcceptAll 0.008
-      Authen::Passphrase::BigCrypt 0.008
-      Authen::Passphrase::BlowfishCrypt 0.008
-      Authen::Passphrase::Clear 0.008
-      Authen::Passphrase::Crypt16 0.008
-      Authen::Passphrase::DESCrypt 0.008
-      Authen::Passphrase::EggdropBlowfish 0.008
-      Authen::Passphrase::LANManager 0.008
-      Authen::Passphrase::LANManagerHalf 0.008
-      Authen::Passphrase::MD5Crypt 0.008
-      Authen::Passphrase::MySQL323 0.008
-      Authen::Passphrase::MySQL41 0.008
-      Authen::Passphrase::NTHash 0.008
-      Authen::Passphrase::NetscapeMail 0.008
-      Authen::Passphrase::PHPass 0.008
-      Authen::Passphrase::RejectAll 0.008
-      Authen::Passphrase::SaltedDigest 0.008
-      Authen::Passphrase::VMSPurdy 0.008
+      Authen::Passphrase 0.009
+      Authen::Passphrase::AcceptAll 0.009
+      Authen::Passphrase::BigCrypt 0.009
+      Authen::Passphrase::BlowfishCrypt 0.009
+      Authen::Passphrase::Clear 0.009
+      Authen::Passphrase::Crypt16 0.009
+      Authen::Passphrase::DESCrypt 0.009
+      Authen::Passphrase::EggdropBlowfish 0.009
+      Authen::Passphrase::LANManager 0.009
+      Authen::Passphrase::LANManagerHalf 0.009
+      Authen::Passphrase::MD5Crypt 0.009
+      Authen::Passphrase::MySQL323 0.009
+      Authen::Passphrase::MySQL41 0.009
+      Authen::Passphrase::NTHash 0.009
+      Authen::Passphrase::NetscapeMail 0.009
+      Authen::Passphrase::PHPass 0.009
+      Authen::Passphrase::RejectAll 0.009
+      Authen::Passphrase::SaltedDigest 0.009
+      Authen::Passphrase::VMSPurdy 0.009
     requirements:
       Authen::DecHpwd 2.003
       Carp 0
@@ -202,8 +202,8 @@ DISTRIBUTIONS
       Crypt::Eksblowfish::Uklblowfish 0.008
       Crypt::MySQL 0.03
       Crypt::PasswdMD5 1.0
+      Crypt::SysRandom 0
       Crypt::UnixCrypt_XS 0.08
-      Data::Entropy::Algorithms 0
       Digest 1.00
       Digest::MD4 1.2
       Digest::MD5 1.9953
@@ -794,10 +794,10 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  Clone-0.48
-    pathname: A/AT/ATOOMIC/Clone-0.48.tar.gz
+  Clone-0.50
+    pathname: A/AT/ATOOMIC/Clone-0.50.tar.gz
     provides:
-      Clone 0.48
+      Clone 0.50
     requirements:
       ExtUtils::MakeMaker 0
   Clone-Choose-0.010
@@ -1007,13 +1007,6 @@ DISTRIBUTIONS
       perl 5.008
       strict 0
       warnings 0
-  Crypt-Rijndael-1.16
-    pathname: L/LE/LEONT/Crypt-Rijndael-1.16.tar.gz
-    provides:
-      Crypt::Rijndael 1.16
-    requirements:
-      ExtUtils::MakeMaker 0
-      perl 5.006
   Crypt-SysRandom-0.007
     pathname: L/LE/LEONT/Crypt-SysRandom-0.007.tar.gz
     provides:
@@ -1043,130 +1036,131 @@ DISTRIBUTIONS
       Crypt::UnixCrypt_XS 0.11
     requirements:
       ExtUtils::MakeMaker 0
-  CryptX-0.087
-    pathname: M/MI/MIK/CryptX-0.087.tar.gz
+  CryptX-0.088
+    pathname: M/MI/MIK/CryptX-0.088.tar.gz
     provides:
-      Crypt::AuthEnc 0.087
-      Crypt::AuthEnc::CCM 0.087
-      Crypt::AuthEnc::ChaCha20Poly1305 0.087
-      Crypt::AuthEnc::EAX 0.087
-      Crypt::AuthEnc::GCM 0.087
-      Crypt::AuthEnc::OCB 0.087
-      Crypt::Checksum 0.087
-      Crypt::Checksum::Adler32 0.087
-      Crypt::Checksum::CRC32 0.087
-      Crypt::Cipher 0.087
-      Crypt::Cipher::AES 0.087
-      Crypt::Cipher::Anubis 0.087
-      Crypt::Cipher::Blowfish 0.087
-      Crypt::Cipher::CAST5 0.087
-      Crypt::Cipher::Camellia 0.087
-      Crypt::Cipher::DES 0.087
-      Crypt::Cipher::DES_EDE 0.087
-      Crypt::Cipher::IDEA 0.087
-      Crypt::Cipher::KASUMI 0.087
-      Crypt::Cipher::Khazad 0.087
-      Crypt::Cipher::MULTI2 0.087
-      Crypt::Cipher::Noekeon 0.087
-      Crypt::Cipher::RC2 0.087
-      Crypt::Cipher::RC5 0.087
-      Crypt::Cipher::RC6 0.087
-      Crypt::Cipher::SAFERP 0.087
-      Crypt::Cipher::SAFER_K128 0.087
-      Crypt::Cipher::SAFER_K64 0.087
-      Crypt::Cipher::SAFER_SK128 0.087
-      Crypt::Cipher::SAFER_SK64 0.087
-      Crypt::Cipher::SEED 0.087
-      Crypt::Cipher::Serpent 0.087
-      Crypt::Cipher::Skipjack 0.087
-      Crypt::Cipher::Twofish 0.087
-      Crypt::Cipher::XTEA 0.087
-      Crypt::Digest 0.087
-      Crypt::Digest::BLAKE2b_160 0.087
-      Crypt::Digest::BLAKE2b_256 0.087
-      Crypt::Digest::BLAKE2b_384 0.087
-      Crypt::Digest::BLAKE2b_512 0.087
-      Crypt::Digest::BLAKE2s_128 0.087
-      Crypt::Digest::BLAKE2s_160 0.087
-      Crypt::Digest::BLAKE2s_224 0.087
-      Crypt::Digest::BLAKE2s_256 0.087
-      Crypt::Digest::CHAES 0.087
-      Crypt::Digest::Keccak224 0.087
-      Crypt::Digest::Keccak256 0.087
-      Crypt::Digest::Keccak384 0.087
-      Crypt::Digest::Keccak512 0.087
-      Crypt::Digest::MD2 0.087
-      Crypt::Digest::MD4 0.087
-      Crypt::Digest::MD5 0.087
-      Crypt::Digest::RIPEMD128 0.087
-      Crypt::Digest::RIPEMD160 0.087
-      Crypt::Digest::RIPEMD256 0.087
-      Crypt::Digest::RIPEMD320 0.087
-      Crypt::Digest::SHA1 0.087
-      Crypt::Digest::SHA224 0.087
-      Crypt::Digest::SHA256 0.087
-      Crypt::Digest::SHA384 0.087
-      Crypt::Digest::SHA3_224 0.087
-      Crypt::Digest::SHA3_256 0.087
-      Crypt::Digest::SHA3_384 0.087
-      Crypt::Digest::SHA3_512 0.087
-      Crypt::Digest::SHA512 0.087
-      Crypt::Digest::SHA512_224 0.087
-      Crypt::Digest::SHA512_256 0.087
-      Crypt::Digest::SHAKE 0.087
-      Crypt::Digest::Tiger192 0.087
-      Crypt::Digest::Whirlpool 0.087
-      Crypt::KeyDerivation 0.087
-      Crypt::Mac 0.087
-      Crypt::Mac::BLAKE2b 0.087
-      Crypt::Mac::BLAKE2s 0.087
-      Crypt::Mac::F9 0.087
-      Crypt::Mac::HMAC 0.087
-      Crypt::Mac::OMAC 0.087
-      Crypt::Mac::PMAC 0.087
-      Crypt::Mac::Pelican 0.087
-      Crypt::Mac::Poly1305 0.087
-      Crypt::Mac::XCBC 0.087
-      Crypt::Misc 0.087
-      Crypt::Mode 0.087
-      Crypt::Mode::CBC 0.087
-      Crypt::Mode::CFB 0.087
-      Crypt::Mode::CTR 0.087
-      Crypt::Mode::ECB 0.087
-      Crypt::Mode::OFB 0.087
-      Crypt::PK 0.087
-      Crypt::PK::DH 0.087
-      Crypt::PK::DSA 0.087
-      Crypt::PK::ECC 0.087
-      Crypt::PK::Ed25519 0.087
-      Crypt::PK::RSA 0.087
-      Crypt::PK::X25519 0.087
-      Crypt::PRNG 0.087
-      Crypt::PRNG::ChaCha20 0.087
-      Crypt::PRNG::Fortuna 0.087
-      Crypt::PRNG::RC4 0.087
-      Crypt::PRNG::Sober128 0.087
-      Crypt::PRNG::Yarrow 0.087
-      Crypt::Stream::ChaCha 0.087
-      Crypt::Stream::RC4 0.087
-      Crypt::Stream::Rabbit 0.087
-      Crypt::Stream::Salsa20 0.087
-      Crypt::Stream::Sober128 0.087
-      Crypt::Stream::Sosemanuk 0.087
-      CryptX 0.087
-      Math::BigInt::LTM 0.087
+      Crypt::AuthEnc 0.088
+      Crypt::AuthEnc::CCM 0.088
+      Crypt::AuthEnc::ChaCha20Poly1305 0.088
+      Crypt::AuthEnc::EAX 0.088
+      Crypt::AuthEnc::GCM 0.088
+      Crypt::AuthEnc::OCB 0.088
+      Crypt::Checksum 0.088
+      Crypt::Checksum::Adler32 0.088
+      Crypt::Checksum::CRC32 0.088
+      Crypt::Cipher 0.088
+      Crypt::Cipher::AES 0.088
+      Crypt::Cipher::Anubis 0.088
+      Crypt::Cipher::Blowfish 0.088
+      Crypt::Cipher::CAST5 0.088
+      Crypt::Cipher::Camellia 0.088
+      Crypt::Cipher::DES 0.088
+      Crypt::Cipher::DES_EDE 0.088
+      Crypt::Cipher::IDEA 0.088
+      Crypt::Cipher::KASUMI 0.088
+      Crypt::Cipher::Khazad 0.088
+      Crypt::Cipher::MULTI2 0.088
+      Crypt::Cipher::Noekeon 0.088
+      Crypt::Cipher::RC2 0.088
+      Crypt::Cipher::RC5 0.088
+      Crypt::Cipher::RC6 0.088
+      Crypt::Cipher::SAFERP 0.088
+      Crypt::Cipher::SAFER_K128 0.088
+      Crypt::Cipher::SAFER_K64 0.088
+      Crypt::Cipher::SAFER_SK128 0.088
+      Crypt::Cipher::SAFER_SK64 0.088
+      Crypt::Cipher::SEED 0.088
+      Crypt::Cipher::Serpent 0.088
+      Crypt::Cipher::Skipjack 0.088
+      Crypt::Cipher::Twofish 0.088
+      Crypt::Cipher::XTEA 0.088
+      Crypt::Digest 0.088
+      Crypt::Digest::BLAKE2b_160 0.088
+      Crypt::Digest::BLAKE2b_256 0.088
+      Crypt::Digest::BLAKE2b_384 0.088
+      Crypt::Digest::BLAKE2b_512 0.088
+      Crypt::Digest::BLAKE2s_128 0.088
+      Crypt::Digest::BLAKE2s_160 0.088
+      Crypt::Digest::BLAKE2s_224 0.088
+      Crypt::Digest::BLAKE2s_256 0.088
+      Crypt::Digest::CHAES 0.088
+      Crypt::Digest::Keccak224 0.088
+      Crypt::Digest::Keccak256 0.088
+      Crypt::Digest::Keccak384 0.088
+      Crypt::Digest::Keccak512 0.088
+      Crypt::Digest::MD2 0.088
+      Crypt::Digest::MD4 0.088
+      Crypt::Digest::MD5 0.088
+      Crypt::Digest::RIPEMD128 0.088
+      Crypt::Digest::RIPEMD160 0.088
+      Crypt::Digest::RIPEMD256 0.088
+      Crypt::Digest::RIPEMD320 0.088
+      Crypt::Digest::SHA1 0.088
+      Crypt::Digest::SHA224 0.088
+      Crypt::Digest::SHA256 0.088
+      Crypt::Digest::SHA384 0.088
+      Crypt::Digest::SHA3_224 0.088
+      Crypt::Digest::SHA3_256 0.088
+      Crypt::Digest::SHA3_384 0.088
+      Crypt::Digest::SHA3_512 0.088
+      Crypt::Digest::SHA512 0.088
+      Crypt::Digest::SHA512_224 0.088
+      Crypt::Digest::SHA512_256 0.088
+      Crypt::Digest::SHAKE 0.088
+      Crypt::Digest::Tiger192 0.088
+      Crypt::Digest::Whirlpool 0.088
+      Crypt::KeyDerivation 0.088
+      Crypt::Mac 0.088
+      Crypt::Mac::BLAKE2b 0.088
+      Crypt::Mac::BLAKE2s 0.088
+      Crypt::Mac::F9 0.088
+      Crypt::Mac::HMAC 0.088
+      Crypt::Mac::OMAC 0.088
+      Crypt::Mac::PMAC 0.088
+      Crypt::Mac::Pelican 0.088
+      Crypt::Mac::Poly1305 0.088
+      Crypt::Mac::XCBC 0.088
+      Crypt::Misc 0.088
+      Crypt::Mode 0.088
+      Crypt::Mode::CBC 0.088
+      Crypt::Mode::CFB 0.088
+      Crypt::Mode::CTR 0.088
+      Crypt::Mode::ECB 0.088
+      Crypt::Mode::OFB 0.088
+      Crypt::PK 0.088
+      Crypt::PK::DH 0.088
+      Crypt::PK::DSA 0.088
+      Crypt::PK::ECC 0.088
+      Crypt::PK::Ed25519 0.088
+      Crypt::PK::RSA 0.088
+      Crypt::PK::X25519 0.088
+      Crypt::PRNG 0.088
+      Crypt::PRNG::ChaCha20 0.088
+      Crypt::PRNG::Fortuna 0.088
+      Crypt::PRNG::RC4 0.088
+      Crypt::PRNG::Sober128 0.088
+      Crypt::PRNG::Yarrow 0.088
+      Crypt::Stream::ChaCha 0.088
+      Crypt::Stream::RC4 0.088
+      Crypt::Stream::Rabbit 0.088
+      Crypt::Stream::Salsa20 0.088
+      Crypt::Stream::Sober128 0.088
+      Crypt::Stream::Sosemanuk 0.088
+      CryptX 0.088
+      Math::BigInt::LTM 0.088
     requirements:
       ExtUtils::MakeMaker 0
       Math::BigInt 0
+      Time::HiRes 0
       perl 5.006
-  DBD-Pg-3.20.0
-    pathname: T/TU/TURNSTEP/DBD-Pg-3.20.0.tar.gz
+  DBD-Pg-3.20.2
+    pathname: T/TU/TURNSTEP/DBD-Pg-3.20.2.tar.gz
     provides:
-      Bundle::DBD::Pg v3.20.0
-      DBD::Pg v3.20.0
+      Bundle::DBD::Pg v3.20.2
+      DBD::Pg v3.20.2
     requirements:
       DBI 1.614
-      ExtUtils::MakeMaker 7.64
+      ExtUtils::MakeMaker 6.58
       File::Temp 0
       Test::More 0.88
       Time::HiRes 0
@@ -1344,48 +1338,6 @@ DISTRIBUTIONS
       Exporter 0
       ExtUtils::MakeMaker 0
       perl 5.006
-  Data-Entropy-0.008
-    pathname: R/RR/RRWO/Data-Entropy-0.008.tar.gz
-    provides:
-      Data::Entropy 0.008
-      Data::Entropy::Algorithms 0.008
-      Data::Entropy::RawSource::CryptCounter 0.008
-      Data::Entropy::RawSource::Local 0.008
-      Data::Entropy::RawSource::RandomOrg 0.008
-      Data::Entropy::RawSource::RandomnumbersInfo 0.008
-      Data::Entropy::Source 0.008
-    requirements:
-      Carp 0
-      Crypt::Rijndael 0
-      Crypt::URandom 0.36
-      Data::Float 0.008
-      Errno 1.00
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      HTTP::Lite 2.2
-      IO::File 1.03
-      Module::Build 0
-      Params::Classify 0
-      Test::More 0
-      constant 0
-      integer 0
-      parent 0
-      strict 0
-      warnings 0
-  Data-Float-0.015
-    pathname: R/RR/RRWO/Data-Float-0.015.tar.gz
-    provides:
-      Data::Float 0.015
-    requirements:
-      Carp 0
-      Exporter 0
-      ExtUtils::MakeMaker 0
-      constant 0
-      integer 0
-      parent 0
-      perl 5.006
-      strict 0
-      warnings 0
   Data-Integer-0.007
     pathname: R/RR/RRWO/Data-Integer-0.007.tar.gz
     provides:
@@ -1672,335 +1624,335 @@ DISTRIBUTIONS
       perl 5.008004
       strict 0
       warnings 0
-  DateTime-TimeZone-2.67
-    pathname: D/DR/DROLSKY/DateTime-TimeZone-2.67.tar.gz
+  DateTime-TimeZone-2.68
+    pathname: D/DR/DROLSKY/DateTime-TimeZone-2.68.tar.gz
     provides:
-      DateTime::TimeZone 2.67
-      DateTime::TimeZone::Africa::Abidjan 2.67
-      DateTime::TimeZone::Africa::Algiers 2.67
-      DateTime::TimeZone::Africa::Bissau 2.67
-      DateTime::TimeZone::Africa::Cairo 2.67
-      DateTime::TimeZone::Africa::Casablanca 2.67
-      DateTime::TimeZone::Africa::Ceuta 2.67
-      DateTime::TimeZone::Africa::El_Aaiun 2.67
-      DateTime::TimeZone::Africa::Johannesburg 2.67
-      DateTime::TimeZone::Africa::Juba 2.67
-      DateTime::TimeZone::Africa::Khartoum 2.67
-      DateTime::TimeZone::Africa::Lagos 2.67
-      DateTime::TimeZone::Africa::Maputo 2.67
-      DateTime::TimeZone::Africa::Monrovia 2.67
-      DateTime::TimeZone::Africa::Nairobi 2.67
-      DateTime::TimeZone::Africa::Ndjamena 2.67
-      DateTime::TimeZone::Africa::Sao_Tome 2.67
-      DateTime::TimeZone::Africa::Tripoli 2.67
-      DateTime::TimeZone::Africa::Tunis 2.67
-      DateTime::TimeZone::Africa::Windhoek 2.67
-      DateTime::TimeZone::America::Adak 2.67
-      DateTime::TimeZone::America::Anchorage 2.67
-      DateTime::TimeZone::America::Araguaina 2.67
-      DateTime::TimeZone::America::Argentina::Buenos_Aires 2.67
-      DateTime::TimeZone::America::Argentina::Catamarca 2.67
-      DateTime::TimeZone::America::Argentina::Cordoba 2.67
-      DateTime::TimeZone::America::Argentina::Jujuy 2.67
-      DateTime::TimeZone::America::Argentina::La_Rioja 2.67
-      DateTime::TimeZone::America::Argentina::Mendoza 2.67
-      DateTime::TimeZone::America::Argentina::Rio_Gallegos 2.67
-      DateTime::TimeZone::America::Argentina::Salta 2.67
-      DateTime::TimeZone::America::Argentina::San_Juan 2.67
-      DateTime::TimeZone::America::Argentina::San_Luis 2.67
-      DateTime::TimeZone::America::Argentina::Tucuman 2.67
-      DateTime::TimeZone::America::Argentina::Ushuaia 2.67
-      DateTime::TimeZone::America::Asuncion 2.67
-      DateTime::TimeZone::America::Bahia 2.67
-      DateTime::TimeZone::America::Bahia_Banderas 2.67
-      DateTime::TimeZone::America::Barbados 2.67
-      DateTime::TimeZone::America::Belem 2.67
-      DateTime::TimeZone::America::Belize 2.67
-      DateTime::TimeZone::America::Boa_Vista 2.67
-      DateTime::TimeZone::America::Bogota 2.67
-      DateTime::TimeZone::America::Boise 2.67
-      DateTime::TimeZone::America::Cambridge_Bay 2.67
-      DateTime::TimeZone::America::Campo_Grande 2.67
-      DateTime::TimeZone::America::Cancun 2.67
-      DateTime::TimeZone::America::Caracas 2.67
-      DateTime::TimeZone::America::Cayenne 2.67
-      DateTime::TimeZone::America::Chicago 2.67
-      DateTime::TimeZone::America::Chihuahua 2.67
-      DateTime::TimeZone::America::Ciudad_Juarez 2.67
-      DateTime::TimeZone::America::Costa_Rica 2.67
-      DateTime::TimeZone::America::Coyhaique 2.67
-      DateTime::TimeZone::America::Cuiaba 2.67
-      DateTime::TimeZone::America::Danmarkshavn 2.67
-      DateTime::TimeZone::America::Dawson 2.67
-      DateTime::TimeZone::America::Dawson_Creek 2.67
-      DateTime::TimeZone::America::Denver 2.67
-      DateTime::TimeZone::America::Detroit 2.67
-      DateTime::TimeZone::America::Edmonton 2.67
-      DateTime::TimeZone::America::Eirunepe 2.67
-      DateTime::TimeZone::America::El_Salvador 2.67
-      DateTime::TimeZone::America::Fort_Nelson 2.67
-      DateTime::TimeZone::America::Fortaleza 2.67
-      DateTime::TimeZone::America::Glace_Bay 2.67
-      DateTime::TimeZone::America::Goose_Bay 2.67
-      DateTime::TimeZone::America::Grand_Turk 2.67
-      DateTime::TimeZone::America::Guatemala 2.67
-      DateTime::TimeZone::America::Guayaquil 2.67
-      DateTime::TimeZone::America::Guyana 2.67
-      DateTime::TimeZone::America::Halifax 2.67
-      DateTime::TimeZone::America::Havana 2.67
-      DateTime::TimeZone::America::Hermosillo 2.67
-      DateTime::TimeZone::America::Indiana::Indianapolis 2.67
-      DateTime::TimeZone::America::Indiana::Knox 2.67
-      DateTime::TimeZone::America::Indiana::Marengo 2.67
-      DateTime::TimeZone::America::Indiana::Petersburg 2.67
-      DateTime::TimeZone::America::Indiana::Tell_City 2.67
-      DateTime::TimeZone::America::Indiana::Vevay 2.67
-      DateTime::TimeZone::America::Indiana::Vincennes 2.67
-      DateTime::TimeZone::America::Indiana::Winamac 2.67
-      DateTime::TimeZone::America::Inuvik 2.67
-      DateTime::TimeZone::America::Iqaluit 2.67
-      DateTime::TimeZone::America::Jamaica 2.67
-      DateTime::TimeZone::America::Juneau 2.67
-      DateTime::TimeZone::America::Kentucky::Louisville 2.67
-      DateTime::TimeZone::America::Kentucky::Monticello 2.67
-      DateTime::TimeZone::America::La_Paz 2.67
-      DateTime::TimeZone::America::Lima 2.67
-      DateTime::TimeZone::America::Los_Angeles 2.67
-      DateTime::TimeZone::America::Maceio 2.67
-      DateTime::TimeZone::America::Managua 2.67
-      DateTime::TimeZone::America::Manaus 2.67
-      DateTime::TimeZone::America::Martinique 2.67
-      DateTime::TimeZone::America::Matamoros 2.67
-      DateTime::TimeZone::America::Mazatlan 2.67
-      DateTime::TimeZone::America::Menominee 2.67
-      DateTime::TimeZone::America::Merida 2.67
-      DateTime::TimeZone::America::Metlakatla 2.67
-      DateTime::TimeZone::America::Mexico_City 2.67
-      DateTime::TimeZone::America::Miquelon 2.67
-      DateTime::TimeZone::America::Moncton 2.67
-      DateTime::TimeZone::America::Monterrey 2.67
-      DateTime::TimeZone::America::Montevideo 2.67
-      DateTime::TimeZone::America::New_York 2.67
-      DateTime::TimeZone::America::Nome 2.67
-      DateTime::TimeZone::America::Noronha 2.67
-      DateTime::TimeZone::America::North_Dakota::Beulah 2.67
-      DateTime::TimeZone::America::North_Dakota::Center 2.67
-      DateTime::TimeZone::America::North_Dakota::New_Salem 2.67
-      DateTime::TimeZone::America::Nuuk 2.67
-      DateTime::TimeZone::America::Ojinaga 2.67
-      DateTime::TimeZone::America::Panama 2.67
-      DateTime::TimeZone::America::Paramaribo 2.67
-      DateTime::TimeZone::America::Phoenix 2.67
-      DateTime::TimeZone::America::Port_au_Prince 2.67
-      DateTime::TimeZone::America::Porto_Velho 2.67
-      DateTime::TimeZone::America::Puerto_Rico 2.67
-      DateTime::TimeZone::America::Punta_Arenas 2.67
-      DateTime::TimeZone::America::Rankin_Inlet 2.67
-      DateTime::TimeZone::America::Recife 2.67
-      DateTime::TimeZone::America::Regina 2.67
-      DateTime::TimeZone::America::Resolute 2.67
-      DateTime::TimeZone::America::Rio_Branco 2.67
-      DateTime::TimeZone::America::Santarem 2.67
-      DateTime::TimeZone::America::Santiago 2.67
-      DateTime::TimeZone::America::Santo_Domingo 2.67
-      DateTime::TimeZone::America::Sao_Paulo 2.67
-      DateTime::TimeZone::America::Scoresbysund 2.67
-      DateTime::TimeZone::America::Sitka 2.67
-      DateTime::TimeZone::America::St_Johns 2.67
-      DateTime::TimeZone::America::Swift_Current 2.67
-      DateTime::TimeZone::America::Tegucigalpa 2.67
-      DateTime::TimeZone::America::Thule 2.67
-      DateTime::TimeZone::America::Tijuana 2.67
-      DateTime::TimeZone::America::Toronto 2.67
-      DateTime::TimeZone::America::Vancouver 2.67
-      DateTime::TimeZone::America::Whitehorse 2.67
-      DateTime::TimeZone::America::Winnipeg 2.67
-      DateTime::TimeZone::America::Yakutat 2.67
-      DateTime::TimeZone::Antarctica::Casey 2.67
-      DateTime::TimeZone::Antarctica::Davis 2.67
-      DateTime::TimeZone::Antarctica::Macquarie 2.67
-      DateTime::TimeZone::Antarctica::Mawson 2.67
-      DateTime::TimeZone::Antarctica::Palmer 2.67
-      DateTime::TimeZone::Antarctica::Rothera 2.67
-      DateTime::TimeZone::Antarctica::Troll 2.67
-      DateTime::TimeZone::Antarctica::Vostok 2.67
-      DateTime::TimeZone::Asia::Almaty 2.67
-      DateTime::TimeZone::Asia::Amman 2.67
-      DateTime::TimeZone::Asia::Anadyr 2.67
-      DateTime::TimeZone::Asia::Aqtau 2.67
-      DateTime::TimeZone::Asia::Aqtobe 2.67
-      DateTime::TimeZone::Asia::Ashgabat 2.67
-      DateTime::TimeZone::Asia::Atyrau 2.67
-      DateTime::TimeZone::Asia::Baghdad 2.67
-      DateTime::TimeZone::Asia::Baku 2.67
-      DateTime::TimeZone::Asia::Bangkok 2.67
-      DateTime::TimeZone::Asia::Barnaul 2.67
-      DateTime::TimeZone::Asia::Beirut 2.67
-      DateTime::TimeZone::Asia::Bishkek 2.67
-      DateTime::TimeZone::Asia::Chita 2.67
-      DateTime::TimeZone::Asia::Colombo 2.67
-      DateTime::TimeZone::Asia::Damascus 2.67
-      DateTime::TimeZone::Asia::Dhaka 2.67
-      DateTime::TimeZone::Asia::Dili 2.67
-      DateTime::TimeZone::Asia::Dubai 2.67
-      DateTime::TimeZone::Asia::Dushanbe 2.67
-      DateTime::TimeZone::Asia::Famagusta 2.67
-      DateTime::TimeZone::Asia::Gaza 2.67
-      DateTime::TimeZone::Asia::Hebron 2.67
-      DateTime::TimeZone::Asia::Ho_Chi_Minh 2.67
-      DateTime::TimeZone::Asia::Hong_Kong 2.67
-      DateTime::TimeZone::Asia::Hovd 2.67
-      DateTime::TimeZone::Asia::Irkutsk 2.67
-      DateTime::TimeZone::Asia::Jakarta 2.67
-      DateTime::TimeZone::Asia::Jayapura 2.67
-      DateTime::TimeZone::Asia::Jerusalem 2.67
-      DateTime::TimeZone::Asia::Kabul 2.67
-      DateTime::TimeZone::Asia::Kamchatka 2.67
-      DateTime::TimeZone::Asia::Karachi 2.67
-      DateTime::TimeZone::Asia::Kathmandu 2.67
-      DateTime::TimeZone::Asia::Khandyga 2.67
-      DateTime::TimeZone::Asia::Kolkata 2.67
-      DateTime::TimeZone::Asia::Krasnoyarsk 2.67
-      DateTime::TimeZone::Asia::Kuching 2.67
-      DateTime::TimeZone::Asia::Macau 2.67
-      DateTime::TimeZone::Asia::Magadan 2.67
-      DateTime::TimeZone::Asia::Makassar 2.67
-      DateTime::TimeZone::Asia::Manila 2.67
-      DateTime::TimeZone::Asia::Nicosia 2.67
-      DateTime::TimeZone::Asia::Novokuznetsk 2.67
-      DateTime::TimeZone::Asia::Novosibirsk 2.67
-      DateTime::TimeZone::Asia::Omsk 2.67
-      DateTime::TimeZone::Asia::Oral 2.67
-      DateTime::TimeZone::Asia::Pontianak 2.67
-      DateTime::TimeZone::Asia::Pyongyang 2.67
-      DateTime::TimeZone::Asia::Qatar 2.67
-      DateTime::TimeZone::Asia::Qostanay 2.67
-      DateTime::TimeZone::Asia::Qyzylorda 2.67
-      DateTime::TimeZone::Asia::Riyadh 2.67
-      DateTime::TimeZone::Asia::Sakhalin 2.67
-      DateTime::TimeZone::Asia::Samarkand 2.67
-      DateTime::TimeZone::Asia::Seoul 2.67
-      DateTime::TimeZone::Asia::Shanghai 2.67
-      DateTime::TimeZone::Asia::Singapore 2.67
-      DateTime::TimeZone::Asia::Srednekolymsk 2.67
-      DateTime::TimeZone::Asia::Taipei 2.67
-      DateTime::TimeZone::Asia::Tashkent 2.67
-      DateTime::TimeZone::Asia::Tbilisi 2.67
-      DateTime::TimeZone::Asia::Tehran 2.67
-      DateTime::TimeZone::Asia::Thimphu 2.67
-      DateTime::TimeZone::Asia::Tokyo 2.67
-      DateTime::TimeZone::Asia::Tomsk 2.67
-      DateTime::TimeZone::Asia::Ulaanbaatar 2.67
-      DateTime::TimeZone::Asia::Urumqi 2.67
-      DateTime::TimeZone::Asia::Ust_Nera 2.67
-      DateTime::TimeZone::Asia::Vladivostok 2.67
-      DateTime::TimeZone::Asia::Yakutsk 2.67
-      DateTime::TimeZone::Asia::Yangon 2.67
-      DateTime::TimeZone::Asia::Yekaterinburg 2.67
-      DateTime::TimeZone::Asia::Yerevan 2.67
-      DateTime::TimeZone::Atlantic::Azores 2.67
-      DateTime::TimeZone::Atlantic::Bermuda 2.67
-      DateTime::TimeZone::Atlantic::Canary 2.67
-      DateTime::TimeZone::Atlantic::Cape_Verde 2.67
-      DateTime::TimeZone::Atlantic::Faroe 2.67
-      DateTime::TimeZone::Atlantic::Madeira 2.67
-      DateTime::TimeZone::Atlantic::South_Georgia 2.67
-      DateTime::TimeZone::Atlantic::Stanley 2.67
-      DateTime::TimeZone::Australia::Adelaide 2.67
-      DateTime::TimeZone::Australia::Brisbane 2.67
-      DateTime::TimeZone::Australia::Broken_Hill 2.67
-      DateTime::TimeZone::Australia::Darwin 2.67
-      DateTime::TimeZone::Australia::Eucla 2.67
-      DateTime::TimeZone::Australia::Hobart 2.67
-      DateTime::TimeZone::Australia::Lindeman 2.67
-      DateTime::TimeZone::Australia::Lord_Howe 2.67
-      DateTime::TimeZone::Australia::Melbourne 2.67
-      DateTime::TimeZone::Australia::Perth 2.67
-      DateTime::TimeZone::Australia::Sydney 2.67
-      DateTime::TimeZone::Catalog 2.67
-      DateTime::TimeZone::Europe::Andorra 2.67
-      DateTime::TimeZone::Europe::Astrakhan 2.67
-      DateTime::TimeZone::Europe::Athens 2.67
-      DateTime::TimeZone::Europe::Belgrade 2.67
-      DateTime::TimeZone::Europe::Berlin 2.67
-      DateTime::TimeZone::Europe::Brussels 2.67
-      DateTime::TimeZone::Europe::Bucharest 2.67
-      DateTime::TimeZone::Europe::Budapest 2.67
-      DateTime::TimeZone::Europe::Chisinau 2.67
-      DateTime::TimeZone::Europe::Dublin 2.67
-      DateTime::TimeZone::Europe::Gibraltar 2.67
-      DateTime::TimeZone::Europe::Helsinki 2.67
-      DateTime::TimeZone::Europe::Istanbul 2.67
-      DateTime::TimeZone::Europe::Kaliningrad 2.67
-      DateTime::TimeZone::Europe::Kirov 2.67
-      DateTime::TimeZone::Europe::Kyiv 2.67
-      DateTime::TimeZone::Europe::Lisbon 2.67
-      DateTime::TimeZone::Europe::London 2.67
-      DateTime::TimeZone::Europe::Madrid 2.67
-      DateTime::TimeZone::Europe::Malta 2.67
-      DateTime::TimeZone::Europe::Minsk 2.67
-      DateTime::TimeZone::Europe::Moscow 2.67
-      DateTime::TimeZone::Europe::Paris 2.67
-      DateTime::TimeZone::Europe::Prague 2.67
-      DateTime::TimeZone::Europe::Riga 2.67
-      DateTime::TimeZone::Europe::Rome 2.67
-      DateTime::TimeZone::Europe::Samara 2.67
-      DateTime::TimeZone::Europe::Saratov 2.67
-      DateTime::TimeZone::Europe::Simferopol 2.67
-      DateTime::TimeZone::Europe::Sofia 2.67
-      DateTime::TimeZone::Europe::Tallinn 2.67
-      DateTime::TimeZone::Europe::Tirane 2.67
-      DateTime::TimeZone::Europe::Ulyanovsk 2.67
-      DateTime::TimeZone::Europe::Vienna 2.67
-      DateTime::TimeZone::Europe::Vilnius 2.67
-      DateTime::TimeZone::Europe::Volgograd 2.67
-      DateTime::TimeZone::Europe::Warsaw 2.67
-      DateTime::TimeZone::Europe::Zurich 2.67
-      DateTime::TimeZone::Floating 2.67
-      DateTime::TimeZone::Indian::Chagos 2.67
-      DateTime::TimeZone::Indian::Maldives 2.67
-      DateTime::TimeZone::Indian::Mauritius 2.67
-      DateTime::TimeZone::Local 2.67
-      DateTime::TimeZone::Local::Android 2.67
-      DateTime::TimeZone::Local::Unix 2.67
-      DateTime::TimeZone::Local::VMS 2.67
-      DateTime::TimeZone::OffsetOnly 2.67
-      DateTime::TimeZone::OlsonDB 2.67
-      DateTime::TimeZone::OlsonDB::Change 2.67
-      DateTime::TimeZone::OlsonDB::Observance 2.67
-      DateTime::TimeZone::OlsonDB::Rule 2.67
-      DateTime::TimeZone::OlsonDB::Zone 2.67
-      DateTime::TimeZone::Pacific::Apia 2.67
-      DateTime::TimeZone::Pacific::Auckland 2.67
-      DateTime::TimeZone::Pacific::Bougainville 2.67
-      DateTime::TimeZone::Pacific::Chatham 2.67
-      DateTime::TimeZone::Pacific::Easter 2.67
-      DateTime::TimeZone::Pacific::Efate 2.67
-      DateTime::TimeZone::Pacific::Fakaofo 2.67
-      DateTime::TimeZone::Pacific::Fiji 2.67
-      DateTime::TimeZone::Pacific::Galapagos 2.67
-      DateTime::TimeZone::Pacific::Gambier 2.67
-      DateTime::TimeZone::Pacific::Guadalcanal 2.67
-      DateTime::TimeZone::Pacific::Guam 2.67
-      DateTime::TimeZone::Pacific::Honolulu 2.67
-      DateTime::TimeZone::Pacific::Kanton 2.67
-      DateTime::TimeZone::Pacific::Kiritimati 2.67
-      DateTime::TimeZone::Pacific::Kosrae 2.67
-      DateTime::TimeZone::Pacific::Kwajalein 2.67
-      DateTime::TimeZone::Pacific::Marquesas 2.67
-      DateTime::TimeZone::Pacific::Nauru 2.67
-      DateTime::TimeZone::Pacific::Niue 2.67
-      DateTime::TimeZone::Pacific::Norfolk 2.67
-      DateTime::TimeZone::Pacific::Noumea 2.67
-      DateTime::TimeZone::Pacific::Pago_Pago 2.67
-      DateTime::TimeZone::Pacific::Palau 2.67
-      DateTime::TimeZone::Pacific::Pitcairn 2.67
-      DateTime::TimeZone::Pacific::Port_Moresby 2.67
-      DateTime::TimeZone::Pacific::Rarotonga 2.67
-      DateTime::TimeZone::Pacific::Tahiti 2.67
-      DateTime::TimeZone::Pacific::Tarawa 2.67
-      DateTime::TimeZone::Pacific::Tongatapu 2.67
-      DateTime::TimeZone::UTC 2.67
+      DateTime::TimeZone 2.68
+      DateTime::TimeZone::Africa::Abidjan 2.68
+      DateTime::TimeZone::Africa::Algiers 2.68
+      DateTime::TimeZone::Africa::Bissau 2.68
+      DateTime::TimeZone::Africa::Cairo 2.68
+      DateTime::TimeZone::Africa::Casablanca 2.68
+      DateTime::TimeZone::Africa::Ceuta 2.68
+      DateTime::TimeZone::Africa::El_Aaiun 2.68
+      DateTime::TimeZone::Africa::Johannesburg 2.68
+      DateTime::TimeZone::Africa::Juba 2.68
+      DateTime::TimeZone::Africa::Khartoum 2.68
+      DateTime::TimeZone::Africa::Lagos 2.68
+      DateTime::TimeZone::Africa::Maputo 2.68
+      DateTime::TimeZone::Africa::Monrovia 2.68
+      DateTime::TimeZone::Africa::Nairobi 2.68
+      DateTime::TimeZone::Africa::Ndjamena 2.68
+      DateTime::TimeZone::Africa::Sao_Tome 2.68
+      DateTime::TimeZone::Africa::Tripoli 2.68
+      DateTime::TimeZone::Africa::Tunis 2.68
+      DateTime::TimeZone::Africa::Windhoek 2.68
+      DateTime::TimeZone::America::Adak 2.68
+      DateTime::TimeZone::America::Anchorage 2.68
+      DateTime::TimeZone::America::Araguaina 2.68
+      DateTime::TimeZone::America::Argentina::Buenos_Aires 2.68
+      DateTime::TimeZone::America::Argentina::Catamarca 2.68
+      DateTime::TimeZone::America::Argentina::Cordoba 2.68
+      DateTime::TimeZone::America::Argentina::Jujuy 2.68
+      DateTime::TimeZone::America::Argentina::La_Rioja 2.68
+      DateTime::TimeZone::America::Argentina::Mendoza 2.68
+      DateTime::TimeZone::America::Argentina::Rio_Gallegos 2.68
+      DateTime::TimeZone::America::Argentina::Salta 2.68
+      DateTime::TimeZone::America::Argentina::San_Juan 2.68
+      DateTime::TimeZone::America::Argentina::San_Luis 2.68
+      DateTime::TimeZone::America::Argentina::Tucuman 2.68
+      DateTime::TimeZone::America::Argentina::Ushuaia 2.68
+      DateTime::TimeZone::America::Asuncion 2.68
+      DateTime::TimeZone::America::Bahia 2.68
+      DateTime::TimeZone::America::Bahia_Banderas 2.68
+      DateTime::TimeZone::America::Barbados 2.68
+      DateTime::TimeZone::America::Belem 2.68
+      DateTime::TimeZone::America::Belize 2.68
+      DateTime::TimeZone::America::Boa_Vista 2.68
+      DateTime::TimeZone::America::Bogota 2.68
+      DateTime::TimeZone::America::Boise 2.68
+      DateTime::TimeZone::America::Cambridge_Bay 2.68
+      DateTime::TimeZone::America::Campo_Grande 2.68
+      DateTime::TimeZone::America::Cancun 2.68
+      DateTime::TimeZone::America::Caracas 2.68
+      DateTime::TimeZone::America::Cayenne 2.68
+      DateTime::TimeZone::America::Chicago 2.68
+      DateTime::TimeZone::America::Chihuahua 2.68
+      DateTime::TimeZone::America::Ciudad_Juarez 2.68
+      DateTime::TimeZone::America::Costa_Rica 2.68
+      DateTime::TimeZone::America::Coyhaique 2.68
+      DateTime::TimeZone::America::Cuiaba 2.68
+      DateTime::TimeZone::America::Danmarkshavn 2.68
+      DateTime::TimeZone::America::Dawson 2.68
+      DateTime::TimeZone::America::Dawson_Creek 2.68
+      DateTime::TimeZone::America::Denver 2.68
+      DateTime::TimeZone::America::Detroit 2.68
+      DateTime::TimeZone::America::Edmonton 2.68
+      DateTime::TimeZone::America::Eirunepe 2.68
+      DateTime::TimeZone::America::El_Salvador 2.68
+      DateTime::TimeZone::America::Fort_Nelson 2.68
+      DateTime::TimeZone::America::Fortaleza 2.68
+      DateTime::TimeZone::America::Glace_Bay 2.68
+      DateTime::TimeZone::America::Goose_Bay 2.68
+      DateTime::TimeZone::America::Grand_Turk 2.68
+      DateTime::TimeZone::America::Guatemala 2.68
+      DateTime::TimeZone::America::Guayaquil 2.68
+      DateTime::TimeZone::America::Guyana 2.68
+      DateTime::TimeZone::America::Halifax 2.68
+      DateTime::TimeZone::America::Havana 2.68
+      DateTime::TimeZone::America::Hermosillo 2.68
+      DateTime::TimeZone::America::Indiana::Indianapolis 2.68
+      DateTime::TimeZone::America::Indiana::Knox 2.68
+      DateTime::TimeZone::America::Indiana::Marengo 2.68
+      DateTime::TimeZone::America::Indiana::Petersburg 2.68
+      DateTime::TimeZone::America::Indiana::Tell_City 2.68
+      DateTime::TimeZone::America::Indiana::Vevay 2.68
+      DateTime::TimeZone::America::Indiana::Vincennes 2.68
+      DateTime::TimeZone::America::Indiana::Winamac 2.68
+      DateTime::TimeZone::America::Inuvik 2.68
+      DateTime::TimeZone::America::Iqaluit 2.68
+      DateTime::TimeZone::America::Jamaica 2.68
+      DateTime::TimeZone::America::Juneau 2.68
+      DateTime::TimeZone::America::Kentucky::Louisville 2.68
+      DateTime::TimeZone::America::Kentucky::Monticello 2.68
+      DateTime::TimeZone::America::La_Paz 2.68
+      DateTime::TimeZone::America::Lima 2.68
+      DateTime::TimeZone::America::Los_Angeles 2.68
+      DateTime::TimeZone::America::Maceio 2.68
+      DateTime::TimeZone::America::Managua 2.68
+      DateTime::TimeZone::America::Manaus 2.68
+      DateTime::TimeZone::America::Martinique 2.68
+      DateTime::TimeZone::America::Matamoros 2.68
+      DateTime::TimeZone::America::Mazatlan 2.68
+      DateTime::TimeZone::America::Menominee 2.68
+      DateTime::TimeZone::America::Merida 2.68
+      DateTime::TimeZone::America::Metlakatla 2.68
+      DateTime::TimeZone::America::Mexico_City 2.68
+      DateTime::TimeZone::America::Miquelon 2.68
+      DateTime::TimeZone::America::Moncton 2.68
+      DateTime::TimeZone::America::Monterrey 2.68
+      DateTime::TimeZone::America::Montevideo 2.68
+      DateTime::TimeZone::America::New_York 2.68
+      DateTime::TimeZone::America::Nome 2.68
+      DateTime::TimeZone::America::Noronha 2.68
+      DateTime::TimeZone::America::North_Dakota::Beulah 2.68
+      DateTime::TimeZone::America::North_Dakota::Center 2.68
+      DateTime::TimeZone::America::North_Dakota::New_Salem 2.68
+      DateTime::TimeZone::America::Nuuk 2.68
+      DateTime::TimeZone::America::Ojinaga 2.68
+      DateTime::TimeZone::America::Panama 2.68
+      DateTime::TimeZone::America::Paramaribo 2.68
+      DateTime::TimeZone::America::Phoenix 2.68
+      DateTime::TimeZone::America::Port_au_Prince 2.68
+      DateTime::TimeZone::America::Porto_Velho 2.68
+      DateTime::TimeZone::America::Puerto_Rico 2.68
+      DateTime::TimeZone::America::Punta_Arenas 2.68
+      DateTime::TimeZone::America::Rankin_Inlet 2.68
+      DateTime::TimeZone::America::Recife 2.68
+      DateTime::TimeZone::America::Regina 2.68
+      DateTime::TimeZone::America::Resolute 2.68
+      DateTime::TimeZone::America::Rio_Branco 2.68
+      DateTime::TimeZone::America::Santarem 2.68
+      DateTime::TimeZone::America::Santiago 2.68
+      DateTime::TimeZone::America::Santo_Domingo 2.68
+      DateTime::TimeZone::America::Sao_Paulo 2.68
+      DateTime::TimeZone::America::Scoresbysund 2.68
+      DateTime::TimeZone::America::Sitka 2.68
+      DateTime::TimeZone::America::St_Johns 2.68
+      DateTime::TimeZone::America::Swift_Current 2.68
+      DateTime::TimeZone::America::Tegucigalpa 2.68
+      DateTime::TimeZone::America::Thule 2.68
+      DateTime::TimeZone::America::Tijuana 2.68
+      DateTime::TimeZone::America::Toronto 2.68
+      DateTime::TimeZone::America::Vancouver 2.68
+      DateTime::TimeZone::America::Whitehorse 2.68
+      DateTime::TimeZone::America::Winnipeg 2.68
+      DateTime::TimeZone::America::Yakutat 2.68
+      DateTime::TimeZone::Antarctica::Casey 2.68
+      DateTime::TimeZone::Antarctica::Davis 2.68
+      DateTime::TimeZone::Antarctica::Macquarie 2.68
+      DateTime::TimeZone::Antarctica::Mawson 2.68
+      DateTime::TimeZone::Antarctica::Palmer 2.68
+      DateTime::TimeZone::Antarctica::Rothera 2.68
+      DateTime::TimeZone::Antarctica::Troll 2.68
+      DateTime::TimeZone::Antarctica::Vostok 2.68
+      DateTime::TimeZone::Asia::Almaty 2.68
+      DateTime::TimeZone::Asia::Amman 2.68
+      DateTime::TimeZone::Asia::Anadyr 2.68
+      DateTime::TimeZone::Asia::Aqtau 2.68
+      DateTime::TimeZone::Asia::Aqtobe 2.68
+      DateTime::TimeZone::Asia::Ashgabat 2.68
+      DateTime::TimeZone::Asia::Atyrau 2.68
+      DateTime::TimeZone::Asia::Baghdad 2.68
+      DateTime::TimeZone::Asia::Baku 2.68
+      DateTime::TimeZone::Asia::Bangkok 2.68
+      DateTime::TimeZone::Asia::Barnaul 2.68
+      DateTime::TimeZone::Asia::Beirut 2.68
+      DateTime::TimeZone::Asia::Bishkek 2.68
+      DateTime::TimeZone::Asia::Chita 2.68
+      DateTime::TimeZone::Asia::Colombo 2.68
+      DateTime::TimeZone::Asia::Damascus 2.68
+      DateTime::TimeZone::Asia::Dhaka 2.68
+      DateTime::TimeZone::Asia::Dili 2.68
+      DateTime::TimeZone::Asia::Dubai 2.68
+      DateTime::TimeZone::Asia::Dushanbe 2.68
+      DateTime::TimeZone::Asia::Famagusta 2.68
+      DateTime::TimeZone::Asia::Gaza 2.68
+      DateTime::TimeZone::Asia::Hebron 2.68
+      DateTime::TimeZone::Asia::Ho_Chi_Minh 2.68
+      DateTime::TimeZone::Asia::Hong_Kong 2.68
+      DateTime::TimeZone::Asia::Hovd 2.68
+      DateTime::TimeZone::Asia::Irkutsk 2.68
+      DateTime::TimeZone::Asia::Jakarta 2.68
+      DateTime::TimeZone::Asia::Jayapura 2.68
+      DateTime::TimeZone::Asia::Jerusalem 2.68
+      DateTime::TimeZone::Asia::Kabul 2.68
+      DateTime::TimeZone::Asia::Kamchatka 2.68
+      DateTime::TimeZone::Asia::Karachi 2.68
+      DateTime::TimeZone::Asia::Kathmandu 2.68
+      DateTime::TimeZone::Asia::Khandyga 2.68
+      DateTime::TimeZone::Asia::Kolkata 2.68
+      DateTime::TimeZone::Asia::Krasnoyarsk 2.68
+      DateTime::TimeZone::Asia::Kuching 2.68
+      DateTime::TimeZone::Asia::Macau 2.68
+      DateTime::TimeZone::Asia::Magadan 2.68
+      DateTime::TimeZone::Asia::Makassar 2.68
+      DateTime::TimeZone::Asia::Manila 2.68
+      DateTime::TimeZone::Asia::Nicosia 2.68
+      DateTime::TimeZone::Asia::Novokuznetsk 2.68
+      DateTime::TimeZone::Asia::Novosibirsk 2.68
+      DateTime::TimeZone::Asia::Omsk 2.68
+      DateTime::TimeZone::Asia::Oral 2.68
+      DateTime::TimeZone::Asia::Pontianak 2.68
+      DateTime::TimeZone::Asia::Pyongyang 2.68
+      DateTime::TimeZone::Asia::Qatar 2.68
+      DateTime::TimeZone::Asia::Qostanay 2.68
+      DateTime::TimeZone::Asia::Qyzylorda 2.68
+      DateTime::TimeZone::Asia::Riyadh 2.68
+      DateTime::TimeZone::Asia::Sakhalin 2.68
+      DateTime::TimeZone::Asia::Samarkand 2.68
+      DateTime::TimeZone::Asia::Seoul 2.68
+      DateTime::TimeZone::Asia::Shanghai 2.68
+      DateTime::TimeZone::Asia::Singapore 2.68
+      DateTime::TimeZone::Asia::Srednekolymsk 2.68
+      DateTime::TimeZone::Asia::Taipei 2.68
+      DateTime::TimeZone::Asia::Tashkent 2.68
+      DateTime::TimeZone::Asia::Tbilisi 2.68
+      DateTime::TimeZone::Asia::Tehran 2.68
+      DateTime::TimeZone::Asia::Thimphu 2.68
+      DateTime::TimeZone::Asia::Tokyo 2.68
+      DateTime::TimeZone::Asia::Tomsk 2.68
+      DateTime::TimeZone::Asia::Ulaanbaatar 2.68
+      DateTime::TimeZone::Asia::Urumqi 2.68
+      DateTime::TimeZone::Asia::Ust_Nera 2.68
+      DateTime::TimeZone::Asia::Vladivostok 2.68
+      DateTime::TimeZone::Asia::Yakutsk 2.68
+      DateTime::TimeZone::Asia::Yangon 2.68
+      DateTime::TimeZone::Asia::Yekaterinburg 2.68
+      DateTime::TimeZone::Asia::Yerevan 2.68
+      DateTime::TimeZone::Atlantic::Azores 2.68
+      DateTime::TimeZone::Atlantic::Bermuda 2.68
+      DateTime::TimeZone::Atlantic::Canary 2.68
+      DateTime::TimeZone::Atlantic::Cape_Verde 2.68
+      DateTime::TimeZone::Atlantic::Faroe 2.68
+      DateTime::TimeZone::Atlantic::Madeira 2.68
+      DateTime::TimeZone::Atlantic::South_Georgia 2.68
+      DateTime::TimeZone::Atlantic::Stanley 2.68
+      DateTime::TimeZone::Australia::Adelaide 2.68
+      DateTime::TimeZone::Australia::Brisbane 2.68
+      DateTime::TimeZone::Australia::Broken_Hill 2.68
+      DateTime::TimeZone::Australia::Darwin 2.68
+      DateTime::TimeZone::Australia::Eucla 2.68
+      DateTime::TimeZone::Australia::Hobart 2.68
+      DateTime::TimeZone::Australia::Lindeman 2.68
+      DateTime::TimeZone::Australia::Lord_Howe 2.68
+      DateTime::TimeZone::Australia::Melbourne 2.68
+      DateTime::TimeZone::Australia::Perth 2.68
+      DateTime::TimeZone::Australia::Sydney 2.68
+      DateTime::TimeZone::Catalog 2.68
+      DateTime::TimeZone::Europe::Andorra 2.68
+      DateTime::TimeZone::Europe::Astrakhan 2.68
+      DateTime::TimeZone::Europe::Athens 2.68
+      DateTime::TimeZone::Europe::Belgrade 2.68
+      DateTime::TimeZone::Europe::Berlin 2.68
+      DateTime::TimeZone::Europe::Brussels 2.68
+      DateTime::TimeZone::Europe::Bucharest 2.68
+      DateTime::TimeZone::Europe::Budapest 2.68
+      DateTime::TimeZone::Europe::Chisinau 2.68
+      DateTime::TimeZone::Europe::Dublin 2.68
+      DateTime::TimeZone::Europe::Gibraltar 2.68
+      DateTime::TimeZone::Europe::Helsinki 2.68
+      DateTime::TimeZone::Europe::Istanbul 2.68
+      DateTime::TimeZone::Europe::Kaliningrad 2.68
+      DateTime::TimeZone::Europe::Kirov 2.68
+      DateTime::TimeZone::Europe::Kyiv 2.68
+      DateTime::TimeZone::Europe::Lisbon 2.68
+      DateTime::TimeZone::Europe::London 2.68
+      DateTime::TimeZone::Europe::Madrid 2.68
+      DateTime::TimeZone::Europe::Malta 2.68
+      DateTime::TimeZone::Europe::Minsk 2.68
+      DateTime::TimeZone::Europe::Moscow 2.68
+      DateTime::TimeZone::Europe::Paris 2.68
+      DateTime::TimeZone::Europe::Prague 2.68
+      DateTime::TimeZone::Europe::Riga 2.68
+      DateTime::TimeZone::Europe::Rome 2.68
+      DateTime::TimeZone::Europe::Samara 2.68
+      DateTime::TimeZone::Europe::Saratov 2.68
+      DateTime::TimeZone::Europe::Simferopol 2.68
+      DateTime::TimeZone::Europe::Sofia 2.68
+      DateTime::TimeZone::Europe::Tallinn 2.68
+      DateTime::TimeZone::Europe::Tirane 2.68
+      DateTime::TimeZone::Europe::Ulyanovsk 2.68
+      DateTime::TimeZone::Europe::Vienna 2.68
+      DateTime::TimeZone::Europe::Vilnius 2.68
+      DateTime::TimeZone::Europe::Volgograd 2.68
+      DateTime::TimeZone::Europe::Warsaw 2.68
+      DateTime::TimeZone::Europe::Zurich 2.68
+      DateTime::TimeZone::Floating 2.68
+      DateTime::TimeZone::Indian::Chagos 2.68
+      DateTime::TimeZone::Indian::Maldives 2.68
+      DateTime::TimeZone::Indian::Mauritius 2.68
+      DateTime::TimeZone::Local 2.68
+      DateTime::TimeZone::Local::Android 2.68
+      DateTime::TimeZone::Local::Unix 2.68
+      DateTime::TimeZone::Local::VMS 2.68
+      DateTime::TimeZone::OffsetOnly 2.68
+      DateTime::TimeZone::OlsonDB 2.68
+      DateTime::TimeZone::OlsonDB::Change 2.68
+      DateTime::TimeZone::OlsonDB::Observance 2.68
+      DateTime::TimeZone::OlsonDB::Rule 2.68
+      DateTime::TimeZone::OlsonDB::Zone 2.68
+      DateTime::TimeZone::Pacific::Apia 2.68
+      DateTime::TimeZone::Pacific::Auckland 2.68
+      DateTime::TimeZone::Pacific::Bougainville 2.68
+      DateTime::TimeZone::Pacific::Chatham 2.68
+      DateTime::TimeZone::Pacific::Easter 2.68
+      DateTime::TimeZone::Pacific::Efate 2.68
+      DateTime::TimeZone::Pacific::Fakaofo 2.68
+      DateTime::TimeZone::Pacific::Fiji 2.68
+      DateTime::TimeZone::Pacific::Galapagos 2.68
+      DateTime::TimeZone::Pacific::Gambier 2.68
+      DateTime::TimeZone::Pacific::Guadalcanal 2.68
+      DateTime::TimeZone::Pacific::Guam 2.68
+      DateTime::TimeZone::Pacific::Honolulu 2.68
+      DateTime::TimeZone::Pacific::Kanton 2.68
+      DateTime::TimeZone::Pacific::Kiritimati 2.68
+      DateTime::TimeZone::Pacific::Kosrae 2.68
+      DateTime::TimeZone::Pacific::Kwajalein 2.68
+      DateTime::TimeZone::Pacific::Marquesas 2.68
+      DateTime::TimeZone::Pacific::Nauru 2.68
+      DateTime::TimeZone::Pacific::Niue 2.68
+      DateTime::TimeZone::Pacific::Norfolk 2.68
+      DateTime::TimeZone::Pacific::Noumea 2.68
+      DateTime::TimeZone::Pacific::Pago_Pago 2.68
+      DateTime::TimeZone::Pacific::Palau 2.68
+      DateTime::TimeZone::Pacific::Pitcairn 2.68
+      DateTime::TimeZone::Pacific::Port_Moresby 2.68
+      DateTime::TimeZone::Pacific::Rarotonga 2.68
+      DateTime::TimeZone::Pacific::Tahiti 2.68
+      DateTime::TimeZone::Pacific::Tarawa 2.68
+      DateTime::TimeZone::Pacific::Tongatapu 2.68
+      DateTime::TimeZone::UTC 2.68
     requirements:
       Class::Singleton 1.03
       Cwd 3
@@ -3084,17 +3036,6 @@ DISTRIBUTIONS
       HTTP::Date 0
       Module::Build::Tiny 0.035
       perl 5.008001
-  HTTP-Lite-2.44
-    pathname: N/NE/NEILB/HTTP-Lite-2.44.tar.gz
-    provides:
-      HTTP::Lite 2.44
-    requirements:
-      ExtUtils::MakeMaker 0
-      Fcntl 0
-      Socket 1.3
-      perl 5.005
-      strict 0
-      warnings 0
   HTTP-Message-7.01
     pathname: O/OA/OALDERS/HTTP-Message-7.01.tar.gz
     provides:
@@ -4846,101 +4787,101 @@ DISTRIBUTIONS
       POSIX 0
       Time::Local 0
       perl 5.008001
-  PPI-1.284
-    pathname: O/OA/OALDERS/PPI-1.284.tar.gz
+  PPI-1.291
+    pathname: M/MI/MITHALDU/PPI-1.291.tar.gz
     provides:
-      PPI 1.284
-      PPI::Cache 1.284
-      PPI::Document 1.284
-      PPI::Document::File 1.284
-      PPI::Document::Fragment 1.284
-      PPI::Document::Normalized 1.284
-      PPI::Dumper 1.284
-      PPI::Element 1.284
-      PPI::Exception 1.284
-      PPI::Exception::ParserRejection 1.284
-      PPI::Find 1.284
-      PPI::Lexer 1.284
-      PPI::Node 1.284
-      PPI::Normal 1.284
-      PPI::Normal::Standard 1.284
-      PPI::Singletons 1.284
-      PPI::Statement 1.284
-      PPI::Statement::Break 1.284
-      PPI::Statement::Compound 1.284
-      PPI::Statement::Data 1.284
-      PPI::Statement::End 1.284
-      PPI::Statement::Expression 1.284
-      PPI::Statement::Given 1.284
-      PPI::Statement::Include 1.284
-      PPI::Statement::Include::Perl6 1.284
-      PPI::Statement::Null 1.284
-      PPI::Statement::Package 1.284
-      PPI::Statement::Scheduled 1.284
-      PPI::Statement::Sub 1.284
-      PPI::Statement::Unknown 1.284
-      PPI::Statement::UnmatchedBrace 1.284
-      PPI::Statement::Variable 1.284
-      PPI::Statement::When 1.284
-      PPI::Structure 1.284
-      PPI::Structure::Block 1.284
-      PPI::Structure::Condition 1.284
-      PPI::Structure::Constructor 1.284
-      PPI::Structure::For 1.284
-      PPI::Structure::Given 1.284
-      PPI::Structure::List 1.284
-      PPI::Structure::Signature 1.284
-      PPI::Structure::Subscript 1.284
-      PPI::Structure::Unknown 1.284
-      PPI::Structure::When 1.284
-      PPI::Token 1.284
-      PPI::Token::ArrayIndex 1.284
-      PPI::Token::Attribute 1.284
-      PPI::Token::BOM 1.284
-      PPI::Token::Cast 1.284
-      PPI::Token::Comment 1.284
-      PPI::Token::DashedWord 1.284
-      PPI::Token::Data 1.284
-      PPI::Token::End 1.284
-      PPI::Token::HereDoc 1.284
-      PPI::Token::Label 1.284
-      PPI::Token::Magic 1.284
-      PPI::Token::Number 1.284
-      PPI::Token::Number::Binary 1.284
-      PPI::Token::Number::Exp 1.284
-      PPI::Token::Number::Float 1.284
-      PPI::Token::Number::Hex 1.284
-      PPI::Token::Number::Octal 1.284
-      PPI::Token::Number::Version 1.284
-      PPI::Token::Operator 1.284
-      PPI::Token::Pod 1.284
-      PPI::Token::Prototype 1.284
-      PPI::Token::Quote 1.284
-      PPI::Token::Quote::Double 1.284
-      PPI::Token::Quote::Interpolate 1.284
-      PPI::Token::Quote::Literal 1.284
-      PPI::Token::Quote::Single 1.284
-      PPI::Token::QuoteLike 1.284
-      PPI::Token::QuoteLike::Backtick 1.284
-      PPI::Token::QuoteLike::Command 1.284
-      PPI::Token::QuoteLike::Readline 1.284
-      PPI::Token::QuoteLike::Regexp 1.284
-      PPI::Token::QuoteLike::Words 1.284
-      PPI::Token::Regexp 1.284
-      PPI::Token::Regexp::Match 1.284
-      PPI::Token::Regexp::Substitute 1.284
-      PPI::Token::Regexp::Transliterate 1.284
-      PPI::Token::Separator 1.284
-      PPI::Token::Structure 1.284
-      PPI::Token::Symbol 1.284
-      PPI::Token::Unknown 1.284
-      PPI::Token::Whitespace 1.284
-      PPI::Token::Word 1.284
-      PPI::Tokenizer 1.284
-      PPI::Transform 1.284
-      PPI::Transform::UpdateCopyright 1.284
-      PPI::Util 1.284
-      PPI::XSAccessor 1.284
+      PPI 1.291
+      PPI::Cache 1.291
+      PPI::Document 1.291
+      PPI::Document::File 1.291
+      PPI::Document::Fragment 1.291
+      PPI::Document::Normalized 1.291
+      PPI::Dumper 1.291
+      PPI::Element 1.291
+      PPI::Exception 1.291
+      PPI::Exception::ParserRejection 1.291
+      PPI::Find 1.291
+      PPI::Lexer 1.291
+      PPI::Node 1.291
+      PPI::Normal 1.291
+      PPI::Normal::Standard 1.291
+      PPI::Singletons 1.291
+      PPI::Statement 1.291
+      PPI::Statement::Break 1.291
+      PPI::Statement::Compound 1.291
+      PPI::Statement::Data 1.291
+      PPI::Statement::End 1.291
+      PPI::Statement::Expression 1.291
+      PPI::Statement::Given 1.291
+      PPI::Statement::Include 1.291
+      PPI::Statement::Include::Perl6 1.291
+      PPI::Statement::Null 1.291
+      PPI::Statement::Package 1.291
+      PPI::Statement::Scheduled 1.291
+      PPI::Statement::Sub 1.291
+      PPI::Statement::Unknown 1.291
+      PPI::Statement::UnmatchedBrace 1.291
+      PPI::Statement::Variable 1.291
+      PPI::Statement::When 1.291
+      PPI::Structure 1.291
+      PPI::Structure::Block 1.291
+      PPI::Structure::Condition 1.291
+      PPI::Structure::Constructor 1.291
+      PPI::Structure::For 1.291
+      PPI::Structure::Given 1.291
+      PPI::Structure::List 1.291
+      PPI::Structure::Signature 1.291
+      PPI::Structure::Subscript 1.291
+      PPI::Structure::Unknown 1.291
+      PPI::Structure::When 1.291
+      PPI::Token 1.291
+      PPI::Token::ArrayIndex 1.291
+      PPI::Token::Attribute 1.291
+      PPI::Token::BOM 1.291
+      PPI::Token::Cast 1.291
+      PPI::Token::Comment 1.291
+      PPI::Token::DashedWord 1.291
+      PPI::Token::Data 1.291
+      PPI::Token::End 1.291
+      PPI::Token::HereDoc 1.291
+      PPI::Token::Label 1.291
+      PPI::Token::Magic 1.291
+      PPI::Token::Number 1.291
+      PPI::Token::Number::Binary 1.291
+      PPI::Token::Number::Exp 1.291
+      PPI::Token::Number::Float 1.291
+      PPI::Token::Number::Hex 1.291
+      PPI::Token::Number::Octal 1.291
+      PPI::Token::Number::Version 1.291
+      PPI::Token::Operator 1.291
+      PPI::Token::Pod 1.291
+      PPI::Token::Prototype 1.291
+      PPI::Token::Quote 1.291
+      PPI::Token::Quote::Double 1.291
+      PPI::Token::Quote::Interpolate 1.291
+      PPI::Token::Quote::Literal 1.291
+      PPI::Token::Quote::Single 1.291
+      PPI::Token::QuoteLike 1.291
+      PPI::Token::QuoteLike::Backtick 1.291
+      PPI::Token::QuoteLike::Command 1.291
+      PPI::Token::QuoteLike::Readline 1.291
+      PPI::Token::QuoteLike::Regexp 1.291
+      PPI::Token::QuoteLike::Words 1.291
+      PPI::Token::Regexp 1.291
+      PPI::Token::Regexp::Match 1.291
+      PPI::Token::Regexp::Substitute 1.291
+      PPI::Token::Regexp::Transliterate 1.291
+      PPI::Token::Separator 1.291
+      PPI::Token::Structure 1.291
+      PPI::Token::Symbol 1.291
+      PPI::Token::Unknown 1.291
+      PPI::Token::Whitespace 1.291
+      PPI::Token::Word 1.291
+      PPI::Tokenizer 1.291
+      PPI::Transform 1.291
+      PPI::Transform::UpdateCopyright 1.291
+      PPI::Util 1.291
+      PPI::XSAccessor 1.291
     requirements:
       Carp 0
       Clone 0.30
@@ -5739,12 +5680,12 @@ DISTRIBUTIONS
       Test::More 0
       Test::TCP 0
       Time::HiRes 0
-  Plack-1.0051
-    pathname: M/MI/MIYAGAWA/Plack-1.0051.tar.gz
+  Plack-1.0054
+    pathname: M/MI/MIYAGAWA/Plack-1.0054.tar.gz
     provides:
       HTTP::Message::PSGI undef
       HTTP::Server::PSGI undef
-      Plack 1.0051
+      Plack 1.0054
       Plack::App::CGIBin undef
       Plack::App::Cascade undef
       Plack::App::Directory undef
@@ -5803,9 +5744,9 @@ DISTRIBUTIONS
       Plack::Middleware::XFramework undef
       Plack::Middleware::XSendfile undef
       Plack::Recursive::ForwardRequest undef
-      Plack::Request 1.0051
+      Plack::Request 1.0054
       Plack::Request::Upload undef
-      Plack::Response 1.0051
+      Plack::Response 1.0054
       Plack::Runner undef
       Plack::TempBuffer undef
       Plack::Test undef
@@ -6209,16 +6150,16 @@ DISTRIBUTIONS
       Spiffy::mixin undef
     requirements:
       ExtUtils::MakeMaker 6.30
-  Starlet-0.31
-    pathname: K/KA/KAZUHO/Starlet-0.31.tar.gz
+  Starlet-0.32
+    pathname: K/KA/KAZUHO/Starlet-0.32.tar.gz
     provides:
       Plack::Handler::Starlet undef
-      Starlet 0.31
+      Starlet 0.32
       Starlet::Server undef
     requirements:
       ExtUtils::MakeMaker 6.59
       LWP::UserAgent 5.8
-      Parallel::Prefork 0.17
+      Parallel::Prefork 0.18
       Plack 0.992
       Server::Starter 0.06
       Test::More 0.88
@@ -6730,11 +6671,11 @@ DISTRIBUTIONS
       Test::Unit::Lite 0.12
       namespace::clean 0
       perl 5.006
-  Test-Most-0.38
-    pathname: O/OV/OVID/Test-Most-0.38.tar.gz
+  Test-Most-0.42
+    pathname: D/DC/DCANTRELL/Test-Most-0.42.tar.gz
     provides:
-      Test::Most 0.38
-      Test::Most::Exception 0.38
+      Test::Most 0.42
+      Test::Most::Exception 0.42
     requirements:
       Exception::Class 1.14
       ExtUtils::MakeMaker 0
@@ -7554,11 +7495,11 @@ DISTRIBUTIONS
       strict 0
       vars 0
       warnings 0
-  XML-Parser-2.51
-    pathname: T/TO/TODDR/XML-Parser-2.51.tar.gz
+  XML-Parser-2.58
+    pathname: T/TO/TODDR/XML-Parser-2.58.tar.gz
     provides:
-      XML::Parser 2.51
-      XML::Parser::Expat 2.51
+      XML::Parser 2.58
+      XML::Parser::Expat 2.58
       XML::Parser::Style::Debug undef
       XML::Parser::Style::Objects undef
       XML::Parser::Style::Stream undef
@@ -7568,7 +7509,7 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::ShareDir 0
       File::ShareDir::Install 0.06
-      perl 5.004050
+      perl 5.008
   XML-Parser-Lite-0.722
     pathname: P/PH/PHRED/XML-Parser-Lite-0.722.tar.gz
     provides:
@@ -7641,32 +7582,32 @@ DISTRIBUTIONS
       XML::SAX 0.15
       XML::SAX::Expat 0
       perl 5.008
-  XML-XPath-1.48
-    pathname: M/MA/MANWAR/XML-XPath-1.48.tar.gz
+  XML-XPath-1.49
+    pathname: M/MA/MANWAR/XML-XPath-1.49.tar.gz
     provides:
-      XML::XPath 1.48
-      XML::XPath::Boolean 1.48
-      XML::XPath::Builder 1.48
-      XML::XPath::Expr 1.48
-      XML::XPath::Function 1.48
-      XML::XPath::Literal 1.48
-      XML::XPath::LocationPath 1.48
-      XML::XPath::Node 1.48
-      XML::XPath::Node::Attribute 1.48
-      XML::XPath::Node::AttributeImpl 1.48
-      XML::XPath::Node::Comment 1.48
-      XML::XPath::Node::Element 1.48
-      XML::XPath::Node::Namespace 1.48
-      XML::XPath::Node::PI 1.48
-      XML::XPath::Node::Text 1.48
-      XML::XPath::NodeSet 1.48
-      XML::XPath::Number 1.48
-      XML::XPath::Parser 1.48
-      XML::XPath::PerlSAX 1.48
-      XML::XPath::Root 1.48
-      XML::XPath::Step 1.48
-      XML::XPath::Variable 1.48
-      XML::XPath::XMLParser 1.48
+      XML::XPath 1.49
+      XML::XPath::Boolean 1.49
+      XML::XPath::Builder 1.49
+      XML::XPath::Expr 1.49
+      XML::XPath::Function 1.49
+      XML::XPath::Literal 1.49
+      XML::XPath::LocationPath 1.49
+      XML::XPath::Node 1.49
+      XML::XPath::Node::Attribute 1.49
+      XML::XPath::Node::AttributeImpl 1.49
+      XML::XPath::Node::Comment 1.49
+      XML::XPath::Node::Element 1.49
+      XML::XPath::Node::Namespace 1.49
+      XML::XPath::Node::PI 1.49
+      XML::XPath::Node::Text 1.49
+      XML::XPath::NodeSet 1.49
+      XML::XPath::Number 1.49
+      XML::XPath::Parser 1.49
+      XML::XPath::PerlSAX 1.49
+      XML::XPath::Root 1.49
+      XML::XPath::Step 1.49
+      XML::XPath::Variable 1.49
+      XML::XPath::XMLParser 1.49
     requirements:
       ExtUtils::MakeMaker 0
       Path::Tiny 0.076
@@ -7698,42 +7639,42 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008
-  YAML-PP-v0.39.0
-    pathname: T/TI/TINITA/YAML-PP-v0.39.0.tar.gz
+  YAML-PP-v0.40.0
+    pathname: T/TI/TINITA/YAML-PP-v0.40.0.tar.gz
     provides:
-      YAML::PP v0.39.0
-      YAML::PP::Common v0.39.0
-      YAML::PP::Constructor v0.39.0
-      YAML::PP::Dumper v0.39.0
-      YAML::PP::Emitter v0.39.0
-      YAML::PP::Exception v0.39.0
-      YAML::PP::Grammar v0.39.0
-      YAML::PP::Highlight v0.39.0
-      YAML::PP::Lexer v0.39.0
-      YAML::PP::Loader v0.39.0
-      YAML::PP::Parser v0.39.0
-      YAML::PP::Perl v0.39.0
-      YAML::PP::Preserve::Array v0.39.0
-      YAML::PP::Preserve::Hash v0.39.0
-      YAML::PP::Preserve::Scalar v0.39.0
-      YAML::PP::Reader v0.39.0
-      YAML::PP::Reader::File v0.39.0
-      YAML::PP::Render v0.39.0
-      YAML::PP::Representer v0.39.0
-      YAML::PP::Schema v0.39.0
-      YAML::PP::Schema::Binary v0.39.0
-      YAML::PP::Schema::Catchall v0.39.0
-      YAML::PP::Schema::Core v0.39.0
-      YAML::PP::Schema::Failsafe v0.39.0
-      YAML::PP::Schema::Include v0.39.0
-      YAML::PP::Schema::JSON v0.39.0
-      YAML::PP::Schema::Merge v0.39.0
-      YAML::PP::Schema::Perl v0.39.0
-      YAML::PP::Schema::Tie::IxHash v0.39.0
-      YAML::PP::Schema::YAML1_1 v0.39.0
-      YAML::PP::Type::MergeKey v0.39.0
-      YAML::PP::Writer v0.39.0
-      YAML::PP::Writer::File v0.39.0
+      YAML::PP v0.40.0
+      YAML::PP::Common v0.40.0
+      YAML::PP::Constructor v0.40.0
+      YAML::PP::Dumper v0.40.0
+      YAML::PP::Emitter v0.40.0
+      YAML::PP::Exception v0.40.0
+      YAML::PP::Grammar v0.40.0
+      YAML::PP::Highlight v0.40.0
+      YAML::PP::Lexer v0.40.0
+      YAML::PP::Loader v0.40.0
+      YAML::PP::Parser v0.40.0
+      YAML::PP::Perl v0.40.0
+      YAML::PP::Preserve::Array v0.40.0
+      YAML::PP::Preserve::Hash v0.40.0
+      YAML::PP::Preserve::Scalar v0.40.0
+      YAML::PP::Reader v0.40.0
+      YAML::PP::Reader::File v0.40.0
+      YAML::PP::Render v0.40.0
+      YAML::PP::Representer v0.40.0
+      YAML::PP::Schema v0.40.0
+      YAML::PP::Schema::Binary v0.40.0
+      YAML::PP::Schema::Catchall v0.40.0
+      YAML::PP::Schema::Core v0.40.0
+      YAML::PP::Schema::Failsafe v0.40.0
+      YAML::PP::Schema::Include v0.40.0
+      YAML::PP::Schema::JSON v0.40.0
+      YAML::PP::Schema::Merge v0.40.0
+      YAML::PP::Schema::Perl v0.40.0
+      YAML::PP::Schema::Tie::IxHash v0.40.0
+      YAML::PP::Schema::YAML1_1 v0.40.0
+      YAML::PP::Type::MergeKey v0.40.0
+      YAML::PP::Writer v0.40.0
+      YAML::PP::Writer::File v0.40.0
     requirements:
       B 0
       B::Deparse 0
@@ -7991,32 +7932,32 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Spec 0
       version 0.77
-  libwww-perl-6.81
-    pathname: O/OA/OALDERS/libwww-perl-6.81.tar.gz
+  libwww-perl-6.82
+    pathname: O/OA/OALDERS/libwww-perl-6.82.tar.gz
     provides:
-      LWP 6.81
-      LWP::Authen::Basic 6.81
-      LWP::Authen::Digest 6.81
-      LWP::Authen::Ntlm 6.81
-      LWP::ConnCache 6.81
-      LWP::Debug 6.81
-      LWP::Debug::TraceHTTP 6.81
-      LWP::DebugFile 6.81
-      LWP::MemberMixin 6.81
-      LWP::Protocol 6.81
-      LWP::Protocol::cpan 6.81
-      LWP::Protocol::data 6.81
-      LWP::Protocol::file 6.81
-      LWP::Protocol::ftp 6.81
-      LWP::Protocol::gopher 6.81
-      LWP::Protocol::http 6.81
-      LWP::Protocol::loopback 6.81
-      LWP::Protocol::mailto 6.81
-      LWP::Protocol::nntp 6.81
-      LWP::Protocol::nogo 6.81
-      LWP::RobotUA 6.81
-      LWP::Simple 6.81
-      LWP::UserAgent 6.81
+      LWP 6.82
+      LWP::Authen::Basic 6.82
+      LWP::Authen::Digest 6.82
+      LWP::Authen::Ntlm 6.82
+      LWP::ConnCache 6.82
+      LWP::Debug 6.82
+      LWP::Debug::TraceHTTP 6.82
+      LWP::DebugFile 6.82
+      LWP::MemberMixin 6.82
+      LWP::Protocol 6.82
+      LWP::Protocol::cpan 6.82
+      LWP::Protocol::data 6.82
+      LWP::Protocol::file 6.82
+      LWP::Protocol::ftp 6.82
+      LWP::Protocol::gopher 6.82
+      LWP::Protocol::http 6.82
+      LWP::Protocol::loopback 6.82
+      LWP::Protocol::mailto 6.82
+      LWP::Protocol::nntp 6.82
+      LWP::Protocol::nogo 6.82
+      LWP::RobotUA 6.82
+      LWP::Simple 6.82
+      LWP::UserAgent 6.82
     requirements:
       Digest::MD5 0
       Encode 2.12
