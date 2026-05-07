@@ -43,7 +43,7 @@ General Prerequisites:
 
 * Ubuntu/Debian (or some other Unix-like operating system at your own risks)
 * Node (at least version 24)
-* Perl (at least version 5.38)
+* Perl (at least version 5.42)
 * PostgreSQL (at least version 18)
 
 Reporting bugs
