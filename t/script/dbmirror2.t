@@ -34,7 +34,6 @@ test all => sub {
 
     $master_c->sql->auto_commit;
     $master_c->sql->do(<<~'SQL');
-        REFRESH MATERIALIZED VIEW dbmirror2.column_info;
         CREATE TRIGGER reptg2_json_column_test
             AFTER INSERT OR DELETE OR UPDATE ON json_column_test
             FOR EACH ROW EXECUTE PROCEDURE dbmirror2.recordchange();

@@ -1,54 +1,18 @@
--- Copyright (C) 2021 MetaBrainz Foundation
--- Licensed under the GPL version 2, or (at your option) any later version:
--- http://www.gnu.org/licenses/gpl-2.0.txt
+\set ON_ERROR_STOP 1
 
 BEGIN;
 
--- The column_info view allows us to determine whether a column in a given
--- table is part of its primary key, and gives us its position too.
---
--- This view must be refreshed after every schema change; an event trigger
--- in MasterEventTriggerSetup.sql can handle this automatically.
-CREATE MATERIALIZED VIEW dbmirror2.column_info (
-    table_schema,
-    table_name,
-    column_name,
-    position,
-    is_primary
-) AS
-    SELECT
-        c.table_schema,
-        c.table_name,
-        c.column_name,
-        c.ordinal_position,
-        coalesce((
-            SELECT TRUE
-            FROM information_schema.key_column_usage kcu
-            NATURAL JOIN information_schema.table_constraints tc
-            WHERE kcu.table_schema = c.table_schema
-            AND kcu.table_name = c.table_name
-            AND kcu.column_name = c.column_name
-            AND tc.constraint_type = 'PRIMARY KEY'
-        ), FALSE) AS is_primary
-    FROM information_schema.columns c
-    NATURAL JOIN information_schema.tables t
-    WHERE t.table_type = 'BASE TABLE'
-    AND t.table_schema NOT IN ('dbmirror2', 'information_schema', 'pg_catalog')
-WITH DATA;
+DROP MATERIALIZED VIEW IF EXISTS dbmirror2.column_info CASCADE;
+DROP EVENT TRIGGER IF EXISTS refresh_column_info;
+DROP FUNCTION IF EXISTS dbmirror2.refresh_column_info();
 
-CREATE INDEX column_info_idx
-    ON dbmirror2.column_info (table_schema, table_name, is_primary);
-
-CREATE FUNCTION dbmirror2.recordchange()
+CREATE OR REPLACE FUNCTION dbmirror2.recordchange()
 RETURNS trigger AS $$
 DECLARE
     -- prefixed with an underscore to disambiguate it from the column names
     -- pending_data.tablename and pending_keys.tablename
     _tablename  TEXT;
     keys        TEXT[];
-    jsonquery   TEXT;
-    olddata     JSON;
-    newdata     JSON;
     -- prefixed with 'x' to avoid conflict with column name in queries
     xoldctid    TID;
     nextseqid   BIGINT;
@@ -75,29 +39,11 @@ BEGIN
     VALUES (txid_current(), transaction_timestamp())
     ON CONFLICT DO NOTHING;
 
-    jsonquery := (
-        SELECT format(
-            'SELECT json_build_object(%1$s)',
-            array_to_string(
-                array_agg(
-                    format('%1$L, ($1).%1$I', column_name) ORDER BY position
-                ),
-                ', '
-            )
-        )
-        FROM dbmirror2.column_info
-        WHERE table_schema = TG_TABLE_SCHEMA AND table_name = TG_TABLE_NAME
-    );
-
     IF TG_OP != 'INSERT' THEN
-        EXECUTE jsonquery INTO olddata USING OLD;
-
         xoldctid := OLD.ctid;
     END IF;
 
     IF TG_OP != 'DELETE' THEN
-        EXECUTE jsonquery INTO newdata USING NEW;
-
         -- Detect out-of-order operations caused by cascading triggers.
         --
         -- When row-level AFTER triggers are cascaded, the innermost trigger
@@ -154,8 +100,8 @@ BEGIN
         _tablename,
         lower(left(TG_OP, 1)),
         txid_current(),
-        olddata,
-        newdata,
+        row_to_json(OLD),
+        row_to_json(NEW),
         xoldctid,
         pg_trigger_depth()
     );

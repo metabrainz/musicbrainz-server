@@ -24,6 +24,7 @@ SQL_DIR='./admin/sql/updates/schema-change'
 EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.all_extensions.sql"
 MASTER_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.master_only.sql"
 MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
+STANDALONE_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.standalone_only.sql"
 
 ################################################################################
 # Assert pre-conditions
@@ -96,6 +97,15 @@ then
     fi
 fi
 
+if [ "$REPLICATION_TYPE" = "$RT_STANDALONE" ]
+then
+    if [ -e "$STANDALONE_ONLY_SQL" ]
+    then
+        echo `date` : 'Running upgrade scripts for standalone nodes'
+        ./admin/psql "$DATABASE" < "$STANDALONE_ONLY_SQL" || exit 1
+    fi
+fi
+
 ################################################################################
 # Add constraints that apply only to master/standalone (FKS)
 
@@ -119,9 +129,6 @@ OUTPUT=`./admin/UpdateDatabasePrivileges.pl --other-ro-role caa_redirect --other
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
-    echo `date` : 'Refreshing dbmirror2.column_info'
-    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/dbmirror2/RefreshColumnInfo.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
     OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers2.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
