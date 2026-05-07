@@ -349,22 +349,25 @@ sub CreateRelations
     if ($REPTYPE == RT_MASTER || $REPTYPE == RT_MIRROR)
     {
         RunSQLScript($DB, 'ReplicationSetup.sql', 'Setting up replication ...');
-        RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
     }
 
-    if ($REPTYPE == RT_MASTER)
-    {
-        if (defined $path_to_pending_so) {
-            CreateReplicationFunction();
-            RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
-            RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
-            RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
-            RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
-            RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
-            RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
-        }
+    if ($REPTYPE == RT_MASTER && defined $path_to_pending_so) {
+        CreateReplicationFunction();
+        RunSQLScript($DB, 'CreateReplicationTriggers.sql', 'Creating replication triggers ...');
+        RunSQLScript($DB, 'caa/CreateReplicationTriggers.sql', 'Creating CAA replication triggers ...');
+        RunSQLScript($DB, 'documentation/CreateReplicationTriggers.sql', 'Creating documentation replication triggers ...');
+        RunSQLScript($DB, 'eaa/CreateReplicationTriggers.sql', 'Creating EAA replication triggers ...');
+        RunSQLScript($DB, 'statistics/CreateReplicationTriggers.sql', 'Creating statistics replication triggers ...');
+        RunSQLScript($DB, 'wikidocs/CreateReplicationTriggers.sql', 'Creating wikidocs replication triggers ...');
+    }
 
-        RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
+    # Create the dbmirror2 schema and `recordchange` function on all nodes.
+    # On standalone databases, these are required by sir. But if unused,
+    # their existence doesn't harm anything.
+    RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
+    RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
+
+    if ($REPTYPE == RT_MASTER) {
         RunSQLScript($DB, 'CreateReplicationTriggers2.sql', 'Creating dbmirror2 replication triggers ...');
         RunSQLScript($DB, 'caa/CreateReplicationTriggers2.sql', 'Creating dbmirror2 CAA replication triggers ...');
         RunSQLScript($DB, 'documentation/CreateReplicationTriggers2.sql', 'Creating dbmirror2 documentation replication triggers ...');
