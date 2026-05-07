@@ -9,6 +9,8 @@ SELECT '20260507-search-756-mirror_only.sql';
 
 
 DROP MATERIALIZED VIEW IF EXISTS dbmirror2.column_info CASCADE;
+DROP EVENT TRIGGER IF EXISTS refresh_column_info;
+DROP FUNCTION IF EXISTS dbmirror2.refresh_column_info();
 
 CREATE OR REPLACE FUNCTION dbmirror2.recordchange()
 RETURNS trigger AS $$
