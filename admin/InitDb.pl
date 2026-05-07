@@ -364,8 +364,7 @@ sub CreateRelations
     # Create the dbmirror2 schema and `recordchange` function on all nodes.
     # On standalone databases, these are required by sir. But if unused,
     # their existence doesn't harm anything.
-    RunSQLScript($DB, 'dbmirror2/ReplicationSetup.sql', 'Setting up dbmirror2 replication ...');
-    RunSQLScript($DB, 'dbmirror2/MasterSetup.sql', 'Creating dbmirror2 master schema ...');
+    RunSQLScript($DB, 'dbmirror2/dbmirror2.sql', 'Setting up dbmirror2 function and tables ...');
 
     if ($REPTYPE == RT_MASTER) {
         RunSQLScript($DB, 'CreateReplicationTriggers2.sql', 'Creating dbmirror2 replication triggers ...');
