@@ -3,7 +3,7 @@ requires 'perl' => '5.42.2';
 # Dependencies needed only to execute ./admin/InitDb.pl.
 
 requires 'aliased'              => '0.34';
-requires 'DBD::Pg'              => '3.20.0';
+requires 'DBD::Pg'              => '3.20.2';
 requires 'DBIx::Connector'      => '0.60';
 requires 'JSON'                 => '4.11';
 requires 'JSON::XS'             => '4.04';

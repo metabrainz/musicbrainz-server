@@ -28,7 +28,7 @@ requires 'DateTime::Format::Natural'                  => '1.25';
 requires 'DateTime::Format::Pg'                       => '0.16014';
 requires 'DateTime::Locale'                           => '== 1.45';
 requires 'DateTime::TimeZone'                         => '2.68';
-requires 'DBD::Pg'                                    => '3.20.0';
+requires 'DBD::Pg'                                    => '3.20.2';
 requires 'DBI'                                        => '1.647';
 requires 'DBIx::Connector'                            => '0.60';
 requires 'Digest::HMAC_SHA1'                          => '1.05';
