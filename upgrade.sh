@@ -24,6 +24,7 @@ SQL_DIR='./admin/sql/updates/schema-change'
 EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.all_extensions.sql"
 MASTER_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.master_only.sql"
 MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
+STANDALONE_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.standalone_only.sql"
 
 ################################################################################
 # Assert pre-conditions
@@ -93,6 +94,15 @@ then
     then
         echo `date` : 'Running upgrade scripts for mirror nodes'
         ./admin/psql "$DATABASE" < "$MIRROR_ONLY_SQL" || exit 1
+    fi
+fi
+
+if [ "$REPLICATION_TYPE" = "$RT_STANDALONE" ]
+then
+    if [ -e "$STANDALONE_ONLY_SQL" ]
+    then
+        echo `date` : 'Running upgrade scripts for standalone nodes'
+        ./admin/psql "$DATABASE" < "$STANDALONE_ONLY_SQL" || exit 1
     fi
 fi
 
