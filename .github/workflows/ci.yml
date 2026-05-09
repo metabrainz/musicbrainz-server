@@ -9,6 +9,7 @@ on:
   pull_request:
     branches-ignore:
       - translations
+  workflow_dispatch:
 
 env:
   MTCAPTCHA_PUBLIC_KEY: ${{ secrets.MTCAPTCHA_PUBLIC_KEY }}
