@@ -114,7 +114,7 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
 
 FROM build AS sir
 
-ARG SIR_TAG=v5.0.0-rc.1
+ARG SIR_TAG=v5.0.0-rc.2
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://github.com/metabrainz/sir.git && \
     cd sir && \
