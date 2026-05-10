@@ -60,6 +60,18 @@ UPDATE link_type
  WHERE gid = :SERIES_PART_OF_SERIES_GID;
 
 -- We insert the attribute and orderable type where they do not exist (outside prod)
+INSERT INTO link_attribute_type (id, parent, root, child_order, gid, name, description, last_updated) VALUES
+    (
+        :LINK_ATTRIBUTE_TYPE_NUMBER_ID,
+        NULL,
+        :LINK_ATTRIBUTE_TYPE_NUMBER_ID,
+        0,
+        'a59c5830-5ec7-38fe-9a21-c7ea54f6650a',
+        'number',
+        'This attribute indicates the number of an entity in a series.',
+        '2021-05-10 11:27:11.858659+00'
+    ) ON CONFLICT DO NOTHING;
+
 INSERT INTO link_type_attribute_type (link_type, attribute_type, min, max) VALUES
     (
         :SERIES_PART_OF_SERIES_ID,
