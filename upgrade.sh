@@ -12,6 +12,7 @@ source admin/config.sh
 : ${REPLICATION_TYPE:=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')}
 : ${DATABASE:=MAINTENANCE}
 : ${SKIP_EXPORT:=0}
+: ${SKIP_VACUUM:=0}
 
 NEW_SCHEMA_SEQUENCE=31
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
@@ -147,9 +148,14 @@ fi
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql "$DATABASE"
 
-# ignore superuser-only vacuum tables
-echo `date` : Vacuuming DB.
-echo "SET statement_timeout = 0; VACUUM ANALYZE;" | ./admin/psql MAINTENANCE 2>&1 | grep -v 'only superuser can vacuum it'
+if [ "$SKIP_VACUUM" = "0" ]
+then
+    # ignore superuser-only vacuum tables
+    echo `date` : Vacuuming DB.
+    echo "SET statement_timeout = 0; VACUUM ANALYZE;" | ./admin/psql MAINTENANCE 2>&1 | grep -v 'only superuser can vacuum it'
+else
+    echo `date` : Skipping DB vacuum/analyze at your request.
+fi
 
 ################################################################################
 # Prompt for final manual intervention
