@@ -162,10 +162,10 @@ sub run {
     my $sample_artist_gids = [
         # Nine Inch Nails
         'b7ffd2af-418f-4be2-bdd1-22f8b48613da',
-        # Kanye West
-        '164f0d73-1234-4e2c-8743-d77bf2191051',
-        # Пётр Ильич Чайковский
-        '9ddd7abc-9e1b-471d-8031-583bc6bc8be9',
+        # Ice Cube
+        '1d11e2a1-4531-4d61-a8c7-7b5c6a608fd2',
+        # Игорь Стравинский
+        'c278de2c-9696-4fdf-a919-0781cd945e2c',
     ];
 
     my $total = scalar @{$sample_artist_gids};
