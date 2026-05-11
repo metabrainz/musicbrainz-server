@@ -21,7 +21,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-04-07 00:11+0000\n"
+"PO-Revision-Date: 2026-05-01 15:11+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -32,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2131,45 +2131,32 @@ msgstr ""
 
 #. name:design
 #: DB:link_type/description:1304
-#, fuzzy
-#| msgid "This indicates an artist who did design for the event."
 msgid "This indicates a company who did design for the event."
-msgstr "Indica un artista che ha curato il design dell'evento."
+msgstr "Indica una società che ha curato il design dell'evento."
 
 #. name:illustration
 #: DB:link_type/description:1305
-#, fuzzy
-#| msgid "This indicates an artist who did illustration for the event."
 msgid "This indicates a company who did illustration for the event."
-msgstr "Indica un artista che ha curato le illustrazioni dell'evento."
+msgstr "Indica una società che ha curato le illustrazioni dell'evento."
 
 #. name:graphic design
 #: DB:link_type/description:1306
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who did the graphic design / layout for the "
-#| "event, arranging pieces of content into a coherent and aesthetically-"
-#| "pleasing design."
 msgid ""
 "This indicates a company who did the graphic design / layout for the event, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "design."
 msgstr ""
-"Indica un artista che ha curato il progetto grafico o il layout per "
+"Indica una società che ha curato il progetto grafico o il layout per "
 "l'evento, organizzandone i componenti in un design coerente e piacevole "
 "esteticamente."
 
 #. name:artwork
 #: DB:link_type/description:1303
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who provided artwork for the event when no more "
-#| "specific information is available."
 msgid ""
 "This indicates a company who provided artwork for the event when no more "
 "specific information is available."
 msgstr ""
-"Indica un artista che ha fornito materiale grafico per l'evento quando non "
+"Indica una società che ha fornito materiale grafico per l'evento quando non "
 "sono disponibili informazioni più specifiche."
 
 #. name:member of band
@@ -12192,32 +12179,28 @@ msgstr "{entity1} ha presentato {entity0}"
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1303
-#, fuzzy
-#| msgid "provided {additional} artwork on"
 msgid "{entity1} provided {additional} artwork on {entity0}"
-msgstr "ha fornito materiale grafico {additional:aggiuntivo} per"
+msgstr ""
+"{entity1} ha fornito materiale grafico {additional:aggiuntivo} per {entity0}"
 
 #. name:graphic design
 #: DB:link_type/long_link_phrase:1306
-#, fuzzy
-#| msgid "provided {additional} graphic design on"
 msgid "{entity1} provided {additional} graphic design on {entity0}"
-msgstr "ha curato il progetto grafico {additional:aggiuntivo} di"
+msgstr ""
+"{entity1} ha curato il progetto grafico {additional:aggiuntivo} di {entity0}"
 
 #. name:illustration
 #: DB:link_type/long_link_phrase:1305
-#, fuzzy
-#| msgid "provided {additional} illustration on"
 msgid "{entity1} provided {additional} illustration on {entity0}"
-msgstr "ha curato le illustrazioni {additional:aggiuntive} di"
+msgstr ""
+"{entity1} ha curato le illustrazioni {additional:aggiuntive} di {entity0}"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1304
-#, fuzzy
-#| msgid "provided {additional} {assistant} design on"
 msgid "{entity1} provided {additional} {assistant} design on {entity0}"
 msgstr ""
-"ha curato {assistant:da assistente} il design {additional:aggiuntivo} di"
+"{entity1} ha curato {assistant:da assistente} il design "
+"{additional:aggiuntivo} di {entity0}"
 
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
