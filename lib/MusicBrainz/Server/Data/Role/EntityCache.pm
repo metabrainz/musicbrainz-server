@@ -13,14 +13,14 @@ requires '_type';
 
 In order to prevent stale entities from being repopulated in the cache after
 another process invalidates those entries (MBS-7241), we track which entity
-IDs were recently invalidated in our Redis store. (In production, MBS uses
-two Redis instances: one as an LRU cache for entity data, and another as a
+IDs were recently invalidated in our Valkey store. (In production, MBS uses
+two Valkey instances: one as an LRU cache for entity data, and another as a
 persistent data store, mainly for login sessions.) As an example, consider
 the following sequence of events:
 
  1. Request A updates artist ID=123 and calls _delete_from_cache(123). In our
-    persistent Redis store, we set `artist:recently_invalidated:123` to '1'.
-    In our Redis cache, we delete `artist:123`.
+    persistent Valkey store, we set `artist:recently_invalidated:123` to '1'.
+    In our Valkey cache, we delete `artist:123`.
 
  2. Request B starts before request A's database transaction commits, and
     attempts to load artist ID=123. Since it's not in the cache, we read it
@@ -28,7 +28,7 @@ the following sequence of events:
     the cache at `artist:123`.
 
  3. Immediately after adding it to the cache, we check for the presence of an
-    `artist:recently_invalidated:123` key in the Redis store. If it exists,
+    `artist:recently_invalidated:123` key in the Valkey store. If it exists,
     we remove the stale `artist:123` entry we just added to the cache.
 
 The `recently_invalidated` keys have their TTLs set to the "max request time"
@@ -135,7 +135,7 @@ sub _add_to_cache {
         my $key = $invalidated_prefix . $_;
         ($key => $_)
     } grep { is_database_row_id($_) } @$ids;
-    # Check which of these keys actually exist in our Redis store,
+    # Check which of these keys actually exist in our Valkey store,
     # indicating which entity IDs were recently-invalidated in the cache.
     my @recently_invalidated_ids = map {
         $possible_recently_invalidated_id_map{$_}

@@ -145,6 +145,7 @@ ALTER TABLE series_type ADD CONSTRAINT allowed_series_entity_type
       'recording',
       'release',
       'release_group',
+      'series',
       'work'
     )
   );
@@ -172,6 +173,15 @@ ADD CONSTRAINT group_type_implies_null_gender CHECK (
 
 ALTER TABLE release_label
 ADD CHECK (catalog_number IS NOT NULL OR label IS NOT NULL);
+
+ALTER TABLE release_label
+  ADD CONSTRAINT no_empty_string_catalog_number
+  CHECK (catalog_number != '');
+
+ALTER TABLE release_label
+  ADD CONSTRAINT release_label_uniq
+  UNIQUE NULLS NOT DISTINCT (release, label, catalog_number)
+  DEFERRABLE INITIALLY DEFERRED;
 
 ALTER TABLE artist ADD CONSTRAINT artist_va_check
     CHECK (id <> 1 OR

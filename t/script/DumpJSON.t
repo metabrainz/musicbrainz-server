@@ -1,18 +1,21 @@
 use strict;
 use warnings;
 
-use DBDefs;
 use English;
 use File::Slurp;
 use File::Spec;
 use File::Temp;
 use JSON;
+use lib 't/lib';
 use String::ShellQuote;
 use Test::Deep qw( cmp_bag );
 use Test::More;
 use Test::Routine;
 use Test::Routine::Util;
+
+use DBDefs;
 use MusicBrainz::Server::Context;
+use aliased 't::script::ReplicationTest';
 
 $ENV{MUSICBRAINZ_RUNNING_TESTS} = 1;
 
@@ -32,37 +35,32 @@ our @dumped_entity_types = qw(
 
 test all => sub {
     my $root = DBDefs->MB_SERVER_ROOT;
-    my $schema_seq = DBDefs->DB_SCHEMA_SEQUENCE;
-    my $psql = File::Spec->catfile($root, 'admin/psql');
+    my $test = ReplicationTest->new;
+    my $master_c = $test->master_c;
+    my $mirror_c = $test->mirror_c;
+
+    my $foreign_keys_dump = File::Spec->catfile(
+        $test->output_dir,
+        'foreign_keys',
+    );
 
     system (
         File::Spec->catfile($root, 'script/dump_foreign_keys.pl'),
-        '--database' => 'TEST',
-        '--output' => '/tmp/mb_TEST_foreign_keys',
+        '--database' => 'TEST_MASTER',
+        '--output' => $foreign_keys_dump,
     );
 
-    my $exec_sql = sub {
-        my $sql = shell_quote(shift);
-
-        system 'sh', '-c' => "echo $sql | $psql TEST_JSON_DUMP";
-    };
-
-    $exec_sql->(<<~"SQL");
-        -- FIXME! Drop deferrable constraints which are incompatible with
-        -- with the `ON CONFLICT` clause. This clause is injected by the
-        -- ProcessReplicationChanges script's `--ignore-conflicts` flag,
-        -- used by the incremental JSON dumps since dae9f88.
-        --
-        -- The JSON dumps database shouldn't even have these constraints
-        -- to begin with, but there's no direct way to initialize the test
-        -- database as RT_MIRROR without PR #3197.
-        ALTER TABLE medium DROP CONSTRAINT IF EXISTS medium_uniq;
-        ALTER TABLE track DROP CONSTRAINT IF EXISTS track_uniq_medium_position;
-        INSERT INTO replication_control (current_schema_sequence, current_replication_sequence, last_replication_date)
-            VALUES ($schema_seq, 1, now() - interval '1 hour');
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
         INSERT INTO artist (id, gid, name, sort_name)
-            VALUES (1, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'Blue Guy', 'Blues Guy');
+             VALUES (3, '30238ead-59fa-41e2-a7ab-b7f6e6363c4b', 'Blue Guy', 'Blues Guy');
         SQL
+
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
+    $test->load_replication_changes;
 
     my $output_dir;
     my $new_output_dir = sub {
@@ -70,31 +68,21 @@ test all => sub {
             't-json-dump-XXXXXXX', DIR => '/tmp', CLEANUP => 1);
     };
 
-    my $rep_dir;
-    my $new_replication_dir = sub {
-        $rep_dir = File::Temp->newdir(
-            't-json-dump-packets-XXXXXXX', DIR => '/tmp', CLEANUP => 1);
-    };
-
-    my $c = MusicBrainz::Server::Context->create_script_context(
-        database => 'TEST_JSON_DUMP',
-    );
-
     my $build_full_dump = sub {
         $new_output_dir->();
         system (
             File::Spec->catfile($root, 'admin/DumpJSON'),
-            '--database' => 'TEST_JSON_DUMP',
+            '--database' => 'TEST_MIRROR',
             '--compress',
             '--output-dir' => $output_dir,
         );
-        my $full_json_dump_replication_sequence = $c->sql->select_single_value(
+        my $full_json_dump_replication_sequence = $mirror_c->sql->select_single_value(
             'SELECT full_json_dump_replication_sequence ' .
             'FROM json_dump.control',
         );
         for my $type (@dumped_entity_types) {
             $type =~ s/-/_/g;
-            my $unneeded_row_count = $c->sql->select_single_value(qq{
+            my $unneeded_row_count = $mirror_c->sql->select_single_value(qq{
                 SELECT count(*) FROM json_dump.${type}_json a
                  WHERE a.replication_sequence < $full_json_dump_replication_sequence
                    AND EXISTS (SELECT 1 FROM json_dump.${type}_json b
@@ -108,11 +96,12 @@ test all => sub {
         $new_output_dir->();
         system (
             File::Spec->catfile($root, 'admin/DumpIncrementalJSON'),
-            '--database' => 'TEST_JSON_DUMP',
+            '--database' => 'TEST_MIRROR',
             '--compress',
             '--output-dir' => $output_dir,
-            '--replication-access-uri' => "file://$rep_dir",
-            '--foreign-keys-dump' => '/tmp/mb_TEST_foreign_keys',
+            '--replication-access-uri' => 'file://' .
+                $test->output_dir,
+            '--foreign-keys-dump' => $foreign_keys_dump,
         );
     };
 
@@ -134,7 +123,6 @@ test all => sub {
             '-xJf', shell_quote(File::Spec->catfile($dir, "$entity.tar.xz")),
         ) == 0 or die $OS_ERROR;
 
-        chomp $expected;
         my $got = read_file(
             File::Spec->catfile($entity_dir, 'mbdump', $entity));
         $got = [map { $json->decode($_) } split /\n/, $got];
@@ -154,25 +142,6 @@ test all => sub {
             next if $except{$_};
             ok(! -e File::Spec->catdir($dir, $_));
         }
-    };
-
-    my $build_packet = sub {
-        my ($number, $pending, $pendingdata) = @_;
-
-        $new_replication_dir->();
-
-        $pending = shell_quote($pending);
-        $pendingdata = shell_quote($pendingdata);
-        my $replication_info = shell_quote(qq({"last_packet": "replication-$number.tar.bz2"}));
-
-        system "echo $replication_info > $rep_dir/replication-info";
-        system "mkdir -p $rep_dir/mbdump";
-        system "echo $pending > $rep_dir/mbdump/dbmirror_pending";
-        system "echo $pendingdata > $rep_dir/mbdump/dbmirror_pendingdata";
-        system "echo $schema_seq > $rep_dir/SCHEMA_SEQUENCE";
-        system "echo $number > $rep_dir/REPLICATION_SEQUENCE";
-        system "tar -C $rep_dir -cf - mbdump SCHEMA_SEQUENCE REPLICATION_SEQUENCE | " .
-               "bzip2 > $rep_dir/replication-$number.tar.bz2";
     };
 
     $build_full_dump->();
@@ -214,46 +183,37 @@ test all => sub {
     $test_dumps_empty_except->($output_dir, 'artist');
 
     # Fix the name.
-    chomp (my $dbmirror_pending = <<"EOF");
-1\t"musicbrainz"."artist"\tu\t1
-2\t"musicbrainz"."replication_control"\tu\t2
-EOF
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
+        UPDATE artist SET name = 'Blues Guy' WHERE id = 3;
+        SQL
 
-    # Lines must have a trailing space.
-    chomp (my $dbmirror_pendingdata = <<"EOF");
-1\tt\t"id"='1'\x{20}
-1\tf\t"id"='1' "name"='Blues Guy' "last_updated"='2015-10-03 20:03:56.069908+00'\x{20}
-2\tt\t"id"='1'\x{20}
-2\tf\t"id"='1' "current_replication_sequence"='2'\x{20}
-EOF
-
-    $build_packet->(2, $dbmirror_pending, $dbmirror_pendingdata);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
 
     $build_incremental_dump->();
 
     $artist1{name} = 'Blues Guy';
-    $test_dump->("$output_dir/json-dump-2", 'artist', [
+    $test_dump->("$output_dir/json-dump-3", 'artist', [
         \%artist1,
     ]);
     $test_dumps_empty_except->($output_dir, 'artist');
 
     # Insert some works, and make sure they're picked up as changes.
-    chomp ($dbmirror_pending = <<"EOF");
-1\t"musicbrainz"."work"\ti\t1
-2\t"musicbrainz"."work"\ti\t1
-3\t"musicbrainz"."work"\ti\t1
-4\t"musicbrainz"."replication_control"\tu\t2
-EOF
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
+        INSERT INTO work (id, name, gid)
+             VALUES (1, 'A', 'daf4327f-19a0-450b-9448-e0ea1c707136'),
+                    (2, 'B', 'b6c76104-d64c-4883-b395-c74f782b751c'),
+                    (3, 'C', '79e0f9b8-db97-4bfb-9995-217478dd6c3e');
+        SQL
 
-    chomp ($dbmirror_pendingdata = <<"EOF");
-1\tf\t"id"='1' "name"='A' "gid"='daf4327f-19a0-450b-9448-e0ea1c707136' "last_updated"='2015-10-04 02:03:04.070000+00'\x{20}
-2\tf\t"id"='2' "name"='B' "gid"='b6c76104-d64c-4883-b395-c74f782b751c' "last_updated"='2015-10-04 01:02:03.060000+00'\x{20}
-3\tf\t"id"='3' "name"='C' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "last_updated"='2015-10-04 00:01:02.050000+00'\x{20}
-4\tt\t"id"='1'\x{20}
-4\tf\t"id"='1' "current_replication_sequence"='3'\x{20}
-EOF
-
-    $build_packet->(3, $dbmirror_pending, $dbmirror_pendingdata);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
 
     $build_incremental_dump->();
 
@@ -279,7 +239,7 @@ EOF
     my %work2 = (%work_common, title => 'B', id => 'b6c76104-d64c-4883-b395-c74f782b751c');
     my %work3 = (%work_common, title => 'C', id => '79e0f9b8-db97-4bfb-9995-217478dd6c3e');
 
-    $test_dump->("$output_dir/json-dump-3", 'work', [
+    $test_dump->("$output_dir/json-dump-4", 'work', [
         \%work1,
         \%work2,
         \%work3,
@@ -288,26 +248,20 @@ EOF
 
     # Insert an ISWC for the first work, a composer relationship for the
     # second, and change the name of the third.
-    $dbmirror_pending = '';
-    chomp ($dbmirror_pending = <<"EOF");
-1\t"musicbrainz"."iswc"\ti\t1
-2\t"musicbrainz"."link"\ti\t2
-3\t"musicbrainz"."l_artist_work"\ti\t2
-4\t"musicbrainz"."work"\tu\t3
-5\t"musicbrainz"."replication_control"\tu\t4
-EOF
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
+        INSERT INTO iswc (id, work, iswc) VALUES (1, 1, 'T-100.000.000-1');
+        INSERT INTO link (id, link_type, begin_date_year, begin_date_month, begin_date_day, end_date_year, end_date_month, end_date_day, attribute_count, ended)
+             VALUES (1, 168, NULL, NULL, NULL, NULL, NULL, NULL, 0, 'f');
+        INSERT INTO l_artist_work (id, link, entity0, entity1, link_order, entity0_credit, entity1_credit)
+             VALUES (1, 1, 3, 2, 0, '', '');
+        UPDATE work SET name = 'C?' WHERE id = 3;
+        SQL
 
-    chomp ($dbmirror_pendingdata = <<"EOF");
-1\tf\t"id"='1' "work"='1' "iswc"='T-100.000.000-1' "created"='2015-10-05 06:54:32.101234-05'\x{20}
-2\tf\t"id"='1' "id"='1' "link_type"='168' "begin_date_year"= "begin_date_month"= "begin_date_day"= "end_date_year"= "end_date_month"= "end_date_day"= "attribute_count"='0' "created"='2017-04-05 01:07:52.449236+00' "ended"='f'\x{20}
-3\tf\t"id"='1' "id"='1' "link"='1' "entity0"='1' "entity1"='2' "edits_pending"='0' "last_updated"='2017-04-05 00:59:46.503449+00' "link_order"='0' "entity0_credit"='' "entity1_credit"=''\x{20}
-4\tt\t"id"='3' "type"=\x{20}
-4\tf\t"id"='3' "gid"='79e0f9b8-db97-4bfb-9995-217478dd6c3e' "name"='C?' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-04-05 01:12:36.172561+00'\x{20}
-5\tt\t"id"='1'\x{20}
-5\tf\t"id"='1' "current_replication_sequence"='4'\x{20}
-EOF
-
-    $build_packet->(4, $dbmirror_pending, $dbmirror_pendingdata);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
 
     $build_incremental_dump->();
 
@@ -339,7 +293,7 @@ EOF
         },
     ];
 
-    $test_dump->("$output_dir/json-dump-4", 'artist', [
+    $test_dump->("$output_dir/json-dump-5", 'artist', [
         \%artist1,
     ]);
 
@@ -371,7 +325,7 @@ EOF
     ];
     $work3{title} = 'C?';
 
-    $test_dump->("$output_dir/json-dump-4", 'work', [
+    $test_dump->("$output_dir/json-dump-5", 'work', [
         \%work1,
         \%work2,
         \%work3,
@@ -379,28 +333,30 @@ EOF
     $test_dumps_empty_except->($output_dir, 'artist', 'work');
 
     # Insert a release.
-    chomp ($dbmirror_pending = <<"EOF");
-1\t"musicbrainz"."artist_credit"\ti\t1
-2\t"musicbrainz"."artist_credit_name"\ti\t1
-3\t"musicbrainz"."recording"\ti\t1
-4\t"musicbrainz"."release_group"\ti\t1
-5\t"musicbrainz"."release"\ti\t1
-6\t"musicbrainz"."medium"\ti\t1
-7\t"musicbrainz"."track"\ti\t1
-8\t"musicbrainz"."replication_control"\tu\t2
-EOF
-
-    chomp ($dbmirror_pendingdata = <<"EOF");
-1\tf\t"id"='1' "gid"='949a7fd5-fe73-3e8f-922e-01ff4ca958f7' "name"='Blues Guy' "artist_count"='1' "ref_count"='1' "created"='2017-05-22 03:54:37.141481+00'\x{20}
-2\tf\t"artist_credit"='1' "position"='0' "artist"='1' "name"='Blues Guy' "join_phrase"=''\x{20}
-3\tf\t"id"='1' "gid"='4293ab04-ec12-4c5e-9ffa-98ee6e833bb3' "name"='The Blues' "artist_credit"='1' "length"='238000' "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "video"='f'\x{20}
-4\tf\t"id"='1' "gid"='e0e39108-5a94-4736-83bb-09c1682a2ab5' "name"='Blue Hits' "artist_credit"='1' "type"= "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00'\x{20}
-5\tf\t"id"='1' "gid"='8ddb6392-a3d2-4c62-8a3f-9289dfc627b0' "name"='Blue Hits' "artist_credit"='1' "release_group"='1' "status"='1' "packaging"= "language"= "script"= "barcode"= "comment"='' "edits_pending"='0' "quality"='-1' "last_updated"='2017-05-22 03:54:37.141481+00'\x{20}
-6\tf\t"id"='1' "gid"='88499c4a-8570-4430-908f-4a661b1d8e64' "release"='1' "position"='1' "format"='1' "name"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "track_count"='0'\x{20}
-7\tf\t"id"='1' "gid"='a5e1dc36-b61e-4dba-86fa-ec11b4f18d20' "recording"='1' "medium"='1' "position"='1' "number"='1' "name"='The Blues' "artist_credit"='1' "length"= "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "is_data_track"='f'\x{20}
-8\tt\t"id"='1'\x{20}
-8\tf\t"id"='1' "current_replication_sequence"='5'\x{20}
-EOF
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
+        INSERT INTO artist_credit (id, gid, name, artist_count)
+             VALUES (1, '949a7fd5-fe73-3e8f-922e-01ff4ca958f7', 'Blues Guy', 1);
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name)
+             VALUES (1, 0, 3, 'Blues Guy');
+        -- insert standalone recording (with associated EDIT_RECORDING_CREATE edit)
+        INSERT INTO editor (id, name, password, email, email_confirm_date, ha1)
+             VALUES (1, 'new_editor', '{CLEARTEXT}password', 'example@example.com', '2005-10-20', 'e1dd8fee8ee728b0ddc8027d3a3db478');
+        INSERT INTO edit (id, editor, type, status, autoedit, open_time, close_time, expire_time, language, quality)
+             VALUES (1, 1, 71, 2, 0, now(), now(), now(), NULL, 1);
+        INSERT INTO edit_data (edit, data) VALUES (1, '{}');
+        INSERT INTO recording (id, gid, name, artist_credit, length)
+            VALUES (1, '4293ab04-ec12-4c5e-9ffa-98ee6e833bb3', 'The Blues', 1, 238000);
+        INSERT INTO edit_recording (edit, recording) VALUES (1, 1);
+        INSERT INTO release_group (id, gid, name, artist_credit, type)
+             VALUES (1, 'e0e39108-5a94-4736-83bb-09c1682a2ab5', 'Blue Hits', 1, NULL);
+        INSERT INTO release (id, gid, name, artist_credit, release_group, status, packaging, language, script, barcode)
+             VALUES (1, '8ddb6392-a3d2-4c62-8a3f-9289dfc627b0', 'Blue Hits', 1, 1, 1, NULL, NULL, NULL, NULL);
+        INSERT INTO medium (id, gid, release, position, format, name)
+             VALUES (1, '88499c4a-8570-4430-908f-4a661b1d8e64', 1, 1, 1, '');
+        INSERT INTO track (id, gid, recording, medium, position, number, name, artist_credit, length)
+             VALUES (1, 'a5e1dc36-b61e-4dba-86fa-ec11b4f18d20', 1, 1, 1, '1', 'The Blues', 1, NULL);
+        SQL
 
     my $make_artist_credit = sub {
         my ($name, %extra) = @_;
@@ -523,43 +479,42 @@ EOF
         title => 'Blue Hits',
     );
 
-    $build_packet->(5, $dbmirror_pending, $dbmirror_pendingdata);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
 
     $build_incremental_dump->();
 
-    $test_dump->("$output_dir/json-dump-5", 'release', [
+    $test_dump->("$output_dir/json-dump-6", 'release', [
         \%release1,
     ]);
-    $test_dump->("$output_dir/json-dump-5", 'release-group', [
+    $test_dump->("$output_dir/json-dump-6", 'release-group', [
         \%release_group1,
     ]);
     $test_dumps_empty_except->($output_dir, 'release', 'release-group');
 
     # Update the track artist credit.
-    chomp ($dbmirror_pending = <<"EOF");
-1\t"musicbrainz"."artist_credit"\ti\t1
-2\t"musicbrainz"."artist_credit_name"\ti\t1
-3\t"musicbrainz"."track"\tu\t1
-4\t"musicbrainz"."replication_control"\tu\t2
-EOF
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
+        INSERT INTO artist_credit (id, gid, name, artist_count)
+             VALUES (2, 'c44109ce-57d7-3691-84c8-37926e3d41d2', 'B.G.', 1);
+        INSERT INTO artist_credit_name (artist_credit, position, artist, name)
+             VALUES (2, 0, 3, 'B.G.');
+        UPDATE track SET artist_credit = 2 WHERE id = 1;
+        SQL
 
-    chomp ($dbmirror_pendingdata = <<"EOF");
-1\tf\t"id"='2' "gid"='c44109ce-57d7-3691-84c8-37926e3d41d2' "name"='B.G.' "artist_count"='1' "ref_count"='1' "created"='2017-05-22 04:41:37.645739+00'\x{20}
-2\tf\t"artist_credit"='2' "position"='0' "artist"='1' "name"='B.G.' "join_phrase"=''\x{20}
-3\tt\t"id"='1' "recording"='1' "medium"='1' "artist_credit"='1'\x{20}
-3\tf\t"id"='1' "gid"='a5e1dc36-b61e-4dba-86fa-ec11b4f18d20' "recording"='1' "medium"='1' "position"='1' "number"='1' "name"='The Blues' "artist_credit"='2' "length"= "edits_pending"='0' "last_updated"='2017-05-22 04:41:37.645739+00' "is_data_track"='f'\x{20}
-4\tt\t"id"='1'\x{20}
-4\tf\t"id"='1' "current_replication_sequence"='6'\x{20}
-EOF
-
-    $build_packet->(6, $dbmirror_pending, $dbmirror_pendingdata);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
 
     $build_incremental_dump->();
 
     my $artist_credit2_toplevel = $make_artist_credit->('B.G.', aliases => []);
     $release1{media}[0]{tracks}[0]{'artist-credit'} = $artist_credit2_toplevel;
 
-    $test_dump->("$output_dir/json-dump-6", 'release', [
+    $test_dump->("$output_dir/json-dump-7", 'release', [
         \%release1,
     ]);
     $test_dumps_empty_except->($output_dir, 'release');
@@ -584,24 +539,19 @@ EOF
     $test_dumps_empty_except->($output_dir, qw( artist release release-group work ));
 
     # Delete the release.
-    chomp ($dbmirror_pending = <<"EOF");
-1\t"musicbrainz"."track"\td\t1
-2\t"musicbrainz"."medium"\td\t1
-3\t"musicbrainz"."release"\td\t1
-4\t"musicbrainz"."recording"\ti\t2
-5\t"musicbrainz"."replication_control"\tu\t3
-EOF
+    $master_c->sql->auto_commit;
+    $master_c->sql->do(<<~'SQL');
+        DELETE FROM track WHERE id = 1;
+        DELETE FROM medium WHERE id = 1;
+        DELETE FROM release WHERE id = 1;
+        -- Recording length is unset once the track is deleted. Re-add it.
+        UPDATE recording SET length = 238000 WHERE id = 1;
+        SQL
 
-    chomp ($dbmirror_pendingdata = <<"EOF");
-1\tt\t"id"='1'\x{20}
-2\tt\t"id"='1'\x{20}
-3\tt\t"id"='1'\x{20}
-4\tf\t"id"='1' "gid"='4293ab04-ec12-4c5e-9ffa-98ee6e833bb3' "name"='The Blues' "artist_credit"='1' "length"='238000' "comment"='' "edits_pending"='0' "last_updated"='2017-05-22 03:54:37.141481+00' "video"='f'\x{20}
-5\tt\t"id"='1'\x{20}
-5\tf\t"id"='1' "current_replication_sequence"='7'\x{20}
-EOF
-
-    $build_packet->(7, $dbmirror_pending, $dbmirror_pendingdata);
+    $test->export_all_tables(
+        '--without-full-export',
+        '--with-replication',
+    );
 
     $build_incremental_dump->();
 
@@ -633,20 +583,6 @@ EOF
         },
     ]);
     $test_dumps_empty_except->($output_dir, qw( artist recording release-group work ));
-
-    $exec_sql->(<<~'SQL');
-        TRUNCATE artist CASCADE;
-        TRUNCATE artist_credit CASCADE;
-        TRUNCATE artist_credit_name CASCADE;
-        TRUNCATE medium CASCADE;
-        TRUNCATE recording CASCADE;
-        TRUNCATE release CASCADE;
-        TRUNCATE release_group CASCADE;
-        TRUNCATE track CASCADE;
-        TRUNCATE work CASCADE;
-        TRUNCATE json_dump.control;
-        TRUNCATE json_dump.tmp_checked_entities;
-        SQL
 };
 
 run_me;

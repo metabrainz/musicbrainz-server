@@ -5,7 +5,7 @@ set -e
 if [ $# -ne 0 ] && \
     (
         [ $# -gt 3 ] || \
-        ( [ $# -ge 1 ] && [[ ! "${1##*/}" =~ ^cpanfile(-second)?$ ]] ) || \
+        ( [ $# -ge 1 ] && [[ "${1##*/}" != "cpanfile" ]] ) || \
         ( [ $# -ge 2 ] && [[ "${2##*/}" != Dockerfile* ]] ) || \
         ( [ $# -eq 3 ] && [[ "${3##*/}" != cpanfile*.snapshot ]] )
     )
@@ -36,8 +36,7 @@ mkdir -p "$TMP_DIR/bin" "$TMP_DIR/docker"
 cd "$TMP_DIR"
 
 cp "$MB_SERVER_ROOT/bin/ts" "$TMP_DIR/bin/"
-cp "$MB_SERVER_ROOT/docker/pgdg_pubkey.txt" "$TMP_DIR/docker/"
-cp "$CPANFILE" "$TMP_DIR/cpanfile"
+cp "$CPANFILE" "$TMP_DIR/"
 cp "$DOCKERFILE" "$TMP_DIR/Dockerfile"
 
 $DOCKER_CMD build -t $TMP_IMG .

@@ -92,5 +92,5 @@ export default {
     ),
   ],
 
-  target: 'node20',
+  target: 'node24',
 };

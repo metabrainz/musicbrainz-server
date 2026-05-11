@@ -671,8 +671,7 @@ CREATE TABLE edit_url
     url                 INTEGER NOT NULL  -- PK, references url.id CASCADE
 );
 
-CREATE TABLE editor
-(
+CREATE TABLE editor ( -- replicate
     id                  SERIAL,
     name                VARCHAR(64) NOT NULL,
     privs               INTEGER DEFAULT 0,
@@ -946,7 +945,7 @@ CREATE TABLE release_first_release_date (
     day         SMALLINT
 );
 
-CREATE TABLE recording_first_release_date (
+CREATE TABLE recording_first_release_date ( -- replicate
     recording   INTEGER NOT NULL, -- PK, references recording.id CASCADE
     year        SMALLINT,
     month       SMALLINT,
@@ -1176,7 +1175,6 @@ CREATE TABLE isrc ( -- replicate (verbose)
     id                  SERIAL,
     recording           INTEGER NOT NULL, -- references recording.id
     isrc                CHAR(12) NOT NULL CHECK (isrc ~ E'^[A-Z]{2}[A-Z0-9]{3}[0-9]{7}$'),
-    source              SMALLINT,
     edits_pending       INTEGER NOT NULL DEFAULT 0 CHECK (edits_pending >= 0),
     created             TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -1185,7 +1183,6 @@ CREATE TABLE iswc ( -- replicate (verbose)
     id SERIAL NOT NULL,
     work INTEGER NOT NULL, -- references work.id
     iswc CHARACTER(15) CHECK (iswc ~ E'^T-?\\d{3}.?\\d{3}.?\\d{3}[-.]?\\d$'),
-    source SMALLINT,
     edits_pending INTEGER NOT NULL DEFAULT 0,
     created TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
 );

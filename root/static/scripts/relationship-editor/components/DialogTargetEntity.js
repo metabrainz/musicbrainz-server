@@ -53,6 +53,7 @@ const INCORRECT_SERIES_ENTITY_MESSAGES = {
   recording: N_l('The series you’ve selected is for recordings.'),
   release: N_l('The series you’ve selected is for releases.'),
   release_group: N_l('The series you’ve selected is for release groups.'),
+  series: N_l('The series you’ve selected is for series.'),
   work: N_l('The series you’ve selected is for works.'),
 };
 
@@ -101,7 +102,8 @@ export function getTargetError(
     if (
       linkType &&
       PART_OF_SERIES_LINK_TYPE_GIDS.includes(linkType.gid) &&
-      seriesItemType !== source.entityType
+      seriesItemType !== source.entityType &&
+      source.entityType !== 'series'
     ) {
       return INCORRECT_SERIES_ENTITY_MESSAGES[seriesItemType]();
     }

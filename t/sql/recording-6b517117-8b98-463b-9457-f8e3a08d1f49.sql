@@ -48,8 +48,8 @@ INSERT INTO artist_credit_name (artist, artist_credit, join_phrase, name, positi
 	(2884, 2884, '', 'R. Kelly', 0);
 INSERT INTO recording (artist_credit, comment, edits_pending, gid, id, last_updated, length, name, video) VALUES
 	(2884, '', 0, '6b517117-8b98-463b-9457-f8e3a08d1f49', 9042322, '2014-04-19 09:21:02.680799+00', 277773, 'The World''s Greatest', '0');
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES
-	('2012-12-02 00:45:39.212937+00', 0, 348424, 'USJI10100576', 9042322, NULL);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES
+	('2012-12-02 00:45:39.212937+00', 0, 348424, 'USJI10100576', 9042322);
 INSERT INTO area (begin_date_day, begin_date_month, begin_date_year, comment, edits_pending, end_date_day, end_date_month, end_date_year, ended, gid, id, last_updated, name, type) VALUES
 	(NULL, NULL, NULL, '', 0, NULL, NULL, NULL, '0', '2dd47a64-91d5-3b13-bc94-80043ed063d7', 106, '2013-05-27 12:32:31.072979+00', 'Jamaica', 1),
 	(NULL, NULL, NULL, '', 0, NULL, NULL, NULL, '0', '489ce91b-6658-3307-9877-795b68554c98', 222, '2013-06-15 18:06:39.59323+00', 'United States', 1),

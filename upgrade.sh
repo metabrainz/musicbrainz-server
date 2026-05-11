@@ -12,8 +12,9 @@ source admin/config.sh
 : ${REPLICATION_TYPE:=$(perl -Ilib -e 'use DBDefs; print DBDefs->REPLICATION_TYPE;')}
 : ${DATABASE:=MAINTENANCE}
 : ${SKIP_EXPORT:=0}
+: ${SKIP_VACUUM:=0}
 
-NEW_SCHEMA_SEQUENCE=30
+NEW_SCHEMA_SEQUENCE=31
 OLD_SCHEMA_SEQUENCE=$((NEW_SCHEMA_SEQUENCE - 1))
 
 RT_MASTER=1
@@ -24,6 +25,7 @@ SQL_DIR='./admin/sql/updates/schema-change'
 EXTENSIONS_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.all_extensions.sql"
 MASTER_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.master_only.sql"
 MIRROR_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.mirror_only.sql"
+STANDALONE_ONLY_SQL="$SQL_DIR/$NEW_SCHEMA_SEQUENCE.standalone_only.sql"
 
 ################################################################################
 # Assert pre-conditions
@@ -96,6 +98,15 @@ then
     fi
 fi
 
+if [ "$REPLICATION_TYPE" = "$RT_STANDALONE" ]
+then
+    if [ -e "$STANDALONE_ONLY_SQL" ]
+    then
+        echo `date` : 'Running upgrade scripts for standalone nodes'
+        ./admin/psql "$DATABASE" < "$STANDALONE_ONLY_SQL" || exit 1
+    fi
+fi
+
 ################################################################################
 # Add constraints that apply only to master/standalone (FKS)
 
@@ -119,9 +130,6 @@ OUTPUT=`./admin/UpdateDatabasePrivileges.pl --other-ro-role caa_redirect --other
 
 if [ "$REPLICATION_TYPE" = "$RT_MASTER" ]
 then
-    echo `date` : 'Refreshing dbmirror2.column_info'
-    OUTPUT=`./admin/psql --system "$DATABASE" < ./admin/sql/dbmirror2/RefreshColumnInfo.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
-
     echo `date` : 'Create replication triggers (musicbrainz)'
     OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
     OUTPUT=`./admin/psql "$DATABASE" < ./admin/sql/CreateReplicationTriggers2.sql 2>&1` || ( echo "$OUTPUT" ; exit 1 )
@@ -140,9 +148,14 @@ fi
 echo `date` : Going to schema sequence $NEW_SCHEMA_SEQUENCE
 echo "UPDATE replication_control SET current_schema_sequence = $NEW_SCHEMA_SEQUENCE;" | ./admin/psql "$DATABASE"
 
-# ignore superuser-only vacuum tables
-echo `date` : Vacuuming DB.
-echo "SET statement_timeout = 0; VACUUM ANALYZE;" | ./admin/psql MAINTENANCE 2>&1 | grep -v 'only superuser can vacuum it'
+if [ "$SKIP_VACUUM" = "0" ]
+then
+    # ignore superuser-only vacuum tables
+    echo `date` : Vacuuming DB.
+    echo "SET statement_timeout = 0; VACUUM ANALYZE;" | ./admin/psql MAINTENANCE 2>&1 | grep -v 'only superuser can vacuum it'
+else
+    echo `date` : Skipping DB vacuum/analyze at your request.
+fi
 
 ################################################################################
 # Prompt for final manual intervention
