@@ -2926,17 +2926,6 @@ msgstr ""
 "piedi, era usato dai suonatori di fisarmonica come accompagnamento di basso "
 "nella Vallonia del primo XX secolo."
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-"Tubo grande e largo con un padiglione a campana molto svasato, manipolandone "
-"la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il "
-"nome dell'arma anticarro."
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -3661,6 +3650,23 @@ msgstr ""
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Rullante, spesso "
 "con uno o più fili, imbracciato da una persona e percosso con una mano, si "
 "accompagna spesso con flauti."
+
+#. name:bazooka
+#: DB:instrument/description:741
+#, fuzzy
+#| msgid ""
+#| "Large wide tube with a very strongly flaring bell, the telescoping "
+#| "creates only subtle fluctuating overtones. It inspired the name of the "
+#| "anti-tank weapon."
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
+msgstr ""
+"Tubo grande e largo con un padiglione a campana molto svasato, manipolandone "
+"la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il "
+"nome dell'arma anticarro."
 
 #. name:mezwed
 #: DB:instrument/description:1209

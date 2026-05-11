@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-21 13:13-0500\n"
+"POT-Creation-Date: 2026-05-11 17:09+0200\n"
 "PO-Revision-Date: 2026-03-10 03:11+0000\n"
 "Last-Translator: DenilsonSama <denilsongomesdesouza1@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
@@ -2320,7 +2320,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480 ../lib/MusicBrainz/Server/Edit/Series.pm:7
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:51
-#: ../root/components/list/SeriesList.js:40
+#: ../root/components/list/SeriesList.js:42
 #: ../root/edit/details/AddSeries.js:21 ../root/edit/details/EditSeries.js:30
 #: ../root/layout/components/Search.js:31
 #: ../root/search/components/SearchForm.js:44
@@ -3113,7 +3113,7 @@ msgstr ""
 #: ../root/search/components/SeriesResults.js:61
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/account/components/ApplicationForm.js:85
-#: ../root/static/scripts/alias/AliasEditForm.js:341
+#: ../root/static/scripts/alias/AliasEditForm.js:342
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:201
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
@@ -3493,7 +3493,7 @@ msgstr ""
 #: ../root/release/edit/tracklist.tt:316 ../root/release/edit/tracklist.tt:555
 #: ../root/release/edit/tracklist.tt:570
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:109
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:910
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:935
 msgid "help"
 msgstr ""
 
@@ -4009,20 +4009,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:425
+#: ../root/static/scripts/common/constants.js:426
 msgid "Low"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:424
-#: ../root/static/scripts/common/constants.js:426
+#: ../root/static/scripts/common/constants.js:425
+#: ../root/static/scripts/common/constants.js:427
 msgid "Normal"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:427
+#: ../root/static/scripts/common/constants.js:428
 msgid "High"
 msgstr ""
 
@@ -4163,11 +4163,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:355
 msgid ""
-"Our Redis server appears to be down; some features may not work as intended "
+"Our Valkey server appears to be down; some features may not work as intended "
 "or expected."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Series.pm:169
+#: ../lib/MusicBrainz/Server/Controller/Series.pm:173
 msgid "Series that have different entity types cannot be merged."
 msgstr ""
 
@@ -4345,7 +4345,7 @@ msgstr ""
 msgid "Total"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Data/Work.pm:405
+#: ../lib/MusicBrainz/Server/Data/Work.pm:415
 #: ../root/static/scripts/common/utility/bracketed.js:19
 #, perl-brace-format
 msgid "({text})"
@@ -4890,7 +4890,7 @@ msgstr ""
 #: ../root/edit/details/ReorderRelationships.js:17
 #: ../root/static/scripts/edit/components/edit/RelationshipDiff.js:213
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:128
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:965
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:990
 msgid "Relationship"
 msgstr ""
 
@@ -4958,7 +4958,7 @@ msgctxt "singular, edit type"
 msgid "Add cover art"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:19
+#: ../lib/MusicBrainz/Server/Edit/Release/AddReleaseLabel.pm:20
 msgctxt "edit type"
 msgid "Add release label"
 msgstr ""
@@ -5825,22 +5825,22 @@ msgid "A fluency level is required."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:435
+#: ../root/static/scripts/common/constants.js:436
 msgid "Basic"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:436
+#: ../root/static/scripts/common/constants.js:437
 msgid "Intermediate"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:434
+#: ../root/static/scripts/common/constants.js:435
 msgid "Advanced"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:437
+#: ../root/static/scripts/common/constants.js:438
 msgid "Native"
 msgstr ""
 
@@ -6543,7 +6543,7 @@ msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:52
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:290
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:123
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:167
 msgctxt "header"
 msgid "Preview"
@@ -7656,7 +7656,7 @@ msgstr ""
 #: ../root/components/Aliases/AliasTable.js:22
 #: ../root/edit/details/AddRemoveAlias.js:67
 #: ../root/edit/details/EditAlias.js:93
-#: ../root/static/scripts/alias/AliasEditForm.js:312
+#: ../root/static/scripts/alias/AliasEditForm.js:313
 msgid "Locale"
 msgstr ""
 
@@ -7688,7 +7688,7 @@ msgid "Aliases"
 msgstr ""
 
 #: ../root/components/Aliases/index.js:48
-#: ../root/static/scripts/alias/AliasEditForm.js:276
+#: ../root/static/scripts/alias/AliasEditForm.js:277
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
@@ -7893,7 +7893,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:289
 #: ../root/edit/details/RemoveRelationshipType.js:113
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:38
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:554
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:579
 #: ../root/utility/tableColumns.js:682
 msgid "Attributes"
 msgstr ""
@@ -8119,7 +8119,7 @@ msgstr ""
 msgid "[missing media]"
 msgstr ""
 
-#: ../root/components/list/SeriesList.js:50
+#: ../root/components/list/SeriesList.js:55
 #: ../root/layout/components/sidebar/CollectionSidebar.js:61
 #: ../root/layout/components/sidebar/SeriesSidebar.js:69
 #: ../root/search/components/SeriesResults.js:62
@@ -13949,7 +13949,7 @@ msgstr ""
 msgid "Sorry, your query was too large."
 msgstr ""
 
-#: ../root/series/SeriesIndex.js:132
+#: ../root/series/SeriesIndex.js:140
 msgid "This series is currently empty."
 msgstr ""
 
@@ -14121,19 +14121,19 @@ msgid ""
 "account."
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:292
+#: ../root/static/scripts/alias/AliasEditForm.js:293
 msgid "Alias details"
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:299
+#: ../root/static/scripts/alias/AliasEditForm.js:300
 msgid "Alias name:"
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:327
+#: ../root/static/scripts/alias/AliasEditForm.js:328
 msgid "This is the {alias_doc|primary alias} for this locale"
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:349
+#: ../root/static/scripts/alias/AliasEditForm.js:350
 msgid "This alias is no longer current."
 msgstr ""
 
@@ -14668,7 +14668,7 @@ msgstr ""
 msgid "Data submitted with this request"
 msgstr ""
 
-#: ../root/static/scripts/common/components/RelatedSeries.js:31
+#: ../root/static/scripts/common/components/RelatedSeries.js:37
 msgid "Related series"
 msgstr ""
 
@@ -15335,40 +15335,40 @@ msgid ""
 "information."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:129
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:132
 msgid "[missing track name]"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:133
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:136
 msgid "You haven’t entered a track name yet."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:134
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:137
 msgid "This track hasn’t been added yet."
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:150
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:153
 msgid "Artist in MusicBrainz:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:151
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:154
 msgid "Artist as credited:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:152
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:155
 msgid "Join phrase:"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:168
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:171
 msgctxt "interactive"
 msgid "Add artist credit"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:198
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:201
 msgid "Change all artists on this release that match “{name}”"
 msgstr ""
 
-#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:202
+#: ../root/static/scripts/edit/components/ArtistCreditBubble.js:205
 msgid "Change all artists on this release that are currently empty"
 msgstr ""
 
@@ -15681,7 +15681,7 @@ msgid "Please select a link type for the URL you’ve entered."
 msgstr ""
 
 #: ../root/static/scripts/external-links-editor/validation.js:348
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1014
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1039
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:537
 msgid "This relationship already exists."
 msgstr ""
@@ -15901,10 +15901,14 @@ msgid "The series you’ve selected is for release groups."
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:56
+msgid "The series you’ve selected is for series."
+msgstr ""
+
+#: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:57
 msgid "The series you’ve selected is for works."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:90
+#: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:91
 msgid "Entities in a relationship cannot be the same."
 msgstr ""
 
@@ -15912,17 +15916,17 @@ msgstr ""
 msgid "Related type"
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:926
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:951
 msgid ""
 "Warning: This relationship has open edits. {show|Click here} to view these "
 "edits and make sure they do not conflict with your own."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1038
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1063
 msgid "This will add a relationship to all checked recordings."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1040
+#: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1065
 msgid "This will add a relationship to all checked works."
 msgstr ""
 

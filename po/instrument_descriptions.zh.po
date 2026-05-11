@@ -2566,16 +2566,6 @@ msgid ""
 msgstr ""
 "大的带有弹簧的脚踏式风箱，由20世纪早期瓦隆尼亚手风琴演奏家作为低音辅助使用。"
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-"附有开口很大的喇叭口的粗大管，伸缩式设计仅能产生微弱的波动泛音。反坦克武器巴"
-"祖卡火箭筒由此得名。"
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -3192,6 +3182,22 @@ msgstr ""
 "instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>。<br /> 侧鼓，"
 "通常带有一条或多条响弦，由一人佩戴并用一只手击打，经常与管鼓（tabor pipes）结"
 "合使用。"
+
+#. name:bazooka
+#: DB:instrument/description:741
+#, fuzzy
+#| msgid ""
+#| "Large wide tube with a very strongly flaring bell, the telescoping "
+#| "creates only subtle fluctuating overtones. It inspired the name of the "
+#| "anti-tank weapon."
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
+msgstr ""
+"附有开口很大的喇叭口的粗大管，伸缩式设计仅能产生微弱的波动泛音。反坦克武器巴"
+"祖卡火箭筒由此得名。"
 
 #. name:mezwed
 #: DB:instrument/description:1209
