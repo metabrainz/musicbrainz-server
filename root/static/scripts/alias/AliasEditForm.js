@@ -100,7 +100,8 @@ function createInitialState(form: AliasEditFormT, searchHintType: number) {
     guessCaseOptions: createGuessCaseOptionsState(),
     isEnded: form.field.period.field.ended.value,
     isGuessCaseOptionsOpen: false,
-    isTypeSearchHint: form.field.type_id.value === searchHintType,
+    isTypeSearchHint:
+      String(form.field.type_id.value) === String(searchHintType),
     searchHintType,
   };
 }

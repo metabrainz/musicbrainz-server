@@ -13,6 +13,7 @@ import EventList from '../components/list/EventList.js';
 import RecordingList from '../components/list/RecordingList.js';
 import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList.js';
 import ReleaseList from '../components/list/ReleaseList.js';
+import SeriesList from '../components/list/SeriesList.js';
 import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import manifest from '../static/manifest.mjs';
@@ -80,6 +81,13 @@ const listPicker = (
         <ReleaseGroupListTable
           releaseGroups={props.entities}
           showRatings
+          {...sharedProps}
+        />
+      );
+    case 'series':
+      return (
+        <SeriesList
+          series={props.entities}
           {...sharedProps}
         />
       );

@@ -34,9 +34,9 @@ component ButtonPopover(
   ) => React.Node,
   buttonContent: React.Node,
   buttonProps?: {
-    className?: string,
-    id?: string,
-    title?: string | (() => string),
+    +className?: string,
+    +id?: string,
+    +title?: string | (() => string),
   } | null,
   className?: string,
   closeOnOutsideClick: boolean = true,

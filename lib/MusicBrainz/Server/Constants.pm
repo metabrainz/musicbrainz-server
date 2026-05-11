@@ -109,7 +109,6 @@ our @EXPORT_OK = (
         %ENTITIES_WITH_RELATIONSHIP_CREDITS
         %HISTORICAL_RELEASE_GROUP_TYPES
         %ENTITIES entities_with @RELATABLE_ENTITIES
-        $EDITOR_SANITISED_COLUMNS
         $PASSPHRASE_BCRYPT_COST
         %ALIAS_LOCALES
     ),
@@ -483,16 +482,18 @@ Readonly our %PART_OF_SERIES => (
     recording       => 'ea6f0698-6782-30d6-b16d-293081b66774',
     release         => '3fa29f01-8e13-3e49-9b0a-ad212aa2f81d',
     release_group   => '01018437-91d8-36b9-bf89-3f885d53b5bd',
+    series          => '8da75c99-46ff-373c-9d31-276ca8fa8cc3',
     work            => 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 );
 
 Readonly our @PART_OF_SERIES_LINK_TYPE_IDS => (
-    740, # recording
-    741, # release
-    742, # release group
-    743, # work
-    802, # event
-    996, # artist
+    740,  # recording
+    741,  # release
+    742,  # release group
+    743,  # work
+    802,  # event
+    996,  # artist
+    1307, # series
 );
 
 Readonly our $AMAZON_ASIN_LINK_TYPE_ID => 77;
@@ -910,7 +911,7 @@ Readonly our @EDIT_TABLE_LIST => qw(
 );
 
 Readonly our @EDITOR_TABLE_LIST => qw(
-    editor_sanitised
+    editor_sanitized
 );
 
 Readonly our @PRIVATE_TABLE_LIST => qw(
@@ -1093,25 +1094,6 @@ Readonly our @FULL_TABLE_LIST => (
     @WIKIDOCS_TABLE_LIST,
     @DOCUMENTATION_TABLE_LIST,
     @SITEMAPS_TABLE_LIST,
-);
-
-Readonly our $EDITOR_SANITISED_COLUMNS => join(', ',
-    'editor.id',
-    'editor.name',
-    '0 AS privs',
-    q('' AS email),
-    'NULL AS website',
-    'NULL AS bio',
-    'editor.member_since',
-    'editor.email_confirm_date',
-    'now() AS last_login_date',
-    'editor.last_updated',
-    'NULL AS birth_date',
-    'NULL AS gender',
-    'NULL as area',
-    q('{CLEARTEXT}mb' AS password),
-    q{md5(editor.name || ':musicbrainz.org:mb') AS ha1},
-    'editor.deleted',
 );
 
 Readonly our $PASSPHRASE_BCRYPT_COST => 12;

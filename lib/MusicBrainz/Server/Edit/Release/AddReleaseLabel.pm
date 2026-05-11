@@ -4,6 +4,7 @@ use Moose;
 use MooseX::Types::Moose qw( Int Str );
 use MooseX::Types::Structured qw( Dict Optional );
 use MusicBrainz::Server::Constants qw( $EDIT_RELEASE_ADDRELEASELABEL );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 use MusicBrainz::Server::Edit::Types qw( Nullable NullableOnPreview );
 use MusicBrainz::Server::Edit::Utils qw( gid_or_id );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -57,6 +58,9 @@ sub initialize {
 
     my $release = delete $opts{release};
     die 'Missing "release" argument' unless ($release || $self->preview);
+
+    $opts{catalog_number} = undef
+        unless non_empty($opts{catalog_number});
 
     if ($release) {
         $self->c->model('ReleaseLabel')->load($release);

@@ -450,23 +450,23 @@ UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621511;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621512;
 UPDATE recording_meta SET rating_count = NULL, rating = NULL WHERE id = 8621513;
 
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189218, 'GBAAA9900303', 1062699, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189222, 'GBAAA9900297', 1353886, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189217, 'GBAAA9900301', 2726277, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189216, 'GBAAA9900295', 2726271, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189215, 'GBAAA9900298', 2726274, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189224, 'GBAAA9900300', 2726276, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189223, 'GBAAA9900305', 2726281, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 38816, 'GBAAA9900299', 2726275, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189220, 'GBAAA9900296', 2726272, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189219, 'GBAAA9900302', 2726278, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189225, 'GBAAA9900304', 2726280, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176395, 'GBAAA9900309', 4844121, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176392, 'GBAAA9900528', 4844122, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176393, 'GBAAA9900529', 4844123, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4255, 'JPA600102450', 4223059, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4256, 'JPA600102460', 4223060, 0);
-INSERT INTO isrc (created, edits_pending, id, isrc, recording, source) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4257, 'JPA600102459', 4223061, 0);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189218, 'GBAAA9900303', 1062699);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189222, 'GBAAA9900297', 1353886);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189217, 'GBAAA9900301', 2726277);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189216, 'GBAAA9900295', 2726271);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189215, 'GBAAA9900298', 2726274);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189224, 'GBAAA9900300', 2726276);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189223, 'GBAAA9900305', 2726281);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 38816, 'GBAAA9900299', 2726275);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189220, 'GBAAA9900296', 2726272);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189219, 'GBAAA9900302', 2726278);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 189225, 'GBAAA9900304', 2726280);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176395, 'GBAAA9900309', 4844121);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176392, 'GBAAA9900528', 4844122);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 176393, 'GBAAA9900529', 4844123);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4255, 'JPA600102450', 4223059);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4256, 'JPA600102460', 4223060);
+INSERT INTO isrc (created, edits_pending, id, isrc, recording) VALUES ('2011-01-18 15:56:00.408782+00', 0, 4257, 'JPA600102459', 4223061);
 
 -- Releases
 

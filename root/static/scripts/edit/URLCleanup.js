@@ -7902,7 +7902,7 @@ export const CLEANUP_ENTRIES_BY_HOSTNAME:
     }, Object.create(null) as {[hostname: string]: Array<CleanupEntry>});
 
 const entitySpecificRules: {
-  [entityType: RelatableEntityTypeT]: (string) => ValidationResult,
+  [entityType: RelatableEntityTypeT]: ?(string) => ValidationResult,
 } = {};
 
 // Avoid Wikipedia/Wikidata being added as release-level relationship

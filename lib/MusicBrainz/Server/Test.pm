@@ -80,17 +80,17 @@ sub create_test_context
     my ($class, %args) = @_;
 
     my $cache_opts = DBDefs->CACHE_MANAGER_OPTIONS;
-    my $store_opts = DBDefs->DATASTORE_REDIS_ARGS;
+    my $store_opts = DBDefs->DATASTORE_VALKEY_ARGS;
 
     $cache_opts->{profiles}{external}{options}{database} =
-        DBDefs->REDIS_TEST_DATABASE;
+        DBDefs->VALKEY_TEST_DATABASE;
     $store_opts->{database} =
-        DBDefs->REDIS_TEST_DATABASE;
+        DBDefs->VALKEY_TEST_DATABASE;
 
     return MusicBrainz::Server::Context->new(
         cache_manager =>
             MusicBrainz::Server::CacheManager->new(%$cache_opts),
-        store => MusicBrainz::DataStore::Redis->new(%$store_opts),
+        store => MusicBrainz::DataStore::Valkey->new(%$store_opts),
         %args,
     );
 }

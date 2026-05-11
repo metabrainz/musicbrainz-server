@@ -11,8 +11,22 @@ fi
 
 source ./admin/functions.sh
 
+INITDB_ARGS=(
+    '--database' "$DATABASE"
+    '--clean'
+    '--initial-sql' 't/sql/initial.sql'
+)
+if [[ "$REPLICATION_TYPE" == '1' ]]; then
+    PG_LIBDIR="$(pg_config --pkglibdir)"
+    PENDING_SO="$PG_LIBDIR/pending.so"
+    if [[ -f "$PENDING_SO" ]]; then
+        INITDB_ARGS+=('--with-pending' "$PENDING_SO")
+    fi
+fi
+
 if ! script/database_exists $DATABASE; then
-    ./admin/InitDb.pl --createdb --database $DATABASE --clean --initial-sql 't/sql/initial.sql'
+    INITDB_ARGS+=('--createdb')
+    ./admin/InitDb.pl "${INITDB_ARGS[@]}"
 else
     echo `date` : Clearing old test database
     OUTPUT=`
@@ -28,7 +42,7 @@ else
       DROP SCHEMA IF EXISTS json_dump CASCADE;
       DROP SCHEMA IF EXISTS dbmirror2 CASCADE;" | ./admin/psql $DATABASE 2>&1
     ` || ( echo "$OUTPUT" && exit 1 )
-    ./admin/InitDb.pl --database $DATABASE --clean --initial-sql 't/sql/initial.sql'
+    ./admin/InitDb.pl "${INITDB_ARGS[@]}"
 fi
 
 echo `date` : Set up pgtap extension

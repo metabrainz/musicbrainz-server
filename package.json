@@ -68,7 +68,7 @@
     "yargs": "3.10.0"
   },
   "devDependencies": {
-    "@metabrainz/xgettext-js": "5.0.1",
+    "@metabrainz/xgettext-js": "5.0.2",
     "@stylistic/eslint-plugin": "5.10.0",
     "babel-plugin-istanbul": "7.0.1",
     "babel-plugin-syntax-hermes-parser": "0.33.3",
@@ -82,7 +82,7 @@
     "eslint-plugin-react": "7.37.5",
     "eslint-plugin-react-hooks": "7.0.1",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "flow-bin": "0.285.0",
+    "flow-bin": "0.311.0",
     "flow-typed": "4.1.1",
     "gettext-parser": "4.2.0",
     "globals": "17.4.0",

@@ -61,7 +61,7 @@ export function isDateValid(date: PartialDateWithStringsT): boolean {
   return true;
 }
 
-export function isYearFourDigits(y: string): boolean {
+export function isYearFourDigits(y: string | null): boolean {
   return (y === null || y === '' || y.length === 4);
 }
 

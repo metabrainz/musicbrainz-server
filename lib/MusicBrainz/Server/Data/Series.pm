@@ -202,6 +202,16 @@ sub update {
     return 1;
 }
 
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $series_id, $update) = @_;
+
+    if ($update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('series', $series_id);
+    }
+};
+
 sub is_empty {
     my ($self, $series_id) = @_;
 
@@ -232,11 +242,12 @@ sub get_entities {
 
     my $entity_type = $series->type->item_entity_type;
     my $model = $self->c->model(type_to_model($entity_type));
+    my $column_name = $entity_type eq 'series' ? 'series_part' : $entity_type;
 
     my $query = '
       SELECT e.*, es.text_value AS ordering_key
       FROM (SELECT ' . $model->_columns . ' FROM ' . $model->_table . ") e
-      JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$entity_type
+      JOIN (SELECT * FROM ${entity_type}_series) es ON e.id = es.$column_name
       WHERE es.series = ?
       ORDER BY es.link_order, e.name COLLATE musicbrainz ASC";
 
@@ -283,6 +294,14 @@ sub load_entity_count {
     }
 }
 
+sub load_related_info {
+    my ($self, @series) = @_;
+
+    my $c = $self->c;
+    $c->model('SeriesType')->load(@series);
+    $c->model('Series')->load_entity_count(@series);
+}
+
 sub find_by_subscribed_editor
 {
     my ($self, $editor_id, $limit, $offset) = @_;
@@ -310,7 +329,7 @@ sub automatically_reorder {
 
     my $type0 = $entity_type lt 'series' ? $entity_type : 'series';
     my $type1 = $entity_type lt 'series' ? 'series' : $entity_type;
-    my $target_prop = $type0 eq 'series' ? 'entity1' : 'entity0';
+    my $target_prop = $type1 ne 'series' ? 'entity1' : 'entity0';
 
     my $series_items = $self->c->sql->select_list_of_hashes("
         SELECT relationship, link_order, text_value
@@ -429,8 +448,10 @@ sub automatically_reorder {
 sub reorder_for_entities {
     my ($self, $type, @ids) = @_;
 
+    my $type_column = $type eq 'series' ? 'series_part' : $type;
+
     my $series = $self->sql->select_single_column_array(
-        "SELECT DISTINCT series FROM ${type}_series WHERE $type = any(?)", \@ids,
+        "SELECT DISTINCT series FROM ${type}_series WHERE $type_column = any(?)", \@ids,
     );
 
     $self->automatically_reorder($_) for @$series;

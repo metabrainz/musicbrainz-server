@@ -342,6 +342,8 @@ for my $f (@pending_files)
     }
 }
 
+toggle_search_indexing(0);
+
 # Load them
 print localtime() . " : Importing the pending data files\n";
 system "$FindBin::Bin/ImportReplicationChanges",
@@ -404,6 +406,7 @@ if (-x "$FindBin::Bin/hooks/post-process") {
 $count += 1;
 if ($limit > 0 && $count >= $limit) {
     print localtime() . " : Hit packet limit $limit.\n";
+    toggle_search_indexing(1);
     exit 0;
 }
 # Loop back round and start again
@@ -471,6 +474,23 @@ EOF
 
     print localtime() . " : Replication abandoned\n";
     exit 1;
+}
+
+sub toggle_search_indexing {
+    my $enabled = shift;
+
+    my $sir_schema_exists = $sql->select_single_value(<<~'SQL');
+        SELECT 1
+          FROM information_schema.schemata
+          WHERE schema_name = 'sir'
+        SQL
+
+    if ($sir_schema_exists) {
+        $sql->do(
+            'UPDATE sir.control SET indexing_enabled = ?',
+            $enabled,
+        );
+    }
 }
 
 =head1 COPYRIGHT AND LICENSE
