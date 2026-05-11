@@ -550,7 +550,7 @@ type ErrorMessagePropsT = {
 
 export const ErrorMessage:
   component(...ErrorMessagePropsT) =
-    React.memo<ErrorMessagePropsT, void>(({
+    React.memo<ErrorMessagePropsT, React.MixedElement>(({
       error,
     }: ErrorMessagePropsT): React.MixedElement => (
     <div className="error">

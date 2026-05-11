@@ -404,6 +404,22 @@ test 'Edits that only change the label still store and display the catalog numbe
     is($edit->display_data->{catalog_number}{old}, 'FOO');
 };
 
+test 'Catalog numbers set to the empty string are stored as NULL' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
+
+    my $rl = $c->model('ReleaseLabel')->get_by_id(1);
+
+    create_edit($c, $rl, catalog_number => '');
+
+    my $catalog_number = $c->sql->select_single_value(
+        'SELECT catalog_number FROM release_label WHERE id = 1',
+    );
+    is($catalog_number, undef, 'Catalog number is stored as NULL');
+};
+
 sub create_edit {
     my ($c, $release_label, %args) = @_;
 

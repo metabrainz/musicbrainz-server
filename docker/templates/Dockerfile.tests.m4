@@ -16,12 +16,10 @@ set_cpanm_install_args
 
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
     keep_apt_cache && \
-    apt_install(``ca-certificates curl gnupg software-properties-common'') && \
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    add-apt-repository ppa:deadsnakes/ppa && \
+    apt_install(``ca-certificates curl gnupg postgresql-common software-properties-common'') && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt_install(`m4_dnl
         mbs_build_deps
         mbs_javascript_deps
@@ -34,26 +32,25 @@ run_with_apt_cache \
         expect
         locales
         openssh-client
-        postgresql-16
-        postgresql-16-pgtap
-        redis-server
+        postgresql-18
+        postgresql-18-pgtap
         runit
         runit-run
         sudo
         unzip
+        valkey
         ') && \
-    rm -f /etc/apt/sources.list.d/nodesource.list \
-        /etc/apt/sources.list.d/pgdg.list && \
-    systemctl disable rabbitmq-server && \
+    rm -f /etc/apt/sources.list.d/nodesource.list && \
     install_perl && \
     install_cpanm_and_carton && \
-    python3.13 -m ensurepip --upgrade && \
     echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && \
     locale-gen && \
     # Allow the musicbrainz user execute any command with sudo.
-    # Primarily needed to run rabbitmqctl.
     echo 'musicbrainz ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers && \
     sudo -E -H -u musicbrainz mkdir MBS_ROOT
+
+RUN curl -LsSf https://astral.sh/uv/0.11.8/install.sh | sudo -E -H -u musicbrainz sh && \
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv python install 3.13
 
 install_ts
 
@@ -70,7 +67,7 @@ RUN mkdir -p "$PGDATA" && \
     chown -R postgres:postgres "$PGHOME" && \
     cd "$PGHOME" && \
     chmod 700 "$PGDATA" && \
-    sudo -u postgres /usr/lib/postgresql/16/bin/initdb \
+    sudo -u postgres /usr/lib/postgresql/18/bin/initdb \
         --data-checksums \
         --encoding utf8 \
         --locale en_US.UTF8 \
@@ -83,13 +80,13 @@ COPY --chown=postgres:postgres \
     docker/musicbrainz-tests/postgresql.conf \
     "$PGDATA"/
 
-FROM build AS pg_amqp
+FROM build AS dbmirror
 
-ARG PG_AMQP_COMMIT=51497ac687f16989adff7729a303f9258706f663
+ARG DBMIRROR_COMMIT=ca46cc50ddc7c77eef658a5f2f45aa6ee47a8c5a
 
-RUN git clone https://github.com/mwiencek/pg_amqp.git && \
-    cd pg_amqp && \
-    git reset --hard $PG_AMQP_COMMIT && \
+RUN git clone https://github.com/metabrainz/dbmirror.git && \
+    cd dbmirror && \
+    git reset --hard $DBMIRROR_COMMIT && \
     mkdir target && \
     make && \
     make install DESTDIR=target
@@ -117,22 +114,20 @@ RUN sudo -E -H -u musicbrainz git clone --branch $MB_SOLR_TAG --depth 1 --recurs
 
 FROM build AS sir
 
-ARG SIR_TAG=v4.0.1
+ARG SIR_TAG=v5.0.0-rc.2
 
 RUN sudo -E -H -u musicbrainz git clone --branch $SIR_TAG --depth 1 https://github.com/metabrainz/sir.git && \
     cd sir && \
-    sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'uv venv --python 3.13 && uv pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/sir-config.ini sir/config.ini
 COPY docker/musicbrainz-tests/log_solr_data.patch \
     docker/musicbrainz-tests/sir_nullpool.patch \
-    docker/musicbrainz-tests/sir_retry_ttl.patch \
     sir/
 
 RUN cd sir && \
     git apply log_solr_data.patch && \
-    git apply sir_nullpool.patch && \
-    git apply sir_retry_ttl.patch
+    git apply sir_nullpool.patch
 
 FROM build AS artwork_indexer
 
@@ -151,7 +146,7 @@ ARG ARTWORK_REDIRECT_COMMIT=98ac770
 RUN sudo -E -H -u musicbrainz git clone https://github.com/metabrainz/artwork-redirect.git && \
     cd artwork-redirect && \
     sudo -E -H -u musicbrainz git reset --hard $ARTWORK_REDIRECT_COMMIT && \
-    sudo -E -H -u musicbrainz sh -c 'python3.13 -m venv venv; . venv/bin/activate; pip install -r requirements.txt'
+    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" sh -c 'uv venv --python 3.13 && uv pip install -r requirements.txt'
 
 COPY docker/musicbrainz-tests/artwork-redirect-config.ini artwork-redirect/config.ini
 
@@ -227,14 +222,13 @@ RUN curl -sSLO https://github.com/validator/validator/releases/download/20.6.30/
     rm vnu.jar_20.6.30.zip
 
 COPY --from=artwork_indexer --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-indexer/ /home/musicbrainz/artwork-indexer/
-RUN sudo -E -H -u musicbrainz python3.13 -m pip install --user --no-warn-script-location 'pipx==1.7.1' && \
-    sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" pipx install --python python3.13 'poetry==2.1.3' && \
+RUN sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" uv tool install --python python3.13 'poetry==2.1.3' && \
     cd /home/musicbrainz/artwork-indexer && \
     sudo -E -H -u musicbrainz env PATH="/home/musicbrainz/.local/bin:$PATH" poetry install && \
     cd -
 
 COPY --from=pgdata --chown=postgres:postgres "$PGHOME"/ "$PGHOME"/
-COPY --from=pg_amqp --chown=musicbrainz:musicbrainz /home/musicbrainz/pg_amqp/target/ /
+COPY --from=dbmirror --chown=musicbrainz:musicbrainz /home/musicbrainz/dbmirror/target/ /
 COPY --from=sir --chown=musicbrainz:musicbrainz /home/musicbrainz/sir/ /home/musicbrainz/sir/
 COPY --from=artwork_redirect --chown=musicbrainz:musicbrainz /home/musicbrainz/artwork-redirect/ /home/musicbrainz/artwork-redirect/
 COPY --from=mailpit --chown=root:root /home/musicbrainz/mailpit /usr/local/bin/
@@ -252,12 +246,11 @@ RUN setup_test_service(`artwork-indexer') && \
     setup_test_service(`mailpit') && \
     setup_test_service(`mb-mail-service') && \
     setup_test_service(`postgresql') && \
-    setup_test_service(`rabbitmq') && \
-    setup_test_service(`redis') && \
     setup_test_service(`solr') && \
     setup_test_service(`ssssss') && \
     setup_test_service(`template-renderer') && \
-    setup_test_service(`vnu') &&\
+    setup_test_service(`valkey') && \
+    setup_test_service(`vnu') && \
     setup_test_service(`website')
 
 LABEL org.opencontainers.image.source=https://github.com/metabrainz/musicbrainz-server

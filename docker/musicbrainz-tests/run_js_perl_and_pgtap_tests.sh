@@ -23,7 +23,7 @@ sudo -E -H -u musicbrainz \
     && { exit 1; }
 echo OK
 
-sv_start_if_down chrome postgresql redis
+sv_start_if_down chrome postgresql valkey
 
 sudo -E -H -u musicbrainz carton exec -- ./bin/babel-node \
     t/web.js \

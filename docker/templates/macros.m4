@@ -55,7 +55,7 @@ m4_define(
 copy_mb(``package.json yarn.lock .yarnrc.yml ./'')
 run_with_apt_cache \
     --mount=type=bind,source=docker/nodesource_pubkey.txt,target=/etc/apt/keyrings/nodesource.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
+    echo "deb [signed-by=/etc/apt/keyrings/nodesource.asc] https://deb.nodesource.com/node_24.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list && \
     apt_install(`git nodejs python3-minimal') && \
     rm -f /etc/apt/sources.list.d/nodesource.list && \
     corepack enable && \
@@ -90,7 +90,7 @@ zlib1g-dev
 pkg-config
 ')
 
-# postgresql-server-dev-16 provides pg_config, which is needed by InitDb.pl
+# postgresql-server-dev-18 provides pg_config, which is needed by InitDb.pl
 # at run-time.
 # iproute2 provides ss, which is used by
 # docker/musicbrainz-website/website.service.
@@ -107,35 +107,29 @@ libicu74
 libpq5
 libssl3
 libxml2
-postgresql-client-16
-postgresql-server-dev-16
+postgresql-client-18
+postgresql-server-dev-18
 zlib1g
 ')
 
 m4_define(
     `test_db_run_deps',
     `m4_dnl
-postgresql-16-pgtap
+postgresql-18-pgtap
 ')
 
 m4_define(
     `test_db_build_deps',
     `m4_dnl
 build-essential
-postgresql-server-dev-16
+postgresql-server-dev-18
 ')
 
 m4_define(
     `set_perl_install_args',
     `m4_dnl
-ARG PERL_VERSION=5.38.5
-ARG PERL_SRC_SUM=b7667d3ff309068852af7853910aaccec26c839d717402121b664ac705e07bfe')
-
-m4_define(
-    `set_second_perl_install_args',
-    `m4_dnl
-ARG PERL_VERSION=5.42.0
-ARG PERL_SRC_SUM=e093ef184d7f9a1b9797e2465296f55510adb6dab8842b0c3ed53329663096dc')
+ARG PERL_VERSION=5.42.2
+ARG PERL_SRC_SUM=9384e8deb75b7b1695e5637971b752281aaecd025a3d5d4734d33c1d0adfee47')
 
 m4_define(
     `install_perl',
@@ -202,32 +196,9 @@ set_cpanm_and_carton_env
 set_cpanm_install_args
 
 run_with_apt_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`postgresql-common ca-certificates') && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt_install(`mbs_build_deps mbs_run_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
-    install_perl && \
-    install_cpanm_and_carton && \
-    # Clean build dependencies up
-    apt_purge(`mbs_build_deps')
-
-install_ts')
-
-m4_define(
-    `install_second_perl_and_mbs_run_deps',
-    `m4_dnl
-
-set_second_perl_install_args
-
-set_cpanm_and_carton_env
-
-set_cpanm_install_args
-
-run_with_apt_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-    apt_install(`mbs_build_deps mbs_run_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
     install_perl && \
     install_cpanm_and_carton && \
     # Clean build dependencies up
@@ -241,10 +212,9 @@ m4_define(
 
 run_with_apt_cache \
     with_cpanm_cache \
-    --mount=type=bind,source=docker/pgdg_pubkey.txt,target=/etc/apt/keyrings/pgdg.asc \
-    echo "deb [signed-by=/etc/apt/keyrings/pgdg.asc] http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+    apt_install(`postgresql-common ca-certificates') && \
+    /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y && \
     apt_install(`mbs_build_deps') && \
-    rm -f /etc/apt/sources.list.d/pgdg.list && \
     # Install Perl module dependencies for MusicBrainz Server
     chown_mb(``/home/musicbrainz/.cpanm'') && \
     chown_mb(``$PERL_CARTON_PATH'') && \
@@ -357,19 +327,12 @@ m4_define(
 lsof
 maven
 openjdk-8-jdk
-openjdk-8-jre
-python3.13
-python3.13-dev
-python3.13-venv
-rabbitmq-server')
+openjdk-8-jre')
 
 m4_define(
     `selenium_caa_deps',
     `m4_dnl
 imagemagick
-python3.13
-python3.13-dev
-python3.13-venv
 ')
 
 m4_define(

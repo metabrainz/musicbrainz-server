@@ -52,7 +52,7 @@ export function reducer(
 
 type TodoComponentT = component(...PropsT);
 
-const Todo: TodoComponentT = React.memo<PropsT, void>(({
+const Todo: TodoComponentT = React.memo<PropsT, React.MixedElement>(({
   dispatch,
   state,
 }: PropsT) => {

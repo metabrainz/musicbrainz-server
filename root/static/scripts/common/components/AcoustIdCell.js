@@ -65,7 +65,7 @@ function loadAcoustIdData(
       .then(resp => resp.json())
       .then((reqData) => {
         for (const obj of reqData.mbids) {
-          const callback: AcoustIdRequestCallbackT = batch[obj.mbid];
+          const callback: ?AcoustIdRequestCallbackT = batch[obj.mbid];
           if (callback) {
             callback(obj.tracks);
           }

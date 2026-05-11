@@ -39,20 +39,20 @@ declare module 'pg' {
     end(): Promise<empty>,
     escapeIdentifier(string): string,
     escapeLiteral(string): string,
-    query<R, +V = mixed>(
+    query<R, V = mixed>(
       config: string | QueryConfig<V>,
       values?: $ReadOnlyArray<V>,
     ): Promise<PgResultSet<R>>,
-    query<R, +V = mixed>(
+    query<R, V = mixed>(
       config: string | QueryConfig<V>,
       values: ?$ReadOnlyArray<V>,
       callback: (?Error, ?PgResultSet<R>) => void,
     ): void,
-    query<R, +V = mixed>(
+    query<R, V = mixed>(
       config: string | QueryConfig<V>,
       callback: (?Error, ?PgResultSet<R>) => void,
     ): void,
-    query<Q: Submittable, +V = mixed>(
+    query<Q: Submittable, V = mixed>(
       config: Q,
       values?: $ReadOnlyArray<V>,
     ): Q,

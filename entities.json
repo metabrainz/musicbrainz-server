@@ -658,6 +658,7 @@
             "automatic": {}
         },
         "report_filter": true,
+        "series": true,
         "subscriptions": {
             "deleted": true,
             "entity": true

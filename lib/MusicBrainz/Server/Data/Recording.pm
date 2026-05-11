@@ -292,6 +292,16 @@ sub update
     $self->sql->update_row('recording', $row, { id => $recording_id });
 }
 
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $recording_id, $update) = @_;
+
+    if ($update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('recording', $recording_id);
+    }
+};
+
 sub usage_count
 {
     my ($self, $recording_id) = @_;

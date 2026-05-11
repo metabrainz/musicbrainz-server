@@ -1,5 +1,5 @@
-// flow-typed signature: a51aac21290d6054cf58af310f8eb04e
-// flow-typed version: 8584579196/dom/flow_>=v0.261.x
+// flow-typed signature: cf23703830440a242ae9f9850dc4b882
+// flow-typed version: 7c14103836/dom/flow_>=v0.261.x
 
 /* Files */
 
@@ -825,12 +825,49 @@ declare class SecurityPolicyViolationEvent extends Event {
   +columnNumber: number;
 };
 
+// https://developer.mozilla.org/en-US/docs/Web/API/Scheduler
+declare class TaskSignal extends AbortSignal {
+  +priority: number;
+}
+
+type SchedulerPostTaskOptions = {|
+  priority?: "user-blocking" | "user-visible" | "background",
+  signal?: TaskSignal | AbortSignal,
+  delay?: number,
+|};
+
+declare class Scheduler {
+  postTask<T>(
+    callback: () => T,
+    options?: SchedulerPostTaskOptions,
+  ): Promise<T>;
+  yield(): Promise<void>;
+}
+
+// https://developer.mozilla.org/en-US/docs/Web/API/Window/structuredClone
+declare function structuredClone<T>(value: T, options?: {| transfer: any[] |}): T;
+
 // https://developer.mozilla.org/en-US/docs/Web/API/USBConnectionEvent
 declare class USBConnectionEvent extends Event {
   device: USBDevice,
 }
 
 // TODO: *Event
+
+declare class AbortController {
+    constructor(): void;
+    +signal: AbortSignal;
+    abort(reason?: any): void;
+}
+
+declare class AbortSignal extends EventTarget {
+    +aborted: boolean;
+    +reason: any;
+    abort(reason?: any): AbortSignal;
+    onabort: (event: Event) => mixed;
+    throwIfAborted(): void;
+    timeout(time: number): AbortSignal;
+}
 
 declare class Node extends EventTarget {
   baseURI: ?string;
@@ -929,6 +966,7 @@ declare class HTMLCollection<+Elem: Element> {
   length: number;
   item(nameOrIndex?: any, optionalIndex?: any): Elem | null;
   namedItem(name: string): Elem | null;
+  // $FlowExpectedError[incompatible-variance]
   [index: number | string]: Elem;
 }
 
@@ -970,6 +1008,38 @@ type ElementRegistrationOptions = {
 }
 
 type ElementCreationOptions = { is: string, ...}
+
+declare class MutationRecord {
+  type: 'attributes' | 'characterData' | 'childList';
+  target: Node;
+  addedNodes: NodeList<Node>;
+  removedNodes: NodeList<Node>;
+  previousSibling: ?Node;
+  nextSibling: ?Node;
+  attributeName: ?string;
+  attributeNamespace: ?string;
+  oldValue: ?string;
+}
+
+type MutationObserverInitRequired =
+  | { childList: true, ... }
+  | { attributes: true, ... }
+  | { characterData: true, ... }
+
+declare type MutationObserverInit = MutationObserverInitRequired & {
+  subtree?: boolean,
+  attributeOldValue?: boolean,
+  characterDataOldValue?: boolean,
+  attributeFilter?: Array<string>,
+  ...
+}
+
+declare class MutationObserver {
+  constructor(callback: (arr: Array<MutationRecord>, observer: MutationObserver) => mixed): void;
+  observe(target: Node, options: MutationObserverInit): void;
+  takeRecords(): Array<MutationRecord>;
+  disconnect(): void;
+}
 
 declare class Document extends Node {
   +timeline: DocumentTimeline;
@@ -1292,9 +1362,7 @@ declare class DOMTokenList {
 }
 
 
-declare class Element extends Node implements Animatable {
-  animate(keyframes: Keyframe[] | PropertyIndexedKeyframes | null, options?: number | KeyframeAnimationOptions): Animation;
-  getAnimations(options?: GetAnimationsOptions): Animation[];
+declare class Element extends Node mixins mixin$Animatable {
   assignedSlot: ?HTMLSlotElement;
   attachShadow(shadowRootInitDict: ShadowRootInit): ShadowRoot;
   attributes: NamedNodeMap;
@@ -1322,6 +1390,7 @@ declare class Element extends Node implements Animatable {
   scrollLeft: number;
   scrollTop: number;
   scrollWidth: number;
+  role: string | null;
   +tagName: string;
 
   // TODO: a lot more ARIA properties
@@ -1413,13 +1482,6 @@ declare class SVGMatrix {
   mScale(scaleFactor: number): SVGMatrix;
   mRotate(angle: number): SVGMatrix;
 };
-
-interface DOMPointInit {
-  w?: number;
-  x?: number;
-  y?: number;
-  z?: number;
-}
 
 // WebGL idl: https://www.khronos.org/registry/webgl/specs/latest/1.0/webgl.idl
 

@@ -1,4 +1,4 @@
-package MusicBrainz::Redis;
+package MusicBrainz::Valkey;
 
 use Encode;
 use Moose;

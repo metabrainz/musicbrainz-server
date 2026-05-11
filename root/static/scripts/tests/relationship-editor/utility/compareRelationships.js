@@ -192,7 +192,7 @@ test('compareRelationships: Time comparisons', function (t) {
     },
     typeID: 830,
     typeName: 'time',
-  }]);
+  } as LinkAttrT]);
 
   const attributesWithTime2 = tree.fromDistinctAscArray([{
     text_value: '11:10',
@@ -201,7 +201,7 @@ test('compareRelationships: Time comparisons', function (t) {
     },
     typeID: 830,
     typeName: 'time',
-  }]);
+  } as LinkAttrT]);
 
   const artistEventRelTime1 = {
     ...emptyRelationship,
@@ -272,7 +272,7 @@ test('compareRelationships: Series comparisons', function (t) {
     },
     typeID: 788,
     typeName: 'number',
-  }]);
+  } as LinkAttrT]);
 
   const attributesWithOrdering2 = tree.fromDistinctAscArray([{
     text_value: '2',
@@ -281,7 +281,7 @@ test('compareRelationships: Series comparisons', function (t) {
     },
     typeID: 788,
     typeName: 'number',
-  }]);
+  } as LinkAttrT]);
 
   const recordingSeriesRelOrder1 = {
     ...emptyRelationship,
