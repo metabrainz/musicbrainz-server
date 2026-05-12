@@ -589,7 +589,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       );
       const item = {
         // $FlowFixMe[incompatible-type]
-        entity: (entity: T),
+        entity: entity as T,
         id: entity.id,
         name: entity.name,
         type: 'option' as const,

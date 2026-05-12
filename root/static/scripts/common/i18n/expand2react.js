@@ -144,7 +144,7 @@ const parseLinkSubst: Parser<
   if (args.has(name)) {
     let props = args.get(name);
     if (typeof props === 'string') {
-      props = ({href: props}: AnchorProps);
+      props = {href: props} as AnchorProps;
     }
     if (
       props == null ||
@@ -308,7 +308,7 @@ function parseHtmlTag(args: VarArgsClass<Input>) {
   );
   // $FlowExpectedError[unsafe-object-assign]
   const combinedAttributes = Object.assign(
-    ({}: HtmlAttrs),
+    {} as HtmlAttrs,
     ...attributes,
   );
 

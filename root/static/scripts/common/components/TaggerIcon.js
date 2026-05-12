@@ -78,9 +78,7 @@ component TaggerIcon(entityType: 'recording' | 'release', gid: string) {
   );
 }
 
-export default (
-  hydrate<React.PropsOf<TaggerIcon>>(
-    'span.tagger-icon',
-    TaggerIcon,
-  ): component(...React.PropsOf<TaggerIcon>)
-);
+export default hydrate<React.PropsOf<TaggerIcon>>(
+  'span.tagger-icon',
+  TaggerIcon,
+) as component(...React.PropsOf<TaggerIcon>);

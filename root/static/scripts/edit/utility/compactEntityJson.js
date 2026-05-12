@@ -51,7 +51,7 @@ function _indexValue(
     case 'object': {
       if (value) {
         if (Array.isArray(value)) {
-          compactValue = ([]: Array<number>);
+          compactValue = [] as Array<number>;
           for (const arrayItem of value) {
             compactValue.push(
               _indexValue(
@@ -69,7 +69,7 @@ function _indexValue(
             typeof prototype.constructor === 'function' &&
             functionToString.call(prototype.constructor) === objectCtorString
           ) {
-            compactValue = ({}: {[compactObjectKey: number]: number});
+            compactValue = {} as {[compactObjectKey: number]: number};
             for (const objectKey in value) {
               if (Object.hasOwn(value, objectKey)) {
                 const compactObjectKey = _indexValue(

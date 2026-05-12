@@ -87,7 +87,7 @@ component PostParameters(params: PostParametersT) {
   );
 }
 
-export default (hydrate(
+export default hydrate(
   'div.post-parameters',
   PostParameters,
-): component(...React.PropsOf<PostParameters>));
+) as component(...React.PropsOf<PostParameters>);

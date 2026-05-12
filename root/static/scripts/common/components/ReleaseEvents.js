@@ -95,7 +95,7 @@ component ReleaseEvents(
   );
 }
 
-export default (hydrate<React.PropsOf<ReleaseEvents>>(
+export default hydrate<React.PropsOf<ReleaseEvents>>(
   'div.release-events-container',
   ReleaseEvents,
-): component(...React.PropsOf<ReleaseEvents>));
+) as component(...React.PropsOf<ReleaseEvents>);

@@ -53,7 +53,7 @@ export function createInitialState(
   const newState = {
     max: null,
     staticItems: languageOptions,
-    values: ([]: Array<MultiselectLanguageValueStateT>),
+    values: [] as Array<MultiselectLanguageValueStateT>,
   };
   if (initialLanguages?.length) {
     for (const language of initialLanguages) {

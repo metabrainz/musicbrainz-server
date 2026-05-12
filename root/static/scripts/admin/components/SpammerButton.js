@@ -153,7 +153,7 @@ component _StandaloneSpammerButton<T: InexactUserT>(
 }
 
 export const StandaloneSpammerButton =
-  (hydrate<React.PropsOf<_StandaloneSpammerButton<InexactUserT>>>(
+  hydrate<React.PropsOf<_StandaloneSpammerButton<InexactUserT>>>(
     'div.spammer-button',
     _StandaloneSpammerButton,
-  ): component(...React.PropsOf<_StandaloneSpammerButton<InexactUserT>>));
+  ) as component(...React.PropsOf<_StandaloneSpammerButton<InexactUserT>>);

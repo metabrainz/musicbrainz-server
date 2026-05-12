@@ -38,7 +38,7 @@ const ENTITIES = {
       edit_type: 85,
     },
     collections: true,
-    custom_tabs: ([
+    custom_tabs: [
       'artists',
       'events',
       'labels',
@@ -47,7 +47,7 @@ const ENTITIES = {
       'places',
       'users',
       'works',
-    ]: $ReadOnlyArray<string>),
+    ] as $ReadOnlyArray<string>,
     date_period: true,
     disambiguation: true,
     edit_table: true,
@@ -95,7 +95,7 @@ const ENTITIES = {
       'recordings',
       'works',
       'events',
-    ]: $ReadOnlyArray<string>),
+    ] as $ReadOnlyArray<string>),
     date_period: true,
     disambiguation: true,
     edit_table: true,
@@ -119,7 +119,7 @@ const ENTITIES = {
         exempt: ([
           1,
           2,
-        ]: $ReadOnlyArray<number>),
+        ] as $ReadOnlyArray<number>),
         extra_fks: {
           artist_credit_name: 'artist',
         },
@@ -229,7 +229,7 @@ const ENTITIES = {
     plural_url: 'events',
     ratings: true,
     removal: {
-      automatic: ({}: AutomaticRemovalPropsT),
+      automatic: ({} as AutomaticRemovalPropsT),
     },
     reviews: true,
     series: true,
@@ -307,7 +307,7 @@ const ENTITIES = {
       'artists',
       'releases',
       'recordings',
-    ]: $ReadOnlyArray<string>),
+    ] as $ReadOnlyArray<string>),
     disambiguation: true,
     edit_table: true,
     last_updated_column: true,
@@ -382,7 +382,7 @@ const ENTITIES = {
       automatic: {
         exempt: ([
           1,
-        ]: $ReadOnlyArray<number>),
+        ] as $ReadOnlyArray<number>),
         extra_fks: {
           release_label: 'label',
         },
@@ -463,7 +463,7 @@ const ENTITIES = {
       'events',
       'performances',
       'map',
-    ]: $ReadOnlyArray<string>),
+    ] as $ReadOnlyArray<string>),
     date_period: true,
     disambiguation: true,
     edit_table: true,
@@ -479,7 +479,7 @@ const ENTITIES = {
     plural_url: 'places',
     ratings: true,
     removal: {
-      automatic: ({}: AutomaticRemovalPropsT),
+      automatic: ({} as AutomaticRemovalPropsT),
     },
     reviews: true,
     sitemaps_lastmod_table: true,
@@ -513,7 +513,7 @@ const ENTITIES = {
     collections: true,
     custom_tabs: ([
       'fingerprints',
-    ]: $ReadOnlyArray<string>),
+    ] as $ReadOnlyArray<string>),
     disambiguation: true,
     edit_table: true,
     last_updated_column: true,
@@ -677,7 +677,7 @@ const ENTITIES = {
     plural: 'series',
     plural_url: 'series',
     removal: {
-      automatic: ({}: AutomaticRemovalPropsT),
+      automatic: ({} as AutomaticRemovalPropsT),
     },
     report_filter: true,
     series: true,
@@ -733,7 +733,7 @@ const ENTITIES = {
     plural: 'urls',
     plural_url: 'urls',
     removal: {
-      automatic: ({}: AutomaticRemovalPropsT),
+      automatic: ({} as AutomaticRemovalPropsT),
     },
     table: 'url',
     url: 'url',
@@ -765,7 +765,7 @@ const ENTITIES = {
     plural_url: 'works',
     ratings: true,
     removal: {
-      automatic: ({}: AutomaticRemovalPropsT),
+      automatic: ({} as AutomaticRemovalPropsT),
     },
     report_filter: true,
     reviews: true,
@@ -802,4 +802,4 @@ const ENTITIES = {
 
 deepFreeze(ENTITIES);
 
-export default (ENTITIES: DeepReadOnly<typeof ENTITIES>);
+export default (ENTITIES as DeepReadOnly<typeof ENTITIES>);

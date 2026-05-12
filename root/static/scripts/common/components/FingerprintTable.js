@@ -116,7 +116,7 @@ component FingerprintTable(recording: RecordingT) {
   );
 }
 
-export default (hydrate<React.PropsOf<FingerprintTable>>(
+export default hydrate<React.PropsOf<FingerprintTable>>(
   'div.acoustid-fingerprints',
   FingerprintTable,
-): component(...React.PropsOf<FingerprintTable>));
+) as component(...React.PropsOf<FingerprintTable>);

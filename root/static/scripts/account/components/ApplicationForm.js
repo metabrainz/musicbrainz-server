@@ -112,7 +112,7 @@ component ApplicationForm(
   );
 }
 
-export default (hydrate<React.PropsOf<ApplicationForm>>(
+export default hydrate<React.PropsOf<ApplicationForm>>(
   'div.application-form',
   ApplicationForm,
-): component(...React.PropsOf<ApplicationForm>));
+) as component(...React.PropsOf<ApplicationForm>);

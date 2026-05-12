@@ -384,9 +384,9 @@ component _PossibleSpammersList() {
   );
 }
 
-const PossibleSpammersList = (hydrate<{}>(
+const PossibleSpammersList = hydrate<{}>(
   'div.possible-spammers',
   _PossibleSpammersList,
-): component());
+) as component();
 
 export default PossibleSpammersList;

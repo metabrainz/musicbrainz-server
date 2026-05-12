@@ -56,7 +56,7 @@ export component RecordingName(
  * Hydration must be moved higher up in the component hierarchy once
  * more of the page is converted to React.
  */
-export default (hydrate<React.PropsOf<RecordingName>>(
+export default hydrate<React.PropsOf<RecordingName>>(
   'div.recording-name',
   RecordingName,
-): component(...React.PropsOf<RecordingName>));
+) as component(...React.PropsOf<RecordingName>);

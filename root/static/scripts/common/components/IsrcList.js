@@ -49,7 +49,7 @@ component IsrcList(
   );
 }
 
-export default (hydrate<React.PropsOf<IsrcList>>(
+export default hydrate<React.PropsOf<IsrcList>>(
   'div.isrc-list-container',
   IsrcList,
-): component(...React.PropsOf<IsrcList>));
+) as component(...React.PropsOf<IsrcList>);

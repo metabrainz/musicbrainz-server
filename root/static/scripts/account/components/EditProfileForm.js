@@ -304,7 +304,7 @@ component EditProfileForm(
   );
 }
 
-export default (hydrate<React.PropsOf<EditProfileForm>>(
+export default hydrate<React.PropsOf<EditProfileForm>>(
   'div.edit-profile-form',
   EditProfileForm,
-): component(...React.PropsOf<EditProfileForm>));
+) as component(...React.PropsOf<EditProfileForm>);

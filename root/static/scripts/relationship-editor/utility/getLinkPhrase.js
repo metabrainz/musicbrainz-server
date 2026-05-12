@@ -37,7 +37,7 @@ export default function getLinkPhrase(
     return '';
   }
   if (linkPhrases == null) {
-    linkPhrases = ([null, null]: [string | null, string | null]);
+    linkPhrases = [null, null] as [string | null, string | null];
   }
   const textPhrase = interpolateText(
     linkType,

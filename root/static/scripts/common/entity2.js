@@ -223,7 +223,7 @@ export function createRecordingObject(
 ): RecordingT {
   return {
     artistCredit: {
-      names: ([]: $ReadOnlyArray<ArtistCreditNameT>),
+      names: [] as $ReadOnlyArray<ArtistCreditNameT>,
     },
     comment: '',
     editsPending: false,
@@ -248,7 +248,7 @@ export function createReleaseObject(
   return {
     artist: '',
     artistCredit: {
-      names: ([]: $ReadOnlyArray<ArtistCreditNameT>),
+      names: [] as $ReadOnlyArray<ArtistCreditNameT>,
     },
     barcode: null,
     comment: '',

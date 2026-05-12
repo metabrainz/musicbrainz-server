@@ -361,7 +361,7 @@ const AliasEditForm = ({
   );
 };
 
-export default (hydrate<Props>(
+export default hydrate<Props>(
   'div.alias-edit-form',
   AliasEditForm,
-): component(...Props));
+) as component(...Props);

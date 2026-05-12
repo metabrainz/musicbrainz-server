@@ -29,7 +29,7 @@ open(my $fh, '>', $out_file);
 print $fh <<"EOF";
 // \@flow strict
 // Automatically generated, do not edit.
-exports.linkTypes = ($type_info/*: \$ReadOnlyArray<LinkTypeT> */);
-exports.linkAttributeTypes = ($attr_info/*: \$ReadOnlyArray<LinkAttrTypeT> */);
+exports.linkTypes = $type_info/*:: as \$ReadOnlyArray<LinkTypeT> */;
+exports.linkAttributeTypes = $attr_info/*:: as \$ReadOnlyArray<LinkAttrTypeT> */;
 EOF
 close $fh;
