@@ -6,7 +6,7 @@ use warnings;
 use base 'Exporter';
 
 use DateTime::Duration;
-use DateTime::Locale '1.00';
+use DateTime::Locale 1.00 ();
 use File::Basename qw( dirname );
 use File::Slurp qw( read_file );
 use File::Spec;
