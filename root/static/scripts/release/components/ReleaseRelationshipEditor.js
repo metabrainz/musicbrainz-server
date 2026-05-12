@@ -347,7 +347,7 @@ async function wsJsEditSubmission(
     return null;
   }
   // $FlowFixMe[unclear-type]
-  const editResponseData: WsJsEditResponseT = (respJson: any);
+  const editResponseData: WsJsEditResponseT = respJson as any;
   dispatch({
     edits,
     responseData: editResponseData,
@@ -474,7 +474,7 @@ function* getAllRelationshipEdits(
       return editData;
     }
     return {
-      entityType: (entity.entityType: NonUrlRelatableEntityTypeT),
+      entityType: entity.entityType as NonUrlRelatableEntityTypeT,
       gid: entity.gid,
       name: entity.name,
     };
@@ -564,7 +564,7 @@ function* getAllRelationshipEdits(
           }
           yield [
             [relationship],
-            (editData: WsJsEditRelationshipCreateT),
+            editData as WsJsEditRelationshipCreateT,
           ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_EDIT, ...} as relationship => {
@@ -691,7 +691,7 @@ function* getAllRelationshipEdits(
           }
           yield [
             [relationship],
-            (editData: WsJsEditRelationshipEditT),
+            editData as WsJsEditRelationshipEditT,
           ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_REMOVE, ...} as relationship => {
@@ -1873,9 +1873,9 @@ const NonHydratedReleaseRelationshipEditor =
     ['language', 'work_type'],
   );
 
-const ReleaseRelationshipEditor = (hydrate<{}>(
+const ReleaseRelationshipEditor = hydrate<{}>(
   'div.release-relationship-editor',
   NonHydratedReleaseRelationshipEditor,
-): component());
+) as component();
 
 export default ReleaseRelationshipEditor;

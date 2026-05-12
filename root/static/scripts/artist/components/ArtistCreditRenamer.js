@@ -327,7 +327,7 @@ const ArtistCreditRenamer = ({
   );
 };
 
-export default (hydrate<ArtistCreditRenamerPropsT>(
+export default hydrate<ArtistCreditRenamerPropsT>(
   'div.artist-credit-renamer',
   ArtistCreditRenamer,
-): component(...ArtistCreditRenamerPropsT));
+) as component(...ArtistCreditRenamerPropsT);

@@ -130,9 +130,7 @@ component AcoustIdCell(recordingMbid: string) {
   );
 }
 
-export default (
-  hydrate<React.PropsOf<AcoustIdCell>>(
-    'div.acoustids',
-    AcoustIdCell,
-  ): component(...React.PropsOf<AcoustIdCell>)
-);
+export default hydrate<React.PropsOf<AcoustIdCell>>(
+  'div.acoustids',
+  AcoustIdCell,
+) as component(...React.PropsOf<AcoustIdCell>);

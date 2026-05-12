@@ -121,7 +121,7 @@ component RegisterForm(form: RegisterFormT) {
   );
 }
 
-export default (hydrate<React.PropsOf<RegisterForm>>(
+export default hydrate<React.PropsOf<RegisterForm>>(
   'div.register-form',
   RegisterForm,
-): component(...React.PropsOf<RegisterForm>));
+) as component(...React.PropsOf<RegisterForm>);

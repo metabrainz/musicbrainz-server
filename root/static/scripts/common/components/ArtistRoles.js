@@ -50,7 +50,7 @@ component ArtistRoles(relations: $ReadOnlyArray<RelationT>) {
   );
 }
 
-export default (hydrate<React.PropsOf<ArtistRoles>>(
+export default hydrate<React.PropsOf<ArtistRoles>>(
   'div.artist-roles-container',
   ArtistRoles,
-): component(...React.PropsOf<ArtistRoles>));
+) as component(...React.PropsOf<ArtistRoles>);

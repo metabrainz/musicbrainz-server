@@ -105,7 +105,7 @@ component EditArtistCreditForm(
   );
 }
 
-export default (hydrate<React.PropsOf<EditArtistCreditForm>>(
+export default hydrate<React.PropsOf<EditArtistCreditForm>>(
   'div.split-artist-form',
   EditArtistCreditForm,
-): component(...React.PropsOf<EditArtistCreditForm>));
+) as component(...React.PropsOf<EditArtistCreditForm>);

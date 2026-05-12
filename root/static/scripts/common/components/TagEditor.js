@@ -241,7 +241,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.handleSubmitBound = (event) => this.handleSubmit(event);
     this.setTagsInputBound = (input) => this.setTagsInput(input);
 
-    this.genreMap = props.genreMap ?? ({}: {+[genreName: string]: GenreT});
+    this.genreMap = props.genreMap ?? {} as {+[genreName: string]: GenreT};
     this.genreOptions =
       Object.values(this.genreMap)
         .map(genre => {
@@ -500,7 +500,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 }
 
-export const MainTagEditor = (hydrate<TagEditorProps>(
+export const MainTagEditor = hydrate<TagEditorProps>(
   'div.all-tags',
   class extends TagEditor {
     hideNegativeTags(event: SyntheticEvent<HTMLAnchorElement>) {
@@ -644,9 +644,9 @@ export const MainTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): component(...TagEditorProps));
+) as component(...TagEditorProps);
 
-export const SidebarTagEditor = (hydrate<TagEditorProps>(
+export const SidebarTagEditor = hydrate<TagEditorProps>(
   'div.sidebar-tags',
   class extends TagEditor {
     render(): React.MixedElement {
@@ -702,7 +702,7 @@ export const SidebarTagEditor = (hydrate<TagEditorProps>(
     }
   },
   minimalEntity,
-): component(...TagEditorProps));
+) as component(...TagEditorProps);
 
 function createInitialTagState(
   aggregatedTags: $ReadOnlyArray<AggregatedTagT>,

@@ -405,7 +405,7 @@ const TracklistAndCredits:
   component(...React.PropsOf<_TracklistAndCredits>) =
     React.memo(_TracklistAndCredits);
 
-export default (hydrate<React.PropsOf<_TracklistAndCredits>>(
+export default hydrate<React.PropsOf<_TracklistAndCredits>>(
   'div.tracklist-and-credits',
   TracklistAndCredits,
-): component(...React.PropsOf<_TracklistAndCredits>));
+) as component(...React.PropsOf<_TracklistAndCredits>);

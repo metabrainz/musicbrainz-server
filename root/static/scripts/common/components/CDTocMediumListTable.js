@@ -54,7 +54,7 @@ component CDTocMediumListTable(
   );
 }
 
-export default (hydrate<React.PropsOf<CDTocMediumListTable>>(
+export default hydrate<React.PropsOf<CDTocMediumListTable>>(
   'div.cd-toc-medium-list-table-container',
   CDTocMediumListTable,
-): component(...React.PropsOf<CDTocMediumListTable>));
+) as component(...React.PropsOf<CDTocMediumListTable>);

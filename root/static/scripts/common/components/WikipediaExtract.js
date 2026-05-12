@@ -88,8 +88,8 @@ component WikipediaExtract(
   ) : null;
 }
 
-export default (hydrate<React.PropsOf<WikipediaExtract>>(
+export default hydrate<React.PropsOf<WikipediaExtract>>(
   'div.wikipedia-extract',
   WikipediaExtract,
   minimalEntity,
-): component(...React.PropsOf<WikipediaExtract>));
+) as component(...React.PropsOf<WikipediaExtract>);

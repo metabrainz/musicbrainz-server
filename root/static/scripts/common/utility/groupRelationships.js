@@ -403,10 +403,10 @@ export default function groupRelationships(
 
     const targetTypeGroup = sortedFindOrInsert(
       targetTypeGroups,
-      ({
+      {
         relationshipPhraseGroups: [],
         targetType,
-      }: RelationshipTargetTypeGroupT),
+      } as RelationshipTargetTypeGroupT,
       cmpTargetTypeGroups,
     );
 
@@ -476,7 +476,7 @@ export default function groupRelationships(
 
     const phraseGroup = sortedFindOrInsert(
       targetTypeGroup.relationshipPhraseGroups,
-      ({
+      {
         combinedPhrase: '',
         /*
          * linkTypeId shouldn't really be needed in the grouping key, since
@@ -494,7 +494,7 @@ export default function groupRelationships(
           typeId: linkType.id,
         }],
         targetGroups: [],
-      }: RelationshipPhraseGroupT),
+      } as RelationshipPhraseGroupT,
       cmpRelationshipPhraseGroups,
     );
 
@@ -525,7 +525,7 @@ export default function groupRelationships(
       tracks = trackMapping.get(relationshipId) || null;
     }
 
-    let targetGroup = ({
+    let targetGroup = {
       datedExtraAttributesList: [],
       earliestDatePeriod: datePeriod,
       editsPending: relationship.editsPending,
@@ -536,7 +536,7 @@ export default function groupRelationships(
       target,
       targetCredit,
       tracks,
-    }: RelationshipTargetGroupT);
+    } as RelationshipTargetGroupT;
 
     /*
      * Ensure we're not merging target groups across different tracks yet.

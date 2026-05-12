@@ -270,7 +270,7 @@ component PreferencesForm(
   );
 }
 
-export default (hydrate<React.PropsOf<PreferencesForm>>(
+export default hydrate<React.PropsOf<PreferencesForm>>(
   'div.preferences-form',
   PreferencesForm,
-): component(...React.PropsOf<PreferencesForm>));
+) as component(...React.PropsOf<PreferencesForm>);

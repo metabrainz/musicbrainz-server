@@ -151,7 +151,7 @@ component AnnotationHistoryTable(
   );
 }
 
-export default (hydrate<React.PropsOf<AnnotationHistoryTable>>(
+export default hydrate<React.PropsOf<AnnotationHistoryTable>>(
   'div.annotation-history-table',
   AnnotationHistoryTable,
-): component(...React.PropsOf<AnnotationHistoryTable>));
+) as component(...React.PropsOf<AnnotationHistoryTable>);

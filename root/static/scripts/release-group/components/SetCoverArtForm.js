@@ -247,7 +247,7 @@ component SetCoverArtForm(
   );
 }
 
-export default (hydrate<React.PropsOf<SetCoverArtForm>>(
+export default hydrate<React.PropsOf<SetCoverArtForm>>(
   'div.set-cover-art-form',
   SetCoverArtForm,
-): component(...React.PropsOf<SetCoverArtForm>));
+) as component(...React.PropsOf<SetCoverArtForm>);

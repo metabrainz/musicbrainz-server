@@ -67,7 +67,7 @@ const renderKeyAndValue = (
 const CLIENT_DBDEFS_CODE =
   renderKeyAndValue('DBDefs', DBDefs, 'Object.freeze');
 
-export default ((
+export default (
   <CatalystContext.Consumer>
     {$c => {
       const locale = $c.stash.current_language;
@@ -91,4 +91,4 @@ export default ((
       );
     }}
   </CatalystContext.Consumer>
-): React.MixedElement);
+) as React.MixedElement;

@@ -119,10 +119,10 @@ export default function hydrate<
         const $c = getCatalystContext();
         const propString = propScript.textContent;
         const props: SanitizedConfig =
-          propString ? JSON.parse(propString) : ({}: any);
+          propString ? JSON.parse(propString) : {} as any;
 
         if (__DEV__) {
-          checkForUnsanitizedEditorData((props: any));
+          checkForUnsanitizedEditorData(props as any);
         }
         /*
          * Flush updates to the DOM immediately to try and avoid hydration
@@ -159,7 +159,7 @@ export default function hydrate<
           dangerouslySetInnerHTML={{
             __html: escapeClosingTags(
               JSON.stringify(
-                ((sanitizedProps ?? props): Config | SanitizedConfig),
+                (sanitizedProps ?? props) as Config | SanitizedConfig,
               ) ?? '',
             ),
           }}

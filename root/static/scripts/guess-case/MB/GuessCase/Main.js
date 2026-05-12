@@ -207,4 +207,4 @@ class GuessCase {
   }
 }
 
-export default (new GuessCase(): GuessCase);
+export default new GuessCase() as GuessCase;

@@ -218,7 +218,7 @@ export component NonHydratedFormRowTextList(
  * Hydration must be moved higher up in the component hierarchy once
  * more of the page is converted to React.
  */
-export default (hydrate<React.PropsOf<FormRowTextList>>(
+export default hydrate<React.PropsOf<FormRowTextList>>(
   'div.row.form-row-text-list-container',
   FormRowTextList,
-): component(...React.PropsOf<FormRowTextList>));
+) as component(...React.PropsOf<FormRowTextList>);

@@ -298,7 +298,7 @@ component ReleaseMergeStrategy(
   );
 }
 
-export default (hydrate<React.PropsOf<ReleaseMergeStrategy>>(
+export default hydrate<React.PropsOf<ReleaseMergeStrategy>>(
   'div.release-merge-strategy',
   ReleaseMergeStrategy,
-): component(...React.PropsOf<ReleaseMergeStrategy>));
+) as component(...React.PropsOf<ReleaseMergeStrategy>);

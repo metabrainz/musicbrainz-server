@@ -454,7 +454,7 @@ test('splitRelationshipByAttributes', function (t) {
    * this particular (existing) relationship doesn't have any.  It should
    * be returned unmodified.
    */
-  const existingRelationship2 = ({
+  const existingRelationship2 = {
     _lineage: [],
     _original: null,
     _status: REL_STATUS_NOOP,
@@ -479,7 +479,7 @@ test('splitRelationshipByAttributes', function (t) {
     id: 1,
     linkOrder: 0,
     linkTypeID: 798,
-  }: RelationshipStateT);
+  } as RelationshipStateT;
   // $FlowExpectedError[cannot-write]
   existingRelationship2._original = existingRelationship2;
   Object.freeze(existingRelationship2);

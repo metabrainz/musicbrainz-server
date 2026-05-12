@@ -27,7 +27,7 @@ component _DialogTargetType(
     dispatch({
       source,
       // $FlowFixMe[unclear-type]
-      targetType: (event.currentTarget.value: any),
+      targetType: event.currentTarget.value as any,
       type: 'update-target-type',
     });
   }

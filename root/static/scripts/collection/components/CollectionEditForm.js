@@ -239,7 +239,7 @@ type CollaboratorsFormListPropsT = {
   +form: CollectionEditFormT,
 };
 
-const CollaboratorsFormList = (hydrate<CollaboratorsFormListPropsT>(
+const CollaboratorsFormList = hydrate<CollaboratorsFormListPropsT>(
   'div.collaborators-form-list',
   React.memo(({
     form,
@@ -290,7 +290,7 @@ const CollaboratorsFormList = (hydrate<CollaboratorsFormListPropsT>(
       </div>
     );
   }),
-): component(...CollaboratorsFormListPropsT));
+) as component(...CollaboratorsFormListPropsT);
 
 type CollaboratorRowPropsT = {
   +collaborator: CollaboratorStateT,
