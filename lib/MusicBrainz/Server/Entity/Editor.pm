@@ -12,7 +12,7 @@ use MusicBrainz::Server::Data::Utils qw(
     non_empty
 );
 use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Entity::Types qw( Area ); ## no critic 'ProhibitUnusedImport'
+use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Constants qw( :privileges );
 use MusicBrainz::Server::Filters qw( format_wikitext );
