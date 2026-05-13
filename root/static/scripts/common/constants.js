@@ -193,7 +193,6 @@ export const FAVICON_CLASSES: {
   'muzikum.eu': 'muzikum',
   'myanimelist.net': 'myanimelist',
   'myspace.com': 'myspace',
-  'napster.com': 'napster',
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
   'oclc.org': 'oclc',
