@@ -7641,6 +7641,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['release'],
   },
   {
+                     input_url: 'https://music.yandex.ru/album/45182?utm_source=web&utm_medium=copy_link',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/45182',
+       only_valid_entity_types: ['release'],
+  },
+  {
                      input_url: 'https://music.yandex.com/iframe/#album/22248502',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
