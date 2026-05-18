@@ -23,23 +23,23 @@ jobs:
     steps:
       - name: Check the cache for musicbrainz-tests-image
         id: tests-image-cache-check
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: /tmp/musicbrainz-tests.tar
           key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
           lookup-only: true
 
       - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4
 
       - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
         run: make -C docker config
 
       - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: docker/Dockerfile.tests
@@ -50,7 +50,7 @@ jobs:
           outputs: type=docker,dest=/tmp/musicbrainz-tests.tar
 
       - if: steps.tests-image-cache-check.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: /tmp/musicbrainz-tests.tar
           key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
@@ -60,12 +60,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: mbs_checkout
 
       - name: Restore musicbrainz-tests image from cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: /tmp/musicbrainz-tests.tar
           key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
@@ -83,13 +83,13 @@ jobs:
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
 
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: js_nyc_output
           path: nyc_output
 
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: js_perl_and_pgtap_junit_output
           path: junit_output
@@ -103,12 +103,12 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: mbs_checkout
 
       - name: Restore musicbrainz-tests image from cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: /tmp/musicbrainz-tests.tar
           key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
@@ -129,25 +129,25 @@ jobs:
             ./docker/musicbrainz-tests/run_selenium_tests.sh
 
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: selenium_${{ matrix.partition }}_service_logs
           path: service_logs
 
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: selenium_${{ matrix.partition }}_nyc_output
           path: nyc_output
 
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: selenium_${{ matrix.partition }}_junit_output
           path: junit_output
 
       - if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: selenium_${{ matrix.partition }}_screenshots
           path: screenshots
@@ -159,12 +159,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           path: mbs_checkout
 
       - name: Restore musicbrainz-tests image from cache
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: /tmp/musicbrainz-tests.tar
           key: musicbrainz-tests-image-${{ env.TESTS_IMAGE_TAG }}
@@ -180,7 +180,7 @@ jobs:
 
           docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: "*_nyc_output"
         id: nyc_download
@@ -199,19 +199,19 @@ jobs:
         id: nyc_merge
 
       - if: steps.nyc_merge.outcome == 'success'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage_report
           path: coverage
 
       - if: always()
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           pattern: "*_junit_output"
         id: junit_download
 
       - if: steps.junit_download.outcome == 'success'
-        uses: mikepenz/action-junit-report@v5
+        uses: mikepenz/action-junit-report@v6
         with:
           report_paths: '*_junit_output/*.xml'
           annotate_only: true
