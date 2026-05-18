@@ -11,6 +11,8 @@ on:
       - translations
   workflow_dispatch:
 
+permissions: {}
+
 env:
   MTCAPTCHA_PUBLIC_KEY: ${{ secrets.MTCAPTCHA_PUBLIC_KEY }}
   MTCAPTCHA_PRIVATE_KEY: ${{ secrets.MTCAPTCHA_PRIVATE_KEY }}
