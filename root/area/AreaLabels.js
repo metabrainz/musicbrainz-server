@@ -11,6 +11,8 @@ import * as React from 'react';
 
 import LabelList from '../components/list/LabelList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
+import RelationshipsTable
+  from '../components/RelationshipsTable.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
@@ -21,43 +23,57 @@ import AreaLayout from './AreaLayout.js';
 
 component AreaLabels(
   area: AreaT,
-  labels: $ReadOnlyArray<LabelT>,
+  labels: ?ReadonlyArray<LabelT>,
+  pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
   pager: PagerT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
     <AreaLayout entity={area} page="labels" title={l('Labels')}>
-      <h2>{l('Labels')}</h2>
+      {pagedLinkTypeGroup ? null : (
+        <>
+          <h2>{l('Labels')}</h2>
 
-      {labels.length > 0 ? (
-        <form
-          action={'/label/merge_queue?' + returnToCurrentPage($c)}
-          method="post"
-        >
-          <PaginatedResults pager={pager}>
-            <LabelList
-              checkboxes="add-to-merge"
-              labels={labels}
-              showRatings
-            />
-          </PaginatedResults>
-          {$c.user ? (
-            <>
-              <ListMergeButtonsRow
-                label={l('Add selected labels for merging')}
-              />
-              {manifest(
-                'common/components/ListMergeButtonsRow',
-                {async: true},
-              )}
-            </>
-          ) : null}
-        </form>
-      ) : (
-        <p>
-          {l('This area is not currently associated with any labels.')}
-        </p>
+          {labels?.length ? (
+            <form
+              action={'/label/merge_queue?' + returnToCurrentPage($c)}
+              method="post"
+            >
+              <PaginatedResults pager={pager}>
+                <LabelList
+                  checkboxes="add-to-merge"
+                  labels={labels}
+                  showRatings
+                />
+              </PaginatedResults>
+              {$c.user ? (
+                <>
+                  <ListMergeButtonsRow
+                    label={l('Add selected labels for merging')}
+                  />
+                  {manifest(
+                    'common/components/ListMergeButtonsRow',
+                    {async: true},
+                  )}
+                </>
+              ) : null}
+            </form>
+          ) : (
+            <p>
+              {l('This area is not currently associated with any labels.')}
+            </p>
+          )}
+        </>
       )}
+      <RelationshipsTable
+        entity={area}
+        fallbackMessage={l(
+          'This area has no relationships to any labels.',
+        )}
+        heading={l('Relationships')}
+        pagedLinkTypeGroup={pagedLinkTypeGroup}
+        pager={pager}
+      />
       {manifest('common/MB/Control/SelectAll', {async: true})}
       {manifest('common/ratings', {async: true})}
     </AreaLayout>
