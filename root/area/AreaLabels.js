@@ -15,6 +15,10 @@ import {SanitizedCatalystContext} from '../context.mjs';
 import manifest from '../static/manifest.mjs';
 import ListMergeButtonsRow
   from '../static/scripts/common/components/ListMergeButtonsRow.js';
+import StaticRelationshipsDisplay
+  from '../static/scripts/common/components/StaticRelationshipsDisplay.js';
+import groupRelationships
+  from '../static/scripts/common/utility/groupRelationships.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 import AreaLayout from './AreaLayout.js';
@@ -56,6 +60,17 @@ component AreaLabels(
       ) : (
         <p>
           {l('This area is not currently associated with any labels.')}
+        </p>
+      )}
+
+      <h2>{l('Relationships')}</h2>
+      {area.relationships?.length ? (
+        <StaticRelationshipsDisplay
+          relationships={groupRelationships(area.relationships)}
+        />
+      ) : (
+        <p>
+          {l('This area has no relationships to any labels.')}
         </p>
       )}
       {manifest('common/MB/Control/SelectAll', {async: true})}
