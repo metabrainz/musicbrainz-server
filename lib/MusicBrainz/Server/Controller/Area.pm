@@ -9,12 +9,13 @@ with 'MusicBrainz::Server::Controller::Role::Load' => {
     relationships   => {
         cardinal    => ['edit'],
         subset      => {
-            show => [qw( area artist genre label place series instrument release_group url )],
+            show => [qw( area artist genre place series instrument release_group url )],
         },
         subset_cardinal => {
             show => [qw( work )],
         },
         paged_subset => {
+            labels => ['label'],
             recordings => ['recording'],
             releases => ['release'],
             works => ['work'],
@@ -187,22 +188,34 @@ Shows labels for an area.
 sub labels : Chained('load')
 {
     my ($self, $c) = @_;
-    my $labels = $self->_load_paged($c, sub {
-        $c->model('Label')->find_by_area($c->stash->{area}->id, shift, shift);
-    });
-    $c->model('LabelType')->load(@$labels);
-    $c->model('Area')->load(@$labels);
-    $c->model('Area')->load_containment(map { $_->{area} } @$labels);
-    $c->model('Label')->load_aliases(@$labels);
-    $c->model('Label')->load_meta(@$labels);
-    if ($c->user_exists) {
-        $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
+
+    my $stash = $c->stash;
+    my $paged_link_type_group = $stash->{paged_link_type_group};
+    my $labels;
+
+    unless ($paged_link_type_group) {
+        $labels = $self->_load_paged($c, sub {
+            $c->model('Label')->find_by_area($stash->{area}->id, shift, shift);
+        });
+        $c->model('LabelType')->load(@$labels);
+        $c->model('Area')->load(@$labels);
+        $c->model('Area')->load_containment(map { $_->{area} } @$labels);
+        $c->model('Label')->load_aliases(@$labels);
+        $c->model('Label')->load_meta(@$labels);
+        if ($c->user_exists) {
+            $c->model('Label')->rating->load_user_ratings($c->user->id, @$labels);
+        }
     }
 
+    my $pager = defined $stash->{pager}
+        ? serialize_pager($stash->{pager})
+        : undef;
+
     my %props = (
-        area         => $c->stash->{area}->TO_JSON,
-        labels       => to_json_array($labels),
-        pager        => serialize_pager($c->stash->{pager}),
+        area => $stash->{area}->TO_JSON,
+        labels => to_json_array($labels),
+        pagedLinkTypeGroup => to_json_object($paged_link_type_group),
+        pager => $pager,
     );
 
     $c->stash(
