@@ -5563,7 +5563,7 @@ export const CLEANUPS: CleanupEntries = {
     }],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?ra\.co\//, 'https://ra.co/');
-      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|reviews|tracks)\/([^/?#]+).*$/, 'https://ra.co/$1/$2');
+      url = url.replace(/^https:\/\/ra\.co\/(clubs|dj|events|labels|podcast|promoters|reviews|tracks)\/([^/?#]+).*$/, 'https://ra.co/$1/$2');
       return url;
     },
     validate(url, id) {
@@ -5606,7 +5606,7 @@ export const CLEANUPS: CleanupEntries = {
             };
           case LINK_TYPES.otherdatabases.label:
             return {
-              result: prefix === 'labels',
+              result: prefix === 'labels' || prefix === 'promoters',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.place:
