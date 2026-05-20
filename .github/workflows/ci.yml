@@ -82,7 +82,7 @@ jobs:
         run: |
           CONTAINER_NAME=mbtest-js-perl-and-pgtap
 
-          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${TESTS_IMAGE_TAG}"
 
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/run_js_perl_and_pgtap_tests.sh
@@ -124,15 +124,17 @@ jobs:
 
       - name: Run tests container
         run: |
-          CONTAINER_NAME=mbtest-selenium-${{ matrix.partition }}
+          CONTAINER_NAME="mbtest-selenium-${PARTITION}"
 
-          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${TESTS_IMAGE_TAG}"
 
           docker exec "$CONTAINER_NAME" ./docker/musicbrainz-tests/initialize_tests_image.sh
           docker exec \
-            --env SELENIUM_JS_OPTIONS='--run-partition ${{ matrix.partition }}/4' \
+            --env SELENIUM_JS_OPTIONS="--run-partition ${PARTITION}/4" \
             "$CONTAINER_NAME" \
             ./docker/musicbrainz-tests/run_selenium_tests.sh
+        env:
+          PARTITION: ${{ matrix.partition }}
 
       - if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -183,7 +185,7 @@ jobs:
         run: |
           CONTAINER_NAME=mbtest-generate-reports
 
-          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${{ env.TESTS_IMAGE_TAG }}"
+          ./mbs_checkout/docker/musicbrainz-tests/run_tests_container.sh "$CONTAINER_NAME" "${TESTS_IMAGE_TAG}"
 
           docker exec "$CONTAINER_NAME" sh -c 'cd /home/musicbrainz/musicbrainz-server; chown -R musicbrainz:musicbrainz .'
 
