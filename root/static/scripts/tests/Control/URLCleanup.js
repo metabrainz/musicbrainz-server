@@ -4906,6 +4906,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['recording', 'release'],
   },
   {
+                     input_url: 'https://www.nicovideo.jp/watch/ss46168470?',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.nicovideo.jp/watch/ss46168470',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.nicovideo.jp/shorts/ss46168470?',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.nicovideo.jp/watch/ss46168470',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
                      input_url: 'https://www.nicovideo.jp/user/1050860/top',
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
