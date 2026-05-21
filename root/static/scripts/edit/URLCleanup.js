@@ -7439,7 +7439,7 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?music\.yandex\.(?:com|by|kz|ru|uz)\/(?!video)/i],
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
-      url = url.replace(/^https?:\/\/music\.yandex\.(?:com|by|kz|ru|uz)\//, 'https://music.yandex.com/');
+      url = url.replace(/^https?:\/\/music\.yandex\.(?:com|by|kz|ru|uz)\/([^?]+).*$/, 'https://music.yandex.com/$1');
       url = url.replace(/^https:\/\/music\.yandex\.com\/(?:#!\/)?(album|artist|label)\/(\d+)(\/track\/\d+)?$/, 'https://music.yandex.com/$1/$2$3');
       url = url.replace(/^https:\/\/music\.yandex\.com\/iframe\/#album?\/(\d+)$/, 'https://music.yandex.com/album/$1');
       url = url.replace(/^https:\/\/music\.yandex\.com\/iframe\/#track?\/(\d+):(\d+)$/, 'https://music.yandex.com/album/$2/track/$1');
