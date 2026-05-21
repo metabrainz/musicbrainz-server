@@ -5106,7 +5106,6 @@ export const CLEANUPS: CleanupEntries = {
       'lortel.org',
       'theatricalia.com',
       'imvdb.com',
-      'vkdb.jp',
       'ci.nii.ac.jp',
       'iss.ndl.go.jp',
       'finnmusic.net',
@@ -5140,7 +5139,6 @@ export const CLEANUPS: CleanupEntries = {
       /^(https?:\/\/)?(www\.)?lortel\.org\//i,
       /^(https?:\/\/)?(www\.)?theatricalia\.com\//i,
       /^(https?:\/\/)?(www\.)?imvdb\.com/i,
-      /^(https?:\/\/)?(www\.)?vkdb\.jp/i,
       /^(https?:\/\/)?(www\.)?ci\.nii\.ac\.jp/i,
       /^(https?:\/\/)?(www\.)?iss\.ndl\.go\.jp\//i,
       /^(https?:\/\/)?(www\.)?finnmusic\.net/i,
@@ -7119,6 +7117,15 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
       return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?vk\.com/, 'https://vk.com');
+    },
+  },
+  'vkdb': {
+    hostname: 'vkdb.jp',
+    match: [/^(https?:\/\/)?(www\.)?vkdb\.jp/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?vkdb\.jp\/([^/?#]+).*$/, 'https://www.vkdb.jp/$1');
+      return url;
     },
   },
   'vkgy': {

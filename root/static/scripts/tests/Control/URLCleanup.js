@@ -7259,6 +7259,19 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://vk.com/video-2000471995_63471995',
        only_valid_entity_types: ['recording'],
   },
+  // vkdb
+  {
+                     input_url: 'http://www.vkdb.jp/cocklobin.html#gsc.tab=0',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.vkdb.jp/cocklobin.html',
+  },
+  {
+                     input_url: 'https://vkdb.jp/ITEM_B00AQMB6RI#gsc.tab=0',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.vkdb.jp/ITEM_B00AQMB6RI',
+  },
   // vkgy
   {
                      input_url: 'http://www.vk.gy/artists/skull/',
