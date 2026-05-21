@@ -420,7 +420,9 @@ export function defineLinkColumn<D>(
   };
 }
 
-export function defineNameColumn<T extends NonUrlRelatableEntityT | CollectionT>(
+export function defineNameColumn<
+  T extends NonUrlRelatableEntityT | CollectionT
+>(
   props: {
     ...OrderableProps,
     +descriptive?: boolean,
