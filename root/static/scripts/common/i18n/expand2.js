@@ -89,7 +89,7 @@ export const state: State = {
 };
 Object.seal(state);
 
-export function getString(x: mixed): string {
+export function getString(x: unknown): string {
   if (typeof x === 'string') {
     return x;
   }
@@ -166,7 +166,7 @@ export function saveMatch<T, V>(cb: Parser<T, V>): Parser<T, V> {
 }
 
 export function parseContinuous<T, U, V>(
-  parsers: $ReadOnlyArray<Parser<T | NO_MATCH, V>>,
+  parsers: ReadonlyArray<Parser<T | NO_MATCH, V>>,
   args: VarArgsClass<V>,
   matchCallback: (U | NO_MATCH, T) => U,
   defaultValue: U,
@@ -204,7 +204,7 @@ function concatStringMatch(
 }
 
 export function parseContinuousString<V>(
-  parsers: $ReadOnlyArray<Parser<string | NO_MATCH, V>>,
+  parsers: ReadonlyArray<Parser<string | NO_MATCH, V>>,
   args: VarArgsClass<V>,
 ): string {
   return parseContinuous<string, string, V>(
@@ -242,13 +242,13 @@ export const createVarSubstParser = <T, V>(
   },
 );
 
-export const parseStringVarSubst: Parser<string | NO_MATCH, mixed> =
-  createVarSubstParser<string, mixed>(getString);
+export const parseStringVarSubst: Parser<string | NO_MATCH, unknown> =
+  createVarSubstParser<string, unknown>(getString);
 
 const condSubstStart = /^\{([0-9A-z_]+):/;
 const verticalPipe = /^\|/;
 export const substEnd: RegExp = /^}/;
-export const createCondSubstParser = <T, V: Expand2ReactInput>(
+export const createCondSubstParser = <T, V extends Expand2ReactInput>(
   thenParser: Parser<T, V>,
   elseParser: Parser<T, V>,
 ): Parser<T | string | NO_MATCH, V> => saveMatch(function (args) {

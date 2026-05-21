@@ -15,7 +15,7 @@ const displayCountry = (country: AreaT): React.MixedElement => (
 );
 
 component ReleaseCountryList(
-  events as releaseEvents?: $ReadOnlyArray<ReleaseEventT>
+  events as releaseEvents?: ReadonlyArray<ReleaseEventT>
 ) {
   if (!releaseEvents || !releaseEvents.length) {
     return null;

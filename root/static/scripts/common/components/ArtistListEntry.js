@@ -24,7 +24,7 @@ import RatingStars from './RatingStars.js';
 
 component ArtistListRow(
   artist: ArtistT,
-  artistList?: $ReadOnlyArray<ArtistT>,
+  artistList?: ReadonlyArray<ArtistT>,
   checkboxes?: string,
   index: number,
   instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,

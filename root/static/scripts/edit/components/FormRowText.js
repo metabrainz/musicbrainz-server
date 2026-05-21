@@ -30,8 +30,8 @@ type InputProps = {
 };
 
 type ControlledPropsT =
-  | $ReadOnly<{onChange: InputOnChange, uncontrolled?: false}>
-  | $ReadOnly<{uncontrolled: true}>;
+  | Readonly<{onChange: InputOnChange, uncontrolled?: false}>
+  | Readonly<{uncontrolled: true}>;
 
 component FormRowText(
   autoComplete?: string,

@@ -19,7 +19,7 @@ component PaginatedSearchResults<T>(
   columns: React.Node,
   pager: PagerT,
   query: string,
-  results: $ReadOnlyArray<SearchResultT<T>>,
+  results: ReadonlyArray<SearchResultT<T>>,
 ) {
   const $c = React.useContext(CatalystContext);
   const hasLastPage = pager.total_entries > 0;

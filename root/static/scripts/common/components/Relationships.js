@@ -21,7 +21,7 @@ import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
 type DisplayTargets = {
   +[coreEntityType: RelatableEntityTypeT]:
-    ?$ReadOnlyArray<RelatableEntityTypeT>,
+    ?ReadonlyArray<RelatableEntityTypeT>,
   ...
 };
 
@@ -65,7 +65,7 @@ const displayTargets: DisplayTargets = {
 component _Relationship(
   noRelationshipsHeading: boolean = false,
   relationships as passedRelationships?:
-    $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+    ReadonlyArray<RelationshipTargetTypeGroupT>,
   showIfEmpty: boolean = false,
   source: RelatableEntityT,
 ) {

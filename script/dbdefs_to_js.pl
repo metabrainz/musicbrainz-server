@@ -96,7 +96,7 @@ my @conversions = (
     {
         defs => \@QW_STRING_DEFS,
         convert => sub { \[map { '' . ($_ // '') } @_] },
-        flowtype => '$ReadOnlyArray<string>',
+        flowtype => 'ReadonlyArray<string>',
     },
     {
         defs => ['DATABASES'],

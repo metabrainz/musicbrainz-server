@@ -16,7 +16,7 @@ import EntityLink from './EntityLink.js';
 type RelationT = {
   +credit: string,
   +entity: ArtistT,
-  +roles: $ReadOnlyArray<string>,
+  +roles: ReadonlyArray<string>,
 };
 
 const buildArtistRoleRow = (relation: RelationT) => {
@@ -35,7 +35,7 @@ const buildArtistRoleRow = (relation: RelationT) => {
   );
 };
 
-component ArtistRoles(relations: $ReadOnlyArray<RelationT>) {
+component ArtistRoles(relations: ReadonlyArray<RelationT>) {
   return (
     <CollapsibleList
       ariaLabel={l('Artist roles')}

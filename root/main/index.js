@@ -23,9 +23,9 @@ type BlogEntryT = {
 };
 
 component Homepage(
-  blogEntries: $ReadOnlyArray<BlogEntryT> | null,
-  newestEvents: $ReadOnlyArray<EventArtT>,
-  newestReleases: $ReadOnlyArray<ReleaseArtT>,
+  blogEntries: ReadonlyArray<BlogEntryT> | null,
+  newestEvents: ReadonlyArray<EventArtT>,
+  newestReleases: ReadonlyArray<ReleaseArtT>,
 ) {
   return (
     <Layout

@@ -60,9 +60,9 @@ component UselessMediumTitleWarning(name: string) {
 
 component ReleaseMergeStrategy(
   badRecordingMerges?:
-    $ReadOnlyArray<$ReadOnlyArray<RecordingT>>,
+    ReadonlyArray<ReadonlyArray<RecordingT>>,
   form: MergeReleasesFormT,
-  mediums: $ReadOnlyArray<MediumT>,
+  mediums: ReadonlyArray<MediumT>,
   releases: {+[releaseID: number]: ReleaseT},
 ) {
   const [mergeStrategy, setMergeStrategy] =

@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 declare type DeepReadOnly<T> =
-  T extends $ReadOnlyArray<infer V> ? $ReadOnlyArray<DeepReadOnly<V>> :
+  T extends ReadonlyArray<infer V> ? ReadonlyArray<DeepReadOnly<V>> :
   T extends {...} ? {+[K in keyof T]: DeepReadOnly<T[K]>} : T;
 
 /*

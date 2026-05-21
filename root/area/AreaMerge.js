@@ -16,7 +16,7 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-component AreaMerge(form: MergeFormT, toMerge: $ReadOnlyArray<AreaT>) {
+component AreaMerge(form: MergeFormT, toMerge: ReadonlyArray<AreaT>) {
   return (
     <Layout fullWidth title="Merge areas">
       <div id="content">

@@ -35,13 +35,13 @@ declare type EntityWithSeriesMapT = {
   'work': WorkT,
 };
 
-declare type EntityWithSeriesT = $Values<EntityWithSeriesMapT>;
+declare type EntityWithSeriesT = Values<EntityWithSeriesMapT>;
 
-declare type EntityWithSeriesTypeT = $Keys<EntityWithSeriesMapT>;
+declare type EntityWithSeriesTypeT = keyof EntityWithSeriesMapT;
 
 declare type AppearancesT<T> = {
   +hits: number,
-  +results: $ReadOnlyArray<T>,
+  +results: ReadonlyArray<T>,
 };
 
 declare type CommentRoleT = {
@@ -57,7 +57,7 @@ declare type RelatableEntityRoleT<+T> = {
   +paged_relationship_groups?: {
     +[targetType: RelatableEntityTypeT]: PagedTargetTypeGroupT | void,
   },
-  +relationships?: $ReadOnlyArray<RelationshipT>,
+  +relationships?: ReadonlyArray<RelationshipT>,
 };
 
 declare type CollectableEntityT =

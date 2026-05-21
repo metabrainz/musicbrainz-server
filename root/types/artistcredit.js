@@ -27,7 +27,7 @@ declare type ArtistCreditT = {
   +editsPending?: boolean,
   +entityType?: 'artist_credit',
   +id?: number,
-  +names: $ReadOnlyArray<ArtistCreditNameT>,
+  +names: ReadonlyArray<ArtistCreditNameT>,
 };
 
 declare type IncompleteArtistCreditNameT = {
@@ -37,6 +37,6 @@ declare type IncompleteArtistCreditNameT = {
 };
 
 declare type IncompleteArtistCreditT = {
-  +names: $ReadOnlyArray<IncompleteArtistCreditNameT>,
+  +names: ReadonlyArray<IncompleteArtistCreditNameT>,
   ...
 };

@@ -31,9 +31,9 @@ import type {
  * artists with recent link types for areas, for example, so we'd
  * instead use keys of the form 'link_type-artist'.
  */
-type RecentEntitiesT = {[entityTypeKey: string]: mixed};
+type RecentEntitiesT = {[entityTypeKey: string]: unknown};
 
-type WsJsEntitiesDataT<T: EntityItemT> = {
+type WsJsEntitiesDataT<T extends EntityItemT> = {
   +results: {+[id: string]: ?T},
 };
 
@@ -118,7 +118,7 @@ function _getRecentEntityIds(
 
 function _filterFakeIds(
   ids: Set<string>,
-): $ReadOnlyArray<string> {
+): ReadonlyArray<string> {
   /*
    * Some of the recent item IDs may actually be pending entities
    * (e.g. batch-created works in the release relationship editor).
@@ -179,11 +179,11 @@ export function clearRecentItems(
 }
 
 const _recentItemsCache =
-  new Map<string, $ReadOnlyArray<OptionItemT<EntityItemT>>>();
+  new Map<string, ReadonlyArray<OptionItemT<EntityItemT>>>();
 
-export function getRecentItems<T: EntityItemT>(
+export function getRecentItems<T extends EntityItemT>(
   key: string,
-): $ReadOnlyArray<OptionItemT<T>> {
+): ReadonlyArray<OptionItemT<T>> {
   let cachedList = _recentItemsCache.get(key);
   if (cachedList == null) {
     cachedList = [];
@@ -209,14 +209,14 @@ function getEntityName(
 
 const _recentItemsRequests =
   // $FlowFixMe[unclear-type]
-  new Map<string, Promise<$ReadOnlyArray<OptionItemT<any>>>>();
+  new Map<string, Promise<ReadonlyArray<OptionItemT<any>>>>();
 
-export function getOrFetchRecentItems<T: EntityItemT>(
+export function getOrFetchRecentItems<T extends EntityItemT>(
   entityType: EntityItemT['entityType'],
   key?: string = entityType,
-): Promise<$ReadOnlyArray<OptionItemT<T>>> {
+): Promise<ReadonlyArray<OptionItemT<T>>> {
   const ids = _getRecentEntityIds(key);
-  let cachedList: $ReadOnlyArray<OptionItemT<T>> = getRecentItems<T>(key);
+  let cachedList: ReadonlyArray<OptionItemT<T>> = getRecentItems<T>(key);
   let newList: Array<OptionItemT<T>> | null = null;
 
   const pushItem = (item: OptionItemT<T>) => {
@@ -339,10 +339,10 @@ export function getOrFetchRecentItems<T: EntityItemT>(
   return Promise.resolve(cachedList);
 }
 
-export function pushRecentItem<T: EntityItemT>(
+export function pushRecentItem<T extends EntityItemT>(
   item: OptionItemT<T>,
   key?: string = item.entity.entityType,
-): $ReadOnlyArray<OptionItemT<T>> {
+): ReadonlyArray<OptionItemT<T>> {
   const entity = item.entity;
   const entityId = _getGidOrId(entity);
 

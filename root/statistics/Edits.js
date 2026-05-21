@@ -23,7 +23,7 @@ type EditCategoryT = {
 component Edits(
   dateCollected: string,
   stats: {[statName: string]: number},
-  statsByCategory: {[editCategory: string]: $ReadOnlyArray<EditCategoryT>},
+  statsByCategory: {[editCategory: string]: ReadonlyArray<EditCategoryT>},
 ) {
   const $c = React.useContext(CatalystContext);
   return (

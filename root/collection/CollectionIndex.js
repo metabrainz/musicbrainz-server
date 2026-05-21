@@ -34,10 +34,10 @@ import UserInlineList from '../user/components/UserInlineList.js';
 
 import CollectionLayout from './CollectionLayout.js';
 
-type PropsForEntity<T: CollectableEntityT> = {
+type PropsForEntity<T extends CollectableEntityT> = {
   +collection: CollectionT,
   +collectionEntityType: T['entityType'],
-  +entities: $ReadOnlyArray<T>,
+  +entities: ReadonlyArray<T>,
   +order: string,
   +pager: PagerT,
 };

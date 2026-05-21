@@ -182,4 +182,4 @@ declare var texp: {
 };
 
 // root/utility/invariant.js
-declare var invariant: (cond: mixed, msg?: string) => empty;
+declare var invariant: (cond: unknown, msg?: string) => empty;

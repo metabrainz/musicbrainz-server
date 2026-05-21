@@ -52,7 +52,7 @@ type CommonOptionsT = {
 };
 
 export default function useRelationshipDialogContent(
-  options: $ReadOnly<{
+  options: Readonly<{
     ...CommonOptionsT,
     +hasPreselectedTargetType: boolean,
     +relationship: RelationshipStateT,
@@ -135,7 +135,7 @@ export default function useRelationshipDialogContent(
 }
 
 export function useAddRelationshipDialogContent(
-  options: $ReadOnly<{
+  options: Readonly<{
     ...CommonOptionsT,
     +backward?: boolean,
     +buildNewRelationshipData?:

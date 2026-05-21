@@ -37,9 +37,9 @@ type SharedElementProps = {
 };
 
 type MultipleSelectElementProps = {
-  defaultValue?: $ReadOnlyArray<string>,
+  defaultValue?: ReadonlyArray<string>,
   multiple: boolean,
-  value?: $ReadOnlyArray<string>,
+  value?: ReadonlyArray<string>,
   ...SharedElementProps,
 };
 
@@ -51,7 +51,7 @@ type SelectElementProps = {
 
 export component MultipleSelectField(
   allowEmpty: boolean = true,
-  field: FieldT<?$ReadOnlyArray<string>>,
+  field: FieldT<?ReadonlyArray<string>>,
   options: MaybeGroupedOptionsT,
   uncontrolled: boolean = false,
   ...passedSelectProps: MultipleSelectElementProps

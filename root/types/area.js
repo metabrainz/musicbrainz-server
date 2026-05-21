@@ -8,17 +8,17 @@
  */
 
 // MusicBrainz::Server::Entity::Area::TO_JSON
-declare type AreaT = $ReadOnly<{
+declare type AreaT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'area'>,
   ...DatePeriodRoleT,
   ...TypeRoleT<AreaTypeT>,
-  +containment: $ReadOnlyArray<AreaT> | null,
+  +containment: ReadonlyArray<AreaT> | null,
   +country_code: string,
-  +iso_3166_1_codes: $ReadOnlyArray<string>,
-  +iso_3166_2_codes: $ReadOnlyArray<string>,
-  +iso_3166_3_codes: $ReadOnlyArray<string>,
+  +iso_3166_1_codes: ReadonlyArray<string>,
+  +iso_3166_2_codes: ReadonlyArray<string>,
+  +iso_3166_3_codes: ReadonlyArray<string>,
   +primary_code: string,
   +primaryAlias?: string | null,
 }>;

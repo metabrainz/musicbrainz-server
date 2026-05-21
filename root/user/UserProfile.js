@@ -68,7 +68,7 @@ const ADDED_ENTITIES_TYPES = {
 
 function generateUserTypesList(
   user: UnsanitizedEditorT,
-): $ReadOnlyArray<VarSubstArg> {
+): ReadonlyArray<VarSubstArg> {
   const typesList: Array<VarSubstArg> = [];
   if (user.deleted) {
     typesList.push(lp('Deleted user', 'user type'));
@@ -150,8 +150,8 @@ component UserProfileProperty(
 
 component UserProfileInformation(
   applicationCount: number,
-  ipHashes: $ReadOnlyArray<string>,
-  restrictions: $ReadOnlyArray<string>,
+  ipHashes: ReadonlyArray<string>,
+  restrictions: ReadonlyArray<string>,
   subscribed: boolean,
   subscriberCount: number,
   tokenCount: number,
@@ -874,7 +874,7 @@ component UserProfile(
   addedEntities: EntitiesStatsT,
   applicationCount: number,
   editStats: EditStatsT,
-  ipHashes: $ReadOnlyArray<string>,
+  ipHashes: ReadonlyArray<string>,
   secondaryStats: SecondaryStatsT,
   subscribed: boolean,
   subscriberCount: number,

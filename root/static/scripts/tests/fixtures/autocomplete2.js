@@ -44,12 +44,12 @@ type StateT = {
 };
 
 const attributeTypesById = keyBy(
-  linkAttributeTypes as $ReadOnlyArray<LinkAttrTypeT>,
+  linkAttributeTypes as ReadonlyArray<LinkAttrTypeT>,
   x => String(x.id),
 );
 
 const attributeTypeOptions = (
-  linkAttributeTypes as $ReadOnlyArray<LinkAttrTypeT>
+  linkAttributeTypes as ReadonlyArray<LinkAttrTypeT>
 ).map((type) => {
   let level = 0;
   let parentId = type.parent_id;

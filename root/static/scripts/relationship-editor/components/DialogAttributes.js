@@ -334,7 +334,7 @@ const wrapAttributeElement = (
 component _DialogAttributes(
   dispatch: (DialogAttributeActionT) => void,
   isHelpVisible: boolean,
-  state: $ReadOnly<{...DialogAttributesStateT, ...}>,
+  state: Readonly<{...DialogAttributesStateT, ...}>,
 ) {
   const booleanAttributeDispatch = React.useCallback((
     rootKey: number,

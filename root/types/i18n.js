@@ -23,7 +23,7 @@ declare type VarSubstScalarArg =
 
 declare type VarSubstArg =
   | VarSubstScalarArg
-  | $ReadOnlyArray<VarSubstScalarArg>;
+  | ReadonlyArray<VarSubstScalarArg>;
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 

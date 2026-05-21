@@ -19,10 +19,10 @@ declare type LinkAttrT = {
 
 declare type LinkAttrTypeT = {
   ...OptionTreeT<'link_attribute_type'>,
-  +children?: $ReadOnlyArray<LinkAttrTypeT>,
+  +children?: ReadonlyArray<LinkAttrTypeT>,
   +creditable: boolean,
   +free_text: boolean,
-  +instrument_aliases?: $ReadOnlyArray<string>,
+  +instrument_aliases?: ReadonlyArray<string>,
   +instrument_comment?: string,
   +instrument_type_id?: number,
   +instrument_type_name?: string,
@@ -33,7 +33,7 @@ declare type LinkAttrTypeT = {
   +root_id: number,
 };
 
-declare type LinkTypeAttrTypeT = $ReadOnly<{
+declare type LinkTypeAttrTypeT = Readonly<{
   ...TypeRoleT<LinkAttrTypeT>,
   +max: number | null,
   +min: number | null,
@@ -44,10 +44,10 @@ declare type LinkTypeT = {
   +attributes: {+[typeId: StrOrNum]: LinkTypeAttrTypeT},
   +cardinality0: number,
   +cardinality1: number,
-  +children?: $ReadOnlyArray<LinkTypeT>,
+  +children?: ReadonlyArray<LinkTypeT>,
   +deprecated: boolean,
   +documentation: string | null,
-  +examples: $ReadOnlyArray<{
+  +examples: ReadonlyArray<{
     +name: string,
     +relationship: RelationshipT,
   }> | null,
@@ -78,7 +78,7 @@ declare type PagedLinkTypeGroupT = {
   +limit: number,
   +link_type_id: number,
   +offset: number,
-  +relationships: $ReadOnlyArray<RelationshipT>,
+  +relationships: ReadonlyArray<RelationshipT>,
   +total_relationships: number,
 };
 
@@ -86,10 +86,10 @@ declare type PagedTargetTypeGroupT = {
   +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
 };
 
-declare type RelationshipT = $ReadOnly<{
+declare type RelationshipT = Readonly<{
   ...DatePeriodRoleT,
   ...PendingEditsRoleT,
-  +attributes: $ReadOnlyArray<LinkAttrT>,
+  +attributes: ReadonlyArray<LinkAttrT>,
   +backward: boolean,
   +entity0?: ?RelatableEntityT,
   +entity0_credit: string,
@@ -107,7 +107,7 @@ declare type RelationshipT = $ReadOnly<{
   +verbosePhrase: string,
 }>;
 
-declare type SeededRelationshipT = $ReadOnly<{
+declare type SeededRelationshipT = Readonly<{
   ...RelationshipT,
   +entity0_id: number | null,
   +entity1_id: number | null,

@@ -23,7 +23,7 @@ type EntityWithSidebarTypeT =
   | 'work_type';
 
 component SidebarType(
-  entity: $ReadOnly<{...TypeRoleT<empty>, ...}>,
+  entity: Readonly<{...TypeRoleT<empty>, ...}>,
   typeType: EntityWithSidebarTypeT,
 ) {
   const typeId = entity.typeID;

@@ -18,7 +18,7 @@ import {
 } from '../utility/getCDStubAge.js';
 import loopParity from '../utility/loopParity.js';
 
-component BrowseCDStubs(cdStubs: $ReadOnlyArray<CDStubT>, pager: PagerT) {
+component BrowseCDStubs(cdStubs: ReadonlyArray<CDStubT>, pager: PagerT) {
   return (
     <Layout fullWidth title={l('Top CD stubs')}>
       <h1>{l('Top CD stubs')}</h1>

@@ -30,7 +30,7 @@ const buildIsrcSidebarRow = (isrc: IsrcT) => (
 );
 
 component IsrcList(
-  isrcs: ?$ReadOnlyArray<IsrcT>,
+  isrcs: ?ReadonlyArray<IsrcT>,
   isSidebar: boolean = false,
 ) {
   return (

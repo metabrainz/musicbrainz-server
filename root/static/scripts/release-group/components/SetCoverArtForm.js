@@ -203,7 +203,7 @@ const SetCoverArtFormImage:
     React.memo(_SetCoverArtFormImage);
 
 component SetCoverArtForm(
-  allReleases: $ReadOnlyArray<ReleaseT>,
+  allReleases: ReadonlyArray<ReleaseT>,
   artwork: {[releaseId: number]: ArtworkT},
   form: SetCoverArtFormT,
 ) {

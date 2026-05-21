@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::CDStub::TO_JSON
-declare type CDStubT = $ReadOnly<{
+declare type CDStubT = Readonly<{
   ...EntityRoleT<'cdstub'>,
   +artist: string,
   +barcode: string,
@@ -25,11 +25,11 @@ declare type CDStubT = $ReadOnly<{
   +title: string,
   +toc: string | null,
   +track_count: number,
-  +track_offset: $ReadOnlyArray<number> | null,
-  +tracks: $ReadOnlyArray<CDStubTrackT>,
+  +track_offset: ReadonlyArray<number> | null,
+  +tracks: ReadonlyArray<CDStubTrackT>,
 }>;
 
-declare type CDStubTrackT = $ReadOnly<{
+declare type CDStubTrackT = Readonly<{
   +artist: string,
   +length: number,
   +sequence: number,

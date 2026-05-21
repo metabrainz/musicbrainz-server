@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Artwork::TO_JSON
-declare type ArtworkRoleT = $ReadOnly<{
+declare type ArtworkRoleT = Readonly<{
   ...PendingEditsRoleT,
   +comment: string,
   +event?: EventT,
@@ -25,15 +25,15 @@ declare type ArtworkRoleT = $ReadOnly<{
   +small_ia_thumbnail: string,
   +small_thumbnail: string,
   +suffix: string,
-  +types: $ReadOnlyArray<string>,
+  +types: ReadonlyArray<string>,
 }>;
 
-declare type ReleaseArtT = $ReadOnly<{
+declare type ReleaseArtT = Readonly<{
   ...ArtworkRoleT,
   +release?: ReleaseT,
 }>;
 
-declare type EventArtT = $ReadOnly<{
+declare type EventArtT = Readonly<{
   ...ArtworkRoleT,
   +event?: EventT,
 }>;

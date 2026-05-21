@@ -14,7 +14,7 @@ component LinkTypeSelect(
   handleTypeBlur: (SyntheticFocusEvent<HTMLSelectElement>) => void,
   handleTypeChange: (SyntheticEvent<HTMLSelectElement>) => void,
   id?: string,
-  options: $ReadOnlyArray<LinkTypeOptionT>,
+  options: ReadonlyArray<LinkTypeOptionT>,
   type: number | null,
 ) {
   const optionAvailable = options.some(option => option.value === type);

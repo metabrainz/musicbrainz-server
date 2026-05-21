@@ -18,7 +18,7 @@ import RatingStars, {StaticRatingStars}
   from '../static/scripts/common/components/RatingStars.js';
 
 type UserRatingsT = {
-  +[entityType: RatableEntityTypeT]: $ReadOnlyArray<RatableT>,
+  +[entityType: RatableEntityTypeT]: ReadonlyArray<RatableT>,
 };
 
 export const headingText: {+[entity: RatableEntityTypeT]: () => string} = {

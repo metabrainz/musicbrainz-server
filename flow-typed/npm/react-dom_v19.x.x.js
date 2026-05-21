@@ -64,13 +64,13 @@ declare module 'react-dom_shared-types' {
 
   // Mutable source version can be anything (e.g. number, string, immutable data structure)
   // so long as it changes every time any part of the source changes.
-  declare type MutableSourceVersion = $NonMaybeType<mixed>;
+  declare type MutableSourceVersion = NonNullable<unknown>;
 
   declare type MutableSourceGetVersionFn = (
-    source: $NonMaybeType<mixed>,
+    source: NonNullable<unknown>,
   ) => MutableSourceVersion;
 
-  declare type MutableSource<Source: $NonMaybeType<mixed>> = {|
+  declare type MutableSource<Source: NonNullable<unknown>> = {|
     _source: Source,
 
     _getVersion: MutableSourceGetVersionFn,
@@ -111,10 +111,10 @@ declare module 'react-dom' {
     container: Element
   ): React$Portal;
 
-  declare function flushSync(callback: () => mixed): void;
+  declare function flushSync(callback: () => unknown): void;
 
   declare function unstable_batchedUpdates<A, B, C, D, E>(
-    callback: (a: A, b: B, c: C, d: D, e: E) => mixed,
+    callback: (a: A, b: B, c: C, d: D, e: E) => unknown,
     a: A,
     b: B,
     c: C,
@@ -143,7 +143,7 @@ declare module 'react-dom/client' {
     unstable_strictMode?: boolean,
     unstable_concurrentUpdatesByDefault?: boolean,
     identifierPrefix?: string,
-    onRecoverableError?: (error: mixed) => void,
+    onRecoverableError?: (error: unknown) => void,
     transitionCallbacks?: TransitionTracingCallbacks,
     ...
   };
@@ -162,7 +162,7 @@ declare module 'react-dom/client' {
     unstable_strictMode?: boolean,
     unstable_concurrentUpdatesByDefault?: boolean,
     identifierPrefix?: string,
-    onRecoverableError?: (error: mixed) => void,
+    onRecoverableError?: (error: unknown) => void,
     ...
   };
 

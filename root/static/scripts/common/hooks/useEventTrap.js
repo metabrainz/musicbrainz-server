@@ -60,7 +60,7 @@ function setupEventHandler(
   return targetActions;
 }
 
-export default function useEventTrap<T: HTMLElement>(
+export default function useEventTrap<T extends HTMLElement>(
   eventType: FocusEventTypes | KeyboardEventTypes | MouseEventTypes,
   targetRef: {current: T | null},
   action: ActionFnT,

@@ -78,7 +78,7 @@ const buildReleaseEventRow = (
 
 component ReleaseEvents(
   abbreviated: boolean = true,
-  events: ?$ReadOnlyArray<ReleaseEventT>,
+  events: ?ReadonlyArray<ReleaseEventT>,
 ) {
   return (
     <CollapsibleList

@@ -24,7 +24,7 @@ type ReleaseEditorFormT = FormT<{
 }>;
 
 component EditNoteTab(
-  editPreviews?: $ReadOnlyArray<EditPreviewT> = [],
+  editPreviews?: ReadonlyArray<EditPreviewT> = [],
   editsExist?: boolean = false,
   errorsExist?: boolean = false,
   form?: ReleaseEditorFormT | null = null,

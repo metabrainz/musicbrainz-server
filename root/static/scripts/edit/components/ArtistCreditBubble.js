@@ -101,7 +101,7 @@ const ArtistCreditDocumentation = (React.memo(() => (
 type ArtistCreditPreviewPropsT = {
   +editsPending: boolean | void,
   +entity?: ArtistCreditableT,
-  +names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  +names: ReadonlyArray<ArtistCreditNameStateT>,
 };
 
 const ArtistCreditPreview = (React.memo<

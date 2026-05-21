@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Alias::TO_JSON
-declare type AliasT<+T> = $ReadOnly<{
+declare type AliasT<+T> = Readonly<{
   ...DatePeriodRoleT,
   ...EntityRoleT<'alias'>,
   ...PendingEditsRoleT,

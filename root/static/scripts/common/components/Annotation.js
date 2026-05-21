@@ -24,7 +24,7 @@ type MinimalAnnotatedEntityT = {
 component Annotation(
   annotation: ?AnnotationT,
   collapse: boolean = false,
-  entity: $ReadOnly<{...MinimalAnnotatedEntityT, ...}>,
+  entity: Readonly<{...MinimalAnnotatedEntityT, ...}>,
   numberOfRevisions: number,
   showChangeLog: boolean = false,
   showEmpty: boolean = false,

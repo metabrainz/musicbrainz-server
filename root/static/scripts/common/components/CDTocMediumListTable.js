@@ -14,7 +14,7 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import CDTocMediumListRow from './CDTocMediumListRow.js';
 
 component CDTocMediumListTable(
-  mediumCDTocs: $ReadOnlyArray<MediumCDTocT>,
+  mediumCDTocs: ReadonlyArray<MediumCDTocT>,
   releaseMap: {[releaseId: number]: ReleaseT},
   showEditColumn as passedShowEditColumn: boolean = false,
 ) {

@@ -26,7 +26,7 @@ declare type AutoEditorElectionT = {
   +seconder_2?: EditorT,
   +status_name: string,
   +status_name_short: string,
-  +votes: $ReadOnlyArray<AutoEditorElectionVoteT>,
+  +votes: ReadonlyArray<AutoEditorElectionVoteT>,
   +yes_votes: number,
 };
 

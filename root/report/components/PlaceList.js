@@ -16,10 +16,10 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component PlaceList<D: {+place: ?PlaceT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+component PlaceList<D extends {+place: ?PlaceT, ...}>(
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
 ) {
   const existingPlaceItems = items.reduce((

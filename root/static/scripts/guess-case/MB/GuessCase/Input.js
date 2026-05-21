@@ -150,7 +150,7 @@ class GuessCaseInput {
     }
   }
 
-  insertWordsAtIndex(index: number, newWords: $ReadOnlyArray<string>) {
+  insertWordsAtIndex(index: number, newWords: ReadonlyArray<string>) {
     const part1 = this.wordList.slice(0, index);
     const part2 = this.wordList.slice(index, this.wordList.length);
     this.wordList = part1.concat(newWords).concat(part2);

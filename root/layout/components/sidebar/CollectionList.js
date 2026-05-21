@@ -36,7 +36,7 @@ function hasEntity(
 }
 
 component CollectionAddRemove(
-  collections?: $ReadOnlyArray<CollectionT>,
+  collections?: ReadonlyArray<CollectionT>,
   entity: CollectableEntityT,
   noneText?: string,
 ) {
@@ -67,7 +67,7 @@ component CollectionAddRemove(
 }
 
 component CollaborativeCollectionList(
-  collections?: $ReadOnlyArray<CollectionT>,
+  collections?: ReadonlyArray<CollectionT>,
   entity: CollectableEntityT,
 ) {
   return (
@@ -83,7 +83,7 @@ component CollaborativeCollectionList(
 
 component OwnCollectionList(
   addText: string,
-  collections?: $ReadOnlyArray<CollectionT>,
+  collections?: ReadonlyArray<CollectionT>,
   entity: CollectableEntityT,
   noneText: string,
 ) {
@@ -106,11 +106,11 @@ component OwnCollectionList(
 
 component CollectionList(
   addCollectionText: string,
-  collaborativeCollections?: $ReadOnlyArray<CollectionT>,
+  collaborativeCollections?: ReadonlyArray<CollectionT>,
   collaborativeCollectionsHeader: string,
   entity: CollectableEntityT,
   header: string,
-  ownCollections?: $ReadOnlyArray<CollectionT>,
+  ownCollections?: ReadonlyArray<CollectionT>,
   ownCollectionsHeader: string,
   ownCollectionsNoneText: string,
   sectionClass: string,

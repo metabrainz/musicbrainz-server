@@ -33,13 +33,13 @@ import SpammerButton, {
 } from './SpammerButton.js';
 
 type FindNewUsersResponseT =
-  | {+users: $ReadOnlyArray<UnsanitizedEditorT>}
+  | {+users: ReadonlyArray<UnsanitizedEditorT>}
   | {+error: string};
 
 type ActionT =
   | {
       +type: 'set-users',
-      +users: $ReadOnlyArray<UnsanitizedEditorT>,
+      +users: ReadonlyArray<UnsanitizedEditorT>,
     }
   | {
       +type: 'remove-user',
@@ -95,7 +95,7 @@ function cmpUserState(a: UserStateT, b: UserStateT) {
   return b.user.id - a.user.id;
 }
 
-function errorToString(error: mixed) {
+function errorToString(error: unknown) {
   if (error == null) {
     return '';
   }

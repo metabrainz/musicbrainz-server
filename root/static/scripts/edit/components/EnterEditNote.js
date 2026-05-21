@@ -11,11 +11,11 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type ControlledPropsT =
-  | $ReadOnly<{
+  | Readonly<{
       controlled: true,
       onChange: (event: SyntheticEvent<HTMLTextAreaElement>) => void,
     }>
-  | $ReadOnly<{controlled?: false}>;
+  | Readonly<{controlled?: false}>;
 
 component EnterEditNote(
   children?: React.Node,

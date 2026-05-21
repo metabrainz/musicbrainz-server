@@ -24,7 +24,7 @@ type WikiDocT = {
 };
 
 component WikiDocTable(
-  pages: $ReadOnlyArray<WikiDocT>,
+  pages: ReadonlyArray<WikiDocT>,
   updatesRequired: boolean,
   wikiServer: string,
 ) {

@@ -18,7 +18,7 @@ import {SidebarProperty} from './SidebarProperties.js';
 
 component SidebarBeginDate(
   age?: [number, number, number] | null,
-  entity: $ReadOnly<{...DatePeriodRoleT, ...}>,
+  entity: Readonly<{...DatePeriodRoleT, ...}>,
   label: string,
 ) {
   return (

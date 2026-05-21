@@ -42,7 +42,7 @@ export type StateT = {
     | 'prev-track'
     | void,
   +isOpen: boolean,
-  +names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  +names: ReadonlyArray<ArtistCreditNameStateT>,
   +singleArtistAutocomplete: AutocompleteStateT<ArtistT>,
 };
 
@@ -85,9 +85,9 @@ export type ActionT =
   | {+type: 'set-change-matching-artists', +checked: boolean}
   | {
       +type: 'set-names-from-artist-credit',
-      +artistCredit: $ReadOnly<{
+      +artistCredit: Readonly<{
         ...ArtistCreditT,
-        +names: $ReadOnlyArray<$ReadOnly<{
+        +names: ReadonlyArray<Readonly<{
           ...ArtistCreditNameT,
           +artist?: ?ArtistT,
         }>>,

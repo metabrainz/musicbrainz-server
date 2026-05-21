@@ -14,7 +14,7 @@ import type {
 } from '../edit/components/DateRangeFieldset.js';
 import typeof {ERROR_TARGETS} from '../edit/URLCleanup.js';
 
-type ErrorTargetT = $Values<ERROR_TARGETS>;
+type ErrorTargetT = Values<ERROR_TARGETS>;
 
 export type ErrorT = {
   +blockMerge?: boolean,
@@ -153,7 +153,7 @@ export type LinkStateT = {
   /*
    * The relationships associated with this URL, whether new or existing.
    */
-  +relationships: $ReadOnlyArray<LinkRelationshipStateT>,
+  +relationships: ReadonlyArray<LinkRelationshipStateT>,
   /*
    * The cleaned/normalized URL used for validation and submission.
    */

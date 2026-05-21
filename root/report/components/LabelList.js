@@ -16,10 +16,10 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component LabelList<D: {+label: ?LabelT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+component LabelList<D extends {+label: ?LabelT, ...}>(
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
 ) {
   const existingLabelItems = items.reduce((

@@ -16,10 +16,10 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component SeriesList<D: {+series: ?SeriesT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+component SeriesList<D extends {+series: ?SeriesT, ...}>(
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
 ) {
   const existingSeriesItems = items.reduce((

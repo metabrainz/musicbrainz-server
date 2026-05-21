@@ -11,11 +11,11 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type ControlledPropsT =
-  | $ReadOnly<{
+  | Readonly<{
       onChange: (event: SyntheticEvent<HTMLInputElement>) => void,
       uncontrolled?: false,
     }>
-  | $ReadOnly<{onChange?: void, uncontrolled: true}>;
+  | Readonly<{onChange?: void, uncontrolled: true}>;
 
 component FormRowCheckbox(
   disabled?: boolean,

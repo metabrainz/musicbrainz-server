@@ -20,7 +20,7 @@ import RemoveButton from './RemoveButton.js';
 
 type StateT = {
   // The current text values as stored in the database.
-  +currentTextValues: $ReadOnlyArray<string>,
+  +currentTextValues: ReadonlyArray<string>,
   /*
    * The current form values, as either initialized from the database or
    * submitted by the user.
@@ -29,7 +29,7 @@ type StateT = {
 };
 
 type InitialStateT = {
-  +currentTextValues: ?$ReadOnlyArray<string>,
+  +currentTextValues: ?ReadonlyArray<string>,
   +repeatable: TextListFieldT,
 };
 

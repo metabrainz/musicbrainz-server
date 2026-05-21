@@ -12,8 +12,8 @@ import AliasesComponent from '../components/Aliases/index.js';
 import LayoutComponent from '../components/LayoutComponent.js';
 
 component Aliases(
-  aliases: $ReadOnlyArray<AnyAliasT>,
-  artistCredits?: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
+  aliases: ReadonlyArray<AnyAliasT>,
+  artistCredits?: ReadonlyArray<{+id: number} & ArtistCreditT>,
   entity: EntityWithAliasesT,
 ) {
   return (

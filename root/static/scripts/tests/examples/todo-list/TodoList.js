@@ -10,11 +10,11 @@ import Todo, {
 } from './Todo.js';
 
 type PropsT = {
-  +initialTodos: $ReadOnlyArray<TodoStateT>,
+  +initialTodos: ReadonlyArray<TodoStateT>,
 };
 
 type StateT = {
-  +todos: $ReadOnlyArray<TodoStateT>,
+  +todos: ReadonlyArray<TodoStateT>,
 };
 
 type ActionT =
@@ -28,7 +28,7 @@ type ActionT =
     };
 
 export function createInitialState(
-  initialTodos: $ReadOnlyArray<TodoStateT>,
+  initialTodos: ReadonlyArray<TodoStateT>,
 ): StateT {
   return {todos: initialTodos};
 }

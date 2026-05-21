@@ -16,7 +16,7 @@ const displayCatno = (catno: string): React.MixedElement => (
 );
 
 component ReleaseCatnoList(
-  labels as releaseLabels: ?$ReadOnlyArray<ReleaseLabelT>,
+  labels as releaseLabels: ?ReadonlyArray<ReleaseLabelT>,
 ) {
   if (!releaseLabels || !releaseLabels.length) {
     return null;

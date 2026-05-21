@@ -16,7 +16,7 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-component SeriesMerge(form: MergeFormT, toMerge: $ReadOnlyArray<SeriesT>) {
+component SeriesMerge(form: MergeFormT, toMerge: ReadonlyArray<SeriesT>) {
   return (
     <Layout fullWidth title={l('Merge series')}>
       <div id="content">

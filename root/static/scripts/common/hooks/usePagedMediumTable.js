@@ -35,7 +35,7 @@ type TracksResponseT = {
     },
   },
   +pager: PagerT,
-  +tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  +tracks: ReadonlyArray<TrackWithRecordingT>,
 };
 
 type PagedMediumTableVarsT = {
@@ -60,13 +60,13 @@ export default function usePagedMediumTable(
     dispatch: (LazyReleaseActionT) => void,
     getColumnCount: (boolean) => number,
     handleLinkedEntities?:
-      (update: ?$ReadOnly<Partial<LinkedEntitiesT>>) => void,
+      (update: ?Readonly<Partial<LinkedEntitiesT>>) => void,
     hasUnloadedTracks: boolean,
     isExpanded: boolean,
     medium: MediumWithRecordingsT,
     noScript?: boolean,
     release: ReleaseWithMediumsT,
-    tracks: ?$ReadOnlyArray<TrackWithRecordingT>,
+    tracks: ?ReadonlyArray<TrackWithRecordingT>,
   },
 ): PagedMediumTableVarsT {
   const {

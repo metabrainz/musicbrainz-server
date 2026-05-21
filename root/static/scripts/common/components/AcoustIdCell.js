@@ -15,7 +15,7 @@ type AcoustIdTrackT = {
 };
 
 type AcoustIdRequestCallbackT =
-  ($ReadOnlyArray<AcoustIdTrackT> | null) => void;
+  (ReadonlyArray<AcoustIdTrackT> | null) => void;
 
 type AcoustIdRequestBatchT = {
   [recordingMbid: string]: AcoustIdRequestCallbackT,
@@ -72,7 +72,7 @@ function loadAcoustIdData(
         }
       })
       .finally(() => {
-        const callbacks: $ReadOnlyArray<AcoustIdRequestCallbackT> =
+        const callbacks: ReadonlyArray<AcoustIdRequestCallbackT> =
           Object.values(batch);
 
         for (const callback of callbacks) {
@@ -85,7 +85,7 @@ function loadAcoustIdData(
 
 component AcoustIdCell(recordingMbid: string) {
   const [acoustIdTracks, setAcoustIdTracks] = React.useState<
-    $ReadOnlyArray<AcoustIdTrackT> | null,
+    ReadonlyArray<AcoustIdTrackT> | null,
   >(null);
 
   const [isLoading, setLoading] = React.useState(true);

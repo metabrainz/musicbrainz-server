@@ -27,7 +27,7 @@ type FormatStatT = {
 
 component Formats(
   dateCollected: string,
-  formatStats: $ReadOnlyArray<FormatStatT>,
+  formatStats: ReadonlyArray<FormatStatT>,
   stats: {[statName: string]: number},
 ) {
   const $c = React.useContext(CatalystContext);

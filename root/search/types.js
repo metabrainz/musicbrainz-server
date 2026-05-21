@@ -10,10 +10,10 @@
 export type InlineResultsPropsT<T> = {
   +pager: PagerT,
   +query: string,
-  +results: $ReadOnlyArray<SearchResultT<T>>,
+  +results: ReadonlyArray<SearchResultT<T>>,
 };
 
-export type ResultsPropsT<T> = $ReadOnly<{
+export type ResultsPropsT<T> = Readonly<{
   ...InlineResultsPropsT<T>,
   +form: SearchFormT,
   +lastUpdated?: string,
@@ -21,7 +21,7 @@ export type ResultsPropsT<T> = $ReadOnly<{
 
 export type SearchResultT<T> = {
   +entity: T,
-  +extra: $ReadOnlyArray<{
+  +extra: ReadonlyArray<{
     +medium_position: number,
     +medium_track_count: number,
     +release: ReleaseT,

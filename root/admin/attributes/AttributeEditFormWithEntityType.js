@@ -18,7 +18,7 @@ import AttributeEditFormGenericSection
 import {type AttributeEditFormWithEntityTypeT} from './types.js';
 
 type Props =
-| $ReadOnly<{
+| Readonly<{
   +action: 'add' | 'edit',
   +entityTypeSelectOptions: {
     [entityType: CollectableEntityTypeT]: CollectableEntityTypeT,
@@ -27,7 +27,7 @@ type Props =
   +parentSelectOptions: SelectOptionsT,
   +type: 'CollectionType',
 }>
-| $ReadOnly<{
+| Readonly<{
   +action: 'add' | 'edit',
   +entityTypeSelectOptions: {
     [entityType: SeriesEntityTypeT]: SeriesEntityTypeT,

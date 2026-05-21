@@ -29,11 +29,11 @@ declare type WorkAttributeTypeAllowedValueT = {
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json
 declare type WorkAttributeTypeAllowedValueTreeT = {
   ...WorkAttributeTypeAllowedValueT,
-  +children?: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>,
+  +children?: ReadonlyArray<WorkAttributeTypeAllowedValueTreeT>,
 };
 
 declare type WorkAttributeTypeAllowedValueTreeRootT =
-  {+children: $ReadOnlyArray<WorkAttributeTypeAllowedValueTreeT>};
+  {+children: ReadonlyArray<WorkAttributeTypeAllowedValueTreeT>};
 
 declare type WorkAttributeTypeT = {
   ...CommentRoleT,
@@ -44,8 +44,8 @@ declare type WorkAttributeTypeT = {
 // See MusicBrainz::Server::Controller::Work::stash_work_form_json
 declare type WorkAttributeTypeTreeT = {
   ...WorkAttributeTypeT,
-  +children?: $ReadOnlyArray<WorkAttributeTypeTreeT>,
+  +children?: ReadonlyArray<WorkAttributeTypeTreeT>,
 };
 
 declare type WorkAttributeTypeTreeRootT =
-  {+children: $ReadOnlyArray<WorkAttributeTypeTreeT>};
+  {+children: ReadonlyArray<WorkAttributeTypeTreeT>};

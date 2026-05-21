@@ -35,7 +35,7 @@ function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {
 
 component FingerprintTable(recording: RecordingT) {
   const [tracks, setTracks] =
-    React.useState<$ReadOnlyArray<AcoustIdTrackT>>([]);
+    React.useState<ReadonlyArray<AcoustIdTrackT>>([]);
   const [isLoaded, setIsLoaded] = React.useState(false);
   const [error, setError] = React.useState<Error | null>(null);
 
@@ -57,7 +57,7 @@ component FingerprintTable(recording: RecordingT) {
           setIsLoaded(true);
         },
       )
-      .catch((caughtError: mixed) => {
+      .catch((caughtError: unknown) => {
         console.error(caughtError);
         setError(coerceToError(caughtError));
       });

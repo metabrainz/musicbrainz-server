@@ -19,7 +19,7 @@ type SearchOptionGroupT = {
   ...
 };
 
-const TYPE_OPTION_GROUPS: $ReadOnlyArray<SearchOptionGroupT> = [
+const TYPE_OPTION_GROUPS: ReadonlyArray<SearchOptionGroupT> = [
   {
     artist:        N_l('Artist'),
   },

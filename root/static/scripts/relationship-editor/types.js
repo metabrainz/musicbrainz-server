@@ -32,7 +32,7 @@ export type RelationshipStateForTypesT<
    * state was created.  It should be appended to whenever
    * `cloneRelationshipState` is used.
    */
-  +_lineage: $ReadOnlyArray<string>,
+  +_lineage: ReadonlyArray<string>,
   +_original: RelationshipStateT | null,
   +_status: RelationshipEditStatusT,
   +attributes: tree.ImmutableTree<LinkAttrT> | null,
@@ -144,17 +144,17 @@ export type RelationshipDialogStateT = {
   +targetEntity: DialogTargetEntityStateT,
 };
 
-export type DialogBooleanAttributeStateT = $ReadOnly<{
+export type DialogBooleanAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
   +control: 'checkbox',
   +enabled: boolean,
 }>;
 
-export type DialogMultiselectAttributeStateT = $ReadOnly<{
+export type DialogMultiselectAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
   +control: 'multiselect',
   +linkType: LinkTypeT,
-  +values: $ReadOnlyArray<DialogMultiselectAttributeValueStateT>,
+  +values: ReadonlyArray<DialogMultiselectAttributeValueStateT>,
 }>;
 
 export type DialogMultiselectAttributeValueStateT = {
@@ -166,7 +166,7 @@ export type DialogMultiselectAttributeValueStateT = {
   +removed: boolean,
 };
 
-export type DialogTextAttributeStateT = $ReadOnly<{
+export type DialogTextAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
   +control: 'text',
   +textValue: string,
@@ -177,7 +177,7 @@ export type DialogAttributeT =
   | DialogMultiselectAttributeStateT
   | DialogTextAttributeStateT;
 
-export type DialogAttributesT = $ReadOnlyArray<DialogAttributeT>;
+export type DialogAttributesT = ReadonlyArray<DialogAttributeT>;
 
 export type DialogAttributesStateT = {
   +attributesList: DialogAttributesT,
@@ -214,7 +214,7 @@ export type DialogLinkTypeStateT = {
   +error: React.Node,
 };
 
-export type DialogSourceEntityStateT = $ReadOnly<{
+export type DialogSourceEntityStateT = Readonly<{
   ...DialogEntityCreditStateT,
   +entityType: RelatableEntityTypeT,
   +error: React.Node,
@@ -225,9 +225,9 @@ export type TargetTypeOptionT = {
   +value: RelatableEntityTypeT,
 };
 
-export type TargetTypeOptionsT = $ReadOnlyArray<TargetTypeOptionT>;
+export type TargetTypeOptionsT = ReadonlyArray<TargetTypeOptionT>;
 
-export type DialogTargetEntityStateT = $ReadOnly<{
+export type DialogTargetEntityStateT = Readonly<{
   ...DialogEntityCreditStateT,
   +allowedTypes: TargetTypeOptionsT | null,
   +autocomplete: AutocompleteStateT<NonUrlRelatableEntityT> | null,
@@ -275,15 +275,15 @@ export type MultiselectLanguageValueStateT = {
 
 export type MultiselectLanguageStateT = {
   +max: number | null,
-  +staticItems: $ReadOnlyArray<AutocompleteOptionItemT<LanguageT>>,
-  +values: $ReadOnlyArray<MultiselectLanguageValueStateT>,
+  +staticItems: ReadonlyArray<AutocompleteOptionItemT<LanguageT>>,
+  +values: ReadonlyArray<MultiselectLanguageValueStateT>,
 };
 
 /*
  * Release relationship editor types
  */
 
-export type ReleaseWithMediumsAndReleaseGroupT = $ReadOnly<{
+export type ReleaseWithMediumsAndReleaseGroupT = Readonly<{
   ...ReleaseWithMediumsT,
   +releaseGroup: ReleaseGroupT,
 }>;
@@ -315,7 +315,7 @@ export type MediumStateTreeT = tree.ImmutableTree<[
   MediumRecordingStateTreeT,
 ]>;
 
-export type ReleaseRelationshipEditorStateT = $ReadOnly<{
+export type ReleaseRelationshipEditorStateT = Readonly<{
   ...$Exact<LazyReleaseStateT>,
   ...$Exact<RelationshipEditorStateT>,
   +editNoteField: FieldT<string>,

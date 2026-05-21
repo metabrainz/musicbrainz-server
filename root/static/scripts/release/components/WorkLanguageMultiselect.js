@@ -32,7 +32,7 @@ import type {
 } from '../../relationship-editor/types.js';
 
 export function createInitialState(
-  initialLanguages?: $ReadOnlyArray<LanguageT>,
+  initialLanguages?: ReadonlyArray<LanguageT>,
 ): MultiselectLanguageStateT {
   const languages: Array<LanguageT> =
     Object.values(linkedEntities.language);
@@ -68,7 +68,7 @@ export function createInitialState(
 }
 
 export function createSelectedLanguageValue(
-  staticItems: $ReadOnlyArray<AutocompleteOptionItemT<LanguageT>>,
+  staticItems: ReadonlyArray<AutocompleteOptionItemT<LanguageT>>,
   selectedLanguage: LanguageT | null,
 ): MultiselectLanguageValueStateT {
   const key = uniqueId();
@@ -93,7 +93,7 @@ export function createSelectedLanguageValue(
 }
 
 export function createEmptyLanguageValue(
-  newState: $ReadOnly<{...MultiselectLanguageStateT, ...}>,
+  newState: Readonly<{...MultiselectLanguageStateT, ...}>,
 ): MultiselectLanguageValueStateT {
   return createSelectedLanguageValue(newState.staticItems, null);
 }

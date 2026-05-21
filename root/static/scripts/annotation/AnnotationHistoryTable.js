@@ -51,7 +51,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 }
 
 component AnnotationHistoryTable(
-  annotations: $ReadOnlyArray<AnnotationT>,
+  annotations: ReadonlyArray<AnnotationT>,
   baseUrl: string,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

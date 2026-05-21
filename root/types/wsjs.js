@@ -30,7 +30,7 @@ declare type WsJsRelationshipAttributeT = {
 };
 
 declare type WsJsRelationshipCommonT = {
-  +attributes: $ReadOnlyArray<WsJsRelationshipAttributeT>,
+  +attributes: ReadonlyArray<WsJsRelationshipAttributeT>,
   +begin_date?: PartialDateT,
   +end_date?: PartialDateT,
   +ended?: boolean,
@@ -40,21 +40,21 @@ declare type WsJsRelationshipCommonT = {
   +entity1_credit: string,
 };
 
-declare type WsJsEditRelationshipCreateT = $ReadOnly<{
+declare type WsJsEditRelationshipCreateT = Readonly<{
   ...WsJsRelationshipCommonT,
   +edit_type: EDIT_RELATIONSHIP_CREATE_T,
   +linkOrder?: number,
   +linkTypeID: number,
 }>;
 
-declare type WsJsEditRelationshipEditT = $ReadOnly<{
+declare type WsJsEditRelationshipEditT = Readonly<{
   ...Partial<WsJsRelationshipCommonT>,
   +edit_type: EDIT_RELATIONSHIP_EDIT_T,
   +id: number,
   +linkTypeID: number,
 }>;
 
-declare type WsJsEditRelationshipDeleteT = $ReadOnly<{
+declare type WsJsEditRelationshipDeleteT = Readonly<{
   +edit_type: EDIT_RELATIONSHIP_DELETE_T,
   +enteredFrom?: WsJsRelationshipEntityT,
   +id: number,
@@ -71,7 +71,7 @@ declare type WsJsEditRelationshipsReorderT = {
   +edit_type: EDIT_RELATIONSHIPS_REORDER_T,
   +enteredFrom?: WsJsRelationshipEntityT,
   +linkTypeID: number,
-  +relationship_order: $ReadOnlyArray<{
+  +relationship_order: ReadonlyArray<{
     +link_order: number,
     +relationship_id: number,
   }>,
@@ -80,7 +80,7 @@ declare type WsJsEditRelationshipsReorderT = {
 declare type WsJsEditWorkCreateT = {
   +comment: string,
   +edit_type: EDIT_WORK_CREATE_T,
-  +languages: $ReadOnlyArray<number>,
+  +languages: ReadonlyArray<number>,
   +name: string,
   +type_id: number | null,
 };
@@ -89,7 +89,7 @@ declare type WS_EDIT_RESPONSE_OK_T = 1;
 declare type WS_EDIT_RESPONSE_NO_CHANGES_T = 2;
 
 declare type WsJsEditResponseT = {
-  +edits: $ReadOnlyArray<
+  +edits: ReadonlyArray<
     | {
         +edit_type: EDIT_RELATIONSHIP_CREATE_T,
         +relationship_id: number | null,

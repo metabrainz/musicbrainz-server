@@ -19,7 +19,7 @@ import {sortedIndexWith} from '../../common/utility/arrays.js';
 import bracketed, {bracketedText} from '../../common/utility/bracketed.js';
 import diffArtistCredits from '../../edit/utility/diffArtistCredits.js';
 
-type ArtistCreditWithIdT = $ReadOnly<{
+type ArtistCreditWithIdT = Readonly<{
   ...ArtistCreditT,
   +id: number,
 }>;
@@ -31,7 +31,7 @@ type ArtistCreditRowPropsT = {
 };
 
 type ArtistCreditRenamerPropsT = {
-  +artistCredits: $ReadOnlyArray<ArtistCreditWithIdT>,
+  +artistCredits: ReadonlyArray<ArtistCreditWithIdT>,
   +artistMbid: string,
   +artistName: string,
   +initialArtistName: string,
@@ -45,7 +45,7 @@ type StateT = {
 };
 
 type CreateInitialStatePropsT = {
-  +artistCredits: $ReadOnlyArray<ArtistCreditWithIdT>,
+  +artistCredits: ReadonlyArray<ArtistCreditWithIdT>,
   +initialSelectedArtistCreditIds: {+[artistCreditId: number]: 1},
   +name: string,
 };
@@ -168,7 +168,7 @@ const ArtistCreditRenamer = ({
   initialSelectedArtistCreditIds,
 }: ArtistCreditRenamerPropsT): React.MixedElement | null => {
   const rowsRef =
-    React.useRef<$ReadOnlyArray<React.MixedElement> | null>(null);
+    React.useRef<ReadonlyArray<React.MixedElement> | null>(null);
 
   const [state, dispatch] = React.useReducer(
     reducer,

@@ -19,7 +19,7 @@ declare type SeriesEntityTypeT =
   | 'work';
 
 // MusicBrainz::Server::Entity::Series::TO_JSON
-declare type SeriesT = $ReadOnly<{
+declare type SeriesT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'series'>,
@@ -31,12 +31,12 @@ declare type SeriesT = $ReadOnly<{
 }>;
 
 declare type SeriesItemNumbersRoleT = {
-  +seriesItemNumbers?: $ReadOnlyArray<string>,
+  +seriesItemNumbers?: ReadonlyArray<string>,
 };
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;
 
-declare type SeriesTypeT = $ReadOnly<{
+declare type SeriesTypeT = Readonly<{
   ...OptionTreeT<'series_type'>,
   item_entity_type: SeriesEntityTypeT,
 }>;

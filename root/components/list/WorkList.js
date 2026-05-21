@@ -30,10 +30,10 @@ component WorkList(
   checkboxes?: string,
   mergeForm?: MergeFormT,
   order?: string,
-  seriesItemNumbers?: $ReadOnlyArray<string>,
+  seriesItemNumbers?: ReadonlyArray<string>,
   showRatings: boolean = false,
   sortable?: boolean,
-  works: $ReadOnlyArray<WorkT>,
+  works: ReadonlyArray<WorkT>,
 ) {
   const $c = React.useContext(CatalystContext);
 

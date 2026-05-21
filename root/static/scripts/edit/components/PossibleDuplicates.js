@@ -10,7 +10,7 @@
 import EntityLink from '../../common/components/EntityLink.js';
 
 component PossibleDuplicates(
-  duplicates: $ReadOnlyArray<EditableEntityT>,
+  duplicates: ReadonlyArray<EditableEntityT>,
   name: string,
   onCheckboxChange: (event: SyntheticEvent<HTMLInputElement>) => void,
 ) {

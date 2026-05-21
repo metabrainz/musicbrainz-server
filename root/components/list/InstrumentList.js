@@ -21,7 +21,7 @@ import {
 
 component InstrumentList(
   checkboxes?: string,
-  instruments: $ReadOnlyArray<InstrumentT>,
+  instruments: ReadonlyArray<InstrumentT>,
   mergeForm?: MergeFormT,
   order?: string,
   sortable?: boolean,

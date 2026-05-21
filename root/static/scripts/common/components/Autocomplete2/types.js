@@ -9,7 +9,7 @@
 
 export type SearchableTypeT = EntityItemT['entityType'];
 
-export type StateT<T: EntityItemT> = {
+export type StateT<T extends EntityItemT> = {
   +canChangeType?: (string) => boolean,
   +containerClass?: string,
   +disabled?: boolean,
@@ -31,25 +31,25 @@ export type StateT<T: EntityItemT> = {
   +isInputFocused: boolean,
   +isLookupPerformed?: boolean,
   +isOpen: boolean,
-  +items: $ReadOnlyArray<ItemT<T>>,
+  +items: ReadonlyArray<ItemT<T>>,
   +label?: string,
   +page: number,
   +pendingSearch: string | null,
   +placeholder?: string,
-  +recentItems: $ReadOnlyArray<OptionItemT<T>> | null,
+  +recentItems: ReadonlyArray<OptionItemT<T>> | null,
   +recentItemsKey: string,
   +required: boolean,
-  +results: $ReadOnlyArray<ItemT<T>> | null,
+  +results: ReadonlyArray<ItemT<T>> | null,
   +selectedItem: OptionItemT<T> | null,
   +showDescriptions?: boolean,
   +showLabel?: boolean,
-  +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
+  +staticItems?: ReadonlyArray<OptionItemT<T>>,
   +statusMessage: string,
   +totalPages: ?number,
   +width?: string,
 };
 
-export type PropsT<T: EntityItemT> = {
+export type PropsT<T extends EntityItemT> = {
   +children?: React.Node,
   +dispatch: (ActionT<T>) => void,
   +state: StateT<T>,
@@ -62,7 +62,7 @@ export type SearchActionT = {
 };
 
 /* eslint-disable ft-flow/sort-keys */
-export type ActionT<+T: EntityItemT> =
+export type ActionT<+T extends EntityItemT> =
   | SearchActionT
   | {
       +type: 'change-entity-type',
@@ -78,14 +78,14 @@ export type ActionT<+T: EntityItemT> =
   | {+type: 'set-menu-visibility', +value: boolean}
   | {
       +type: 'show-ws-results',
-      +entities: $ReadOnlyArray<T>,
+      +entities: ReadonlyArray<T>,
       +page: number,
       +totalPages: number,
     }
   | {+type: 'show-lookup-error'}
   | {+type: 'show-lookup-type-error'}
   | {+type: 'show-more-results'}
-  | {+type: 'set-recent-items', +items: $ReadOnlyArray<OptionItemT<T>>}
+  | {+type: 'set-recent-items', +items: ReadonlyArray<OptionItemT<T>>}
   | {+type: 'show-search-error'}
   | {+type: 'stop-search'}
   | {+type: 'toggle-add-entity-dialog', +isOpen: boolean}
@@ -124,7 +124,7 @@ export type HeaderItemT = {
   +separator?: boolean,
 };
 
-export type ItemT<+T: EntityItemT> =
+export type ItemT<+T extends EntityItemT> =
   | ActionItemT<T>
   | OptionItemT<T>
   | HeaderItemT;

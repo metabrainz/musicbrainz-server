@@ -27,7 +27,7 @@ export type AttributeT =
   | WorkTypeT;
 
 export type CreateOrEditAttributePropsT =
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +form: AttributeEditGenericFormT,
       +parentSelectOptions: SelectOptionsT,
@@ -46,7 +46,7 @@ export type CreateOrEditAttributePropsT =
         | 'ReleasePackaging'
         | 'WorkType',
     }>
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +entityTypeSelectOptions: {
         [entityType: CollectableEntityTypeT]: CollectableEntityTypeT,
@@ -55,7 +55,7 @@ export type CreateOrEditAttributePropsT =
       +parentSelectOptions: SelectOptionsT,
       +type: 'CollectionType',
     }>
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +entityTypeSelectOptions: {
         [entityType: SeriesEntityTypeT]: SeriesEntityTypeT,
@@ -64,23 +64,23 @@ export type CreateOrEditAttributePropsT =
       +parentSelectOptions: SelectOptionsT,
       +type: 'SeriesType',
     }>
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +form: LanguageEditFormT,
       +type: 'Language',
     }>
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +form: MediumFormatEditFormT,
       +parentSelectOptions: SelectOptionsT,
       +type: 'MediumFormat',
     }>
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +form: ScriptEditFormT,
       +type: 'Script',
     }>
-  | $ReadOnly<{
+  | Readonly<{
       +action: 'add' | 'edit',
       +form: WorkAttributeTypeEditFormT,
       +parentSelectOptions: SelectOptionsT,

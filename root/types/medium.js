@@ -9,14 +9,14 @@
 
 /* eslint-disable no-unused-vars */
 
-declare type CDTocT = $ReadOnly<{
+declare type CDTocT = Readonly<{
   ...EntityRoleT<'cdtoc'>,
   +discid: string,
   +freedb_id: string,
   +leadout_offset: number,
   +length: number,
   +track_count: number,
-  +track_details: $ReadOnlyArray<{
+  +track_details: ReadonlyArray<{
     +end_sectors: number,
     +end_time: number,
     +length_sectors: number,
@@ -24,10 +24,10 @@ declare type CDTocT = $ReadOnly<{
     +start_sectors: number,
     +start_time: number,
   }>,
-  +track_offset: $ReadOnlyArray<number>,
+  +track_offset: ReadonlyArray<number>,
 }>;
 
-declare type MediumCDTocT = $ReadOnly<{
+declare type MediumCDTocT = Readonly<{
   ...EntityRoleT<'medium_cdtoc'>,
   +cdtoc: CDTocT,
   +editsPending: boolean,
@@ -41,14 +41,14 @@ declare type MediumFormatT = {
 };
 
 // MusicBrainz::Server::Entity::Medium::TO_JSON
-declare type MediumT = $ReadOnly<{
+declare type MediumT = Readonly<{
   ...EntityRoleT<'medium'>,
   ...LastUpdateRoleT,
   +cdtoc_track_count: number | null,
-  +cdtoc_track_lengths?: $ReadOnlyArray<number | null>,
-  +cdtoc_tracks?: $ReadOnlyArray<TrackT>,
-  +cdtocs: $ReadOnlyArray<string>,
-  +data_track_lengths?: $ReadOnlyArray<number | null>,
+  +cdtoc_track_lengths?: ReadonlyArray<number | null>,
+  +cdtoc_tracks?: ReadonlyArray<TrackT>,
+  +cdtocs: ReadonlyArray<string>,
+  +data_track_lengths?: ReadonlyArray<number | null>,
   +editsPending: boolean,
   +format: MediumFormatT | null,
   +format_id: number | null,
@@ -56,14 +56,14 @@ declare type MediumT = $ReadOnly<{
   +may_have_discids: boolean,
   +name: string,
   +position: number,
-  +pregap_length?: $ReadOnlyArray<number | null>,
+  +pregap_length?: ReadonlyArray<number | null>,
   +release_id: number,
   +track_count: number | null,
-  +tracks?: $ReadOnlyArray<TrackT>,
+  +tracks?: ReadonlyArray<TrackT>,
   +tracks_pager?: PagerT,
 }>;
 
-declare type MediumWithRecordingsT = $ReadOnly<{
+declare type MediumWithRecordingsT = Readonly<{
   ...MediumT,
-  +tracks?: $ReadOnlyArray<TrackWithRecordingT>,
+  +tracks?: ReadonlyArray<TrackWithRecordingT>,
 }>;

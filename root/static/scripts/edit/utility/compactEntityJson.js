@@ -27,9 +27,9 @@ const objectCtorString: string = functionToString.call(Object);
 const UNDEFINED_INDEX = -1;
 
 function _indexValue(
-  value: mixed,
-  indexCache: Map<mixed, number>,
-  result: Array<mixed>,
+  value: unknown,
+  indexCache: Map<unknown, number>,
+  result: Array<unknown>,
 ): number {
   let index = indexCache.get(value);
   if (index != null) {
@@ -112,26 +112,26 @@ function _indexValue(
 }
 
 export function compactEntityJson(
-  value: mixed,
-): $ReadOnlyArray<mixed> {
-  const result: Array<mixed> = [];
-  const indexCache = new Map<mixed, number>();
+  value: unknown,
+): ReadonlyArray<unknown> {
+  const result: Array<unknown> = [];
+  const indexCache = new Map<unknown, number>();
   indexCache.set(undefined, UNDEFINED_INDEX);
   _indexValue(value, indexCache, result);
   return result;
 }
 
 export function decompactEntityJson(
-  compactedArray: $ReadOnlyArray<mixed>,
-): mixed {
+  compactedArray: ReadonlyArray<unknown>,
+): unknown {
   const resolved = new Array<
-    | Array<mixed>
-    | {[objectKey: string]: mixed},
+    | Array<unknown>
+    | {[objectKey: string]: unknown},
   >(compactedArray.length);
 
   function _decompactIndex(
     index: number,
-  ): mixed {
+  ): unknown {
     if (index === UNDEFINED_INDEX) {
       return undefined;
     }
@@ -149,7 +149,7 @@ export function decompactEntityJson(
         }
         return result;
       }
-      const result: {[objectKey: string]: mixed} = {};
+      const result: {[objectKey: string]: unknown} = {};
       resolved[index] = result;
       for (const objectKeyIndex in value) {
         if (Object.hasOwn(value, objectKeyIndex)) {

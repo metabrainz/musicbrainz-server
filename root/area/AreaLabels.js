@@ -21,7 +21,7 @@ import AreaLayout from './AreaLayout.js';
 
 component AreaLabels(
   area: AreaT,
-  labels: $ReadOnlyArray<LabelT>,
+  labels: ReadonlyArray<LabelT>,
   pager: PagerT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

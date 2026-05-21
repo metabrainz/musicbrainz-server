@@ -210,14 +210,14 @@ class ViewModel {
 
   attributeTypesByID: {[typeId: StrOrNum]: WorkAttributeTypeTreeT, ...};
 
-  allowedValuesByTypeID: $ReadOnlyMap<string, OptionListT>;
+  allowedValuesByTypeID: ReadonlyMap<string, OptionListT>;
 
   attributes: KnockoutObservableArray<WorkAttribute>;
 
   constructor(
     attributeTypes: WorkAttributeTypeTreeRootT,
     allowedValues: WorkAttributeTypeAllowedValueTreeRootT,
-    attributes: $ReadOnlyArray<WorkAttributeField>,
+    attributes: ReadonlyArray<WorkAttributeField>,
   ) {
     this.attributeTypes = buildOptionsTree(
       attributeTypes,

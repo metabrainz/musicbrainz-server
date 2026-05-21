@@ -148,7 +148,7 @@ const createMap = <K, V>(): Map<K, V> => new Map();
 
 function addTracksToState(
   writableRootState: {...ReleaseRelationshipEditorStateT},
-  tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  tracks: ReadonlyArray<TrackWithRecordingT>,
   medium: MediumWithRecordingsT,
 ): void {
   const recordingsWithNoRelationships = [];
@@ -265,7 +265,7 @@ export function createInitialState(
 
 function handleSubmissionError(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  error: mixed,
+  error: unknown,
 ): void {
   captureException(error);
 
@@ -286,7 +286,7 @@ function handlePromiseRejection<T>(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   promise: Promise<T | SubmissionRejected>,
 ): Promise<T | SubmissionRejected> {
-  return promise.catch(function (error: mixed) {
+  return promise.catch(function (error: unknown) {
     handleSubmissionError(dispatch, error);
     return new SubmissionRejected();
   });
@@ -1429,7 +1429,7 @@ export const reducer: ((
 component _MediumRelationshipEditors(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1470,7 +1470,7 @@ const MediumRelationshipEditors = React.memo(_MediumRelationshipEditors);
 component _TrackRelationshipsSection(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1772,7 +1772,7 @@ component _ReleaseRelationshipEditor() {
   ) => {
     event.preventDefault();
     submitEdits(dispatch, currentStateRef)
-      .catch(function (error: mixed) {
+      .catch(function (error: unknown) {
         handleSubmissionError(dispatch, error);
       });
   }, [dispatch]);

@@ -17,7 +17,7 @@ import {groupBy} from './arrays.js';
  * TODO: These should probably be combined at some point?
  */
 export default function buildOptionList<T>(
-  options: $ReadOnlyArray<OptionTreeT<T>>,
+  options: ReadonlyArray<OptionTreeT<T>>,
   localizeName: (string) => string,
 ): OptionListT {
   const optionsByParentId = groupBy(options, option => option.parent_id);

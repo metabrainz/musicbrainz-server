@@ -101,7 +101,7 @@ function getTagEntityListHeading(
   );
 }
 
-type EntityTagsT = $ReadOnlyArray<{
+type EntityTagsT = ReadonlyArray<{
   +count?: number,
   +entity: TaggableEntityT,
   +entity_id: number,

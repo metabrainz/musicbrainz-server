@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 declare type IpiCodesRoleT = {
-  +ipi_codes: $ReadOnlyArray<IpiCodeT>,
+  +ipi_codes: ReadonlyArray<IpiCodeT>,
 };
 
 declare type IpiCodeT = {
@@ -19,7 +19,7 @@ declare type IpiCodeT = {
 };
 
 declare type IsniCodesRoleT = {
-  +isni_codes: $ReadOnlyArray<IsniCodeT>,
+  +isni_codes: ReadonlyArray<IsniCodeT>,
 };
 
 declare type IsniCodeT = {

@@ -21,7 +21,7 @@ type EmailSearchFormT = FormT<{
 component EmailSearch(
   form: EmailSearchFormT,
   pager?: PagerT,
-  results?: $ReadOnlyArray<UnsanitizedEditorT>,
+  results?: ReadonlyArray<UnsanitizedEditorT>,
 ) {
   return (
     <Layout fullWidth title="Search users by email">

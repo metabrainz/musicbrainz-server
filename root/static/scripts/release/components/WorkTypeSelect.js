@@ -31,7 +31,7 @@ component _WorkTypeSelect(
   workType: number | null,
 ) {
   const workTypeOptions: OptionListT = React.useMemo(() => {
-    const workTypes: $ReadOnlyArray<WorkTypeT> =
+    const workTypes: ReadonlyArray<WorkTypeT> =
       Object.values(linkedEntities.work_type);
 
     return buildOptionList(workTypes, l_languages);

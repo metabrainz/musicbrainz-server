@@ -23,7 +23,7 @@ type EditorStatT = {
 
 component EditorStatsTable(
   countLabel: string,
-  dataPoints: $ReadOnlyArray<EditorStatT>,
+  dataPoints: ReadonlyArray<EditorStatT>,
   editorLabel: string,
   tableLabel: string,
 ) {
@@ -76,12 +76,12 @@ component EditorStatsTable(
 
 component Editors(
   dateCollected: string,
-  topEditors: $ReadOnlyArray<EditorStatT>,
-  topRecentlyActiveEditors: $ReadOnlyArray<EditorStatT>,
-  topRecentlyActiveVoters: $ReadOnlyArray<EditorStatT>,
-  topVoters: $ReadOnlyArray<EditorStatT>,
-  topYearlyEditors: $ReadOnlyArray<EditorStatT>,
-  topYearlyVoters: $ReadOnlyArray<EditorStatT>,
+  topEditors: ReadonlyArray<EditorStatT>,
+  topRecentlyActiveEditors: ReadonlyArray<EditorStatT>,
+  topRecentlyActiveVoters: ReadonlyArray<EditorStatT>,
+  topVoters: ReadonlyArray<EditorStatT>,
+  topYearlyEditors: ReadonlyArray<EditorStatT>,
+  topYearlyVoters: ReadonlyArray<EditorStatT>,
 ) {
   return (
     <StatisticsLayout

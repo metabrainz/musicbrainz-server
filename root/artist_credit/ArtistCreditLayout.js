@@ -14,7 +14,7 @@ import ArtistCreditUsageLink
 import {reduceArtistCredit}
   from '../static/scripts/common/immutable-entities.js';
 
-const tabLinks: $ReadOnlyArray<[string, () => string]> = [
+const tabLinks: ReadonlyArray<[string, () => string]> = [
   ['', N_l('Overview')],
   ['/release-group', N_l('Release groups')],
   ['/release', N_l('Releases')],
@@ -23,7 +23,7 @@ const tabLinks: $ReadOnlyArray<[string, () => string]> = [
 ];
 
 component ArtistCreditLayout(
-  artistCredit: $ReadOnly<{...ArtistCreditT, +id: number}>,
+  artistCredit: Readonly<{...ArtistCreditT, +id: number}>,
   children: React.Node,
   page: string,
   title?: string,

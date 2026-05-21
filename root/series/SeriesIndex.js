@@ -27,10 +27,10 @@ import {formatPluralEntityTypeName}
 
 import SeriesLayout from './SeriesLayout.js';
 
-type ListPickerProps = $Values<{
+type ListPickerProps = Values<{
   +[EntityType in keyof EntityWithSeriesMapT]: {
     ...SeriesItemNumbersRoleT,
-    +entities: $ReadOnlyArray<EntityWithSeriesMapT[EntityType]>,
+    +entities: ReadonlyArray<EntityWithSeriesMapT[EntityType]>,
     +seriesEntityType: EntityType,
   },
 }>;
@@ -109,7 +109,7 @@ component SeriesIndex(
   listProps: ListPickerProps,
   numberOfRevisions: number,
   pager: PagerT,
-  series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
+  series: Readonly<{...SeriesT, +type: SeriesTypeT}>,
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const seriesEntityType = series.type.item_entity_type;
