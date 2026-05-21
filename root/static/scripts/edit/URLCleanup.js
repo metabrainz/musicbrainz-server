@@ -3856,39 +3856,6 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
   },
-  'laboiteauxparoles': {
-    hostname: 'laboiteauxparoles.com',
-    match: [/^(https?:\/\/)?([^/]+\.)?laboiteauxparoles\.com/i],
-    restrict: [LINK_TYPES.lyrics],
-    clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:www\.)?laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\/([^/?#]+).*$/, 'https://laboiteauxparoles.com/$1/$2');
-    },
-    validate(url, id) {
-      const m = /^https:\/\/laboiteauxparoles\.com\/(auteur|editeur|interprete|titre)\//.exec(url);
-      if (m) {
-        const prefix = m[1];
-        switch (id) {
-          case LINK_TYPES.lyrics.artist:
-            return {
-              result: /^(?:auteur|interprete)$/.test(prefix),
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.label:
-            return {
-              result: prefix === 'editeur',
-              target: ERROR_TARGETS.ENTITY,
-            };
-          case LINK_TYPES.lyrics.work:
-            return {
-              result: prefix === 'titre',
-              target: ERROR_TARGETS.ENTITY,
-            };
-        }
-        return {result: false, target: ERROR_TARGETS.RELATIONSHIP};
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'lantis': {
     hostname: 'lantis.jp',
     match: [
@@ -4171,14 +4138,12 @@ export const CLEANUPS: CleanupEntries = {
   },
   'lyrics': {
     hostname: [
-      'directlyrics.com',
       'lieder.net',
       'j-lyric.net',
       'muzikum.eu',
       'gutenberg.org',
     ],
     match: [
-      /^(https?:\/\/)?([^/]+\.)?directlyrics\.com/i,
       /^(https?:\/\/)?([^/]+\.)?lieder\.net/i,
       /^(https?:\/\/)?([^/]+\.)?j-lyric\.net/i,
       /^(https?:\/\/)?([^/]+\.)?muzikum\.eu/i,
