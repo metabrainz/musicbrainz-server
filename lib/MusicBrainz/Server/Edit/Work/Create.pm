@@ -15,7 +15,9 @@ with 'MusicBrainz::Server::Edit::Work::RelatedEntities',
      'MusicBrainz::Server::Edit::Role::EnteredFrom',
      'MusicBrainz::Server::Edit::Role::CheckOverlongString' => {
         get_string => sub { shift->{name} },
-     };
+     },
+     'MusicBrainz::Server::Edit::Role::Preview',
+     ;
 
 use aliased 'MusicBrainz::Server::Entity::Work';
 

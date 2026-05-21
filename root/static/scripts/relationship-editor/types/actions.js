@@ -228,6 +228,9 @@ export type ReleaseRelationshipEditorActionT =
   | RelationshipEditorActionT
   | AcceptBatchCreateWorksDialogActionT
   | {
+      +attributes: $ReadOnlyArray<WorkAttributeT>,
+      +comment: string,
+      +iswcs: $ReadOnlyArray<IswcT>,
       +languages: $ReadOnlyArray<LanguageT>,
       +name: string,
       +type: 'accept-edit-work-dialog',
@@ -285,7 +288,22 @@ export type ReleaseRelationshipEditorActionT =
   | {
       +edits:
         | Array<[Array<RelationshipStateT>, WsJsEditRelationshipT]>
-        | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>,
+        | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>
+        | Array<[Array<RelationshipStateT>, WsJsEditAddISWCsT]>,
       +responseData: WsJsEditResponseT,
       +type: 'update-submitted-relationships',
+    };
+
+export type WorkAttributeMultiselectActionT =
+  | MultiselectActionT<WorkAttributeTypeT>
+  | {
+      +textValue: string,
+      +type: 'set-value-text',
+      +valueKey: number,
+    }
+  | {
+      +autocompleteAction:
+        AutocompleteActionT<WorkAttributeTypeAllowedValueT>,
+      +type: 'update-value-autocomplete',
+      +valueKey: number,
     };
