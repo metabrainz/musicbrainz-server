@@ -4796,55 +4796,6 @@ export const CLEANUPS: CleanupEntries = {
       return {result: /^https:\/\/myspace\.com\//.test(url), target: ERROR_TARGETS.URL};
     },
   },
-  'napster': {
-    hostname: 'napster.com',
-    match: [/^(https?:\/\/)?((app|www|[a-z]{2})\.)?napster\.com/i],
-    restrict: [LINK_TYPES.streamingpaid],
-    clean(url) {
-      url = url.replace(/^http:\/\//, 'https://');
-      // Standardise on US (host country) for multi-country redirect
-      url = url.replace(/^https:\/\/((app|www)\.)?napster/, 'https://us.napster');
-      url = url.replace(/[#?].*$/, '');
-      return url;
-    },
-    validate(url, id) {
-      if (/\/(alb|art|tra)\.[\d]+/i.test(url)) {
-        return {
-          error: exp.l(
-            `This is a redirect link. Please follow {redirect_url|your link}
-             and add the link it redirects to instead.`,
-            {
-              redirect_url: {
-                href: url,
-                rel: 'noopener noreferrer',
-                target: '_blank',
-              },
-            },
-          ),
-          result: false,
-          target: ERROR_TARGETS.URL,
-        };
-      }
-      switch (id) {
-        case LINK_TYPES.streamingpaid.artist:
-          return {
-            result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.ENTITY,
-          };
-        case LINK_TYPES.streamingpaid.recording:
-          return {
-            result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+\/album\/[\w-]+\/track\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.ENTITY,
-          };
-        case LINK_TYPES.streamingpaid.release:
-          return {
-            result: /^https:\/\/[a-z]{2}\.napster\.com\/artist\/[\w-]+\/album\/[\w-]+$/.test(url),
-            target: ERROR_TARGETS.ENTITY,
-          };
-      }
-      return {result: false, target: ERROR_TARGETS.URL};
-    },
-  },
   'ndlauth': {
     hostname: 'id.ndl.go.jp',
     match: [/^(https?:\/\/)?id\.ndl\.go\.jp\//i],
