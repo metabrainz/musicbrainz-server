@@ -2195,7 +2195,21 @@ limited_link_type_combinations: [
                      input_url: 'https://dailymotion.com/who-knows#uploads',
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
-            expected_clean_url: 'https://www.dailymotion.com/who-knows',
+            expected_clean_url: 'https://www.dailymotion.com/user/who-knows',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.dailymotion.com/LYRIKALBESTIAL/videos?sort=visited',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.dailymotion.com/user/LYRIKALBESTIAL',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.dailymotion.com/user/LYRIKALBESTIAL/playlists',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.dailymotion.com/user/LYRIKALBESTIAL',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
@@ -2203,6 +2217,13 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.dailymotion.com/video/x9ujy50?playlist=xa4xsa',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.dailymotion.com/video/x9ujy50',
        only_valid_entity_types: ['recording', 'release'],
   },
   {

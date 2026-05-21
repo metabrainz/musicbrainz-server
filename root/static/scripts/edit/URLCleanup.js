@@ -2357,10 +2357,12 @@ export const CLEANUPS: CleanupEntries = {
           case 'video':
             afterSlash = path.replace(/([^_]+).*/, '$1');
             break;
+          case 'user':
           default:
-            afterSlash = new RegExp('^' + root + '/*$').test(path)
-              ? root
-              : afterSlash;
+            if (root !== 'user') {
+              afterSlash = 'user/' + root;
+            }
+            afterSlash = afterSlash.replace(/user\/([^_/]+).*/, 'user/$1');
             break;
         }
         return 'https://www.dailymotion.com/' + afterSlash;
@@ -2368,20 +2370,20 @@ export const CLEANUPS: CleanupEntries = {
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.dailymotion\.com\/(?:(video\/)?[^/?#]+)$/.exec(url);
+      const m = /^https:\/\/www\.dailymotion\.com\/(?:(?:(user|video)\/)?[^/?#]+)$/.exec(url);
       if (m) {
         const prefix = m[1];
         if (Object.values(LINK_TYPES.videochannel).includes(id)) {
-          if (prefix === 'video/') {
+          if (prefix === 'video') {
             return {
               error: linkToChannelMsg(),
               result: false,
               target: ERROR_TARGETS.ENTITY,
             };
           }
-          return {result: prefix === undefined};
+          return {result: prefix === 'user'};
         }
-        if (prefix === 'video/') {
+        if (prefix === 'video') {
           return {result: true};
         }
         return {
