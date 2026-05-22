@@ -63,6 +63,11 @@ module.exports = function (api) {
   ];
 
   const plugins = [
+    /*
+     * The React Compiler must run first:
+     * https://react.dev/learn/react-compiler/installation#babel
+     */
+    'babel-plugin-react-compiler',
     'babel-plugin-syntax-hermes-parser',
     '@babel/plugin-transform-flow-strip-types',
     ['@babel/plugin-transform-react-jsx', {
