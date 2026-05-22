@@ -154,7 +154,7 @@ sub run {
         c => $c,
         compression => 'xz',
         output_dir => $self->output_dir,
-        isolation_level => 'READ COMMITTED',
+        isolation_level => 'SERIALIZABLE READ ONLY DEFERRABLE',
     );
     $mbdump_handle = $mbdump;
     $sample_dump = $self;
