@@ -21,6 +21,7 @@ component AddOrEditAlias(
   form: AliasEditFormT,
   formType: string,
   locales: SelectOptionsT,
+  primaryAliases: {[locale: string]: string},
   type: EntityWithAliasesTypeT,
 ) {
   const header = formType === 'add'
@@ -41,6 +42,7 @@ component AddOrEditAlias(
         entity={entity}
         form={form}
         locales={locales}
+        primaryAliases={primaryAliases}
         searchHintType={searchHintType}
       />
       <div id="guesscase-options" />

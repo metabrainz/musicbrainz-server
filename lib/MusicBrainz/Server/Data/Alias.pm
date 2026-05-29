@@ -132,6 +132,28 @@ sub find_by_entity_id
     return [ map { @{ $alias_map->{$_} } } @ids ];
 }
 
+sub find_primary_aliases_by_entity_id
+{
+    my ($self, $id) = @_;
+    return {} unless $id;
+
+    my $key = $self->type;
+    my $table = $self->_table;
+
+    my $query = <<~"SQL";
+        SELECT locale, name
+        FROM $table
+        WHERE $key = ?
+        AND primary_for_locale IS TRUE
+        SQL
+
+    my $rows = $self->sql->select_list_of_hashes($query, $id);
+
+    my %result = map { $_->{locale} => $_->{name} } @$rows;
+
+    return \%result;
+}
+
 sub has_locale
 {
     my ($self, $entity_id, $locale_name, $filter) = @_;
