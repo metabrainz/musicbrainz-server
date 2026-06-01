@@ -218,7 +218,7 @@ sub build_one_sitemap {
         # outsource the md5 calculation. It'll be faster than having perl read
         # the file into memory to pass to Digest::MD5.
         my $quoted_filename = shell_quote($local_filename);
-        chomp (my $md5_bin = `which md5` || `which md5sum`);
+        chomp (my $md5_bin = `which md5 2>/dev/null` || `which md5sum 2>/dev/null`);
         $md5_bin = shell_quote($md5_bin);
 
         if ($self->compression_enabled) {
