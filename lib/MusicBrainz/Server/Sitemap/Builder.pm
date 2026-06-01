@@ -181,10 +181,13 @@ sub create_url_opts($$$$$) {
     }
 
     if ($suffix_info->{jsonld_markup}) {
-        my $last_modified = $c->sql->select_single_value(
-            "SELECT last_modified FROM sitemaps.${entity_type}_lastmod WHERE url = ?",
-            $url,
-        );
+        my $last_modified = $id_info->{last_modified};
+        unless (defined $last_modified) {
+            my $url_lastmod_map = $id_info->{url_lastmod_map};
+            if (defined $url_lastmod_map) {
+                $last_modified = $url_lastmod_map->{$url};
+            }
+        }
         if (defined $last_modified) {
             $add_opts{lastmod} = DateTime::Format::W3CDTF->format_datetime(
                 DateTime::Format::Pg->parse_datetime($last_modified),
