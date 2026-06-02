@@ -270,5 +270,10 @@
     "standalone_only": [
       "20260507-search-756-standalone_only.sql"
     ]
+  },
+  "32": {
+    "all": [
+      "20260602-new-sitemaps-indexes.sql"
+    ]
   }
 }
