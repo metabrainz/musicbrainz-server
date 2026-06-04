@@ -23,7 +23,6 @@ use MusicBrainz::Server::Constants qw(
 use MusicBrainz::Server::Context;
 use Set::Scalar;
 use Sql;
-use Digest::MD5 qw( md5_hex );
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -119,8 +118,8 @@ test 'Creating a new editor' => sub {
     );
     is(
         $editor->ha1,
-        md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')),
-        'The ha1 for the new editor was generated correctly',
+        '',
+        'The ha1 for the new editor is empty',
     );
 
     my $now = DateTime::Format::Pg->parse_datetime(
