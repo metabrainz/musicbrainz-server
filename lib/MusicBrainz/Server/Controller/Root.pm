@@ -459,7 +459,7 @@ sub begin : Private
             }
         }
         $c->stash->{current_action_requires_auth} = 1;
-        $c->forward('/user/do_login');
+        $c->forward('/user/do_password_login');
         my $privs = $attributes->{RequireAuth};
         if ($privs && ref($privs) eq 'ARRAY') {
             foreach my $priv (@$privs) {
