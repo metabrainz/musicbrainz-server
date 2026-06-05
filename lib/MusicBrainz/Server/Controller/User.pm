@@ -73,7 +73,7 @@ sub index : Private
     $c->detach('/user/profile', [ $c->user->name ]);
 }
 
-sub _perform_login {
+sub _perform_password_login {
     my ($self, $c, $user_name, $password) = @_;
 
     if ( !$c->authenticate({ username => $user_name, password => $password }) )
@@ -118,7 +118,7 @@ sub serialize_user {
     };
 }
 
-sub do_login : Private
+sub do_password_login : Private
 {
     my ($self, $c) = @_;
 
@@ -142,7 +142,7 @@ sub do_login : Private
     if (%login_params && $c->form_submitted_and_valid($form, \%login_params)) {
         my $username = $form->field('username')->value;
         if (
-            $self->_perform_login(
+            $self->_perform_password_login(
                 $c,
                 $username,
                 $form->field('password')->value,
@@ -188,7 +188,7 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
 
     if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
         $c->stash( required_login => 0 );
-        $c->forward('/user/do_login');
+        $c->forward('/user/do_password_login');
 
         # Logged in OK
         $c->redirect_back(fallback => $c->relative_uri);
