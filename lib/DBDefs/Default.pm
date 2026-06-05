@@ -448,12 +448,6 @@ sub RENDERER_SOCKET {
 # (./script/start_renderer.pl) when using a superdaemon.
 sub FORK_RENDERER { 1 }
 
-# Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
-# and CSP headers. Even without a secret set, the generated nonces are very
-# unlikely to be guessed; this is mainly only useful for an additional layer
-# of security on the MusicBrainz production site.
-sub NONCE_SECRET { '' }
-
 # `USE_RO_DATABASE_CONNECTOR` signals to MusicBrainz Server that it may open
 # an additional database connector per request that it can send read-only
 # queries to. In production this may be used to distribute read-only queries
