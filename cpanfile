@@ -79,6 +79,7 @@ requires 'REST::Utils'                                => '0.6';
 requires 'Set::Scalar'                                => '1.29';
 requires 'Statistics::Basic'                          => '1.6610';
 requires 'String::CamelCase'                          => '0.04';
+requires 'String::Compare::ConstantTime'              => '0.321';
 requires 'String::ShellQuote'                         => '1.04';
 requires 'String::TT'                                 => '0.03';
 requires 'Template::Plugin::Class'                    => '0.14';
