@@ -6,9 +6,9 @@ use namespace::autoclean;
 extends 'Catalyst';
 
 use Class::Load qw( load_class );
+use Crypt::URandom ();
 use Data::Dumper;
 use DBDefs;
-use Digest::SHA qw( sha256 );
 use HTML::Entities ();
 use HTTP::Status qw( :constants );
 use JSON;
@@ -24,13 +24,11 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use POSIX qw(SIGALRM);
-use Scalar::Util qw( looks_like_number refaddr );
+use Scalar::Util qw( looks_like_number );
 use Sys::Hostname;
-use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use URI;
 use aliased 'MusicBrainz::Server::Translation';
-use feature 'state';
 
 # Set flags and add plugins for the application
 #
@@ -688,18 +686,7 @@ sub form_submitted_and_valid {
 sub generate_nonce {
     my ($self) = @_;
 
-    state $counter = 0;
-    encode_base64(
-        sha256(
-            join q(.),
-                DBDefs->NONCE_SECRET,
-                refaddr($self->req),
-                refaddr($self->res),
-                clock_gettime(CLOCK_REALTIME),
-                clock_gettime(CLOCK_MONOTONIC),
-                ($counter++)),
-        '',
-    );
+    encode_base64(Crypt::URandom::urandom(32), '');
 }
 
 sub get_csrf_token {

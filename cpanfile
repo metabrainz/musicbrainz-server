@@ -15,6 +15,7 @@ requires 'CGI::Expand'                                => '2.05';
 requires 'CGI::Simple'                                => '1.282';
 requires 'Class::Load'                                => '0.25';
 requires 'Clone'                                      => '0.50';
+requires 'Crypt::URandom'                             => '0.55';
 requires 'Cwd'                                        => '3.75';
 requires 'Data::Compare'                              => '1.29';
 requires 'Data::Dumper::Concise'                      => '2.023';
