@@ -96,6 +96,10 @@ sub get_multi {
     shift->_exec_method_wantscalar('get_multi', \&_is_non_empty_hash_ref, @_);
 }
 
+sub get_raw {
+    shift->_exec_method_wantscalar('get_raw', \&_is_defined, @_);
+}
+
 sub get {
     shift->_exec_method_wantscalar('get', \&_is_defined, @_);
 }
@@ -118,6 +122,10 @@ sub set_members {
 
 sub set_multi {
     shift->_exec_method_wantscalar('set_multi', \&_exec_all, @_);
+}
+
+sub set_raw {
+    shift->_exec_method_wantscalar('set_raw', \&_exec_all, @_);
 }
 
 sub set {
