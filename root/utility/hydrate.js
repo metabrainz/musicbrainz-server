@@ -22,7 +22,7 @@ import escapeClosingTags from './escapeClosingTags.js';
 type PropsDataT =
   | StrOrNum
   | ReadonlyArray<PropsDataT>
-  | {+[key: string]: PropsDataT, ...}
+  | {readonly [key: string]: PropsDataT, ...}
   | null
   | void;
 
@@ -174,7 +174,7 @@ export default function hydrate<
 }
 
 type PropsWithEntity = {
-  +entity: Readonly<{...MinimalEntityT, ...}>,
+  readonly entity: Readonly<{...MinimalEntityT, ...}>,
   ...
 };
 

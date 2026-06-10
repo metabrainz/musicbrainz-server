@@ -91,9 +91,9 @@ MB.relationshipEditor.getRelationshipStateId = getRelationshipStateId;
 MB.tree = tree;
 
 export type InitialStateArgsT = {
-  +formName: string,
-  +seededRelationships: ?ReadonlyArray<SeededRelationshipT>,
-  +source?: RelatableEntityT,
+  readonly formName: string,
+  readonly seededRelationships: ?ReadonlyArray<SeededRelationshipT>,
+  readonly source?: RelatableEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
@@ -255,8 +255,8 @@ export function loadOrCreateInitialState(
 
 export function* getUpdatesForAcceptedRelationship(
   rootState: {
-    +existingRelationshipsBySource: RelationshipSourceGroupsT,
-    +relationshipsBySource: RelationshipSourceGroupsT,
+    readonly existingRelationshipsBySource: RelationshipSourceGroupsT,
+    readonly relationshipsBySource: RelationshipSourceGroupsT,
     ...
   },
   newRelationshipState: RelationshipStateT,
@@ -545,7 +545,7 @@ export function runReducer(
 }
 
 type ErrorMessagePropsT = {
-  +error: string,
+  readonly error: string,
 };
 
 export const ErrorMessage:

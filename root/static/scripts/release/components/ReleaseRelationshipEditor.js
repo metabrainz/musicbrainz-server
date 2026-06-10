@@ -331,7 +331,7 @@ async function wsJsEditSubmission(
     return null;
   }
   const respJson:
-    | (WsJsEditResponseT | {+error: string, ...})
+    | (WsJsEditResponseT | {readonly error: string, ...})
     | SubmissionRejected =
       await handlePromiseRejection(dispatch, resp.json());
   if (respJson instanceof SubmissionRejected) {
@@ -492,8 +492,8 @@ function* getAllRelationshipEdits(
       Map<
         number,
         Array<{
-          +link_order: number,
-          +relationship: RelationshipStateT,
+          readonly link_order: number,
+          readonly relationship: RelationshipStateT,
         }>,
       >,
     > = new Map();
@@ -800,7 +800,7 @@ async function submitRelationshipEdits(
 async function submitEdits(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   currentStateRef: {
-    +current: ReleaseRelationshipEditorStateT,
+    readonly current: ReleaseRelationshipEditorStateT,
   },
 ) {
   const syncDispatch = (action: ReleaseRelationshipEditorActionT) => {

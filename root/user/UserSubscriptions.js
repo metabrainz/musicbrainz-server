@@ -94,11 +94,11 @@ component UserSubscriptionsSection(
 }
 
 type SubscriptionsSummaryT = {
-  +artist: number,
-  +collection: number,
-  +editor: number,
-  +label: number,
-  +series: number,
+  readonly artist: number,
+  readonly collection: number,
+  readonly editor: number,
+  readonly label: number,
+  readonly series: number,
 };
 
 component UserSubscriptions(

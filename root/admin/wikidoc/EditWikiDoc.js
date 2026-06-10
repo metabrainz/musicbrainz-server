@@ -14,8 +14,8 @@ import FormRowText from '../../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type EditWikiDocFormT = FormT<{
-  +csrf_token: FieldT<string>,
-  +version: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly version: FieldT<string>,
 }>;
 
 component EditWikiDoc(

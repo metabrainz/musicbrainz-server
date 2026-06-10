@@ -11,9 +11,9 @@
 
 // MusicBrainz::Server::Entity::Role::Rating::TO_JSON
 declare type RatableRoleT = {
-  +rating?: number,
-  +rating_count?: number,
-  +user_rating?: number,
+  readonly rating?: number,
+  readonly rating_count?: number,
+  readonly user_rating?: number,
 };
 
 declare type RatableT =
@@ -36,6 +36,6 @@ declare type RatableEntityTypeT =
 
 // MusicBrainz::Server::Entity::Rating::TO_JSON
 declare type RatingT = {
-  +editor: EditorT,
-  +rating: number,
+  readonly editor: EditorT,
+  readonly rating: number,
 };

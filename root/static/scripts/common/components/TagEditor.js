@@ -26,8 +26,8 @@ import isBlank from '../utility/isBlank.js';
 import TagLink from './TagLink.js';
 
 type MinimalTaggableEntityT = {
-  +entityType: TaggableEntityT['entityType'],
-  +gid: string,
+  readonly entityType: TaggableEntityT['entityType'],
+  readonly gid: string,
 };
 
 const VOTE_ACTIONS = {
@@ -188,11 +188,11 @@ component TagRow(
 }
 
 type TagEditorProps = {
-  +aggregatedTags: ReadonlyArray<AggregatedTagT>,
-  +entity: TaggableEntityT | MinimalTaggableEntityT,
-  +genreMap: ?{+[genreName: string]: GenreT, ...},
-  +more: boolean,
-  +userTags: ReadonlyArray<UserTagT>,
+  readonly aggregatedTags: ReadonlyArray<AggregatedTagT>,
+  readonly entity: TaggableEntityT | MinimalTaggableEntityT,
+  readonly genreMap: ?{readonly [genreName: string]: GenreT, ...},
+  readonly more: boolean,
+  readonly userTags: ReadonlyArray<UserTagT>,
 };
 
 type TagEditorState = {
@@ -201,8 +201,13 @@ type TagEditorState = {
 };
 
 type TagUpdateT =
-  | {+count: number, +deleted?: false, +tag: string, +vote: 1 | -1}
-  | {+deleted: true, +tag: string, +vote: 0};
+  | {
+      readonly count: number,
+      readonly deleted?: false,
+      readonly tag: string,
+      readonly vote: 1 | -1,
+    }
+  | {readonly deleted: true, readonly tag: string, readonly vote: 0};
 
 type PendingVoteT = {
   fail: () => void,
@@ -217,9 +222,12 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
 
   debouncePendingVotes: () => void;
 
-  genreMap: {+[genreName: string]: GenreT, ...};
+  genreMap: {readonly [genreName: string]: GenreT, ...};
 
-  genreOptions: ReadonlyArray<{+label: string, +value: string}>;
+  genreOptions: ReadonlyArray<{
+    readonly label: string,
+    readonly value: string,
+  }>;
 
   handleSubmitBound: (SyntheticEvent<HTMLFormElement>) => void;
 
@@ -241,7 +249,8 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     this.handleSubmitBound = (event) => this.handleSubmit(event);
     this.setTagsInputBound = (input) => this.setTagsInput(input);
 
-    this.genreMap = props.genreMap ?? {} as {+[genreName: string]: GenreT};
+    this.genreMap =
+      props.genreMap ?? {} as {readonly [genreName: string]: GenreT};
     this.genreOptions =
       Object.values(this.genreMap)
         .map(genre => {
@@ -273,7 +282,7 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
     let doRequest;
     if (asap) {
       doRequest = (
-        args: {+url: string},
+        args: {readonly url: string},
       ) => $.ajax({...args, dataType: 'json'});
     } else {
       doRequest = require('../utility/request.js').default;
@@ -304,15 +313,15 @@ class TagEditor extends React.Component<TagEditorProps, TagEditorState> {
   }
 
   createTagRows(): {
-    +genres: ReadonlyArray<React.MixedElement>,
-    +tags: ReadonlyArray<React.MixedElement>,
+    readonly genres: ReadonlyArray<React.MixedElement>,
+    readonly tags: ReadonlyArray<React.MixedElement>,
     } {
     const tags = this.state.tags;
 
     return tags.reduce((
       accum: {
-        +genres: Array<React.MixedElement>,
-        +tags: Array<React.MixedElement>,
+        readonly genres: Array<React.MixedElement>,
+        readonly tags: Array<React.MixedElement>,
       },
       t: UserTagT,
       index: number,

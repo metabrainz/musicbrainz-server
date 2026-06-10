@@ -13,7 +13,7 @@ import LayoutComponent from '../components/LayoutComponent.js';
 
 component Aliases(
   aliases: ReadonlyArray<AnyAliasT>,
-  artistCredits?: ReadonlyArray<{+id: number} & ArtistCreditT>,
+  artistCredits?: ReadonlyArray<{readonly id: number} & ArtistCreditT>,
   entity: EntityWithAliasesT,
 ) {
   return (

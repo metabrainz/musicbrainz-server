@@ -170,7 +170,7 @@ function showRelatedEntities(
   return null;
 }
 
-const getName = (item: {+name: string, ...}) => item.name;
+const getName = (item: {readonly name: string, ...}) => item.name;
 
 function pushContainmentInfo(area: AreaT, extraInfo: Array<string>) {
   const containment = area.containment;
@@ -564,7 +564,7 @@ function formatWork(work: WorkT) {
 }
 
 export type FormatOptionsT = {
-  +showDescriptions?: boolean,
+  readonly showDescriptions?: boolean,
 };
 
 export default function formatItem<T extends EntityItemT>(

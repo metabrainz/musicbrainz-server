@@ -19,7 +19,7 @@ const TYPE_NULL = 8;
 
 class TypeInfo {
 /*::
-  +isEditDataTypeInfo: boolean;
+  readonly isEditDataTypeInfo: boolean;
   array: TypeInfo | null;
   count: number;
   object: {
@@ -158,7 +158,7 @@ class TypeInfo {
 exports.generateFlowType = async function (
   objectStrings/*: AsyncIterable<string> */,
   options/*:: ?: {
-    +isEditDataTypeInfo: boolean,
+    readonly isEditDataTypeInfo: boolean,
   } */,
 )/*: Promise<string> */ {
   const seenTypes = new Set/*:: <string> */();

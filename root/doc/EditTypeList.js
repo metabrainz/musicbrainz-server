@@ -11,9 +11,9 @@ import Layout from '../layout/index.js';
 import {compare} from '../static/scripts/common/i18n.js';
 
 type EditTypesByCategoryT = {
-  +[editCategory: string]: ReadonlyArray<{
-    +id: number,
-    +l_edit_name: string,
+  readonly [editCategory: string]: ReadonlyArray<{
+    readonly id: number,
+    readonly l_edit_name: string,
   }>,
 };
 

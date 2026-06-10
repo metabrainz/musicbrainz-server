@@ -12,30 +12,30 @@
 // MusicBrainz::Server::Entity::Artwork::TO_JSON
 declare type ArtworkRoleT = Readonly<{
   ...PendingEditsRoleT,
-  +comment: string,
-  +event?: EventT,
-  +filename: string | null,
-  +huge_ia_thumbnail: string,
-  +huge_thumbnail: string,
-  +id: number,
-  +image: string | null,
-  +large_ia_thumbnail: string,
-  +large_thumbnail: string,
-  +mime_type: string,
-  +small_ia_thumbnail: string,
-  +small_thumbnail: string,
-  +suffix: string,
-  +types: ReadonlyArray<string>,
+  readonly comment: string,
+  readonly event?: EventT,
+  readonly filename: string | null,
+  readonly huge_ia_thumbnail: string,
+  readonly huge_thumbnail: string,
+  readonly id: number,
+  readonly image: string | null,
+  readonly large_ia_thumbnail: string,
+  readonly large_thumbnail: string,
+  readonly mime_type: string,
+  readonly small_ia_thumbnail: string,
+  readonly small_thumbnail: string,
+  readonly suffix: string,
+  readonly types: ReadonlyArray<string>,
 }>;
 
 declare type ReleaseArtT = Readonly<{
   ...ArtworkRoleT,
-  +release?: ReleaseT,
+  readonly release?: ReleaseT,
 }>;
 
 declare type EventArtT = Readonly<{
   ...ArtworkRoleT,
-  +event?: EventT,
+  readonly event?: EventT,
 }>;
 
 declare type ArtworkT =
@@ -44,8 +44,8 @@ declare type ArtworkT =
 
 // MusicBrainz::Server::Entity::CommonsImage::TO_JSON
 declare type CommonsImageT = {
-  +page_url: string,
-  +thumb_url: string,
+  readonly page_url: string,
+  readonly thumb_url: string,
 };
 
 declare type CoverArtTypeT = OptionTreeT<'cover_art_type'>;

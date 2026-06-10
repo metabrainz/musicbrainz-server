@@ -13,7 +13,7 @@ import AddButton from './AddButton.js';
 import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
-component FormRowSelectList<S extends {+id: number, ...}>(
+component FormRowSelectList<S extends {readonly id: number, ...}>(
   addId: string,
   addLabel: string,
   getSelectField: (S) => FieldT<?StrOrNum>,

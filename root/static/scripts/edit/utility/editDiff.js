@@ -24,7 +24,7 @@ export type EditType =
   | NonChangeEditType
   | typeof CHANGE;
 
-const CLASS_MAP: {+[editType: EditType]: string} = {
+const CLASS_MAP: {readonly [editType: EditType]: string} = {
   [CHANGE]: '',
   [DELETE]: 'diff-only-a',
   [EQUAL]: '',
@@ -39,16 +39,16 @@ const FAST_DIFF_CHANGE_TYPE_MAP = new Map<number, NonChangeEditType>([
 
 export {CHANGE, CLASS_MAP, DELETE, EQUAL, INSERT};
 
-export type EditDiff<+T> = {
-  +newItems: ReadonlyArray<T>,
-  +oldItems: ReadonlyArray<T>,
-  +type: EditType,
+export type EditDiff<out T> = {
+  readonly newItems: ReadonlyArray<T>,
+  readonly oldItems: ReadonlyArray<T>,
+  readonly type: EditType,
 };
 
 export type StringEditDiff = {
-  +newText: string,
-  +oldText: string,
-  +type: EditType,
+  readonly newText: string,
+  readonly oldText: string,
+  readonly type: EditType,
 };
 
 function getChangeType<T>(diff: GenericEditDiff<T>): NonChangeEditType {

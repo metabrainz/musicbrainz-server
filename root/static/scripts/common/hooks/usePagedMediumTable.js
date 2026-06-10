@@ -26,7 +26,7 @@ import pThrottle, {
 } from '../utility/pThrottle.js';
 
 type TracksResponseT = {
-  +linked_entities: {
+  readonly linked_entities: {
     link_attribute_type: {
       [linkAttributeTypeIdOrGid: StrOrNum]: LinkAttrTypeT,
     },
@@ -34,16 +34,16 @@ type TracksResponseT = {
       [linkTypeIdOrGid: StrOrNum]: LinkTypeT,
     },
   },
-  +pager: PagerT,
-  +tracks: ReadonlyArray<TrackWithRecordingT>,
+  readonly pager: PagerT,
+  readonly tracks: ReadonlyArray<TrackWithRecordingT>,
 };
 
 type PagedMediumTableVarsT = {
-  +columnCount: number,
-  +loadedTrackCount: number,
-  +mediumHeaderLink: React.MixedElement,
-  +pagingElements: React.MixedElement,
-  +showArtists: boolean,
+  readonly columnCount: number,
+  readonly loadedTrackCount: number,
+  readonly mediumHeaderLink: React.MixedElement,
+  readonly pagingElements: React.MixedElement,
+  readonly showArtists: boolean,
 };
 
 const throttleFunc = pThrottle<[number, number], Response>({

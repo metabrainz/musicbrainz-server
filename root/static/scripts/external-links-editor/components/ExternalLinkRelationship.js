@@ -50,10 +50,10 @@ import LinkTypeSelect from './LinkTypeSelect.js';
 import TypeDescription from './TypeDescription.js';
 
 type ExternalLinkRelationshipPropsT = {
-  +dispatch: (LinksEditorActionT) => void,
-  +link: LinkStateT,
-  +relationship: LinkRelationshipStateT,
-  +source: RelatableEntityT,
+  readonly dispatch: (LinksEditorActionT) => void,
+  readonly link: LinkStateT,
+  readonly relationship: LinkRelationshipStateT,
+  readonly source: RelatableEntityT,
 };
 
 const typeOptionsCache:

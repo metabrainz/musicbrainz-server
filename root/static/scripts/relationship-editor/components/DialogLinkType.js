@@ -163,8 +163,8 @@ function reducer(
 }
 
 type PartialDialogStateT = {
-  +attributes: DialogAttributesStateT,
-  +linkType: DialogLinkTypeStateT,
+  readonly attributes: DialogAttributesStateT,
+  readonly linkType: DialogLinkTypeStateT,
   ...
 };
 
@@ -172,9 +172,9 @@ export function updateDialogState(
   oldState: PartialDialogStateT,
   newState: {...PartialDialogStateT, ...},
   action: {
-    +action: DialogLinkTypeActionT,
-    +source: RelatableEntityT,
-    +type: 'update-link-type',
+    readonly action: DialogLinkTypeActionT,
+    readonly source: RelatableEntityT,
+    readonly type: 'update-link-type',
   },
 ): boolean {
   newState.linkType =

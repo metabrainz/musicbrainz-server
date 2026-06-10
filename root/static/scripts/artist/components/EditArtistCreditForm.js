@@ -25,17 +25,20 @@ import FormRow from '../../edit/components/FormRow.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'update-artist-credit', +action: ArtistCreditActionT};
+  | {
+      readonly type: 'update-artist-credit',
+      readonly action: ArtistCreditActionT,
+    };
 /* eslint-enable ft-flow/sort-keys */
 
 type CreateInitialStatePropsT = {
-  +artistCredit: ArtistCreditT,
-  +form: EditArtistCreditFormT,
+  readonly artistCredit: ArtistCreditT,
+  readonly form: EditArtistCreditFormT,
 };
 
 type StateT = {
-  +artistCredit: ArtistCreditStateT,
-  +form: EditArtistCreditFormT,
+  readonly artistCredit: ArtistCreditStateT,
+  readonly form: EditArtistCreditFormT,
 };
 
 function createInitialState({

@@ -21,13 +21,13 @@ import ListHeader from './ListHeader.js';
 
 component EditList(
   editCountLimit: number,
-  edits: ReadonlyArray<Readonly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<Readonly<{...EditT, readonly id: number}>>,
   entity?: EditableEntityT | CollectionT,
   guessSearch: boolean = false,
   isSearch: boolean = false,
   page: string,
   pager: PagerT,
-  refineUrlArgs?: {+[argument: string]: string},
+  refineUrlArgs?: {readonly [argument: string]: string},
   username?: string,
   voter?: UnsanitizedEditorT,
 ) {

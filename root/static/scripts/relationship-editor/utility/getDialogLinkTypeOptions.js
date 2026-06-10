@@ -74,7 +74,7 @@ const getDialogLinkTypeOptions = (
   }
 
   const buildOptions = (
-    parent: LinkTypeT | {+children: ReadonlyArray<LinkTypeT>},
+    parent: LinkTypeT | {readonly children: ReadonlyArray<LinkTypeT>},
     level: number,
   ) => {
     const children = parent.children;

@@ -15,83 +15,83 @@
  */
 
 declare type AreaFieldT = CompoundFieldT<{
-  +gid: FieldT<string | null>,
-  +id: FieldT<string | null>,
-  +name: FieldT<string>,
+  readonly gid: FieldT<string | null>,
+  readonly id: FieldT<string | null>,
+  readonly name: FieldT<string>,
 }>;
 
 declare type ArtistFieldT = CompoundFieldT<{
-  +id: FieldT<string | null>,
-  +name: FieldT<string>,
+  readonly id: FieldT<string | null>,
+  readonly name: FieldT<string>,
 }>;
 
 declare type ArtistCreditFieldT = CompoundFieldT<{
-  +names: ArtistCreditNameFieldT,
+  readonly names: ArtistCreditNameFieldT,
 }>;
 
 declare type ArtistCreditNameFieldT = CompoundFieldT<{
-  +artist: ArtistCreditFieldT,
-  +join_phrase: FieldT<string>,
-  +name: FieldT<string>,
+  readonly artist: ArtistCreditFieldT,
+  readonly join_phrase: FieldT<string>,
+  readonly name: FieldT<string>,
 }>;
 
-declare type CompoundFieldT<+F> = {
-  +errors: ReadonlyArray<string>,
-  +field: F,
-  +has_errors: boolean,
-  +html_name: string,
-  +id: number,
-  +pendingErrors?: ReadonlyArray<string>,
-  +type: 'compound_field',
+declare type CompoundFieldT<out F> = {
+  readonly errors: ReadonlyArray<string>,
+  readonly field: F,
+  readonly has_errors: boolean,
+  readonly html_name: string,
+  readonly id: number,
+  readonly pendingErrors?: ReadonlyArray<string>,
+  readonly type: 'compound_field',
 };
 
 declare type DatePeriodFieldT = CompoundFieldT<{
-  +begin_date: PartialDateFieldT,
-  +end_date: PartialDateFieldT,
-  +ended: FieldT<boolean>,
+  readonly begin_date: PartialDateFieldT,
+  readonly end_date: PartialDateFieldT,
+  readonly ended: FieldT<boolean>,
 }>;
 
-declare type FieldT<+V> = {
-  +errors: ReadonlyArray<string>,
-  +has_errors: boolean,
-  +html_name: string,
-  +id: number,
-  +pendingErrors?: ReadonlyArray<string>,
-  +type: 'field',
-  +value: V,
+declare type FieldT<out V> = {
+  readonly errors: ReadonlyArray<string>,
+  readonly has_errors: boolean,
+  readonly html_name: string,
+  readonly id: number,
+  readonly pendingErrors?: ReadonlyArray<string>,
+  readonly type: 'field',
+  readonly value: V,
 };
 
 // See lib/MusicBrainz/Server/Form/Role/ToJSON.pm
-declare type FormT<+F, +N: string = ''> = {
-  +field: F,
-  +has_errors: boolean,
-  +name: N,
-  +type: 'form',
+declare type FormT<out F, out N: string = ''> = {
+  readonly field: F,
+  readonly has_errors: boolean,
+  readonly name: N,
+  readonly type: 'form',
 };
 
 declare type SubfieldsT = {
-  +[fieldName: string]: AnyFieldT,
+  readonly [fieldName: string]: AnyFieldT,
 };
 
 declare type AnyFieldT =
   | {
-      +errors: ReadonlyArray<string>,
-      +field: SubfieldsT,
-      +pendingErrors?: ReadonlyArray<string>,
-      +type: 'compound_field',
+      readonly errors: ReadonlyArray<string>,
+      readonly field: SubfieldsT,
+      readonly pendingErrors?: ReadonlyArray<string>,
+      readonly type: 'compound_field',
       ...
     }
   | {
-      +errors: ReadonlyArray<string>,
-      +field: ReadonlyArray<AnyFieldT>,
-      +pendingErrors?: ReadonlyArray<string>,
-      +type: 'repeatable_field',
+      readonly errors: ReadonlyArray<string>,
+      readonly field: ReadonlyArray<AnyFieldT>,
+      readonly pendingErrors?: ReadonlyArray<string>,
+      readonly type: 'repeatable_field',
       ...
     }
   | {
-      +errors: ReadonlyArray<string>,
-      +pendingErrors?: ReadonlyArray<string>,
-      +type: 'field',
+      readonly errors: ReadonlyArray<string>,
+      readonly pendingErrors?: ReadonlyArray<string>,
+      readonly type: 'field',
       ...
     };
 
@@ -105,44 +105,44 @@ declare type FormOrAnyFieldT =
  * OptionListT, and OptionTreeT?
  */
 declare type GroupedOptionsT = ReadonlyArray<{
-  +optgroup: string,
-  +options: SelectOptionsT,
+  readonly optgroup: string,
+  readonly options: SelectOptionsT,
 }>;
 
 declare type MaybeGroupedOptionsT =
-  | {+grouped: true, +options: GroupedOptionsT}
-  | {+grouped: false, +options: SelectOptionsT};
+  | {readonly grouped: true, readonly options: GroupedOptionsT}
+  | {readonly grouped: false, readonly options: SelectOptionsT};
 
 // See `buildOptionsTree` in root/static/scripts/edit/forms.js.
 declare type OptionListT = ReadonlyArray<{
-  +text: string,
-  +value: number,
+  readonly text: string,
+  readonly value: number,
 }>;
 
-declare type OptionTreeT<+T> = {
+declare type OptionTreeT<out T> = {
   ...EntityRoleT<T>,
-  +child_order: number,
-  +description: string,
-  +gid: string,
-  +name: string,
-  +parent_id: number | null,
+  readonly child_order: number,
+  readonly description: string,
+  readonly gid: string,
+  readonly name: string,
+  readonly parent_id: number | null,
 };
 
 declare type PartialDateFieldT = CompoundFieldT<{
-  +day: FieldT<StrOrNum | null>,
-  +month: FieldT<StrOrNum | null>,
-  +year: FieldT<StrOrNum | null>,
+  readonly day: FieldT<StrOrNum | null>,
+  readonly month: FieldT<StrOrNum | null>,
+  readonly year: FieldT<StrOrNum | null>,
 }>;
 
-declare type RepeatableFieldT<+F> = {
-  +errors: ReadonlyArray<string>,
-  +field: ReadonlyArray<F>,
-  +has_errors: boolean,
-  +html_name: string,
-  +id: number,
-  +last_index: number,
-  +pendingErrors?: ReadonlyArray<string>,
-  +type: 'repeatable_field',
+declare type RepeatableFieldT<out F> = {
+  readonly errors: ReadonlyArray<string>,
+  readonly field: ReadonlyArray<F>,
+  readonly has_errors: boolean,
+  readonly html_name: string,
+  readonly id: number,
+  readonly last_index: number,
+  readonly pendingErrors?: ReadonlyArray<string>,
+  readonly type: 'repeatable_field',
 };
 
 /*
@@ -150,8 +150,8 @@ declare type RepeatableFieldT<+F> = {
  * FIXME(michael): Consolidate with OptionListT.
  */
 declare type SelectOptionT = {
-  +label: string | (() => string),
-  +value: number | string,
+  readonly label: string | (() => string),
+  readonly value: number | string,
 };
 
 declare type SelectOptionsT = ReadonlyArray<SelectOptionT>;

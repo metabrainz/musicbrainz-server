@@ -16,7 +16,7 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component LabelList<D extends {+label: ?LabelT, ...}>(
+component LabelList<D extends {readonly label: ?LabelT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

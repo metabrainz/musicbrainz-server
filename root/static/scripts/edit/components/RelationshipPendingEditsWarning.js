@@ -18,7 +18,7 @@ import Tooltip from './Tooltip.js';
 component RelationshipPendingEditsWarning(
   relationship: Readonly<{
     ...RelationshipEntityPropertiesT,
-    +editsPending: boolean,
+    readonly editsPending: boolean,
     ...
   }>
 ) {

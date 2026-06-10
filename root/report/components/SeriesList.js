@@ -16,7 +16,7 @@ import {
   defineEntityColumn,
 } from '../../utility/tableColumns.js';
 
-component SeriesList<D extends {+series: ?SeriesT, ...}>(
+component SeriesList<D extends {readonly series: ?SeriesT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

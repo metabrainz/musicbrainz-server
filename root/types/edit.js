@@ -9,9 +9,9 @@
 
 /* eslint-disable no-unused-vars */
 
-declare type CompT<+T> = {
-  +new: T,
-  +old: T,
+declare type CompT<out T> = {
+  readonly new: T,
+  readonly old: T,
 };
 
 // From Algorithm::Diff
@@ -31,61 +31,61 @@ declare type EditStatusT =
 
 declare type EditT = CurrentEditT | HistoricEditT;
 
-declare type EditWithIdT = Readonly<{...EditT, +id: number}>;
+declare type EditWithIdT = Readonly<{...EditT, readonly id: number}>;
 
 declare type EditNoteChangeT = {
-  +change_editor_id: number,
-  +change_time: string,
-  +edit_note_id: number,
-  +id: number,
-  +new_note: string,
-  +old_note: string,
-  +reason: string,
-  +status: 'edited' | 'deleted',
+  readonly change_editor_id: number,
+  readonly change_time: string,
+  readonly edit_note_id: number,
+  readonly id: number,
+  readonly new_note: string,
+  readonly old_note: string,
+  readonly reason: string,
+  readonly status: 'edited' | 'deleted',
 };
 
 // MusicBrainz::Server::Entity::EditNote::TO_JSON
 declare type EditNoteT = {
-  +edit_id: number,
-  +editor: EditorT | null,
-  +editor_id: number,
-  +formatted_text: string,
-  +id: number,
-  +latest_change?: EditNoteChangeT,
-  +post_time: string | null,
+  readonly edit_id: number,
+  readonly editor: EditorT | null,
+  readonly editor_id: number,
+  readonly formatted_text: string,
+  readonly id: number,
+  readonly latest_change?: EditNoteChangeT,
+  readonly post_time: string | null,
 };
 
 // Reused by all other edit types
 declare type GenericEditT = {
-  +auto_edit: boolean,
-  +close_time: string,
-  +conditions: {
-    +auto_edit: boolean,
-    +duration: number,
-    +expire_action: EditExpireActionT,
-    +votes: number,
+  readonly auto_edit: boolean,
+  readonly close_time: string,
+  readonly conditions: {
+    readonly auto_edit: boolean,
+    readonly duration: number,
+    readonly expire_action: EditExpireActionT,
+    readonly votes: number,
   },
-  +created_time: string,
-  +data: {+[dataProp: string]: any, ...},
-  +edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
-  +edit_name: string,
-  +edit_notes: ReadonlyArray<EditNoteT>,
-  +edit_type: number,
-  +edit_type_name_context: string,
-  +editor_id: number,
-  +expires_time: string,
-  +historic_type: number | null,
-  +id: number | null, // id is missing in previews
-  +is_loaded: boolean,
-  +is_open: boolean,
-  +preview?: boolean,
-  +quality: QualityT,
-  +status: EditStatusT,
-  +votes: ReadonlyArray<VoteT>,
+  readonly created_time: string,
+  readonly data: {readonly [dataProp: string]: any, ...},
+  readonly edit_kind: 'add' | 'edit' | 'remove' | 'merge' | 'other',
+  readonly edit_name: string,
+  readonly edit_notes: ReadonlyArray<EditNoteT>,
+  readonly edit_type: number,
+  readonly edit_type_name_context: string,
+  readonly editor_id: number,
+  readonly expires_time: string,
+  readonly historic_type: number | null,
+  readonly id: number | null, // id is missing in previews
+  readonly is_loaded: boolean,
+  readonly is_open: boolean,
+  readonly preview?: boolean,
+  readonly quality: QualityT,
+  readonly status: EditStatusT,
+  readonly votes: ReadonlyArray<VoteT>,
 };
 
 declare type GenericEditWithIdT = Readonly<{
   ...GenericEditT,
-  +id: number,
+  readonly id: number,
   ...
 }>;

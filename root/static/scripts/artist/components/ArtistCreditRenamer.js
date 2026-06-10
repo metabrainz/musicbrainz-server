@@ -21,49 +21,53 @@ import diffArtistCredits from '../../edit/utility/diffArtistCredits.js';
 
 type ArtistCreditWithIdT = Readonly<{
   ...ArtistCreditT,
-  +id: number,
+  readonly id: number,
 }>;
 
 type ArtistCreditRowPropsT = {
-  +artistCredit: ArtistCreditWithIdT,
-  +dispatch: (ActionT) => void,
-  +isInitiallyChecked: boolean,
+  readonly artistCredit: ArtistCreditWithIdT,
+  readonly dispatch: (ActionT) => void,
+  readonly isInitiallyChecked: boolean,
 };
 
 type ArtistCreditRenamerPropsT = {
-  +artistCredits: ReadonlyArray<ArtistCreditWithIdT>,
-  +artistMbid: string,
-  +artistName: string,
-  +initialArtistName: string,
-  +initialSelectedArtistCreditIds: {+[artistCreditId: number]: 1},
+  readonly artistCredits: ReadonlyArray<ArtistCreditWithIdT>,
+  readonly artistMbid: string,
+  readonly artistName: string,
+  readonly initialArtistName: string,
+  readonly initialSelectedArtistCreditIds: {
+    readonly [artistCreditId: number]: 1,
+  },
 };
 
 type StateT = {
-  +expanded: boolean,
-  +name: string,
-  +selection: Array<ArtistCreditWithIdT>,
+  readonly expanded: boolean,
+  readonly name: string,
+  readonly selection: Array<ArtistCreditWithIdT>,
 };
 
 type CreateInitialStatePropsT = {
-  +artistCredits: ReadonlyArray<ArtistCreditWithIdT>,
-  +initialSelectedArtistCreditIds: {+[artistCreditId: number]: 1},
-  +name: string,
+  readonly artistCredits: ReadonlyArray<ArtistCreditWithIdT>,
+  readonly initialSelectedArtistCreditIds: {
+    readonly [artistCreditId: number]: 1,
+  },
+  readonly name: string,
 };
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {
-      +type: 'set-expanded',
-      +expanded: boolean,
+      readonly type: 'set-expanded',
+      readonly expanded: boolean,
     }
   | {
-      +type: 'set-name',
-      +name: string,
+      readonly type: 'set-name',
+      readonly name: string,
     }
   | {
-      +type: 'toggle-artist-credit',
-      +artistCredit: ArtistCreditWithIdT,
-      +checked: boolean,
+      readonly type: 'toggle-artist-credit',
+      readonly artistCredit: ArtistCreditWithIdT,
+      readonly checked: boolean,
     };
 /* eslint-enable ft-flow/sort-keys */
 

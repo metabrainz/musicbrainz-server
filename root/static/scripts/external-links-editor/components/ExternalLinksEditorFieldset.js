@@ -20,7 +20,7 @@ component ExternalLinksEditorFieldset(
   dispatch: (
     action: {+
       action: LinksEditorActionT,
-      +type: 'update-external-links-editor',
+      readonly type: 'update-external-links-editor',
     },
   ) => void,
   state: LinksEditorStateT,

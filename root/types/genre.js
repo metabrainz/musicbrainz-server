@@ -14,5 +14,5 @@ declare type GenreT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'genre'>,
-  +primaryAlias?: string | null,
+  readonly primaryAlias?: string | null,
 }>;

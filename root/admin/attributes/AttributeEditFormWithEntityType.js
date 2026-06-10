@@ -19,22 +19,22 @@ import {type AttributeEditFormWithEntityTypeT} from './types.js';
 
 type Props =
 | Readonly<{
-  +action: 'add' | 'edit',
-  +entityTypeSelectOptions: {
+  readonly action: 'add' | 'edit',
+  readonly entityTypeSelectOptions: {
     [entityType: CollectableEntityTypeT]: CollectableEntityTypeT,
   },
-  +form: AttributeEditFormWithEntityTypeT,
-  +parentSelectOptions: SelectOptionsT,
-  +type: 'CollectionType',
+  readonly form: AttributeEditFormWithEntityTypeT,
+  readonly parentSelectOptions: SelectOptionsT,
+  readonly type: 'CollectionType',
 }>
 | Readonly<{
-  +action: 'add' | 'edit',
-  +entityTypeSelectOptions: {
+  readonly action: 'add' | 'edit',
+  readonly entityTypeSelectOptions: {
     [entityType: SeriesEntityTypeT]: SeriesEntityTypeT,
   },
-  +form: AttributeEditFormWithEntityTypeT,
-  +parentSelectOptions: SelectOptionsT,
-  +type: 'SeriesType',
+  readonly form: AttributeEditFormWithEntityTypeT,
+  readonly parentSelectOptions: SelectOptionsT,
+  readonly type: 'SeriesType',
 }>;
 
 component AttributeEditFormWithEntityType(...{

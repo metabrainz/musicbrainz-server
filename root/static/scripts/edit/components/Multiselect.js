@@ -23,22 +23,22 @@ export type MultiselectActionT<
   V extends AutocompleteEntityItemT,
 > =
   | {
-      +type: 'add-value',
+      readonly type: 'add-value',
     }
   | {
-      +type: 'remove-value',
-      +valueKey: number,
+      readonly type: 'remove-value',
+      readonly valueKey: number,
     }
   | {
-      +action: AutocompleteActionT<V>,
-      +type: 'update-value-autocomplete',
-      +valueKey: number,
+      readonly action: AutocompleteActionT<V>,
+      readonly type: 'update-value-autocomplete',
+      readonly valueKey: number,
     };
 
 export type MultiselectValueStateT<V> = {
-  +autocomplete: AutocompleteStateT<V>,
-  +key: number,
-  +removed: boolean,
+  readonly autocomplete: AutocompleteStateT<V>,
+  readonly key: number,
+  readonly removed: boolean,
   ...
 };
 
@@ -46,17 +46,17 @@ export type MultiselectValuePropsT<
   V extends AutocompleteEntityItemT,
   VS extends MultiselectValueStateT<V>,
 > = {
-  +buildExtraChildren?: ($Exact<VS>) => React.Node,
-  +dispatch: (MultiselectActionT<V>) => void,
-  +state: $Exact<VS>,
+  readonly buildExtraChildren?: ($Exact<VS>) => React.Node,
+  readonly dispatch: (MultiselectActionT<V>) => void,
+  readonly state: $Exact<VS>,
 };
 
 export type MultiselectStateT<
   V extends AutocompleteEntityItemT,
   VS extends MultiselectValueStateT<V>,
 > = {
-  +max: number | null,
-  +values: ReadonlyArray<$Exact<VS>>,
+  readonly max: number | null,
+  readonly values: ReadonlyArray<$Exact<VS>>,
   ...
 };
 

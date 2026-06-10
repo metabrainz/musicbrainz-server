@@ -15,7 +15,7 @@ import RelationshipsHeader from '../RelationshipsHeader.js';
 component TypesTable(
   table: ReadonlyArray<ReadonlyArray<ReadonlyArray<string>>>,
   types: ReadonlyArray<string>,
-  usedTypes: {+[pairString: string]: 1},
+  usedTypes: {readonly [pairString: string]: 1},
 ) {
   return (
     <table className="wikitable">

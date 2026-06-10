@@ -18,19 +18,19 @@ import FormRowURLLong from '../../edit/components/FormRowURLLong.js';
 import FormSubmit from '../../edit/components/FormSubmit.js';
 
 export type ApplicationFormT = FormT<{
-  +csrf_token: FieldT<string>,
-  +name: FieldT<string>,
-  +oauth_redirect_uri: FieldT<string>,
-  +oauth_type: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly name: FieldT<string>,
+  readonly oauth_redirect_uri: FieldT<string>,
+  readonly oauth_type: FieldT<string>,
 }>;
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'set-oauth-type', +oauthType: string};
+  | {readonly type: 'set-oauth-type', readonly oauthType: string};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +form: ApplicationFormT,
+  readonly form: ApplicationFormT,
 };
 
 const oauthTypeOptions = {

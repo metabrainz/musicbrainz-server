@@ -19,12 +19,12 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, TimelineLink} from './utilities.js';
 
 type CountryStatT = {
-  +artist_count: number,
-  +entity: AreaT,
-  +event_count: number,
-  +label_count: number,
-  +place_count: number,
-  +release_count: number,
+  readonly artist_count: number,
+  readonly entity: AreaT,
+  readonly event_count: number,
+  readonly label_count: number,
+  readonly place_count: number,
+  readonly release_count: number,
 };
 
 component Countries(

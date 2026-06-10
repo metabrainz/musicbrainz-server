@@ -14,18 +14,18 @@ import FormRow from './FormRow.js';
 type InputOnChange = (SyntheticInputEvent<HTMLInputElement>) => void;
 
 type InputProps = {
-  +autoComplete?: string,
-  +className?: string,
+  readonly autoComplete?: string,
+  readonly className?: string,
   defaultValue?: string,
-  +disabled: boolean,
-  +id: string,
-  +name: string,
+  readonly disabled: boolean,
+  readonly id: string,
+  readonly name: string,
   onChange?: InputOnChange,
-  +placeholder?: string,
-  +ref?: {-current: HTMLInputElement | null},
-  +required: boolean,
-  +size: ?number,
-  +type: string,
+  readonly placeholder?: string,
+  readonly ref?: {-current: HTMLInputElement | null},
+  readonly required: boolean,
+  readonly size: ?number,
+  readonly type: string,
   value?: string,
 };
 

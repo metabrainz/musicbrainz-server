@@ -46,7 +46,7 @@ component EnterEdit(
   children?: React.Node,
   childrenFirst: boolean = false,
   disabled: boolean = false,
-  form: FormT<{+make_votable: FieldT<boolean>, ...}>,
+  form: FormT<{readonly make_votable: FieldT<boolean>, ...}>,
   ...controlledProps: ControlledPropsT
 ) {
   const isMakeVotableChecked = form.field.make_votable.value;

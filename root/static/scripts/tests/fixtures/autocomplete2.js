@@ -28,19 +28,20 @@ import {linkAttributeTypes} from '../typeInfo.js';
 
 type ActionT =
   | {
-      +action: AutocompleteActionT<NonUrlRelatableEntityT | EditorT>,
-      +prop: 'entityAutocomplete',
-      +type: 'update-autocomplete',
+      readonly action: AutocompleteActionT<NonUrlRelatableEntityT | EditorT>,
+      readonly prop: 'entityAutocomplete',
+      readonly type: 'update-autocomplete',
     }
   | {
-      +action: AutocompleteActionT<LinkAttrTypeT>,
-      +prop: 'attributeTypeAutocomplete',
-      +type: 'update-autocomplete',
+      readonly action: AutocompleteActionT<LinkAttrTypeT>,
+      readonly prop: 'attributeTypeAutocomplete',
+      readonly type: 'update-autocomplete',
     };
 
 type StateT = {
-  +attributeTypeAutocomplete: AutocompleteStateT<LinkAttrTypeT>,
-  +entityAutocomplete: AutocompleteStateT<NonUrlRelatableEntityT | EditorT>,
+  readonly attributeTypeAutocomplete: AutocompleteStateT<LinkAttrTypeT>,
+  readonly entityAutocomplete:
+    AutocompleteStateT<NonUrlRelatableEntityT | EditorT>,
 };
 
 const attributeTypesById = keyBy(

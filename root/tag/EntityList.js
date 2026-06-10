@@ -21,7 +21,7 @@ import UserTagFilters from '../user/components/UserTagFilters.js';
 
 import TagLayout from './TagLayout.js';
 
-const upvotedHeadingText: {+[entity: string]: () => string} = {
+const upvotedHeadingText: {readonly [entity: string]: () => string} = {
   area: N_l('Areas tagged as “{tag}”'),
   artist: N_l('Artists tagged as “{tag}”'),
   event: N_l('Events tagged as “{tag}”'),
@@ -35,7 +35,7 @@ const upvotedHeadingText: {+[entity: string]: () => string} = {
   work: N_l('Works tagged as “{tag}”'),
 };
 
-const userUpvotedHeadingText: {+[entity: string]: () => string} = {
+const userUpvotedHeadingText: {readonly [entity: string]: () => string} = {
   area: N_l('Areas {user} tagged as “{tag}”'),
   artist: N_l('Artists {user} tagged as “{tag}”'),
   event: N_l('Events {user} tagged as “{tag}”'),
@@ -49,7 +49,7 @@ const userUpvotedHeadingText: {+[entity: string]: () => string} = {
   work: N_l('Works {user} tagged as “{tag}”'),
 };
 
-const downvotedHeadingText: {+[entity: string]: () => string} = {
+const downvotedHeadingText: {readonly [entity: string]: () => string} = {
   area: N_l('Areas where {user} downvoted “{tag}”'),
   artist: N_l('Artists where {user} downvoted “{tag}”'),
   event: N_l('Events where {user} downvoted “{tag}”'),
@@ -64,7 +64,7 @@ const downvotedHeadingText: {+[entity: string]: () => string} = {
 };
 
 const resultCountText: {
-  +[entityType: string]: (val: number) => string, ...
+  readonly [entityType: string]: (val: number) => string, ...
 } = {
   area: N_ln('{num} area found', '{num} areas found'),
   artist: N_ln('{num} artist found', '{num} artists found'),
@@ -102,9 +102,9 @@ function getTagEntityListHeading(
 }
 
 type EntityTagsT = ReadonlyArray<{
-  +count?: number,
-  +entity: TaggableEntityT,
-  +entity_id: number,
+  readonly count?: number,
+  readonly entity: TaggableEntityT,
+  readonly entity_id: number,
 }>;
 
 export component EntityListContent(

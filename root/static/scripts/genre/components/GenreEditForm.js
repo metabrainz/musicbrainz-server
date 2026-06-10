@@ -58,25 +58,31 @@ import type {
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'update-external-links-editor', +action: LinksEditorActionT}
-  | {+type: 'update-relationship-editor', +action: RelationshipEditorActionT}
-  | {+type: 'update-name', +action: NameActionT};
+  | {
+      readonly type: 'update-external-links-editor',
+      readonly action: LinksEditorActionT,
+    }
+  | {
+      readonly type: 'update-relationship-editor',
+      readonly action: RelationshipEditorActionT,
+    }
+  | {readonly type: 'update-name', readonly action: NameActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +externalLinksEditor: LinksEditorStateT,
-  +form: GenreFormT,
-  +guessCaseOptions: GuessCaseOptionsStateT,
-  +isGuessCaseOptionsOpen: boolean,
-  +relationshipEditor: RelationshipEditorStateT,
+  readonly externalLinksEditor: LinksEditorStateT,
+  readonly form: GenreFormT,
+  readonly guessCaseOptions: GuessCaseOptionsStateT,
+  readonly isGuessCaseOptionsOpen: boolean,
+  readonly relationshipEditor: RelationshipEditorStateT,
 };
 
 function createInitialState({
   $c,
   form,
 }: {
-  +$c: SanitizedCatalystContextT,
-  +form: GenreFormT,
+  readonly $c: SanitizedCatalystContextT,
+  readonly form: GenreFormT,
 }) {
   return {
     externalLinksEditor: createExternalLinksEditorState($c),

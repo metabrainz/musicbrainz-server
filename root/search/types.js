@@ -8,25 +8,25 @@
  */
 
 export type InlineResultsPropsT<T> = {
-  +pager: PagerT,
-  +query: string,
-  +results: ReadonlyArray<SearchResultT<T>>,
+  readonly pager: PagerT,
+  readonly query: string,
+  readonly results: ReadonlyArray<SearchResultT<T>>,
 };
 
 export type ResultsPropsT<T> = Readonly<{
   ...InlineResultsPropsT<T>,
-  +form: SearchFormT,
-  +lastUpdated?: string,
+  readonly form: SearchFormT,
+  readonly lastUpdated?: string,
 }>;
 
 export type SearchResultT<T> = {
-  +entity: T,
-  +extra: ReadonlyArray<{
-    +medium_position: number,
-    +medium_track_count: number,
-    +release: ReleaseT,
-    +track_position: number,
+  readonly entity: T,
+  readonly extra: ReadonlyArray<{
+    readonly medium_position: number,
+    readonly medium_track_count: number,
+    readonly release: ReleaseT,
+    readonly track_position: number,
   }>,
-  +position: number,
-  +score: number,
+  readonly position: number,
+  readonly score: number,
 };

@@ -24,49 +24,49 @@ export type CreditChangeOptionT =
   | 'same-relationship-type';
 
 export type RelationshipStateForTypesT<
-  +T0: RelatableEntityT,
-  +T1: RelatableEntityT,
+  out T0: RelatableEntityT,
+  out T1: RelatableEntityT,
 > = {
   /*
    * _lineage is purely to help debug how a piece of relationship
    * state was created.  It should be appended to whenever
    * `cloneRelationshipState` is used.
    */
-  +_lineage: ReadonlyArray<string>,
-  +_original: RelationshipStateT | null,
-  +_status: RelationshipEditStatusT,
-  +attributes: tree.ImmutableTree<LinkAttrT> | null,
-  +begin_date: PartialDateT | null,
-  +editsPending: boolean,
-  +end_date: PartialDateT | null,
-  +ended: boolean,
-  +entity0: T0,
-  +entity0_credit: string,
-  +entity1: T1,
-  +entity1_credit: string,
-  +id: number,
-  +linkOrder: number,
-  +linkTypeID: number | null,
+  readonly _lineage: ReadonlyArray<string>,
+  readonly _original: RelationshipStateT | null,
+  readonly _status: RelationshipEditStatusT,
+  readonly attributes: tree.ImmutableTree<LinkAttrT> | null,
+  readonly begin_date: PartialDateT | null,
+  readonly editsPending: boolean,
+  readonly end_date: PartialDateT | null,
+  readonly ended: boolean,
+  readonly entity0: T0,
+  readonly entity0_credit: string,
+  readonly entity1: T1,
+  readonly entity1_credit: string,
+  readonly id: number,
+  readonly linkOrder: number,
+  readonly linkTypeID: number | null,
 };
 
 export type RelationshipStateT =
   RelationshipStateForTypesT<RelatableEntityT, RelatableEntityT>;
 
 export type RelationshipPhraseGroupT = {
-  +relationships: tree.ImmutableTree<RelationshipStateT>,
-  +textPhrase: string,
+  readonly relationships: tree.ImmutableTree<RelationshipStateT>,
+  readonly textPhrase: string,
 };
 
 export type RelationshipLinkTypeGroupT = {
-  +backward: boolean,
-  +phraseGroups: tree.ImmutableTree<RelationshipPhraseGroupT>,
+  readonly backward: boolean,
+  readonly phraseGroups: tree.ImmutableTree<RelationshipPhraseGroupT>,
   // Null types are represented by 0.
-  +typeId: number,
+  readonly typeId: number,
 };
 
 export type RelationshipLinkTypeGroupKeyT = {
-  +backward: boolean,
-  +typeId: number,
+  readonly backward: boolean,
+  readonly typeId: number,
 };
 
 export type RelationshipLinkTypeGroupsT =
@@ -102,14 +102,14 @@ export type NonReleaseRelatableEntityTypeT =
   NonReleaseRelatableEntityT['entityType'];
 
 export type RelationshipDialogLocationT = {
-  +backward?: ?boolean,
-  +batchSelection?: ?boolean,
-  +linkTypeId?: ?number,
-  +relationshipId?: ?number,
-  +source: RelatableEntityT,
-  +targetType?: ?RelatableEntityTypeT,
-  +textPhrase?: ?string,
-  +track?: ?TrackWithRecordingT,
+  readonly backward?: ?boolean,
+  readonly batchSelection?: ?boolean,
+  readonly linkTypeId?: ?number,
+  readonly relationshipId?: ?number,
+  readonly source: RelatableEntityT,
+  readonly targetType?: ?RelatableEntityTypeT,
+  readonly textPhrase?: ?string,
+  readonly track?: ?TrackWithRecordingT,
 };
 
 export type RelationshipEditorStateT = {
@@ -125,51 +125,51 @@ export type RelationshipEditorStateT = {
    * applicable in order to not defeat component memoization and not trigger
    * a cascade of unnecessary updates across the entire page.
    */
-  +dialogLocation: RelationshipDialogLocationT | null,
-  +entity: NonReleaseRelatableEntityT,
+  readonly dialogLocation: RelationshipDialogLocationT | null,
+  readonly entity: NonReleaseRelatableEntityT,
   // existing = relationships that exist in the database
-  +existingRelationshipsBySource: RelationshipSourceGroupsT,
-  +reducerError: Error | null,
-  +relationshipsBySource: RelationshipSourceGroupsT,
+  readonly existingRelationshipsBySource: RelationshipSourceGroupsT,
+  readonly reducerError: Error | null,
+  readonly relationshipsBySource: RelationshipSourceGroupsT,
 };
 
 export type RelationshipDialogStateT = {
-  +attributes: DialogAttributesStateT,
-  +backward: boolean,
-  +datePeriod: DialogDatePeriodStateT,
-  +isHelpVisible: boolean,
-  +linkOrder: number,
-  +linkType: DialogLinkTypeStateT,
-  +sourceEntity: DialogSourceEntityStateT,
-  +targetEntity: DialogTargetEntityStateT,
+  readonly attributes: DialogAttributesStateT,
+  readonly backward: boolean,
+  readonly datePeriod: DialogDatePeriodStateT,
+  readonly isHelpVisible: boolean,
+  readonly linkOrder: number,
+  readonly linkType: DialogLinkTypeStateT,
+  readonly sourceEntity: DialogSourceEntityStateT,
+  readonly targetEntity: DialogTargetEntityStateT,
 };
 
 export type DialogBooleanAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
-  +control: 'checkbox',
-  +enabled: boolean,
+  readonly control: 'checkbox',
+  readonly enabled: boolean,
 }>;
 
 export type DialogMultiselectAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
-  +control: 'multiselect',
-  +linkType: LinkTypeT,
-  +values: ReadonlyArray<DialogMultiselectAttributeValueStateT>,
+  readonly control: 'multiselect',
+  readonly linkType: LinkTypeT,
+  readonly values: ReadonlyArray<DialogMultiselectAttributeValueStateT>,
 }>;
 
 export type DialogMultiselectAttributeValueStateT = {
-  +autocomplete: AutocompleteStateT<LinkAttrTypeT>,
-  +control: 'multiselect-value',
-  +creditedAs?: string,
-  +error?: string,
-  +key: number,
-  +removed: boolean,
+  readonly autocomplete: AutocompleteStateT<LinkAttrTypeT>,
+  readonly control: 'multiselect-value',
+  readonly creditedAs?: string,
+  readonly error?: string,
+  readonly key: number,
+  readonly removed: boolean,
 };
 
 export type DialogTextAttributeStateT = Readonly<{
   ...DialogLinkAttributeStateT,
-  +control: 'text',
-  +textValue: string,
+  readonly control: 'text',
+  readonly textValue: string,
 }>;
 
 export type DialogAttributeT =
@@ -180,8 +180,8 @@ export type DialogAttributeT =
 export type DialogAttributesT = ReadonlyArray<DialogAttributeT>;
 
 export type DialogAttributesStateT = {
-  +attributesList: DialogAttributesT,
-  +resultingLinkAttributes: tree.ImmutableTree<LinkAttrT>,
+  readonly attributesList: DialogAttributesT,
+  readonly resultingLinkAttributes: tree.ImmutableTree<LinkAttrT>,
 };
 
 export type DialogLinkAttributeStateT = {
@@ -195,8 +195,8 @@ export type DialogLinkAttributeStateT = {
 };
 
 export type DialogDatePeriodStateT = {
-  +field: DatePeriodFieldT,
-  +result: DatePeriodRoleT,
+  readonly field: DatePeriodFieldT,
+  readonly result: DatePeriodRoleT,
 };
 
 /*
@@ -204,49 +204,49 @@ export type DialogDatePeriodStateT = {
  * The primary difference is that typeID/typeName are not required.
  */
 export type ExternalLinkAttrT = {
-  +credited_as?: string,
-  +text_value?: string,
-  +type: {+gid: string, ...},
+  readonly credited_as?: string,
+  readonly text_value?: string,
+  readonly type: {readonly gid: string, ...},
 };
 
 export type DialogLinkTypeStateT = {
-  +autocomplete: AutocompleteStateT<LinkTypeT>,
-  +error: React.Node,
+  readonly autocomplete: AutocompleteStateT<LinkTypeT>,
+  readonly error: React.Node,
 };
 
 export type DialogSourceEntityStateT = Readonly<{
   ...DialogEntityCreditStateT,
-  +entityType: RelatableEntityTypeT,
-  +error: React.Node,
+  readonly entityType: RelatableEntityTypeT,
+  readonly error: React.Node,
 }>;
 
 export type TargetTypeOptionT = {
-  +text: string,
-  +value: RelatableEntityTypeT,
+  readonly text: string,
+  readonly value: RelatableEntityTypeT,
 };
 
 export type TargetTypeOptionsT = ReadonlyArray<TargetTypeOptionT>;
 
 export type DialogTargetEntityStateT = Readonly<{
   ...DialogEntityCreditStateT,
-  +allowedTypes: TargetTypeOptionsT | null,
-  +autocomplete: AutocompleteStateT<NonUrlRelatableEntityT> | null,
-  +error: string,
-  +relationshipId: number,
-  +target: RelatableEntityT,
-  +targetType: RelatableEntityTypeT,
+  readonly allowedTypes: TargetTypeOptionsT | null,
+  readonly autocomplete: AutocompleteStateT<NonUrlRelatableEntityT> | null,
+  readonly error: string,
+  readonly relationshipId: number,
+  readonly target: RelatableEntityT,
+  readonly targetType: RelatableEntityTypeT,
 }>;
 
 export type DialogEntityCreditStateT = {
-  +creditedAs: string,
-  +creditsToChange: CreditChangeOptionT,
-  +releaseHasUnloadedTracks: boolean,
+  readonly creditedAs: string,
+  readonly creditsToChange: CreditChangeOptionT,
+  readonly releaseHasUnloadedTracks: boolean,
 };
 
 export type LinkAttributeShapeT = {
-  +credited_as?: string,
-  +text_value?: string,
-  +type: LinkAttrTypeT | null,
+  readonly credited_as?: string,
+  readonly text_value?: string,
+  readonly type: LinkAttrTypeT | null,
   ...
 };
 
@@ -254,29 +254,29 @@ export type LinkAttributesByRootIdT =
   Map<number, Array<LinkAttributeShapeT>>;
 
 export type BatchCreateWorksDialogStateT = {
-  +attributes: DialogAttributesStateT,
-  +datePeriod: DialogDatePeriodStateT,
-  +languages: MultiselectLanguageStateT,
-  +linkType: DialogLinkTypeStateT,
-  +workType: number | null,
+  readonly attributes: DialogAttributesStateT,
+  readonly datePeriod: DialogDatePeriodStateT,
+  readonly languages: MultiselectLanguageStateT,
+  readonly linkType: DialogLinkTypeStateT,
+  readonly workType: number | null,
 };
 
 export type EditWorkDialogStateT = {
-  +languages: MultiselectLanguageStateT,
-  +name: string,
-  +workType: number | null,
+  readonly languages: MultiselectLanguageStateT,
+  readonly name: string,
+  readonly workType: number | null,
 };
 
 export type MultiselectLanguageValueStateT = {
-  +autocomplete: AutocompleteStateT<LanguageT>,
-  +key: number,
-  +removed: boolean,
+  readonly autocomplete: AutocompleteStateT<LanguageT>,
+  readonly key: number,
+  readonly removed: boolean,
 };
 
 export type MultiselectLanguageStateT = {
-  +max: number | null,
-  +staticItems: ReadonlyArray<AutocompleteOptionItemT<LanguageT>>,
-  +values: ReadonlyArray<MultiselectLanguageValueStateT>,
+  readonly max: number | null,
+  readonly staticItems: ReadonlyArray<AutocompleteOptionItemT<LanguageT>>,
+  readonly values: ReadonlyArray<MultiselectLanguageValueStateT>,
 };
 
 /*
@@ -285,26 +285,26 @@ export type MultiselectLanguageStateT = {
 
 export type ReleaseWithMediumsAndReleaseGroupT = Readonly<{
   ...ReleaseWithMediumsT,
-  +releaseGroup: ReleaseGroupT,
+  readonly releaseGroup: ReleaseGroupT,
 }>;
 
 // Associates a recording ID with all of the medium IDs it appears on.
 export type RecordingMediumsT = Map<number, Array<MediumWithRecordingsT>>;
 
 export type MediumWorkStateT = {
-  +isSelected: boolean,
-  +targetTypeGroups: RelationshipTargetTypeGroupsT,
-  +work: WorkT,
+  readonly isSelected: boolean,
+  readonly targetTypeGroups: RelationshipTargetTypeGroupsT,
+  readonly work: WorkT,
 };
 
 export type MediumWorkStateTreeT =
   tree.ImmutableTree<MediumWorkStateT>;
 
 export type MediumRecordingStateT = {
-  +isSelected: boolean,
-  +recording: RecordingT,
-  +relatedWorks: MediumWorkStateTreeT,
-  +targetTypeGroups: RelationshipTargetTypeGroupsT,
+  readonly isSelected: boolean,
+  readonly recording: RecordingT,
+  readonly relatedWorks: MediumWorkStateTreeT,
+  readonly targetTypeGroups: RelationshipTargetTypeGroupsT,
 };
 
 export type MediumRecordingStateTreeT =
@@ -318,20 +318,20 @@ export type MediumStateTreeT = tree.ImmutableTree<[
 export type ReleaseRelationshipEditorStateT = Readonly<{
   ...$Exact<LazyReleaseStateT>,
   ...$Exact<RelationshipEditorStateT>,
-  +editNoteField: FieldT<string>,
-  +enterEditForm: FormT<{
-    +make_votable: FieldT<boolean>,
+  readonly editNoteField: FieldT<string>,
+  readonly enterEditForm: FormT<{
+    readonly make_votable: FieldT<boolean>,
   }>,
-  +entity: ReleaseWithMediumsAndReleaseGroupT,
-  +mediums: MediumStateTreeT,
-  +mediumsByRecordingId: RecordingMediumsT,
-  +selectedRecordings: tree.ImmutableTree<RecordingT>,
-  +selectedWorks: tree.ImmutableTree<WorkT>,
-  +submissionError: ?string,
-  +submissionInProgress: boolean,
+  readonly entity: ReleaseWithMediumsAndReleaseGroupT,
+  readonly mediums: MediumStateTreeT,
+  readonly mediumsByRecordingId: RecordingMediumsT,
+  readonly selectedRecordings: tree.ImmutableTree<RecordingT>,
+  readonly selectedWorks: tree.ImmutableTree<WorkT>,
+  readonly submissionError: ?string,
+  readonly submissionInProgress: boolean,
 }>;
 
 export type RelationshipSourceGroupsContextT = {
-  +existing: RelationshipSourceGroupsT,
-  +pending: RelationshipSourceGroupsT,
+  readonly existing: RelationshipSourceGroupsT,
+  readonly pending: RelationshipSourceGroupsT,
 };

@@ -36,9 +36,9 @@ import linkedEntities
   from '../../../static/scripts/common/linkedEntities.mjs';
 
 const LICENSE_CLASSES: {
-  +[license: string]: {
-    +icon: string,
-    +pattern: RegExp,
+  readonly [license: string]: {
+    readonly icon: string,
+    readonly pattern: RegExp,
   },
 } = {
   ArtLibre: {

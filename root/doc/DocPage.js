@@ -18,10 +18,10 @@ import {
 import DocSearchBox from './components/DocSearchBox.js';
 
 type DocPageT = {
-  +content: string,
-  +hierarchy: ReadonlyArray<string>,
-  +title: string,
-  +version: number,
+  readonly content: string,
+  readonly hierarchy: ReadonlyArray<string>,
+  readonly title: string,
+  readonly version: number,
 };
 
 component DocPage(id: string, page: DocPageT) {

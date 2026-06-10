@@ -18,8 +18,8 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 declare type RelationshipTypeT = {
-  +entity_types: ReadonlyArray<string>,
-  +tree: {[entityTypes: string]: Array<LinkTypeT>},
+  readonly entity_types: ReadonlyArray<string>,
+  readonly tree: {[entityTypes: string]: Array<LinkTypeT>},
 };
 
 function comparePhrases(a: LinkTypeT, b: LinkTypeT) {

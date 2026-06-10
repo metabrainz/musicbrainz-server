@@ -43,7 +43,7 @@ export function getSourceEntityData<T extends RelatableEntityTypeT | void>(
   entityType: T,
 ): T extends void
     ? RelatableEntityT
-    : Extract<RelatableEntityT, {+entityType: T, ...}> {
+    : Extract<RelatableEntityT, {readonly entityType: T, ...}> {
   let source: RelatableEntityT | void = sourceEntityDataCache.get($c);
   if (source === undefined) {
     const sourceData = $c.stash.source_entity;

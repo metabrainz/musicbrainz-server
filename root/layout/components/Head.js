@@ -52,7 +52,7 @@ function getTitle(title: ?string, isHomepage: boolean, pager?: PagerT) {
   return finalTitle;
 }
 
-const CanonicalLink = ({requestUri}: {+requestUri: string}) => {
+const CanonicalLink = ({requestUri}: {readonly requestUri: string}) => {
   const canonUri = canonicalize(requestUri);
   if (requestUri !== canonUri) {
     return <link href={canonUri} rel="canonical" />;

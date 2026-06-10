@@ -11,21 +11,21 @@
 
 // MusicBrainz::Server::Entity::AggregatedTag::TO_JSON
 declare type AggregatedTagT = {
-  +count: number,
-  +tag: TagT,
+  readonly count: number,
+  readonly tag: TagT,
 };
 
 // MusicBrainz::Server::Entity::Tag::TO_JSON
 declare type TagT = {
-  +entityType: 'tag',
-  +genre?: GenreT,
-  +id: number | null,
-  +name: string,
+  readonly entityType: 'tag',
+  readonly genre?: GenreT,
+  readonly id: number | null,
+  readonly name: string,
 };
 
 // MusicBrainz::Server::Entity::UserTag::TO_JSON
 declare type UserTagT = {
-  +count: number,
-  +tag: TagT,
-  +vote: 1 | 0 | -1,
+  readonly count: number,
+  readonly tag: TagT,
+  readonly vote: 1 | 0 | -1,
 };

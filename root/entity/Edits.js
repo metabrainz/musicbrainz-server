@@ -18,10 +18,10 @@ import localizeTypeNameForEntity
 
 component Edits(
   editCountLimit: number,
-  edits: ReadonlyArray<Readonly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<Readonly<{...EditT, readonly id: number}>>,
   entity: EditableEntityT | CollectionT,
   pager: PagerT,
-  refineUrlArgs?: {+[argument: string]: string},
+  refineUrlArgs?: {readonly [argument: string]: string},
   showingOpenOnly: boolean,
 ) {
   const entityTypeClass = entity.entityType === 'release_group'

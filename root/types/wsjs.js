@@ -11,54 +11,54 @@
 
 declare type WsJsRelationshipEntityT =
   | {
-      +entityType: NonUrlRelatableEntityTypeT,
-      +gid: string,
-      +name: string,
+      readonly entityType: NonUrlRelatableEntityTypeT,
+      readonly gid: string,
+      readonly name: string,
     }
   | {
-      +entityType: 'url',
+      readonly entityType: 'url',
       // We only use URL gids on the edit-url form.
-      +gid?: string,
-      +name: string,
+      readonly gid?: string,
+      readonly name: string,
     };
 
 declare type WsJsRelationshipAttributeT = {
-  +credited_as?: string,
-  +removed?: boolean,
-  +text_value?: string,
-  +type: {+gid: string},
+  readonly credited_as?: string,
+  readonly removed?: boolean,
+  readonly text_value?: string,
+  readonly type: {readonly gid: string},
 };
 
 declare type WsJsRelationshipCommonT = {
-  +attributes: ReadonlyArray<WsJsRelationshipAttributeT>,
-  +begin_date?: PartialDateT,
-  +end_date?: PartialDateT,
-  +ended?: boolean,
-  +enteredFrom?: WsJsRelationshipEntityT,
-  +entities: [WsJsRelationshipEntityT, WsJsRelationshipEntityT],
-  +entity0_credit: string,
-  +entity1_credit: string,
+  readonly attributes: ReadonlyArray<WsJsRelationshipAttributeT>,
+  readonly begin_date?: PartialDateT,
+  readonly end_date?: PartialDateT,
+  readonly ended?: boolean,
+  readonly enteredFrom?: WsJsRelationshipEntityT,
+  readonly entities: [WsJsRelationshipEntityT, WsJsRelationshipEntityT],
+  readonly entity0_credit: string,
+  readonly entity1_credit: string,
 };
 
 declare type WsJsEditRelationshipCreateT = Readonly<{
   ...WsJsRelationshipCommonT,
-  +edit_type: EDIT_RELATIONSHIP_CREATE_T,
-  +linkOrder?: number,
-  +linkTypeID: number,
+  readonly edit_type: EDIT_RELATIONSHIP_CREATE_T,
+  readonly linkOrder?: number,
+  readonly linkTypeID: number,
 }>;
 
 declare type WsJsEditRelationshipEditT = Readonly<{
   ...Partial<WsJsRelationshipCommonT>,
-  +edit_type: EDIT_RELATIONSHIP_EDIT_T,
-  +id: number,
-  +linkTypeID: number,
+  readonly edit_type: EDIT_RELATIONSHIP_EDIT_T,
+  readonly id: number,
+  readonly linkTypeID: number,
 }>;
 
 declare type WsJsEditRelationshipDeleteT = Readonly<{
-  +edit_type: EDIT_RELATIONSHIP_DELETE_T,
-  +enteredFrom?: WsJsRelationshipEntityT,
-  +id: number,
-  +linkTypeID: number,
+  readonly edit_type: EDIT_RELATIONSHIP_DELETE_T,
+  readonly enteredFrom?: WsJsRelationshipEntityT,
+  readonly id: number,
+  readonly linkTypeID: number,
 }>;
 
 declare type WsJsEditRelationshipT =
@@ -68,64 +68,64 @@ declare type WsJsEditRelationshipT =
   | WsJsEditRelationshipsReorderT;
 
 declare type WsJsEditRelationshipsReorderT = {
-  +edit_type: EDIT_RELATIONSHIPS_REORDER_T,
-  +enteredFrom?: WsJsRelationshipEntityT,
-  +linkTypeID: number,
-  +relationship_order: ReadonlyArray<{
-    +link_order: number,
-    +relationship_id: number,
+  readonly edit_type: EDIT_RELATIONSHIPS_REORDER_T,
+  readonly enteredFrom?: WsJsRelationshipEntityT,
+  readonly linkTypeID: number,
+  readonly relationship_order: ReadonlyArray<{
+    readonly link_order: number,
+    readonly relationship_id: number,
   }>,
 };
 
 declare type WsJsEditWorkCreateT = {
-  +comment: string,
-  +edit_type: EDIT_WORK_CREATE_T,
-  +languages: ReadonlyArray<number>,
-  +name: string,
-  +type_id: number | null,
+  readonly comment: string,
+  readonly edit_type: EDIT_WORK_CREATE_T,
+  readonly languages: ReadonlyArray<number>,
+  readonly name: string,
+  readonly type_id: number | null,
 };
 
 declare type WS_EDIT_RESPONSE_OK_T = 1;
 declare type WS_EDIT_RESPONSE_NO_CHANGES_T = 2;
 
 declare type WsJsEditResponseT = {
-  +edits: ReadonlyArray<
+  readonly edits: ReadonlyArray<
     | {
-        +edit_type: EDIT_RELATIONSHIP_CREATE_T,
-        +relationship_id: number | null,
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly edit_type: EDIT_RELATIONSHIP_CREATE_T,
+        readonly relationship_id: number | null,
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {
-        +edit_type: EDIT_RELEASE_CREATE_T,
-        +entity: ReleaseT,
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly edit_type: EDIT_RELEASE_CREATE_T,
+        readonly entity: ReleaseT,
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {
-        +edit_type: EDIT_RELEASEGROUP_CREATE_T,
-        +entity: ReleaseGroupT,
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly edit_type: EDIT_RELEASEGROUP_CREATE_T,
+        readonly entity: ReleaseGroupT,
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {
-        +edit_type: EDIT_MEDIUM_CREATE_T,
-        +entity: {+id: number, +position: number},
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly edit_type: EDIT_MEDIUM_CREATE_T,
+        readonly entity: {readonly id: number, readonly position: number},
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {
-        +edit_type: EDIT_WORK_CREATE_T,
-        +entity: WorkT,
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly edit_type: EDIT_WORK_CREATE_T,
+        readonly entity: WorkT,
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {
-        +edit_type: EDIT_RELEASE_ADDRELEASELABEL_T,
-        +entity: {
-          +catalogNumber: string | null,
-          +id: number,
-          +labelID: number | null,
+        readonly edit_type: EDIT_RELEASE_ADDRELEASELABEL_T,
+        readonly entity: {
+          readonly catalogNumber: string | null,
+          readonly id: number,
+          readonly labelID: number | null,
         },
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
     | {
-        +edit_type:
+        readonly edit_type:
           | EDIT_MEDIUM_ADD_DISCID_T
           | EDIT_MEDIUM_DELETE_T
           | EDIT_MEDIUM_EDIT_T
@@ -139,8 +139,8 @@ declare type WsJsEditResponseT = {
           | EDIT_RELEASE_EDITRELEASELABEL_T
           | EDIT_RELEASE_REORDER_MEDIUMS_T
           | EDIT_RELEASEGROUP_EDIT_T,
-        +response: WS_EDIT_RESPONSE_OK_T,
+        readonly response: WS_EDIT_RESPONSE_OK_T,
       }
-    | {+response: WS_EDIT_RESPONSE_NO_CHANGES_T}
+    | {readonly response: WS_EDIT_RESPONSE_NO_CHANGES_T}
   >,
 };

@@ -14,13 +14,13 @@ import coerceToError from '../utility/coerceToError.js';
 import {compareStrings} from '../utility/compare.mjs';
 
 type AcoustIdTrackT = {
-  +disabled?: boolean,
-  +id: string,
+  readonly disabled?: boolean,
+  readonly id: string,
 };
 
 type AcoustIdListResponseT = {
-  +status: string,
-  +tracks: Array<AcoustIdTrackT>,
+  readonly status: string,
+  readonly tracks: Array<AcoustIdTrackT>,
 };
 
 function orderTracks(a: AcoustIdTrackT, b: AcoustIdTrackT) {

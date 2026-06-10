@@ -10,11 +10,11 @@
 /* eslint-disable no-unused-vars */
 
 declare type InstrumentCreditsAndRelTypesT = {
-  +[entityGid: string]: ReadonlyArray<string>,
+  readonly [entityGid: string]: ReadonlyArray<string>,
 };
 
 declare type InstrumentCreditsAndRelTypesRoleT = {
-  +instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
+  readonly instrumentCreditsAndRelTypes?: InstrumentCreditsAndRelTypesT,
 };
 
 // MusicBrainz::Server::Entity::Instrument::TO_JSON
@@ -23,8 +23,8 @@ declare type InstrumentT = Readonly<{
   ...CommentRoleT,
   ...RelatableEntityRoleT<'instrument'>,
   ...TypeRoleT<InstrumentTypeT>,
-  +description: string,
-  +primaryAlias?: string | null,
+  readonly description: string,
+  readonly primaryAlias?: string | null,
 }>;
 
 declare type InstrumentTypeT = OptionTreeT<'instrument_type'>;

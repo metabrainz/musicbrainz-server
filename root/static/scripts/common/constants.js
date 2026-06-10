@@ -73,7 +73,7 @@ export const DARTIST_ID = 2;
 export const DLABEL_ID = 1;
 
 export const FAVICON_CLASSES: {
-  +[host: string]: string,
+  readonly [host: string]: string,
 } = {
   '7digital.com': 'sevendigital',
   '45cat.com': 'fortyfivecat',
@@ -289,7 +289,7 @@ export const FAVICON_CLASSES: {
 };
 
 export const PART_OF_SERIES_LINK_TYPES: {
-  +[type: RelatableEntityTypeT]: string | null,
+  readonly [type: RelatableEntityTypeT]: string | null,
 } = {
   area: null,
   artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',
@@ -425,7 +425,7 @@ export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
 ]);
 
 export const FLUENCY_NAMES:
-  {+[fluency: string]: () => string,
+  {readonly [fluency: string]: () => string,
   ...
 } = {
   advanced: N_l('Advanced'),

@@ -37,8 +37,8 @@ import {uniqueId} from './strings.js';
 const UNIT_SEP = '\x1F';
 
 export type DatedExtraAttributes = {
-  +attributes: Array<LinkAttrT>,
-  +datePeriods: Array<DatePeriodRoleT>,
+  readonly attributes: Array<LinkAttrT>,
+  readonly datePeriods: Array<DatePeriodRoleT>,
 };
 
 export type RelationshipTargetGroupT = {
@@ -71,12 +71,12 @@ export type RelationshipPhraseGroupT = {
 };
 
 export type RelationshipTargetTypeGroupT = {
-  +relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
-  +targetType: RelatableEntityTypeT,
+  readonly relationshipPhraseGroups: Array<RelationshipPhraseGroupT>,
+  readonly targetType: RelatableEntityTypeT,
 };
 
 export function cmpTargetTypeGroups<
-  T extends {+targetType: RelatableEntityTypeT, ...},
+  T extends {readonly targetType: RelatableEntityTypeT, ...},
 >(a: T, b: T): number {
   return compareStrings(a.targetType, b.targetType);
 }
@@ -359,14 +359,14 @@ function areSetsEqual<T>(a: Set<T>, b: Set<T>): boolean {
 export default function groupRelationships(
   relationships: ?ReadonlyArray<RelationshipT>,
   args?: {
-    +filter?: (
+    readonly filter?: (
       RelationshipT,
       RelatableEntityT,
       RelatableEntityTypeT,
     ) => boolean,
-    +result?: Array<RelationshipTargetTypeGroupT>,
-    +trackMapping?: Map<string, Set<TrackT>>,
-    +types?: ?ReadonlyArray<RelatableEntityTypeT>,
+    readonly result?: Array<RelationshipTargetTypeGroupT>,
+    readonly trackMapping?: Map<string, Set<TrackT>>,
+    readonly types?: ?ReadonlyArray<RelatableEntityTypeT>,
   },
 ): ReadonlyArray<RelationshipTargetTypeGroupT> {
   if (!relationships) {

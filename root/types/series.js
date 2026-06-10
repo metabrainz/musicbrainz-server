@@ -24,14 +24,14 @@ declare type SeriesT = Readonly<{
   ...CommentRoleT,
   ...RelatableEntityRoleT<'series'>,
   ...TypeRoleT<SeriesTypeT>,
-  +entity_count?: number,
-  +orderingTypeID: number,
-  +primaryAlias?: string | null,
-  +type?: SeriesTypeT,
+  readonly entity_count?: number,
+  readonly orderingTypeID: number,
+  readonly primaryAlias?: string | null,
+  readonly type?: SeriesTypeT,
 }>;
 
 declare type SeriesItemNumbersRoleT = {
-  +seriesItemNumbers?: ReadonlyArray<string>,
+  readonly seriesItemNumbers?: ReadonlyArray<string>,
 };
 
 declare type SeriesOrderingTypeT = OptionTreeT<'series_ordering_type'>;

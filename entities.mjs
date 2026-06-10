@@ -16,8 +16,8 @@
 import deepFreeze from 'deep-freeze-strict';
 
 type AutomaticRemovalPropsT = {
-  +exempt?: ReadonlyArray<number>,
-  +extra_fks?: {+[foreignTable: string]: string},
+  readonly exempt?: ReadonlyArray<number>,
+  readonly extra_fks?: {readonly [foreignTable: string]: string},
   ...
 };
 

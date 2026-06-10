@@ -18,8 +18,8 @@ import {reduceArtistCredit}
 import entityHref from '../static/scripts/common/utility/entityHref.js';
 
 type BlogEntryT = {
-  +title: string,
-  +url: string,
+  readonly title: string,
+  readonly url: string,
 };
 
 component Homepage(

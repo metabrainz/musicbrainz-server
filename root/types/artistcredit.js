@@ -11,32 +11,32 @@
 
 // MusicBrainz::Server::Entity::ArtistCreditName::TO_JSON
 declare type ArtistCreditNameT = {
-  +artist: ArtistT,
-  +joinPhrase: string,
-  +name: string,
+  readonly artist: ArtistT,
+  readonly joinPhrase: string,
+  readonly name: string,
 };
 
 // MusicBrainz::Server::Entity::Role::ArtistCredit::TO_JSON
 declare type ArtistCreditRoleT = {
-  +artist: string,
-  +artistCredit: ArtistCreditT,
+  readonly artist: string,
+  readonly artistCredit: ArtistCreditT,
 };
 
 // MusicBrainz::Server::Entity::ArtistCredit::TO_JSON
 declare type ArtistCreditT = {
-  +editsPending?: boolean,
-  +entityType?: 'artist_credit',
-  +id?: number,
-  +names: ReadonlyArray<ArtistCreditNameT>,
+  readonly editsPending?: boolean,
+  readonly entityType?: 'artist_credit',
+  readonly id?: number,
+  readonly names: ReadonlyArray<ArtistCreditNameT>,
 };
 
 declare type IncompleteArtistCreditNameT = {
-  +artist: ArtistT | null,
-  +joinPhrase: string,
-  +name: string,
+  readonly artist: ArtistT | null,
+  readonly joinPhrase: string,
+  readonly name: string,
 };
 
 declare type IncompleteArtistCreditT = {
-  +names: ReadonlyArray<IncompleteArtistCreditNameT>,
+  readonly names: ReadonlyArray<IncompleteArtistCreditNameT>,
   ...
 };

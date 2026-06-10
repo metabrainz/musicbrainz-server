@@ -16,9 +16,9 @@ import Collapsible from './Collapsible.js';
 import EditorLink from './EditorLink.js';
 
 type MinimalAnnotatedEntityT = {
-  +entityType: AnnotatedEntityT['entityType'],
-  +gid: string,
-  +latest_annotation?: AnnotationT,
+  readonly entityType: AnnotatedEntityT['entityType'],
+  readonly gid: string,
+  readonly latest_annotation?: AnnotationT,
 };
 
 component Annotation(

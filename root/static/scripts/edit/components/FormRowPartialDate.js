@@ -19,10 +19,10 @@ export type ActionT = PartialDateInputActionT;
 
 type ControlledPropsT =
   | Readonly<{
-      +dispatch: (PartialDateInputActionT) => void,
-      +uncontrolled?: false,
+      readonly dispatch: (PartialDateInputActionT) => void,
+      readonly uncontrolled?: false,
     }>
-  | Readonly<{+uncontrolled: true}>;
+  | Readonly<{readonly uncontrolled: true}>;
 
 export type StateT = PartialDateFieldT;
 

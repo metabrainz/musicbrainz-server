@@ -12,10 +12,10 @@
 // MusicBrainz::Server::Entity::URL::TO_JSON
 declare type UrlT = {
   ...RelatableEntityRoleT<'url'>,
-  +decoded: string,
-  +href_url: string,
-  +pretty_name: string,
-  +show_in_external_links?: boolean,
-  +show_license_in_sidebar?: boolean,
-  +sidebar_name?: string,
+  readonly decoded: string,
+  readonly href_url: string,
+  readonly pretty_name: string,
+  readonly show_in_external_links?: boolean,
+  readonly show_license_in_sidebar?: boolean,
+  readonly sidebar_name?: string,
 };

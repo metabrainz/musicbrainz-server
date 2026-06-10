@@ -14,9 +14,9 @@ import CollapsibleList from './CollapsibleList.js';
 import EntityLink from './EntityLink.js';
 
 type RelationT = {
-  +credit: string,
-  +entity: ArtistT,
-  +roles: ReadonlyArray<string>,
+  readonly credit: string,
+  readonly entity: ArtistT,
+  readonly roles: ReadonlyArray<string>,
 };
 
 const buildArtistRoleRow = (relation: RelationT) => {

@@ -16,28 +16,28 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type CoverArtReleaseFormatStatT = {
-  +format: string,
-  +stat_name: string,
+  readonly format: string,
+  readonly stat_name: string,
 };
 
 type CoverArtReleaseStatusStatT = {
-  +stat_name: string,
-  +status: string,
+  readonly stat_name: string,
+  readonly status: string,
 };
 
 type CoverArtReleaseTypeStatT = {
-  +stat_name: string,
-  +type: string,
+  readonly stat_name: string,
+  readonly type: string,
 };
 
 type EventArtEventTypeStatT = {
-  +stat_name: string,
-  +type: string,
+  readonly stat_name: string,
+  readonly type: string,
 };
 
 type ArtTypeStatT = {
-  +stat_name: string,
-  +type: string,
+  readonly stat_name: string,
+  readonly type: string,
 };
 
 const nameOrNull = (name: string, defaultName: string) => {

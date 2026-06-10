@@ -10,8 +10,8 @@
 import * as React from 'react';
 
 type AcoustIdTrackT = {
-  +disabled?: boolean,
-  +id: string,
+  readonly disabled?: boolean,
+  readonly id: string,
 };
 
 type AcoustIdRequestCallbackT =

@@ -21,10 +21,10 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import HiddenField from '../static/scripts/edit/components/HiddenField.js';
 
 type ChangePasswordFormT = FormT<{
-  +confirm_password: FieldT<string>,
-  +old_password: FieldT<string>,
-  +password: FieldT<string>,
-  +username: FieldT<string>,
+  readonly confirm_password: FieldT<string>,
+  readonly old_password: FieldT<string>,
+  readonly password: FieldT<string>,
+  readonly username: FieldT<string>,
 }>;
 
 component ChangePasswordPageContent(
