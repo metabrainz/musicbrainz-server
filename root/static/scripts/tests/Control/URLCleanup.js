@@ -7846,6 +7846,13 @@ limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://music.youtube.com/@retland?si=XZgqAHnyrtcIGjbN',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtubemusic',
+            expected_clean_url: 'https://music.youtube.com/@retland',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://music.youtube.com/playlist?list=OLAK5uy_lcx2mROj6Pf7bLJzgYWtl73ILCEKjnrKY&src=Linkfire&lId=c8d7d454-d63c-4bba-a34c-2512e803dadb&cId=d3d58fd7-4c47-11e6-9fd0-066c3e7a8751',
              input_entity_type: 'release',
        input_relationship_type: 'streamingfree',

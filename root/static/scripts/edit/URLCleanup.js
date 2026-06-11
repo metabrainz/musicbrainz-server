@@ -7593,6 +7593,8 @@ export const CLEANUPS: CleanupEntries = {
       url = url.replace(/^(https?:\/\/)?music\.youtube\.com(?:\/#)?/, 'https://music.youtube.com');
       // Channel (artist) URL
       url = url.replace(/\/channel\/([^/?#]+).*$/, '/channel/$1');
+      // YouTube handle
+      url = url.replace(/^https:\/\/music\.youtube\.com\/(@[a-zA-Z0-9_%.-]+).*$/, 'https://music.youtube.com/$1');
       // Video (track) URL
       url = url.replace(/^https:\/\/music\.youtube\.com\/.*[?&](v=[a-zA-Z0-9_-]+).*$/, 'https://music.youtube.com/watch?$1');
       // Playlist (release) URL
@@ -7627,7 +7629,8 @@ export const CLEANUPS: CleanupEntries = {
             };
           }
           return {
-            result: /^https:\/\/music\.youtube\.com\/channel\/[^/?#]+$/.test(url),
+            result: /^https:\/\/music\.youtube\.com\/channel\/[^/?#]+$/.test(url) ||
+                    /^https:\/\/music\.youtube\.com\/@[a-zA-Z0-9_%.-]+$/.test(url),
             target: ERROR_TARGETS.URL,
           };
         case LINK_TYPES.streamingfree.recording:
