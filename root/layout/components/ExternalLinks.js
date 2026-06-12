@@ -79,10 +79,10 @@ component ExternalLinks(
   const links = [];
   const priorityLinks = [];
   const otherLinks: Array<{
-    +editsPending: boolean,
-    +entityCredit: string,
-    +id: number,
-    +url: UrlT,
+    readonly editsPending: boolean,
+    readonly entityCredit: string,
+    readonly id: number,
+    readonly url: UrlT,
   }> = [];
 
   for (let i = 0; i < relationships.length; i++) {

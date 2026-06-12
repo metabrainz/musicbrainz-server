@@ -34,7 +34,7 @@ import type {
 type RecentEntitiesT = {[entityTypeKey: string]: unknown};
 
 type WsJsEntitiesDataT<T extends EntityItemT> = {
-  +results: {+[id: string]: ?T},
+  readonly results: {readonly [id: string]: ?T},
 };
 
 function _getStoredMap(): RecentEntitiesT {

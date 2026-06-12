@@ -417,16 +417,16 @@ function createInitialNamesState(
 
 export function createInitialState(
   initialState: {
-    +artistCredit?: ArtistCreditT,
-    +entity?: ArtistCreditableT,
-    +formName?: string,
+    readonly artistCredit?: ArtistCreditT,
+    readonly entity?: ArtistCreditableT,
+    readonly formName?: string,
     /*
      * `id` should uniquely identify the artist credit editor instance
      * on the page. (Note: Using the entity ID may not suffice, as some
      * releases will repeat the same recording!)
      */
-    +id: string,
-    +isOpen?: boolean,
+    readonly id: string,
+    readonly isOpen?: boolean,
   },
 ): StateT {
   const {

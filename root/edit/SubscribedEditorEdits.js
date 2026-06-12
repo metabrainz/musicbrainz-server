@@ -13,9 +13,9 @@ import EditList from './components/EditList.js';
 
 component SubscribedEditorEdits(
   editCountLimit: number,
-  edits: ReadonlyArray<Readonly<{...EditT, +id: number}>>,
+  edits: ReadonlyArray<Readonly<{...EditT, readonly id: number}>>,
   pager: PagerT,
-  refineUrlArgs?: {+[argument: string]: string},
+  refineUrlArgs?: {readonly [argument: string]: string},
 ) {
   return (
     <Layout fullWidth title={l('Edits by your subscribed editors')}>

@@ -57,7 +57,7 @@ export default function withLoadedTypeInfo<Config: {...}>(
 
       const responseJson: {
         // $FlowFixMe[unclear-type]
-        +[listName: string]: Array<any>,
+        readonly [listName: string]: Array<any>,
       } = await response.json();
       const typeInfo = responseJson[typeName + '_list'];
 

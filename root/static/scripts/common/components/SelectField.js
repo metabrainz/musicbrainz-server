@@ -17,7 +17,7 @@ const buildOption = (option: SelectOptionT, index: number) => (
 );
 
 const buildOptGroup = (
-  optgroup: {+optgroup: string, +options: SelectOptionsT},
+  optgroup: {readonly optgroup: string, readonly options: SelectOptionsT},
   index: number,
 ) => (
   <optgroup key={index} label={optgroup.optgroup}>

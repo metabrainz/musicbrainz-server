@@ -19,15 +19,15 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, TimelineLink} from './utilities.js';
 
 type LanguageStatT = {
-  +entity: LanguageT | null,
-  +releases: number,
-  +total: number,
-  +works: number,
+  readonly entity: LanguageT | null,
+  readonly releases: number,
+  readonly total: number,
+  readonly works: number,
 };
 
 type ScriptStatT = {
-  +count: number,
-  +entity: ScriptT | null,
+  readonly count: number,
+  readonly entity: ScriptT | null,
 };
 
 component LanguagesScripts(

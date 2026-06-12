@@ -20,7 +20,7 @@ import EntityTabLink from './EntityTabLink.js';
 import Tabs from './Tabs.js';
 
 const tabLinkNames: {
-  +[tabLinkKey: string]: (() => string),
+  readonly [tabLinkKey: string]: (() => string),
 } = {
   artists: N_l('Artists'),
   events: N_l('Events'),

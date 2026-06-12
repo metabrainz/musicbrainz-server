@@ -77,7 +77,10 @@ function doSearch<T extends EntityItemT>(
     }
 
     const entities = JSON.parse(searchXhr.responseText);
-    const pager: {+current: StrOrNum, +pages: StrOrNum} = entities.pop();
+    const pager: {
+      readonly current: StrOrNum,
+      readonly pages: StrOrNum,
+    } = entities.pop();
     const newPage = parseInt(pager.current, 10);
     const totalPages = parseInt(pager.pages, 10);
 
@@ -142,30 +145,30 @@ function setScrollPosition(menuId: string) {
 }
 
 type InitialStateT<T extends EntityItemT> = {
-  +canChangeType?: (string) => boolean,
-  +containerClass?: string,
-  +disabled?: boolean,
-  +entityType: T['entityType'],
-  +extractSearchTerms?: (OptionItemT<T>) => Array<string>,
-  +htmlName?: string,
-  +id: string,
-  +inputChangeHook?: (
+  readonly canChangeType?: (string) => boolean,
+  readonly containerClass?: string,
+  readonly disabled?: boolean,
+  readonly entityType: T['entityType'],
+  readonly extractSearchTerms?: (OptionItemT<T>) => Array<string>,
+  readonly htmlName?: string,
+  readonly id: string,
+  readonly inputChangeHook?: (
     inputValue: string,
     state: StateT<T>,
     selectItem: (OptionItemT<T>) => boolean,
   ) => boolean,
-  +inputClass?: string,
-  +inputRef?: {-current: HTMLInputElement | null},
-  +inputValue?: string,
-  +isLookupPerformed?: boolean,
-  +label?: string,
-  +placeholder?: string,
-  +recentItemsKey?: string,
-  +required?: boolean,
-  +selectedItem?: OptionItemT<T> | null,
-  +showLabel?: boolean,
-  +staticItems?: ReadonlyArray<OptionItemT<T>>,
-  +width?: string,
+  readonly inputClass?: string,
+  readonly inputRef?: {-current: HTMLInputElement | null},
+  readonly inputValue?: string,
+  readonly isLookupPerformed?: boolean,
+  readonly label?: string,
+  readonly placeholder?: string,
+  readonly recentItemsKey?: string,
+  readonly required?: boolean,
+  readonly selectedItem?: OptionItemT<T> | null,
+  readonly showLabel?: boolean,
+  readonly staticItems?: ReadonlyArray<OptionItemT<T>>,
+  readonly width?: string,
 };
 
 const EMPTY_ITEMS: ReadonlyArray<ItemT<empty>> = Object.freeze([]);

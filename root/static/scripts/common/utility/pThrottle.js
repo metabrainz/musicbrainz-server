@@ -40,13 +40,13 @@ export class ThrottleAbortError extends Error {
 }
 
 export type ThrottleOptionsT = {
-  +interval: number,
-  +limit: number,
+  readonly interval: number,
+  readonly limit: number,
 };
 
-export type ThrottleResultT<+R extends unknown> = {
-  +abort: () => void,
-  +promise: Promise<R>,
+export type ThrottleResultT<out R extends unknown> = {
+  readonly abort: () => void,
+  readonly promise: Promise<R>,
 };
 
 const pThrottle = <

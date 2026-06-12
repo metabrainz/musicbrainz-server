@@ -15,7 +15,7 @@ type SearchOptionValueT =
   (() => string) | null;
 
 type SearchOptionGroupT = {
-  +[optionName: string]: SearchOptionValueT,
+  readonly [optionName: string]: SearchOptionValueT,
   ...
 };
 

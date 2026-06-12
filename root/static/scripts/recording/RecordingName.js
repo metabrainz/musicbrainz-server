@@ -28,7 +28,7 @@ function reducer(
 
 export component RecordingName(
   field: FieldT<string>,
-  recording: {+entityType: 'recording', +name: string},
+  recording: {readonly entityType: 'recording', readonly name: string},
 ) {
   /*
    * State must be moved higher up in the component hierarchy once more

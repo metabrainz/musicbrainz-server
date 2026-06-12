@@ -25,11 +25,11 @@ export function gotMatch<T>(x: T | NO_MATCH): implies x is T {
   );
 }
 
-export type VarArgsObject<+T> = {
-  +[arg: string]: T,
+export type VarArgsObject<out T> = {
+  readonly [arg: string]: T,
 };
 
-export interface VarArgsClass<+T> {
+export interface VarArgsClass<out T> {
   get(name: string): T,
   getKey(name: string): string,
   has(name: string): boolean,
@@ -37,8 +37,8 @@ export interface VarArgsClass<+T> {
 
 let nextKey = 1;
 
-export class VarArgs<+T> implements VarArgsClass<T> {
-  +data: VarArgsObject<T>;
+export class VarArgs<out T> implements VarArgsClass<T> {
+  readonly data: VarArgsObject<T>;
 
   constructor(data: VarArgsObject<T>) {
     this.data = data;
@@ -57,7 +57,7 @@ export class VarArgs<+T> implements VarArgsClass<T> {
   }
 }
 
-export type Parser<+T, -V> = (VarArgsClass<V>) => T;
+export type Parser<out T, in V> = (VarArgsClass<V>) => T;
 
 const EMPTY_OBJECT = Object.freeze({});
 

@@ -15,7 +15,7 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import UserList from './components/UserList.js';
 
 type EmailSearchFormT = FormT<{
-  +email: FieldT<string>,
+  readonly email: FieldT<string>,
 }>;
 
 component EmailSearch(

@@ -14,8 +14,8 @@ import buildOptionList from '../../common/utility/buildOptionList.js';
 import parseIntegerOrNull from '../../common/utility/parseIntegerOrNull.js';
 
 export type WorkTypeSelectActionT = {
-  +type: 'update-work-type',
-  +workType: number | null,
+  readonly type: 'update-work-type',
+  readonly workType: number | null,
 };
 
 function workTypeValue(workType: number | null): string {

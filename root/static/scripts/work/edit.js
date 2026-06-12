@@ -41,21 +41,21 @@ import initializeGuessCase from '../guess-case/MB/Control/GuessCase.js';
 const scriptArgs: any = getScriptArgs();
 
 type WorkAttributeField = CompoundFieldT<{
-  +type_id: FieldT<?number>,
-  +value: FieldT<?StrOrNum>,
+  readonly type_id: FieldT<?number>,
+  readonly value: FieldT<?StrOrNum>,
 }>;
 
 type WorkForm = FormT<{
-  +attributes: RepeatableFieldT<WorkAttributeField>,
-  +languages: RepeatableFieldT<FieldT<?number>>,
+  readonly attributes: RepeatableFieldT<WorkAttributeField>,
+  readonly languages: RepeatableFieldT<FieldT<?number>>,
 }>;
 
 type ActionT =
-  | {+type: 'ADD_LANGUAGE'}
+  | {readonly type: 'ADD_LANGUAGE'}
   | {
-      +index: number,
-      +languageId: string,
-      +type: 'EDIT_LANGUAGE',
+      readonly index: number,
+      readonly languageId: string,
+      readonly type: 'EDIT_LANGUAGE',
     }
   | {
       index: number,
@@ -277,8 +277,8 @@ function byID(
   if (!attributes.field.length) {
     form = mutate(form).update('field', 'attributes', (attributesCtx) => {
       pushCompoundField<{
-        +type_id: ?number,
-        +value: ?StrOrNum,
+        readonly type_id: ?number,
+        readonly value: ?StrOrNum,
       }>(attributesCtx, {
         type_id: null,
         value: null,

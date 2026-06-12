@@ -495,47 +495,47 @@ component UserEditsProperty(
 }
 
 type EditStatsT = {
-  +accepted_auto_count: number,
-  +accepted_count: number,
-  +cancelled_count: number,
-  +failed_count: number,
-  +last_day_count: number,
-  +open_count: number,
-  +rejected_count: number,
+  readonly accepted_auto_count: number,
+  readonly accepted_count: number,
+  readonly cancelled_count: number,
+  readonly failed_count: number,
+  readonly last_day_count: number,
+  readonly open_count: number,
+  readonly rejected_count: number,
 };
 
 type SecondaryStatsT = {
-  +downvoted_tag_count?: number,
-  +rating_count?: number,
-  +upvoted_tag_count?: number,
+  readonly downvoted_tag_count?: number,
+  readonly rating_count?: number,
+  readonly upvoted_tag_count?: number,
 };
 
 type VoteStatsT = Array<{
-  +all: {
-    +count: number,
-    +percentage: number,
+  readonly all: {
+    readonly count: number,
+    readonly percentage: number,
   },
-  +name: string,
-  +recent: {
-    +count: number,
-    +percentage: number,
+  readonly name: string,
+  readonly recent: {
+    readonly count: number,
+    readonly percentage: number,
   },
 }>;
 
 type EntitiesStatsT = {
-  +area: number,
-  +artist: number,
-  +cover_art: number,
-  +event: number,
-  +event_art: number,
-  +instrument: number,
-  +label: number,
-  +place: number,
-  +recording: number,
-  +release: number,
-  +releasegroup: number,
-  +series: number,
-  +work: number,
+  readonly area: number,
+  readonly artist: number,
+  readonly cover_art: number,
+  readonly event: number,
+  readonly event_art: number,
+  readonly instrument: number,
+  readonly label: number,
+  readonly place: number,
+  readonly recording: number,
+  readonly release: number,
+  readonly releasegroup: number,
+  readonly series: number,
+  readonly work: number,
 };
 
 component UserProfileStatistics(

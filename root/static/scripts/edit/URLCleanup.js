@@ -11,15 +11,15 @@ import $ from 'jquery';
 import {parse as tldtsParse} from 'tldts';
 
 type EntityTypesMap = {
-  +[entityType: RelatableEntityTypeT]: RelationshipTypeT,
+  readonly [entityType: RelatableEntityTypeT]: RelationshipTypeT,
 };
 
 type EntityTypeMap = {
-  +[entityType: RelatableEntityTypeT]: string,
+  readonly [entityType: RelatableEntityTypeT]: string,
 };
 
 type LinkTypeMap = {
-  +[type: string]: EntityTypeMap,
+  readonly [type: string]: EntityTypeMap,
 };
 
 export type RelationshipTypeT =
@@ -435,25 +435,25 @@ const linkAsLyricsMsg = N_l(
  */
 
 type ValidationResult = {
-  +error?: React.Node,
+  readonly error?: React.Node,
   result: boolean,
-  +target?: Values<typeof ERROR_TARGETS>,
+  readonly target?: Values<typeof ERROR_TARGETS>,
 };
 
 type CleanupEntry = {
-  +clean?: (url: string) => string,
-  +hostname: string | ReadonlyArray<string>,
-  +match: ReadonlyArray<RegExp>,
-  +restrict?: ReadonlyArray<EntityTypesMap>,
-  +select?:
+  readonly clean?: (url: string) => string,
+  readonly hostname: string | ReadonlyArray<string>,
+  readonly match: ReadonlyArray<RegExp>,
+  readonly restrict?: ReadonlyArray<EntityTypesMap>,
+  readonly select?:
     (url: string, sourceType: RelatableEntityTypeT) =>
     | RelationshipTypeT
     | false, // No match
-  +validate?: (url: string, id: string) => ValidationResult,
+  readonly validate?: (url: string, id: string) => ValidationResult,
 };
 
 type CleanupEntries = {
-  +[type: string]: CleanupEntry,
+  readonly [type: string]: CleanupEntry,
 };
 
 /* eslint-disable sort-keys */
@@ -7796,7 +7796,7 @@ function findCleanupEntry(inputUrl: string): CleanupEntry | null {
 }
 
 export const CLEANUP_ENTRIES_BY_HOSTNAME:
-  {+[hostname: string]: ReadonlyArray<CleanupEntry>} =
+  {readonly [hostname: string]: ReadonlyArray<CleanupEntry>} =
     Object.values(CLEANUPS).reduce((accum, entry) => {
       const hostnames = Array.isArray(entry.hostname)
         ? entry.hostname
@@ -7942,7 +7942,7 @@ export class Checker {
 
   cleanup: ?CleanupEntry;
 
-  +possibleTypes: ReadonlyArray<RelationshipTypeT>;
+  readonly possibleTypes: ReadonlyArray<RelationshipTypeT>;
 
   constructor(url: string, entityType: RelatableEntityTypeT) {
     this.url = url;

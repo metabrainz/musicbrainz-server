@@ -40,21 +40,21 @@ import {
 } from '../../edit/utility/createField.js';
 
 type Props = {
-  +collectionTypes: SelectOptionsT,
-  +form: CollectionEditFormT,
+  readonly collectionTypes: SelectOptionsT,
+  readonly form: CollectionEditFormT,
 };
 
 type StateT = {
-  +collaborators: CollaboratorsStateT,
+  readonly collaborators: CollaboratorsStateT,
 };
 
 type ActionT =
-  | {+type: 'add-collaborator'}
-  | {+fieldId: number, +type: 'remove-collaborator'}
+  | {readonly type: 'add-collaborator'}
+  | {readonly fieldId: number, readonly type: 'remove-collaborator'}
   | {
-      +action: AutocompleteActionT<EditorT>,
-      +fieldId: number,
-      +type: 'update-collaborator',
+      readonly action: AutocompleteActionT<EditorT>,
+      readonly fieldId: number,
+      readonly type: 'update-collaborator',
     };
 
 function createCollaboratorAutocompleteState(
@@ -236,7 +236,7 @@ const CollectionEditForm = ({
 };
 
 type CollaboratorsFormListPropsT = {
-  +form: CollectionEditFormT,
+  readonly form: CollectionEditFormT,
 };
 
 const CollaboratorsFormList = hydrate<CollaboratorsFormListPropsT>(
@@ -293,9 +293,9 @@ const CollaboratorsFormList = hydrate<CollaboratorsFormListPropsT>(
 ) as component(...CollaboratorsFormListPropsT);
 
 type CollaboratorRowPropsT = {
-  +collaborator: CollaboratorStateT,
-  +removeCollaborator: (fieldId: number) => void,
-  +updateCollaborator: (
+  readonly collaborator: CollaboratorStateT,
+  readonly removeCollaborator: (fieldId: number) => void,
+  readonly updateCollaborator: (
     fieldId: number,
     action: AutocompleteActionT<EditorT>,
   ) => void,

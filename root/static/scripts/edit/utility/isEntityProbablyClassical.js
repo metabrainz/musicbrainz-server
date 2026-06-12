@@ -24,8 +24,8 @@ const testRelationship = (r: RelationshipT) => {
 
 export default function isEntityProbablyClassical(
   entity: {
-    +name: string | KnockoutObservable<string>,
-    +relationships?:
+    readonly name: string | KnockoutObservable<string>,
+    readonly relationships?:
       | ReadonlyArray<RelationshipT>
       | KnockoutObservableArray<RelationshipT>,
     ...

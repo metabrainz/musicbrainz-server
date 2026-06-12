@@ -26,7 +26,10 @@ import {areFormattedLengthsEqual} from './utils.js';
 component AttachCDTocConfirmation(
   cdToc: CDTocT,
   form: ConfirmFormT,
-  medium: Readonly<{...MediumT, +cdtoc_tracks: ReadonlyArray<TrackT>}>,
+  medium: Readonly<{
+    ...MediumT,
+    readonly cdtoc_tracks: ReadonlyArray<TrackT>,
+  }>,
 ) {
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);

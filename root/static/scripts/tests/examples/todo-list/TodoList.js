@@ -10,21 +10,21 @@ import Todo, {
 } from './Todo.js';
 
 type PropsT = {
-  +initialTodos: ReadonlyArray<TodoStateT>,
+  readonly initialTodos: ReadonlyArray<TodoStateT>,
 };
 
 type StateT = {
-  +todos: ReadonlyArray<TodoStateT>,
+  readonly todos: ReadonlyArray<TodoStateT>,
 };
 
 type ActionT =
   | {
-      +type: 'add-todo',
+      readonly type: 'add-todo',
     }
   | {
-      +action: TodoActionT,
-      +key: number,
-      +type: 'update-todo',
+      readonly action: TodoActionT,
+      readonly key: number,
+      readonly type: 'update-todo',
     };
 
 export function createInitialState(

@@ -16,21 +16,21 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import UserList from './components/UserList.js';
 
 type PrivilegeSearchFormT = FormT<{
-  +account_admin: FieldT<boolean>,
-  +adding_notes_disabled: FieldT<boolean>,
-  +auto_editor: FieldT<boolean>,
-  +banner_editor: FieldT<boolean>,
-  +bot: FieldT<boolean>,
-  +editing_disabled: FieldT<boolean>,
-  +link_editor: FieldT<boolean>,
-  +location_editor: FieldT<boolean>,
-  +mbid_submitter: FieldT<boolean>,
-  +no_nag: FieldT<boolean>,
-  +show_exact: FieldT<boolean>,
-  +spammer: FieldT<boolean>,
-  +untrusted: FieldT<boolean>,
-  +voting_disabled: FieldT<boolean>,
-  +wiki_transcluder: FieldT<boolean>,
+  readonly account_admin: FieldT<boolean>,
+  readonly adding_notes_disabled: FieldT<boolean>,
+  readonly auto_editor: FieldT<boolean>,
+  readonly banner_editor: FieldT<boolean>,
+  readonly bot: FieldT<boolean>,
+  readonly editing_disabled: FieldT<boolean>,
+  readonly link_editor: FieldT<boolean>,
+  readonly location_editor: FieldT<boolean>,
+  readonly mbid_submitter: FieldT<boolean>,
+  readonly no_nag: FieldT<boolean>,
+  readonly show_exact: FieldT<boolean>,
+  readonly spammer: FieldT<boolean>,
+  readonly untrusted: FieldT<boolean>,
+  readonly voting_disabled: FieldT<boolean>,
+  readonly wiki_transcluder: FieldT<boolean>,
 }>;
 
 component PrivilegeSearch(

@@ -30,7 +30,7 @@ let revManifest;
 let legacyRevManifest;
 
 function pathTo(manifest: string, legacyBrowser: boolean) {
-  let mapping: {+[manifest: string]: string};
+  let mapping: {readonly [manifest: string]: string};
 
   if (legacyBrowser) {
     if (legacyRevManifest == null) {

@@ -12,138 +12,140 @@
 // Most of these types are serialized in the MusicBrainz::Server package.
 
 declare type CatalystActionT = {
-  +name: string,
+  readonly name: string,
 };
 
 declare type CatalystContextT = {
-  +action: CatalystActionT,
-  +flash: {
-    +message?: string,
+  readonly action: CatalystActionT,
+  readonly flash: {
+    readonly message?: string,
   },
-  +relative_uri: string,
-  +req: CatalystRequestContextT,
-  +session: CatalystSessionT | null,
-  +sessionid: string | null,
-  +stash: CatalystStashT,
-  +user?: UnsanitizedEditorT,
+  readonly relative_uri: string,
+  readonly req: CatalystRequestContextT,
+  readonly session: CatalystSessionT | null,
+  readonly sessionid: string | null,
+  readonly stash: CatalystStashT,
+  readonly user?: UnsanitizedEditorT,
 };
 
 declare type CatalystRequestContextT = {
-  +body_params: {+[param: string]: string},
-  +headers: {+[header: string]: string},
-  +method: string,
-  +query_params: {+[param: string]: string},
-  +secure: boolean,
-  +uri: string,
+  readonly body_params: {readonly [param: string]: string},
+  readonly headers: {readonly [header: string]: string},
+  readonly method: string,
+  readonly query_params: {readonly [param: string]: string},
+  readonly secure: boolean,
+  readonly uri: string,
 };
 
 declare type CatalystSessionT = {
-  +merger?: MergeQueueT,
-  +tport?: number,
+  readonly merger?: MergeQueueT,
+  readonly tport?: number,
 };
 
 declare type CatalystStashT = {
-  +alert?: string,
-  +alert_mtime?: number | null,
-  +artist_credit?: ArtistCreditT,
-  +artist_credit_field?: ArtistCreditFieldT,
-  +can_delete?: boolean,
-  +collaborative_collections?: ReadonlyArray<CollectionT>,
-  +commons_image?: CommonsImageT | null,
-  +containment?: {
+  readonly alert?: string,
+  readonly alert_mtime?: number | null,
+  readonly artist_credit?: ArtistCreditT,
+  readonly artist_credit_field?: ArtistCreditFieldT,
+  readonly can_delete?: boolean,
+  readonly collaborative_collections?: ReadonlyArray<CollectionT>,
+  readonly commons_image?: CommonsImageT | null,
+  readonly containment?: {
     [collectionId: number]: ?1,
   },
-  +current_action_requires_auth?: boolean,
-  +current_isrcs?: ReadonlyArray<string>,
-  +current_iswcs?: ReadonlyArray<string>,
-  +current_language: string,
-  +current_language_html: string,
-  +entity?: RelatableEntityT,
-  +event_artwork?: EventArtT,
-  +event_artwork_count?: number,
-  +genre_map?: {+[genreName: string]: GenreT, ...},
-  +globals_script_nonce?: string,
-  +has_content_security_policy?: boolean,
-  +hide_merge_helper?: boolean,
-  +jsonld_data?: {...},
-  +last_replication_date?: string,
-  +legacy_browser?: boolean,
-  +makes_no_changes?: boolean,
-  +more_tags?: boolean,
-  +mtcaptcha_script_nonce?: string,
-  +new_edit_notes?: boolean,
-  +new_edit_notes_mtime?: number | null,
-  +number_of_collections?: number,
-  +number_of_revisions?: number,
-  +overlong_string?: boolean,
-  +own_collections?: ReadonlyArray<CollectionT>,
-  +release_artwork?: ReleaseArtT,
-  +release_artwork_count?: number,
-  +release_cdtoc_count?: number,
-  +seeded_relationships?: ?ReadonlyArray<SeededRelationshipT>,
-  +seeded_release_data?: ReleaseEditorSeedT,
-  +series_ordering_types?: {+[id: number]: SeriesOrderingTypeT},
-  +server_languages?: ReadonlyArray<ServerLanguageT>,
-  +source_entity?: ?SourceEntityDataT,
-  +subscribed?: boolean,
-  +to_merge?: ReadonlyArray<MergeableEntityT>,
-  +top_tags?: ReadonlyArray<AggregatedTagT>,
-  +user_tags?: ReadonlyArray<UserTagT>,
-  +within_dialog?: boolean,
+  readonly current_action_requires_auth?: boolean,
+  readonly current_isrcs?: ReadonlyArray<string>,
+  readonly current_iswcs?: ReadonlyArray<string>,
+  readonly current_language: string,
+  readonly current_language_html: string,
+  readonly entity?: RelatableEntityT,
+  readonly event_artwork?: EventArtT,
+  readonly event_artwork_count?: number,
+  readonly genre_map?: {readonly [genreName: string]: GenreT, ...},
+  readonly globals_script_nonce?: string,
+  readonly has_content_security_policy?: boolean,
+  readonly hide_merge_helper?: boolean,
+  readonly jsonld_data?: {...},
+  readonly last_replication_date?: string,
+  readonly legacy_browser?: boolean,
+  readonly makes_no_changes?: boolean,
+  readonly more_tags?: boolean,
+  readonly mtcaptcha_script_nonce?: string,
+  readonly new_edit_notes?: boolean,
+  readonly new_edit_notes_mtime?: number | null,
+  readonly number_of_collections?: number,
+  readonly number_of_revisions?: number,
+  readonly overlong_string?: boolean,
+  readonly own_collections?: ReadonlyArray<CollectionT>,
+  readonly release_artwork?: ReleaseArtT,
+  readonly release_artwork_count?: number,
+  readonly release_cdtoc_count?: number,
+  readonly seeded_relationships?: ?ReadonlyArray<SeededRelationshipT>,
+  readonly seeded_release_data?: ReleaseEditorSeedT,
+  readonly series_ordering_types?:
+    {readonly [id: number]: SeriesOrderingTypeT},
+  readonly server_languages?: ReadonlyArray<ServerLanguageT>,
+  readonly source_entity?: ?SourceEntityDataT,
+  readonly subscribed?: boolean,
+  readonly to_merge?: ReadonlyArray<MergeableEntityT>,
+  readonly top_tags?: ReadonlyArray<AggregatedTagT>,
+  readonly user_tags?: ReadonlyArray<UserTagT>,
+  readonly within_dialog?: boolean,
 };
 
 // MusicBrainz::Server::MergeQueue::TO_JSON
 declare type MergeQueueT = {
-  +entities: ReadonlyArray<number>,
-  +ready_to_merge: boolean,
-  +type: MergeableEntityTypeT,
+  readonly entities: ReadonlyArray<number>,
+  readonly ready_to_merge: boolean,
+  readonly type: MergeableEntityTypeT,
 };
 
 // root/utility/sanitizedContext.mjs
 declare type SanitizedCatalystSessionT = {
-  +tport?: number,
+  readonly tport?: number,
 };
 
 declare type SanitizedCatalystContextT = {
-  +action: {
-    +name: string,
+  readonly action: {
+    readonly name: string,
   },
-  +relative_uri: string,
-  +req: {
-    +method: string,
-    +query_params: {+[param: string]: string},
-    +uri: string,
+  readonly relative_uri: string,
+  readonly req: {
+    readonly method: string,
+    readonly query_params: {readonly [param: string]: string},
+    readonly uri: string,
   },
-  +session: SanitizedCatalystSessionT | null,
-  +stash: {
-    +artist_credit?: ArtistCreditT,
-    +artist_credit_field?: ArtistCreditFieldT,
-    +current_isrcs?: ReadonlyArray<string>,
-    +current_iswcs?: ReadonlyArray<string>,
-    +current_language: string,
-    +genre_map?: {+[genreName: string]: GenreT, ...},
-    +mtcaptcha_script_nonce?: string,
-    +seeded_relationships?: ?ReadonlyArray<SeededRelationshipT>,
-    +seeded_release_data?: ReleaseEditorSeedT,
-    +series_ordering_types?: {+[id: number]: SeriesOrderingTypeT},
-    +server_languages?: ReadonlyArray<ServerLanguageT>,
-    +source_entity?: ?SourceEntityDataT,
+  readonly session: SanitizedCatalystSessionT | null,
+  readonly stash: {
+    readonly artist_credit?: ArtistCreditT,
+    readonly artist_credit_field?: ArtistCreditFieldT,
+    readonly current_isrcs?: ReadonlyArray<string>,
+    readonly current_iswcs?: ReadonlyArray<string>,
+    readonly current_language: string,
+    readonly genre_map?: {readonly [genreName: string]: GenreT, ...},
+    readonly mtcaptcha_script_nonce?: string,
+    readonly seeded_relationships?: ?ReadonlyArray<SeededRelationshipT>,
+    readonly seeded_release_data?: ReleaseEditorSeedT,
+    readonly series_ordering_types?:
+      {readonly [id: number]: SeriesOrderingTypeT},
+    readonly server_languages?: ReadonlyArray<ServerLanguageT>,
+    readonly source_entity?: ?SourceEntityDataT,
   },
-  +user: ActiveEditorT | null,
+  readonly user: ActiveEditorT | null,
 };
 
 declare type ServerLanguageT = {
-  +id: number,
-  +name: string,
-  +native_language: string,
-  +native_territory: string,
+  readonly id: number,
+  readonly name: string,
+  readonly native_language: string,
+  readonly native_territory: string,
 };
 
 declare type SourceEntityDataT =
   | RelatableEntityT
   | {
-      +entityType: RelatableEntityTypeT,
-      +isNewEntity: true,
-      +name?: string,
-      +orderingTypeID?: number,
+      readonly entityType: RelatableEntityTypeT,
+      readonly isNewEntity: true,
+      readonly name?: string,
+      readonly orderingTypeID?: number,
     };

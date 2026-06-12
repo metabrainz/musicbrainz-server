@@ -18,10 +18,10 @@ import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT} from './types.js';
 
 type ReportEntryT = {
-  +count: number,
-  +row_number: number,
-  +url: ?UrlT,
-  +url_id: number,
+  readonly count: number,
+  readonly row_number: number,
+  readonly url: ?UrlT,
+  readonly url_id: number,
 };
 
 component LinksWithMultipleEntities(...{

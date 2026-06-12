@@ -19,12 +19,12 @@ import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT} from './types.js';
 
 type ReportRowT = {
-  +barcode: string,
-  +release: ?ReleaseT,
-  +release_group: ?ReleaseGroupT,
-  +release_group_id: number,
-  +release_id: number,
-  +row_number: number,
+  readonly barcode: string,
+  readonly release: ?ReleaseT,
+  readonly release_group: ?ReleaseGroupT,
+  readonly release_group_id: number,
+  readonly release_id: number,
+  readonly row_number: number,
 };
 
 component ReleasesSameBarcode(...{

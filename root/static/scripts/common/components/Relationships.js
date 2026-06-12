@@ -20,7 +20,7 @@ import RelatedWorks from './RelatedWorks.js';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
 
 type DisplayTargets = {
-  +[coreEntityType: RelatableEntityTypeT]:
+  readonly [coreEntityType: RelatableEntityTypeT]:
     ?ReadonlyArray<RelatableEntityTypeT>,
   ...
 };

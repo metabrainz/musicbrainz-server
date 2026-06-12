@@ -17,25 +17,25 @@ declare type WorkT = Readonly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,
-  +_fromBatchCreateWorksDialog?: boolean,
-  +artists: ReadonlyArray<ArtistCreditT>,
-  +attributes: ReadonlyArray<WorkAttributeT>,
-  +authors: ReadonlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: ReadonlyArray<string>,
+  readonly _fromBatchCreateWorksDialog?: boolean,
+  readonly artists: ReadonlyArray<ArtistCreditT>,
+  readonly attributes: ReadonlyArray<WorkAttributeT>,
+  readonly authors: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: ArtistT,
+    readonly roles: ReadonlyArray<string>,
   }>,
-  +iswcs: ReadonlyArray<IswcT>,
-  +languages: ReadonlyArray<WorkLanguageT>,
-  +other_artists: ReadonlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: ReadonlyArray<string>,
+  readonly iswcs: ReadonlyArray<IswcT>,
+  readonly languages: ReadonlyArray<WorkLanguageT>,
+  readonly other_artists: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: ArtistT,
+    readonly roles: ReadonlyArray<string>,
   }>,
-  +primaryAlias?: string | null,
-  +related_artists?: {
-    +artists: AppearancesT<string>,
-    +authors: AppearancesT<string>,
+  readonly primaryAlias?: string | null,
+  readonly related_artists?: {
+    readonly artists: AppearancesT<string>,
+    readonly authors: AppearancesT<string>,
   },
 }>;
 
@@ -43,5 +43,5 @@ declare type WorkTypeT = OptionTreeT<'work_type'>;
 
 // MusicBrainz::Server::Entity::WorkLanguage::TO_JSON
 declare type WorkLanguageT = {
-  +language: LanguageT,
+  readonly language: LanguageT,
 };

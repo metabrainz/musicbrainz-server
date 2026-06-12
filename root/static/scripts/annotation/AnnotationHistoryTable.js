@@ -17,14 +17,14 @@ import parseInteger from '../common/utility/parseInteger.js';
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'update-new', +index: number}
-  | {+type: 'update-old', +index: number}
+  | {readonly type: 'update-new', readonly index: number}
+  | {readonly type: 'update-old', readonly index: number}
 ;
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +selectedNew: number,
-  +selectedOld: number,
+  readonly selectedNew: number,
+  readonly selectedOld: number,
 };
 
 type WritableStateT = {...StateT}; // this has writable properties

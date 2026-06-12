@@ -28,10 +28,10 @@ import {
 import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
 type ButtonsPropsT = {
-  +dispatch: (ActionT) => void,
-  +initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
-  +initialFocusRef: {-current: HTMLElement | null},
-  +isTrack: boolean,
+  readonly dispatch: (ActionT) => void,
+  readonly initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
+  readonly initialFocusRef: {-current: HTMLElement | null},
+  readonly isTrack: boolean,
 };
 
 const Buttons = React.memo<ButtonsPropsT, React.MixedElement>(({
@@ -99,9 +99,9 @@ const ArtistCreditDocumentation = (React.memo(() => (
 )));
 
 type ArtistCreditPreviewPropsT = {
-  +editsPending: boolean | void,
-  +entity?: ArtistCreditableT,
-  +names: ReadonlyArray<ArtistCreditNameStateT>,
+  readonly editsPending: boolean | void,
+  readonly entity?: ArtistCreditableT,
+  readonly names: ReadonlyArray<ArtistCreditNameStateT>,
 };
 
 const ArtistCreditPreview = (React.memo<

@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-interface MapInterface<-K, V> {
+interface MapInterface<in K, V> {
   get(K): V | void,
   set(K, V): MapInterface<K, V>,
 }

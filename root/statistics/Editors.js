@@ -17,8 +17,8 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount} from './utilities.js';
 
 type EditorStatT = {
-  +count: number,
-  +editor: EditorT,
+  readonly count: number,
+  readonly editor: EditorT,
 };
 
 component EditorStatsTable(

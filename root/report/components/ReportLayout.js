@@ -16,7 +16,7 @@ import formatUserDate from '../../utility/formatUserDate.js';
 import FilterLink from '../FilterLink.js';
 
 const countTextPicker: {
-  +[entityType: string]: () => string,
+  readonly [entityType: string]: () => string,
 } = {
   artist: N_l('Total artists found: {count}'),
   artist_credit: N_l('Total artist credits found: {count}'),

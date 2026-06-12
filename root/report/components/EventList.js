@@ -21,7 +21,7 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-component EventList<D extends {+event: ?EventT, ...}>(
+component EventList<D extends {readonly event: ?EventT, ...}>(
   columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
   items: ReadonlyArray<D>,

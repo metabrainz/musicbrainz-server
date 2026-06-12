@@ -39,13 +39,13 @@ export type LinkPhraseProp =
   | 'reverse_link_phrase';
 
 class PhraseVarArgs<T> implements VarArgsClass<T> {
-  +data: VarArgsObject<LinkAttrs>;
+  readonly data: VarArgsObject<LinkAttrs>;
 
-  +i18n: LinkPhraseI18n<T>;
+  readonly i18n: LinkPhraseI18n<T>;
 
-  +entity0: T;
+  readonly entity0: T;
 
-  +entity1: T;
+  readonly entity1: T;
 
   /*
    * Contains attributes that appear in the text of the given link
@@ -53,7 +53,7 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
    * didn't appear in the link phrase, so that we can display them
    * separately).
    */
-  +usedPhraseAttributes: Array<string>;
+  readonly usedPhraseAttributes: Array<string>;
 
   #nextKey: number;
 

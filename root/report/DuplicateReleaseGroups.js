@@ -18,7 +18,7 @@ import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
 type ReportReleaseGroupWithKeyT = Readonly<{
   ...ReportReleaseGroupT,
-  +key: string,
+  readonly key: string,
 }>;
 
 component DuplicateReleaseGroups(...{

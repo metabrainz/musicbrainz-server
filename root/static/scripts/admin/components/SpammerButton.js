@@ -18,24 +18,24 @@ import {
 import {isSpammer} from '../../common/utility/privileges.js';
 
 type InexactUserT = {
-  +id: number,
-  +privileges: number,
+  readonly id: number,
+  readonly privileges: number,
   ...
 };
 
 export type ActionT<T extends InexactUserT> = {
-  +state: StateT<T>,  /* Looks useless, but allows parent reducers to
+  readonly state: StateT<T>,  /* Looks useless, but allows parent reducers to
                          determine which button triggered the action. */
-  +type: 'update',
-  +update: Partial<StateT<T>>,
+  readonly type: 'update',
+  readonly update: Partial<StateT<T>>,
   ...
 };
 
 export type StateT<T extends InexactUserT> = {
-  +initialPrivileges: number,
-  +requestError: string,
-  +requestPending: boolean,
-  +user: T,
+  readonly initialPrivileges: number,
+  readonly requestError: string,
+  readonly requestPending: boolean,
+  readonly user: T,
 };
 
 const SPAMMER_PRIVILEGES = (

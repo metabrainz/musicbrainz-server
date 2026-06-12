@@ -19,7 +19,7 @@ import AcoustIdCell from '../components/AcoustIdCell.js';
 
 /* eslint-disable-next-line import/prefer-default-export */
 export const acoustIdsColumn:
-  ColumnOptions<{+gid?: string, ...}, string> = {
+  ColumnOptions<{readonly gid?: string, ...}, string> = {
     accessor: x => x.gid ?? '',
     Cell: ({cell: {value}}) => <AcoustIdCell recordingMbid={value} />,
     Header: N_l('AcoustIDs'),

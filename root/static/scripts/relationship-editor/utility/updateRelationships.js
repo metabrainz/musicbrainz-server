@@ -47,14 +47,14 @@ type RelationshipConflictHandlerT =
 
 export type RelationshipUpdateT =
   | {
-      +onConflict?: RelationshipConflictHandlerT,
-      +relationship: RelationshipStateT,
-      +type: typeof ADD_RELATIONSHIP,
+      readonly onConflict?: RelationshipConflictHandlerT,
+      readonly relationship: RelationshipStateT,
+      readonly type: typeof ADD_RELATIONSHIP,
     }
   | {
-      +relationship: RelationshipStateT,
-      +throwIfNotExists: boolean,
-      +type: typeof REMOVE_RELATIONSHIP,
+      readonly relationship: RelationshipStateT,
+      readonly throwIfNotExists: boolean,
+      readonly type: typeof REMOVE_RELATIONSHIP,
     };
 
 type RelationshipUpdatesT = {

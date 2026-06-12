@@ -10,9 +10,9 @@
 // This file can be renamed to entity.js once that file is removed.
 
 type CommonPropsT = {
-  +gid?: string,
-  +id?: number,
-  +name?: string,
+  readonly gid?: string,
+  readonly id?: number,
+  readonly name?: string,
 };
 
 export function createNonUrlRelatableEntityObject(
@@ -305,7 +305,7 @@ export function createReleaseGroupObject(
 export function createSeriesObject(
   props?: Readonly<{
     ...CommonPropsT,
-    +orderingTypeID?: number,
+    readonly orderingTypeID?: number,
   }>,
 ): SeriesT {
   return {
@@ -344,9 +344,9 @@ export function createUrlObject(
 export function createWorkObject(
   props?: Readonly<{
     ...CommonPropsT,
-    +_fromBatchCreateWorksDialog?: boolean,
-    +languages?: ReadonlyArray<WorkLanguageT>,
-    +typeID?: number | null,
+    readonly _fromBatchCreateWorksDialog?: boolean,
+    readonly languages?: ReadonlyArray<WorkLanguageT>,
+    readonly typeID?: number | null,
   }>,
 ): WorkT {
   return {

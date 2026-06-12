@@ -10,15 +10,15 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Alias::TO_JSON
-declare type AliasT<+T> = Readonly<{
+declare type AliasT<out T> = Readonly<{
   ...DatePeriodRoleT,
   ...EntityRoleT<'alias'>,
   ...PendingEditsRoleT,
   ...TypeRoleT<T>,
-  +locale: string | null,
-  +name: string,
-  +primary_for_locale: boolean,
-  +sort_name: string,
+  readonly locale: string | null,
+  readonly name: string,
+  readonly primary_for_locale: boolean,
+  readonly sort_name: string,
 }>;
 
 declare type AreaAliasTypeT = OptionTreeT<'area_alias_type'>;

@@ -13,8 +13,8 @@ import isFutureDate from './isFutureDate.js';
 
 export default function isDisabledLink(
   relationshipOrLinkDatePeriod: {
-    +end_date: PartialDateT | null,
-    +ended: boolean,
+    readonly end_date: PartialDateT | null,
+    readonly ended: boolean,
     ...
   },
   entity: RelatableEntityT,

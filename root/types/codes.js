@@ -10,33 +10,33 @@
 /* eslint-disable no-unused-vars */
 
 declare type IpiCodesRoleT = {
-  +ipi_codes: ReadonlyArray<IpiCodeT>,
+  readonly ipi_codes: ReadonlyArray<IpiCodeT>,
 };
 
 declare type IpiCodeT = {
   ...PendingEditsRoleT,
-  +ipi: string,
+  readonly ipi: string,
 };
 
 declare type IsniCodesRoleT = {
-  +isni_codes: ReadonlyArray<IsniCodeT>,
+  readonly isni_codes: ReadonlyArray<IsniCodeT>,
 };
 
 declare type IsniCodeT = {
   ...PendingEditsRoleT,
-  +isni: string,
+  readonly isni: string,
 };
 
 declare type IsrcT = {
   ...EntityRoleT<'isrc'>,
   ...PendingEditsRoleT,
-  +isrc: string,
-  +recording_id: number,
+  readonly isrc: string,
+  readonly recording_id: number,
 };
 
 declare type IswcT = {
   ...EntityRoleT<'iswc'>,
   ...PendingEditsRoleT,
-  +iswc: string,
-  +work_id: number,
+  readonly iswc: string,
+  readonly work_id: number,
 };

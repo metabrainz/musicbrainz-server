@@ -12,7 +12,7 @@ import * as React from 'react';
 import {compareStrings} from '../utility/compare.mjs';
 
 export type PostParametersT = {
-  +[param: string]: string | ReadonlyArray<string>,
+  readonly [param: string]: string | ReadonlyArray<string>,
   ...
 };
 

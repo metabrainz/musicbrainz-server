@@ -28,8 +28,8 @@ type EntityWithWikipediaExtractT =
   | WorkT;
 
 type MinimalEntityWithWikipediaExtractT = {
-  +entityType: EntityWithWikipediaExtractT['entityType'],
-  +gid: string,
+  readonly entityType: EntityWithWikipediaExtractT['entityType'],
+  readonly gid: string,
 };
 
 type WikipediaExtractRequestCallbackT = (WikipediaExtractT | null) => void;

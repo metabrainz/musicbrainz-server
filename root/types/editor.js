@@ -11,22 +11,22 @@
 
 // Corresponds to serialize_user in lib/MusicBrainz/Server/Controller/User.pm
 declare type AccountLayoutUserT = {
-  +avatar: string,
-  +deleted: boolean,
-  +entityType: 'editor',
-  +id: number,
-  +name: string,
-  +preferences: {
-    +public_ratings: boolean,
-    +public_subscriptions: boolean,
-    +public_tags: boolean,
+  readonly avatar: string,
+  readonly deleted: boolean,
+  readonly entityType: 'editor',
+  readonly id: number,
+  readonly name: string,
+  readonly preferences: {
+    readonly public_ratings: boolean,
+    readonly public_subscriptions: boolean,
+    readonly public_tags: boolean,
   },
-  +privileges: number,
+  readonly privileges: number,
 };
 
 declare type ActiveEditorPreferencesT = {
-  +datetime_format: string,
-  +timezone: string,
+  readonly datetime_format: string,
+  readonly timezone: string,
 };
 
 /*
@@ -35,25 +35,25 @@ declare type ActiveEditorPreferencesT = {
  */
 declare type ActiveEditorT = {
   ...EntityRoleT<'editor'>,
-  +avatar: string,
-  +has_confirmed_email_address: boolean,
-  +name: string,
-  +preferences: ActiveEditorPreferencesT,
-  +privileges: number,
+  readonly avatar: string,
+  readonly has_confirmed_email_address: boolean,
+  readonly name: string,
+  readonly preferences: ActiveEditorPreferencesT,
+  readonly privileges: number,
 };
 
 declare type EditorLanguageT = {
-  +fluency: FluencyT,
-  +language: LanguageT,
+  readonly fluency: FluencyT,
+  readonly language: LanguageT,
 };
 
 // MusicBrainz::Server::Entity::Editor::TO_JSON
 declare type EditorT = {
   ...EntityRoleT<'editor'>,
-  +avatar: string,
-  +deleted: boolean,
-  +name: string,
-  +privileges: number,
+  readonly avatar: string,
+  readonly deleted: boolean,
+  readonly name: string,
+  readonly privileges: number,
 };
 
 declare type FluencyT =
@@ -63,43 +63,43 @@ declare type FluencyT =
   | 'native';
 
 declare type UnsanitizedEditorPreferencesT = {
-  +datetime_format: string,
-  +email_language: string,
-  +email_on_abstain: boolean,
-  +email_on_no_vote: boolean,
-  +email_on_notes: boolean,
-  +email_on_vote: boolean,
-  +public_ratings: boolean,
-  +public_subscriptions: boolean,
-  +public_tags: boolean,
-  +subscribe_to_created_artists: boolean,
-  +subscribe_to_created_labels: boolean,
-  +subscribe_to_created_series: boolean,
-  +subscriptions_email_period: string,
-  +timezone: string,
+  readonly datetime_format: string,
+  readonly email_language: string,
+  readonly email_on_abstain: boolean,
+  readonly email_on_no_vote: boolean,
+  readonly email_on_notes: boolean,
+  readonly email_on_vote: boolean,
+  readonly public_ratings: boolean,
+  readonly public_subscriptions: boolean,
+  readonly public_tags: boolean,
+  readonly subscribe_to_created_artists: boolean,
+  readonly subscribe_to_created_labels: boolean,
+  readonly subscribe_to_created_series: boolean,
+  readonly subscriptions_email_period: string,
+  readonly timezone: string,
 };
 
 // MusicBrainz::Server::unsanitized_editor_json
 declare type UnsanitizedEditorT = Readonly<{
   ...EntityRoleT<'editor'>,
-  +age: number | null,
-  +area: AreaT | null,
-  +avatar: string,
-  +biography: string | null,
-  +birth_date: PartialDateT | null,
-  +deleted: boolean,
-  +email: string | null,
-  +email_confirmation_date: string | null,
-  +gender: GenderT | null,
-  +has_confirmed_email_address: boolean,
-  +has_email_address: boolean,
-  +is_charter: boolean,
-  +languages: ReadonlyArray<EditorLanguageT> | null,
-  +last_login_date: string | null,
-  +name: string,
-  +preferences: UnsanitizedEditorPreferencesT,
-  +privileges: number,
-  +registration_date: string,
-  +unused?: boolean,
-  +website: string | null,
+  readonly age: number | null,
+  readonly area: AreaT | null,
+  readonly avatar: string,
+  readonly biography: string | null,
+  readonly birth_date: PartialDateT | null,
+  readonly deleted: boolean,
+  readonly email: string | null,
+  readonly email_confirmation_date: string | null,
+  readonly gender: GenderT | null,
+  readonly has_confirmed_email_address: boolean,
+  readonly has_email_address: boolean,
+  readonly is_charter: boolean,
+  readonly languages: ReadonlyArray<EditorLanguageT> | null,
+  readonly last_login_date: string | null,
+  readonly name: string,
+  readonly preferences: UnsanitizedEditorPreferencesT,
+  readonly privileges: number,
+  readonly registration_date: string,
+  readonly unused?: boolean,
+  readonly website: string | null,
 }>;

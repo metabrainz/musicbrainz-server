@@ -16,8 +16,8 @@ import FormLabel from './FormLabel.js';
 import FormRow from './FormRow.js';
 
 type RadioOptionsT = ReadonlyArray<{
-  +label: string | (() => Expand2ReactOutput),
-  +value: number | string,
+  readonly label: string | (() => Expand2ReactOutput),
+  readonly value: number | string,
 }>;
 
 component FormRowRadio(

@@ -28,9 +28,13 @@ import RemoveButton from './RemoveButton.js';
 type StateT = RepeatableFieldT<FieldT<string>>;
 
 type ActionT =
-  | {+type: 'add-row'}
-  | {+fieldId: number, +type: 'remove-row'}
-  | {+fieldId: number, +type: 'update-row', +value: string};
+  | {readonly type: 'add-row'}
+  | {readonly fieldId: number, readonly type: 'remove-row'}
+  | {
+      readonly fieldId: number,
+      readonly type: 'update-row',
+      readonly value: string,
+    };
 
 component TextListRow(
   dispatch: (ActionT) => void,

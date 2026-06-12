@@ -10,7 +10,7 @@
 import linkedEntities from '../../common/linkedEntities.mjs';
 
 export default function getRelationshipLinkType(
-  relationship: {+linkTypeID: number | null, ...} | null,
+  relationship: {readonly linkTypeID: number | null, ...} | null,
 ): LinkTypeT | null {
   const linkTypeId = relationship ? relationship.linkTypeID : null;
   if (linkTypeId != null) {

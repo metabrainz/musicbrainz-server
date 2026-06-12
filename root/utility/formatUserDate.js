@@ -31,7 +31,7 @@ const formatterCache = new Map<string, Intl$DateTimeFormat>();
 
 /* eslint-disable sort-keys */
 const patterns: {
-  +[pattern: string]: [
+  readonly [pattern: string]: [
     property: string | null,
     options: Intl$DateTimeFormatOptions,
   ],
@@ -89,7 +89,7 @@ const TZ_SOFIA = 'Europe/Sofia';
  * offsets, but takes DST into account where it makes sense to.
  */
 const timeZoneFallbacks: {
-  +[shortName: string]: string,
+  readonly [shortName: string]: string,
 } = {
   CET: TZ_PARIS,
   CST6CDT: TZ_CHICAGO,
@@ -162,14 +162,14 @@ type FormatUserDateOptions = {
 };
 
 type FormatUserDateContext = {
-  +stash: {
-    +current_language: string,
+  readonly stash: {
+    readonly current_language: string,
     ...
   },
-  +user?: {
-    +preferences: {
-      +datetime_format: string,
-      +timezone: string,
+  readonly user?: {
+    readonly preferences: {
+      readonly datetime_format: string,
+      readonly timezone: string,
       ...
     },
     ...

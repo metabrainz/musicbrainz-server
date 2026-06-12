@@ -17,9 +17,9 @@ import typeof {ERROR_TARGETS} from '../edit/URLCleanup.js';
 type ErrorTargetT = Values<ERROR_TARGETS>;
 
 export type ErrorT = {
-  +blockMerge?: boolean,
-  +message: React.Node,
-  +target: ErrorTargetT,
+  readonly blockMerge?: boolean,
+  readonly message: React.Node,
+  readonly target: ErrorTargetT,
 };
 
 export type HighlightT =
@@ -36,8 +36,8 @@ export type LinkTypeOptionT = {
 };
 
 export type LinksEditorRelationshipDialogStateT = {
-  +creditField: FieldT<string | null>,
-  +datePeriodField: DatePeriodFieldT,
+  readonly creditField: FieldT<string | null>,
+  readonly datePeriodField: DatePeriodFieldT,
 };
 
 /*
@@ -45,21 +45,21 @@ export type LinksEditorRelationshipDialogStateT = {
  * a URL. Most of the fields correspond to those on `RelationshipT`.
  */
 export type LinkRelationshipStateT = {
-  +beginDate: PartialDateT | null,
+  readonly beginDate: PartialDateT | null,
   /*
    * `dialogState` stores the `ExternalLinkRelationshipDialog` popover
    * state, if this relationship's attributes are being edited. It's created
    * in `toggle-link-relationship-dialog` whenever the dialog is opened.
    * If it's `null`, the relationship dialog is closed.
    */
-  +dialogState: LinksEditorRelationshipDialogStateT | null,
-  +editsPending: boolean,
-  +endDate: PartialDateT | null,
-  +ended: boolean,
-  +entityCredit: string,
-  +error: ErrorT | null,
-  +id: number,
-  +linkTypeID: number | null,
+  readonly dialogState: LinksEditorRelationshipDialogStateT | null,
+  readonly editsPending: boolean,
+  readonly endDate: PartialDateT | null,
+  readonly ended: boolean,
+  readonly entityCredit: string,
+  readonly error: ErrorT | null,
+  readonly id: number,
+  readonly linkTypeID: number | null,
   /*
    * `originalState` stores the initial `LinkRelationshipStateT` for
    * existing relationships in order to diff the edit data for submission
@@ -68,33 +68,33 @@ export type LinkRelationshipStateT = {
    * If the relationship has no changes, then `x.originalState === x`.
    * If this is a new relationship, `originalState` is `null`.
    */
-  +originalState: LinkRelationshipStateT | null,
+  readonly originalState: LinkRelationshipStateT | null,
   /*
    * Indicates whether an existing relationship is marked for removal.
    */
-  +removed: boolean,
+  readonly removed: boolean,
   /*
    * The `url` field should be identical to the parent `LinkStateT`'s `url`
    * field. It's stored here for convenience, since it allows dropping the
    * parent `LinkStateT` from function arguments when only the relationship
    * data is otherwise needed.
    */
-  +url: string,
-  +video: boolean,
+  readonly url: string,
+  readonly video: boolean,
 };
 
 export type LinkRelationshipStatusT = {
-  +changes: {
-    +beginDate?: CompT<PartialDateT | null>,
-    +endDate?: CompT<PartialDateT | null>,
-    +ended?: CompT<boolean>,
-    +entityCredit?: CompT<string>,
-    +linkTypeID?: CompT<number | null>,
-    +url?: CompT<string>,
-    +video?: CompT<boolean>,
+  readonly changes: {
+    readonly beginDate?: CompT<PartialDateT | null>,
+    readonly endDate?: CompT<PartialDateT | null>,
+    readonly ended?: CompT<boolean>,
+    readonly entityCredit?: CompT<string>,
+    readonly linkTypeID?: CompT<number | null>,
+    readonly url?: CompT<string>,
+    readonly video?: CompT<boolean>,
   },
-  +isNew: boolean,
-  +removed: boolean,
+  readonly isNew: boolean,
+  readonly removed: boolean,
 };
 
 /*
@@ -107,25 +107,25 @@ export type LinkStateT = {
    * new link state duplicates another in `validateLink`. We use the
    * `duplicateOf` field to either show an error or provide a merge option.
    */
-  +duplicateOf: {
-    +index: number,
-    +link: LinkStateT,
+  readonly duplicateOf: {
+    readonly index: number,
+    readonly link: LinkStateT,
    } | null,
-  +error: ErrorT | null,
+  readonly error: ErrorT | null,
   /*
    * `isNew` indicates whether the link is new to this entity, or already
    * exists on this entity in the database. This could be determined by
    * looping over `relationships` and checking whether any have a database
    * row ID, but we store `isNew` as a static property for convenience.
    */
-  +isNew: boolean,
+  readonly isNew: boolean,
   /*
    * Links which are still editable inline can be submitted (or merged) by
    * hitting enter or tabbing out of the field, assuming the link is a
    * valid URL. `isSubmitted` basically just means that the URL input has
    * been turned into a clickable link.
    */
-  +isSubmitted: boolean,
+  readonly isSubmitted: boolean,
   /*
    * The `key` is a client-side ID used to uniquely identify each link on the
    * page. (The `url` is not suitable for this purpose, since the user is
@@ -135,7 +135,7 @@ export type LinkStateT = {
    * `LinksEditorStateT['links']` is sorted by this key, so reducer actions
    * generally use it to locate and update links in the state tree.
    */
-  +key: number,
+  readonly key: number,
   /*
    * If this is an existing URL (`isNew` is false), we store the original
    * associated URL entity here (which is taken from any of the existing
@@ -144,118 +144,118 @@ export type LinkStateT = {
    *
    * Editing the `url` does not change the `originalUrlEntity`.
    */
-  +originalUrlEntity: UrlT | null,
+  readonly originalUrlEntity: UrlT | null,
   /*
    * The raw URL as entered by the user. This may differ from `url`, which
    * is the cleaned/normalized version used for validation and submission.
    */
-  +rawUrl: string,
+  readonly rawUrl: string,
   /*
    * The relationships associated with this URL, whether new or existing.
    */
-  +relationships: ReadonlyArray<LinkRelationshipStateT>,
+  readonly relationships: ReadonlyArray<LinkRelationshipStateT>,
   /*
    * The cleaned/normalized URL used for validation and submission.
    */
-  +url: string,
+  readonly url: string,
   /*
    * If this link is being edited in a popover, we store its pending state
    * here. Once the popover is accepted, the main link state is updated
    * accordingly. If it's `null`, the popover is closed.
    */
-  +urlPopoverLinkState: LinkStateT | null,
+  readonly urlPopoverLinkState: LinkStateT | null,
 };
 
 export type LinksEditorStateT = {
-  +focus: string,
-  +links: ImmutableTree<LinkStateT>,
-  +source: RelatableEntityT,
+  readonly focus: string,
+  readonly links: ImmutableTree<LinkStateT>,
+  readonly source: RelatableEntityT,
 };
 
 /* eslint-disable ft-flow/sort-keys */
 export type LinksEditorActionT =
   | {
-      +type: 'add-relationship',
-      +link: LinkStateT,
+      readonly type: 'add-relationship',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'set-focus',
-      +focus: string,
+      readonly type: 'set-focus',
+      readonly focus: string,
     }
   | {
-      +type: 'handle-url-change',
-      +link: LinkStateT,
-      +rawUrl: string,
+      readonly type: 'handle-url-change',
+      readonly link: LinkStateT,
+      readonly rawUrl: string,
     }
   | {
-      +type: 'merge-link',
-      +link: LinkStateT,
+      readonly type: 'merge-link',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'open-url-input-popover',
-      +link: LinkStateT,
+      readonly type: 'open-url-input-popover',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'toggle-remove-link',
-      +link: LinkStateT,
+      readonly type: 'toggle-remove-link',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'toggle-remove-relationship',
-      +link: LinkStateT,
-      +relationship: LinkRelationshipStateT,
+      readonly type: 'toggle-remove-relationship',
+      readonly link: LinkStateT,
+      readonly relationship: LinkRelationshipStateT,
     }
   | {
-      +type: 'set-type',
-      +link: LinkStateT,
-      +relationship: LinkRelationshipStateT,
-      +linkTypeID: number | null,
+      readonly type: 'set-type',
+      readonly link: LinkStateT,
+      readonly relationship: LinkRelationshipStateT,
+      readonly linkTypeID: number | null,
     }
   | {
-      +type: 'set-video',
-      +link: LinkStateT,
-      +relationship: LinkRelationshipStateT,
-      +video: boolean,
+      readonly type: 'set-video',
+      readonly link: LinkStateT,
+      readonly relationship: LinkRelationshipStateT,
+      readonly video: boolean,
     }
   | {
-      +type: 'submit-link',
-      +link: LinkStateT,
+      readonly type: 'submit-link',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'update-url-input-popover-url',
-      +link: LinkStateT,
-      +rawUrl: string,
+      readonly type: 'update-url-input-popover-url',
+      readonly link: LinkStateT,
+      readonly rawUrl: string,
     }
   | {
-      +type: 'accept-url-input-popover',
-      +link: LinkStateT,
+      readonly type: 'accept-url-input-popover',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'cancel-url-input-popover',
-      +link: LinkStateT,
+      readonly type: 'cancel-url-input-popover',
+      readonly link: LinkStateT,
     }
   | {
-      +type: 'update-link-relationship-dialog',
-      +action: LinksEditorRelationshipDialogActionT,
-      +link: LinkStateT,
-      +relationship: LinkRelationshipStateT,
+      readonly type: 'update-link-relationship-dialog',
+      readonly action: LinksEditorRelationshipDialogActionT,
+      readonly link: LinkStateT,
+      readonly relationship: LinkRelationshipStateT,
     }
   | {
-      +type: 'accept-link-relationship-dialog',
-      +link: LinkStateT,
-      +relationship: LinkRelationshipStateT,
+      readonly type: 'accept-link-relationship-dialog',
+      readonly link: LinkStateT,
+      readonly relationship: LinkRelationshipStateT,
     }
   | {
-      +type: 'toggle-link-relationship-dialog',
-      +link: LinkStateT,
-      +open: boolean,
-      +relationship: LinkRelationshipStateT,
+      readonly type: 'toggle-link-relationship-dialog',
+      readonly link: LinkStateT,
+      readonly open: boolean,
+      readonly relationship: LinkRelationshipStateT,
     };
 
 export type LinksEditorRelationshipDialogActionT =
   | {
-      +action: DateRangeFieldsetActionT,
-      +type: 'update-date-period',
+      readonly action: DateRangeFieldsetActionT,
+      readonly type: 'update-date-period',
     }
-  | {+credit: string, +type: 'update-relationship-credit'}
-  | {+type: 'show-all-pending-errors'};
+  | {readonly credit: string, readonly type: 'update-relationship-credit'}
+  | {readonly type: 'show-all-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */

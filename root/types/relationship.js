@@ -10,49 +10,49 @@
 /* eslint-disable no-unused-vars */
 
 declare type LinkAttrT = {
-  +credited_as?: string,
-  +text_value?: string,
-  type: {+gid: string} | LinkAttrTypeT,
-  +typeID: number,
-  +typeName: string,
+  readonly credited_as?: string,
+  readonly text_value?: string,
+  type: {readonly gid: string} | LinkAttrTypeT,
+  readonly typeID: number,
+  readonly typeName: string,
 };
 
 declare type LinkAttrTypeT = {
   ...OptionTreeT<'link_attribute_type'>,
-  +children?: ReadonlyArray<LinkAttrTypeT>,
-  +creditable: boolean,
-  +free_text: boolean,
-  +instrument_aliases?: ReadonlyArray<string>,
-  +instrument_comment?: string,
-  +instrument_type_id?: number,
-  +instrument_type_name?: string,
+  readonly children?: ReadonlyArray<LinkAttrTypeT>,
+  readonly creditable: boolean,
+  readonly free_text: boolean,
+  readonly instrument_aliases?: ReadonlyArray<string>,
+  readonly instrument_comment?: string,
+  readonly instrument_type_id?: number,
+  readonly instrument_type_name?: string,
   l_description?: string,
   l_name?: string,
   level?: number,
-  +root_gid: string,
-  +root_id: number,
+  readonly root_gid: string,
+  readonly root_id: number,
 };
 
 declare type LinkTypeAttrTypeT = Readonly<{
   ...TypeRoleT<LinkAttrTypeT>,
-  +max: number | null,
-  +min: number | null,
+  readonly max: number | null,
+  readonly min: number | null,
 }>;
 
 declare type LinkTypeT = {
   ...OptionTreeT<'link_type'>,
-  +attributes: {+[typeId: StrOrNum]: LinkTypeAttrTypeT},
-  +cardinality0: number,
-  +cardinality1: number,
-  +children?: ReadonlyArray<LinkTypeT>,
-  +deprecated: boolean,
-  +documentation: string | null,
-  +examples: ReadonlyArray<{
-    +name: string,
-    +relationship: RelationshipT,
+  readonly attributes: {readonly [typeId: StrOrNum]: LinkTypeAttrTypeT},
+  readonly cardinality0: number,
+  readonly cardinality1: number,
+  readonly children?: ReadonlyArray<LinkTypeT>,
+  readonly deprecated: boolean,
+  readonly documentation: string | null,
+  readonly examples: ReadonlyArray<{
+    readonly name: string,
+    readonly relationship: RelationshipT,
   }> | null,
-  +has_dates: boolean,
-  +id: number,
+  readonly has_dates: boolean,
+  readonly id: number,
   /*
    * The l_* properties are not sent by the server, but cached client-
    * side by the relationship editor.
@@ -61,56 +61,56 @@ declare type LinkTypeT = {
   l_link_phrase?: string,
   l_name?: string,
   l_reverse_link_phrase?: string,
-  +link_phrase: string,
-  +long_link_phrase: string,
-  +orderable_direction: OrderableDirectionT,
-  +reverse_link_phrase: string,
-  +root_id: number | null,
-  +type0: RelatableEntityTypeT,
-  +type1: RelatableEntityTypeT,
+  readonly link_phrase: string,
+  readonly long_link_phrase: string,
+  readonly orderable_direction: OrderableDirectionT,
+  readonly reverse_link_phrase: string,
+  readonly root_id: number | null,
+  readonly type0: RelatableEntityTypeT,
+  readonly type1: RelatableEntityTypeT,
 };
 
 declare type OrderableDirectionT = 0 | 1 | 2;
 
 declare type PagedLinkTypeGroupT = {
-  +backward: boolean,
-  +is_loaded: boolean,
-  +limit: number,
-  +link_type_id: number,
-  +offset: number,
-  +relationships: ReadonlyArray<RelationshipT>,
-  +total_relationships: number,
+  readonly backward: boolean,
+  readonly is_loaded: boolean,
+  readonly limit: number,
+  readonly link_type_id: number,
+  readonly offset: number,
+  readonly relationships: ReadonlyArray<RelationshipT>,
+  readonly total_relationships: number,
 };
 
 declare type PagedTargetTypeGroupT = {
-  +[linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
+  readonly [linkTypeIdAndSourceColumn: string]: PagedLinkTypeGroupT,
 };
 
 declare type RelationshipT = Readonly<{
   ...DatePeriodRoleT,
   ...PendingEditsRoleT,
-  +attributes: ReadonlyArray<LinkAttrT>,
-  +backward: boolean,
-  +entity0?: ?RelatableEntityT,
-  +entity0_credit: string,
-  +entity0_id: number,
-  +entity1?: ?RelatableEntityT,
-  +entity1_credit: string,
-  +entity1_id: number,
-  +id: number,
-  +linkOrder: number,
-  +linkTypeID: number,
-  +source_id: number | null,
-  +source_type: RelatableEntityTypeT,
-  +target: RelatableEntityT,
-  +target_type: RelatableEntityTypeT,
-  +verbosePhrase: string,
+  readonly attributes: ReadonlyArray<LinkAttrT>,
+  readonly backward: boolean,
+  readonly entity0?: ?RelatableEntityT,
+  readonly entity0_credit: string,
+  readonly entity0_id: number,
+  readonly entity1?: ?RelatableEntityT,
+  readonly entity1_credit: string,
+  readonly entity1_id: number,
+  readonly id: number,
+  readonly linkOrder: number,
+  readonly linkTypeID: number,
+  readonly source_id: number | null,
+  readonly source_type: RelatableEntityTypeT,
+  readonly target: RelatableEntityT,
+  readonly target_type: RelatableEntityTypeT,
+  readonly verbosePhrase: string,
 }>;
 
 declare type SeededRelationshipT = Readonly<{
   ...RelationshipT,
-  +entity0_id: number | null,
-  +entity1_id: number | null,
-  +id: null,
-  +linkTypeID: number | null,
+  readonly entity0_id: number | null,
+  readonly entity1_id: number | null,
+  readonly id: null,
+  readonly linkTypeID: number | null,
 }>;

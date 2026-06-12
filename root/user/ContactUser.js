@@ -20,11 +20,11 @@ import FormRowTextLong
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type ContactUserFormT = FormT<{
-  +body: FieldT<string>,
-  +csrf_token: FieldT<string>,
-  +reveal_address: FieldT<boolean>,
-  +send_to_self: FieldT<boolean>,
-  +subject: FieldT<string>,
+  readonly body: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly reveal_address: FieldT<boolean>,
+  readonly send_to_self: FieldT<boolean>,
+  readonly subject: FieldT<string>,
 }>;
 
 component ContactUser(form: ContactUserFormT, user: AccountLayoutUserT) {

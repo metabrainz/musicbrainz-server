@@ -18,10 +18,12 @@ import RatingStars, {StaticRatingStars}
   from '../static/scripts/common/components/RatingStars.js';
 
 type UserRatingsT = {
-  +[entityType: RatableEntityTypeT]: ReadonlyArray<RatableT>,
+  readonly [entityType: RatableEntityTypeT]: ReadonlyArray<RatableT>,
 };
 
-export const headingText: {+[entity: RatableEntityTypeT]: () => string} = {
+export const headingText: {
+  readonly [entity: RatableEntityTypeT]: () => string,
+} = {
   artist: N_l('Artist ratings'),
   event: N_l('Event ratings'),
   label: N_l('Label ratings'),

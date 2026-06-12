@@ -33,41 +33,41 @@ import SpammerButton, {
 } from './SpammerButton.js';
 
 type FindNewUsersResponseT =
-  | {+users: ReadonlyArray<UnsanitizedEditorT>}
-  | {+error: string};
+  | {readonly users: ReadonlyArray<UnsanitizedEditorT>}
+  | {readonly error: string};
 
 type ActionT =
   | {
-      +type: 'set-users',
-      +users: ReadonlyArray<UnsanitizedEditorT>,
+      readonly type: 'set-users',
+      readonly users: ReadonlyArray<UnsanitizedEditorT>,
     }
   | {
-      +type: 'remove-user',
-      +userState: UserStateT,
+      readonly type: 'remove-user',
+      readonly userState: UserStateT,
     }
   | {
-      +action: SpammerButtonActionT<UnsanitizedEditorT>,
-      +type: 'update-spammer-button',
+      readonly action: SpammerButtonActionT<UnsanitizedEditorT>,
+      readonly type: 'update-spammer-button',
     }
   | {
-      +error: string,
-      +type: 'set-users-fetch-error',
+      readonly error: string,
+      readonly type: 'set-users-fetch-error',
     }
-  | {+type: 'most-recent-page'}
-  | {+type: 'previous-page'}
-  | {+type: 'next-page'};
+  | {readonly type: 'most-recent-page'}
+  | {readonly type: 'previous-page'}
+  | {readonly type: 'next-page'};
 
 type UserStateT = SpammerButtonStateT<UnsanitizedEditorT>;
 
 type PageStateT = {
-  +id: number,
-  +op: 'gt' | 'gte' | 'lt' | 'lte',
+  readonly id: number,
+  readonly op: 'gt' | 'gte' | 'lt' | 'lte',
 };
 
 type StateT = {
-  +page: PageStateT,
-  +users: tree.ImmutableTree<UserStateT>,
-  +usersFetchError: string,
+  readonly page: PageStateT,
+  readonly users: tree.ImmutableTree<UserStateT>,
+  readonly usersFetchError: string,
 };
 
 function getPageState(): PageStateT {

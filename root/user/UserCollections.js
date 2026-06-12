@@ -28,7 +28,7 @@ type CollectionWithSubscribedT = Readonly<{
 }>;
 
 type CollectionListT = {
-  +[entityType: CollectableEntityTypeT]:
+  readonly [entityType: CollectableEntityTypeT]:
     ReadonlyArray<CollectionWithSubscribedT>,
 };
 

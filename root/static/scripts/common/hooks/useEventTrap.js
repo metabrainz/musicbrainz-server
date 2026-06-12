@@ -11,7 +11,7 @@ import {useEffect} from 'react';
 
 type ActionFnT = ((Event) => void) | null;
 
-type TargetRefsT = Map<{+current: HTMLElement | null}, ActionFnT>;
+type TargetRefsT = Map<{readonly current: HTMLElement | null}, ActionFnT>;
 
 // Actions by event type name.
 const EVENTS = new Map<string, TargetRefsT>();

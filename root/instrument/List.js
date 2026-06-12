@@ -14,8 +14,8 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 import expand2react from '../static/scripts/common/i18n/expand2react.js';
 
 type InstrumentsByTypeT = {
-  +[typeId: number]: ReadonlyArray<InstrumentT>,
-  +unknown: ReadonlyArray<InstrumentT>,
+  readonly [typeId: number]: ReadonlyArray<InstrumentT>,
+  readonly unknown: ReadonlyArray<InstrumentT>,
 };
 
 component Instrument(instrument: InstrumentT) {

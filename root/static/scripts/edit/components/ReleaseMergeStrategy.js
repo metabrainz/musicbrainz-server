@@ -63,7 +63,7 @@ component ReleaseMergeStrategy(
     ReadonlyArray<ReadonlyArray<RecordingT>>,
   form: MergeReleasesFormT,
   mediums: ReadonlyArray<MediumT>,
-  releases: {+[releaseID: number]: ReleaseT},
+  releases: {readonly [releaseID: number]: ReleaseT},
 ) {
   const [mergeStrategy, setMergeStrategy] =
     React.useState(form.field.merge_strategy);

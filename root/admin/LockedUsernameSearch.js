@@ -15,8 +15,8 @@ import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LockedUsernameSearchFormT = FormT<{
-  +use_regular_expression: FieldT<boolean>,
-  +username: FieldT<string>,
+  readonly use_regular_expression: FieldT<boolean>,
+  readonly username: FieldT<string>,
 }>;
 
 component LockedUsernameSearch(

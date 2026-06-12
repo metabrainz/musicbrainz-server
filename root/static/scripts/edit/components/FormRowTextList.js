@@ -20,23 +20,27 @@ import RemoveButton from './RemoveButton.js';
 
 type StateT = {
   // The current text values as stored in the database.
-  +currentTextValues: ReadonlyArray<string>,
+  readonly currentTextValues: ReadonlyArray<string>,
   /*
    * The current form values, as either initialized from the database or
    * submitted by the user.
    */
-  +repeatable: TextListFieldT,
+  readonly repeatable: TextListFieldT,
 };
 
 type InitialStateT = {
-  +currentTextValues: ?ReadonlyArray<string>,
-  +repeatable: TextListFieldT,
+  readonly currentTextValues: ?ReadonlyArray<string>,
+  readonly repeatable: TextListFieldT,
 };
 
 type ActionT =
-  | {+type: 'add-row'}
-  | {+fieldId: number, +type: 'remove-row'}
-  | {+fieldId: number, +type: 'update-row', +value: string};
+  | {readonly type: 'add-row'}
+  | {readonly fieldId: number, readonly type: 'remove-row'}
+  | {
+      readonly fieldId: number,
+      readonly type: 'update-row',
+      readonly value: string,
+    };
 
 component TextListRow(
   dispatch: (ActionT) => void,
