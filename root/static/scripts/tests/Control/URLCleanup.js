@@ -7703,6 +7703,16 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.youtube.com/watch?v=XCq01DCMZIo',
+             input_entity_type: 'artist',
+       input_relationship_type: 'interview',
+limited_link_type_combinations: [
+                                  'interview',
+                                  'youtube',
+                                ],
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',

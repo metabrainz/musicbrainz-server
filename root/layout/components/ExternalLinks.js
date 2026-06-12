@@ -10,6 +10,7 @@
 import EntityLink from '../../static/scripts/common/components/EntityLink.js';
 import {FAVICON_CLASSES} from '../../static/scripts/common/constants.js';
 import {compare, l} from '../../static/scripts/common/i18n.js';
+import expand2text from '../../static/scripts/common/i18n/expand2text.js';
 import linkedEntities from '../../static/scripts/common/linkedEntities.mjs';
 import {uniqBy} from '../../static/scripts/common/utility/arrays.js';
 import isDisabledLink
@@ -76,7 +77,7 @@ component ExternalLinks(
   }
 
   const links = [];
-  const blogsAndReviews = [];
+  const priorityLinks = [];
   const otherLinks: Array<{
     +editsPending: boolean,
     +entityCredit: string,
@@ -109,7 +110,7 @@ component ExternalLinks(
         />,
       );
     } else if (linkType.name === 'blog') {
-      blogsAndReviews.push(
+      priorityLinks.push(
         <ExternalLink
           className="blog-favicon"
           editsPending={relationship.editsPending}
@@ -119,18 +120,20 @@ component ExternalLinks(
           url={target}
         />,
       );
-    } else if (linkType.name === 'review') {
+    } else if (linkType.name === 'interview' || linkType.name === 'review') {
       const urlObject = new URL(target.name);
       const hostName = urlObject.host.replace('www.', '');
 
-      blogsAndReviews.push(
+      priorityLinks.push(
         <ExternalLink
           className="review-favicon"
           editsPending={relationship.editsPending}
           entityCredit={entityCredit}
           key={relationship.id}
-          text={texp.l(
-            'Review ({hostname})',
+          text={expand2text(
+            linkType.name === 'interview'
+              ? l('Interview ({hostname})')
+              : l('Review ({hostname})'),
             {hostname: hostName},
           )}
           url={target}
@@ -146,7 +149,7 @@ component ExternalLinks(
     }
   }
 
-  if (!(links.length || blogsAndReviews.length || otherLinks.length)) {
+  if (!(links.length || priorityLinks.length || otherLinks.length)) {
     return null;
   }
 
@@ -160,7 +163,7 @@ component ExternalLinks(
     ));
 
   // We list official sites above blogs/reviews, and those above others
-  links.push(...blogsAndReviews);
+  links.push(...priorityLinks);
   links.push(...uniqueOtherLinks.map(({id, ...props}) => (
     <ExternalLink key={id} {...props} />
   )));
