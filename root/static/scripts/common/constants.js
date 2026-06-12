@@ -150,7 +150,6 @@ export const FAVICON_CLASSES: {
   'j-lyric.net': 'jlyric',
   'jazzmusicarchives.com': 'jazzmusicarchives',
   'joysound.com': 'joysound',
-  'junodownload.com': 'junodownload',
   'kashinavi.com': 'kashinavi',
   'kickstarter.com': 'kickstarter',
   'kkbox.com': 'kkbox',
