@@ -11,6 +11,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw(
     order_by
     generate_gid
+    is_blank
     take_while
     sanitize
     trim
@@ -248,6 +249,13 @@ test 'Test model_to_type' => sub {
 
     is(model_to_type('URL'), 'url',
        'model_to_type of "URL" is "url"');
+};
+
+test 'Test is_blank' => sub {
+    ok(is_blank(undef), 'undef is blank');
+    ok(is_blank(''), q('' is blank));
+    ok(is_blank(' '), q(' ' is blank));
+    ok(!is_blank(' x '), q(' x ' is not blank));
 };
 
 1;
