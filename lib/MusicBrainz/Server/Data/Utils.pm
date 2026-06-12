@@ -12,6 +12,8 @@ use Class::MOP;
 use Clone qw( clone );
 use Data::Compare;
 use Data::UUID::MT;
+use Digest::MD5 qw( md5_hex );
+use Encode;
 use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
 use JSON::XS;
@@ -48,6 +50,7 @@ our @EXPORT_OK = qw(
     generate_gid
     generate_token
     get_area_containment_join
+    ha1_password
     hash_structure
     hash_to_row
     is_blank
@@ -299,6 +302,11 @@ sub get_area_containment_join {
              ORDER BY descendant, parent, depth
         )
         SQL
+}
+
+sub ha1_password {
+    my ($username, $password) = @_;
+    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub hash_to_row
