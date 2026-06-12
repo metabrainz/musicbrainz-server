@@ -10,7 +10,6 @@ use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
 use DateTime::Format::Pg;
-use Digest::MD5 qw( md5_hex );
 use Encode;
 use Text::Trim qw( trim );
 use MusicBrainz::Server::Constants qw( :edit_status entities_with );
@@ -1059,11 +1058,6 @@ sub hash_password {
         cost => $PASSPHRASE_BCRYPT_COST,
         passphrase => encode('utf-8', $password),
     )->as_rfc2307;
-}
-
-sub ha1_password {
-    my ($username, $password) = @_;
-    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub consume_remember_me_token {
