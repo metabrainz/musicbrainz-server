@@ -12,7 +12,18 @@ use DateTime;
 use DateTime::Format::Pg;
 use Encode;
 use Text::Trim qw( trim );
-use MusicBrainz::Server::Constants qw( :edit_status entities_with );
+use MusicBrainz::Server::Constants qw(
+    :create_entity
+    :edit_status
+    :privileges
+    :vote
+    %ENTITIES
+    $EDIT_EVENT_ADD_EVENT_ART
+    $EDIT_HISTORIC_ADD_RELEASE
+    $EDIT_RELEASE_ADD_COVER_ART
+    $PASSPHRASE_BCRYPT_COST
+    entities_with
+);
 use MusicBrainz::Server::Entity::Preferences;
 use MusicBrainz::Server::Entity::Editor;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -23,17 +34,6 @@ use MusicBrainz::Server::Data::Utils qw(
     load_subobjects
     placeholders
     sanitize_username
-);
-use MusicBrainz::Server::Constants qw(
-    :create_entity
-    :edit_status
-    :privileges
-    :vote
-    %ENTITIES
-    $EDIT_HISTORIC_ADD_RELEASE
-    $EDIT_RELEASE_ADD_COVER_ART
-    $EDIT_EVENT_ADD_EVENT_ART
-    $PASSPHRASE_BCRYPT_COST
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
