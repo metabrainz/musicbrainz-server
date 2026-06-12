@@ -420,6 +420,7 @@ Readonly our $ADDING_NOTES_DISABLED_FLAG    => 2048;
 Readonly our $SPAMMER_FLAG                  => 4096;
 Readonly our $BEGINNER_FLAG                 => 8192;
 Readonly our $VOTING_DISABLED_FLAG          => 16384;
+Readonly our $DIGEST_AUTH_TOKEN_FLAG        => 32768;
 # If you update this, also update root/utility/sanitizedEditor.js
 Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG |
                                                $BOT_FLAG |

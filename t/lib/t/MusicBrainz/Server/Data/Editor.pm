@@ -13,6 +13,7 @@ use DateTime;
 use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw(
     :edit_status
+    $DIGEST_AUTH_TOKEN_FLAG
     $EDIT_SERIES_CREATE
     $EDIT_ARTIST_EDIT
     $EDIT_RELATIONSHIP_CREATE
@@ -982,11 +983,23 @@ test 'Test reset_digest_auth_token' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
 
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is(
+        $editor->privileges & $DIGEST_AUTH_TOKEN_FLAG,
+        0,
+        'The digest auth token flag is unset on the editor',
+    );
+
     my $token = $c->model('Editor')->reset_digest_auth_token(14);
     my $ha1 = ha1_password('æditorⅣ', $token);
 
-    my $editor = $c->model('Editor')->get_by_id(14);
+    $editor = $c->model('Editor')->get_by_id(14);
     is($editor->ha1, $ha1, 'The ha1 is reset');
+    is(
+        $editor->privileges & $DIGEST_AUTH_TOKEN_FLAG,
+        $DIGEST_AUTH_TOKEN_FLAG,
+        'The digest auth token flag is set on the editor',
+    );
 };
 
 1;
