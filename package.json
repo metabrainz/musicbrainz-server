@@ -22,6 +22,7 @@
     "@sentry/browser": "7.119.2",
     "@sentry/node": "7.119.2",
     "babel-loader": "10.1.1",
+    "babel-plugin-react-compiler": "1.0.0",
     "balanced-match": "3.0.1",
     "canonical-json": "0.0.4",
     "cookie": "0.7.2",
