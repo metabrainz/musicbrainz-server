@@ -18,6 +18,7 @@ use MusicBrainz::Server::Constants qw(
     :privileges
     :vote
     %ENTITIES
+    $DIGEST_AUTH_TOKEN_FLAG
     $EDIT_EVENT_ADD_EVENT_ART
     $EDIT_HISTORIC_ADD_RELEASE
     $EDIT_RELEASE_ADD_COVER_ART
@@ -441,8 +442,11 @@ sub reset_digest_auth_token {
         SQL
     my $token = generate_token();
     my $ha1 = ha1_password($username, $token);
-    $self->sql->do(<<~'SQL', $ha1, $editor_id);
-        UPDATE editor SET ha1 = ? WHERE id = ?
+    $self->sql->do(<<~'SQL', $ha1, $DIGEST_AUTH_TOKEN_FLAG, $editor_id);
+        UPDATE editor
+           SET ha1 = ?,
+               privs = privs | ?
+         WHERE id = ?
         SQL
     return $token;
 }
