@@ -373,9 +373,10 @@ sub MAPBOX_ACCESS_TOKEN { '' }
 # Feature toggle used for pre-schema change release of safe schema change code
 sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 
-# MetaBrainz OAuth endpoint (and associated application) used to introspect
-# "meba_*" tokens issued by metabrainz.org. See MBS-13703 for details.
-sub METABRAINZ_OAUTH_URL { '' }
+# URLs for MetaBrainz account registration, login, and OAuth.
+sub METABRAINZ_URL { 'https://metabrainz.org' }
+# OAuth application used for login and introspecting "meba_*" tokens issued
+# by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }
 sub METABRAINZ_OAUTH_CLIENT_SECRET { '' }
 
