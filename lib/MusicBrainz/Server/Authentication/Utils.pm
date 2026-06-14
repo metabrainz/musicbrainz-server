@@ -19,12 +19,9 @@ our @EXPORT_OK = qw(
 sub find_oauth_access_token {
     my ($c, $oauth_access_token) = @_;
 
-    if (
-        DBDefs->METABRAINZ_OAUTH_URL &&
-        $oauth_access_token =~ /^meba_/
-    ) {
+    if ($oauth_access_token =~ /^meba_/) {
         my $ctx = $c->model('MB')->context;
-        my $introspect_url = DBDefs->METABRAINZ_OAUTH_URL . '/introspect';
+        my $introspect_url = DBDefs->METABRAINZ_URL . '/oauth2/introspect';
         my $res = $ctx->lwp->request(
             POST $introspect_url,
             {
