@@ -1038,9 +1038,9 @@ test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+area_editing');
 
-    local *DBDefs::METABRAINZ_OAUTH_URL = sub { 'http://METABRAINZ_OAUTH_URL' };
+    local *DBDefs::METABRAINZ_URL = sub { 'http://METABRAINZ_URL' };
 
-    # Build the response content for `METABRAINZ_OAUTH_URL`.
+    # Build the response content for `METABRAINZ_URL`.
     my $now = DateTime->now;
     my $one_day = DateTime::Duration->new(days => 1);
     my $response_content = {
@@ -1054,7 +1054,7 @@ test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
     my $lwp_useragent_request = \&LWP::UserAgent::request;
     local *LWP::UserAgent::request = sub {
         my ($lwp, $req) = @_;
-        if ($req->uri =~ m{^http://METABRAINZ_OAUTH_URL}) {
+        if ($req->uri =~ m{^http://METABRAINZ_URL}) {
             my $res = HTTP::Response->new;
             $res->code(HTTP_OK);
             $res->content(encode_json($response_content));
