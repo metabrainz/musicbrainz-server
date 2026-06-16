@@ -9,6 +9,7 @@ use Authen::Passphrase;
 use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
+use DateTime::Format::ISO8601;
 use DateTime::Format::Pg;
 use Encode;
 use Text::Trim qw( trim );
@@ -374,6 +375,27 @@ sub insert
             registration_date => DateTime->now,
         );
     }, $self->sql);
+}
+
+sub insert_from_metabrainz {
+    my ($self, $id, $name, $member_since) = @_;
+
+    my $member_since_dt = DateTime::Format::ISO8601->parse_datetime($member_since);
+    $member_since_dt->set_time_zone('UTC');
+
+    $self->sql->do(
+        <<~'SQL',
+        INSERT INTO editor (id, name, privs, member_since, password, ha1)
+            VALUES (?, ?, ?, ?, '', '')
+            ON CONFLICT (id) DO NOTHING
+        SQL
+        $id,
+        $name,
+        $BEGINNER_FLAG,
+        DateTime::Format::Pg->format_datetime($member_since_dt),
+    );
+
+    return $self->get_by_id($id);
 }
 
 sub update_email
