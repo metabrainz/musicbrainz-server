@@ -4538,6 +4538,40 @@ limited_link_type_combinations: [
             expected_clean_url: 'http://www.musicapopular.cl/disco/raw-digits/',
        only_valid_entity_types: ['release_group'],
   },
+  // Music in Africa
+  {
+                     input_url: 'https://www.musicinafrica.net/node/137539',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musicinafrica.net/node/137539',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'http://musicinafrica.net/directory/251afrika',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musicinafrica.net/directory/251afrika',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.musicinafrica.net/directory/decimal-records',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://musicinafrica.net/fr/directory/studio-tour%C3%A9-sound',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musicinafrica.net/fr/directory/studio-tour%C3%A9-sound',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.musicinafrica.net/directory/east-africa-vibes-concert',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
   // MusicMoz
   {
                      input_url: 'http://musicmoz.org/Bands_and_Artists/S/Soundgarden/',

@@ -4581,6 +4581,27 @@ export const CLEANUPS: CleanupEntries = {
       return {result: false, target: ERROR_TARGETS.URL};
     },
   },
+  'musicinafrica': {
+    hostname: 'musicinafrica.net',
+    match: [/^(https?:\/\/)?(www\.)?musicinafrica\.net/i],
+    restrict: [LINK_TYPES.otherdatabases],
+    clean(url) {
+      return url.replace(/^(?:https?:\/\/)?(?:www\.)?musicinafrica\.net\/(fr\/)?(directory\/[A-z0-9%-]+|node\/[0-9]+).*$/, 'https://www.musicinafrica.net/$1$2');
+    },
+    validate(url, id) {
+      switch (id) {
+        case LINK_TYPES.otherdatabases.artist:
+        case LINK_TYPES.otherdatabases.label:
+        case LINK_TYPES.otherdatabases.place:
+        case LINK_TYPES.otherdatabases.series:
+          return {
+            result: /^https:\/\/www\.musicinafrica\.net\/(fr\/)?(directory\/[A-z0-9%-]+|node\/[0-9]+)$/.test(url),
+            target: ERROR_TARGETS.URL,
+          };
+      }
+      return {result: false, target: ERROR_TARGETS.ENTITY};
+    },
+  },
   'musiksammler': {
     hostname: 'musik-sammler.de',
     match: [/^(https?:\/\/)?(www\.)?musik-sammler\.de\//i],
