@@ -2,6 +2,9 @@ package MusicBrainz::Server::Authentication::User;
 use Moose;
 use namespace::autoclean;
 use Readonly;
+
+use MusicBrainz::Server::Authentication::Utils qw( can_user_login );
+
 extends 'MusicBrainz::Server::Entity::Editor';
 
 has 'auth_realm' => (
@@ -38,7 +41,11 @@ sub new_from_editor
     return Class::MOP::Class->initialize($class)->rebless_instance($editor);
 }
 
-sub is_authorized { 1 }
+sub is_authorized
+{
+    my ($self) = @_;
+    return can_user_login($self);
+}
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

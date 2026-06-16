@@ -111,32 +111,43 @@ unless (DBDefs->CATALYST_DEBUG) {
     __PACKAGE__->config->{'Plugin::Cache'}{backend} = $plugin_cache_opts;
 }
 
-require MusicBrainz::Server::Authentication::WS::Credential;
-require MusicBrainz::Server::Authentication::WS::Store;
 require MusicBrainz::Server::Authentication::Store;
+require MusicBrainz::Server::Authentication::WebService::HTTPDigestCredential;
+require MusicBrainz::Server::Authentication::WebService::HTTPDigestStore;
+require MusicBrainz::Server::Authentication::WebService::OAuth2Credential;
+require MusicBrainz::Server::Authentication::Website::PasswordCredential;
 __PACKAGE__->config->{'Plugin::Authentication'} = {
-    default_realm => 'moderators',
+    default_realm => 'website_local_account',
     use_session => 0,
     realms => {
-        moderators => {
+        website_local_account => {
             use_session => 1,
             credential => {
-                class => '+MusicBrainz::Server::Authentication::Credential',
+                class => '+MusicBrainz::Server::Authentication::Website::PasswordCredential',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::Store',
             },
         },
-        'musicbrainz.org' => {
+        webservice_oauth => {
             use_session => 0,
             credential => {
-                class => '+MusicBrainz::Server::Authentication::WS::Credential',
+                class => '+MusicBrainz::Server::Authentication::WebService::OAuth2Credential',
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Store',
+            },
+        },
+        webservice_digest_auth => {
+            use_session => 0,
+            credential => {
+                class => '+MusicBrainz::Server::Authentication::WebService::HTTPDigestCredential',
                 type => 'digest',
                 password_field => 'ha1',
                 password_type => 'clear',
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::WS::Store',
+                class => '+MusicBrainz::Server::Authentication::WebService::HTTPDigestStore',
             },
         },
     },

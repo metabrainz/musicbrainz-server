@@ -76,17 +76,8 @@ sub index : Private
 sub _perform_password_login {
     my ($self, $c, $user_name, $password) = @_;
 
-    if ( !$c->authenticate({ username => $user_name, password => $password }) )
+    if ( $c->authenticate({ username => $user_name, password => $password }, 'website_local_account') )
     {
-        # Bad username / password combo
-        $c->stash( bad_login => 1 );
-        return 0;
-    } elsif ( $c->user->is_spammer ) {
-        # Automatically log out spammers and notify of why
-        $c->stash( spammy_login => 1 );
-        $c->logout;
-        return 0;
-    } else {
         unless (DBDefs->DB_READ_ONLY || DBDefs->DISABLE_LAST_LOGIN_UPDATE) {
             if ($c->user->requires_password_rehash) {
                 $c->model('Editor')->update_password($user_name, $password);
