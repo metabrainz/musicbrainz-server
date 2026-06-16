@@ -76,7 +76,7 @@ sub index : Private
 sub _perform_password_login {
     my ($self, $c, $user_name, $password) = @_;
 
-    if ( !$c->authenticate({ username => $user_name, password => $password }) )
+    if ( !$c->authenticate({ username => $user_name, password => $password }, 'website_local_account') )
     {
         # Bad username / password combo
         $c->stash( bad_login => 1 );

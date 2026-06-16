@@ -572,7 +572,7 @@ sub userinfo : Local
         $self->_send_options_response($c, 'GET, POST');
     }
 
-    $c->authenticate({}, 'musicbrainz.org');
+    $c->authenticate({}, 'webservice_oauth');
     $self->_send_error($c, 'invalid_token', 'Invalid value')
         unless $c->user->is_authorized($ACCESS_SCOPE_PROFILE);
 

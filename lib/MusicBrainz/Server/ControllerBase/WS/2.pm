@@ -56,11 +56,23 @@ sub success : Private
     $c->res->body($c->stash->{serializer}->output_success);
 }
 
+sub _unauthorized : Private {
+    my ($self, $c) = @_;
+    my $realm = $c->get_auth_realm('webservice_digest_auth');
+    $realm->credential->authorization_required_response($c, $realm, {
+        realm => 'musicbrainz.org',
+    });
+    $c->res->headers->push_header(
+        'WWW-Authenticate' => 'Bearer realm="musicbrainz.org", charset=UTF-8',
+    );
+    $c->res->status(HTTP_UNAUTHORIZED);
+    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+}
+
 sub forbidden : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(HTTP_UNAUTHORIZED);
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $self->_unauthorized($c);
     $c->res->body($c->stash->{serializer}->output_error('You are not authorized to access this resource.'));
     $c->detach;
 }
@@ -68,8 +80,7 @@ sub forbidden : Private
 sub unauthorized : Private
 {
     my ($self, $c) = @_;
-    $c->res->status(HTTP_UNAUTHORIZED);
-    $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
+    $self->_unauthorized($c);
     $c->res->body($c->stash->{serializer}->output_error('Your credentials '.
         'could not be verified. Either you supplied the wrong credentials '.
         q{(e.g., bad password), or your client doesn't understand how to }.
@@ -142,22 +153,16 @@ sub root : Chained('/') PathPart('ws/2') CaptureArgs(0)
 sub authenticate {
     my ($self, $c, $scope) = @_;
 
-    try {
-        $c->authenticate({}, 'musicbrainz.org') unless $c->user_exists;
-    } catch {
-        # A 400 response code is already set in this case.
-        $c->detach if $c->stash->{bad_auth_encoding};
+    $c->authenticate({}, 'webservice_oauth');
 
-        # $c->authenticate will try to detach on its own if it can't
-        # authenticate using any method. But we want to return our own custom
-        # error messages, via $self->forbidden or $self->unauthorized. So, we
-        # catch Catalyst::Exception::Detach and handle that below.
-        my $error = $_;
-        unless (eval { $error->isa('Catalyst::Exception::Detach') }) {
-            eval { $error = $error->message };
-            $self->_error($c, $error);
+    unless ($c->user_exists) {
+        $c->authenticate({}, 'webservice_digest_auth') ;
+
+        if ($c->stash->{bad_auth_encoding}) {
+            $c->response->status(HTTP_BAD_REQUEST);
+            $c->detach;
         }
-    };
+    }
 
     if (!$c->user || !$c->user->is_authorized($scope)) {
         my @authorization = $c->req->headers->header('Authorization');

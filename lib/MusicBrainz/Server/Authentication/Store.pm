@@ -3,7 +3,6 @@ package MusicBrainz::Server::Authentication::Store;
 use strict;
 use warnings;
 
-use DateTime;
 use MusicBrainz::Server::Authentication::User;
 
 sub new
@@ -16,9 +15,14 @@ sub find_user
 {
     my ($self, $authinfo, $c) = @_;
 
-    my $editor = $c->model('Editor')->get_by_name($authinfo->{username});
+    my $editor;
+    if (exists $authinfo->{username}) {
+        $editor = $c->model('Editor')->get_by_name($authinfo->{username});
+    } elsif (exists $authinfo->{editor_id}) {
+        $editor = $c->model('Editor')->get_by_id($authinfo->{editor_id});
+    }
 
-    if (defined $editor && $editor->password) {
+    if (defined $editor) {
         $c->model('Editor')->load_preferences($editor);
         return MusicBrainz::Server::Authentication::User->new_from_editor($editor);
     }
@@ -34,9 +38,7 @@ sub for_session
 sub from_session
 {
     my ($self, $c, $frozen) = @_;
-    my $editor = $c->model('Editor')->get_by_id($frozen->{id});
-    return unless ($editor && !$editor->deleted);
-    return MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+    return $self->find_user({ editor_id => $frozen->{id} }, $c);
 }
 
 1;
