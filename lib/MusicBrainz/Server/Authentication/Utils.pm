@@ -39,6 +39,7 @@ sub find_active_metabrainz_oauth_access_token {
             client_id => DBDefs->METABRAINZ_OAUTH_CLIENT_ID,
             client_secret => DBDefs->METABRAINZ_OAUTH_CLIENT_SECRET,
             token => $access_token,
+            token_type_hint => 'access_token',
         },
     );
     if (is_success($res->code)) {
@@ -53,6 +54,7 @@ sub find_active_metabrainz_oauth_access_token {
                 editor_id => $res_content->{sub},
                 expire_time => DateTime->from_epoch($res_content->{expires_at}),
                 granted => DateTime->from_epoch($res_content->{issued_at}),
+                metabrainz_client_id => $res_content->{client_id},
                 scope => $scope,
             );
             if ($token_instance->is_expired) {

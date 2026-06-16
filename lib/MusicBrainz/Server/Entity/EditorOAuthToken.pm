@@ -73,6 +73,11 @@ has 'granted' => (
     coerce => 1,
 );
 
+has 'metabrainz_client_id' => (
+    isa => 'Maybe[Str]',
+    is => 'rw',
+);
+
 our @ACCESS_SCOPE_PERMISSIONS = (
     $ACCESS_SCOPE_PROFILE,
     $ACCESS_SCOPE_EMAIL,
