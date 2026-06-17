@@ -20,7 +20,7 @@ sub find_user
 
     if (defined $editor && $editor->password) {
         $c->model('Editor')->load_preferences($editor);
-        return _rebless_editor($editor);
+        return MusicBrainz::Server::Authentication::User->new_from_editor($editor);
     }
     return undef;
 }
@@ -36,13 +36,7 @@ sub from_session
     my ($self, $c, $frozen) = @_;
     my $editor = $c->model('Editor')->get_by_id($frozen->{id});
     return unless ($editor && !$editor->deleted);
-    return _rebless_editor($editor);
-}
-
-sub _rebless_editor {
-    my $editor = shift or return undef;
-    my $class = Class::MOP::Class->initialize('MusicBrainz::Server::Authentication::User');
-    return $class->rebless_instance($editor);
+    return MusicBrainz::Server::Authentication::User->new_from_editor($editor);
 }
 
 1;
