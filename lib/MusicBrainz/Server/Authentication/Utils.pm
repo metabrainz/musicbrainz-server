@@ -6,7 +6,7 @@ use warnings;
 use base 'Exporter';
 use DateTime;
 use HTTP::Request::Common qw( POST );
-use HTTP::Status qw( HTTP_OK );
+use HTTP::Status qw( is_server_error is_success );
 
 use DBDefs;
 use MusicBrainz::Server::Entity::EditorOAuthToken;
@@ -30,7 +30,7 @@ sub find_metabrainz_oauth_access_token {
             token => $access_token,
         },
     );
-    if ($res->code == HTTP_OK) {
+    if (is_success($res->code)) {
         my $res_content = $c->json_utf8->decode($res->content);
         if ($res_content->{active}) {
             my $scope = 0;
@@ -45,6 +45,9 @@ sub find_metabrainz_oauth_access_token {
                 scope => $scope,
             );
         }
+    } elsif (is_server_error($res->code)) {
+        die 'An internal error occurred while attempting to introspect ' .
+            'the access token.';
     }
     return;
 }
