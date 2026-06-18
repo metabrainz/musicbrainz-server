@@ -13,11 +13,11 @@ use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Constants qw( :access_scope );
 
 our @EXPORT_OK = qw(
-    find_metabrainz_oauth_access_token
-    find_oauth_access_token
+    find_active_metabrainz_oauth_access_token
+    find_active_oauth_access_token
 );
 
-sub find_metabrainz_oauth_access_token {
+sub find_active_metabrainz_oauth_access_token {
     my ($c, $access_token) = @_;
 
     my $ctx = $c->model('MB')->context;
@@ -37,13 +37,17 @@ sub find_metabrainz_oauth_access_token {
             for my $scope_name (@{ $res_content->{scope} }) {
                 $scope |= $ACCESS_SCOPE_BY_NAME{$scope_name};
             }
-            return MusicBrainz::Server::Entity::EditorOAuthToken->new(
+            my $token_instance = MusicBrainz::Server::Entity::EditorOAuthToken->new(
                 access_token => $access_token,
                 editor_id => $res_content->{metabrainz_user_id},
                 expire_time => DateTime->from_epoch($res_content->{expires_at}),
                 granted => DateTime->from_epoch($res_content->{issued_at}),
                 scope => $scope,
             );
+            if ($token_instance->is_expired) {
+                return;
+            }
+            return $token_instance;
         }
     } elsif (is_server_error($res->code)) {
         die 'An internal error occurred while attempting to introspect ' .
@@ -52,19 +56,25 @@ sub find_metabrainz_oauth_access_token {
     return;
 }
 
-sub find_musicbrainz_oauth_access_token {
+sub find_active_musicbrainz_oauth_access_token {
     my ($c, $access_token) = @_;
 
-    return $c->model('EditorOAuthToken')->get_by_access_token($oauth_access_token);
+    my $token_instance = $c->model('EditorOAuthToken')->get_by_access_token($access_token);
+    if (defined $token_instance && !$token_instance->is_expired) {
+        return $token_instance;
+    }
+    return;
 }
 
-sub find_oauth_access_token {
+sub find_active_oauth_access_token {
     my ($c, $access_token) = @_;
 
+    return unless defined $access_token;
+
     if ($access_token =~ /^meba_/) {
-        return find_metabrainz_oauth_access_token($c, $access_token);
+        return find_active_metabrainz_oauth_access_token($c, $access_token);
     }
-    return find_musicbrainz_oauth_access_token($c, $access_token);
+    return find_active_musicbrainz_oauth_access_token($c, $access_token);
 }
 
 1;
