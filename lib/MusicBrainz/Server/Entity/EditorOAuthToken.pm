@@ -2,9 +2,9 @@ package MusicBrainz::Server::Entity::EditorOAuthToken;
 use Moose;
 use namespace::autoclean;
 
-use aliased 'DateTime' => 'DT';
+use DateTime;
 use MusicBrainz::Server::Constants qw( :access_scope );
-use MusicBrainz::Server::Types qw( DateTime );
+use MusicBrainz::Server::Types DateTime => { -as => 'DateTimeType' };
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json datetime_to_iso8601 );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
@@ -57,7 +57,7 @@ has 'access_token' => (
 );
 
 has 'expire_time' => (
-    isa => DateTime,
+    isa => DateTimeType,
     is => 'rw',
     coerce => 1,
 );
@@ -68,7 +68,7 @@ has 'scope' => (
 );
 
 has 'granted' => (
-    isa => DateTime,
+    isa => DateTimeType,
     is => 'rw',
     coerce => 1,
 );
@@ -103,7 +103,7 @@ sub is_expired
 {
     my ($self) = @_;
 
-    return $self->expire_time < DT->now;
+    return $self->expire_time < DateTime->now;
 }
 
 sub is_offline
