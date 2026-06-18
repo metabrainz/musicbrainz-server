@@ -13,9 +13,20 @@ use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Constants qw( :access_scope );
 
 our @EXPORT_OK = qw(
+    can_user_login
     find_active_metabrainz_oauth_access_token
     find_active_oauth_access_token
 );
+
+sub can_user_login {
+    my ($user) = @_;
+
+    return (
+        defined $user &&
+        !$user->deleted &&
+        !$user->is_spammer
+    );
+}
 
 sub find_active_metabrainz_oauth_access_token {
     my ($c, $access_token) = @_;
