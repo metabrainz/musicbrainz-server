@@ -7,7 +7,7 @@ use DateTime;
 use Encode qw( decode );
 use MusicBrainz::Server::Authentication::WS::User;
 use MusicBrainz::Server::Authentication::Utils qw(
-    find_oauth_access_token
+    find_active_oauth_access_token
 );
 
 sub new
@@ -22,7 +22,7 @@ sub find_user
     my $user;
 
     if (exists $authinfo->{oauth_access_token}) {
-        my $token = find_oauth_access_token($c, $authinfo->{oauth_access_token});
+        my $token = find_active_oauth_access_token($c, $authinfo->{oauth_access_token});
         if (defined $token) {
             my $editor = $c->model('Editor')->get_by_id($token->editor_id);
             if (defined $editor) {
