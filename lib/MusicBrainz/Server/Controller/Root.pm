@@ -15,6 +15,7 @@ extends 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
+use MusicBrainz::Server::Authentication::Utils qw( can_user_login );
 use MusicBrainz::Server::Constants qw(
     %ENTITIES
     $VARTIST_GID
@@ -287,7 +288,7 @@ sub begin : Private
 {
     my ($self, $c) = @_;
 
-    if ($c->user_exists && $c->user->is_spammer) {
+    if ($c->user_exists && !can_user_login($c->user)) {
         $c->detach('/user/logout');
     }
 
