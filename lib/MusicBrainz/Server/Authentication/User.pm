@@ -1,5 +1,6 @@
 package MusicBrainz::Server::Authentication::User;
 use Moose;
+use namespace::autoclean;
 extends 'MusicBrainz::Server::Entity::Editor';
 
 has 'auth_realm' => (
