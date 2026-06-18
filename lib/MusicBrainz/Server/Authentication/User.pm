@@ -1,6 +1,7 @@
 package MusicBrainz::Server::Authentication::User;
 use Moose;
 use namespace::autoclean;
+use Readonly;
 extends 'MusicBrainz::Server::Entity::Editor';
 
 has 'auth_realm' => (
@@ -8,12 +9,15 @@ has 'auth_realm' => (
     is => 'rw',
 );
 
+Readonly our %supported_features => (
+    session => 1,
+);
+
 sub supports
 {
     my ($self, @spec) = @_;
-    my $supported = { session => 1 };
     for (@spec) {
-        return unless exists $supported->{$_};
+        return 0 unless exists $supported_features{$_};
     }
     return 1;
 }
