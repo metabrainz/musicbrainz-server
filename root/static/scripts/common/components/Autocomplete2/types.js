@@ -25,7 +25,7 @@ export type StateT<T extends EntityItemT> = {
     selectItem: (OptionItemT<T>) => boolean,
   ) => boolean,
   readonly inputClass?: string,
-  readonly inputRef?: {-current: HTMLInputElement | null},
+  readonly inputRef?: {writeonly current: HTMLInputElement | null},
   readonly inputValue: string,
   readonly isAddEntityDialogOpen?: boolean,
   readonly isInputFocused: boolean,

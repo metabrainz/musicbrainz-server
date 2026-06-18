@@ -94,8 +94,8 @@ if (__DEV__) {
 
 // Please keep the type signature in sync with root/vars.js.
 export default function hydrate<
-  Config: {...},
-  SanitizedConfig: {...} = Config,
+  Config extends {...},
+  SanitizedConfig extends {...} = Config,
 >(
   containerSelector: string,
   Component: React.ComponentType<Config | SanitizedConfig>,

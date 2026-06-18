@@ -31,7 +31,7 @@ component FormRowSelect(
    * Only useful when `allowEmpty` is true.
    */
   required as passedRequired: boolean = false,
-  rowRef?: {-current: HTMLDivElement | null},
+  rowRef?: {writeonly current: HTMLDivElement | null},
   uncontrolled: boolean = false,
 ) {
   let required = passedRequired;

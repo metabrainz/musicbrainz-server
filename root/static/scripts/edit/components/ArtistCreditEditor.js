@@ -497,7 +497,7 @@ component _ArtistCreditEditor(
 
   const buildPopoverChildren = React.useCallback((
     closeAndReturnFocus: () => void,
-    initialFocusRef: {-current: HTMLElement | null},
+    initialFocusRef: {writeonly current: HTMLElement | null},
   ) => (
     <ArtistCreditBubble
       closeAndReturnFocus={closeAndReturnFocus}

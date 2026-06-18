@@ -24,8 +24,8 @@ export type CreditChangeOptionT =
   | 'same-relationship-type';
 
 export type RelationshipStateForTypesT<
-  out T0: RelatableEntityT,
-  out T1: RelatableEntityT,
+  out T0 extends RelatableEntityT,
+  out T1 extends RelatableEntityT,
 > = {
   /*
    * _lineage is purely to help debug how a piece of relationship

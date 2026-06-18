@@ -100,7 +100,7 @@ export function extractLinkTypeSearchTerms(
 export function createInitialState(options: {
   disabled?: boolean,
   id: string,
-  initialFocusRef?: {-current: HTMLInputElement | null},
+  initialFocusRef?: {writeonly current: HTMLInputElement | null},
   linkType: LinkTypeT | null,
   linkTypeOptions: ReadonlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   source: RelatableEntityT,

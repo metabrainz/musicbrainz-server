@@ -27,7 +27,7 @@ function workTypeValue(workType: number | null): string {
 
 component _WorkTypeSelect(
   dispatch: (WorkTypeSelectActionT) => void,
-  initialFocusRef?: {-current: HTMLElement | null},
+  initialFocusRef?: {writeonly current: HTMLElement | null},
   workType: number | null,
 ) {
   const workTypeOptions: OptionListT = React.useMemo(() => {
