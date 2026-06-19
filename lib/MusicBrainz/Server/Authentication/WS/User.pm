@@ -15,11 +15,6 @@ has 'oauth_token' => (
     is => 'rw',
 );
 
-sub supported_features
-{
-    return { oauth => 1 };
-}
-
 sub is_authorized
 {
     my ($self, $scope) = @_;
