@@ -183,6 +183,7 @@ export const FAVICON_CLASSES: {
   'music.yandex': 'yandex',
   'music.youtube.com': 'youtubemusic',
   'musicapopular.cl': 'musicapopularcl',
+  'musicinafrica.net': 'musicinafrica',
   'musik-sammler.de': 'musiksammler',
   'musixmatch.com': 'musixmatch',
   'musopen.org': 'musopen',

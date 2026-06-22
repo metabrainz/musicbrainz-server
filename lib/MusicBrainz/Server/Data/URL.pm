@@ -136,6 +136,7 @@ my %URL_SPECIALIZATIONS = (
     'MobyGames'           => qr{^https?://(?:www\.)?mobygames\.com/}i,
     'Mora'                => qr{^https?://(?:www\.)?mora\.jp/}i,
     'MusicaPopularCl'     => qr{^https?://(?:www\.)?musicapopular\.cl/}i,
+    'MusicInAfrica'       => qr{^https?://(?:www\.)?musicinafrica\.net/}i,
     'MusicMoz'            => qr{^https?://(?:www\.)?musicmoz\.org/}i,
     'MusikSammler'        => qr{^https?://(?:www\.)?musik-sammler\.de/}i,
     'Musixmatch'          => qr{^https?://(?:www\.)?musixmatch\.com/}i,
