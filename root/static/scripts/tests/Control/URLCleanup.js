@@ -7544,7 +7544,7 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['label'],
   },
   {
-                     input_url: 'https://music.yandex.ru/album/22248502',
+                     input_url: 'https://music.yandex.ru/album/22248502/',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://music.yandex.com/album/22248502',
