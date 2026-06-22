@@ -12,7 +12,7 @@ import test from 'tape';
 import unformatTrackLength from '../../common/utility/unformatTrackLength.js';
 
 test('unformatTrackLength', function (t) {
-  t.plan(7);
+  t.plan(9);
 
   const seconds = 1000;
   const minutes = 60 * seconds;
@@ -31,6 +31,16 @@ test('unformatTrackLength', function (t) {
     'MBS-3352: Handle the case of ":57"',
   );
   t.equal(unformatTrackLength('59:00'), 59 * minutes, 'Handle minutes only');
+  t.equal(
+    unformatTrackLength('15:23'),
+    (15 * minutes) + (23 * seconds),
+    'Handle MM:SS',
+  );
+  t.equal(
+    unformatTrackLength('85:23'),
+    (85 * minutes) + (23 * seconds),
+    'Handle MM:SS with with more than 60 minutes',
+  );
   t.equal(
     unformatTrackLength('01:00:00'),
     60 * minutes,
