@@ -57,7 +57,7 @@ export default function useRelationshipDialogContent(
     readonly hasPreselectedTargetType: boolean,
     readonly relationship: RelationshipStateT,
     readonly targetTypeOptions: TargetTypeOptionsT | null,
-    readonly targetTypeRef: {-current: RelatableEntityTypeT} | null,
+    readonly targetTypeRef: {writeonly current: RelatableEntityTypeT} | null,
     readonly user: ActiveEditorT,
   }>,
 ): (

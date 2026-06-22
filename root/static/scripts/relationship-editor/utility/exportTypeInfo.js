@@ -25,7 +25,7 @@ export function exportLinkTypeInfo(
   } = {};
 
   function mapItems<T extends LinkTypeT>(
-    result: {-[idOrGid: StrOrNum]: T},
+    result: {writeonly [idOrGid: StrOrNum]: T},
     item: T,
   ) {
     if (item.id) {
@@ -75,7 +75,7 @@ export function exportLinkAttributeTypeInfo(
     groupBy(allLinkAttributeTypes, x => String(x.parent_id));
 
   function mapItems<T extends LinkAttrTypeT>(
-    result: {-[idOrGid: StrOrNum]: T},
+    result: {writeonly [idOrGid: StrOrNum]: T},
     item: T,
   ) {
     if (item.id) {

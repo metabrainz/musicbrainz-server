@@ -27,7 +27,7 @@ type LoadableEntityTypeT =
   | 'series_type'
   | 'work_type';
 
-export default function withLoadedTypeInfo<Config: {...}>(
+export default function withLoadedTypeInfo<Config extends {...}>(
   WrappedComponent: component(...Config),
   typeInfoToLoad: ReadonlySet<LoadableEntityTypeT>,
 ): component(...Config) {
@@ -150,7 +150,7 @@ export default function withLoadedTypeInfo<Config: {...}>(
   return ComponentWrapper;
 }
 
-export function withLoadedTypeInfoForRelationshipEditor<Config: {...}>(
+export function withLoadedTypeInfoForRelationshipEditor<Config extends {...}>(
   WrappedComponent: component(...Config),
   extraTypeInfoToLoad?: ReadonlyArray<LoadableEntityTypeT> = [],
 ): component(...Config) {

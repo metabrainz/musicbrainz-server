@@ -18,8 +18,8 @@ import ExternalLinksEditor from './ExternalLinksEditor.js';
 
 component ExternalLinksEditorFieldset(
   dispatch: (
-    action: {+
-      action: LinksEditorActionT,
+    action: {
+      readonly action: LinksEditorActionT,
       readonly type: 'update-external-links-editor',
     },
   ) => void,

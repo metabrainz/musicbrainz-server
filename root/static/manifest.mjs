@@ -74,7 +74,9 @@ function pathTo(manifest: string, legacyBrowser: boolean) {
 const jsExt = /\.js(?:on)?$/;
 function manifest(
   manifest: string,
-  extraAttrs?: {+'async'?: boolean, +'data-args'?: string} | null = null,
+  extraAttrs?:
+    | {readonly 'async'?: boolean, readonly 'data-args'?: string}
+    | null = null,
 ): React.MixedElement {
   if (jsExt.test(manifest)) {
     throw new Error(

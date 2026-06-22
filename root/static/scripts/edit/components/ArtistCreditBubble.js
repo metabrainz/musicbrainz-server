@@ -30,7 +30,7 @@ import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 type ButtonsPropsT = {
   readonly dispatch: (ActionT) => void,
   readonly initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
-  readonly initialFocusRef: {-current: HTMLElement | null},
+  readonly initialFocusRef: {writeonly current: HTMLElement | null},
   readonly isTrack: boolean,
 };
 
@@ -215,7 +215,7 @@ const ChangeMatchingTrackArtistsRow =
 component _ArtistCreditBubble(
   closeAndReturnFocus: () => void,
   dispatch: (ActionT) => void,
-  initialFocusRef: {-current: HTMLElement | null},
+  initialFocusRef: {writeonly current: HTMLElement | null},
   state: ArtistCreditStateT,
 ) {
   const {

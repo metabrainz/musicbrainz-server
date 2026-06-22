@@ -116,7 +116,7 @@ const returnFalse = () => false;
 
 export function createInitialAutocompleteStateForTarget(options: {
   allowedTypes: TargetTypeOptionsT | null,
-  inputRef?: {-current: HTMLInputElement | null},
+  inputRef?: {writeonly current: HTMLInputElement | null},
   relationshipId: number,
   target: NonUrlRelatableEntityT,
 }): AutocompleteStateT<NonUrlRelatableEntityT> {
@@ -150,7 +150,7 @@ export function createInitialAutocompleteStateForTarget(options: {
 
 export function createInitialState(options: {
   allowedTypes: TargetTypeOptionsT | null,
-  initialFocusRef?: {-current: HTMLElement | null},
+  initialFocusRef?: {writeonly current: HTMLElement | null},
   initialRelationship: RelationshipStateT,
   releaseHasUnloadedTracks: boolean,
   source: RelatableEntityT,

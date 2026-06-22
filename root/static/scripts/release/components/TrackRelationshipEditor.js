@@ -159,7 +159,7 @@ component NewRelatedWorkHeading(
 
   const buildEditWorkPopoverContent = React.useCallback((
     closeAndReturnFocus: () => void,
-    initialFocusRef: {-current: HTMLElement | null},
+    initialFocusRef: {writeonly current: HTMLElement | null},
   ) => (
     <EditWorkDialog
       closeDialog={closeAndReturnFocus}

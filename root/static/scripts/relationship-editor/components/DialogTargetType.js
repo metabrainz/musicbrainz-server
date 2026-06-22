@@ -18,7 +18,7 @@ import type {
 
 component _DialogTargetType(
   dispatch: (DialogActionT) => void,
-  initialFocusRef?: {-current: HTMLElement | null},
+  initialFocusRef?: {writeonly current: HTMLElement | null},
   options: ?TargetTypeOptionsT,
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
