@@ -814,13 +814,16 @@ sub delete {
     $self->c->model('Editor')->unsubscribe_to($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
 
-    $self->c->model($_)->tags->clear($editor_id)
-        for (entities_with('tags', take => 'model'));
-
-    $self->c->model($_)->rating->clear($editor_id)
-        for (entities_with('ratings', take => 'model'));
-
     $self->c->model('Editor')->cancel_edits_and_votes($editor);
+
+    # Tags/ratings are too expensive to delete synchronously here, and are
+    # handled by `admin/cleanup/RemoveResidualUserData` instead, which runs
+    # daily.
+    #
+    # This means the `hard_delete_if_unreferenced` call below won't delete
+    # the editor row if only tags or ratings remain. However, the
+    # `RemoveResidualUserData` script will later attempt this hard deletion
+    # on its own.
 
     $self->hard_delete_if_unreferenced($editor_id);
     $self->sql->commit;
