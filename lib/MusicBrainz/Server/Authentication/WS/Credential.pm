@@ -4,10 +4,12 @@ use warnings;
 
 use parent qw/Catalyst::Authentication::Credential::HTTP/;
 
-use DBDefs;
 use Encode qw( decode );
 use HTTP::Status qw( HTTP_BAD_REQUEST );
 use Try::Tiny;
+
+use DBDefs;
+use MusicBrainz::Server::Data::Utils qw( is_blank );
 
 sub authenticate
 {
@@ -30,7 +32,14 @@ sub authenticate
     };
 
     $auth = $self->SUPER::authenticate($c, $realm, $auth_info);
-    if ($auth && ($auth->requires_password_reset || $auth->deleted)) {
+    if (
+        $auth &&
+        (
+            $auth->requires_password_reset ||
+            $auth->deleted ||
+            is_blank($auth->ha1)
+        )
+    ) {
         $self->authentication_failed($c, $realm, $auth_info);
     }
     else {
