@@ -3,6 +3,7 @@ use utf8;
 use strict;
 use warnings;
 
+use Encode qw( encode_utf8 );
 use HTTP::Status qw( :constants );
 use Test::Routine;
 use Test::More;
@@ -14,7 +15,7 @@ with 't::Context', 't::Mechanize';
 
 =head1 DESCRIPTION
 
-This test checks OAuth authentication in the web service, by attempting
+This test checks OAuth/Digest authentication in the web service, by attempting
 to request data for a private collection.
 
 =cut
@@ -86,6 +87,42 @@ test 'Authenticate WS bearer' => sub {
     is($test->mech->status, HTTP_UNAUTHORIZED, 'Expired token is rejected');
     $test->mech->get($path, Authorization => 'Bearer Nlaa7v15QHm9g8rUOmT3dQ');
     is($test->mech->status, HTTP_UNAUTHORIZED, 'Expired bearer is rejected');
+};
+
+test 'Digest authentication' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $path = '/ws/2/collection/906dddc8-91c8-4a1c-8237-31b6d24c988d';
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'GET with no auth is rejected');
+
+    my $username = 'æditorⅣ';
+    my $username_utf8 = encode_utf8($username);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get_ok($path, 'Account password is accepted');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'wrongpass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Wrong account password is rejected');
+
+    my $editor = $c->model('Editor')->get_by_name($username);
+    $c->model('Editor')->disable_digest_auth_token($editor->id);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Account password is rejected after disabling digest auth');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, '');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Empty password is rejected after disabling digest auth');
+
+    # The `ha1` column is `CHAR(32)`, so an empty value will consist of 32 spaces.
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, ' ' x 32);
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Blank password is rejected after disabling digest auth');
 };
 
 1;
