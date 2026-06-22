@@ -64,6 +64,9 @@ echo Removing unused works
 echo Removing unreferenced rows
 ./admin/cleanup/RemoveUnreferencedRows
 
+echo Removing orphaned user data
+./admin/cleanup/RemoveOrphanedUserData
+
 # Dump all the data
 # Only do this on the nominated days 3=Wed and 6=Sat (for reference 0=Sun)
 if date +%w | grep -qw '[36]'

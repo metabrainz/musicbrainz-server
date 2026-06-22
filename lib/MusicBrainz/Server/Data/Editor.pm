@@ -805,12 +805,6 @@ sub delete {
     $self->c->model('Editor')->unsubscribe_to($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
 
-    $self->c->model($_)->tags->clear($editor_id)
-        for (entities_with('tags', take => 'model'));
-
-    $self->c->model($_)->rating->clear($editor_id)
-        for (entities_with('ratings', take => 'model'));
-
     $self->c->model('Editor')->cancel_edits_and_votes($editor);
 
     # Delete completely if they're not actually referred to by anything

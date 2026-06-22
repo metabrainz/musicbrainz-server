@@ -88,6 +88,7 @@ CREATE INDEX artist_release_group_pending_update_idx_release_group ON artist_rel
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
 
+CREATE INDEX editor_idx_deleted ON editor (deleted);
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
 

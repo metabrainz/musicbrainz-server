@@ -102,6 +102,7 @@ DROP INDEX editor_collection_gid_redirect_idx_new_id;
 DROP INDEX editor_collection_idx_editor;
 DROP INDEX editor_collection_idx_gid;
 DROP INDEX editor_collection_type_idx_gid;
+DROP INDEX editor_idx_deleted;
 DROP INDEX editor_idx_name;
 DROP INDEX editor_language_idx_language;
 DROP INDEX editor_oauth_token_idx_access_token;
