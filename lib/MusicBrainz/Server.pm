@@ -118,6 +118,7 @@ require MusicBrainz::Server::Authentication::WebService::OAuth2Credential;
 require MusicBrainz::Server::Authentication::Website::OAuth2Credential;
 require MusicBrainz::Server::Authentication::Website::OAuth2Store;
 require MusicBrainz::Server::Authentication::Website::PasswordCredential;
+require MusicBrainz::Server::Authentication::Website::RememberLoginCredential;
 __PACKAGE__->config->{'Plugin::Authentication'} = {
     default_realm => DBDefs->LOCAL_ACCOUNTS_ENABLED
         ? 'website_local_account'
@@ -138,6 +139,15 @@ __PACKAGE__->config->{'Plugin::Authentication'} = {
             use_session => 1,
             credential => {
                 class => '+MusicBrainz::Server::Authentication::Website::OAuth2Credential',
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Website::OAuth2Store',
+            },
+        },
+        website_cookie_login => {
+            use_session => 1,
+            credential => {
+                class => '+MusicBrainz::Server::Authentication::Website::RememberLoginCredential',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::Website::OAuth2Store',

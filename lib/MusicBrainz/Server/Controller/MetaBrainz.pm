@@ -17,6 +17,10 @@ use URI::QueryParam;
 
 use DBDefs;
 use MusicBrainz::Errors qw( capture_exceptions );
+use MusicBrainz::Server::Authentication::Utils qw(
+    oauth_expires_in_to_iso8601
+    set_remember_login_cookie
+);
 use MusicBrainz::Server::Data::Utils qw( generate_token non_empty );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
@@ -206,6 +210,15 @@ sub oauth2_callback : Chained('base') PathPart('oauth2/callback') Args(0) {
 
     unless (defined $user) {
         die 'Failed to authenticate the requested user.';
+    }
+
+    if ($token_data->{remember_me}) {
+        set_remember_login_cookie($c, $user->id, {
+            remember_login_token => generate_token(),
+            access_token => $access_token,
+            access_token_expiration => oauth_expires_in_to_iso8601($token_data->{expires_in}),
+            refresh_token => $token_data->{refresh_token},
+        });
     }
 
     if ($method eq 'GET') {

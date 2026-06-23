@@ -305,6 +305,13 @@ sub begin : Private
     # Can we automatically login?
     if (!$c->user) {
         $c->forward('/user/cookie_login');
+
+        if ($c->stash->{cookie_login_error}) {
+            $c->flash->{message} = l(
+                'Sorry, we could not verify your login credentials ' .
+                'right now. Please try logging in again.',
+            );
+        }
     }
 
     # Allow browsers to report MB pages as referrers, even when going from
