@@ -2180,14 +2180,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@metabrainz/xgettext-js@npm:5.0.2":
-  version: 5.0.2
-  resolution: "@metabrainz/xgettext-js@npm:5.0.2"
+"@metabrainz/xgettext-js@npm:5.0.3":
+  version: 5.0.3
+  resolution: "@metabrainz/xgettext-js@npm:5.0.3"
   dependencies:
     estree-walker: "npm:3.0.3"
-    hermes-parser: "npm:0.35.0"
+    hermes-parser: "npm:0.36.1"
     lodash: "npm:4.18.1"
-  checksum: 10c0/228c3fb2d88c4d55b55fa2bee520347cde940c59b7ba812d5619f84d4223842c797ee27d91a0b8f3281f386995e1bfbb032ada463d2de499da618a6458c18ade
+  checksum: 10c0/dd6b5fba51a4a62da1d0c93faab30dbceb5f1c8641e189e2767172abb72d4625eb7c462baa7934c5eba429a01057c3ca0c75d2fae6f626199621714da783792c
   languageName: node
   linkType: hard
 
@@ -6079,26 +6079,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hermes-estree@npm:0.35.0":
-  version: 0.35.0
-  resolution: "hermes-estree@npm:0.35.0"
-  checksum: 10c0/a88c9dc63b8b3679b1aeb43e72e977597096c1bd7d59978c952f1d6df6d1a517c4a817c70b1b701854996b485adfa66c2fc7f80871029a7f0c04306f6717b59a
-  languageName: node
-  linkType: hard
-
 "hermes-estree@npm:0.36.1":
   version: 0.36.1
   resolution: "hermes-estree@npm:0.36.1"
   checksum: 10c0/9f552e1f809e05a4ddc5dcc10c5d1d5e375eade985026c3f8876a227db76c33059d25f93f92628a0e43d29a6da6977fbb643fafc8830babad62c1b88b2b56739
-  languageName: node
-  linkType: hard
-
-"hermes-parser@npm:0.35.0":
-  version: 0.35.0
-  resolution: "hermes-parser@npm:0.35.0"
-  dependencies:
-    hermes-estree: "npm:0.35.0"
-  checksum: 10c0/49d98093a2094758db5b536627c6cf5146b140f66e63143acf471c62f1d3fd8bd6ae10a33f2372f72e3653deda5d4615c6dae89d01248849440916209901fc4a
   languageName: node
   linkType: hard
 
@@ -7825,7 +7809,7 @@ __metadata:
     "@babel/register": "npm:7.28.6"
     "@babel/runtime": "npm:7.28.6"
     "@floating-ui/react": "npm:0.27.19"
-    "@metabrainz/xgettext-js": "npm:5.0.2"
+    "@metabrainz/xgettext-js": "npm:5.0.3"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
     "@stylistic/eslint-plugin": "npm:5.10.0"
