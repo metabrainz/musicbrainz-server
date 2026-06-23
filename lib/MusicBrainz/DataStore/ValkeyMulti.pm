@@ -132,6 +132,10 @@ sub set {
     shift->_exec_method_wantscalar('set', \&_exec_all, @_);
 }
 
+sub set_nx {
+    shift->_exec_method_wantscalar('set_nx', \&_is_truthy, @_);
+}
+
 sub expire {
     shift->_exec_method_wantscalar('expire', \&_exec_all, @_);
 }

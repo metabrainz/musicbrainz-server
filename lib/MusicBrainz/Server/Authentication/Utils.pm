@@ -7,16 +7,29 @@ use base 'Exporter';
 use DateTime;
 use HTTP::Request::Common qw( POST );
 use HTTP::Status qw( is_server_error is_success );
+use Readonly;
 
 use DBDefs;
+use MusicBrainz::Errors qw(
+    build_request_and_user_context
+    send_message_to_sentry
+);
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Constants qw( :access_scope );
 
 our @EXPORT_OK = qw(
+    $REMEMBER_LOGIN_COOKIE_VERSION
+    $REMEMBER_LOGIN_COOKIE_EXPIRES
     can_user_login
+    clear_remember_login_cookie
+    exchange_metabrainz_oauth_refresh_token
     find_active_metabrainz_oauth_access_token
     find_active_oauth_access_token
+    set_remember_login_cookie
 );
+
+Readonly our $REMEMBER_LOGIN_COOKIE_VERSION => 4;
+Readonly our $REMEMBER_LOGIN_COOKIE_EXPIRES => '+1y';
 
 sub can_user_login {
     my ($user) = @_;
@@ -26,6 +39,45 @@ sub can_user_login {
         !$user->deleted &&
         !$user->is_spammer
     );
+}
+
+sub clear_remember_login_cookie {
+    my ($c) = @_;
+
+    $c->res->cookies->{remember_login} = {
+        value => '',
+        expires => $REMEMBER_LOGIN_COOKIE_EXPIRES,
+    };
+}
+
+sub exchange_metabrainz_oauth_refresh_token {
+    my ($c, $refresh_token) = @_;
+
+    my $ctx = $c->model('MB')->context;
+    my $token_uri = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/token';
+    my $res = $ctx->lwp->request(
+        POST $token_uri,
+        [
+            grant_type => 'refresh_token',
+            refresh_token => $refresh_token,
+            client_id => DBDefs->METABRAINZ_OAUTH_CLIENT_ID,
+            client_secret => DBDefs->METABRAINZ_OAUTH_CLIENT_SECRET,
+        ],
+    );
+
+    if (is_success($res->code)) {
+        my $token_data = $c->json_utf8->decode($res->content);
+        return $token_data;
+    } elsif (is_server_error($res->code)) {
+        die 'An internal error occurred while attempting to refresh ' .
+            'the MetaBrainz OAuth token.';
+    }
+    send_message_to_sentry(
+        'Invalid MetaBrainz refresh token',
+        build_request_and_user_context($c),
+        extra => { refresh_token => $refresh_token },
+    );
+    return;
 }
 
 sub find_active_metabrainz_oauth_access_token {
@@ -86,6 +138,30 @@ sub find_active_oauth_access_token {
         return find_active_metabrainz_oauth_access_token($c, $access_token);
     }
     return find_active_musicbrainz_oauth_access_token($c, $access_token);
+}
+
+sub set_remember_login_cookie {
+    my ($c, $user_id, $refresh_token) = @_;
+
+    my $remember_login_token = $c->generate_nonce;
+
+    $c->model('MB')->context->store->set(
+        "refresh_token:$user_id:$remember_login_token",
+        $refresh_token,
+        31536000,  # 1 year (60 * 60 * 24 * 365)
+    );
+
+    $c->res->cookies->{remember_login} = {
+        expires => $REMEMBER_LOGIN_COOKIE_EXPIRES,
+        value => join("\t", $REMEMBER_LOGIN_COOKIE_VERSION,
+                            $user_id,
+                            $remember_login_token),
+        samesite => 'Lax',
+        $c->req->secure ? (secure => 1) : (),
+        httponly => 1,
+    };
+
+    return $remember_login_token;
 }
 
 1;

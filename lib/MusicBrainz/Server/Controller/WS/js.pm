@@ -897,6 +897,8 @@ sub mark_spammer : Chained('root') PathPart('mark-spammer') Args(1) {
 
     $c->res->content_type('text/plain; charset=utf-8');
 
+    $c->authenticate({}, 'website_cookie_login') unless $c->user_exists;
+
     unless ($c->user_exists) {
         $c->res->body('you are not logged in');
         $c->res->status(400);
@@ -1014,8 +1016,10 @@ sub get_json_request_body : Private {
 sub cookie_login_or_error : Private {
     my ($self, $c, $error) = @_;
 
-    $c->forward('/user/cookie_login');
-    $self->detach_with_error($c, $error) unless $c->user_exists;
+    unless ($c->user_exists) {
+        $c->authenticate({}, 'website_cookie_login');
+        $self->detach_with_error($c, $error) unless $c->user_exists;
+    }
 }
 
 sub check_login : Chained('root') PathPart('check-login') {

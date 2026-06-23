@@ -304,7 +304,7 @@ sub begin : Private
 
     # Can we automatically login?
     if (!$c->user) {
-        $c->forward('/user/cookie_login');
+        $c->authenticate({}, 'website_cookie_login');
     }
 
     # Allow browsers to report MB pages as referrers, even when going from

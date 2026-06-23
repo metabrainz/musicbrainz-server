@@ -13,6 +13,7 @@ requires 'remove';
 requires 'set_add';
 requires 'set_members';
 requires 'set_multi';
+requires 'set_nx';
 requires 'set';
 
 =method expire

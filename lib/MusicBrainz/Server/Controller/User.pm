@@ -11,6 +11,7 @@ use DBDefs;
 use Encode;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Authentication::Utils qw( clear_remember_login_cookie );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json non_empty );
@@ -216,74 +217,12 @@ sub logout : Path('/logout')
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
-        $self->_consume_remember_me_cookie($c, $c->user->name);
+        clear_remember_login_cookie($c);
         $c->logout;
         $c->delete_session;
     }
 
     $c->redirect_back;
-}
-
-sub cookie_login : Private
-{
-    my ($self, $c) = @_;
-
-    return if $c->user_exists;
-
-    my $user_name = $self->_consume_remember_me_cookie($c);
-    if (defined $user_name) {
-        my $user = $c->find_user({ username => $user_name });
-        if (defined $user) {
-            $self->_renew_login_cookie($c, $user_name);
-            $c->set_authenticated($user);
-        }
-    }
-}
-
-sub _consume_remember_me_cookie {
-    my ($self, $c) = @_;
-
-    my $cookie = $c->req->cookie('remember_login') or return;
-    return unless $cookie->value;
-
-    my $value = decode('utf-8', $cookie->value);
-    $self->_clear_login_cookie($c);
-
-    if ($value =~ /^3\t(.*?)\t(.*)$/) {
-        my ($user_name, $token) = ($1, $2);
-
-        if ($c->model('Editor')->consume_remember_me_token($user_name, $token)) {
-            return $user_name;
-        }
-    }
-
-    return;
-}
-
-sub _clear_login_cookie
-{
-    my ($self, $c) = @_;
-    $c->res->cookies->{remember_login} = {
-        value => '',
-        expires => '+1y',
-    };
-}
-
-sub _renew_login_cookie
-{
-    my ($self, $c, $user_name) = @_;
-    my ($normalized_name, $token) = $c->model('Editor')->allocate_remember_me_token($user_name);
-    my $cookie_version = 3;
-    $c->res->cookies->{remember_login} = {
-        expires => '+1y',
-        name => 'remember_me',
-        value => $token
-            ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
-            : '',
-        samesite => 'Lax',
-        $c->req->secure ? (secure => 1) : (),
-        httponly => 1,
-    };
 }
 
 sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnMirrors { }

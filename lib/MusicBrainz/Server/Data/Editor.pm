@@ -1073,40 +1073,6 @@ sub hash_password {
     )->as_rfc2307;
 }
 
-sub consume_remember_me_token {
-    my ($self, $user_name, $token) = @_;
-
-    my $token_key = "$user_name|$token";
-    # Expire consumed tokens in 5 minutes. This allows the case where the user
-    # has no session, and opens multiple tabs using the same remember_me token.
-    $self->store->expire($token_key, 5 * 60);
-    $self->store->exists($token_key);
-}
-
-sub allocate_remember_me_token {
-    my ($self, $user_name) = @_;
-
-    if (
-        my $normalized_name = $self->sql->select_single_value(
-            'SELECT name FROM editor WHERE lower(name) = lower(?)',
-            $user_name,
-        )
-    ) {
-        my $token = generate_token();
-
-        my $key = "$normalized_name|$token";
-        $self->store->set($key, 1);
-
-        # Expire tokens after 1 year.
-        $self->store->expire($key, 60 * 60 * 24 * 7 * 52);
-
-        return ($normalized_name, $token);
-    }
-    else {
-        return undef;
-    }
-}
-
 sub is_name_used {
     my ($self, $name) = @_;
 

@@ -129,6 +129,21 @@ sub set_raw {
     return;
 }
 
+# Corresponds to Valkey's `SET ... NX`:
+# https://valkey.io/commands/set/
+# Returns `1` if the key was set, or `0` if it already existed.
+sub set_nx {
+    my ($self, $key, $value, $exptime) = @_;
+
+    my @args = (
+        $self->_prepare_key($key),
+        $self->_encode_value($value),
+        'NX'
+    );
+    push @args, 'EX', $exptime if defined $exptime;
+    return defined $self->_connection->set(@args) ? 1 : 0;
+}
+
 sub delete {
     my ($self, $key) = @_;
 
