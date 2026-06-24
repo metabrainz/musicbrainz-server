@@ -6,17 +6,16 @@ use namespace::autoclean;
 extends 'Catalyst';
 
 use Class::Load qw( load_class );
-use Crypt::URandom ();
 use Data::Dumper;
 use DBDefs;
 use HTML::Entities ();
 use HTTP::Status qw( :constants );
 use JSON;
-use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
+    generate_token
     non_empty
 );
 use MusicBrainz::Server::DatabaseConnectionFactory;
@@ -683,12 +682,6 @@ sub form_submitted_and_valid {
     return 1;
 }
 
-sub generate_nonce {
-    my ($self) = @_;
-
-    encode_base64(Crypt::URandom::urandom(32), '');
-}
-
 sub get_csrf_token {
     my ($self, $session_key) = @_;
 
@@ -702,8 +695,8 @@ sub get_csrf_token {
 sub generate_csrf_token {
     my ($self) = @_;
 
-    my $session_key = 'csrf_token:' . $self->generate_nonce;
-    my $token = $self->generate_nonce;
+    my $session_key = 'csrf_token:' . generate_token();
+    my $token = generate_token();
     $self->session->{$session_key} = $token;
     $self->session_expire_key($session_key, 600); # 10 minutes
     return ($session_key, $token);
@@ -714,7 +707,7 @@ sub set_csp_headers {
 
     return if defined $self->res->header('Content-Security-Policy');
 
-    my $globals_script_nonce = $self->generate_nonce;
+    my $globals_script_nonce = generate_token();
     $self->stash->{globals_script_nonce} = $globals_script_nonce;
 
     # CSP headers are generally only added where SecureForm is also used:
