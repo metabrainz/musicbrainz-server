@@ -2478,6 +2478,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/less@npm:^3.0.8":
+  version: 3.0.8
+  resolution: "@types/less@npm:3.0.8"
+  checksum: 10c0/79ed1014ccecaa060b8b2ccc8ea8cd28a62463a69e21184c13eaa08bd200ffe5149b4ecc380792a3204d8f629a328b504f2ef25a6a5974f8c512f15514e78426
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*":
   version: 20.14.1
   resolution: "@types/node@npm:20.14.1"
@@ -6925,9 +6932,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"less-loader@npm:12.3.1":
-  version: 12.3.1
-  resolution: "less-loader@npm:12.3.1"
+"less-loader@npm:13.0.0":
+  version: 13.0.0
+  resolution: "less-loader@npm:13.0.0"
+  dependencies:
+    "@types/less": "npm:^3.0.8"
   peerDependencies:
     "@rspack/core": 0.x || ^1.0.0 || ^2.0.0-0
     less: ^3.5.0 || ^4.0.0
@@ -6937,7 +6946,7 @@ __metadata:
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/46287723e7c569bba7dcee697d8927a310d63822e67ed81c16f2216d7c00484b5c1e743f57927bb489d7dcd381b10cd0d2ce7f0501786567fb9f139800a53029
+  checksum: 10c0/622e690dfdcb51359ba1bd67640fe5f7296061f00f4b86f5088e5771954953bc313220a0b7be7d127694342c552b87c25e643ae16916640bb922c3ef9c9b278d
   languageName: node
   linkType: hard
 
@@ -7558,7 +7567,7 @@ __metadata:
     leaflet: "npm:1.9.4"
     leaflet.markercluster: "npm:1.5.3"
     less: "npm:4.6.7"
-    less-loader: "npm:12.3.1"
+    less-loader: "npm:13.0.0"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.1.0"
     mutate-cow: "npm:8.1.0"
