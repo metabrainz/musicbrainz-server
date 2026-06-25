@@ -7701,7 +7701,7 @@ __metadata:
     react-is: "npm:19.2.7"
     react-table: "npm:7.8.0"
     redux: "npm:4.2.1"
-    selenium-webdriver: "npm:4.41.0"
+    selenium-webdriver: "npm:4.45.0"
     shell-quote: "npm:1.9.0"
     shelljs: "npm:0.10.0"
     sliced: "npm:1.0.1"
@@ -9353,15 +9353,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"selenium-webdriver@npm:4.41.0":
-  version: 4.41.0
-  resolution: "selenium-webdriver@npm:4.41.0"
+"selenium-webdriver@npm:4.45.0":
+  version: 4.45.0
+  resolution: "selenium-webdriver@npm:4.45.0"
   dependencies:
     "@bazel/runfiles": "npm:^6.5.0"
     jszip: "npm:^3.10.1"
-    tmp: "npm:^0.2.5"
-    ws: "npm:^8.19.0"
-  checksum: 10c0/a5f2e72083346d74cccca1fb0770c9e28ab9747745594519b86016a6b58e8e4741c48537d0a9af0f90e060a918d339c94b5291f861d8f9b7d7dcb8ebc767eb2f
+    tmp: "npm:^0.2.7"
+    ws: "npm:^8.21.0"
+  checksum: 10c0/96ee15739d076abc50974f86288a313e54ef90ae9b3a324a50b6f6b44b8d3348277135fb90df85477cc8251d2849d7d9e5475ad1707bc47c12d6989d745e8ae1
   languageName: node
   linkType: hard
 
@@ -10319,10 +10319,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tmp@npm:^0.2.5":
-  version: 0.2.5
-  resolution: "tmp@npm:0.2.5"
-  checksum: 10c0/cee5bb7d674bb4ba3ab3f3841c2ca7e46daeb2109eec395c1ec7329a91d52fcb21032b79ac25161a37b2565c4858fefab927af9735926a113ef7bac9091a6e0e
+"tmp@npm:^0.2.7":
+  version: 0.2.7
+  resolution: "tmp@npm:0.2.7"
+  checksum: 10c0/59eb55584f2f07210d3231b6a1f6b5c2b9794d8a7b509c8ee867ed2acad6d2245ee2448b7937b676ffbff3155a70077edde8a69f9d7cf0f90c86a62e8910c357
   languageName: node
   linkType: hard
 
@@ -11120,9 +11120,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ws@npm:^8.19.0":
-  version: 8.19.0
-  resolution: "ws@npm:8.19.0"
+"ws@npm:^8.21.0":
+  version: 8.21.0
+  resolution: "ws@npm:8.21.0"
   peerDependencies:
     bufferutil: ^4.0.1
     utf-8-validate: ">=5.0.2"
@@ -11131,7 +11131,7 @@ __metadata:
       optional: true
     utf-8-validate:
       optional: true
-  checksum: 10c0/4741d9b9bc3f9c791880882414f96e36b8b254e34d4b503279d6400d9a4b87a033834856dbdd94ee4b637944df17ea8afc4bce0ff4a1560d2166be8855da5b04
+  checksum: 10c0/ef4a243476283fc49bc7550966c4af4aa0eef56273837211e700de3b664e08604a760cdddcb5ba43c049140e74ccfec5b0ee0bb439e08c2adf9138902fdde5f9
   languageName: node
   linkType: hard
 
