@@ -75,7 +75,7 @@ module.exports = function (api) {
     '@babel/plugin-transform-runtime',
     ['polyfill-corejs3', {
       method: 'usage-global',
-      version: '3.48',
+      version: '3.49',
     }],
   ];
 
