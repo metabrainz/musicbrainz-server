@@ -7589,7 +7589,7 @@ __metadata:
     shelljs: "npm:0.10.0"
     sliced: "npm:1.0.1"
     stream-browserify: "npm:3.0.0"
-    tabbable: "npm:6.4.0"
+    tabbable: "npm:6.5.0"
     tablesorter: "npm:2.32.0"
     tap-difflet: "npm:0.7.2"
     tap-junit: "npm:5.0.4"
@@ -9935,10 +9935,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tabbable@npm:6.4.0":
-  version: 6.4.0
-  resolution: "tabbable@npm:6.4.0"
-  checksum: 10c0/d931427f4a96b801fd8801ba296a702119e06f70ad262fed8abc5271225c9f1ca51b89fdec4fb2f22e1d35acb3d2881db0a17cedc758272e9ecb540d00299d76
+"tabbable@npm:6.5.0":
+  version: 6.5.0
+  resolution: "tabbable@npm:6.5.0"
+  checksum: 10c0/7d778af05a3093800265831198cad9d0024f3d65cdd4405007490f7430b42ff4e80060b4679f45281fb96ddbddc5fb895e8ea36e3ebdc811051e14acc9c7c02c
   languageName: node
   linkType: hard
 
