@@ -7,11 +7,11 @@
  */
 
 import canonicalJson from 'canonical-json';
+import MinimizerPlugin from 'minimizer-webpack-plugin';
 import fs from 'node:fs';
 import path from 'node:path';
 import shellQuote from 'shell-quote';
 import shell from 'shelljs';
-import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 import jedDataTemplate from '../root/jedDataTemplate.mjs';
@@ -332,8 +332,8 @@ export default {
 
     ...(PRODUCTION_MODE ? {
       minimizer: [
-        new TerserPlugin({
-          terserOptions: {
+        new MinimizerPlugin({
+          minimizerOptions: {
             ecma: ECMA_VERSION,
             safari10: LEGACY_BROWSER,
           },
