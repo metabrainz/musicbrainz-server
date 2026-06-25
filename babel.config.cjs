@@ -77,7 +77,7 @@ module.exports = function (api) {
     }],
     ['polyfill-corejs3', {
       method: 'usage-pure',
-      version: '3.48',
+      version: '3.49',
     }],
   ];
 
