@@ -29,7 +29,7 @@
     "core-js": "3.48.0",
     "deep-freeze-strict": "1.1.1",
     "detect-node": "2.1.0",
-    "eslint-import-resolver-webpack": "0.13.10",
+    "eslint-import-resolver-webpack": "0.13.11",
     "fast-diff": "1.3.0",
     "filesize": "10.1.6",
     "generic-diff": "1.0.1",
