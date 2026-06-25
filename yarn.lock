@@ -5656,10 +5656,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globals@npm:17.4.0":
-  version: 17.4.0
-  resolution: "globals@npm:17.4.0"
-  checksum: 10c0/2be9e8c2b9035836f13d420b22f0247a328db82967d3bebfc01126d888ed609305f06c05895914e969653af5c6ba35fd7a0920f3e6c869afa60666c810630feb
+"globals@npm:17.7.0":
+  version: 17.7.0
+  resolution: "globals@npm:17.7.0"
+  checksum: 10c0/e83f791acf537b85fa1632ac48a45432a1999a61acd9f955b5c2145f66d6b5000a7945029874b6184fa2dfac8d33af03885a5a7ffa457866f1bcf0b40d0c1291
   languageName: node
   linkType: hard
 
@@ -7670,7 +7670,7 @@ __metadata:
     flow-typed: "npm:4.1.1"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:4.2.0"
-    globals: "npm:17.4.0"
+    globals: "npm:17.7.0"
     he: "npm:1.2.0"
     hermes-eslint: "npm:0.36.1"
     http-proxy: "npm:1.18.1"
