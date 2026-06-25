@@ -94,7 +94,7 @@
     "nyc": "18.0.0",
     "path-browserify": "1.0.1",
     "process": "0.11.10",
-    "react-is": "18.3.1",
+    "react-is": "19.2.7",
     "selenium-webdriver": "4.41.0",
     "stream-browserify": "3.0.0",
     "tap-difflet": "0.7.2",

@@ -7681,7 +7681,7 @@ __metadata:
     punycode: "npm:2.3.1"
     react: "npm:19.2.7"
     react-dom: "npm:19.2.7"
-    react-is: "npm:18.3.1"
+    react-is: "npm:19.2.7"
     react-table: "npm:7.8.0"
     redux: "npm:4.2.1"
     selenium-webdriver: "npm:4.41.0"
@@ -8677,10 +8677,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:18.3.1":
-  version: 18.3.1
-  resolution: "react-is@npm:18.3.1"
-  checksum: 10c0/f2f1e60010c683479e74c63f96b09fb41603527cd131a9959e2aee1e5a8b0caf270b365e5ca77d4a6b18aae659b60a86150bb3979073528877029b35aecd2072
+"react-is@npm:19.2.7":
+  version: 19.2.7
+  resolution: "react-is@npm:19.2.7"
+  checksum: 10c0/419fe54d5bd7fdf5414a5bb7bd9a1e0e36f9fae28ffb4cb73290fbe342bde15d8584a90d1db62547f6aa03018dce517b178a041abb522136cd4b4b51b4e94c83
   languageName: node
   linkType: hard
 
