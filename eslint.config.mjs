@@ -825,6 +825,7 @@ export default [
 
       // eslint-plugin-perfectionist
       'perfectionist/sort-array-includes': ['warn', {type: 'natural'}],
+      'perfectionist/sort-arrays': 'off', // Quite niche, not in recommended rules
       'perfectionist/sort-classes': 'off', // We should aim not to use classes
       'perfectionist/sort-decorators': 'off', // We should aim not to use classes
       'perfectionist/sort-enums': 'off', // This is for TS
