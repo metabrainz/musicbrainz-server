@@ -7403,6 +7403,45 @@ __metadata:
   languageName: node
   linkType: hard
 
+"minimizer-webpack-plugin@npm:5.6.1":
+  version: 5.6.1
+  resolution: "minimizer-webpack-plugin@npm:5.6.1"
+  dependencies:
+    "@jridgewell/trace-mapping": "npm:^0.3.25"
+    jest-worker: "npm:^27.4.5"
+    schema-utils: "npm:^4.3.0"
+    terser: "npm:^5.31.1"
+  peerDependencies:
+    webpack: ^5.1.0
+  peerDependenciesMeta:
+    "@minify-html/node":
+      optional: true
+    "@swc/core":
+      optional: true
+    "@swc/css":
+      optional: true
+    "@swc/html":
+      optional: true
+    clean-css:
+      optional: true
+    cssnano:
+      optional: true
+    csso:
+      optional: true
+    esbuild:
+      optional: true
+    html-minifier-terser:
+      optional: true
+    lightningcss:
+      optional: true
+    postcss:
+      optional: true
+    uglify-js:
+      optional: true
+  checksum: 10c0/4bf4e8bc2827e3724a53e04465493ee4b52f2a4a18e89e23c72905462557107bc9f5396035841fb5e4f86630c8a783eb4f13c26a3b1544f621b75ea8bedca3f2
+  languageName: node
+  linkType: hard
+
 "minipass-collect@npm:^2.0.1":
   version: 2.0.1
   resolution: "minipass-collect@npm:2.0.1"
@@ -7587,6 +7626,7 @@ __metadata:
     less-loader: "npm:13.0.0"
     less-plugin-clean-css: "npm:1.6.0"
     leven: "npm:4.1.0"
+    minimizer-webpack-plugin: "npm:5.6.1"
     mutate-cow: "npm:8.1.0"
     nodemon: "npm:3.1.14"
     nyc: "npm:18.0.0"
@@ -7611,7 +7651,6 @@ __metadata:
     tap-difflet: "npm:0.7.2"
     tap-junit: "npm:5.0.4"
     tape: "npm:4.17.0"
-    terser-webpack-plugin: "npm:5.3.17"
     tldts: "npm:7.0.25"
     utf8: "npm:3.0.0"
     webpack: "npm:5.105.4"
@@ -10109,7 +10148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser-webpack-plugin@npm:5.3.17, terser-webpack-plugin@npm:^5.3.17":
+"terser-webpack-plugin@npm:^5.3.17":
   version: 5.3.17
   resolution: "terser-webpack-plugin@npm:5.3.17"
   dependencies:
