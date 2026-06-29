@@ -2922,17 +2922,6 @@ msgstr ""
 "Duży, kwadratowy miech ze sprężyną, obsługiwany stopami; używany przez "
 "akordeonistów jako akompaniament basowy w Walonii na początku XX wieku."
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-"Duża szeroka rura z bardzo mocno rozszerzającym się dzwonem, teleskopowanie "
-"tworzy jedynie subtelne, falujące alikwoty. Zainspirowało nazwę broni "
-"przeciwpancernej."
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -3647,6 +3636,23 @@ msgstr ""
 "instrument/a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Bęben "
 "boczny, często z jednym lub kilkoma werblami, noszony przez jedną osobę i "
 "uderzany jedną ręką, często łączy się go z piszczałkami taborowymi."
+
+#. name:bazooka
+#: DB:instrument/description:741
+#, fuzzy
+#| msgid ""
+#| "Large wide tube with a very strongly flaring bell, the telescoping "
+#| "creates only subtle fluctuating overtones. It inspired the name of the "
+#| "anti-tank weapon."
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
+msgstr ""
+"Duża szeroka rura z bardzo mocno rozszerzającym się dzwonem, teleskopowanie "
+"tworzy jedynie subtelne, falujące alikwoty. Zainspirowało nazwę broni "
+"przeciwpancernej."
 
 #. name:mezwed
 #: DB:instrument/description:1209
