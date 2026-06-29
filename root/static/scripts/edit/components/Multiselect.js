@@ -20,43 +20,43 @@ import type {
 } from '../../common/components/Autocomplete2/types.js';
 
 export type MultiselectActionT<
-  V: AutocompleteEntityItemT,
+  V extends AutocompleteEntityItemT,
 > =
   | {
-      +type: 'add-value',
+      readonly type: 'add-value',
     }
   | {
-      +type: 'remove-value',
-      +valueKey: number,
+      readonly type: 'remove-value',
+      readonly valueKey: number,
     }
   | {
-      +action: AutocompleteActionT<V>,
-      +type: 'update-value-autocomplete',
-      +valueKey: number,
+      readonly action: AutocompleteActionT<V>,
+      readonly type: 'update-value-autocomplete',
+      readonly valueKey: number,
     };
 
 export type MultiselectValueStateT<V> = {
-  +autocomplete: AutocompleteStateT<V>,
-  +key: number,
-  +removed: boolean,
+  readonly autocomplete: AutocompleteStateT<V>,
+  readonly key: number,
+  readonly removed: boolean,
   ...
 };
 
 export type MultiselectValuePropsT<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
 > = {
-  +buildExtraChildren?: ($Exact<VS>) => React.Node,
-  +dispatch: (MultiselectActionT<V>) => void,
-  +state: $Exact<VS>,
+  readonly buildExtraChildren?: ($Exact<VS>) => React.Node,
+  readonly dispatch: (MultiselectActionT<V>) => void,
+  readonly state: $Exact<VS>,
 };
 
 export type MultiselectStateT<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
 > = {
-  +max: number | null,
-  +values: $ReadOnlyArray<$Exact<VS>>,
+  readonly max: number | null,
+  readonly values: ReadonlyArray<$Exact<VS>>,
   ...
 };
 
@@ -65,11 +65,11 @@ export const ATTR_VALUE_LABEL_STYLE = {
 };
 
 export function accumulateMultiselectValues<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
 >(
-  values: $ReadOnlyArray<$Exact<VS>>,
-): $ReadOnlyArray<V> {
+  values: ReadonlyArray<$Exact<VS>>,
+): ReadonlyArray<V> {
   return values.reduce(
     (accum: Array<V>, valueState) => {
       const item = valueState.autocomplete.selectedItem?.entity;
@@ -83,13 +83,13 @@ export function accumulateMultiselectValues<
 }
 
 export function updateValue<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
 >(
-  values: $ReadOnlyArray<$Exact<VS>>,
+  values: ReadonlyArray<$Exact<VS>>,
   valueKey: number,
   callback: ($Exact<VS>) => $Exact<VS>,
-): $ReadOnlyArray<$Exact<VS>> {
+): ReadonlyArray<$Exact<VS>> {
   return values.map((x) => {
     if (x.key === valueKey) {
       return callback(x);
@@ -99,9 +99,9 @@ export function updateValue<
 }
 
 export function runReducer<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
-  S: MultiselectStateT<V, VS>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
+  S extends MultiselectStateT<V, VS>,
 >(
   newState: {...S, ...},
   action: MultiselectActionT<V>,
@@ -139,8 +139,8 @@ export function runReducer<
 }
 
 component _MultiselectValue<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
 >(...props: MultiselectValuePropsT<V, VS>) {
   const {
     buildExtraChildren,
@@ -195,9 +195,9 @@ export const MultiselectValue: typeof _MultiselectValue =
   React.memo(_MultiselectValue);
 
 component _Multiselect<
-  V: AutocompleteEntityItemT,
-  VS: MultiselectValueStateT<V>,
-  S: MultiselectStateT<V, VS>,
+  V extends AutocompleteEntityItemT,
+  VS extends MultiselectValueStateT<V>,
+  S extends MultiselectStateT<V, VS>,
 >(
   addLabel: string,
   buildExtraValueChildren?: (VS) => React.Node,

@@ -24,7 +24,7 @@ component Ratings(
   mostPopularReview: CritiqueBrainzReviewT,
   mostRecentReview: CritiqueBrainzReviewT,
   privateRatingCount: number,
-  publicRatings: $ReadOnlyArray<RatingT>,
+  publicRatings: ReadonlyArray<RatingT>,
   spammerRatingCount: number,
 ) {
   const entityProperties = ENTITIES[entity.entityType];

@@ -30,7 +30,7 @@ export function isNotSeriesPart(r: RelationshipT): boolean {
   return !isPart || isSeriesPartOfSeries;
 }
 
-component RelatedSeries(seriesIds: $ReadOnlyArray<number>) {
+component RelatedSeries(seriesIds: ReadonlyArray<number>) {
   const parts: Array<React.Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-series">

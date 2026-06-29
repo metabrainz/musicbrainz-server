@@ -33,41 +33,41 @@ import SpammerButton, {
 } from './SpammerButton.js';
 
 type FindNewUsersResponseT =
-  | {+users: $ReadOnlyArray<UnsanitizedEditorT>}
-  | {+error: string};
+  | {readonly users: ReadonlyArray<UnsanitizedEditorT>}
+  | {readonly error: string};
 
 type ActionT =
   | {
-      +type: 'set-users',
-      +users: $ReadOnlyArray<UnsanitizedEditorT>,
+      readonly type: 'set-users',
+      readonly users: ReadonlyArray<UnsanitizedEditorT>,
     }
   | {
-      +type: 'remove-user',
-      +userState: UserStateT,
+      readonly type: 'remove-user',
+      readonly userState: UserStateT,
     }
   | {
-      +action: SpammerButtonActionT<UnsanitizedEditorT>,
-      +type: 'update-spammer-button',
+      readonly action: SpammerButtonActionT<UnsanitizedEditorT>,
+      readonly type: 'update-spammer-button',
     }
   | {
-      +error: string,
-      +type: 'set-users-fetch-error',
+      readonly error: string,
+      readonly type: 'set-users-fetch-error',
     }
-  | {+type: 'most-recent-page'}
-  | {+type: 'previous-page'}
-  | {+type: 'next-page'};
+  | {readonly type: 'most-recent-page'}
+  | {readonly type: 'previous-page'}
+  | {readonly type: 'next-page'};
 
 type UserStateT = SpammerButtonStateT<UnsanitizedEditorT>;
 
 type PageStateT = {
-  +id: number,
-  +op: 'gt' | 'gte' | 'lt' | 'lte',
+  readonly id: number,
+  readonly op: 'gt' | 'gte' | 'lt' | 'lte',
 };
 
 type StateT = {
-  +page: PageStateT,
-  +users: tree.ImmutableTree<UserStateT>,
-  +usersFetchError: string,
+  readonly page: PageStateT,
+  readonly users: tree.ImmutableTree<UserStateT>,
+  readonly usersFetchError: string,
 };
 
 function getPageState(): PageStateT {
@@ -95,7 +95,7 @@ function cmpUserState(a: UserStateT, b: UserStateT) {
   return b.user.id - a.user.id;
 }
 
-function errorToString(error: mixed) {
+function errorToString(error: unknown) {
   if (error == null) {
     return '';
   }
@@ -384,9 +384,9 @@ component _PossibleSpammersList() {
   );
 }
 
-const PossibleSpammersList = (hydrate<{}>(
+const PossibleSpammersList = hydrate<{}>(
   'div.possible-spammers',
   _PossibleSpammersList,
-): component());
+) as component();
 
 export default PossibleSpammersList;

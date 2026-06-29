@@ -91,15 +91,15 @@ MB.relationshipEditor.getRelationshipStateId = getRelationshipStateId;
 MB.tree = tree;
 
 export type InitialStateArgsT = {
-  +formName: string,
-  +seededRelationships: ?$ReadOnlyArray<SeededRelationshipT>,
-  +source?: RelatableEntityT,
+  readonly formName: string,
+  readonly seededRelationships: ?ReadonlyArray<SeededRelationshipT>,
+  readonly source?: RelatableEntityT,
 };
 
 export function* getInitialRelationshipUpdates(
   relationships:
-    | $ReadOnlyArray<RelationshipT>
-    | $ReadOnlyArray<SeededRelationshipT>,
+    | ReadonlyArray<RelationshipT>
+    | ReadonlyArray<SeededRelationshipT>,
   source: RelatableEntityT,
 ): Generator<RelationshipUpdateT, void, void> {
   for (const relationshipData of relationships) {
@@ -117,7 +117,7 @@ export function* getInitialRelationshipUpdates(
      * the source and target entity types are the same; see e.g. MBS-12850.
      */
     if (!isDatabaseRowId(target.id)) {
-      target = ({...target, id: uniqueNegativeId()}: RelatableEntityT);
+      target = {...target, id: uniqueNegativeId()} as RelatableEntityT;
     }
 
     const isExistingRelationship = isDatabaseRowId(relationshipData.id);
@@ -170,7 +170,7 @@ export function* getInitialRelationshipUpdates(
 
 export function createInitialState(
   args: InitialStateArgsT,
-  submittedRelationships?: ?$ReadOnlyArray<RelationshipStateT>,
+  submittedRelationships?: ?ReadonlyArray<RelationshipStateT>,
 ): RelationshipEditorStateT {
   const {seededRelationships} = args;
 
@@ -233,10 +233,10 @@ export function loadOrCreateInitialState(
       sessionStorageWrapper.get(sessionStorageKey);
     if (nonEmpty(submittedRelationshipsJson)) {
       try {
-        submittedRelationships = ((decompactEntityJson(
+        submittedRelationships = (decompactEntityJson(
           JSON.parse(submittedRelationshipsJson),
         // $FlowFixMe[unclear-type]
-        ): any): $ReadOnlyArray<RelationshipStateT>);
+        ) as any) as ReadonlyArray<RelationshipStateT>;
       } catch (e) {
         captureException(e);
       } finally {
@@ -255,8 +255,8 @@ export function loadOrCreateInitialState(
 
 export function* getUpdatesForAcceptedRelationship(
   rootState: {
-    +existingRelationshipsBySource: RelationshipSourceGroupsT,
-    +relationshipsBySource: RelationshipSourceGroupsT,
+    readonly existingRelationshipsBySource: RelationshipSourceGroupsT,
+    readonly relationshipsBySource: RelationshipSourceGroupsT,
     ...
   },
   newRelationshipState: RelationshipStateT,
@@ -545,7 +545,7 @@ export function runReducer(
 }
 
 type ErrorMessagePropsT = {
-  +error: string,
+  readonly error: string,
 };
 
 export const ErrorMessage:

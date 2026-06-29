@@ -108,7 +108,7 @@ component ArtistRecordings(
   filterForm: ?RecordingFilterT,
   hasFilter: boolean,
   pager: PagerT,
-  recordings: $ReadOnlyArray<RecordingT>,
+  recordings: ReadonlyArray<RecordingT>,
   releaseGroupAppearances?: ReleaseGroupAppearancesMapT,
   ...footerSwitchProps: React.PropsOf<FooterSwitch>
 ) {

@@ -35,29 +35,29 @@ declare type EntityWithSeriesMapT = {
   'work': WorkT,
 };
 
-declare type EntityWithSeriesT = $Values<EntityWithSeriesMapT>;
+declare type EntityWithSeriesT = Values<EntityWithSeriesMapT>;
 
-declare type EntityWithSeriesTypeT = $Keys<EntityWithSeriesMapT>;
+declare type EntityWithSeriesTypeT = keyof EntityWithSeriesMapT;
 
 declare type AppearancesT<T> = {
-  +hits: number,
-  +results: $ReadOnlyArray<T>,
+  readonly hits: number,
+  readonly results: ReadonlyArray<T>,
 };
 
 declare type CommentRoleT = {
-  +comment: string,
+  readonly comment: string,
 };
 
-declare type RelatableEntityRoleT<+T> = {
+declare type RelatableEntityRoleT<out T> = {
   ...EntityRoleT<T>,
   ...LastUpdateRoleT,
   ...PendingEditsRoleT,
-  +gid: string,
-  +name: string,
-  +paged_relationship_groups?: {
-    +[targetType: RelatableEntityTypeT]: PagedTargetTypeGroupT | void,
+  readonly gid: string,
+  readonly name: string,
+  readonly paged_relationship_groups?: {
+    readonly [targetType: RelatableEntityTypeT]: PagedTargetTypeGroupT | void,
   },
-  +relationships?: $ReadOnlyArray<RelationshipT>,
+  readonly relationships?: ReadonlyArray<RelationshipT>,
 };
 
 declare type CollectableEntityT =
@@ -112,9 +112,9 @@ declare type EntityWithAutoCleanupTypeT =
   | 'work';
 
 declare type DatePeriodRoleT = {
-  +begin_date: PartialDateT | null,
-  +end_date: PartialDateT | null,
-  +ended: boolean,
+  readonly begin_date: PartialDateT | null,
+  readonly end_date: PartialDateT | null,
+  readonly ended: boolean,
 };
 
 declare type ManuallyRemovableEntityT =
@@ -141,33 +141,33 @@ declare type MergeableEntityT =
 declare type MergeableEntityTypeT = MergeableEntityT['entityType'];
 
 declare type PendingEditsRoleT = {
-  +editsPending: boolean,
+  readonly editsPending: boolean,
 };
 
-declare type EntityRoleT<+T> = {
-  +entityType: T,
-  +id: number,
+declare type EntityRoleT<out T> = {
+  readonly entityType: T,
+  readonly id: number,
 };
 
 declare type LastUpdateRoleT = {
-  +last_updated: string | null,
+  readonly last_updated: string | null,
 };
 
 declare type MinimalEntityT = {
-  +entityType: string,
-  +gid: string,
+  readonly entityType: string,
+  readonly gid: string,
 };
 
 declare type PartialDateT = {
-  +day?: ?number,
-  +month?: ?number,
-  +year?: ?number,
+  readonly day?: ?number,
+  readonly month?: ?number,
+  readonly year?: ?number,
 };
 
 declare type PartialDateStringsT = {
-  +day?: string,
-  +month?: string,
-  +year?: string,
+  readonly day?: string,
+  readonly month?: string,
+  readonly year?: string,
 };
 
 declare type NonUrlRelatableEntityT =
@@ -223,11 +223,11 @@ declare type TaggableEntityT =
 declare type TaggableEntityTypeT = TaggableEntityT['entityType'];
 
 declare type TypeRoleT<T> = {
-  +typeID: number | null,
-  +typeName?: string,
+  readonly typeID: number | null,
+  readonly typeName?: string,
 };
 
 declare type WikipediaExtractT = {
-  +content: string,
-  +url: string,
+  readonly content: string,
+  readonly url: string,
 };

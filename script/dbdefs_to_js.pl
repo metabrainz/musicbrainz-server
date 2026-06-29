@@ -5,6 +5,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use DBDefs;
+use Encode qw( decode_utf8 );
 use JSON;
 use Readonly;
 
@@ -84,13 +85,18 @@ my @conversions = (
     },
     {
         defs => \@STRING_DEFS,
-        convert => sub { \('' . (shift // '')) },
+        convert => sub {
+            my $value = '' . (shift // '');
+            $value = decode_utf8($value)
+                unless utf8::is_utf8($value);
+            return \$value;
+        },
         flowtype => 'string',
     },
     {
         defs => \@QW_STRING_DEFS,
         convert => sub { \[map { '' . ($_ // '') } @_] },
-        flowtype => '$ReadOnlyArray<string>',
+        flowtype => 'ReadonlyArray<string>',
     },
     {
         defs => ['DATABASES'],
@@ -112,12 +118,12 @@ my @conversions = (
         },
         flowtype => (
             '{' .
-                '+[name: string]: {' .
-                    '+database: string, ' .
-                    '+host: string, ' .
-                    '+password: string, ' .
-                    '+port: number, '.
-                    '+user: string'.
+                'readonly [name: string]: {' .
+                    'readonly database: string, ' .
+                    'readonly host: string, ' .
+                    'readonly password: string, ' .
+                    'readonly port: number, '.
+                    'readonly user: string'.
                 '}' .
             '}'
         ),

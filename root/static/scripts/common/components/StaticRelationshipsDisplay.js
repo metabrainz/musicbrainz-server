@@ -57,7 +57,7 @@ function getTrackRanges(trackSet: Set<TrackT>) {
 component _StaticRelationshipsDisplay(
   hiddenArtistCredit?: ?ArtistCreditT,
   relationships as groupedRelationships:
-    $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+    ReadonlyArray<RelationshipTargetTypeGroupT>,
 ) {
   const tables = [];
 

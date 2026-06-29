@@ -10,11 +10,11 @@
 /* eslint-disable no-unused-vars */
 
 declare type AnchorProps = {
-  +className?: string,
-  +href: string,
-  +rel?: 'noopener noreferrer',
-  +target?: '_blank',
-  +title?: string,
+  readonly className?: string,
+  readonly href: string,
+  readonly rel?: 'noopener noreferrer',
+  readonly target?: '_blank',
+  readonly title?: string,
 };
 
 declare type VarSubstScalarArg =
@@ -23,7 +23,7 @@ declare type VarSubstScalarArg =
 
 declare type VarSubstArg =
   | VarSubstScalarArg
-  | $ReadOnlyArray<VarSubstScalarArg>;
+  | ReadonlyArray<VarSubstScalarArg>;
 
 declare type Expand2ReactInput = VarSubstArg | AnchorProps;
 
@@ -35,9 +35,9 @@ declare type Expand2ReactOutput =
   | Expand2ReactScalarOutput
   | Array<Expand2ReactScalarOutput>;
 
-declare type ExpandLFunc<-Input, Output> = (
+declare type ExpandLFunc<in Input, Output> = (
   key: string,
-  args: {+[arg: string]: Input | Output | string, ...},
+  args: {readonly [arg: string]: Input | Output | string, ...},
 ) => Output;
 
 declare type N_l_T = () => string;

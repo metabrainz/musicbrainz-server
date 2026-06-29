@@ -27,11 +27,11 @@ export type AttributeT =
   | WorkTypeT;
 
 export type CreateOrEditAttributePropsT =
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +form: AttributeEditGenericFormT,
-      +parentSelectOptions: SelectOptionsT,
-      +type:
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly form: AttributeEditGenericFormT,
+      readonly parentSelectOptions: SelectOptionsT,
+      readonly type:
         | 'AreaType'
         | 'ArtistType'
         | 'CoverArtType'
@@ -46,45 +46,45 @@ export type CreateOrEditAttributePropsT =
         | 'ReleasePackaging'
         | 'WorkType',
     }>
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +entityTypeSelectOptions: {
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly entityTypeSelectOptions: {
         [entityType: CollectableEntityTypeT]: CollectableEntityTypeT,
       },
-      +form: AttributeEditFormWithEntityTypeT,
-      +parentSelectOptions: SelectOptionsT,
-      +type: 'CollectionType',
+      readonly form: AttributeEditFormWithEntityTypeT,
+      readonly parentSelectOptions: SelectOptionsT,
+      readonly type: 'CollectionType',
     }>
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +entityTypeSelectOptions: {
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly entityTypeSelectOptions: {
         [entityType: SeriesEntityTypeT]: SeriesEntityTypeT,
       },
-      +form: AttributeEditFormWithEntityTypeT,
-      +parentSelectOptions: SelectOptionsT,
-      +type: 'SeriesType',
+      readonly form: AttributeEditFormWithEntityTypeT,
+      readonly parentSelectOptions: SelectOptionsT,
+      readonly type: 'SeriesType',
     }>
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +form: LanguageEditFormT,
-      +type: 'Language',
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly form: LanguageEditFormT,
+      readonly type: 'Language',
     }>
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +form: MediumFormatEditFormT,
-      +parentSelectOptions: SelectOptionsT,
-      +type: 'MediumFormat',
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly form: MediumFormatEditFormT,
+      readonly parentSelectOptions: SelectOptionsT,
+      readonly type: 'MediumFormat',
     }>
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +form: ScriptEditFormT,
-      +type: 'Script',
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly form: ScriptEditFormT,
+      readonly type: 'Script',
     }>
-  | $ReadOnly<{
-      +action: 'add' | 'edit',
-      +form: WorkAttributeTypeEditFormT,
-      +parentSelectOptions: SelectOptionsT,
-      +type: 'WorkAttributeType',
+  | Readonly<{
+      readonly action: 'add' | 'edit',
+      readonly form: WorkAttributeTypeEditFormT,
+      readonly parentSelectOptions: SelectOptionsT,
+      readonly type: 'WorkAttributeType',
     }>;
 
 export type AnyAttributeEditFormT =
@@ -98,41 +98,41 @@ export type AttributeEditGenericFormT = FormT<{
 }>;
 
 export type AttributeEditFormCommonSectionT = {
-  +child_order: FieldT<string>,
-  +description: FieldT<string>,
-  +name: FieldT<string>,
-  +parent_id: FieldT<string>,
+  readonly child_order: FieldT<string>,
+  readonly description: FieldT<string>,
+  readonly name: FieldT<string>,
+  readonly parent_id: FieldT<string>,
 };
 
 export type AttributeEditFormWithEntityTypeT = FormT<{
   ...AttributeEditFormCommonSectionT,
-  +action: 'add' | 'edit',
-  +item_entity_type: FieldT<string>,
+  readonly action: 'add' | 'edit',
+  readonly item_entity_type: FieldT<string>,
 }>;
 
 export type LanguageEditFormT = FormT<{
-  +frequency: FieldT<string>,
-  +iso_code_1: FieldT<string>,
-  +iso_code_2b: FieldT<string>,
-  +iso_code_2t: FieldT<string>,
-  +iso_code_3: FieldT<string>,
-  +name: FieldT<string>,
+  readonly frequency: FieldT<string>,
+  readonly iso_code_1: FieldT<string>,
+  readonly iso_code_2b: FieldT<string>,
+  readonly iso_code_2t: FieldT<string>,
+  readonly iso_code_3: FieldT<string>,
+  readonly name: FieldT<string>,
 }>;
 
 export type MediumFormatEditFormT = FormT<{
   ...AttributeEditFormCommonSectionT,
-  +has_discids: FieldT<boolean>,
-  +year: FieldT<string>,
+  readonly has_discids: FieldT<boolean>,
+  readonly year: FieldT<string>,
 }>;
 
 export type ScriptEditFormT = FormT<{
-  +frequency: FieldT<string>,
-  +iso_code: FieldT<string>,
-  +iso_number: FieldT<string>,
-  +name: FieldT<string>,
+  readonly frequency: FieldT<string>,
+  readonly iso_code: FieldT<string>,
+  readonly iso_number: FieldT<string>,
+  readonly name: FieldT<string>,
 }>;
 
 export type WorkAttributeTypeEditFormT = FormT<{
   ...AttributeEditFormCommonSectionT,
-  +free_text: FieldT<boolean>,
+  readonly free_text: FieldT<boolean>,
 }>;

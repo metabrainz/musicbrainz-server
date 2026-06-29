@@ -85,9 +85,9 @@ component RelationshipsTable(
   let columnsCount = 2;
   let totalRelationships = 0;
 
-  type PagedLinkTypeGroupWithPhraseT = $ReadOnly<{
+  type PagedLinkTypeGroupWithPhraseT = Readonly<{
     ...PagedLinkTypeGroupT,
-    +phrase: string,
+    readonly phrase: string,
   }>;
 
   const tableRows: Array<React.MixedElement> = [];
@@ -237,9 +237,9 @@ component RelationshipsTable(
       }, []);
 
     for (const targetTypeGroup of targetTypeGroups) {
-      const linkTypeGroups: $ReadOnlyArray<$ReadOnly<{
+      const linkTypeGroups: ReadonlyArray<Readonly<{
         ...PagedLinkTypeGroupT,
-        +phrase: string,
+        readonly phrase: string,
       }>> = Object.values(targetTypeGroup)
         .map((group: PagedLinkTypeGroupT) => ({
           ...group,

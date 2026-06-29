@@ -26,7 +26,7 @@ import {
 
 component LabelList(
   checkboxes?: string,
-  labels: $ReadOnlyArray<LabelT>,
+  labels: ReadonlyArray<LabelT>,
   mergeForm?: MergeFormT,
   order?: string,
   showRatings: boolean = false,

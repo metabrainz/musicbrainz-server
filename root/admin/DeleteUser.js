@@ -17,7 +17,7 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type DeleteUserFormT = FormT<{
   ...SecureConfirmFormT,
-  +allow_reuse: FieldT<boolean>,
+  readonly allow_reuse: FieldT<boolean>,
 }>;
 
 component DeleteUser(form: DeleteUserFormT, user: AccountLayoutUserT) {

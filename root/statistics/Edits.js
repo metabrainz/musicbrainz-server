@@ -16,14 +16,14 @@ import StatisticsLayout from './StatisticsLayout.js';
 import {formatCount, formatPercentage, TimelineLink} from './utilities.js';
 
 type EditCategoryT = {
-  +edit_type: string,
-  +l_edit_name: string,
+  readonly edit_type: string,
+  readonly l_edit_name: string,
 };
 
 component Edits(
   dateCollected: string,
   stats: {[statName: string]: number},
-  statsByCategory: {[editCategory: string]: $ReadOnlyArray<EditCategoryT>},
+  statsByCategory: {[editCategory: string]: ReadonlyArray<EditCategoryT>},
 ) {
   const $c = React.useContext(CatalystContext);
   return (

@@ -112,18 +112,18 @@ import DialogTargetEntity, {
 import DialogTargetType from './DialogTargetType.js';
 
 export type PropsT = {
-  +batchSelectionCount?: number,
-  +closeDialog: () => void,
-  +hasPreselectedTargetType: boolean,
-  +initialFocusRef: {-current: HTMLElement | null},
-  +initialRelationship: RelationshipStateT,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +sourceDispatch: (UpdateRelationshipActionT) => void,
-  +targetTypeOptions: TargetTypeOptionsT | null,
-  +targetTypeRef: {-current: RelatableEntityTypeT} | null,
-  +title: string,
-  +user: ActiveEditorT,
+  readonly batchSelectionCount?: number,
+  readonly closeDialog: () => void,
+  readonly hasPreselectedTargetType: boolean,
+  readonly initialFocusRef: {writeonly current: HTMLElement | null},
+  readonly initialRelationship: RelationshipStateT,
+  readonly releaseHasUnloadedTracks: boolean,
+  readonly source: RelatableEntityT,
+  readonly sourceDispatch: (UpdateRelationshipActionT) => void,
+  readonly targetTypeOptions: TargetTypeOptionsT | null,
+  readonly targetTypeRef: {writeonly current: RelatableEntityTypeT} | null,
+  readonly title: string,
+  readonly user: ActiveEditorT,
 };
 
 const FONT_WEIGHT_NORMAL = {fontWeight: 'normal'};
@@ -151,7 +151,7 @@ function accumulateRelationshipLinkAttributeByRootId(
 }
 
 function getAttributeRootIdMap(
-  attributes: $ReadOnlyArray<LinkAttrT | ExternalLinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT | ExternalLinkAttrT>,
 ): LinkAttributesByRootIdT {
   return attributes.reduce<LinkAttributesByRootIdT>(
     accumulateRelationshipLinkAttributeByRootId,

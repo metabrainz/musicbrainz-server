@@ -20,8 +20,8 @@ import WorkListEntry
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
-  iswcs: $ReadOnlyArray<IswcT>,
-  works: $ReadOnlyArray<WorkT>,
+  iswcs: ReadonlyArray<IswcT>,
+  works: ReadonlyArray<WorkT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = $c.user != null;

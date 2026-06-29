@@ -10,7 +10,7 @@
 import formatDate from './formatDate.js';
 import isDateEmpty from './isDateEmpty.js';
 
-export default function formatEndDate<T: $ReadOnly<{
+export default function formatEndDate<T extends Readonly<{
   ...DatePeriodRoleT,
   ...
 }>>(entity: T): null | string {

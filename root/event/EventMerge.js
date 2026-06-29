@@ -16,7 +16,7 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-component EventMerge(form: MergeFormT, toMerge: $ReadOnlyArray<EventT>) {
+component EventMerge(form: MergeFormT, toMerge: ReadonlyArray<EventT>) {
   return (
     <Layout fullWidth title={l('Merge events')}>
       <div id="content">

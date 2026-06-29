@@ -9,7 +9,7 @@
 
 function _semicolonOnlyList<Input, Output>(
   l: ExpandLFunc<Input, Output>,
-  items: $ReadOnlyArray<Input>,
+  items: ReadonlyArray<Input>,
 ): Output | string {
   const length = items.length;
 
@@ -32,13 +32,13 @@ function _semicolonOnlyList<Input, Output>(
 }
 
 export default function semicolonOnlyList(
-  items: $ReadOnlyArray<VarSubstArg>,
+  items: ReadonlyArray<VarSubstArg>,
 ): Expand2ReactOutput | string {
   return _semicolonOnlyList<VarSubstArg, Expand2ReactOutput>(exp.l, items);
 }
 
 export function semicolonOnlyListText(
-  items: $ReadOnlyArray<StrOrNum>,
+  items: ReadonlyArray<StrOrNum>,
 ): string {
   return _semicolonOnlyList<StrOrNum, string>(texp.l, items);
 }

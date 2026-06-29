@@ -30,7 +30,9 @@ export function createInitialState(
   };
 }
 
-export function reducer<T: $ReadOnly<{...DialogEntityCreditStateT, ...}>>(
+export function reducer<
+  T extends Readonly<{...DialogEntityCreditStateT, ...}>
+>(
   state: T,
   action: DialogEntityCreditActionT,
 ): T {
@@ -54,7 +56,7 @@ component _DialogEntityCredit(
   entityName: string,
   forEntity: string,
   linkType: ?LinkTypeT,
-  state: $ReadOnly<{...DialogEntityCreditStateT, ...}>,
+  state: Readonly<{...DialogEntityCreditStateT, ...}>,
   targetType: RelatableEntityTypeT,
 ) {
   const origCredit = React.useRef(state.creditedAs || '');
@@ -83,7 +85,7 @@ component _DialogEntityCredit(
     dispatch({
       type: 'set-credits-to-change',
       // $FlowFixMe[unclear-type]
-      value: (event.currentTarget.value: any),
+      value: event.currentTarget.value as any,
     });
   }
 

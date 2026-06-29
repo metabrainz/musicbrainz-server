@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function coerceToError(value: mixed): Error {
+export default function coerceToError(value: unknown): Error {
   return (
     value instanceof Error
       ? value

@@ -20,10 +20,10 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 import MTCaptcha from './MTCaptcha.js';
 
 export type RegisterFormT = FormT<{
-  +confirm_password: FieldT<string>,
-  +email: FieldT<string>,
-  +password: FieldT<string>,
-  +username: FieldT<string>,
+  readonly confirm_password: FieldT<string>,
+  readonly email: FieldT<string>,
+  readonly password: FieldT<string>,
+  readonly username: FieldT<string>,
 }>;
 
 function isPossibleEmail(string: string | null) {
@@ -121,7 +121,7 @@ component RegisterForm(form: RegisterFormT) {
   );
 }
 
-export default (hydrate<React.PropsOf<RegisterForm>>(
+export default hydrate<React.PropsOf<RegisterForm>>(
   'div.register-form',
   RegisterForm,
-): component(...React.PropsOf<RegisterForm>));
+) as component(...React.PropsOf<RegisterForm>);

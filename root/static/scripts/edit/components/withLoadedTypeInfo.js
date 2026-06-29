@@ -27,9 +27,9 @@ type LoadableEntityTypeT =
   | 'series_type'
   | 'work_type';
 
-export default function withLoadedTypeInfo<Config: {...}>(
+export default function withLoadedTypeInfo<Config extends {...}>(
   WrappedComponent: component(...Config),
-  typeInfoToLoad: $ReadOnlySet<LoadableEntityTypeT>,
+  typeInfoToLoad: ReadonlySet<LoadableEntityTypeT>,
 ): component(...Config) {
   const ComponentWrapper = (props: Config) => {
     const [isLoading, setLoading] = React.useState<boolean>(true);
@@ -37,7 +37,7 @@ export default function withLoadedTypeInfo<Config: {...}>(
     const [
       typeInfoLoadErrors,
       setTypeInfoLoadErrors,
-    ] = React.useState<$ReadOnlyArray<string>>([]);
+    ] = React.useState<ReadonlyArray<string>>([]);
 
     const loadingCanceledRef = React.useRef<boolean>(false);
 
@@ -57,7 +57,7 @@ export default function withLoadedTypeInfo<Config: {...}>(
 
       const responseJson: {
         // $FlowFixMe[unclear-type]
-        +[listName: string]: Array<any>,
+        readonly [listName: string]: Array<any>,
       } = await response.json();
       const typeInfo = responseJson[typeName + '_list'];
 
@@ -150,9 +150,9 @@ export default function withLoadedTypeInfo<Config: {...}>(
   return ComponentWrapper;
 }
 
-export function withLoadedTypeInfoForRelationshipEditor<Config: {...}>(
+export function withLoadedTypeInfoForRelationshipEditor<Config extends {...}>(
   WrappedComponent: component(...Config),
-  extraTypeInfoToLoad?: $ReadOnlyArray<LoadableEntityTypeT> = [],
+  extraTypeInfoToLoad?: ReadonlyArray<LoadableEntityTypeT> = [],
 ): component(...Config) {
   return withLoadedTypeInfo(
     WrappedComponent,

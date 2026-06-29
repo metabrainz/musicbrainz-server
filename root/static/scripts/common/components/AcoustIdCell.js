@@ -10,12 +10,12 @@
 import * as React from 'react';
 
 type AcoustIdTrackT = {
-  +disabled?: boolean,
-  +id: string,
+  readonly disabled?: boolean,
+  readonly id: string,
 };
 
 type AcoustIdRequestCallbackT =
-  ($ReadOnlyArray<AcoustIdTrackT> | null) => void;
+  (ReadonlyArray<AcoustIdTrackT> | null) => void;
 
 type AcoustIdRequestBatchT = {
   [recordingMbid: string]: AcoustIdRequestCallbackT,
@@ -72,7 +72,7 @@ function loadAcoustIdData(
         }
       })
       .finally(() => {
-        const callbacks: $ReadOnlyArray<AcoustIdRequestCallbackT> =
+        const callbacks: ReadonlyArray<AcoustIdRequestCallbackT> =
           Object.values(batch);
 
         for (const callback of callbacks) {
@@ -85,7 +85,7 @@ function loadAcoustIdData(
 
 component AcoustIdCell(recordingMbid: string) {
   const [acoustIdTracks, setAcoustIdTracks] = React.useState<
-    $ReadOnlyArray<AcoustIdTrackT> | null,
+    ReadonlyArray<AcoustIdTrackT> | null,
   >(null);
 
   const [isLoading, setLoading] = React.useState(true);
@@ -130,9 +130,7 @@ component AcoustIdCell(recordingMbid: string) {
   );
 }
 
-export default (
-  hydrate<React.PropsOf<AcoustIdCell>>(
-    'div.acoustids',
-    AcoustIdCell,
-  ): component(...React.PropsOf<AcoustIdCell>)
-);
+export default hydrate<React.PropsOf<AcoustIdCell>>(
+  'div.acoustids',
+  AcoustIdCell,
+) as component(...React.PropsOf<AcoustIdCell>);

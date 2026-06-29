@@ -93,8 +93,8 @@ export function hasSubfieldErrors(formOrField: FormOrAnyFieldT): boolean {
 
 export default function subfieldErrors(
   formOrField: FormOrAnyFieldT,
-  accum: $ReadOnlyArray<string> = [],
-): $ReadOnlyArray<string> {
+  accum: ReadonlyArray<string> = [],
+): ReadonlyArray<string> {
   let result = accum;
   for (const subfield of iterSubfields(formOrField)) {
     if (subfield.errors?.length) {

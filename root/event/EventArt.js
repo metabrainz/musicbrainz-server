@@ -22,7 +22,7 @@ import EventLayout from './EventLayout.js';
 
 component EventArt(
   event: EventT,
-  eventArt: $ReadOnlyArray<EventArtT>,
+  eventArt: ReadonlyArray<EventArtT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const title = lp('Event art', 'plural, header');

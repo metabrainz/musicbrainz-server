@@ -34,160 +34,160 @@ import type {
 
 export type DialogEntityCreditActionT =
  | {
-     +creditedAs: string,
-     +type: 'set-credit',
+     readonly creditedAs: string,
+     readonly type: 'set-credit',
     }
  | {
-     +type: 'set-credits-to-change',
-     +value: CreditChangeOptionT,
+     readonly type: 'set-credits-to-change',
+     readonly value: CreditChangeOptionT,
    };
 
 export type DialogLinkOrderActionT = {
-  +newLinkOrder: number,
-  +type: 'update-link-order',
+  readonly newLinkOrder: number,
+  readonly type: 'update-link-order',
 };
 
 export type DialogActionT =
   | {
-      +type: 'change-direction',
+      readonly type: 'change-direction',
     }
   | {
-      +attributes: $ReadOnlyArray<ExternalLinkAttrT>,
-      +type: 'set-attributes',
+      readonly attributes: ReadonlyArray<ExternalLinkAttrT>,
+      readonly type: 'set-attributes',
     }
-  | {+type: 'toggle-help'}
+  | {readonly type: 'toggle-help'}
   | {
-      +action: DialogEntityCreditActionT,
-      +type: 'update-source-entity',
-    }
-  | {
-      +action: DialogTargetEntityActionT,
-      +source: RelatableEntityT,
-      +type: 'update-target-entity',
+      readonly action: DialogEntityCreditActionT,
+      readonly type: 'update-source-entity',
     }
   | {
-      +source: RelatableEntityT,
-      +targetType: RelatableEntityTypeT,
-      +type: 'update-target-type',
+      readonly action: DialogTargetEntityActionT,
+      readonly source: RelatableEntityT,
+      readonly type: 'update-target-entity',
+    }
+  | {
+      readonly source: RelatableEntityT,
+      readonly targetType: RelatableEntityTypeT,
+      readonly type: 'update-target-type',
     }
   | DialogLinkOrderActionT
   | {
-      +action: DialogLinkTypeActionT,
-      +source: RelatableEntityT,
-      +type: 'update-link-type',
+      readonly action: DialogLinkTypeActionT,
+      readonly source: RelatableEntityT,
+      readonly type: 'update-link-type',
     }
   | {
-      +action: DialogAttributeActionT,
-      +type: 'update-attribute',
+      readonly action: DialogAttributeActionT,
+      readonly type: 'update-attribute',
     }
   | {
-      +action: DateRangeFieldsetActionT,
-      +type: 'update-date-period',
+      readonly action: DateRangeFieldsetActionT,
+      readonly type: 'update-date-period',
     };
 
 export type DialogAttributeActionT =
   | {
-      +action: DialogBooleanAttributeActionT,
-      +rootKey: number,
-      +type: 'update-boolean-attribute',
+      readonly action: DialogBooleanAttributeActionT,
+      readonly rootKey: number,
+      readonly type: 'update-boolean-attribute',
     }
   | {
-      +action: DialogMultiselectAttributeActionT,
-      +rootKey: number,
-      +type: 'update-multiselect-attribute',
+      readonly action: DialogMultiselectAttributeActionT,
+      readonly rootKey: number,
+      readonly type: 'update-multiselect-attribute',
     }
   | {
-      +action: DialogTextAttributeActionT,
-      +rootKey: number,
-      +type: 'update-text-attribute',
+      readonly action: DialogTextAttributeActionT,
+      readonly rootKey: number,
+      readonly type: 'update-text-attribute',
     };
 
 export type DialogBooleanAttributeActionT =
   | {
-      +enabled: boolean,
-      +type: 'toggle',
+      readonly enabled: boolean,
+      readonly type: 'toggle',
     };
 
 export type DialogLinkTypeActionT =
   | {
-      +action: AutocompleteActionT<LinkTypeT>,
-      +source: RelatableEntityT,
-      +type: 'update-autocomplete',
+      readonly action: AutocompleteActionT<LinkTypeT>,
+      readonly source: RelatableEntityT,
+      readonly type: 'update-autocomplete',
     };
 
 export type DialogMultiselectAttributeActionT =
   | MultiselectActionT<LinkAttrTypeT>
   | {
-      +creditedAs: string,
-      +type: 'set-value-credit',
-      +valueKey: number,
+      readonly creditedAs: string,
+      readonly type: 'set-value-credit',
+      readonly valueKey: number,
     };
 
 export type DialogTextAttributeActionT =
   | {
-      +textValue: string,
-      +type: 'set-text-value',
+      readonly textValue: string,
+      readonly type: 'set-text-value',
     };
 
 export type UpdateRelationshipActionT =
   | {
-      +batchSelectionCount: number | void,
-      +creditsToChangeForSource: CreditChangeOptionT,
-      +creditsToChangeForTarget: CreditChangeOptionT,
-      +newRelationshipState: RelationshipStateT,
-      +oldRelationshipState: RelationshipStateT | null,
-      +sourceEntity: RelatableEntityT,
-      +type: 'update-relationship-state',
+      readonly batchSelectionCount: number | void,
+      readonly creditsToChangeForSource: CreditChangeOptionT,
+      readonly creditsToChangeForTarget: CreditChangeOptionT,
+      readonly newRelationshipState: RelationshipStateT,
+      readonly oldRelationshipState: RelationshipStateT | null,
+      readonly sourceEntity: RelatableEntityT,
+      readonly type: 'update-relationship-state',
   };
 
 export type RelationshipEditorActionT =
   | {
-      +relationship: RelationshipStateT,
-      +type: 'remove-relationship',
+      readonly relationship: RelationshipStateT,
+      readonly type: 'remove-relationship',
     }
   | {
-      +relationship: RelationshipStateT,
-      +source: RelatableEntityT,
-      +type: 'move-relationship-down',
+      readonly relationship: RelationshipStateT,
+      readonly source: RelatableEntityT,
+      readonly type: 'move-relationship-down',
     }
   | {
-      +relationship: RelationshipStateT,
-      +source: RelatableEntityT,
-      +type: 'move-relationship-up',
+      readonly relationship: RelationshipStateT,
+      readonly source: RelatableEntityT,
+      readonly type: 'move-relationship-up',
     }
   | {
-      +hasOrdering: boolean,
-      +linkPhraseGroup: RelationshipPhraseGroupT,
-      +source: RelatableEntityT,
-      +type: 'toggle-ordering',
+      readonly hasOrdering: boolean,
+      readonly linkPhraseGroup: RelationshipPhraseGroupT,
+      readonly source: RelatableEntityT,
+      readonly type: 'toggle-ordering',
     }
   | {
-      +location: RelationshipDialogLocationT | null,
-      +type: 'update-dialog-location',
+      readonly location: RelationshipDialogLocationT | null,
+      readonly type: 'update-dialog-location',
     }
   | {
-      +changes: {+[property: string]: mixed},
-      +entityType: RelatableEntityTypeT,
-      +type: 'update-entity',
+      readonly changes: {readonly [property: string]: unknown},
+      readonly entityType: RelatableEntityTypeT,
+      readonly type: 'update-entity',
     }
   | UpdateRelationshipActionT;
 
 export type UpdateTargetEntityAutocompleteActionT = {
-  +action: AutocompleteActionT<NonUrlRelatableEntityT>,
-  +linkType: ?LinkTypeT,
-  +source: RelatableEntityT,
-  +type: 'update-autocomplete',
+  readonly action: AutocompleteActionT<NonUrlRelatableEntityT>,
+  readonly linkType: ?LinkTypeT,
+  readonly source: RelatableEntityT,
+  readonly type: 'update-autocomplete',
 };
 
 export type DialogTargetEntityActionT =
   | UpdateTargetEntityAutocompleteActionT
   | {
-      +action: DialogEntityCreditActionT,
-      +type: 'update-credit',
+      readonly action: DialogEntityCreditActionT,
+      readonly type: 'update-credit',
     }
   | {
-      +text: string,
-      +type: 'update-url-text',
+      readonly text: string,
+      readonly type: 'update-url-text',
     };
 
 /* Release relationship-editor actions */
@@ -198,8 +198,8 @@ export type BatchCreateWorksDialogActionT =
       type: 'update-attribute',
     }
   | {
-      +action: DateRangeFieldsetActionT,
-      +type: 'update-date-period',
+      readonly action: DateRangeFieldsetActionT,
+      readonly type: 'update-date-period',
     }
   | {
       action: MultiselectActionT<LanguageT>,
@@ -213,14 +213,14 @@ export type BatchCreateWorksDialogActionT =
   | WorkTypeSelectActionT;
 
 export type AcceptBatchCreateWorksDialogActionT = {
-  +attributes: tree.ImmutableTree<LinkAttrT>,
-  +begin_date: PartialDateT | null,
-  +end_date: PartialDateT | null,
-  +ended: boolean,
-  +languages: $ReadOnlyArray<LanguageT>,
-  +linkType: LinkTypeT,
-  +type: 'accept-batch-create-works-dialog',
-  +workType: number | null,
+  readonly attributes: tree.ImmutableTree<LinkAttrT>,
+  readonly begin_date: PartialDateT | null,
+  readonly end_date: PartialDateT | null,
+  readonly ended: boolean,
+  readonly languages: ReadonlyArray<LanguageT>,
+  readonly linkType: LinkTypeT,
+  readonly type: 'accept-batch-create-works-dialog',
+  readonly workType: number | null,
 };
 
 export type ReleaseRelationshipEditorActionT =
@@ -228,64 +228,64 @@ export type ReleaseRelationshipEditorActionT =
   | RelationshipEditorActionT
   | AcceptBatchCreateWorksDialogActionT
   | {
-      +languages: $ReadOnlyArray<LanguageT>,
-      +name: string,
-      +type: 'accept-edit-work-dialog',
-      +work: WorkT,
-      +workType: number | null,
+      readonly languages: ReadonlyArray<LanguageT>,
+      readonly name: string,
+      readonly type: 'accept-edit-work-dialog',
+      readonly work: WorkT,
+      readonly workType: number | null,
     }
   | {
-      +relationships: $ReadOnlyArray<RelationshipT>,
-      +type: 'load-work-relationships',
-      +work: WorkT,
+      readonly relationships: ReadonlyArray<RelationshipT>,
+      readonly type: 'load-work-relationships',
+      readonly work: WorkT,
     }
   | {
-      +recording: RecordingT,
-      +type: 'remove-work',
-      +workState: MediumWorkStateT,
+      readonly recording: RecordingT,
+      readonly type: 'remove-work',
+      readonly workState: MediumWorkStateT,
     }
   | {
-      +isSelected: boolean,
-      +type: 'toggle-select-all-recordings',
+      readonly isSelected: boolean,
+      readonly type: 'toggle-select-all-recordings',
     }
   | {
-      +isSelected: boolean,
-      +type: 'toggle-select-all-works',
+      readonly isSelected: boolean,
+      readonly type: 'toggle-select-all-works',
     }
   | {
-      +isSelected: boolean,
-      +recording: RecordingT,
-      +type: 'toggle-select-recording',
+      readonly isSelected: boolean,
+      readonly recording: RecordingT,
+      readonly type: 'toggle-select-recording',
     }
   | {
-      +isSelected: boolean,
-      +type: 'toggle-select-work',
-      +work: WorkT,
+      readonly isSelected: boolean,
+      readonly type: 'toggle-select-work',
+      readonly work: WorkT,
     }
   | {
-      +isSelected: boolean,
-      +recordingStates: MediumRecordingStateTreeT,
-      +type: 'toggle-select-medium-recordings',
+      readonly isSelected: boolean,
+      readonly recordingStates: MediumRecordingStateTreeT,
+      readonly type: 'toggle-select-medium-recordings',
     }
   | {
-      +isSelected: boolean,
-      +recordingStates: MediumRecordingStateTreeT,
-      +type: 'toggle-select-medium-works',
+      readonly isSelected: boolean,
+      readonly recordingStates: MediumRecordingStateTreeT,
+      readonly type: 'toggle-select-medium-works',
     }
     | {
-      +editNote: string,
-      +type: 'update-edit-note',
+      readonly editNote: string,
+      readonly type: 'update-edit-note',
     }
   | {
-      +checked: boolean,
-      +type: 'update-make-votable',
+      readonly checked: boolean,
+      readonly type: 'update-make-votable',
     }
   | {type: 'start-submission'}
-  | {+error?: string, type: 'stop-submission'}
+  | {readonly error?: string, type: 'stop-submission'}
   | {
-      +edits:
+      readonly edits:
         | Array<[Array<RelationshipStateT>, WsJsEditRelationshipT]>
         | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>,
-      +responseData: WsJsEditResponseT,
-      +type: 'update-submitted-relationships',
+      readonly responseData: WsJsEditResponseT,
+      readonly type: 'update-submitted-relationships',
     };

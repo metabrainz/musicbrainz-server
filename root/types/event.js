@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Event::TO_JSON
-declare type EventT = $ReadOnly<{
+declare type EventT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'event'>,
@@ -18,31 +18,31 @@ declare type EventT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<EventTypeT>,
-  +areas: $ReadOnlyArray<{
-    +credit: string,
-    +entity: AreaT,
+  readonly areas: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: AreaT,
   }>,
-  +cancelled: boolean,
-  +event_art_presence: 'absent' | 'present' | 'darkened' | null,
-  +may_have_event_art?: boolean,
-  +performers: $ReadOnlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
+  readonly cancelled: boolean,
+  readonly event_art_presence: 'absent' | 'present' | 'darkened' | null,
+  readonly may_have_event_art?: boolean,
+  readonly performers: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: ArtistT,
+    readonly roles: ReadonlyArray<string>,
   }>,
-  +places: $ReadOnlyArray<{
-    +credit: string,
-    +entity: PlaceT,
+  readonly places: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: PlaceT,
   }>,
-  +primaryAlias?: string | null,
-  +related_entities?: {
-    +areas: AppearancesT<string>,
-    +performers: AppearancesT<string>,
-    +places: AppearancesT<string>,
+  readonly primaryAlias?: string | null,
+  readonly related_entities?: {
+    readonly areas: AppearancesT<string>,
+    readonly performers: AppearancesT<string>,
+    readonly places: AppearancesT<string>,
   },
-  +related_series: $ReadOnlyArray<number>,
-  +setlist?: string,
-  +time: string,
+  readonly related_series: ReadonlyArray<number>,
+  readonly setlist?: string,
+  readonly time: string,
 }>;
 
 declare type EventTypeT = OptionTreeT<'event_type'>;

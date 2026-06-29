@@ -20,7 +20,7 @@ import EntityTabLink from './EntityTabLink.js';
 import Tabs from './Tabs.js';
 
 const tabLinkNames: {
-  +[tabLinkKey: string]: (() => string),
+  readonly [tabLinkKey: string]: (() => string),
 } = {
   artists: N_l('Artists'),
   events: N_l('Events'),
@@ -69,7 +69,7 @@ function buildLinks(
   $c: CatalystContextT,
   entity: RelatableEntityT,
   page?: string,
-): $ReadOnlyArray<React.MixedElement> {
+): ReadonlyArray<React.MixedElement> {
   const links = [buildLink(l('Overview'), entity, '', page, false, 'index')];
   const user = $c.user;
 

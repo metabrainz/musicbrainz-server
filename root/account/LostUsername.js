@@ -16,7 +16,7 @@ import FormRowEmailLong
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type LostUsernameFormT = FormT<{
-  +email: FieldT<string>,
+  readonly email: FieldT<string>,
 }>;
 
 component LostUsername(form: LostUsernameFormT) {

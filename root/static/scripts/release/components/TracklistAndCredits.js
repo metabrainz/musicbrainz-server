@@ -110,7 +110,7 @@ function createInitialState(creditsMode: CreditsModeT) {
 }
 
 export function isMediumExpanded(
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   medium: MediumWithRecordingsT,
 ): boolean {
   const expanded = expandedMediums.get(medium.position);
@@ -122,18 +122,18 @@ export function isMediumExpanded(
 export function getMediumTracks(
   loadedTracks: LoadedTracksMapT,
   medium: MediumWithRecordingsT,
-): $ReadOnlyArray<TrackWithRecordingT> | null {
+): ReadonlyArray<TrackWithRecordingT> | null {
   return loadedTracks.get(medium.position) || medium.tracks || null;
 }
 
 const combinedTrackRelsCache = new WeakMap<
-  $ReadOnlyArray<TrackWithRecordingT>,
-  $ReadOnlyArray<RelationshipTargetTypeGroupT>,
+  ReadonlyArray<TrackWithRecordingT>,
+  ReadonlyArray<RelationshipTargetTypeGroupT>,
 >();
 
 function getCombinedTrackRelationships(
-  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
-): $ReadOnlyArray<RelationshipTargetTypeGroupT> | null {
+  tracks: ReadonlyArray<TrackWithRecordingT> | null,
+): ReadonlyArray<RelationshipTargetTypeGroupT> | null {
   if (!tracks) {
     return null;
   }
@@ -202,9 +202,9 @@ function getCombinedTrackRelationships(
 }
 
 export function useUnloadedTracksMap(
-  mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  mediums: ReadonlyArray<MediumWithRecordingsT>,
   loadedTracks: LoadedTracksMapT,
-): $ReadOnlyMap<number, boolean> {
+): ReadonlyMap<number, boolean> {
   return React.useMemo(() => new Map(
     mediums.map(medium => [
       medium.id,
@@ -219,7 +219,7 @@ export function useUnloadedTracksMap(
 }
 
 export function useReleaseHasUnloadedTracks(
-  hasUnloadedTracksPerMedium: $ReadOnlyMap<number, boolean>,
+  hasUnloadedTracksPerMedium: ReadonlyMap<number, boolean>,
 ): boolean {
   return React.useMemo(() => {
     for (
@@ -236,7 +236,7 @@ export function useReleaseHasUnloadedTracks(
 
 component _TracklistAndCredits(
   initialCreditsMode: CreditsModeT,
-  initialLinkedEntities: $ReadOnly<Partial<LinkedEntitiesT>>,
+  initialLinkedEntities: Readonly<Partial<LinkedEntitiesT>>,
   noScript: boolean,
   release: ReleaseWithMediumsT,
 ) {
@@ -405,7 +405,7 @@ const TracklistAndCredits:
   component(...React.PropsOf<_TracklistAndCredits>) =
     React.memo(_TracklistAndCredits);
 
-export default (hydrate<React.PropsOf<_TracklistAndCredits>>(
+export default hydrate<React.PropsOf<_TracklistAndCredits>>(
   'div.tracklist-and-credits',
   TracklistAndCredits,
-): component(...React.PropsOf<_TracklistAndCredits>));
+) as component(...React.PropsOf<_TracklistAndCredits>);

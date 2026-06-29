@@ -29,10 +29,10 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import returnUri from '../utility/returnUri.js';
 
 type LoginFormT = FormT<{
-  +csrf_token: FieldT<string>,
-  +password: FieldT<string>,
-  +remember_me: FieldT<boolean>,
-  +username: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly password: FieldT<string>,
+  readonly remember_me: FieldT<boolean>,
+  readonly username: FieldT<string>,
 }>;
 
 component Login(

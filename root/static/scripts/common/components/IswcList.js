@@ -30,7 +30,7 @@ const buildIswcSidebarRow = (iswc: IswcT) => (
 );
 
 component IswcList(
-  iswcs: ?$ReadOnlyArray<IswcT>,
+  iswcs: ?ReadonlyArray<IswcT>,
   isSidebar: boolean = false,
 ) {
   return (
@@ -49,7 +49,7 @@ component IswcList(
   );
 }
 
-export default (hydrate<React.PropsOf<IswcList>>(
+export default hydrate<React.PropsOf<IswcList>>(
   'div.iswc-list-container',
   IswcList,
-): component(...React.PropsOf<IswcList>));
+) as component(...React.PropsOf<IswcList>);

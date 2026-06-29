@@ -68,9 +68,9 @@ const NonHydratedUrlRelationshipEditor:
       _UrlRelationshipEditor,
     );
 
-const UrlRelationshipEditor = (hydrate<PropsT>(
+const UrlRelationshipEditor = hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedUrlRelationshipEditor,
-): component(...PropsT));
+) as component(...PropsT);
 
 export default UrlRelationshipEditor;

@@ -23,13 +23,13 @@ import ReleaseMergeStrategy
   from '../static/scripts/edit/components/ReleaseMergeStrategy.js';
 
 type BadRecordingMergesT =
-  $ReadOnlyArray<$ReadOnlyArray<RecordingT>>;
+  ReadonlyArray<ReadonlyArray<RecordingT>>;
 
 component ReleaseMerge(
   badRecordingMerges?: BadRecordingMergesT,
   form: MergeReleasesFormT,
-  mediums: $ReadOnlyArray<MediumT>,
-  toMerge: $ReadOnlyArray<ReleaseT>,
+  mediums: ReadonlyArray<MediumT>,
+  toMerge: ReadonlyArray<ReleaseT>,
 ) {
   return (
     <Layout fullWidth title={l('Merge releases')}>

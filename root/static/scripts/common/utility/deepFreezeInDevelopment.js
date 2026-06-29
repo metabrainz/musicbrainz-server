@@ -9,7 +9,9 @@
 
 import deepFreeze from 'deep-freeze-strict';
 
-export default function deepFreezeInDevelopment<T: {...}>(object: T): T {
+export default function deepFreezeInDevelopment<T extends {...}>(
+  object: T,
+): T {
   /*
    * `deepFreeze` is slow, but this allows us to catch writes to `object`
    * in development and during test runs without affecting production

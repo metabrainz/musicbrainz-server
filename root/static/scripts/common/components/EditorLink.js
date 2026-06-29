@@ -28,7 +28,7 @@ component MissingEditorLink() {
 component EditorLink(
   avatarSize?: number = 15,
   content as passedContent?: string,
-  editor: ?$ReadOnly<{...EditorT, ...}>,
+  editor: ?Readonly<{...EditorT, ...}>,
   subPath?: string,
 ) {
   if (!editor) {

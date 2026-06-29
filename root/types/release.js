@@ -12,14 +12,14 @@
 declare type QualityT = -1 | 0 | 1 | 2;
 
 declare type ReleaseEventT = {
-  +country: AreaT | null,
-  +date: PartialDateT | null,
+  readonly country: AreaT | null,
+  readonly date: PartialDateT | null,
 };
 
 declare type ReleaseLabelT = {
-  +catalogNumber: string | null,
-  +label: LabelT | null,
-  +label_id: number | null,
+  readonly catalogNumber: string | null,
+  readonly label: LabelT | null,
+  readonly label_id: number | null,
 };
 
 declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
@@ -27,35 +27,35 @@ declare type ReleasePackagingT = OptionTreeT<'release_packaging'>;
 declare type ReleaseStatusT = OptionTreeT<'release_status'>;
 
 // MusicBrainz::Server::Entity::Release::TO_JSON
-declare type ReleaseT = $ReadOnly<{
+declare type ReleaseT = Readonly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'release'>,
-  +barcode: string | null,
-  +combined_format_name?: string,
-  +combined_track_count?: string,
-  +cover_art_presence: 'absent' | 'present' | 'darkened' | null,
-  +events?: $ReadOnlyArray<ReleaseEventT>,
-  +has_no_tracks: boolean,
-  +labels?: $ReadOnlyArray<ReleaseLabelT>,
-  +language: LanguageT | null,
-  +languageID: number | null,
-  +length?: number,
-  +may_have_cover_art?: boolean,
-  +may_have_discids?: boolean,
-  +mediums?: $ReadOnlyArray<MediumT>,
-  +packagingID: number | null,
-  +primaryAlias?: string | null,
-  +quality: QualityT,
-  +releaseGroup?: ReleaseGroupT,
-  +script: ScriptT | null,
-  +scriptID: number | null,
-  +status: ReleaseStatusT | null,
-  +statusID: number | null,
+  readonly barcode: string | null,
+  readonly combined_format_name?: string,
+  readonly combined_track_count?: string,
+  readonly cover_art_presence: 'absent' | 'present' | 'darkened' | null,
+  readonly events?: ReadonlyArray<ReleaseEventT>,
+  readonly has_no_tracks: boolean,
+  readonly labels?: ReadonlyArray<ReleaseLabelT>,
+  readonly language: LanguageT | null,
+  readonly languageID: number | null,
+  readonly length?: number,
+  readonly may_have_cover_art?: boolean,
+  readonly may_have_discids?: boolean,
+  readonly mediums?: ReadonlyArray<MediumT>,
+  readonly packagingID: number | null,
+  readonly primaryAlias?: string | null,
+  readonly quality: QualityT,
+  readonly releaseGroup?: ReleaseGroupT,
+  readonly script: ScriptT | null,
+  readonly scriptID: number | null,
+  readonly status: ReleaseStatusT | null,
+  readonly statusID: number | null,
 }>;
 
-declare type ReleaseWithMediumsT = $ReadOnly<{
+declare type ReleaseWithMediumsT = Readonly<{
   ...ReleaseT,
-  +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  readonly mediums: ReadonlyArray<MediumWithRecordingsT>,
 }>;

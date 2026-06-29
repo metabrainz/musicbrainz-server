@@ -24,7 +24,7 @@ export type EditType =
   | NonChangeEditType
   | typeof CHANGE;
 
-const CLASS_MAP: {+[editType: EditType]: string} = {
+const CLASS_MAP: {readonly [editType: EditType]: string} = {
   [CHANGE]: '',
   [DELETE]: 'diff-only-a',
   [EQUAL]: '',
@@ -39,16 +39,16 @@ const FAST_DIFF_CHANGE_TYPE_MAP = new Map<number, NonChangeEditType>([
 
 export {CHANGE, CLASS_MAP, DELETE, EQUAL, INSERT};
 
-export type EditDiff<+T> = {
-  +newItems: $ReadOnlyArray<T>,
-  +oldItems: $ReadOnlyArray<T>,
-  +type: EditType,
+export type EditDiff<out T> = {
+  readonly newItems: ReadonlyArray<T>,
+  readonly oldItems: ReadonlyArray<T>,
+  readonly type: EditType,
 };
 
 export type StringEditDiff = {
-  +newText: string,
-  +oldText: string,
-  +type: EditType,
+  readonly newText: string,
+  readonly oldText: string,
+  readonly type: EditType,
 };
 
 function getChangeType<T>(diff: GenericEditDiff<T>): NonChangeEditType {
@@ -63,11 +63,11 @@ function getChangeType<T>(diff: GenericEditDiff<T>): NonChangeEditType {
  * Note: for large strings, this is slow; use stringEditDiff instead!
  */
 export default function editDiff<T>(
-  oldSide: $ReadOnlyArray<T>,
-  newSide: $ReadOnlyArray<T>,
+  oldSide: ReadonlyArray<T>,
+  newSide: ReadonlyArray<T>,
   eqFunc?: (T, T) => boolean,
-): $ReadOnlyArray<EditDiff<T>> {
-  const diffs: $ReadOnlyArray<GenericEditDiff<T>> =
+): ReadonlyArray<EditDiff<T>> {
+  const diffs: ReadonlyArray<GenericEditDiff<T>> =
     genericDiff(oldSide, newSide, eqFunc);
   const normalized = [];
 
@@ -81,8 +81,8 @@ export default function editDiff<T>(
       nextDiff = diffs[i + 1];
     }
 
-    let oldItems: $ReadOnlyArray<T> = [];
-    let newItems: $ReadOnlyArray<T> = [];
+    let oldItems: ReadonlyArray<T> = [];
+    let newItems: ReadonlyArray<T> = [];
 
     let normalizedChangeType: EditType = changeType;
     match (changeType) {
@@ -113,8 +113,8 @@ export default function editDiff<T>(
 export function stringEditDiff(
   oldSide: string,
   newSide: string,
-): $ReadOnlyArray<StringEditDiff> {
-  const diffs: $ReadOnlyArray<FastEditDiff> =
+): ReadonlyArray<StringEditDiff> {
+  const diffs: ReadonlyArray<FastEditDiff> =
     fastDiff(oldSide, newSide);
   const normalized = [];
 

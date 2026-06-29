@@ -12,7 +12,7 @@ component FormRow(
   className as passedClassname?: string,
   hasNoLabel: boolean = false,
   hasNoMargin: boolean = false,
-  rowRef?: {-current: HTMLDivElement | null},
+  rowRef?: {writeonly current: HTMLDivElement | null},
 ) {
   return (
     <div

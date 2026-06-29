@@ -100,9 +100,9 @@ export function extractLinkTypeSearchTerms(
 export function createInitialState(options: {
   disabled?: boolean,
   id: string,
-  initialFocusRef?: {-current: HTMLInputElement | null},
+  initialFocusRef?: {writeonly current: HTMLInputElement | null},
   linkType: LinkTypeT | null,
-  linkTypeOptions: $ReadOnlyArray<AutocompleteOptionItemT<LinkTypeT>>,
+  linkTypeOptions: ReadonlyArray<AutocompleteOptionItemT<LinkTypeT>>,
   source: RelatableEntityT,
   targetType: RelatableEntityTypeT,
 }): DialogLinkTypeStateT {
@@ -163,8 +163,8 @@ function reducer(
 }
 
 type PartialDialogStateT = {
-  +attributes: DialogAttributesStateT,
-  +linkType: DialogLinkTypeStateT,
+  readonly attributes: DialogAttributesStateT,
+  readonly linkType: DialogLinkTypeStateT,
   ...
 };
 
@@ -172,9 +172,9 @@ export function updateDialogState(
   oldState: PartialDialogStateT,
   newState: {...PartialDialogStateT, ...},
   action: {
-    +action: DialogLinkTypeActionT,
-    +source: RelatableEntityT,
-    +type: 'update-link-type',
+    readonly action: DialogLinkTypeActionT,
+    readonly source: RelatableEntityT,
+    readonly type: 'update-link-type',
   },
 ): boolean {
   newState.linkType =

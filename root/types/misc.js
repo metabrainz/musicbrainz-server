@@ -10,21 +10,21 @@
 /* eslint-disable no-unused-vars */
 
 declare type DeepReadOnly<T> =
-  T extends $ReadOnlyArray<infer V> ? $ReadOnlyArray<DeepReadOnly<V>> :
-  T extends {...} ? {+[K in keyof T]: DeepReadOnly<T[K]>} : T;
+  T extends ReadonlyArray<infer V> ? ReadonlyArray<DeepReadOnly<V>> :
+  T extends {...} ? {readonly [K in keyof T]: DeepReadOnly<T[K]>} : T;
 
 /*
  * See http://search.cpan.org/~lbrocard/Data-Page-2.02/lib/Data/Page.pm
  * Serialized in MusicBrainz::Server::TO_JSON.
  */
 declare type PagerT = {
-  +current_page: number,
-  +entries_per_page: number,
-  +first_page: 1,
-  +last_page: number,
-  +next_page: number | null,
-  +previous_page: number | null,
-  +total_entries: number,
+  readonly current_page: number,
+  readonly entries_per_page: number,
+  readonly first_page: 1,
+  readonly last_page: number,
+  readonly next_page: number | null,
+  readonly previous_page: number | null,
+  readonly total_entries: number,
 };
 
 declare type StrOrNum = string | number;

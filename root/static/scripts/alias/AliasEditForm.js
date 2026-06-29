@@ -47,32 +47,35 @@ import {
 } from '../edit/utility/subfieldErrors.js';
 
 type Props = {
-  +aliasTypes: SelectOptionsT,
-  +entity: EntityWithAliasesT,
-  +form: AliasEditFormT,
-  +locales: SelectOptionsT,
-  +searchHintType: number,
+  readonly aliasTypes: SelectOptionsT,
+  readonly entity: EntityWithAliasesT,
+  readonly form: AliasEditFormT,
+  readonly locales: SelectOptionsT,
+  readonly searchHintType: number,
 };
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'set-locale', +locale: string}
-  | {+type: 'set-primary-for-locale', +enabled: boolean}
-  | {+type: 'set-type', +type_id: string}
-  | {+type: 'show-all-pending-errors'}
-  | {+type: 'update-date-range', +action: DateRangeFieldsetActionT}
-  | {+type: 'update-name', +action: NameActionT}
-  | {+type: 'update-sortname', +action: SortNameActionT};
+  | {readonly type: 'set-locale', readonly locale: string}
+  | {readonly type: 'set-primary-for-locale', readonly enabled: boolean}
+  | {readonly type: 'set-type', readonly type_id: string}
+  | {readonly type: 'show-all-pending-errors'}
+  | {
+      readonly type: 'update-date-range',
+      readonly action: DateRangeFieldsetActionT,
+    }
+  | {readonly type: 'update-name', readonly action: NameActionT}
+  | {readonly type: 'update-sortname', readonly action: SortNameActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +form: AliasEditFormT,
-  +guessCaseOptions: GuessCaseOptionsStateT,
-  +isEnded: boolean,
-  +isGuessCaseOptionsOpen: boolean,
-  +isTypeSearchHint: boolean,
-  +previousForm?: AliasEditFormT | null,
-  +searchHintType: number,
+  readonly form: AliasEditFormT,
+  readonly guessCaseOptions: GuessCaseOptionsStateT,
+  readonly isEnded: boolean,
+  readonly isGuessCaseOptionsOpen: boolean,
+  readonly isTypeSearchHint: boolean,
+  readonly previousForm?: AliasEditFormT | null,
+  readonly searchHintType: number,
 };
 
 const blankDatePeriod = {
@@ -361,7 +364,7 @@ const AliasEditForm = ({
   );
 };
 
-export default (hydrate<Props>(
+export default hydrate<Props>(
   'div.alias-edit-form',
   AliasEditForm,
-): component(...Props));
+) as component(...Props);

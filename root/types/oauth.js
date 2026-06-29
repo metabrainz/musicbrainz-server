@@ -12,21 +12,21 @@
 // MusicBrainz::Server::Entity::Application::TO_JSON
 declare type ApplicationT = {
   ...EntityRoleT<'application'>,
-  +is_server: boolean,
-  +name: string,
-  +oauth_id: string,
-  +oauth_redirect_uri?: string,
-  +oauth_secret: string,
-  +oauth_type: string,
+  readonly is_server: boolean,
+  readonly name: string,
+  readonly oauth_id: string,
+  readonly oauth_redirect_uri?: string,
+  readonly oauth_secret: string,
+  readonly oauth_type: string,
 };
 
 // MusicBrainz::Server::Entity::EditorOAuthToken::TO_JSON
 declare type EditorOAuthTokenT = {
   ...EntityRoleT<empty>,
-  +application: ApplicationT,
-  +editor: EditorT | null,
-  +granted: string,
-  +is_offline: boolean,
-  +permissions: $ReadOnlyArray<string>,
-  +scope: number,
+  readonly application: ApplicationT,
+  readonly editor: EditorT | null,
+  readonly granted: string,
+  readonly is_offline: boolean,
+  readonly permissions: ReadonlyArray<string>,
+  readonly scope: number,
 };

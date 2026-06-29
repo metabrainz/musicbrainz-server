@@ -12,7 +12,7 @@ import {commaOnlyListText}
 import formatDate from '../static/scripts/common/utility/formatDate.js';
 
 component ReleaseDateList(
-  events as releaseEvents?: $ReadOnlyArray<ReleaseEventT>
+  events as releaseEvents?: ReadonlyArray<ReleaseEventT>
 ) {
   if (!releaseEvents || !releaseEvents.length) {
     return null;

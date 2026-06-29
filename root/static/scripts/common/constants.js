@@ -73,7 +73,7 @@ export const DARTIST_ID = 2;
 export const DLABEL_ID = 1;
 
 export const FAVICON_CLASSES: {
-  +[host: string]: string,
+  readonly [host: string]: string,
 } = {
   '7digital.com': 'sevendigital',
   '45cat.com': 'fortyfivecat',
@@ -117,7 +117,6 @@ export const FAVICON_CLASSES: {
   'deezer.com': 'deezer',
   'deviantart.com': 'deviantart',
   'dhhu.dk': 'dhhu',
-  'directlyrics.com': 'directlyrics',
   'discogs.com': 'discogs',
   'dogmazic.net': 'dogmazic',
   'dramonline.org': 'dram',
@@ -151,12 +150,10 @@ export const FAVICON_CLASSES: {
   'j-lyric.net': 'jlyric',
   'jazzmusicarchives.com': 'jazzmusicarchives',
   'joysound.com': 'joysound',
-  'junodownload.com': 'junodownload',
   'kashinavi.com': 'kashinavi',
   'kickstarter.com': 'kickstarter',
   'kkbox.com': 'kkbox',
   'ko-fi.com': 'kofi',
-  'laboiteauxparoles.com': 'laboiteauxparoles',
   'lantis.jp': 'lantis',
   'last.fm': 'lastfm',
   'lesarchivesduspectacle.net': 'archivesduspectacle',
@@ -186,6 +183,7 @@ export const FAVICON_CLASSES: {
   'music.yandex': 'yandex',
   'music.youtube.com': 'youtubemusic',
   'musicapopular.cl': 'musicapopularcl',
+  'musicinafrica.net': 'musicinafrica',
   'musik-sammler.de': 'musiksammler',
   'musixmatch.com': 'musixmatch',
   'musopen.org': 'musopen',
@@ -193,7 +191,6 @@ export const FAVICON_CLASSES: {
   'muzikum.eu': 'muzikum',
   'myanimelist.net': 'myanimelist',
   'myspace.com': 'myspace',
-  'napster.com': 'napster',
   'nicovideo.jp': 'niconicovideo',
   'nla.gov.au': 'trove',
   'oclc.org': 'oclc',
@@ -293,7 +290,7 @@ export const FAVICON_CLASSES: {
 };
 
 export const PART_OF_SERIES_LINK_TYPES: {
-  +[type: RelatableEntityTypeT]: string | null,
+  readonly [type: RelatableEntityTypeT]: string | null,
 } = {
   area: null,
   artist: 'd1a845d1-8c03-3191-9454-e4e8d37fa5e0',
@@ -310,10 +307,10 @@ export const PART_OF_SERIES_LINK_TYPES: {
   work: 'b0d44366-cdf0-3acb-bee6-0f65a77a6ef0',
 };
 
-export const PART_OF_SERIES_LINK_TYPE_GIDS: $ReadOnlyArray<string> =
+export const PART_OF_SERIES_LINK_TYPE_GIDS: ReadonlyArray<string> =
   (Object.values(PART_OF_SERIES_LINK_TYPES).filter(Boolean));
 
-export const PART_OF_SERIES_LINK_TYPE_IDS: $ReadOnlyArray<number> = [
+export const PART_OF_SERIES_LINK_TYPE_IDS: ReadonlyArray<number> = [
   740,  // recording
   741,  // release
   742,  // release group
@@ -370,7 +367,7 @@ export const TRAD_ARTIST_ID = 762646;
 export const UNKNOWN_ARTIST_GID = '125ec42a-7229-4250-afc5-e057484327fe';
 export const UNKNOWN_ARTIST_ID = 97546;
 
-export const SPECIAL_ARTIST_GIDS: $ReadOnlyArray<string> = [
+export const SPECIAL_ARTIST_GIDS: ReadonlyArray<string> = [
   VARTIST_GID,
   ANON_ARTIST_GID,
   DATA_ARTIST_GID,
@@ -380,7 +377,7 @@ export const SPECIAL_ARTIST_GIDS: $ReadOnlyArray<string> = [
   UNKNOWN_ARTIST_GID,
 ];
 
-export const SPECIAL_ARTIST_IDS: $ReadOnlyArray<number> = [
+export const SPECIAL_ARTIST_IDS: ReadonlyArray<number> = [
   DARTIST_ID,
   VARTIST_ID,
   ANON_ARTIST_ID,
@@ -429,7 +426,7 @@ export const QUALITY_NAMES: Map<QualityT, () => string> = new Map([
 ]);
 
 export const FLUENCY_NAMES:
-  {+[fluency: string]: () => string,
+  {readonly [fluency: string]: () => string,
   ...
 } = {
   advanced: N_l('Advanced'),

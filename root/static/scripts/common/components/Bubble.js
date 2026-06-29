@@ -20,7 +20,7 @@ import * as React from 'react';
 
 component Bubble(
   children: React.Node,
-  controlRef: {+current: HTMLElement | null},
+  controlRef: {readonly current: HTMLElement | null},
   id: string,
 ) {
   const arrowRef = React.useRef<Element | null>(null);

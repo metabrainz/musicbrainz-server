@@ -10,32 +10,32 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Work::TO_JSON
-declare type WorkT = $ReadOnly<{
+declare type WorkT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'work'>,
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<WorkTypeT>,
-  +_fromBatchCreateWorksDialog?: boolean,
-  +artists: $ReadOnlyArray<ArtistCreditT>,
-  +attributes: $ReadOnlyArray<WorkAttributeT>,
-  +authors: $ReadOnlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
+  readonly _fromBatchCreateWorksDialog?: boolean,
+  readonly artists: ReadonlyArray<ArtistCreditT>,
+  readonly attributes: ReadonlyArray<WorkAttributeT>,
+  readonly authors: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: ArtistT,
+    readonly roles: ReadonlyArray<string>,
   }>,
-  +iswcs: $ReadOnlyArray<IswcT>,
-  +languages: $ReadOnlyArray<WorkLanguageT>,
-  +other_artists: $ReadOnlyArray<{
-    +credit: string,
-    +entity: ArtistT,
-    +roles: $ReadOnlyArray<string>,
+  readonly iswcs: ReadonlyArray<IswcT>,
+  readonly languages: ReadonlyArray<WorkLanguageT>,
+  readonly other_artists: ReadonlyArray<{
+    readonly credit: string,
+    readonly entity: ArtistT,
+    readonly roles: ReadonlyArray<string>,
   }>,
-  +primaryAlias?: string | null,
-  +related_artists?: {
-    +artists: AppearancesT<string>,
-    +authors: AppearancesT<string>,
+  readonly primaryAlias?: string | null,
+  readonly related_artists?: {
+    readonly artists: AppearancesT<string>,
+    readonly authors: AppearancesT<string>,
   },
 }>;
 
@@ -43,5 +43,5 @@ declare type WorkTypeT = OptionTreeT<'work_type'>;
 
 // MusicBrainz::Server::Entity::WorkLanguage::TO_JSON
 declare type WorkLanguageT = {
-  +language: LanguageT,
+  readonly language: LanguageT,
 };

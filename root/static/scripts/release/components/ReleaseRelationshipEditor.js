@@ -148,7 +148,7 @@ const createMap = <K, V>(): Map<K, V> => new Map();
 
 function addTracksToState(
   writableRootState: {...ReleaseRelationshipEditorStateT},
-  tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  tracks: ReadonlyArray<TrackWithRecordingT>,
   medium: MediumWithRecordingsT,
 ): void {
   const recordingsWithNoRelationships = [];
@@ -265,7 +265,7 @@ export function createInitialState(
 
 function handleSubmissionError(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  error: mixed,
+  error: unknown,
 ): void {
   captureException(error);
 
@@ -286,7 +286,7 @@ function handlePromiseRejection<T>(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   promise: Promise<T | SubmissionRejected>,
 ): Promise<T | SubmissionRejected> {
-  return promise.catch(function (error: mixed) {
+  return promise.catch(function (error: unknown) {
     handleSubmissionError(dispatch, error);
     return new SubmissionRejected();
   });
@@ -331,7 +331,7 @@ async function wsJsEditSubmission(
     return null;
   }
   const respJson:
-    | (WsJsEditResponseT | {+error: string, ...})
+    | (WsJsEditResponseT | {readonly error: string, ...})
     | SubmissionRejected =
       await handlePromiseRejection(dispatch, resp.json());
   if (respJson instanceof SubmissionRejected) {
@@ -347,7 +347,7 @@ async function wsJsEditSubmission(
     return null;
   }
   // $FlowFixMe[unclear-type]
-  const editResponseData: WsJsEditResponseT = (respJson: any);
+  const editResponseData: WsJsEditResponseT = respJson as any;
   dispatch({
     edits,
     responseData: editResponseData,
@@ -474,7 +474,7 @@ function* getAllRelationshipEdits(
       return editData;
     }
     return {
-      entityType: (entity.entityType: NonUrlRelatableEntityTypeT),
+      entityType: entity.entityType as NonUrlRelatableEntityTypeT,
       gid: entity.gid,
       name: entity.name,
     };
@@ -492,8 +492,8 @@ function* getAllRelationshipEdits(
       Map<
         number,
         Array<{
-          +link_order: number,
-          +relationship: RelationshipStateT,
+          readonly link_order: number,
+          readonly relationship: RelationshipStateT,
         }>,
       >,
     > = new Map();
@@ -564,7 +564,7 @@ function* getAllRelationshipEdits(
           }
           yield [
             [relationship],
-            (editData: WsJsEditRelationshipCreateT),
+            editData as WsJsEditRelationshipCreateT,
           ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_EDIT, ...} as relationship => {
@@ -691,7 +691,7 @@ function* getAllRelationshipEdits(
           }
           yield [
             [relationship],
-            (editData: WsJsEditRelationshipEditT),
+            editData as WsJsEditRelationshipEditT,
           ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_REMOVE, ...} as relationship => {
@@ -800,7 +800,7 @@ async function submitRelationshipEdits(
 async function submitEdits(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   currentStateRef: {
-    +current: ReleaseRelationshipEditorStateT,
+    readonly current: ReleaseRelationshipEditorStateT,
   },
 ) {
   const syncDispatch = (action: ReleaseRelationshipEditorActionT) => {
@@ -1429,7 +1429,7 @@ export const reducer: ((
 component _MediumRelationshipEditors(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1470,7 +1470,7 @@ const MediumRelationshipEditors = React.memo(_MediumRelationshipEditors);
 component _TrackRelationshipsSection(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1772,7 +1772,7 @@ component _ReleaseRelationshipEditor() {
   ) => {
     event.preventDefault();
     submitEdits(dispatch, currentStateRef)
-      .catch(function (error: mixed) {
+      .catch(function (error: unknown) {
         handleSubmissionError(dispatch, error);
       });
   }, [dispatch]);
@@ -1873,9 +1873,9 @@ const NonHydratedReleaseRelationshipEditor =
     ['language', 'work_type'],
   );
 
-const ReleaseRelationshipEditor = (hydrate<{}>(
+const ReleaseRelationshipEditor = hydrate<{}>(
   'div.release-relationship-editor',
   NonHydratedReleaseRelationshipEditor,
-): component());
+) as component();
 
 export default ReleaseRelationshipEditor;

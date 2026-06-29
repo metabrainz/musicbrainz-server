@@ -8,9 +8,9 @@
  */
 
 export default function filterReleaseLabels(
-  releaseLabels: $ReadOnlyArray<ReleaseLabelT>,
+  releaseLabels: ReadonlyArray<ReleaseLabelT>,
   label: LabelT,
-): $ReadOnlyArray<ReleaseLabelT> {
+): ReadonlyArray<ReleaseLabelT> {
   return releaseLabels.filter(
     releaseLabel => releaseLabel.label_id === label.id,
   );

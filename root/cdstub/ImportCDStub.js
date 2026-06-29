@@ -20,7 +20,7 @@ import InlineSubmitButton
 import CDStubLayout from './CDStubLayout.js';
 
 component ImportCDStub(
-  artists: $ReadOnlyArray<SearchResultT<ArtistT>>,
+  artists: ReadonlyArray<SearchResultT<ArtistT>>,
   cdstub: CDStubT,
   form: SearchFormT,
   pager: PagerT,

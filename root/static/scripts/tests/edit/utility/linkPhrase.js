@@ -111,7 +111,7 @@ test('required attributes are left with forGrouping', function (t) {
 
   t.deepEqual(
     result,
-    ['supporting guitar for', ([]: Array<LinkAttrT>)],
+    ['supporting guitar for', [] as Array<LinkAttrT>],
   );
 });
 
@@ -149,7 +149,7 @@ test('non-required attributes are stripped with forGrouping', function (t) {
   );
   t.deepEqual(
     result,
-    ['instrumental recordings', ([]: Array<LinkAttrT>)],
+    ['instrumental recordings', [] as Array<LinkAttrT>],
   );
 });
 
@@ -210,7 +210,7 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
   );
   t.deepEqual(
     result,
-    ['vocals', ([]: Array<LinkAttrT>)],
+    ['vocals', [] as Array<LinkAttrT>],
   );
 
   result = getPhraseAndExtraAttributesText(
@@ -221,7 +221,7 @@ test('MBS-6129: Interpolating link phrases containing %', function (t) {
   );
   t.deepEqual(
     result,
-    ['lead vocals', ([]: Array<LinkAttrT>)],
+    ['lead vocals', [] as Array<LinkAttrT>],
   );
 });
 

@@ -39,13 +39,13 @@ export type LinkPhraseProp =
   | 'reverse_link_phrase';
 
 class PhraseVarArgs<T> implements VarArgsClass<T> {
-  +data: VarArgsObject<LinkAttrs>;
+  readonly data: VarArgsObject<LinkAttrs>;
 
-  +i18n: LinkPhraseI18n<T>;
+  readonly i18n: LinkPhraseI18n<T>;
 
-  +entity0: T;
+  readonly entity0: T;
 
-  +entity1: T;
+  readonly entity1: T;
 
   /*
    * Contains attributes that appear in the text of the given link
@@ -53,7 +53,7 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
    * didn't appear in the link phrase, so that we can display them
    * separately).
    */
-  +usedPhraseAttributes: Array<string>;
+  readonly usedPhraseAttributes: Array<string>;
 
   #nextKey: number;
 
@@ -101,7 +101,7 @@ class PhraseVarArgs<T> implements VarArgsClass<T> {
 }
 
 export type LinkPhraseI18n<T> = {
-  commaList: ($ReadOnlyArray<T>) => T,
+  commaList: (ReadonlyArray<T>) => T,
   defaultValue: T,
   displayLinkAttribute: (LinkAttrT) => T,
   expand: (string, VarArgsClass<T>) => T,
@@ -123,8 +123,8 @@ const textI18n: LinkPhraseI18n<string> = {
 
 function _getAttributesByRootName(
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
-): $ReadOnly<LinkAttrsByRootName> {
+  attributes: ReadonlyArray<LinkAttrT>,
+): Readonly<LinkAttrsByRootName> {
   const values: LinkAttrsByRootName = {};
 
   for (let i = 0; i < attributes.length; i++) {
@@ -183,13 +183,13 @@ export function cmpLinkAttrs(a: LinkAttrT, b: LinkAttrT): number {
 
 const requiredAttributesCache: {
   __proto__: null,
-  [linkTypeId: number]: $ReadOnly<LinkAttrsByRootName>,
+  [linkTypeId: number]: Readonly<LinkAttrsByRootName>,
   ...
 } = Object.create(null);
 
 function _getRequiredAttributes(
   linkType: LinkTypeT,
-): $ReadOnly<LinkAttrsByRootName> {
+): Readonly<LinkAttrsByRootName> {
   const cached = requiredAttributesCache[linkType.id];
   if (cached) {
     return cached;
@@ -213,7 +213,7 @@ function _getRequiredAttributes(
 export function getPhraseAndExtraAttributes<T>(
   i18n: LinkPhraseI18n<T | string>,
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
   entity0?: T,
@@ -306,7 +306,7 @@ export function getPhraseAndExtraAttributes<T>(
 
 export const getPhraseAndExtraAttributesText = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): [string, Array<LinkAttrT>] => getPhraseAndExtraAttributes<
@@ -322,7 +322,7 @@ export const getPhraseAndExtraAttributesText = (
 
 export const interpolate = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
   entity0?: React.MixedElement,
@@ -342,7 +342,7 @@ export const interpolate = (
 
 export const interpolateText = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): string => getPhraseAndExtraAttributesText(
@@ -354,7 +354,7 @@ export const interpolateText = (
 
 export const getExtraAttributes = (
   linkType: LinkTypeT,
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
   phraseProp: LinkPhraseProp,
   forGrouping?: boolean = false,
 ): Array<LinkAttrT> => getPhraseAndExtraAttributes<

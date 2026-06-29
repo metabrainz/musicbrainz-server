@@ -25,7 +25,7 @@ const buildErrorListItem = (
 };
 
 export component FieldErrorsList(
-  errors: ?$ReadOnlyArray<string>,
+  errors: ?ReadonlyArray<string>,
   hasHtmlErrors: boolean,
 ) {
   if (errors?.length) {
@@ -41,7 +41,7 @@ export component FieldErrorsList(
 }
 
 component FieldErrors(
-  field: AnyFieldT,
+  field: FormOrAnyFieldT,
   hasHtmlErrors: boolean = false,
   includeSubFields: boolean = true,
  ) {

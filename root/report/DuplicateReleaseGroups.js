@@ -16,9 +16,9 @@ import loopParity from '../utility/loopParity.js';
 import ReportLayout from './components/ReportLayout.js';
 import type {ReportDataT, ReportReleaseGroupT} from './types.js';
 
-type ReportReleaseGroupWithKeyT = $ReadOnly<{
+type ReportReleaseGroupWithKeyT = Readonly<{
   ...ReportReleaseGroupT,
-  +key: string,
+  readonly key: string,
 }>;
 
 component DuplicateReleaseGroups(...{

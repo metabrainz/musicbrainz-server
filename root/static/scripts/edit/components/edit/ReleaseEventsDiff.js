@@ -70,8 +70,8 @@ const changeSide = (
 };
 
 component ReleaseEventsDiff(
-  newEvents: $ReadOnlyArray<ReleaseEventT>,
-  oldEvents: $ReadOnlyArray<ReleaseEventT>,
+  newEvents: ReadonlyArray<ReleaseEventT>,
+  oldEvents: ReadonlyArray<ReleaseEventT>,
 ) {
   const oldEventsByCountry = keyBy(oldEvents, getCountryId);
   const newEventsByCountry = keyBy(newEvents, getCountryId);

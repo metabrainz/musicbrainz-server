@@ -710,7 +710,7 @@ components, it also creates two issues that you need to manage:
     } from './Child.js';
 
     type ActionT =
-      | {+type: 'update-child', +action: ChildActionT}
+      | {readonly type: 'update-child', readonly action: ChildActionT}
       // ...
       ;
 

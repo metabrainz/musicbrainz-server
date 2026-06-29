@@ -73,7 +73,7 @@ function relationshipsAreIdenticalIgnoringLinkOrder(
 component _DialogPreview(
   backward: boolean,
   batchSelectionCount: number | void,
-  dispatch: ({+type: 'change-direction'}) => void,
+  dispatch: ({readonly type: 'change-direction'}) => void,
   newRelationship: RelationshipStateT | null,
   oldRelationship: RelationshipStateT | null,
   source: RelatableEntityT,

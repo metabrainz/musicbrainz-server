@@ -21,8 +21,8 @@ import escapeClosingTags from './escapeClosingTags.js';
 
 type PropsDataT =
   | StrOrNum
-  | $ReadOnlyArray<PropsDataT>
-  | {+[key: string]: PropsDataT, ...}
+  | ReadonlyArray<PropsDataT>
+  | {readonly [key: string]: PropsDataT, ...}
   | null
   | void;
 
@@ -94,8 +94,8 @@ if (__DEV__) {
 
 // Please keep the type signature in sync with root/vars.js.
 export default function hydrate<
-  Config: {...},
-  SanitizedConfig: {...} = Config,
+  Config extends {...},
+  SanitizedConfig extends {...} = Config,
 >(
   containerSelector: string,
   Component: React.ComponentType<Config | SanitizedConfig>,
@@ -119,10 +119,10 @@ export default function hydrate<
         const $c = getCatalystContext();
         const propString = propScript.textContent;
         const props: SanitizedConfig =
-          propString ? JSON.parse(propString) : ({}: any);
+          propString ? JSON.parse(propString) : {} as any;
 
         if (__DEV__) {
-          checkForUnsanitizedEditorData((props: any));
+          checkForUnsanitizedEditorData(props as any);
         }
         /*
          * Flush updates to the DOM immediately to try and avoid hydration
@@ -159,7 +159,7 @@ export default function hydrate<
           dangerouslySetInnerHTML={{
             __html: escapeClosingTags(
               JSON.stringify(
-                ((sanitizedProps ?? props): Config | SanitizedConfig),
+                (sanitizedProps ?? props) as Config | SanitizedConfig,
               ) ?? '',
             ),
           }}
@@ -174,11 +174,11 @@ export default function hydrate<
 }
 
 type PropsWithEntity = {
-  +entity: $ReadOnly<{...MinimalEntityT, ...}>,
+  readonly entity: Readonly<{...MinimalEntityT, ...}>,
   ...
 };
 
-export function minimalEntity<T: PropsWithEntity>(
+export function minimalEntity<T extends PropsWithEntity>(
   props: T,
 ): T {
   const entity = props.entity;

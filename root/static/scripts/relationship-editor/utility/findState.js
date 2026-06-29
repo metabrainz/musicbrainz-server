@@ -180,7 +180,7 @@ export function* iterateRelationshipsInTargetTypeGroups(
   }
 }
 
-export function* iterateTargetEntitiesOfType<T: RelatableEntityT>(
+export function* iterateTargetEntitiesOfType<T extends RelatableEntityT>(
   targetTypeGroups: RelationshipTargetTypeGroupsT,
   targetType: T['entityType'],
   targetProperty: 'entity0' | 'entity1',
@@ -200,6 +200,6 @@ export function* iterateTargetEntitiesOfType<T: RelatableEntityT>(
     const target = relationship[targetProperty];
     invariant(target.entityType === targetType);
     // $FlowFixMe[unclear-type]
-    yield (target: any);
+    yield target as any;
   }
 }

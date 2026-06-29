@@ -28,7 +28,7 @@ import {
 import formatUserDate from '../../utility/formatUserDate.js';
 import loopParity from '../../utility/loopParity.js';
 
-component UserList(users: $ReadOnlyArray<UnsanitizedEditorT>) {
+component UserList(users: ReadonlyArray<UnsanitizedEditorT>) {
   const $c = React.useContext(CatalystContext);
 
   return (

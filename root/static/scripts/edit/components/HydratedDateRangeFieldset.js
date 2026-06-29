@@ -12,10 +12,10 @@ import * as React from 'react';
 import DateRangeFieldset, {reducer} from './DateRangeFieldset.js';
 
 type PropsT = {
-  +children?: React.Node,
-  +disabled: boolean,
-  +endedLabel?: string,
-  +initialField: DatePeriodFieldT,
+  readonly children?: React.Node,
+  readonly disabled: boolean,
+  readonly endedLabel?: string,
+  readonly initialField: DatePeriodFieldT,
 };
 
 component _HydratedDateRangeFieldset(

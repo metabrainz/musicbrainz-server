@@ -18,22 +18,36 @@ import sanitizedContext from '../utility/sanitizedContext.mjs';
 import {badRequest, getResponse} from './response.mjs';
 
 function connectionListener(socket) {
+  /*
+   * A UInt32LE header indicates how many bytes we expect to receive for
+   * `requestBody`. That byte count is stored in `expectedBytes` once
+   * the header is fully received.
+   */
   let expectedBytes = 0;
   let recvBuffer = null;
   let recvBytes = 0;
+  let recvHeaderBytes = 0;
   let context;
 
   function clearRecv() {
     expectedBytes = 0;
     recvBuffer = null;
     recvBytes = 0;
+    recvHeaderBytes = 0;
   }
 
   function receiveData(data) {
     if (!recvBuffer) {
-      expectedBytes = data.readUInt32LE(0);
+      while (recvHeaderBytes < 4 && data.length > 0) {
+        // Read the UInt32LE header one byte at a time.
+        expectedBytes |= data[0] << (recvHeaderBytes * 8);
+        recvHeaderBytes++;
+        data = data.slice(1);
+      }
+      if (recvHeaderBytes < 4) {
+        return;
+      }
       recvBuffer = Buffer.allocUnsafe(expectedBytes);
-      data = data.slice(4);
     }
 
     let overflow = null;

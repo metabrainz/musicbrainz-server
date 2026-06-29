@@ -10,28 +10,28 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Recording::TO_JSON
-declare type RecordingT = $ReadOnly<{
+declare type RecordingT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'recording'>,
   ...RatableRoleT,
   ...ReviewableRoleT,
-  +appearsOn?: AppearancesT<{gid: string, name: string}>,
-  +artist?: string,
-  +artistCredit: ArtistCreditT,
-  +first_release_date?: PartialDateT,
-  +isrcs: $ReadOnlyArray<IsrcT>,
-  +length: number,
-  +primaryAlias?: string | null,
-  +related_works: $ReadOnlyArray<number>,
-  +video: boolean,
+  readonly appearsOn?: AppearancesT<{gid: string, name: string}>,
+  readonly artist?: string,
+  readonly artistCredit: ArtistCreditT,
+  readonly first_release_date?: PartialDateT,
+  readonly isrcs: ReadonlyArray<IsrcT>,
+  readonly length: number,
+  readonly primaryAlias?: string | null,
+  readonly related_works: ReadonlyArray<number>,
+  readonly video: boolean,
 }>;
 
 declare type ReleaseGroupAppearancesT = {
-  +hits: number,
-  +results: $ReadOnlyArray<ReleaseGroupT>,
+  readonly hits: number,
+  readonly results: ReadonlyArray<ReleaseGroupT>,
 };
 
 declare type ReleaseGroupAppearancesMapT = {
-  +[recordingId: number]: ReleaseGroupAppearancesT,
+  readonly [recordingId: number]: ReleaseGroupAppearancesT,
 };

@@ -10,29 +10,31 @@ use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
 use DateTime::Format::Pg;
-use Digest::MD5 qw( md5_hex );
 use Encode;
-use MusicBrainz::Server::Constants qw( :edit_status entities_with );
-use MusicBrainz::Server::Entity::Preferences;
-use MusicBrainz::Server::Entity::Editor;
-use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Server::Data::Utils qw(
-    generate_token
-    hash_to_row
-    load_subobjects
-    placeholders
-    sanitize_username
-);
+use Text::Trim qw( trim );
 use MusicBrainz::Server::Constants qw(
     :create_entity
     :edit_status
     :privileges
     :vote
     %ENTITIES
+    $DIGEST_AUTH_TOKEN_FLAG
+    $EDIT_EVENT_ADD_EVENT_ART
     $EDIT_HISTORIC_ADD_RELEASE
     $EDIT_RELEASE_ADD_COVER_ART
-    $EDIT_EVENT_ADD_EVENT_ART
     $PASSPHRASE_BCRYPT_COST
+    entities_with
+);
+use MusicBrainz::Server::Entity::Preferences;
+use MusicBrainz::Server::Entity::Editor;
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
+use MusicBrainz::Server::Data::Utils qw(
+    generate_token
+    ha1_password
+    hash_to_row
+    load_subobjects
+    placeholders
+    sanitize_username
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -95,7 +97,9 @@ sub _column_mapping
         gender_id               => 'gender',
         area_id                 => 'area',
         birth_date              => 'birth_date',
-        ha1                     => 'ha1',
+                                   # The `ha1` column is `CHAR(32)`, so an empty value will consist of 32 spaces.
+                                   # Trim blank values so that they're stored as '' on the instance.
+        ha1                     => sub { my ($row, $prefix) = @_; return trim($row->{ $prefix . 'ha1' }); },
         deleted                 => 'deleted',
     };
 }
@@ -358,7 +362,7 @@ sub insert
 
     my $plaintext = $data->{password};
     $data->{password} = hash_password($plaintext);
-    $data->{ha1} = ha1_password($data->{name}, $plaintext);
+    $data->{ha1} = '';
 
     return Sql::run_in_transaction(sub {
         return $self->_entity_class->new(
@@ -366,7 +370,7 @@ sub insert
             name => $data->{name},
             password => $data->{password},
             privs => $data->{privs} // 0,
-            ha1 => $data->{ha1},
+            ha1 => '',
             registration_date => DateTime->now,
         );
     }, $self->sql);
@@ -415,9 +419,9 @@ sub update_password
     my ($self, $editor_name, $password) = @_;
 
     Sql::run_in_transaction(sub {
-        $self->sql->do(<<~'SQL', hash_password($password), $password, $editor_name);
+        $self->sql->do(<<~'SQL', hash_password($password), $editor_name);
             UPDATE editor
-            SET password = ?, ha1 = md5(name || ':musicbrainz.org:' || ?), 
+            SET password = ?,
                 last_login_date = now()
             WHERE lower(name) = lower(?)
             SQL
@@ -428,6 +432,23 @@ sub disable_digest_auth_token {
     my ($self, $editor_id) = @_;
 
     $self->sql->do(q(UPDATE editor SET ha1 = '' WHERE id = ?), $editor_id);
+}
+
+sub reset_digest_auth_token {
+    my ($self, $editor_id) = @_;
+
+    my $username = $self->sql->select_single_value(<<~'SQL', $editor_id);
+        SELECT name FROM editor WHERE id = ?
+        SQL
+    my $token = generate_token();
+    my $ha1 = ha1_password($username, $token);
+    $self->sql->do(<<~'SQL', $ha1, $DIGEST_AUTH_TOKEN_FLAG, $editor_id);
+        UPDATE editor
+           SET ha1 = ?,
+               privs = privs | ?
+         WHERE id = ?
+        SQL
+    return $token;
 }
 
 sub update_profile
@@ -1056,11 +1077,6 @@ sub hash_password {
         cost => $PASSPHRASE_BCRYPT_COST,
         passphrase => encode('utf-8', $password),
     )->as_rfc2307;
-}
-
-sub ha1_password {
-    my ($username, $password) = @_;
-    return md5_hex(join(':', encode('utf-8', $username), 'musicbrainz.org', encode('utf-8', $password)));
 }
 
 sub consume_remember_me_token {

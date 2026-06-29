@@ -18,7 +18,7 @@ import CDTocInfo from './CDTocInfo.js';
 
 component CDTocIndex(
   cdToc: CDTocT,
-  mediumCDTocs: $ReadOnlyArray<MediumCDTocT>,
+  mediumCDTocs: ReadonlyArray<MediumCDTocT>,
 ) {
   return (
     <Layout

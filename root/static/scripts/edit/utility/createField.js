@@ -18,7 +18,7 @@ let LAST_FIELD_ID = 99999;
 export type MapFields<F> = {[K in keyof F]: FieldT<F[K]>};
 
 export function createCompoundFieldFromObject<
-  F: {...},
+  F extends {...},
 >(
   name: string,
   fieldValues: F,
