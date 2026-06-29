@@ -50,6 +50,7 @@ our @EXPORT_OK = qw(
     get_area_containment_join
     hash_structure
     hash_to_row
+    is_blank
     is_special_artist
     is_special_label
     is_valid_token
@@ -718,6 +719,11 @@ sub merge_date_period {
     merge_partial_date(@args, field => $_)
         for qw( begin_date end_date );
     merge_boolean_attributes(@args, columns => ['ended']);
+}
+
+sub is_blank {
+    my $value = shift;
+    return !non_empty($value) || $value =~ /^\s*$/;
 }
 
 sub is_special_artist {
