@@ -424,6 +424,12 @@ sub update_password
     }, $self->sql);
 }
 
+sub disable_digest_auth_token {
+    my ($self, $editor_id) = @_;
+
+    $self->sql->do(q(UPDATE editor SET ha1 = '' WHERE id = ?), $editor_id);
+}
+
 sub update_profile
 {
     my ($self, $editor, $update) = @_;
