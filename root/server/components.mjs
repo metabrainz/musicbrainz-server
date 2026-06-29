@@ -27,6 +27,7 @@ export default {
   'account/applications/RevokeApplicationAccess': (): Promise<unknown> => import('../account/applications/RevokeApplicationAccess.js'),
   'account/ChangePassword': (): Promise<unknown> => import('../account/ChangePassword.js'),
   'account/DeleteOwnAccount': (): Promise<unknown> => import('../account/DeleteOwnAccount.js'),
+  'account/DigestAuthentication': (): Promise<unknown> => import('../account/DigestAuthentication.js'),
   'account/Donation': (): Promise<unknown> => import('../account/Donation.js'),
   'account/EditProfile': (): Promise<unknown> => import('../account/EditProfile.js'),
   'account/EmailVerificationStatus': (): Promise<unknown> => import('../account/EmailVerificationStatus.js'),

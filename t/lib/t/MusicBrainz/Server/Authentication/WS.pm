@@ -123,6 +123,14 @@ test 'Digest authentication' => sub {
     $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, ' ' x 32);
     $mech->get($path);
     is($mech->status, HTTP_UNAUTHORIZED, 'Blank password is rejected after disabling digest auth');
+
+    my $token = $c->model('Editor')->reset_digest_auth_token($editor->id);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, $token);
+    $mech->get_ok($path, 'New digest auth token is accepted');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Account password is rejected after setting new digest auth token');
 };
 
 1;

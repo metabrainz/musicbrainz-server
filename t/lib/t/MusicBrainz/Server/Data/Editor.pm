@@ -13,6 +13,7 @@ use DateTime;
 use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw(
     :edit_status
+    $DIGEST_AUTH_TOKEN_FLAG
     $EDIT_SERIES_CREATE
     $EDIT_ARTIST_EDIT
     $EDIT_RELATIONSHIP_CREATE
@@ -21,9 +22,9 @@ use MusicBrainz::Server::Constants qw(
     :vote
 );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( ha1_password );
 use Set::Scalar;
 use Sql;
-use Digest::MD5 qw( md5_hex );
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -119,8 +120,8 @@ test 'Creating a new editor' => sub {
     );
     is(
         $editor->ha1,
-        md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')),
-        'The ha1 for the new editor was generated correctly',
+        '',
+        'The ha1 for the new editor is empty',
     );
 
     my $now = DateTime::Format::Pg->parse_datetime(
@@ -960,6 +961,45 @@ test 'Marking an editor as spammer changes all Yes/No votes on open edits to Abs
     is(scalar @{ $edit->votes }, 2, 'There is two votes');
     is($edit->votes->[1]->vote, $VOTE_ABSTAIN, 'New vote is Abstain');
     is($edit->votes->[1]->editor_id, 2, 'New vote is by editor 2');
+};
+
+test 'Test disable_digest_auth_token' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, 'cee82955d47bf0bd71038244579e766f', 'The ha1 is non-empty before disabling');
+
+    $c->model('Editor')->disable_digest_auth_token(14);
+    $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, '', 'The ha1 is empty after disabling');
+};
+
+test 'Test reset_digest_auth_token' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is(
+        $editor->privileges & $DIGEST_AUTH_TOKEN_FLAG,
+        0,
+        'The digest auth token flag is unset on the editor',
+    );
+
+    my $token = $c->model('Editor')->reset_digest_auth_token(14);
+    my $ha1 = ha1_password('æditorⅣ', $token);
+
+    $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, $ha1, 'The ha1 is reset');
+    is(
+        $editor->privileges & $DIGEST_AUTH_TOKEN_FLAG,
+        $DIGEST_AUTH_TOKEN_FLAG,
+        'The digest auth token flag is set on the editor',
+    );
 };
 
 1;
