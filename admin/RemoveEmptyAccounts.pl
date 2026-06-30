@@ -38,6 +38,8 @@ my $c_cursor = MusicBrainz::Server::Context->create_script_context(
 );
 
 my $query = $c->model('Editor')->_build_unused_editor_query() . <<~"SQL";
+    AND e.deleted IS false
+    AND e.privs = 8192
     AND e.email IS NULL
     AND (   member_since < NOW() - INTERVAL '12 months'
          OR member_since IS NULL)

@@ -278,6 +278,8 @@ sub find_possible_spammers {
 
     my $unused_editors_results = $self->sql->select_list_of_hashes(
         $self->c->model('Editor')->_build_unused_editor_query() . "\n" .
+            "AND e.deleted IS false\n" .
+            "AND e.privs = 8192\n" .
             'AND e.id = any(?)',
         [map { $_->id } @editors],
     );
@@ -592,9 +594,7 @@ sub _build_unused_editor_query {
             SELECT e.id, e.name
             FROM editor e
             WHERE
-        deleted IS false
-    AND privs = 8192
-    AND NOT EXISTS (SELECT 1
+        NOT EXISTS (SELECT 1
                         FROM application
                     WHERE application.owner = e.id)
     AND NOT EXISTS (SELECT 1
