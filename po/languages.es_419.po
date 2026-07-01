@@ -1,9 +1,9 @@
-# Early6431 <h9i1o36x@anonaddy.me>, 2023, 2025.
+# Early6431 <h9i1o36x@anonaddy.me>, 2023, 2025, 2026.
 # Early6431 <Early6431@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-08-06 07:36+0000\n"
+"PO-Revision-Date: 2026-05-17 11:12+0000\n"
 "Last-Translator: Early6431 <h9i1o36x@anonaddy.me>\n"
 "Language-Team: Spanish (Latin America) <https://translations.metabrainz.org/"
 "projects/musicbrainz/languages/es_419/>\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -362,37 +362,37 @@ msgstr "Buginés"
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
 msgid "Bulgarian"
-msgstr ""
+msgstr "Búlgaro"
 
 #. frequency:1 iso_code_3:bua
 #: DB:language/name:60
 msgid "Buriat"
-msgstr ""
+msgstr "Buriato"
 
 #. frequency:1 iso_code_3:mya
 #: DB:language/name:63
 msgid "Burmese"
-msgstr ""
+msgstr "Birmano"
 
 #. frequency:1 iso_code_3:bsk
 #: DB:language/name:1406
 msgid "Burushaski"
-msgstr ""
+msgstr "Buruchasquio"
 
 #. frequency:1 iso_code_3:cad
 #: DB:language/name:65
 msgid "Caddo"
-msgstr ""
+msgstr "Caddo"
 
 #. frequency:1 iso_code_3:frc
 #: DB:language/name:2311
 msgid "Cajun French"
-msgstr ""
+msgstr "Francés cajún"
 
 #. frequency:1 iso_code_3:cat
 #: DB:language/name:68
 msgid "Catalan"
-msgstr ""
+msgstr "Catalán"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:69
