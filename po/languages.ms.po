@@ -1,11 +1,11 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
+# Jeluang <adli98@yahoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-06-27 21:13+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-06-30 15:12+0000\n"
+"Last-Translator: Jeluang <adli98@yahoo.com>\n"
 "Language-Team: Malay <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ms/>\n"
 "Language: ms\n"
@@ -118,7 +118,7 @@ msgstr "Bahasa-bahasa Apache"
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
 msgid "Arabic"
-msgstr "Bahasa Arab"
+msgstr "Abjad Arab"
 
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
@@ -143,7 +143,7 @@ msgstr ""
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
-msgstr "Bahasa Armenia"
+msgstr "Abjad Armenia"
 
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
@@ -213,7 +213,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
 msgid "Balinese"
-msgstr "Bahasa Bali"
+msgstr "Tulisan Bali"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:43
@@ -358,7 +358,7 @@ msgstr ""
 #. frequency:1 iso_code_3:bug
 #: DB:language/name:61
 msgid "Buginese"
-msgstr "Bahasa Bugis"
+msgstr "Tulisan Lontara (Bugis)"
 
 #. frequency:1 iso_code_3:bul
 #: DB:language/name:62
@@ -1775,7 +1775,7 @@ msgstr "Bahasa Napolitan"
 #. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
-msgstr ""
+msgstr "Bahasa Melayu Negeri Sembilan"
 
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
@@ -1955,7 +1955,7 @@ msgstr "Bahasa-bahasa Papua"
 #. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
-msgstr ""
+msgstr "Bahasa Melayu Kelantan Patani"
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334

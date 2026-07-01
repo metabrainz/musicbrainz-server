@@ -1,11 +1,11 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
+# Jeluang <adli98@yahoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-06-27 21:13+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-06-30 15:12+0000\n"
+"Last-Translator: Jeluang <adli98@yahoo.com>\n"
 "Language-Team: Malay <https://translations.metabrainz.org/projects/"
 "musicbrainz/scripts/ms/>\n"
 "Language: ms\n"
@@ -23,12 +23,12 @@ msgstr "Tulisan Afaka"
 #. frequency:4 iso_code:Arab
 #: DB:script/name:18
 msgid "Arabic"
-msgstr "Bahasa Arab"
+msgstr "Abjad Arab"
 
 #. frequency:3 iso_code:Armn
 #: DB:script/name:35
 msgid "Armenian"
-msgstr "Bahasa Armenia"
+msgstr "Abjad Armenia"
 
 #. frequency:1 iso_code:Avst
 #: DB:script/name:114
@@ -38,7 +38,7 @@ msgstr "Bahasa Avesta"
 #. frequency:2 iso_code:Bali
 #: DB:script/name:72
 msgid "Balinese"
-msgstr "Bahasa Bali"
+msgstr "Tulisan Bali"
 
 #. frequency:1 iso_code:Bamu
 #: DB:script/name:155
@@ -88,7 +88,7 @@ msgstr "Tulisan titik Braille"
 #. frequency:2 iso_code:Bugi
 #: DB:script/name:75
 msgid "Buginese"
-msgstr "Bahasa Bugis"
+msgstr "Tulisan Lontara (Bugis)"
 
 #. frequency:2 iso_code:Buhd
 #: DB:script/name:78
@@ -573,7 +573,7 @@ msgstr "Tulisan Arab Selatan Kuno"
 #. frequency:2 iso_code:Orkh
 #: DB:script/name:20
 msgid "Old Turkic"
-msgstr ""
+msgstr "Abjad Turki Kuno"
 
 #. frequency:3 iso_code:Orya
 #: DB:script/name:54
