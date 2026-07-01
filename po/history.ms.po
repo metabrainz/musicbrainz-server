@@ -1,14 +1,17 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-27 21:12+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Malay <https://translations.metabrainz.org/projects/"
+"musicbrainz/history/ms/>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -66,6 +69,8 @@ msgid ""
 "A new AJAX coverart uploader is released, making it easier to add cover art "
 "to releases."
 msgstr ""
+"Pemuat naik naik seni kulit AJAX baharu yang memudahkan pelampiran seni "
+"kulit bagi keluaran telah diterbitkan."
 
 #. title:Edit note notifications
 #: DB:statistics.statistic_event/description:2015-12-28
@@ -73,6 +78,8 @@ msgid ""
 "A new banner message now notifies users whenever they receive a new edit "
 "note."
 msgstr ""
+"Pengguna mula diberitahu apabila catatan suntingan baharu diterima melalui "
+"pesanan sepanduk."
 
 #. title:Improved search
 #: DB:statistics.statistic_event/description:2003-04-05
@@ -83,6 +90,8 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr ""
+"Perselisihan antara masyarakat MusicBrainz telah mencetuskan Perbalahan "
+"Besar."
 
 #. title:Areas, ISNI codes and multiple release events per release
 #: DB:statistics.statistic_event/description:2013-05-15
@@ -105,6 +114,9 @@ msgid ""
 "is announced in cooperation with the Music Technology Group at Universitat "
 "Pompeu Fabra."
 msgstr ""
+"Usaha sama MusicBrainz dengan Kumpulan Teknologi Muzik dari Universiti "
+"Pompeu Fabra diumumkan melalui pelancaran AcousticBrainz yang bertujuan "
+"menerima sumbangan maklumat akustik muzik daripada orang ramai."
 
 #. title:Adam James joins the MetaBrainz team
 #: DB:statistics.statistic_event/description:2022-02-07
@@ -119,7 +131,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-04-10
 msgid "Advanced relationships"
-msgstr ""
+msgstr "Hubungan lanjutan"
 
 #. title:Advanced relationships
 #: DB:statistics.statistic_event/description:2005-04-10
@@ -128,6 +140,10 @@ msgid ""
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
+"Hubungan lanjutan yang membolehkan entiti data asas saling disambungkan "
+"diperkenalkan manakala TRM yang tidak digunakan dicantas daripada pangkalan "
+"data. Kegiatan pengundian menurun lantaran penyuntingan sebaris yang "
+"dimatikan secara lalai."
 
 #. title:MetaBrainz wins copyright troll battle, Wikimedia images dropped
 #: DB:statistics.statistic_event/description:2019-06-25
@@ -176,13 +192,15 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
-msgstr ""
+msgstr "Bahasa album"
 
 #. title:Album languages
 #: DB:statistics.statistic_event/description:2005-05-22
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
+"Diperkenalkan bahasa album, penambahbaikan tekaan huruf besar kecil dan "
+"rombakan borang suntingan."
 
 #. title:Aliases for recordings, releases and release groups
 #: DB:statistics.statistic_event/description:2015-05-19
@@ -206,7 +224,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr ""
+msgstr "SoundUnwound dilancarkan Amazon secara beta"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"
@@ -214,13 +232,16 @@ msgstr ""
 
 #. title:Amazon cover art
 #: DB:statistics.statistic_event/description:2004-02-24
+#, fuzzy
 msgid "Amazon cover art support released."
-msgstr ""
+msgstr "Sokongan seni kulit Amazon dikeluarkan."
 
 #. title:Release editor
 #: DB:statistics.statistic_event/description:2006-07-12
 msgid "An improved release editor and a new site design are released."
 msgstr ""
+"Penyunting keluaran lebih baik dan reka bentuk tapak sesawang baharu telah "
+"dikeluarkan."
 
 #. title:Relationship credits become available
 #: DB:statistics.statistic_event/description:2015-06-02
@@ -232,11 +253,11 @@ msgstr ""
 #. title:Annotations
 #: DB:statistics.statistic_event/description:2004-11-14
 msgid "Annotation support released."
-msgstr ""
+msgstr "Sokongan catatan pinggir dikeluarkan."
 
 #: DB:statistics.statistic_event/title:2004-11-14
 msgid "Annotations"
-msgstr ""
+msgstr "Catatan pinggir"
 
 #: DB:statistics.statistic_event/title:2023-09-13
 msgid "Ansh Goyal joins the MetaBrainz team"
@@ -255,7 +276,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-06-22
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "Langganan seniman"
 
 #. title:User improvements
 #: DB:statistics.statistic_event/description:2005-02-13
@@ -263,11 +284,13 @@ msgid ""
 "Artist subscriptions made public and various smaller user centric "
 "improvements are released."
 msgstr ""
+"Langganan seniman dikeluarkan secara umum di samping pelbagai penambahbaikan "
+"kecil-kecilan bagi pengguna."
 
 #. title:Artist subscriptions
 #: DB:statistics.statistic_event/description:2003-06-22
 msgid "Artist subscriptions."
-msgstr ""
+msgstr "Langganan seniman."
 
 #. title:"feat." standardization dropped
 #: DB:statistics.statistic_event/description:2017-04-11
@@ -279,16 +302,16 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-07-30
 msgid "BBC dynamic artist pages"
-msgstr ""
+msgstr "Halaman seniman kerap ubah BBC"
 
 #. title:BBC dynamic artist pages
 #: DB:statistics.statistic_event/description:2008-07-30
 msgid "BBC launches the dynamic artist pages based on MusicBrainz data."
-msgstr ""
+msgstr "Halaman seniman kerap ubah BBC dilancarkan berdasarkan data MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2007-06-28
 msgid "BBC partners with MetaBrainz"
-msgstr ""
+msgstr "BBC memulakan hubungan rakan kongsi bersama MetaBrainz"
 
 #: DB:statistics.statistic_event/title:2018-09-10
 msgid "BookBrainz becomes official MetaBrainz project"
@@ -296,11 +319,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2012-04-30
 msgid "CAA initial release"
-msgstr ""
+msgstr "Keluaran awal CAA"
 
 #: DB:statistics.statistic_event/title:2012-10-10
 msgid "CAA official release"
-msgstr ""
+msgstr "Keluaran rasmi CAA"
 
 #: DB:statistics.statistic_event/title:2016-06-20
 msgid "CatQuest becomes Instrument Inserter"
@@ -331,12 +354,12 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr ""
+msgstr "Kumpulan, Penilaian, Tunas CD"
 
 #. title:Collection, Ratings, CDStubs
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
+msgstr "Kumpulan, Penilaian, Tunas CD, Kemas Kini Terakhir dikeluarkan."
 
 #. title:Mergeable collections, artist series and ratable places
 #: DB:statistics.statistic_event/description:2021-05-18
@@ -349,7 +372,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2013-08-05
 msgid "Cover Art Uploader"
-msgstr ""
+msgstr "Pemuat Naik Seni Kulit"
 
 #: DB:statistics.statistic_event/title:2024-10-09
 msgid "Cover and Event Art Archives down"
@@ -369,7 +392,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-03-29
 msgid "Dedicated database server"
-msgstr ""
+msgstr "Pelayan pangkalan data khusus"
 
 #: DB:statistics.statistic_event/title:2016-03-01
 msgid "Discourse unifies community communication"
@@ -385,6 +408,8 @@ msgid ""
 "Edit display improvements, turned off RDF dumps, new install scripts "
 "released."
 msgstr ""
+"Penambahbaikan paparan suntingan, penutupan longgokan RDF, pengeluaran skrip "
+"pemasangan baharu."
 
 #: DB:statistics.statistic_event/title:2020-02-18
 msgid "Edit history visible without logging in"
@@ -392,7 +417,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-12-28
 msgid "Edit note notifications"
-msgstr ""
+msgstr "Pemberitahuan catatan suntingan"
 
 #. title:Easier edit note adding
 #: DB:statistics.statistic_event/description:2003-07-25
@@ -403,7 +428,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-11-10
 msgid "Edit search"
-msgstr ""
+msgstr "Gelintaran suntingan"
 
 #: DB:statistics.statistic_event/title:2023-05-22
 msgid "Editable edit notes"
@@ -419,6 +444,9 @@ msgid ""
 "Editor ojnkpjg runs a script setting track times from DiscID values, "
 "creating a huge spike in edits."
 msgstr ""
+"Seorang penyunting dengan nama ojnkpjg menjalankan sebuah skrip yang "
+"menetapkan tempoh runut berdasarkan nilai DiscID sehingga memuncakkan "
+"bilangan suntingan."
 
 #. title:Genre collections
 #: DB:statistics.statistic_event/description:2024-05-12
@@ -438,6 +466,9 @@ msgid ""
 "Edits made by editors to their own release additions within 1 hour of adding "
 "them are now auto-edits, as are \"Add recording\" and \"Remove alias\" edits."
 msgstr ""
+"Suntingan pada keluaran yang ditambah oleh penyunting itu sendiri dijadikan "
+"suntingan langsung. Hal ini juga berlaku bagi suntingan \"Menambahkan "
+"rakaman\" dan \"Alih keluar nama lain\"."
 
 #: DB:statistics.statistic_event/title:2003-06-07
 msgid "Email verification"
@@ -487,6 +518,8 @@ msgstr ""
 msgid ""
 "Former GSoC student Roman Tsukanov begins working for MetaBrainz part-time."
 msgstr ""
+"Roman Tsukanov yang merupakan bekas pelajar GSoC mula bekerja secara "
+"sambilan di MetaBrainz"
 
 #: DB:statistics.statistic_event/title:2015-08-06
 msgid "Frederik \"Freso\" S. Olesen becomes MetaBrainz Community Manager"
@@ -498,10 +531,12 @@ msgid ""
 "FreeDB auto import feature turned off and autoeditor elections released. "
 "Unused TRMs pruned from the database."
 msgstr ""
+"Ciri muat masuk FreeDB ditutup manakala pemilihan penyunting langsung "
+"dilancarkan. TRM yang tidak digunakan dicantas daripada pangkalan data."
 
 #: DB:statistics.statistic_event/title:2004-10-10
 msgid "FreeDB off/Autoeditors"
-msgstr ""
+msgstr "FreeDB ditutup/Penyunting langsung"
 
 #. title:Frederik "Freso" S. Olesen becomes MetaBrainz Community Manager
 #: DB:statistics.statistic_event/description:2015-08-06
@@ -512,7 +547,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2018-11-02
 msgid "Genre added as a new entity"
-msgstr ""
+msgstr "Jeragam ditambah sebagai entiti baharu"
 
 #: DB:statistics.statistic_event/title:2024-05-12
 msgid "Genre collections"
@@ -524,6 +559,8 @@ msgid ""
 "Genres are added as a new entity, although still tightly tied to folksonomy "
 "tags."
 msgstr ""
+"Jeragam dijadikan entiti baharu namun keadaannya masih terikat dengan tanda "
+"susunama khalayak."
 
 #: DB:statistics.statistic_event/title:2022-06-20
 msgid "Genres become a more complete entity type"
@@ -531,7 +568,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-08-15
 msgid "Great Dispute"
-msgstr ""
+msgstr "Perbalahan Besar"
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
@@ -564,21 +601,22 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
-msgstr ""
+msgstr "Katalog CD Baby dimuat masuk sebagai Tunas CD"
 
 #. title:Imported CD Baby catalog as CD Stubs
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
 "Imported the metadata from the CD Baby catalog into our CD Stubs collection."
 msgstr ""
+"Data meta daripada katalog CD Baby dimuat masuk ke dalam himpunan Tunas CD."
 
 #: DB:statistics.statistic_event/title:2004-07-24
 msgid "Improve voting"
-msgstr ""
+msgstr "Pengundian ditambah baik"
 
 #: DB:statistics.statistic_event/title:2003-04-05
 msgid "Improved search"
-msgstr ""
+msgstr "Gelintaran ditambah baik"
 
 #. title:Voting period shortened to 7 days
 #: DB:statistics.statistic_event/description:2013-02-11
@@ -587,6 +625,9 @@ msgid ""
 "waiting for changes, the length of time edits stay open before expiration is "
 "reduced from 14 to 7 days."
 msgstr ""
+"Tempoh menunggu penyelesaian suntingan dikurangkan daripada 14 hari kepada 7 "
+"hari sebagai usaha mengurangkan bilangan suntingan terbuka serta memendekkan "
+"masa berlakunya perubahan."
 
 #. title:Guess feat. buttons
 #: DB:statistics.statistic_event/description:2015-04-27
@@ -600,6 +641,8 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2011-05-12
 msgid "In preparation for NGS, editing is turned off until release."
 msgstr ""
+"Suntingan ditutup buat sementara waktu sebagai persiapan NGS sehingga "
+"pelancarannya."
 
 #. title:NGS Reduced Editing Phase
 #: DB:statistics.statistic_event/description:2011-05-02
@@ -607,6 +650,8 @@ msgid ""
 "In preparation for NGS, editors are encouraged to avoid editing until "
 "release unless entirely necessary."
 msgstr ""
+"Para penyunting tidak digalakkan membuat suntingan melainkan mustahak semasa "
+"persediaan NGS."
 
 #: DB:statistics.statistic_event/title:2022-08-08
 msgid "Increased CritiqueBrainz integration"
@@ -614,25 +659,26 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-03-05
 msgid "Indexed search/XML WS"
-msgstr ""
+msgstr "Gelintaran berindeks/XML WS"
 
 #. title:Indexed search/XML WS
 #: DB:statistics.statistic_event/description:2006-03-05
 msgid "Indexes search and a new XML based Web Service are released."
-msgstr ""
+msgstr "Gelintaran berindeks dan perkhidmatan sesawang berasas XML dilancarkan."
 
 #: DB:statistics.statistic_event/title:2004-01-17
 msgid "Inline edits"
-msgstr ""
+msgstr "Suntingan sebaris"
 
 #. title:Inline edits
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
 msgstr ""
+"Suntingan sebaris, laporan baharu, skrip muat masuk data yang ditambah baik"
 
 #: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
-msgstr ""
+msgstr "Skrip pemasangan"
 
 #: DB:statistics.statistic_event/title:2020-12-31
 msgid "Instrument images, recordings' first release date"
@@ -672,24 +718,25 @@ msgstr ""
 #. title:Kuno Woudt hired as full-time developer
 #: DB:statistics.statistic_event/description:2009-12-14
 msgid "Kuno Woudt begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Kuno Woudt mula bekerja sepenuh masa di MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2009-12-14
 msgid "Kuno Woudt hired as full-time developer"
-msgstr ""
+msgstr "Kuno Woudt diambil kerja sebagai pembangun sepenuh masa"
 
 #: DB:statistics.statistic_event/title:2007-04-01
 msgid "Labels/data quality"
-msgstr ""
+msgstr "Mutu jenama/data"
 
 #: DB:statistics.statistic_event/title:2007-11-07
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #. title:Last.fm
 #: DB:statistics.statistic_event/description:2007-11-07
 msgid "Last.fm signs up with MetaBrainz and starts using MusicBrainz data."
 msgstr ""
+"Last.fm mula berdaftar dengan MetaBrainz lalu menggunakan data MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2015-09-28
 msgid "Laurent \"zas\" Monin becomes sysadmin"
@@ -708,15 +755,17 @@ msgstr ""
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
 msgstr ""
+"Pautan kepada ciri MusicBrainz, peristiwa pengeluaran dan cadangan suntingan "
+"dilancarkan."
 
 #. title:MetaBrainz signs first customer
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
-msgstr ""
+msgstr "Linkara Musica menjadi pelanggan perdagangan pertama MetaBrainz."
 
 #: DB:statistics.statistic_event/title:2003-12-28
 msgid "Linking"
-msgstr ""
+msgstr "Pemautan"
 
 #. title:MBBE_Bot starts running
 #: DB:statistics.statistic_event/description:2020-10-07
@@ -733,7 +782,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
-msgstr ""
+msgstr "Penskripan Menu/Pelanggan"
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
@@ -742,15 +791,15 @@ msgstr ""
 #. title:SoC 2008
 #: DB:statistics.statistic_event/description:2008-04-21
 msgid "MetaBrainz accepts three students for Google Summer of Code."
-msgstr ""
+msgstr "MetaBrainz menerima tida orang pelajar semasa Musim Panas Kod Google."
 
 #: DB:statistics.statistic_event/title:2008-09-23
 msgid "MetaBrainz hires Oliver Charles"
-msgstr ""
+msgstr "MetaBrainz mengambil Oliver Charles sebagai seorang pekerja"
 
 #: DB:statistics.statistic_event/title:2005-04-19
 msgid "MetaBrainz launched"
-msgstr ""
+msgstr "MetaBrainz dilancarkan"
 
 #: DB:statistics.statistic_event/title:2016-11-08
 msgid "MetaBrainz projects complete move to European servers"
@@ -758,7 +807,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2007-01-20
 msgid "MetaBrainz signs first customer"
-msgstr ""
+msgstr "MetaBrainz mendaftarkan pelanggan pertamanya"
 
 #: DB:statistics.statistic_event/title:2019-06-25
 msgid "MetaBrainz wins copyright troll battle, Wikimedia images dropped"
@@ -771,11 +820,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
-msgstr ""
+msgstr "MetaWeb mendaftarkan diri"
 
 #: DB:statistics.statistic_event/title:2015-11-30
 msgid "More auto-edits"
-msgstr ""
+msgstr "Lebih banyak suntingan langsung"
 
 #. title:Several new auto-edit types and translations
 #: DB:statistics.statistic_event/description:2015-11-16
@@ -785,15 +834,19 @@ msgid ""
 "Additionally, the German, French and Dutch translations are available on the "
 "main server."
 msgstr ""
+"Lebih banyak suntingan dijadikan suntingan langsung bagi sesiapa pun: "
+"\"Tambahkan hubungan\" dan \"Tambahkan keluaran\"; dan \"Tambah\", "
+"\"Sunting\" dan \"Alih keluar jenama keluaran\". Tambahan lagi, terjemahan "
+"bahasa Jerman, Perancis dan Belanda tersedia di pelayan utama."
 
 #: DB:statistics.statistic_event/title:2006-02-27
 msgid "MusicBrainz Move"
-msgstr ""
+msgstr "Perpindahan MusicBrainz"
 
 #. title:mb_server now hosted on Git
 #: DB:statistics.statistic_event/description:2010-02-08
 msgid "MusicBrainz Server source code moved to Git from Subversion."
-msgstr ""
+msgstr "Kod sumber pelayan MusicBrainz dipindahkan dari Git ke Subversion"
 
 #: DB:statistics.statistic_event/title:2012-01-12
 msgid "MusicBrainz adds AcoustID support"
@@ -802,7 +855,7 @@ msgstr ""
 #. title:Dedicated database server
 #: DB:statistics.statistic_event/description:2003-03-29
 msgid "MusicBrainz gets its first dedicated database server."
-msgstr ""
+msgstr "MusicBrainz mempunyai pelayan pangkalan datanya yang pertama"
 
 #. title:New MusicBrainz design
 #: DB:statistics.statistic_event/description:2016-02-22
@@ -810,11 +863,15 @@ msgid ""
 "MusicBrainz itself gets a new design to better match the rest of the *Brainz "
 "family."
 msgstr ""
+"MusicBrainz diberi reka bentuk baharu agar lebih serasi dengan adik-beradik "
+"lain dalam keluarga *Brainz."
 
 #. title:MusicBrainz Move
 #: DB:statistics.statistic_event/description:2006-02-27
 msgid "MusicBrainz moved to Digital West Networks in San Luis Obispo."
 msgstr ""
+"MusicBrainz berpindah ke Rangkaian Digital Barat di San Luis Obispo, "
+"Kalifornia, Amerika Syarikat."
 
 #. title:MusicIP PUID
 #: DB:statistics.statistic_event/description:2006-03-12
@@ -823,31 +880,34 @@ msgid ""
 "fingerprints. Picard becomes the official MusicBrainz tagger with PUID "
 "support, which causes edit activity to decrease."
 msgstr ""
+"MusicBrainz mula menggunakan cap jari akustik PUID MusicDNS hasil kerjasama "
+"dengan MusicIP. Picard menjadi penanda MusicBrainz asmi dengan sokongan PUID "
+"lantas mengurangkan kegiatan penyuntingan."
 
 #: DB:statistics.statistic_event/title:2006-03-12
 msgid "MusicIP PUID"
-msgstr ""
+msgstr "PUID MusicIP"
 
 #: DB:statistics.statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
-msgstr ""
+msgstr "Fasa Tanpa Suntingan NGS"
 
 #: DB:statistics.statistic_event/title:2011-05-02
 msgid "NGS Reduced Editing Phase"
-msgstr ""
+msgstr "Fasa Suntingan Berkurang NGS"
 
 #: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
-msgstr ""
+msgstr "Keluaran NGS"
 
 #. title:NGS Release
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
-msgstr ""
+msgstr "NGS iaitu olahan besar MusicBrainz telah dikeluarkan!"
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
-msgstr ""
+msgstr "Reka bentuk baharu MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2017-10-31
 msgid "New entity auto-editing period extended to 24 hours"
@@ -862,33 +922,36 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2003-10-13
 msgid "Non album tracks"
-msgstr ""
+msgstr "Runut tanpa album"
 
 #. title:Non album tracks
 #: DB:statistics.statistic_event/description:2003-10-13
 msgid "Non album tracks are released."
-msgstr ""
+msgstr "Runut tanpa album dilancarkan."
 
 #. title:MetaBrainz hires Oliver Charles
 #: DB:statistics.statistic_event/description:2008-09-23
 msgid "Oliver Charles becomes employee #1 of MetaBrainz Foundation."
-msgstr ""
+msgstr "Oliver Charles merupakan pekerja terunggul Yayasan MetaBrainz."
 
 #. title:Oliver Charles joins MusicBrainz full-time
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Oliver Charles mula bekerja sepenuh masa di MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr ""
+msgstr "Oliver Charles bekerja sepenuh masa di MusicBrainz."
 
 #. title:Solr-based search server deployed
 #: DB:statistics.statistic_event/description:2018-06-30
+#, fuzzy
 msgid ""
 "Our old search server gets a significant upgrade with its move to Solr, "
 "including almost-instant index updates."
 msgstr ""
+"Pelayan gelintaran lama dinaik taraf bagi menggunakan SOLR. Antara yang "
+"terpenting ialah kemas kini indeks segera."
 
 #: DB:statistics.statistic_event/title:2013-10-14
 msgid "PUID support is removed"
@@ -923,7 +986,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
-msgstr ""
+msgstr "Penyunting Hubungan"
 
 #: DB:statistics.statistic_event/title:2015-06-02
 msgid "Relationship credits become available"
@@ -939,23 +1002,25 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr ""
+msgstr "Penggelintaran Gabungan Keluaran, ISRC, Tunas CD"
 
 #: DB:statistics.statistic_event/title:2006-07-12
 #: DB:statistics.statistic_event/title:2003-10-19
 msgid "Release editor"
-msgstr ""
+msgstr "Penyunting keluaran"
 
 #. title:Release editor
 #: DB:statistics.statistic_event/description:2003-10-19
 msgid "Release editor and Guess Case released."
-msgstr ""
+msgstr "Penyunting keluaran dan Tekaan Huruf Besar Kecil dikeluarkan."
 
 #. title:Release Groups, ISRCs, CDStub searching
 #: DB:statistics.statistic_event/description:2009-05-24
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
+"Gabungan keluaran, sokongan ISRC, penggelintaran Tunas CD dan pemulihan "
+"gelintaran dikeluarkan."
 
 #. title:Release "stubs", minimum voting period for destructive edits
 #: DB:statistics.statistic_event/description:2015-04-06
@@ -985,11 +1050,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-09-04
 msgid "Roman Tsukanov joins the MetaBrainz team"
-msgstr ""
+msgstr "Roman Tsukanov bekerja bersama pasukan MetaBrainz"
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
-msgstr ""
+msgstr "Pemulihan SG5"
 
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
@@ -1009,11 +1074,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2006-12-17
 msgid "Search improvements"
-msgstr ""
+msgstr "Penambahbaikan gelintaran"
 
 #: DB:statistics.statistic_event/title:2015-11-16
 msgid "Several new auto-edit types and translations"
-msgstr ""
+msgstr "Beberapa jenis suntingan langsung dan terjemahan baharu"
 
 #. title:Simon Hartman joins the MetaBrainz team
 #: DB:statistics.statistic_event/description:2022-02-23
@@ -1036,11 +1101,12 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
-msgstr ""
+msgstr "SoC 2008"
 
 #: DB:statistics.statistic_event/title:2018-06-30
+#, fuzzy
 msgid "Solr-based search server deployed"
-msgstr ""
+msgstr "Pelayan gelintaran berasas SOLR dipasang sedia"
 
 #. title:Instrument images, recordings' first release date
 #: DB:statistics.statistic_event/description:2020-12-31
@@ -1060,6 +1126,8 @@ msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
 msgstr ""
+"Penyelesaian sementara Panduan Gaya 5 diperkenalkan manakalan TRM tidak "
+"digunakan dicantas daripada pangkalan data."
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
@@ -1068,7 +1136,7 @@ msgstr ""
 #. title:Labels/data quality
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr ""
+msgstr "Sokongan Jenama dan mutu data dikeluarkan."
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
@@ -1080,7 +1148,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
-msgstr ""
+msgstr "Projek AcousticBrainz mula berlangsung"
 
 #: DB:statistics.statistic_event/title:2022-02-16
 msgid "The AcousticBrainz project is discontinued"
@@ -1094,21 +1162,23 @@ msgstr ""
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
-msgstr ""
+msgstr "BBC menjadi pelanggan MetaBrainz lalu menggunakan data MusicBrainz."
 
 #. title:CAA initial release
 #: DB:statistics.statistic_event/description:2012-04-30
+#, fuzzy
 msgid "The Cover Art Archive becomes initially available."
-msgstr ""
+msgstr "Cover Art Archive mula-mula disediakan"
 
 #. title:CAA official release
 #: DB:statistics.statistic_event/description:2012-10-10
+#, fuzzy
 msgid "The Cover Art Archive is officially released."
-msgstr ""
+msgstr "Cover Art Archive dilancarkan secara rasmi"
 
 #: DB:statistics.statistic_event/title:2014-05-19
 msgid "The CritiqueBrainz project goes live"
-msgstr ""
+msgstr "Projek CritiqueBrainz mula berlangsung"
 
 #. title:Event Art Archive
 #: DB:statistics.statistic_event/description:2024-06-30
@@ -1141,14 +1211,14 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-09-17
 msgid "The ListenBrainz project goes live"
-msgstr ""
+msgstr "Projek ListenBrainz mula berlangsung"
 
 #. title:MetaBrainz launched
 #: DB:statistics.statistic_event/description:2005-04-19
 msgid ""
 "The MetaBrainz Foundation, the legal home for MusicBrainz is announced to "
 "the public."
-msgstr ""
+msgstr "Yayasan MetaBrainz diumumkan selaku badan sah MusicBrainz"
 
 #: DB:statistics.statistic_event/title:2020-05-16
 msgid "The MusicBrainz Virtual Machine is replaced by MusicBrainz Docker"
@@ -1176,6 +1246,8 @@ msgid ""
 "The alpha version of ListenBrainz, an open source and open data alternative "
 "to Last.fm®, goes live."
 msgstr ""
+"Versi alfa ListenBrainz mula berlangsung sebagai pilihan sumber dan data "
+"terbuka bagi Last.fm®."
 
 #. title:Genres become a more complete entity type
 #: DB:statistics.statistic_event/description:2022-06-20
@@ -1188,7 +1260,7 @@ msgstr ""
 #. title:The CritiqueBrainz project goes live
 #: DB:statistics.statistic_event/description:2014-05-19
 msgid "The beta version of CritiqueBrainz is launched."
-msgstr ""
+msgstr "Versi beta CritiqueBrainz dilancarkan."
 
 #. title:PUID support is removed
 #: DB:statistics.statistic_event/description:2013-10-14
@@ -1231,7 +1303,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2015-05-18
 msgid "The new MetaBrainz website goes live"
-msgstr ""
+msgstr "Tapak sesawang MetaBrainz baharu dilancarkan"
 
 #. title:The new MetaBrainz website goes live
 #: DB:statistics.statistic_event/description:2015-05-18
@@ -1240,6 +1312,9 @@ msgid ""
 "for commercial users, is launched, replacing the one designed in the year "
 "2000!"
 msgstr ""
+"Tapak sesawang MetaBrainz yang direka pada tahun 2000 digantikan dengan rupa "
+"yang baharu menampilkan rekaan baharu berserta pendaftaran secara dalam "
+"talian bagi pengguna raih untung!"
 
 #. title:MusicBrainz adds AcoustID support
 #: DB:statistics.statistic_event/description:2012-01-12
@@ -1262,11 +1337,14 @@ msgid ""
 "The relationship editor, for bulk-editing relationships for a release, is "
 "released to production."
 msgstr ""
+"Penyunting hubungan dilancarkan bagi membolehkan penyuntingan hubungan "
+"sebuah keluaran secara besar-besaran."
 
 #. title:Search improvements
 #: DB:statistics.statistic_event/description:2006-12-17
 msgid "The search features and web service improvements are released."
 msgstr ""
+"Penambahbaikan ciri-ciri gelintaran dan perkhidmatan sesawang dikeluarkan."
 
 #. title:Style process updated again, reosarevok "promoted" to Style BDFL
 #: DB:statistics.statistic_event/description:2014-10-17
@@ -1283,6 +1361,9 @@ msgid ""
 "The voting period for edits that get a No vote is extended to give users "
 "more time to react to the issues."
 msgstr ""
+"Tempoh pengundian suntingan yang mendapat undian Bantah dilanjutkan agar "
+"diberi masa yang lebih kepada pengguna memberi maklum balas terhadap masalah "
+"yang timbul."
 
 #. title:Menus/Client scripting
 #: DB:statistics.statistic_event/description:2005-10-23
@@ -1290,10 +1371,12 @@ msgid ""
 "Top menu navigation improved, duplicate artists, album edit all, track time "
 "editing features released."
 msgstr ""
+"Pengemudian menu atas ditambah baik manakala penyuntingan seniman pendua, "
+"album dan tempoh runut dikeluarkan."
 
 #: DB:statistics.statistic_event/title:2007-12-07
 msgid "Track times set from DiscIDs"
-msgstr ""
+msgstr "Tempoh runut yang diambil berdasarkan DiscID"
 
 #: DB:statistics.statistic_event/title:2023-12-21
 msgid "Translations move to Weblate"
@@ -1312,7 +1395,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2005-02-13
 msgid "User improvements"
-msgstr ""
+msgstr "Penambahbaikan pengguna"
 
 #. title:Editable edit notes
 #: DB:statistics.statistic_event/description:2023-05-22
@@ -1334,19 +1417,23 @@ msgid ""
 "taken down for good (more than a year after announcing it would happen in "
 "six months!)."
 msgstr ""
+"Perkhidmatan sesawang versi 1 (usang sejak tahun 2011 lagi) dibuang (lebih "
+"setahun sejak diumumkan pembuangannya dalam masa 6 bulan!)"
 
 #. title:Improve voting
 #: DB:statistics.statistic_event/description:2004-07-24
 msgid "Voting logic was improved, web based autoeditor elections released."
 msgstr ""
+"Mantik pengundian ditambah baik manakala pemilihan penyunting langsung dalam "
+"talian dikeluarkan."
 
 #: DB:statistics.statistic_event/title:2013-06-24
 msgid "Voting period for contested edits extended"
-msgstr ""
+msgstr "Tempoh pengundian bagi suntingan yang banyak bantahannya dilanjutkan"
 
 #: DB:statistics.statistic_event/title:2013-02-11
 msgid "Voting period shortened to 7 days"
-msgstr ""
+msgstr "Tempoh pengundian dipendekkan sehingga 7 hari"
 
 #: DB:statistics.statistic_event/title:2019-11-12
 msgid "Voting suggestions"
@@ -1362,7 +1449,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2019-04-26
 msgid "Web service version 1 taken down"
-msgstr ""
+msgstr "Versi 1 perkhidmatan sesawang dibuang"
 
 #. title:The AcousticBrainz project is discontinued
 #: DB:statistics.statistic_event/description:2022-02-16
@@ -1386,7 +1473,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2017-03-13
 msgid "Yvanzo joins MusicBrainz as a developer"
-msgstr ""
+msgstr "Yvanzo bekerja bersama MusicBrainz sebagai seorang pembangun"
 
 #. title:Yvanzo joins MusicBrainz as a developer
 #: DB:statistics.statistic_event/description:2017-03-13
@@ -1394,6 +1481,8 @@ msgid ""
 "Yvanzo joins the development team as a second dedicated MusicBrainz "
 "developer."
 msgstr ""
+"Yvanzo bekerja bersama pasukan pembangunan MusicBrainz sebagai pembangun "
+"khusus kedua."
 
 #: DB:statistics.statistic_event/title:2025-12-20
 msgid "annas-archive Spotify 'backup'"
@@ -1420,7 +1509,7 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2010-02-08
 msgid "mb_server now hosted on Git"
-msgstr ""
+msgstr "mb_server kini dirumahkan di Git"
 
 #: DB:statistics.statistic_event/title:2012-02-17
 msgid "reosarevok becomes the MusicBrainz style leader"

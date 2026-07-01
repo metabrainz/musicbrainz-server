@@ -1,15 +1,19 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-27 21:13+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Malay <https://translations.metabrainz.org/projects/"
+"musicbrainz/relationship-types/ms/>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -24,6 +28,11 @@ msgid ""
 "only people involved with the label can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Sebuah laman rangkaian sosial ialah halaman jenama itu sendiri di <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rangkaian "
+"sosial</a> yang mana hanya pihak yang terlibat dengan jenama tersebut boleh "
+"membuat hantaran. Antara contohnya termasuklah halaman Facebook serta akaun "
+"di Twitter, Instagram dan Flickr."
 
 #. name:social network
 #: DB:link_type/description:784
@@ -33,6 +42,11 @@ msgid ""
 "only people involved with the series can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Sebuah laman rangkaian sosial ialah halaman siri itu sendiri di <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rangkaian "
+"sosial</a> yang mana hanya pihak yang terlibat dengan siri tersebut boleh "
+"membuat hantaran. Antara contohnya termasuklah halaman Facebook serta akaun "
+"di Twitter, Instagram dan Flickr."
 
 #. name:social network
 #: DB:link_type/description:429
@@ -42,6 +56,11 @@ msgid ""
 "only people involved with the place can post content to. Examples include "
 "Facebook pages, and accounts on Twitter, Instagram and Flickr."
 msgstr ""
+"Sebuah laman rangkaian sosial ialah halaman tempat itu sendiri di <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rangkaian "
+"sosial</a> yang mana hanya pihak yang terlibat dengan tempat tersebut boleh "
+"membuat hantaran. Antara contohnya termasuklah halaman Facebook serta akaun "
+"di Twitter, Instagram dan Flickr."
 
 #. name:social network
 #: DB:link_type/description:192
@@ -64,25 +83,30 @@ msgid ""
 "Facebook pages and event entries, and accounts on Twitter, Instagram and "
 "Flickr."
 msgstr ""
+"Sebuah laman rangkaian sosial ialah halaman peristiwa itu sendiri di <a "
+"href=\"https://en.wikipedia.org/wiki/Social_networking_service\">rangkaian "
+"sosial</a> yang mana hanya pihak yang terlibat dengan peristiwa tersebut "
+"boleh membuat hantaran. Antara contohnya termasuklah halaman Facebook serta "
+"akaun di Twitter, Instagram dan Flickr."
 
 #. name:amazon asin
 #: DB:link_type/link_phrase:77 DB:link_type/reverse_link_phrase:77
 msgid "ASIN"
-msgstr ""
+msgstr "ASIN"
 
 #. name:allmusic
 #: DB:link_type/link_phrase:755 DB:link_type/link_phrase:284
 #: DB:link_type/link_phrase:283 DB:link_type/link_phrase:285
 #: DB:link_type/link_phrase:1093 DB:link_type/reverse_link_phrase:286
 msgid "Allmusic"
-msgstr ""
+msgstr "Allmusic"
 
 #. name:allmusic
 #: DB:link_type/link_phrase:286 DB:link_type/reverse_link_phrase:755
 #: DB:link_type/reverse_link_phrase:284 DB:link_type/reverse_link_phrase:283
 #: DB:link_type/reverse_link_phrase:285 DB:link_type/reverse_link_phrase:1093
 msgid "Allmusic page for"
-msgstr ""
+msgstr "Halaman Allmusic"
 
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
@@ -97,40 +121,40 @@ msgstr ""
 #. name:BBC Music page
 #: DB:link_type/link_phrase:190
 msgid "BBC Music"
-msgstr ""
+msgstr "BBC Music"
 
 #: DB:link_type/name:190
 msgid "BBC Music page"
-msgstr ""
+msgstr "Halaman BBC Music"
 
 #. name:BBC Music page
 #: DB:link_type/reverse_link_phrase:190
 msgid "BBC Music page for"
-msgstr ""
+msgstr "Halaman BBC Music"
 
 #. name:bandcamp
 #: DB:link_type/link_phrase:1092 DB:link_type/link_phrase:718
 #: DB:link_type/link_phrase:719
 msgid "Bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #. name:bandcamp
 #: DB:link_type/reverse_link_phrase:1092 DB:link_type/reverse_link_phrase:718
 #: DB:link_type/reverse_link_phrase:719
 msgid "Bandcamp page for"
-msgstr ""
+msgstr "Halaman Bandcamp"
 
 #. name:bandsintown
 #: DB:link_type/link_phrase:861 DB:link_type/link_phrase:862
 #: DB:link_type/link_phrase:860
 msgid "Bandsintown"
-msgstr ""
+msgstr "Bandsintown"
 
 #. name:bandsintown
 #: DB:link_type/reverse_link_phrase:861 DB:link_type/reverse_link_phrase:862
 #: DB:link_type/reverse_link_phrase:860
 msgid "Bandsintown page for"
-msgstr ""
+msgstr "Halaman Bandsintown"
 
 #. name:BookBrainz
 #: DB:link_type/name:851 DB:link_type/name:852 DB:link_type/name:853
@@ -139,78 +163,78 @@ msgstr ""
 #: DB:link_type/link_phrase:853 DB:link_type/link_phrase:1167
 #: DB:link_type/link_phrase:850 DB:link_type/reverse_link_phrase:854
 msgid "BookBrainz"
-msgstr ""
+msgstr "BookBrainz"
 
 #. name:BookBrainz
 #: DB:link_type/link_phrase:854 DB:link_type/reverse_link_phrase:851
 #: DB:link_type/reverse_link_phrase:852 DB:link_type/reverse_link_phrase:853
 #: DB:link_type/reverse_link_phrase:1167 DB:link_type/reverse_link_phrase:850
 msgid "BookBrainz page for"
-msgstr ""
+msgstr "Halaman BookBrainz"
 
 #. name:CD Baby
 #: DB:link_type/name:919 DB:link_type/link_phrase:919
 msgid "CD Baby"
-msgstr ""
+msgstr "CD Baby"
 
 #. name:CD Baby
 #: DB:link_type/reverse_link_phrase:919
 msgid "CD Baby page for"
-msgstr ""
+msgstr "Halaman CD Baby"
 
 #. name:CPDL
 #: DB:link_type/name:981 DB:link_type/link_phrase:981
 msgid "CPDL"
-msgstr ""
+msgstr "CPDL"
 
 #. name:CPDL
 #: DB:link_type/reverse_link_phrase:981
 msgid "CPDL page for"
-msgstr ""
+msgstr "Halaman CPDL"
 
 #: DB:link_type/name:227 DB:link_type/name:8
 msgid "DJ-mix"
-msgstr ""
+msgstr "Adunan DJ"
 
 #. name:DJ-mix
 #: DB:link_type/link_phrase:227 DB:link_type/link_phrase:8
 msgid "DJ-mix of"
-msgstr ""
+msgstr "Adunan DJ"
 
 #. name:mix-DJ
 #: DB:link_type/link_phrase:155 DB:link_type/long_link_phrase:155
 msgid "DJ-mixed"
-msgstr ""
+msgstr "Merupakan DJ pengadun"
 
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:8
 msgid "DJ-mixed versions"
-msgstr ""
+msgstr "Versi adunan DJ"
 
 #. name:mix-DJ
 #: DB:link_type/long_link_phrase:43
 msgid "DJ-mixed {medium:% of}"
-msgstr ""
+msgstr "Merupakan DJ pengadun {medium:% of}"
 
 #. name:mix-DJ
 #: DB:link_type/link_phrase:43
 msgid "DJ-mixed {medium}"
-msgstr ""
+msgstr "Merupakan DJ pengadun {medium}"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:155
 msgid "DJ-mixer"
-msgstr ""
+msgstr "DJ pengadun"
 
 #. name:mix-DJ
 #: DB:link_type/reverse_link_phrase:43
 msgid "DJ-mixer {medium}"
-msgstr ""
+msgstr "DJ pengadun {medium}"
 
 #. name:DJ-mix
 #: DB:link_type/reverse_link_phrase:227
 msgid "DJ-mixes"
-msgstr ""
+msgstr "Merupakan DJ pengadun"
 
 #. name:mastering engineer position
 #: DB:link_type/description:704
@@ -218,12 +242,16 @@ msgid ""
 "Describes the fact a person was contracted by a place as a mastering "
 "engineer."
 msgstr ""
+"Perihalan seseorang itu diikat kontrak sebagai seorang jurutera pengindukan "
+"di sebuah tempat."
 
 #. name:mixing engineer position
 #: DB:link_type/description:703
 msgid ""
 "Describes the fact a person was contracted by a place as a mixing engineer."
 msgstr ""
+"Perihalan seseorang itu diikat kontrak sebagai seorang juruadun di sebuah "
+"tempat."
 
 #. name:recording engineer position
 #: DB:link_type/description:702
@@ -231,21 +259,26 @@ msgid ""
 "Describes the fact a person was contracted by a place as a recording "
 "engineer."
 msgstr ""
+"Perihalan seseorang itu diikat kontrak sebagai seorang jururakam di sebuah "
+"tempat."
 
 #. name:engineer position
 #: DB:link_type/description:701
 msgid "Describes the fact a person was contracted by a place as an engineer."
 msgstr ""
+"Perihalan seseorang itu diikat kontrak sebagai seorang jurutera di sebuah "
+"tempat."
 
 #. name:anthem
 #: DB:link_type/description:357
+#, fuzzy
 msgid "Designates that a work is or was the anthem for an area."
-msgstr ""
+msgstr "Perihalan sebuah karya itu merupakan lagu kebangsaan suatu kawasan."
 
 #. name:part of
 #: DB:link_type/description:356
 msgid "Designates that one area is contained by another."
-msgstr ""
+msgstr "Perihalan suatu kawasan itu terkandung dalam kawasan lain."
 
 #. name:discogs
 #: DB:link_type/link_phrase:1089 DB:link_type/link_phrase:180
@@ -254,7 +287,7 @@ msgstr ""
 #: DB:link_type/link_phrase:1275 DB:link_type/link_phrase:705
 #: DB:link_type/reverse_link_phrase:971
 msgid "Discogs"
-msgstr ""
+msgstr "Discogs"
 
 #. name:discogs
 #: DB:link_type/link_phrase:971 DB:link_type/reverse_link_phrase:1089
@@ -263,14 +296,17 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:747 DB:link_type/reverse_link_phrase:1275
 #: DB:link_type/reverse_link_phrase:705
 msgid "Discogs page for"
-msgstr ""
+msgstr "Halaman Discogs"
 
 #. name:step
 #: DB:link_attribute_type/description:1020
+#, fuzzy
 msgid ""
 "For indicating the step-spouse of the artist's parent, or the sibling "
 "relationship with the children of such a spouse."
 msgstr ""
+"Menyifatkan hubungan ini merupakan hubungan tiri sama ada berkenaan pasangan "
+"ibu atau bapa seniman ini atau adik-beradik seniman tersebut."
 
 #. name:instrumental
 #: DB:link_attribute_type/description:580
@@ -279,6 +315,10 @@ msgid ""
 "relevant to this recording. Examples include instrumental arrangements, or "
 "\"beats\" from hip-hop songs which may be reused with different lyrics."
 msgstr ""
+"Sifat ini berkenaan karya yang berseni kata namun seni kata tersebut tidak "
+"dititikberatkan dalam rakaman ini. Contohnya termasuklah susunan dengan alat "
+"muzik sahaja atau rentak dalam lagu hip-hop yang digunakan semula dengan "
+"seni kata yang berlainan."
 
 #. name:acappella
 #: DB:link_attribute_type/description:1406
@@ -291,16 +331,16 @@ msgstr ""
 #. name:geonames
 #: DB:link_type/link_phrase:934 DB:link_type/link_phrase:713
 msgid "Geonames"
-msgstr ""
+msgstr "Geonames"
 
 #. name:geonames
 #: DB:link_type/reverse_link_phrase:934 DB:link_type/reverse_link_phrase:713
 msgid "Geonames page for"
-msgstr ""
+msgstr "Halaman Geonames"
 
 #: DB:link_type/name:83 DB:link_type/name:258
 msgid "IMDB samples"
-msgstr ""
+msgstr "Sobekan  IMDb"
 
 #. name:IMDb
 #: DB:link_type/name:843 DB:link_type/name:1289 DB:link_type/name:313
@@ -309,34 +349,35 @@ msgstr ""
 #: DB:link_type/link_phrase:178 DB:link_type/link_phrase:97
 #: DB:link_type/link_phrase:706 DB:link_type/reverse_link_phrase:843
 msgid "IMDb"
-msgstr ""
+msgstr "IMDb"
 
 #. name:IMDB samples
 #: DB:link_type/reverse_link_phrase:83 DB:link_type/reverse_link_phrase:258
 msgid "IMDb entry sampled in"
-msgstr ""
+msgstr "Masukan IMDB disobekkan di"
 
 #. name:IMDb
 #: DB:link_type/link_phrase:843 DB:link_type/reverse_link_phrase:1289
 #: DB:link_type/reverse_link_phrase:313 DB:link_type/reverse_link_phrase:178
 #: DB:link_type/reverse_link_phrase:97 DB:link_type/reverse_link_phrase:706
 msgid "IMDb page for"
-msgstr ""
+msgstr "Halaman IMDb"
 
 #. name:IMSLP
 #: DB:link_type/name:754 DB:link_type/link_phrase:754
 msgid "IMSLP"
-msgstr ""
+msgstr "IMSLP"
 
 #. name:IMSLP
 #: DB:link_type/reverse_link_phrase:754
 msgid "IMSLP page for"
-msgstr ""
+msgstr "Halaman IMSLP"
 
 #. name:bonus
 #: DB:link_attribute_type/description:516
+#, fuzzy
 msgid "Indicates a bonus disc."
-msgstr ""
+msgstr "Menunjukkan adanya cakera tambahan"
 
 #. name:misc
 #: DB:link_type/description:162
@@ -344,6 +385,8 @@ msgid ""
 "Indicates a miscellaneous support role. This is usually stated in the liner "
 "notes of an album."
 msgstr ""
+"Menunjukkan peranan sokongan rencam. Hal ini selalunya dinyatakan di catatan "
+"sarung album."
 
 #. name:instrumental supporting musician
 #: DB:link_type/description:105
@@ -353,6 +396,11 @@ msgid ""
 "normally applies to well-known solo artists, although it can sometimes apply "
 "to groups."
 msgstr ""
+"Menunjukkan seniman ini menawarkan sokongan alat muzik yang lama untuk "
+"seniman lain sama ada dalam penghasilan album atau persembahan konsert. "
+"Hubungan orang kepada seniman ini biasanya digunakan bagi seniman "
+"persendirian yang masyhur namun terdapat juga penggunaannya bagi kumpulan "
+"muzik."
 
 #. name:vocal supporting musician
 #: DB:link_type/description:107
@@ -362,6 +410,10 @@ msgid ""
 "applies to well-known solo artists, although it can sometimes apply to "
 "groups."
 msgstr ""
+"Menunjukkan seniman ini menawarkan sokongan suara yang lama untuk seniman "
+"lain sama ada dalam penghasilan album atau persembahan konsert. Hubungan "
+"orang kepada seniman ini biasanya digunakan bagi seniman persendirian yang "
+"masyhur namun terdapat juga penggunaannya bagi kumpulan muzik."
 
 #. name:review
 #: DB:link_type/description:94
@@ -384,17 +436,18 @@ msgstr ""
 #. name:parent
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
-msgstr ""
+msgstr "Menunjukkan hubungan anak dan ibu bapanya."
 
 #. name:image
 #: DB:link_type/description:396
+#, fuzzy
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of a place."
-msgstr ""
+msgstr "Menunjukkan gambaran (JPEG, GIF, PNG) sebuah tempat."
 
 #. name:image
 #: DB:link_type/description:173
 msgid "Indicates a pictorial image (JPEG, GIF, PNG) of an artist."
-msgstr ""
+msgstr "Menunjukkan gambaran (JPEG, GIF, PNG) seorang seniman"
 
 #. name:relocated to
 #: DB:link_type/description:943
@@ -402,11 +455,16 @@ msgid ""
 "Indicates a place that moved from one location to another, while still being "
 "generally considered the same."
 msgstr ""
+"Menunjukkan bahawa suatu tempat itu telah berpindah ke kedudukan yang "
+"berlainan serta masih dianggap premis yang sama."
 
 #. name:half
 #: DB:link_attribute_type/description:1019
+#, fuzzy
 msgid "Indicates a sibling with whom the artist has only one parent in common."
 msgstr ""
+"Menunjukkan bahawa seniman ini mempunyai ibu atau bapa sahaja yang sama "
+"dengan orang ini."
 
 #. name:review
 #: DB:link_type/description:842
@@ -419,11 +477,15 @@ msgstr ""
 #: DB:link_type/description:958
 msgid "Indicates a webpage where you can download a label's releases for free."
 msgstr ""
+"Menunjukkan laman sesawang yang mengedarkan keluaran jenama ini sebagai muat "
+"turun percuma."
 
 #. name:download for free
 #: DB:link_type/description:177
 msgid "Indicates a webpage where you can download an artist's work for free."
 msgstr ""
+"Menunjukkan laman sesawang yang mengedarkan karya seniman ini sebagai muat "
+"turun percuma."
 
 #. name:previous attribution
 #: DB:link_type/description:834
@@ -432,6 +494,8 @@ msgid ""
 "attributed to, but who is currently confirmed (or very strongly suspected) "
 "not to be the real author."
 msgstr ""
+"Menunjukkan seniman (umumnya penggubah muzik) yang dianggap pengarang karya "
+"sebenar namun telah disahkan (atau amat disyaki) bukan pengarang sebenar."
 
 #. name:supporting musician
 #: DB:link_type/description:104
@@ -441,54 +505,61 @@ msgid ""
 "relationship that normally applies to well-known solo artists, although it "
 "can sometimes apply to groups."
 msgstr ""
+"Menunjukkan seniman ini menawarkan sokongan alat muzik atau suara yang lama "
+"untuk seniman lain sama ada dalam penghasilan album atau persembahan "
+"konsert. Hubungan orang kepada seniman ini biasanya digunakan bagi seniman "
+"persendirian yang masyhur namun terdapat juga penggunaannya bagi kumpulan "
+"muzik."
 
 #. name:performer
 #: DB:link_type/description:156
 msgid "Indicates an artist that performed on this recording."
-msgstr ""
+msgstr "Menunjukkan seniman ini membuat persembahan dalam rakaman ini."
 
 #. name:performer
 #: DB:link_type/description:51
 msgid "Indicates an artist that performed on this release."
-msgstr ""
+msgstr "Menunjukkan seniman ini membuat persembahan dalam keluaran ini."
 
 #. name:instrument
 #: DB:link_type/description:148
 msgid ""
 "Indicates an artist that performed one or more instruments on this recording."
-msgstr ""
+msgstr "Menunjukkan seniman ini memainkan alat muzik dalam rakaman ini."
 
 #. name:instrument
 #: DB:link_type/description:44
 msgid ""
 "Indicates an artist that performed one or more instruments on this release."
-msgstr ""
+msgstr "Menunjukkan seniman ini memainkan alat muzik dalam keluaran ini."
 
 #. name:vocal
 #: DB:link_type/description:149
 msgid "Indicates an artist that performed vocals on this recording."
-msgstr ""
+msgstr "Menunjukkan seniman ini menyumbangkan suaranya dalam rakaman ini."
 
 #. name:vocal
 #: DB:link_type/description:60
 msgid "Indicates an artist that performed vocals on this release."
-msgstr ""
+msgstr "Menunjukkan seniman ini menyumbangkan suaranya dalam keluaran ini."
 
 #. name:performing orchestra
 #: DB:link_type/description:150
 msgid "Indicates an orchestra that performed on this recording."
-msgstr ""
+msgstr "Menunjukkan orkestra yang membuat persembahan dalam rakaman ini."
 
 #. name:performing orchestra
 #: DB:link_type/description:45
 msgid "Indicates an orchestra that performed on this release."
-msgstr ""
+msgstr "Menunjukkan orkestra yang membuat persembahan dalam keluaran ini."
 
 #. name:amount
 #: DB:link_attribute_type/description:1080
 msgid ""
 "Indicates how many of a specific instrument an ensemble usually includes."
 msgstr ""
+"Menunjukkan bilangan alat muzik tertentu yang dimasukkan dalam suatu "
+"ensembel."
 
 #. name:revised by
 #: DB:link_type/description:844
@@ -496,6 +567,8 @@ msgid ""
 "Indicates that an artist revised a work. In most cases, this will be the "
 "original composer revising the work at a later date."
 msgstr ""
+"Menunjukan seniman ini menyemak ubah sebuah karya. Lazimnya hal ini berlaku "
+"apabila penggubah asal menyemak karya tersebut di kemudian hari."
 
 #. name:performance of
 #: DB:link_type/description:887
@@ -503,26 +576,29 @@ msgid ""
 "Indicates that an event was intended as a performance of a specific release "
 "group (usually an album)."
 msgstr ""
+"Menunjukkan bahawa peristiwa ini merupakan persembahan sebuah gabungan "
+"keluaran tertentu (biasanya album)."
 
 #. name:cover
 #: DB:link_attribute_type/description:567
+#, fuzzy
 msgid "Indicates that one entity is a cover of another entity."
-msgstr ""
+msgstr "Menunjukkan bahawa entiti ini merupakan lagu salinan entiti lain."
 
 #. name:part of
 #: DB:link_type/description:996
 msgid "Indicates that the artist is part of a series."
-msgstr ""
+msgstr "Menunjukkan seniman ini sebahagian suatu siri."
 
 #. name:part of
 #: DB:link_type/description:802
 msgid "Indicates that the event is part of a series."
-msgstr ""
+msgstr "Menunjukkan peristiwa ini sebahagian suatu siri."
 
 #. name:samples material
 #: DB:link_type/description:231
 msgid "Indicates that the recording contains samples from another."
-msgstr ""
+msgstr "Menunjukkan rakaman ini mengandungi sobekan rakaman lain."
 
 #. name:samples from artist
 #: DB:link_type/description:154
@@ -531,21 +607,26 @@ msgid ""
 "artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
 msgstr ""
+"Menunjukkan rakaman ini mengandungi sobekan daripada bahan oleh seniman yang "
+"dinyatakan. Pastikan rakaman asal sobekan tersebut dapat dikenal pasti "
+"sebelum menggunakan hubungan ini."
 
 #. name:samples material
 #: DB:link_type/description:69
 msgid "Indicates that the recording contains samples from this release."
-msgstr ""
+msgstr "Menunjukkan rakaman ini mengandungi sobekan daripada keluaran ini."
 
 #. name:part of
 #: DB:link_type/description:740
 msgid "Indicates that the recording is part of a series."
-msgstr ""
+msgstr "Menunjukkan rakaman ini sebahagian suatu siri."
 
 #. name:optional
 #: DB:link_attribute_type/description:1053
 msgid "Indicates that the relationship is optional - doesn't always apply."
 msgstr ""
+"Menunjukkan hubungan ini pilihan sahaja serta tidak semestinya harus "
+"digunakan."
 
 #. name:samples from artist
 #: DB:link_type/description:49
@@ -554,28 +635,31 @@ msgid ""
 "artist. Use this only if you really cannot figure out the particular "
 "recording that has been sampled."
 msgstr ""
+"Menunjukkan keluaran ini mengandungi sobekan daripada bahan oleh seniman "
+"yang dinyatakan. Pastikan rakaman asal sobekan tersebut dapat dikenal pasti "
+"sebelum menggunakan hubungan ini."
 
 #. name:part of
 #: DB:link_type/description:742
 msgid "Indicates that the release group is part of a series."
-msgstr ""
+msgstr "Menunjukkan gabungan keluaran ini sebahagian suatu siri."
 
 #. name:part of
 #: DB:link_type/description:741
 msgid "Indicates that the release is part of a series."
-msgstr ""
+msgstr "Menunjukkan keluaran ini sebahagian suatu siri."
 
 #. name:part of
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
-msgstr ""
+msgstr "Menunjukkan karya ini sebahagian suatu siri."
 
 #. name:involved with
 #: DB:link_type/description:112
 msgid ""
 "Indicates that two persons were romantically involved with each other "
 "without being married."
-msgstr ""
+msgstr "Menunjukkan dua orang ini saling berkasihan tanpa berkahwin."
 
 #. name:held in
 #: DB:link_type/description:1085
@@ -584,8 +668,9 @@ msgstr ""
 
 #. name:premiere
 #: DB:link_type/description:715
+#, fuzzy
 msgid "Indicates the area where the work had its first performance."
-msgstr ""
+msgstr "Menunjukkan kawasan berlakunya persembahan pertama karya ini."
 
 #. name:premiere
 #: DB:link_type/description:956
@@ -596,22 +681,29 @@ msgstr ""
 
 #. name:composer
 #: DB:link_type/description:55
+#, fuzzy
 msgid ""
 "Indicates the composer for this release, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Menunjukkan penggubah keluaran ini iaitu orang yang mengarang muziknya "
+"(tidak semestinya seni katanya sekali)"
 
 #. name:composer
 #: DB:link_type/description:168
+#, fuzzy
 msgid ""
 "Indicates the composer for this work, that is, the artist who wrote the "
 "music (not necessarily the lyrics)."
 msgstr ""
+"Menunjukkan penggubah karya ini iaitu orang yang mengarang muziknya (tidak "
+"semestinya seni katanya sekali)"
 
 #. name:premiere
 #: DB:link_type/description:845
+#, fuzzy
 msgid "Indicates the event where the work had its first performance."
-msgstr ""
+msgstr "Menunjukkan peristiwa berlakunya persembahan pertama karya ini."
 
 #. name:instrument technician
 #: DB:link_type/description:986
@@ -619,6 +711,9 @@ msgid ""
 "Indicates the instrument technician for this recording. Use also for \"piano "
 "tuner\" credits and other similar ones."
 msgstr ""
+"Menunjukkan juruteknik alat muzik rakaman ini. Boleh digunakan juga bagi "
+"orang yang diberi penghargaan sebagai \"penala piano\" dan yang serupa "
+"dengannya."
 
 #. name:instrument technician
 #: DB:link_type/description:987
@@ -626,31 +721,36 @@ msgid ""
 "Indicates the instrument technician for this release. Use also for \"piano "
 "tuner\" credits and other similar ones."
 msgstr ""
+"Menunjukkan juruteknik alat muzik keluaran ini. Boleh digunakan juga bagi "
+"orang yang diberi penghargaan sebagai \"penala piano\" dan yang serupa "
+"dengannya."
 
 #. name:librettist
 #: DB:link_type/description:57
 msgid "Indicates the librettist for this release."
-msgstr ""
+msgstr "Menunjukkan penggubah libreto keluaran ini."
 
 #. name:librettist
 #: DB:link_type/description:169
 msgid "Indicates the librettist for this work."
-msgstr ""
+msgstr "Menunjukkan penggubah libreto karya ini."
 
 #. name:held at
 #: DB:link_type/description:995
 msgid "Indicates the location a run or residency was held at."
 msgstr ""
+"Menunjukkan tempat berlangsungnya suatu persembahan atau tempat memegang "
+"jawatan."
 
 #. name:lyricist
 #: DB:link_type/description:56
 msgid "Indicates the lyricist for this release."
-msgstr ""
+msgstr "Menunjukkan penyeni kata keluaran ini."
 
 #. name:lyricist
 #: DB:link_type/description:165
 msgid "Indicates the lyricist for this work."
-msgstr ""
+msgstr "Menunjukkan penyeni kata karya ini."
 
 #. name:mastering
 #: DB:link_type/description:1293
@@ -667,27 +767,27 @@ msgstr ""
 #. name:official site
 #: DB:link_type/description:219
 msgid "Indicates the official homepage for a label."
-msgstr ""
+msgstr "Menunjukkan halaman rasmi jenama ini."
 
 #. name:official homepage
 #: DB:link_type/description:363
 msgid "Indicates the official homepage for a place."
-msgstr ""
+msgstr "Menunjukkan halaman rasmi tempat ini."
 
 #. name:official homepage
 #: DB:link_type/description:745
 msgid "Indicates the official homepage for a series."
-msgstr ""
+msgstr "Menunjukkan halaman rasmi siri ini."
 
 #. name:official homepage
 #: DB:link_type/description:183
 msgid "Indicates the official homepage for an artist."
-msgstr ""
+msgstr "Menunjukkan halaman rasmi seniman ini."
 
 #. name:official homepage
 #: DB:link_type/description:782
 msgid "Indicates the official homepage for an event."
-msgstr ""
+msgstr "Menunjukkan halaman rasmi peristiwa ini."
 
 #. name:adapter
 #: DB:link_type/description:1285
@@ -701,12 +801,12 @@ msgstr ""
 #: DB:link_type/description:871
 msgid ""
 "Indicates the person who translated the lyrics/libretto for this release."
-msgstr ""
+msgstr "Menunjukkan orang yang mengalih bahasa seni kata/libreto keluaran ini."
 
 #. name:translator
 #: DB:link_type/description:872
 msgid "Indicates the person who translated the lyrics/libretto for this work."
-msgstr ""
+msgstr "Menunjukkan orang yang mengalih bahasa seni kata/libreto karya ini."
 
 #. name:scriptwriter
 #: DB:link_type/description:1286
@@ -717,40 +817,47 @@ msgstr ""
 
 #. name:premiere
 #: DB:link_type/description:716
+#, fuzzy
 msgid "Indicates the place where the work had its first performance."
-msgstr ""
+msgstr "Menunjukkan tempat berlakunya persembahan pertama karya ini."
 
 #. name:publishing
 #: DB:link_type/description:32
+#, fuzzy
 msgid ""
 "Indicates the publisher of this release. This is <strong>not</strong> the "
 "same concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</"
 "a>."
 msgstr ""
+"Menunjukkan penerbit karya ini. Hal ini <strong>tidak</strong> sama dengan "
+"<a href=\"/doc/Label\">syarikat rakaman</a>."
 
 #. name:publishing
 #: DB:link_type/description:161 DB:link_type/description:208
+#, fuzzy
 msgid ""
 "Indicates the publisher of this work. This is <strong>not</strong> the same "
 "concept as the <a href=\"/doc/Label\" target=\"_blank\">record label</a>."
 msgstr ""
+"Menunjukkan penerbit karya ini. Hal ini <strong>tidak</strong> sama dengan "
+"<a href=\"/doc/Label\">syarikat rakaman</a>."
 
 #. name:last.fm
 #: DB:link_type/link_phrase:837 DB:link_type/link_phrase:838
 #: DB:link_type/link_phrase:839 DB:link_type/link_phrase:840
 msgid "Last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #. name:last.fm
 #: DB:link_type/reverse_link_phrase:837 DB:link_type/reverse_link_phrase:838
 #: DB:link_type/reverse_link_phrase:839 DB:link_type/reverse_link_phrase:840
 msgid "Last.fm page for"
-msgstr ""
+msgstr "Halaman Last.fm"
 
 #. name:lead vocals
 #: DB:link_attribute_type/description:4
 msgid "Lead or solo vocal"
-msgstr ""
+msgstr "Nyanyian utama atau solo"
 
 #. name:jury member
 #: DB:link_type/description:1255
@@ -775,6 +882,8 @@ msgid ""
 "Links a recording to the area it was arranged in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat penyusunan. Hanya digunakan "
+"sekiranya tempatnya tidak diketahui!"
 
 #. name:edited in
 #: DB:link_type/description:821
@@ -782,6 +891,8 @@ msgid ""
 "Links a recording to the area it was edited in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat penyuntingan. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:engineered in
 #: DB:link_type/description:814
@@ -789,6 +900,8 @@ msgid ""
 "Links a recording to the area it was engineered in. Use only when the place "
 "is unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat penerapan oleh jurutera. "
+"Hanya digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:mixed in
 #: DB:link_type/description:758
@@ -796,6 +909,8 @@ msgid ""
 "Links a recording to the area it was mixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat pengadunan. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:produced in
 #: DB:link_type/description:827
@@ -803,6 +918,8 @@ msgid ""
 "Links a recording to the area it was produced in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat pembikinan. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:recorded in
 #: DB:link_type/description:698
@@ -810,6 +927,8 @@ msgid ""
 "Links a recording to the area it was recorded in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat perakaman. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:remixed in
 #: DB:link_type/description:830
@@ -817,11 +936,13 @@ msgid ""
 "Links a recording to the area it was remixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan rakaman dengan kawasan sebagai tempat pengadunan semula. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:recorded at
 #: DB:link_type/description:809
 msgid "Links a recording to the event it was recorded at."
-msgstr ""
+msgstr "Memautkan rakaman dengan peristiwa sebagai tempat perakaman."
 
 #. name:recorded during
 #: DB:link_type/description:1006
@@ -833,37 +954,37 @@ msgstr ""
 #. name:arranged at
 #: DB:link_type/description:866
 msgid "Links a recording to the place it was arranged at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat penyusunannya."
 
 #. name:edited at
 #: DB:link_type/description:819
 msgid "Links a recording to the place it was edited at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat penyuntingannya."
 
 #. name:engineered at
 #: DB:link_type/description:813
 msgid "Links a recording to the place it was engineered at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat penerapannya oleh jurutera."
 
 #. name:mixed at
 #: DB:link_type/description:694
 msgid "Links a recording to the place it was mixed at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat pengadunannya."
 
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat pembikinannya."
 
 #. name:recorded at
 #: DB:link_type/description:693
 msgid "Links a recording to the place it was recorded at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat perakamannya."
 
 #. name:remixed at
 #: DB:link_type/description:829
 msgid "Links a recording to the place it was remixed at."
-msgstr ""
+msgstr "Memautkan rakaman dengan tempat pengadunan semulanya."
 
 #. name:recorded during
 #: DB:link_type/description:1008
@@ -882,7 +1003,7 @@ msgstr ""
 #. name:launch event
 #: DB:link_type/description:797
 msgid "Links a release group with a launch event for it."
-msgstr ""
+msgstr "Memautkan gabungan keluaran dengan peristiwa pelancarannya."
 
 #. name:production coordinator
 #: DB:link_type/description:1267
@@ -896,6 +1017,8 @@ msgid ""
 "Links a release to the area it was edited in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat penyuntingan. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:engineered in
 #: DB:link_type/description:815
@@ -903,11 +1026,14 @@ msgid ""
 "Links a release to the area it was engineered in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat penerapan oleh jurutera. "
+"Hanya digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:manufactured in
 #: DB:link_type/description:835
 msgid "Links a release to the area it was manufactured (\"made\") in."
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pengilangannya (\"Buatan\")."
 
 #. name:mastered in
 #: DB:link_type/description:756
@@ -915,6 +1041,8 @@ msgid ""
 "Links a release to the area it was mastered in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pengindukan. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:mixed in
 #: DB:link_type/description:757
@@ -922,11 +1050,13 @@ msgid ""
 "Links a release to the area it was mixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pengadunan. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:printed in
 #: DB:link_type/description:849
 msgid "Links a release to the area it was printed in."
-msgstr ""
+msgstr "Memautkan keluaran dengan kawasan sebagai tempat pencetakan."
 
 #. name:produced in
 #: DB:link_type/description:826
@@ -934,6 +1064,8 @@ msgid ""
 "Links a release to the area it was produced in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pembikinan. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:recorded in
 #: DB:link_type/description:699
@@ -941,6 +1073,8 @@ msgid ""
 "Links a release to the area it was recorded in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat perakaman. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:remixed in
 #: DB:link_type/description:831
@@ -948,6 +1082,8 @@ msgid ""
 "Links a release to the area it was remixed in. Use only when the place is "
 "unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pengadunan semula. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:transferred in
 #: DB:link_type/description:1181
@@ -962,63 +1098,69 @@ msgid ""
 "Links a release to the area where the lacquer cutting took place. Use only "
 "when the place is unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pemotongan sampang. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:lacquer cut
 #: DB:link_type/description:969
 msgid "Links a release to the engineer who did the lacquer cutting for it."
-msgstr ""
+msgstr "Memautkan keluaran dengan jurutera yang membuat pemotongan sampang."
 
 #. name:recorded at
 #: DB:link_type/description:810
 msgid "Links a release to the event it was recorded at."
-msgstr ""
+msgstr "Memautkan keluaran dengan peristiwa sebagai tempat perakaman."
 
 #. name:edited at
 #: DB:link_type/description:820
 msgid "Links a release to the place it was edited at."
-msgstr ""
+msgstr "Memautkan keluaran dengan peristiwa sebagai tempat penyuntingan."
 
 #. name:engineered at
 #: DB:link_type/description:812
 msgid "Links a release to the place it was engineered at."
 msgstr ""
+"Memautkan keluaran dengan peristiwa sebagai tempat penerapan oleh jurutera."
 
 #. name:manufactured at
 #: DB:link_type/description:953
+#, fuzzy
 msgid ""
 "Links a release to the place it was manufactured at. Use a more specific "
 "credit if available."
 msgstr ""
+"Memautkan keluaran dengan tempat pengilangan. Gunakan penghargaan yang lebih "
+"jitu sekiranyanya ada"
 
 #. name:mastered at
 #: DB:link_type/description:697
 msgid "Links a release to the place it was mastered at."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat pengindukan."
 
 #. name:mixed at
 #: DB:link_type/description:696
 msgid "Links a release to the place it was mixed at."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat pengadunan."
 
 #. name:pressed at
 #: DB:link_type/description:941
 msgid "Links a release to the place it was pressed at."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat penekanan acuan."
 
 #. name:produced at
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat pembikinan."
 
 #. name:recorded at
 #: DB:link_type/description:695
 msgid "Links a release to the place it was recorded at."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat perakaman."
 
 #. name:remixed at
 #: DB:link_type/description:828
 msgid "Links a release to the place it was remixed at."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat pengadunan semula."
 
 #. name:transferred at
 #: DB:link_type/description:1182
@@ -1032,17 +1174,17 @@ msgstr ""
 msgid ""
 "Links a release to the place where the glass master for pressing was made. "
 "Not the same as mastered!"
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat cakera induk dibuat."
 
 #. name:lacquer cut at
 #: DB:link_type/description:968
 msgid "Links a release to the place where the lacquer cutting took place."
-msgstr ""
+msgstr "Memautkan keluaran dengan tempat pemotongan sampang."
 
 #. name:launch event
 #: DB:link_type/description:796
 msgid "Links a release with a launch event for it."
-msgstr ""
+msgstr "Memautkan keluaran dengan peristiwa pelancaran."
 
 #. name:available at
 #: DB:link_type/description:795
@@ -1051,11 +1193,16 @@ msgid ""
 "event-exclusive releases and/or releases available at events before the "
 "official launch date, not for every release in the merchandise stall."
 msgstr ""
+"Memautkan keluaran dengan peristiwa bilamana keluaran ini tersedia. Hubungan "
+"ini digunakan bagi keluaran yang khusus diterbitkan ketika peristiwa "
+"tertentu atau juga keluaran yang tersedia ketika peristiwa tertentu sebelum "
+"tarikh pelancaran rasminya. Jangan digunakan bagi setiap keluaran di gerai "
+"atau reruai cenderamata."
 
 #. name:subseries
 #: DB:link_type/description:823
 msgid "Links a series to another series that exists within it."
-msgstr ""
+msgstr "Memautkan siri yang merangkumi siri lain."
 
 #. name:award ceremony
 #: DB:link_type/description:1094
@@ -1067,7 +1214,7 @@ msgstr ""
 #. name:main performer
 #: DB:link_type/description:798
 msgid "Links an event to (one of) its main performer(s)."
-msgstr ""
+msgstr "Memautkan peristiwa dengan penghibur utamanya."
 
 #. name:support act
 #: DB:link_type/description:799
@@ -1075,13 +1222,18 @@ msgid ""
 "Links an event to (one of) its support act(s) (also known as opening acts or "
 "warm-up acts)."
 msgstr ""
+"Memautkan peristiwa dengan penghiburnya yang memulakan persembahan (pembuka "
+"acara, persembahan pertama, dll.)"
 
 #. name:supporting DJ
 #: DB:link_type/description:932
+#, fuzzy
 msgid ""
 "Links an event to a DJ that appeared in a supporting role (such as DJing "
 "between artists, or closing the night after a concert)."
 msgstr ""
+"Memautkan peristiwa dengan DJ yang memainkan peranan tambahan (memainkan "
+"muzik antara persembahan penghibur lain, mengusai konsert, dll.)"
 
 #. name:guest performer
 #: DB:link_type/description:800
@@ -1089,6 +1241,9 @@ msgid ""
 "Links an event to a guest performer. Guest performers usually make short "
 "appearances during other artist's set."
 msgstr ""
+"Memautkan peristiwa dengan penghibur jemputan atau undangan. Penghibur "
+"jemputan selalunya membuat penampilan ringkas semasa persembahan seniman "
+"lain."
 
 #. name:presented
 #: DB:link_type/description:1168
@@ -1101,6 +1256,7 @@ msgstr ""
 #: DB:link_type/description:806
 msgid "Links an event to an artist that was a conductor in it."
 msgstr ""
+"Memautkan peristiwa dengan seniman yang menjadi pemimpin orkestra atau koir."
 
 #. name:VJ
 #: DB:link_type/description:1163
@@ -1117,7 +1273,7 @@ msgstr ""
 #. name:orchestra
 #: DB:link_type/description:807
 msgid "Links an event to an orchestra that performed in it."
-msgstr ""
+msgstr "Memautkan peristiwa dengan orkestra yang mebuat persembahan."
 
 #. name:host
 #: DB:link_type/description:801
@@ -1125,6 +1281,8 @@ msgid ""
 "Links an event to its host/MC. Event hosts usually do introductions to the "
 "show or each song."
 msgstr ""
+"Memautkan peristiwa dengan juruacaranya. Juruacara peristiwa selalunya "
+"memperkenalkan acara atau penghibur atau lagu yang bakal dimainkan."
 
 #. name:held in
 #: DB:link_type/description:793
@@ -1132,11 +1290,13 @@ msgid ""
 "Links an event to the area where it was held. Use only if the exact place is "
 "unknown."
 msgstr ""
+"Memautkan peristiwa dengan kawasan sebagai tempat berlangsung. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahu."
 
 #. name:held at
 #: DB:link_type/description:794
 msgid "Links an event to the place where it was held."
-msgstr ""
+msgstr "Memautkan peristiwa dengan tempat berlangsung."
 
 #. name:time
 #: DB:link_attribute_type/description:830
@@ -1154,38 +1314,38 @@ msgstr ""
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
 #: DB:link_type/link_phrase:189
 msgid "Myspace"
-msgstr ""
+msgstr "Myspace"
 
 #. name:myspace
 #: DB:link_type/reverse_link_phrase:215 DB:link_type/reverse_link_phrase:462
 #: DB:link_type/reverse_link_phrase:189
 msgid "Myspace page for"
-msgstr ""
+msgstr "Halaman Myspace"
 
 #. name:other vocals
 #: DB:link_attribute_type/description:461
 msgid "Other vocalizations"
-msgstr ""
+msgstr "Penyuaraan lain"
 
 #. name:BookBrainz
 #: DB:link_type/description:852
 msgid "Points to the BookBrainz page for this artist."
-msgstr ""
+msgstr "Menuding ke halaman BookBrainz seniman ini."
 
 #. name:BookBrainz
 #: DB:link_type/description:851
 msgid "Points to the BookBrainz page for this label."
-msgstr ""
+msgstr "Menuding ke halaman BookBrainz jenama ini."
 
 #. name:BookBrainz
 #: DB:link_type/description:853
 msgid "Points to the BookBrainz page for this release group."
-msgstr ""
+msgstr "Menuding ke halaman BookBrainz gabungan keluaran ini."
 
 #. name:BookBrainz
 #: DB:link_type/description:850
 msgid "Points to the BookBrainz page for this release."
-msgstr ""
+msgstr "Menuding ke halaman BookBrainz keluaran ini."
 
 #. name:BookBrainz
 #: DB:link_type/description:1167
@@ -1195,50 +1355,62 @@ msgstr ""
 #. name:BookBrainz
 #: DB:link_type/description:854
 msgid "Points to the BookBrainz page for this work."
-msgstr ""
+msgstr "Menuding ke halaman BookBrainz karya ini."
 
 #. name:geonames
 #: DB:link_type/description:713
 msgid "Points to the Geonames page for this area."
-msgstr ""
+msgstr "Menuding ke halaman Geonames kawasan ini."
 
 #. name:geonames
 #: DB:link_type/description:934
 msgid "Points to the Geonames page for this place."
-msgstr ""
+msgstr "Menuding ke halaman Geonames tempat ini."
 
 #. name:IMDb
 #: DB:link_type/description:706
 msgid "Points to the Internet Movie Database page for this place."
-msgstr ""
+msgstr "Menuding ke halaman Pangkalan Data Filem Internet tempat ini."
 
 #. name:wikidata
 #: DB:link_type/description:358
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:352
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:790
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:1087
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:733
@@ -1249,83 +1421,100 @@ msgstr ""
 
 #. name:wikidata
 #: DB:link_type/description:354
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:594
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:353
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:749
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikidata
 #: DB:link_type/description:351
+#, fuzzy
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
+"Menuding ke halaman Wikidata gabungan keluaran ini serta mengambil ringkasan "
+"dan gambar daripada Wikipedia."
 
 #. name:wikipedia
 #: DB:link_type/description:89
 msgid "Points to the Wikipedia page for this album."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia album ini."
 
 #. name:wikipedia
 #: DB:link_type/description:355
 msgid "Points to the Wikipedia page for this area."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia kawasan ini."
 
 #. name:wikipedia
 #: DB:link_type/description:179
 msgid "Points to the Wikipedia page for this artist."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia seniman ini."
 
 #. name:wikipedia
 #: DB:link_type/description:789
 msgid "Points to the Wikipedia page for this event."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia peristiwa ini."
 
 #. name:wikipedia
 #: DB:link_type/description:731
 msgid "Points to the Wikipedia page for this instrument."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia alat muzik ini."
 
 #. name:wikipedia
 #: DB:link_type/description:216
+#, fuzzy
 msgid "Points to the Wikipedia page for this label."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia karya ini."
 
 #. name:wikipedia
 #: DB:link_type/description:595
+#, fuzzy
 msgid "Points to the Wikipedia page for this place."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia tempat ini."
 
 #. name:wikipedia
 #: DB:link_type/description:744
 msgid "Points to the Wikipedia page for this series."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia siri ini."
 
 #. name:wikipedia
 #: DB:link_type/description:279
 msgid "Points to the Wikipedia page for this work."
-msgstr ""
+msgstr "Menuding ke halaman Wikipedia karya ini."
 
 #. name:publishing
 #: DB:link_type/description:127
@@ -1338,60 +1527,60 @@ msgstr ""
 #. name:purevolume
 #: DB:link_type/link_phrase:174
 msgid "PureVolume"
-msgstr ""
+msgstr "PureVolume"
 
 #. name:purevolume
 #: DB:link_type/reverse_link_phrase:174
 msgid "PureVolume page for"
-msgstr ""
+msgstr "Halaman PureVolume"
 
 #. name:secondhandsongs
 #: DB:link_type/link_phrase:308 DB:link_type/link_phrase:976
 #: DB:link_type/link_phrase:977 DB:link_type/link_phrase:307
 #: DB:link_type/reverse_link_phrase:280
 msgid "SecondHandSongs"
-msgstr ""
+msgstr "SecondHandSongs"
 
 #. name:secondhandsongs
 #: DB:link_type/link_phrase:280 DB:link_type/reverse_link_phrase:308
 #: DB:link_type/reverse_link_phrase:976 DB:link_type/reverse_link_phrase:977
 #: DB:link_type/reverse_link_phrase:307
 msgid "SecondHandSongs page for"
-msgstr ""
+msgstr "Halaman SecondHandSongs"
 
 #. name:songfacts
 #: DB:link_type/reverse_link_phrase:289
 msgid "Songfacts"
-msgstr ""
+msgstr "Songfacts"
 
 #. name:songfacts
 #: DB:link_type/link_phrase:289
 msgid "Songfacts page for"
-msgstr ""
+msgstr "Halaman Songfacts"
 
 #. name:songkick
 #: DB:link_type/link_phrase:786 DB:link_type/link_phrase:785
 #: DB:link_type/link_phrase:787
 msgid "Songkick"
-msgstr ""
+msgstr "Songkick"
 
 #. name:songkick
 #: DB:link_type/reverse_link_phrase:786 DB:link_type/reverse_link_phrase:785
 #: DB:link_type/reverse_link_phrase:787
 msgid "Songkick page for"
-msgstr ""
+msgstr "Halaman Songkick"
 
 #. name:soundcloud
 #: DB:link_type/link_phrase:870 DB:link_type/link_phrase:291
 #: DB:link_type/link_phrase:290 DB:link_type/link_phrase:940
 msgid "SoundCloud"
-msgstr ""
+msgstr "SoundCloud"
 
 #. name:soundcloud
 #: DB:link_type/reverse_link_phrase:870 DB:link_type/reverse_link_phrase:291
 #: DB:link_type/reverse_link_phrase:290 DB:link_type/reverse_link_phrase:940
 msgid "SoundCloud page for"
-msgstr ""
+msgstr "Halaman SoundCloud"
 
 #. name:level of studies
 #: DB:link_attribute_type/description:1135
@@ -1399,6 +1588,8 @@ msgid ""
 "Specifies the level of studies that a student studied towards in an "
 "educational institution."
 msgstr ""
+"Menentukan tahap pengajian yang dipelajari seorang pelajar di sebuah pusat "
+"pendidikan."
 
 #. name:subject
 #: DB:link_attribute_type/description:1125
@@ -1406,60 +1597,63 @@ msgid ""
 "Specifies the subject that was taught by a teacher in an institution and/or "
 "to a student."
 msgstr ""
+"Menentukan mata pelajaran yang diajar seorang pengajar di sebuah pusat "
+"pendidikan atau juga kepada pelajarnya."
 
 #. name:spoken vocals
 #: DB:link_attribute_type/description:561
 msgid "Spoken vocals (speech)"
-msgstr ""
+msgstr "Suara pertuturan (percakapan)"
 
 #. name:libretto written at
 #: DB:link_type/long_link_phrase:880 DB:link_type/long_link_phrase:1249
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written at {entity0}"
-msgstr ""
+msgstr "Libreto {entity1} dikarang di {entity0} {additional:secara tambahan}"
 
 #. name:libretto written in
 #: DB:link_type/long_link_phrase:879 DB:link_type/long_link_phrase:1271
 msgid ""
 "The libretto for {entity1} was {additional:additionally} written in {entity0}"
-msgstr ""
+msgstr "Libreto {entity1} dikarang di {entity0} {additional:secara tambahan}"
 
 #. name:lyrics written at
 #: DB:link_type/long_link_phrase:878 DB:link_type/long_link_phrase:1250
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written at {entity0}"
-msgstr ""
+msgstr "Seni kata {entity1} dikarang di {entity0} {additional:secara tambahan}"
 
 #. name:lyrics written in
 #: DB:link_type/long_link_phrase:877 DB:link_type/long_link_phrase:1270
 msgid ""
 "The lyrics for {entity1} were {additional:additionally} written in {entity0}"
-msgstr ""
+msgstr "Seni kata {entity1} dikarang di {entity0} {additional:secara tambahan}"
 
 #. name:download for free
 #: DB:link_type/long_link_phrase:274
 msgid "The score for {entity1} can be downloaded for free at {entity0}"
-msgstr ""
+msgstr "Skor {entity1} boleh dimuat turun secara percuma di {entity0}"
 
 #. name:purchase for download
 #: DB:link_type/long_link_phrase:912
 msgid "The score for {entity1} can be purchased for download at {entity0}"
-msgstr ""
+msgstr "Skor {entity1} boleh dimuat turun melalui pembelian di {entity0}"
 
 #. name:purchase for mail-order
 #: DB:link_type/long_link_phrase:913
 msgid "The score for {entity1} can be purchased for mail-order at {entity0}"
-msgstr ""
+msgstr "Skor {entity1} boleh dipesan secara pos di {entity0}"
 
 #. name:publishes series
 #: DB:link_type/description:933
 msgid "This allows linking a series to the label who publishes it."
 msgstr ""
+"Membolehkan siri dipautkan dengan jenama yang menerbitkan siri tersebut."
 
 #. name:vocal
 #: DB:link_attribute_type/description:3
 msgid "This attribute describes a type of vocal performance."
-msgstr ""
+msgstr "Sifat ini menerangkan jenis persembahan suara."
 
 #. name:minor
 #: DB:link_attribute_type/description:2
@@ -1467,6 +1661,7 @@ msgid ""
 "This attribute describes if a particular collaboration was considered equal "
 "or minor."
 msgstr ""
+"Sifat ini menerangkan keadaan usaha sama itu sama ada sama ataupun minor."
 
 #. name:additional
 #: DB:link_attribute_type/description:1
@@ -1474,6 +1669,8 @@ msgid ""
 "This attribute describes if a particular role was considered normal or "
 "additional."
 msgstr ""
+"Sifat ini menerangkan keadaan peranan tertentu itu merupakan peranan biasa "
+"atau tambahan."
 
 #. name:instrument
 #: DB:link_attribute_type/description:14
@@ -1491,13 +1688,19 @@ msgid ""
 "This attribute indicates a 'guest' performance where the performer is not "
 "usually part of the band."
 msgstr ""
+"Sifat ini menerangkan persembahan 'undangan' iaitu penghibur tersebut "
+"kebiasaannya bukan sebahagian kugiran tersebut."
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
+#, fuzzy
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
 msgstr ""
+"Sifat ini menerangkan ahli kugiran tersebut merupakan asal nama kugiran "
+"tersebut serta kugiran tersebut diwujudkan kerananya (cth. Miles Davis -> "
+"Sekstet Miles Davis)"
 
 #. name:parody
 #: DB:link_attribute_type/description:511
@@ -1505,6 +1708,8 @@ msgid ""
 "This attribute indicates a version with satirical, ironic, or otherwise "
 "humorous intent. Parodies in most cases have altered lyrics."
 msgstr ""
+"Sifat ini menerangkan karya terbitan yang dicipta dengan niat menyindir, "
+"satira, ironi atau kejenakaan lain. Seni kata parodi selalunya diubah."
 
 #. name:original
 #: DB:link_attribute_type/description:525
@@ -1512,6 +1717,8 @@ msgid ""
 "This attribute indicates that an artist was an original member of a group "
 "artist."
 msgstr ""
+"Sifat ini menerangkan seniman tersebut merupakan ahli asal seniman "
+"berkumpulan."
 
 #. name:translated
 #: DB:link_attribute_type/description:517
@@ -1531,7 +1738,7 @@ msgstr ""
 #. name:number
 #: DB:link_attribute_type/description:788
 msgid "This attribute indicates the number of an entity in a series."
-msgstr ""
+msgstr "Sifat ini menerangkan bilangan entiti dalam siri."
 
 #. name:winner
 #: DB:link_attribute_type/description:1416
@@ -1545,6 +1752,8 @@ msgid ""
 "This attribute is to be used if the role was fulfilled in an executive "
 "capacity."
 msgstr ""
+"Sifat ini digunakan sekuranya peranan tersebut dijalankan sebagai tugas "
+"eksekutif."
 
 #. name:creative direction
 #: DB:link_type/description:146
@@ -1553,6 +1762,9 @@ msgid ""
 "inspiration during the recording of this recording, without actually "
 "contributing to the writing or performance."
 msgstr ""
+"Sifat ini memberi penghargaan bagi orang atau agensi yang menyumbang ilham "
+"daya cipta umum semasa perakaman rakaman ini. Mereka sendiri tidak "
+"menyumbang dalam pengarangan atau persembahan rakaman tersebut."
 
 #. name:creative direction
 #: DB:link_type/description:63
@@ -1561,6 +1773,9 @@ msgid ""
 "inspiration during the recording of this release group, without actually "
 "contributing to the writing or performance."
 msgstr ""
+"Sifat ini memberi penghargaan bagi orang atau agensi yang menyumbang ilham "
+"daya cipta umum semasa perakaman gabungan keluaran ini. Mereka sendiri tidak "
+"menyumbang dalam pengarangan atau persembahan rakaman tersebut."
 
 #. name:animation
 #: DB:link_type/description:1243
@@ -1575,6 +1790,8 @@ msgid ""
 "This credits a person or agency whose photographs are included as part of a "
 "recording."
 msgstr ""
+"Sifat ini memberi penghargaan kepada orang atau agensi yang menyumbang "
+"gambar tangkapannya dalam rakaman ini."
 
 #. name:booking
 #: DB:link_type/description:134
@@ -1582,6 +1799,8 @@ msgid ""
 "This credits a person who was responsible for booking the studio or "
 "performance venue where the recording was recorded."
 msgstr ""
+"Sifat ini memberi penghargaan kepada orang yang menempah studio atau tempat "
+"persembahan sebagai tempat perakaman rakaman ini."
 
 #. name:booking
 #: DB:link_type/description:23
@@ -1589,12 +1808,17 @@ msgid ""
 "This credits a person who was responsible for booking the studio or "
 "performance venue where the release was recorded."
 msgstr ""
+"Sifat ini memberi penghargaan kepada orang yang menempah studio atau tempat "
+"persembahan sebagai tempat perakaman keluaran ini."
 
 #. name:photography
 #: DB:link_type/description:1175
+#, fuzzy
 msgid ""
 "This credits an agency whose photographs are included as part of a release."
 msgstr ""
+"Sifat ini memberi penghargaan kepada orang atau agensi yang menyumbang "
+"gambar tangkapannya dalam keluaran ini."
 
 #. name:photography
 #: DB:link_type/description:20
@@ -1610,6 +1834,12 @@ msgid ""
 "production data, in some cases they consist of a blurb of text (article). "
 "This relationship type should be used in this last case."
 msgstr ""
+"Sifat ini memberi penghargaan kepada pengarang catatan sarung yang "
+"disediakan sekali dalam keluaran (tulisan ini kebiasaannya di sarung "
+"bungkusan). Catatan ini lazimnya maklumat kakitangan yang terlibat dan "
+"keterangan penerbitan namun kadangkala merangkumi ringkasan penerbit atau "
+"sesiapa yang terlibat (rencana). Jenis hubungan ini seharusnya digunakan "
+"bagi ringkasan tersebut."
 
 #. name:graphic design
 #: DB:link_type/description:125
@@ -1630,6 +1860,13 @@ msgid ""
 "into <a href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music "
 "Group</a>, as Verve continued its existence thereafter as an imprint."
 msgstr ""
+"Sifat ini menerangkan keadaan perubahan nama sebuah jenama sama ada atas "
+"alasan estetika atau kesan penjualan/pembelian dll. Harap maklum akan "
+"keadaan yang lebih rumit apabila melibatkan penggabungan/pemisahan/"
+"penstrukturan semula. Contohnya, jenama <a href=\"/label/99a24d71-54c1-4d3f-"
+"88cc-00fbcc4fce83\">Verve</a> tidak sewajarnya diubah namanya menjadi <a "
+"href=\"/label/4fb00dfd-7674-44c0-bf67-79daf8c61767\">The Verve Music Group</"
+"a> lantaran Verve masih berterusan sebagai sebuah kecetak."
 
 #. name:artist rename
 #: DB:link_type/description:1079
@@ -1860,11 +2097,15 @@ msgstr ""
 
 #. name:graphic design
 #: DB:link_type/description:1172
+#, fuzzy
 msgid ""
 "This indicates an agency who did the graphic design for the release, "
 "arranging pieces of content into a coherent and aesthetically-pleasing "
 "sleeve design."
 msgstr ""
+"Sifat ini membei penghargaan kepada orang atau agensi yang membuat rekaan "
+"grafik iaitu dengan menyusun atur kandungan tertentu sehingga menjadi rekaan "
+"sarung yang rapi dan memuaskan."
 
 #. name:artwork
 #: DB:link_type/description:1170
@@ -3354,10 +3595,13 @@ msgstr ""
 
 #. name:arranged in
 #: DB:link_type/description:863
+#, fuzzy
 msgid ""
 "This links a release with the area it was arranged in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat penyusunan. Hanya digunakan "
+"sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:composed in
 #: DB:link_type/description:1269
@@ -3368,10 +3612,13 @@ msgstr ""
 
 #. name:revised in
 #: DB:link_type/description:1272
+#, fuzzy
 msgid ""
 "This links a release with the area it was revised in. Use only when the "
 "place is unknown!"
 msgstr ""
+"Memautkan keluaran dengan kawasan sebagai tempat pengadunan semula. Hanya "
+"digunakan sekiranya tempat lebih jitu tidak diketahui!"
 
 #. name:translated in
 #: DB:link_type/description:1273
@@ -3403,8 +3650,9 @@ msgstr ""
 
 #. name:arranged at
 #: DB:link_type/description:865
+#, fuzzy
 msgid "This links a release with the place it was arranged at."
-msgstr ""
+msgstr "Memautkan keluaran dengan peristiwa sebagai tempat penyusunan."
 
 #. name:composed at
 #: DB:link_type/description:1251
@@ -4682,6 +4930,8 @@ msgid ""
 "Transliterated track listings don't change the language, just the script or "
 "spelling."
 msgstr ""
+"Senarai runut yang dialih huruf hanya melibatkan sistem tulisan atau "
+"ejaannya sahaja manakala bahasanya tidak berubah."
 
 #. name:treble vocals
 #: DB:link_attribute_type/description:834
@@ -4976,8 +5226,9 @@ msgstr ""
 
 #: DB:link_type/name:755 DB:link_type/name:284 DB:link_type/name:283
 #: DB:link_type/name:285 DB:link_type/name:286 DB:link_type/name:1093
+#, fuzzy
 msgid "allmusic"
-msgstr ""
+msgstr "Allmusic"
 
 #. name:alto vocals
 #: DB:link_attribute_type/name:5 DB:link_attribute_type/description:5
@@ -5048,8 +5299,9 @@ msgid "arrangements"
 msgstr ""
 
 #: DB:link_type/name:295 DB:link_type/name:297 DB:link_type/name:293
+#, fuzzy
 msgid "arranger"
-msgstr ""
+msgstr "Penyusun"
 
 #: DB:link_attribute_type/name:1347
 msgid "arranging"
@@ -5216,12 +5468,14 @@ msgid "balance"
 msgstr ""
 
 #: DB:link_type/name:1092 DB:link_type/name:718 DB:link_type/name:719
+#, fuzzy
 msgid "bandcamp"
-msgstr ""
+msgstr "Bandcamp"
 
 #: DB:link_type/name:861 DB:link_type/name:862 DB:link_type/name:860
+#, fuzzy
 msgid "bandsintown"
-msgstr ""
+msgstr "Bandsintown"
 
 #. name:baritone vocals
 #: DB:link_attribute_type/name:6 DB:link_attribute_type/description:6
@@ -5296,8 +5550,9 @@ msgstr ""
 #. name:broadcast
 #: DB:link_type/name:1228 DB:link_type/link_phrase:1228
 #: DB:link_type/long_link_phrase:1228
+#, fuzzy
 msgid "broadcast"
-msgstr ""
+msgstr "Siaran"
 
 #. name:broadcast
 #: DB:link_type/reverse_link_phrase:1228
@@ -5332,8 +5587,9 @@ msgid "can be streamed at"
 msgstr ""
 
 #: DB:link_attribute_type/name:921
+#, fuzzy
 msgid "cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: DB:link_type/name:1165
 msgid "carillonneur"
@@ -5484,8 +5740,9 @@ msgid "composed in"
 msgstr ""
 
 #: DB:link_type/name:55 DB:link_type/name:168
+#, fuzzy
 msgid "composer"
-msgstr ""
+msgstr "Penggubah"
 
 #: DB:link_type/name:937 DB:link_type/name:855
 msgid "composer-in-residence"
@@ -5514,8 +5771,9 @@ msgid "conducting"
 msgstr ""
 
 #: DB:link_type/name:806 DB:link_type/name:46 DB:link_type/name:151
+#, fuzzy
 msgid "conductor"
-msgstr ""
+msgstr "Konduktor"
 
 #. name:conductor
 #: DB:link_type/link_phrase:806
@@ -5614,8 +5872,9 @@ msgid "contralto vocals"
 msgstr ""
 
 #: DB:link_type/name:708 DB:link_type/name:709
+#, fuzzy
 msgid "copyright"
-msgstr ""
+msgstr "Hak Cipta"
 
 #. name:copyright
 #: DB:link_type/reverse_link_phrase:708 DB:link_type/reverse_link_phrase:709
@@ -5632,8 +5891,9 @@ msgid "countertenor vocals"
 msgstr ""
 
 #: DB:link_attribute_type/name:567 DB:link_type/name:15
+#, fuzzy
 msgid "cover"
-msgstr ""
+msgstr "Kulit"
 
 #. name:cover art link
 #: DB:link_type/link_phrase:78
@@ -5805,8 +6065,9 @@ msgstr ""
 #: DB:link_type/name:1089 DB:link_type/name:180 DB:link_type/name:76
 #: DB:link_type/name:217 DB:link_type/name:90 DB:link_type/name:747
 #: DB:link_type/name:1275 DB:link_type/name:705 DB:link_type/name:971
+#, fuzzy
 msgid "discogs"
-msgstr ""
+msgstr "Discogs"
 
 #. name:distributed
 #: DB:link_type/name:361 DB:link_type/link_phrase:361
@@ -5909,13 +6170,15 @@ msgid "edited the booklet of"
 msgstr ""
 
 #: DB:link_type/name:144 DB:link_type/name:38
+#, fuzzy
 msgid "editor"
-msgstr ""
+msgstr "Penyunting"
 
 #. name:edit
 #: DB:link_type/reverse_link_phrase:309
+#, fuzzy
 msgid "edits"
-msgstr ""
+msgstr "Suntingan"
 
 #. name:educational institution connection
 #: DB:link_type/name:925 DB:link_type/link_phrase:925
@@ -5950,8 +6213,9 @@ msgid "employees"
 msgstr ""
 
 #: DB:link_type/name:1084 DB:link_type/name:28 DB:link_type/name:138
+#, fuzzy
 msgid "engineer"
-msgstr ""
+msgstr "Jurutera"
 
 #. name:engineer position at
 #: DB:link_type/name:701 DB:link_type/link_phrase:120
@@ -6134,12 +6398,14 @@ msgstr ""
 
 #. name:genre origin
 #: DB:link_type/link_phrase:1088
+#, fuzzy
 msgid "genres"
-msgstr ""
+msgstr "Genre"
 
 #: DB:link_type/name:934 DB:link_type/name:713
+#, fuzzy
 msgid "geonames"
-msgstr ""
+msgstr "Geonames"
 
 #. name:get the music
 #: DB:link_type/name:957 DB:link_type/name:257 DB:link_type/name:73
@@ -6895,8 +7161,9 @@ msgid "inspired the name of work"
 msgstr ""
 
 #: DB:link_attribute_type/name:14 DB:link_type/name:44 DB:link_type/name:148
+#, fuzzy
 msgid "instrument"
-msgstr ""
+msgstr "Alat Muzik"
 
 #: DB:link_type/name:158 DB:link_type/name:41 DB:link_type/name:282
 msgid "instrument arranger"
@@ -6930,8 +7197,9 @@ msgstr ""
 
 #. name:instrument origin
 #: DB:link_type/link_phrase:752
+#, fuzzy
 msgid "instruments"
-msgstr ""
+msgstr "Alat Muzik"
 
 #: DB:link_type/name:707
 msgid "interview"
@@ -7132,7 +7400,7 @@ msgstr ""
 #. name:transl-tracklisting
 #: DB:link_type/long_link_phrase:2
 msgid "is the original for the transliterated/translated track listing"
-msgstr ""
+msgstr "senarai asal bagi senarai unut yang dialih huruf/bahasa"
 
 #. name:rights society
 #: DB:link_type/long_link_phrase:349
@@ -7283,8 +7551,9 @@ msgstr ""
 
 #: DB:link_type/name:837 DB:link_type/name:838 DB:link_type/name:839
 #: DB:link_type/name:840
+#, fuzzy
 msgid "last.fm"
-msgstr ""
+msgstr "Last.fm"
 
 #. name:first track release
 #: DB:link_type/link_phrase:238
@@ -7350,8 +7619,9 @@ msgstr ""
 #: DB:link_type/name:302 DB:link_type/name:939 DB:link_type/name:301
 #: DB:link_type/link_phrase:302 DB:link_type/link_phrase:301
 #: DB:link_type/reverse_link_phrase:939
+#, fuzzy
 msgid "license"
-msgstr ""
+msgstr "Lesen"
 
 #. name:license
 #: DB:link_type/link_phrase:939 DB:link_type/reverse_link_phrase:302
@@ -7434,13 +7704,15 @@ msgid "lyrical quotation"
 msgstr ""
 
 #: DB:link_type/name:56 DB:link_type/name:165
+#, fuzzy
 msgid "lyricist"
-msgstr ""
+msgstr "Penyeni Kata"
 
 #: DB:link_type/name:93 DB:link_type/name:271 DB:link_type/name:197
 #: DB:link_type/name:982
+#, fuzzy
 msgid "lyrics"
-msgstr ""
+msgstr "Seni Kata"
 
 #. name:lyrics
 #: DB:link_type/link_phrase:93 DB:link_type/link_phrase:197
@@ -7712,8 +7984,9 @@ msgid "mixing engineers"
 msgstr ""
 
 #: DB:link_attribute_type/name:1031
+#, fuzzy
 msgid "movement"
-msgstr ""
+msgstr "Babak"
 
 #. name:download for free
 #: DB:link_type/long_link_phrase:958 DB:link_type/long_link_phrase:177
@@ -7797,8 +8070,9 @@ msgid "musicology"
 msgstr ""
 
 #: DB:link_type/name:215 DB:link_type/name:462 DB:link_type/name:189
+#, fuzzy
 msgid "myspace"
-msgstr ""
+msgstr "Myspace"
 
 #. name:named after area
 #: DB:link_type/name:1262 DB:link_type/reverse_link_phrase:1262
@@ -7912,8 +8186,9 @@ msgid "optional"
 msgstr ""
 
 #: DB:link_type/name:807
+#, fuzzy
 msgid "orchestra"
-msgstr ""
+msgstr "Orkestra"
 
 #. name:orchestra
 #: DB:link_type/link_phrase:807
@@ -7927,8 +8202,9 @@ msgstr ""
 
 #. name:orchestra
 #: DB:link_type/reverse_link_phrase:807
+#, fuzzy
 msgid "orchestras"
-msgstr ""
+msgstr "Orkestra"
 
 #: DB:link_attribute_type/name:1418 DB:link_type/name:316
 msgid "orchestration"
@@ -7992,8 +8268,9 @@ msgstr ""
 #. name:other versions
 #: DB:link_type/name:233 DB:link_type/link_phrase:233
 #: DB:link_type/reverse_link_phrase:233 DB:link_type/long_link_phrase:233
+#, fuzzy
 msgid "other versions"
-msgstr ""
+msgstr "Versi-versi lain"
 
 #: DB:link_attribute_type/name:461
 msgid "other vocals"
@@ -8142,8 +8419,9 @@ msgid "performed {additional} {guest} {solo} {vocal:%|vocals} on"
 msgstr ""
 
 #: DB:link_type/name:51 DB:link_type/name:156
+#, fuzzy
 msgid "performer"
-msgstr ""
+msgstr "Penghibur"
 
 #: DB:link_type/name:150 DB:link_type/name:45
 msgid "performing orchestra"
@@ -8370,8 +8648,9 @@ msgid "produced material that was {additional:additionally} sampled in"
 msgstr ""
 
 #: DB:link_type/name:141 DB:link_type/name:30
+#, fuzzy
 msgid "producer"
-msgstr ""
+msgstr "Penerbit"
 
 #. name:producer position at
 #: DB:link_type/link_phrase:117
@@ -8510,8 +8789,9 @@ msgstr ""
 
 #. name:publishing
 #: DB:link_type/reverse_link_phrase:206 DB:link_type/reverse_link_phrase:127
+#, fuzzy
 msgid "publisher"
-msgstr ""
+msgstr "Penerbit"
 
 #. name:publishes series
 #: DB:link_type/name:933 DB:link_type/link_phrase:933
@@ -8576,8 +8856,9 @@ msgid "purchase score for mail-order"
 msgstr ""
 
 #: DB:link_type/name:174
+#, fuzzy
 msgid "purevolume"
-msgstr ""
+msgstr "PureVolume"
 
 #. name:lyrical quotation
 #: DB:link_type/link_phrase:1047 DB:link_type/long_link_phrase:1047
@@ -8637,8 +8918,9 @@ msgid "recorded release groups"
 msgstr ""
 
 #: DB:link_type/name:1297 DB:link_type/name:128 DB:link_type/name:36
+#, fuzzy
 msgid "recording"
-msgstr ""
+msgstr "Rakaman"
 
 #: DB:link_type/name:121
 msgid "recording contract"
@@ -8665,8 +8947,9 @@ msgstr ""
 
 #. name:recorded during
 #: DB:link_type/reverse_link_phrase:1006
+#, fuzzy
 msgid "recordings"
-msgstr ""
+msgstr "Rakaman"
 
 #. name:medley
 #: DB:link_type/reverse_link_phrase:239
@@ -8745,8 +9028,9 @@ msgid "remixed in"
 msgstr ""
 
 #: DB:link_type/name:153 DB:link_type/name:47
+#, fuzzy
 msgid "remixer"
-msgstr ""
+msgstr "Pengadun Semula"
 
 #. name:remix
 #: DB:link_type/reverse_link_phrase:9
@@ -8920,8 +9204,9 @@ msgstr ""
 
 #: DB:link_type/name:308 DB:link_type/name:976 DB:link_type/name:977
 #: DB:link_type/name:307 DB:link_type/name:280
+#, fuzzy
 msgid "secondhandsongs"
-msgstr ""
+msgstr "SecondHandSongs"
 
 #. name:setlistfm
 #: DB:link_type/link_phrase:811 DB:link_type/link_phrase:816
@@ -9005,12 +9290,14 @@ msgid "solo"
 msgstr ""
 
 #: DB:link_type/name:289
+#, fuzzy
 msgid "songfacts"
-msgstr ""
+msgstr "Songfacts"
 
 #: DB:link_type/name:786 DB:link_type/name:785 DB:link_type/name:787
+#, fuzzy
 msgid "songkick"
-msgstr ""
+msgstr "Songkick"
 
 #. name:soprano vocals
 #: DB:link_attribute_type/name:10 DB:link_attribute_type/description:10
@@ -9034,8 +9321,9 @@ msgstr ""
 
 #: DB:link_type/name:870 DB:link_type/name:291 DB:link_type/name:290
 #: DB:link_type/name:940
+#, fuzzy
 msgid "soundcloud"
-msgstr ""
+msgstr "SoundCloud"
 
 #: DB:link_attribute_type/name:561
 msgid "spoken vocals"
@@ -9330,17 +9618,17 @@ msgstr ""
 
 #: DB:link_attribute_type/name:477
 msgid "transliterated"
-msgstr ""
+msgstr "dialih huruf"
 
 #. name:transl-tracklisting
 #: DB:link_type/reverse_link_phrase:2
 msgid "transliterated/translated track listing of"
-msgstr ""
+msgstr "senarai runut yang dialih huruf/bahasa daripada"
 
 #. name:transl-tracklisting
 #: DB:link_type/link_phrase:2
 msgid "transliterated/translated track listings"
-msgstr ""
+msgstr "senarai runut yang dialih huruf/bahasa"
 
 #: DB:link_attribute_type/name:834
 msgid "treble vocals"
@@ -9429,8 +9717,9 @@ msgid "video copyrighted (©) by"
 msgstr ""
 
 #: DB:link_type/name:962 DB:link_type/name:1185
+#, fuzzy
 msgid "video director"
-msgstr ""
+msgstr "Pengarah Video"
 
 #: DB:link_type/name:963 DB:link_type/name:966
 msgid "video shot at"
@@ -9702,8 +9991,9 @@ msgid "works premiered"
 msgstr ""
 
 #: DB:link_type/name:54 DB:link_type/name:167
+#, fuzzy
 msgid "writer"
-msgstr ""
+msgstr "Pengarang"
 
 #: DB:link_type/name:874 DB:link_type/name:1246
 msgid "written at"
