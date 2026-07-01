@@ -33,9 +33,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-21 21:12+0000\n"
-"Last-Translator: julian45 "
-"<julian45@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-05-22 02:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
@@ -812,7 +811,7 @@ msgstr ""
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr "イベントのシリーズ"
+msgstr "イベントのシリーズ。"
 
 #. name:Run
 #: DB:series_type/description:9
@@ -830,7 +829,7 @@ msgstr ""
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr "レコーディングのシリーズ"
+msgstr "レコーディングのシリーズ。"
 
 #. name:Tour
 #: DB:series_type/description:7
@@ -861,13 +860,13 @@ msgstr ""
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
-msgstr "リリースグループのシリーズ"
+msgstr "リリースグループのシリーズ。"
 
 #. name:Release series
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr "リリースのシリーズ"
+msgstr "リリースのシリーズ。"
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -879,13 +878,13 @@ msgstr ""
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "A series of works which form a catalogue of classical compositions."
-msgstr "クラシックを構成する作品のシリーズ"
+msgstr "クラシックを構成する作品のシリーズ。"
 
 #. name:Work series
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "A series of works."
-msgstr "作品のシリーズ"
+msgstr "作品のシリーズ。"
 
 #. name:Club
 #: DB:place_type/description:42
@@ -3601,18 +3600,13 @@ msgstr "<i>Fireng-i Fer</i>"
 
 #. name:Phonograph record
 #: DB:medium_format/description:73
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid ""
-#| "Flat discs with grooves used in phonographs/gramophones. For shellac and "
-#| "vinyl records, use that specifically"
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
 "vinyl records, use that specifically."
 msgstr ""
 "フォノグラム/グラモフォンで使用される溝のある平面ディスク。 特にシェラックと"
-"ビニールのレコードで使用される"
+"ビニールのレコードで使用される。"
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
@@ -8542,7 +8536,7 @@ msgstr ""
 #: DB:release_packaging/description:1
 msgctxt "release_packaging"
 msgid "The traditional CD case, made of hard, brittle plastic."
-msgstr "硬くて脆いプラスチック製の従来のCDケース"
+msgstr "硬くて脆いプラスチック製の従来のCDケース。"
 
 #. name:VinylDisc (Vinyl side)
 #: DB:medium_format/description:81
@@ -8605,21 +8599,21 @@ msgid ""
 "stories, essays...)."
 msgstr ""
 "散文で書かれた、つまり、計量構造のない比較的普通の言語で書かれた文学作品（小"
-"説、短編小説、エッセイなど）"
+"説、短編小説、エッセイなど）。"
 
 #. name:SACD (2 channels)
 #: DB:medium_format/description:84
 msgctxt "medium_format"
 msgid ""
 "This represents the 2 channel (stereo/mono) table of contents on a SACD."
-msgstr "SACDの2チャンネル（ステレオ/モノラル）の目次"
+msgstr "SACDの2チャンネル（ステレオ/モノラル）の目次。"
 
 #. name:SHM-SACD (2 channels)
 #: DB:medium_format/description:89
 msgctxt "medium_format"
 msgid ""
 "This represents the 2 channel (stereo/mono) table of contents on a SHM-SACD."
-msgstr "SHM-SACDの2チャンネル（ステレオ/モノラル）目次"
+msgstr "SHM-SACDの2チャンネル（ステレオ/モノラル）目次。"
 
 #. name:Hybrid SACD (SACD layer, 2 channels)
 #: DB:medium_format/description:87
@@ -8627,19 +8621,19 @@ msgctxt "medium_format"
 msgid ""
 "This represents the 2 channel (stereo/mono) table of contents on a hybrid "
 "SACD's SACD layer."
-msgstr "ハイブリッドSACDのSACDレイヤーの2チャンネル（ステレオ/モノラル）目次"
+msgstr "ハイブリッドSACDのSACDレイヤーの2チャンネル（ステレオ/モノラル）目次。"
 
 #. name:SACD (multichannel)
 #: DB:medium_format/description:85
 msgctxt "medium_format"
 msgid "This represents the multichannel table of contents on a SACD."
-msgstr "SACDのマルチチャネル目次"
+msgstr "SACDのマルチチャネル目次。"
 
 #. name:SHM-SACD (multichannel)
 #: DB:medium_format/description:88
 msgctxt "medium_format"
 msgid "This represents the multichannel table of contents on a SHM-SACD."
-msgstr "SHM-SACDのマルチチャネル目次"
+msgstr "SHM-SACDのマルチチャネル目次。"
 
 #. name:Hybrid SACD (SACD layer, multichannel)
 #: DB:medium_format/description:86
@@ -8647,7 +8641,7 @@ msgctxt "medium_format"
 msgid ""
 "This represents the multichannel table of contents on a hybrid SACD's SACD "
 "layer."
-msgstr "ハイブリッドSACDのSACDレイヤー上のマルチチャネル目次"
+msgstr "ハイブリッドSACDのSACDレイヤー上のマルチチャネル目次。"
 
 #: DB:event_art_archive.art_type/name:2
 #, fuzzy
