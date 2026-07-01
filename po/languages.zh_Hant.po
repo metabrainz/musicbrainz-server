@@ -666,6 +666,11 @@ msgstr "不丹語"
 msgid "Eastern Arrernte"
 msgstr "東阿蘭達語"
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -1100,6 +1105,13 @@ msgstr "國際語"
 #: DB:language/name:185
 msgid "Interlingue"
 msgstr "西方國際語"
+
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+#, fuzzy
+#| msgid "Interlingua"
+msgid "Interslavic"
+msgstr "國際語"
 
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
@@ -1763,6 +1775,11 @@ msgstr "恩敦加語"
 msgid "Neapolitan"
 msgstr "拿坡里語"
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1772,6 +1789,11 @@ msgstr "尼瓦爾語"
 #: DB:language/name:300
 msgid "Nepali"
 msgstr "尼泊爾語"
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
+msgstr ""
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1932,6 +1954,11 @@ msgstr "帕皮阿門托語"
 #: DB:language/name:326
 msgid "Papuan languages"
 msgstr "巴布亞諸語言"
+
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
+msgstr ""
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334

@@ -608,6 +608,13 @@ msgid "Indicates that the release is part of a series."
 msgstr "表明該專輯是系列的一部分。"
 
 #. name:part of
+#: DB:link_type/description:1307
+#, fuzzy
+#| msgid "Indicates that the artist is part of a series."
+msgid "Indicates that the series is part of a series."
+msgstr "表明該創作者是系列的一部分。"
+
+#. name:part of
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
 msgstr "表明該作品是系列的一部分。"
@@ -853,6 +860,17 @@ msgid ""
 "unknown!"
 msgstr "將錄音連結到製作地區。僅在具體地點未知時使用！"
 
+#. name:programmed in
+#: DB:link_type/description:1308
+#, fuzzy
+#| msgid ""
+#| "Links a recording to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a recording to the area it was programmed in. Use only when the place "
+"is unknown!"
+msgstr "將錄音連結到製作地區。僅在具體地點未知時使用！"
+
 #. name:recorded in
 #: DB:link_type/description:698
 msgid ""
@@ -902,6 +920,13 @@ msgstr "將錄音連結到混音地點。"
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
+msgstr "將錄音連結到製作地點。"
+
+#. name:programmed at
+#: DB:link_type/description:1309
+#, fuzzy
+#| msgid "Links a recording to the place it was produced at."
+msgid "Links a recording to the place it was programmed at."
 msgstr "將錄音連結到製作地點。"
 
 #. name:recorded at
@@ -984,6 +1009,17 @@ msgid ""
 "unknown!"
 msgstr "將專輯連結到製作地區。僅在具體地點未知時使用！"
 
+#. name:programmed in
+#: DB:link_type/description:1311
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a release to the area it was programmed in. Use only when the place is "
+"unknown!"
+msgstr "將專輯連結到製作地區。僅在具體地點未知時使用！"
+
 #. name:recorded in
 #: DB:link_type/description:699
 msgid ""
@@ -1058,6 +1094,13 @@ msgstr "將專輯連結到壓盤地點。"
 #. name:produced at
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
+msgstr "將專輯連結到製作地點。"
+
+#. name:programmed at
+#: DB:link_type/description:1310
+#, fuzzy
+#| msgid "Links a release to the place it was produced at."
+msgid "Links a release to the place it was programmed at."
 msgstr "將專輯連結到製作地點。"
 
 #. name:recorded at
@@ -6579,11 +6622,11 @@ msgstr "工程師職位"
 msgid "engineer position at"
 msgstr "以工程師職位任職於"
 
-#: DB:link_type/name:813 DB:link_type/name:812
+#: DB:link_type/name:812 DB:link_type/name:813
 msgid "engineered at"
 msgstr "在錄音"
 
-#: DB:link_type/name:814 DB:link_type/name:815
+#: DB:link_type/name:815 DB:link_type/name:814
 msgid "engineered in"
 msgstr "在錄音"
 
@@ -8989,7 +9032,7 @@ msgstr "印刷於"
 msgid "printing location for"
 msgstr "印刷地點"
 
-#: DB:link_type/name:825 DB:link_type/name:824
+#: DB:link_type/name:824 DB:link_type/name:825
 msgid "produced at"
 msgstr "製作於"
 
@@ -8997,7 +9040,7 @@ msgstr "製作於"
 msgid "produced for"
 msgstr "為某事製作"
 
-#: DB:link_type/name:827 DB:link_type/name:826
+#: DB:link_type/name:826 DB:link_type/name:827
 msgid "produced in"
 msgstr "製作於"
 
@@ -9048,6 +9091,18 @@ msgstr "製作"
 #: DB:link_type/link_phrase:1267
 msgid "production coordinator for"
 msgstr "製作協調人"
+
+#: DB:link_type/name:1309 DB:link_type/name:1310
+#, fuzzy
+#| msgid "performed at"
+msgid "programmed at"
+msgstr "在某地表演"
+
+#: DB:link_type/name:1311 DB:link_type/name:1308
+#, fuzzy
+#| msgid "programming"
+msgid "programmed in"
+msgstr "編程"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -10432,12 +10487,12 @@ msgid "{additional:additionally} edited in"
 msgstr "{additional:additionally} 編輯於"
 
 #. name:engineered at
-#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
 msgid "{additional:additionally} engineered at"
 msgstr "{additional:additionally} 錄音於"
 
 #. name:engineered in
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+#: DB:link_type/reverse_link_phrase:815 DB:link_type/reverse_link_phrase:814
 msgid "{additional:additionally} engineered in"
 msgstr "{additional:additionally} 錄音於"
 
@@ -10467,12 +10522,12 @@ msgid "{additional:additionally} orchestrated"
 msgstr "{additional:additionally} 編排"
 
 #. name:produced at
-#: DB:link_type/reverse_link_phrase:825 DB:link_type/reverse_link_phrase:824
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "{additional:additionally} produced at"
 msgstr "{additional:additionally} 製作於"
 
 #. name:produced in
-#: DB:link_type/reverse_link_phrase:827 DB:link_type/reverse_link_phrase:826
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
 msgid "{additional:additionally} produced in"
 msgstr "{additional:additionally} 製作於"
 
@@ -10816,8 +10871,8 @@ msgid "{additional} editing location for"
 msgstr "{additional} 編輯地點"
 
 #. name:engineered at, name:engineered in
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
 msgid "{additional} engineering location for"
 msgstr "{additional} 錄音工程地點"
 
@@ -10930,8 +10985,8 @@ msgid "{additional} photography"
 msgstr "{additional} 攝影"
 
 #. name:produced at, name:produced in
-#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:826
-#: DB:link_type/link_phrase:825 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:825
 msgid "{additional} producing location for"
 msgstr "{additional} 製作地點"
 
@@ -11134,6 +11189,14 @@ msgstr "{additional} {guest} {solo} {instrument:%|樂器}"
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr "{additional} {guest} {solo} {vocal:%|人聲}"
+
+#. name:programmed at, name:programmed in
+#: DB:link_type/link_phrase:1311 DB:link_type/link_phrase:1308
+#: DB:link_type/link_phrase:1309 DB:link_type/link_phrase:1310
+#, fuzzy
+#| msgid "{additional} recording location for"
+msgid "{additional} {instrument} programming location for"
+msgstr "{additional} 錄音地點"
 
 #. name:collaboration
 #: DB:link_type/link_phrase:102
@@ -11622,12 +11685,12 @@ msgid "{entity1} was {additional:additionally} edited in {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 編輯"
 
 #. name:engineered at
-#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 msgid "{entity1} was {additional:additionally} engineered at {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 錄音"
 
 #. name:engineered in
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+#: DB:link_type/long_link_phrase:815 DB:link_type/long_link_phrase:814
 msgid "{entity1} was {additional:additionally} engineered in {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 錄音"
 
@@ -11642,13 +11705,27 @@ msgid "{entity1} was {additional:additionally} mixed in {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 重混"
 
 #. name:produced at
-#: DB:link_type/long_link_phrase:825 DB:link_type/long_link_phrase:824
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 msgid "{entity1} was {additional:additionally} produced at {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 拍攝"
 
 #. name:produced in
-#: DB:link_type/long_link_phrase:827 DB:link_type/long_link_phrase:826
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgstr "{entity1} 在 {entity0} 進行了 {additional} 拍攝"
+
+#. name:programmed at
+#: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} produced at {entity0}"
+msgid "{entity1} was {additional:additionally} programmed at {entity0}"
+msgstr "{entity1} 在 {entity0} 進行了 {additional} 拍攝"
+
+#. name:programmed in
+#: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgid "{entity1} was {additional:additionally} programmed in {entity0}"
 msgstr "{entity1} 在 {entity0} 進行了 {additional} 拍攝"
 
 #. name:recorded at
@@ -11769,6 +11846,20 @@ msgstr "{instrument:%|instruments} 技術員"
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
 msgstr "{instrument:%|儀器} 技術員於"
+
+#. name:programmed at
+#: DB:link_type/reverse_link_phrase:1309 DB:link_type/reverse_link_phrase:1310
+#, fuzzy
+#| msgid "{additional:additionally} produced at"
+msgid "{instrument} {additional:additionally} programmed at"
+msgstr "{additional:additionally} 製作於"
+
+#. name:programmed in
+#: DB:link_type/reverse_link_phrase:1311 DB:link_type/reverse_link_phrase:1308
+#, fuzzy
+#| msgid "{additional:additionally} produced in"
+msgid "{instrument} {additional:additionally} programmed in"
+msgstr "{additional:additionally} 製作於"
 
 #. name:parent
 #: DB:link_type/link_phrase:109
