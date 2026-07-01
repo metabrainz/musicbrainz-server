@@ -278,6 +278,8 @@ sub find_possible_spammers {
 
     my $unused_editors_results = $self->sql->select_list_of_hashes(
         $self->c->model('Editor')->_build_unused_editor_query() . "\n" .
+            "AND e.deleted IS false\n" .
+            "AND e.privs = 8192\n" .
             'AND e.id = any(?)',
         [map { $_->id } @editors],
     );
@@ -592,9 +594,7 @@ sub _build_unused_editor_query {
             SELECT e.id, e.name
             FROM editor e
             WHERE
-        deleted IS false
-    AND privs = 8192
-    AND NOT EXISTS (SELECT 1
+        NOT EXISTS (SELECT 1
                         FROM application
                     WHERE application.owner = e.id)
     AND NOT EXISTS (SELECT 1
@@ -625,6 +625,15 @@ sub _build_unused_editor_query {
     AND NOT EXISTS (   SELECT 1
                         FROM editor_collection_collaborator ecc
                         WHERE ecc.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                      FROM autoeditor_election_vote aev
+                     WHERE aev.voter = e.id)
+    AND NOT EXISTS (SELECT 1
+                      FROM autoeditor_election ae
+                     WHERE ae.candidate = e.id
+                        OR ae.proposer = e.id
+                        OR ae.seconder_1 = e.id
+                        OR ae.seconder_2 = e.id)
     SQL
 }
 
@@ -805,32 +814,38 @@ sub delete {
     $self->c->model('Editor')->unsubscribe_to($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
 
-    $self->c->model($_)->tags->clear($editor_id)
-        for (entities_with('tags', take => 'model'));
-
-    $self->c->model($_)->rating->clear($editor_id)
-        for (entities_with('ratings', take => 'model'));
-
     $self->c->model('Editor')->cancel_edits_and_votes($editor);
 
-    # Delete completely if they're not actually referred to by anything
-    # These AND NOT EXISTS clauses are ordered by likelihood of a row existing
-    # and whether or not they have an index to use, as postgresql will not execute
-    # the later clauses if an earlier one has already excluded the lone editor row.
-    my $should_delete = $self->sql->select_single_value(
-        'SELECT TRUE FROM editor WHERE id = ?
-         AND NOT EXISTS (SELECT TRUE FROM edit WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM edit_note WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM vote WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM annotation WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM autoeditor_election_vote WHERE voter = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM autoeditor_election WHERE candidate = editor.id OR proposer = editor.id OR seconder_1 = editor.id OR seconder_2 = editor.id)',
-        $editor_id);
-    if ($should_delete) {
-        $self->sql->do('DELETE FROM editor WHERE id = ?', $editor_id);
-    }
+    # Tags/ratings are too expensive to delete synchronously here, and are
+    # handled by `admin/cleanup/RemoveResidualUserData` instead, which runs
+    # daily.
+    #
+    # This means the `hard_delete_if_unreferenced` call below won't delete
+    # the editor row if only tags or ratings remain. However, the
+    # `RemoveResidualUserData` script will later attempt this hard deletion
+    # on its own.
 
+    $self->hard_delete_if_unreferenced($editor_id);
     $self->sql->commit;
+}
+
+sub hard_delete_if_unreferenced {
+    my ($self, @editor_ids) = @_;
+
+    my $unused_editors = $self->sql->select_list_of_hashes(
+        $self->_build_unused_editor_query() . "\n" .
+            "AND e.deleted\n" .
+            'AND e.id = any(?)',
+        \@editor_ids,
+    );
+    my @unused_editor_ids = map { $_->{id} } @$unused_editors;
+    if (@unused_editor_ids) {
+        $self->sql->do(
+            'DELETE FROM editor WHERE id = any(?)',
+            \@unused_editor_ids,
+        );
+    }
+    return;
 }
 
 sub cancel_edits_and_votes {

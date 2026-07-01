@@ -126,16 +126,6 @@ sub delete
     return 1;
 }
 
-sub clear {
-    my ($self, $editor_id) = @_;
-    my $type = $self->type;
-    my $table = $type . '_rating_raw';
-    $self->c->sql->do(
-        "DELETE FROM $table WHERE editor = ?",
-        $editor_id,
-    );
-}
-
 sub update
 {
     my ($self, $user_id, $entity_id, $rating) = @_;
