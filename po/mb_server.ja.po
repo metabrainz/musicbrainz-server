@@ -39,7 +39,7 @@
 # julian45 <techieboy45@gmail.com>, 2023.
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
-# julian45 <julian45@users.noreply.translations.metabrainz.org>, 2024.
+# julian45 <julian45@users.noreply.translations.metabrainz.org>, 2024, 2026.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 # zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
@@ -48,7 +48,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
 "PO-Revision-Date: 2026-05-22 02:12+0000\n"
-"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
+"Last-Translator: julian45 "
+"<julian45@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
 "Language: ja\n"
@@ -1024,7 +1025,7 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480
 msgid "Entered"
-msgstr "入力されました"
+msgstr "送信済み"
 
 #: ../root/components/forms.tt:23
 msgid ""
@@ -9334,7 +9335,7 @@ msgstr "(なし)"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:84
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:93
 msgid "Cardinality of {entity_placeholder}"
-msgstr ""
+msgstr "{entity_placeholder}の濃度"
 
 #: ../root/edit/details/AddRelationshipType.js:152
 #: ../root/edit/details/EditRelationshipType.js:277
