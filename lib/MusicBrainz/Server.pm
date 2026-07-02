@@ -258,7 +258,13 @@ sub redirect_back {
     if (
         $returnto eq '' ||
         # Check that we weren't given an external URL. Only URLs relative to
-        # the current domain are allowed.
+        # the current domain are allowed. Note: `scheme` is checked before
+        # `authority` because some URI schemes (`data:`) do not have an
+        # `authority` method.
+        (
+            $returnto->scheme &&
+            $returnto->scheme ne $c->req->uri->scheme
+        ) ||
         (
             $returnto->authority &&
             $returnto->authority ne $c->req->uri->authority
