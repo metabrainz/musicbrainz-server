@@ -76,6 +76,21 @@ sub get_raw {
     return $value;
 }
 
+sub get_delete {
+    my ($self, $key) = @_;
+
+    my $value = $self->get_delete_raw($key);
+    return $self->_decode_value($value) if defined $value;
+    return;
+}
+
+sub get_delete_raw {
+    my ($self, $key) = @_;
+
+    my $value = $self->_connection->getdel($self->_prepare_key($key));
+    return $value;
+}
+
 sub increment {
     my ($self, $key) = @_;
 

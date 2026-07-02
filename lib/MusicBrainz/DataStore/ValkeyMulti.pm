@@ -104,6 +104,14 @@ sub get {
     shift->_exec_method_wantscalar('get', \&_is_defined, @_);
 }
 
+sub get_delete {
+    shift->_exec_method_wantscalar('get_delete', \&_exec_all, @_);
+}
+
+sub get_delete_raw {
+    shift->_exec_method_wantscalar('get_delete_raw', \&_exec_all, @_);
+}
+
 sub increment {
     shift->_exec_method_wantscalar('increment', \&_exec_all, @_);
 }
