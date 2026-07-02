@@ -9,6 +9,7 @@ requires 'disconnect';
 requires 'exists';
 requires 'get_multi';
 requires 'get';
+requires 'get_delete';
 requires 'remove';
 requires 'set_add';
 requires 'set_members';

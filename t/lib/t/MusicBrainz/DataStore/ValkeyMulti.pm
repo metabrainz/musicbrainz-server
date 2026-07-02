@@ -113,6 +113,18 @@ test 'Key setting/retrieving' => sub {
     $valkey_multi->clear;
 };
 
+test 'get_delete retrieves and deletes a key' => sub {
+    is($valkey_multi->get_delete('does-not-exist'), undef, 'Non-existent key returns undef');
+
+    $valkey_multi->set('string', 'Esperándote');
+    is($valkey_multi->get_delete('string'), 'Esperándote', 'Retrieved expected string');
+    is($valkey_multi->exists('string'), 0, 'exists returns 0 after get_delete');
+    is($valkey1->exists('string'), 0, 'exists returns 0 after get_delete in database 1');
+    is($valkey2->exists('string'), 0, 'exists returns 0 after get_delete in database 2');
+
+    $valkey_multi->clear;
+};
+
 test 'Setting key expiration' => sub {
     $valkey_multi->set('int', 23);
     $valkey_multi->expire_at('int', time() + 2);
