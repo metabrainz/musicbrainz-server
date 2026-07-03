@@ -32,6 +32,18 @@ our @EXPORT_OK = qw(
     set_remember_login_cookie
 );
 
+# Maps MetaBrainz OAuth scope names to those understood by MusicBrainz
+# internally (as used historically by MB's own OAuth provider). Only the
+# `musicbrainz:` prefix was added to a few.
+Readonly our %METABRAINZ_OAUTH_SCOPE_MAPPING => (
+    'email'                         => 'email',
+    'musicbrainz:collection'        => 'collection',
+    'musicbrainz:submit_barcode'    => 'submit_barcode',
+    'musicbrainz:submit_isrc'       => 'submit_isrc',
+    'profile'                       => 'profile',
+    'rating'                        => 'rating',
+    'tag'                           => 'tag',
+);
 Readonly our $REMEMBER_LOGIN_COOKIE_VERSION => 4;
 Readonly our $REMEMBER_LOGIN_COOKIE_EXPIRES => '+1y';
 
@@ -123,6 +135,13 @@ sub find_active_metabrainz_oauth_access_token {
         if ($res_content->{active}) {
             my $scope = 0;
             for my $scope_name (@{ $res_content->{scope} }) {
+                # MusicBrainz scope names have been migrated to MetaBrainz
+                # under the following prefix.
+                $scope_name = $METABRAINZ_OAUTH_SCOPE_MAPPING{$scope_name};
+                next unless (
+                    defined $scope_name &&
+                    exists $ACCESS_SCOPE_BY_NAME{$scope_name}
+                );
                 $scope |= $ACCESS_SCOPE_BY_NAME{$scope_name};
             }
             my $token_instance = MusicBrainz::Server::Entity::EditorOAuthToken->new(
