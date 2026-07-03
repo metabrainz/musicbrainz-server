@@ -20,7 +20,7 @@ import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
-import browserConfig from './browserConfig.mjs';
+import buildBrowserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
 import {
   BUILD_DIR,
@@ -268,6 +268,10 @@ MB_LANGUAGES.forEach(function (lang) {
   if (fs.existsSync(filePath)) {
     entries[fileName] = filePath;
   }
+});
+
+const browserConfig = buildBrowserConfig({
+  remapClientDBDefs: true,
 });
 
 const plugins = browserConfig.plugins.concat();
