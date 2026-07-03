@@ -11,13 +11,22 @@ import webpack from 'webpack';
 
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
-import browserConfig from './browserConfig.mjs';
+import buildBrowserConfig from './browserConfig.mjs';
 import {
   BUILD_DIR,
   SCRIPTS_DIR,
 } from './constants.mjs';
 import moduleConfig from './moduleConfig.mjs';
 import providePluginConfig from './providePluginConfig.mjs';
+
+const browserConfig = buildBrowserConfig({
+  /*
+   * The web tests do not have a running server, so there's no server-
+   * side page embedding root/layout/components/globalsScript.mjs.
+   * Thus DBDefs-client.mjs must be built directly into the JS bundle.
+   */
+  remapClientDBDefs: false,
+});
 
 const webTestsConfig = {
   context: MB_SERVER_ROOT,
