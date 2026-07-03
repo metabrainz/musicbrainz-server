@@ -119,6 +119,9 @@ sub find_active_metabrainz_oauth_access_token {
         if ($res_content->{active}) {
             my $scope = 0;
             for my $scope_name (@{ $res_content->{scope} }) {
+                # MusicBrainz scope names have been migrated to MetaBrainz
+                # under the following prefix.
+                $scope_name =~ s/^musicbrainz://;
                 $scope |= $ACCESS_SCOPE_BY_NAME{$scope_name};
             }
             my $token_instance = MusicBrainz::Server::Entity::EditorOAuthToken->new(
