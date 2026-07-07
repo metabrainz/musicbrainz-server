@@ -279,8 +279,9 @@ sub find_possible_spammers {
     my $unused_editors_results = $self->sql->select_list_of_hashes(
         $self->c->model('Editor')->_build_unused_editor_query() . "\n" .
             "AND e.deleted IS false\n" .
-            "AND e.privs = 8192\n" .
+            "AND e.privs = ?\n" .
             'AND e.id = any(?)',
+        $BEGINNER_FLAG,
         [map { $_->id } @editors],
     );
     my %unused_editors = map { $_->{id} => 1 } @$unused_editors_results;
