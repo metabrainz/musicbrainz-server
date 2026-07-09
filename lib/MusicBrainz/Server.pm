@@ -265,11 +265,10 @@ has relative_uri => (
     },
 );
 
-sub redirect_back {
-    my ($c, %opts) = @_;
+sub get_returnto_param {
+    my ($c, $fallback_opt) = @_;
 
     my $returnto_param = $c->req->query_params->{returnto};
-    my $fallback_opt = $opts{fallback};
 
     if (!defined $returnto_param && defined $fallback_opt) {
         $returnto_param = $c->get_relative_uri($fallback_opt);
@@ -292,8 +291,17 @@ sub redirect_back {
             $returnto->authority ne $c->req->uri->authority
         )
     ) {
-        $returnto = $c->uri_for('/');
+        return $c->uri_for('/');
     }
+
+    return $returnto;
+}
+
+sub redirect_back {
+    my ($c, %opts) = @_;
+
+    my $fallback_opt = $opts{fallback};
+    my $returnto = $c->get_returnto_param($fallback_opt);
 
     if (my $callback = $opts{callback}) {
         $callback->($returnto);
