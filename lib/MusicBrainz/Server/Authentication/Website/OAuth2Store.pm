@@ -22,7 +22,7 @@ sub auto_create_user {
     $lwp->timeout(5);
     $lwp->agent(DBDefs->LWP_USER_AGENT);
 
-    my $user_info_uri = DBDefs->METABRAINZ_URL . '/oauth2/userinfo';
+    my $user_info_uri = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/userinfo';
     my $user_info_response = $lwp->request(GET $user_info_uri,
         'Authorization' => 'Bearer ' . $token->access_token,
     );
