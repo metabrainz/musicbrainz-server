@@ -327,6 +327,7 @@ export type ReleaseRelationshipEditorStateT = Readonly<{
   readonly mediumsByRecordingId: RecordingMediumsT,
   readonly selectedRecordings: tree.ImmutableTree<RecordingT>,
   readonly selectedWorks: tree.ImmutableTree<WorkT>,
+  readonly showLoginDialog: boolean,
   readonly submissionError: ?string,
   readonly submissionInProgress: boolean,
 }>;

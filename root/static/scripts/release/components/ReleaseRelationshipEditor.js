@@ -18,6 +18,7 @@ import {
 
 import hydrate from '../../../../utility/hydrate.js';
 import {expect} from '../../../../utility/invariant.js';
+import LoginDialog from '../../common/components/LoginDialog.js';
 import {
   EMPTY_PARTIAL_DATE,
   RECORDING_OF_LINK_TYPE_ID,
@@ -219,6 +220,7 @@ export function createInitialState(
     relationshipsBySource: tree.empty,
     selectedRecordings: tree.empty,
     selectedWorks: tree.empty,
+    showLoginDialog: false,
     submissionError: null,
     submissionInProgress: false,
   };
@@ -269,11 +271,23 @@ function handleSubmissionError(
   error: WsJsEditErrorT['error'] | string | void,
 ): void {
   const errorString = errorToString(error) || 'unknown error';
+  const errorCode = typeof error === 'object' && error != null
+    ? (error.errorCode ?? 0)
+    : 0;
   dispatch({
     error: errorString,
     type: 'stop-submission',
   });
-  alert(l('An error occurred:') + ' ' + errorString);
+
+  match (errorCode) {
+    // $ERROR_NOT_LOGGED_IN
+    1 => {
+      dispatch({showLoginDialog: true, type: 'toggle-login-dialog'});
+    }
+    _ => {
+      alert(l('An error occurred:') + ' ' + errorString);
+    },
+  }
 }
 
 class SubmissionRejected {}
@@ -1413,6 +1427,9 @@ export const reducer: ((
       }
       updateRelationships(newState, updates);
     }
+    {type: 'toggle-login-dialog', const showLoginDialog} => {
+      newState.showLoginDialog = showLoginDialog;
+    }
   }
 
   deepFreezeInDevelopment(newState);
@@ -1773,6 +1790,25 @@ component _ReleaseRelationshipEditor() {
       });
   }, [dispatch]);
 
+  const closeLoginDialog = React.useCallback(() => {
+    dispatch({
+      showLoginDialog: false,
+      type: 'toggle-login-dialog',
+    });
+  }, [dispatch]);
+
+  const handleLoginSuccess = React.useCallback(() => {
+    closeLoginDialog();
+    /*
+     * We currently only show the login dialog when the form is submitted,
+     * so continue with the submission.
+     */
+    expect(
+      document.getElementById('relationship-editor-form'),
+    // $FlowFixMe[prop-missing]
+    ).requestSubmit();
+  }, [closeLoginDialog]);
+
   const dialogLocation = state.dialogLocation;
 
   const hasUnloadedTracksPerMedium =
@@ -1857,6 +1893,12 @@ component _ReleaseRelationshipEditor() {
               {l('Submitting edits...')}
             </span>
           </div>
+        ) : null}
+        {state.showLoginDialog ? (
+          <LoginDialog
+            close={closeLoginDialog}
+            success={handleLoginSuccess}
+          />
         ) : null}
       </form>
     </RelationshipSourceGroupsContext.Provider>
