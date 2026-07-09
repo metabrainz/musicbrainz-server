@@ -165,6 +165,18 @@ sub do_password_login : Private
     $c->detach;
 }
 
+sub do_login : Private {
+    my ($self, $c) = @_;
+
+    return if $c->user_exists;
+
+    if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+        $c->forward('/user/do_password_login');
+    } else {
+        $c->detach('/metabrainz/oauth2_redirect', ['/login', 'login']);
+    }
+}
+
 sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
 {
     my ($self, $c) = @_;
@@ -176,12 +188,11 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
         $c->detach;
     }
 
-    if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
-        $c->forward('/user/do_password_login');
+    $c->forward('do_login');
 
+    if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
         # Logged in OK
         $c->redirect_back(fallback => $c->relative_uri);
-        $c->detach;
     }
 }
 

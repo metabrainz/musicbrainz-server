@@ -150,4 +150,6 @@ sub SMTP_SERVER { 'localhost:1025' }
 sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
 sub MAILPIT_API { 'http://localhost:8025/api/v1' }
 
+sub METABRAINZ_WEBHOOK_SECRET { 'webhook_seekrit' }
+
 1;

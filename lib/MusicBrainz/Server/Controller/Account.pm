@@ -187,7 +187,7 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
     }
 
     unless (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
-        $c->detach('/error_403');
+        $c->detach('/metabrainz/oauth2_redirect', ['/register', 'register']);
     }
 
     my $form = $c->form(register_form => 'User::Register');
