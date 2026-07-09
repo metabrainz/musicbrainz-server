@@ -435,6 +435,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::User::label_tag',
   'Controller::User::load_tag',
   'Controller::User::login',
+  'Controller::User::login_dialog_success',
   'Controller::User::logout',
   'Controller::User::place_tag',
   'Controller::User::privileged',
