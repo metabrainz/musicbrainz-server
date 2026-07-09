@@ -70,8 +70,9 @@ sub index : Private
     # Can't set an attribute on a private action; manually inserting detach code.
     $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
 
+    # In the absence of an explicit `returnto` parameter, the login page
+    # will redirect to the user's profile page if/once they're logged in.
     $c->forward('login');
-    $c->detach('/user/profile', [ $c->user->name ]);
 }
 
 sub _perform_password_login {
