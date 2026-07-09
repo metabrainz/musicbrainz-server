@@ -379,6 +379,9 @@ sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 
 # URLs for MetaBrainz account registration, login, and OAuth.
 sub METABRAINZ_URL { 'https://metabrainz.org' }
+# `METABRAINZ_INTERNAL_URL` may be configured in production to allow querying
+# the OAuth API via the internal network, e.g., using Consul DNS.
+sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
 # OAuth application used for login and introspecting "meba_*" tokens issued
 # by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }

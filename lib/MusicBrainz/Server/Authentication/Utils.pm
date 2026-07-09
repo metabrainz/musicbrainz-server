@@ -32,7 +32,7 @@ sub find_active_metabrainz_oauth_access_token {
     my ($c, $access_token) = @_;
 
     my $ctx = $c->model('MB')->context;
-    my $introspect_url = DBDefs->METABRAINZ_URL . '/oauth2/introspect';
+    my $introspect_url = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/introspect';
     my $res = $ctx->lwp->request(
         POST $introspect_url,
         {
