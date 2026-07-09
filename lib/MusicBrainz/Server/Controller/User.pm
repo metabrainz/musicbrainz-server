@@ -196,6 +196,16 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
     }
 }
 
+sub login_dialog_success : Path('/login-dialog-success') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/LoginDialogSuccess',
+        component_props => {},
+    );
+}
+
 sub logout : Path('/logout')
 {
     my ($self, $c) = @_;

@@ -288,4 +288,8 @@ export type ReleaseRelationshipEditorActionT =
         | Array<[Array<RelationshipStateT>, WsJsEditWorkCreateT]>,
       readonly responseData: WsJsEditResponseT,
       readonly type: 'update-submitted-relationships',
+    }
+  | {
+      readonly showLoginDialog: boolean,
+      readonly type: 'toggle-login-dialog',
     };
