@@ -417,6 +417,7 @@ sub begin : Private
         my $namespace = $action->namespace;
         my $private_path = $action->private_path;
         unless (
+            $namespace eq 'metabrainz' ||
             $namespace eq 'oauth2' ||
             $private_path eq '/index' ||
             $private_path eq '/user/login' ||
@@ -454,13 +455,15 @@ sub begin : Private
                     component_props => {
                         origin => $external_origin,
                         postParameters => $post_params,
+                        requestUri => $c->req->uri->as_string,
                     },
                 );
                 $c->detach;
             }
         }
         $c->stash->{current_action_requires_auth} = 1;
-        $c->forward('/user/do_password_login');
+
+        $c->forward('/user/do_login');
         my $privs = $attributes->{RequireAuth};
         if ($privs && ref($privs) eq 'ARRAY') {
             foreach my $priv (@$privs) {

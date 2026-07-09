@@ -47,7 +47,7 @@ sub show : Path Args(1)
                 }
                 else {
                     $c->stash->{current_action_requires_auth} = 1;
-                    $c->forward('/user/login');
+                    $c->forward('/user/do_login');
                 }
             }
             else {

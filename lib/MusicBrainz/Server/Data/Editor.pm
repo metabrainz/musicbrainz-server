@@ -791,6 +791,8 @@ sub delete {
     my ($self, $editor_id) = @_;
     die "Invalid editor_id: $editor_id" unless $editor_id > 0;
     my $editor = $self->c->model('Editor')->get_by_id($editor_id);
+    die "Nonexistent editor_id: $editor_id" unless defined $editor;
+    return if $editor->deleted;
 
     $self->sql->begin;
     $self->sql->do(

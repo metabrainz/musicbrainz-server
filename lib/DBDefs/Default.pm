@@ -158,8 +158,8 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
 # Enable local account registration and login, bypassing OAuth login with
-# MetaBarainz.
-sub LOCAL_ACCOUNTS_ENABLED { 1 }
+# MetaBrainz. This should only be enabled for development purposes.
+sub LOCAL_ACCOUNTS_ENABLED { 0 }
 
 # SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
 # the "RequireSSL" attribute on Catalyst actions, which will redirect
@@ -386,6 +386,9 @@ sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
 # by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }
 sub METABRAINZ_OAUTH_CLIENT_SECRET { '' }
+# Secret used in verifying webhook request signatures (for syncing user data
+# from MetaBrainz). Webhooks are set up from the MetaBrainz admin portal.
+sub METABRAINZ_WEBHOOK_SECRET { '' }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER || $self->IS_BETA }
