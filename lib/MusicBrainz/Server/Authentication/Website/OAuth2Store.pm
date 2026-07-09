@@ -45,7 +45,8 @@ sub auto_create_user {
         }
     });
 
-    return MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+    return unless defined $editor;
+    return MusicBrainz::Server::Authentication::User->meta->rebless_instance($editor);
 }
 
 1;

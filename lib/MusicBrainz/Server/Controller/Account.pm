@@ -195,13 +195,13 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
     if ($c->form_posted_and_valid($form)) {
         my $email = $form->field('email')->value;
 
-        my $editor = $c->model('Editor')->insert({
+        my $user = $c->model('Editor')->insert({
             name => $form->field('username')->value,
             password => $form->field('password')->value,
             privs => $BEGINNER_FLAG,
         });
 
-        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+        MusicBrainz::Server::Authentication::User->meta->rebless_instance($user);
         $c->set_authenticated($user);
 
         my $redirect = $c->req->query_params->{returnto} // '';
