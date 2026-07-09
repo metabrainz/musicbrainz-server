@@ -24,7 +24,7 @@ sub find_user
 
     if (defined $editor) {
         $c->model('Editor')->load_preferences($editor);
-        return MusicBrainz::Server::Authentication::User->new_from_editor($editor);
+        return MusicBrainz::Server::Authentication::User->meta->rebless_instance($editor);
     }
     return undef;
 }

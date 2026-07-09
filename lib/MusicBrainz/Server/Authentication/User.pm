@@ -31,16 +31,6 @@ sub get
     return $self->can($key) ? $self->$key : undef;
 }
 
-sub new_from_editor
-{
-    my ($class, $editor) = @_;
-
-    return undef
-        unless $editor;
-
-    return Class::MOP::Class->initialize($class)->rebless_instance($editor);
-}
-
 sub is_authorized
 {
     my ($self) = @_;
