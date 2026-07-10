@@ -9,8 +9,8 @@
 
 import {CONTACT_URL} from '../constants.js';
 import Layout from '../layout/index.js';
-import RegisterForm, {type RegisterFormT}
-  from '../static/scripts/account/components/RegisterForm.js';
+
+import RegisterForm, {type RegisterFormT} from './RegisterForm.js';
 
 component Register(
   form: RegisterFormT,

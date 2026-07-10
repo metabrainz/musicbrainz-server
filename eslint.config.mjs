@@ -993,13 +993,13 @@ export default [
   },
   {
     files: [
+      'root/account/RegisterForm.js',
       'root/search/components/ArtistResults.js',
       'root/search/components/InstrumentResults.js',
       'root/search/components/RecordingResults.js',
       'root/search/components/ReleaseResults.js',
       'root/search/components/WorkResults.js',
       'root/static/scripts/account/components/EditProfileForm.js',
-      'root/static/scripts/account/components/RegisterForm.js',
       'root/static/scripts/common/components/CDTocMediumListRow.js',
       'root/static/scripts/common/components/CDTocReleaseListRow.js',
       'root/static/scripts/common/components/TagEditor.js',
