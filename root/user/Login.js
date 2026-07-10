@@ -34,7 +34,6 @@ type LoginFormT = FormT<{
 
 component Login(
   isLoginBad: boolean = false,
-  isLoginRequired: boolean = false,
   isSpammer: boolean = false,
   loginAction: string,
   loginForm: LoginFormT,
@@ -45,7 +44,7 @@ component Login(
     <Layout fullWidth title={lp('Log in', 'header')}>
       <h1>{lp('Log in', 'header')}</h1>
 
-      {isLoginRequired ? (
+      {$c.stash.current_action_requires_auth === true ? (
         <p>
           <strong>{l('You need to be logged in to view this page.')}</strong>
         </p>

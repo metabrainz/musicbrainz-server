@@ -157,7 +157,6 @@ sub do_password_login : Private
             loginAction => '' . $c->relative_uri,
             loginForm => $form->TO_JSON,
             isLoginBad => boolean_to_json($c->stash->{bad_login}),
-            isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
             isSpammer => boolean_to_json($c->stash->{spammy_login}),
             postParameters => ((defined $post_params && scalar(%$post_params)) ? $post_params : undef),
         },
@@ -178,7 +177,6 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
     }
 
     if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
-        $c->stash( required_login => 0 );
         $c->forward('/user/do_password_login');
 
         # Logged in OK
