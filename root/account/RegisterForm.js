@@ -9,11 +9,13 @@
 
 import * as React from 'react';
 
-import FormCsrfToken from '../../edit/components/FormCsrfToken.js';
-import FormRow from '../../edit/components/FormRow.js';
-import FormRowEmailLong from '../../edit/components/FormRowEmailLong.js';
-import FormRowText from '../../edit/components/FormRowText.js';
-import FormSubmit from '../../edit/components/FormSubmit.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormRowEmailLong
+  from '../static/scripts/edit/components/FormRowEmailLong.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 export type RegisterFormT = FormT<{
   readonly confirm_password: FieldT<string>,
