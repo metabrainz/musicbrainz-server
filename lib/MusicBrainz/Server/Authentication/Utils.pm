@@ -39,7 +39,7 @@ sub find_oauth_access_token {
                 }
                 return MusicBrainz::Server::Entity::EditorOAuthToken->new(
                     access_token => $oauth_access_token,
-                    editor_id => $res_content->{metabrainz_user_id},
+                    editor_id => $res_content->{sub},
                     expire_time => DateTime->from_epoch($res_content->{expires_at}),
                     granted => DateTime->from_epoch($res_content->{issued_at}),
                     scope => $scope,

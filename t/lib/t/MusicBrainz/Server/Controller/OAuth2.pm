@@ -1046,7 +1046,8 @@ test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
     my $response_content = {
         scope => [],
         active => \1,
-        metabrainz_user_id => 1,
+        sub => 1,
+        username => 'area_editor',
         expires_at => $now->add($one_day)->epoch,
         issued_at => $now->subtract($one_day)->epoch,
     };
