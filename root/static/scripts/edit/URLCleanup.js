@@ -1185,7 +1185,37 @@ export const CLEANUPS: CleanupEntries = {
   'audiomack': {
     hostname: 'audiomack.com',
     match: [/^(https?:\/\/)?([^/]+\.)?audiomack\.com\//i],
-    restrict: [LINK_TYPES.streamingfree],
+    restrict: [
+      ...anyCombinationOf(
+        'artist',
+        [
+          LINK_TYPES.streamingfree.artist,
+          LINK_TYPES.streamingpaid.artist,
+        ],
+      ),
+      // In order to block (non-existent) label links in validation
+      ...anyCombinationOf(
+        'label',
+        [
+          LINK_TYPES.streamingfree.label,
+          LINK_TYPES.streamingpaid.label,
+        ],
+      ),
+      ...anyCombinationOf(
+        'recording',
+        [
+          LINK_TYPES.streamingfree.recording,
+          LINK_TYPES.streamingpaid.recording,
+        ],
+      ),
+      ...anyCombinationOf(
+        'release',
+        [
+          LINK_TYPES.streamingfree.release,
+          LINK_TYPES.streamingpaid.release,
+        ],
+      ),
+    ],
     clean(url) {
       url = url.replace(
         /^https?:\/\/(?:www.)?audiomack.com\/([^/?&#]+(?:\/(album|song)\/[^/?&#]+)?).*$/,
@@ -1199,16 +1229,19 @@ export const CLEANUPS: CleanupEntries = {
         const prefix = m[1];
         switch (id) {
           case LINK_TYPES.streamingfree.artist:
+          case LINK_TYPES.streamingpaid.artist:
             return {
               result: !prefix,
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.release:
+          case LINK_TYPES.streamingpaid.release:
             return {
               result: prefix === 'album' || prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.streamingfree.recording:
+          case LINK_TYPES.streamingpaid.recording:
             return {
               result: prefix === 'song',
               target: ERROR_TARGETS.ENTITY,
