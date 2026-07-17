@@ -5,32 +5,25 @@ use warnings;
 
 use HTTP::Response;
 use HTTP::Status qw( :constants );
-use JSON qw( encode_json );
 use LWP::UserAgent::Mockable;
 use Test::Routine;
 use Test::More;
 use URI;
 use URI::QueryParam;
 
+use MusicBrainz::Server::Test qw( build_json_response );
+
 with 't::Mechanize', 't::Context';
 
 my $EDITOR_ID = 3000003;
 my $EDITOR_NAME = 'auto_create_user_test';
-
-sub _json_response {
-    my ($data) = @_;
-    my $response = HTTP::Response->new(HTTP_OK);
-    $response->header('Content-Type' => 'application/json');
-    $response->content(encode_json($data));
-    return $response;
-}
 
 sub _metabrainz_oauth2_response {
     my ($request) = @_;
 
     my $path = $request->uri->path;
     if ($path eq '/oauth2/token') {
-        return _json_response({
+        return build_json_response({
             access_token => 'meba_test_access_token',
             token_type => 'Bearer',
             expires_in => 3600,
@@ -38,7 +31,7 @@ sub _metabrainz_oauth2_response {
         });
     } elsif ($path eq '/oauth2/introspect') {
         my $issued_at = time;
-        return _json_response({
+        return build_json_response({
             active => JSON::true,
             sub => $EDITOR_ID,
             username => $EDITOR_NAME,
@@ -48,7 +41,7 @@ sub _metabrainz_oauth2_response {
             expires_at => $issued_at + 3600,
         });
     } elsif ($path eq '/oauth2/userinfo') {
-        return _json_response({
+        return build_json_response({
             sub => $EDITOR_ID,
             username => $EDITOR_NAME,
             member_since => '2000-01-01T00:00:00+00:00',
