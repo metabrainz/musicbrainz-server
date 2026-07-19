@@ -8071,11 +8071,23 @@ export class Checker {
       }
       return {result: true};
     }
-    // Multiple types are selected
+    /*
+     * Multiple types are selected
+     * We make sure that the types match one of the sets
+     * of allowed types, allowing for multiple uses of a type
+     * (to support dated relationships)
+     */
+    const selectedTypesSet = new Set(selectedTypes);
     const result = allowedTypes.some(
-      (allowedType) => Array.isArray(allowedType) &&
-        selectedTypes.length === allowedType.length &&
-        (new Set(selectedTypes)).isSubsetOf(new Set(allowedType)),
+      (allowedType) => {
+        const allowedTypeSet = new Set(Array.isArray(allowedType)
+          ? allowedType
+          : [allowedType]);
+        return (
+          selectedTypesSet.size === allowedTypeSet.size &&
+          selectedTypesSet.isSubsetOf(allowedTypeSet)
+        );
+      },
     );
     if (!result) {
       return {

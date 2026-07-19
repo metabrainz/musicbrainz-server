@@ -218,9 +218,20 @@ component _ExternalLinkRelationship(
       <td className="link-actions">
         {(
           link.relationships.length > 1 &&
+          /*
+           * If there is more than one rel for the link, we allow removing
+           * ones with dates or newly added ones, even if they are of the
+           * autoselected type.
+           */
           (
             relationshipError != null ||
-            !doesUrlMatchOnlyOnePossibleType(source.entityType, link)
+            !doesUrlMatchOnlyOnePossibleType(source.entityType, link) ||
+            (
+              relationship.beginDate != null ||
+              relationship.endDate != null ||
+              relationship.ended
+            ) ||
+            status.isNew
           )
         ) ? (
           <RemoveButton
