@@ -18,7 +18,7 @@ import * as ReactDOMClient from 'react-dom/client';
 import {legacy_createStore as createStore} from 'redux';
 
 import '../../lib/knockout/knockout-delegatedEvents.js';
-import '../edit/components/FormRowTextList.js';
+import '../edit/components/StandaloneFormRowTextList.js';
 
 import {LANGUAGE_MUL_ID, LANGUAGE_ZXX_ID} from '../common/constants.js';
 import {groupBy} from '../common/utility/arrays.js';

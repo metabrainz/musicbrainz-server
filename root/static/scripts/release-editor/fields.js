@@ -36,6 +36,7 @@ import isDatabaseRowId from '../common/utility/isDatabaseRowId.js';
 import releaseLabelKey from '../common/utility/releaseLabelKey.js';
 import request from '../common/utility/request.js';
 import {fixedWidthInteger, uniqueId} from '../common/utility/strings.js';
+import unformatTrackLength from '../common/utility/unformatTrackLength.js';
 import mbEdit from '../edit/MB/edit.js';
 import * as dates from '../edit/utility/dates.js';
 import {featRegex} from '../edit/utility/guessFeat.js';
@@ -254,7 +255,7 @@ class Track {
       }
     }
 
-    var newLength = utils.unformatTrackLength(length);
+    var newLength = unformatTrackLength(length);
 
     /*
      * The result of `unformatTrackLength` is NaN when the length entered
@@ -390,7 +391,6 @@ class Track {
     if (release) {
       release.relatedArtists =
         [...new Set(release.relatedArtists.concat(value.relatedArtists))];
-      release.isProbablyClassical ||= value.isProbablyClassical;
     }
 
     this.recordingValue(value);
@@ -410,10 +410,6 @@ class Track {
 
   relatedArtists() {
     return this.medium.release.relatedArtists;
-  }
-
-  isProbablyClassical() {
-    return this.medium.release.isProbablyClassical;
   }
 }
 

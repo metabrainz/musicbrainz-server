@@ -35,17 +35,23 @@ role {
     method 'edit' => sub {
         my ($self, $c) = @_;
 
-        my @react_models = qw( Event Genre);
+        my @react_models = qw( Event Genre Recording );
         my $entity_name = $self->{entity_name};
         my $edit_entity = $c->stash->{ $entity_name };
         my $model = $self->{model};
         my $type = model_to_type($model);
         my %props;
+        my %edit_arguments = $params->edit_arguments->($self, $c, $edit_entity);
 
         if (any { $_ eq $model } @react_models) {
+            my $type = model_to_type($model);
+
+            my %form_args = %{ $edit_arguments{form_args} || {}};
             my $form = $c->form(
                 form => $params->form,
+                ctx => $c,
                 init_object => $edit_entity,
+                %form_args,
             );
 
             %props = (
@@ -82,12 +88,15 @@ role {
                     $self->munge_compound_text_fields($c, $form);
                     $self->stash_current_identifier_values($c, $edit_entity->id);
                 }
+                if ($model eq 'Recording') {
+                    $props{usedByTracks} = $form->used_by_tracks;
+                }
             },
             redirect    => sub {
                 $c->response->redirect(
                     $c->uri_for_action($self->action_for('show'), [ $edit_entity->gid ]));
             },
-            $params->edit_arguments->($self, $c, $edit_entity),
+            %edit_arguments,
         );
 
         if ($ENTITIES{$type}{artist_credits}) {

@@ -1008,6 +1008,7 @@ export default [
       'root/static/scripts/edit/components/FormRowSelectList.js',
       'root/static/scripts/edit/components/ReleaseMergeStrategy.js',
       'root/static/scripts/event/components/EventEditForm.js',
+      'root/static/scripts/recording/components/RecordingEditForm.js',
       'root/static/scripts/relationship-editor/components/DialogPreview.js',
     ],
     rules: {
