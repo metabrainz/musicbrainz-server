@@ -49,16 +49,15 @@ module.exports = function (api) {
    */
   const target = api.caller(caller => caller ? caller.target : null);
 
+  const targets = target === 'node'
+    ? NODE_TARGETS
+    : BROWSER_TARGETS[browserTarget];
+
   const presets = [
     ['@babel/preset-env', {
-      corejs: 3.45,
       modules: api.caller(caller => caller && caller.name === 'babel-node-loader')
         ? false
         : 'auto',
-      targets: target === 'node'
-        ? NODE_TARGETS
-        : BROWSER_TARGETS[browserTarget],
-      useBuiltIns: 'usage',
     }],
   ];
 
@@ -74,10 +73,11 @@ module.exports = function (api) {
       runtime: 'automatic',
     }],
     ['@babel/plugin-transform-runtime', {
-      corejs: false,
-      helpers: true,
-      regenerator: true,
-      useESModules: false,
+      moduleName: '@babel/runtime-corejs3',
+    }],
+    ['polyfill-corejs3', {
+      method: 'usage-pure',
+      version: '3.49',
     }],
   ];
 
@@ -90,5 +90,6 @@ module.exports = function (api) {
     plugins,
     presets,
     sourceType: 'unambiguous',
+    targets,
   };
 };
