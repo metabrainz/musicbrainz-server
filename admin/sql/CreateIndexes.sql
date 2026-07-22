@@ -88,6 +88,8 @@ CREATE INDEX artist_release_group_pending_update_idx_release_group ON artist_rel
 CREATE INDEX cdtoc_raw_discid ON cdtoc_raw (discid);
 CREATE UNIQUE INDEX cdtoc_raw_toc ON cdtoc_raw (track_count, leadout_offset, track_offset);
 
+-- `editor_idx_deleted` was added for admin/cleanup/RemoveResidualUserData
+CREATE INDEX editor_idx_deleted ON editor (id) WHERE deleted;
 CREATE UNIQUE INDEX editor_idx_name ON editor (LOWER(name));
 CREATE UNIQUE INDEX old_editor_name_idx_name ON old_editor_name (LOWER(name));
 CREATE INDEX editor_language_idx_language ON editor_language (language);
@@ -750,6 +752,12 @@ CREATE INDEX series_gid_redirect_idx_new_id ON series_gid_redirect (new_id);
 CREATE INDEX track_gid_redirect_idx_new_id ON track_gid_redirect (new_id);
 CREATE INDEX url_gid_redirect_idx_new_id ON url_gid_redirect (new_id);
 CREATE INDEX work_gid_redirect_idx_new_id ON work_gid_redirect (new_id);
+
+-- These were added to avoid sequential scans in
+-- `Data::Editor::_build_unused_editor_query`, but may be
+-- helpful in other circumstances.
+CREATE INDEX annotation_idx_editor ON annotation (editor);
+CREATE INDEX autoeditor_election_vote_idx_voter ON autoeditor_election_vote (voter);
 
 COMMIT;
 

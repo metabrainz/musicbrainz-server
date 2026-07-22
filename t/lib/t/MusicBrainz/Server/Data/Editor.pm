@@ -529,11 +529,11 @@ test 'Deleting editors removes most information' => sub {
         }
     }
 
-    # Ensure all tags are cleared
+    # Tags are only cleared by `admin/cleanup/RemoveResidualUserData`.
     my $tags = $c->sql->select_single_column_array(
         'SELECT tag FROM area_tag_raw WHERE editor = ?', 1,
     );
-    is(@$tags, 0, 'All tags by the editor have been blanked');
+    is(@$tags, 1, 'Tags by the editor have not been blanked');
 };
 
 test 'Deleting an editor cancels all open edits' => sub {
