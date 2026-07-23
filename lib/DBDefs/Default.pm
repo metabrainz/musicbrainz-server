@@ -386,6 +386,7 @@ sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
 # by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }
 sub METABRAINZ_OAUTH_CLIENT_SECRET { '' }
+sub METABRAINZ_OAUTH_SSL_VERIFICATION_ENABLED { 1 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER || $self->IS_BETA }

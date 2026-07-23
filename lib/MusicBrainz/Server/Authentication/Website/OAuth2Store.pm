@@ -3,11 +3,11 @@ package MusicBrainz::Server::Authentication::Website::OAuth2Store;
 use strict;
 use warnings;
 
-use LWP::UserAgent;
+use HTTP::Request::Common qw( GET );
 
 use DBDefs;
-use HTTP::Request::Common qw( GET );
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Authentication::Utils qw( $METABRAINZ_OAUTH_LWP );
 
 use parent 'MusicBrainz::Server::Authentication::Store';
 
@@ -17,13 +17,9 @@ sub auto_create_user {
     my $token = $auth_info->{editor_oauth_token};
     return unless defined $token;
 
-    my $lwp = LWP::UserAgent->new;
-    $lwp->env_proxy;
-    $lwp->timeout(5);
-    $lwp->agent(DBDefs->LWP_USER_AGENT);
-
     my $user_info_uri = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/userinfo';
-    my $user_info_response = $lwp->request(GET $user_info_uri,
+    my $user_info_response = $METABRAINZ_OAUTH_LWP->request(
+        GET $user_info_uri,
         'Authorization' => 'Bearer ' . $token->access_token,
     );
     unless ($user_info_response->is_success) {
