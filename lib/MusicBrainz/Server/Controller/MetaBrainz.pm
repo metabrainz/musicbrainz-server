@@ -5,7 +5,6 @@ use English;
 use HTTP::Request::Common qw( POST );
 use IO::Uncompress::Gunzip qw( gunzip $GunzipError );
 use IO::Compress::Gzip qw( gzip $GzipError );
-use LWP::UserAgent;
 use Moose;
 use MooseX::MethodAttributes;
 use namespace::autoclean;
@@ -18,6 +17,7 @@ use URI::QueryParam;
 use DBDefs;
 use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::Authentication::Utils qw(
+    $METABRAINZ_OAUTH_LWP
     oauth_expires_in_to_iso8601
     set_remember_login_cookie
 );
@@ -182,13 +182,9 @@ sub oauth2_callback : Chained('base') PathPart('oauth2/callback') Args(0) {
         die 'Invalid URI in OAuth2 redirect state.';
     }
 
-    my $lwp = LWP::UserAgent->new;
-    $lwp->env_proxy;
-    $lwp->timeout(5);
-    $lwp->agent(DBDefs->LWP_USER_AGENT);
-
     my $token_uri = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/token';
-    my $token_response = $lwp->request(POST $token_uri,
+    my $token_response = $METABRAINZ_OAUTH_LWP->request(
+        POST $token_uri,
         [
             grant_type    => 'authorization_code',
             code          => $code,
