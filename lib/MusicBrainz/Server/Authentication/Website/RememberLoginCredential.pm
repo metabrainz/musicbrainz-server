@@ -184,7 +184,6 @@ sub _rotate_refresh_token {
             $context->store->delete($remember_login_key);
 
             revoke_metabrainz_oauth_refresh_token(
-                $c,
                 $new_remember_login_data->{refresh_token},
             );
         }

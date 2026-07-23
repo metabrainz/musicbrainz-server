@@ -8,6 +8,8 @@ use DateTime;
 use DateTime::Duration;
 use HTTP::Request::Common qw( POST );
 use HTTP::Status qw( is_server_error is_success );
+use IO::Socket::SSL;
+use LWP::UserAgent;
 use Readonly;
 
 use DBDefs;
@@ -20,6 +22,7 @@ use MusicBrainz::Server::Constants qw( :access_scope );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 our @EXPORT_OK = qw(
+    $METABRAINZ_OAUTH_LWP
     can_user_login
     clear_remember_login_cookie
     clear_remember_login_data
@@ -32,6 +35,21 @@ our @EXPORT_OK = qw(
     set_remember_login_cookie
 );
 
+Readonly our $METABRAINZ_OAUTH_LWP => do {
+    my $lwp = LWP::UserAgent->new;
+    $lwp->env_proxy;
+    $lwp->timeout(5);
+    $lwp->agent(DBDefs->LWP_USER_AGENT);
+
+    unless (DBDefs->METABRAINZ_OAUTH_SSL_VERIFICATION_ENABLED) {
+        $lwp->ssl_opts(
+            SSL_verify_mode => IO::Socket::SSL::SSL_VERIFY_NONE,
+            verify_hostname => 0,
+        );
+    }
+
+    $lwp;
+};
 # Maps MetaBrainz OAuth scope names to those understood by MusicBrainz
 # internally (as used historically by MB's own OAuth provider). Only the
 # `musicbrainz:` prefix was added to a few.
@@ -81,7 +99,6 @@ sub clear_remember_login_data {
             my $remember_login_data = $store->get($remember_login_key);
             if (defined $remember_login_data) {
                 revoke_metabrainz_oauth_refresh_token(
-                    $c,
                     $remember_login_data->{refresh_token},
                 );
                 $store->delete($remember_login_key);
@@ -94,9 +111,8 @@ sub clear_remember_login_data {
 sub exchange_metabrainz_oauth_refresh_token {
     my ($c, $refresh_token) = @_;
 
-    my $ctx = $c->model('MB')->context;
     my $token_uri = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/token';
-    my $res = $ctx->lwp->request(
+    my $res = $METABRAINZ_OAUTH_LWP->request(
         POST $token_uri,
         [
             grant_type => 'refresh_token',
@@ -119,9 +135,8 @@ sub exchange_metabrainz_oauth_refresh_token {
 sub find_active_metabrainz_oauth_access_token {
     my ($c, $access_token) = @_;
 
-    my $ctx = $c->model('MB')->context;
     my $introspect_url = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/introspect';
-    my $res = $ctx->lwp->request(
+    my $res = $METABRAINZ_OAUTH_LWP->request(
         POST $introspect_url,
         {
             client_id => DBDefs->METABRAINZ_OAUTH_CLIENT_ID,
@@ -220,10 +235,10 @@ sub parse_remember_login_cookie {
 }
 
 sub revoke_metabrainz_oauth_refresh_token {
-    my ($c, $refresh_token) = @_;
+    my ($refresh_token) = @_;
 
     my $revoke_url = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/revoke';
-    my $res = $c->model('MB')->context->lwp->request(
+    my $res = $METABRAINZ_OAUTH_LWP->request(
         POST $revoke_url,
         {
             client_id => DBDefs->METABRAINZ_OAUTH_CLIENT_ID,

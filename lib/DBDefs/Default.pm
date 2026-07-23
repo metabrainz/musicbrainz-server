@@ -386,6 +386,7 @@ sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
 # by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }
 sub METABRAINZ_OAUTH_CLIENT_SECRET { '' }
+sub METABRAINZ_OAUTH_SSL_VERIFICATION_ENABLED { 1 }
 # Secret used in verifying webhook request signatures (for syncing user data
 # from MetaBrainz). Webhooks are set up from the MetaBrainz admin portal.
 sub METABRAINZ_WEBHOOK_SECRET { '' }
