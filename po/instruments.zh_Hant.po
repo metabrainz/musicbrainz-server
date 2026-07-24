@@ -1,10 +1,11 @@
 # BestSteve <ibmibmibm.tw@gmail.com>, 2024.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
+# jerry155756294 <a155750130@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2024-12-26 16:43+0000\n"
-"Last-Translator: guardiansock <guardian.sock5925@fastmail.com>\n"
+"PO-Revision-Date: 2026-06-18 21:12+0000\n"
+"Last-Translator: jerry155756294 <a155750130@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -12,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -206,7 +207,7 @@ msgstr "葡萄牙吉他"
 #: DB:instrument/name:1211
 msgctxt "1940s modified sarod"
 msgid "Radhika's Mohan veena"
-msgstr ""
+msgstr "拉迪卡的莫漢維納琴"
 
 #: DB:instrument/name:576
 msgid "Reactable"
@@ -253,7 +254,7 @@ msgstr "土內特笛"
 #: DB:instrument/name:1212
 msgctxt "Indian modified lap slide-guitar"
 msgid "VM Bhatt's Mohan veena"
-msgstr ""
+msgstr "VM Bhatt 的 Mohan 維納琴"
 
 #: DB:instrument/name:322
 msgid "Vietnamese guitar"
@@ -1524,10 +1525,9 @@ msgstr "電子管風琴"
 
 #: DB:instrument/name:1213
 #, fuzzy
-#| msgid "electronic drum set"
 msgctxt "Indian electronic drone device"
 msgid "electronic shruti box"
-msgstr "電爵士鼓"
+msgstr "電子式 Shruti Box"
 
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
@@ -1754,7 +1754,7 @@ msgstr "加克萊因豎笛"
 #: DB:instrument/name:1075
 msgctxt "Russian diatonic folk accordion"
 msgid "garmon"
-msgstr ""
+msgstr "加爾蒙手風琴"
 
 #: DB:instrument/name:75
 msgid "gayageum"
@@ -2084,7 +2084,7 @@ msgstr "瑞典哨笛"
 #: DB:instrument/name:1205
 msgctxt "Small German Renaissance bagpipe"
 msgid "hümmelchen"
-msgstr ""
+msgstr "Hümmelchen 風笛"
 
 #: DB:instrument/name:674
 msgid "idiophone"
@@ -2400,7 +2400,7 @@ msgstr "基帕號"
 #: DB:instrument/name:1216
 msgctxt "Large Karnatakan stick zither"
 msgid "kinnari vina"
-msgstr ""
+msgstr "金納里琴"
 
 #: DB:instrument/name:247
 msgid "kinnor"
