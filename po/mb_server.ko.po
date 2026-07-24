@@ -10,13 +10,14 @@
 # hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
 # smreo1590 <smreo1590@naver.com>, 2026.
 # coldified_ <me@coldified.dev>, 2026.
+# meze <jayeolchun@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2026-04-10 10:11+0000\n"
-"Last-Translator: coldified_ <me@coldified.dev>\n"
+"PO-Revision-Date: 2026-05-15 00:12+0000\n"
+"Last-Translator: meze <jayeolchun@gmail.com>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ko/>\n"
 "Language: ko\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -17372,10 +17373,8 @@ msgid "Event collections"
 msgstr "컬렉션"
 
 #: ../root/user/UserCollections.js:39
-#, fuzzy
-#| msgid "Collections"
 msgid "Genre collections"
-msgstr "컬렉션"
+msgstr "장르 컬렉션"
 
 #: ../root/user/UserCollections.js:40
 #, fuzzy
