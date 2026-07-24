@@ -300,6 +300,7 @@ export default {
   'report/RecordingsWithoutVaLink': (): Promise<unknown> => import('../report/RecordingsWithoutVaLink.js'),
   'report/RecordingsWithVaryingTrackLengths': (): Promise<unknown> => import('../report/RecordingsWithVaryingTrackLengths.js'),
   'report/RecordingTrackDifferentName': (): Promise<unknown> => import('../report/RecordingTrackDifferentName.js'),
+  'report/RedundantWriterRelationships': (): Promise<unknown> => import('../report/RedundantWriterRelationships.js'),
   'report/ReleasedTooEarly': (): Promise<unknown> => import('../report/ReleasedTooEarly.js'),
   'report/ReleasedTooEarlyDigital': (): Promise<unknown> => import('../report/ReleasedTooEarlyDigital.js'),
   'report/ReleasedTooEarlyForLabel': (): Promise<unknown> => import('../report/ReleasedTooEarlyForLabel.js'),
