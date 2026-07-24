@@ -42,13 +42,14 @@
 # EmO686 <eiswuste@gmail.com>, 2026.
 # karpuzikov <karpuzikovanton@gmail.com>, 2026.
 # dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
+# TheParaziT <lolkekovic05713@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
 "PO-Revision-Date: 2026-06-29 23:47+0000\n"
-"Last-Translator: EmO686 <eiswuste@gmail.com>\n"
+"Last-Translator: TheParaziT <lolkekovic05713@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -7870,7 +7871,7 @@ msgstr "Дата смерти:"
 #: ../root/artist/utils.js:42
 msgctxt "group artist"
 msgid "Dissolving"
-msgstr ""
+msgstr "Роспуск"
 
 #: ../root/artist/utils.js:43
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:82
