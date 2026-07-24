@@ -456,8 +456,8 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
-"一個四面或五面的盒子，通常由紙板或塑膠製成，包裹著第二個內部包裝，例如珠寶盒"
-"。"
+"一個四面或五面的盒子，通常由紙板或塑膠製成，包裹著第二個內部包裝，例如珠寶"
+"盒。"
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -517,6 +517,15 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr "一個紀錄了活動演奏曲目的列表，通常是列印或者手寫的，由創作者使用。"
+
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -708,6 +717,15 @@ msgstr ""
 "一種宣傳版本，主要用於有限發行，向唱片公司、出版商和其他創作者展示創作者的聲"
 "音。"
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -839,6 +857,26 @@ msgstr "一系列專輯組。"
 msgctxt "series_type"
 msgid "A series of releases."
 msgstr "一系列專輯。"
+
+#. name:Series award
+#: DB:series_type/description:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of recordings honoured by the same award."
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr "一系列錄音榮獲同一獎項。"
+
+#. name:Series series
+#: DB:series_type/description:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of events."
+msgctxt "series_type"
+msgid "A series of series."
+msgstr "一系列活動。"
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -5555,6 +5593,11 @@ msgctxt "release_group_secondary_type"
 msgid "Live"
 msgstr "現場的"
 
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
 msgid "Longa"
@@ -7709,6 +7752,14 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr "Serbest"
 
+#: DB:series_type/name:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist award"
+msgctxt "series_type"
+msgid "Series award"
+msgstr "創作者獎項"
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7718,6 +7769,14 @@ msgstr "系列收藏"
 msgctxt "alias_type"
 msgid "Series name"
 msgstr "系列名稱"
+
+#: DB:series_type/name:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist series"
+msgctxt "series_type"
+msgid "Series series"
+msgstr "創作者系列"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
