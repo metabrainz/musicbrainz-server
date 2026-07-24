@@ -18,11 +18,12 @@
 # KenParker_CN <kenparkercn@gmail.com>, 2025.
 # Avava_Ava <2245176012haha@gmail.com>, 2025.
 # dumbbird <dumbbirdvip@gmail.com>, 2026.
+# AgenticCommonsBot <wiki-bot@agentic-commons.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-15 07:11+0000\n"
-"Last-Translator: dumbbird <dumbbirdvip@gmail.com>\n"
+"PO-Revision-Date: 2026-07-20 11:12+0000\n"
+"Last-Translator: AgenticCommonsBot <wiki-bot@agentic-commons.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -540,6 +541,8 @@ msgid ""
 "than being the logo for a series (such as a festival logo reused over "
 "multiple years)."
 msgstr ""
+"专门为某次活动定制的 logo，只在这场活动里使用，不是那种系列活动（比如连用好几"
+"年的音乐节 logo）会反复用的那种。"
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -733,6 +736,8 @@ msgid ""
 "(usually a vinyl record, but sometimes a CD), often printed with notes or "
 "images."
 msgstr ""
+"保护套（通常是\"内套\"），包在介质外面（一般是黑胶唱片，有时也会是 CD），上面"
+"经常会印一些说明文字或图片。"
 
 #. name:Quartet
 #: DB:work_type/description:14

@@ -12,11 +12,12 @@
 # 7Stars <7star@heqingpi.cn>, 2026.
 # scientists360 <scientists360@outlook.com>, 2026.
 # soonaf <z621082921@gmail.com>, 2026.
+# AgenticCommonsBot <wiki-bot@agentic-commons.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-06-21 21:12+0000\n"
-"Last-Translator: soonaf <z621082921@gmail.com>\n"
+"PO-Revision-Date: 2026-07-24 03:12+0000\n"
+"Last-Translator: AgenticCommonsBot <wiki-bot@agentic-commons.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -3976,6 +3977,8 @@ msgid ""
 "Second largest and lowest member of the saxophone family. It is similar to "
 "the baritone, but larger and with a longer loop near the mouthpiece."
 msgstr ""
+"萨克斯家族中第二大也是音域最低的乐器。它与上低音萨克斯相似，但体积更大，且吹"
+"嘴附近的管圈更长。"
 
 #. name:jublag
 #: DB:instrument/description:980
@@ -4106,14 +4109,14 @@ msgstr ""
 msgid ""
 "Simple six-holed fipple flute, originally made of metal; it used to cost a "
 "penny, giving it the alternate name “penny whistle”."
-msgstr ""
+msgstr "简单的六孔啸口笛，最初为金属制作；因过去售价一便士，又称为「便士哨」。"
 
 #. name:whistle
 #: DB:instrument/description:274
 msgid ""
 "Simple, single-toned and round-bodied whistle often used for regulation and "
 "signalling (sport, traffic, ...)."
-msgstr ""
+msgstr "结构简单、单音、圆形哨身的哨子，常用于监管和信号（体育、交通等）。"
 
 #. name:mirliton
 #: DB:instrument/description:591
@@ -4386,6 +4389,8 @@ msgid ""
 "samurai, it has four strings and elevated frets, a large plectrum called "
 "Bachi is used."
 msgstr ""
+"据说是从模索琵琶改良而来，用来给武士助威的。它有四根弦，琴品比较高，演奏时会"
+"用一个大拨子，叫 Bachi。"
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -5226,7 +5231,7 @@ msgstr "最常见，其第五根弦基于原始设计比其他弦短，用于产
 #. name:alto saxophone
 #: DB:instrument/description:21
 msgid "The most common member of the saxophone family, it is the alto member."
-msgstr ""
+msgstr "它是萨克斯家族里最常见的一种，属于中音乐器。"
 
 #. name:baritone saxophone
 #: DB:instrument/description:23
@@ -5502,6 +5507,9 @@ msgid ""
 "horn-plectrum. Used in southern India since ancient times, it is essentially "
 "a bass rabab."
 msgstr ""
+"它的共鸣箱是木制的、比较深，外面蒙着皮；琴颈雕成鹦鹉的样子，琴桥用兽骨做成，"
+"有三组双弦，都是丝弦，演奏时用一个角质拨子拨奏。从古代起就在南印度使用，本质"
+"上相当于低音版的拉巴布。"
 
 #. name:kendang lanang
 #: DB:instrument/description:994
@@ -5836,7 +5844,7 @@ msgstr ""
 msgid ""
 "These have holes along the body and sound production is similarly to "
 "woodwinds."
-msgstr ""
+msgstr "它的管身上开有音孔，发声方式和木管乐器类似。"
 
 #. name:rōria
 #: DB:instrument/description:859
@@ -5907,6 +5915,8 @@ msgid ""
 "Vietnam. it consists of 14 bamboo pipes with a small hollowed hardwood "
 "soundbox."
 msgstr ""
+"老挝的传统乐器，在泰国甚至越南也有使用。它由 14 根竹管组成，配一个掏空的小硬"
+"木共鸣箱。"
 
 #. name:taonga pūoro
 #: DB:instrument/description:781
@@ -6055,6 +6065,9 @@ msgid ""
 "range of the mandolin. <br /> Not to be confused with flat-backed mandolin "
 "which is also sold as \"mando-guitar\"."
 msgstr ""
+"琴身为同度齐奏弦组调音的 12 弦电吉他,琴颈则来自曼陀林,音高比普通吉他高一个八"
+"度,因此音域与曼陀林一致。<br /> 请勿与同样以「mando-guitar」名义销售的平背曼"
+"陀林混淆。"
 
 #. name:English concertina
 #: DB:instrument/description:837
@@ -6094,6 +6107,8 @@ msgid ""
 "pipe both decorated with fur. Used in festivals by marching players "
 "accompanied by percussion."
 msgstr ""
+"至少从 9 世纪起就在使用，它有两到三根持续音管，风袋和笛管上都会用毛皮做装饰。"
+"节庆时由行进中的乐手演奏，并配以打击乐器伴奏。"
 
 #. name:clapstick
 #: DB:instrument/description:955
@@ -6112,6 +6127,9 @@ msgid ""
 "skin covered resonator shaped like a boat, but there are versions shaped "
 "like peacocks, fish and even the monster Makara."
 msgstr ""
+"至少 2200 年前达罗毗荼泰米尔人就在使用它，到 7 世纪左右已基本弃用。它有一根弯"
+"曲的乌木琴颈，羊肠弦张在蒙皮的共鸣箱上，共鸣箱做成船形；不过也有做成孔雀形、"
+"鱼形，甚至做成印度神话海兽 Makara 形的版本。"
 
 #. name:Magyar duda
 #: DB:instrument/description:1200
@@ -6119,6 +6137,8 @@ msgid ""
 "Used by shepherds and in pagan lifestyle, it has a double bore chanter with "
 "one to 2 drones, historically made of dogskin but today goat is used."
 msgstr ""
+"牧羊人和异教生活方式中使用的乐器。它有一根双管旋律管，配一到两根持续音管；历"
+"史上风袋用狗皮制作，如今则改用山羊皮。"
 
 #. name:tulum
 #: DB:instrument/description:1116
@@ -6126,6 +6146,8 @@ msgid ""
 "Used by shepherds and peoples of the southeast Black Sea region, it is "
 "droneless with parallel double chanters each with 5 fingerholes."
 msgstr ""
+"黑海东南部地区的牧羊人和居民使用的一种乐器。它没有持续音管，而是两根并列的旋"
+"律管，每根各开 5 个指孔。"
 
 #. name:charango
 #: DB:instrument/description:466
@@ -6182,7 +6204,7 @@ msgstr "用于民歌，尤其是由少女所演唱者"
 msgid ""
 "Used for more than 250 years, its one chanter and usually four drones have "
 "narrow bores."
-msgstr ""
+msgstr "已使用超过 250 年，其一根旋律管和通常四根低音管均为窄口径。"
 
 #. name:gendèr panerus
 #: DB:instrument/description:1003
@@ -6264,6 +6286,8 @@ msgid ""
 "Used in Russian, Mari and Caucasus folk music, it has two rows of buttons in "
 "a diatonic scale, as well as additional bass buttons."
 msgstr ""
+"用于俄罗斯、马里和高加索地区的民间音乐，配有两排按自然音阶排列的按键，以及若"
+"干低音按键。"
 
 #. name:octavilla
 #: DB:instrument/description:940
@@ -6295,7 +6319,7 @@ msgstr "用于古典和合奏音乐，尤其是维也纳的合奏乐"
 #. name:Portuguese guitar
 #: DB:instrument/description:647
 msgid "Used in fado, it has twelve steel strings, strung in six courses."
-msgstr ""
+msgstr "用于法多音乐，有十二根钢弦，成对分为六组。"
 
 #. name:temür khuur
 #: DB:instrument/description:810
