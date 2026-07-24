@@ -10,11 +10,12 @@
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Pioneers <spinleftgit@gmail.com>, 2025.
 # 7Stars <7star@heqingpi.cn>, 2026.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-19 10:12+0000\n"
-"Last-Translator: 7Stars <7star@heqingpi.cn>\n"
+"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -3186,19 +3187,15 @@ msgstr ""
 
 #. name:bazooka
 #: DB:instrument/description:741
-#, fuzzy
-#| msgid ""
-#| "Large wide tube with a very strongly flaring bell, the telescoping "
-#| "creates only subtle fluctuating overtones. It inspired the name of the "
-#| "anti-tank weapon."
 msgid ""
 "Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
 "cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
 "flaring bell, the telescoping creates only subtle fluctuating overtones. It "
 "inspired the name of the anti-tank weapon."
 msgstr ""
-"附有开口很大的喇叭口的粗大管，伸缩式设计仅能产生微弱的波动泛音。反坦克武器巴"
-"祖卡火箭筒由此得名。"
+"不要与<a href=\"instrument/2091cdd2-7953-453f-a29e-cfcbf5140d44\">布祖基琴</"
+"a>混淆。</br>它是一种管身宽大、喇叭口张开幅度极大的乐器，伸缩式设计只会产生细"
+"微的泛音波动。反坦克武器的名称正是来源于此。"
 
 #. name:mezwed
 #: DB:instrument/description:1209
@@ -3372,18 +3369,13 @@ msgstr ""
 
 #. name:ondioline
 #: DB:instrument/description:814
-#, fuzzy
-#| msgid ""
-#| "one of the first analogue synths, it had a filter bank with 15 sliders "
-#| "for different sounds, and a \"vibrato\" inducing keyboard based on the "
-#| "ondes Martenot's."
 msgid ""
 "One of the first analogue synths, it had a filter bank with 15 sliders for "
 "different sounds, and a “vibrato” inducing keyboard based on the ondes "
 "Martenot’s."
 msgstr ""
-"最早的模拟合成器之一，有一个具有15个控制不同声音的滑块的音效库，以及一个\"颤"
-"音器\"，包含一个基于马特诺音波琴设计的键盘。"
+"作为最早的模拟合成器之一，它配备了带有15个控制不同音色的滑块的音效库，以及一"
+"个\"颤音器\"，以及基于马特诺音波琴设计的“颤音”键盘。"
 
 #. name:bīn
 #: DB:instrument/description:1012
@@ -3680,7 +3672,7 @@ msgstr ""
 msgid ""
 "Played ceremonially by Igbo people, it is a clay jug beaten with hands to "
 "create sounds."
-msgstr ""
+msgstr "伊博族人会以仪式性演奏，这是一种用手敲打以发出声音的陶罐。"
 
 #. name:kendhang indung
 #: DB:instrument/description:996
@@ -3700,6 +3692,8 @@ msgid ""
 "are plucked or struck with a stick, and its soundbox is made of thick maple, "
 "poplar or willow wood."
 msgstr ""
+"在匈牙利和特兰西瓦尼亚地区的民间音乐中演奏，其3-4根琴弦由拨弦或用棍棒敲击，音"
+"箱由厚重的枫木、白杨木或柳木制成。"
 
 #. name:vichitra veena
 #: DB:instrument/description:612
@@ -3784,6 +3778,9 @@ msgid ""
 "instrument, see <a href=\"/instrument/"
 "257dad59-02e6-47d9-958a-659843737827\">cornet</a>."
 msgstr ""
+"它流行于1500年至1650年间，也称为zink，呈八角形，有七个孔，类似长笛，但吹嘴像"
+"小号。<br />关于现代铜管乐器，请参见<a href=\"/instrument/257dad59-02e6-47d9-"
+"958a-659843737827\">短号</a>。"
 
 #. name:claviorganum
 #: DB:instrument/description:912
@@ -3844,7 +3841,7 @@ msgstr ""
 msgid ""
 "Precursor of the cobla used in sardana, it was in use since the medieval "
 "period."
-msgstr ""
+msgstr "它是萨尔达纳中使用的科布拉的前身，自中世纪时期起就已使用。"
 
 #. name:baroque guitar
 #: DB:instrument/description:917

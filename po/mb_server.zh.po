@@ -28,13 +28,14 @@
 # Ljcbaby <i@ljcbaby.top>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Poesty Li <poesty7450@gmail.com>, 2025.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2026-02-20 11:11+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -42,7 +43,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 2026.5\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -2596,20 +2597,14 @@ msgstr ""
 "{url|音译版本关联} 将其关联到对应的实际发行。"
 
 #: ../root/release/edit/information.tt:554
-#, fuzzy
-#| msgid ""
-#| "The purpose of this field is to add information that usually doesn't fit "
-#| "into the strict structural data schema of MusicBrainz (be it due to "
-#| "technical limitations that may be addressed later, or because the "
-#| "information in itself has to be free-text)."
 msgid ""
 "The purpose of this field is to add information that usually doesn’t fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free‐form text)."
 msgstr ""
-"此栏用于添加不符合 MusicBrainz 严格数据结构的信息(由于可能会在后面叙述的技术"
-"闲置或者信息本身是自由文本)。"
+"该栏用于添加通常不符合 MusicBrainz 严格结构数据模式的信息（无论是由于技术限制"
+"，可能之后会解决，还是因为信息本身必须是自由形式的文本）。"
 
 #: ../root/layout.tt:66 ../root/layout/index.js:238
 msgid "The server is temporarily in read-only mode for database maintenance."
