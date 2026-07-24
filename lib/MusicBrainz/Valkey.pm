@@ -92,9 +92,22 @@ sub get_delete_raw {
 }
 
 sub increment {
-    my ($self, $key) = @_;
+    my ($self, $key, $initial_exptime) = @_;
 
-    $self->_connection->incr($self->_prepare_key($key));
+    my $prepared_key = $self->_prepare_key($key);
+    if (defined $initial_exptime) {
+        # See the "Pattern: Rate limiter 2" section at
+        # https://valkey.io/commands/incr/.
+        # (Using eval avoids a race condition between the INCR/EXPIRE calls.)
+        return $self->_connection->eval(<<~'LUA', 1, $prepared_key, $initial_exptime);
+            local current = server.call('INCR', KEYS[1])
+            if current == 1 then
+                server.call('EXPIRE', KEYS[1], ARGV[1])
+            end
+            return current
+            LUA
+    }
+    return $self->_connection->incr($prepared_key);
 }
 
 sub set_add {

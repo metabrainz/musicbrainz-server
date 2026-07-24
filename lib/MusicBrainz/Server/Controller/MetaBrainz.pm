@@ -40,10 +40,23 @@ Readonly our $MAX_CONTENT_LENGTH => 65536; # 64KB
 # How long (in seconds) to store `oauth2_redirect_state` keys in Valkey.
 Readonly our $REDIRECT_STATE_EXPIRES => 120; # 2 minutes
 
+# How many redirect attempts to allow per IP per `$REDIRECT_STATE_EXPIRES`.
+Readonly our $MAX_REDIRECT_ATTEMPTS => 25;
+
 sub base : Chained('/') PathPart('metabrainz') CaptureArgs(0) { }
 
 sub _save_oauth2_redirect_state {
     my ($self, $c, $local_path, $code_verifier) = @_;
+
+    my $store = $c->model('MB')->context->store;
+    my $redirect_count = $store->increment(
+        'oauth2_redirect_state:count:' . $c->req->address,
+        $REDIRECT_STATE_EXPIRES,
+    );
+    if ($redirect_count > $MAX_REDIRECT_ATTEMPTS) {
+        $c->stash->{message} = l('Too many login attempts. Please try again in a few minutes.');
+        $c->detach('/error_400');
+    }
 
     my $req = $c->req;
     my $req_method = $req->method;
@@ -87,7 +100,6 @@ sub _save_oauth2_redirect_state {
     gzip(\$encoded_state => \$compressed_state)
         or die qq(gzip failed: $GzipError);
 
-    my $store = $c->model('MB')->context->store;
     my $store_key = "oauth2_redirect_state:$state_id";
     $store->set_raw($store_key, $compressed_state, $REDIRECT_STATE_EXPIRES);
 

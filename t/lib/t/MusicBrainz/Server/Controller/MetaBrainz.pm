@@ -87,6 +87,42 @@ test 'The OAuth2 callback discards the state on provider errors' => sub {
     $mech->content_contains('This page has expired');
 };
 
+test 'OAuth2 redirects are rate limited by IP' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    no warnings 'redefine';
+    local *DBDefs::LOCAL_ACCOUNTS_ENABLED = sub { 0 };
+    use warnings 'redefine';
+
+    my $max = $MusicBrainz::Server::Controller::MetaBrainz::MAX_REDIRECT_ATTEMPTS;
+    $mech->max_redirect(0);
+
+    my $redirects = 0;
+    for (1 .. $max) {
+        $mech->get('/login');
+        ++$redirects if $mech->status == 302;
+    }
+    is($redirects, $max, "the first $max attempts are redirected");
+
+    $mech->get('/login');
+    is($mech->status, HTTP_BAD_REQUEST, 'the next attempt is rejected');
+    $mech->content_contains('Too many login attempts',
+                            'the error mentions too many login attempts');
+
+    my $store = $test->c->store;
+    my ($count_key) = $store->_connection->keys(
+        $store->_prepare_key('oauth2_redirect_state:count:*'));
+    ok(defined $count_key, 'a redirect count key exists');
+    my $ttl = $store->_connection->ttl($count_key);
+    cmp_ok($ttl, '>', 0, 'the redirect count key has a TTL');
+    cmp_ok(
+        $ttl, '<=',
+        $MusicBrainz::Server::Controller::MetaBrainz::REDIRECT_STATE_EXPIRES,
+        'the redirect count key expires within REDIRECT_STATE_EXPIRES',
+    );
+};
+
 test 'POST parameters are preserved through an OAuth2 login' => sub {
     my $test = shift;
     my $mech = $test->mech;
