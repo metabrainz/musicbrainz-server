@@ -43,6 +43,8 @@ export default {
     },
   },
 
+  experiments: {typescript: false},
+
   externals: [
     nodeExternals({
       /*

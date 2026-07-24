@@ -300,6 +300,8 @@ export default {
 
   entry: entries,
 
+  experiments: {typescript: false},
+
   mode: WEBPACK_MODE,
 
   module: moduleConfig('web'),

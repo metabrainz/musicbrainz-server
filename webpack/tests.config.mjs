@@ -34,6 +34,8 @@ const webTestsConfig = {
     'web-tests': path.resolve(SCRIPTS_DIR, 'tests', 'browser-runner.js'),
   },
 
+  experiments: {typescript: false},
+
   mode: 'development',
 
   module: moduleConfig('web'),
