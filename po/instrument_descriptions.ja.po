@@ -9,11 +9,12 @@
 # Shunsuke Shimizu <email address hidden>, 2016
 # ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
+# zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-27 19:36+0000\n"
-"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
+"PO-Revision-Date: 2026-05-21 21:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ja/>\n"
 "Language: ja\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -95,7 +96,7 @@ msgstr ""
 #. name:kös
 #: DB:instrument/description:739
 msgid "A Turkish drum used in the traditional Ottoman military bands."
-msgstr "オスマン帝国のメフテルに用いるトルコの太鼓"
+msgstr "オスマン帝国のメフテルに用いるトルコの太鼓。"
 
 #. name:tef
 #: DB:instrument/description:531
@@ -234,11 +235,13 @@ msgid ""
 "length and often made of bone and hardwoods such as porokaiwhiria, mataī and "
 "tutu."
 msgstr ""
+"大型のkōauauで、全長30-40cmほどで大きなものは60cmに及びます。材料は骨、もしく"
+"はporokaiwhiriaやmataī、アニグレなどの硬木が使われています。"
 
 #. name:ngɔni
 #: DB:instrument/description:729
 msgid "A lute from West Africa, made of wood or gourd."
-msgstr ""
+msgstr "木材やひょうたんで作られた西アフリカのリュート。"
 
 #. name:mandolute
 #: DB:instrument/description:766
@@ -246,13 +249,15 @@ msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
 msgstr ""
+"マンドリュートは北アフリカの弦楽器で、伝統的なウード弦形式を5本の金属弦に"
+"フレットがついている。"
 
 #. name:mouth organ
 #: DB:instrument/description:610
 msgid ""
 "A mouth organ is a generic term for free reed aerophone with one or more air "
 "chambers fitted with a free reed."
-msgstr ""
+msgstr "ハーモニカは、1つ以上の空気室を持ったフリーリード式気鳴楽器の総称です。"
 
 #. name:bowed piano
 #: DB:instrument/description:504

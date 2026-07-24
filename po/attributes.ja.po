@@ -28,11 +28,12 @@
 # Lunae_XD <raru0916@gmail.com>, 2024.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2025, 2026.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
+# zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 20:11+0000\n"
-"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-05-21 21:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
@@ -40,7 +41,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -631,7 +632,7 @@ msgstr ""
 #: DB:place_type/description:8
 msgctxt "place_type"
 msgid "A place (generally a factory) at which physical media are manufactured."
-msgstr "物理メディアを製造する場所(一般的には工場)"
+msgstr "物理メディアを製造する場所(一般的には工場)。"
 
 #. name:Indoor arena
 #: DB:place_type/description:5
@@ -797,7 +798,7 @@ msgstr "同一賞を受賞した一連のアーティスト。"
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr "アーティストのシリーズ"
+msgstr "アーティストのシリーズ。"
 
 #. name:Award ceremony
 #: DB:series_type/description:15
@@ -2562,12 +2563,9 @@ msgid "Club"
 msgstr "クラブ"
 
 #: DB:event_type/name:40
-#, fuzzy
-#| msgctxt "release_group_secondary_type"
-#| msgid "Compilation"
 msgctxt "event_type"
 msgid "Competition"
-msgstr "コンピレーション"
+msgstr "コンペティション"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -2706,17 +2704,14 @@ msgid "D Locrian"
 msgstr "ニ調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1059
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "D Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Lydian"
-msgstr " ニ調ミクソリディア"
+msgstr "ニ調リディアン"
 
 #: DB:work_attribute_type_allowed_value/value:802
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Mixolydian"
-msgstr " ニ調ミクソリディア"
+msgstr "ニ調ミクソリディア"
 
 #: DB:work_attribute_type_allowed_value/value:1052
 msgctxt "work_attribute_type_allowed_value"
@@ -3108,12 +3103,12 @@ msgstr "デュアルディスク（DVD面）"
 #: DB:medium_format/name:65
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Audio side)"
-msgstr "DualDisc (DVD-Audio 面) "
+msgstr "DualDisc (DVD-Audio 面)"
 
 #: DB:medium_format/name:66
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Video side)"
-msgstr "DualDisc (DVD-Video 面) "
+msgstr "DualDisc (DVD-Video 面)"
 
 #: DB:work_attribute_type_allowed_value/value:612
 msgctxt "work_attribute_type_allowed_value"
@@ -3244,28 +3239,22 @@ msgstr "<i>Dīpāḷi</i>"
 #: DB:work_attribute_type_allowed_value/value:791
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Dorian"
-msgstr " ホ調ドリア "
+msgstr "ホ調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1067
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "E Dorian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Locrian"
-msgstr " ホ調ドリア "
+msgstr "ホ調ロクリアン"
 
 #: DB:work_attribute_type_allowed_value/value:1060
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "E Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Lydian"
-msgstr " ホ調ミクソリディア"
+msgstr "ホ調リディアン"
 
 #: DB:work_attribute_type_allowed_value/value:803
 msgctxt "work_attribute_type_allowed_value"
 msgid "E Mixolydian"
-msgstr " ホ調ミクソリディア"
+msgstr "ホ調ミクソリディア"
 
 #: DB:work_attribute_type_allowed_value/value:1053
 msgctxt "work_attribute_type_allowed_value"
@@ -3459,17 +3448,14 @@ msgid "F Locrian"
 msgstr "ヘ調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1061
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "F Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Lydian"
-msgstr " ヘ調ミクソリディア"
+msgstr "ヘ調リディアン"
 
 #: DB:work_attribute_type_allowed_value/value:804
 msgctxt "work_attribute_type_allowed_value"
 msgid "F Mixolydian"
-msgstr " ヘ調ミクソリディア"
+msgstr "ヘ調ミクソリディア"
 
 #: DB:work_attribute_type_allowed_value/value:1054
 msgctxt "work_attribute_type_allowed_value"
@@ -3694,17 +3680,14 @@ msgid "G Locrian"
 msgstr "ト調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1062
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "G Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Lydian"
-msgstr " ト調ミクソリディア"
+msgstr "ト調リディアン"
 
 #: DB:work_attribute_type_allowed_value/value:805
 msgctxt "work_attribute_type_allowed_value"
 msgid "G Mixolydian"
-msgstr " ト調ミクソリディア"
+msgstr "ト調ミクソリディア"
 
 #: DB:work_attribute_type_allowed_value/value:1055
 msgctxt "work_attribute_type_allowed_value"
@@ -4265,22 +4248,22 @@ msgstr "ハイブリッドSACD"
 #: DB:medium_format/name:63
 msgctxt "medium_format"
 msgid "Hybrid SACD (CD layer)"
-msgstr " ハイブリッドSACD (CD部)"
+msgstr "ハイブリッドSACD (CD部)"
 
 #: DB:medium_format/name:64
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer)"
-msgstr " ハイブリッドSACD (SACD部)"
+msgstr "ハイブリッドSACD (SACD部)"
 
 #: DB:medium_format/name:87
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, 2 channels)"
-msgstr " ハイブリッドSACD (SACD部, 2チャンネル)"
+msgstr "ハイブリッドSACD (SACD部, 2チャンネル)"
 
 #: DB:medium_format/name:86
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, multichannel)"
-msgstr " ハイブリッドSACD (SACD部, マルチチャンネル)"
+msgstr "ハイブリッドSACD (SACD部, マルチチャンネル)"
 
 #: DB:work_attribute_type_allowed_value/value:418
 msgctxt "work_attribute_type_allowed_value"
@@ -4367,13 +4350,13 @@ msgstr "アルゼンチンの権利者団体SADAICのID"
 #: DB:work_attribute_type/description:13
 msgctxt "work_attribute_type"
 msgid "ID for the Australasian rights society APRA"
-msgstr " オーストラレーシアの権利者団体APRAのID"
+msgstr "オーストラレーシアの権利者団体APRAのID"
 
 #. name:AKM ID
 #: DB:work_attribute_type/description:23
 msgctxt "work_attribute_type"
 msgid "ID for the Austrian rights society AKM"
-msgstr " オーストリアの権利者団体AKMのID"
+msgstr "オーストリアの権利者団体AKMのID"
 
 #. name:COSCAP ID
 #: DB:work_attribute_type/description:73
@@ -4497,12 +4480,9 @@ msgstr "エクアドルの権利者団体SAYCEのID"
 
 #. name:EAÜ ID
 #: DB:work_attribute_type/description:215
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr " オーストリアの権利者団体AKMのID"
+msgstr "エストニアの権利者団体EAÜのID"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -4541,7 +4521,7 @@ msgstr "グアテマラの権利者団体AEIのID"
 #: DB:work_attribute_type/description:57
 msgctxt "work_attribute_type"
 msgid "ID for the Honduran rights society AACIMH"
-msgstr " ホンジュラスの権利者団体AACIMHのID"
+msgstr "ホンジュラスの権利者団体AACIMHのID"
 
 #. name:CASH ID
 #: DB:work_attribute_type/description:19
@@ -4569,12 +4549,9 @@ msgstr "インドの知的財産権協会IPRSのID"
 
 #. name:WAMI ID
 #: DB:work_attribute_type/description:210
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Indonesian rights society WAMI"
-msgstr " オーストリアの権利者団体AKMのID"
+msgstr "インドネシアの権利者団体WAMIのID"
 
 #. name:ICE ID
 #: DB:work_attribute_type/description:29
@@ -4590,12 +4567,9 @@ msgstr "アイルランドの権利者団体IMROのID"
 
 #. name:ACUM ID
 #: DB:work_attribute_type/description:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Israeli rights society ACUM"
-msgstr " オーストリアの権利者団体AKMのID"
+msgstr "イスラエルの権利者団体ACUMのID"
 
 #. name:SIAE ID
 #: DB:work_attribute_type/description:36
@@ -4631,16 +4605,13 @@ msgstr "韓国の権利者団体KOMCAのID"
 #: DB:work_attribute_type/description:63
 msgctxt "work_attribute_type"
 msgid "ID for the Latvian rights society AKKA/LAA"
-msgstr " ラトビアの権利者団体AKKA/LAAのID"
+msgstr "ラトビアの権利者団体AKKA/LAAのID"
 
 #. name:LATGA ID
 #: DB:work_attribute_type/description:207
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Latvian rights society AKKA/LAA"
 msgctxt "work_attribute_type"
 msgid "ID for the Lithuanian rights society LATGA"
-msgstr " ラトビアの権利者団体AKKA/LAAのID"
+msgstr "リトアニアの権利者団体LATGAのID"
 
 #. name:MACP ID
 #: DB:work_attribute_type/description:49
@@ -4727,7 +4698,7 @@ msgstr "スロベニアの著作権管理団体SAZASのID"
 #: DB:work_attribute_type/description:68
 msgctxt "work_attribute_type"
 msgid "ID for the South African rights society SAMRO"
-msgstr " 南アフリカの権利者団体SAMROのID"
+msgstr "南アフリカの権利者団体SAMROのID"
 
 #. name:SGAE ID
 #: DB:work_attribute_type/description:20
@@ -4827,25 +4798,22 @@ msgstr "ベトナム著作権管理協会VCPMCのID"
 
 #. name:Soundreef ID
 #: DB:work_attribute_type/description:208
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the international (formerly US) rights society AMRA"
 msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
-msgstr " 国際的な(かつてはアメリカの)権利者団体AMRAのID"
+msgstr "国際的(主にイタリア)権利者団体SoundreefのID"
 
 #. name:AMRA ID
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
-msgstr " 国際的な(かつてはアメリカの)権利者団体AMRAのID"
+msgstr "国際的な(かつてはアメリカの)権利者団体AMRAのID"
 
 #. name:LatinNet ID
 #: DB:work_attribute_type/description:55
 msgctxt "work_attribute_type"
 msgid "ID for the international rights society consortium LatinNet"
-msgstr " 国際的な権利者団体LatinNetのID"
+msgstr "国際的な権利者団体LatinNetのID"
 
 #. name:CCLI ID
 #: DB:work_attribute_type/description:22

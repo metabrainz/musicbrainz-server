@@ -11,12 +11,13 @@
 # yyb987 <tyui54-a93@yahoo.com>, 2023.
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2024.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
+# zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-08-20 21:36+0000\n"
-"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
+"PO-Revision-Date: 2026-05-21 21:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ja/>\n"
 "Language: ja\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13\n"
+"X-Generator: Weblate 2026.5\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -102,10 +103,8 @@ msgid "Overview"
 msgstr "概要"
 
 #: ../root/statistics/timeline.tt:32
-#, fuzzy
-#| msgid "Exact Values (items vs. day)"
 msgid "Rate of change (average items/day vs. day)"
-msgstr "正確な値(items vs. day)"
+msgstr "変化率(平均アイテム/日にち vs. 日にち)"
 
 #: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
@@ -232,11 +231,11 @@ msgstr "リリース/メディアフォーマット"
 
 #: ../root/statistics/Formats.js:51
 msgid "% of total releases"
-msgstr ""
+msgstr "総リリース内割合(%)"
 
 #: ../root/statistics/Formats.js:53
 msgid "% of total mediums"
-msgstr ""
+msgstr "総メディアムス内割合(%)"
 
 #: ../root/statistics/Formats.js:87
 msgid "Unknown format"
@@ -262,10 +261,8 @@ msgstr "カバーアートの一部:"
 
 #: ../root/statistics/Images.js:108 ../root/statistics/Images.js:442
 #: ../root/statistics/Images.js:528
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events with event art"
-msgstr "ディスクIDのないリリース:"
+msgstr "イベントアート付きのイベント:"
 
 #: ../root/statistics/Images.js:123 ../root/statistics/Images.js:478
 #: ../root/statistics/Images.js:491 ../root/statistics/stats.js:479
@@ -278,7 +275,7 @@ msgstr "カバーアートに関する統計データは利用できません。
 
 #: ../root/statistics/Images.js:145
 msgid "By release group type"
-msgstr "リリースグループ"
+msgstr "リリースグループ種別"
 
 #: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
 #: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
@@ -315,7 +312,7 @@ msgstr ""
 
 #: ../root/statistics/Images.js:315 ../root/statistics/stats.js:291
 msgid "Pieces of cover art"
-msgstr ""
+msgstr "カバーアートの種類"
 
 #: ../root/statistics/Images.js:324
 msgid "By cover art type"
@@ -328,7 +325,7 @@ msgstr "リリース別"
 #: ../root/statistics/Images.js:375
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] ""
+msgstr[0] "{num}種:"
 
 #: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
@@ -339,10 +336,8 @@ msgid "No event art statistics available."
 msgstr "イベントアートの統計データは利用できません。"
 
 #: ../root/statistics/Images.js:438
-#, fuzzy
-#| msgid "Events"
 msgid "By event type"
-msgstr "イベント"
+msgstr "イベント形式別"
 
 #: ../root/statistics/Images.js:487
 msgid "By event art type"
@@ -353,18 +348,13 @@ msgid "Per event"
 msgstr "イベント別"
 
 #: ../root/statistics/Images.js:542
-#, fuzzy
-#| msgid "with {num} disc ID:"
-#| msgid_plural "with {num} disc IDs:"
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "{num}つのディスクID:"
+msgstr[0] "{num}種のイベントアート:"
 
 #: ../root/statistics/Images.js:572
-#, fuzzy
-#| msgid "with 10 or more disc IDs:"
 msgid "with 15 or more pieces of event art:"
-msgstr "10以上のディスクID:"
+msgstr "15種以上のイベントアート:"
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
@@ -389,7 +379,7 @@ msgstr "CDスタブ数（全期間 / 現在）:"
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr ""
+msgstr "タグ（生データ / 集計データ）:"
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
@@ -453,11 +443,11 @@ msgstr "未指定:"
 
 #: ../root/statistics/Index.js:269
 msgid "with appearances in artist credits:"
-msgstr ""
+msgstr "アーティスト・クレジット内に近影:"
 
 #: ../root/statistics/Index.js:275
 msgid "with no appearances in artist credits:"
-msgstr ""
+msgstr "アーティスト・クレジット内に近影なし:"
 
 #: ../root/statistics/Index.js:280
 msgid "Non-group artists:"
@@ -565,8 +555,6 @@ msgid "Primary types"
 msgstr "一次タイプ"
 
 #: ../root/statistics/Index.js:632
-#, fuzzy
-#| msgid "None"
 msgctxt "release group primary type"
 msgid "None"
 msgstr "なし"
@@ -576,8 +564,6 @@ msgid "Secondary types"
 msgstr "二次タイプ"
 
 #: ../root/statistics/Index.js:666
-#, fuzzy
-#| msgid "None"
 msgctxt "release group secondary type"
 msgid "None"
 msgstr "なし"
@@ -603,15 +589,11 @@ msgid "Types"
 msgstr "タイプ"
 
 #: ../root/statistics/Index.js:723
-#, fuzzy
-#| msgid "None"
 msgctxt "label type"
 msgid "None"
 msgstr "なし"
 
 #: ../root/statistics/Index.js:751
-#, fuzzy
-#| msgid "None"
 msgctxt "work type"
 msgid "None"
 msgstr "なし"
@@ -656,13 +638,11 @@ msgstr "イベントアート"
 
 #: ../root/statistics/Index.js:941
 msgid "With EAA poster art:"
-msgstr ""
+msgstr "EAA登録のポスターアート:"
 
 #: ../root/statistics/Index.js:947
-#, fuzzy
-#| msgid "No front cover art:"
 msgid "No poster art:"
-msgstr "カバーアートがない:"
+msgstr "カバーアートなし:"
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
@@ -674,7 +654,7 @@ msgstr "一般"
 
 #: ../root/statistics/Index.js:983
 msgid "Owned music"
-msgstr ""
+msgstr "持っている楽曲"
 
 #: ../root/statistics/Index.js:992
 msgid "Wishlist"
@@ -879,6 +859,9 @@ msgid ""
 "administrator for this server, you should run <code>./admin/CollectStats.pl</"
 "code> or import <code>mbdump-stats.tar.bz2</code>."
 msgstr ""
+"このサーバーについては、これまで統計データが収集されたことがありません。管理"
+"者の方は、<code>./admin/CollectStats.pl</code> を実行するか、<code>mbdump-"
+"stats.tar.bz2</code> をインポートしてください。"
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
@@ -1025,7 +1008,7 @@ msgstr "男性アーティスト"
 
 #: ../root/statistics/stats.js:96
 msgid "Non-binary Artists"
-msgstr ""
+msgstr "ノンバイナリー・アーティスト"
 
 #: ../root/statistics/stats.js:101
 msgid "Gender not applicable"
@@ -1330,33 +1313,31 @@ msgstr ""
 
 #: ../root/statistics/stats.js:554
 msgid "Labels with no country set"
-msgstr ""
+msgstr "国が設定されていないレーベル"
 
 #: ../root/statistics/stats.js:559
 msgid "Labels with no type set"
-msgstr ""
+msgstr "タイプが設定されていないレーベル"
 
 #: ../root/statistics/stats.js:574
 msgid "Mediums with no format set"
 msgstr ""
 
 #: ../root/statistics/stats.js:579
-#, fuzzy
-#| msgid "Mediums with no disc IDs:"
 msgid "Mediums with disc IDs"
-msgstr "ディスクIDのないメディア:"
+msgstr "ディスクIDの設定されているメディア"
 
 #: ../root/statistics/stats.js:589
 msgid "Places with no country set"
-msgstr ""
+msgstr "国が設定されていない場所"
 
 #: ../root/statistics/stats.js:594
 msgid "Places with no type set"
-msgstr ""
+msgstr "タイプが設定されていない場所"
 
 #: ../root/statistics/stats.js:599
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr ""
+msgstr "データ品質初期値 (普通 + 不明)"
 
 #: ../root/statistics/stats.js:624
 msgid "Entities with ratings"
@@ -1420,19 +1401,15 @@ msgstr ""
 
 #: ../root/statistics/stats.js:714
 msgid "Releases with no country set"
-msgstr ""
+msgstr "国が設定されていないリリース"
 
 #: ../root/statistics/stats.js:719
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with CAA cover art"
-msgstr "ディスクIDのないリリース:"
+msgstr "CAAにカバーアートの登録があるリリース:"
 
 #: ../root/statistics/stats.js:724
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with no cover art"
-msgstr "ディスクIDのないリリース:"
+msgstr "カバーアートのないリリース:"
 
 #: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set"
@@ -1443,24 +1420,20 @@ msgid "Releases with a medium with no format set that have cover art"
 msgstr ""
 
 #: ../root/statistics/stats.js:741
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with cover art"
-msgstr "ディスクIDのないリリース:"
+msgstr "カバーアートがあるリリース:"
 
 #: ../root/statistics/stats.js:746
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Releases with disc IDs"
-msgstr "ディスクIDのないリリース:"
+msgstr "ディスクIDのあるリリース"
 
 #: ../root/statistics/stats.js:751
 msgid "Releases with no language set"
-msgstr ""
+msgstr "言語が設定されていないリリース"
 
 #: ../root/statistics/stats.js:756
 msgid "Releases not credited to Various Artists"
-msgstr ""
+msgstr "クレジットされていない複数アーティストのリリース"
 
 #: ../root/statistics/stats.js:761
 msgid "Releases with no packaging set"
@@ -1468,7 +1441,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:766
 msgid "Releases with no script set"
-msgstr ""
+msgstr "歌詞の設定されていないリリース"
 
 #: ../root/statistics/stats.js:771
 msgid "Releases with no status set"
@@ -1484,7 +1457,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:788
 msgid "Releases credited to Various Artists"
-msgstr ""
+msgstr "複数アーティストでクレジット記載済みのリリース"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with automatically inferred cover art"
@@ -1504,7 +1477,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:825
 msgid "Series with no type set"
-msgstr ""
+msgstr "タイプの設定されていないシリーズ"
 
 #: ../root/statistics/stats.js:830
 msgctxt "folksonomy"
@@ -1561,18 +1534,14 @@ msgid "Admin approvals"
 msgstr ""
 
 #: ../root/statistics/stats.js:916
-#, fuzzy
-#| msgid "Area collections"
 msgid "Admin rejections"
-msgstr "地域のコレクション"
+msgstr "管理権限 却下"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
 msgstr ""
 
 #: ../root/statistics/stats.js:926
-#, fuzzy
-#| msgid "No Votes"
 msgid "No votes"
 msgstr "投票なし"
 
@@ -1585,10 +1554,8 @@ msgid "Votes per week"
 msgstr ""
 
 #: ../root/statistics/stats.js:942
-#, fuzzy
-#| msgid "Total votes"
 msgid "Yes votes"
-msgstr "総投票数"
+msgstr "賛成票"
 
 #: ../root/statistics/stats.js:952
 msgid "Works with no attributes"
@@ -1604,7 +1571,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:967
 msgid "Works with no type set"
-msgstr ""
+msgstr "タイプの設定されていない作品"
 
 #: ../root/statistics/stats.js:969
 msgid "/day"
@@ -1663,10 +1630,8 @@ msgid "{type} events"
 msgstr ""
 
 #: ../root/statistics/stats.js:1130
-#, fuzzy
-#| msgid "Releases with no disc IDs:"
 msgid "Events of type “{type}” with event art"
-msgstr "ディスクIDのないリリース:"
+msgstr "イベントアートに\"{type}\"があるイベント"
 
 #: ../root/statistics/stats.js:1143
 msgid "{name} releases"
