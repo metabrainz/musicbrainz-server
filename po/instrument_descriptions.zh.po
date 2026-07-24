@@ -11,11 +11,12 @@
 # Pioneers <spinleftgit@gmail.com>, 2025.
 # 7Stars <7star@heqingpi.cn>, 2026.
 # scientists360 <scientists360@outlook.com>, 2026.
+# soonaf <z621082921@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-30 12:12+0000\n"
-"Last-Translator: scientists360 <scientists360@outlook.com>\n"
+"PO-Revision-Date: 2026-06-21 21:12+0000\n"
+"Last-Translator: soonaf <z621082921@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hans/>\n"
@@ -24,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -3801,10 +3802,13 @@ msgstr "流行于文艺复兴时期，小而便携，带有两个风箱和黄铜
 
 #. name:lirone
 #: DB:instrument/description:697
+#, fuzzy
 msgid ""
 "Popular late 16th to early 17th, it is the bass member of the lira family "
 "with between 9 and 16 strings and a fretted neck."
 msgstr ""
+"流行于16世纪末至17世纪初，是里拉琴（lira）家族中的低音成员，拥有9到16根琴弦以"
+"及带有品丝的琴颈。"
 
 #. name:orphica
 #: DB:instrument/description:842
@@ -3812,8 +3816,8 @@ msgid ""
 "Portable piano with shoulder strap invented in 1795, it is a descendant of "
 "the Baroque Bauchladenspinett and a sort of early precursor of the keytar."
 msgstr ""
-"可携式钢琴，带肩带，发明于1795年，是巴洛克 Bauchladenspinett 的后裔，也可看作"
-"早期 keytar 的前身。"
+"带肩带的便携钢琴，发明于1795年，是Baroque Bauchladenspinett的后代，也是肩背式"
+"键盘的某种早期前身。"
 
 #. name:đàn bầu
 #: DB:instrument/description:251
