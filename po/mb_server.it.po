@@ -29,15 +29,14 @@
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
 # "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
-# GABG <musicbrainz@gabg.email>, 2024, 2025.
+# GABG <musicbrainz@gabg.email>, 2024, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-29 18:37-0500\n"
-"PO-Revision-Date: 2026-05-21 21:12+0000\n"
-"Last-Translator: \"salo.rock\" "
-"<salo.rock@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-07-05 19:12+0000\n"
+"Last-Translator: GABG <musicbrainz@gabg.email>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/it/>\n"
 "Language: it\n"
@@ -46,7 +45,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -6819,12 +6818,13 @@ msgstr "Elimina il mio account"
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Accesso con autenticazione digest"
 
 #: ../root/account/DigestAuthentication.js:29
 #: ../root/account/applications/ApplicationList.js:197
 msgid "Digest authentication is <strong>disabled</strong> on your account."
 msgstr ""
+"L'autenticazione digest è <strong>disattivata</strong> per il tuo account."
 
 #: ../root/account/DigestAuthentication.js:36
 msgid ""
@@ -6833,11 +6833,16 @@ msgid ""
 "retrieve this token again after closing the page; if it’s lost, you can "
 "reset it from {applications_url|Applications}."
 msgstr ""
+"Il tuo nuovo token per l'autenticazione digest è qui sotto. Usalo al posto "
+"della password del tuo account MusicBrainz nelle applicazioni che la "
+"richiedono. Non è possibile ottenere questo token dopo la chiusura della "
+"pagina; se lo perdi, puoi resettarlo nella pagina "
+"{applications_url|Applicazioni}."
 
 #: ../root/account/DigestAuthentication.js:53
 msgctxt "interactive"
 msgid "{applications_url|Back to Applications}."
-msgstr ""
+msgstr "{applications_url|Ritorna in Applicazioni}."
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:94
@@ -7168,7 +7173,7 @@ msgstr "Non hai registrato nessuna applicazione."
 
 #: ../root/account/applications/ApplicationList.js:167
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Accesso con autenticazione digest"
 
 #: ../root/account/applications/ApplicationList.js:171
 msgid ""
@@ -7179,33 +7184,38 @@ msgid ""
 "token if you want to use such an application; use this token in place of "
 "your password when the application asks for one."
 msgstr ""
+"Alcune applicazioni utilizzano una vecchia forma di autenticazione chiamata "
+"{digest_url|HTTP Digest Access Authentication}. Questo ci obbliga a salvare "
+"una password utilizzando una {md5_url|funzione di hash insicura}. Invece di "
+"memorizzare la tua password in questo modo, ti chiediamo di generate un "
+"token separato per usare queste applicazioni; usa questo token al posto "
+"della tua password quando l'applicazione te la richiede."
 
 #: ../root/account/applications/ApplicationList.js:188
 msgid ""
 "We don’t track which applications are using digest authentication. You can "
 "choose to either reset the token, or disable this access method entirely."
 msgstr ""
+"Non teniamo traccia di quali applicazioni stanno utilizzando "
+"l'autenticazione digest. Puoi scegliere di resettare il token o "
+"completamente disattivare questo metodo di accesso."
 
 #: ../root/account/applications/ApplicationList.js:195
 msgid "Digest authentication is <strong>enabled</strong> on your account."
 msgstr ""
+"L'autenticazione digest è <strong>abilitata</strong> per il tuo account."
 
 #: ../root/account/applications/ApplicationList.js:212
-#, fuzzy
-#| msgid "Disambiguation"
 msgid "Disable digest authentication"
-msgstr "Disambiguazione"
+msgstr "Disattiva autenticazione digest"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
-msgstr ""
+msgstr "Reimposta il token per l'autenticazione digest"
 
 #: ../root/account/applications/ApplicationList.js:230
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit annotation"
 msgid "Enable digest authentication"
-msgstr "Modifica annotazione"
+msgstr "Attiva autenticazione digest"
 
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
@@ -11696,10 +11706,8 @@ msgid "Official homepage"
 msgstr "Pagina ufficiale"
 
 #: ../root/layout/components/ExternalLinks.js:135
-#, fuzzy
-#| msgid "Review ({hostname})"
 msgid "Interview ({hostname})"
-msgstr "Recensione ({hostname})"
+msgstr "Intervista ({hostname})"
 
 #: ../root/layout/components/ExternalLinks.js:136
 msgid "Review ({hostname})"
@@ -17007,11 +17015,8 @@ msgstr ""
 "solo collegamenti ad articoli di Wikipedia."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7515
-#, fuzzy
-#| msgid "Only video and playlist links are allowed on releases."
 msgid "Only video links are allowed as interviews."
-msgstr ""
-"Solo collegamenti video e playlist sono consentiti sulle pubblicazioni."
+msgstr "Solo collegamenti video sono consentiti come interviste."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7527
 msgid ""
