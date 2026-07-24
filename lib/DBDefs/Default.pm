@@ -157,6 +157,10 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
+# Enable local account registration and login, bypassing OAuth login with
+# MetaBrainz. This should only be enabled for development purposes.
+sub LOCAL_ACCOUNTS_ENABLED { 0 }
+
 # SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
 # the "RequireSSL" attribute on Catalyst actions, which will redirect
 # users to the SSL version of a Catalyst action (and redirect back to
@@ -274,8 +278,7 @@ sub ENTITY_CACHE_TTL {
 # uses DATASTORE_VALKEY_ARGS to connect to and store sessions in Valkey.
 
 sub SESSION_STORE { 'Session::Store::MusicBrainz' }
-sub SESSION_STORE_ARGS { return {} }
-sub SESSION_EXPIRE { return 36000; } # 10 hours
+sub SESSION_EXPIRE { return 3600 * 3; } # 3 hours
 
 sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
@@ -288,18 +291,6 @@ sub DATASTORE_VALKEY_ARGS {
 
 # Exists for backwards compatibility, to be removed in the future.
 sub DATASTORE_REDIS_ARGS { undef }
-
-################################################################################
-# Session cookies
-################################################################################
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { 'AF_SID' }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
 
 ################################################################################
 # Other Settings
@@ -362,15 +353,6 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
-# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
-sub MTCAPTCHA_PUBLIC_KEY { return undef }
-sub MTCAPTCHA_PRIVATE_KEY { return undef }
-sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
-
-# A list of email domains which are blocked for the purposes of
-# new account registration.
-sub BLOCKED_EMAIL_DOMAINS { }
-
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).
 sub COVER_ART_ARCHIVE_ACCESS_KEY { }
@@ -395,11 +377,16 @@ sub MAPBOX_ACCESS_TOKEN { '' }
 # Feature toggle used for pre-schema change release of safe schema change code
 sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 
-# MetaBrainz OAuth endpoint (and associated application) used to introspect
-# "meba_*" tokens issued by metabrainz.org. See MBS-13703 for details.
-sub METABRAINZ_OAUTH_URL { '' }
+# URLs for MetaBrainz account registration, login, and OAuth.
+sub METABRAINZ_URL { 'https://metabrainz.org' }
+# `METABRAINZ_INTERNAL_URL` may be configured in production to allow querying
+# the OAuth API via the internal network, e.g., using Consul DNS.
+sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
+# OAuth application used for login and introspecting "meba_*" tokens issued
+# by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }
 sub METABRAINZ_OAUTH_CLIENT_SECRET { '' }
+sub METABRAINZ_OAUTH_SSL_VERIFICATION_ENABLED { 1 }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER || $self->IS_BETA }
@@ -473,12 +460,6 @@ sub DISCOURSE_API_KEY { '' }
 sub DISCOURSE_API_USERNAME { '' }
 # See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
 sub DISCOURSE_SSO_SECRET { '' }
-
-# Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
-# and CSP headers. Even without a secret set, the generated nonces are very
-# unlikely to be guessed; this is mainly only useful for an additional layer
-# of security on the MusicBrainz production site.
-sub NONCE_SECRET { '' }
 
 # `USE_RO_DATABASE_CONNECTOR` signals to MusicBrainz Server that it may open
 # an additional database connector per request that it can send read-only

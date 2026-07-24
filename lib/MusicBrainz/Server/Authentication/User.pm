@@ -1,5 +1,10 @@
 package MusicBrainz::Server::Authentication::User;
 use Moose;
+use namespace::autoclean;
+use Readonly;
+
+use MusicBrainz::Server::Authentication::Utils qw( can_user_login );
+
 extends 'MusicBrainz::Server::Entity::Editor';
 
 has 'auth_realm' => (
@@ -7,12 +12,15 @@ has 'auth_realm' => (
     is => 'rw',
 );
 
+Readonly our %supported_features => (
+    session => 1,
+);
+
 sub supports
 {
     my ($self, @spec) = @_;
-    my $supported = { session => 1 };
     for (@spec) {
-        return unless exists $supported->{$_};
+        return 0 unless exists $supported_features{$_};
     }
     return 1;
 }
@@ -23,17 +31,11 @@ sub get
     return $self->can($key) ? $self->$key : undef;
 }
 
-sub new_from_editor
+sub is_authorized
 {
-    my ($class, $editor) = @_;
-
-    return undef
-        unless $editor;
-
-    return Class::MOP::Class->initialize($class)->rebless_instance($editor);
+    my ($self) = @_;
+    return can_user_login($self);
 }
-
-sub is_authorized { 1 }
 
 __PACKAGE__->meta->make_immutable;
 no Moose;

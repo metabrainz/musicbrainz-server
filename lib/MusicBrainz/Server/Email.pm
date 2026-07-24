@@ -19,7 +19,6 @@ use List::AllUtils qw( any sort_by );
 use MusicBrainz::Server::Constants qw(
     :edit_status
     :email_addresses
-    $CONTACT_URL
     $EDITOR_MODBOT
     $MINIMUM_RESPONSE_PERIOD
 );
@@ -87,94 +86,6 @@ sub _create_email
         });
 }
 
-sub _create_email_in_use_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => $opts{email},
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('email-in-use-%s', generate_gid()),
-        'Subject'    => 'Email address already in use',
-    );
-
-    my $lost_username_link = $url_prefix . '/lost-username';
-    my $lost_password_link = $url_prefix . '/lost-password';
-    my $bot_code_of_conduct_link = $url_prefix . '/doc/Code_of_Conduct/Bots';
-    my $ip = $opts{ip};
-    my $user_name = $opts{editor}->name;
-
-    my $body = <<"EOS";
-Hello $user_name,
-
-You have requested to verify this email address for the MusicBrainz account $user_name,
-but we already have at least one account using this address in our database.
-If you have forgotten your old username, you can recover it from the following link:
-
-$lost_username_link
-
-You can then request a password reset, if needed, from the link below:
-
-$lost_password_link
-
-If clicking the links above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-If you have a specific reason why you need a second account (for example,
-you want to run a bot and have notes also reach you at this address)
-please drop us a line (see $CONTACT_URL for details). We will look into
-your specific case. For bots, also let us know about what you are intending
-to do with it (see $bot_code_of_conduct_link).
-
-If you didn't initiate this request and feel that you've received this email in
-error, don't worry, you don't need to take any further action and can safely
-disregard this email.
-
-This email was triggered by a request from the IP address [$ip].
-
-Thanks for using MusicBrainz!
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
-sub _create_lost_username_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => _user_address($opts{user}),
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('lost-username-%s', generate_gid()),
-        'Subject'    => 'Lost username',
-    );
-
-    my $user_name = $opts{user}->name;
-    my $lost_password_url = $url_prefix . '/lost-password';
-
-    my $body = <<"EOS";
-Someone, probably you, asked to look up the username of the
-MusicBrainz account associated with this email address.
-
-Your MusicBrainz username is: $user_name
-
-If you have also forgotten your password, use this username and your email address
-to reset your password here - $lost_password_url
-
-If you didn't initiate this request and feel that you've received this email in
-error, don't worry, you don't need to take any further action and can safely
-disregard this email.
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
 sub _create_no_vote_email
 {
     my ($self, %opts) = @_;
@@ -222,43 +133,6 @@ $prefs_url.
 To ensure time for you and other editors to respond, the soonest this edit will
 be rejected, if applicable, is $close_time, 72 hours from the time of
 this email.
-
--- The MusicBrainz Team
-EOS
-
-    return $self->_create_email(\@headers, $body);
-}
-
-sub _create_password_reset_request_email
-{
-    my ($self, %opts) = @_;
-
-    my @headers = (
-        'To'         => _user_address($opts{user}),
-        'From'       => $EMAIL_NOREPLY_ADDRESS,
-        'Reply-To'   => $EMAIL_SUPPORT_ADDRESS,
-        'Message-Id' => _message_id('password-reset-%s', generate_gid()),
-        'Subject'    => 'Password reset request',
-    );
-
-    my $reset_password_link = $opts{reset_password_link};
-
-    my $body = <<"EOS";
-Someone, probably you, asked that your MusicBrainz password be reset.
-
-To reset your password, click the link below:
-
-$reset_password_link
-
-If clicking the link above doesn't work, please copy and paste the URL in a
-new browser window instead.
-
-If you didn't initiate this request and feel that you've received this email in
-error, don't worry, you don't need to take any further action and can safely
-disregard this email.
-
-If you still have problems logging in, please drop us a line - see
-$CONTACT_URL for details.
 
 -- The MusicBrainz Team
 EOS
@@ -402,55 +276,6 @@ sub send_message_to_editor
 
         $self->_mb_mail_service_send_single($body);
     }
-}
-
-sub send_email_verification
-{
-    my ($self, %opts) = @_;
-
-    my $verification_link = $opts{verification_link};
-
-    my $editor = $opts{editor};
-    $self->c->model('Editor')->load_preferences($editor);
-
-    my $user_name = $editor->name;
-
-    $self->_mb_mail_service_send_single({
-        template_id => 'verify-email',
-        to          => $opts{email},
-        from        => $EMAIL_NOREPLY_ADDRESS,
-        reply_to    => $EMAIL_NOREPLY_ADDRESS,
-        lang        => $editor->preferences->email_language,
-        message_id  => _message_id('verify-email-%s', generate_gid()),
-        params      => {
-            to_name             => $user_name,
-            verification_url    => "$verification_link",
-        },
-    });
-}
-
-sub send_email_in_use
-{
-    my ($self, %opts) = @_;
-
-    my $email = $self->_create_email_in_use_email(%opts);
-    return $self->_send_email($email);
-}
-
-sub send_lost_username
-{
-    my ($self, %opts) = @_;
-
-    my $email = $self->_create_lost_username_email(%opts);
-    return $self->_send_email($email);
-}
-
-sub send_password_reset_request
-{
-    my ($self, %opts) = @_;
-
-    my $email = $self->_create_password_reset_request_email(%opts);
-    return $self->_send_email($email);
 }
 
 sub send_subscriptions_digest

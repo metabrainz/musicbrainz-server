@@ -421,8 +421,8 @@ DISTRIBUTIONS
       Template 2.14
       namespace::autoclean 0
       namespace::clean 0
-  Catalyst-Plugin-Authentication-0.10024
-    pathname: J/JJ/JJNAPIORK/Catalyst-Plugin-Authentication-0.10024.tar.gz
+  Catalyst-Plugin-Authentication-0.10026
+    pathname: E/ET/ETHER/Catalyst-Plugin-Authentication-0.10026.tar.gz
     provides:
       Catalyst::Authentication::Credential::NoPassword undef
       Catalyst::Authentication::Credential::Password undef
@@ -434,7 +434,7 @@ DISTRIBUTIONS
       Catalyst::Authentication::Store::Null undef
       Catalyst::Authentication::User undef
       Catalyst::Authentication::User::Hash undef
-      Catalyst::Plugin::Authentication 0.10024
+      Catalyst::Plugin::Authentication 0.10026
       Catalyst::Plugin::Authentication::Credential::Password undef
       Catalyst::Plugin::Authentication::Store::Minimal undef
       Catalyst::Plugin::Authentication::User undef
@@ -865,10 +865,10 @@ DISTRIBUTIONS
       Module::Build::Tiny 0.035
       URI::Escape 0
       perl 5.008001
-  Cpanel-JSON-XS-4.40
-    pathname: R/RU/RURBAN/Cpanel-JSON-XS-4.40.tar.gz
+  Cpanel-JSON-XS-4.41
+    pathname: R/RU/RURBAN/Cpanel-JSON-XS-4.41.tar.gz
     provides:
-      Cpanel::JSON::XS 4.40
+      Cpanel::JSON::XS 4.41
       Cpanel::JSON::XS::Type undef
     requirements:
       Carp 0
@@ -967,13 +967,16 @@ DISTRIBUTIONS
       Types::Standard 1.000005
       namespace::autoclean 0
       strictures 2
-  Crypt-PasswdMD5-1.42
-    pathname: R/RS/RSAVAGE/Crypt-PasswdMD5-1.42.tgz
+  Crypt-PasswdMD5-1.43
+    pathname: R/RS/RSAVAGE/Crypt-PasswdMD5-1.43.tgz
     provides:
-      Crypt::PasswdMD5 1.42
+      Crypt::PasswdMD5 1.43
     requirements:
+      Crypt::URandom 0
       Digest::MD5 2.53
-      ExtUtils::MakeMaker 0
+      Encode 3.21
+      Exporter 5.78
+      ExtUtils::MakeMaker 7.7
       strict 0
       warnings 0
   Crypt-Random-Source-0.14
@@ -1036,118 +1039,128 @@ DISTRIBUTIONS
       Crypt::UnixCrypt_XS 0.11
     requirements:
       ExtUtils::MakeMaker 0
-  CryptX-0.088
-    pathname: M/MI/MIK/CryptX-0.088.tar.gz
+  CryptX-0.089
+    pathname: M/MI/MIK/CryptX-0.089.tar.gz
     provides:
-      Crypt::AuthEnc 0.088
-      Crypt::AuthEnc::CCM 0.088
-      Crypt::AuthEnc::ChaCha20Poly1305 0.088
-      Crypt::AuthEnc::EAX 0.088
-      Crypt::AuthEnc::GCM 0.088
-      Crypt::AuthEnc::OCB 0.088
-      Crypt::Checksum 0.088
-      Crypt::Checksum::Adler32 0.088
-      Crypt::Checksum::CRC32 0.088
-      Crypt::Cipher 0.088
-      Crypt::Cipher::AES 0.088
-      Crypt::Cipher::Anubis 0.088
-      Crypt::Cipher::Blowfish 0.088
-      Crypt::Cipher::CAST5 0.088
-      Crypt::Cipher::Camellia 0.088
-      Crypt::Cipher::DES 0.088
-      Crypt::Cipher::DES_EDE 0.088
-      Crypt::Cipher::IDEA 0.088
-      Crypt::Cipher::KASUMI 0.088
-      Crypt::Cipher::Khazad 0.088
-      Crypt::Cipher::MULTI2 0.088
-      Crypt::Cipher::Noekeon 0.088
-      Crypt::Cipher::RC2 0.088
-      Crypt::Cipher::RC5 0.088
-      Crypt::Cipher::RC6 0.088
-      Crypt::Cipher::SAFERP 0.088
-      Crypt::Cipher::SAFER_K128 0.088
-      Crypt::Cipher::SAFER_K64 0.088
-      Crypt::Cipher::SAFER_SK128 0.088
-      Crypt::Cipher::SAFER_SK64 0.088
-      Crypt::Cipher::SEED 0.088
-      Crypt::Cipher::Serpent 0.088
-      Crypt::Cipher::Skipjack 0.088
-      Crypt::Cipher::Twofish 0.088
-      Crypt::Cipher::XTEA 0.088
-      Crypt::Digest 0.088
-      Crypt::Digest::BLAKE2b_160 0.088
-      Crypt::Digest::BLAKE2b_256 0.088
-      Crypt::Digest::BLAKE2b_384 0.088
-      Crypt::Digest::BLAKE2b_512 0.088
-      Crypt::Digest::BLAKE2s_128 0.088
-      Crypt::Digest::BLAKE2s_160 0.088
-      Crypt::Digest::BLAKE2s_224 0.088
-      Crypt::Digest::BLAKE2s_256 0.088
-      Crypt::Digest::CHAES 0.088
-      Crypt::Digest::Keccak224 0.088
-      Crypt::Digest::Keccak256 0.088
-      Crypt::Digest::Keccak384 0.088
-      Crypt::Digest::Keccak512 0.088
-      Crypt::Digest::MD2 0.088
-      Crypt::Digest::MD4 0.088
-      Crypt::Digest::MD5 0.088
-      Crypt::Digest::RIPEMD128 0.088
-      Crypt::Digest::RIPEMD160 0.088
-      Crypt::Digest::RIPEMD256 0.088
-      Crypt::Digest::RIPEMD320 0.088
-      Crypt::Digest::SHA1 0.088
-      Crypt::Digest::SHA224 0.088
-      Crypt::Digest::SHA256 0.088
-      Crypt::Digest::SHA384 0.088
-      Crypt::Digest::SHA3_224 0.088
-      Crypt::Digest::SHA3_256 0.088
-      Crypt::Digest::SHA3_384 0.088
-      Crypt::Digest::SHA3_512 0.088
-      Crypt::Digest::SHA512 0.088
-      Crypt::Digest::SHA512_224 0.088
-      Crypt::Digest::SHA512_256 0.088
-      Crypt::Digest::SHAKE 0.088
-      Crypt::Digest::Tiger192 0.088
-      Crypt::Digest::Whirlpool 0.088
-      Crypt::KeyDerivation 0.088
-      Crypt::Mac 0.088
-      Crypt::Mac::BLAKE2b 0.088
-      Crypt::Mac::BLAKE2s 0.088
-      Crypt::Mac::F9 0.088
-      Crypt::Mac::HMAC 0.088
-      Crypt::Mac::OMAC 0.088
-      Crypt::Mac::PMAC 0.088
-      Crypt::Mac::Pelican 0.088
-      Crypt::Mac::Poly1305 0.088
-      Crypt::Mac::XCBC 0.088
-      Crypt::Misc 0.088
-      Crypt::Mode 0.088
-      Crypt::Mode::CBC 0.088
-      Crypt::Mode::CFB 0.088
-      Crypt::Mode::CTR 0.088
-      Crypt::Mode::ECB 0.088
-      Crypt::Mode::OFB 0.088
-      Crypt::PK 0.088
-      Crypt::PK::DH 0.088
-      Crypt::PK::DSA 0.088
-      Crypt::PK::ECC 0.088
-      Crypt::PK::Ed25519 0.088
-      Crypt::PK::RSA 0.088
-      Crypt::PK::X25519 0.088
-      Crypt::PRNG 0.088
-      Crypt::PRNG::ChaCha20 0.088
-      Crypt::PRNG::Fortuna 0.088
-      Crypt::PRNG::RC4 0.088
-      Crypt::PRNG::Sober128 0.088
-      Crypt::PRNG::Yarrow 0.088
-      Crypt::Stream::ChaCha 0.088
-      Crypt::Stream::RC4 0.088
-      Crypt::Stream::Rabbit 0.088
-      Crypt::Stream::Salsa20 0.088
-      Crypt::Stream::Sober128 0.088
-      Crypt::Stream::Sosemanuk 0.088
-      CryptX 0.088
-      Math::BigInt::LTM 0.088
+      Crypt::ASN1 0.089
+      Crypt::AuthEnc 0.089
+      Crypt::AuthEnc::CCM 0.089
+      Crypt::AuthEnc::ChaCha20Poly1305 0.089
+      Crypt::AuthEnc::EAX 0.089
+      Crypt::AuthEnc::GCM 0.089
+      Crypt::AuthEnc::OCB 0.089
+      Crypt::AuthEnc::SIV 0.089
+      Crypt::AuthEnc::XChaCha20Poly1305 0.089
+      Crypt::Checksum 0.089
+      Crypt::Checksum::Adler32 0.089
+      Crypt::Checksum::CRC32 0.089
+      Crypt::Cipher 0.089
+      Crypt::Cipher::AES 0.089
+      Crypt::Cipher::Anubis 0.089
+      Crypt::Cipher::Blowfish 0.089
+      Crypt::Cipher::CAST5 0.089
+      Crypt::Cipher::Camellia 0.089
+      Crypt::Cipher::DES 0.089
+      Crypt::Cipher::DES_EDE 0.089
+      Crypt::Cipher::IDEA 0.089
+      Crypt::Cipher::KASUMI 0.089
+      Crypt::Cipher::Khazad 0.089
+      Crypt::Cipher::MULTI2 0.089
+      Crypt::Cipher::Noekeon 0.089
+      Crypt::Cipher::RC2 0.089
+      Crypt::Cipher::RC5 0.089
+      Crypt::Cipher::RC6 0.089
+      Crypt::Cipher::SAFERP 0.089
+      Crypt::Cipher::SAFER_K128 0.089
+      Crypt::Cipher::SAFER_K64 0.089
+      Crypt::Cipher::SAFER_SK128 0.089
+      Crypt::Cipher::SAFER_SK64 0.089
+      Crypt::Cipher::SEED 0.089
+      Crypt::Cipher::SM4 0.089
+      Crypt::Cipher::Serpent 0.089
+      Crypt::Cipher::Skipjack 0.089
+      Crypt::Cipher::Twofish 0.089
+      Crypt::Cipher::XTEA 0.089
+      Crypt::Digest 0.089
+      Crypt::Digest::BLAKE2b_160 0.089
+      Crypt::Digest::BLAKE2b_256 0.089
+      Crypt::Digest::BLAKE2b_384 0.089
+      Crypt::Digest::BLAKE2b_512 0.089
+      Crypt::Digest::BLAKE2s_128 0.089
+      Crypt::Digest::BLAKE2s_160 0.089
+      Crypt::Digest::BLAKE2s_224 0.089
+      Crypt::Digest::BLAKE2s_256 0.089
+      Crypt::Digest::CHAES 0.089
+      Crypt::Digest::KangarooTwelve 0.089
+      Crypt::Digest::Keccak224 0.089
+      Crypt::Digest::Keccak256 0.089
+      Crypt::Digest::Keccak384 0.089
+      Crypt::Digest::Keccak512 0.089
+      Crypt::Digest::MD2 0.089
+      Crypt::Digest::MD4 0.089
+      Crypt::Digest::MD5 0.089
+      Crypt::Digest::RIPEMD128 0.089
+      Crypt::Digest::RIPEMD160 0.089
+      Crypt::Digest::RIPEMD256 0.089
+      Crypt::Digest::RIPEMD320 0.089
+      Crypt::Digest::SHA1 0.089
+      Crypt::Digest::SHA224 0.089
+      Crypt::Digest::SHA256 0.089
+      Crypt::Digest::SHA384 0.089
+      Crypt::Digest::SHA3_224 0.089
+      Crypt::Digest::SHA3_256 0.089
+      Crypt::Digest::SHA3_384 0.089
+      Crypt::Digest::SHA3_512 0.089
+      Crypt::Digest::SHA512 0.089
+      Crypt::Digest::SHA512_224 0.089
+      Crypt::Digest::SHA512_256 0.089
+      Crypt::Digest::SHAKE 0.089
+      Crypt::Digest::Tiger192 0.089
+      Crypt::Digest::TurboSHAKE 0.089
+      Crypt::Digest::Whirlpool 0.089
+      Crypt::KeyDerivation 0.089
+      Crypt::Mac 0.089
+      Crypt::Mac::BLAKE2b 0.089
+      Crypt::Mac::BLAKE2s 0.089
+      Crypt::Mac::F9 0.089
+      Crypt::Mac::HMAC 0.089
+      Crypt::Mac::OMAC 0.089
+      Crypt::Mac::PMAC 0.089
+      Crypt::Mac::Pelican 0.089
+      Crypt::Mac::Poly1305 0.089
+      Crypt::Mac::XCBC 0.089
+      Crypt::Misc 0.089
+      Crypt::Mode 0.089
+      Crypt::Mode::CBC 0.089
+      Crypt::Mode::CFB 0.089
+      Crypt::Mode::CTR 0.089
+      Crypt::Mode::ECB 0.089
+      Crypt::Mode::OFB 0.089
+      Crypt::PK 0.089
+      Crypt::PK::DH 0.089
+      Crypt::PK::DSA 0.089
+      Crypt::PK::ECC 0.089
+      Crypt::PK::Ed25519 0.089
+      Crypt::PK::Ed448 0.089
+      Crypt::PK::RSA 0.089
+      Crypt::PK::X25519 0.089
+      Crypt::PK::X448 0.089
+      Crypt::PRNG 0.089
+      Crypt::PRNG::ChaCha20 0.089
+      Crypt::PRNG::Fortuna 0.089
+      Crypt::PRNG::RC4 0.089
+      Crypt::PRNG::Sober128 0.089
+      Crypt::PRNG::Yarrow 0.089
+      Crypt::Stream::ChaCha 0.089
+      Crypt::Stream::RC4 0.089
+      Crypt::Stream::Rabbit 0.089
+      Crypt::Stream::Salsa20 0.089
+      Crypt::Stream::Sober128 0.089
+      Crypt::Stream::Sosemanuk 0.089
+      Crypt::Stream::XChaCha 0.089
+      Crypt::Stream::XSalsa20 0.089
+      CryptX 0.089
+      Math::BigInt::LTM 0.089
     requirements:
       ExtUtils::MakeMaker 0
       Math::BigInt 0
@@ -1165,8 +1178,8 @@ DISTRIBUTIONS
       Test::More 0.88
       Time::HiRes 0
       version 0
-  DBI-1.647
-    pathname: H/HM/HMBRAND/DBI-1.647.tgz
+  DBI-1.648
+    pathname: H/HM/HMBRAND/DBI-1.648.tgz
     provides:
       Bundle::DBI 12.008696
       DBD::DBM 0.08
@@ -1179,15 +1192,15 @@ DISTRIBUTIONS
       DBD::ExampleP::db 12.014311
       DBD::ExampleP::dr 12.014311
       DBD::ExampleP::st 12.014311
-      DBD::File 0.44
-      DBD::File::DataSource::File 0.44
-      DBD::File::DataSource::Stream 0.44
-      DBD::File::Statement 0.44
-      DBD::File::Table 0.44
-      DBD::File::TableSource::FileSystem 0.44
-      DBD::File::db 0.44
-      DBD::File::dr 0.44
-      DBD::File::st 0.44
+      DBD::File 0.45
+      DBD::File::DataSource::File 0.45
+      DBD::File::DataSource::Stream 0.45
+      DBD::File::Statement 0.45
+      DBD::File::Table 0.45
+      DBD::File::TableSource::FileSystem 0.45
+      DBD::File::db 0.45
+      DBD::File::dr 0.45
+      DBD::File::st 0.45
       DBD::Gofer 0.015327
       DBD::Gofer::Policy::Base 0.010088
       DBD::Gofer::Policy::classic 0.010088
@@ -1222,7 +1235,7 @@ DISTRIBUTIONS
       DBD::Sponge::dr 12.010003
       DBD::Sponge::st 12.010003
       DBDI 12.015129
-      DBI 1.647
+      DBI 1.648
       DBI::Const::GetInfo::ANSI 2.008697
       DBI::Const::GetInfo::ODBC 2.011374
       DBI::Const::GetInfoReturn 2.008697
@@ -1262,7 +1275,7 @@ DISTRIBUTIONS
       DBI::SQL::Nano::Table_ 1.015544
       DBI::Util::CacheMemory 0.010315
       DBI::Util::_accessor 0.009479
-      DBI::common 1.647
+      DBI::common 1.648
     requirements:
       ExtUtils::MakeMaker 6.48
       Test::Simple 0.90
@@ -1478,10 +1491,10 @@ DISTRIBUTIONS
       parent 0
       strict 0
       warnings 0
-  DateTime-Format-Duration-1.04
-    pathname: E/ET/ETHER/DateTime-Format-Duration-1.04.tar.gz
+  DateTime-Format-Duration-1.06
+    pathname: E/ET/ETHER/DateTime-Format-Duration-1.06.tar.gz
     provides:
-      DateTime::Format::Duration 1.04
+      DateTime::Format::Duration 1.06
     requirements:
       Carp 0
       Data::Dumper 0
@@ -1489,9 +1502,11 @@ DISTRIBUTIONS
       Exporter 0
       ExtUtils::MakeMaker 0
       Params::Validate 0
+      Scalar::Util 0
       constant 0
       perl 5.006
       strict 0
+      warnings 0
   DateTime-Format-ISO8601-0.19
     pathname: T/TI/TIMLEGGE/DateTime-Format-ISO8601-0.19.tar.gz
     provides:
@@ -1511,20 +1526,23 @@ DISTRIBUTIONS
       parent 0
       strict 0
       warnings 0
-  DateTime-Format-Natural-1.25
-    pathname: S/SC/SCHUBIGER/DateTime-Format-Natural-1.25.tar.gz
+  DateTime-Format-Natural-1.26
+    pathname: S/SC/SCHUBIGER/DateTime-Format-Natural-1.26.tar.gz
     provides:
-      DateTime::Format::Natural 1.25
-      DateTime::Format::Natural::Calc 1.47
+      DateTime::Format::Natural 1.26
+      DateTime::Format::Natural::Calc 1.50
+      DateTime::Format::Natural::Calendar 0.02
+      DateTime::Format::Natural::Calendar::gregorian undef
+      DateTime::Format::Natural::Calendar::julian undef
       DateTime::Format::Natural::Compat 0.07
       DateTime::Format::Natural::Duration 0.08
       DateTime::Format::Natural::Duration::Checks 0.07
       DateTime::Format::Natural::Expand 0.04
       DateTime::Format::Natural::Extract 0.14
       DateTime::Format::Natural::Formatted 0.12
-      DateTime::Format::Natural::Helpers 0.07
-      DateTime::Format::Natural::Lang::Base 1.08
-      DateTime::Format::Natural::Lang::EN 1.75
+      DateTime::Format::Natural::Helpers 0.08
+      DateTime::Format::Natural::Lang::Base 1.09
+      DateTime::Format::Natural::Lang::EN 1.77
       DateTime::Format::Natural::Rewrite 0.10
       DateTime::Format::Natural::Test 0.13
       DateTime::Format::Natural::Utils 0.08
@@ -2886,16 +2904,16 @@ DISTRIBUTIONS
       XML::LibXML 1.94
       XML::LibXML::Devel 0
       perl 5.008001
-  HTML-Parser-3.83
-    pathname: O/OA/OALDERS/HTML-Parser-3.83.tar.gz
+  HTML-Parser-3.85
+    pathname: O/OA/OALDERS/HTML-Parser-3.85.tar.gz
     provides:
-      HTML::Entities 3.83
-      HTML::Filter 3.83
-      HTML::HeadParser 3.83
-      HTML::LinkExtor 3.83
-      HTML::Parser 3.83
-      HTML::PullParser 3.83
-      HTML::TokeParser 3.83
+      HTML::Entities 3.85
+      HTML::Filter 3.85
+      HTML::HeadParser 3.85
+      HTML::LinkExtor 3.85
+      HTML::Parser 3.85
+      HTML::PullParser 3.85
+      HTML::TokeParser 3.85
     requirements:
       Carp 0
       Exporter 0
@@ -5969,13 +5987,13 @@ DISTRIBUTIONS
       Module::Build::Tiny 0.034
       Try::Tiny 0
       perl 5.010
-  Role-Tiny-2.002004
-    pathname: H/HA/HAARG/Role-Tiny-2.002004.tar.gz
+  Role-Tiny-2.002005
+    pathname: H/HA/HAARG/Role-Tiny-2.002005.tar.gz
     provides:
-      Role::Tiny 2.002004
-      Role::Tiny::With 2.002004
+      Role::Tiny 2.002005
+      Role::Tiny::With 2.002005
     requirements:
-      Exporter 5.57
+      Exporter 0
       perl 5.006
   Safe-Isa-1.000010
     pathname: E/ET/ETHER/Safe-Isa-1.000010.tar.gz
@@ -6203,6 +6221,13 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Test::More 0
+  String-Compare-ConstantTime-0.321
+    pathname: F/FR/FRACTAL/String-Compare-ConstantTime-0.321.tar.gz
+    provides:
+      String::Compare::ConstantTime 0.321
+    requirements:
+      ExtUtils::MakeMaker 0
+      perl 5.008000
   String-Escape-2010.002
     pathname: E/EV/EVO/String-Escape-2010.002.tar.gz
     provides:
@@ -6400,66 +6425,68 @@ DISTRIBUTIONS
       Template 0
       Test::More 0
       Time::HiRes 0
-  Template-Toolkit-3.102
-    pathname: T/TO/TODDR/Template-Toolkit-3.102.tar.gz
+  Template-Toolkit-3.106
+    pathname: T/TO/TODDR/Template-Toolkit-3.106.tar.gz
     provides:
-      Template 3.102
-      Template::App::ttree 2.91
-      Template::Base 3.100
-      Template::Config 3.100
-      Template::Constants 3.100
-      Template::Context 3.100
-      Template::Directive 3.100
-      Template::Document 3.100
-      Template::Exception 3.100
-      Template::Filters 3.100
-      Template::Grammar 3.100
-      Template::Iterator 3.100
-      Template::Monad::Assert 3.100
-      Template::Monad::Scalar 3.100
-      Template::Namespace::Constants 3.100
-      Template::Parser 3.100
-      Template::Perl 3.100
-      Template::Plugin 3.100
-      Template::Plugin::Assert 3.100
-      Template::Plugin::Datafile 3.100
-      Template::Plugin::Date 3.100
-      Template::Plugin::Date::Calc 3.100
-      Template::Plugin::Date::Manip 3.100
-      Template::Plugin::Directory 3.100
-      Template::Plugin::Dumper 3.100
-      Template::Plugin::File 3.100
-      Template::Plugin::Filter 3.100
-      Template::Plugin::Format 3.100
-      Template::Plugin::HTML 3.100
-      Template::Plugin::Image 3.100
-      Template::Plugin::Iterator 3.100
-      Template::Plugin::Math 3.100
-      Template::Plugin::Pod 3.100
-      Template::Plugin::Procedural 3.100
-      Template::Plugin::Scalar 3.100
-      Template::Plugin::String 3.100
-      Template::Plugin::Table 3.100
-      Template::Plugin::URL 3.100
-      Template::Plugin::View 3.100
-      Template::Plugin::Wrap 3.100
-      Template::Plugins 3.100
-      Template::Provider 3.100
-      Template::Service 3.100
-      Template::Stash 3.100
-      Template::Stash::Context 3.100
+      Template 3.106
+      Template::App::ttree 3.106
+      Template::Base 3.106
+      Template::Config 3.106
+      Template::Constants 3.106
+      Template::Context 3.106
+      Template::Directive 3.106
+      Template::Document 3.106
+      Template::Exception 3.106
+      Template::Filters 3.106
+      Template::Grammar 3.106
+      Template::Iterator 3.106
+      Template::Monad::Assert 3.106
+      Template::Monad::Scalar 3.106
+      Template::Namespace::Constants 3.106
+      Template::Parser 3.106
+      Template::Perl 3.106
+      Template::Plugin 3.106
+      Template::Plugin::Assert 3.106
+      Template::Plugin::Datafile 3.106
+      Template::Plugin::Date 3.106
+      Template::Plugin::Date::Calc 3.106
+      Template::Plugin::Date::Manip 3.106
+      Template::Plugin::Directory 3.106
+      Template::Plugin::Dumper 3.106
+      Template::Plugin::File 3.106
+      Template::Plugin::Filter 3.106
+      Template::Plugin::Format 3.106
+      Template::Plugin::HTML 3.106
+      Template::Plugin::Image 3.106
+      Template::Plugin::Iterator 3.106
+      Template::Plugin::List 3.106
+      Template::Plugin::Math 3.106
+      Template::Plugin::Pod 3.106
+      Template::Plugin::Procedural 3.106
+      Template::Plugin::Scalar 3.106
+      Template::Plugin::String 3.106
+      Template::Plugin::Table 3.106
+      Template::Plugin::URL 3.106
+      Template::Plugin::View 3.106
+      Template::Plugin::Wrap 3.106
+      Template::Plugins 3.106
+      Template::Provider 3.106
+      Template::Service 3.106
+      Template::Stash 3.106
+      Template::Stash::Context 3.106
       Template::Stash::XS undef
-      Template::Test 3.100
-      Template::TieString 3.100
-      Template::Toolkit 3.100
-      Template::VMethods 3.100
-      Template::View 3.100
+      Template::Test 3.106
+      Template::TieString 3.106
+      Template::Toolkit 3.106
+      Template::VMethods 3.106
+      Template::View 3.106
     requirements:
       AppConfig 1.56
-      ExtUtils::MakeMaker 0
+      ExtUtils::MakeMaker 6.48
       File::Spec 0.8
       File::Temp 0.12
       Scalar::Util 0
+      perl 5.010
   Test-Abortable-0.003
     pathname: R/RJ/RJBS/Test-Abortable-0.003.tar.gz
     provides:
@@ -7378,18 +7405,21 @@ DISTRIBUTIONS
       IO::Pipe 0
       Test::More 0
       WWW::Mechanize 0
-  WWW-RobotRules-6.02
-    pathname: G/GA/GAAS/WWW-RobotRules-6.02.tar.gz
+  WWW-RobotRules-6.03
+    pathname: O/OA/OALDERS/WWW-RobotRules-6.03.tar.gz
     provides:
-      WWW::RobotRules 6.02
-      WWW::RobotRules::AnyDBM_File 6.00
-      WWW::RobotRules::InCore 6.02
+      WWW::RobotRules 6.03
+      WWW::RobotRules::AnyDBM_File 6.03
+      WWW::RobotRules::DB_File 6.03
+      WWW::RobotRules::InCore 6.03
     requirements:
       AnyDBM_File 0
+      Carp 0
       ExtUtils::MakeMaker 0
       Fcntl 0
       URI 1.10
       perl 5.008001
+      strict 0
   WWW-Sitemap-XML-2.02
     pathname: A/AJ/AJGB/WWW-Sitemap-XML-2.02.tar.gz
     provides:
@@ -7420,45 +7450,45 @@ DISTRIBUTIONS
       XML::LibXML 1.70
       strict 0
       warnings 0
-  XML-LibXML-2.0210
-    pathname: S/SH/SHLOMIF/XML-LibXML-2.0210.tar.gz
+  XML-LibXML-2.0213
+    pathname: T/TO/TODDR/XML-LibXML-2.0213.tar.gz
     provides:
-      XML::LibXML 2.0210
-      XML::LibXML::Attr 2.0210
-      XML::LibXML::AttributeHash 2.0210
-      XML::LibXML::Boolean 2.0210
-      XML::LibXML::CDATASection 2.0210
-      XML::LibXML::Comment 2.0210
-      XML::LibXML::Common 2.0210
-      XML::LibXML::Devel 2.0210
-      XML::LibXML::Document 2.0210
-      XML::LibXML::DocumentFragment 2.0210
-      XML::LibXML::Dtd 2.0210
-      XML::LibXML::Element 2.0210
-      XML::LibXML::ErrNo 2.0210
-      XML::LibXML::Error 2.0210
-      XML::LibXML::InputCallback 2.0210
-      XML::LibXML::Literal 2.0210
-      XML::LibXML::NamedNodeMap 2.0210
-      XML::LibXML::Namespace 2.0210
-      XML::LibXML::Node 2.0210
-      XML::LibXML::NodeList 2.0210
-      XML::LibXML::Number 2.0210
-      XML::LibXML::PI 2.0210
-      XML::LibXML::Pattern 2.0210
-      XML::LibXML::Reader 2.0210
-      XML::LibXML::RegExp 2.0210
-      XML::LibXML::RelaxNG 2.0210
-      XML::LibXML::SAX 2.0210
-      XML::LibXML::SAX::AttributeNode 2.0210
-      XML::LibXML::SAX::Builder 2.0210
-      XML::LibXML::SAX::Generator 2.0210
-      XML::LibXML::SAX::Parser 2.0210
-      XML::LibXML::Schema 2.0210
-      XML::LibXML::Text 2.0210
-      XML::LibXML::XPathContext 2.0210
-      XML::LibXML::XPathExpression 2.0210
-      XML::LibXML::_SAXParser 2.0210
+      XML::LibXML 2.0213
+      XML::LibXML::Attr 2.0213
+      XML::LibXML::AttributeHash 2.0213
+      XML::LibXML::Boolean 2.0213
+      XML::LibXML::CDATASection 2.0213
+      XML::LibXML::Comment 2.0213
+      XML::LibXML::Common 2.0213
+      XML::LibXML::Devel 2.0213
+      XML::LibXML::Document 2.0213
+      XML::LibXML::DocumentFragment 2.0213
+      XML::LibXML::Dtd 2.0213
+      XML::LibXML::Element 2.0213
+      XML::LibXML::ErrNo 2.0213
+      XML::LibXML::Error 2.0213
+      XML::LibXML::InputCallback 2.0213
+      XML::LibXML::Literal 2.0213
+      XML::LibXML::NamedNodeMap 2.0213
+      XML::LibXML::Namespace 2.0213
+      XML::LibXML::Node 2.0213
+      XML::LibXML::NodeList 2.0213
+      XML::LibXML::Number 2.0213
+      XML::LibXML::PI 2.0213
+      XML::LibXML::Pattern 2.0213
+      XML::LibXML::Reader 2.0213
+      XML::LibXML::RegExp 2.0213
+      XML::LibXML::RelaxNG 2.0213
+      XML::LibXML::SAX 2.0213
+      XML::LibXML::SAX::AttributeNode 2.0213
+      XML::LibXML::SAX::Builder 2.0213
+      XML::LibXML::SAX::Generator 2.0213
+      XML::LibXML::SAX::Parser 2.0213
+      XML::LibXML::Schema 2.0213
+      XML::LibXML::Text 2.0213
+      XML::LibXML::XPathContext 2.0213
+      XML::LibXML::XPathExpression 2.0213
+      XML::LibXML::_SAXParser 2.0213
     requirements:
       Alien::Base::Wrapper 0
       Alien::Libxml2 0.14
@@ -7482,7 +7512,6 @@ DISTRIBUTIONS
       parent 0
       perl 5.008001
       strict 0
-      vars 0
       warnings 0
   XML-NamespaceSupport-1.12
     pathname: P/PE/PERIGRIN/XML-NamespaceSupport-1.12.tar.gz
@@ -7495,11 +7524,11 @@ DISTRIBUTIONS
       strict 0
       vars 0
       warnings 0
-  XML-Parser-2.58
-    pathname: T/TO/TODDR/XML-Parser-2.58.tar.gz
+  XML-Parser-2.59
+    pathname: T/TO/TODDR/XML-Parser-2.59.tar.gz
     provides:
-      XML::Parser 2.58
-      XML::Parser::Expat 2.58
+      XML::Parser 2.59
+      XML::Parser::Expat 2.59
       XML::Parser::Style::Debug undef
       XML::Parser::Style::Objects undef
       XML::Parser::Style::Stream undef
@@ -7932,32 +7961,32 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 0
       File::Spec 0
       version 0.77
-  libwww-perl-6.82
-    pathname: O/OA/OALDERS/libwww-perl-6.82.tar.gz
+  libwww-perl-6.83
+    pathname: O/OA/OALDERS/libwww-perl-6.83.tar.gz
     provides:
-      LWP 6.82
-      LWP::Authen::Basic 6.82
-      LWP::Authen::Digest 6.82
-      LWP::Authen::Ntlm 6.82
-      LWP::ConnCache 6.82
-      LWP::Debug 6.82
-      LWP::Debug::TraceHTTP 6.82
-      LWP::DebugFile 6.82
-      LWP::MemberMixin 6.82
-      LWP::Protocol 6.82
-      LWP::Protocol::cpan 6.82
-      LWP::Protocol::data 6.82
-      LWP::Protocol::file 6.82
-      LWP::Protocol::ftp 6.82
-      LWP::Protocol::gopher 6.82
-      LWP::Protocol::http 6.82
-      LWP::Protocol::loopback 6.82
-      LWP::Protocol::mailto 6.82
-      LWP::Protocol::nntp 6.82
-      LWP::Protocol::nogo 6.82
-      LWP::RobotUA 6.82
-      LWP::Simple 6.82
-      LWP::UserAgent 6.82
+      LWP 6.83
+      LWP::Authen::Basic 6.83
+      LWP::Authen::Digest 6.83
+      LWP::Authen::Ntlm 6.83
+      LWP::ConnCache 6.83
+      LWP::Debug 6.83
+      LWP::Debug::TraceHTTP 6.83
+      LWP::DebugFile 6.83
+      LWP::MemberMixin 6.83
+      LWP::Protocol 6.83
+      LWP::Protocol::cpan 6.83
+      LWP::Protocol::data 6.83
+      LWP::Protocol::file 6.83
+      LWP::Protocol::ftp 6.83
+      LWP::Protocol::gopher 6.83
+      LWP::Protocol::http 6.83
+      LWP::Protocol::loopback 6.83
+      LWP::Protocol::mailto 6.83
+      LWP::Protocol::nntp 6.83
+      LWP::Protocol::nogo 6.83
+      LWP::RobotUA 6.83
+      LWP::Simple 6.83
+      LWP::UserAgent 6.83
     requirements:
       Digest::MD5 0
       Encode 2.12

@@ -67,6 +67,16 @@ test 'Key setting/retrieving' => sub {
     $valkey->_connection->flushdb;
 };
 
+test 'get_delete retrieves and deletes a key' => sub {
+    is($valkey->get_delete('does-not-exist'), undef, 'Non-existent key returns undef');
+
+    $valkey->set('string', 'Esperándote');
+    is($valkey->get_delete('string'), 'Esperándote', 'Retrieved expected string');
+    ok(!$valkey->exists('string'), 'exists returns false after get_delete');
+
+    $valkey->_connection->flushdb;
+};
+
 test 'Setting key expiration' => sub {
     $valkey->set('int', 23);
     is($valkey->get('int'), 23, 'Retrieved expected integer');

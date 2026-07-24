@@ -85,10 +85,6 @@ sub COVER_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_caa' }
 sub EVENT_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public_eaa' }
 sub EVENT_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_eaa' }
 
-sub MTCAPTCHA_PUBLIC_KEY { $ENV{MTCAPTCHA_PUBLIC_KEY} }
-sub MTCAPTCHA_PRIVATE_KEY { $ENV{MTCAPTCHA_PRIVATE_KEY} }
-sub MTCAPTCHA_PRIVATE_TEST_KEY { $ENV{MTCAPTCHA_PRIVATE_TEST_KEY} }
-
 sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) }
 sub INTERNET_ARCHIVE_METADATA_PREFIX { 'http://localhost:5050/metadata' }
 sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
@@ -108,6 +104,8 @@ sub DATASTORE_VALKEY_ARGS {
 sub DB_SCHEMA_SEQUENCE { 31 }
 
 sub DB_STAGING_TESTING_FEATURES { 1 }
+
+sub LOCAL_ACCOUNTS_ENABLED { 1 }
 
 sub DEVELOPMENT_SERVER { 0 }
 
@@ -151,5 +149,7 @@ sub REPLICATION_USE_DBMIRROR2 { 1 }
 sub SMTP_SERVER { 'localhost:1025' }
 sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
 sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+
+sub METABRAINZ_WEBHOOK_SECRET { 'webhook_seekrit' }
 
 1;

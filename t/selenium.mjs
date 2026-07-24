@@ -427,6 +427,30 @@ function getDocumentLocation() {
   return driver.executeScript('return document.location;');
 }
 
+// Workaround for https://issues.chromium.org/issues/533493931
+async function workAroundBeforeUnloadBug(callback) {
+  let attempts = 0;
+  while (attempts < 3) {
+    try {
+      return await callback();
+    } catch (error) {
+      attempts++;
+      if (!/Unexpected dialog type beforeunload/.test(error.message)) {
+        throw error;
+      }
+      try {
+        const browsingContext = await getBrowsingContextInstance(driver, {
+          browsingContextId: await driver.getWindowHandle(),
+        });
+        await browsingContext.handleUserPrompt(true);
+      } catch {
+        // The prompt may already be gone; retry the callback regardless.
+      }
+    }
+  }
+  return undefined;
+}
+
 function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
 }
@@ -781,14 +805,7 @@ async function handleCommand(stest, {command, index, target, value}, t) {
 
 /* eslint-disable sort-keys */
 const seleniumTests = [
-  {
-    name: (
-      DBDefs.MTCAPTCHA_PUBLIC_KEY &&
-      DBDefs.MTCAPTCHA_PRIVATE_TEST_KEY
-    )
-      ? 'Create_Account_With_Captcha.json5'
-      : 'Create_Account.json5',
-  },
+  {name: 'Create_Account.json5'},
   {name: 'MBS-2604.json5', login: true},
   {name: 'MBS-5387.json5', login: true},
   {name: 'MBS-7456.json5', login: true},
@@ -935,11 +952,13 @@ async function runCommands(stest, commands, t) {
   for (let i = 0; i < commands.length; i++) {
     const command = commands[i];
     const reqsCountBeforeCommand = reqsCount;
-    const locationBeforeCommand = await getDocumentLocation();
+    const locationBeforeCommand =
+      await workAroundBeforeUnloadBug(getDocumentLocation);
 
     await handleCommand(stest, {...command, index: i}, t);
 
-    const locationAfterCommand = await getDocumentLocation();
+    const locationAfterCommand =
+      await workAroundBeforeUnloadBug(getDocumentLocation);
 
     /*
      * Wait for sir queues to empty before proceeding. We can avoid checking

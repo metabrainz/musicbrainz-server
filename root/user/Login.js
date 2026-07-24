@@ -22,8 +22,6 @@ import {
 } from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
-import FormRowCheckbox
-  from '../static/scripts/edit/components/FormRowCheckbox.js';
 import FormRowText from '../static/scripts/edit/components/FormRowText.js';
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 import returnUri from '../utility/returnUri.js';
@@ -31,13 +29,11 @@ import returnUri from '../utility/returnUri.js';
 type LoginFormT = FormT<{
   readonly csrf_token: FieldT<string>,
   readonly password: FieldT<string>,
-  readonly remember_me: FieldT<boolean>,
   readonly username: FieldT<string>,
 }>;
 
 component Login(
   isLoginBad: boolean = false,
-  isLoginRequired: boolean = false,
   isSpammer: boolean = false,
   loginAction: string,
   loginForm: LoginFormT,
@@ -48,7 +44,7 @@ component Login(
     <Layout fullWidth title={lp('Log in', 'header')}>
       <h1>{lp('Log in', 'header')}</h1>
 
-      {isLoginRequired ? (
+      {$c.stash.current_action_requires_auth === true ? (
         <p>
           <strong>{l('You need to be logged in to view this page.')}</strong>
         </p>
@@ -116,25 +112,12 @@ component Login(
           </div>
         ) : null}
 
-        <FormRowCheckbox
-          field={loginForm.field.remember_me}
-          label={l('Keep me logged in')}
-          uncontrolled
-        />
-
         {postParameters ? <PostParameters params={postParameters} /> : null}
 
         <div className="row no-label">
           <FormSubmit className="login" label={lp('Log in', 'interactive')} />
         </div>
       </form>
-
-      <p>
-        {exp.l('Forgot your {link1|username} or {link2|password}?', {
-          link1: '/lost-username',
-          link2: '/lost-password',
-        })}
-      </p>
 
       {manifest('user/login', {async: true})}
     </Layout>

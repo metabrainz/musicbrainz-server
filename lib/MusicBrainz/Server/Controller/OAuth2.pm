@@ -309,17 +309,39 @@ sub token : Local Args(0)
 }
 
 sub _set_error_status {
-    my ($self, $c, $error) = @_;
+    my ($self, $c, $error, $error_status) = @_;
 
     if ($error eq 'invalid_client') {
         $c->response->headers->www_authenticate('Basic realm="OAuth2-Client"');
         $c->response->status(HTTP_UNAUTHORIZED);
+    }
+    elsif (
+        $error eq 'invalid_token' &&
+        # We're checking the status here because we also return
+        # `invalid_token` for the tokeninfo endpoint, but with
+        # `HTTP_BAD_REQUEST` instead.
+        defined $error_status &&
+        $error_status == HTTP_UNAUTHORIZED
+    ) {
+        # https://datatracker.ietf.org/doc/html/rfc6750#section-3
+        my $challenge = q(Bearer realm="musicbrainz.org", charset=UTF-8);
+        if (
+            defined $c->req->headers->header('Authorization') ||
+            defined $c->req->params->{access_token}
+        ) {
+            $challenge .= q(, error="invalid_token");
+        }
+        $c->response->headers->www_authenticate($challenge);
     }
     elsif ($error eq 'temporarily_unavailable') {
         $c->response->status(HTTP_SERVICE_UNAVAILABLE);
     }
     else {
         $c->response->status(HTTP_BAD_REQUEST);
+    }
+
+    if (defined $error_status) {
+        $c->response->status($error_status);
     }
 }
 
@@ -342,9 +364,9 @@ sub _send_html_error
 
 sub _send_error
 {
-    my ($self, $c, $error, $error_description) = @_;
+    my ($self, $c, $error, $error_description, $error_status) = @_;
 
-    $self->_set_error_status($c, $error);
+    $self->_set_error_status($c, $error, $error_status);
 
     $self->_send_response($c, {
         error => $error,
@@ -536,7 +558,7 @@ sub tokeninfo : Local
     my $access_token = $c->request->params->{access_token};
     my $token = $c->model('EditorOAuthToken')->get_by_access_token($access_token);
 
-    $self->_send_error($c, 'invalid_token', 'Invalid value')
+    $self->_send_error($c, 'invalid_token', 'Invalid value', HTTP_BAD_REQUEST)
         if !defined($token) || $token->is_expired;
 
     my $application = $c->model('Application')->get_by_id($token->application_id);
@@ -572,9 +594,9 @@ sub userinfo : Local
         $self->_send_options_response($c, 'GET, POST');
     }
 
-    $c->authenticate({}, 'musicbrainz.org');
-    $self->_send_error($c, 'invalid_token', 'Invalid value')
-        unless $c->user->is_authorized($ACCESS_SCOPE_PROFILE);
+    $c->authenticate({}, 'webservice_oauth');
+    $self->_send_error($c, 'invalid_token', 'Invalid value', HTTP_UNAUTHORIZED)
+        unless $c->user_exists && $c->user->is_authorized($ACCESS_SCOPE_PROFILE);
 
     $c->model('Gender')->load($c->user);
     $c->model('Editor')->load_preferences($c->user);

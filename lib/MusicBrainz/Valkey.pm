@@ -51,7 +51,7 @@ sub _decode_value { $_[1] }
 sub get {
     my ($self, $key) = @_;
 
-    my $value = $self->_connection->get($self->_prepare_key($key));
+    my $value = $self->get_raw($key);
     return $self->_decode_value($value) if defined $value;
     return;
 }
@@ -67,6 +67,28 @@ sub get_multi {
         $result{$key} = $self->_decode_value($value) if defined $value;
     }
     return \%result;
+}
+
+sub get_raw {
+    my ($self, $key) = @_;
+
+    my $value = $self->_connection->get($self->_prepare_key($key));
+    return $value;
+}
+
+sub get_delete {
+    my ($self, $key) = @_;
+
+    my $value = $self->get_delete_raw($key);
+    return $self->_decode_value($value) if defined $value;
+    return;
+}
+
+sub get_delete_raw {
+    my ($self, $key) = @_;
+
+    my $value = $self->_connection->getdel($self->_prepare_key($key));
+    return $value;
 }
 
 sub increment {
@@ -96,9 +118,7 @@ sub set_members {
 sub set {
     my ($self, $key, $value, $exptime) = @_;
 
-    my @args = ($self->_prepare_key($key), $self->_encode_value($value));
-    push @args, 'EX', $exptime if defined $exptime;
-    $self->_connection->set(@args);
+    $self->set_raw($key, $self->_encode_value($value), $exptime);
     return;
 }
 
@@ -112,6 +132,15 @@ sub set_multi {
         $self->_connection->set(@args, sub {});
     }
     $self->_connection->wait_all_responses;
+    return;
+}
+
+sub set_raw {
+    my ($self, $key, $value, $exptime) = @_;
+
+    my @args = ($self->_prepare_key($key), $value);
+    push @args, 'EX', $exptime if defined $exptime;
+    $self->_connection->set(@args);
     return;
 }
 

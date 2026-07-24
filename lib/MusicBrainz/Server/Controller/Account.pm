@@ -5,32 +5,21 @@ use MooseX::MethodAttributes;
 extends 'MusicBrainz::Server::Controller';
 
 use namespace::autoclean;
-use Digest::SHA qw(sha1_base64);
-use Email::Address::XS;
 use HTTP::Request;
-use JSON qw( decode_json );
 use List::AllUtils qw( uniq );
 use DBDefs;
-use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG $CONTACT_URL );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
-    contains_string
     is_blank
-    non_empty
 );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
-use MusicBrainz::Errors qw(
-    build_request_and_user_context
-    send_message_to_sentry
-);
 use MusicBrainz::Server::Form::Utils qw(
     build_grouped_options
     language_options
 );
 use MusicBrainz::Server::Translation qw( l );
-use MusicBrainz::Server::Validation qw( encode_entities is_positive_integer );
-use Try::Tiny;
 use URI;
 
 sub index : Path('/account') RequireAuth
@@ -46,330 +35,6 @@ sub begin : Private
     $c->forward('/begin');
     $c->stash->{viewing_own_profile} = 1;
     $c->stash->{user}                = $c->user;
-}
-
-=head2 verify
-
-Verify the email address (this is the URL handed out in "verify your email
-address" emails)
-
-=cut
-
-sub verify_email : Path('/verify-email') ForbiddenOnMirrors DenyWhenReadonly
-{
-    my ($self, $c) = @_;
-
-    my $user_id = $c->request->params->{userid};
-    my $email   = $c->request->params->{email};
-    my $time    = $c->request->params->{time};
-    my $key     = $c->request->params->{chk};
-
-    unless (is_positive_integer($user_id) && $user_id) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The user ID is missing or is in an invalid format.'),
-            },
-        );
-    }
-
-    unless ($email) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The email address is missing.'),
-            },
-        );
-    }
-
-    unless (is_positive_integer($time) && $time) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The time is missing or is in an invalid format.'),
-            },
-        );
-        $c->detach;
-    }
-
-    unless ($key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The verification key is missing.'),
-            },
-        );
-        $c->detach;
-    }
-
-    unless ($self->_checksum($email, $user_id, $time) eq $key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('The checksum is invalid, please double check your email.'),
-            },
-        );
-        $c->detach;
-    }
-
-    if (($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT) < time()) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l('Sorry, this email verification link has expired.'),
-            },
-        );
-        $c->detach;
-    }
-
-    my $editor = $c->model('Editor')->get_by_id($user_id);
-    unless (defined $editor) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/EmailVerificationStatus',
-            component_props => {
-                message => l(q(The user with ID '{user_id}' could not be found.),
-                                                { user_id => $user_id }),
-            },
-        );
-        $c->detach;
-    }
-
-    if ($editor->deleted) {
-        $c->detach('/user/not_found');
-    }
-
-    $c->model('Editor')->update_email($editor, $email);
-
-    if ($c->user_exists) {
-        $c->user->email($editor->email);
-        $c->user->email_confirmation_date($editor->email_confirmation_date);
-        $c->persist_user();
-    }
-
-    $c->forward('/discourse/sync_sso', [$editor]);
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/EmailVerificationStatus',
-    );
-}
-
-sub _reset_password_checksum
-{
-    my ($self, $id, $time) = @_;
-    return sha1_base64("reset_password $id $time " . DBDefs->SMTP_SECRET_CHECKSUM);
-}
-
-sub _send_password_reset_email
-{
-    my ($self, $c, $editor) = @_;
-
-    my $time = time();
-    my $reset_password_link = $c->uri_for_action('/account/reset_password', {
-        id => $editor->id,
-        time => $time,
-        key => $self->_reset_password_checksum($editor->id, $time),
-    });
-
-    try {
-        $c->model('Email')->send_password_reset_request(
-            user                => $editor,
-            reset_password_link => $reset_password_link,
-        );
-    }
-    catch {
-        $c->flash->{message} = l(
-            'We were unable to send login information to your email address. ' .
-            'Please try again, and if that still doesn’t work, {contact_url|contact us}.',
-            {contact_url => $CONTACT_URL},
-        );
-    };
-}
-
-sub lost_password : Path('/lost-password') ForbiddenOnMirrors SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{sent}) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/LostPasswordSent',
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form( form => 'User::LostPassword' );
-    if ($c->form_posted_and_valid($form)) {
-        my $username = $form->field('username')->value;
-        my $email = $form->field('email')->value;
-
-        my $editor = $c->model('Editor')->get_by_name($username);
-
-        if (!defined $editor) {
-            $form->field('username')->add_error(l('There is no user with this username'));
-        }
-        else {
-            # HTML::FormHandler::Field::Email lowercases the email, so we should compare the lowercase version (MBS-6158)
-            if ($editor->email && lc($editor->email) ne lc($email)) {
-                $form->field('email')->add_error(l('There is no user with this username and email'));
-            }
-            elsif (!$editor->email) {
-                $form->field('email')->add_error(l(q(We can't send a password reset email, because we have no email on record for this user.)));
-            }
-            else {
-                $self->_send_password_reset_email($c, $editor);
-                $c->response->redirect($c->uri_for_action('/account/lost_password',
-                                                          { sent => 1}));
-                $c->detach;
-            }
-        }
-    }
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/LostPassword',
-        component_props => {
-            form => $form->TO_JSON,
-        },
-    );
-    $c->detach;
-}
-
-sub reset_password : Path('/reset-password') ForbiddenOnMirrors DenyWhenReadonly SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{ok}) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('Your password has been reset.'),
-            },
-        );
-        $c->detach;
-    }
-
-    my $editor_id = $c->request->params->{id};
-    my $time = $c->request->params->{time};
-    my $key = $c->request->params->{key};
-
-    if (!$editor_id || !$time || !$key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('Missing one or more required parameters.'),
-            },
-        );
-        $c->detach;
-    }
-
-    if ($time + DBDefs->EMAIL_VERIFICATION_TIMEOUT < time()) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('Sorry, this password reset link has expired.'),
-            },
-        );
-        $c->detach;
-    }
-
-    if ($self->_reset_password_checksum($editor_id, $time) ne $key) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l('The checksum is invalid, please double check your email.'),
-            },
-        );
-        $c->detach;
-    }
-
-    my $editor = $c->model('Editor')->get_by_id($editor_id);
-    if (!defined $editor) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/ResetPasswordStatus',
-            component_props => {
-                message => l(q(The user with ID '{user_id}' could not be found.),
-                                                { user_id => $editor_id }),
-            },
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form( form => 'User::ResetPassword' );
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/ResetPassword.js',
-        component_props => {
-            form => $form->TO_JSON,
-        },
-    );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password($editor->name, $password);
-
-        $c->model('Editor')->load_preferences($editor);
-        my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
-        $c->set_authenticated($user);
-
-        $c->response->redirect($c->uri_for_action('/account/reset_password', { ok => 1 }));
-        $c->detach;
-    }
-
-    $c->stash->{form} = $form;
-}
-
-sub lost_username : Path('/lost-username') ForbiddenOnMirrors SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{sent}) {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/LostUsernameSent',
-        );
-        $c->detach;
-    }
-
-    my $form = $c->form( form => 'User::LostUsername' );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $email = $form->field('email')->value;
-
-        my @editors = $c->model('Editor')->find_by_email($email);
-        if (!@editors) {
-            $form->field('email')->add_error(l('There is no user with this email'));
-        }
-        else {
-            foreach my $editor (@editors) {
-                try { $c->model('Email')->send_lost_username( user => $editor ) }
-            }
-            $c->response->redirect($c->uri_for_action('/account/lost_username',
-                                                      { sent => 1}));
-            $c->detach;
-        }
-    }
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/LostUsername',
-        component_props => {
-            form => $form->TO_JSON,
-        },
-    );
-    $c->detach;
 }
 
 =head2 edit
@@ -391,7 +56,6 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
         item => {
             username          => $editor->name,
             email             => $editor->email,
-            skip_verification => 0,
             website           => $editor->website,
             biography         => $editor->biography,
             gender_id         => $editor->gender_id,
@@ -414,16 +78,12 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             $form->value,
         );
 
-        my $old_email = $editor->email || '';
-        my $new_email = $form->field('email')->value || '';
-        my $verification_sent;
+        if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+            my $old_email = $editor->email || '';
+            my $new_email = $form->field('email')->value || '';
 
-        if ($old_email ne $new_email) {
-            if ($new_email) {
-                $self->_send_confirmation_email($c, $editor, $new_email);
-                $verification_sent = 1;
-            } else {
-                $c->model('Editor')->update_email($editor, undef);
+            if ($old_email ne $new_email) {
+                $c->model('Editor')->update_email($editor, $new_email);
             }
         }
 
@@ -432,17 +92,7 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             $form->field('languages')->value,
         );
 
-        my $flash = l('Your profile has been updated.');
-
-        if ($verification_sent) {
-            $flash .= ' ';
-            $flash .= l('We have sent you a verification email to <code>{email}</code>. ' .
-                        'Please check your mailbox and click on the link in the email ' .
-                        'to verify the new email address.',
-                        { email => encode_entities($new_email) });
-        }
-
-        $c->flash->{message} = $flash;
+        $c->flash->{message} = l('Your profile has been updated.');
         $c->response->redirect($c->uri_for_action('/user/profile', [$editor->name]));
         $c->detach;
     } else {
@@ -459,95 +109,6 @@ sub edit : Local RequireAuth DenyWhenReadonly SecureForm {
             },
         );
         $c->detach;
-    }
-}
-
-=head2 change_password
-
-Allow users to change their password. This displays a form prompting
-for their old password and a new password (with confirmation), which
-when use to update the database data when we receive a valid POST request.
-
-=cut
-
-sub change_password : Path('/account/change-password') RequireSSL DenyWhenReadonly SecureForm
-{
-    my ($self, $c) = @_;
-
-    if (exists $c->request->params->{ok}) {
-        $c->flash->{message} = l('Your password has been changed.');
-        $c->response->redirect($c->uri_for_action('/user/login'));
-
-        $c->detach;
-    }
-
-    my $mandatory = $c->req->query_params->{mandatory};
-
-    my $form = $c->form(
-        form => 'User::ChangePassword',
-        init_object => {
-            username => $c->user_exists
-                ? $c->user->name
-                : ($c->req->query_parameters->{username} // ''),
-        },
-    );
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'account/ChangePassword.js',
-        component_props => {
-            form => $form->TO_JSON,
-            isMandatory => boolean_to_json($mandatory),
-        },
-    );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $password = $form->field('password')->value;
-        $c->model('Editor')->update_password(
-            $form->field('username')->value, $password);
-
-        $c->response->redirect($c->uri_for_action('/account/change_password', { ok => 1 }));
-        $c->detach;
-    }
-}
-
-=head2 delete
-
-Display a form allowing users to delete their own account.
-
-=cut
-
-sub delete : Local RequireAuth HiddenOnMirrors SecureForm {
-    my ($self, $c) = @_;
-
-    my $id = $c->user->id;
-    my $editor = $c->model('Editor')->get_by_id($id);
-    $c->detach('/user/not_found') if !$editor || $editor->deleted;
-
-    my $form = $c->form(form => 'SecureConfirm');
-
-    if ($c->form_posted_and_valid($form)) {
-        my $allow_reuse = 0;
-        $c->model('Editor')->delete($id, $allow_reuse);
-
-        MusicBrainz::Server::Controller::User->_clear_login_cookie($c);
-        $c->logout;
-        $c->delete_session;
-
-        $editor->name('Deleted Editor #' . $id);
-        $editor->email('editor-' . $id . '@musicbrainz.invalid');
-        $c->forward('/discourse/sync_sso', [$editor]);
-        $c->forward('/discourse/log_out', [$editor]);
-
-        $c->response->redirect('/');
-    } else {
-        $c->stash(
-            current_view => 'Node',
-            component_path => 'account/DeleteOwnAccount',
-            component_props => {
-                form => $form->TO_JSON,
-            },
-        );
     }
 }
 
@@ -625,95 +186,40 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         $c->detach;
     }
 
+    unless (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+        $c->detach('/metabrainz/oauth2_redirect', ['/register', 'register']);
+    }
+
     my $form = $c->form(register_form => 'User::Register');
 
-    my $use_captcha = (non_empty(DBDefs->MTCAPTCHA_PUBLIC_KEY) &&
-                       non_empty(DBDefs->MTCAPTCHA_PRIVATE_KEY));
-
     if ($c->form_posted_and_valid($form)) {
-        my $valid = 0;
-        if ($use_captcha)
-        {
-            my $verification_token =
-                $c->req->body_params->{'mtcaptcha-verifiedtoken'} // '';
-            if ($verification_token) {
-                $valid = $self->_check_mtcaptcha_token($c, $verification_token);
-            }
-        }
-        else
-        {
-            $valid = 1;
-        }
+        my $email = $form->field('email')->value;
 
-        if ($valid)
-        {
-            my $email = $form->field('email')->value;
+        my $user = $c->model('Editor')->insert({
+            name => $form->field('username')->value,
+            password => $form->field('password')->value,
+            privs => $BEGINNER_FLAG,
+        });
 
-            my @blocked_domains = DBDefs->BLOCKED_EMAIL_DOMAINS;
-            if ($email && scalar @blocked_domains) {
-                my $parsed_email = Email::Address::XS->parse_bare_address($email);
-                if (
-                    $parsed_email->is_valid &&
-                    contains_string(\@blocked_domains, lc $parsed_email->host)
-                ) {
-                    send_message_to_sentry(
-                        'Attempt to use a blocked email domain during account registration',
-                        build_request_and_user_context($c),
-                    );
-                    $c->detach('/error_400');
-                }
-            }
+        MusicBrainz::Server::Authentication::User->meta->rebless_instance($user);
+        $c->set_authenticated($user);
 
-            # Limit the number of accounts registered from the same IP per day.
-            my $store = $c->model('MB')->context->store;
-            my $newusercount_key = 'newusercount:' . $c->req->address;
-            my $newusercount = $store->increment($newusercount_key);
-            if ($newusercount == 1) {
-                # Store the count of users registered from this IP for 1 day.
-                $store->expire($newusercount_key, 60 * 60 * 24);
-            }
-            if ($newusercount > 5) {
-                send_message_to_sentry(
-                    'Attempt to register more than 5 accounts in one day',
-                    build_request_and_user_context($c),
-                );
-                $c->detach('/error_400');
-            }
-
-            my $editor = $c->model('Editor')->insert({
-                name => $form->field('username')->value,
-                password => $form->field('password')->value,
-                privs => $BEGINNER_FLAG,
-            });
-
-            if ($email) {
-                $self->_send_confirmation_email($c, $editor, $email);
-            }
-
-            my $user = MusicBrainz::Server::Authentication::User->new_from_editor($editor);
-            $c->set_authenticated($user);
-
-            my $redirect = $c->req->query_params->{returnto} // '';
-            if ($redirect =~ /^\/discourse\/sso/) {
-                $c->stash(
-                    current_view => 'Node',
-                    component_path => 'account/sso/DiscourseRegistered',
-                    component_props => {
-                        emailAddress => $email,
-                    },
-                );
-                $c->detach;
-            }
-
-            $c->redirect_back(
-                fallback => $c->uri_for_action('/user/profile', [ $user->name ]),
+        my $redirect = $c->req->query_params->{returnto} // '';
+        if ($redirect =~ /^\/discourse\/sso/) {
+            $c->stash(
+                current_view => 'Node',
+                component_path => 'account/sso/DiscourseRegistered',
+                component_props => {
+                    emailAddress => $email,
+                },
             );
             $c->detach;
         }
-        else
-        {
-            $c->stash(invalid_captcha_response => 1);
-        }
+
+        $c->redirect_back(
+            fallback => $c->uri_for_action('/user/profile', [ $user->name ]),
+        );
+        $c->detach;
     }
 
     $c->stash(
@@ -721,111 +227,8 @@ sub register : Path('/register') ForbiddenOnMirrors RequireSSL DenyWhenReadonly 
         component_path => 'account/Register',
         component_props => {
             form => $form->TO_JSON,
-            invalidCaptchaResponse => boolean_to_json(
-                $c->stash->{invalid_captcha_response} // 0,
-            ),
         },
     );
-}
-
-sub _check_mtcaptcha_token {
-    my ($self, $c, $verification_token) = @_;
-
-    my $uri = URI->new(
-        'https://service.mtcaptcha.com/mtcv1/api/checktoken',
-    );
-    $uri->query_param(privatekey => DBDefs->MTCAPTCHA_PRIVATE_KEY);
-    $uri->query_param(token => $verification_token);
-
-    my $context = $c->model('MB')->context;
-    my $request = HTTP::Request->new(GET => $uri->as_string);
-    my $response = $context->lwp->request($request);
-    if ($response->is_success) {
-        my $result = decode_json($response->content);
-        return $result->{success} ? 1 : 0;
-    } else {
-        send_message_to_sentry(
-            'Error checking MTCaptcha token',
-            build_request_and_user_context($c),
-            extra => {
-                verifications_token => $verification_token,
-                status_line => $response->status_line,
-                response_content => $response->content,
-            },
-        );
-    }
-    return 0;
-}
-
-=head2 resend_verification
-
-Send out an email allowing users to verify their email address, from the web
-
-=cut
-
-sub resend_verification : Path('/account/resend-verification') ForbiddenOnMirrors RequireAuth
-{
-    my ($self, $c) = @_;
-    my $editor = $c->model('Editor')->get_by_id($c->user->id);
-    if ($editor->has_email_address) {
-        $self->_send_confirmation_email($c, $editor, $editor->email);
-    }
-    $c->response->redirect($c->uri_for_action('/user/profile', [ $editor->name ]));
-    $c->detach;
-}
-
-=head2 _send_confirmation_email
-
-Send out an email allowing users to verify their email address
-
-=cut
-
-sub _send_confirmation_email
-{
-    my ($self, $c, $editor, $email) = @_;
-
-    my $time = time();
-    my $verification_link = $c->uri_for_action('/account/verify_email', {
-        userid => $editor->id,
-        email  => $email,
-        time   => $time,
-        chk    => $self->_checksum($email, $editor->id, $time),
-    });
-
-    my $email_in_use = $c->model('Editor')->is_email_used_elsewhere($email, $editor->id);
-
-    try {
-        if ($email_in_use) {
-            $c->model('Email')->send_email_in_use(
-                email             => $email,
-                ip                => $c->req->address,
-                editor            => $editor,
-            );
-        } else {
-            $c->model('Email')->send_email_verification(
-                email             => $email,
-                verification_link => $verification_link,
-                ip                => $c->req->address,
-                editor            => $editor,
-            );
-        }
-    }
-    catch {
-        $c->flash->{message} = l(
-            '<strong>We were unable to send you a verification email.</strong><br/>Please re-enter your address ' .
-            'in your {settings|account settings}. If that still doesn’t work, {contact_url|contact us}.',
-            {
-                settings => $c->uri_for_action('/account/edit'),
-                contact_url => $CONTACT_URL,
-            },
-        );
-    };
-}
-
-sub _checksum
-{
-    my ($self, $email, $uid, $time) = @_;
-    return sha1_base64("$email $uid $time " . DBDefs->SMTP_SECRET_CHECKSUM);
 }
 
 sub donation : Local RequireAuth HiddenOnMirrors

@@ -25,7 +25,7 @@ use MusicBrainz::Server::WebService::Validator;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use MusicBrainz::Server::Filters;
 use MusicBrainz::Server::Data::Search qw( escape_query );
-use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Data::Utils qw( generate_token type_to_model );
 use MusicBrainz::Server::Constants qw(
     entities_with
     %ENTITIES
@@ -563,7 +563,7 @@ sub _art_upload {
     if ($existing_nonce) {
         $self->detach_with_error($c, {message => "The ID $id is already in use (2)."});
     }
-    my $nonce = $c->generate_nonce;
+    my $nonce = generate_token();
     $context->store->set($nonce_key, $nonce);
     # Expire the nonce in 1 hour.
     $context->store->expire($nonce_key, 60 * 60);

@@ -15,7 +15,9 @@ use Getopt::Long;
 use HTML::HTML5::Parser;
 use HTTP::Headers;
 use HTTP::Request;
-use JSON qw( decode_json );
+use HTTP::Response;
+use HTTP::Status qw( :constants );
+use JSON qw( decode_json encode_json );
 use List::AllUtils qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
@@ -40,7 +42,7 @@ use Sub::Exporter -setup => {
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
             compare_body html_ok test_xpath_html commandline_override
-            capture_edits post_json page_test_jsonld
+            capture_edits post_json page_test_jsonld build_json_response
         ),
         ws_test => \&_build_ws_test,
         ws_test_json => \&_build_ws_test_json,
@@ -53,11 +55,6 @@ BEGIN {
     use DBDefs;
     *DBDefs::WEB_SERVER = sub { 'localhost' };
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { 'localhost' };
-    # MTCaptcha requires JavaScript to work properly, so it must be disabled
-    # for the WWW::Mechanize-based tests. It's tested separately with
-    # Selenium in t/selenium/Create_Account_With_Captcha.json5.
-    *DBDefs::MTCAPTCHA_PUBLIC_KEY = sub { undef };
-    *DBDefs::MTCAPTCHA_PRIVATE_KEY = sub { undef };
     *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
 }
 
@@ -505,6 +502,14 @@ sub page_test_jsonld {
     my $jsonld = encode('UTF-8', $tx->find_value('//script[@type="application/ld+json"]'));
 
     cmp_deeply(decode_json($jsonld), $expected, 'has expected JSON-LD');
+}
+
+sub build_json_response {
+    my ($data) = @_;
+    my $response = HTTP::Response->new(HTTP_OK);
+    $response->header('Content-Type' => 'application/json');
+    $response->content(encode_json($data));
+    return $response;
 }
 
 1;
