@@ -4,13 +4,15 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 # Jeluang <adli98@yahoo.com>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2026-06-26 00:12+0000\n"
-"Last-Translator: Jeluang <adli98@yahoo.com>\n"
+"PO-Revision-Date: 2026-06-27 21:13+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
 "Language-Team: Malay <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ms/>\n"
 "Language: ms\n"
@@ -126,7 +128,7 @@ msgstr ""
 #: ../root/edit/components/Vote.js:86
 msgctxt "vote"
 msgid "Abstain"
-msgstr ""
+msgstr "Berkecuali"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Accept"
@@ -247,9 +249,10 @@ msgid "Add series"
 msgstr ""
 
 #: ../root/recording/create.tt:1 ../root/recording/create.tt:3
+#, fuzzy
 msgctxt "header"
 msgid "Add standalone recording"
-msgstr ""
+msgstr "Rakamn Tunggal"
 
 #: ../root/release/edit/tracklist.tt:593
 msgid "Add track(s)"
@@ -336,7 +339,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:212
 msgctxt "vote"
 msgid "Approve"
-msgstr ""
+msgstr "Meluluskan"
 
 #: ../root/artist/edit_form.tt:20 ../root/edit/search_macros.tt:480
 #: ../root/label/edit_form.tt:16 ../root/place/edit_form.tt:21
@@ -362,7 +365,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:32
 #: ../root/user/UserProfile.js:54
 msgid "Area"
-msgstr ""
+msgstr "Kawasan"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Area type"
@@ -435,7 +438,7 @@ msgstr ""
 #: ../root/static/scripts/release/components/MediumTable.js:75
 #: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
 msgid "Artist"
-msgstr ""
+msgstr "Seniman"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Artist area"
@@ -496,7 +499,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:42
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:163
 msgid "Barcode"
-msgstr ""
+msgstr "Kod Palang"
 
 #: ../root/cdtoc/lookup.tt:33
 msgid ""
@@ -583,11 +586,12 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/DialogButtons.js:23
 #: ../root/work/WorkMerge.js:60
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 #: ../root/release/edit/information.tt:237
+#, fuzzy
 msgid "Cat. No:"
-msgstr ""
+msgstr "Nombor Katalog"
 
 #: ../root/cdtoc/attach_artist_releases.tt:18 ../root/cdtoc/list.tt:12
 #: ../root/cdtoc/lookup.tt:45 ../root/release/edit/duplicates.tt:17
@@ -616,7 +620,7 @@ msgstr ""
 
 #: ../root/release/edit/tracklist.tt:237 ../root/release/edit/tracklist.tt:266
 msgid "Close"
-msgstr ""
+msgstr "utup"
 
 #: ../root/edit/search_macros.tt:480 ../root/edit/components/EditHeader.js:150
 #: ../root/edit/components/EditSidebar.js:53
@@ -635,7 +639,7 @@ msgstr ""
 #: ../root/edit/details/EditArt.js:74 ../root/edit/details/RemoveArt.js:60
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:183
 msgid "Comment"
-msgstr ""
+msgstr "Ulasan"
 
 #: ../root/release/edit/tracklist.tt:467
 msgid ""
@@ -686,7 +690,7 @@ msgstr ""
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:119
 #: ../root/utility/tableColumns.js:520 ../root/utility/tableColumns.js:532
 msgid "Country"
-msgstr ""
+msgstr "Negara"
 
 #: ../root/event/add_event_art.tt:85 ../root/release/add_cover_art.tt:85
 msgid "Creating edit..."
@@ -706,7 +710,7 @@ msgstr ""
 #: ../root/medium/MediumTracklist.js:46
 #: ../root/static/scripts/release/components/MediumTable.js:117
 msgid "Data tracks"
-msgstr ""
+msgstr "Runut data"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/release/edit/duplicates.tt:14
@@ -730,7 +734,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:286 ../root/utility/tableColumns.js:291
 #: ../root/utility/tableColumns.js:526 ../root/utility/tableColumns.js:532
 msgid "Date"
-msgstr ""
+msgstr "Tarikh"
 
 #: ../root/doc/edit_type.tt:23 ../root/collection/CollectionIndex.js:186
 #: ../root/edit/details/AddInstrument.js:60
@@ -751,14 +755,15 @@ msgstr ""
 #: ../root/search/components/InstrumentResults.js:55
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:207
 #: ../root/utility/tableColumns.js:692
+#, fuzzy
 msgid "Description"
-msgstr ""
+msgstr "Keterangan:"
 
 #: ../root/doc/edit_type.tt:28 ../root/components/EntityTabs.js:155
 #: ../root/elections/ElectionDetails.js:25 ../root/entity/Details.js:81
 #: ../root/entity/Details.js:83
 msgid "Details"
-msgstr ""
+msgstr "Perincian"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
@@ -788,7 +793,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:405
 #: ../root/static/scripts/event/components/EventEditForm.js:301
 msgid "Disambiguation"
-msgstr ""
+msgstr "Penyahtaksaan"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
 msgid "Disc ID information"
@@ -807,7 +812,7 @@ msgstr ""
 
 #: ../root/layout.tt:115 ../root/layout/components/Footer.js:26
 msgid "Donate"
-msgstr ""
+msgstr "Sumbang"
 
 #: ../root/release/edit/macros.tt:54
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:59
@@ -825,15 +830,17 @@ msgid ""
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:109
+#, fuzzy
 msgid "Edit"
-msgstr ""
+msgstr "Sunting…"
 
 #: ../root/cdtoc/list.tt:18 ../root/entity/edit.tt:1
 #: ../root/collection/EditCollection.js:27 ../root/release/DiscIds.js:78
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:38
+#, fuzzy
 msgctxt "verb, header"
 msgid "Edit"
-msgstr ""
+msgstr "Sunting…"
 
 #: ../root/release/edit/recordings.tt:73
 #: ../root/account/applications/ApplicationList.js:34
@@ -845,9 +852,10 @@ msgstr ""
 #: ../root/release/CoverArt.js:82
 #: ../root/static/scripts/edit/components/ArtistCreditEditor.js:531
 #: ../root/user/UserCollections.js:121
+#, fuzzy
 msgctxt "verb, interactive"
 msgid "Edit"
-msgstr ""
+msgstr "Sunting…"
 
 #: ../root/url/edit_form.tt:1
 msgctxt "header"
@@ -906,7 +914,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:41
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:95
 msgid "Editor"
-msgstr ""
+msgstr "Penyunting"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Editor flag"
@@ -919,7 +927,7 @@ msgstr ""
 #: ../root/components/forms.tt:170 ../root/components/forms.tt:195
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:101
 msgid "English"
-msgstr ""
+msgstr "Bahasa Inggeris"
 
 #: ../root/release/edit/tracklist.tt:3
 msgid "Enter a tracklist below:"
@@ -976,7 +984,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:35
 #: ../root/user/UserProfile.js:57
 msgid "Event"
-msgstr ""
+msgstr "Peristiwa"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Event type"
@@ -1073,8 +1081,9 @@ msgid "Feel free to leave it blank if the series’ name is likely to be unique.
 msgstr ""
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
+#, fuzzy
 msgid "File:"
-msgstr ""
+msgstr "&Fail"
 
 #: ../root/release/edit/layout.tt:64
 msgid "Finish"
@@ -1129,7 +1138,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:32
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:127
 msgid "Format"
-msgstr ""
+msgstr "Format"
 
 #: ../root/layout.tt:117 ../root/layout/components/Footer.js:28
 #: ../root/main/index.js:214
@@ -1151,7 +1160,7 @@ msgstr[1] ""
 #: ../root/components/forms.tt:172 ../root/components/forms.tt:197
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:103
 msgid "French"
-msgstr ""
+msgstr "Bahasa Perancis"
 
 #: ../root/cdstub/index.tt:30 ../root/cdstub/CDStubIndex.js:51
 #: ../root/cdtoc/CDTocInfo.js:22
@@ -1165,7 +1174,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/EditProfileForm.js:217
 #: ../root/user/UserProfile.js:276
 msgid "Gender"
-msgstr ""
+msgstr "Jantina"
 
 #: ../root/edit/search_macros.tt:480 ../lib/MusicBrainz/Server/Edit/Genre.pm:7
 #: ../root/components/list/GenreList.js:35 ../root/edit/details/AddGenre.js:20
@@ -1175,7 +1184,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:36
 #: ../root/tag/TagIndex.js:22
 msgid "Genre"
-msgstr ""
+msgstr "Genre"
 
 #: ../root/components/forms.tt:140 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:587
@@ -1265,8 +1274,9 @@ msgstr ""
 #: ../root/futureColumnLabels.js:38
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:111
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:152
+#, fuzzy
 msgid "ID"
-msgstr ""
+msgstr "ID3"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 #: ../root/edit/details/EditArtist.js:168 ../root/edit/details/EditLabel.js:127
@@ -1285,12 +1295,12 @@ msgstr ""
 #: ../root/static/scripts/common/components/IsrcList.js:38
 #: ../root/utility/tableColumns.js:705
 msgid "ISRCs"
-msgstr ""
+msgstr "ISRC"
 
 #: ../root/work/edit_form.tt:15 ../root/report/ReportsIndex.js:674
 #: ../root/static/scripts/common/components/IswcList.js:38
 msgid "ISWCs"
-msgstr ""
+msgstr "SWC"
 
 #: ../root/release/edit/recordings.tt:134
 msgid ""
@@ -1428,7 +1438,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:37
 #: ../root/user/UserProfile.js:59
 msgid "Instrument"
-msgstr ""
+msgstr "Alat Muzik"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Instrument type"
@@ -1504,7 +1514,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
 #: ../root/utility/tableColumns.js:554
 msgid "Label"
-msgstr ""
+msgstr "Jenama"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Label area"
@@ -1534,7 +1544,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FilterForm.js:371
 #: ../root/utility/tableColumns.js:570
 msgid "Language"
-msgstr ""
+msgstr "Bahasa"
 
 #: ../root/layout.tt:151 ../root/layout/components/Footer.js:102
 msgid "Last replication packet received at {datetime}"
@@ -1561,7 +1571,7 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:138
 #: ../root/static/scripts/release/components/MediumTable.js:78
 msgid "Length"
-msgstr ""
+msgstr "Tajuk"
 
 #: ../root/release/edit/tracklist.tt:54
 msgid "Lines contain track artists"
@@ -1581,15 +1591,16 @@ msgstr ""
 #: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
 msgctxt "interactive"
 msgid "Log in"
-msgstr ""
+msgstr "Log masuk"
 
 #: ../root/release/edit/recordings.tt:186
 msgid "Looking for suggested recordings..."
 msgstr ""
 
 #: ../root/cdtoc/lookup.tt:3 ../root/cdtoc/lookup.tt:4
+#, fuzzy
 msgid "Lookup CD"
-msgstr ""
+msgstr "Carian CD…"
 
 #: ../root/release/edit/information.tt:184
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
@@ -1722,7 +1733,7 @@ msgstr ""
 #: ../root/static/scripts/release/components/EditWorkDialog.js:151
 #: ../root/user/UserSubscriptions.js:43
 msgid "Name"
-msgstr ""
+msgstr "Nama"
 
 #: ../root/artist/edit_credit.tt:16
 #: ../root/static/scripts/artist/components/EditArtistCreditForm.js:89
@@ -1750,7 +1761,7 @@ msgstr ""
 #: ../root/edit/components/Vote.js:79
 msgctxt "vote"
 msgid "No"
-msgstr ""
+msgstr "Bantah"
 
 #: ../root/components/forms.tt:268
 #: ../root/static/scripts/event/components/EventEditForm.js:405
@@ -1819,7 +1830,7 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:139 ../root/release/edit/tracklist.tt:24
 msgid "Options"
-msgstr ""
+msgstr "Pilihan"
 
 #: ../root/series/edit_form.tt:15 ../root/edit/details/AddSeries.js:48
 #: ../root/edit/details/EditSeries.js:62
@@ -1967,7 +1978,7 @@ msgstr ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1568
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
-msgstr ""
+msgstr "Rakaman"
 
 #: ../root/recording/edit_form.tt:23
 msgid "Recording details"
@@ -1991,16 +2002,17 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:20
 #: ../root/tag/TagLayout.js:20 ../root/work/WorkIndex.js:47
 msgid "Recordings"
-msgstr ""
+msgstr "Rakaman"
 
 #: ../root/doc/edit_type.tt:8
 msgid "Reject"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:438 ../root/user/UserProfile.js:100
+#, fuzzy
 msgctxt "user type"
 msgid "Relationship editor"
-msgstr ""
+msgstr "Penyunting Hubungan"
 
 #: ../root/edit/search_macros.tt:480
 #: ../root/edit/details/AddRelationshipType.js:48
@@ -2044,15 +2056,17 @@ msgstr ""
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:387
 #: ../root/taglookup/Form.js:27 ../root/user/UserProfile.js:63
 msgid "Release"
-msgstr ""
+msgstr "Keluaran"
 
 #: ../root/edit/search_macros.tt:480
+#, fuzzy
 msgid "Release country"
-msgstr ""
+msgstr "Negara Keluaran"
 
 #: ../root/edit/search_macros.tt:480
+#, fuzzy
 msgid "Release data quality"
-msgstr ""
+msgstr "Mutu Data Keluaran"
 
 #: ../root/release/edit/layout.tt:14
 msgid "Release duplicates"
@@ -2087,8 +2101,9 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:42
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:394
 #: ../root/user/UserProfile.js:64
+#, fuzzy
 msgid "Release group"
-msgstr ""
+msgstr "Kumpulan Keluaran"
 
 #: ../root/release_group/edit_form.tt:10
 msgid "Release group details"
@@ -2147,7 +2162,7 @@ msgstr ""
 #: ../root/static/scripts/edit/components/Multiselect.js:186
 #: ../root/user/UserCollections.js:122
 msgid "Remove"
-msgstr ""
+msgstr "Alih Keluar"
 
 #: ../root/artist/edit_form.tt:25 ../root/label/edit_form.tt:30
 msgctxt "interactive"
@@ -2211,7 +2226,7 @@ msgstr ""
 
 #: ../root/release/edit/information.tt:68
 msgid "Retry"
-msgstr ""
+msgstr "Cuba semula"
 
 #: ../root/release/edit/recordings.tt:14
 msgid "Reuse previous recordings"
@@ -2234,7 +2249,7 @@ msgstr ""
 #: ../root/edit/details/historic/AddRelease.js:61
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:205
 msgid "Script"
-msgstr ""
+msgstr "Skrip"
 
 #: ../root/cdtoc/lookup.tt:79 ../root/cdtoc/lookup.tt:89
 #: ../root/edit/search_macros.tt:136 ../root/release/edit/recordings.tt:163
@@ -2251,7 +2266,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
-msgstr ""
+msgstr "Gelintar"
 
 #: ../root/cdtoc/lookup.tt:73
 msgid "Search by artist"
@@ -2274,8 +2289,9 @@ msgstr ""
 #: ../root/release_group/edit_form.tt:15
 #: ../root/edit/details/AddReleaseGroup.js:74
 #: ../root/edit/details/EditReleaseGroup.js:76
+#, fuzzy
 msgid "Secondary types"
-msgstr ""
+msgstr "Jenis Sampingan"
 
 #: ../root/layout.tt:145 ../root/layout/components/Footer.js:91
 msgid "See {tickets|all tickets in beta testing}."
@@ -2324,7 +2340,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:65
 msgctxt "singular"
 msgid "Series"
-msgstr ""
+msgstr "Siri"
 
 #: ../root/series/edit_form.tt:8
 msgid "Series details"
@@ -2385,7 +2401,7 @@ msgstr ""
 #: ../root/edit/search_macros.tt:480 ../root/edit/components/EditSidebar.js:33
 msgctxt "edit status"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../root/release/edit/information.tt:154
 #: ../root/components/list/ReleaseList.js:151
@@ -2397,7 +2413,7 @@ msgstr ""
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:137
 msgctxt "release"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../root/layout.tt:124 ../root/layout/components/Footer.js:45
 msgid "Stop using beta site"
@@ -2422,7 +2438,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:793
 msgctxt "audio file metadata"
 msgid "Tagger"
-msgstr ""
+msgstr "Penanda"
 
 #: ../root/event/add_event_art.tt:12 ../root/release/add_cover_art.tt:12
 msgid ""
@@ -2989,7 +3005,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:30
 #: ../root/static/scripts/release/components/MediumTable.js:73
 msgid "Title"
-msgstr ""
+msgstr "Tajuk"
 
 #: ../root/release/edit/information.tt:148
 msgid "To edit types, please {edit_page|edit the release group}."
@@ -3008,8 +3024,9 @@ msgstr ""
 
 #: ../root/cdstub/index.tt:17 ../root/cdstub/CDStubIndex.js:43
 #: ../root/cdtoc/CDTocInfo.js:35
+#, fuzzy
 msgid "Total tracks:"
-msgstr ""
+msgstr "Jumlah Runut"
 
 #: ../root/release/edit/tracklist.tt:114
 msgid "Track count:"
@@ -3026,8 +3043,9 @@ msgstr ""
 #: ../root/edit/details/RemoveMedium.js:71
 #: ../root/static/scripts/release-editor/fields.js:922
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:349
+#, fuzzy
 msgid "Tracklist"
-msgstr ""
+msgstr "Senarai runut:"
 
 #: ../root/release/edit/duplicates.tt:13
 #: ../root/artist_credit/ArtistCreditIndex.js:156
@@ -3040,7 +3058,7 @@ msgstr ""
 #: ../root/search/components/ReleaseResults.js:121
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:131
 msgid "Tracks"
-msgstr ""
+msgstr "Runut"
 
 #: ../root/release/edit/tracklist.tt:492
 msgid ""
@@ -3058,7 +3076,7 @@ msgstr ""
 #: ../root/components/forms.tt:173 ../root/components/forms.tt:198
 #: ../root/static/scripts/edit/components/GuessCaseOptions.js:104
 msgid "Turkish"
-msgstr ""
+msgstr "Bahasa Turki"
 
 #: ../root/artist/edit_form.tt:18 ../root/edit/search_macros.tt:480
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:17
@@ -3117,20 +3135,21 @@ msgstr ""
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:240
 #: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
 msgid "Type"
-msgstr ""
+msgstr "Jenis"
 
 #: ../root/event/add_event_art.tt:54 ../root/release/add_cover_art.tt:54
 #: ../root/components/ArtFields.js:64
 msgid "Types"
-msgstr ""
+msgstr "Jenis"
 
 #: ../root/event/add_event_art.tt:137 ../root/event/reorder_event_art.tt:19
 #: ../root/release/add_cover_art.tt:137 ../root/release/reorder_cover_art.tt:19
 #: ../root/edit/details/AddArt.js:37 ../root/edit/details/EditArt.js:65
 #: ../root/edit/details/RemoveArt.js:37 ../root/event/EventArt.js:57
 #: ../root/release/CoverArt.js:58
+#, fuzzy
 msgid "Types:"
-msgstr ""
+msgstr "Jenis"
 
 #: ../root/edit/search_macros.tt:480 ../root/url/edit_form.tt:4
 #: ../lib/MusicBrainz/Server/Edit/URL.pm:7 ../root/edit/details/EditUrl.js:28
@@ -3226,12 +3245,12 @@ msgstr ""
 
 #: ../root/edit/search_macros.tt:480 ../root/elections/ElectionVotes.js:22
 msgid "Voter"
-msgstr ""
+msgstr "Pengundi"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:69
 #: ../root/user/UserProfile.js:693
 msgid "Votes"
-msgstr ""
+msgstr "Undian"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Voting closed"
@@ -3281,7 +3300,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:45
 #: ../root/user/UserProfile.js:66 ../root/work/WorkLayout.js:25
 msgid "Work"
-msgstr ""
+msgstr "Karya"
 
 #: ../root/work/edit_form.tt:28
 #: ../root/layout/components/sidebar/WorkSidebar.js:97
@@ -3308,14 +3327,14 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
 #: ../root/static/scripts/edit/components/PartialDateInput.js:148
 msgid "YYYY"
-msgstr ""
+msgstr "TTTT"
 
 #: ../root/edit/search_macros.tt:313 ../root/edit/search_macros.tt:331
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:211
 #: ../root/edit/components/Vote.js:72
 msgctxt "vote"
 msgid "Yes"
-msgstr ""
+msgstr "Setuju"
 
 #: ../root/cdtoc/attach_artist_releases.tt:5
 msgid "You are viewing releases by {artist}."
@@ -3403,8 +3422,9 @@ msgid "[removed]"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:194
+#, fuzzy
 msgid "after"
-msgstr ""
+msgstr "Selepas"
 
 #: ../root/edit/search_macros.tt:39
 msgid "all"
@@ -3429,8 +3449,9 @@ msgid "auto-edits"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:194
+#, fuzzy
 msgid "before"
-msgstr ""
+msgstr "Sebelum"
 
 #: ../root/edit/search_macros.tt:194
 msgid "between"
@@ -3442,9 +3463,10 @@ msgstr ""
 
 #: ../root/components/common-macros.tt:100
 #: ../root/static/scripts/common/components/EntityLink.js:111
+#, fuzzy
 msgctxt "event"
 msgid "cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: ../root/edit/search_macros.tt:389
 msgid "do not exist (edit has no notes)"
@@ -3479,8 +3501,9 @@ msgid "earliest closed first"
 msgstr ""
 
 #: ../root/edit/search_macros.tt:20
+#, fuzzy
 msgid "edits"
-msgstr ""
+msgstr "Suntingan"
 
 #: ../root/components/forms.tt:175 ../root/components/forms.tt:200
 #: ../root/edit/search_macros.tt:210 ../root/edit/search_macros.tt:466
@@ -3650,8 +3673,9 @@ msgid "recently closed first"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:38
+#, fuzzy
 msgid "recording"
-msgstr ""
+msgstr "Rakaman"
 
 #: ../root/cdtoc/attach_list.tt:18 ../root/cdtoc/attach_list.tt:92
 #: ../root/cdtoc/list.tt:82
@@ -3660,8 +3684,9 @@ msgid "show tracklist"
 msgstr ""
 
 #: ../root/release/edit/recordings.tt:37
+#, fuzzy
 msgid "track"
-msgstr ""
+msgstr "Runut"
 
 #: ../root/edit/search_macros.tt:25
 msgid "voting closing later first"
@@ -4016,7 +4041,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 msgid "Default"
-msgstr ""
+msgstr "Lalai"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:316
 msgid ""
@@ -4129,9 +4154,10 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Role/EditRelationships.pm:226
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:103
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:107
+#, fuzzy
 msgctxt "generic entity"
 msgid "[unknown]"
-msgstr ""
+msgstr "tak diketahui"
 
 #: ../lib/MusicBrainz/Server/Controller/Role/Load.pm:96
 msgid "The provided relationship type ID is not valid."
@@ -4203,7 +4229,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/User.pm:573
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
-msgstr ""
+msgstr "'{type}' bukan jenis entiti yang boleh menerima penilaian."
 
 #: ../lib/MusicBrainz/Server/Controller/User.pm:843
 msgid "An error occurred while trying to send your report."
@@ -4331,7 +4357,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Data/Vote.pm:194
 msgid "Total"
-msgstr ""
+msgstr "Jumlah"
 
 #: ../lib/MusicBrainz/Server/Data/Work.pm:415
 #: ../root/static/scripts/common/utility/bracketed.js:19
@@ -4843,9 +4869,10 @@ msgid "Add ISRCs"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Create.pm:29
+#, fuzzy
 msgctxt "edit type"
 msgid "Add standalone recording"
-msgstr ""
+msgstr "Rakamn Tunggal"
 
 #: ../lib/MusicBrainz/Server/Edit/Recording/Delete.pm:12
 msgctxt "edit type"
@@ -4989,9 +5016,10 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Edit/Release/EditReleaseLabel.pm:98
 #: ../lib/MusicBrainz/Server/Entity/Release.pm:185
 #: ../root/static/scripts/release-editor/duplicates.js:197
+#, fuzzy
 msgctxt "medium format"
 msgid "(unknown)"
-msgstr ""
+msgstr "tak diketahui"
 
 #: ../lib/MusicBrainz/Server/Edit/Release/Merge.pm:337
 #, perl-brace-format
@@ -5148,14 +5176,16 @@ msgid "Edit URL"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:271 ../root/utility/edit.js:48
+#, fuzzy
 msgctxt "adjective, edit status"
 msgid "Open"
-msgstr ""
+msgstr "Terbuka:"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:272 ../root/utility/edit.js:41
+#, fuzzy
 msgctxt "edit status"
 msgid "Applied"
-msgstr ""
+msgstr "Diterapkan:"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:273 ../root/utility/edit.js:46
 msgctxt "edit status"
@@ -5163,29 +5193,33 @@ msgid "Failed vote"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:274 ../root/utility/edit.js:44
+#, fuzzy
 msgctxt "edit status"
 msgid "Failed dependency"
-msgstr ""
+msgstr "Gagal (kebersandaran):"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:275 ../root/utility/edit.js:43
 msgctxt "edit status"
 msgid "Error"
-msgstr ""
+msgstr "Ralat"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:276 ../root/utility/edit.js:45
+#, fuzzy
 msgctxt "edit status"
 msgid "Failed prerequisite"
-msgstr ""
+msgstr "Gagal (prasyarat):"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:277 ../root/utility/edit.js:47
+#, fuzzy
 msgctxt "edit status"
 msgid "No votes"
-msgstr ""
+msgstr "Undian Bantahan"
 
 #: ../lib/MusicBrainz/Server/Edit/Utils.pm:278 ../root/utility/edit.js:42
+#, fuzzy
 msgctxt "edit status"
 msgid "Cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: ../lib/MusicBrainz/Server/Edit/WikiDoc.pm:7
 msgid "Wiki documentation"
@@ -5310,9 +5344,10 @@ msgid "Declined"
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Entity/AutoEditorElection.pm:105
+#, fuzzy
 msgctxt "autoeditor election status (short)"
 msgid "Cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: ../lib/MusicBrainz/Server/Entity/Barcode.pm:18
 #: ../root/static/scripts/common/utility/formatBarcode.js:15
@@ -5825,7 +5860,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
 #: ../root/static/scripts/common/constants.js:435
 msgid "Advanced"
-msgstr ""
+msgstr "Lanjutan"
 
 #: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
 #: ../root/static/scripts/common/constants.js:438
@@ -5852,7 +5887,7 @@ msgstr ""
 #: ../root/search/components/SearchForm.js:42
 msgctxt "noun, folksonomy"
 msgid "Tag"
-msgstr ""
+msgstr "Tanda"
 
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:55
 #: ../root/edit/details/AddRelationshipType.js:179
@@ -5967,7 +6002,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:117
 msgctxt "language optgroup"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:141
 msgctxt "script optgroup"
@@ -5977,7 +6012,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:141
 msgctxt "script optgroup"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: ../lib/MusicBrainz/Server/Form/Utils.pm:278
 msgid ""
@@ -6069,8 +6104,9 @@ msgstr ""
 #: ../root/account/ChangePassword.js:65 ../root/account/LostPassword.js:41
 #: ../root/static/scripts/account/components/RegisterForm.js:52
 #: ../root/user/Login.js:97
+#, fuzzy
 msgid "Username"
-msgstr ""
+msgstr "Nama Pengguna"
 
 #: ../root/account/ChangePassword.js:73
 msgid "Old password:"
@@ -6374,7 +6410,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/FingerprintTable.js:80
 #: ../root/utility/tableColumns.js:82
 msgid "Actions"
-msgstr ""
+msgstr "Tindakan"
 
 #: ../root/account/applications/ApplicationList.js:122
 msgid "You have not authorized any applications."
@@ -6527,9 +6563,10 @@ msgstr ""
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:290
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:167
+#, fuzzy
 msgctxt "header"
 msgid "Preview"
-msgstr ""
+msgstr "&Pratonton"
 
 #: ../root/annotation/EditAnnotation.js:71
 #: ../root/static/scripts/common/components/Annotation.js:59
@@ -6537,9 +6574,10 @@ msgid "Changelog:"
 msgstr ""
 
 #: ../root/annotation/EditAnnotation.js:84
+#, fuzzy
 msgctxt "interactive"
 msgid "Preview"
-msgstr ""
+msgstr "&Pratonton"
 
 #: ../root/annotation/EditAnnotation.js:89
 msgid "Annotation formatting"
@@ -6607,7 +6645,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
 #: ../root/tag/TagLayout.js:17
 msgid "Artists"
-msgstr ""
+msgstr "Seniman"
 
 #: ../root/area/AreaArtists.js:48 ../root/instrument/InstrumentArtists.js:54
 #: ../root/report/DuplicateArtists.js:129
@@ -6626,7 +6664,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:15
 #: ../root/tag/TagLayout.js:27
 msgid "Events"
-msgstr ""
+msgstr "Peristiwa"
 
 #: ../root/area/AreaEvents.js:50 ../root/artist/ArtistEvents.js:62
 #: ../root/place/PlaceEvents.js:49
@@ -6650,7 +6688,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:18
 #: ../root/tag/TagLayout.js:22
 msgid "Labels"
-msgstr ""
+msgstr "Jenama"
 
 #: ../root/area/AreaLabels.js:47
 msgid "Add selected labels for merging"
@@ -6666,7 +6704,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:19
 #: ../root/tag/TagLayout.js:23
 msgid "Places"
-msgstr ""
+msgstr "Tempat"
 
 #: ../root/area/AreaPlaces.js:45 ../root/place/PlaceMap.js:28
 msgid ""
@@ -6696,7 +6734,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Relationships.js:93
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:632
 msgid "Relationships"
-msgstr ""
+msgstr "Hubungan"
 
 #: ../root/area/AreaReleases.js:31 ../root/area/AreaReleases.js:34
 #: ../root/artist/ArtistReleases.js:37 ../root/artist/ArtistReleases.js:38
@@ -6715,7 +6753,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:21
 #: ../root/tag/TagLayout.js:19
 msgid "Releases"
-msgstr ""
+msgstr "Keluaran"
 
 #: ../root/area/AreaReleases.js:47 ../root/artist/ArtistReleases.js:56
 #: ../root/instrument/InstrumentReleases.js:53 ../root/label/LabelIndex.js:98
@@ -6753,7 +6791,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:25
 #: ../root/tag/TagLayout.js:21
 msgid "Works"
-msgstr ""
+msgstr "Karya"
 
 #: ../root/area/AreaWorks.js:24
 msgid "This area has no relationships to any works."
@@ -7047,8 +7085,9 @@ msgstr ""
 #: ../root/search/components/ArtistResults.js:58
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:85
+#, fuzzy
 msgid "Begin area"
-msgstr ""
+msgstr "Kawasan Mula"
 
 #: ../root/artist/utils.js:21
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:69
@@ -7097,8 +7136,9 @@ msgstr ""
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:100
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
 #: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:87
+#, fuzzy
 msgid "End area"
-msgstr ""
+msgstr "Kawasan Tamat"
 
 #: ../root/artist/utils.js:41
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:70
@@ -7153,7 +7193,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:22
 #: ../root/tag/TagLayout.js:18
 msgid "Release groups"
-msgstr ""
+msgstr "Gabungan keluaran"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:125
 #: ../root/components/TagEntitiesList.js:175
@@ -7186,7 +7226,7 @@ msgstr[1] ""
 #: ../root/collection/CollectionHeader.js:69
 #: ../root/components/EntityTabs.js:73 ../root/tag/TagLayout.js:16
 msgid "Overview"
-msgstr ""
+msgstr "Gambaran Keseluruhan"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:37
 #: ../root/artist_credit/ArtistCreditLayout.js:41
@@ -7252,8 +7292,9 @@ msgstr ""
 #: ../root/cdstub/BrowseCDStubs.js:42 ../root/cdstub/CDStubHeader.js:16
 #: ../root/cdstub/CDStubLayout.js:23
 #: ../root/layout/components/sidebar/CDStubSidebar.js:23
+#, fuzzy
 msgid "Various Artists"
-msgstr ""
+msgstr "Aneka artis:"
 
 #: ../root/cdstub/BrowseCDStubs.js:49
 msgid "Added {add}, last modified {lastmod}"
@@ -7393,8 +7434,9 @@ msgstr ""
 #: ../root/edit/details/historic/RemoveDiscId.js:20
 #: ../root/otherlookup/OtherLookupForm.js:107 ../root/release/DiscIds.js:74
 #: ../root/utility/tableColumns.js:200 ../root/utility/tableColumns.js:205
+#, fuzzy
 msgid "Disc ID"
-msgstr ""
+msgstr "ID Cakera"
 
 #: ../root/cdtoc/CDTocInfo.js:31
 msgid "FreeDB:"
@@ -7409,7 +7451,7 @@ msgstr ""
 #: ../root/search/components/RecordingResults.js:145
 #: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:805
 msgid "Track"
-msgstr ""
+msgstr "Runut"
 
 #: ../root/cdtoc/CDTocInfo.js:48
 msgid "Start"
@@ -7421,7 +7463,7 @@ msgstr ""
 #: ../root/search/components/PlaceResults.js:70
 #: ../root/utility/tableColumns.js:306 ../root/utility/tableColumns.js:311
 msgid "End"
-msgstr ""
+msgstr "Tamat"
 
 #: ../root/cdtoc/CDTocInfo.js:53 ../root/cdtoc/CDTocInfo.js:55
 #: ../root/cdtoc/CDTocInfo.js:57
@@ -7466,7 +7508,7 @@ msgstr ""
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:87
 msgid "Select"
-msgstr ""
+msgstr "Pilih"
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:106
 msgid ""
@@ -7511,9 +7553,10 @@ msgid "See all of {editor}'s public collections"
 msgstr ""
 
 #: ../root/collection/CollectionHeader.js:78
+#, fuzzy
 msgctxt "verb, header, interactive"
 msgid "Edit"
-msgstr ""
+msgstr "Sunting…"
 
 #: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:347
 #: ../root/user/UserProfile.js:408
@@ -7611,7 +7654,7 @@ msgstr ""
 
 #: ../root/collection/CollectionMerge.js:172
 msgid "Confirm"
-msgstr ""
+msgstr "Sahkan"
 
 #: ../root/collection/CreateCollection.js:24
 #: ../root/collection/CreateCollection.js:27
@@ -7650,8 +7693,9 @@ msgstr ""
 #: ../root/edit/details/AddMedium.js:145 ../root/edit/details/EditMedium.js:541
 #: ../root/report/ReportsIndex.js:113
 #: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:228
+#, fuzzy
 msgid "Artist credits"
-msgstr ""
+msgstr "Penghargaan Seniman"
 
 #: ../root/components/Aliases/ArtistCreditList.js:31
 msgid ""
@@ -7802,12 +7846,13 @@ msgstr ""
 #: ../root/components/EntityTabs.js:98 ../root/release/DiscIds.js:68
 #: ../root/release/DiscIds.js:69 ../root/report/ReportsIndex.js:683
 msgid "Disc IDs"
-msgstr ""
+msgstr "ID Cakera"
 
 #: ../root/components/EntityTabs.js:108
+#, fuzzy
 msgctxt "plural"
 msgid "Cover art"
-msgstr ""
+msgstr "Seni Kulit"
 
 #: ../root/components/EntityTabs.js:110
 msgctxt "plural"
@@ -7832,7 +7877,7 @@ msgstr ""
 #: ../root/user/UserTagList.js:55
 msgctxt "folksonomy"
 msgid "Tags"
-msgstr ""
+msgstr "Tanda"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
@@ -7845,7 +7890,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:42
 #: ../root/user/UserRatingList.js:76
 msgid "Ratings"
-msgstr ""
+msgstr "Penilaian"
 
 #: ../root/components/EntityTabs.js:166
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:285
@@ -7878,7 +7923,7 @@ msgstr ""
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:579
 #: ../root/utility/tableColumns.js:682
 msgid "Attributes"
-msgstr ""
+msgstr "Sifat"
 
 #: ../root/components/RelationshipsTable.js:331
 msgid "“{link_phrase}” relationships"
@@ -7933,7 +7978,7 @@ msgstr[1] ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:12
 #: ../root/tag/TagLayout.js:24
 msgid "Areas"
-msgstr ""
+msgstr "Kawasan"
 
 #: ../root/components/TagEntitiesList.js:151
 msgid "See all {num} areas"
@@ -7957,7 +8002,7 @@ msgstr[1] ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:17
 #: ../root/tag/TagLayout.js:25
 msgid "Instruments"
-msgstr ""
+msgstr "Alat Muzik"
 
 #: ../root/components/TagEntitiesList.js:163
 msgid "See all {num} instruments"
@@ -7984,7 +8029,7 @@ msgstr[1] ""
 #: ../root/tag/TagLayout.js:26
 msgctxt "plural"
 msgid "Series"
-msgstr ""
+msgstr "Siri"
 
 #: ../root/components/TagEntitiesList.js:187
 msgid "See all {num} series"
@@ -8029,7 +8074,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:14
 #: ../root/user/UserCollections.js:167
 msgid "Collections"
-msgstr ""
+msgstr "Kumpulan"
 
 #: ../root/components/UserAccountTabs.js:76
 msgid "Edit profile"
@@ -8087,7 +8132,7 @@ msgstr ""
 #: ../root/components/list/ReleaseGroupList.js:65
 #: ../root/futureColumnLabels.js:33
 msgid "Year"
-msgstr ""
+msgstr "Tahun"
 
 #: ../root/components/list/ReleaseGroupList.js:140
 msgid "Unspecified type"
@@ -8115,7 +8160,7 @@ msgstr ""
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:895
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:558
 msgid "Authors"
-msgstr ""
+msgstr "Pengarang"
 
 #: ../root/components/list/WorkList.js:63 ../root/iswc/Index.js:61
 #: ../root/search/components/WorkResults.js:57
@@ -8136,7 +8181,7 @@ msgstr ""
 
 #: ../root/constants.js:25
 msgid "View and modify your private ratings"
-msgstr ""
+msgstr "Lihat dan ubah suai penilaian peribadi"
 
 #: ../root/constants.js:26
 msgid "Submit new barcodes to the database"
@@ -8422,9 +8467,10 @@ msgstr ""
 #: ../root/edit/components/ListHeader.js:189
 #: ../root/layout/components/sidebar/CollectionSidebar.js:72
 #: ../root/layout/components/sidebar/EditLinks.js:37
+#, fuzzy
 msgctxt "noun"
 msgid "Open edits"
-msgstr ""
+msgstr "Suntingan Terbuka"
 
 #: ../root/edit/SubscribedEditorEdits.js:21
 #: ../root/edit/SubscribedEditorEdits.js:23
@@ -8450,9 +8496,10 @@ msgstr ""
 #: ../root/edit/components/EditArtwork.js:26
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:170
 #: ../root/user/UserProfile.js:56
+#, fuzzy
 msgctxt "singular"
 msgid "Cover art"
-msgstr ""
+msgstr "Seni Kulit"
 
 #: ../root/edit/components/EditArtwork.js:32
 #: ../root/edit/details/ReorderArt.js:33
@@ -8502,7 +8549,7 @@ msgstr ""
 #: ../root/edit/components/EditHeader.js:114 ../root/edit/components/Vote.js:93
 msgctxt "vote"
 msgid "None"
-msgstr ""
+msgstr "Tiada"
 
 #: ../root/edit/components/EditHeader.js:136
 #: ../root/edit/components/EditSidebar.js:47 ../root/elections/Show.js:28
@@ -8727,8 +8774,9 @@ msgid "Quick links:"
 msgstr ""
 
 #: ../root/edit/components/ListHeader.js:231
+#, fuzzy
 msgid "Help:"
-msgstr ""
+msgstr "Bantuan"
 
 #: ../root/edit/components/ListHeader.js:235
 msgid "Introduction to voting"
@@ -8794,8 +8842,9 @@ msgstr ""
 
 #: ../root/edit/details/AddArt.js:48 ../root/edit/details/EditArt.js:54
 #: ../root/edit/details/RemoveArt.js:49 ../root/taglookup/Form.js:47
+#, fuzzy
 msgid "Filename"
-msgstr ""
+msgstr "Nama fail:"
 
 #: ../root/edit/details/AddArtist.js:125 ../root/edit/details/EditArtist.js:161
 msgctxt "artist ended boolean"
@@ -8813,9 +8862,10 @@ msgid "ISNI code"
 msgstr ""
 
 #: ../root/edit/details/AddEvent.js:46 ../root/edit/details/EditEvent.js:50
+#, fuzzy
 msgctxt "event"
 msgid "Cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: ../root/edit/details/AddEvent.js:80 ../root/edit/details/EditEvent.js:91
 #: ../root/event/EventIndex.js:47
@@ -8828,9 +8878,10 @@ msgid "Client:"
 msgstr ""
 
 #: ../root/edit/details/AddIsrcs.js:24
+#, fuzzy
 msgctxt "isrc client"
 msgid "(unknown)"
-msgstr ""
+msgstr "tak diketahui"
 
 #: ../root/edit/details/AddIsrcs.js:29 ../root/edit/details/AddIswcs.js:21
 msgid "Additions:"
@@ -8980,8 +9031,9 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:109
 #: ../root/otherlookup/OtherLookupForm.js:52
 #: ../root/report/hooks/useCatNoColumn.js:26
+#, fuzzy
 msgid "Catalog number"
-msgstr ""
+msgstr "Nombor Katalog"
 
 #: ../root/edit/details/AddRemoveAlias.js:42
 #: ../root/edit/details/EditAlias.js:47
@@ -9026,8 +9078,9 @@ msgstr ""
 #: ../root/edit/details/historic/ChangeReleaseQuality.js:37
 #: ../root/layout/components/sidebar/SidebarDataQuality.js:25
 #: ../root/release/ChangeQuality.js:58
+#, fuzzy
 msgid "Data quality"
-msgstr ""
+msgstr "Mutu Data"
 
 #: ../root/edit/details/ChangeWikiDoc.js:33
 msgid "WikiDoc:"
@@ -9128,7 +9181,7 @@ msgstr ""
 #: ../root/edit/details/EditRelationshipType.js:327
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:236
 msgid "Examples"
-msgstr ""
+msgstr "Contoh"
 
 #: ../root/edit/details/EditRelease.js:161
 msgid "This edit also changed the track artists."
@@ -9165,7 +9218,7 @@ msgstr ""
 #: ../root/edit/details/MergeSeries.js:16 ../root/edit/details/MergeWorks.js:16
 msgctxt "verb, header, paired with Into"
 msgid "Merge"
-msgstr ""
+msgstr "Cantumkan"
 
 #: ../root/edit/details/MergeAreas.js:22
 #: ../root/edit/details/MergeArtists.js:23
@@ -9213,8 +9266,9 @@ msgid "Recording merges"
 msgstr ""
 
 #: ../root/edit/details/MergeReleases.js:301
+#, fuzzy
 msgid "Track #"
-msgstr ""
+msgstr "Runut"
 
 #: ../root/edit/details/MergeReleases.js:315
 msgid ""
@@ -9252,7 +9306,7 @@ msgstr ""
 #: ../root/report/IsrcsWithManyRecordings.js:58
 #: ../root/static/scripts/common/components/IsrcList.js:26
 msgid "ISRC"
-msgstr ""
+msgstr "ISRC"
 
 #: ../root/edit/details/RemoveMedium.js:49
 msgid ""
@@ -9286,7 +9340,7 @@ msgstr ""
 
 #: ../root/edit/details/ReorderMediums.js:38
 msgid "Mediums"
-msgstr ""
+msgstr "Bahantara"
 
 #: ../root/edit/details/ReorderMediums.js:42
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
@@ -9335,9 +9389,10 @@ msgid "We are unable to display this cover art."
 msgstr ""
 
 #: ../root/edit/details/SetCoverArt.js:61
+#, fuzzy
 msgctxt "singular"
 msgid "New cover art:"
-msgstr ""
+msgstr "Seni Kulit Baharu"
 
 #: ../root/edit/details/SetTrackLengths.js:54
 msgctxt "CD TOC"
@@ -9359,12 +9414,14 @@ msgstr ""
 #: ../root/edit/details/historic/AddTrackKV.js:45
 #: ../root/edit/details/historic/AddTrackOld.js:31
 #: ../root/edit/details/historic/EditTrack.js:43 ../root/taglookup/Form.js:32
+#, fuzzy
 msgid "Track number"
-msgstr ""
+msgstr "Bilangan Runut"
 
 #: ../root/edit/details/historic/AddTrackOld.js:25
+#, fuzzy
 msgid "Artist name:"
-msgstr ""
+msgstr "Nama seniman"
 
 #: ../root/edit/details/historic/EditRelationship.js:45
 msgid "Old relationships:"
@@ -9471,7 +9528,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr ""
+msgstr "Jumlah undian"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
@@ -9485,7 +9542,7 @@ msgstr ""
 
 #: ../root/elections/ElectionDetails.js:67
 msgid "Abstentions"
-msgstr ""
+msgstr "Undian Berkecuali"
 
 #: ../root/elections/ElectionDetails.js:75
 msgid "Votes for/against:"
@@ -9500,7 +9557,7 @@ msgstr ""
 #: ../root/elections/ElectionTable/index.js:18
 msgctxt "election status"
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #: ../root/elections/ElectionTable/ElectionTableRows.js:52
 msgid "View details"
@@ -9562,7 +9619,7 @@ msgstr ""
 
 #: ../root/elections/ElectionVoting.js:90
 msgid "Abstain"
-msgstr ""
+msgstr "Berkecuali"
 
 #: ../root/elections/ElectionVoting.js:107
 msgid "Cancel the election"
@@ -9619,10 +9676,10 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../root/entity/Collections.js:63
+#, fuzzy
 msgid "A private collection"
 msgid_plural "{n} private collections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Kumpulan Persendirian"
 
 #: ../root/entity/Collections.js:75
 msgid "{entity} has not been added to any collections."
@@ -9633,13 +9690,15 @@ msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
 msgstr ""
 
 #: ../root/entity/Details.js:99 ../root/report/components/InstrumentList.js:64
+#, fuzzy
 msgid "Last updated"
-msgstr ""
+msgstr "Kemas Kini Terakhir:"
 
 #: ../root/entity/Details.js:103
+#, fuzzy
 msgctxt "last updated"
 msgid "(unknown)"
-msgstr ""
+msgstr "tak diketahui"
 
 #: ../root/entity/Details.js:107
 msgid "Permanent link:"
@@ -9963,11 +10022,11 @@ msgstr[1] ""
 
 #: ../root/entity/Ratings.js:82
 msgid "Average rating:"
-msgstr ""
+msgstr "Penilaian purata:"
 
 #: ../root/entity/Ratings.js:90
 msgid "{link} has no ratings."
-msgstr ""
+msgstr "{link} tiada penilaian"
 
 #: ../root/entity/Ratings.js:106
 msgid "Most recent"
@@ -10358,8 +10417,9 @@ msgid "Statistics"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:157
+#, fuzzy
 msgid "Timeline graph"
-msgstr ""
+msgstr "Graf Garis Masa"
 
 #: ../root/layout/components/BottomMenu.js:160
 msgid "MusicBrainz history"
@@ -10371,7 +10431,7 @@ msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:176 ../root/main/index.js:153
 msgid "MusicBrainz Picard"
-msgstr ""
+msgstr "Picard MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:179 ../root/main/index.js:157
 msgid "AudioRanger"
@@ -10386,12 +10446,13 @@ msgid "Yate Music Tagger"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:189
+#, fuzzy
 msgid "MusicBrainz for Android"
-msgstr ""
+msgstr "MusicBrainz Android"
 
 #: ../root/layout/components/BottomMenu.js:193
 msgid "MusicBrainz Server"
-msgstr ""
+msgstr "Pelayan MusicBrainz"
 
 #: ../root/layout/components/BottomMenu.js:196 ../root/main/index.js:220
 msgid "MusicBrainz Database"
@@ -10410,12 +10471,13 @@ msgid "Live Data Feed"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:221
+#, fuzzy
 msgid "Advanced search"
-msgstr ""
+msgstr "Gelint&aran lanjutan"
 
 #: ../root/layout/components/BottomMenu.js:224
 msgid "Edit search"
-msgstr ""
+msgstr "Gelintaran suntingan"
 
 #: ../root/layout/components/BottomMenu.js:227
 msgctxt "folksonomy"
@@ -10454,9 +10516,10 @@ msgid "Add Various Artists release"
 msgstr ""
 
 #: ../root/layout/components/BottomMenu.js:266
+#, fuzzy
 msgctxt "interactive"
 msgid "Add standalone recording"
-msgstr ""
+msgstr "Rakamn Tunggal"
 
 #: ../root/layout/components/BottomMenu.js:270
 #: ../root/layout/components/sidebar/ArtistSidebar.js:173
@@ -10543,16 +10606,18 @@ msgid "Page {n}"
 msgstr ""
 
 #: ../root/layout/components/Head.js:101
+#, fuzzy
 msgid "MusicBrainz: Artist"
-msgstr ""
+msgstr "Pengecam Seniman MusicBrainz"
 
 #: ../root/layout/components/Head.js:107
 msgid "MusicBrainz: Label"
 msgstr ""
 
 #: ../root/layout/components/Head.js:113
+#, fuzzy
 msgid "MusicBrainz: Release"
-msgstr ""
+msgstr "Pengecam Keluaran MusicBrainz"
 
 #: ../root/layout/components/Head.js:119
 msgid "MusicBrainz: Track"
@@ -10583,7 +10648,7 @@ msgstr ""
 #: ../root/layout/components/sidebar/MergeLink.js:30
 msgctxt "interactive"
 msgid "Merge"
-msgstr ""
+msgstr "Cantumkan"
 
 #: ../root/layout/components/MergeHelper.js:70
 msgid "Remove selected entities"
@@ -10599,7 +10664,7 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:60
 msgid "Log out"
-msgstr ""
+msgstr "Log keluar"
 
 #: ../root/layout/components/TopMenu.js:74
 msgid "My data"
@@ -10613,8 +10678,9 @@ msgstr ""
 
 #: ../root/layout/components/TopMenu.js:84
 #: ../root/static/scripts/account/components/PreferencesForm.js:202
+#, fuzzy
 msgid "My ratings"
-msgstr ""
+msgstr "Penilaianku"
 
 #: ../root/layout/components/TopMenu.js:88
 msgctxt "folksonomy"
@@ -10846,8 +10912,9 @@ msgid "Defunct:"
 msgstr ""
 
 #: ../root/layout/components/sidebar/LastUpdated.js:19
+#, fuzzy
 msgid "Last updated on {date}"
-msgstr ""
+msgstr "Kemas kini terakhir: {date}"
 
 #: ../root/layout/components/sidebar/LastUpdated.js:24
 msgid "Last updated on an unknown date"
@@ -10912,7 +10979,7 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:258
 msgid "Release group rating"
-msgstr ""
+msgstr "Penilaian gabungan keluaran"
 
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:264
 msgid "Release group reviews"
@@ -10932,23 +10999,24 @@ msgstr ""
 
 #: ../root/layout/components/sidebar/SidebarEndDate.js:28
 #: ../root/static/scripts/common/utility/formatEndDate.js:18
+#, fuzzy
 msgctxt "date"
 msgid "[unknown]"
-msgstr ""
+msgstr "tak diketahui"
 
 #: ../root/layout/components/sidebar/SidebarLicenses.js:142
 msgid "License"
-msgstr ""
+msgstr "Lesen"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:19
 #: ../root/static/scripts/release/components/MediumTable.js:77
 #: ../root/utility/tableColumns.js:477
 msgid "Rating"
-msgstr ""
+msgstr "Penilaian"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:26
 msgid "see all ratings"
-msgstr ""
+msgstr "lihat keseluruhan penilaian"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:45
 #: ../root/static/scripts/common/components/TagEditor.js:664
@@ -10968,7 +11036,7 @@ msgstr ""
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:16
 #: ../root/tag/TagCloud.js:110 ../root/user/UserTagList.js:71
 msgid "Genres"
-msgstr ""
+msgstr "Genre"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:82
 #: ../root/static/scripts/common/components/TagEditor.js:534
@@ -11183,8 +11251,9 @@ msgid "Host:"
 msgstr ""
 
 #: ../root/main/error/components/ErrorEnvironment.js:34
+#, fuzzy
 msgid "Interface language:"
-msgstr ""
+msgstr "Bahasa antara muka pengguna:"
 
 #: ../root/main/error/components/ErrorEnvironment.js:47
 msgid "Request data:"
@@ -11194,7 +11263,7 @@ msgstr ""
 #: ../root/report/ReportNotAvailable.js:14
 #: ../root/report/ReportNotAvailable.js:16
 msgid "Error"
-msgstr ""
+msgstr "Ralat"
 
 #: ../root/main/error/components/ErrorInfo.js:30
 msgid "(No details about this error are available)"
@@ -11206,7 +11275,7 @@ msgstr ""
 
 #: ../root/main/index.js:38
 msgid "Welcome to MusicBrainz!"
-msgstr ""
+msgstr "Selamat datang ke MusicBrainz!"
 
 #: ../root/main/index.js:42
 msgid ""
@@ -11439,8 +11508,9 @@ msgid "Search results"
 msgstr ""
 
 #: ../root/otherlookup/OtherLookupReleaseResults.js:25
+#, fuzzy
 msgid "No results found."
-msgstr ""
+msgstr "Tiada hasil"
 
 #: ../root/place/PlaceEvents.js:60
 msgid "This place is not currently associated with any events."
@@ -11511,17 +11581,19 @@ msgstr ""
 
 #: ../root/recording/RecordingIndex.js:71
 #: ../root/release_group/ReleaseGroupIndex.js:52
+#, fuzzy
 msgctxt "release status"
 msgid "(unknown)"
-msgstr ""
+msgstr "tak diketahui"
 
 #: ../root/recording/RecordingIndex.js:83
 msgid "Medium {medium_num}, track {track_num}"
 msgstr ""
 
 #: ../root/recording/RecordingIndex.js:167
+#, fuzzy
 msgid "Appears on releases"
-msgstr ""
+msgstr "Muncul Di Keluaran"
 
 #: ../root/recording/RecordingIndex.js:175
 msgid "No releases found which feature this recording."
@@ -11593,8 +11665,9 @@ msgid "This attribute is being used by the following relationship types:"
 msgstr ""
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:193
+#, fuzzy
 msgid "{type0} - {type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:210
 msgid "This attribute isn’t directly being used by any relationship types."
@@ -11674,8 +11747,9 @@ msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:164
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:181
+#, fuzzy
 msgid "{type0}-{type1} relationship types"
-msgstr ""
+msgstr "Hubungan {type0}-{type1}:"
 
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:174
 msgid "&lt; Back to all relationship types"
@@ -11699,7 +11773,7 @@ msgstr ""
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:46
 msgid "{type0}-{type1}"
-msgstr ""
+msgstr "{type0}-{type1}"
 
 #: ../root/release/ChangeQuality.js:28
 msgid "Change release data quality"
@@ -11713,9 +11787,10 @@ msgid ""
 msgstr ""
 
 #: ../root/release/CoverArt.js:29
+#, fuzzy
 msgctxt "plural, header"
 msgid "Cover art"
-msgstr ""
+msgstr "Seni Kulit"
 
 #: ../root/release/CoverArt.js:35
 msgctxt "plural, header"
@@ -12323,7 +12398,7 @@ msgstr ""
 #: ../root/report/components/WorkList.js:56
 msgctxt "type"
 msgid "Unknown"
-msgstr ""
+msgstr "Tak Diketahui"
 
 #: ../root/report/DuplicateEvents.js:25
 msgid ""
@@ -13329,8 +13404,9 @@ msgstr ""
 
 #: ../root/report/ReportsIndex.js:648
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:24
+#, fuzzy
 msgid "URLs"
-msgstr ""
+msgstr "Pautan:"
 
 #: ../root/report/ReportsIndex.js:660
 #: ../root/report/WikidataLinksWithMultipleEntities.js:48
@@ -13613,7 +13689,7 @@ msgstr ""
 #: ../root/search/components/PlaceResults.js:69
 #: ../root/utility/tableColumns.js:164 ../root/utility/tableColumns.js:169
 msgid "Begin"
-msgstr ""
+msgstr "Mula"
 
 #: ../root/search/components/ArtistResults.js:87
 msgid "Alternatively, you may {uri|add a new artist}."
@@ -13630,7 +13706,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:398
 msgctxt "event location"
 msgid "Location"
-msgstr ""
+msgstr "Lokasi"
 
 #: ../root/search/components/EventResults.js:96
 msgid "Alternatively, you may {uri|add a new event}."
@@ -13649,8 +13725,9 @@ msgid "Alternatively, you may {uri|add a new place}."
 msgstr ""
 
 #: ../root/search/components/RecordingResults.js:117
+#, fuzzy
 msgid "(standalone recording)"
-msgstr ""
+msgstr "Rakamn Tunggal"
 
 #: ../root/search/components/RecordingResults.js:175
 msgid "Alternatively, you may {uri|add a new recording}."
@@ -13666,7 +13743,7 @@ msgstr ""
 
 #: ../root/search/components/ResultsLayout.js:32
 msgid "Last updated: {date}"
-msgstr ""
+msgstr "Kemas kini terakhir: {date}"
 
 #: ../root/search/components/SearchError.js:20
 msgid "Search error"
@@ -13777,7 +13854,7 @@ msgstr ""
 #: ../root/user/UserProfile.js:283
 msgctxt "user area"
 msgid "Location"
-msgstr ""
+msgstr "Lokasi"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:190
 msgid ""
@@ -13828,7 +13905,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/PreferencesForm.js:267
 msgctxt "interactive"
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #: ../root/static/scripts/account/components/PreferencesForm.js:155
 msgid "Regional settings"
@@ -13906,7 +13983,7 @@ msgstr ""
 #: ../root/static/scripts/account/components/RegisterForm.js:80
 #: ../root/user/Login.js:104
 msgid "Password:"
-msgstr ""
+msgstr "Kata Laluan:"
 
 #: ../root/static/scripts/account/components/RegisterForm.js:101
 msgid ""
@@ -13944,7 +14021,7 @@ msgstr ""
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:92
 msgctxt "annotation"
 msgid "New"
-msgstr ""
+msgstr "Baharu"
 
 #: ../root/static/scripts/annotation/AnnotationHistoryTable.js:97
 msgid "Version history"
@@ -13966,7 +14043,7 @@ msgstr[1] ""
 
 #: ../root/static/scripts/area/places-map.js:107
 msgid "No type"
-msgstr ""
+msgstr "Tiada jenis"
 
 #: ../root/static/scripts/area/places-map.js:109
 msgid "{place_name} (closed)"
@@ -14079,8 +14156,9 @@ msgstr ""
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:714
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:411
+#, fuzzy
 msgid "standalone recording"
-msgstr ""
+msgstr "Rakamn Tunggal"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:808
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:503
@@ -14106,7 +14184,7 @@ msgstr ""
 #: ../root/static/scripts/edit/components/AddEntityDialog.js:84
 #: ../root/static/scripts/edit/components/withLoadedTypeInfo.js:141
 msgid "Loading..."
-msgstr ""
+msgstr "Sedang memuat..."
 
 #: ../root/static/scripts/common/components/Annotation.js:61
 msgid "(no changelog)"
@@ -14291,7 +14369,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/Cardinality.js:16
 msgctxt "cardinality"
 msgid "Unknown"
-msgstr ""
+msgstr "Tak Diketahui"
 
 #: ../root/static/scripts/common/components/CollapsibleList.js:71
 msgid "show {n} more"
@@ -14453,7 +14531,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/OrderableDirection.js:14
 msgctxt "relationship order direction"
 msgid "None"
-msgstr ""
+msgstr "Tiada"
 
 #: ../root/static/scripts/common/components/OrderableDirection.js:15
 msgid "Forward"
@@ -14622,7 +14700,7 @@ msgstr ""
 #: ../root/static/scripts/common/components/TagEditor.js:696
 msgctxt "verb, folksonomy"
 msgid "Tag"
-msgstr ""
+msgstr "Tanda"
 
 #: ../root/static/scripts/common/components/TaggerIcon.js:71
 msgctxt "audio file metadata"
@@ -14721,7 +14799,7 @@ msgstr ""
 
 #: ../root/static/scripts/common/utility/ratingTooltip.js:12
 msgid "Remove your rating"
-msgstr ""
+msgstr "Alih keluar penilaianmu"
 
 #: ../root/static/scripts/common/utility/ratingTooltip.js:13
 msgid "Rate: {rating} star"
@@ -14763,11 +14841,11 @@ msgstr ""
 
 #: ../root/static/scripts/common/utility/yesNo.js:11
 msgid "Yes"
-msgstr ""
+msgstr "Setuju"
 
 #: ../root/static/scripts/common/utility/yesNo.js:11
 msgid "No"
-msgstr ""
+msgstr "Bantah"
 
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:71
 msgid "This person is deceased."
@@ -15807,8 +15885,9 @@ msgid "Add relationship"
 msgstr ""
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:261
+#, fuzzy
 msgid "no type"
-msgstr ""
+msgstr "Tiada jenis"
 
 #: ../root/static/scripts/relationship-editor/components/RelationshipPhraseGroup.js:300
 msgid "These relationships have a specific ordering"
@@ -15992,7 +16071,7 @@ msgstr ""
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:173
 msgctxt "cover art"
 msgid "Types"
-msgstr ""
+msgstr "Jenis"
 
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:191
 msgid "This is the current release group image"
@@ -16084,8 +16163,9 @@ msgid "An error occurred:"
 msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1519
+#, fuzzy
 msgid "Track relationships"
-msgstr ""
+msgstr "Gunakan hubungan runut"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1538
 msgid ""
@@ -16099,8 +16179,9 @@ msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1636
+#, fuzzy
 msgid "Release relationships"
-msgstr ""
+msgstr "Gunakan hubungan keluaran"
 
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1673
 msgid "Release group relationships"
@@ -16120,7 +16201,7 @@ msgstr ""
 
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:371
 msgid "Credits"
-msgstr ""
+msgstr "Penghargaan"
 
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:377
 msgid ""
@@ -16386,7 +16467,7 @@ msgstr ""
 #: ../root/tag/TagLayout.js:56
 msgctxt "folksonomy"
 msgid "Tag"
-msgstr ""
+msgstr "Tanda"
 
 #: ../root/taglookup/Form.js:42
 msgid "Duration"
@@ -16470,7 +16551,7 @@ msgstr ""
 #: ../root/user/Login.js:48 ../root/user/Login.js:49
 msgctxt "header"
 msgid "Log in"
-msgstr ""
+msgstr "Log masuk"
 
 #: ../root/user/Login.js:53
 msgid "You need to be logged in to view this page."
@@ -16519,9 +16600,10 @@ msgid "The following {count} users have auto-editor privileges:"
 msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:47
+#, fuzzy
 msgctxt "header"
 msgid "Relationship editors"
-msgstr ""
+msgstr "Penyunting Hubungan"
 
 #: ../root/user/PrivilegedUsers.js:50
 msgid ""
@@ -16720,7 +16802,7 @@ msgstr ""
 
 #: ../root/user/UserCollections.js:205
 msgid "You aren’t collaborating in any collections."
-msgstr ""
+msgstr "Anda tiada kerjasama dalam mana-mana kumpulan."
 
 #: ../root/user/UserCollections.js:207
 msgid "{user} isn’t collaborating in any public collections."
@@ -16889,7 +16971,7 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:418
 msgid "Languages"
-msgstr ""
+msgstr "Bahasa"
 
 #: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:584
 #: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
@@ -16903,12 +16985,12 @@ msgstr ""
 
 #: ../root/user/UserProfile.js:576
 msgid "Edits"
-msgstr ""
+msgstr "Suntingan"
 
 #: ../root/user/UserProfile.js:582
 msgctxt "edit descriptor"
 msgid "Total"
-msgstr ""
+msgstr "Jumlah"
 
 #: ../root/user/UserProfile.js:592
 msgctxt "edit descriptor"
@@ -16924,21 +17006,24 @@ msgid "Total applied"
 msgstr ""
 
 #: ../root/user/UserProfile.js:622
+#, fuzzy
 msgid "Voted down"
-msgstr ""
+msgstr "Ditolak melalui undian:"
 
 #: ../root/user/UserProfile.js:632
 msgid "Failed"
 msgstr ""
 
 #: ../root/user/UserProfile.js:642
+#, fuzzy
 msgctxt "edit"
 msgid "Cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: ../root/user/UserProfile.js:652
+#, fuzzy
 msgid "Open"
-msgstr ""
+msgstr "Terbuka:"
 
 #: ../root/user/UserProfile.js:662
 msgid "Last 24 hours"
@@ -17039,47 +17124,47 @@ msgstr ""
 
 #: ../root/user/UserRatingEntity.js:51
 msgid "No ratings."
-msgstr ""
+msgstr "Tiada penilaian"
 
 #: ../root/user/UserRatingList.js:25
 msgid "Artist ratings"
-msgstr ""
+msgstr "Penilaian seniman"
 
 #: ../root/user/UserRatingList.js:26
 msgid "Event ratings"
-msgstr ""
+msgstr "Penilaian peristiwa"
 
 #: ../root/user/UserRatingList.js:27
 msgid "Label ratings"
-msgstr ""
+msgstr "Penilaian jenama"
 
 #: ../root/user/UserRatingList.js:28
 msgid "Place ratings"
-msgstr ""
+msgstr "Penilaian tempat"
 
 #: ../root/user/UserRatingList.js:29
 msgid "Recording ratings"
-msgstr ""
+msgstr "Penilaian rakaman"
 
 #: ../root/user/UserRatingList.js:30
 msgid "Release group ratings"
-msgstr ""
+msgstr "Penilaian gabungan keluaran"
 
 #: ../root/user/UserRatingList.js:31
 msgid "Work ratings"
-msgstr ""
+msgstr "Penilaian karya"
 
 #: ../root/user/UserRatingList.js:66
 msgid "View all ratings"
-msgstr ""
+msgstr "Lihat keseluruhan penilaian"
 
 #: ../root/user/UserRatingList.js:77
 msgid "{user} has not rated anything."
-msgstr ""
+msgstr "{user} masih belum menilaikan apa-apa pun."
 
 #: ../root/user/UserSubscriptions.js:23
 msgid "Artist subscriptions"
-msgstr ""
+msgstr "Langganan seniman"
 
 #: ../root/user/UserSubscriptions.js:24
 msgid "Collection subscriptions"
@@ -17140,8 +17225,9 @@ msgid "No subscriptions."
 msgstr ""
 
 #: ../root/user/UserSubscriptions.js:244
+#, fuzzy
 msgid "Private collections"
-msgstr ""
+msgstr "Kumpulan Persendirian"
 
 #: ../root/user/UserSubscriptions.js:258
 msgid "{editor} is also subscribed to {n} other private collection."

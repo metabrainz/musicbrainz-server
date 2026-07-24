@@ -1,15 +1,19 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-27 21:12+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Malay <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/ms/>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -36,12 +40,12 @@ msgstr ""
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "Syelek 10″"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr ""
+msgstr "Vinil 10″"
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
@@ -51,17 +55,17 @@ msgstr ""
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "Cakera Laser 12″"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "Syelek 12″"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "Vinil 12″"
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
@@ -71,12 +75,12 @@ msgstr ""
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "Cakera Liut 3.5″"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "Cakera Liut 5.25″"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
@@ -86,37 +90,37 @@ msgstr ""
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "Cakera Lentur 7″"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "Syelek 7″"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr ""
+msgstr "Vinil 7″"
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr ""
+msgstr "Cakera Laser 8″"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "Kartrij Berunut 8"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "CD 8cm"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "CD+G 8cm"
 
 #: DB:medium_format/name:210
 msgctxt "medium_format"
@@ -136,6 +140,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
+"Cakera syelek 90 ppm dipotong tegak yang dihasilkan oleh label Pathé dari "
+"tahun 1906 hingga tahun 1932."
 
 #. name:Compilation
 #: DB:release_group_secondary_type/description:1
@@ -266,7 +272,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Dorian"
-msgstr ""
+msgstr "Doria"
 
 #: DB:work_attribute_type_allowed_value/value:1070
 msgctxt "work_attribute_type_allowed_value"
@@ -281,7 +287,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:806
 msgctxt "work_attribute_type_allowed_value"
 msgid "A Mixolydian"
-msgstr ""
+msgstr "Miksolidia"
 
 #: DB:work_attribute_type_allowed_value/value:1056
 msgctxt "work_attribute_type_allowed_value"
@@ -295,6 +301,8 @@ msgid ""
 "A ballet is music composed to be used, together with a choreography, for a "
 "ballet dance production."
 msgstr ""
+"Lagu balet ialah muzik yang digubahkan serta digunakan sekali dengan reka "
+"tari dalam sebuah tarian balet."
 
 #. name:Program
 #: DB:event_art_archive.art_type/description:11
@@ -319,6 +327,9 @@ msgid ""
 "A cantata is a vocal (often choral) composition with an instrumental "
 "(usually orchestral) accompaniment, typically in several movements."
 msgstr ""
+"Kantata ialah sebuah gubahan suara (lazimnya koral) dengan iringan "
+"instrumental (lazimnya dalam bentuk orkestra) dan selalunya dalam beberapa "
+"babak."
 
 #. name:Download Card
 #: DB:medium_format/description:46
@@ -344,6 +355,8 @@ msgctxt "work_type"
 msgid ""
 "A concerto is a musical work for soloist(s) accompanied by an orchestra."
 msgstr ""
+"Konserto ialah sebuah karya muzik untuk pemuzik solo yang diiringi oleh "
+"sebuah orkestra."
 
 #. name:Convention/Expo
 #: DB:event_type/description:4
@@ -353,6 +366,9 @@ msgid ""
 "orientated around music performances, but can include them as side "
 "activities."
 msgstr ""
+"Konvensyen, ekspo atau pesta perdagangan ialah sebuah peristiwa yang "
+"selalunya tidak berkisarkan persembahan muzik namun boleh juga disertakan "
+"sekali persembahan muzik sebagai kegiatan sampingan."
 
 #. name:Flyer
 #: DB:event_art_archive.art_type/description:6
@@ -389,6 +405,10 @@ msgid ""
 "release (e.g. pre-release versions, releases included with a magazine, "
 "versions supplied to radio DJs for air-play)."
 msgstr ""
+"Sebuah keluaran percuma atau keluaran yang bertujuan untuk mempromosikan "
+"keluaran rasmi akan datang (contohnya: versi prakeluar, keluaran yang "
+"disertakan bersama naskhah majalah, versi yang dibekalkan kepada DJ untuk "
+"diputar di radio)."
 
 #. name:Group
 #: DB:artist_type/description:2
@@ -405,6 +425,8 @@ msgid ""
 "A grouping of related but different instruments, like the different violin-"
 "like instruments"
 msgstr ""
+"Kelompokan alat muzik yang saling berkaitan namun berlainan. Contohnya, alat "
+"muzik jenis biola."
 
 #. name:Bootleg Production
 #: DB:label_type/description:5
@@ -437,7 +459,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
-msgstr ""
+msgstr "A major"
 
 #. name:Mass
 #: DB:work_type/description:8
@@ -447,6 +469,9 @@ msgid ""
 "Christian Eucharistic liturgy (Kyrie - Gloria - Credo - Sanctus - Benedictus "
 "- Agnus Dei, with other portions sometimes added) to music."
 msgstr ""
+"Missa merupakan sebuah gubahan paduan suara yang menjadi sebahagian muzik "
+"sembahyang Eukaris Nasrani (Kyrie - Gloria - Credo - Sanctus - Benedictus - "
+"Agnus Dei, kadang-kadang ada juga bahagian lain yang dikandung)."
 
 #. name:Masterclass/Clinic
 #: DB:event_type/description:5
@@ -456,6 +481,10 @@ msgid ""
 "medium-sized audience and instructs them individually and/or takes questions "
 "intended to improve the audience members' playing skills."
 msgstr ""
+"Kelas pakar atau lokakarya merupakan sebuah acara yang meilbatkan seorang "
+"seniman memberi tunjuk ajar atau juga menjawab pertanyaan daripada para "
+"hadirin dengan tujuan menambah baik kemahiran bermain alat muzik para "
+"hadirin."
 
 #. name:Clamshell Case
 #: DB:release_packaging/description:56
@@ -468,7 +497,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
 msgid "A minor"
-msgstr ""
+msgstr "A minor"
 
 #. name:Partita
 #: DB:work_type/description:13
@@ -485,12 +514,14 @@ msgid ""
 "A party, reception or other event held specifically for the launch of a "
 "release."
 msgstr ""
+"Sebuah parti, majlis atau acara lain yang diadakan khas sempena pelancaran "
+"sebuah keluaran."
 
 #. name:Digibook
 #: DB:release_packaging/description:17
 msgctxt "release_packaging"
 msgid "A perfect bound book with a sleeve at the end to hold a CD"
-msgstr ""
+msgstr "Buku berjilid lengkap dengan sarung di hujungnya tempat simpanan CD."
 
 #. name:Stage performance
 #: DB:event_type/description:6
@@ -506,7 +537,7 @@ msgstr ""
 #: DB:place_type/description:8
 msgctxt "place_type"
 msgid "A place (generally a factory) at which physical media are manufactured."
-msgstr ""
+msgstr "Tempat (selalunya kilang) pengilangan bahantara fizikal."
 
 #. name:Indoor arena
 #: DB:place_type/description:5
@@ -516,6 +547,10 @@ msgid ""
 "surrounded by tiered seating for spectators, which can be used for indoor "
 "sports, concerts and other entertainment events."
 msgstr ""
+"Tempat yang terdiri daripada sebidang kawasan luas yang tertutup dengan "
+"sebuah ruangan acara pusat yang dikelilingi oleh tempat duduk penonton yang "
+"bertingkat. Tempat ini boleh digunakan untuk sukan tertutup, konsert dan "
+"acara-acara hiburan lain."
 
 #. name:Studio
 #: DB:place_type/description:1
@@ -524,6 +559,8 @@ msgid ""
 "A place designed for non-live production of music, typically a recording "
 "studio."
 msgstr ""
+"Tempat yang direka untuk pembikinan muzik tak langsung, selalunya studio "
+"rakaman."
 
 #. name:Venue
 #: DB:place_type/description:2
@@ -532,6 +569,8 @@ msgid ""
 "A place that has live artistic performances as one of its primary functions, "
 "such as a concert hall."
 msgstr ""
+"Tempat yang mengadakan persembahan kesenian langsung sebagai fungsi "
+"utamanya. Contoh, dewan konsert."
 
 #. name:Religious building
 #: DB:place_type/description:6
@@ -541,6 +580,8 @@ msgid ""
 "Religious buildings often host concerts and serve as recording locations, "
 "especially for classical music."
 msgstr ""
+"Tempat ibadat atau pengajian agama. Bangunan agama selalunya menempatkan "
+"konsert di samping menjadi tempat rakaman terutamanya muzik klasik."
 
 #. name:Stadium
 #: DB:place_type/description:4
@@ -550,6 +591,9 @@ msgid ""
 "consisting of a pitch surrounded by a structure for spectators with no roof, "
 "or a roof which can be retracted."
 msgstr ""
+"Tempat pengehosan sukan luar. Selalunya terdapat kawasan balingan bola yang "
+"dikelilingi oleh struktur untuk penonton yang tidak berbumbung ataupun "
+"dengan bumbung boleh ditarik balik."
 
 #. name:Cancelled
 #: DB:release_status/description:6
@@ -568,6 +612,8 @@ msgid ""
 "between characters, and intended for theatrical performance rather than just "
 "reading."
 msgstr ""
+"Lakon ialah sejenis bentuk sastera yang melibatkan perbualan berdasarkan "
+"skrip sesama watak yang diadakan di atas pentas berbanding dibaca sahaja."
 
 #. name:Poem
 #: DB:work_type/description:21
@@ -576,6 +622,9 @@ msgid ""
 "A poem is a literary piece, generally short and in verse, where words are "
 "usually chosen for their sound and for the images and ideas they suggest."
 msgstr ""
+"Puisi merupakan sejenis bentuk sastera yang umumnya pendek serta berangkap. "
+"Kata-katanya pula dipilih berdasarkan bunyinya serta gambaran dan bayangan "
+"yang diberikan."
 
 #. name:Expunged
 #: DB:release_status/description:38
@@ -616,7 +665,7 @@ msgstr ""
 #: DB:series_type/description:8
 msgctxt "series_type"
 msgid "A recurring festival, usually happening annually in the same location."
-msgstr ""
+msgstr "Pesta berulang. Lazimnya berlangsung setiap tahun di tempat yang sama."
 
 #. name:Field recording
 #: DB:release_group_secondary_type/description:12
@@ -647,18 +696,20 @@ msgid ""
 "A school, university or other similar educational institution (especially, "
 "but not only, one where music is taught)"
 msgstr ""
+"Sekolah, universiti atau mana-mana institusi pendidikan yang serupa "
+"(terutamanya tempat didikan muzik, tapi tidak semestinya)"
 
 #. name:Artist award
 #: DB:series_type/description:14
 msgctxt "series_type"
 msgid "A series of artists honoured by the same award."
-msgstr ""
+msgstr "Siri seniman yang diberi anugerah yang sama."
 
 #. name:Artist series
 #: DB:series_type/description:13
 msgctxt "series_type"
 msgid "A series of artists."
-msgstr ""
+msgstr "Siri seniman."
 
 #. name:Award ceremony
 #: DB:series_type/description:15
@@ -670,13 +721,13 @@ msgstr ""
 #: DB:series_type/description:6
 msgctxt "series_type"
 msgid "A series of events."
-msgstr ""
+msgstr "Siri peristiwa."
 
 #. name:Run
 #: DB:series_type/description:9
 msgctxt "series_type"
 msgid "A series of performances of the same show at the same venue."
-msgstr ""
+msgstr "Siri persembahan pertunjukan yang sama di tempat yang sama."
 
 #. name:Recording award
 #: DB:series_type/description:48
@@ -688,19 +739,19 @@ msgstr ""
 #: DB:series_type/description:3
 msgctxt "series_type"
 msgid "A series of recordings."
-msgstr ""
+msgstr "Siri rakaman."
 
 #. name:Tour
 #: DB:series_type/description:7
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in different locations."
-msgstr ""
+msgstr "Siri konsert yang berkait oleh seniman di tempat yang berlainan."
 
 #. name:Residency
 #: DB:series_type/description:12
 msgctxt "series_type"
 msgid "A series of related concerts by an artist in the same location."
-msgstr ""
+msgstr "Siri konsert yang berkait oleh seniman di tempat yang sama."
 
 #. name:Podcast
 #: DB:series_type/description:80
@@ -719,13 +770,13 @@ msgstr ""
 #: DB:series_type/description:1
 msgctxt "series_type"
 msgid "A series of release groups."
-msgstr ""
+msgstr "Siri gabungan keluaran."
 
 #. name:Release series
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
-msgstr ""
+msgstr "Siri keluaran."
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -737,13 +788,13 @@ msgstr ""
 #: DB:series_type/description:5
 msgctxt "series_type"
 msgid "A series of works which form a catalogue of classical compositions."
-msgstr ""
+msgstr "Siri karya yang membentuk katalog gubahan klasik."
 
 #. name:Work series
 #: DB:series_type/description:4
 msgctxt "series_type"
 msgid "A series of works."
-msgstr ""
+msgstr "Siri karya."
 
 #. name:Club
 #: DB:place_type/description:42
@@ -771,6 +822,9 @@ msgid ""
 "form by far in folk and popular music, but also fairly common in a classical "
 "context (\"art songs\")."
 msgstr ""
+"Lagu asalnya ialah sebuah gubahan menggunakan suara nyanyian yang boleh jadi "
+"turut diiringi bunyi-bunyian. Bentuk ini kerap ditemukan di muzik rakyat "
+"atau kebanyakan namun boleh juga diketemui di gubahan klasik."
 
 #. name:Soundtrack
 #: DB:work_type/description:22
@@ -779,6 +833,8 @@ msgid ""
 "A soundtrack is the music that accompanies a film, TV program, videogame, or "
 "even book."
 msgstr ""
+"Runut bunyi ialah muzik yang disertakan dalam wayang gambar, rancangan "
+"televisyen, permainan video atau buku."
 
 #. name:Soundtrack
 #: DB:release_group_secondary_type/description:2
@@ -883,37 +939,37 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:26
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat major"
-msgstr ""
+msgstr "A datar major"
 
 #: DB:work_attribute_type_allowed_value/value:27
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-flat minor"
-msgstr ""
+msgstr "A datar minor"
 
 #: DB:work_attribute_type_allowed_value/value:817
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp major"
-msgstr ""
+msgstr "A syap major"
 
 #: DB:work_attribute_type_allowed_value/value:30
 msgctxt "work_attribute_type_allowed_value"
 msgid "A-sharp minor"
-msgstr ""
+msgstr "A syap minor"
 
 #: DB:work_attribute_type/name:57
 msgctxt "work_attribute_type"
 msgid "AACIMH ID"
-msgstr ""
+msgstr "Pengecam AACIMH"
 
 #: DB:work_attribute_type/name:44
 msgctxt "work_attribute_type"
 msgid "ACAM ID"
-msgstr ""
+msgstr "Pengecam ACAM"
 
 #: DB:work_attribute_type/name:47
 msgctxt "work_attribute_type"
 msgid "ACDAM ID"
-msgstr ""
+msgstr "Pengecam ACDAM"
 
 #: DB:work_attribute_type/name:206
 msgctxt "work_attribute_type"
@@ -923,52 +979,52 @@ msgstr ""
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
 msgid "AEI ID"
-msgstr ""
+msgstr "Pengecam AEI"
 
 #: DB:work_attribute_type/name:43
 msgctxt "work_attribute_type"
 msgid "AGADU ID"
-msgstr ""
+msgstr "Pengecam AGADU"
 
 #: DB:work_attribute_type/name:63
 msgctxt "work_attribute_type"
 msgid "AKKA/LAA ID"
-msgstr ""
+msgstr "Pengecam AKKA/LAA"
 
 #: DB:work_attribute_type/name:23
 msgctxt "work_attribute_type"
 msgid "AKM ID"
-msgstr ""
+msgstr "Pengecam AKM"
 
 #: DB:work_attribute_type/name:38
 msgctxt "work_attribute_type"
 msgid "AMRA ID"
-msgstr ""
+msgstr "Pengecam AMRA"
 
 #: DB:work_attribute_type/name:46
 msgctxt "work_attribute_type"
 msgid "APA ID"
-msgstr ""
+msgstr "Pengecam APA"
 
 #: DB:work_attribute_type/name:41
 msgctxt "work_attribute_type"
 msgid "APDAYC ID"
-msgstr ""
+msgstr "Pengecam APDAYC"
 
 #: DB:work_attribute_type/name:13
 msgctxt "work_attribute_type"
 msgid "APRA ID"
-msgstr ""
+msgstr "Pengecam APRA"
 
 #: DB:work_attribute_type/name:48
 msgctxt "work_attribute_type"
 msgid "ARTISJUS ID"
-msgstr ""
+msgstr "Pengecam ARTISJUS"
 
 #: DB:work_attribute_type/name:6
 msgctxt "work_attribute_type"
 msgid "ASCAP ID"
-msgstr ""
+msgstr "Pengecam ASCAP"
 
 #: DB:work_attribute_type/name:211
 msgctxt "work_attribute_type"
@@ -1083,7 +1139,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr ""
+msgstr "Album"
 
 #: DB:work_attribute_type/name:216
 msgctxt "work_attribute_type"
@@ -1094,7 +1150,7 @@ msgstr ""
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
 msgid "Allows for manually setting the position of each item in the series."
-msgstr ""
+msgstr "Boleh ditetapkan sendiri kedudukan setiap item dalam siri."
 
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
@@ -1150,6 +1206,9 @@ msgid ""
 "don't correspond to any real release and should be linked to the original "
 "release using the transl(iter)ation relationship."
 msgstr ""
+"Versi lain sebuah keluaran dengan judul yang telah diubah. Versi ini "
+"sebenarnya tidak betul-betul wujud serta harus dipautkan dengan keluaran "
+"asal menggunakan hubungan alih huruf/bahasa."
 
 #. name:Aria
 #: DB:work_type/description:1
@@ -1431,7 +1490,7 @@ msgstr ""
 #: DB:area_alias_type/name:1
 msgctxt "alias_type"
 msgid "Area name"
-msgstr ""
+msgstr "Nama kawasan"
 
 #: DB:work_type/name:1
 msgctxt "work_type"
@@ -1441,7 +1500,7 @@ msgstr ""
 #: DB:series_type/name:14
 msgctxt "series_type"
 msgid "Artist award"
-msgstr ""
+msgstr "Anugerah seniman"
 
 #: DB:editor_collection_type/name:8
 msgctxt "collection_type"
@@ -1451,12 +1510,12 @@ msgstr ""
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
-msgstr ""
+msgstr "Nama seniman"
 
 #: DB:series_type/name:13
 msgctxt "series_type"
 msgid "Artist series"
-msgstr ""
+msgstr "Siri seniman"
 
 #: DB:work_attribute_type_allowed_value/value:693
 msgctxt "work_attribute_type_allowed_value"
@@ -1631,42 +1690,42 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:33
 msgctxt "work_attribute_type_allowed_value"
 msgid "B major"
-msgstr ""
+msgstr "B major"
 
 #: DB:work_attribute_type_allowed_value/value:34
 msgctxt "work_attribute_type_allowed_value"
 msgid "B minor"
-msgstr ""
+msgstr "B minor"
 
 #: DB:work_attribute_type_allowed_value/value:31
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat major"
-msgstr ""
+msgstr "B datar major"
 
 #: DB:work_attribute_type_allowed_value/value:32
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-flat minor"
-msgstr ""
+msgstr "B datar minor"
 
 #: DB:work_attribute_type_allowed_value/value:818
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-sharp major"
-msgstr ""
+msgstr "B syap major"
 
 #: DB:work_attribute_type_allowed_value/value:819
 msgctxt "work_attribute_type_allowed_value"
 msgid "B-sharp minor"
-msgstr ""
+msgstr "B syap minor"
 
 #: DB:work_attribute_type/name:7
 msgctxt "work_attribute_type"
 msgid "BMI ID"
-msgstr ""
+msgstr "Pengecam BMI"
 
 #: DB:work_attribute_type/name:26
 msgctxt "work_attribute_type"
 msgid "BUMA/STEMRA ID"
-msgstr ""
+msgstr "Pengecam BUMA/STEMRA"
 
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
@@ -1706,7 +1765,7 @@ msgstr ""
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
-msgstr ""
+msgstr "Lagu balet"
 
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
@@ -1746,7 +1805,7 @@ msgstr ""
 #: DB:work_type/name:26
 msgctxt "work_type"
 msgid "Beijing opera"
-msgstr ""
+msgstr "Opera Beijing"
 
 #. name:Beijing opera
 #: DB:work_type/description:26
@@ -1755,6 +1814,8 @@ msgid ""
 "Beijing opera is a form of traditional Chinese theatre which combines music, "
 "vocal performance, mime, dance, and acrobatics."
 msgstr ""
+"Opera Beijing atau jing xi merupakan suatu bentuk teater China warisan yang "
+"menggabungkan muzik, persembahan suara, kialan, tarian dan gerak akrobatik."
 
 #: DB:work_attribute_type_allowed_value/value:697
 msgctxt "work_attribute_type_allowed_value"
@@ -1824,7 +1885,7 @@ msgstr ""
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
-msgstr ""
+msgstr "Betamax"
 
 #: DB:work_attribute_type_allowed_value/value:329
 msgctxt "work_attribute_type_allowed_value"
@@ -1970,37 +2031,37 @@ msgstr ""
 #: DB:medium_format/name:20
 msgctxt "medium_format"
 msgid "Blu-ray"
-msgstr ""
+msgstr "Blu-ray"
 
 #: DB:medium_format/name:79
 msgctxt "medium_format"
 msgid "Blu-ray-R"
-msgstr ""
+msgstr "Blu-ray-R"
 
 #: DB:medium_format/name:35
 msgctxt "medium_format"
 msgid "Blu-spec CD"
-msgstr ""
+msgstr "CD Spesifikasi Blu"
 
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
-msgstr ""
+msgstr "Buku"
 
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr ""
+msgstr "Buku kecil"
 
 #: DB:release_status/name:3
 msgctxt "release_status"
 msgid "Bootleg"
-msgstr ""
+msgstr "Cetak Rompak"
 
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr ""
+msgstr "Penerbitan Cetak Rompak"
 
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
@@ -2010,7 +2071,7 @@ msgstr ""
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
 msgid "Box"
-msgstr ""
+msgstr "Kotak"
 
 #: DB:work_attribute_type_allowed_value/value:607
 msgctxt "work_attribute_type_allowed_value"
@@ -2020,12 +2081,12 @@ msgstr ""
 #: DB:instrument_alias_type/name:3
 msgctxt "alias_type"
 msgid "Brand name"
-msgstr ""
+msgstr "Nama jenama"
 
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr ""
+msgstr "Siaran"
 
 #: DB:label_type/name:12
 msgctxt "label_type"
@@ -2151,27 +2212,27 @@ msgstr ""
 #: DB:work_attribute_type/name:19
 msgctxt "work_attribute_type"
 msgid "CASH ID"
-msgstr ""
+msgstr "Pengecam CASH"
 
 #: DB:work_attribute_type/name:22
 msgctxt "work_attribute_type"
 msgid "CCLI ID"
-msgstr ""
+msgstr "Pengecam CCLI"
 
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
-msgstr ""
+msgstr "CD"
 
 #: DB:medium_format/name:39
 msgctxt "medium_format"
 msgid "CD+G"
-msgstr ""
+msgstr "CD+G"
 
 #: DB:medium_format/name:33
 msgctxt "medium_format"
 msgid "CD-R"
-msgstr ""
+msgstr "CD-R"
 
 #: DB:medium_format/name:209
 msgctxt "medium_format"
@@ -2181,12 +2242,12 @@ msgstr ""
 #: DB:medium_format/name:41
 msgctxt "medium_format"
 msgid "CDV"
-msgstr ""
+msgstr "CDV"
 
 #: DB:medium_format/name:60
 msgctxt "medium_format"
 msgid "CED"
-msgstr ""
+msgstr "CED"
 
 #: DB:work_attribute_type/name:45
 msgctxt "work_attribute_type"
@@ -2219,9 +2280,10 @@ msgid "Campākali"
 msgstr ""
 
 #: DB:release_status/name:6
+#, fuzzy
 msgctxt "release_status"
 msgid "Cancelled"
-msgstr ""
+msgstr "Dibatalkan:"
 
 #: DB:work_attribute_type_allowed_value/value:64
 msgctxt "work_attribute_type_allowed_value"
@@ -2252,12 +2314,12 @@ msgstr ""
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr ""
+msgstr "Sarung Kadbod/Kertas"
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
 msgid "Cartridge"
-msgstr ""
+msgstr "Kartrij"
 
 #: DB:work_attribute_type_allowed_value/value:66
 msgctxt "work_attribute_type_allowed_value"
@@ -2267,17 +2329,17 @@ msgstr ""
 #: DB:medium_format/name:8
 msgctxt "medium_format"
 msgid "Cassette"
-msgstr ""
+msgstr "Kaset"
 
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
 msgid "Cassette Case"
-msgstr ""
+msgstr "Bekas Kaset"
 
 #: DB:series_type/name:5
 msgctxt "series_type"
 msgid "Catalogue"
-msgstr ""
+msgstr "Katalog"
 
 #: DB:work_attribute_type_allowed_value/value:291
 msgctxt "work_attribute_type_allowed_value"
@@ -2302,12 +2364,12 @@ msgstr ""
 #: DB:artist_type/name:4
 msgctxt "artist_type"
 msgid "Character"
-msgstr ""
+msgstr "Watak"
 
 #: DB:artist_type/name:6
 msgctxt "artist_type"
 msgid "Choir"
-msgstr ""
+msgstr "Koir"
 
 #: DB:work_attribute_type_allowed_value/value:892
 msgctxt "work_attribute_type_allowed_value"
@@ -2383,7 +2445,7 @@ msgstr ""
 #: DB:medium_format/name:61
 msgctxt "medium_format"
 msgid "Copy Control CD"
-msgstr ""
+msgstr "CD Copy Control"
 
 #. name:Copy Control CD
 #: DB:medium_format/description:61
@@ -2394,11 +2456,16 @@ msgid ""
 "ripped. There are a number of software variants: the most well-known are "
 "Macrovision's Cactus Data Shield (CDS) and SunnComm's MediaMax."
 msgstr ""
+"CD Copy Control (CCCD) ialah istilah umum bagi CD yang dikeluarkan sekitar "
+"tahun 2001 hingga 2006. CD ini mengandungi perisian yang kononnya boleh "
+"menghalang perungkaian CD. Terdapat sebilangan kelainan perisiannya. Antara "
+"yang paling dikenali ialah Cactus Data Shield (CDS) oleh Macrovision dan "
+"MediaMax oleh SunnComm."
 
 #: DB:area_type/name:1
 msgctxt "area_type"
 msgid "Country"
-msgstr ""
+msgstr "Negara"
 
 #. name:Country
 #: DB:area_type/description:1
@@ -2527,32 +2594,32 @@ msgstr ""
 #: DB:medium_format/name:11
 msgctxt "medium_format"
 msgid "DAT"
-msgstr ""
+msgstr "DAT"
 
 #: DB:medium_format/name:16
 msgctxt "medium_format"
 msgid "DCC"
-msgstr ""
+msgstr "DCC"
 
 #: DB:release_group_secondary_type/name:8
 msgctxt "release_group_secondary_type"
 msgid "DJ-mix"
-msgstr ""
+msgstr "Adunan DJ"
 
 #: DB:medium_format/name:44
 msgctxt "medium_format"
 msgid "DTS CD"
-msgstr ""
+msgstr "CD DTS"
 
 #: DB:medium_format/name:2
 msgctxt "medium_format"
 msgid "DVD"
-msgstr ""
+msgstr "DVD"
 
 #: DB:medium_format/name:18
 msgctxt "medium_format"
 msgid "DVD-Audio"
-msgstr ""
+msgstr "DVD-Audio"
 
 #: DB:medium_format/name:92
 msgctxt "medium_format"
@@ -2562,27 +2629,27 @@ msgstr ""
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
-msgstr ""
+msgstr "DVD-Video"
 
 #: DB:medium_format/name:47
 msgctxt "medium_format"
 msgid "DVDplus"
-msgstr ""
+msgstr "DVDplus"
 
 #: DB:medium_format/name:70
 msgctxt "medium_format"
 msgid "DVDplus (CD side)"
-msgstr ""
+msgstr "DVDplus (sisi CD)"
 
 #: DB:medium_format/name:68
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Audio side)"
-msgstr ""
+msgstr "DVDplus (sisi DVD-Audio)"
 
 #: DB:medium_format/name:69
 msgctxt "medium_format"
 msgid "DVDplus (DVD-Video side)"
-msgstr ""
+msgstr "DVDplus (sisi DVD-Video)"
 
 #: DB:work_attribute_type_allowed_value/value:343
 msgctxt "work_attribute_type_allowed_value"
@@ -2642,7 +2709,7 @@ msgstr ""
 #: DB:medium_format/name:43
 msgctxt "medium_format"
 msgid "Data CD"
-msgstr ""
+msgstr "CD Data"
 
 #: DB:medium_format/name:94
 msgctxt "medium_format"
@@ -2778,7 +2845,7 @@ msgstr ""
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr ""
+msgstr "Bahantara Digital"
 
 #: DB:work_attribute_type_allowed_value/value:345
 msgctxt "work_attribute_type_allowed_value"
@@ -2864,12 +2931,12 @@ msgstr ""
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
-msgstr ""
+msgstr "DualDisc"
 
 #: DB:medium_format/name:67
 msgctxt "medium_format"
 msgid "DualDisc (CD side)"
-msgstr ""
+msgstr "DualDisc (sisi CD)"
 
 #: DB:medium_format/name:130
 msgctxt "medium_format"
@@ -2879,12 +2946,12 @@ msgstr ""
 #: DB:medium_format/name:65
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Audio side)"
-msgstr ""
+msgstr "DualDisc (sisi DVD-Audio)"
 
 #: DB:medium_format/name:66
 msgctxt "medium_format"
 msgid "DualDisc (DVD-Video side)"
-msgstr ""
+msgstr "DualDisc (sisi DVD-Video)"
 
 #: DB:work_attribute_type_allowed_value/value:612
 msgctxt "work_attribute_type_allowed_value"
@@ -3085,7 +3152,7 @@ msgstr ""
 #: DB:medium_format/name:50
 msgctxt "medium_format"
 msgid "Edison Diamond Disc"
-msgstr ""
+msgstr "Cakera Intan Edison"
 
 #: DB:place_type/name:7
 msgctxt "place_type"
@@ -3093,14 +3160,15 @@ msgid "Educational institution"
 msgstr ""
 
 #: DB:instrument_type/name:4
+#, fuzzy
 msgctxt "instrument_type"
 msgid "Electronic instrument"
-msgstr ""
+msgstr "alat muzik elektronik"
 
 #: DB:medium_format/name:42
 msgctxt "medium_format"
 msgid "Enhanced CD"
-msgstr ""
+msgstr "CD Dipertingkat"
 
 #. name:Ultra HD Blu-ray
 #: DB:medium_format/description:211
@@ -3286,9 +3354,10 @@ msgid "Fatbox"
 msgstr ""
 
 #: DB:gender/name:2
+#, fuzzy
 msgctxt "gender"
 msgid "Female"
-msgstr ""
+msgstr "Perempuan:"
 
 #: DB:work_attribute_type_allowed_value/value:732
 msgctxt "work_attribute_type_allowed_value"
@@ -3372,16 +3441,19 @@ msgstr ""
 
 #. name:Phonograph record
 #: DB:medium_format/description:73
+#, fuzzy
 msgctxt "medium_format"
 msgid ""
 "Flat discs with grooves used in phonographs/gramophones. For shellac and "
 "vinyl records, use that specifically."
 msgstr ""
+"Cakera pipih beralur yang pada piring hitam. Gunakan piring hitam syelek "
+"atau vinil secara khusus apabila diketahui"
 
 #: DB:medium_format/name:51
 msgctxt "medium_format"
 msgid "Flexi-disc"
-msgstr ""
+msgstr "Cakera Lentur"
 
 #. name:Flexi-disc
 #: DB:medium_format/description:51
@@ -3390,11 +3462,14 @@ msgid ""
 "Flexi-discs are phonograph records made of a thin, flexible vinyl sheet with "
 "a molded-in groove, designed to be playable on a normal phonograph turntable."
 msgstr ""
+"Cakera lentur ialah sejenis piring hitam yang diperbuat daripada kepingan "
+"nipis vinil mudah lentur dengan alur yang teracu. Cakera ini direka agar "
+"boleh dimainkan di piring putar peti nyanyi."
 
 #: DB:medium_format/name:76
 msgctxt "medium_format"
 msgid "Floppy Disk"
-msgstr ""
+msgstr "Cakera Liut"
 
 #: DB:event_art_archive.art_type/name:6
 msgctxt "event_art_type"
@@ -3600,6 +3675,8 @@ msgctxt "medium_format"
 msgid ""
 "German tape cartridge format, using grooved tape rather than magnetic tape."
 msgstr ""
+"Format kartrij pita Jerman yang menggunakan pita beralur berbanding pita "
+"magnet."
 
 #: DB:work_attribute_type_allowed_value/value:380
 msgctxt "work_attribute_type_allowed_value"
@@ -3624,7 +3701,7 @@ msgstr ""
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
-msgstr ""
+msgstr "Kumpulan"
 
 #: DB:work_attribute_type_allowed_value/value:916
 msgctxt "work_attribute_type_allowed_value"
@@ -3714,12 +3791,12 @@ msgstr ""
 #: DB:medium_format/name:17
 msgctxt "medium_format"
 msgid "HD-DVD"
-msgstr ""
+msgstr "HD-DVD"
 
 #: DB:medium_format/name:25
 msgctxt "medium_format"
 msgid "HDCD"
-msgstr ""
+msgstr "HDCD"
 
 #: DB:work_attribute_type/name:214
 msgctxt "work_attribute_type"
@@ -3734,7 +3811,7 @@ msgstr ""
 #: DB:medium_format/name:37
 msgctxt "medium_format"
 msgid "HQCD"
-msgstr ""
+msgstr "HQCD"
 
 #: DB:work_attribute_type_allowed_value/value:736
 msgctxt "work_attribute_type_allowed_value"
@@ -3814,7 +3891,7 @@ msgstr ""
 #: DB:medium_format/name:75
 msgctxt "medium_format"
 msgid "HiPac"
-msgstr ""
+msgstr "HiPac"
 
 #: DB:work_attribute_type_allowed_value/value:391
 msgctxt "work_attribute_type_allowed_value"
@@ -3999,27 +4076,27 @@ msgstr ""
 #: DB:medium_format/name:38
 msgctxt "medium_format"
 msgid "Hybrid SACD"
-msgstr ""
+msgstr "SACD hibrid"
 
 #: DB:medium_format/name:63
 msgctxt "medium_format"
 msgid "Hybrid SACD (CD layer)"
-msgstr ""
+msgstr "SACD hibrid (sisi CD)"
 
 #: DB:medium_format/name:64
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer)"
-msgstr ""
+msgstr "SACD hibrid (sisi SACD)"
 
 #: DB:medium_format/name:87
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, 2 channels)"
-msgstr ""
+msgstr "SACD hibrid (sisi SACD, 2 saluran)"
 
 #: DB:medium_format/name:86
 msgctxt "medium_format"
 msgid "Hybrid SACD (SACD layer, multichannel)"
-msgstr ""
+msgstr "SACD hibrid (sisi SACD, berbilan saluran)"
 
 #: DB:work_attribute_type_allowed_value/value:418
 msgctxt "work_attribute_type_allowed_value"
@@ -4578,7 +4655,7 @@ msgstr ""
 #: DB:work_attribute_type/name:14
 msgctxt "work_attribute_type"
 msgid "Identifiers"
-msgstr ""
+msgstr "Pengenal Pasti"
 
 #: DB:work_attribute_type_allowed_value/value:832
 msgctxt "work_attribute_type_allowed_value"
@@ -5034,7 +5111,7 @@ msgstr ""
 #: DB:work_attribute_type/name:1
 msgctxt "work_attribute_type"
 msgid "Key"
-msgstr ""
+msgstr "Nada"
 
 #: DB:work_attribute_type_allowed_value/value:950
 msgctxt "work_attribute_type_allowed_value"
@@ -5320,7 +5397,7 @@ msgstr ""
 #: DB:medium_format/name:5
 msgctxt "medium_format"
 msgid "LaserDisc"
-msgstr ""
+msgstr "Cakera Laser"
 
 #: DB:work_attribute_type/name:55
 msgctxt "work_attribute_type"
@@ -5478,9 +5555,10 @@ msgid "Malayamārutaṁ"
 msgstr ""
 
 #: DB:gender/name:1
+#, fuzzy
 msgctxt "gender"
 msgid "Male"
-msgstr ""
+msgstr "Lelaki:"
 
 #: DB:work_attribute_type_allowed_value/value:638
 msgctxt "work_attribute_type_allowed_value"
@@ -5635,7 +5713,7 @@ msgstr ""
 #: DB:medium_format/name:83
 msgctxt "medium_format"
 msgid "Microcassette"
-msgstr ""
+msgstr "Kaset mikro"
 
 #: DB:area_type/name:8
 msgctxt "area_type"
@@ -5668,7 +5746,7 @@ msgstr ""
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
-msgstr ""
+msgstr "Cakera Mini"
 
 #: DB:medium_format/name:165
 msgctxt "medium_format"
@@ -6321,7 +6399,7 @@ msgstr ""
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
-msgstr ""
+msgstr "Tiada"
 
 #: DB:gender/name:4
 msgctxt "gender"
@@ -6440,7 +6518,7 @@ msgstr ""
 #: DB:artist_type/name:5
 msgctxt "artist_type"
 msgid "Orchestra"
-msgstr ""
+msgstr "Orkestra"
 
 #: DB:label_type/name:4
 msgctxt "label_type"
@@ -6450,37 +6528,37 @@ msgstr ""
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:place_type/name:3
 msgctxt "place_type"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr ""
+msgstr "Lain-lain"
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
@@ -6560,7 +6638,7 @@ msgstr ""
 #: DB:medium_format/name:58
 msgctxt "medium_format"
 msgid "Pathé disc"
-msgstr ""
+msgstr "Cakera Pathé"
 
 #: DB:work_attribute_type_allowed_value/value:995
 msgctxt "work_attribute_type_allowed_value"
@@ -6606,7 +6684,7 @@ msgstr ""
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr ""
+msgstr "Orang"
 
 #: DB:work_attribute_type_allowed_value/value:497
 msgctxt "work_attribute_type_allowed_value"
@@ -6631,7 +6709,7 @@ msgstr ""
 #: DB:medium_format/name:73
 msgctxt "medium_format"
 msgid "Phonograph record"
-msgstr ""
+msgstr "Piring hitam"
 
 #: DB:medium_format/name:15
 msgctxt "medium_format"
@@ -6662,7 +6740,7 @@ msgstr ""
 #: DB:work_type/name:28
 msgctxt "work_type"
 msgid "Play"
-msgstr ""
+msgstr "Mainkan"
 
 #: DB:medium_format/name:74
 msgctxt "medium_format"
@@ -6682,7 +6760,7 @@ msgstr ""
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr ""
+msgstr "Puisi"
 
 #: DB:work_attribute_type_allowed_value/value:655
 msgctxt "work_attribute_type_allowed_value"
@@ -6755,7 +6833,7 @@ msgstr ""
 #: DB:label_type/name:7
 msgctxt "label_type"
 msgid "Publisher"
-msgstr ""
+msgstr "Penerbit"
 
 #: DB:work_attribute_type_allowed_value/value:999
 msgctxt "work_attribute_type_allowed_value"
@@ -6956,7 +7034,7 @@ msgstr ""
 #: DB:medium_format/name:10
 msgctxt "medium_format"
 msgid "Reel-to-reel"
-msgstr ""
+msgstr "Gelendong ke gelendong"
 
 #: DB:work_attribute_type_allowed_value/value:514
 msgctxt "work_attribute_type_allowed_value"
@@ -7021,7 +7099,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
 msgid "Remix"
-msgstr ""
+msgstr "Adun semula"
 
 #: DB:work_attribute_type_allowed_value/value:516
 msgctxt "work_attribute_type_allowed_value"
@@ -7172,17 +7250,17 @@ msgstr ""
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
-msgstr ""
+msgstr "SACD"
 
 #: DB:medium_format/name:84
 msgctxt "medium_format"
 msgid "SACD (2 channels)"
-msgstr ""
+msgstr "SACD (2 saluran)"
 
 #: DB:medium_format/name:85
 msgctxt "medium_format"
 msgid "SACD (multichannel)"
-msgstr ""
+msgstr "SACD (berbilang saluran)"
 
 #: DB:work_attribute_type/name:21
 msgctxt "work_attribute_type"
@@ -7237,7 +7315,7 @@ msgstr ""
 #: DB:medium_format/name:62
 msgctxt "medium_format"
 msgid "SD Card"
-msgstr ""
+msgstr "Kad SD"
 
 #: DB:work_attribute_type/name:8
 msgctxt "work_attribute_type"
@@ -7257,22 +7335,22 @@ msgstr ""
 #: DB:medium_format/name:36
 msgctxt "medium_format"
 msgid "SHM-CD"
-msgstr ""
+msgstr "SHM-CD"
 
 #: DB:medium_format/name:57
 msgctxt "medium_format"
 msgid "SHM-SACD"
-msgstr ""
+msgstr "SHM-SACD"
 
 #: DB:medium_format/name:89
 msgctxt "medium_format"
 msgid "SHM-SACD (2 channels)"
-msgstr ""
+msgstr "SHM-SACD (2 saluran)"
 
 #: DB:medium_format/name:88
 msgctxt "medium_format"
 msgid "SHM-SACD (multichannel)"
-msgstr ""
+msgstr "SHM-SACD (berbilang saluran)"
 
 #: DB:work_attribute_type/name:36
 msgctxt "work_attribute_type"
@@ -7327,7 +7405,7 @@ msgstr ""
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
-msgstr ""
+msgstr "SVCD"
 
 #: DB:work_attribute_type_allowed_value/value:522
 msgctxt "work_attribute_type_allowed_value"
@@ -7533,7 +7611,7 @@ msgstr ""
 #: DB:medium_format/name:53
 msgctxt "medium_format"
 msgid "Shellac"
-msgstr ""
+msgstr "Syelek"
 
 #. name:Shellac
 #: DB:medium_format/description:53
@@ -7542,6 +7620,8 @@ msgid ""
 "Shellac records were the most predominant type of gramophone record during "
 "the first half of the 20th century."
 msgstr ""
+"Piring syelek ialah jenis piring hitam yang utama semasa separuh abad ke-20 "
+"yang pertama."
 
 #: DB:work_attribute_type_allowed_value/value:236
 msgctxt "work_attribute_type_allowed_value"
@@ -7989,7 +8069,7 @@ msgstr ""
 #: DB:medium_format/name:90
 msgctxt "medium_format"
 msgid "Tefifon"
-msgstr ""
+msgstr "Tefifon"
 
 #: DB:work_attribute_type_allowed_value/value:774
 msgctxt "work_attribute_type_allowed_value"
@@ -8340,7 +8420,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr ""
+msgstr "Runut"
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
@@ -8420,12 +8500,12 @@ msgstr ""
 #: DB:medium_format/name:28
 msgctxt "medium_format"
 msgid "UMD"
-msgstr ""
+msgstr "UMD"
 
 #: DB:medium_format/name:26
 msgctxt "medium_format"
 msgid "USB Flash Drive"
-msgstr ""
+msgstr "Pemacu Kilat USB"
 
 #: DB:work_attribute_type_allowed_value/value:258
 msgctxt "work_attribute_type_allowed_value"
@@ -8520,7 +8600,7 @@ msgstr ""
 #: DB:medium_format/name:22
 msgctxt "medium_format"
 msgid "VCD"
-msgstr ""
+msgstr "VCD"
 
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
@@ -8530,12 +8610,12 @@ msgstr ""
 #: DB:medium_format/name:59
 msgctxt "medium_format"
 msgid "VHD"
-msgstr ""
+msgstr "VHD"
 
 #: DB:medium_format/name:21
 msgctxt "medium_format"
 msgid "VHS"
-msgstr ""
+msgstr "VHS"
 
 #: DB:work_attribute_type_allowed_value/value:261
 msgctxt "work_attribute_type_allowed_value"
@@ -8633,27 +8713,27 @@ msgstr ""
 #: DB:medium_format/name:7
 msgctxt "medium_format"
 msgid "Vinyl"
-msgstr ""
+msgstr "Vinil"
 
 #: DB:medium_format/name:48
 msgctxt "medium_format"
 msgid "VinylDisc"
-msgstr ""
+msgstr "CakeraVinil"
 
 #: DB:medium_format/name:82
 msgctxt "medium_format"
 msgid "VinylDisc (CD side)"
-msgstr ""
+msgstr "CakeraVinil (sisi CD)"
 
 #: DB:medium_format/name:80
 msgctxt "medium_format"
 msgid "VinylDisc (DVD side)"
-msgstr ""
+msgstr "CakeraVinil (sisi DVD)"
 
 #: DB:medium_format/name:81
 msgctxt "medium_format"
 msgid "VinylDisc (Vinyl side)"
-msgstr ""
+msgstr "CakeraVinil (sisi vinil)"
 
 #: DB:work_attribute_type_allowed_value/value:259
 #: DB:work_attribute_type_allowed_value/value:1047
@@ -8860,7 +8940,7 @@ msgstr ""
 #: DB:medium_format/name:77
 msgctxt "medium_format"
 msgid "Zip Disk"
-msgstr ""
+msgstr "Pemacu Zip"
 
 #: DB:work_attribute_type_allowed_value/value:599
 msgctxt "work_attribute_type_allowed_value"
@@ -8882,7 +8962,7 @@ msgstr ""
 #: DB:medium_format/name:27
 msgctxt "medium_format"
 msgid "slotMusic"
-msgstr ""
+msgstr "slotMusic"
 
 #: DB:work_attribute_type_allowed_value/value:340
 msgctxt "work_attribute_type_allowed_value"
