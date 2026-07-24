@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-28 19:12+0000\n"
+"PO-Revision-Date: 2026-07-07 11:12+0000\n"
 "Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -439,6 +439,10 @@ msgid ""
 "with physical releases but sometimes sold as a standalone item (especially "
 "in Asia)."
 msgstr ""
+"デジタル環境でダウンロードするためのコードが記載されたカード（またはそれに類"
+"する物理的な媒体）で、それそのものに音源が直接収録されてはいない。多くの場合"
+"、物理的なリリースに同梱されるが、単体で販売されることもある（特にアジアでは"
+"）。"
 
 #. name:Manufacturer
 #: DB:label_type/description:10
@@ -544,12 +548,14 @@ msgid ""
 "A large cardboard box often used until the mid-1990s to sell CDs in North "
 "America, so that they would fit existing vinyl racks in stores."
 msgstr ""
+"1990年代半ばまで北米でCDの販売によく使われていた大きな段ボール箱で、店舗にあ"
+"る既存のレコード用ラックに収まるように作られていた。"
 
 #. name:Amphitheatre
 #: DB:place_type/description:43
 msgctxt "place_type"
 msgid "A large, permanent outdoor stage, typically with a fixed seating area."
-msgstr ""
+msgstr "常設の大規模屋外ステージであり、通常固定式の客席を備えている。"
 
 #. name:Setlist
 #: DB:event_art_archive.art_type/description:3
@@ -558,6 +564,8 @@ msgid ""
 "A list of songs to be played in the event, often printed or handwritten for "
 "use by the artist."
 msgstr ""
+"イベントで披露される曲の一覧。多くの場合、アーティストが使用するために印刷さ"
+"れたり手書きされたりする。"
 
 #. name:Logo
 #: DB:event_art_archive.art_type/description:12
@@ -567,6 +575,8 @@ msgid ""
 "than being the logo for a series (such as a festival logo reused over "
 "multiple years)."
 msgstr ""
+"特定のイベント専用かつ、そのイベントでのみ使用されるロゴ。シリーズ全体のロゴ"
+"ではないもの（複数年にわたり繰り返し使用されるフェスティバルのロゴなど）。"
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -604,6 +614,8 @@ msgid ""
 "A minimalistic plastic case where the back and front are kept together by a "
 "small hinge. Most commonly used for cheap promotion / DIY releases."
 msgstr ""
+"前面と背面が小さなヒンジで連結された、シンプルなプラスチック製のケース。主に"
+"安価なプロモーション用やDIYリリースに使用される。"
 
 #: DB:work_attribute_type_allowed_value/value:29
 msgctxt "work_attribute_type_allowed_value"
@@ -717,6 +729,8 @@ msgid ""
 "which enough info is known to still confidently list it (e.g. it was "
 "available for preorder)."
 msgstr ""
+"流通前に発売中止となった公式リリースだが、十分な情報が判明しているため、依然"
+"として自信を持って掲載できるもの（例: 予約受付が行われていたもの）。"
 
 #. name:Play
 #: DB:work_type/description:28
@@ -758,6 +772,8 @@ msgid ""
 "demonstrate the sound of an artist to record labels, publishers and other "
 "artists."
 msgstr ""
+"主に限定的な配布を目的とし、レーベルや他のアーティストに対して、アーティスト"
+"の魅力をアピールするためのプロモーション用リリース。"
 
 #. name:Liner
 #: DB:cover_art_archive.art_type/description:12
@@ -796,12 +812,14 @@ msgid ""
 "A release mostly consisting of field recordings (such as nature sounds or "
 "city/industrial noise)."
 msgstr ""
+"主にフィールドレコーディング（環境音や都市・工業の騒音など）で構成された"
+"リリース。"
 
 #. name:Remix
 #: DB:release_group_secondary_type/description:7
 msgctxt "release_group_secondary_type"
 msgid "A release that primarily contains remixed material."
-msgstr ""
+msgstr "主にリミックス曲が収録されたリリース。"
 
 #. name:Live
 #: DB:release_group_secondary_type/description:6
@@ -810,6 +828,9 @@ msgid ""
 "A release that was recorded live. Generally this means \"with an audience\", "
 "be it in person, through the radio or in another similar way."
 msgstr ""
+"ライブで録音されたリリース。一般的に、これは「聴衆の前で」録音されたことを意"
+"味し、それが実際に会場でのライブであれ、ラジオ放送であれ、あるいはその他の同"
+"様の方法であれ、その形態は問わない。"
 
 #. name:Educational institution
 #: DB:place_type/description:7
@@ -835,7 +856,7 @@ msgstr "アーティストのシリーズ。"
 #: DB:series_type/description:15
 msgctxt "series_type"
 msgid "A series of award ceremonies, usually one per year."
-msgstr ""
+msgstr "授賞式のシリーズ。通常は年に1回開催される。"
 
 #. name:Event series
 #: DB:series_type/description:6
@@ -853,7 +874,7 @@ msgstr "同一会場での同一ショーの一連のパフォーマンス。"
 #: DB:series_type/description:48
 msgctxt "series_type"
 msgid "A series of recordings honoured by the same award."
-msgstr ""
+msgstr "同じ賞を受賞したレコーディングシリーズ。"
 
 #. name:Recording series
 #: DB:series_type/description:3
@@ -878,13 +899,13 @@ msgstr "同じ場所でのアーティストによる一連の関連コンサー
 msgctxt "series_type"
 msgid ""
 "A series of release groups containing episodes of the same podcast series."
-msgstr ""
+msgstr "同じポッドキャストシリーズのエピソードを収録した一連のリリースグループ。"
 
 #. name:Release group award
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
-msgstr ""
+msgstr "同じ賞を受賞した一連のリリースグループ。"
 
 #. name:Release group series
 #: DB:series_type/description:1
@@ -900,14 +921,11 @@ msgstr "リリースのシリーズ。"
 
 #. name:Series award
 #: DB:series_type/description:17
-#, fuzzy
-#| msgctxt "series_type"
-#| msgid "A series of artists honoured by the same award."
 msgctxt "series_type"
 msgid ""
 "A series of series (such as podcasts or festivals) honoured by the same "
 "award."
-msgstr "同一賞を受賞した一連のアーティスト。"
+msgstr "同一賞を受賞した一連の物事（ポッドキャストやフェスティバルなど）。"
 
 #. name:Series series
 #: DB:series_type/description:16
@@ -922,7 +940,7 @@ msgstr "イベントのシリーズ。"
 #: DB:series_type/description:46
 msgctxt "series_type"
 msgid "A series of works honoured by the same award."
-msgstr ""
+msgstr "同じ賞を受賞した一連の作品群。"
 
 #. name:Catalogue
 #: DB:series_type/description:5
@@ -1188,7 +1206,7 @@ msgstr "ASCAP ID"
 #| msgid "KODA ID"
 msgctxt "work_attribute_type"
 msgid "AUTODIA ID"
-msgstr "KODA ID"
+msgstr "AUTODIA ID"
 
 #: DB:work_attribute_type_allowed_value/value:299
 msgctxt "work_attribute_type_allowed_value"
@@ -1302,12 +1320,9 @@ msgid "Album"
 msgstr "アルバム"
 
 #: DB:work_attribute_type/name:216
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Track"
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr "トラック"
+msgstr "全トラックID"
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
@@ -1351,6 +1366,12 @@ msgid ""
 "EP is fairly difficult to define; usually it should only be assumed that a "
 "release is an EP if the artist defines it as such."
 msgstr ""
+"EPとは、「シングルリリースよりも長い（Extended Play）」リリースを指す言葉であ"
+"り、多くはタイトルに「EP」という文字が含みます。一般的に、EPはフルアルバム（"
+"LP, \"Long Play\"）よりも収録時間が短いものとされており、またEPに収録される"
+"トラックは通常そのEP限定のものであり、以前のリリースで収録された楽曲は選ばれ"
+"ることが少ないです。EPの定義は比較的曖昧ですが、通常は、アーティスト自身がそ"
+"う定義している場合にのみ、そのリリースをEPとみなすべきです。"
 
 #. name:Album
 #: DB:release_group_primary_type/description:1
@@ -1360,6 +1381,9 @@ msgid ""
 "consists of previously unreleased material (unless this type is combined "
 "with secondary types which change that, such as \"Compilation\")."
 msgstr ""
+"アルバムは収録楽曲数の多いリリース（LP）という定義と、未発表の楽曲で構成され"
+"たリリースという定義が存在している（ただし、後者においては「コンピレーション"
+"」など、この定義に当てはまらない二次タイプを持つことも多い）。"
 
 #. name:Pseudo-Release
 #: DB:release_status/description:4
@@ -1403,12 +1427,17 @@ msgid ""
 "always, meant for radio). Unlike audiobooks, it usually has multiple "
 "performers rather than a main narrator."
 msgstr ""
+"オーディオドラマとは、演劇作品を音声のみで上演したもので、多くの場合はラジオ"
+"向けに制作されています。メインのナレーター1人で進行するオーディオブックとは異"
+"なり、通常は複数の出演者が登場することが特徴となります。"
 
 #. name:Audiobook
 #: DB:release_group_secondary_type/description:5
 msgctxt "release_group_secondary_type"
 msgid "An audiobook is a book read by a narrator without music."
 msgstr ""
+"オーディオブックとは、ナレーターが書籍を読み上げる形式の音声作品で、音楽を伴"
+"わないものが多い。"
 
 #. name:Award ceremony
 #: DB:event_type/description:7
@@ -1418,6 +1447,8 @@ msgid ""
 "but often includes musical performances in between the awarding of said "
 "prizes, especially for musical awards."
 msgstr ""
+"授賞式とは、賞の授与を主目的とするイベントです。特に音楽賞の場合、賞の授与の"
+"合間に音楽パフォーマンスが行われることがよくあります。"
 
 #. name:Broadcast
 #: DB:release_group_primary_type/description:12
@@ -1426,6 +1457,8 @@ msgid ""
 "An episodic release that was originally broadcast via radio, television, or "
 "the Internet, including podcasts."
 msgstr ""
+"ラジオやテレビ、またはインターネットを通じて放送された、エピソード形式の"
+"リリース。この定義にはポッドキャストも含めます。"
 
 #. name:Competition
 #: DB:event_type/description:40
@@ -1435,6 +1468,8 @@ msgid ""
 "(as opposed to an award ceremony where awards are presented for previously "
 "released or performed music)."
 msgstr ""
+"既に世に広まった楽曲が対象となる授賞式とは対照的に、参加者が"
+"ライブパフォーマンスを行い、その後に優勝者が選ばれるイベント。"
 
 #. name:Festival
 #: DB:event_type/description:2
@@ -1560,7 +1595,7 @@ msgstr ""
 #: DB:label_type/description:8
 msgctxt "label_type"
 msgid "An organization which collects royalties on behalf of artists."
-msgstr ""
+msgstr "アーティストに代わって著作権使用料を徴収する団体。"
 
 #. name:Overture
 #: DB:work_type/description:12
@@ -1618,6 +1653,8 @@ msgid ""
 "Any release that does not fit or can't decisively be placed in any of the "
 "other categories."
 msgstr ""
+"他のどのカテゴリーにも当てはまらない、あるいはどのカテゴリーにも明確に分類で"
+"きないリリース。"
 
 #: DB:work_attribute_type_allowed_value/value:311
 msgctxt "work_attribute_type_allowed_value"
@@ -1858,20 +1895,14 @@ msgid "B Dorian"
 msgstr "ロ調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1071
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "B Dorian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Locrian"
-msgstr "ロ調ドリア"
+msgstr "ロ調ロクリアン"
 
 #: DB:work_attribute_type_allowed_value/value:1064
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "B Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "B Lydian"
-msgstr "ロ調ミクソリディア"
+msgstr "ロ調リディアン"
 
 #: DB:work_attribute_type_allowed_value/value:807
 msgctxt "work_attribute_type_allowed_value"
@@ -2356,20 +2387,14 @@ msgid "C Dorian"
 msgstr "ハ調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1065
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "C Dorian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Locrian"
-msgstr "ハ調ドリア"
+msgstr "ハ調ロクリアン"
 
 #: DB:work_attribute_type_allowed_value/value:1058
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "C Mixolydian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "C Lydian"
-msgstr "ハ調ミクソディリア"
+msgstr "ハ調リディアン"
 
 #: DB:work_attribute_type_allowed_value/value:801
 msgctxt "work_attribute_type_allowed_value"
@@ -2747,12 +2772,9 @@ msgid "D Dorian"
 msgstr "ニ調ドリア"
 
 #: DB:work_attribute_type_allowed_value/value:1066
-#, fuzzy
-#| msgctxt "work_attribute_type_allowed_value"
-#| msgid "D Dorian"
 msgctxt "work_attribute_type_allowed_value"
 msgid "D Locrian"
-msgstr "ニ調ドリア"
+msgstr "ニ調ロクリアン"
 
 #: DB:work_attribute_type_allowed_value/value:1059
 msgctxt "work_attribute_type_allowed_value"
@@ -4721,12 +4743,9 @@ msgstr "エルサルバドルの権利者団体SACIMのID"
 
 #. name:SOKOJ ID
 #: DB:work_attribute_type/description:213
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Norwegian rights society TONO"
 msgctxt "work_attribute_type"
 msgid "ID for the Serbian rights society SOKOJ"
-msgstr "ノルウェーの権利者団体TONOのID"
+msgstr "セルビアの権利者団体SOKOJのID"
 
 #. name:COMPASS ID
 #: DB:work_attribute_type/description:45
@@ -4790,12 +4809,9 @@ msgstr "アメリカの権利者団体ASCAPのID"
 
 #. name:AllTrack ID
 #: DB:work_attribute_type/description:216
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the US rights society ASCAP"
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society AllTrack"
-msgstr "アメリカの権利者団体ASCAPのID"
+msgstr "アメリカの権利者団体AllTrackのID"
 
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
@@ -4817,12 +4833,9 @@ msgstr "アメリカの権利者団体SESACのID"
 
 #. name:UACRR ID
 #: DB:work_attribute_type/description:209
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Brazilian rights society ECAD"
 msgctxt "work_attribute_type"
 msgid "ID for the Ukrainian rights society UACRR"
-msgstr "ブラジルの権利者団体ECADのID"
+msgstr "ウクライナの権利者団体UACRRのID"
 
 #. name:AGADU ID
 #: DB:work_attribute_type/description:43
@@ -7039,9 +7052,6 @@ msgid "Poster"
 msgstr "ポスター"
 
 #: DB:event_art_archive.art_type/name:1
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Poster"
 msgctxt "event_art_type"
 msgid "Poster"
 msgstr "ポスター"
@@ -7173,12 +7183,9 @@ msgid "Quartet"
 msgstr "四重奏曲"
 
 #: DB:medium_format/name:208
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Cartridge"
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "カートリッジ"
+msgstr "ROMカートリッジ"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -7291,12 +7298,9 @@ msgid "Raw/Unedited"
 msgstr "生/未編集"
 
 #: DB:event_art_archive.art_type/name:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Raw/Unedited"
 msgctxt "event_art_type"
 msgid "Raw/Unedited"
-msgstr "生/未編集"
+msgstr "生データ/未編集"
 
 #: DB:series_type/name:48
 msgctxt "series_type"
@@ -7876,12 +7880,9 @@ msgid "Serbest"
 msgstr "<i>Serbest</i>"
 
 #: DB:series_type/name:17
-#, fuzzy
-#| msgctxt "series_type"
-#| msgid "Artist award"
 msgctxt "series_type"
 msgid "Series award"
-msgstr "アーティストアワード"
+msgstr "シリーズアワード"
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
@@ -8715,12 +8716,9 @@ msgid ""
 msgstr "ハイブリッドSACDのSACDレイヤー上のマルチチャネル目次。"
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Sticker"
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "ステッカー"
+msgstr "チケット"
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
