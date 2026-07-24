@@ -7,14 +7,15 @@
 # ffff23 <email address hidden>, 2021
 # Osamu Takahashi, 2014
 # Shunsuke Shimizu <email address hidden>, 2016
-# ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
+# ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025, 2026.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 # zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-21 21:12+0000\n"
-"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
+"PO-Revision-Date: 2026-05-22 02:12+0000\n"
+"Last-Translator: ROManceJP "
+"<poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ja/>\n"
 "Language: ja\n"
@@ -119,7 +120,7 @@ msgstr ""
 #. name:bass synthesizer
 #: DB:instrument/description:456
 msgid "A bass synthesizer is used to create sounds in the bass range."
-msgstr "ベース・シンセサイザは、低音領域の音を出すために用いる。"
+msgstr "ベース・シンセサイザーは、低音領域の音を出すために用いる。"
 
 #. name:bell tree
 #: DB:instrument/description:479
