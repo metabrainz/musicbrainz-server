@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-22 02:12+0000\n"
+"PO-Revision-Date: 2026-05-28 19:12+0000\n"
 "Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
@@ -409,6 +409,10 @@ msgid ""
 "being played. Programs/programmes are most often made available for music "
 "festivals and for stage and classical performances."
 msgstr ""
+"イベントの参加者へ配布または販売される小冊子で、スケジュール、出演者の情報、"
+"演奏される楽曲の詳細など、イベントに関する情報が掲載されています。プログラム"
+"は、音楽フェスティバルや舞台公演、クラシックコンサートなどで最もよく配布され"
+"ます。"
 
 #. name:Box
 #: DB:release_packaging/description:19
@@ -472,6 +476,10 @@ msgid ""
 "just a scaled down version of the poster, both types can be added to the "
 "same image."
 msgstr ""
+"一般的にポスターよりも小さいサイズの印刷物で、通常はイベントの事前告知や参加"
+"者への追加情報の提供を目的として印刷・配布されます。イベントのフライヤーが単"
+"にポスターを縮小したものである場合、両方タイプを同じ画像に設定することができ"
+"ます。"
 
 #. name:Ticket
 #: DB:event_art_archive.art_type/description:2
@@ -480,6 +488,8 @@ msgid ""
 "A document generally used for admission to the event, whether physical or "
 "digital. Use this also for ticket stubs and passes."
 msgstr ""
+"紙媒体またはデジタル形式かを問わず、一般的にイベント入場の際に使用される書類"
+"です。チケットの半券やパスについてもこれを使用してください。"
 
 #. name:Slipcase
 #: DB:release_packaging/description:122
@@ -488,6 +498,8 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
+"通常、段ボールやプラスチックで作られた4, 5面の箱で、ジュエルケースなどの内側"
+"のパッケージを包むものです。"
 
 #. name:Promotion
 #: DB:release_status/description:2
