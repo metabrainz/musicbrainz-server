@@ -159,7 +159,7 @@ sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
 # Enable local account registration and login, bypassing OAuth login with
 # MetaBrainz. This should only be enabled for development purposes.
-sub LOCAL_ACCOUNTS_ENABLED { 0 }
+sub LOCAL_ACCOUNTS_ENABLED { shift->DEVELOPMENT_SERVER }
 
 # SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
 # the "RequireSSL" attribute on Catalyst actions, which will redirect
