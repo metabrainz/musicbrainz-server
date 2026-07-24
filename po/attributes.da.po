@@ -3,11 +3,12 @@
 # Frederik “Freso” S. Olesen <email address hidden>, 2012
 # Frederik “Freso” S. Olesen <email address hidden>, 2014-2015
 # Lise Andersen <andersenlise@outlook.com>, 2026.
+# Lummerkurt <sondergaard1993@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-05 22:11+0000\n"
-"Last-Translator: Lise Andersen <andersenlise@outlook.com>\n"
+"PO-Revision-Date: 2026-06-13 08:12+0000\n"
+"Last-Translator: Lummerkurt <sondergaard1993@gmail.com>\n"
 "Language-Team: Danish <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/da/>\n"
 "Language: da\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -43,12 +44,12 @@ msgstr ""
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10* Acetat"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "10\" Shellak"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
