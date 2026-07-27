@@ -20,11 +20,12 @@
 # Kori Syusetu <kori@isnowgroup.net>, 2025.
 # ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
+# zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-18 20:11+0000\n"
-"Last-Translator: yyb987 <yyb987@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-05-22 02:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -32,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -83,7 +84,6 @@ msgstr ""
 
 #. name:social network
 #: DB:link_type/description:192
-#, fuzzy
 msgid ""
 "A social network page is an artist's own profile page on a <a href=\"https://"
 "en.wikipedia.org/wiki/Social_networking_service\" target=\"_blank\">social "
@@ -99,7 +99,7 @@ msgstr ""
 "と。一般的に、そのSNSでアカウントを作成すれば、そのアーティストと交流すること"
 "もできます。例えば、フレンドとして登録したり、アーティストが投稿したものにレ"
 "スを返したりすることができます。例えばFacebookのページやプロフィール、Last.fm"
-"のユーザー、X（旧ツイッター）、Instagram、Flickrのアカウントなどです。"
+"のユーザー、X（旧Twitter）、Instagram、Flickrのアカウントなどです。"
 
 #. name:social network
 #: DB:link_type/description:783
@@ -488,11 +488,8 @@ msgstr "ある場所から別に移転したが、一般的に同一と見なさ
 
 #. name:half
 #: DB:link_attribute_type/description:1019
-#, fuzzy
-#| msgid ""
-#| "Indicates a sibling with whom the artist has only one parent in common"
 msgid "Indicates a sibling with whom the artist has only one parent in common."
-msgstr "アーティストに共通の親が1人しかない兄弟を示す"
+msgstr "アーティストに共通の親が1人しかない兄弟を示す。"
 
 #. name:review
 #: DB:link_type/description:842
@@ -673,6 +670,13 @@ msgstr "このリリースグループがあるシリーズの一部であるこ
 #: DB:link_type/description:741
 msgid "Indicates that the release is part of a series."
 msgstr "このリリースがあるシリーズの一部であることを示します。"
+
+#. name:part of
+#: DB:link_type/description:1307
+#, fuzzy
+#| msgid "Indicates that the artist is part of a series."
+msgid "Indicates that the series is part of a series."
+msgstr "アーティストがシリーズの一部であることを示す。"
 
 #. name:part of
 #: DB:link_type/description:743
@@ -957,7 +961,20 @@ msgid ""
 "unknown!"
 msgstr ""
 "レコーディングをその演奏が行われた地域と結びつけます。細かい場所までは不明で"
-"ある場合にのみ使用してください。"
+"ある場合にのみ使用してください！"
+
+#. name:programmed in
+#: DB:link_type/description:1308
+#, fuzzy
+#| msgid ""
+#| "Links a recording to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a recording to the area it was programmed in. Use only when the place "
+"is unknown!"
+msgstr ""
+"レコーディングをその演奏が行われた地域と結びつけます。細かい場所までは不明で"
+"ある場合にのみ使用してください！"
 
 #. name:recorded in
 #: DB:link_type/description:698
@@ -1014,6 +1031,13 @@ msgstr "レコーディングをミックスが行われた場所へリンクし
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
+msgstr "レコーディングをその演奏が行われた場所と結びつけます。"
+
+#. name:programmed at
+#: DB:link_type/description:1309
+#, fuzzy
+#| msgid "Links a recording to the place it was produced at."
+msgid "Links a recording to the place it was programmed at."
 msgstr "レコーディングをその演奏が行われた場所と結びつけます。"
 
 #. name:recorded at
@@ -1106,7 +1130,20 @@ msgid ""
 "unknown!"
 msgstr ""
 "リリースをその演奏が行われた地域と結びつけます。細かい場所までは不明である場"
-"合にのみ使用してください。"
+"合にのみ使用してください！"
+
+#. name:programmed in
+#: DB:link_type/description:1311
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a release to the area it was programmed in. Use only when the place is "
+"unknown!"
+msgstr ""
+"リリースをその演奏が行われた地域と結びつけます。細かい場所までは不明である場"
+"合にのみ使用してください！"
 
 #. name:recorded in
 #: DB:link_type/description:699
@@ -1140,7 +1177,7 @@ msgid ""
 "when the place is unknown!"
 msgstr ""
 "（アナログ盤の）カッティングが行われたエリアにリンクする。 場所が不明な場合の"
-"み使用のこと。"
+"み使用！"
 
 #. name:lacquer cut
 #: DB:link_type/description:969
@@ -1196,6 +1233,13 @@ msgstr "リリースをプレスされた場所へリンクします。"
 msgid "Links a release to the place it was produced at."
 msgstr "リリースをその演奏が行われた場所と結びつけます。"
 
+#. name:programmed at
+#: DB:link_type/description:1310
+#, fuzzy
+#| msgid "Links a release to the place it was produced at."
+msgid "Links a release to the place it was programmed at."
+msgstr "リリースをその演奏が行われた場所と結びつけます。"
+
 #. name:recorded at
 #: DB:link_type/description:695
 msgid "Links a release to the place it was recorded at."
@@ -1220,7 +1264,7 @@ msgid ""
 "Not the same as mastered!"
 msgstr ""
 "リリースを（CD・DVD複製）プレス用のグラスマスターが作成された場所にリンクす"
-"る。 マスターとは異なる。"
+"る。 マスターとは違います！"
 
 #. name:lacquer cut at
 #: DB:link_type/description:968
@@ -1349,11 +1393,8 @@ msgstr "バンドの演奏開始予定時刻の現地時間を HH:MM の書式�
 
 #. name:meane vocals
 #: DB:link_attribute_type/description:1060
-#, fuzzy
-#| msgid ""
-#| "Meane or mean is a young male singer with a voice lower than a treble"
 msgid "Meane or mean is a young male singer with a voice lower than a treble."
-msgstr "Meaneまたはmeanは、treble より低音の若い男性歌手を示す"
+msgstr "Meaneまたはmeanは、ボーイ・ソプラノより低音の若い男性歌手を示す。"
 
 #. name:myspace
 #: DB:link_type/link_phrase:215 DB:link_type/link_phrase:462
@@ -1395,7 +1436,7 @@ msgstr "このリリースのBookBrainzページを指します。"
 #. name:BookBrainz
 #: DB:link_type/description:1167
 msgid "Points to the BookBrainz page for this series."
-msgstr ""
+msgstr "このシリーズのBookBrainzページを指します。"
 
 #. name:BookBrainz
 #: DB:link_type/description:854
@@ -1419,133 +1460,93 @@ msgstr "この場所のInternet Moive Databaseページを指します。"
 
 #. name:wikidata
 #: DB:link_type/description:358
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this area, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"この地域のWikidata ページを指し、Wikipediaでの要約と画像を取得するために使用"
+"される。"
 
 #. name:wikidata
 #: DB:link_type/description:352
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this artist, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"このアーティストのWikidata ページを指し、Wikipediaでの要約と画像を取得するた"
+"めに使用される。"
 
 #. name:wikidata
 #: DB:link_type/description:790
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this event, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"このイベントのWikidataページを指し、Wikipediaでの要約と画像を取得するために使"
+"用される。"
 
 #. name:wikidata
 #: DB:link_type/description:1087
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this genre, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"このジャンルのWikidataページを指し、Wikipediaでの要約と画像を取得するために使"
+"用される。"
 
 #. name:wikidata
 #: DB:link_type/description:733
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this instrument, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"この楽器のWikidataページを指し、Wikipediaでの要約と画像を取得するために使用さ"
+"れる。"
 
 #. name:wikidata
 #: DB:link_type/description:354
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this label, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"このレーベルのWikidataページを指し、Wikipediaでの要約と画像を取得するために使"
+"用される。"
 
 #. name:wikidata
 #: DB:link_type/description:594
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this place, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"この場所のWikidataページを指し、Wikipediaでの要約と画像を取得するために使用さ"
+"れる。"
 
 #. name:wikidata
 #: DB:link_type/description:353
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this release group, and will be used to "
 "fetch Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"このリリースグループのWikidataページを指し、Wikipediaでの要約と画像を取得する"
+"ために使用される。"
 
 #. name:wikidata
 #: DB:link_type/description:749
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this series, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"このシリーズのWikidataページを指し、Wikipediaでの要約と画像を取得するために使"
+"用される。"
 
 #. name:wikidata
 #: DB:link_type/description:351
-#, fuzzy
-#| msgid ""
-#| "Points to the Wikidata page for this release group, and will be used to "
-#| "fetch Wikipedia summaries"
 msgid ""
 "Points to the Wikidata page for this work, and will be used to fetch "
 "Wikipedia summaries."
 msgstr ""
-"このリリースグループでの Wikidata ページを指し、Wikipedia での要約と画像を取"
-"得するために使用される"
+"この作品のWikidataページを指し、Wikipediaでの要約と画像を取得するために使用さ"
+"れる。"
 
 #. name:wikipedia
 #: DB:link_type/description:89
@@ -1574,17 +1575,13 @@ msgstr "この楽器での Wikidata ページを指す。"
 
 #. name:wikipedia
 #: DB:link_type/description:216
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place"
 msgid "Points to the Wikipedia page for this label."
-msgstr "この場所のWikipediaページを指します"
+msgstr "このレーベルのWikipediaページを指します。"
 
 #. name:wikipedia
 #: DB:link_type/description:595
-#, fuzzy
-#| msgid "Points to the Wikipedia page for this place"
 msgid "Points to the Wikipedia page for this place."
-msgstr "この場所のWikipediaページを指します"
+msgstr "この場所のWikipediaページを指します。"
 
 #. name:wikipedia
 #: DB:link_type/description:744
@@ -1708,17 +1705,17 @@ msgstr "{entity1}の歌詞は{additional:補助的に}{entity0}によって書�
 #. name:download for free
 #: DB:link_type/long_link_phrase:274
 msgid "The score for {entity1} can be downloaded for free at {entity0}"
-msgstr "{entity1}のスコアは、{entity0}から無料でダウンロード可能です。"
+msgstr "{entity1}のスコアは、{entity0}から無料でダウンロード可能です"
 
 #. name:purchase for download
 #: DB:link_type/long_link_phrase:912
 msgid "The score for {entity1} can be purchased for download at {entity0}"
-msgstr "{entity1}のスコアは、{entity0}からダウンロード購入可能です。"
+msgstr "{entity1}のスコアは、{entity0}からダウンロード購入可能です"
 
 #. name:purchase for mail-order
 #: DB:link_type/long_link_phrase:913
 msgid "The score for {entity1} can be purchased for mail-order at {entity0}"
-msgstr "{entity1}のスコアは、{entity0}でメール注文可能です。"
+msgstr "{entity1}のスコアは、{entity0}でメール注文可能です"
 
 #. name:publishes series
 #: DB:link_type/description:933
@@ -1760,25 +1757,25 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "本属性は、パフォーマーが通常バンドのパートではない「ゲスト」 パフォーマンスで"
 "あることを示す。"
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates a member the band is named after and without "
-#| "which it wouldn't exist (e.g. Miles Davis -&gt; Miles Davis Sextet)"
 msgid ""
 "This attribute indicates a member the band is named after and without which "
 "it wouldn't exist (such as Miles Davis -&gt; Miles Davis Sextet)."
 msgstr ""
 "本属性は、バンド名に名前が付けられ、その人なしでは存在しなかった重要メンバー"
-"を示す（例：Miles Davis-＆gt; Miles Davis Sextet）"
+"を示す。（例：Miles Davis-＆gt; Miles Davis Sextet）"
 
 #. name:parody
 #: DB:link_attribute_type/description:511
@@ -1966,6 +1963,8 @@ msgid ""
 "This describes a situation where an artist (generally a group) changed its "
 "name, leading to the start of a new project."
 msgstr ""
+"これは、アーティスト（多くの場合はグループ）が改名し、新たなプロジェクトとし"
+"て開始されたことを示す。"
 
 #. name:label ownership
 #: DB:link_type/description:200
@@ -2607,16 +2606,12 @@ msgstr ""
 
 #. name:parts
 #: DB:link_type/description:281
-#, fuzzy
-#| msgid ""
-#| "This indicates that a work is made up of multiple parts (e.g. an "
-#| "orchestral suite broken into movements)"
 msgid ""
 "This indicates that a work is made up of multiple parts (such as an "
 "orchestral suite broken into movements)."
 msgstr ""
-"これは、作品が複数のパーツで構成されていることを示す（例：オーケストラスイー"
-"トが楽章単位で分割されている）"
+"これは、作品が複数のパーツで構成されていることを示す（オーケストラスイートに"
+"おける楽章単位での分割など）。"
 
 #. name:video appearance
 #: DB:link_type/description:858
@@ -3004,19 +2999,14 @@ msgstr "これは、このリリースで演奏した合唱団のコーラスマ
 
 #. name:glass mastered
 #: DB:link_type/description:955
-#, fuzzy
-#| msgid ""
-#| "This indicates the company that made the glass master for a release. This "
-#| "is <strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>, nor as mastering engineering."
 msgid ""
 "This indicates the company that made the glass master for a release. This is "
 "<strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>, nor as mastering engineering."
 msgstr ""
 "これは、リリース用のガラスマスターを作成した会社を示しています。 これは、<a "
-"href=\"/doc/Label\">レコードレーベル</a>やマスタリングエンジニアリングと同じ"
-"概念<strong>ではない</strong>。"
+"href=\"/doc/Label\" target=\"_blank\">レコードレーベル</a>やマスタリングエン"
+"ジニアリングと同じ概念<strong>ではない</strong>。"
 
 #. name:owner
 #: DB:link_type/description:989
@@ -4937,13 +4927,6 @@ msgstr ""
 
 #. name:VIAF
 #: DB:link_type/description:1001
-#, fuzzy
-#| msgid ""
-#| "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this artist. "
-#| "VIAF is an international project to make a common authority file "
-#| "available to libraries across the world. An authority file is similar to "
-#| "an MBID for libraries. (<a href=\"//en.wikipedia.org/wiki/"
-#| "Virtual_International_Authority_File\">more information on Wikipedia</a>)"
 msgid ""
 "This points to the <a href=\"//viaf.org/\">VIAF</a> page for this series. "
 "VIAF is an international project to make a common authority file available "
@@ -4951,9 +4934,9 @@ msgid ""
 "libraries (<a href=\"//en.wikipedia.org/wiki/"
 "Virtual_International_Authority_File\">more information on Wikipedia</a>)."
 msgstr ""
-"これは、このアーティストの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAF"
-"は、世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェ"
-"クトである。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//"
+"これは、このシリーズの<a href=\"//viaf.org/\">VIAF</a>ページを指す。 VIAFは、"
+"世界中の図書館が共通の典拠ファイルを利用できるようにする国際的なプロジェクト"
+"である。 典拠ファイルは、図書館のMBIDと類似する （<a href=\"//"
 "en.wikipedia.org/wiki/Virtual_International_Authority_File\">Wikipedia の詳細"
 "</a>）。"
 
@@ -5207,13 +5190,6 @@ msgstr ""
 
 #. name:writer
 #: DB:link_type/description:167
-#, fuzzy
-#| msgid ""
-#| "This relationship is used to link a work to the artist responsible for "
-#| "writing the music and/or the words (lyrics, libretto, etc.), when no more "
-#| "specific information is available. If possible, the more specific "
-#| "composer, lyricist and/or librettist types should be used, rather than "
-#| "this relationship type."
 msgid ""
 "This relationship is used to link a work to the artist responsible for "
 "writing the music and/or the words (lyrics, libretto, etc.), when no more "
@@ -5224,9 +5200,11 @@ msgid ""
 "It is also used for the writers of literary works."
 msgstr ""
 "この関係は、具体的な情報がない場合に、音楽や単語（歌詞、台本など）の作成を担"
-"当するアーティストに作品をリンクするために使用される。 可能であれば、この関係"
-"タイプではなく、より具体的な作曲家、作詞家、台本家のタイプを使用する必要があ"
-"る。"
+"当するアーティストに作品をリンクするために使用されます。 可能であれば、この関"
+"係タイプではなく、より具体的な作曲家、作詞家、台本家のタイプを使用する必要が"
+"ある。\n"
+"\n"
+"また、文学作品の著者にも用いられます。"
 
 #. name:residency
 #: DB:link_type/description:994
@@ -5358,10 +5336,8 @@ msgstr ""
 
 #. name:blog
 #: DB:link_type/description:627
-#, fuzzy
-#| msgid "This relationship type can be used to link a place to its blog"
 msgid "This relationship type can be used to link a place to its blog."
-msgstr "この関係タイプは、場所をそのブログにリンク可能である"
+msgstr "この関係タイプは、場所をそのブログにリンク可能である。"
 
 #. name:IMDB samples
 #: DB:link_type/description:258
@@ -5443,13 +5419,6 @@ msgstr ""
 
 #. name:re‐recording
 #: DB:link_type/description:1229
-#, fuzzy
-#| msgid ""
-#| "This relationship type is used to indicate that a release group is a "
-#| "cover version of another release group, i.e. when an artist performs a "
-#| "new rendition of another artist's album.<br/>\n"
-#| "For individual songs, see the <a href=\"/relationship/a3005666-a872-32c3-"
-#| "ad06-98af558e99b0\">recording-work performance relationship type</a>."
 msgid ""
 "This relationship type is used to indicate that a release group is a re‐"
 "recording of another release group, that is, when an artist performs a new "
@@ -5466,7 +5435,10 @@ msgstr ""
 "バムの新しいレンディションを実行する場合である。<br/>\n"
 "個々の曲については、<a href=\"/relationship/a3005666-a872-32c3-"
 "ad06-98af558e99b0\">レコーディング作業パフォーマンスの関係タイプ</a>を参照の"
-"こと。"
+"こと。\n"
+"異なるアーティストのアルバムによるカバーレコーディングについては、<a href=\"/"
+"relationship/cf02e524-9d5b-46b7-a88e-329737395818\">カバー関係タイプ</a>を参"
+"照のこと。"
 
 #. name:streaming
 #: DB:link_type/description:1005
@@ -5697,16 +5669,12 @@ msgstr ""
 
 #. name:setlistfm
 #: DB:link_type/description:938
-#, fuzzy
-#| msgid ""
-#| "This relationship type links a series (like a festival) to its "
-#| "corresponding page at setlist.fm"
 msgid ""
 "This relationship type links a series (like a festival) to its corresponding "
 "page at setlist.fm."
 msgstr ""
 "この関係タイプは、シリーズ（フェスティバルなど）を setlist.fm の対応するペー"
-"ジにリンクする"
+"ジにリンクする。"
 
 #. name:art gallery
 #: DB:link_type/description:1192
@@ -5914,16 +5882,12 @@ msgstr ""
 
 #. name:treble vocals
 #: DB:link_attribute_type/description:834
-#, fuzzy
-#| msgid ""
-#| "Treble or boy soprano is a young male singer with an unchanged voice in "
-#| "the soprano range"
 msgid ""
 "Treble or boy soprano is a young male singer with an unchanged voice in the "
 "soprano range."
 msgstr ""
 "トレブルまたはボーイソプラノは、ソプラノの範囲で声が変わらない若い男性歌手で"
-"ある"
+"ある。"
 
 #. name:number
 #: DB:link_attribute_type/description:1032
@@ -5951,138 +5915,95 @@ msgstr ""
 
 #. name:arranged for
 #: DB:link_type/description:949
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was arranged by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was arranged by X for "
 "Label”."
 msgstr ""
-"この関係は、「レコーディングはX レベールによってアレンジされた」などのクレ"
-"ジットに使用する。"
+"この関係は「レコーディングはレベールのXによって編曲された」などのクレジットに"
+"使用する。"
 
 #. name:edited for
 #: DB:link_type/description:1252 DB:link_type/description:1253
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was edited by X for Label”."
 msgstr ""
-"この関係は、「レコーディングはレーベルのXによってミックスされた」などのクレ"
+"この関係は「レコーディングはレーベルのXによってエディットされた」などのクレ"
 "ジットに使用する。"
 
 #. name:mixed for
 #: DB:link_type/description:946
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was mixed by X for Label”."
 msgstr ""
-"この関係は、「レコーディングはレーベルのXによってミックスされた」などのクレ"
-"ジットに使用する。"
+"この関係は「レコーディングはレーベルのXによってミックスされた」などのクレジッ"
+"トに使用する。"
 
 #. name:produced for
 #: DB:link_type/description:950
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was produced by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was produced by X for "
 "Label”."
 msgstr ""
-"この関係は、「レコーディングはレーベルの X によってプロデュースされた」などの"
-"クレジットにこの関係を使用する"
+"この関係は「レコーディングはレーベルのXによってプロデュースされた」などのクレ"
+"ジットにこの関係を使用する。"
 
 #. name:remixed for
 #: DB:link_type/description:1178
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Recording was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Recording was remixed by X for "
 "Label”."
 msgstr ""
-"この関係は、「レコーディングはレーベルのXによってミックスされた」などのクレ"
+"この関係は「レコーディングはレーベルのXによってリミックスされた」などのクレ"
 "ジットに使用する。"
 
 #. name:arranged for
 #: DB:link_type/description:948
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was arranged by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was arranged by X for Label”."
 msgstr ""
-"この関係は、「リリースはレーベルのX によってアレンジされた」などのクレジット"
-"に使用する。"
+"この関係は「リリースはレーベルのX によって編曲された」などのクレジットに使用"
+"する。"
 
 #. name:manufactured for
 #: DB:link_type/description:952
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was manufactured by X "
-#| "for Label\""
 msgid ""
 "Use this relationship for credits like “Release was manufactured by X for "
 "Label”."
 msgstr ""
-"この関係は、「リリースはレーベルの X によって製造された」などのクレジットに使"
-"用する。"
+"この関係は「リリースはレーベルのXによって製造された」などのクレジットに使用す"
+"る。"
 
 #. name:mastered for
 #: DB:link_type/description:1183
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was mastered by X for Label”."
 msgstr ""
-"「リリースはラベルの X によってミックスされた」などのクレジットにこの関係を使"
-"用する"
+"「リリースはレーベルのXによってマスタリングされた」などのクレジットにこの関係"
+"を使用する。"
 
 #. name:mixed for
 #: DB:link_type/description:947
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was mixed by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was mixed by X for Label”."
 msgstr ""
-"「リリースはラベルの X によってミックスされた」などのクレジットにこの関係を使"
-"用する"
+"「リリースはレーベルのXによってミックスされた」などのクレジットにこの関係を使"
+"用する。"
 
 #. name:produced for
 #: DB:link_type/description:951
-#, fuzzy
-#| msgid ""
-#| "Use this relationship for credits like \"Release was produced by X for "
-#| "Label\""
 msgid ""
 "Use this relationship for credits like “Release was produced by X for Label”."
 msgstr ""
-"「リリースはレーベルの X によってプロデュースされた」などのクレジットにこの関"
-"係を使用する"
+"「リリースはレーベルのXによってプロデュースされた」などのクレジットにこの関係"
+"を使用する。"
 
 #. name:pre
 #: DB:link_attribute_type/description:1353
-#, fuzzy
-#| msgid ""
-#| "Use this to indicate that the mastering relationship is specifically for "
-#| "a remaster."
 msgid ""
 "Use this to indicate that the mastering relationship is specifically for a "
 "pre-master."
-msgstr "これを使用して、マスタリング関係がリマスター専用であることを示す。"
+msgstr ""
+"これを使用して、マスタリング関係がプリマスタリング専用であることを示す。"
 
 #. name:re
 #: DB:link_attribute_type/description:952
@@ -6527,12 +6448,12 @@ msgstr "存在するリリース"
 #. name:award ceremony
 #: DB:link_type/name:1094 DB:link_type/link_phrase:1094
 msgid "award ceremony"
-msgstr ""
+msgstr "授賞式"
 
 #. name:award ceremony
 #: DB:link_type/reverse_link_phrase:1094
 msgid "award ceremony for"
-msgstr ""
+msgstr "次の授賞式"
 
 #: DB:link_attribute_type/name:1137
 msgid "bachelor’s degree"
@@ -7130,7 +7051,7 @@ msgstr "次のディスコグラフィー項目"
 
 #: DB:link_type/name:184
 msgid "discography page"
-msgstr ""
+msgstr "ディスコグラフィーページ"
 
 #. name:discography page
 #: DB:link_type/reverse_link_phrase:184
@@ -7307,11 +7228,11 @@ msgstr "エンジニアポジション"
 msgid "engineer position at"
 msgstr ""
 
-#: DB:link_type/name:813 DB:link_type/name:812
+#: DB:link_type/name:812 DB:link_type/name:813
 msgid "engineered at"
 msgstr ""
 
-#: DB:link_type/name:814 DB:link_type/name:815
+#: DB:link_type/name:815 DB:link_type/name:814
 msgid "engineered in"
 msgstr ""
 
@@ -7466,7 +7387,7 @@ msgstr "{video}の無料楽曲配信ページ"
 #: DB:link_type/name:997 DB:link_type/name:268 DB:link_type/name:85
 #: DB:link_type/name:194
 msgid "free streaming"
-msgstr ""
+msgstr "無料配信"
 
 #. name:genre origin, name:instrument origin
 #: DB:link_type/reverse_link_phrase:1088 DB:link_type/reverse_link_phrase:752
@@ -7743,7 +7664,7 @@ msgstr "のブログのURLは"
 #. name:a cappella
 #: DB:link_type/long_link_phrase:1238
 msgid "has a cappella version"
-msgstr ""
+msgstr "のアカペラバージョンは"
 
 #. name:catalog site
 #: DB:link_type/long_link_phrase:212
@@ -7766,7 +7687,7 @@ msgstr "のディスコグラフィーは"
 #. name:discography page
 #: DB:link_type/long_link_phrase:184
 msgid "has a discography page at"
-msgstr ""
+msgstr "のディスコグラフィーページは"
 
 #. name:fanpage
 #: DB:link_type/long_link_phrase:214 DB:link_type/long_link_phrase:172
@@ -7778,12 +7699,12 @@ msgstr "のファンページのURLは"
 #. name:karaoke
 #: DB:link_type/long_link_phrase:226
 msgid "has a karaoke version"
-msgstr ""
+msgstr "のカラオケバージョンは"
 
 #. name:logo
 #: DB:link_type/long_link_phrase:1288 DB:link_type/long_link_phrase:213
 msgid "has a logo at"
-msgstr ""
+msgstr "のロゴは"
 
 #. name:misc
 #: DB:link_type/long_link_phrase:129 DB:link_type/long_link_phrase:25
@@ -7805,7 +7726,7 @@ msgstr "のデータベース内のページは"
 #: DB:link_type/long_link_phrase:898 DB:link_type/long_link_phrase:899
 #: DB:link_type/long_link_phrase:897
 msgid "has a patronage page at"
-msgstr ""
+msgstr "の支援ページは"
 
 #. name:image
 #: DB:link_type/long_link_phrase:173 DB:link_type/long_link_phrase:396
@@ -7816,7 +7737,7 @@ msgstr "の画像のURLは"
 #. name:review
 #: DB:link_type/long_link_phrase:94 DB:link_type/long_link_phrase:842
 msgid "has a review page at"
-msgstr ""
+msgstr "のレビューページは"
 
 #. name:schedule
 #: DB:link_type/long_link_phrase:1083 DB:link_type/long_link_phrase:1302
@@ -7827,7 +7748,7 @@ msgstr ""
 #: DB:link_type/long_link_phrase:811 DB:link_type/long_link_phrase:816
 #: DB:link_type/long_link_phrase:817 DB:link_type/long_link_phrase:938
 msgid "has a setlist.fm page at"
-msgstr ""
+msgstr "のsetlist.fmページは"
 
 #. name:social network
 #: DB:link_type/long_link_phrase:784 DB:link_type/long_link_phrase:783
@@ -7839,14 +7760,14 @@ msgstr "のSNSページのURLは"
 #. name:official homepage
 #: DB:link_type/long_link_phrase:287
 msgid "has a standalone website at"
-msgstr ""
+msgstr "のスタンドアロンウェブサイトは"
 
 #. name:ticketing
 #: DB:link_type/long_link_phrase:1193 DB:link_type/long_link_phrase:1194
 #: DB:link_type/long_link_phrase:1195 DB:link_type/long_link_phrase:1196
 #: DB:link_type/long_link_phrase:1197
 msgid "has a ticketing page at"
-msgstr ""
+msgstr "のチケットページは"
 
 #. name:adaptation
 #: DB:link_type/long_link_phrase:1284
@@ -7877,7 +7798,7 @@ msgstr "のIMSLPページのURLは"
 #. name:art gallery
 #: DB:link_type/long_link_phrase:1192
 msgid "has an art gallery at"
-msgstr ""
+msgstr "のアートギャラリーは"
 
 #. name:interview
 #: DB:link_type/long_link_phrase:707
@@ -7908,7 +7829,7 @@ msgstr "の公式動画チャンネルのURLは"
 #. name:online community
 #: DB:link_type/long_link_phrase:185
 msgid "has an online community page at"
-msgstr ""
+msgstr "のオンラインコミュニティページは"
 
 #. name:arrangement
 #: DB:link_type/long_link_phrase:350
@@ -7918,7 +7839,7 @@ msgstr ""
 #. name:award ceremony
 #: DB:link_type/long_link_phrase:1094
 msgid "has award ceremony"
-msgstr ""
+msgstr "の授賞式は"
 
 #. name:has catalogue
 #: DB:link_type/name:750 DB:link_type/link_phrase:750
@@ -7962,10 +7883,8 @@ msgstr ""
 
 #. name:instrumental
 #: DB:link_type/long_link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "has instrumental version"
-msgstr "楽器"
+msgstr "のインストルメンタルバージョン"
 
 #. name:history site
 #: DB:link_type/long_link_phrase:984 DB:link_type/long_link_phrase:211
@@ -8282,17 +8201,13 @@ msgstr ""
 
 #. name:instrumental
 #: DB:link_type/reverse_link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "instrumental version of"
-msgstr "楽器"
+msgstr "次のインストルメンタルバージョン"
 
 #. name:instrumental
 #: DB:link_type/link_phrase:1239
-#, fuzzy
-#| msgid "instrumental"
 msgid "instrumental versions"
-msgstr "楽器"
+msgstr "インストルメンタルバージョン"
 
 #. name:instrument origin
 #: DB:link_type/link_phrase:752
@@ -8589,11 +8504,6 @@ msgid "jury member"
 msgstr ""
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr ""
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr ""
@@ -8799,7 +8709,7 @@ msgstr "次のロゴ"
 #. name:logo
 #: DB:link_type/link_phrase:1288 DB:link_type/link_phrase:213
 msgid "logos"
-msgstr ""
+msgstr "ロゴ"
 
 #: DB:link_type/name:1047
 msgid "lyrical quotation"
@@ -9139,12 +9049,12 @@ msgstr "ミュージックビデオ"
 #. name:music video
 #: DB:link_type/reverse_link_phrase:857
 msgid "music video for"
-msgstr ""
+msgstr "次のミュージックビデオ"
 
 #. name:music video
 #: DB:link_type/link_phrase:857
 msgid "music videos"
-msgstr ""
+msgstr "ミュージックビデオ"
 
 #: DB:link_type/name:1046
 msgid "musical quotation"
@@ -9633,7 +9543,7 @@ msgstr ""
 
 #: DB:link_attribute_type/name:1353
 msgid "pre"
-msgstr ""
+msgstr "プリ(pre)"
 
 #: DB:link_type/name:845 DB:link_type/name:715 DB:link_type/name:716
 #: DB:link_type/name:956
@@ -9746,7 +9656,7 @@ msgstr "印刷された地域"
 msgid "printing location for"
 msgstr "この地域で印刷されたリリース"
 
-#: DB:link_type/name:825 DB:link_type/name:824
+#: DB:link_type/name:824 DB:link_type/name:825
 msgid "produced at"
 msgstr ""
 
@@ -9754,7 +9664,7 @@ msgstr ""
 msgid "produced for"
 msgstr ""
 
-#: DB:link_type/name:827 DB:link_type/name:826
+#: DB:link_type/name:826 DB:link_type/name:827
 msgid "produced in"
 msgstr ""
 
@@ -9805,10 +9715,20 @@ msgstr "プロダクションコーディネーター"
 
 #. name:production coordinator
 #: DB:link_type/link_phrase:1267
-#, fuzzy
-#| msgid "{additional} recording location for"
 msgid "production coordinator for"
-msgstr "ここで{additional:補助的に}録音されたレコーディングまたはリリース"
+msgstr "のプロダクションコーディネーター"
+
+#: DB:link_type/name:1309 DB:link_type/name:1310
+#, fuzzy
+#| msgid "programming"
+msgid "programmed at"
+msgstr "プログラミング"
+
+#: DB:link_type/name:1311 DB:link_type/name:1308
+#, fuzzy
+#| msgid "programming"
+msgid "programmed in"
+msgstr "プログラミング"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -9932,10 +9852,8 @@ msgstr ""
 
 #. name:purchase artwork
 #: DB:link_type/name:1254 DB:link_type/link_phrase:1254
-#, fuzzy
-#| msgid "purchase for download"
 msgid "purchase artwork"
-msgstr "ダウンロード販売"
+msgstr "アートワーク販売"
 
 #. name:purchase for download
 #: DB:link_type/name:912 DB:link_type/name:959 DB:link_type/name:254
@@ -10124,7 +10042,7 @@ msgstr "リマスター版"
 #. name:remaster
 #: DB:link_type/reverse_link_phrase:236
 msgid "remasters"
-msgstr ""
+msgstr "リマスター"
 
 #: DB:link_type/name:230 DB:link_type/name:9
 msgid "remix"
@@ -10172,12 +10090,12 @@ msgstr "リミックスと編集"
 #. name:artist rename, name:label rename
 #: DB:link_type/reverse_link_phrase:202 DB:link_type/reverse_link_phrase:1079
 msgid "renamed from"
-msgstr ""
+msgstr "次から改名"
 
 #. name:artist rename, name:label rename
 #: DB:link_type/link_phrase:202 DB:link_type/link_phrase:1079
 msgid "renamed into"
-msgstr ""
+msgstr "次に改名"
 
 #. name:replaced by
 #: DB:link_type/reverse_link_phrase:1009
@@ -10900,13 +10818,6 @@ msgstr ""
 msgid "was a conductor at"
 msgstr ""
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-#, fuzzy
-#| msgid "has a picture at"
-msgid "was a jury member at"
-msgstr "の画像のURLは"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10944,6 +10855,13 @@ msgstr ""
 msgid "was a supporting DJ at"
 msgstr ""
 
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "has a picture at"
+msgid "was a {guest} jury member at"
+msgstr "の画像のURLは"
+
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
 #, fuzzy
@@ -10971,10 +10889,8 @@ msgstr ""
 
 #. name:cinematographer
 #: DB:link_type/long_link_phrase:1245
-#, fuzzy
-#| msgid "{assistant} organists"
 msgid "was cinematographer for"
-msgstr "{assistant}オルガン奏者"
+msgstr "の撮影監督"
 
 #. name:commissioned
 #: DB:link_type/reverse_link_phrase:890 DB:link_type/reverse_link_phrase:889
@@ -11210,12 +11126,12 @@ msgid "{additional:additionally} edited in"
 msgstr ""
 
 #. name:engineered at
-#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
 msgid "{additional:additionally} engineered at"
 msgstr ""
 
 #. name:engineered in
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+#: DB:link_type/reverse_link_phrase:815 DB:link_type/reverse_link_phrase:814
 msgid "{additional:additionally} engineered in"
 msgstr ""
 
@@ -11243,12 +11159,12 @@ msgid "{additional:additionally} orchestrated"
 msgstr ""
 
 #. name:produced at
-#: DB:link_type/reverse_link_phrase:825 DB:link_type/reverse_link_phrase:824
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "{additional:additionally} produced at"
 msgstr ""
 
 #. name:produced in
-#: DB:link_type/reverse_link_phrase:827 DB:link_type/reverse_link_phrase:826
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
 msgid "{additional:additionally} produced in"
 msgstr ""
 
@@ -11536,10 +11452,8 @@ msgstr "{additional:補助的な}作者"
 
 #. name:animation
 #: DB:link_type/link_phrase:1243 DB:link_type/reverse_link_phrase:1243
-#, fuzzy
-#| msgid "{additional} illustration"
 msgid "{additional} animation"
-msgstr "{additional:補助的な}イラスト"
+msgstr "{additional:補助的な}アニメーション"
 
 #. name:arranged at, name:arranged in
 #: DB:link_type/link_phrase:865 DB:link_type/link_phrase:885
@@ -11604,8 +11518,8 @@ msgid "{additional} editing location for"
 msgstr "ここで{additional:補助的に}編集されたレコーディング"
 
 #. name:engineered at, name:engineered in
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
 msgid "{additional} engineering location for"
 msgstr "ここで{additional:補助的に}エンジニアリングされたレコーディング"
 
@@ -11720,8 +11634,8 @@ msgid "{additional} photography"
 msgstr ""
 
 #. name:produced at, name:produced in
-#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:826
-#: DB:link_type/link_phrase:825 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:825
 msgid "{additional} producing location for"
 msgstr "ここで{additional:補助的に}製作されたレコーディングまたはリリース"
 
@@ -11918,13 +11832,13 @@ msgstr "{additional:補助的な} {associate} {co:共同}編曲者"
 #: DB:link_type/reverse_link_phrase:158 DB:link_type/reverse_link_phrase:41
 #: DB:link_type/reverse_link_phrase:282
 msgid "{additional} {associate} {instrument:%|instruments} {co:co-}arranger"
-msgstr ""
+msgstr "{additional:補助的な} {associate} {instrument:%|楽器} {co:共同}編曲者"
 
 #. name:vocal arranger
 #: DB:link_type/reverse_link_phrase:294 DB:link_type/reverse_link_phrase:296
 #: DB:link_type/reverse_link_phrase:298
 msgid "{additional} {associate} {vocal:%|vocals} {co:co-}arranger"
-msgstr ""
+msgstr "{additional:補助的な} {associate} {vocal:%|ヴォーカル} {co:共同}編曲者"
 
 #. name:performer
 #: DB:link_type/reverse_link_phrase:51 DB:link_type/reverse_link_phrase:156
@@ -11942,6 +11856,14 @@ msgstr "{additional:補助的な} {guest} {solo} {instrument:%|楽器}"
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr "{additional:補助的な} {guest} {solo} {vocal:%|ヴォーカル}"
+
+#. name:programmed at, name:programmed in
+#: DB:link_type/link_phrase:1311 DB:link_type/link_phrase:1308
+#: DB:link_type/link_phrase:1309 DB:link_type/link_phrase:1310
+#, fuzzy
+#| msgid "{additional} recording location for"
+msgid "{additional} {instrument} programming location for"
+msgstr "ここで{additional:補助的に}録音されたレコーディングまたはリリース"
 
 #. name:collaboration
 #: DB:link_type/link_phrase:102
@@ -11974,6 +11896,7 @@ msgstr ""
 #: DB:link_type/link_phrase:756 DB:link_type/link_phrase:697
 msgid "{additional} {pre:pre-}{re}mastering location for"
 msgstr ""
+"ここで{additional:補助的に} {pre:プリ}{re:リ}マスタリングされたレコーディング"
 
 #. name:tour in support of
 #: DB:link_type/reverse_link_phrase:888
@@ -12118,7 +12041,7 @@ msgstr "{entity1}のクラウドファンディングページは{entity0}です
 #. name:fanpage
 #: DB:link_type/long_link_phrase:1188
 msgid "{entity1} has a fan page at {entity0}"
-msgstr ""
+msgstr "{entity1}のファンページは{entity0}です"
 
 #. name:other databases
 #: DB:link_type/long_link_phrase:273
@@ -12272,31 +12195,26 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/long_link_phrase:1303
-#, fuzzy
-#| msgid "provided {additional} artwork on"
 msgid "{entity1} provided {additional} artwork on {entity0}"
-msgstr "が{additional:補助的に}アートワークを担当した"
+msgstr "{entity1}が{additional:補助的に}{entity0}のアートワークを担当した"
 
 #. name:graphic design
 #: DB:link_type/long_link_phrase:1306
-#, fuzzy
-#| msgid "provided {additional} graphic design on"
 msgid "{entity1} provided {additional} graphic design on {entity0}"
-msgstr "が{additional:補助的に}グラフィックデザインを担当した"
+msgstr ""
+"{entity1}が{additional:補助的に}{entity0}のグラフィックデザインを担当した"
 
 #. name:illustration
 #: DB:link_type/long_link_phrase:1305
-#, fuzzy
-#| msgid "provided {additional} illustration on"
 msgid "{entity1} provided {additional} illustration on {entity0}"
-msgstr "が{additional:補助的に}イラストを担当した"
+msgstr "{entity1}が{additional:補助的に}{entity0}のイラストを担当した"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1304
-#, fuzzy
-#| msgid "provided {additional} {assistant} design on"
 msgid "{entity1} provided {additional} {assistant} design on {entity0}"
-msgstr "が{additional:補助的に} {assistant}デザインを担当した"
+msgstr ""
+"{entity1}が{additional:補助的に}{entity0}の{assistant:アシスタント}デザインを"
+"担当した"
 
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
@@ -12438,12 +12356,12 @@ msgid "{entity1} was {additional:additionally} edited in {entity0}"
 msgstr ""
 
 #. name:engineered at
-#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 msgid "{entity1} was {additional:additionally} engineered at {entity0}"
 msgstr ""
 
 #. name:engineered in
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+#: DB:link_type/long_link_phrase:815 DB:link_type/long_link_phrase:814
 msgid "{entity1} was {additional:additionally} engineered in {entity0}"
 msgstr ""
 
@@ -12458,14 +12376,28 @@ msgid "{entity1} was {additional:additionally} mixed in {entity0}"
 msgstr ""
 
 #. name:produced at
-#: DB:link_type/long_link_phrase:825 DB:link_type/long_link_phrase:824
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 msgid "{entity1} was {additional:additionally} produced at {entity0}"
 msgstr ""
 
 #. name:produced in
-#: DB:link_type/long_link_phrase:827 DB:link_type/long_link_phrase:826
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} recorded at {entity0}"
+msgid "{entity1} was {additional:additionally} programmed at {entity0}"
+msgstr "{entity1}を{additional:補助的に}レコーディングした場所は{entity0}"
+
+#. name:programmed in
+#: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} recorded at {entity0}"
+msgid "{entity1} was {additional:additionally} programmed in {entity0}"
+msgstr "{entity1}を{additional:補助的に}レコーディングした場所は{entity0}"
 
 #. name:recorded at
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
@@ -12570,6 +12502,13 @@ msgstr "{guest}コンサートマスター"
 msgid "{guest} concertmaster for"
 msgstr ""
 
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "has a picture at"
+msgid "{guest} jury member at"
+msgstr "の画像のURLは"
+
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"
@@ -12584,6 +12523,20 @@ msgstr "{instrument:%|楽器}技術者"
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/reverse_link_phrase:1309 DB:link_type/reverse_link_phrase:1310
+#, fuzzy
+#| msgid "orchestra {additional:additionally} performed"
+msgid "{instrument} {additional:additionally} programmed at"
+msgstr "が{additional:補助的に}オーケストラ演奏をしたのは"
+
+#. name:programmed in
+#: DB:link_type/reverse_link_phrase:1311 DB:link_type/reverse_link_phrase:1308
+#, fuzzy
+#| msgid "orchestra {additional:additionally} performed"
+msgid "{instrument} {additional:additionally} programmed in"
+msgstr "が{additional:補助的に}オーケストラ演奏をしたのは"
 
 #. name:parent
 #: DB:link_type/link_phrase:109

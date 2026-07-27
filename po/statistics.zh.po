@@ -15,12 +15,15 @@
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # dumbbird <dumbbirdvip@gmail.com>, 2026.
 # m67186636 <m67186636@gmail.com>, 2026.
+# 7Stars <7star@heqingpi.cn>, 2026.
+# sq <59799517@qq.com>, 2026.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-01-26 11:11+0000\n"
-"Last-Translator: m67186636 <m67186636@gmail.com>\n"
+"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -28,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.5\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1643,7 +1646,7 @@ msgstr "{name}媒体"
 
 #: ../root/statistics/stats.js:1156
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr ""
+msgstr "介质格式为 “{format}” 且带有封面的发行作品"
 
 #: ../root/statistics/stats.js:1169
 msgid "{type} instruments"
@@ -1671,55 +1674,59 @@ msgstr "{type}地点"
 
 #: ../root/statistics/stats.js:1231
 msgid "{first_entity_type}-{second_entity_type} Relationships"
-msgstr ""
+msgstr "{first_entity_type}-{second_entity_type} 关联关系"
 
 #: ../root/statistics/stats.js:1250
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
+"{first_entity_type_name}-{second_entity_type_name} “{relationship_type_name}"
+"” 关联条目"
 
 #: ../root/statistics/stats.js:1266
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
+"{first_entity_type_name}-{second_entity_type_name} “{relationship_type_name}"
+"” 包含子关联类型的关联关系"
 
 #: ../root/statistics/stats.js:1289 ../root/statistics/stats.js:1309
 msgid "{type} release groups"
-msgstr ""
+msgstr "{type} 发行组"
 
 #: ../root/statistics/stats.js:1296
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr ""
+msgstr "以“{type}”类型为组合发行的版本，封面艺术"
 
 #: ../root/statistics/stats.js:1320
 msgid "{script} releases"
-msgstr ""
+msgstr "{script} 发行"
 
 #: ../root/statistics/stats.js:1331
 msgid "{type} series"
-msgstr ""
+msgstr "{类型}系列"
 
 #: ../root/statistics/stats.js:1342
 msgid "{status} releases"
-msgstr ""
+msgstr "{状态} 发行"
 
 #: ../root/statistics/stats.js:1349
 msgid "Releases of status “{status}” with cover art"
-msgstr ""
+msgstr "发行带有封面艺术的“{status}”状态"
 
 #: ../root/statistics/stats.js:1366
 msgid "Works with attribute “{attribute}”"
-msgstr ""
+msgstr "适用于属性“{attribute}”"
 
 #: ../root/statistics/stats.js:1379
 msgid "{type} works"
-msgstr ""
+msgstr "{type} 作品"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
-msgstr ""
+msgstr "这是一个时间线"
 
 #~ msgid "Country"
 #~ msgstr "地区"
