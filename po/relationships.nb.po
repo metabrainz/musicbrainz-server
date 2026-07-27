@@ -3,12 +3,13 @@
 # CatQuest, The Endeavouring Cat, 2012
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
 # "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2024.
+# "ApeKattQuest, MonkeyPython" <ApeKattQuest_MonkeyPython@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-11-18 16:42+0000\n"
+"PO-Revision-Date: 2026-07-24 03:12+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<monkeypython+inst@yepmail.net>\n"
+"<ApeKattQuest_MonkeyPython@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
 "projects/musicbrainz/relationship-types/nb_NO/>\n"
 "Language: nb\n"
@@ -16,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -8885,7 +8886,7 @@ msgstr ""
 
 #: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
-msgstr ""
+msgstr "anmeldelse"
 
 #. name:review
 #: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
@@ -8895,7 +8896,7 @@ msgstr ""
 #. name:review
 #: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
-msgstr ""
+msgstr "anmeldelser"
 
 #. name:revised by
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
