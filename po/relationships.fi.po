@@ -609,6 +609,13 @@ msgid "Indicates that the release is part of a series."
 msgstr ""
 
 #. name:part of
+#: DB:link_type/description:1307
+#, fuzzy
+#| msgid "This indicates a person is a member of a group."
+msgid "Indicates that the series is part of a series."
+msgstr "Tämä osoittaa henkilön kuuluvan ryhmään."
+
+#. name:part of
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
 msgstr ""
@@ -849,6 +856,15 @@ msgid ""
 "unknown!"
 msgstr ""
 
+#. name:programmed in
+#: DB:link_type/description:1308
+#, fuzzy
+#| msgid "Links a release to the place it was mixed at."
+msgid ""
+"Links a recording to the area it was programmed in. Use only when the place "
+"is unknown!"
+msgstr "Yhdistää julkaisun paikkaan, missä sen ääniraidat yhdistettiin."
+
 #. name:recorded in
 #: DB:link_type/description:698
 msgid ""
@@ -899,6 +915,14 @@ msgstr "Yhdistaa äänitteen paikkaan, missä sen ääniraidat yhdistettiin."
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/description:1309
+#, fuzzy
+#| msgid "Links a recording to the place it was remixed at."
+msgid "Links a recording to the place it was programmed at."
+msgstr ""
+"Yhdistää äänitteen paikkaan, missä sen ääniraidat uudelleen yhdistettiin."
 
 #. name:recorded at
 #: DB:link_type/description:693
@@ -981,6 +1005,15 @@ msgid ""
 "unknown!"
 msgstr ""
 
+#. name:programmed in
+#: DB:link_type/description:1311
+#, fuzzy
+#| msgid "Links a release to the place it was mixed at."
+msgid ""
+"Links a release to the area it was programmed in. Use only when the place is "
+"unknown!"
+msgstr "Yhdistää julkaisun paikkaan, missä sen ääniraidat yhdistettiin."
+
 #. name:recorded in
 #: DB:link_type/description:699
 msgid ""
@@ -1057,6 +1090,13 @@ msgstr ""
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/description:1310
+#, fuzzy
+#| msgid "Links a release to the place it was mixed at."
+msgid "Links a release to the place it was programmed at."
+msgstr "Yhdistää julkaisun paikkaan, missä sen ääniraidat yhdistettiin."
 
 #. name:recorded at
 #: DB:link_type/description:695
@@ -6121,11 +6161,11 @@ msgstr "teknikko"
 msgid "engineer position at"
 msgstr "teknikko paikassa"
 
-#: DB:link_type/name:813 DB:link_type/name:812
+#: DB:link_type/name:812 DB:link_type/name:813
 msgid "engineered at"
 msgstr ""
 
-#: DB:link_type/name:814 DB:link_type/name:815
+#: DB:link_type/name:815 DB:link_type/name:814
 msgid "engineered in"
 msgstr ""
 
@@ -8560,7 +8600,7 @@ msgstr ""
 msgid "printing location for"
 msgstr ""
 
-#: DB:link_type/name:825 DB:link_type/name:824
+#: DB:link_type/name:824 DB:link_type/name:825
 msgid "produced at"
 msgstr ""
 
@@ -8568,7 +8608,7 @@ msgstr ""
 msgid "produced for"
 msgstr ""
 
-#: DB:link_type/name:827 DB:link_type/name:826
+#: DB:link_type/name:826 DB:link_type/name:827
 msgid "produced in"
 msgstr ""
 
@@ -8623,6 +8663,18 @@ msgstr "tuotanto"
 #: DB:link_type/link_phrase:1267
 msgid "production coordinator for"
 msgstr ""
+
+#: DB:link_type/name:1309 DB:link_type/name:1310
+#, fuzzy
+#| msgid "recorded at"
+msgid "programmed at"
+msgstr "äänityspaikka"
+
+#: DB:link_type/name:1311 DB:link_type/name:1308
+#, fuzzy
+#| msgid "recorded in"
+msgid "programmed in"
+msgstr "äänitysalue"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -10025,12 +10077,12 @@ msgid "{additional:additionally} edited in"
 msgstr ""
 
 #. name:engineered at
-#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
 msgid "{additional:additionally} engineered at"
 msgstr ""
 
 #. name:engineered in
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+#: DB:link_type/reverse_link_phrase:815 DB:link_type/reverse_link_phrase:814
 msgid "{additional:additionally} engineered in"
 msgstr ""
 
@@ -10060,12 +10112,12 @@ msgid "{additional:additionally} orchestrated"
 msgstr "{additional:additionally} orkestroinut"
 
 #. name:produced at
-#: DB:link_type/reverse_link_phrase:825 DB:link_type/reverse_link_phrase:824
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "{additional:additionally} produced at"
 msgstr ""
 
 #. name:produced in
-#: DB:link_type/reverse_link_phrase:827 DB:link_type/reverse_link_phrase:826
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
 msgid "{additional:additionally} produced in"
 msgstr ""
 
@@ -10408,8 +10460,8 @@ msgid "{additional} editing location for"
 msgstr ""
 
 #. name:engineered at, name:engineered in
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
 msgid "{additional} engineering location for"
 msgstr ""
 
@@ -10524,8 +10576,8 @@ msgid "{additional} photography"
 msgstr "{additional} valokuvaus"
 
 #. name:produced at, name:produced in
-#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:826
-#: DB:link_type/link_phrase:825 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:825
 msgid "{additional} producing location for"
 msgstr ""
 
@@ -10734,6 +10786,14 @@ msgstr "{additional:lisä}{guest:vieras}{instrument:%|soittimet}{solo}"
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr ""
+
+#. name:programmed at, name:programmed in
+#: DB:link_type/link_phrase:1311 DB:link_type/link_phrase:1308
+#: DB:link_type/link_phrase:1309 DB:link_type/link_phrase:1310
+#, fuzzy
+#| msgid "{additional} composer"
+msgid "{additional} {instrument} programming location for"
+msgstr "{additional}säveltäjä"
 
 #. name:collaboration
 #: DB:link_type/link_phrase:102
@@ -11233,12 +11293,12 @@ msgid "{entity1} was {additional:additionally} edited in {entity0}"
 msgstr ""
 
 #. name:engineered at
-#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 msgid "{entity1} was {additional:additionally} engineered at {entity0}"
 msgstr ""
 
 #. name:engineered in
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+#: DB:link_type/long_link_phrase:815 DB:link_type/long_link_phrase:814
 msgid "{entity1} was {additional:additionally} engineered in {entity0}"
 msgstr ""
 
@@ -11253,14 +11313,28 @@ msgid "{entity1} was {additional:additionally} mixed in {entity0}"
 msgstr ""
 
 #. name:produced at
-#: DB:link_type/long_link_phrase:825 DB:link_type/long_link_phrase:824
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 msgid "{entity1} was {additional:additionally} produced at {entity0}"
 msgstr ""
 
 #. name:produced in
-#: DB:link_type/long_link_phrase:827 DB:link_type/long_link_phrase:826
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
+#, fuzzy
+#| msgid "orchestra {additional:additionally} performed"
+msgid "{entity1} was {additional:additionally} programmed at {entity0}"
+msgstr "orkesteri {additional:lisäksi} esiintyi"
+
+#. name:programmed in
+#: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308
+#, fuzzy
+#| msgid "orchestra {additional:additionally} performed"
+msgid "{entity1} was {additional:additionally} programmed in {entity0}"
+msgstr "orkesteri {additional:lisäksi} esiintyi"
 
 #. name:recorded at
 #: DB:link_type/long_link_phrase:810 DB:link_type/long_link_phrase:809
@@ -11378,6 +11452,20 @@ msgstr ""
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/reverse_link_phrase:1309 DB:link_type/reverse_link_phrase:1310
+#, fuzzy
+#| msgid "orchestra {additional:additionally} performed"
+msgid "{instrument} {additional:additionally} programmed at"
+msgstr "orkesteri {additional:lisäksi} esiintyi"
+
+#. name:programmed in
+#: DB:link_type/reverse_link_phrase:1311 DB:link_type/reverse_link_phrase:1308
+#, fuzzy
+#| msgid "orchestra {additional:additionally} performed"
+msgid "{instrument} {additional:additionally} programmed in"
+msgstr "orkesteri {additional:lisäksi} esiintyi"
 
 #. name:parent
 #: DB:link_type/link_phrase:109

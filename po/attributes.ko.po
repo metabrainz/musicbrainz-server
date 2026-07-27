@@ -36,8 +36,8 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
-"”소나타”는 원래 바로크 음악에서 유래한 용어로, 소규모(대개 독주나 독주와 "
-"건반 악기의 합주) 기악곡을 지칭하는 총칭입니다."
+"”소나타”는 원래 바로크 음악에서 유래한 용어로, 소규모(대개 독주나 독주와 건"
+"반 악기의 합주) 기악곡을 지칭하는 총칭입니다."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
@@ -147,8 +147,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
-"90rpm, 수직 절삭 셸락 레코드판으로, 1906년부터 1932년까지 파테(Pathé) "
-"레이블에서 제작되었습니다."
+"90rpm, 수직 절삭 셸락 레코드판으로, 1906년부터 1932년까지 파테(Pathé) 레이블"
+"에서 제작되었습니다."
 
 #. name:Compilation
 #: DB:release_group_secondary_type/description:1
@@ -186,15 +186,15 @@ msgstr ""
 "포함합니다:</p>\n"
 "\n"
 "<ul>\n"
-"<li>다양한 오래된 소스(반드시 발매된 것은 아님)에서 가져온 녹음들을 모아 "
-"엮은 것, 예를 들어 \"베스트 오브\", 회고전, 희귀곡 모음집 형태의 "
-"음반입니다.</li>\n"
-"<li>일반적인 주제(\"연인을 위한 노래\"), 특정 시기(1998년대 히트곡), 또는 "
-"기타 분야(\"영화 속 노래\", \"Café del Mar\" 시리즈 등) 다양한 아티스트의 "
-"노래 모음집입니다.</li>\n"
+"<li>다양한 오래된 소스(반드시 발매된 것은 아님)에서 가져온 녹음들을 모아 엮"
+"은 것, 예를 들어 \"베스트 오브\", 회고전, 희귀곡 모음집 형태의 음반입니다.</"
+"li>\n"
+"<li>일반적인 주제(\"연인을 위한 노래\"), 특정 시기(1998년대 히트곡), 또는 기"
+"타 분야(\"영화 속 노래\", \"Café del Mar\" 시리즈 등) 다양한 아티스트의 노래 "
+"모음집입니다.</li>\n"
 "</ul>\n"
-"<p>MusicBrainz 프로젝트는 일반적으로 다음을 컴필레이션으로 간주하지 "
-"않습니다:</p>\n"
+"<p>MusicBrainz 프로젝트는 일반적으로 다음을 컴필레이션으로 간주하지 않습니다:"
+"</p>\n"
 "\n"
 "<ul>\n"
 "<li>보너스 트랙이 포함되어 있다 하더라도 앨범의 재발매판 </li>\n"
@@ -203,9 +203,9 @@ msgstr ""
 "<li>여러 아티스트의 신곡이 수록된 스플릿 음반</li>\n"
 "</ul>\n"
 "\n"
-"<p>컴필레이션은 다른 유형을 대체하는 것이 아니라, 다른 유형에 추가하여 "
-"사용해야합니다. 이를테면, 이미 발매된 음악을 사용한 여러 아티스트가 참여한 "
-"사운드트랙은 사운드트랙이자 컴필레이션으로 모두 표기해야 합니다.</p>"
+"<p>컴필레이션은 다른 유형을 대체하는 것이 아니라, 다른 유형에 추가하여 사용해"
+"야합니다. 이를테면, 이미 발매된 음악을 사용한 여러 아티스트가 참여한 사운드트"
+"랙은 사운드트랙이자 컴필레이션으로 모두 표기해야 합니다.</p>"
 
 #. name:Single
 #: DB:release_group_primary_type/description:2
@@ -477,6 +477,15 @@ msgid ""
 "use by the artist."
 msgstr ""
 
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -640,6 +649,15 @@ msgid ""
 "artists."
 msgstr ""
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -768,6 +786,20 @@ msgstr ""
 #: DB:series_type/description:2
 msgctxt "series_type"
 msgid "A series of releases."
+msgstr ""
+
+#. name:Series award
+#: DB:series_type/description:17
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr ""
+
+#. name:Series series
+#: DB:series_type/description:16
+msgctxt "series_type"
+msgid "A series of series."
 msgstr ""
 
 #. name:Work award
@@ -5446,6 +5478,11 @@ msgctxt "release_group_secondary_type"
 msgid "Live"
 msgstr ""
 
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
 msgid "Longa"
@@ -7592,6 +7629,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr ""
 
+#: DB:series_type/name:17
+msgctxt "series_type"
+msgid "Series award"
+msgstr ""
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7600,6 +7642,11 @@ msgstr ""
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
+msgstr ""
+
+#: DB:series_type/name:16
+msgctxt "series_type"
+msgid "Series series"
 msgstr ""
 
 #: DB:event_art_archive.art_type/name:3

@@ -711,6 +711,13 @@ msgid "Indicates that the release is part of a series."
 msgstr "Indique que la parution fait partie d’une série."
 
 #. name:part of
+#: DB:link_type/description:1307
+#, fuzzy
+#| msgid "Indicates that the artist is part of a series."
+msgid "Indicates that the series is part of a series."
+msgstr "Indique que l’artiste fait partie d’une série."
+
+#. name:part of
 #: DB:link_type/description:743
 msgid "Indicates that the work is part of a series."
 msgstr "Indique que l’œuvre fait partie d’une série."
@@ -990,6 +997,19 @@ msgstr ""
 "Relie un enregistrement à la région où il a été produit. À n’utiliser que "
 "lorsque le lieu est inconnu !"
 
+#. name:programmed in
+#: DB:link_type/description:1308
+#, fuzzy
+#| msgid ""
+#| "Links a recording to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a recording to the area it was programmed in. Use only when the place "
+"is unknown!"
+msgstr ""
+"Relie un enregistrement à la région où il a été produit. À n’utiliser que "
+"lorsque le lieu est inconnu !"
+
 #. name:recorded in
 #: DB:link_type/description:698
 msgid ""
@@ -1046,6 +1066,13 @@ msgstr "Relie un enregistrement au lieu où il a été mixé."
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
+msgstr "Relie un enregistrement au lieu où il a été produit."
+
+#. name:programmed at
+#: DB:link_type/description:1309
+#, fuzzy
+#| msgid "Links a recording to the place it was produced at."
+msgid "Links a recording to the place it was programmed at."
 msgstr "Relie un enregistrement au lieu où il a été produit."
 
 #. name:recorded at
@@ -1145,6 +1172,19 @@ msgstr ""
 "Relie une parution à la région où elle a été produite. À n’utiliser que "
 "lorsque le lieu est inconnu !"
 
+#. name:programmed in
+#: DB:link_type/description:1311
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a release to the area it was programmed in. Use only when the place is "
+"unknown!"
+msgstr ""
+"Relie une parution à la région où elle a été produite. À n’utiliser que "
+"lorsque le lieu est inconnu !"
+
 #. name:recorded in
 #: DB:link_type/description:699
 msgid ""
@@ -1229,6 +1269,13 @@ msgstr "Relie une parution au lieu où elle a été pressée."
 #. name:produced at
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
+msgstr "Relie une parution au lieu où elle a été produite."
+
+#. name:programmed at
+#: DB:link_type/description:1310
+#, fuzzy
+#| msgid "Links a release to the place it was produced at."
+msgid "Links a release to the place it was programmed at."
 msgstr "Relie une parution au lieu où elle a été produite."
 
 #. name:recorded at
@@ -7389,11 +7436,11 @@ msgstr "poste d’ingénieur"
 msgid "engineer position at"
 msgstr "poste d’ingénieur à"
 
-#: DB:link_type/name:813 DB:link_type/name:812
+#: DB:link_type/name:812 DB:link_type/name:813
 msgid "engineered at"
 msgstr "techniquement conçu à"
 
-#: DB:link_type/name:814 DB:link_type/name:815
+#: DB:link_type/name:815 DB:link_type/name:814
 msgid "engineered in"
 msgstr "techniquement conçu à"
 
@@ -9821,7 +9868,7 @@ msgstr "imprimé en"
 msgid "printing location for"
 msgstr "lieu d’impression de"
 
-#: DB:link_type/name:825 DB:link_type/name:824
+#: DB:link_type/name:824 DB:link_type/name:825
 msgid "produced at"
 msgstr "produit à"
 
@@ -9829,7 +9876,7 @@ msgstr "produit à"
 msgid "produced for"
 msgstr "produit pour"
 
-#: DB:link_type/name:827 DB:link_type/name:826
+#: DB:link_type/name:826 DB:link_type/name:827
 msgid "produced in"
 msgstr "produit à"
 
@@ -9886,6 +9933,18 @@ msgstr "production"
 #| msgid "{additional} recording location for"
 msgid "production coordinator for"
 msgstr "lieu {additional:supplémentaire} d’enregistrement de"
+
+#: DB:link_type/name:1309 DB:link_type/name:1310
+#, fuzzy
+#| msgid "performed at"
+msgid "programmed at"
+msgstr "interpréta à"
+
+#: DB:link_type/name:1311 DB:link_type/name:1308
+#, fuzzy
+#| msgid "programming"
+msgid "programmed in"
+msgstr "programmation"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -11291,12 +11350,12 @@ msgid "{additional:additionally} edited in"
 msgstr "édité {additional:supplémentairement} en"
 
 #. name:engineered at
-#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
 msgid "{additional:additionally} engineered at"
 msgstr "techniquement conçu {additional:supplémentairement} à"
 
 #. name:engineered in
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+#: DB:link_type/reverse_link_phrase:815 DB:link_type/reverse_link_phrase:814
 msgid "{additional:additionally} engineered in"
 msgstr "techniquement conçu {additional:supplémentairement} en"
 
@@ -11326,12 +11385,12 @@ msgid "{additional:additionally} orchestrated"
 msgstr "{additional:aussi} orchestré"
 
 #. name:produced at
-#: DB:link_type/reverse_link_phrase:825 DB:link_type/reverse_link_phrase:824
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "{additional:additionally} produced at"
 msgstr "produit {additional:supplémentairement} à"
 
 #. name:produced in
-#: DB:link_type/reverse_link_phrase:827 DB:link_type/reverse_link_phrase:826
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
 msgid "{additional:additionally} produced in"
 msgstr "produit {additional:supplémentairement} en"
 
@@ -11697,8 +11756,8 @@ msgid "{additional} editing location for"
 msgstr "lieu {additional:supplémentaire} de montage de"
 
 #. name:engineered at, name:engineered in
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
 msgid "{additional} engineering location for"
 msgstr "lieu {additional:supplémentaire} de conception technique de"
 
@@ -11815,8 +11874,8 @@ msgid "{additional} photography"
 msgstr "photographie {additional:supplémentaire}"
 
 #. name:produced at, name:produced in
-#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:826
-#: DB:link_type/link_phrase:825 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:825
 msgid "{additional} producing location for"
 msgstr "lieu {additional:supplémentaire} de production de"
 
@@ -12048,6 +12107,14 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr "{vocal:%|voix} {additional:supplémentaire} {guest:invité} {solo}"
+
+#. name:programmed at, name:programmed in
+#: DB:link_type/link_phrase:1311 DB:link_type/link_phrase:1308
+#: DB:link_type/link_phrase:1309 DB:link_type/link_phrase:1310
+#, fuzzy
+#| msgid "{additional} recording location for"
+msgid "{additional} {instrument} programming location for"
+msgstr "lieu {additional:supplémentaire} d’enregistrement de"
 
 #. name:collaboration
 #: DB:link_type/link_phrase:102
@@ -12546,14 +12613,14 @@ msgid "{entity1} was {additional:additionally} edited in {entity0}"
 msgstr "{entity1} a été monté {additional:supplémentairement} en {entity0}"
 
 #. name:engineered at
-#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 msgid "{entity1} was {additional:additionally} engineered at {entity0}"
 msgstr ""
 "{entity1} a été techniquement conçu {additional:supplémentairement} à "
 "{entity0}"
 
 #. name:engineered in
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+#: DB:link_type/long_link_phrase:815 DB:link_type/long_link_phrase:814
 msgid "{entity1} was {additional:additionally} engineered in {entity0}"
 msgstr ""
 "{entity1} a été techniquement conçu {additional:supplémentairement} en "
@@ -12570,13 +12637,27 @@ msgid "{entity1} was {additional:additionally} mixed in {entity0}"
 msgstr "{entity1} a été mixé {additional:supplémentairement} en {entity0}"
 
 #. name:produced at
-#: DB:link_type/long_link_phrase:825 DB:link_type/long_link_phrase:824
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 msgid "{entity1} was {additional:additionally} produced at {entity0}"
 msgstr "{entity1} a été produit {additional:supplémentairement} à {entity0}"
 
 #. name:produced in
-#: DB:link_type/long_link_phrase:827 DB:link_type/long_link_phrase:826
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgstr "{entity1} a été produit {additional:supplémentairement} en {entity0}"
+
+#. name:programmed at
+#: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} produced at {entity0}"
+msgid "{entity1} was {additional:additionally} programmed at {entity0}"
+msgstr "{entity1} a été produit {additional:supplémentairement} à {entity0}"
+
+#. name:programmed in
+#: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgid "{entity1} was {additional:additionally} programmed in {entity0}"
 msgstr "{entity1} a été produit {additional:supplémentairement} en {entity0}"
 
 #. name:recorded at
@@ -12699,6 +12780,20 @@ msgstr "technicien en {instrument:%|instruments}"
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
 msgstr "technicien en {instrument:%|instruments} pour"
+
+#. name:programmed at
+#: DB:link_type/reverse_link_phrase:1309 DB:link_type/reverse_link_phrase:1310
+#, fuzzy
+#| msgid "{additional:additionally} produced at"
+msgid "{instrument} {additional:additionally} programmed at"
+msgstr "produit {additional:supplémentairement} à"
+
+#. name:programmed in
+#: DB:link_type/reverse_link_phrase:1311 DB:link_type/reverse_link_phrase:1308
+#, fuzzy
+#| msgid "{additional:additionally} produced in"
+msgid "{instrument} {additional:additionally} programmed in"
+msgstr "produit {additional:supplémentairement} en"
 
 #. name:parent
 #: DB:link_type/link_phrase:109
