@@ -47,7 +47,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2026-04-11 22:11+0000\n"
+"PO-Revision-Date: 2026-05-11 20:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -59,7 +59,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -4675,15 +4675,11 @@ msgstr ""
 "улучшить его}!"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:355
-#, fuzzy
-#| msgid ""
-#| "Our Redis server appears to be down; some features may not work as "
-#| "intended or expected."
 msgid ""
 "Our Valkey server appears to be down; some features may not work as intended "
 "or expected."
 msgstr ""
-"Похоже, что нас сервер Redis недоступен; некоторые функции могут работать "
+"Похоже, что нас сервер Valkey недоступен; некоторые функции могут работать "
 "некорректно."
 
 #: ../lib/MusicBrainz/Server/Controller/Series.pm:173
@@ -17283,10 +17279,8 @@ msgid "The series you’ve selected is for release groups."
 msgstr "Выбранная вами серия предназначена для групп релизов."
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:56
-#, fuzzy
-#| msgid "The series you’ve selected is for events."
 msgid "The series you’ve selected is for series."
-msgstr "Выбранная вами серия предназначена для событий."
+msgstr "Выбранная вами серия предназначена для серий."
 
 #: ../root/static/scripts/relationship-editor/components/DialogTargetEntity.js:57
 msgid "The series you’ve selected is for works."
