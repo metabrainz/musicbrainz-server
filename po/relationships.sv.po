@@ -8,11 +8,12 @@
 # Killinstinct <email address hidden>, 2015
 # Autom <filipbengtsson@live.se>, 2024.
 # Crowbardoctor <elin.ax1111@gmail.com>, 2025.
+# blueday <jonatan.k.nyberg@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-01-12 19:44+0000\n"
-"Last-Translator: Crowbardoctor <elin.ax1111@gmail.com>\n"
+"PO-Revision-Date: 2026-07-26 12:12+0000\n"
+"Last-Translator: blueday <jonatan.k.nyberg@gmail.com>\n"
 "Language-Team: Swedish <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/sv/>\n"
 "Language: sv\n"
@@ -20,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -5826,7 +5827,7 @@ msgstr ""
 #. name:cover art link
 #: DB:link_type/link_phrase:78
 msgid "cover art"
-msgstr "omslag"
+msgstr "omslagsbilder"
 
 #. name:cover art link
 #: DB:link_type/reverse_link_phrase:78
@@ -6072,7 +6073,7 @@ msgstr ""
 
 #: DB:link_type/name:309
 msgid "edit"
-msgstr ""
+msgstr "redigera"
 
 #. name:edit
 #: DB:link_type/link_phrase:309
@@ -9030,7 +9031,7 @@ msgstr ""
 
 #: DB:link_type/name:94 DB:link_type/name:842
 msgid "review"
-msgstr ""
+msgstr "recension"
 
 #. name:review
 #: DB:link_type/reverse_link_phrase:94 DB:link_type/reverse_link_phrase:842
@@ -9040,7 +9041,7 @@ msgstr ""
 #. name:review
 #: DB:link_type/link_phrase:94 DB:link_type/link_phrase:842
 msgid "reviews"
-msgstr "recessioner"
+msgstr "recensioner"
 
 #. name:revised by
 #: DB:link_type/link_phrase:844 DB:link_type/long_link_phrase:844
