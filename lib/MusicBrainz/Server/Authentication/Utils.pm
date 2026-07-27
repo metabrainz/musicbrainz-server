@@ -56,11 +56,11 @@ Readonly our $METABRAINZ_OAUTH_LWP => do {
 Readonly our %METABRAINZ_OAUTH_SCOPE_MAPPING => (
     'email'                         => 'email',
     'musicbrainz:collection'        => 'collection',
+    'musicbrainz:rating'            => 'rating',
     'musicbrainz:submit_barcode'    => 'submit_barcode',
     'musicbrainz:submit_isrc'       => 'submit_isrc',
+    'musicbrainz:tag'               => 'tag',
     'profile'                       => 'profile',
-    'rating'                        => 'rating',
-    'tag'                           => 'tag',
 );
 Readonly our $REMEMBER_LOGIN_COOKIE_VERSION => 4;
 Readonly our $REMEMBER_LOGIN_COOKIE_EXPIRES => '+1y';
