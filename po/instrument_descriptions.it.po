@@ -20,7 +20,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-04-07 00:11+0000\n"
+"PO-Revision-Date: 2026-05-21 21:12+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -3653,20 +3653,16 @@ msgstr ""
 
 #. name:bazooka
 #: DB:instrument/description:741
-#, fuzzy
-#| msgid ""
-#| "Large wide tube with a very strongly flaring bell, the telescoping "
-#| "creates only subtle fluctuating overtones. It inspired the name of the "
-#| "anti-tank weapon."
 msgid ""
 "Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
 "cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
 "flaring bell, the telescoping creates only subtle fluctuating overtones. It "
 "inspired the name of the anti-tank weapon."
 msgstr ""
-"Tubo grande e largo con un padiglione a campana molto svasato, manipolandone "
-"la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il "
-"nome dell'arma anticarro."
+"Da non confondere con il <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Tubo grande e largo con un padiglione a "
+"campana molto svasato, manipolandone la lunghezza si creano tenui armoniche "
+"superiori fluttuanti. Ha ispirato il nome dell'arma anticarro."
 
 #. name:mezwed
 #: DB:instrument/description:1209

@@ -1,13 +1,13 @@
 # guardiansock <guardian.sock5925@fastmail.com>, 2024, 2025.
 # ferocity12 <darksunlight210@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# jerry155756294 <a155750130@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-05-27 11:20+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-06-18 21:12+0000\n"
+"Last-Translator: jerry155756294 <a155750130@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1516,7 +1516,7 @@ msgstr "對作品標籤的支援/反對票"
 
 #: ../root/statistics/stats.js:906
 msgid "Abstentions"
-msgstr ""
+msgstr "棄權"
 
 #: ../root/statistics/stats.js:911
 #, fuzzy
@@ -1526,7 +1526,7 @@ msgstr "批准"
 
 #: ../root/statistics/stats.js:916
 msgid "Admin rejections"
-msgstr ""
+msgstr "拒絕"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"

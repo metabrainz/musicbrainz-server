@@ -28,13 +28,14 @@
 # Ljcbaby <i@ljcbaby.top>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # Poesty Li <poesty7450@gmail.com>, 2025.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2026-02-20 11:11+0000\n"
-"Last-Translator: imgradeone <imgradeone@outlook.com>\n"
+"POT-Creation-Date: 2026-07-27 08:05-0500\n"
+"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/server/zh_Hans/>\n"
 "Language: zh\n"
@@ -42,7 +43,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.16\n"
+"X-Generator: Weblate 2026.5\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -50,7 +51,7 @@ msgstr " ({text})"
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:19
-#: ../root/cdtoc/AttachCDTocConfirmation.js:58
+#: ../root/cdtoc/AttachCDTocConfirmation.js:61
 #: ../root/edit/details/AddMedium.js:150 ../root/edit/details/EditMedium.js:277
 #: ../root/edit/details/EditMedium.js:281
 #: ../root/edit/details/EditMedium.js:484
@@ -58,8 +59,8 @@ msgstr " ({text})"
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1558
-#: ../root/utility/tableColumns.js:583
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1569
+#: ../root/utility/tableColumns.js:585
 msgid "#"
 msgstr "#"
 
@@ -110,7 +111,7 @@ msgstr "(无其他图片)"
 #: ../root/search/components/ReleaseResults.js:122
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:33
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
-#: ../root/utility/tableColumns.js:524 ../root/utility/tableColumns.js:532
+#: ../root/utility/tableColumns.js:526 ../root/utility/tableColumns.js:534
 msgctxt "and"
 msgid "/"
 msgstr "/"
@@ -410,7 +411,7 @@ msgstr "区域类型"
 #: ../lib/MusicBrainz/Server/Form/Search/Search.pm:38
 #: ../root/cdstub/BrowseCDStubs.js:30 ../root/cdstub/CDStubInfo.js:21
 #: ../root/cdstub/ImportCDStub.js:39
-#: ../root/cdtoc/AttachCDTocConfirmation.js:60
+#: ../root/cdtoc/AttachCDTocConfirmation.js:63
 #: ../root/cdtoc/SelectArtistForCDToc.js:36
 #: ../root/components/RelationshipsTable.js:316
 #: ../root/components/list/ArtistList.js:56
@@ -448,7 +449,7 @@ msgstr "区域类型"
 #: ../root/report/components/ArtistUrlList.js:30
 #: ../root/report/components/CDTocReleaseList.js:51
 #: ../root/report/components/RecordingList.js:48
-#: ../root/report/components/ReleaseGroupList.js:50
+#: ../root/report/components/ReleaseGroupList.js:53
 #: ../root/report/components/ReleaseGroupUrlList.js:33
 #: ../root/report/components/ReleaseList.js:50
 #: ../root/report/components/ReleaseUrlList.js:33
@@ -457,7 +458,7 @@ msgstr "区域类型"
 #: ../root/search/components/ReleaseGroupResults.js:75
 #: ../root/search/components/ReleaseResults.js:119
 #: ../root/search/components/SearchForm.js:31
-#: ../root/static/scripts/artist/components/EditArtistCreditForm.js:92
+#: ../root/static/scripts/artist/components/EditArtistCreditForm.js:95
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:31
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:38
 #: ../root/static/scripts/common/constants.js:36
@@ -484,8 +485,8 @@ msgstr "艺术家类型"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
-#: ../root/cdtoc/AttachCDTocConfirmation.js:36
-#: ../root/cdtoc/AttachCDTocConfirmation.js:37
+#: ../root/cdtoc/AttachCDTocConfirmation.js:39
+#: ../root/cdtoc/AttachCDTocConfirmation.js:40
 #: ../root/cdtoc/AttachCDTocToRelease.js:40
 #: ../root/cdtoc/SelectArtistForCDToc.js:25
 msgctxt "header"
@@ -556,7 +557,7 @@ msgstr ""
 "以下是错误信息。如果您想提交一份缺陷报告，您可以前往 {bugs|我们的缺陷追踪"
 "器}。请务必在报告中包含以下的信息！"
 
-#: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:118
+#: ../root/layout.tt:120 ../root/layout/components/ExternalLinks.js:119
 #: ../root/layout/components/Footer.js:33
 msgid "Blog"
 msgstr "博客"
@@ -636,7 +637,7 @@ msgstr "Cat. No:"
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:35
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:41
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:154
-#: ../root/utility/tableColumns.js:498 ../root/utility/tableColumns.js:503
+#: ../root/utility/tableColumns.js:500 ../root/utility/tableColumns.js:505
 msgid "Catalog#"
 msgstr "目录#"
 
@@ -724,7 +725,7 @@ msgstr "将发行名复制到发行组"
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:39
 #: ../root/static/scripts/common/components/FilterForm.js:287
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:119
-#: ../root/utility/tableColumns.js:520 ../root/utility/tableColumns.js:532
+#: ../root/utility/tableColumns.js:522 ../root/utility/tableColumns.js:534
 msgid "Country"
 msgstr "地区"
 
@@ -738,7 +739,7 @@ msgstr "自定义分隔符"
 
 #: ../root/release/edit/information.tt:191
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:253
-#: ../root/static/scripts/edit/components/PartialDateInput.js:173
+#: ../root/static/scripts/edit/components/PartialDateInput.js:180
 msgid "DD"
 msgstr "日"
 
@@ -768,7 +769,7 @@ msgstr "数据音轨"
 #: ../root/static/scripts/common/components/FilterForm.js:319
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:111
 #: ../root/utility/tableColumns.js:286 ../root/utility/tableColumns.js:291
-#: ../root/utility/tableColumns.js:526 ../root/utility/tableColumns.js:532
+#: ../root/utility/tableColumns.js:528 ../root/utility/tableColumns.js:534
 msgid "Date"
 msgstr "日期"
 
@@ -790,7 +791,7 @@ msgstr "日期"
 #: ../root/relationship/linktype/RelationshipTypePairTree.js:76
 #: ../root/search/components/InstrumentResults.js:55
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:207
-#: ../root/utility/tableColumns.js:692
+#: ../root/utility/tableColumns.js:694
 msgid "Description"
 msgstr "描述"
 
@@ -826,7 +827,7 @@ msgstr "禁用传统浏览器模式"
 #: ../root/edit/details/EditReleaseGroup.js:46
 #: ../root/edit/details/EditSeries.js:44 ../root/edit/details/EditWork.js:55
 #: ../root/static/scripts/common/components/FilterForm.js:405
-#: ../root/static/scripts/event/components/EventEditForm.js:301
+#: ../root/static/scripts/event/components/EventEditForm.js:310
 msgid "Disambiguation"
 msgstr "消歧义"
 
@@ -880,7 +881,7 @@ msgid "Edit"
 msgstr "编辑"
 
 #: ../root/release/edit/recordings.tt:73
-#: ../root/account/applications/ApplicationList.js:34
+#: ../root/account/applications/ApplicationList.js:36
 #: ../root/components/Aliases/AliasTableRow.js:55
 #: ../root/components/Aliases/ArtistCreditList.js:75
 #: ../root/components/Aliases/ArtistCreditList.js:77
@@ -1064,7 +1065,7 @@ msgstr "过期操作"
 #: ../root/place/edit_form.tt:43 ../root/recording/edit_form.tt:59
 #: ../root/release/edit/information.tt:311
 #: ../root/release_group/edit_form.tt:21 ../root/series/edit_form.tt:24
-#: ../root/work/edit_form.tt:98 ../root/layout/components/ExternalLinks.js:173
+#: ../root/work/edit_form.tt:98 ../root/layout/components/ExternalLinks.js:176
 #: ../root/static/scripts/external-links-editor/components/ExternalLinksEditorFieldset.js:36
 msgid "External links"
 msgstr "外部链接"
@@ -1168,7 +1169,7 @@ msgstr "如需更多信息，请查看 {doc_doc|文档} 和 {doc_styleguide|风�
 
 #: ../root/label/edit_form.tt:1 ../root/work/edit_form.tt:3
 #: ../root/search/components/SearchForm.js:99
-#: ../root/static/scripts/event/components/EventEditForm.js:283
+#: ../root/static/scripts/event/components/EventEditForm.js:292
 msgid "For more information, check the {doc_doc|documentation}."
 msgstr "如需更多信息，请查看 {doc_doc|文档}。"
 
@@ -1224,8 +1225,8 @@ msgstr "完整目录："
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
 #: ../root/layout/components/sidebar/ArtistSidebar.js:100
 #: ../root/search/components/ArtistResults.js:55
-#: ../root/static/scripts/account/components/EditProfileForm.js:217
-#: ../root/user/UserProfile.js:276
+#: ../root/static/scripts/account/components/EditProfileForm.js:237
+#: ../root/user/UserProfile.js:270
 msgid "Gender"
 msgstr "性别"
 
@@ -1241,7 +1242,7 @@ msgstr "流派"
 
 #: ../root/components/forms.tt:140 ../root/release/edit/information.tt:14
 #: ../root/release/edit/tracklist.tt:587
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:168
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:171
 msgid "Guess case"
 msgstr "猜测案例"
 
@@ -1272,7 +1273,7 @@ msgstr "猜测音轨大小写"
 
 #: ../root/components/forms.tt:142 ../root/release/edit/information.tt:15
 #: ../root/release/edit/tracklist.tt:225
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:174
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:177
 msgid "Guess feat. artists"
 msgstr "猜测 feat. 艺术家"
 
@@ -1346,7 +1347,7 @@ msgstr "ISNI 代码"
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:721
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:415
 #: ../root/static/scripts/common/components/IsrcList.js:38
-#: ../root/utility/tableColumns.js:705
+#: ../root/utility/tableColumns.js:707
 msgid "ISRCs"
 msgstr "ISRC"
 
@@ -1590,8 +1591,8 @@ msgstr ""
 #: ../root/static/scripts/common/constants.js:40
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:38
 #: ../root/static/scripts/release-group/components/SetCoverArtForm.js:146
-#: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:549
-#: ../root/utility/tableColumns.js:554
+#: ../root/user/UserProfile.js:60 ../root/utility/tableColumns.js:551
+#: ../root/utility/tableColumns.js:556
 msgid "Label"
 msgstr "唱片公司"
 
@@ -1621,7 +1622,7 @@ msgstr "厂牌类型"
 #: ../root/report/IswcsWithManyWorks.js:54
 #: ../root/search/components/ReleaseResults.js:126
 #: ../root/static/scripts/common/components/FilterForm.js:371
-#: ../root/utility/tableColumns.js:570
+#: ../root/utility/tableColumns.js:572
 msgid "Language"
 msgstr "语言"
 
@@ -1632,7 +1633,7 @@ msgstr "上一次收到副本数据包是在 {datetime}"
 #: ../root/cdstub/cdstub.tt:9 ../root/recording/edit_form.tt:34
 #: ../root/recording/edit_form.tt:37 ../root/release/edit/tracklist.tt:164
 #: ../root/release/edit/tracklist.tt:514 ../root/cdstub/CDStubInfo.js:22
-#: ../root/cdtoc/AttachCDTocConfirmation.js:61 ../root/cdtoc/CDTocInfo.js:49
+#: ../root/cdtoc/AttachCDTocConfirmation.js:64 ../root/cdtoc/CDTocInfo.js:49
 #: ../root/components/RelationshipsTable.js:317
 #: ../root/components/list/RecordingList.js:99
 #: ../root/edit/details/AddStandaloneRecording.js:54
@@ -1667,7 +1668,7 @@ msgstr "位置编辑者"
 
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
-#: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
+#: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:118
 msgctxt "interactive"
 msgid "Log in"
 msgstr "登录"
@@ -1682,7 +1683,7 @@ msgstr "查找 CD"
 
 #: ../root/release/edit/information.tt:184
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:252
-#: ../root/static/scripts/edit/components/PartialDateInput.js:161
+#: ../root/static/scripts/edit/components/PartialDateInput.js:168
 msgid "MM"
 msgstr "月"
 
@@ -1713,8 +1714,8 @@ msgstr "匹配的CD"
 
 #: ../root/cdtoc/lookup.tt:41 ../root/components/common-macros.tt:419
 #: ../lib/MusicBrainz/Server/Edit/Medium.pm:8
-#: ../root/cdtoc/AttachCDTocConfirmation.js:54
-#: ../root/cdtoc/SetTracklistDurations.js:43
+#: ../root/cdtoc/AttachCDTocConfirmation.js:57
+#: ../root/cdtoc/SetTracklistDurations.js:46
 #: ../root/edit/details/AddDiscId.js:22 ../root/edit/details/EditMedium.js:426
 #: ../root/edit/details/RemoveDiscId.js:21
 #: ../root/edit/details/RemoveMedium.js:61
@@ -1808,15 +1809,15 @@ msgstr "上移音轨"
 #: ../root/static/scripts/account/components/ApplicationForm.js:78
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:195
 #: ../root/static/scripts/common/components/FilterForm.js:171
-#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:93
-#: ../root/static/scripts/event/components/EventEditForm.js:297
+#: ../root/static/scripts/edit/components/FormRowNameWithGuessCase.js:96
+#: ../root/static/scripts/event/components/EventEditForm.js:306
 #: ../root/static/scripts/release/components/EditWorkDialog.js:151
 #: ../root/user/UserSubscriptions.js:43
 msgid "Name"
 msgstr "名称"
 
 #: ../root/artist/edit_credit.tt:16
-#: ../root/static/scripts/artist/components/EditArtistCreditForm.js:89
+#: ../root/static/scripts/artist/components/EditArtistCreditForm.js:92
 msgid "New artist credit"
 msgstr "新艺术家名单"
 
@@ -1844,13 +1845,13 @@ msgid "No"
 msgstr "否"
 
 #: ../root/components/forms.tt:268
-#: ../root/static/scripts/event/components/EventEditForm.js:405
+#: ../root/static/scripts/event/components/EventEditForm.js:414
 msgid "No description available."
 msgstr "无可用描述。"
 
 #: ../root/release/edit/tracklist.tt:140
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:471
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:72
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:75
 msgid "No results"
 msgstr "无结果"
 
@@ -2061,7 +2062,7 @@ msgstr "主要类型"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:40
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1568
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1579
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
 msgstr "录音"
@@ -2175,7 +2176,7 @@ msgstr "发行事件"
 #: ../root/report/EmptyReleaseGroups.js:60
 #: ../root/report/ReleaseRgDifferentName.js:29
 #: ../root/report/ReleasesSameBarcode.js:47
-#: ../root/report/components/ReleaseGroupList.js:43
+#: ../root/report/components/ReleaseGroupList.js:46
 #: ../root/report/components/ReleaseGroupUrlList.js:32
 #: ../root/search/components/ReleaseGroupResults.js:74
 #: ../root/search/components/SearchForm.js:32
@@ -2232,14 +2233,14 @@ msgstr "{artist} 的专辑 “{name}”"
 
 #: ../root/cdtoc/list.tt:60 ../root/edit/search_macros.tt:142
 #: ../root/event/add_event_art.tt:110 ../root/release/add_cover_art.tt:110
-#: ../root/account/applications/ApplicationList.js:38
+#: ../root/account/applications/ApplicationList.js:40
 #: ../root/collection/CollectionHeader.js:85
 #: ../root/collection/DeleteCollection.js:21
 #: ../root/components/Aliases/AliasTableRow.js:59 ../root/event/EventArt.js:87
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
 #: ../root/release/CoverArt.js:88
-#: ../root/static/scripts/account/components/EditProfileForm.js:279
+#: ../root/static/scripts/account/components/EditProfileForm.js:299
 #: ../root/static/scripts/common/components/CDTocEditColumn.js:36
 #: ../root/static/scripts/edit/components/Multiselect.js:186
 #: ../root/user/UserCollections.js:122
@@ -2344,8 +2345,8 @@ msgstr "文字"
 #: ../root/layout/components/Search.js:97
 #: ../root/otherlookup/OtherLookupForm.js:39 ../root/search/SearchIndex.js:23
 #: ../root/search/SearchIndex.js:25 ../root/search/components/SearchForm.js:93
-#: ../root/static/scripts/common/components/Autocomplete2.js:786
-#: ../root/static/scripts/common/components/Autocomplete2.js:806
+#: ../root/static/scripts/common/components/Autocomplete2.js:789
+#: ../root/static/scripts/common/components/Autocomplete2.js:809
 #: ../root/static/scripts/common/components/SearchIcon.js:15
 #: ../root/taglookup/Form.js:51
 msgid "Search"
@@ -2525,7 +2526,7 @@ msgstr "交换艺术家名单与音轨标题"
 #: ../root/static/scripts/common/components/CDTocMediumListTable.js:37
 #: ../root/static/scripts/common/components/CDTocReleaseListTable.js:43
 #: ../root/static/scripts/common/components/TaggerIcon.js:74
-#: ../root/utility/tableColumns.js:793
+#: ../root/utility/tableColumns.js:795
 msgctxt "audio file metadata"
 msgid "Tagger"
 msgstr "标签器"
@@ -2596,20 +2597,14 @@ msgstr ""
 "{url|音译版本关联} 将其关联到对应的实际发行。"
 
 #: ../root/release/edit/information.tt:554
-#, fuzzy
-#| msgid ""
-#| "The purpose of this field is to add information that usually doesn't fit "
-#| "into the strict structural data schema of MusicBrainz (be it due to "
-#| "technical limitations that may be addressed later, or because the "
-#| "information in itself has to be free-text)."
 msgid ""
 "The purpose of this field is to add information that usually doesn’t fit "
 "into the strict structural data schema of MusicBrainz (be it due to "
 "technical limitations that may be addressed later, or because the "
 "information in itself has to be free‐form text)."
 msgstr ""
-"此栏用于添加不符合 MusicBrainz 严格数据结构的信息(由于可能会在后面叙述的技术"
-"闲置或者信息本身是自由文本)。"
+"该栏用于添加通常不符合 MusicBrainz 严格结构数据模式的信息（无论是由于技术限"
+"制，可能之后会解决，还是因为信息本身必须是自由形式的文本）。"
 
 #: ../root/layout.tt:66 ../root/layout/index.js:238
 msgid "The server is temporarily in read-only mode for database maintenance."
@@ -2637,7 +2632,7 @@ msgid "The tracklist for this medium is unknown."
 msgstr "此媒介的音轨列表未知。"
 
 #: ../root/components/forms.tt:131 ../root/release/edit/information.tt:207
-#: ../root/static/scripts/edit/components/PartialDateInput.js:39
+#: ../root/static/scripts/edit/components/PartialDateInput.js:46
 msgid ""
 "The year should have four digits. If you want to enter a year earlier than "
 "1000 CE, please pad with zeros, such as “0123”."
@@ -3146,7 +3141,7 @@ msgstr "此音轨隐藏在前置间隙中。"
 #: ../root/cdstub/cdstub.tt:5 ../root/cdtoc/list.tt:7
 #: ../root/release/edit/information.tt:8 ../root/release/edit/tracklist.tt:162
 #: ../root/release/edit/tracklist.tt:512 ../root/cdstub/BrowseCDStubs.js:29
-#: ../root/cdstub/CDStubInfo.js:20 ../root/cdtoc/AttachCDTocConfirmation.js:59
+#: ../root/cdstub/CDStubInfo.js:20 ../root/cdtoc/AttachCDTocConfirmation.js:62
 #: ../root/components/RelationshipsTable.js:313
 #: ../root/components/list/ReleaseGroupList.js:72
 #: ../root/edit/details/EditMedium.js:278
@@ -3235,7 +3230,7 @@ msgstr "土耳其语"
 #: ../root/label/edit_form.tt:13 ../root/place/edit_form.tt:17
 #: ../root/release/edit/information.tt:146 ../root/series/edit_form.tt:14
 #: ../root/work/edit_form.tt:13
-#: ../root/account/applications/ApplicationList.js:148
+#: ../root/account/applications/ApplicationList.js:152
 #: ../root/components/Aliases/AliasTable.js:21
 #: ../root/components/list/ReleaseGroupList.js:86
 #: ../root/components/list/ReleaseList.js:142
@@ -3263,7 +3258,7 @@ msgstr "土耳其语"
 #: ../root/report/components/ArtistList.js:54
 #: ../root/report/components/EventList.js:57
 #: ../root/report/components/InstrumentList.js:53
-#: ../root/report/components/ReleaseGroupList.js:58
+#: ../root/report/components/ReleaseGroupList.js:61
 #: ../root/report/components/WorkList.js:59
 #: ../root/search/components/AnnotationResults.js:55
 #: ../root/search/components/AreaResults.js:64
@@ -3279,14 +3274,14 @@ msgstr "土耳其语"
 #: ../root/search/components/SeriesResults.js:61
 #: ../root/search/components/WorkResults.js:59
 #: ../root/static/scripts/account/components/ApplicationForm.js:85
-#: ../root/static/scripts/alias/AliasEditForm.js:342
+#: ../root/static/scripts/alias/AliasEditForm.js:345
 #: ../root/static/scripts/collection/components/CollectionEditForm.js:201
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:875
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:551
 #: ../root/static/scripts/common/components/FilterForm.js:143
-#: ../root/static/scripts/event/components/EventEditForm.js:307
+#: ../root/static/scripts/event/components/EventEditForm.js:316
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:240
-#: ../root/utility/tableColumns.js:665 ../root/utility/tableColumns.js:670
+#: ../root/utility/tableColumns.js:667 ../root/utility/tableColumns.js:672
 msgid "Type"
 msgstr "类型"
 
@@ -3400,7 +3395,7 @@ msgid "Voter"
 msgstr "投票者"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:69
-#: ../root/user/UserProfile.js:693
+#: ../root/user/UserProfile.js:687
 msgid "Votes"
 msgstr "投票"
 
@@ -3481,7 +3476,7 @@ msgstr "作品类型"
 
 #: ../root/release/edit/information.tt:176
 #: ../lib/MusicBrainz/Server/Plugin/FormRenderer.pm:251
-#: ../root/static/scripts/edit/components/PartialDateInput.js:148
+#: ../root/static/scripts/edit/components/PartialDateInput.js:155
 msgid "YYYY"
 msgstr "年"
 
@@ -4018,103 +4013,11 @@ msgstr[0] ""
 "谢谢，您的 {num_edits} 个 {edit_url|编辑} ({edit_ids}) 已被保存，其中 "
 "{num_open_edits} 个已经进入编辑审查队列，其余已经自动批准并生效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:71
-msgid "The user ID is missing or is in an invalid format."
-msgstr "账号空缺或格式不正确。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:81
-msgid "The email address is missing."
-msgstr "电子邮箱地址空缺。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:91
-msgid "The time is missing or is in an invalid format."
-msgstr "时间空缺或格式不正确。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:102
-msgid "The verification key is missing."
-msgstr "验证密钥空缺。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:113
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:289
-msgid "The checksum is invalid, please double check your email."
-msgstr "校验和不正确，请重新检查您的邮件。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:124
-msgid "Sorry, this email verification link has expired."
-msgstr "对不起，这个邮件验证链接已失效。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:136
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:301
-#, perl-brace-format
-msgid "The user with ID '{user_id}' could not be found."
-msgstr "用户ID '{user_id}' 无法被找到。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:187
-msgid ""
-"We were unable to send login information to your email address. Please try "
-"again, and if that still doesn’t work, {contact_url|contact us}."
-msgstr ""
-"无法向您的电子邮件地址发送登录信息。请再试一次，如果您仍然遇到问题，请"
-"{contact_url|联系我们}。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:214
-msgid "There is no user with this username"
-msgstr "没有用户使用这个用户名"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:219
-msgid "There is no user with this username and email"
-msgstr "没有用户使用这个用户名和邮箱"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:222
-msgid ""
-"We can't send a password reset email, because we have no email on record for "
-"this user."
-msgstr "无法发送密码重置电子邮件，因为没有此用户的电子邮件记录。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:252
-msgid "Your password has been reset."
-msgstr "您的密码已被重置。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:267
-msgid "Missing one or more required parameters."
-msgstr "一个或多个项目空缺。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:278
-msgid "Sorry, this password reset link has expired."
-msgstr "对不起，这个密码重置链接已失效。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:352
-msgid "There is no user with this email"
-msgstr "没有用户使用这个邮箱"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:434
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:95
 msgid "Your profile has been updated."
 msgstr "您的资料已更新。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:438
-#, perl-brace-format
-msgid ""
-"We have sent you a verification email to <code>{email}</code>. Please check "
-"your mailbox and click on the link in the email to verify the new email "
-"address."
-msgstr ""
-"我们已经向<code>{email}</code>发送了一封确认电子邮件。请查看您的收件箱并点击"
-"电子邮件中的链接来验证新电子邮件地址。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:477
-msgid "Your password has been changed."
-msgstr "您的密码已更改。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:814
-msgid ""
-"<strong>We were unable to send you a verification email.</strong><br/>Please "
-"re-enter your address in your {settings|account settings}. If that still "
-"doesn’t work, {contact_url|contact us}."
-msgstr ""
-"<strong>我们无法向您发送验证邮件。</strong><br/>请在{settings|账号设置}重新输"
-"入电子邮件地址。如果问题仍然存在，请通过{contact_url|联系我们}。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:897
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:306
 msgid "There is no OAuth token with these parameters."
 msgstr ""
 
@@ -4199,20 +4102,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:24
-#: ../root/static/scripts/common/constants.js:426
+#: ../root/static/scripts/common/constants.js:423
 msgid "Low"
 msgstr "低"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:25
-#: ../root/static/scripts/common/constants.js:425
-#: ../root/static/scripts/common/constants.js:427
+#: ../root/static/scripts/common/constants.js:422
+#: ../root/static/scripts/common/constants.js:424
 msgid "Normal"
 msgstr "一般"
 
 #: ../lib/MusicBrainz/Server/Controller/Edit.pm:296
 #: ../lib/MusicBrainz/Server/Form/ChangeReleaseQuality.pm:26
-#: ../root/static/scripts/common/constants.js:428
+#: ../root/static/scripts/common/constants.js:425
 msgid "High"
 msgstr "高"
 
@@ -4267,7 +4170,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:794
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:802
 msgid "You haven’t made any changes!"
 msgstr "您还没有进行任何更改！"
 
@@ -4278,6 +4181,23 @@ msgstr "无法将特殊用途厂牌合并至另一个厂牌。"
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:280
 msgid "You cannot merge into Deleted Label."
 msgstr "无法合并至已删除的厂牌。"
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
+msgid "Too many login attempts. Please try again in a few minutes."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
+#, fuzzy
+#| msgctxt "event"
+#| msgid "cancelled"
+msgid "Login cancelled."
+msgstr "已取消"
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
+#, fuzzy
+#| msgid "Image not available, please try again later."
+msgid "Login failed. Please try again."
+msgstr "图像不可用，请稍后再试。"
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4341,19 +4261,29 @@ msgstr "[未知]"
 msgid "The provided relationship type ID is not valid."
 msgstr "提供的关联类型 ID 无效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:100
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr "已设定语言。如果这是误操作，你可以 {url|设置回 “{prev_lang_name}”}。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:108
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr "如果你发现翻译中有任何问题，请{url|帮助我们改进它}！"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:311
+#, fuzzy
+#| msgid ""
+#| "We were not able to check your donation status right now. Please try "
+#| "again later."
+msgid ""
+"Sorry, we could not verify your login credentials right now. Please try "
+"logging in again."
+msgstr "我们暂时无法检查你的捐赠状态，请稍后再试。"
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 #, fuzzy
 #| msgid ""
 #| "Our Redis server appears to be down; some features may not work as "
@@ -4367,57 +4297,55 @@ msgstr "我们的 Redis 服务器似乎宕机了；一些功能可能无法正�
 msgid "Series that have different entity types cannot be merged."
 msgstr "包含不同实体类型的系列无法被合并。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:313
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
-#: ../lib/MusicBrainz/Server/Controller/User.pm:354
+#: ../lib/MusicBrainz/Server/Controller/User.pm:271
+#: ../lib/MusicBrainz/Server/Controller/User.pm:297
+#: ../lib/MusicBrainz/Server/Controller/User.pm:312
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 msgctxt "header"
 msgid "Send email"
 msgstr "发送电子邮件"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:314
+#: ../lib/MusicBrainz/Server/Controller/User.pm:272
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr "您无法联系其他用户，因为您还没有 {url|验证您的电子邮件地址}。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:341
+#: ../lib/MusicBrainz/Server/Controller/User.pm:299
 msgid "You are not allowed to send messages to editors."
 msgstr "你被禁止向编辑者发送信息。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:355
+#: ../lib/MusicBrainz/Server/Controller/User.pm:313
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "编辑者{name}没有在账户中添加电子邮箱地址。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:369
-#: ../root/account/LostPasswordSent.js:16
-#: ../root/account/LostUsernameSent.js:16
+#: ../lib/MusicBrainz/Server/Controller/User.pm:327
 msgctxt "header"
 msgid "Email sent"
 msgstr "电子邮件已发送"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:370
+#: ../lib/MusicBrainz/Server/Controller/User.pm:328
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "成功发送电子邮件！点击 {link|此处} 前往 {user} 的资料页面。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:407
+#: ../lib/MusicBrainz/Server/Controller/User.pm:365
 msgid "Your message could not be sent"
 msgstr "您的信息无法被送达"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:573
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "‘{type}’ 不是可评分的实体类型。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:843
+#: ../lib/MusicBrainz/Server/Controller/User.pm:801
 msgid "An error occurred while trying to send your report."
 msgstr "尝试发送您的报告时发生了错误。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:847
+#: ../lib/MusicBrainz/Server/Controller/User.pm:805
 msgid "Your report has been sent."
 msgstr "您的报告已发送。"
 
@@ -4478,7 +4406,7 @@ msgstr "您必须登录才能提交编辑。请先 {url|登录}，然后再次�
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1197
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1205
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -5529,21 +5457,21 @@ msgctxt "barcode"
 msgid "[none]"
 msgstr "[无]"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:290
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
 #| msgid "Editing/voting disabled"
 msgid "Editing disabled"
 msgstr "编辑/投票已禁用"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:293
 #: ../root/static/scripts/common/utility/privileges.js:164
 #, fuzzy
 #| msgid "Voting is closed."
 msgid "Voting disabled"
 msgstr "投票已关闭。"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:303
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:296
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
 msgstr "已禁用编辑备注"
@@ -5808,7 +5736,7 @@ msgid "Artist credit field is required"
 msgstr "艺术家名单为必填项"
 
 #: ../lib/MusicBrainz/Server/Form/Field/DatePeriod.pm:42
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:60
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:66
 msgid "The end date cannot precede the begin date."
 msgstr "结束日期不能早于开始日期。"
 
@@ -5869,7 +5797,7 @@ msgid "Not a valid time. Must be in the format MM:SS"
 msgstr "时间格式无效。必须按照 MM：SS 格式"
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:68
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:102
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:98
 msgid "invalid date"
 msgstr "无效日期"
 
@@ -5880,7 +5808,7 @@ msgid ""
 msgstr "您必须为每一个关联选择一个关联类型和目标实体。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/Setlist.pm:15
-#: ../root/static/scripts/event/components/EventEditForm.js:185
+#: ../root/static/scripts/event/components/EventEditForm.js:194
 msgid "Please ensure all lines start with @, * or #, followed by a space."
 msgstr "请确保每一行都以 @，* 或 # 开始，紧跟一个空格。"
 
@@ -6045,39 +5973,39 @@ msgstr ""
 msgid "Invalid URL format"
 msgstr "URL 格式无效"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:64
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:60
 msgid "A language is required."
 msgstr "语言为必填项。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:66
 msgid "A fluency level is required."
 msgstr "流利程度为必填项。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
-#: ../root/static/scripts/common/constants.js:436
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:74
+#: ../root/static/scripts/common/constants.js:433
 msgid "Basic"
 msgstr "基础"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
-#: ../root/static/scripts/common/constants.js:437
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:75
+#: ../root/static/scripts/common/constants.js:434
 msgid "Intermediate"
 msgstr "中级"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
-#: ../root/static/scripts/common/constants.js:435
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:76
+#: ../root/static/scripts/common/constants.js:432
 msgid "Advanced"
 msgstr "高级"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
-#: ../root/static/scripts/common/constants.js:438
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:77
+#: ../root/static/scripts/common/constants.js:435
 msgid "Native"
 msgstr "母语"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:91
 msgid "You must supply a complete birth date for us to display your age."
 msgstr "必须指定完整的出生日期，这样我们才能显示您的年龄。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:99
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
 msgid "Birth year must be after 1900"
 msgstr "出生年份必须在1900年之后"
 
@@ -6124,14 +6052,6 @@ msgstr "直接数据库搜索"
 msgid "A type is required."
 msgstr "类型为必填项。"
 
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
-msgid "The old password is incorrect"
-msgstr "旧密码错误"
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:58
-msgid "An account with this name could not be found"
-msgstr "无法找到此名称对应的账号"
-
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
 msgstr "用户名为必填项"
@@ -6141,17 +6061,17 @@ msgid "Password field is required"
 msgstr "密码为必填项"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:91
-#: ../root/static/scripts/account/components/PreferencesForm.js:83
+#: ../root/static/scripts/account/components/PreferencesForm.js:86
 msgid "Daily"
 msgstr "每天"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:92
-#: ../root/static/scripts/account/components/PreferencesForm.js:84
+#: ../root/static/scripts/account/components/PreferencesForm.js:87
 msgid "Weekly"
 msgstr "每周"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:93
-#: ../root/static/scripts/account/components/PreferencesForm.js:85
+#: ../root/static/scripts/account/components/PreferencesForm.js:88
 msgid "Never"
 msgstr "永不"
 
@@ -6293,93 +6213,32 @@ msgstr "{last_list_item}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/account/ChangePassword.js:40
-msgid ""
-"Please change your password. Unfortunately we've discovered that secure "
-"hashes user's passwords were temporarily available for download on our FTP "
-"site. While it is extremely unlikely that anyone will be able to derive the "
-"original passwords from this mishap, we are requiring all of our users to "
-"change their passwords. Sorry for the inconvenience. For more information "
-"see {blog|the recent blog post}."
-msgstr ""
-"请修改您的密码。我们不幸发现一些用户密码的密文曾短暂地在我们的 FTP 站点提供下"
-"载。虽然因此次意外而被破解出密码明文的概率非常低，我们仍然建议所有用户修改密"
-"码。我们对此造成的不便深表感抱歉。如需更多信息，请查看 {blog|最近的博客文"
-"章}。"
-
-#: ../root/account/ChangePassword.js:53
-msgid "Please enter your old password below, and then your new password."
-msgstr "请在下方输入您的旧密码和新密码。"
-
-#: ../root/account/ChangePassword.js:65 ../root/account/LostPassword.js:41
-#: ../root/static/scripts/account/components/RegisterForm.js:52
-#: ../root/user/Login.js:97
-msgid "Username"
-msgstr "用户名"
-
-#: ../root/account/ChangePassword.js:73
-msgid "Old password:"
-msgstr "旧密码："
-
-#: ../root/account/ChangePassword.js:81 ../root/account/ResetPassword.js:36
-msgid "New password:"
-msgstr "新密码："
-
-#: ../root/account/ChangePassword.js:89 ../root/account/ResetPassword.js:44
-#: ../root/static/scripts/account/components/RegisterForm.js:88
-msgid "Confirm password:"
-msgstr "确认密码："
-
-#: ../root/account/ChangePassword.js:95
-msgctxt "interactive"
-msgid "Change password"
-msgstr "修改密码"
-
-#: ../root/account/ChangePassword.js:114 ../root/account/ChangePassword.js:116
-#: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
-#: ../root/components/UserAccountTabs.js:88
+#: ../root/account/DigestAuthentication.js:22
+#: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
-msgid "Change password"
-msgstr "修改密码"
-
-#: ../root/account/DeleteOwnAccount.js:35
-#: ../root/account/DeleteOwnAccount.js:37
-#: ../root/components/UserAccountTabs.js:113
-msgctxt "header"
-msgid "Delete account"
-msgstr "删除账号"
-
-#: ../root/account/DeleteOwnAccount.js:40
-msgid ""
-"For information about the account deletion process, please read the {uri|"
-"account FAQ}."
-msgstr "如需关于删除账号流程的信息，请阅读{uri|账号常见问题}。"
-
-#: ../root/account/DeleteOwnAccount.js:48
-msgid ""
-"This will also cancel all your open edits and change all of your votes on "
-"any edits currently open to Abstain."
-msgstr "这也将取消您所有开放的编辑，并改变您对当前开放的任何编辑的所有投票。"
-
-#: ../root/account/DeleteOwnAccount.js:56
-msgid ""
-"Keep in mind this process might take a fairly long time if you have entered "
-"a lot of tags. If the process times out, please {contact_url|contact us}."
+msgid "Digest access authentication"
 msgstr ""
-"注意，如果您输入了很多标签，此过程可能需要相当长的时间。如果进程超时，请"
-"{contact_url|contact us}。"
 
-#: ../root/account/DeleteOwnAccount.js:65
-msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr "您确定要删除您的帐号吗？该操作将无法被撤销！"
+#: ../root/account/DigestAuthentication.js:29
+#: ../root/account/applications/ApplicationList.js:197
+msgid "Digest authentication is <strong>disabled</strong> on your account."
+msgstr ""
 
-#: ../root/account/DeleteOwnAccount.js:76
+#: ../root/account/DigestAuthentication.js:36
+msgid ""
+"Your new digest authentication token is below. Use this in place of your "
+"MusicBrainz account password in applications that require it. You cannot "
+"retrieve this token again after closing the page; if it’s lost, you can "
+"reset it from {applications_url|Applications}."
+msgstr ""
+
+#: ../root/account/DigestAuthentication.js:53
 msgctxt "interactive"
-msgid "Delete my account"
-msgstr "删除我的账号"
+msgid "{applications_url|Back to Applications}."
+msgstr ""
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
-#: ../root/components/UserAccountTabs.js:94
+#: ../root/components/UserAccountTabs.js:88
 msgid "Donation check"
 msgstr "查看捐款"
 
@@ -6426,102 +6285,23 @@ msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
 msgstr "也可参见您的 {uri|用户偏好}，其中包含了您的隐私设置。"
 
-#: ../root/account/EmailVerificationStatus.js:14
-msgctxt "header"
-msgid "Email verification"
-msgstr "电子邮件验证"
-
-#: ../root/account/EmailVerificationStatus.js:18
-msgid ""
-"Thank you, your email address has now been verified! If you still can't "
-"edit, please try to log out and log in again."
-msgstr ""
-"谢谢，您的电子邮件地址已验证！如果您仍然无法编辑，请尝试登出并再次登录。"
-
-#: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
-#: ../root/account/LostPasswordSent.js:16
-msgid "Lost password"
-msgstr "忘记密码"
-
-#: ../root/account/LostPassword.js:30
-msgid ""
-"Enter your username and email below. We will send you an email with a link "
-"to reset your password. If you have forgotten your username, {link|retrieve "
-"it} first and then reset your password."
-msgstr ""
-"请在下方输入您的用户名和电子邮件地址。我们将会给您发送一封含有密码重置链接的"
-"电子邮件。如果您忘记了您的用户名，请先 {link|取回您的用户名} 再重置密码。"
-
-#: ../root/account/LostPassword.js:47 ../root/account/LostUsername.js:34
-#: ../root/static/scripts/account/components/EditProfileForm.js:198
-#: ../root/static/scripts/account/components/PreferencesForm.js:207
-#: ../root/static/scripts/account/components/RegisterForm.js:95
-#: ../root/user/UserProfile.js:197
-msgid "Email"
-msgstr "电子邮件"
-
-#: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
-msgctxt "interactive"
-msgid "Reset password"
-msgstr "重置密码"
-
-#: ../root/account/LostPasswordSent.js:20
-msgid ""
-"We've sent you instructions on how to reset your password. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"我们已将重置密码的说明发送给您。如果您没有收到电子邮件或仍然无法登录，请 "
-"{link|联系我们}。"
-
-#: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
-#: ../root/account/LostUsernameSent.js:16
-msgid "Lost username"
-msgstr "忘记用户名"
-
-#: ../root/account/LostUsername.js:27
-msgid ""
-"Enter your email address below and we will send you an email with your "
-"MusicBrainz account information."
-msgstr ""
-"请在下方输入您的电子邮件地址，我们会给您发送一封含有您 MusicBrainz 账号信息的"
-"电子邮件。"
-
-#: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
-msgctxt "interactive"
-msgid "Send email"
-msgstr "发送电子邮件"
-
-#: ../root/account/LostUsernameSent.js:20
-msgid ""
-"We've sent you information about your MusicBrainz account. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"我们已给您发送一封含有您 MusicBrainz 账号信息的电子邮件。如果您没有收到电子邮"
-"件或仍然无法登录，请 {link|联系我们}。"
-
-#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:18
+#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:21
 #: ../root/components/UserAccountTabs.js:82
 msgid "Preferences"
 msgstr "偏好设定"
 
-#: ../root/account/PreferencesSaved.js:21
+#: ../root/account/PreferencesSaved.js:24
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user "
 "page."
 msgstr "您的偏好设定已保存。点击 {link|此处} 继续前往您的用户页面。"
 
-#: ../root/account/Register.js:22 ../root/account/Register.js:29
+#: ../root/account/Register.js:19 ../root/account/Register.js:20
 msgctxt "header"
 msgid "Create an account"
 msgstr "创建账号"
 
-#: ../root/account/Register.js:25
-msgid "Captcha incorrect. Try again."
-msgstr "验证码不正确。请再试一次。"
-
-#: ../root/account/Register.js:33
+#: ../root/account/Register.js:24
 msgid ""
 "<strong>Note that any contributions you make to MusicBrainz will be released "
 "into the Public Domain and/or licensed under a Creative Commons by-nc-sa "
@@ -6533,7 +6313,7 @@ msgstr ""
 "享许可协议：署名-非商业性使用-相同方式共享授权。此外，您还给予MetaBrainz基金"
 "会授权数据商用的权利。更多信息参见 {doc|license page} 。</strong>"
 
-#: ../root/account/Register.js:45
+#: ../root/account/Register.js:36
 msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
@@ -6542,7 +6322,7 @@ msgstr ""
 "MusicBrainz 非常注重用户的隐私！我们不会向任何人出售或分享您选择提供的个人资"
 "料。详情请参见我们的 {doc|隐私政策}。"
 
-#: ../root/account/Register.js:55
+#: ../root/account/Register.js:46
 msgid ""
 "You may remove your personal information from our services anytime by "
 "deleting your account. For more details, see our {doc|GDPR compliance "
@@ -6551,14 +6331,14 @@ msgstr ""
 "您可以在任何时间删除您的账号，以移除您的个人信息。详情请见我们的{doc|GDPR合规"
 "声明}。"
 
-#: ../root/account/Register.js:67
+#: ../root/account/Register.js:57
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
 "如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。"
 
-#: ../root/account/Register.js:79
+#: ../root/account/Register.js:69
 msgid ""
 "Follow our {blog_link|blog} or our {bluesky_link|Bluesky} or {mastodon_link|"
 "Mastodon} accounts! To talk to other users, try the {forum_link|forums} or "
@@ -6568,7 +6348,7 @@ msgstr ""
 "Mastodon} 账号！想与其他用户交流，可以访问 {forum_link|论坛} 或 {chat_link|聊"
 "天}。"
 
-#: ../root/account/Register.js:94
+#: ../root/account/Register.js:84
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -6576,46 +6356,77 @@ msgstr ""
 "MusicBrainz 对所有用户提供同一种账号类型。如果您代表一位艺术家或一个厂牌，请"
 "使用以上的表单创建一个账号。"
 
-#: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
-#: ../root/account/ResetPasswordStatus.js:14
-msgctxt "header"
-msgid "Reset password"
-msgstr "重置密码"
+#: ../root/account/RegisterForm.js:34 ../root/user/Login.js:93
+msgid "Username"
+msgstr "用户名"
 
-#: ../root/account/ResetPassword.js:28
-msgid "Set a new password for your MusicBrainz account."
-msgstr "为您的 MusicBrainz 账号设置一个新密码。"
+#: ../root/account/RegisterForm.js:40
+msgid "Your username will be publicly visible."
+msgstr "您的用户名将公开可见。"
 
-#: ../root/account/applications/ApplicationList.js:27
+#: ../root/account/RegisterForm.js:46 ../root/user/Login.js:100
+msgid "Password:"
+msgstr "密码:"
+
+#: ../root/account/RegisterForm.js:54
+msgid "Confirm password:"
+msgstr "确认密码："
+
+#: ../root/account/RegisterForm.js:61
+#: ../root/static/scripts/account/components/EditProfileForm.js:204
+#: ../root/static/scripts/account/components/EditProfileForm.js:211
+#: ../root/static/scripts/account/components/PreferencesForm.js:210
+#: ../root/user/UserProfile.js:197
+msgid "Email"
+msgstr "电子邮件"
+
+#: ../root/account/RegisterForm.js:67
+msgid ""
+"You must provide a working email address if you wish to contribute to the "
+"database."
+msgstr "如果您想对数据库做出贡献，您必须提供一个可用的电子邮件地址。"
+
+#: ../root/account/RegisterForm.js:74
+msgid ""
+"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
+"account."
+msgstr "请在创建账号前查阅 {coc|MusicBrainz 行为准则}。"
+
+#: ../root/account/RegisterForm.js:79 ../root/layout/components/TopMenu.js:204
+msgctxt "interactive"
+msgid "Create account"
+msgstr "创建账号"
+
+#: ../root/account/applications/ApplicationList.js:29
 #: ../root/static/scripts/account/components/ApplicationForm.js:39
 msgid "Web application"
 msgstr "网页应用程序"
 
-#: ../root/account/applications/ApplicationList.js:28
+#: ../root/account/applications/ApplicationList.js:30
 #: ../root/static/scripts/account/components/ApplicationForm.js:40
 msgid "Installed application"
 msgstr "已安装的应用程序"
 
-#: ../root/account/applications/ApplicationList.js:58
+#: ../root/account/applications/ApplicationList.js:60
 msgid "Revoke access"
 msgstr "撤销访问权限"
 
-#: ../root/account/applications/ApplicationList.js:70
+#: ../root/account/applications/ApplicationList.js:72
 msgid "Offline access"
 msgstr "离线访问"
 
-#: ../root/account/applications/ApplicationList.js:87
-#: ../root/account/applications/ApplicationList.js:88
+#: ../root/account/applications/ApplicationList.js:91
+#: ../root/account/applications/ApplicationList.js:92
 #: ../root/layout/components/TopMenu.js:43
 msgid "Applications"
 msgstr "应用"
 
-#: ../root/account/applications/ApplicationList.js:90
-#: ../root/user/UserProfile.js:310
+#: ../root/account/applications/ApplicationList.js:94
+#: ../root/user/UserProfile.js:304
 msgid "Authorized applications"
 msgstr "已授权的应用程序"
 
-#: ../root/account/applications/ApplicationList.js:94
+#: ../root/account/applications/ApplicationList.js:98
 msgid ""
 "Some applications and websites support accessing private data from or "
 "submitting data to MusicBrainz but require your permission to access your "
@@ -6624,21 +6435,21 @@ msgid ""
 "revoke their access."
 msgstr ""
 
-#: ../root/account/applications/ApplicationList.js:108
-#: ../root/account/applications/ApplicationList.js:147
+#: ../root/account/applications/ApplicationList.js:112
+#: ../root/account/applications/ApplicationList.js:151
 msgid "Application"
 msgstr "应用"
 
-#: ../root/account/applications/ApplicationList.js:109
+#: ../root/account/applications/ApplicationList.js:113
 msgid "Access"
 msgstr "访问"
 
-#: ../root/account/applications/ApplicationList.js:110
+#: ../root/account/applications/ApplicationList.js:114
 msgid "Last granted token"
 msgstr ""
 
-#: ../root/account/applications/ApplicationList.js:111
-#: ../root/account/applications/ApplicationList.js:151
+#: ../root/account/applications/ApplicationList.js:115
+#: ../root/account/applications/ApplicationList.js:155
 #: ../root/components/Aliases/AliasTable.js:24
 #: ../root/components/Aliases/ArtistCreditList.js:49
 #: ../root/futureColumnLabels.js:29 ../root/futureColumnLabels.js:43
@@ -6647,33 +6458,74 @@ msgstr ""
 msgid "Actions"
 msgstr "操作"
 
-#: ../root/account/applications/ApplicationList.js:122
+#: ../root/account/applications/ApplicationList.js:126
 msgid "You have not authorized any applications."
 msgstr "您没有授权任何应用程序。"
 
-#: ../root/account/applications/ApplicationList.js:125
-#: ../root/user/UserProfile.js:324
+#: ../root/account/applications/ApplicationList.js:129
+#: ../root/user/UserProfile.js:318
 msgid "Developer applications"
 msgstr "开发者应用程序"
 
-#: ../root/account/applications/ApplicationList.js:129
+#: ../root/account/applications/ApplicationList.js:133
 msgid ""
 "Do you want to develop an application that uses the {mb_api_doc_url|"
 "MusicBrainz API}? {register_url|Register an application} to generate OAuth "
 "tokens. See our {oauth2_doc_url|OAuth documentation} for more details."
 msgstr ""
 
-#: ../root/account/applications/ApplicationList.js:149
+#: ../root/account/applications/ApplicationList.js:153
 msgid "OAuth client ID"
 msgstr "OAuth 客户端 ID"
 
-#: ../root/account/applications/ApplicationList.js:150
+#: ../root/account/applications/ApplicationList.js:154
 msgid "OAuth client secret"
 msgstr "OAuth 客户端密钥"
 
-#: ../root/account/applications/ApplicationList.js:160
+#: ../root/account/applications/ApplicationList.js:164
 msgid "You do not have any registered applications."
 msgstr "您没有已注册的应用程序。"
+
+#: ../root/account/applications/ApplicationList.js:167
+msgid "Digest access authentication"
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:171
+msgid ""
+"Some applications use a legacy form of authentication called {digest_url|"
+"HTTP Digest Access Authentication}. This requires us to store a password "
+"using an {md5_url|insecure hash function}. Rather than storing your "
+"MusicBrainz account password this way, we require generating a separate "
+"token if you want to use such an application; use this token in place of "
+"your password when the application asks for one."
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:188
+msgid ""
+"We don’t track which applications are using digest authentication. You can "
+"choose to either reset the token, or disable this access method entirely."
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:195
+msgid "Digest authentication is <strong>enabled</strong> on your account."
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:212
+#, fuzzy
+#| msgid "Disambiguation"
+msgid "Disable digest authentication"
+msgstr "消歧义"
+
+#: ../root/account/applications/ApplicationList.js:220
+msgid "Reset the digest authentication token"
+msgstr ""
+
+#: ../root/account/applications/ApplicationList.js:230
+#, fuzzy
+#| msgctxt "header"
+#| msgid "Edit annotation"
+msgid "Enable digest authentication"
+msgstr "编辑注释"
 
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
@@ -6803,7 +6655,7 @@ msgstr ""
 "版权文本！"
 
 #: ../root/annotation/EditAnnotation.js:52
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:290
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:294
 #: ../root/static/scripts/edit/components/ArtistCreditBubble.js:126
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:167
 msgctxt "header"
@@ -6884,7 +6736,7 @@ msgstr ""
 #: ../root/instrument/InstrumentArtists.js:35 ../root/report/ReportsIndex.js:48
 #: ../root/report/components/EventList.js:62
 #: ../root/search/components/EventResults.js:86
-#: ../root/static/scripts/account/components/PreferencesForm.js:251
+#: ../root/static/scripts/account/components/PreferencesForm.js:254
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:896
 #: ../root/static/scripts/common/components/Autocomplete2/formatters.js:559
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:13
@@ -6929,7 +6781,7 @@ msgstr "{parent_areas} 的 {area_type}"
 #: ../root/components/TagEntitiesList.js:166
 #: ../root/layout/components/sidebar/ReleaseSidebar.js:223
 #: ../root/report/ReportsIndex.js:178
-#: ../root/static/scripts/account/components/PreferencesForm.js:256
+#: ../root/static/scripts/account/components/PreferencesForm.js:259
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:18
 #: ../root/tag/TagLayout.js:22
 msgid "Labels"
@@ -7354,7 +7206,7 @@ msgstr "已创建"
 #: ../root/artist/utils.js:15 ../root/components/list/ArtistList.js:90
 #: ../root/search/components/ArtistResults.js:58
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:113
-#: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:85
+#: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:91
 msgid "Begin area"
 msgstr "开始地区"
 
@@ -7384,7 +7236,7 @@ msgstr "已创建"
 #: ../root/edit/details/EditPlace.js:89
 #: ../root/layout/components/sidebar/AreaSidebar.js:63
 #: ../root/report/RecordingsWithFutureDates.js:33
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:182
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:188
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:161
 msgid "Begin date"
 msgstr "开始日期"
@@ -7404,7 +7256,7 @@ msgstr "解散于"
 #: ../root/search/components/ArtistResults.js:60
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:100
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:114
-#: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:87
+#: ../root/static/scripts/edit/components/HydratedArtistDateRangeFieldset.js:93
 msgid "End area"
 msgstr "结束地区"
 
@@ -7435,7 +7287,7 @@ msgstr "已解散"
 #: ../root/layout/components/sidebar/AreaSidebar.js:69
 #: ../root/layout/components/sidebar/EventSidebar.js:113
 #: ../root/report/RecordingsWithFutureDates.js:38
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:198
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:204
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:182
 msgid "End date"
 msgstr "结束日期"
@@ -7587,7 +7439,7 @@ msgstr "导入 CD 存根"
 msgid "Please search for the artist you wish to add a new release for:"
 msgstr ""
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:41
+#: ../root/cdtoc/AttachCDTocConfirmation.js:44
 msgid ""
 "Are you sure that you wish to attach the disc ID <code>{discid}</code> to "
 "medium {pos} ({format}) of {release} by {artist}?"
@@ -7595,20 +7447,20 @@ msgstr ""
 "你确定要将光盘 ID <code>{discid}</code> 附加到 {artist} 的 {release} 中第 "
 "{pos} 个载体 ({format}) 吗？"
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:69
+#: ../root/cdtoc/AttachCDTocConfirmation.js:72
 msgid "Track length comparison"
 msgstr ""
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:73
-#: ../root/cdtoc/SetTracklistDurations.js:54
+#: ../root/cdtoc/AttachCDTocConfirmation.js:76
+#: ../root/cdtoc/SetTracklistDurations.js:57
 msgid "This edit would only make subsecond changes to track lengths."
 msgstr "这个编辑只会对音频时长造成极小的改变。"
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:77
+#: ../root/cdtoc/AttachCDTocConfirmation.js:80
 msgid "CD TOC track lengths"
 msgstr "CD 目录音轨长度"
 
-#: ../root/cdtoc/AttachCDTocConfirmation.js:79
+#: ../root/cdtoc/AttachCDTocConfirmation.js:82
 msgid "Medium track lengths"
 msgstr "媒介音轨长度"
 
@@ -7715,7 +7567,7 @@ msgstr "音轨信息："
 #: ../root/cdtoc/CDTocInfo.js:47
 #: ../root/edit/details/historic/RemoveTrack.js:20
 #: ../root/search/components/RecordingResults.js:145
-#: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:805
+#: ../root/taglookup/Form.js:37 ../root/utility/tableColumns.js:807
 msgid "Track"
 msgstr "音轨"
 
@@ -7766,7 +7618,7 @@ msgstr ""
 "CD提交指南}。"
 
 #: ../root/cdtoc/SelectArtistForCDToc.js:30
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:112
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
 msgid "Search for an artist"
 msgstr "搜索艺术家"
 
@@ -7787,22 +7639,22 @@ msgid ""
 "time"
 msgstr ""
 
-#: ../root/cdtoc/SetTracklistDurations.js:33
-#: ../root/cdtoc/SetTracklistDurations.js:34
+#: ../root/cdtoc/SetTracklistDurations.js:36
+#: ../root/cdtoc/SetTracklistDurations.js:37
 msgid "Set tracklist durations"
 msgstr "设置音轨列表时长"
 
-#: ../root/cdtoc/SetTracklistDurations.js:37
+#: ../root/cdtoc/SetTracklistDurations.js:40
 msgid ""
 "You are about to enter an edit that will change the durations of tracks to "
 "match that of the below disc ID."
 msgstr ""
 
-#: ../root/cdtoc/SetTracklistDurations.js:50 ../root/edit/EditIndex.js:57
+#: ../root/cdtoc/SetTracklistDurations.js:53 ../root/edit/EditIndex.js:57
 msgid "Changes"
 msgstr "变更"
 
-#: ../root/cdtoc/SetTracklistDurations.js:65
+#: ../root/cdtoc/SetTracklistDurations.js:68
 msgid "The medium you are altering is part of the following release: {release}"
 msgstr "您正在修改的媒介是以下专辑的一部分：{release}"
 
@@ -7827,8 +7679,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "修改"
 
-#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:347
-#: ../root/user/UserProfile.js:408
+#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:402
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -7875,7 +7727,7 @@ msgid "Private"
 msgstr "私有"
 
 #: ../root/collection/CollectionMerge.js:67
-#: ../root/static/scripts/account/components/PreferencesForm.js:188
+#: ../root/static/scripts/account/components/PreferencesForm.js:191
 #: ../root/user/UserCollections.js:116
 msgid "Privacy"
 msgstr "隐私"
@@ -7950,7 +7802,7 @@ msgstr "别名"
 #: ../root/components/Aliases/AliasTable.js:22
 #: ../root/edit/details/AddRemoveAlias.js:67
 #: ../root/edit/details/EditAlias.js:93
-#: ../root/static/scripts/alias/AliasEditForm.js:313
+#: ../root/static/scripts/alias/AliasEditForm.js:316
 msgid "Locale"
 msgstr "语系"
 
@@ -7961,7 +7813,7 @@ msgstr "主要"
 #: ../root/components/Aliases/ArtistCreditList.js:28
 #: ../root/edit/details/AddMedium.js:145 ../root/edit/details/EditMedium.js:541
 #: ../root/report/ReportsIndex.js:113
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:228
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:232
 msgid "Artist credits"
 msgstr "艺术家名单"
 
@@ -7972,7 +7824,7 @@ msgid ""
 msgstr ""
 
 #: ../root/components/Aliases/ArtistCreditList.js:64
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:155
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:159
 msgid "see uses"
 msgstr ""
 
@@ -7982,7 +7834,7 @@ msgid "Aliases"
 msgstr "别名"
 
 #: ../root/components/Aliases/index.js:48
-#: ../root/static/scripts/alias/AliasEditForm.js:277
+#: ../root/static/scripts/alias/AliasEditForm.js:280
 msgid ""
 "An alias is an alternate name for an entity. They typically contain common "
 "misspellings or variations of the name and are also used to improve search "
@@ -8151,7 +8003,7 @@ msgstr "封面 ({num})"
 #: ../root/components/EntityTabs.js:141
 #: ../root/components/UserAccountTabs.js:65 ../root/entity/Tags.js:30
 #: ../root/layout/components/sidebar/SidebarTags.js:73
-#: ../root/static/scripts/common/components/TagEditor.js:656
+#: ../root/static/scripts/common/components/TagEditor.js:665
 #: ../root/tag/TagCloud.js:94 ../root/tag/TagCloud.js:96
 #: ../root/user/UserTagList.js:55
 msgctxt "folksonomy"
@@ -8166,8 +8018,8 @@ msgstr "评论"
 
 #: ../root/components/EntityTabs.js:150
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:43
-#: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:42
-#: ../root/user/UserRatingList.js:76
+#: ../root/user/UserProfile.js:841 ../root/user/UserRatingList.js:44
+#: ../root/user/UserRatingList.js:78
 msgid "Ratings"
 msgstr "评分"
 
@@ -8189,8 +8041,8 @@ msgstr "查看所有 {num} 个关联"
 #: ../root/components/RelationshipsTable.js:314
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:199
 #: ../root/static/scripts/relationship-editor/components/DialogAttribute/MultiselectAttribute.js:207
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:197
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:201
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:199
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:203
 msgid "Credited as"
 msgstr "署名为"
 
@@ -8200,7 +8052,7 @@ msgstr "署名为"
 #: ../root/edit/details/RemoveRelationshipType.js:113
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:38
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:579
-#: ../root/utility/tableColumns.js:682
+#: ../root/utility/tableColumns.js:684
 msgid "Attributes"
 msgstr "属性"
 
@@ -8231,7 +8083,7 @@ msgid "-"
 msgstr "-"
 
 #: ../root/components/RemoveFromMergeTableCell.js:34
-#: ../root/utility/tableColumns.js:738 ../root/utility/tableColumns.js:748
+#: ../root/utility/tableColumns.js:740 ../root/utility/tableColumns.js:750
 msgid "Remove from merge"
 msgstr "从合并中移除"
 
@@ -8296,7 +8148,7 @@ msgstr[0] "查看所有 {num} 个地点"
 
 #: ../root/components/TagEntitiesList.js:186 ../root/report/ReportsIndex.js:614
 #: ../root/report/components/SeriesList.js:40
-#: ../root/static/scripts/account/components/PreferencesForm.js:261
+#: ../root/static/scripts/account/components/PreferencesForm.js:264
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:23
 #: ../root/tag/TagLayout.js:26
 msgctxt "plural"
@@ -8334,7 +8186,7 @@ msgstr "订阅"
 #: ../root/entity/Subscribers.js:49
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:357
+#: ../root/user/UserProfile.js:351
 msgid "Subscribers"
 msgstr "订阅者"
 
@@ -8382,7 +8234,7 @@ msgstr "即将关闭"
 #: ../root/layout/components/sidebar/EventSidebar.js:122
 #: ../root/report/components/EventList.js:70
 #: ../root/search/components/EventResults.js:84
-#: ../root/static/scripts/event/components/EventEditForm.js:351
+#: ../root/static/scripts/event/components/EventEditForm.js:360
 msgctxt "event"
 msgid "Time"
 msgstr "时间"
@@ -9151,7 +9003,7 @@ msgstr "已取消"
 
 #: ../root/edit/details/AddEvent.js:80 ../root/edit/details/EditEvent.js:91
 #: ../root/event/EventIndex.js:47
-#: ../root/static/scripts/event/components/EventEditForm.js:321
+#: ../root/static/scripts/event/components/EventEditForm.js:330
 msgid "Setlist"
 msgstr "歌单"
 
@@ -9337,7 +9189,7 @@ msgstr ""
 #: ../root/report/IswcsWithManyWorks.js:49
 #: ../root/search/components/WorkResults.js:58
 #: ../root/static/scripts/common/components/IswcList.js:26
-#: ../root/utility/tableColumns.js:719
+#: ../root/utility/tableColumns.js:721
 msgid "ISWC"
 msgstr "国际标准音乐作品编码ISWC"
 
@@ -10613,7 +10465,7 @@ msgstr[0] "与 {num} 个作品关联"
 
 #: ../root/iswc/Index.js:60 ../root/report/IswcsWithManyWorks.js:52
 #: ../root/search/components/WorkResults.js:56
-#: ../root/utility/tableColumns.js:813
+#: ../root/utility/tableColumns.js:815
 #, fuzzy
 #| msgid "Recording artist:"
 msgid "Recording artists"
@@ -10714,7 +10566,7 @@ msgstr "数据移除政策"
 msgid "Privileged user accounts"
 msgstr "特权用户账号"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:564
 msgid "Statistics"
 msgstr "统计"
 
@@ -10786,7 +10638,7 @@ msgstr "标签云"
 #: ../root/layout/components/BottomMenu.js:241
 #: ../root/layout/components/sidebar/CollectionSidebar.js:67
 #: ../root/layout/components/sidebar/EditLinks.js:25
-#: ../root/static/scripts/account/components/PreferencesForm.js:246
+#: ../root/static/scripts/account/components/PreferencesForm.js:249
 msgid "Editing"
 msgstr "修改"
 
@@ -10887,19 +10739,23 @@ msgstr "关联类型"
 msgid "Development"
 msgstr "开发"
 
-#: ../root/layout/components/ExternalLinks.js:48
+#: ../root/layout/components/ExternalLinks.js:49
 msgid "{url} (as {credited_name})"
 msgstr "{url}（作为 {credited_name}）"
 
-#: ../root/layout/components/ExternalLinks.js:107
+#: ../root/layout/components/ExternalLinks.js:108
 msgid "Official homepage"
 msgstr "官方主页"
 
-#: ../root/layout/components/ExternalLinks.js:133
+#: ../root/layout/components/ExternalLinks.js:135
+msgid "Interview ({hostname})"
+msgstr ""
+
+#: ../root/layout/components/ExternalLinks.js:136
 msgid "Review ({hostname})"
 msgstr ""
 
-#: ../root/layout/components/ExternalLinks.js:180
+#: ../root/layout/components/ExternalLinks.js:183
 msgid "View all relationships"
 msgstr "浏览所有关联"
 
@@ -10983,7 +10839,7 @@ msgid "My collections"
 msgstr "我的收藏"
 
 #: ../root/layout/components/TopMenu.js:84
-#: ../root/static/scripts/account/components/PreferencesForm.js:202
+#: ../root/static/scripts/account/components/PreferencesForm.js:205
 msgid "My ratings"
 msgstr "我的评分"
 
@@ -11025,12 +10881,6 @@ msgstr "我的编辑收到的备注"
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
 msgstr "管理员"
-
-#: ../root/layout/components/TopMenu.js:209
-#: ../root/static/scripts/account/components/RegisterForm.js:118
-msgctxt "interactive"
-msgid "Create account"
-msgstr "创建账号"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
@@ -11335,7 +11185,7 @@ msgstr "许可协议"
 
 #: ../root/layout/components/sidebar/SidebarRating.js:19
 #: ../root/static/scripts/release/components/MediumTable.js:77
-#: ../root/utility/tableColumns.js:477
+#: ../root/utility/tableColumns.js:479
 msgid "Rating"
 msgstr "评分"
 
@@ -11344,28 +11194,28 @@ msgid "see all ratings"
 msgstr "查看所有评分"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:45
-#: ../root/static/scripts/common/components/TagEditor.js:664
+#: ../root/static/scripts/common/components/TagEditor.js:673
 msgctxt "genre"
 msgid "(none)"
 msgstr "(无)"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:46
-#: ../root/static/scripts/common/components/TagEditor.js:673
+#: ../root/static/scripts/common/components/TagEditor.js:682
 msgctxt "folksonomy tag"
 msgid "(none)"
 msgstr "(无)"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:75
-#: ../root/static/scripts/common/components/TagEditor.js:524
-#: ../root/static/scripts/common/components/TagEditor.js:658
+#: ../root/static/scripts/common/components/TagEditor.js:533
+#: ../root/static/scripts/common/components/TagEditor.js:667
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:16
 #: ../root/tag/TagCloud.js:110 ../root/user/UserTagList.js:71
 msgid "Genres"
 msgstr "流派"
 
 #: ../root/layout/components/sidebar/SidebarTags.js:82
-#: ../root/static/scripts/common/components/TagEditor.js:534
-#: ../root/static/scripts/common/components/TagEditor.js:667
+#: ../root/static/scripts/common/components/TagEditor.js:543
+#: ../root/static/scripts/common/components/TagEditor.js:676
 #: ../root/user/UserTagList.js:92
 msgctxt "folksonomy"
 msgid "Other tags"
@@ -11401,19 +11251,19 @@ msgstr[0] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr "生日快乐，感谢您对 MusicBrainz 的贡献！"
 
-#: ../root/main/ConfirmSeed.js:26
+#: ../root/main/ConfirmSeed.js:25
 #, fuzzy
 #| msgid "Confirm Form Submission"
 msgid "Confirm form submission"
 msgstr "确认提交"
 
-#: ../root/main/ConfirmSeed.js:43
+#: ../root/main/ConfirmSeed.js:42
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
 msgstr "你将要向{action}提交一个来自{origin}的请求。继续吗?"
 
-#: ../root/main/ConfirmSeed.js:52
+#: ../root/main/ConfirmSeed.js:51
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can "
@@ -11466,7 +11316,7 @@ msgid ""
 "edit or add anything to the database."
 msgstr ""
 
-#: ../root/main/error/Error401.js:39 ../root/user/Login.js:86
+#: ../root/main/error/Error401.js:39 ../root/user/Login.js:82
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
@@ -12797,7 +12647,7 @@ msgstr "别名："
 #: ../root/report/DuplicateReleaseGroups.js:92
 #: ../root/report/EmptyReleaseGroups.js:93
 #: ../root/report/components/ArtistList.js:51
-#: ../root/report/components/ReleaseGroupList.js:56
+#: ../root/report/components/ReleaseGroupList.js:59
 #: ../root/report/components/WorkList.js:56
 msgctxt "type"
 msgid "Unknown"
@@ -14304,180 +14154,153 @@ msgid ""
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:106
-#: ../root/user/UserProfile.js:283
+#: ../root/static/scripts/account/components/EditProfileForm.js:110
+#: ../root/user/UserProfile.js:277
 msgctxt "user area"
 msgid "Location"
 msgstr "位置"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:190
+#: ../root/static/scripts/account/components/EditProfileForm.js:197
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
 msgstr ""
 "这是一台开发用服务器。您的电子邮件地址可能不是私有和安全的。请慎重行事！"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:203
-msgid "If you change your email address, you will be required to verify it."
+#: ../root/static/scripts/account/components/EditProfileForm.js:218
+#, fuzzy
+#| msgid "If you change your email address, you will be required to verify it."
+msgid ""
+"Your email address can be changed from your {profile|MetaBrainz profile}. If "
+"you change your email address, you will be required to verify it."
 msgstr "如果您更改了电子邮件地址，您将需要重新验证它。"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
 msgstr "网站"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:233
+#: ../root/static/scripts/account/components/EditProfileForm.js:253
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 "您可以选择您想要的详细程度：您的国家，地区，或城市。您想要多详细就能多详细！"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:240
+#: ../root/static/scripts/account/components/EditProfileForm.js:260
 msgid "Birth date:"
 msgstr "出生日期："
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:265
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr "我们会使用您的出生日期在您的个人资料页面显示年龄。"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:252
-#: ../root/user/UserProfile.js:401
+#: ../root/static/scripts/account/components/EditProfileForm.js:272
+#: ../root/user/UserProfile.js:395
 msgid "Bio"
 msgstr "简介"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:257
+#: ../root/static/scripts/account/components/EditProfileForm.js:277
 #, fuzzy
 #| msgid "Languages Known:"
 msgid "Languages known:"
 msgstr "了解的语言："
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:293
+#: ../root/static/scripts/account/components/EditProfileForm.js:313
 #: ../root/static/scripts/work/edit.js:337
 msgctxt "interactive"
 msgid "Add language"
 msgstr "添加语言"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:301
-#: ../root/static/scripts/account/components/PreferencesForm.js:267
+#: ../root/static/scripts/account/components/EditProfileForm.js:321
+#: ../root/static/scripts/account/components/PreferencesForm.js:270
 msgctxt "interactive"
 msgid "Save"
 msgstr "保存"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:155
+#: ../root/static/scripts/account/components/PreferencesForm.js:158
 msgid "Regional settings"
 msgstr "区域设定"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:164
+#: ../root/static/scripts/account/components/PreferencesForm.js:167
 msgid "Guess timezone"
 msgstr "猜测时区"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:169
+#: ../root/static/scripts/account/components/PreferencesForm.js:172
 msgid "Timezone:"
 msgstr "时区："
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:177
+#: ../root/static/scripts/account/components/PreferencesForm.js:180
 msgid "Date/time format:"
 msgstr "日期/时间格式："
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:189
+#: ../root/static/scripts/account/components/PreferencesForm.js:192
 #, fuzzy
 #| msgid "Allow other users to see my tags"
 msgid "Allow other users to see"
 msgstr "允许其他用户查看我的标签"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:192
+#: ../root/static/scripts/account/components/PreferencesForm.js:195
 msgid "My subscriptions"
 msgstr "我的订阅"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:197
+#: ../root/static/scripts/account/components/PreferencesForm.js:200
 #, fuzzy
 #| msgid "Add a new genre"
 msgctxt "folksonomy"
 msgid "My tags and genres"
 msgstr "添加新流派"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:210
+#: ../root/static/scripts/account/components/PreferencesForm.js:213
 msgid "Language to receive emails in"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:214
+#: ../root/static/scripts/account/components/PreferencesForm.js:217
 #, fuzzy
 #| msgid "Email Sent"
 msgid "Email me about"
 msgstr "电子邮件已发送"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:217
+#: ../root/static/scripts/account/components/PreferencesForm.js:220
 msgid "The first “no” vote on any of my edits"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:222
+#: ../root/static/scripts/account/components/PreferencesForm.js:225
 msgid "Notes on edits I have left notes on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:227
+#: ../root/static/scripts/account/components/PreferencesForm.js:230
 msgid "Notes on edits I have voted on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:232
+#: ../root/static/scripts/account/components/PreferencesForm.js:235
 msgid "Notes on edits I have abstained on"
 msgstr ""
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:239
+#: ../root/static/scripts/account/components/PreferencesForm.js:242
 #, fuzzy
 #| msgid "Send me mails with edits to my subscriptions:"
 msgid "Send me mails with edits to my subscriptions"
 msgstr "当我的订阅被编辑时发送电子邮件通知"
 
-#: ../root/static/scripts/account/components/PreferencesForm.js:248
+#: ../root/static/scripts/account/components/PreferencesForm.js:251
 msgid "Automatically subscribe me when I add"
 msgstr "当我添加时自动订阅"
 
-#: ../root/static/scripts/account/components/RegisterForm.js:58
-msgid "Your username will be publicly visible."
-msgstr "您的用户名将公开可见。"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:69
-msgid ""
-"The username you have entered looks like an email address. This is allowed, "
-"but please keep in mind that everyone will be able to see it. Only use an "
-"email address as your username if you are completely sure you are happy with "
-"that."
-msgstr ""
-"您输入的用户名看起来像是一个电子邮件地址。尽管这是可行的，但请留意所有人都能"
-"看到它。请仅在您对此完全满意的情况下将电子邮件地址作为您的用户名。"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:80
-#: ../root/user/Login.js:104
-msgid "Password:"
-msgstr "密码:"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:101
-msgid ""
-"You must provide a working email address if you wish to contribute to the "
-"database."
-msgstr "如果您想对数据库做出贡献，您必须提供一个可用的电子邮件地址。"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:113
-msgid ""
-"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
-"account."
-msgstr "请在创建账号前查阅 {coc|MusicBrainz 行为准则}。"
-
-#: ../root/static/scripts/alias/AliasEditForm.js:293
+#: ../root/static/scripts/alias/AliasEditForm.js:296
 msgid "Alias details"
 msgstr "别名详情"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:300
+#: ../root/static/scripts/alias/AliasEditForm.js:303
 msgid "Alias name:"
 msgstr "别名:"
 
-#: ../root/static/scripts/alias/AliasEditForm.js:328
+#: ../root/static/scripts/alias/AliasEditForm.js:331
 msgid "This is the {alias_doc|primary alias} for this locale"
 msgstr ""
 
-#: ../root/static/scripts/alias/AliasEditForm.js:350
+#: ../root/static/scripts/alias/AliasEditForm.js:353
 msgid "This alias is no longer current."
 msgstr "此别名现在已不使用。"
 
@@ -14524,42 +14347,42 @@ msgstr "{place_type}：{place_link}（已关闭）"
 msgid "{place_type}: {place_link}"
 msgstr "{place_type}：{place_link}"
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:231
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:235
 msgid ""
 "Please select the {doc|artist credits} that you want to rename to follow the "
 "new artist name."
 msgstr "请选择您想重命名为新艺术家名称的 {doc|艺术家名单}。"
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:237
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:241
 msgid ""
 "This will enter additional edits to change each specific credit to use the "
 "new name. Only use this if you are sure the existing credits are incorrect "
 "(such as for typos)."
 msgstr ""
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:242
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:246
 msgid ""
 "Keep in mind artist credits should generally follow what is printed on "
 "releases. If an artist has changed their name, but old releases were "
 "credited to the existing name, do not change the artist credit."
 msgstr ""
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:267
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:271
 msgid "Show less artist credits"
 msgstr "显示更少艺术家名单"
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:269
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:273
 #: ../root/static/scripts/common/components/Collapsible.js:76
 msgid "Show less..."
 msgstr "显示更少..."
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:281
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:285
 msgid "Show more artist credits"
 msgstr "显示更多艺术家名单"
 
-#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:283
+#: ../root/static/scripts/artist/components/ArtistCreditRenamer.js:287
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:478
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:85
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:88
 #: ../root/static/scripts/common/components/Collapsible.js:76
 msgid "Show more..."
 msgstr "显示更多..."
@@ -14589,7 +14412,7 @@ msgid "Remove collaborator"
 msgstr "移除合作编辑者"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:87
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:78
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:81
 msgid "An error occurred while searching. Click here to try again."
 msgstr "搜索时发生了错误。点击此处再试一次。"
 
@@ -14602,7 +14425,7 @@ msgid "Try with indexed search instead."
 msgstr "尝试搜索索引。"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:125
-#: ../root/static/scripts/common/components/Autocomplete2.js:776
+#: ../root/static/scripts/common/components/Autocomplete2.js:779
 msgid "Type to search, or paste an MBID"
 msgstr "输入关键词来搜索，或粘贴 MBID"
 
@@ -14612,12 +14435,12 @@ msgid "Clear recent items"
 msgstr "清除最近的项目"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:485
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:92
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:95
 msgid "Not found? Try again with direct search."
 msgstr "没找到？使用直接搜索再试一次。"
 
 #: ../root/static/scripts/common/MB/Control/Autocomplete.js:486
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:99
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:102
 msgid "Slow? Switch back to indexed search."
 msgstr "太慢了？切换回搜索索引。"
 
@@ -14708,71 +14531,71 @@ msgstr "显示更少的属性"
 msgid "Recent items"
 msgstr "最近的项目"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:48
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:51
 msgid "Try again with direct search."
 msgstr "使用直接搜索再试一次。"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:54
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:57
 msgid "Try again with indexed search."
 msgstr "使用搜索索引再试一次。"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:60
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:63
 msgid "An error occurred while looking up the MBID you entered."
 msgstr "查找您输入的 MBID 时发生了错误。"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:66
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:69
 msgid "The type of entity you pasted isn’t supported here."
 msgstr "此处不支持您粘贴的实体。"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:111
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:114
 msgid "Search for an area"
 msgstr "搜索地区"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:113
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:116
 msgid "Search for an editor"
 msgstr "搜索编辑者"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:114
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:117
 msgid "Search for an event"
 msgstr "搜索事件"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:115
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:118
 msgid "Search for a genre"
 msgstr "搜索流派"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:116
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:119
 msgid "Search for an instrument"
 msgstr "搜索乐器"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:117
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:120
 msgid "Search for a label"
 msgstr "搜索厂牌"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:119
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:122
 msgid "Search for a relationship type"
 msgstr "搜索关联类型"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:120
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:123
 msgid "Search for a place"
 msgstr "搜索地点"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:121
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:124
 msgid "Search for a recording"
 msgstr "搜索录音"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:122
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:125
 msgid "Search for a release"
 msgstr "搜索专辑"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:123
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:126
 msgid "Search for a release group"
 msgstr "搜索专辑组"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:124
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:127
 msgid "Search for a series"
 msgstr "搜索系列"
 
-#: ../root/static/scripts/common/components/Autocomplete2/constants.js:125
+#: ../root/static/scripts/common/components/Autocomplete2/constants.js:128
 msgid "Search for a work"
 msgstr "搜索作品"
 
@@ -14982,6 +14805,16 @@ msgstr "显示更少的 ISWC"
 msgid "{action_label} (in a new tab)"
 msgstr ""
 
+#: ../root/static/scripts/common/components/LoginMessage.js:36
+msgid ""
+"We’re currently unable to process your submission because your login session "
+"has expired."
+msgstr ""
+
+#: ../root/static/scripts/common/components/LoginMessage.js:50
+msgid "Click here to log in."
+msgstr ""
+
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
 msgstr "载体 {position} ({medium_format})"
@@ -15017,7 +14850,7 @@ msgid "Related series"
 msgstr "相关系列"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1581
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1592
 msgid "Related works"
 msgstr "相关作品"
 
@@ -15095,12 +14928,12 @@ msgstr "您已否决此标签"
 msgid "Downvote"
 msgstr "否决票"
 
-#: ../root/static/scripts/common/components/TagEditor.js:531
+#: ../root/static/scripts/common/components/TagEditor.js:540
 #: ../root/user/UserTagList.js:89
 msgid "There are no genres to show."
 msgstr "没有可显示的流派。"
 
-#: ../root/static/scripts/common/components/TagEditor.js:541
+#: ../root/static/scripts/common/components/TagEditor.js:550
 #: ../root/user/UserTagList.js:112
 #, fuzzy
 #| msgid "There are no other tags to show."
@@ -15108,75 +14941,75 @@ msgctxt "folksonomy"
 msgid "There are no other tags to show."
 msgstr "没有可显示的其他标签。"
 
-#: ../root/static/scripts/common/components/TagEditor.js:545
+#: ../root/static/scripts/common/components/TagEditor.js:554
 #, fuzzy
 #| msgid "Nobody has tagged this yet."
 msgctxt "folksonomy"
 msgid "Nobody has tagged this yet."
 msgstr "还没有人为此添加标签。"
 
-#: ../root/static/scripts/common/components/TagEditor.js:556
+#: ../root/static/scripts/common/components/TagEditor.js:565
 msgctxt "folksonomy"
 msgid ""
 "Tags with a score of zero or below, and tags that you’ve downvoted are "
 "hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:564
+#: ../root/static/scripts/common/components/TagEditor.js:573
 msgctxt "folksonomy"
 msgid "Tags with a score of zero or below are hidden."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:574
+#: ../root/static/scripts/common/components/TagEditor.js:583
 #, fuzzy
 #| msgid "Show all tags."
 msgctxt "folksonomy"
 msgid "Show all tags."
 msgstr "显示所有标签。"
 
-#: ../root/static/scripts/common/components/TagEditor.js:583
+#: ../root/static/scripts/common/components/TagEditor.js:592
 #, fuzzy
 #| msgid "All tags are being shown."
 msgctxt "folksonomy"
 msgid "All tags are being shown."
 msgstr "已显示所有标签。"
 
-#: ../root/static/scripts/common/components/TagEditor.js:592
+#: ../root/static/scripts/common/components/TagEditor.js:601
 msgctxt "folksonomy"
 msgid ""
 "Hide tags with a score of zero or below, and tags that you’ve downvoted."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:605
+#: ../root/static/scripts/common/components/TagEditor.js:614
 msgctxt "folksonomy"
 msgid "Hide tags with a score of zero or below."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:616
+#: ../root/static/scripts/common/components/TagEditor.js:625
 msgctxt "folksonomy"
 msgid "Add tags"
 msgstr "添加标签"
 
-#: ../root/static/scripts/common/components/TagEditor.js:619
+#: ../root/static/scripts/common/components/TagEditor.js:628
 msgctxt "folksonomy"
 msgid ""
 "You can add your own {tagdocs|tags} below. Use commas to separate multiple "
 "tags."
 msgstr ""
 
-#: ../root/static/scripts/common/components/TagEditor.js:634
+#: ../root/static/scripts/common/components/TagEditor.js:643
 msgctxt "folksonomy"
 msgid "Submit tags"
 msgstr "提交标签"
 
-#: ../root/static/scripts/common/components/TagEditor.js:680
+#: ../root/static/scripts/common/components/TagEditor.js:689
 #, fuzzy
 #| msgid "see all tags"
 msgctxt "folksonomy"
 msgid "see all tags"
 msgstr "查看所有标签"
 
-#: ../root/static/scripts/common/components/TagEditor.js:696
+#: ../root/static/scripts/common/components/TagEditor.js:705
 msgctxt "verb, folksonomy"
 msgid "Tag"
 msgstr "标签"
@@ -15345,26 +15178,26 @@ msgstr ""
 msgid "Began:"
 msgstr "开始于："
 
-#: ../root/static/scripts/edit/URLCleanup.js:388
+#: ../root/static/scripts/edit/URLCleanup.js:390
 msgid ""
 "Please link to a channel, not a specific video. Videos should be linked to "
 "the appropriate recordings or releases instead."
 msgstr ""
 "请链接到某个频道，而不是某个特定的视频。视频应该链接到适当的录音或专辑。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:394
+#: ../root/static/scripts/edit/URLCleanup.js:396
 msgid ""
 "This is a link to a search result. Please link to any page in the results "
 "that is relevant to this entity instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:399
+#: ../root/static/scripts/edit/URLCleanup.js:401
 msgid ""
 "Please link to a specific video. Add channel pages to the relevant artist, "
 "label, etc. instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:404
+#: ../root/static/scripts/edit/URLCleanup.js:406
 msgid ""
 "This is a lyrics site. As such, links to the site should be added at the "
 "release group level with the “lyrics” relationship, rather than directly to "
@@ -15373,7 +15206,7 @@ msgstr ""
 "这是一个歌词网站。因此，网站的链接应该在专辑组级别添加“歌词”关系，而不是直接"
 "添加到任何特定的专辑。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:597
+#: ../root/static/scripts/edit/URLCleanup.js:599
 msgid ""
 "Allmusic “{album_url_pattern}” links should be added to release groups. To "
 "find the appropriate release link for this release, please check the "
@@ -15382,49 +15215,48 @@ msgstr ""
 "所有音乐的“{album_url_pattern}”链接都应该添加到专辑组中。要找到这个专辑的适当"
 "发行链接，请从{album_url|您的链接}检查专辑选项卡。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:700
-#: ../root/static/scripts/edit/URLCleanup.js:994
-#: ../root/static/scripts/edit/URLCleanup.js:2408
-#: ../root/static/scripts/edit/URLCleanup.js:3810
-#: ../root/static/scripts/edit/URLCleanup.js:4849
-#: ../root/static/scripts/edit/URLCleanup.js:6055
-#: ../root/static/scripts/edit/URLCleanup.js:6715
+#: ../root/static/scripts/edit/URLCleanup.js:702
+#: ../root/static/scripts/edit/URLCleanup.js:996
+#: ../root/static/scripts/edit/URLCleanup.js:2412
+#: ../root/static/scripts/edit/URLCleanup.js:3771
+#: ../root/static/scripts/edit/URLCleanup.js:5952
+#: ../root/static/scripts/edit/URLCleanup.js:6612
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
 msgstr ""
 "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:718
+#: ../root/static/scripts/edit/URLCleanup.js:720
 msgid ""
 "This is a link to a user video and should not be added. Please add the "
 "product link instead, if relevant."
 msgstr "这是一个用户视频的链接，不应该添加。如果相关，请添加产品链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:953
+#: ../root/static/scripts/edit/URLCleanup.js:955
 msgid ""
 "Only Apple Books audiobooks can be added to MusicBrainz. Consider adding "
 "books to {bookbrainz_url|BookBrainz} instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1321
+#: ../root/static/scripts/edit/URLCleanup.js:1323
 msgid ""
 "Please do not add “{blocked_url_pattern}” links, link to the appropriate "
 "“{wanted_url_pattern}” page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1341
+#: ../root/static/scripts/edit/URLCleanup.js:1343
 msgid ""
 "Please link to the main page for the artist, not to a specific album or "
 "track."
 msgstr "请链接到此艺术家的主页，而非特定专辑或音轨。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1361
+#: ../root/static/scripts/edit/URLCleanup.js:1363
 msgid ""
 "Please link to the main page for the label, not to a specific album or track."
 msgstr "请链接到此厂牌的主页，而非特定专辑或音轨。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:1383
+#: ../root/static/scripts/edit/URLCleanup.js:1385
 msgid ""
 "This is a Bandcamp profile, not a page for a specific recording. Even if it "
 "shows a single recording right now, that can change when the artist releases "
@@ -15433,7 +15265,7 @@ msgid ""
 "the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1411
+#: ../root/static/scripts/edit/URLCleanup.js:1413
 msgid ""
 "This is a Bandcamp profile, not a page for a specific release. Even if it "
 "shows this release right now, that can change when the artist releases "
@@ -15442,39 +15274,39 @@ msgid ""
 "add this profile link to the appropriate artist or label."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1757
+#: ../root/static/scripts/edit/URLCleanup.js:1759
 msgid "Please link to the main page for the artist, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:1759
+#: ../root/static/scripts/edit/URLCleanup.js:1761
 msgid "Please link to the main page for the label, not a specific product."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:2568
+#: ../root/static/scripts/edit/URLCleanup.js:2572
 msgid ""
 "Discogs “{master_url_pattern}” links group several releases, so this should "
 "be added to the release group instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3386
+#: ../root/static/scripts/edit/URLCleanup.js:3390
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3404
+#: ../root/static/scripts/edit/URLCleanup.js:3408
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3448
+#: ../root/static/scripts/edit/URLCleanup.js:3452
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:3476
+#: ../root/static/scripts/edit/URLCleanup.js:3480
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -15483,70 +15315,70 @@ msgstr ""
 "请不要直接链接到图片，而是链接到适当的Instagram主页。如果你想链接到一个视频，"
 "{url|添加一个独立的录音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3501
+#: ../root/static/scripts/edit/URLCleanup.js:3505
 msgid "This is an internal Instagram page and should not be added."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4524
+#: ../root/static/scripts/edit/URLCleanup.js:4450
 msgid ""
 "Only MixesDB “{category_url_pattern}” links are allowed for artists and "
 "series. Please link mix pages to the specific release group in question."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4542
+#: ../root/static/scripts/edit/URLCleanup.js:4468
 msgid ""
 "MixesDB “{category_url_pattern}” links are only allowed for artists and "
 "series. Please link the specific mix page to this release group instead, if "
 "available."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:4717
+#: ../root/static/scripts/edit/URLCleanup.js:4664
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
 "adding Musixmatch links to the relevant artists and works instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:5505
+#: ../root/static/scripts/edit/URLCleanup.js:5402
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音乐视频可以链接到录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5573
+#: ../root/static/scripts/edit/URLCleanup.js:5470
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
 "if so, add that link instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6319
+#: ../root/static/scripts/edit/URLCleanup.js:6216
 msgid "Please link to Threads profiles, not threads."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:6447
+#: ../root/static/scripts/edit/URLCleanup.js:6344
 #, fuzzy
 #| msgid "Please link to Twitter profiles, not tweets."
 msgid "Please link to TikTok profiles, not videos."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6735
+#: ../root/static/scripts/edit/URLCleanup.js:6632
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "这不是个人资料页，而是一个 Twitter 文档页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6749
+#: ../root/static/scripts/edit/URLCleanup.js:6646
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "请链接至 Twitter 个人资料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6780
+#: ../root/static/scripts/edit/URLCleanup.js:6677
 msgid "This site does not allow direct links to their images."
 msgstr "此网站不允许图片直链。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7082
+#: ../root/static/scripts/edit/URLCleanup.js:6979
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7260
+#: ../root/static/scripts/edit/URLCleanup.js:7166
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15555,25 +15387,25 @@ msgstr ""
 "此 URL 中有未编码的 “?” 或 “#” 字符。请检查它们是否是无用的，并且应该被移除，"
 "或是 URL 被错误编码。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7280
+#: ../root/static/scripts/edit/URLCleanup.js:7186
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7301
+#: ../root/static/scripts/edit/URLCleanup.js:7207
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "请将 WhoSampled “{album_url_pattern}” 页面链接至专辑组。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7319
+#: ../root/static/scripts/edit/URLCleanup.js:7225
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "请将 WhoSampled 艺术家页面链接至艺术家。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7331
+#: ../root/static/scripts/edit/URLCleanup.js:7237
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "请将 WhoSampled 音轨页面链接至录音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7394
+#: ../root/static/scripts/edit/URLCleanup.js:7300
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15581,13 +15413,19 @@ msgstr ""
 "不允许链接至维基百科文字的特定部分。如果合适，请移除 “{fragment}”。详见 {url|"
 "指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7419
+#: ../root/static/scripts/edit/URLCleanup.js:7325
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7599
+#: ../root/static/scripts/edit/URLCleanup.js:7515
+#, fuzzy
+#| msgid "Only video and playlist links are allowed on releases."
+msgid "Only video links are allowed as interviews."
+msgstr "专辑只能有视频或播放列表链接。"
+
+#: ../root/static/scripts/edit/URLCleanup.js:7527
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15596,17 +15434,17 @@ msgstr ""
 "这是一个播放列表链接，不是视频频道，也不能保证得到官方批准。如果该实体存在，"
 "请链接到该实体的官方频道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7641
+#: ../root/static/scripts/edit/URLCleanup.js:7571
 msgid "Only video and playlist links are allowed on releases."
 msgstr "专辑只能有视频或播放列表链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7687
+#: ../root/static/scripts/edit/URLCleanup.js:7619
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7723
+#: ../root/static/scripts/edit/URLCleanup.js:7656
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -15616,7 +15454,7 @@ msgid ""
 "to the relevant recordings instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7733
+#: ../root/static/scripts/edit/URLCleanup.js:7666
 #, fuzzy
 #| msgid ""
 #| "Please link to a specific video. Add channel pages to the relevant "
@@ -15626,7 +15464,7 @@ msgid ""
 "relevant artists instead."
 msgstr "请链接到具体的视频。添加相关的歌手，标签等渠道页面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7743
+#: ../root/static/scripts/edit/URLCleanup.js:7676
 #, fuzzy
 #| msgid ""
 #| "This is a redirect link. Please follow {redirect_url|your link} and add "
@@ -15637,38 +15475,38 @@ msgid ""
 msgstr ""
 "这是一个重定向链接。请关注{redirect_url|您的链接}并添加它重定向后的链接。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7913
+#: ../root/static/scripts/edit/URLCleanup.js:7846
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7925
+#: ../root/static/scripts/edit/URLCleanup.js:7858
 msgid ""
 "Last.fm release pages are very often generated from MusicBrainz data to "
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7936
+#: ../root/static/scripts/edit/URLCleanup.js:7869
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
 "the release group instead, if appropriate."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:8134
+#: ../root/static/scripts/edit/URLCleanup.js:8067
 msgid "Some relationship types are missing for this URL."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:8149
+#: ../root/static/scripts/edit/URLCleanup.js:8082
 #: ../root/static/scripts/external-links-editor/validation.js:285
 msgid "This relationship type combination is invalid."
 msgstr ""
 
 #: ../root/static/scripts/edit/check-duplicates.js:155
-#: ../root/static/scripts/event/components/EventEditForm.js:139
+#: ../root/static/scripts/event/components/EventEditForm.js:148
 #: ../root/static/scripts/external-links-editor/validation.js:131
 #: ../root/static/scripts/release/components/EditWorkDialog.js:161
 msgid "Required field."
@@ -15802,11 +15640,11 @@ msgctxt "interactive"
 msgid "Remove artist credit"
 msgstr "移除艺术家信息"
 
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:172
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:178
 msgid "Date period"
 msgstr "日期范围"
 
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:174
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:180
 msgid ""
 "Dates are in the format YYYY-MM-DD. Partial dates such as YYYY-MM or just "
 "YYYY are OK, or you can omit the date entirely."
@@ -15814,7 +15652,7 @@ msgstr ""
 "日期的格式为YYYY-MM-DD。部分日期（如YYYY-MM或只是YYYY）也可以，或者你可以省略"
 "该日期。"
 
-#: ../root/static/scripts/edit/components/DateRangeFieldset.js:189
+#: ../root/static/scripts/edit/components/DateRangeFieldset.js:195
 #: ../root/static/scripts/relationship-editor/components/DialogDatePeriod.js:173
 msgid "Copy to end date"
 msgstr "复制到结束日期"
@@ -15847,7 +15685,7 @@ msgstr "[已移除]"
 msgid "Show me an alert whenever I receive a new edit note."
 msgstr "每当我收到新的编辑备注时显示提示。"
 
-#: ../root/static/scripts/edit/components/PartialDateInput.js:43
+#: ../root/static/scripts/edit/components/PartialDateInput.js:50
 msgid "The date you've entered is not valid"
 msgstr "您输入的日期无效"
 
@@ -15949,15 +15787,15 @@ msgstr "如果你继续使用现有的合并策略，下列录音会被合并，
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果离开此网页，您的所有更改将会丢失。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:290
+#: ../root/static/scripts/event/components/EventEditForm.js:299
 msgid "Event details"
 msgstr "活动详情"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:315
+#: ../root/static/scripts/event/components/EventEditForm.js:324
 msgid "This event was cancelled."
 msgstr "此事件已取消。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:328
+#: ../root/static/scripts/event/components/EventEditForm.js:337
 msgid ""
 "Add \"@ \" at line start to indicate artists, \"* \" for a work/song, \"# \" "
 "for additional info (such as \"Encore\"). [mbid|name] allows linking to "
@@ -15966,7 +15804,7 @@ msgstr ""
 "在行首插入“@”表示艺术家、“*”表示作品或乐曲、“#”表示补充信息（如“Encore”）。"
 "[mbid|name] 能链接艺术家和作品。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:336
+#: ../root/static/scripts/event/components/EventEditForm.js:345
 msgid ""
 "If needed, the characters \"[\", \"]\", and \"&\" can be escaped using the "
 "HTML entities \"<code>&amp;lsqb;</code>\", \"<code>&amp;rsqb;</code>\", and "
@@ -15976,11 +15814,11 @@ msgstr ""
 "code>\"，\"<code>&rsqb;</code>\"，和 \"<code>&amp;</code>\" 实体编码符号替"
 "换。"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:352
+#: ../root/static/scripts/event/components/EventEditForm.js:361
 msgid "HH:MM"
 msgstr "HH:MM"
 
-#: ../root/static/scripts/event/components/EventEditForm.js:385
+#: ../root/static/scripts/event/components/EventEditForm.js:394
 #, fuzzy
 #| msgid ""
 #| "Select any type from the list to see its description. If the work doesn’t "
@@ -16049,13 +15887,13 @@ msgctxt "interactive"
 msgid "Edit URL"
 msgstr "编辑 URL"
 
-#: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:34
+#: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:37
 #, fuzzy
 #| msgid "Credits"
 msgid "Credit"
 msgstr "贡献名单"
 
-#: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:37
+#: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:40
 msgid "Credited to"
 msgstr "署名为"
 
@@ -16251,29 +16089,29 @@ msgstr ""
 "如果您不知道终止日期，但是您知道关联已经终止并且这一信息有记录的意义(例如某人"
 "不再是乐队成员)，您可以选中上方的复选框以标记。"
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:108
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:110
 msgid "Change credits for other {entity} relationships on the page."
 msgstr "更改此页面上的其他 {entity} 关联。"
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:117
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:119
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to use this option, "
 "please close this dialog and load all tracks/mediums beforehand."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:133
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:135
 msgid "All of these relationships."
 msgstr "所有这些关系。"
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:145
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:147
 msgid "Only relationships to {entity_type} entities."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:164
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:166
 msgid "Only “{relationship_type}” relationships to {entity_type} entities."
 msgstr ""
 
-#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:189
+#: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:191
 msgid ""
 "A credited name is optional. You can leave this field blank to keep the "
 "current name."
@@ -16507,7 +16345,7 @@ msgid "You must provide an edit note when adding a release."
 msgstr "添加专辑时必须提供编辑备注。"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1861
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1893
 msgid "Submitting edits..."
 msgstr "正在提交编辑..."
 
@@ -16741,30 +16579,30 @@ msgstr "批量添加作品关系"
 msgid "[selected work]"
 msgstr "[已选择的作品]"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:280
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:288
 msgid "An error occurred:"
 msgstr "发生错误:"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1519
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1530
 msgid "Track relationships"
 msgstr "音轨关联"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1538
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1549
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1605
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1616
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:364
 msgid "We have no information about this release’s media and tracklist."
 msgstr "没有关于此专辑的媒介和音轨列表的信息。"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1636
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1647
 msgid "Release relationships"
 msgstr "专辑关联"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1673
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1684
 #, fuzzy
 #| msgid "Release Group Relationships"
 msgid "Release group relationships"
@@ -17141,39 +16979,40 @@ msgstr "显示我的电子邮件地址"
 msgid "Send a copy to my own email address"
 msgstr "发送副本到我自己的电子邮箱"
 
-#: ../root/user/Login.js:48 ../root/user/Login.js:49
+#: ../root/user/ContactUser.js:71
+msgctxt "interactive"
+msgid "Send email"
+msgstr "发送电子邮件"
+
+#: ../root/user/Login.js:44 ../root/user/Login.js:45
 msgctxt "header"
 msgid "Log in"
 msgstr "登录"
 
-#: ../root/user/Login.js:53
+#: ../root/user/Login.js:49
 msgid "You need to be logged in to view this page."
 msgstr "您需要登录才能浏览此页面。"
 
-#: ../root/user/Login.js:59
+#: ../root/user/Login.js:55
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "还没有账号？{uri|现在创建一个}！"
 
-#: ../root/user/Login.js:70
+#: ../root/user/Login.js:66
 msgid "Incorrect username or password"
 msgstr "用户名或密码不正确"
 
-#: ../root/user/Login.js:80
+#: ../root/user/Login.js:76
 msgid ""
 "You cannot log in because this account has been marked as a spam account."
 msgstr "无法登录，因为此账号已被标记为垃圾信息账号。"
 
-#: ../root/user/Login.js:113
+#: ../root/user/Login.js:109
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr "这是一台开发用服务器；所有的密码都已被重置为“mb”。"
 
-#: ../root/user/Login.js:121
-msgid "Keep me logged in"
-msgstr "保持登录"
-
-#: ../root/user/Login.js:133
-msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "忘记了您的 {link1|用户名} 或 {link2|密码}？"
+#: ../root/user/LoginDialogSuccess.js:38
+msgid "Login successful. You may close this dialog."
+msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"
@@ -17512,206 +17351,202 @@ msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "（<strong>未验证！</strong>）"
 
-#: ../root/user/UserProfile.js:217
-msgid "resend verification email"
-msgstr "重新发送验证电子邮件"
-
-#: ../root/user/UserProfile.js:225
+#: ../root/user/UserProfile.js:219
 msgid "send email"
 msgstr "发送电子邮件"
 
-#: ../root/user/UserProfile.js:250
+#: ../root/user/UserProfile.js:244
 msgctxt "email address"
 msgid "(none)"
 msgstr "(无)"
 
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:251
 msgid "User type:"
 msgstr "用户类型："
 
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:257
 msgid "nominate for auto-editor"
 msgstr "提名为自动确认编辑者"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:264
 msgid "Age:"
 msgstr "年龄:"
 
-#: ../root/user/UserProfile.js:289
+#: ../root/user/UserProfile.js:283
 msgid "Member since"
 msgstr "注册于"
 
-#: ../root/user/UserProfile.js:295
+#: ../root/user/UserProfile.js:289
 msgid "Restrictions"
 msgstr "限制"
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:296
 msgid "Last login"
 msgstr "上一次登录"
 
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:299
 msgid "Hasn't logged in yet"
 msgstr "尚未登录"
 
-#: ../root/user/UserProfile.js:313 ../root/user/UserProfile.js:327
-#: ../root/user/UserProfile.js:360
+#: ../root/user/UserProfile.js:307 ../root/user/UserProfile.js:321
+#: ../root/user/UserProfile.js:354
 msgid "{count} ({url|view list})"
 msgstr "{count}（{url|浏览列表}）"
 
-#: ../root/user/UserProfile.js:339
+#: ../root/user/UserProfile.js:333
 msgid "Homepage:"
 msgstr "主页："
 
-#: ../root/user/UserProfile.js:367
+#: ../root/user/UserProfile.js:361
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:380
+#: ../root/user/UserProfile.js:374
 msgid "unsubscribe"
 msgstr "取消订阅"
 
-#: ../root/user/UserProfile.js:389
+#: ../root/user/UserProfile.js:383
 msgid "subscribe"
 msgstr "订阅"
 
-#: ../root/user/UserProfile.js:418
+#: ../root/user/UserProfile.js:412
 msgid "Languages"
 msgstr "语言"
 
-#: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:584
-#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
-#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
-#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:644
-#: ../root/user/UserProfile.js:654 ../root/user/UserProfile.js:663
-#: ../root/user/UserProfile.js:816 ../root/user/UserProfile.js:837
-#: ../root/user/UserProfile.js:858
+#: ../root/user/UserProfile.js:483 ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:588 ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:608 ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:628 ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:648 ../root/user/UserProfile.js:657
+#: ../root/user/UserProfile.js:810 ../root/user/UserProfile.js:831
+#: ../root/user/UserProfile.js:852
 msgid "{count} ({view_url|view})"
 msgstr "{count}（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:576
+#: ../root/user/UserProfile.js:570
 msgid "Edits"
 msgstr "修改"
 
-#: ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:576
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "总计"
 
-#: ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:586
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "已接受"
 
-#: ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:596
 msgid "Auto-edits"
 msgstr "自动确认编辑"
 
-#: ../root/user/UserProfile.js:612
+#: ../root/user/UserProfile.js:606
 msgid "Total applied"
 msgstr "生效总数"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:616
 msgid "Voted down"
 msgstr "遭投票否决"
 
-#: ../root/user/UserProfile.js:632
+#: ../root/user/UserProfile.js:626
 msgid "Failed"
 msgstr "失败"
 
-#: ../root/user/UserProfile.js:642
+#: ../root/user/UserProfile.js:636
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "取消的"
 
-#: ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:646
 msgid "Open"
 msgstr "已开启"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:656
 msgid "Last 24 hours"
 msgstr "过去 24 小时"
 
-#: ../root/user/UserProfile.js:686
+#: ../root/user/UserProfile.js:680
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "此表格显示了此编辑者投票的概要信息。"
 
-#: ../root/user/UserProfile.js:691
+#: ../root/user/UserProfile.js:685
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:699
+#: ../root/user/UserProfile.js:693
 msgid "Last 28 days"
 msgstr "过去 28 天"
 
-#: ../root/user/UserProfile.js:702
+#: ../root/user/UserProfile.js:696
 msgid "Overall"
 msgstr "合计"
 
-#: ../root/user/UserProfile.js:750
+#: ../root/user/UserProfile.js:744
 msgid "This table shows a summary of entities added by this editor."
 msgstr "此表格显示了此编辑者添加的实体的概要信息。"
 
-#: ../root/user/UserProfile.js:756
+#: ../root/user/UserProfile.js:750
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "新生效的编辑可能需要 24 个小时才会显示"
 
-#: ../root/user/UserProfile.js:759
+#: ../root/user/UserProfile.js:753
 msgid "Added entities"
 msgstr "添加的实体"
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:776
 msgid "This user has not added any entities."
 msgstr "此用户尚未添加任何实体。"
 
-#: ../root/user/UserProfile.js:792
+#: ../root/user/UserProfile.js:786
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr "此表格显示了该编辑者添加的次要数据的摘要。"
 
-#: ../root/user/UserProfile.js:798
+#: ../root/user/UserProfile.js:792
 #, fuzzy
 #| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "标签和评分"
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:799
 #, fuzzy
 #| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "已赞成的标签"
 
-#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:824
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "编辑者被删除时，标签会被移除。"
 
-#: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:807 ../root/user/UserProfile.js:828
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "已移除"
 
-#: ../root/user/UserProfile.js:825
+#: ../root/user/UserProfile.js:819
 #, fuzzy
 #| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "已否决的标签"
 
-#: ../root/user/UserProfile.js:851
+#: ../root/user/UserProfile.js:845
 msgid "Ratings are removed when an editor is deleted."
 msgstr "编辑者被删除后，其评分也会被移除。"
 
-#: ../root/user/UserProfile.js:854
+#: ../root/user/UserProfile.js:848
 msgctxt "ratings"
 msgid "Removed"
 msgstr "移除"
 
-#: ../root/user/UserProfile.js:921
+#: ../root/user/UserProfile.js:915
 msgid "Blocked spam account"
 msgstr "被封禁的垃圾信息账号"
 
-#: ../root/user/UserProfile.js:923
+#: ../root/user/UserProfile.js:917
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -17721,17 +17556,17 @@ msgstr ""
 "MusicBrainz 中看到垃圾邮件，请通过在其用户页面上举报垃圾邮件发送者的方式告知"
 "我们。"
 
-#: ../root/user/UserProfile.js:989
+#: ../root/user/UserProfile.js:983
 msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 
-#: ../root/user/UserProfile.js:994
+#: ../root/user/UserProfile.js:988
 #, fuzzy
 #| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
 msgstr "您的编辑内容收到的他人回复"
 
-#: ../root/user/UserProfile.js:995
+#: ../root/user/UserProfile.js:989
 #, fuzzy
 #| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
@@ -17741,39 +17576,39 @@ msgstr "查看你对这个用户的编辑的回复"
 msgid "No ratings."
 msgstr "没有评分。"
 
-#: ../root/user/UserRatingList.js:25
+#: ../root/user/UserRatingList.js:27
 msgid "Artist ratings"
 msgstr "创作者评分"
 
-#: ../root/user/UserRatingList.js:26
+#: ../root/user/UserRatingList.js:28
 msgid "Event ratings"
 msgstr "活动评分"
 
-#: ../root/user/UserRatingList.js:27
+#: ../root/user/UserRatingList.js:29
 msgid "Label ratings"
 msgstr "厂牌评分"
 
-#: ../root/user/UserRatingList.js:28
+#: ../root/user/UserRatingList.js:30
 msgid "Place ratings"
 msgstr "地点评分"
 
-#: ../root/user/UserRatingList.js:29
+#: ../root/user/UserRatingList.js:31
 msgid "Recording ratings"
 msgstr "录音评分"
 
-#: ../root/user/UserRatingList.js:30
+#: ../root/user/UserRatingList.js:32
 msgid "Release group ratings"
 msgstr "发行组评分"
 
-#: ../root/user/UserRatingList.js:31
+#: ../root/user/UserRatingList.js:33
 msgid "Work ratings"
 msgstr "作品评分"
 
-#: ../root/user/UserRatingList.js:66
+#: ../root/user/UserRatingList.js:68
 msgid "View all ratings"
 msgstr "查看所有评分"
 
-#: ../root/user/UserRatingList.js:77
+#: ../root/user/UserRatingList.js:79
 msgid "{user} has not rated anything."
 msgstr "{user} 没有任何评分。"
 
@@ -17989,21 +17824,21 @@ msgstr "此次编辑已失败，因为它影响高质量数据，且未收到任
 msgid "This edit was cancelled."
 msgstr "此次编辑已取消。"
 
-#: ../root/utility/tableColumns.js:761
+#: ../root/utility/tableColumns.js:763
 msgctxt "header"
 msgid "Relationship type"
 msgstr "关联类型"
 
-#: ../root/utility/tableColumns.js:776
+#: ../root/utility/tableColumns.js:778
 msgctxt "header"
 msgid "Ordering type"
 msgstr "排序类型"
 
-#: ../root/utility/tableColumns.js:784
+#: ../root/utility/tableColumns.js:786
 msgid "Subscribed"
 msgstr "已订阅"
 
-#: ../root/utility/tableColumns.js:832
+#: ../root/utility/tableColumns.js:834
 msgctxt "header"
 msgid "Lyrics languages"
 msgstr "歌词语言"
@@ -18298,6 +18133,224 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合并的作品中有一些拥有不同的ISWC编号。请先确保"
 "这些作品确实为相同作品，然后再继续进行合并。"
+
+#~ msgid "The user ID is missing or is in an invalid format."
+#~ msgstr "账号空缺或格式不正确。"
+
+#~ msgid "The email address is missing."
+#~ msgstr "电子邮箱地址空缺。"
+
+#~ msgid "The time is missing or is in an invalid format."
+#~ msgstr "时间空缺或格式不正确。"
+
+#~ msgid "The verification key is missing."
+#~ msgstr "验证密钥空缺。"
+
+#~ msgid "The checksum is invalid, please double check your email."
+#~ msgstr "校验和不正确，请重新检查您的邮件。"
+
+#~ msgid "Sorry, this email verification link has expired."
+#~ msgstr "对不起，这个邮件验证链接已失效。"
+
+#, perl-brace-format
+#~ msgid "The user with ID '{user_id}' could not be found."
+#~ msgstr "用户ID '{user_id}' 无法被找到。"
+
+#~ msgid ""
+#~ "We were unable to send login information to your email address. Please "
+#~ "try again, and if that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "无法向您的电子邮件地址发送登录信息。请再试一次，如果您仍然遇到问题，请"
+#~ "{contact_url|联系我们}。"
+
+#~ msgid "There is no user with this username"
+#~ msgstr "没有用户使用这个用户名"
+
+#~ msgid "There is no user with this username and email"
+#~ msgstr "没有用户使用这个用户名和邮箱"
+
+#~ msgid ""
+#~ "We can't send a password reset email, because we have no email on record "
+#~ "for this user."
+#~ msgstr "无法发送密码重置电子邮件，因为没有此用户的电子邮件记录。"
+
+#~ msgid "Your password has been reset."
+#~ msgstr "您的密码已被重置。"
+
+#~ msgid "Missing one or more required parameters."
+#~ msgstr "一个或多个项目空缺。"
+
+#~ msgid "Sorry, this password reset link has expired."
+#~ msgstr "对不起，这个密码重置链接已失效。"
+
+#~ msgid "There is no user with this email"
+#~ msgstr "没有用户使用这个邮箱"
+
+#, perl-brace-format
+#~ msgid ""
+#~ "We have sent you a verification email to <code>{email}</code>. Please "
+#~ "check your mailbox and click on the link in the email to verify the new "
+#~ "email address."
+#~ msgstr ""
+#~ "我们已经向<code>{email}</code>发送了一封确认电子邮件。请查看您的收件箱并点"
+#~ "击电子邮件中的链接来验证新电子邮件地址。"
+
+#~ msgid "Your password has been changed."
+#~ msgstr "您的密码已更改。"
+
+#~ msgid ""
+#~ "<strong>We were unable to send you a verification email.</strong><br/"
+#~ ">Please re-enter your address in your {settings|account settings}. If "
+#~ "that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "<strong>我们无法向您发送验证邮件。</strong><br/>请在{settings|账号设置}重"
+#~ "新输入电子邮件地址。如果问题仍然存在，请通过{contact_url|联系我们}。"
+
+#~ msgid "The old password is incorrect"
+#~ msgstr "旧密码错误"
+
+#~ msgid "An account with this name could not be found"
+#~ msgstr "无法找到此名称对应的账号"
+
+#~ msgid ""
+#~ "Please change your password. Unfortunately we've discovered that secure "
+#~ "hashes user's passwords were temporarily available for download on our "
+#~ "FTP site. While it is extremely unlikely that anyone will be able to "
+#~ "derive the original passwords from this mishap, we are requiring all of "
+#~ "our users to change their passwords. Sorry for the inconvenience. For "
+#~ "more information see {blog|the recent blog post}."
+#~ msgstr ""
+#~ "请修改您的密码。我们不幸发现一些用户密码的密文曾短暂地在我们的 FTP 站点提"
+#~ "供下载。虽然因此次意外而被破解出密码明文的概率非常低，我们仍然建议所有用户"
+#~ "修改密码。我们对此造成的不便深表感抱歉。如需更多信息，请查看 {blog|最近的"
+#~ "博客文章}。"
+
+#~ msgid "Please enter your old password below, and then your new password."
+#~ msgstr "请在下方输入您的旧密码和新密码。"
+
+#~ msgid "Old password:"
+#~ msgstr "旧密码："
+
+#~ msgid "New password:"
+#~ msgstr "新密码："
+
+#~ msgctxt "interactive"
+#~ msgid "Change password"
+#~ msgstr "修改密码"
+
+#~ msgctxt "header"
+#~ msgid "Change password"
+#~ msgstr "修改密码"
+
+#~ msgctxt "header"
+#~ msgid "Delete account"
+#~ msgstr "删除账号"
+
+#~ msgid ""
+#~ "For information about the account deletion process, please read the {uri|"
+#~ "account FAQ}."
+#~ msgstr "如需关于删除账号流程的信息，请阅读{uri|账号常见问题}。"
+
+#~ msgid ""
+#~ "This will also cancel all your open edits and change all of your votes on "
+#~ "any edits currently open to Abstain."
+#~ msgstr ""
+#~ "这也将取消您所有开放的编辑，并改变您对当前开放的任何编辑的所有投票。"
+
+#~ msgid ""
+#~ "Keep in mind this process might take a fairly long time if you have "
+#~ "entered a lot of tags. If the process times out, please {contact_url|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "注意，如果您输入了很多标签，此过程可能需要相当长的时间。如果进程超时，请"
+#~ "{contact_url|contact us}。"
+
+#~ msgid "Are you sure you want to delete your account? This cannot be undone!"
+#~ msgstr "您确定要删除您的帐号吗？该操作将无法被撤销！"
+
+#~ msgctxt "interactive"
+#~ msgid "Delete my account"
+#~ msgstr "删除我的账号"
+
+#~ msgctxt "header"
+#~ msgid "Email verification"
+#~ msgstr "电子邮件验证"
+
+#~ msgid ""
+#~ "Thank you, your email address has now been verified! If you still can't "
+#~ "edit, please try to log out and log in again."
+#~ msgstr ""
+#~ "谢谢，您的电子邮件地址已验证！如果您仍然无法编辑，请尝试登出并再次登录。"
+
+#~ msgid "Lost password"
+#~ msgstr "忘记密码"
+
+#~ msgid ""
+#~ "Enter your username and email below. We will send you an email with a "
+#~ "link to reset your password. If you have forgotten your username, {link|"
+#~ "retrieve it} first and then reset your password."
+#~ msgstr ""
+#~ "请在下方输入您的用户名和电子邮件地址。我们将会给您发送一封含有密码重置链接"
+#~ "的电子邮件。如果您忘记了您的用户名，请先 {link|取回您的用户名} 再重置密"
+#~ "码。"
+
+#~ msgctxt "interactive"
+#~ msgid "Reset password"
+#~ msgstr "重置密码"
+
+#~ msgid ""
+#~ "We've sent you instructions on how to reset your password. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "我们已将重置密码的说明发送给您。如果您没有收到电子邮件或仍然无法登录，请 "
+#~ "{link|联系我们}。"
+
+#~ msgid "Lost username"
+#~ msgstr "忘记用户名"
+
+#~ msgid ""
+#~ "Enter your email address below and we will send you an email with your "
+#~ "MusicBrainz account information."
+#~ msgstr ""
+#~ "请在下方输入您的电子邮件地址，我们会给您发送一封含有您 MusicBrainz 账号信"
+#~ "息的电子邮件。"
+
+#~ msgid ""
+#~ "We've sent you information about your MusicBrainz account. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "我们已给您发送一封含有您 MusicBrainz 账号信息的电子邮件。如果您没有收到电"
+#~ "子邮件或仍然无法登录，请 {link|联系我们}。"
+
+#~ msgid "Captcha incorrect. Try again."
+#~ msgstr "验证码不正确。请再试一次。"
+
+#~ msgctxt "header"
+#~ msgid "Reset password"
+#~ msgstr "重置密码"
+
+#~ msgid "Set a new password for your MusicBrainz account."
+#~ msgstr "为您的 MusicBrainz 账号设置一个新密码。"
+
+#~ msgid ""
+#~ "The username you have entered looks like an email address. This is "
+#~ "allowed, but please keep in mind that everyone will be able to see it. "
+#~ "Only use an email address as your username if you are completely sure you "
+#~ "are happy with that."
+#~ msgstr ""
+#~ "您输入的用户名看起来像是一个电子邮件地址。尽管这是可行的，但请留意所有人都"
+#~ "能看到它。请仅在您对此完全满意的情况下将电子邮件地址作为您的用户名。"
+
+#~ msgid "Keep me logged in"
+#~ msgstr "保持登录"
+
+#~ msgid "Forgot your {link1|username} or {link2|password}?"
+#~ msgstr "忘记了您的 {link1|用户名} 或 {link2|密码}？"
+
+#~ msgid "resend verification email"
+#~ msgstr "重新发送验证电子邮件"
 
 #~ msgctxt "interactive"
 #~ msgid "Edit attributes"
