@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-22 02:12+0000\n"
+"PO-Revision-Date: 2026-07-08 19:12+0000\n"
 "Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/statistics/ja/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -1341,19 +1341,19 @@ msgstr "データ品質初期値 (普通 + 不明)"
 
 #: ../root/statistics/stats.js:624
 msgid "Entities with ratings"
-msgstr ""
+msgstr "評価ありの項目"
 
 #: ../root/statistics/stats.js:629
 msgid "Artists with ratings"
-msgstr ""
+msgstr "評価ありのアーティスト"
 
 #: ../root/statistics/stats.js:634
 msgid "Labels with ratings"
-msgstr ""
+msgstr "評価ありのレーベル"
 
 #: ../root/statistics/stats.js:639
 msgid "Places with ratings"
-msgstr ""
+msgstr "評価ありの場所"
 
 #: ../root/statistics/stats.js:649
 msgid "Artist ratings"
@@ -1381,15 +1381,15 @@ msgstr "作品の評価"
 
 #: ../root/statistics/stats.js:679
 msgid "Recordings with ratings"
-msgstr ""
+msgstr "評価ありのレコーディング"
 
 #: ../root/statistics/stats.js:684
 msgid "Release groups with ratings"
-msgstr ""
+msgstr "評価ありのリリースグループ"
 
 #: ../root/statistics/stats.js:689
 msgid "Works with ratings"
-msgstr ""
+msgstr "評価ありの作品"
 
 #: ../root/statistics/stats.js:699
 msgid "Recordings with ISRCs"
@@ -1405,23 +1405,23 @@ msgstr "国が設定されていないリリース"
 
 #: ../root/statistics/stats.js:719
 msgid "Releases with CAA cover art"
-msgstr "CAAにカバーアートの登録があるリリース:"
+msgstr "CAAにカバーアートの登録があるリリース"
 
 #: ../root/statistics/stats.js:724
 msgid "Releases with no cover art"
-msgstr "カバーアートのないリリース:"
+msgstr "カバーアートのないリリース"
 
 #: ../root/statistics/stats.js:729
 msgid "Releases with a medium with no format set"
-msgstr ""
+msgstr "フォーマット未設定のメディアありのリリース"
 
 #: ../root/statistics/stats.js:735
 msgid "Releases with a medium with no format set that have cover art"
-msgstr ""
+msgstr "フォーマット未設定のメディアありのカバーアート付きリリース"
 
 #: ../root/statistics/stats.js:741
 msgid "Releases with cover art"
-msgstr "カバーアートがあるリリース:"
+msgstr "カバーアートがあるリリース"
 
 #: ../root/statistics/stats.js:746
 msgid "Releases with disc IDs"
@@ -1437,7 +1437,7 @@ msgstr "クレジットされていない複数アーティストのリリース
 
 #: ../root/statistics/stats.js:761
 msgid "Releases with no packaging set"
-msgstr ""
+msgstr "パッケージング未設定のリリース"
 
 #: ../root/statistics/stats.js:766
 msgid "Releases with no script set"
@@ -1445,15 +1445,15 @@ msgstr "歌詞の設定されていないリリース"
 
 #: ../root/statistics/stats.js:771
 msgid "Releases with no status set"
-msgstr ""
+msgstr "未設定のリリース"
 
 #: ../root/statistics/stats.js:776
 msgid "Releases with no status set that have cover art"
-msgstr ""
+msgstr "未設定のカバーアート付きリリース"
 
 #: ../root/statistics/stats.js:782
 msgid "Releases in groups with no type set that have cover art"
-msgstr ""
+msgstr "タイプ未設定のカバーアート付きグループのリリース"
 
 #: ../root/statistics/stats.js:788
 msgid "Releases credited to Various Artists"
@@ -1461,19 +1461,19 @@ msgstr "複数アーティストでクレジット記載済みのリリース"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with automatically inferred cover art"
-msgstr ""
+msgstr "自動提案カバーアート付きのリリースグループ"
 
 #: ../root/statistics/stats.js:805
 msgid "Release groups with user-selected cover art"
-msgstr ""
+msgstr "ユーザー設定済みカバーアート付きのリリースグループ"
 
 #: ../root/statistics/stats.js:810
 msgid "Release groups with no primary type set"
-msgstr ""
+msgstr "主タイプ未設定のリリースグループ"
 
 #: ../root/statistics/stats.js:815
 msgid "Release groups with no secondary type set"
-msgstr ""
+msgstr "二次タイプ未設定のリリースグループ"
 
 #: ../root/statistics/stats.js:825
 msgid "Series with no type set"
@@ -1487,59 +1487,59 @@ msgstr ""
 #: ../root/statistics/stats.js:835
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
-msgstr ""
+msgstr "タグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:840
 msgid "Votes for/against area tags"
-msgstr ""
+msgstr "地域タグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:845
 msgid "Votes for/against artist tags"
-msgstr ""
+msgstr "アーティストタグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:850
 msgid "Votes for/against instrument tags"
-msgstr ""
+msgstr "楽器タグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:855
 msgid "Votes for/against label tags"
-msgstr ""
+msgstr "レーベルタグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:860
 msgid "Votes for/against recording tags"
-msgstr ""
+msgstr "レコーディングタグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:865
 msgid "Votes for/against release tags"
-msgstr ""
+msgstr "リリースタグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:870
 msgid "Votes for/against release group tags"
-msgstr ""
+msgstr "リリースグループタグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:875
 msgid "Votes for/against series tags"
-msgstr ""
+msgstr "シリーズタグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:880
 msgid "Votes for/against work tags"
-msgstr ""
+msgstr "作品タグ設定に賛成/反対する"
 
 #: ../root/statistics/stats.js:906
 msgid "Abstentions"
-msgstr "棄権数"
+msgstr "棄権票"
 
 #: ../root/statistics/stats.js:911
 msgid "Admin approvals"
-msgstr ""
+msgstr "管理者賛成票"
 
 #: ../root/statistics/stats.js:916
 msgid "Admin rejections"
-msgstr "管理権限 却下"
+msgstr "管理者反対票"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
-msgstr ""
+msgstr "賛成票"
 
 #: ../root/statistics/stats.js:926
 msgid "No votes"
@@ -1547,11 +1547,11 @@ msgstr "投票なし"
 
 #: ../root/statistics/stats.js:932
 msgid "Votes per day"
-msgstr ""
+msgstr "日にち単位の票数"
 
 #: ../root/statistics/stats.js:937
 msgid "Votes per week"
-msgstr ""
+msgstr "週単位の票数"
 
 #: ../root/statistics/stats.js:942
 msgid "Yes votes"
@@ -1559,15 +1559,15 @@ msgstr "賛成票"
 
 #: ../root/statistics/stats.js:952
 msgid "Works with no attributes"
-msgstr ""
+msgstr "未属性の作品"
 
 #: ../root/statistics/stats.js:957
 msgid "Works with ISWCs"
-msgstr ""
+msgstr "ISWCコードありの作品"
 
 #: ../root/statistics/stats.js:962
 msgid "Works with no language set"
-msgstr ""
+msgstr "言語設定済みの作品"
 
 #: ../root/statistics/stats.js:967
 msgid "Works with no type set"
@@ -1575,59 +1575,59 @@ msgstr "タイプの設定されていない作品"
 
 #: ../root/statistics/stats.js:969
 msgid "/day"
-msgstr ""
+msgstr "/日"
 
 #: ../root/statistics/stats.js:979
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
-msgstr[0] ""
+msgstr[0] "{n}個のディスクID付きのリリース"
 
 #: ../root/statistics/stats.js:990
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] ""
+msgstr[0] "{n}個のディスクID付きのメディア"
 
 #: ../root/statistics/stats.js:1001
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] ""
+msgstr[0] "{n}個のリリース付きのレコーディング"
 
 #: ../root/statistics/stats.js:1012
 msgid "Release Groups with 1 Release"
 msgid_plural "Release Groups with {n} Releases"
-msgstr[0] ""
+msgstr[0] "{n}個のリリースが紐付けられたリリースグループ"
 
 #: ../root/statistics/stats.js:1065
 msgid "{type} areas"
-msgstr ""
+msgstr "{type}地域"
 
 #: ../root/statistics/stats.js:1077
 msgid "{country} artists"
-msgstr ""
+msgstr "{country}のアーティスト"
 
 #: ../root/statistics/stats.js:1083
 msgid "{country} events"
-msgstr ""
+msgstr "{country}のイベント"
 
 #: ../root/statistics/stats.js:1089
 msgid "{country} labels"
-msgstr ""
+msgstr "{country}のレーベル"
 
 #: ../root/statistics/stats.js:1095
 msgid "{country} places"
-msgstr ""
+msgstr "{country}の\"場所\""
 
 #: ../root/statistics/stats.js:1101
 msgid "{country} releases"
-msgstr ""
+msgstr "{country}のリリース"
 
 #: ../root/statistics/stats.js:1112
 msgid "{type} edits"
-msgstr ""
+msgstr "{type}編集"
 
 #: ../root/statistics/stats.js:1123
 msgid "{type} events"
-msgstr ""
+msgstr "{type}イベント"
 
 #: ../root/statistics/stats.js:1130
 msgid "Events of type “{type}” with event art"
@@ -1643,7 +1643,7 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1156
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr ""
+msgstr "\"{format}\"形式のメディアと紐付けされたカバーアート付きリリース"
 
 #: ../root/statistics/stats.js:1169
 msgid "{type} instruments"
@@ -1655,11 +1655,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1191
 msgid "{language} releases"
-msgstr ""
+msgstr "{language}のリリース"
 
 #: ../root/statistics/stats.js:1198
 msgid "{language} works"
-msgstr ""
+msgstr "{language}の作品"
 
 #: ../root/statistics/stats.js:1210
 msgid "Releases with packaging “{packaging}”"
@@ -1707,11 +1707,11 @@ msgstr ""
 
 #: ../root/statistics/stats.js:1349
 msgid "Releases of status “{status}” with cover art"
-msgstr ""
+msgstr "\"{status}\"状態のカバーアート付きリリース"
 
 #: ../root/statistics/stats.js:1366
 msgid "Works with attribute “{attribute}”"
-msgstr ""
+msgstr "\"{attribute}\"属性付きの作品"
 
 #: ../root/statistics/stats.js:1379
 msgid "{type} works"

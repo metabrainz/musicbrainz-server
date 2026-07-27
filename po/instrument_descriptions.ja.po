@@ -14,8 +14,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-07 11:12+0000\n"
-"Last-Translator: sashimi3433 <abxjsu@protonmail.com>\n"
+"PO-Revision-Date: 2026-07-08 19:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ja/>\n"
 "Language: ja\n"
@@ -113,8 +113,8 @@ msgid ""
 "person turning a crank which turns a barrel which has music encoded onto it."
 msgstr ""
 "バレルオルガン（手回しオルガン）は、一般的に人がクランクを回すことで作動する"
-"機械式の楽器です。クランクを回すと、音楽がエンコードされたバレル（円筒）が回"
-"転します。"
+"機械式の楽器です。クランクを回すと、譜面が刻まれたバレル（円筒）が回転します"
+"。"
 
 #. name:bass synthesizer
 #: DB:instrument/description:456
@@ -277,6 +277,8 @@ msgid ""
 "objects (preparations) between or on the strings or on the hammers or "
 "dampers."
 msgstr ""
+"プリペアド・ピアノとは、弦の間や上、あるいはハンマーやダンパーの上に物体（"
+"プリペアレーション）を配置することで、音色に変化を加えたピアノのことです。"
 
 #. name:pūpakapaka
 #: DB:instrument/description:861
@@ -309,6 +311,9 @@ msgid ""
 "it is named after the sound the koto (a Japanese zither) makes and is not "
 "actually a string instrument."
 msgstr ""
+"水琴窟は、水が滴り落ちる音で音楽を生み出す日本庭園の装飾品の一種です。弦楽器"
+"ではないものの音色の類似性から琴の名がつけられ、英訳も琴(Japanese zither)か"
+"ら\"Japanese water zither\"とされています。"
 
 #. name:talkbox
 #: DB:instrument/description:453
@@ -324,6 +329,8 @@ msgstr ""
 msgid ""
 "A tar is a single-headed frame drum from North Africa and the Middle East."
 msgstr ""
+"タールはヘッドが1つだけのフレームドラムであり、北アフリカおよび中東に伝わる楽"
+"器です。"
 
 #. name:tom-tom
 #: DB:instrument/description:462
@@ -356,6 +363,8 @@ msgid ""
 "A variant of the Hmông flute, in which the flute blower’s lips enclose the "
 "blowing hole with the vibrating free reed inside."
 msgstr ""
+"フモン族のフルートの変種。演奏者が唇で吹き口を覆うと、内部にある自由振動する"
+"リードが振動する仕組みになっている。"
 
 #. name:vessel flute
 #: DB:instrument/description:650
@@ -470,6 +479,8 @@ msgid ""
 "Alt, alto or contralto member of the viol family. Not to be confused with "
 "the Viola of the violin family, known as \"Alto\" in French."
 msgstr ""
+"ヴィオラ属のアルトまたはコントラルトに属する楽器。ヴァイオリン属のヴィオラ"
+"(フランス語: \"Alto\")としばしば混同される。"
 
 #. name:bandora
 #: DB:instrument/description:488
@@ -513,7 +524,7 @@ msgstr ""
 #. name:Irish harp / clàrsach
 #: DB:instrument/description:355
 msgid "An Irish/Scottish harp."
-msgstr ""
+msgstr "アイルランド・スコットランド式のハープ。"
 
 #. name:archtop guitar
 #: DB:instrument/description:654
@@ -521,6 +532,8 @@ msgid ""
 "An archtop guitar is a steel-stringed acoustic or semi-acoustic guitar with "
 "a distinctive arched top, which is particularly popular with jazz players."
 msgstr ""
+"アーチトップ・ギターとは、特徴的なアーチ状のトップを持つスチール弦の(セミ)"
+"アコースティック・ギターであり、特にジャズ奏者の間で人気があります。"
 
 #. name:clavioline
 #: DB:instrument/description:815
@@ -528,6 +541,8 @@ msgid ""
 "An early analogue synthesizer, it had a vacuum tube oscillator and high/low "
 "pass filtering to produce vibrato."
 msgstr ""
+"初期のアナログシンセサイザーの一つであり、真空管オシレータと、ビブラートを生"
+"み出すためのハイパス／ローパスフィルターを搭載していた。"
 
 #. name:gizmo
 #: DB:instrument/description:796
@@ -535,18 +550,22 @@ msgid ""
 "An effects device to be clamped on the bridge, it produces “synthesizer-"
 "like” sounds."
 msgstr ""
+"ブリッジにクランプして取り付けるエフェクト・デバイス。「シンセサイザーのよう"
+"な」音色が特徴的。"
 
 #. name:jug
 #: DB:instrument/description:505
 msgid ""
 "An empty jug (usually made of glass or stoneware) played with the mouth."
 msgstr ""
+"中身が入っていない水差しを楽器として見立てたもの。通常はガラス製または石器製"
+"であり、穴に息を吹き入れて演奏する。"
 
 #. name:ronroco
 #: DB:instrument/description:1070
 msgid ""
 "An octave lower than the charango, it is the largest member of the family."
-msgstr ""
+msgstr "チャランゴより1オクターブ低い音域を持ち、この楽器群の中で最も大きなものです。"
 
 #. name:natural horn
 #: DB:instrument/description:522
@@ -554,6 +573,9 @@ msgid ""
 "Ancestor of the modern horn, it consists of a coiled tubing with a large "
 "flared bell. Bugles, posthorns and hunting horns are all natural horns."
 msgstr ""
+"現代のホルンの祖先にあたる楽器で、らせん状に巻かれた管と、大きく広がったベル"
+"で構成されています。ビューグル、ポストホーン、狩猟用ホルンがナチュラル・"
+"ホルンに分類されます。"
 
 #. name:natural trumpet
 #: DB:instrument/description:913
@@ -561,6 +583,8 @@ msgid ""
 "Ancestor of the modern trumpet, it is valveless with a mouthpiece and at-"
 "least one coil, it has an origin in military use."
 msgstr ""
+"元は軍用として制作された、現代のトランペットの祖先にあたる楽器である。バルブ"
+"がなく、マウスピースと少なくとも1つのコイルを備えている。"
 
 #. name:barbat
 #: DB:instrument/description:819
@@ -573,7 +597,7 @@ msgstr ""
 #. name:xiao
 #: DB:instrument/description:484
 msgid "Ancient Chinese vertical, end-blown flute made of bamboo."
-msgstr ""
+msgstr "古代中国のシャクハチ類の竹製縦笛。"
 
 #. name:gusli
 #: DB:instrument/description:423
@@ -587,7 +611,7 @@ msgstr ""
 #. name:ravanahatta
 #: DB:instrument/description:754
 msgid "Ancient bowed fiddle, once popular in Western India and Sri Lanka."
-msgstr ""
+msgstr "かつて西インドやスリランカで広く親しまれていた、弓状古楽器。"
 
 #. name:santoor
 #: DB:instrument/description:286
@@ -607,12 +631,12 @@ msgstr ""
 #. name:khlui
 #: DB:instrument/description:666
 msgid "Ancient reedless fipple flute made of bamboo."
-msgstr ""
+msgstr "リードのない古代の竹製フィップルフルート。"
 
 #. name:membranophone
 #: DB:instrument/description:100
 msgid "Any kind of instrument with membranes, usually variously sized drums."
-msgstr ""
+msgstr "膜を備えたあらゆる種類の楽器。通常は、さまざまな大きさの太鼓を指す。"
 
 #. name:flumpet
 #: DB:instrument/description:742
@@ -637,7 +661,7 @@ msgstr ""
 msgid ""
 "Baroque string instrument sized between the viola and cello, it typically "
 "has five strings."
-msgstr ""
+msgstr "ヴィオラとチェロの中間の大きさのバロック時代の弦楽器で、通常は5本の弦を持つ。"
 
 #. name:baroque trumpet
 #: DB:instrument/description:521
@@ -645,6 +669,8 @@ msgid ""
 "Based on the natural trumpet used in the 1500s to 1700s, this mid 20th "
 "century reinvention lacks valves but may have vents."
 msgstr ""
+"1500～1700年代にかけて使用されていたナチュラル・トランペットを基に、20世紀半"
+"ばに再考案された。バルブは付いていないが、通気孔があるとされる。"
 
 #. name:Gravikord
 #: DB:instrument/description:901
@@ -662,11 +688,15 @@ msgid ""
 "(a.k.a. contrabass, acoustic upright bass, wood bass). Please use the "
 "correct instrument if you know which one is intended."
 msgstr ""
+"ベースとは、楽器の分類として一般的かつ汎用的な表記です。最も一般的なのは"
+"エレキベースとダブルベース（別名: コントラバス, アコースティック・"
+"アップライト・ベース, ウッドベース）です。どの楽器を指しているか分かっている"
+"場合は、正しい楽器名をご使用ください。"
 
 #. name:daruan
 #: DB:instrument/description:546
 msgid "Bass member of Chinese ruan family of lutes."
-msgstr ""
+msgstr "中国のリュートであるルアン属の弦楽器のうち、低音を担当する楽器。"
 
 #. name:berda
 #: DB:instrument/description:828
@@ -678,7 +708,7 @@ msgstr ""
 #. name:segunda
 #: DB:instrument/description:757
 msgid "Bass member of the garifuna drum group."
-msgstr ""
+msgstr "ガリフナ・ドラム属の低音担当。"
 
 #. name:bass guitar
 #: DB:instrument/description:207
@@ -688,6 +718,10 @@ msgid ""
 "for the acoustic one, use <a href=\"/instrument/15861569-249d-4b24-8ce4-"
 "d0b001b1f978\">acoustic bass guitar</a>."
 msgstr ""
+"ギター属の低音楽器。電子楽器派生については <a href=\"/instrument/0b9d87fa-"
+"93fa-4956-8b6a -a419566cc915\">エレクトリック・ベースギター</a>、"
+"アコースティックタイプの場合は <a href=\"/instrument/15861569-249d-4b24-8ce4-"
+"d0b001b1f978\">アコースティック・ベースギター</a> を使用してください。"
 
 #. name:bicycle bell
 #: DB:instrument/description:743
@@ -695,6 +729,8 @@ msgid ""
 "Bell as found on bicycles, sound is made by internal spring loaded hammer, "
 "not unlike alarm-clock."
 msgstr ""
+"自転車に付いているベルは、内部のバネ式ハンマーによって音が鳴る仕組みで、目覚"
+"まし時計と類似しています。"
 
 #. name:bendir
 #: DB:instrument/description:343
@@ -711,7 +747,7 @@ msgstr ""
 #. name:typewriter
 #: DB:instrument/description:526
 msgid "Besides being used for writing, it has also been used in percussion."
-msgstr ""
+msgstr "筆記用として使われるほか、パーカッションとしても用いられてきました。"
 
 #. name:Anglo concertina
 #: DB:instrument/description:839
@@ -724,7 +760,7 @@ msgstr ""
 #. name:cajón
 #: DB:instrument/description:336
 msgid "Cajón, Peruvian box drum"
-msgstr ""
+msgstr "カホンとは、ペルーの箱型ドラムである"
 
 #. name:saron demung
 #: DB:instrument/description:1006
@@ -743,7 +779,7 @@ msgstr ""
 #. name:tōkere
 #: DB:instrument/description:865
 msgid "Castanets of wood, bone, bivalve shells or even flax leaf."
-msgstr ""
+msgstr "木や骨、二枚貝の殻、あるいは亜麻の葉で作られたカスタネット。"
 
 #. name:tible
 #: DB:instrument/description:871
@@ -755,7 +791,7 @@ msgstr ""
 #. name:chacha
 #: DB:instrument/description:335
 msgid "Chacha, west Indian rattle"
-msgstr ""
+msgstr "チャチャとは、西インド諸島のガラガラと音がなるパーカッションである"
 
 #. name:Pierrot ensemble
 #: DB:instrument/description:1023
@@ -776,27 +812,29 @@ msgstr ""
 #: DB:instrument/description:908
 msgid "Chamber ensemble of four players (two violins, one viola, one cello)."
 msgstr ""
+"4人の奏者（ヴァイオリン2人、ヴィオラ1人、チェロ1人）からなる室内楽"
+"アンサンブル。"
 
 #. name:piano trio
 #: DB:instrument/description:911
 msgid "Chamber ensemble of three players (one piano, one violin, one cello)."
-msgstr ""
+msgstr "3人の奏者（ピアノ、ヴァイオリン、チェロ）による室内楽アンサンブル。"
 
 #. name:string trio
 #: DB:instrument/description:915
 msgid "Chamber ensemble of three players (one violin, one viola, one cello)."
-msgstr ""
+msgstr "3人の奏者（ヴァイオリン、ヴィオラ、チェロ）からなる室内楽アンサンブル。"
 
 #. name:piano duo
 #: DB:instrument/description:1024
 msgid "Chamber ensemble where two pianists play on a different piano each."
-msgstr ""
+msgstr "2人のピアニストがそれぞれ別のピアノを演奏する室内楽アンサンブル。"
 
 #. name:piano four hands
 #: DB:instrument/description:1025
 msgid ""
 "Chamber ensemble where two pianists play on the same piano at the same time."
-msgstr ""
+msgstr "2人のピアニストが1台のピアノを同時に演奏する室内楽アンサンブル。"
 
 #. name:chap
 #: DB:instrument/description:619
@@ -804,6 +842,8 @@ msgid ""
 "Chap are a pair of cymbals used in Thai and Cambodian music. They are "
 "larger, flatter and thinner than the cymbals known as ching."
 msgstr ""
+"チャップは、タイやカンボジアの音楽で使用されるシンバルの1種です。チンと呼ばれ"
+"るシンバルに比べ、大きく平らで、薄いのが特徴です。"
 
 #. name:bronze lur
 #: DB:instrument/description:800
@@ -830,7 +870,7 @@ msgstr ""
 #. name:naobo
 #: DB:instrument/description:599
 msgid "Chinese cymbals specially used in the Beijing opera."
-msgstr ""
+msgstr "京劇のために使用される中国のシンバル。"
 
 #. name:huqin
 #: DB:instrument/description:213
@@ -843,7 +883,7 @@ msgstr ""
 #. name:pipa
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
-msgstr ""
+msgstr "4本の弦と12～26フレットを備えた、洋梨形の中国式弦楽器。"
 
 #. name:bugarija
 #: DB:instrument/description:826
@@ -863,7 +903,7 @@ msgstr ""
 #. name:dholak
 #: DB:instrument/description:382
 msgid "Classical North Indian hand drum."
-msgstr ""
+msgstr "北インドの伝統的なハンド・ドラム。"
 
 #. name:glockenspiel
 #: DB:instrument/description:165
@@ -889,11 +929,13 @@ msgid ""
 "Computer drives used for producing music, be it hard drives, floppy, CD or "
 "other."
 msgstr ""
+"音楽制作に使用されるコンピュータドライブ。ハードディスク、フロッピーディスク"
+"、CDなど、あらゆる種類を指す。"
 
 #. name:bombarde
 #: DB:instrument/description:431
 msgid "Conical bore double-reed musical instrument from Brittany."
-msgstr ""
+msgstr "ブルターニュ地方発祥の、円錐形の管を持つダブルリードの楽器。"
 
 #. name:telharmonium
 #: DB:instrument/description:125
@@ -985,7 +1027,7 @@ msgstr ""
 #. name:ki pah
 #: DB:instrument/description:307
 msgid "Cow horns without fingerholes, with mouthpiece and free reed."
-msgstr ""
+msgstr "指穴のない牛角製楽器であり、マウスピースとフリーリードが付いている。"
 
 #. name:cümbüş
 #: DB:instrument/description:410
@@ -1004,7 +1046,7 @@ msgstr ""
 #. name:bell
 #: DB:instrument/description:116
 msgid "Cup or bellshaped bells, these are shook or struck."
-msgstr ""
+msgstr "カップ型やベル型の鐘であり、揺らしたり叩いたりして音を鳴らします。"
 
 #. name:gajdy
 #: DB:instrument/description:1114
@@ -1254,14 +1296,14 @@ msgstr ""
 #. name:electric fretless guitar
 #: DB:instrument/description:538
 msgid "Electric guitar without frets."
-msgstr ""
+msgstr "フレットのないエレキギター。"
 
 #. name:trautonium
 #: DB:instrument/description:808
 msgid ""
 "Electric instrument from the 1930's with a resistor wire and moving metal "
 "plate."
-msgstr ""
+msgstr "1930年代に開発された電子楽器で、抵抗線と可動式の金属板を備えている。"
 
 #. name:Pianet
 #: DB:instrument/description:793
@@ -1281,12 +1323,14 @@ msgstr ""
 #. name:tubon
 #: DB:instrument/description:775
 msgid "Electronic bass organ, proto-keytar."
-msgstr ""
+msgstr "電子ベースオルガン、キーターの原型。"
 
 #. name:saxophone quartet
 #: DB:instrument/description:942
 msgid "Ensemble of four saxophones, generally SATBar."
 msgstr ""
+"4本のサックスによるアンサンブル。通常はソプラノ・アルト・テノール・バリトンの"
+"編成。"
 
 #. name:viol consort
 #: DB:instrument/description:1027
@@ -1328,12 +1372,12 @@ msgstr ""
 #. name:ruan
 #: DB:instrument/description:545
 msgid "Family of Chinese plucked lutes."
-msgstr ""
+msgstr "中国のリュートに分類される楽器属。"
 
 #. name:hmông flute
 #: DB:instrument/description:312
 msgid "Family of Hmông flutes."
-msgstr ""
+msgstr "ハモン族が用いるフルートの楽器属。"
 
 #. name:recorder
 #: DB:instrument/description:18
@@ -1367,7 +1411,7 @@ msgstr ""
 #. name:trumpet family
 #: DB:instrument/description:914
 msgid "Family of the brass instrument trumpet."
-msgstr ""
+msgstr "主に真鍮で制作されたトランペットの楽器属。"
 
 #. name:txistu
 #: DB:instrument/description:855

@@ -33,7 +33,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-07 11:12+0000\n"
+"PO-Revision-Date: 2026-07-08 19:12+0000\n"
 "Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
@@ -364,6 +364,9 @@ msgid ""
 "manner, and the DJ who does this modification is usually (although not "
 "always) credited in a fairly prominent way."
 msgstr ""
+"DJ-mixとは、複数の音源を次々と再生する形式。各音源は音楽として途切れることが"
+"ないように、楽曲間を溶け合わせるような加工がされており、この加工を行うDJは目"
+"立つ形でクレジットされることが多い。"
 
 #: DB:work_attribute_type_allowed_value/value:794
 msgctxt "work_attribute_type_allowed_value"
@@ -763,6 +766,11 @@ msgid ""
 "to disown the release and no longer consider it part of their discography. "
 "If it is unclear, use Withdrawn."
 msgstr ""
+"かつて公式にリリースされたものの、アーティストまたはレコード会社によって"
+"ディスコグラフィーから削除された作品。単に販売が中止された場合にはこの分類を"
+"使用してはならず、当該作品をディスコグラフィーから除外する明確な意図がある場"
+"合に限り、この分類の使用が許可される。判断が不明確な場合は\"販売中止"
+"(Withdrawn)\"を使用すること。"
 
 #. name:Demo
 #: DB:release_group_secondary_type/description:10
@@ -783,6 +791,8 @@ msgid ""
 "(usually a vinyl record, but sometimes a CD), often printed with notes or "
 "images."
 msgstr ""
+"\"インナースリーブ\"とも呼ばれる、メディアを包む保護用スリーブ。多くは"
+"レコード盤に用いられ、解説文や画像が印刷されているものも散見される。"
 
 #. name:Quartet
 #: DB:work_type/description:14
@@ -798,6 +808,8 @@ msgid ""
 "A read only memory cartridge or card, such as the ones used by early home "
 "computers and some video game systems."
 msgstr ""
+"初期の家庭用コンピュータや一部のビデオゲーム機で使用されていたような、読み取"
+"り専用メモリのカートリッジやカード。"
 
 #. name:Festival
 #: DB:series_type/description:8
@@ -1072,6 +1084,8 @@ msgid ""
 "A temporary outdoor stage erected for a music festival or other similar "
 "event."
 msgstr ""
+"ミュージック・フェスティバルなどのイベントのために設営される、一時的な屋外"
+"ステージ。"
 
 #. name:Slim Jewel Case
 #: DB:release_packaging/description:2
@@ -1087,6 +1101,9 @@ msgid ""
 "portable listening. It did not find commercial success, but a few albums "
 "were released in the format in the early 00s."
 msgstr ""
+"携帯して聴くことを目的とした、保護ケースに入った非常に小さな光ディスク。商業"
+"的には成功しなかったが、2000年代初頭にはこのフォーマットでアルバムが一定数"
+"リリースされた。"
 
 #. name:Betacam SP
 #: DB:medium_format/description:131
@@ -1095,6 +1112,8 @@ msgid ""
 "A video format used in the 1980s and 90s for professional work, including "
 "television and video archival."
 msgstr ""
+"1980～90年代にかけて、テレビやビデオのアーカイブなど、プロ向けの業務で使用さ"
+"れていた映像フォーマット。"
 
 #. name:Zarzuela
 #: DB:work_type/description:19
@@ -1143,12 +1162,9 @@ msgid "ACDAM ID"
 msgstr "ACDAM ID"
 
 #: DB:work_attribute_type/name:206
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ACAM ID"
 msgctxt "work_attribute_type"
 msgid "ACUM ID"
-msgstr "ACAM ID"
+msgstr "ACUM ID"
 
 #: DB:work_attribute_type/name:58
 msgctxt "work_attribute_type"
@@ -1201,9 +1217,6 @@ msgid "ASCAP ID"
 msgstr "ASCAP ID"
 
 #: DB:work_attribute_type/name:211
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "KODA ID"
 msgctxt "work_attribute_type"
 msgid "AUTODIA ID"
 msgstr "AUTODIA ID"
@@ -1289,7 +1302,6 @@ msgid "Ahiri tōḍī"
 msgstr "Ahiri tōḍī"
 
 #: DB:work_attribute_type_allowed_value/value:309
-#, fuzzy
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ak Dügah"
 msgstr "Ak Dügah"
@@ -1582,6 +1594,8 @@ msgid ""
 "An organization that mostly concentrates on broadcasting audio or video "
 "content, be it on television, radio or the internet."
 msgstr ""
+"主に音声や映像コンテンツの放送に注力している組織。テレビやラジオ、"
+"インターネットなど形体は問わない。"
 
 #. name:Creative Agency
 #: DB:label_type/description:11
@@ -1589,7 +1603,7 @@ msgctxt "label_type"
 msgid ""
 "An organization that provides creative direction for visual elements of "
 "releases (such as illustrations, design and other artwork)."
-msgstr ""
+msgstr "リリースに含まれる視覚要素について、クリエイティブディレクションを行う組織。"
 
 #. name:Rights Society
 #: DB:label_type/description:8
@@ -3365,9 +3379,10 @@ msgid "E-sharp minor"
 msgstr "嬰ホ短調"
 
 #: DB:work_attribute_type/name:215
+#, fuzzy
 msgctxt "work_attribute_type"
 msgid "EAÜ ID"
-msgstr ""
+msgstr "EAÜ ID"
 
 #: DB:work_attribute_type/name:37
 msgctxt "work_attribute_type"
@@ -3406,6 +3421,8 @@ msgid ""
 "Enhanced version of Blu-ray supporting 4K Ultra HD video which is not "
 "compatible with all Blu-ray players."
 msgstr ""
+"4K Ultra HD映像に対応したBlu-rayの強化版。再生に対応していないBlu-ray"
+"プレーヤーも存在する。"
 
 #: DB:instrument_type/name:6
 msgctxt "instrument_type"
@@ -4458,12 +4475,9 @@ msgstr "イギリスの権利者団体PRSのID"
 
 #. name:MUSICAUTOR ID
 #: DB:work_attribute_type/description:212
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Nicaraguan rights society NICAUTOR"
 msgctxt "work_attribute_type"
 msgid "ID for the Bulgarian rights society MUSICAUTOR"
-msgstr "ニカラグアの権利者団体NICAUTORのID"
+msgstr "ブルガリアの権利者団体MUSICAUTORのID"
 
 #. name:SOCAN ID
 #: DB:work_attribute_type/description:10
@@ -4503,12 +4517,9 @@ msgstr "コスタリカの権利者団体ACAMのID"
 
 #. name:HDS-ZAMP ID
 #: DB:work_attribute_type/description:214
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Cuban rights society ACDAM"
 msgctxt "work_attribute_type"
 msgid "ID for the Croatian rights society HDS-ZAMP"
-msgstr "キューバの権利者団体ACDAMのID"
+msgstr "クロアチアの権利者団体HDS-ZAMPのID"
 
 #. name:ACDAM ID
 #: DB:work_attribute_type/description:47
@@ -4572,12 +4583,9 @@ msgstr "ドイツの権利者団体GEMAのID"
 
 #. name:AUTODIA ID
 #: DB:work_attribute_type/description:211
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Czech rights society OSA"
 msgctxt "work_attribute_type"
 msgid "ID for the Greek rights society AUTODIA"
-msgstr "チェコの権利者団体OSAのID"
+msgstr "ギリシャの権利者団体AUTODIAのID"
 
 #. name:AEI ID
 #: DB:work_attribute_type/description:58
@@ -5963,9 +5971,10 @@ msgid "Mersiye"
 msgstr "<i>Mersiye</i>"
 
 #: DB:release_packaging/name:54
+#, fuzzy
 msgctxt "release_packaging"
 msgid "Metal Tin"
-msgstr ""
+msgstr "Metal Tin"
 
 #: DB:work_attribute_type_allowed_value/value:745
 msgctxt "work_attribute_type_allowed_value"
@@ -5989,16 +5998,13 @@ msgstr "軍事基地"
 
 #. name:Military base
 #: DB:area_type/description:8
-#, fuzzy
-#| msgctxt "area_type"
-#| msgid ""
-#| "Used for any military bases that are large enough to be considered an "
-#| "area, not just a place."
 msgctxt "area_type"
 msgid ""
 "Military base is used only for any military bases that are large enough to "
 "be considered an area, not just a place."
-msgstr "場所ではなく、エリアと見なすのに十分な大きさの軍事基地で使用される"
+msgstr ""
+"この場合、軍事基地とは\"地域\"区分となる規模の基地にのみ使用され、\"場所\"規"
+"模では適用されない。"
 
 #: DB:medium_format/name:166
 msgctxt "medium_format"
@@ -8872,65 +8878,45 @@ msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
 "watermarked and are not desirable for display (but can be used for "
 "reference)."
 msgstr ""
-"タグ付けに使用する作業が必要な画像に使用（ただし、参照用にすでに使用されてい"
-"る可能性あり）"
+"透かしが入っており、表示には適さない画像については、他の適切な種類と組み合わ"
+"せて使用してください。ただし、参照用としては使用可能です。"
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
 "watermarked and are not desirable for display (but can be used for "
 "reference)."
 msgstr ""
-"タグ付けに使用する作業が必要な画像に使用（ただし、参照用にすでに使用されてい"
-"る可能性あり）"
+"透かしが入っており、表示には適さない画像については、他の適切な種類と組み合わ"
+"せて使用してください。ただし、参照用としては使用可能です。"
 
 #. name:Raw/Unedited
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
-"タグ付けに使用する作業が必要な画像に使用（ただし、参照用にすでに使用されてい"
-"る可能性あり）"
+"透かしが入っており、表示には適さない画像については、他の適切な種類と組み合わ"
+"せて使用してください。ただし、参照用としては使用可能です。"
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use for images that need work to be used for tagging (but can possibly "
-#| "already be used for reference)"
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
-"タグ付けに使用する作業が必要な画像に使用（ただし、参照用にすでに使用されてい"
-"る可能性あり）"
+"透かしが入っており、表示には適さない画像については、他の適切な種類と組み合わ"
+"せて使用してください。ただし、参照用としては使用可能です。"
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1

@@ -15,11 +15,12 @@
 # julian45 <techieboy45@gmail.com>, 2023.
 # Lunae_XD <raru0916@gmail.com>, 2024.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
+# zatto13 <zatto0524@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-07-29 13:36+0000\n"
-"Last-Translator: TefWw <came.from.the.north7239@gmail.com>\n"
+"PO-Revision-Date: 2026-07-08 19:12+0000\n"
+"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ja/>\n"
 "Language: ja\n"
@@ -27,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.7\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -521,10 +522,8 @@ msgstr "チュヴァシ語"
 
 #. frequency:1 iso_code_3:nci
 #: DB:language/name:4704
-#, fuzzy
-#| msgid "Classical Newari"
 msgid "Classical Nahuatl"
-msgstr "古典ネワール語"
+msgstr "古典ナワトル語"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -684,7 +683,7 @@ msgstr "東アランダ語"
 #. frequency:1 iso_code_3:nea
 #: DB:language/name:4741
 msgid "Eastern Ngad'a"
-msgstr ""
+msgstr "東ンガダ語"
 
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
@@ -1123,10 +1122,8 @@ msgstr "インターリング"
 
 #. frequency:1 iso_code_3:isv
 #: DB:language/name:7878
-#, fuzzy
-#| msgid "Interlingua"
 msgid "Interslavic"
-msgstr "インターリングア"
+msgstr "インタースラーヴィク"
 
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
@@ -1375,10 +1372,8 @@ msgstr "クルー語"
 
 #. frequency:1 iso_code_3:ksd
 #: DB:language/name:3525
-#, fuzzy
-#| msgid "Kuanyama"
 msgid "Kuanua"
-msgstr "クワニャマ語"
+msgstr "クアヌア語"
 
 #. frequency:1 iso_code_3:kua
 #: DB:language/name:230
@@ -1738,7 +1733,7 @@ msgstr "モンゴル語"
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
-msgstr ""
+msgstr "モーリシャス語"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
@@ -1793,7 +1788,7 @@ msgstr "ナポリ語"
 #. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
-msgstr ""
+msgstr "ヌグリ・スンビラン・マレー語"
 
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
@@ -1808,7 +1803,7 @@ msgstr "ネパール語"
 #. frequency:1 iso_code_3:nxg
 #: DB:language/name:5076
 msgid "Ngad'a"
-msgstr ""
+msgstr "ンガダ語"
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1973,7 +1968,7 @@ msgstr "パプア諸語"
 #. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
-msgstr ""
+msgstr "パッターニー・マレー語"
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
