@@ -1,15 +1,19 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
+# Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-06-27 21:12+0000\n"
+"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
+"memory@weblate.org>\n"
+"Language-Team: Malay <https://translations.metabrainz.org/projects/"
+"musicbrainz/instruments/ms/>\n"
 "Language: ms\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -121,7 +125,7 @@ msgstr ""
 
 #: DB:instrument/name:323
 msgid "Hawaiian guitar"
-msgstr ""
+msgstr "gitar Hawaii"
 
 #: DB:instrument/name:1011
 msgctxt "Indonesian spike-fiddle used in gamelan"
@@ -284,11 +288,11 @@ msgstr ""
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr ""
+msgstr "tetarik"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
-msgstr ""
+msgstr "gitar bes akustik"
 
 #: DB:instrument/name:539
 msgid "acoustic fretless guitar"
@@ -296,7 +300,7 @@ msgstr ""
 
 #: DB:instrument/name:53
 msgid "acoustic guitar"
-msgstr ""
+msgstr "gitar akustik"
 
 #: DB:instrument/name:65
 msgid "aeolian harp"
@@ -348,7 +352,7 @@ msgstr ""
 #: DB:instrument/name:21
 msgctxt "Middle member of the saxophone family"
 msgid "alto saxophone"
-msgstr ""
+msgstr "saksofon alto"
 
 #: DB:instrument/name:923
 msgctxt "Alto member of the viol family"
@@ -367,7 +371,7 @@ msgstr ""
 #: DB:instrument/name:813
 msgctxt "uses analogue circuits to produce sound"
 msgid "analog synthesizer"
-msgstr ""
+msgstr "pensintesis analog"
 
 #: DB:instrument/name:371
 msgctxt "Single pitch bamboo rattle xylophone used in Sundanese gamelan"
@@ -510,16 +514,16 @@ msgstr ""
 
 #: DB:instrument/name:301
 msgid "baritone guitar"
-msgstr ""
+msgstr "gitar bariton"
 
 #: DB:instrument/name:28
 msgid "baritone horn"
-msgstr ""
+msgstr "hon bariton"
 
 #: DB:instrument/name:23
 msgctxt "Middle-Low member of the saxophone family"
 msgid "baritone saxophone"
-msgstr ""
+msgstr "saksofon bariton"
 
 #: DB:instrument/name:917
 msgctxt "Baroque gut string guitar"
@@ -559,7 +563,7 @@ msgstr ""
 
 #: DB:instrument/name:430
 msgid "bass drum"
-msgstr ""
+msgstr "dram bes"
 
 #: DB:instrument/name:416
 msgid "bass flute"
@@ -567,7 +571,7 @@ msgstr ""
 
 #: DB:instrument/name:207
 msgid "bass guitar"
-msgstr ""
+msgstr "gitar bes"
 
 #: DB:instrument/name:465
 msgid "bass harmonica"
@@ -575,7 +579,7 @@ msgstr ""
 
 #: DB:instrument/name:732
 msgid "bass oboe"
-msgstr ""
+msgstr "obo bes"
 
 #: DB:instrument/name:400
 msgid "bass pedals"
@@ -588,11 +592,11 @@ msgstr ""
 #: DB:instrument/name:444
 msgctxt "Second lowest member of the saxophone family"
 msgid "bass saxophone"
-msgstr ""
+msgstr "saksofon bes"
 
 #: DB:instrument/name:456
 msgid "bass synthesizer"
-msgstr ""
+msgstr "pensintesis bes"
 
 #: DB:instrument/name:176
 msgid "bass trombone"
@@ -733,7 +737,7 @@ msgstr ""
 
 #: DB:instrument/name:500
 msgid "body percussion"
-msgstr ""
+msgstr "pukulan tubuh"
 
 #: DB:instrument/name:745
 msgid "bolon"
@@ -1166,7 +1170,7 @@ msgstr ""
 #: DB:instrument/name:446
 msgctxt "Largest member of the saxophone family"
 msgid "contrabass saxophone"
-msgstr ""
+msgstr "saksofon kontrabes"
 
 #: DB:instrument/name:6
 msgid "contrabassoon"
@@ -1235,7 +1239,7 @@ msgstr ""
 
 #: DB:instrument/name:271
 msgid "cymbal"
-msgstr ""
+msgstr "simbal"
 
 #: DB:instrument/name:309
 msgid "cò ke"
@@ -1376,12 +1380,12 @@ msgstr ""
 #: DB:instrument/name:120
 msgctxt "drum programming"
 msgid "drum machine"
-msgstr ""
+msgstr "mesin dram"
 
 #: DB:instrument/name:101
 msgctxt "Set of drums in modern music"
 msgid "drums (drum set)"
-msgstr ""
+msgstr "perangkat dram"
 
 #: DB:instrument/name:649
 msgid "duck call"
@@ -1457,7 +1461,7 @@ msgstr ""
 
 #: DB:instrument/name:51
 msgid "electric bass guitar"
-msgstr ""
+msgstr "gitar bes elektrik"
 
 #: DB:instrument/name:208
 msgid "electric cello"
@@ -1469,11 +1473,11 @@ msgstr ""
 
 #: DB:instrument/name:682
 msgid "electric grand piano"
-msgstr ""
+msgstr "granpiano elektrik"
 
 #: DB:instrument/name:55
 msgid "electric guitar"
-msgstr ""
+msgstr "gitar elektrik"
 
 #: DB:instrument/name:352
 msgid "electric harp"
@@ -1485,7 +1489,7 @@ msgstr ""
 
 #: DB:instrument/name:259
 msgid "electric piano"
-msgstr ""
+msgstr "piano elektrik"
 
 #: DB:instrument/name:246
 msgctxt "electric guitar variant of sitar"
@@ -1506,15 +1510,15 @@ msgstr ""
 
 #: DB:instrument/name:402
 msgid "electronic drum set"
-msgstr ""
+msgstr "perangkat dram elektronik"
 
 #: DB:instrument/name:117
 msgid "electronic instruments"
-msgstr ""
+msgstr "alat muzik elektronik"
 
 #: DB:instrument/name:447
 msgid "electronic organ"
-msgstr ""
+msgstr "organ elektronik"
 
 #: DB:instrument/name:1213
 msgctxt "Indian electronic drone device"
@@ -1859,7 +1863,7 @@ msgstr ""
 
 #: DB:instrument/name:138
 msgid "grand piano"
-msgstr ""
+msgstr "granpiano"
 
 #: DB:instrument/name:294
 msgid "great bass recorder / c-bass recorder"
@@ -1884,7 +1888,7 @@ msgstr ""
 
 #: DB:instrument/name:177
 msgid "guitar"
-msgstr ""
+msgstr "gitar"
 
 #: DB:instrument/name:52
 msgctxt "DO NOT USE"
@@ -1893,7 +1897,7 @@ msgstr ""
 
 #: DB:instrument/name:763
 msgid "guitar synthesizer"
-msgstr ""
+msgstr "pensintesis gitar"
 
 #: DB:instrument/name:688
 msgid "guitarrón chileno"
@@ -1996,7 +2000,7 @@ msgstr ""
 
 #: DB:instrument/name:191
 msgid "heckelphone"
-msgstr ""
+msgstr "hekelfon"
 
 #: DB:instrument/name:579
 msgid "heike biwa"
@@ -2061,7 +2065,7 @@ msgstr ""
 #: DB:instrument/name:889
 msgctxt "\"woodwater\" flute made with hydraulics"
 msgid "hydraulophone"
-msgstr ""
+msgstr "alat muzik bunyi air"
 
 #: DB:instrument/name:905
 msgctxt "Japanese concussion idiophone"
@@ -2080,7 +2084,7 @@ msgstr ""
 
 #: DB:instrument/name:674
 msgid "idiophone"
-msgstr ""
+msgstr "alat muzik bunyi diri"
 
 #: DB:instrument/name:707
 msgid "igil"
@@ -2511,7 +2515,7 @@ msgstr ""
 
 #: DB:instrument/name:632
 msgid "lamellaphone"
-msgstr ""
+msgstr "alat muzik bunyi lelidah"
 
 #: DB:instrument/name:249
 msgid "langeleik"
@@ -2573,7 +2577,7 @@ msgstr ""
 #: DB:instrument/name:963
 msgctxt "Arrangement of struck tuned stone bars."
 msgid "lithophone"
-msgstr ""
+msgstr "alat muzik bunyi batu"
 
 #: DB:instrument/name:609
 msgctxt "Small pearshaped chinese lute"
@@ -2692,12 +2696,12 @@ msgstr ""
 
 #: DB:instrument/name:100
 msgid "membranophone"
-msgstr ""
+msgstr "alat muzik bunyi sesaput"
 
 #: DB:instrument/name:349
 msgctxt "Arrangement of struck tuned metal bars."
 msgid "metallophone"
-msgstr ""
+msgstr "alat muzik bunyi logam"
 
 #: DB:instrument/name:1209
 msgctxt "Tunisian and Algerian bagpipe"
@@ -2711,7 +2715,7 @@ msgstr ""
 
 #: DB:instrument/name:752
 msgid "minipiano"
-msgstr ""
+msgstr "piano mini"
 
 #: DB:instrument/name:591
 msgid "mirliton"
@@ -2855,16 +2859,16 @@ msgstr ""
 
 #: DB:instrument/name:8
 msgid "oboe"
-msgstr ""
+msgstr "obo"
 
 #: DB:instrument/name:473
 msgid "oboe d'amore"
-msgstr ""
+msgstr "oboe d'amore"
 
 #: DB:instrument/name:572
 msgctxt "Baroque curved flared bell transposing oboe"
 msgid "oboe da caccia"
-msgstr ""
+msgstr "oboe da caccia"
 
 #: DB:instrument/name:15
 msgid "ocarina"
@@ -3010,11 +3014,11 @@ msgstr ""
 
 #: DB:instrument/name:99
 msgid "percussion"
-msgstr ""
+msgstr "genderang"
 
 #: DB:instrument/name:959
 msgid "percussion idiophone"
-msgstr ""
+msgstr "alat muzik bunyi diri genderang"
 
 #: DB:instrument/name:302
 msgid "phách"
@@ -3030,7 +3034,7 @@ msgstr ""
 
 #: DB:instrument/name:137
 msgid "piano"
-msgstr ""
+msgstr "piano"
 
 #: DB:instrument/name:359
 msgid "piano accordion"
@@ -3501,11 +3505,11 @@ msgstr ""
 
 #: DB:instrument/name:19
 msgid "saxophone"
-msgstr ""
+msgstr "saksofon"
 
 #: DB:instrument/name:942
 msgid "saxophone quartet"
-msgstr ""
+msgstr "kuartet saksofon"
 
 #: DB:instrument/name:472
 msgid "saz"
@@ -3654,11 +3658,11 @@ msgstr ""
 #: DB:instrument/name:366
 msgctxt "Hollow wooden idiophone"
 msgid "slit drum"
-msgstr ""
+msgstr "kentungan"
 
 #: DB:instrument/name:104
 msgid "snare drum"
-msgstr ""
+msgstr "dram getar"
 
 #: DB:instrument/name:1198
 msgctxt "Latvian bagpipe"
@@ -3679,7 +3683,7 @@ msgstr ""
 
 #: DB:instrument/name:445
 msgid "sopranino saxophone"
-msgstr ""
+msgstr "saksofon sopranino"
 
 #: DB:instrument/name:403
 msgid "soprano clarinet"
@@ -3696,7 +3700,7 @@ msgstr ""
 
 #: DB:instrument/name:20
 msgid "soprano saxophone"
-msgstr ""
+msgstr "saksofon soprano"
 
 #: DB:instrument/name:210
 msgid "soprano violin"
@@ -3834,7 +3838,7 @@ msgstr ""
 
 #: DB:instrument/name:124
 msgid "synthesizer"
-msgstr ""
+msgstr "pensintesis"
 
 #: DB:instrument/name:298
 msgctxt "Ancient Greek pan flute"
@@ -4014,7 +4018,7 @@ msgstr ""
 
 #: DB:instrument/name:22
 msgid "tenor saxophone"
-msgstr ""
+msgstr "saksofon tenor"
 
 #: DB:instrument/name:662
 msgid "tenor trombone"
@@ -4117,7 +4121,7 @@ msgstr ""
 
 #: DB:instrument/name:258
 msgid "toy piano"
-msgstr ""
+msgstr "piano mainan"
 
 #: DB:instrument/name:909
 msgid "traditional basque ensemble"
@@ -4463,7 +4467,7 @@ msgstr ""
 
 #: DB:instrument/name:450
 msgid "voice synthesizer"
-msgstr ""
+msgstr "pensintesis suara"
 
 #: DB:instrument/name:877
 msgctxt "plastic horn"
@@ -4519,7 +4523,7 @@ msgstr ""
 #: DB:instrument/name:560
 msgctxt "synthesizer played like a wind instrument"
 msgid "wind synthesizer"
-msgstr ""
+msgstr "pensintesis angin"
 
 #: DB:instrument/name:354
 msgid "wire-strung harp"
