@@ -47,7 +47,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-29 18:37-0500\n"
-"PO-Revision-Date: 2026-05-28 19:12+0000\n"
+"PO-Revision-Date: 2026-07-07 00:12+0000\n"
 "Last-Translator: zatto13 <zatto0524@gmail.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ja/>\n"
@@ -56,7 +56,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -17249,7 +17249,7 @@ msgstr "ログイン状態を保持"
 
 #: ../root/user/Login.js:133
 msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "{link1|ユーザー名}あるいは{link2|パスワード}を忘れた場合…"
+msgstr "{link1|ユーザー名}あるいは{link2|パスワード}を忘れちゃった？"
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"
