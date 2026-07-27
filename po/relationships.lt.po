@@ -1756,9 +1756,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Šis požymis nurodo „svečio“ atlikimą, kai atlikėjas paprastai nėra grupės "
 "narys."
@@ -8018,11 +8022,6 @@ msgid "jury member"
 msgstr "žiuri narys"
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr "žiuri narys vietoje"
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr "žiuri nariai"
@@ -10325,11 +10324,6 @@ msgstr ""
 msgid "was a conductor at"
 msgstr ""
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-msgid "was a jury member at"
-msgstr "buvo žiuri narys vietoje"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10364,6 +10358,13 @@ msgstr "buvo palaikymo aktas vietoje"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr "buvo palaikymo didžėjus vietoje"
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "was a {guest} jury member at"
+msgstr "buvo žiuri narys vietoje"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -11996,6 +11997,13 @@ msgstr ""
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "jury member at"
+msgid "{guest} jury member at"
+msgstr "žiuri narys vietoje"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

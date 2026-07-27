@@ -715,6 +715,13 @@ msgstr "埃克丘克语"
 msgid "Elamite"
 msgstr "埃兰语"
 
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Sicilian"
+msgid "Emilian"
+msgstr "西西里语"
+
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
 msgid "English"
@@ -1286,6 +1293,13 @@ msgstr "卡威语"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "哈萨克语"
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+#, fuzzy
+#| msgid "Malay"
+msgid "Kedah Malay"
+msgstr "马来语"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137

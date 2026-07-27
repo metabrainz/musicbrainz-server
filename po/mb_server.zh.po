@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 18:37-0500\n"
+"POT-Creation-Date: 2026-07-27 08:05-0500\n"
 "PO-Revision-Date: 2026-05-30 12:12+0000\n"
 "Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
@@ -59,7 +59,7 @@ msgstr " ({text})"
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1558
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1569
 #: ../root/utility/tableColumns.js:585
 msgid "#"
 msgstr "#"
@@ -1225,8 +1225,8 @@ msgstr "完整目录："
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
 #: ../root/layout/components/sidebar/ArtistSidebar.js:100
 #: ../root/search/components/ArtistResults.js:55
-#: ../root/static/scripts/account/components/EditProfileForm.js:217
-#: ../root/user/UserProfile.js:276
+#: ../root/static/scripts/account/components/EditProfileForm.js:237
+#: ../root/user/UserProfile.js:270
 msgid "Gender"
 msgstr "性别"
 
@@ -1668,7 +1668,7 @@ msgstr "位置编辑者"
 
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
-#: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
+#: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:118
 msgctxt "interactive"
 msgid "Log in"
 msgstr "登录"
@@ -2062,7 +2062,7 @@ msgstr "主要类型"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:40
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1568
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1579
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
 msgstr "录音"
@@ -2240,7 +2240,7 @@ msgstr "{artist} 的专辑 “{name}”"
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
 #: ../root/release/CoverArt.js:88
-#: ../root/static/scripts/account/components/EditProfileForm.js:279
+#: ../root/static/scripts/account/components/EditProfileForm.js:299
 #: ../root/static/scripts/common/components/CDTocEditColumn.js:36
 #: ../root/static/scripts/edit/components/Multiselect.js:186
 #: ../root/user/UserCollections.js:122
@@ -3395,7 +3395,7 @@ msgid "Voter"
 msgstr "投票者"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:69
-#: ../root/user/UserProfile.js:693
+#: ../root/user/UserProfile.js:687
 msgid "Votes"
 msgstr "投票"
 
@@ -4013,103 +4013,11 @@ msgstr[0] ""
 "谢谢，您的 {num_edits} 个 {edit_url|编辑} ({edit_ids}) 已被保存，其中 "
 "{num_open_edits} 个已经进入编辑审查队列，其余已经自动批准并生效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:72
-msgid "The user ID is missing or is in an invalid format."
-msgstr "账号空缺或格式不正确。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:82
-msgid "The email address is missing."
-msgstr "电子邮箱地址空缺。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-msgid "The time is missing or is in an invalid format."
-msgstr "时间空缺或格式不正确。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:103
-msgid "The verification key is missing."
-msgstr "验证密钥空缺。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:114
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:290
-msgid "The checksum is invalid, please double check your email."
-msgstr "校验和不正确，请重新检查您的邮件。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:125
-msgid "Sorry, this email verification link has expired."
-msgstr "对不起，这个邮件验证链接已失效。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:137
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:302
-#, perl-brace-format
-msgid "The user with ID '{user_id}' could not be found."
-msgstr "用户ID '{user_id}' 无法被找到。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:188
-msgid ""
-"We were unable to send login information to your email address. Please try "
-"again, and if that still doesn’t work, {contact_url|contact us}."
-msgstr ""
-"无法向您的电子邮件地址发送登录信息。请再试一次，如果您仍然遇到问题，请"
-"{contact_url|联系我们}。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:215
-msgid "There is no user with this username"
-msgstr "没有用户使用这个用户名"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:220
-msgid "There is no user with this username and email"
-msgstr "没有用户使用这个用户名和邮箱"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:223
-msgid ""
-"We can't send a password reset email, because we have no email on record for "
-"this user."
-msgstr "无法发送密码重置电子邮件，因为没有此用户的电子邮件记录。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:253
-msgid "Your password has been reset."
-msgstr "您的密码已被重置。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:268
-msgid "Missing one or more required parameters."
-msgstr "一个或多个项目空缺。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:279
-msgid "Sorry, this password reset link has expired."
-msgstr "对不起，这个密码重置链接已失效。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:353
-msgid "There is no user with this email"
-msgstr "没有用户使用这个邮箱"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:435
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:95
 msgid "Your profile has been updated."
 msgstr "您的资料已更新。"
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:439
-#, perl-brace-format
-msgid ""
-"We have sent you a verification email to <code>{email}</code>. Please check "
-"your mailbox and click on the link in the email to verify the new email "
-"address."
-msgstr ""
-"我们已经向<code>{email}</code>发送了一封确认电子邮件。请查看您的收件箱并点击"
-"电子邮件中的链接来验证新电子邮件地址。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:478
-msgid "Your password has been changed."
-msgstr "您的密码已更改。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:815
-msgid ""
-"<strong>We were unable to send you a verification email.</strong><br/>Please "
-"re-enter your address in your {settings|account settings}. If that still "
-"doesn’t work, {contact_url|contact us}."
-msgstr ""
-"<strong>我们无法向您发送验证邮件。</strong><br/>请在{settings|账号设置}重新输"
-"入电子邮件地址。如果问题仍然存在，请通过{contact_url|联系我们}。"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:903
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:306
 msgid "There is no OAuth token with these parameters."
 msgstr ""
 
@@ -4262,7 +4170,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:794
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:802
 msgid "You haven’t made any changes!"
 msgstr "您还没有进行任何更改！"
 
@@ -4273,6 +4181,23 @@ msgstr "无法将特殊用途厂牌合并至另一个厂牌。"
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:280
 msgid "You cannot merge into Deleted Label."
 msgstr "无法合并至已删除的厂牌。"
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
+msgid "Too many login attempts. Please try again in a few minutes."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
+#, fuzzy
+#| msgctxt "event"
+#| msgid "cancelled"
+msgid "Login cancelled."
+msgstr "已取消"
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
+#, fuzzy
+#| msgid "Image not available, please try again later."
+msgid "Login failed. Please try again."
+msgstr "图像不可用，请稍后再试。"
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4336,19 +4261,29 @@ msgstr "[未知]"
 msgid "The provided relationship type ID is not valid."
 msgstr "提供的关联类型 ID 无效。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:100
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr "已设定语言。如果这是误操作，你可以 {url|设置回 “{prev_lang_name}”}。"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:108
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr "如果你发现翻译中有任何问题，请{url|帮助我们改进它}！"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:311
+#, fuzzy
+#| msgid ""
+#| "We were not able to check your donation status right now. Please try "
+#| "again later."
+msgid ""
+"Sorry, we could not verify your login credentials right now. Please try "
+"logging in again."
+msgstr "我们暂时无法检查你的捐赠状态，请稍后再试。"
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 #, fuzzy
 #| msgid ""
 #| "Our Redis server appears to be down; some features may not work as "
@@ -4362,57 +4297,55 @@ msgstr "我们的 Redis 服务器似乎宕机了；一些功能可能无法正�
 msgid "Series that have different entity types cannot be merged."
 msgstr "包含不同实体类型的系列无法被合并。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:313
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
-#: ../lib/MusicBrainz/Server/Controller/User.pm:354
+#: ../lib/MusicBrainz/Server/Controller/User.pm:271
+#: ../lib/MusicBrainz/Server/Controller/User.pm:297
+#: ../lib/MusicBrainz/Server/Controller/User.pm:312
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 msgctxt "header"
 msgid "Send email"
 msgstr "发送电子邮件"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:314
+#: ../lib/MusicBrainz/Server/Controller/User.pm:272
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr "您无法联系其他用户，因为您还没有 {url|验证您的电子邮件地址}。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:341
+#: ../lib/MusicBrainz/Server/Controller/User.pm:299
 msgid "You are not allowed to send messages to editors."
 msgstr "你被禁止向编辑者发送信息。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:355
+#: ../lib/MusicBrainz/Server/Controller/User.pm:313
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "编辑者{name}没有在账户中添加电子邮箱地址。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:369
-#: ../root/account/LostPasswordSent.js:16
-#: ../root/account/LostUsernameSent.js:16
+#: ../lib/MusicBrainz/Server/Controller/User.pm:327
 msgctxt "header"
 msgid "Email sent"
 msgstr "电子邮件已发送"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:370
+#: ../lib/MusicBrainz/Server/Controller/User.pm:328
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
 "{user}'s profile."
 msgstr "成功发送电子邮件！点击 {link|此处} 前往 {user} 的资料页面。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:407
+#: ../lib/MusicBrainz/Server/Controller/User.pm:365
 msgid "Your message could not be sent"
 msgstr "您的信息无法被送达"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:573
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "‘{type}’ 不是可评分的实体类型。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:843
+#: ../lib/MusicBrainz/Server/Controller/User.pm:801
 msgid "An error occurred while trying to send your report."
 msgstr "尝试发送您的报告时发生了错误。"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:847
+#: ../lib/MusicBrainz/Server/Controller/User.pm:805
 msgid "Your report has been sent."
 msgstr "您的报告已发送。"
 
@@ -4473,7 +4406,7 @@ msgstr "您必须登录才能提交编辑。请先 {url|登录}，然后再次�
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1197
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1205
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -5524,21 +5457,21 @@ msgctxt "barcode"
 msgid "[none]"
 msgstr "[无]"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:290
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
 #| msgid "Editing/voting disabled"
 msgid "Editing disabled"
 msgstr "编辑/投票已禁用"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:293
 #: ../root/static/scripts/common/utility/privileges.js:164
 #, fuzzy
 #| msgid "Voting is closed."
 msgid "Voting disabled"
 msgstr "投票已关闭。"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:303
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:296
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
 msgstr "已禁用编辑备注"
@@ -5864,7 +5797,7 @@ msgid "Not a valid time. Must be in the format MM:SS"
 msgstr "时间格式无效。必须按照 MM：SS 格式"
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:68
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:102
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:98
 msgid "invalid date"
 msgstr "无效日期"
 
@@ -6040,39 +5973,39 @@ msgstr ""
 msgid "Invalid URL format"
 msgstr "URL 格式无效"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:64
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:60
 msgid "A language is required."
 msgstr "语言为必填项。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:66
 msgid "A fluency level is required."
 msgstr "流利程度为必填项。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:74
 #: ../root/static/scripts/common/constants.js:433
 msgid "Basic"
 msgstr "基础"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:75
 #: ../root/static/scripts/common/constants.js:434
 msgid "Intermediate"
 msgstr "中级"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:76
 #: ../root/static/scripts/common/constants.js:432
 msgid "Advanced"
 msgstr "高级"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:77
 #: ../root/static/scripts/common/constants.js:435
 msgid "Native"
 msgstr "母语"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:91
 msgid "You must supply a complete birth date for us to display your age."
 msgstr "必须指定完整的出生日期，这样我们才能显示您的年龄。"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:99
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
 msgid "Birth year must be after 1900"
 msgstr "出生年份必须在1900年之后"
 
@@ -6118,14 +6051,6 @@ msgstr "直接数据库搜索"
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
 msgstr "类型为必填项。"
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
-msgid "The old password is incorrect"
-msgstr "旧密码错误"
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:58
-msgid "An account with this name could not be found"
-msgstr "无法找到此名称对应的账号"
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
@@ -6288,91 +6213,6 @@ msgstr "{last_list_item}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/account/ChangePassword.js:40
-msgid ""
-"Please change your password. Unfortunately we've discovered that secure "
-"hashes user's passwords were temporarily available for download on our FTP "
-"site. While it is extremely unlikely that anyone will be able to derive the "
-"original passwords from this mishap, we are requiring all of our users to "
-"change their passwords. Sorry for the inconvenience. For more information "
-"see {blog|the recent blog post}."
-msgstr ""
-"请修改您的密码。我们不幸发现一些用户密码的密文曾短暂地在我们的 FTP 站点提供下"
-"载。虽然因此次意外而被破解出密码明文的概率非常低，我们仍然建议所有用户修改密"
-"码。我们对此造成的不便深表感抱歉。如需更多信息，请查看 {blog|最近的博客文"
-"章}。"
-
-#: ../root/account/ChangePassword.js:53
-msgid "Please enter your old password below, and then your new password."
-msgstr "请在下方输入您的旧密码和新密码。"
-
-#: ../root/account/ChangePassword.js:65 ../root/account/LostPassword.js:41
-#: ../root/static/scripts/account/components/RegisterForm.js:52
-#: ../root/user/Login.js:97
-msgid "Username"
-msgstr "用户名"
-
-#: ../root/account/ChangePassword.js:73
-msgid "Old password:"
-msgstr "旧密码："
-
-#: ../root/account/ChangePassword.js:81 ../root/account/ResetPassword.js:36
-msgid "New password:"
-msgstr "新密码："
-
-#: ../root/account/ChangePassword.js:89 ../root/account/ResetPassword.js:44
-#: ../root/static/scripts/account/components/RegisterForm.js:88
-msgid "Confirm password:"
-msgstr "确认密码："
-
-#: ../root/account/ChangePassword.js:95
-msgctxt "interactive"
-msgid "Change password"
-msgstr "修改密码"
-
-#: ../root/account/ChangePassword.js:114 ../root/account/ChangePassword.js:116
-#: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
-#: ../root/components/UserAccountTabs.js:88
-msgctxt "header"
-msgid "Change password"
-msgstr "修改密码"
-
-#: ../root/account/DeleteOwnAccount.js:35
-#: ../root/account/DeleteOwnAccount.js:37
-#: ../root/components/UserAccountTabs.js:113
-msgctxt "header"
-msgid "Delete account"
-msgstr "删除账号"
-
-#: ../root/account/DeleteOwnAccount.js:40
-msgid ""
-"For information about the account deletion process, please read the {uri|"
-"account FAQ}."
-msgstr "如需关于删除账号流程的信息，请阅读{uri|账号常见问题}。"
-
-#: ../root/account/DeleteOwnAccount.js:48
-msgid ""
-"This will also cancel all your open edits and change all of your votes on "
-"any edits currently open to Abstain."
-msgstr "这也将取消您所有开放的编辑，并改变您对当前开放的任何编辑的所有投票。"
-
-#: ../root/account/DeleteOwnAccount.js:56
-msgid ""
-"Keep in mind this process might take a fairly long time if you have entered "
-"a lot of tags. If the process times out, please {contact_url|contact us}."
-msgstr ""
-"注意，如果您输入了很多标签，此过程可能需要相当长的时间。如果进程超时，请"
-"{contact_url|contact us}。"
-
-#: ../root/account/DeleteOwnAccount.js:65
-msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr "您确定要删除您的帐号吗？该操作将无法被撤销！"
-
-#: ../root/account/DeleteOwnAccount.js:76
-msgctxt "interactive"
-msgid "Delete my account"
-msgstr "删除我的账号"
-
 #: ../root/account/DigestAuthentication.js:22
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
@@ -6398,7 +6238,7 @@ msgid "{applications_url|Back to Applications}."
 msgstr ""
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
-#: ../root/components/UserAccountTabs.js:94
+#: ../root/components/UserAccountTabs.js:88
 msgid "Donation check"
 msgstr "查看捐款"
 
@@ -6445,102 +6285,23 @@ msgid ""
 "See also your {uri|user preferences}, which include your privacy settings."
 msgstr "也可参见您的 {uri|用户偏好}，其中包含了您的隐私设置。"
 
-#: ../root/account/EmailVerificationStatus.js:14
-msgctxt "header"
-msgid "Email verification"
-msgstr "电子邮件验证"
-
-#: ../root/account/EmailVerificationStatus.js:18
-msgid ""
-"Thank you, your email address has now been verified! If you still can't "
-"edit, please try to log out and log in again."
-msgstr ""
-"谢谢，您的电子邮件地址已验证！如果您仍然无法编辑，请尝试登出并再次登录。"
-
-#: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
-#: ../root/account/LostPasswordSent.js:16
-msgid "Lost password"
-msgstr "忘记密码"
-
-#: ../root/account/LostPassword.js:30
-msgid ""
-"Enter your username and email below. We will send you an email with a link "
-"to reset your password. If you have forgotten your username, {link|retrieve "
-"it} first and then reset your password."
-msgstr ""
-"请在下方输入您的用户名和电子邮件地址。我们将会给您发送一封含有密码重置链接的"
-"电子邮件。如果您忘记了您的用户名，请先 {link|取回您的用户名} 再重置密码。"
-
-#: ../root/account/LostPassword.js:47 ../root/account/LostUsername.js:34
-#: ../root/static/scripts/account/components/EditProfileForm.js:198
-#: ../root/static/scripts/account/components/PreferencesForm.js:210
-#: ../root/static/scripts/account/components/RegisterForm.js:95
-#: ../root/user/UserProfile.js:197
-msgid "Email"
-msgstr "电子邮件"
-
-#: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
-msgctxt "interactive"
-msgid "Reset password"
-msgstr "重置密码"
-
-#: ../root/account/LostPasswordSent.js:20
-msgid ""
-"We've sent you instructions on how to reset your password. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"我们已将重置密码的说明发送给您。如果您没有收到电子邮件或仍然无法登录，请 "
-"{link|联系我们}。"
-
-#: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
-#: ../root/account/LostUsernameSent.js:16
-msgid "Lost username"
-msgstr "忘记用户名"
-
-#: ../root/account/LostUsername.js:27
-msgid ""
-"Enter your email address below and we will send you an email with your "
-"MusicBrainz account information."
-msgstr ""
-"请在下方输入您的电子邮件地址，我们会给您发送一封含有您 MusicBrainz 账号信息的"
-"电子邮件。"
-
-#: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
-msgctxt "interactive"
-msgid "Send email"
-msgstr "发送电子邮件"
-
-#: ../root/account/LostUsernameSent.js:20
-msgid ""
-"We've sent you information about your MusicBrainz account. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"我们已给您发送一封含有您 MusicBrainz 账号信息的电子邮件。如果您没有收到电子邮"
-"件或仍然无法登录，请 {link|联系我们}。"
-
-#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:18
+#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:21
 #: ../root/components/UserAccountTabs.js:82
 msgid "Preferences"
 msgstr "偏好设定"
 
-#: ../root/account/PreferencesSaved.js:21
+#: ../root/account/PreferencesSaved.js:24
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user "
 "page."
 msgstr "您的偏好设定已保存。点击 {link|此处} 继续前往您的用户页面。"
 
-#: ../root/account/Register.js:22 ../root/account/Register.js:29
+#: ../root/account/Register.js:19 ../root/account/Register.js:20
 msgctxt "header"
 msgid "Create an account"
 msgstr "创建账号"
 
-#: ../root/account/Register.js:25
-msgid "Captcha incorrect. Try again."
-msgstr "验证码不正确。请再试一次。"
-
-#: ../root/account/Register.js:33
+#: ../root/account/Register.js:24
 msgid ""
 "<strong>Note that any contributions you make to MusicBrainz will be released "
 "into the Public Domain and/or licensed under a Creative Commons by-nc-sa "
@@ -6552,7 +6313,7 @@ msgstr ""
 "享许可协议：署名-非商业性使用-相同方式共享授权。此外，您还给予MetaBrainz基金"
 "会授权数据商用的权利。更多信息参见 {doc|license page} 。</strong>"
 
-#: ../root/account/Register.js:45
+#: ../root/account/Register.js:36
 msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
@@ -6561,7 +6322,7 @@ msgstr ""
 "MusicBrainz 非常注重用户的隐私！我们不会向任何人出售或分享您选择提供的个人资"
 "料。详情请参见我们的 {doc|隐私政策}。"
 
-#: ../root/account/Register.js:55
+#: ../root/account/Register.js:46
 msgid ""
 "You may remove your personal information from our services anytime by "
 "deleting your account. For more details, see our {doc|GDPR compliance "
@@ -6570,14 +6331,14 @@ msgstr ""
 "您可以在任何时间删除您的账号，以移除您的个人信息。详情请见我们的{doc|GDPR合规"
 "声明}。"
 
-#: ../root/account/Register.js:67
+#: ../root/account/Register.js:57
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
 msgstr ""
 "如果您有任何问题，请在{con|联系我们}之前查看{faq|常见问题}和{doc|文档}。"
 
-#: ../root/account/Register.js:79
+#: ../root/account/Register.js:69
 msgid ""
 "Follow our {blog_link|blog} or our {bluesky_link|Bluesky} or {mastodon_link|"
 "Mastodon} accounts! To talk to other users, try the {forum_link|forums} or "
@@ -6587,7 +6348,7 @@ msgstr ""
 "Mastodon} 账号！想与其他用户交流，可以访问 {forum_link|论坛} 或 {chat_link|聊"
 "天}。"
 
-#: ../root/account/Register.js:94
+#: ../root/account/Register.js:84
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -6595,15 +6356,46 @@ msgstr ""
 "MusicBrainz 对所有用户提供同一种账号类型。如果您代表一位艺术家或一个厂牌，请"
 "使用以上的表单创建一个账号。"
 
-#: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
-#: ../root/account/ResetPasswordStatus.js:14
-msgctxt "header"
-msgid "Reset password"
-msgstr "重置密码"
+#: ../root/account/RegisterForm.js:34 ../root/user/Login.js:93
+msgid "Username"
+msgstr "用户名"
 
-#: ../root/account/ResetPassword.js:28
-msgid "Set a new password for your MusicBrainz account."
-msgstr "为您的 MusicBrainz 账号设置一个新密码。"
+#: ../root/account/RegisterForm.js:40
+msgid "Your username will be publicly visible."
+msgstr "您的用户名将公开可见。"
+
+#: ../root/account/RegisterForm.js:46 ../root/user/Login.js:100
+msgid "Password:"
+msgstr "密码:"
+
+#: ../root/account/RegisterForm.js:54
+msgid "Confirm password:"
+msgstr "确认密码："
+
+#: ../root/account/RegisterForm.js:61
+#: ../root/static/scripts/account/components/EditProfileForm.js:204
+#: ../root/static/scripts/account/components/EditProfileForm.js:211
+#: ../root/static/scripts/account/components/PreferencesForm.js:210
+#: ../root/user/UserProfile.js:197
+msgid "Email"
+msgstr "电子邮件"
+
+#: ../root/account/RegisterForm.js:67
+msgid ""
+"You must provide a working email address if you wish to contribute to the "
+"database."
+msgstr "如果您想对数据库做出贡献，您必须提供一个可用的电子邮件地址。"
+
+#: ../root/account/RegisterForm.js:74
+msgid ""
+"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
+"account."
+msgstr "请在创建账号前查阅 {coc|MusicBrainz 行为准则}。"
+
+#: ../root/account/RegisterForm.js:79 ../root/layout/components/TopMenu.js:204
+msgctxt "interactive"
+msgid "Create account"
+msgstr "创建账号"
 
 #: ../root/account/applications/ApplicationList.js:29
 #: ../root/static/scripts/account/components/ApplicationForm.js:39
@@ -6630,7 +6422,7 @@ msgid "Applications"
 msgstr "应用"
 
 #: ../root/account/applications/ApplicationList.js:94
-#: ../root/user/UserProfile.js:310
+#: ../root/user/UserProfile.js:304
 msgid "Authorized applications"
 msgstr "已授权的应用程序"
 
@@ -6671,7 +6463,7 @@ msgid "You have not authorized any applications."
 msgstr "您没有授权任何应用程序。"
 
 #: ../root/account/applications/ApplicationList.js:129
-#: ../root/user/UserProfile.js:324
+#: ../root/user/UserProfile.js:318
 msgid "Developer applications"
 msgstr "开发者应用程序"
 
@@ -7887,8 +7679,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "修改"
 
-#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:347
-#: ../root/user/UserProfile.js:408
+#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:402
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8226,7 +8018,7 @@ msgstr "评论"
 
 #: ../root/components/EntityTabs.js:150
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:43
-#: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:44
+#: ../root/user/UserProfile.js:841 ../root/user/UserRatingList.js:44
 #: ../root/user/UserRatingList.js:78
 msgid "Ratings"
 msgstr "评分"
@@ -8394,7 +8186,7 @@ msgstr "订阅"
 #: ../root/entity/Subscribers.js:49
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:357
+#: ../root/user/UserProfile.js:351
 msgid "Subscribers"
 msgstr "订阅者"
 
@@ -10774,7 +10566,7 @@ msgstr "数据移除政策"
 msgid "Privileged user accounts"
 msgstr "特权用户账号"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:564
 msgid "Statistics"
 msgstr "统计"
 
@@ -11089,12 +10881,6 @@ msgstr "我的编辑收到的备注"
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
 msgstr "管理员"
-
-#: ../root/layout/components/TopMenu.js:209
-#: ../root/static/scripts/account/components/RegisterForm.js:118
-msgctxt "interactive"
-msgid "Create account"
-msgstr "创建账号"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
@@ -11465,19 +11251,19 @@ msgstr[0] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr "生日快乐，感谢您对 MusicBrainz 的贡献！"
 
-#: ../root/main/ConfirmSeed.js:26
+#: ../root/main/ConfirmSeed.js:25
 #, fuzzy
 #| msgid "Confirm Form Submission"
 msgid "Confirm form submission"
 msgstr "确认提交"
 
-#: ../root/main/ConfirmSeed.js:43
+#: ../root/main/ConfirmSeed.js:42
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
 msgstr "你将要向{action}提交一个来自{origin}的请求。继续吗?"
 
-#: ../root/main/ConfirmSeed.js:52
+#: ../root/main/ConfirmSeed.js:51
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can "
@@ -11530,7 +11316,7 @@ msgid ""
 "edit or add anything to the database."
 msgstr ""
 
-#: ../root/main/error/Error401.js:39 ../root/user/Login.js:86
+#: ../root/main/error/Error401.js:39 ../root/user/Login.js:82
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
@@ -14368,62 +14154,66 @@ msgid ""
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:106
-#: ../root/user/UserProfile.js:283
+#: ../root/static/scripts/account/components/EditProfileForm.js:110
+#: ../root/user/UserProfile.js:277
 msgctxt "user area"
 msgid "Location"
 msgstr "位置"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:190
+#: ../root/static/scripts/account/components/EditProfileForm.js:197
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
 msgstr ""
 "这是一台开发用服务器。您的电子邮件地址可能不是私有和安全的。请慎重行事！"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:203
-msgid "If you change your email address, you will be required to verify it."
+#: ../root/static/scripts/account/components/EditProfileForm.js:218
+#, fuzzy
+#| msgid "If you change your email address, you will be required to verify it."
+msgid ""
+"Your email address can be changed from your {profile|MetaBrainz profile}. If "
+"you change your email address, you will be required to verify it."
 msgstr "如果您更改了电子邮件地址，您将需要重新验证它。"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
 msgstr "网站"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:233
+#: ../root/static/scripts/account/components/EditProfileForm.js:253
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 "您可以选择您想要的详细程度：您的国家，地区，或城市。您想要多详细就能多详细！"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:240
+#: ../root/static/scripts/account/components/EditProfileForm.js:260
 msgid "Birth date:"
 msgstr "出生日期："
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:265
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr "我们会使用您的出生日期在您的个人资料页面显示年龄。"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:252
-#: ../root/user/UserProfile.js:401
+#: ../root/static/scripts/account/components/EditProfileForm.js:272
+#: ../root/user/UserProfile.js:395
 msgid "Bio"
 msgstr "简介"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:257
+#: ../root/static/scripts/account/components/EditProfileForm.js:277
 #, fuzzy
 #| msgid "Languages Known:"
 msgid "Languages known:"
 msgstr "了解的语言："
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:293
+#: ../root/static/scripts/account/components/EditProfileForm.js:313
 #: ../root/static/scripts/work/edit.js:337
 msgctxt "interactive"
 msgid "Add language"
 msgstr "添加语言"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:301
+#: ../root/static/scripts/account/components/EditProfileForm.js:321
 #: ../root/static/scripts/account/components/PreferencesForm.js:270
 msgctxt "interactive"
 msgid "Save"
@@ -14497,37 +14287,6 @@ msgstr "当我的订阅被编辑时发送电子邮件通知"
 #: ../root/static/scripts/account/components/PreferencesForm.js:251
 msgid "Automatically subscribe me when I add"
 msgstr "当我添加时自动订阅"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:58
-msgid "Your username will be publicly visible."
-msgstr "您的用户名将公开可见。"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:69
-msgid ""
-"The username you have entered looks like an email address. This is allowed, "
-"but please keep in mind that everyone will be able to see it. Only use an "
-"email address as your username if you are completely sure you are happy with "
-"that."
-msgstr ""
-"您输入的用户名看起来像是一个电子邮件地址。尽管这是可行的，但请留意所有人都能"
-"看到它。请仅在您对此完全满意的情况下将电子邮件地址作为您的用户名。"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:80
-#: ../root/user/Login.js:104
-msgid "Password:"
-msgstr "密码:"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:101
-msgid ""
-"You must provide a working email address if you wish to contribute to the "
-"database."
-msgstr "如果您想对数据库做出贡献，您必须提供一个可用的电子邮件地址。"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:113
-msgid ""
-"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
-"account."
-msgstr "请在创建账号前查阅 {coc|MusicBrainz 行为准则}。"
 
 #: ../root/static/scripts/alias/AliasEditForm.js:296
 msgid "Alias details"
@@ -15046,6 +14805,16 @@ msgstr "显示更少的 ISWC"
 msgid "{action_label} (in a new tab)"
 msgstr ""
 
+#: ../root/static/scripts/common/components/LoginMessage.js:36
+msgid ""
+"We’re currently unable to process your submission because your login session "
+"has expired."
+msgstr ""
+
+#: ../root/static/scripts/common/components/LoginMessage.js:50
+msgid "Click here to log in."
+msgstr ""
+
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
 msgstr "载体 {position} ({medium_format})"
@@ -15081,7 +14850,7 @@ msgid "Related series"
 msgstr "相关系列"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1581
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1592
 msgid "Related works"
 msgstr "相关作品"
 
@@ -16576,7 +16345,7 @@ msgid "You must provide an edit note when adding a release."
 msgstr "添加专辑时必须提供编辑备注。"
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1861
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1893
 msgid "Submitting edits..."
 msgstr "正在提交编辑..."
 
@@ -16810,30 +16579,30 @@ msgstr "批量添加作品关系"
 msgid "[selected work]"
 msgstr "[已选择的作品]"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:280
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:288
 msgid "An error occurred:"
 msgstr "发生错误:"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1519
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1530
 msgid "Track relationships"
 msgstr "音轨关联"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1538
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1549
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1605
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1616
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:364
 msgid "We have no information about this release’s media and tracklist."
 msgstr "没有关于此专辑的媒介和音轨列表的信息。"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1636
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1647
 msgid "Release relationships"
 msgstr "专辑关联"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1673
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1684
 #, fuzzy
 #| msgid "Release Group Relationships"
 msgid "Release group relationships"
@@ -17210,39 +16979,40 @@ msgstr "显示我的电子邮件地址"
 msgid "Send a copy to my own email address"
 msgstr "发送副本到我自己的电子邮箱"
 
-#: ../root/user/Login.js:48 ../root/user/Login.js:49
+#: ../root/user/ContactUser.js:71
+msgctxt "interactive"
+msgid "Send email"
+msgstr "发送电子邮件"
+
+#: ../root/user/Login.js:44 ../root/user/Login.js:45
 msgctxt "header"
 msgid "Log in"
 msgstr "登录"
 
-#: ../root/user/Login.js:53
+#: ../root/user/Login.js:49
 msgid "You need to be logged in to view this page."
 msgstr "您需要登录才能浏览此页面。"
 
-#: ../root/user/Login.js:59
+#: ../root/user/Login.js:55
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "还没有账号？{uri|现在创建一个}！"
 
-#: ../root/user/Login.js:70
+#: ../root/user/Login.js:66
 msgid "Incorrect username or password"
 msgstr "用户名或密码不正确"
 
-#: ../root/user/Login.js:80
+#: ../root/user/Login.js:76
 msgid ""
 "You cannot log in because this account has been marked as a spam account."
 msgstr "无法登录，因为此账号已被标记为垃圾信息账号。"
 
-#: ../root/user/Login.js:113
+#: ../root/user/Login.js:109
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr "这是一台开发用服务器；所有的密码都已被重置为“mb”。"
 
-#: ../root/user/Login.js:121
-msgid "Keep me logged in"
-msgstr "保持登录"
-
-#: ../root/user/Login.js:133
-msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "忘记了您的 {link1|用户名} 或 {link2|密码}？"
+#: ../root/user/LoginDialogSuccess.js:38
+msgid "Login successful. You may close this dialog."
+msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"
@@ -17581,206 +17351,202 @@ msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "（<strong>未验证！</strong>）"
 
-#: ../root/user/UserProfile.js:217
-msgid "resend verification email"
-msgstr "重新发送验证电子邮件"
-
-#: ../root/user/UserProfile.js:225
+#: ../root/user/UserProfile.js:219
 msgid "send email"
 msgstr "发送电子邮件"
 
-#: ../root/user/UserProfile.js:250
+#: ../root/user/UserProfile.js:244
 msgctxt "email address"
 msgid "(none)"
 msgstr "(无)"
 
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:251
 msgid "User type:"
 msgstr "用户类型："
 
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:257
 msgid "nominate for auto-editor"
 msgstr "提名为自动确认编辑者"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:264
 msgid "Age:"
 msgstr "年龄:"
 
-#: ../root/user/UserProfile.js:289
+#: ../root/user/UserProfile.js:283
 msgid "Member since"
 msgstr "注册于"
 
-#: ../root/user/UserProfile.js:295
+#: ../root/user/UserProfile.js:289
 msgid "Restrictions"
 msgstr "限制"
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:296
 msgid "Last login"
 msgstr "上一次登录"
 
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:299
 msgid "Hasn't logged in yet"
 msgstr "尚未登录"
 
-#: ../root/user/UserProfile.js:313 ../root/user/UserProfile.js:327
-#: ../root/user/UserProfile.js:360
+#: ../root/user/UserProfile.js:307 ../root/user/UserProfile.js:321
+#: ../root/user/UserProfile.js:354
 msgid "{count} ({url|view list})"
 msgstr "{count}（{url|浏览列表}）"
 
-#: ../root/user/UserProfile.js:339
+#: ../root/user/UserProfile.js:333
 msgid "Homepage:"
 msgstr "主页："
 
-#: ../root/user/UserProfile.js:367
+#: ../root/user/UserProfile.js:361
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:380
+#: ../root/user/UserProfile.js:374
 msgid "unsubscribe"
 msgstr "取消订阅"
 
-#: ../root/user/UserProfile.js:389
+#: ../root/user/UserProfile.js:383
 msgid "subscribe"
 msgstr "订阅"
 
-#: ../root/user/UserProfile.js:418
+#: ../root/user/UserProfile.js:412
 msgid "Languages"
 msgstr "语言"
 
-#: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:584
-#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
-#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
-#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:644
-#: ../root/user/UserProfile.js:654 ../root/user/UserProfile.js:663
-#: ../root/user/UserProfile.js:816 ../root/user/UserProfile.js:837
-#: ../root/user/UserProfile.js:858
+#: ../root/user/UserProfile.js:483 ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:588 ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:608 ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:628 ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:648 ../root/user/UserProfile.js:657
+#: ../root/user/UserProfile.js:810 ../root/user/UserProfile.js:831
+#: ../root/user/UserProfile.js:852
 msgid "{count} ({view_url|view})"
 msgstr "{count}（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:576
+#: ../root/user/UserProfile.js:570
 msgid "Edits"
 msgstr "修改"
 
-#: ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:576
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "总计"
 
-#: ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:586
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "已接受"
 
-#: ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:596
 msgid "Auto-edits"
 msgstr "自动确认编辑"
 
-#: ../root/user/UserProfile.js:612
+#: ../root/user/UserProfile.js:606
 msgid "Total applied"
 msgstr "生效总数"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:616
 msgid "Voted down"
 msgstr "遭投票否决"
 
-#: ../root/user/UserProfile.js:632
+#: ../root/user/UserProfile.js:626
 msgid "Failed"
 msgstr "失败"
 
-#: ../root/user/UserProfile.js:642
+#: ../root/user/UserProfile.js:636
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "取消的"
 
-#: ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:646
 msgid "Open"
 msgstr "已开启"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:656
 msgid "Last 24 hours"
 msgstr "过去 24 小时"
 
-#: ../root/user/UserProfile.js:686
+#: ../root/user/UserProfile.js:680
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "此表格显示了此编辑者投票的概要信息。"
 
-#: ../root/user/UserProfile.js:691
+#: ../root/user/UserProfile.js:685
 msgid "Votes ({view_url|view})"
 msgstr "投票（{view_url|浏览}）"
 
-#: ../root/user/UserProfile.js:699
+#: ../root/user/UserProfile.js:693
 msgid "Last 28 days"
 msgstr "过去 28 天"
 
-#: ../root/user/UserProfile.js:702
+#: ../root/user/UserProfile.js:696
 msgid "Overall"
 msgstr "合计"
 
-#: ../root/user/UserProfile.js:750
+#: ../root/user/UserProfile.js:744
 msgid "This table shows a summary of entities added by this editor."
 msgstr "此表格显示了此编辑者添加的实体的概要信息。"
 
-#: ../root/user/UserProfile.js:756
+#: ../root/user/UserProfile.js:750
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr "新生效的编辑可能需要 24 个小时才会显示"
 
-#: ../root/user/UserProfile.js:759
+#: ../root/user/UserProfile.js:753
 msgid "Added entities"
 msgstr "添加的实体"
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:776
 msgid "This user has not added any entities."
 msgstr "此用户尚未添加任何实体。"
 
-#: ../root/user/UserProfile.js:792
+#: ../root/user/UserProfile.js:786
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr "此表格显示了该编辑者添加的次要数据的摘要。"
 
-#: ../root/user/UserProfile.js:798
+#: ../root/user/UserProfile.js:792
 #, fuzzy
 #| msgid "Tags and ratings"
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "标签和评分"
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:799
 #, fuzzy
 #| msgid "Tags upvoted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "已赞成的标签"
 
-#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:824
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "编辑者被删除时，标签会被移除。"
 
-#: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:807 ../root/user/UserProfile.js:828
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "已移除"
 
-#: ../root/user/UserProfile.js:825
+#: ../root/user/UserProfile.js:819
 #, fuzzy
 #| msgid "Tags downvoted"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "已否决的标签"
 
-#: ../root/user/UserProfile.js:851
+#: ../root/user/UserProfile.js:845
 msgid "Ratings are removed when an editor is deleted."
 msgstr "编辑者被删除后，其评分也会被移除。"
 
-#: ../root/user/UserProfile.js:854
+#: ../root/user/UserProfile.js:848
 msgctxt "ratings"
 msgid "Removed"
 msgstr "移除"
 
-#: ../root/user/UserProfile.js:921
+#: ../root/user/UserProfile.js:915
 msgid "Blocked spam account"
 msgstr "被封禁的垃圾信息账号"
 
-#: ../root/user/UserProfile.js:923
+#: ../root/user/UserProfile.js:917
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -17790,17 +17556,17 @@ msgstr ""
 "MusicBrainz 中看到垃圾邮件，请通过在其用户页面上举报垃圾邮件发送者的方式告知"
 "我们。"
 
-#: ../root/user/UserProfile.js:989
+#: ../root/user/UserProfile.js:983
 msgid "Report this user for bad behavior"
 msgstr "报告此用户的不良行为"
 
-#: ../root/user/UserProfile.js:994
+#: ../root/user/UserProfile.js:988
 #, fuzzy
 #| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
 msgstr "您的编辑内容收到的他人回复"
 
-#: ../root/user/UserProfile.js:995
+#: ../root/user/UserProfile.js:989
 #, fuzzy
 #| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
@@ -18367,6 +18133,224 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合并的作品中有一些拥有不同的ISWC编号。请先确保"
 "这些作品确实为相同作品，然后再继续进行合并。"
+
+#~ msgid "The user ID is missing or is in an invalid format."
+#~ msgstr "账号空缺或格式不正确。"
+
+#~ msgid "The email address is missing."
+#~ msgstr "电子邮箱地址空缺。"
+
+#~ msgid "The time is missing or is in an invalid format."
+#~ msgstr "时间空缺或格式不正确。"
+
+#~ msgid "The verification key is missing."
+#~ msgstr "验证密钥空缺。"
+
+#~ msgid "The checksum is invalid, please double check your email."
+#~ msgstr "校验和不正确，请重新检查您的邮件。"
+
+#~ msgid "Sorry, this email verification link has expired."
+#~ msgstr "对不起，这个邮件验证链接已失效。"
+
+#, perl-brace-format
+#~ msgid "The user with ID '{user_id}' could not be found."
+#~ msgstr "用户ID '{user_id}' 无法被找到。"
+
+#~ msgid ""
+#~ "We were unable to send login information to your email address. Please "
+#~ "try again, and if that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "无法向您的电子邮件地址发送登录信息。请再试一次，如果您仍然遇到问题，请"
+#~ "{contact_url|联系我们}。"
+
+#~ msgid "There is no user with this username"
+#~ msgstr "没有用户使用这个用户名"
+
+#~ msgid "There is no user with this username and email"
+#~ msgstr "没有用户使用这个用户名和邮箱"
+
+#~ msgid ""
+#~ "We can't send a password reset email, because we have no email on record "
+#~ "for this user."
+#~ msgstr "无法发送密码重置电子邮件，因为没有此用户的电子邮件记录。"
+
+#~ msgid "Your password has been reset."
+#~ msgstr "您的密码已被重置。"
+
+#~ msgid "Missing one or more required parameters."
+#~ msgstr "一个或多个项目空缺。"
+
+#~ msgid "Sorry, this password reset link has expired."
+#~ msgstr "对不起，这个密码重置链接已失效。"
+
+#~ msgid "There is no user with this email"
+#~ msgstr "没有用户使用这个邮箱"
+
+#, perl-brace-format
+#~ msgid ""
+#~ "We have sent you a verification email to <code>{email}</code>. Please "
+#~ "check your mailbox and click on the link in the email to verify the new "
+#~ "email address."
+#~ msgstr ""
+#~ "我们已经向<code>{email}</code>发送了一封确认电子邮件。请查看您的收件箱并点"
+#~ "击电子邮件中的链接来验证新电子邮件地址。"
+
+#~ msgid "Your password has been changed."
+#~ msgstr "您的密码已更改。"
+
+#~ msgid ""
+#~ "<strong>We were unable to send you a verification email.</strong><br/"
+#~ ">Please re-enter your address in your {settings|account settings}. If "
+#~ "that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "<strong>我们无法向您发送验证邮件。</strong><br/>请在{settings|账号设置}重"
+#~ "新输入电子邮件地址。如果问题仍然存在，请通过{contact_url|联系我们}。"
+
+#~ msgid "The old password is incorrect"
+#~ msgstr "旧密码错误"
+
+#~ msgid "An account with this name could not be found"
+#~ msgstr "无法找到此名称对应的账号"
+
+#~ msgid ""
+#~ "Please change your password. Unfortunately we've discovered that secure "
+#~ "hashes user's passwords were temporarily available for download on our "
+#~ "FTP site. While it is extremely unlikely that anyone will be able to "
+#~ "derive the original passwords from this mishap, we are requiring all of "
+#~ "our users to change their passwords. Sorry for the inconvenience. For "
+#~ "more information see {blog|the recent blog post}."
+#~ msgstr ""
+#~ "请修改您的密码。我们不幸发现一些用户密码的密文曾短暂地在我们的 FTP 站点提"
+#~ "供下载。虽然因此次意外而被破解出密码明文的概率非常低，我们仍然建议所有用户"
+#~ "修改密码。我们对此造成的不便深表感抱歉。如需更多信息，请查看 {blog|最近的"
+#~ "博客文章}。"
+
+#~ msgid "Please enter your old password below, and then your new password."
+#~ msgstr "请在下方输入您的旧密码和新密码。"
+
+#~ msgid "Old password:"
+#~ msgstr "旧密码："
+
+#~ msgid "New password:"
+#~ msgstr "新密码："
+
+#~ msgctxt "interactive"
+#~ msgid "Change password"
+#~ msgstr "修改密码"
+
+#~ msgctxt "header"
+#~ msgid "Change password"
+#~ msgstr "修改密码"
+
+#~ msgctxt "header"
+#~ msgid "Delete account"
+#~ msgstr "删除账号"
+
+#~ msgid ""
+#~ "For information about the account deletion process, please read the {uri|"
+#~ "account FAQ}."
+#~ msgstr "如需关于删除账号流程的信息，请阅读{uri|账号常见问题}。"
+
+#~ msgid ""
+#~ "This will also cancel all your open edits and change all of your votes on "
+#~ "any edits currently open to Abstain."
+#~ msgstr ""
+#~ "这也将取消您所有开放的编辑，并改变您对当前开放的任何编辑的所有投票。"
+
+#~ msgid ""
+#~ "Keep in mind this process might take a fairly long time if you have "
+#~ "entered a lot of tags. If the process times out, please {contact_url|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "注意，如果您输入了很多标签，此过程可能需要相当长的时间。如果进程超时，请"
+#~ "{contact_url|contact us}。"
+
+#~ msgid "Are you sure you want to delete your account? This cannot be undone!"
+#~ msgstr "您确定要删除您的帐号吗？该操作将无法被撤销！"
+
+#~ msgctxt "interactive"
+#~ msgid "Delete my account"
+#~ msgstr "删除我的账号"
+
+#~ msgctxt "header"
+#~ msgid "Email verification"
+#~ msgstr "电子邮件验证"
+
+#~ msgid ""
+#~ "Thank you, your email address has now been verified! If you still can't "
+#~ "edit, please try to log out and log in again."
+#~ msgstr ""
+#~ "谢谢，您的电子邮件地址已验证！如果您仍然无法编辑，请尝试登出并再次登录。"
+
+#~ msgid "Lost password"
+#~ msgstr "忘记密码"
+
+#~ msgid ""
+#~ "Enter your username and email below. We will send you an email with a "
+#~ "link to reset your password. If you have forgotten your username, {link|"
+#~ "retrieve it} first and then reset your password."
+#~ msgstr ""
+#~ "请在下方输入您的用户名和电子邮件地址。我们将会给您发送一封含有密码重置链接"
+#~ "的电子邮件。如果您忘记了您的用户名，请先 {link|取回您的用户名} 再重置密"
+#~ "码。"
+
+#~ msgctxt "interactive"
+#~ msgid "Reset password"
+#~ msgstr "重置密码"
+
+#~ msgid ""
+#~ "We've sent you instructions on how to reset your password. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "我们已将重置密码的说明发送给您。如果您没有收到电子邮件或仍然无法登录，请 "
+#~ "{link|联系我们}。"
+
+#~ msgid "Lost username"
+#~ msgstr "忘记用户名"
+
+#~ msgid ""
+#~ "Enter your email address below and we will send you an email with your "
+#~ "MusicBrainz account information."
+#~ msgstr ""
+#~ "请在下方输入您的电子邮件地址，我们会给您发送一封含有您 MusicBrainz 账号信"
+#~ "息的电子邮件。"
+
+#~ msgid ""
+#~ "We've sent you information about your MusicBrainz account. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "我们已给您发送一封含有您 MusicBrainz 账号信息的电子邮件。如果您没有收到电"
+#~ "子邮件或仍然无法登录，请 {link|联系我们}。"
+
+#~ msgid "Captcha incorrect. Try again."
+#~ msgstr "验证码不正确。请再试一次。"
+
+#~ msgctxt "header"
+#~ msgid "Reset password"
+#~ msgstr "重置密码"
+
+#~ msgid "Set a new password for your MusicBrainz account."
+#~ msgstr "为您的 MusicBrainz 账号设置一个新密码。"
+
+#~ msgid ""
+#~ "The username you have entered looks like an email address. This is "
+#~ "allowed, but please keep in mind that everyone will be able to see it. "
+#~ "Only use an email address as your username if you are completely sure you "
+#~ "are happy with that."
+#~ msgstr ""
+#~ "您输入的用户名看起来像是一个电子邮件地址。尽管这是可行的，但请留意所有人都"
+#~ "能看到它。请仅在您对此完全满意的情况下将电子邮件地址作为您的用户名。"
+
+#~ msgid "Keep me logged in"
+#~ msgstr "保持登录"
+
+#~ msgid "Forgot your {link1|username} or {link2|password}?"
+#~ msgstr "忘记了您的 {link1|用户名} 或 {link2|密码}？"
+
+#~ msgid "resend verification email"
+#~ msgstr "重新发送验证电子邮件"
 
 #~ msgctxt "interactive"
 #~ msgid "Edit attributes"

@@ -1769,9 +1769,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Этот атрибут указывает на \"приглашенное\" выступление, когда исполнитель "
 "обычно не является частью группы."
@@ -8120,11 +8124,6 @@ msgid "jury member"
 msgstr "член жюри"
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr ""
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr "члены жюри"
@@ -10403,11 +10402,6 @@ msgstr ""
 msgid "was a conductor at"
 msgstr "был(а) кондуктором в"
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-msgid "was a jury member at"
-msgstr "был(а) членом жюри"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10442,6 +10436,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "was a {guest} jury member at"
+msgstr "был(а) членом жюри"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -11752,7 +11753,8 @@ msgstr ""
 #. name:illustration
 #: DB:link_type/long_link_phrase:1305
 msgid "{entity1} provided {additional} illustration on {entity0}"
-msgstr "{entity1} содержит {additional:дополнительные} иллюстрации от {entity0}"
+msgstr ""
+"{entity1} содержит {additional:дополнительные} иллюстрации от {entity0}"
 
 #. name:design
 #: DB:link_type/long_link_phrase:1304
@@ -12038,6 +12040,13 @@ msgstr "{guest:приглашенный} концертмейстер"
 msgid "{guest} concertmaster for"
 msgstr "{guest:приглашенный} концертмейстер для"
 
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "{guest} jury member at"
+msgstr "был(а) членом жюри"
+
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"
@@ -12062,7 +12071,8 @@ msgstr ""
 #. name:programmed in
 #: DB:link_type/reverse_link_phrase:1311 DB:link_type/reverse_link_phrase:1308
 msgid "{instrument} {additional:additionally} programmed in"
-msgstr "инструмент {instrument} был {additional:дополнительно} программирован в"
+msgstr ""
+"инструмент {instrument} был {additional:дополнительно} программирован в"
 
 #. name:parent
 #: DB:link_type/link_phrase:109

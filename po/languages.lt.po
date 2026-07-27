@@ -697,6 +697,13 @@ msgstr "ekajukų"
 msgid "Elamite"
 msgstr "elamitų"
 
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Friulian"
+msgid "Emilian"
+msgstr "friulų"
+
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
 msgid "English"
@@ -1268,6 +1275,13 @@ msgstr "kavių"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "kazachų"
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+#, fuzzy
+#| msgid "Malay"
+msgid "Kedah Malay"
+msgstr "Malajiečių"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137

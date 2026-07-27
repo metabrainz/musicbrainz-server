@@ -1791,9 +1791,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Este atributo indica una actuación “invitada” en la cual el intérprete no "
 "suele formar parte de la banda."
@@ -8272,11 +8276,6 @@ msgid "jury member"
 msgstr ""
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr ""
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr ""
@@ -10570,11 +10569,6 @@ msgstr "fue compositor residente en"
 msgid "was a conductor at"
 msgstr "fue director en"
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-msgid "was a jury member at"
-msgstr "fue miembro del jurado en"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10609,6 +10603,13 @@ msgstr "fue un artista invitado en"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr "fue un DJ de apoyo en"
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "was a {guest} jury member at"
+msgstr "fue miembro del jurado en"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -12260,6 +12261,13 @@ msgstr ""
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "{guest} jury member at"
+msgstr "fue miembro del jurado en"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

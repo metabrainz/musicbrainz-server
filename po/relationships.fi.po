@@ -1595,9 +1595,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Tämä määrite ilmaisee vierailijasuorituksen, jonka esittäjä ei ole "
 "tavallisesti osa yhtyettä."
@@ -7447,11 +7451,6 @@ msgid "jury member"
 msgstr ""
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr ""
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr ""
@@ -9768,13 +9767,6 @@ msgstr ""
 msgid "was a conductor at"
 msgstr ""
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-#, fuzzy
-#| msgid "has a picture at"
-msgid "was a jury member at"
-msgstr "omaa kuvan"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -9811,6 +9803,13 @@ msgstr ""
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "has a picture at"
+msgid "was a {guest} jury member at"
+msgstr "omaa kuvan"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -11437,6 +11436,13 @@ msgstr ""
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "has a picture at"
+msgid "{guest} jury member at"
+msgstr "omaa kuvan"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

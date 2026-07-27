@@ -1823,9 +1823,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Cet attribut indique une interprétation en tant qu’invité quand l’interprète "
 "ne fait pas habituellement partie du groupe."
@@ -8725,11 +8729,6 @@ msgid "jury member"
 msgstr "membre de jury"
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr "membre de jury à"
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr "membres de jury"
@@ -11030,11 +11029,6 @@ msgstr "fut compositeur en résidence à"
 msgid "was a conductor at"
 msgstr "était chef d’orchestre à"
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-msgid "was a jury member at"
-msgstr "a été membre de jury à"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -11069,6 +11063,13 @@ msgstr "était en première partie à"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr "était un DJ de soutien à"
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "was a {guest} jury member at"
+msgstr "a été membre de jury à"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -12765,6 +12766,13 @@ msgstr "premier violon {guest:invité}"
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
 msgstr "premier violon {guest:invité} pour"
+
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "jury member at"
+msgid "{guest} jury member at"
+msgstr "membre de jury à"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

@@ -1597,9 +1597,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr "該屬性指“特邀演出嘉賓”，通常為不是樂隊成員的表演者。"
 
 #. name:eponymous
@@ -7895,11 +7899,6 @@ msgid "jury member"
 msgstr "評審成員"
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr "評審成員在"
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr "評審成員們"
@@ -10184,11 +10183,6 @@ msgstr "曾是駐校作曲家"
 msgid "was a conductor at"
 msgstr "曾是指揮"
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-msgid "was a jury member at"
-msgstr "曾是評審成員"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10223,6 +10217,13 @@ msgstr "曾是支援表演者"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr "曾是支援DJ"
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "was a {guest} jury member at"
+msgstr "曾是評審成員"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -11831,6 +11832,13 @@ msgstr "{guest} 首席小號手"
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
 msgstr "{guest} 首席小號手於"
+
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "jury member at"
+msgid "{guest} jury member at"
+msgstr "評審成員在"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

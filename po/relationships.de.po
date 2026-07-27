@@ -1704,9 +1704,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Dieses Attribut beschreibt einen Gastauftritt, d. h. der Interpret ist nicht "
 "üblicherweise Teil der Band."
@@ -7958,11 +7962,6 @@ msgid "jury member"
 msgstr ""
 
 #. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
-msgstr ""
-
-#. name:jury member
 #: DB:link_type/reverse_link_phrase:1255
 msgid "jury members"
 msgstr ""
@@ -10281,13 +10280,6 @@ msgstr ""
 msgid "was a conductor at"
 msgstr "war Dirigent bei"
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-#, fuzzy
-#| msgid "was a main performer at"
-msgid "was a jury member at"
-msgstr "war Hauptinterpret bei"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10324,6 +10316,13 @@ msgstr "war ein Vorprogramm bei"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a main performer at"
+msgid "was a {guest} jury member at"
+msgstr "war Hauptinterpret bei"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -12018,6 +12017,13 @@ msgstr ""
 #: DB:link_type/link_phrase:760 DB:link_type/link_phrase:759
 msgid "{guest} concertmaster for"
 msgstr ""
+
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "was a main performer at"
+msgid "{guest} jury member at"
+msgstr "war Hauptinterpret bei"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

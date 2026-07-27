@@ -69,7 +69,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 18:37-0500\n"
+"POT-Creation-Date: 2026-07-27 08:05-0500\n"
 "PO-Revision-Date: 2026-06-11 02:12+0000\n"
 "Last-Translator: mr_monkey "
 "<mr_monkey@users.noreply.translations.metabrainz.org>\n"
@@ -97,7 +97,7 @@ msgstr " ({text})"
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1558
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1569
 #: ../root/utility/tableColumns.js:585
 msgid "#"
 msgstr "no"
@@ -1290,8 +1290,8 @@ msgstr "TOC (table des matières) complète :"
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
 #: ../root/layout/components/sidebar/ArtistSidebar.js:100
 #: ../root/search/components/ArtistResults.js:55
-#: ../root/static/scripts/account/components/EditProfileForm.js:217
-#: ../root/user/UserProfile.js:276
+#: ../root/static/scripts/account/components/EditProfileForm.js:237
+#: ../root/user/UserProfile.js:270
 msgid "Gender"
 msgstr "Genre"
 
@@ -1798,7 +1798,7 @@ msgstr "Éditeur de région"
 
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
-#: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
+#: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:118
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Se connecter"
@@ -2214,7 +2214,7 @@ msgstr "Type primaire"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:40
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1568
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1579
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
 msgstr "Enregistrement"
@@ -2392,7 +2392,7 @@ msgstr "Parution « {name} » par {artist}"
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
 #: ../root/release/CoverArt.js:88
-#: ../root/static/scripts/account/components/EditProfileForm.js:279
+#: ../root/static/scripts/account/components/EditProfileForm.js:299
 #: ../root/static/scripts/common/components/CDTocEditColumn.js:36
 #: ../root/static/scripts/edit/components/Multiselect.js:186
 #: ../root/user/UserCollections.js:122
@@ -3687,7 +3687,7 @@ msgid "Voter"
 msgstr "Votant"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:69
-#: ../root/user/UserProfile.js:693
+#: ../root/user/UserProfile.js:687
 msgid "Votes"
 msgstr "Votes"
 
@@ -4389,108 +4389,11 @@ msgstr[2] ""
 "être revue par des pairs, et le reste a été automatiquement accepté et "
 "appliqué."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:72
-msgid "The user ID is missing or is in an invalid format."
-msgstr "L’ID d’utilisateur est manquant ou son format est invalide."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:82
-msgid "The email address is missing."
-msgstr "L’adresse courriel est manquante."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-msgid "The time is missing or is in an invalid format."
-msgstr "La durée manque ou son format est invalide."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:103
-msgid "The verification key is missing."
-msgstr "La clef de vérification est manquante."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:114
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:290
-msgid "The checksum is invalid, please double check your email."
-msgstr "La somme de contrôle est invalide, revérifiez votre courriel."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:125
-msgid "Sorry, this email verification link has expired."
-msgstr "Désolé, ce lien de vérification de courriel a expiré."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:137
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:302
-#, perl-brace-format
-msgid "The user with ID '{user_id}' could not be found."
-msgstr "L’utilisateur avec l’ID #{user_id} n’a pu être trouvé."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:188
-msgid ""
-"We were unable to send login information to your email address. Please try "
-"again, and if that still doesn’t work, {contact_url|contact us}."
-msgstr ""
-"Nous n’avons pas pu envoyer vos informations de connexion à votre adresse "
-"courriel. Veuillez réessayer, cependant si cette erreur persiste "
-"{contact_url|contactez-nous}."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:215
-msgid "There is no user with this username"
-msgstr "Il n’y a pas d’utilisateur ayant ce nom"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:220
-msgid "There is no user with this username and email"
-msgstr "Il n’y a pas d’utilisateur ayant ce nom et ce courriel"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:223
-msgid ""
-"We can't send a password reset email, because we have no email on record for "
-"this user."
-msgstr ""
-"Nous ne pouvons pas envoyer un courriel de réinitialisation de mot de passe "
-"car nous n’avons pas d’adresse courriel d’enregistrée pour cet utilisateur."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:253
-msgid "Your password has been reset."
-msgstr "Votre mot de passe a été réinitialisé."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:268
-msgid "Missing one or more required parameters."
-msgstr "Il manque un ou plusieurs paramètres obligatoires."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:279
-msgid "Sorry, this password reset link has expired."
-msgstr "Désolé, ce lien de réinitialisation de mot de passe est expiré."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:353
-msgid "There is no user with this email"
-msgstr "Il n’y a pas d’utilisateur ayant ce courriel"
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:435
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:95
 msgid "Your profile has been updated."
 msgstr "Votre profil a été mis à jour."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:439
-#, perl-brace-format
-msgid ""
-"We have sent you a verification email to <code>{email}</code>. Please check "
-"your mailbox and click on the link in the email to verify the new email "
-"address."
-msgstr ""
-"Nous vous avons envoyé un courriel de validation à l'adresse <code>{email}</"
-"code>. Veuillez vérifier votre boite aux lettres et cliquer sur le lien pour "
-"valider votre adresse courriel."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:478
-msgid "Your password has been changed."
-msgstr "Votre mot de passe a été changé."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:815
-msgid ""
-"<strong>We were unable to send you a verification email.</strong><br/>Please "
-"re-enter your address in your {settings|account settings}. If that still "
-"doesn’t work, {contact_url|contact us}."
-msgstr ""
-"<strong>Nous n’avons pas pu vous envoyer un courriel de vérification.</"
-"strong><br/>Veuillez ressaisir votre adresse courriel dans votre {settings|"
-"profil}. Si cela ne fonctionne toujours pas {contact_url|contactez-nous}."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:903
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:306
 msgid "There is no OAuth token with these parameters."
 msgstr "Il n’y a pas de jeton OAuth avec ces paramètres."
 
@@ -4663,7 +4566,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:794
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:802
 msgid "You haven’t made any changes!"
 msgstr "Vous n’avez apporté aucun changement !"
 
@@ -4676,6 +4579,23 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:280
 msgid "You cannot merge into Deleted Label."
 msgstr "Vous ne pouvez fusionner vers un label supprimé."
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
+msgid "Too many login attempts. Please try again in a few minutes."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
+#, fuzzy
+#| msgctxt "event"
+#| msgid "cancelled"
+msgid "Login cancelled."
+msgstr "annulé"
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
+#, fuzzy
+#| msgid "Image not available, please try again later."
+msgid "Login failed. Please try again."
+msgstr "Image non disponible, veuillez réessayer plus tard."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4742,7 +4662,7 @@ msgstr "[inconnue]"
 msgid "The provided relationship type ID is not valid."
 msgstr "L’ID de type de relation fourni n’est pas valide."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:100
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
@@ -4750,7 +4670,7 @@ msgstr ""
 "Langue sélectionnée. Si c’était involontaire, vous pouvez {url|restaurer "
 "« {prev_lang_name} »} tout simplement."
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:108
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
@@ -4758,7 +4678,19 @@ msgstr ""
 "Si vous rencontrez un quelconque problème de traduction, n’hésitez pas à "
 "{url|nous aider à l’améliorer} !"
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:311
+#, fuzzy
+#| msgid ""
+#| "We were not able to check your donation status right now. Please try "
+#| "again later."
+msgid ""
+"Sorry, we could not verify your login credentials right now. Please try "
+"logging in again."
+msgstr ""
+"Nous ne pouvons pas vérifier l’état de votre don actuellement. Merci de "
+"réessayer plus tard."
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 #, fuzzy
 #| msgid ""
 #| "Our Redis server appears to be down; some features may not work as "
@@ -4776,15 +4708,15 @@ msgstr ""
 "Les séries ayant des types d’entité différents ne peuvent pas être "
 "fusionnées."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:313
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
-#: ../lib/MusicBrainz/Server/Controller/User.pm:354
+#: ../lib/MusicBrainz/Server/Controller/User.pm:271
+#: ../lib/MusicBrainz/Server/Controller/User.pm:297
+#: ../lib/MusicBrainz/Server/Controller/User.pm:312
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 msgctxt "header"
 msgid "Send email"
 msgstr "Envoyer un courriel"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:314
+#: ../lib/MusicBrainz/Server/Controller/User.pm:272
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
@@ -4792,24 +4724,22 @@ msgstr ""
 "Vous ne pouvez pas contacter d’autres utilisateurs car vous n’avez pas {url|"
 "vérifié votre adresse courriel}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:341
+#: ../lib/MusicBrainz/Server/Controller/User.pm:299
 msgid "You are not allowed to send messages to editors."
 msgstr "Vous n’êtes pas autorisé à envoyé des messages aux éditeurs."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:355
+#: ../lib/MusicBrainz/Server/Controller/User.pm:313
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr ""
 "L’éditeur nommé {name} n’a pas d’adresse courriel attaché à son compte."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:369
-#: ../root/account/LostPasswordSent.js:16
-#: ../root/account/LostUsernameSent.js:16
+#: ../lib/MusicBrainz/Server/Controller/User.pm:327
 msgctxt "header"
 msgid "Email sent"
 msgstr "Courriel envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:370
+#: ../lib/MusicBrainz/Server/Controller/User.pm:328
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
@@ -4818,20 +4748,20 @@ msgstr ""
 "Votre courriel a été envoyé avec succès ! Cliquez {link|ici} pour retourner "
 "au profil de {user}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:407
+#: ../lib/MusicBrainz/Server/Controller/User.pm:365
 msgid "Your message could not be sent"
 msgstr "Votre message n’a pas pu être envoyé"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:573
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "'{type}' n’est pas un type d’entité qui peut avoir des évaluations."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:843
+#: ../lib/MusicBrainz/Server/Controller/User.pm:801
 msgid "An error occurred while trying to send your report."
 msgstr "Une erreur est survenue durant l’envoi de votre signalement."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:847
+#: ../lib/MusicBrainz/Server/Controller/User.pm:805
 msgid "Your report has been sent."
 msgstr "Votre signalement a été envoyé."
 
@@ -4910,7 +4840,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1197
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1205
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -6020,17 +5950,17 @@ msgctxt "barcode"
 msgid "[none]"
 msgstr "[aucun]"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:290
 #: ../root/static/scripts/common/utility/privileges.js:161
 msgid "Editing disabled"
 msgstr "Édition désactivée"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:293
 #: ../root/static/scripts/common/utility/privileges.js:164
 msgid "Voting disabled"
 msgstr "Vote désactivé"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:303
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:296
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
 msgstr "Notes de modification désactivées"
@@ -6366,7 +6296,7 @@ msgid "Not a valid time. Must be in the format MM:SS"
 msgstr "Heure invalide. Elle doit être au format MM:SS"
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:68
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:102
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:98
 msgid "invalid date"
 msgstr "Date invalide"
 
@@ -6548,41 +6478,41 @@ msgstr ""
 msgid "Invalid URL format"
 msgstr "Format d’URL invalide"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:64
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:60
 msgid "A language is required."
 msgstr "Une langue est requise."
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:66
 msgid "A fluency level is required."
 msgstr "Un niveau de maîtrise est requis."
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:74
 #: ../root/static/scripts/common/constants.js:433
 msgid "Basic"
 msgstr "De base"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:75
 #: ../root/static/scripts/common/constants.js:434
 msgid "Intermediate"
 msgstr "Intermédiaire"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:76
 #: ../root/static/scripts/common/constants.js:432
 msgid "Advanced"
 msgstr "Avancé"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:77
 #: ../root/static/scripts/common/constants.js:435
 msgid "Native"
 msgstr "Natif"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:91
 msgid "You must supply a complete birth date for us to display your age."
 msgstr ""
 "Vous devez fournir une date de naissance complète afin que nous puissions "
 "afficher votre âge."
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:99
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
 msgid "Birth year must be after 1900"
 msgstr "L’année de naissance doit être après 1900"
 
@@ -6628,14 +6558,6 @@ msgstr "Recherche directe dans la base de données"
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
 msgstr "Un type est requis."
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
-msgid "The old password is incorrect"
-msgstr "L’ancien mot de passe est incorrect"
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:58
-msgid "An account with this name could not be found"
-msgstr "Un compte avec ce nom n’a pu être trouvé"
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
@@ -6810,103 +6732,6 @@ msgstr "{last_list_item}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/account/ChangePassword.js:40
-msgid ""
-"Please change your password. Unfortunately we've discovered that secure "
-"hashes user's passwords were temporarily available for download on our FTP "
-"site. While it is extremely unlikely that anyone will be able to derive the "
-"original passwords from this mishap, we are requiring all of our users to "
-"change their passwords. Sorry for the inconvenience. For more information "
-"see {blog|the recent blog post}."
-msgstr ""
-"Veuillez changer votre mot de passe. Nous avons malheureusement découvert "
-"que les hachages sécurisés des mots de passe des utilisateurs étaient "
-"temporairement téléchargeables sur notre site FTP. Bien qu’il soit "
-"extrêmement improbable que quelqu’un soit capable de déduire les mots de "
-"passe originaux de cet incident, nous demandons à tous les utilisateurs de "
-"changer leur mot de passe. Désolé pour cet inconvénient. Pour plus "
-"d’informations voir le {blog|dernier billet de blogue}."
-
-#: ../root/account/ChangePassword.js:53
-msgid "Please enter your old password below, and then your new password."
-msgstr ""
-"Veuillez saisir votre ancien mot de passe ci-dessous, puis votre nouveau mot "
-"de passe."
-
-#: ../root/account/ChangePassword.js:65 ../root/account/LostPassword.js:41
-#: ../root/static/scripts/account/components/RegisterForm.js:52
-#: ../root/user/Login.js:97
-msgid "Username"
-msgstr "Nom d’utilisateur"
-
-#: ../root/account/ChangePassword.js:73
-msgid "Old password:"
-msgstr "Ancien mot de passe :"
-
-#: ../root/account/ChangePassword.js:81 ../root/account/ResetPassword.js:36
-msgid "New password:"
-msgstr "Nouveau mot de passe :"
-
-#: ../root/account/ChangePassword.js:89 ../root/account/ResetPassword.js:44
-#: ../root/static/scripts/account/components/RegisterForm.js:88
-msgid "Confirm password:"
-msgstr "Confirmer votre mot de passe :"
-
-#: ../root/account/ChangePassword.js:95
-msgctxt "interactive"
-msgid "Change password"
-msgstr "Changer de mot de passe"
-
-#: ../root/account/ChangePassword.js:114 ../root/account/ChangePassword.js:116
-#: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
-#: ../root/components/UserAccountTabs.js:88
-msgctxt "header"
-msgid "Change password"
-msgstr "Changer de mot de passe"
-
-#: ../root/account/DeleteOwnAccount.js:35
-#: ../root/account/DeleteOwnAccount.js:37
-#: ../root/components/UserAccountTabs.js:113
-msgctxt "header"
-msgid "Delete account"
-msgstr "Supprimer le compte"
-
-#: ../root/account/DeleteOwnAccount.js:40
-msgid ""
-"For information about the account deletion process, please read the {uri|"
-"account FAQ}."
-msgstr ""
-"Pour toute information sur le processus de suppression de compte, veuillez "
-"lire la {uri|FAQ des comptes}."
-
-#: ../root/account/DeleteOwnAccount.js:48
-msgid ""
-"This will also cancel all your open edits and change all of your votes on "
-"any edits currently open to Abstain."
-msgstr ""
-"Cela va aussi annuler toutes vos modifications ouvertes et remplacer vos "
-"votes sur des modifications encore ouvertes par des abstentions."
-
-#: ../root/account/DeleteOwnAccount.js:56
-msgid ""
-"Keep in mind this process might take a fairly long time if you have entered "
-"a lot of tags. If the process times out, please {contact_url|contact us}."
-msgstr ""
-"Gardez à l’esprit que ce processus peut prendre un certain temps si vous "
-"avez entré beaucoup de balises. Si il expire par manque de temps, merci de "
-"{contact_url|nous contacter}."
-
-#: ../root/account/DeleteOwnAccount.js:65
-msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr ""
-"Êtes-vous certain de vouloir supprimer votre compte ? Ceci ne peut pas être "
-"annulé !"
-
-#: ../root/account/DeleteOwnAccount.js:76
-msgctxt "interactive"
-msgid "Delete my account"
-msgstr "Supprimer mon compte"
-
 #: ../root/account/DigestAuthentication.js:22
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
@@ -6932,7 +6757,7 @@ msgid "{applications_url|Back to Applications}."
 msgstr ""
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
-#: ../root/components/UserAccountTabs.js:94
+#: ../root/components/UserAccountTabs.js:88
 msgid "Donation check"
 msgstr "Vérification de don"
 
@@ -6988,92 +6813,12 @@ msgstr ""
 "Consultez aussi vos {uri|préférences d’utilisateur}, notamment vos "
 "paramètres de confidentialité."
 
-#: ../root/account/EmailVerificationStatus.js:14
-msgctxt "header"
-msgid "Email verification"
-msgstr "Vérification de l’adresse courriel"
-
-#: ../root/account/EmailVerificationStatus.js:18
-msgid ""
-"Thank you, your email address has now been verified! If you still can't "
-"edit, please try to log out and log in again."
-msgstr ""
-"Merci, votre adresse courriel a maintenant été vérifiée ! Si vous ne pouvez "
-"toujours pas éditer, déconnectez-vous et connectez-vous à nouveau SVP."
-
-#: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
-#: ../root/account/LostPasswordSent.js:16
-msgid "Lost password"
-msgstr "Mot de passe perdu"
-
-#: ../root/account/LostPassword.js:30
-msgid ""
-"Enter your username and email below. We will send you an email with a link "
-"to reset your password. If you have forgotten your username, {link|retrieve "
-"it} first and then reset your password."
-msgstr ""
-"Saisissez votre nom d'utilisateur et votre adresse courriel ci-dessous. Nous "
-"vous enverrons un courriel incluant un lien pour réinitialiser votre mot de "
-"passe. Si vous avez oublié votre mot de passe, {link|retrouvez-le} en "
-"premier et après réinitialisez votre mot de passe."
-
-#: ../root/account/LostPassword.js:47 ../root/account/LostUsername.js:34
-#: ../root/static/scripts/account/components/EditProfileForm.js:198
-#: ../root/static/scripts/account/components/PreferencesForm.js:210
-#: ../root/static/scripts/account/components/RegisterForm.js:95
-#: ../root/user/UserProfile.js:197
-msgid "Email"
-msgstr "Courriel"
-
-#: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
-msgctxt "interactive"
-msgid "Reset password"
-msgstr "Réinitialiser le mot de passe"
-
-#: ../root/account/LostPasswordSent.js:20
-msgid ""
-"We've sent you instructions on how to reset your password. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"Nous vous avons envoyé des instructions pour réinitialiser votre mot de "
-"passe. Si vous ne recevez pas ce courriel ou que vous avez des problèmes "
-"pour vous connecter, {link|contactez-nous}."
-
-#: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
-#: ../root/account/LostUsernameSent.js:16
-msgid "Lost username"
-msgstr "Nom d’utilisateur perdu"
-
-#: ../root/account/LostUsername.js:27
-msgid ""
-"Enter your email address below and we will send you an email with your "
-"MusicBrainz account information."
-msgstr ""
-"Saisir votre adresse courriel ci-dessous, et nous vous enverrons un courriel "
-"avec vos informations de comptes MusicBrainz."
-
-#: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
-msgctxt "interactive"
-msgid "Send email"
-msgstr "Envoyer un courriel"
-
-#: ../root/account/LostUsernameSent.js:20
-msgid ""
-"We've sent you information about your MusicBrainz account. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"Nous vous avons envoyé des informations au sujet de votre compte "
-"MusicBrainz. Si vous ne recevez pas ce courriel ou que vous avez des "
-"problèmes pour vous connecter, {link|contactez nous}."
-
-#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:18
+#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:21
 #: ../root/components/UserAccountTabs.js:82
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../root/account/PreferencesSaved.js:21
+#: ../root/account/PreferencesSaved.js:24
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user "
 "page."
@@ -7081,16 +6826,12 @@ msgstr ""
 "Vos préférences ont été sauvegardées. {link|Cliquez ici} pour continuer vers "
 "votre page utilisateur."
 
-#: ../root/account/Register.js:22 ../root/account/Register.js:29
+#: ../root/account/Register.js:19 ../root/account/Register.js:20
 msgctxt "header"
 msgid "Create an account"
 msgstr "Créer un compte"
 
-#: ../root/account/Register.js:25
-msgid "Captcha incorrect. Try again."
-msgstr "Captcha incorrect. Essayer de nouveau."
-
-#: ../root/account/Register.js:33
+#: ../root/account/Register.js:24
 msgid ""
 "<strong>Note that any contributions you make to MusicBrainz will be released "
 "into the Public Domain and/or licensed under a Creative Commons by-nc-sa "
@@ -7104,7 +6845,7 @@ msgstr ""
 "données dans un but commercial. Veuillez lire notre {doc|page de licence} "
 "pour plus d’informations.</strong>"
 
-#: ../root/account/Register.js:45
+#: ../root/account/Register.js:36
 msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
@@ -7115,7 +6856,7 @@ msgstr ""
 "sera vendue ou partagée avec qui que ce soit. Pour plus d’informations, "
 "veuillez lire notre {doc|Politique de vie privée}."
 
-#: ../root/account/Register.js:55
+#: ../root/account/Register.js:46
 msgid ""
 "You may remove your personal information from our services anytime by "
 "deleting your account. For more details, see our {doc|GDPR compliance "
@@ -7125,7 +6866,7 @@ msgstr ""
 "n’importe quel moment en supprimant votre compte. Pour plus de détails, voir "
 "notre {doc|déclaration de conformité au RGPD}."
 
-#: ../root/account/Register.js:67
+#: ../root/account/Register.js:57
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
@@ -7133,7 +6874,7 @@ msgstr ""
 "Si vous avez des questions, veuillez consulter la {faq|FAQ} ou la {doc|"
 "documentation} avant de {con|nous contacter}."
 
-#: ../root/account/Register.js:79
+#: ../root/account/Register.js:69
 #, fuzzy
 #| msgid ""
 #| "Follow our {blog_link|blog} or {twitterx_link|twitter account}! To talk "
@@ -7147,7 +6888,7 @@ msgstr ""
 "parler à d’autres utilisateurs, essayez les {forum_link|forums} ou le "
 "{chat_link|tchat}."
 
-#: ../root/account/Register.js:94
+#: ../root/account/Register.js:84
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -7156,15 +6897,50 @@ msgstr ""
 "vous représentez un artiste ou un label, veuillez utiliser le formulaire ci-"
 "dessus pour créer un compte."
 
-#: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
-#: ../root/account/ResetPasswordStatus.js:14
-msgctxt "header"
-msgid "Reset password"
-msgstr "Réinitialiser le mot de passe"
+#: ../root/account/RegisterForm.js:34 ../root/user/Login.js:93
+msgid "Username"
+msgstr "Nom d’utilisateur"
 
-#: ../root/account/ResetPassword.js:28
-msgid "Set a new password for your MusicBrainz account."
-msgstr "Saisir un nouveau mot de passe pour votre compte MusicBrainz."
+#: ../root/account/RegisterForm.js:40
+msgid "Your username will be publicly visible."
+msgstr "Votre nom d’utilisateur sera visible publiquement."
+
+#: ../root/account/RegisterForm.js:46 ../root/user/Login.js:100
+msgid "Password:"
+msgstr "Mot de passe :"
+
+#: ../root/account/RegisterForm.js:54
+msgid "Confirm password:"
+msgstr "Confirmer votre mot de passe :"
+
+#: ../root/account/RegisterForm.js:61
+#: ../root/static/scripts/account/components/EditProfileForm.js:204
+#: ../root/static/scripts/account/components/EditProfileForm.js:211
+#: ../root/static/scripts/account/components/PreferencesForm.js:210
+#: ../root/user/UserProfile.js:197
+msgid "Email"
+msgstr "Courriel"
+
+#: ../root/account/RegisterForm.js:67
+msgid ""
+"You must provide a working email address if you wish to contribute to the "
+"database."
+msgstr ""
+"Vous devez fournir une adresse courriel valide avant de pouvoir contribuer à "
+"la base de données."
+
+#: ../root/account/RegisterForm.js:74
+msgid ""
+"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
+"account."
+msgstr ""
+"Veuillez passer en revue le {coc|code de conduite de MusicBrainz} avant de "
+"créer un compte."
+
+#: ../root/account/RegisterForm.js:79 ../root/layout/components/TopMenu.js:204
+msgctxt "interactive"
+msgid "Create account"
+msgstr "Créer un compte"
 
 #: ../root/account/applications/ApplicationList.js:29
 #: ../root/static/scripts/account/components/ApplicationForm.js:39
@@ -7191,7 +6967,7 @@ msgid "Applications"
 msgstr "Applications"
 
 #: ../root/account/applications/ApplicationList.js:94
-#: ../root/user/UserProfile.js:310
+#: ../root/user/UserProfile.js:304
 msgid "Authorized applications"
 msgstr "Applications autorisées"
 
@@ -7237,7 +7013,7 @@ msgid "You have not authorized any applications."
 msgstr "Vous n’avez autorisé aucune application."
 
 #: ../root/account/applications/ApplicationList.js:129
-#: ../root/user/UserProfile.js:324
+#: ../root/user/UserProfile.js:318
 msgid "Developer applications"
 msgstr "Applications de développeur"
 
@@ -8532,8 +8308,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Modifier"
 
-#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:347
-#: ../root/user/UserProfile.js:408
+#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:402
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8917,7 +8693,7 @@ msgstr "Critiques"
 
 #: ../root/components/EntityTabs.js:150
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:43
-#: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:44
+#: ../root/user/UserProfile.js:841 ../root/user/UserRatingList.js:44
 #: ../root/user/UserRatingList.js:78
 msgid "Ratings"
 msgstr "Évaluations"
@@ -9103,7 +8879,7 @@ msgstr "Abonnements"
 #: ../root/entity/Subscribers.js:49
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:357
+#: ../root/user/UserProfile.js:351
 msgid "Subscribers"
 msgstr "Abonnés"
 
@@ -11667,7 +11443,7 @@ msgstr "Règles de suppression des données"
 msgid "Privileged user accounts"
 msgstr "Comptes utilisateurs privilégiés"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:564
 msgid "Statistics"
 msgstr "Statistiques"
 
@@ -11969,12 +11745,6 @@ msgstr "Notes laissées sur mes modifications"
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
 msgstr "Admin"
-
-#: ../root/layout/components/TopMenu.js:209
-#: ../root/static/scripts/account/components/RegisterForm.js:118
-msgctxt "interactive"
-msgid "Create account"
-msgstr "Créer un compte"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
@@ -12339,11 +12109,11 @@ msgstr[2] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr "Joyeux anniversaire, et merci de votre contribution à MusicBrainz !"
 
-#: ../root/main/ConfirmSeed.js:26
+#: ../root/main/ConfirmSeed.js:25
 msgid "Confirm form submission"
 msgstr "Confirmer l’envoi du formulaire"
 
-#: ../root/main/ConfirmSeed.js:43
+#: ../root/main/ConfirmSeed.js:42
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
@@ -12351,7 +12121,7 @@ msgstr ""
 "Vous êtes sur le point d’envoyer une requête vers {action} émanant de "
 "{origin}. Continuer ?"
 
-#: ../root/main/ConfirmSeed.js:52
+#: ../root/main/ConfirmSeed.js:51
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can "
@@ -12410,7 +12180,7 @@ msgstr ""
 "Vous devez d’abord {url|ajouter et vérifier votre adresse courriel} avant de "
 "pouvoir modifier ou ajouter quoi que ce soit à la base de données."
 
-#: ../root/main/error/Error401.js:39 ../root/user/Login.js:86
+#: ../root/main/error/Error401.js:39 ../root/user/Login.js:82
 msgid ""
 "If you think this is a mistake, please {contact|contact us} with the name of "
 "your account."
@@ -15757,13 +15527,13 @@ msgstr ""
 "son protocole doit être un nom de domaine inverse sur mesure, comme dans "
 "<code>org.exemple.app://auth</code>, pour les applications installées."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:106
-#: ../root/user/UserProfile.js:283
+#: ../root/static/scripts/account/components/EditProfileForm.js:110
+#: ../root/user/UserProfile.js:277
 msgctxt "user area"
 msgid "Location"
 msgstr "Localisation"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:190
+#: ../root/static/scripts/account/components/EditProfileForm.js:197
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
@@ -15771,16 +15541,20 @@ msgstr ""
 "Ceci est un serveur de développement. Votre adresse courriel n’est ni privée "
 "ni en sécurité. Avancer avec précaution !"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:203
-msgid "If you change your email address, you will be required to verify it."
+#: ../root/static/scripts/account/components/EditProfileForm.js:218
+#, fuzzy
+#| msgid "If you change your email address, you will be required to verify it."
+msgid ""
+"Your email address can be changed from your {profile|MetaBrainz profile}. If "
+"you change your email address, you will be required to verify it."
 msgstr ""
 "Si vous changez votre adresse courriel, il vous sera demander de la valider."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
 msgstr "Site Web"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:233
+#: ../root/static/scripts/account/components/EditProfileForm.js:253
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
@@ -15788,11 +15562,11 @@ msgstr ""
 "Vous pouvez choisir ici le niveau que vous préférez : votre pays, région ou "
 "ville. Soyez aussi précis que vous le désirez !"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:240
+#: ../root/static/scripts/account/components/EditProfileForm.js:260
 msgid "Birth date:"
 msgstr "Date de naissance :"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:265
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
@@ -15800,22 +15574,22 @@ msgstr ""
 "Nous utiliserons votre date de naissance pour afficher votre âge en années "
 "sur votre page de profil."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:252
-#: ../root/user/UserProfile.js:401
+#: ../root/static/scripts/account/components/EditProfileForm.js:272
+#: ../root/user/UserProfile.js:395
 msgid "Bio"
 msgstr "Bio"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:257
+#: ../root/static/scripts/account/components/EditProfileForm.js:277
 msgid "Languages known:"
 msgstr "Langues connues :"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:293
+#: ../root/static/scripts/account/components/EditProfileForm.js:313
 #: ../root/static/scripts/work/edit.js:337
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Ajouter une langue"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:301
+#: ../root/static/scripts/account/components/EditProfileForm.js:321
 #: ../root/static/scripts/account/components/PreferencesForm.js:270
 msgctxt "interactive"
 msgid "Save"
@@ -15885,43 +15659,6 @@ msgstr ""
 #: ../root/static/scripts/account/components/PreferencesForm.js:251
 msgid "Automatically subscribe me when I add"
 msgstr "Abonnez-moi automatiquement quand j’ajoute"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:58
-msgid "Your username will be publicly visible."
-msgstr "Votre nom d’utilisateur sera visible publiquement."
-
-#: ../root/static/scripts/account/components/RegisterForm.js:69
-msgid ""
-"The username you have entered looks like an email address. This is allowed, "
-"but please keep in mind that everyone will be able to see it. Only use an "
-"email address as your username if you are completely sure you are happy with "
-"that."
-msgstr ""
-"Le nom d’utilisateur que vous avez entré ressemble à une adresse de "
-"courriel. Cela est autorisé, mais gardez à l’esprit qu’il sera visible de "
-"tout le monde. N’utilisez une adresse de courriel comme nom d’utilisateur "
-"que si vous êtes tout à fait sûr d’être satisfait par cette visbilité."
-
-#: ../root/static/scripts/account/components/RegisterForm.js:80
-#: ../root/user/Login.js:104
-msgid "Password:"
-msgstr "Mot de passe :"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:101
-msgid ""
-"You must provide a working email address if you wish to contribute to the "
-"database."
-msgstr ""
-"Vous devez fournir une adresse courriel valide avant de pouvoir contribuer à "
-"la base de données."
-
-#: ../root/static/scripts/account/components/RegisterForm.js:113
-msgid ""
-"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
-"account."
-msgstr ""
-"Veuillez passer en revue le {coc|code de conduite de MusicBrainz} avant de "
-"créer un compte."
 
 #: ../root/static/scripts/alias/AliasEditForm.js:296
 msgid "Alias details"
@@ -16477,6 +16214,16 @@ msgstr "Montrer moins d’ISWC"
 msgid "{action_label} (in a new tab)"
 msgstr ""
 
+#: ../root/static/scripts/common/components/LoginMessage.js:36
+msgid ""
+"We’re currently unable to process your submission because your login session "
+"has expired."
+msgstr ""
+
+#: ../root/static/scripts/common/components/LoginMessage.js:50
+msgid "Click here to log in."
+msgstr ""
+
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 #, fuzzy
 #| msgid "Medium {position}: {title}"
@@ -16514,7 +16261,7 @@ msgid "Related series"
 msgstr "Séries connexes"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1581
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1592
 msgid "Related works"
 msgstr "Œuvres connexes"
 
@@ -18157,7 +17904,7 @@ msgstr ""
 "Vous devez fournir une note de modification lors de l’ajout d’une parution."
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1861
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1893
 msgid "Submitting edits..."
 msgstr "Envoi des modifications..."
 
@@ -18406,15 +18153,15 @@ msgstr "Ajout par lot de relations aux œuvres"
 msgid "[selected work]"
 msgstr "[œuvre sélectionnée]"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:280
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:288
 msgid "An error occurred:"
 msgstr "Une erreur est survenue :"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1519
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1530
 msgid "Track relationships"
 msgstr "Relations de piste"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1538
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1549
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
@@ -18423,16 +18170,16 @@ msgstr ""
 "opérations de traitement par lot avec, veuillez les charger entièrement "
 "d’abord."
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1605
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1616
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:364
 msgid "We have no information about this release’s media and tracklist."
 msgstr "Nous n’avons pas d’information à propos des supports et des pistes."
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1636
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1647
 msgid "Release relationships"
 msgstr "Relations de parution"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1673
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1684
 msgid "Release group relationships"
 msgstr "Relations de groupe de parution"
 
@@ -18837,43 +18584,44 @@ msgstr "Montrer mon adresse courriel"
 msgid "Send a copy to my own email address"
 msgstr "Envoyer une copie à mon adresse courriel personnelle"
 
-#: ../root/user/Login.js:48 ../root/user/Login.js:49
+#: ../root/user/ContactUser.js:71
+msgctxt "interactive"
+msgid "Send email"
+msgstr "Envoyer un courriel"
+
+#: ../root/user/Login.js:44 ../root/user/Login.js:45
 msgctxt "header"
 msgid "Log in"
 msgstr "Se connecter"
 
-#: ../root/user/Login.js:53
+#: ../root/user/Login.js:49
 msgid "You need to be logged in to view this page."
 msgstr "Vous devez être connecté pour voir cette page."
 
-#: ../root/user/Login.js:59
+#: ../root/user/Login.js:55
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Vous n’avez pas de compte ? {uri|Créez en un maintenant} !"
 
-#: ../root/user/Login.js:70
+#: ../root/user/Login.js:66
 msgid "Incorrect username or password"
 msgstr "Nom d’utilisateur ou mot de passe incorrect"
 
-#: ../root/user/Login.js:80
+#: ../root/user/Login.js:76
 msgid ""
 "You cannot log in because this account has been marked as a spam account."
 msgstr ""
 "Vous ne pouvez pas vous connecter à ce compte car il est marqué comme compte "
 "spam."
 
-#: ../root/user/Login.js:113
+#: ../root/user/Login.js:109
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr ""
 "Ceci est un serveur de développement, tous les mots de passe ont été "
 "réinitialisés à « mb »."
 
-#: ../root/user/Login.js:121
-msgid "Keep me logged in"
-msgstr "Je souhaite rester connecté"
-
-#: ../root/user/Login.js:133
-msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "{link1|Nom d’utilisateur} ou {link2|mot de passe} oublié ?"
+#: ../root/user/LoginDialogSuccess.js:38
+msgid "Login successful. You may close this dialog."
+msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"
@@ -19242,203 +18990,199 @@ msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "(<strong>non vérifiée !</strong>)"
 
-#: ../root/user/UserProfile.js:217
-msgid "resend verification email"
-msgstr "Renvoyer le courriel de vérification"
-
-#: ../root/user/UserProfile.js:225
+#: ../root/user/UserProfile.js:219
 msgid "send email"
 msgstr "envoyer un courriel"
 
-#: ../root/user/UserProfile.js:250
+#: ../root/user/UserProfile.js:244
 msgctxt "email address"
 msgid "(none)"
 msgstr "(aucune)"
 
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:251
 msgid "User type:"
 msgstr "Type d’utilisateur :"
 
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:257
 msgid "nominate for auto-editor"
 msgstr "nominer à l’auto-édition"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:264
 msgid "Age:"
 msgstr "Âge :"
 
-#: ../root/user/UserProfile.js:289
+#: ../root/user/UserProfile.js:283
 msgid "Member since"
 msgstr "Membre depuis"
 
-#: ../root/user/UserProfile.js:295
+#: ../root/user/UserProfile.js:289
 msgid "Restrictions"
 msgstr "Restrictions"
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:296
 msgid "Last login"
 msgstr "Dernière connexion"
 
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:299
 msgid "Hasn't logged in yet"
 msgstr "Ne s’est encore jamais connecté"
 
-#: ../root/user/UserProfile.js:313 ../root/user/UserProfile.js:327
-#: ../root/user/UserProfile.js:360
+#: ../root/user/UserProfile.js:307 ../root/user/UserProfile.js:321
+#: ../root/user/UserProfile.js:354
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|voir la liste})"
 
-#: ../root/user/UserProfile.js:339
+#: ../root/user/UserProfile.js:333
 msgid "Homepage:"
 msgstr "Page d’accueil :"
 
-#: ../root/user/UserProfile.js:367
+#: ../root/user/UserProfile.js:361
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:380
+#: ../root/user/UserProfile.js:374
 msgid "unsubscribe"
 msgstr "se désabonner"
 
-#: ../root/user/UserProfile.js:389
+#: ../root/user/UserProfile.js:383
 msgid "subscribe"
 msgstr "s’abonner"
 
-#: ../root/user/UserProfile.js:418
+#: ../root/user/UserProfile.js:412
 msgid "Languages"
 msgstr "Langues"
 
-#: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:584
-#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
-#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
-#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:644
-#: ../root/user/UserProfile.js:654 ../root/user/UserProfile.js:663
-#: ../root/user/UserProfile.js:816 ../root/user/UserProfile.js:837
-#: ../root/user/UserProfile.js:858
+#: ../root/user/UserProfile.js:483 ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:588 ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:608 ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:628 ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:648 ../root/user/UserProfile.js:657
+#: ../root/user/UserProfile.js:810 ../root/user/UserProfile.js:831
+#: ../root/user/UserProfile.js:852
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:576
+#: ../root/user/UserProfile.js:570
 msgid "Edits"
 msgstr "Modifications"
 
-#: ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:576
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Total"
 
-#: ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:586
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:596
 msgid "Auto-edits"
 msgstr "Automatiques"
 
-#: ../root/user/UserProfile.js:612
+#: ../root/user/UserProfile.js:606
 msgid "Total applied"
 msgstr "Total appliqué"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:616
 msgid "Voted down"
 msgstr "Rejetées par vote"
 
-#: ../root/user/UserProfile.js:632
+#: ../root/user/UserProfile.js:626
 msgid "Failed"
 msgstr "Échec"
 
-#: ../root/user/UserProfile.js:642
+#: ../root/user/UserProfile.js:636
 msgctxt "edit"
 msgid "Cancelled"
 msgstr "Annulées"
 
-#: ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:646
 msgid "Open"
 msgstr "Ouvertes"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:656
 msgid "Last 24 hours"
 msgstr "Les dernières 24 heures"
 
-#: ../root/user/UserProfile.js:686
+#: ../root/user/UserProfile.js:680
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "Cette table affiche un résumé des votes effectués par cet éditeur."
 
-#: ../root/user/UserProfile.js:691
+#: ../root/user/UserProfile.js:685
 msgid "Votes ({view_url|view})"
 msgstr "Votes ({view_url|voir})"
 
-#: ../root/user/UserProfile.js:699
+#: ../root/user/UserProfile.js:693
 msgid "Last 28 days"
 msgstr "Les 28 derniers jours"
 
-#: ../root/user/UserProfile.js:702
+#: ../root/user/UserProfile.js:696
 msgid "Overall"
 msgstr "Global"
 
-#: ../root/user/UserProfile.js:750
+#: ../root/user/UserProfile.js:744
 msgid "This table shows a summary of entities added by this editor."
 msgstr "Cette table affiche un résumé des entités ajoutées par cet éditeur."
 
-#: ../root/user/UserProfile.js:756
+#: ../root/user/UserProfile.js:750
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 "Les modifications fraîchement appliquées peuvent n’apparaître qu’après 24h."
 
-#: ../root/user/UserProfile.js:759
+#: ../root/user/UserProfile.js:753
 msgid "Added entities"
 msgstr "Entités ajoutées"
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:776
 msgid "This user has not added any entities."
 msgstr "Cet utilisateur n’a ajouté aucune entité."
 
-#: ../root/user/UserProfile.js:792
+#: ../root/user/UserProfile.js:786
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 "Cette table affiche un résumé des données secondaires ajoutées par cet "
 "éditeur."
 
-#: ../root/user/UserProfile.js:798
+#: ../root/user/UserProfile.js:792
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Tags et évaluations"
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:799
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "Tags votés pour"
 
-#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:824
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr "Les tags sont supprimés quand un éditeur est supprimé."
 
-#: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:807 ../root/user/UserProfile.js:828
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Enlevé"
 
-#: ../root/user/UserProfile.js:825
+#: ../root/user/UserProfile.js:819
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Tags votés contre"
 
-#: ../root/user/UserProfile.js:851
+#: ../root/user/UserProfile.js:845
 msgid "Ratings are removed when an editor is deleted."
 msgstr "Les évaluations sont supprimées quand un éditeur est supprimé."
 
-#: ../root/user/UserProfile.js:854
+#: ../root/user/UserProfile.js:848
 msgctxt "ratings"
 msgid "Removed"
 msgstr "Supprimées"
 
-#: ../root/user/UserProfile.js:921
+#: ../root/user/UserProfile.js:915
 msgid "Blocked spam account"
 msgstr "Compte spam bloqué"
 
-#: ../root/user/UserProfile.js:923
+#: ../root/user/UserProfile.js:917
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
@@ -19448,17 +19192,17 @@ msgstr ""
 "considéré comme spammeur. Si vous voyez du spam dans MusicBrainz, veuillez "
 "nous le faire savoir en signalant le spammeur depuis sa page utilisateur."
 
-#: ../root/user/UserProfile.js:989
+#: ../root/user/UserProfile.js:983
 msgid "Report this user for bad behavior"
 msgstr "Signaler cet utilisateur pour mauvais comportement"
 
-#: ../root/user/UserProfile.js:994
+#: ../root/user/UserProfile.js:988
 #, fuzzy
 #| msgid "View other users’ notes on your edits"
 msgid "View other users’ notes on my edits"
 msgstr "Voir les notes laissées sur vos modifications par les autres éditeurs"
 
-#: ../root/user/UserProfile.js:995
+#: ../root/user/UserProfile.js:989
 #, fuzzy
 #| msgid "View your notes on this user’s edits"
 msgid "View my notes on this user’s edits"
@@ -20134,6 +19878,249 @@ msgstr ""
 "<strong>Attention :</strong> Certaines œuvres vous vous apprêtez à fusionner "
 "ont des ISWC différents. Veuillez vous assurez que ce sont vraiment les "
 "mêmes œuvres et que vous voulez continuer la fusion."
+
+#~ msgid "The user ID is missing or is in an invalid format."
+#~ msgstr "L’ID d’utilisateur est manquant ou son format est invalide."
+
+#~ msgid "The email address is missing."
+#~ msgstr "L’adresse courriel est manquante."
+
+#~ msgid "The time is missing or is in an invalid format."
+#~ msgstr "La durée manque ou son format est invalide."
+
+#~ msgid "The verification key is missing."
+#~ msgstr "La clef de vérification est manquante."
+
+#~ msgid "The checksum is invalid, please double check your email."
+#~ msgstr "La somme de contrôle est invalide, revérifiez votre courriel."
+
+#~ msgid "Sorry, this email verification link has expired."
+#~ msgstr "Désolé, ce lien de vérification de courriel a expiré."
+
+#, perl-brace-format
+#~ msgid "The user with ID '{user_id}' could not be found."
+#~ msgstr "L’utilisateur avec l’ID #{user_id} n’a pu être trouvé."
+
+#~ msgid ""
+#~ "We were unable to send login information to your email address. Please "
+#~ "try again, and if that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "Nous n’avons pas pu envoyer vos informations de connexion à votre adresse "
+#~ "courriel. Veuillez réessayer, cependant si cette erreur persiste "
+#~ "{contact_url|contactez-nous}."
+
+#~ msgid "There is no user with this username"
+#~ msgstr "Il n’y a pas d’utilisateur ayant ce nom"
+
+#~ msgid "There is no user with this username and email"
+#~ msgstr "Il n’y a pas d’utilisateur ayant ce nom et ce courriel"
+
+#~ msgid ""
+#~ "We can't send a password reset email, because we have no email on record "
+#~ "for this user."
+#~ msgstr ""
+#~ "Nous ne pouvons pas envoyer un courriel de réinitialisation de mot de "
+#~ "passe car nous n’avons pas d’adresse courriel d’enregistrée pour cet "
+#~ "utilisateur."
+
+#~ msgid "Your password has been reset."
+#~ msgstr "Votre mot de passe a été réinitialisé."
+
+#~ msgid "Missing one or more required parameters."
+#~ msgstr "Il manque un ou plusieurs paramètres obligatoires."
+
+#~ msgid "Sorry, this password reset link has expired."
+#~ msgstr "Désolé, ce lien de réinitialisation de mot de passe est expiré."
+
+#~ msgid "There is no user with this email"
+#~ msgstr "Il n’y a pas d’utilisateur ayant ce courriel"
+
+#, perl-brace-format
+#~ msgid ""
+#~ "We have sent you a verification email to <code>{email}</code>. Please "
+#~ "check your mailbox and click on the link in the email to verify the new "
+#~ "email address."
+#~ msgstr ""
+#~ "Nous vous avons envoyé un courriel de validation à l'adresse <code>{email}"
+#~ "</code>. Veuillez vérifier votre boite aux lettres et cliquer sur le lien "
+#~ "pour valider votre adresse courriel."
+
+#~ msgid "Your password has been changed."
+#~ msgstr "Votre mot de passe a été changé."
+
+#~ msgid ""
+#~ "<strong>We were unable to send you a verification email.</strong><br/"
+#~ ">Please re-enter your address in your {settings|account settings}. If "
+#~ "that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "<strong>Nous n’avons pas pu vous envoyer un courriel de vérification.</"
+#~ "strong><br/>Veuillez ressaisir votre adresse courriel dans votre "
+#~ "{settings|profil}. Si cela ne fonctionne toujours pas {contact_url|"
+#~ "contactez-nous}."
+
+#~ msgid "The old password is incorrect"
+#~ msgstr "L’ancien mot de passe est incorrect"
+
+#~ msgid "An account with this name could not be found"
+#~ msgstr "Un compte avec ce nom n’a pu être trouvé"
+
+#~ msgid ""
+#~ "Please change your password. Unfortunately we've discovered that secure "
+#~ "hashes user's passwords were temporarily available for download on our "
+#~ "FTP site. While it is extremely unlikely that anyone will be able to "
+#~ "derive the original passwords from this mishap, we are requiring all of "
+#~ "our users to change their passwords. Sorry for the inconvenience. For "
+#~ "more information see {blog|the recent blog post}."
+#~ msgstr ""
+#~ "Veuillez changer votre mot de passe. Nous avons malheureusement découvert "
+#~ "que les hachages sécurisés des mots de passe des utilisateurs étaient "
+#~ "temporairement téléchargeables sur notre site FTP. Bien qu’il soit "
+#~ "extrêmement improbable que quelqu’un soit capable de déduire les mots de "
+#~ "passe originaux de cet incident, nous demandons à tous les utilisateurs "
+#~ "de changer leur mot de passe. Désolé pour cet inconvénient. Pour plus "
+#~ "d’informations voir le {blog|dernier billet de blogue}."
+
+#~ msgid "Please enter your old password below, and then your new password."
+#~ msgstr ""
+#~ "Veuillez saisir votre ancien mot de passe ci-dessous, puis votre nouveau "
+#~ "mot de passe."
+
+#~ msgid "Old password:"
+#~ msgstr "Ancien mot de passe :"
+
+#~ msgid "New password:"
+#~ msgstr "Nouveau mot de passe :"
+
+#~ msgctxt "interactive"
+#~ msgid "Change password"
+#~ msgstr "Changer de mot de passe"
+
+#~ msgctxt "header"
+#~ msgid "Change password"
+#~ msgstr "Changer de mot de passe"
+
+#~ msgctxt "header"
+#~ msgid "Delete account"
+#~ msgstr "Supprimer le compte"
+
+#~ msgid ""
+#~ "For information about the account deletion process, please read the {uri|"
+#~ "account FAQ}."
+#~ msgstr ""
+#~ "Pour toute information sur le processus de suppression de compte, "
+#~ "veuillez lire la {uri|FAQ des comptes}."
+
+#~ msgid ""
+#~ "This will also cancel all your open edits and change all of your votes on "
+#~ "any edits currently open to Abstain."
+#~ msgstr ""
+#~ "Cela va aussi annuler toutes vos modifications ouvertes et remplacer vos "
+#~ "votes sur des modifications encore ouvertes par des abstentions."
+
+#~ msgid ""
+#~ "Keep in mind this process might take a fairly long time if you have "
+#~ "entered a lot of tags. If the process times out, please {contact_url|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "Gardez à l’esprit que ce processus peut prendre un certain temps si vous "
+#~ "avez entré beaucoup de balises. Si il expire par manque de temps, merci "
+#~ "de {contact_url|nous contacter}."
+
+#~ msgid "Are you sure you want to delete your account? This cannot be undone!"
+#~ msgstr ""
+#~ "Êtes-vous certain de vouloir supprimer votre compte ? Ceci ne peut pas "
+#~ "être annulé !"
+
+#~ msgctxt "interactive"
+#~ msgid "Delete my account"
+#~ msgstr "Supprimer mon compte"
+
+#~ msgctxt "header"
+#~ msgid "Email verification"
+#~ msgstr "Vérification de l’adresse courriel"
+
+#~ msgid ""
+#~ "Thank you, your email address has now been verified! If you still can't "
+#~ "edit, please try to log out and log in again."
+#~ msgstr ""
+#~ "Merci, votre adresse courriel a maintenant été vérifiée ! Si vous ne "
+#~ "pouvez toujours pas éditer, déconnectez-vous et connectez-vous à nouveau "
+#~ "SVP."
+
+#~ msgid "Lost password"
+#~ msgstr "Mot de passe perdu"
+
+#~ msgid ""
+#~ "Enter your username and email below. We will send you an email with a "
+#~ "link to reset your password. If you have forgotten your username, {link|"
+#~ "retrieve it} first and then reset your password."
+#~ msgstr ""
+#~ "Saisissez votre nom d'utilisateur et votre adresse courriel ci-dessous. "
+#~ "Nous vous enverrons un courriel incluant un lien pour réinitialiser votre "
+#~ "mot de passe. Si vous avez oublié votre mot de passe, {link|retrouvez-le} "
+#~ "en premier et après réinitialisez votre mot de passe."
+
+#~ msgctxt "interactive"
+#~ msgid "Reset password"
+#~ msgstr "Réinitialiser le mot de passe"
+
+#~ msgid ""
+#~ "We've sent you instructions on how to reset your password. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "Nous vous avons envoyé des instructions pour réinitialiser votre mot de "
+#~ "passe. Si vous ne recevez pas ce courriel ou que vous avez des problèmes "
+#~ "pour vous connecter, {link|contactez-nous}."
+
+#~ msgid "Lost username"
+#~ msgstr "Nom d’utilisateur perdu"
+
+#~ msgid ""
+#~ "Enter your email address below and we will send you an email with your "
+#~ "MusicBrainz account information."
+#~ msgstr ""
+#~ "Saisir votre adresse courriel ci-dessous, et nous vous enverrons un "
+#~ "courriel avec vos informations de comptes MusicBrainz."
+
+#~ msgid ""
+#~ "We've sent you information about your MusicBrainz account. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "Nous vous avons envoyé des informations au sujet de votre compte "
+#~ "MusicBrainz. Si vous ne recevez pas ce courriel ou que vous avez des "
+#~ "problèmes pour vous connecter, {link|contactez nous}."
+
+#~ msgid "Captcha incorrect. Try again."
+#~ msgstr "Captcha incorrect. Essayer de nouveau."
+
+#~ msgctxt "header"
+#~ msgid "Reset password"
+#~ msgstr "Réinitialiser le mot de passe"
+
+#~ msgid "Set a new password for your MusicBrainz account."
+#~ msgstr "Saisir un nouveau mot de passe pour votre compte MusicBrainz."
+
+#~ msgid ""
+#~ "The username you have entered looks like an email address. This is "
+#~ "allowed, but please keep in mind that everyone will be able to see it. "
+#~ "Only use an email address as your username if you are completely sure you "
+#~ "are happy with that."
+#~ msgstr ""
+#~ "Le nom d’utilisateur que vous avez entré ressemble à une adresse de "
+#~ "courriel. Cela est autorisé, mais gardez à l’esprit qu’il sera visible de "
+#~ "tout le monde. N’utilisez une adresse de courriel comme nom d’utilisateur "
+#~ "que si vous êtes tout à fait sûr d’être satisfait par cette visbilité."
+
+#~ msgid "Keep me logged in"
+#~ msgstr "Je souhaite rester connecté"
+
+#~ msgid "Forgot your {link1|username} or {link2|password}?"
+#~ msgstr "{link1|Nom d’utilisateur} ou {link2|mot de passe} oublié ?"
+
+#~ msgid "resend verification email"
+#~ msgstr "Renvoyer le courriel de vérification"
 
 #~ msgctxt "interactive"
 #~ msgid "Edit attributes"

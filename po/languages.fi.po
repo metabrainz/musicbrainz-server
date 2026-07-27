@@ -707,6 +707,13 @@ msgstr "ekajuk"
 msgid "Elamite"
 msgstr "elami"
 
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Sicilian"
+msgid "Emilian"
+msgstr "sisilia"
+
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
 msgid "English"
@@ -1278,6 +1285,13 @@ msgstr "kavi"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "kazakki"
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+#, fuzzy
+#| msgid "Malay"
+msgid "Kedah Malay"
+msgstr "malaiji"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137

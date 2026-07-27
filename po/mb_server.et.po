@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-29 18:37-0500\n"
+"POT-Creation-Date: 2026-07-27 08:05-0500\n"
 "PO-Revision-Date: 2024-04-17 17:31+0000\n"
 "Last-Translator: reosarevok "
 "<reosarevok@users.noreply.translations.metabrainz.org>\n"
@@ -49,7 +49,7 @@ msgstr " ({text})"
 #: ../root/edit/details/historic/AddRelease.js:84
 #: ../root/recording/RecordingIndex.js:43
 #: ../root/static/scripts/release/components/MediumTable.js:72
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1558
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1569
 #: ../root/utility/tableColumns.js:585
 msgid "#"
 msgstr "#"
@@ -1244,8 +1244,8 @@ msgstr "Täielik sisukord:"
 #: ../root/edit/details/AddArtist.js:72 ../root/edit/details/EditArtist.js:93
 #: ../root/layout/components/sidebar/ArtistSidebar.js:100
 #: ../root/search/components/ArtistResults.js:55
-#: ../root/static/scripts/account/components/EditProfileForm.js:217
-#: ../root/user/UserProfile.js:276
+#: ../root/static/scripts/account/components/EditProfileForm.js:237
+#: ../root/user/UserProfile.js:270
 msgid "Gender"
 msgstr "Sugu"
 
@@ -1683,7 +1683,7 @@ msgstr "Piirkonnatoimetaja"
 
 #: ../root/components/common-macros.tt:355
 #: ../root/components/RequestLogin.js:19
-#: ../root/layout/components/TopMenu.js:205 ../root/user/Login.js:128
+#: ../root/layout/components/TopMenu.js:200 ../root/user/Login.js:118
 msgctxt "interactive"
 msgid "Log in"
 msgstr "Logi sisse"
@@ -2085,7 +2085,7 @@ msgstr "Põhitüüp"
 #: ../root/search/components/SearchForm.js:34
 #: ../root/static/scripts/common/constants.js:42
 #: ../root/static/scripts/common/utility/formatEntityTypeName.js:40
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1568
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1579
 #: ../root/user/UserProfile.js:62
 msgid "Recording"
 msgstr "Salvestis"
@@ -2269,7 +2269,7 @@ msgstr "Väljalase „{name}” - {artist}"
 #: ../root/layout/components/sidebar/RemoveLink.js:26
 #: ../root/relationship/linkattributetype/RelationshipAttributeTypeIndex.js:95
 #: ../root/release/CoverArt.js:88
-#: ../root/static/scripts/account/components/EditProfileForm.js:279
+#: ../root/static/scripts/account/components/EditProfileForm.js:299
 #: ../root/static/scripts/common/components/CDTocEditColumn.js:36
 #: ../root/static/scripts/edit/components/Multiselect.js:186
 #: ../root/user/UserCollections.js:122
@@ -3466,7 +3466,7 @@ msgid "Voter"
 msgstr "Hääletaja"
 
 #: ../root/doc/edit_type.tt:35 ../root/edit/EditIndex.js:69
-#: ../root/user/UserProfile.js:693
+#: ../root/user/UserProfile.js:687
 msgid "Votes"
 msgstr "Hääled"
 
@@ -4108,109 +4108,11 @@ msgstr[1] ""
 "{num_open_edits} ootab teistelt kasutajatelt ülevaatamist, ülejäänud "
 "rakendati kohe."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:72
-msgid "The user ID is missing or is in an invalid format."
-msgstr "Kasutaja-ID on kas puudu või sobimatul kujul."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:82
-msgid "The email address is missing."
-msgstr "E-posti aadress on puudu."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:92
-msgid "The time is missing or is in an invalid format."
-msgstr "Aeg on kas puudu või sobimatul kujul."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:103
-msgid "The verification key is missing."
-msgstr "Kinnitusvõti on puudu."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:114
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:290
-msgid "The checksum is invalid, please double check your email."
-msgstr "Kontrollsumma on vale. Palun vaata e-kiri uuesti üle."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:125
-msgid "Sorry, this email verification link has expired."
-msgstr "Vabandust, aga see e-posti kinnitamise link on aegunud."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:137
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:302
-#, perl-brace-format
-msgid "The user with ID '{user_id}' could not be found."
-msgstr "Kasutajat ID-ga „{user_id}” ei leitud."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:188
-#, fuzzy
-#| msgid ""
-#| "We were unable to send login information to your email address.  Please "
-#| "try again, however if you continue to experience difficulty contact us at "
-#| "support@musicbrainz.org."
-msgid ""
-"We were unable to send login information to your email address. Please try "
-"again, and if that still doesn’t work, {contact_url|contact us}."
-msgstr ""
-"Sisselogimisteavet ei õnnestunud sinu e-postile saata. Palun proovi uuesti, "
-"aga kui probleem siiski püsib, siis saada kiri aadressil "
-"support@musicbrainz.org."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:215
-msgid "There is no user with this username"
-msgstr "Sellenimelist kasutajat pole."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:220
-msgid "There is no user with this username and email"
-msgstr "Selle nime ja e-postiga kasutajat pole."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:223
-msgid ""
-"We can't send a password reset email, because we have no email on record for "
-"this user."
-msgstr ""
-"Parooli lähtestamise kirja ei saa saata, kuna kasutaja e-post pole "
-"andmebaasis."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:253
-msgid "Your password has been reset."
-msgstr "Su parool on lähtestatud."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:268
-msgid "Missing one or more required parameters."
-msgstr "Mõni kohustuslik parameeter on puudu."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:279
-msgid "Sorry, this password reset link has expired."
-msgstr "Vabandust, aga see parooli lähtestamise link on aegunud."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:353
-msgid "There is no user with this email"
-msgstr "Selle e-postiga kasutajat pole."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:435
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:95
 msgid "Your profile has been updated."
 msgstr "Su profiil on uuendatud."
 
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:439
-#, perl-brace-format
-msgid ""
-"We have sent you a verification email to <code>{email}</code>. Please check "
-"your mailbox and click on the link in the email to verify the new email "
-"address."
-msgstr ""
-"Saatsime sulle kinnituskirja aadressil <code>{email}</code>. Palun vaata oma "
-"postkasti ning klõpsa uue e-postiaadressi kinnitamiseks kirjas olevat linki."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:478
-msgid "Your password has been changed."
-msgstr "Parool on muudetud."
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:815
-msgid ""
-"<strong>We were unable to send you a verification email.</strong><br/>Please "
-"re-enter your address in your {settings|account settings}. If that still "
-"doesn’t work, {contact_url|contact us}."
-msgstr ""
-
-#: ../lib/MusicBrainz/Server/Controller/Account.pm:903
+#: ../lib/MusicBrainz/Server/Controller/Account.pm:306
 msgid "There is no OAuth token with these parameters."
 msgstr ""
 
@@ -4363,7 +4265,7 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:794
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:802
 msgid "You haven’t made any changes!"
 msgstr "Midagi pole muudetud."
 
@@ -4373,6 +4275,20 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Label.pm:280
 msgid "You cannot merge into Deleted Label."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
+msgid "Too many login attempts. Please try again in a few minutes."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
+#, fuzzy
+#| msgid "cancelled"
+msgid "Login cancelled."
+msgstr "tühistatud"
+
+#: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
+msgid "Login failed. Please try again."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
@@ -4440,19 +4356,25 @@ msgstr "[teadmata]"
 msgid "The provided relationship type ID is not valid."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:99
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:100
 #, perl-brace-format
 msgid ""
 "Language set. If it was not intended, just {url|set “{prev_lang_name}” back}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:107
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:108
 msgid ""
 "If you find any problems with the translation, please {url|help us improve "
 "it}!"
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/Root.pm:355
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:311
+msgid ""
+"Sorry, we could not verify your login credentials right now. Please try "
+"logging in again."
+msgstr ""
+
+#: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 #, fuzzy
 #| msgid ""
 #| "Our Redis server appears to be down; some features may not work as "
@@ -4468,37 +4390,35 @@ msgstr ""
 msgid "Series that have different entity types cannot be merged."
 msgstr "Eri tüüpi seeriate mestmine pole võimalik."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:313
-#: ../lib/MusicBrainz/Server/Controller/User.pm:339
-#: ../lib/MusicBrainz/Server/Controller/User.pm:354
+#: ../lib/MusicBrainz/Server/Controller/User.pm:271
+#: ../lib/MusicBrainz/Server/Controller/User.pm:297
+#: ../lib/MusicBrainz/Server/Controller/User.pm:312
 #: ../root/user/ContactUser.js:35 ../root/user/ContactUser.js:37
 msgctxt "header"
 msgid "Send email"
 msgstr "Saada e-kiri"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:314
+#: ../lib/MusicBrainz/Server/Controller/User.pm:272
 msgid ""
 "You cannot contact other users because you have not {url|verified your email "
 "address}."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:341
+#: ../lib/MusicBrainz/Server/Controller/User.pm:299
 msgid "You are not allowed to send messages to editors."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:355
+#: ../lib/MusicBrainz/Server/Controller/User.pm:313
 #, perl-brace-format
 msgid "The editor {name} has no email address attached to their account."
 msgstr "Toimetaja {name} pole oma kontoga e-posti aadressi sidunud."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:369
-#: ../root/account/LostPasswordSent.js:16
-#: ../root/account/LostUsernameSent.js:16
+#: ../lib/MusicBrainz/Server/Controller/User.pm:327
 msgctxt "header"
 msgid "Email sent"
 msgstr "E-kiri saadetud"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:370
+#: ../lib/MusicBrainz/Server/Controller/User.pm:328
 #, perl-brace-format
 msgid ""
 "Your email has been successfully sent! Click {link|here} to continue to "
@@ -4507,20 +4427,20 @@ msgstr ""
 "Sinu e-kiri on edukalt saadetud. Kasutaja {user} lehele minemiseks klõpsa "
 "{link|siin}."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:407
+#: ../lib/MusicBrainz/Server/Controller/User.pm:365
 msgid "Your message could not be sent"
 msgstr "Sõnumit polnud võimalik saata"
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:573
+#: ../lib/MusicBrainz/Server/Controller/User.pm:531
 #, perl-brace-format
 msgid "'{type}' is not an entity type that can have ratings."
 msgstr "{type} ei kuulu hinnatavate olemitüüpide hulka."
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:843
+#: ../lib/MusicBrainz/Server/Controller/User.pm:801
 msgid "An error occurred while trying to send your report."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Controller/User.pm:847
+#: ../lib/MusicBrainz/Server/Controller/User.pm:805
 msgid "Your report has been sent."
 msgstr ""
 
@@ -4589,7 +4509,7 @@ msgstr ""
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1197
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1205
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
 "will be helpful to your fellow editors!"
@@ -5659,21 +5579,21 @@ msgctxt "barcode"
 msgid "[none]"
 msgstr "[puudub]"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:297
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:290
 #: ../root/static/scripts/common/utility/privileges.js:161
 #, fuzzy
 #| msgid "Editing/voting disabled"
 msgid "Editing disabled"
 msgstr "Toimetamine/hääletamine keelatud"
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:300
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:293
 #: ../root/static/scripts/common/utility/privileges.js:164
 #, fuzzy
 #| msgid "Voting is closed."
 msgid "Voting disabled"
 msgstr "Hääletamine on läbi."
 
-#: ../lib/MusicBrainz/Server/Entity/Editor.pm:303
+#: ../lib/MusicBrainz/Server/Entity/Editor.pm:296
 #: ../root/static/scripts/common/utility/privileges.js:167
 msgid "Edit notes disabled"
 msgstr ""
@@ -5988,7 +5908,7 @@ msgid "Not a valid time. Must be in the format MM:SS"
 msgstr "See pole korrektne pikkus. Õige vorming on „min:sek”."
 
 #: ../lib/MusicBrainz/Server/Form/Field/PartialDate.pm:68
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:102
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:98
 msgid "invalid date"
 msgstr "sobimatu kuupäev"
 
@@ -6171,39 +6091,39 @@ msgstr ""
 msgid "Invalid URL format"
 msgstr "Vigane URL-i vorming"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:64
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:60
 msgid "A language is required."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:70
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:66
 msgid "A fluency level is required."
 msgstr ""
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:78
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:74
 #: ../root/static/scripts/common/constants.js:433
 msgid "Basic"
 msgstr "algtase"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:79
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:75
 #: ../root/static/scripts/common/constants.js:434
 msgid "Intermediate"
 msgstr "kesktase"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:80
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:76
 #: ../root/static/scripts/common/constants.js:432
 msgid "Advanced"
 msgstr "kõrgtase"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:81
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:77
 #: ../root/static/scripts/common/constants.js:435
 msgid "Native"
 msgstr "emakeel"
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:91
 msgid "You must supply a complete birth date for us to display your age."
 msgstr "Vanuse näitamiseks pead sisestama täieliku sünnikuupäeva."
 
-#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:99
+#: ../lib/MusicBrainz/Server/Form/Role/UserProfile.pm:95
 msgid "Birth year must be after 1900"
 msgstr "Sünniaasta peab olema hilisem kui 1900"
 
@@ -6249,14 +6169,6 @@ msgstr "Otsing otse andmebaasist"
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
 msgstr ""
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:53
-msgid "The old password is incorrect"
-msgstr "Vana parool on vale."
-
-#: ../lib/MusicBrainz/Server/Form/User/ChangePassword.pm:58
-msgid "An account with this name could not be found"
-msgstr "Sellenimelist kontot ei leitud"
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
@@ -6419,92 +6331,6 @@ msgstr "{last_list_item}"
 msgid "{commas_only_list_item}, {rest}"
 msgstr "{commas_only_list_item}, {rest}"
 
-#: ../root/account/ChangePassword.js:40
-msgid ""
-"Please change your password. Unfortunately we've discovered that secure "
-"hashes user's passwords were temporarily available for download on our FTP "
-"site. While it is extremely unlikely that anyone will be able to derive the "
-"original passwords from this mishap, we are requiring all of our users to "
-"change their passwords. Sorry for the inconvenience. For more information "
-"see {blog|the recent blog post}."
-msgstr ""
-"Palun vaheta oma salasõna. Avastasime, et kasutajate paroolide turvaräsid "
-"olid meie FTP-saidil ajutiselt allalaaditavad. On küll äärmiselt "
-"ebatõenäoline, et keegi sealt algsed paroolid suudaks tuletada, aga igaks "
-"juhuks sunnime siiski kõik kasutajad parooli vahetama. Vabandust "
-"ebamugavuste pärast. Lisateavet saad vastavast {blog|blogisissekandest}."
-
-#: ../root/account/ChangePassword.js:53
-msgid "Please enter your old password below, and then your new password."
-msgstr "Palun sisesta oma vana parool ja siis kaks korda uus."
-
-#: ../root/account/ChangePassword.js:65 ../root/account/LostPassword.js:41
-#: ../root/static/scripts/account/components/RegisterForm.js:52
-#: ../root/user/Login.js:97
-msgid "Username"
-msgstr ""
-
-#: ../root/account/ChangePassword.js:73
-msgid "Old password:"
-msgstr "Vana parool:"
-
-#: ../root/account/ChangePassword.js:81 ../root/account/ResetPassword.js:36
-msgid "New password:"
-msgstr "Uus parool:"
-
-#: ../root/account/ChangePassword.js:89 ../root/account/ResetPassword.js:44
-#: ../root/static/scripts/account/components/RegisterForm.js:88
-msgid "Confirm password:"
-msgstr "Parooli kinnitus:"
-
-#: ../root/account/ChangePassword.js:95
-msgctxt "interactive"
-msgid "Change password"
-msgstr "Muuda parooli"
-
-#: ../root/account/ChangePassword.js:114 ../root/account/ChangePassword.js:116
-#: ../root/account/ChangePassword.js:127 ../root/account/ChangePassword.js:128
-#: ../root/components/UserAccountTabs.js:88
-msgctxt "header"
-msgid "Change password"
-msgstr "Parooli muutmine"
-
-#: ../root/account/DeleteOwnAccount.js:35
-#: ../root/account/DeleteOwnAccount.js:37
-#: ../root/components/UserAccountTabs.js:113
-msgctxt "header"
-msgid "Delete account"
-msgstr "Konto kustutamine"
-
-#: ../root/account/DeleteOwnAccount.js:40
-msgid ""
-"For information about the account deletion process, please read the {uri|"
-"account FAQ}."
-msgstr "Konto kustutamise protsessi kirjelduse leiad {uri|konto KKK-st}."
-
-#: ../root/account/DeleteOwnAccount.js:48
-msgid ""
-"This will also cancel all your open edits and change all of your votes on "
-"any edits currently open to Abstain."
-msgstr ""
-
-#: ../root/account/DeleteOwnAccount.js:56
-msgid ""
-"Keep in mind this process might take a fairly long time if you have entered "
-"a lot of tags. If the process times out, please {contact_url|contact us}."
-msgstr ""
-
-#: ../root/account/DeleteOwnAccount.js:65
-msgid "Are you sure you want to delete your account? This cannot be undone!"
-msgstr ""
-"Kas oled kindel, et soovid oma konto kustutada? Hiljem enam ümber mõelda ei "
-"saa!"
-
-#: ../root/account/DeleteOwnAccount.js:76
-msgctxt "interactive"
-msgid "Delete my account"
-msgstr "Kustutan oma konto"
-
 #: ../root/account/DigestAuthentication.js:22
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
@@ -6530,7 +6356,7 @@ msgid "{applications_url|Back to Applications}."
 msgstr ""
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
-#: ../root/components/UserAccountTabs.js:94
+#: ../root/components/UserAccountTabs.js:88
 msgid "Donation check"
 msgstr "Annetuse kontroll"
 
@@ -6581,89 +6407,12 @@ msgid ""
 msgstr ""
 "Vaata ka oma {uri|kasutaja eelistusi}, kus on muu hulgas privaatsusseaded."
 
-#: ../root/account/EmailVerificationStatus.js:14
-msgctxt "header"
-msgid "Email verification"
-msgstr "E-posti kinnitus"
-
-#: ../root/account/EmailVerificationStatus.js:18
-msgid ""
-"Thank you, your email address has now been verified! If you still can't "
-"edit, please try to log out and log in again."
-msgstr ""
-"Sinu e-posti aadress on nüüd kinnitatud. Kui sa ikka veel toimetada ei saa, "
-"proovi välja ja uuesti sisse logida."
-
-#: ../root/account/LostPassword.js:26 ../root/account/LostPassword.js:27
-#: ../root/account/LostPasswordSent.js:16
-msgid "Lost password"
-msgstr "Unustatud parool"
-
-#: ../root/account/LostPassword.js:30
-msgid ""
-"Enter your username and email below. We will send you an email with a link "
-"to reset your password. If you have forgotten your username, {link|retrieve "
-"it} first and then reset your password."
-msgstr ""
-"Sisesta allpool oma kasutajanimi ja e-post. Saadame sulle e-kirja koos "
-"lingiga oma salasõna lähtestamiseks. Kui oled oma kasutajanime ära "
-"unustanud, lase esmalt see {link|välja otsida} ja siis lähtesta oma salasõna."
-
-#: ../root/account/LostPassword.js:47 ../root/account/LostUsername.js:34
-#: ../root/static/scripts/account/components/EditProfileForm.js:198
-#: ../root/static/scripts/account/components/PreferencesForm.js:210
-#: ../root/static/scripts/account/components/RegisterForm.js:95
-#: ../root/user/UserProfile.js:197
-msgid "Email"
-msgstr "E-post"
-
-#: ../root/account/LostPassword.js:52 ../root/account/ResetPassword.js:50
-msgctxt "interactive"
-msgid "Reset password"
-msgstr "Lähtesta parool"
-
-#: ../root/account/LostPasswordSent.js:20
-msgid ""
-"We've sent you instructions on how to reset your password. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"Saatsime sulle juhised oma parooli lähtestamiseks. Kui kiri kohale ei jõua "
-"või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
-
-#: ../root/account/LostUsername.js:24 ../root/account/LostUsername.js:25
-#: ../root/account/LostUsernameSent.js:16
-msgid "Lost username"
-msgstr "Unustatud kasutajanimi"
-
-#: ../root/account/LostUsername.js:27
-msgid ""
-"Enter your email address below and we will send you an email with your "
-"MusicBrainz account information."
-msgstr ""
-"Sisesta allpool oma e-post ja sulle saadetakse kiri sinu MusicBrainzi "
-"kontoteabega."
-
-#: ../root/account/LostUsername.js:39 ../root/user/ContactUser.js:71
-msgctxt "interactive"
-msgid "Send email"
-msgstr "Saada e-kiri"
-
-#: ../root/account/LostUsernameSent.js:20
-msgid ""
-"We've sent you information about your MusicBrainz account. If you don't "
-"receive this email or still have problems logging in, please {link|contact "
-"us}."
-msgstr ""
-"Saatsime sulle sinu MusicBrainzi konto kohta kirja. Kui see kohale ei jõua "
-"või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
-
-#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:18
+#: ../root/account/Preferences.js:30 ../root/account/PreferencesSaved.js:21
 #: ../root/components/UserAccountTabs.js:82
 msgid "Preferences"
 msgstr "Eelistused"
 
-#: ../root/account/PreferencesSaved.js:21
+#: ../root/account/PreferencesSaved.js:24
 msgid ""
 "Your preferences have been saved. Click {link|here} to continue to your user "
 "page."
@@ -6671,16 +6420,12 @@ msgstr ""
 "Sinu eelistused on salvestatud. Oma kasutajalehele minemiseks klõpsa {link|"
 "siin}."
 
-#: ../root/account/Register.js:22 ../root/account/Register.js:29
+#: ../root/account/Register.js:19 ../root/account/Register.js:20
 msgctxt "header"
 msgid "Create an account"
 msgstr "Konto loomine"
 
-#: ../root/account/Register.js:25
-msgid "Captcha incorrect. Try again."
-msgstr "Jäid robotilõksu kinni. Proovi uuesti."
-
-#: ../root/account/Register.js:33
+#: ../root/account/Register.js:24
 msgid ""
 "<strong>Note that any contributions you make to MusicBrainz will be released "
 "into the Public Domain and/or licensed under a Creative Commons by-nc-sa "
@@ -6695,7 +6440,7 @@ msgstr ""
 "edasi litsentsida. Üksikasjade saamiseks loe palun läbi meie {doc|"
 "litsentsileht}.</strong>"
 
-#: ../root/account/Register.js:45
+#: ../root/account/Register.js:36
 msgid ""
 "MusicBrainz believes strongly in the privacy of its users! Any personal "
 "information you choose to provide will not be sold or shared with anyone "
@@ -6705,14 +6450,14 @@ msgstr ""
 "sisestatud isiklikku teavet ei müüda ega jagata kellegi teisega. Täielikud "
 "üksikasjad leiad meie {doc|privaatsuspõhimõtetest}."
 
-#: ../root/account/Register.js:55
+#: ../root/account/Register.js:46
 msgid ""
 "You may remove your personal information from our services anytime by "
 "deleting your account. For more details, see our {doc|GDPR compliance "
 "statement}."
 msgstr ""
 
-#: ../root/account/Register.js:67
+#: ../root/account/Register.js:57
 msgid ""
 "If you have any questions, please review the {faq|FAQs} or {doc|"
 "documentation} before {con|contacting us}."
@@ -6720,7 +6465,7 @@ msgstr ""
 "Kui sul on küsimusi, vaata palun {faq|KKK}-d ja {doc|dokumentatsiooni}, enne "
 "kui meiega {con|ühendust võtad}."
 
-#: ../root/account/Register.js:79
+#: ../root/account/Register.js:69
 #, fuzzy
 #| msgid ""
 #| "Follow our {bl|blog} or {tw|twitter account}! To talk to other users, try "
@@ -6733,7 +6478,7 @@ msgstr ""
 "Võid jälgida ka meie {bl|blogi} ja {tw|Twitteri kontot}. Teiste kasutajatega "
 "suhtlemiseks proovi {fo|foorumit} või {irc|IRC-d}."
 
-#: ../root/account/Register.js:94
+#: ../root/account/Register.js:84
 msgid ""
 "MusicBrainz has one account type for all users. If you represent an artist "
 "or label, please use the above form to create an account."
@@ -6741,15 +6486,48 @@ msgstr ""
 "MusicBrainzis on kõigile kasutajatele sama kontotüüp. Kui esindad artisti "
 "või plaadifirmat, kasuta konto loomiseks sedasama ülalolevat vormi."
 
-#: ../root/account/ResetPassword.js:24 ../root/account/ResetPassword.js:25
-#: ../root/account/ResetPasswordStatus.js:14
-msgctxt "header"
-msgid "Reset password"
-msgstr "Parooli lähtestamine"
+#: ../root/account/RegisterForm.js:34 ../root/user/Login.js:93
+msgid "Username"
+msgstr ""
 
-#: ../root/account/ResetPassword.js:28
-msgid "Set a new password for your MusicBrainz account."
-msgstr "Sisesta uus parool oma MusicBrainzi konto jaoks."
+#: ../root/account/RegisterForm.js:40
+msgid "Your username will be publicly visible."
+msgstr "Sinu kasutajanimi saab avalikult nähtavaks."
+
+#: ../root/account/RegisterForm.js:46 ../root/user/Login.js:100
+msgid "Password:"
+msgstr "Parool:"
+
+#: ../root/account/RegisterForm.js:54
+msgid "Confirm password:"
+msgstr "Parooli kinnitus:"
+
+#: ../root/account/RegisterForm.js:61
+#: ../root/static/scripts/account/components/EditProfileForm.js:204
+#: ../root/static/scripts/account/components/EditProfileForm.js:211
+#: ../root/static/scripts/account/components/PreferencesForm.js:210
+#: ../root/user/UserProfile.js:197
+msgid "Email"
+msgstr "E-post"
+
+#: ../root/account/RegisterForm.js:67
+msgid ""
+"You must provide a working email address if you wish to contribute to the "
+"database."
+msgstr ""
+"Kui soovid andmebaasile kaastööd teha, pead sisestama töötava e-posti "
+"aadressi."
+
+#: ../root/account/RegisterForm.js:74
+msgid ""
+"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
+"account."
+msgstr "Enne konto loomist loe palun läbi {coc|MusicBrainzi käitumiskoodeks}."
+
+#: ../root/account/RegisterForm.js:79 ../root/layout/components/TopMenu.js:204
+msgctxt "interactive"
+msgid "Create account"
+msgstr "Loo konto"
 
 #: ../root/account/applications/ApplicationList.js:29
 #: ../root/static/scripts/account/components/ApplicationForm.js:39
@@ -6776,7 +6554,7 @@ msgid "Applications"
 msgstr "Rakendused"
 
 #: ../root/account/applications/ApplicationList.js:94
-#: ../root/user/UserProfile.js:310
+#: ../root/user/UserProfile.js:304
 msgid "Authorized applications"
 msgstr ""
 
@@ -6822,7 +6600,7 @@ msgid "You have not authorized any applications."
 msgstr "Sul pole ühtki volitatud rakendust."
 
 #: ../root/account/applications/ApplicationList.js:129
-#: ../root/user/UserProfile.js:324
+#: ../root/user/UserProfile.js:318
 msgid "Developer applications"
 msgstr ""
 
@@ -8074,8 +7852,8 @@ msgctxt "verb, header, interactive"
 msgid "Edit"
 msgstr "Toimeta"
 
-#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:347
-#: ../root/user/UserProfile.js:408
+#: ../root/collection/CollectionIndex.js:191 ../root/user/UserProfile.js:341
+#: ../root/user/UserProfile.js:402
 msgid ""
 "This content is hidden to prevent spam. To view it, please {url|log in}."
 msgstr ""
@@ -8436,7 +8214,7 @@ msgstr ""
 
 #: ../root/components/EntityTabs.js:150
 #: ../root/components/UserAccountTabs.js:70 ../root/entity/Ratings.js:43
-#: ../root/user/UserProfile.js:847 ../root/user/UserRatingList.js:44
+#: ../root/user/UserProfile.js:841 ../root/user/UserRatingList.js:44
 #: ../root/user/UserRatingList.js:78
 msgid "Ratings"
 msgstr "Hinded"
@@ -8613,7 +8391,7 @@ msgstr "Jälgimisloend"
 #: ../root/entity/Subscribers.js:49
 #: ../root/layout/components/sidebar/CollectionSidebar.js:120
 #: ../root/layout/components/sidebar/SubscriptionLinks.js:52
-#: ../root/user/UserProfile.js:357
+#: ../root/user/UserProfile.js:351
 msgid "Subscribers"
 msgstr "Jälgijad"
 
@@ -11123,7 +10901,7 @@ msgstr "Andmete eemaldamise põhimõtted"
 msgid "Privileged user accounts"
 msgstr "Eriõigustega kasutajad"
 
-#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:570
+#: ../root/layout/components/BottomMenu.js:154 ../root/user/UserProfile.js:564
 msgid "Statistics"
 msgstr "Statistika"
 
@@ -11424,12 +11202,6 @@ msgstr "Märked minu toimetustele"
 #: ../root/layout/components/TopMenu.js:117
 msgid "Admin"
 msgstr "Haldus"
-
-#: ../root/layout/components/TopMenu.js:209
-#: ../root/static/scripts/account/components/RegisterForm.js:118
-msgctxt "interactive"
-msgid "Create account"
-msgstr "Loo konto"
 
 #: ../root/layout/components/sidebar/AnnotationLinks.js:31
 #: ../root/static/scripts/common/components/Annotation.js:85
@@ -11798,17 +11570,17 @@ msgstr[1] ""
 msgid "Happy birthday, and thanks for contributing to MusicBrainz!"
 msgstr ""
 
-#: ../root/main/ConfirmSeed.js:26
+#: ../root/main/ConfirmSeed.js:25
 msgid "Confirm form submission"
 msgstr ""
 
-#: ../root/main/ConfirmSeed.js:43
+#: ../root/main/ConfirmSeed.js:42
 msgid ""
 "You are about to submit a request to {action} originating from {origin}. "
 "Continue?"
 msgstr ""
 
-#: ../root/main/ConfirmSeed.js:52
+#: ../root/main/ConfirmSeed.js:51
 msgid ""
 "This confirmation is important to ensure that no malicious actor can use "
 "your account to modify data without your knowledge. Below this line, you can "
@@ -11863,7 +11635,7 @@ msgstr ""
 "Enne, kui saad midagi muuta või lisada, pead {url|sisestama ja kinnitama oma "
 "e-posti aadressi}."
 
-#: ../root/main/error/Error401.js:39 ../root/user/Login.js:86
+#: ../root/main/error/Error401.js:39 ../root/user/Login.js:82
 #, fuzzy
 #| msgid ""
 #| "If you think this is a mistake, please contact "
@@ -14865,13 +14637,13 @@ msgid ""
 "for installed applications."
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:106
-#: ../root/user/UserProfile.js:283
+#: ../root/static/scripts/account/components/EditProfileForm.js:110
+#: ../root/user/UserProfile.js:277
 msgctxt "user area"
 msgid "Location"
 msgstr ""
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:190
+#: ../root/static/scripts/account/components/EditProfileForm.js:197
 msgid ""
 "This is a development server. Your email address is not private or secure. "
 "Proceed with caution!"
@@ -14879,47 +14651,51 @@ msgstr ""
 "See on arendusserver. Sinu e-posti aadressi ei hoita privaatselt ega "
 "turvaliselt. Jätka ettevaatlikult!"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:203
-msgid "If you change your email address, you will be required to verify it."
+#: ../root/static/scripts/account/components/EditProfileForm.js:218
+#, fuzzy
+#| msgid "If you change your email address, you will be required to verify it."
+msgid ""
+"Your email address can be changed from your {profile|MetaBrainz profile}. If "
+"you change your email address, you will be required to verify it."
 msgstr "Kui muudad oma e-posti aadressi, pead selle uuesti kinnitama."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:210
+#: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
 msgstr "Veebisait"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:233
+#: ../root/static/scripts/account/components/EditProfileForm.js:253
 msgid ""
 "You can pick the level you prefer here: your country, region or city. Be as "
 "specific as you want to!"
 msgstr ""
 "Vastavalt soovitud täpsusastmele saab valida riigi, maakonna või linna."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:240
+#: ../root/static/scripts/account/components/EditProfileForm.js:260
 msgid "Birth date:"
 msgstr "Sünnikuupäev:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:245
+#: ../root/static/scripts/account/components/EditProfileForm.js:265
 msgid ""
 "We will use your birth date to display your age in years on your profile "
 "page."
 msgstr "Seda kasutatakse kasutajalehel vanuse näitamiseks."
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:252
-#: ../root/user/UserProfile.js:401
+#: ../root/static/scripts/account/components/EditProfileForm.js:272
+#: ../root/user/UserProfile.js:395
 msgid "Bio"
 msgstr "Enesetutvustus"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:257
+#: ../root/static/scripts/account/components/EditProfileForm.js:277
 msgid "Languages known:"
 msgstr "Keeleoskus:"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:293
+#: ../root/static/scripts/account/components/EditProfileForm.js:313
 #: ../root/static/scripts/work/edit.js:337
 msgctxt "interactive"
 msgid "Add language"
 msgstr "Lisa keel"
 
-#: ../root/static/scripts/account/components/EditProfileForm.js:301
+#: ../root/static/scripts/account/components/EditProfileForm.js:321
 #: ../root/static/scripts/account/components/PreferencesForm.js:270
 msgctxt "interactive"
 msgid "Save"
@@ -14985,37 +14761,6 @@ msgstr "Kirju jälgimisloendile tehtud toimetustest saadetakse"
 #: ../root/static/scripts/account/components/PreferencesForm.js:251
 msgid "Automatically subscribe me when I add"
 msgstr "Tahan automaatselt jälgida"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:58
-msgid "Your username will be publicly visible."
-msgstr "Sinu kasutajanimi saab avalikult nähtavaks."
-
-#: ../root/static/scripts/account/components/RegisterForm.js:69
-msgid ""
-"The username you have entered looks like an email address. This is allowed, "
-"but please keep in mind that everyone will be able to see it. Only use an "
-"email address as your username if you are completely sure you are happy with "
-"that."
-msgstr ""
-
-#: ../root/static/scripts/account/components/RegisterForm.js:80
-#: ../root/user/Login.js:104
-msgid "Password:"
-msgstr "Parool:"
-
-#: ../root/static/scripts/account/components/RegisterForm.js:101
-msgid ""
-"You must provide a working email address if you wish to contribute to the "
-"database."
-msgstr ""
-"Kui soovid andmebaasile kaastööd teha, pead sisestama töötava e-posti "
-"aadressi."
-
-#: ../root/static/scripts/account/components/RegisterForm.js:113
-msgid ""
-"Please review the {coc|MusicBrainz Code of Conduct} before creating an "
-"account."
-msgstr "Enne konto loomist loe palun läbi {coc|MusicBrainzi käitumiskoodeks}."
 
 #: ../root/static/scripts/alias/AliasEditForm.js:296
 msgid "Alias details"
@@ -15545,6 +15290,16 @@ msgstr ""
 msgid "{action_label} (in a new tab)"
 msgstr ""
 
+#: ../root/static/scripts/common/components/LoginMessage.js:36
+msgid ""
+"We’re currently unable to process your submission because your login session "
+"has expired."
+msgstr ""
+
+#: ../root/static/scripts/common/components/LoginMessage.js:50
+msgid "Click here to log in."
+msgstr ""
+
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 #, fuzzy
 #| msgid "Medium {position}: {title}"
@@ -15584,7 +15339,7 @@ msgid "Related series"
 msgstr "Seotud seeriad:"
 
 #: ../root/static/scripts/common/components/RelatedWorks.js:31
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1581
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1592
 msgid "Related works"
 msgstr "Seotud teosed"
 
@@ -17069,7 +16824,7 @@ msgid "You must provide an edit note when adding a release."
 msgstr "Väljalaske lisamisel tuleb jätta toimetusmärge."
 
 #: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1861
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1893
 msgid "Submitting edits..."
 msgstr "Toimetuste sisestamine..."
 
@@ -17301,30 +17056,30 @@ msgstr "Sama seose lisamine korraga mitmele teosele"
 msgid "[selected work]"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:280
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:288
 msgid "An error occurred:"
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1519
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1530
 msgid "Track relationships"
 msgstr "Lugude seosed"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1538
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1549
 msgid ""
 "Some tracks/mediums haven’t been loaded yet. If you want to make batch "
 "operations on these, please fully load them first."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1605
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1616
 #: ../root/static/scripts/release/components/TracklistAndCredits.js:364
 msgid "We have no information about this release’s media and tracklist."
 msgstr ""
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1636
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1647
 msgid "Release relationships"
 msgstr "Väljalaske seosed"
 
-#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1673
+#: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1684
 msgid "Release group relationships"
 msgstr "Väljalaskerühma seosed"
 
@@ -17710,39 +17465,40 @@ msgstr "Saaja näeb mu e-posti aadressi"
 msgid "Send a copy to my own email address"
 msgstr "Koopia mu enda e-posti aadressile"
 
-#: ../root/user/Login.js:48 ../root/user/Login.js:49
+#: ../root/user/ContactUser.js:71
+msgctxt "interactive"
+msgid "Send email"
+msgstr "Saada e-kiri"
+
+#: ../root/user/Login.js:44 ../root/user/Login.js:45
 msgctxt "header"
 msgid "Log in"
 msgstr "Sisse logimine"
 
-#: ../root/user/Login.js:53
+#: ../root/user/Login.js:49
 msgid "You need to be logged in to view this page."
 msgstr "Sellele lehele pääsemiseks pead sisse logima."
 
-#: ../root/user/Login.js:59
+#: ../root/user/Login.js:55
 msgid "Don't have an account? {uri|Create one now}!"
 msgstr "Pole kontot? {uri|Loo kasvõi kohe}!"
 
-#: ../root/user/Login.js:70
+#: ../root/user/Login.js:66
 msgid "Incorrect username or password"
 msgstr "Kasutajanimi või parool on vale."
 
-#: ../root/user/Login.js:80
+#: ../root/user/Login.js:76
 msgid ""
 "You cannot log in because this account has been marked as a spam account."
 msgstr ""
 
-#: ../root/user/Login.js:113
+#: ../root/user/Login.js:109
 msgid "This is a development server; all passwords have been reset to \"mb\"."
 msgstr "See on arendusserver; kõigi parool on „mb”."
 
-#: ../root/user/Login.js:121
-msgid "Keep me logged in"
-msgstr "Hoitakse sisselogituna"
-
-#: ../root/user/Login.js:133
-msgid "Forgot your {link1|username} or {link2|password}?"
-msgstr "Unustasid oma {link1|kasutajanime} või {link2|parooli}?"
+#: ../root/user/LoginDialogSuccess.js:38
+msgid "Login successful. You may close this dialog."
+msgstr ""
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"
@@ -18091,221 +17847,217 @@ msgctxt "email address"
 msgid "(<strong>unverified!</strong>)"
 msgstr "<strong>(kinnitamata!)</strong>"
 
-#: ../root/user/UserProfile.js:217
-msgid "resend verification email"
-msgstr "saada kinnituskiri uuesti"
-
-#: ../root/user/UserProfile.js:225
+#: ../root/user/UserProfile.js:219
 msgid "send email"
 msgstr "saada e-kiri"
 
-#: ../root/user/UserProfile.js:250
+#: ../root/user/UserProfile.js:244
 msgctxt "email address"
 msgid "(none)"
 msgstr "(pole)"
 
-#: ../root/user/UserProfile.js:257
+#: ../root/user/UserProfile.js:251
 msgid "User type:"
 msgstr "Kasutaja tüüp:"
 
-#: ../root/user/UserProfile.js:263
+#: ../root/user/UserProfile.js:257
 msgid "nominate for auto-editor"
 msgstr "esita vanemtoimetaja kandidaadiks"
 
-#: ../root/user/UserProfile.js:270
+#: ../root/user/UserProfile.js:264
 msgid "Age:"
 msgstr "Vanus:"
 
-#: ../root/user/UserProfile.js:289
+#: ../root/user/UserProfile.js:283
 msgid "Member since"
 msgstr "Liitunud"
 
-#: ../root/user/UserProfile.js:295
+#: ../root/user/UserProfile.js:289
 msgid "Restrictions"
 msgstr "Piirangud"
 
-#: ../root/user/UserProfile.js:302
+#: ../root/user/UserProfile.js:296
 msgid "Last login"
 msgstr ""
 
-#: ../root/user/UserProfile.js:305
+#: ../root/user/UserProfile.js:299
 msgid "Hasn't logged in yet"
 msgstr "polegi veel sisse loginud"
 
-#: ../root/user/UserProfile.js:313 ../root/user/UserProfile.js:327
-#: ../root/user/UserProfile.js:360
+#: ../root/user/UserProfile.js:307 ../root/user/UserProfile.js:321
+#: ../root/user/UserProfile.js:354
 msgid "{count} ({url|view list})"
 msgstr "{count} ({url|vaata nimekirja})"
 
-#: ../root/user/UserProfile.js:339
+#: ../root/user/UserProfile.js:333
 msgid "Homepage:"
 msgstr "Koduleht:"
 
-#: ../root/user/UserProfile.js:367
+#: ../root/user/UserProfile.js:361
 msgid "0"
 msgstr "0"
 
-#: ../root/user/UserProfile.js:380
+#: ../root/user/UserProfile.js:374
 msgid "unsubscribe"
 msgstr "lõpeta jälgimine"
 
-#: ../root/user/UserProfile.js:389
+#: ../root/user/UserProfile.js:383
 msgid "subscribe"
 msgstr "jälgi"
 
-#: ../root/user/UserProfile.js:418
+#: ../root/user/UserProfile.js:412
 msgid "Languages"
 msgstr ""
 
-#: ../root/user/UserProfile.js:489 ../root/user/UserProfile.js:584
-#: ../root/user/UserProfile.js:594 ../root/user/UserProfile.js:604
-#: ../root/user/UserProfile.js:614 ../root/user/UserProfile.js:624
-#: ../root/user/UserProfile.js:634 ../root/user/UserProfile.js:644
-#: ../root/user/UserProfile.js:654 ../root/user/UserProfile.js:663
-#: ../root/user/UserProfile.js:816 ../root/user/UserProfile.js:837
-#: ../root/user/UserProfile.js:858
+#: ../root/user/UserProfile.js:483 ../root/user/UserProfile.js:578
+#: ../root/user/UserProfile.js:588 ../root/user/UserProfile.js:598
+#: ../root/user/UserProfile.js:608 ../root/user/UserProfile.js:618
+#: ../root/user/UserProfile.js:628 ../root/user/UserProfile.js:638
+#: ../root/user/UserProfile.js:648 ../root/user/UserProfile.js:657
+#: ../root/user/UserProfile.js:810 ../root/user/UserProfile.js:831
+#: ../root/user/UserProfile.js:852
 msgid "{count} ({view_url|view})"
 msgstr "{count} ({view_url|vaata})"
 
-#: ../root/user/UserProfile.js:576
+#: ../root/user/UserProfile.js:570
 msgid "Edits"
 msgstr "Toimetused"
 
-#: ../root/user/UserProfile.js:582
+#: ../root/user/UserProfile.js:576
 msgctxt "edit descriptor"
 msgid "Total"
 msgstr "Kokku"
 
-#: ../root/user/UserProfile.js:592
+#: ../root/user/UserProfile.js:586
 msgctxt "edit descriptor"
 msgid "Accepted"
 msgstr "Vastuvõetud"
 
-#: ../root/user/UserProfile.js:602
+#: ../root/user/UserProfile.js:596
 msgid "Auto-edits"
 msgstr "Kohetoimetusi"
 
-#: ../root/user/UserProfile.js:612
+#: ../root/user/UserProfile.js:606
 msgid "Total applied"
 msgstr "Rakendatud toimetusi kokku"
 
-#: ../root/user/UserProfile.js:622
+#: ../root/user/UserProfile.js:616
 msgid "Voted down"
 msgstr "Mahahääletatud"
 
-#: ../root/user/UserProfile.js:632
+#: ../root/user/UserProfile.js:626
 msgid "Failed"
 msgstr "Nurjunud"
 
-#: ../root/user/UserProfile.js:642
+#: ../root/user/UserProfile.js:636
 msgctxt "edit"
 msgid "Cancelled"
 msgstr ""
 
-#: ../root/user/UserProfile.js:652
+#: ../root/user/UserProfile.js:646
 msgid "Open"
 msgstr "lahtine"
 
-#: ../root/user/UserProfile.js:662
+#: ../root/user/UserProfile.js:656
 msgid "Last 24 hours"
 msgstr "Viimase 24 tunni jooksul"
 
-#: ../root/user/UserProfile.js:686
+#: ../root/user/UserProfile.js:680
 msgid "This table shows a summary of votes cast by this editor."
 msgstr "See tabel näitab selle toimetaja antud häälte kokkuvõtet."
 
-#: ../root/user/UserProfile.js:691
+#: ../root/user/UserProfile.js:685
 msgid "Votes ({view_url|view})"
 msgstr "Hääled ({view_url|vaata})"
 
-#: ../root/user/UserProfile.js:699
+#: ../root/user/UserProfile.js:693
 msgid "Last 28 days"
 msgstr "Viimase 28 päeva jooksul"
 
-#: ../root/user/UserProfile.js:702
+#: ../root/user/UserProfile.js:696
 msgid "Overall"
 msgstr "Üldse"
 
-#: ../root/user/UserProfile.js:750
+#: ../root/user/UserProfile.js:744
 msgid "This table shows a summary of entities added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:756
+#: ../root/user/UserProfile.js:750
 msgid "Newly applied edits may need 24 hours to appear"
 msgstr ""
 
-#: ../root/user/UserProfile.js:759
+#: ../root/user/UserProfile.js:753
 msgid "Added entities"
 msgstr ""
 
-#: ../root/user/UserProfile.js:782
+#: ../root/user/UserProfile.js:776
 msgid "This user has not added any entities."
 msgstr ""
 
-#: ../root/user/UserProfile.js:792
+#: ../root/user/UserProfile.js:786
 msgid "This table shows a summary of secondary data added by this editor."
 msgstr ""
 
-#: ../root/user/UserProfile.js:798
+#: ../root/user/UserProfile.js:792
 msgctxt "folksonomy"
 msgid "Tags and ratings"
 msgstr "Sildid ja hinded"
 
-#: ../root/user/UserProfile.js:805
+#: ../root/user/UserProfile.js:799
 #, fuzzy
 #| msgid "and voted"
 msgctxt "folksonomy"
 msgid "Tags upvoted"
 msgstr "ja hääletas"
 
-#: ../root/user/UserProfile.js:809 ../root/user/UserProfile.js:830
+#: ../root/user/UserProfile.js:803 ../root/user/UserProfile.js:824
 msgctxt "folksonomy"
 msgid "Tags are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:813 ../root/user/UserProfile.js:834
+#: ../root/user/UserProfile.js:807 ../root/user/UserProfile.js:828
 msgctxt "folksonomy tags"
 msgid "Removed"
 msgstr "Eemaldatud"
 
-#: ../root/user/UserProfile.js:825
+#: ../root/user/UserProfile.js:819
 #, fuzzy
 #| msgid "Downvote"
 msgctxt "folksonomy"
 msgid "Tags downvoted"
 msgstr "Hääleta vastu"
 
-#: ../root/user/UserProfile.js:851
+#: ../root/user/UserProfile.js:845
 msgid "Ratings are removed when an editor is deleted."
 msgstr ""
 
-#: ../root/user/UserProfile.js:854
+#: ../root/user/UserProfile.js:848
 msgctxt "ratings"
 msgid "Removed"
 msgstr ""
 
-#: ../root/user/UserProfile.js:921
+#: ../root/user/UserProfile.js:915
 msgid "Blocked spam account"
 msgstr "Blokeeritud spämmikonto"
 
-#: ../root/user/UserProfile.js:923
+#: ../root/user/UserProfile.js:917
 msgid ""
 "This user was blocked and their profile is hidden because they were deemed "
 "to be spamming. If you see spam in MusicBrainz, please do let us know by "
 "reporting the spammer from their user page."
 msgstr ""
 
-#: ../root/user/UserProfile.js:989
+#: ../root/user/UserProfile.js:983
 msgid "Report this user for bad behavior"
 msgstr "Teata halvasti käituvast kasutajast"
 
-#: ../root/user/UserProfile.js:994
+#: ../root/user/UserProfile.js:988
 #, fuzzy
 #| msgid "Recent notes left on your edits"
 msgid "View other users’ notes on my edits"
 msgstr "Hiljutised märked minu toimetustele"
 
-#: ../root/user/UserProfile.js:995
+#: ../root/user/UserProfile.js:989
 #, fuzzy
 #| msgid "Recent notes left on your edits"
 msgid "View my notes on this user’s edits"
@@ -18847,6 +18599,207 @@ msgid ""
 "ISWCs. Please make sure they are indeed the same works and you wish to "
 "continue with the merge."
 msgstr ""
+
+#~ msgid "The user ID is missing or is in an invalid format."
+#~ msgstr "Kasutaja-ID on kas puudu või sobimatul kujul."
+
+#~ msgid "The email address is missing."
+#~ msgstr "E-posti aadress on puudu."
+
+#~ msgid "The time is missing or is in an invalid format."
+#~ msgstr "Aeg on kas puudu või sobimatul kujul."
+
+#~ msgid "The verification key is missing."
+#~ msgstr "Kinnitusvõti on puudu."
+
+#~ msgid "The checksum is invalid, please double check your email."
+#~ msgstr "Kontrollsumma on vale. Palun vaata e-kiri uuesti üle."
+
+#~ msgid "Sorry, this email verification link has expired."
+#~ msgstr "Vabandust, aga see e-posti kinnitamise link on aegunud."
+
+#, perl-brace-format
+#~ msgid "The user with ID '{user_id}' could not be found."
+#~ msgstr "Kasutajat ID-ga „{user_id}” ei leitud."
+
+#, fuzzy
+#~| msgid ""
+#~| "We were unable to send login information to your email address.  Please "
+#~| "try again, however if you continue to experience difficulty contact us "
+#~| "at support@musicbrainz.org."
+#~ msgid ""
+#~ "We were unable to send login information to your email address. Please "
+#~ "try again, and if that still doesn’t work, {contact_url|contact us}."
+#~ msgstr ""
+#~ "Sisselogimisteavet ei õnnestunud sinu e-postile saata. Palun proovi "
+#~ "uuesti, aga kui probleem siiski püsib, siis saada kiri aadressil "
+#~ "support@musicbrainz.org."
+
+#~ msgid "There is no user with this username"
+#~ msgstr "Sellenimelist kasutajat pole."
+
+#~ msgid "There is no user with this username and email"
+#~ msgstr "Selle nime ja e-postiga kasutajat pole."
+
+#~ msgid ""
+#~ "We can't send a password reset email, because we have no email on record "
+#~ "for this user."
+#~ msgstr ""
+#~ "Parooli lähtestamise kirja ei saa saata, kuna kasutaja e-post pole "
+#~ "andmebaasis."
+
+#~ msgid "Your password has been reset."
+#~ msgstr "Su parool on lähtestatud."
+
+#~ msgid "Missing one or more required parameters."
+#~ msgstr "Mõni kohustuslik parameeter on puudu."
+
+#~ msgid "Sorry, this password reset link has expired."
+#~ msgstr "Vabandust, aga see parooli lähtestamise link on aegunud."
+
+#~ msgid "There is no user with this email"
+#~ msgstr "Selle e-postiga kasutajat pole."
+
+#, perl-brace-format
+#~ msgid ""
+#~ "We have sent you a verification email to <code>{email}</code>. Please "
+#~ "check your mailbox and click on the link in the email to verify the new "
+#~ "email address."
+#~ msgstr ""
+#~ "Saatsime sulle kinnituskirja aadressil <code>{email}</code>. Palun vaata "
+#~ "oma postkasti ning klõpsa uue e-postiaadressi kinnitamiseks kirjas olevat "
+#~ "linki."
+
+#~ msgid "Your password has been changed."
+#~ msgstr "Parool on muudetud."
+
+#~ msgid "The old password is incorrect"
+#~ msgstr "Vana parool on vale."
+
+#~ msgid "An account with this name could not be found"
+#~ msgstr "Sellenimelist kontot ei leitud"
+
+#~ msgid ""
+#~ "Please change your password. Unfortunately we've discovered that secure "
+#~ "hashes user's passwords were temporarily available for download on our "
+#~ "FTP site. While it is extremely unlikely that anyone will be able to "
+#~ "derive the original passwords from this mishap, we are requiring all of "
+#~ "our users to change their passwords. Sorry for the inconvenience. For "
+#~ "more information see {blog|the recent blog post}."
+#~ msgstr ""
+#~ "Palun vaheta oma salasõna. Avastasime, et kasutajate paroolide turvaräsid "
+#~ "olid meie FTP-saidil ajutiselt allalaaditavad. On küll äärmiselt "
+#~ "ebatõenäoline, et keegi sealt algsed paroolid suudaks tuletada, aga igaks "
+#~ "juhuks sunnime siiski kõik kasutajad parooli vahetama. Vabandust "
+#~ "ebamugavuste pärast. Lisateavet saad vastavast {blog|blogisissekandest}."
+
+#~ msgid "Please enter your old password below, and then your new password."
+#~ msgstr "Palun sisesta oma vana parool ja siis kaks korda uus."
+
+#~ msgid "Old password:"
+#~ msgstr "Vana parool:"
+
+#~ msgid "New password:"
+#~ msgstr "Uus parool:"
+
+#~ msgctxt "interactive"
+#~ msgid "Change password"
+#~ msgstr "Muuda parooli"
+
+#~ msgctxt "header"
+#~ msgid "Change password"
+#~ msgstr "Parooli muutmine"
+
+#~ msgctxt "header"
+#~ msgid "Delete account"
+#~ msgstr "Konto kustutamine"
+
+#~ msgid ""
+#~ "For information about the account deletion process, please read the {uri|"
+#~ "account FAQ}."
+#~ msgstr "Konto kustutamise protsessi kirjelduse leiad {uri|konto KKK-st}."
+
+#~ msgid "Are you sure you want to delete your account? This cannot be undone!"
+#~ msgstr ""
+#~ "Kas oled kindel, et soovid oma konto kustutada? Hiljem enam ümber mõelda "
+#~ "ei saa!"
+
+#~ msgctxt "interactive"
+#~ msgid "Delete my account"
+#~ msgstr "Kustutan oma konto"
+
+#~ msgctxt "header"
+#~ msgid "Email verification"
+#~ msgstr "E-posti kinnitus"
+
+#~ msgid ""
+#~ "Thank you, your email address has now been verified! If you still can't "
+#~ "edit, please try to log out and log in again."
+#~ msgstr ""
+#~ "Sinu e-posti aadress on nüüd kinnitatud. Kui sa ikka veel toimetada ei "
+#~ "saa, proovi välja ja uuesti sisse logida."
+
+#~ msgid "Lost password"
+#~ msgstr "Unustatud parool"
+
+#~ msgid ""
+#~ "Enter your username and email below. We will send you an email with a "
+#~ "link to reset your password. If you have forgotten your username, {link|"
+#~ "retrieve it} first and then reset your password."
+#~ msgstr ""
+#~ "Sisesta allpool oma kasutajanimi ja e-post. Saadame sulle e-kirja koos "
+#~ "lingiga oma salasõna lähtestamiseks. Kui oled oma kasutajanime ära "
+#~ "unustanud, lase esmalt see {link|välja otsida} ja siis lähtesta oma "
+#~ "salasõna."
+
+#~ msgctxt "interactive"
+#~ msgid "Reset password"
+#~ msgstr "Lähtesta parool"
+
+#~ msgid ""
+#~ "We've sent you instructions on how to reset your password. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "Saatsime sulle juhised oma parooli lähtestamiseks. Kui kiri kohale ei "
+#~ "jõua või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
+
+#~ msgid "Lost username"
+#~ msgstr "Unustatud kasutajanimi"
+
+#~ msgid ""
+#~ "Enter your email address below and we will send you an email with your "
+#~ "MusicBrainz account information."
+#~ msgstr ""
+#~ "Sisesta allpool oma e-post ja sulle saadetakse kiri sinu MusicBrainzi "
+#~ "kontoteabega."
+
+#~ msgid ""
+#~ "We've sent you information about your MusicBrainz account. If you don't "
+#~ "receive this email or still have problems logging in, please {link|"
+#~ "contact us}."
+#~ msgstr ""
+#~ "Saatsime sulle sinu MusicBrainzi konto kohta kirja. Kui see kohale ei "
+#~ "jõua või kui sisselogimine endiselt ei õnnestu, siis {link|võta ühendust}."
+
+#~ msgid "Captcha incorrect. Try again."
+#~ msgstr "Jäid robotilõksu kinni. Proovi uuesti."
+
+#~ msgctxt "header"
+#~ msgid "Reset password"
+#~ msgstr "Parooli lähtestamine"
+
+#~ msgid "Set a new password for your MusicBrainz account."
+#~ msgstr "Sisesta uus parool oma MusicBrainzi konto jaoks."
+
+#~ msgid "Keep me logged in"
+#~ msgstr "Hoitakse sisselogituna"
+
+#~ msgid "Forgot your {link1|username} or {link2|password}?"
+#~ msgstr "Unustasid oma {link1|kasutajanime} või {link2|parooli}?"
+
+#~ msgid "resend verification email"
+#~ msgstr "saada kinnituskiri uuesti"
 
 #~ msgctxt "interactive"
 #~ msgid "Edit attributes"
