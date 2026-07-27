@@ -7,11 +7,11 @@
  */
 
 import canonicalJson from 'canonical-json';
+import MinimizerPlugin from 'minimizer-webpack-plugin';
 import fs from 'node:fs';
 import path from 'node:path';
 import shellQuote from 'shell-quote';
 import shell from 'shelljs';
-import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 import jedDataTemplate from '../root/jedDataTemplate.mjs';
@@ -20,7 +20,7 @@ import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
-import browserConfig from './browserConfig.mjs';
+import buildBrowserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
 import {
   BUILD_DIR,
@@ -40,7 +40,6 @@ const jsExt = /\.[cm]?js$/;
 
 const entries = [
   'account/applications/register',
-  'account/components/RegisterForm',
   'account/edit',
   'account/preferences',
   'admin/components/PossibleSpammersList',
@@ -271,6 +270,10 @@ MB_LANGUAGES.forEach(function (lang) {
   }
 });
 
+const browserConfig = buildBrowserConfig({
+  remapClientDBDefs: true,
+});
+
 const plugins = browserConfig.plugins.concat();
 
 plugins.push(new webpack.ProvidePlugin(providePluginConfig));
@@ -299,6 +302,8 @@ export default {
   devtool: process.env.WEBPACK_DEVTOOL ?? 'source-map',
 
   entry: entries,
+
+  experiments: {typescript: false},
 
   mode: WEBPACK_MODE,
 
@@ -332,8 +337,8 @@ export default {
 
     ...(PRODUCTION_MODE ? {
       minimizer: [
-        new TerserPlugin({
-          terserOptions: {
+        new MinimizerPlugin({
+          minimizerOptions: {
             ecma: ECMA_VERSION,
             safari10: LEGACY_BROWSER,
           },

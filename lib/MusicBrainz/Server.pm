@@ -8,15 +8,14 @@ extends 'Catalyst';
 use Class::Load qw( load_class );
 use Data::Dumper;
 use DBDefs;
-use Digest::SHA qw( sha256 );
 use HTML::Entities ();
 use HTTP::Status qw( :constants );
 use JSON;
-use MIME::Base64 qw( encode_base64 );
 use Moose::Util qw( does_role );
 use MusicBrainz::Server::Data::Utils qw(
     boolean_to_json
     datetime_to_iso8601
+    generate_token
     non_empty
 );
 use MusicBrainz::Server::DatabaseConnectionFactory;
@@ -24,13 +23,11 @@ use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Server::Log qw( logger );
 use MusicBrainz::Server::Validation qw( is_positive_integer );
 use POSIX qw(SIGALRM);
-use Scalar::Util qw( looks_like_number refaddr );
+use Scalar::Util qw( looks_like_number );
 use Sys::Hostname;
-use Time::HiRes qw( clock_gettime CLOCK_REALTIME CLOCK_MONOTONIC );
 use Try::Tiny;
 use URI;
 use aliased 'MusicBrainz::Server::Translation';
-use feature 'state';
 
 # Set flags and add plugins for the application
 #
@@ -87,6 +84,7 @@ __PACKAGE__->config(
         COMPILE_DIR => '/tmp/ttc',
     },
     'Plugin::Session' => {
+        cookie_name => 'musicbrainz_server_session',
         expires => DBDefs->SESSION_EXPIRE,
     },
     stacktrace => {
@@ -113,32 +111,67 @@ unless (DBDefs->CATALYST_DEBUG) {
     __PACKAGE__->config->{'Plugin::Cache'}{backend} = $plugin_cache_opts;
 }
 
-require MusicBrainz::Server::Authentication::WS::Credential;
-require MusicBrainz::Server::Authentication::WS::Store;
 require MusicBrainz::Server::Authentication::Store;
+require MusicBrainz::Server::Authentication::WebService::HTTPDigestCredential;
+require MusicBrainz::Server::Authentication::WebService::HTTPDigestStore;
+require MusicBrainz::Server::Authentication::WebService::OAuth2Credential;
+require MusicBrainz::Server::Authentication::Website::OAuth2Credential;
+require MusicBrainz::Server::Authentication::Website::OAuth2Store;
+require MusicBrainz::Server::Authentication::Website::PasswordCredential;
+require MusicBrainz::Server::Authentication::Website::RememberLoginCredential;
 __PACKAGE__->config->{'Plugin::Authentication'} = {
-    default_realm => 'moderators',
+    default_realm => DBDefs->LOCAL_ACCOUNTS_ENABLED
+        ? 'website_local_account'
+        : 'website_oauth',
     use_session => 0,
     realms => {
-        moderators => {
+        website_local_account => {
             use_session => 1,
             credential => {
-                class => '+MusicBrainz::Server::Authentication::Credential',
+                class => '+MusicBrainz::Server::Authentication::Website::PasswordCredential',
             },
             store => {
                 class => '+MusicBrainz::Server::Authentication::Store',
             },
         },
-        'musicbrainz.org' => {
+        website_oauth => {
+            auto_create_user => 1,
+            use_session => 1,
+            credential => {
+                class => '+MusicBrainz::Server::Authentication::Website::OAuth2Credential',
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Website::OAuth2Store',
+            },
+        },
+        website_cookie_login => {
+            use_session => 1,
+            credential => {
+                class => '+MusicBrainz::Server::Authentication::Website::RememberLoginCredential',
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Website::OAuth2Store',
+            },
+        },
+        webservice_oauth => {
             use_session => 0,
             credential => {
-                class => '+MusicBrainz::Server::Authentication::WS::Credential',
+                class => '+MusicBrainz::Server::Authentication::WebService::OAuth2Credential',
+            },
+            store => {
+                class => '+MusicBrainz::Server::Authentication::Store',
+            },
+        },
+        webservice_digest_auth => {
+            use_session => 0,
+            credential => {
+                class => '+MusicBrainz::Server::Authentication::WebService::HTTPDigestCredential',
                 type => 'digest',
                 password_field => 'ha1',
                 password_type => 'clear',
             },
             store => {
-                class => '+MusicBrainz::Server::Authentication::WS::Store',
+                class => '+MusicBrainz::Server::Authentication::WebService::HTTPDigestStore',
             },
         },
     },
@@ -178,7 +211,6 @@ if ($ENV{'MUSICBRAINZ_RUNNING_TESTS'}) {
     };
 } else {
     push @args, DBDefs->SESSION_STORE;
-    __PACKAGE__->config->{'Plugin::Session'} = DBDefs->SESSION_STORE_ARGS;
 }
 
 if (DBDefs->STAT_TTL) {
@@ -188,16 +220,6 @@ if (DBDefs->STAT_TTL) {
 if (DBDefs->CATALYST_DEBUG) {
     push @args, '-Debug';
 }
-
-if (DBDefs->SESSION_COOKIE) {
-    __PACKAGE__->config->{session}{cookie_name} = DBDefs->SESSION_COOKIE;
-}
-
-if (DBDefs->SESSION_DOMAIN) {
-    __PACKAGE__->config->{session}{cookie_domain} = DBDefs->SESSION_DOMAIN;
-}
-
-__PACKAGE__->config->{session}{cookie_expires} = DBDefs->WEB_SESSION_SECONDS_TO_LIVE;
 
 if (DBDefs->USE_ETAGS) {
     push @args, 'Cache::HTTP';
@@ -253,11 +275,10 @@ has relative_uri => (
     },
 );
 
-sub redirect_back {
-    my ($c, %opts) = @_;
+sub get_returnto_param {
+    my ($c, $fallback_opt) = @_;
 
     my $returnto_param = $c->req->query_params->{returnto};
-    my $fallback_opt = $opts{fallback};
 
     if (!defined $returnto_param && defined $fallback_opt) {
         $returnto_param = $c->get_relative_uri($fallback_opt);
@@ -268,15 +289,29 @@ sub redirect_back {
     if (
         $returnto eq '' ||
         # Check that we weren't given an external URL. Only URLs relative to
-        # the current domain are allowed.
+        # the current domain are allowed. Note: `scheme` is checked before
+        # `authority` because some URI schemes (`data:`) do not have an
+        # `authority` method.
+        (
+            $returnto->scheme &&
+            $returnto->scheme ne $c->req->uri->scheme
+        ) ||
         (
             $returnto->authority &&
             $returnto->authority ne $c->req->uri->authority
         )
     ) {
-        $returnto->path_query('/');
-        $returnto->fragment(undef);
+        return $c->uri_for('/');
     }
+
+    return $returnto;
+}
+
+sub redirect_back {
+    my ($c, %opts) = @_;
+
+    my $fallback_opt = $opts{fallback};
+    my $returnto = $c->get_returnto_param($fallback_opt);
 
     if (my $callback = $opts{callback}) {
         $callback->($returnto);
@@ -690,23 +725,6 @@ sub form_submitted_and_valid {
     return 1;
 }
 
-sub generate_nonce {
-    my ($self) = @_;
-
-    state $counter = 0;
-    encode_base64(
-        sha256(
-            join q(.),
-                DBDefs->NONCE_SECRET,
-                refaddr($self->req),
-                refaddr($self->res),
-                clock_gettime(CLOCK_REALTIME),
-                clock_gettime(CLOCK_MONOTONIC),
-                ($counter++)),
-        '',
-    );
-}
-
 sub get_csrf_token {
     my ($self, $session_key) = @_;
 
@@ -720,8 +738,8 @@ sub get_csrf_token {
 sub generate_csrf_token {
     my ($self) = @_;
 
-    my $session_key = 'csrf_token:' . $self->generate_nonce;
-    my $token = $self->generate_nonce;
+    my $session_key = 'csrf_token:' . generate_token();
+    my $token = generate_token();
     $self->session->{$session_key} = $token;
     $self->session_expire_key($session_key, 600); # 10 minutes
     return ($session_key, $token);
@@ -732,7 +750,7 @@ sub set_csp_headers {
 
     return if defined $self->res->header('Content-Security-Policy');
 
-    my $globals_script_nonce = $self->generate_nonce;
+    my $globals_script_nonce = generate_token();
     $self->stash->{globals_script_nonce} = $globals_script_nonce;
 
     # CSP headers are generally only added where SecureForm is also used:
@@ -766,22 +784,6 @@ sub set_csp_headers {
     );
 
     my @csp_frame_src = ('frame-src', q('self'));
-    if ($self->req->path eq 'register') {
-        my $use_captcha = (non_empty(DBDefs->MTCAPTCHA_PUBLIC_KEY) &&
-                           non_empty(DBDefs->MTCAPTCHA_PRIVATE_KEY));
-        if ($use_captcha) {
-            my $mtcaptcha_script_nonce = $self->generate_nonce;
-            $self->stash->{mtcaptcha_script_nonce} = $mtcaptcha_script_nonce;
-            push @csp_script_src, qq('nonce-$mtcaptcha_script_nonce'), qw(
-                https://service.mtcaptcha.com
-                https://service2.mtcaptcha.com
-            );
-            push @csp_frame_src, qw(
-                https://service.mtcaptcha.com
-                https://service2.mtcaptcha.com
-            );
-        }
-    }
 
     $self->res->header(
         # X-Frame-Options is obsoleted by `frame-ancestors` on the
@@ -862,7 +864,6 @@ sub TO_JSON {
         jsonld_data
         last_replication_date
         more_tags
-        mtcaptcha_script_nonce
         new_edit_notes_mtime
         number_of_collections
         number_of_revisions

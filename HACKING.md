@@ -86,6 +86,26 @@ Important folders are documented here, in alphabetical order.
 
    Where the server tests live.
 
+Accounts
+--------
+
+By default, MusicBrainz Server expects to communicate with a
+[MetaBrainz](github.com/metabrainz/metabrainz.org) server for user
+registration and authentication. That requires registering OAuth and webhook
+callbacks in the MetaBrainz admin UI, and configuring various `METABRAINZ_*`
+DBDefs settings here. It's not very realistic for a development server.
+
+For development, you can instead add `sub LOCAL_ACCOUNTS_ENABLED { 1 }` to
+lib/DBDefs.pm to enable local account registration and login.
+If you've already imported mbdump-editor.tar.bz2 or a sample database dump,
+you should be able to login as any editor using the password `mb`;
+alternatively, you can create a new account with your own password. Note that
+there's no UI to change an account's password, but you do so with the
+script `./admin/ChangePassword`.
+
+The local accounts feature doesn't have a "remember login" cookie. If you
+are frequently logged out, adjust the `SESSION_EXPIRE` DBDefs value, which
+defaults to 3 hours of inactivity.
 
 Testing
 -------

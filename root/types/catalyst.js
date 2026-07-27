@@ -70,7 +70,6 @@ declare type CatalystStashT = {
   readonly legacy_browser?: boolean,
   readonly makes_no_changes?: boolean,
   readonly more_tags?: boolean,
-  readonly mtcaptcha_script_nonce?: string,
   readonly new_edit_notes?: boolean,
   readonly new_edit_notes_mtime?: number | null,
   readonly number_of_collections?: number,
@@ -123,7 +122,6 @@ declare type SanitizedCatalystContextT = {
     readonly current_iswcs?: ReadonlyArray<string>,
     readonly current_language: string,
     readonly genre_map?: {readonly [genreName: string]: GenreT, ...},
-    readonly mtcaptcha_script_nonce?: string,
     readonly seeded_relationships?: ?ReadonlyArray<SeededRelationshipT>,
     readonly seeded_release_data?: ReleaseEditorSeedT,
     readonly series_ordering_types?:

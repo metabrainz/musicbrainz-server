@@ -9228,7 +9228,7 @@ msgstr ""
 msgid "Emerillon"
 msgstr ""
 
-#. frequency:0 iso_code_3:egl
+#. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
 msgid "Emilian"
 msgstr ""
@@ -15128,7 +15128,7 @@ msgstr ""
 msgid "Keapara"
 msgstr ""
 
-#. frequency:0 iso_code_3:meo
+#. frequency:1 iso_code_3:meo
 #: DB:language/name:4140
 msgid "Kedah Malay"
 msgstr ""

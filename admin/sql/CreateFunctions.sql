@@ -200,20 +200,6 @@ END;
 $$ LANGUAGE 'plpgsql';
 
 -----------------------------------------------------------------------
--- editor triggers
------------------------------------------------------------------------
-
-CREATE OR REPLACE FUNCTION check_editor_name() RETURNS trigger AS $$
-BEGIN
-    IF (SELECT 1 FROM old_editor_name WHERE lower(name) = lower(NEW.name))
-    THEN
-        RAISE EXCEPTION 'Attempt to use a previously-used editor name.';
-    END IF;
-    RETURN NEW;
-END;
-$$ LANGUAGE 'plpgsql';
-
------------------------------------------------------------------------
 -- event triggers
 -----------------------------------------------------------------------
 

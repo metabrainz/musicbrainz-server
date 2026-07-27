@@ -15,7 +15,6 @@ use MusicBrainz::Server::Constants qw(
     $VOTE_ADMIN_REJECT
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
-use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors SecureForm
 {
@@ -53,7 +52,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
             # user profile
             username                => $user->name,
             email                   => $user->email,
-            skip_verification       => 0,
             website                 => $user->website,
             biography               => $user->biography,
         },
@@ -76,24 +74,19 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         $c->model('Editor')->update_privileges($user, $form_values);
         $c->model('Editor')->update_profile($user, $form_values);
 
-        my %args = ( ok => 1 );
-        my $old_email = $user->email || '';
-        my $new_email = $form->field('email')->value || '';
-        if ($old_email ne $new_email) {
-            if ($new_email) {
-                if ($form->field('skip_verification')->value) {
+        if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+            my $old_email = $user->email || '';
+            my $new_email = $form->field('email')->value || '';
+            if ($old_email ne $new_email) {
+                if ($new_email) {
                     $c->model('Editor')->update_email($user, $new_email);
                     $user->email($new_email);
                     $c->forward('/discourse/sync_sso', [$user]);
                 } else {
-                    $c->controller('Account')->_send_confirmation_email($c, $user, $new_email);
-                    $args{email} = $new_email;
+                    $c->model('Editor')->update_email($user, undef);
+                    $user->email('editor-' . $user->id . '@musicbrainz.invalid');
+                    $c->forward('/discourse/sync_sso', [$user]);
                 }
-            }
-            else {
-                $c->model('Editor')->update_email($user, undef);
-                $user->email('editor-' . $user->id . '@musicbrainz.invalid');
-                $c->forward('/discourse/sync_sso', [$user]);
             }
         }
 
@@ -106,45 +99,6 @@ sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors Sec
         $c->detach;
     } else {
         $c->stash->{component_props}{form} = $form->TO_JSON;
-    }
-}
-
-sub delete_user : Path('/admin/user/delete') Args(1) RequireAuth(account_admin) HiddenOnMirrors SecureForm {
-    my ($self, $c, $name) = @_;
-
-    my $editor = $c->model('Editor')->get_by_name($name);
-    $c->detach('/user/not_found') if !$editor || $editor->deleted;
-
-    my $id = $editor->id;
-    $c->detach('/account/delete') if $c->user_exists && $c->user->id == $id;
-
-    $c->stash( user => $editor );
-
-    my $form = $c->form(form => 'Admin::DeleteUser');
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'admin/DeleteUser',
-        component_props => {
-            form => $form->TO_JSON,
-            user => $c->controller('User')->serialize_user($editor),
-        },
-    );
-
-    if ($c->form_posted_and_valid($form)) {
-        my $allow_reuse = 0;
-        $allow_reuse = 1 if $form->field('allow_reuse')->value;
-
-        $c->model('Editor')->delete($id, $allow_reuse);
-
-        $editor->name('Deleted Editor #' . $id);
-        $editor->email('editor-' . $id . '@musicbrainz.invalid');
-        $c->forward('/discourse/sync_sso', [$editor]);
-        $c->forward('/discourse/log_out', [$editor]);
-
-        $editor = $c->model('Editor')->get_by_id($id);
-        $c->response->redirect(
-            $editor ? $c->uri_for_action('/user/profile', [ $editor->name ]) : $c->uri_for('/'));
     }
 }
 
@@ -248,42 +202,6 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
     );
 }
 
-sub locked_username_search : Path('/admin/locked-usernames/search') Args(0) RequireAuth(account_admin) HiddenOnMirrors {
-    my ($self, $c) = @_;
-
-    my $form = $c->form(form => 'Admin::LockedUsernameSearch');
-    my @results;
-    my $show_results = 0;
-
-    if ($c->form_posted_and_valid($form, $c->req->body_params)) {
-        try {
-            @results = $c->model('Editor')->search_old_editor_names(
-                $form->field('username')->value // '',
-                $form->field('use_regular_expression')->value,
-            );
-            $show_results = 1;
-        } catch {
-            my $error = $_;
-            if ("$error" =~ m/invalid regular expression/) {
-                $form->field('username')->add_error('Invalid regular expression.');
-                $c->response->status(HTTP_BAD_REQUEST);
-            } else {
-                die $error;
-            }
-        };
-    }
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'admin/LockedUsernameSearch',
-        component_props => {
-            form => $form->TO_JSON,
-            @results ? (results => \@results) : (),
-            showResults => boolean_to_json($show_results),
-        },
-    );
-}
-
 sub possible_spammers : Path('/admin/possible-spammers') Args(0) RequireAuth(account_admin) {
     my ($self, $c) = @_;
 
@@ -334,28 +252,6 @@ sub privilege_search : Path('/admin/privilege-search') Args(0) RequireAuth(accou
                 ?  (pager => serialize_pager($c->stash->{pager}) )
                 : (),
             results => [map { $c->unsanitized_editor_json($_) } @$results],
-        },
-    );
-}
-
-sub unlock_username : Path('/admin/locked-usernames/unlock') Args(1) RequireAuth(account_admin) HiddenOnMirrors {
-    my ($self, $c, $username) = @_;
-
-    my $form = $c->form(form => 'SecureConfirm');
-
-    if ($c->form_posted_and_valid($form)) {
-        $c->model('MB')->with_transaction(sub {
-            $c->model('Editor')->unlock_old_editor_name($username);
-        });
-        $c->response->redirect($c->uri_for_action('/admin/locked_username_search'));
-    }
-
-    $c->stash(
-        current_view => 'Node',
-        component_path => 'admin/LockedUsernameUnlock',
-        component_props => {
-            form => $form->TO_JSON,
-            username => $username,
         },
     );
 }

@@ -9,6 +9,7 @@ use Authen::Passphrase;
 use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
+use DateTime::Format::ISO8601;
 use DateTime::Format::Pg;
 use Encode;
 use Text::Trim qw( trim );
@@ -33,6 +34,7 @@ use MusicBrainz::Server::Data::Utils qw(
     ha1_password
     hash_to_row
     load_subobjects
+    non_empty
     placeholders
     sanitize_username
 );
@@ -278,7 +280,10 @@ sub find_possible_spammers {
 
     my $unused_editors_results = $self->sql->select_list_of_hashes(
         $self->c->model('Editor')->_build_unused_editor_query() . "\n" .
+            "AND e.deleted IS false\n" .
+            "AND e.privs = ?\n" .
             'AND e.id = any(?)',
+        $BEGINNER_FLAG,
         [map { $_->id } @editors],
     );
     my %unused_editors = map { $_->{id} => 1 } @$unused_editors_results;
@@ -376,21 +381,30 @@ sub insert
     }, $self->sql);
 }
 
-sub search_old_editor_names {
-    my ($self, $name, $use_regular_expression) = @_;
+sub insert_from_metabrainz {
+    my ($self, $id, $name, $member_since) = @_;
 
-    my $condition = $use_regular_expression ? 'name ~* ?' : 'LOWER(name) = LOWER(?)';
-    my $query = "SELECT name FROM old_editor_name WHERE $condition LIMIT 100";
+    _die_if_username_invalid($name);
 
-    @{ $self->sql->select_single_column_array($query, $name) };
-}
+    die "Editor $id is missing a member_since value"
+        unless non_empty($member_since);
 
-sub unlock_old_editor_name {
-    my ($self, $name) = @_;
+    my $member_since_dt = DateTime::Format::ISO8601->parse_datetime($member_since);
+    $member_since_dt->set_time_zone('UTC');
 
-    my $query = 'DELETE FROM old_editor_name WHERE name = ?';
+    $self->sql->do(
+        <<~'SQL',
+        INSERT INTO editor (id, name, privs, member_since, password, ha1)
+            VALUES (?, ?, ?, ?, '', '')
+            ON CONFLICT (id) DO NOTHING
+        SQL
+        $id,
+        $name,
+        $BEGINNER_FLAG,
+        DateTime::Format::Pg->format_datetime($member_since_dt),
+    );
 
-    $self->sql->do($query, $name);
+    return $self->get_by_id($id);
 }
 
 sub update_email
@@ -592,9 +606,7 @@ sub _build_unused_editor_query {
             SELECT e.id, e.name
             FROM editor e
             WHERE
-        deleted IS false
-    AND privs = 8192
-    AND NOT EXISTS (SELECT 1
+        NOT EXISTS (SELECT 1
                         FROM application
                     WHERE application.owner = e.id)
     AND NOT EXISTS (SELECT 1
@@ -625,6 +637,15 @@ sub _build_unused_editor_query {
     AND NOT EXISTS (   SELECT 1
                         FROM editor_collection_collaborator ecc
                         WHERE ecc.editor = e.id)
+    AND NOT EXISTS (SELECT 1
+                      FROM autoeditor_election_vote aev
+                     WHERE aev.voter = e.id)
+    AND NOT EXISTS (SELECT 1
+                      FROM autoeditor_election ae
+                     WHERE ae.candidate = e.id
+                        OR ae.proposer = e.id
+                        OR ae.seconder_1 = e.id
+                        OR ae.seconder_2 = e.id)
     SQL
 }
 
@@ -767,16 +788,13 @@ sub editors_with_subscriptions {
 }
 
 sub delete {
-    my ($self, $editor_id, $allow_reuse) = @_;
+    my ($self, $editor_id) = @_;
     die "Invalid editor_id: $editor_id" unless $editor_id > 0;
     my $editor = $self->c->model('Editor')->get_by_id($editor_id);
+    die "Nonexistent editor_id: $editor_id" unless defined $editor;
+    return if $editor->deleted;
 
     $self->sql->begin;
-    $self->sql->do(
-        'INSERT INTO old_editor_name (name)
-         (SELECT name FROM editor WHERE id = ?)',
-        $editor_id,
-    ) unless $allow_reuse;
     $self->sql->do(
         q{UPDATE editor SET name = 'Deleted Editor #' || id,
                            password = ?,
@@ -805,32 +823,40 @@ sub delete {
     $self->c->model('Editor')->unsubscribe_to($editor_id);
     $self->c->model('Collection')->delete_editor($editor_id);
 
-    $self->c->model($_)->tags->clear($editor_id)
-        for (entities_with('tags', take => 'model'));
-
-    $self->c->model($_)->rating->clear($editor_id)
-        for (entities_with('ratings', take => 'model'));
-
     $self->c->model('Editor')->cancel_edits_and_votes($editor);
 
-    # Delete completely if they're not actually referred to by anything
-    # These AND NOT EXISTS clauses are ordered by likelihood of a row existing
-    # and whether or not they have an index to use, as postgresql will not execute
-    # the later clauses if an earlier one has already excluded the lone editor row.
-    my $should_delete = $self->sql->select_single_value(
-        'SELECT TRUE FROM editor WHERE id = ?
-         AND NOT EXISTS (SELECT TRUE FROM edit WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM edit_note WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM vote WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM annotation WHERE editor = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM autoeditor_election_vote WHERE voter = editor.id)
-         AND NOT EXISTS (SELECT TRUE FROM autoeditor_election WHERE candidate = editor.id OR proposer = editor.id OR seconder_1 = editor.id OR seconder_2 = editor.id)',
-        $editor_id);
-    if ($should_delete) {
-        $self->sql->do('DELETE FROM editor WHERE id = ?', $editor_id);
-    }
-
+    # Delete the editor completely if they're not actually referred to by
+    # anything. Otherwise they'll stay behind as "Deleted Editor #...".
+    #
+    # Tags/ratings are too expensive to delete synchronously here, and are
+    # handled by `admin/cleanup/RemoveResidualUserData` instead, which runs
+    # hourly.
+    #
+    # This means the `hard_delete_if_unreferenced` call below won't delete
+    # the editor row if only tags or ratings remain. However, the
+    # `RemoveResidualUserData` script will later attempt this hard deletion
+    # on its own.
+    $self->hard_delete_if_unreferenced($editor_id);
     $self->sql->commit;
+}
+
+sub hard_delete_if_unreferenced {
+    my ($self, @editor_ids) = @_;
+
+    my $unused_editors = $self->sql->select_list_of_hashes(
+        $self->_build_unused_editor_query() . "\n" .
+            "AND e.deleted\n" .
+            'AND e.id = any(?)',
+        \@editor_ids,
+    );
+    my @unused_editor_ids = map { $_->{id} } @$unused_editors;
+    if (@unused_editor_ids) {
+        $self->sql->do(
+            'DELETE FROM editor WHERE id = any(?)',
+            \@unused_editor_ids,
+        );
+    }
+    return;
 }
 
 sub cancel_edits_and_votes {
@@ -1079,55 +1105,11 @@ sub hash_password {
     )->as_rfc2307;
 }
 
-sub consume_remember_me_token {
-    my ($self, $user_name, $token) = @_;
-
-    my $token_key = "$user_name|$token";
-    # Expire consumed tokens in 5 minutes. This allows the case where the user
-    # has no session, and opens multiple tabs using the same remember_me token.
-    $self->store->expire($token_key, 5 * 60);
-    $self->store->exists($token_key);
-}
-
-sub allocate_remember_me_token {
-    my ($self, $user_name) = @_;
-
-    if (
-        my $normalized_name = $self->sql->select_single_value(
-            'SELECT name FROM editor WHERE lower(name) = lower(?)',
-            $user_name,
-        )
-    ) {
-        my $token = generate_token();
-
-        my $key = "$normalized_name|$token";
-        $self->store->set($key, 1);
-
-        # Expire tokens after 1 year.
-        $self->store->expire($key, 60 * 60 * 24 * 7 * 52);
-
-        return ($normalized_name, $token);
-    }
-    else {
-        return undef;
-    }
-}
-
-sub is_email_used_elsewhere {
-    my ($self, $email, $user_id) = @_;
-
-    return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM editor WHERE lower(email) = lower(?) AND id != ?', $email, $user_id);
-    return 0;
-}
-
 sub is_name_used {
     my ($self, $name) = @_;
 
     return 1 if $self->sql->select_single_value(
         'SELECT 1 FROM editor WHERE lower(name) = lower(?)', $name);
-    return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM old_editor_name WHERE lower(name) = lower(?)', $name);
     return 0;
 }
 

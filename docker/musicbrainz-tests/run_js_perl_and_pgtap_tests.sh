@@ -54,6 +54,7 @@ sudo -E -H -u musicbrainz carton exec -- prove \
     t/pgtap/* \
     t/pgtap/unused-tags/* \
     t/script/MergeDuplicateArtistCredits.t \
+    t/script/RemoveResidualUserData.t \
     t/script/BuildSitemaps.t \
     t/script/DumpJSON.t \
     t/script/ExportAllTables.t \

@@ -55,7 +55,6 @@ DROP FUNCTION b_upd_link_attribute_credit();
 DROP FUNCTION b_upd_link_attribute_text_value();
 DROP FUNCTION b_upd_recording();
 DROP FUNCTION b_upd_release_group_secondary_type_join();
-DROP FUNCTION check_editor_name();
 DROP FUNCTION check_has_dates();
 DROP FUNCTION controlled_for_whitespace(TEXT);
 DROP FUNCTION create_bounding_cube(durations INTEGER[], fuzzy INTEGER);
