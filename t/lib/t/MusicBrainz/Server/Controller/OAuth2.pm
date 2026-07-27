@@ -1064,7 +1064,7 @@ test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
         $lwp_useragent_request->($lwp, $req);
     };
 
-    $response_content->{scope} = ['tag'];
+    $response_content->{scope} = ['musicbrainz:tag'];
     $mech->get(
         '/ws/2/area/29a709d8-0320-493e-8d0c-f2c386662b7f?inc=user-tags',
         Authorization => 'Bearer meba_foo',
