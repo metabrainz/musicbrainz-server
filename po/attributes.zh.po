@@ -19,11 +19,12 @@
 # Avava_Ava <2245176012haha@gmail.com>, 2025.
 # dumbbird <dumbbirdvip@gmail.com>, 2026.
 # AgenticCommonsBot <wiki-bot@agentic-commons.org>, 2026.
+# JerryBest <jerry.for.gml@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-20 11:12+0000\n"
-"Last-Translator: AgenticCommonsBot <wiki-bot@agentic-commons.org>\n"
+"PO-Revision-Date: 2026-07-25 19:12+0000\n"
+"Last-Translator: JerryBest <jerry.for.gml@gmail.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/attributes/zh_Hans/>\n"
 "Language: zh\n"
@@ -873,14 +874,11 @@ msgstr "一系列专辑。"
 
 #. name:Series award
 #: DB:series_type/description:17
-#, fuzzy
-#| msgctxt "series_type"
-#| msgid "A series of recordings honoured by the same award."
 msgctxt "series_type"
 msgid ""
 "A series of series (such as podcasts or festivals) honoured by the same "
 "award."
-msgstr "一系列录音荣获同一个奖项。"
+msgstr "一系列的系列作品（例如播客和音乐节）荣获同一个奖项。"
 
 #. name:Series series
 #: DB:series_type/description:16
@@ -889,7 +887,7 @@ msgstr "一系列录音荣获同一个奖项。"
 #| msgid "A series of events."
 msgctxt "series_type"
 msgid "A series of series."
-msgstr "一系列活动。"
+msgstr "一系列的系列作品。"
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -1271,12 +1269,9 @@ msgid "Album"
 msgstr "专辑"
 
 #: DB:work_attribute_type/name:216
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Track"
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr "音轨"
+msgstr "所有音轨ID"
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
@@ -4721,12 +4716,9 @@ msgstr "美国著作权协会ASCAP ID"
 
 #. name:AllTrack ID
 #: DB:work_attribute_type/description:216
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the US rights society ASCAP"
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society AllTrack"
-msgstr "美国著作权协会ASCAP ID"
+msgstr "美国著作权协会AllTrack ID"
 
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
@@ -5608,9 +5600,10 @@ msgid "Live"
 msgstr "现场的"
 
 #: DB:event_art_archive.art_type/name:12
+#, fuzzy
 msgctxt "event_art_type"
 msgid "Logo"
-msgstr ""
+msgstr "Logo"
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -7766,12 +7759,9 @@ msgid "Serbest"
 msgstr "Serbest"
 
 #: DB:series_type/name:17
-#, fuzzy
-#| msgctxt "series_type"
-#| msgid "Artist award"
 msgctxt "series_type"
 msgid "Series award"
-msgstr "艺术家奖项"
+msgstr "系列奖项"
 
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
