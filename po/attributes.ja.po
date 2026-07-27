@@ -29,11 +29,13 @@
 # yyb987 <yyb987@users.noreply.translations.metabrainz.org>, 2025, 2026.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 # zatto13 <zatto0524@gmail.com>, 2026.
+# julian45 <julian45@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2026-05-21 21:12+0000\n"
-"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
+"Last-Translator: julian45 "
+"<julian45@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ja/>\n"
 "Language: ja\n"
@@ -8559,9 +8561,9 @@ msgid ""
 "singers). Smaller vocal ensembles and groupings that do not generally call "
 "themselves choirs are better entered as “Group”."
 msgstr ""
-"合唱団/合唱団（組織化された、通常は大勢の歌手のグループ）を示す。 一般に合唱"
-"団とは呼ばれない小さなボーカルアンサンブルやグループは、「グループ」として入"
-"力する方が適切である。"
+"合唱団（組織化された、通常は大勢の歌手のグループ）を示す。 一般に合唱団とは呼"
+"ばれない小さなボーカルアンサンブルやグループは、「グループ」として入力する方"
+"が適切である。"
 
 #. name:Character
 #: DB:artist_type/description:4

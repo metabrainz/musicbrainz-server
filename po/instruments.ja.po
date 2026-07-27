@@ -17,11 +17,13 @@
 # Arainuki <esetipodealla@gmail.com>, 2024.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 # zatto13 <zatto0524@gmail.com>, 2026.
+# julian45 <julian45@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-21 21:12+0000\n"
-"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
+"PO-Revision-Date: 2026-05-22 02:12+0000\n"
+"Last-Translator: julian45 "
+"<julian45@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ja/>\n"
 "Language: ja\n"
@@ -304,7 +306,7 @@ msgstr "アコーディナ"
 #: DB:instrument/name:41
 msgctxt "Commonly used bellowed free reed with keys/buttons"
 msgid "accordion"
-msgstr "アコーディオン"
+msgstr "手風琴"
 
 #: DB:instrument/name:50
 msgid "acoustic bass guitar"
