@@ -1,10 +1,11 @@
 # BestSteve <ibmibmibm.tw@gmail.com>, 2024, 2026.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
+# jerry155756294 <a155750130@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-01-28 17:11+0000\n"
-"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
+"PO-Revision-Date: 2026-06-18 21:12+0000\n"
+"Last-Translator: jerry155756294 <a155750130@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
 "zh_Hant/>\n"
@@ -13,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1337,6 +1338,8 @@ msgid ""
 "strings and specialised bridge so the sound will resemble sitar, it became "
 "popular in rock, jazz and fusion music after its invention in the 1960's."
 msgstr ""
+"具有標準指板與調音的電吉他，但增加了共鳴弦與特殊琴橋，使音色類似於西塔琴。在 "
+"1960 年代發明後，便在搖滾、爵士和融合音樂中流行起來。"
 
 #. name:electric fretless guitar
 #: DB:instrument/description:538
@@ -1425,10 +1428,8 @@ msgstr ""
 
 #. name:ruan
 #: DB:instrument/description:545
-#, fuzzy
-#| msgid "Ruan is a family of Chinese plucked lutes."
 msgid "Family of Chinese plucked lutes."
-msgstr "阮是一族中國彈撥魯特琴。"
+msgstr "中國彈撥樂器家族。"
 
 #. name:hmông flute
 #: DB:instrument/description:312
@@ -1681,6 +1682,10 @@ msgid ""
 "veena</a>.<br /> Created as a modified Hawaiian or lapsteel guitar, it has "
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
+"有關 Radhika Mohan Maitra 於 1940 年代製作的改良版薩羅德琴，請參閱<a href=\"/"
+"instrument/198ecbd1-48fa-43cc-bda9-370206689074\">「Radhika 的 Mohan 維納琴"
+"」</a>.<br />。此樂器由夏威夷吉他（Hawaiian guitar）或滑棒吉他（lap steel "
+"guitar）改良而成，配有 19 至 21 根琴弦，並在琴頸上加裝葫蘆共鳴箱。"
 
 #. name:Radhika's Mohan veena
 #: DB:instrument/description:1211
@@ -1691,6 +1696,11 @@ msgid ""
 "1940s, it has a wooden soundbox cover (like sitar), an extra neck resonator "
 "(like veena) and the fretboard from the sarod."
 msgstr ""
+"關於由 Vishwa Mohan Bhatt 於 1990 年代創製的改良式滑棒吉他，請參閱 <a "
+"href=\"/instrument/9a2b6ae1-a5fb-42ab-b18c-9985e8b606c4\">Bhatt 的 Mohan 維納"
+"琴</a>。<br />此樂器由 Radhika Maitra 於 1940 年代以改良式薩羅德琴創製，具有"
+"木製共鳴箱面板（類似西塔琴）、額外的琴頸共鳴器（類似維納琴），以及源自薩羅德"
+"琴的指板。"
 
 #. name:tumbi
 #: DB:instrument/description:511
@@ -1700,6 +1710,9 @@ msgid ""
 "in Punjabi folk and devotional music, it has a single string over a long "
 "wooden neck that pierces the tiny parchment covered soundbox."
 msgstr ""
+"關於亦稱為 ektar／ektara 的單弦鼓齊特琴，請參閱 <a href=\"/instrument/"
+"ba30c0de-373c-44e4-ac28-594c4f316ab0\">gopichant</a>。<br />此樂器用於旁遮普"
+"民間音樂與虔敬音樂，具有一根琴弦，橫跨穿過覆有皮膜的小型共鳴箱的長木製琴頸。"
 
 #. name:gopichant
 #: DB:instrument/description:643
@@ -1712,6 +1725,11 @@ msgid ""
 "at the bottom. Attached to the sides is a neck of split bamboo from which a "
 "single string is suspended and attached to the membrane."
 msgstr ""
+"關於同樣被稱為 ektar／ektara 的單弦魯特琴，請參閱 <a href=\"/instrument/"
+"b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。<br /> 關於外觀相似但僅有一"
+"根支桿的樂器，請參閱 tun tuna。<br /> 請勿與古代印度單弦琴 ekatantri veena 混"
+"淆。<br /> 此樂器具有由木材或椰子殼製成的小型圓形或梯形琴身，底部覆有膜面。琴"
+"身兩側連接一支由剖開竹子製成的琴頸，一根琴弦懸掛其間，並固定於膜面上。"
 
 #. name:tun tuna
 #: DB:instrument/description:1210
@@ -1723,6 +1741,11 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
+"關於單弦雙支桿鼓齊特琴，請參閱 <a href=\"/instrument/ba30c0de-373c-44e4-ac28-"
+"594c4f316ab0\">gopichant</a>。<br /> 關於旁遮普單弦魯特琴，請參閱 <a href=\"/"
+"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。<br /> 此樂器為 "
+"Bhil、Kukna 與 Worli 等部族所使用，具有圓柱形共鳴箱，一根金屬弦穿過共鳴箱，連"
+"接支桿狀琴頸與底部的膜面。"
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -2905,7 +2928,7 @@ msgstr "用於各種音樂類型的金屬鈴，通常附在鼓組上。"
 #. name:bajo sexto
 #: DB:instrument/description:728
 msgid "Mexican 6 course 12 string bass"
-msgstr ""
+msgstr "墨西哥六組十二弦低音提琴"
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -3131,19 +3154,15 @@ msgstr ""
 
 #. name:bazooka
 #: DB:instrument/description:741
-#, fuzzy
-#| msgid ""
-#| "Large wide tube with a very strongly flaring bell, the telescoping "
-#| "creates only subtle fluctuating overtones. It inspired the name of the "
-#| "anti-tank weapon."
 msgid ""
 "Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
 "cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
 "flaring bell, the telescoping creates only subtle fluctuating overtones. It "
 "inspired the name of the anti-tank weapon."
 msgstr ""
-"附有開口很大的喇叭口的粗大管，伸縮式設計僅能產生微弱的波動泛音。反坦克武器巴"
-"祖卡火箭筒由此得名。"
+"請勿與 <a href=\"instrument/2091cdd2-7953-453f-a29e-cfcbf5140d44\">bouzouki</"
+"a> 混淆。</br>此樂器具有寬大的管身與極度外張的喇叭口，伸縮演奏時僅會產生細微"
+"變化的泛音。反坦克武器「火箭筒」的名稱便源自於此樂器。"
 
 #. name:mezwed
 #: DB:instrument/description:1209
@@ -3208,6 +3227,10 @@ msgid ""
 "synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
 "using recording samples."
 msgstr ""
+"請勿與由風箱驅動的類比式 <a href=\"/instrument/e6b016f0-61bf-4c5b-99c4-"
+"8f8724ad12b5\">shruti box</a> 或弦樂器 <a href=\"/instrument/a19ae157-702a-"
+"40c6-892f-9bcb97328b7b\">tanpura</a> 混淆。<br /> 此電子合成器由 G. Raj "
+"Narayan 先生於 1979 年發明。到了 1990 年代，相關型號已採用錄音取樣技術。"
 
 #. name:khamak
 #: DB:instrument/description:1215
@@ -3221,6 +3244,12 @@ msgid ""
 "underneath an arm, attached to the membrane is a single string which is "
 "plucked with a pick. It is known by many names."
 msgstr ""
+"請勿與雙叉式的 <a href=\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">"
+"gopiyantra/gopichan</a>、概念相似的 <a href=\"/instrument/068b3fc6-c11f-4ae7-"
+"bd85-ca5725b2b9f4\">tuntuna</a>、類似 dotara 的 tokari 或 pulluvan kudam 混淆"
+"。<br />此樂器用於孟加拉、奧迪沙及印度東北部的民間音樂，其共鳴箱為鼓狀木製圓"
+"筒，一端覆有膜面並夾於手臂下方；連接於膜面的是一根單弦，以撥片彈奏。它有許多"
+"不同的名稱。"
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -4199,6 +4228,9 @@ msgid ""
 "pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
+"由實心金屬棒（通常為鋁製）懸掛於橫桿上組成，並調校為非諧和音高。<br /> 請勿與"
+"獨立式、類似鐘琴的 <a href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-"
+"83e17bde9816\">chime bar(s)</a> 混淆。"
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4282,6 +4314,8 @@ msgid ""
 "samurai, it has four strings and elevated frets, a large plectrum called "
 "Bachi is used."
 msgstr ""
+"據說它是在毛琵琶的基礎上改良而成，旨在增強武士的戰鬥力。它有四根琴弦和高高的"
+"琴格，使用一種叫做「撥子」的大撥片。"
 
 #. name:glass harmonica
 #: DB:instrument/description:285
@@ -4305,10 +4339,8 @@ msgstr "踢踏舞是一種舞蹈，舞者們使用特殊的舞鞋在腳打擊地
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
-msgstr "中國阮族的低音種類。"
+msgstr "中國阮族魯特琴中的次中音成員。"
 
 #. name:primero
 #: DB:instrument/description:758
@@ -5390,6 +5422,8 @@ msgid ""
 "horn-plectrum. Used in southern India since ancient times, it is essentially "
 "a bass rabab."
 msgstr ""
+"覆有皮膜的深木製共鳴箱配有雕刻成鸚鵡造型的琴頸，以及以腸線製成的琴橋；設有三"
+"組雙絲弦，以角質撥片彈奏。自古以來即用於印度南部，本質上屬於低音拉巴布琴。"
 
 #. name:kendang lanang
 #: DB:instrument/description:994
@@ -5994,6 +6028,9 @@ msgid ""
 "skin covered resonator shaped like a boat, but there are versions shaped "
 "like peacocks, fish and even the monster Makara."
 msgstr ""
+"至少自 2200 年前起即為達羅毗荼泰米爾人所使用，但到了 7 世紀已逐漸停用。其具有"
+"彎曲的烏木琴頸，腸線琴弦架設於覆有皮膜、船形的共鳴箱之上；此外亦有孔雀形、魚"
+"形，甚至神話生物摩羯造型的版本。"
 
 #. name:Magyar duda
 #: DB:instrument/description:1200
@@ -6025,7 +6062,7 @@ msgstr "由喀喇崑崙和艾馬拉人使用，這是一種有5根弦和10根弦
 msgid ""
 "Used ceremonially all over the world, they are clay, wood or metal pots "
 "containing water, with an animal hide membrane."
-msgstr ""
+msgstr "用於世界各地的儀式中，它們是裝有水的黏土、木頭或金屬罐，並帶有動物皮膜。"
 
 #. name:swarmandal
 #: DB:instrument/description:716
@@ -6092,7 +6129,7 @@ msgstr ""
 msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
-msgstr ""
+msgstr "用於格納瓦音樂，由兩個大型鐵製構件組成，其圓形凹面部分相互連接成對使用。"
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -6326,11 +6363,8 @@ msgstr ""
 
 #. name:nabal
 #: DB:instrument/description:684
-#, fuzzy
-#| msgid ""
-#| "Used in traditional Andes music, it consists of a single row of pipes."
 msgid "Used in traditional music, it's long and straight."
-msgstr "在傳統的安地斯音樂中使用，它由一排管子組成。"
+msgstr "用於傳統音樂中，它又長又直。"
 
 #. name:turntable
 #: DB:instrument/description:181
@@ -6387,6 +6421,8 @@ msgid ""
 "Used since medieval times in Karnatakan folk music, it has 3 resonators made "
 "of calabash. It is similar to the ancient bin."
 msgstr ""
+"自中世紀以來即用於卡納塔克民間音樂，設有三個葫蘆製共鳴器，與古代的 bin 樂器形"
+"制相近。"
 
 #. name:somu dūdas
 #: DB:instrument/description:1198

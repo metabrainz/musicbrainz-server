@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-05 22:11+0000\n"
-"Last-Translator: Lise Andersen <andersenlise@outlook.com>\n"
+"PO-Revision-Date: 2026-06-13 08:12+0000\n"
+"Last-Translator: Lummerkurt <sondergaard1993@gmail.com>\n"
 "Language-Team: Danish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/da/>\n"
 "Language: da\n"
@@ -13,15 +13,15 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr "\"Do Not Cluster\"-guideline fravalgt"
+msgstr "Retningslinjen \"Undgå klyngedannelse\" er fjernet"
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr ""
+msgstr "\"feat.\" standardisering droppet"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"

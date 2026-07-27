@@ -670,6 +670,11 @@ msgstr "דזונקה"
 msgid "Eastern Arrernte"
 msgstr "מזרח אררנטית"
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -689,6 +694,13 @@ msgstr "אקאז'וקית"
 #: DB:language/name:119
 msgid "Elamite"
 msgstr "עילמית"
+
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Sicilian"
+msgid "Emilian"
+msgstr "סיציליאנית"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1105,6 +1117,13 @@ msgstr "אינטרלינגואה"
 msgid "Interlingue"
 msgstr "אינטרלינגו"
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+#, fuzzy
+#| msgid "Interlingua"
+msgid "Interslavic"
+msgstr "אינטרלינגואה"
+
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
@@ -1255,6 +1274,13 @@ msgstr "קאווי"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "קזחית"
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+#, fuzzy
+#| msgid "Malay"
+msgid "Kedah Malay"
+msgstr "מלאית"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1769,6 +1795,11 @@ msgstr "נדונגה"
 msgid "Neapolitan"
 msgstr "נאפוליטן"
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1778,6 +1809,11 @@ msgstr "נפאל באסה"
 #: DB:language/name:300
 msgid "Nepali"
 msgstr "נפאלית"
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
+msgstr ""
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1938,6 +1974,11 @@ msgstr "פאפיאמנטו"
 #: DB:language/name:326
 msgid "Papuan languages"
 msgstr "שפות פאפואניות"
+
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
+msgstr ""
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
