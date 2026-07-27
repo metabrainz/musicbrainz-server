@@ -1,11 +1,11 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 # Weblate Translation Memory <noreply-mt-weblate-translation-memory@weblate.org>, 2026.
+# Jeluang <adli98@yahoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-06-27 21:13+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
+"PO-Revision-Date: 2026-06-30 15:12+0000\n"
+"Last-Translator: Jeluang <adli98@yahoo.com>\n"
 "Language-Team: Malay <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ms/>\n"
 "Language: ms\n"
@@ -110,8 +110,9 @@ msgstr "Halaman Allmusic"
 
 #. name:apple music
 #: DB:link_type/link_phrase:1131 DB:link_type/link_phrase:1130
+#, fuzzy
 msgid "Apple Music"
-msgstr ""
+msgstr "Apple Music"
 
 #. name:apple music
 #: DB:link_type/reverse_link_phrase:1131 DB:link_type/reverse_link_phrase:1130
