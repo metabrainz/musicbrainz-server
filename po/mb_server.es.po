@@ -47,7 +47,7 @@
 # yvanz, 2018
 # reosarevok <reosarevok@gmail.com>, 2023.
 # Yllelder <yllelder@gmail.com>, 2023.
-# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024, 2026.
 # 0x1026 <me@hugovidafe.dev>, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # eigenric <ricardoruizfdez@gmail.com>, 2024.
@@ -59,8 +59,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-29 18:37-0500\n"
-"PO-Revision-Date: 2026-02-13 07:11+0000\n"
-"Last-Translator: ShimiDoki <shimitv123@gmail.com>\n"
+"PO-Revision-Date: 2026-07-14 18:12+0000\n"
+"Last-Translator: reosarevok "
+"<reosarevok@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/es/>\n"
 "Language: es\n"
@@ -69,7 +70,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3630,7 +3631,7 @@ msgstr "Usar títulos de las pistas"
 
 #: ../root/event/add_event_art.tt:81 ../root/release/add_cover_art.tt:81
 msgid "Validating file..."
-msgstr "Validando archivo..."
+msgstr "Convalidando archivo..."
 
 #: ../root/recording/edit_form.tt:43
 #: ../root/edit/details/AddStandaloneRecording.js:59
@@ -15177,7 +15178,7 @@ msgstr ""
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:92
 msgid "Callback URI"
-msgstr "URI de callback"
+msgstr "URI de devolución de llamada"
 
 #: ../root/static/scripts/account/components/ApplicationForm.js:100
 msgid ""
@@ -15185,9 +15186,9 @@ msgid ""
 "be a custom reverse-DNS string, as in <code>org.example.app://auth</code>, "
 "for installed applications."
 msgstr ""
-"La URI de callback es opcional para las aplicaciones instaladas, pero si la "
-"utilizas debe ser una cadena de DNS inversa, como en <code>org.example.app://"
-"auth</code>."
+"La URI de devolución de llamada es opcional para las aplicaciones "
+"instaladas, pero si la utilizas debe ser una cadena de DNS inversa, como en "
+"<code>org.example.app://auth</code>."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:106
 #: ../root/user/UserProfile.js:283
