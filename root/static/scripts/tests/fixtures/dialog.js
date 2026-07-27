@@ -19,12 +19,12 @@ const container = document.createElement('div');
 document.body?.insertBefore(container, document.getElementById('page'));
 
 type ActionT =
-  | {+open: boolean, +type: 'toggle-modal'}
-  | {+open: boolean, +type: 'toggle-popover'};
+  | {readonly open: boolean, readonly type: 'toggle-modal'}
+  | {readonly open: boolean, readonly type: 'toggle-popover'};
 
 type StateT = {
-  +isModalOpen: boolean,
-  +isPopoverOpen: boolean,
+  readonly isModalOpen: boolean,
+  readonly isPopoverOpen: boolean,
 };
 
 function reducer(state: StateT, action: ActionT) {

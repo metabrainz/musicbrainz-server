@@ -486,6 +486,7 @@ sub toggle_search_indexing {
         SQL
 
     if ($sir_schema_exists) {
+        $sql->auto_commit(1);
         $sql->do(
             'UPDATE sir.control SET indexing_enabled = ?',
             $enabled,

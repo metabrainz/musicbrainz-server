@@ -22,7 +22,7 @@ import type {EditArtistCreditFormT} from './types.js';
 component SplitArtist(
   artist: ArtistT,
   artistCredit: ArtistCreditT,
-  collaborators: $ReadOnlyArray<ArtistT>,
+  collaborators: ReadonlyArray<ArtistT>,
   form: EditArtistCreditFormT,
   inUse: boolean,
 ) {

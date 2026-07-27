@@ -33,9 +33,9 @@ function areArtistCreditNamesEqual(
 }
 
 type ArtistLinkProps = {
-  +content?: Expand2ReactOutput,
-  +credit: ArtistCreditNameT,
-  +nameVariation?: boolean,
+  readonly content?: Expand2ReactOutput,
+  readonly credit: ArtistCreditNameT,
+  readonly nameVariation?: boolean,
 };
 
 const ArtistLink = ({content, credit, nameVariation}: ArtistLinkProps) => (

@@ -56,7 +56,7 @@ component CDTocRow(
 
 component DiscIds(
   hasCDTocs: boolean,
-  mediumCDTocs: $ReadOnlyArray<MediumCDTocT>,
+  mediumCDTocs: ReadonlyArray<MediumCDTocT>,
   release: ReleaseT,
 ) {
   const $c = React.useContext(CatalystContext);

@@ -18,7 +18,7 @@ component QuickLinks(
   entity?: EditableEntityT | CollectionT,
   isSearch: boolean = false,
   page: string,
-  refineUrlArgs?: {+[argument: string]: string},
+  refineUrlArgs?: {readonly [argument: string]: string},
   username?: string,
 ) {
   const $c = React.useContext(CatalystContext);

@@ -11,20 +11,20 @@ import {MakeVotable} from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 
 type EditPreviewT = {
-  +editHash: string,
-  +editName: string,
-  +preview: string,
+  readonly editHash: string,
+  readonly editName: string,
+  readonly preview: string,
   ...
 };
 
 type ReleaseEditorFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
   ...
 }>;
 
 component EditNoteTab(
-  editPreviews?: $ReadOnlyArray<EditPreviewT> = [],
+  editPreviews?: ReadonlyArray<EditPreviewT> = [],
   editsExist?: boolean = false,
   errorsExist?: boolean = false,
   form?: ReleaseEditorFormT | null = null,

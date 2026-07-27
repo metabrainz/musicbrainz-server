@@ -106,7 +106,7 @@ export function getEditStatusClass(edit: GenericEditWithIdT): string {
 export function getVotesForEditor(
   edit: GenericEditWithIdT,
   editor: UnsanitizedEditorT,
-): $ReadOnlyArray<VoteT> {
+): ReadonlyArray<VoteT> {
   return edit.votes.filter(v => v.editor_id === editor.id);
 }
 

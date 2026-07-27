@@ -8,13 +8,13 @@
  */
 
 export type EventFormT = FormT<{
-  +cancelled: FieldT<boolean>,
-  +comment: FieldT<string>,
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +name: FieldT<string | null>,
-  +period: DatePeriodFieldT,
-  +setlist: FieldT<string>,
-  +time: FieldT<string>,
-  +type_id: FieldT<string>,
+  readonly cancelled: FieldT<boolean>,
+  readonly comment: FieldT<string>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly name: FieldT<string | null>,
+  readonly period: DatePeriodFieldT,
+  readonly setlist: FieldT<string>,
+  readonly time: FieldT<string>,
+  readonly type_id: FieldT<string>,
 }>;

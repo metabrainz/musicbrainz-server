@@ -12,84 +12,84 @@ import FieldErrors from '../../edit/components/FieldErrors.js';
 import SelectField from './SelectField.js';
 
 type GenericFilterFormFieldsT = {
-  +disambiguation: FieldT<string>,
-  +name: FieldT<string>,
+  readonly disambiguation: FieldT<string>,
+  readonly name: FieldT<string>,
 };
 
 type EventFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
-  +setlist: FieldT<string>,
-  +type_id: FieldT<number>,
+  readonly setlist: FieldT<string>,
+  readonly type_id: FieldT<number>,
 }>;
 
-export type EventFilterT = $ReadOnly<{
+export type EventFilterT = Readonly<{
   ...EventFilterFormT,
-  +entity_type: 'event',
-  +options_type_id: SelectOptionsT,
+  readonly entity_type: 'event',
+  readonly options_type_id: SelectOptionsT,
 }>;
 
 type RecordingFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
-  +artist_credit_id: FieldT<number>,
-  +hide_bootlegs: FieldT<boolean>,
-  +video: FieldT<number>,
-  +works: FieldT<number>,
+  readonly artist_credit_id: FieldT<number>,
+  readonly hide_bootlegs: FieldT<boolean>,
+  readonly video: FieldT<number>,
+  readonly works: FieldT<number>,
 }>;
 
-export type RecordingFilterT = $ReadOnly<{
+export type RecordingFilterT = Readonly<{
   ...RecordingFilterFormT,
-  +entity_type: 'recording',
-  +options_artist_credit_id: SelectOptionsT,
-  +options_video: SelectOptionsT,
-  +options_works: SelectOptionsT,
+  readonly entity_type: 'recording',
+  readonly options_artist_credit_id: SelectOptionsT,
+  readonly options_video: SelectOptionsT,
+  readonly options_works: SelectOptionsT,
 }>;
 
 type ReleaseFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
-  +artist_credit_id: FieldT<number>,
-  +country_id: FieldT<number>,
-  +date: FieldT<string>,
-  +label_id: FieldT<number>,
-  +status_id: FieldT<number>,
+  readonly artist_credit_id: FieldT<number>,
+  readonly country_id: FieldT<number>,
+  readonly date: FieldT<string>,
+  readonly label_id: FieldT<number>,
+  readonly status_id: FieldT<number>,
 }>;
 
-export type ReleaseFilterT = $ReadOnly<{
+export type ReleaseFilterT = Readonly<{
   ...ReleaseFilterFormT,
-  +entity_type: 'release',
-  +options_artist_credit_id: SelectOptionsT,
-  +options_country_id: SelectOptionsT,
-  +options_label_id: SelectOptionsT,
-  +options_status_id: SelectOptionsT,
+  readonly entity_type: 'release',
+  readonly options_artist_credit_id: SelectOptionsT,
+  readonly options_country_id: SelectOptionsT,
+  readonly options_label_id: SelectOptionsT,
+  readonly options_status_id: SelectOptionsT,
 }>;
 
 type ReleaseGroupFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
-  +artist_credit_id: FieldT<number>,
-  +secondary_type_id: FieldT<number>,
-  +type_id: FieldT<number>,
+  readonly artist_credit_id: FieldT<number>,
+  readonly secondary_type_id: FieldT<number>,
+  readonly type_id: FieldT<number>,
 }>;
 
-export type ReleaseGroupFilterT = $ReadOnly<{
+export type ReleaseGroupFilterT = Readonly<{
   ...ReleaseGroupFilterFormT,
-  +entity_type: 'release_group',
-  +options_artist_credit_id: SelectOptionsT,
-  +options_secondary_type_id: SelectOptionsT,
-  +options_type_id: SelectOptionsT,
+  readonly entity_type: 'release_group',
+  readonly options_artist_credit_id: SelectOptionsT,
+  readonly options_secondary_type_id: SelectOptionsT,
+  readonly options_type_id: SelectOptionsT,
 }>;
 
 type WorkFilterFormT = FormT<{
   ...GenericFilterFormFieldsT,
-  +language_id: FieldT<number>,
-  +role_type: FieldT<number>,
-  +type_id: FieldT<number>,
+  readonly language_id: FieldT<number>,
+  readonly role_type: FieldT<number>,
+  readonly type_id: FieldT<number>,
 }>;
 
-export type WorkFilterT = $ReadOnly<{
+export type WorkFilterT = Readonly<{
   ...WorkFilterFormT,
-  +entity_type: 'work',
-  +options_language_id: SelectOptionsT,
-  +options_role_type: SelectOptionsT,
-  +options_type_id: SelectOptionsT,
+  readonly entity_type: 'work',
+  readonly options_language_id: SelectOptionsT,
+  readonly options_role_type: SelectOptionsT,
+  readonly options_type_id: SelectOptionsT,
 }>;
 
 export type FilterFormT =

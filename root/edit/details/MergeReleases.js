@@ -196,8 +196,8 @@ function buildRecordingMergeRow(
 }
 
 function getHtmlVars(
-  vars: {+[var: string]: string},
-): {+[var: string]: Expand2ReactOutput} {
+  vars: {readonly [var: string]: string},
+): {readonly [var: string]: Expand2ReactOutput} {
   if (!vars || Object.keys(vars).length === 0) {
     return vars;
   }

@@ -10,16 +10,16 @@
 /* eslint-disable no-unused-vars */
 
 declare type CritiqueBrainzUserT = {
-  +id: string,
-  +name: string,
+  readonly id: string,
+  readonly name: string,
 };
 
 declare type CritiqueBrainzReviewT = {
-  +author: CritiqueBrainzUserT,
-  +body: string,
-  +created: string,
-  +id: string,
-  +rating: number | null,
+  readonly author: CritiqueBrainzUserT,
+  readonly body: string,
+  readonly created: string,
+  readonly id: string,
+  readonly rating: number | null,
 };
 
 declare type ReviewableT =
@@ -32,5 +32,5 @@ declare type ReviewableT =
   | WorkT;
 
 declare type ReviewableRoleT = {
-  +review_count?: number,
+  readonly review_count?: number,
 };

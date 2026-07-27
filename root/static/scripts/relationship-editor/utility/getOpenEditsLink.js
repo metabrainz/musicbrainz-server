@@ -10,8 +10,8 @@
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 
 export type RelationshipEntityPropertiesT ={
-  +entity0: RelatableEntityT | null,
-  +entity1: RelatableEntityT | null,
+  readonly entity0: RelatableEntityT | null,
+  readonly entity1: RelatableEntityT | null,
   ...
 };
 

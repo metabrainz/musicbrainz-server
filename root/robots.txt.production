@@ -28,6 +28,7 @@ Disallow: /tag/
 Disallow: /taglookup
 Disallow: /tags
 Disallow: /test/
+Disallow: /toggle-legacy-browser
 Disallow: /tops/
 Disallow: /track/
 Disallow: /url/

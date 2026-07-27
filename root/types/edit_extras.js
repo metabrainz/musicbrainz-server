@@ -11,40 +11,40 @@
 
 // EditMedium
 declare type TracklistChangesAddT = {
-  +change_type: '+',
-  +new_track: TrackWithRecordingT,
-  +old_track: null,
+  readonly change_type: '+',
+  readonly new_track: TrackWithRecordingT,
+  readonly old_track: null,
 };
 
 declare type TracklistChangesChangeT = {
-  +change_type: 'c' | 'u',
-  +new_track: TrackWithRecordingT,
-  +old_track: TrackWithRecordingT,
+  readonly change_type: 'c' | 'u',
+  readonly new_track: TrackWithRecordingT,
+  readonly old_track: TrackWithRecordingT,
 };
 
 declare type TracklistChangesRemoveT = {
-  +change_type: '-',
-  +new_track: null,
-  +old_track: TrackWithRecordingT,
+  readonly change_type: '-',
+  readonly new_track: null,
+  readonly old_track: TrackWithRecordingT,
 };
 
 // EditReleaseEvents (historic)
 declare type OldReleaseEventCompT = {
-  +barcode: CompT<string | null>,
-  +catalog_number: CompT<string | null>,
-  +country?: CompT<AreaT>,
-  +date: CompT<PartialDateT>,
-  +format: CompT<MediumFormatT | null>,
-  +label?: CompT<LabelT>,
-  +release: ReleaseT | null,
+  readonly barcode: CompT<string | null>,
+  readonly catalog_number: CompT<string | null>,
+  readonly country?: CompT<AreaT>,
+  readonly date: CompT<PartialDateT>,
+  readonly format: CompT<MediumFormatT | null>,
+  readonly label?: CompT<LabelT>,
+  readonly release: ReleaseT | null,
 };
 
 declare type OldReleaseEventT = {
-  +barcode: string | null,
-  +catalog_number: string | null,
-  +country?: AreaT,
-  +date: PartialDateT,
-  +format: MediumFormatT | null,
-  +label?: LabelT,
-  +release: ReleaseT | null,
+  readonly barcode: string | null,
+  readonly catalog_number: string | null,
+  readonly country?: AreaT,
+  readonly date: PartialDateT,
+  readonly format: MediumFormatT | null,
+  readonly label?: LabelT,
+  readonly release: ReleaseT | null,
 };

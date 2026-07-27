@@ -10,10 +10,10 @@
 import AliasTableRow from './AliasTableRow.js';
 
 component AliasTableBody(
-  aliases: $ReadOnlyArray<AnyAliasT>,
+  aliases: ReadonlyArray<AnyAliasT>,
   ...rowProps: {
-    +allowEditing: boolean,
-    +entity: EntityWithAliasesT,
+    readonly allowEditing: boolean,
+    readonly entity: EntityWithAliasesT,
   }
  ) {
   const aliasRows = [];

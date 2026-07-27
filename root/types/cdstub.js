@@ -10,28 +10,28 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::CDStub::TO_JSON
-declare type CDStubT = $ReadOnly<{
+declare type CDStubT = Readonly<{
   ...EntityRoleT<'cdstub'>,
-  +artist: string,
-  +barcode: string,
-  +comment?: string,
+  readonly artist: string,
+  readonly barcode: string,
+  readonly comment?: string,
   // null properties are not present in search indexes
-  +date_added: string | null,
-  +discid: string,
-  +last_modified: string | null,
-  +leadout_offset: number | null,
-  +lookup_count: number | null,
-  +modify_count: number | null,
-  +title: string,
-  +toc: string | null,
-  +track_count: number,
-  +track_offset: $ReadOnlyArray<number> | null,
-  +tracks: $ReadOnlyArray<CDStubTrackT>,
+  readonly date_added: string | null,
+  readonly discid: string,
+  readonly last_modified: string | null,
+  readonly leadout_offset: number | null,
+  readonly lookup_count: number | null,
+  readonly modify_count: number | null,
+  readonly title: string,
+  readonly toc: string | null,
+  readonly track_count: number,
+  readonly track_offset: ReadonlyArray<number> | null,
+  readonly tracks: ReadonlyArray<CDStubTrackT>,
 }>;
 
-declare type CDStubTrackT = $ReadOnly<{
-  +artist: string,
-  +length: number,
-  +sequence: number,
-  +title: string,
+declare type CDStubTrackT = Readonly<{
+  readonly artist: string,
+  readonly length: number,
+  readonly sequence: number,
+  readonly title: string,
 }>;

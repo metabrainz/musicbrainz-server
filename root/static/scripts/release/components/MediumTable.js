@@ -25,7 +25,7 @@ component _MediumTable(
   medium: MediumWithRecordingsT,
   noScript: boolean,
   release: ReleaseWithMediumsT,
-  tracks: $ReadOnlyArray<TrackWithRecordingT> | null,
+  tracks: ReadonlyArray<TrackWithRecordingT> | null,
 ) {
   const tableVars = usePagedMediumTable({
     dispatch,

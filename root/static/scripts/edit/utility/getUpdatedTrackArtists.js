@@ -16,8 +16,8 @@ import {cloneArrayDeep} from '../../common/utility/cloneDeep.mjs';
  * If n is 0 or negative, compares the entire arrays.
  */
 const sameEntities = (
-  a: $ReadOnlyArray<ArtistCreditNameT>,
-  b: $ReadOnlyArray<ArtistCreditNameT>,
+  a: ReadonlyArray<ArtistCreditNameT>,
+  b: ReadonlyArray<ArtistCreditNameT>,
   n: number,
 ): boolean => arraysEqual(
   n > 0 ? a.slice(0, n) : a,
@@ -31,10 +31,10 @@ const sameEntities = (
  * replaced names unless the new join phrase is the end of the artist credit.
  */
 const replacePrefix = (
-  orig: $ReadOnlyArray<ArtistCreditNameT>,
+  orig: ReadonlyArray<ArtistCreditNameT>,
   numToReplace: number,
-  replacement: $ReadOnlyArray<ArtistCreditNameT>,
-): $ReadOnlyArray<ArtistCreditNameT> => {
+  replacement: ReadonlyArray<ArtistCreditNameT>,
+): ReadonlyArray<ArtistCreditNameT> => {
   const extraOriginalArtists = orig.slice(numToReplace);
   const updated = cloneArrayDeep(replacement).concat(extraOriginalArtists);
   const isFullReplacement = extraOriginalArtists.length === 0;
@@ -55,10 +55,10 @@ const replacePrefix = (
  * array is returned.
  */
 export default function getUpdatedTrackArtists(
-  trackArtists: $ReadOnlyArray<ArtistCreditNameT>,
-  oldArtists: $ReadOnlyArray<ArtistCreditNameT>,
-  newArtists: $ReadOnlyArray<ArtistCreditNameT>,
-): $ReadOnlyArray<ArtistCreditNameT> {
+  trackArtists: ReadonlyArray<ArtistCreditNameT>,
+  oldArtists: ReadonlyArray<ArtistCreditNameT>,
+  newArtists: ReadonlyArray<ArtistCreditNameT>,
+): ReadonlyArray<ArtistCreditNameT> {
   /**
    * If all or a prefix of the track's credits are rendered the same way as
    * the old release's, update the matching portion to use the new release's

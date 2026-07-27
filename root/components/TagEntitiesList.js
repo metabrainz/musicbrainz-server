@@ -20,12 +20,12 @@ import {formatCount} from '../statistics/utilities.js';
 import UserTagFilters from '../user/components/UserTagFilters.js';
 
 type TaggedEntitiesT = {
-  +[entityType: string]: {
-    +count: number,
-    +tags: $ReadOnlyArray<{
-      +count: number,
-      +entity: TaggableEntityT,
-      +entity_id: number,
+  readonly [entityType: string]: {
+    readonly count: number,
+    readonly tags: ReadonlyArray<{
+      readonly count: number,
+      readonly entity: TaggableEntityT,
+      readonly entity_id: number,
     }>,
   },
 };

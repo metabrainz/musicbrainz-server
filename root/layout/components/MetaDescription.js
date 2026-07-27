@@ -156,8 +156,10 @@ function releaseDescription(release: ReleaseT) {
 
 const getLanguageName = (wl: WorkLanguageT) => wl.language.name;
 
-const getEntityName =
-  (x: {+entity: NonUrlRelatableEntityT, ...}): string => x.entity.name;
+const getEntityName = (x: {
+  readonly entity: NonUrlRelatableEntityT,
+  ...
+}): string => x.entity.name;
 
 const getIswc = (x: IswcT) => x.iswc;
 

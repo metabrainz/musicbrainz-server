@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Artist::TO_JSON
-declare type ArtistT = $ReadOnly<{
+declare type ArtistT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'artist'>,
@@ -20,15 +20,15 @@ declare type ArtistT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<ArtistTypeT>,
-  +area: AreaT | null,
-  +begin_area: AreaT | null,
-  +begin_area_id: number | null,
-  +end_area: AreaT | null,
-  +end_area_id: number | null,
-  +gender: GenderT | null,
-  +gender_id: number | null,
-  +primaryAlias?: string | null,
-  +sort_name: string,
+  readonly area: AreaT | null,
+  readonly begin_area: AreaT | null,
+  readonly begin_area_id: number | null,
+  readonly end_area: AreaT | null,
+  readonly end_area_id: number | null,
+  readonly gender: GenderT | null,
+  readonly gender_id: number | null,
+  readonly primaryAlias?: string | null,
+  readonly sort_name: string,
 }>;
 
 declare type ArtistTypeT = OptionTreeT<'artist_type'>;

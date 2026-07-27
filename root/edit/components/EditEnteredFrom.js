@@ -12,8 +12,8 @@ import DescriptiveLink
 
 component EditEnteredFrom(
   edit: {
-    +display_data?: {
-      +entered_from?: NonUrlRelatableEntityT,
+    readonly display_data?: {
+      readonly entered_from?: NonUrlRelatableEntityT,
       ...
     },
     ...

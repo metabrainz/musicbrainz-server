@@ -30,7 +30,7 @@ const buildIsrcSidebarRow = (isrc: IsrcT) => (
 );
 
 component IsrcList(
-  isrcs: ?$ReadOnlyArray<IsrcT>,
+  isrcs: ?ReadonlyArray<IsrcT>,
   isSidebar: boolean = false,
 ) {
   return (
@@ -49,7 +49,7 @@ component IsrcList(
   );
 }
 
-export default (hydrate<React.PropsOf<IsrcList>>(
+export default hydrate<React.PropsOf<IsrcList>>(
   'div.isrc-list-container',
   IsrcList,
-): component(...React.PropsOf<IsrcList>));
+) as component(...React.PropsOf<IsrcList>);

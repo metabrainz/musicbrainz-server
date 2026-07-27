@@ -4,12 +4,17 @@ use strict;
 use warnings;
 
 use Encode qw( encode_utf8 );
+use HTTP::Response;
 use HTTP::Status qw( :constants );
+use JSON;
+use LWP::UserAgent::Mockable;
 use Test::Routine;
 use Test::More;
 
 use URI;
 use URI::QueryParam;
+
+use MusicBrainz::Server::Test qw( build_json_response );
 
 with 't::Context', 't::Mechanize';
 
@@ -89,6 +94,70 @@ test 'Authenticate WS bearer' => sub {
     is($test->mech->status, HTTP_UNAUTHORIZED, 'Expired bearer is rejected');
 };
 
+test 'Authenticate WS bearer using a MetaBrainz (meba_) access token' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($test->c, '+oauth');
+
+    my $path = '/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7';
+    my $active = 1;
+    my @scope = ('profile', 'musicbrainz:collection');
+
+    LWP::UserAgent::Mockable->reset;
+    LWP::UserAgent::Mockable->set_record_pre_callback(sub {
+        my ($request) = @_;
+        my $request_path = $request->uri->path;
+        if ($request_path eq '/oauth2/introspect') {
+            my $issued_at = time - ($active ? 0 : 3600);
+            return build_json_response({
+                active => $active ? JSON::true : JSON::false,
+                client_id => 'client',
+                sub => 11,
+                username => 'editor1',
+                scope => [@scope],
+                token_type => 'Bearer',
+                issued_at => $issued_at,
+                expires_at => $issued_at + 3600,
+            });
+        }
+        return HTTP::Response->new(
+            HTTP_INTERNAL_SERVER_ERROR,
+            "unexpected request to $request_path",
+        );
+    });
+
+    $mech->get($path, Authorization => 'Bearer meba_access_token');
+    is(
+        $mech->status,
+        HTTP_OK,
+        'meba_ bearer with musicbrainz:collection scope is accepted',
+    );
+
+    @scope = ('profile');
+    $mech->get($path, Authorization => 'Bearer meba_access_token');
+    is(
+        $mech->status,
+        HTTP_UNAUTHORIZED,
+        'meba_ bearer without collection scope is rejected',
+    );
+
+    $active = 0;
+    $mech->get($path, Authorization => 'Bearer meba_access_token');
+    is($mech->status, HTTP_UNAUTHORIZED, 'inactive meba_ token is rejected');
+
+    $active = 1;
+    @scope = ('profile', 'musicbrainz:collection');
+    $mech->get($path, Authorization => 'Bearer mebr_ws_test_token');
+    is(
+        $mech->status,
+        HTTP_UNAUTHORIZED,
+        'mebr_ refresh token used as bearer token is rejected',
+    );
+
+    LWP::UserAgent::Mockable->finished;
+};
+
 test 'Digest authentication' => sub {
     my $test = shift;
     my $c = $test->c;
@@ -123,6 +192,14 @@ test 'Digest authentication' => sub {
     $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, ' ' x 32);
     $mech->get($path);
     is($mech->status, HTTP_UNAUTHORIZED, 'Blank password is rejected after disabling digest auth');
+
+    my $token = $c->model('Editor')->reset_digest_auth_token($editor->id);
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, $token);
+    $mech->get_ok($path, 'New digest auth token is accepted');
+
+    $mech->credentials('localhost:80', 'musicbrainz.org', $username_utf8, 'pass');
+    $mech->get($path);
+    is($mech->status, HTTP_UNAUTHORIZED, 'Account password is rejected after setting new digest auth token');
 };
 
 1;

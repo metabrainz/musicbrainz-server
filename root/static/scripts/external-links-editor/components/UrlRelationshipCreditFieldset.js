@@ -12,7 +12,10 @@ import * as React from 'react';
 import FieldErrors from '../../edit/components/FieldErrors.js';
 import FormRowText from '../../edit/components/FormRowText.js';
 
-export type ActionT = {+credit: string, +type: 'update-relationship-credit'};
+export type ActionT = {
+  readonly credit: string,
+  readonly type: 'update-relationship-credit',
+};
 
 export type StateT = DatePeriodFieldT;
 

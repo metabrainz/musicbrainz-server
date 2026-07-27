@@ -10,9 +10,9 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Genre::TO_JSON
-declare type GenreT = $ReadOnly<{
+declare type GenreT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'genre'>,
-  +primaryAlias?: string | null,
+  readonly primaryAlias?: string | null,
 }>;

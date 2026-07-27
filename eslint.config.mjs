@@ -825,6 +825,7 @@ export default [
 
       // eslint-plugin-perfectionist
       'perfectionist/sort-array-includes': ['warn', {type: 'natural'}],
+      'perfectionist/sort-arrays': 'off', // Quite niche, not in recommended rules
       'perfectionist/sort-classes': 'off', // We should aim not to use classes
       'perfectionist/sort-decorators': 'off', // We should aim not to use classes
       'perfectionist/sort-enums': 'off', // This is for TS
@@ -992,13 +993,13 @@ export default [
   },
   {
     files: [
+      'root/account/RegisterForm.js',
       'root/search/components/ArtistResults.js',
       'root/search/components/InstrumentResults.js',
       'root/search/components/RecordingResults.js',
       'root/search/components/ReleaseResults.js',
       'root/search/components/WorkResults.js',
       'root/static/scripts/account/components/EditProfileForm.js',
-      'root/static/scripts/account/components/RegisterForm.js',
       'root/static/scripts/common/components/CDTocMediumListRow.js',
       'root/static/scripts/common/components/CDTocReleaseListRow.js',
       'root/static/scripts/common/components/TagEditor.js',

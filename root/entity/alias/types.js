@@ -8,12 +8,12 @@
  */
 
 export type AliasEditFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +locale: FieldT<string>,
-  +make_votable: FieldT<boolean>,
-  +name: FieldT<string | null>,
-  +period: DatePeriodFieldT,
-  +primary_for_locale: FieldT<boolean>,
-  +sort_name: FieldT<string | null>,
-  +type_id: FieldT<string>,
+  readonly edit_note: FieldT<string>,
+  readonly locale: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
+  readonly name: FieldT<string | null>,
+  readonly period: DatePeriodFieldT,
+  readonly primary_for_locale: FieldT<boolean>,
+  readonly sort_name: FieldT<string | null>,
+  readonly type_id: FieldT<string>,
 }>;

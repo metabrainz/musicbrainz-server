@@ -9,7 +9,7 @@ use open ':std', ':encoding(UTF-8)';
 
 use Getopt::Long;
 use MusicBrainz::Server::Context;
-use MusicBrainz::Server::Constants qw( entities_with );
+use MusicBrainz::Server::Constants qw( $BEGINNER_FLAG entities_with );
 
 my $dry_run = 0;
 my $limit = 500;
@@ -38,6 +38,8 @@ my $c_cursor = MusicBrainz::Server::Context->create_script_context(
 );
 
 my $query = $c->model('Editor')->_build_unused_editor_query() . <<~"SQL";
+    AND e.deleted IS false
+    AND e.privs = ?
     AND e.email IS NULL
     AND (   member_since < NOW() - INTERVAL '12 months'
          OR member_since IS NULL)
@@ -46,7 +48,10 @@ my $query = $c->model('Editor')->_build_unused_editor_query() . <<~"SQL";
   SQL
 
 $c_cursor->sql->begin;
-$c_cursor->sql->do("DECLARE cursor NO SCROLL CURSOR FOR $query");
+$c_cursor->sql->do(
+    "DECLARE cursor NO SCROLL CURSOR FOR $query",
+    $BEGINNER_FLAG,
+);
 
 my $pull = sub {
     $c_cursor->sql->select("FETCH FORWARD $limit FROM cursor");

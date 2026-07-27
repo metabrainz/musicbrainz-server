@@ -15,8 +15,8 @@ import EnterEditNote
 import AreaLayout from './AreaLayout.js';
 
 type AreaDeleteFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
 }>;
 
 component DeleteArea(

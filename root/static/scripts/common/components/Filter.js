@@ -77,7 +77,7 @@ component Filter(
   );
 }
 
-export default (
-  hydrate<React.PropsOf<Filter>>('div.filter', Filter):
-  component(...React.PropsOf<Filter>)
-);
+export default hydrate<React.PropsOf<Filter>>(
+  'div.filter',
+  Filter,
+) as component(...React.PropsOf<Filter>);

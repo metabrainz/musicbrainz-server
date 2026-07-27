@@ -16,7 +16,7 @@
  * Fastest is fastClone
  */
 
-export default function createFastObjectCloneFunction<T: {...}>(
+export default function createFastObjectCloneFunction<T extends {...}>(
   // eslint-disable-next-line no-unused-vars -- Flow wants this
   spec: {[key in keyof $Exact<T>]: null},
 ): (($Exact<T>) => $Exact<{...T, ...}>) {

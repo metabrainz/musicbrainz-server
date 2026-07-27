@@ -26,7 +26,7 @@ import pThrottle, {
 } from '../utility/pThrottle.js';
 
 type TracksResponseT = {
-  +linked_entities: {
+  readonly linked_entities: {
     link_attribute_type: {
       [linkAttributeTypeIdOrGid: StrOrNum]: LinkAttrTypeT,
     },
@@ -34,16 +34,16 @@ type TracksResponseT = {
       [linkTypeIdOrGid: StrOrNum]: LinkTypeT,
     },
   },
-  +pager: PagerT,
-  +tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  readonly pager: PagerT,
+  readonly tracks: ReadonlyArray<TrackWithRecordingT>,
 };
 
 type PagedMediumTableVarsT = {
-  +columnCount: number,
-  +loadedTrackCount: number,
-  +mediumHeaderLink: React.MixedElement,
-  +pagingElements: React.MixedElement,
-  +showArtists: boolean,
+  readonly columnCount: number,
+  readonly loadedTrackCount: number,
+  readonly mediumHeaderLink: React.MixedElement,
+  readonly pagingElements: React.MixedElement,
+  readonly showArtists: boolean,
 };
 
 const throttleFunc = pThrottle<[number, number], Response>({
@@ -60,13 +60,13 @@ export default function usePagedMediumTable(
     dispatch: (LazyReleaseActionT) => void,
     getColumnCount: (boolean) => number,
     handleLinkedEntities?:
-      (update: ?$ReadOnly<Partial<LinkedEntitiesT>>) => void,
+      (update: ?Readonly<Partial<LinkedEntitiesT>>) => void,
     hasUnloadedTracks: boolean,
     isExpanded: boolean,
     medium: MediumWithRecordingsT,
     noScript?: boolean,
     release: ReleaseWithMediumsT,
-    tracks: ?$ReadOnlyArray<TrackWithRecordingT>,
+    tracks: ?ReadonlyArray<TrackWithRecordingT>,
   },
 ): PagedMediumTableVarsT {
   const {

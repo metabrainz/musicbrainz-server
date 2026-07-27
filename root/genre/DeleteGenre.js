@@ -15,8 +15,8 @@ import EnterEditNote
 import GenreLayout from './GenreLayout.js';
 
 type GenreDeleteFormT = FormT<{
-  +edit_note: FieldT<string>,
-  +make_votable: FieldT<boolean>,
+  readonly edit_note: FieldT<string>,
+  readonly make_votable: FieldT<boolean>,
 }>;
 
 component DeleteGenre(entity as genre: GenreT, form: GenreDeleteFormT) {

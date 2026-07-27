@@ -28,7 +28,7 @@ export const N_lp = (key: string, context: string): (() => string) => (
   () => lp(key, context)
 );
 
-export const unwrapNl = <T: Expand2ReactOutput>(
+export const unwrapNl = <T extends Expand2ReactOutput>(
   value: T | (() => T),
 ): T => (
     typeof value === 'function' ? value() : value

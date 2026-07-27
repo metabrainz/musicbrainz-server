@@ -32,7 +32,7 @@ import type {DialogDatePeriodStateT} from '../types.js';
 export type ActionT = DateRangeFieldsetActionT;
 
 export function createInitialState(
-  datePeriod: $ReadOnly<{...DatePeriodRoleT, ...}>,
+  datePeriod: Readonly<{...DatePeriodRoleT, ...}>,
 ): DialogDatePeriodStateT {
   const {
     begin_date: beginDate,

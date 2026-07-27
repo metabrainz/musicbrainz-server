@@ -9,7 +9,7 @@
 
 import useEventTrap from './useEventTrap.js';
 
-export default function useOutsideClickEffect<T: HTMLElement>(
+export default function useOutsideClickEffect<T extends HTMLElement>(
   targetRef: {current: T | null},
   action: ((Event) => void) | null,
   cleanup?: () => void,

@@ -18,13 +18,13 @@ import {isWikiTranscluder}
   from '../../static/scripts/common/utility/privileges.js';
 
 type WikiDocT = {
-  +id: string,
-  +version: number,
-  +wiki_version: number,
+  readonly id: string,
+  readonly version: number,
+  readonly wiki_version: number,
 };
 
 component WikiDocTable(
-  pages: $ReadOnlyArray<WikiDocT>,
+  pages: ReadonlyArray<WikiDocT>,
   updatesRequired: boolean,
   wikiServer: string,
 ) {

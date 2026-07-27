@@ -18,6 +18,7 @@ import {
 
 import hydrate from '../../../../utility/hydrate.js';
 import {expect} from '../../../../utility/invariant.js';
+import LoginMessage from '../../common/components/LoginMessage.js';
 import {
   EMPTY_PARTIAL_DATE,
   RECORDING_OF_LINK_TYPE_ID,
@@ -44,6 +45,7 @@ import {
 import clean from '../../common/utility/clean.js';
 import deepFreezeInDevelopment
   from '../../common/utility/deepFreezeInDevelopment.js';
+import errorToString from '../../common/utility/errorToString.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import natatime from '../../common/utility/natatime.js';
@@ -148,7 +150,7 @@ const createMap = <K, V>(): Map<K, V> => new Map();
 
 function addTracksToState(
   writableRootState: {...ReleaseRelationshipEditorStateT},
-  tracks: $ReadOnlyArray<TrackWithRecordingT>,
+  tracks: ReadonlyArray<TrackWithRecordingT>,
   medium: MediumWithRecordingsT,
 ): void {
   const recordingsWithNoRelationships = [];
@@ -218,6 +220,7 @@ export function createInitialState(
     relationshipsBySource: tree.empty,
     selectedRecordings: tree.empty,
     selectedWorks: tree.empty,
+    showLoginMessage: false,
     submissionError: null,
     submissionInProgress: false,
   };
@@ -265,19 +268,26 @@ export function createInitialState(
 
 function handleSubmissionError(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  error: mixed,
+  error: WsJsEditErrorT['error'] | string | void,
 ): void {
-  captureException(error);
-
-  console.error(error);
-
-  const errorString = String(error) || 'unknown error';
-
+  const errorString = errorToString(error) || 'unknown error';
+  const errorCode = typeof error === 'object' && error != null
+    ? (error.errorCode ?? 0)
+    : 0;
   dispatch({
     error: errorString,
     type: 'stop-submission',
   });
-  alert(l('An error occurred:') + ' ' + errorString);
+
+  match (errorCode) {
+    // $ERROR_NOT_LOGGED_IN
+    1 => {
+      dispatch({showLoginMessage: true, type: 'toggle-login-message'});
+    }
+    _ => {
+      alert(l('An error occurred:') + ' ' + errorString);
+    },
+  }
 }
 
 class SubmissionRejected {}
@@ -286,8 +296,10 @@ function handlePromiseRejection<T>(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   promise: Promise<T | SubmissionRejected>,
 ): Promise<T | SubmissionRejected> {
-  return promise.catch(function (error: mixed) {
-    handleSubmissionError(dispatch, error);
+  return promise.catch(function (error: unknown) {
+    console.error(error);
+    captureException(error);
+    handleSubmissionError(dispatch, errorToString(error));
     return new SubmissionRejected();
   });
 }
@@ -331,23 +343,19 @@ async function wsJsEditSubmission(
     return null;
   }
   const respJson:
-    | (WsJsEditResponseT | {+error: string, ...})
+    | (WsJsEditResponseT | WsJsEditErrorT)
     | SubmissionRejected =
       await handlePromiseRejection(dispatch, resp.json());
   if (respJson instanceof SubmissionRejected) {
     return null;
   }
-  if (!resp.ok || (respJson?.error) != null) {
-    const error = (
-      (
-        respJson != null && typeof respJson === 'object'
-      ) ? String(respJson.error) : ''
-    ) || 'unknown error';
+  const error = respJson?.error;
+  if (!resp.ok || error != null) {
     handleSubmissionError(dispatch, error);
     return null;
   }
   // $FlowFixMe[unclear-type]
-  const editResponseData: WsJsEditResponseT = (respJson: any);
+  const editResponseData: WsJsEditResponseT = respJson as any;
   dispatch({
     edits,
     responseData: editResponseData,
@@ -474,7 +482,7 @@ function* getAllRelationshipEdits(
       return editData;
     }
     return {
-      entityType: (entity.entityType: NonUrlRelatableEntityTypeT),
+      entityType: entity.entityType as NonUrlRelatableEntityTypeT,
       gid: entity.gid,
       name: entity.name,
     };
@@ -492,8 +500,8 @@ function* getAllRelationshipEdits(
       Map<
         number,
         Array<{
-          +link_order: number,
-          +relationship: RelationshipStateT,
+          readonly link_order: number,
+          readonly relationship: RelationshipStateT,
         }>,
       >,
     > = new Map();
@@ -564,7 +572,7 @@ function* getAllRelationshipEdits(
           }
           yield [
             [relationship],
-            (editData: WsJsEditRelationshipCreateT),
+            editData as WsJsEditRelationshipCreateT,
           ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_EDIT, ...} as relationship => {
@@ -691,7 +699,7 @@ function* getAllRelationshipEdits(
           }
           yield [
             [relationship],
-            (editData: WsJsEditRelationshipEditT),
+            editData as WsJsEditRelationshipEditT,
           ] as [Array<RelationshipStateT>, WsJsEditRelationshipT];
         }
         {_status: REL_STATUS_REMOVE, ...} as relationship => {
@@ -800,7 +808,7 @@ async function submitRelationshipEdits(
 async function submitEdits(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
   currentStateRef: {
-    +current: ReleaseRelationshipEditorStateT,
+    readonly current: ReleaseRelationshipEditorStateT,
   },
 ) {
   const syncDispatch = (action: ReleaseRelationshipEditorActionT) => {
@@ -1419,6 +1427,9 @@ export const reducer: ((
       }
       updateRelationships(newState, updates);
     }
+    {type: 'toggle-login-message', const showLoginMessage} => {
+      newState.showLoginMessage = showLoginMessage;
+    }
   }
 
   deepFreezeInDevelopment(newState);
@@ -1429,7 +1440,7 @@ export const reducer: ((
 component _MediumRelationshipEditors(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1470,7 +1481,7 @@ const MediumRelationshipEditors = React.memo(_MediumRelationshipEditors);
 component _TrackRelationshipsSection(
   dialogLocation: RelationshipDialogLocationT | null,
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  expandedMediums: $ReadOnlyMap<number, boolean>,
+  expandedMediums: ReadonlyMap<number, boolean>,
   loadedTracks: LoadedTracksMapT,
   mediums: MediumStateTreeT,
   release: ReleaseWithMediumsT,
@@ -1772,10 +1783,31 @@ component _ReleaseRelationshipEditor() {
   ) => {
     event.preventDefault();
     submitEdits(dispatch, currentStateRef)
-      .catch(function (error: mixed) {
-        handleSubmissionError(dispatch, error);
+      .catch(function (error: unknown) {
+        console.error(error);
+        captureException(error);
+        handleSubmissionError(dispatch, errorToString(error));
       });
   }, [dispatch]);
+
+  const hideLoginMessage = React.useCallback(() => {
+    dispatch({
+      showLoginMessage: false,
+      type: 'toggle-login-message',
+    });
+  }, [dispatch]);
+
+  const handleLoginSuccess = React.useCallback(() => {
+    hideLoginMessage();
+    /*
+     * We currently only show the login message when the form is submitted,
+     * so continue with the submission.
+     */
+    expect(
+      document.getElementById('relationship-editor-form'),
+    // $FlowFixMe[prop-missing]
+    ).requestSubmit();
+  }, [hideLoginMessage]);
 
   const dialogLocation = state.dialogLocation;
 
@@ -1862,6 +1894,9 @@ component _ReleaseRelationshipEditor() {
             </span>
           </div>
         ) : null}
+        {state.showLoginMessage ? (
+          <LoginMessage success={handleLoginSuccess} />
+        ) : null}
       </form>
     </RelationshipSourceGroupsContext.Provider>
   );
@@ -1873,9 +1908,9 @@ const NonHydratedReleaseRelationshipEditor =
     ['language', 'work_type'],
   );
 
-const ReleaseRelationshipEditor = (hydrate<{}>(
+const ReleaseRelationshipEditor = hydrate<{}>(
   'div.release-relationship-editor',
   NonHydratedReleaseRelationshipEditor,
-): component());
+) as component();
 
 export default ReleaseRelationshipEditor;

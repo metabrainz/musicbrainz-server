@@ -270,5 +270,12 @@
     "standalone_only": [
       "20260507-search-756-standalone_only.sql"
     ]
+  },
+  "32": {
+    "all": [
+      "20251211-drop-old-editor-name.sql",
+      "20260602-new-sitemaps-indexes.sql",
+      "20260623-mbs-12379.sql"
+    ]
   }
 }

@@ -50,19 +50,19 @@ import LinkTypeSelect from './LinkTypeSelect.js';
 import TypeDescription from './TypeDescription.js';
 
 type ExternalLinkRelationshipPropsT = {
-  +dispatch: (LinksEditorActionT) => void,
-  +link: LinkStateT,
-  +relationship: LinkRelationshipStateT,
-  +source: RelatableEntityT,
+  readonly dispatch: (LinksEditorActionT) => void,
+  readonly link: LinkStateT,
+  readonly relationship: LinkRelationshipStateT,
+  readonly source: RelatableEntityT,
 };
 
 const typeOptionsCache:
-  Map<string, $ReadOnlyArray<LinkTypeOptionT>> = new Map();
+  Map<string, ReadonlyArray<LinkTypeOptionT>> = new Map();
 
 function getLinkTypeOptions(
   sourceType: RelatableEntityTypeT,
   link: LinkStateT,
-): $ReadOnlyArray<LinkTypeOptionT> {
+): ReadonlyArray<LinkTypeOptionT> {
   let allTypeOptions = typeOptionsCache.get(sourceType);
 
   if (allTypeOptions == null) {

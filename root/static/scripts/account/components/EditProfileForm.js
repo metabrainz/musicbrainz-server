@@ -22,7 +22,11 @@ import type {
 import SelectField from '../../common/components/SelectField.js';
 import Warning from '../../common/components/Warning.js';
 import {FLUENCY_NAMES} from '../../common/constants.js';
-import {DB_STAGING_TESTING_FEATURES} from '../../common/DBDefs-client.mjs';
+import {
+  DB_STAGING_TESTING_FEATURES,
+  LOCAL_ACCOUNTS_ENABLED,
+  METABRAINZ_URL,
+} from '../../common/DBDefs-client.mjs';
 import {createAreaObject} from '../../common/entity2.js';
 import {N_lp_attributes} from '../../common/i18n/attributes.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
@@ -38,35 +42,35 @@ import FormSubmit from '../../edit/components/FormSubmit.js';
 import {pushCompoundField} from '../../edit/utility/pushField.js';
 
 type UserLanguageFieldT = CompoundFieldT<{
-  +fluency: FieldT<FluencyT | null>,
-  +language_id: FieldT<string | null>,
+  readonly fluency: FieldT<FluencyT | null>,
+  readonly language_id: FieldT<string | null>,
 }>;
 
 type EditProfileFormT = FormT<{
-  +area: AreaFieldT,
-  +biography: FieldT<string>,
-  +birth_date: PartialDateFieldT,
-  +csrf_token: FieldT<string>,
-  +email: FieldT<string>,
-  +gender_id: FieldT<string>,
-  +languages: RepeatableFieldT<UserLanguageFieldT>,
-  +username: FieldT<string>,
-  +website: FieldT<string>,
+  readonly area: AreaFieldT,
+  readonly biography: FieldT<string>,
+  readonly birth_date: PartialDateFieldT,
+  readonly csrf_token: FieldT<string>,
+  readonly email: FieldT<string>,
+  readonly gender_id: FieldT<string>,
+  readonly languages: RepeatableFieldT<UserLanguageFieldT>,
+  readonly username: FieldT<string>,
+  readonly website: FieldT<string>,
 }>;
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'add-language'}
-  | {+type: 'remove-language', +index: number}
+  | {readonly type: 'add-language'}
+  | {readonly type: 'remove-language', readonly index: number}
   | {
-      +action: AutocompleteActionT<AreaT>,
-      +type: 'update-area',
+      readonly action: AutocompleteActionT<AreaT>,
+      readonly type: 'update-area',
     };
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +area: AutocompleteStateT<AreaT>,
-  +form: EditProfileFormT,
+  readonly area: AutocompleteStateT<AreaT>,
+  readonly form: EditProfileFormT,
 };
 
 const genderOptions = {
@@ -184,26 +188,42 @@ component EditProfileForm(
         readOnly
         value={field.username.value}
       />
-      {DB_STAGING_TESTING_FEATURES ? (
-        <Warning
-          message={l(
-            `This is a development server. Your email address is not private
-             or secure. Proceed with caution!`,
-          )}
-        />
-      ) : null}
 
-      <FormRowEmailLong
-        field={field.email}
-        label={addColonText(l('Email'))}
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        {l(
-          `If you change your email address,
-           you will be required to verify it.`,
-        )}
-      </FormRow>
+      {LOCAL_ACCOUNTS_ENABLED ? (
+        <>
+          {DB_STAGING_TESTING_FEATURES ? (
+            <Warning
+              message={l(
+                `This is a development server. Your email address is not
+                 private or secure. Proceed with caution!`,
+              )}
+            />
+          ) : null}
+          <FormRowEmailLong
+            field={field.email}
+            label={addColonText(l('Email'))}
+            uncontrolled
+          />
+        </>
+      ) : (
+        <FormRow>
+          <label>
+            {addColonText(l('Email'))}
+          </label>
+          <p>
+            {field.email.value}
+          </p>
+          <p className="no-label">
+            {exp.l(
+              `Your email address can be changed from your
+               {profile|MetaBrainz profile}.
+               If you change your email address, you will be required to
+               verify it.`,
+              {profile: METABRAINZ_URL + '/profile/edit'},
+            )}
+          </p>
+        </FormRow>
+      )}
 
       <FormRowURLLong
         field={field.website}
@@ -304,7 +324,7 @@ component EditProfileForm(
   );
 }
 
-export default (hydrate<React.PropsOf<EditProfileForm>>(
+export default hydrate<React.PropsOf<EditProfileForm>>(
   'div.edit-profile-form',
   EditProfileForm,
-): component(...React.PropsOf<EditProfileForm>));
+) as component(...React.PropsOf<EditProfileForm>);

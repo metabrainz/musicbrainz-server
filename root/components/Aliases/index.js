@@ -32,8 +32,8 @@ function canEdit($c: CatalystContextT, entityType: string) {
 }
 
 type Props = {
-  +aliases: ?$ReadOnlyArray<AnyAliasT>,
-  +entity: EntityWithAliasesT,
+  readonly aliases: ?ReadonlyArray<AnyAliasT>,
+  readonly entity: EntityWithAliasesT,
 };
 
 const Aliases = ({aliases, entity}: Props): React.MixedElement => {

@@ -24,8 +24,8 @@ import loopParity from '../utility/loopParity.js';
 import {returnToCurrentPage} from '../utility/returnUri.js';
 
 component Index(
-  isrcs: $ReadOnlyArray<IsrcT>,
-  recordings: $ReadOnlyArray<RecordingT>,
+  isrcs: ReadonlyArray<IsrcT>,
+  recordings: ReadonlyArray<RecordingT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   const userExists = $c.user != null;

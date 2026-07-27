@@ -13,7 +13,7 @@ import {DeletedLink}
   from '../../static/scripts/common/components/EntityLink.js';
 
 export component HistoricReleaseListContent(
-  releases: $ReadOnlyArray<ReleaseT | null>,
+  releases: ReadonlyArray<ReleaseT | null>,
 ) {
   return (
     <ul>

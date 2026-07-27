@@ -20,8 +20,8 @@ import ErrorInfo from './components/ErrorInfo.js';
 import ErrorLayout from './ErrorLayout.js';
 
 component Error500(
-  edits?: $ReadOnlyArray<GenericEditWithIdT>,
-  formattedErrors?: $ReadOnlyArray<string>,
+  edits?: ReadonlyArray<GenericEditWithIdT>,
+  formattedErrors?: ReadonlyArray<string>,
   hostname?: string,
   useLanguages: boolean,
 ) {

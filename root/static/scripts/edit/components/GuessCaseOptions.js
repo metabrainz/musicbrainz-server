@@ -21,17 +21,17 @@ import isGuessCaseModeName
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
-  | {+type: 'set-mode', +modeName: GuessCaseModeNameT}
-  | {+type: 'set-keep-upper-case', +enabled: boolean}
-  | {+type: 'set-upper-case-roman', +enabled: boolean};
+  | {readonly type: 'set-mode', readonly modeName: GuessCaseModeNameT}
+  | {readonly type: 'set-keep-upper-case', readonly enabled: boolean}
+  | {readonly type: 'set-upper-case-roman', readonly enabled: boolean};
 /* eslint-enable ft-flow/sort-keys */
 
 export type DispatchT = (ActionT) => void;
 
 export type StateT = {
-  +keepUpperCase: boolean,
-  +modeName: GuessCaseModeNameT,
-  +upperCaseRoman: boolean,
+  readonly keepUpperCase: boolean,
+  readonly modeName: GuessCaseModeNameT,
+  readonly upperCaseRoman: boolean,
 };
 
 export function createInitialState(): StateT {

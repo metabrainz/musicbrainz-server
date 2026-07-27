@@ -14,7 +14,7 @@ import AreaLayout from './AreaLayout.js';
 
 component AreaUsers(
   area: AreaT,
-  editors: $ReadOnlyArray<EditorT>,
+  editors: ReadonlyArray<EditorT>,
   pager: PagerT,
 ) {
   return (

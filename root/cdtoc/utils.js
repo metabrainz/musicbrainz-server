@@ -12,8 +12,8 @@ import formatTrackLength
   from '../static/scripts/common/utility/formatTrackLength.js';
 
 export function areFormattedLengthsEqual(
-  mediumLengths: $ReadOnlyArray<number>,
-  cdTocLengths: $ReadOnlyArray<number>,
+  mediumLengths: ReadonlyArray<number>,
+  cdTocLengths: ReadonlyArray<number>,
 ): boolean {
   return arraysEqual(
     mediumLengths,

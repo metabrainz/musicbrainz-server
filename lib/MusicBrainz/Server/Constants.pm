@@ -6,7 +6,7 @@ use warnings;
 use base 'Exporter';
 
 use DateTime::Duration;
-use DateTime::Locale '1.00';
+use DateTime::Locale 1.00 ();
 use File::Basename qw( dirname );
 use File::Slurp qw( read_file );
 use File::Spec;
@@ -420,6 +420,7 @@ Readonly our $ADDING_NOTES_DISABLED_FLAG    => 2048;
 Readonly our $SPAMMER_FLAG                  => 4096;
 Readonly our $BEGINNER_FLAG                 => 8192;
 Readonly our $VOTING_DISABLED_FLAG          => 16384;
+Readonly our $DIGEST_AUTH_TOKEN_FLAG        => 32768;
 # If you update this, also update root/utility/sanitizedEditor.js
 Readonly our $PUBLIC_PRIVILEGE_FLAGS        => $AUTO_EDITOR_FLAG |
                                                $BOT_FLAG |
@@ -951,7 +952,6 @@ Readonly our @PRIVATE_TABLE_LIST => qw(
     instrument_tag_raw
     label_rating_raw
     label_tag_raw
-    old_editor_name
     place_rating_raw
     place_tag_raw
     recording_rating_raw

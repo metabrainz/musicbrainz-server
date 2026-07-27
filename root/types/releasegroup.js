@@ -13,7 +13,7 @@ declare type ReleaseGroupSecondaryTypeT =
   OptionTreeT<'release_group_secondary_type'>;
 
 // MusicBrainz::Server::Entity::ReleaseGroup::TO_JSON
-declare type ReleaseGroupT = $ReadOnly<{
+declare type ReleaseGroupT = Readonly<{
   ...AnnotationRoleT,
   ...ArtistCreditRoleT,
   ...CommentRoleT,
@@ -21,25 +21,25 @@ declare type ReleaseGroupT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<ReleaseGroupTypeT>,
-  +cover_art?: ReleaseArtT,
-  +firstReleaseDate: string | null,
-  +hasCoverArt: boolean,
-  +l_type_name: string | null,
-  +primaryAlias?: string | null,
-  +release_count: number,
-  +release_group?: ReleaseGroupT,
-  +secondaryTypeIDs: $ReadOnlyArray<number>,
-  +typeID: number | null,
-  +typeName: string | null,
+  readonly cover_art?: ReleaseArtT,
+  readonly firstReleaseDate: string | null,
+  readonly hasCoverArt: boolean,
+  readonly l_type_name: string | null,
+  readonly primaryAlias?: string | null,
+  readonly release_count: number,
+  readonly release_group?: ReleaseGroupT,
+  readonly secondaryTypeIDs: ReadonlyArray<number>,
+  readonly typeID: number | null,
+  readonly typeName: string | null,
 }>;
 
 declare type ReleaseGroupTypeT = {
   ...OptionTreeT<'release_group_type'>,
-  +historic: false,
+  readonly historic: false,
 };
 
 declare type ReleaseGroupHistoricTypeT = {
-  +historic: true,
-  +id: number,
-  +name: string,
+  readonly historic: true,
+  readonly id: number,
+  readonly name: string,
 };

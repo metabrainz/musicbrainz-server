@@ -28,9 +28,13 @@ import RemoveButton from './RemoveButton.js';
 type StateT = RepeatableFieldT<FieldT<string>>;
 
 type ActionT =
-  | {+type: 'add-row'}
-  | {+fieldId: number, +type: 'remove-row'}
-  | {+fieldId: number, +type: 'update-row', +value: string};
+  | {readonly type: 'add-row'}
+  | {readonly fieldId: number, readonly type: 'remove-row'}
+  | {
+      readonly fieldId: number,
+      readonly type: 'update-row',
+      readonly value: string,
+    };
 
 component TextListRow(
   dispatch: (ActionT) => void,
@@ -174,7 +178,7 @@ export component NonHydratedFormRowTextListSimple(
  * Hydration must be moved higher up in the component hierarchy once
  * more of the page is converted to React.
  */
-export default (hydrate<React.PropsOf<FormRowTextListSimple>>(
+export default hydrate<React.PropsOf<FormRowTextListSimple>>(
   'div.row.form-row-text-list-container',
   FormRowTextListSimple,
-): component(...React.PropsOf<FormRowTextListSimple>));
+) as component(...React.PropsOf<FormRowTextListSimple>);

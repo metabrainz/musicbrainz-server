@@ -16,9 +16,9 @@ import getOpenEditsLink, {
 import Tooltip from './Tooltip.js';
 
 component RelationshipPendingEditsWarning(
-  relationship: $ReadOnly<{
+  relationship: Readonly<{
     ...RelationshipEntityPropertiesT,
-    +editsPending: boolean,
+    readonly editsPending: boolean,
     ...
   }>
 ) {

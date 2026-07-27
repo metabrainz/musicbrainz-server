@@ -30,18 +30,24 @@ import FieldErrors from './FieldErrors.js';
 import FormRow from './FormRow.js';
 
 type StateT = {
-  +beginArea: AutocompleteStateT<AreaT>,
-  +date: DateRangeFieldsetStateT,
-  +endArea: AutocompleteStateT<AreaT>,
+  readonly beginArea: AutocompleteStateT<AreaT>,
+  readonly date: DateRangeFieldsetStateT,
+  readonly endArea: AutocompleteStateT<AreaT>,
 };
 
 type ActionT =
   | {
-      +action: DateRangeFieldsetActionT,
-      +type: 'update-date-period',
+      readonly action: DateRangeFieldsetActionT,
+      readonly type: 'update-date-period',
     }
-  | {+action: AutocompleteActionT<AreaT>, +type: 'update-begin-area'}
-  | {+action: AutocompleteActionT<AreaT>, +type: 'update-end-area'};
+  | {
+      readonly action: AutocompleteActionT<AreaT>,
+      readonly type: 'update-begin-area',
+    }
+  | {
+      readonly action: AutocompleteActionT<AreaT>,
+      readonly type: 'update-end-area',
+    };
 
 function createAreaState(
   label: string,
@@ -71,9 +77,9 @@ function createAreaState(
 }
 
 type CreateInitialStatePropsT = {
-  +beginAreaField: AreaFieldT,
-  +endAreaField: AreaFieldT,
-  +initialDate: DatePeriodFieldT,
+  readonly beginAreaField: AreaFieldT,
+  readonly endAreaField: AreaFieldT,
+  readonly initialDate: DatePeriodFieldT,
 };
 
 function createInitialState({

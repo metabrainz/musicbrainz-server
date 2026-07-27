@@ -11,7 +11,7 @@ import entityHref from '../utility/entityHref.js';
 
 component CDTocLink(
   anchorPath?: string,
-  cdToc: {+discid: string, +entityType: 'cdtoc', ...},
+  cdToc: {readonly discid: string, readonly entityType: 'cdtoc', ...},
   content?: string,
   subPath?: string,
 ) {

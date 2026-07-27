@@ -16,7 +16,7 @@ import AnnotationHistoryTable
 import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 component AnnotationHistory(
-  annotations: $ReadOnlyArray<AnnotationT>,
+  annotations: ReadonlyArray<AnnotationT>,
   entity: AnnotatedEntityT,
   pager: PagerT,
 ) {

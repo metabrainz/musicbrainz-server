@@ -19,7 +19,7 @@ import InlineSubmitButton
 component SelectArtistForCDToc(
   form: SearchFormT,
   pager?: PagerT,
-  results?: $ReadOnlyArray<SearchResultT<ArtistT>>,
+  results?: ReadonlyArray<SearchResultT<ArtistT>>,
   tocString: StrOrNum,
 ) {
   const title = lp('Attach CD TOC', 'header');

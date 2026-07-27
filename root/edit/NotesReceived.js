@@ -25,7 +25,7 @@ import getRequestCookie from '../utility/getRequestCookie.mjs';
 import EditNoteListEntry from './components/EditNoteListEntry.js';
 
 component NotesReceived(
-  editNotes: $ReadOnlyArray<EditNoteT>,
+  editNotes: ReadonlyArray<EditNoteT>,
   modbotCondition?: '' | '=' | '!=',
   pager: PagerT,
 ) {

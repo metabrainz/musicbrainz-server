@@ -32,9 +32,7 @@ component NewNotesAlertCheckbox(checked: boolean) {
   );
 }
 
-export default (
-  hydrate<React.PropsOf<NewNotesAlertCheckbox>>(
-    'span.new-notes-alert-checkbox',
-    NewNotesAlertCheckbox,
-  ): component(...React.PropsOf<NewNotesAlertCheckbox>)
-);
+export default hydrate<React.PropsOf<NewNotesAlertCheckbox>>(
+  'span.new-notes-alert-checkbox',
+  NewNotesAlertCheckbox,
+) as component(...React.PropsOf<NewNotesAlertCheckbox>);

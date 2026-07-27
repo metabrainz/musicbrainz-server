@@ -25,7 +25,7 @@ declare module 'tabbable' {
 
   declare export function focusable(
     container: Node,
-    options?: $ReadOnly<{
+    options?: Readonly<{
       ...CommonOptions,
       ...FocusableOptions,
     }>,
@@ -33,7 +33,7 @@ declare module 'tabbable' {
 
   declare export function tabbable(
     container: Node,
-    options?: $ReadOnly<{
+    options?: Readonly<{
       ...CommonOptions,
       ...FocusableOptions,
     }>,

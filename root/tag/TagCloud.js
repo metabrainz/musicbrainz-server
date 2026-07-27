@@ -41,7 +41,7 @@ function getTagSize(count: number, tagMaxCount: number) {
 
 function generateTagCloud(
   $c: CatalystContextT,
-  tags: $ReadOnlyArray<AggregatedTagT>,
+  tags: ReadonlyArray<AggregatedTagT>,
   maxCount: number,
 ) {
   return (
@@ -65,7 +65,7 @@ function generateTagCloud(
 
 function generateTagList(
   $c: CatalystContextT,
-  tags: $ReadOnlyArray<AggregatedTagT>,
+  tags: ReadonlyArray<AggregatedTagT>,
 ) {
   const sortedTags = sortByNumber(tags, tag => -tag.count);
   return (
@@ -84,10 +84,10 @@ function generateTagList(
 
 component TagCloud(
   genreMaxCount: number,
-  genres: $ReadOnlyArray<AggregatedTagT>,
+  genres: ReadonlyArray<AggregatedTagT>,
   showList: boolean = false,
   tagMaxCount: number,
-  tags: $ReadOnlyArray<AggregatedTagT>,
+  tags: ReadonlyArray<AggregatedTagT>,
 ) {
   const $c = React.useContext(CatalystContext);
   return (

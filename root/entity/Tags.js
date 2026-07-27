@@ -16,10 +16,10 @@ import {MainTagEditor}
   from '../static/scripts/common/components/TagEditor.js';
 
 component Tags(
-  allTags: $ReadOnlyArray<AggregatedTagT>,
+  allTags: ReadonlyArray<AggregatedTagT>,
   entity: TaggableEntityT,
   moreTags: boolean,
-  userTags: $ReadOnlyArray<UserTagT>,
+  userTags: ReadonlyArray<UserTagT>,
 ) {
   const $c = React.useContext(CatalystContext);
 

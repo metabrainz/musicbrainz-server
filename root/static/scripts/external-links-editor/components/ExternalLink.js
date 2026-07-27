@@ -32,7 +32,7 @@ import ExternalLinkRelationship from './ExternalLinkRelationship.js';
 import URLInputPopover from './URLInputPopover.js';
 
 function getFaviconClass(
-  relationships: $ReadOnlyArray<LinkRelationshipStateT>,
+  relationships: ReadonlyArray<LinkRelationshipStateT>,
   url: string,
 ) {
   let faviconClass = '';

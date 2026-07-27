@@ -20,7 +20,7 @@ import {
 import type {ReportInstrumentT} from '../types.js';
 
 component InstrumentList(
-  items: $ReadOnlyArray<ReportInstrumentT>,
+  items: ReadonlyArray<ReportInstrumentT>,
   pager: PagerT,
 ) {
   const $c = React.useContext(CatalystContext);

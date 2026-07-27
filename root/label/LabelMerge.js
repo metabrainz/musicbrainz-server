@@ -16,7 +16,7 @@ import EnterEditNote
   from '../static/scripts/edit/components/EnterEditNote.js';
 import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 
-component LabelMerge(form: MergeFormT, toMerge: $ReadOnlyArray<LabelT>) {
+component LabelMerge(form: MergeFormT, toMerge: ReadonlyArray<LabelT>) {
   return (
     <Layout fullWidth title={l('Merge labels')}>
       <div id="content">

@@ -11,9 +11,9 @@ import getDaysInMonth from '../../../../utility/getDaysInMonth.js';
 import parseInteger from '../../common/utility/parseInteger.js';
 
 type PartialDateWithStringsT = {
-  +day?: ?StrOrNum,
-  +month?: ?StrOrNum,
-  +year?: ?StrOrNum,
+  readonly day?: ?StrOrNum,
+  readonly month?: ?StrOrNum,
+  readonly year?: ?StrOrNum,
 };
 
 export function isDateValid(date: PartialDateWithStringsT): boolean {

@@ -51,7 +51,7 @@ function isNameNotRemoved(name: ArtistCreditNameStateT): boolean {
 }
 
 function setAutoJoinPhrases(
-  namesCtx: CowContext<$ReadOnlyArray<ArtistCreditNameStateT>>,
+  namesCtx: CowContext<ReadonlyArray<ArtistCreditNameStateT>>,
 ): void {
   const names = namesCtx.read();
 
@@ -304,7 +304,7 @@ export function reducer(
         }
       }
       // $FlowFixMe[incompatible-type] - null artists were filled in
-      writableArtistCredit = (artistCreditCtx.final(): ArtistCreditT);
+      writableArtistCredit = artistCreditCtx.final() as ArtistCreditT;
       stateCtx.set('names',
                    createInitialNamesState(writableArtistCredit, state.id));
     }
@@ -359,7 +359,7 @@ export function reducer(
 }
 
 function isSingleArtistEditableInState(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): boolean {
   if (names.filter(isNameNotRemoved).length === 1) {
     const firstArtist = names[0].artist.selectedItem?.entity;
@@ -375,7 +375,7 @@ function createInitialNamesState(
   artistCredit: IncompleteArtistCreditT,
   artistCreditEditorId: string,
   automaticJoinPhrase?: boolean = true,
-): $ReadOnlyArray<ArtistCreditNameStateT> {
+): ReadonlyArray<ArtistCreditNameStateT> {
   const names = artistCredit.names;
 
   if (!names.length) {
@@ -417,16 +417,16 @@ function createInitialNamesState(
 
 export function createInitialState(
   initialState: {
-    +artistCredit?: ArtistCreditT,
-    +entity?: ArtistCreditableT,
-    +formName?: string,
+    readonly artistCredit?: ArtistCreditT,
+    readonly entity?: ArtistCreditableT,
+    readonly formName?: string,
     /*
      * `id` should uniquely identify the artist credit editor instance
      * on the page. (Note: Using the entity ID may not suffice, as some
      * releases will repeat the same recording!)
      */
-    +id: string,
-    +isOpen?: boolean,
+    readonly id: string,
+    readonly isOpen?: boolean,
   },
 ): StateT {
   const {
@@ -497,7 +497,7 @@ component _ArtistCreditEditor(
 
   const buildPopoverChildren = React.useCallback((
     closeAndReturnFocus: () => void,
-    initialFocusRef: {-current: HTMLElement | null},
+    initialFocusRef: {writeonly current: HTMLElement | null},
   ) => (
     <ArtistCreditBubble
       closeAndReturnFocus={closeAndReturnFocus}

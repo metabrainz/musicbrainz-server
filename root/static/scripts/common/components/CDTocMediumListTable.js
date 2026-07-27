@@ -14,7 +14,7 @@ import {SanitizedCatalystContext} from '../../../../context.mjs';
 import CDTocMediumListRow from './CDTocMediumListRow.js';
 
 component CDTocMediumListTable(
-  mediumCDTocs: $ReadOnlyArray<MediumCDTocT>,
+  mediumCDTocs: ReadonlyArray<MediumCDTocT>,
   releaseMap: {[releaseId: number]: ReleaseT},
   showEditColumn as passedShowEditColumn: boolean = false,
 ) {
@@ -54,7 +54,7 @@ component CDTocMediumListTable(
   );
 }
 
-export default (hydrate<React.PropsOf<CDTocMediumListTable>>(
+export default hydrate<React.PropsOf<CDTocMediumListTable>>(
   'div.cd-toc-medium-list-table-container',
   CDTocMediumListTable,
-): component(...React.PropsOf<CDTocMediumListTable>));
+) as component(...React.PropsOf<CDTocMediumListTable>);

@@ -12,22 +12,22 @@ import type {
 } from '../static/scripts/common/components/Autocomplete2/types.js';
 
 export type CollaboratorFieldT = CompoundFieldT<{
-  +id: FieldT<?number>,
-  +name: FieldT<string>,
+  readonly id: FieldT<?number>,
+  readonly name: FieldT<string>,
 }>;
 
-export type CollaboratorStateT = $ReadOnly<{
+export type CollaboratorStateT = Readonly<{
   ...CollaboratorFieldT,
-  +autocomplete: AutocompleteStateT<EditorT>,
+  readonly autocomplete: AutocompleteStateT<EditorT>,
 }>;
 
 export type CollaboratorsStateT =
   RepeatableFieldT<CollaboratorStateT>;
 
 export type CollectionEditFormT = FormT<{
-  +collaborators: RepeatableFieldT<CollaboratorFieldT>,
-  +description: FieldT<string>,
-  +name: FieldT<string>,
-  +public: FieldT<boolean>,
-  +type_id: FieldT<number>,
+  readonly collaborators: RepeatableFieldT<CollaboratorFieldT>,
+  readonly description: FieldT<string>,
+  readonly name: FieldT<string>,
+  readonly public: FieldT<boolean>,
+  readonly type_id: FieldT<number>,
 }>;

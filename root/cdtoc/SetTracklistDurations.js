@@ -23,7 +23,10 @@ import {areFormattedLengthsEqual} from './utils.js';
 component SetTracklistDurations(
   cdToc: CDTocT,
   form: ConfirmFormT,
-  medium: $ReadOnly<{...MediumT, +cdtoc_tracks: $ReadOnlyArray<TrackT>}>,
+  medium: Readonly<{
+    ...MediumT,
+    readonly cdtoc_tracks: ReadonlyArray<TrackT>,
+  }>,
 ) {
   const newLengths = cdToc.track_details.map(track => track.length_time);
   const oldLengths = medium.cdtoc_tracks.map(track => track.length);

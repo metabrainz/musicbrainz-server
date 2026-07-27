@@ -25,8 +25,8 @@ component SeriesList(
   checkboxes?: string,
   mergeForm?: MergeFormT,
   order?: string,
-  series: $ReadOnlyArray<SeriesT>,
-  seriesItemNumbers?: $ReadOnlyArray<string>,
+  series: ReadonlyArray<SeriesT>,
+  seriesItemNumbers?: ReadonlyArray<string>,
   sortable?: boolean,
 ) {
   const $c = React.useContext(CatalystContext);

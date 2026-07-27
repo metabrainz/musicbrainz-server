@@ -5,22 +5,22 @@ import * as React from 'react';
 import {uniqueId} from '../../../common/utility/numbers.js';
 
 export type StateT = {
-  +description: string,
-  +key: number,
+  readonly description: string,
+  readonly key: number,
 };
 
 export type ActionT =
   | {
-      +description: string,
-      +type: 'set-description',
+      readonly description: string,
+      readonly type: 'set-description',
     }
-  | {+type: 'move-up'}
-  | {+type: 'move-down'}
-  | {+type: 'remove'};
+  | {readonly type: 'move-up'}
+  | {readonly type: 'move-down'}
+  | {readonly type: 'remove'};
 
 type PropsT = {
-  +dispatch: (key: number, action: ActionT) => void,
-  +state: StateT,
+  readonly dispatch: (key: number, action: ActionT) => void,
+  readonly state: StateT,
 };
 
 export function createInitialState(): StateT {

@@ -25,7 +25,7 @@ component AreaPlaces(
   area: AreaT,
   mapDataArgs: string,
   pager: PagerT,
-  places: ?$ReadOnlyArray<PlaceT>,
+  places: ?ReadonlyArray<PlaceT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (

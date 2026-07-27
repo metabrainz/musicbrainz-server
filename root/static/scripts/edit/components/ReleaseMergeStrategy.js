@@ -60,10 +60,10 @@ component UselessMediumTitleWarning(name: string) {
 
 component ReleaseMergeStrategy(
   badRecordingMerges?:
-    $ReadOnlyArray<$ReadOnlyArray<RecordingT>>,
+    ReadonlyArray<ReadonlyArray<RecordingT>>,
   form: MergeReleasesFormT,
-  mediums: $ReadOnlyArray<MediumT>,
-  releases: {+[releaseID: number]: ReleaseT},
+  mediums: ReadonlyArray<MediumT>,
+  releases: {readonly [releaseID: number]: ReleaseT},
 ) {
   const [mergeStrategy, setMergeStrategy] =
     React.useState(form.field.merge_strategy);
@@ -298,7 +298,7 @@ component ReleaseMergeStrategy(
   );
 }
 
-export default (hydrate<React.PropsOf<ReleaseMergeStrategy>>(
+export default hydrate<React.PropsOf<ReleaseMergeStrategy>>(
   'div.release-merge-strategy',
   ReleaseMergeStrategy,
-): component(...React.PropsOf<ReleaseMergeStrategy>));
+) as component(...React.PropsOf<ReleaseMergeStrategy>);

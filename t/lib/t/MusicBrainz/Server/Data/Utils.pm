@@ -1,4 +1,5 @@
 package t::MusicBrainz::Server::Data::Utils;
+use utf8;
 use strict;
 use warnings;
 
@@ -11,6 +12,7 @@ use MusicBrainz::Server::Context;
 use MusicBrainz::Server::Data::Utils qw(
     order_by
     generate_gid
+    ha1_password
     is_blank
     take_while
     sanitize
@@ -256,6 +258,10 @@ test 'Test is_blank' => sub {
     ok(is_blank(''), q('' is blank));
     ok(is_blank(' '), q(' ' is blank));
     ok(!is_blank(' x '), q(' x ' is not blank));
+};
+
+test 'Test ha1_password' => sub {
+    is(ha1_password('æditorⅣ', 'pass'), 'cee82955d47bf0bd71038244579e766f');
 };
 
 1;

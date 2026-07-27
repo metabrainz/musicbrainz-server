@@ -16,7 +16,7 @@ import WordDiff from '../../static/scripts/edit/components/edit/WordDiff.js';
 import EditArtwork from '../components/EditArtwork.js';
 
 function displayArtTypes(
-  types: $ReadOnlyArray<CoverArtTypeT | EventArtTypeT>,
+  types: ReadonlyArray<CoverArtTypeT | EventArtTypeT>,
   archiveName: 'cover' | 'event',
 ) {
   if (types?.length) {

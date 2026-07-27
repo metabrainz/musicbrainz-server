@@ -14,9 +14,9 @@ import {DELETE, INSERT} from '../../static/scripts/edit/utility/editDiff.js';
 
 component TrackDurationChanges(
   newLabel?: string,
-  newLengths: $ReadOnlyArray<number | null>,
+  newLengths: ReadonlyArray<number | null>,
   oldLabel?: string,
-  oldLengths: $ReadOnlyArray<number | null>,
+  oldLengths: ReadonlyArray<number | null>,
 ) {
   const lengthsSize = oldLengths.length;
   const lengthComparisonTables = [];

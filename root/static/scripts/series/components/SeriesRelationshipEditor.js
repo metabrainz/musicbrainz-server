@@ -184,9 +184,9 @@ const NonHydratedSeriesRelationshipEditor:
       _SeriesRelationshipEditor,
     );
 
-const SeriesRelationshipEditor = (hydrate<PropsT>(
+const SeriesRelationshipEditor = hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedSeriesRelationshipEditor,
-): component(...PropsT));
+) as component(...PropsT);
 
 export default SeriesRelationshipEditor;

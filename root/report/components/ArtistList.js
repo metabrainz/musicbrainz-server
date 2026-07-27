@@ -17,10 +17,10 @@ import {
   defineTextColumn,
 } from '../../utility/tableColumns.js';
 
-component ArtistList<D: {+artist: ?ArtistT, ...}>(
-  columnsAfter?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  columnsBefore?: $ReadOnlyArray<ColumnOptionsNoValue<D>>,
-  items: $ReadOnlyArray<D>,
+component ArtistList<D extends {readonly artist: ?ArtistT, ...}>(
+  columnsAfter?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  columnsBefore?: ReadonlyArray<ColumnOptionsNoValue<D>>,
+  items: ReadonlyArray<D>,
   pager: PagerT,
   subPath?: string,
 ) {

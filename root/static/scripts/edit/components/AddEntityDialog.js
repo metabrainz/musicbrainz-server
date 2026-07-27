@@ -16,7 +16,7 @@ import {
   findFirstTabbableElement,
 } from '../../common/utility/focusManagement.js';
 
-export const TITLES: {+[entityType: string]: () => string} = {
+export const TITLES: {readonly [entityType: string]: () => string} = {
   area: N_l('Add a new area'),
   artist: N_l('Add a new artist'),
   event: N_l('Add a new event'),
@@ -30,7 +30,7 @@ export const TITLES: {+[entityType: string]: () => string} = {
 };
 
 type InstanceT = {
-  +close: () => void,
+  readonly close: () => void,
 };
 
 component AddEntityDialog(

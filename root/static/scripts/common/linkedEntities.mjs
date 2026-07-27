@@ -208,7 +208,7 @@ Object.seal(linkedEntities);
 export default linkedEntities;
 
 export function mergeLinkedEntities(
-  update: ?$ReadOnly<Partial<LinkedEntitiesT>>,
+  update: ?Readonly<Partial<LinkedEntitiesT>>,
 ): void {
   if (update) {
     for (const [type, entities] of Object.entries(update)) {

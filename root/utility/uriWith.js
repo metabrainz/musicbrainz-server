@@ -7,7 +7,7 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-export default function uriWith<T: {...}>(
+export default function uriWith<T extends {...}>(
   uriString: string,
   params: T,
 ): string {

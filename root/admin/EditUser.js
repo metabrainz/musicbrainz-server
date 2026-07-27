@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
+import {
+  LOCAL_ACCOUNTS_ENABLED,
+} from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
@@ -27,26 +30,25 @@ import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 type EditUserFormT = FormT<{
   ...SecureConfirmFormT,
-  +account_admin: FieldT<boolean>,
-  +adding_notes_disabled: FieldT<boolean>,
-  +auto_editor: FieldT<boolean>,
-  +banner_editor: FieldT<boolean>,
-  +biography: FieldT<string>,
-  +bot: FieldT<boolean>,
-  +editing_disabled: FieldT<boolean>,
-  +email: FieldT<string>,
-  +link_editor: FieldT<boolean>,
-  +location_editor: FieldT<boolean>,
-  +mbid_submitter: FieldT<boolean>,
-  +no_nag: FieldT<boolean>,
-  +show_exact: FieldT<boolean>,
-  +skip_verification: FieldT<boolean>,
-  +spammer: FieldT<boolean>,
-  +untrusted: FieldT<boolean>,
-  +username: FieldT<string>,
-  +voting_disabled: FieldT<boolean>,
-  +website: FieldT<string>,
-  +wiki_transcluder: FieldT<boolean>,
+  readonly account_admin: FieldT<boolean>,
+  readonly adding_notes_disabled: FieldT<boolean>,
+  readonly auto_editor: FieldT<boolean>,
+  readonly banner_editor: FieldT<boolean>,
+  readonly biography: FieldT<string>,
+  readonly bot: FieldT<boolean>,
+  readonly editing_disabled: FieldT<boolean>,
+  readonly email: FieldT<string>,
+  readonly link_editor: FieldT<boolean>,
+  readonly location_editor: FieldT<boolean>,
+  readonly mbid_submitter: FieldT<boolean>,
+  readonly no_nag: FieldT<boolean>,
+  readonly show_exact: FieldT<boolean>,
+  readonly spammer: FieldT<boolean>,
+  readonly untrusted: FieldT<boolean>,
+  readonly username: FieldT<string>,
+  readonly voting_disabled: FieldT<boolean>,
+  readonly website: FieldT<string>,
+  readonly wiki_transcluder: FieldT<boolean>,
 }>;
 
 component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
@@ -150,16 +152,13 @@ component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
           required
           uncontrolled
         />
-        <FormRowEmailLong
-          field={form.field.email}
-          label="Email:"
-          uncontrolled
-        />
-        <FormRowCheckbox
-          field={form.field.skip_verification}
-          label="Skip verification"
-          uncontrolled
-        />
+        {LOCAL_ACCOUNTS_ENABLED ? (
+          <FormRowEmailLong
+            field={form.field.email}
+            label="Email:"
+            uncontrolled
+          />
+        ) : null}
         <FormRowURLLong
           field={form.field.website}
           label="Website:"

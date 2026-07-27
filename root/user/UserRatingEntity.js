@@ -23,7 +23,7 @@ import {headingText} from './UserRatingList.js';
 component UserRatingEntity(
   entityType: RatableEntityTypeT,
   pager: PagerT,
-  ratings: $ReadOnlyArray<RatableT>,
+  ratings: ReadonlyArray<RatableT>,
   user: AccountLayoutUserT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

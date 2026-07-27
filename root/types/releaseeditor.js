@@ -19,81 +19,84 @@
  */
 
 declare type ReleaseEditorSeededArtistCreditNameT = {
-  +artist?: ArtistT | {+name?: string} | null,
-  +joinPhrase: string,
-  +name: string,
+  readonly artist?: ArtistT | {readonly name?: string} | null,
+  readonly joinPhrase: string,
+  readonly name: string,
 };
 
 declare type ReleaseEditorSeededArtistCreditT = {
-  +names: $ReadOnlyArray<ReleaseEditorSeededArtistCreditNameT | {}> | null,
+  readonly names:
+    ReadonlyArray<ReleaseEditorSeededArtistCreditNameT | {}> | null,
 };
 
 declare type ReleaseEditorSeededTrackT = {
-  +artistCredit?: ReleaseEditorSeededArtistCreditT | null,
-  +length?: number,
-  +name?: string,
-  +number: StrOrNum,
-  +position: number,
-  +recording?: RecordingT,
+  readonly artistCredit?: ReleaseEditorSeededArtistCreditT | null,
+  readonly length?: number,
+  readonly name?: string,
+  readonly number: StrOrNum,
+  readonly position: number,
+  readonly recording?: RecordingT,
 };
 
 declare type ReleaseEditorSeededMediumT = {
-  +format_id?: number,
-  +name?: string,
-  +toc?: string,
-  +tracks?: $ReadOnlyArray<ReleaseEditorSeededTrackT | {}> | null,
+  readonly format_id?: number,
+  readonly name?: string,
+  readonly toc?: string,
+  readonly tracks?: ReadonlyArray<ReleaseEditorSeededTrackT | {}> | null,
 };
 
 declare type ReleaseEditorSeededReleaseGroupT =
   | ReleaseGroupT
   | {
-      +name: string,
-      +secondaryTypeIDs?: $ReadOnlyArray<number>,
-      +typeID?: number,
+      readonly name: string,
+      readonly secondaryTypeIDs?: ReadonlyArray<number>,
+      readonly typeID?: number,
     };
 
 declare type ReleaseEditorSeededReleaseEventT = {
-  +country?: AreaT,
-  +date?: {
-    +day?: number,
-    +month?: number,
-    +year?: number,
+  readonly country?: AreaT,
+  readonly date?: {
+    readonly day?: number,
+    readonly month?: number,
+    readonly year?: number,
   },
 };
 
 declare type ReleaseEditorSeededReleaseLabelT = {
-  +catalogNumber: string,
-  +label?: LabelT | {+name: string},
+  readonly catalogNumber: string,
+  readonly label?: LabelT | {readonly name: string},
 };
 
 declare type ReleaseEditorSeededUrlRelationshipT = {
-  +id: null,
-  +linkTypeID?: number,
-  +target: {
-    +entityType: 'url',
-    +name: string,
+  readonly id: null,
+  readonly linkTypeID?: number,
+  readonly target: {
+    readonly entityType: 'url',
+    readonly name: string,
   },
 };
 
 declare type ReleaseEditorSeededReleaseT = {
-  +annotation?: string,
-  +artistCredit?: ReleaseEditorSeededArtistCreditT | null,
-  +barcode?: string,
-  +comment?: string,
-  +events?: $ReadOnlyArray<ReleaseEditorSeededReleaseEventT | {}> | null,
-  +labels?: $ReadOnlyArray<ReleaseEditorSeededReleaseLabelT | {}> | null,
-  +languageID?: number,
-  +mediums?: $ReadOnlyArray<ReleaseEditorSeededMediumT> | null,
-  +name?: string,
-  +packagingID?: number,
-  +relationships?:
-    $ReadOnlyArray<ReleaseEditorSeededUrlRelationshipT | {}> | null,
-  +releaseGroup?: ReleaseEditorSeededReleaseGroupT | null,
-  +scriptID?: number,
-  +statusID?: number,
+  readonly annotation?: string,
+  readonly artistCredit?: ReleaseEditorSeededArtistCreditT | null,
+  readonly barcode?: string,
+  readonly comment?: string,
+  readonly events?:
+    ReadonlyArray<ReleaseEditorSeededReleaseEventT | {}> | null,
+  readonly labels?:
+    ReadonlyArray<ReleaseEditorSeededReleaseLabelT | {}> | null,
+  readonly languageID?: number,
+  readonly mediums?: ReadonlyArray<ReleaseEditorSeededMediumT> | null,
+  readonly name?: string,
+  readonly packagingID?: number,
+  readonly relationships?:
+    ReadonlyArray<ReleaseEditorSeededUrlRelationshipT | {}> | null,
+  readonly releaseGroup?: ReleaseEditorSeededReleaseGroupT | null,
+  readonly scriptID?: number,
+  readonly statusID?: number,
 };
 
 declare type ReleaseEditorSeedT = {
-  +errors: $ReadOnlyArray<string>,
-  +seed: ReleaseEditorSeededReleaseT,
+  readonly errors: ReadonlyArray<string>,
+  readonly seed: ReleaseEditorSeededReleaseT,
 };

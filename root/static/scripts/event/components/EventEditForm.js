@@ -71,31 +71,40 @@ import type {
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'set-setlist', +setlist: string}
-  | {+type: 'set-type', +type_id: string}
-  | {+type: 'show-all-pending-errors'}
-  | {+type: 'toggle-type-bubble'}
-  | {+type: 'update-date-range', +action: DateRangeFieldsetActionT}
-  | {+type: 'update-external-links-editor', +action: LinksEditorActionT}
-  | {+type: 'update-relationship-editor', +action: RelationshipEditorActionT}
-  | {+type: 'update-name', +action: NameActionT};
+  | {readonly type: 'set-setlist', readonly setlist: string}
+  | {readonly type: 'set-type', readonly type_id: string}
+  | {readonly type: 'show-all-pending-errors'}
+  | {readonly type: 'toggle-type-bubble'}
+  | {
+      readonly type: 'update-date-range',
+      readonly action: DateRangeFieldsetActionT,
+    }
+  | {
+      readonly type: 'update-external-links-editor',
+      readonly action: LinksEditorActionT,
+    }
+  | {
+      readonly type: 'update-relationship-editor',
+      readonly action: RelationshipEditorActionT,
+    }
+  | {readonly type: 'update-name', readonly action: NameActionT};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +externalLinksEditor: LinksEditorStateT,
-  +form: EventFormT,
-  +guessCaseOptions: GuessCaseOptionsStateT,
-  +isGuessCaseOptionsOpen: boolean,
-  +relationshipEditor: RelationshipEditorStateT,
-  +showTypeBubble: boolean,
+  readonly externalLinksEditor: LinksEditorStateT,
+  readonly form: EventFormT,
+  readonly guessCaseOptions: GuessCaseOptionsStateT,
+  readonly isGuessCaseOptionsOpen: boolean,
+  readonly relationshipEditor: RelationshipEditorStateT,
+  readonly showTypeBubble: boolean,
 };
 
 function createInitialState({
   $c,
   form,
 }: {
-  +$c: SanitizedCatalystContextT,
-  +form: EventFormT,
+  readonly $c: SanitizedCatalystContextT,
+  readonly form: EventFormT,
 }) {
   return {
     externalLinksEditor: createExternalLinksEditorState($c),
@@ -199,7 +208,7 @@ function reducer(state: StateT, action: ActionT): StateT {
 }
 
 component EventEditForm(
-  eventDescriptions: {+[id: string]: string},
+  eventDescriptions: {readonly [id: string]: string},
   eventTypes: SelectOptionsT,
   form as initialForm: EventFormT,
 ) {

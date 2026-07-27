@@ -8878,7 +8878,7 @@ msgstr ""
 msgid "Eastern Muria"
 msgstr ""
 
-#. frequency:0 iso_code_3:nea
+#. frequency:1 iso_code_3:nea
 #: DB:language/name:4741
 msgid "Eastern Ngad'a"
 msgstr ""
@@ -9228,7 +9228,7 @@ msgstr ""
 msgid "Emerillon"
 msgstr ""
 
-#. frequency:0 iso_code_3:egl
+#. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
 msgid "Emilian"
 msgstr ""
@@ -12813,6 +12813,11 @@ msgstr ""
 msgid "International Sign"
 msgstr ""
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+msgid "Interslavic"
+msgstr ""
+
 #. frequency:0 iso_code_3:int
 #: DB:language/name:2909
 msgid "Intha"
@@ -15123,7 +15128,7 @@ msgstr ""
 msgid "Keapara"
 msgstr ""
 
-#. frequency:0 iso_code_3:meo
+#. frequency:1 iso_code_3:meo
 #: DB:language/name:4140
 msgid "Kedah Malay"
 msgstr ""
@@ -23898,7 +23903,7 @@ msgstr ""
 msgid "Negerhollands"
 msgstr ""
 
-#. frequency:0 iso_code_3:zmi
+#. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
 msgstr ""
@@ -24028,7 +24033,7 @@ msgstr ""
 msgid "Ngaanyatjarra"
 msgstr ""
 
-#. frequency:0 iso_code_3:nxg
+#. frequency:1 iso_code_3:nxg
 #: DB:language/name:5076
 msgid "Ngad'a"
 msgstr ""
@@ -27208,7 +27213,7 @@ msgstr ""
 msgid "Pattani"
 msgstr ""
 
-#. frequency:0 iso_code_3:mfa
+#. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
 msgstr ""

@@ -38,9 +38,9 @@ component LabelIndex(
   label: LabelT,
   numberOfRevisions: number,
   pager: PagerT,
-  releases: ?$ReadOnlyArray<ReleaseT>,
-  renamedFrom: $ReadOnlyArray<LabelT>,
-  renamedInto: $ReadOnlyArray<LabelT>,
+  releases: ?ReadonlyArray<ReleaseT>,
+  renamedFrom: ReadonlyArray<LabelT>,
+  renamedInto: ReadonlyArray<LabelT>,
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

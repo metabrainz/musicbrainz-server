@@ -203,7 +203,7 @@ const SetCoverArtFormImage:
     React.memo(_SetCoverArtFormImage);
 
 component SetCoverArtForm(
-  allReleases: $ReadOnlyArray<ReleaseT>,
+  allReleases: ReadonlyArray<ReleaseT>,
   artwork: {[releaseId: number]: ArtworkT},
   form: SetCoverArtFormT,
 ) {
@@ -247,7 +247,7 @@ component SetCoverArtForm(
   );
 }
 
-export default (hydrate<React.PropsOf<SetCoverArtForm>>(
+export default hydrate<React.PropsOf<SetCoverArtForm>>(
   'div.set-cover-art-form',
   SetCoverArtForm,
-): component(...React.PropsOf<SetCoverArtForm>));
+) as component(...React.PropsOf<SetCoverArtForm>);

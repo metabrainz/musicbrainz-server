@@ -10,21 +10,21 @@
 /* eslint-disable no-unused-vars */
 
 declare type LanguageT = {
-  +entityType: 'language',
-  +frequency: 0 | 1 | 2,
-  +id: number,
-  +iso_code_1: string | null,
-  +iso_code_2b: string | null,
-  +iso_code_2t: string | null,
-  +iso_code_3: string | null,
-  +name: string,
+  readonly entityType: 'language',
+  readonly frequency: 0 | 1 | 2,
+  readonly id: number,
+  readonly iso_code_1: string | null,
+  readonly iso_code_2b: string | null,
+  readonly iso_code_2t: string | null,
+  readonly iso_code_3: string | null,
+  readonly name: string,
 };
 
 declare type ScriptT = {
-  +entityType: 'script',
-  +frequency: 1 | 2 | 3 | 4,
-  +id: number,
-  +iso_code: string,
-  +iso_number: string | null,
-  +name: string,
+  readonly entityType: 'script',
+  readonly frequency: 1 | 2 | 3 | 4,
+  readonly id: number,
+  readonly iso_code: string,
+  readonly iso_number: string | null,
+  readonly name: string,
 };

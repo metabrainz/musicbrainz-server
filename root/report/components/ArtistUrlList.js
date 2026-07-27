@@ -15,7 +15,7 @@ import type {ReportArtistUrlT} from '../types.js';
 import RemovedUrlRow from './RemovedUrlRow.js';
 
 component ArtistUrlList(
-  items: $ReadOnlyArray<ReportArtistUrlT>,
+  items: ReadonlyArray<ReportArtistUrlT>,
   pager: PagerT,
 ) {
   let lastGID: string = '';

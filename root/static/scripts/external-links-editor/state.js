@@ -477,7 +477,7 @@ function moveFocusToNextLink(
 }
 
 function updateRemovedOnMatchingRelationships(
-  relationshipsCtx: CowContext<$ReadOnlyArray<LinkRelationshipStateT>>,
+  relationshipsCtx: CowContext<ReadonlyArray<LinkRelationshipStateT>>,
   matchCallback: (LinkRelationshipStateT) => boolean,
   removed: boolean,
 ): void {

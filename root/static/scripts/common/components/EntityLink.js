@@ -184,7 +184,7 @@ component EntityLink(
   ...passedAnchorProps: {
     className?: string,
     href?: string,
-    +target?: '_blank',
+    readonly target?: '_blank',
     title?: string,
   }
 ) {

@@ -19,33 +19,36 @@ import FormRowSelect from '../../edit/components/FormRowSelect.js';
 import FormSubmit from '../../edit/components/FormSubmit.js';
 
 type PreferencesFormT = FormT<{
-  +csrf_token: FieldT<string>,
-  +datetime_format: FieldT<string>,
-  +email_language: FieldT<string>,
-  +email_on_abstain: FieldT<boolean>,
-  +email_on_no_vote: FieldT<boolean>,
-  +email_on_notes: FieldT<boolean>,
-  +email_on_vote: FieldT<boolean>,
-  +notify_via_email: FieldT<boolean>,
-  +public_ratings: FieldT<boolean>,
-  +public_subscriptions: FieldT<boolean>,
-  +public_tags: FieldT<boolean>,
-  +subscribe_to_created_artists: FieldT<boolean>,
-  +subscribe_to_created_labels: FieldT<boolean>,
-  +subscribe_to_created_series: FieldT<boolean>,
-  +subscriptions_email_period: FieldT<string>,
-  +timezone: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly datetime_format: FieldT<string>,
+  readonly email_language: FieldT<string>,
+  readonly email_on_abstain: FieldT<boolean>,
+  readonly email_on_no_vote: FieldT<boolean>,
+  readonly email_on_notes: FieldT<boolean>,
+  readonly email_on_vote: FieldT<boolean>,
+  readonly notify_via_email: FieldT<boolean>,
+  readonly public_ratings: FieldT<boolean>,
+  readonly public_subscriptions: FieldT<boolean>,
+  readonly public_tags: FieldT<boolean>,
+  readonly subscribe_to_created_artists: FieldT<boolean>,
+  readonly subscribe_to_created_labels: FieldT<boolean>,
+  readonly subscribe_to_created_series: FieldT<boolean>,
+  readonly subscriptions_email_period: FieldT<string>,
+  readonly timezone: FieldT<string>,
 }>;
 
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
-  | {+type: 'guess-timezone', +options: GroupedOptionsT | SelectOptionsT}
-  | {+type: 'set-time-format', +timeFormat: string}
-  | {+type: 'set-timezone', +timezone: string};
+  | {
+      readonly type: 'guess-timezone',
+      readonly options: GroupedOptionsT | SelectOptionsT,
+    }
+  | {readonly type: 'set-time-format', readonly timeFormat: string}
+  | {readonly type: 'set-timezone', readonly timezone: string};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
-  +form: PreferencesFormT,
+  readonly form: PreferencesFormT,
 };
 
 const allowedDateTimeFormats = [
@@ -270,7 +273,7 @@ component PreferencesForm(
   );
 }
 
-export default (hydrate<React.PropsOf<PreferencesForm>>(
+export default hydrate<React.PropsOf<PreferencesForm>>(
   'div.preferences-form',
   PreferencesForm,
-): component(...React.PropsOf<PreferencesForm>));
+) as component(...React.PropsOf<PreferencesForm>);
