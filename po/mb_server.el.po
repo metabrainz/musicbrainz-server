@@ -11,20 +11,21 @@
 # Dimitris <email address hidden>, 2012-2013
 # Dimitris  <email address hidden>, 2012
 # <email address hidden>, 2012
-#   <email address hidden>, 2012
+# <email address hidden>, 2012
 # nikki, 2012
 # nikki, 2012
 # nikki, 2012
 # Panos Bouklis <email address hidden>, 2012
 # Panos Bouklis <email address hidden>, 2012
 # yvanz, 2018
+# cuhsy <alexantris@proton.me>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2024-04-17 17:31+0000\n"
-"Last-Translator: Anonymous <noreply@weblate.org>\n"
+"PO-Revision-Date: 2026-06-23 14:12+0000\n"
+"Last-Translator: cuhsy <alexantris@proton.me>\n"
 "Language-Team: Greek <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/el/>\n"
 "Language: el\n"
@@ -32,7 +33,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -12443,6 +12444,9 @@ msgid ""
 "released into the <strong>Public Domain</strong> and can be downloaded and "
 "used <strong>for free</strong>."
 msgstr ""
+"Η πλειοψηφία των δεδομένων της <strong>Βάσης Δεδομένων MusicBrainz</strong> "
+"δημοσιεύεται στο <strong>Κοινό Κτήμα</strong> και επιτρέπεται η <strong>"
+"ελεύθερη</strong> λήψη και χρήση τους."
 
 #: ../root/main/index.js:234
 msgid "Developers"
