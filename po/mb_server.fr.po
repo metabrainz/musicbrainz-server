@@ -64,13 +64,15 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # BlueCamille <BlueCamille@users.noreply.translations.metabrainz.org>, 2024.
 # Dibou <doc@boudon.nom.fr>, 2024.
+# mr_monkey <mr_monkey@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-11 17:09+0200\n"
-"PO-Revision-Date: 2025-10-10 11:02+0000\n"
-"Last-Translator: yvanzo <yvanzo@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-06-11 02:12+0000\n"
+"Last-Translator: mr_monkey "
+"<mr_monkey@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: French <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/fr/>\n"
 "Language: fr\n"
@@ -79,7 +81,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
 "1000000 == 0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -857,7 +859,7 @@ msgstr "Détails"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Désactiver le mode navigateur hérité"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -895,6 +897,10 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"Ne marquez pas les parutions sur support numérique comme n'ayant pas de code-"
+"barres sauf si vous êtes familier avec la plateforme. La plupart des "
+"principales plateformes digitales utilisent des code-barres, même s'ils ne "
+"sont pas montrés."
 
 #: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
@@ -1181,10 +1187,12 @@ msgstr ""
 #: ../root/series/edit_form.tt:47
 msgid "Feel free to leave it blank if the series’ name is likely to be unique."
 msgstr ""
+"Vous pouvez laisser ce champ vide si le nom de la série est susceptible "
+"d'être unique."
 
 #: ../root/event/add_event_art.tt:48 ../root/release/add_cover_art.tt:48
 msgid "File:"
-msgstr "Fichier :"
+msgstr "Fichier :"
 
 #: ../root/release/edit/layout.tt:64
 msgid "Finish"
@@ -1195,16 +1203,20 @@ msgid ""
 "First enter all track information, including titles and artist credits, in "
 "order to edit their recordings."
 msgstr ""
-"Saisir d’abord toutes les informations des pistes, incluant les titres et "
-"crédits d’artistes, afin de modifier leurs enregistrements."
+"Saisir d’abord toutes les informations des pistes, y compris les titres et "
+"crédits d’artistes, avant de pouvoir modifier leurs enregistrements."
 
 #: ../root/recording/edit_form.tt:86
 msgid "For classical music, it should contain the most important performers."
 msgstr ""
+"Pour la musique classique, il devrait inclure les interprètes les plus "
+"importants."
 
 #: ../root/release/edit/information.tt:543
 msgid "For digital media releases, this should usually be “None”."
 msgstr ""
+"Pour les parutions sur support numérique, cette valeur devrait géneralement "
+"être «Aucun»."
 
 #: ../root/artist/edit_form.tt:2 ../root/place/edit_form.tt:2
 #: ../root/recording/edit_form.tt:16 ../root/release_group/edit_form.tt:3
