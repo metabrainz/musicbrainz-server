@@ -3,12 +3,12 @@
 # 황다운 <email address hidden>, 2018
 # hashflu <minwuekim@gmail.com>, 2024.
 # hashflu <hashflu@users.noreply.translations.metabrainz.org>, 2024.
+# welikeheon <welikeheon@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-05-02 17:37+0000\n"
-"Last-Translator: hashflu "
-"<hashflu@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-06-06 19:12+0000\n"
+"Last-Translator: welikeheon <welikeheon@gmail.com>\n"
 "Language-Team: Korean <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ko/>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.5.2\n"
+"X-Generator: Weblate 2026.6.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -26,8 +26,8 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
-"\"모테트\"란 여러가지 형식의 (보통음 무반주) 합창 작품에 대해서 사용되는 용어"
-"입니다. 엄밀한 정의는 시대에 따라서 크게 다릅니다."
+"\"모테트\"란 다양한 유형의 (대개 반주가 없는) 합창곡을 지칭하는 용어입니다. "
+"모테트가 정확히 무엇을 의미하는지는 시대에 따라 상당히 달라집니다."
 
 #. name:Sonata
 #: DB:work_type/description:5
@@ -36,8 +36,8 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
-"”소나타”란, 최초는 바로크 음악의 소규모(종종 솔로 또는 솔로+키보드)의 연주 작"
-"품을 나타내는 일반적인 용어입니다. "
+"”소나타”는 원래 바로크 음악에서 유래한 용어로, 소규모(대개 독주나 독주와 "
+"건반 악기의 합주) 기악곡을 지칭하는 총칭입니다."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
@@ -52,7 +52,7 @@ msgstr "10인치 셸락"
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr "10인치 비닐"
+msgstr "10인치 바이닐"
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
@@ -72,17 +72,17 @@ msgstr "12인치 셸락"
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr "12인치 비닐"
+msgstr "12인치 바이닐"
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "3인치 레코드판"
+msgstr "3인치 바이닐"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr "3.5인치 프로피 디스크"
+msgstr "3.5인치 플로피 디스크"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
@@ -107,7 +107,7 @@ msgstr "7인치 셸락"
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "7인치 비닐"
+msgstr "7인치 바이닐"
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
@@ -130,12 +130,9 @@ msgid "8cm CD+G"
 msgstr "8cm CD+G"
 
 #: DB:medium_format/name:210
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm CD"
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "8cm CD"
+msgstr "8cm CD-R"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
@@ -150,6 +147,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
+"90rpm, 수직 절삭 셸락 레코드판으로, 1906년부터 1932년까지 파테(Pathé) "
+"레이블에서 제작되었습니다."
 
 #. name:Compilation
 #: DB:release_group_secondary_type/description:1
@@ -183,6 +182,30 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
+"<p>MusicBrainz 데이터베이스 특성 상, 컴필레이션은 다음과 같은 유형의 음반을 "
+"포함합니다:</p>\n"
+"\n"
+"<ul>\n"
+"<li>다양한 오래된 소스(반드시 발매된 것은 아님)에서 가져온 녹음들을 모아 "
+"엮은 것, 예를 들어 \"베스트 오브\", 회고전, 희귀곡 모음집 형태의 "
+"음반입니다.</li>\n"
+"<li>일반적인 주제(\"연인을 위한 노래\"), 특정 시기(1998년대 히트곡), 또는 "
+"기타 분야(\"영화 속 노래\", \"Café del Mar\" 시리즈 등) 다양한 아티스트의 "
+"노래 모음집입니다.</li>\n"
+"</ul>\n"
+"<p>MusicBrainz 프로젝트는 일반적으로 다음을 컴필레이션으로 간주하지 "
+"않습니다:</p>\n"
+"\n"
+"<ul>\n"
+"<li>보너스 트랙이 포함되어 있다 하더라도 앨범의 재발매판 </li>\n"
+"<li>다른 아티스트의 곡을 커버한 트리뷰트 앨범.</li>\n"
+"<li>클래식 아티스트의 작품을 새롭게 녹음한 클래식 음반.</li>\n"
+"<li>여러 아티스트의 신곡이 수록된 스플릿 음반</li>\n"
+"</ul>\n"
+"\n"
+"<p>컴필레이션은 다른 유형을 대체하는 것이 아니라, 다른 유형에 추가하여 "
+"사용해야합니다. 이를테면, 이미 발매된 음악을 사용한 여러 아티스트가 참여한 "
+"사운드트랙은 사운드트랙이자 컴필레이션으로 모두 표기해야 합니다.</p>"
 
 #. name:Single
 #: DB:release_group_primary_type/description:2
