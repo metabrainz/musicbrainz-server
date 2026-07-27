@@ -14,20 +14,21 @@
 # MoeCaa <qytc233@gmail.com>, 2025.
 # KenParker_CN <kenparkercn@gmail.com>, 2025, 2026.
 # imgradeone <imgradeone@outlook.com>, 2026.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-01-13 15:11+0000\n"
-"Last-Translator: KenParker_CN <kenparkercn@gmail.com>\n"
+"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/"
-">\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hans/>"
+"\n"
 "Language: zh\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -420,11 +421,9 @@ msgstr "指载有活动系列官方日程的网页。"
 
 #. name:schedule
 #: DB:link_type/description:1302
-#, fuzzy
-#| msgid "Indicates a page with an official schedule for an event series."
 msgid ""
 "Indicates a page with an official schedule for an event, such as a festival."
-msgstr "指载有活动系列官方日程的网页。"
+msgstr "表示该页面包含活动的官方日程安排。"
 
 #. name:parent
 #: DB:link_type/description:109
@@ -1912,14 +1911,10 @@ msgstr ""
 
 #. name:artwork
 #: DB:link_type/description:1303
-#, fuzzy
-#| msgid ""
-#| "This indicates an artist who provided artwork for the event when no more "
-#| "specific information is available."
 msgid ""
 "This indicates a company who provided artwork for the event when no more "
 "specific information is available."
-msgstr "指为活动提供艺术作品的艺术家，当没有更具体的信息时。"
+msgstr "这表示该公司在没有更具体信息的情况下为活动提供了艺术作品。"
 
 #. name:member of band
 #: DB:link_type/description:103

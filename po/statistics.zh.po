@@ -17,12 +17,13 @@
 # m67186636 <m67186636@gmail.com>, 2026.
 # 7Stars <7star@heqingpi.cn>, 2026.
 # sq <59799517@qq.com>, 2026.
+# scientists360 <scientists360@outlook.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-05-23 08:12+0000\n"
-"Last-Translator: sq <59799517@qq.com>\n"
+"PO-Revision-Date: 2026-05-30 12:12+0000\n"
+"Last-Translator: scientists360 <scientists360@outlook.com>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hans/>\n"
 "Language: zh\n"
@@ -1697,7 +1698,7 @@ msgstr "{type} 发行组"
 
 #: ../root/statistics/stats.js:1296
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr ""
+msgstr "以“{type}”类型为组合发行的版本，封面艺术"
 
 #: ../root/statistics/stats.js:1320
 msgid "{script} releases"
@@ -1705,27 +1706,27 @@ msgstr "{script} 发行"
 
 #: ../root/statistics/stats.js:1331
 msgid "{type} series"
-msgstr ""
+msgstr "{类型}系列"
 
 #: ../root/statistics/stats.js:1342
 msgid "{status} releases"
-msgstr ""
+msgstr "{状态} 发行"
 
 #: ../root/statistics/stats.js:1349
 msgid "Releases of status “{status}” with cover art"
-msgstr ""
+msgstr "发行带有封面艺术的“{status}”状态"
 
 #: ../root/statistics/stats.js:1366
 msgid "Works with attribute “{attribute}”"
-msgstr ""
+msgstr "适用于属性“{attribute}”"
 
 #: ../root/statistics/stats.js:1379
 msgid "{type} works"
-msgstr ""
+msgstr "{type} 作品"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
-msgstr ""
+msgstr "这是一个时间线"
 
 #~ msgid "Country"
 #~ msgstr "地区"
