@@ -10,11 +10,11 @@ use Carp qw( confess croak );
 use Try::Tiny;
 use Class::MOP;
 use Clone qw( clone );
+use Crypt::URandom ();
 use Data::Compare;
 use Data::UUID::MT;
 use Digest::MD5 qw( md5_hex );
 use Encode;
-use Math::Random::Secure qw( irand );
 use MIME::Base64 qw( encode_base64url );
 use JSON::XS;
 use List::AllUtils qw( any natatime sort_by );
@@ -257,13 +257,9 @@ sub generate_gid
     lc(Data::UUID::MT->new( version => 4 )->create_string());
 }
 
-Readonly my $TOKEN_SIZE => 6; # times 32 bits
+Readonly my $TOKEN_SIZE => 32; # bytes
 sub generate_token {
-    encode_base64url(
-        pack(
-            'L' x $TOKEN_SIZE,
-            map { irand() } (1 .. $TOKEN_SIZE),
-        ));
+    encode_base64url(Crypt::URandom::urandom($TOKEN_SIZE), '');
 }
 
 sub is_valid_token {

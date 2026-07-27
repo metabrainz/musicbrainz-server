@@ -18,6 +18,7 @@ import {
 
 import hydrate from '../../../../utility/hydrate.js';
 import {expect} from '../../../../utility/invariant.js';
+import LoginMessage from '../../common/components/LoginMessage.js';
 import {
   EMPTY_PARTIAL_DATE,
   RECORDING_OF_LINK_TYPE_ID,
@@ -44,6 +45,7 @@ import {
 import clean from '../../common/utility/clean.js';
 import deepFreezeInDevelopment
   from '../../common/utility/deepFreezeInDevelopment.js';
+import errorToString from '../../common/utility/errorToString.js';
 import isDatabaseRowId from '../../common/utility/isDatabaseRowId.js';
 import isDateEmpty from '../../common/utility/isDateEmpty.js';
 import natatime from '../../common/utility/natatime.js';
@@ -218,6 +220,7 @@ export function createInitialState(
     relationshipsBySource: tree.empty,
     selectedRecordings: tree.empty,
     selectedWorks: tree.empty,
+    showLoginMessage: false,
     submissionError: null,
     submissionInProgress: false,
   };
@@ -265,19 +268,26 @@ export function createInitialState(
 
 function handleSubmissionError(
   dispatch: (ReleaseRelationshipEditorActionT) => void,
-  error: unknown,
+  error: WsJsEditErrorT['error'] | string | void,
 ): void {
-  captureException(error);
-
-  console.error(error);
-
-  const errorString = String(error) || 'unknown error';
-
+  const errorString = errorToString(error) || 'unknown error';
+  const errorCode = typeof error === 'object' && error != null
+    ? (error.errorCode ?? 0)
+    : 0;
   dispatch({
     error: errorString,
     type: 'stop-submission',
   });
-  alert(l('An error occurred:') + ' ' + errorString);
+
+  match (errorCode) {
+    // $ERROR_NOT_LOGGED_IN
+    1 => {
+      dispatch({showLoginMessage: true, type: 'toggle-login-message'});
+    }
+    _ => {
+      alert(l('An error occurred:') + ' ' + errorString);
+    },
+  }
 }
 
 class SubmissionRejected {}
@@ -287,7 +297,9 @@ function handlePromiseRejection<T>(
   promise: Promise<T | SubmissionRejected>,
 ): Promise<T | SubmissionRejected> {
   return promise.catch(function (error: unknown) {
-    handleSubmissionError(dispatch, error);
+    console.error(error);
+    captureException(error);
+    handleSubmissionError(dispatch, errorToString(error));
     return new SubmissionRejected();
   });
 }
@@ -331,18 +343,14 @@ async function wsJsEditSubmission(
     return null;
   }
   const respJson:
-    | (WsJsEditResponseT | {readonly error: string, ...})
+    | (WsJsEditResponseT | WsJsEditErrorT)
     | SubmissionRejected =
       await handlePromiseRejection(dispatch, resp.json());
   if (respJson instanceof SubmissionRejected) {
     return null;
   }
-  if (!resp.ok || (respJson?.error) != null) {
-    const error = (
-      (
-        respJson != null && typeof respJson === 'object'
-      ) ? String(respJson.error) : ''
-    ) || 'unknown error';
+  const error = respJson?.error;
+  if (!resp.ok || error != null) {
     handleSubmissionError(dispatch, error);
     return null;
   }
@@ -1419,6 +1427,9 @@ export const reducer: ((
       }
       updateRelationships(newState, updates);
     }
+    {type: 'toggle-login-message', const showLoginMessage} => {
+      newState.showLoginMessage = showLoginMessage;
+    }
   }
 
   deepFreezeInDevelopment(newState);
@@ -1773,9 +1784,30 @@ component _ReleaseRelationshipEditor() {
     event.preventDefault();
     submitEdits(dispatch, currentStateRef)
       .catch(function (error: unknown) {
-        handleSubmissionError(dispatch, error);
+        console.error(error);
+        captureException(error);
+        handleSubmissionError(dispatch, errorToString(error));
       });
   }, [dispatch]);
+
+  const hideLoginMessage = React.useCallback(() => {
+    dispatch({
+      showLoginMessage: false,
+      type: 'toggle-login-message',
+    });
+  }, [dispatch]);
+
+  const handleLoginSuccess = React.useCallback(() => {
+    hideLoginMessage();
+    /*
+     * We currently only show the login message when the form is submitted,
+     * so continue with the submission.
+     */
+    expect(
+      document.getElementById('relationship-editor-form'),
+    // $FlowFixMe[prop-missing]
+    ).requestSubmit();
+  }, [hideLoginMessage]);
 
   const dialogLocation = state.dialogLocation;
 
@@ -1861,6 +1893,9 @@ component _ReleaseRelationshipEditor() {
               {l('Submitting edits...')}
             </span>
           </div>
+        ) : null}
+        {state.showLoginMessage ? (
+          <LoginMessage success={handleLoginSuccess} />
         ) : null}
       </form>
     </RelationshipSourceGroupsContext.Provider>

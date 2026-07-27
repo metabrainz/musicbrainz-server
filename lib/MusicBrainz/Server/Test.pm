@@ -8,6 +8,7 @@ binmode STDOUT, ':utf8';
 binmode STDERR, ':utf8';
 
 use DBDefs;
+use Digest::SHA qw( sha256 );
 use English;
 use Encode qw( encode );
 use FindBin '$Bin';
@@ -15,7 +16,9 @@ use Getopt::Long;
 use HTML::HTML5::Parser;
 use HTTP::Headers;
 use HTTP::Request;
-use JSON qw( decode_json );
+use HTTP::Response;
+use HTTP::Status qw( :constants );
+use JSON qw( decode_json encode_json );
 use List::AllUtils qw( nsort_by );
 use MusicBrainz::Server::CacheManager;
 use MusicBrainz::Server::Context;
@@ -23,6 +26,7 @@ use MusicBrainz::Server::Data::Edit;
 use MusicBrainz::Server::Replication qw( :replication_type );
 use MusicBrainz::Server::Test::HTML5 qw( html5_ok );
 use MusicBrainz::WWW::Mechanize;
+use MIME::Base64 qw( encode_base64url );
 use Sql;
 use Test::Builder;
 use Test::Deep qw( cmp_deeply );
@@ -30,6 +34,8 @@ use Test::Differences;
 use Test::WWW::Mechanize::Catalyst;
 use Test::XML::SemanticCompare qw( is_xml_same );
 use Test::XPath;
+use URI;
+use URI::QueryParam;
 use XML::LibXML;
 
 binmode Test::More->builder->output, ':utf8';
@@ -40,7 +46,8 @@ use Sub::Exporter -setup => {
         qw(
             accept_edit reject_edit xml_ok schema_validator xml_post
             compare_body html_ok test_xpath_html commandline_override
-            capture_edits post_json page_test_jsonld
+            capture_edits post_json page_test_jsonld build_json_response
+            metabrainz_oauth2_response
         ),
         ws_test => \&_build_ws_test,
         ws_test_json => \&_build_ws_test_json,
@@ -53,11 +60,6 @@ BEGIN {
     use DBDefs;
     *DBDefs::WEB_SERVER = sub { 'localhost' };
     *DBDefs::WEB_SERVER_USED_IN_EMAIL = sub { 'localhost' };
-    # MTCaptcha requires JavaScript to work properly, so it must be disabled
-    # for the WWW::Mechanize-based tests. It's tested separately with
-    # Selenium in t/selenium/Create_Account_With_Captcha.json5.
-    *DBDefs::MTCAPTCHA_PUBLIC_KEY = sub { undef };
-    *DBDefs::MTCAPTCHA_PRIVATE_KEY = sub { undef };
     *DBDefs::OAUTH2_ENFORCE_TLS = sub { 0 };
 }
 
@@ -505,6 +507,59 @@ sub page_test_jsonld {
     my $jsonld = encode('UTF-8', $tx->find_value('//script[@type="application/ld+json"]'));
 
     cmp_deeply(decode_json($jsonld), $expected, 'has expected JSON-LD');
+}
+
+sub build_json_response {
+    my ($data) = @_;
+    my $response = HTTP::Response->new(HTTP_OK);
+    $response->header('Content-Type' => 'application/json');
+    $response->content(encode_json($data));
+    return $response;
+}
+
+sub metabrainz_oauth2_response {
+    my ($request, $mock_state) = @_;
+
+    my $path = $request->uri->path;
+    if ($path eq '/oauth2/token') {
+        if (defined $mock_state->{code_challenge}) {
+            my $params = URI->new('?' . $request->content);
+            my $code_verifier = $params->query_param('code_verifier') // '';
+            $Test->is_eq(
+                encode_base64url(sha256($code_verifier), ''),
+                $mock_state->{code_challenge},
+                'the code verifier matches the code challenge',
+            );
+        }
+        return build_json_response({
+            access_token => 'meba_test_access_token',
+            token_type => 'Bearer',
+            expires_in => 3600,
+            refresh_token => 'mebr_test_refresh_token',
+        });
+    } elsif ($path eq '/oauth2/introspect') {
+        my $issued_at = time;
+        return build_json_response({
+            active => JSON::true,
+            client_id => $mock_state->{client_id} //
+                DBDefs->METABRAINZ_OAUTH_CLIENT_ID,
+            sub => $mock_state->{editor_id},
+            username => $mock_state->{editor_name},
+            scope => ['profile'],
+            token_type => 'Bearer',
+            issued_at => $issued_at,
+            expires_at => $issued_at + 3600,
+        });
+    } elsif ($path eq '/oauth2/userinfo') {
+        return build_json_response({
+            sub => $mock_state->{editor_id},
+            username => $mock_state->{editor_name},
+            member_since => '2000-01-01T00:00:00+00:00',
+        });
+    }
+
+    return HTTP::Response->new(
+        HTTP_INTERNAL_SERVER_ERROR, "unexpected request to $path");
 }
 
 1;

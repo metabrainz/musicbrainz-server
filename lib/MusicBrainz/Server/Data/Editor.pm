@@ -9,6 +9,7 @@ use Authen::Passphrase;
 use Authen::Passphrase::BlowfishCrypt;
 use Authen::Passphrase::RejectAll;
 use DateTime;
+use DateTime::Format::ISO8601;
 use DateTime::Format::Pg;
 use Encode;
 use Text::Trim qw( trim );
@@ -33,6 +34,7 @@ use MusicBrainz::Server::Data::Utils qw(
     ha1_password
     hash_to_row
     load_subobjects
+    non_empty
     placeholders
     sanitize_username
 );
@@ -379,21 +381,30 @@ sub insert
     }, $self->sql);
 }
 
-sub search_old_editor_names {
-    my ($self, $name, $use_regular_expression) = @_;
+sub insert_from_metabrainz {
+    my ($self, $id, $name, $member_since) = @_;
 
-    my $condition = $use_regular_expression ? 'name ~* ?' : 'LOWER(name) = LOWER(?)';
-    my $query = "SELECT name FROM old_editor_name WHERE $condition LIMIT 100";
+    _die_if_username_invalid($name);
 
-    @{ $self->sql->select_single_column_array($query, $name) };
-}
+    die "Editor $id is missing a member_since value"
+        unless non_empty($member_since);
 
-sub unlock_old_editor_name {
-    my ($self, $name) = @_;
+    my $member_since_dt = DateTime::Format::ISO8601->parse_datetime($member_since);
+    $member_since_dt->set_time_zone('UTC');
 
-    my $query = 'DELETE FROM old_editor_name WHERE name = ?';
+    $self->sql->do(
+        <<~'SQL',
+        INSERT INTO editor (id, name, privs, member_since, password, ha1)
+            VALUES (?, ?, ?, ?, '', '')
+            ON CONFLICT (id) DO NOTHING
+        SQL
+        $id,
+        $name,
+        $BEGINNER_FLAG,
+        DateTime::Format::Pg->format_datetime($member_since_dt),
+    );
 
-    $self->sql->do($query, $name);
+    return $self->get_by_id($id);
 }
 
 sub update_email
@@ -777,16 +788,13 @@ sub editors_with_subscriptions {
 }
 
 sub delete {
-    my ($self, $editor_id, $allow_reuse) = @_;
+    my ($self, $editor_id) = @_;
     die "Invalid editor_id: $editor_id" unless $editor_id > 0;
     my $editor = $self->c->model('Editor')->get_by_id($editor_id);
+    die "Nonexistent editor_id: $editor_id" unless defined $editor;
+    return if $editor->deleted;
 
     $self->sql->begin;
-    $self->sql->do(
-        'INSERT INTO old_editor_name (name)
-         (SELECT name FROM editor WHERE id = ?)',
-        $editor_id,
-    ) unless $allow_reuse;
     $self->sql->do(
         q{UPDATE editor SET name = 'Deleted Editor #' || id,
                            password = ?,
@@ -1097,55 +1105,11 @@ sub hash_password {
     )->as_rfc2307;
 }
 
-sub consume_remember_me_token {
-    my ($self, $user_name, $token) = @_;
-
-    my $token_key = "$user_name|$token";
-    # Expire consumed tokens in 5 minutes. This allows the case where the user
-    # has no session, and opens multiple tabs using the same remember_me token.
-    $self->store->expire($token_key, 5 * 60);
-    $self->store->exists($token_key);
-}
-
-sub allocate_remember_me_token {
-    my ($self, $user_name) = @_;
-
-    if (
-        my $normalized_name = $self->sql->select_single_value(
-            'SELECT name FROM editor WHERE lower(name) = lower(?)',
-            $user_name,
-        )
-    ) {
-        my $token = generate_token();
-
-        my $key = "$normalized_name|$token";
-        $self->store->set($key, 1);
-
-        # Expire tokens after 1 year.
-        $self->store->expire($key, 60 * 60 * 24 * 7 * 52);
-
-        return ($normalized_name, $token);
-    }
-    else {
-        return undef;
-    }
-}
-
-sub is_email_used_elsewhere {
-    my ($self, $email, $user_id) = @_;
-
-    return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM editor WHERE lower(email) = lower(?) AND id != ?', $email, $user_id);
-    return 0;
-}
-
 sub is_name_used {
     my ($self, $name) = @_;
 
     return 1 if $self->sql->select_single_value(
         'SELECT 1 FROM editor WHERE lower(name) = lower(?)', $name);
-    return 1 if $self->sql->select_single_value(
-        'SELECT 1 FROM old_editor_name WHERE lower(name) = lower(?)', $name);
     return 0;
 }
 

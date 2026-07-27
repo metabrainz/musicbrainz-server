@@ -41,16 +41,6 @@
       target: '/user/new_editor$',
       value: '',
     },
-    {
-      command: 'open',
-      target: '/verify-email?email=new_editor%40example.com&time=32503680000&userid=6&chk=EJq5fZgv%2FBzKsNkSJm6%2FDB6gg50',
-      value: '',
-    },
-    {
-      command: 'assertTextMatches',
-      target: 'css=#page > p',
-      value: 'Thank you, your email address has now been verified!',
-    },
     // Log out
     {
       command: 'click',

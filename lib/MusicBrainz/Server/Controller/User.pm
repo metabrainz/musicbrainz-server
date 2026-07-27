@@ -8,15 +8,16 @@ extends 'MusicBrainz::Server::Controller';
 
 use DateTime;
 use DBDefs;
-use Encode;
 use HTTP::Status qw( :constants );
 use MusicBrainz::Server::Authentication::User;
+use MusicBrainz::Server::Authentication::Utils qw( clear_remember_login_data );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::ControllerUtils::SSL qw( ensure_ssl );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_object );
 use MusicBrainz::Errors qw(
     build_request_and_user_context
+    capture_exceptions
     send_message_to_sentry
 );
 use MusicBrainz::Server::Log qw( log_debug );
@@ -66,46 +67,28 @@ sub index : Private
 {
     my ($self, $c) = @_;
 
-    # Can't set an attribute on a private action; manually inserting detatch code.
+    # Can't set an attribute on a private action; manually inserting detach code.
     $c->detach('/error_mirror_404') if ($c->stash->{server_details}->{is_mirror_db});
 
+    # In the absence of an explicit `returnto` parameter, the login page
+    # will redirect to the user's profile page if/once they're logged in.
     $c->forward('login');
-    $c->detach('/user/profile', [ $c->user->name ]);
 }
 
-sub _perform_login {
+sub _perform_password_login {
     my ($self, $c, $user_name, $password) = @_;
 
-    if ( !$c->authenticate({ username => $user_name, password => $password }) )
+    if ( $c->authenticate({ username => $user_name, password => $password }, 'website_local_account') )
     {
-        # Bad username / password combo
-        $c->stash( bad_login => 1 );
-        return 0;
-    } elsif ( $c->user->is_spammer ) {
-        # Automatically log out spammers and notify of why
-        $c->stash( spammy_login => 1 );
-        $c->logout;
-        return 0;
-    } else {
-        if ($c->user->requires_password_reset) {
-            $c->response->redirect($c->uri_for_action('/account/change_password', {
-                username => $c->user->name,
-                mandatory => 1,
-            } ));
-            $c->logout;
-            $c->detach;
-        }
-        else {
-            unless (DBDefs->DB_READ_ONLY || DBDefs->DISABLE_LAST_LOGIN_UPDATE) {
-                if ($c->user->requires_password_rehash) {
-                    $c->model('Editor')->update_password($user_name, $password);
-                } else {
-                    $c->model('Editor')->update_last_login_date($c->user->id);
-                }
+        unless (DBDefs->DB_READ_ONLY || DBDefs->DISABLE_LAST_LOGIN_UPDATE) {
+            if ($c->user->requires_password_rehash) {
+                $c->model('Editor')->update_password($user_name, $password);
+            } else {
+                $c->model('Editor')->update_last_login_date($c->user->id);
             }
-
-            return 1;
         }
+
+        return 1;
     }
 }
 
@@ -128,7 +111,7 @@ sub serialize_user {
     };
 }
 
-sub do_login : Private
+sub do_password_login : Private
 {
     my ($self, $c) = @_;
 
@@ -138,7 +121,7 @@ sub do_login : Private
     if ($c->form_posted) {
         $post_params = $c->req->body_params;
 
-        for my $param (qw( username password remember_me csrf_token csrf_session_key )) {
+        for my $param (qw( username password csrf_token csrf_session_key )) {
             if (exists $post_params->{$param}) {
                 $login_params{$param} = delete $post_params->{$param};
             }
@@ -152,15 +135,12 @@ sub do_login : Private
     if (%login_params && $c->form_submitted_and_valid($form, \%login_params)) {
         my $username = $form->field('username')->value;
         if (
-            $self->_perform_login(
+            $self->_perform_password_login(
                 $c,
                 $username,
                 $form->field('password')->value,
             )
         ) {
-            if ($form->field('remember_me')->value) {
-                $self->_renew_login_cookie($c, $username);
-            }
             return;
         }
     }
@@ -179,13 +159,24 @@ sub do_login : Private
             loginAction => '' . $c->relative_uri,
             loginForm => $form->TO_JSON,
             isLoginBad => boolean_to_json($c->stash->{bad_login}),
-            isLoginRequired => boolean_to_json($c->stash->{required_login} // 1),
             isSpammer => boolean_to_json($c->stash->{spammy_login}),
             postParameters => ((defined $post_params && scalar(%$post_params)) ? $post_params : undef),
         },
     );
 
     $c->detach;
+}
+
+sub do_login : Private {
+    my ($self, $c) = @_;
+
+    return if $c->user_exists;
+
+    if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+        $c->forward('/user/do_password_login');
+    } else {
+        $c->detach('/metabrainz/oauth2_redirect', ['/login', 'login']);
+    }
 }
 
 sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
@@ -199,12 +190,22 @@ sub login : Path('/login') ForbiddenOnMirrors RequireSSL SecureForm
         $c->detach;
     }
 
-    $c->stash( required_login => 0 );
-    $c->forward('/user/do_login');
+    $c->forward('do_login');
 
-    # Logged in OK
-    $c->redirect_back(fallback => $c->relative_uri);
-    $c->detach;
+    if (DBDefs->LOCAL_ACCOUNTS_ENABLED) {
+        # Logged in OK
+        $c->redirect_back(fallback => $c->relative_uri);
+    }
+}
+
+sub login_dialog_success : Path('/login-dialog-success') {
+    my ($self, $c) = @_;
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'user/LoginDialogSuccess',
+        component_props => {},
+    );
 }
 
 sub logout : Path('/logout')
@@ -212,9 +213,13 @@ sub logout : Path('/logout')
     my ($self, $c) = @_;
 
     if ($c->user_exists) {
-        $self->_consume_remember_me_cookie($c, $c->user->name);
         $c->logout;
         $c->delete_session;
+
+        capture_exceptions(
+            sub { clear_remember_login_data($c) },
+            sub {}, # no-op (only logs to Sentry)
+        );
     }
 
     $c->redirect_back;
@@ -226,60 +231,13 @@ sub cookie_login : Private
 
     return if $c->user_exists;
 
-    my $user_name = $self->_consume_remember_me_cookie($c);
-    if (defined $user_name) {
-        my $user = $c->find_user({ username => $user_name });
-        if (defined $user) {
-            $self->_renew_login_cookie($c, $user_name);
-            $c->set_authenticated($user);
-        }
-    }
-}
-
-sub _consume_remember_me_cookie {
-    my ($self, $c) = @_;
-
-    my $cookie = $c->req->cookie('remember_login') or return;
-    return unless $cookie->value;
-
-    my $value = decode('utf-8', $cookie->value);
-    $self->_clear_login_cookie($c);
-
-    if ($value =~ /^3\t(.*?)\t(.*)$/) {
-        my ($user_name, $token) = ($1, $2);
-
-        if ($c->model('Editor')->consume_remember_me_token($user_name, $token)) {
-            return $user_name;
-        }
-    }
-
+    capture_exceptions(
+        sub { $c->authenticate({}, 'website_cookie_login') },
+        sub {
+            $c->stash->{cookie_login_error} = 1;
+        },
+    );
     return;
-}
-
-sub _clear_login_cookie
-{
-    my ($self, $c) = @_;
-    $c->res->cookies->{remember_login} = {
-        value => '',
-        expires => '+1y',
-    };
-}
-
-sub _renew_login_cookie
-{
-    my ($self, $c, $user_name) = @_;
-    my ($normalized_name, $token) = $c->model('Editor')->allocate_remember_me_token($user_name);
-    my $cookie_version = 3;
-    $c->res->cookies->{remember_login} = {
-        expires => '+1y',
-        name => 'remember_me',
-        value => $token
-            ? encode('utf-8', join("\t", $cookie_version, $normalized_name, $token))
-            : '',
-        samesite => 'Lax',
-        $c->req->secure ? (secure => 1) : (),
-        httponly => 1,
-    };
 }
 
 sub base : Chained PathPart('user') CaptureArgs(0) HiddenOnMirrors { }
@@ -312,7 +270,7 @@ sub _check_for_confirmed_email {
             component_props => {
                 title    => lp('Send email', 'header'),
                 message  => l('You cannot contact other users because you have not {url|verified your email address}.',
-                            {url => $c->uri_for_action('/account/resend_verification')}),
+                              {url => DBDefs->METABRAINZ_URL . '/profile'}),
             },
             current_view    => 'Node',
         );

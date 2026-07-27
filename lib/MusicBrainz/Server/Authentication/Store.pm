@@ -3,11 +3,7 @@ package MusicBrainz::Server::Authentication::Store;
 use strict;
 use warnings;
 
-use DateTime;
 use MusicBrainz::Server::Authentication::User;
-use MusicBrainz::Server::Authentication::Utils qw(
-    find_oauth_access_token
-);
 
 sub new
 {
@@ -18,21 +14,17 @@ sub new
 sub find_user
 {
     my ($self, $authinfo, $c) = @_;
+
     my $editor;
-
-    if (exists $authinfo->{oauth_access_token}) {
-        my $token = find_oauth_access_token($c, $authinfo->{oauth_access_token});
-        if (defined $token) {
-            $editor = $c->model('Editor')->get_by_id($token->editor_id);
-        }
-    }
-    else {
+    if (exists $authinfo->{username}) {
         $editor = $c->model('Editor')->get_by_name($authinfo->{username});
+    } elsif (exists $authinfo->{editor_id}) {
+        $editor = $c->model('Editor')->get_by_id($authinfo->{editor_id});
     }
 
-    if (defined $editor && $editor->password) {
+    if (defined $editor) {
         $c->model('Editor')->load_preferences($editor);
-        return _rebless_editor($editor);
+        return MusicBrainz::Server::Authentication::User->meta->rebless_instance($editor);
     }
     return undef;
 }
@@ -46,15 +38,7 @@ sub for_session
 sub from_session
 {
     my ($self, $c, $frozen) = @_;
-    my $editor = $c->model('Editor')->get_by_id($frozen->{id});
-    return unless ($editor && !$editor->deleted);
-    return _rebless_editor($editor);
-}
-
-sub _rebless_editor {
-    my $editor = shift or return undef;
-    my $class = Class::MOP::Class->initialize('MusicBrainz::Server::Authentication::User');
-    return $class->rebless_instance($editor);
+    return $self->find_user({ editor_id => $frozen->{id} }, $c);
 }
 
 1;

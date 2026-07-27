@@ -46,7 +46,8 @@ sub show : Path Args(1)
                     return $report->load_filtered($c, $c->user->id, shift, shift);
                 }
                 else {
-                    $c->forward('/user/login')
+                    $c->stash->{current_action_requires_auth} = 1;
+                    $c->forward('/user/do_login');
                 }
             }
             else {

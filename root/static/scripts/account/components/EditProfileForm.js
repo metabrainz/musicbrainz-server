@@ -22,7 +22,11 @@ import type {
 import SelectField from '../../common/components/SelectField.js';
 import Warning from '../../common/components/Warning.js';
 import {FLUENCY_NAMES} from '../../common/constants.js';
-import {DB_STAGING_TESTING_FEATURES} from '../../common/DBDefs-client.mjs';
+import {
+  DB_STAGING_TESTING_FEATURES,
+  LOCAL_ACCOUNTS_ENABLED,
+  METABRAINZ_URL,
+} from '../../common/DBDefs-client.mjs';
 import {createAreaObject} from '../../common/entity2.js';
 import {N_lp_attributes} from '../../common/i18n/attributes.js';
 import FieldErrors from '../../edit/components/FieldErrors.js';
@@ -184,26 +188,42 @@ component EditProfileForm(
         readOnly
         value={field.username.value}
       />
-      {DB_STAGING_TESTING_FEATURES ? (
-        <Warning
-          message={l(
-            `This is a development server. Your email address is not private
-             or secure. Proceed with caution!`,
-          )}
-        />
-      ) : null}
 
-      <FormRowEmailLong
-        field={field.email}
-        label={addColonText(l('Email'))}
-        uncontrolled
-      />
-      <FormRow hasNoLabel>
-        {l(
-          `If you change your email address,
-           you will be required to verify it.`,
-        )}
-      </FormRow>
+      {LOCAL_ACCOUNTS_ENABLED ? (
+        <>
+          {DB_STAGING_TESTING_FEATURES ? (
+            <Warning
+              message={l(
+                `This is a development server. Your email address is not
+                 private or secure. Proceed with caution!`,
+              )}
+            />
+          ) : null}
+          <FormRowEmailLong
+            field={field.email}
+            label={addColonText(l('Email'))}
+            uncontrolled
+          />
+        </>
+      ) : (
+        <FormRow>
+          <label>
+            {addColonText(l('Email'))}
+          </label>
+          <p>
+            {field.email.value}
+          </p>
+          <p className="no-label">
+            {exp.l(
+              `Your email address can be changed from your
+               {profile|MetaBrainz profile}.
+               If you change your email address, you will be required to
+               verify it.`,
+              {profile: METABRAINZ_URL + '/profile/edit'},
+            )}
+          </p>
+        </FormRow>
+      )}
 
       <FormRowURLLong
         field={field.website}

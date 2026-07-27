@@ -14,7 +14,7 @@ import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 import {ECMA_VERSION, SCRIPTS_DIR} from './constants.mjs';
 import definePluginConfig from './definePluginConfig.mjs';
 
-export default {
+const browserConfig = ({remapClientDBDefs = true}) => ({
   node: false,
 
   plugins: [
@@ -35,9 +35,13 @@ export default {
       resourceRegExp: /\/DBDefs\.mjs$/,
     }),
 
-    new webpack.NormalModuleReplacementPlugin(
-      /\/DBDefs-client\.mjs$/,
-      path.resolve(SCRIPTS_DIR, 'common/DBDefs-client-browser.mjs'),
+    ...(
+      remapClientDBDefs
+        ? [new webpack.NormalModuleReplacementPlugin(
+          /\/DBDefs-client\.mjs$/,
+          path.resolve(SCRIPTS_DIR, 'common/DBDefs-client-browser.mjs'),
+        )]
+        : []
     ),
 
     new webpack.NormalModuleReplacementPlugin(
@@ -57,4 +61,6 @@ export default {
   },
 
   target: ['web', 'es' + String(ECMA_VERSION)],
-};
+});
+
+export default browserConfig;

@@ -51,7 +51,7 @@ sub _decode_value { $_[1] }
 sub get {
     my ($self, $key) = @_;
 
-    my $value = $self->_connection->get($self->_prepare_key($key));
+    my $value = $self->get_raw($key);
     return $self->_decode_value($value) if defined $value;
     return;
 }
@@ -69,10 +69,45 @@ sub get_multi {
     return \%result;
 }
 
-sub increment {
+sub get_raw {
     my ($self, $key) = @_;
 
-    $self->_connection->incr($self->_prepare_key($key));
+    my $value = $self->_connection->get($self->_prepare_key($key));
+    return $value;
+}
+
+sub get_delete {
+    my ($self, $key) = @_;
+
+    my $value = $self->get_delete_raw($key);
+    return $self->_decode_value($value) if defined $value;
+    return;
+}
+
+sub get_delete_raw {
+    my ($self, $key) = @_;
+
+    my $value = $self->_connection->getdel($self->_prepare_key($key));
+    return $value;
+}
+
+sub increment {
+    my ($self, $key, $initial_exptime) = @_;
+
+    my $prepared_key = $self->_prepare_key($key);
+    if (defined $initial_exptime) {
+        # See the "Pattern: Rate limiter 2" section at
+        # https://valkey.io/commands/incr/.
+        # (Using eval avoids a race condition between the INCR/EXPIRE calls.)
+        return $self->_connection->eval(<<~'LUA', 1, $prepared_key, $initial_exptime);
+            local current = server.call('INCR', KEYS[1])
+            if current == 1 then
+                server.call('EXPIRE', KEYS[1], ARGV[1])
+            end
+            return current
+            LUA
+    }
+    return $self->_connection->incr($prepared_key);
 }
 
 sub set_add {
@@ -96,9 +131,7 @@ sub set_members {
 sub set {
     my ($self, $key, $value, $exptime) = @_;
 
-    my @args = ($self->_prepare_key($key), $self->_encode_value($value));
-    push @args, 'EX', $exptime if defined $exptime;
-    $self->_connection->set(@args);
+    $self->set_raw($key, $self->_encode_value($value), $exptime);
     return;
 }
 
@@ -112,6 +145,15 @@ sub set_multi {
         $self->_connection->set(@args, sub {});
     }
     $self->_connection->wait_all_responses;
+    return;
+}
+
+sub set_raw {
+    my ($self, $key, $value, $exptime) = @_;
+
+    my @args = ($self->_prepare_key($key), $value);
+    push @args, 'EX', $exptime if defined $exptime;
+    $self->_connection->set(@args);
     return;
 }
 

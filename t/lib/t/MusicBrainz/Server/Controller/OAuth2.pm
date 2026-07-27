@@ -92,7 +92,7 @@ sub csp_headers_ok {
     my $csp_pattern =
         q(default-src 'self'; ) .
         q(frame-ancestors 'none'; ) .
-        q(script-src 'self' 'nonce-[0-9A-Za-z\+/]{43}=' staticbrainz\.org static\.metabrainz\.org; ) .
+        q(script-src 'self' 'nonce-[0-9A-Za-z\-_]{43}' staticbrainz\.org static\.metabrainz\.org; ) .
         q(style-src 'self' staticbrainz\.org static\.metabrainz\.org; ) .
         q(img-src 'self' data: staticbrainz\.org static\.metabrainz\.org; ) .
         q(frame-src 'self');
@@ -1038,15 +1038,16 @@ test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
 
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+area_editing');
 
-    local *DBDefs::METABRAINZ_OAUTH_URL = sub { 'http://METABRAINZ_OAUTH_URL' };
+    local *DBDefs::METABRAINZ_INTERNAL_URL = sub { 'http://METABRAINZ_INTERNAL_URL' };
 
-    # Build the response content for `METABRAINZ_OAUTH_URL`.
+    # Build the response content for `METABRAINZ_INTERNAL_URL`.
     my $now = DateTime->now;
     my $one_day = DateTime::Duration->new(days => 1);
     my $response_content = {
         scope => [],
         active => \1,
-        metabrainz_user_id => 1,
+        sub => 1,
+        username => 'area_editor',
         expires_at => $now->add($one_day)->epoch,
         issued_at => $now->subtract($one_day)->epoch,
     };
@@ -1054,7 +1055,7 @@ test 'MBS-13703: Recognize tokens issued by the MeB OAuth Provider' => sub {
     my $lwp_useragent_request = \&LWP::UserAgent::request;
     local *LWP::UserAgent::request = sub {
         my ($lwp, $req) = @_;
-        if ($req->uri =~ m{^http://METABRAINZ_OAUTH_URL}) {
+        if ($req->uri =~ m{^http://METABRAINZ_INTERNAL_URL}) {
             my $res = HTTP::Response->new;
             $res->code(HTTP_OK);
             $res->content(encode_json($response_content));

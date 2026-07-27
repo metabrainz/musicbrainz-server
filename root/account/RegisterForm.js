@@ -9,15 +9,13 @@
 
 import * as React from 'react';
 
-import Warning from '../../common/components/Warning.js';
-import {MTCAPTCHA_PUBLIC_KEY} from '../../common/DBDefs-client.mjs';
-import FormCsrfToken from '../../edit/components/FormCsrfToken.js';
-import FormRow from '../../edit/components/FormRow.js';
-import FormRowEmailLong from '../../edit/components/FormRowEmailLong.js';
-import FormRowText from '../../edit/components/FormRowText.js';
-import FormSubmit from '../../edit/components/FormSubmit.js';
-
-import MTCaptcha from './MTCaptcha.js';
+import FormCsrfToken
+  from '../static/scripts/edit/components/FormCsrfToken.js';
+import FormRow from '../static/scripts/edit/components/FormRow.js';
+import FormRowEmailLong
+  from '../static/scripts/edit/components/FormRowEmailLong.js';
+import FormRowText from '../static/scripts/edit/components/FormRowText.js';
+import FormSubmit from '../static/scripts/edit/components/FormSubmit.js';
 
 export type RegisterFormT = FormT<{
   readonly confirm_password: FieldT<string>,
@@ -26,53 +24,21 @@ export type RegisterFormT = FormT<{
   readonly username: FieldT<string>,
 }>;
 
-function isPossibleEmail(string: string | null) {
-  if (string == null) {
-    return false;
-  }
-  return /\w+@\w+\.\w+/.test(string);
-}
-
 component RegisterForm(form: RegisterFormT) {
-  const [nameField, updateNameField] = React.useState(form.field.username);
-
-  function handleUsernameChange(
-    event: SyntheticInputEvent<HTMLInputElement>,
-  ) {
-    const username = event.currentTarget.value;
-    updateNameField({...nameField, value: username});
-  }
-
   return (
     <form method="post">
       <FormCsrfToken form={form} />
       <FormRowText
         autoComplete="username"
-        field={nameField}
+        field={form.field.username}
         label={addColonText(l('Username'))}
-        onChange={handleUsernameChange}
         required
+        uncontrolled
       />
       <div className="row no-label">
         <span className="input-note">
           {l('Your username will be publicly visible.')}
         </span>
-      </div>
-      <div
-        className={'row no-label' + (
-          isPossibleEmail(nameField.value) ? '' : ' hidden'
-        )}
-        id="email-username-warning"
-      >
-        <Warning
-          message={
-            l(`The username you have entered looks like an email address.
-               This is allowed, but please keep in mind that everyone
-               will be able to see it. Only use an email address
-               as your username if you are completely sure
-               you are happy with that.`)
-          }
-        />
       </div>
       <FormRowText
         autoComplete="new-password"
@@ -102,11 +68,6 @@ component RegisterForm(form: RegisterFormT) {
               if you wish to contribute to the database.`)}
         </span>
       </div>
-      {nonEmpty(MTCAPTCHA_PUBLIC_KEY) ? (
-        <div className="row no-label">
-          <MTCaptcha />
-        </div>
-      ) : null}
       <FormRow hasNoLabel>
         <p>
           {exp.l(
@@ -121,7 +82,4 @@ component RegisterForm(form: RegisterFormT) {
   );
 }
 
-export default hydrate<React.PropsOf<RegisterForm>>(
-  'div.register-form',
-  RegisterForm,
-) as component(...React.PropsOf<RegisterForm>);
+export default RegisterForm;

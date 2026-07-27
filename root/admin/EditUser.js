@@ -11,6 +11,9 @@ import * as React from 'react';
 
 import UserAccountLayout from '../components/UserAccountLayout.js';
 import {CatalystContext} from '../context.mjs';
+import {
+  LOCAL_ACCOUNTS_ENABLED,
+} from '../static/scripts/common/DBDefs.mjs';
 import FormCsrfToken
   from '../static/scripts/edit/components/FormCsrfToken.js';
 import FormRow from '../static/scripts/edit/components/FormRow.js';
@@ -40,7 +43,6 @@ type EditUserFormT = FormT<{
   readonly mbid_submitter: FieldT<boolean>,
   readonly no_nag: FieldT<boolean>,
   readonly show_exact: FieldT<boolean>,
-  readonly skip_verification: FieldT<boolean>,
   readonly spammer: FieldT<boolean>,
   readonly untrusted: FieldT<boolean>,
   readonly username: FieldT<string>,
@@ -150,16 +152,13 @@ component EditUser(form: EditUserFormT, user: AccountLayoutUserT) {
           required
           uncontrolled
         />
-        <FormRowEmailLong
-          field={form.field.email}
-          label="Email:"
-          uncontrolled
-        />
-        <FormRowCheckbox
-          field={form.field.skip_verification}
-          label="Skip verification"
-          uncontrolled
-        />
+        {LOCAL_ACCOUNTS_ENABLED ? (
+          <FormRowEmailLong
+            field={form.field.email}
+            label="Email:"
+            uncontrolled
+          />
+        ) : null}
         <FormRowURLLong
           field={form.field.website}
           label="Website:"

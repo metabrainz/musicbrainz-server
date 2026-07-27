@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 
-use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -57,33 +56,6 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
         1,
         'The amount of ratings for the entity is correct',
     );
-};
-
-test 'Remember me tokens' => sub {
-    my $test = shift;
-
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
-
-    my $model = $test->c->model('Editor');
-
-    my $user_name = 'alice';
-    my ($normalized_name, $token) = $model->allocate_remember_me_token($user_name);
-
-    ok($token, 'Token is returned with improper username capitalization');
-
-    is($normalized_name, 'Alice', 'Normalized name (with proper caps) is returned from allocating remember me token');
-
-    ok($model->consume_remember_me_token($normalized_name, $token),
-       'Can consume "remember me" tokens');
-
-    ok(!$model->consume_remember_me_token($user_name, $token),
-       q(Remember me tokens with improper capitalization can't be consumed));
-
-    ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
-       'It is not an exception to attempt to consume tokens for non-existent users');
-
-    is($model->allocate_remember_me_token('Unknown User'), undef,
-       'Allocating tokens for unknown users returns undefined');
 };
 
 test 'Creating a new editor' => sub {
@@ -150,7 +122,7 @@ test 'Creating a new editor' => sub {
     );
 };
 
-test 'find_by_email and is_email_used_elsewhere' => sub {
+test 'find_by_email' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
@@ -160,8 +132,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
         name => 'new_editor_2',
         password => 'password',
     });
-    # For testing is_email_used_elsewhere
-    my $future_editor_id = $new_editor_2->id + 1;
 
     note('We set an email for the new editor with update_email');
     $editor_data->update_email($new_editor_2, 'editor@example.com');
@@ -175,22 +145,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     is(scalar(@editors), 1, 'An editor was found searching with all caps');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
 
-    note('We check is_email_used_elsewhere shows the email as being in use');
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'editor@example.com',
-            $future_editor_id,
-        ),
-        'The exact email is shown to be in use if another editor wants it',
-    );
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'EDITOR@EXAMPLE.COM',
-            $future_editor_id,
-        ),
-        'The email is shown to be in use even if searching with all caps',
-    );
-
     note('We set an all caps email for the new editor with update_email');
     $editor_data->update_email($new_editor_2, 'EDITOR@EXAMPLE.COM');
 
@@ -202,22 +156,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     @editors = $editor_data->find_by_email('editor@example.com');
     is(scalar(@editors), 1, 'An editor was found searching with normal caps');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
-
-    note('We check is_email_used_elsewhere shows the email as being in use');
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'EDITOR@EXAMPLE.COM',
-            $future_editor_id,
-        ),
-        'The exact email is shown to be in use if another editor wants it',
-    );
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'editor@example.com',
-            $future_editor_id,
-        ),
-        'The email is shown to be in use even if searching with normal caps',
-    );
 };
 
 test 'Getting/loading existing editors' => sub {
@@ -491,14 +429,6 @@ test 'Deleting editors removes most information' => sub {
         'The editor’s failed edit count is unchanged',
     );
     is($bob->deleted, 1, 'The editor is marked as deleted');
-
-    # The name should be prevented from being reused by default (MBS-9271).
-    ok(
-        $c->sql->select_single_value(
-            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob',
-        ),
-        'The editor name is listed in old_editor_name as not reusable',
-    );
 
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
