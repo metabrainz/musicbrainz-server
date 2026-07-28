@@ -372,7 +372,7 @@ export default {
          * legacy bundles are built alongside production ones in production.
          */
         (LEGACY_BROWSER ? '-legacy' : '') +
-        (PRODUCTION_MODE ? '-[chunkhash:7]' : '') + '.js'
+        (PRODUCTION_MODE ? '-[contenthash:7]' : '') + '.js'
     ),
     path: BUILD_DIR,
   },
