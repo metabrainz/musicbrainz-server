@@ -219,6 +219,7 @@ component CollectionIndex(...props: Props) {
           ) : null}
         </form>
       ) : <p>{l('This collection is empty.')}</p>}
+      {manifest('common/MB/Control/SelectAll', {async: true})}
       {manifest('common/ratings', {async: true})}
     </CollectionLayout>
   );
