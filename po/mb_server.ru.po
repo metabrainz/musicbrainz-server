@@ -48,7 +48,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2026-06-29 23:47+0000\n"
+"PO-Revision-Date: 2026-07-28 09:12+0000\n"
 "Last-Translator: TheParaziT <lolkekovic05713@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
@@ -59,7 +59,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -370,8 +370,8 @@ msgid ""
 "An entity with that name and disambiguation already exists. You must enter a "
 "unique disambiguation comment."
 msgstr ""
-"Сущность с таким названием и с таким разотождествлением уже существует. Вы "
-"должны ввести уникальный комментарий для разграничения."
+"Сущность с таким названием и с таким уточнением уже существует. Вы должны "
+"ввести уникальный комментарий к уточнению."
 
 #: ../root/release/edit/tracklist.tt:144
 msgid "An error occurred: "
@@ -861,7 +861,7 @@ msgstr "Отключить режим устаревшего браузера"
 #: ../root/static/scripts/common/components/FilterForm.js:405
 #: ../root/static/scripts/event/components/EventEditForm.js:310
 msgid "Disambiguation"
-msgstr "Разотождествление"
+msgstr "Уточнение"
 
 #: ../root/cdstub/index.tt:10 ../root/cdstub/CDStubIndex.js:36
 msgid "Disc ID information"
