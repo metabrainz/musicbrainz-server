@@ -16,7 +16,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-24 03:12+0000\n"
+"PO-Revision-Date: 2026-07-29 14:12+0000\n"
 "Last-Translator: AgenticCommonsBot <wiki-bot@agentic-commons.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instrument-descriptions/"
@@ -5955,6 +5955,9 @@ msgid ""
 "leather with 2 drones: a bass and a tenor and a chanter with 7-8 finger-"
 "holes."
 msgstr ""
+"传统上在民间合奏中与 <a href=\"/instrument/814816db-3368-4889-a8cd-"
+"aa34bd1043f0\">piffero</a> 一同演奏,气囊通常由小山羊皮制成,配有 2 根持续音管"
+"(低音管和中音管)和一根开有 7-8 个指孔的旋律管。"
 
 #. name:caixa
 #: DB:instrument/description:903
@@ -6519,6 +6522,9 @@ msgid ""
 "bowed horns at the end. <br /> Secondly; the macianka duda without horns has "
 "3 drones in one hole instead of one."
 msgstr ""
+"自古沿用,呈较小的半圆形,旋律管在一端,持续音管在另一端。有两种相关类型:一种来"
+"自白俄罗斯北部和立陶宛东南部,一根持续音管和一根旋律管,两端都装有弯曲的牛角;另"
+"一种称『macianka duda』,不带牛角,在同一孔位内装 3 根持续音管而非 1 根。"
 
 #. name:kinnari vina
 #: DB:instrument/description:1216
@@ -6689,7 +6695,7 @@ msgstr "西非的葫芦摇子，上覆有珠网。"
 #. name:balafon
 #: DB:instrument/description:364
 msgid "West African xylophone that uses gourds as its resonators."
-msgstr ""
+msgstr "一种西非木琴,使用葫芦作为共鸣器。"
 
 #. name:concert flute
 #: DB:instrument/description:414
