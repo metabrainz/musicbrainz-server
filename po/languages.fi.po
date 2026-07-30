@@ -15,11 +15,11 @@
 # Tommi Vainikainen <email address hidden>, 2008
 # Tommi Vainikainen <email address hidden>, 2005
 # Tukea <email address hidden>, 2016
-# Philipp Wolfer <ph.wolfer@gmail.com>, 2023.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2023, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2023-08-24 14:27+0000\n"
+"PO-Revision-Date: 2026-07-28 21:48+0000\n"
 "Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Finnish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/fi/>\n"
@@ -28,7 +28,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.18.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -1753,7 +1753,7 @@ msgstr "mongoli"
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
-msgstr ""
+msgstr "morisyen"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
@@ -2042,10 +2042,8 @@ msgstr "muinaisprovensaali"
 
 #. frequency:1 iso_code_3:prg
 #: DB:language/name:5521
-#, fuzzy
-#| msgid "Russian"
 msgid "Prussian"
-msgstr "venäjä"
+msgstr "muinaispreussi"
 
 #. frequency:1 iso_code_3:fuc
 #: DB:language/name:2321
@@ -2452,7 +2450,7 @@ msgstr "syyria"
 #. frequency:1 iso_code_3:shi
 #: DB:language/name:5943
 msgid "Tachelhit"
-msgstr ""
+msgstr "tašelhit"
 
 #. frequency:1 iso_code_3:tgl
 #: DB:language/name:414

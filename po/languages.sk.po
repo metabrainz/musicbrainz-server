@@ -2,19 +2,21 @@
 # Translators:
 # Lukáš Lalinský <email address hidden>, 2012
 # Pavol Babinčák <email address hidden>, 2012
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 19:23+0000\n"
-"Last-Translator: Pavol Babinčák <scroolik@gmail.com>, 2012\n"
-"Language-Team: Slovak (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/sk/)\n"
+"PO-Revision-Date: 2026-07-28 21:48+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
+"Language-Team: Slovak <https://translations.metabrainz.org/projects/"
+"musicbrainz/languages/sk/>\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n "
-">= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && "
+"n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -724,7 +726,7 @@ msgstr ""
 #. frequency:1 iso_code_3:est
 #: DB:language/name:123
 msgid "Estonian"
-msgstr ""
+msgstr "Estónčina"
 
 #. frequency:1 iso_code_3:ewe
 #: DB:language/name:124
@@ -1049,7 +1051,7 @@ msgstr ""
 #. frequency:1 iso_code_3:isl
 #: DB:language/name:180
 msgid "Icelandic"
-msgstr ""
+msgstr "islandčina"
 
 #. frequency:1 iso_code_3:ido
 #: DB:language/name:181

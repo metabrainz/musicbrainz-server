@@ -1,21 +1,22 @@
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
 # KenParker_CN <peekabookenny@gmail.com>, 2025.
-# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025.
+# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025, 2026.
 # BestSteve <ibmibmibm.tw@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-01-28 17:11+0000\n"
-"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
+"PO-Revision-Date: 2026-07-29 23:12+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
-"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/"
-">\n"
+"translations.metabrainz.org/projects/musicbrainz/relationship-types/zh_Hant/>"
+"\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -1597,14 +1598,10 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates a 'guest' performance where the performer is not "
-#| "usually part of the band."
 msgid ""
 "This attribute indicates a 'guest' performance where the artist in question "
 "is not usually part of the main artist (or contest jury)."
-msgstr "該屬性指“特邀演出嘉賓”，通常為不是樂隊成員的表演者。"
+msgstr "此屬性表示演出由「嘉賓」負責，不是主要表演者（或比賽評判團）的成員。"
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
