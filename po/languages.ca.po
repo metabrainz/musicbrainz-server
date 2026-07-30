@@ -3,11 +3,12 @@
 # Aniol, 2014
 # 0x1026 <me@hugovidafe.dev>, 2024.
 # Marc Riera <marc@marcriera.cat>, 2025.
+# Philipp Wolfer <ph.wolfer@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-04-09 01:20+0000\n"
-"Last-Translator: Marc Riera <marc@marcriera.cat>\n"
+"PO-Revision-Date: 2026-07-28 21:48+0000\n"
+"Last-Translator: Philipp Wolfer <ph.wolfer@gmail.com>\n"
 "Language-Team: Catalan <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ca/>\n"
 "Language: ca\n"
@@ -15,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -832,7 +833,7 @@ msgstr ""
 #. frequency:1 iso_code_3:glg
 #: DB:language/name:150
 msgid "Galician"
-msgstr ""
+msgstr "Gallec"
 
 #. frequency:1 iso_code_3:lug
 #: DB:language/name:249
@@ -1037,7 +1038,7 @@ msgstr ""
 #. frequency:1 iso_code_3:hun
 #: DB:language/name:176
 msgid "Hungarian"
-msgstr ""
+msgstr "Hongarès"
 
 #. frequency:1 iso_code_3:hup
 #: DB:language/name:177
@@ -1052,7 +1053,7 @@ msgstr ""
 #. frequency:1 iso_code_3:isl
 #: DB:language/name:180
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandès"
 
 #. frequency:1 iso_code_3:ido
 #: DB:language/name:181
@@ -1477,7 +1478,7 @@ msgstr ""
 #. frequency:1 iso_code_3:lit
 #: DB:language/name:243
 msgid "Lithuanian"
-msgstr ""
+msgstr "Lituà"
 
 #. frequency:1 iso_code_3:liv
 #: DB:language/name:3858
@@ -1892,7 +1893,7 @@ msgstr ""
 #. frequency:1 iso_code_3:oci
 #: DB:language/name:318
 msgid "Occitan"
-msgstr ""
+msgstr "Occità"
 
 #. frequency:0 iso_code_3:arc
 #: DB:language/name:19
@@ -2007,7 +2008,7 @@ msgstr "Polonès"
 #. frequency:2 iso_code_3:por
 #: DB:language/name:340
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguès"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:341
@@ -2077,7 +2078,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ron
 #: DB:language/name:351
 msgid "Romanian"
-msgstr ""
+msgstr "Romanès"
 
 #. frequency:1 iso_code_3:roh
 #: DB:language/name:349
@@ -2097,7 +2098,7 @@ msgstr ""
 #. frequency:2 iso_code_3:rus
 #: DB:language/name:353
 msgid "Russian"
-msgstr ""
+msgstr "Rus"
 
 #. frequency:1 iso_code_3:rue
 #: DB:language/name:5790
@@ -2302,12 +2303,12 @@ msgstr ""
 #. frequency:1 iso_code_3:slk
 #: DB:language/name:377
 msgid "Slovak"
-msgstr ""
+msgstr "Eslovac"
 
 #. frequency:1 iso_code_3:slv
 #: DB:language/name:378
 msgid "Slovenian"
-msgstr ""
+msgstr "Eslovè"
 
 #. frequency:0 iso_code_3:sog
 #: DB:language/name:389
@@ -2567,7 +2568,7 @@ msgstr ""
 #. frequency:2 iso_code_3:tur
 #: DB:language/name:433
 msgid "Turkish"
-msgstr ""
+msgstr "Turc"
 
 #. frequency:1 iso_code_3:ota
 #: DB:language/name:324
@@ -2612,7 +2613,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ukr
 #: DB:language/name:441
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ucraïnès"
 
 #. frequency:1 iso_code_3:umb
 #: DB:language/name:442
