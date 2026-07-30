@@ -520,6 +520,51 @@ test 'The user.updated webhook errors on an empty update' => sub {
     is($content->{status}, 'error', 'response contains an error');
 };
 
+test 'The user.updated webhook ignores nonexistent or deleted users' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+editor');
+
+    no warnings 'redefine';
+    local *DBDefs::DISCOURSE_SERVER = sub { '' };
+    use warnings 'redefine';
+
+    $c->model('Editor')->delete(1);
+    $c->model('Editor')->delete(2);
+
+    my $editor1 = $c->model('Editor')->get_by_id(1);
+    # editor id=2 (Alice) has an annotation so won't be fully deleted
+    my $editor2 = $c->model('Editor')->get_by_id(2);
+    ok(!defined $editor1, 'editor 1 was fully deleted');
+    ok(defined $editor2 && $editor2->deleted, 'editor 2 was deleted');
+
+    my $res = $mech->request(_make_webhook_request(
+        event => 'user.updated',
+        payload => {
+            user_id => 1,
+            old => { name => 'new_editor' },
+            new => { name => 'new_editor2' },
+            updated_at => '2000-01-01T00:00:00+00:00',
+        },
+    ));
+    is($res->code, HTTP_OK,
+       'webhook response for nonexistent editor is 200');
+
+    $res = $mech->request(_make_webhook_request(
+        event => 'user.updated',
+        payload => {
+            user_id => 2,
+            old => { name => 'Alice' },
+            new => { name => 'Alice2' },
+            updated_at => '2000-01-01T00:00:00+00:00',
+        },
+    ));
+    is($res->code, HTTP_OK,
+       'webhook response for deleted editor is 200');
+};
+
 test 'The user.created webhook ignores an existing editor' => sub {
     my $test = shift;
     my $c = $test->c;

@@ -330,8 +330,13 @@ sub _user_updated_handler {
     die 'Invalid user_id' unless is_database_row_id($user_id);
 
     my $editor = $c->model('Editor')->get_by_id($user_id);
-    die 'Editor does not exist or was deleted'
-        unless defined $editor && !$editor->deleted;
+    unless (defined $editor && !$editor->deleted) {
+        $c->log->debug(
+            'user.updated event received for nonexistent or deleted user ' .
+            "(id=$user_id)",
+        );
+        return;
+    }
 
     my $old = $payload->{old};
     my $new = $payload->{new};

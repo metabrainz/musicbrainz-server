@@ -138,15 +138,15 @@ component Head(
 
       {manifest('vendors')}
 
+      {$c.stash.current_language === 'en'
+        ? null
+        : manifest('jed-' + $c.stash.current_language)}
+
       {manifest('common-chunks')}
 
       {manifest('common/jquery-global')}
 
       {manifest('common/sentry')}
-
-      {$c.stash.current_language === 'en'
-        ? null
-        : manifest('jed-' + $c.stash.current_language)}
 
       {MUSICBRAINZ_RUNNING_TESTS ? manifest('selenium') : null}
 
