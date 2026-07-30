@@ -1,11 +1,13 @@
 # BestSteve <ibmibmibm.tw@gmail.com>, 2024.
 # guardiansock <guardian.sock5925@fastmail.com>, 2024.
 # jerry155756294 <a155750130@gmail.com>, 2026.
+# silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-06-18 21:12+0000\n"
-"Last-Translator: jerry155756294 <a155750130@gmail.com>\n"
+"PO-Revision-Date: 2026-07-29 23:12+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/instruments/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -13,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.6.1\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -508,9 +510,6 @@ msgid "bansuri"
 msgstr "印度竹笛"
 
 #: DB:instrument/name:819
-#, fuzzy
-#| msgctxt "ancient asian/persian lute"
-#| msgid "barbat"
 msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "巴爾巴特琴"
@@ -1259,7 +1258,7 @@ msgstr "大笒"
 
 #: DB:instrument/name:326
 msgid "daf"
-msgstr "達甫"
+msgstr "達夫鼓"
 
 #: DB:instrument/name:532
 msgid "daire"
@@ -2730,7 +2729,7 @@ msgstr "太監笛"
 #: DB:instrument/name:114
 msgctxt "Traditional English percussion stick"
 msgid "monkey stick"
-msgstr ""
+msgstr "猴棍"
 
 #: DB:instrument/name:224
 msgctxt "traditional bowed Mongol fiddle"
@@ -3088,7 +3087,7 @@ msgstr "高音小號"
 #: DB:instrument/name:1183
 msgctxt "Italian double reed with conical bore"
 msgid "piffero"
-msgstr ""
+msgstr "皮費洛笛"
 
 #: DB:instrument/name:350
 msgctxt "Pearshaped chinese lute"
@@ -3111,7 +3110,7 @@ msgstr "朝鮮篳篥"
 #: DB:instrument/name:1197
 msgctxt "Northern Italian bagpipe"
 msgid "piva"
-msgstr ""
+msgstr "皮瓦風笛"
 
 #: DB:instrument/name:700
 msgid "pkhachich"
@@ -3372,8 +3371,6 @@ msgid "rototom"
 msgstr "輪鼓"
 
 #: DB:instrument/name:545
-#, fuzzy
-#| msgid "ruan"
 msgctxt "Chinese plucked lute family"
 msgid "ruan"
 msgstr "阮"
@@ -3550,7 +3547,7 @@ msgstr "蛇號"
 #: DB:instrument/name:630
 msgctxt "Persian three-stringed long-necked lute"
 msgid "setar"
-msgstr "波斯薩塔爾琴"
+msgstr "薩塔爾"
 
 #: DB:instrument/name:954
 msgid "shaken idiophone"
@@ -3883,8 +3880,6 @@ msgid "t'rưng"
 msgstr "竹琴"
 
 #: DB:instrument/name:185
-#, fuzzy
-#| msgid "tabla"
 msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "塔布拉鼓"
@@ -4364,11 +4359,9 @@ msgid "venu"
 msgstr "維努笛"
 
 #: DB:instrument/name:174
-#, fuzzy
-#| msgid "electric viola"
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "vertical viola"
-msgstr "電中提琴"
+msgstr "直立中提琴"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4499,7 +4492,7 @@ msgstr "嗚嗚祖拉"
 #: DB:instrument/name:1069
 msgctxt "Smallest member of charango family"
 msgid "walaycho"
-msgstr ""
+msgstr "哇萊求琴"
 
 #: DB:instrument/name:159
 msgctxt "American scraped idiophone"
@@ -4648,27 +4641,23 @@ msgid "yueqin"
 msgstr "月琴"
 
 #: DB:instrument/name:715
-#, fuzzy
-#| msgid "zabumba"
 msgctxt "Brazilian bass drum"
 msgid "zabumba"
-msgstr "巴西軍鼓"
+msgstr "札奔巴鼓"
 
 #: DB:instrument/name:1192
 msgctxt "Large Italian bagpipe"
 msgid "zampogna"
-msgstr ""
+msgstr "贊波尼亞風笛"
 
 #: DB:instrument/name:328
 msgid "zarb"
 msgstr "通巴克鼓"
 
 #: DB:instrument/name:692
-#, fuzzy
-#| msgid "zhaleika"
 msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
-msgstr "角笛"
+msgstr "單簧笛"
 
 #: DB:instrument/name:217
 msgctxt "Alto huqin"
@@ -4676,8 +4665,6 @@ msgid "zhonghu"
 msgstr "中胡"
 
 #: DB:instrument/name:241
-#, fuzzy
-#| msgid "zhongruan"
 msgctxt "Tenor ruan"
 msgid "zhongruan"
 msgstr "中阮"
