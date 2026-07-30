@@ -21,8 +21,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-05 19:12+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2026-07-28 19:12+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/it/>\n"
 "Language: it\n"
@@ -31,7 +32,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.7\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -850,8 +851,8 @@ msgid ""
 "Indicates the person who wrote an original script for a dramatized work, "
 "such as an audio drama."
 msgstr ""
-"Indica la persona che ha scritto la sceneggiatura originale per un'opera, "
-"come per esempio un audiodramma."
+"Indica la persona che ha scritto la sceneggiatura originale per un'opera "
+"drammatizzata, come per esempio un audiodramma."
 
 #. name:premiere
 #: DB:link_type/description:716
@@ -1787,16 +1788,12 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates a 'guest' performance where the performer is not "
-#| "usually part of the band."
 msgid ""
 "This attribute indicates a 'guest' performance where the artist in question "
 "is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Quest'attributo indica un'esibizione di un \"ospite\" che non fa solitamente "
-"parte della band."
+"parte dell'artista principale (o della giuria del concorso)."
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
@@ -9761,7 +9758,7 @@ msgstr "coordinatore di produzione per"
 
 #: DB:link_type/name:1309 DB:link_type/name:1310
 msgid "programmed at"
-msgstr "è stato programmata a"
+msgstr "programmata presso"
 
 #: DB:link_type/name:1311 DB:link_type/name:1308
 msgid "programmed in"
@@ -10881,10 +10878,8 @@ msgstr "è stato un DJ spalla a"
 
 #. name:jury member
 #: DB:link_type/long_link_phrase:1255
-#, fuzzy
-#| msgid "was a jury member at"
 msgid "was a {guest} jury member at"
-msgstr "è stato membro della giuria presso"
+msgstr "è stato membro {guest:ospite} della giuria presso"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -12425,8 +12420,7 @@ msgstr "{entity1} è stata prodotta {additional:in aggiunta} a {entity0}"
 #. name:programmed at
 #: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
 msgid "{entity1} was {additional:additionally} programmed at {entity0}"
-msgstr ""
-"{entity1} è stata programmata {additional:in aggiunta} presso {entity0}"
+msgstr "{entity1} è stata programmata {additional:in aggiunta} presso {entity0}"
 
 #. name:programmed in
 #: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308
@@ -12542,10 +12536,8 @@ msgstr "primo violino {guest:ospite} per"
 
 #. name:jury member
 #: DB:link_type/link_phrase:1255
-#, fuzzy
-#| msgid "jury member at"
 msgid "{guest} jury member at"
-msgstr "membro della giuria presso"
+msgstr "membro {guest:ospite} della giuria presso"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110

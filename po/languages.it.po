@@ -13,8 +13,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-05 19:12+0000\n"
-"Last-Translator: GABG <musicbrainz@gabg.email>\n"
+"PO-Revision-Date: 2026-07-27 20:24+0000\n"
+"Last-Translator: \"salo.rock\" "
+"<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/it/>\n"
 "Language: it\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 2026.7\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -678,7 +679,7 @@ msgstr "Arrernte orientale"
 #. frequency:1 iso_code_3:nea
 #: DB:language/name:4741
 msgid "Eastern Ngad'a"
-msgstr "Ngada orientale"
+msgstr "Ngad'a orientale"
 
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
@@ -702,10 +703,8 @@ msgstr "Elamitico"
 
 #. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
-#, fuzzy
-#| msgid "Sicilian"
 msgid "Emilian"
-msgstr "Siciliano"
+msgstr "Emiliano"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1279,10 +1278,8 @@ msgstr "Kazako"
 
 #. frequency:1 iso_code_3:meo
 #: DB:language/name:4140
-#, fuzzy
-#| msgid "Malay"
 msgid "Kedah Malay"
-msgstr "Malese"
+msgstr "Kedah Malay"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1797,7 +1794,7 @@ msgstr "Napoletano"
 #. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
-msgstr ""
+msgstr "Negeri Sembilan Malay"
 
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
@@ -1812,7 +1809,7 @@ msgstr "Nepalese"
 #. frequency:1 iso_code_3:nxg
 #: DB:language/name:5076
 msgid "Ngad'a"
-msgstr "Ngada"
+msgstr "Ngad'a"
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1977,7 +1974,7 @@ msgstr "Lingue papuasiche"
 #. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
-msgstr ""
+msgstr "Pattani Malay"
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
