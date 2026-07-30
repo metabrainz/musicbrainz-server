@@ -1,22 +1,15 @@
-#
-# Translators:
-# viper666 <email address hidden>, 2013
-# Flavia Telcean <tbi1233@users.noreply.translations.metabrainz.org>, 2026.
+# Languages add-on <noreply-addon-languages@weblate.org>, 2026.
 msgid ""
 msgstr ""
-"Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-29 23:12+0000\n"
-"Last-Translator: Flavia Telcean "
-"<tbi1233@users.noreply.translations.metabrainz.org>\n"
-"Language-Team: Romanian <https://translations.metabrainz.org/projects/"
-"musicbrainz/attributes/ro/>\n"
-"Language: ro\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"Language: af\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -48,7 +41,7 @@ msgstr ""
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr "Disc Vinil 25 cm"
+msgstr ""
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
@@ -68,12 +61,12 @@ msgstr ""
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr "Disc Vinil 30 cm"
+msgstr ""
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "Disc Vinil 3'' (7.6 cm)"
+msgstr ""
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -103,7 +96,7 @@ msgstr ""
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr "Disc Vinil 17.5 cm"
+msgstr ""
 
 #: DB:medium_format/name:71
 msgctxt "medium_format"
@@ -118,7 +111,7 @@ msgstr ""
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr "CD 8cm"
+msgstr ""
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
@@ -128,7 +121,7 @@ msgstr ""
 #: DB:medium_format/name:210
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "CD-R 8cm"
+msgstr ""
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
@@ -231,8 +224,6 @@ msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
 msgstr ""
-"Un spațiu (adeseori verde) accesibil cu scopul relaxării într-o zonă "
-"populată și urbanizată."
 
 #. name:CD-i
 #: DB:medium_format/description:209
@@ -1124,12 +1115,12 @@ msgstr ""
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
 msgid "Album"
-msgstr "Album"
+msgstr ""
 
 #: DB:work_attribute_type/name:216
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr "ID AllTrack"
+msgstr ""
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
@@ -1477,7 +1468,7 @@ msgstr ""
 #: DB:work_type/name:1
 msgctxt "work_type"
 msgid "Aria"
-msgstr "Arie"
+msgstr ""
 
 #: DB:series_type/name:14
 msgctxt "series_type"
@@ -1492,7 +1483,7 @@ msgstr ""
 #: DB:artist_alias_type/name:1
 msgctxt "alias_type"
 msgid "Artist name"
-msgstr "Nume artist"
+msgstr ""
 
 #: DB:series_type/name:13
 msgctxt "series_type"
@@ -1532,7 +1523,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:5
 msgctxt "release_group_secondary_type"
 msgid "Audiobook"
-msgstr "Carte audio"
+msgstr ""
 
 #: DB:series_ordering_type/name:1
 msgctxt "series_ordering_type"
@@ -1712,7 +1703,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:2
 msgctxt "cover_art_type"
 msgid "Back"
-msgstr "Spate"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:323
 msgctxt "work_attribute_type_allowed_value"
@@ -1747,7 +1738,7 @@ msgstr ""
 #: DB:work_type/name:2
 msgctxt "work_type"
 msgid "Ballet"
-msgstr "Balet"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:4
 msgctxt "event_art_type"
@@ -1865,7 +1856,7 @@ msgstr ""
 #: DB:medium_format/name:24
 msgctxt "medium_format"
 msgid "Betamax"
-msgstr "Betamax"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:329
 msgctxt "work_attribute_type_allowed_value"
@@ -2011,7 +2002,7 @@ msgstr ""
 #: DB:medium_format/name:20
 msgctxt "medium_format"
 msgid "Blu-ray"
-msgstr "Blu-ray"
+msgstr ""
 
 #: DB:medium_format/name:79
 msgctxt "medium_format"
@@ -2026,27 +2017,27 @@ msgstr ""
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
-msgstr "Carte"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
 msgid "Booklet"
-msgstr "Broșură"
+msgstr ""
 
 #: DB:release_status/name:3
 msgctxt "release_status"
 msgid "Bootleg"
-msgstr "Copie ilegală"
+msgstr ""
 
 #: DB:label_type/name:5
 msgctxt "label_type"
 msgid "Bootleg Production"
-msgstr "Producție copii ilegale"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
 msgid "Bottom"
-msgstr "Dos"
+msgstr ""
 
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
@@ -2066,12 +2057,12 @@ msgstr ""
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
-msgstr "Radiodifuzat"
+msgstr ""
 
 #: DB:label_type/name:12
 msgctxt "label_type"
 msgid "Broadcaster"
-msgstr "Radiodifuzor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:885
 msgctxt "work_attribute_type_allowed_value"
@@ -2202,7 +2193,7 @@ msgstr ""
 #: DB:medium_format/name:1
 msgctxt "medium_format"
 msgid "CD"
-msgstr "CD"
+msgstr ""
 
 #: DB:medium_format/name:39
 msgctxt "medium_format"
@@ -2212,7 +2203,7 @@ msgstr ""
 #: DB:medium_format/name:33
 msgctxt "medium_format"
 msgid "CD-R"
-msgstr "CD-R"
+msgstr ""
 
 #: DB:medium_format/name:209
 msgctxt "medium_format"
@@ -2288,17 +2279,17 @@ msgstr ""
 #: DB:work_type/name:3
 msgctxt "work_type"
 msgid "Cantata"
-msgstr "Cantată"
+msgstr ""
 
 #: DB:release_packaging/name:4
 msgctxt "release_packaging"
 msgid "Cardboard/Paper Sleeve"
-msgstr "Carton/Ambalaj Hârtie"
+msgstr ""
 
 #: DB:medium_format/name:9
 msgctxt "medium_format"
 msgid "Cartridge"
-msgstr "Cartuș"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:66
 msgctxt "work_attribute_type_allowed_value"
@@ -2308,7 +2299,7 @@ msgstr ""
 #: DB:medium_format/name:8
 msgctxt "medium_format"
 msgid "Cassette"
-msgstr "Casetă"
+msgstr ""
 
 #: DB:release_packaging/name:8
 msgctxt "release_packaging"
@@ -2394,12 +2385,12 @@ msgstr ""
 #: DB:event_type/name:40
 msgctxt "event_type"
 msgid "Competition"
-msgstr "Concurs"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
 msgid "Compilation"
-msgstr "Compilație"
+msgstr ""
 
 #: DB:event_type/name:1
 msgctxt "event_type"
@@ -2414,7 +2405,7 @@ msgstr ""
 #: DB:work_type/name:4
 msgctxt "work_type"
 msgid "Concerto"
-msgstr "Concert"
+msgstr ""
 
 #: DB:event_type/name:4
 msgctxt "event_type"
@@ -2568,17 +2559,17 @@ msgstr ""
 #: DB:medium_format/name:11
 msgctxt "medium_format"
 msgid "DAT"
-msgstr "DAT"
+msgstr ""
 
 #: DB:medium_format/name:16
 msgctxt "medium_format"
 msgid "DCC"
-msgstr "DCC"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:8
 msgctxt "release_group_secondary_type"
 msgid "DJ-mix"
-msgstr "DJ-mix"
+msgstr ""
 
 #: DB:medium_format/name:44
 msgctxt "medium_format"
@@ -2588,12 +2579,12 @@ msgstr ""
 #: DB:medium_format/name:2
 msgctxt "medium_format"
 msgid "DVD"
-msgstr "DVD"
+msgstr ""
 
 #: DB:medium_format/name:18
 msgctxt "medium_format"
 msgid "DVD-Audio"
-msgstr "DVD-Audio"
+msgstr ""
 
 #: DB:medium_format/name:92
 msgctxt "medium_format"
@@ -2603,7 +2594,7 @@ msgstr ""
 #: DB:medium_format/name:19
 msgctxt "medium_format"
 msgid "DVD-Video"
-msgstr "DVD-Video"
+msgstr ""
 
 #: DB:medium_format/name:47
 msgctxt "medium_format"
@@ -2814,12 +2805,12 @@ msgstr ""
 #: DB:release_packaging/name:3
 msgctxt "release_packaging"
 msgid "Digipak"
-msgstr "Digipak"
+msgstr ""
 
 #: DB:medium_format/name:12
 msgctxt "medium_format"
 msgid "Digital Media"
-msgstr "Suport digital"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:345
 msgctxt "work_attribute_type_allowed_value"
@@ -2874,7 +2865,7 @@ msgstr ""
 #: DB:label_type/name:1
 msgctxt "label_type"
 msgid "Distributor"
-msgstr "Distribuitor"
+msgstr ""
 
 #: DB:area_type/name:5
 msgctxt "area_type"
@@ -2905,7 +2896,7 @@ msgstr ""
 #: DB:medium_format/name:4
 msgctxt "medium_format"
 msgid "DualDisc"
-msgstr "DualDisc"
+msgstr ""
 
 #: DB:medium_format/name:67
 msgctxt "medium_format"
@@ -3121,7 +3112,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:3
 msgctxt "release_group_primary_type"
 msgid "EP"
-msgstr "EP"
+msgstr ""
 
 #: DB:medium_format/name:50
 msgctxt "medium_format"
@@ -3329,7 +3320,7 @@ msgstr ""
 #: DB:gender/name:2
 msgctxt "gender"
 msgid "Female"
-msgstr "Femeie"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:732
 msgctxt "work_attribute_type_allowed_value"
@@ -3468,7 +3459,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:1
 msgctxt "cover_art_type"
 msgid "Front"
-msgstr "Față"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:793
 msgctxt "work_attribute_type_allowed_value"
@@ -3665,7 +3656,7 @@ msgstr ""
 #: DB:artist_type/name:2
 msgctxt "artist_type"
 msgid "Group"
-msgstr "Grup"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:916
 msgctxt "work_attribute_type_allowed_value"
@@ -3755,12 +3746,12 @@ msgstr ""
 #: DB:medium_format/name:17
 msgctxt "medium_format"
 msgid "HD-DVD"
-msgstr "HD-DVD"
+msgstr ""
 
 #: DB:medium_format/name:25
 msgctxt "medium_format"
 msgid "HDCD"
-msgstr "HDCD"
+msgstr ""
 
 #: DB:work_attribute_type/name:214
 msgctxt "work_attribute_type"
@@ -4000,7 +3991,7 @@ msgstr ""
 #: DB:label_type/name:2
 msgctxt "label_type"
 msgid "Holding"
-msgstr "Holding"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:414
 msgctxt "work_attribute_type_allowed_value"
@@ -4675,7 +4666,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:4
 msgctxt "release_group_secondary_type"
 msgid "Interview"
-msgstr "Interviu"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:427
 msgctxt "work_attribute_type_allowed_value"
@@ -4812,7 +4803,7 @@ msgstr ""
 #: DB:release_packaging/name:1
 msgctxt "release_packaging"
 msgid "Jewel Case"
-msgstr "Jewel Case"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:119
 msgctxt "work_attribute_type_allowed_value"
@@ -5070,7 +5061,7 @@ msgstr ""
 #: DB:release_packaging/name:6
 msgctxt "release_packaging"
 msgid "Keep Case"
-msgstr "Keep Case"
+msgstr ""
 
 #: DB:work_attribute_type/name:1
 msgctxt "work_attribute_type"
@@ -5311,7 +5302,7 @@ msgstr ""
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr "Nume casă de discuri"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:956
 msgctxt "work_attribute_type_allowed_value"
@@ -5361,7 +5352,7 @@ msgstr ""
 #: DB:medium_format/name:5
 msgctxt "medium_format"
 msgid "LaserDisc"
-msgstr "LaserDisc"
+msgstr ""
 
 #: DB:work_attribute_type/name:55
 msgctxt "work_attribute_type"
@@ -5391,7 +5382,7 @@ msgstr ""
 #: DB:artist_alias_type/name:2
 msgctxt "alias_type"
 msgid "Legal name"
-msgstr "Numele juridic"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:744
 msgctxt "work_attribute_type_allowed_value"
@@ -5401,12 +5392,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr "Copertă"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
 msgid "Live"
-msgstr "Live"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:12
 msgctxt "event_art_type"
@@ -5476,7 +5467,7 @@ msgstr ""
 #: DB:work_type/name:7
 msgctxt "work_type"
 msgid "Madrigal"
-msgstr "Madrigal"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:163
 msgctxt "work_attribute_type_allowed_value"
@@ -5526,7 +5517,7 @@ msgstr ""
 #: DB:gender/name:1
 msgctxt "gender"
 msgid "Male"
-msgstr "Bărbat"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:638
 msgctxt "work_attribute_type_allowed_value"
@@ -5566,7 +5557,7 @@ msgstr ""
 #: DB:work_type/name:8
 msgctxt "work_type"
 msgid "Mass"
-msgstr "Masă"
+msgstr ""
 
 #: DB:event_type/name:5
 msgctxt "event_type"
@@ -5574,10 +5565,9 @@ msgid "Masterclass/Clinic"
 msgstr ""
 
 #: DB:cover_art_archive.art_type/name:15
-#, fuzzy
 msgctxt "cover_art_type"
 msgid "Matrix/Runout"
-msgstr "Matrix/Runout"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
@@ -5642,7 +5632,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:4
 msgctxt "cover_art_type"
 msgid "Medium"
-msgstr "Suport"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:176
 msgctxt "work_attribute_type_allowed_value"
@@ -5715,7 +5705,7 @@ msgstr ""
 #: DB:medium_format/name:6
 msgctxt "medium_format"
 msgid "MiniDisc"
-msgstr "MiniDisc"
+msgstr ""
 
 #: DB:medium_format/name:165
 msgctxt "medium_format"
@@ -5750,7 +5740,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:9
 msgctxt "release_group_secondary_type"
 msgid "Mixtape/Street"
-msgstr "Mixtape/Street"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:981
 msgctxt "work_attribute_type_allowed_value"
@@ -5820,7 +5810,7 @@ msgstr ""
 #: DB:work_type/name:9
 msgctxt "work_type"
 msgid "Motet"
-msgstr "Motet"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:746
 msgctxt "work_attribute_type_allowed_value"
@@ -6368,7 +6358,7 @@ msgstr ""
 #: DB:release_packaging/name:7
 msgctxt "release_packaging"
 msgid "None"
-msgstr "nici unul"
+msgstr ""
 
 #: DB:gender/name:4
 msgctxt "gender"
@@ -6453,12 +6443,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:5
 msgctxt "cover_art_type"
 msgid "Obi"
-msgstr "Obi"
+msgstr ""
 
 #: DB:release_status/name:1
 msgctxt "release_status"
 msgid "Official"
-msgstr "Oficial"
+msgstr ""
 
 #. name:3" Vinyl
 #: DB:medium_format/description:207
@@ -6472,7 +6462,7 @@ msgstr ""
 #: DB:work_type/name:10
 msgctxt "work_type"
 msgid "Opera"
-msgstr "Operă"
+msgstr ""
 
 #: DB:work_type/name:24
 msgctxt "work_type"
@@ -6482,7 +6472,7 @@ msgstr ""
 #: DB:work_type/name:11
 msgctxt "work_type"
 msgid "Oratorio"
-msgstr "Oratoriu"
+msgstr ""
 
 #: DB:artist_type/name:5
 msgctxt "artist_type"
@@ -6492,27 +6482,27 @@ msgstr ""
 #: DB:label_type/name:4
 msgctxt "label_type"
 msgid "Original Production"
-msgstr "Producție Originală"
+msgstr ""
 
 #: DB:artist_type/name:3
 msgctxt "artist_type"
 msgid "Other"
-msgstr "alte"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:8
 msgctxt "cover_art_type"
 msgid "Other"
-msgstr "altele"
+msgstr ""
 
 #: DB:gender/name:3
 msgctxt "gender"
 msgid "Other"
-msgstr "alte"
+msgstr ""
 
 #: DB:medium_format/name:13
 msgctxt "medium_format"
 msgid "Other"
-msgstr "alte"
+msgstr ""
 
 #: DB:place_type/name:3
 msgctxt "place_type"
@@ -6522,12 +6512,12 @@ msgstr ""
 #: DB:release_group_primary_type/name:11
 msgctxt "release_group_primary_type"
 msgid "Other"
-msgstr "alte"
+msgstr ""
 
 #: DB:release_packaging/name:5
 msgctxt "release_packaging"
 msgid "Other"
-msgstr "alte"
+msgstr ""
 
 #: DB:instrument_type/name:5
 msgctxt "instrument_type"
@@ -6537,7 +6527,7 @@ msgstr ""
 #: DB:work_type/name:12
 msgctxt "work_type"
 msgid "Overture"
-msgstr "Uvertură"
+msgstr ""
 
 #: DB:editor_collection_type/name:2
 msgctxt "collection_type"
@@ -6572,7 +6562,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:81
 msgctxt "cover_art_type"
 msgid "Panel"
-msgstr "Planșă"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
@@ -6602,7 +6592,7 @@ msgstr ""
 #: DB:work_type/name:13
 msgctxt "work_type"
 msgid "Partita"
-msgstr "Partită"
+msgstr ""
 
 #: DB:medium_format/name:58
 msgctxt "medium_format"
@@ -6653,7 +6643,7 @@ msgstr ""
 #: DB:artist_type/name:1
 msgctxt "artist_type"
 msgid "Person"
-msgstr "Persoană"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:497
 msgctxt "work_attribute_type_allowed_value"
@@ -6683,7 +6673,7 @@ msgstr ""
 #: DB:medium_format/name:15
 msgctxt "medium_format"
 msgid "Piano Roll"
-msgstr "Rolă de pian"
+msgstr ""
 
 #: DB:editor_collection_type/name:11
 msgctxt "collection_type"
@@ -6729,7 +6719,7 @@ msgstr ""
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr "Poezie"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:655
 msgctxt "work_attribute_type_allowed_value"
@@ -6739,7 +6729,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr "Poster"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:1
 msgctxt "event_art_type"
@@ -6759,7 +6749,7 @@ msgstr ""
 #: DB:label_type/name:3
 msgctxt "label_type"
 msgid "Production"
-msgstr "Producție"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:11
 msgctxt "event_art_type"
@@ -6769,7 +6759,7 @@ msgstr ""
 #: DB:release_status/name:2
 msgctxt "release_status"
 msgid "Promotion"
-msgstr "Promovare"
+msgstr ""
 
 #. name:Mixtape/Street
 #: DB:release_group_secondary_type/description:9
@@ -6797,12 +6787,12 @@ msgstr ""
 #: DB:release_status/name:4
 msgctxt "release_status"
 msgid "Pseudo-Release"
-msgstr "Pseudo-Album"
+msgstr ""
 
 #: DB:label_type/name:7
 msgctxt "label_type"
 msgid "Publisher"
-msgstr "Editor"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:999
 msgctxt "work_attribute_type_allowed_value"
@@ -6858,12 +6848,12 @@ msgstr ""
 #: DB:work_type/name:14
 msgctxt "work_type"
 msgid "Quartet"
-msgstr "Cvartet"
+msgstr ""
 
 #: DB:medium_format/name:208
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "Cartuș ROM"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -6973,7 +6963,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr "Neprelucrat"
+msgstr ""
 
 #: DB:event_art_archive.art_type/name:9
 msgctxt "event_art_type"
@@ -7003,7 +6993,7 @@ msgstr ""
 #: DB:medium_format/name:10
 msgctxt "medium_format"
 msgid "Reel-to-reel"
-msgstr "Rolă tambur"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:514
 msgctxt "work_attribute_type_allowed_value"
@@ -7013,7 +7003,7 @@ msgstr ""
 #: DB:label_type/name:6
 msgctxt "label_type"
 msgid "Reissue Production"
-msgstr "Producție Reemitere"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:515
 msgctxt "work_attribute_type_allowed_value"
@@ -7068,7 +7058,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:7
 msgctxt "release_group_secondary_type"
 msgid "Remix"
-msgstr "Remix"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:516
 msgctxt "work_attribute_type_allowed_value"
@@ -7219,7 +7209,7 @@ msgstr ""
 #: DB:medium_format/name:3
 msgctxt "medium_format"
 msgid "SACD"
-msgstr "SACD"
+msgstr ""
 
 #: DB:medium_format/name:84
 msgctxt "medium_format"
@@ -7374,7 +7364,7 @@ msgstr ""
 #: DB:medium_format/name:23
 msgctxt "medium_format"
 msgid "SVCD"
-msgstr "SVCD"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:522
 msgctxt "work_attribute_type_allowed_value"
@@ -7500,7 +7490,7 @@ msgstr ""
 #: DB:event_alias_type/name:2
 msgctxt "alias_type"
 msgid "Search hint"
-msgstr "Indiciu căutare"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:528
 msgctxt "work_attribute_type_allowed_value"
@@ -7634,7 +7624,7 @@ msgstr ""
 #: DB:release_group_primary_type/name:2
 msgctxt "release_group_primary_type"
 msgid "Single"
-msgstr "Single"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:533
 msgctxt "work_attribute_type_allowed_value"
@@ -7659,7 +7649,7 @@ msgstr ""
 #: DB:release_packaging/name:2
 msgctxt "release_packaging"
 msgid "Slim Jewel Case"
-msgstr "Jewel Case Subțire"
+msgstr ""
 
 #: DB:release_packaging/name:122
 msgctxt "release_packaging"
@@ -7684,17 +7674,17 @@ msgstr ""
 #: DB:work_type/name:5
 msgctxt "work_type"
 msgid "Sonata"
-msgstr "Sonată"
+msgstr ""
 
 #: DB:work_type/name:17
 msgctxt "work_type"
 msgid "Song"
-msgstr "Melodie"
+msgstr ""
 
 #: DB:work_type/name:15
 msgctxt "work_type"
 msgid "Song-cycle"
-msgstr "Ciclu melodie"
+msgstr ""
 
 #. name:Automatic
 #: DB:series_ordering_type/description:1
@@ -7712,7 +7702,7 @@ msgstr ""
 #: DB:release_group_secondary_type/name:2
 msgctxt "release_group_secondary_type"
 msgid "Soundtrack"
-msgstr "Coloană sonoră"
+msgstr ""
 
 #: DB:work_type/name:22
 msgctxt "work_type"
@@ -7722,12 +7712,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:6
 msgctxt "cover_art_type"
 msgid "Spine"
-msgstr "Cotor"
+msgstr ""
 
 #: DB:release_group_secondary_type/name:3
 msgctxt "release_group_secondary_type"
 msgid "Spokenword"
-msgstr "Cuvânt vorbit"
+msgstr ""
 
 #: DB:place_type/name:4
 msgctxt "place_type"
@@ -7742,7 +7732,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:10
 msgctxt "cover_art_type"
 msgid "Sticker"
-msgstr "Autocolant"
+msgstr ""
 
 #: DB:instrument_type/name:2
 msgctxt "instrument_type"
@@ -7786,7 +7776,7 @@ msgstr ""
 #: DB:work_type/name:6
 msgctxt "work_type"
 msgid "Suite"
-msgstr "Suită"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:534
 msgctxt "work_attribute_type_allowed_value"
@@ -7891,12 +7881,12 @@ msgstr ""
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr "Poem simfonic"
+msgstr ""
 
 #: DB:work_type/name:16
 msgctxt "work_type"
 msgid "Symphony"
-msgstr "Simfonie"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:547
 msgctxt "work_attribute_type_allowed_value"
@@ -8189,15 +8179,12 @@ msgstr ""
 
 #. name:Bottom
 #: DB:cover_art_archive.art_type/description:49
-#, fuzzy
 msgctxt "cover_art_type"
 msgid ""
 "The bottom of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and below front, back and "
 "spines)."
 msgstr ""
-"Dosul unei cutii sau alt ambalaj similar (pentru cele mai comune ambalaje cu "
-"șase fețe, aceasta este perpendiculară și sub față, spate și copertă)."
 
 #. name:Panel
 #: DB:cover_art_archive.art_type/description:81
@@ -8206,8 +8193,6 @@ msgid ""
 "The individual segments of a folded packaging, such as a gatefold cover, "
 "digipak or cassette inlay (don't use this for folded booklets nor posters)."
 msgstr ""
-"Secțiunile individuale al unui ambalaj pliat, precum gatefold, digipak sau "
-"card de casetă (a nu se folosi pentru broșuri sau postere)."
 
 #. name:Madrigal
 #: DB:work_type/description:7
@@ -8228,15 +8213,12 @@ msgstr ""
 
 #. name:Matrix/Runout
 #: DB:cover_art_archive.art_type/description:15
-#, fuzzy
 msgctxt "cover_art_type"
 msgid ""
 "The section on a CD, record or other media containing such data as matrix "
 "numbers. Usually found in the hub of a CD or the dead wax area of a vinyl "
 "record."
 msgstr ""
-"Partea unui CD, placă audio, etc. cu informații precum numărul matricol. De "
-"obicei se află în hubul unui CD sau porțiunea de sfârșit a șanțului plăcii."
 
 #. name:Top
 #: DB:cover_art_archive.art_type/description:48
@@ -8350,7 +8332,7 @@ msgstr ""
 #: DB:event_art_archive.art_type/name:2
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Bilet"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
@@ -8405,12 +8387,12 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:7
 msgctxt "cover_art_type"
 msgid "Track"
-msgstr "Piesă"
+msgstr ""
 
 #: DB:cover_art_archive.art_type/name:9
 msgctxt "cover_art_type"
 msgid "Tray"
-msgstr "Tavă"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:1046
 msgctxt "work_attribute_type_allowed_value"
@@ -8485,12 +8467,12 @@ msgstr ""
 #: DB:medium_format/name:28
 msgctxt "medium_format"
 msgid "UMD"
-msgstr "UMD"
+msgstr ""
 
 #: DB:medium_format/name:26
 msgctxt "medium_format"
 msgid "USB Flash Drive"
-msgstr "Memorie USB"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:258
 msgctxt "work_attribute_type_allowed_value"
@@ -8498,12 +8480,9 @@ msgid "Udaya ravicandrika"
 msgstr ""
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-ray"
+msgstr ""
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
@@ -8530,9 +8509,6 @@ msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
-"A se folosi împreună cu alte tipuri de imagini care au nevoie de prelucrare "
-"pentru a fi folositoare pentru afișare (dar care pot fi folosite ca "
-"referință)."
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
@@ -8591,7 +8567,7 @@ msgstr ""
 #: DB:medium_format/name:22
 msgctxt "medium_format"
 msgid "VCD"
-msgstr "VCD"
+msgstr ""
 
 #: DB:work_attribute_type/name:107
 msgctxt "work_attribute_type"
@@ -8606,7 +8582,7 @@ msgstr ""
 #: DB:medium_format/name:21
 msgctxt "medium_format"
 msgid "VHS"
-msgstr "VHS"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:261
 msgctxt "work_attribute_type_allowed_value"
@@ -8704,7 +8680,7 @@ msgstr ""
 #: DB:medium_format/name:7
 msgctxt "medium_format"
 msgid "Vinyl"
-msgstr "Vinil"
+msgstr ""
 
 #: DB:medium_format/name:48
 msgctxt "medium_format"
@@ -8775,7 +8751,7 @@ msgstr ""
 #: DB:medium_format/name:14
 msgctxt "medium_format"
 msgid "Wax Cylinder"
-msgstr "Cilindru de ceară"
+msgstr ""
 
 #: DB:instrument_type/name:1
 msgctxt "instrument_type"
@@ -8805,7 +8781,7 @@ msgstr ""
 #: DB:work_alias_type/name:1
 msgctxt "alias_type"
 msgid "Work name"
-msgstr "Nume de muncă"
+msgstr ""
 
 #: DB:series_type/name:4
 msgctxt "series_type"
@@ -8871,7 +8847,7 @@ msgstr ""
 #: DB:work_type/name:19
 msgctxt "work_type"
 msgid "Zarzuela"
-msgstr "Zarzuela"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:591
 msgctxt "work_attribute_type_allowed_value"
@@ -8953,7 +8929,7 @@ msgstr ""
 #: DB:medium_format/name:27
 msgctxt "medium_format"
 msgid "slotMusic"
-msgstr "Card memorie"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:340
 msgctxt "work_attribute_type_allowed_value"
@@ -9008,7 +8984,7 @@ msgstr ""
 #: DB:work_type/name:20
 msgctxt "work_type"
 msgid "Étude"
-msgstr "Étude"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:653
 msgctxt "work_attribute_type_allowed_value"
