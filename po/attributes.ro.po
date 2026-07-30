@@ -1,19 +1,22 @@
 #
 # Translators:
 # viper666 <email address hidden>, 2013
+# Flavia Telcean <tbi1233@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2012-05-24 18:52+0000\n"
-"Last-Translator: viper666 <bruceradu@gmail.com>, 2013\n"
-"Language-Team: Romanian (http://app.transifex.com/musicbrainz/musicbrainz/"
-"language/ro/)\n"
+"PO-Revision-Date: 2026-07-29 23:12+0000\n"
+"Last-Translator: Flavia Telcean "
+"<tbi1233@users.noreply.translations.metabrainz.org>\n"
+"Language-Team: Romanian <https://translations.metabrainz.org/projects/"
+"musicbrainz/attributes/ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
-"2:1));\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -68,12 +71,9 @@ msgid "12\" Vinyl"
 msgstr "Disc Vinil 30 cm"
 
 #: DB:medium_format/name:207
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "7\" Vinyl"
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr "Disc Vinil 17.5 cm"
+msgstr "Disc Vinil 3'' (7.6 cm)"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
@@ -126,12 +126,9 @@ msgid "8cm CD+G"
 msgstr ""
 
 #: DB:medium_format/name:210
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "8cm CD"
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr "CD 8cm"
+msgstr "CD-R 8cm"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
@@ -234,6 +231,8 @@ msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
 msgstr ""
+"Un spațiu (adeseori verde) accesibil cu scopul relaxării într-o zonă "
+"populată și urbanizată."
 
 #. name:CD-i
 #: DB:medium_format/description:209
@@ -1128,12 +1127,9 @@ msgid "Album"
 msgstr "Album"
 
 #: DB:work_attribute_type/name:216
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Track"
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr "Piesă"
+msgstr "ID AllTrack"
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
@@ -2030,7 +2026,7 @@ msgstr ""
 #: DB:release_packaging/name:9
 msgctxt "release_packaging"
 msgid "Book"
-msgstr ""
+msgstr "Carte"
 
 #: DB:cover_art_archive.art_type/name:3
 msgctxt "cover_art_type"
@@ -2050,7 +2046,7 @@ msgstr "Producție copii ilegale"
 #: DB:cover_art_archive.art_type/name:49
 msgctxt "cover_art_type"
 msgid "Bottom"
-msgstr ""
+msgstr "Dos"
 
 #: DB:release_packaging/name:19
 msgctxt "release_packaging"
@@ -2073,12 +2069,9 @@ msgid "Broadcast"
 msgstr "Radiodifuzat"
 
 #: DB:label_type/name:12
-#, fuzzy
-#| msgctxt "release_group_primary_type"
-#| msgid "Broadcast"
 msgctxt "label_type"
 msgid "Broadcaster"
-msgstr "Radiodifuzat"
+msgstr "Radiodifuzor"
 
 #: DB:work_attribute_type_allowed_value/value:885
 msgctxt "work_attribute_type_allowed_value"
@@ -2399,12 +2392,9 @@ msgid "Club"
 msgstr ""
 
 #: DB:event_type/name:40
-#, fuzzy
-#| msgctxt "release_group_secondary_type"
-#| msgid "Compilation"
 msgctxt "event_type"
 msgid "Competition"
-msgstr "Compilație"
+msgstr "Concurs"
 
 #: DB:release_group_secondary_type/name:1
 msgctxt "release_group_secondary_type"
@@ -5411,7 +5401,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:12
 msgctxt "cover_art_type"
 msgid "Liner"
-msgstr ""
+msgstr "Copertă"
 
 #: DB:release_group_secondary_type/name:6
 msgctxt "release_group_secondary_type"
@@ -5584,9 +5574,10 @@ msgid "Masterclass/Clinic"
 msgstr ""
 
 #: DB:cover_art_archive.art_type/name:15
+#, fuzzy
 msgctxt "cover_art_type"
 msgid "Matrix/Runout"
-msgstr ""
+msgstr "Matrix/Runout"
 
 #: DB:work_attribute_type_allowed_value/value:449
 msgctxt "work_attribute_type_allowed_value"
@@ -6581,7 +6572,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:81
 msgctxt "cover_art_type"
 msgid "Panel"
-msgstr ""
+msgstr "Planșă"
 
 #: DB:work_attribute_type_allowed_value/value:839
 msgctxt "work_attribute_type_allowed_value"
@@ -6738,7 +6729,7 @@ msgstr ""
 #: DB:work_type/name:21
 msgctxt "work_type"
 msgid "Poem"
-msgstr "Poem"
+msgstr "Poezie"
 
 #: DB:work_attribute_type_allowed_value/value:655
 msgctxt "work_attribute_type_allowed_value"
@@ -6748,7 +6739,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:11
 msgctxt "cover_art_type"
 msgid "Poster"
-msgstr ""
+msgstr "Poster"
 
 #: DB:event_art_archive.art_type/name:1
 msgctxt "event_art_type"
@@ -6870,12 +6861,9 @@ msgid "Quartet"
 msgstr "Cvartet"
 
 #: DB:medium_format/name:208
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Cartridge"
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "Cartuș"
+msgstr "Cartuș ROM"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -6985,7 +6973,7 @@ msgstr ""
 #: DB:cover_art_archive.art_type/name:14
 msgctxt "cover_art_type"
 msgid "Raw/Unedited"
-msgstr ""
+msgstr "Neprelucrat"
 
 #: DB:event_art_archive.art_type/name:9
 msgctxt "event_art_type"
@@ -7512,7 +7500,7 @@ msgstr ""
 #: DB:event_alias_type/name:2
 msgctxt "alias_type"
 msgid "Search hint"
-msgstr "Indiciu căutare "
+msgstr "Indiciu căutare"
 
 #: DB:work_attribute_type_allowed_value/value:528
 msgctxt "work_attribute_type_allowed_value"
@@ -7903,7 +7891,7 @@ msgstr ""
 #: DB:work_type/name:18
 msgctxt "work_type"
 msgid "Symphonic poem"
-msgstr "Poem simfonic "
+msgstr "Poem simfonic"
 
 #: DB:work_type/name:16
 msgctxt "work_type"
@@ -8201,12 +8189,15 @@ msgstr ""
 
 #. name:Bottom
 #: DB:cover_art_archive.art_type/description:49
+#, fuzzy
 msgctxt "cover_art_type"
 msgid ""
 "The bottom of a box or other similar packaging (for most common six sided "
 "packaging options, the one perpendicular to and below front, back and "
 "spines)."
 msgstr ""
+"Dosul unei cutii sau alt ambalaj similar (pentru cele mai comune ambalaje cu "
+"șase fețe, aceasta este perpendiculară și sub față, spate și copertă)."
 
 #. name:Panel
 #: DB:cover_art_archive.art_type/description:81
@@ -8215,6 +8206,8 @@ msgid ""
 "The individual segments of a folded packaging, such as a gatefold cover, "
 "digipak or cassette inlay (don't use this for folded booklets nor posters)."
 msgstr ""
+"Secțiunile individuale al unui ambalaj pliat, precum gatefold, digipak sau "
+"card de casetă (a nu se folosi pentru broșuri sau postere)."
 
 #. name:Madrigal
 #: DB:work_type/description:7
@@ -8235,12 +8228,15 @@ msgstr ""
 
 #. name:Matrix/Runout
 #: DB:cover_art_archive.art_type/description:15
+#, fuzzy
 msgctxt "cover_art_type"
 msgid ""
 "The section on a CD, record or other media containing such data as matrix "
 "numbers. Usually found in the hub of a CD or the dead wax area of a vinyl "
 "record."
 msgstr ""
+"Partea unui CD, placă audio, etc. cu informații precum numărul matricol. De "
+"obicei se află în hubul unui CD sau porțiunea de sfârșit a șanțului plăcii."
 
 #. name:Top
 #: DB:cover_art_archive.art_type/description:48
@@ -8352,12 +8348,9 @@ msgid ""
 msgstr ""
 
 #: DB:event_art_archive.art_type/name:2
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Sticker"
 msgctxt "event_art_type"
 msgid "Ticket"
-msgstr "Autocolant"
+msgstr "Bilet"
 
 #: DB:work_attribute_type_allowed_value/value:1041
 msgctxt "work_attribute_type_allowed_value"
@@ -8537,6 +8530,9 @@ msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
+"A se folosi împreună cu alte tipuri de imagini care au nevoie de prelucrare "
+"pentru a fi folositoare pentru afișare (dar care pot fi folosite ca "
+"referință)."
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
