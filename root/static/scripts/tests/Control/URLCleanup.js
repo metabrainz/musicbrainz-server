@@ -3890,6 +3890,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.librarything.com/a/5179415/Alex-Ross',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/a/5179415',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/a/reviews/3801/Tori-Amos',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/a/3801',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'https://www.librarything.com/work/7940036/reviews',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
