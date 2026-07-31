@@ -2921,6 +2921,23 @@ export const CLEANUPS: CleanupEntries = {
           target: ERROR_TARGETS.URL,
         };
       }
+      if (/https:\/\/www\.facebook\.com\/share\//.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
       if (/facebook.com\/pages\//.test(url)) {
         return {
           result: /\/pages\/[^/?#]+\/\d+/.test(url),
