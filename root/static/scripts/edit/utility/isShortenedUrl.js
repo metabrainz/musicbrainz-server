@@ -55,6 +55,7 @@ const URL_SHORTENERS = [
   'koji.game',
   'koji.sh',
   'laburbain.com',
+  'artists.landr.com',
   'li.sten.to',
   'linkco.re',
   'lnkfi.re',
