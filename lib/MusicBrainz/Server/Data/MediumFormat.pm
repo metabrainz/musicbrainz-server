@@ -62,6 +62,15 @@ sub load
     load_subobjects($self, 'format', @media);
 }
 
+sub find_by_ids
+{
+    my ($self, $ids) = @_;
+
+    my @formats = sort { $a->name cmp $b->name }
+                  values %{ $self->get_by_ids(@$ids) };
+    return \@formats;
+}
+
 sub find_by_name
 {
     my ($self, $name) = @_;
@@ -69,6 +78,36 @@ sub find_by_name
         'SELECT ' . $self->_columns . ' FROM ' . $self->_table . '
           WHERE lower(name) = lower(?)', $name);
     return $row ? $self->_new_from_row($row) : undef;
+}
+
+sub find_by_release_artist
+{
+    my ($self, $artist_id) = @_;
+
+    my $query = 'SELECT DISTINCT m.format
+                 FROM release rel
+                 JOIN medium m
+                     ON m.release = rel.id
+                 JOIN artist_credit_name acn
+                     ON acn.artist_credit = rel.artist_credit
+                 WHERE acn.artist = ?';
+    my $ids = $self->sql->select_single_column_array($query, $artist_id);
+    return $self->find_by_ids($ids);
+}
+
+sub find_by_release_label
+{
+    my ($self, $label_id) = @_;
+
+    my $query = 'SELECT DISTINCT m.format
+                 FROM release rel
+                 JOIN medium m
+                     ON m.release = rel.id
+                 JOIN release_label rl
+                     ON rl.release = rel.id
+                 WHERE rl.label = ?';
+    my $ids = $self->sql->select_single_column_array($query, $label_id);
+    return $self->find_by_ids($ids);
 }
 
 sub in_use {
