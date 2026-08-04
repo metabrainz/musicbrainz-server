@@ -225,6 +225,7 @@ while (1) {
 
         # Otherwise exit ok
         print localtime() . " : Replication packet #$iNextReplicationSequence not available\n";
+        toggle_search_indexing(1);
         exit 0;
     } else {
         print localtime() . " : Error retrieving $url:\n";
