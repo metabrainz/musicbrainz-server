@@ -534,6 +534,11 @@ test 'The user.updated webhook errors on an empty update' => sub {
 
     my $content = decode_json($res->content);
     is($content->{status}, 'error', 'response contains an error');
+    is(
+        $content->{message},
+        'Malformed user.updated payload (no updates?)',
+        'response error mentions no updates',
+    );
 };
 
 test 'The user.updated webhook ignores nonexistent or deleted users' => sub {
