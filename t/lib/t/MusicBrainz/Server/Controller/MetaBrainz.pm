@@ -249,6 +249,22 @@ test 'Webhooks returns 400 for unknown event types' => sub {
          'error message mentions unknown event type');
 };
 
+test 'Webhooks returns 400 for invalid user IDs' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+
+    for my $event (qw( user.created user.updated user.deleted )) {
+        my $res = $mech->request(_make_webhook_request(
+            event => $event,
+            payload => { user_id => -1 },
+        ));
+
+        is($res->code, HTTP_BAD_REQUEST, 'webhook response is 400');
+        like($res->content, qr/Invalid user_id/,
+             "$event error message mentions an invalid user_id");
+    }
+};
+
 test 'The user.created webhook can insert an editor' => sub {
     my $test = shift;
     my $c = $test->c;
