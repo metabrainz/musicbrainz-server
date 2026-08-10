@@ -33,10 +33,10 @@ use MusicBrainz::Server::Data::Utils qw(
     generate_token
     ha1_password
     hash_to_row
+    is_valid_username
     load_subobjects
     non_empty
     placeholders
-    sanitize_username
 );
 
 extends 'MusicBrainz::Server::Data::Entity';
@@ -350,13 +350,8 @@ sub find_subscribers
 
 sub _die_if_username_invalid {
     my $name = shift;
-    my $sanitized_name = sanitize_username($name);
 
-    die 'Invalid user name' if (
-        $name ne $sanitized_name ||
-        $sanitized_name =~ qr{^deleted editor \#\d+$}i ||
-        $sanitized_name =~ qr{://}
-    );
+    die 'Invalid user name' unless is_valid_username($name);
 }
 
 sub insert

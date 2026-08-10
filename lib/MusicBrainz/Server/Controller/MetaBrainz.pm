@@ -12,7 +12,6 @@ use namespace::autoclean;
 use Readonly;
 use Scalar::Util qw( looks_like_number );
 use String::Compare::ConstantTime;
-use Try::Tiny;
 use URI;
 use URI::QueryParam;
 
@@ -23,8 +22,11 @@ use MusicBrainz::Server::Authentication::Utils qw(
     oauth_expires_in_to_iso8601
     set_remember_login_cookie
 );
-use MusicBrainz::Server::Data::Editor;
-use MusicBrainz::Server::Data::Utils qw( generate_token non_empty );
+use MusicBrainz::Server::Data::Utils qw(
+    generate_token
+    is_valid_username
+    non_empty
+);
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
@@ -371,18 +373,7 @@ sub _user_updated_handler {
         push @params, $old->{name};
         push @conditions, 'name = $' . scalar(@params);
 
-        my $is_username_invalid = 0;
-        try {
-            MusicBrainz::Server::Data::Editor::_die_if_username_invalid($new->{name});
-        } catch {
-            if ($_ =~ /^Invalid user name/) {
-                $is_username_invalid = 1;
-            } else {
-                die $_;
-            }
-        };
-
-        if ($is_username_invalid) {
+        unless (is_valid_username($new->{name})) {
             _webhook_error_response($c, 400, 'Invalid user name');
             return 0;
         }
