@@ -153,6 +153,12 @@ sub root : Chained('/') PathPart('ws/2') CaptureArgs(0)
 sub authenticate {
     my ($self, $c, $scope) = @_;
 
+    $c->response->headers->header(
+        'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
+        'Pragma' => 'no-cache',
+    );
+
     $c->authenticate({}, 'webservice_oauth');
 
     unless ($c->user_exists) {

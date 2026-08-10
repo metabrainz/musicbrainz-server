@@ -202,4 +202,104 @@ test 'Digest authentication' => sub {
     is($mech->status, HTTP_UNAUTHORIZED, 'Account password is rejected after setting new digest auth token');
 };
 
+test 'Caching is prevented for authenticated requests' => sub {
+    my $test = shift;
+    my $c = $test->c;
+    my $mech = $test->mech;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    $c->sql->do(<<~'SQL');
+        INSERT INTO artist (id, gid, name, sort_name)
+             VALUES (100, 'd3121246-9507-44df-aea1-c860df871f69', 'Artist', 'Artist');
+        INSERT INTO tag (id, name)
+             VALUES (1, 'rock');
+        INSERT INTO artist_tag_raw (tag, artist, editor)
+             VALUES (1, 100, 11);
+        SQL
+
+    my $assert_caching_allowed = sub {
+        is(
+            $mech->response->header('Cache-Control'),
+            undef,
+            'Cache-Control header is unset',
+        );
+        is(
+            $mech->response->header('Expires'),
+            undef,
+            'Expires header is unset',
+        );
+        is(
+            $mech->response->header('Pragma'),
+            undef,
+            'Pragma header is unset',
+        );
+    };
+
+    my $assert_caching_prevented = sub {
+        is(
+            $mech->response->header('Cache-Control'),
+            'private, no-store',
+            'Cache-Control header prevents caching',
+        );
+        is(
+            $mech->response->header('Expires'),
+            '0',
+            'Expires header prevents caching',
+        );
+        is(
+            $mech->response->header('Pragma'),
+            'no-cache',
+            'Pragma header prevents caching',
+        );
+    };
+
+    # Fetching data, anonymously
+    $mech->get_ok(
+        '/ws/2/collection/933a199c-7121-4900-9beb-b42006a73f5d',
+        'Public collection is fetched, anonymously',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get_ok(
+        '/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69',
+        'Artist is fetched, anonymously',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get('/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Private collection cannot be fetched, anonymously');
+    $assert_caching_prevented->();
+
+    $mech->get('/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69?inc=user-tags');
+    is($mech->status, HTTP_UNAUTHORIZED, 'Artist with user-tags cannot be fetched, anonymously');
+    $assert_caching_prevented->();
+
+    # Fetching the same data, now authenticated, still the same caching policy though
+    $mech->credentials('localhost:80', 'musicbrainz.org', 'editor1', 'pass');
+    $mech->get_ok(
+        '/ws/2/collection/933a199c-7121-4900-9beb-b42006a73f5d',
+        'Public collection is fetched, authenticated',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get_ok(
+        '/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69',
+        'Artist is fetched, authenticated',
+    );
+    $assert_caching_allowed->();
+
+    $mech->get_ok(
+        '/ws/2/collection/181685d4-a23a-4140-a343-b7d15de26ff7',
+        'Private collection is fetched, authenticated',
+    );
+    $assert_caching_prevented->();
+
+    $mech->get_ok(
+        '/ws/2/artist/d3121246-9507-44df-aea1-c860df871f69?inc=user-tags',
+        'Artist with user-tags is fetched, authenticated',
+    );
+    $assert_caching_prevented->();
+};
+
 1;
