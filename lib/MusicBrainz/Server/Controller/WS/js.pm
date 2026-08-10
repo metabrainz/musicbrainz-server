@@ -1029,7 +1029,7 @@ sub check_login : Chained('root') PathPart('check-login') {
 
     $c->res->content_type('application/json; charset=utf-8');
     $c->res->headers->header(
-        'Cache-Control' => 'no-store',
+        'Cache-Control' => 'private, no-store',
         'Pragma' => 'no-cache',
     );
     $c->res->status(HTTP_OK);
