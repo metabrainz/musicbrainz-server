@@ -440,7 +440,7 @@ sub _verify_webhook_signature {
 }
 
 sub _webhook_error_response {
-    my ($self, $c, $status, $message) = @_;
+    my ($c, $status, $message) = @_;
 
     my $res = $c->response;
     $res->status($status);
@@ -459,7 +459,7 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
 
     my $webhook_secret = DBDefs->METABRAINZ_WEBHOOK_SECRET;
     unless (non_empty($webhook_secret)) {
-        $self->_webhook_error_response($c, 503, 'Webhook receiver not properly configured');
+        _webhook_error_response($c, 503, 'Webhook receiver not properly configured');
         return;
     }
 
@@ -470,7 +470,7 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
         non_empty($event_type) &&
         non_empty($signature)
     ) {
-        $self->_webhook_error_response($c, 400, 'Missing required headers');
+        _webhook_error_response($c, 400, 'Missing required headers');
         return;
     }
 
@@ -483,7 +483,7 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
     }
 
     unless ($self->_verify_webhook_signature($c, $payload_bytes, $signature)) {
-        $self->_webhook_error_response($c, 401, 'Invalid signature');
+        _webhook_error_response($c, 401, 'Invalid signature');
         return;
     }
 
@@ -494,14 +494,14 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
         },
         sub {
             $failure = 1;
-            $self->_webhook_error_response($c, 400, 'Invalid JSON payload');
+            _webhook_error_response($c, 400, 'Invalid JSON payload');
         },
     );
     return if $failure;
 
     my $handler = $webhook_handlers{$event_type};
     unless (defined $handler) {
-        $self->_webhook_error_response($c, 400, "Unknown event type: $event_type");
+        _webhook_error_response($c, 400, "Unknown event type: $event_type");
         return;
     }
 
@@ -515,7 +515,7 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
         sub {
             my $error = shift;
             $c->log->error($error);
-            $self->_webhook_error_response(
+            _webhook_error_response(
                 $c,
                 500,
                 'Internal error processing webhook (check Sentry)',
