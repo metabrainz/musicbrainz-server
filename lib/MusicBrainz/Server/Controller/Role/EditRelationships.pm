@@ -360,6 +360,14 @@ role {
                 # properties may have changed and may be needed by
                 # edit_relationships, e.g. series ordering types.
                 $source = $c->model($model)->get_by_id($edit->entity_id);
+
+                # If a URL got merged away, $source will be undefined now,
+                # so we should follow the gid redirect to find the new entity
+                # whose rels should change.
+                if ($form_name eq 'edit-url' && !$source) {
+                    my $old_url_gid = $edit->{data}->{entity}->{gid};
+                    $source = $c->model('URL')->get_by_gid($old_url_gid);
+                }
             } elsif (!$source) {
                 # If both $edit and $source are undefined, we're on a /create
                 # page and the entity wasn't created for some reason (usually
