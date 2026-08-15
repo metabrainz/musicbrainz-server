@@ -4,6 +4,11 @@
  * This file is part of MusicBrainz, the open internet music database,
  * and is licensed under the GPL version 2, or (at your option) any
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * The test cases compiled in this file are derived from:
+ * https://github.com/kellnerd/es-utils/raw/refs/heads/main/string/punctuation.test.ts
+ * Original version Copyright (C) 2021-2023 David Kellner, and released under
+ * the MIT license: http://opensource.org/licenses/MIT
  */
 
 import test from 'tape';
