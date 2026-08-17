@@ -80,6 +80,7 @@ const URL_AGGREGATORS = [
   'snd.click',
   'song.link',
   'songwhip.com',
+  'soundon.global',
   'spinnup.link',
   'spread.link',
   'streamerlinks.com',
