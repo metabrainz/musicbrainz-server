@@ -81,6 +81,7 @@ const URL_AGGREGATORS = [
   'share.amuse.io',
   'smarturl.it',
   'snd.click',
+  'social.tunecore.com',
   'song.link',
   'songwhip.com',
   'soundon.global',
