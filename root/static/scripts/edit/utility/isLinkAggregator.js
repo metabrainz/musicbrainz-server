@@ -37,6 +37,7 @@ const URL_AGGREGATORS = [
   'ffm.bio',
   'ffm.to',
   'found.ee',
+  'frontl.ink',
   'fty.li',
   'fur.ly',
   'gate.fm',
