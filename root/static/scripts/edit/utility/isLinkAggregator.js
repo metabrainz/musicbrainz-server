@@ -68,6 +68,7 @@ const URL_AGGREGATORS = [
   'odesli.co',
   'onerpm.link',
   'orcd.co',
+  'paa.ge',
   'podlink.to',
   'pods.link',
   'push.fm',
