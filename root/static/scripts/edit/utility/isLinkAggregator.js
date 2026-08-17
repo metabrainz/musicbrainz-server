@@ -31,6 +31,7 @@ const URL_AGGREGATORS = [
   'bstlnk.to',
   'distrokid.com',
   'ditto.fm',
+  'drum.io',
   'eventlink.to',
   'fanlink.to',
   'ffm.to',
