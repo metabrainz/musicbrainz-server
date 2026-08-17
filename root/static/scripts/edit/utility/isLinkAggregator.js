@@ -68,6 +68,7 @@ const URL_AGGREGATORS = [
   'mez.ink',
   'music.indiefy.net',
   'musics.link',
+  'musics.to',
   'mylink.page',
   'myurls.bio',
   'odesli.co',
