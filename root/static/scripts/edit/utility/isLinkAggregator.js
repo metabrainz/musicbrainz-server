@@ -46,6 +46,7 @@ const URL_AGGREGATORS = [
   'hypel.ink',
   'hyperfollow.com',
   'hyperurl.co',
+  'instabio.cc',
   'koji.game',
   'koji.sh',
   'laburbain.com',
