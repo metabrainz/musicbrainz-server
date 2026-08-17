@@ -34,6 +34,7 @@ const URL_AGGREGATORS = [
   'drum.io',
   'eventlink.to',
   'fanlink.to',
+  'ffm.bio',
   'ffm.to',
   'found.ee',
   'fty.li',
