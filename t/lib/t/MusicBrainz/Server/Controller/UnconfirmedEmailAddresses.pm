@@ -83,6 +83,7 @@ test 'Paths that allow browsing without a confirmed email address' => sub {
   'Controller::Admin::edit_user',
   'Controller::Admin::email_search',
   'Controller::Admin::ip_lookup',
+  'Controller::Admin::noindex',
   'Controller::Admin::possible_spammers',
   'Controller::Admin::privilege_search',
   'Controller::Admin::reject_edit',

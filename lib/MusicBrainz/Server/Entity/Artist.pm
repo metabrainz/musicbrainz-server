@@ -80,6 +80,11 @@ has 'country_code' => (
     predicate => 'has_loaded_country_code',
 );
 
+has 'noindex' => (
+    is => 'rw',
+    isa => 'Maybe[Bool]',
+);
+
 sub is_special_purpose {
     my $self = shift;
     return ($self->id && contains_number(\@SPECIAL_ARTIST_IDS, $self->id))

@@ -69,6 +69,10 @@ role
 
         $c->detach('not_found') unless defined $entity;
 
+        if ($entity->can('noindex')) {
+            $c->model($model)->load_noindex_status($entity);
+        }
+
         if (exists $entity_properties->{mbid} && $entity_properties->{mbid}{relatable}) {
             my $action = $c->action->name;
             my $relationships = $params->relationships;
@@ -182,6 +186,8 @@ role
         $c->stash( entity => $entity, entity_type => $entity_type );
 
         $c->stash( entity_properties => $entity_properties );
+
+        $c->stash( noindex => $entity->can('noindex') && $entity->noindex );
     };
 
     method _load => sub
