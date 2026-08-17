@@ -23,6 +23,7 @@ const URL_AGGREGATORS = [
   'amu.se',
   'artist.link',
   'band.link',
+  'beacons.ai',
   'bfan.link',
   'biglink.to',
   'bio.link',
