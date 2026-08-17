@@ -599,4 +599,27 @@ test 'Embedded JSON-LD for an empty artist' => sub {
     };
 };
 
+test 'Robots meta tag is outputted for a noindexed artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+controller_artist');
+
+    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce');
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The artist page HTML does not contain the noindex meta tag',
+    );
+
+    note('We set noindex on Test Artist');
+    $c->sql->do('INSERT INTO artist_noindex (artist, editor) VALUES (3, 1)');
+
+    $mech->get_ok('/artist/745c079d-374e-4436-9448-da92dedef3ce');
+    $mech->content_contains(
+        '<meta content="noindex" name="robots"',
+        'The artist page HTML contains the noindex meta tag',
+    );
+};
+
 1;

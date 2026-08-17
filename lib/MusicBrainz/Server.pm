@@ -889,6 +889,7 @@ sub TO_JSON {
         legacy_browser
         makes_no_changes
         new_edit_notes
+        noindex
         overlong_string
         within_dialog
     );
