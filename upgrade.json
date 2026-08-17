@@ -275,7 +275,11 @@
     "all": [
       "20251211-drop-old-editor-name.sql",
       "20260602-new-sitemaps-indexes.sql",
-      "20260623-mbs-12379.sql"
+      "20260623-mbs-12379.sql",
+      "20260818-mbs-14414.sql"
+    ],
+    "master_and_standalone": [
+      "20260818-mbs-14414-fks.sql"
     ]
   }
 }

@@ -2,6 +2,7 @@
 -- 20251211-drop-old-editor-name.sql
 -- 20260602-new-sitemaps-indexes.sql
 -- 20260623-mbs-12379.sql
+-- 20260818-mbs-14414.sql
 \set ON_ERROR_STOP 1
 BEGIN;
 SET search_path = musicbrainz, public;
@@ -32,5 +33,15 @@ SELECT '20260623-mbs-12379.sql';
 CREATE INDEX IF NOT EXISTS annotation_idx_editor ON annotation (editor);
 CREATE INDEX IF NOT EXISTS autoeditor_election_vote_idx_voter ON autoeditor_election_vote (voter);
 CREATE INDEX IF NOT EXISTS editor_idx_deleted ON editor (id) WHERE deleted;
+
+--------------------------------------------------------------------------------
+SELECT '20260818-mbs-14414.sql';
+
+CREATE TABLE artist_noindex (
+    artist INTEGER NOT NULL
+);
+
+ALTER TABLE artist_noindex
+    ADD CONSTRAINT artist_noindex_pkey PRIMARY KEY (artist);
 
 COMMIT;
