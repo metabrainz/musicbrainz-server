@@ -19,7 +19,10 @@ use MusicBrainz::Server::Data::Utils qw(
 );
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Constants qw( :access_scope );
-use MusicBrainz::Server::Validation qw( is_database_row_id );
+use MusicBrainz::Server::Validation qw(
+    is_database_row_id
+    is_positive_integer
+);
 
 our @EXPORT_OK = qw(
     $METABRAINZ_OAUTH_LWP
@@ -89,10 +92,10 @@ sub clear_remember_login_data {
 
     my @remember_login_fields = parse_remember_login_cookie($c);
     if (@remember_login_fields) {
-        my ($user_id, $remember_login_token) = @remember_login_fields;
+        my ($version, $user_id, $remember_login_token) = @remember_login_fields;
         clear_remember_login_cookie($c);
 
-        if (is_database_row_id($user_id) && non_empty($remember_login_token)) {
+        if ($version == 4) {
             my $store = $c->model('MB')->context->store;
             my $remember_login_key = "remember_login:$user_id:$remember_login_token";
 
@@ -228,10 +231,15 @@ sub parse_remember_login_cookie {
     my @fields = split /\t/, $cookie->value, -1;
     if (@fields == 3) {
         my ($version, $user_id, $token) = @fields;
-        return ($user_id, $token)
-            if $version == $REMEMBER_LOGIN_COOKIE_VERSION;
+        if (
+            is_positive_integer($version) &&
+            is_database_row_id($user_id) &&
+            non_empty($token)
+        ) {
+            return @fields;
+        }
     }
-    return ();
+    return (-1, -1, '');
 }
 
 sub revoke_metabrainz_oauth_refresh_token {

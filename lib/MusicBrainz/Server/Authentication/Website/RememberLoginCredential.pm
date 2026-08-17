@@ -19,9 +19,8 @@ use MusicBrainz::Server::Authentication::Utils qw(
     revoke_metabrainz_oauth_refresh_token
     set_remember_login_cookie
 );
-use MusicBrainz::Server::Data::Utils qw( generate_token non_empty );
+use MusicBrainz::Server::Data::Utils qw( generate_token );
 use MusicBrainz::Server::Log qw( log_debug );
-use MusicBrainz::Server::Validation qw( is_database_row_id );
 
 Readonly my $TOKEN_ROTATION_TTL => 600; # 10 minutes
 
@@ -41,12 +40,9 @@ sub authenticate {
 
     my @remember_login_fields = parse_remember_login_cookie($c);
     return unless @remember_login_fields;
-    my ($user_id, $remember_login_token) = @remember_login_fields;
+    my ($version, $user_id, $remember_login_token) = @remember_login_fields;
 
-    unless (
-        is_database_row_id($user_id) &&
-        non_empty($remember_login_token)
-    ) {
+    if ($version == -1) {
         clear_remember_login_cookie($c);
         log_debug {
             'RememberLoginCredential: malformed cookie value for user ' .
