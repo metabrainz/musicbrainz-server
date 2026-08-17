@@ -34,6 +34,7 @@ const URL_AGGREGATORS = [
   'ditto.fm',
   'drum.io',
   'eventlink.to',
+  'fanbase.to',
   'fanlink.to',
   'ffm.bio',
   'ffm.to',
