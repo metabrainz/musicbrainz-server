@@ -184,9 +184,9 @@ sub exists {
 }
 
 sub expire {
-    my ($self, $key, $seconds) = @_;
+    my ($self, $key, $seconds, @options) = @_;
 
-    $self->_connection->expire($self->_prepare_key($key), $seconds);
+    $self->_connection->expire($self->_prepare_key($key), $seconds, @options);
     return;
 }
 
