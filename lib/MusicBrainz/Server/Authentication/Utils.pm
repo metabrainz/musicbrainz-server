@@ -5,7 +5,7 @@ use warnings;
 
 use base 'Exporter';
 use DateTime;
-use DateTime::Duration;
+use Digest::SHA qw( sha256_hex );
 use HTTP::Request::Common qw( POST );
 use HTTP::Status qw( is_server_error is_success );
 use IO::Socket::SSL;
@@ -14,11 +14,12 @@ use Readonly;
 
 use DBDefs;
 use MusicBrainz::Server::Data::Utils qw(
-    datetime_to_iso8601
+    generate_token
     non_empty
 );
 use MusicBrainz::Server::Entity::EditorOAuthToken;
 use MusicBrainz::Server::Constants qw( :access_scope );
+use MusicBrainz::Server::Log qw( log_error );
 use MusicBrainz::Server::Validation qw(
     is_database_row_id
     is_positive_integer
@@ -29,10 +30,8 @@ our @EXPORT_OK = qw(
     can_user_login
     clear_remember_login_cookie
     clear_remember_login_data
-    exchange_metabrainz_oauth_refresh_token
     find_active_metabrainz_oauth_access_token
     find_active_oauth_access_token
-    oauth_expires_in_to_iso8601
     parse_remember_login_cookie
     revoke_metabrainz_oauth_refresh_token
     set_remember_login_cookie
@@ -65,7 +64,7 @@ Readonly our %METABRAINZ_OAUTH_SCOPE_MAPPING => (
     'musicbrainz:tag'               => 'tag',
     'profile'                       => 'profile',
 );
-Readonly our $REMEMBER_LOGIN_COOKIE_VERSION => 4;
+Readonly our $REMEMBER_LOGIN_COOKIE_VERSION => 5;
 Readonly our $REMEMBER_LOGIN_COOKIE_EXPIRES => '+1y';
 
 sub can_user_login {
@@ -95,10 +94,10 @@ sub clear_remember_login_data {
         my ($version, $user_id, $remember_login_token) = @remember_login_fields;
         clear_remember_login_cookie($c);
 
-        if ($version == 4) {
-            my $store = $c->model('MB')->context->store;
-            my $remember_login_key = "remember_login:$user_id:$remember_login_token";
+        my $store = $c->model('MB')->context->store;
 
+        if ($version == 4) {
+            my $remember_login_key = "remember_login:$user_id:$remember_login_token";
             my $remember_login_data = $store->get($remember_login_key);
             if (defined $remember_login_data) {
                 revoke_metabrainz_oauth_refresh_token(
@@ -106,31 +105,9 @@ sub clear_remember_login_data {
                 );
                 $store->delete($remember_login_key);
             }
+        } elsif ($version == 5) {
+            $store->delete('remember_login:' . sha256_hex($remember_login_token));
         }
-    }
-    return;
-}
-
-sub exchange_metabrainz_oauth_refresh_token {
-    my ($c, $refresh_token) = @_;
-
-    my $token_uri = DBDefs->METABRAINZ_INTERNAL_URL . '/oauth2/token';
-    my $res = $METABRAINZ_OAUTH_LWP->request(
-        POST $token_uri,
-        [
-            grant_type => 'refresh_token',
-            refresh_token => $refresh_token,
-            client_id => DBDefs->METABRAINZ_OAUTH_CLIENT_ID,
-            client_secret => DBDefs->METABRAINZ_OAUTH_CLIENT_SECRET,
-        ],
-    );
-
-    if (is_success($res->code)) {
-        my $token_data = $c->json_utf8->decode($res->content);
-        return $token_data;
-    } elsif (is_server_error($res->code)) {
-        die 'An internal error occurred while attempting to refresh ' .
-            'the MetaBrainz OAuth token.';
     }
     return;
 }
@@ -203,25 +180,6 @@ sub find_active_oauth_access_token {
     return find_active_musicbrainz_oauth_access_token($c, $access_token);
 }
 
-=sub oauth_expires_in_to_iso8601()
-
-Converts C<expires_in> (in seconds), as you would receive from an
-OAuth token endpoint, to an ISO8601 datetime string.
-
- * This subroutine should be called right after the token endpoint returns,
-   since the returned datetime is relative to "now".
-
- * 10 seconds is subtracted from C<expires_in> as a buffer.
-
-=cut
-
-sub oauth_expires_in_to_iso8601 {
-    my ($expires_in) = @_;
-
-    my $offset = DateTime::Duration->new(seconds => ($expires_in - 10));
-    return datetime_to_iso8601(DateTime->now->add($offset));
-}
-
 sub parse_remember_login_cookie {
     my ($c) = @_;
 
@@ -256,29 +214,23 @@ sub revoke_metabrainz_oauth_refresh_token {
         },
     );
     if (is_server_error($res->code)) {
-        die 'An internal error occurred while attempting to revoke ' .
-            'the refresh token.';
+        log_error {
+            'Failed to revoke MetaBrainz OAuth refresh token ' .
+            '(' . substr($refresh_token, 0, 11) . '..., HTTP ' . $res->code . ')'
+        };
+        return 0;
     }
-    return;
+    return 1;
 }
 
 sub set_remember_login_cookie {
-    my ($c, $user_id, $remember_login_data) = @_;
+    my ($c, $user_id) = @_;
 
-    # The caller is responsible for generating a `remember_login_token` (via
-    # `generate_token`) when a new one is wanted. It's stored alongside
-    # the OAuth tokens because it may differ from the Valkey key it's stored
-    # under during token rotation.
-    my $remember_login_token = $remember_login_data->{remember_login_token};
+    my $remember_login_token = generate_token();
 
     $c->model('MB')->context->store->set(
-        "remember_login:$user_id:$remember_login_token",
-        {
-            access_token => $remember_login_data->{access_token},
-            access_token_expiration => $remember_login_data->{access_token_expiration},
-            refresh_token => $remember_login_data->{refresh_token},
-            remember_login_token => $remember_login_token,
-        },
+        'remember_login:' . sha256_hex($remember_login_token),
+        $user_id,
         31536000,  # 1 year (60 * 60 * 24 * 365)
     );
 
