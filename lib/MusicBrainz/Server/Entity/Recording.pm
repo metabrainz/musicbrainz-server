@@ -59,6 +59,11 @@ has 'first_release_date' => (
     isa => 'Maybe[PartialDate]',
 );
 
+has 'noindex' => (
+    is => 'rw',
+    isa => 'Maybe[Bool]',
+);
+
 sub related_works {
     my $self = shift;
     return uniq_by { $_->id }

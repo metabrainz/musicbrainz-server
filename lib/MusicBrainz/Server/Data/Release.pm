@@ -44,7 +44,8 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
      'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'release' },
      'MusicBrainz::Server::Data::Role::Tag' => { type => 'release' },
      'MusicBrainz::Server::Data::Role::Alias' => { type => 'release' },
-     'MusicBrainz::Server::Data::Role::Collection';
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::NoIndex';
 
 use Readonly;
 Readonly our $MERGE_APPEND => 1;

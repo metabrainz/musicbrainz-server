@@ -16,12 +16,31 @@ sub load_noindex_status {
     return unless @ids;
 
     my $table = $self->_main_table;
-    my $noindex_ids = $self->c->sql->select_single_column_array(<<~"SQL", \@ids);
-        SELECT $table
-          FROM ${table}_noindex
-         WHERE $table = any(?)
-        SQL
-    my %noindex_ids = map { $_ => 1 } @$noindex_ids;
+    my $query;
+
+    if ($table eq 'artist') {
+        $query = <<~"SQL";
+            SELECT $table
+              FROM ${table}_noindex
+             WHERE $table = any(?)
+            SQL
+    } elsif (
+        $table eq 'recording' ||
+        $table eq 'release' ||
+        $table eq 'release_group'
+    ) {
+        $query = <<~"SQL";
+            SELECT DISTINCT r.id
+              FROM ${table} r
+              JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
+              JOIN artist_noindex an ON an.artist = acn.artist
+             WHERE r.id = any(?)
+            SQL
+    }
+
+    my %noindex_ids = map { $_ => 1 } @{
+        $self->c->sql->select_single_column_array($query, \@ids);
+    };
 
     for my $entity (@entities) {
         $entity->noindex(exists $noindex_ids{ $entity->id });

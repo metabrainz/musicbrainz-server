@@ -39,7 +39,8 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
      },
      'MusicBrainz::Server::Data::Role::Merge',
      'MusicBrainz::Server::Data::Role::Alias' => { type => 'release_group' },
-     'MusicBrainz::Server::Data::Role::Collection';
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::NoIndex';
 
 sub _type { 'release_group' }
 
