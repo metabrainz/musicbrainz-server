@@ -5,6 +5,7 @@ use namespace::autoclean;
 
 use DBDefs;
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( non_empty );
 
 requires '_main_table', 'c', 'get_by_ids', 'sql';
 
@@ -25,18 +26,47 @@ sub _has_noindex_table {
 sub load_noindex_status {
     my ($self, @entities) = @_;
 
-    return unless $self->_has_noindex_table;
+    return unless $self->_schema_32;
 
     my @ids = map { $_->id } @entities;
     return unless @ids;
 
     my $table = $self->_main_table;
-    my $noindex_ids = $self->c->sql->select_single_column_array(<<~"SQL", \@ids);
-        SELECT $table
-          FROM ${table}_noindex
-         WHERE $table = any(?)
-        SQL
-    my %noindex_ids = map { $_ => 1 } @$noindex_ids;
+    my $has_noindex_table = $self->_has_noindex_table;
+    my $query = '';
+    my @params;
+
+    if ($has_noindex_table) {
+        $query = <<~"SQL";
+            SELECT $table
+              FROM ${table}_noindex
+             WHERE $table = any(?)
+            SQL
+        push @params, \@ids;
+    }
+
+    if (
+        $table eq 'recording' ||
+        $table eq 'release' ||
+        $table eq 'release_group'
+    ) {
+        $query .= ' UNION ' if $has_noindex_table;
+        $query .= <<~"SQL";
+            SELECT DISTINCT r.id
+              FROM $table r
+              JOIN artist_credit_name acn ON acn.artist_credit = r.artist_credit
+              JOIN artist_noindex an ON an.artist = acn.artist
+             WHERE r.id = any(?)
+            SQL
+        push @params, \@ids;
+    }
+
+    die "Entity type is not supported by load_noindex_status: $table"
+        unless non_empty($query);
+
+    my %noindex_ids = map { $_ => 1 } @{
+        $self->c->sql->select_single_column_array($query, @params);
+    };
 
     for my $entity (@entities) {
         $entity->noindex(exists $noindex_ids{ $entity->id });
