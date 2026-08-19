@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Release::Show;
 use strict;
 use warnings;
 
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -213,6 +214,40 @@ page_test_jsonld $mech => {
     'duration' => 'PT1H20M05S',
 };
 
+};
+
+test 'Robots meta tag is outputted for a release linked to a noindexed artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80');
+    $mech->content_lacks(
+        '<meta content="noindex" name="robots"',
+        'The release page HTML does not contain the noindex meta tag',
+    );
+
+    ok(
+        defined $c->sql->select_single_value(<<~'SQL'),
+            SELECT 1
+              FROM artist_credit_name acn
+              JOIN release r ON r.artist_credit = acn.artist_credit
+             WHERE r.gid = 'f205627f-b70a-409d-adbe-66289b614e80'
+               AND acn.artist = 7
+            SQL
+        'The release is credited to Kate Bush (artist ID 7)',
+    );
+
+    note('We set noindex on Kate Bush');
+    $c->sql->do('INSERT INTO artist_noindex (artist, editor) VALUES (7, 1)');
+
+    $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80');
+    $mech->content_contains(
+        '<meta content="noindex" name="robots"',
+        'The release page HTML contains the noindex meta tag',
+    );
 };
 
 1;
