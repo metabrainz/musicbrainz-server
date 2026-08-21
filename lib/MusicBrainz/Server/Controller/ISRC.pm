@@ -9,19 +9,14 @@ use MusicBrainz::Server::Validation qw( is_valid_isrc );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use List::AllUtils qw( sort_by );
 
-with 'MusicBrainz::Server::Controller::Role::Load' => {
-    model => 'ISRC',
-};
-
-sub base : Chained('/') PathPart('isrc') CaptureArgs(0) { }
-
-sub _load : Chained('/') PathPart('isrc') CaptureArgs(1)
+sub load : Chained('/') PathPart('isrc') CaptureArgs(1)
 {
     my ($self, $c, $isrc) = @_;
-    return unless (is_valid_isrc($isrc));
 
-    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc)
-      or return;
+    $c->detach('not_found') unless is_valid_isrc($isrc);
+
+    my @isrcs = $c->model('ISRC')->find_by_isrc($isrc);
+    $c->detach('not_found') unless @isrcs;
 
     $c->stash(
         isrcs => \@isrcs,
