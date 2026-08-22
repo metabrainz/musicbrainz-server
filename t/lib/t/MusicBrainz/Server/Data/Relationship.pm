@@ -405,6 +405,30 @@ test 'Only appropriate rels are loaded with load_subset' => sub {
     is(scalar($artist->all_relationships), 1, 'There is now 1 artist rel with cardinality 0');
 };
 
+test 'Relationships can be filtered by ID in load_subset' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+relationships');
+
+    my $artist = $c->model('Artist')->get_by_id(1);
+    my @relationships = $c->model('Relationship')->load_subset(
+        target_types => {recording => [1]},
+        source_objs => [$artist],
+    );
+
+    is_deeply(
+        [map { $_->id } @relationships],
+        [1],
+        'only the requested relationship is returned',
+    );
+    is_deeply(
+        [map { $_->id } $artist->all_relationships],
+        [1],
+        'only the requested relationship is attached to the source',
+    );
+};
+
 test all => sub {
 
 my $test = shift;

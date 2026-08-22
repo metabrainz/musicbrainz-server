@@ -149,7 +149,7 @@ sub _load
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @params, $target_id, $source_id, $query);
+        my (@cond, @entity_cond, @params, $target_id, $source_id, $query);
 
         if (defined $rel_ids_by_target_type) {
             my $rel_ids = $rel_ids_by_target_type->{$target_type};
@@ -163,7 +163,7 @@ sub _load
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity0_cardinality = 0)";
             }
-            push @cond, $condstring;
+            push @entity_cond, $condstring;
             push @params, @source_ids;
             $target_id = 'entity1';
             $source_id = 'entity0';
@@ -173,7 +173,7 @@ sub _load
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity1_cardinality = 0)";
             }
-            push @cond, $condstring;
+            push @entity_cond, $condstring;
             push @params, @source_ids;
             $target_id = 'entity0';
             $source_id = 'entity1';
@@ -181,7 +181,9 @@ sub _load
 
         # If the source and target types are the same, two possible conditions
         # will have been added above, so join them with an OR.
-        @cond = join(' OR ', @cond);
+        my $entity_condstring = join(' OR ', @entity_cond);
+        push @cond, "($entity_condstring)";
+        my $condstring = join(' AND ', @cond);
 
         my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
                       JOIN link l ON link = l.id
@@ -204,7 +206,7 @@ sub _load
 
         $query = "SELECT $select
                     JOIN $target_type ON $target_id = ${target_type}.id
-                   WHERE " . join(' AND ', @cond) . "
+                   WHERE $condstring
                    ORDER BY $order";
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
