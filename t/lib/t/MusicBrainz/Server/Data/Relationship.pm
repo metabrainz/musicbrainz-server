@@ -149,7 +149,7 @@ test q(Don't merge matching rels, other than link_order) => sub {
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+relationship_merging');
     MusicBrainz::Server::Test->prepare_test_database($c, <<~'SQL');
         INSERT INTO l_artist_artist (id, link, link_order, entity0, entity1)
-            VALUES (1, 1, 1, 2, 3), (2, 1, 2, 1, 3);
+            VALUES (1, 3, 1, 2, 3), (2, 3, 2, 1, 3);
         SQL
 
     $c->model('Relationship')->merge_entities('artist', 1, [2]);
