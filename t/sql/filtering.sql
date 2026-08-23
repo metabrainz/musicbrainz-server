@@ -83,11 +83,11 @@ INSERT INTO release_unknown_country (release, date_year, date_month, date_day)
 
 -- Events
 
-INSERT INTO event (id, gid, name, type, setlist)
-    VALUES (3400, 'c681f4a3-26db-49e6-80a2-0dbc0a758161', 'Berliner Philharmoniker plays Schnittke and Shostakovich', 1, ''),
-           (3401, '96d6b7d0-90ed-449e-91d3-a05fd4d54b06', '[concert]', 1, '* [e42cce08-f3f1-4e9b-8bfe-11670ad22d52|Asteroid 4179: Toutatis] (Kaija Saariaho) (world premiere)\r* [439c1605-bf74-4e0c-b2d9-6f4f89619ec6|The Planets, op. 32] (Gustav Holst)'),
-           (3402, '5411fa48-5756-45f7-aadb-5aa3e5bd5954', '[concert]', 1, '* [1637948a-63f8-4cf5-bbb3-8faae3964b13|Seht die Sonne] (Magnus Lindberg) (world premiere)'),
-           (3403, '033c9bf9-eef9-409b-9bff-c8d2dea671f5', 'Uncertain', NULL, '');
+INSERT INTO event (id, gid, name, type, setlist, cancelled)
+    VALUES (3400, 'c681f4a3-26db-49e6-80a2-0dbc0a758161', 'Berliner Philharmoniker plays Schnittke and Shostakovich', 1, '', FALSE),
+           (3401, '96d6b7d0-90ed-449e-91d3-a05fd4d54b06', '[concert]', 1, '* [e42cce08-f3f1-4e9b-8bfe-11670ad22d52|Asteroid 4179: Toutatis] (Kaija Saariaho) (world premiere)\r* [439c1605-bf74-4e0c-b2d9-6f4f89619ec6|The Planets, op. 32] (Gustav Holst)', FALSE),
+           (3402, '5411fa48-5756-45f7-aadb-5aa3e5bd5954', '[concert]', 1, '* [1637948a-63f8-4cf5-bbb3-8faae3964b13|Seht die Sonne] (Magnus Lindberg) (world premiere)', FALSE),
+           (3403, '033c9bf9-eef9-409b-9bff-c8d2dea671f5', 'Uncertain', NULL, '', TRUE);
 
 
 -- Recordings
