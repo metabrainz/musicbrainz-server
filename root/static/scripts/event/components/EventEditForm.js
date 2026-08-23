@@ -40,6 +40,7 @@ import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
+import isValidTime from '../../edit/utility/isValidTime.js';
 import {
   applyAllPendingErrors,
   hasSubfieldErrors,
@@ -72,6 +73,7 @@ import type {
 /* eslint-disable ft-flow/sort-keys */
 type ActionT =
   | {readonly type: 'set-setlist', readonly setlist: string}
+  | {readonly type: 'set-time', readonly time: string}
   | {readonly type: 'set-type', readonly type_id: string}
   | {readonly type: 'show-all-pending-errors'}
   | {readonly type: 'toggle-type-bubble'}
@@ -197,6 +199,20 @@ function reducer(state: StateT, action: ActionT): StateT {
         }
       });
     }
+    {type: 'set-time', const time} => {
+      fieldCtx.update('time', (timeFieldCtx) => {
+        timeFieldCtx.set('value', time);
+        if (isValidTime(time)) {
+          timeFieldCtx.set('has_errors', false);
+          timeFieldCtx.set('errors', []);
+        } else {
+          timeFieldCtx.set('has_errors', true);
+          timeFieldCtx.set('errors', [
+            l('This is not a valid time.'),
+          ]);
+        }
+      });
+    }
     {type: 'set-type', const type_id} => {
       fieldCtx.set('type_id', 'value', type_id);
     }
@@ -245,6 +261,12 @@ component EventEditForm(
     event: SyntheticEvent<HTMLTextAreaElement>,
   ) => {
     dispatch({setlist: event.currentTarget.value, type: 'set-setlist'});
+  }, [dispatch]);
+
+  const handleTimeChange = React.useCallback((
+    event: SyntheticEvent<HTMLInputElement>,
+  ) => {
+    dispatch({time: event.currentTarget.value, type: 'set-time'});
   }, [dispatch]);
 
   const dispatchDateRange = React.useCallback((
@@ -358,9 +380,9 @@ component EventEditForm(
             className="time"
             field={state.form.field.time}
             label={addColonText(lp('Time', 'event'))}
+            onChange={handleTimeChange}
             placeholder={l('HH:MM')}
             size={5}
-            uncontrolled
           />
         </DateRangeFieldset>
 
