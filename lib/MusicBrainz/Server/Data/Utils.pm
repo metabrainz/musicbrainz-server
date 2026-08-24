@@ -57,6 +57,7 @@ our @EXPORT_OK = qw(
     is_special_artist
     is_special_label
     is_valid_token
+    is_valid_username
     localized_note
     load_everything_for_edits
     load_meta
@@ -271,6 +272,19 @@ sub is_valid_token {
     # most older OAuth applications still use the shorter token length for
     # their ID/secret.
     defined $token && $token =~ /^[A-Za-z0-9_-]+$/;
+}
+
+sub is_valid_username {
+    my $name = shift;
+
+    my $sanitized_name = sanitize_username($name);
+
+    return 0 if (
+        $name ne $sanitized_name ||
+        $sanitized_name =~ qr{^deleted editor \#\d+$}i ||
+        $sanitized_name =~ qr{://}
+    );
+    return 1;
 }
 
 sub get_area_containment_join {

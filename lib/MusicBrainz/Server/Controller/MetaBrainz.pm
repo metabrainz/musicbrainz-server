@@ -22,8 +22,11 @@ use MusicBrainz::Server::Authentication::Utils qw(
     oauth_expires_in_to_iso8601
     set_remember_login_cookie
 );
-use MusicBrainz::Server::Data::Editor;
-use MusicBrainz::Server::Data::Utils qw( generate_token non_empty );
+use MusicBrainz::Server::Data::Utils qw(
+    generate_token
+    is_valid_username
+    non_empty
+);
 use MusicBrainz::Server::Translation qw( l );
 use MusicBrainz::Server::Validation qw( is_database_row_id );
 use aliased 'MusicBrainz::Server::DatabaseConnectionFactory';
@@ -285,7 +288,10 @@ sub _user_created_handler {
     my ($c, $payload) = @_;
 
     my $user_id = $payload->{user_id};
-    die 'Invalid user_id' unless is_database_row_id($user_id);
+    unless (is_database_row_id($user_id)) {
+        _webhook_error_response($c, 400, 'Invalid user_id');
+        return 0;
+    }
 
     $c->model('MB')->with_transaction(sub {
         $c->model('Editor')->insert_from_metabrainz(
@@ -294,17 +300,20 @@ sub _user_created_handler {
             $payload->{member_since},
         );
     });
-    return;
+    return 1;
 }
 
 sub _user_deleted_handler {
     my ($c, $payload) = @_;
 
     my $user_id = $payload->{user_id};
-    die 'Invalid user_id' unless is_database_row_id($user_id);
+    unless (is_database_row_id($user_id)) {
+        _webhook_error_response($c, 400, 'Invalid user_id');
+        return 0;
+    }
 
     my $editor = $c->model('Editor')->get_by_id($user_id);
-    return unless defined $editor && !$editor->deleted;
+    return 1 unless defined $editor && !$editor->deleted;
 
     $c->model('MB')->with_transaction(sub {
         $c->model('Editor')->delete($user_id);
@@ -312,7 +321,7 @@ sub _user_deleted_handler {
 
     $c->forward('/discourse/sync_sso', [$editor]);
     $c->forward('/discourse/log_out', [$editor]);
-    return;
+    return 1;
 }
 
 sub _user_updated_handler {
@@ -327,7 +336,10 @@ sub _user_updated_handler {
     # state.
 
     my $user_id = $payload->{user_id};
-    die 'Invalid user_id' unless is_database_row_id($user_id);
+    unless (is_database_row_id($user_id)) {
+        _webhook_error_response($c, 400, 'Invalid user_id');
+        return 0;
+    }
 
     my $editor = $c->model('Editor')->get_by_id($user_id);
     unless (defined $editor && !$editor->deleted) {
@@ -335,7 +347,7 @@ sub _user_updated_handler {
             'user.updated event received for nonexistent or deleted user ' .
             "(id=$user_id)",
         );
-        return;
+        return 1;
     }
 
     my $old = $payload->{old};
@@ -361,14 +373,19 @@ sub _user_updated_handler {
         push @params, $old->{name};
         push @conditions, 'name = $' . scalar(@params);
 
-        MusicBrainz::Server::Data::Editor::_die_if_username_invalid($new->{name});
+        unless (is_valid_username($new->{name})) {
+            _webhook_error_response($c, 400, 'Invalid user name');
+            return 0;
+        }
 
         push @params, $new->{name};
         push @updates, 'name = $' . scalar(@params);
     }
 
-    die 'Malformed user.updated payload (no updates?)'
-        unless @updates;
+    unless (@updates) {
+        _webhook_error_response($c, 400, 'Malformed user.updated payload (no updates?)');
+        return 0;
+    }
 
     my $query = 'UPDATE editor SET ' .
         (join q(, ), @updates) .
@@ -413,14 +430,20 @@ sub _user_updated_handler {
         }
     });
 
-    die 'Neither the old nor new values in the payload match the current ' .
-        'editor row data.'
-        unless $is_new_data_applied;
+    unless ($is_new_data_applied) {
+        _webhook_error_response(
+            $c,
+            400,
+            'Neither the old nor new values in the payload match ' .
+                'the current editor row data.',
+        );
+        return 0;
+    }
 
     $editor = $c->model('Editor')->get_by_id($user_id);
     $c->forward('/discourse/sync_sso', [$editor]);
 
-    return;
+    return 1;
 }
 
 Readonly our %webhook_handlers => (
@@ -440,7 +463,7 @@ sub _verify_webhook_signature {
 }
 
 sub _webhook_error_response {
-    my ($self, $c, $status, $message) = @_;
+    my ($c, $status, $message) = @_;
 
     my $res = $c->response;
     $res->status($status);
@@ -451,15 +474,24 @@ sub _webhook_error_response {
     }));
 }
 
+sub _webhook_success_response {
+    my ($c) = @_;
+
+    my $res = $c->response;
+    $res->status(200);
+    $res->content_type('application/json');
+    $res->body($c->json_utf8->encode({ status => 'success' }));
+    return;
+}
+
 sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) {
     my ($self, $c) = @_;
 
     my $req = $c->request;
-    my $res = $c->response;
 
     my $webhook_secret = DBDefs->METABRAINZ_WEBHOOK_SECRET;
     unless (non_empty($webhook_secret)) {
-        $self->_webhook_error_response($c, 503, 'Webhook receiver not properly configured');
+        _webhook_error_response($c, 503, 'Webhook receiver not properly configured');
         return;
     }
 
@@ -470,7 +502,7 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
         non_empty($event_type) &&
         non_empty($signature)
     ) {
-        $self->_webhook_error_response($c, 400, 'Missing required headers');
+        _webhook_error_response($c, 400, 'Missing required headers');
         return;
     }
 
@@ -483,7 +515,7 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
     }
 
     unless ($self->_verify_webhook_signature($c, $payload_bytes, $signature)) {
-        $self->_webhook_error_response($c, 401, 'Invalid signature');
+        _webhook_error_response($c, 401, 'Invalid signature');
         return;
     }
 
@@ -494,32 +526,27 @@ sub webhook_callback : Chained('base') : PathPart('webhook/callback') : Args(0) 
         },
         sub {
             $failure = 1;
-            $self->_webhook_error_response($c, 400, 'Invalid JSON payload');
+            _webhook_error_response($c, 400, 'Invalid JSON payload');
         },
     );
     return if $failure;
 
     my $handler = $webhook_handlers{$event_type};
     unless (defined $handler) {
-        $self->_webhook_error_response($c, 400, "Unknown event type: $event_type");
+        _webhook_error_response($c, 400, "Unknown event type: $event_type");
         return;
     }
 
     capture_exceptions(
         sub {
-            $handler->($c, $payload);
-            $res->status(200);
-            $res->content_type('application/json');
-            $res->body($c->json_utf8->encode({ status => 'success' }));
+            if ($handler->($c, $payload)) {
+                _webhook_success_response($c);
+            }
         },
         sub {
             my $error = shift;
             $c->log->error($error);
-            $self->_webhook_error_response(
-                $c,
-                500,
-                'Internal error processing webhook (check Sentry)',
-            );
+            _webhook_error_response($c, 500, "$error");
         },
     );
 
