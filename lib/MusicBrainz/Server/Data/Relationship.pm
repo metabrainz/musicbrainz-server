@@ -64,6 +64,7 @@ sub _new_from_row
         entity1_credit => $row->{entity1_credit},
         last_updated => $row->{last_updated},
         link_order => $row->{link_order},
+        direction => $DIRECTION_FORWARD,
     );
 
     my $weaken;
@@ -92,7 +93,15 @@ sub _new_from_row
         }
     }
 
-    my $rel = MusicBrainz::Server::Entity::Relationship->new(%info);
+    # We use `bless` directly rather than `->new` because the Moose
+    # constructor is, comparatively, much slower. This saves a measurable
+    # amount of time for requests with a large number of relationships.
+    # Note that this only works because we don't have any `BUILD` or
+    # `BUILDARGS` on the `Relationship` class which would affect how the
+    # attributes are built, and we correctly specify all defaults
+    # (like `direction`) in `%info`.
+    my $rel = bless \%info, 'MusicBrainz::Server::Entity::Relationship';
+
     # XXX MASSIVE MASSIVE HACK.
     weaken($rel->{$weaken}) if $obj;
 

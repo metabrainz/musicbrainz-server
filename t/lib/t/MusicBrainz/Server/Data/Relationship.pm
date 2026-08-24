@@ -19,6 +19,74 @@ use MusicBrainz::Server::Test;
 
 with 't::Context';
 
+test 'bless in _new_from_row is equivalent to ->new' => sub {
+    my $test = shift;
+    my $rel_data = $test->c->model('Relationship');
+
+    my %row = (
+        id => 10,
+        link => 20,
+        edits_pending => 0,
+        entity0 => 1,
+        entity1 => 2,
+        entity0_credit => 'credit zero',
+        entity1_credit => 'credit one',
+        last_updated => '2011-01-18 15:21:33.71184+00',
+        link_order => 3,
+    );
+
+    my $artist = MusicBrainz::Server::Entity::Artist->new(id => 1, name => 'Artist');
+    my $recording = MusicBrainz::Server::Entity::Recording->new(id => 2, name => 'Recording');
+
+    my %common = (
+        id => 10,
+        link_id => 20,
+        edits_pending => 0,
+        entity0_id => 1,
+        entity1_id => 2,
+        entity0_credit => 'credit zero',
+        entity1_credit => 'credit one',
+        last_updated => '2011-01-18 15:21:33.71184+00',
+        link_order => 3,
+    );
+
+    is_deeply(
+        { %{ $rel_data->_new_from_row(\%row, 'artist', 'recording') } },
+        { %{ MusicBrainz::Server::Entity::Relationship->new(%common) } },
+        'bless and ->new are equivalent without a source object',
+    );
+
+    is_deeply(
+        { %{ $rel_data->_new_from_row(\%row, 'artist', 'recording', $artist, 0) } },
+        { %{ MusicBrainz::Server::Entity::Relationship->new(
+            %common,
+            source => $artist,
+            source_type => 'artist',
+            entity0 => $artist,
+            direction => $DIRECTION_FORWARD,
+            source_credit => 'credit zero',
+            target_credit => 'credit one',
+            target_type => 'recording',
+        ) } },
+        'bless and ->new are equivalent with a forward relationship',
+    );
+
+    is_deeply(
+        { %{ $rel_data->_new_from_row(\%row, 'artist', 'recording', $recording, 1) } },
+        { %{ MusicBrainz::Server::Entity::Relationship->new(
+            %common,
+            source => $recording,
+            source_type => 'recording',
+            entity1 => $recording,
+            direction => $DIRECTION_BACKWARD,
+            source_credit => 'credit one',
+            target_credit => 'credit zero',
+            target_type => 'artist',
+        ) } },
+        'bless and ->new are equivalent with a backward relationship',
+    );
+};
+
 test 'Relationships between merged entities' => sub {
     my $test = shift;
     my $c = $test->c;

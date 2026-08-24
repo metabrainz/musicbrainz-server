@@ -13,6 +13,10 @@ use MusicBrainz::Server::Data::Utils qw( boolean_to_json partial_date_to_hash );
 
 use overload '<=>' => \&_cmp, fallback => 1;
 
+# Be *very* careful about adding any initialization logic or attribute
+# defaults here, as `Data::Relationship::_new_from_row` bypasses the Moose
+# constructor entirely.
+
 extends 'MusicBrainz::Server::Entity';
 with 'MusicBrainz::Server::Entity::Role::LastUpdate',
      'MusicBrainz::Server::Entity::Role::PendingEdits';
