@@ -125,9 +125,7 @@ sub _load_attributes
                     text_value => $row->{text_value},
                 );
 
-                $link->add_attribute($attr) unless any {
-                    $attr_type->id == $_->type->id
-                } $link->all_attributes;
+                $link->add_attribute($attr);
             }
         }
     }
@@ -155,9 +153,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'link', @objs);
-
-    my $links = { map { $_->link->id => $_->link } @objs };
-    $self->_load_attributes($links, keys %$links);
 }
 
 sub find
