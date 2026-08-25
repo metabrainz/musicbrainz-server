@@ -20,12 +20,12 @@
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # Libra <recreate_squall363@simplelogin.com>, 2024, 2025.
 # karpuzikov <karpuzikovanton@gmail.com>, 2025.
+# TheParaziT <lolkekovic05713@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-17 01:12+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-08-02 15:12+0000\n"
+"Last-Translator: TheParaziT <lolkekovic05713@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ru/>\n"
 "Language: ru\n"
@@ -3017,6 +3017,8 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
+"Указывает что лейбл / организация являлась владельцем данного места (чаще "
+"всего это студия, но иногда — концертный зал)."
 
 #. name:named after label
 #: DB:link_type/description:1259
@@ -4272,6 +4274,9 @@ msgid ""
 "This links a soundtrack release group to the <a href=\"http://www.imdb.com/"
 "\">IMDb</a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
+"Связывает группу релизов саундтрека со страницей <a href=\"http://"
+"www.imdb.com/\">IMDb</a> фильма, сериала или игры, к которым относится "
+"данный саундтрек."
 
 #. name:vgmdb
 #: DB:link_type/description:992
