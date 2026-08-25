@@ -31,9 +31,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-02 15:12+0000\n"
-"Last-Translator: wileyfoxyx "
-"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-08-02 20:12+0000\n"
+"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -984,12 +983,9 @@ msgstr ""
 
 #. name:Series series
 #: DB:series_type/description:16
-#, fuzzy
-#| msgctxt "series_type"
-#| msgid "A series of events."
 msgctxt "series_type"
 msgid "A series of series."
-msgstr "Серия событий."
+msgstr "Серия серий."
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -1395,12 +1391,9 @@ msgid "Album"
 msgstr "Альбом"
 
 #: DB:work_attribute_type/name:216
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid "Track"
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr "Трек"
+msgstr "ВсеТреки ID"
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
@@ -1907,12 +1900,12 @@ msgstr "Айдын"
 #: DB:work_attribute_type_allowed_value/value:695
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ayin Devr-i Revanı"
-msgstr ""
+msgstr "Айин Девр-и Реван"
 
 #: DB:work_attribute_type_allowed_value/value:605
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ayin-i Şerif"
-msgstr ""
+msgstr "Айин-и Шериф"
 
 #: DB:work_attribute_type_allowed_value/value:696
 msgctxt "work_attribute_type_allowed_value"
@@ -1932,67 +1925,67 @@ msgstr "Агираксак"
 #: DB:work_attribute_type_allowed_value/value:684
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağıraydın"
-msgstr ""
+msgstr "Агырайдын"
 
 #: DB:work_attribute_type_allowed_value/value:686
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağırdarbıfetih"
-msgstr ""
+msgstr "Агырдарбыфетих"
 
 #: DB:work_attribute_type_allowed_value/value:687
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağırdüyek"
-msgstr ""
+msgstr "Агырдюек"
 
 #: DB:work_attribute_type_allowed_value/value:688
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağırevfer"
-msgstr ""
+msgstr "Агыревфер"
 
 #: DB:work_attribute_type_allowed_value/value:603
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağırsemai"
-msgstr ""
+msgstr "Агырсемаи"
 
 #: DB:work_attribute_type_allowed_value/value:689
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağırsenginsemai"
-msgstr ""
+msgstr "Агырсенгинсемаи"
 
 #: DB:work_attribute_type_allowed_value/value:685
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağırçenber"
-msgstr ""
+msgstr "Агырченбер"
 
 #: DB:work_attribute_type_allowed_value/value:321
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aşiran Maye"
-msgstr ""
+msgstr "Аширан Майе"
 
 #: DB:work_attribute_type_allowed_value/value:320
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aşiran Zemzeme"
-msgstr ""
+msgstr "Аширан Земземе"
 
 #: DB:work_attribute_type_allowed_value/value:322
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aşkefza"
-msgstr ""
+msgstr "Ашкефза"
 
 #: DB:work_attribute_type_allowed_value/value:857
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aṣṭa rāg mālikā"
-msgstr ""
+msgstr "Ашта рага малика"
 
 #: DB:work_attribute_type_allowed_value/value:45
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aṭāna"
-msgstr ""
+msgstr "Атана"
 
 #: DB:work_attribute_type_allowed_value/value:289
 msgctxt "work_attribute_type_allowed_value"
 msgid "Aṭṭa"
-msgstr ""
+msgstr "Атта"
 
 #: DB:work_attribute_type_allowed_value/value:795
 msgctxt "work_attribute_type_allowed_value"
@@ -2067,17 +2060,17 @@ msgstr "Назад"
 #: DB:work_attribute_type_allowed_value/value:323
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bahr-ı Nazik"
-msgstr ""
+msgstr "Бахр-ы Назик"
 
 #: DB:work_attribute_type_allowed_value/value:47
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bahudāri"
-msgstr ""
+msgstr "Бахудари"
 
 #: DB:work_attribute_type_allowed_value/value:862
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bahādurī tōḍī"
-msgstr ""
+msgstr "Бахадури тоди"
 
 #: DB:work_attribute_type_allowed_value/value:863
 msgctxt "work_attribute_type_allowed_value"
@@ -2087,12 +2080,12 @@ msgstr "Бехар"
 #: DB:work_attribute_type_allowed_value/value:864
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bairāgi"
-msgstr ""
+msgstr "Байраги"
 
 #: DB:work_attribute_type_allowed_value/value:48
 msgctxt "work_attribute_type_allowed_value"
 msgid "Balahaṁsa"
-msgstr ""
+msgstr "Балахамса"
 
 #: DB:work_type/name:2
 msgctxt "work_type"
@@ -2107,32 +2100,32 @@ msgstr "Баннер"
 #: DB:work_attribute_type_allowed_value/value:866
 msgctxt "work_attribute_type_allowed_value"
 msgid "Basant"
-msgstr ""
+msgstr "Басант"
 
 #: DB:work_attribute_type_allowed_value/value:867
 msgctxt "work_attribute_type_allowed_value"
 msgid "Basant bahār"
-msgstr ""
+msgstr "Басант бахар"
 
 #: DB:work_attribute_type_allowed_value/value:868
 msgctxt "work_attribute_type_allowed_value"
 msgid "Basant mukhāri"
-msgstr ""
+msgstr "Басант мукхари"
 
 #: DB:work_attribute_type_allowed_value/value:869
 msgctxt "work_attribute_type_allowed_value"
 msgid "Basantī kēdār"
-msgstr ""
+msgstr "Басанти кедар"
 
 #: DB:work_attribute_type_allowed_value/value:49
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bauḷi"
-msgstr ""
+msgstr "Баули"
 
 #: DB:work_attribute_type_allowed_value/value:51
 msgctxt "work_attribute_type_allowed_value"
 msgid "Behāg"
-msgstr ""
+msgstr "Бехаг"
 
 #: DB:work_type/name:26
 msgctxt "work_type"
@@ -2152,62 +2145,62 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:697
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bektaşi Devr-i Revanı"
-msgstr ""
+msgstr "Бекташи Деври Реваны"
 
 #: DB:work_attribute_type_allowed_value/value:698
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bektaşi Raksanı"
-msgstr ""
+msgstr "Бекташи Раксаны"
 
 #: DB:work_attribute_type_allowed_value/value:699
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bektaşi Raksı"
-msgstr ""
+msgstr "Бекташи Раксы"
 
 #: DB:work_attribute_type_allowed_value/value:700
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bektaşi Raksı Evferi"
-msgstr ""
+msgstr "Бекташи Раксы Евфери"
 
 #: DB:work_attribute_type_allowed_value/value:324
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bend-i Hisar"
-msgstr ""
+msgstr "Бенд-и Хисар"
 
 #: DB:work_attribute_type_allowed_value/value:701
 msgctxt "work_attribute_type_allowed_value"
 msgid "Berefşan"
-msgstr ""
+msgstr "Берефшан"
 
 #: DB:work_attribute_type_allowed_value/value:606
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beste"
-msgstr ""
+msgstr "Бесте"
 
 #: DB:work_attribute_type_allowed_value/value:702
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beste Devr-i Revanı"
-msgstr ""
+msgstr "Бесте Деври Реваны"
 
 #: DB:work_attribute_type_allowed_value/value:325
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beste Hicaz"
-msgstr ""
+msgstr "Бесте Хиказ"
 
 #: DB:work_attribute_type_allowed_value/value:326
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beste Hisar"
-msgstr ""
+msgstr "Бесте Хисар"
 
 #: DB:work_attribute_type_allowed_value/value:327
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beste Isfahan"
-msgstr ""
+msgstr "Бесте Исфахан"
 
 #: DB:work_attribute_type_allowed_value/value:328
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bestenigar"
-msgstr ""
+msgstr "Бестенигар"
 
 #: DB:medium_format/name:131
 msgctxt "medium_format"
@@ -2222,78 +2215,78 @@ msgstr "Betamax"
 #: DB:work_attribute_type_allowed_value/value:329
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beyati"
-msgstr ""
+msgstr "Бейяти"
 
 #: DB:work_attribute_type_allowed_value/value:331
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beyati Araban"
-msgstr ""
+msgstr "Бейяти Арабан"
 
 #: DB:work_attribute_type_allowed_value/value:332
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beyati Arabanbuselik"
-msgstr ""
+msgstr "Бейяти Арабанбуселик"
 
 #: DB:work_attribute_type_allowed_value/value:333
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beyati Arabankurdi"
-msgstr ""
+msgstr "Бейяти Арабанкурди"
 
 #: DB:work_attribute_type_allowed_value/value:330
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beyati Ruy-i Acem"
-msgstr ""
+msgstr "Бейяти Руи-Ачем"
 
 #: DB:work_attribute_type_allowed_value/value:334
 msgctxt "work_attribute_type_allowed_value"
 msgid "Beyatibuselik"
-msgstr ""
+msgstr "Бейятиселик"
 
 #: DB:work_attribute_type_allowed_value/value:335
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bezm-i Tarab"
-msgstr ""
+msgstr "Безм-и Тараб"
 
 #: DB:work_attribute_type_allowed_value/value:870
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhairav"
-msgstr ""
+msgstr "Бхайрав"
 
 #: DB:work_attribute_type_allowed_value/value:871
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhairav bahār"
-msgstr ""
+msgstr "Бхайрав бахар"
 
 #: DB:work_attribute_type_allowed_value/value:52
 #: DB:work_attribute_type_allowed_value/value:872
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhairavi"
-msgstr ""
+msgstr "Бхайрави"
 
 #: DB:work_attribute_type_allowed_value/value:874
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhavamat bhairav"
-msgstr ""
+msgstr "Бхавамат бхайрав"
 
 #: DB:work_attribute_type_allowed_value/value:53
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhavāni"
-msgstr ""
+msgstr "Бхавани"
 
 #: DB:work_attribute_type_allowed_value/value:876
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhimapalās"
-msgstr ""
+msgstr "Бхимапалас"
 
 #: DB:work_attribute_type_allowed_value/value:877
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhinna ṣaḍja"
-msgstr ""
+msgstr "Бхинна шаджа"
 
 #: DB:work_attribute_type_allowed_value/value:54
 msgctxt "work_attribute_type_allowed_value"
 msgid "Bhāvapriya"
-msgstr ""
+msgstr "Бхаваприя"
 
 #: DB:work_attribute_type_allowed_value/value:873
 msgctxt "work_attribute_type_allowed_value"
