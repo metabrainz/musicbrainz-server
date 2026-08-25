@@ -50,8 +50,9 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2026-08-12 23:12+0000\n"
-"Last-Translator: Covium <jidiyping@gmail.com>\n"
+"PO-Revision-Date: 2026-08-23 17:58+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -6648,7 +6649,7 @@ msgstr ""
 #: ../root/account/DigestAuthentication.js:53
 msgctxt "interactive"
 msgid "{applications_url|Back to Applications}."
-msgstr "{applications_url|Back to Приложения}."
+msgstr "{applications_url|Вернуться к списку приложений}."
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:88
@@ -6943,11 +6944,11 @@ msgid ""
 "your password when the application asks for one."
 msgstr ""
 "Некоторые приложения используют устаревшую форму аутентификации под "
-"названием {digest_url|HTTP дайджест аутентификация}. Для этого требуется "
-"хранить пароль с использованием {md5_url|небезопасная хеш-функция}. Вместо "
-"того чтобы хранить ваш пароль учетной записи MusicBrainz таким образом, мы "
-"требуем создавать отдельный токен, если вы хотите использовать такое "
-"приложение; используйте этот токен вместо вашего пароля, когда приложение "
+"названием {digest_url|дайджест-аутентификация}, для которой требуется "
+"хранить пароль с использованием {md5_url|небезопасной хеш-функции}. Вместо "
+"того, чтобы хранить пароль вашей учётной записи MusicBrainz таким образом, "
+"мы требуем создавать отдельный токен, если вы хотите использовать такое "
+"приложение. Используйте этот токен вместо вашего пароля, когда приложение "
 "запросит его."
 
 #: ../root/account/applications/ApplicationList.js:188
@@ -6969,7 +6970,7 @@ msgstr "Отключить дайджест-аутентификацию"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
-msgstr "Сбросить токен дайджест аутентификации"
+msgstr "Сбросить токен дайджест-аутентификации"
 
 #: ../root/account/applications/ApplicationList.js:230
 msgid "Enable digest authentication"
@@ -7802,7 +7803,7 @@ msgstr[3] "Смотреть все {num} релизов"
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
-msgstr[0] "Просмотреть {num} запись"
+msgstr[0] "Просмотреть всю {num} запись"
 msgstr[1] "Просмотреть все {num} записи"
 msgstr[2] "Просмотреть все {num} записей"
 msgstr[3] "Просмотреть все записи ({num})"
@@ -10193,7 +10194,7 @@ msgstr "Длина треков:"
 
 #: ../root/edit/details/SetTrackLengths.js:72
 msgid "This edit makes subsecond changes to track lengths"
-msgstr "Эта правка внесёт субсекундные изменения в длину трека"
+msgstr "Эта правка внесёт миллисекундные изменения в длины треков"
 
 #: ../root/edit/details/historic/AddDiscId.js:20
 msgid "CD TOC:"
@@ -15672,7 +15673,7 @@ msgstr "Не удалось обработать ваш вклад, поскол
 
 #: ../root/static/scripts/common/components/LoginMessage.js:50
 msgid "Click here to log in."
-msgstr "Нажмите тут, чтобы войти."
+msgstr "Нажмите здесь, чтобы войти."
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
@@ -16800,15 +16801,15 @@ msgid ""
 "Links to archive.today and associated domains are not allowed. This site has "
 "been found to manipulate the archived websites and perform DDoS attacks."
 msgstr ""
-"Ссылки на archive.today и связанные с ним запрещены. Известно, что они "
-"манипулируют архивированными сайтами и совершают DDoS-атаки."
+"Ссылки на archive.today и связанные с ним домены запрещены. Известно, что "
+"этот сайт манипулировал архивированными сайтами и совершал DDoS-атаки."
 
 #: ../root/static/scripts/external-links-editor/validation.js:157
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
-"\"{example_url}» является всего лишь примером. Введите фактическую ссылку, "
+"\"{example_url}\" является всего лишь примером. Введите фактическую ссылку, "
 "которую хотите добавить."
 
 #: ../root/static/scripts/external-links-editor/validation.js:165
@@ -17943,8 +17944,8 @@ msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
 msgstr ""
-"Поиск невозможен, ибо надо указать хотя бы один из параметров: «запись», «"
-"номер трека», «продолжительность», «релиз» или «исполнитель»."
+"Поиск невозможен, поскольку нужно указать хотя бы один из параметров: «запись"
+"», «номер трека», «продолжительность», «релиз» или «исполнитель»."
 
 #: ../root/taglookup/NotFound.js:24
 msgid "Please {search|try again}, providing at least one of these parameters"

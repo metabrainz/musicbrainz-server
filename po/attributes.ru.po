@@ -32,8 +32,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-12 23:12+0000\n"
-"Last-Translator: Covium <jidiyping@gmail.com>\n"
+"PO-Revision-Date: 2026-08-16 18:12+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -1394,7 +1395,7 @@ msgstr "Альбом"
 #: DB:work_attribute_type/name:216
 msgctxt "work_attribute_type"
 msgid "AllTrack ID"
-msgstr "ВсеТреки ID"
+msgstr "AllTrack ID"
 
 #. name:Manual
 #: DB:series_ordering_type/description:2
