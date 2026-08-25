@@ -28,6 +28,7 @@ const URL_SHORTENERS = [
   'pandora.app.link',
   'rb.gy',
   'rubyurl.com',
+  'share.google',
   'spoti.fi',
   'sptfy.com',
   'su.pr',
