@@ -3,13 +3,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
-# NorwayFun <temuri.doghonadze@gmail.com>, 2025.
+# NorwayFun <temuri.doghonadze@gmail.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2025-12-25 19:11+0000\n"
+"PO-Revision-Date: 2026-08-20 11:12+0000\n"
 "Last-Translator: NorwayFun <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ka/>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.15.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -3993,11 +3993,8 @@ msgid "Too many login attempts. Please try again in a few minutes."
 msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
-#, fuzzy
-#| msgctxt "event"
-#| msgid "cancelled"
 msgid "Login cancelled."
-msgstr "გაუქმებულია"
+msgstr "შესვლა გაუქმდა."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
 msgid "Login failed. Please try again."
@@ -6259,10 +6256,8 @@ msgid "Digest authentication is <strong>enabled</strong> on your account."
 msgstr ""
 
 #: ../root/account/applications/ApplicationList.js:212
-#, fuzzy
-#| msgid "Disambiguation"
 msgid "Disable digest authentication"
-msgstr "დაზუსტება"
+msgstr "დაიჯესტით ავთენტიკაციის გათიშვა"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
@@ -8267,18 +8262,12 @@ msgid "Recent notes left on your edits"
 msgstr ""
 
 #: ../root/edit/NotesReceived.js:51
-#, fuzzy
-#| msgctxt "folksonomy tag"
-#| msgid "downvotes"
 msgid "ModBot notes"
-msgstr "ხმა წინააღმდეგ"
+msgstr "ModBot-ის შენიშვნები"
 
 #: ../root/edit/NotesReceived.js:57
-#, fuzzy
-#| msgctxt "folksonomy tag"
-#| msgid "downvotes"
 msgid "Show all notes"
-msgstr "ხმა წინააღმდეგ"
+msgstr "ყველა შენიშვნის ჩვენება"
 
 #: ../root/edit/NotesReceived.js:58
 msgid "Show only notes by ModBot"
@@ -15259,11 +15248,9 @@ msgid "This relationship has ended."
 msgstr ""
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationshipDialog.js:237
-#, fuzzy
-#| msgid "Relationship"
 msgctxt "interactive"
 msgid "Edit relationship"
-msgstr "ურთიერთობა"
+msgstr "ურთიერთობის ჩასწორება"
 
 #: ../root/static/scripts/external-links-editor/components/TypeDescription.js:21
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:311
