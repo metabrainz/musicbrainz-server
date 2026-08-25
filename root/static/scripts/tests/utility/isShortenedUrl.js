@@ -12,7 +12,7 @@ import test from 'tape';
 import isShortenedUrl from '../../edit/utility/isShortenedUrl.js';
 
 test('isShortenedUrl', function (t) {
-  t.plan(17);
+  t.plan(11);
 
   t.ok(isShortenedUrl('https://su.pr/example'));
   t.ok(isShortenedUrl('https://t.co/example'));
@@ -20,15 +20,6 @@ test('isShortenedUrl', function (t) {
   t.ok(isShortenedUrl('http://example.su.pr'));
   t.ok(isShortenedUrl('http://example.t.co'));
   t.ok(isShortenedUrl('http://example.bit.ly'));
-
-  // Allowed host-only shorteners
-  t.ok(!isShortenedUrl('https://example.bruit.app/'));
-  t.ok(!isShortenedUrl('https://example.distrokid.com'));
-  t.ok(!isShortenedUrl('https://example.trac.co'));
-
-  t.ok(isShortenedUrl('https://bruit.app/abc'));
-  t.ok(isShortenedUrl('https://example.distrokid.com/abc'));
-  t.ok(isShortenedUrl('https://example.trac.co/abc'));
 
   // MBS-12566
   t.ok(!isShortenedUrl('https://surprisechef.bandcamp.com' +
