@@ -5195,6 +5195,17 @@ limited_link_type_combinations: [
                      input_url: 'http://pinterest.com/tucenter/',
             expected_clean_url: 'https://www.pinterest.com/tucenter/',
   },
+  {
+                     input_url: 'https://pin.it/3NwH9ogoo',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
+  },
   // pixiv
   {
                      input_url: 'https://www.pixiv.net/en/users/23610071/illustrations',

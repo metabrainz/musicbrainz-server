@@ -5206,12 +5206,32 @@ export const CLEANUPS: CleanupEntries = {
     },
   },
   'pinterest': {
-    hostname: 'pinterest.com',
-    match: [/^(https?:\/\/)?([^/]+\.)?pinterest\.com\//i],
+    hostname: ['pinterest.com', 'pin.it'],
+    match: [/^(https?:\/\/)?([^/]+\.)?(pinterest\.com|pin\.it)\//i],
     restrict: [LINK_TYPES.socialnetwork],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?pinterest\.com\/([^?#]*[^/?#])\/*(?:[?#].*)?$/, 'https://www.pinterest.com/$1/');
       return url.replace(/\/(?:boards|pins|likes|followers|following)(?:\/.*)?$/, '/');
+    },
+    validate(url) {
+      if (/pin\.it\//i.test(url)) {
+        return {
+          error: exp.l(
+            `This is a redirect link. Please follow {redirect_url|your link}
+             and add the link it redirects to instead.`,
+            {
+              redirect_url: {
+                href: url,
+                rel: 'noopener noreferrer',
+                target: '_blank',
+              },
+            },
+          ),
+          result: false,
+          target: ERROR_TARGETS.URL,
+        };
+      }
+      return {result: true};
     },
   },
   'pixiv': {
