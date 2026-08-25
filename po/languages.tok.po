@@ -1,9 +1,9 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
-# vacuousVersifier <olive@vacuous.me>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2025-10-06 22:02+0000\n"
+"PO-Revision-Date: 2026-08-25 00:12+0000\n"
 "Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
 "Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/tok/>\n"
@@ -12,42 +12,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
 msgid "Abkhazian"
-msgstr ""
+msgstr "toki Asa"
 
 #. frequency:1 iso_code_3:ace
 #: DB:language/name:3
 msgid "Achinese"
-msgstr ""
+msgstr "toki Ake"
 
 #. frequency:1 iso_code_3:ach
 #: DB:language/name:4
 msgid "Acoli"
-msgstr ""
+msgstr "toki Lo"
 
 #. frequency:1 iso_code_3:ada
 #: DB:language/name:5
 msgid "Adangme"
-msgstr ""
+msgstr "toki Tanme"
 
 #. frequency:1 iso_code_3:ady
 #: DB:language/name:6
 msgid "Adyghe"
-msgstr ""
+msgstr "toki Atekase"
 
 #. frequency:1 iso_code_3:aar
 #: DB:language/name:1
 msgid "Afar"
-msgstr ""
+msgstr "toki Apawa"
 
 #. frequency:1 iso_code_3:afh
 #: DB:language/name:8
 msgid "Afrihili"
-msgstr ""
+msgstr "toki Awiwili"
 
 #. frequency:1 iso_code_3:afr
 #: DB:language/name:9
@@ -57,22 +57,22 @@ msgstr "toki Apikan"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:7
 msgid "Afro-Asiatic languages"
-msgstr ""
+msgstr "kulupu toki pi ma Apika pi ma Asija"
 
 #. frequency:1 iso_code_3:ain
 #: DB:language/name:473
 msgid "Ainu"
-msgstr ""
+msgstr "toki Anu Ita"
 
 #. frequency:1 iso_code_3:aka
 #: DB:language/name:10
 msgid "Akan"
-msgstr ""
+msgstr "toki Akan"
 
 #. frequency:1 iso_code_3:akk
 #: DB:language/name:11
 msgid "Akkadian"
-msgstr ""
+msgstr "toki Akatun"
 
 #. frequency:1 iso_code_3:sqi
 #: DB:language/name:12
@@ -82,37 +82,37 @@ msgstr "toki Sikipe"
 #. frequency:1 iso_code_3:ale
 #: DB:language/name:13
 msgid "Aleut"
-msgstr ""
+msgstr "toki Unanan Tunu"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:14
 msgid "Algonquian languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Akonki"
 
 #. frequency:1 iso_code_3:alq
 #: DB:language/name:709
 msgid "Algonquin"
-msgstr ""
+msgstr "kulupu toki Akonki"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:434
 msgid "Altaic languages"
-msgstr ""
+msgstr "kulupu toki Ata"
 
 #. frequency:1 iso_code_3:amh
 #: DB:language/name:15
 msgid "Amharic"
-msgstr ""
+msgstr "toki Anawina"
 
 #. frequency:1 iso_code_3:anp
 #: DB:language/name:475
 msgid "Angika"
-msgstr ""
+msgstr "toki Ankika"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:17
 msgid "Apache languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Apase"
 
 #. frequency:2 iso_code_3:ara
 #: DB:language/name:18
@@ -122,127 +122,127 @@ msgstr "toki Alapi"
 #. frequency:1 iso_code_3:arg
 #: DB:language/name:20
 msgid "Aragonese"
-msgstr ""
+msgstr "toki Awakoni"
 
 #. frequency:1 iso_code_3:arp
 #: DB:language/name:23
 msgid "Arapaho"
-msgstr ""
+msgstr "toki Inonoweti"
 
 #. frequency:1 iso_code_3:arw
 #: DB:language/name:25
 msgid "Arawak"
-msgstr ""
+msgstr "toki Lokono Tin"
 
 #. frequency:1 iso_code_3:pka
 #: DB:language/name:5403
 msgid "Ardhamāgadhī Prākrit"
-msgstr ""
+msgstr "toki Atamakati"
 
 #. frequency:1 iso_code_3:hye
 #: DB:language/name:21
 msgid "Armenian"
-msgstr ""
+msgstr "toki Ajewen"
 
 #. frequency:1 iso_code_3:rup
 #: DB:language/name:479
 msgid "Aromanian"
-msgstr ""
+msgstr "toki Amaneka"
 
 #. frequency:1 iso_code_3:asm
 #: DB:language/name:26
 msgid "Assamese"
-msgstr ""
+msgstr "toki Awamija"
 
 #. frequency:1 iso_code_3:ast
 #: DB:language/name:27
 msgid "Asturian"
-msgstr ""
+msgstr "tok Atuwanu"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:28
 msgid "Athapascan languages"
-msgstr ""
+msgstr "kulupu toki Tene"
 
 #. frequency:1 iso_code_3:atj
 #: DB:language/name:866
 msgid "Atikamekw"
-msgstr ""
+msgstr "toki Atikameku"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:29
 msgid "Australian languages"
-msgstr ""
+msgstr "kulupu toki pi ma Oselija"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:263
 msgid "Austronesian languages"
-msgstr ""
+msgstr "kulupu toki pi ma Astonesi"
 
 #. frequency:1 iso_code_3:ava
 #: DB:language/name:30
 msgid "Avaric"
-msgstr ""
+msgstr "toki Awa Ma"
 
 #. frequency:1 iso_code_3:ave
 #: DB:language/name:31
 msgid "Avestan"
-msgstr ""
+msgstr "toki Awetan"
 
 #. frequency:1 iso_code_3:awa
 #: DB:language/name:32
 msgid "Awadhi"
-msgstr ""
+msgstr "toki Esi"
 
 #. frequency:1 iso_code_3:aym
 #: DB:language/name:33
 msgid "Aymara"
-msgstr ""
+msgstr "toki Ama Aju"
 
 #. frequency:1 iso_code_3:aze
 #: DB:language/name:34
 msgid "Azerbaijani"
-msgstr ""
+msgstr "toki Asapasan Teli"
 
 #. frequency:1 iso_code_3:bvd
 #: DB:language/name:1470
 msgid "Baeggu"
-msgstr ""
+msgstr "toki Paku"
 
 #. frequency:1 iso_code_3:ban
 #: DB:language/name:40
 msgid "Balinese"
-msgstr ""
+msgstr "toki Pasa Pali"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:43
 msgid "Baltic languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Pati"
 
 #. frequency:1 iso_code_3:bal
 #: DB:language/name:38
 msgid "Baluchi"
-msgstr ""
+msgstr "toki Palosi"
 
 #. frequency:1 iso_code_3:bam
 #: DB:language/name:39
 msgid "Bambara"
-msgstr ""
+msgstr "toki Panpawa"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:36
 msgid "Bamileke languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Panileke"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:35
 msgid "Banda languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Panta"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:55
 msgid "Bantu languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Pantu"
 
 #. frequency:1 iso_code_3:bas
 #: DB:language/name:42
@@ -262,7 +262,7 @@ msgstr "toki Esuka"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:59
 msgid "Batak languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Pata"
 
 #. frequency:1 iso_code_3:bar
 #: DB:language/name:982
@@ -292,7 +292,7 @@ msgstr "toki Panla"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:48
 msgid "Berber languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Imasijen"
 
 #. frequency:1 iso_code_3:bho
 #: DB:language/name:49
@@ -302,7 +302,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:50
 msgid "Bihari languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Pijawi"
 
 #. frequency:1 iso_code_3:bik
 #: DB:language/name:51
@@ -397,7 +397,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:69
 msgid "Caucasian languages"
-msgstr ""
+msgstr "kulupu toki pi ma Kaka"
 
 #. frequency:1 iso_code_3:ceb
 #: DB:language/name:70
@@ -412,12 +412,12 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:71
 msgid "Celtic languages"
-msgstr ""
+msgstr "kulupu toki pi kulupu Ke"
 
 #. frequency:0 iso_code_3:null
 #: DB:language/name:66
 msgid "Central American Indian languages"
-msgstr ""
+msgstr "kulupu toki pi insa pi ma Mewika"
 
 #. frequency:1 iso_code_3:ryu
 #: DB:language/name:5809
@@ -437,7 +437,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:86
 msgid "Chamic languages"
-msgstr ""
+msgstr "kulupu toki pi ma Ake"
 
 #. frequency:1 iso_code_3:cha
 #: DB:language/name:72
@@ -582,7 +582,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:97
 msgid "Cushitic languages"
-msgstr ""
+msgstr "kulupu toki pi ma On Apika"
 
 #. frequency:1 iso_code_3:ces
 #: DB:language/name:98
@@ -632,7 +632,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:109
 msgid "Dravidian languages"
-msgstr ""
+msgstr "kulupu toki Tawisin"
 
 #. frequency:1 iso_code_3:dua
 #: DB:language/name:111
@@ -767,7 +767,7 @@ msgstr "toki Sumi"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:132
 msgid "Finno-Ugrian languages"
-msgstr ""
+msgstr "kulupu toki Pinojukin"
 
 #. frequency:1 iso_code_3:fon
 #: DB:language/name:133
@@ -887,7 +887,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:143
 msgid "Germanic languages"
-msgstr ""
+msgstr "kulupu toki Semani"
 
 #. frequency:1 iso_code_3:gil
 #: DB:language/name:147
@@ -917,7 +917,7 @@ msgstr ""
 #. frequency:1 iso_code_3:ell
 #: DB:language/name:159
 msgid "Greek"
-msgstr "toki Elena"
+msgstr "toki Elin"
 
 #. frequency:1 iso_code_3:grc
 #: DB:language/name:158
@@ -991,8 +991,9 @@ msgstr ""
 
 #. frequency:2 iso_code_3:heb
 #: DB:language/name:167
+#, fuzzy
 msgid "Hebrew"
-msgstr "toki Iwisi"
+msgstr "sitelen Alepe"
 
 #. frequency:1 iso_code_3:her
 #: DB:language/name:168
@@ -1007,7 +1008,7 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:170
 msgid "Himachali languages"
-msgstr ""
+msgstr "kulupu toki Imatali"
 
 #. frequency:2 iso_code_3:hin
 #: DB:language/name:171
@@ -1062,7 +1063,7 @@ msgstr "toki Ipo"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:183
 msgid "Ijo languages"
-msgstr ""
+msgstr "kulupu toki Iso"
 
 #. frequency:1 iso_code_3:ilo
 #: DB:language/name:186
@@ -1752,7 +1753,7 @@ msgstr ""
 #. frequency:1 iso_code_3:nau
 #: DB:language/name:294
 msgid "Nauru"
-msgstr ""
+msgstr "toki Towewin Nawo"
 
 #. frequency:1 iso_code_3:nav
 #: DB:language/name:295
@@ -2517,7 +2518,7 @@ msgstr "toki Topisin"
 #. frequency:1 iso_code_3:tkl
 #: DB:language/name:420
 msgid "Tokelau"
-msgstr ""
+msgstr "toki Kakana Tokela"
 
 #. frequency:1 iso_code_3:tok
 #: DB:language/name:7845
@@ -2577,7 +2578,7 @@ msgstr ""
 #. frequency:1 iso_code_3:tvl
 #: DB:language/name:435
 msgid "Tuvalu"
-msgstr "ma Tuwalu"
+msgstr "toki Te Kana Tuwalu"
 
 #. frequency:1 iso_code_3:tyv
 #: DB:language/name:437
