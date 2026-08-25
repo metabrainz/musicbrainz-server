@@ -199,8 +199,17 @@ export function validateLink(
     };
   } else if (isShortenedUrl(url)) {
     error = {
-      message: l(`Please don’t enter bundled/shortened URLs,
-                  enter the destination URL(s) instead.`),
+      message: exp.l(
+        `This is a redirect link. Please follow {redirect_url|your link}
+         and add the link it redirects to instead.`,
+        {
+          redirect_url: {
+            href: url,
+            rel: 'noopener noreferrer',
+            target: '_blank',
+          },
+        },
+      ),
       target: URLCleanup.ERROR_TARGETS.URL,
     };
   } else if (isGoogleAmp(url)) {
