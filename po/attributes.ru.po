@@ -31,8 +31,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-02 20:12+0000\n"
-"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
+"PO-Revision-Date: 2026-08-03 13:12+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -5889,7 +5889,7 @@ msgstr ""
 #: DB:work_attribute_type/name:15
 msgctxt "work_attribute_type"
 msgid "Makam (Ottoman, Turkish)"
-msgstr ""
+msgstr "Макам (османская, турецкая)"
 
 #: DB:work_attribute_type_allowed_value/value:164
 msgctxt "work_attribute_type_allowed_value"

@@ -38,7 +38,7 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
-# liilliil <liilliil@liilliil.net>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024, 2026.
 # EmO686 <eiswuste@gmail.com>, 2026.
 # karpuzikov <karpuzikovanton@gmail.com>, 2026.
 # dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
@@ -49,8 +49,8 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2026-08-02 20:12+0000\n"
-"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
+"PO-Revision-Date: 2026-08-03 13:12+0000\n"
+"Last-Translator: liilliil <liilliil@liilliil.net>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -6621,7 +6621,7 @@ msgstr "{commas_only_list_item}, {rest}"
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Дайджест-аутентификация"
 
 #: ../root/account/DigestAuthentication.js:29
 #: ../root/account/applications/ApplicationList.js:197
@@ -6927,7 +6927,7 @@ msgstr "У Вас нет зарегистрированных приложени
 
 #: ../root/account/applications/ApplicationList.js:167
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Дайджест-аутентификация"
 
 #: ../root/account/applications/ApplicationList.js:171
 msgid ""
@@ -7795,10 +7795,10 @@ msgstr[3] "Смотреть все {num} релизов"
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Просмотреть {num} запись"
+msgstr[1] "Просмотреть все {num} записи"
+msgstr[2] "Просмотреть все {num} записей"
+msgstr[3] "Просмотреть все записи ({num})"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:158
 msgid "See all {num} tracks"
@@ -8586,7 +8586,7 @@ msgstr "Смотреть все отношения ({num})"
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:199
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:203
 msgid "Credited as"
-msgstr ""
+msgstr "Указанный как"
 
 #: ../root/components/RelationshipsTable.js:315
 #: ../root/edit/details/AddRelationshipType.js:161
@@ -10180,11 +10180,11 @@ msgstr "[удалено]"
 
 #: ../root/edit/details/SetTrackLengths.js:59
 msgid "Track lengths:"
-msgstr ""
+msgstr "Длина треков:"
 
 #: ../root/edit/details/SetTrackLengths.js:72
 msgid "This edit makes subsecond changes to track lengths"
-msgstr ""
+msgstr "Эта правка внесёт субсекундные изменения в длину трека"
 
 #: ../root/edit/details/historic/AddDiscId.js:20
 msgid "CD TOC:"
@@ -10267,7 +10267,7 @@ msgstr "Новые релизы:"
 
 #: ../root/edit/details/historic/MergeReleases.js:42
 msgid "Merge attributes:"
-msgstr ""
+msgstr "Атрибуты объединения:"
 
 #: ../root/edit/details/historic/MergeReleases.js:46
 msgid "Merge language & script:"
@@ -15663,7 +15663,7 @@ msgstr "Не удалось обработать ваш вклад, поскол
 
 #: ../root/static/scripts/common/components/LoginMessage.js:50
 msgid "Click here to log in."
-msgstr "Нажмите здесь, чтобы войти."
+msgstr "Нажмите тут, чтобы войти."
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
@@ -16748,7 +16748,7 @@ msgstr "Удалить отношение"
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:273
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "заявлено как “{credit}”"
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:295
 msgid "video"
@@ -16791,6 +16791,8 @@ msgid ""
 "Links to archive.today and associated domains are not allowed. This site has "
 "been found to manipulate the archived websites and perform DDoS attacks."
 msgstr ""
+"Ссылки на archive.today и связанные с ним запрещены. Известно, что они "
+"манипулируют архивированными сайтами и совершают DDoS-атаки."
 
 #: ../root/static/scripts/external-links-editor/validation.js:157
 msgid ""
@@ -17504,7 +17506,7 @@ msgstr "Псевдоним записи: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
-msgstr ""
+msgstr "Исполнитель:"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:80
 msgid "To use this tool, select some works using the checkboxes below."
@@ -17932,6 +17934,8 @@ msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
 msgstr ""
+"Поиск невозможен, ибо надо указать хотя бы один из параметров: «запись», «"
+"номер трека», «продолжительность», «релиз» или «исполнитель»."
 
 #: ../root/taglookup/NotFound.js:24
 msgid "Please {search|try again}, providing at least one of these parameters"
