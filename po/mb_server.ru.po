@@ -44,13 +44,14 @@
 # dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
 # TheParaziT <lolkekovic05713@gmail.com>, 2026.
 # AndrejsD1718 <rbox893@gmail.com>, 2026.
+# Covium <jidiyping@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
 "PO-Revision-Date: 2026-08-12 23:12+0000\n"
-"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
+"Last-Translator: Covium <jidiyping@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -7477,6 +7478,9 @@ msgid ""
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
 msgstr ""
+"Если имя появляется на обложке релиза, не устанавливайте флажок: артисты все "
+"равно будут объединены, если вы этого не сделаете, но {doc_acs|artist "
+"credits} останутся такими, какие они есть сейчас."
 
 #: ../root/artist/ArtistMerge.js:58
 msgid ""
@@ -7755,7 +7759,7 @@ msgstr "Дата окончания"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:91
 msgid "This artist credit is composed of the following artists:"
-msgstr ""
+msgstr "В это указание исполнителя входят следующие исполнители:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:101
 msgctxt "artist credit"
@@ -7806,10 +7810,10 @@ msgstr[3] "Просмотреть все записи ({num})"
 #: ../root/artist_credit/ArtistCreditIndex.js:158
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Смотреть все {num} трек"
+msgstr[1] "Смотреть все {num} трека"
+msgstr[2] "Смотреть все {num} треков"
+msgstr[3] "Смотреть все треки ({num})"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:18
 #: ../root/collection/CollectionHeader.js:69
@@ -7821,7 +7825,7 @@ msgstr "Обзор"
 #: ../root/artist_credit/ArtistCreditLayout.js:41
 #: ../root/artist_credit/ArtistCreditLayout.js:51
 msgid "Artist credit “{artist_credit}”"
-msgstr ""
+msgstr "Сведения об исполнителе “{artist_credit}”"
 
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:75
 msgid "{num} recording found"
@@ -7857,19 +7861,19 @@ msgstr[3] "Найдено {num} треков"
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No recordings with this artist credit were found."
-msgstr ""
+msgstr "Записей с этими сведениями об исполнителе не найдено."
 
 #: ../root/artist_credit/EntityList.js:33
 msgid "No releases with this artist credit were found."
-msgstr ""
+msgstr "Релизов с этими сведениями об исполнителе не найдено."
 
 #: ../root/artist_credit/EntityList.js:34
 msgid "No release groups with this artist credit were found."
-msgstr ""
+msgstr "Групп релизов с этими сведениями об исполнителе не найдено."
 
 #: ../root/artist_credit/EntityList.js:35
 msgid "No tracks with this artist credit were found."
-msgstr ""
+msgstr "Треков с этими сведениями об исполнителе не найдено."
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
@@ -7905,6 +7909,8 @@ msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
 msgstr ""
+"К сожалению, <code>{discid}</code> не соответствует CD заглушке. Вместо "
+"этого вы можете попробовать {search_url|найти его}."
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 msgid "Invalid disc ID"
