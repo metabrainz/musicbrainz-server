@@ -1,10 +1,11 @@
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
 # DenilsonSama <denilsongomesdesouza1@gmail.com>, 2026.
+# joao_over9k <joaorspaiva@hotmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-03-10 03:11+0000\n"
-"Last-Translator: DenilsonSama <denilsongomesdesouza1@gmail.com>\n"
+"PO-Revision-Date: 2026-08-14 01:12+0000\n"
+"Last-Translator: joao_over9k <joaorspaiva@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -12,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -22,6 +23,9 @@ msgid ""
 "unaccompanied) choral works. What exactly is a motet depends quite a bit on "
 "the period."
 msgstr ""
+"\"Moteto\" é um termo que se aplica a diferentes tipos de obras corais "
+"(geralmente a capela). O que exatamente constitui um moteto depende bastante "
+"do período."
 
 #. name:Sonata
 #: DB:work_type/description:5
@@ -30,11 +34,14 @@ msgid ""
 "\"Sonata\" is a general term used to describe small scale (very often solo "
 "or solo + keyboard) instrumental works, initially in baroque music."
 msgstr ""
+"\"Sonata\" é um termo geral usado para descrever obras instrumentais de "
+"pequena escala (muitas vezes para instrumento solo ou solo acompanhado por "
+"teclado), inicialmente na música barroca."
 
 #: DB:medium_format/name:205
 msgctxt "medium_format"
 msgid "10\" Acetate"
-msgstr ""
+msgstr "10\" Acetato"
 
 #: DB:medium_format/name:54
 msgctxt "medium_format"
