@@ -2,11 +2,11 @@
 # Translators:
 # Vaclovas lntas (Vac.) <email address hidden>, 2023
 # "Vac31." <gateway_31@protonmail.com>, 2023.
-# Vaclovas Intas <gateway_31@protonmail.com>, 2024.
+# Vaclovas Intas <gateway_31@protonmail.com>, 2024, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-02 00:42+0000\n"
+"PO-Revision-Date: 2026-08-12 17:12+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/countries/lt/>\n"
@@ -15,9 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.5.4\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 "
+": n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. iso.code:AF
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:1
@@ -167,7 +167,7 @@ msgstr "Botsvana"
 #. iso.code:BV
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:29
 msgid "Bouvet Island"
-msgstr "Bovė sala"
+msgstr "Bovė Sala"
 
 #. iso.code:BR
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:30
@@ -182,7 +182,7 @@ msgstr "Indijos Vandenyno Britų Sritis"
 #. iso.code:VG
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:230
 msgid "British Virgin Islands"
-msgstr "Britų Mergelių salos"
+msgstr "Britų Mergelių Salos"
 
 #. iso.code:BN
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:32
@@ -227,7 +227,7 @@ msgstr "Žaliasis Kyšulys"
 #. iso.code:KY
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:40
 msgid "Cayman Islands"
-msgstr "Kaimanų salos"
+msgstr "Kaimanų Salos"
 
 #. iso.code:CF
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:41
@@ -252,12 +252,12 @@ msgstr "Kinija"
 #. iso.code:CX
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:45
 msgid "Christmas Island"
-msgstr "Kalėdų sala"
+msgstr "Kalėdų Sala"
 
 #. iso.code:CC
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:46
 msgid "Cocos (Keeling) Islands"
-msgstr "Kokosų (Kilingo) salos"
+msgstr "Kokosų (Kilingo) Salos"
 
 #. iso.code:CO
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:47
@@ -277,7 +277,7 @@ msgstr "Kongas"
 #. iso.code:CK
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:50
 msgid "Cook Islands"
-msgstr "Kuko salos"
+msgstr "Kuko Salos"
 
 #. iso.code:CR
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:51
@@ -397,12 +397,12 @@ msgstr "Europa"
 #. iso.code:FK
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:69
 msgid "Falkland Islands"
-msgstr "Folklando salos"
+msgstr "Folklando Salos"
 
 #. iso.code:FO
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:70
 msgid "Faroe Islands"
-msgstr "Farerų salos"
+msgstr "Farerų Salos"
 
 #. iso.code:FM
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:139
@@ -527,7 +527,7 @@ msgstr "Haitis"
 #. iso.code:HM
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:94
 msgid "Heard Island and McDonald Islands"
-msgstr "Herdo sala ir Makdonaldo salos"
+msgstr "Herdo Sala ir Makdonaldo Salos"
 
 #. iso.code:HN
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:95
@@ -722,7 +722,7 @@ msgstr "Malta"
 #. iso.code:MH
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:133
 msgid "Marshall Islands"
-msgstr "Maršalo salos"
+msgstr "Maršalo Salos"
 
 #. iso.code:MQ
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:134
@@ -847,7 +847,7 @@ msgstr "Niuė"
 #. iso.code:NF
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:158
 msgid "Norfolk Island"
-msgstr "Norfolko sala"
+msgstr "Norfolko Sala"
 
 #. iso.code:KP
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:112
@@ -862,7 +862,7 @@ msgstr "Šiaurės Makedonija"
 #. iso.code:MP
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:159
 msgid "Northern Mariana Islands"
-msgstr "Šiaurės Marianų salos"
+msgstr "Šiaurės Marianų Salos"
 
 #. iso.code:NO
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:160
@@ -1062,7 +1062,7 @@ msgstr "Slovėnija"
 #. iso.code:SB
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:191
 msgid "Solomon Islands"
-msgstr "Saliamono salos"
+msgstr "Saliamono Salos"
 
 #. iso.code:SO
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:192
@@ -1077,7 +1077,7 @@ msgstr "Pietų Afrika"
 #. iso.code:GS
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:248
 msgid "South Georgia and the South Sandwich Islands"
-msgstr "Pietų Džordžijos ir Pietų Sandvičo salos"
+msgstr "Pietų Džordžijos ir Pietų Sandvičo Salos"
 
 #. iso.code:KR
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:113
@@ -1192,7 +1192,7 @@ msgstr "Turkmėnistanas"
 #. iso.code:TC
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:216
 msgid "Turks and Caicos Islands"
-msgstr "Terkso ir Kaikoso salos"
+msgstr "Terkso ir Kaikoso Salos"
 
 #. iso.code:TV
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:217
@@ -1207,7 +1207,7 @@ msgstr "Turkija"
 #. iso.code:VI
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:231
 msgid "U.S. Virgin Islands"
-msgstr "JAV Mergelių salos"
+msgstr "JAV Mergelių Salos"
 
 #. iso.code:UG
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:218
@@ -1237,7 +1237,7 @@ msgstr "Jungtinės Valstijos"
 #. iso.code:UM
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:223
 msgid "United States Minor Outlying Islands"
-msgstr "Jungtinės Valstijos užjūrio mažosios salos"
+msgstr "Jungtinių Valstijų Mažosios Tolimosios Salos"
 
 #. iso.code:UY
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:224
@@ -1307,7 +1307,7 @@ msgstr "[Visame pasaulyje]"
 #. iso.code:AX
 #: DB:area JOIN iso_3166_1 iso ON iso.area = area.id/area.name:250
 msgid "Åland Islands"
-msgstr "Alandų salos"
+msgstr "Alandų Salos"
 
 #~ msgid "Czech Republic"
 #~ msgstr "Čekijos Respublika"
