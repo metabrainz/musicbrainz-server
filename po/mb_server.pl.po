@@ -30,13 +30,14 @@
 # Echelon <weblate@wp.pl>, 2025.
 # Echelon <echelon@users.noreply.translations.metabrainz.org>, 2025.
 # MFreedom89 <mfreedom@op.pl>, 2026.
+# Denatura <kowalskaewelina34@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2026-05-31 06:12+0000\n"
-"Last-Translator: MFreedom89 <mfreedom@op.pl>\n"
+"PO-Revision-Date: 2026-08-03 13:12+0000\n"
+"Last-Translator: Denatura <kowalskaewelina34@gmail.com>\n"
 "Language-Team: Polish <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/pl/>\n"
 "Language: pl\n"
@@ -46,7 +47,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && "
 "(n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && "
 "n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -4608,19 +4609,15 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
 msgid "Too many login attempts. Please try again in a few minutes."
-msgstr ""
+msgstr "Zbyt wiele prób logowania. Spróbuj ponownie za kilka minut."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
-#, fuzzy
-#| msgid "cancelled"
 msgid "Login cancelled."
-msgstr "anulowane"
+msgstr "Logowanie anulowane."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
-#, fuzzy
-#| msgid "Image not available, please try again later."
 msgid "Login failed. Please try again."
-msgstr "Obraz niedostępny. Spróbuj ponownie później."
+msgstr "Logowanie nie powiodło się. Spróbuj ponownie."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4709,6 +4706,8 @@ msgid ""
 "Sorry, we could not verify your login credentials right now. Please try "
 "logging in again."
 msgstr ""
+"Przepraszamy, nie udało nam się w tej chwili zweryfikować Twoich danych "
+"logowania. Spróbuj zalogować się ponownie."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
@@ -15261,12 +15260,12 @@ msgstr ""
 "zabezpieczony. Uważaj!"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:218
-#, fuzzy
-#| msgid "If you change your email address, you will be required to verify it."
 msgid ""
 "Your email address can be changed from your {profile|MetaBrainz profile}. If "
 "you change your email address, you will be required to verify it."
-msgstr "Jeśli zmienisz adres e-mail, będziesz musiał go zweryfikować."
+msgstr ""
+"Adres e-mail można zmienić w {profile|MetaBrainz profile}. Jeśli zmienisz "
+"adres e-mail, będziesz musiał go zweryfikować."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
@@ -15913,10 +15912,12 @@ msgid ""
 "We’re currently unable to process your submission because your login session "
 "has expired."
 msgstr ""
+"W tej chwili nie możemy przetworzyć Twojego zgłoszenia, ponieważ Twoja sesja "
+"logowania wygasła."
 
 #: ../root/static/scripts/common/components/LoginMessage.js:50
 msgid "Click here to log in."
-msgstr ""
+msgstr "Kliknij tutaj, by się zalogować."
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 #, fuzzy
@@ -18171,7 +18172,7 @@ msgstr ""
 
 #: ../root/user/LoginDialogSuccess.js:38
 msgid "Login successful. You may close this dialog."
-msgstr ""
+msgstr "Logowanie zakończyło się powodzeniem. Możesz zamknąć to okno dialogowe."
 
 #: ../root/user/PrivilegedUsers.js:28
 #, fuzzy
