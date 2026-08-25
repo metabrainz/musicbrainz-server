@@ -32,7 +32,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "PO-Revision-Date: 2026-08-02 15:12+0000\n"
-"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -53,7 +54,8 @@ msgid ""
 "the period."
 msgstr ""
 "«Мотет» – термин, относящийся к разным типам хоровых произведений (обычно "
-"без аккомпанемента). Понятие мотета изменяется в разные времена."
+"без аккомпанемента). Конкретное понятие мотета меняется в зависимости от "
+"временного периода."
 
 #. name:Sonata
 #: DB:work_type/description:5
@@ -4951,13 +4953,15 @@ msgstr "ID правозащитного общества Вьетнама VCPMC"
 msgctxt "work_attribute_type"
 msgid ""
 "ID for the international (but primarily Italian) rights society Soundreef"
-msgstr "ID всемирного (ранее итальянского) правозащитного общества Soundreef"
+msgstr ""
+"ID международного (но в основном итальянского) правозащитного общества "
+"Soundreef"
 
 #. name:AMRA ID
 #: DB:work_attribute_type/description:38
 msgctxt "work_attribute_type"
 msgid "ID for the international (formerly US) rights society AMRA"
-msgstr "ID всемирного (ранее США) правозащитного общества AMRA"
+msgstr "ID международного (ранее американского) правозащитного общества AMRA"
 
 #. name:LatinNet ID
 #: DB:work_attribute_type/description:55
@@ -5157,8 +5161,8 @@ msgid ""
 "Japanese case that holds an 8cm CD. It is rectangular but can be snapped to "
 "make it more compact (hence the name)."
 msgstr ""
-"Японская коробка для 8 см. CD. Квадратная, либо другой формы для "
-"компактности (отсюда имя)."
+"Японская упаковка для CD диаметром 8 см. Квадратная, но можно сложить для "
+"компактности."
 
 #: DB:work_attribute_type_allowed_value/value:929
 msgctxt "work_attribute_type_allowed_value"
@@ -6856,8 +6860,8 @@ msgid ""
 "originally developed in Japan and now mostly found as a Record Store Day "
 "curiosity."
 msgstr ""
-"Односторонний трёхдюймовый винил для специальных плееров из Японии, ныне "
-"курьёз коллекционеров."
+"Односторонний трёхдюймовый винил для специальных плееров; изначально "
+"разработан в Японии, но сейчас в основном доступен во время распродаж."
 
 #: DB:work_type/name:10
 msgctxt "work_type"

@@ -50,7 +50,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
 "PO-Revision-Date: 2026-08-02 15:12+0000\n"
-"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -585,7 +586,7 @@ msgid ""
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
 msgstr ""
-"Ниже приводится информация об ошибке. Если вы хотите отправить отчет об "
+"Ниже приведена информация об ошибке. Если вы хотите отправить отчет об "
 "ошибке, вы можете сделать это на странице {bugs|нашего баг-трекера}. "
 "Информация, представленная ниже, поможет, поэтому обязательно укажите ее!"
 
@@ -4500,16 +4501,16 @@ msgstr "Нельзя объединять лейблы с удаленными."
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
 msgid "Too many login attempts. Please try again in a few minutes."
 msgstr ""
+"Слишком много попыток входа. Пожалуйста, попробуйте ещё раз через несколько "
+"минут."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
 msgid "Login cancelled."
 msgstr "Вход отменен."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
-#, fuzzy
-#| msgid "Image not available, please try again later."
 msgid "Login failed. Please try again."
-msgstr "Изображение недоступно, пожалуйста, попробуйте еще раз позднее."
+msgstr "Не удалось войти. Пожалуйста, попробуйте ещё раз."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4594,16 +4595,12 @@ msgstr ""
 "улучшить его}!"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:311
-#, fuzzy
-#| msgid ""
-#| "We were not able to check your donation status right now. Please try "
-#| "again later."
 msgid ""
 "Sorry, we could not verify your login credentials right now. Please try "
 "logging in again."
 msgstr ""
-"Мы не смогли проверить статус вашего пожертвования. Пожалуйста, попробуйте "
-"еще раз позднее."
+"Мы не смогли проверить статус вашего входа. Пожалуйста, попробуйте еще раз "
+"позднее."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
@@ -4702,6 +4699,9 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
+"Обложку нельзя загрузить к этому релизу, поскольку у нас нет прав на "
+"связанный объект в Internet Archive. Свяжитесь с нами по адресу "
+"{contact_url} для решения этой проблемы."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:358
 #, perl-brace-format
@@ -11338,7 +11338,7 @@ msgstr "Облако тегов"
 #: ../root/layout/components/sidebar/EditLinks.js:25
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
 msgid "Editing"
-msgstr "Править"
+msgstr "Правки"
 
 #: ../root/layout/components/BottomMenu.js:246
 msgctxt "interactive"
@@ -12775,12 +12775,12 @@ msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
-"К этому релизу не прикреплены идентификаторы дисков. Подробнее о том, как их "
-"добавить, см. в разделе {doc|Как добавить ID диска}."
+"К этому релизу не прикреплены ID дисков. Подробнее о том, как их добавить, "
+"см. в {doc|документации}."
 
 #: ../root/release/DiscIds.js:124
 msgid "This release has no mediums that can have disc IDs."
-msgstr "В этом выпуске нет носителей с идентификаторами дисков."
+msgstr "В этом релизе нет носителей с идентификаторами дисков."
 
 #: ../root/release/EditRelationships.js:30
 msgid "Edit Relationships: {release}"
@@ -14985,14 +14985,13 @@ msgstr ""
 "защищен. Продолжайте на свой риск!"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:218
-#, fuzzy
-#| msgid "If you change your email address, you will be required to verify it."
 msgid ""
 "Your email address can be changed from your {profile|MetaBrainz profile}. If "
 "you change your email address, you will be required to verify it."
 msgstr ""
-"Если вы смените свой адрес электронной почты, вам будет необходимо его "
-"подтвердить."
+"Вы можете изменить свой адрес электронной почты из вашего {profile|профиля "
+"MetaBrainz}. Если вы смените свой адрес электронной почты, вам будет "
+"необходимо его подтвердить."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
@@ -15646,11 +15645,11 @@ msgstr "{action_label} (в новой вкладке)"
 msgid ""
 "We’re currently unable to process your submission because your login session "
 "has expired."
-msgstr ""
+msgstr "Не удалось обработать ваш вклад, поскольку ваша сессия истекла."
 
 #: ../root/static/scripts/common/components/LoginMessage.js:50
 msgid "Click here to log in."
-msgstr ""
+msgstr "Нажмите здесь, чтобы войти."
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
@@ -17990,7 +17989,7 @@ msgstr "Это сервер разработки; все пароли сброш
 
 #: ../root/user/LoginDialogSuccess.js:38
 msgid "Login successful. You may close this dialog."
-msgstr ""
+msgstr "Вход выполнен успешно. Можете закрыть это окно."
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"
