@@ -27,11 +27,12 @@
 # 4irefall <firekonstantin@mail.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024, 2026.
 # EmO686 <eiswuste@gmail.com>, 2025.
+# AndrejsD1718 <rbox893@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-31 12:12+0000\n"
-"Last-Translator: liilliil <liilliil@liilliil.net>\n"
+"PO-Revision-Date: 2026-08-02 15:12+0000\n"
+"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/attributes/ru/>\n"
 "Language: ru\n"
@@ -519,8 +520,9 @@ msgid ""
 "A four- or five-sided box, usually made of cardboard or plastic, that "
 "surrounds a second inner package such as a jewel case."
 msgstr ""
-"Четырех- или пятисторонняя коробка, обычно из картона или пластика, которая "
-"окружает вторую внутреннюю упаковку, например, Jewel Case."
+"Коробка с четырьмя или пятью сторонами, обычно изготавливаемая из картона "
+"или пластика и охватывающая вторую внутреннюю упаковку, такую как футляр для "
+"компакт-дисков."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -543,8 +545,8 @@ msgid ""
 "or all of the members might differ in different performances or recordings)."
 msgstr ""
 "Группа из нескольких музыкантов, которые часто выступают вместе (в некоторых "
-"случаях, состав участников может отличаться в некоторых или всех "
-"выступлениях или записях)."
+"случаях состав участников может частично или полностью меняться от "
+"выступления к выступлению или от записи к записи)."
 
 #. name:Family
 #: DB:instrument_type/description:7
@@ -1383,7 +1385,7 @@ msgstr "Аксаксемай Эвфери"
 #: DB:work_attribute_type_allowed_value/value:853
 msgctxt "work_attribute_type_allowed_value"
 msgid "Alahaiyā bilāval"
-msgstr ""
+msgstr "Алахайя билавал"
 
 #: DB:release_group_primary_type/name:1
 msgctxt "release_group_primary_type"
@@ -1407,7 +1409,7 @@ msgstr "Позволяет вручную устанавливать полож�
 #: DB:work_attribute_type_allowed_value/value:854
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ambikā"
-msgstr ""
+msgstr "Амбика"
 
 #: DB:place_type/name:43
 msgctxt "place_type"
@@ -1417,17 +1419,17 @@ msgstr "Амфитеатр"
 #: DB:work_attribute_type_allowed_value/value:855
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amr̥t varṣiṇi"
-msgstr ""
+msgstr "Амрит варшини"
 
 #: DB:work_attribute_type_allowed_value/value:40
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amṛtavarṣiṇi"
-msgstr ""
+msgstr "Амритаваршини"
 
 #: DB:work_attribute_type_allowed_value/value:39
 msgctxt "work_attribute_type_allowed_value"
 msgid "Amṛtavāhiṇi"
-msgstr ""
+msgstr "Амритавахини"
 
 #. name:EP
 #: DB:release_group_primary_type/description:3
@@ -1738,7 +1740,7 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:310
 msgctxt "work_attribute_type_allowed_value"
 msgid "Anberefşan"
-msgstr ""
+msgstr "Анберефшан"
 
 #. name:Official
 #: DB:release_status/description:1
@@ -1913,17 +1915,17 @@ msgstr ""
 #: DB:work_attribute_type_allowed_value/value:696
 msgctxt "work_attribute_type_allowed_value"
 msgid "Azeri Yürüksemai"
-msgstr ""
+msgstr "Азери Йюрюксемаи"
 
 #: DB:work_attribute_type_allowed_value/value:682
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağır Aksaksemai"
-msgstr ""
+msgstr "Агир Аксаксемай"
 
 #: DB:work_attribute_type_allowed_value/value:683
 msgctxt "work_attribute_type_allowed_value"
 msgid "Ağıraksak"
-msgstr ""
+msgstr "Агираксак"
 
 #: DB:work_attribute_type_allowed_value/value:684
 msgctxt "work_attribute_type_allowed_value"
