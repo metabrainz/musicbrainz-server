@@ -11,17 +11,12 @@
       target: 'id=id-edit-event.name',
       value: 'newevent',
     },
-    // Enter an invalid setlist, and check that fixing it enables the submit
-    // button (MBS-13727).
+    // Enter an invalid setlist, and check that fixing it clears the error
+    // (MBS-13727).
     {
       command: 'type',
       target: 'id=id-edit-event.setlist',
       value: '-OOPS!',
-    },
-    {
-      command: 'assertEval',
-      target: "window.document.querySelector('form.edit-event button[type=submit]')?.disabled",
-      value: 'true',
     },
     {
       command: 'assertEval',
@@ -32,11 +27,6 @@
       command: 'type',
       target: 'id=id-edit-event.setlist',
       value: '@ WOOHOO!',
-    },
-    {
-      command: 'assertEval',
-      target: "window.document.querySelector('form.edit-event button[type=submit]')?.disabled",
-      value: 'false',
     },
     {
       command: 'assertEval',

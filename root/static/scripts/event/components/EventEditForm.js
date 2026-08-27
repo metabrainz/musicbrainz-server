@@ -39,6 +39,8 @@ import {
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
+import useFormSubmitHandler
+  from '../../edit/hooks/useFormSubmitHandler.js';
 import isValidSetlist from '../../edit/utility/isValidSetlist.js';
 import isValidTime from '../../edit/utility/isValidTime.js';
 import {
@@ -286,19 +288,7 @@ component EventEditForm(
 
   const eventEntity: EventT = getSourceEntityData($c, 'event');
 
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-    }
-  };
-
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      dispatch({type: 'show-all-pending-errors'});
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   const typeSelectRef = React.useRef<HTMLDivElement | null>(null);
 
@@ -306,7 +296,6 @@ component EventEditForm(
     <form
       className="edit-event"
       method="post"
-      onKeyDown={handleKeyDown}
       onSubmit={handleSubmit}
     >
       <p>
@@ -398,7 +387,7 @@ component EventEditForm(
         />
 
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit disabled={hasErrors} form={state.form} />
+        <EnterEdit form={state.form} />
       </div>
 
       <div className="documentation">
