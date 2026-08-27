@@ -31,6 +31,9 @@ import {
 import {
   withLoadedTypeInfoForRelationshipEditor,
 } from '../../edit/components/withLoadedTypeInfo.js';
+import useFormSubmitHandler
+  from '../../edit/hooks/useFormSubmitHandler.js';
+import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -66,7 +69,8 @@ type ActionT =
       readonly type: 'update-relationship-editor',
       readonly action: RelationshipEditorActionT,
     }
-  | {readonly type: 'update-name', readonly action: NameActionT};
+  | {readonly type: 'update-name', readonly action: NameActionT}
+  | {readonly type: 'show-all-pending-errors'};
 /* eslint-enable ft-flow/sort-keys */
 
 type StateT = {
@@ -135,6 +139,9 @@ function reducer(state: StateT, action: ActionT): StateT {
         relationshipEditorReducer(state.relationshipEditor, action),
       );
     }
+    {type: 'show-all-pending-errors'} => {
+      applyAllPendingErrors(newStateCtx.get('form'));
+    }
   }
   return newStateCtx.final();
 }
@@ -165,26 +172,14 @@ component GenreEditForm(form as initialForm: GenreFormT) {
   const hasErrors = missingRequired ||
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
 
-  // Ensure errors are shown if the user tries to submit with Enter
-  const handleKeyDown = (event: SyntheticKeyboardEvent<HTMLFormElement>) => {
-    if (event.key === 'Enter' && hasErrors) {
-      event.preventDefault();
-    }
-  };
-
   const genre: GenreT = getSourceEntityData($c, 'genre');
 
-  const handleSubmit = (event: SyntheticEvent<HTMLFormElement>) => {
-    if (hasErrors) {
-      event.preventDefault();
-    }
-  };
+  const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
   return (
     <form
       className="edit-genre"
       method="post"
-      onKeyDown={handleKeyDown}
       onSubmit={handleSubmit}
     >
       <div className="half-width">
@@ -214,7 +209,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           state={state.externalLinksEditor}
         />
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit disabled={hasErrors} form={state.form} />
+        <EnterEdit form={state.form} />
       </div>
     </form>
   );
