@@ -13,7 +13,11 @@ use MusicBrainz::Server::Entity::ArtistCreditName;
 use MusicBrainz::Server::Form::Utils qw( localize_error form_or_field_to_json );
 use MusicBrainz::Server::Translation qw( l );
 
-has_field 'names'             => ( type => 'Repeatable', num_when_empty => 1 );
+has_field 'names' => (
+    type => 'Repeatable',
+    num_when_empty => 1,
+    init_contains => { localize_meth => \&localize_error },
+);
 has_field 'names.name'        => ( type => '+MusicBrainz::Server::Form::Field::Text');
 has_field 'names.artist'      => ( type => '+MusicBrainz::Server::Form::Field::Artist' );
 has_field 'names.join_phrase' => (
@@ -29,16 +33,20 @@ around 'validate_field' => sub {
 
     $self->$orig(@_);
 
-    my $input = $self->result->input;
-
     my $artists = 0;
-    for (@{ $input->{'names'} })
-    {
-        next unless $_;
+    my $has_credit_errors = 0;
 
-        my $artist_id = Text::Trim::trim($_->{artist}{id});
-        my $artist_name = Text::Trim::trim($_->{artist}{name});
-        my $name = Text::Trim::trim($_->{name}) || $artist_name;
+    for my $credit (@{ $self->field('names')->fields })
+    {
+        my $result = $credit->result;
+        next unless $result;
+
+        my $input = $result->input;
+        next unless $input;
+
+        my $artist_id = Text::Trim::trim($input->{artist}{id});
+        my $artist_name = Text::Trim::trim($input->{artist}{name});
+        my $name = Text::Trim::trim($input->{name}) || $artist_name;
 
         if ($artist_id && $name)
         {
@@ -46,27 +54,30 @@ around 'validate_field' => sub {
         }
         elsif (! $artist_id && ! $artist_name && $name)
         {
-            $self->add_error(
+            $credit->add_error(
                 l('Please add an artist name for {credit}',
                   { credit => $name }));
+            $has_credit_errors = 1;
         }
         elsif (! $artist_id && $name )
         {
             # FIXME: better error message.
-            $self->add_error(
+            $credit->add_error(
                 l('Artist "{artist}" is unlinked, please select an existing artist. ' .
                   'You may need to add a new artist to MusicBrainz first.',
                   { artist => $name }));
+            $has_credit_errors = 1;
         }
         elsif (!$artist_id)
         {
-            $self->add_error(l('Please add an artist name for each credit.'));
+            $credit->add_error(l('Please add an artist name for each credit.'));
+            $has_credit_errors = 1;
         }
     }
 
     # Do not nag about the field being required if there are other
     # errors which already invalidate the field.
-    return 0 if $self->has_errors;
+    return 0 if $has_credit_errors || $self->has_errors;
 
     # If the form is editing an existing entity and the AC field is entirely
     # missing (as opposed to existing but being empty, which is handled above),
