@@ -30,15 +30,17 @@ component _ArtistCreditNameEditor(
   name as artistCreditName: ArtistCreditNameStateT,
   showMoveButtons: boolean,
 ) {
+  const key = artistCreditName.key;
+
   const artistDispatch = React.useCallback((
     action: AutocompleteActionT<ArtistT>,
   ) => {
     dispatch({
       action,
-      index,
+      key,
       type: 'edit-artist',
     });
-  }, [dispatch, index]);
+  }, [dispatch, key]);
 
   function handleNameBlur(
     event: SyntheticEvent<HTMLInputElement>,
@@ -51,8 +53,8 @@ component _ArtistCreditNameEditor(
     }
 
     dispatch({
-      index,
       name: newName,
+      key,
       type: 'edit-name',
     });
   }
@@ -61,8 +63,8 @@ component _ArtistCreditNameEditor(
     event: SyntheticInputEvent<HTMLInputElement>,
   ): void {
     dispatch({
-      index,
       name: event.currentTarget.value,
+      key,
       type: 'edit-name',
     });
   }
@@ -98,8 +100,8 @@ component _ArtistCreditNameEditor(
 
     if (joinPhrase !== currentJoinPhrase) {
       dispatch({
-        index,
         joinPhrase,
+        key,
         type: 'edit-name',
       });
     }
@@ -111,22 +113,22 @@ component _ArtistCreditNameEditor(
     // The join phrase has been changed, it should no longer be automatic.
     dispatch({
       automaticJoinPhrase: false,
-      index,
       joinPhrase: event.currentTarget.value,
+      key,
       type: 'edit-name',
     });
   }
 
   function handleMoveDown() {
     dispatch({
-      index,
+      key,
       type: 'move-name-down',
     });
   }
 
   function handleMoveUp() {
     dispatch({
-      index,
+      key,
       type: 'move-name-up',
     });
   }
@@ -134,7 +136,7 @@ component _ArtistCreditNameEditor(
   function handleRemove() {
     if (!artistCreditName.removed) {
       dispatch({
-        index,
+        key,
         type: 'remove-name',
       });
     }
@@ -143,7 +145,7 @@ component _ArtistCreditNameEditor(
   function handleUndo() {
     if (artistCreditName.removed) {
       dispatch({
-        index,
+        key,
         type: 'undo-remove-name',
       });
     }
