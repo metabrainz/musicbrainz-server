@@ -27,7 +27,10 @@ test('MBS-13538: Removing all rows in the AC editor makes it disappear', functio
   t.equals(state.names.length, 1, 'artist credit has 1 row');
   t.doesNotThrow(() => {
     reducer(
-      reducer(state, {index: 0, type: 'remove-name'}),
+      reducer(state, {
+        key: state.names[0].key,
+        type: 'remove-name',
+      }),
       {type: 'close-dialog'},
     );
   }, undefined, 'remove-name on only row does not throw an exception');

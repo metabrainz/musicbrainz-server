@@ -177,6 +177,15 @@ export function reducer(
   const stateCtx = mutate(state);
   const names = state.names;
 
+  // If this action is updating a specific AC name, retrieve its index.
+  let nameIndex = -1;
+  if (action.key != null) {
+    nameIndex = names.findIndex(name => name.key === action.key);
+    if (nameIndex < 0) {
+      return state;
+    }
+  }
+
   match (action) {
     {type: 'copy'} => {
       const artistCredit = incompleteArtistCreditFromState(names);
@@ -202,10 +211,10 @@ export function reducer(
         action,
       ));
     }
-    {type: 'edit-artist', const action, const index} => {
+    {type: 'edit-artist', const action, ...} => {
       const origAction = action;
 
-      stateCtx.update('names', index, (nameCtx) => {
+      stateCtx.update('names', nameIndex, (nameCtx) => {
         const name = nameCtx.read();
         const prevInputValue = name.artist.inputValue;
         const artistAutocomplete = autocompleteReducer<ArtistT>(
@@ -223,9 +232,9 @@ export function reducer(
     }
     {type: 'edit-name', ...} as action => {
       // eslint-disable-next-line no-unused-vars
-      const {index, type, ...editData} = action;
+      const {key, type, ...editData} = action;
 
-      stateCtx.update('names', index, (nameCtx) => {
+      stateCtx.update('names', nameIndex, (nameCtx) => {
         if (editData.automaticJoinPhrase != null) {
           nameCtx.set('automaticJoinPhrase', editData.automaticJoinPhrase);
         }
@@ -247,29 +256,29 @@ export function reducer(
         }
       });
     }
-    {type: 'move-name-down', const index} => {
-      if (index < names.length - 1) {
-        swapCredits(stateCtx, index, index + 1);
+    {type: 'move-name-down', ...} => {
+      if (nameIndex < names.length - 1) {
+        swapCredits(stateCtx, nameIndex, nameIndex + 1);
       }
     }
-    {type: 'move-name-up', const index} => {
-      if (index > 0) {
-        swapCredits(stateCtx, index, index - 1);
+    {type: 'move-name-up', ...} => {
+      if (nameIndex > 0) {
+        swapCredits(stateCtx, nameIndex, nameIndex - 1);
       }
     }
-    {type: 'remove-name', const index} => {
+    {type: 'remove-name', ...} => {
       const nonRemovedCount = state.names.reduce((accum, name) => {
         return accum + (name.removed ? 0 : 1);
       }, 0);
       const namesCtx = stateCtx.get('names');
       if (nonRemovedCount > 1) {
-        namesCtx.set(index, 'removed', true);
+        namesCtx.set(nameIndex, 'removed', true);
         setAutoJoinPhrases(namesCtx);
       }
     }
-    {type: 'undo-remove-name', const index} => {
+    {type: 'undo-remove-name', ...} => {
       const namesCtx = stateCtx.get('names');
-      namesCtx.set(index, 'removed', false);
+      namesCtx.set(nameIndex, 'removed', false);
       setAutoJoinPhrases(namesCtx);
     }
     {type: 'paste'} => {

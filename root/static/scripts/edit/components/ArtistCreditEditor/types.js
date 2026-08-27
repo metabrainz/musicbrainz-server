@@ -49,13 +49,13 @@ export type StateT = {
 /* eslint-disable ft-flow/sort-keys */
 export type EditArtistActionT = {
   readonly type: 'edit-artist',
-  readonly index: number,
+  readonly key: number,
   readonly action: AutocompleteActionT<ArtistT>,
 };
 
 export type EditNameActionT = {
   readonly type: 'edit-name',
-  readonly index: number,
+  readonly key: number,
   readonly joinPhrase?: string,
   readonly name?: string,
   readonly automaticJoinPhrase?: boolean,
@@ -68,10 +68,10 @@ export type ActionT =
     }
   | {readonly type: 'close-dialog'}
   | {readonly type: 'add-name'}
-  | {readonly type: 'move-name-down', readonly index: number}
-  | {readonly type: 'move-name-up', readonly index: number}
-  | {readonly type: 'remove-name', readonly index: number}
-  | {readonly type: 'undo-remove-name', readonly index: number}
+  | {readonly type: 'move-name-down', readonly key: number}
+  | {readonly type: 'move-name-up', readonly key: number}
+  | {readonly type: 'remove-name', readonly key: number}
+  | {readonly type: 'undo-remove-name', readonly key: number}
   | {
       readonly type: 'update-single-artist-autocomplete',
       readonly action: AutocompleteActionT<ArtistT>,
