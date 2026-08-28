@@ -45,7 +45,7 @@ test 'form_or_field_to_json on a test form' => sub {
                             has_errors => \0,
                             html_name => 'test-form.names.0',
                             id => 2,
-                            type => 'field',
+                            type => 'compound_field',
                         },
                     ],
                     has_errors => \0,
