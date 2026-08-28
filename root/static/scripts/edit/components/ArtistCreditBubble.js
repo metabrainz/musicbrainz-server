@@ -24,6 +24,7 @@ import type {
 } from './ArtistCreditEditor/types.js';
 import {
   artistCreditFromState,
+  isNameNotRemoved,
 } from './ArtistCreditEditor/utilities.js';
 import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
@@ -264,7 +265,7 @@ component _ArtistCreditBubble(
   }, [names, initialBubbleFocus, initialFocusRef]);
 
   const allowNameMoveOrRemoval = React.useMemo(
-    () => state.names.filter((n) => !n.removed).length > 1,
+    () => state.names.filter(isNameNotRemoved).length > 1,
     [state.names],
   );
 
