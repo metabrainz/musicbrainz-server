@@ -40,16 +40,10 @@ import {
   artistCreditStateToString,
   incompleteArtistCreditFromState,
   isArtistCreditStateComplete,
+  isNameNotRemoved,
+  isNameRemoved,
 } from './ArtistCreditEditor/utilities.js';
 import ArtistCreditBubble from './ArtistCreditBubble.js';
-
-function isNameRemoved(name: ArtistCreditNameStateT): boolean {
-  return name.removed;
-}
-
-function isNameNotRemoved(name: ArtistCreditNameStateT): boolean {
-  return !name.removed;
-}
 
 function setAutoJoinPhrases(
   namesCtx: CowContext<ReadonlyArray<ArtistCreditNameStateT>>,
