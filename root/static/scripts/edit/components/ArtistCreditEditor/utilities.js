@@ -26,6 +26,14 @@ function getCreditedName(
   return name.name || (artist?.name ?? '');
 }
 
+export function isNameRemoved(name: ArtistCreditNameStateT): boolean {
+  return name.removed;
+}
+
+export function isNameNotRemoved(name: ArtistCreditNameStateT): boolean {
+  return !name.removed;
+}
+
 function incompleteArtistCreditNamesFromState(
   names: ReadonlyArray<ArtistCreditNameStateT>,
 ): ReadonlyArray<IncompleteArtistCreditNameT> {
