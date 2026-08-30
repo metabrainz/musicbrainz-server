@@ -169,6 +169,7 @@ sub _insert_hash {
     for my $track (@$tracklist) {
         $track->{recording_id} ||= $self->c->model('Recording')->insert({
             %$track,
+            video => $track->{video} || 0,
             artist_credit => $self->c->model('ArtistCredit')->find_or_insert($track->{artist_credit}),
         })->{id};
         delete $track->{medium_id};
