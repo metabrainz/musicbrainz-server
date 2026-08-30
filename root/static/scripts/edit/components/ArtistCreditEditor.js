@@ -186,12 +186,12 @@ export function reducer(
       localStorage('copiedArtistCredit', JSON.stringify(artistCredit));
     }
     {type: 'open-dialog', ...} as action => {
-      stateCtx
-        .set('isOpen', true)
-        .set('changeMatchingTrackArtists', false)
-        .set('initialArtistCreditString',
-             artistCreditStateToString(names))
-        .set('initialBubbleFocus', action.initialFocus);
+      stateCtx.merge({
+        changeMatchingTrackArtists: false,
+        initialArtistCreditString: artistCreditStateToString(names),
+        initialBubbleFocus: action.initialFocus,
+        isOpen: true,
+      });
     }
     {type: 'close-dialog'} => {
       closeDialog(stateCtx);
@@ -331,28 +331,33 @@ export function reducer(
   ) {
     stateCtx.update('names', 0, (nameCtx) => {
       const artistName = newSingleArtistAutocomplete.inputValue;
-      nameCtx
-        .set('name', artistName)
-        .set('joinPhrase', '')
-        .get('artist')
-        .set('selectedItem', newSingleArtistAutocomplete.selectedItem)
-        .set('inputValue', artistName);
+      nameCtx.merge({
+        artist: {
+          inputValue: artistName,
+          selectedItem: newSingleArtistAutocomplete.selectedItem,
+        },
+        joinPhrase: '',
+        name: artistName,
+      });
     });
   } else if (names !== newNames) {
     if (isSingleArtistEditableInState(newNames)) {
       const firstNameAutocomplete = newNames[0].artist;
       stateCtx.get('singleArtistAutocomplete')
-        .set('disabled', false)
-        .set('selectedItem', firstNameAutocomplete.selectedItem)
-        .set('inputValue', firstNameAutocomplete.inputValue)
+        .merge({
+          disabled: false,
+          inputValue: firstNameAutocomplete.inputValue,
+          selectedItem: firstNameAutocomplete.selectedItem,
+        })
         .update((ctx) => {
           ctx.set('items', generateAutocompleteItems(ctx.read()));
         });
     } else {
-      stateCtx.get('singleArtistAutocomplete')
-        .set('disabled', true)
-        .set('selectedItem', null)
-        .set('inputValue', artistCreditStateToString(newNames));
+      stateCtx.get('singleArtistAutocomplete').merge({
+        disabled: true,
+        inputValue: artistCreditStateToString(newNames),
+        selectedItem: null,
+      });
     }
   }
 
