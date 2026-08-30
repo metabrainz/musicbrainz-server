@@ -20,6 +20,7 @@ import type {
   ActionT,
   ArtistCreditableT,
   ArtistCreditNameStateT,
+  InitialBubbleFocusT,
   StateT as ArtistCreditStateT,
 } from './ArtistCreditEditor/types.js';
 import {
@@ -30,7 +31,7 @@ import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
 type ButtonsPropsT = {
   readonly dispatch: (ActionT) => void,
-  readonly initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
+  readonly initialBubbleFocus: InitialBubbleFocusT | void,
   readonly initialFocusRef: {writeonly current: HTMLElement | null},
   readonly isTrack: boolean,
 };
