@@ -186,12 +186,12 @@ export function reducer(
       localStorage('copiedArtistCredit', JSON.stringify(artistCredit));
     }
     {type: 'open-dialog', ...} as action => {
-      stateCtx
-        .set('isOpen', true)
-        .set('changeMatchingTrackArtists', false)
-        .set('initialArtistCreditString',
-             artistCreditStateToString(names))
-        .set('initialBubbleFocus', action.initialFocus);
+      stateCtx.merge({
+        changeMatchingTrackArtists: false,
+        initialArtistCreditString: artistCreditStateToString(names),
+        initialBubbleFocus: action.initialFocus,
+        isOpen: true,
+      });
     }
     {type: 'close-dialog'} => {
       closeDialog(stateCtx);
@@ -349,10 +349,11 @@ export function reducer(
           ctx.set('items', generateAutocompleteItems(ctx.read()));
         });
     } else {
-      stateCtx.get('singleArtistAutocomplete')
-        .set('disabled', true)
-        .set('selectedItem', null)
-        .set('inputValue', artistCreditStateToString(newNames));
+      stateCtx.get('singleArtistAutocomplete').merge({
+        disabled: true,
+        inputValue: artistCreditStateToString(newNames),
+        selectedItem: null,
+      });
     }
   }
 
