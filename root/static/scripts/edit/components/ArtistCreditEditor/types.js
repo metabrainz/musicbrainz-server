@@ -28,6 +28,11 @@ export type ArtistCreditNameStateT = {
   readonly removed: boolean,
 };
 
+export type InitialBubbleFocusT =
+  | 'default'
+  | 'next-track'
+  | 'prev-track';
+
 export type StateT = {
   readonly artistCreditString: string,
   readonly changeMatchingTrackArtists?: boolean,
@@ -36,11 +41,7 @@ export type StateT = {
   readonly formName?: string,
   readonly id: string,
   readonly initialArtistCreditString: string,
-  readonly initialBubbleFocus?:
-    | 'default'
-    | 'next-track'
-    | 'prev-track'
-    | void,
+  readonly initialBubbleFocus?: InitialBubbleFocusT | void,
   readonly isOpen: boolean,
   readonly names: ReadonlyArray<ArtistCreditNameStateT>,
   readonly singleArtistAutocomplete: AutocompleteStateT<ArtistT>,
@@ -64,7 +65,7 @@ export type EditNameActionT = {
 export type ActionT =
   | {
       readonly type: 'open-dialog',
-      readonly initialFocus?: StateT['initialBubbleFocus'],
+      readonly initialFocus?: InitialBubbleFocusT,
     }
   | {readonly type: 'close-dialog'}
   | {readonly type: 'add-name'}
@@ -82,7 +83,7 @@ export type ActionT =
   | {readonly type: 'paste'}
   | {
       readonly type: 'next-track',
-      readonly initialFocus?: StateT['initialBubbleFocus'],
+      readonly initialFocus?: InitialBubbleFocusT,
     }
   | {readonly type: 'previous-track'}
   | {readonly type: 'set-change-matching-artists', readonly checked: boolean}
