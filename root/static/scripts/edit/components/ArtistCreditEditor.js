@@ -91,13 +91,13 @@ function setAutoJoinPhrases(
 }
 
 function removeRemovedCredits(stateCtx: CowContext<StateT>): void {
-  const {id, names} = stateCtx.read();
+  const {htmlId, names} = stateCtx.read();
   if (names.some(isNameRemoved)) {
     const namesCtx = stateCtx.get('names');
     namesCtx.set(names.filter(isNameNotRemoved));
     const totalNames = stateCtx.read().names.length;
     for (let i = 0; i < totalNames; i++) {
-      namesCtx.set(i, 'artist', 'id', getArtistCreditNameInputId(id, i));
+      namesCtx.set(i, 'artist', 'id', getArtistCreditNameInputId(htmlId, i));
     }
     if (!names.length) {
       addEmptyCredit(stateCtx);
@@ -106,21 +106,21 @@ function removeRemovedCredits(stateCtx: CowContext<StateT>): void {
 }
 
 function getArtistCreditNameInputId(
-  artistCreditEditorId: string,
+  htmlId: string,
   index: number,
 ): string {
-  return 'ac-' + artistCreditEditorId + '-artist-' + String(index);
+  return 'ac-' + htmlId + '-artist-' + String(index);
 }
 
 function getEmptyArtistCreditNameState(
-  artistCreditEditorId: string,
+  htmlId: string,
   index: number,
 ): ArtistCreditNameStateT {
   const key = uniqueId();
   return {
     artist: createInitialAutocompleteState<ArtistT>({
       entityType: 'artist',
-      id: getArtistCreditNameInputId(artistCreditEditorId, index),
+      id: getArtistCreditNameInputId(htmlId, index),
     }),
     automaticJoinPhrase: true,
     joinPhrase: '',
@@ -133,7 +133,7 @@ function getEmptyArtistCreditNameState(
 function addEmptyCredit(stateCtx: CowContext<StateT>) {
   const namesCtx = stateCtx.get('names');
   namesCtx.write().push(getEmptyArtistCreditNameState(
-    stateCtx.read().id,
+    stateCtx.read().htmlId,
     namesCtx.read().length,
   ));
   setAutoJoinPhrases(namesCtx);
@@ -284,7 +284,7 @@ export function reducer(
             'names',
             createInitialNamesState(
               artistCredit,
-              state.id,
+              state.htmlId,
               /* automaticJoinPhrase = */ false,
             ),
           );
@@ -309,8 +309,10 @@ export function reducer(
       }
       // $FlowFixMe[incompatible-type] - null artists were filled in
       writableArtistCredit = artistCreditCtx.final() as ArtistCreditT;
-      stateCtx.set('names',
-                   createInitialNamesState(writableArtistCredit, state.id));
+      stateCtx.set(
+        'names',
+        createInitialNamesState(writableArtistCredit, state.htmlId),
+      );
     }
     {
       type: 'next-track' | 'previous-track' | 'set-change-matching-artists',
@@ -382,13 +384,13 @@ function isSingleArtistEditableInState(
 
 function createInitialNamesState(
   artistCredit: IncompleteArtistCreditT,
-  artistCreditEditorId: string,
+  htmlId: string,
   automaticJoinPhrase?: boolean = true,
 ): ReadonlyArray<ArtistCreditNameStateT> {
   const names = artistCredit.names;
 
   if (!names.length) {
-    return [getEmptyArtistCreditNameState(artistCreditEditorId, 0)];
+    return [getEmptyArtistCreditNameState(htmlId, 0)];
   }
 
   return names.map((name, index) => {
@@ -411,7 +413,7 @@ function createInitialNamesState(
       artist: createInitialAutocompleteState<ArtistT>({
         containerClass: 'artist-credit-editor',
         entityType: 'artist',
-        id: getArtistCreditNameInputId(artistCreditEditorId, index),
+        id: getArtistCreditNameInputId(htmlId, index),
         inputValue: artistName,
         selectedItem,
       }),
@@ -430,18 +432,18 @@ export function createInitialState(
     readonly entity?: ArtistCreditableT,
     readonly formName?: string,
     /*
-     * `id` should uniquely identify the artist credit editor instance
+     * `htmlId` should uniquely identify the artist credit editor instance
      * on the page. (Note: Using the entity ID may not suffice, as some
      * releases will repeat the same recording!)
      */
-    readonly id: string,
+    readonly htmlId: string,
     readonly isOpen?: boolean,
   },
 ): StateT {
   const {
     artistCredit: passedArtistCredit,
     entity,
-    id,
+    htmlId,
     isOpen = false,
     ...otherState
   } = initialState;
@@ -451,14 +453,14 @@ export function createInitialState(
 
   invariant(artistCredit);
 
-  const names = createInitialNamesState(artistCredit, id);
+  const names = createInitialNamesState(artistCredit, htmlId);
   const isSingleArtistEditable = isSingleArtistEditableInState(names);
 
   return {
     artistCreditString: '',
     changeMatchingTrackArtists: false,
     entity,
-    id,
+    htmlId,
     initialArtistCreditString: '',
     isOpen,
     names,
@@ -466,7 +468,7 @@ export function createInitialState(
       containerClass: 'artist-credit-editor',
       disabled: isOpen || !isSingleArtistEditable,
       entityType: 'artist',
-      id: 'ac-' + id + '-single-artist',
+      id: 'ac-' + htmlId + '-single-artist',
       inputValue: reduceArtistCreditNames(artistCredit.names),
       isLookupPerformed: isArtistCreditStateComplete(names),
       selectedItem: (
@@ -527,8 +529,8 @@ component _ArtistCreditEditor(
 
   const buttonProps = React.useMemo(() => ({
     className: 'open-ac',
-    id: 'open-ac-' + state.id,
-  }), [state.id]);
+    id: 'open-ac-' + state.htmlId,
+  }), [state.htmlId]);
 
   return (
     <>

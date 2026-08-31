@@ -106,7 +106,7 @@ ko.bindingHandlers.artistCreditEditor = {
     const initialState = createArtistCreditEditorState({
       artistCredit,
       entity,
-      id: entity.uniqueID,
+      htmlId: entity.uniqueID,
     });
 
     const root = createRoot(element);
