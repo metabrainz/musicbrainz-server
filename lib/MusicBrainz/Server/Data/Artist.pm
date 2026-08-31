@@ -47,7 +47,8 @@ with 'MusicBrainz::Server::Data::Role::Relatable',
         deleted_class => 'MusicBrainz::Server::Entity::Subscription::DeletedArtist',
      },
      'MusicBrainz::Server::Data::Role::LinksToEdit' => { table => 'artist' },
-     'MusicBrainz::Server::Data::Role::Collection';
+     'MusicBrainz::Server::Data::Role::Collection',
+     'MusicBrainz::Server::Data::Role::NoIndex';
 
 sub _type { 'artist' }
 

@@ -121,7 +121,7 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq ru en ) }
 
-sub ACTIVE_SCHEMA_SEQUENCE { 31 }
+sub ACTIVE_SCHEMA_SEQUENCE { 32 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;

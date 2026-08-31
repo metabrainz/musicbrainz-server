@@ -72,6 +72,7 @@ declare type CatalystStashT = {
   readonly more_tags?: boolean,
   readonly new_edit_notes?: boolean,
   readonly new_edit_notes_mtime?: number | null,
+  readonly noindex?: boolean,
   readonly number_of_collections?: number,
   readonly number_of_revisions?: number,
   readonly overlong_string?: boolean,

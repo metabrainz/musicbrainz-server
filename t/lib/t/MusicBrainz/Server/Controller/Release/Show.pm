@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Release::Show;
 use strict;
 use warnings;
 
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -213,6 +214,23 @@ page_test_jsonld $mech => {
     'duration' => 'PT1H20M05S',
 };
 
+};
+
+test 'Robots meta tag is outputted for a release linked to a noindexed artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80');
+    $mech->content_lacks('<meta content="noindex" name="robots"');
+
+    note('We set noindex on Kate Bush');
+    $c->sql->do('INSERT INTO artist_noindex (artist) VALUES (7)');
+
+    $mech->get_ok('/release/f205627f-b70a-409d-adbe-66289b614e80');
+    $mech->content_contains('<meta content="noindex" name="robots"');
 };
 
 1;

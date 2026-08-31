@@ -2,6 +2,7 @@ package t::MusicBrainz::Server::Controller::Recording::Show;
 use strict;
 use warnings;
 
+use Test::More;
 use Test::Routine;
 use MusicBrainz::Server::Test qw( html_ok page_test_jsonld );
 
@@ -237,6 +238,23 @@ test 'Embedded JSON-LD' => sub {
             'name' => q(The World's Greatest),
         },
     };
+};
+
+test 'Robots meta tag is outputted for a recording linked to a noindexed artist' => sub {
+    my $test = shift;
+    my $mech = $test->mech;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c);
+
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+    $mech->content_lacks('<meta content="noindex" name="robots"');
+
+    note('We set noindex on Kate Bush');
+    $c->sql->do('INSERT INTO artist_noindex (artist) VALUES (7)');
+
+    $mech->get_ok('/recording/54b9d183-7dab-42ba-94a3-7388a66604b8');
+    $mech->content_contains('<meta content="noindex" name="robots"');
 };
 
 1;

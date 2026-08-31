@@ -294,6 +294,12 @@ ALTER TABLE artist_meta
    REFERENCES artist(id)
    ON DELETE CASCADE;
 
+ALTER TABLE artist_noindex
+   ADD CONSTRAINT artist_noindex_fk_artist
+   FOREIGN KEY (artist)
+   REFERENCES artist(id)
+   ON DELETE CASCADE;
+
 ALTER TABLE artist_rating_raw
    ADD CONSTRAINT artist_rating_raw_fk_artist
    FOREIGN KEY (artist)

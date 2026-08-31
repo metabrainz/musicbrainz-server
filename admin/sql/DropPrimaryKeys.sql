@@ -34,6 +34,7 @@ ALTER TABLE artist_gid_redirect DROP CONSTRAINT IF EXISTS artist_gid_redirect_pk
 ALTER TABLE artist_ipi DROP CONSTRAINT IF EXISTS artist_ipi_pkey;
 ALTER TABLE artist_isni DROP CONSTRAINT IF EXISTS artist_isni_pkey;
 ALTER TABLE artist_meta DROP CONSTRAINT IF EXISTS artist_meta_pkey;
+ALTER TABLE artist_noindex DROP CONSTRAINT IF EXISTS artist_noindex_pkey;
 ALTER TABLE artist_rating_raw DROP CONSTRAINT IF EXISTS artist_rating_raw_pkey;
 ALTER TABLE artist_tag DROP CONSTRAINT IF EXISTS artist_tag_pkey;
 ALTER TABLE artist_tag_raw DROP CONSTRAINT IF EXISTS artist_tag_raw_pkey;
