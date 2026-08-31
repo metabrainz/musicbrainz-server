@@ -288,7 +288,7 @@ component _ArtistCreditBubble(
               allowMoveDown={index < names.length - 1}
               allowMoveUp={index > 0}
               allowRemoval={allowNameMoveOrRemoval}
-              artistCreditEditorId={state.id}
+              artistCreditEditorHtmlId={state.htmlId}
               dispatch={dispatch}
               index={index}
               key={name.key}

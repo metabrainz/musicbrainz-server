@@ -24,7 +24,7 @@ component _ArtistCreditNameEditor(
   allowMoveDown: boolean,
   allowMoveUp: boolean,
   allowRemoval: boolean,
-  artistCreditEditorId: string,
+  artistCreditEditorHtmlId: string,
   dispatch: (ActionT) => void,
   index: number,
   name as artistCreditName: ArtistCreditNameStateT,
@@ -167,7 +167,7 @@ component _ArtistCreditNameEditor(
           </td>
           <td>
             <input
-              id={'ac-' + artistCreditEditorId + '-credited-as-' +
+              id={'ac-' + artistCreditEditorHtmlId + '-credited-as-' +
                   String(index)}
               onBlur={handleNameBlur}
               onChange={handleNameChange}
@@ -177,7 +177,7 @@ component _ArtistCreditNameEditor(
           </td>
           <td>
             <input
-              id={'ac-' + artistCreditEditorId + '-join-phrase-' +
+              id={'ac-' + artistCreditEditorHtmlId + '-join-phrase-' +
                   String(index)}
               onBlur={handleJoinPhraseBlur}
               onChange={handleJoinPhraseChange}
