@@ -17,7 +17,7 @@
     },
     {
       command: 'click',
-      target: 'css=#artist-credit-editor button.open-ac',
+      target: 'css=.artist-credit-editor button.open-ac',
       value: '',
     },
     // Wait for the recent entities list to load and appear.

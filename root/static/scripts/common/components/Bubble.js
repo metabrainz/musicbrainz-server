@@ -52,7 +52,7 @@ component Bubble(
     },
   });
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     refs.setReference(controlRef.current);
   }, [controlRef, refs]);
 
