@@ -234,7 +234,7 @@ function createInitialState({
       artistCredit: $c.stash.artist_credit,
       entity: recording,
       formName: form.name,
-      id: 'source',
+      htmlId: 'source',
     }),
     externalLinksEditor: createExternalLinksEditorState($c),
     form: formCtx.final(),

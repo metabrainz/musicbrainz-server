@@ -39,7 +39,7 @@ export type StateT = {
   readonly editsPending?: boolean,
   readonly entity?: ArtistCreditableT,
   readonly formName?: string,
-  readonly id: string,
+  readonly htmlId: string,
   readonly initialArtistCreditString: string,
   readonly initialBubbleFocus?: InitialBubbleFocusT | void,
   readonly isOpen: boolean,
