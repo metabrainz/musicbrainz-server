@@ -128,6 +128,16 @@ type CreateInitialStatePropsT = {
   readonly form: RecordingFormT,
 };
 
+function updateArtistCreditState(
+  stateCtx: CowContext<StateT>,
+  action: ArtistCreditActionT,
+): void {
+  stateCtx.set(
+    'artistCredit',
+    runArtistCreditReducer(stateCtx.read().artistCredit, action),
+  );
+}
+
 function updateIsrcFieldErrors(
   fieldCtx: CowContext<TextListFieldT>,
 ) {
@@ -313,10 +323,7 @@ function reducer(state: StateT, action: ActionT): StateT {
       applyAllPendingErrors(newStateCtx.get('form'));
     }
     {type: 'update-artist-credit', const action} => {
-      newStateCtx.set(
-        'artistCredit',
-        runArtistCreditReducer(state.artistCredit, action),
-      );
+      updateArtistCreditState(newStateCtx, action);
     }
     {type: 'guess-feat'} => {
       const results = guessFeat({
@@ -330,16 +337,10 @@ function reducer(state: StateT, action: ActionT): StateT {
       if (results) {
         newStateCtx
           .set('form', 'field', 'name', 'value', results.name);
-        newStateCtx.set(
-          'artistCredit',
-          runArtistCreditReducer(
-            state.artistCredit,
-            {
-              artistCredit: {names: results.artistCreditNames},
-              type: 'set-names-from-artist-credit',
-            },
-          ),
-        );
+        updateArtistCreditState(newStateCtx, {
+          artistCredit: {names: results.artistCreditNames},
+          type: 'set-names-from-artist-credit',
+        });
       }
     }
     {type: 'update-external-links-editor', const action} => {
