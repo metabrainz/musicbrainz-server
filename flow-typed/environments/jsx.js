@@ -1,5 +1,12 @@
-// flow-typed signature: 4e0586c675a57bbe33b81cc8cedd32ba
-// flow-typed version: 284fb57107/jsx/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 // https://www.w3.org/TR/uievents-key/#keys-modifier
 type ModifierKey =
@@ -18,27 +25,27 @@ type ModifierKey =
   | 'Symbol'
   | 'SymbolLock';
 
-declare class SyntheticEvent<+T: EventTarget = EventTarget, +E: Event = Event> {
+declare class SyntheticEvent<out T: EventTarget = EventTarget, out E: Event = Event> {
   bubbles: boolean;
   cancelable: boolean;
-  +currentTarget: T;
+  readonly currentTarget: T;
   defaultPrevented: boolean;
   eventPhase: number;
   isDefaultPrevented(): boolean;
   isPropagationStopped(): boolean;
   isTrusted: boolean;
-  +nativeEvent: E;
+  readonly nativeEvent: E;
   persist(): void;
   preventDefault(): void;
   stopPropagation(): void;
   // This should not be `T`. Use `currentTarget` instead. See:
   // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/11508#issuecomment-256045682
-  +target: EventTarget;
+  readonly target: EventTarget;
   timeStamp: number;
   type: string;
 }
 
-declare class SyntheticAnimationEvent<+T: EventTarget = EventTarget>
+declare class SyntheticAnimationEvent<out T: EventTarget = EventTarget>
   extends SyntheticEvent<T>
 {
   animationName: string;
@@ -46,39 +53,39 @@ declare class SyntheticAnimationEvent<+T: EventTarget = EventTarget>
   pseudoElement: string;
 }
 
-declare class SyntheticClipboardEvent<+T: EventTarget = EventTarget>
+declare class SyntheticClipboardEvent<out T: EventTarget = EventTarget>
   extends SyntheticEvent<T>
 {
   clipboardData: any;
 }
 
-declare class SyntheticCompositionEvent<+T: EventTarget = EventTarget>
+declare class SyntheticCompositionEvent<out T: EventTarget = EventTarget>
   extends SyntheticEvent<T>
 {
   data: any;
 }
 
-declare class SyntheticInputEvent<+T: EventTarget = EventTarget>
+declare class SyntheticInputEvent<out T: EventTarget = EventTarget>
   extends SyntheticEvent<T>
 {
   data: any;
-  +target: HTMLInputElement;
+  readonly target: HTMLInputElement;
 }
 
-declare class SyntheticUIEvent<+T: EventTarget = EventTarget, +E: Event = Event>
+declare class SyntheticUIEvent<out T: EventTarget = EventTarget, out E: Event = Event>
   extends SyntheticEvent<T, E>
 {
   detail: number;
   view: any;
 }
 
-declare class SyntheticFocusEvent<+T: EventTarget = EventTarget>
+declare class SyntheticFocusEvent<out T: EventTarget = EventTarget>
   extends SyntheticUIEvent<T>
 {
   relatedTarget: EventTarget;
 }
 
-declare class SyntheticKeyboardEvent<+T: EventTarget = EventTarget>
+declare class SyntheticKeyboardEvent<out T: EventTarget = EventTarget>
   extends SyntheticUIEvent<T, KeyboardEvent>
 {
   altKey: boolean;
@@ -96,8 +103,8 @@ declare class SyntheticKeyboardEvent<+T: EventTarget = EventTarget>
 }
 
 declare class SyntheticMouseEvent<
-  +T: EventTarget = EventTarget,
-  +E: Event = MouseEvent,
+  out T: EventTarget = EventTarget,
+  out E: Event = MouseEvent,
 > extends SyntheticUIEvent<T, E>
 {
   altKey: boolean;
@@ -116,13 +123,13 @@ declare class SyntheticMouseEvent<
   shiftKey: boolean;
 }
 
-declare class SyntheticDragEvent<+T: EventTarget = EventTarget>
+declare class SyntheticDragEvent<out T: EventTarget = EventTarget>
   extends SyntheticMouseEvent<T, DragEvent>
 {
   dataTransfer: any;
 }
 
-declare class SyntheticWheelEvent<+T: EventTarget = EventTarget>
+declare class SyntheticWheelEvent<out T: EventTarget = EventTarget>
   extends SyntheticMouseEvent<T, WheelEvent>
 {
   deltaMode: number;
@@ -131,7 +138,7 @@ declare class SyntheticWheelEvent<+T: EventTarget = EventTarget>
   deltaZ: number;
 }
 
-declare class SyntheticPointerEvent<+T: EventTarget = EventTarget>
+declare class SyntheticPointerEvent<out T: EventTarget = EventTarget>
   extends SyntheticMouseEvent<T, PointerEvent>
 {
   height: number;
@@ -146,7 +153,7 @@ declare class SyntheticPointerEvent<+T: EventTarget = EventTarget>
   width: number;
 }
 
-declare class SyntheticTouchEvent<+T: EventTarget = EventTarget>
+declare class SyntheticTouchEvent<out T: EventTarget = EventTarget>
   extends SyntheticUIEvent<T, TouchEvent>
 {
   altKey: boolean;
@@ -159,7 +166,7 @@ declare class SyntheticTouchEvent<+T: EventTarget = EventTarget>
   touches: TouchList;
 }
 
-declare class SyntheticTransitionEvent<+T: EventTarget = EventTarget>
+declare class SyntheticTransitionEvent<out T: EventTarget = EventTarget>
   extends SyntheticEvent<T>
 {
   elapsedTime: number;
@@ -352,8 +359,8 @@ declare type $JSXIntrinsics = {
 type ReactDOM$HTMLElementJSXIntrinsic = {
   instance: HTMLElement,
   props: {
-    +[key: string]: any,
-    +children?: React$Node,
+    readonly [key: string]: any,
+    readonly children?: React$Node,
     ...
   },
   ...
@@ -362,8 +369,8 @@ type ReactDOM$HTMLElementJSXIntrinsic = {
 type ReactDOM$SVGElementJSXIntrinsic = {
   instance: Element,
   props: {
-    +[key: string]: any,
-    +children?: React$Node,
+    readonly [key: string]: any,
+    readonly children?: React$Node,
     ...
   },
   ...
@@ -389,7 +396,7 @@ type ReactDOM$DataPropValues = ?(string | boolean | number);
 type ReactDOM$UserVisibleString = string;
 
 // Override this if you want to add custom events to all HTML elements
-type ReactDOM$CustomEvents<-E> = $ReadOnly<{||}>;
+type ReactDOM$CustomEvents<in E> = $ReadOnly<{||}>;
 
 type ReactDOM$BooleanishString = boolean | 'true' | 'false';
 
@@ -647,7 +654,7 @@ type ReactDOM$AriaAttributes = {|
   'aria-valuetext'?: ?ReactDOM$UserVisibleString,
 |};
 
-type ReactDOM$EventHandlers<-E> = $ReadOnly<{|
+type ReactDOM$EventHandlers<in E> = $ReadOnly<{|
   // Animation Events
   onAnimationEnd?: ?(SyntheticAnimationEvent<E>) => mixed,
   onAnimationEndCapture?: ?(SyntheticAnimationEvent<E>) => mixed,

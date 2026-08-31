@@ -1,5 +1,12 @@
-// flow-typed signature: de69dfceae255aa64d3c3844204ab906
-// flow-typed version: fb53138da4/indexeddb/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 // Implemented by window & worker
 declare interface IDBEnvironment {
@@ -72,7 +79,7 @@ declare interface IDBDatabase extends EventTarget {
 declare interface IDBTransaction extends EventTarget {
   abort(): void;
   db: IDBDatabase;
-  +durability: IDBTransactionDurability;
+  readonly durability: IDBTransactionDurability;
   error: Error;
   mode: 'readonly'|'readwrite'|'versionchange';
   name: string;

@@ -1,5 +1,12 @@
-// flow-typed signature: 9969c915cbf9983e3cbdd60f6f0e174b
-// flow-typed version: 840509ea9d/webassembly/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 // https://github.com/WebAssembly/design/blob/master/JS.md
 // https://developer.mozilla.org/en-US/docs/WebAssembly
@@ -39,7 +46,7 @@ declare class WebAssembly$Module {
 declare class WebAssembly$Instance {
   constructor(moduleObject: WebAssembly$Module, importObject?: ImportObject): void;
 
-  +exports: { [exportedFunction: string]: ExportedFunctionExoticObject, ... };
+  readonly exports: { [exportedFunction: string]: ExportedFunctionExoticObject, ... };
 }
 
 type MemoryDescriptor = {
@@ -51,7 +58,7 @@ type MemoryDescriptor = {
 declare class WebAssembly$Memory {
   constructor(memoryDescriptor: MemoryDescriptor): void;
 
-  +buffer: ArrayBuffer;
+  readonly buffer: ArrayBuffer;
 
   grow(delta: number): number;
 }
@@ -66,7 +73,7 @@ type TableDescriptor = {
 declare class WebAssembly$Table {
   constructor(tableDescriptor: TableDescriptor): void;
 
-  +length: number;
+  readonly length: number;
 
   grow(delta: number): number;
   get(index: number): ExportedFunctionExoticObject;

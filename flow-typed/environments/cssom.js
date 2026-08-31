@@ -1,14 +1,21 @@
-// flow-typed signature: ad7b684aa8897ecb82bcc3e009b9fc30
-// flow-typed version: 3e51657e95/cssom/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 declare class StyleSheet {
   disabled: boolean;
-  +href: string;
-  +media: MediaList;
-  +ownerNode: Node;
-  +parentStyleSheet: ?StyleSheet;
-  +title: string;
-  +type: string;
+  readonly href: string;
+  readonly media: MediaList;
+  readonly ownerNode: Node;
+  readonly parentStyleSheet: ?StyleSheet;
+  readonly title: string;
+  readonly type: string;
 }
 
 declare class StyleSheetList {
@@ -28,8 +35,8 @@ declare class MediaList {
 }
 
 declare class CSSStyleSheet extends StyleSheet {
-  +cssRules: CSSRuleList;
-  +ownerRule: ?CSSRule;
+  readonly cssRules: CSSRuleList;
+  readonly ownerRule: ?CSSRule;
   deleteRule(index: number): void;
   insertRule(rule: string, index: number): number;
   replace(text: string): Promise<CSSStyleSheet>;
@@ -37,7 +44,7 @@ declare class CSSStyleSheet extends StyleSheet {
 }
 
 declare class CSSGroupingRule extends CSSRule {
-  +cssRules: CSSRuleList;
+  readonly cssRules: CSSRuleList;
   deleteRule(index: number): void;
   insertRule(rule: string, index: number): number;
 }
@@ -47,21 +54,21 @@ declare class CSSConditionRule extends CSSGroupingRule {
 }
 
 declare class CSSMediaRule extends CSSConditionRule {
-  +media: MediaList;
+  readonly media: MediaList;
 }
 
 declare class CSSStyleRule extends CSSRule {
   selectorText: string;
-  +style: CSSStyleDeclaration;
+  readonly style: CSSStyleDeclaration;
 }
 
 declare class CSSSupportsRule extends CSSConditionRule {}
 
 declare class CSSRule {
   cssText: string;
-  +parentRule: ?CSSRule;
-  +parentStyleSheet: ?CSSStyleSheet;
-  +type: number;
+  readonly parentRule: ?CSSRule;
+  readonly parentStyleSheet: ?CSSStyleSheet;
+  readonly type: number;
   static STYLE_RULE: number;
   static MEDIA_RULE: number;
   static FONT_FACE_RULE: number;
@@ -82,12 +89,12 @@ declare class CSSRule {
 
 declare class CSSKeyframeRule extends CSSRule {
   keyText: string;
-  +style: CSSStyleDeclaration;
+  readonly style: CSSStyleDeclaration;
 }
 
 declare class CSSKeyframesRule extends CSSRule {
   name: string;
-  +cssRules: CSSRuleList;
+  readonly cssRules: CSSRuleList;
   appendRule(rule: string): void;
   deleteRule(select: string): void;
   findRule(select: string): CSSKeyframeRule | null;

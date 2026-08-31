@@ -1,5 +1,12 @@
-// flow-typed signature: cce05546fd679b7a36fc3c043123382b
-// flow-typed version: f3b4c734f3/intl/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 declare var Intl: {
   Collator: Class<Intl$Collator>,

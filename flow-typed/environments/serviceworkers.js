@@ -1,5 +1,12 @@
-// flow-typed signature: f6bda44505d6258bae702a65ee2878f2
-// flow-typed version: 840509ea9d/serviceworkers/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 type FrameType = 'auxiliary' | 'top-level' | 'nested' | 'none';
 type VisibilityState = 'hidden' | 'visible' | 'prerender' | 'unloaded';
@@ -32,8 +39,8 @@ type NotificationEvent$Init = {
 
 declare class NotificationEvent extends ExtendableEvent {
   constructor(type: string, eventInitDict?: NotificationEvent$Init):void;
-  +notification: Notification,
-  +action: string,
+  readonly notification: Notification,
+  readonly action: string,
 }
 
 type ForeignFetchOptions = {
@@ -109,16 +116,16 @@ declare class PushSubscriptionJSON {
 }
 
 declare class PushSubscription {
-  +endpoint: string,
-  +expirationTime: number | null,
-  +options: PushSubscriptionOptions,
+  readonly endpoint: string,
+  readonly expirationTime: number | null,
+  readonly options: PushSubscriptionOptions,
   getKey(name: string): ArrayBuffer | null,
   toJSON(): PushSubscriptionJSON,
   unsubscribe(): Promise<boolean>,
 }
 
 declare class PushManager {
-  +supportedContentEncodings: Array<string>,
+  readonly supportedContentEncodings: Array<string>,
   subscribe(options?: PushSubscriptionOptions): Promise<PushSubscription>,
   getSubscription(): Promise<PushSubscription | null>,
   permissionState(options?: PushSubscriptionOptions): Promise<'granted' | 'denied' | 'prompt'>,
@@ -132,13 +139,13 @@ type GetNotificationOptions = {
 };
 
 declare class ServiceWorkerRegistration extends EventTarget {
-  +installing: ?ServiceWorker,
-  +waiting: ?ServiceWorker,
-  +active: ?ServiceWorker,
-  +navigationPreload: NavigationPreloadManager,
-  +scope: string,
-  +updateViaCache: ServiceWorkerUpdateViaCache,
-  +pushManager: PushManager,
+  readonly installing: ?ServiceWorker,
+  readonly waiting: ?ServiceWorker,
+  readonly active: ?ServiceWorker,
+  readonly navigationPreload: NavigationPreloadManager,
+  readonly scope: string,
+  readonly updateViaCache: ServiceWorkerUpdateViaCache,
+  readonly pushManager: PushManager,
 
   getNotifications?: (filter?: GetNotificationOptions) => Promise<$ReadOnlyArray<Notification>>,
   showNotification?: (title: string, options?: NotificationOptions) => Promise<void>,
@@ -158,8 +165,8 @@ type RegistrationOptions = {
 };
 
 declare class ServiceWorkerContainer extends EventTarget {
-  +controller: ?ServiceWorker,
-  +ready: Promise<ServiceWorkerRegistration>,
+  readonly controller: ?ServiceWorker,
+  readonly ready: Promise<ServiceWorkerRegistration>,
 
   getRegistration(clientURL?: string): Promise<ServiceWorkerRegistration | void>,
   getRegistrations(): Promise<Iterator<ServiceWorkerRegistration>>,

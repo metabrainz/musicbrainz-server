@@ -1,5 +1,12 @@
-// flow-typed signature: 4631a74b6a0e6a1b4de2ba8c7bb141d6
-// flow-typed version: 3e51657e95/web-animations/flow_>=v0.261.x
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ * @noformat
+ * @oncall flow
+ */
 
 // https://www.w3.org/TR/web-animations-1/
 
@@ -127,11 +134,11 @@ declare class Animation extends EventTarget {
   startTime: number | null;
   currentTime: number | null;
   playbackRate: number;
-  +playState: AnimationPlayState;
-  +replaceState: AnimationReplaceState;
-  +pending: boolean;
-  +ready: Promise<Animation>;
-  +finished: Promise<Animation>;
+  readonly playState: AnimationPlayState;
+  readonly replaceState: AnimationReplaceState;
+  readonly pending: boolean;
+  readonly ready: Promise<Animation>;
+  readonly finished: Promise<Animation>;
   onfinish: ?(ev: AnimationPlaybackEvent) => mixed;
   oncancel: ?(ev: AnimationPlaybackEvent) => mixed;
   onremove: ?(ev: AnimationPlaybackEvent) => mixed;
@@ -156,12 +163,12 @@ declare class AnimationPlaybackEvent extends Event {
     type: string,
     animationEventInitDict?: AnimationPlaybackEvent$Init
   ): void;
-  +currentTime: number | null;
-  +timelineTime: number | null;
+  readonly currentTime: number | null;
+  readonly timelineTime: number | null;
 }
 
 declare class AnimationTimeline {
-  +currentTime: number | null;
+  readonly currentTime: number | null;
 }
 
 declare class DocumentTimeline extends AnimationTimeline {

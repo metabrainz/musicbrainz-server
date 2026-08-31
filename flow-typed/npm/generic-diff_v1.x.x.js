@@ -8,10 +8,10 @@
  */
 
 declare module 'generic-diff' {
-  declare type GenericEditDiff<+T> = {
-    +added: boolean,
-    +items: ReadonlyArray<T>,
-    +removed: boolean,
+  declare type GenericEditDiff<out T> = {
+    readonly added: boolean,
+    readonly items: ReadonlyArray<T>,
+    readonly removed: boolean,
   };
 
   declare function diff<T>(
