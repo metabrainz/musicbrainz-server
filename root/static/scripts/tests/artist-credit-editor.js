@@ -13,6 +13,9 @@ import {
   createInitialState,
   reducer,
 } from '../edit/components/ArtistCreditEditor.js';
+import {
+  getArtistCreditNames,
+} from '../edit/components/ArtistCreditEditor/utilities.js';
 
 import {
   genericRecording,
@@ -24,11 +27,15 @@ test('MBS-13538: Removing all rows in the AC editor makes it disappear', functio
     entity: genericRecording,
     htmlId: String(genericRecording.id),
   });
-  t.equals(state.names.length, 1, 'artist credit has 1 row');
+  t.equals(
+    getArtistCreditNames(state).length,
+    1,
+    'artist credit has 1 row',
+  );
   t.doesNotThrow(() => {
     reducer(
       reducer(state, {
-        nameFieldId: state.names[0].id,
+        nameFieldId: getArtistCreditNames(state)[0].id,
         type: 'remove-name',
       }),
       {type: 'close-dialog'},
