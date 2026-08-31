@@ -22,6 +22,7 @@ import MB from '../../common/MB.js';
 import {getCatalystContext} from '../../common/utility/catalyst.js';
 
 import {
+  getArtistCreditNames,
   incompleteArtistCreditFromState,
 } from './ArtistCreditEditor/utilities.js';
 import ArtistCreditEditor, {
@@ -51,6 +52,7 @@ export const KnockoutArtistCreditEditor = ({
   );
 
   const entity = state.entity;
+  const names = getArtistCreditNames(state);
   const isOpenRef = React.useRef(state.isOpen);
   const artistCreditRef = React.useRef(entity.artistCredit.peek());
 
@@ -62,7 +64,7 @@ export const KnockoutArtistCreditEditor = ({
   }, [entity, dispatch]);
 
   React.useEffect(() => {
-    const newArtistCredit = incompleteArtistCreditFromState(state.names);
+    const newArtistCredit = incompleteArtistCreditFromState(names);
     if (!artistCreditsAreEqual(newArtistCredit, artistCreditRef.current)) {
       artistCreditRef.current = newArtistCredit;
       entity.artistCredit(newArtistCredit);
@@ -93,7 +95,7 @@ export const KnockoutArtistCreditEditor = ({
   }, [
     entity,
     state.isOpen,
-    state.names,
+    names,
     state.changeMatchingTrackArtists,
     state.initialArtistCreditString,
   ]);

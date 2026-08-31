@@ -38,10 +38,16 @@ import type {
 } from './ArtistCreditEditor/types.js';
 import {
   artistCreditStateToString,
+  getArtist,
+  getArtistCreditNames,
+  getArtistCreditNamesCtx,
+  getJoinPhrase,
   incompleteArtistCreditFromState,
   isArtistCreditStateComplete,
   isNameNotRemoved,
   isNameRemoved,
+  setCreditedName,
+  setJoinPhrase,
 } from './ArtistCreditEditor/utilities.js';
 import ArtistCreditBubble from './ArtistCreditBubble.js';
 
@@ -67,7 +73,7 @@ function setAutoJoinPhrases(
     const index = nonRemovedIndexes[size - 1];
     const name0 = names[index];
     if (name0 && name0.automaticJoinPhrase !== false) {
-      namesCtx.set(index, 'joinPhrase', '');
+      setJoinPhrase(namesCtx.get(index), '');
     }
   }
 
@@ -75,8 +81,8 @@ function setAutoJoinPhrases(
     const index = nonRemovedIndexes[size - 2];
     const name1 = names[index];
     if (name1 && name1.automaticJoinPhrase !== false &&
-        auto.test(name1.joinPhrase)) {
-      namesCtx.set(index, 'joinPhrase', ' & ');
+        auto.test(getJoinPhrase(name1))) {
+      setJoinPhrase(namesCtx.get(index), ' & ');
     }
   }
 
@@ -84,18 +90,19 @@ function setAutoJoinPhrases(
     const index = nonRemovedIndexes[size - 3];
     const name2 = names[index];
     if (name2 && name2.automaticJoinPhrase !== false &&
-        auto.test(name2.joinPhrase)) {
-      namesCtx.set(index, 'joinPhrase', ', ');
+        auto.test(getJoinPhrase(name2))) {
+      setJoinPhrase(namesCtx.get(index), ', ');
     }
   }
 }
 
 function removeRemovedCredits(stateCtx: CowContext<StateT>): void {
-  const {htmlId, names} = stateCtx.read();
+  const namesCtx = getArtistCreditNamesCtx(stateCtx);
+  const names = namesCtx.read();
   if (names.some(isNameRemoved)) {
-    const namesCtx = stateCtx.get('names');
     namesCtx.set(names.filter(isNameNotRemoved));
-    const totalNames = stateCtx.read().names.length;
+    const htmlId = stateCtx.read().htmlId;
+    const totalNames = namesCtx.read().length;
     for (let i = 0; i < totalNames; i++) {
       namesCtx.set(i, 'artist', 'id', getArtistCreditNameInputId(htmlId, i));
     }
@@ -131,7 +138,7 @@ function getEmptyArtistCreditNameState(
 }
 
 function addEmptyCredit(stateCtx: CowContext<StateT>) {
-  const namesCtx = stateCtx.get('names');
+  const namesCtx = getArtistCreditNamesCtx(stateCtx);
   namesCtx.write().push(getEmptyArtistCreditNameState(
     stateCtx.read().htmlId,
     namesCtx.read().length,
@@ -144,16 +151,17 @@ function swapCredits(
   i: number,
   j: number,
 ) {
-  const tmpName = stateCtx.read().names[i];
-  stateCtx.set('names', i, stateCtx.read().names[j]);
-  stateCtx.set('names', j, tmpName);
+  const namesCtx = getArtistCreditNamesCtx(stateCtx);
+  const tmpName = namesCtx.read()[i];
+  namesCtx.set(i, namesCtx.read()[j]);
+  namesCtx.set(j, tmpName);
 
   // Preserve join phrase positions if neither credit is removed.
-  const names = stateCtx.read().names;
+  const names = namesCtx.read();
   if (!names[i].removed && !names[j].removed) {
-    const tmpJoinPhrase = names[i].joinPhrase;
-    stateCtx.set('names', i, 'joinPhrase', names[j].joinPhrase);
-    stateCtx.set('names', j, 'joinPhrase', tmpJoinPhrase);
+    const tmpJoinPhrase = getJoinPhrase(names[i]);
+    setJoinPhrase(namesCtx.get(i), getJoinPhrase(names[j]));
+    setJoinPhrase(namesCtx.get(j), tmpJoinPhrase);
   }
 }
 
@@ -169,7 +177,7 @@ export function reducer(
   action: ActionT,
 ): StateT {
   const stateCtx = mutate(state);
-  const names = state.names;
+  const names = getArtistCreditNames(state);
 
   // If this action is updating a specific AC name, retrieve its index.
   let nameIndex = -1;
@@ -208,8 +216,9 @@ export function reducer(
     {type: 'edit-artist', const action, ...} => {
       const origAction = action;
 
-      stateCtx.update('names', nameIndex, (nameCtx) => {
+      getArtistCreditNamesCtx(stateCtx).update(nameIndex, (nameCtx) => {
         const name = nameCtx.read();
+        const creditedName = name.name;
         const prevInputValue = name.artist.inputValue;
         const artistAutocomplete = autocompleteReducer<ArtistT>(
           name.artist,
@@ -217,10 +226,10 @@ export function reducer(
         );
         nameCtx.set('artist', artistAutocomplete);
         if (
-          (name.name === prevInputValue) ||
-          (artistAutocomplete.selectedItem && empty(name.name))
+          (creditedName === prevInputValue) ||
+          (artistAutocomplete.selectedItem && empty(creditedName))
         ) {
-          nameCtx.set('name', artistAutocomplete.inputValue);
+          setCreditedName(nameCtx, artistAutocomplete.inputValue);
         }
       });
     }
@@ -228,17 +237,17 @@ export function reducer(
       // eslint-disable-next-line no-unused-vars
       const {nameFieldId, type, ...editData} = action;
 
-      stateCtx.update('names', nameIndex, (nameCtx) => {
+      getArtistCreditNamesCtx(stateCtx).update(nameIndex, (nameCtx) => {
         if (editData.automaticJoinPhrase != null) {
           nameCtx.set('automaticJoinPhrase', editData.automaticJoinPhrase);
         }
 
         if (editData.joinPhrase != null) {
-          nameCtx.set('joinPhrase', editData.joinPhrase);
+          setJoinPhrase(nameCtx, editData.joinPhrase);
         }
 
         if (editData.name != null) {
-          nameCtx.set('name', editData.name);
+          setCreditedName(nameCtx, editData.name);
         }
 
         const {artist, name} = nameCtx.read();
@@ -261,17 +270,17 @@ export function reducer(
       }
     }
     {type: 'remove-name', ...} => {
-      const nonRemovedCount = state.names.reduce((accum, name) => {
+      const nonRemovedCount = names.reduce((accum, name) => {
         return accum + (name.removed ? 0 : 1);
       }, 0);
-      const namesCtx = stateCtx.get('names');
       if (nonRemovedCount > 1) {
+        const namesCtx = getArtistCreditNamesCtx(stateCtx);
         namesCtx.set(nameIndex, 'removed', true);
         setAutoJoinPhrases(namesCtx);
       }
     }
     {type: 'undo-remove-name', ...} => {
-      const namesCtx = stateCtx.get('names');
+      const namesCtx = getArtistCreditNamesCtx(stateCtx);
       namesCtx.set(nameIndex, 'removed', false);
       setAutoJoinPhrases(namesCtx);
     }
@@ -280,15 +289,12 @@ export function reducer(
         const copiedArtistCreditString = localStorage('copiedArtistCredit');
         if (copiedArtistCreditString != null) {
           const artistCredit = JSON.parse(copiedArtistCreditString);
-          stateCtx.set(
-            'names',
-            createInitialNamesState(
-              artistCredit,
-              state.htmlId,
-              /* automaticJoinPhrase = */ false,
-            ),
-          );
-          if (!stateCtx.read().names.length) {
+          getArtistCreditNamesCtx(stateCtx).set(createInitialNamesState(
+            artistCredit,
+            state.htmlId,
+            /* automaticJoinPhrase = */ false,
+          ));
+          if (!getArtistCreditNames(stateCtx.read()).length) {
             addEmptyCredit(stateCtx);
           }
         }
@@ -309,8 +315,7 @@ export function reducer(
       }
       // $FlowFixMe[incompatible-type] - null artists were filled in
       writableArtistCredit = artistCreditCtx.final() as ArtistCreditT;
-      stateCtx.set(
-        'names',
+      getArtistCreditNamesCtx(stateCtx).set(
         createInitialNamesState(writableArtistCredit, state.htmlId),
       );
     }
@@ -325,13 +330,13 @@ export function reducer(
   const newState = stateCtx.read();
   const newSingleArtistAutocomplete =
     newState.singleArtistAutocomplete;
-  const newNames = newState.names;
+  const newNames = getArtistCreditNames(newState);
 
   if (
     state.singleArtistAutocomplete !== newSingleArtistAutocomplete &&
-    isSingleArtistEditableInState(state.names)
+    isSingleArtistEditableInState(names)
   ) {
-    stateCtx.update('names', 0, (nameCtx) => {
+    getArtistCreditNamesCtx(stateCtx).update(0, (nameCtx) => {
       const artistName = newSingleArtistAutocomplete.inputValue;
       nameCtx.merge({
         artist: {
@@ -364,7 +369,9 @@ export function reducer(
   }
 
   stateCtx.get('singleArtistAutocomplete')
-    .set('isLookupPerformed', isArtistCreditStateComplete(newState.names));
+    .set('isLookupPerformed', isArtistCreditStateComplete(
+      getArtistCreditNames(newState),
+    ));
 
   return stateCtx.final();
 }
@@ -373,7 +380,7 @@ function isSingleArtistEditableInState(
   names: ReadonlyArray<ArtistCreditNameStateT>,
 ): boolean {
   if (names.filter(isNameNotRemoved).length === 1) {
-    const firstArtist = names[0].artist.selectedItem?.entity;
+    const firstArtist = getArtist(names[0]);
     return !(
       firstArtist &&
       firstArtist.name !== artistCreditStateToString(names)
