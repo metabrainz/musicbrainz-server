@@ -165,7 +165,7 @@ export function initializeArtistCredit(formName) {
     artistCredit: initialArtistCredit,
     entity: source,
     formName,
-    id: 'source',
+    htmlId: 'source',
   });
   const container = document.getElementById('artist-credit-editor');
   const root = ReactDOMClient.createRoot(container);
