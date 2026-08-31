@@ -19,6 +19,7 @@ import type {
   ActionT,
   ArtistCreditNameStateT,
 } from './ArtistCreditEditor/types.js';
+import {getJoinPhrase} from './ArtistCreditEditor/utilities.js';
 
 component _ArtistCreditNameEditor(
   allowMoveDown: boolean,
@@ -182,7 +183,7 @@ component _ArtistCreditNameEditor(
               onBlur={handleJoinPhraseBlur}
               onChange={handleJoinPhraseChange}
               type="text"
-              value={artistCreditName.joinPhrase ?? ''}
+              value={getJoinPhrase(artistCreditName)}
             />
           </td>
         </>
