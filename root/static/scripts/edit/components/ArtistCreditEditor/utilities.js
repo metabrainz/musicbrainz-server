@@ -7,16 +7,31 @@
  * later version: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+import type {CowContext} from 'mutate-cow';
+
 import {VARTIST_GID} from '../../../common/constants.js';
 
 import type {
   ArtistCreditNameStateT,
+  StateT,
 } from './types.js';
 
-function getArtist(
+export function getArtist(
   name: ArtistCreditNameStateT,
 ): ArtistT | null {
   return (name.artist.selectedItem?.entity) ?? null;
+}
+
+export function getArtistCreditNames(
+  state: StateT,
+): ReadonlyArray<ArtistCreditNameStateT> {
+  return state.names;
+}
+
+export function getArtistCreditNamesCtx(
+  stateCtx: CowContext<StateT>,
+): CowContext<ReadonlyArray<ArtistCreditNameStateT>> {
+  return stateCtx.get('names');
 }
 
 function getCreditedName(
@@ -24,6 +39,10 @@ function getCreditedName(
   artist?: ?ArtistT = getArtist(name),
 ): string {
   return name.name || (artist?.name ?? '');
+}
+
+export function getJoinPhrase(name: ArtistCreditNameStateT): string {
+  return name.joinPhrase;
 }
 
 export function isNameRemoved(name: ArtistCreditNameStateT): boolean {
@@ -47,7 +66,7 @@ function incompleteArtistCreditNamesFromState(
     const artist = getArtist(x);
     accum.push({
       artist,
-      joinPhrase: x.joinPhrase,
+      joinPhrase: getJoinPhrase(x),
       name: getCreditedName(x, artist),
     });
     return accum;
@@ -78,7 +97,7 @@ const _accumArtistCreditNameToString = (
   accum +
   (name.removed ? '' : (
     getCreditedName(name) +
-    (name.joinPhrase ?? '')
+    getJoinPhrase(name)
   ))
 );
 
@@ -102,4 +121,18 @@ export function isArtistCreditStateComplete(
   return names.length > 0 && names.every(
     name => (getArtist(name)?.id) != null,
   );
+}
+
+export function setCreditedName(
+  nameCtx: CowContext<ArtistCreditNameStateT>,
+  creditedName: string,
+): void {
+  nameCtx.set('name', creditedName);
+}
+
+export function setJoinPhrase(
+  nameCtx: CowContext<ArtistCreditNameStateT>,
+  joinPhrase: string,
+): void {
+  nameCtx.set('joinPhrase', joinPhrase);
 }
