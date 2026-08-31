@@ -30,17 +30,17 @@ component _ArtistCreditNameEditor(
   name as artistCreditName: ArtistCreditNameStateT,
   showMoveButtons: boolean,
 ) {
-  const key = artistCreditName.key;
+  const nameFieldId = artistCreditName.id;
 
   const artistDispatch = React.useCallback((
     action: AutocompleteActionT<ArtistT>,
   ) => {
     dispatch({
       action,
-      key,
+      nameFieldId,
       type: 'edit-artist',
     });
-  }, [dispatch, key]);
+  }, [dispatch, nameFieldId]);
 
   function handleNameBlur(
     event: SyntheticEvent<HTMLInputElement>,
@@ -54,7 +54,7 @@ component _ArtistCreditNameEditor(
 
     dispatch({
       name: newName,
-      key,
+      nameFieldId,
       type: 'edit-name',
     });
   }
@@ -64,7 +64,7 @@ component _ArtistCreditNameEditor(
   ): void {
     dispatch({
       name: event.currentTarget.value,
-      key,
+      nameFieldId,
       type: 'edit-name',
     });
   }
@@ -101,7 +101,7 @@ component _ArtistCreditNameEditor(
     if (joinPhrase !== currentJoinPhrase) {
       dispatch({
         joinPhrase,
-        key,
+        nameFieldId,
         type: 'edit-name',
       });
     }
@@ -114,21 +114,21 @@ component _ArtistCreditNameEditor(
     dispatch({
       automaticJoinPhrase: false,
       joinPhrase: event.currentTarget.value,
-      key,
+      nameFieldId,
       type: 'edit-name',
     });
   }
 
   function handleMoveDown() {
     dispatch({
-      key,
+      nameFieldId,
       type: 'move-name-down',
     });
   }
 
   function handleMoveUp() {
     dispatch({
-      key,
+      nameFieldId,
       type: 'move-name-up',
     });
   }
@@ -136,7 +136,7 @@ component _ArtistCreditNameEditor(
   function handleRemove() {
     if (!artistCreditName.removed) {
       dispatch({
-        key,
+        nameFieldId,
         type: 'remove-name',
       });
     }
@@ -145,7 +145,7 @@ component _ArtistCreditNameEditor(
   function handleUndo() {
     if (artistCreditName.removed) {
       dispatch({
-        key,
+        nameFieldId,
         type: 'undo-remove-name',
       });
     }

@@ -22,8 +22,8 @@ export type ArtistCreditableT =
 export type ArtistCreditNameStateT = {
   readonly artist: AutocompleteStateT<ArtistT>,
   readonly automaticJoinPhrase: boolean,
+  readonly id: number,
   readonly joinPhrase: string,
-  readonly key: number,
   readonly name: string,
   readonly removed: boolean,
 };
@@ -50,13 +50,13 @@ export type StateT = {
 /* eslint-disable ft-flow/sort-keys */
 export type EditArtistActionT = {
   readonly type: 'edit-artist',
-  readonly key: number,
+  readonly nameFieldId: number,
   readonly action: AutocompleteActionT<ArtistT>,
 };
 
 export type EditNameActionT = {
   readonly type: 'edit-name',
-  readonly key: number,
+  readonly nameFieldId: number,
   readonly joinPhrase?: string,
   readonly name?: string,
   readonly automaticJoinPhrase?: boolean,
@@ -69,10 +69,10 @@ export type ActionT =
     }
   | {readonly type: 'close-dialog'}
   | {readonly type: 'add-name'}
-  | {readonly type: 'move-name-down', readonly key: number}
-  | {readonly type: 'move-name-up', readonly key: number}
-  | {readonly type: 'remove-name', readonly key: number}
-  | {readonly type: 'undo-remove-name', readonly key: number}
+  | {readonly type: 'move-name-down', readonly nameFieldId: number}
+  | {readonly type: 'move-name-up', readonly nameFieldId: number}
+  | {readonly type: 'remove-name', readonly nameFieldId: number}
+  | {readonly type: 'undo-remove-name', readonly nameFieldId: number}
   | {
       readonly type: 'update-single-artist-autocomplete',
       readonly action: AutocompleteActionT<ArtistT>,
