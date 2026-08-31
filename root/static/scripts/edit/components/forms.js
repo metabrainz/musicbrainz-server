@@ -51,9 +51,14 @@ export const KnockoutArtistCreditEditor = ({
     initialState,
   );
 
-  const entity = state.entity;
+  const {
+    changeMatchingTrackArtists,
+    entity,
+    initialArtistCreditString,
+    isOpen,
+  } = state;
   const names = getArtistCreditNames(state);
-  const isOpenRef = React.useRef(state.isOpen);
+  const isOpenRef = React.useRef(isOpen);
   const artistCreditRef = React.useRef(entity.artistCredit.peek());
 
   React.useEffect(() => {
@@ -70,21 +75,21 @@ export const KnockoutArtistCreditEditor = ({
       entity.artistCredit(newArtistCredit);
     }
 
-    if (isOpenRef.current !== state.isOpen) {
-      isOpenRef.current = state.isOpen;
+    if (isOpenRef.current !== isOpen) {
+      isOpenRef.current = isOpen;
 
       if (
-        !state.isOpen &&
+        !isOpen &&
         // The dialog was closed; copy changes to the tracks.
         entity.entityType === 'track' &&
-        state.changeMatchingTrackArtists
+        changeMatchingTrackArtists
       ) {
         entity.medium.release.mediums()
           .flatMap(medium => medium.tracks())
           .forEach(function (otherTrack) {
             if (
               otherTrack !== entity &&
-              state.initialArtistCreditString ===
+              initialArtistCreditString ===
                 reduceArtistCredit(otherTrack.artistCredit.peek())
             ) {
               otherTrack.artistCredit(newArtistCredit);
@@ -94,10 +99,10 @@ export const KnockoutArtistCreditEditor = ({
     }
   }, [
     entity,
-    state.isOpen,
+    isOpen,
     names,
-    state.changeMatchingTrackArtists,
-    state.initialArtistCreditString,
+    changeMatchingTrackArtists,
+    initialArtistCreditString,
   ]);
 
   React.useEffect(() => {
