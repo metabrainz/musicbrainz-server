@@ -28,7 +28,7 @@ test('MBS-13538: Removing all rows in the AC editor makes it disappear', functio
   t.doesNotThrow(() => {
     reducer(
       reducer(state, {
-        key: state.names[0].key,
+        nameFieldId: state.names[0].id,
         type: 'remove-name',
       }),
       {type: 'close-dialog'},
