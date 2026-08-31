@@ -22,7 +22,7 @@ test('MBS-13538: Removing all rows in the AC editor makes it disappear', functio
   t.plan(2);
   const state = createInitialState({
     entity: genericRecording,
-    id: '',
+    htmlId: String(genericRecording.id),
   });
   t.equals(state.names.length, 1, 'artist credit has 1 row');
   t.doesNotThrow(() => {
