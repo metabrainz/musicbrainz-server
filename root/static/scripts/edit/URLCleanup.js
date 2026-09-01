@@ -2895,7 +2895,7 @@ export const CLEANUPS: CleanupEntries = {
        */
       url = url.replace(new RegExp(
         '([&?])(__tn__|_fb_noscript|_rdr|acontext|em|entry_point|filter|' +
-        'focus_composer|fref|hc_location|pnref|qsefr|ref|' +
+        'focus_composer|fref|hc_location|pnref|qsefr|ref|locale|mibextid|' +
         'ref_dashboard_filter|ref_page_id|ref_type|refsrc|rf|' +
         'sid_reminder|sk|tab|viewas)=([^?&]*)',
         'g',

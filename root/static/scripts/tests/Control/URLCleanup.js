@@ -2866,7 +2866,7 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.facebook.com/TheSullivanSees',
   },
   {
-                     input_url: 'https://www.facebook.com/searchingforabby',
+                     input_url: 'https://www.facebook.com/searchingforabby?mibextid=ZbWKwL&locale=en_GB',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.facebook.com/searchingforabby',
