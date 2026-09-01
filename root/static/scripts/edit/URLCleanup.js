@@ -3875,6 +3875,7 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
       url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/(author|nseries|work)\/([0-9a-z-]+)(?:[/?#].*)?$/, 'https://www.librarything.com/$1/$2');
+      url = url.replace(/^(?:https?:\/\/)?(?:www\.)?librarything\.com\/a\/(?:[a-z]+\/)?([0-9]+)(?:[/?#].*)?$/, 'https://www.librarything.com/a/$1');
       return url;
     },
     validate(url, id) {
@@ -3884,7 +3885,7 @@ export const CLEANUPS: CleanupEntries = {
         switch (id) {
           case LINK_TYPES.otherdatabases.artist:
             return {
-              result: prefix === 'author',
+              result: prefix === 'author' || prefix === 'a',
               target: ERROR_TARGETS.ENTITY,
             };
           case LINK_TYPES.otherdatabases.series:
