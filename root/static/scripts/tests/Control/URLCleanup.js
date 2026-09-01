@@ -2883,6 +2883,18 @@ limited_link_type_combinations: [
                                   target: 'url',
                                 },
   },
+  {
+                     input_url: 'https://www.facebook.com/share/1BiNcRpu8m?mibextid=wwXIfr',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.facebook.com/share/1BiNcRpu8m?mibextid=wwXIfr',
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a redirect link',
+                                  target: 'url',
+                                },
+  },
   // Finna.fi
   {
                      input_url: 'https://www.finna.fi/Record/viola.163990',
