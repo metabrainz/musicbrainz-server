@@ -49,6 +49,7 @@ import releaseEditor from './viewModel.js';
 Object.assign(releaseEditor, {
   activeTabID: ko.observable('#information'),
   activeTabIndex: ko.observable(0),
+  addingWithoutVisitingTracklist: ko.observable(false),
   loadError: ko.observable(''),
   loadErrorMessage() {
     return texp.l(
@@ -205,6 +206,21 @@ releaseEditor.init = function (options) {
     }
   });
 
+  // Monitor tab changes to check that the user visits the tracklist.
+
+  if (self.action === 'add') {
+    let visitedTracklist = false;
+    $('#release-editor').on('tabsbeforeactivate', function (event, ui) {
+      const id = ui.newPanel.attr('id');
+      if (id === 'tracklist') {
+        releaseEditor.addingWithoutVisitingTracklist(false);
+        visitedTracklist = true;
+      } else if (id === 'edit-note' && !visitedTracklist) {
+        releaseEditor.addingWithoutVisitingTracklist(true);
+      }
+    });
+  }
+
   // Display documentation bubbles for external components.
 
   $(document).on(
@@ -228,7 +244,10 @@ releaseEditor.init = function (options) {
     const releaseACChanged =
       !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
-    if (tabID === '#tracklist' && releaseACChanged) {
+    if (
+      releaseACChanged &&
+      (tabID === '#tracklist' || release.needsTrackArtists())
+    ) {
       if (!hasVariousArtists(releaseAC)) {
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
@@ -396,6 +415,9 @@ releaseEditor.init = function (options) {
       .final();
     editNoteTabRoot.render(
       <EditNoteTab
+        addingWithoutVisitingTracklist={
+          releaseEditor.addingWithoutVisitingTracklist()
+        }
         editPreviews={releaseEditor.editPreviews()}
         editsExist={releaseEditor.allEdits().length > 0}
         errorsExist={errorsExist()}
@@ -487,6 +509,7 @@ releaseEditor.allowsSubmission = function () {
   return (
     !this.submissionInProgress() &&
     !errorsExist() &&
+    !this.addingWithoutVisitingTracklist() &&
     !this.rootField.invalidEditNote() &&
     !(this.action === 'add' && this.rootField.missingEditNote()) &&
     this.allEdits().length > 0

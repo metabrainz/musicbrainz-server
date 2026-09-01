@@ -20013,7 +20013,7 @@ msgstr ""
 msgid "Male (Papua New Guinea)"
 msgstr ""
 
-#. frequency:0 iso_code_3:pqm
+#. frequency:1 iso_code_3:pqm
 #: DB:language/name:5515
 msgid "Malecite-Passamaquoddy"
 msgstr ""
@@ -27763,7 +27763,7 @@ msgstr ""
 msgid "Piya-Kwonci"
 msgstr ""
 
-#. frequency:0 iso_code_3:crk
+#. frequency:1 iso_code_3:crk
 #: DB:language/name:1800
 msgid "Plains Cree"
 msgstr ""
@@ -31768,7 +31768,7 @@ msgstr ""
 msgid "Southern Dong"
 msgstr ""
 
-#. frequency:0 iso_code_3:crj
+#. frequency:1 iso_code_3:crj
 #: DB:language/name:1799
 msgid "Southern East Cree"
 msgstr ""
@@ -37083,6 +37083,11 @@ msgstr ""
 msgid "Weme Gbe"
 msgstr ""
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+msgid "Wendat"
+msgstr ""
+
 #. frequency:0 iso_code_3:wer
 #: DB:language/name:7029
 msgid "Weri"
@@ -37753,8 +37758,8 @@ msgstr ""
 msgid "Wuzlam"
 msgstr ""
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

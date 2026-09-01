@@ -1749,6 +1749,13 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist'],
   },
   {
+                     input_url: 'https://www.boomplay.com/artists/EQIATIegUocAxeO6d3vrR4zE?from=artists',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/artists/EQIATIegUocAxeO6d3vrR4zE',
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.boomplay.com/songs/99760140?from=home',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
@@ -1760,6 +1767,13 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.boomplay.com/albums/53557880',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.boomplay.com/albums/EQUABbK_Gy8KOODzT4ow4hGX?srModel=openapi_featurefm&ffm=FFM_04511e3b346d53f7e395d55c79e0d5b5',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.boomplay.com/albums/EQUABbK_Gy8KOODzT4ow4hGX',
        only_valid_entity_types: ['release'],
   },
   // Brahms Ircam
@@ -2852,7 +2866,7 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://www.facebook.com/TheSullivanSees',
   },
   {
-                     input_url: 'https://www.facebook.com/searchingforabby',
+                     input_url: 'https://www.facebook.com/searchingforabby?mibextid=ZbWKwL&locale=en_GB',
              input_entity_type: 'artist',
     expected_relationship_type: 'socialnetwork',
             expected_clean_url: 'https://www.facebook.com/searchingforabby',
@@ -2866,6 +2880,18 @@ limited_link_type_combinations: [
        only_valid_entity_types: [],
                 expected_error: {
                                   error: 'a link to a search result',
+                                  target: 'url',
+                                },
+  },
+  {
+                     input_url: 'https://www.facebook.com/share/1BiNcRpu8m?mibextid=wwXIfr',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+            expected_clean_url: 'https://www.facebook.com/share/1BiNcRpu8m?mibextid=wwXIfr',
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'a redirect link',
                                   target: 'url',
                                 },
   },
@@ -3887,6 +3913,20 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://www.librarything.com/author/alexandermichelle-1',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/a/5179415/Alex-Ross',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/a/5179415',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.librarything.com/a/reviews/3801/Tori-Amos',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.librarything.com/a/3801',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -5194,6 +5234,17 @@ limited_link_type_combinations: [
   {
                      input_url: 'http://pinterest.com/tucenter/',
             expected_clean_url: 'https://www.pinterest.com/tucenter/',
+  },
+  {
+                     input_url: 'https://pin.it/3NwH9ogoo',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'socialnetwork',
+       only_valid_entity_types: [],
+                expected_error: {
+                                  error: 'is a redirect link',
+                                  target: 'url',
+                                },
   },
   // pixiv
   {

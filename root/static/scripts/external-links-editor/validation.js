@@ -12,6 +12,7 @@ import * as tree from 'weight-balanced-tree';
 
 import isObjectEmpty from '../common/utility/isObjectEmpty.js';
 import * as URLCleanup from '../edit/URLCleanup.js';
+import isLinkAggregator from '../edit/utility/isLinkAggregator.js';
 import isShortenedUrl from '../edit/utility/isShortenedUrl.js';
 import getRelationshipLinkType
   from '../relationship-editor/utility/getRelationshipLinkType.js';
@@ -181,10 +182,34 @@ export function validateLink(
                   because it is known to host malware.`),
       target: URLCleanup.ERROR_TARGETS.URL,
     };
+  } else if (isLinkAggregator(url)) {
+    error = {
+      message: exp.l(
+        `This is an aggregator link. Please follow {aggregator_url|your link}
+         and add all appropriate links separately instead.`,
+        {
+          aggregator_url: {
+            href: url,
+            rel: 'noopener noreferrer',
+            target: '_blank',
+          },
+        },
+      ),
+      target: URLCleanup.ERROR_TARGETS.URL,
+    };
   } else if (isShortenedUrl(url)) {
     error = {
-      message: l(`Please don’t enter bundled/shortened URLs,
-                  enter the destination URL(s) instead.`),
+      message: exp.l(
+        `This is a redirect link. Please follow {redirect_url|your link}
+         and add the link it redirects to instead.`,
+        {
+          redirect_url: {
+            href: url,
+            rel: 'noopener noreferrer',
+            target: '_blank',
+          },
+        },
+      ),
       target: URLCleanup.ERROR_TARGETS.URL,
     };
   } else if (isGoogleAmp(url)) {
