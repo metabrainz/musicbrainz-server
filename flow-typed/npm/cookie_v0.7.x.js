@@ -2,20 +2,20 @@
 
 declare module 'cookie' {
   declare type CookeParseOptions = {
-    +decode?: (string) => string,
+    readonly decode?: (string) => string,
   };
 
   declare type CookieSerializeOptions = {
-    +domain?: string,
-    +encode?: (string) => string,
-    +expires?: Date,
-    +httpOnly?: boolean,
-    +maxAge?: number,
-    +partitioned?: boolean,
-    +path?: string,
-    +priority?: 'low' | 'medium' | 'high',
-    +sameSite?: boolean | 'lax' | 'none' | 'strict',
-    +secure?: boolean,
+    readonly domain?: string,
+    readonly encode?: (string) => string,
+    readonly expires?: Date,
+    readonly httpOnly?: boolean,
+    readonly maxAge?: number,
+    readonly partitioned?: boolean,
+    readonly path?: string,
+    readonly priority?: 'low' | 'medium' | 'high',
+    readonly sameSite?: boolean | 'lax' | 'none' | 'strict',
+    readonly secure?: boolean,
   };
 
   declare module.exports: {

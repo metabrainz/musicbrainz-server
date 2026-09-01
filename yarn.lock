@@ -5224,12 +5224,39 @@ __metadata:
   languageName: node
   linkType: hard
 
-"flow-bin@npm:0.324.0":
-  version: 0.324.0
-  resolution: "flow-bin@npm:0.324.0"
+"flow-bin@npm:0.329.0":
+  version: 0.329.0
+  resolution: "flow-bin@npm:0.329.0"
   bin:
     flow: cli.js
-  checksum: 10c0/8e15b49f7d4013f0f2be55bae4dbd4248683228d9aea63b94de44f68f0c6879d6fe6a14ce7b8242ede673bf0321b9f2413f205b355220303dfd5e9586bd05b19
+  checksum: 10c0/9acd00d4fc09bb236fc20abeb5aec44ee7dbe0ce14406d5f42625b45c857f109db0dcc7f2c94ac2520c6da393d10fed78e702ab6c6d299c9c0dc321c2b3cf271
+  languageName: node
+  linkType: hard
+
+"flow-eslint@npm:0.329.0":
+  version: 0.329.0
+  resolution: "flow-eslint@npm:0.329.0"
+  dependencies:
+    esrecurse: "npm:^4.3.0"
+    flow-estree: "npm:0.329.0"
+    flow-parser: "npm:0.329.0"
+  checksum: 10c0/50ddb44de032495cc18c0f28e3ebcec1e405bf3eefbbae69375eb9b9bab9be2a1ef9ed369dfe724dd30b4c485621db677c19fb716e8cf074268fde74f122b30e
+  languageName: node
+  linkType: hard
+
+"flow-estree@npm:0.329.0":
+  version: 0.329.0
+  resolution: "flow-estree@npm:0.329.0"
+  checksum: 10c0/515d28901f739e9da311481acd5d643882f2fe596d3b3d3faa5928d9763cfab425a5c4675c3a0c76e2bd7fc01477c307d107176e98e07889f36c1edd27a8ea21
+  languageName: node
+  linkType: hard
+
+"flow-parser@npm:0.329.0":
+  version: 0.329.0
+  resolution: "flow-parser@npm:0.329.0"
+  dependencies:
+    flow-estree: "npm:0.329.0"
+  checksum: 10c0/ae68d8301d5ec35a35baec9411c517a53354b0db74d2309441eb99fae507b8c53e34562e3381400307e0c6152d753012177066c51d256f68eef9634f1bba863d
   languageName: node
   linkType: hard
 
@@ -5830,17 +5857,6 @@ __metadata:
   bin:
     he: bin/he
   checksum: 10c0/a27d478befe3c8192f006cdd0639a66798979dfa6e2125c6ac582a19a5ebfec62ad83e8382e6036170d873f46e4536a7e795bf8b95bf7c247f4cc0825ccc8c17
-  languageName: node
-  linkType: hard
-
-"hermes-eslint@npm:0.36.1":
-  version: 0.36.1
-  resolution: "hermes-eslint@npm:0.36.1"
-  dependencies:
-    esrecurse: "npm:^4.3.0"
-    hermes-estree: "npm:0.36.1"
-    hermes-parser: "npm:0.36.1"
-  checksum: 10c0/d0b9c3d9f1d683ac82313b6e88a1e4c739c55e3a9f1d522ca6fa7eb3803452204f3c7316dec1b159cd35bf41b8dfd339ed644e9f154f39802e613224f56a0e96
   languageName: node
   linkType: hard
 
@@ -7650,13 +7666,13 @@ __metadata:
     eslint-plugin-simple-import-sort: "npm:^7.0.0"
     fast-diff: "npm:1.3.0"
     filesize: "npm:10.1.6"
-    flow-bin: "npm:0.324.0"
+    flow-bin: "npm:0.329.0"
+    flow-eslint: "npm:0.329.0"
     flow-typed: "npm:4.1.1"
     generic-diff: "npm:1.0.1"
     gettext-parser: "npm:4.2.0"
     globals: "npm:17.7.0"
     he: "npm:1.2.0"
-    hermes-eslint: "npm:0.36.1"
     http-proxy: "npm:1.18.1"
     imports-loader: "npm:5.0.0"
     jed: "https://github.com/metabrainz/Jed.git#cd3f71b7479b9c587990a0fa27ae9fdafbd9d9d9"

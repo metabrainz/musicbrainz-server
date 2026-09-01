@@ -29,18 +29,18 @@ declare module '@sentry/browser' {
         [key: string]: unknown,
         // At least one of these must be present, but there's no way to represent that in Flow without
         // enumerating every possible combination.
-        +id?: string | number,
-        +username?: string,
-        +email?: string,
-        +ip_address?: string,
+        readonly id?: string | number,
+        readonly username?: string,
+        readonly email?: string,
+        readonly ip_address?: string,
         ...
     };
 
     declare export type Options = {|
-        +dsn?: string,
-        +release?: string,
-        +environment?: string,
-        +denyUrls?: ReadonlyArray<string | RegExp>,
-        +allowUrls?: ReadonlyArray<string | RegExp>,
+        readonly dsn?: string,
+        readonly release?: string,
+        readonly environment?: string,
+        readonly denyUrls?: ReadonlyArray<string | RegExp>,
+        readonly allowUrls?: ReadonlyArray<string | RegExp>,
     |};
 }
