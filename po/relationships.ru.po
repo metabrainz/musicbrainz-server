@@ -20,10 +20,11 @@
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
 # Libra <recreate_squall363@simplelogin.com>, 2024, 2025.
 # karpuzikov <karpuzikovanton@gmail.com>, 2025.
+# TheParaziT <lolkekovic05713@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-07-17 01:12+0000\n"
+"PO-Revision-Date: 2026-08-02 15:12+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -1769,16 +1770,12 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
-#, fuzzy
-#| msgid ""
-#| "This attribute indicates a 'guest' performance where the performer is not "
-#| "usually part of the band."
 msgid ""
 "This attribute indicates a 'guest' performance where the artist in question "
 "is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Этот атрибут указывает на \"приглашенное\" выступление, когда исполнитель "
-"обычно не является частью группы."
+"обычно не является частью основного исполнителя (или жюри конкурса)."
 
 #. name:eponymous
 #: DB:link_attribute_type/description:1094
@@ -3017,6 +3014,8 @@ msgid ""
 "This indicates the label / organization was the owner of this place (often a "
 "studio, but sometimes also a venue)."
 msgstr ""
+"Указывает что лейбл / организация являлась владельцем данного места (чаще "
+"всего это студия, но иногда — концертный зал)."
 
 #. name:named after label
 #: DB:link_type/description:1259
@@ -4272,6 +4271,9 @@ msgid ""
 "This links a soundtrack release group to the <a href=\"http://www.imdb.com/"
 "\">IMDb</a> page for the movie, show or game of which it is a soundtrack."
 msgstr ""
+"Связывает группу релизов саундтрека со страницей фильма, сериала или игры, к "
+"которым относится данный саундтрек, на <a href=\"http://www.imdb.com/\">"
+"IMDb</a>."
 
 #. name:vgmdb
 #: DB:link_type/description:992
@@ -12042,15 +12044,13 @@ msgstr "{guest:приглашенный} концертмейстер для"
 
 #. name:jury member
 #: DB:link_type/link_phrase:1255
-#, fuzzy
-#| msgid "was a jury member at"
 msgid "{guest} jury member at"
-msgstr "был(а) членом жюри"
+msgstr "{guest:приглашенный} член жюри"
 
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"
-msgstr ""
+msgstr "{half:сводные} {step:приемные} братья/сёстры"
 
 #. name:instrument technician
 #: DB:link_type/reverse_link_phrase:986 DB:link_type/reverse_link_phrase:987

@@ -3,13 +3,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Languages add-on <noreply-addon-languages@weblate.org>, 2025.
-# vacuousVersifier <olive@vacuous.me>, 2025.
+# vacuousVersifier <olive@vacuous.me>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2025-10-22 00:08+0000\n"
+"PO-Revision-Date: 2026-08-15 03:12+0000\n"
 "Last-Translator: vacuousVersifier <olive@vacuous.me>\n"
 "Language-Team: Toki Pona <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/tok/>\n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
-msgstr ""
+msgstr " ({text})"
 
 #: ../root/cdstub/cdstub.tt:4 ../root/release/edit/tracklist.tt:161
 #: ../root/release/edit/tracklist.tt:511 ../root/cdstub/CDStubInfo.js:19
@@ -37,47 +37,47 @@ msgstr ""
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1569
 #: ../root/utility/tableColumns.js:585
 msgid "#"
-msgstr ""
+msgstr "nanpa"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10004;"
-msgstr ""
+msgstr "&#10004;"
 
 #: ../root/doc/edit_type.tt:43
 msgid "&#10005;"
-msgstr ""
+msgstr "&#10005;"
 
 #: ../root/event/add_event_art.tt:104 ../root/release/add_cover_art.tt:104
 msgid "&#x26a0; Error creating edit"
-msgstr ""
+msgstr "&#x26a0; ante li pakala"
 
 #: ../root/event/add_event_art.tt:88 ../root/release/add_cover_art.tt:88
 msgid "&#x26a0; Error requesting signature"
-msgstr ""
+msgstr "&#x26a0; mi ken ala kama jo e nasin"
 
 #: ../root/event/add_event_art.tt:102 ../root/release/add_cover_art.tt:102
 msgid "&#x26a0; Error uploading image"
-msgstr ""
+msgstr "&#x26a0; mi ken ala pana e sitelen"
 
 #: ../root/event/add_event_art.tt:103 ../root/release/add_cover_art.tt:103
 msgid "&#x26a0; Server busy, try again later"
-msgstr ""
+msgstr "&#x26a0; lawa li ken ala kute. o pana lon tenpo ante"
 
 #: ../root/event/add_event_art.tt:87 ../root/release/add_cover_art.tt:87
 msgid "&#x26a0; Unrecognized file"
-msgstr ""
+msgstr "&#x26a0; sina pana e ijo nasa"
 
 #: ../root/event/add_event_art.tt:86 ../root/release/add_cover_art.tt:86
 msgid "&#x2713; Success"
-msgstr ""
+msgstr "&#x2713; pona a"
 
 #: ../root/release/edit/recordings.tt:63
 msgid "(add a new recording)"
-msgstr ""
+msgstr "(o pana e kalama sin)"
 
 #: ../root/event/add_event_art.tt:129 ../root/release/add_cover_art.tt:129
 msgid "(no other images)"
-msgstr ""
+msgstr "(sitelen ante li lon ala)"
 
 #: ../root/cdtoc/attach_artist_releases.tt:16 ../root/cdtoc/list.tt:10
 #: ../root/cdtoc/lookup.tt:43 ../root/edit/details/MergeReleases.js:230
@@ -89,7 +89,7 @@ msgstr ""
 #: ../root/utility/tableColumns.js:526 ../root/utility/tableColumns.js:534
 msgctxt "and"
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: ../root/release/edit/recordings.tt:137
 msgid ""
@@ -97,7 +97,7 @@ msgid ""
 "artists} should almost always be different from {csg_track_artist|track "
 "artists}, so don’t use the “copy artist credits” option while editing a "
 "classical release unless you’re very sure it’s a good idea!"
-msgstr ""
+msgstr "<strong>o kute e ni:</strong>"
 
 #: ../root/components/common-macros.tt:396 ../root/recording/edit_form.tt:6
 msgid "<strong>Warning</strong>:"
@@ -650,7 +650,7 @@ msgstr ""
 
 #: ../root/release/edit/recordings.tt:149
 msgid "Copy all track artist credits to associated recordings."
-msgstr ""
+msgstr "o mute e nimi pi jan pali tan ijo kulupu tawa kalama."
 
 #: ../root/release/edit/recordings.tt:143
 msgid "Copy all track titles to associated recordings."
@@ -8927,53 +8927,53 @@ msgstr ""
 #: ../root/edit/details/EditAlias.js:74
 msgctxt "alias"
 msgid "[removed]"
-msgstr ""
+msgstr "[weka]"
 
 #: ../root/edit/details/EditArtistCredit.js:22
 #: ../root/report/components/ArtistCreditList.js:25
 #: ../root/static/scripts/common/components/FilterForm.js:119
 msgid "Artist credit"
-msgstr ""
+msgstr "sitelen pi jan pali"
 
 #: ../root/edit/details/EditArtistCredit.js:37
 msgid "See all uses of the artist credit being changed."
-msgstr ""
+msgstr "sitelen pi jan pali la o lukin e ante ale."
 
 #: ../root/edit/details/EditMedium.js:42
 msgid "This track's MBID will change when this edit is applied."
-msgstr ""
+msgstr "ante ni li lon la nimi MBID pi ijo kulupu ni li ante."
 
 #: ../root/edit/details/EditMedium.js:272
 msgid "Old tracklist"
-msgstr ""
+msgstr "lipu pi sin ala"
 
 #: ../root/edit/details/EditMedium.js:273
 msgid "New tracklist"
-msgstr ""
+msgstr "lipu sin"
 
 #: ../root/edit/details/EditMedium.js:470
 msgid "This edit changes which tracks are data tracks."
-msgstr ""
+msgstr "ante ni la ijo kulupu li kama ijo sona anu ijo kalama."
 
 #: ../root/edit/details/EditMedium.js:485
 msgid "Old recording"
-msgstr ""
+msgstr "kalama pi sin ala"
 
 #: ../root/edit/details/EditMedium.js:486
 msgid "New recording"
-msgstr ""
+msgstr "kalama sin"
 
 #: ../root/edit/details/EditMedium.js:547
 msgid "Old artist"
-msgstr ""
+msgstr "jan pali pi sin ala"
 
 #: ../root/edit/details/EditMedium.js:548
 msgid "New artist"
-msgstr ""
+msgstr "jan pali sin"
 
 #: ../root/edit/details/EditRecording.js:59
 msgid "This edit makes subsecond changes to the recording length"
-msgstr ""
+msgstr "ante ni li ante e tenpo kalama. tenpo li lili a"
 
 #: ../root/edit/details/EditRelationshipType.js:138
 #: ../root/edit/details/historic/EditRelationship.js:36
@@ -8982,40 +8982,42 @@ msgid ""
 "to the current MusicBrainz schema. The remaining data is displayed below, "
 "but might not be fully accurate."
 msgstr ""
+"nasin sona MusicBrainz li ante lon tenpo sike 2011 la sona ante ni li "
+"pakala. sona li lon anpa. taso, ni li ken pakala."
 
 #: ../root/edit/details/EditRelationshipType.js:241
 #: ../root/edit/details/EditRelationshipType.js:249
 msgid "Deprecated:"
-msgstr ""
+msgstr "kepeken pini:"
 
 #: ../root/edit/details/EditRelationshipType.js:327
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:236
 msgid "Examples"
-msgstr ""
+msgstr "nasin ken"
 
 #: ../root/edit/details/EditRelease.js:161
 msgid "This edit also changed the track artists."
-msgstr ""
+msgstr "ante ni li ante e jan pali pi ijo kulupu."
 
 #: ../root/edit/details/EditUrl.js:64
 msgid "This change affects {num} relationship."
 msgid_plural "This change affects {num} relationships."
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ante ni li ante e linja pi mute {num}."
 
 #: ../root/edit/details/EditUrl.js:73
 msgid ""
 "The new URL already exists in the database. This edit will therefore merge "
 "the two URL entities."
 msgstr ""
+"tenpo pini la nasin ilo sin li lon. ni la ante ni li wan e ijo pi nasin ilo."
 
 #: ../root/edit/details/EditUrl.js:76
 msgid "This edit was a merge."
-msgstr ""
+msgstr "ante ni li wan."
 
 #: ../root/edit/details/EditUrl.js:80
 msgid "Search for the target URL."
-msgstr ""
+msgstr "o alasa e nasin ilo."
 
 #: ../root/edit/details/MergeAreas.js:16
 #: ../root/edit/details/MergeArtists.js:17
@@ -9028,7 +9030,7 @@ msgstr ""
 #: ../root/edit/details/MergeSeries.js:16 ../root/edit/details/MergeWorks.js:16
 msgctxt "verb, header, paired with Into"
 msgid "Merge"
-msgstr ""
+msgstr "o wan e ni"
 
 #: ../root/edit/details/MergeAreas.js:22
 #: ../root/edit/details/MergeArtists.js:23
@@ -9045,77 +9047,82 @@ msgstr ""
 #: ../root/edit/details/MergeSeries.js:22 ../root/edit/details/MergeWorks.js:22
 msgctxt "header, paired with Merge"
 msgid "Into"
-msgstr ""
+msgstr "tawa ni"
 
 #: ../root/edit/details/MergeArtists.js:29
 msgid "Rename artist and relationship credits"
-msgstr ""
+msgstr "o ante e nimi pi jan pali e nimi linja"
 
 #: ../root/edit/details/MergeReleases.js:102
 msgid "Medium {position}: {name} is now medium {new_position}: {new_name}"
 msgstr ""
+"poki kalama nanpa {position}: {name} li kama poki kalama nanpa {new_position}"
+": {new_name}"
 
 #: ../root/edit/details/MergeReleases.js:113
 msgid "Medium {position}: {name} is now medium {new_position}"
 msgstr ""
+"poki kalama nanpa {position}: {name} li kama poki kalama nanpa {new_position}"
 
 #: ../root/edit/details/MergeReleases.js:122
 msgid "Medium {position} is now medium {new_position}: {new_name}"
 msgstr ""
+"poki kalama nanpa {position} li kama poki kalama nanpa {new_position}: "
+"{new_name}"
 
 #: ../root/edit/details/MergeReleases.js:133
 msgid "Medium {position} is now medium {new_position}"
-msgstr ""
+msgstr "poki kalama nanpa {position} li kama poki kalama nanpa {new_position}"
 
 #: ../root/edit/details/MergeReleases.js:245
 msgid "This release has no media to merge."
-msgstr ""
+msgstr "ijo tawa wan la pana ni li jo e ala."
 
 #: ../root/edit/details/MergeReleases.js:298
 msgid "Recording merges"
-msgstr ""
+msgstr "wan kalama"
 
 #: ../root/edit/details/MergeReleases.js:301
 msgid "Track #"
-msgstr ""
+msgstr "ijo kulupu nanpa"
 
 #: ../root/edit/details/MergeReleases.js:315
 msgid ""
 "This edit does not store recording merge information and is closed, so no "
 "recording merge information can be shown."
-msgstr ""
+msgstr "ante ni li jo ala e sona pi wan kalama."
 
 #: ../root/edit/details/MergeReleases.js:332
 msgid "All recordings for these releases are already merged."
-msgstr ""
+msgstr "kalama ale pana li wan lon tenpo pini."
 
 #: ../root/edit/details/MergeReleases.js:340
 #: ../root/static/scripts/edit/components/ReleaseMergeStrategy.js:102
 msgid "Merge strategy:"
-msgstr ""
+msgstr "nasin wan:"
 
 #: ../root/edit/details/MergeReleases.js:348
 msgid ""
 "The data in this edit originally came from an older version of this edit, "
 "and may not display correctly"
-msgstr ""
+msgstr "sona ante li tan sona pi sin ala. ni la sona li ken pakala"
 
 #: ../root/edit/details/MoveDiscId.js:28
 #: ../root/edit/details/historic/MoveDiscId.js:24
 msgid "From:"
-msgstr ""
+msgstr "tan:"
 
 #: ../root/edit/details/MoveDiscId.js:32
 #: ../root/edit/details/historic/MoveDiscId.js:28
 msgid "To:"
-msgstr ""
+msgstr "tawa:"
 
 #: ../root/edit/details/RemoveIsrc.js:23
 #: ../root/otherlookup/OtherLookupForm.js:67
 #: ../root/report/IsrcsWithManyRecordings.js:58
 #: ../root/static/scripts/common/components/IsrcList.js:26
 msgid "ISRC"
-msgstr ""
+msgstr "nimi ISRC"
 
 #: ../root/edit/details/RemoveMedium.js:49
 msgid ""
@@ -9133,58 +9140,62 @@ msgstr ""
 
 #: ../root/edit/details/RemoveMedium.js:70
 msgid "Original tracklist"
-msgstr ""
+msgstr "lipu pi ante ala"
 
 #: ../root/edit/details/RemoveMedium.js:89
 msgid "Current tracklist"
-msgstr ""
+msgstr "lipu lon"
 
 #: ../root/edit/details/ReorderArt.js:50
 msgid "Old positions:"
-msgstr ""
+msgstr "tomo pi sin ala:"
 
 #: ../root/edit/details/ReorderArt.js:66
 msgid "New positions:"
-msgstr ""
+msgstr "tomo sin:"
 
 #: ../root/edit/details/ReorderMediums.js:38
 msgid "Mediums"
-msgstr ""
+msgstr "poki kalama"
 
 #: ../root/edit/details/ReorderMediums.js:42
 msgid "Medium <span class=\"new\">{new}</span>: {title} (new medium)"
-msgstr ""
+msgstr "poki kalama nanpa <span class=\"new\">{new}</span>: {title} (sin)"
 
 #: ../root/edit/details/ReorderMediums.js:46
 msgid ""
 "Medium <span class=\"new\">{new}</span>: {title} (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
+"poki kalama nanpa <span class=\"new\">{new}</span>: {title} (tan nanpa <span "
+"class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderMediums.js:54
 msgid "Medium <span class=\"new\">{new}</span> (new medium)"
-msgstr ""
+msgstr "poki kalama nanpa <span class=\"new\">{new}</span> (sin)"
 
 #: ../root/edit/details/ReorderMediums.js:57
 msgid ""
 "Medium <span class=\"new\">{new}</span> (moved from position <span "
 "class=\"old\">{old}</span>)"
 msgstr ""
+"poki kalama nanpa <span class=\"new\">{new}</span> (tan nanpa <span "
+"class=\"old\">{old}</span>)"
 
 #: ../root/edit/details/ReorderRelationships.js:18
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:152
 msgid "Old order"
-msgstr ""
+msgstr "nasin pi sin ala"
 
 #: ../root/edit/details/ReorderRelationships.js:19
 #: ../root/static/scripts/relationship-editor/components/DialogPreview.js:156
 msgid "New order"
-msgstr ""
+msgstr "nasin sin"
 
 #: ../root/edit/details/SetCoverArt.js:33
 msgctxt "singular"
 msgid "Old cover art:"
-msgstr ""
+msgstr "sitelen pi sin ala:"
 
 #: ../root/edit/details/SetCoverArt.js:54
 msgid ""
@@ -9195,21 +9206,21 @@ msgstr ""
 #: ../root/edit/details/SetCoverArt.js:56
 #: ../root/edit/details/SetCoverArt.js:81
 msgid "We are unable to display this cover art."
-msgstr ""
+msgstr "mi ken ala pana e sitelen ni."
 
 #: ../root/edit/details/SetCoverArt.js:61
 msgctxt "singular"
 msgid "New cover art:"
-msgstr ""
+msgstr "sitelen sin:"
 
 #: ../root/edit/details/SetTrackLengths.js:54
 msgctxt "CD TOC"
 msgid "[removed]"
-msgstr ""
+msgstr "[weka]"
 
 #: ../root/edit/details/SetTrackLengths.js:59
 msgid "Track lengths:"
-msgstr ""
+msgstr "tenpo pi ijo kulupu:"
 
 #: ../root/edit/details/SetTrackLengths.js:72
 msgid "This edit makes subsecond changes to track lengths"
@@ -9217,30 +9228,30 @@ msgstr ""
 
 #: ../root/edit/details/historic/AddDiscId.js:20
 msgid "CD TOC:"
-msgstr ""
+msgstr "lipu sike:"
 
 #: ../root/edit/details/historic/AddTrackKV.js:45
 #: ../root/edit/details/historic/AddTrackOld.js:31
 #: ../root/edit/details/historic/EditTrack.js:43 ../root/taglookup/Form.js:32
 msgid "Track number"
-msgstr ""
+msgstr "nanpa pi ijo kulupu"
 
 #: ../root/edit/details/historic/AddTrackOld.js:25
 msgid "Artist name:"
-msgstr ""
+msgstr "nimi pi jan pali:"
 
 #: ../root/edit/details/historic/EditRelationship.js:45
 msgid "Old relationships:"
-msgstr ""
+msgstr "linja pi sin ala:"
 
 #: ../root/edit/details/historic/EditRelationship.js:117
 msgid "New relationships:"
-msgstr ""
+msgstr "linja sin:"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:31
 msgctxt "release type and status"
 msgid "Old"
-msgstr ""
+msgstr "sin ala"
 
 #: ../root/edit/details/historic/EditReleaseAttributes.js:38
 msgid "Type: {type}, status: {status}"
@@ -9257,42 +9268,42 @@ msgstr ""
 #: ../root/edit/details/historic/EditReleaseEvents.js:119
 msgctxt "list of added release events"
 msgid "Added"
-msgstr ""
+msgstr "pana"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:135
 msgctxt "list of removed release events"
 msgid "Removed"
-msgstr ""
+msgstr "weka"
 
 #: ../root/edit/details/historic/EditReleaseEvents.js:151
 msgctxt "list of edited release events"
 msgid "Edited"
-msgstr ""
+msgstr "ante"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:17
 msgctxt "release language"
 msgid "Old"
-msgstr ""
+msgstr "sin ala"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:24
 msgid "Language: {language}, script: {script}"
-msgstr ""
+msgstr "toki: {language}, sitelen: {script}"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:45
 msgid "New language:"
-msgstr ""
+msgstr "toki sin:"
 
 #: ../root/edit/details/historic/EditReleaseLanguage.js:54
 msgid "New script:"
-msgstr ""
+msgstr "sitelen sin:"
 
 #: ../root/edit/details/historic/MergeReleases.js:18
 msgid "Old releases:"
-msgstr ""
+msgstr "pana pi sin ala:"
 
 #: ../root/edit/details/historic/MergeReleases.js:30
 msgid "New releases:"
-msgstr ""
+msgstr "pana sin:"
 
 #: ../root/edit/details/historic/MergeReleases.js:42
 msgid "Merge attributes:"
@@ -9315,89 +9326,89 @@ msgstr ""
 #: ../root/elections/ElectionDetails.js:28
 #: ../root/elections/ElectionTable/index.js:17
 msgid "Candidate"
-msgstr ""
+msgstr "jan ken"
 
 #: ../root/elections/ElectionDetails.js:32
 #: ../root/elections/ElectionTable/index.js:21
 msgid "Proposer"
-msgstr ""
+msgstr "jan pana"
 
 #: ../root/elections/ElectionDetails.js:36
 #: ../root/elections/ElectionTable/index.js:22
 msgid "1st seconder"
-msgstr ""
+msgstr "jan wile wan"
 
 #: ../root/elections/ElectionDetails.js:44
 #: ../root/elections/ElectionTable/index.js:23
 msgid "2nd seconder"
-msgstr ""
+msgstr "jan wile tu"
 
 #: ../root/elections/ElectionDetails.js:55
 msgid "Total votes"
-msgstr ""
+msgstr "wile ale"
 
 #: ../root/elections/ElectionDetails.js:59
 #: ../root/elections/ElectionTable/index.js:24
 msgid "Votes for"
-msgstr ""
+msgstr "wile"
 
 #: ../root/elections/ElectionDetails.js:63
 #: ../root/elections/ElectionTable/index.js:25
 msgid "Votes against"
-msgstr ""
+msgstr "wile ala"
 
 #: ../root/elections/ElectionDetails.js:67
 msgid "Abstentions"
-msgstr ""
+msgstr "pana ala"
 
 #: ../root/elections/ElectionDetails.js:75
 msgid "Votes for/against:"
-msgstr ""
+msgstr "wile / wile ala:"
 
 #: ../root/elections/ElectionDetails.js:77
 msgid ""
 "The tally of votes cast will only be shown when the election is complete."
-msgstr ""
+msgstr "tenpo wile li pini la mute wile li pana tawa jan ale."
 
 #: ../root/elections/ElectionDetails.js:84
 #: ../root/elections/ElectionTable/index.js:18
 msgctxt "election status"
 msgid "Status"
-msgstr ""
+msgstr "poki"
 
 #: ../root/elections/ElectionTable/ElectionTableRows.js:52
 msgid "View details"
-msgstr ""
+msgstr "o lukin"
 
 #: ../root/elections/ElectionTable/index.js:19
 #: ../root/layout/components/sidebar/EventSidebar.js:109
 msgid "Start date"
-msgstr ""
+msgstr "tenpo open"
 
 #: ../root/elections/ElectionVotes.js:23
 msgid "Vote"
-msgstr ""
+msgstr "o pana"
 
 #: ../root/elections/ElectionVotes.js:34
 msgid "(private)"
-msgstr ""
+msgstr "(len)"
 
 #: ../root/elections/ElectionVoting.js:23
 msgid "To find out if you can vote for this candidate, please {url|log in}."
-msgstr ""
+msgstr "sine wile pana e wile sina tawa jan ni la {url|o pana e sona sina}."
 
 #: ../root/elections/ElectionVoting.js:31
 msgid "Voting is closed."
-msgstr ""
+msgstr "tenpo pana li pini."
 
 #: ../root/elections/ElectionVoting.js:34
 msgid "You cannot vote for this candidate, because you are not an auto-editor."
-msgstr ""
+msgstr "sina ken ala pana e wile sina tan ni: sina jan ante wawa ala."
 
 #: ../root/elections/ElectionVoting.js:39
 msgid ""
 "You cannot vote for this candidate, because you proposed / seconded them."
-msgstr ""
+msgstr "sina ken ala pana e wile sina tan ni: sina pana e jan."
 
 #: ../root/elections/ElectionVoting.js:44
 msgid ""
@@ -9406,127 +9417,126 @@ msgid ""
 "that you cannot cast a \"No\" vote (or abstain) until two seconders have "
 "been found."
 msgstr ""
+"tenpo pana li open ala. sina wile pona e jan ni la o pana e jan. sina wile "
+"ike e jan ni la sina ken ala lon tenpo lon."
 
 #: ../root/elections/ElectionVoting.js:64
 msgid "Second this candidate"
-msgstr ""
+msgstr "o pana e jan"
 
 #: ../root/elections/ElectionVoting.js:76
 msgid "Your current vote: {vote}"
-msgstr ""
+msgstr "wile sina: {vote}"
 
 #: ../root/elections/ElectionVoting.js:84
 msgid "Vote YES"
-msgstr ""
+msgstr "o pana e WILE"
 
 #: ../root/elections/ElectionVoting.js:87
 msgid "Vote NO"
-msgstr ""
+msgstr "o pana e WILE ALA"
 
 #: ../root/elections/ElectionVoting.js:90
 msgid "Abstain"
-msgstr ""
+msgstr "o pana ala"
 
 #: ../root/elections/ElectionVoting.js:107
 msgid "Cancel the election"
-msgstr ""
+msgstr "o weka e tenpo wile"
 
 #: ../root/elections/Index.js:16 ../root/elections/Index.js:17
 #: ../root/layout/components/BottomMenu.js:148
 msgid "Auto-editor elections"
-msgstr ""
+msgstr "tenpo wile pi jan ante wawa sin"
 
 #: ../root/elections/Index.js:20
 msgid "No elections found."
-msgstr ""
+msgstr "tenpo ala li lon."
 
 #: ../root/elections/Nominate.js:18
 msgid ""
 "Are you sure you want to nominate the editor {editor} for auto-editor status?"
-msgstr ""
+msgstr "sina wile ala wile pana e {editor} tawa jan ante wawa?"
 
 #: ../root/elections/Nominate.js:22
 msgid "Nominate a candidate for auto-editor"
-msgstr ""
+msgstr "o pana e jan tawa jan ante wawa"
 
 #: ../root/elections/Show.js:20
 msgid "Auto-editor election #{no}"
-msgstr ""
+msgstr "tenpo wile nanpa {no}"
 
 #: ../root/elections/Show.js:25
 msgid "Back to elections"
-msgstr ""
+msgstr "o tawa tenpo wile ale"
 
 #: ../root/elections/Show.js:30
 msgid "Votes cast"
-msgstr ""
+msgstr "wile pana"
 
 #: ../root/elections/Show.js:33
 msgid "The list of voters will only be shown when the election is complete."
-msgstr ""
+msgstr "tenpo wile li pini la lipu pi wile pana li lon."
 
 #: ../root/entity/Collections.js:32
 msgid "{entity} has been added to {num} collection:"
 msgid_plural "{entity} has been added to {num} collections:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "tenpo pini la {entity} li lon kulupu {num}:"
 
 #: ../root/entity/Collections.js:42
 msgid "{collection} by {owner}"
-msgstr ""
+msgstr "kulupu {collection} pi {owner}"
 
 #: ../root/entity/Collections.js:54
 msgid "plus {n} other private collection"
 msgid_plural "plus {n} other private collections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ni li lon kulupu len {n}"
 
 #: ../root/entity/Collections.js:63
 msgid "A private collection"
 msgid_plural "{n} private collections"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "kulupu len {n}"
 
 #: ../root/entity/Collections.js:75
 msgid "{entity} has not been added to any collections."
-msgstr ""
+msgstr "{entity} li lon ala kulupu pi jan ante."
 
 #: ../root/entity/Details.js:93
 msgid "{mbid|<abbr title=\"MusicBrainz Identifier\">MBID</abbr>}:"
-msgstr ""
+msgstr "{mbid|<abbr title=\"nimi pi ilo MusicBrainz\">nimi MBID</abbr>}:"
 
 #: ../root/entity/Details.js:99 ../root/report/components/InstrumentList.js:64
 msgid "Last updated"
-msgstr ""
+msgstr "ni li ante lon tenpo"
 
 #: ../root/entity/Details.js:103
 msgctxt "last updated"
 msgid "(unknown)"
-msgstr ""
+msgstr "(sona ala)"
 
 #: ../root/entity/Details.js:107
 msgid "Permanent link:"
-msgstr ""
+msgstr "nasin ilo (ni li ante ala lon tenpo ale):"
 
 #: ../root/entity/Details.js:115
 msgid "{xml_ws_docs|XML}"
-msgstr ""
+msgstr "{xml_ws_docs|nasin XML}"
 
 #: ../root/entity/Details.js:131
 msgid "{json_ws_docs|JSON}"
-msgstr ""
+msgstr "{json_ws_docs|nasin JSON}"
 
 #: ../root/entity/Edits.js:43 ../root/entity/Edits.js:47
 msgid "Open Edits for {name}"
-msgstr ""
+msgstr "ante pi pini ala tawa {name}"
 
 #: ../root/entity/Edits.js:44 ../root/entity/Edits.js:48
 msgid "Edits for {name}"
-msgstr ""
+msgstr "ante tawa {name}"
 
 #: ../root/entity/Edits.js:60
 msgid "{entity_type} by {artist}"
-msgstr ""
+msgstr "{entity_type} tan {artist}"
 
 #: ../root/entity/NotFound.js:27
 msgctxt "header"

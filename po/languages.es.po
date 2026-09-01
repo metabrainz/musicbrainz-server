@@ -26,7 +26,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-02-16 04:11+0000\n"
+"PO-Revision-Date: 2026-08-12 05:12+0000\n"
 "Last-Translator: syntariavoxmortem <voxmortemsyntaria@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/es/>\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.15.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -530,10 +530,8 @@ msgstr "Chuvasio"
 
 #. frequency:1 iso_code_3:nci
 #: DB:language/name:4704
-#, fuzzy
-#| msgid "Classical Newari"
 msgid "Classical Nahuatl"
-msgstr "Newari clásico"
+msgstr "Náhuatl clásico"
 
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
@@ -693,7 +691,7 @@ msgstr "Arrernte oriental"
 #. frequency:1 iso_code_3:nea
 #: DB:language/name:4741
 msgid "Eastern Ngad'a"
-msgstr ""
+msgstr "Ngad'a Oriental"
 
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
@@ -717,10 +715,8 @@ msgstr "Elamita"
 
 #. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
-#, fuzzy
-#| msgid "Sicilian"
 msgid "Emilian"
-msgstr "Siciliano"
+msgstr "Emiliano"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1139,10 +1135,8 @@ msgstr "Interlingue"
 
 #. frequency:1 iso_code_3:isv
 #: DB:language/name:7878
-#, fuzzy
-#| msgid "Interlingua"
 msgid "Interslavic"
-msgstr "Interlingua"
+msgstr "Intereslavo"
 
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
@@ -1296,10 +1290,8 @@ msgstr "Kazajo"
 
 #. frequency:1 iso_code_3:meo
 #: DB:language/name:4140
-#, fuzzy
-#| msgid "Malay"
 msgid "Kedah Malay"
-msgstr "Malayo"
+msgstr "Malayo de Kedah"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1759,7 +1751,7 @@ msgstr "Mongol"
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
-msgstr ""
+msgstr "Criollo mauriciano"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
@@ -1814,7 +1806,7 @@ msgstr "Napolitano"
 #. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
-msgstr ""
+msgstr "Malayo de Negeri Sembilan"
 
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
@@ -1829,7 +1821,7 @@ msgstr "Nepalí"
 #. frequency:1 iso_code_3:nxg
 #: DB:language/name:5076
 msgid "Ngad'a"
-msgstr ""
+msgstr "Ngada"
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1994,7 +1986,7 @@ msgstr "Lenguas papués"
 #. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
-msgstr ""
+msgstr "Malayo de Pattani"
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334

@@ -18,14 +18,15 @@
 # nikki, 2012
 # yvanz, 2018
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
+# Priit Jõerüüt <jmmbrz@users.noreply.translations.metabrainz.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2024-04-17 17:31+0000\n"
-"Last-Translator: reosarevok "
-"<reosarevok@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-08-17 03:12+0000\n"
+"Last-Translator: Priit Jõerüüt "
+"<jmmbrz@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Estonian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/et/>\n"
 "Language: et\n"
@@ -33,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.4.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -479,21 +480,19 @@ msgstr "Põhitüüp"
 #: ../root/static/scripts/release/components/MediumTable.js:75
 #: ../root/taglookup/Form.js:22 ../root/user/UserProfile.js:55
 msgid "Artist"
-msgstr "Artist"
+msgstr "Esitaja"
 
 #: ../root/edit/search_macros.tt:480
 msgid "Artist area"
-msgstr "Artisti piirkond"
+msgstr "Esitaja piirkond"
 
 #: ../root/artist/edit_form.tt:12
 msgid "Artist details"
-msgstr "Artisti üksikasjad"
+msgstr "Esitaja üksikasjad"
 
 #: ../root/edit/search_macros.tt:480
-#, fuzzy
-#| msgid "Artist area"
 msgid "Artist type"
-msgstr "Artisti piirkond"
+msgstr "Esitaja tüüp"
 
 #: ../root/cdtoc/attach_artist_releases.tt:3
 #: ../root/cdtoc/attach_artist_releases.tt:4
@@ -6168,15 +6167,15 @@ msgstr "Otsing otse andmebaasist"
 
 #: ../lib/MusicBrainz/Server/Form/Series.pm:29
 msgid "A type is required."
-msgstr ""
+msgstr "Tüüp on nõutav."
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:16
 msgid "Username field is required"
-msgstr "Palun sisesta siia kasutajanimi."
+msgstr "Kasutajanime välja täitmine on kohustuslik"
 
 #: ../lib/MusicBrainz/Server/Form/User/Login.pm:24
 msgid "Password field is required"
-msgstr "Palun sisesta siia parool."
+msgstr "Salasõnavälja täitmine on kohustuslik"
 
 #: ../lib/MusicBrainz/Server/Form/User/Preferences.pm:91
 #: ../root/static/scripts/account/components/PreferencesForm.js:86
@@ -6202,11 +6201,11 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:44
 msgid "Please enter a password in this field"
-msgstr "Palun sisesta siia parool."
+msgstr "Palun sisesta siia välja salasõna"
 
 #: ../lib/MusicBrainz/Server/Form/User/Register.pm:55
 msgid "The password confirmation does not match the password"
-msgstr "Parooli kinnitus erineb paroolist."
+msgstr "Salasõna kinnitus erineb algsest salasõnast"
 
 #: ../lib/MusicBrainz/Server/Form/User/Report.pm:35
 #: ../root/user/ReportUser.js:43
@@ -6496,11 +6495,11 @@ msgstr "Sinu kasutajanimi saab avalikult nähtavaks."
 
 #: ../root/account/RegisterForm.js:46 ../root/user/Login.js:100
 msgid "Password:"
-msgstr "Parool:"
+msgstr "Salasõna:"
 
 #: ../root/account/RegisterForm.js:54
 msgid "Confirm password:"
-msgstr "Parooli kinnitus:"
+msgstr "Korda salasõna:"
 
 #: ../root/account/RegisterForm.js:61
 #: ../root/static/scripts/account/components/EditProfileForm.js:204
@@ -17485,7 +17484,7 @@ msgstr "Pole kontot? {uri|Loo kasvõi kohe}!"
 
 #: ../root/user/Login.js:66
 msgid "Incorrect username or password"
-msgstr "Kasutajanimi või parool on vale."
+msgstr "Kasutajanimi või salasõna on vale"
 
 #: ../root/user/Login.js:76
 msgid ""
@@ -17494,7 +17493,7 @@ msgstr ""
 
 #: ../root/user/Login.js:109
 msgid "This is a development server; all passwords have been reset to \"mb\"."
-msgstr "See on arendusserver; kõigi parool on „mb”."
+msgstr "See on arendusserver; kõigi salasõna on „mb“."
 
 #: ../root/user/LoginDialogSuccess.js:38
 msgid "Login successful. You may close this dialog."

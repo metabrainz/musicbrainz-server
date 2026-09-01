@@ -38,18 +38,21 @@
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
 # wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # nkm01 <matsuk-nikita@rambler.ru>, 2024.
-# liilliil <liilliil@liilliil.net>, 2024.
+# liilliil <liilliil@liilliil.net>, 2024, 2026.
 # EmO686 <eiswuste@gmail.com>, 2026.
 # karpuzikov <karpuzikovanton@gmail.com>, 2026.
 # dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
 # TheParaziT <lolkekovic05713@gmail.com>, 2026.
+# AndrejsD1718 <rbox893@gmail.com>, 2026.
+# Covium <jidiyping@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2026-07-28 09:12+0000\n"
-"Last-Translator: TheParaziT <lolkekovic05713@gmail.com>\n"
+"PO-Revision-Date: 2026-08-23 17:58+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/ru/>\n"
 "Language: ru\n"
@@ -59,7 +62,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -584,7 +587,7 @@ msgid ""
 "so at {bugs|our bug tracker}. The information below will help, so please be "
 "sure to include it!"
 msgstr ""
-"Ниже приводится информация об ошибке. Если вы хотите отправить отчет об "
+"Ниже приведена информация об ошибке. Если вы хотите отправить отчет об "
 "ошибке, вы можете сделать это на странице {bugs|нашего баг-трекера}. "
 "Информация, представленная ниже, поможет, поэтому обязательно укажите ее!"
 
@@ -4391,7 +4394,7 @@ msgstr "ID диска не могут быть прикреплены к выб�
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:287
 msgid "The provided artist id is not valid"
-msgstr "Введённый ID исполнителя некорректен"
+msgstr "Введённый идентификатор исполнителя недействителен"
 
 #: ../lib/MusicBrainz/Server/Controller/CDTOC.pm:449
 msgid "The provided CD TOC ID doesn’t exist."
@@ -4433,6 +4436,8 @@ msgid ""
 "An edit search query could not be constructed. Some of your parameters are "
 "probably invalid."
 msgstr ""
+"Не удалось сформировать поисковый запрос для редактирования. Вероятно, "
+"некоторые из ваших параметров недействительны."
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:66
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:78
@@ -4497,19 +4502,16 @@ msgstr "Нельзя объединять лейблы с удаленными."
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
 msgid "Too many login attempts. Please try again in a few minutes."
 msgstr ""
+"Слишком много попыток входа. Пожалуйста, попробуйте ещё раз через несколько "
+"минут."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
-#, fuzzy
-#| msgctxt "event"
-#| msgid "cancelled"
 msgid "Login cancelled."
-msgstr "отменено"
+msgstr "Вход отменен."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
-#, fuzzy
-#| msgid "Image not available, please try again later."
 msgid "Login failed. Please try again."
-msgstr "Изображение недоступно, пожалуйста, попробуйте еще раз позднее."
+msgstr "Не удалось войти. Пожалуйста, попробуйте ещё раз."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4594,16 +4596,12 @@ msgstr ""
 "улучшить его}!"
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:311
-#, fuzzy
-#| msgid ""
-#| "We were not able to check your donation status right now. Please try "
-#| "again later."
 msgid ""
 "Sorry, we could not verify your login credentials right now. Please try "
 "logging in again."
 msgstr ""
-"Мы не смогли проверить статус вашего пожертвования. Пожалуйста, попробуйте "
-"еще раз позднее."
+"Мы не смогли проверить статус вашего входа. Пожалуйста, попробуйте еще раз "
+"позднее."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
@@ -4702,6 +4700,9 @@ msgid ""
 "associated item at the Internet Archive. Please contact us at {contact_url} "
 "so we can resolve this."
 msgstr ""
+"Обложку нельзя загрузить к этому релизу, поскольку у нас нет прав на "
+"связанный объект в Internet Archive. Свяжитесь с нами по адресу "
+"{contact_url} для решения этой проблемы."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js.pm:358
 #, perl-brace-format
@@ -4730,6 +4731,9 @@ msgid ""
 "the Internet Archive. Please contact us at {contact_url} so we can resolve "
 "this."
 msgstr ""
+"Изображения к этому событию не могут быть загружены, поскольку мы не владеем "
+"соответствующим элементом в Internet Archive. Пожалуйста, свяжитесь с нами "
+"по адресу {contact_url}, чтобы мы могли решить эту проблему."
 
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:764
 msgid ""
@@ -6622,12 +6626,13 @@ msgstr "{commas_only_list_item}, {rest}"
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Дайджест-аутентификация"
 
 #: ../root/account/DigestAuthentication.js:29
 #: ../root/account/applications/ApplicationList.js:197
 msgid "Digest authentication is <strong>disabled</strong> on your account."
 msgstr ""
+"Дайджест-аутентификация <strong>отключена</strong> в вашей учетной записи."
 
 #: ../root/account/DigestAuthentication.js:36
 msgid ""
@@ -6636,11 +6641,15 @@ msgid ""
 "retrieve this token again after closing the page; if it’s lost, you can "
 "reset it from {applications_url|Applications}."
 msgstr ""
+"Ниже указан ваш новый токен дайджест-аутентификации. Используйте его вместо "
+"пароля от учетной записи MusicBrainz в приложениях, которым он требуется. Вы "
+"не сможете получить этот токен повторно после закрытия страницы; в случае "
+"его потери вы можете сбросить его в разделе {applications_url|Приложения}."
 
 #: ../root/account/DigestAuthentication.js:53
 msgctxt "interactive"
 msgid "{applications_url|Back to Applications}."
-msgstr ""
+msgstr "{applications_url|Вернуться к списку приложений}."
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:88
@@ -6923,7 +6932,7 @@ msgstr "У Вас нет зарегистрированных приложени
 
 #: ../root/account/applications/ApplicationList.js:167
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Дайджест-аутентификация"
 
 #: ../root/account/applications/ApplicationList.js:171
 msgid ""
@@ -6934,33 +6943,38 @@ msgid ""
 "token if you want to use such an application; use this token in place of "
 "your password when the application asks for one."
 msgstr ""
+"Некоторые приложения используют устаревшую форму аутентификации под "
+"названием {digest_url|дайджест-аутентификация}, для которой требуется "
+"хранить пароль с использованием {md5_url|небезопасной хеш-функции}. Вместо "
+"того, чтобы хранить пароль вашей учётной записи MusicBrainz таким образом, "
+"мы требуем создавать отдельный токен, если вы хотите использовать такое "
+"приложение. Используйте этот токен вместо вашего пароля, когда приложение "
+"запросит его."
 
 #: ../root/account/applications/ApplicationList.js:188
 msgid ""
 "We don’t track which applications are using digest authentication. You can "
 "choose to either reset the token, or disable this access method entirely."
 msgstr ""
+"Мы не отслеживаем, какие приложения используют дайджест-аутентификацию. Вы "
+"можете либо сбросить токен, либо полностью отключить этот способ доступа."
 
 #: ../root/account/applications/ApplicationList.js:195
 msgid "Digest authentication is <strong>enabled</strong> on your account."
 msgstr ""
+"Дайджест аутентификация </strong>включена</strong> в вашей учетной записи."
 
 #: ../root/account/applications/ApplicationList.js:212
-#, fuzzy
-#| msgid "Disambiguation"
 msgid "Disable digest authentication"
-msgstr "Разотождествление"
+msgstr "Отключить дайджест-аутентификацию"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
-msgstr ""
+msgstr "Сбросить токен дайджест-аутентификации"
 
 #: ../root/account/applications/ApplicationList.js:230
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit annotation"
 msgid "Enable digest authentication"
-msgstr "Править аннотацию"
+msgstr "Включить дайджест-аутентификацию"
 
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
@@ -7465,6 +7479,9 @@ msgid ""
 "artists will still be combined if you don’t, but the {doc_acs|artist "
 "credits} will be kept as they are now."
 msgstr ""
+"Если имя появляется на обложке релиза, не устанавливайте флажок: артисты все "
+"равно будут объединены, если вы этого не сделаете, но {doc_acs|artist "
+"credits} останутся такими, какие они есть сейчас."
 
 #: ../root/artist/ArtistMerge.js:58
 msgid ""
@@ -7608,19 +7625,14 @@ msgid "Split artist"
 msgstr "Разделить исполнителя"
 
 #: ../root/artist/SplitArtist.js:43
-#, fuzzy
-#| msgid ""
-#| "This form allows you to split {artist} into separate artists. When the "
-#| "edit is accepted, existing artist credits will be updated, and "
-#| "collaboration relationships will be removed"
 msgid ""
 "This form allows you to split {artist} into separate artists. When the edit "
 "is accepted, existing artist credits will be updated, and collaboration "
 "relationships will be removed."
 msgstr ""
 "Данная форма позволит вам разделить исполнителя {artist} на отдельных "
-"исполнителей. После принятия правки, уже существующие кредиты исполнителя "
-"будут обновлены, а отношения о коллаборациях будут убраны"
+"исполнителей. После принятия правки, уже существующие сведения об "
+"исполнителе будут обновлены, а коллаборации будут убраны."
 
 #: ../root/artist/SplitArtist.js:52
 msgid "Collaborators on this artist"
@@ -7634,6 +7646,11 @@ msgid ""
 "{rel_uri|relationships} instead, which will allow ModBot to automatically "
 "remove this artist in the upcoming days."
 msgstr ""
+"За записями, группами релизов, релизами или треками не числится исполнитель "
+"{name}. Если вы пытаетесь удалить {name}, отредактируйте все "
+"cотношенияведения об исполнителях в нижней части вкладки "
+"{alias_uri|псевдонимы} и удалите все существующие {rel_uri|отношения}, что "
+"позволит ModBot автоматически удалить этого исполнителя в ближайшие дни."
 
 #: ../root/artist/utils.js:12
 #: ../root/static/scripts/edit/MB/Control/ArtistEdit.js:73
@@ -7743,7 +7760,7 @@ msgstr "Дата окончания"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:91
 msgid "This artist credit is composed of the following artists:"
-msgstr ""
+msgstr "В это указание исполнителя входят следующие исполнители:"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:101
 msgctxt "artist credit"
@@ -7786,18 +7803,18 @@ msgstr[3] "Смотреть все {num} релизов"
 #: ../root/components/TagEntitiesList.js:183
 msgid "See all {num} recordings"
 msgid_plural "See all {num} recordings"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Просмотреть всю {num} запись"
+msgstr[1] "Просмотреть все {num} записи"
+msgstr[2] "Просмотреть все {num} записей"
+msgstr[3] "Просмотреть все записи ({num})"
 
 #: ../root/artist_credit/ArtistCreditIndex.js:158
 msgid "See all {num} tracks"
 msgid_plural "See all {num} tracks"
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
-msgstr[3] ""
+msgstr[0] "Смотреть все {num} трек"
+msgstr[1] "Смотреть все {num} трека"
+msgstr[2] "Смотреть все {num} треков"
+msgstr[3] "Смотреть все треки ({num})"
 
 #: ../root/artist_credit/ArtistCreditLayout.js:18
 #: ../root/collection/CollectionHeader.js:69
@@ -7809,7 +7826,7 @@ msgstr "Обзор"
 #: ../root/artist_credit/ArtistCreditLayout.js:41
 #: ../root/artist_credit/ArtistCreditLayout.js:51
 msgid "Artist credit “{artist_credit}”"
-msgstr ""
+msgstr "Сведения об исполнителе “{artist_credit}”"
 
 #: ../root/artist_credit/EntityList.js:22 ../root/tag/EntityList.js:75
 msgid "{num} recording found"
@@ -7845,19 +7862,19 @@ msgstr[3] "Найдено {num} треков"
 
 #: ../root/artist_credit/EntityList.js:32
 msgid "No recordings with this artist credit were found."
-msgstr ""
+msgstr "Записей с этими сведениями об исполнителе не найдено."
 
 #: ../root/artist_credit/EntityList.js:33
 msgid "No releases with this artist credit were found."
-msgstr ""
+msgstr "Релизов с этими сведениями об исполнителе не найдено."
 
 #: ../root/artist_credit/EntityList.js:34
 msgid "No release groups with this artist credit were found."
-msgstr ""
+msgstr "Групп релизов с этими сведениями об исполнителе не найдено."
 
 #: ../root/artist_credit/EntityList.js:35
 msgid "No tracks with this artist credit were found."
-msgstr ""
+msgstr "Треков с этими сведениями об исполнителе не найдено."
 
 #: ../root/cdstub/BrowseCDStubs.js:23 ../root/cdstub/BrowseCDStubs.js:24
 #: ../root/layout/components/BottomMenu.js:230
@@ -7893,6 +7910,8 @@ msgid ""
 "Sorry, <code>{discid}</code> does not match a CD stub. You can try "
 "{search_url|searching for it} instead."
 msgstr ""
+"К сожалению, <code>{discid}</code> не соответствует CD заглушке. Вместо "
+"этого вы можете попробовать {search_url|найти его}."
 
 #: ../root/cdstub/DiscIdNotValid.js:14
 msgid "Invalid disc ID"
@@ -8577,7 +8596,7 @@ msgstr "Смотреть все отношения ({num})"
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:199
 #: ../root/static/scripts/relationship-editor/components/DialogEntityCredit.js:203
 msgid "Credited as"
-msgstr ""
+msgstr "Указанный как"
 
 #: ../root/components/RelationshipsTable.js:315
 #: ../root/edit/details/AddRelationshipType.js:161
@@ -10171,11 +10190,11 @@ msgstr "[удалено]"
 
 #: ../root/edit/details/SetTrackLengths.js:59
 msgid "Track lengths:"
-msgstr ""
+msgstr "Длина треков:"
 
 #: ../root/edit/details/SetTrackLengths.js:72
 msgid "This edit makes subsecond changes to track lengths"
-msgstr ""
+msgstr "Эта правка внесёт миллисекундные изменения в длины треков"
 
 #: ../root/edit/details/historic/AddDiscId.js:20
 msgid "CD TOC:"
@@ -10258,7 +10277,7 @@ msgstr "Новые релизы:"
 
 #: ../root/edit/details/historic/MergeReleases.js:42
 msgid "Merge attributes:"
-msgstr ""
+msgstr "Атрибуты объединения:"
 
 #: ../root/edit/details/historic/MergeReleases.js:46
 msgid "Merge language & script:"
@@ -11343,7 +11362,7 @@ msgstr "Облако тегов"
 #: ../root/layout/components/sidebar/EditLinks.js:25
 #: ../root/static/scripts/account/components/PreferencesForm.js:249
 msgid "Editing"
-msgstr "Править"
+msgstr "Правки"
 
 #: ../root/layout/components/BottomMenu.js:246
 msgctxt "interactive"
@@ -12692,10 +12711,8 @@ msgid "No {type0}-{type1} relationship types found."
 msgstr "Типы отношений \"{type0}-{type1}\" не найдены."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:41
-#, fuzzy
-#| msgid "This area has no relationships to any works."
 msgid "This pair has no relationship types."
-msgstr "Данная область не связана с какими-либо работами."
+msgstr "У этой пары нет типов связей."
 
 #: ../root/relationship/linktype/RelationshipTypesList.js:46
 msgid "{type0}-{type1}"
@@ -12782,12 +12799,12 @@ msgid ""
 "There are no disc IDs attached to this release; to find out more about how "
 "to add one, see {doc|How to Add Disc IDs}."
 msgstr ""
-"К этому релизу не прикреплены идентификаторы дисков. Подробнее о том, как их "
-"добавить, см. в разделе {doc|Как добавить ID диска}"
+"К этому релизу не прикреплены ID дисков. Подробнее о том, как их добавить, "
+"см. в {doc|документации}."
 
 #: ../root/release/DiscIds.js:124
 msgid "This release has no mediums that can have disc IDs."
-msgstr "В этом выпуске нет носителей с идентификаторами дисков."
+msgstr "В этом релизе нет носителей с идентификаторами дисков."
 
 #: ../root/release/EditRelationships.js:30
 msgid "Edit Relationships: {release}"
@@ -14992,14 +15009,13 @@ msgstr ""
 "защищен. Продолжайте на свой риск!"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:218
-#, fuzzy
-#| msgid "If you change your email address, you will be required to verify it."
 msgid ""
 "Your email address can be changed from your {profile|MetaBrainz profile}. If "
 "you change your email address, you will be required to verify it."
 msgstr ""
-"Если вы смените свой адрес электронной почты, вам будет необходимо его "
-"подтвердить."
+"Вы можете изменить свой адрес электронной почты из вашего {profile|профиля "
+"MetaBrainz}. Если вы смените свой адрес электронной почты, вам будет "
+"необходимо его подтвердить."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
@@ -15653,11 +15669,11 @@ msgstr "{action_label} (в новой вкладке)"
 msgid ""
 "We’re currently unable to process your submission because your login session "
 "has expired."
-msgstr ""
+msgstr "Не удалось обработать ваш вклад, поскольку ваша сессия истекла."
 
 #: ../root/static/scripts/common/components/LoginMessage.js:50
 msgid "Click here to log in."
-msgstr ""
+msgstr "Нажмите здесь, чтобы войти."
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
@@ -16306,10 +16322,8 @@ msgstr ""
 "только на конкретные статьи."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7515
-#, fuzzy
-#| msgid "Only video and playlist links are allowed on releases."
 msgid "Only video links are allowed as interviews."
-msgstr "В релизах разрешены ссылки только на видео или плейлисты."
+msgstr "Только ссылки на видео разрешены в качестве интервью."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7527
 msgid ""
@@ -16744,7 +16758,7 @@ msgstr "Удалить отношение"
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:273
 msgctxt "relationship credit"
 msgid "credited as “{credit}”"
-msgstr ""
+msgstr "заявлено как “{credit}”"
 
 #: ../root/static/scripts/external-links-editor/components/ExternalLinkRelationship.js:295
 msgid "video"
@@ -16775,10 +16789,8 @@ msgid "Edit URL"
 msgstr "Править URL"
 
 #: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:37
-#, fuzzy
-#| msgid "Open edits"
 msgid "Credit"
-msgstr "Открытые изменения"
+msgstr "Указание исполнителей"
 
 #: ../root/static/scripts/external-links-editor/components/UrlRelationshipCreditFieldset.js:40
 msgid "Credited to"
@@ -16789,13 +16801,15 @@ msgid ""
 "Links to archive.today and associated domains are not allowed. This site has "
 "been found to manipulate the archived websites and perform DDoS attacks."
 msgstr ""
+"Ссылки на archive.today и связанные с ним домены запрещены. Известно, что "
+"этот сайт манипулировал архивированными сайтами и совершал DDoS-атаки."
 
 #: ../root/static/scripts/external-links-editor/validation.js:157
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr ""
-"\"{example_url}» является всего лишь примером. Введите фактическую ссылку, "
+"\"{example_url}\" является всего лишь примером. Введите фактическую ссылку, "
 "которую хотите добавить."
 
 #: ../root/static/scripts/external-links-editor/validation.js:165
@@ -17502,7 +17516,7 @@ msgstr "Псевдоним записи: {alias}"
 
 #: ../root/static/scripts/release/components/MediumTrackRow.js:74
 msgid "Recording artist:"
-msgstr ""
+msgstr "Исполнитель:"
 
 #: ../root/static/scripts/release/components/RelationshipEditorBatchTools.js:80
 msgid "To use this tool, select some works using the checkboxes below."
@@ -17930,6 +17944,8 @@ msgid ""
 "That search can't be performed, because you must provide at least one of "
 "'recording', 'track number', 'duration', 'release', or 'artist'."
 msgstr ""
+"Поиск невозможен, поскольку нужно указать хотя бы один из параметров: «запись"
+"», «номер трека», «продолжительность», «релиз» или «исполнитель»."
 
 #: ../root/taglookup/NotFound.js:24
 msgid "Please {search|try again}, providing at least one of these parameters"
@@ -18001,7 +18017,7 @@ msgstr "Это сервер разработки; все пароли сброш
 
 #: ../root/user/LoginDialogSuccess.js:38
 msgid "Login successful. You may close this dialog."
-msgstr ""
+msgstr "Вход выполнен успешно. Можете закрыть это окно."
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"

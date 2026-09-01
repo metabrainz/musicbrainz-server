@@ -39,7 +39,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-27 08:05-0500\n"
-"PO-Revision-Date: 2026-05-27 13:12+0000\n"
+"PO-Revision-Date: 2026-08-23 13:12+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -49,7 +49,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -4480,20 +4480,15 @@ msgstr ""
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:57
 msgid "Too many login attempts. Please try again in a few minutes."
-msgstr ""
+msgstr "Te veel aanmeldpogingen. Probeer het over een paar minuten opnieuw."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:177
-#, fuzzy
-#| msgctxt "event"
-#| msgid "cancelled"
 msgid "Login cancelled."
-msgstr "afgelast"
+msgstr "Aanmelden geannuleerd."
 
 #: ../lib/MusicBrainz/Server/Controller/MetaBrainz.pm:178
-#, fuzzy
-#| msgid "Image not available, please try again later."
 msgid "Login failed. Please try again."
-msgstr "Afbeelding niet beschikbaar, probeer het later nog eens."
+msgstr "Aanmelden mislukt, probeer het nog eens."
 
 #: ../lib/MusicBrainz/Server/Controller/Rating.pm:43
 msgid "The rating should be an integer between 0 and 100."
@@ -4583,16 +4578,12 @@ msgstr ""
 "verbeteren}."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:311
-#, fuzzy
-#| msgid ""
-#| "We were not able to check your donation status right now. Please try "
-#| "again later."
 msgid ""
 "Sorry, we could not verify your login credentials right now. Please try "
 "logging in again."
 msgstr ""
-"We konden de status van je donatie nu niet controleren. Probeer het later "
-"nog eens."
+"We konden je aanmeldgegevens nu helaas niet verifiëren. Probeer je opnieuw "
+"aan te melden."
 
 #: ../lib/MusicBrainz/Server/Controller/Root.pm:363
 msgid ""
@@ -6598,12 +6589,12 @@ msgstr "{commas_only_list_item}, {rest}"
 #: ../root/account/DigestAuthentication.js:23
 msgctxt "header"
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Digest-toegangsverificatie"
 
 #: ../root/account/DigestAuthentication.js:29
 #: ../root/account/applications/ApplicationList.js:197
 msgid "Digest authentication is <strong>disabled</strong> on your account."
-msgstr ""
+msgstr "Digest-verificatie is voor jouw account <strong>uitgeschakeld</strong>."
 
 #: ../root/account/DigestAuthentication.js:36
 msgid ""
@@ -6612,11 +6603,16 @@ msgid ""
 "retrieve this token again after closing the page; if it’s lost, you can "
 "reset it from {applications_url|Applications}."
 msgstr ""
+"Hieronder vind je je nieuwe Digest-verificatietoken. Je kan hem in "
+"applicaties die verificatie vereisen gebruiken in plaats van het wachtwoord "
+"van je MusicBrainz-account. Nadat je deze pagina hebt gesloten kan je deze "
+"token niet terugkrijgen. Als je hem kwijtraakt, kun je hem via "
+"{applications_url|Applicaties} resetten."
 
 #: ../root/account/DigestAuthentication.js:53
 msgctxt "interactive"
 msgid "{applications_url|Back to Applications}."
-msgstr ""
+msgstr "{applications_url|Terug naar Applicaties}."
 
 #: ../root/account/Donation.js:26 ../root/account/Donation.js:28
 #: ../root/components/UserAccountTabs.js:88
@@ -6897,7 +6893,7 @@ msgstr "Je hebt geen geregistreerde applicaties."
 
 #: ../root/account/applications/ApplicationList.js:167
 msgid "Digest access authentication"
-msgstr ""
+msgstr "Digest-toegangsverificatie"
 
 #: ../root/account/applications/ApplicationList.js:171
 msgid ""
@@ -6908,33 +6904,38 @@ msgid ""
 "token if you want to use such an application; use this token in place of "
 "your password when the application asks for one."
 msgstr ""
+"Sommige applicaties vereisen een verouderde vorm van verificatie, "
+"{digest_url|HTTP Digest-toegangsverificatie}. Hiervoor moeten wij een "
+"wachtwoord bewaren dat met een {md5_url|onveilige cryptografische functie} "
+"wordt beschermd. In plaats van dat we je MusicBrainz-wachtwoord op die "
+"manier bewaren, moet je voor zo’n applicatie een afzonderlijke token maken. "
+"Vervolgens gebruik je deze token in plaats van je wachtwoord als de "
+"applicatie daarom vraagt."
 
 #: ../root/account/applications/ApplicationList.js:188
 msgid ""
 "We don’t track which applications are using digest authentication. You can "
 "choose to either reset the token, or disable this access method entirely."
 msgstr ""
+"We houden niet bij welke applicaties Digest-verificatie gebruiken. Je kan "
+"ervoor kiezen om de token te resetten of deze toegangsmethode helemaal uit "
+"te schakelen."
 
 #: ../root/account/applications/ApplicationList.js:195
 msgid "Digest authentication is <strong>enabled</strong> on your account."
-msgstr ""
+msgstr "Digest-verificatie is voor jouw account <strong>ingeschakeld</strong>."
 
 #: ../root/account/applications/ApplicationList.js:212
-#, fuzzy
-#| msgid "Disambiguation"
 msgid "Disable digest authentication"
-msgstr "Verduidelijking"
+msgstr "Digest-verificatie uitschakelen"
 
 #: ../root/account/applications/ApplicationList.js:220
 msgid "Reset the digest authentication token"
-msgstr ""
+msgstr "Digest-verificatietoken resetten"
 
 #: ../root/account/applications/ApplicationList.js:230
-#, fuzzy
-#| msgctxt "header"
-#| msgid "Edit annotation"
 msgid "Enable digest authentication"
-msgstr "Aantekening bewerken"
+msgstr "Digest-verificatie inschakelen"
 
 #: ../root/account/applications/EditApplication.js:18
 #: ../root/account/applications/EditApplication.js:19
@@ -9175,7 +9176,7 @@ msgstr "We kunnen de geschiedenis van deze afbeelding niet laten zien."
 
 #: ../root/edit/components/EditEnteredFrom.js:25
 msgid "Entered from"
-msgstr ""
+msgstr "Ingediend vanaf"
 
 #: ../root/edit/components/EditHeader.js:46
 #: ../root/edit/components/EditNoteListEntry.js:21
@@ -11359,10 +11360,8 @@ msgid "Official homepage"
 msgstr "Officiële website"
 
 #: ../root/layout/components/ExternalLinks.js:135
-#, fuzzy
-#| msgid "Review ({hostname})"
 msgid "Interview ({hostname})"
-msgstr "Recensie ({hostname})"
+msgstr "Interview ({hostname})"
 
 #: ../root/layout/components/ExternalLinks.js:136
 msgid "Review ({hostname})"
@@ -14312,7 +14311,7 @@ msgstr ""
 msgid ""
 "For instructions on how to add one, see the {add_discids|documentation page}."
 msgstr ""
-"Lees de documentatie over {add_discids|het toevoegen van disc-ID’s} voor "
+"Lees de {add_discids|documentatie} over het toevoegen van disc-ID’s voor "
 "meer informatie."
 
 #: ../root/report/ReleasesMissingDiscIds.js:37
@@ -15245,12 +15244,12 @@ msgstr ""
 "veilig. Wees voorzichtig!"
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:218
-#, fuzzy
-#| msgid "If you change your email address, you will be required to verify it."
 msgid ""
 "Your email address can be changed from your {profile|MetaBrainz profile}. If "
 "you change your email address, you will be required to verify it."
-msgstr "Je moet je e-mailadres verifiëren als je het verandert."
+msgstr ""
+"Je e-mailadres is via je {profile|MetaBrainz-profiel} gewijzigd. Je moet je "
+"e-mailadres verifiëren als je het verandert."
 
 #: ../root/static/scripts/account/components/EditProfileForm.js:230
 msgid "Website"
@@ -15905,10 +15904,11 @@ msgid ""
 "We’re currently unable to process your submission because your login session "
 "has expired."
 msgstr ""
+"We kunnen je indiening nu niet verwerken, omdat je aanmeldsessie is verlopen."
 
 #: ../root/static/scripts/common/components/LoginMessage.js:50
 msgid "Click here to log in."
-msgstr ""
+msgstr "Klik hier om je aan te melden."
 
 #: ../root/static/scripts/common/components/MediumDescription.js:29
 msgid "Medium {position} ({medium_format})"
@@ -16580,12 +16580,8 @@ msgstr ""
 "naar Wikipedia-artikelen."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7515
-#, fuzzy
-#| msgid "Only video and playlist links are allowed on releases."
 msgid "Only video links are allowed as interviews."
-msgstr ""
-"Alleen links naar video’s en speellijsten mogen aan uitgaven worden "
-"toegevoegd."
+msgstr "Alleen links naar video’s zijn toegestaan als interviews."
 
 #: ../root/static/scripts/edit/URLCleanup.js:7527
 msgid ""
@@ -18245,7 +18241,7 @@ msgstr ""
 
 #: ../root/user/LoginDialogSuccess.js:38
 msgid "Login successful. You may close this dialog."
-msgstr ""
+msgstr "Aanmelden geslaagd. Je kan dit dialoogvenster nu sluiten."
 
 #: ../root/user/PrivilegedUsers.js:28
 msgctxt "header"

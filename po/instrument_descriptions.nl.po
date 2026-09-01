@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-04-26 11:11+0000\n"
+"PO-Revision-Date: 2026-08-23 13:12+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.17\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -184,7 +184,7 @@ msgid ""
 "A hi-hat is a typical part of a drum kit, consisting of a pair of cymbals "
 "mounted on a stand."
 msgstr ""
-"Een hi-hat (of hihat) is een typisch onderdeel van een drumstel en bestaat "
+"Een hihat (of hi-hat) is een typisch onderdeel van een drumstel en bestaat "
 "uit twee bekkens die op een standaard zijn gemonteerd."
 
 #. name:poi āwhiowhio
@@ -356,7 +356,7 @@ msgid ""
 "A tom-tom (or just tom) is a cylindrical drum with no snare, commonly found "
 "in a standard drum set."
 msgstr ""
-"Een tom-tom (of gewoon tom) is een cilindrische trommel zonder snaar. "
+"Een tomtom (of gewoon tom) is een cilindrische trommel zonder snaar. "
 "Standaardonderdeel van een drumstel."
 
 #. name:tromba marina
@@ -3097,7 +3097,7 @@ msgid ""
 "Mostly used to learn how to play the pipes, but are occasionally played in "
 "their own right."
 msgstr ""
-"De practice chanter ziet eruit als een blokfluit, maar met dubbelriet en het "
+"De oefenchanter ziet eruit als een blokfluit, maar met dubbelriet en het "
 "vingersysteem van een doedelzak. Het instrument wordt vooral gebruikt om de "
 "doedelzak te leren bespelen, maar soms ook op zichzelf."
 
@@ -3684,11 +3684,6 @@ msgstr ""
 
 #. name:bazooka
 #: DB:instrument/description:741
-#, fuzzy
-#| msgid ""
-#| "Large wide tube with a very strongly flaring bell, the telescoping "
-#| "creates only subtle fluctuating overtones. It inspired the name of the "
-#| "anti-tank weapon."
 msgid ""
 "Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
 "cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
@@ -3697,7 +3692,9 @@ msgid ""
 msgstr ""
 "Een bazooka is een grote wijde buis met een wijd uitlopende beker. Het "
 "uitschuiven produceert alleen subtiel veranderende boventonen. Het "
-"instrument was de inspiratie voor de naam van het antitankwapen."
+"instrument was de inspiratie voor de naam van het antitankwapen.</br>Zie <a "
+"href=\"instrument/2091cdd2-7953-453f-a29e-cfcbf5140d44\">bouzouki</a> voor "
+"de Griekse luit."
 
 #. name:mezwed
 #: DB:instrument/description:1209
@@ -3740,10 +3737,10 @@ msgid ""
 msgstr ""
 "De cornemuse du Centre is een doedelzak uit Centraal-Frankrijk. Het "
 "instrument heeft twee telescopische bourdonpijpen en een melodiepijp met "
-"dubbel riet.<br />Niet te verwarren met de <a href=\"/instrument/"
-"28527011-9cf4-4dcd-a70c-22042a92a52c\">cornamuse</a> met dubbel riet uit de "
-"Renaissance.<br />Zie <a href=\"/instrument/1d865ced-"
-"d86a-4277-8914-009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
+"dubbel riet.<br />Zie <a href=\"/instrument/28527011-9cf4-4dcd-a70c-"
+"22042a92a52c\">cornamuse</a> voor het blaasinstrument met dubbel riet uit de "
+"Renaissance.<br />Zie <a href=\"/instrument/1d865ced-d86a-4277-8914-"
+"009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
 
 #. name:dulcian
 #: DB:instrument/description:496
@@ -4583,9 +4580,9 @@ msgid ""
 msgstr ""
 "De djoeblag is het een-na-laagst klinkende lid van de gangsafamilie en "
 "bestaat uit vier tot zeven bronzen toetsen die boven lange klankkasten van "
-"bamboe hangen. <br />Zie voor de Soendanese xylofoon die ook in "
-"gamelanensembles wordt gebruikt de <a href=\"/instrument/"
-"6e180df5-6df9-46bb-8ebf-c576a010fb5a\">tjaloeng</a>."
+"bamboe hangen.<br />Zie voor de Soendanese xylofoon die ook in "
+"gamelanensembles wordt gebruikt de <a href=\"/instrument/6e180df5-6df9-46bb-"
+"8ebf-c576a010fb5a\">tjaloeng</a>."
 
 #. name:brač
 #: DB:instrument/description:825
@@ -4625,8 +4622,8 @@ msgid ""
 "and bass drum."
 msgstr ""
 "Het drumstel werd vanaf de jaren 1930 ontwikkeld als een vaste verzameling "
-"trommels. Het instrument bestaat uit een kleine en grote trom (snare en bass "
-"drum), tom-toms, hi-hats en bekkens."
+"trommels. Het instrument bestaat uit een kleine en grote trom (snare- en "
+"bassdrum), tomtoms, hihats en bekkens."
 
 #. name:carillon
 #: DB:instrument/description:128
@@ -4853,7 +4850,7 @@ msgid ""
 "addition in drumsets. Originally made of fibreglass, today also acrylic, "
 "aluminium or wood is used, and homemade ones of f.ex PVC are not uncommon."
 msgstr ""
-"Octobans zijn dunne, lange tom-toms. Ze worden vaak in groepen van vier of "
+"Octobans zijn dunne, lange tomtoms. Ze worden vaak in groepen van vier of "
 "acht opgesteld en aan een drumstel toegevoegd. Oorspronkelijk werden ze "
 "gemaakt van glasvezelversterkte kunststof, maar tegenwoordig ook van acryl, "
 "aluminium of hout, en door hobbyisten van pvc."
@@ -7556,7 +7553,7 @@ msgstr ""
 "De Wit-Russische doeda is een kleine halfronde doedelzak met aan het ene "
 "uiteinde de melodiepijp en aan het andere uiteinde een bourdonpijp, beide "
 "met trechtervormige uiteinden. Er zijn twee varianten: uit het noorden van "
-"Wit-Rusland en uit het zuid-oosten van Litouwen.<br />Gerelateerd aan dit "
+"Wit-Rusland en uit het zuidoosten van Litouwen.<br />Gerelateerd aan dit "
 "instrument is de moetsjanka doeda met drie bourdonpijpen in plaats van één."
 
 #. name:kinnari vina

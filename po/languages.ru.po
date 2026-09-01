@@ -23,11 +23,12 @@
 # blit <blit@disroot.org>, 2024.
 # craftersmine <me@craftersmine.ru>, 2025.
 # karpuzikov <karpuzikovanton@gmail.com>, 2026.
+# AndrejsD1718 <rbox893@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-04-09 11:11+0000\n"
-"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
+"PO-Revision-Date: 2026-08-02 15:12+0000\n"
+"Last-Translator: AndrejsD1718 <rbox893@gmail.com>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/languages/ru/>\n"
 "Language: ru\n"
@@ -37,7 +38,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.16.2\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -692,7 +693,7 @@ msgstr "восточный аранта"
 #. frequency:1 iso_code_3:nea
 #: DB:language/name:4741
 msgid "Eastern Ngad'a"
-msgstr ""
+msgstr "Восточный нгад'а"
 
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
@@ -716,10 +717,8 @@ msgstr "эламский"
 
 #. frequency:1 iso_code_3:egl
 #: DB:language/name:2169
-#, fuzzy
-#| msgid "Sicilian"
 msgid "Emilian"
-msgstr "сицилийский"
+msgstr "Эмилианский"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1138,10 +1137,8 @@ msgstr "интерлингва"
 
 #. frequency:1 iso_code_3:isv
 #: DB:language/name:7878
-#, fuzzy
-#| msgid "Interlingua"
 msgid "Interslavic"
-msgstr "интерлингуа"
+msgstr "Интерславянский"
 
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
@@ -1295,10 +1292,8 @@ msgstr "казахский"
 
 #. frequency:1 iso_code_3:meo
 #: DB:language/name:4140
-#, fuzzy
-#| msgid "Malay"
 msgid "Kedah Malay"
-msgstr "малайский"
+msgstr "Кедахский малайский"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1758,7 +1753,7 @@ msgstr "монгольский"
 #. frequency:1 iso_code_3:mfe
 #: DB:language/name:4155
 msgid "Morisyen"
-msgstr ""
+msgstr "Маврикийский креольский"
 
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
@@ -1813,7 +1808,7 @@ msgstr "неаполитанский"
 #. frequency:1 iso_code_3:zmi
 #: DB:language/name:7753
 msgid "Negeri Sembilan Malay"
-msgstr ""
+msgstr "Негери-сембиланский малайский"
 
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
@@ -1828,7 +1823,7 @@ msgstr "непальский"
 #. frequency:1 iso_code_3:nxg
 #: DB:language/name:5076
 msgid "Ngad'a"
-msgstr ""
+msgstr "Нгад'а"
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1993,7 +1988,7 @@ msgstr "папуасские языки"
 #. frequency:1 iso_code_3:mfa
 #: DB:language/name:4151
 msgid "Pattani Malay"
-msgstr ""
+msgstr "Паттани малайский"
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334
