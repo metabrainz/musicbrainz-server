@@ -387,6 +387,7 @@ sub _send_response
 
     $c->response->headers->header(
         'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
     );
 

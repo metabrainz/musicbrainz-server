@@ -17,6 +17,7 @@ test all => sub {
 
     $mech->get_ok('/ws/js/check-login');
     $test->mech->header_is('Cache-Control', 'private, no-store');
+    $test->mech->header_is('Expires', '0');
     $test->mech->header_is('Pragma', 'no-cache');
 
     my $json = JSON->new;
@@ -29,6 +30,7 @@ test all => sub {
 
     $mech->get_ok('/ws/js/check-login');
     $test->mech->header_is('Cache-Control', 'private, no-store');
+    $test->mech->header_is('Expires', '0');
     $test->mech->header_is('Pragma', 'no-cache');
 
     $data = $json->decode($mech->content);

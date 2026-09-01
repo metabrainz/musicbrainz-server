@@ -594,6 +594,7 @@ sub _art_upload {
 
     $c->res->headers->header(
         'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
     );
     $c->res->content_type($c->stash->{serializer}->mime_type . '; charset=utf-8');
@@ -1033,6 +1034,7 @@ sub check_login : Chained('root') PathPart('check-login') {
     $c->res->content_type('application/json; charset=utf-8');
     $c->res->headers->header(
         'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
     );
     $c->res->status(HTTP_OK);

@@ -159,6 +159,7 @@ sub oauth2_callback : Chained('base') PathPart('oauth2/callback') Args(0) Requir
 
     $c->res->headers->header(
         'Cache-Control' => 'private, no-store',
+        'Expires' => '0',
         'Pragma' => 'no-cache',
         'Referrer-Policy' => 'strict-origin-when-cross-origin',
     );
