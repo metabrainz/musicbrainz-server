@@ -2887,7 +2887,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.facebook.com/share/1BiNcRpu8m?mibextid=wwXIfr',
              input_entity_type: 'artist',
     expected_relationship_type: undefined,
-            expected_clean_url: 'https://www.facebook.com/share/1BiNcRpu8m?mibextid=wwXIfr',
+            expected_clean_url: 'https://www.facebook.com/share/1BiNcRpu8m',
        input_relationship_type: 'socialnetwork',
        only_valid_entity_types: [],
                 expected_error: {
