@@ -244,7 +244,10 @@ releaseEditor.init = function (options) {
     const releaseACChanged =
       !artistCreditsAreEqual(releaseAC, savedReleaseAC);
 
-    if (tabID === '#tracklist' && releaseACChanged) {
+    if (
+      releaseACChanged &&
+      (tabID === '#tracklist' || release.needsTrackArtists())
+    ) {
       if (!hasVariousArtists(releaseAC)) {
         for (const medium of release.mediums()) {
           for (const track of medium.tracks()) {
