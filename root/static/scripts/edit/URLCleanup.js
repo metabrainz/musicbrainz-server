@@ -1949,13 +1949,13 @@ export const CLEANUPS: CleanupEntries = {
     restrict: [LINK_TYPES.streamingfree],
     clean(url) {
       url = url.replace(
-        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/\d+).*$/,
+        /^https?:\/\/(?:www.)?boomplay.com\/((?:albums|artists|songs)\/[\w\d-]+).*$/,
         'https://www.boomplay.com/$1',
       );
       return url;
     },
     validate(url, id) {
-      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/\d+$/.exec(url);
+      const m = /^https:\/\/www\.boomplay\.com\/(albums|artists|songs)\/[\w\d-]+$/.exec(url);
       if (m) {
         const prefix = m[1];
         switch (id) {
