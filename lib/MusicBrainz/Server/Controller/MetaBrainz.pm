@@ -19,7 +19,6 @@ use DBDefs;
 use MusicBrainz::Errors qw( capture_exceptions );
 use MusicBrainz::Server::Authentication::Utils qw(
     $METABRAINZ_OAUTH_LWP
-    oauth_expires_in_to_iso8601
     set_remember_login_cookie
 );
 use MusicBrainz::Server::Data::Editor;
@@ -257,12 +256,7 @@ sub oauth2_callback : Chained('base') PathPart('oauth2/callback') Args(0) Requir
     }
 
     if ($token_data->{remember_me}) {
-        set_remember_login_cookie($c, $user->id, {
-            remember_login_token => generate_token(),
-            access_token => $access_token,
-            access_token_expiration => oauth_expires_in_to_iso8601($token_data->{expires_in}),
-            refresh_token => $token_data->{refresh_token},
-        });
+        set_remember_login_cookie($c, $user->id);
     }
 
     if ($method eq 'GET') {
