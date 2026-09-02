@@ -46,7 +46,7 @@ has 'entity0_id' => (
 
 has 'entity0' => (
     is => 'rw',
-    isa => 'Relatable',
+    isa => 'Entity',
 );
 
 has 'entity0_credit' => (
@@ -61,7 +61,7 @@ has 'entity1_id' => (
 
 has 'entity1' => (
     is => 'rw',
-    isa => 'Relatable',
+    isa => 'Entity',
 );
 
 has 'entity1_credit' => (
@@ -134,7 +134,7 @@ sub can_manually_reorder {
 
 has source => (
     is => 'rw',
-    isa => 'Relatable',
+    isa => 'Entity',
 );
 
 has source_type => (
@@ -149,7 +149,7 @@ has source_credit => (
 
 has target => (
     is => 'rw',
-    isa => 'Relatable',
+    isa => 'Entity',
 );
 
 has target_type => (
