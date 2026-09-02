@@ -162,8 +162,13 @@ sub _load
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @entity_cond, @params, $target_id, $source_id, $query);
+        my (@joins, @cond, @entity_cond, @params, $target_id, $source_id, $query);
 
+        if ($use_cardinality) {
+            push @joins,
+                "JOIN link ON link.id = l_${type0}_${type1}.link",
+                'JOIN link_type ON link_type.id = link.link_type';
+        }
         if (defined $rel_ids_by_target_type) {
             my $rel_ids = $rel_ids_by_target_type->{$target_type};
             next unless defined $rel_ids && @$rel_ids;
@@ -192,35 +197,20 @@ sub _load
             $source_id = 'entity1';
         }
 
+        my $joinstring = join("\n  ", @joins);
+
         # If the source and target types are the same, two possible conditions
         # will have been added above, so join them with an OR.
         my $entity_condstring = join(' OR ', @entity_cond);
         push @cond, "($entity_condstring)";
         my $condstring = join(' AND ', @cond);
 
-        my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
-                      JOIN link l ON link = l.id
-                      JOIN link_type lt ON lt.id = l.link_type";
-
-        my $order = 'lt.name,
-                     l.begin_date_year, l.begin_date_month, l.begin_date_day,
-                     l.end_date_year,   l.end_date_month,   l.end_date_day,
-                     l.ended';
-
-        if ($ENTITIES{$target_type}{sort_name}) {
-            $order .= ", ${target_type}.sort_name COLLATE musicbrainz";
-        } elsif ($target_type eq 'url') {
-            $order .= ', url';
-        } else {
-            $order .= ", ${target_type}.name COLLATE musicbrainz";
-        }
-
-        $order .= ", $target_id, l_${type0}_${type1}.id";
-
-        $query = "SELECT $select
-                    JOIN $target_type ON $target_id = ${target_type}.id
-                   WHERE $condstring
-                   ORDER BY $order";
+        $query = <<~"SQL";
+            SELECT l_${type0}_${type1}.*
+              FROM l_${type0}_${type1}
+              $joinstring
+             WHERE $condstring
+            SQL
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};

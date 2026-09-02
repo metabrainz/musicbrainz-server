@@ -7,6 +7,7 @@ use base 'Exporter';
 use Class::Load qw( load_class );
 use List::AllUtils qw( any sort_by );
 use MusicBrainz::Server::Constants qw( %ENTITIES );
+use MusicBrainz::Server::Data::Utils qw( sort_relationships );
 
 our @EXPORT_OK = qw(
     boolean
@@ -288,7 +289,7 @@ sub serialize_relationships {
 
     my @relationships =
         map { serialize_entity($_, $inc, $stash) }
-        $entity->all_relationships;
+        sort_relationships($entity->all_relationships);
 
     $into->{relations} = \@relationships;
     return;

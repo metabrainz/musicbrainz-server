@@ -11,8 +11,6 @@ use MusicBrainz::Server::Translation qw( comma_list comma_only_list );
 use MusicBrainz::Server::Data::Relationship;
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json partial_date_to_hash );
 
-use overload '<=>' => \&_cmp, fallback => 1;
-
 # Be *very* careful about adding any initialization logic or attribute
 # defaults here, as `Data::Relationship::_new_from_row` bypasses the Moose
 # constructor entirely.
@@ -248,21 +246,6 @@ sub _interpolate {
 
     my @extra_attrs = map { @$_ } values %extra_attrs;
     return [ $phrase, comma_only_list(@extra_attrs) ];
-}
-
-sub _cmp {
-    my ($a, $b) = @_;
-    my $a_sortname = $a->target->can('sort_name')
-        ? $a->target->sort_name
-        : $a->target->name;
-    my $b_sortname = $b->target->can('sort_name')
-        ? $b->target->sort_name
-        : $b->target->name;
-    $a->link->type_id           <=> $b->link->type_id ||
-    $a->link_order              <=> $b->link_order ||
-    $a->link->begin_date        <=> $b->link->begin_date ||
-    $a->link->end_date          <=> $b->link->end_date   ||
-    $a_sortname cmp $b_sortname;
 }
 
 around TO_JSON => sub {

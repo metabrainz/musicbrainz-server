@@ -78,6 +78,7 @@ our @EXPORT_OK = qw(
     remove_invisible_characters
     sanitize
     sanitize_username
+    sort_relationships
     take_while
     trim
     trim_comment
@@ -383,6 +384,25 @@ sub sanitize_username {
     $t = remove_tag_characters($t);
 
     return $t;
+}
+
+sub sort_relationships {
+    # Uses https://en.wikipedia.org/wiki/Schwartzian_transform to avoid
+    # repeated method invocations while sorting across thousands of
+    # relationships.
+    return (
+        map  { $_->[0] }
+        sort { $a->[1] cmp $b->[1] ||
+               $a->[2] <=> $b->[2] ||
+               $a->[3] <=> $b->[3] ||
+               $a->[4] <=> $b->[4] }
+        map  { [ $_,
+                 $_->target_type,
+                 $_->link->type_id,
+                 $_->link_order,
+                 $_->id ] }
+        @_
+    );
 }
 
 sub trim {
