@@ -85,6 +85,25 @@ sub serializer
     die 'No serializer found for ' . ref($entity);
 }
 
+my %serialization_subs_by_entity_type = map {
+    my $entity_type = $_;
+    my $props = $ENTITIES{$entity_type};
+    my @subs;
+
+    push @subs, \&serialize_aliases if $props->{aliases};
+    push @subs, \&serialize_annotation if $props->{annotations};
+    push @subs, \&serialize_id if $props->{mbid};
+    push @subs, \&serialize_ipis if $props->{ipis};
+    push @subs, \&serialize_isnis if $props->{isnis};
+    push @subs, \&serialize_life_span if $props->{date_period};
+    push @subs, \&serialize_rating if $props->{ratings};
+    push @subs, \&serialize_relationships if $props->{mbid} && $props->{mbid}{relatable};
+    push @subs, \&serialize_tags if $props->{tags};
+    push @subs, \&serialize_type if $props->{type} && $props->{type}{simple};
+
+    ($entity_type => \@subs)
+} keys %serializers;
+
 sub serialize_entity
 {
     my ($entity) = @_;
@@ -92,37 +111,10 @@ sub serialize_entity
     return unless defined $entity;
 
     my $output = serializer($entity)->serialize(@_);
-    my $props = $ENTITIES{$entity->entity_type};
 
-    serialize_aliases($output, @_)
-        if $props->{aliases};
-
-    serialize_annotation($output, @_)
-        if $props->{annotations};
-
-    serialize_id($output, @_)
-        if $props->{mbid};
-
-    serialize_ipis($output, @_)
-        if $props->{ipis};
-
-    serialize_isnis($output, @_)
-        if $props->{isnis};
-
-    serialize_life_span($output, @_)
-        if $props->{date_period};
-
-    serialize_rating($output, @_)
-        if $props->{ratings};
-
-    serialize_relationships($output, @_)
-        if $props->{mbid} && $props->{mbid}{relatable};
-
-    serialize_tags($output, @_)
-        if $props->{tags};
-
-    serialize_type($output, @_)
-        if $props->{type} && $props->{type}{simple};
+    $_->($output, @_) for @{
+        $serialization_subs_by_entity_type{ $entity->entity_type };
+    };
 
     return $output;
 }
