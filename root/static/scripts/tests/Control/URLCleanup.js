@@ -5336,14 +5336,14 @@ limited_link_type_combinations: [
                      input_url: 'http://www.rateyourmusic.com/artist/johanna_beyer?__cf_chl_f_tk=d9ucwvyvsyPN6wYqKhaxZAloHggP6RNt.iEnchyh1qc-1720128733-0.0.1.1-4862',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://rateyourmusic.com/artist/johanna_beyer',
+            expected_clean_url: 'https://rateyourmusic.com/artist/johanna_beyer/',
         only_valid_entity_types: ['artist'],
   },
   {
                      input_url: 'https://rateyourmusic.com/concert/riverside_theatre_f1/merzbow_f3',
              input_entity_type: 'event',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://rateyourmusic.com/concert/riverside_theatre_f1/merzbow_f3',
+            expected_clean_url: 'https://rateyourmusic.com/concert/riverside_theatre_f1/merzbow_f3/',
         only_valid_entity_types: ['event'],
   },
   {
