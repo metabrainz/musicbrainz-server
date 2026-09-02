@@ -550,7 +550,7 @@ sub load_documentation {
     my @relationships = map { $_->relationship } map { @$_ } values %examples;
     $self->c->model('Link')->load(@relationships);
     $self->c->model('LinkType')->load(map { $_->link } @relationships);
-    $self->c->model('Relationship')->load_entities(@relationships);
+    $self->c->model('Relationship')->load_entities(\@relationships);
 
     for my $link_type (@link_types) {
         my $id = $link_type->id;

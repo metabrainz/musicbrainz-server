@@ -236,15 +236,15 @@ sub _load
 }
 
 sub _load_related_info {
-    my ($self, @rels) = @_;
+    my ($self, $rels, %args) = @_;
 
-    $self->c->model('Link')->load(@rels);
-    my @links = uniq_by { refaddr $_ } map { $_->link } @rels;
+    $self->c->model('Link')->load(@$rels);
+    my @links = uniq_by { refaddr $_ } map { $_->link } @$rels;
     $self->c->model('LinkType')->load(@links);
     my @link_types = uniq_by { refaddr $_ } map { $_->type } @links;
     $self->c->model('LinkType')->load_root_ids(@link_types);
     $self->c->model('LinkAttributeType')->load(map { $_->all_attributes } @link_types);
-    $self->load_entities(@rels);
+    $self->load_entities($rels, %args);
 }
 
 Readonly our $DEFAULT_LOAD_PAGED_LIMIT => 100;
@@ -385,15 +385,15 @@ sub load_paged {
         }
     }
 
-    $self->_load_related_info(@all_rels);
+    $self->_load_related_info(\@all_rels);
     return \@all_lt_groups;
 }
 
 sub load_entities
 {
-    my ($self, @rels) = @_;
+    my ($self, $rels, %args) = @_;
     my %ids_by_type;
-    foreach my $rel (@rels) {
+    foreach my $rel (@$rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
@@ -413,7 +413,7 @@ sub load_entities
             $self->c->model(type_to_model($type))->get_by_ids(@ids);
     }
 
-    foreach my $rel (@rels) {
+    foreach my $rel (@$rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             my $obj = $data_by_type{$type}->{$rel->entity0_id};
@@ -460,11 +460,14 @@ sub load_entities
     my @series = values %{$data_by_type{'series'}};
     $self->c->model('SeriesType')->load(@series);
 
-    for my $type (keys %data_by_type) {
-        my $model = $self->c->model(type_to_model($type));
-        next unless $model->can('load_aliases');
-        my @entities = values %{$data_by_type{$type}};
-        $model->load_aliases(@entities);
+    my $load_aliases = $args{load_aliases} // 1;
+    if ($load_aliases) {
+        for my $type (keys %data_by_type) {
+            my $model = $self->c->model(type_to_model($type));
+            next unless $model->can('load_aliases');
+            my @entities = values %{$data_by_type{$type}};
+            $model->load_aliases(@entities);
+        }
     }
 }
 
@@ -474,6 +477,7 @@ sub _load_subset {
     my $target_types = $args{target_types};
     my $use_cardinality = $args{use_cardinality};
     my @source_objs = @{ $args{source_objs} };
+    my $load_aliases = $args{load_aliases};
 
     my %source_objs_by_type;
     return unless @source_objs; # nothing to do
@@ -502,7 +506,7 @@ sub _load_subset {
         );
     }
 
-    $self->_load_related_info(@rels);
+    $self->_load_related_info(\@rels, load_aliases => $load_aliases);
 
     return @rels;
 }
@@ -513,6 +517,7 @@ sub load_subset {
         target_types => $args{target_types},
         use_cardinality => 0,
         source_objs => $args{source_objs},
+        load_aliases => $args{load_aliases},
     );
 }
 
@@ -540,6 +545,7 @@ sub load_subset_cardinal {
         target_types => $args{target_types},
         use_cardinality => 1,
         source_objs => $args{source_objs},
+        load_aliases => $args{load_aliases},
     );
 }
 
