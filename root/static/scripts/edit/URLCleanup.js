@@ -5399,7 +5399,10 @@ export const CLEANUPS: CleanupEntries = {
     match: [/^(https?:\/\/)?([^/]+\.)?rateyourmusic\.com\/(?!feature)/i],
     restrict: [LINK_TYPES.otherdatabases],
     clean(url) {
-      return url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?rateyourmusic\.com\/([^#?]+).*$/, 'https://rateyourmusic.com/$1');
+      url = url.replace(/^(?:https?:\/\/)?(?:[^/]+\.)?rateyourmusic\.com\/([^#?]+)\/?.*$/, 'https://rateyourmusic.com/$1');
+      // Ensure trailing slash to avoid accidental duplicates
+      url = url.replace(/\/?$/, '/');
+      return url;
     },
     validate(url, id) {
       const m = /^https:\/\/rateyourmusic\.com\/(\w+)\/(?:(\w+)\/)?/.exec(url);
