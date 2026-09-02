@@ -34,7 +34,7 @@ use MusicBrainz::Server::Constants qw(
     @RELATABLE_ENTITIES
 );
 use Scalar::Util qw( refaddr weaken );
-use List::AllUtils qw( any nsort_by part partition_by uniq uniq_by );
+use List::AllUtils qw( any none nsort_by part partition_by uniq uniq_by );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
@@ -152,7 +152,11 @@ sub _load
     foreach my $t (@types) {
         my $target_type = $source_type eq $t->[0] ? $t->[1] : $t->[0];
         my %source_objs_by_id = map { $_->id => $_ }
-            grep { @{ $_->relationships_by_type($target_type) } == 0 } @source_objs;
+            grep {
+                none {
+                    $_->target_type eq $target_type
+                } $_->all_relationships
+            } @source_objs;
         my @source_ids = keys %source_objs_by_id;
         next unless @source_ids;
 
