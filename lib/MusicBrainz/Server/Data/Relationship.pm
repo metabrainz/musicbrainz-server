@@ -33,8 +33,8 @@ use MusicBrainz::Server::Constants qw(
     @PART_OF_SERIES_LINK_TYPE_IDS
     @RELATABLE_ENTITIES
 );
-use Scalar::Util qw( weaken );
-use List::AllUtils qw( any nsort_by part partition_by uniq );
+use Scalar::Util qw( refaddr weaken );
+use List::AllUtils qw( any nsort_by part partition_by uniq uniq_by );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
@@ -245,9 +245,9 @@ sub _load_related_info {
     my ($self, @rels) = @_;
 
     $self->c->model('Link')->load(@rels);
-    my @links = map { $_->link } @rels;
+    my @links = uniq_by { refaddr $_ } map { $_->link } @rels;
     $self->c->model('LinkType')->load(@links);
-    my @link_types = map { $_->type } @links;
+    my @link_types = uniq_by { refaddr $_ } map { $_->type } @links;
     $self->c->model('LinkType')->load_root_ids(@link_types);
     $self->c->model('LinkAttributeType')->load(map { $_->all_attributes } @link_types);
     $self->load_entities(@rels);
