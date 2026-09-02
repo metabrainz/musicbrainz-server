@@ -458,7 +458,8 @@ sub load_entities
         }
     }
 
-    my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
+    my @load_ac = map { values %{ $data_by_type{$_} } }
+        grep { $ENTITIES{$_}{artist_credits} } keys %data_by_type;
     $self->c->model('ArtistCredit')->load(@load_ac);
 
     my @places = values %{$data_by_type{'place'}};
