@@ -29,7 +29,7 @@ component EditLinks(
             <li>
               <RequestLogin text={lp('Log in to edit', 'interactive')} />
             </li>
-            <li className="separator" role="separator" />
+            <li aria-hidden="true" className="separator" />
           </>
         )}
         <li>
