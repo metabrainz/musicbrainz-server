@@ -63,33 +63,6 @@ ws2_test_xml 'multiple url lookup (by URL, with inc=artist-rels+release-rels)',
       <resource>http://www.discogs.com/release/30896</resource>
       <relation-list target-type="release">
         <relation type="discogs" type-id="4a78823c-1c53-4176-a5f3-58026c76f2bc">
-          <target>4f5a6b97-a09b-4893-80d1-eae1f3bfa221</target>
-          <direction>backward</direction>
-          <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
-            <title>For Beginner Piano</title>
-            <quality>normal</quality>
-            <text-representation>
-              <language>eng</language>
-              <script>Latn</script>
-            </text-representation>
-            <date>1999-09-13</date>
-            <country>GB</country>
-            <release-event-list count="1">
-              <release-event>
-                <date>1999-09-13</date>
-                <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
-                  <name>United Kingdom</name>
-                  <sort-name>United Kingdom</sort-name>
-                  <iso-3166-1-code-list>
-                    <iso-3166-1-code>GB</iso-3166-1-code>
-                  </iso-3166-1-code-list>
-                </area>
-              </release-event>
-            </release-event-list>
-            <barcode>5021603064126</barcode>
-          </release>
-        </relation>
-        <relation type="discogs" type-id="4a78823c-1c53-4176-a5f3-58026c76f2bc">
           <target>fbe4eb72-0f24-3875-942e-f581589713d4</target>
           <direction>backward</direction>
           <release id="fbe4eb72-0f24-3875-942e-f581589713d4">
@@ -140,6 +113,33 @@ ws2_test_xml 'multiple url lookup (by URL, with inc=artist-rels+release-rels)',
               </release-event>
             </release-event-list>
             <barcode/>
+          </release>
+        </relation>
+        <relation type="discogs" type-id="4a78823c-1c53-4176-a5f3-58026c76f2bc">
+          <target>4f5a6b97-a09b-4893-80d1-eae1f3bfa221</target>
+          <direction>backward</direction>
+          <release id="4f5a6b97-a09b-4893-80d1-eae1f3bfa221">
+            <title>For Beginner Piano</title>
+            <quality>normal</quality>
+            <text-representation>
+              <language>eng</language>
+              <script>Latn</script>
+            </text-representation>
+            <date>1999-09-13</date>
+            <country>GB</country>
+            <release-event-list count="1">
+              <release-event>
+                <date>1999-09-13</date>
+                <area id="8a754a16-0027-3a29-b6d7-2b40ea0481ed">
+                  <name>United Kingdom</name>
+                  <sort-name>United Kingdom</sort-name>
+                  <iso-3166-1-code-list>
+                    <iso-3166-1-code>GB</iso-3166-1-code>
+                  </iso-3166-1-code-list>
+                </area>
+              </release-event>
+            </release-event-list>
+            <barcode>5021603064126</barcode>
           </release>
         </relation>
       </relation-list>

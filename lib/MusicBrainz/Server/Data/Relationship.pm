@@ -33,8 +33,8 @@ use MusicBrainz::Server::Constants qw(
     @PART_OF_SERIES_LINK_TYPE_IDS
     @RELATABLE_ENTITIES
 );
-use Scalar::Util qw( weaken );
-use List::AllUtils qw( any nsort_by part partition_by uniq );
+use Scalar::Util qw( refaddr weaken );
+use List::AllUtils qw( any none nsort_by part partition_by uniq uniq_by );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';
 
@@ -64,6 +64,7 @@ sub _new_from_row
         entity1_credit => $row->{entity1_credit},
         last_updated => $row->{last_updated},
         link_order => $row->{link_order},
+        direction => $DIRECTION_FORWARD,
     );
 
     my $weaken;
@@ -92,7 +93,15 @@ sub _new_from_row
         }
     }
 
-    my $rel = MusicBrainz::Server::Entity::Relationship->new(%info);
+    # We use `bless` directly rather than `->new` because the Moose
+    # constructor is, comparatively, much slower. This saves a measurable
+    # amount of time for requests with a large number of relationships.
+    # Note that this only works because we don't have any `BUILD` or
+    # `BUILDARGS` on the `Relationship` class which would affect how the
+    # attributes are built, and we correctly specify all defaults
+    # (like `direction`) in `%info`.
+    my $rel = bless \%info, 'MusicBrainz::Server::Entity::Relationship';
+
     # XXX MASSIVE MASSIVE HACK.
     weaken($rel->{$weaken}) if $obj;
 
@@ -143,14 +152,23 @@ sub _load
     foreach my $t (@types) {
         my $target_type = $source_type eq $t->[0] ? $t->[1] : $t->[0];
         my %source_objs_by_id = map { $_->id => $_ }
-            grep { @{ $_->relationships_by_type($target_type) } == 0 } @source_objs;
+            grep {
+                none {
+                    $_->target_type eq $target_type
+                } $_->all_relationships
+            } @source_objs;
         my @source_ids = keys %source_objs_by_id;
         next unless @source_ids;
 
         my $type0 = $t->[0];
         my $type1 = $t->[1];
-        my (@cond, @params, $target_id, $source_id, $query);
+        my (@joins, @cond, @entity_cond, @params, $target_id, $source_id, $query);
 
+        if ($use_cardinality) {
+            push @joins,
+                "JOIN link ON link.id = l_${type0}_${type1}.link",
+                'JOIN link_type ON link_type.id = link.link_type';
+        }
         if (defined $rel_ids_by_target_type) {
             my $rel_ids = $rel_ids_by_target_type->{$target_type};
             next unless defined $rel_ids && @$rel_ids;
@@ -163,7 +181,7 @@ sub _load
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity0_cardinality = 0)";
             }
-            push @cond, $condstring;
+            push @entity_cond, $condstring;
             push @params, @source_ids;
             $target_id = 'entity1';
             $source_id = 'entity0';
@@ -173,39 +191,26 @@ sub _load
             if ($use_cardinality) {
                 $condstring = "($condstring AND entity1_cardinality = 0)";
             }
-            push @cond, $condstring;
+            push @entity_cond, $condstring;
             push @params, @source_ids;
             $target_id = 'entity0';
             $source_id = 'entity1';
         }
 
+        my $joinstring = join("\n  ", @joins);
+
         # If the source and target types are the same, two possible conditions
         # will have been added above, so join them with an OR.
-        @cond = join(' OR ', @cond);
+        my $entity_condstring = join(' OR ', @entity_cond);
+        push @cond, "($entity_condstring)";
+        my $condstring = join(' AND ', @cond);
 
-        my $select = "l_${type0}_${type1}.* FROM l_${type0}_${type1}
-                      JOIN link l ON link = l.id
-                      JOIN link_type lt ON lt.id = l.link_type";
-
-        my $order = 'lt.name,
-                     l.begin_date_year, l.begin_date_month, l.begin_date_day,
-                     l.end_date_year,   l.end_date_month,   l.end_date_day,
-                     l.ended';
-
-        if ($ENTITIES{$target_type}{sort_name}) {
-            $order .= ", ${target_type}.sort_name COLLATE musicbrainz";
-        } elsif ($target_type eq 'url') {
-            $order .= ', url';
-        } else {
-            $order .= ", ${target_type}.name COLLATE musicbrainz";
-        }
-
-        $order .= ", $target_id, l_${type0}_${type1}.id";
-
-        $query = "SELECT $select
-                    JOIN $target_type ON $target_id = ${target_type}.id
-                   WHERE " . join(' AND ', @cond) . "
-                   ORDER BY $order";
+        $query = <<~"SQL";
+            SELECT l_${type0}_${type1}.*
+              FROM l_${type0}_${type1}
+              $joinstring
+             WHERE $condstring
+            SQL
 
         for my $row (@{ $self->sql->select_list_of_hashes($query, @params) }) {
             my $entity0 = $row->{entity0};
@@ -231,15 +236,15 @@ sub _load
 }
 
 sub _load_related_info {
-    my ($self, @rels) = @_;
+    my ($self, $rels, %args) = @_;
 
-    $self->c->model('Link')->load(@rels);
-    my @links = map { $_->link } @rels;
+    $self->c->model('Link')->load(@$rels);
+    my @links = uniq_by { refaddr $_ } map { $_->link } @$rels;
     $self->c->model('LinkType')->load(@links);
-    my @link_types = map { $_->type } @links;
+    my @link_types = uniq_by { refaddr $_ } map { $_->type } @links;
     $self->c->model('LinkType')->load_root_ids(@link_types);
     $self->c->model('LinkAttributeType')->load(map { $_->all_attributes } @link_types);
-    $self->load_entities(@rels);
+    $self->load_entities($rels, %args);
 }
 
 Readonly our $DEFAULT_LOAD_PAGED_LIMIT => 100;
@@ -380,15 +385,15 @@ sub load_paged {
         }
     }
 
-    $self->_load_related_info(@all_rels);
+    $self->_load_related_info(\@all_rels);
     return \@all_lt_groups;
 }
 
 sub load_entities
 {
-    my ($self, @rels) = @_;
+    my ($self, $rels, %args) = @_;
     my %ids_by_type;
-    foreach my $rel (@rels) {
+    foreach my $rel (@$rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             $ids_by_type{$type} = [] if !exists($ids_by_type{$type});
@@ -408,7 +413,7 @@ sub load_entities
             $self->c->model(type_to_model($type))->get_by_ids(@ids);
     }
 
-    foreach my $rel (@rels) {
+    foreach my $rel (@$rels) {
         if ($rel->entity0_id && !defined($rel->entity0)) {
             my $type = $rel->link->type->entity0_type;
             my $obj = $data_by_type{$type}->{$rel->entity0_id};
@@ -443,7 +448,8 @@ sub load_entities
         }
     }
 
-    my @load_ac = grep { $_->meta->find_method_by_name('artist_credit') } map { values %$_ } values %data_by_type;
+    my @load_ac = map { values %{ $data_by_type{$_} } }
+        grep { $ENTITIES{$_}{artist_credits} } keys %data_by_type;
     $self->c->model('ArtistCredit')->load(@load_ac);
 
     my @places = values %{$data_by_type{'place'}};
@@ -454,11 +460,14 @@ sub load_entities
     my @series = values %{$data_by_type{'series'}};
     $self->c->model('SeriesType')->load(@series);
 
-    for my $type (keys %data_by_type) {
-        my $model = $self->c->model(type_to_model($type));
-        next unless $model->can('load_aliases');
-        my @entities = values %{$data_by_type{$type}};
-        $model->load_aliases(@entities);
+    my $load_aliases = $args{load_aliases} // 1;
+    if ($load_aliases) {
+        for my $type (keys %data_by_type) {
+            my $model = $self->c->model(type_to_model($type));
+            next unless $model->can('load_aliases');
+            my @entities = values %{$data_by_type{$type}};
+            $model->load_aliases(@entities);
+        }
     }
 }
 
@@ -468,6 +477,7 @@ sub _load_subset {
     my $target_types = $args{target_types};
     my $use_cardinality = $args{use_cardinality};
     my @source_objs = @{ $args{source_objs} };
+    my $load_aliases = $args{load_aliases};
 
     my %source_objs_by_type;
     return unless @source_objs; # nothing to do
@@ -496,7 +506,7 @@ sub _load_subset {
         );
     }
 
-    $self->_load_related_info(@rels);
+    $self->_load_related_info(\@rels, load_aliases => $load_aliases);
 
     return @rels;
 }
@@ -507,6 +517,7 @@ sub load_subset {
         target_types => $args{target_types},
         use_cardinality => 0,
         source_objs => $args{source_objs},
+        load_aliases => $args{load_aliases},
     );
 }
 
@@ -534,6 +545,7 @@ sub load_subset_cardinal {
         target_types => $args{target_types},
         use_cardinality => 1,
         source_objs => $args{source_objs},
+        load_aliases => $args{load_aliases},
     );
 }
 

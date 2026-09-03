@@ -17,7 +17,7 @@ use Digest::MD5 qw( md5_hex );
 use Encode;
 use MIME::Base64 qw( encode_base64url );
 use JSON::XS;
-use List::AllUtils qw( any natatime sort_by );
+use List::AllUtils qw( any natatime sort_by uniq );
 use MusicBrainz::Server::Constants qw(
     @SPECIAL_ARTIST_IDS
     $NOLABEL_ID
@@ -78,6 +78,7 @@ our @EXPORT_OK = qw(
     remove_invisible_characters
     sanitize
     sanitize_username
+    sort_relationships
     take_while
     trim
     trim_comment
@@ -159,29 +160,33 @@ sub load_subobjects
         $attr_objs = [ $attr_objs ];
     }
 
+    my @obj_refs = uniq map { ref } @objs;
+
     for my $attr_obj (@$attr_objs) {
-        my $attr_id = $attr_obj . '_id';
-        my @objs_with_id;
+        my %attr_id_methods = map { $_ => $_->can("${attr_obj}_id") } @obj_refs;
+        my %objs_with_id;
         for my $obj (@objs) {
-            next unless $obj->can($attr_id);
-            my $id = $obj->$attr_id;
+            my $attr_id_method = $attr_id_methods{ ref $obj };
+            next unless defined $attr_id_method;
+            my $id = $obj->$attr_id_method;
             if (defined $id) {
                 push @ids, $id;
-                push @objs_with_id, $obj;
+                push @{ $objs_with_id{ $id } }, $obj;
             }
         }
-        $objs{$attr_obj} = \@objs_with_id;
+        $objs{$attr_obj} = \%objs_with_id;
     }
 
     my $data;
     if (@ids) {
         $data = $data_access->get_by_ids(@ids);
         for my $attr_obj (@$attr_objs) {
-            my $attr_id = $attr_obj . '_id';
-            for my $obj (@{ $objs{$attr_obj} }) {
-                my $entity = $data->{$obj->$attr_id};
-                if (defined $entity) {
-                    $obj->$attr_obj($entity);
+            while (my ($attr_id, $objs_with_id) = each %{ $objs{$attr_obj} }) {
+                for my $obj (@$objs_with_id) {
+                    my $entity = $data->{$attr_id};
+                    if (defined $entity) {
+                        $obj->$attr_obj($entity);
+                    }
                 }
             }
         }
@@ -379,6 +384,25 @@ sub sanitize_username {
     $t = remove_tag_characters($t);
 
     return $t;
+}
+
+sub sort_relationships {
+    # Uses https://en.wikipedia.org/wiki/Schwartzian_transform to avoid
+    # repeated method invocations while sorting across thousands of
+    # relationships.
+    return (
+        map  { $_->[0] }
+        sort { $a->[1] cmp $b->[1] ||
+               $a->[2] <=> $b->[2] ||
+               $a->[3] <=> $b->[3] ||
+               $a->[4] <=> $b->[4] }
+        map  { [ $_,
+                 $_->target_type,
+                 $_->link->type_id,
+                 $_->link_order,
+                 $_->id ] }
+        @_
+    );
 }
 
 sub trim {

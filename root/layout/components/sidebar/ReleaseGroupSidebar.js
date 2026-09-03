@@ -79,7 +79,7 @@ component ReleaseGroupSidebar(
           </a>
         </li>
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
 
         <li>
           <a href={entityHref(releaseGroup, 'set-cover-art')}>
@@ -91,7 +91,7 @@ component ReleaseGroupSidebar(
 
         <MergeLink entity={releaseGroup} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       <CollectionLinks entity={releaseGroup} />
