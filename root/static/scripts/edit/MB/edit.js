@@ -259,6 +259,7 @@ var fields = edit.fields = {
       number:         string(track.number),
       length:         number(track.length),
       is_data_track:  Boolean(ko.unwrap(track.isDataTrack)),
+      video:          Boolean(ko.unwrap(track.video)),
     };
   },
 
