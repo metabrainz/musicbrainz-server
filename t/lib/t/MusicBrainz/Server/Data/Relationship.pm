@@ -20,6 +20,10 @@ use MusicBrainz::Server::Test;
 with 't::Context';
 
 test 'bless in _new_from_row is equivalent to ->new' => sub {
+    # This is testing that the performance hack added in
+    # c1fa8fdbaa12611829819a254cbb60ce32c3f8c0 is equivalent to the
+    # "correct" way of instantiating a `Relationshp` object (via `->new`).
+
     my $test = shift;
     my $rel_data = $test->c->model('Relationship');
 
