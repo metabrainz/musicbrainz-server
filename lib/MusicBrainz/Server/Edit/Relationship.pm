@@ -1,5 +1,5 @@
 package MusicBrainz::Server::Edit::Relationship;
-use List::AllUtils qw( sort_by partition_by );
+use List::AllUtils qw( sort_by partition_by uniq );
 use Moose::Role;
 use MusicBrainz::Server::Constants qw(
     %ENTITIES_WITH_RELATIONSHIP_CREDITS
@@ -8,10 +8,16 @@ use MusicBrainz::Server::ControllerUtils::Relationship qw(
     serialize_link_attribute
     serialize_link_attribute_type
 );
-use MusicBrainz::Server::Data::Utils qw( non_empty sanitize );
+use MusicBrainz::Server::Data::Utils qw(
+    non_empty
+    sanitize
+    type_to_model
+);
 use namespace::autoclean;
 
 use MusicBrainz::Server::Translation qw ( l );
+
+requires 'directly_related_entities';
 
 sub edit_category { l('Relationship') }
 
@@ -124,5 +130,24 @@ sub sanitize_entity_credits {
         }
     }
 }
+
+around adjust_edit_pending => sub {
+    my ($orig, $self, $adjust) = @_;
+
+    my $entities = $self->directly_related_entities;
+
+    while (my ($type, $ids) = each %{$entities}) {
+        # `$ids` may contain MBIDs which need to be resolved to
+        # database row IDs.
+        my $model = $self->c->model(type_to_model($type));
+        my $entities = $model->get_by_any_ids(uniq @$ids);
+        $model->adjust_edit_pending(
+            $adjust,
+            map { $_->id } values %{$entities},
+        );
+    }
+
+    return $self->$orig($adjust);
+};
 
 1;
