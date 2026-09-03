@@ -11,7 +11,10 @@ import {compare} from '../i18n.js';
 
 import getSortName from './getSortName.js';
 
-function compareEntities(a: EditableEntityT, b: EditableEntityT): number {
+export function compareEntities(
+  a: EditableEntityT,
+  b: EditableEntityT,
+): number {
   return compare(getSortName(a), getSortName(b)) || (a.id - b.id);
 }
 
