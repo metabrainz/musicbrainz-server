@@ -78,10 +78,8 @@ sub serializer
 {
     my $entity = shift;
 
-    if ($entity->can('entity_type')) {
-        my $serializer = $serializers{$entity->entity_type};
-        return $serializer if $serializer;
-    }
+    my $serializer = $serializers{$entity->entity_type};
+    return $serializer if $serializer;
 
     die 'No serializer found for ' . ref($entity);
 }
