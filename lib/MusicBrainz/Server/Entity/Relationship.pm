@@ -86,12 +86,6 @@ has '_verbose_phrase' => (
     lazy => 1,
 );
 
-has '_grouping_phrase' => (
-    is => 'ro',
-    builder => '_build_grouping_phrase',
-    lazy => 1,
-);
-
 sub entity_is_orderable {
     my ($self, $entity) = @_;
 
@@ -195,10 +189,6 @@ sub extra_verbose_phrase_attributes
     return $self->_verbose_phrase->[1];
 }
 
-sub grouping_phrase { shift->_grouping_phrase->[0] }
-
-sub extra_grouping_phrase_attributes { shift->_grouping_phrase->[1] }
-
 sub _build_phrase {
     my ($self) = @_;
     $self->_interpolate(
@@ -211,25 +201,6 @@ sub _build_phrase {
 sub _build_verbose_phrase {
     my ($self) = @_;
     $self->_interpolate($self->link->type->l_long_link_phrase);
-}
-
-=method _build_grouping_phrase
-
-For ordered relationships (such as those in a series), builds a phrase with
-attributes removed, so that these relationships can remain grouped together
-under the same phrase in our relationships display, even if their attributes
-differ.
-
-=cut
-
-sub _build_grouping_phrase {
-    my ($self) = @_;
-    $self->_interpolate(
-        ($self->direction == $DIRECTION_FORWARD
-            ? $self->link->type->l_link_phrase
-            : $self->link->type->l_reverse_link_phrase),
-        ($self->link->type->orderable_direction > 0),
-    );
 }
 
 sub _interpolate {
