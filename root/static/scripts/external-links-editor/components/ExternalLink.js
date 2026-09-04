@@ -177,12 +177,18 @@ component _ExternalLink(
   const addRelationshipButton = React.useMemo(() => {
     /*
      * Hide the button when the link is not submitted,
-     * or the link does not match only a single type.
+     * or the link matches only a single type and the
+     * existing rel has no dates set.
      */
     if (
       isEmpty ||
       !isSubmitted ||
-      doesUrlMatchOnlyOnePossibleType(source.entityType, link)
+      (
+        doesUrlMatchOnlyOnePossibleType(source.entityType, link) &&
+        link.relationships[0].beginDate == null &&
+        link.relationships[0].endDate == null &&
+        !link.relationships[0].ended
+      )
     ) {
       return null;
     }
