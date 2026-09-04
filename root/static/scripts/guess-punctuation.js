@@ -46,6 +46,11 @@ export default function guessPunctuation(inputString: string): string {
       /\b(lovin|talkin)'(?=[^\p{L}]|$)/gi,
       '$1’',
     )
+    // French definite article elided before a word.
+    .replace(
+      /(^|[^\p{L}\p{N}])(l)'(?=\p{L})/giu,
+      '$1$2’',
+    )
     // Apostrophes standing in for the century in abbreviated years.
     .replace(
       /(^|[^\p{L}\p{N}])'(?=\d{2}(?!\d))/gu,

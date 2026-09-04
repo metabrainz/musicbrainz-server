@@ -29,6 +29,8 @@ test('Guess punctuation', function (t) {
     ['Lovin\' You', 'Lovin’ You'],
     ['Talkin\' \'Bout You', 'Talkin’ ’Bout You'],
     ['\'Cause I Said So', '’Cause I Said So'],
+    ['L\'amour toujours', 'L’amour toujours'],
+    ['Le temps de l\'été', 'Le temps de l’été'],
     ['Summer \'68', 'Summer ’68'],
     ['\'39', '’39'],
     ['Rock \'n\' Roll', 'Rock ’n’ Roll'],
