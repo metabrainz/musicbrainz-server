@@ -2310,6 +2310,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:2.11.8":
+  version: 2.11.8
+  resolution: "@popperjs/core@npm:2.11.8"
+  checksum: 10c0/4681e682abc006d25eb380d0cf3efc7557043f53b6aea7a5057d0d1e7df849a00e281cd8ea79c902a35a414d7919621fc2ba293ecec05f413598e0b23d5a1e63
+  languageName: node
+  linkType: hard
+
 "@rtsao/scc@npm:^1.1.0":
   version: 1.1.0
   resolution: "@rtsao/scc@npm:1.1.0"
@@ -7689,6 +7696,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": "npm:7.1.0"
     "@fortawesome/react-fontawesome": "npm:3.1.1"
     "@metabrainz/xgettext-js": "npm:5.0.3"
+    "@popperjs/core": "npm:2.11.8"
     "@sentry/browser": "npm:7.119.2"
     "@sentry/node": "npm:7.119.2"
     "@stylistic/eslint-plugin": "npm:5.10.0"
