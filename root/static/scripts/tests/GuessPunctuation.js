@@ -23,8 +23,12 @@ test('Guess punctuation', function (t) {
       'One of These Days (‘French Windows’)',
     ],
     ['I\'m Free', 'I’m Free'],
+    ['You\'re Here and I\'ve Had It', 'You’re Here and I’ve Had It'],
+    ['She\'ll Say He\'d Go', 'She’ll Say He’d Go'],
+    ['It Isn\'t John\'s', 'It Isn’t John’s'],
     ['Lovin\' You', 'Lovin’ You'],
     ['Talkin\' \'Bout You', 'Talkin’ ’Bout You'],
+    ['\'Cause I Said So', '’Cause I Said So'],
     ['Summer \'68', 'Summer ’68'],
     ['\'39', '’39'],
     ['Rock \'n\' Roll', 'Rock ’n’ Roll'],
@@ -38,6 +42,10 @@ test('Guess punctuation', function (t) {
       'Όσο Και Να Σ\' Αγαπάω (Υπ\' Ευθύνη Μου)',
       'Όσο Και Να Σ’ Αγαπάω (Υπ’ Ευθύνη Μου)',
     ],
+    ['4\'33"', '4\'33"'],
+    ['Blue Hawai\'i', 'Blue Hawai\'i'],
+    ['O\'Connor', 'O\'Connor'],
+    ['He Is 6\'2"', 'He Is 6\'2"'],
   ];
 
   t.plan(tests.length);
