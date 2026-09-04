@@ -23,7 +23,7 @@ import type {
 const itemIndexes:
   WeakMap<
     // $FlowFixMe[unclear-type]
-    $ReadOnlyArray<ItemT<any>>,
+    ReadonlyArray<ItemT<any>>,
     Map<
       string, // gram
       // $FlowFixMe[unclear-type]
@@ -34,7 +34,7 @@ const itemIndexes:
 // The search terms for an item are cached for use in `weightEntry` below.
 const itemSearchTerms:
   // $FlowFixMe[unclear-type]
-  WeakMap<OptionItemT<any>, $ReadOnlyArray<string>> = new WeakMap();
+  WeakMap<OptionItemT<any>, ReadonlyArray<string>> = new WeakMap();
 
 function normalize(input: string): string {
   return unaccent(input).toLowerCase();
@@ -68,17 +68,17 @@ function* getNGrams(
   }
 }
 
-export function getItemName<T: EntityItemT>(
+export function getItemName<T extends EntityItemT>(
   item: OptionItemT<T>,
 ): Array<string> {
   return [unwrapNl<string>(item.name)];
 }
 
 const createItemSet =
-  <T: EntityItemT>(): Set<OptionItemT<T>> => new Set();
+  <T extends EntityItemT>(): Set<OptionItemT<T>> => new Set();
 
-export function indexItems<T: EntityItemT>(
-  items: $ReadOnlyArray<ItemT<T>>,
+export function indexItems<T extends EntityItemT>(
+  items: ReadonlyArray<ItemT<T>>,
   extractSearchTerms: (OptionItemT<T>) => Array<string>,
 ): void {
   if (itemIndexes.has(items)) {
@@ -105,7 +105,7 @@ export function indexItems<T: EntityItemT>(
   itemIndexes.set(items, index);
 }
 
-function getItem<T: EntityItemT>(
+function getItem<T extends EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
 ): OptionItemT<T> {
   const itemCopy = {...itemAndRank[0]};
@@ -118,14 +118,14 @@ function getItem<T: EntityItemT>(
   return itemCopy;
 }
 
-function compareItemRanks<T: EntityItemT>(
+function compareItemRanks<T extends EntityItemT>(
   a: [OptionItemT<T>, number],
   b: [OptionItemT<T>, number],
 ): number {
   return b[1] - a[1];
 }
 
-function weightEntry<T: EntityItemT>(
+function weightEntry<T extends EntityItemT>(
   itemAndRank: [OptionItemT<T>, number],
   userSearchTerm: string,
 ): number {
@@ -158,10 +158,10 @@ function weightEntry<T: EntityItemT>(
   );
 }
 
-export default function searchItems<T: EntityItemT>(
-  items: $ReadOnlyArray<OptionItemT<T>>,
+export default function searchItems<T extends EntityItemT>(
+  items: ReadonlyArray<OptionItemT<T>>,
   searchTerm: string,
-): $ReadOnlyArray<OptionItemT<T>> {
+): ReadonlyArray<OptionItemT<T>> {
   if (!searchTerm) {
     return items;
   }

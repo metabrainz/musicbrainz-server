@@ -10,7 +10,7 @@
 import expand2react from '../i18n/expand2react.js';
 import expand2text from '../i18n/expand2text.js';
 
-type Args = {+type: '()' | '[]'};
+type Args = {readonly type: '()' | '[]'};
 
 function _bracketed(args?: Args) {
   const type = args ? args.type : undefined;

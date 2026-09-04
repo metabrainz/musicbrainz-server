@@ -24,11 +24,13 @@
 # reosarevok <reosarevok@users.noreply.translations.metabrainz.org>, 2023, 2024.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Dino RTX <rtxdino36@gmail.com>, 2025.
+# syntariavoxmortem <voxmortemsyntaria@gmail.com>, 2026.
+# jmrr83 <juanmiguelrr@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-21 05:08+0000\n"
-"Last-Translator: Dino RTX <rtxdino36@gmail.com>\n"
+"PO-Revision-Date: 2026-05-01 04:11+0000\n"
+"Last-Translator: jmrr83 <juanmiguelrr@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/es/>\n"
 "Language: es\n"
@@ -37,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -63,6 +65,30 @@ msgid ""
 "<br /> For the medieval European pear-shaped fiddle see <a href=\"/"
 "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
+"\"Rebab\" (y otras variantes ortográficas) es el nombre que designa "
+"principalmente a estos 3 tipos de familias de instrumentos de cuerda frotada/"
+"pulsada: <br /> <ul> <li>Tipo \"sarinda\", grande, de mástil corto y forma "
+"de barco, aquí el rebab kabuli.</li> <li>Tipo \"huqyin\" o violín de espiga, "
+"pequeño y de mástil largo, aquí el rebab indonesio.</li> <li>Tipo \"lira "
+"cretense\" en forma de pera, de varios tamaños y longitudes de mástil, aquí "
+"los laúdes frotados propiamente dichos.</li> </ul> <br /> <br /> Debido a "
+"estos solapamientos en los nombres, se suelen confundir entre sí en la "
+"mayoría de las fuentes. Curiosamente, esta confusión se extiende también a "
+"instrumentos afines, pero con nombres diferentes o similares, como por "
+"ejemplo el <a href=\"/instrument/0d766870-3021-47ce-"
+"bd51-78d2d2484e1b\">Ghijak</a> (un violín de espiga) y el <a href=\"/"
+"instrument/d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">Ghaychak</a> (con forma de "
+"barco).<br /> Por el momento, se desconoce cómo están relacionados estos 3 "
+"subtipos, o incluso si existe relación alguna entre ellos.<br /> <br /> Para "
+"el violín de espiga utilizado en el gamelán, véase <a href=\"/instrument/"
+"3dbbb5ff-103b-4260-8cf6-679a73a7c552\">rebab indonesio</a>.<br /> Para el "
+"instrumento afgano de cuerda pulsada y forma de barco, también conocido como "
+"rabab kabuli, véase <a href=\"/instrument/7e42e637-c7b4-422c-ad56-"
+"f7fafbd961bb\">rubab</a>.<br /> Para el laúd medieval indio de cuerda "
+"pulsada, véase <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-"
+"e19f4e4a1083\">rebab Seni</a>.<br /> Para el violín medieval europeo en "
+"forma de pera, véase <a href=\"/instrument/3f7302e4-f10f-4905-8d71-"
+"ef61141da383\">rabel</a>."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -76,6 +102,15 @@ msgid ""
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
+"Laúd deslizante sin trastes del sur de la India, del siglo XIII o anterior, "
+"utilizado en la música carnática. De cuerpo hueco fabricado en madera de "
+"jaca con un resonador secundario de calabaza ahuecada, cuenta con 6 cuerdas "
+"principales, 3 bordones y 11-12 cuerdas simpáticas, y utiliza un bloque "
+"deslizante de madera dura para variar el tono. Al igual que la <a href=\"/"
+"instrument/b4d38ac1-7f12-437c-a61a-be2796ffc559\">vichitra veena</a> del "
+"norte de la India es a la <a href=\"/instrument/aea9661c-cbda-4bf3-a61d-"
+"d78697472f29\">rudra veena</a>, la chitra veena lo es a la <a href=\"/"
+"instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Saraswati veena</a>."
 
 #. name:kös
 #: DB:instrument/description:739
@@ -180,10 +215,13 @@ msgstr ""
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
+#, fuzzy
 msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
 msgstr ""
+"Una calabaza hueca (hue) con entre uno y tres orificios, que se hace girar "
+"creando un sonido silbante y de gorjeo que se asemeja al de las aves."
 
 #. name:17-string bass koto
 #: DB:instrument/description:516
@@ -198,6 +236,8 @@ msgid ""
 "A larger version of tef, used to indicate the rhythmic structures (usul) in "
 "makam music."
 msgstr ""
+"Una versión más grande del tef, utilizada para indicar las estructuras "
+"rítmicas (usul) en la música makam."
 
 #. name:laser harp
 #: DB:instrument/description:515
@@ -237,10 +277,14 @@ msgstr "Un laúd de África Occidental, hecho de madera o calabaza."
 
 #. name:mandolute
 #: DB:instrument/description:766
+#, fuzzy
 msgid ""
 "A mandolute is a North African fretted string instrument which combines a "
 "traditional oud string format with five pairs of metal strings."
 msgstr ""
+"Un mandolute es un instrumento de cuerda con trastes del norte de África que "
+"combina el formato de cuerdas de un oud tradicional con cinco pares de "
+"cuerdas metálicas."
 
 #. name:mouth organ
 #: DB:instrument/description:610
@@ -834,12 +878,6 @@ msgstr ""
 #. name:pipa
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
-msgstr ""
-
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
 msgstr ""
 
 #. name:bugarija
@@ -2226,14 +2264,6 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -2760,6 +2790,15 @@ msgid ""
 "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more snares, "
 "worn by one person and beaten by one hand, it is often combined with tabor "
 "pipes."
+msgstr ""
+
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
 msgstr ""
 
 #. name:mezwed
@@ -3710,6 +3749,14 @@ msgid ""
 "stone."
 msgstr ""
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -4530,12 +4577,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr ""
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -4671,11 +4712,6 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -4718,13 +4754,6 @@ msgstr ""
 msgid ""
 "The sarrusophone is a family of transposing musical instruments, intended to "
 "serve as a replacement in wind bands for the oboe and bassoon."
-msgstr ""
-
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
 msgstr ""
 
 #. name:saw sam sai
@@ -4900,11 +4929,6 @@ msgid ""
 "en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -4995,11 +5019,6 @@ msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from "
 "a coconut shell."
 msgstr ""
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "El zabumba es un bombo de Brasil."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -5622,6 +5641,11 @@ msgid ""
 "pieces tied together with ornamental cord."
 msgstr ""
 
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr ""
+
 #. name:turntable
 #: DB:instrument/description:181
 msgid ""
@@ -5945,6 +5969,9 @@ msgstr "sao oi (flauta de los Muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "El zabumba es un bombo de Brasil."
 
 #~ msgid ""
 #~ "The saw duang is a two-stringed instrument used in traditional Thai music "

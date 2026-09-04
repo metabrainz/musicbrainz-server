@@ -30,16 +30,16 @@ const buildIsrcSidebarRow = (isrc: IsrcT) => (
 );
 
 component IsrcList(
-  isrcs: ?$ReadOnlyArray<IsrcT>,
+  isrcs: ?ReadonlyArray<IsrcT>,
   isSidebar: boolean = false,
 ) {
   return (
     <CollapsibleList
-      ContainerElement={isSidebar ? 'dl' : 'ul'}
-      InnerElement={isSidebar ? 'div' : 'li'}
       ariaLabel={l('ISRCs')}
       buildRow={isSidebar ? buildIsrcSidebarRow : buildIsrcListRow}
       className={isSidebar ? 'properties isrcs' : 'isrcs'}
+      ContainerElement={isSidebar ? 'dl' : 'ul'}
+      InnerElement={isSidebar ? 'div' : 'li'}
       rows={isrcs}
       showAllTitle={l('Show all ISRCs')}
       showLessTitle={l('Show less ISRCs')}
@@ -49,7 +49,7 @@ component IsrcList(
   );
 }
 
-export default (hydrate<React.PropsOf<IsrcList>>(
+export default hydrate<React.PropsOf<IsrcList>>(
   'div.isrc-list-container',
   IsrcList,
-): component(...React.PropsOf<IsrcList>));
+) as component(...React.PropsOf<IsrcList>);

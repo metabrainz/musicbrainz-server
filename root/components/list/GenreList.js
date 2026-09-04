@@ -18,7 +18,7 @@ import {
 
 component GenreList(
   checkboxes?: string,
-  genres: $ReadOnlyArray<GenreT>,
+  genres: ReadonlyArray<GenreT>,
   order?: string,
   sortable?: boolean,
 ) {

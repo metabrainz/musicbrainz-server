@@ -22,7 +22,6 @@ DROP TRIGGER IF EXISTS restore_collection_sub_on_public ON editor_collection;
 DROP TRIGGER IF EXISTS search_hint ON artist_alias;
 DROP TRIGGER IF EXISTS b_upd_artist_tag ON artist_tag;
 DROP TRIGGER IF EXISTS b_upd_editor ON editor;
-DROP TRIGGER IF EXISTS check_editor_name ON editor;
 DROP TRIGGER IF EXISTS a_ins_event ON event;
 DROP TRIGGER IF EXISTS b_upd_event ON event;
 DROP TRIGGER IF EXISTS end_date_implies_ended ON event;
@@ -152,6 +151,7 @@ DROP TRIGGER IF EXISTS b_upd_link_attribute_text_value ON link_attribute_text_va
 DROP TRIGGER IF EXISTS b_upd_link_attribute_type ON link_attribute_type;
 DROP TRIGGER IF EXISTS b_upd_link_type ON link_type;
 DROP TRIGGER IF EXISTS b_upd_link_type_attribute_type ON link_type_attribute_type;
+DROP TRIGGER IF EXISTS a_upd_medium ON medium;
 DROP TRIGGER IF EXISTS b_upd_medium ON medium;
 DROP TRIGGER IF EXISTS b_upd_medium_cdtoc ON medium_cdtoc;
 DROP TRIGGER IF EXISTS b_upd_mood ON mood;

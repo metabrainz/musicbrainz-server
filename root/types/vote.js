@@ -22,8 +22,8 @@ declare type VoteOptionT =
 
 // MusicBrainz::Server::Entity::Vote::TO_JSON
 declare type VoteT = {
-  +editor_id: number,
-  +superseded: boolean,
-  +vote: VoteOptionT,
-  +vote_time: string,
+  readonly editor_id: number,
+  readonly superseded: boolean,
+  readonly vote: VoteOptionT,
+  readonly vote_time: string,
 };

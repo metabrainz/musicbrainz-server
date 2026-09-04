@@ -855,14 +855,6 @@ msgstr ""
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr ""
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Les ching sont une paire de petites cymbales à main utilisées dans la "
-"musique Thaï et Cambodgienne."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -2300,14 +2292,6 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -2857,6 +2841,15 @@ msgid ""
 "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more snares, "
 "worn by one person and beaten by one hand, it is often combined with tabor "
 "pipes."
+msgstr ""
+
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
 msgstr ""
 
 #. name:mezwed
@@ -3825,6 +3818,14 @@ msgid ""
 "it as a whole vibrates, without the use of strings or membranes. Therefore "
 "these are most often made of sonorous material: metal, wood, glass and even "
 "stone."
+msgstr ""
+
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
 msgstr ""
 
 #. name:glass harmonica
@@ -4837,14 +4838,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr "Le mridangam est un tambour à deux têtes d’Inde."
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-"Le nabal est un long cor droit en cuivre utilisé dans la musique "
-"traditionnelle coréenne."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -5013,11 +5006,6 @@ msgstr ""
 "Le riqq est un type de tambourin utilisé comme instrument traditionnel dans "
 "la musique arabe."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr "Le rototom est un tambour sans fût accordé par rotation."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -5072,15 +5060,6 @@ msgstr ""
 "Sous-famille des bois, car à anche double, mais dont le corps est en cuivre, "
 "inventée par Sarrus et Gautrot en remplacement du hautbois et du basson "
 "notamment."
-
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"Le satsuma biwa est un biwa à quatre cordes avec frettes popularisé durant "
-"la période d’Edo."
 
 #. name:saw sam sai
 #: DB:instrument/description:712
@@ -5300,13 +5279,6 @@ msgstr ""
 "partie du <a href=\"http://en.wikipedia.org/wiki/Thon_and_rammana\">thon et "
 "rammana</a>."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-"Le tinya est un petit tambour utilisé dans la musique traditionnelle des "
-"Andes."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -5419,11 +5391,6 @@ msgid ""
 msgstr ""
 "Le yehu est un instrument à cordes frottées chinois de la famille des huqin, "
 "dont le résonateur est une noix de coco."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "Le zabumba est un tambour basse du Brésil."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -6069,6 +6036,11 @@ msgid ""
 "pieces tied together with ornamental cord."
 msgstr ""
 
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr ""
+
 #. name:turntable
 #: DB:instrument/description:181
 msgid ""
@@ -6402,6 +6374,37 @@ msgstr "flûte saó ôi, utilisée par les Muong"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu est la basse du trắng lu"
+
+#~ msgid ""
+#~ "The nabal is a long, straight brass horn used in Korean traditional music."
+#~ msgstr ""
+#~ "Le nabal est un long cor droit en cuivre utilisé dans la musique "
+#~ "traditionnelle coréenne."
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Les ching sont une paire de petites cymbales à main utilisées dans la "
+#~ "musique Thaï et Cambodgienne."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr "Le rototom est un tambour sans fût accordé par rotation."
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "Le satsuma biwa est un biwa à quatre cordes avec frettes popularisé "
+#~ "durant la période d’Edo."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr ""
+#~ "Le tinya est un petit tambour utilisé dans la musique traditionnelle des "
+#~ "Andes."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "Le zabumba est un tambour basse du Brésil."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

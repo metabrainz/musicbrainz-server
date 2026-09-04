@@ -33,8 +33,8 @@ test 'Editing a genre' => sub {
     html_ok($mech->content);
 
     my @edits = capture_edits {
-        $mech->submit_form_ok({
-            with_fields => { 'edit-genre.name' => 'surrogate stone' },
+        $mech->post_ok('/genre/ceeaa283-5d7b-4202-8d1d-e25d116b2a18/edit', {
+            'edit-genre.name' => 'surrogate stone',
         },
         'The form returned a 2xx response code')
     } $c;

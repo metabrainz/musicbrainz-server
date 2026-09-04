@@ -16,7 +16,7 @@ import type {EventFormT} from './types.js';
 
 component EditEvent(
   entity: EventT,
-  eventDescriptions: {+[id: string]: string},
+  eventDescriptions: {readonly [id: string]: string},
   eventTypes: SelectOptionsT,
   form: EventFormT,
 ) {

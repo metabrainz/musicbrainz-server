@@ -15,6 +15,7 @@ extends 'Catalyst::Controller';
 
 # Import MusicBrainz libraries
 use DBDefs;
+use MusicBrainz::Server::Authentication::Utils qw( can_user_login );
 use MusicBrainz::Server::Constants qw(
     %ENTITIES
     $VARTIST_GID
@@ -294,7 +295,7 @@ sub begin : Private
 {
     my ($self, $c) = @_;
 
-    if ($c->user_exists && $c->user->is_spammer) {
+    if ($c->user_exists && !can_user_login($c->user)) {
         $c->detach('/user/logout');
     }
 
@@ -311,6 +312,13 @@ sub begin : Private
     # Can we automatically login?
     if (!$c->user) {
         $c->forward('/user/cookie_login');
+
+        if ($c->stash->{cookie_login_error}) {
+            $c->flash->{message} = l(
+                'Sorry, we could not verify your login credentials ' .
+                'right now. Please try logging in again.',
+            );
+        }
     }
 
     # Allow browsers to report MB pages as referrers, even when going from
@@ -359,8 +367,8 @@ sub begin : Private
             $new_edit_notes_mtime = $notes_updated;
         }
     } catch {
-        $alert = l('Our Redis server appears to be down; some features may not work as intended or expected.');
-        warn "Redis connection to get alert failed: $_";
+        $alert = l('Our Valkey server appears to be down; some features may not work as intended or expected.');
+        warn "Valkey connection to get alert failed: $_";
     };
     if ($c->user_exists && $c->user->is_banner_editor) {
         # For banner editors, show a dismissed banner again after 20 hours (MBS-8940)
@@ -418,6 +426,21 @@ sub begin : Private
     # NOTE: The following checks are not applied to /ws/js/edit. If you change
     # anything here, make sure it is reflected there, too (if applicable).
 
+    if (DBDefs->REQUIRE_LOGIN_FOR_VIEWING && !$c->user_exists) {
+        my $action = $c->action;
+        my $namespace = $action->namespace;
+        my $private_path = $action->private_path;
+        unless (
+            $namespace eq 'metabrainz' ||
+            $namespace eq 'oauth2' ||
+            $private_path eq '/index' ||
+            $private_path eq '/user/login' ||
+            $private_path eq '/account/register'
+        ) {
+            $attributes->{RequireAuth} = 1;
+        }
+    }
+
     # Edit implies RequireAuth
     if (!exists $attributes->{RequireAuth} && exists $attributes->{Edit}) {
         $attributes->{RequireAuth} = 1;
@@ -446,12 +469,14 @@ sub begin : Private
                     component_props => {
                         origin => $external_origin,
                         postParameters => $post_params,
+                        requestUri => $c->req->uri->as_string,
                     },
                 );
                 $c->detach;
             }
         }
         $c->stash->{current_action_requires_auth} = 1;
+
         $c->forward('/user/do_login');
         my $privs = $attributes->{RequireAuth};
         if ($privs && ref($privs) eq 'ARRAY') {

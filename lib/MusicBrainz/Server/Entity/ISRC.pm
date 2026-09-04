@@ -1,7 +1,6 @@
 package MusicBrainz::Server::Entity::ISRC;
 
 use Moose;
-use Readonly;
 use MusicBrainz::Server::Entity::Types;
 
 extends 'MusicBrainz::Server::Entity';
@@ -23,24 +22,6 @@ has 'recording' => (
     is => 'rw',
     isa => 'Recording',
 );
-
-has 'source_id' => (
-    is => 'rw',
-    isa => 'Int',
-);
-
-Readonly my $SOURCE_MUSICBRAINZ => 0;
-
-Readonly my %SOURCES => (
-    $SOURCE_MUSICBRAINZ => 'MusicBrainz',
-);
-
-sub source
-{
-    my ($self) = @_;
-
-    return defined $self->source_id ? $SOURCES{$self->source_id} : undef;
-}
 
 sub name { shift->isrc }
 

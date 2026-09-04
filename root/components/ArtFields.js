@@ -13,21 +13,21 @@ import FormRowTextLong
   from '../static/scripts/edit/components/FormRowTextLong.js';
 
 export type CommonProps = {
-  +form: FormT<{
-    +comment: FieldT<string | null>,
-    +nonce: FieldT<string>,
-    +position?: FieldT<number>,
-    +type_id: FieldT<Array<StrOrNum>>,
+  readonly form: FormT<{
+    readonly comment: FieldT<string | null>,
+    readonly nonce: FieldT<string>,
+    readonly position?: FieldT<number>,
+    readonly type_id: FieldT<Array<StrOrNum>>,
     ...
   }>,
-  +typeIdOptions: SelectOptionsT,
+  readonly typeIdOptions: SelectOptionsT,
 };
 
-type Props = $ReadOnly<{
+type Props = Readonly<{
   ...CommonProps,
-  +archiveName: 'cover' | 'event',
-  +chooseMessage: React.Node,
-  +documentationMessage: React.Node,
+  readonly archiveName: 'cover' | 'event',
+  readonly chooseMessage: React.Node,
+  readonly documentationMessage: React.Node,
 }>;
 
 component ArtFields(...{

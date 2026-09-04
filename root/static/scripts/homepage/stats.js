@@ -15,10 +15,10 @@ import magnifyingGlass from '../../images/icons/magnifying-glass.svg';
 import {l} from '../common/i18n.js';
 
 export type WeeklyStatsT = {
-  +count: number,
-  +name: string,
-  +stat: string,
-  +total: number,
+  readonly count: number,
+  readonly name: string,
+  readonly stat: string,
+  readonly total: number,
 };
 
 const entitiesForStats = [
@@ -41,7 +41,7 @@ const entitiesForStats = [
 
 
 component Stats(
-  weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
+  weeklyStats: ReadonlyArray<WeeklyStatsT>,
 ) {
   // Filter the stats which need to be displayed in the carousel
   const filteredStats = weeklyStats.filter(
@@ -97,7 +97,7 @@ component Stats(
   );
 }
 
-export default (hydrate<React.PropsOf<Stats>>(
+export default hydrate<React.PropsOf<Stats>>(
   'div.stats-container',
   Stats,
-): component(...React.PropsOf<Stats>));
+) as component(...React.PropsOf<Stats>);

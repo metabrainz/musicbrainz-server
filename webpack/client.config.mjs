@@ -7,11 +7,11 @@
  */
 
 import canonicalJson from 'canonical-json';
+import MinimizerPlugin from 'minimizer-webpack-plugin';
 import fs from 'node:fs';
 import path from 'node:path';
 import shellQuote from 'shell-quote';
 import shell from 'shelljs';
-import TerserPlugin from 'terser-webpack-plugin';
 import webpack from 'webpack';
 
 import jedDataTemplate from '../root/jedDataTemplate.mjs';
@@ -20,7 +20,7 @@ import {cloneObjectDeep}
   from '../root/static/scripts/common/utility/cloneDeep.mjs';
 import MB_SERVER_ROOT from '../root/utility/serverRootDir.mjs';
 
-import browserConfig from './browserConfig.mjs';
+import buildBrowserConfig from './browserConfig.mjs';
 import cacheConfig from './cacheConfig.mjs';
 import {
   BUILD_DIR,
@@ -40,7 +40,6 @@ const jsExt = /\.[cm]?js$/;
 
 const entries = [
   'account/applications/register',
-  'account/components/RegisterForm',
   'account/edit',
   'account/preferences',
   'admin/components/PossibleSpammersList',
@@ -50,6 +49,7 @@ const entries = [
   'area/edit',
   'area/index',
   'area/places-map',
+  'artist/components/EditArtistCreditForm',
   'artist/edit',
   'artist/index',
   'artist/split',
@@ -60,6 +60,7 @@ const entries = [
   'common/components/Annotation',
   'common/components/ArtistRoles',
   'common/components/AttributeList',
+  'common/components/CDTocMediumListTable',
   'common/components/CDTocReleaseListTable',
   'common/components/CommonsImage',
   'common/components/Filter',
@@ -281,6 +282,10 @@ MB_LANGUAGES.forEach(function (lang) {
   }
 });
 
+const browserConfig = buildBrowserConfig({
+  remapClientDBDefs: true,
+});
+
 const plugins = browserConfig.plugins.concat();
 
 plugins.push(new webpack.ProvidePlugin(providePluginConfig));
@@ -310,9 +315,11 @@ export default {
 
   entry: entries,
 
+  experiments: {typescript: false},
+
   mode: WEBPACK_MODE,
 
-  module: moduleConfig,
+  module: moduleConfig('web'),
 
   name: 'client-bundles',
 
@@ -342,8 +349,8 @@ export default {
 
     ...(PRODUCTION_MODE ? {
       minimizer: [
-        new TerserPlugin({
-          terserOptions: {
+        new MinimizerPlugin({
+          minimizerOptions: {
             ecma: ECMA_VERSION,
             safari10: LEGACY_BROWSER,
           },
@@ -377,7 +384,7 @@ export default {
          * legacy bundles are built alongside production ones in production.
          */
         (LEGACY_BROWSER ? '-legacy' : '') +
-        (PRODUCTION_MODE ? '-[chunkhash:7]' : '') + '.js'
+        (PRODUCTION_MODE ? '-[contenthash:7]' : '') + '.js'
     ),
     path: BUILD_DIR,
   },

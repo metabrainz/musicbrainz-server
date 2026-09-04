@@ -14,7 +14,7 @@ import loopParity from '../../utility/loopParity.js';
 import type {ReportArtistCreditT} from '../types.js';
 
 component ArtistCreditList(
-  items: $ReadOnlyArray<ReportArtistCreditT>,
+  items: ReadonlyArray<ReportArtistCreditT>,
   pager: PagerT,
 ) {
   return (

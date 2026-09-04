@@ -5,6 +5,7 @@ use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../lib";
 use DBDefs;
+use Encode qw( decode_utf8 );
 use JSON;
 use Readonly;
 
@@ -18,6 +19,7 @@ Readonly our @BOOLEAN_DEFS => qw(
     DEVELOPMENT_SERVER
     DISABLE_IMAGE_EDITING
     IS_BETA
+    LOCAL_ACCOUNTS_ENABLED
     WIKIMEDIA_COMMONS_IMAGES_ENABLED
 );
 
@@ -39,8 +41,7 @@ Readonly our @STRING_DEFS => qw(
     MAPBOX_ACCESS_TOKEN
     MAPBOX_MAP_ID
     MB_SERVER_ROOT
-    MTCAPTCHA_PUBLIC_KEY
-    MTCAPTCHA_PRIVATE_TEST_KEY
+    METABRAINZ_URL
     RENDERER_SOCKET
     SENTRY_DSN
     SENTRY_DSN_PUBLIC
@@ -60,11 +61,11 @@ Readonly our %CLIENT_DEFS => (
     DISABLE_IMAGE_EDITING => 1,
     GIT_BRANCH => 1,
     GIT_SHA => 1,
+    LOCAL_ACCOUNTS_ENABLED => 1,
     MAPBOX_ACCESS_TOKEN => 1,
     MAPBOX_MAP_ID => 1,
     MB_LANGUAGES => 1,
-    MTCAPTCHA_PUBLIC_KEY => 1,
-    MTCAPTCHA_PRIVATE_TEST_KEY => 1,
+    METABRAINZ_URL => 1,
     SENTRY_DSN_PUBLIC => 1,
     STATIC_RESOURCES_LOCATION => 1,
     WEB_SERVER => 1,
@@ -84,13 +85,18 @@ my @conversions = (
     },
     {
         defs => \@STRING_DEFS,
-        convert => sub { \('' . (shift // '')) },
+        convert => sub {
+            my $value = '' . (shift // '');
+            $value = decode_utf8($value)
+                unless utf8::is_utf8($value);
+            return \$value;
+        },
         flowtype => 'string',
     },
     {
         defs => \@QW_STRING_DEFS,
         convert => sub { \[map { '' . ($_ // '') } @_] },
-        flowtype => '$ReadOnlyArray<string>',
+        flowtype => 'ReadonlyArray<string>',
     },
     {
         defs => ['DATABASES'],
@@ -112,12 +118,12 @@ my @conversions = (
         },
         flowtype => (
             '{' .
-                '+[name: string]: {' .
-                    '+database: string, ' .
-                    '+host: string, ' .
-                    '+password: string, ' .
-                    '+port: number, '.
-                    '+user: string'.
+                'readonly [name: string]: {' .
+                    'readonly database: string, ' .
+                    'readonly host: string, ' .
+                    'readonly password: string, ' .
+                    'readonly port: number, '.
+                    'readonly user: string'.
                 '}' .
             '}'
         ),
@@ -129,14 +135,6 @@ sub get_value {
 
     if ($def eq 'DATABASES') {
         return \%MusicBrainz::Server::DatabaseConnectionFactory::databases;
-    } elsif ($def eq 'MTCAPTCHA_PRIVATE_TEST_KEY') {
-        # Don't leak the private key to the client unless we're running
-        # tests, where it's required for `enableTestMode`.
-        return (
-            $ENV{MUSICBRAINZ_RUNNING_TESTS}
-                ? DBDefs->MTCAPTCHA_PRIVATE_TEST_KEY
-                : '[redacted]'
-        );
     }
 
     # Values can be overridden via the environment.

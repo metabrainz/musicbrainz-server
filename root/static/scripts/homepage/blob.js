@@ -10,7 +10,7 @@
 import * as blobs2Animate from 'blobs/v2/animate';
 import * as React from 'react';
 
-function isUndefined(value: mixed): boolean {
+function isUndefined(value: unknown): boolean {
   return value === undefined;
 }
 
@@ -87,7 +87,7 @@ component Blob(
   );
 }
 
-export default (hydrate<React.PropsOf<Blob>>(
+export default hydrate<React.PropsOf<Blob>>(
   'div.blob',
   Blob,
-): component(...React.PropsOf<Blob>));
+) as component(...React.PropsOf<Blob>);

@@ -28,7 +28,7 @@ import {
 } from '../utility/tableColumns.js';
 
 component CollectionMergeTable(
-  collections: $ReadOnlyArray<CollectionT>,
+  collections: ReadonlyArray<CollectionT>,
   form: MergeFormT,
 ) {
   const columns = React.useMemo(
@@ -52,7 +52,7 @@ component CollectionMergeTable(
           id: 'size',
         };
       const collaboratorsColumn:
-        ColumnOptions<CollectionT, $ReadOnlyArray<EditorT>> = {
+        ColumnOptions<CollectionT, ReadonlyArray<EditorT>> = {
           accessor: x => x.collaborators,
           Cell: ({cell: {value}}) => value.length,
           Header: l('Collaborators'),
@@ -88,7 +88,7 @@ component CollectionMergeTable(
 component CollectionMerge(
   form: MergeFormT,
   privaciesDiffer?: boolean,
-  toMerge: $ReadOnlyArray<CollectionT>,
+  toMerge: ReadonlyArray<CollectionT>,
   typesDiffer?: boolean,
 ) {
   const collections = sortByString(toMerge, collection => collection.name);

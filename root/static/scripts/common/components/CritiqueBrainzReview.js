@@ -54,7 +54,7 @@ component CritiqueBrainzReview(review: CritiqueBrainzReviewT, title: string) {
   );
 }
 
-export default (hydrate<React.PropsOf<CritiqueBrainzReview>>(
+export default hydrate<React.PropsOf<CritiqueBrainzReview>>(
   'div.critiquebrainz-review',
   CritiqueBrainzReview,
-): component(...React.PropsOf<CritiqueBrainzReview>));
+) as component(...React.PropsOf<CritiqueBrainzReview>);

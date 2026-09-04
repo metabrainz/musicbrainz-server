@@ -20,7 +20,7 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 import InstrumentLayout from './InstrumentLayout.js';
 
 component InstrumentArtists(
-  artists: $ReadOnlyArray<ArtistT>,
+  artists: ReadonlyArray<ArtistT>,
   instrument: InstrumentT,
   instrumentCreditsAndRelTypes: InstrumentCreditsAndRelTypesT,
   pager: PagerT,

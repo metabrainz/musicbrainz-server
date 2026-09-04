@@ -19,6 +19,7 @@ import hydrate from '../../../../utility/hydrate.js';
 import invariant from '../../../../utility/invariant.js';
 import loopParity from '../../../../utility/loopParity.js';
 import EditorLink from '../../common/components/EditorLink.js';
+import errorToString from '../../common/utility/errorToString.js';
 import isDatabaseRowId, {
   MAX_POSTGRES_INT,
 } from '../../common/utility/isDatabaseRowId.js';
@@ -33,41 +34,41 @@ import SpammerButton, {
 } from './SpammerButton.js';
 
 type FindNewUsersResponseT =
-  | {+users: $ReadOnlyArray<UnsanitizedEditorT>}
-  | {+error: string};
+  | {readonly users: ReadonlyArray<UnsanitizedEditorT>}
+  | {readonly error: string};
 
 type ActionT =
   | {
-      +type: 'set-users',
-      +users: $ReadOnlyArray<UnsanitizedEditorT>,
+      readonly type: 'set-users',
+      readonly users: ReadonlyArray<UnsanitizedEditorT>,
     }
   | {
-      +type: 'remove-user',
-      +userState: UserStateT,
+      readonly type: 'remove-user',
+      readonly userState: UserStateT,
     }
   | {
-      +action: SpammerButtonActionT<UnsanitizedEditorT>,
-      +type: 'update-spammer-button',
+      readonly action: SpammerButtonActionT<UnsanitizedEditorT>,
+      readonly type: 'update-spammer-button',
     }
   | {
-      +error: string,
-      +type: 'set-users-fetch-error',
+      readonly error: string,
+      readonly type: 'set-users-fetch-error',
     }
-  | {+type: 'most-recent-page'}
-  | {+type: 'previous-page'}
-  | {+type: 'next-page'};
+  | {readonly type: 'most-recent-page'}
+  | {readonly type: 'previous-page'}
+  | {readonly type: 'next-page'};
 
 type UserStateT = SpammerButtonStateT<UnsanitizedEditorT>;
 
 type PageStateT = {
-  +id: number,
-  +op: 'gt' | 'gte' | 'lt' | 'lte',
+  readonly id: number,
+  readonly op: 'gt' | 'gte' | 'lt' | 'lte',
 };
 
 type StateT = {
-  +page: PageStateT,
-  +users: tree.ImmutableTree<UserStateT>,
-  +usersFetchError: string,
+  readonly page: PageStateT,
+  readonly users: tree.ImmutableTree<UserStateT>,
+  readonly usersFetchError: string,
 };
 
 function getPageState(): PageStateT {
@@ -93,17 +94,6 @@ function getPageState(): PageStateT {
 
 function cmpUserState(a: UserStateT, b: UserStateT) {
   return b.user.id - a.user.id;
-}
-
-function errorToString(error: mixed) {
-  if (error == null) {
-    return '';
-  }
-  return String(
-    (typeof error === 'object' && nonEmpty(error.message))
-      ? error.message
-      : error,
-  );
 }
 
 function createInitialState(): StateT {
@@ -144,16 +134,15 @@ function reducer(state: StateT, action: ActionT): StateT {
     {type: 'update-spammer-button', const action} => {
       return {
         ...state,
-        users: tree.update(
-          state.users,
-          action.state,
-          cmpUserState,
-          (existingValue) => spammerButtonReducer(
+        users: tree.update(state.users, {
+          cmp: cmpUserState,
+          key: action.state,
+          onConflict: (existingValue) => spammerButtonReducer(
             existingValue,
             action,
           ),
-          onNotFoundThrowError,
-        ),
+          onNotFound: onNotFoundThrowError,
+        }),
       };
     }
     {type: 'set-users-fetch-error', const error} => {
@@ -385,9 +374,9 @@ component _PossibleSpammersList() {
   );
 }
 
-const PossibleSpammersList = (hydrate<{}>(
+const PossibleSpammersList = hydrate<{}>(
   'div.possible-spammers',
   _PossibleSpammersList,
-): component());
+) as component();
 
 export default PossibleSpammersList;

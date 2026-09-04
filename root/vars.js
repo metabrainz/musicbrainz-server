@@ -17,7 +17,7 @@
 declare var __webpack_public_path__: string;
 declare var __DEV__: boolean;
 declare var GLOBAL_JS_NAMESPACE: '__MB__';
-declare var MUSICBRAINZ_RUNNING_TESTS: false;
+declare var MUSICBRAINZ_RUNNING_TESTS: boolean;
 
 declare var addColon: (variable: Expand2ReactInput) => Expand2ReactOutput;
 declare var addColonText: (variable: StrOrNum) => string;
@@ -96,90 +96,90 @@ declare var N_l_statistics: typeof N_l;
 declare var N_lp_statistics: typeof N_lp;
 
 declare var exp: {
-  +l: (
+  readonly l: (
     key: string,
-    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+    args?: ?{readonly [arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
-  +l_admin: (
+  readonly l_admin: (
     key: string,
-    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+    args?: ?{readonly [arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
-  +l_statistics: (
+  readonly l_statistics: (
     key: string,
-    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+    args?: ?{readonly [arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
-  +ln: (
+  readonly ln: (
     skey: string,
     pkey: string,
     val: number,
-    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+    args?: ?{readonly [arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
-  +ln_admin: (
+  readonly ln_admin: (
     skey: string,
     pkey: string,
     val: number,
-    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+    args?: ?{readonly [arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
-  +ln_statistics: (
+  readonly ln_statistics: (
     skey: string,
     pkey: string,
     val: number,
-    args?: ?{+[arg: string]: Expand2ReactInput, ...},
+    args?: ?{readonly [arg: string]: Expand2ReactInput, ...},
   ) => Expand2ReactOutput,
-  +lp: (
+  readonly lp: (
     key: string,
     context: string,
-    args?: ?{+[arg: string]: Expand2ReactInput},
+    args?: ?{readonly [arg: string]: Expand2ReactInput},
   ) => Expand2ReactOutput,
-  +lp_statistics: (
+  readonly lp_statistics: (
     key: string,
     context: string,
-    args?: ?{+[arg: string]: Expand2ReactInput},
+    args?: ?{readonly [arg: string]: Expand2ReactInput},
   ) => Expand2ReactOutput,
 };
 
 declare var texp: {
-  +l: (
+  readonly l: (
     key: string,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +l_admin: (
+  readonly l_admin: (
     key: string,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +l_statistics: (
+  readonly l_statistics: (
     key: string,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +ln: (
+  readonly ln: (
     skey: string,
     pkey: string,
     val: number,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +ln_admin: (
+  readonly ln_admin: (
     skey: string,
     pkey: string,
     val: number,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +ln_statistics: (
+  readonly ln_statistics: (
     skey: string,
     pkey: string,
     val: number,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +lp: (
+  readonly lp: (
     key: string,
     context: string,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
-  +lp_statistics: (
+  readonly lp_statistics: (
     key: string,
     context: string,
-    args: {+[arg: string]: StrOrNum, ...},
+    args: {readonly [arg: string]: StrOrNum, ...},
   ) => string,
 };
 
 // root/utility/invariant.js
-declare var invariant: (cond: mixed, msg?: string) => empty;
+declare var invariant: (cond: unknown, msg?: string) => empty;

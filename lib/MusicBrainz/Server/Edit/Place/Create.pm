@@ -31,6 +31,11 @@ sub edit_type { $EDIT_PLACE_CREATE }
 sub _create_model { 'Place' }
 sub place_id { shift->entity_id }
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/place/$mbid";
+}
+
 has '+data' => (
     isa => Dict[
         name        => Str,

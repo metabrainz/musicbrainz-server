@@ -23,14 +23,14 @@
 # Светлана Ширикалова <email address hidden>, 2018
 # Хамит Фатхлисламов <email address hidden>, 2019
 # wileyfoxyx <wileyfoxyx@inbox.ru>, 2023.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
 # 4irefall <firekonstantin@mail.ru>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
 # EmO686 <eiswuste@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-08 17:20+0000\n"
+"PO-Revision-Date: 2026-04-06 18:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -39,10 +39,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural="
-"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
-": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14.3\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -594,6 +594,15 @@ msgstr ""
 "Список песен, которые будут звучать на мероприятии, часто напечатанный или "
 "написанный от руки для использования артистом."
 
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -805,6 +814,15 @@ msgstr ""
 "демонстрации звучания исполнителя звукозаписывающим лейблам, издателям и "
 "другим исполнителям."
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -945,6 +963,26 @@ msgstr "Серия из групп релизов."
 msgctxt "series_type"
 msgid "A series of releases."
 msgstr "Серия релизов."
+
+#. name:Series award
+#: DB:series_type/description:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of recordings honoured by the same award."
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr "Серия записей, награжденных одной и той же наградой."
+
+#. name:Series series
+#: DB:series_type/description:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of events."
+msgctxt "series_type"
+msgid "A series of series."
+msgstr "Серия событий."
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -1349,6 +1387,14 @@ msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr "Альбом"
 
+#: DB:work_attribute_type/name:216
+#, fuzzy
+#| msgctxt "cover_art_type"
+#| msgid "Track"
+msgctxt "work_attribute_type"
+msgid "AllTrack ID"
+msgstr "Трек"
+
 #. name:Manual
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
@@ -1622,6 +1668,16 @@ msgstr ""
 "оркестр, хор и солисты. Хотя у него есть символы и сюжет, он обычно не "
 "выполняется театрально (в нем нет костюмов, реквизита и сильного "
 "взаимодействия с персонажем)."
+
+#. name:Broadcaster
+#: DB:label_type/description:12
+msgctxt "label_type"
+msgid ""
+"An organization that mostly concentrates on broadcasting audio or video "
+"content, be it on television, radio or the internet."
+msgstr ""
+"Организация, в основном занимающаяся трансляцией аудио- или видеоконтента, "
+"будь то по телевидению, радио или в интернете."
 
 #. name:Creative Agency
 #: DB:label_type/description:11
@@ -2356,6 +2412,11 @@ msgstr "Имя бренда"
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
 msgstr "Трансляция"
+
+#: DB:label_type/name:12
+msgctxt "label_type"
+msgid "Broadcaster"
+msgstr "Вещатель"
 
 #: DB:work_attribute_type_allowed_value/value:885
 msgctxt "work_attribute_type_allowed_value"
@@ -4576,12 +4637,9 @@ msgstr "ID для эквадорского правозащитного обще
 
 #. name:EAÜ ID
 #: DB:work_attribute_type/description:215
-#, fuzzy
-#| msgctxt "work_attribute_type"
-#| msgid "ID for the Austrian rights society AKM"
 msgctxt "work_attribute_type"
 msgid "ID for the Estonian rights society EAÜ"
-msgstr "ID для австрийского правозащитного общества AKM"
+msgstr "ID для эстонского правозащитного общества EAÜ"
 
 #. name:TEOSTO ID
 #: DB:work_attribute_type/description:66
@@ -4834,6 +4892,15 @@ msgstr ""
 msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
 msgstr ""
+
+#. name:AllTrack ID
+#: DB:work_attribute_type/description:216
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the Czech rights society OSA"
+msgctxt "work_attribute_type"
+msgid "ID for the US rights society AllTrack"
+msgstr "ID для чешского правозащитного общества OSA"
 
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
@@ -5718,6 +5785,11 @@ msgctxt "release_group_secondary_type"
 msgid "Live"
 msgstr "Концерт"
 
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
 msgid "Longa"
@@ -5851,7 +5923,7 @@ msgstr "Вручную"
 #: DB:label_type/name:10
 msgctxt "label_type"
 msgid "Manufacturer"
-msgstr ""
+msgstr "Производитель"
 
 #: DB:work_attribute_type_allowed_value/value:172
 msgctxt "work_attribute_type_allowed_value"
@@ -7186,12 +7258,9 @@ msgid "Quartet"
 msgstr "Квартет"
 
 #: DB:medium_format/name:208
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Cartridge"
 msgctxt "medium_format"
 msgid "ROM cartridge"
-msgstr "Картридж"
+msgstr "ROM-картридж"
 
 #: DB:work_attribute_type_allowed_value/value:500
 msgctxt "work_attribute_type_allowed_value"
@@ -7366,7 +7435,7 @@ msgstr "Коллекция групп релизов"
 #: DB:release_group_alias_type/name:1
 msgctxt "alias_type"
 msgid "Release group name"
-msgstr "Название Релиз группы"
+msgstr "Название группы релизов"
 
 #: DB:series_type/name:1
 msgctxt "series_type"
@@ -7885,6 +7954,14 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr ""
 
+#: DB:series_type/name:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist award"
+msgctxt "series_type"
+msgid "Series award"
+msgstr "Премия для исполнителей"
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7894,6 +7971,14 @@ msgstr "Коллекция серий"
 msgctxt "alias_type"
 msgid "Series name"
 msgstr "Название серии"
+
+#: DB:series_type/name:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist series"
+msgctxt "series_type"
+msgid "Series series"
+msgstr "Серия исполнителей"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
@@ -8857,12 +8942,9 @@ msgid "Udaya ravicandrika"
 msgstr ""
 
 #: DB:medium_format/name:211
-#, fuzzy
-#| msgctxt "medium_format"
-#| msgid "Blu-ray"
 msgctxt "medium_format"
 msgid "Ultra HD Blu-ray"
-msgstr "Blu-ray"
+msgstr "Ultra HD Blu-ray"
 
 #. name:Watermark
 #: DB:cover_art_archive.art_type/description:13
@@ -8878,12 +8960,6 @@ msgstr ""
 
 #. name:Watermark
 #: DB:event_art_archive.art_type/description:10
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that are "
@@ -8891,42 +8967,30 @@ msgid ""
 "reference)."
 msgstr ""
 "Используйте в сочетании с любыми другими подходящими типами для изображений, "
-"которые нуждаются в доработке для использования в тегах (но, возможно, уже "
-"могут использоваться для ссылок)."
+"которые имеют водяные знаки и нежелательны к показу (но могут использоваться "
+"для ссылок)."
 
 #. name:Raw/Unedited
 #: DB:cover_art_archive.art_type/description:14
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "cover_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Используйте в сочетании с любыми другими подходящими типами для изображений, "
-"которые нуждаются в доработке для использования в тегах (но, возможно, уже "
-"могут использоваться для ссылок)."
+"которые нуждаются в доработке для их показа (но, возможно, уже могут "
+"использоваться для ссылок)."
 
 #. name:Raw/Unedited
 #: DB:event_art_archive.art_type/description:9
-#, fuzzy
-#| msgctxt "cover_art_type"
-#| msgid ""
-#| "Use in combination with any other appropriate types for images that need "
-#| "work to be used for tagging (but can possibly already be used for "
-#| "reference)."
 msgctxt "event_art_type"
 msgid ""
 "Use in combination with any other appropriate types for images that need "
 "work to be used for display (but can possibly already be used for reference)."
 msgstr ""
 "Используйте в сочетании с любыми другими подходящими типами для изображений, "
-"которые нуждаются в доработке для использования в тегах (но, возможно, уже "
-"могут использоваться для ссылок)."
+"которые нуждаются в доработке для их показа (но, возможно, уже могут "
+"использоваться для ссылок)."
 
 #. name:Poster
 #: DB:event_art_archive.art_type/description:1

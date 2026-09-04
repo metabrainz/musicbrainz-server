@@ -10,7 +10,7 @@
 /* eslint-disable no-unused-vars */
 
 // MusicBrainz::Server::Entity::Label::TO_JSON
-declare type LabelT = $ReadOnly<{
+declare type LabelT = Readonly<{
   ...AnnotationRoleT,
   ...CommentRoleT,
   ...RelatableEntityRoleT<'label'>,
@@ -20,9 +20,9 @@ declare type LabelT = $ReadOnly<{
   ...RatableRoleT,
   ...ReviewableRoleT,
   ...TypeRoleT<LabelTypeT>,
-  +area: AreaT | null,
-  +label_code: number,
-  +primaryAlias?: string | null,
+  readonly area: AreaT | null,
+  readonly label_code: number,
+  readonly primaryAlias?: string | null,
 }>;
 
 declare type LabelTypeT = OptionTreeT<'label_type'>;

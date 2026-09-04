@@ -247,6 +247,16 @@ sub update
     $self->sql->update_row('work', $row, { id => $work_id }) if %$row;
 }
 
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $work_id, $update) = @_;
+
+    if ($update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('work', $work_id);
+    }
+};
+
 # Works can be unconditionally removed
 sub can_delete { 1 }
 

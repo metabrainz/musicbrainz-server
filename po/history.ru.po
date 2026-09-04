@@ -18,18 +18,19 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-10-27 00:08+0000\n"
-"Last-Translator: craftersmine <me@craftersmine.ru>\n"
+"PO-Revision-Date: 2026-04-26 20:11+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural="
-"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 "
-": n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"X-Generator: Weblate 5.17\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -359,11 +360,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/title:2008-11-24
 msgid "Collection, Ratings, CDStubs"
-msgstr ""
+msgstr "Коллекция, рейтинги, CD-заготовки (CD stubs)"
 
 #: DB:statistics.statistic_event/description:2008-11-24
 msgid "Collection, Ratings, CDStubs, LastUpdate released."
-msgstr ""
+msgstr "Коллекция, рейтинги, CD-заготовки (CD stubs), Последний релиз."
 
 #: DB:statistics.statistic_event/description:2021-05-18
 msgid ""
@@ -531,7 +532,7 @@ msgstr "Великий спор"
 
 #: DB:statistics.statistic_event/title:2015-04-27
 msgid "Guess feat. buttons"
-msgstr ""
+msgstr "Кнопки «Угадать соисполнителей (feat.)»"
 
 #: DB:statistics.statistic_event/title:2021-05-26
 msgid "IRC channels move to Libera.Chat"
@@ -551,7 +552,7 @@ msgstr "Иан Макьюэн покидает проект по личным п
 
 #: DB:statistics.statistic_event/title:2009-06-17
 msgid "Imported CD Baby catalog as CD Stubs"
-msgstr ""
+msgstr "Импорт каталога CD Baby как загрушки"
 
 #: DB:statistics.statistic_event/description:2009-06-17
 msgid ""
@@ -617,6 +618,7 @@ msgstr "Встроенные правки"
 #: DB:statistics.statistic_event/description:2004-01-17
 msgid "Inline edits, new reports, improved data import scripts."
 msgstr ""
+"Встроенное редактирование, новые отчёты, улучшенные скрипты импорта данных."
 
 #: DB:statistics.statistic_event/title:2004-05-09
 msgid "Install scripts"
@@ -688,6 +690,8 @@ msgstr ""
 msgid ""
 "Link to MusicBrainz feature, release events and edit suggestions released."
 msgstr ""
+"Опубликованы ссылка на функцию MusicBrainz, события релиза и предложения по "
+"правкам."
 
 #: DB:statistics.statistic_event/description:2007-01-20
 msgid "Linkara Musica becomes first commercial customer of MetaBrainz."
@@ -716,7 +720,7 @@ msgstr "Запуск бота MBBE_Bot"
 
 #: DB:statistics.statistic_event/title:2005-10-23
 msgid "Menus/Client scripting"
-msgstr ""
+msgstr "Меню/Клиентские сценарии"
 
 #: DB:statistics.statistic_event/title:2021-05-18
 msgid "Mergeable collections, artist series and ratable places"
@@ -751,11 +755,11 @@ msgstr ""
 
 #: DB:statistics.statistic_event/description:2008-04-01
 msgid "MetaWeb becomes a MusicBrainz data user."
-msgstr ""
+msgstr "MetaWeb начинает использовать данные MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2008-04-01
 msgid "MetaWeb signed"
-msgstr ""
+msgstr "Подписанный MetaWeb"
 
 #: DB:statistics.statistic_event/title:2015-11-30
 msgid "More auto-edits"
@@ -819,19 +823,19 @@ msgstr "MusicIP PUID"
 
 #: DB:statistics.statistic_event/title:2011-05-12
 msgid "NGS No-Editing Phase"
-msgstr ""
+msgstr "Безправочная фаза во время подготовки к NGS"
 
 #: DB:statistics.statistic_event/title:2011-05-02
 msgid "NGS Reduced Editing Phase"
-msgstr ""
+msgstr "Сокращенный этап редактирования NGS"
 
 #: DB:statistics.statistic_event/title:2011-05-18
 msgid "NGS Release"
-msgstr ""
+msgstr "Выход NGS"
 
 #: DB:statistics.statistic_event/description:2011-05-18
 msgid "NGS, a MusicBrainz major rewrite, is released!"
-msgstr ""
+msgstr "Вышла переработанная версия NGS от MusicBrainz!"
 
 #: DB:statistics.statistic_event/title:2016-02-22
 msgid "New MusicBrainz design"
@@ -865,11 +869,11 @@ msgstr "Оливер Чарльз становится сотрудником �
 
 #: DB:statistics.statistic_event/description:2010-06-18
 msgid "Oliver Charles begins working for MusicBrainz full-time."
-msgstr ""
+msgstr "Оливер Чарльз начинает работать с MusicBrainz на полную ставку."
 
 #: DB:statistics.statistic_event/title:2010-06-18
 msgid "Oliver Charles joins MusicBrainz full-time"
-msgstr ""
+msgstr "Оливер Чарльз становится полноценным сотрудником"
 
 #: DB:statistics.statistic_event/description:2018-06-30
 msgid ""
@@ -885,21 +889,24 @@ msgstr "Прекращение поддержки PUID"
 
 #: DB:statistics.statistic_event/title:2021-04-05
 msgid "Pagination added for relationships, user tags"
-msgstr ""
+msgstr "Добавлена разбивка на страницы для связей и пользовательских тегов"
 
 #: DB:statistics.statistic_event/description:2021-04-05
 msgid ""
 "Pagination was added for two very long lists that sometimes couldn't be "
 "loaded in full because of timeouts: user tags and entity relationships."
 msgstr ""
+"Добавлена разбивка на страницы для двух очень длинных списков, которые "
+"иногда не загружались полностью из-за превышения времени ожидания: "
+"пользовательских тегов и связей сущностей."
 
 #: DB:statistics.statistic_event/title:2012-06-02
 msgid "Picard 1.0 released"
-msgstr ""
+msgstr "Выход Picard 1.0"
 
 #: DB:statistics.statistic_event/title:2018-07-19
 msgid "Picard 2.0 released"
-msgstr ""
+msgstr "Выход Picard 2.0"
 
 #: DB:statistics.statistic_event/description:2017-10-31
 msgid ""
@@ -907,6 +914,9 @@ msgid ""
 "editors now have 24 hours to correct errors in the data they have added "
 "without needing a vote."
 msgstr ""
+"Вместо того, чтобы замечать ошибки в течение довольно короткого периода "
+"времени в 1 час, редакторы теперь имеют 24 часа на исправление ошибок в "
+"добавленных ими данных без необходимости голосования."
 
 #: DB:statistics.statistic_event/title:2012-10-15
 msgid "Relationship Editor"
@@ -914,19 +924,21 @@ msgstr "Редактор связей"
 
 #: DB:statistics.statistic_event/title:2015-06-02
 msgid "Relationship credits become available"
-msgstr ""
+msgstr "Становятся доступны уточняющие подписи к ролям в связях"
 
 #: DB:statistics.statistic_event/title:2011-11-23
 msgid "Relationships displayed on release pages"
-msgstr ""
+msgstr "Отображение отношений на страницах релизов"
 
 #: DB:statistics.statistic_event/title:2015-04-06
 msgid "Release \"stubs\", minimum voting period for destructive edits"
 msgstr ""
+"Выпущены “заготовки”, введён минимальный период голосования для некорректных "
+"правок"
 
 #: DB:statistics.statistic_event/title:2009-05-24
 msgid "Release Groups, ISRCs, CDStub searching"
-msgstr ""
+msgstr "Группы релизов, коды ISRC, поиск по CD-заглушкам"
 
 #: DB:statistics.statistic_event/title:2006-07-12
 #: DB:statistics.statistic_event/title:2003-10-19
@@ -941,6 +953,8 @@ msgstr "Выпущены редактор релизов и функция \"У�
 msgid ""
 "Release groups, ISRC support, CDStub searching and search fixes released."
 msgstr ""
+"Выпущены группы релизов, поддержка ISRC, поиск по CDStub и исправления "
+"поиска."
 
 #: DB:statistics.statistic_event/description:2015-04-06
 msgid ""
@@ -974,11 +988,11 @@ msgstr "Роман Цуканов присоединяется к команде
 
 #: DB:statistics.statistic_event/title:2006-01-08
 msgid "SG5 Fixes"
-msgstr ""
+msgstr "Исправления SG5"
 
 #: DB:statistics.statistic_event/title:2017-09-06
 msgid "Sambhav Kothari and Param Singh replace Roman Tsukanov"
-msgstr ""
+msgstr "Самбхав Котари и Парам Сингх заменяют Романа Цуканова"
 
 #: DB:statistics.statistic_event/description:2018-09-09
 msgid ""
@@ -1010,6 +1024,11 @@ msgid ""
 "users are suggested to just run their own Docker setup for MusicBrainz "
 "(which the Virtual Machine already did behind the scenes)."
 msgstr ""
+"Поскольку проект виртуальной машины имел тенденцию значительно отставать от "
+"текущих данных из-за времени, необходимого для постоянной установки новых "
+"версий, он был закрыт, и пользователям предлагается просто запустить "
+"собственную среду Docker для MusicBrainz (что виртуальная машина уже делала "
+"в фоновом режиме)."
 
 #: DB:statistics.statistic_event/title:2008-04-21
 msgid "SoC 2008"
@@ -1017,7 +1036,7 @@ msgstr "Summer of Code 2008"
 
 #: DB:statistics.statistic_event/title:2018-06-30
 msgid "Solr-based search server deployed"
-msgstr ""
+msgstr "Развернут поисковый сервер на базе Solr"
 
 #: DB:statistics.statistic_event/description:2020-12-31
 msgid ""
@@ -1025,45 +1044,53 @@ msgid ""
 "Additionally, a first release date starts being calculated and displayed for "
 "recordings based on the releases they appear on."
 msgstr ""
+"На некоторых страницах с инструментами начинают появляться иллюстрации от "
+"IROM. Кроме того, для записей, представленных в релизах, начинает "
+"рассчитываться и отображаться дата первого выпуска."
 
 #: DB:statistics.statistic_event/description:2006-01-08
 msgid ""
 "Style Guideline 5 workaround introduced and unused TRMs pruned from the "
 "database."
 msgstr ""
+"Введён обходной механизм для Style Guideline 5 и удалены неиспользуемые TRM "
+"из базы данных."
 
 #: DB:statistics.statistic_event/title:2014-10-17
 msgid "Style process updated again, reosarevok \"promoted\" to Style BDFL"
 msgstr ""
+"Процесс оформления снова обновлен, reosarevok «повысили» до BDFL по стилю"
 
 #: DB:statistics.statistic_event/description:2007-04-01
 msgid "Support for Labels and data quality are released."
-msgstr ""
+msgstr "Добавлена поддержка лейблов и указания качества данных."
 
 #: DB:statistics.statistic_event/title:2015-06-29
 msgid "Tag up/downvoting"
-msgstr ""
+msgstr "Голосование за/против тегов"
 
 #: DB:statistics.statistic_event/title:2007-10-17
 msgid "Tags, editor subscriptions, relationship batch-adding"
-msgstr ""
+msgstr "Теги, подписки на редакторов, добавление отношений пачкой"
 
 #: DB:statistics.statistic_event/title:2014-11-19
 msgid "The AcousticBrainz project goes live"
-msgstr ""
+msgstr "Запуск проекта AcousticBrainz"
 
 #: DB:statistics.statistic_event/title:2022-02-16
 msgid "The AcousticBrainz project is discontinued"
-msgstr ""
+msgstr "Закрытие проекта AcousticBrainz"
 
 #: DB:statistics.statistic_event/title:2011-08-03
 msgid "The Android app goes live"
-msgstr ""
+msgstr "Запуск приложения для Android"
 
 #: DB:statistics.statistic_event/description:2007-06-28
 msgid ""
 "The BBC becomes a MetaBrainz customer and starts using MusicBrainz data."
 msgstr ""
+"Британская вещательная корпорация (Би-би-си) становится клиентом MetaBrainz "
+"и начинает использовать данные MusicBrainz."
 
 #: DB:statistics.statistic_event/description:2012-04-30
 msgid "The Cover Art Archive becomes initially available."

@@ -14,13 +14,15 @@
 # Dimlbur <Dimlbur@users.noreply.translations.metabrainz.org>, 2024.
 # Arainuki <esetipodealla@gmail.com>, 2024.
 # liilliil <liilliil@liilliil.net>, 2024.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2025.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2025, 2026.
 # karpuzikov <karpuzikovanton@gmail.com>, 2025.
+# djtusa <djtusaofficial@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-12-03 17:11+0000\n"
-"Last-Translator: karpuzikov <karpuzikovanton@gmail.com>\n"
+"PO-Revision-Date: 2026-04-11 22:11+0000\n"
+"Last-Translator: wileyfoxyx "
+"<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
 "musicbrainz/instruments/ru/>\n"
 "Language: ru\n"
@@ -30,7 +32,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.16.2\n"
 
 #: DB:instrument/name:438
 msgid "12 string guitar"
@@ -228,7 +230,7 @@ msgstr "Мохан вина Радхики"
 
 #: DB:instrument/name:576
 msgid "Reactable"
-msgstr ""
+msgstr "Пригодный для повторного использования"
 
 #: DB:instrument/name:139
 msgctxt "Electric keyboard tuning fork idiophone"
@@ -525,9 +527,6 @@ msgid "bansuri"
 msgstr "бансури"
 
 #: DB:instrument/name:819
-#, fuzzy
-#| msgctxt "ancient asian/persian lute"
-#| msgid "barbat"
 msgctxt "Ancient asian/persian lute"
 msgid "barbat"
 msgstr "барбат"
@@ -822,11 +821,11 @@ msgstr "бузуки"
 
 #: DB:instrument/name:1017
 msgid "bowed lute"
-msgstr ""
+msgstr "арфовая лютня"
 
 #: DB:instrument/name:1018
 msgid "bowed lyre"
-msgstr ""
+msgstr "арфовая лира"
 
 #: DB:instrument/name:504
 msgid "bowed piano"
@@ -852,7 +851,7 @@ msgstr "брач"
 #: DB:instrument/name:800
 msgctxt "Bronze age natural brass"
 msgid "bronze lur"
-msgstr ""
+msgstr "бронзовый люр"
 
 #: DB:instrument/name:320
 msgid "brushes"
@@ -861,11 +860,11 @@ msgstr "кисти"
 #: DB:instrument/name:826
 msgctxt "kontra, Serbo-Croatian plucked string instrument"
 msgid "bugarija"
-msgstr ""
+msgstr "бугариха"
 
 #: DB:instrument/name:36
 msgid "bugle"
-msgstr ""
+msgstr "багл"
 
 #: DB:instrument/name:762
 msgid "buisine"
@@ -878,7 +877,7 @@ msgstr "бук"
 #: DB:instrument/name:528
 msgctxt "Indian keyed box zither"
 msgid "bulbul tarang"
-msgstr ""
+msgstr "булбул таранг"
 
 #: DB:instrument/name:153
 msgid "bullroarer"
@@ -964,7 +963,7 @@ msgstr "чача"
 
 #: DB:instrument/name:627
 msgid "chakhe"
-msgstr ""
+msgstr "чахе"
 
 #: DB:instrument/name:436
 msgctxt "Baroque/classical predecessor of the clarinet"
@@ -982,7 +981,7 @@ msgstr "шамберлин"
 
 #: DB:instrument/name:536
 msgid "chande"
-msgstr ""
+msgstr "чанде"
 
 #: DB:instrument/name:713
 msgid "chanzy"
@@ -1047,16 +1046,16 @@ msgstr ""
 #: DB:instrument/name:433
 msgctxt "Accordion with buttons arranged chromatically"
 msgid "chromatic button accordion"
-msgstr ""
+msgstr "аккордеон с хроматическими кнопками"
 
 #: DB:instrument/name:300
 msgid "chromatic harmonica"
-msgstr ""
+msgstr "хроматическая гармоника"
 
 #: DB:instrument/name:906
 msgctxt "ancient predecessor of the Morin khuur"
 msgid "chuurqin"
-msgstr ""
+msgstr "чууркин"
 
 #: DB:instrument/name:256
 msgctxt "European hammered dulcimer"
@@ -1084,7 +1083,7 @@ msgstr ""
 #: DB:instrument/name:218
 msgctxt "large huqin"
 msgid "cizhonghu"
-msgstr ""
+msgstr "цижонху"
 
 #: DB:instrument/name:904
 msgctxt "Egyptian ancient clappers"
@@ -1190,7 +1189,7 @@ msgstr ""
 #: DB:instrument/name:446
 msgctxt "Largest member of the saxophone family"
 msgid "contrabass saxophone"
-msgstr ""
+msgstr "саксофон-контрабас"
 
 #: DB:instrument/name:6
 msgid "contrabassoon"
@@ -1242,11 +1241,11 @@ msgstr "крумгорн"
 
 #: DB:instrument/name:74
 msgid "crwth"
-msgstr ""
+msgstr "crwth"
 
 #: DB:instrument/name:439
 msgid "cuatro"
-msgstr ""
+msgstr "куатро"
 
 #: DB:instrument/name:491
 msgctxt "Brazilian friction-drum"
@@ -1541,11 +1540,9 @@ msgid "electronic organ"
 msgstr "электронный орган"
 
 #: DB:instrument/name:1213
-#, fuzzy
-#| msgid "electronic instruments"
 msgctxt "Indian electronic drone device"
 msgid "electronic shruti box"
-msgstr "электронные инструменты"
+msgstr "электронная коробка шрути"
 
 #: DB:instrument/name:848
 msgctxt "electronic keyboard accordion"
@@ -2795,8 +2792,9 @@ msgid "musical saw"
 msgstr "музыкальная пила"
 
 #: DB:instrument/name:684
+msgctxt "Korean straight brass horn"
 msgid "nabal"
-msgstr ""
+msgstr "набал"
 
 #: DB:instrument/name:738
 msgctxt "South Indian large double reed"
@@ -3508,6 +3506,7 @@ msgid "sasando"
 msgstr ""
 
 #: DB:instrument/name:580
+msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr ""
 
@@ -3887,8 +3886,6 @@ msgid "t'rưng"
 msgstr ""
 
 #: DB:instrument/name:185
-#, fuzzy
-#| msgid "tabla"
 msgctxt "Indian pair of drums"
 msgid "tabla"
 msgstr "табла"
@@ -4366,11 +4363,9 @@ msgid "venu"
 msgstr ""
 
 #: DB:instrument/name:174
-#, fuzzy
-#| msgid "electric viola"
 msgctxt "Alto or vertical violin, for French \"alto\" credits, choose viola"
 msgid "vertical viola"
-msgstr "электрический альт"
+msgstr "вертикальный альт"
 
 #: DB:instrument/name:650
 msgid "vessel flute"
@@ -4648,8 +4643,9 @@ msgid "yueqin"
 msgstr ""
 
 #: DB:instrument/name:715
+msgctxt "Brazilian bass drum"
 msgid "zabumba"
-msgstr ""
+msgstr "забумба"
 
 #: DB:instrument/name:1192
 msgctxt "Large Italian bagpipe"
@@ -4661,8 +4657,6 @@ msgid "zarb"
 msgstr ""
 
 #: DB:instrument/name:692
-#, fuzzy
-#| msgid "zhaleika"
 msgctxt "Russian single reed hornpipe"
 msgid "zhaleika"
 msgstr "жалейка"

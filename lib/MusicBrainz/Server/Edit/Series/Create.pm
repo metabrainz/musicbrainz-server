@@ -29,6 +29,11 @@ sub edit_type { $EDIT_SERIES_CREATE }
 sub _create_model { 'Series' }
 sub series_id { shift->entity_id }
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/series/$mbid";
+}
+
 has '+data' => (
     isa => Dict[
         name                    => Str,

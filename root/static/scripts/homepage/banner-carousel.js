@@ -127,7 +127,7 @@ component BannerCarousel() {
   );
 }
 
-export default (hydrate<React.PropsOf<BannerCarousel>>(
+export default hydrate<React.PropsOf<BannerCarousel>>(
   'div.carousel-container',
   BannerCarousel,
-): component(...React.PropsOf<BannerCarousel>));
+) as component(...React.PropsOf<BannerCarousel>);

@@ -19,12 +19,12 @@ if (PRODUCTION_MODE) {
   ];
 }
 
-export default {
+const moduleConfig = (target) => ({
   noParse: /^(jquery|knockout)$/,
 
   rules: [
     {
-      exclude: ignore,
+      exclude: ignore(target),
       test: /\.m?js$/,
       use: {
         loader: 'babel-loader',
@@ -85,4 +85,6 @@ export default {
       type: 'asset/resource',
     },
   ],
-};
+});
+
+export default moduleConfig;

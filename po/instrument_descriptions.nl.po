@@ -5,13 +5,13 @@
 # Maurits Meulenbelt, 2012-2022
 # Nicolás Tamargo <email address hidden>, 2022
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-04-26 11:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.17\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1016,14 +1016,6 @@ msgstr ""
 "Een pipa is een Chinese peervormige getokkelde luit met vier snaren en 12 "
 "tot 26 fretten."
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Ching zijn een paar kleine handbekkens die worden gebruikt voor muziek uit "
-"Thailand en Cambodja."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -1150,6 +1142,9 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"De tabla is een combinatie van twee trommels: de grotere <em>baya</em> of "
+"<em>dagga</em> voor lage tonen en de kleinere <em>daya</em> of <em>tabla</"
+"em> voor ritmen en melodieën."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -1300,11 +1295,9 @@ msgid ""
 "<br /> For the instrument called <em>bar chimes</em>, see <a href=\"/"
 "instrument/3b8cd68b-aadc-4e43-a13f-e575202d67ea\">chimes</a>."
 msgstr ""
-"Hoewel de naam anders doet vermoeden, bestaat een klokkenstaaf niet uit "
-"klokken, maar uit gestemde metalen staven op resonatoren. <br />Het "
-"instrument lijkt op een glockenspiel.<br />Ook al lijken de namen op elkaar, "
-"het instrument moet niet worden verward met <a href=\"/instrument/3b8cd68b-"
-"aadc-4e43-a13f-e575202d67ea\">klokkenspel</a>."
+"Een resonatorstaaf is een percussie-instrument dat bestaat uit een gestemde "
+"(vaak metalen) staaf die lijkt op een staaf van een glockenspiel. De staaf "
+"is bevestigd op een houten klankkast en wordt met een hamer bespeeld."
 
 #. name:theorbo
 #: DB:instrument/description:395
@@ -1682,8 +1675,6 @@ msgstr ""
 
 #. name:ruan
 #: DB:instrument/description:545
-#, fuzzy
-#| msgid "Ruan is a family of Chinese plucked lutes."
 msgid "Family of Chinese plucked lutes."
 msgstr "De ruan is een familie van Chinese getokkelde luiten."
 
@@ -2968,17 +2959,6 @@ msgstr ""
 "bespeeld. Het instrument werd begin 20e eeuw door accordeonspelers in "
 "Wallonië gebruikt als begeleidingsinstrument voor bastonen."
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-"Een bazooka is een grote wijde buis met een wijd uitlopende beker. Het "
-"uitschuiven produceert alleen subtiel veranderende boventonen. Het "
-"instrument was de inspiratie voor de naam van het antitankwapen."
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -3445,6 +3425,7 @@ msgstr ""
 #: DB:instrument/description:728
 msgid "Mexican 6 course 12 string bass"
 msgstr ""
+"De bajo sexto is een Mexicaanse dubbelkorige basgitaar met twaalf snaren."
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -3700,6 +3681,23 @@ msgstr ""
 "instrument/4431f7b0-69a4-49ee-b84f-15dda19fb70c\">tamboerijn</a> voor de "
 "Europese lijsttrommel.<br /> Zie <a href=\"/instrument/a96bbbd1-7e44-4e79-"
 "b12e-a03ac232db98\">tamborim</a> voor de Braziliaanse lijsttrommel."
+
+#. name:bazooka
+#: DB:instrument/description:741
+#, fuzzy
+#| msgid ""
+#| "Large wide tube with a very strongly flaring bell, the telescoping "
+#| "creates only subtle fluctuating overtones. It inspired the name of the "
+#| "anti-tank weapon."
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
+msgstr ""
+"Een bazooka is een grote wijde buis met een wijd uitlopende beker. Het "
+"uitschuiven produceert alleen subtiel veranderende boventonen. Het "
+"instrument was de inspiratie voor de naam van het antitankwapen."
 
 #. name:mezwed
 #: DB:instrument/description:1209
@@ -4952,6 +4950,10 @@ msgid ""
 "pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
+"De Mark-tree bestaat uit massief metalen (vaak aluminium) staven die aan een "
+"balkje hangen. <br /> NIET te verwarren met de <a href=\"/instrument/"
+"ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">resonatorstaaf</a>, die lijkt op een "
+"losse resonator van een glockenspiel."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -5045,6 +5047,17 @@ msgstr ""
 "of membranen. Daarom zijn ze meestal gemaakt van klankrijke materialen zoals "
 "metaal, hout, glas of zelfs steen."
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+"De satsuma biwa zou zijn ontworpen op basis van de moso biwa om samoerai op "
+"te peppen. Het instrument heeft vier snaren en hoge fretten, en wordt "
+"bespeeld met een groot plectrum dat en Bachi wordt genoemd."
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -5072,11 +5085,9 @@ msgstr ""
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
 msgstr ""
-"De daruan (letterlijk: grote ruan) is het basinstrument uit de Chinese "
+"De zhongruan (letterlijk: tenorruan) is het tenorinstrument uit de Chinese "
 "luitenfamilie ruan."
 
 #. name:primero
@@ -6075,14 +6086,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr "Een mridangam is een tweekoppige trommel uit India."
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-"Een nabal is een lange koperen rechte hoorn die wordt gebruikt voor "
-"traditionele Koreaanse muziek."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -6256,13 +6259,6 @@ msgstr ""
 "Een riq, ook wel als riqq of rik gespeld, is een soort tamboerijn die "
 "traditioneel wordt gebruikt voor Arabische muziek."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-"Een rototom is een trommel zonder ketel. Hij kan worden gestemd door de "
-"spanring te draaien."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6317,15 +6313,6 @@ msgid ""
 msgstr ""
 "Sarrusofoon is een familie van transponerende muziekinstrumenten, "
 "uitgevonden om de hobo en de fagot te vervangen in harmonieorkesten."
-
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"De satsuma biwa is een biwa met vier snaren en fretten die populair werd in "
-"de Edo-periode."
 
 #. name:saw sam sai
 #: DB:instrument/description:712
@@ -6549,13 +6536,6 @@ msgstr ""
 "van de combinatie <a href=\"http://en.wikipedia.org/wiki/"
 "Thon_and_rammana\">thon en rammana</a>."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-"Een tinya is een kleine trommel die wordt gebruikt voor traditionele muziek "
-"uit de Andes."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -6669,11 +6649,6 @@ msgid ""
 msgstr ""
 "De yehu is een Chinees strijkinstrument uit de familie van de huqin, gemaakt "
 "uit de schil van een kokosnoot."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "Een zabumba is een grote trom uit Brazilië."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -7245,6 +7220,8 @@ msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
 msgstr ""
+"De karkabou is een groot metalen castagnettenachtig instrument dat wordt "
+"gebruikt voor gnawamuziek."
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -7517,6 +7494,13 @@ msgid ""
 msgstr ""
 "De hyoshigi bestaat uit twee stukken hardhout die met een koord zijn "
 "verbonden. Hij wordt gebruikt bij het traditionele kabuki- en bunrakutheater."
+
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr ""
+"Een nabal is een lange koperen rechte hoorn die gebruikt wordt voor "
+"traditionele Koreaanse muziek."
 
 #. name:turntable
 #: DB:instrument/description:181
@@ -7945,6 +7929,39 @@ msgstr "Fluit van de Muong uit Vietnam"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "De trắng jâu is de basvariant van de trắng lu."
+
+#~ msgid ""
+#~ "The nabal is a long, straight brass horn used in Korean traditional music."
+#~ msgstr ""
+#~ "Een nabal is een lange koperen rechte hoorn die wordt gebruikt voor "
+#~ "traditionele Koreaanse muziek."
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Ching zijn een paar kleine handbekkens die worden gebruikt voor muziek "
+#~ "uit Thailand en Cambodja."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr ""
+#~ "Een rototom is een trommel zonder ketel. Hij kan worden gestemd door de "
+#~ "spanring te draaien."
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "De satsuma biwa is een biwa met vier snaren en fretten die populair werd "
+#~ "in de Edo-periode."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr ""
+#~ "Een tinya is een kleine trommel die wordt gebruikt voor traditionele "
+#~ "muziek uit de Andes."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "Een zabumba is een grote trom uit Brazilië."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

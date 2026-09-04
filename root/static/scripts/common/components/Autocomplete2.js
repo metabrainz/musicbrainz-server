@@ -16,6 +16,7 @@ import AddEntityDialog from '../../edit/components/AddEntityDialog.js';
 import {MBID_REGEXP} from '../constants.js';
 import useOutsideClickEffect from '../hooks/useOutsideClickEffect.js';
 import {unwrapNl} from '../i18n.js';
+import {arraysEqual} from '../utility/arrays.js';
 import clean from '../utility/clean.js';
 import getCookie from '../utility/getCookie.js';
 import isBlank from '../utility/isBlank.js';
@@ -59,7 +60,7 @@ import type {
  * `doSearch` performs a direct or indexed search (via /ws/js). This is the
  * default behavior if no `items` prop is given.
  */
-function doSearch<T: EntityItemT>(
+function doSearch<T extends EntityItemT>(
   dispatch: (ActionT<T>) => void,
   state: StateT<T>,
   xhr: {current: XMLHttpRequest | null},
@@ -76,7 +77,10 @@ function doSearch<T: EntityItemT>(
     }
 
     const entities = JSON.parse(searchXhr.responseText);
-    const pager: {+current: StrOrNum, +pages: StrOrNum} = entities.pop();
+    const pager: {
+      readonly current: StrOrNum,
+      readonly pages: StrOrNum,
+    } = entities.pop();
     const newPage = parseInt(pager.current, 10);
     const totalPages = parseInt(pager.pages, 10);
 
@@ -140,36 +144,36 @@ function setScrollPosition(menuId: string) {
   }
 }
 
-type InitialStateT<T: EntityItemT> = {
-  +canChangeType?: (string) => boolean,
-  +containerClass?: string,
-  +disabled?: boolean,
-  +entityType: T['entityType'],
-  +extractSearchTerms?: (OptionItemT<T>) => Array<string>,
-  +htmlName?: string,
-  +id: string,
-  +inputChangeHook?: (
+type InitialStateT<T extends EntityItemT> = {
+  readonly canChangeType?: (string) => boolean,
+  readonly containerClass?: string,
+  readonly disabled?: boolean,
+  readonly entityType: T['entityType'],
+  readonly extractSearchTerms?: (OptionItemT<T>) => Array<string>,
+  readonly htmlName?: string,
+  readonly id: string,
+  readonly inputChangeHook?: (
     inputValue: string,
     state: StateT<T>,
     selectItem: (OptionItemT<T>) => boolean,
   ) => boolean,
-  +inputClass?: string,
-  +inputRef?: {-current: HTMLInputElement | null},
-  +inputValue?: string,
-  +isLookupPerformed?: boolean,
-  +label?: string,
-  +placeholder?: string,
-  +recentItemsKey?: string,
-  +required?: boolean,
-  +selectedItem?: OptionItemT<T> | null,
-  +showLabel?: boolean,
-  +staticItems?: $ReadOnlyArray<OptionItemT<T>>,
-  +width?: string,
+  readonly inputClass?: string,
+  readonly inputRef?: {writeonly current: HTMLInputElement | null},
+  readonly inputValue?: string,
+  readonly isLookupPerformed?: boolean,
+  readonly label?: string,
+  readonly placeholder?: string,
+  readonly recentItemsKey?: string,
+  readonly required?: boolean,
+  readonly selectedItem?: OptionItemT<T> | null,
+  readonly showLabel?: boolean,
+  readonly staticItems?: ReadonlyArray<OptionItemT<T>>,
+  readonly width?: string,
 };
 
-const EMPTY_ITEMS: $ReadOnlyArray<ItemT<empty>> = Object.freeze([]);
+const EMPTY_ITEMS: ReadonlyArray<ItemT<empty>> = Object.freeze([]);
 
-export function createInitialState<T: EntityItemT>(
+export function createInitialState<T extends EntityItemT>(
   initialState: InitialStateT<T>,
 ): {...StateT<T>} {
   const {
@@ -229,7 +233,7 @@ export function createInitialState<T: EntityItemT>(
   return state;
 }
 
-component _AutocompleteItem<T: EntityItemT>(
+component _AutocompleteItem<T extends EntityItemT>(
   autocompleteId: string,
   dispatch: (ActionT<T>) => void,
   formatOptions?: ?FormatOptionsT,
@@ -290,7 +294,7 @@ component _AutocompleteItem<T: EntityItemT>(
 
 const AutocompleteItem = React.memo(_AutocompleteItem);
 
-component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
+component _Autocomplete2<T extends EntityItemT>(...props: PropsT<T>) {
   const {dispatch, state} = props;
 
   const {
@@ -588,7 +592,7 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       );
       const item = {
         // $FlowFixMe[incompatible-type]
-        entity: (entity: T),
+        entity: entity as T,
         id: entity.id,
         name: entity.name,
         type: 'option' as const,
@@ -619,7 +623,10 @@ component _Autocomplete2<T: EntityItemT>(...props: PropsT<T>) {
       if (cancelled) {
         return [];
       }
-      if (loadedRecentItems !== state.recentItems) {
+      if (
+        state.recentItems == null ||
+        !arraysEqual(loadedRecentItems, state.recentItems)
+      ) {
         setTimeout(() => {
           dispatch({
             items: loadedRecentItems,

@@ -6,12 +6,13 @@
 # CatQuest, The Endeavouring Cat, 2012
 # CatQuest, The Endeavouring Cat, 2014
 # "ApeKattQuest, MonkeyPython" <ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>, 2024.
+# "ApeKattQuest, MonkeyPython" <monkeypython+inst@yepmail.net>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2024-06-04 22:42+0000\n"
+"PO-Revision-Date: 2026-07-30 14:43+0000\n"
 "Last-Translator: \"ApeKattQuest, MonkeyPython\" "
-"<ApeKattQuestMonkeyPython@users.noreply.translations.metabrainz.org>\n"
+"<monkeypython+inst@yepmail.net>\n"
 "Language-Team: Norwegian Bokmål <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/nb_NO/>\n"
 "Language: nb\n"
@@ -19,7 +20,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.5.4\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -456,6 +457,15 @@ msgid ""
 "use by the artist."
 msgstr ""
 
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -619,6 +629,15 @@ msgid ""
 "artists."
 msgstr ""
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -748,6 +767,23 @@ msgstr "En serie med utgivelsesgrupper."
 msgctxt "series_type"
 msgid "A series of releases."
 msgstr "En serie med utgivelser."
+
+#. name:Series award
+#: DB:series_type/description:17
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr ""
+
+#. name:Series series
+#: DB:series_type/description:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of events."
+msgctxt "series_type"
+msgid "A series of series."
+msgstr "En serie med arrangementer."
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -1113,6 +1149,14 @@ msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr "Album"
 
+#: DB:work_attribute_type/name:216
+#, fuzzy
+#| msgctxt "cover_art_type"
+#| msgid "Track"
+msgctxt "work_attribute_type"
+msgid "AllTrack ID"
+msgstr "Spor"
+
 #. name:Manual
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
@@ -1324,6 +1368,14 @@ msgid ""
 "orchestra, a choir, and soloists. While it has characters and a plot, it is "
 "usually not performed theatrically (it lacks costumes, props and strong "
 "character interaction)."
+msgstr ""
+
+#. name:Broadcaster
+#: DB:label_type/description:12
+msgctxt "label_type"
+msgid ""
+"An organization that mostly concentrates on broadcasting audio or video "
+"content, be it on television, radio or the internet."
 msgstr ""
 
 #. name:Creative Agency
@@ -2046,6 +2098,14 @@ msgstr ""
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
+msgstr "Kringkasting"
+
+#: DB:label_type/name:12
+#, fuzzy
+#| msgctxt "release_group_primary_type"
+#| msgid "Broadcast"
+msgctxt "label_type"
+msgid "Broadcaster"
 msgstr "Kringkasting"
 
 #: DB:work_attribute_type_allowed_value/value:885
@@ -4538,6 +4598,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
 msgstr ""
 
+#. name:AllTrack ID
+#: DB:work_attribute_type/description:216
+msgctxt "work_attribute_type"
+msgid "ID for the US rights society AllTrack"
+msgstr ""
+
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
@@ -5319,7 +5385,7 @@ msgstr ""
 #: DB:label_alias_type/name:1
 msgctxt "alias_type"
 msgid "Label name"
-msgstr "Plateselskapnavn "
+msgstr "Plateselskapnavn"
 
 #: DB:work_attribute_type_allowed_value/value:956
 msgctxt "work_attribute_type_allowed_value"
@@ -5415,6 +5481,11 @@ msgstr ""
 msgctxt "release_group_secondary_type"
 msgid "Live"
 msgstr "Live"
+
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -7571,6 +7642,14 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr "Serbest"
 
+#: DB:series_type/name:17
+#, fuzzy
+#| msgctxt "alias_type"
+#| msgid "Series name"
+msgctxt "series_type"
+msgid "Series award"
+msgstr "Serienavn"
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7579,6 +7658,14 @@ msgstr ""
 #: DB:series_alias_type/name:1
 msgctxt "alias_type"
 msgid "Series name"
+msgstr "Serienavn"
+
+#: DB:series_type/name:16
+#, fuzzy
+#| msgctxt "alias_type"
+#| msgid "Series name"
+msgctxt "series_type"
+msgid "Series series"
 msgstr "Serienavn"
 
 #: DB:event_art_archive.art_type/name:3

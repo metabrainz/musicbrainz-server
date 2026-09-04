@@ -8,8 +8,8 @@
  */
 
 type CsrfFormT = FormT<{
-  +csrf_session_key?: FieldT<string>,
-  +csrf_token?: FieldT<string>,
+  readonly csrf_session_key?: FieldT<string>,
+  readonly csrf_token?: FieldT<string>,
   ...
 }>;
 

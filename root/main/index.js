@@ -48,23 +48,23 @@ import UserMenu from '../static/scripts/homepage/user-menu.js';
 import AuthButtons from './AuthButtons.js';
 
 type BlogEntryT = {
-  +title: string,
-  +url: string,
+  readonly title: string,
+  readonly url: string,
 };
 
 type CommunityPostT = {
-  +slug: string,
-  +title: string,
+  readonly slug: string,
+  readonly title: string,
 };
 
 component Homepage(
-  blogEntries: $ReadOnlyArray<BlogEntryT> | null,
-  newestEvents: $ReadOnlyArray<EventArtT>,
-  freshEvents: $ReadOnlyArray<EventArtT>,
-  newestReleases: $ReadOnlyArray<ReleaseArtT>,
-  freshReleases: $ReadOnlyArray<ReleaseArtT>,
-  communityPosts: $ReadOnlyArray<CommunityPostT> | null,
-  weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
+  blogEntries: ReadonlyArray<BlogEntryT> | null,
+  newestEvents: ReadonlyArray<EventArtT>,
+  freshEvents: ReadonlyArray<EventArtT>,
+  newestReleases: ReadonlyArray<ReleaseArtT>,
+  freshReleases: ReadonlyArray<ReleaseArtT>,
+  communityPosts: ReadonlyArray<CommunityPostT> | null,
+  weeklyStats: ReadonlyArray<WeeklyStatsT>,
 ) {
   const $c = React.useContext(CatalystContext);
   const user = $c.user;

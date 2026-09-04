@@ -75,13 +75,13 @@ export function displayLinkAttributeText(attribute: LinkAttrT): string {
 }
 
 export function displayLinkAttributes(
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
 ): Expand2ReactOutput {
   return commaList(attributes.map(displayLinkAttribute));
 }
 
 export function displayLinkAttributesText(
-  attributes: $ReadOnlyArray<LinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT>,
 ): string {
   return commaListText(attributes.map(displayLinkAttributeText));
 }

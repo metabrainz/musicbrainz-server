@@ -13,6 +13,7 @@ import EventList from '../components/list/EventList.js';
 import RecordingList from '../components/list/RecordingList.js';
 import {ReleaseGroupListTable} from '../components/list/ReleaseGroupList.js';
 import ReleaseList from '../components/list/ReleaseList.js';
+import SeriesList from '../components/list/SeriesList.js';
 import WorkList from '../components/list/WorkList.js';
 import PaginatedResults from '../components/PaginatedResults.js';
 import manifest from '../static/manifest.mjs';
@@ -26,11 +27,11 @@ import {formatPluralEntityTypeName}
 
 import SeriesLayout from './SeriesLayout.js';
 
-type ListPickerProps = $Values<{
-  +[EntityType in keyof EntityWithSeriesMapT]: {
+type ListPickerProps = Values<{
+  readonly [EntityType in keyof EntityWithSeriesMapT]: {
     ...SeriesItemNumbersRoleT,
-    +entities: $ReadOnlyArray<EntityWithSeriesMapT[EntityType]>,
-    +seriesEntityType: EntityType,
+    readonly entities: ReadonlyArray<EntityWithSeriesMapT[EntityType]>,
+    readonly seriesEntityType: EntityType,
   },
 }>;
 
@@ -83,6 +84,13 @@ const listPicker = (
           {...sharedProps}
         />
       );
+    case 'series':
+      return (
+        <SeriesList
+          series={props.entities}
+          {...sharedProps}
+        />
+      );
     case 'work':
       return (
         <WorkList
@@ -101,7 +109,7 @@ component SeriesIndex(
   listProps: ListPickerProps,
   numberOfRevisions: number,
   pager: PagerT,
-  series: $ReadOnly<{...SeriesT, +type: SeriesTypeT}>,
+  series: Readonly<{...SeriesT, readonly type: SeriesTypeT}>,
   wikipediaExtract: WikipediaExtractT | null,
 ) {
   const seriesEntityType = series.type.item_entity_type;

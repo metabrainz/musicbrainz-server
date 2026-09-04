@@ -2830,6 +2830,9 @@ msgid "musical saw"
 msgstr "מסור מוזיקלי"
 
 #: DB:instrument/name:684
+#, fuzzy
+#| msgid "nabal"
+msgctxt "Korean straight brass horn"
 msgid "nabal"
 msgstr "נאבאל"
 
@@ -3552,6 +3555,9 @@ msgid "sasando"
 msgstr "ססנדו"
 
 #: DB:instrument/name:580
+#, fuzzy
+#| msgid "satsuma biwa"
+msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr "ביווה סטצומה"
 
@@ -4712,6 +4718,9 @@ msgid "yueqin"
 msgstr "יוקין"
 
 #: DB:instrument/name:715
+#, fuzzy
+#| msgid "zabumba"
+msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr "זאבומבה"
 

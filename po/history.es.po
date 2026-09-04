@@ -21,17 +21,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-11-20 18:07+0000\n"
-"Last-Translator: miausalvaje <lordbeach7@gmail.com>\n"
+"PO-Revision-Date: 2026-05-01 04:11+0000\n"
+"Last-Translator: jmrr83 <juanmiguelrr@gmail.com>\n"
 "Language-Team: Spanish <https://translations.metabrainz.org/projects/"
 "musicbrainz/history/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
@@ -61,18 +61,26 @@ msgid ""
 "and the (by now dead) mailing lists and unify community communication in one "
 "place."
 msgstr ""
+"Se añade una plataforma de foros de discusión para sustituir tanto a los "
+"foros tradicionales como a las listas de correo (ya obsoletas) y unificar la "
+"comunicación de la comunidad en un solo lugar."
 
 #: DB:statistics.statistic_event/description:2015-06-29
 msgid ""
 "A change is introduced that allows voting for and against existing "
 "folksonomy tags, rather than only adding your own."
 msgstr ""
+"Se introduce un cambio que permite votar a favor y en contra de las "
+"etiquetas de folcsonomía existentes, en lugar de limitarse a añadir las "
+"propias."
 
 #: DB:statistics.statistic_event/description:2018-07-19
 msgid ""
 "A major update for the Picard tagger is released, with a huge amount of "
 "bugfixes and improvements."
 msgstr ""
+"Se publica una actualización importante para el etiquetador Picard, con una "
+"gran cantidad de correcciones de errores y mejoras."
 
 #: DB:statistics.statistic_event/description:2019-11-12
 msgid ""
@@ -80,6 +88,9 @@ msgid ""
 "searches to help editors find interesting and/or important edits to review "
 "and vote on."
 msgstr ""
+"Se publica una nueva página de \"Sugerencias de votación\", que contiene "
+"búsquedas de ediciones predefinidas para ayudar a los editores a encontrar "
+"ediciones interesantes o importantes para revisar y votar."
 
 #: DB:statistics.statistic_event/description:2013-08-05
 msgid ""
@@ -106,23 +117,19 @@ msgid "A rift in the MusicBrainz community leads to a Great Dispute."
 msgstr "Una brecha en la comunidad de MusicBrainz termina en una Gran Disputa."
 
 #: DB:statistics.statistic_event/description:2013-05-15
-#, fuzzy
 msgid ""
 "A very substantial schema change release adds a new entity type (areas), "
 "support for ISNI codes for artists and labels, and the possibility to have "
 "more than one release event on one release."
 msgstr ""
-"Un cambio sustancial en el esquema añadió un nuevo tipo de entidad (áreas), "
-"soporte para códigos ISNI para artistas y discográficas, y la posibilidad de "
-"tener más de un lanzamiento de publicación en un lanzamiento."
+"Una actualización de cambio de esquema muy sustancial añade un nuevo tipo de "
+"entidad (áreas), soporte para códigos ISNI para artistas y sellos, y la "
+"posibilidad de tener más de un evento de lanzamiento en una misma edición."
 
 #: DB:statistics.statistic_event/description:2003-11-10
-#, fuzzy
 msgid ""
 "A way to search for edits based on several different criteria is released."
-msgstr ""
-"Una forma de buscar ediciones basado en varios criterios diferentes se ha "
-"publicado."
+msgstr "Se publica una forma de buscar ediciones basada en diversos criterios."
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
@@ -144,6 +151,10 @@ msgid ""
 "relased and unused TRMs pruned from the database. Inline editing is turned "
 "off by default, causing a drop in voting activity."
 msgstr ""
+"Se lanzan las relaciones avanzadas que permiten a los usuarios conectar "
+"entidades de datos básicas y se eliminan de la base de datos los TRM no "
+"utilizados. La edición en línea se desactiva de forma predeterminada, lo que "
+"provoca una caída en la actividad de votación."
 
 #: DB:statistics.statistic_event/description:2019-06-25
 msgid ""
@@ -160,13 +171,12 @@ msgstr ""
 "Wikimedia realicé cambios que hagan la reutilización de imágenes más segura."
 
 #: DB:statistics.statistic_event/description:2011-11-23
-#, fuzzy
 msgid ""
 "After a lot of debate, relationship data starts being displayed on release "
 "pages, making it a lot more visible."
 msgstr ""
-"Después de mucho debate, los datos de las relaciones comienzan a mostrarse "
-"en las páginas de lanzamiento, lo que los hace mucho más visibles."
+"Tras mucho debate, los datos de relación comienzan a mostrarse en las "
+"páginas de lanzamiento, haciéndolos mucho más visibles."
 
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
@@ -199,18 +209,19 @@ msgid ""
 "After unexpected upheaval on Freenode, MetaBrainz moves all official "
 "channels to Libera.Chat instead."
 msgstr ""
+"Tras una agitación inesperada en Freenode, MetaBrainz traslada todos los "
+"canales oficiales a Libera.Chat en su lugar."
 
 #: DB:statistics.statistic_event/title:2005-05-22
 msgid "Album languages"
 msgstr "Idiomas del álbum"
 
 #: DB:statistics.statistic_event/description:2005-05-22
-#, fuzzy
 msgid ""
 "Album languages, guess case improvements and revamps edit forms released."
 msgstr ""
-"Idiomas de álbumes, mejoras en el retoque de títulos y una renovación en los "
-"formularios de edición se ha lanzado."
+"Se publican los idiomas del álbum, mejoras en la función de detección de "
+"mayúsculas y el rediseño de los formularios de edición."
 
 #: DB:statistics.statistic_event/description:2015-05-19
 msgid ""
@@ -231,10 +242,13 @@ msgid ""
 "wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
+"Amazon betas <a href=\"http://web.archive.org/web/20210123164029/https://"
+"www.wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> con datos de "
+"MusicBrainz."
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"
-msgstr ""
+msgstr "Amazon betas SoundUnwound"
 
 #: DB:statistics.statistic_event/title:2004-02-24
 msgid "Amazon cover art"

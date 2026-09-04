@@ -17,7 +17,7 @@ import type {
 
 component _ToggleAllMediumsButtons(
   dispatch: (LazyReleaseActionT) => void,
-  mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  mediums: ReadonlyArray<MediumWithRecordingsT>,
 ) {
   return (
     <>
@@ -61,7 +61,7 @@ export const ToggleAllMediumsButtons:
 component _MediumToolbox(
   creditsMode: CreditsModeT,
   dispatch: (ActionT) => void,
-  mediums: $ReadOnlyArray<MediumWithRecordingsT>,
+  mediums: ReadonlyArray<MediumWithRecordingsT>,
 ) {
   return (
     <span id="medium-toolbox">

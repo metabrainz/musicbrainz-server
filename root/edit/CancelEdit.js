@@ -15,7 +15,7 @@ import EnterEditNote
 import getEditDetailsElement from './utility/getEditDetailsElement.js';
 
 component CancelEdit(
-  edit: $ReadOnly<{...EditT, +id: number}>,
+  edit: Readonly<{...EditT, readonly id: number}>,
   form: ConfirmFormT,
 ) {
   const detailsElement = getEditDetailsElement(edit);

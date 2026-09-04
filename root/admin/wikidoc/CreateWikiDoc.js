@@ -16,9 +16,9 @@ import FormRowTextLong
 import FormSubmit from '../../static/scripts/edit/components/FormSubmit.js';
 
 type CreateWikiDocFormT = FormT<{
-  +csrf_token: FieldT<string>,
-  +page: FieldT<string>,
-  +version: FieldT<string>,
+  readonly csrf_token: FieldT<string>,
+  readonly page: FieldT<string>,
+  readonly version: FieldT<string>,
 }>;
 
 component CreateWikiDoc(form: CreateWikiDocFormT) {

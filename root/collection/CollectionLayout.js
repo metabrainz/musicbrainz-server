@@ -18,7 +18,7 @@ component CollectionLayout(
   entity as collection: CollectionT,
   fullWidth: boolean = false,
   page: string,
-  recordingMbids?: $ReadOnlyArray<string> | null,
+  recordingMbids?: ReadonlyArray<string> | null,
   title?: string,
 ) {
   const mainTitle = texp.l(

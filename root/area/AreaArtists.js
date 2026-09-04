@@ -21,7 +21,7 @@ import AreaLayout from './AreaLayout.js';
 
 component AreaArtists(
   area: AreaT,
-  artists: ?$ReadOnlyArray<ArtistT>,
+  artists: ?ReadonlyArray<ArtistT>,
   pager: PagerT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

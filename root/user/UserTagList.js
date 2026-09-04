@@ -15,7 +15,7 @@ import loopParity from '../utility/loopParity.js';
 
 import UserTagFilters from './components/UserTagFilters.js';
 
-const headingsText: {+[vote: string]: () => string} = {
+const headingsText: {readonly [vote: string]: () => string} = {
   down: N_lp('Tags {user} downvoted', 'folksonomy'),
   up: N_lp('Tags {user} upvoted', 'folksonomy'),
 };
@@ -42,10 +42,10 @@ export function getTagListUrl(
 }
 
 component UserTagList(
-  genres: $ReadOnlyArray<UserTagT>,
+  genres: ReadonlyArray<UserTagT>,
   showDownvoted: boolean = false,
   sortBy?: 'count' | 'countdesc' | 'name',
-  tags: $ReadOnlyArray<UserTagT>,
+  tags: ReadonlyArray<UserTagT>,
   user: AccountLayoutUserT,
 ) {
   return (

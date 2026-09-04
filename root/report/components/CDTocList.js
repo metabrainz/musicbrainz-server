@@ -20,7 +20,7 @@ import {
 import type {ReportCDTocT} from '../types.js';
 
 component CDTocList(
-  items: $ReadOnlyArray<ReportCDTocT>,
+  items: ReadonlyArray<ReportCDTocT>,
   pager: PagerT,
 ) {
   const existingCDTocItems = items.reduce((

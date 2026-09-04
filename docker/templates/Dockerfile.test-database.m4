@@ -1,5 +1,5 @@
 m4_include(`macros.m4')m4_dnl
-FROM postgres:16
+FROM postgres:18
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -17,6 +17,9 @@ RUN cd /tmp && \
     rm install_extensions.sh
 
 setup_mbs_root()
+# Allow the postgres user, which create_test_db.sh runs as,
+# access to /home/musicbrainz.
+RUN chmod 711 /home/musicbrainz
 
 set_perl_install_args
 

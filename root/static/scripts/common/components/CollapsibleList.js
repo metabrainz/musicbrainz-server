@@ -23,7 +23,7 @@ component CollapsibleList<T>(
   className: string,
   ContainerElement?: 'dl' | 'ul' = 'ul',
   InnerElement?: 'p' | 'li' | 'div' = 'li',
-  rows: ?$ReadOnlyArray<T>,
+  rows: ?ReadonlyArray<T>,
   showAllTitle: string,
   showLessTitle: string,
   toShowAfter: number,

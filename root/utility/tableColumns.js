@@ -56,12 +56,12 @@ import {formatCount} from '../statistics/utilities.js';
 import {returnToCurrentPage} from './returnUri.js';
 
 type OrderableProps = {
-  +order?: string,
-  +sortable?: boolean,
+  readonly order?: string,
+  readonly sortable?: boolean,
 };
 
 export function defineActionsColumn(
-  props: {+actions: $ReadOnlyArray<[string, string]>},
+  props: {readonly actions: ReadonlyArray<[string, string]>},
 ): ColumnOptions<EditableEntityT | CollectionT, number> {
   return {
     Cell: ({row: {original}}) => (
@@ -88,10 +88,10 @@ export function defineActionsColumn(
 export function defineArtistCreditColumn<D>(
   props: {
     ...OrderableProps,
-    +columnName: string,
-    +getArtistCredit: (D) => ArtistCreditT | null,
-    +showExpandedArtistCredits?: boolean,
-    +title: string,
+    readonly columnName: string,
+    readonly getArtistCredit: (D) => ArtistCreditT | null,
+    readonly showExpandedArtistCredits?: boolean,
+    readonly title: string,
   },
 ): ColumnOptions<D, string> {
   const {
@@ -125,18 +125,18 @@ export function defineArtistCreditColumn<D>(
 
 export function defineArtistRolesColumn<D>(
   props: {
-    +columnName: string,
-    +getRoles: (D) => $ReadOnlyArray<{
-      +credit: string,
-      +entity: ArtistT,
-      +roles: $ReadOnlyArray<string>,
+    readonly columnName: string,
+    readonly getRoles: (D) => ReadonlyArray<{
+      readonly credit: string,
+      readonly entity: ArtistT,
+      readonly roles: ReadonlyArray<string>,
     }>,
-    +title: string,
+    readonly title: string,
   },
-): ColumnOptions<D, $ReadOnlyArray<{
-      +credit: string,
-      +entity: ArtistT,
-      +roles: $ReadOnlyArray<string>,
+): ColumnOptions<D, ReadonlyArray<{
+      readonly credit: string,
+      readonly entity: ArtistT,
+      readonly roles: ReadonlyArray<string>,
 }>> {
   return {
     Cell: ({row: {original}}) => (
@@ -150,7 +150,7 @@ export function defineArtistRolesColumn<D>(
 export function defineBeginDateColumn(
   props: OrderableProps,
 ): ColumnOptions<
-  {+begin_date: PartialDateT | null, ...},
+  {readonly begin_date: PartialDateT | null, ...},
   PartialDateT | null,
 > {
   const sortable = props.sortable ?? false;
@@ -174,8 +174,8 @@ export function defineBeginDateColumn(
 export function defineCDTocColumn<D>(
   props: {
     ...OrderableProps,
-    +getAnchor?: (D) => string,
-    +getCDToc: (D) => CDTocT | null,
+    readonly getAnchor?: (D) => string,
+    readonly getCDToc: (D) => CDTocT | null,
   },
 ): ColumnOptions<D, string> {
   const sortable = props.sortable ?? false;
@@ -209,8 +209,8 @@ export function defineCDTocColumn<D>(
 
 export function defineCheckboxColumn(
   props: {
-    +mergeForm?: MergeFormT | MergeReleasesFormT,
-    +name?: string,
+    readonly mergeForm?: MergeFormT | MergeReleasesFormT,
+    readonly name?: string,
   },
 ): ColumnOptions<CollectableEntityT | MergeableEntityT, number> {
   return {
@@ -238,9 +238,9 @@ export function defineCheckboxColumn(
 export function defineCountColumn<D>(
   props: {
     ...OrderableProps,
-    +columnName: string,
-    +getCount: (D) => ?number,
-    +title: string,
+    readonly columnName: string,
+    readonly getCount: (D) => ?number,
+    readonly title: string,
   },
 ): ColumnOptions<D, ?number> {
   const sortable = props.sortable ?? false;
@@ -270,7 +270,7 @@ export function defineCountColumn<D>(
 export function defineDatePeriodColumn<D>(
   props: {
     ...OrderableProps,
-    +getEntity: (D) => EventT | null,
+    readonly getEntity: (D) => EventT | null,
   },
 ): ColumnOptions<D, string> {
   const sortable = props.sortable ?? false;
@@ -295,7 +295,7 @@ export function defineDatePeriodColumn<D>(
 
 export function defineEndDateColumn(
   props: OrderableProps,
-): ColumnOptions<$ReadOnly<{...DatePeriodRoleT, ...}>, PartialDateT | null> {
+): ColumnOptions<Readonly<{...DatePeriodRoleT, ...}>, PartialDateT | null> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -316,12 +316,12 @@ export function defineEndDateColumn(
 export function defineEntityColumn<D>(
   props: {
     ...OrderableProps,
-    +columnName: string,
-    +descriptive?: boolean,
-    +getEntity: (D) => RelatableEntityT | null,
-    +showIcon?: boolean,
-    +subPath?: string,
-    +title: string,
+    readonly columnName: string,
+    readonly descriptive?: boolean,
+    readonly getEntity: (D) => RelatableEntityT | null,
+    readonly showIcon?: boolean,
+    readonly subPath?: string,
+    readonly title: string,
   },
 ): ColumnOptions<D, string> {
   const descriptive = props.descriptive ?? true;
@@ -369,8 +369,8 @@ export function defineEntityColumn<D>(
 
 export function defineInstrumentUsageColumn(
   props: {
-    +instrumentCreditsAndRelTypes?:
-      {+[entityGid: string]: $ReadOnlyArray<string>},
+    readonly instrumentCreditsAndRelTypes?:
+      {readonly [entityGid: string]: ReadonlyArray<string>},
   },
 ): ColumnOptions<ArtistT | RecordingT | ReleaseT, number> {
   return {
@@ -387,7 +387,7 @@ export function defineInstrumentUsageColumn(
 
 export function defineLocationColumn<D>(
   props: {
-    +getEntity: (D) => EventT | null,
+    readonly getEntity: (D) => EventT | null,
   },
 ): ColumnOptions<D, string> {
   return {
@@ -402,10 +402,10 @@ export function defineLocationColumn<D>(
 
 export function defineLinkColumn<D>(
   props: {
-    +columnName: string,
+    readonly columnName: string,
     getContent: (D) => string,
     getHref: (D) => string,
-    +title: string,
+    readonly title: string,
   },
 ): ColumnOptions<D, string> {
   return {
@@ -420,12 +420,14 @@ export function defineLinkColumn<D>(
   };
 }
 
-export function defineNameColumn<T: NonUrlRelatableEntityT | CollectionT>(
+export function defineNameColumn<
+  T extends NonUrlRelatableEntityT | CollectionT
+>(
   props: {
     ...OrderableProps,
-    +descriptive?: boolean,
-    +showArtworkPresence?: boolean,
-    +title: string,
+    readonly descriptive?: boolean,
+    readonly showArtworkPresence?: boolean,
+    readonly title: string,
   },
 ): ColumnOptions<T, string> {
   const descriptive = props.descriptive ?? true;
@@ -460,7 +462,7 @@ export function defineNameColumn<T: NonUrlRelatableEntityT | CollectionT>(
 
 export function defineRatingsColumn<D>(
   props: {
-    +getEntity: (D) => RatableT | null,
+    readonly getEntity: (D) => RatableT | null,
   },
 ): ColumnOptions<D, number> {
   return {
@@ -483,9 +485,9 @@ export function defineRatingsColumn<D>(
 export function defineReleaseCatnosColumn<D>(
   props: {
     ...OrderableProps,
-    getLabels: (D) => $ReadOnlyArray<ReleaseLabelT>,
+    getLabels: (D) => ReadonlyArray<ReleaseLabelT>,
   },
-): ColumnOptions<D, $ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<D, ReadonlyArray<ReleaseLabelT>> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -507,7 +509,7 @@ export function defineReleaseCatnosColumn<D>(
 
 export function defineReleaseEventsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseEventT>> {
+): ColumnOptions<ReleaseT, ?ReadonlyArray<ReleaseEventT>> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -537,7 +539,7 @@ export function defineReleaseEventsColumn(
 
 export function defineReleaseLabelsColumn(
   props: OrderableProps,
-): ColumnOptions<ReleaseT, ?$ReadOnlyArray<ReleaseLabelT>> {
+): ColumnOptions<ReleaseT, ?ReadonlyArray<ReleaseLabelT>> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -559,7 +561,7 @@ export function defineReleaseLabelsColumn(
 
 export function defineReleaseLanguageColumn<D>(
   props: {
-    +getEntity: (D) => ReleaseT | null,
+    readonly getEntity: (D) => ReleaseT | null,
   },
 ): ColumnOptions<D, void> {
   return {
@@ -574,7 +576,7 @@ export function defineReleaseLanguageColumn<D>(
 
 export function defineSeriesNumberColumn(
   props: {
-    +seriesItemNumbers: $ReadOnlyArray<string>,
+    readonly seriesItemNumbers: ReadonlyArray<string>,
   },
 ): ColumnOptions<EntityWithSeriesT, number> {
   return {
@@ -589,11 +591,11 @@ export function defineSeriesNumberColumn(
 export function defineTextColumn<D>(
   props: {
     ...OrderableProps,
-    +cellProps?: {className: string, ...},
-    +columnName: string,
-    +getText: (D) => string,
-    +headerProps?: {className: string, ...},
-    +title: string,
+    readonly cellProps?: {className: string, ...},
+    readonly columnName: string,
+    readonly getText: (D) => string,
+    readonly headerProps?: {className: string, ...},
+    readonly title: string,
   },
 ): ColumnOptions<D, StrOrNum> {
   const sortable = props.sortable ?? false;
@@ -618,11 +620,11 @@ export function defineTextColumn<D>(
 export function defineTextHtmlColumn<D>(
   props: {
     ...OrderableProps,
-    +cellProps?: {className: string, ...},
-    +columnName: string,
-    +getText: (D) => string,
-    +headerProps?: {className: string, ...},
-    +title: string,
+    readonly cellProps?: {className: string, ...},
+    readonly columnName: string,
+    readonly getText: (D) => string,
+    readonly headerProps?: {className: string, ...},
+    readonly title: string,
   },
 ): ColumnOptions<D, StrOrNum> {
   const sortable = props.sortable ?? false;
@@ -649,9 +651,9 @@ export function defineTextHtmlColumn<D>(
 export function defineTypeColumn(
   props: {
     ...OrderableProps,
-    +typeContext: string,
+    readonly typeContext: string,
   },
-): ColumnOptions<{+typeName?: string, ...}, string> {
+): ColumnOptions<{readonly typeName?: string, ...}, string> {
   const sortable = props.sortable ?? false;
 
   return {
@@ -673,7 +675,7 @@ export function defineTypeColumn(
 }
 
 export const attributesColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<WorkAttributeT>> = {
+  ColumnOptions<WorkT, ReadonlyArray<WorkAttributeT>> = {
     Cell: ({row: {original}}) => (
       original.attributes ? (
         <AttributeList attributes={original.attributes} />
@@ -684,7 +686,7 @@ export const attributesColumn:
   };
 
 export const instrumentDescriptionColumn:
-  ColumnOptions<{+description?: string, ...}, string> = {
+  ColumnOptions<{readonly description?: string, ...}, string> = {
     accessor: x => x.description ?? '',
     Cell: ({cell: {value}}) => (value
       ? expand2react(l_instrument_descriptions(value))
@@ -695,9 +697,9 @@ export const instrumentDescriptionColumn:
 
 export const isrcsColumn:
   ColumnOptions<{
-    +isrcs: $ReadOnlyArray<IsrcT>,
+    readonly isrcs: ReadonlyArray<IsrcT>,
     ...
-  }, $ReadOnlyArray<IsrcT>> = {
+  }, ReadonlyArray<IsrcT>> = {
     accessor: x => x.isrcs,
     Cell: ({cell: {value}}) => (
       <IsrcList isrcs={value} />
@@ -708,9 +710,9 @@ export const isrcsColumn:
 
 export const iswcsColumn:
   ColumnOptions<{
-    +iswcs: $ReadOnlyArray<IswcT>,
+    readonly iswcs: ReadonlyArray<IswcT>,
     ...
-  }, $ReadOnlyArray<IswcT>> = {
+  }, ReadonlyArray<IswcT>> = {
     accessor: x => x.iswcs,
     Cell: ({cell: {value}}) => (
       <IswcList iswcs={value} />
@@ -752,7 +754,7 @@ export const removeFromMergeColumn:
   };
 
 export const relTypeColumn:
-  ColumnOptions<$ReadOnly<{...ReportRelationshipRoleT, ...}>, void> = {
+  ColumnOptions<Readonly<{...ReportRelationshipRoleT, ...}>, void> = {
     Cell: ({row: {original}}) => (
       <a href={'/relationship/' + encodeURIComponent(original.link_gid)}>
         {l_relationships(original.link_name)}
@@ -763,7 +765,7 @@ export const relTypeColumn:
   };
 
 export const seriesOrderingTypeColumn:
-  ColumnOptions<{+orderingTypeID?: number, ...}, ?number> = {
+  ColumnOptions<{readonly orderingTypeID?: number, ...}, ?number> = {
     accessor: x => x.orderingTypeID,
     Cell: ({cell: {value}}) => {
       const orderingType = value == null
@@ -778,7 +780,7 @@ export const seriesOrderingTypeColumn:
   };
 
 export const subscriptionColumn:
-  ColumnOptions<{+subscribed: boolean, ...}, boolean> = {
+  ColumnOptions<{readonly subscribed: boolean, ...}, boolean> = {
     accessor: x => x.subscribed,
     Cell: ({cell: {value}}) => yesNo(value),
     Header: N_l('Subscribed'),
@@ -795,7 +797,7 @@ export const taggerColumn:
   };
 
 export const trackColumn:
-  ColumnOptions<{+track: TrackT, ...}, TrackT> = {
+  ColumnOptions<{readonly track: TrackT, ...}, TrackT> = {
     accessor: x => x.track,
     Cell: ({cell: {value}}) => (
       <a href={'/track/' + value.gid}>
@@ -807,7 +809,7 @@ export const trackColumn:
   };
 
 export const workRecordingArtistsColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<ArtistCreditT>> = {
+  ColumnOptions<WorkT, ReadonlyArray<ArtistCreditT>> = {
     accessor: x => x.artists,
     Cell: ({cell: {value}}) => <WorkArtists artists={value} />,
     Header: N_l('Recording artists'),
@@ -815,7 +817,7 @@ export const workRecordingArtistsColumn:
   };
 
 export const workLanguagesColumn:
-  ColumnOptions<WorkT, $ReadOnlyArray<WorkLanguageT>> = {
+  ColumnOptions<WorkT, ReadonlyArray<WorkLanguageT>> = {
     accessor: x => x.languages,
     Cell: ({cell: {value}}) => (
       <ul>

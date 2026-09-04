@@ -11,34 +11,34 @@ export type CreditsModeT = 'bottom' | 'inline';
 
 export type LazyReleaseActionT =
   | {
-      +medium: MediumWithRecordingsT,
-      +type: 'toggle-medium',
+      readonly medium: MediumWithRecordingsT,
+      readonly type: 'toggle-medium',
     }
   | {
-      +expanded: boolean,
-      +mediums: $ReadOnlyArray<MediumWithRecordingsT>,
-      +type: 'toggle-all-mediums',
+      readonly expanded: boolean,
+      readonly mediums: ReadonlyArray<MediumWithRecordingsT>,
+      readonly type: 'toggle-all-mediums',
     }
   | {
-      +medium: MediumWithRecordingsT,
-      +tracks: $ReadOnlyArray<TrackWithRecordingT>,
-      +type: 'load-tracks',
+      readonly medium: MediumWithRecordingsT,
+      readonly tracks: ReadonlyArray<TrackWithRecordingT>,
+      readonly type: 'load-tracks',
     };
 
 export type ActionT =
-  | {+type: 'toggle-credits-mode'}
+  | {readonly type: 'toggle-credits-mode'}
   | LazyReleaseActionT;
 
 export type LoadedTracksMapT =
-  $ReadOnlyMap<number, $ReadOnlyArray<TrackWithRecordingT>>;
+  ReadonlyMap<number, ReadonlyArray<TrackWithRecordingT>>;
 
 export type LazyReleaseStateT = {
-  +expandedMediums: $ReadOnlyMap<number, boolean>,
-  +loadedTracks: LoadedTracksMapT,
+  readonly expandedMediums: ReadonlyMap<number, boolean>,
+  readonly loadedTracks: LoadedTracksMapT,
   ...
 };
 
-export type StateT = $ReadOnly<{
-  +creditsMode: CreditsModeT,
+export type StateT = Readonly<{
+  readonly creditsMode: CreditsModeT,
   ...$Exact<LazyReleaseStateT>,
 }>;

@@ -1,5 +1,5 @@
-// flow-typed signature: 1c96fb869170344fdd0e92b5410a6ea9
-// flow-typed version: fdd4a8b59d/bom/flow_>=v0.261.x
+// flow-typed signature: b6e924fee0c3aabc47b3e089cc9ff0a7
+// flow-typed version: 74bef415fd/bom/flow_>=v0.261.x
 
 /* BOM */
 
@@ -37,6 +37,9 @@ declare interface Crypto {
     T: Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | BigInt64Array | BigUint64Array
   >(typedArray: T) => T;
   randomUUID: () => string;
+  subtle: {
+    digest(algorithm: string, data: Uint8Array): Promise<ArrayBuffer>
+  },
 }
 declare var crypto: Crypto;
 
@@ -663,82 +666,6 @@ declare class FormData {
     entries(): Iterator<[string, FormDataEntryValue]>;
 }
 
-declare class MutationRecord {
-    type: 'attributes' | 'characterData' | 'childList';
-    target: Node;
-    addedNodes: NodeList<Node>;
-    removedNodes: NodeList<Node>;
-    previousSibling: ?Node;
-    nextSibling: ?Node;
-    attributeName: ?string;
-    attributeNamespace: ?string;
-    oldValue: ?string;
-}
-
-type MutationObserverInitRequired =
-    | { childList: true, ... }
-    | { attributes: true, ... }
-    | { characterData: true, ... }
-
-declare type MutationObserverInit = MutationObserverInitRequired & {
-  subtree?: boolean,
-  attributeOldValue?: boolean,
-  characterDataOldValue?: boolean,
-  attributeFilter?: Array<string>,
-  ...
-}
-
-declare class MutationObserver {
-    constructor(callback: (arr: Array<MutationRecord>, observer: MutationObserver) => mixed): void;
-    observe(target: Node, options: MutationObserverInit): void;
-    takeRecords(): Array<MutationRecord>;
-    disconnect(): void;
-}
-
-declare class DOMRectReadOnly {
-  static fromRect(rectangle?: {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    ...
-  }): DOMRectReadOnly;
-  constructor(x: number, y: number, width: number, height: number): void;
-  +bottom: number;
-  +height: number;
-  +left: number;
-  +right: number;
-  +top: number;
-  +width: number;
-  +x: number;
-  +y: number;
-}
-
-declare class DOMRect extends DOMRectReadOnly {
-  static fromRect(rectangle?: {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    ...
-  }): DOMRect;
-  bottom: number;
-  height: number;
-  left: number;
-  right: number;
-  top: number;
-  width: number;
-  x: number;
-  y: number;
-}
-
-declare class DOMRectList {
-  @@iterator(): Iterator<DOMRect>;
-  length: number;
-  item(index: number): DOMRect;
-  [index: number]: DOMRect;
-}
-
 declare type IntersectionObserverEntry = {
   boundingClientRect: DOMRectReadOnly,
   intersectionRatio: number,
@@ -902,6 +829,7 @@ declare class SharedWorker extends EventTarget {
 declare function importScripts(...urls: Array<string | TrustedScriptURL>): void;
 
 declare class WorkerGlobalScope extends EventTarget {
+    // $FlowExpectedError[incompatible-variance]
     self: this;
     location: WorkerLocation;
     navigator: WorkerNavigator;
@@ -1686,21 +1614,6 @@ declare class Request {
     formData(): Promise<FormData>;
     json(): Promise<any>;
     text(): Promise<string>;
-}
-
-declare class AbortController {
-    constructor(): void;
-    +signal: AbortSignal;
-    abort(reason?: any): void;
-}
-
-declare class AbortSignal extends EventTarget {
-    +aborted: boolean;
-    +reason: any;
-    abort(reason?: any): AbortSignal;
-    onabort: (event: Event) => mixed;
-    throwIfAborted(): void;
-    timeout(time: number): AbortSignal;
 }
 
 declare function fetch(input: RequestInfo, init?: RequestOptions): Promise<Response>;

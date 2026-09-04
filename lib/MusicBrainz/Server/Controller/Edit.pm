@@ -19,7 +19,7 @@ use MusicBrainz::Server::Validation qw( is_database_row_id );
 use MusicBrainz::Server::EditSearch::Query;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array to_json_hash );
 use MusicBrainz::Server::Data::Utils qw( type_to_model load_everything_for_edits );
-use MusicBrainz::Server::Translation qw( N_l );
+use MusicBrainz::Server::Translation qw( l N_l );
 use List::AllUtils qw( sort_by );
 
 use aliased 'MusicBrainz::Server::EditRegistry';
@@ -311,6 +311,12 @@ sub search : Path('/search/edits')
     return unless %{ $c->req->query_params };
 
     my $query = MusicBrainz::Server::EditSearch::Query->new_from_user_input($c->req->query_params, $c->user);
+
+    unless ($query) {
+        $c->stash->{message} = l('An edit search query could not be constructed. Some of your parameters are probably invalid.');
+        $c->detach('/error_400');
+    }
+
     $c->stash( query => $query );
 
     if ($query->valid && !$c->req->query_params->{'form_only'}) {
@@ -445,8 +451,10 @@ sub notes_received : Path('/edit/notes-received') RequireAuth {
     # Expire the notification in 30 days.
     $store->expire($notes_viewed_key, 60 * 60 * 24 * 30);
 
+    my $modbot_condition = $c->req->params->{modbot_condition};
+
     my $edit_notes = $self->_load_paged($c, sub {
-        $c->model('EditNote')->find_by_recipient($c->user->id, shift, shift);
+        $c->model('EditNote')->find_by_recipient($c->user->id, $modbot_condition, shift, shift);
     });
 
     $c->model('Editor')->load(@$edit_notes);
@@ -459,6 +467,7 @@ sub notes_received : Path('/edit/notes-received') RequireAuth {
         component_path => 'edit/NotesReceived',
         component_props => {
             editNotes => to_json_array($edit_notes),
+            modbotCondition => $modbot_condition,
             pager => serialize_pager($c->stash->{pager}),
         },
     );

@@ -13,14 +13,14 @@
 # salo.rock, 2022-2023
 # Valentina Menale <email address hidden>, 2016
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
 # GABG <musicbrainz@gabg.email>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-16 20:20+0000\n"
+"PO-Revision-Date: 2026-05-21 21:12+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -31,7 +31,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.5\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -1007,14 +1007,6 @@ msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr ""
 "Liuto cinese a pizzico, piriforme, con quattro corde e dai 12 ai 26 tasti."
 
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Coppia di piccoli piatti suonati con le mani, usata nella musica thailandese "
-"e cambogiana."
-
 #. name:bugarija
 #: DB:instrument/description:826
 msgid ""
@@ -1145,6 +1137,9 @@ msgid ""
 "Consists of two drums: the larger <em>baya</em> or <em>dagga</em> for bass "
 "and the smaller <em>daya</em> or <em>tabla</em> for rhythm and \"melody\"."
 msgstr ""
+"È composta da due tamburi: il più grande, chiamato <em>baya</em> o "
+"<em>dagga</em>, per il basso e il più piccolo, chiamato <em>daya</em> o "
+"<em>tabla</em>, per il ritmo e la \"melodia\"."
 
 #. name:gambang
 #: DB:instrument/description:977
@@ -1668,8 +1663,6 @@ msgstr ""
 
 #. name:ruan
 #: DB:instrument/description:545
-#, fuzzy
-#| msgid "Ruan is a family of Chinese plucked lutes."
 msgid "Family of Chinese plucked lutes."
 msgstr "Famiglia di liuti cinesi a corda pizzicata."
 
@@ -2933,17 +2926,6 @@ msgstr ""
 "piedi, era usato dai suonatori di fisarmonica come accompagnamento di basso "
 "nella Vallonia del primo XX secolo."
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-"Tubo grande e largo con un padiglione a campana molto svasato, manipolandone "
-"la lunghezza si creano tenui armoniche superiori fluttuanti. Ha ispirato il "
-"nome dell'arma anticarro."
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -3405,7 +3387,7 @@ msgstr ""
 #. name:bajo sexto
 #: DB:instrument/description:728
 msgid "Mexican 6 course 12 string bass"
-msgstr ""
+msgstr "Basso messicano a 6 ordini e 12 corde"
 
 #. name:Mexican vihuela
 #: DB:instrument/description:92
@@ -3668,6 +3650,19 @@ msgstr ""
 "a96bbbd1-7e44-4e79-b12e-a03ac232db98\">tamborim</a>.<br /> Rullante, spesso "
 "con uno o più fili, imbracciato da una persona e percosso con una mano, si "
 "accompagna spesso con flauti."
+
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
+msgstr ""
+"Da non confondere con il <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Tubo grande e largo con un padiglione a "
+"campana molto svasato, manipolandone la lunghezza si creano tenui armoniche "
+"superiori fluttuanti. Ha ispirato il nome dell'arma anticarro."
 
 #. name:mezwed
 #: DB:instrument/description:1209
@@ -4904,6 +4899,10 @@ msgid ""
 "pitch. <br /> NOT to be confused with the standalone glockenspiel-like <a "
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
+"Bastoncini in metallo solido (spesso alluminio) appesi a una sbarra e "
+"impostati su un tono inarmonico. <br /> Da non confondere con le <a href=\"/"
+"instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar</a> a sé stanti, "
+"simili al glockenspiel."
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4995,6 +4994,17 @@ msgstr ""
 "che questi strumenti sono realizzati il più delle volte in materiale "
 "risonante: metallo, legno, vetro o persino pietra."
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+"Si ritiene che sia stato creato come modifica del moso biwa per fornire "
+"sostegno ai samurai; ha quattro corde e tasti sporgenti ed è suonato con un "
+"grande plettro chiamato bachi."
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -5021,10 +5031,8 @@ msgstr ""
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
-msgstr "Membro basso della famiglia di liuti cinesi ruan."
+msgstr "Membro tenore della famiglia di liuti cinesi ruan."
 
 #. name:primero
 #: DB:instrument/description:758
@@ -5990,13 +5998,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr "Tamburo indiano a due punte."
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-"Corno in ottone lungo e dritto usato nella musica tradizionale coreana."
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -6152,11 +6153,6 @@ msgid ""
 msgstr ""
 "Tipo di tamburino usato come strumento tradizionale nella musica araba."
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr "Tamburo senza fusto che può essere intonato ruotandolo."
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -6210,14 +6206,6 @@ msgid ""
 msgstr ""
 "Famiglia di strumenti traspositori concepita per sostituire l'oboe e il "
 "fagotto nelle orchestre di fiati."
-
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
-msgstr ""
-"Biwa con quattro corde e quattro tasti diffusosi durante il periodo Edo."
 
 #. name:saw sam sai
 #: DB:instrument/description:712
@@ -6428,11 +6416,6 @@ msgstr ""
 "classica thailandese e cambogiana, forma parte del <a href=\"http://"
 "en.wikipedia.org/wiki/Thon_and_rammana\">thon e rammana</a>."
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr "Piccolo tamburo usato nella musica tradizionale delle Ande."
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -6543,11 +6526,6 @@ msgid ""
 msgstr ""
 "Strumento cinese a corda strofinata della famiglia degli huqin, realizzato a "
 "partire da una noce di cocco."
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
-msgstr "Grancassa brasiliana."
 
 #. name:zarb
 #: DB:instrument/description:328
@@ -7101,6 +7079,8 @@ msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
 msgstr ""
+"Usate nella musica gnawa, sono composte da due grandi forme in ferro con "
+"scodelle rotonde, legate insieme."
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -7373,6 +7353,11 @@ msgid ""
 msgstr ""
 "Usato nel teatro tradizionale kabuki e bunraku, è composto da due pezzi di "
 "legno duro legati con una corda ornamentale."
+
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr "Usato nella musica tradizionale, è dritto e lungo."
 
 #. name:turntable
 #: DB:instrument/description:181
@@ -7802,6 +7787,33 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid ""
+#~ "The nabal is a long, straight brass horn used in Korean traditional music."
+#~ msgstr ""
+#~ "Corno in ottone lungo e dritto usato nella musica tradizionale coreana."
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Coppia di piccoli piatti suonati con le mani, usata nella musica "
+#~ "thailandese e cambogiana."
+
+#~ msgid "The rototom is a drum which has no shell and is tuned by rotating."
+#~ msgstr "Tamburo senza fusto che può essere intonato ruotandolo."
+
+#~ msgid ""
+#~ "The satsuma biwa is a biwa with four strings and frets popularised during "
+#~ "the Edo period."
+#~ msgstr ""
+#~ "Biwa con quattro corde e quattro tasti diffusosi durante il periodo Edo."
+
+#~ msgid ""
+#~ "The tinya is a small drum used in the traditional music of the Andes."
+#~ msgstr "Piccolo tamburo usato nella musica tradizionale delle Ande."
+
+#~ msgid "The zabumba is a bass drum from Brazil."
+#~ msgstr "Grancassa brasiliana."
 
 #~ msgid ""
 #~ "Krakebs are large metal castanet-like instruments which are the primary "

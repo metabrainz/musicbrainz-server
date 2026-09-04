@@ -51,16 +51,16 @@ const buildAttributeSidebarRow = (attribute: WorkAttributeT) => (
 );
 
 component AttributeList(
-  attributes: ?$ReadOnlyArray<WorkAttributeT>,
+  attributes: ?ReadonlyArray<WorkAttributeT>,
   isSidebar: boolean = false,
 ) {
   return (
     <CollapsibleList
-      ContainerElement={isSidebar ? 'dl' : 'ul'}
-      InnerElement={isSidebar ? 'p' : 'li'}
       ariaLabel={l('Work attributes')}
       buildRow={isSidebar ? buildAttributeSidebarRow : buildAttributeListRow}
       className={isSidebar ? 'properties work-attributes' : 'work-attributes'}
+      ContainerElement={isSidebar ? 'dl' : 'ul'}
+      InnerElement={isSidebar ? 'p' : 'li'}
       rows={attributes}
       showAllTitle={l('Show all attributes')}
       showLessTitle={l('Show less attributes')}
@@ -70,7 +70,7 @@ component AttributeList(
   );
 }
 
-export default (hydrate<React.PropsOf<AttributeList>>(
+export default hydrate<React.PropsOf<AttributeList>>(
   'div.entity-attributes-container',
   AttributeList,
-): component(...React.PropsOf<AttributeList>));
+) as component(...React.PropsOf<AttributeList>);

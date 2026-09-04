@@ -42,15 +42,7 @@ function getSeriesType(typeId: number | null): SeriesTypeT | null {
     : linkedEntities.series_type[typeId];
 }
 
-component _SeriesRelationshipEditor(
-  /*
-   * Hack required due to withLoadedTypeInfo's use of `forwardRef`.
-   * Remove once we upgrade to React v19.
-   */
-  // eslint-disable-next-line no-unused-vars
-  ref: React.RefSetter<mixed>,
-  ...props: PropsT
-) {
+component _SeriesRelationshipEditor(...props: PropsT) {
   const [state, dispatch] = React.useReducer(
     reducer,
     props,
@@ -88,7 +80,7 @@ component _SeriesRelationshipEditor(
           seriesItemType,
         ),
         partOfSeriesLinkTypeId,
-        /* backward = */ seriesItemType < 'series',
+        /* backward = */ seriesItemType <= 'series',
       );
       if (!linkTypeGroup) {
         continue;
@@ -187,14 +179,14 @@ component _SeriesRelationshipEditor(
 }
 
 const NonHydratedSeriesRelationshipEditor:
-  component(ref: React.RefSetter<mixed>, ...PropsT) =
+  component(...PropsT) =
     withLoadedTypeInfoForRelationshipEditor<PropsT>(
       _SeriesRelationshipEditor,
     );
 
-const SeriesRelationshipEditor = (hydrate<PropsT>(
+const SeriesRelationshipEditor = hydrate<PropsT>(
   'div.relationship-editor',
   NonHydratedSeriesRelationshipEditor,
-): component(...PropsT));
+) as component(...PropsT);
 
 export default SeriesRelationshipEditor;

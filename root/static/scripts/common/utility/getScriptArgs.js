@@ -21,7 +21,7 @@ function getCurrentScript() {
   return currentScript;
 }
 
-function getScriptArgs(): mixed {
+function getScriptArgs(): unknown {
   const currentScript = getCurrentScript();
   if (currentScript) {
     const args = currentScript.getAttribute('data-args');

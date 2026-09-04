@@ -12,7 +12,7 @@ sudo -E -H -u musicbrainz cp docker/musicbrainz-tests/DBDefs.pm lib/
 
 sv_start_if_down \
     postgresql \
-    redis # script/dump_js_type_info.pl needs Redis running.
+    valkey # script/dump_js_type_info.pl needs Valkey running.
 
 REPLICATION_TYPE=1 \
     sudo -E -H -u musicbrainz carton exec -- ./script/create_test_db.sh
@@ -21,15 +21,7 @@ cd /var/lib/postgresql
 
 # Create clones of the musicbrainz_test DB used by various tests.
 sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_selenium
-sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_json_dump
 sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_full_export
-sudo -E -H -u postgres createdb -O musicbrainz -T musicbrainz_test -U postgres musicbrainz_test_sitemaps
-
-cd /home/musicbrainz/sir
-
-# Generate the sir extensions and triggers, which is required before
-# invoking create_selenium_db.sh.
-sudo -E -H -u musicbrainz sh -c '. venv/bin/activate; python -m sir extension; python -m sir triggers --broker-id=1'
 
 cd "$MBS_ROOT"
 

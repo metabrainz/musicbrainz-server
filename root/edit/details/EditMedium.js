@@ -260,7 +260,7 @@ component TracklistChangesRemove(
 
 component TracklistChangesTable (
   changedMbids: boolean,
-  changes: $ReadOnlyArray<
+  changes: ReadonlyArray<
     | TracklistChangesAddT
     | TracklistChangesChangeT
     | TracklistChangesRemoveT>,
@@ -349,7 +349,7 @@ component CondensedTrackACsDiffRow(
 }
 
 component CondensedTrackACsDiff(
-  artistCreditChanges: $ReadOnlyArray<
+  artistCreditChanges: ReadonlyArray<
     | TracklistChangesAddT
     | TracklistChangesChangeT>,
 ) {

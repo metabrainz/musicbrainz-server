@@ -1639,23 +1639,27 @@ sub fresh_releases_with_artwork {
         ON (cover_art.id = cover_art_type.id)
       JOIN edit_release ON edit_release.release = release.id
       JOIN edit ON edit.id = edit_release.edit
-      JOIN release_event ON release_event.release = release.id
       WHERE cover_art_type.type_id = ?
         AND cover_art.ordering = 1
         AND edit.type = ?
         AND cover_art.date_uploaded < NOW() - INTERVAL '10 minutes'
-        AND release_event.date_year IS NOT NULL
-        AND MAKE_DATE(
-              release_event.date_year,
-              COALESCE(release_event.date_month, 1),
-              COALESCE(release_event.date_day, 1)
-            ) >= (CURRENT_DATE - INTERVAL '7 days')
-        AND MAKE_DATE(
-              release_event.date_year,
-              COALESCE(release_event.date_month, 1),
-              COALESCE(release_event.date_day, 1)
-            ) <= (CURRENT_DATE + INTERVAL '3 days')
-      ORDER BY date_year DESC NULLS LAST, date_month DESC NULLS LAST, date_day DESC NULLS LAST, edit.id DESC
+        AND EXISTS (
+          SELECT 1
+          FROM release_event
+          WHERE release_event.release = release.id
+            AND release_event.date_year IS NOT NULL
+            AND MAKE_DATE(
+                  release_event.date_year,
+                  COALESCE(release_event.date_month, 1),
+                  COALESCE(release_event.date_day, 1)
+                ) >= (CURRENT_DATE - INTERVAL '7 days')
+            AND MAKE_DATE(
+                  release_event.date_year,
+                  COALESCE(release_event.date_month, 1),
+                  COALESCE(release_event.date_day, 1)
+                ) <= (CURRENT_DATE + INTERVAL '3 days')
+        )
+      ORDER BY edit.id DESC
       LIMIT 50);
 
     my $FRONT = 1;

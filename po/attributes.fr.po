@@ -40,8 +40,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : "
-"((n != 0 && n % 1000000 == 0) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : ((n != 0 && n % "
+"1000000 == 0) ? 1 : 2);\n"
 "X-Generator: Weblate 5.13.3\n"
 
 #. name:Motet
@@ -602,6 +602,15 @@ msgstr ""
 "Une liste de titres à jouer pendant l’événement, souvent imprimée ou "
 "manuscrite à l’usage de l’artiste."
 
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
 msgid "A major"
@@ -812,6 +821,15 @@ msgstr ""
 "limitée pour montrer le son d'un artiste aux maisons de disques, aux "
 "éditeurs et à d'autres artistes."
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -954,6 +972,26 @@ msgstr "Une série de groupes de parutions."
 msgctxt "series_type"
 msgid "A series of releases."
 msgstr "Une série de parutions."
+
+#. name:Series award
+#: DB:series_type/description:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of recordings honoured by the same award."
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr "Une série d'enregistrements récompensés par le même prix."
+
+#. name:Series series
+#: DB:series_type/description:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "A series of events."
+msgctxt "series_type"
+msgid "A series of series."
+msgstr "Une série d’événements."
 
 #. name:Work award
 #: DB:series_type/description:46
@@ -1359,6 +1397,14 @@ msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr "Album"
 
+#: DB:work_attribute_type/name:216
+#, fuzzy
+#| msgctxt "cover_art_type"
+#| msgid "Track"
+msgctxt "work_attribute_type"
+msgid "AllTrack ID"
+msgstr "Piste"
+
 #. name:Manual
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
@@ -1648,6 +1694,14 @@ msgstr ""
 "personnages et une intrigue, il n’est pas habituellement interprété sous "
 "forme théâtrale (il lui manque des costumes, des décors et une interaction "
 "forte entre les personnages)."
+
+#. name:Broadcaster
+#: DB:label_type/description:12
+msgctxt "label_type"
+msgid ""
+"An organization that mostly concentrates on broadcasting audio or video "
+"content, be it on television, radio or the internet."
+msgstr ""
 
 #. name:Creative Agency
 #: DB:label_type/description:11
@@ -2377,6 +2431,14 @@ msgstr "Nom de marque"
 #: DB:release_group_primary_type/name:12
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
+msgstr "Émission"
+
+#: DB:label_type/name:12
+#, fuzzy
+#| msgctxt "release_group_primary_type"
+#| msgid "Broadcast"
+msgctxt "label_type"
+msgid "Broadcaster"
 msgstr "Émission"
 
 #: DB:work_attribute_type_allowed_value/value:885
@@ -4864,6 +4926,15 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
 msgstr "ID pour l’ASCAP, société états-unienne de gestion des droits"
 
+#. name:AllTrack ID
+#: DB:work_attribute_type/description:216
+#, fuzzy
+#| msgctxt "work_attribute_type"
+#| msgid "ID for the US rights society ASCAP"
+msgctxt "work_attribute_type"
+msgid "ID for the US rights society AllTrack"
+msgstr "ID pour l’ASCAP, société états-unienne de gestion des droits"
+
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
@@ -5756,6 +5827,11 @@ msgstr "Enveloppe"
 msgctxt "release_group_secondary_type"
 msgid "Live"
 msgstr "En public"
+
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
+msgstr ""
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -7927,6 +8003,14 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr "Serbest"
 
+#: DB:series_type/name:17
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist award"
+msgctxt "series_type"
+msgid "Series award"
+msgstr "Récompense d’artiste"
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7936,6 +8020,14 @@ msgstr "Collection de séries"
 msgctxt "alias_type"
 msgid "Series name"
 msgstr "Nom de la série"
+
+#: DB:series_type/name:16
+#, fuzzy
+#| msgctxt "series_type"
+#| msgid "Artist series"
+msgctxt "series_type"
+msgid "Series series"
+msgstr "Série d’artiste"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"

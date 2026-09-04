@@ -22,18 +22,18 @@ import {type WeeklyStatsT} from './stats.js';
 import entities from './utils.js';
 
 type EntityWithStatsT = {
-  +name: string,
-  +stat: WeeklyStatsT | void,
-  +statKey: string,
-  +value: string,
+  readonly name: string,
+  readonly stat: WeeklyStatsT | void,
+  readonly statKey: string,
+  readonly value: string,
 };
 
 component Search (
-  weeklyStats: $ReadOnlyArray<WeeklyStatsT>,
+  weeklyStats: ReadonlyArray<WeeklyStatsT>,
 ) {
   const [searchQuery, setSearchQuery] = React.useState('');
 
-  const entitiesWithStats: $ReadOnlyArray<EntityWithStatsT> =
+  const entitiesWithStats: ReadonlyArray<EntityWithStatsT> =
     entities.map((entity) => {
       const stat = weeklyStats.find((s) => s.stat === entity.statKey);
       return {
@@ -224,7 +224,7 @@ component Search (
   );
 }
 
-export default (hydrate<React.PropsOf<Search>>(
+export default hydrate<React.PropsOf<Search>>(
   'div.homepage-search',
   Search,
-): component(...React.PropsOf<Search>));
+) as component(...React.PropsOf<Search>);

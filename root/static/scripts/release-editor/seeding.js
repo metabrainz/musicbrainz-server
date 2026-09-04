@@ -19,7 +19,6 @@ releaseEditor.seed = function (data) {
   data ||= {seed: {}, errors: []};
 
   var seed = data.seed;
-  this.seededReleaseData = seed;
 
   if (data.errors && data.errors.length) {
     this.seedErrors(data.errors);

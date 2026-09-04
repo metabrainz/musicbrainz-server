@@ -92,13 +92,12 @@ export default function updateWorkStates(
 
       if (worksToUpdate) {
         for (const work of tree.iterate(worksToUpdate)) {
-          newRelatedWorks = tree.update(
-            newRelatedWorks,
-            work,
-            compareWorkWithWorkState,
-            updateWorkState,
-            onNotFoundDoNothing,
-          );
+          newRelatedWorks = tree.update(newRelatedWorks, {
+            cmp: compareWorkWithWorkState,
+            key: work,
+            onConflict: updateWorkState,
+            onNotFound: onNotFoundDoNothing,
+          });
         }
       }
 

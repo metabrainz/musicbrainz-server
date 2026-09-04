@@ -40,30 +40,44 @@ module.exports = function (api) {
   api.cache.using(() => process.env.NODE_ENV);
   api.cache.using(() => browserTarget);
 
+  /*
+   * The target is set by Webpack (either 'node' or 'web'), or in the case of
+   * babel-node, in root/utility/babel-node/hooks.mjs (hardcoded to 'node').
+   *
+   * If we're targeting 'web', then `BROWSER_TARGETS` specifies which browser
+   * versions we're targeting.
+   */
+  const target = api.caller(caller => caller ? caller.target : null);
+
+  const targets = target === 'node'
+    ? NODE_TARGETS
+    : BROWSER_TARGETS[browserTarget];
+
   const presets = [
     ['@babel/preset-env', {
-      corejs: 3.45,
       modules: api.caller(caller => caller && caller.name === 'babel-node-loader')
         ? false
         : 'auto',
-      targets: api.caller(caller => caller && caller.target === 'node')
-        ? NODE_TARGETS
-        : BROWSER_TARGETS[browserTarget],
-      useBuiltIns: 'usage',
     }],
   ];
 
   const plugins = [
+    /*
+     * The React Compiler must run first:
+     * https://react.dev/learn/react-compiler/installation#babel
+     */
+    'babel-plugin-react-compiler',
     'babel-plugin-syntax-hermes-parser',
     '@babel/plugin-transform-flow-strip-types',
     ['@babel/plugin-transform-react-jsx', {
       runtime: 'automatic',
     }],
     ['@babel/plugin-transform-runtime', {
-      corejs: false,
-      helpers: true,
-      regenerator: true,
-      useESModules: false,
+      moduleName: '@babel/runtime-corejs3',
+    }],
+    ['polyfill-corejs3', {
+      method: 'usage-pure',
+      version: '3.49',
     }],
   ];
 
@@ -72,9 +86,10 @@ module.exports = function (api) {
   }
 
   return {
-    ignore,
+    ignore: ignore(target),
     plugins,
     presets,
     sourceType: 'unambiguous',
+    targets,
   };
 };

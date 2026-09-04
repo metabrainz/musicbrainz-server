@@ -433,6 +433,12 @@ const testData = [
        only_valid_entity_types: ['release'],
   },
   {
+                     input_url: 'https://www.amazon.com.be/-/en/How-Replace-Deus/dp/B0BLFT2LBP/ref=sr_1_1?crid=1O1BWTMB6AFR4&dib=eyJ2IjoiMSJ9.2LhGteFs50LX0oL2ndp7U6_QpTCvDBwk23qlzZXsrxGeivmajYfscdK7vxX3LUP3mfLgapmkFseppCmClI25vZMTqUMdu9KfPvEbDPvt38ZqFQol_jk3aNumTW_Qwrk6H-vEOwfwnxRbH8RT_tnIAxhl30990wo1OBNJPlaFXPgNhdETw8ZWdg76aM8OlO8Uka9eEhm0UnHmc6KyNw1aGR0s2kB1lXhBBLOMrJjM3rl51VAiXZHe27v_nae_MhdV2DRL93gxbvE3zhvf87B7rYhKzPYkGy_ordKJe0zpQn8.86BcKf5L1IlDejlLZjrmoiJAP3qrtY_qswWw4BBzIJc&dib_tag=se&keywords=deus+cd&qid=1772453811&sprefix=deus%2Caps%2C129&sr=8-1',
+             input_entity_type: 'release',
+    expected_relationship_type: 'amazon',
+            expected_clean_url: 'https://www.amazon.com.be/gp/product/B0BLFT2LBP',
+  },
+  {
                      input_url: 'http://amazon.com.br/dp/B00T8E47G2',
              input_entity_type: 'release',
     expected_relationship_type: 'amazon',
@@ -650,6 +656,28 @@ const testData = [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://anidb.net/collection/4451',
        only_valid_entity_types: ['release'],
+  },
+  // AniList
+  {
+                     input_url: 'https://anilist.co/staff/95185/Kana-Hanazawa?hello&world',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/staff/95185',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anilist.co/character/40/Luffy-D-Monkey?hello#world',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/character/40',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://anilist.co/studio/6698/KADOKAWA?hello#world',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://anilist.co/studio/6698',
+       only_valid_entity_types: ['label'],
   },
   // Anime News Network
   {
@@ -2167,7 +2195,21 @@ limited_link_type_combinations: [
                      input_url: 'https://dailymotion.com/who-knows#uploads',
              input_entity_type: 'artist',
     expected_relationship_type: 'videochannel',
-            expected_clean_url: 'https://www.dailymotion.com/who-knows',
+            expected_clean_url: 'https://www.dailymotion.com/user/who-knows',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.dailymotion.com/LYRIKALBESTIAL/videos?sort=visited',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.dailymotion.com/user/LYRIKALBESTIAL',
+       only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.dailymotion.com/user/LYRIKALBESTIAL/playlists',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'videochannel',
+            expected_clean_url: 'https://www.dailymotion.com/user/LYRIKALBESTIAL',
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
@@ -2175,6 +2217,13 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.dailymotion.com/video/xyztuvw',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.dailymotion.com/video/x9ujy50?playlist=xa4xsa',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.dailymotion.com/video/x9ujy50',
        only_valid_entity_types: ['recording', 'release'],
   },
   {
@@ -2826,13 +2875,6 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
   },
-  // Flattr
-  {
-                     input_url: 'http://www.flattr.com/profile/example',
-             input_entity_type: 'label',
-    expected_relationship_type: 'patronage',
-            expected_clean_url: 'https://flattr.com/profile/example',
-  },
   // FolkWiki
   {
                      input_url: 'http://www.folkwiki.se/Personer/SvenDonat',
@@ -3129,6 +3171,28 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
        only_valid_entity_types: [],
+  },
+  // HMV&BOOKS
+  {
+                     input_url: 'https://www.hmv.co.jp/en/artist_Kana-Hanazawa_000000000468840/?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000468840',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://hmv.co.jp/artist/detail/000000000842986',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.hmv.co.jp/artist/detail/000000000842986',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.hmv.co.jp/en/artist_Naniwa-Danshi_000000000852570/item_なにわ男子カレンダー2026-4→2027-3（STARTO-ENTERTAINMENT公認）_16444908?foo=bar',
+             input_entity_type: 'release',
+    expected_relationship_type: 'mailorder',
+            expected_clean_url: 'https://www.hmv.co.jp/product/detail/16444908',
+       only_valid_entity_types: ['release'],
   },
   // Hoerspielforscher
   {
@@ -3525,47 +3589,26 @@ limited_link_type_combinations: [
                      input_url: 'http://www.jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79/catalogue?role_group=Featured%20Artist&view=tile',
              input_entity_type: 'artist',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/8a9bd5c6-1ce2-4f1d-bfdc-1a2383129c79',
-       only_valid_entity_types: ['artist', 'label'],
-  },
-  {
-                     input_url: 'https://jaxsta.io/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801/credits',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/902b15e8-ed89-41d7-a7c0-a35caf2c2801',
-       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407/catalogue?view=tile',
              input_entity_type: 'label',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/profile/5a50b1be-7473-4e51-ae4b-bb8d9ac13407',
-       only_valid_entity_types: ['artist', 'label'],
   },
   {
                      input_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94/releases',
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/recording/5b01140a-a82f-5f5c-aa81-93d61de00f94',
-       only_valid_entity_types: ['recording'],
   },
   {
                      input_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436/variants',
              input_entity_type: 'release',
     expected_relationship_type: 'otherdatabases',
-            expected_clean_url: 'https://jaxsta.com/release/66512305-5fb7-5d43-a194-d5ed56c16cab/7c5528fe-96f7-5c0c-9af2-9b756b909436',
-       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://jaxsta.io/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32/overview',
              input_entity_type: 'work',
     expected_relationship_type: 'otherdatabases',
-limited_link_type_combinations: [
-                                  'otherdatabases',
-                                  ['lyrics', 'otherdatabases'],
-                                ],
-            expected_clean_url: 'https://jaxsta.com/work/2aa4e869-85d4-5099-92fb-5a8aa1494d32',
-       only_valid_entity_types: ['work'],
   },
   // Jazz Music Archives
   {
@@ -3635,72 +3678,6 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'blog',
   },
-  // Juno Download
-  {
-                     input_url: 'http://junodownload.com/products/caspa-subscape-geordie-racer-notixx-remix/2141988-02/',
-             input_entity_type: 'release',
-    expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
-       only_valid_entity_types: ['release'],
-  },
-  {
-                     input_url: 'http://junodownload.com/products/2141988-02/',
-             input_entity_type: 'release',
-    expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
-       only_valid_entity_types: ['release'],
-  },
-  {
-                     input_url: 'http://junodownload.com/products/2141988-02.htm',
-             input_entity_type: 'release',
-    expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/products/2141988-02/',
-       only_valid_entity_types: ['release'],
-  },
-  {
-                     input_url: 'https://www.junodownload.com/products/raito-krampf-deeper/5665004-02/?c=2032482&utm_campaign=alert_auto_email&utm_source=auto_email_jd&utm_medium=label&utm_content=alert_title',
-             input_entity_type: 'release',
-    expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/products/5665004-02/',
-       only_valid_entity_types: ['release'],
-  },
-  {
-                     input_url: 'https://www.junodownload.com/labels/Mau5trap/releases/?music_product_type=single',
-             input_entity_type: 'label',
-    expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/labels/Mau5trap/',
-       only_valid_entity_types: ['label'],
-  },
-  {
-                     input_url: 'https://www.junodownload.com/labels/da.n.c.e./',
-             input_entity_type: 'label',
-    expected_relationship_type: 'downloadpurchase',
-       only_valid_entity_types: ['label'],
-  },
-  {
-                     input_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/?facet%5Bsubgenre_id%5D%5B0%5D=12%7C%7C3',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'downloadpurchase',
-            expected_clean_url: 'https://www.junodownload.com/artists/Kurwastyle+Project/',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://www.junodownload.com/artists/Dominik+M%c3%bcller/',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'downloadpurchase',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://www.junodownload.com/search/?q%5Ball%5D%5B%5D=Orchestral+Manoeuvres+in+the+Dark',
-             input_entity_type: 'artist',
-       input_relationship_type: 'downloadpurchase',
-    expected_relationship_type: undefined,
-                expected_error: {
-                                  error: 'a link to a search result',
-                                  target: 'url',
-                                },
-       only_valid_entity_types: [],
-  },
   // JVC Music
   {
                      input_url: 'http://www.jvcmusic.co.jp/-/Discography/A015120/VICC-60560.html',
@@ -3709,10 +3686,10 @@ limited_link_type_combinations: [
   },
   // Kashinavi.com
   {
-                     input_url: 'http://kashinavi.com/kashu.php?artist=103530&kashu=%8A%99%93c%8F%CD%8C%E1&start=1',
+                     input_url: 'https://kashinavi.com/artist.html?artist=E98E8CE794B0E7ABA0E590BE&foo=bar',
              input_entity_type: 'artist',
     expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://kashinavi.com/kashu.php?artist=103530',
+            expected_clean_url: 'https://kashinavi.com/artist.html?artist=E98E8CE794B0E7ABA0E590BE',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -3763,6 +3740,35 @@ limited_link_type_combinations: [
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
   },
+  // KKBOX
+  {
+                     input_url: 'http://kkbox.com/jp/en/artist/LZShQXVlw4lbgxexbP/?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/jp/artist/LZShQXVlw4lbgxexbP',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://kkbox.com/sg/en/album/H-rFRh4JibEcVaZfH6#test',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/sg/album/H-rFRh4JibEcVaZfH6',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://www.kkbox.com/hk/tc/song/T_4oqiGp6ZmfVogkW7',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://www.kkbox.com/hk/song/T_4oqiGp6ZmfVogkW7',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://kkbox.fm/4p2hGs',
+             input_entity_type: 'artist',
+       input_relationship_type: 'streamingpaid',
+    expected_relationship_type: undefined,
+       only_valid_entity_types: [],
+  },
   // Ko-fi
   {
                      input_url: 'http://www.ko-fi.com/35MJZ8OL4IO',
@@ -3776,35 +3782,6 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
             expected_clean_url: 'https://ko-fi.com/s/e953259fd9', // uncleaned
     expected_relationship_type: undefined,
-  },
-  // laboiteauxparoles
-  {
-                     input_url: 'https://laboiteauxparoles.com/interprete/269/loco-locass',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/interprete/269',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://laboiteauxparoles.com/titre/55857/wi',
-             input_entity_type: 'work',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/titre/55857',
-       only_valid_entity_types: ['work'],
-  },
-  {
-                     input_url: 'http://www.laboiteauxparoles.com/auteur/1682',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/auteur/1682',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://laboiteauxparoles.com/editeur/140?page=2',
-             input_entity_type: 'label',
-    expected_relationship_type: 'lyrics',
-            expected_clean_url: 'https://laboiteauxparoles.com/editeur/140',
-       only_valid_entity_types: ['label'],
   },
   // Lantis
   {
@@ -3971,6 +3948,56 @@ limited_link_type_combinations: [
                      input_url: 'http://www.lieder.net/lieder/get_text.html?TextId=6448',
              input_entity_type: 'work',
     expected_relationship_type: 'lyrics',
+  },
+  // LINE MUSIC
+  {
+                     input_url: 'http://music.line.me/artist/mi0000000012133931?foo=bar',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/artist/mi0000000012133931',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.line.me/webapp/album/mb0000000001e9ed76#foo=bar',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/album/mb0000000001e9ed76',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.line.me/webapp/track/mt0000000012404a19/?foo=bar',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/track/mt0000000012404a19',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.line.me/video/mv000000000017ea26?refererId=yoasobi&refererType=search',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/video/mv000000000017ea26',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=album&item=mb00000000021c335d&cc=JP&v=1',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/album/mb00000000021c335d',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=track&item=mb0000000002cce5c7&subitem=mt000000001a375440&cc=JP&v=1',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/track/mt000000001a375440',
+       only_valid_entity_types: ['recording'],
+  },
+  {
+                     input_url: 'https://music.line.me/launch?target=playSingleVideo&item=mv0000000000081f4e&cc=JP&v=1',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingpaid',
+            expected_clean_url: 'https://music.line.me/webapp/video/mv0000000000081f4e',
+       only_valid_entity_types: ['recording', 'release'],
   },
   // LinkedIn
   {
@@ -4400,26 +4427,60 @@ limited_link_type_combinations: [
   },
   // mora
   {
+                     input_url: 'https://mora.jp/artist/2024469/#',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://mora.jp/artist/2024469?test',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/artist/2024469/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://mora.jp/package/43000011/4580789738098_HD?trackMaterialNo=42101983&test#test',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000011/4580789738098_HD/?trackMaterialNo=42101983',
+       only_valid_entity_types: ['recording'],
+  },
+  {
                      input_url: 'https://mora.jp/package/43000001/4534530058010/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000001/4534530058010/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://mora.jp/package/43000014/KIZC-211/',
              input_entity_type: 'release',
     expected_relationship_type: 'downloadpurchase',
+            expected_clean_url: 'https://mora.jp/package/43000014/KIZC-211/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'http://mora.jp/package/43000021/SQEX-20016_F/#',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000021/SQEX-20016_F/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'https://www.mora.jp/package/43000002/ANTCD-3106?test',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
+       only_valid_entity_types: ['release'],
   },
   {
                      input_url: 'mora.jp/package/43000002/ANTCD-3106/',
+             input_entity_type: 'release',
+    expected_relationship_type: 'downloadpurchase',
             expected_clean_url: 'https://mora.jp/package/43000002/ANTCD-3106/',
+       only_valid_entity_types: ['release'],
   },
   // Musa24
   {
@@ -4476,6 +4537,40 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'http://www.musicapopular.cl/disco/raw-digits/',
        only_valid_entity_types: ['release_group'],
+  },
+  // Music in Africa
+  {
+                     input_url: 'https://www.musicinafrica.net/node/137539',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musicinafrica.net/node/137539',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'http://musicinafrica.net/directory/251afrika',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musicinafrica.net/directory/251afrika',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.musicinafrica.net/directory/decimal-records',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://musicinafrica.net/fr/directory/studio-tour%C3%A9-sound',
+             input_entity_type: 'place',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.musicinafrica.net/fr/directory/studio-tour%C3%A9-sound',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
+  },
+  {
+                     input_url: 'https://www.musicinafrica.net/directory/east-africa-vibes-concert',
+             input_entity_type: 'series',
+    expected_relationship_type: 'otherdatabases',
+       only_valid_entity_types: ['artist', 'label', 'place', 'series'],
   },
   // MusicMoz
   {
@@ -4625,6 +4720,28 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'otherdatabases',
   },
+  // MyAnimeList
+  {
+                     input_url: 'https://myanimelist.net/people/185/Kana_Hanazawa',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/people/185',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://myanimelist.net/character/40/Luffy_Monkey_D/clubs',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/character/40',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://myanimelist.net/anime/producer/1696/Kadokawa',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://myanimelist.net/anime/producer/1696',
+       only_valid_entity_types: ['label'],
+  },
   // Myspace
   {
                      input_url: 'https://myspace.com/instramentaluk',
@@ -4648,56 +4765,6 @@ limited_link_type_combinations: [
              input_entity_type: 'label',
     expected_relationship_type: 'myspace',
             expected_clean_url: 'https://myspace.com/whoevenusesthisanymore',
-  },
-  // Napster
-  {
-                     input_url: 'https://es.napster.com/artist/bread#',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://es.napster.com/artist/bread',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://napster.com/artist/bread?ref=spammer',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://us.napster.com/artist/bread',
-       only_valid_entity_types: ['artist'],
-  },
-  {
-                     input_url: 'https://www.napster.com/artist/anuka/album/incomplete-single/track/incomplete-muzzy-remix',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://us.napster.com/artist/anuka/album/incomplete-single/track/incomplete-muzzy-remix',
-       only_valid_entity_types: ['recording'],
-  },
-  {
-                     input_url: 'https://fr.napster.com/artist/various-artists/album/70-hits-of-the-70s/track/guitar-man',
-             input_entity_type: 'artist',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://fr.napster.com/artist/various-artists/album/70-hits-of-the-70s/track/guitar-man',
-       only_valid_entity_types: ['recording'],
-  },
-  {
-                     input_url: 'https://app.napster.com/artist/banjoory/album/ireggaeular',
-             input_entity_type: 'release',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://us.napster.com/artist/banjoory/album/ireggaeular',
-       only_valid_entity_types: ['release'],
-  },
-  {
-                     input_url: 'http://us.napster.com/artist/bread/album/the-elektra-years-complete-albums-box',
-             input_entity_type: 'release',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://us.napster.com/artist/bread/album/the-elektra-years-complete-albums-box',
-       only_valid_entity_types: ['release'],
-  },
-  {
-                     input_url: 'http://napster.com/artist/art.326711648/album/alb.326714896',
-             input_entity_type: 'release',
-    expected_relationship_type: 'streamingpaid',
-            expected_clean_url: 'https://us.napster.com/artist/art.326711648/album/alb.326714896',
-       only_valid_entity_types: [],
   },
   // Naxos Records
   {
@@ -4746,6 +4813,20 @@ limited_link_type_combinations: [
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://www.nicovideo.jp/watch/nm6049209',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.nicovideo.jp/watch/ss46168470?',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.nicovideo.jp/watch/ss46168470',
+       only_valid_entity_types: ['recording', 'release'],
+  },
+  {
+                     input_url: 'https://www.nicovideo.jp/shorts/ss46168470?',
+             input_entity_type: 'recording',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://www.nicovideo.jp/watch/ss46168470',
        only_valid_entity_types: ['recording', 'release'],
   },
   {
@@ -5081,6 +5162,28 @@ limited_link_type_combinations: [
             expected_clean_url: 'https://petitlyrics.com/lyrics/album/4e484be3818ae3818be38182e38195e38293e381a8e38184e381a3e38197e3828720e69c80e696b0e38399e382b9e38388e3808ce381bfe38293e381aae381aee383aae382bae383a0e3808d',
        only_valid_entity_types: ['release_group'],
   },
+  // Pexels
+  {
+                     input_url: 'https://www.pexels.com/@wyxina-tresse-311038210/gallery/',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pexels.com/@wyxina-tresse-311038210/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'http://pexels.com/ro-ro/@paduret',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://www.pexels.com/@paduret/',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://www.pexels.com/video/abstract-shapes-in-slow-motion-27491083/',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // Pinterest
   {
                      input_url: 'uk.pinterest.com/tucenter/pins/#',
@@ -5330,6 +5433,13 @@ limited_link_type_combinations: [
     expected_relationship_type: 'otherdatabases',
             expected_clean_url: 'https://ra.co/events/860109',
        only_valid_entity_types: ['event'],
+  },
+  {
+                     input_url: 'https://ra.co/promoters/140688/news',
+             input_entity_type: 'label',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://ra.co/promoters/140688',
+       only_valid_entity_types: ['label'],
   },
   {
                      input_url: 'http://es.ra.co/labels/2795',
@@ -6659,6 +6769,28 @@ limited_link_type_combinations: ['downloadpurchase', 'mailorder'],
              input_entity_type: 'release',
     expected_relationship_type: 'discographyentry',
   },
+  // Unsplash
+  {
+                     input_url: 'http://www.unsplash.com/@marjan_blan/collections',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://unsplash.com/@marjan_blan',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://unsplash.com/ja/@cdd20',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'artgallery',
+            expected_clean_url: 'https://unsplash.com/@cdd20',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://unsplash.com/photos/a-black-binder-with-an-open-cover-is-shown-EIB-pwIRS9c',
+             input_entity_type: 'artist',
+    expected_relationship_type: undefined,
+       input_relationship_type: 'artgallery',
+       only_valid_entity_types: [],
+  },
   // UtaiteDB/VocaDB/TouhouDB
   {
                      input_url: 'http://utaitedb.net/Ar/1#',
@@ -7036,6 +7168,19 @@ limited_link_type_combinations: [
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://vk.com/video-2000471995_63471995',
        only_valid_entity_types: ['recording'],
+  },
+  // vkdb
+  {
+                     input_url: 'http://www.vkdb.jp/cocklobin.html#gsc.tab=0',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.vkdb.jp/cocklobin.html',
+  },
+  {
+                     input_url: 'https://vkdb.jp/ITEM_B00AQMB6RI#gsc.tab=0',
+             input_entity_type: 'release_group',
+    expected_relationship_type: 'otherdatabases',
+            expected_clean_url: 'https://www.vkdb.jp/ITEM_B00AQMB6RI',
   },
   // vkgy
   {
@@ -7433,10 +7578,17 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['label'],
   },
   {
-                     input_url: 'https://music.yandex.ru/album/22248502',
+                     input_url: 'https://music.yandex.ru/album/22248502/',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
             expected_clean_url: 'https://music.yandex.com/album/22248502',
+       only_valid_entity_types: ['release'],
+  },
+  {
+                     input_url: 'https://music.yandex.ru/album/45182?utm_source=web&utm_medium=copy_link',
+             input_entity_type: 'release',
+    expected_relationship_type: 'streamingfree',
+            expected_clean_url: 'https://music.yandex.com/album/45182',
        only_valid_entity_types: ['release'],
   },
   {
@@ -7519,9 +7671,20 @@ limited_link_type_combinations: [
        only_valid_entity_types: ['artist', 'event', 'label', 'place', 'series'],
   },
   {
+                     input_url: 'https://www.youtube.com/watch?v=XCq01DCMZIo',
+             input_entity_type: 'artist',
+       input_relationship_type: 'interview',
+limited_link_type_combinations: [
+                                  'interview',
+                                  'youtube',
+                                ],
+       only_valid_entity_types: ['artist'],
+  },
+  {
                      input_url: 'http://www.youtube.com/embed/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7529,6 +7692,7 @@ limited_link_type_combinations: [
                      input_url: 'http://www.youtube.com/shorts/4Xl6zdY0m6o',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=4Xl6zdY0m6o',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7536,6 +7700,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.youtube.com/live/E4W-_FayUf8',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=E4W-_FayUf8',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7564,6 +7729,7 @@ limited_link_type_combinations: [
                      input_url: 'http://youtu.be/UmHdefsaL6I',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=UmHdefsaL6I',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7571,6 +7737,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA&list=PLkHWBeudCLJCjB41Yt1iiain82Lp1zQOB',
              input_entity_type: 'recording',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/watch?v=4eUqsUZBluA',
        only_valid_entity_types: ['recording', 'release'],
   },
@@ -7578,6 +7745,7 @@ limited_link_type_combinations: [
                      input_url: 'https://www.youtube.com/playlist?list=PLnbecBgjL4QQtjDRyHD99b6xWjLD3i9r5',
              input_entity_type: 'release',
     expected_relationship_type: 'streamingfree',
+limited_link_type_combinations: ['streamingfree', 'streamingpaid'],
             expected_clean_url: 'https://www.youtube.com/playlist?list=PLnbecBgjL4QQtjDRyHD99b6xWjLD3i9r5',
        only_valid_entity_types: ['release'],
   },
@@ -7653,6 +7821,13 @@ limited_link_type_combinations: [
              input_entity_type: 'artist',
     expected_relationship_type: 'youtubemusic',
             expected_clean_url: 'https://music.youtube.com/channel/UCj-kjIXQvPmn_rtobjiszEg',
+       only_valid_entity_types: ['artist'],
+  },
+  {
+                     input_url: 'https://music.youtube.com/@retland?si=XZgqAHnyrtcIGjbN',
+             input_entity_type: 'artist',
+    expected_relationship_type: 'youtubemusic',
+            expected_clean_url: 'https://music.youtube.com/@retland',
        only_valid_entity_types: ['artist'],
   },
   {
@@ -7803,7 +7978,7 @@ function doRestrictSubtest(
   expectedTypeCombinations,
 ) {
   const checker = new Checker(cleanURL(url), entityType);
-  const possibleTypeCombinations = checker.getPossibleTypes();
+  const possibleTypeCombinations = checker.possibleTypes;
   let actualTypeCombinations = possibleTypeCombinations || undefined;
   if (expectedTypeCombinations === undefined) {
     actualTypeCombinations = undefined;

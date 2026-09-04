@@ -130,7 +130,7 @@ class GuessCase {
   // Member functions
 
   guess(
-    handlerName: $Keys<typeof handlerPicker> | 'genre' | 'instrument',
+    handlerName: keyof typeof handlerPicker | 'genre' | 'instrument',
     method: 'process' | 'guessSortName',
   ): (string) => string {
     if (handlerName === 'genre' || handlerName === 'instrument') {
@@ -207,4 +207,4 @@ class GuessCase {
   }
 }
 
-export default (new GuessCase(): GuessCase);
+export default new GuessCase() as GuessCase;

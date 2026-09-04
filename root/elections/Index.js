@@ -11,7 +11,7 @@ import Layout from '../layout/index.js';
 
 import ElectionTable from './ElectionTable/index.js';
 
-component Index(elections: $ReadOnlyArray<AutoEditorElectionT>) {
+component Index(elections: ReadonlyArray<AutoEditorElectionT>) {
   return (
     <Layout fullWidth title={l('Auto-editor elections')}>
       <h1>{l('Auto-editor elections')}</h1>

@@ -27,8 +27,8 @@ function getCreditedName(
 }
 
 function incompleteArtistCreditNamesFromState(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
-): $ReadOnlyArray<IncompleteArtistCreditNameT> {
+  names: ReadonlyArray<ArtistCreditNameStateT>,
+): ReadonlyArray<IncompleteArtistCreditNameT> {
   return names.reduce((
     accum: Array<IncompleteArtistCreditNameT>,
     x: ArtistCreditNameStateT,
@@ -47,13 +47,13 @@ function incompleteArtistCreditNamesFromState(
 }
 
 export function incompleteArtistCreditFromState(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): IncompleteArtistCreditT {
   return {names: incompleteArtistCreditNamesFromState(names)};
 }
 
 export function artistCreditFromState(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): ArtistCreditT {
   return {
     // $FlowFixMe[incompatible-type]
@@ -75,13 +75,13 @@ const _accumArtistCreditNameToString = (
 );
 
 export const artistCreditStateToString = (
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): string => (
   names.reduce(_accumArtistCreditNameToString, '')
 );
 
 export function hasVariousArtists(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): boolean {
   return names.some(
     name => (getArtist(name)?.gid) === VARTIST_GID,
@@ -89,7 +89,7 @@ export function hasVariousArtists(
 }
 
 export function isArtistCreditStateComplete(
-  names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  names: ReadonlyArray<ArtistCreditNameStateT>,
 ): boolean {
   return names.length > 0 && names.every(
     name => (getArtist(name)?.id) != null,

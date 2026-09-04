@@ -460,6 +460,15 @@ msgid "Indicates a page with an official schedule for an event series."
 msgstr ""
 "Indica una página con los horarios oficiales para una serie de eventos."
 
+#. name:schedule
+#: DB:link_type/description:1302
+#, fuzzy
+#| msgid "Indicates a page with an official schedule for an event series."
+msgid ""
+"Indicates a page with an official schedule for an event, such as a festival."
+msgstr ""
+"Indica una página con los horarios oficiales para una serie de eventos."
+
 #. name:parent
 #: DB:link_type/description:109
 msgid "Indicates a parent-child relationship."
@@ -671,6 +680,13 @@ msgstr "Indica que el grupo de publicaciones es parte de una serie."
 #: DB:link_type/description:741
 msgid "Indicates that the release is part of a series."
 msgstr "Indica que la publicación es parte de una serie."
+
+#. name:part of
+#: DB:link_type/description:1307
+#, fuzzy
+#| msgid "Indicates that the artist is part of a series."
+msgid "Indicates that the series is part of a series."
+msgstr "Indica que el artista es parte de una serie."
 
 #. name:part of
 #: DB:link_type/description:743
@@ -950,6 +966,19 @@ msgstr ""
 "Enlaza una grabación al área en la que fue producida. ¡Usa esta opción solo "
 "si no sabes el lugar exacto!"
 
+#. name:programmed in
+#: DB:link_type/description:1308
+#, fuzzy
+#| msgid ""
+#| "Links a recording to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a recording to the area it was programmed in. Use only when the place "
+"is unknown!"
+msgstr ""
+"Enlaza una grabación al área en la que fue producida. ¡Usa esta opción solo "
+"si no sabes el lugar exacto!"
+
 #. name:recorded in
 #: DB:link_type/description:698
 msgid ""
@@ -1005,6 +1034,13 @@ msgstr "Enlaza una grabación al lugar en el que fue mezclada."
 #. name:produced at
 #: DB:link_type/description:825
 msgid "Links a recording to the place it was produced at."
+msgstr "Enlaza una grabación al lugar en el que fue producida."
+
+#. name:programmed at
+#: DB:link_type/description:1309
+#, fuzzy
+#| msgid "Links a recording to the place it was produced at."
+msgid "Links a recording to the place it was programmed at."
 msgstr "Enlaza una grabación al lugar en el que fue producida."
 
 #. name:recorded at
@@ -1102,6 +1138,19 @@ msgstr ""
 "Enlaza una publicación al área en la que fue producida. ¡Usa esta opción "
 "solo si no sabes el lugar exacto!"
 
+#. name:programmed in
+#: DB:link_type/description:1311
+#, fuzzy
+#| msgid ""
+#| "Links a release to the area it was produced in. Use only when the place "
+#| "is unknown!"
+msgid ""
+"Links a release to the area it was programmed in. Use only when the place is "
+"unknown!"
+msgstr ""
+"Enlaza una publicación al área en la que fue producida. ¡Usa esta opción "
+"solo si no sabes el lugar exacto!"
+
 #. name:recorded in
 #: DB:link_type/description:699
 msgid ""
@@ -1186,6 +1235,13 @@ msgstr "Enlaza una publicación con el lugar en el que fue prensada."
 #. name:produced at
 #: DB:link_type/description:824
 msgid "Links a release to the place it was produced at."
+msgstr "Enlaza una publicación al lugar en el que fue producida."
+
+#. name:programmed at
+#: DB:link_type/description:1310
+#, fuzzy
+#| msgid "Links a release to the place it was produced at."
+msgid "Links a release to the place it was programmed at."
 msgstr "Enlaza una publicación al lugar en el que fue producida."
 
 #. name:recorded at
@@ -1735,9 +1791,13 @@ msgstr ""
 
 #. name:guest
 #: DB:link_attribute_type/description:194
+#, fuzzy
+#| msgid ""
+#| "This attribute indicates a 'guest' performance where the performer is not "
+#| "usually part of the band."
 msgid ""
-"This attribute indicates a 'guest' performance where the performer is not "
-"usually part of the band."
+"This attribute indicates a 'guest' performance where the artist in question "
+"is not usually part of the main artist (or contest jury)."
 msgstr ""
 "Este atributo indica una actuación “invitada” en la cual el intérprete no "
 "suele formar parte de la banda."
@@ -2039,6 +2099,42 @@ msgid ""
 "recorded track into a single piece of music suitable for release, when a "
 "company is credited instead of a specific engineer."
 msgstr ""
+
+#. name:design
+#: DB:link_type/description:1304
+#, fuzzy
+#| msgid "This indicates an artist who did design for the event."
+msgid "This indicates a company who did design for the event."
+msgstr "Indica que el artista se encargó del diseño para este evento."
+
+#. name:illustration
+#: DB:link_type/description:1305
+#, fuzzy
+#| msgid "This indicates an artist who did illustration for the event."
+msgid "This indicates a company who did illustration for the event."
+msgstr ""
+"Indica que el artista se encargó de las ilustraciones para este evento."
+
+#. name:graphic design
+#: DB:link_type/description:1306
+msgid ""
+"This indicates a company who did the graphic design / layout for the event, "
+"arranging pieces of content into a coherent and aesthetically-pleasing "
+"design."
+msgstr ""
+
+#. name:artwork
+#: DB:link_type/description:1303
+#, fuzzy
+#| msgid ""
+#| "This indicates an artist who provided artwork for the event when no more "
+#| "specific information is available."
+msgid ""
+"This indicates a company who provided artwork for the event when no more "
+"specific information is available."
+msgstr ""
+"Indica un artista que suministró material gráfico para el evento en casos "
+"donde no hay información más específica disponible."
 
 #. name:member of band
 #: DB:link_type/description:103
@@ -4450,6 +4546,13 @@ msgstr ""
 "Enlaza un evento a un canal, lista de reproducción o página de usuario en un "
 "sitio para compartir vídeos que contiene vídeos seleccionados por él."
 
+#. name:fanpage
+#: DB:link_type/description:1301
+#, fuzzy
+#| msgid "This links an artist to a fan-created website."
+msgid "This links an event to a fan-created website."
+msgstr "Enlaza un artista a una web creada por sus fans."
+
 #. name:patronage
 #: DB:link_type/description:898
 msgid ""
@@ -6063,8 +6166,8 @@ msgstr "puesto de A&R en"
 msgid "artists-in-residence"
 msgstr "compositores residentes"
 
-#: DB:link_type/name:1231 DB:link_type/name:1241 DB:link_type/name:1170
-#: DB:link_type/name:993
+#: DB:link_type/name:1231 DB:link_type/name:1303 DB:link_type/name:1241
+#: DB:link_type/name:1170 DB:link_type/name:993
 msgid "artwork"
 msgstr "material gráfico"
 
@@ -6691,8 +6794,8 @@ msgstr "derivaciones"
 msgid "derived from"
 msgstr "derivado de"
 
-#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1242
-#: DB:link_type/name:1171
+#: DB:link_type/name:1233 DB:link_type/name:928 DB:link_type/name:1304
+#: DB:link_type/name:1242 DB:link_type/name:1171
 msgid "design"
 msgstr "diseño"
 
@@ -6901,11 +7004,11 @@ msgstr "ingeniero"
 msgid "engineer position at"
 msgstr "ingeniero en"
 
-#: DB:link_type/name:813 DB:link_type/name:812
+#: DB:link_type/name:812 DB:link_type/name:813
 msgid "engineered at"
 msgstr ""
 
-#: DB:link_type/name:814 DB:link_type/name:815
+#: DB:link_type/name:815 DB:link_type/name:814
 msgid "engineered in"
 msgstr ""
 
@@ -6968,19 +7071,22 @@ msgstr "impresa por"
 #. name:fanpage
 #: DB:link_type/link_phrase:1188 DB:link_type/reverse_link_phrase:214
 #: DB:link_type/reverse_link_phrase:172 DB:link_type/reverse_link_phrase:1189
-#: DB:link_type/reverse_link_phrase:1190 DB:link_type/reverse_link_phrase:1191
+#: DB:link_type/reverse_link_phrase:1301 DB:link_type/reverse_link_phrase:1190
+#: DB:link_type/reverse_link_phrase:1191
 msgid "fan page for"
 msgstr "página de fans para"
 
 #. name:fanpage
 #: DB:link_type/link_phrase:214 DB:link_type/link_phrase:172
-#: DB:link_type/link_phrase:1189 DB:link_type/link_phrase:1190
-#: DB:link_type/link_phrase:1191 DB:link_type/reverse_link_phrase:1188
+#: DB:link_type/link_phrase:1189 DB:link_type/link_phrase:1301
+#: DB:link_type/link_phrase:1190 DB:link_type/link_phrase:1191
+#: DB:link_type/reverse_link_phrase:1188
 msgid "fan pages"
 msgstr "páginas de fans"
 
 #: DB:link_type/name:214 DB:link_type/name:172 DB:link_type/name:1189
-#: DB:link_type/name:1190 DB:link_type/name:1188 DB:link_type/name:1191
+#: DB:link_type/name:1301 DB:link_type/name:1190 DB:link_type/name:1188
+#: DB:link_type/name:1191
 msgid "fanpage"
 msgstr "página de fans"
 
@@ -7118,8 +7224,8 @@ msgstr "máster de vidrio preparado por"
 msgid "glass mastering location for"
 msgstr "lugar del máster de vidrio de"
 
-#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:125
-#: DB:link_type/name:27
+#: DB:link_type/name:1172 DB:link_type/name:1234 DB:link_type/name:1306
+#: DB:link_type/name:125 DB:link_type/name:27
 msgid "graphic design"
 msgstr ""
 
@@ -7357,8 +7463,8 @@ msgstr "tiene una página de discografía en"
 
 #. name:fanpage
 #: DB:link_type/long_link_phrase:214 DB:link_type/long_link_phrase:172
-#: DB:link_type/long_link_phrase:1189 DB:link_type/long_link_phrase:1190
-#: DB:link_type/long_link_phrase:1191
+#: DB:link_type/long_link_phrase:1189 DB:link_type/long_link_phrase:1301
+#: DB:link_type/long_link_phrase:1190 DB:link_type/long_link_phrase:1191
 msgid "has a fan page at"
 msgstr "tiene una página de fans en"
 
@@ -7406,7 +7512,7 @@ msgid "has a review page at"
 msgstr "tiene una reseña en"
 
 #. name:schedule
-#: DB:link_type/long_link_phrase:1083
+#: DB:link_type/long_link_phrase:1083 DB:link_type/long_link_phrase:1302
 msgid "has a schedule at"
 msgstr ""
 
@@ -7581,9 +7687,9 @@ msgstr "tiene la parte"
 
 #. name:part of, name:parts
 #: DB:link_type/link_phrase:743 DB:link_type/reverse_link_phrase:802
-#: DB:link_type/reverse_link_phrase:742 DB:link_type/reverse_link_phrase:740
-#: DB:link_type/reverse_link_phrase:741 DB:link_type/reverse_link_phrase:996
-#: DB:link_type/long_link_phrase:818
+#: DB:link_type/reverse_link_phrase:1307 DB:link_type/reverse_link_phrase:742
+#: DB:link_type/reverse_link_phrase:740 DB:link_type/reverse_link_phrase:741
+#: DB:link_type/reverse_link_phrase:996 DB:link_type/long_link_phrase:818
 msgid "has parts"
 msgstr "tiene las partes"
 
@@ -7736,7 +7842,7 @@ msgid "hybrid of"
 msgstr ""
 
 #: DB:link_type/name:1232 DB:link_type/name:927 DB:link_type/name:1173
-#: DB:link_type/name:1244
+#: DB:link_type/name:1305 DB:link_type/name:1244
 msgid "illustration"
 msgstr ""
 
@@ -7950,9 +8056,9 @@ msgid "is a page in a database for"
 msgstr "es una página en una base de datos para"
 
 #. name:part of
-#: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:742
-#: DB:link_type/long_link_phrase:740 DB:link_type/long_link_phrase:741
-#: DB:link_type/long_link_phrase:996
+#: DB:link_type/long_link_phrase:802 DB:link_type/long_link_phrase:1307
+#: DB:link_type/long_link_phrase:742 DB:link_type/long_link_phrase:740
+#: DB:link_type/long_link_phrase:741 DB:link_type/long_link_phrase:996
 msgid "is a part of"
 msgstr "es una parte de"
 
@@ -8167,11 +8273,6 @@ msgstr ""
 
 #: DB:link_type/name:1255
 msgid "jury member"
-msgstr ""
-
-#. name:jury member
-#: DB:link_type/link_phrase:1255
-msgid "jury member at"
 msgstr ""
 
 #. name:jury member
@@ -8988,14 +9089,15 @@ msgid "parody"
 msgstr "parodia"
 
 #. name:part of, name:parts
-#: DB:link_type/name:802 DB:link_type/name:356 DB:link_type/name:743
-#: DB:link_type/name:742 DB:link_type/name:740 DB:link_type/name:741
-#: DB:link_type/name:996 DB:link_type/link_phrase:802
-#: DB:link_type/link_phrase:742 DB:link_type/link_phrase:740
-#: DB:link_type/link_phrase:741 DB:link_type/link_phrase:996
-#: DB:link_type/reverse_link_phrase:739 DB:link_type/reverse_link_phrase:818
-#: DB:link_type/reverse_link_phrase:281 DB:link_type/reverse_link_phrase:717
-#: DB:link_type/reverse_link_phrase:356 DB:link_type/reverse_link_phrase:743
+#: DB:link_type/name:802 DB:link_type/name:1307 DB:link_type/name:356
+#: DB:link_type/name:743 DB:link_type/name:742 DB:link_type/name:740
+#: DB:link_type/name:741 DB:link_type/name:996 DB:link_type/link_phrase:802
+#: DB:link_type/link_phrase:1307 DB:link_type/link_phrase:742
+#: DB:link_type/link_phrase:740 DB:link_type/link_phrase:741
+#: DB:link_type/link_phrase:996 DB:link_type/reverse_link_phrase:739
+#: DB:link_type/reverse_link_phrase:818 DB:link_type/reverse_link_phrase:281
+#: DB:link_type/reverse_link_phrase:717 DB:link_type/reverse_link_phrase:356
+#: DB:link_type/reverse_link_phrase:743
 msgid "part of"
 msgstr "parte de"
 
@@ -9308,7 +9410,7 @@ msgstr "impresa en"
 msgid "printing location for"
 msgstr "lugar de impresión de"
 
-#: DB:link_type/name:825 DB:link_type/name:824
+#: DB:link_type/name:824 DB:link_type/name:825
 msgid "produced at"
 msgstr "producida en"
 
@@ -9316,7 +9418,7 @@ msgstr "producida en"
 msgid "produced for"
 msgstr ""
 
-#: DB:link_type/name:827 DB:link_type/name:826
+#: DB:link_type/name:826 DB:link_type/name:827
 msgid "produced in"
 msgstr "producida en"
 
@@ -9371,6 +9473,18 @@ msgstr "producción"
 #| msgid "{additional} recording location for"
 msgid "production coordinator for"
 msgstr "lugar de grabación {additional:adicional} de"
+
+#: DB:link_type/name:1309 DB:link_type/name:1310
+#, fuzzy
+#| msgid "arranged at"
+msgid "programmed at"
+msgstr "arreglos hechos en"
+
+#: DB:link_type/name:1311 DB:link_type/name:1308
+#, fuzzy
+#| msgid "arranged in"
+msgid "programmed in"
+msgstr "arreglos hechos en"
 
 #: DB:link_type/name:37 DB:link_type/name:132
 msgid "programming"
@@ -9857,12 +9971,13 @@ msgid "samples material"
 msgstr ""
 
 #. name:schedule
-#: DB:link_type/name:1083 DB:link_type/link_phrase:1083
+#: DB:link_type/name:1083 DB:link_type/name:1302 DB:link_type/link_phrase:1083
+#: DB:link_type/link_phrase:1302
 msgid "schedule"
 msgstr ""
 
 #. name:schedule
-#: DB:link_type/reverse_link_phrase:1083
+#: DB:link_type/reverse_link_phrase:1083 DB:link_type/reverse_link_phrase:1302
 msgid "schedule for"
 msgstr ""
 
@@ -10454,11 +10569,6 @@ msgstr "fue compositor residente en"
 msgid "was a conductor at"
 msgstr "fue director en"
 
-#. name:jury member
-#: DB:link_type/long_link_phrase:1255
-msgid "was a jury member at"
-msgstr "fue miembro del jurado en"
-
 #. name:launch event
 #: DB:link_type/long_link_phrase:796 DB:link_type/long_link_phrase:797
 msgid "was a launch event for"
@@ -10493,6 +10603,13 @@ msgstr "fue un artista invitado en"
 #: DB:link_type/long_link_phrase:932
 msgid "was a supporting DJ at"
 msgstr "fue un DJ de apoyo en"
+
+#. name:jury member
+#: DB:link_type/long_link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "was a {guest} jury member at"
+msgstr "fue miembro del jurado en"
 
 #. name:artist-in-residence
 #: DB:link_type/long_link_phrase:1164 DB:link_type/long_link_phrase:1296
@@ -10756,12 +10873,12 @@ msgid "{additional:additionally} edited in"
 msgstr "editada {additional:adicionalmente} en"
 
 #. name:engineered at
-#: DB:link_type/reverse_link_phrase:813 DB:link_type/reverse_link_phrase:812
+#: DB:link_type/reverse_link_phrase:812 DB:link_type/reverse_link_phrase:813
 msgid "{additional:additionally} engineered at"
 msgstr ""
 
 #. name:engineered in
-#: DB:link_type/reverse_link_phrase:814 DB:link_type/reverse_link_phrase:815
+#: DB:link_type/reverse_link_phrase:815 DB:link_type/reverse_link_phrase:814
 msgid "{additional:additionally} engineered in"
 msgstr ""
 
@@ -10791,12 +10908,12 @@ msgid "{additional:additionally} orchestrated"
 msgstr "orquestador {additional:adicional} para"
 
 #. name:produced at
-#: DB:link_type/reverse_link_phrase:825 DB:link_type/reverse_link_phrase:824
+#: DB:link_type/reverse_link_phrase:824 DB:link_type/reverse_link_phrase:825
 msgid "{additional:additionally} produced at"
 msgstr "producida {additional:adicionalmente} en"
 
 #. name:produced in
-#: DB:link_type/reverse_link_phrase:827 DB:link_type/reverse_link_phrase:826
+#: DB:link_type/reverse_link_phrase:826 DB:link_type/reverse_link_phrase:827
 msgid "{additional:additionally} produced in"
 msgstr "producida {additional:adicionalmente} en"
 
@@ -11108,9 +11225,10 @@ msgid "{additional} art direction"
 msgstr "dirección artística {additional:adicional}"
 
 #. name:artwork
-#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1241
-#: DB:link_type/link_phrase:1170 DB:link_type/link_phrase:993
-#: DB:link_type/reverse_link_phrase:1231 DB:link_type/reverse_link_phrase:1241
+#: DB:link_type/link_phrase:1231 DB:link_type/link_phrase:1303
+#: DB:link_type/link_phrase:1241 DB:link_type/link_phrase:1170
+#: DB:link_type/link_phrase:993 DB:link_type/reverse_link_phrase:1231
+#: DB:link_type/reverse_link_phrase:1303 DB:link_type/reverse_link_phrase:1241
 #: DB:link_type/reverse_link_phrase:1170 DB:link_type/reverse_link_phrase:993
 msgid "{additional} artwork"
 msgstr "material gráfico {additional:adicional}"
@@ -11154,24 +11272,26 @@ msgid "{additional} editing location for"
 msgstr "lugar de edición {additional:adicional} de"
 
 #. name:engineered at, name:engineered in
-#: DB:link_type/link_phrase:814 DB:link_type/link_phrase:815
-#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:815 DB:link_type/link_phrase:812
+#: DB:link_type/link_phrase:813 DB:link_type/link_phrase:814
 msgid "{additional} engineering location for"
 msgstr ""
 
 #. name:graphic design
 #: DB:link_type/link_phrase:1172 DB:link_type/link_phrase:1234
-#: DB:link_type/link_phrase:125 DB:link_type/link_phrase:27
-#: DB:link_type/reverse_link_phrase:1172 DB:link_type/reverse_link_phrase:1234
+#: DB:link_type/link_phrase:1306 DB:link_type/link_phrase:125
+#: DB:link_type/link_phrase:27 DB:link_type/reverse_link_phrase:1172
+#: DB:link_type/reverse_link_phrase:1234 DB:link_type/reverse_link_phrase:1306
 #: DB:link_type/reverse_link_phrase:125 DB:link_type/reverse_link_phrase:27
 msgid "{additional} graphic design"
 msgstr "diseño gráfico {additional:adicional}"
 
 #. name:illustration
 #: DB:link_type/link_phrase:1232 DB:link_type/link_phrase:927
-#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1244
-#: DB:link_type/reverse_link_phrase:1232 DB:link_type/reverse_link_phrase:927
-#: DB:link_type/reverse_link_phrase:1173 DB:link_type/reverse_link_phrase:1244
+#: DB:link_type/link_phrase:1173 DB:link_type/link_phrase:1305
+#: DB:link_type/link_phrase:1244 DB:link_type/reverse_link_phrase:1232
+#: DB:link_type/reverse_link_phrase:927 DB:link_type/reverse_link_phrase:1173
+#: DB:link_type/reverse_link_phrase:1305 DB:link_type/reverse_link_phrase:1244
 msgid "{additional} illustration"
 msgstr ""
 
@@ -11268,8 +11388,8 @@ msgid "{additional} photography"
 msgstr "fotografía {additional:adicional}"
 
 #. name:produced at, name:produced in
-#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:826
-#: DB:link_type/link_phrase:825 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:826 DB:link_type/link_phrase:824
+#: DB:link_type/link_phrase:827 DB:link_type/link_phrase:825
 msgid "{additional} producing location for"
 msgstr "lugar de producción {additional:adicional} de"
 
@@ -11352,8 +11472,9 @@ msgstr "director {assistant:asistente} {additional:adicional}"
 
 #. name:design
 #: DB:link_type/link_phrase:1233 DB:link_type/link_phrase:928
-#: DB:link_type/link_phrase:1242 DB:link_type/reverse_link_phrase:1233
-#: DB:link_type/reverse_link_phrase:928 DB:link_type/reverse_link_phrase:1242
+#: DB:link_type/link_phrase:1304 DB:link_type/link_phrase:1242
+#: DB:link_type/reverse_link_phrase:1233 DB:link_type/reverse_link_phrase:928
+#: DB:link_type/reverse_link_phrase:1304 DB:link_type/reverse_link_phrase:1242
 msgid "{additional} {assistant} design"
 msgstr ""
 
@@ -11490,6 +11611,14 @@ msgstr ""
 #: DB:link_type/reverse_link_phrase:60 DB:link_type/reverse_link_phrase:149
 msgid "{additional} {guest} {solo} {vocal:%|vocals}"
 msgstr ""
+
+#. name:programmed at, name:programmed in
+#: DB:link_type/link_phrase:1311 DB:link_type/link_phrase:1308
+#: DB:link_type/link_phrase:1309 DB:link_type/link_phrase:1310
+#, fuzzy
+#| msgid "{additional} recording location for"
+msgid "{additional} {instrument} programming location for"
+msgstr "lugar de grabación {additional:adicional} de"
 
 #. name:collaboration
 #: DB:link_type/link_phrase:102
@@ -11817,6 +11946,35 @@ msgstr ""
 msgid "{entity1} presented {entity0}"
 msgstr ""
 
+#. name:artwork
+#: DB:link_type/long_link_phrase:1303
+#, fuzzy
+#| msgid "provided {additional} artwork on"
+msgid "{entity1} provided {additional} artwork on {entity0}"
+msgstr "se encargó del material gráfico {additional:adicional} para"
+
+#. name:graphic design
+#: DB:link_type/long_link_phrase:1306
+#, fuzzy
+#| msgid "provided {additional} graphic design on"
+msgid "{entity1} provided {additional} graphic design on {entity0}"
+msgstr "se encargó del diseño gráfico {additional:adicional} en"
+
+#. name:illustration
+#: DB:link_type/long_link_phrase:1305
+#, fuzzy
+#| msgid "provided {additional} illustration on"
+msgid "{entity1} provided {additional} illustration on {entity0}"
+msgstr "se encargó de las ilustraciones {additional:adicionales} en"
+
+#. name:design
+#: DB:link_type/long_link_phrase:1304
+#, fuzzy
+#| msgid "provided {additional} {assistant} design on"
+msgid "{entity1} provided {additional} {assistant} design on {entity0}"
+msgstr ""
+"{assistant:asistió con el|se encargó del} diseño {additional:adicional} en"
+
 #. name:arranged for
 #: DB:link_type/long_link_phrase:949 DB:link_type/long_link_phrase:948
 msgid "{entity1} was arranged for {entity0}"
@@ -11957,12 +12115,12 @@ msgid "{entity1} was {additional:additionally} edited in {entity0}"
 msgstr "{entity1} fue editada {additional:adicionalmente} en {entity0}"
 
 #. name:engineered at
-#: DB:link_type/long_link_phrase:813 DB:link_type/long_link_phrase:812
+#: DB:link_type/long_link_phrase:812 DB:link_type/long_link_phrase:813
 msgid "{entity1} was {additional:additionally} engineered at {entity0}"
 msgstr ""
 
 #. name:engineered in
-#: DB:link_type/long_link_phrase:814 DB:link_type/long_link_phrase:815
+#: DB:link_type/long_link_phrase:815 DB:link_type/long_link_phrase:814
 msgid "{entity1} was {additional:additionally} engineered in {entity0}"
 msgstr ""
 
@@ -11977,13 +12135,27 @@ msgid "{entity1} was {additional:additionally} mixed in {entity0}"
 msgstr "{entity1} fue mezclada {additional:adicionalmente} en {entity0}"
 
 #. name:produced at
-#: DB:link_type/long_link_phrase:825 DB:link_type/long_link_phrase:824
+#: DB:link_type/long_link_phrase:824 DB:link_type/long_link_phrase:825
 msgid "{entity1} was {additional:additionally} produced at {entity0}"
 msgstr "{entity1} fue producida {additional:adicionalmente} en {entity0}"
 
 #. name:produced in
-#: DB:link_type/long_link_phrase:827 DB:link_type/long_link_phrase:826
+#: DB:link_type/long_link_phrase:826 DB:link_type/long_link_phrase:827
 msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgstr "{entity1} fue producida {additional:adicionalmente} en {entity0}"
+
+#. name:programmed at
+#: DB:link_type/long_link_phrase:1309 DB:link_type/long_link_phrase:1310
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} produced at {entity0}"
+msgid "{entity1} was {additional:additionally} programmed at {entity0}"
+msgstr "{entity1} fue producida {additional:adicionalmente} en {entity0}"
+
+#. name:programmed in
+#: DB:link_type/long_link_phrase:1311 DB:link_type/long_link_phrase:1308
+#, fuzzy
+#| msgid "{entity1} was {additional:additionally} produced in {entity0}"
+msgid "{entity1} was {additional:additionally} programmed in {entity0}"
 msgstr "{entity1} fue producida {additional:adicionalmente} en {entity0}"
 
 #. name:recorded at
@@ -12090,6 +12262,13 @@ msgstr ""
 msgid "{guest} concertmaster for"
 msgstr ""
 
+#. name:jury member
+#: DB:link_type/link_phrase:1255
+#, fuzzy
+#| msgid "was a jury member at"
+msgid "{guest} jury member at"
+msgstr "fue miembro del jurado en"
+
 #. name:sibling
 #: DB:link_type/link_phrase:110 DB:link_type/reverse_link_phrase:110
 msgid "{half:half-}{step}siblings"
@@ -12104,6 +12283,20 @@ msgstr ""
 #: DB:link_type/link_phrase:986 DB:link_type/link_phrase:987
 msgid "{instrument:%|instruments} technician for"
 msgstr ""
+
+#. name:programmed at
+#: DB:link_type/reverse_link_phrase:1309 DB:link_type/reverse_link_phrase:1310
+#, fuzzy
+#| msgid "{additional:additionally} produced at"
+msgid "{instrument} {additional:additionally} programmed at"
+msgstr "producida {additional:adicionalmente} en"
+
+#. name:programmed in
+#: DB:link_type/reverse_link_phrase:1311 DB:link_type/reverse_link_phrase:1308
+#, fuzzy
+#| msgid "{additional:additionally} produced in"
+msgid "{instrument} {additional:additionally} programmed in"
+msgstr "producida {additional:adicionalmente} en"
 
 #. name:parent
 #: DB:link_type/link_phrase:109

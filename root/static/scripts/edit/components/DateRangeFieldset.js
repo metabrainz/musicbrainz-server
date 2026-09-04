@@ -25,10 +25,16 @@ import FormRowPartialDate, {
 
 /* eslint-disable ft-flow/sort-keys */
 export type ActionT =
-  | {+type: 'update-begin-date', +action: FormRowPartialDateActionT}
-  | {+type: 'update-end-date', +action: FormRowPartialDateActionT}
-  | {+type: 'set-ended', +enabled: boolean}
-  | {+type: 'copy-date'};
+  | {
+      readonly type: 'update-begin-date',
+      readonly action: FormRowPartialDateActionT,
+    }
+  | {
+      readonly type: 'update-end-date',
+      readonly action: FormRowPartialDateActionT,
+    }
+  | {readonly type: 'set-ended', readonly enabled: boolean}
+  | {readonly type: 'copy-date'};
 /* eslint-enable ft-flow/sort-keys */
 
 export type StateT = DatePeriodFieldT;

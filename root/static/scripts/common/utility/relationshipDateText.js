@@ -13,7 +13,7 @@ import formatDate from './formatDate.js';
 import {isDateNonEmpty} from './isDateEmpty.js';
 
 export default function relationshipDateText(
-  r: $ReadOnly<{...DatePeriodRoleT, ...}>,
+  r: Readonly<{...DatePeriodRoleT, ...}>,
   bracketEnded?: boolean = true,
 ): string {
   const beginDate = r.begin_date;

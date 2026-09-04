@@ -61,7 +61,7 @@ component LanguageLink(language: ServerLanguageT) {
 
 component LanguageMenu(
   currentBCP47Language: string,
-  serverLanguages: $ReadOnlyArray<ServerLanguageT>,
+  serverLanguages: ReadonlyArray<ServerLanguageT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (

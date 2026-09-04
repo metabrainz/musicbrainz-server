@@ -200,6 +200,7 @@ sub _build_relationship {
     my $entity0_credit = $change->{entity0_credit} // $data->{entity0_credit} // '';
     my $entity1_credit = $change->{entity1_credit} // $data->{entity1_credit} // '';
 
+    # If making changes here, check if they also apply to `Edit::Relationship::Create`.
     return to_json_object(Relationship->new(
         id => $data->{relationship_id},
         link => Link->new(

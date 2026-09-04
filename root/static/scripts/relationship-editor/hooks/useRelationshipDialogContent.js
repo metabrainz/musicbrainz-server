@@ -44,21 +44,21 @@ const RELATIONSHIP_DEFAULTS = {
 };
 
 type CommonOptionsT = {
-  +batchSelectionCount?: number,
-  +dispatch: (UpdateRelationshipActionT) => void,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +title: string,
+  readonly batchSelectionCount?: number,
+  readonly dispatch: (UpdateRelationshipActionT) => void,
+  readonly releaseHasUnloadedTracks: boolean,
+  readonly source: RelatableEntityT,
+  readonly title: string,
 };
 
 export default function useRelationshipDialogContent(
-  options: $ReadOnly<{
+  options: Readonly<{
     ...CommonOptionsT,
-    +hasPreselectedTargetType: boolean,
-    +relationship: RelationshipStateT,
-    +targetTypeOptions: TargetTypeOptionsT | null,
-    +targetTypeRef: {-current: RelatableEntityTypeT} | null,
-    +user: ActiveEditorT,
+    readonly hasPreselectedTargetType: boolean,
+    readonly relationship: RelationshipStateT,
+    readonly targetTypeOptions: TargetTypeOptionsT | null,
+    readonly targetTypeRef: {writeonly current: RelatableEntityTypeT} | null,
+    readonly user: ActiveEditorT,
   }>,
 ): (
   closeAndReturnFocus: () => void,
@@ -135,13 +135,13 @@ export default function useRelationshipDialogContent(
 }
 
 export function useAddRelationshipDialogContent(
-  options: $ReadOnly<{
+  options: Readonly<{
     ...CommonOptionsT,
-    +backward?: boolean,
-    +buildNewRelationshipData?:
+    readonly backward?: boolean,
+    readonly buildNewRelationshipData?:
       () => Partial<RelationshipStateT> | null,
-    +preselectedTargetType: RelatableEntityTypeT | null,
-    +targetTypeOptions?: TargetTypeOptionsT | null,
+    readonly preselectedTargetType: RelatableEntityTypeT | null,
+    readonly targetTypeOptions?: TargetTypeOptionsT | null,
   }>,
 ): (
   closeAndReturnFocus: () => void,

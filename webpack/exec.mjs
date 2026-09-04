@@ -36,7 +36,7 @@ const compiler = webpack({
 
   mode: 'production',
 
-  module: moduleConfig,
+  module: moduleConfig('node'),
 
   optimization: {
     minimize: false,

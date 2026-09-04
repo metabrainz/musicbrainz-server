@@ -36,6 +36,11 @@ sub _create_model { 'Label' }
 sub label_id { shift->entity_id }
 sub edit_template { 'AddLabel' }
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/label/$mbid";
+}
+
 has '+data' => (
     isa => Dict[
         name         => Str,

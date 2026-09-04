@@ -98,8 +98,8 @@ test 'Duplicate release labels are merged' => sub {
     MusicBrainz::Server::Test->prepare_test_database($c, '+edit_release_label');
     $c->sql->do(<<~'SQL');
         INSERT INTO release_label (release, label, catalog_number)
-            SELECT 1, label, catalog_number FROM release_label
-            WHERE release = 1
+            SELECT 1, 3, catalog_number FROM release_label
+            WHERE release = 1 AND label = 2
         SQL
 
     my $edit = $c->model('Edit')->create(

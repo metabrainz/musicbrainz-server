@@ -13,8 +13,8 @@ import * as React from 'react';
 import {SanitizedCatalystContext} from '../../../context.mjs';
 
 type BlogEntryT = {
-  +title: string,
-  +url: string,
+  readonly title: string,
+  readonly url: string,
 };
 
 component UserMenu(
@@ -76,7 +76,7 @@ component UserMenu(
   );
 }
 
-export default (hydrate<React.PropsOf<UserMenu>>(
+export default hydrate<React.PropsOf<UserMenu>>(
   'div.user-menu',
   UserMenu,
-): component(...React.PropsOf<UserMenu>));
+) as component(...React.PropsOf<UserMenu>);

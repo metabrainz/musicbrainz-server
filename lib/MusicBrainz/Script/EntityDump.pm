@@ -7,7 +7,6 @@ use base 'Exporter';
 use feature 'state';
 use MusicBrainz::Script::Utils qw( get_primary_keys );
 use MusicBrainz::Server::Constants qw(
-    $EDITOR_SANITISED_COLUMNS
     %ENTITIES
     entities_with
 );
@@ -34,10 +33,6 @@ our $dump_types = 0;
 our $follow_extra_data = 0;
 our $relationships_cardinality = 0;
 our @skip_tables;
-# This is a hack that allows us to clear editor.area for areas that weren't
-# already dumped. (We don't follow this column because it creates cycles;
-# see `sub editors`.)
-our %area_ids;
 our %path_ids;
 
 sub pluck {
@@ -90,6 +85,10 @@ sub get_rows {
 
     my @values = grep { defined } @{ $values // [] };
     return unless @values;
+
+    if ($table eq 'editor') {
+        $table = 'editor_sanitized';
+    }
 
     return $c->sql->select_list_of_hashes(
         "SELECT * FROM $table WHERE $column = any(?) ORDER BY $column",
@@ -304,7 +303,6 @@ sub areas {
     my @ids = grep { defined } @{$ids};
     return unless @ids;
 
-    $area_ids{$_} = 1 for @ids;
     $ids = \@ids;
 
     core_entity($c, 'area', $ids, sub {
@@ -363,17 +361,9 @@ sub editors {
     return unless @{$ids};
 
     my $editor_rows = $c->sql->select_list_of_hashes(
-        "SELECT $EDITOR_SANITISED_COLUMNS FROM editor WHERE id = any(?) ORDER BY id",
+        'SELECT * FROM editor_sanitized WHERE id = any(?) ORDER BY id',
         $ids,
     );
-
-    # The editor table's 'area' column creates cycles between several tables,
-    # so we only do this for areas that we know have been dumped. While it's
-    # true that we can detect cycles in core_entity, that would prevent us
-    # from filtering out core entities that have already been followed,
-    # because the result of the function would depend on the @link_path.
-    my @known_areas = grep { defined $_ && $area_ids{$_} } @{ pluck('area', $editor_rows) };
-    areas($c, \@known_areas);
 
     handle_rows($c, 'editor', $editor_rows);
 

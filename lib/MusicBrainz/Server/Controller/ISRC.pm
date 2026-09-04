@@ -36,6 +36,7 @@ sub show : Chained('load') PathPart('')
     my $isrcs = $c->stash->{isrcs};
     my @recordings = sort_by { $_->name } $c->model('Recording')->load(@$isrcs);
     $c->model('ArtistCredit')->load(@recordings);
+    $c->model('Recording')->load_aliases(@recordings);
     $c->stash(
         current_view => 'Node',
         component_path => 'isrc/Index',

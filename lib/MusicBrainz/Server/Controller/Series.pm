@@ -114,6 +114,10 @@ sub show : PathPart('') Chained('load') {
         $c->model('ReleaseGroup')->load_has_cover_art(@entities);
     }
 
+    if ($entity_type eq 'series') {
+        $c->model('Series')->load_related_info(@entities);
+    }
+
     if ($entity_type eq 'work') {
         $c->model('Work')->load_related_info(@entities);
         $c->model('Work')->load_meta(@entities);

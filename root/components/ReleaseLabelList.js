@@ -18,7 +18,7 @@ const displayLabel = (label: LabelT) => (
 const getLabelGid = (x: LabelT) => x.gid;
 
 component ReleaseLabelList(
-  labels as releaseLabels: ?$ReadOnlyArray<ReleaseLabelT>,
+  labels as releaseLabels: ?ReadonlyArray<ReleaseLabelT>,
 ) {
   if (!releaseLabels || !releaseLabels.length) {
     return null;

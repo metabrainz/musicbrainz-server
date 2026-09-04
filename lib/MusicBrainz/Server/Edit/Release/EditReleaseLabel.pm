@@ -203,6 +203,10 @@ sub initialize
     die 'You must specify the release label object to edit'
         unless defined $release_label;
 
+    if (exists $opts{catalog_number} && !non_empty($opts{catalog_number})) {
+        $opts{catalog_number} = undef;
+    }
+
     unless ($release_label->release) {
         $self->c->model('Release')->load($release_label);
         $self->c->model('Medium')->load_for_releases($release_label->release);

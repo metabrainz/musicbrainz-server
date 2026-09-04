@@ -3,7 +3,7 @@ package MusicBrainz::Script::PruneCache;
 =head1 DESCRIPTION
 
 This script can be used to clear entities last updated within `interval`
-seconds from Redis. It's suitable for running after replication.
+seconds from Valkey. It's suitable for running after replication.
 
 =cut
 

@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 
-use Test::Fatal;
 use Test::Routine;
 use Test::Moose;
 use Test::More;
@@ -13,6 +12,7 @@ use DateTime;
 use DateTime::Format::Pg;
 use MusicBrainz::Server::Constants qw(
     :edit_status
+    $DIGEST_AUTH_TOKEN_FLAG
     $EDIT_SERIES_CREATE
     $EDIT_ARTIST_EDIT
     $EDIT_RELATIONSHIP_CREATE
@@ -21,9 +21,9 @@ use MusicBrainz::Server::Constants qw(
     :vote
 );
 use MusicBrainz::Server::Context;
+use MusicBrainz::Server::Data::Utils qw( ha1_password );
 use Set::Scalar;
 use Sql;
-use Digest::MD5 qw( md5_hex );
 use t::Util::Moose::Attribute qw( object_attributes attribute_value_is );
 
 BEGIN { use MusicBrainz::Server::Data::Editor; }
@@ -56,33 +56,6 @@ INSERT INTO artist_rating_raw (artist, editor, rating) VALUES (1, 1, 80);
         1,
         'The amount of ratings for the entity is correct',
     );
-};
-
-test 'Remember me tokens' => sub {
-    my $test = shift;
-
-    MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
-
-    my $model = $test->c->model('Editor');
-
-    my $user_name = 'alice';
-    my ($normalized_name, $token) = $model->allocate_remember_me_token($user_name);
-
-    ok($token, 'Token is returned with improper username capitalization');
-
-    is($normalized_name, 'Alice', 'Normalized name (with proper caps) is returned from allocating remember me token');
-
-    ok($model->consume_remember_me_token($normalized_name, $token),
-       'Can consume "remember me" tokens');
-
-    ok(!$model->consume_remember_me_token($user_name, $token),
-       q(Remember me tokens with improper capitalization can't be consumed));
-
-    ok(!exception { $model->consume_remember_me_token('Unknown User', $token) },
-       'It is not an exception to attempt to consume tokens for non-existent users');
-
-    is($model->allocate_remember_me_token('Unknown User'), undef,
-       'Allocating tokens for unknown users returns undefined');
 };
 
 test 'Creating a new editor' => sub {
@@ -119,8 +92,8 @@ test 'Creating a new editor' => sub {
     );
     is(
         $editor->ha1,
-        md5_hex(join(':', $editor->name, 'musicbrainz.org', 'password')),
-        'The ha1 for the new editor was generated correctly',
+        '',
+        'The ha1 for the new editor is empty',
     );
 
     my $now = DateTime::Format::Pg->parse_datetime(
@@ -149,7 +122,7 @@ test 'Creating a new editor' => sub {
     );
 };
 
-test 'find_by_email and is_email_used_elsewhere' => sub {
+test 'find_by_email' => sub {
     my $test = shift;
     MusicBrainz::Server::Test->prepare_test_database($test->c, '+editor');
     my $editor_data = MusicBrainz::Server::Data::Editor->new(c => $test->c);
@@ -159,8 +132,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
         name => 'new_editor_2',
         password => 'password',
     });
-    # For testing is_email_used_elsewhere
-    my $future_editor_id = $new_editor_2->id + 1;
 
     note('We set an email for the new editor with update_email');
     $editor_data->update_email($new_editor_2, 'editor@example.com');
@@ -174,22 +145,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     is(scalar(@editors), 1, 'An editor was found searching with all caps');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
 
-    note('We check is_email_used_elsewhere shows the email as being in use');
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'editor@example.com',
-            $future_editor_id,
-        ),
-        'The exact email is shown to be in use if another editor wants it',
-    );
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'EDITOR@EXAMPLE.COM',
-            $future_editor_id,
-        ),
-        'The email is shown to be in use even if searching with all caps',
-    );
-
     note('We set an all caps email for the new editor with update_email');
     $editor_data->update_email($new_editor_2, 'EDITOR@EXAMPLE.COM');
 
@@ -201,22 +156,6 @@ test 'find_by_email and is_email_used_elsewhere' => sub {
     @editors = $editor_data->find_by_email('editor@example.com');
     is(scalar(@editors), 1, 'An editor was found searching with normal caps');
     is($editors[0]->id, $new_editor_2->id, 'The right editor was found');
-
-    note('We check is_email_used_elsewhere shows the email as being in use');
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'EDITOR@EXAMPLE.COM',
-            $future_editor_id,
-        ),
-        'The exact email is shown to be in use if another editor wants it',
-    );
-    ok(
-        $editor_data->is_email_used_elsewhere(
-            'editor@example.com',
-            $future_editor_id,
-        ),
-        'The email is shown to be in use even if searching with normal caps',
-    );
 };
 
 test 'Getting/loading existing editors' => sub {
@@ -491,14 +430,6 @@ test 'Deleting editors removes most information' => sub {
     );
     is($bob->deleted, 1, 'The editor is marked as deleted');
 
-    # The name should be prevented from being reused by default (MBS-9271).
-    ok(
-        $c->sql->select_single_value(
-            'SELECT 1 FROM old_editor_name WHERE name = ?', 'Bob',
-        ),
-        'The editor name is listed in old_editor_name as not reusable',
-    );
-
     # Ensure all other attributes are cleared
     my $exclusions = Set::Scalar->new(
         qw( id name password privileges last_login_date languages
@@ -528,11 +459,11 @@ test 'Deleting editors removes most information' => sub {
         }
     }
 
-    # Ensure all tags are cleared
+    # Tags are only cleared by `admin/cleanup/RemoveResidualUserData`.
     my $tags = $c->sql->select_single_column_array(
         'SELECT tag FROM area_tag_raw WHERE editor = ?', 1,
     );
-    is(@$tags, 0, 'All tags by the editor have been blanked');
+    is(@$tags, 1, 'Tags by the editor have not been blanked');
 };
 
 test 'Deleting an editor cancels all open edits' => sub {
@@ -960,6 +891,45 @@ test 'Marking an editor as spammer changes all Yes/No votes on open edits to Abs
     is(scalar @{ $edit->votes }, 2, 'There is two votes');
     is($edit->votes->[1]->vote, $VOTE_ABSTAIN, 'New vote is Abstain');
     is($edit->votes->[1]->editor_id, 2, 'New vote is by editor 2');
+};
+
+test 'Test disable_digest_auth_token' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, 'cee82955d47bf0bd71038244579e766f', 'The ha1 is non-empty before disabling');
+
+    $c->model('Editor')->disable_digest_auth_token(14);
+    $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, '', 'The ha1 is empty after disabling');
+};
+
+test 'Test reset_digest_auth_token' => sub {
+    my $test = shift;
+    my $c = $test->c;
+
+    MusicBrainz::Server::Test->prepare_test_database($c, '+oauth');
+
+    my $editor = $c->model('Editor')->get_by_id(14);
+    is(
+        $editor->privileges & $DIGEST_AUTH_TOKEN_FLAG,
+        0,
+        'The digest auth token flag is unset on the editor',
+    );
+
+    my $token = $c->model('Editor')->reset_digest_auth_token(14);
+    my $ha1 = ha1_password('æditorⅣ', $token);
+
+    $editor = $c->model('Editor')->get_by_id(14);
+    is($editor->ha1, $ha1, 'The ha1 is reset');
+    is(
+        $editor->privileges & $DIGEST_AUTH_TOKEN_FLAG,
+        $DIGEST_AUTH_TOKEN_FLAG,
+        'The digest auth token flag is set on the editor',
+    );
 };
 
 1;

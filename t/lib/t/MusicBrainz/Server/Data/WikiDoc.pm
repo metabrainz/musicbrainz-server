@@ -43,7 +43,7 @@ like(
 
 $wd = $test->c->model('WikiDoc');
 $page = $wd->get_page('XML_Webservice');
-is($page->canonical, 'Development/XML_Web_Service/Version_2', 'Resolved canonical wiki id');
+is($page->canonical, 'MusicBrainz_API', 'Resolved canonical wiki id');
 
 LWP::UserAgent::Mockable->finished;
 

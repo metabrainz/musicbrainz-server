@@ -12,9 +12,19 @@ has 'c' => (
     handles    => [qw( sql )],
 );
 
+has database => (
+    is => 'ro',
+    isa => 'Str',
+    default => 'MAINTENANCE',
+    traits => ['Getopt'],
+    documentation => 'database to use (default: MAINTENANCE)',
+);
+
 sub _build_c
 {
-    return MusicBrainz::Server::Context->create_script_context;
+    return MusicBrainz::Server::Context->create_script_context(
+        database => shift->database,
+    );
 }
 
 1;

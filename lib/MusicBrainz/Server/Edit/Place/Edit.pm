@@ -48,6 +48,11 @@ sub edit_type { $EDIT_PLACE_EDIT }
 
 sub _edit_model { 'Place' }
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/place/$mbid";
+}
+
 sub change_fields
 {
     return Dict[

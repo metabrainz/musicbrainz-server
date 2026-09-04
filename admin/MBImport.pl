@@ -248,10 +248,10 @@ sub ImportAllTables
         if (DBDefs->REPLICATION_TYPE == RT_MIRROR)
         {
                 my $basetable = $table;
-                $basetable =~ s/_sanitised$//;
+                $basetable =~ s/_sanitized$//;
         }
 
-        if ($table =~ /^(.*)_sanitised$/)
+        if ($table =~ /^(.*)_sanitized$/)
         {
                 my $basetable = $1;
 

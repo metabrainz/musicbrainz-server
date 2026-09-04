@@ -12,7 +12,7 @@ import * as React from 'react';
 import {compareStrings} from '../utility/compare.mjs';
 
 export type PostParametersT = {
-  +[param: string]: string | $ReadOnlyArray<string>,
+  readonly [param: string]: string | ReadonlyArray<string>,
   ...
 };
 
@@ -22,7 +22,7 @@ component PostParameters(params: PostParametersT) {
   const [expanded, setExpanded] = React.useState(false);
 
   const sortedParams:
-    $ReadOnlyArray<[string, string | $ReadOnlyArray<string>]> =
+    ReadonlyArray<[string, string | ReadonlyArray<string>]> =
       Object.entries(params).sort(
         (a, b) => compareStrings(a[0], b[0]),
       );
@@ -87,7 +87,7 @@ component PostParameters(params: PostParametersT) {
   );
 }
 
-export default (hydrate(
+export default hydrate(
   'div.post-parameters',
   PostParameters,
-): component(...React.PropsOf<PostParameters>));
+) as component(...React.PropsOf<PostParameters>);

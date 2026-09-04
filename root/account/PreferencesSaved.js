@@ -13,7 +13,10 @@ import StatusPage from '../components/StatusPage.js';
 import {SanitizedCatalystContext} from '../context.mjs';
 
 component PreferencesSaved() {
-  const $c = React.useContext(SanitizedCatalystContext);
+  const {user} = React.useContext(SanitizedCatalystContext);
+  if (!user) {
+    return null;
+  }
   return (
     <StatusPage title={l('Preferences')}>
       <p>
@@ -21,9 +24,7 @@ component PreferencesSaved() {
           `Your preferences have been saved. Click {link|here} to
            continue to your user page.`,
           {
-            link: $c.user
-              ? '/user/' + encodeURIComponent($c.user.name)
-              : '/register',
+            link: '/user/' + encodeURIComponent(user.name),
           },
         )}
       </p>

@@ -34,6 +34,11 @@ sub edit_name { N_lp('Edit series', 'edit type') }
 sub _edit_model { 'Series' }
 sub series_id { shift->entity_id }
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/series/$mbid";
+}
+
 sub change_fields
 {
     return Dict[

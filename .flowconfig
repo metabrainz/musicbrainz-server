@@ -21,13 +21,10 @@ unused-promise=error
 
 [options]
 autoimports=true
-exact_by_default=true
 format.bracket_spacing=false
 format.single_quotes=true
 module.name_mapper.extension='less' -> '<PROJECT_ROOT>/root/lessstub.js.flow'
 react.runtime=automatic
-component_syntax=true
-experimental.pattern_matching=true
 
 [strict]
 nonstrict-import

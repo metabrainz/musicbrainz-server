@@ -27,8 +27,8 @@ component PaginatedResults(
   const paginator = (
     <Paginator
       guessSearch={guessSearch}
-      pageVar={pageVar}
       pager={pager}
+      pageVar={pageVar}
     />
   );
 

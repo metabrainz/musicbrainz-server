@@ -12,6 +12,7 @@ import childProcess from 'node:child_process';
 import fs from 'node:fs';
 import http from 'node:http';
 import path from 'node:path';
+import pg from 'pg';
 import webdriver from 'selenium-webdriver';
 import getBrowsingContextInstance from 'selenium-webdriver/bidi/browsingContext.js';
 import {
@@ -179,7 +180,6 @@ function wrapChildProcessMethod(methodName) {
   };
 }
 
-const exec = wrapChildProcessMethod('exec');
 const execFile = wrapChildProcessMethod('execFile');
 
 const proxy = httpProxy.createProxyServer({});
@@ -427,6 +427,30 @@ function getDocumentLocation() {
   return driver.executeScript('return document.location;');
 }
 
+// Workaround for https://issues.chromium.org/issues/533493931
+async function workAroundBeforeUnloadBug(callback) {
+  let attempts = 0;
+  while (attempts < 3) {
+    try {
+      return await callback();
+    } catch (error) {
+      attempts++;
+      if (!/Unexpected dialog type beforeunload/.test(error.message)) {
+        throw error;
+      }
+      try {
+        const browsingContext = await getBrowsingContextInstance(driver, {
+          browsingContextId: await driver.getWindowHandle(),
+        });
+        await browsingContext.handleUserPrompt(true);
+      } catch {
+        // The prompt may already be gone; retry the callback regardless.
+      }
+    }
+  }
+  return undefined;
+}
+
 function getPageErrors() {
   return driver.executeScript('return ((window.MB || {}).js_errors || [])');
 }
@@ -468,60 +492,32 @@ function timePrefix(str) {
   return `[${(new Date()).toISOString().slice(-13)}] ${str}`;
 }
 
-async function checkSirQueues(t) {
-  let failedCount = 0;
-  let retryCount = 0;
-  let indexCount = 0;
-  let deleteCount = 0;
-  let prevIndexCount = 0;
-  let prevDeleteCount = 0;
-  let prevRetryCount = 0;
+async function checkSirQueues(t, pgClient) {
+  let pendingMessageCount = 0;
+  let prevPendingMessageCount = 0;
   let lastProgressTimestamp = Date.now();
 
   while (
     // Continue if the queues have decreased at all in the past 30s.
     (Date.now() - lastProgressTimestamp) < 30000
   ) {
-    prevIndexCount = indexCount;
-    prevDeleteCount = deleteCount;
-    prevRetryCount = retryCount;
+    prevPendingMessageCount = pendingMessageCount;
 
-    const rabbitmqCommand =
-      process.env.RABBITMQCTL_COMMAND || 'sudo -n rabbitmqctl';
-    const result = await exec(
-      `${rabbitmqCommand} list_queues -p '/sir-test' -q --formatter=json`,
+    await pgClient.query('BEGIN');
+    const pendingDataResult = await pgClient.query(
+      'SELECT count(*)::INTEGER as message_count FROM sir.pending_data',
     );
-    const sirQueues = JSON.parse(result.stdout);
-    const messageCounts = sirQueues.reduce((map, queue) => {
-      map.set(queue.name, queue.messages);
-      return map;
-    }, new Map());
+    pendingMessageCount = pendingDataResult.rowCount > 0
+      ? pendingDataResult.rows[0].message_count
+      : 0;
+    await pgClient.query('ROLLBACK');
 
-    failedCount = messageCounts.get('search.failed') || 0;
-    retryCount = messageCounts.get('search.retry') || 0;
-    indexCount = messageCounts.get('search.index') || 0;
-    deleteCount = messageCounts.get('search.delete') || 0;
-
-    if (failedCount) {
-      throw new Error(
-        'non-empty sir queues: ' +
-        `search.failed (${failedCount})`,
-      );
-    }
-
-    if (indexCount || deleteCount || retryCount) {
-      if (
-        (indexCount - prevIndexCount) < 0 ||
-        (deleteCount - prevDeleteCount) < 0 ||
-        (retryCount - prevRetryCount) < 0
-      ) {
+    if (pendingMessageCount) {
+      if ((pendingMessageCount - prevPendingMessageCount) < 0) {
         lastProgressTimestamp = Date.now();
       }
       t.comment(timePrefix(
-        'waiting for non-empty sir queues: ' +
-        `search.index (${indexCount}), ` +
-        `search.delete (${deleteCount}), ` +
-        `search.retry (${retryCount})`,
+        `waiting for non-empty sir queues (${pendingMessageCount})`,
       ));
       await driver.sleep(3000);
     } else {
@@ -529,10 +525,7 @@ async function checkSirQueues(t) {
     }
   }
 
-  throw new Error(
-    'non-empty sir queues: ' +
-    `search.index (${indexCount}), search.delete (${deleteCount})`,
-  );
+  throw new Error(`non-empty sir queues (${pendingMessageCount})`);
 }
 
 async function getSeleniumDbTupStats() {
@@ -812,14 +805,7 @@ async function handleCommand(stest, {command, index, target, value}, t) {
 
 /* eslint-disable sort-keys */
 const seleniumTests = [
-  {
-    name: (
-      DBDefs.MTCAPTCHA_PUBLIC_KEY &&
-      DBDefs.MTCAPTCHA_PRIVATE_TEST_KEY
-    )
-      ? 'Create_Account_With_Captcha.json5'
-      : 'Create_Account.json5',
-  },
+  {name: 'Create_Account.json5'},
   {name: 'MBS-2604.json5', login: true},
   {name: 'MBS-5387.json5', login: true},
   {name: 'MBS-7456.json5', login: true},
@@ -860,6 +846,7 @@ const seleniumTests = [
     login: true,
     sql: 'whatever_it_takes.sql',
   },
+  {name: 'MBS-14323.json5', login: true},
   {name: 'Artist_Credit_Editor.json5', login: true},
   {name: 'Autocomplete2.json5'},
   {name: 'External_Links_Editor.json5', login: true},
@@ -959,28 +946,32 @@ function loadTestDocument(test) {
 async function runCommands(stest, commands, t) {
   await driver.manage().window().maximize();
 
+  const pgClient = new pg.Client(DBDefs.DATABASES.SELENIUM);
+  await pgClient.connect();
+
   for (let i = 0; i < commands.length; i++) {
     const command = commands[i];
     const reqsCountBeforeCommand = reqsCount;
-    const locationBeforeCommand = await getDocumentLocation();
+    const locationBeforeCommand =
+      await workAroundBeforeUnloadBug(getDocumentLocation);
 
     await handleCommand(stest, {...command, index: i}, t);
 
-    const locationAfterCommand = await getDocumentLocation();
+    const locationAfterCommand =
+      await workAroundBeforeUnloadBug(getDocumentLocation);
 
     /*
-     * Wait for sir queues to empty before proceeding. rabbitmqctl
-     * list_queues is extremely slow (taking more than 500 ms to run on my
-     * local machine), so we try to avoid this for commands that don't have
-     * side-effects, like assertions. If no new requests have been made, we
-     * also consider the command to be side-effect free.
+     * Wait for sir queues to empty before proceeding. We can avoid checking
+     * this for commands that don't have side-effects, like assertions.
+     * If no new requests have been made, we also consider the command to be
+     * side-effect free.
      */
     if (
       process.env.SIR_DIR &&
       !/^assert/.test(command.command) &&
       reqsCount > reqsCountBeforeCommand
     ) {
-      await checkSirQueues(t);
+      await checkSirQueues(t, pgClient);
     }
 
     /*
@@ -1025,6 +1016,8 @@ async function runCommands(stest, commands, t) {
       if (node) node.remove();
     `);
   }
+
+  await pgClient.end();
 }
 
 (async function runTests() {

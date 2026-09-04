@@ -10,7 +10,7 @@
 import Layout from '../layout/index.js';
 import EntityLink from '../static/scripts/common/components/EntityLink.js';
 
-component GenreListPage(genres: $ReadOnlyArray<GenreT>) {
+component GenreListPage(genres: ReadonlyArray<GenreT>) {
   return (
     <Layout fullWidth title={l('Genre list')}>
       <div id="content">

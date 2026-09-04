@@ -28,7 +28,7 @@ function reducer(
 
 export component RecordingName(
   field: FieldT<string>,
-  recording: {+entityType: 'recording', +name: string},
+  recording: {readonly entityType: 'recording', readonly name: string},
 ) {
   /*
    * State must be moved higher up in the component hierarchy once more
@@ -56,7 +56,7 @@ export component RecordingName(
  * Hydration must be moved higher up in the component hierarchy once
  * more of the page is converted to React.
  */
-export default (hydrate<React.PropsOf<RecordingName>>(
+export default hydrate<React.PropsOf<RecordingName>>(
   'div.recording-name',
   RecordingName,
-): component(...React.PropsOf<RecordingName>));
+) as component(...React.PropsOf<RecordingName>);

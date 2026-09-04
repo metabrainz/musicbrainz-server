@@ -39,6 +39,11 @@ sub edit_type { $EDIT_ARTIST_CREATE }
 sub _create_model { 'Artist' }
 sub artist_id { shift->entity_id }
 
+sub _conflicting_entity_path {
+    my ($self, $mbid) = @_;
+    return "/artist/$mbid";
+}
+
 has '+data' => (
     isa => Dict[
         name       => Str,

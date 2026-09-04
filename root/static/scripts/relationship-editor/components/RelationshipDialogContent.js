@@ -27,6 +27,7 @@ import type {
 import {
   ARTIST_GROUP_TYPES,
   ARTIST_TYPE_PERSON,
+  PART_OF_SERIES_LINK_TYPE_IDS,
 } from '../../common/constants.js';
 import {
   createNonUrlRelatableEntityObject,
@@ -111,18 +112,18 @@ import DialogTargetEntity, {
 import DialogTargetType from './DialogTargetType.js';
 
 export type PropsT = {
-  +batchSelectionCount?: number,
-  +closeDialog: () => void,
-  +hasPreselectedTargetType: boolean,
-  +initialFocusRef: {-current: HTMLElement | null},
-  +initialRelationship: RelationshipStateT,
-  +releaseHasUnloadedTracks: boolean,
-  +source: RelatableEntityT,
-  +sourceDispatch: (UpdateRelationshipActionT) => void,
-  +targetTypeOptions: TargetTypeOptionsT | null,
-  +targetTypeRef: {-current: RelatableEntityTypeT} | null,
-  +title: string,
-  +user: ActiveEditorT,
+  readonly batchSelectionCount?: number,
+  readonly closeDialog: () => void,
+  readonly hasPreselectedTargetType: boolean,
+  readonly initialFocusRef: {writeonly current: HTMLElement | null},
+  readonly initialRelationship: RelationshipStateT,
+  readonly releaseHasUnloadedTracks: boolean,
+  readonly source: RelatableEntityT,
+  readonly sourceDispatch: (UpdateRelationshipActionT) => void,
+  readonly targetTypeOptions: TargetTypeOptionsT | null,
+  readonly targetTypeRef: {writeonly current: RelatableEntityTypeT} | null,
+  readonly title: string,
+  readonly user: ActiveEditorT,
 };
 
 const FONT_WEIGHT_NORMAL = {fontWeight: 'normal'};
@@ -150,7 +151,7 @@ function accumulateRelationshipLinkAttributeByRootId(
 }
 
 function getAttributeRootIdMap(
-  attributes: $ReadOnlyArray<LinkAttrT | ExternalLinkAttrT>,
+  attributes: ReadonlyArray<LinkAttrT | ExternalLinkAttrT>,
 ): LinkAttributesByRootIdT {
   return attributes.reduce<LinkAttributesByRootIdT>(
     accumulateRelationshipLinkAttributeByRootId,
@@ -256,6 +257,30 @@ function inferLinkDirection(
     if ((isSourcePerson || isSourceUnset) && isTargetGroup) {
       newState.backward = false;
     } else if ((isSourceGroup || isSourceUnset) && isTargetPerson) {
+      newState.backward = true;
+    }
+  }
+
+  if (
+    source.entityType === 'series' &&
+    target.entityType === 'series' &&
+    linkTypeId !== null &&
+    PART_OF_SERIES_LINK_TYPE_IDS.includes(linkTypeId)
+  ) {
+    const isSourceUnset = source.typeID === null;
+    const isSourceSeriesOfSeries = source.type?.item_entity_type === 'series';
+
+    const isTargetSeriesOfSeries = target.type?.item_entity_type === 'series';
+
+    /*
+     * The source's type will be unset if the entity hasn't been added yet,
+     * so make an inference based on the target's type in that case.
+     */
+    if ((!isSourceSeriesOfSeries || isSourceUnset) &&
+          isTargetSeriesOfSeries) {
+      newState.backward = false;
+    } else if ((isSourceSeriesOfSeries || isSourceUnset) &&
+                !isTargetSeriesOfSeries) {
       newState.backward = true;
     }
   }

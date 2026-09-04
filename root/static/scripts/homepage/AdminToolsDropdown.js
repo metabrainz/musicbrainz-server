@@ -20,7 +20,7 @@ import {
   isWikiTranscluder,
 } from '../common/utility/privileges.js';
 
-type EditorPropT = ?{+privileges: number, ...};
+type EditorPropT = ?{readonly privileges: number, ...};
 
 component AdminToolsDropdown(user: EditorPropT) {
   if (!isAdmin(user)) {

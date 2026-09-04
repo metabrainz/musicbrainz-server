@@ -207,13 +207,19 @@ sub build_display_data
         );
     my $entity0_credit = $self->data->{entity0_credit} // '';
     my $entity1_credit = $self->data->{entity1_credit} // '';
+    my $link_type = $self->data->{link_type};
 
+    # If making changes here, check if they also apply to `Edit::Relationship::Edit`.
     return {
         relationship => to_json_object(Relationship->new(
             link => Link->new(
-                type_id => $self->data->{link_type}{id},
-                type       => $loaded->{LinkType}{ $self->data->{link_type}{id} }
-                    || LinkType->new($self->data->{link_type}),
+                type_id    => $link_type->{id},
+                type       => $loaded->{LinkType}{ $link_type->{id} } ||
+                              LinkType->new(
+                                  %{$link_type},
+                                  entity0_type => $type0,
+                                  entity1_type => $type1,
+                              ),
                 begin_date => PartialDate->new_from_row( $self->data->{begin_date} ),
                 end_date   => PartialDate->new_from_row( $self->data->{end_date} ),
                 ended      => $self->data->{ended},

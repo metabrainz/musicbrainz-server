@@ -178,10 +178,10 @@ component EventArtworkImage(artwork: EventArtT) {
 }
 
 component ArtworkCarousel(
-  newestReleaseArtwork?: $ReadOnlyArray<ReleaseArtT>,
-  freshReleaseArtwork?: $ReadOnlyArray<ReleaseArtT>,
-  newestEventArtwork?: $ReadOnlyArray<EventArtT>,
-  freshEventArtwork?: $ReadOnlyArray<EventArtT>,
+  newestReleaseArtwork?: ReadonlyArray<ReleaseArtT>,
+  freshReleaseArtwork?: ReadonlyArray<ReleaseArtT>,
+  newestEventArtwork?: ReadonlyArray<EventArtT>,
+  freshEventArtwork?: ReadonlyArray<EventArtT>,
   entityType: 'release' | 'event',
 ) {
   const [mode, setMode] = React.useState<'fresh' | 'new'>('fresh');
@@ -303,7 +303,7 @@ component ArtworkCarousel(
   );
 }
 
-export default (hydrate<React.PropsOf<ArtworkCarousel>>(
+export default hydrate<React.PropsOf<ArtworkCarousel>>(
   'div.artwork-carousel',
   ArtworkCarousel,
-): component(...React.PropsOf<ArtworkCarousel>));
+) as component(...React.PropsOf<ArtworkCarousel>);

@@ -16,7 +16,7 @@ export const ACCESS_SCOPE_SUBMIT_ISRC: 64 = 64;
 export const ACCESS_SCOPE_SUBMIT_BARCODE: 128 = 128;
 
 export const ACCESS_SCOPE_PERMISSIONS: {
-  +[scope: number]: () => string,
+  readonly [scope: number]: () => string,
   ...
 } = {
   [ACCESS_SCOPE_COLLECTION]: N_l('View and modify your private collections'),

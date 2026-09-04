@@ -9,13 +9,15 @@
 # Андрій Пиндик <email address hidden>, 2017
 # Дмитрий <email address hidden>, 2014
 # cijic <altcode@ya.ru>, 2024.
-# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025.
-# liilliil <liilliil@liilliil.net>, 2024.
+# wileyfoxyx <wileyfoxyx@users.noreply.translations.metabrainz.org>, 2024, 2025, 2026.
+# liilliil <liilliil@liilliil.net>, 2024, 2025.
 # Philipp Wolfer <ph.wolfer@gmail.com>, 2025.
+# djtusa <djtusaofficial@gmail.com>, 2026.
+# dddrnzv <solodkovskiy+21w4amgy@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-14 18:08+0000\n"
+"PO-Revision-Date: 2026-05-03 16:11+0000\n"
 "Last-Translator: wileyfoxyx "
 "<wileyfoxyx@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Russian <https://translations.metabrainz.org/projects/"
@@ -27,7 +29,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -53,6 +55,26 @@ msgid ""
 "<br /> For the medieval European pear-shaped fiddle see <a href=\"/"
 "instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">rebec</a>."
 msgstr ""
+"«Ребаб» (и другие варианты написания) — это название главным образом для "
+"этих 3 типов семейств смычковых/щипковых струнных инструментов: <br /> <ul> "
+"<li>кабульский – большой, короткошейный лодкообразный ребаб типа «саринда»;</"
+"li> <li>индонезийский – маленький, длинношейный шиповидный ребаб типа "
+"«хуцинь»;</li> <li>смычковые лютни – различные размеры, длина грифа, "
+"грушевидный тип «критская лира».</li> </ul> <br /> <br /> Учитывая похожие "
+"названия, их путают друг с другом в большинстве источников. Любопытно, что "
+"эта путаница распространяется и на родственные, но отдельно или похоже "
+"названные инструменты, например, <a href=\"/instrument/0d766870-3021-47ce-"
+"bd51-78d2d2484e1b\">гхиджак</a> (шиповидная скрипка) и <a href=\"/instrument/"
+"d50ba107-4930-4e0b-8b3f-ffbea4a1ade1\">гайчак</a> (в форме лодки).<br /> "
+"Пока неизвестно, как, если вообще как-то, связаны эти 3 подтипа.<br /> <br /"
+"> Для шиповидной скрипки, используемой в гамелане, см. <a href=\"/instrument/"
+"3dbbb5ff-103b-4260-8cf6-679a73a7c552\">индонезийский ребаб</a>.<br /> Для "
+"щипкового, лодкообразного афганского инструмента, также известного как "
+"кабульский рабаб, см. <a href=\"/instrument/7e42e637-c7b4-422c-ad56-"
+"f7fafbd961bb\">рубаб</a>.<br /> Для средневековой индийской щипковой лютни "
+"см. <a href=\"/instrument/9869ff82-9ba5-41a7-b2b2-e19f4e4a1083\">сени ребаб</"
+"a>.<br /> Для средневековой европейской грушевидной скрипки см. <a href=\"/"
+"instrument/3f7302e4-f10f-4905-8d71-ef61141da383\">ребек</a>."
 
 #. name:chitra veena
 #: DB:instrument/description:744
@@ -66,6 +88,14 @@ msgid ""
 "veena</a>, chitra veena is to the <a href=\"/instrument/41761936-5dbc-433f-"
 "b558-a7ef14fe9b08\">Saraswati veena</a>."
 msgstr ""
+"Безладовая скользящая лютня Южной Индии XIII века или ранее, используемая в "
+"карнатической музыке. Полый корпус из джекфрута со вторичным резонатором из "
+"полой тыквы, имеет 6 основных, 3 бурдонных и 11-12 симпатических струн с "
+"подвижным блоком из твердой древесины для изменения высоты тона. Подобно "
+"тому, как североиндийская <a href=\"/instrument/b4d38ac1-7f12-437c-a61a-"
+"be2796ffc559\">вичитра вина</a> относится к <a href=\"/instrument/aea9661c-"
+"cbda-4bf3-a61d-d78697472f29\">рудра вине</a>, читра вина относится к <a "
+"href=\"/instrument/41761936-5dbc-433f-b558-a7ef14fe9b08\">Сарасвати вине</a>."
 
 #. name:kös
 #: DB:instrument/description:739
@@ -397,6 +427,8 @@ msgid ""
 "Also know and \"flat-top\", it is a hollow-body acoustic guitar strung with "
 "steel strings."
 msgstr ""
+"Также известна и \"флэттоп\" (\"flat-top\"), это акустическая гитара с полым "
+"корпусом, на который натянуты стальные струны."
 
 #. name:cello
 #: DB:instrument/description:60
@@ -416,6 +448,9 @@ msgid ""
 "since atleast 1340's. It has a single drone and chanter with single reeds, "
 "modern variants are bellows blown."
 msgstr ""
+"Также известный как \"бок\", в честь мешка из козьей шкуры, он используется, "
+"по крайней мере, с 1340-х годов. В нем есть один трутень и певчий механизм с "
+"одним язычком, современные варианты - мехи."
 
 #. name:classical guitar
 #: DB:instrument/description:54
@@ -433,6 +468,9 @@ msgid ""
 "ancestor of the entire tamburica ensemble. This plucked long-necked lute has "
 "two double strings and is played solo."
 msgstr ""
+"Также известная как дангубица или кутеревка, она похожа на бисерницу и "
+"является прародительницей всего ансамбля тамбуриков. Эта щипковая лютня с "
+"длинным грифом имеет две двойные струны и играет соло."
 
 #. name:repeater
 #: DB:instrument/description:882
@@ -442,6 +480,11 @@ msgid ""
 "the Jamaican Burru music and Rastafari movement, it is part of the Nyabinghi/"
 "Akete drums."
 msgstr ""
+"Также известный как кетте или кете, это барабан самого маленького размера и "
+"самой высокой высоты звучания. Он оснащён туго натянутой мембраной из козьей "
+"кожи и исполняется ударами кончиков пальцев. Играет важную роль в ямайской "
+"музыке бурру и в движении растафари, являясь частью барабанного ансамбля "
+"нябинги (акете)."
 
 #. name:slide whistle
 #: DB:instrument/description:198
@@ -450,6 +493,9 @@ msgid ""
 "similar to the one of a recorder and a tube with a piston that varies the "
 "pitch. It is often used as a sound effect."
 msgstr ""
+"Также известный как свани-свисток или поршневая флейта, он состоит из "
+"мундштука, похожего на мундштук блокфлейты, и трубки с поршнем, который "
+"изменяет высоту звука. Часто используется как звуковой эффект."
 
 #. name:soprano recorder
 #: DB:instrument/description:469
@@ -460,6 +506,12 @@ msgid ""
 "Not to be confused with the side-blown (concerto) <a href=\"/instrument/"
 "b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">soprano flute</a>."
 msgstr ""
+"Также известная как дискант, это третий по размеру (от меньшего к большему) "
+"и самый распространённый инструмент в современной семье блокфлейт. <br /> "
+"Традиционно изготавливаемая из различных пород дерева, сегодня она часто "
+"делается из пластика и используется для обучения детей музыке.  <br /> Не "
+"следует путать с поперечной (концертной) <a href=\"/instrument/"
+"b524b7a7-2d87-43a7-9977-8a9081ff6e0f/\">флейтой-сопрано</a>."
 
 #. name:alto viol
 #: DB:instrument/description:923
@@ -498,6 +550,9 @@ msgid ""
 "e139-44a9-8a48-7963eb693dd1\">indung</a>, dual child drums are divided into "
 "the katipung (\"besar\" or larger) and the kutiplak (\"kecil\" or smaller)."
 msgstr ""
+"Всегда используется вместе с <a href=\"/instrument/c588cc24-"
+"e139-44a9-8a48-7963eb693dd1\">индунг</a>. Парные детские барабаны делятся на "
+"катипунг («besar» — больший) и кутплак («kecil» — меньший)."
 
 #. name:kethuk
 #: DB:instrument/description:986
@@ -506,6 +561,11 @@ msgid ""
 "pitched deeper than kempyangs'. Flat top bossed gong is sat in a highly "
 "decorated rancak frame, beaten with tabuh beaters by the same person."
 msgstr ""
+"Всегда используется вместе с кемпьянгом. Представляет собой один бронзовый "
+"котловой гонг, настроенный ниже по тону, чем кемпьянги. Гонг с плоской "
+"верхней частью и выступом (bossed) устанавливается в богато украшенную "
+"ракаковую раму (rancak) и ударяется палочками табух (tabuh) тем же "
+"исполнителем."
 
 #. name:kempyang
 #: DB:instrument/description:987
@@ -586,6 +646,9 @@ msgid ""
 "oud. it was an important instrument in pre-Islamic Iran and Persia. The "
 "current “Persian barbat” is more similar to the oud."
 msgstr ""
+"Древний центральноазиатский/персидский струнный инструмент, предок иранского "
+"уда. Был популярным инструментом в доисламском Иране и Персии. Современный "
+"«персидский барбат» больше похож на уд."
 
 #. name:xiao
 #: DB:instrument/description:484
@@ -618,6 +681,10 @@ msgid ""
 "bridges each with 4 strings that are hit by special mallets called mezrab. "
 "Used in traditional, folk and mystic Sufi music."
 msgstr ""
+"Древний щипковый музыкальный инструмент с трапециевидным корпусом из "
+"орехового или кленового дерева, 25 струн, по 4 на каждый лад, по которым "
+"ударяют специальными молоточками мезраб. Используется в традиционной, "
+"народной и мистической суфийской музыке."
 
 #. name:three-hole pipe
 #: DB:instrument/description:805
@@ -645,6 +712,8 @@ msgid ""
 "As long as a trumpet, it shares the piston valve design of both instruments "
 "with a mellow sound between the two."
 msgstr ""
+"Как и труба, она имеет поршневой клапан, характерный для обоих инструментов, "
+"и отличается мягким звучанием."
 
 #. name:chimes
 #: DB:instrument/description:338
@@ -656,6 +725,10 @@ msgid ""
 "orchestra, see <a href=\"/instrument/7d6964ff-b1f5-472b-bdd7-"
 "b53de3739ad3\">tubular bells</a>."
 msgstr ""
+"Колокольчики в форме брусков или столбиков, обычно расположенные в ряд или "
+"по кругу, свободно свисающие или ударяемые молоточками. Об инструменте, "
+"который часто используется на колокольнях, см. карильон Об инструменте, "
+"используемом в оркестре, см. трубчатые колокола"
 
 #. name:violoncello piccolo
 #: DB:instrument/description:693
@@ -683,6 +756,9 @@ msgid ""
 "is electro-acoustic with a stainless steel frame with 24 nylon strings and "
 "an integral piezoelectric sensor."
 msgstr ""
+"Это электроакустическая гитара, созданная на основе полиритма африканской "
+"коры, калимбы и японского кото. Корпус из нержавеющей стали, 24 нейлоновые "
+"струны и встроенный пьезоэлектрический датчик."
 
 #. name:bass
 #: DB:instrument/description:47
@@ -742,7 +818,7 @@ msgstr ""
 #. name:bendir
 #: DB:instrument/description:343
 msgid "Bendir, frame drum from North Africa, doesn't have jingles."
-msgstr ""
+msgstr "У бендира, рамочного барабана из Северной Африки, нет колокольчиков."
 
 #. name:kemanak
 #: DB:instrument/description:988
@@ -765,6 +841,10 @@ msgid ""
 "the english, this concertina was created to rival the popular German variant "
 "imported into England."
 msgstr ""
+"Эта концертина с бисонорным строем и кнопочным управлением, как у немецкой, "
+"и язычковыми и шестигранными окончаниями, как у английской, была создана, "
+"чтобы составить конкуренцию популярному немецкому варианту, завезенному в "
+"Англию."
 
 #. name:cajón
 #: DB:instrument/description:336
@@ -905,13 +985,6 @@ msgstr ""
 #: DB:instrument/description:350
 msgid "Chinese pear-shaped plucked lute with four strings and 12 to 26 frets."
 msgstr "Китайская лютня в форме груши с четырьмя струнами и 12–26 ладами."
-
-#. name:ching
-#: DB:instrument/description:618
-msgid ""
-"Ching are a pair of small hand cymbals used in Thai and Cambodian music."
-msgstr ""
-"Пара небольших ручных цимбал, используемых в тайской и камбоджийской музыке."
 
 #. name:bugarija
 #: DB:instrument/description:826
@@ -1272,6 +1345,10 @@ msgid ""
 "six or twelve nylon or steel strings and are produced solely by company "
 "Giannini."
 msgstr ""
+"В отличие от обычной гитары имеет явно асимметричную форму, а её тембр "
+"представляет собой сочетание звучания клавесина (порт. cravo) и виолы "
+"кайпира. Может иметь 6 или 12 струн из нейлона или стали и производится "
+"исключительно компанией Giannini."
 
 #. name:tambura
 #: DB:instrument/description:391
@@ -1382,6 +1459,8 @@ msgid ""
 "Electromechanical piano (not to be confused with <em>electronic</em> piano) "
 "designed and produced by Hohner in the 1960 and 70s."
 msgstr ""
+"Электромеханическое (не путать с <em>электронным</em>) пианино, "
+"разработанное и производившееся компанией Hohner в 1960-х и 70-х годах."
 
 #. name:Cembalet
 #: DB:instrument/description:794
@@ -2444,14 +2523,6 @@ msgid ""
 "accordion players as bass accompaniment in early 20th century Wallonia."
 msgstr ""
 
-#. name:bazooka
-#: DB:instrument/description:741
-msgid ""
-"Large wide tube with a very strongly flaring bell, the telescoping creates "
-"only subtle fluctuating overtones. It inspired the name of the anti-tank "
-"weapon."
-msgstr ""
-
 #. name:low whistle
 #: DB:instrument/description:398
 msgid ""
@@ -2978,6 +3049,15 @@ msgid ""
 "a03ac232db98\">tamborim</a>.<br /> Side drum, often with one or more snares, "
 "worn by one person and beaten by one hand, it is often combined with tabor "
 "pipes."
+msgstr ""
+
+#. name:bazooka
+#: DB:instrument/description:741
+msgid ""
+"Not to be confused with the <a href=\"instrument/2091cdd2-7953-453f-a29e-"
+"cfcbf5140d44\">bouzouki</a>.</br> Large wide tube with a very strongly "
+"flaring bell, the telescoping creates only subtle fluctuating overtones. It "
+"inspired the name of the anti-tank weapon."
 msgstr ""
 
 #. name:mezwed
@@ -3926,6 +4006,17 @@ msgid ""
 "stone."
 msgstr ""
 
+#. name:satsuma biwa
+#: DB:instrument/description:580
+msgid ""
+"Supposedly created as a modification of the moso biwa as a boost for "
+"samurai, it has four strings and elevated frets, a large plectrum called "
+"Bachi is used."
+msgstr ""
+"Предположительно, была создана как модификация мосо бива для усиления звука "
+"и использовалась самураями. Имеет четыре струны и приподнятые лады, а для "
+"игры используется большой плектр бати."
+
 #. name:glass harmonica
 #: DB:instrument/description:285
 msgid ""
@@ -3947,10 +4038,8 @@ msgstr ""
 
 #. name:zhongruan
 #: DB:instrument/description:241
-#, fuzzy
-#| msgid "Bass member of Chinese ruan family of lutes."
 msgid "Tenor member of the Chinese ruan family of lutes."
-msgstr "Бас-инструмент из китайской семьи лютен руань."
+msgstr "Тенор-инструмент из китайской семьи лютен руань."
 
 #. name:primero
 #: DB:instrument/description:758
@@ -4734,12 +4823,6 @@ msgstr ""
 msgid "The mridangam is a double-sided drum from India."
 msgstr ""
 
-#. name:nabal
-#: DB:instrument/description:684
-msgid ""
-"The nabal is a long, straight brass horn used in Korean traditional music."
-msgstr ""
-
 #. name:nagadou-daiko
 #: DB:instrument/description:553
 msgid "The nagadou-daiko is an elongated barrel-shaped Japanese drum."
@@ -4873,11 +4956,6 @@ msgid ""
 "music."
 msgstr ""
 
-#. name:rototom
-#: DB:instrument/description:731
-msgid "The rototom is a drum which has no shell and is tuned by rotating."
-msgstr ""
-
 #. name:sabar
 #: DB:instrument/description:646
 msgid ""
@@ -4918,13 +4996,6 @@ msgstr ""
 msgid ""
 "The sarrusophone is a family of transposing musical instruments, intended to "
 "serve as a replacement in wind bands for the oboe and bassoon."
-msgstr ""
-
-#. name:satsuma biwa
-#: DB:instrument/description:580
-msgid ""
-"The satsuma biwa is a biwa with four strings and frets popularised during "
-"the Edo period."
 msgstr ""
 
 #. name:saw sam sai
@@ -5100,11 +5171,6 @@ msgid ""
 "en.wikipedia.org/wiki/Thon_and_rammana\">thon and rammana</a>."
 msgstr ""
 
-#. name:tinya
-#: DB:instrument/description:724
-msgid "The tinya is a small drum used in the traditional music of the Andes."
-msgstr ""
-
 #. name:tiêu
 #: DB:instrument/description:324
 msgid "The tiêu is a Vietnamese end-blown flute related to the Chinese xiao."
@@ -5194,11 +5260,6 @@ msgstr ""
 msgid ""
 "The yehu is a Chinese bowed string instrument in the huqin family, made from "
 "a coconut shell."
-msgstr ""
-
-#. name:zabumba
-#: DB:instrument/description:715
-msgid "The zabumba is a bass drum from Brazil."
 msgstr ""
 
 #. name:zarb
@@ -5817,6 +5878,11 @@ msgid ""
 "pieces tied together with ornamental cord."
 msgstr ""
 
+#. name:nabal
+#: DB:instrument/description:684
+msgid "Used in traditional music, it's long and straight."
+msgstr "Длинный и прямой инструмент. Используется в традиционной музыке."
+
 #. name:turntable
 #: DB:instrument/description:181
 msgid ""
@@ -6133,3 +6199,9 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid ""
+#~ "Ching are a pair of small hand cymbals used in Thai and Cambodian music."
+#~ msgstr ""
+#~ "Пара небольших ручных цимбал, используемых в тайской и камбоджийской "
+#~ "музыке."

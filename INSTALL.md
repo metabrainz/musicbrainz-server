@@ -22,19 +22,19 @@ Prerequisites
     **This document will assume you are using Ubuntu (at least 14.04) for its
     instructions.**
 
-2.  Perl (at least version 5.38)
+2.  Perl (at least version 5.42)
 
     Perl comes bundled with most Linux operating systems, you can check your
     installed version of Perl with:
 
         perl -v
 
-3.  PostgreSQL (at least version 16)
+3.  PostgreSQL (at least version 18)
 
-    PostgreSQL version 16 or higher is required, along with its development
+    PostgreSQL version 18 or higher is required, along with its development
     libraries. To install using packages, run the following:
 
-        POSTGRES_VERSION=16 \
+        POSTGRES_VERSION=18 \
         sudo apt-get install \
             postgresql-${POSTGRES_VERSION} \
             postgresql-contrib-${POSTGRES_VERSION} \
@@ -56,26 +56,30 @@ Prerequisites
 
         sudo apt-get install git
 
-5.  Redis
+5.  Valkey
 
-    Sessions and cached entities are stored in Redis, so a running Redis server
-    is required. Redis can be installed with the following command and will not
+    Sessions and cached entities are stored in Valkey, so a running Valkey server
+    is required. Valkey can be installed with the following command and will not
     need any further configuration:
 
-        sudo apt-get install redis-server
+        sudo apt-get install valkey
+
+    We don't require a specific Valkey version, since the commands we use are
+    very basic. Redis should also be fully compatible, though it's no longer
+    tested.
 
     The databases and key prefix used by musicbrainz can be configured
     in lib/DBDefs.pm.  The defaults should be fine if you don't use
-    your redis install for anything else.
+    your Valkey install for anything else.
 
-6.  Node.js (at least version 20.9.0) and Yarn
+6.  Node.js (at least version 24.11.0) and Yarn
 
     Node.js is required to build (and optionally minify) our JavaScript and CSS.
     If you plan on accessing musicbrainz-server inside a web browser, you should
     install Node and the package manager Yarn.
 
-    We currently run Node.js v20 LTS in production. (The first LTS release of
-    v20 was v20.9.0.) If your release of Ubuntu doesn't have such a version
+    We currently run Node.js v24 LTS in production. (The first LTS release of
+    v24 was v24.11.0.) If your release of Ubuntu doesn't have such a version
     of Node.js in its repositories, we can recommended the NodeSource binary
     distributions, which we also use in production:
 
@@ -84,13 +88,6 @@ Prerequisites
     To install Node.js from either the Ubuntu or NodeSource repositories, run:
 
         sudo apt-get install nodejs
-
-    Depending on your Ubuntu version, another package might be required, too:
-
-        sudo apt-get install nodejs-legacy
-
-    This is only needed where it exists, so a warning about the package not being
-    found is not a problem.
 
     Next you need a modern version of Yarn to install the JS dependencies.
     Yarn can be installed using the `corepack` command, which is bundled with

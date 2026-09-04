@@ -24,7 +24,7 @@ component AreaReleases(
   area: AreaT,
   pagedLinkTypeGroup: ?PagedLinkTypeGroupT,
   pager: PagerT,
-  releases: ?$ReadOnlyArray<ReleaseT>,
+  releases: ?ReadonlyArray<ReleaseT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (

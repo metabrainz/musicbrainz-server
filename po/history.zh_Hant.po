@@ -2,8 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2025-03-31 11:45+0000\n"
-"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
+"PO-Revision-Date: 2026-07-29 23:12+0000\n"
+"Last-Translator: silentbird "
+"<silentbird@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/history/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -11,42 +12,44 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.10.4\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #: DB:statistics.statistic_event/title:2015-09-08
 msgid "\"Do Not Cluster\" guideline dropped"
-msgstr "已放棄\"Do Not Cluster\"基準"
+msgstr "放棄《不要捆綁指引》"
 
 #: DB:statistics.statistic_event/title:2017-04-11
 msgid "\"feat.\" standardization dropped"
-msgstr "已放棄\"feat.\"標準化"
+msgstr "放棄統一使用「feat.」"
 
 #: DB:statistics.statistic_event/title:2021-04-19
 msgid "1200px thumbnails"
-msgstr "1200 像素縮圖"
+msgstr "1200像素縮圖"
 
 #: DB:statistics.statistic_event/description:2021-04-19
 msgid ""
 "1200px thumbnails are added to the Cover Art Archive, providing users with a "
 "very large image with a consistent size that avoids having to use the "
 "original uploads directly."
-msgstr "已將 1200 像素縮圖新增至 Cover Art Archive "
-"，為使用者提供一致尺寸的超大圖片，避免直接使用原始上傳的圖像。"
+msgstr ""
+"將1200像素縮圖新增至Cover Art Archive，為使用者提供一致尺寸的超大圖片，避免直"
+"接使用原圖。"
 
 #: DB:statistics.statistic_event/description:2016-03-01
 msgid ""
 "A Discourse forum platform is added to replace both the old-school forums "
 "and the (by now dead) mailing lists and unify community communication in one "
 "place."
-msgstr "已新增 Discourse "
-"論壇平台，以取代傳統論壇和（現已停用的）郵件清單，統一社群交流於同一平台。"
+msgstr ""
+"以Discourse論壇取代傳統論壇和（現已停用的）郵遞串列 ，於同一平台統一社群交流"
+"。"
 
 #: DB:statistics.statistic_event/description:2015-06-29
+#, fuzzy
 msgid ""
 "A change is introduced that allows voting for and against existing "
 "folksonomy tags, rather than only adding your own."
-msgstr "引入了一項變更，允許使用者對現有的民眾分類標籤投票贊成或反對，而不僅限於新增"
-"自己的標籤。"
+msgstr "允許使用者對現有的民眾分類標籤投贊成或反對票，而不僅限於新增自己的標籤。"
 
 #: DB:statistics.statistic_event/description:2018-07-19
 msgid ""
@@ -80,20 +83,21 @@ msgstr "已新增全新的搜尋機制，速度大幅提升。"
 
 #: DB:statistics.statistic_event/description:2006-08-15
 msgid "A rift in the MusicBrainz community leads to a Great Dispute."
-msgstr "MusicBrainz 社群內部出現分歧，導致一場重大爭議。"
+msgstr "MusicBrainz社群內部出現分歧，導致一場重大爭議。"
 
 #: DB:statistics.statistic_event/description:2013-05-15
 msgid ""
 "A very substantial schema change release adds a new entity type (areas), "
 "support for ISNI codes for artists and labels, and the possibility to have "
 "more than one release event on one release."
-msgstr "一次重大結構變更更新引入了全新實體類型「地區」（Areas），"
-"新增對創作者與廠牌的 ISNI 編碼支援，並允許單一發行品擁有多個發表活動。"
+msgstr ""
+"本次重大結構變更，引入了實體類型「地區」和對創作者與廠牌ISNI編碼的支援，並允"
+"許發行品有多個發布事件。"
 
 #: DB:statistics.statistic_event/description:2003-11-10
 msgid ""
 "A way to search for edits based on several different criteria is released."
-msgstr "全新的編輯搜尋功能已推出，允許根據多種條件篩選編輯記錄。"
+msgstr "推出全新的編輯搜尋功能，允許根據多種條件篩選編輯記錄。"
 
 #: DB:statistics.statistic_event/description:2014-11-19
 msgid ""
@@ -136,7 +140,7 @@ msgstr "經過多次辯論，關係資料開始顯示在發布頁面上，使其
 #: DB:statistics.statistic_event/description:2012-09-01
 msgid ""
 "After a successful Summer of Code, Ian McEwen joins the MusicBrainz team."
-msgstr "在成功完成Summer of Code編程後，Ian McEwen加入了 MusicBrainz團隊。"
+msgstr "在成功完成Summer of Code後，Ian McEwen加入了MusicBrainz團隊。"
 
 #: DB:statistics.statistic_event/description:2016-11-08
 msgid ""
@@ -186,9 +190,9 @@ msgid ""
 "wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a> with data from "
 "MusicBrainz."
 msgstr ""
-"亞馬遜測試了<a href=\"http://web.archive.org/web/20210123164029/https://"
-"www.wired.com/2008/09/amazon-takes-on/\">SoundUnwound</a>使用了來自 "
-"MusicBrainz 的資料。"
+"亞馬遜使用MusicBrainz資料測試<a href=\"http://web.archive.org/web/"
+"20210123164029/https://www.wired.com/2008/09/amazon-takes-on/\">"
+"SoundUnwound</a>。"
 
 #: DB:statistics.statistic_event/title:2008-09-01
 msgid "Amazon betas SoundUnwound"

@@ -4,12 +4,12 @@
 # Maurits Meulenbelt, 2013-2022
 # Nathan Follens, 2017
 # Nikolai Prokoschenko <email address hidden>, 2011
-# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# mfmeulenbelt <mfmeulenbelt@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-11-22 16:11+0000\n"
+"PO-Revision-Date: 2026-04-26 11:11+0000\n"
 "Last-Translator: mfmeulenbelt "
 "<mfmeulenbelt@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Dutch <https://translations.metabrainz.org/projects/"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 5.17\n"
 
 #. frequency:1 iso_code_3:abk
 #: DB:language/name:2
@@ -511,6 +511,11 @@ msgstr "Tsjoekees"
 msgid "Chuvash"
 msgstr "Tsjoevasjisch"
 
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+msgid "Classical Nahuatl"
+msgstr "Klassiek Nahuatl"
+
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
 msgid "Classical Newari"
@@ -666,6 +671,11 @@ msgstr "Dzongkha"
 msgid "Eastern Arrernte"
 msgstr "Oost-Arrernte"
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -685,6 +695,13 @@ msgstr "Ekajuk"
 #: DB:language/name:119
 msgid "Elamite"
 msgstr "Elamitisch"
+
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+#, fuzzy
+#| msgid "Sicilian"
+msgid "Emilian"
+msgstr "Siciliaans"
 
 #. frequency:2 iso_code_3:eng
 #: DB:language/name:120
@@ -1101,6 +1118,13 @@ msgstr "Interlingua"
 msgid "Interlingue"
 msgstr "Interlingue"
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+#, fuzzy
+#| msgid "Interlingua"
+msgid "Interslavic"
+msgstr "Interlingua"
+
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
@@ -1250,6 +1274,13 @@ msgstr "Kawi"
 #: DB:language/name:211
 msgid "Kazakh"
 msgstr "Kazachs"
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+#, fuzzy
+#| msgid "Malay"
+msgid "Kedah Malay"
+msgstr "Maleis"
 
 #. frequency:1 iso_code_3:kca
 #: DB:language/name:3137
@@ -1708,6 +1739,11 @@ msgstr "Mongo"
 msgid "Mongolian"
 msgstr "Mongools"
 
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr "Morisien"
+
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
 msgid "Mossi"
@@ -1726,7 +1762,7 @@ msgstr "N’Ko"
 #. frequency:0 iso_code_3:null
 #: DB:language/name:291
 msgid "Nahuatl languages"
-msgstr "Nahuatl"
+msgstr "Nahuatl-talen"
 
 #. frequency:1 iso_code_3:nau
 #: DB:language/name:294
@@ -1758,6 +1794,11 @@ msgstr "Ndonga (Oshindonga)"
 msgid "Neapolitan"
 msgstr "Napolitaans"
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1767,6 +1808,11 @@ msgstr "Nepalbhasa (Newari of Newar)"
 #: DB:language/name:300
 msgid "Nepali"
 msgstr "Nepalees"
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
+msgstr ""
 
 #. frequency:1 iso_code_3:yrl
 #: DB:language/name:7618
@@ -1927,6 +1973,11 @@ msgstr "Papiaments (Papiamento of Papiamentu)"
 #: DB:language/name:326
 msgid "Papuan languages"
 msgstr "Papoeatalen"
+
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
+msgstr ""
 
 #. frequency:1 iso_code_3:fas
 #: DB:language/name:334

@@ -118,16 +118,16 @@ const communityGroups: Array<Array<DropdownMenuItem>> = [
 ];
 
 type DropdownSectionT = {
-  +groups: Array<Array<DropdownMenuItem>>,
-  +key: string,
-  +label: N_l_T,
+  readonly groups: Array<Array<DropdownMenuItem>>,
+  readonly key: string,
+  readonly label: N_l_T,
 };
 
 type LanguageDropdownSectionT = {
-  +key: 'language',
+  readonly key: 'language',
 };
 
-const dropdownSections: $ReadOnlyArray<DropdownSectionT> = [
+const dropdownSections: ReadonlyArray<DropdownSectionT> = [
   {groups: aboutGroups, key: 'about', label: N_l('About')},
   {groups: communityGroups, key: 'community', label: N_l('Community')},
   {groups: productGroups, key: 'products', label: N_l('Products')},
@@ -533,7 +533,7 @@ component Navbar() {
   );
 }
 
-export default (hydrate < React.PropsOf< Navbar >>(
+export default hydrate<React.PropsOf<Navbar>>(
   'div.new-navbar.fixed-top',
   Navbar,
-): component(...React.PropsOf< Navbar >));
+) as component(...React.PropsOf<Navbar>);

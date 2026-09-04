@@ -15,7 +15,7 @@ import ReleaseGroupLayout from './ReleaseGroupLayout.js';
 import {type SetCoverArtFormT} from './types.js';
 
 component SetCoverArt(
-  allReleases: $ReadOnlyArray<ReleaseT> = [],
+  allReleases: ReadonlyArray<ReleaseT> = [],
   artwork: {[releaseId: number]: ArtworkT} = {},
   entity as releaseGroup: ReleaseGroupT,
   form?: SetCoverArtFormT,

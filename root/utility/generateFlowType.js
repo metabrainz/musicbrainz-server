@@ -19,7 +19,7 @@ const TYPE_NULL = 8;
 
 class TypeInfo {
 /*::
-  +isEditDataTypeInfo: boolean;
+  readonly isEditDataTypeInfo: boolean;
   array: TypeInfo | null;
   count: number;
   object: {
@@ -59,7 +59,7 @@ class TypeInfo {
     }
     if (this.array) {
       types.push(
-        '$ReadOnlyArray<' +
+        'ReadonlyArray<' +
         this.array.printTypeInfo(indentation) +
         '>',
       );
@@ -83,7 +83,7 @@ class TypeInfo {
     return types.join(' | ');
   }
 
-  processTypes(data/*: mixed */)/*: void */ {
+  processTypes(data/*: unknown */)/*: void */ {
     this.count++;
     if (this.isEditDataTypeInfo && data == null) {
       throw new Error('data should not be null');
@@ -135,10 +135,10 @@ class TypeInfo {
         } else {
           let objectKeyInfo = this.object;
           if (objectKeyInfo == null) {
-            objectKeyInfo = this.object = (Object.create(null): {
+            objectKeyInfo = this.object = Object.create(null) as {
               __proto__: null,
               [property: string]: TypeInfo,
-            });
+            };
           }
           for (const key in data) {
             let keyTypeInfo = objectKeyInfo[key];
@@ -158,7 +158,7 @@ class TypeInfo {
 exports.generateFlowType = async function (
   objectStrings/*: AsyncIterable<string> */,
   options/*:: ?: {
-    +isEditDataTypeInfo: boolean,
+    readonly isEditDataTypeInfo: boolean,
   } */,
 )/*: Promise<string> */ {
   const seenTypes = new Set/*:: <string> */();

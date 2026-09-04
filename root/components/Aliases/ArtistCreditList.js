@@ -19,7 +19,7 @@ import bracketed from '../../static/scripts/common/utility/bracketed.js';
 import loopParity from '../../utility/loopParity.js';
 
 component ArtistCreditList(
-  artistCredits: $ReadOnlyArray<{+id: number} & ArtistCreditT>,
+  artistCredits: ReadonlyArray<{readonly id: number} & ArtistCreditT>,
   entity: ArtistT,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);

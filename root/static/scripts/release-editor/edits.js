@@ -9,10 +9,12 @@
 import he from 'he';
 import $ from 'jquery';
 import ko from 'knockout';
+import * as tree from 'weight-balanced-tree';
 
 import './init.js';
 
 import {VIDEO_ATTRIBUTE_GID} from '../common/constants.js';
+import {createUrlObject} from '../common/entity2.js';
 import {reduceArtistCredit} from '../common/immutable-entities.js';
 import {compactMap, keyBy, last} from '../common/utility/arrays.js';
 import clean from '../common/utility/clean.js';
@@ -20,9 +22,11 @@ import {cloneObjectDeep} from '../common/utility/cloneDeep.mjs';
 import {debounceComputed} from '../common/utility/debounce.js';
 import deepEqual from '../common/utility/deepEqual.js';
 import isBlank from '../common/utility/isBlank.js';
+import isObjectEmpty from '../common/utility/isObjectEmpty.js';
 import MBEdit from '../edit/MB/edit.js';
-import isPositiveInteger from '../edit/utility/isPositiveInteger.js';
 import {errorsExist} from '../edit/validation.js';
+import getLinkRelationshipStatus
+  from '../external-links-editor/utility/getLinkRelationshipStatus.js';
 
 import utils from './utils.js';
 import releaseEditor from './viewModel.js';
@@ -437,59 +441,52 @@ releaseEditor.edits = {
   externalLinks(release) {
     var edits = [];
 
-    function hasVideo(relationship) {
-      const attributes = relationship.attributes;
-      return (attributes &&
-              attributes.some(attr => attr.type.gid === VIDEO_ATTRIBUTE_GID));
-    }
-
     if (releaseEditor.hasInvalidLinks()) {
       return edits;
     }
 
-    var {
-      oldLinks,
-      newLinks,
-      allLinks,
-    } = releaseEditor.externalLinksEditData();
+    var links = releaseEditor.externalLinksData();
 
-    if (!allLinks) {
+    if (!links.size) {
       return edits;
     }
 
-    for (const link of allLinks.values()) {
-      if (!link.type || !link.url) {
-        continue;
-      }
+    for (const link of tree.iterate(links)) {
+      for (const relationship of link.relationships) {
+        const newData = MBEdit.fields.externalLinkRelationship(
+          release,
+          (
+            link.originalUrlEntity &&
+            link.originalUrlEntity.name === link.url
+          ) ? link.originalUrlEntity : createUrlObject({name: link.url}),
+          relationship,
+        );
+        const status = getLinkRelationshipStatus(relationship);
 
-      const newData = MBEdit.fields.externalLinkRelationship(link, release);
-      const relationshipId = link.relationship;
-      const relationshipIdString = String(relationshipId);
-
-      if (isPositiveInteger(link.relationship)) {
-        if (!newLinks.has(relationshipIdString)) {
+        if (status.isNew) {
+          edits.push(MBEdit.relationshipCreate(newData));
+        } else if (status.removed) {
           edits.push(MBEdit.relationshipDelete(newData));
-        } else if (oldLinks.has(relationshipIdString)) {
+        } else if (!isObjectEmpty(status.changes)) {
+          invariant(link.originalUrlEntity);
+
           const original = MBEdit.fields.externalLinkRelationship(
-            oldLinks.get(relationshipIdString),
             release,
+            link.originalUrlEntity,
+            relationship.originalState,
           );
 
-          if (!deepEqual(newData, original)) {
-            const editData = MBEdit.relationshipEdit(newData, original);
+          const editData = MBEdit.relationshipEdit(newData, original);
 
-            if (hasVideo(original) && !hasVideo(newData)) {
-              editData.attributes = [{
-                removed: true,
-                type: {gid: VIDEO_ATTRIBUTE_GID},
-              }];
-            }
-
-            edits.push(editData);
+          if (relationship.originalState.video && !relationship.video) {
+            editData.attributes = [{
+              removed: true,
+              type: {gid: VIDEO_ATTRIBUTE_GID},
+            }];
           }
+
+          edits.push(editData);
         }
-      } else if (newLinks.has(relationshipIdString)) {
-        edits.push(MBEdit.relationshipCreate(newData));
       }
     }
 

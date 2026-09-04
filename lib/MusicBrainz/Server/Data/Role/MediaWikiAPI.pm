@@ -71,12 +71,14 @@ sub _get_and_process_json
         }
 
         # wiki redirects
+        my $is_redirect = 0;
         if ($content->{redirects}) {
             my $redirects =
                 first { $_->{from} eq $title } @{ $content->{redirects} };
 
             if ($redirects) {
                 $title = $redirects->{to};
+                $is_redirect = 1;
             }
         }
 
@@ -90,7 +92,12 @@ sub _get_and_process_json
         }
         unless ($ret && $ret->{$property}) { $ret->{$property} = undef; }
 
-        return {content => $ret->{$property}, title => $noncanonical, canonical => $title};
+        return {
+            content => $ret->{$property},
+            title => $noncanonical,
+            canonical => $title,
+            is_redirect => $is_redirect,
+        };
     } elsif ($content->{entities} && $content->{entities}{$title}) {
         # Wikidata (action: wbgetentities)
         return {content => $content->{entities}{$title}};

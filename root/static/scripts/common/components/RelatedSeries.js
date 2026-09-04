@@ -21,10 +21,16 @@ const seriesPartLinkTypes = new Set(
 );
 
 export function isNotSeriesPart(r: RelationshipT): boolean {
-  return !seriesPartLinkTypes.has(linkedEntities.link_type[r.linkTypeID].gid);
+  const relTypeGid = linkedEntities.link_type[r.linkTypeID].gid;
+  const isPart = seriesPartLinkTypes.has(relTypeGid);
+  // For series-series rels, we check it's a part linking back to the series
+  const isSeriesPartOfSeries = isPart &&
+    relTypeGid === PART_OF_SERIES_LINK_TYPES.series &&
+    r.backward === false;
+  return !isPart || isSeriesPartOfSeries;
 }
 
-component RelatedSeries(seriesIds: $ReadOnlyArray<number>) {
+component RelatedSeries(seriesIds: ReadonlyArray<number>) {
   const parts: Array<React.Node> = [
     /* eslint-disable react/jsx-key */
     <h2 className="related-series">

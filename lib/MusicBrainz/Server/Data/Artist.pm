@@ -296,6 +296,16 @@ sub update
     $self->sql->update_row('artist', $row, { id => $artist_id }) if %$row;
 }
 
+# This is run `after` so that cache invalidation happens first
+# (via `Data::Role::EntityCache``).
+after update => sub {
+    my ($self, $artist_id, $update) = @_;
+
+    if ($update->{name}) {
+        $self->c->model('Series')->reorder_for_entities('artist', $artist_id);
+    }
+};
+
 sub can_split
 {
     my ($self, $artist_id) = @_;

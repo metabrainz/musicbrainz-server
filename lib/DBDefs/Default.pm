@@ -157,6 +157,10 @@ sub DB_STAGING_SERVER_SANITIZED { 1 }
 # users to edit user permissions.
 sub DB_STAGING_TESTING_FEATURES { my $self = shift; $self->DB_STAGING_SERVER }
 
+# Enable local account registration and login, bypassing OAuth login with
+# MetaBrainz. This should only be enabled for development purposes.
+sub LOCAL_ACCOUNTS_ENABLED { shift->DEVELOPMENT_SERVER }
+
 # SSL_REDIRECTS_ENABLED should be set to 1 on production.  It enables
 # the "RequireSSL" attribute on Catalyst actions, which will redirect
 # users to the SSL version of a Catalyst action (and redirect back to
@@ -196,25 +200,28 @@ sub GOOGLE_CUSTOM_SEARCH { '' }
 
 # A namespace prefix to be applied to all items in all caches, whether for
 # entities or user login sessions. Note that this is used by the default
-# PLUGIN_CACHE_OPTIONS, CACHE_MANAGER_OPTIONS, and DATASTORE_REDIS_ARGS
+# PLUGIN_CACHE_OPTIONS, CACHE_MANAGER_OPTIONS, and DATASTORE_VALKEY_ARGS
 # implementations; if you redefine those, CACHE_NAMESPACE will only be used if
 # you use it in your own definitions.
 sub CACHE_NAMESPACE { 'MB:' }
 
-# Redis by default has 16 numbered databases available, of which DB 0 is the
+# Valkey by default has 16 numbered databases available, of which DB 0 is the
 # default. You can configure which of these databases are used by
 # musicbrainz-server via the `database` properties in `PLUGIN_CACHE_OPTIONS`,
-# `CACHE_MANAGER_OPTIONS`, and `DATASTORE_REDIS_ARGS`. It is not recommended
-# to change the default of 0 unless you are sharing a Redis instance with
+# `CACHE_MANAGER_OPTIONS`, and `DATASTORE_VALKEY_ARGS`. It is not recommended
+# to change the default of 0 unless you are sharing a Valkey instance with
 # other services. (We do not advise this; please heed the note about
-# `REDIS_TEST_DATABASE` below, or suffer data loss.)
+# `VALKEY_TEST_DATABASE` below, or suffer data loss.)
 #
-# `REDIS_TEST_DATABASE` indicates the minimum DB number used when running
+# `VALKEY_TEST_DATABASE` indicates the minimum DB number used when running
 # tests. This is used for both the cache and the store. Note that the tests
 # may use additional DB numbers greater than or equal to
-# `REDIS_TEST_DATABASE`, and that all production DB numbers should be less
+# `VALKEY_TEST_DATABASE`, and that all production DB numbers should be less
 # than it. All test databases will be completely erased on each test run.
-sub REDIS_TEST_DATABASE { 1 }
+sub VALKEY_TEST_DATABASE { shift->REDIS_TEST_DATABASE // 1 }
+
+# Exists for backwards compatibility, to be removed in the future.
+sub REDIS_TEST_DATABASE { undef }
 
 # PLUGIN_CACHE_OPTIONS are the options configured for Plugin::Cache.  $c->cache
 # is provided by Plugin::Cache, and is required for HTTP Digest authentication
@@ -222,21 +229,21 @@ sub REDIS_TEST_DATABASE { 1 }
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        class => 'MusicBrainz::Server::CacheWrapper::Valkey',
         server => '127.0.0.1:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
         database => 0,
     };
 }
 
-# The caching options here relate to object caching in Redis - such as for
+# The caching options here relate to object caching in Valkey - such as for
 # artists, releases, etc. in order to speed up queries.
 sub CACHE_MANAGER_OPTIONS {
     my $self = shift;
     my %CACHE_MANAGER_OPTIONS = (
         profiles => {
             external => {
-                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                class => 'MusicBrainz::Server::CacheWrapper::Valkey',
                 options => {
                     server => '127.0.0.1:6379',
                     namespace => $self->CACHE_NAMESPACE,
@@ -250,14 +257,14 @@ sub CACHE_MANAGER_OPTIONS {
     return \%CACHE_MANAGER_OPTIONS;
 }
 
-# Sets the TTL for entities stored in Redis, in seconds. On mirror servers,
+# Sets the TTL for entities stored in Valkey, in seconds. On mirror servers,
 # this is set to 1 hour by default, to mitigate MBS-8726. On standalone
 # servers, this is set to 1 day; cache invalidation is already handled by the
 # server in that case, so keys may be evicted sooner, but an upper limit is
-# set in case the same Redis instance storing login sessions is being used
+# set in case the same Valkey instance storing login sessions is being used
 # (where no memory limit should be in place). In production, where separate
-# Redis instances might be used to store sessions and cached entities, this
-# can be set to 0 if there's already a memory limit configured for Redis.
+# Valkey instances might be used to store sessions and cached entities, this
+# can be set to 0 if there's already a memory limit configured for Valkey.
 sub ENTITY_CACHE_TTL {
     return 3600 if shift->REPLICATION_TYPE == RT_MIRROR;
     return 86400;
@@ -268,32 +275,22 @@ sub ENTITY_CACHE_TTL {
 ################################################################################
 
 # The session store holds user login sessions. Session::Store::MusicBrainz
-# uses DATASTORE_REDIS_ARGS to connect to and store sessions in Redis.
+# uses DATASTORE_VALKEY_ARGS to connect to and store sessions in Valkey.
 
 sub SESSION_STORE { 'Session::Store::MusicBrainz' }
-sub SESSION_STORE_ARGS { return {} }
-sub SESSION_EXPIRE { return 36000; } # 10 hours
+sub SESSION_EXPIRE { return 3600 * 3; } # 3 hours
 
-sub DATASTORE_REDIS_ARGS {
+sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
-    return {
+    return $self->DATASTORE_REDIS_ARGS // {
         database => 0,
         namespace => $self->CACHE_NAMESPACE,
         server => '127.0.0.1:6379',
     };
 }
 
-################################################################################
-# Session cookies
-################################################################################
-
-# How long (in seconds) a web/rdf session can go "idle" before being timed out
-sub WEB_SESSION_SECONDS_TO_LIVE { 3600 * 3 }
-
-# The cookie name to use
-sub SESSION_COOKIE { 'AF_SID' }
-# The domain into which the session cookie is written
-sub SESSION_DOMAIN { undef }
+# Exists for backwards compatibility, to be removed in the future.
+sub DATASTORE_REDIS_ARGS { undef }
 
 ################################################################################
 # Other Settings
@@ -356,15 +353,6 @@ sub AWS_ASSOCIATE_ID
 sub AWS_PRIVATE { '' }
 sub AWS_PUBLIC { '' }
 
-# To enable use of MTCaptcha, replace undef with your MTCaptcha keys.
-sub MTCAPTCHA_PUBLIC_KEY { return undef }
-sub MTCAPTCHA_PRIVATE_KEY { return undef }
-sub MTCAPTCHA_PRIVATE_TEST_KEY { return undef }
-
-# A list of email domains which are blocked for the purposes of
-# new account registration.
-sub BLOCKED_EMAIL_DOMAINS { }
-
 # Internet Archive public/private keys
 # (for coverartarchive.org and eventartarchive.org).
 sub COVER_ART_ARCHIVE_ACCESS_KEY { }
@@ -387,13 +375,21 @@ sub MAPBOX_MAP_ID { 'mapbox/streets-v11' }
 sub MAPBOX_ACCESS_TOKEN { '' }
 
 # Feature toggle used for pre-schema change release of safe schema change code
-sub ACTIVE_SCHEMA_SEQUENCE { 30 }
+sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 
-# MetaBrainz OAuth endpoint (and associated application) used to introspect
-# "meba_*" tokens issued by metabrainz.org. See MBS-13703 for details.
-sub METABRAINZ_OAUTH_URL { '' }
+# URLs for MetaBrainz account registration, login, and OAuth.
+sub METABRAINZ_URL { 'https://metabrainz.org' }
+# `METABRAINZ_INTERNAL_URL` may be configured in production to allow querying
+# the OAuth API via the internal network, e.g., using Consul DNS.
+sub METABRAINZ_INTERNAL_URL { shift->METABRAINZ_URL }
+# OAuth application used for login and introspecting "meba_*" tokens issued
+# by metabrainz.org. See MBS-13703 for details.
 sub METABRAINZ_OAUTH_CLIENT_ID { '' }
 sub METABRAINZ_OAUTH_CLIENT_SECRET { '' }
+sub METABRAINZ_OAUTH_SSL_VERIFICATION_ENABLED { 1 }
+# Secret used in verifying webhook request signatures (for syncing user data
+# from MetaBrainz). Webhooks are set up from the MetaBrainz admin portal.
+sub METABRAINZ_WEBHOOK_SECRET { '' }
 
 # Disallow OAuth2 requests over plain HTTP
 sub OAUTH2_ENFORCE_TLS { my $self = shift; !$self->DB_STAGING_SERVER || $self->IS_BETA }
@@ -467,12 +463,6 @@ sub DISCOURSE_API_KEY { '' }
 sub DISCOURSE_API_USERNAME { '' }
 # See https://meta.discourse.org/t/official-single-sign-on-for-discourse/13045
 sub DISCOURSE_SSO_SECRET { '' }
-
-# Secret key used to generate nonce values in some contexts, e.g. CSRF tokens
-# and CSP headers. Even without a secret set, the generated nonces are very
-# unlikely to be guessed; this is mainly only useful for an additional layer
-# of security on the MusicBrainz production site.
-sub NONCE_SECRET { '' }
 
 # `USE_RO_DATABASE_CONNECTOR` signals to MusicBrainz Server that it may open
 # an additional database connector per request that it can send read-only
@@ -550,6 +540,12 @@ sub WIKIMEDIA_COMMONS_IMAGES_ENABLED { 1 }
 # releases returned such that the total number of tracks doesn't exceed this
 # number.
 sub WS_TRACK_LIMIT { 500 }
+
+# Whether to require logging in in order to view web pages other than
+# the homepage, registration page, and login page itself. This is generally
+# only enabled as a temporary measure on staging servers in order to obstruct
+# AI scraping bots from DDoSing the site. Has no effect on the web service.
+sub REQUIRE_LOGIN_FOR_VIEWING { 0 }
 
 ################################################################################
 # Profiling

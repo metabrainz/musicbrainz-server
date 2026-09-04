@@ -157,7 +157,7 @@ INSERT INTO release (id, gid, name, artist_credit, release_group, status, packag
     (2154808, '1bda2f85-0576-4077-b3fa-0fc939079b61', 'Weapons of Mass Seduction', 2196047, 1954919, 1, NULL, 120, 28, NULL, '', -1);
 
 INSERT INTO release_label (id, release, label, catalog_number, last_updated) VALUES
-    (1237936, 1693299, 62565, '', '2016-01-26 21:00:23.940303+00');
+    (1237936, 1693299, 62565, NULL, '2016-01-26 21:00:23.940303+00');
 
 INSERT INTO medium (id, gid, release, position, format, name, edits_pending, last_updated, track_count) VALUES
     (1690850, '38d614e3-4680-48fd-b050-7fc8069e4ee0', 1693299, 1, 1, '', 0, '2015-05-18 20:20:39.009738+00', 0),

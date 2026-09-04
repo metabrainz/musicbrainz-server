@@ -343,7 +343,7 @@
     },
     {
       command: 'sendKeys',
-      target: 'id=ac-new-5-artist-0',
+      target: 'xpath=(//div[@id="artist-credit-bubble"]//div[contains(@class, "autocomplete2 artist-credit-editor")]//input[@type="text"])[1]',
       value: 'test',
     },
     {

@@ -1,0 +1,20 @@
+{
+  title: 'MBS-14323',
+  commands: [
+    {
+      command: 'open',
+      target: '/label/create',
+      value: '',
+    },
+    {
+      command: 'sendKeys',
+      target: "xpath=(//table[@id='external-links-editor']//input[@type='url'])[1]",
+      value: 'https://www.youtube.com/watch?v=J_8mdH20qTQ${KEY_ENTER}',
+    },
+    {
+      command: 'assertText',
+      target: "xpath=(//tr[contains(@class, 'external-link-item')]//div[contains(@class, 'error')])[1]",
+      value: 'Please link to a channel, not a specific video. Videos should be linked to the appropriate recordings or releases instead.',
+    },
+  ],
+}

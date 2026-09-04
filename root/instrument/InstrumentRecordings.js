@@ -23,7 +23,7 @@ component InstrumentRecordings(
   instrument: InstrumentT,
   instrumentCreditsAndRelTypes: InstrumentCreditsAndRelTypesT,
   pager: PagerT,
-  recordings: $ReadOnlyArray<RecordingT>,
+  recordings: ReadonlyArray<RecordingT>,
 ) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (

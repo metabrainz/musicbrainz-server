@@ -9,7 +9,7 @@
 
 component OAuth2FormPost(
   applicationName: string,
-  fields: {+[fieldName: string]: string, ...},
+  fields: {readonly [fieldName: string]: string, ...},
   redirectUri: string,
 ) {
   const title = texp.l('Redirecting to {application}', {

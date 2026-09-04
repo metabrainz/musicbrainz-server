@@ -13,7 +13,7 @@ import {ACCESS_SCOPE_PERMISSIONS} from '../../constants.js';
 component RevokeApplicationAccess(
   application: ApplicationT,
   form: SecureConfirmFormT,
-  permissions: $ReadOnlyArray<number>,
+  permissions: ReadonlyArray<number>,
 ) {
   return (
     <ConfirmLayout

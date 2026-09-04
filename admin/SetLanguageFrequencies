@@ -99,7 +99,7 @@ catch
 };
 
 #
-# Invalidate Redis entries to use the new values sooner.
+# Invalidate Valkey entries to use the new values sooner.
 #
 
 $c->model('Language')->_delete_all_from_cache;

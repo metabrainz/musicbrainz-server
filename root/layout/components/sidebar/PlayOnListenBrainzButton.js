@@ -12,7 +12,7 @@ import listenBrainzIconUrl
 
 function getListenBrainzLink(
   entityType: 'album' | 'artist' | 'recording',
-  mbids: string | $ReadOnlyArray<string>,
+  mbids: string | ReadonlyArray<string>,
 ): string | null {
   let formattedMbids;
 
@@ -44,7 +44,7 @@ function getListenBrainzLink(
 
 component PlayOnListenBrainzButton(
   entityType: 'album' | 'artist' | 'recording',
-  mbids: string | $ReadOnlyArray<string>,
+  mbids: string | ReadonlyArray<string>,
 ) {
   const link = getListenBrainzLink(entityType, mbids);
 

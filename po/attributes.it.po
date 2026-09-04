@@ -11,12 +11,13 @@
 # salo.rock, 2012
 # salo.rock, 2022-2023
 # "salo.rock" <salo.rock+musicbrainz@gmail.com>, 2023.
-# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025.
+# "salo.rock" <salo.rock@users.noreply.translations.metabrainz.org>, 2023, 2024, 2025, 2026.
 # yvanzo <yvanzo@users.noreply.translations.metabrainz.org>, 2024.
+# GABG <musicbrainz@gabg.email>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2025-10-18 17:08+0000\n"
+"PO-Revision-Date: 2026-07-28 19:12+0000\n"
 "Last-Translator: \"salo.rock\" "
 "<salo.rock@users.noreply.translations.metabrainz.org>\n"
 "Language-Team: Italian <https://translations.metabrainz.org/projects/"
@@ -25,9 +26,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == 0)"
-" ? 1 : 2);\n"
-"X-Generator: Weblate 5.13.3\n"
+"Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
+"0) ? 1 : 2);\n"
+"X-Generator: Weblate 2026.7.1\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -519,7 +520,7 @@ msgid ""
 "surrounds a second inner package such as a jewel case."
 msgstr ""
 "Una scatola a quattro o cinque lati, solitamente in cartone o in plastica, "
-"che circonda una seconda confezione interna, come un jewel case."
+"che avvolge una seconda confezione interna, come un jewel case."
 
 #. name:Promotion
 #: DB:release_status/description:2
@@ -588,6 +589,18 @@ msgid ""
 msgstr ""
 "Un elenco delle canzoni da suonare durante l'evento, spesso stampato o "
 "scritto a mano per essere utilizzato dall'artista."
+
+#. name:Logo
+#: DB:event_art_archive.art_type/description:12
+msgctxt "event_art_type"
+msgid ""
+"A logo that is specific to a particular event and only used for it, rather "
+"than being the logo for a series (such as a festival logo reused over "
+"multiple years)."
+msgstr ""
+"Un logo proprio di un evento specifico e usato esclusivamente per quello, "
+"anziché essere il logo di una serie (come ad esempio il logo di un festival "
+"riutilizzato per diversi anni)."
 
 #: DB:work_attribute_type_allowed_value/value:28
 msgctxt "work_attribute_type_allowed_value"
@@ -805,6 +818,18 @@ msgstr ""
 "limitata e al fine di illustrare il sound di un artista ad etichette, "
 "editori e altri artisti."
 
+#. name:Liner
+#: DB:cover_art_archive.art_type/description:12
+msgctxt "cover_art_type"
+msgid ""
+"A protective sleeve (usually an ‘inner sleeve’) surrounding a medium "
+"(usually a vinyl record, but sometimes a CD), often printed with notes or "
+"images."
+msgstr ""
+"Una busta protettiva (di solito una busta interna) che avvolge un supporto "
+"(solitamente un disco in vinile, ma a volte un CD) e che spesso ha stampate "
+"sopra annotazioni o immagini."
+
 #. name:Quartet
 #: DB:work_type/description:14
 msgctxt "work_type"
@@ -903,7 +928,7 @@ msgstr "Una serie di esibizioni dello stesso spettacolo nello stesso locale."
 #: DB:series_type/description:48
 msgctxt "series_type"
 msgid "A series of recordings honoured by the same award."
-msgstr "Una serie di registrazioni onorate dello stesso premio."
+msgstr "Una serie di registrazioni insignite dello stesso premio."
 
 #. name:Recording series
 #: DB:series_type/description:3
@@ -938,7 +963,7 @@ msgstr ""
 #: DB:series_type/description:47
 msgctxt "series_type"
 msgid "A series of release groups honoured by the same award."
-msgstr "Una serie di gruppi di pubblicazioni onorati dello stesso premio."
+msgstr "Una serie di gruppi di pubblicazioni insigniti dello stesso premio."
 
 #. name:Release group series
 #: DB:series_type/description:1
@@ -952,11 +977,27 @@ msgctxt "series_type"
 msgid "A series of releases."
 msgstr "Una serie di pubblicazioni."
 
+#. name:Series award
+#: DB:series_type/description:17
+msgctxt "series_type"
+msgid ""
+"A series of series (such as podcasts or festivals) honoured by the same "
+"award."
+msgstr ""
+"Una serie di serie (per esempio, di podcast o festival) insignite dello "
+"stesso premio."
+
+#. name:Series series
+#: DB:series_type/description:16
+msgctxt "series_type"
+msgid "A series of series."
+msgstr "Una serie di serie."
+
 #. name:Work award
 #: DB:series_type/description:46
 msgctxt "series_type"
 msgid "A series of works honoured by the same award."
-msgstr "Una serie di opere onorate dello stesso premio."
+msgstr "Una serie di opere insignite dello stesso premio."
 
 #. name:Catalogue
 #: DB:series_type/description:5
@@ -1354,6 +1395,11 @@ msgctxt "release_group_primary_type"
 msgid "Album"
 msgstr "Album"
 
+#: DB:work_attribute_type/name:216
+msgctxt "work_attribute_type"
+msgid "AllTrack ID"
+msgstr "ID AllTrack"
+
 #. name:Manual
 #: DB:series_ordering_type/description:2
 msgctxt "series_ordering_type"
@@ -1634,6 +1680,16 @@ msgstr ""
 "orchestra, coro e solisti. Pur avendo dei personaggi e una trama, non è "
 "solitamente rappresentata in scena (non ha costumi, scenografia né forte "
 "interazione tra i personaggi)."
+
+#. name:Broadcaster
+#: DB:label_type/description:12
+msgctxt "label_type"
+msgid ""
+"An organization that mostly concentrates on broadcasting audio or video "
+"content, be it on television, radio or the internet."
+msgstr ""
+"Un'organizzazione dedita principalmente alla trasmissione di contenuti audio "
+"o video, che sia attraverso la televisione, la radio o internet."
 
 #. name:Creative Agency
 #: DB:label_type/description:11
@@ -2369,6 +2425,11 @@ msgstr "Nome della marca"
 msgctxt "release_group_primary_type"
 msgid "Broadcast"
 msgstr "Trasmissione"
+
+#: DB:label_type/name:12
+msgctxt "label_type"
+msgid "Broadcaster"
+msgstr "Emittente"
 
 #: DB:work_attribute_type_allowed_value/value:885
 msgctxt "work_attribute_type_allowed_value"
@@ -4849,6 +4910,12 @@ msgctxt "work_attribute_type"
 msgid "ID for the US rights society ASCAP"
 msgstr "ID per la società di diritti statunitense ASCAP"
 
+#. name:AllTrack ID
+#: DB:work_attribute_type/description:216
+msgctxt "work_attribute_type"
+msgid "ID for the US rights society AllTrack"
+msgstr "ID per la società di diritti statunitense AllTrack"
+
 #. name:BMI ID
 #: DB:work_attribute_type/description:7
 msgctxt "work_attribute_type"
@@ -5737,6 +5804,11 @@ msgstr "Fodera"
 msgctxt "release_group_secondary_type"
 msgid "Live"
 msgstr "Dal vivo"
+
+#: DB:event_art_archive.art_type/name:12
+msgctxt "event_art_type"
+msgid "Logo"
+msgstr "Logo"
 
 #: DB:work_attribute_type_allowed_value/value:636
 msgctxt "work_attribute_type_allowed_value"
@@ -7331,7 +7403,7 @@ msgstr "Grezza/non editata"
 #: DB:series_type/name:48
 msgctxt "series_type"
 msgid "Recording award"
-msgstr "Premio a registrazioni"
+msgstr "Premio per registrazioni"
 
 #: DB:editor_collection_type/name:12
 msgctxt "collection_type"
@@ -7376,7 +7448,7 @@ msgstr "Collezione di pubblicazioni"
 #: DB:series_type/name:47
 msgctxt "series_type"
 msgid "Release group award"
-msgstr "Premio a gruppi di pubblicazioni"
+msgstr "Premio per gruppi di pubblicazioni"
 
 #: DB:editor_collection_type/name:13
 msgctxt "collection_type"
@@ -7905,6 +7977,11 @@ msgctxt "work_attribute_type_allowed_value"
 msgid "Serbest"
 msgstr "Serbest"
 
+#: DB:series_type/name:17
+msgctxt "series_type"
+msgid "Series award"
+msgstr "Premio per serie"
+
 #: DB:editor_collection_type/name:14
 msgctxt "collection_type"
 msgid "Series collection"
@@ -7914,6 +7991,11 @@ msgstr "Collezione di serie"
 msgctxt "alias_type"
 msgid "Series name"
 msgstr "Nome della serie"
+
+#: DB:series_type/name:16
+msgctxt "series_type"
+msgid "Series series"
+msgstr "Serie di serie"
 
 #: DB:event_art_archive.art_type/name:3
 msgctxt "event_art_type"
@@ -9208,7 +9290,7 @@ msgstr "Ritirata"
 #: DB:series_type/name:46
 msgctxt "series_type"
 msgid "Work award"
-msgstr "Premio a opere"
+msgstr "Premio per opere"
 
 #: DB:editor_collection_type/name:15
 msgctxt "collection_type"

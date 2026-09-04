@@ -16,7 +16,7 @@ import nonEmpty from '../static/scripts/common/utility/nonEmpty.js';
  * refinements.
  */
 export default function invariant(
-  cond: mixed,
+  cond: unknown,
   msg?: string = 'Invariant Violation',
 ): void {
   // flowlint sketchy-null-mixed:off

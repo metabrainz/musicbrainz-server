@@ -1393,6 +1393,15 @@ msgid ""
 "developer."
 msgstr ""
 
+#: DB:statistics.statistic_event/title:2025-12-20
+msgid "annas-archive Spotify 'backup'"
+msgstr ""
+
+#. title:annas-archive Spotify 'backup'
+#: DB:statistics.statistic_event/description:2025-12-20
+msgid "annas-archive releases Spotify metadata torrent"
+msgstr ""
+
 #. title:Harmony seeds recording relationships
 #: DB:statistics.statistic_event/description:2025-03-21
 msgid ""

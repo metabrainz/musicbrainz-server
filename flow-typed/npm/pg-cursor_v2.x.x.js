@@ -16,10 +16,10 @@ declare module 'pg-cursor' {
     +rowMode?: 'array',
   };
 
-  declare class Cursor<+R> implements Submittable {
+  declare class Cursor<R> implements Submittable {
     constructor(
       text: string,
-      values: $ReadOnlyArray<mixed>,
+      values: ReadonlyArray<unknown>,
       config?: CursorQueryConfig,
     ): void,
     read(
@@ -30,7 +30,7 @@ declare module 'pg-cursor' {
     close((Error) => void): void,
     // shim for pg.Result class
     _result: {
-      parseRow: ($ReadOnlyArray<string>) => R | null,
+      parseRow: (ReadonlyArray<string>) => R | null,
     },
   }
 

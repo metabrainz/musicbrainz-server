@@ -25,7 +25,7 @@ const buildSidebarIsni = (isni: IsniCodeT) => (
   </SidebarProperty>
 );
 
-component SidebarIsnis(entity: $ReadOnly<{...IsniCodesRoleT, ...}>) {
+component SidebarIsnis(entity: Readonly<{...IsniCodesRoleT, ...}>) {
   return (
     entity.isni_codes.map(buildSidebarIsni)
   );

@@ -2772,6 +2772,7 @@ msgid "musical saw"
 msgstr ""
 
 #: DB:instrument/name:684
+msgctxt "Korean straight brass horn"
 msgid "nabal"
 msgstr ""
 
@@ -3485,6 +3486,7 @@ msgid "sasando"
 msgstr ""
 
 #: DB:instrument/name:580
+msgctxt "Fourstring Edo biwa"
 msgid "satsuma biwa"
 msgstr ""
 
@@ -4621,6 +4623,7 @@ msgid "yueqin"
 msgstr ""
 
 #: DB:instrument/name:715
+msgctxt "Brazilian bass drum"
 msgid "zabumba"
 msgstr ""
 

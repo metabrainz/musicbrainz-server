@@ -16,15 +16,15 @@ import Collapsible from './Collapsible.js';
 import EditorLink from './EditorLink.js';
 
 type MinimalAnnotatedEntityT = {
-  +entityType: AnnotatedEntityT['entityType'],
-  +gid: string,
-  +latest_annotation?: AnnotationT,
+  readonly entityType: AnnotatedEntityT['entityType'],
+  readonly gid: string,
+  readonly latest_annotation?: AnnotationT,
 };
 
 component Annotation(
   annotation: ?AnnotationT,
   collapse: boolean = false,
-  entity: $ReadOnly<{...MinimalAnnotatedEntityT, ...}>,
+  entity: Readonly<{...MinimalAnnotatedEntityT, ...}>,
   numberOfRevisions: number,
   showChangeLog: boolean = false,
   showEmpty: boolean = false,
@@ -110,7 +110,7 @@ component Annotation(
   );
 }
 
-export default (hydrate<React.PropsOf<Annotation>>(
+export default hydrate<React.PropsOf<Annotation>>(
   'div.annotation',
   Annotation,
   function (props) {
@@ -132,13 +132,13 @@ export default (hydrate<React.PropsOf<Annotation>>(
 
     const latestAnnotation = entity.latest_annotation;
     if (latestAnnotation && latestAnnotation.editor) {
-      newEntity.latest_annotation = ({
+      newEntity.latest_annotation = {
         ...latestAnnotation,
         editor: sanitizedEditor(latestAnnotation.editor),
-      }: {...AnnotationT});
+      } as {...AnnotationT};
     }
 
     newProps.entity = newEntity;
     return newProps;
   },
-): component(...React.PropsOf<Annotation>));
+) as component(...React.PropsOf<Annotation>);

@@ -507,6 +507,11 @@ msgstr ""
 msgid "Chuvash"
 msgstr ""
 
+#. frequency:1 iso_code_3:nci
+#: DB:language/name:4704
+msgid "Classical Nahuatl"
+msgstr ""
+
 #. frequency:0 iso_code_3:nwc
 #: DB:language/name:312
 msgid "Classical Newari"
@@ -662,6 +667,11 @@ msgstr ""
 msgid "Eastern Arrernte"
 msgstr ""
 
+#. frequency:1 iso_code_3:nea
+#: DB:language/name:4741
+msgid "Eastern Ngad'a"
+msgstr ""
+
 #. frequency:1 iso_code_3:efi
 #: DB:language/name:116
 msgid "Efik"
@@ -680,6 +690,11 @@ msgstr ""
 #. frequency:1 iso_code_3:elx
 #: DB:language/name:119
 msgid "Elamite"
+msgstr ""
+
+#. frequency:1 iso_code_3:egl
+#: DB:language/name:2169
+msgid "Emilian"
 msgstr ""
 
 #. frequency:2 iso_code_3:eng
@@ -1097,6 +1112,11 @@ msgstr ""
 msgid "Interlingue"
 msgstr ""
 
+#. frequency:1 iso_code_3:isv
+#: DB:language/name:7878
+msgid "Interslavic"
+msgstr ""
+
 #. frequency:1 iso_code_3:iku
 #: DB:language/name:184
 msgid "Inuktitut"
@@ -1245,6 +1265,11 @@ msgstr ""
 #. frequency:1 iso_code_3:kaz
 #: DB:language/name:211
 msgid "Kazakh"
+msgstr ""
+
+#. frequency:1 iso_code_3:meo
+#: DB:language/name:4140
+msgid "Kedah Malay"
 msgstr ""
 
 #. frequency:1 iso_code_3:kca
@@ -1702,6 +1727,11 @@ msgstr ""
 msgid "Mongolian"
 msgstr ""
 
+#. frequency:1 iso_code_3:mfe
+#: DB:language/name:4155
+msgid "Morisyen"
+msgstr ""
+
 #. frequency:1 iso_code_3:mos
 #: DB:language/name:283
 msgid "Mossi"
@@ -1752,6 +1782,11 @@ msgstr ""
 msgid "Neapolitan"
 msgstr ""
 
+#. frequency:1 iso_code_3:zmi
+#: DB:language/name:7753
+msgid "Negeri Sembilan Malay"
+msgstr ""
+
 #. frequency:1 iso_code_3:new
 #: DB:language/name:301
 msgid "Nepal Bhasa"
@@ -1760,6 +1795,11 @@ msgstr ""
 #. frequency:1 iso_code_3:nep
 #: DB:language/name:300
 msgid "Nepali"
+msgstr ""
+
+#. frequency:1 iso_code_3:nxg
+#: DB:language/name:5076
+msgid "Ngad'a"
 msgstr ""
 
 #. frequency:1 iso_code_3:yrl
@@ -1920,6 +1960,11 @@ msgstr ""
 #. frequency:0 iso_code_3:null
 #: DB:language/name:326
 msgid "Papuan languages"
+msgstr ""
+
+#. frequency:1 iso_code_3:mfa
+#: DB:language/name:4151
+msgid "Pattani Malay"
 msgstr ""
 
 #. frequency:1 iso_code_3:fas

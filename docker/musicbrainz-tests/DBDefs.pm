@@ -35,13 +35,6 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_JSON_DUMP => {
-        database    => 'musicbrainz_test_json_dump',
-        host        => 'localhost',
-        password    => '',
-        port        => 5432,
-        username    => 'musicbrainz',
-    },
     TEST_FULL_EXPORT => {
         database    => 'musicbrainz_test_full_export',
         host        => 'localhost',
@@ -49,22 +42,15 @@ MusicBrainz::Server::DatabaseConnectionFactory->register_databases(
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_SITEMAPS => {
-        database    => 'musicbrainz_test_sitemaps',
+    TEST_MASTER => {
+        database    => 'musicbrainz_test_master',
         host        => 'localhost',
         password    => '',
         port        => 5432,
         username    => 'musicbrainz',
     },
-    TEST_DBMIRROR2_MASTER => {
-        database    => 'musicbrainz_test_dbmirror2_master',
-        host        => 'localhost',
-        password    => '',
-        port        => 5432,
-        username    => 'musicbrainz',
-    },
-    TEST_DBMIRROR2_SLAVE => {
-        database    => 'musicbrainz_test_dbmirror2_slave',
+    TEST_MIRROR => {
+        database    => 'musicbrainz_test_mirror',
         host        => 'localhost',
         password    => '',
         port        => 5432,
@@ -77,7 +63,7 @@ sub CACHE_MANAGER_OPTIONS {
     my %CACHE_MANAGER_OPTIONS = (
         profiles => {
             external => {
-                class => 'MusicBrainz::Server::CacheWrapper::Redis',
+                class => 'MusicBrainz::Server::CacheWrapper::Valkey',
                 options => {
                     server => 'localhost:6379',
                     namespace => $self->CACHE_NAMESPACE,
@@ -99,10 +85,6 @@ sub COVER_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_caa' }
 sub EVENT_ART_ARCHIVE_ACCESS_KEY { 'hi_im_public_eaa' }
 sub EVENT_ART_ARCHIVE_SECRET_KEY { 'bye_im_private_eaa' }
 
-sub MTCAPTCHA_PUBLIC_KEY { $ENV{MTCAPTCHA_PUBLIC_KEY} }
-sub MTCAPTCHA_PRIVATE_KEY { $ENV{MTCAPTCHA_PRIVATE_KEY} }
-sub MTCAPTCHA_PRIVATE_TEST_KEY { $ENV{MTCAPTCHA_PRIVATE_TEST_KEY} }
-
 sub INTERNET_ARCHIVE_UPLOAD_PREFIXER { shift; sprintf('//localhost:5050/%s', shift) }
 sub INTERNET_ARCHIVE_METADATA_PREFIX { 'http://localhost:5050/metadata' }
 sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
@@ -110,7 +92,7 @@ sub INTERNET_ARCHIVE_IA_DOWNLOAD_PREFIX { '' }
 sub COVER_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 sub EVENT_ART_ARCHIVE_DOWNLOAD_PREFIX { 'http://localhost:8081' }
 
-sub DATASTORE_REDIS_ARGS {
+sub DATASTORE_VALKEY_ARGS {
     my $self = shift;
     return {
         database => 0,
@@ -119,9 +101,11 @@ sub DATASTORE_REDIS_ARGS {
     };
 }
 
-sub DB_SCHEMA_SEQUENCE { 30 }
+sub DB_SCHEMA_SEQUENCE { 31 }
 
 sub DB_STAGING_TESTING_FEATURES { 1 }
+
+sub LOCAL_ACCOUNTS_ENABLED { 1 }
 
 sub DEVELOPMENT_SERVER { 0 }
 
@@ -137,12 +121,12 @@ sub HTML_VALIDATOR { 'http://localhost:8888?out=json' }
 
 sub MB_LANGUAGES { qw( de el es es-419 et fi fr he it ja nl sq ru en ) }
 
-sub ACTIVE_SCHEMA_SEQUENCE { 30 }
+sub ACTIVE_SCHEMA_SEQUENCE { 31 }
 
 sub PLUGIN_CACHE_OPTIONS {
     my $self = shift;
     return {
-        class => 'MusicBrainz::Server::CacheWrapper::Redis',
+        class => 'MusicBrainz::Server::CacheWrapper::Valkey',
         server => 'localhost:6379',
         namespace => $self->CACHE_NAMESPACE . 'Catalyst:',
         database => 0,
@@ -165,5 +149,8 @@ sub REPLICATION_USE_DBMIRROR2 { 1 }
 sub SMTP_SERVER { 'localhost:1025' }
 sub MAIL_SERVICE_BASE_URL { 'http://localhost:3000' }
 sub MAILPIT_API { 'http://localhost:8025/api/v1' }
+
+sub METABRAINZ_OAUTH_CLIENT_ID { 'meb_oauth_client' }
+sub METABRAINZ_WEBHOOK_SECRET { 'webhook_seekrit' }
 
 1;

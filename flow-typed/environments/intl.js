@@ -1,5 +1,5 @@
-// flow-typed signature: 933ff4628bc0f673e7f1b45afde46a81
-// flow-typed version: 31fffd602f/intl/flow_>=v0.261.x
+// flow-typed signature: cce05546fd679b7a36fc3c043123382b
+// flow-typed version: f3b4c734f3/intl/flow_>=v0.261.x
 
 declare var Intl: {
   Collator: Class<Intl$Collator>,
@@ -7,6 +7,7 @@ declare var Intl: {
   Locale: Class<Intl$LocaleClass>,
   NumberFormat: Class<Intl$NumberFormat>,
   PluralRules: ?Class<Intl$PluralRules>,
+  Segmenter: Class<Intl$Segmenter>,
   getCanonicalLocales?: (locales?: Intl$Locales) => Intl$Locale[],
   ...
 }
@@ -184,3 +185,44 @@ declare type Intl$PluralRulesOptions = {
   maximumSignificantDigits?: number,
   ...
 }
+
+type Intl$SegmenterGranularity = 'grapheme' | 'word' | 'sentence';
+
+declare type Intl$SegmenterOptions = {
+  localeMatcher?: 'lookup' | 'best fit',
+  granularity?: Intl$SegmenterGranularity,
+  ...
+};
+
+declare class Intl$Segmenter {
+  constructor (
+    locales?: Intl$Locales,
+    options?: Intl$SegmenterOptions
+  ): Intl$Segmenter;
+
+  static supportedLocalesOf (
+    locales: Intl$Locales,
+    options?: {| localeMatcher?: 'lookup' | 'best fit' |}
+  ): Intl$Locale[];
+
+  segment(input: string): Intl$Segments;
+
+  resolvedOptions(): {
+    locale: Intl$Locale,
+    granularity: Intl$SegmenterGranularity,
+    ...
+  };
+}
+
+declare class Intl$Segments {
+  @@iterator(): Iterator<Intl$SegmentData>;
+  containing(codeUnitIndex?: number): Intl$SegmentData;
+}
+
+declare type Intl$SegmentData = {
+  segment: string,
+  index: number,
+  input: string,
+  isWordLike?: boolean,
+  ...
+};

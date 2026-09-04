@@ -20,7 +20,7 @@ import {returnToCurrentPage} from '../utility/returnUri.js';
 import PlaceLayout from './PlaceLayout.js';
 
 component PlaceEvents(
-  events: $ReadOnlyArray<EventT>,
+  events: ReadonlyArray<EventT>,
   pager: PagerT,
   place: PlaceT,
 ) {

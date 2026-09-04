@@ -28,13 +28,13 @@ import {
 import ArtistCreditNameEditor from './ArtistCreditNameEditor.js';
 
 type ButtonsPropsT = {
-  +dispatch: (ActionT) => void,
-  +initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
-  +initialFocusRef: {-current: HTMLElement | null},
-  +isTrack: boolean,
+  readonly dispatch: (ActionT) => void,
+  readonly initialBubbleFocus: ArtistCreditStateT['initialBubbleFocus'],
+  readonly initialFocusRef: {writeonly current: HTMLElement | null},
+  readonly isTrack: boolean,
 };
 
-const Buttons = React.memo<ButtonsPropsT, void>(({
+const Buttons = React.memo<ButtonsPropsT, React.MixedElement>(({
   dispatch,
   initialBubbleFocus,
   initialFocusRef,
@@ -99,12 +99,15 @@ const ArtistCreditDocumentation = (React.memo(() => (
 )));
 
 type ArtistCreditPreviewPropsT = {
-  +editsPending: boolean | void,
-  +entity: ArtistCreditableT,
-  +names: $ReadOnlyArray<ArtistCreditNameStateT>,
+  readonly editsPending: boolean | void,
+  readonly entity?: ArtistCreditableT,
+  readonly names: ReadonlyArray<ArtistCreditNameStateT>,
 };
 
-const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT, void>(({
+const ArtistCreditPreview = (React.memo<
+  ArtistCreditPreviewPropsT,
+  React.MixedElement,
+>(({
   editsPending,
   entity,
   names,
@@ -121,7 +124,7 @@ const ArtistCreditPreview = (React.memo<ArtistCreditPreviewPropsT, void>(({
         <tr>
           <td colSpan={4} id="ac-preview-cell">
             {addColonText(lp('Preview', 'header')) + ' '}
-            {entity.entityType === 'track'
+            {entity?.entityType === 'track'
               ? (
                 <DescriptiveLink
                   allowNew
@@ -212,7 +215,7 @@ const ChangeMatchingTrackArtistsRow =
 component _ArtistCreditBubble(
   closeAndReturnFocus: () => void,
   dispatch: (ActionT) => void,
-  initialFocusRef: {-current: HTMLElement | null},
+  initialFocusRef: {writeonly current: HTMLElement | null},
   state: ArtistCreditStateT,
 ) {
   const {
@@ -224,7 +227,7 @@ component _ArtistCreditBubble(
     names,
   } = state;
 
-  const isTrack = entity.entityType === 'track';
+  const isTrack = entity?.entityType === 'track';
 
   const tableRef = React.useRef<HTMLTableElement | null>(null);
 
@@ -232,7 +235,7 @@ component _ArtistCreditBubble(
     if (
       event.target instanceof HTMLInputElement &&
       event.keyCode === 13 /* Enter */ &&
-      isTrack && /*:: entity.entityType === 'track' && */
+      isTrack && /*:: entity?.entityType === 'track' && */
       entity.next()
     ) {
       // Prevent form submission.

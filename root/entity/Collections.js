@@ -14,7 +14,7 @@ import EntityLink from '../static/scripts/common/components/EntityLink.js';
 component Details(
   entity: CollectableEntityT,
   privateCollectionCount: number,
-  publicCollections: $ReadOnlyArray<CollectionT>,
+  publicCollections: ReadonlyArray<CollectionT>,
 ) {
   const publicCollectionCount = publicCollections.length;
   const totalCollections = publicCollectionCount + privateCollectionCount;

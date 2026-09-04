@@ -215,7 +215,7 @@ component EditorTools() {
   );
 }
 
-export default (hydrate<React.PropsOf<EditorTools>>(
+export default hydrate<React.PropsOf<EditorTools>>(
   'div.editor-tools',
   EditorTools,
-): component(...React.PropsOf<EditorTools>));
+) as component(...React.PropsOf<EditorTools>);
