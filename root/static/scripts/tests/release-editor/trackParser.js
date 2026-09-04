@@ -592,3 +592,51 @@ parserTest('force number of tracks to equal CD TOC', function (t) {
     ['Track A', 'Very Different Title', 'Another Data Track'],
   );
 });
+
+parserTest('keeps length and track number unchanged when useTrackLengths is off (MBS-9526)', function (t) {
+  t.plan(1);
+
+  trackParser.options.useTrackNames = true;
+
+  /* eslint-disable sort-keys */
+  const release = new fields.Release({
+    id: 1,
+    mediums: [
+      {
+        id: 1,
+        tracks: [
+          {id: 1, number: 'A1', name: 'Track A', length: 42},
+          // data tracks should not be included in count
+          {id: 2, number: 'A2', name: 'Track B', length: 43},
+        ],
+      },
+    ],
+  });
+  /* eslint-enable sort-keys */
+
+  releaseEditor.rootField.release(release);
+
+  const medium = release.mediums()[0];
+  medium.tracks(trackParser.parse(
+    'Track A\n' +
+    'Very Different Title\n',
+    medium,
+  ));
+
+  t.deepEqual(
+    medium.tracks().map(x => ({
+      length: x.length(),
+      name: x.name(),
+      number: x.number(),
+    })),
+    [{
+      length: 42,
+      name: 'Track A',
+      number: 'A1',
+    }, {
+      length: 43,
+      name: 'Very Different Title',
+      number: 'A2',
+    }],
+  );
+});

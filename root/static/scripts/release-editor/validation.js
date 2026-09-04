@@ -36,12 +36,17 @@ function markTabWithErrors($panel) {
   // Mark the previous tab red if it has errors.
   var tabs = releaseEditor.uiTabs;
 
-  var $errors = $('.field-error', $panel).filter(function () {
+  let hasErrors = $('.field-error', $panel).filter(function () {
     return String($(this).data('visible')) === 'true' && $(this).text();
-  });
+  }).length > 0;
+
+  // Ensure that the user visits the tracklist tab when adding a release.
+  hasErrors ||=
+    $panel.attr('id') === 'tracklist' &&
+    releaseEditor.addingWithoutVisitingTracklist();
 
   tabs.tabs.eq(tabs.panels.index($panel))
-    .toggleClass('error-tab', $errors.length > 0);
+    .toggleClass('error-tab', hasErrors);
 }
 
 

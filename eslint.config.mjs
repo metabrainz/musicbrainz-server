@@ -15,7 +15,7 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 import stylistic from '@stylistic/eslint-plugin';
 import globals from 'globals';
-import hermesParser from 'hermes-eslint';
+import flowParser from 'flow-eslint';
 
 export default [
   {
@@ -114,7 +114,7 @@ export default [
         N_l_statistics: 'readonly',
         N_lp_statistics: 'readonly',
       },
-      parser: hermesParser,
+      parser: flowParser,
     },
     plugins: {
       '@stylistic': stylistic,
@@ -184,7 +184,7 @@ export default [
       'no-this-before-super': 'error',
       /*
        * no-undef is mostly superfluous as it is checked by Flow; enabling it
-       * actually triggers thousands of false positives because hermes-eslint
+       * actually triggers thousands of false positives because flow-eslint
        * doesn't track global types (those defined with `declare type`).
        * Ideally we could keep no-undef enabled for files that aren't Flow-
        * typed yet, but we don't maintain a separate config for those.

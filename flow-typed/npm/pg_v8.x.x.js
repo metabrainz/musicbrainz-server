@@ -11,22 +11,22 @@
 
 declare module 'pg' {
   declare export type ClientConfig = {
-    +user?: string,
-    +database?: string,
-    +password?: string,
-    +port?: number,
-    +host?: string,
+    readonly user?: string,
+    readonly database?: string,
+    readonly password?: string,
+    readonly port?: number,
+    readonly host?: string,
   };
 
-  declare export type QueryConfig<+V = unknown> = {
-    +name?: string,
-    +text: string,
-    +values?: ReadonlyArray<unknown>,
+  declare export type QueryConfig<out V = unknown> = {
+    readonly name?: string,
+    readonly text: string,
+    readonly values?: ReadonlyArray<unknown>,
   };
 
   declare export type PgResultSet<Row> = {
-    +rowCount: number,
-    +rows: Array<Row>,
+    readonly rowCount: number,
+    readonly rows: Array<Row>,
   };
 
   declare interface Submittable {
@@ -60,7 +60,7 @@ declare module 'pg' {
 
   declare class Connection {}
 
-  declare class Query<R, +V = unknown> implements Submittable {
+  declare class Query<R, out V = unknown> implements Submittable {
     constructor(
       config: string | QueryConfig<V>,
       values?: ReadonlyArray<V>,
