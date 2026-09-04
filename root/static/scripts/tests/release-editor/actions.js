@@ -56,6 +56,46 @@ test('removing a medium should change the medium positions', function (t) {
   );
 });
 
+test('guessing punctuation in release-editor titles', function (t) {
+  t.plan(8);
+
+  const release = common.setupReleaseEdit();
+  const medium = release.mediums()[0];
+  const track = medium.tracks()[0];
+
+  medium.name('Rock \'n\' Roll');
+  actions.guessPunctuationMediumName(medium, {
+    buttons: 0,
+    type: 'mouseenter',
+  });
+  t.equal(medium.name(), 'Rock \'n\' Roll', 'medium name is unchanged');
+  t.equal(medium.previewName(), 'Rock ’n’ Roll', 'medium preview is set');
+
+  actions.guessPunctuationMediumName(medium, {type: 'click'});
+  t.equal(medium.name(), 'Rock ’n’ Roll', 'medium name is updated');
+  t.equal(medium.previewName(), null, 'medium preview is cleared');
+
+  track.name('Are \'Friends\' Electric?');
+  actions.guessPunctuationTrackName(track, {
+    buttons: 0,
+    type: 'mouseenter',
+  });
+  t.equal(
+    track.name(),
+    'Are \'Friends\' Electric?',
+    'track name is unchanged',
+  );
+  t.equal(
+    track.previewName(),
+    'Are ‘Friends’ Electric?',
+    'track preview is set',
+  );
+
+  actions.guessPunctuationTrackName(track, {type: 'click'});
+  t.equal(track.name(), 'Are ‘Friends’ Electric?', 'track name is updated');
+  t.equal(track.previewName(), null, 'track preview is cleared');
+});
+
 test((
   'reordering tracks that have non-consecutive "position" properties (MBS-7227)'
 ), function (t) {
