@@ -551,16 +551,16 @@ component Homepage(
         <Footer />
       </div>
 
-      {manifest('bootstrap', {async: true})}
-      {manifest('homepage/navbar', {async: true})}
-      {manifest('homepage/editor-tools', {async: true})}
-      {manifest('homepage/user-menu', {async: true})}
-      {manifest('homepage/search', {async: true})}
-      {manifest('homepage/banner-carousel', {async: true})}
-      {manifest('homepage/stats', {async: true})}
-      {manifest('common/loadArtwork', {async: true})}
-      {manifest('homepage/artwork-carousel', {async: true})}
-      {manifest('common/banner', {async: true})}
+      {manifest('bootstrap')}
+      {manifest('homepage/navbar')}
+      {manifest('homepage/editor-tools')}
+      {manifest('homepage/user-menu')}
+      {manifest('homepage/search')}
+      {manifest('homepage/banner-carousel')}
+      {manifest('homepage/stats')}
+      {manifest('common/loadArtwork')}
+      {manifest('homepage/artwork-carousel')}
+      {manifest('common/banner')}
     </Layout>
   );
 }
