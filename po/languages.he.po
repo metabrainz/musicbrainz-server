@@ -1589,6 +1589,11 @@ msgstr "מלאית"
 msgid "Malayalam"
 msgstr "מאלאילאמית"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -2004,6 +2009,13 @@ msgstr "פוניציאנית"
 msgid "Pitjantjatjara"
 msgstr "פיטיאניטיארה"
 
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "קריאולית האיטית"
+
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
@@ -2374,6 +2386,13 @@ msgstr "שפות אינדיאניות דרום אמריקאיות"
 msgid "Southern Altai"
 msgstr "אלטאי דרומית"
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
+msgstr "אלטאי דרומית"
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2724,6 +2743,13 @@ msgstr "וואשו"
 msgid "Welsh"
 msgstr "וולשית"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "ונדה"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2739,8 +2765,8 @@ msgstr "וולאיטה"
 msgid "Wolof"
 msgstr "וולוף"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr "וויאנדוט"
 

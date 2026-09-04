@@ -2216,11 +2216,6 @@ msgstr ""
 "usato in occasione di importanti tradizioni e in ogni parte della vita "
 "indonesiana."
 
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr "Campana di ferro"
-
 #. name:fiddle
 #: DB:instrument/description:61
 msgid ""
@@ -4061,6 +4056,13 @@ msgstr ""
 "strumento è tenuto sotto l'ascella e suonato pizzicando la corda e tirando "
 "il pezzo di bambù."
 
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
+
 #. name:octavina
 #: DB:instrument/description:941
 msgid ""
@@ -5112,15 +5114,6 @@ msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr ""
 "Strumento della famiglia dei legni cromatico, ad ancia singola e senza tasti."
 
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr ""
-"Campana singola o multipla usata nella musica samba e con origine nella "
-"musica tradizionale yoruba."
-
 #. name:ajaeng
 #: DB:instrument/description:642
 msgid "The ajaeng is a bowed Korean zither with 7 (sometimes 8 or 9) strings."
@@ -6164,15 +6157,6 @@ msgstr ""
 "cassa è un cilindro allungato con estremità affusolate. La punta è "
 "realizzata in pelle di capra ed è fissata al corpo tramite dei pioli."
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr ""
-"Fischietto a tre toni usato nella musica samba e in altri generi musicali "
-"brasiliani."
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -6926,6 +6910,14 @@ msgstr ""
 "cui annunciare guerre, accogliere persone e annunciare la semina della "
 "kumara (patata dolce)."
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -6995,6 +6987,13 @@ msgid ""
 msgstr ""
 "Piccolo liuto con 5 ordini di 10 corde usato dai quechua e dagli aymara."
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -7060,6 +7059,13 @@ msgstr ""
 "Usato per semplice abbellimento, ha sbarre in metallo piccole e spesse "
 "sospese su canne risonanti; è il membro di tono più acuto della famiglia dei "
 "gendèr."
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
+msgstr ""
 
 #. name:Saraswati veena
 #: DB:instrument/description:476
@@ -7259,6 +7265,14 @@ msgstr ""
 "sundanese con 3 o 4 tamburi dai fianchi ricurvi e punte di dimensioni "
 "diverse.</li> <li>Il set balinese con due coppie di tamburi dai fianchi "
 "dritti e punte di dimensione uguale. </li> </ul>"
+
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
+msgstr ""
 
 #. name:krap phuang
 #: DB:instrument/description:951
@@ -7787,6 +7801,23 @@ msgstr "Saó ôi (flauto muong)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "Versione basso del trắng lu."
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr "Campana di ferro"
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr ""
+#~ "Campana singola o multipla usata nella musica samba e con origine nella "
+#~ "musica tradizionale yoruba."
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr ""
+#~ "Fischietto a tre toni usato nella musica samba e in altri generi musicali "
+#~ "brasiliani."
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."

@@ -1585,6 +1585,11 @@ msgstr "Malaja"
 msgid "Malayalam"
 msgstr "Malajala"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -2000,6 +2005,11 @@ msgstr "Fenica"
 msgid "Pitjantjatjara"
 msgstr ""
 
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+msgid "Plains Cree"
+msgstr ""
+
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
@@ -2374,6 +2384,13 @@ msgstr ""
 msgid "Southern Altai"
 msgstr "Suda altaja"
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
+msgstr "Suda altaja"
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2724,6 +2741,13 @@ msgstr "Vaŝoa"
 msgid "Welsh"
 msgstr "Kimra"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "Vendaa"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2739,8 +2763,8 @@ msgstr ""
 msgid "Wolof"
 msgstr "Volofa"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr ""
 

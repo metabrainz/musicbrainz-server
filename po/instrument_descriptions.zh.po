@@ -1950,11 +1950,6 @@ msgstr ""
 "常每种音阶有多组。<br />甘美兰是印尼文化的有机组成部分，在印尼人的重要传统和"
 "日常生活中得以应用。"
 
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr "甘柯圭铃，铁铃"
-
 #. name:fiddle
 #: DB:instrument/description:61
 msgid ""
@@ -3550,6 +3545,13 @@ msgstr ""
 "皮质的膜，一根肠弦的一端为与膜接触的竹片。此乐器使用腋窝夹持，通过推弦来弹拨"
 "演奏。"
 
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
+
 #. name:octavina
 #: DB:instrument/description:941
 msgid ""
@@ -3781,8 +3783,8 @@ msgid ""
 "257dad59-02e6-47d9-958a-659843737827\">cornet</a>."
 msgstr ""
 "它流行于1500年至1650年间，也称为zink，呈八角形，有七个孔，类似长笛，但吹嘴像"
-"小号。<br />关于现代铜管乐器，请参见<a href=\"/instrument/257dad59-02e6-47d9-"
-"958a-659843737827\">短号</a>。"
+"小号。<br />关于现代铜管乐器，请参见<a href=\"/instrument/"
+"257dad59-02e6-47d9-958a-659843737827\">短号</a>。"
 
 #. name:claviorganum
 #: DB:instrument/description:912
@@ -4486,13 +4488,6 @@ msgstr "伍利策电钢琴是一种琴锤敲击钢质簧片的电钢琴。"
 #: DB:instrument/description:563
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr "竹萨克斯是一种无按键单簧木管乐器。"
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr "阿哥哥铃是桑巴音乐中用的单一或多个铃铛，源自约鲁巴族传统音乐。"
 
 #. name:ajaeng
 #: DB:instrument/description:642
@@ -5411,13 +5406,6 @@ msgstr ""
 "沙巴鼓是一种来自塞内加尔的鼓，一般用单手和一根鼓棒演奏。鼓身是两端缩窄的长圆"
 "柱。鼓端由山羊皮制成，用楔子固定在鼓身上。"
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr "桑巴哨是一种三音哨，用于桑巴音乐和其他种类的巴西音乐中。"
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -6096,6 +6084,14 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr "至多2.5米，这种木质小号用于多种通知用途，如战争，迎宾和种红薯。"
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 #, fuzzy
@@ -6159,6 +6155,13 @@ msgid ""
 "strings."
 msgstr ""
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -6217,6 +6220,13 @@ msgid ""
 msgstr ""
 "用于简单的装饰乐句，在共鸣杆上悬有厚而小的金属板条，属于筒排琴族音色最高的种"
 "类。"
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
+msgstr ""
 
 #. name:Saraswati veena
 #: DB:instrument/description:476
@@ -6400,6 +6410,14 @@ msgstr ""
 "用于多个东南亚国家，鼓身由菠萝蜜木或椰木制成，鼓面则为水牛和山羊皮。<br />由2"
 "个主要体系：<br /><ul><li>爪哇/巽他体系有3至4个侧面为壶状且鼓面大小不一的鼓。"
 "</li><li>巴厘具有两对侧面为之现状的鼓，每一对鼓面大小相同。</li></ul>"
+
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
+msgstr ""
 
 #. name:krap phuang
 #: DB:instrument/description:951
@@ -6861,6 +6879,19 @@ msgstr "越南苗族笛(苗族长笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑶笛，章卢笛的低音版"
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr "甘柯圭铃，铁铃"
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr "阿哥哥铃是桑巴音乐中用的单一或多个铃铛，源自约鲁巴族传统音乐。"
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr "桑巴哨是一种三音哨，用于桑巴音乐和其他种类的巴西音乐中。"
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."

@@ -1749,11 +1749,6 @@ msgid ""
 "Indonesian life."
 msgstr ""
 
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr "Le gankogui, une cloche de fer"
-
 #. name:fiddle
 #: DB:instrument/description:61
 msgid ""
@@ -3123,6 +3118,13 @@ msgid ""
 "string while pulling it."
 msgstr ""
 
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
+
 #. name:octavina
 #: DB:instrument/description:941
 msgid ""
@@ -3938,15 +3940,6 @@ msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr ""
 "Le xaphoon est un instrument à vent chromatique sans clef à anche simple en "
 "bambou."
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr ""
-"L’agogô est un instrument à une ou plusieurs cloches utilisé dans la samba "
-"avec des origines dans la musique traditionnelle Yoruba."
 
 #. name:ajaeng
 #: DB:instrument/description:642
@@ -5017,15 +5010,6 @@ msgstr ""
 "une baguette. Le corps est un cylindre allongé avec des embouts effilés. La "
 "tête est en peau de chèvre et est attachée au corps par des chevilles."
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr ""
-"L’apito est un sifflet à trois tons utilisé dans la musique de samba et "
-"autres styles de musique brésiliennes."
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -5718,6 +5702,14 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -5768,6 +5760,13 @@ msgid ""
 "strings."
 msgstr ""
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -5816,6 +5815,13 @@ msgstr ""
 msgid ""
 "Used for simple ornamentation, it has thick small metal bars suspended above "
 "resonator rods, it is the highest pitched member of the gendèr family."
+msgstr ""
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
 msgstr ""
 
 #. name:Saraswati veena
@@ -5965,6 +5971,14 @@ msgid ""
 "main groups:<br /> <ul> <li>The Java/Sunda set of 3 to 4 curve sided drums "
 "with heads of different sizes.</li> <li>The Bali set of two pairs of "
 "straight sided drums, both heads same size. </li> </ul>"
+msgstr ""
+
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
 msgstr ""
 
 #. name:krap phuang
@@ -6374,6 +6388,23 @@ msgstr "flûte saó ôi, utilisée par les Muong"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "trắng jâu est la basse du trắng lu"
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr "Le gankogui, une cloche de fer"
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr ""
+#~ "L’agogô est un instrument à une ou plusieurs cloches utilisé dans la "
+#~ "samba avec des origines dans la musique traditionnelle Yoruba."
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr ""
+#~ "L’apito est un sifflet à trois tons utilisé dans la musique de samba et "
+#~ "autres styles de musique brésiliennes."
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."

@@ -1683,8 +1683,8 @@ msgid ""
 "19 to 21 strings and a gourd added to the neck."
 msgstr ""
 "有關 Radhika Mohan Maitra 於 1940 年代製作的改良版薩羅德琴，請參閱<a href=\"/"
-"instrument/198ecbd1-48fa-43cc-bda9-370206689074\">「Radhika 的 Mohan 維納琴"
-"」</a>.<br />。此樂器由夏威夷吉他（Hawaiian guitar）或滑棒吉他（lap steel "
+"instrument/198ecbd1-48fa-43cc-bda9-370206689074\">「Radhika 的 Mohan 維納琴」"
+"</a>.<br />。此樂器由夏威夷吉他（Hawaiian guitar）或滑棒吉他（lap steel "
 "guitar）改良而成，配有 19 至 21 根琴弦，並在琴頸上加裝葫蘆共鳴箱。"
 
 #. name:Radhika's Mohan veena
@@ -1741,11 +1741,11 @@ msgid ""
 "Bhil, Kukna and Worli tribes, it has a cylindrical soundbox through which a "
 "single metal string is strung between the spoke neck and the bottom membrane."
 msgstr ""
-"關於單弦雙支桿鼓齊特琴，請參閱 <a href=\"/instrument/ba30c0de-373c-44e4-ac28-"
-"594c4f316ab0\">gopichant</a>。<br /> 關於旁遮普單弦魯特琴，請參閱 <a href=\"/"
-"instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。<br /> 此樂器為 "
-"Bhil、Kukna 與 Worli 等部族所使用，具有圓柱形共鳴箱，一根金屬弦穿過共鳴箱，連"
-"接支桿狀琴頸與底部的膜面。"
+"關於單弦雙支桿鼓齊特琴，請參閱 <a href=\"/instrument/ba30c0de-373c-44e4-"
+"ac28-594c4f316ab0\">gopichant</a>。<br /> 關於旁遮普單弦魯特琴，請參閱 <a "
+"href=\"/instrument/b0edfd1a-e728-4b93-802e-96c1c2f9d84a\">tumbi</a>。<br /> "
+"此樂器為 Bhil、Kukna 與 Worli 等部族所使用，具有圓柱形共鳴箱，一根金屬弦穿過"
+"共鳴箱，連接支桿狀琴頸與底部的膜面。"
 
 #. name:diatonic button accordion
 #: DB:instrument/description:361
@@ -1927,11 +1927,6 @@ msgstr ""
 "斯連德羅和陪羅格，這兩種音階音調不同，大型甘美蘭樂團每種音階都有一組樂器，通"
 "常每種音階有多組。<br />甘美蘭是印尼文化的有機組成部分，在印尼人的重要傳統和"
 "日常生活中得以應用。"
-
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr "甘柯圭鈴，鐵鈴"
 
 #. name:fiddle
 #: DB:instrument/description:61
@@ -3227,10 +3222,11 @@ msgid ""
 "synthesizer invented by Mr. G. Raj Narayan in 1979. By the 1990 models were "
 "using recording samples."
 msgstr ""
-"請勿與由風箱驅動的類比式 <a href=\"/instrument/e6b016f0-61bf-4c5b-99c4-"
-"8f8724ad12b5\">shruti box</a> 或弦樂器 <a href=\"/instrument/a19ae157-702a-"
-"40c6-892f-9bcb97328b7b\">tanpura</a> 混淆。<br /> 此電子合成器由 G. Raj "
-"Narayan 先生於 1979 年發明。到了 1990 年代，相關型號已採用錄音取樣技術。"
+"請勿與由風箱驅動的類比式 <a href=\"/instrument/"
+"e6b016f0-61bf-4c5b-99c4-8f8724ad12b5\">shruti box</a> 或弦樂器 <a href=\"/"
+"instrument/a19ae157-702a-40c6-892f-9bcb97328b7b\">tanpura</a> 混淆。<br /> 此"
+"電子合成器由 G. Raj Narayan 先生於 1979 年發明。到了 1990 年代，相關型號已採"
+"用錄音取樣技術。"
 
 #. name:khamak
 #: DB:instrument/description:1215
@@ -3244,12 +3240,12 @@ msgid ""
 "underneath an arm, attached to the membrane is a single string which is "
 "plucked with a pick. It is known by many names."
 msgstr ""
-"請勿與雙叉式的 <a href=\"/instrument/ba30c0de-373c-44e4-ac28-594c4f316ab0\">"
-"gopiyantra/gopichan</a>、概念相似的 <a href=\"/instrument/068b3fc6-c11f-4ae7-"
-"bd85-ca5725b2b9f4\">tuntuna</a>、類似 dotara 的 tokari 或 pulluvan kudam 混淆"
-"。<br />此樂器用於孟加拉、奧迪沙及印度東北部的民間音樂，其共鳴箱為鼓狀木製圓"
-"筒，一端覆有膜面並夾於手臂下方；連接於膜面的是一根單弦，以撥片彈奏。它有許多"
-"不同的名稱。"
+"請勿與雙叉式的 <a href=\"/instrument/ba30c0de-373c-44e4-"
+"ac28-594c4f316ab0\">gopiyantra/gopichan</a>、概念相似的 <a href=\"/"
+"instrument/068b3fc6-c11f-4ae7-bd85-ca5725b2b9f4\">tuntuna</a>、類似 dotara "
+"的 tokari 或 pulluvan kudam 混淆。<br />此樂器用於孟加拉、奧迪沙及印度東北部"
+"的民間音樂，其共鳴箱為鼓狀木製圓筒，一端覆有膜面並夾於手臂下方；連接於膜面的"
+"是一根單弦，以撥片彈奏。它有許多不同的名稱。"
 
 #. name:shawm
 #: DB:instrument/description:408
@@ -3505,6 +3501,13 @@ msgstr ""
 "源自印度拉賈斯坦邦梅瓦蒂族群，傳統上由葫蘆製成，頂部和底部切開，一側釘有山羊"
 "皮質的膜，一根腸弦的一端為與膜接觸的竹片。此樂器使用腋窩夾持，透過推弦來彈撥"
 "演奏。"
+
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
 
 #. name:octavina
 #: DB:instrument/description:941
@@ -4229,8 +4232,8 @@ msgid ""
 "href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-83e17bde9816\">chime bar(s)</a>."
 msgstr ""
 "由實心金屬棒（通常為鋁製）懸掛於橫桿上組成，並調校為非諧和音高。<br /> 請勿與"
-"獨立式、類似鐘琴的 <a href=\"/instrument/ddc0d7a5-cadb-4598-ac8d-"
-"83e17bde9816\">chime bar(s)</a> 混淆。"
+"獨立式、類似鐘琴的 <a href=\"/instrument/ddc0d7a5-cadb-4598-"
+"ac8d-83e17bde9816\">chime bar(s)</a> 混淆。"
 
 #. name:sopilka
 #: DB:instrument/description:760
@@ -4411,13 +4414,6 @@ msgstr "伍利策電鋼琴是一種琴錘敲擊鋼質簧片的電鋼琴。"
 #: DB:instrument/description:563
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr "竹薩克斯是一種無按鍵單簧木管樂器。"
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr "阿哥哥鈴是森巴音樂中用的單一或多個鈴鐺，源自約魯巴族傳統音樂。"
 
 #. name:ajaeng
 #: DB:instrument/description:642
@@ -5328,13 +5324,6 @@ msgstr ""
 "沙巴鼓是一種來自塞內加爾的鼓，一般用單手和一根鼓棒演奏。鼓身是兩端縮窄的長圓"
 "柱。鼓端由山羊皮製成，用楔子固定在鼓身上。"
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr "森巴哨是一種三音哨，用於森巴音樂和其他種類的巴西音樂中。"
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -5996,6 +5985,14 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr "至多2.5公尺，這種木質小號用於多種通知用途，如戰爭，迎賓和種地瓜。"
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -6057,12 +6054,20 @@ msgid ""
 "strings."
 msgstr "由喀喇崑崙和艾馬拉人使用，這是一種有5根弦和10根弦的小型魯特琴。"
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
 "Used ceremonially all over the world, they are clay, wood or metal pots "
 "containing water, with an animal hide membrane."
-msgstr "用於世界各地的儀式中，它們是裝有水的黏土、木頭或金屬罐，並帶有動物皮膜。"
+msgstr ""
+"用於世界各地的儀式中，它們是裝有水的黏土、木頭或金屬罐，並帶有動物皮膜。"
 
 #. name:swarmandal
 #: DB:instrument/description:716
@@ -6114,6 +6119,13 @@ msgstr ""
 "用於簡單的裝飾樂句，在共鳴杆上懸有厚而小的金屬板條，屬於筒排琴族音色最高的種"
 "類。"
 
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
+msgstr ""
+
 #. name:Saraswati veena
 #: DB:instrument/description:476
 msgid ""
@@ -6129,7 +6141,8 @@ msgstr ""
 msgid ""
 "Used in Gnawa music, it consists of two large iron shapes with round bowls "
 "tied together."
-msgstr "用於格納瓦音樂，由兩個大型鐵製構件組成，其圓形凹面部分相互連接成對使用。"
+msgstr ""
+"用於格納瓦音樂，由兩個大型鐵製構件組成，其圓形凹面部分相互連接成對使用。"
 
 #. name:pakhawaj
 #: DB:instrument/description:502
@@ -6284,6 +6297,14 @@ msgstr ""
 "用於多個東南亞國家，鼓身由波羅蜜木或椰木製成，鼓面則為水牛和山羊皮。<br />由2"
 "個主要體系：<br /><ul><li>爪哇/巽他體系有3至4個側面為壺狀且鼓面大小不一的鼓。"
 "</li><li>峇里具有兩對側面為之現狀的鼓，每一對鼓面大小相同。</li></ul>"
+
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
+msgstr ""
 
 #. name:krap phuang
 #: DB:instrument/description:951
@@ -6734,6 +6755,19 @@ msgstr "越南苗族笛(苗族長笛)"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "章瑤笛，章盧笛的低音版"
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr "甘柯圭鈴，鐵鈴"
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr "阿哥哥鈴是森巴音樂中用的單一或多個鈴鐺，源自約魯巴族傳統音樂。"
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr "森巴哨是一種三音哨，用於森巴音樂和其他種類的巴西音樂中。"
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."

@@ -1603,6 +1603,11 @@ msgstr "Malaysisch"
 msgid "Malayalam"
 msgstr "Malayalam"
 
+#. frequency:1 iso_code_3:pqm
+#: DB:language/name:5515
+msgid "Malecite-Passamaquoddy"
+msgstr ""
+
 #. frequency:1 iso_code_3:mlt
 #: DB:language/name:276
 msgid "Maltese"
@@ -2018,6 +2023,13 @@ msgstr "Phönizisch"
 msgid "Pitjantjatjara"
 msgstr "Pitjantjatjara"
 
+#. frequency:1 iso_code_3:crk
+#: DB:language/name:1800
+#, fuzzy
+#| msgid "Haitian Creole"
+msgid "Plains Cree"
+msgstr "Haïtien"
+
 #. frequency:1 iso_code_3:pon
 #: DB:language/name:339
 msgid "Pohnpeian"
@@ -2388,6 +2400,13 @@ msgstr "Indianersprachen, Südamerika"
 msgid "Southern Altai"
 msgstr "Südaltaisch"
 
+#. frequency:1 iso_code_3:crj
+#: DB:language/name:1799
+#, fuzzy
+#| msgid "Southern Altai"
+msgid "Southern East Cree"
+msgstr "Südaltaisch"
+
 #. frequency:1 iso_code_3:kjd
 #: DB:language/name:3309
 msgid "Southern Kiwai"
@@ -2738,6 +2757,13 @@ msgstr "Washo-Sprache"
 msgid "Welsh"
 msgstr "Walisisch"
 
+#. frequency:1 iso_code_3:wdt
+#: DB:language/name:7181
+#, fuzzy
+#| msgid "Venda"
+msgid "Wendat"
+msgstr "Venda-Sprache"
+
 #. frequency:1 iso_code_3:are
 #: DB:language/name:820
 msgid "Western Arrarnta"
@@ -2753,8 +2779,8 @@ msgstr "Wolaytta"
 msgid "Wolof"
 msgstr "Wolof-Sprache"
 
-#. frequency:1 iso_code_3:wya
-#: DB:language/name:7181
+#. frequency:1 iso_code_3:wyn
+#: DB:language/name:7879
 msgid "Wyandot"
 msgstr "Wyandot"
 

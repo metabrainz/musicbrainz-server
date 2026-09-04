@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-27 08:05-0500\n"
+"POT-Creation-Date: 2026-09-01 11:28-0500\n"
 "PO-Revision-Date: 2026-06-18 21:12+0000\n"
 "Last-Translator: jerry155756294 <a155750130@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
@@ -232,8 +232,8 @@ msgid "Add place"
 msgstr "添加地點"
 
 #: ../root/release/edit/layout.tt:7
-#: ../root/static/scripts/release-editor/init.js:258
-#: ../root/static/scripts/release-editor/init.js:259
+#: ../root/static/scripts/release-editor/init.js:277
+#: ../root/static/scripts/release-editor/init.js:278
 msgctxt "header"
 msgid "Add release"
 msgstr "添加發行版"
@@ -4215,7 +4215,7 @@ msgstr ""
 "私人資料），請 {contact_url|聯絡我們}。"
 
 #: ../lib/MusicBrainz/Server/Controller/EditNote.pm:212
-#: ../root/static/scripts/release-editor/components/EditNoteTab.js:57
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:79
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:802
 msgid "You haven’t made any changes!"
 msgstr "您還沒有進行任何更改！"
@@ -4460,7 +4460,7 @@ msgstr "您必須登入才能提交編輯。請先 {url|登入}，然後再次�
 #: ../lib/MusicBrainz/Server/Controller/WS/js/Edit.pm:801
 #: ../lib/MusicBrainz/Server/Form/EditNoteModify.pm:32
 #: ../lib/MusicBrainz/Server/Form/Role/EditNote.pm:32
-#: ../root/static/scripts/release-editor/components/EditNoteTab.js:99
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:121
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1205
 msgid ""
 "Your edit note seems to have no actual content. Please provide a note that "
@@ -5889,7 +5889,7 @@ msgid "This is not a valid time."
 msgstr "這不是有效的時間。"
 
 #: ../lib/MusicBrainz/Server/Form/Field/URL.pm:28
-#: ../root/static/scripts/external-links-editor/validation.js:141
+#: ../root/static/scripts/external-links-editor/validation.js:142
 #, perl-brace-format
 msgid "Please enter a valid URL, such as “{example_url}”."
 msgstr "請輸入一個有效的 URL，例如“{example_url}”。"
@@ -8093,7 +8093,7 @@ msgstr "標籤"
 
 #: ../root/components/EntityTabs.js:149 ../root/entity/Ratings.js:39
 #: ../root/entity/Ratings.js:99
-#: ../root/static/scripts/external-links-editor/validation.js:174
+#: ../root/static/scripts/external-links-editor/validation.js:175
 msgid "Reviews"
 msgstr "評論"
 
@@ -11968,7 +11968,7 @@ msgid "{entity0}-{entity1}"
 msgstr "{entity0}-{entity1}"
 
 #: ../root/relationship/linktype/RelationshipTypeIndex.js:118
-#: ../root/static/scripts/external-links-editor/validation.js:315
+#: ../root/static/scripts/external-links-editor/validation.js:340
 #: ../root/static/scripts/relationship-editor/components/DialogLinkType.js:64
 msgid "This relationship type is deprecated and should not be used."
 msgstr "此關聯類型已被棄用，應該不再使用。"
@@ -15437,9 +15437,12 @@ msgstr ""
 #: ../root/static/scripts/edit/URLCleanup.js:702
 #: ../root/static/scripts/edit/URLCleanup.js:996
 #: ../root/static/scripts/edit/URLCleanup.js:2412
-#: ../root/static/scripts/edit/URLCleanup.js:3771
-#: ../root/static/scripts/edit/URLCleanup.js:5952
-#: ../root/static/scripts/edit/URLCleanup.js:6612
+#: ../root/static/scripts/edit/URLCleanup.js:2927
+#: ../root/static/scripts/edit/URLCleanup.js:3788
+#: ../root/static/scripts/edit/URLCleanup.js:5238
+#: ../root/static/scripts/edit/URLCleanup.js:5990
+#: ../root/static/scripts/edit/URLCleanup.js:6650
+#: ../root/static/scripts/external-links-editor/validation.js:203
 msgid ""
 "This is a redirect link. Please follow {redirect_url|your link} and add the "
 "link it redirects to instead."
@@ -15520,7 +15523,7 @@ msgstr ""
 "Discogs 的 “{master_url_pattern}” 連結將多個發行品分組，因此應該將其新增到發"
 "行組中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3390
+#: ../root/static/scripts/edit/URLCleanup.js:3407
 msgid ""
 "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
 "link work pages to the specific work in question."
@@ -15528,7 +15531,7 @@ msgstr ""
 "僅允許 IMSLP “{category_url_pattern}” 連結用於創作者。請將作品頁面連結到特定"
 "作品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3408
+#: ../root/static/scripts/edit/URLCleanup.js:3425
 msgid ""
 "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
 "link the specific work page to this work instead, if available."
@@ -15536,7 +15539,7 @@ msgstr ""
 "IMSLP “{category_url_pattern}” 連結僅允許用於創作者。請將特定作品頁面連結到該"
 "作品，而不是連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3452
+#: ../root/static/scripts/edit/URLCleanup.js:3469
 msgid ""
 "Instagram “{explore_url_pattern}” links are not allowed. Please link to a "
 "profile instead, if there is one."
@@ -15544,7 +15547,7 @@ msgstr ""
 "Instagram “{explore_url_pattern}” 連結不被允許。請連結到個人資料，如果有的"
 "話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3480
+#: ../root/static/scripts/edit/URLCleanup.js:3497
 msgid ""
 "Please do not link directly to images, link to the appropriate Instagram "
 "profile page instead. If you want to link to a video, {url|add a standalone "
@@ -15553,11 +15556,11 @@ msgstr ""
 "請不要直接連結到圖片，而是連結到適當的Instagram首頁。如果你想連結到一個影片，"
 "{url|添加一個獨立的錄音}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:3505
+#: ../root/static/scripts/edit/URLCleanup.js:3522
 msgid "This is an internal Instagram page and should not be added."
 msgstr "這是一個內部 Instagram 頁面，不應該被新增。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4450
+#: ../root/static/scripts/edit/URLCleanup.js:4468
 #, fuzzy
 #| msgid ""
 #| "Only IMSLP “{category_url_pattern}” links are allowed for artists. Please "
@@ -15569,7 +15572,7 @@ msgstr ""
 "僅允許 IMSLP “{category_url_pattern}” 連結用於創作者。請將作品頁面連結到特定"
 "作品。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4468
+#: ../root/static/scripts/edit/URLCleanup.js:4486
 #, fuzzy
 #| msgid ""
 #| "IMSLP “{category_url_pattern}” links are only allowed for artists. Please "
@@ -15582,7 +15585,7 @@ msgstr ""
 "IMSLP “{category_url_pattern}” 連結僅允許用於創作者。請將特定作品頁面連結到該"
 "作品，而不是連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:4664
+#: ../root/static/scripts/edit/URLCleanup.js:4682
 msgid ""
 "Musixmatch “{album_url_pattern}” pages are a bad match for MusicBrainz "
 "release groups, and linking to them is currently disallowed. Please consider "
@@ -15591,11 +15594,11 @@ msgstr ""
 "Musixmatch 的 “{album_url_pattern}” 頁面與 MusicBrainz 發行組不匹配，並且目前"
 "不允許連結到它們。請考慮將 Musixmatch 連結新增到相關的創作者和作品中。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5402
+#: ../root/static/scripts/edit/URLCleanup.js:5440
 msgid "Only RYM music videos can be linked to recordings."
 msgstr "只有RYM的音樂影片可以連結到錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:5470
+#: ../root/static/scripts/edit/URLCleanup.js:5508
 msgid ""
 "This is a link to the old Resident Advisor domain. Please follow {ra_url|"
 "your link}, make sure the link it redirects to is still the correct one and, "
@@ -15604,27 +15607,27 @@ msgstr ""
 "這是一個指向舊 Resident Advisor 網域的連結。請遵循 {ra_url|您的連結}，確保重"
 "新導向的連結仍然是正確的，如果是，則請新增該連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6216
+#: ../root/static/scripts/edit/URLCleanup.js:6254
 msgid "Please link to Threads profiles, not threads."
 msgstr "請連結到 Threads 個人資料，而不是執行緒。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6344
+#: ../root/static/scripts/edit/URLCleanup.js:6382
 msgid "Please link to TikTok profiles, not videos."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6632
+#: ../root/static/scripts/edit/URLCleanup.js:6670
 msgid "This is not a profile, but a Twitter documentation page."
 msgstr "這不是個人資料頁，而是一個 Twitter 文件頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6646
+#: ../root/static/scripts/edit/URLCleanup.js:6684
 msgid "Please link to Twitter profiles, not tweets."
 msgstr "請連結至 Twitter 個人資料，而非推文。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6677
+#: ../root/static/scripts/edit/URLCleanup.js:6715
 msgid "This site does not allow direct links to their images."
 msgstr "此網站不允許圖片直鏈。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:6979
+#: ../root/static/scripts/edit/URLCleanup.js:7017
 msgid ""
 "Please link to the “{allowed_url_pattern}” page rather than this "
 "“{current_url_pattern}” link."
@@ -15632,7 +15635,7 @@ msgstr ""
 "請連結到 “{allowed_url_pattern}” 頁面，而不是此 “{current_url_pattern}” 連"
 "結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7166
+#: ../root/static/scripts/edit/URLCleanup.js:7204
 msgid ""
 "There is an unencoded “?” or “#” character in this URL. Please check whether "
 "it is useless and should be removed, or whether it is an error and the URL "
@@ -15641,7 +15644,7 @@ msgstr ""
 "此 URL 中有未編碼的 “?” 或 “#” 字元。請檢查它們是否是無用的，並且應該被移除，"
 "或是 URL 被錯誤編碼。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7186
+#: ../root/static/scripts/edit/URLCleanup.js:7224
 msgid ""
 "Please do not link directly to WhoSampled “{unwanted_url_pattern}” pages. "
 "Link to the appropriate WhoSampled artist, track or album page instead."
@@ -15649,19 +15652,19 @@ msgstr ""
 "請不要直接連結到 WhoSampled 的 “{unwanted_url_pattern}” 頁面。請連結到適當的 "
 "WhoSampled 創作者、音軌或專輯頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7207
+#: ../root/static/scripts/edit/URLCleanup.js:7245
 msgid "Please link WhoSampled “{album_url_pattern}” pages to release groups."
 msgstr "請將 WhoSampled “{album_url_pattern}” 頁面連結至專輯組。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7225
+#: ../root/static/scripts/edit/URLCleanup.js:7263
 msgid "Please link WhoSampled artist pages to artists."
 msgstr "請將 WhoSampled 創作者頁面連結至創作者。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7237
+#: ../root/static/scripts/edit/URLCleanup.js:7275
 msgid "Please link WhoSampled track pages to recordings."
 msgstr "請將 WhoSampled 音軌頁面連結至錄音。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7300
+#: ../root/static/scripts/edit/URLCleanup.js:7338
 msgid ""
 "Links to specific sections of Wikipedia articles are not allowed. Please "
 "remove “{fragment}” if still appropriate. See the {url|guidelines}."
@@ -15669,19 +15672,19 @@ msgstr ""
 "不允許連結至維基百科文字的特定部分。如果合適，請移除 “{fragment}”。詳見 {url|"
 "指南}。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7325
+#: ../root/static/scripts/edit/URLCleanup.js:7363
 msgid ""
 "Links to Wikipedia user pages are not allowed. Please link only to actual "
 "Wikipedia articles."
 msgstr "連結到維基百科使用者頁面是不允許的。請僅連結到實際的維基百科文章。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7515
+#: ../root/static/scripts/edit/URLCleanup.js:7553
 #, fuzzy
 #| msgid "Only video and playlist links are allowed on releases."
 msgid "Only video links are allowed as interviews."
 msgstr "專輯只能有影片或播放列錶連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7527
+#: ../root/static/scripts/edit/URLCleanup.js:7565
 msgid ""
 "This is a playlist link, which isn’t a video channel and is not guaranteed "
 "to be officially approved. Please link to the official channel for this "
@@ -15690,36 +15693,36 @@ msgstr ""
 "這是一個播放列錶連結，不是影片頻道，也不能保證得到官方批准。如果該實體存在，"
 "請連結到該實體的官方頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7571
+#: ../root/static/scripts/edit/URLCleanup.js:7609
 msgid "Only video and playlist links are allowed on releases."
 msgstr "專輯只能有影片或播放列錶連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7619
+#: ../root/static/scripts/edit/URLCleanup.js:7657
 msgid ""
 "This is a release (playlist) link, not an artist channel. Please link to the "
 "artist channel instead."
 msgstr "這是一個發行品（播放清單）連結，而不是創作者頻道。請連結到創作者頻道。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7656
+#: ../root/static/scripts/edit/URLCleanup.js:7694
 msgid ""
 "Please link to a specific release (playlist) link. Add track (video) links "
 "to the relevant recordings instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7666
+#: ../root/static/scripts/edit/URLCleanup.js:7704
 msgid ""
 "Please link to a specific release (playlist) link. Add channel links to the "
 "relevant artists instead."
 msgstr "請連結到具體的影片。添加相關的歌手，標籤等渠道頁面。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7676
+#: ../root/static/scripts/edit/URLCleanup.js:7714
 msgid ""
 "This is likely a redirect link. Please follow {redirect_url|your link} and "
 "add the release (playlist) link it redirects to instead."
 msgstr ""
 "這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7846
+#: ../root/static/scripts/edit/URLCleanup.js:7884
 msgid ""
 "Wikipedia normally has no entries for specific releases, so adding Wikipedia "
 "links to a release is currently blocked. Please add this Wikipedia link to "
@@ -15728,14 +15731,14 @@ msgstr ""
 "維基百科通常沒有針對特定發行品的條目，因此目前不允許將維基百科連結新增到發行"
 "品。請將此維基百科連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:7858
+#: ../root/static/scripts/edit/URLCleanup.js:7896
 msgid ""
 "Last.fm release pages are very often generated from MusicBrainz data to "
 "begin with, and usually a bad match for specific MusicBrainz releases, so "
 "adding Last.fm links to releases is currently blocked."
 msgstr ""
 
-#: ../root/static/scripts/edit/URLCleanup.js:7869
+#: ../root/static/scripts/edit/URLCleanup.js:7907
 msgid ""
 "Wikidata normally has no entries for specific releases, so adding Wikidata "
 "links to a release is currently blocked. Please add this Wikidata link to "
@@ -15744,18 +15747,18 @@ msgstr ""
 "Wikidata 通常沒有針對特定發行品的條目，因此目前不允許將 Wikidata 連結新增到發"
 "行品。請將此 Wikidata 連結新增到發行組中，如果適用的話。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:8067
+#: ../root/static/scripts/edit/URLCleanup.js:8105
 msgid "Some relationship types are missing for this URL."
 msgstr "此 URL 缺少某些關聯類型。"
 
-#: ../root/static/scripts/edit/URLCleanup.js:8082
-#: ../root/static/scripts/external-links-editor/validation.js:285
+#: ../root/static/scripts/edit/URLCleanup.js:8120
+#: ../root/static/scripts/external-links-editor/validation.js:310
 msgid "This relationship type combination is invalid."
 msgstr "此關聯類型組合無效。"
 
 #: ../root/static/scripts/edit/check-duplicates.js:155
 #: ../root/static/scripts/event/components/EventEditForm.js:148
-#: ../root/static/scripts/external-links-editor/validation.js:131
+#: ../root/static/scripts/external-links-editor/validation.js:132
 #: ../root/static/scripts/release/components/EditWorkDialog.js:161
 msgid "Required field."
 msgstr "必填項。"
@@ -16017,7 +16020,7 @@ msgstr "如果你繼續使用現有的合併策略，下列錄音會被合併，
 
 #: ../root/static/scripts/edit/components/forms.js:228
 #: ../root/static/scripts/edit/confirmNavigationFallback.js:42
-#: ../root/static/scripts/release-editor/init.js:338
+#: ../root/static/scripts/release-editor/init.js:357
 msgid "All of your changes will be lost if you leave this page."
 msgstr "如果離開此網頁，您的所有更改將會遺失。"
 
@@ -16123,50 +16126,55 @@ msgstr "貢獻名單"
 msgid "Credited to"
 msgstr "署名為"
 
-#: ../root/static/scripts/external-links-editor/validation.js:148
+#: ../root/static/scripts/external-links-editor/validation.js:149
 msgid ""
 "Links to archive.today and associated domains are not allowed. This site has "
 "been found to manipulate the archived websites and perform DDoS attacks."
 msgstr ""
 
-#: ../root/static/scripts/external-links-editor/validation.js:157
+#: ../root/static/scripts/external-links-editor/validation.js:158
 msgid ""
 "“{example_url}” is just an example. Please enter the actual link you want to "
 "add."
 msgstr "“{example_url}”只是一個例子。請輸入你想添加的實際連結。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:165
+#: ../root/static/scripts/external-links-editor/validation.js:166
 msgid ""
 "Links to MusicBrainz URLs are not allowed. Did you mean to paste something "
 "else?"
 msgstr "不允許添加 MusicBrainz 的 URL。您是想要貼上其他 URL 嗎？"
 
-#: ../root/static/scripts/external-links-editor/validation.js:172
+#: ../root/static/scripts/external-links-editor/validation.js:173
 msgid ""
 "Please don’t enter CritiqueBrainz links — reviews are automatically linked "
 "from the “{reviews_tab_name}” tab."
 msgstr ""
 "請不要新增 CritiqueBrainz 連結——評論會自動從 “{reviews_tab_name}” 標籤連結。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:180
+#: ../root/static/scripts/external-links-editor/validation.js:181
 msgid ""
 "Links to this website are not allowed because it is known to host malware."
 msgstr "不允許添加此網站的連結，因為它是已知的惡意網站。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:186
+#: ../root/static/scripts/external-links-editor/validation.js:188
+#, fuzzy
+#| msgid ""
+#| "This is a redirect link. Please follow {redirect_url|your link} and add "
+#| "the link it redirects to instead."
 msgid ""
-"Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
-"instead."
-msgstr "請勿輸入捆綁連結或短連結，請輸入目標網站 URL。"
+"This is an aggregator link. Please follow {aggregator_url|your link} and add "
+"all appropriate links separately instead."
+msgstr ""
+"這是一個重定向連結。請關注{redirect_url|您的連結}並添加它重定向後的連結。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:192
+#: ../root/static/scripts/external-links-editor/validation.js:217
 msgid ""
 "Please don’t enter Google AMP links, since they are effectively an extra "
 "redirect. Enter the destination URL instead."
 msgstr ""
 "請勿輸入 Google AMP 連結，因為它們只是一次額外的重定向。請輸入目標 URL。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:199
+#: ../root/static/scripts/external-links-editor/validation.js:224
 msgid ""
 "Please don’t enter links to search results. If you’ve found any links "
 "through your search that seem useful, do enter those instead."
@@ -16174,74 +16182,74 @@ msgstr ""
 "請不要新增指向搜尋結果的連結。如果您從搜尋中找到任何似乎有用的連結，請新增這"
 "些連結。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:304
+#: ../root/static/scripts/external-links-editor/validation.js:329
 msgid "Please select a link type for the URL you’ve entered."
 msgstr "請為您輸入的 URL 選擇一個連結類型。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:348
+#: ../root/static/scripts/external-links-editor/validation.js:373
 #: ../root/static/scripts/relationship-editor/components/RelationshipDialogContent.js:1039
 #: ../root/static/scripts/relationship-editor/components/RelationshipEditor.js:537
 msgid "This relationship already exists."
 msgstr "此關聯已存在。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:366
+#: ../root/static/scripts/external-links-editor/validation.js:391
 #: ../root/static/scripts/relationship-editor/components/DialogSourceEntity.js:51
 msgid ""
 "This URL is not allowed for the selected link type, or is incorrectly "
 "formatted."
 msgstr "此 URL 不適用於選中的連結類型，或格式錯誤。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:371
+#: ../root/static/scripts/external-links-editor/validation.js:396
 msgid "This URL is not allowed for the selected link type."
 msgstr "此 URL 不適用於選中的連結類型。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:375
+#: ../root/static/scripts/external-links-editor/validation.js:400
 msgid "This URL is not allowed for areas."
 msgstr "此 URL 不適用於地區。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:377
+#: ../root/static/scripts/external-links-editor/validation.js:402
 msgid "This URL is not allowed for artists."
 msgstr "此 URL 不適用於創作者。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:379
+#: ../root/static/scripts/external-links-editor/validation.js:404
 msgid "This URL is not allowed for events."
 msgstr "此 URL 不適用於活動。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:381
+#: ../root/static/scripts/external-links-editor/validation.js:406
 #, fuzzy
 #| msgid "This URL is not allowed for series."
 msgid "This URL is not allowed for genres."
 msgstr "此 URL 不適用於系列。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:383
+#: ../root/static/scripts/external-links-editor/validation.js:408
 msgid "This URL is not allowed for instruments."
 msgstr "此 URL 不適用於樂器。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:385
+#: ../root/static/scripts/external-links-editor/validation.js:410
 msgid "This URL is not allowed for labels."
 msgstr "此 URL 不適用於廠牌。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:387
+#: ../root/static/scripts/external-links-editor/validation.js:412
 msgid "This URL is not allowed for places."
 msgstr "此 URL 不適用於地點。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:389
+#: ../root/static/scripts/external-links-editor/validation.js:414
 msgid "This URL is not allowed for recordings."
 msgstr "此 URL 不適用於錄音。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:391
+#: ../root/static/scripts/external-links-editor/validation.js:416
 msgid "This URL is not allowed for releases."
 msgstr "此 URL 不適用於專輯。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:393
+#: ../root/static/scripts/external-links-editor/validation.js:418
 msgid "This URL is not allowed for release groups."
 msgstr "此 URL 不適用於專輯組。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:395
+#: ../root/static/scripts/external-links-editor/validation.js:420
 msgid "This URL is not allowed for series."
 msgstr "此 URL 不適用於系列。"
 
-#: ../root/static/scripts/external-links-editor/validation.js:397
+#: ../root/static/scripts/external-links-editor/validation.js:422
 msgid "This URL is not allowed for works."
 msgstr "此 URL 不適用於作品。"
 
@@ -16570,21 +16578,28 @@ msgid ""
 "being changed."
 msgstr "這一媒體具有一或多個碟片ID，因此無法改變此資訊。"
 
-#: ../root/static/scripts/release-editor/components/EditNoteTab.js:48
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:49
 msgid ""
 "Some errors were detected in the data you’ve entered. Click on the "
 "highlighted tabs and correct any visible errors."
 msgstr "您輸入的資料中有錯誤。點擊突顯的頁籤並修正所有可見的錯誤。"
 
-#: ../root/static/scripts/release-editor/components/EditNoteTab.js:63
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:59
+msgid ""
+"You didn’t visit the tracklist tab. When adding a release, please check that "
+"the tracks follow the MusicBrainz style guidelines for {titles_style|titles} "
+"and {credits_style|artist credits}."
+msgstr ""
+
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:85
 msgid "Loading edit previews..."
 msgstr "載入編輯預覽..."
 
-#: ../root/static/scripts/release-editor/components/EditNoteTab.js:91
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:113
 msgid "You must provide an edit note when adding a release."
 msgstr "添加專輯時必須提供編輯備註。"
 
-#: ../root/static/scripts/release-editor/components/EditNoteTab.js:117
+#: ../root/static/scripts/release-editor/components/EditNoteTab.js:139
 #: ../root/static/scripts/release/components/ReleaseRelationshipEditor.js:1893
 msgid "Submitting edits..."
 msgstr "正在提交編輯..."
@@ -16622,12 +16637,12 @@ msgstr ""
 msgid "You haven’t selected a label for “{name}”."
 msgstr "您還沒有為 “{name}” 選擇一個廠牌。"
 
-#: ../root/static/scripts/release-editor/init.js:55
+#: ../root/static/scripts/release-editor/init.js:56
 msgid "Error loading release: {error}"
 msgstr "載入專輯時發生了錯誤：{error}"
 
-#: ../root/static/scripts/release-editor/init.js:262
-#: ../root/static/scripts/release-editor/init.js:263
+#: ../root/static/scripts/release-editor/init.js:281
+#: ../root/static/scripts/release-editor/init.js:282
 msgctxt "header"
 msgid "Edit release"
 msgstr "編輯專輯"
@@ -16636,7 +16651,7 @@ msgstr "編輯專輯"
 msgid "Invalid regular expression."
 msgstr "無效的正規表示式。"
 
-#: ../root/static/scripts/release-editor/validation.js:136
+#: ../root/static/scripts/release-editor/validation.js:141
 msgid ""
 "The following releases with that barcode are already in the MusicBrainz "
 "database. Please make sure you are not adding an exact duplicate of any of "
@@ -16645,53 +16660,53 @@ msgstr ""
 "在MusicBrainz資料庫中已經存在以下帶有該條碼的版本。請確保你沒有添加這些完全相"
 "同的內容:"
 
-#: ../root/static/scripts/release-editor/validation.js:178
+#: ../root/static/scripts/release-editor/validation.js:183
 msgid "The check digit would be {checkdigit}."
 msgstr "校驗碼為 {checkdigit}。"
 
-#: ../root/static/scripts/release-editor/validation.js:179
+#: ../root/static/scripts/release-editor/validation.js:184
 msgid "Please double-check the barcode on the release."
 msgstr "請再次檢查此專輯的條碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:183
-#: ../root/static/scripts/release-editor/validation.js:224
-#: ../root/static/scripts/release-editor/validation.js:261
-#: ../root/static/scripts/release-editor/validation.js:305
+#: ../root/static/scripts/release-editor/validation.js:188
+#: ../root/static/scripts/release-editor/validation.js:229
+#: ../root/static/scripts/release-editor/validation.js:266
+#: ../root/static/scripts/release-editor/validation.js:310
 msgid "The barcode you entered is a valid EAN code."
 msgstr "您輸入的條碼是有效的 EAN 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:187
-#: ../root/static/scripts/release-editor/validation.js:228
-#: ../root/static/scripts/release-editor/validation.js:275
-#: ../root/static/scripts/release-editor/validation.js:319
+#: ../root/static/scripts/release-editor/validation.js:192
+#: ../root/static/scripts/release-editor/validation.js:233
+#: ../root/static/scripts/release-editor/validation.js:280
+#: ../root/static/scripts/release-editor/validation.js:324
 msgid "The barcode you entered is not a valid EAN code."
 msgstr "您輸入的條碼不是有效的 EAN 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:195
+#: ../root/static/scripts/release-editor/validation.js:200
 msgid ""
 "The barcode you entered looks like a UPC code with the check digit missing."
 msgstr "您輸入的條碼像是缺少校驗碼的 UPC 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:205
-#: ../root/static/scripts/release-editor/validation.js:239
-#: ../root/static/scripts/release-editor/validation.js:283
+#: ../root/static/scripts/release-editor/validation.js:210
+#: ../root/static/scripts/release-editor/validation.js:244
+#: ../root/static/scripts/release-editor/validation.js:288
 msgid "The barcode you entered is a valid UPC code."
 msgstr "您輸入的條碼是有效的 UPC 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:210
+#: ../root/static/scripts/release-editor/validation.js:215
 msgid ""
 "The barcode you entered is either an invalid UPC code, or an EAN code with "
 "the check digit missing."
 msgstr "您輸入的條碼或是無效的 UPC 代碼，或是缺少校驗碼的 EAN 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:235
+#: ../root/static/scripts/release-editor/validation.js:240
 msgid "The barcode you entered is a valid GTIN code."
 msgstr "您輸入的條碼是有效的 EAN 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:242
-#: ../root/static/scripts/release-editor/validation.js:264
-#: ../root/static/scripts/release-editor/validation.js:286
-#: ../root/static/scripts/release-editor/validation.js:308
+#: ../root/static/scripts/release-editor/validation.js:247
+#: ../root/static/scripts/release-editor/validation.js:269
+#: ../root/static/scripts/release-editor/validation.js:291
+#: ../root/static/scripts/release-editor/validation.js:313
 msgid ""
 "However it ends with an add-on code. Please add it as “{annotation_text}” to "
 "the annotation field below, and keep the main code “{main_digits}” only in "
@@ -16700,15 +16715,15 @@ msgstr ""
 "然而，它以附加程式碼結尾。請將其作為 “{annotation_text}” 新增到下面的註解欄"
 "位，並僅在條碼欄位中保留主要程式碼 “{main_digits}”。"
 
-#: ../root/static/scripts/release-editor/validation.js:253
+#: ../root/static/scripts/release-editor/validation.js:258
 msgid "The barcode you entered is not a valid GTIN code."
 msgstr "您輸入的條碼不是有效的 EAN 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:297
+#: ../root/static/scripts/release-editor/validation.js:302
 msgid "The barcode you entered is not a valid UPC code."
 msgstr "您輸入的條碼是有效的 UPC 代碼。"
 
-#: ../root/static/scripts/release-editor/validation.js:326
+#: ../root/static/scripts/release-editor/validation.js:331
 msgid "The barcode you entered is not a valid UPC, EAN or GTIN code."
 msgstr "您輸入的條碼不是有效的 UPC 或 EAN 代碼。"
 
@@ -18364,6 +18379,11 @@ msgid ""
 msgstr ""
 "<strong>警告：</strong> 你正在合併的作品中有一些擁有不同的ISWC編號。請先確保"
 "這些作品確實為相同作品，然後再繼續進行合併。"
+
+#~ msgid ""
+#~ "Please don’t enter bundled/shortened URLs, enter the destination URL(s) "
+#~ "instead."
+#~ msgstr "請勿輸入捆綁連結或短連結，請輸入目標網站 URL。"
 
 #~ msgid "The user ID is missing or is in an invalid format."
 #~ msgstr "帳號空缺或格式不正確。"
