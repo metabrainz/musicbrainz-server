@@ -1,0 +1,91 @@
+ArtistJson:
+  schema:
+    $ref: '../../schemas/json/artist.yaml#/ArtistJson'
+  examples:
+    basicGroup:
+      summary: Minimal response (no ?inc) for a group
+      value: {
+        "id": "b7ffd2af-418f-4be2-bdd1-22f8b48613da",
+        "name": "Nine Inch Nails",
+        "sort-name": "Nine Inch Nails",
+        "gender-id": null,
+        "gender": null,
+        "type-id": "e431f5f6-b5d2-343d-8b36-72607fffb74b",
+        "type": "Group",
+        "disambiguation": "",
+        "country": "US",
+        "area": {
+          "id": "489ce91b-6658-3307-9877-795b68554c98",
+          "name": "United States",
+          "sort-name": "United States",
+          "type-id": null,
+          "type": null,
+          "disambiguation": "",
+          "iso-3166-1-codes": [
+            "US"
+          ]
+        },
+        "begin-area": {
+          "id": "7b2ca1e7-e7f6-4155-881d-c660a45c11e8",
+          "name": "Cleveland",
+          "sort-name": "Cleveland",
+          "type-id": null,
+          "type": null,
+          "disambiguation": ""
+        },
+        "end-area": null,
+        "life-span": {
+          "begin": "1988",
+          "end": null,
+          "ended": false
+          },
+        "ipis": [],
+        "isnis": [
+          "0000000121493471"
+        ],
+      }
+    basicPerson:
+      summary: Minimal response (no ?inc) for a person
+      value: {
+        "id": "6cb79cb2-9087-44d4-828b-5c6fdff2c957",
+        "name": "Gary Numan",
+        "sort-name": "Numan, Gary",
+        "gender-id": "36d3d30a-839d-3eda-8cb3-29be4384e4a9",
+        "gender": "Male",
+        "type-id": "b6e035f4-3ce9-331c-97df-83397230b0df",
+        "type": "Person",
+        "disambiguation": "",
+        "country": "GB",
+        "area": {
+          "id": "8a754a16-0027-3a29-b6d7-2b40ea0481ed",
+          "name": "United Kingdom",
+          "sort-name": "United Kingdom",
+          "type-id": null,
+          "type": null,
+          "disambiguation": "",
+          "iso-3166-1-codes": [
+            "GB"
+          ]
+        },
+        "begin-area": {
+          "id": "8147ca78-c199-4083-a9a9-971f0d13e071",
+          "name": "Hammersmith",
+          "sort-name": "Hammersmith",
+          "disambiguation": "",
+          "type-id": null,
+          "type": null
+        },
+        "end-area": null,
+        "life-span": {
+          "begin": "1958-03-08",
+          "end": null,
+          "ended": false
+        },
+        "ipis": [
+          "00047044790",
+          "00047044888"
+        ],
+        "isnis": [
+          "0000000078396325"
+        ]
+      }

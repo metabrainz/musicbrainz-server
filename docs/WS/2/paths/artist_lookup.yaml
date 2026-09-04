@@ -1,0 +1,114 @@
+get:
+  tags:
+    - artist
+  summary: Get data for one artist by its MBID
+  description: |
+    An artist lookup request allows you to request data for one artist
+    based on its MBID. This is meant to get data for the artist itself;
+    if you want data about its releases, for example, you probably want
+    a release browse request.
+  operationId: ArtistLookup
+  parameters:
+    - name: artist_mbid
+      in: path
+      description: MBID of the artist
+      required: true
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+      example: 'b7ffd2af-418f-4be2-bdd1-22f8b48613da'
+    - name: inc
+      in: query
+      style: spaceDelimited
+      description: |
+        Allows requesting additional data for the returned entity.
+        For details on each option, see the table below.
+        
+        | value | Description | Requirements |
+        | ----- | ----------- | ------------ |
+        | aliases | Returns any aliases for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | |
+        | annotation | Loads the latest annotation for the artist (but not for other entities included in the response). | |
+        | area-rels | Returns any relationships between this artist and any areas. [See the list of possible relationships](https://musicbrainz.org/relationships/area-artist). | |
+        | artist-credits | Loads the artist credits for any recordings, releases and/or release groups returned with the request. | At least one of inc=**recordings**, inc=**recording-rels**, inc=**releases**, inc=**release-rels**, inc=**release-groups** or inc=**release-group-rels** |
+        | artist-rels | Returns any relationships between this artist and any other artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-artist). | |
+        | discids | Loads the associated disc IDs for any mediums returned with the request. | inc=**releases**+**media** |
+        | event-rels | Returns any relationships between this artist and any events. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-event). | |
+        | genres | Returns any genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works), with their community score. | |
+        | instrument-rels | Returns any relationships between this artist and any instruments. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-instrument). | |
+        | isrcs | Loads the ISRCs for any recordings returned with the request. | ?inc=**recordings** |
+        | label-rels | Returns any relationships between this artist and any labels. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-label). | |
+        | media | Loads the mediums for any releases returned with the request. Without this, only the basic information for the releases will be returned, without tracklists. | ?inc=**releases** |
+        | place-rels | Returns any relationships between this artist and any places. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-place). | |
+        | ratings | Returns the community rating for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | |
+        | recordings | Returns a sample of up to 25 recordings which have this artist in the artist credit. If you need more than 25 results, send a *recording* browse request using this artist's MBID. | |
+        | recording-rels | Returns any relationships between this artist and any recordings. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-recording). | |
+        | releases | Returns a sample of up to 25 releases which have this artist in the artist credit. If you need more than 25 results, send a *release* browse request using this artist's MBID. | |
+        | release-rels | Returns any relationships between this artist and any releases. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release). | |
+        | release-groups | Returns a sample of up to 25 release groups which have this artist in the artist credit. If you need more than 25 results, send a *release-group* browse request using this artist's MBID. | |
+        | release-group-rels | Returns any relationships between this artist and any release groups. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release_group). | |
+        | series-rels | Returns any relationships between this artist and any series. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-series). | |
+        | tags | Returns any tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works), with their community score. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | |
+        | url-rels | Returns any relationships between this artist and any URLs - that is, external links for this artist. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-url). | |
+        | user-genres | Returns the requesting user's genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | Authentication |
+        | user-ratings | Returns the requesting user's rating for the artist, and any other entities included in the response (such as any requested recordings, releases or works). | Authentication |
+        | user-tags | Returns the requesting user's genre tags for the artist, and any other entities included in the response (such as any requested recordings, releases or works). This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | Authentication |
+        | works | Returns a sample of up to 25 works related to this artist (either with a relationship, such as composer or lyricist, or because the artist is in the artist credit of a recording of the work). If you need more than 25 results, send a *work* browse request using this artist's MBID. | |
+        | work-rels | Returns any relationships between this artist and any works. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-work). | |
+        | various-artists | Returns a sample of up to 25 releases where the artist appears on one of the tracks, but not in the artist credit for the release itself. Overrides the default for *releases*. | ?inc=**releases** |
+      required: false
+      schema:
+        type: array
+        items:
+          enum:
+          - aliases
+          - annotation
+          - area-rels
+          - artist-credits
+          - artist-rels
+          - discids
+          - event-rels
+          - genres
+          - instrument-rels
+          - isrcs
+          - label-rels
+          - media
+          - place-rels
+          - ratings
+          - recordings
+          - recording-rels
+          - releases
+          - release-rels
+          - release-groups
+          - release-group-rels
+          - series-rels
+          - tags
+          - url-rels
+          - user-genres
+          - user-ratings
+          - user-tags
+          - works
+          - work-rels
+          - various-artists
+        example:
+          - aliases
+          - artist-rels
+          - artist-credits
+          - genres
+          - releases
+          - ratings
+    - $ref: '../parameters/index.yaml#/Format'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          $ref: '../examples/artist/json.yaml#/ArtistJson'
+        application/xml:
+          $ref: '../examples/artist/xml.yaml#/ArtistXml'
+    '400':
+      description: Invalid query supplied
+    '401':
+      description: |
+        Tried to access data that requires authentication
+        while logged out
+    '404':
+      description: Artist not found

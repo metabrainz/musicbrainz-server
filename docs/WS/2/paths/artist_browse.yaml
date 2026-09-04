@@ -1,0 +1,130 @@
+get:
+  tags:
+    - artist
+  summary: Browse artists based on some other entity related to them
+  description: |
+    An artist browse request allows you to find all artists directly linked
+    to another entity, by passing the MBID of said entity.
+    Only one entity parameter can be used to browse by at a time.
+  operationId: ArtistBrowse
+  parameters:
+    - name: area
+      in: query
+      description: |
+        The MBID of an area. Will return all artists whose main area,
+        begin area or end area is either the given area or a part of it
+        (for example, passing France will show any artists set to Paris).
+      required: false
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+    - name: collection
+      in: query
+      description: | 
+        The MBID of an artist collection. Will return all artists
+        which are part of the collection.
+        
+        If the collection is not public you will need to authenticate to prove
+        you have access to it (that is, you are the collection owner
+        or a collaborator on it).
+      required: false
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+    - name: recording
+      in: query
+      description: |
+        The MBID of a recording. Will return all artists present
+        on the artist credit of the recording.
+      required: false
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+    - name: release
+      in: query
+      description: |
+        The MBID of a release group. Will return all artists present
+        on the artist credit of the release or any of its tracks.
+      required: false
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+    - name: release-group
+      in: query
+      description: |
+        The MBID of a release group. Will return all artists present
+        on the artist credit of the release group.
+      required: false
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+    - name: work
+      in: query
+      description: |
+        The MBID of a work. Will return all artists linked to the work
+        with relationships (such as composers and lyricists), plus all artists
+        present on the artist credits of any recordings of the work.
+      required: false
+      schema:
+        $ref: '../schemas/index.yaml#/MBID'
+    - name: inc
+      in: query
+      style: spaceDelimited
+      description: |
+        Allows requesting additional data for the returned entity.
+        For details on each option, see the table below.
+        
+        | value | Description | Requirements |
+        | ----- | ----------- | ------------ |
+        | aliases | Returns any aliases for the returned artists. | |
+        | annotation | Loads the latest annotation for the returned artists. | |
+        | area-rels | Returns any relationships between the returned artists and any areas. [See the list of possible relationships](https://musicbrainz.org/relationships/area-artist). | |
+        | artist-credits | Loads the artist credits for any recordings, releases and/or release groups returned with the request. | At least one of inc=**recording-rels**, inc=**release-rels** or inc=**release-group-rels** |
+        | artist-rels | Returns any relationships between the returned artists and any other artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-artist). | |
+        | event-rels | Returns any relationships between the returned artists and any events. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-event). | |
+        | genres | Returns any genre tags for the returned artists, with their community score. | |
+        | instrument-rels | Returns any relationships between the returned artists and any instruments. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-instrument). | |
+        | label-rels | Returns any relationships between the returned artists and any labels. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-label). | |
+        | place-rels | Returns any relationships between the returned artists and any places. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-place). | |
+        | ratings | Returns the community rating for the returned artists. | |
+        | recording-rels | Returns any relationships between the returned artists and any recordings. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-recording). | |
+        | release-rels | Returns any relationships between the returned artists and any releases. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release). | |
+        | release-group-rels | Returns any relationships between the returned artists and any release groups. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-release_group). | |
+        | series-rels | Returns any relationships between the returned artists and any series. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-series). | |
+        | tags | Returns any tags for the returned artists, with their community score. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | |
+        | url-rels | Returns any relationships between the returned artists and any URLs - that is, external links for the artists. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-url). | |
+        | user-genres | Returns the requesting user's genre tags for the returned artists. | Authentication |
+        | user-ratings | Returns the requesting user's rating for the returned artists. | Authentication |
+        | user-tags | Returns the requesting user's genre tags for the returned artists. This also includes genre tags, so you can filter them by your own genre list instead of ours if you want. | Authentication |
+        | work-rels | Returns any relationships between the returned artists and any works. [See the list of possible relationships](https://musicbrainz.org/relationships/artist-work). | |
+      required: false
+      schema:
+        type: array
+        items:
+          enum:
+          - aliases
+          - annotation
+          - area-rels
+          - artist-credits
+          - artist-rels
+          - event-rels
+          - genres
+          - instrument-rels
+          - label-rels
+          - place-rels
+          - ratings
+          - recording-rels
+          - release-rels
+          - release-group-rels
+          - series-rels
+          - tags
+          - url-rels
+          - user-genres
+          - user-ratings
+          - user-tags
+          - work-rels
+    - $ref: '../parameters/index.yaml#/Format'
+    - $ref: '../parameters/index.yaml#/Limit'
+    - $ref: '../parameters/index.yaml#/Offset'
+  responses:
+    '200':
+      description: Successful operation
+    '400':
+      description: Invalid query supplied
+    '404':
+      description: Provided related entity not found
