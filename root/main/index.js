@@ -176,20 +176,12 @@ component Homepage(
                 <a
                   className="social-pill"
                   href="/doc/About"
-                  style={{
-                    backgroundColor: '#46433A',
-                    color: 'white !important',
-                  }}
                 >
                   {l('Read More')}
                 </a>
                 <a
                   className="social-pill"
                   href="/doc/Beginners_Guide"
-                  style={{
-                    backgroundColor: '#46433A',
-                    color: 'white !important',
-                  }}
                 >
                   {l('Beginner’s guide')}
                 </a>
@@ -218,20 +210,28 @@ component Homepage(
                   <a
                     className="social-pill"
                     href="https://blog.metabrainz.org"
-                    style={{color: 'white !important'}}
                   >
                     {l('Blog')}
                   </a>
-                  <a href="https://bsky.app/profile/musicbrainz.org" title="Bluesky">
+                  <a
+                    aria-label={l('Bluesky')}
+                    href="https://bsky.app/profile/musicbrainz.org"
+                  >
                     <FontAwesomeIcon icon={faBluesky} size="lg" />
                   </a>
-                  <a href="https://mastodon.social/@musicbrainz" title="Mastodon">
+                  <a
+                    aria-label={l('Mastodon')}
+                    href="https://mastodon.social/@musicbrainz"
+                  >
                     <FontAwesomeIcon icon={faMastodon} size="lg" />
                   </a>
-                  <a href="https://discord.gg/R4hBw972QA" title="Discord">
+                  <a aria-label={l('Discord')} href="https://discord.gg/R4hBw972QA">
                     <FontAwesomeIcon icon={faDiscord} size="lg" />
                   </a>
-                  <a href="https://www.reddit.com/r/MusicBrainz/" title="Reddit">
+                  <a
+                    aria-label={l('Reddit')}
+                    href="https://www.reddit.com/r/MusicBrainz/"
+                  >
                     <FontAwesomeIcon icon={faReddit} size="lg" />
                   </a>
                 </div>
@@ -257,7 +257,6 @@ component Homepage(
                   <a
                     className="social-pill"
                     href="https://community.metabrainz.org/"
-                    style={{color: 'white !important'}}
                   >
                     {l('Forums')}
                   </a>
@@ -506,8 +505,8 @@ component Homepage(
                 </p>
                 <p>
                   {exp.l(
-                    `Our team and volunteer contributers from across the globe
-                     are proud to consider MusicBrainz and it's sister sites
+                    `Our team and volunteer contributors from across the globe
+                     are proud to consider MusicBrainz and its sister sites
                      {enshittification_link|enshittification},
                      -proof projects, immune to the the crapifying that
                      takes place when business interests inevitably subsume

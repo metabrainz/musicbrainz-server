@@ -249,7 +249,7 @@ component ArtworkCarousel(
       </div>
       <div className="d-flex pt-3 justify-content-between flex-row gap-3">
         <div className="d-flex gap-2">
-          <div
+          <button
             className={`artwork-carousel-pill ${
               mode === 'fresh' ? 'selected' : ''
             }`}
@@ -257,32 +257,34 @@ component ArtworkCarousel(
             title={entityType === 'release'
               ? l('Order by release date')
               : l('Order by event date')}
+            type="button"
           >
             {entityType === 'release'
               ? l('Fresh releases')
               : l('Fresh events')}
-          </div>
-          <div
+          </button>
+          <button
             className={`artwork-carousel-pill ${
               mode === 'new' ? 'selected' : ''
             }`}
             onClick={handleNewPillClick}
             title={l('Order by date added to MusicBrainz')}
+            type="button"
           >
             {l('New additions')}
-          </div>
+          </button>
         </div>
         <div className="d-flex gap-3">
-          <div
+          <button
             className="d-flex gap-1 align-items-center artwork-control"
             onClick={toggleAutoPlay}
-            role="button"
+            type="button"
           >
             <FontAwesomeIcon icon={autoPlay ? faPauseCircle : faPlayCircle} />
-            <h5 className="artwork-control d-none d-md-block">
+            <span className="artwork-control d-none d-md-block">
               {autoPlay ? l('Pause') : l('Play')}
-            </h5>
-          </div>
+            </span>
+          </button>
           <a
             className={`d-flex gap-1 align-items-center
               text-decoration-none artwork-control`}
@@ -291,11 +293,11 @@ component ArtworkCarousel(
             }
           >
             <FontAwesomeIcon icon={faPlusCircle} />
-            <h5 className="artwork-control d-none d-md-block">
+            <span className="artwork-control d-none d-md-block">
               {entityType === 'release'
                 ? l('Add release')
                 : l('Add event')}
-            </h5>
+            </span>
           </a>
         </div>
       </div>

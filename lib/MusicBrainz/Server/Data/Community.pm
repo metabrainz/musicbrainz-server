@@ -27,19 +27,26 @@ sub get_latest_posts {
             return undef;
         };
 
-        if ($response && $response->is_success) {
+        return undef unless $response && $response->is_success;
+
+        try {
             $posts = decode_json(
-              $response->decoded_content(charset => 'utf-8'),
+                $response->decoded_content(charset => 'utf-8'),
             );
             my $topics_ref = $posts->{topic_list}->{topics};
-            my $limit = @$topics_ref < 5 ? $#$topics_ref : 4;
-            my $topics = [
-                map { { title => $_->{title}, slug => $_->{slug} } }
-                @$topics_ref[1..$limit],
+            die 'Community response did not include a topics array'
+                unless ref $topics_ref eq 'ARRAY';
+
+            my @topics = grep { !$_->{pinned} } @$topics_ref;
+            splice @topics, 5;
+            $posts = [
+                map { { title => $_->{title}, slug => $_->{slug} } } @topics
             ];
-            $posts = $topics;
             $cache->set($key => $posts, $COMMUNITY_POSTS_CACHE_TIMEOUT);
-        }
+        } catch {
+            $self->c->log->error("Failed to parse community posts: $_");
+            return undef;
+        };
     }
 
     return $posts;

@@ -18122,10 +18122,10 @@ msgid ""
 "impossible for us to be bought or traded."
 msgstr ""
 
-#: ../root/main/index.js:504
+#: ../root/main/index.js:489
 msgid ""
-"Our team and volunteer contributers from across the globe are proud to "
-"consider MusicBrainz and it's sister sites {enshittification_link|"
+"Our team and volunteer contributors from across the globe are proud to "
+"consider MusicBrainz and its sister sites {enshittification_link|"
 "enshittification}, -proof projects, immune to the the crapifying that "
 "takes place when business interests inevitably subsume and monetize "
 "projects that initially focused on high-quality offerings to attract "

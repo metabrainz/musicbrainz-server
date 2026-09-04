@@ -94,10 +94,11 @@ component Search (
         width={400}
       />
 
-      <div
+      <button
+        aria-label={l('Open source')}
         className="search-logo-info d-none d-md-flex"
         onClick={scrollToElement}
-        role="button"
+        type="button"
       >
         <img
           alt={l('MusicBrainz open source logo')}
@@ -114,7 +115,7 @@ component Search (
           className="search-logo-info-image"
           src={ethicalSourceImage}
         />
-      </div>
+      </button>
 
       <div className="search-container">
         <h2 className="search-info-text">
@@ -128,13 +129,14 @@ component Search (
                 const isSelected = selectedEntity.value === entity.value;
                 const handleClick = () => setSelectedEntity(entity);
                 return (
-                  <div
+                  <button
                     className={`entity-pill ${isSelected ? 'selected' : ''}`}
                     key={entity.value}
                     onClick={handleClick}
+                    type="button"
                   >
                     <span className="entity-pill-text">{entity.name}</span>
-                  </div>
+                  </button>
                 );
               })}
               <a
@@ -167,15 +169,16 @@ component Search (
             </div>
 
             <div className="mobile-entity-selector d-md-none">
-              <div
+              <button
                 className="mobile-entity-button"
                 onClick={() => setIsModalOpen(true)}
+                type="button"
               >
                 <span className="mobile-entity-text">
                   {l('in')} {selectedEntity.name}
                 </span>
                 <FontAwesomeIcon icon={faChevronDown} />
-              </div>
+              </button>
               <a
                 className="mobile-advanced-search-text"
                 href="/search"

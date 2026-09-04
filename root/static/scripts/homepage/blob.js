@@ -30,13 +30,14 @@ component Blob(
   React.useEffect(() => {
     const ctx = blobCanvas.current?.getContext('2d');
     if (!ctx) {
-      return;
+      return () => {};
     }
     const animation = blobs2Animate.canvasPath();
     const randomAngleStart = Math.random() * 360;
     if (!isUndefined(blur) && Number.isFinite(blur)) {
       ctx.filter = `blur(${blur}px)`;
     }
+    let animationFrame;
     const renderAnimation = (time: number) => {
       ctx.clearRect(0, 0, width, height);
       let angle = (((time / 50) % 360) / 180) * Math.PI;
@@ -51,9 +52,9 @@ component Blob(
       gradient.addColorStop(1, '#BC4C88');
       ctx.fillStyle = gradient;
       ctx.fill(animation.renderFrame());
-      requestAnimationFrame(renderAnimation);
+      animationFrame = requestAnimationFrame(renderAnimation);
     };
-    requestAnimationFrame(renderAnimation);
+    animationFrame = requestAnimationFrame(renderAnimation);
 
     let size = Math.min(width, height);
     let offsetX = 0;
@@ -74,7 +75,8 @@ component Blob(
       {offsetX, offsetY},
       {speed: Math.random() * 1.7},
     );
-  }, [blobCanvas, height, width, randomness, blur, seed]);
+    return () => cancelAnimationFrame(animationFrame);
+  }, [height, width, randomness, blur, seed]);
 
   return (
     <canvas
