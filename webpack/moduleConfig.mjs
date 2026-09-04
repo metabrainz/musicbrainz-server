@@ -75,6 +75,15 @@ const moduleConfig = (target) => ({
         },
       ],
     },
+    {
+      generator: {
+        filename: PRODUCTION_MODE
+          ? '[name]-[hash:7][ext]'
+          : '[name][ext]',
+      },
+      test: /\.css$/,
+      type: 'asset/resource',
+    },
   ],
 });
 
