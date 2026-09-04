@@ -10,7 +10,12 @@
 	overflow: hidden;
 
 	.new-homepage {
-		margin-top: @navbar-height;
+		/*
+		 * The navbar is fixed. Padding keeps the first interactive section
+		 * below it; a top margin can collapse through the page container and
+		 * leave editor-tools controls under the navbar.
+		 */
+		padding-top: @navbar-height;
 
 		.banner {
 			margin: 0 auto;
@@ -99,29 +104,6 @@
 
 			.offcanvas-backdrop {
 				top: 0;
-			}
-		}
-
-		@media (min-width: 992px) {
-			.navbar-brand {
-				flex: 0 0 auto;
-				margin: 0 !important;
-			}
-
-			#offcanvasNavbar {
-				background: transparent;
-				border: 0;
-				flex: 1 1 auto;
-				position: static;
-				transform: none;
-				visibility: visible;
-				width: auto;
-
-				.offcanvas-body {
-					align-items: center;
-					display: flex;
-					padding: 0;
-				}
 			}
 		}
 

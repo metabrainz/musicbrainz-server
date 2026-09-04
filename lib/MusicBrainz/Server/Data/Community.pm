@@ -40,7 +40,7 @@ sub get_latest_posts {
             my @topics = grep { !$_->{pinned} } @$topics_ref;
             splice @topics, 5;
             $posts = [
-                map { { title => $_->{title}, slug => $_->{slug} } } @topics
+                map { { title => $_->{title}, slug => $_->{slug} } } @topics,
             ];
             $cache->set($key => $posts, $COMMUNITY_POSTS_CACHE_TIMEOUT);
         } catch {

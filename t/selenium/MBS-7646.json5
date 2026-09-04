@@ -4,9 +4,9 @@
     // Perform an indexed search and check that the English alias is shown
     // before the disambiguation comment.
     {
-      command: 'sendKeys',
-      target: 'css=#headerid-query',
-      value: 'tchaikovsky${KEY_ENTER}',
+      command: 'open',
+      target: '/search?query=tchaikovsky&type=artist&method=indexed',
+      value: '',
     },
     {
       command: 'waitUntilUrlIs',
