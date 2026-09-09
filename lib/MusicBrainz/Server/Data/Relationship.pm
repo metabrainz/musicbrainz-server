@@ -33,7 +33,7 @@ use MusicBrainz::Server::Constants qw(
     @PART_OF_SERIES_LINK_TYPE_IDS
     @RELATABLE_ENTITIES
 );
-use Scalar::Util qw( refaddr weaken );
+use builtin qw( refaddr weaken );
 use List::AllUtils qw( any none nsort_by part partition_by uniq uniq_by );
 use aliased 'MusicBrainz::Server::Entity::RelationshipTargetTypeGroup';
 use aliased 'MusicBrainz::Server::Entity::RelationshipLinkTypeGroup';

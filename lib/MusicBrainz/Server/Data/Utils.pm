@@ -27,7 +27,7 @@ use MusicBrainz::Server::Constants qw(
     %ENTITIES
 );
 use Readonly;
-use Scalar::Util qw( blessed );
+use builtin qw( blessed );
 use Sql;
 use Storable;
 use Text::Trim qw();
