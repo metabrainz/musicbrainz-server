@@ -16,7 +16,7 @@ Readonly my $DURATION_LOOKUP_RANGE => 10000;
 my $ws_defs = Data::OptList::mkopt([
      discid => {
                          method   => 'GET',
-                         inc      => [ qw(artists labels recordings release-groups artist-credits                                          tags user-tags genres user-genres
+                         inc      => [ qw(artists labels recordings release-groups artist-credits
                                           tags user-tags genres user-genres
                                           aliases puids isrcs _relations cdstubs ) ],
                          optional => [ qw( fmt limit offset ) ],
