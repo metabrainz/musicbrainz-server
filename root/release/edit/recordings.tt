@@ -99,6 +99,16 @@
               </label>
             </td>
           </tr>
+
+          <tr data-bind="css: { even: position() % 2 === 0 }">
+            <td></td>
+            <td colspan="5" class="checkbox">
+              <label>
+                <input type="checkbox" class="video-checkbox" data-bind="checked: video" />
+                [% l('Video') %]
+              </label>
+            </td>
+          </tr>
         </tbody>
       </table>
 
@@ -147,6 +157,12 @@
         <label>
           <input id="update-all-recording-artists" type="checkbox" data-bind="checked: $root.copyTrackArtistsToRecordings" />
           [% l('Copy all track artist credits to associated recordings.') %]
+        </label>
+      </p>
+      <p>
+        <label>
+          <input id="mark-all-as-video" type="checkbox" data-bind="checked: $root.markAllRecordingsAsVideo" />
+          [% l('Mark all recordings as video.') %]
         </label>
       </p>
     </fieldset>
