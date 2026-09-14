@@ -5,8 +5,9 @@ use namespace::autoclean;
 
 extends 'MusicBrainz::Server::Controller';
 
+use builtin qw( refaddr );
 use HTTP::Status qw( :constants );
-use List::AllUtils qw( min max );
+use List::AllUtils qw( min max uniq_by );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
 use MusicBrainz::Server::Data::Utils qw( datetime_to_iso8601 type_to_model );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
@@ -131,6 +132,9 @@ sub direct : Private
 
     if ($type eq 'artist') {
         $c->model('Artist')->load_related_info(@entities);
+        my @areas = uniq_by { refaddr $_ }
+            map { ($_->area, $_->begin_area, $_->end_area) } @entities;
+        $c->model('Area')->load_containment(@areas);
     }
     elsif ($type eq 'editor') {
         $c->model('Editor')->load_preferences(@entities);
