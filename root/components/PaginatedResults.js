@@ -65,7 +65,9 @@ component PaginatedResults(
       {isLastCappedPage ? (
         <p>
           {texp.l(
-            'Only the first {n} results can be returned.',
+            `Only the first {n} results can be returned.
+             If you cannot find what you are looking for,
+             please try a more precise search.`,
             {n: pager.total_entries},
           )}
         </p>
