@@ -1,7 +1,7 @@
 package MusicBrainz::Server::Entity::ArtistCredit;
 use Moose;
 
-use Scalar::Util qw( refaddr );
+use builtin qw( refaddr );
 use MusicBrainz::Server::Entity::Types;
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_array );
 use aliased 'MusicBrainz::Server::Entity::Artist';

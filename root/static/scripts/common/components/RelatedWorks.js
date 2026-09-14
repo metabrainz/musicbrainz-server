@@ -11,6 +11,7 @@ import * as React from 'react';
 
 import linkedEntities from '../linkedEntities.mjs';
 import groupRelationships from '../utility/groupRelationships.js';
+import {compareEntities} from '../utility/sortByEntityName.js';
 
 import EntityLink from './EntityLink.js';
 import StaticRelationshipsDisplay from './StaticRelationshipsDisplay.js';
@@ -31,8 +32,10 @@ component RelatedWorks(workIds: ReadonlyArray<number>) {
       {l('Related works')}
     </h2>,
   ];
-  for (let i = 0; i < workIds.length; i++) {
-    const work = linkedEntities.work[workIds[i]];
+  const works = workIds.map(id => linkedEntities.work[id]);
+  works.sort(compareEntities);
+
+  for (const work of works) {
     parts.push(
       <h3 key={'header-' + work.id}>
         <EntityLink entity={work} showIcon />

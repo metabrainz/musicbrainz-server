@@ -573,6 +573,7 @@ sub load_relationships {
         my @rels = $c->model('Relationship')->load_subset(
             target_types => $types,
             source_objs => \@for,
+            load_aliases => 0,
         );
 
         my @entities_with_rels = @for;
@@ -590,6 +591,7 @@ sub load_relationships {
             $c->model('Relationship')->load_subset_cardinal(
                 target_types => $types,
                 source_objs => \@works,
+                load_aliases => 0,
             );
         }
         $self->linked_works($c, $stash, \@works);

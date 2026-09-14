@@ -4,7 +4,7 @@ use IO::String;
 use Moose;
 use List::AllUtils qw( nsort_by sort_by );
 use MusicBrainz::Server::Constants qw( :direction $VARTIST_ID :quality %ENTITIES );
-use MusicBrainz::Server::Data::Utils qw( non_empty );
+use MusicBrainz::Server::Data::Utils qw( non_empty sort_relationships );
 use MusicBrainz::Server::Entity::Relationship;
 use MusicBrainz::Server::Validation;
 use XML::LibXML;
@@ -1097,7 +1097,7 @@ sub _serialize_relation_lists
 
     my %types = ();
 
-    foreach my $rel (@$rels)
+    foreach my $rel (sort_relationships(@$rels))
     {
         $types{$rel->target_type} = [] if !exists $types{$rel->target_type};
         push @{$types{$rel->target_type}}, $rel;

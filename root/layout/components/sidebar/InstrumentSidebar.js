@@ -75,7 +75,7 @@ component InstrumentSidebar(instrument: InstrumentT) {
 
             <RemoveLink entity={instrument} />
 
-            <li className="separator" role="separator" />
+            <li aria-hidden="true" className="separator" />
           </>
         ) : null}
       </EditLinks>

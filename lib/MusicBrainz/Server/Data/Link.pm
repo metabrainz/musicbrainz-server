@@ -1,17 +1,14 @@
 package MusicBrainz::Server::Data::Link;
 
-use List::AllUtils qw( any );
 use Moose;
 use namespace::autoclean;
 use Sql;
 use MusicBrainz::Server::Entity::Link;
 use MusicBrainz::Server::Entity::LinkAttribute;
-use MusicBrainz::Server::Entity::LinkAttributeType;
 use MusicBrainz::Server::Entity::PartialDate;
 use MusicBrainz::Server::Data::Utils qw(
     add_partial_date_to_row
     load_subobjects
-    placeholders
     non_empty
 );
 
@@ -67,70 +64,38 @@ sub _load_attributes
 {
     my ($self, $data, @ids) = @_;
 
-    if (@ids) {
-        my $query = q{
-            SELECT
-                link,
-                attr.id,
-                attr.gid,
-                attr.name AS name,
-                attr_credit.credited_as,
-                root_attr.id AS root_id,
-                root_attr.gid AS root_gid,
-                root_attr.name AS root_name,
-                COALESCE(text_value, '') AS text_value,
-                COALESCE((SELECT TRUE FROM link_text_attribute_type ltat
-                          WHERE ltat.attribute_type = attr.id), false) AS free_text,
-                COALESCE((SELECT TRUE FROM link_creditable_attribute_type lcat
-                          WHERE lcat.attribute_type = attr.id), false) AS creditable,
-                COALESCE(ins.comment, '') AS instrument_comment,
-                ins_t.id AS instrument_type_id,
-                COALESCE(ins_t.name, '') AS instrument_type_name
-            FROM link_attribute
-                JOIN link_attribute_type AS attr ON attr.id = link_attribute.attribute_type
-                JOIN link_attribute_type AS root_attr ON root_attr.id = attr.root
-                LEFT OUTER JOIN link_attribute_text_value USING (link, attribute_type)
-                LEFT OUTER JOIN link_attribute_credit attr_credit USING (link, attribute_type)
-                LEFT OUTER JOIN instrument ins ON ins.gid = attr.gid
-                LEFT OUTER JOIN instrument_type ins_t ON ins.type = ins_t.id
-            WHERE link IN (} . placeholders(@ids) . ')
-            ORDER BY link, attr.name';
+    return unless @ids;
 
-        for my $row (@{ $self->sql->select_list_of_hashes($query, @ids) }) {
-            if (my $link = $data->{ $row->{link} }) {
-                my $attr_type = MusicBrainz::Server::Entity::LinkAttributeType->new(
-                    id => $row->{id},
-                    gid => $row->{gid},
-                    name => $row->{name},
-                    free_text => $row->{free_text},
-                    creditable => $row->{creditable},
-                    instrument_comment => $row->{instrument_comment},
-                    instrument_type_id => $row->{instrument_type_id},
-                    instrument_type_name => $row->{instrument_type_name},
-                    root_id => $row->{root_id},
-                    root_gid => $row->{root_gid},
-                    root => MusicBrainz::Server::Entity::LinkAttributeType->new(
-                        id => $row->{root_id},
-                        gid => $row->{root_gid},
-                        name => $row->{root_name},
-                        root_id => $row->{root_id},
-                        root_gid => $row->{root_gid},
-                    ),
-                );
+    my $rows = $self->sql->select_list_of_hashes(<<~'SQL', \@ids);
+        SELECT link,
+               attribute_type,
+               attr_credit.credited_as,
+               COALESCE(text_value, '') AS text_value
+        FROM link_attribute
+        LEFT OUTER JOIN link_attribute_text_value
+                  USING (link, attribute_type)
+        LEFT OUTER JOIN link_attribute_credit attr_credit
+                  USING (link, attribute_type)
+        WHERE link = any(?)
+        ORDER BY link, attribute_type
+        SQL
 
-                my $attr = MusicBrainz::Server::Entity::LinkAttribute->new(
-                    type => $attr_type,
-                    type_id => $attr_type->id,
-                    credited_as => $row->{credited_as},
-                    text_value => $row->{text_value},
-                );
+    return unless @$rows;
 
-                $link->add_attribute($attr) unless any {
-                    $attr_type->id == $_->type->id
-                } $link->all_attributes;
-            }
-        }
+    my @attributes;
+    for my $row (@$rows) {
+        my $attribute = MusicBrainz::Server::Entity::LinkAttribute->new(
+            type_id => $row->{attribute_type},
+            credited_as => $row->{credited_as},
+            text_value => $row->{text_value},
+        );
+        $data->{ $row->{link} }->add_attribute($attribute);
+        push @attributes, $attribute;
     }
+
+    $self->c->model('LinkAttributeType')->load(@attributes);
+
+    return;
 }
 
 sub get_by_ids
@@ -155,9 +120,6 @@ sub load
 {
     my ($self, @objs) = @_;
     load_subobjects($self, 'link', @objs);
-
-    my $links = { map { $_->link->id => $_->link } @objs };
-    $self->_load_attributes($links, keys %$links);
 }
 
 sub find

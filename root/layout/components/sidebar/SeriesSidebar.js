@@ -81,7 +81,7 @@ component SeriesSidebar(series: SeriesT) {
 
         <MergeLink entity={series} />
 
-        <li className="separator" role="separator" />
+        <li aria-hidden="true" className="separator" />
       </EditLinks>
 
       <SubscriptionLinks entity={series} />
