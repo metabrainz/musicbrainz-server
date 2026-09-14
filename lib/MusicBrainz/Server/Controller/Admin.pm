@@ -10,11 +10,14 @@ extends 'MusicBrainz::Server::Controller';
 use DBDefs;
 
 use MusicBrainz::Server::Constants qw(
+    %ENTITIES
     :privileges
     $VOTE_ADMIN_APPROVE
     $VOTE_ADMIN_REJECT
 );
 use MusicBrainz::Server::ControllerUtils::JSON qw( serialize_pager );
+use MusicBrainz::Server::Data::Utils qw( type_to_model );
+use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
 
 sub edit_user : Path('/admin/user/edit') Args(1) RequireAuth HiddenOnMirrors SecureForm
 {
@@ -198,6 +201,92 @@ sub ip_lookup : Path('/admin/ip-lookup') Args(1) RequireAuth(account_admin) Hidd
             ipHash => $ip_hash,
             pager => serialize_pager($c->stash->{pager}),
             users => [map { $c->unsanitized_editor_json($_) } @$results],
+        },
+    );
+}
+
+sub noindex : Path('/admin/noindex') Args(1)
+              RequireAuth(account_admin)
+              HiddenOnMirrors
+              SecureForm
+{
+    my ($self, $c, $entity_type) = @_;
+
+    if (DBDefs->ACTIVE_SCHEMA_SEQUENCE < 32) {
+        die 'Ensure you have run the MBS-14414 schema upgrade scripts, ' .
+            'and have incremented ACTIVE_SCHEMA_SEQUENCE to 32 ' .
+            'in lib/DBDefs.pm.';
+    }
+
+    $c->detach('/error_404') unless (
+        exists $ENTITIES{$entity_type} &&
+        $ENTITIES{$entity_type}{noindex_table}
+    );
+
+    my $model = $c->model(type_to_model($entity_type));
+    my @noindexed_entities = sort {
+        $a->{entity}->name cmp $b->{entity}->name
+    } $model->find_noindexed_entities;
+
+    my $form = $c->form(
+        form => 'Admin::Noindex',
+        entity_type => $entity_type,
+        init_object => {
+            entity => [
+                map +{ gid => $_->{entity}->gid, removed => 0 },
+                    @noindexed_entities,
+            ],
+        },
+    );
+
+    if ($c->form_posted_and_valid($form)) {
+        my $submitted_entities = $form->entities_by_gid;
+
+        my (%added, %removed);
+        for my $entity_field ($form->field('entity')->fields) {
+            my $gid = $entity_field->field('gid')->value // '';
+            my $entity = $submitted_entities->{$gid} or next;
+            my $entity_id = $entity->id;
+            if ($entity_field->field('removed')->value) {
+                $removed{$entity_id} = 1;
+                delete $added{$entity_id};
+            } elsif (!exists $removed{$entity_id}) {
+                $added{$entity_id} = 1;
+            }
+        }
+
+        my %existing = map { $_->{entity}->id => 1 } @noindexed_entities;
+        my @added_ids = grep { !exists $existing{$_} } keys %added;
+        my @removed_ids = grep { exists $existing{$_} } keys %removed;
+
+        if (@added_ids || @removed_ids) {
+            $c->model('MB')->with_transaction(sub {
+                $model->remove_noindex_status(@removed_ids);
+                $model->add_noindex_status($c->user->id, @added_ids);
+            });
+        }
+
+        $c->flash->{message} = 'Changes applied.';
+        $c->response->redirect(
+            $c->uri_for_action('/admin/noindex', [$entity_type]),
+        );
+        $c->detach;
+    }
+
+    $c->stash(
+        current_view => 'Node',
+        component_path => 'admin/Noindex',
+        component_props => {
+            editors => {
+                map { $_->{entity}->id => to_json_object($_->{editor}) }
+                    @noindexed_entities,
+            },
+            entities => {
+                map { $_->{entity}->gid => to_json_object($_->{entity}) }
+                    @noindexed_entities,
+            },
+            entityType => $entity_type,
+            form => $form->TO_JSON,
         },
     );
 }
