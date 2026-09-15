@@ -21,11 +21,12 @@
 # ROManceJP <poritetorafuruoroetiren.mana+musicbrainz__pcmpigc3@gmail.com>, 2025.
 # TefWw <came.from.the.north7239@gmail.com>, 2025.
 # zatto13 <zatto0524@gmail.com>, 2026.
+# Life4649 <metabrainz@fujinraijin.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-05-22 02:12+0000\n"
-"Last-Translator: zatto13 <zatto0524@gmail.com>\n"
+"PO-Revision-Date: 2026-09-03 18:13+0000\n"
+"Last-Translator: Life4649 <metabrainz@fujinraijin.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/relationship-types/ja/>\n"
 "Language: ja\n"
@@ -33,7 +34,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.5\n"
+"X-Generator: Weblate 2026.9\n"
 
 #. name:artist diploma
 #: DB:link_attribute_type/description:1355
@@ -2678,16 +2679,12 @@ msgstr ""
 
 #. name:executive position at
 #: DB:link_type/description:1266
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label in a "
-#| "creative position, such as photographer or graphic designer."
 msgid ""
 "This indicates that an artist was officially employed by a label in an "
 "executive position, such as CEO, president or director."
 msgstr ""
-"これは、アーティストが写真家やグラフィックデザイナーなどのクリエイティブな立"
-"場としてレーベルに正式に雇用されたことを示す。"
+"これは、アーティストがレーベルにCEO、社長、取締役などの役員（エグゼクティブ）"
+"職として正式に雇用されていたことを示している。"
 
 #. name:parts
 #: DB:link_type/description:818
@@ -2725,10 +2722,6 @@ msgstr ""
 
 #. name:commissioned
 #: DB:link_type/description:1279
-#, fuzzy
-#| msgid ""
-#| "This indicates that the place commissioned the work. This is most common "
-#| "for classical works, but also exists in other genres to a degree."
 msgid ""
 "This indicates that the area commissioned the work. This is most common for "
 "classical works, but also exists in other genres to a degree."
@@ -2798,10 +2791,8 @@ msgstr ""
 
 #. name:demo
 #: DB:link_attribute_type/description:1417
-#, fuzzy
-#| msgid "This indicates that the recording is of a live performance."
 msgid "This indicates that the recording is of a demo version."
-msgstr "これは、ライブ録音であることを示します。"
+msgstr "これは、録音がデモバージョンであることを示している。"
 
 #. name:live
 #: DB:link_attribute_type/description:578
@@ -2836,22 +2827,14 @@ msgstr ""
 
 #. name:headquarters
 #: DB:link_type/description:1237
-#, fuzzy
-#| msgid ""
-#| "This indicates that an artist was officially employed by a label as a "
-#| "producer."
 msgid ""
 "This indicates the area (usually a city) where a label is headquartered in."
-msgstr ""
-"これは、アーティストがプロデューサーとしてレーベルに正式に雇用されたことを示"
-"す。"
+msgstr "これは、レーベルが本社を置く地域（通常は都市）を示している。"
 
 #. name:named after area
 #: DB:link_type/description:1262
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the area that inspired this genre’s name."
-msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+msgstr "これは、このジャンルの名前の由来となった地域を示している。"
 
 #. name:video director
 #: DB:link_type/description:1185
@@ -2865,17 +2848,13 @@ msgstr "これは、このアーティストの名前に影響を与えたアー
 
 #. name:named after artist
 #: DB:link_type/description:1260
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the artist that inspired this genre’s name."
-msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+msgstr "これは、このジャンルの名前の由来となったアーティストを示している。"
 
 #. name:named after artist
 #: DB:link_type/description:1258
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the artist that inspired this label’s name."
-msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+msgstr "これは、このレーベルの名前の由来となったアーティストを示している。"
 
 #. name:named after artist
 #: DB:link_type/description:975
@@ -2891,10 +2870,8 @@ msgstr ""
 
 #. name:named after artist
 #: DB:link_type/description:1257
-#, fuzzy
-#| msgid "This indicates the artist that inspired this artist’s name."
 msgid "This indicates the artist that inspired this work’s name."
-msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
+msgstr "これは、この作品の名前の由来となったアーティストを示している。"
 
 #. name:audio director
 #: DB:link_type/description:1186
@@ -2925,23 +2902,21 @@ msgstr ""
 
 #. name:choreographer
 #: DB:link_type/description:1299
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist was the choreographer for this video recording."
 msgid ""
 "This indicates the artist was the choreographer for this work (often a "
 "ballet)."
 msgstr ""
-"これは、アーティストがこのビデオレコーディングの振付師であったことを示す。"
+"これは、アーティストがこの作品（多くはバレエ作品）の振付師であったことを示し"
+"ている。"
 
 #. name:cinematographer
 #: DB:link_type/description:1245
-#, fuzzy
-#| msgid "This indicates the artist was the director of this music video."
 msgid ""
 "This indicates the artist was the cinematographer / director of photography "
 "for this video recording."
-msgstr "これは、アーティストがこのミュージックビデオの監督であったことを示す。"
+msgstr ""
+"これは、アーティストがこのビデオ録画（映像作品）の撮影監督／撮影担当者であっ"
+"たことを示している。"
 
 #. name:video director
 #: DB:link_type/description:962
@@ -2968,21 +2943,15 @@ msgstr ""
 #: DB:link_type/description:41 DB:link_type/description:296
 #: DB:link_type/description:293 DB:link_type/description:282
 #: DB:link_type/description:298
-#, fuzzy
-#| msgid ""
-#| "This indicates the artist who arranged a tune into a form suitable for "
-#| "performance. 'Arrangement' is used as a catch-all term for all processes "
-#| "that turn a composition into a form that can be played by a specific type "
-#| "of ensemble."
 msgid ""
 "This indicates the artist who arranged a tune into a form suitable for "
 "performance. “Arrangement” is used as a catch-all term for all processes "
 "that turn a composition into a form that can be played by a specific type of "
 "ensemble."
 msgstr ""
-"これは、演奏に適した形に曲をアレンジしたアーティストを示す。 「編曲」は、コン"
-"ポジションを特定のタイプのアンサンブルで演奏できる形式に変えるすべてのプロセ"
-"スの総称として使用される。"
+"これは、演奏に適した形に曲をアレンジしたアーティストを示す。 「編曲」は、"
+"コンポジションを特定のタイプのアンサンブルで演奏できる形式に変えるすべての"
+"プロセスの総称として使用される。"
 
 #. name:chorus master
 #: DB:link_type/description:152
@@ -3019,17 +2988,13 @@ msgstr ""
 
 #. name:named after label
 #: DB:link_type/description:1259
-#, fuzzy
-#| msgid "This indicates the artist that inspired this artist’s name."
 msgid "This indicates the label that inspired this artist’s name."
-msgstr "これは、このアーティストの名前に影響を与えたアーティストを示す。"
+msgstr "これは、このアーティストの名前の由来となったレーベルを示している。"
 
 #. name:named after label
 #: DB:link_type/description:1264
-#, fuzzy
-#| msgid "This indicates the artist that inspired this place’s name."
 msgid "This indicates the label that inspired this genre’s name."
-msgstr "これは、この場所の名前に影響を与えたアーティストを示す。"
+msgstr "これは、このジャンルの名前の由来となったレーベルを示している。"
 
 #. name:translator
 #: DB:link_attribute_type/description:1018
@@ -3042,13 +3007,6 @@ msgstr ""
 
 #. name:distributed
 #: DB:link_type/description:361
-#, fuzzy
-#| msgid ""
-#| "This indicates the organization that distributes (or contracts out "
-#| "distribution). \n"
-#| "\n"
-#| "This is <strong>not</strong> the same concept as the <a href=\"/doc/"
-#| "Label\">record label</a>."
 msgid ""
 "This indicates the organization that distributes (or contracts out "
 "distribution). \n"
@@ -3056,10 +3014,10 @@ msgid ""
 "This is <strong>not</strong> the same concept as the <a href=\"/doc/Label\" "
 "target=\"_blank\">record label</a>."
 msgstr ""
-"これは、配布（または配布を委託する）組織を示す。\n"
+"これは、流通を行う（または流通を委託する）組織を示している。\n"
 "\n"
-"これは<a href=\"/doc/Label\">レコードレーベル</a>と同じ概念<strong>ではない</"
-"strong>。"
+"これは <a href=\"/doc/Label\" target=\"_blank\">レコードレーベル</a> とは "
+"<strong>異なる</strong> 概念である。"
 
 #. name:exported
 #: DB:link_type/description:1280
