@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: MusicBrainz\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-09-01 11:28-0500\n"
-"PO-Revision-Date: 2026-02-14 23:11+0000\n"
+"PO-Revision-Date: 2026-09-13 16:13+0000\n"
 "Last-Translator: Vaclovas Intas <gateway_31@protonmail.com>\n"
 "Language-Team: Lithuanian <https://translations.metabrainz.org/projects/"
 "musicbrainz/server/lt/>\n"
@@ -24,9 +24,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.15.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 "
+": n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: ../root/components/common-macros.tt:11
 msgid " ({text})"
@@ -560,7 +560,7 @@ msgstr "Tinklaraštis"
 
 #: ../root/layout.tt:122 ../root/layout/components/Footer.js:35
 msgid "Bluesky"
-msgstr ""
+msgstr "„Bluesky“"
 
 #: ../root/edit/search_macros.tt:438
 msgctxt "user type"
@@ -643,10 +643,8 @@ msgid "Chat"
 msgstr "Pokalbis"
 
 #: ../root/release/edit/information.tt:58
-#, fuzzy
-#| msgid "You must select an existing release group."
 msgid "Checking existing release groups…"
-msgstr "Turi pasirinkti esamą leidinio grupę."
+msgstr "Tikrinamos esamos leidinių grupės…"
 
 #: ../root/release/edit/recordings.tt:114
 msgid "Click Edit to edit the recording associations for this disc."
@@ -680,6 +678,8 @@ msgid ""
 "Common exceptions are {artist_intent_guideline|artist intent} and "
 "{japanese_guideline|Japanese releases}."
 msgstr ""
+"Dažniausios išimtys yra {artist_intent_guideline|atlikėjo ketinimas} ir "
+"{japanese_guideline|japonų leidiniai}."
 
 #: ../root/place/edit_form.tt:30 ../root/edit/details/AddPlace.js:63
 #: ../root/edit/details/EditPlace.js:82
@@ -800,7 +800,7 @@ msgstr "Išsami informacija"
 
 #: ../root/layout.tt:128 ../root/layout/components/Footer.js:55
 msgid "Disable legacy browser mode"
-msgstr ""
+msgstr "Išjungti senojo naršyklės režimą"
 
 #: ../root/artist/edit_form.tt:16 ../root/label/edit_form.tt:11
 #: ../root/place/edit_form.tt:15 ../root/recording/edit_form.tt:32
@@ -838,6 +838,9 @@ msgid ""
 "familiar with the platform. Most mainstream digital platforms use barcodes, "
 "even when they are not shown."
 msgstr ""
+"Nežymėkite skaitmeninės medijos leidinių kaip neturinčių brūkšninio kodo, "
+"nebent gerai pažįstate platformą. Dauguma populiarių skaitmeninių platformų "
+"naudoja brūkšninius kodus, net kai jie nėra rodomi."
 
 #: ../root/release/edit/duplicates.tt:42
 msgid "Do not use any of the above releases as a starting point"
@@ -1039,16 +1042,17 @@ msgid ""
 "releases, reissues, different formats such as CD and digital media, and "
 "remasters."
 msgstr ""
+"Leidinių pavyzdžiai, kuriuos reikėtų sugrupuoti, apima originalius "
+"leidinius, pakartotinius, skirtingus formatus, pavyzdžiui, CD ir "
+"skaitmenines medijas, bei remasterizuotus leidinius."
 
 #: ../root/release/edit/tracklist.tt:247
 msgid "Existing medium"
 msgstr "Egzistuojanti laikmena"
 
 #: ../root/release/edit/information.tt:77
-#, fuzzy
-#| msgid "Edit area alias"
 msgid "Existing release groups with similar names"
-msgstr "Redaguoti teritorijos slapyvardį"
+msgstr "Esamos leidinių grupės su panašiais pavadinimais"
 
 #: ../root/release/edit/tracklist.tt:151
 msgid "Expand"
