@@ -11,6 +11,7 @@ export type InlineResultsPropsT<T> = {
   readonly pager: PagerT,
   readonly query: string,
   readonly results: ReadonlyArray<SearchResultT<T>>,
+  readonly uncappedTotalHits: number,
 };
 
 export type ResultsPropsT<T> = Readonly<{

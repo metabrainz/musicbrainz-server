@@ -42,6 +42,7 @@ component InstrumentResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<InstrumentT>) {
   const $c = React.useContext(SanitizedCatalystContext);
   return (
@@ -58,6 +59,7 @@ component InstrumentResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isRelationshipEditor($c.user) ? (
         <p>

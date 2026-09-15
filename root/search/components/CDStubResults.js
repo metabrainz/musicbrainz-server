@@ -35,6 +35,7 @@ component CDStubResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<CDStubT>) {
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -50,6 +51,7 @@ component CDStubResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
     </ResultsLayout>
   );

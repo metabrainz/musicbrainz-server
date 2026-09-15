@@ -20,6 +20,7 @@ component PaginatedResults(
   pager: PagerT,
   pageVar?: 'apps_page' | 'page' | 'tokens_page',
   query?: string,
+  uncappedTotalHits?: number = 0,
   search: boolean = false,
   total: boolean = false,
 ) {
@@ -31,6 +32,10 @@ component PaginatedResults(
       pageVar={pageVar}
     />
   );
+  const isLastCappedPage =
+    uncappedTotalHits > pager.total_entries &&
+    pager.current_page === pager.last_page;
+  const totalCount = Math.max(pager.total_entries, uncappedTotalHits);
 
   return (
     <>
@@ -41,19 +46,29 @@ component PaginatedResults(
             texp.ln(
               'Found {n} result',
               'Found {n} results',
-              pager.total_entries,
-              {n: formatCount($c, pager.total_entries)},
+              totalCount,
+              {n: formatCount($c, totalCount)},
             )
           ) : (
             texp.ln(
               'Found {n} result for "{q}"',
               'Found {n} results for "{q}"',
-              pager.total_entries,
+              totalCount,
               {
-                n: formatCount($c, pager.total_entries),
+                n: formatCount($c, totalCount),
                 q: query,
               },
             )
+          )}
+        </p>
+      ) : null}
+      {isLastCappedPage ? (
+        <p>
+          {texp.l(
+            `Only the first {n} results can be returned.
+             If you cannot find what you are looking for,
+             please try a more precise search.`,
+            {n: pager.total_entries},
           )}
         </p>
       ) : null}

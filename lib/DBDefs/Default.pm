@@ -270,6 +270,11 @@ sub ENTITY_CACHE_TTL {
     return 86400;
 }
 
+# The maximum amount of results requested to search.
+# It helps with saving resources through better caching.
+# If undef, the amount of results is not limited.
+sub MAX_SEARCH_RESULTS { undef }
+
 ################################################################################
 # Sessions (advanced)
 ################################################################################
