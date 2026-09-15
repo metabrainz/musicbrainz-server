@@ -209,7 +209,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           state={state.externalLinksEditor}
         />
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit form={state.form} />
+        <EnterEdit errorsExist={hasErrors} form={state.form} />
       </div>
     </form>
   );
