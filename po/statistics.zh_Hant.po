@@ -2,13 +2,13 @@
 # ferocity12 <darksunlight210@gmail.com>, 2025.
 # silentbird <silentbird@users.noreply.translations.metabrainz.org>, 2025, 2026.
 # jerry155756294 <a155750130@gmail.com>, 2026.
+# BestSteve <ibmibmibm.tw@gmail.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-07-29 23:12+0000\n"
-"Last-Translator: silentbird "
-"<silentbird@users.noreply.translations.metabrainz.org>\n"
+"PO-Revision-Date: 2026-09-11 13:01+0000\n"
+"Last-Translator: BestSteve <ibmibmibm.tw@gmail.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://"
 "translations.metabrainz.org/projects/musicbrainz/statistics/zh_Hant/>\n"
 "Language: zh_Hant\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.7.1\n"
+"X-Generator: Weblate 2026.9.1\n"
 
 #: ../root/statistics/timeline.tt:19
 msgid "Add/remove lines:"
@@ -24,11 +24,11 @@ msgstr "增減線條："
 
 #: ../root/statistics/timeline.tt:19
 msgid "Check boxes above"
-msgstr "勾選上方複選框"
+msgstr "勾選上方核取方塊"
 
 #: ../root/statistics/timeline.tt:18
 msgid "Click to deselect"
-msgstr "點擊以取消選擇"
+msgstr "點選以取消選擇"
 
 #: ../root/statistics/timeline.tt:15
 msgid "Controls"
@@ -55,7 +55,7 @@ msgstr "在圖表上繪製矩形"
 #: ../root/statistics/layout.tt:5 ../root/statistics/Editors.js:90
 #: ../root/statistics/Editors.js:102 ../root/statistics/Index.js:1125
 msgid "Editors"
-msgstr "編者"
+msgstr "編輯者"
 
 #: ../root/statistics/layout.tt:5
 msgid "Edits"
@@ -71,7 +71,7 @@ msgstr "格式"
 
 #: ../root/statistics/timeline.tt:20
 msgid "Hover and click on vertical lines"
-msgstr "懸停並點擊垂直線"
+msgstr "將滑鼠停在垂直線上並點選"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Images.js:70
 msgid "Images"
@@ -79,7 +79,7 @@ msgstr "圖片"
 
 #: ../root/statistics/layout.tt:5
 msgid "Languages/Scripts"
-msgstr "语言／文字"
+msgstr "語言/文字"
 
 #: ../root/statistics/timeline.tt:3
 msgid "Legend"
@@ -87,15 +87,15 @@ msgstr "圖例"
 
 #: ../root/statistics/timeline.tt:7 ../root/statistics/timeline.tt:20
 msgid "MusicBrainz events"
-msgstr "MusicBrainz發展里程碑"
+msgstr "MusicBrainz 發展里程碑"
 
 #: ../root/statistics/layout.tt:5 ../root/statistics/Index.js:64
 msgid "Overview"
-msgstr "概要"
+msgstr "總覽"
 
 #: ../root/statistics/timeline.tt:32
 msgid "Rate of change (average items/day vs. day)"
-msgstr "變化率（每天的一日平均項目數）"
+msgstr "變化率（每日平均項目數）"
 
 #: ../root/statistics/timeline.tt:11
 msgid "Rate of change graph"
@@ -115,7 +115,7 @@ msgstr "時間軸"
 
 #: ../root/statistics/timeline.tt:27
 msgid "Timeline graph"
-msgstr "時間軸"
+msgstr "時間軸圖表"
 
 #: ../root/statistics/timeline.tt:17
 msgid "Zoom:"
@@ -127,7 +127,7 @@ msgstr "縮放："
 #: ../root/statistics/LanguagesScripts.js:46
 #: ../root/statistics/Relationships.js:93
 msgid "Last updated: {date}"
-msgstr "最後更新時間：{date}"
+msgstr "上次更新：{date}"
 
 #: ../root/statistics/Countries.js:48 ../root/statistics/Editors.js:37
 #: ../root/statistics/Formats.js:48 ../root/statistics/LanguagesScripts.js:59
@@ -146,7 +146,7 @@ msgstr "未知國家"
 
 #: ../root/statistics/Editors.js:67
 msgid "There is no data to display here."
-msgstr "沒有數據。"
+msgstr "這裡沒有可顯示的資料。"
 
 #: ../root/statistics/Editors.js:96
 msgid ""
@@ -156,27 +156,27 @@ msgstr "投票統計只包含贊成或反對票，棄權票不算在內。"
 
 #: ../root/statistics/Editors.js:104
 msgid "Open and applied edits in past week"
-msgstr "過去一週內作出和應用的修改"
+msgstr "過去一週內作出和生效的修改"
 
 #: ../root/statistics/Editors.js:107
 msgid "Most active editors in the past week"
-msgstr "過去一週最活躍的編輯"
+msgstr "過去一週最活躍的編輯者"
 
 #: ../root/statistics/Editors.js:110
 msgid "Applied edits in past year"
-msgstr "過去一年已應用的修改"
+msgstr "過去一年已生效的修改"
 
 #: ../root/statistics/Editors.js:113
 msgid "Most active editors in the past year"
-msgstr "過去一年最活躍的編輯"
+msgstr "過去一年最活躍的編輯者"
 
 #: ../root/statistics/Editors.js:116
 msgid "Total applied edits"
-msgstr "已應用修改總數"
+msgstr "已生效修改總數"
 
 #: ../root/statistics/Editors.js:119
 msgid "Top editors overall"
-msgstr "歷來最活躍編輯"
+msgstr "歷來最活躍的編輯者"
 
 #: ../root/statistics/Editors.js:125
 msgid "Voters"
@@ -184,7 +184,7 @@ msgstr "投票者"
 
 #: ../root/statistics/Editors.js:127
 msgid "Votes in past week"
-msgstr "上週投票次數"
+msgstr "過去一週投票次數"
 
 #: ../root/statistics/Editors.js:129 ../root/statistics/Editors.js:141
 msgid "Voter"
@@ -192,7 +192,7 @@ msgstr "投票者"
 
 #: ../root/statistics/Editors.js:130
 msgid "Most active voters in the past week"
-msgstr "上週最踊躍的投票者"
+msgstr "過去一週最活躍的投票者"
 
 #: ../root/statistics/Editors.js:133
 msgid "Votes in past year"
@@ -200,7 +200,7 @@ msgstr "過去一年投票次數"
 
 #: ../root/statistics/Editors.js:136
 msgid "Most active voters in the past year"
-msgstr "過去一年最踊躍的投票者"
+msgstr "過去一年最活躍的投票者"
 
 #: ../root/statistics/Editors.js:139
 msgid "Total votes"
@@ -208,11 +208,11 @@ msgstr "總投票次數"
 
 #: ../root/statistics/Editors.js:142
 msgid "Top voters overall"
-msgstr "歷來最踊躍投票者"
+msgstr "歷來最活躍的投票者"
 
 #: ../root/statistics/Edits.js:37
 msgid "No edit statistics available."
-msgstr "未能提供任何編輯統計資訊。"
+msgstr "未能提供任何修改統計資訊。"
 
 #: ../root/statistics/Formats.js:38 ../root/statistics/Formats.js:44
 msgid "Release/Medium Formats"
@@ -220,11 +220,11 @@ msgstr "發行品或媒介格式"
 
 #: ../root/statistics/Formats.js:51
 msgid "% of total releases"
-msgstr "占發行品總數的百分比"
+msgstr "佔發行品總數的百分比"
 
 #: ../root/statistics/Formats.js:53
 msgid "% of total mediums"
-msgstr "占媒介總數的百分比"
+msgstr "佔媒介總數的百分比"
 
 #: ../root/statistics/Formats.js:87
 msgid "Unknown format"
@@ -232,7 +232,7 @@ msgstr "未知格式"
 
 #: ../root/statistics/Images.js:75
 msgid "Basics"
-msgstr "概覽"
+msgstr "基本資料"
 
 #: ../root/statistics/Images.js:78
 msgid "No image statistics available."
@@ -269,7 +269,7 @@ msgstr "按發行組類型"
 #: ../root/statistics/Images.js:164 ../root/statistics/Images.js:341
 #: ../root/statistics/Images.js:457 ../root/statistics/Images.js:506
 msgid "No type"
-msgstr "未分類"
+msgstr "未設定類型"
 
 #: ../root/statistics/Images.js:182
 msgid "By release status"
@@ -277,19 +277,19 @@ msgstr "按發行品狀態"
 
 #: ../root/statistics/Images.js:201
 msgid "No status"
-msgstr "未註明狀態"
+msgstr "未設定狀態"
 
 #: ../root/statistics/Images.js:220
 msgid "By release format"
-msgstr "按發行格式"
+msgstr "按發行品格式"
 
 #: ../root/statistics/Images.js:239
 msgid "No format"
-msgstr "未註明格式"
+msgstr "未設定格式"
 
 #: ../root/statistics/Images.js:264
 msgid "Release groups with cover art:"
-msgstr "有封面的發行組："
+msgstr "有封面圖的發行組："
 
 #: ../root/statistics/Images.js:275
 msgid "manually selected:"
@@ -314,7 +314,7 @@ msgstr "每個發行品"
 #: ../root/statistics/Images.js:375
 msgid "with {num} piece of cover art:"
 msgid_plural "with {num} pieces of cover art:"
-msgstr[0] "含{num}張封面圖："
+msgstr[0] "含 {num} 張封面圖："
 
 #: ../root/statistics/Images.js:405
 msgid "with 30 or more pieces of cover art:"
@@ -339,7 +339,7 @@ msgstr "每個活動"
 #: ../root/statistics/Images.js:542
 msgid "with {num} piece of event art:"
 msgid_plural "with {num} pieces of event art:"
-msgstr[0] "含{num}張活動圖片："
+msgstr[0] "含 {num} 張活動圖片："
 
 #: ../root/statistics/Images.js:572
 msgid "with 15 or more pieces of event art:"
@@ -347,7 +347,7 @@ msgstr "含至少15張活動圖片："
 
 #: ../root/statistics/Index.js:68
 msgid "Basic metadata"
-msgstr "詮釋資料概覽"
+msgstr "基本詮釋資料"
 
 #: ../root/statistics/Index.js:72 ../root/statistics/stats.js:20
 msgid "Core entities"
@@ -359,20 +359,20 @@ msgstr "其他實體"
 
 #: ../root/statistics/Index.js:140
 msgid "Editors (valid / deleted):"
-msgstr "編輯（有效／已刪除）："
+msgstr "編輯者（有效/已刪除）："
 
 #: ../root/statistics/Index.js:154
 msgid "CD stubs (all time / current):"
-msgstr "CD草稿（歷來／目前）："
+msgstr "CD 草稿（歷來/目前）："
 
 #: ../root/statistics/Index.js:163
 msgctxt "folksonomy"
 msgid "Tags (raw / aggregated):"
-msgstr "標籤（原始／整合）："
+msgstr "標籤（原始/整合）："
 
 #: ../root/statistics/Index.js:169
 msgid "Ratings (raw / aggregated):"
-msgstr "評分（原始／整合）："
+msgstr "評分（原始/整合）："
 
 #: ../root/statistics/Index.js:177
 msgid "Identifiers"
@@ -384,11 +384,11 @@ msgstr "MBID"
 
 #: ../root/statistics/Index.js:184
 msgid "ISRCs (all / unique):"
-msgstr "ISRC（全部／唯一）："
+msgstr "ISRC（全部/唯一）："
 
 #: ../root/statistics/Index.js:190
 msgid "ISWCs (all / unique):"
-msgstr "ISWC（全部／唯一）："
+msgstr "ISWC（全部/唯一）："
 
 #: ../root/statistics/Index.js:200 ../root/statistics/stats.js:161
 msgid "Barcodes"
@@ -456,7 +456,7 @@ msgstr "未設定性別："
 
 #: ../root/statistics/Index.js:353
 msgid "Releases, Data Quality, and Disc IDs"
-msgstr "發行品、資料品質和碟片ID"
+msgstr "發行品、資料品質和碟片 ID"
 
 #: ../root/statistics/Index.js:366
 msgid "by various artists:"
@@ -468,7 +468,7 @@ msgstr "一位創作者的發行品："
 
 #: ../root/statistics/Index.js:379
 msgid "Release status"
-msgstr "發行狀態"
+msgstr "發行品狀態"
 
 #: ../root/statistics/Index.js:398
 msgid "No status set"
@@ -476,7 +476,7 @@ msgstr "未設定狀態"
 
 #: ../root/statistics/Index.js:405
 msgid "Release packaging"
-msgstr "發行包裝"
+msgstr "發行品包裝"
 
 #: ../root/statistics/Index.js:424
 msgid "No packaging set"
@@ -496,7 +496,7 @@ msgstr "無正面封面圖："
 
 #: ../root/statistics/Index.js:463 ../root/statistics/stats.js:604
 msgid "High data quality"
-msgstr "資料品質高"
+msgstr "高資料品質"
 
 #: ../root/statistics/Index.js:471
 msgid "Default data quality"
@@ -504,7 +504,7 @@ msgstr "預設資料品質"
 
 #: ../root/statistics/Index.js:479 ../root/statistics/stats.js:614
 msgid "Normal data quality"
-msgstr "資料品質正常"
+msgstr "一般資料品質"
 
 #: ../root/statistics/Index.js:486 ../root/statistics/stats.js:619
 msgid "Unknown data quality"
@@ -512,36 +512,36 @@ msgstr "未知資料品質"
 
 #: ../root/statistics/Index.js:495 ../root/statistics/stats.js:609
 msgid "Low data quality"
-msgstr "品質資料低"
+msgstr "低資料品質"
 
 #: ../root/statistics/Index.js:517
 msgid "Releases with no disc IDs:"
-msgstr "無碟片ID的發行品："
+msgstr "無碟片 ID 的發行品："
 
 #: ../root/statistics/Index.js:524
 msgid "Releases with at least one disc ID:"
-msgstr "至少有一個碟片ID的發行品："
+msgstr "至少有一個碟片 ID 的發行品："
 
 #: ../root/statistics/Index.js:535 ../root/statistics/Index.js:579
 msgid "with {num} disc ID:"
 msgid_plural "with {num} disc IDs:"
-msgstr[0] "有{num}個碟片ID："
+msgstr[0] "有 {num} 個碟片 ID："
 
 #: ../root/statistics/Index.js:550 ../root/statistics/Index.js:592
 msgid "with 10 or more disc IDs:"
-msgstr "有至少十個碟片ID："
+msgstr "有至少10個碟片 ID："
 
 #: ../root/statistics/Index.js:561
 msgid "Mediums with no disc IDs:"
-msgstr "無碟片ID的媒介："
+msgstr "無碟片 ID 的媒介："
 
 #: ../root/statistics/Index.js:568
 msgid "Mediums with at least one disc ID:"
-msgstr "至少有一個碟片ID的媒介："
+msgstr "至少有一個碟片 ID 的媒介："
 
 #: ../root/statistics/Index.js:603
 msgid "Primary types"
-msgstr "主分類"
+msgstr "主要類型"
 
 #: ../root/statistics/Index.js:632
 msgctxt "release group primary type"
@@ -550,7 +550,7 @@ msgstr "無"
 
 #: ../root/statistics/Index.js:637
 msgid "Secondary types"
-msgstr "二級分類"
+msgstr "次要類型"
 
 #: ../root/statistics/Index.js:666
 msgctxt "release group secondary type"
@@ -568,7 +568,7 @@ msgstr "獨立"
 
 #: ../root/statistics/Index.js:695
 msgid "With ISRCs"
-msgstr "有ISRC"
+msgstr "有 ISRC"
 
 #: ../root/statistics/Index.js:706 ../root/statistics/Index.js:734
 #: ../root/statistics/Index.js:796 ../root/statistics/Index.js:824
@@ -589,7 +589,7 @@ msgstr "無"
 
 #: ../root/statistics/Index.js:756
 msgid "With ISWCs"
-msgstr "有ISWC"
+msgstr "有 ISWC"
 
 #: ../root/statistics/Index.js:766
 msgid "Attributes"
@@ -627,7 +627,7 @@ msgstr "活動圖片"
 
 #: ../root/statistics/Index.js:941
 msgid "With EAA poster art:"
-msgstr "在EAA內有海報圖："
+msgstr "在 EAA 內有海報圖："
 
 #: ../root/statistics/Index.js:947
 msgid "No poster art:"
@@ -635,15 +635,15 @@ msgstr "無海報圖："
 
 #: ../root/statistics/Index.js:967
 msgid "Of releases"
-msgstr "含發行品的"
+msgstr "發行品類"
 
 #: ../root/statistics/Index.js:974 ../root/statistics/Index.js:1007
 msgid "Generic"
-msgstr "通用"
+msgstr "通用類"
 
 #: ../root/statistics/Index.js:983
 msgid "Owned music"
-msgstr "已收藏音樂"
+msgstr "已擁有的音樂"
 
 #: ../root/statistics/Index.js:992
 msgid "Wishlist"
@@ -651,67 +651,67 @@ msgstr "願望清單"
 
 #: ../root/statistics/Index.js:1000
 msgid "Of events"
-msgstr "含活動的"
+msgstr "活動類"
 
 #: ../root/statistics/Index.js:1016
 msgid "Of type Attending"
-msgstr "類型為出席的"
+msgstr "類型為「參加」的"
 
 #: ../root/statistics/Index.js:1025
 msgid "Of type Maybe attending"
-msgstr "類型為可能出席的"
+msgstr "類型為「可能參加」的"
 
 #: ../root/statistics/Index.js:1036
 msgid "Of areas"
-msgstr "含區域的"
+msgstr "地區類"
 
 #: ../root/statistics/Index.js:1042
 msgid "Of artists"
-msgstr "含創作者的"
+msgstr "創作者類"
 
 #: ../root/statistics/Index.js:1048
 msgid "Of genres"
-msgstr "含流派的"
+msgstr "流派類"
 
 #: ../root/statistics/Index.js:1055
 msgid "Of instruments"
-msgstr "含樂器的"
+msgstr "樂器類"
 
 #: ../root/statistics/Index.js:1062
 msgid "Of labels"
-msgstr "含廠牌的"
+msgstr "廠牌類"
 
 #: ../root/statistics/Index.js:1068
 msgid "Of places"
-msgstr "含地點的"
+msgstr "地點類"
 
 #: ../root/statistics/Index.js:1074
 msgid "Of recordings"
-msgstr "含錄音的"
+msgstr "錄音類"
 
 #: ../root/statistics/Index.js:1081
 msgid "Of release groups"
-msgstr "含發行組的"
+msgstr "發行組類"
 
 #: ../root/statistics/Index.js:1088
 msgid "Of series"
-msgstr "含系列的"
+msgstr "系列類"
 
 #: ../root/statistics/Index.js:1094
 msgid "Of works"
-msgstr "含作品的"
+msgstr "作品類"
 
 #: ../root/statistics/Index.js:1113
 msgid "With collaborators"
-msgstr "有合作者的"
+msgstr "有合作編輯者的"
 
 #: ../root/statistics/Index.js:1121
 msgid "Editors, Edits, and Votes"
-msgstr "編輯、修改和投票"
+msgstr "編輯者、修改和投票"
 
 #: ../root/statistics/Index.js:1128
 msgid "Editors (valid):"
-msgstr "編輯（有效）："
+msgstr "編輯者（有效）："
 
 #: ../root/statistics/Index.js:1134
 msgid "active ever:"
@@ -719,7 +719,7 @@ msgstr "曾經活躍："
 
 #: ../root/statistics/Index.js:1142
 msgid "who edited and/or voted in the last 7 days:"
-msgstr "曾在過去七天作出修改和／或投票："
+msgstr "曾在過去七天作出修改和/或投票："
 
 #: ../root/statistics/Index.js:1151
 msgid "who edited in the last 7 days:"
@@ -760,11 +760,11 @@ msgstr "有收藏："
 
 #: ../root/statistics/Index.js:1224
 msgid "who have registered applications:"
-msgstr "曾使用已註冊應用程式："
+msgstr "曾註冊應用程式："
 
 #: ../root/statistics/Index.js:1233
 msgid "validated email only:"
-msgstr "僅驗證電子郵箱地址："
+msgstr "僅驗證電子郵件地址："
 
 #: ../root/statistics/Index.js:1239
 msgid "inactive:"
@@ -772,19 +772,19 @@ msgstr "不活躍："
 
 #: ../root/statistics/Index.js:1244
 msgid "Editors (deleted):"
-msgstr "編輯（已刪除的）："
+msgstr "編輯者（已刪除）："
 
 #: ../root/statistics/Index.js:1276
 msgid "Voted down"
-msgstr "遭投票否决"
+msgstr "遭投票否決"
 
 #: ../root/statistics/Index.js:1282
 msgid "Failed (dependency):"
-msgstr "失敗（缺乏依賴条件）："
+msgstr "失敗（依賴條件）："
 
 #: ../root/statistics/Index.js:1288
 msgid "Failed (prerequisite):"
-msgstr "失敗（缺乏先決條件）："
+msgstr "失敗（先決條件）："
 
 #: ../root/statistics/Index.js:1294
 msgid "Failed (internal error):"
@@ -804,7 +804,7 @@ msgstr "語言和文字"
 
 #: ../root/statistics/LanguagesScripts.js:49
 msgid "All other available languages and scripts have 0 releases and works."
-msgstr "所有其他可用的語言和文字系統都沒有發行品或作品。"
+msgstr "所有其他可用的語言和文字都沒有發行品或作品。"
 
 #: ../root/statistics/LanguagesScripts.js:55
 msgid "Languages"
@@ -812,7 +812,7 @@ msgstr "語言"
 
 #: ../root/statistics/LanguagesScripts.js:90
 msgid "Unknown language"
-msgstr "未標明語言"
+msgstr "未知語言"
 
 #: ../root/statistics/LanguagesScripts.js:143
 msgid "Scripts"
@@ -820,7 +820,7 @@ msgstr "文字"
 
 #: ../root/statistics/LanguagesScripts.js:166
 msgid "Unknown script"
-msgstr "未標明文字"
+msgstr "未知文字"
 
 #: ../root/statistics/MusicBrainzHistory.js:15
 msgid "History"
@@ -848,12 +848,12 @@ msgid ""
 "administrator for this server, you should run <code>./admin/CollectStats.pl</"
 "code> or import <code>mbdump-stats.tar.bz2</code>."
 msgstr ""
-"統計資料從未從此伺服器收集過。如果您是伺服器的管理员，請執行<code>./admin/"
-"CollectStats.pl</code>或匯入<code>mbdump-stats.tar.bz2</code>。"
+"此伺服器從未收集過統計資料。如果您是此伺服器的管理員，請執行 <code>./admin/"
+"CollectStats.pl</code> 或匯入 <code>mbdump-stats.tar.bz2</code>。"
 
 #: ../root/statistics/Relationships.js:98
 msgid "No relationship statistics available."
-msgstr "未能提供任何關聯統計資料。"
+msgstr "未能提供任何關聯統計資訊。"
 
 #: ../root/statistics/Relationships.js:105
 msgctxt "relationships"
@@ -867,15 +867,15 @@ msgstr "包含子類型"
 
 #: ../root/statistics/Relationships.js:128
 msgid "{type0}-{type1}"
-msgstr "{type0}–{type1}"
+msgstr "{type0}-{type1}"
 
 #: ../root/statistics/Relationships.js:136
 msgid "{type0}-{type1} relationships:"
-msgstr "{type0}–{type1}關聯："
+msgstr "{type0}-{type1}關聯："
 
 #: ../root/statistics/stats.js:16
 msgid "Area types"
-msgstr "區域類型"
+msgstr "地區類型"
 
 #: ../root/statistics/stats.js:17
 msgid "Artist countries"
@@ -893,7 +893,7 @@ msgstr "封面圖"
 #: ../root/statistics/stats.js:26
 msgctxt "noun"
 msgid "Edit information"
-msgstr "編輯資訊"
+msgstr "修改資訊"
 
 #: ../root/statistics/stats.js:27
 msgctxt "noun"
@@ -976,7 +976,7 @@ msgstr "作品類型"
 
 #: ../root/statistics/stats.js:66
 msgid "Areas with no type set"
-msgstr "沒有設定類型的地區"
+msgstr "未設定類型的地區"
 
 #: ../root/statistics/stats.js:76
 msgid "Artists with no appearances in artist credits"
@@ -984,7 +984,7 @@ msgstr "未出現在創作者署名中的創作者"
 
 #: ../root/statistics/stats.js:81
 msgid "Artists with no country set"
-msgstr "沒有設定國家的創作者"
+msgstr "未設定國家的創作者"
 
 #: ../root/statistics/stats.js:86
 msgid "Female artists"
@@ -1036,7 +1036,7 @@ msgstr "管弦樂團"
 
 #: ../root/statistics/stats.js:146
 msgid "Artists with type set to Other"
-msgstr "類型設定為“其他”的創作者"
+msgstr "類型設定為「其他」的創作者"
 
 #: ../root/statistics/stats.js:151
 msgid "Persons"
@@ -1044,19 +1044,19 @@ msgstr "個人"
 
 #: ../root/statistics/stats.js:166
 msgid "CD stubs (current)"
-msgstr "CD草稿（目前）"
+msgstr "CD 草稿（目前）"
 
 #: ../root/statistics/stats.js:171
 msgid "CD stubs (ever submitted)"
-msgstr "CD草稿（曾經提交）"
+msgstr "CD 草稿（曾經提交）"
 
 #: ../root/statistics/stats.js:176
 msgid "CD stub tracks"
-msgstr "CD草稿音軌"
+msgstr "CD 草稿音軌"
 
 #: ../root/statistics/stats.js:186
 msgid "Collections with collaborators"
-msgstr "有合作者的收藏"
+msgstr "有合作編輯者的收藏"
 
 #: ../root/statistics/stats.js:191
 msgid "Private collections"
@@ -1076,7 +1076,7 @@ msgstr "創作者收藏"
 
 #: ../root/statistics/stats.js:211
 msgid "Collections of type Attending"
-msgstr "類型為「出席」的收藏"
+msgstr "類型為「參加」的收藏"
 
 #: ../root/statistics/stats.js:216
 msgid "Collections of type Event"
@@ -1100,11 +1100,11 @@ msgstr "廠牌收藏"
 
 #: ../root/statistics/stats.js:241
 msgid "Collections of type Maybe attending"
-msgstr "類型為「可能出席」的收藏"
+msgstr "類型為「可能參加」的收藏"
 
 #: ../root/statistics/stats.js:246
 msgid "Collections of type Owned music"
-msgstr "類型為「已有音樂」的收藏"
+msgstr "類型為「已擁有的音樂」的收藏"
 
 #: ../root/statistics/stats.js:251
 msgid "Place collections"
@@ -1140,7 +1140,7 @@ msgstr "作品收藏"
 
 #: ../root/statistics/stats.js:307
 msgid "Applied edits"
-msgstr "已應用的修改"
+msgstr "已生效的修改"
 
 #: ../root/statistics/stats.js:312
 msgid "Cancelled edits"
@@ -1168,51 +1168,51 @@ msgstr "每日修改量"
 
 #: ../root/statistics/stats.js:348
 msgid "Edits per week"
-msgstr "每週編輯量"
+msgstr "每週修改量"
 
 #: ../root/statistics/stats.js:354
 msgid "Editors (all)"
-msgstr "編輯（全部）"
+msgstr "編輯者（全部）"
 
 #: ../root/statistics/stats.js:359
 msgid "Editors who edited or voted in the last week"
-msgstr "在過去一週曾作出修改或投票的編輯"
+msgstr "在過去一週曾作出修改或投票的編輯者"
 
 #: ../root/statistics/stats.js:365
 msgid "Editors (deleted)"
-msgstr "編輯（已刪除）"
+msgstr "編輯者（已刪除）"
 
 #: ../root/statistics/stats.js:370
 msgid "Editors who submitted edits in the last week"
-msgstr "在過去一週作出修改的編輯"
+msgstr "在過去一週作出修改的編輯者"
 
 #: ../root/statistics/stats.js:376
 msgid "Editors (current)"
-msgstr "編輯（目前）"
+msgstr "編輯者（目前）"
 
 #: ../root/statistics/stats.js:382
 msgid "Editors (current) who have ever been active"
-msgstr "曾經活躍的編輯（目前）"
+msgstr "曾經活躍的編輯者（目前）"
 
 #: ../root/statistics/stats.js:387
 msgid "Editors who have registered applications"
-msgstr "曾註冊應用程式的編輯"
+msgstr "曾註冊應用程式的編輯者"
 
 #: ../root/statistics/stats.js:392
 msgid "Editors who use collections"
-msgstr "使用收藏的編輯"
+msgstr "使用收藏的編輯者"
 
 #: ../root/statistics/stats.js:397
 msgid "Editors who have made edits"
-msgstr "已作出修改的編輯"
+msgstr "已作出修改的編輯者"
 
 #: ../root/statistics/stats.js:402
 msgid "Editors who have written edit notes"
-msgstr "曾撰寫修改備註的編輯"
+msgstr "曾撰寫修改備註的編輯者"
 
 #: ../root/statistics/stats.js:407
 msgid "Editors who have added ratings"
-msgstr "曾評分的編輯"
+msgstr "曾評分的編輯者"
 
 #: ../root/statistics/stats.js:412
 msgid "Editors who use subscriptions"
@@ -1221,23 +1221,23 @@ msgstr "有訂閱的編輯者"
 #: ../root/statistics/stats.js:417
 msgctxt "folksonomy"
 msgid "Editors who have added tags"
-msgstr "曾新增標籤的編輯"
+msgstr "曾新增標籤的編輯者"
 
 #: ../root/statistics/stats.js:422
 msgid "Editors who have voted on edits"
-msgstr "曾就修改投票的編輯"
+msgstr "曾就修改投票的編輯者"
 
 #: ../root/statistics/stats.js:427
 msgid "Editors who have not been active at all"
-msgstr "從不活躍的編輯"
+msgstr "從未活躍的編輯者"
 
 #: ../root/statistics/stats.js:432
 msgid "Editors who have only validated their email"
-msgstr "僅驗證電子郵箱地址的編輯"
+msgstr "僅驗證電子郵件地址的編輯者"
 
 #: ../root/statistics/stats.js:437
 msgid "Editors who voted in the last week"
-msgstr "在過去一週投票的編輯"
+msgstr "在過去一週投票的編輯者"
 
 #: ../root/statistics/stats.js:447
 msgid "Events with no country set"
@@ -1245,15 +1245,15 @@ msgstr "未設定國家的活動"
 
 #: ../root/statistics/stats.js:452
 msgid "Events with EAA event art"
-msgstr "有EAA活動圖片的活動"
+msgstr "有 EAA 活動圖片的活動"
 
 #: ../root/statistics/stats.js:457
 msgid "Events with an EAA poster"
-msgstr "有EAA海報的活動"
+msgstr "有 EAA 海報的活動"
 
 #: ../root/statistics/stats.js:462
 msgid "Events without an EAA poster"
-msgstr "沒有EAA海報的活動"
+msgstr "沒有 EAA 海報的活動"
 
 #: ../root/statistics/stats.js:467
 msgid "Events with no type set"
@@ -1277,11 +1277,11 @@ msgstr "廠牌 IPI"
 
 #: ../root/statistics/stats.js:519
 msgid "Artist ISNIs"
-msgstr "創作者ISNI"
+msgstr "創作者 ISNI"
 
 #: ../root/statistics/stats.js:524
 msgid "Label ISNIs"
-msgstr "廠牌ISNI"
+msgstr "廠牌 ISNI"
 
 #: ../root/statistics/stats.js:529
 msgid "ISRCs (unique)"
@@ -1289,7 +1289,7 @@ msgstr "ISRC（唯一）"
 
 #: ../root/statistics/stats.js:534
 msgid "ISRCs (all uses)"
-msgstr "ISRC（所有用法）"
+msgstr "ISRC（全部使用）"
 
 #: ../root/statistics/stats.js:539
 msgid "ISWCs (unique)"
@@ -1297,7 +1297,7 @@ msgstr "ISWC（唯一）"
 
 #: ../root/statistics/stats.js:544
 msgid "ISWCs (all uses)"
-msgstr "ISWC（所有用法）"
+msgstr "ISWC（全部使用）"
 
 #: ../root/statistics/stats.js:554
 msgid "Labels with no country set"
@@ -1313,7 +1313,7 @@ msgstr "未設定格式的媒介"
 
 #: ../root/statistics/stats.js:579
 msgid "Mediums with disc IDs"
-msgstr "有碟片ID的媒介"
+msgstr "有碟片 ID 的媒介"
 
 #: ../root/statistics/stats.js:589
 msgid "Places with no country set"
@@ -1325,7 +1325,7 @@ msgstr "未設定類型的地點"
 
 #: ../root/statistics/stats.js:599
 msgid "Default (Normal + Unknown) Data Quality"
-msgstr "預設（正常和未知）資料品質"
+msgstr "預設資料品質（一般 + 未知）"
 
 #: ../root/statistics/stats.js:624
 msgid "Entities with ratings"
@@ -1381,7 +1381,7 @@ msgstr "有評分的作品"
 
 #: ../root/statistics/stats.js:699
 msgid "Recordings with ISRCs"
-msgstr "有ISRC的錄音"
+msgstr "有 ISRC 的錄音"
 
 #: ../root/statistics/stats.js:704
 msgid "Standalone recordings"
@@ -1393,7 +1393,7 @@ msgstr "未設定國家的發行品"
 
 #: ../root/statistics/stats.js:719
 msgid "Releases with CAA cover art"
-msgstr "有CAA封面圖的發行品"
+msgstr "有 CAA 封面圖的發行品"
 
 #: ../root/statistics/stats.js:724
 msgid "Releases with no cover art"
@@ -1413,7 +1413,7 @@ msgstr "有封面圖的發行品"
 
 #: ../root/statistics/stats.js:746
 msgid "Releases with disc IDs"
-msgstr "有碟片ID的發行品"
+msgstr "有碟片 ID 的發行品"
 
 #: ../root/statistics/stats.js:751
 msgid "Releases with no language set"
@@ -1429,7 +1429,7 @@ msgstr "未設定包裝的發行品"
 
 #: ../root/statistics/stats.js:766
 msgid "Releases with no script set"
-msgstr "未設定文字系統的發行品"
+msgstr "未設定文字的發行品"
 
 #: ../root/statistics/stats.js:771
 msgid "Releases with no status set"
@@ -1440,9 +1440,8 @@ msgid "Releases with no status set that have cover art"
 msgstr "未設定狀態且有封面圖的發行品"
 
 #: ../root/statistics/stats.js:782
-#, fuzzy
 msgid "Releases in groups with no type set that have cover art"
-msgstr "未設定類型且有封面圖的發行組的發行品"
+msgstr "有封面圖、且所屬發行組未設定類型的發行品"
 
 #: ../root/statistics/stats.js:788
 msgid "Releases credited to Various Artists"
@@ -1450,11 +1449,11 @@ msgstr "「多位創作者」的發行品"
 
 #: ../root/statistics/stats.js:799
 msgid "Release groups with automatically inferred cover art"
-msgstr "具有自動推斷封面藝術的發行組"
+msgstr "具有自動推斷封面圖的發行組"
 
 #: ../root/statistics/stats.js:805
 msgid "Release groups with user-selected cover art"
-msgstr "具有使用者選擇封面藝術的發行組"
+msgstr "具有使用者選擇封面圖的發行組"
 
 #: ../root/statistics/stats.js:810
 msgid "Release groups with no primary type set"
@@ -1476,47 +1475,47 @@ msgstr "唯一標籤名稱"
 #: ../root/statistics/stats.js:835
 msgctxt "folksonomy"
 msgid "Votes for/against tags"
-msgstr "對標籤的支援/反對票"
+msgstr "對標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:840
 msgid "Votes for/against area tags"
-msgstr "對地區標籤的支援/反對票"
+msgstr "對地區標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:845
 msgid "Votes for/against artist tags"
-msgstr "對創作者標籤的支援/反對票"
+msgstr "對創作者標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:850
 msgid "Votes for/against instrument tags"
-msgstr "對樂器標籤的支援/反對票"
+msgstr "對樂器標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:855
 msgid "Votes for/against label tags"
-msgstr "對廠牌標籤的支援/反對票"
+msgstr "對廠牌標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:860
 msgid "Votes for/against recording tags"
-msgstr "對錄音標籤的支援/反對票"
+msgstr "對錄音標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:865
 msgid "Votes for/against release tags"
-msgstr "對發行標籤的支援/反對票"
+msgstr "對發行品標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:870
 msgid "Votes for/against release group tags"
-msgstr "對發行組標籤的支援/反對票"
+msgstr "對發行組標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:875
 msgid "Votes for/against series tags"
-msgstr "對系列標籤的支援/反對票"
+msgstr "對系列標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:880
 msgid "Votes for/against work tags"
-msgstr "對作品標籤的支援/反對票"
+msgstr "對作品標籤的贊成/反對票"
 
 #: ../root/statistics/stats.js:906
 msgid "Abstentions"
-msgstr "棄權"
+msgstr "棄權票"
 
 #: ../root/statistics/stats.js:911
 msgid "Admin approvals"
@@ -1524,7 +1523,7 @@ msgstr "管理員批准"
 
 #: ../root/statistics/stats.js:916
 msgid "Admin rejections"
-msgstr "拒絕"
+msgstr "管理員駁回"
 
 #: ../root/statistics/stats.js:921
 msgid "Approvals"
@@ -1552,7 +1551,7 @@ msgstr "沒有屬性的作品"
 
 #: ../root/statistics/stats.js:957
 msgid "Works with ISWCs"
-msgstr "具有ISWC的作品"
+msgstr "具有 ISWC 的作品"
 
 #: ../root/statistics/stats.js:962
 msgid "Works with no language set"
@@ -1569,17 +1568,17 @@ msgstr "/日"
 #: ../root/statistics/stats.js:979
 msgid "Releases with 1 Disc ID"
 msgid_plural "Releases with {n} Disc IDs"
-msgstr[0] "具有 {n} 個碟片ID的發行品"
+msgstr[0] "具有 {n} 個碟片 ID 的發行品"
 
 #: ../root/statistics/stats.js:990
 msgid "Mediums with 1 Disc ID"
 msgid_plural "Mediums with {n} Disc IDs"
-msgstr[0] "具有 {n} 個碟片ID的媒體"
+msgstr[0] "具有 {n} 個碟片 ID 的媒介"
 
 #: ../root/statistics/stats.js:1001
 msgid "Recordings with 1 Release"
 msgid_plural "Recordings with {n} Releases"
-msgstr[0] "具有 {n} 個發行的錄音"
+msgstr[0] "具有 {n} 個發行品的錄音"
 
 #: ../root/statistics/stats.js:1012
 msgid "Release Groups with 1 Release"
@@ -1612,7 +1611,7 @@ msgstr "{country}發行品"
 
 #: ../root/statistics/stats.js:1112
 msgid "{type} edits"
-msgstr "{type}編輯"
+msgstr "{type}修改"
 
 #: ../root/statistics/stats.js:1123
 msgid "{type} events"
@@ -1628,11 +1627,11 @@ msgstr "{name}發行品"
 
 #: ../root/statistics/stats.js:1149
 msgid "{name} mediums"
-msgstr "{name}媒體"
+msgstr "{name}媒介"
 
 #: ../root/statistics/stats.js:1156
 msgid "Releases with a medium of format “{format}” that have cover art"
-msgstr "具有格式“{format}”且有封面藝術的發行品"
+msgstr "具有格式「{format}」且有封面圖的發行品"
 
 #: ../root/statistics/stats.js:1169
 msgid "{type} instruments"
@@ -1652,7 +1651,7 @@ msgstr "{language}作品"
 
 #: ../root/statistics/stats.js:1210
 msgid "Releases with packaging “{packaging}”"
-msgstr "包裝為“{packaging}”的發行品"
+msgstr "包裝為「{packaging}」的發行品"
 
 #: ../root/statistics/stats.js:1223
 msgid "{type} places"
@@ -1667,16 +1666,16 @@ msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships"
 msgstr ""
-"{first_entity_type_name}-{second_entity_type_name} "
-"“{relationship_type_name}”關聯"
+"{first_entity_type_name}-{second_entity_type_name}「{relationship_type_name}"
+"」關聯"
 
 #: ../root/statistics/stats.js:1266
 msgid ""
 "{first_entity_type_name}-{second_entity_type_name} "
 "“{relationship_type_name}” relationships including child relationship types"
 msgstr ""
-"{first_entity_type_name}-{second_entity_type_name} "
-"“{relationship_type_name}”關聯（包括子關聯類型）"
+"{first_entity_type_name}-{second_entity_type_name}「{relationship_type_name}"
+"」關聯（包括子關聯類型）"
 
 #: ../root/statistics/stats.js:1289 ../root/statistics/stats.js:1309
 msgid "{type} release groups"
@@ -1684,7 +1683,7 @@ msgstr "{type}發行組"
 
 #: ../root/statistics/stats.js:1296
 msgid "Releases in groups of type “{type}” with cover art"
-msgstr "類型為“{type}”的發行組中的發行品（有封面藝術）"
+msgstr "類型為「{type}」的發行組中的發行品（有封面圖）"
 
 #: ../root/statistics/stats.js:1320
 msgid "{script} releases"
@@ -1700,11 +1699,11 @@ msgstr "{status}發行品"
 
 #: ../root/statistics/stats.js:1349
 msgid "Releases of status “{status}” with cover art"
-msgstr "狀態為“{status}”且有封面藝術的發行品"
+msgstr "狀態為「{status}」且有封面圖的發行品"
 
 #: ../root/statistics/stats.js:1366
 msgid "Works with attribute “{attribute}”"
-msgstr "具有屬性“{attribute}”的作品"
+msgstr "具有屬性「{attribute}」的作品"
 
 #: ../root/statistics/stats.js:1379
 msgid "{type} works"
@@ -1712,7 +1711,7 @@ msgstr "{type}作品"
 
 #: ../root/statistics/utilities.js:40
 msgid "See on timeline"
-msgstr "在時間軸上查看"
+msgstr "在時間軸上檢視"
 
 #~ msgid "Country"
 #~ msgstr "國家"
