@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"PO-Revision-Date: 2026-08-14 01:12+0000\n"
+"PO-Revision-Date: 2026-09-04 22:13+0000\n"
 "Last-Translator: joao_over9k <joaorspaiva@hotmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translations.metabrainz.org/"
 "projects/musicbrainz/attributes/pt_BR/>\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.9\n"
 
 #. name:Motet
 #: DB:work_type/description:9
@@ -46,98 +46,99 @@ msgstr "10\" Acetato"
 #: DB:medium_format/name:54
 msgctxt "medium_format"
 msgid "10\" Shellac"
-msgstr ""
+msgstr "10\" Shellac"
 
 #: DB:medium_format/name:30
 msgctxt "medium_format"
 msgid "10\" Vinyl"
-msgstr ""
+msgstr "10\" Vinil"
 
 #: DB:medium_format/name:206
 msgctxt "medium_format"
 msgid "12\" Acetate"
-msgstr ""
+msgstr "12\" Acetato"
 
 #: DB:medium_format/name:72
 msgctxt "medium_format"
 msgid "12\" LaserDisc"
-msgstr ""
+msgstr "12\" LaserDisc"
 
 #: DB:medium_format/name:55
 msgctxt "medium_format"
 msgid "12\" Shellac"
-msgstr ""
+msgstr "12\" Shellac"
 
 #: DB:medium_format/name:31
 msgctxt "medium_format"
 msgid "12\" Vinyl"
-msgstr ""
+msgstr "12\" Vinil"
 
 #: DB:medium_format/name:207
 msgctxt "medium_format"
 msgid "3\" Vinyl"
-msgstr ""
+msgstr "3\" Vinil"
 
 #: DB:medium_format/name:49
 msgctxt "medium_format"
 msgid "3.5\" Floppy Disk"
-msgstr ""
+msgstr "3.5\" Floppy Disk (disquete)"
 
 #: DB:medium_format/name:91
 msgctxt "medium_format"
 msgid "5.25\" Floppy Disk"
-msgstr ""
+msgstr "5.25\" Floppy Disk (disquete)"
 
 #: DB:medium_format/name:204
 msgctxt "medium_format"
 msgid "7\" Acetate"
-msgstr ""
+msgstr "7\" Acetato"
 
 #: DB:medium_format/name:52
 msgctxt "medium_format"
 msgid "7\" Flexi-disc"
-msgstr ""
+msgstr "7\" Disco Flexível"
 
 #: DB:medium_format/name:56
 msgctxt "medium_format"
 msgid "7\" Shellac"
-msgstr ""
+msgstr "7\" Shellac"
 
 #: DB:medium_format/name:29
 msgctxt "medium_format"
 msgid "7\" Vinyl"
-msgstr ""
+msgstr "7\" Vinil"
 
 #: DB:medium_format/name:71
+#, fuzzy
 msgctxt "medium_format"
 msgid "8\" LaserDisc"
-msgstr ""
+msgstr "8\" LaserDisc"
 
 #: DB:medium_format/name:78
 msgctxt "medium_format"
 msgid "8-Track Cartridge"
-msgstr ""
+msgstr "Cartucho de 8 pistas"
 
 #: DB:medium_format/name:34
 msgctxt "medium_format"
 msgid "8cm CD"
-msgstr ""
+msgstr "CD de 8 cm"
 
 #: DB:medium_format/name:40
 msgctxt "medium_format"
 msgid "8cm CD+G"
-msgstr ""
+msgstr "CD+G de 8 cm"
 
 #: DB:medium_format/name:210
 msgctxt "medium_format"
 msgid "8cm CD-R"
-msgstr ""
+msgstr "CD-R de 8 cm"
 
 #. name:MiniDVD
 #: DB:medium_format/description:166
 msgctxt "medium_format"
 msgid "8cm DVD, often used for video singles."
-msgstr ""
+msgstr "DVD de 8cm, muitas vezes usado para videoclipes."
 
 #. name:Pathé disc
 #: DB:medium_format/description:58
@@ -146,6 +147,8 @@ msgid ""
 "90 rpm, vertical-cut shellac discs, produced by the Pathé label from 1906 to "
 "1932."
 msgstr ""
+"Discos de goma-laca de 90 rpm com gravação vertical, produzidos pelo selo "
+"Pathé entre 1906 e 1932."
 
 #. name:Compilation
 #: DB:release_group_secondary_type/description:1
@@ -179,30 +182,37 @@ msgid ""
 "for example, a various artists soundtrack using pre-released music should be "
 "marked as both a soundtrack and a compilation.</p>"
 msgstr ""
-"<p>Uma compilação, para os propósitos do banco de dados do MusicBrainz, "
-"abrange os seguintes tipos de lançamentos:</p>\n"
+"<p>Uma compilação, para os fins do banco de dados do MusicBrainz, abrange os "
+"seguintes tipos de lançamentos:</p>\n"
+"\n"
 "<ul>\n"
-"<li>uma coleção de gravações de várias fontes antigas (não necessariamente "
-"lançadas) combinadas. Por exemplo, um lançamento do tipo \"melhores de\", "
-"retrospectiva ou raridades.</li>\n"
-"<li>uma coletânea de músicas de vários artistas, geralmente baseada em um "
-"tema geral (\"Songs for Lovers\"), um período específico (\"Hits of 1998\") "
-"ou algum outro tipo de agrupamento (\"Songs From the Movies\", a série "
-"\"Café del Mar\", etc.).</li>\n"
+"<li>uma coleção de gravações provenientes de várias fontes antigas (não "
+"necessariamente lançadas anteriormente) reunidas em um único produto. Por "
+"exemplo, um lançamento do tipo \"melhores momentos\" (best of), "
+"retrospectiva ou coletânea de raridades.</li>\n"
+"<li>uma coleção de músicas de vários artistas, geralmente baseada em um tema "
+"geral (\"Canções para Apaixonados\"), um período específico (\"Sucessos de "
+"1998\") ou outro tipo de agrupamento (\"Músicas de Filmes\", a série \"Café "
+"del Mar\", etc.).</li>\n"
 "</ul>\n"
-"<p>O projeto MusicBrainz geralmente não considera os seguintes como "
+"\n"
+"<p>O projeto MusicBrainz geralmente não considera os seguintes itens como "
 "compilações:</p>\n"
+"\n"
 "<ul>\n"
-"<li>um relançamento de um álbum, mesmo que inclua faixas bônus.</li>\n"
-"<li>um lançamento tributo contendo covers de músicas de outro artista.</li>\n"
-"<li>um lançamento clássico contendo novas gravações de obras de um artista "
-"clássico.</li>\n"
-"<li>um lançamento split contendo músicas novas de vários artistas.</li>\n"
+"<li>uma reedição de um álbum, mesmo que inclua faixas bônus.</li>\n"
+"<li>um lançamento de tributo contendo versões (covers) de músicas de outro "
+"artista.</li>\n"
+"<li>um lançamento de música clássica contendo novas gravações de obras de um "
+"compositor ou intérprete clássico.</li>\n"
+"<li>um lançamento compartilhado (split) contendo músicas inéditas de vários "
+"artistas.</li>\n"
 "</ul>\n"
-"<p>Compilação deve ser usada **além de**, e não **em vez de**, outros tipos: "
-"por exemplo, uma trilha sonora de vários artistas usando músicas pré-"
-"lançadas deve ser marcada tanto como trilha sonora quanto como compilação.</"
-"p>"
+"\n"
+"<p>A classificação \"compilação\" deve ser usada em conjunto com outros "
+"tipos, e não em substituição a eles: por exemplo, uma trilha sonora com "
+"vários artistas que utilize músicas lançadas anteriormente deve ser marcada "
+"tanto como trilha sonora quanto como compilação.</p>"
 
 #. name:Single
 #: DB:release_group_primary_type/description:2
@@ -241,39 +251,39 @@ msgid ""
 "songs by two different artists are released on the one disc, typically vinyl."
 "</p>"
 msgstr ""
-"<p>Um single possui definições diferentes dependendo do mercado em que é "
-"lançado.</p>\n"
+"<p>Um single possui definições diferentes dependendo do mercado para o qual "
+"é lançado.</p>\n"
 "\n"
 "<ul>\n"
-"<li>No mercado dos EUA, um single normalmente tem uma música principal e "
-"possivelmente algumas faixas adicionais ou remixes da faixa principal; o "
-"single geralmente recebe o nome de sua música principal; o single é lançado "
-"principalmente para obter execução em rádios e promover as vendas do "
-"lançamento.</li>\n"
-"<li>O mercado do Reino Unido (assim como Austrália e Europa) é semelhante ao "
-"mercado dos EUA, entretanto, os singles frequentemente são lançados como um "
-"conjunto de dois discos, com cada disco vendido separadamente. Eles também "
-"às vezes têm uma versão mais longa do single (geralmente combinando as "
-"faixas da versão de dois discos), muito semelhante ao estilo de single dos "
-"EUA, e isso é chamado de \"maxi-single\". (Em alguns casos, o maxi-single é "
-"mais longo que o lançamento de onde o single veio!)</li>\n"
-"<li>O mercado japonês é muito mais voltado para singles. O fator "
-"determinante é geralmente a duração do single e o preço de venda. Até 1995, "
-"era comum que esses singles fossem lançados em formato mini-CD, que é "
-"basicamente um CD muito menor, tipicamente com 8 cm de diâmetro. Por volta "
-"de 1995, o single de 8 cm foi descontinuado, e o CD single padrão de 12 cm "
-"tornou-se mais comum; geralmente, relançamentos de singles anteriores a 1995 "
-"são lançados no formato de 12 cm, mesmo que tenham sido originalmente "
-"lançados em 8 cm. Singles japoneses frequentemente vêm com versões "
-"instrumentais das músicas e também possuem maxi-singles como no Reino Unido, "
-"com versões remixadas das músicas. Às vezes, um maxi-single terá mais faixas "
-"que um EP, mas como são todas versões alternativas das mesmas 2-3 músicas, "
-"ainda é classificado como um single.</li>\n"
+"<li>No mercado dos EUA, um single geralmente contém uma música principal e, "
+"possivelmente, algumas faixas adicionais ou remixes da faixa principal; o "
+"single costuma receber o nome da música principal e é lançado principalmente "
+"para obter execução nas rádios e promover as vendas do lançamento.</li>\n"
+"<li>O mercado do Reino Unido (assim como o da Austrália e da Europa) é "
+"semelhante ao dos EUA; no entanto, os singles são frequentemente lançados "
+"como um conjunto de dois discos, vendidos separadamente. Às vezes, existe "
+"também uma versão mais longa do single (muitas vezes combinando as faixas da "
+"versão de dois discos) — muito semelhante ao estilo de single dos EUA — "
+"chamada de \"maxi-single\". (Em alguns casos, o maxi-single é mais longo do "
+"que o lançamento original do qual o single foi extraído!)</li>\n"
+"<li>O mercado japonês é muito mais voltado para os singles. O fator "
+"determinante é, geralmente, a duração do single e o seu preço de venda. Até "
+"1995, era comum que esses singles fossem lançados no formato \"mini-CD\" — "
+"basicamente um CD bem menor, tipicamente com 8 cm de diâmetro. Por volta de "
+"1995, o single de 8 cm foi sendo descontinuado, tornando-se mais comum o "
+"single em CD padrão de 12 cm; geralmente, relançamentos de singles "
+"anteriores a 1995 são feitos no formato de 12 cm, mesmo que tenham sido "
+"lançados originalmente no formato de 8 cm. Os singles japoneses "
+"frequentemente incluem versões instrumentais das músicas e também contam com "
+"maxi-singles (assim como no Reino Unido) contendo versões remixadas das "
+"faixas. Às vezes, um maxi-single pode ter mais faixas do que um EP, mas, "
+"como todas são versões alternativas das mesmas 2 ou 3 músicas, ele ainda é "
+"classificado como um single.</li>\n"
 "</ul>\n"
 "\n"
-"<p>Existem outras variações de single chamadas \"split single\", onde "
+"<p>Existem outras variações de single, como o \"split single\", no qual "
 "músicas de dois artistas diferentes são lançadas em um único disco, "
-"geralmente em vinil.</p>"
+"geralmente de vinil.</p>"
 
 #. name:KiT Album
 #: DB:medium_format/description:95
@@ -283,6 +293,10 @@ msgid ""
 "connected to a phone via Bluetooth or headphone jack and unlocks the release "
 "for listening in a companion app for a limited period of time."
 msgstr ""
+"Um dispositivo de \"item colecionável digital\" — utilizado principalmente "
+"para música K-pop — que se conecta ao celular via Bluetooth ou entrada de "
+"fone de ouvido e desbloqueia o lançamento para audição em um aplicativo "
+"associado, por um período limitado."
 
 #. name:Park
 #: DB:place_type/description:9
@@ -291,6 +305,8 @@ msgid ""
 "A (usually green) space kept available for recreation in an otherwise built "
 "and populated area."
 msgstr ""
+"Um espaço (geralmente verde) mantido disponível para recreação em uma área "
+"que, de outra forma, seria edificada e povoada."
 
 #. name:CD-i
 #: DB:medium_format/description:209
@@ -300,6 +316,9 @@ msgid ""
 "in the 1990s including, in some cases, music releases with accompanying "
 "video content."
 msgstr ""
+"Um formato de CD que combina dados/vídeo e áudio, utilizado para diferentes "
+"finalidades na década de 1990, incluindo, em alguns casos, lançamentos "
+"musicais acompanhados de conteúdo em vídeo."
 
 #. name:Mixed Mode CD
 #: DB:medium_format/description:129
