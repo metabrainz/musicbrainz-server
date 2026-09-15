@@ -13,7 +13,6 @@ import * as React from 'react';
 import type {
   AliasEditFormT,
 } from '../../../entity/alias/types.js';
-import isBlank from '../common/utility/isBlank.js';
 import DateRangeFieldset, {
   type ActionT as DateRangeFieldsetActionT,
   runReducer as runDateRangeFieldsetReducer,
@@ -46,6 +45,8 @@ import {
   applyAllPendingErrors,
   hasSubfieldErrors,
 } from '../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../edit/utility/updateRequiredNameFieldErrors.js';
 
 type Props = {
   readonly aliasTypes: SelectOptionsT,
@@ -107,8 +108,10 @@ function createInitialState({
   form,
   searchHintType,
 }: CreateInitialStatePropsT): StateT {
+  const formCtx = mutate(form);
+  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
   return {
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isEnded: form.field.period.field.ended.value,
     isGuessCaseOptionsOpen: false,
@@ -145,7 +148,10 @@ function reducer(state: StateT, action: ActionT): StateT {
       runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.final();
       newStateCtx
-        .set('form', 'field', 'name', nameState.field)
+        .update('form', 'field', 'name', (nameFieldCtx) => {
+          nameFieldCtx.set(nameState.field);
+          updateRequiredNameFieldErrors(nameFieldCtx);
+        })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
     }
@@ -264,9 +270,10 @@ const AliasEditForm = ({
     dispatch({action, type: 'update-date-range'});
   }, [dispatch]);
 
-  const missingRequired = isBlank(state.form.field.name.value);
-
-  const hasErrors = missingRequired || hasSubfieldErrors(state.form);
+  const hasErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ true);
+  const hasVisibleErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ false);
 
   const handleSubmit = useFormSubmitHandler(hasErrors, dispatch);
 
@@ -350,7 +357,7 @@ const AliasEditForm = ({
             field={state.form.field.period}
           />
           <EnterEditNote field={state.form.field.edit_note} />
-          <EnterEdit form={state.form} />
+          <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
         </div>
       </form>
     </>

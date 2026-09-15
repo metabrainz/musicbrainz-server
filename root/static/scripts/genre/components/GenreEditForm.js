@@ -16,7 +16,6 @@ import type {
 } from '../../../../genre/types.js';
 import useFormUnloadWarning from '../../common/hooks/useFormUnloadWarning.js';
 import {getSourceEntityData} from '../../common/utility/catalyst.js';
-import isBlank from '../../common/utility/isBlank.js';
 import EnterEdit from '../../edit/components/EnterEdit.js';
 import EnterEditNote from '../../edit/components/EnterEditNote.js';
 import FormRowNameWithGuessCase, {
@@ -33,7 +32,12 @@ import {
 } from '../../edit/components/withLoadedTypeInfo.js';
 import useFormSubmitHandler
   from '../../edit/hooks/useFormSubmitHandler.js';
-import {applyAllPendingErrors} from '../../edit/utility/subfieldErrors.js';
+import {
+  applyAllPendingErrors,
+  hasSubfieldErrors,
+} from '../../edit/utility/subfieldErrors.js';
+import updateRequiredNameFieldErrors
+  from '../../edit/utility/updateRequiredNameFieldErrors.js';
 import ExternalLinksEditorFieldset
   // eslint-disable-next-line @stylistic/max-len
   from '../../external-links-editor/components/ExternalLinksEditorFieldset.js';
@@ -88,9 +92,11 @@ function createInitialState({
   readonly $c: SanitizedCatalystContextT,
   readonly form: GenreFormT,
 }) {
+  const formCtx = mutate(form);
+  updateRequiredNameFieldErrors(formCtx.get('field', 'name'));
   return {
     externalLinksEditor: createExternalLinksEditorState($c),
-    form,
+    form: formCtx.final(),
     guessCaseOptions: createGuessCaseOptionsState(),
     isGuessCaseOptionsOpen: false,
     relationshipEditor: loadOrCreateInitialRelationshipEditorState({
@@ -112,7 +118,10 @@ function reducer(state: StateT, action: ActionT): StateT {
       runNameReducer(nameStateCtx, action);
       const nameState = nameStateCtx.final();
       newStateCtx
-        .set('form', 'field', 'name', nameState.field)
+        .update('form', 'field', 'name', (nameFieldCtx) => {
+          nameFieldCtx.set(nameState.field);
+          updateRequiredNameFieldErrors(nameFieldCtx);
+        })
         .set('guessCaseOptions', nameState.guessCaseOptions)
         .set('isGuessCaseOptionsOpen', nameState.isGuessCaseOptionsOpen);
 
@@ -167,10 +176,14 @@ component GenreEditForm(form as initialForm: GenreFormT) {
     dispatch({action, type: 'update-relationship-editor'});
   }, [dispatch]);
 
-  const missingRequired = isBlank(state.form.field.name.value);
-
-  const hasErrors = missingRequired ||
+  const hasLinkErrors =
     hasErrorsOnNewOrChangedLinks(state.externalLinksEditor.links);
+  const hasErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ true) ||
+    hasLinkErrors;
+  const hasVisibleErrors =
+    hasSubfieldErrors(state.form, /* includePending = */ false) ||
+    hasLinkErrors;
 
   const genre: GenreT = getSourceEntityData($c, 'genre');
 
@@ -209,7 +222,7 @@ component GenreEditForm(form as initialForm: GenreFormT) {
           state={state.externalLinksEditor}
         />
         <EnterEditNote field={state.form.field.edit_note} />
-        <EnterEdit form={state.form} />
+        <EnterEdit errorsExist={hasVisibleErrors} form={state.form} />
       </div>
     </form>
   );
