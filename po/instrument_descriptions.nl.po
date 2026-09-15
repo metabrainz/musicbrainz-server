@@ -2231,11 +2231,6 @@ msgstr ""
 "onderdeel van de Indonesische cultuur en maakt deel uit van belangrijke "
 "tradities en het hele Indonesische leven."
 
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr "De gankogui bestaat uit een dubbele ijzeren bel."
-
 #. name:fiddle
 #: DB:instrument/description:61
 msgid ""
@@ -3737,10 +3732,10 @@ msgid ""
 msgstr ""
 "De cornemuse du Centre is een doedelzak uit Centraal-Frankrijk. Het "
 "instrument heeft twee telescopische bourdonpijpen en een melodiepijp met "
-"dubbel riet.<br />Zie <a href=\"/instrument/28527011-9cf4-4dcd-a70c-"
-"22042a92a52c\">cornamuse</a> voor het blaasinstrument met dubbel riet uit de "
-"Renaissance.<br />Zie <a href=\"/instrument/1d865ced-d86a-4277-8914-"
-"009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
+"dubbel riet.<br />Zie <a href=\"/instrument/28527011-9cf4-4dcd-"
+"a70c-22042a92a52c\">cornamuse</a> voor het blaasinstrument met dubbel riet "
+"uit de Renaissance.<br />Zie <a href=\"/instrument/1d865ced-"
+"d86a-4277-8914-009740e37887\">doedelzak</a> voor de Italiaanse cornamusa."
 
 #. name:dulcian
 #: DB:instrument/description:496
@@ -4096,6 +4091,13 @@ msgstr ""
 "afgesneden. Tussen de twee helften van de kalebas is een membraan gespannen "
 "waaraan een enkele snaar is bevestigd. Het instrument wordt bespeeld door de "
 "snaar met de hand te spannen en te tokkelen."
+
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
 
 #. name:octavina
 #: DB:instrument/description:941
@@ -4581,8 +4583,8 @@ msgstr ""
 "De djoeblag is het een-na-laagst klinkende lid van de gangsafamilie en "
 "bestaat uit vier tot zeven bronzen toetsen die boven lange klankkasten van "
 "bamboe hangen.<br />Zie voor de Soendanese xylofoon die ook in "
-"gamelanensembles wordt gebruikt de <a href=\"/instrument/6e180df5-6df9-46bb-"
-"8ebf-c576a010fb5a\">tjaloeng</a>."
+"gamelanensembles wordt gebruikt de <a href=\"/instrument/"
+"6e180df5-6df9-46bb-8ebf-c576a010fb5a\">tjaloeng</a>."
 
 #. name:brač
 #: DB:instrument/description:825
@@ -5166,15 +5168,6 @@ msgstr ""
 #: DB:instrument/description:563
 msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr "De Xaphoon is een chromatische enkelriet houtblazer."
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr ""
-"Een agogô is een enkele of meervoudige bel die wordt gebruikt voor "
-"sambamuziek en zijn oorsprong vindt in de Yoruba-muziek."
 
 #. name:ajaeng
 #: DB:instrument/description:642
@@ -6268,15 +6261,6 @@ msgstr ""
 "uiteinden. Het vel wordt gemaakt van geitenhuid en wordt met pinnen aan de "
 "kast vastgemaakt."
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr ""
-"De sambafluit (Portugees: apito de samba of gewoon apito) is een fluitje dat "
-"voor samba en andere Braziliaanse muziek wordt gebruikt."
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -7059,6 +7043,14 @@ msgstr ""
 "gebruikt voor verschillende aankondigen, bijvoorbeeld tijdens oorlogen, om "
 "mensen te verwelkomen en bij het planten van kumara-aardappelen."
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -7129,6 +7121,13 @@ msgstr ""
 "De charango is een kleine luit met vijf koren en tien snaren die door de "
 "Quechua en Aymara wordt bespeeld."
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -7197,6 +7196,13 @@ msgstr ""
 "De gendèr paneroes heeft relatief dikke en smalle metalen toetsen ten "
 "opzichte van andere leden van de gendèr-familie, en is het hoogst gestemd. "
 "Hij wordt gebruikt voor eenvoudige ornamentele muzieklijnen."
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
+msgstr ""
 
 #. name:Saraswati veena
 #: DB:instrument/description:476
@@ -7400,6 +7406,14 @@ msgstr ""
 "drie of vier Javaanse/Soendanese varianten met gebogen klankkast en twee "
 "vellen van een verschillend formaat.</li> <li>De twee Balinese varianten "
 "hebben een rechte klankkast en twee vellen van dezelfde grootte. </li> </ul>"
+
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
+msgstr ""
 
 #. name:krap phuang
 #: DB:instrument/description:951
@@ -7926,6 +7940,23 @@ msgstr "Fluit van de Muong uit Vietnam"
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr "De trắng jâu is de basvariant van de trắng lu."
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr "De gankogui bestaat uit een dubbele ijzeren bel."
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr ""
+#~ "Een agogô is een enkele of meervoudige bel die wordt gebruikt voor "
+#~ "sambamuziek en zijn oorsprong vindt in de Yoruba-muziek."
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr ""
+#~ "De sambafluit (Portugees: apito de samba of gewoon apito) is een fluitje "
+#~ "dat voor samba en andere Braziliaanse muziek wordt gebruikt."
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."

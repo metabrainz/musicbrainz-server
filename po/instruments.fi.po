@@ -320,6 +320,9 @@ msgid "afoxé"
 msgstr "afuchê"
 
 #: DB:instrument/name:487
+#, fuzzy
+#| msgid "agogô"
+msgctxt "West African/Brazilian two bell percussion"
 msgid "agogô"
 msgstr "agogo"
 
@@ -402,6 +405,13 @@ msgstr "antara"
 msgctxt "Tuned metal shape."
 msgid "anvil"
 msgstr "alasin"
+
+#: DB:instrument/name:583
+#, fuzzy
+#| msgid "viola organista"
+msgctxt "Three-toned samba whistle"
+msgid "apito de samba"
+msgstr "viola organista"
 
 #: DB:instrument/name:507
 msgid "archlute"
@@ -638,6 +648,11 @@ msgstr "basettitorvi"
 #: DB:instrument/name:5
 msgid "bassoon"
 msgstr "fagotti"
+
+#: DB:instrument/name:1218
+msgctxt "Brazilian samba drum ensemble"
+msgid "bateria"
+msgstr ""
 
 #: DB:instrument/name:483
 msgid "bawu"
@@ -904,7 +919,10 @@ msgid "cabrette"
 msgstr ""
 
 #: DB:instrument/name:903
-msgctxt "Brazilian Samba snare-drum"
+#, fuzzy
+#| msgctxt "Brazilian Samba snare-drum"
+#| msgid "caixa"
+msgctxt "Deep Brazilian samba snare-drum"
 msgid "caixa"
 msgstr "caixa"
 
@@ -936,7 +954,10 @@ msgid "castanets"
 msgstr "kastanjetit"
 
 #: DB:instrument/name:524
-msgctxt "Small four-stringed Portugesian lute"
+#, fuzzy
+#| msgctxt "Small four-stringed Portugesian lute"
+#| msgid "cavaquinho"
+msgctxt "Small four-stringed Portuguese lute"
 msgid "cavaquinho"
 msgstr "cavaquinho"
 
@@ -1752,6 +1773,7 @@ msgid "gamelan"
 msgstr "gamelan"
 
 #: DB:instrument/name:383
+msgctxt "West African metal two bell percussion"
 msgid "gankogui"
 msgstr ""
 
@@ -3438,10 +3460,6 @@ msgctxt "West Sumatran end-blown flute."
 msgid "saluang"
 msgstr ""
 
-#: DB:instrument/name:583
-msgid "samba whistle"
-msgstr "apito"
-
 #: DB:instrument/name:830
 msgctxt "solo Serbo-Croatian plucked lute"
 msgid "samica"
@@ -4001,6 +4019,11 @@ msgstr "t'ār"
 
 #: DB:instrument/name:440
 msgid "taragot"
+msgstr ""
+
+#: DB:instrument/name:1219
+msgctxt "Shallow Brazilian samba snare-drum"
+msgid "tarol"
 msgstr ""
 
 #: DB:instrument/name:870
@@ -4802,6 +4825,9 @@ msgstr ""
 msgctxt "Maltese mirliton"
 msgid "żummara"
 msgstr ""
+
+#~ msgid "samba whistle"
+#~ msgstr "apito"
 
 #~ msgid "Tibetan water drum"
 #~ msgstr "tiibetiläinen vesirumpu"

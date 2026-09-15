@@ -1774,15 +1774,6 @@ msgid ""
 "Indonesian life."
 msgstr ""
 
-#. name:gankogui
-#: DB:instrument/description:383
-msgid "Gankogui, iron bell"
-msgstr ""
-"Eine Gankogui ist eine Doppelhandglocke ohne Klöppel, die in der Musik der "
-"Ewe im Süden von Ghana und bei den Fon in Togo und Benin als Takt gebendes "
-"Perkussionsinstrument gespielt wird. Die beiden unterschiedlich großen "
-"Metallglocken des Aufschlagidiophons werden mit einem Holzstab angeschlagen."
-
 #. name:fiddle
 #: DB:instrument/description:61
 msgid ""
@@ -3136,6 +3127,13 @@ msgid ""
 "string while pulling it."
 msgstr ""
 
+#. name:agogô
+#: DB:instrument/description:487
+msgid ""
+"Originating in West Africa, it consists of (usually) two differing pitch "
+"metal bells, it is used in various Brazilian samba music."
+msgstr ""
+
 #. name:octavina
 #: DB:instrument/description:941
 msgid ""
@@ -3963,18 +3961,6 @@ msgid "The Xaphoon is a keyless chromatic single-reed woodwind instrument."
 msgstr ""
 "Ein Xaphoon ist ein Einfachrohrblattinstrument aus Bambus oder Kunststoff, "
 "das ähnlich wie ein Saxophon oder eine Klarinette klingt."
-
-#. name:agogô
-#: DB:instrument/description:487
-msgid ""
-"The agogô is a single or multiple bell used in samba music with origins in "
-"traditional Yoruba music."
-msgstr ""
-"Der Agogô ist ein Aufschlagidiophon in der brasilianischen Musik, das aus "
-"zwei, über einen Bügel miteinander verbundenen, länglich-kegelförmigen "
-"Metallglocken ohne Klöppel besteht. Die beiden Glocken sind von "
-"unterschiedlicher Größe und Tonhöhe und werden mit einem kurzen Stab "
-"angeschlagen."
 
 #. name:ajaeng
 #: DB:instrument/description:642
@@ -5165,17 +5151,6 @@ msgstr ""
 "Die Sabar ist eine lange einfellige Trommel der Wolof in Senegal. Sie wird "
 "meist mit einer Hand und einem Schlägel gespielt."
 
-#. name:samba whistle
-#: DB:instrument/description:583
-msgid ""
-"The samba whistle is a tri-tone whistle used in samba music and other "
-"Brazilian music styles."
-msgstr ""
-"Die einfache Signalpfeife ist eine sehr kleine schrille Schnabelflöte aus "
-"Metall. Ihre in einem T zusammengefügte Dreierkombination, bei der durch "
-"Drehen die verschiedenen Grössen sofort austauschbar sind, ist als Samba "
-"Whistle bekannt."
-
 #. name:sanshin
 #: DB:instrument/description:245
 msgid ""
@@ -5917,6 +5892,14 @@ msgid ""
 "announcements like war, welcoming people and kumara planting."
 msgstr ""
 
+#. name:gankogui
+#: DB:instrument/description:383
+msgid ""
+"Used as a rhythm keeper in large percussion orchestras by sub-saharan Ewe "
+"and Fon people, it is made of a sheet of metal forged and hammered into twin "
+"bells, hit with a wooden beater."
+msgstr ""
+
 #. name:tenor banjo
 #: DB:instrument/description:657
 msgid "Used as rhythm accompaniment, it has a shorter neck and 17-19 frets."
@@ -5967,6 +5950,13 @@ msgid ""
 "strings."
 msgstr ""
 
+#. name:apito de samba
+#: DB:instrument/description:583
+msgid ""
+"Used by the band leader to conduct the rhythm in samba schools, it is made "
+"of metal and has 3 holes."
+msgstr ""
+
 #. name:water drum
 #: DB:instrument/description:279
 msgid ""
@@ -6015,6 +6005,13 @@ msgstr ""
 msgid ""
 "Used for simple ornamentation, it has thick small metal bars suspended above "
 "resonator rods, it is the highest pitched member of the gendèr family."
+msgstr ""
+
+#. name:bateria
+#: DB:instrument/description:1218
+msgid ""
+"Used in Brazilian samba schools and to accompany capoeira, ensemble consists "
+"of various mostly percussion instruments."
 msgstr ""
 
 #. name:Saraswati veena
@@ -6162,6 +6159,14 @@ msgid ""
 "main groups:<br /> <ul> <li>The Java/Sunda set of 3 to 4 curve sided drums "
 "with heads of different sizes.</li> <li>The Bali set of two pairs of "
 "straight sided drums, both heads same size. </li> </ul>"
+msgstr ""
+
+#. name:tarol
+#: DB:instrument/description:1219
+msgid ""
+"Used in military march and Brazilian samba, it is carried over the shoulder. "
+"Made of metal about 10 cm diameter,15 cm high, it has two membranes and a "
+"modifier lever."
 msgstr ""
 
 #. name:krap phuang
@@ -6565,6 +6570,33 @@ msgstr ""
 #: DB:instrument/description:314
 msgid "trắng jâu bass form of trắng lu"
 msgstr ""
+
+#~ msgid "Gankogui, iron bell"
+#~ msgstr ""
+#~ "Eine Gankogui ist eine Doppelhandglocke ohne Klöppel, die in der Musik "
+#~ "der Ewe im Süden von Ghana und bei den Fon in Togo und Benin als Takt "
+#~ "gebendes Perkussionsinstrument gespielt wird. Die beiden unterschiedlich "
+#~ "großen Metallglocken des Aufschlagidiophons werden mit einem Holzstab "
+#~ "angeschlagen."
+
+#~ msgid ""
+#~ "The agogô is a single or multiple bell used in samba music with origins "
+#~ "in traditional Yoruba music."
+#~ msgstr ""
+#~ "Der Agogô ist ein Aufschlagidiophon in der brasilianischen Musik, das aus "
+#~ "zwei, über einen Bügel miteinander verbundenen, länglich-kegelförmigen "
+#~ "Metallglocken ohne Klöppel besteht. Die beiden Glocken sind von "
+#~ "unterschiedlicher Größe und Tonhöhe und werden mit einem kurzen Stab "
+#~ "angeschlagen."
+
+#~ msgid ""
+#~ "The samba whistle is a tri-tone whistle used in samba music and other "
+#~ "Brazilian music styles."
+#~ msgstr ""
+#~ "Die einfache Signalpfeife ist eine sehr kleine schrille Schnabelflöte aus "
+#~ "Metall. Ihre in einem T zusammengefügte Dreierkombination, bei der durch "
+#~ "Drehen die verschiedenen Grössen sofort austauschbar sind, ist als Samba "
+#~ "Whistle bekannt."
 
 #~ msgid ""
 #~ "The nabal is a long, straight brass horn used in Korean traditional music."
