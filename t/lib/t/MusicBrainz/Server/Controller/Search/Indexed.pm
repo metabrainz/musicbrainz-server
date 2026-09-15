@@ -123,7 +123,7 @@ test 'MBS-14455: Indexed search is filtered on depth' => sub {
     $mech->get_ok('/search?query=Love&type=artist&limit=25&page=20',
                   'Last page of indexed search still works');
     html_ok($mech->content);
-    $mech->content_contains('Only the first 500 results could be returned',
+    $mech->content_contains('Only the first 500 results can be returned',
         'Last capped page contains an explanation');
 
     # limit 25 * page 1 = depth 25 < 500

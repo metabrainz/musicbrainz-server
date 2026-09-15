@@ -198,7 +198,7 @@ test 'MBS-14455: Tag lookup is filtered on depth' => sub {
     $mech->get_ok('/taglookup/index?tag-lookup.release=love&page=20',
                   'Last page of tag lookup still works');
     html_ok($mech->content);
-    $mech->content_contains('Only the first 500 results could be returned',
+    $mech->content_contains('Only the first 500 results can be returned',
         'Last capped page contains an explanation');
 
     # limit 25 * page 1 = depth 25 < 500
