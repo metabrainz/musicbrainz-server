@@ -84,9 +84,15 @@ export function applyPendingErrors(
   fieldCtx.set('errors', fieldCtx.read().pendingErrors ?? []);
 }
 
-export function hasSubfieldErrors(formOrField: FormOrAnyFieldT): boolean {
+export function hasSubfieldErrors(
+  formOrField: FormOrAnyFieldT,
+  includePending?: boolean = true,
+): boolean {
   for (const subfield of iterSubfields(formOrField)) {
-    if (subfield.errors?.length || subfield.pendingErrors?.length) {
+    if (
+      subfield.errors?.length ||
+      (includePending && subfield.pendingErrors?.length)
+    ) {
       return true;
     }
   }

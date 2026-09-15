@@ -350,7 +350,7 @@ const AliasEditForm = ({
             field={state.form.field.period}
           />
           <EnterEditNote field={state.form.field.edit_note} />
-          <EnterEdit form={state.form} />
+          <EnterEdit errorsExist={hasErrors} form={state.form} />
         </div>
       </form>
     </>
