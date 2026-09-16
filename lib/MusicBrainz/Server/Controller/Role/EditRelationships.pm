@@ -336,7 +336,7 @@ role {
                         ? $lt->entity0_cardinality == 0
                         : $lt->entity1_cardinality == 0;
 
-                } sort { $a <=> $b } $source->all_relationships;
+                } $source->all_relationships;
 
             $source_entity->{relationships} = to_json_array(\@existing_relationships);
         }

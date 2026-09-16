@@ -19,7 +19,7 @@ import FieldErrors from '../static/scripts/edit/components/FieldErrors.js';
 component RecordingMerge(
   form: MergeFormT,
   isrcsDiffer: boolean = false,
-  toMerge: ReadonlyArray<RecordingT>,
+  toMerge: Array<RecordingT>,
 ) {
   return (
     <Layout fullWidth title={l('Merge recordings')}>
