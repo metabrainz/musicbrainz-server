@@ -6,13 +6,13 @@ use MusicBrainz::Server::Constants qw( $EDIT_RELATIONSHIP_ADD_ATTRIBUTE );
 use MusicBrainz::Server::Data::Utils qw( boolean_to_json );
 use MusicBrainz::Server::Edit::Types qw( Nullable );
 use MusicBrainz::Server::Entity::Util::JSON qw( to_json_object );
-use MusicBrainz::Server::Translation qw( N_lp );
+use MusicBrainz::Server::Translation qw( l N_lp );
 
 extends 'MusicBrainz::Server::Edit';
-with 'MusicBrainz::Server::Edit::Relationship',
-     'MusicBrainz::Server::Edit::Role::Insert',
+with 'MusicBrainz::Server::Edit::Role::Insert',
      'MusicBrainz::Server::Edit::Role::AlwaysAutoEdit';
 
+sub edit_category { l('Relationship') }
 sub edit_name { N_lp('Add relationship attribute', 'edit type') }
 sub edit_kind { 'add' }
 sub edit_type { $EDIT_RELATIONSHIP_ADD_ATTRIBUTE }
