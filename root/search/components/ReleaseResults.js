@@ -102,6 +102,7 @@ export component ReleaseResultsInline(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: InlineResultsPropsT<ReleaseT>) {
   const $c = React.useContext(CatalystContext);
   const buildResult = getResultBuilder(
@@ -134,6 +135,7 @@ export component ReleaseResultsInline(...{
       pager={pager}
       query={query}
       results={results}
+      uncappedTotalHits={uncappedTotalHits}
     />
   );
 }
@@ -144,6 +146,7 @@ component ReleaseResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<ReleaseT>) {
   const $c = React.useContext(CatalystContext);
   return (
@@ -152,6 +155,7 @@ component ReleaseResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
       {isEditingEnabled($c.user) ? (
         <p>

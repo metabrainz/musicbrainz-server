@@ -42,6 +42,7 @@ component TagResults(...{
   pager,
   query,
   results,
+  uncappedTotalHits,
 }: ResultsPropsT<TagT>) {
   return (
     <ResultsLayout form={form} lastUpdated={lastUpdated}>
@@ -56,6 +57,7 @@ component TagResults(...{
         pager={pager}
         query={query}
         results={results}
+        uncappedTotalHits={uncappedTotalHits}
       />
     </ResultsLayout>
   );
