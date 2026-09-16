@@ -15,7 +15,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MusicBrainz\n"
-"PO-Revision-Date: 2026-08-23 02:12+0000\n"
+"PO-Revision-Date: 2026-09-03 18:13+0000\n"
 "Last-Translator: Life4649 <metabrainz@fujinraijin.com>\n"
 "Language-Team: Japanese <https://translations.metabrainz.org/projects/"
 "musicbrainz/instrument-descriptions/ja/>\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2026.8.1\n"
+"X-Generator: Weblate 2026.9\n"
 
 #. name:rebab
 #: DB:instrument/description:239
@@ -185,10 +185,6 @@ msgstr ""
 
 #. name:poi āwhiowhio
 #: DB:instrument/description:792
-#, fuzzy
-#| msgid ""
-#| "A hollowed out gourd (hue) with one to three holes, swung around creating "
-#| "a whistling, chattering sound that resembled birds"
 msgid ""
 "A hollowed out gourd (hue) with one to three holes, swung around creating a "
 "whistling, chattering sound that resembled birds."
@@ -2578,16 +2574,12 @@ msgstr ""
 
 #. name:English flageolet
 #: DB:instrument/description:844
-#, fuzzy
-#| msgid ""
-#| "working to improve on its design, the English flageolet had 6 finger "
-#| "holes in front and one thumb hole in the back."
 msgid ""
 "Meant as an improvement on the flageolet design, the English flageolet had "
 "six finger holes in the front and one thumb hole in the back."
 msgstr ""
-"デザインの改善より、英国式フラジオレットでは正面に6つの指穴、背面に1つの親指"
-"穴を持つようになった。"
+"フラジオレットの改良型として考案されたイングリッシュ・フラジオレットは、前面"
+"に6つの指穴、背面に1つの親指穴を備えていた。"
 
 #. name:gemshorn
 #: DB:instrument/description:868
@@ -2648,14 +2640,12 @@ msgstr ""
 
 #. name:aman khuur
 #: DB:instrument/description:809
-#, fuzzy
-#| msgid ""
-#| "there are two types: temür/tömör khuur (steel) and khulsan khuur (bamboo)"
 msgid ""
 "Mongolian mouth harp. There are two types: temür/tömör khuur (steel) and "
 "khulsan khuur (bamboo)."
 msgstr ""
-"２種類存在する: temür/tömör khuur (スチール製) and khulsan khuur (竹製)"
+"モンゴルの口琴。テムル・ホール／トゥムル・ホール（鉄製）と、フルサン・ホール"
+"（竹製）の2種類が存在する。"
 
 #. name:oval spinet
 #: DB:instrument/description:879
@@ -3294,11 +3284,6 @@ msgstr ""
 
 #. name:orphica
 #: DB:instrument/description:842
-#, fuzzy
-#| msgid ""
-#| "portable piano with shoulder strap invented in 1795, it is a descendant "
-#| "of the Baroque Bauchladenspinett and a sort of early precursor of the "
-#| "keytar"
 msgid ""
 "Portable piano with shoulder strap invented in 1795, it is a descendant of "
 "the Baroque Bauchladenspinett and a sort of early precursor of the keytar."
@@ -3373,10 +3358,6 @@ msgstr ""
 
 #. name:banjolin
 #: DB:instrument/description:831
-#, fuzzy
-#| msgid ""
-#| "reinvented several times in different lands, it combines banjo body and "
-#| "neck of mandolin, it is tuned like it and the violin."
 msgid ""
 "Reinvented several times in different lands, it combines banjo body and neck "
 "of mandolin, it is tuned like it and the violin."
@@ -3571,16 +3552,12 @@ msgstr ""
 
 #. name:härjedalspipa
 #: DB:instrument/description:818
-#, fuzzy
-#| msgid ""
-#| "six holed fipple flute used traditionally in pastoral settings like its "
-#| "cousin the spilåpipa."
 msgid ""
 "Six holed fipple flute used traditionally in pastoral settings like its "
 "cousin the spilåpipa."
 msgstr ""
-"spilåpipa のような牧歌的な設定で伝統的に使用される6つの穴の開いたフィップルフ"
-"ルート。"
+"スピロピーパ（spilåpipa）の同系統の楽器であり、同様に伝統的に田園風景・牧歌的"
+"な場面で使用されてきた6つ穴のフィップル・フルート。"
 
 #. name:donso ngɔni
 #: DB:instrument/description:776
@@ -5435,8 +5412,6 @@ msgstr ""
 
 #. name:khulsan khuur
 #: DB:instrument/description:811
-#, fuzzy
-#| msgid "used for folksongs, particularly by young girls."
 msgid "Used for folk songs, particularly by young girls."
 msgstr "特に若い女の子がフォークソングで使用する。"
 
@@ -5788,11 +5763,6 @@ msgstr ""
 
 #. name:analog synthesizer
 #: DB:instrument/description:813
-#, fuzzy
-#| msgid ""
-#| "using analogue circuits and techniques to produce sound electronically, "
-#| "the first types where created in the 1920's with thermionic valves and "
-#| "other electromechanical machineries."
 msgid ""
 "Using analogue circuits and techniques to produce sound electronically, the "
 "first types where created in the 1920's with thermionic valves and other "
@@ -5943,10 +5913,6 @@ msgstr ""
 
 #. name:wind synthesizer
 #: DB:instrument/description:560
-#, fuzzy
-#| msgid ""
-#| "wind synthesizer or wind controller, it is connected to a midi controller "
-#| "and is played like a wind instrument."
 msgid ""
 "Wind synthesizer or wind controller, it is connected to a MIDI controller "
 "and is played like a wind instrument."
