@@ -115,6 +115,7 @@ sub _serialize_alias_list
                 unless $al->begin_date->is_empty;
             $alias_node->_setAttribute('end-date', $al->end_date->format)
                 unless $al->end_date->is_empty;
+            $alias_node->_setAttribute('ended', 'ended') if $al->ended;
 
             $alias_node->appendText($al->name);
         }
