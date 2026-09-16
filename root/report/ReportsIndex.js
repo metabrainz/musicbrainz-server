@@ -636,6 +636,10 @@ component ReportsIndex() {
             reportName="DeprecatedRelationshipWorks"
           />
           <ReportsIndexEntry
+            content={l('Works with possibly redundant writer relationships')}
+            reportName="RedundantWriterRelationships"
+          />
+          <ReportsIndexEntry
             content={l('Works with annotations')}
             reportName="AnnotationsWorks"
           />
