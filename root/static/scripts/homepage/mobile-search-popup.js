@@ -1,0 +1,97 @@
+/*
+ * @flow strict
+ * Copyright (C) 2025 MetaBrainz Foundation
+ *
+ * This file is part of MusicBrainz, the open internet music database,
+ * and is licensed under the GPL version 2, or (at your option) any
+ * later version: http://www.gnu.org/licenses/gpl-2.0.txt
+ */
+
+import * as React from 'react';
+
+import searchIcon from '../../images/homepage/search-bar-icon.svg';
+import {l} from '../common/i18n.js';
+
+import entities from './utils.js';
+
+component MobileSearchPopup() {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  const [selectedEntity, setSelectedEntity] = React.useState(entities[0]);
+
+  const handleSearch = (e: SyntheticEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    window.location.href =
+      `/search?query=${encodeURIComponent(
+        searchQuery,
+      )}&type=${selectedEntity.value}`;
+  };
+
+  return (
+    <div
+      className="offcanvas offcanvas-top d-lg-none"
+      id="mobileSearchOffcanvas"
+      tabIndex={-1}
+    >
+      <div className="offcanvas-body p-0">
+        <form
+          className="d-flex flex-column gap-3 p-4 align-items-center"
+          onSubmit={handleSearch}
+        >
+          <div className="d-grid align-items-center search-container">
+            <p>
+              {l('Search')}
+            </p>
+            <select
+              className="form-select"
+              id="searchEntitySelect"
+              onChange={(e) => {
+                const target = e.currentTarget;
+                const entity = entities.find(
+                  (ent) => ent.value === target.value,
+                );
+                if (entity) {
+                  setSelectedEntity(entity);
+                }
+              }}
+              value={selectedEntity.value}
+            >
+              {entities.map((entity) => (
+                <option key={entity.value} value={entity.value}>
+                  {entity.name()}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="search-bar">
+            <input
+              className="form-control form-control-lg"
+              name="search_term"
+              onChange={(e) => setSearchQuery(e.currentTarget.value)}
+              placeholder={l('Search')}
+              required
+              type="text"
+              value={searchQuery}
+            />
+            <button type="submit">
+              <img
+                alt={l('Search')}
+                height={30}
+                src={searchIcon}
+                width={30}
+              />
+            </button>
+          </div>
+        </form>
+
+        <div className="p-3 d-flex justify-content-center advanced-search">
+          <a href="/search" title={l('Advanced search')}>
+            <h3>{l('Advanced search')}</h3>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default MobileSearchPopup;

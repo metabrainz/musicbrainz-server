@@ -1,0 +1,40 @@
+{
+  title: 'Homepage',
+  commands: [
+    {
+      command: 'open',
+      target: '/',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=#page.homepage',
+      value: '',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=.homepage-search form',
+      value: '',
+    },
+    {
+      command: 'assertText',
+      target: 'css=.homepage-search .search-info-text',
+      value: 'The open music encyclopedia',
+    },
+    {
+      command: 'click',
+      target: 'css=.homepage-search button.entity-pill:nth-child(2)',
+      value: '',
+    },
+    {
+      command: 'assertEval',
+      target: "document.querySelector('.homepage-search button.entity-pill:nth-child(2)').classList.contains('selected')",
+      value: 'true',
+    },
+    {
+      command: 'assertElementPresent',
+      target: 'css=.artwork-carousel',
+      value: '',
+    },
+  ],
+}
